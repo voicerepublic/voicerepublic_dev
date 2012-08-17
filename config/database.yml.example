@@ -1,0 +1,32 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: kluuu2_development
+  pool: 5
+  username: kluuu2
+  password: 
+  host: localhost
+
+  # Connect on a TCP socket. Omitted by default since the client uses a
+  # domain socket that doesn't need configuration. Windows does not have
+  # domain sockets, so uncomment these lines.
+  #host: localhost
+  #port: 5432
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: kluuu2_test
+  pool: 5
+  username: kluuu2
+  password: 
+  host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: kluuu2_production
+  pool: 5
+  username: kluuu2
+  password: 
+  host: localhost
