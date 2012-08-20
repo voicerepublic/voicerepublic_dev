@@ -42,4 +42,16 @@ class User < ActiveRecord::Base
     user
   end
   
+  #def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
+  #  data = auth.info
+  #  user = User.where(:email => data["email"]).first
+  #  unless user
+  #      user = User.create(lastname:data["last_name"],
+  #            firstname:data["first_name"],
+  #           email:data["email"],
+  #           password:Devise.friendly_token[0,20]
+  #          )
+  #  end
+  #  user
+  #end
 end
