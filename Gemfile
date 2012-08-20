@@ -22,6 +22,7 @@ gem 'omniauth-google-oauth2'
 #gem 'omniauth-twitter'  # ripped cause there is no access to email in twitters oauth-api
 
 gem 'friendly_id'
+gem 'will_paginate'
 
 
 # To use ActiveModel has_secure_password

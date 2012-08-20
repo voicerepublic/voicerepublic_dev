@@ -1,8 +1,17 @@
 Kluuu2::Application.routes.draw do
-  
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :users
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+   
+  resources :users do
+    resources :bookmarks
+  end
+
+  namespace :admin do
+    resources :users
+    get "dashboard/index"
+  end
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

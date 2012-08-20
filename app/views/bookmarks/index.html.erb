@@ -1,0 +1,27 @@
+<h1>Listing bookmarks</h1>
+
+<table>
+  <tr>
+    <th>Kluu</th>
+    <th>User</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @bookmarks.each do |bookmark| %>
+  <tr>
+    <td><%= bookmark.kluu_id %></td>
+    <td><%= bookmark.user_id %></td>
+    <td><%= bookmark.description %></td>
+    <td><%= link_to 'Show', bookmark %></td>
+    <td><%= link_to 'Edit', edit_bookmark_path(bookmark) %></td>
+    <td><%= link_to 'Destroy', bookmark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Bookmark', new_bookmark_path %>

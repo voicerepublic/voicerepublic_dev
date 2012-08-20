@@ -3,13 +3,18 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
+  has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
+  has_many :bookmarks, :dependent => :destroy
+  
+  accepts_nested_attributes_for :user_roles, :allow_destroy => true
+  
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :password, :password_confirmation, :remember_me
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid
@@ -25,6 +30,10 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
   
+  def is_admin?
+    a_id = Role.find_by_name('admin').id
+    user_roles.map { |ur| ur.role_id == a_id }.uniq.include?(true)
+  end
   
   ######  class methods
   

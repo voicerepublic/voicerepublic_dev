@@ -1,0 +1,38 @@
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+			<a class="brand" href="#">Kluuu2</a>
+			<div class="container-fluid nav-collapse">
+				<ul class="nav">
+					<li>
+						<%= link_to "Link1", "/path1"  %>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<% if current_user %>
+					<% if current_user.is_admin? %>
+						<li><%= link_to "admin", admin_dashboard_index_path %></li>
+					<% end %>
+					<li>
+						<%= link_to "logout", destroy_user_session_path, :method => :delete %>
+					</li>
+					<% else %>
+					<li>
+						<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+					</li>
+					<li>
+						<%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+					</li>
+					<li>
+						<%= link_to "login", new_user_session_path -%>
+					</li>
+					<li>
+						<%= link_to "sign up", new_user_registration_path -%>
+					</li>
+					<% end %>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+</div>
