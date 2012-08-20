@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -6,13 +10,23 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :password, :password_confirmation, :remember_me
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid
   
   validates :email, :uniqueness => true, :presence => true
+  validates :firstname, :presence => true
+  validates :lastname, :presence => true
+  validates :slug, :presence => true
+  
+  ###### instance methods
+  
+  def name
+    "#{firstname} #{lastname}"
+  end
   
   
+  ######  class methods
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
