@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
+  after_create :add_default_user_role
+  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :bookmarks, :dependent => :destroy
   
@@ -35,6 +37,18 @@ class User < ActiveRecord::Base
     user_roles.map { |ur| ur.role_id == a_id }.uniq.include?(true)
   end
   
+  def has_role?(name)
+    user_roles.map { |ur| ur.role.name }.include?(name.to_s)
+  end
+  
+  def role_names
+    user_roles.map { |ur| ur.role.name }.join(", ")
+  end
+  
+  def add_role!(name)
+    user_roles << UserRole.create(:role_id => Role.find_by_name(name).id)
+  end
+  
   ######  class methods
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -52,29 +66,26 @@ class User < ActiveRecord::Base
   end  
   
   
-  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    data = access_token.info
-    user = User.where(:email => data["email"]).first
+  def self.find_for_google_oauth2(auth, signed_in_resource=nil)
+    data = auth.info
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    #user = User.where(:email => data["email"]).first
     unless user
         user = User.create(lastname:data["last_name"],
               firstname:data["first_name"],
              email:data["email"],
+             provider:auth.provider,
+             uid:auth.uid,
              password:Devise.friendly_token[0,20]
             )
     end
     user
   end
   
-  #def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
-  #  data = auth.info
-  #  user = User.where(:email => data["email"]).first
-  #  unless user
-  #      user = User.create(lastname:data["last_name"],
-  #            firstname:data["first_name"],
-  #           email:data["email"],
-  #           password:Devise.friendly_token[0,20]
-  #          )
-  #  end
-  #  user
-  #end
+  
+  private
+ 
+  def add_default_user_role
+    user_roles << UserRole.create({:role_id => Role.find_by_name('user').id})
+  end
 end

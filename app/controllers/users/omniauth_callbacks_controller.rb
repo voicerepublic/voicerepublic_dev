@@ -15,7 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def google_oauth2
-    logger.debug("OmniauthCallbacks#google_oauth2 - omniauth.auth: \n #{request.env['omniauth.auth']}\n")
+    logger.debug("OmniauthCallbacks#google_oauth2 - omniauth.auth: \n #{pp request.env['omniauth.auth']}\n")
     @user = User.find_for_google_oauth2(request.env["omniauth.auth"], current_user)
 
     if @user.persisted?

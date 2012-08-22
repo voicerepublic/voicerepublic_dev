@@ -11,7 +11,7 @@
 	<tbody>
 	<% @users.each do |user| %>
 	<tr>
-		<td><%= user.id %></td>
+		<td><%= user.id %><% if user.has_role?(:admin)%> <i class="icon-certificate"> </i><% end %></td>
 		<td><%= user.name %></td>
 		<td><%= user.email %></td>
 		<td><%= user.created_at.strftime("%d.%m.%y")%></td>
