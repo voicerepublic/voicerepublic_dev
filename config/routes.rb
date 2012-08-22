@@ -1,6 +1,7 @@
 Kluuu2::Application.routes.draw do
 
-
+  match "landing_page/index" => "start_page#index", :as => :landing_page
+  
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
    
   resources :users do
@@ -62,7 +63,7 @@ Kluuu2::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'users#index'
+  root :to => "landing_page#index"
 
   # See how all your routes lay out with "rake routes"
 
