@@ -3,23 +3,26 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  after_create :add_default_user_role
+  attr_accessible :password, :password_confirmation, :remember_me
+  attr_accessible :email, :firstname, :lastname #:encrypted_password,
+  attr_accessible :provider, :uid, :last_request_at
+ 
+  
   
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :bookmarks, :dependent => :destroy
+  accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   
-  accepts_nested_attributes_for :user_roles, :allow_destroy => true
-  
+  after_create :add_default_user_role
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  # see config/initializers/warden.rb for overwritten callbacks in case of authentication or logout
+  # to set the default online/offline/bizzy - state of user
   devise :database_authenticatable, :registerable, :omniauthable,
-         :recoverable, :rememberable, :trackable, :validatable
+           :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
-  attr_accessible :password, :password_confirmation, :remember_me
-  attr_accessible :email, :firstname, :lastname #:encrypted_password,
-  attr_accessible :provider, :uid
   
   validates :email, :uniqueness => true, :presence => true
   validates :firstname, :presence => true
@@ -32,13 +35,12 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
   
-  def is_admin?
-    a_id = Role.find_by_name('admin').id
-    user_roles.map { |ur| ur.role_id == a_id }.uniq.include?(true)
-  end
-  
   def has_role?(name)
     user_roles.map { |ur| ur.role.name }.include?(name.to_s)
+  end
+  
+  def is_admin?
+    has_role?(:admin)
   end
   
   def role_names
@@ -48,6 +50,29 @@ class User < ActiveRecord::Base
   def add_role!(name)
     user_roles << UserRole.create(:role_id => Role.find_by_name(name).id)
   end
+  
+  def availability_status
+    if last_request_at < Time.now - 4.minutes
+      update_attribute(:available, :offline) if available == :online || :bizzy
+      :offline
+    else
+      available
+    end
+  end
+  
+  def set_online!
+    update_attribute(:available, :online)
+  end
+  
+  def set_offline!
+    update_attribute(:available, :offline)
+  end
+  
+  def set_bizzy!
+    update_attribute(:available, :bizzy)
+  end
+  
+  
   
   ######  class methods
   
@@ -87,5 +112,13 @@ class User < ActiveRecord::Base
  
   def add_default_user_role
     user_roles << UserRole.create({:role_id => Role.find_by_name('user').id})
+  end
+  
+  def set_default_online_status
+    update_attribute(:available, :online)
+  end
+  
+  def set_offline_status
+    update_attribute(:available, :offline)
   end
 end

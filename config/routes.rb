@@ -1,6 +1,6 @@
 Kluuu2::Application.routes.draw do
 
-  match "landing_page/index" => "start_page#index", :as => :landing_page
+  match "landing_page/index", :as => :landing_page
   
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
    
