@@ -20,22 +20,22 @@
 					<% end %>
 					<li>
 						<%= link_to "/" do %>
-							<i class="icon-search"> </i> search
+							<i class="icon-search"> </i> <%= t('.search') %>
 						<% end %>
 				 	</li>
 				 	<li>
 				 		<%= link_to "/" do %>
-				 			<i class="icon-bell"> </i> notifications
+				 			<i class="icon-bell"> </i> <%= t('.notifications') %>
 				 		<% end %>
 				 	</li>
 				 	<li>
 				 		<%= link_to "/" do %>
-				 			<i class="icon-envelope"> </i> messages
+				 			<i class="icon-envelope"> </i> <%= t('.messages') %>
 				 		<% end %>
 				 	</li>
 					<li>
 						<%= link_to destroy_user_session_path, :method => :delete  do %>
-							<i class="icon-off"> </i> logout
+							<i class="icon-off"> </i> <%= t('.logout') %>
 						<% end %>
 					</li>
 					<% end %>

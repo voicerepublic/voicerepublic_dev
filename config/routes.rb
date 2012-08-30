@@ -1,16 +1,22 @@
 Kluuu2::Application.routes.draw do
 
-  match "landing_page/index", :as => :landing_page
+  match "(/:locale)/landing_page/index", :as => :landing_page
   
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-   
-  resources :users do
-    resources :bookmarks
+  scope "/:locale", :locale => /de|en/ do
+    devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  end
+  
+  scope "/:locale", :locale => /en|de/ do
+    resources :users do
+      resources :bookmarks
+    end
   end
 
-  namespace :admin do
-    resources :users
-    get "dashboard/index"
+  scope "/:locale", :locale => /en|de/ do
+    namespace :admin do
+      resources :users
+      get "dashboard/index"
+    end
   end
   
 

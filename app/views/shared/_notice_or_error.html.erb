@@ -3,7 +3,7 @@
 	<button type="button" class="close" data-dismiss="alert">
 		×
 	</button>
-	<strong>Success!</strong> <%= flash[:notice] %>
+	<strong><%= t('.success') %>!</strong> <%= flash[:notice] %>
 </div>
 <% end %>
 <% if flash[:warning] %>
@@ -11,7 +11,7 @@
 	<button type="button" class="close" data-dismiss="alert">
 		×
 	</button>
-	<strong>Waring!</strong> <%= flash[:warning] %>
+	<strong><%= t('.warning') %>!</strong> <%= flash[:warning] %>
 </div>
 <% end %>
 
@@ -20,7 +20,7 @@
 	<button type="button" class="close" data-dismiss="alert">
 		×
 	</button>
-	<strong>Error!</strong> <%= flash[:error] %>
+	<strong><%= t('.error') %>!</strong> <%= flash[:error] %>
 </div>
 <% end %>
 

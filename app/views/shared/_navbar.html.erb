@@ -15,18 +15,18 @@
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
+						<%= link_to t('.sign_in_with_facebook'), user_omniauth_authorize_path(:facebook) %>
 					</li>
 					<li>
-						<%= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2) %>
+						<%= link_to t('.sign_in_with_google'), user_omniauth_authorize_path(:google_oauth2) %>
 					</li>
 					<li>
 						<%= link_to new_user_session_path do %>
-							<i class="icon-user"> </i> sign in
+							<i class="icon-user"> </i> <%= t('.sign_in') %>
 						<% end %>
 					</li>
 					<li>
-						<%= link_to "sign up", new_user_registration_path -%>
+						<%= link_to t('.sign_up'), new_user_registration_path -%>
 					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
