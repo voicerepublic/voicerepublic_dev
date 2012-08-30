@@ -8,16 +8,20 @@ Kluuu2::Application.routes.draw do
   
   scope "/:locale", :locale => /en|de/ do
     resources :users do
-      resources :bookmarks
+      resources :bookmarks 
+        
+      resources :status_updates do
+        resources :comments
+      end
     end
   end
 
-  scope "/:locale", :locale => /en|de/ do
-    namespace :admin do
-      resources :users
-      get "dashboard/index"
-    end
+  
+  namespace :admin do
+    resources :users
+    get "dashboard/index"
   end
+  
   
 
   # The priority is based upon order of creation:

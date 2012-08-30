@@ -1,7 +1,21 @@
 <%- model_class = @user.class -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%= @user.name %></h1>
 </div>
+
+<div class="well well-big">
+	<span class="label label-info">Status</span>
+	<p>
+	<%= @user.status_updates.limit(1).first.content unless @user.status_updates.empty? %>
+	</p>
+	<% if current_user == @user %>
+		<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini pull-right" do %>
+			<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+		<% end %>
+		<br />
+	<% end %>
+</div>
+
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:firstname) %>:</strong></dt>

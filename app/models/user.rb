@@ -7,10 +7,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid, :last_request_at
  
-  
-  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :bookmarks, :dependent => :destroy
+  has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
+  
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   
   after_create :add_default_user_role

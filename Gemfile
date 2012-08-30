@@ -24,6 +24,7 @@ gem 'omniauth-google-oauth2'
 
 gem 'friendly_id'
 gem 'will_paginate'
+gem 'acts_as_commentable'
 
 
 # To use ActiveModel has_secure_password
