@@ -4,8 +4,8 @@
 </div>
 
 <div class="well well-big">
-	<span class="label label-info">Status</span>
 	<p>
+	<span class="label label-info">Status</span>
 	<%= @user.status_updates.limit(1).first.content unless @user.status_updates.empty? %>
 	</p>
 	<% if current_user == @user %>

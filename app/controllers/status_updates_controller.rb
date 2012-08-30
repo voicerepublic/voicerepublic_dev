@@ -5,7 +5,7 @@ class StatusUpdatesController < ApplicationController
   # GET /status_updates
   # GET /status_updates.json
   def index
-    @status_updates = StatusUpdate.all
+    @status_updates = current_user.status_updates
 
     respond_to do |format|
       format.html # index.html.erb
@@ -65,7 +65,7 @@ class StatusUpdatesController < ApplicationController
     
     respond_to do |format|
       if @status_update.update_attributes(params[:status_update])
-        format.html { redirect_to @status_update, notice: 'Status update was successfully updated.' }
+        format.html { redirect_to user_status_updates_url(:user_id => current_user), notice: 'Status update was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
