@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :bookmarks, :dependent => :destroy
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
+  has_many :comments, :dependent => :destroy
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   

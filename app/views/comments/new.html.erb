@@ -1,0 +1,12 @@
+<div class="page-header">
+	<h1>New comment</h1>
+	<p>
+		on <%= @status_update.user.name %>'s status
+	</p>
+</div>
+<div class="well">
+	<%= @status_update.content %>
+</div>
+
+<%= render 'form' %>
+

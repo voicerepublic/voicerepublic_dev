@@ -9,7 +9,6 @@ Kluuu2::Application.routes.draw do
   scope "/:locale", :locale => /en|de/ do
     resources :users do
       resources :bookmarks 
-        
       resources :status_updates do
         resources :comments
       end

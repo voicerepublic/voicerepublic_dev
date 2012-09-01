@@ -17,6 +17,7 @@ class StatusUpdatesController < ApplicationController
   # GET /status_updates/1.json
   def show
     @status_update = StatusUpdate.find(params[:id])
+    @user = User.find(params[:user_id])
 
     respond_to do |format|
       format.html # show.html.erb
