@@ -1,0 +1,9 @@
+<div class="well well-small">
+	<p>
+		<%= link_to comment.user.name, user_path(:id => comment.user), :class => "label label-info" %> <%= t('.commented_on') %> 
+		<%= l(comment.created_at, :format => :short) %>
+	</p>
+	<blockquote>
+		<p><%= comment.comment %></p>
+	</blockquote>
+</div>

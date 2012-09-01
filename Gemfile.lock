@@ -28,7 +28,6 @@ GEM
     activesupport (3.2.8)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    acts_as_commentable (3.0.1)
     addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
@@ -234,7 +233,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_commentable
   capistrano
   capybara
   coffee-rails (~> 3.2.1)

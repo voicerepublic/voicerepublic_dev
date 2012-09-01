@@ -8,6 +8,8 @@
   <dd><%= @status_update.content %></dd>
 </dl>
 
+<%= render(:partial => "comment", :collection => @status_update.comments ) %>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               user_status_updates_path(:user_id => current_user), :class => 'btn'  %>
