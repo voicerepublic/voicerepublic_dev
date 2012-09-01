@@ -49,6 +49,8 @@ class CommentsController < ApplicationController
     if params[:status_update_id]
       @comment = StatusUpdate.find(params[:status_update_id]).comments.create(params[:comment].merge(:user_id => current_user.id))
       logger.debug(@comment.inspect)
+    else
+      redirect_to :back, warn: 'at this time only status-updates can be commented...'
     end
     
 
