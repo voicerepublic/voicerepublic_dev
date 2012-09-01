@@ -5,24 +5,27 @@
 
 <div class="well well-big">
 	<p>
-	<span class="label label-info">Status</span>
-	<% @status_update = @user.status_updates.limit(1).first unless @user.status_updates.empty? %>
-	<%= @status_update.content if @status_update%>
+		<span class="label label-info">Status</span>
+		<% @status_update = @user.status_updates.limit(1).first unless @user.status_updates.empty? %>
+		<%= @status_update.content if @status_update%>
 	</p>
 	<p class="pull-right">
-	<span class="badge badge-info">
-		<%= @status_update.comments.count %> 
-	</span>&nbsp; <%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => @user, :id => @status_update) %>
-	<% if current_user == @user %>
-		&nbsp;<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini" do %>
-			<i class="icon-edit"> </i> <%= t('.new_status_update') %>
-		<% end %>&nbsp;
-	<% end %>
-	<% if @status_update && current_user %>
-		&nbsp;<%= link_to new_user_status_update_comment_path(:user_id => @user, :status_update_id => @status_update), :class => "btn btn-mini" do %>
-		&nbsp;<i class="icon-pencil"> </i> <%= t('.add_comment') %>
-		<% end %>&nbsp;
-	<% end %>
+		<span class="badge badge-info">
+			<%= @status_update.comments.count %> 
+		</span>&nbsp; 
+		<%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => @user, :id => @status_update) %>
+		<% if current_user == @user %>
+			&nbsp;
+			<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini" do %>
+				<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+			<% end %>&nbsp;
+		<% end %>
+		<% if @status_update && current_user %>
+			&nbsp;
+			<%= link_to new_user_status_update_comment_path(:user_id => @user, :status_update_id => @status_update), :class => "btn btn-mini" do %>
+				&nbsp;<i class="icon-pencil"> </i> <%= t('.add_comment') %>
+			<% end %>&nbsp;
+		<% end %>
 	</p>
 </div>
 
