@@ -1,5 +1,7 @@
 Kluuu2::Application.routes.draw do
 
+  #resources :profile_settings
+
   match "(/:locale)/landing_page/index", :as => :landing_page
   
   scope "/:locale", :locale => /de|en/ do
@@ -9,6 +11,7 @@ Kluuu2::Application.routes.draw do
   scope "/:locale", :locale => /en|de/ do
     resources :users do
       resources :bookmarks 
+      resource :profile_setting
       resources :status_updates do
         resources :comments
       end

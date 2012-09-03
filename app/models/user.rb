@@ -12,9 +12,12 @@ class User < ActiveRecord::Base
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
   
+  has_one :profile_setting, :dependent => :destroy
+  
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   
   after_create :add_default_user_role
+  after_create :add_profile_setting
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -113,6 +116,10 @@ class User < ActiveRecord::Base
  
   def add_default_user_role
     user_roles << UserRole.create({:role_id => Role.find_by_name('user').id})
+  end
+  
+  def add_profile_setting
+    self.create_profile_setting(:language_1 => I18n.locale)
   end
   
   def set_default_online_status

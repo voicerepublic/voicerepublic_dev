@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831114643) do
+ActiveRecord::Schema.define(:version => 20120903163121) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "kluuu_id"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(:version => 20120831114643) do
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "profile_settings", :force => true do |t|
+    t.string   "timezone"
+    t.string   "language_1"
+    t.string   "language_2"
+    t.string   "language_3"
+    t.integer  "user_id"
+    t.text     "about"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string "name"

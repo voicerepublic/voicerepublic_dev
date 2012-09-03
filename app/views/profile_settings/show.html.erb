@@ -1,0 +1,29 @@
+<%- model_class = ProfileSetting -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= t('.about_me') %>:</strong></dt>
+  <dd><%= @profile_setting.about %></dd>
+  <dt><strong><%= t('.timezone') %>:</strong></dt>
+  <dd><%= ActiveSupport::TimeZone::MAPPING[@profile_setting.timezone] %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:language_1) %>:</strong></dt>
+  <dd><%= @profile_setting.language_1 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:language_2) %>:</strong></dt>
+  <dd><%= @profile_setting.language_2 %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:language_3) %>:</strong></dt>
+  <dd><%= @profile_setting.language_3 %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              profile_settings_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_profile_setting_path(@profile_setting), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              profile_setting_path(@profile_setting),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
