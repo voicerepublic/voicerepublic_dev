@@ -39,7 +39,9 @@ class ProfileSettingsController < ApplicationController
 
   # GET /profile_settings/1/edit
   def edit
-    @profile_setting = ProfileSetting.find(params[:id])
+    #@profile_setting = ProfileSetting.find(params[:id])
+    @user = User.find(params[:user_id])
+    @profile_setting = @user.profile_setting
   end
 
   # POST /profile_settings
@@ -62,11 +64,12 @@ class ProfileSettingsController < ApplicationController
   # PUT /profile_settings/1
   # PUT /profile_settings/1.json
   def update
-    @profile_setting = ProfileSetting.find(params[:id])
+    @user = User.find(params[:user_id])
+    @profile_setting = @user.profile_setting
 
     respond_to do |format|
       if @profile_setting.update_attributes(params[:profile_setting])
-        format.html { redirect_to @profile_setting, notice: 'Profile setting was successfully updated.' }
+        format.html { redirect_to user_profile_setting_url(:user_id => @user), notice: 'Profile setting was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -77,13 +80,13 @@ class ProfileSettingsController < ApplicationController
 
   # DELETE /profile_settings/1
   # DELETE /profile_settings/1.json
-  def destroy
-    @profile_setting = ProfileSetting.find(params[:id])
-    @profile_setting.destroy
-
-    respond_to do |format|
-      format.html { redirect_to profile_settings_url }
-      format.json { head :no_content }
-    end
-  end
+  #def destroy
+  #  @profile_setting = ProfileSetting.find(params[:id])
+  #  @profile_setting.destroy#
+  #
+  #  respond_to do |format|
+  #    format.html { redirect_to profile_settings_url }
+  #    format.json { head :no_content }
+  #  end
+  #end
 end

@@ -12,6 +12,11 @@
 							<i class="icon-home"> </i> <%= current_user.name %>
 						<% end if current_user %>
 					</li>
+					<li>
+						<%= link_to user_profile_setting_path(:user_id => current_user ) do %>
+							<i class="icon-wrench"> </i> <%= t('.settings') %>
+						<% end if current_user %>
+					</li>
 				</ul>
 				<ul class="nav pull-right">
 					<% if current_user %>

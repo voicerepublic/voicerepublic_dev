@@ -23,7 +23,7 @@
 		<% if @status_update && current_user %>
 			&nbsp;
 			<%= link_to new_user_status_update_comment_path(:user_id => @user, :status_update_id => @status_update), :class => "btn btn-mini" do %>
-				&nbsp;<i class="icon-pencil"> </i> <%= t('.add_comment') %>
+				&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
 			<% end %>&nbsp;
 		<% end %>
 	</p>
