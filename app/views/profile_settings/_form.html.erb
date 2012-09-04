@@ -1,6 +1,4 @@
-<%= I18n.locale.upcase %>
-
-<%= form_for @profile_setting, :url => user_profile_setting_path(:user_id => @user), :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @profile_setting, :url => user_profile_setting_path(:user_id => @user), :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
 
 <div class="control-group">
 	<%= f.label :about, :class => 'control-label' %>
@@ -10,7 +8,19 @@
 </div>
 
 <div class="control-group">
-	<%= f.label :timezone, :class => 'control-label' %>
+	<%= f.label :portrait, :class => "control-label" %>
+	<div class="controls">
+		<% if @profile_setting.portrait.exists? %>
+			<%= link_to destroy_portrait_user_profile_setting_url(:user_id => @profile_setting.user), :class => "btn btn-danger", :method => :delete do %>
+				<%= image_tag @profile_setting.portrait.url(:thumb), :class => "img-circle" %> <i class="icon-trash"> </i> <%= t('.delete_portrait')%>
+			<% end %>
+		<% else %>
+			<%= f.file_field :portrait %>
+		<% end %>
+	</div>
+</div>
+<div class="control-group">
+	<%= f.label :timezone, :class => "control-label"%>
 	<div class="controls">
 		<%= f.time_zone_select :timezone, ActiveSupport::TimeZone.all.sort, :include_blank => false, :default => "Berlin", :class => 'select_field' %>
 	</div>

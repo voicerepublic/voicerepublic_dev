@@ -41,8 +41,12 @@ ActiveRecord::Schema.define(:version => 20120903163121) do
     t.string   "language_3"
     t.integer  "user_id"
     t.text     "about"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "portrait_file_name"
+    t.string   "portrait_content_type"
+    t.integer  "portrait_file_size"
+    t.datetime "portrait_updated_at"
   end
 
   create_table "roles", :force => true do |t|

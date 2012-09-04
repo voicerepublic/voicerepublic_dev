@@ -25,6 +25,7 @@ gem 'omniauth-google-oauth2'
 gem 'friendly_id'
 gem 'will_paginate'
 gem 'i18n_data' # delivers languages as key-value hash
+gem 'paperclip'
 
 
 # To use ActiveModel has_secure_password

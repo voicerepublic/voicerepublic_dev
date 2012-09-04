@@ -77,6 +77,18 @@ class ProfileSettingsController < ApplicationController
       end
     end
   end
+  
+  def destroy_portrait
+    @user = User.find(params[:user_id])
+    @user.profile_setting.portrait.destroy
+    #@user.profile_setting.portrait = nil
+    if @user.profile_setting.portrait.exists?
+      flash[:error] = "Portrait was not destroyed"
+      redirect_to user_profile_setting_url(:user_id => @user)
+    else
+      redirect_to user_profile_setting_url(:user_id => @user), notice: "Portrait successfully destroyed." 
+    end
+  end
 
   # DELETE /profile_settings/1
   # DELETE /profile_settings/1.json

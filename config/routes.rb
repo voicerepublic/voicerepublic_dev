@@ -9,7 +9,11 @@ Kluuu2::Application.routes.draw do
   
   scope "/:locale", :locale => /en|de/ do
     resources :users do
-      resource :profile_setting
+      resource :profile_setting do
+        member do
+          delete 'destroy_portrait'
+        end
+      end
       resources :bookmarks 
       resources :status_updates do
         resources :comments

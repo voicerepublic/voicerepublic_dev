@@ -1,7 +1,9 @@
 class ProfileSetting < ActiveRecord::Base
-  attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about
+  attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait
   
   belongs_to :user
+  
+  has_attached_file :portrait, :styles => { :large => "300x300>", :medium => "150x150>", :thumb => "50x50>" }
   
   # https://github.com/grosser/i18n_data
   # languages: I18nData.languages(:en) # {'DE' => 'Deutschland',...}
