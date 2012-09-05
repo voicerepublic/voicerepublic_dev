@@ -1,0 +1,27 @@
+<%- model_class = Category -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @category.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:parent_id) %>:</strong></dt>
+  <dd><%= @category.parent_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:lft) %>:</strong></dt>
+  <dd><%= @category.lft %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:rgt) %>:</strong></dt>
+  <dd><%= @category.rgt %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              admin_categories_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_admin_category_path(@category), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              admin_category_path(@category),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

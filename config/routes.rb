@@ -1,6 +1,8 @@
 Kluuu2::Application.routes.draw do
 
 
+  resources :categories
+
   match "(/:locale)/landing_page/index", :as => :landing_page
   
   scope "/:locale", :locale => /de|en/ do
@@ -24,6 +26,7 @@ Kluuu2::Application.routes.draw do
   
   namespace :admin do
     resources :users
+    resources :categories
     get "dashboard/index"
   end
   
