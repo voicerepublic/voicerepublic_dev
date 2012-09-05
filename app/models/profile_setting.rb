@@ -5,6 +5,10 @@ class ProfileSetting < ActiveRecord::Base
   
   has_attached_file :portrait, :styles => { :large => "300x300>", :medium => "150x150>", :thumb => "50x50>" }
   
+  validates :user_id, :presence => true
+  validates :language_1, :presence => true
+  validates :timezone, :presence => true
+  
   # https://github.com/grosser/i18n_data
   # languages: I18nData.languages(:en) # {'DE' => 'Deutschland',...}
   

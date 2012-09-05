@@ -26,6 +26,8 @@ gem 'friendly_id'
 gem 'will_paginate'
 gem 'i18n_data' # delivers languages as key-value hash
 gem 'paperclip'
+gem 'awesome_nested_set'
+gem 'globalize3'
 
 
 # To use ActiveModel has_secure_password

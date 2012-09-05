@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
     user
   end
   
-  
+ 
   private
  
   def add_default_user_role
@@ -119,7 +119,8 @@ class User < ActiveRecord::Base
   end
   
   def add_profile_setting
-    self.create_profile_setting(:language_1 => I18n.locale)
+    Rails.logger.debug("User#add_profile_setting - locale: #{I18n.locale}")
+    self.create_profile_setting(:language_1 => I18n.locale.upcase, :timezone => "Berlin" )
   end
   
   def set_default_online_status

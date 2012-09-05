@@ -1,9 +1,10 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
-require 'faker'
 
 FactoryGirl.define do
-  factory :status_update do
-    content Faker::Lorem.paragraph
-    user
+  factory :category do
+    name { Faker}
+    parent_id 1
+    lft 1
+    rgt 1
   end
 end
