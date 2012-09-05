@@ -39,3 +39,5 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+%w(admin user).each { |x| Role.create(:name => x)}
