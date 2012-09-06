@@ -5,11 +5,11 @@ Kluuu2::Application.routes.draw do
 
   match "(/:locale)/landing_page/index", :as => :landing_page
   
-  scope "/:locale", :locale => /de|en/ do
+  scope "(/:locale)", :locale => /de|en/ do
     devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   end
   
-  scope "/:locale", :locale => /en|de/ do
+  scope "(/:locale)", :locale => /en|de/ do
     resources :users do
       resource :profile_setting do
         member do

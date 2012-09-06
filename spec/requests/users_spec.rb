@@ -1,11 +1,41 @@
 require 'spec_helper'
 
-describe "Users" do
-  describe "GET /users" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get users_path
-      response.status.should be(200)
-    end
+
+
+feature "User visits another user" do
+  background do
+    @user = FactoryGirl.create(:user)
+  end
+  
+  scenario "user visits user-page" do
+    visit user_path(:id => @user)
+    page.should have_content(@user.name)
+  end
+  
+end
+
+
+feature "Ueser can register" do
+  scenario "user supplies correct values" do
+    visit root_path()
+    click_link("Sign Up")
+    page.fill_in('user_firstname', :with => "Jim")
+    page.fill_in('user_lastname', :with => "Beam")
+    page.fill_in('user_email', :with => "jim@beam.com")
+    page.fill_in('user_password', :with => "foobar")
+    page.fill_in('user_password_confirmation', :with => "foobar")
+    page.click_button('Sign up!')
+    page.should have_content("Success")
+  end
+  
+  scenario "user misses email during registration" do
+    visit root_path()
+    click_link('Sign Up')
+    page.fill_in('user_firstname', :with => "Jim")
+    page.fill_in('user_lastname', :with => "Beam")
+    page.fill_in('user_password', :with => "foobar")
+    page.fill_in('user_password_confirmation', :with => "foobar")
+    page.click_button('Sign up!')
+    page.should have_content("Email can't")
   end
 end

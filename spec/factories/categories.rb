@@ -2,9 +2,12 @@
 
 FactoryGirl.define do
   factory :category do
-    name { Faker}
-    parent_id 1
-    lft 1
-    rgt 1
+    name { Faker::Lorem.words(1)}
+  end
+  
+  factory :child_category, :class => Category do
+    _category = 
+    name { Faker::Lorem.words(1)}
+    parent_id { FactoryGirl.create(:category).id }
   end
 end
