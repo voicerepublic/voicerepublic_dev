@@ -1,6 +1,6 @@
 class StatusUpdatesController < ApplicationController
   
-  #before_filter :set_user
+  before_filter :set_user
   
   # GET /status_updates
   # GET /status_updates.json
@@ -45,11 +45,11 @@ class StatusUpdatesController < ApplicationController
   # POST /status_updates.json
   def create
     @status_update = StatusUpdate.new(params[:status_update])
-    @status_update.user = current_user
+    @status_update.user = @user
 
     respond_to do |format|
       if @status_update.save
-        format.html { redirect_to user_status_updates_path(:user_id => current_user.id ), notice: 'Status update was successfully created.' }
+        format.html { redirect_to user_path(:id => @user ), notice: 'Status update was successfully created.' }
         format.json { render json: @status_update, status: :created, location: @status_update }
       else
         format.html { render action: "new" }
@@ -62,11 +62,11 @@ class StatusUpdatesController < ApplicationController
   # PUT /status_updates/1.json
   def update
     @status_update = StatusUpdate.find(params[:id])
-    @status_update.user = current_user
+    @status_update.user = @user
     
     respond_to do |format|
       if @status_update.update_attributes(params[:status_update])
-        format.html { redirect_to user_status_updates_url(:user_id => current_user), notice: 'Status update was successfully updated.' }
+        format.html { redirect_to user_status_update_url(:user_id => @user, :id => @status_update), notice: 'Status update was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -82,7 +82,7 @@ class StatusUpdatesController < ApplicationController
     @status_update.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_status_updates_url(:user_id => current_user.id) }
+      format.html { redirect_to user_status_updates_url(:user_id => @user) }
       format.json { head :no_content }
     end
   end
@@ -90,6 +90,6 @@ class StatusUpdatesController < ApplicationController
   private
   
   def set_user
-    @user = User.find(params[:user_id])
+    @user = current_user || User.find(params[:user_id])
   end
 end

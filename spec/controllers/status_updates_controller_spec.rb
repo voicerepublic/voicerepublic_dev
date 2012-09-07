@@ -20,11 +20,14 @@ require 'spec_helper'
 
 describe StatusUpdatesController do
 
+  before  do
+    @user = FactoryGirl.create(:user)
+  end
   # This should return the minimal set of attributes required to create a valid
   # StatusUpdate. As you add validations to StatusUpdate, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:status_update).merge(:user_id => @user.id)
   end
 
   # This should return the minimal set of values that should be in the session
@@ -34,25 +37,18 @@ describe StatusUpdatesController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all status_updates as @status_updates" do
-      status_update = StatusUpdate.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:status_updates).should eq([status_update])
-    end
-  end
 
   describe "GET show" do
     it "assigns the requested status_update as @status_update" do
       status_update = StatusUpdate.create! valid_attributes
-      get :show, {:id => status_update.to_param}, valid_session
+      get :show, {:id => status_update.to_param, :user_id => @user}, valid_session
       assigns(:status_update).should eq(status_update)
     end
   end
 
   describe "GET new" do
     it "assigns a new status_update as @status_update" do
-      get :new, {}, valid_session
+      get :new, {:user_id => @user.id}, valid_session
       assigns(:status_update).should be_a_new(StatusUpdate)
     end
   end
@@ -60,7 +56,7 @@ describe StatusUpdatesController do
   describe "GET edit" do
     it "assigns the requested status_update as @status_update" do
       status_update = StatusUpdate.create! valid_attributes
-      get :edit, {:id => status_update.to_param}, valid_session
+      get :edit, {:id => status_update.to_param, :user_id => @user}, valid_session
       assigns(:status_update).should eq(status_update)
     end
   end
@@ -69,19 +65,19 @@ describe StatusUpdatesController do
     describe "with valid params" do
       it "creates a new StatusUpdate" do
         expect {
-          post :create, {:status_update => valid_attributes}, valid_session
+          post :create, { :status_update => valid_attributes, :user_id => @user.id }, valid_session 
         }.to change(StatusUpdate, :count).by(1)
       end
 
       it "assigns a newly created status_update as @status_update" do
-        post :create, {:status_update => valid_attributes}, valid_session
+        post :create, {:status_update => valid_attributes, :user_id => @user.id}, valid_session
         assigns(:status_update).should be_a(StatusUpdate)
         assigns(:status_update).should be_persisted
       end
 
       it "redirects to the created status_update" do
-        post :create, {:status_update => valid_attributes}, valid_session
-        response.should redirect_to(StatusUpdate.last)
+        post :create, {:status_update => valid_attributes, :user_id => @user.id}, valid_session
+        response.should redirect_to user_path(:id => @user)# (StatusUpdate.last)
       end
     end
 
@@ -89,14 +85,14 @@ describe StatusUpdatesController do
       it "assigns a newly created but unsaved status_update as @status_update" do
         # Trigger the behavior that occurs when invalid params are submitted
         StatusUpdate.any_instance.stub(:save).and_return(false)
-        post :create, {:status_update => {}}, valid_session
+        post :create, {:status_update => {}, :user_id => @user}, valid_session
         assigns(:status_update).should be_a_new(StatusUpdate)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         StatusUpdate.any_instance.stub(:save).and_return(false)
-        post :create, {:status_update => {}}, valid_session
+        post :create, {:status_update => {}, :user_id => @user}, valid_session
         response.should render_template("new")
       end
     end
@@ -111,19 +107,19 @@ describe StatusUpdatesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         StatusUpdate.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => status_update.to_param, :status_update => {'these' => 'params'}}, valid_session
+        put :update, {:id => status_update.to_param, :status_update => {'these' => 'params'}, :user_id => @user}, valid_session
       end
-
+  
       it "assigns the requested status_update as @status_update" do
         status_update = StatusUpdate.create! valid_attributes
-        put :update, {:id => status_update.to_param, :status_update => valid_attributes}, valid_session
+        put :update, {:id => status_update.to_param, :status_update => valid_attributes, :user_id => @user}, valid_session
         assigns(:status_update).should eq(status_update)
-      end
-
+      end#
+  
       it "redirects to the status_update" do
         status_update = StatusUpdate.create! valid_attributes
-        put :update, {:id => status_update.to_param, :status_update => valid_attributes}, valid_session
-        response.should redirect_to(status_update)
+        put :update, {:id => status_update.to_param, :status_update => valid_attributes, :user_id => @user}, valid_session
+        response.should redirect_to( user_status_update_path(:user_id => @user, :id => status_update.id))
       end
     end
 
@@ -132,7 +128,7 @@ describe StatusUpdatesController do
         status_update = StatusUpdate.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         StatusUpdate.any_instance.stub(:save).and_return(false)
-        put :update, {:id => status_update.to_param, :status_update => {}}, valid_session
+        put :update, {:id => status_update.to_param, :status_update => {}, :user_id => @user}, valid_session
         assigns(:status_update).should eq(status_update)
       end
 
@@ -140,7 +136,7 @@ describe StatusUpdatesController do
         status_update = StatusUpdate.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         StatusUpdate.any_instance.stub(:save).and_return(false)
-        put :update, {:id => status_update.to_param, :status_update => {}}, valid_session
+        put :update, {:id => status_update.to_param, :status_update => {}, :user_id => @user}, valid_session
         response.should render_template("edit")
       end
     end
@@ -148,17 +144,18 @@ describe StatusUpdatesController do
 
   describe "DELETE destroy" do
     it "destroys the requested status_update" do
-      status_update = StatusUpdate.create! valid_attributes
+      status_update = StatusUpdate.create!( valid_attributes)
       expect {
-        delete :destroy, {:id => status_update.to_param}, valid_session
+        delete :destroy, {:id => status_update.to_param, :user_id => @user}, valid_session
       }.to change(StatusUpdate, :count).by(-1)
     end
 
     it "redirects to the status_updates list" do
       status_update = StatusUpdate.create! valid_attributes
-      delete :destroy, {:id => status_update.to_param}, valid_session
-      response.should redirect_to(status_updates_url)
+      delete :destroy, {:id => status_update.to_param, :user_id => @user}, valid_session
+      response.should redirect_to( user_status_updates_url(:user_id => @user))
     end
   end
+
 
 end
