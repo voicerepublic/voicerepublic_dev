@@ -1,8 +1,11 @@
 class CommentsController < ApplicationController
+  
+  before_filter :set_commentable
+  
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+    @comments = StatusUpdate.find(params[:status_update_id]).comments #Comment.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -47,7 +50,7 @@ class CommentsController < ApplicationController
   def create
     
     if params[:status_update_id]
-      @comment = StatusUpdate.find(params[:status_update_id]).comments.create(params[:comment].merge(:user_id => current_user.id))
+      @comment = StatusUpdate.find(params[:status_update_id]).comments.create(params[:comment].merge(:user_id => params[:user_id]))
       logger.debug(@comment.inspect)
     else
       redirect_to :back, warn: 'at this time only status-updates can be commented...'
@@ -72,7 +75,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to user_status_update_path(:user_id => @comment.commentable.user.id, :status_update_id => @comment.commentable ), notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -88,8 +91,16 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to comments_url }
+      format.html { redirect_to user_status_update_url(:user_id => @comment.commentable.user.id, :status_update_id => @comment.commentable.id) }
       format.json { head :no_content }
+    end
+  end
+  
+  private 
+  
+  def set_commentable
+    if params[:status_update_id]
+      @commentable = StatusUpdate.find(params[:status_update_id])
     end
   end
 end
