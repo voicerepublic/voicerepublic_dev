@@ -24,7 +24,7 @@ describe UsersController do
   # User. As you add validations to User, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:user) 
   end
 
   # This should return the minimal set of values that should be in the session
@@ -122,7 +122,7 @@ describe UsersController do
 
       it "redirects to the user" do
         user = User.create! valid_attributes
-        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
+        put :update, {:id => user.to_param, :user => user.attributes[:email]  }, valid_session  #
         response.should redirect_to(user)
       end
     end

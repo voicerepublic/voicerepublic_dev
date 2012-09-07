@@ -5,7 +5,7 @@ class StatusUpdatesController < ApplicationController
   # GET /status_updates
   # GET /status_updates.json
   def index
-    @status_updates = current_user.status_updates
+    @status_updates = @user.status_updates
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,19 +1,11 @@
 class ProfileSettingsController < ApplicationController
-  # GET /profile_settings
-  # GET /profile_settings.json
-  def index
-    @profile_settings = ProfileSetting.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @profile_settings }
-    end
-  end
+  
+  before_filter :set_user
+  
 
   # GET /profile_settings/1
   # GET /profile_settings/1.json
   def show
-    @user = User.find(params[:user_id])
     @profile_setting = @user.profile_setting 
     if @profile_setting.nil?
       @profile_setting = @user.build_profile_setting
@@ -26,21 +18,10 @@ class ProfileSettingsController < ApplicationController
     end
   end
 
-  # GET /profile_settings/new
-  # GET /profile_settings/new.json
-  def new
-    @profile_setting = ProfileSetting.new
-    @user = current_user
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @profile_setting }
-    end
-  end
 
   # GET /profile_settings/1/edit
   def edit
     #@profile_setting = ProfileSetting.find(params[:id])
-    @user = User.find(params[:user_id])
     @profile_setting = @user.profile_setting
   end
 
@@ -48,7 +29,7 @@ class ProfileSettingsController < ApplicationController
   # POST /profile_settings.json
   def create
     @profile_setting = ProfileSetting.new(params[:profile_setting])
-    @profile_setting.user = current_user
+    @profile_setting.user = @user
 
     respond_to do |format|
       if @profile_setting.save
@@ -64,7 +45,6 @@ class ProfileSettingsController < ApplicationController
   # PUT /profile_settings/1
   # PUT /profile_settings/1.json
   def update
-    @user = User.find(params[:user_id])
     @profile_setting = @user.profile_setting
 
     respond_to do |format|
@@ -79,26 +59,22 @@ class ProfileSettingsController < ApplicationController
   end
   
   def destroy_portrait
-    @user = User.find(params[:user_id])
     @user.profile_setting.portrait.destroy
     #@user.profile_setting.portrait = nil
     if @user.profile_setting.portrait.exists?
+      logger.error("ProfileSetting#destroy_portrait - could not destroy portrait")
       flash[:error] = "Portrait was not destroyed"
       redirect_to user_profile_setting_url(:user_id => @user)
     else
+      logger.info("ProfileSetting#destroy_portrait - success")
       redirect_to user_profile_setting_url(:user_id => @user), notice: "Portrait successfully destroyed." 
     end
   end
 
-  # DELETE /profile_settings/1
-  # DELETE /profile_settings/1.json
-  #def destroy
-  #  @profile_setting = ProfileSetting.find(params[:id])
-  #  @profile_setting.destroy#
-  #
-  #  respond_to do |format|
-  #    format.html { redirect_to profile_settings_url }
-  #    format.json { head :no_content }
-  #  end
-  #end
+  
+  private
+  
+  def set_user
+    @user = current_user || User.find(params[:user_id])
+  end
 end
