@@ -60,7 +60,7 @@ class KlusController < ApplicationController
 
     respond_to do |format|
       if @klu.update_attributes(params[:klu])
-        format.html { redirect_to @klu, notice: 'Klu was successfully updated.' }
+        format.html { redirect_to user_klu_path(:user_id => @klu.user, :id => @klu), notice: 'Klu was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -73,10 +73,11 @@ class KlusController < ApplicationController
   # DELETE /klus/1.json
   def destroy
     @klu = Klu.find(params[:id])
+    _user = @klu.user
     @klu.destroy
 
     respond_to do |format|
-      format.html { redirect_to klus_url }
+      format.html { redirect_to user_klus_url(:user_id => _user) }
       format.json { head :no_content }
     end
   end

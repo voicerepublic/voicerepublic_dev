@@ -3,9 +3,12 @@ Kluuu2::Application.routes.draw do
   
 
   match "(/:locale)/landing_page/index", :as => :landing_page
-  resources :categories
-  resources :klus
-
+  
+  scope "(/:locale)", :locale => /de|en/ do
+    resources :categories
+    resources :klus
+  end
+  
   scope "(/:locale)", :locale => /de|en/ do
     devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   end

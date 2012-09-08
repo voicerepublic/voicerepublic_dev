@@ -10,7 +10,7 @@
       <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:available_at_times) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
-      <th><%= model_class.human_attribute_name(:public) %></th>
+      <th><%= model_class.human_attribute_name(:published) %></th>
       <th><%= model_class.human_attribute_name(:category_id) %></th>
       <th><%= model_class.human_attribute_name(:type) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -25,7 +25,7 @@
         <td><%= klu.description %></td>
         <td><%= klu.available_at_times %></td>
         <td><%= klu.user_id %></td>
-        <td><%= klu.public %></td>
+        <td><%= klu.published %></td>
         <td><%= klu.category_id %></td>
         <td><%= klu.type %></td>
         <td><%=l klu.created_at %></td>

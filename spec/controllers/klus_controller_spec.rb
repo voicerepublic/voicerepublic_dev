@@ -20,12 +20,18 @@ require 'spec_helper'
 
 describe KlusController do
 
+  before do
+    @user = FactoryGirl.create(:user)  
+  end
+  
   # This should return the minimal set of attributes required to create a valid
   # Klu. As you add validations to Klu, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:published_kluuu)
   end
+  
+ 
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -36,15 +42,15 @@ describe KlusController do
 
   describe "GET index" do
     it "assigns all klus as @klus" do
-      klu = Klu.create! valid_attributes
-      get :index, {}, valid_session
+      klu = FactoryGirl.create(:published_kluuu)
+      get :index, { }, valid_session 
       assigns(:klus).should eq([klu])
     end
   end
 
   describe "GET show" do
     it "assigns the requested klu as @klu" do
-      klu = Klu.create! valid_attributes
+      klu = FactoryGirl.create(:published_kluuu)
       get :show, {:id => klu.to_param}, valid_session
       assigns(:klu).should eq(klu)
     end
@@ -59,7 +65,7 @@ describe KlusController do
 
   describe "GET edit" do
     it "assigns the requested klu as @klu" do
-      klu = Klu.create! valid_attributes
+      klu = FactoryGirl.create(:published_kluuu)
       get :edit, {:id => klu.to_param}, valid_session
       assigns(:klu).should eq(klu)
     end
@@ -69,18 +75,18 @@ describe KlusController do
     describe "with valid params" do
       it "creates a new Klu" do
         expect {
-          post :create, {:klu => valid_attributes}, valid_session
+          post :create, {:user_id => @user, :klu => valid_attributes.merge(:user_id => @user)}, valid_session
         }.to change(Klu, :count).by(1)
       end
 
       it "assigns a newly created klu as @klu" do
-        post :create, {:klu => valid_attributes}, valid_session
+        post :create, {:user_id => @user, :klu => valid_attributes.merge(:user_id => @user)}, valid_session
         assigns(:klu).should be_a(Klu)
         assigns(:klu).should be_persisted
       end
 
       it "redirects to the created klu" do
-        post :create, {:klu => valid_attributes}, valid_session
+        post :create, {:klu => valid_attributes.merge(:user_id => @user)}, valid_session
         response.should redirect_to(Klu.last)
       end
     end
@@ -89,14 +95,14 @@ describe KlusController do
       it "assigns a newly created but unsaved klu as @klu" do
         # Trigger the behavior that occurs when invalid params are submitted
         Klu.any_instance.stub(:save).and_return(false)
-        post :create, {:klu => {}}, valid_session
+        post :create, {:klu => {}, :user_id => @user}, valid_session
         assigns(:klu).should be_a_new(Klu)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Klu.any_instance.stub(:save).and_return(false)
-        post :create, {:klu => {}}, valid_session
+        post :create, {:klu => {}, :user_id => @user}, valid_session
         response.should render_template("new")
       end
     end
@@ -104,43 +110,43 @@ describe KlusController do
 
   describe "PUT update" do
     describe "with valid params" do
-      it "updates the requested klu" do
-        klu = Klu.create! valid_attributes
+      it "updates the requested users klu" do
+        klu = FactoryGirl.create(:published_kluuu)
         # Assuming there are no other klus in the database, this
         # specifies that the Klu created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Klu.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => klu.to_param, :klu => {'these' => 'params'}}, valid_session
+        put :update, {:user_id => klu.user, :id => klu.to_param, :klu => {'these' => 'params'}}, valid_session
       end
 
-      it "assigns the requested klu as @klu" do
-        klu = Klu.create! valid_attributes
-        put :update, {:id => klu.to_param, :klu => valid_attributes}, valid_session
+      it "assigns the requested users klu as @klu" do
+        klu = FactoryGirl.create(:published_kluuu)
+        put :update, {:id => klu.to_param, :klu => valid_attributes, :user_id => klu.user.id}, valid_session
         assigns(:klu).should eq(klu)
       end
 
-      it "redirects to the klu" do
-        klu = Klu.create! valid_attributes
-        put :update, {:id => klu.to_param, :klu => valid_attributes}, valid_session
-        response.should redirect_to(klu)
+      it "redirects to the users klu" do
+        klu = FactoryGirl.create(:published_kluuu)
+        put :update, {:id => klu.to_param, :klu => valid_attributes, :user_id => klu.user}, valid_session
+        response.should redirect_to(user_klu_url(:user_id => klu.user, :id => klu))
       end
     end
 
     describe "with invalid params" do
-      it "assigns the klu as @klu" do
-        klu = Klu.create! valid_attributes
+      it "assigns the users klu as @klu" do
+        klu = FactoryGirl.create(:published_kluuu)
         # Trigger the behavior that occurs when invalid params are submitted
         Klu.any_instance.stub(:save).and_return(false)
-        put :update, {:id => klu.to_param, :klu => {}}, valid_session
+        put :update, {:user_id => klu.user, :id => klu.to_param, :klu => {}}, valid_session
         assigns(:klu).should eq(klu)
       end
 
       it "re-renders the 'edit' template" do
-        klu = Klu.create! valid_attributes
+        klu = FactoryGirl.create(:published_kluuu)
         # Trigger the behavior that occurs when invalid params are submitted
         Klu.any_instance.stub(:save).and_return(false)
-        put :update, {:id => klu.to_param, :klu => {}}, valid_session
+        put :update, {:user_id => klu.user, :id => klu.to_param, :klu => {}}, valid_session
         response.should render_template("edit")
       end
     end
@@ -148,16 +154,16 @@ describe KlusController do
 
   describe "DELETE destroy" do
     it "destroys the requested klu" do
-      klu = Klu.create! valid_attributes
+      klu = FactoryGirl.create(:published_kluuu)
       expect {
-        delete :destroy, {:id => klu.to_param}, valid_session
+        delete :destroy, {:id => klu.to_param, :user_id => klu.user.id }, valid_session
       }.to change(Klu, :count).by(-1)
     end
 
     it "redirects to the klus list" do
-      klu = Klu.create! valid_attributes
-      delete :destroy, {:id => klu.to_param}, valid_session
-      response.should redirect_to(klus_url)
+      klu = FactoryGirl.create(:published_kluuu)
+      delete :destroy, {:id => klu.to_param, :user_id => klu.user.id}, valid_session
+      response.should redirect_to(user_klus_url(:user_id => klu.user))
     end
   end
 
