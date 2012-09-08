@@ -1,10 +1,11 @@
 Kluuu2::Application.routes.draw do
 
-
-  resources :categories
+  
 
   match "(/:locale)/landing_page/index", :as => :landing_page
-  
+  resources :categories
+  resources :klus
+
   scope "(/:locale)", :locale => /de|en/ do
     devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   end
@@ -16,17 +17,18 @@ Kluuu2::Application.routes.draw do
           delete 'destroy_portrait'
         end
       end
+      resources :klus 
       resources :bookmarks 
       resources :status_updates do
         resources :comments
       end
     end
   end
-
   
   namespace :admin do
     resources :users
     resources :categories
+    resources :klus
     get "dashboard/index"
   end
   

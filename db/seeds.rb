@@ -7,5 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Role.create([{name: 'admin'}, {name: 'user'}])
+Category.create([{name: 'sport'}, {name: 'lifestyle'}, {name: 'politics'}])
 
 

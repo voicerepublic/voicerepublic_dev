@@ -8,9 +8,14 @@ class User < ActiveRecord::Base
   attr_accessible :provider, :uid, :last_request_at
  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
+  has_many :roles, :through => :user_roles
   has_many :bookmarks, :dependent => :destroy
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
+  
+  has_many :klus        # -> base-class
+  has_many :no_kluuus
+  has_many :kluuus
   
   has_one :profile_setting, :dependent => :destroy
   

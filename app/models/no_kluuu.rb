@@ -1,0 +1,3 @@
+class NoKluuu < Klu
+  
+end
