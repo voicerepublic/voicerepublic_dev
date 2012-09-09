@@ -24,6 +24,7 @@ class KlusController < ApplicationController
   # GET /klus/new
   # GET /klus/new.json
   def new
+    @user = User.find(params[:user_id])
     @klu = Klu.new
 
     respond_to do |format|
@@ -40,11 +41,21 @@ class KlusController < ApplicationController
   # POST /klus
   # POST /klus.json
   def create
-    @klu = Klu.new(params[:klu])
+    @user = User.find(params[:user_id]) 
+    if params[:klu_type]
+      case params[:klu_type]
+      when 'Kluuu'
+        @klu = @user.kluuus.build(params[:klu])
+      when 'NoKluuu'
+        @klu = @user.no_kluus.build(params[:klu])
+      end
+    else
+      @klu = @user.no_kluuus.build(params[:klu])
+    end
 
     respond_to do |format|
       if @klu.save
-        format.html { redirect_to @klu, notice: 'Klu was successfully created.' }
+        format.html { redirect_to user_klus_url(:user_id => @user), notice: 'Klu was successfully created.' }
         format.json { render json: @klu, status: :created, location: @klu }
       else
         format.html { render action: "new" }

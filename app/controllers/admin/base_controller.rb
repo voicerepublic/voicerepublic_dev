@@ -7,7 +7,7 @@ class Admin::BaseController < ApplicationController
   private
   
   def admin_check
-    unless current_user.is_admin?
+    unless current_user && current_user.is_admin?
       redirect_to root_path, alert: "access prohibited" and return
     end
   end

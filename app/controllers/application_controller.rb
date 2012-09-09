@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale 
   
   
+  
+  
   private
   
   #get locale from browser settings

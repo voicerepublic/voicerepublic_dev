@@ -1,0 +1,2 @@
+module KluImagesHelper
+end

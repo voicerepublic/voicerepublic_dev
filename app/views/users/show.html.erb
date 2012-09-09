@@ -123,3 +123,19 @@
 	:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
 	:class => 'btn btn-danger' %>
 </div>
+
+<div class="row">
+	<div class="span4">
+		&nbsp;
+	</div>
+	<div class="span8">
+		<div class="well well-large">
+			<h2>KluuS</h2>
+			<ul>
+			<% @user.klus.each do |klu| %>
+				<li><%= klu.title %></li>
+			<% end %>
+			</ul>
+		</div>
+	</div>
+</div>

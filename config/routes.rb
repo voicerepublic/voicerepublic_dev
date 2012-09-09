@@ -2,6 +2,8 @@ Kluuu2::Application.routes.draw do
 
   
 
+  resources :klu_images
+
   match "(/:locale)/landing_page/index", :as => :landing_page
   
   scope "(/:locale)", :locale => /de|en/ do

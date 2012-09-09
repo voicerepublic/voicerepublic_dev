@@ -58,7 +58,7 @@ describe KlusController do
 
   describe "GET new" do
     it "assigns a new klu as @klu" do
-      get :new, {}, valid_session
+      get :new, {:user_id => @user}, valid_session
       assigns(:klu).should be_a_new(Klu)
     end
   end
@@ -86,8 +86,8 @@ describe KlusController do
       end
 
       it "redirects to the created klu" do
-        post :create, {:klu => valid_attributes.merge(:user_id => @user)}, valid_session
-        response.should redirect_to(Klu.last)
+        post :create, {:klu => valid_attributes.merge(:user_id => @user), :user_id => @user}, valid_session
+        response.should redirect_to( user_klus_url(:user_id => @user) )
       end
     end
 

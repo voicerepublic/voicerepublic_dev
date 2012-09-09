@@ -31,3 +31,17 @@
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_user_profile_setting_path(:user_id => @profile_setting.user, :id => @profile_setting), :class => 'btn' %>
 </div>
+
+<div class="row">
+	<div class="span4">
+		&nbsp;
+	</div>
+	<div class="span4">
+		&nbsp;
+	</div>
+	<div class="span4">
+		<div class="well well-small">
+			<%= link_to t('.create_klu'), new_user_klu_path(:user_id => @profile_setting.user), :class => "btn btn-large" %>
+		</div>
+	</div>
+</div>
