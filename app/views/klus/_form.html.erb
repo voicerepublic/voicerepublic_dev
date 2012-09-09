@@ -1,4 +1,12 @@
-<%= form_for [@user,@klu], :html => { :class => 'form-horizontal' } do |f| %>
+<% raise if @user.nil? %>
+<% puts @user.inspect %>
+
+<% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
+<% method = @klu.new_record? ? :post : :put %>
+<%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal' }  do |f| %>
+  
+ 
+  
   <div class="control-group">
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls">
@@ -35,6 +43,6 @@
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                klus_path, :class => 'btn' %>
+                user_klus_path(:user_id => @user), :class => 'btn' %>
   </div>
 <% end %>

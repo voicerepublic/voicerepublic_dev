@@ -43,7 +43,7 @@ describe KlusController do
   describe "GET index" do
     it "assigns all klus as @klus" do
       klu = FactoryGirl.create(:published_kluuu)
-      get :index, { }, valid_session 
+      get :index, {:user_id => klu.user }, valid_session 
       assigns(:klus).should eq([klu])
     end
   end

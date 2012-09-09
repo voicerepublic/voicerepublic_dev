@@ -20,7 +20,7 @@
   <tbody>
     <% @klus.each do |klu| %>
       <tr>
-        <td><%= link_to klu.id, klu_path(klu) %></td>
+        <td><%= link_to klu.id, user_klu_path(:user_id => klu.user, :id => klu) %></td>
         <td><%= klu.title %></td>
         <td><%= klu.description %></td>
         <td><%= klu.available_at_times %></td>
@@ -31,9 +31,9 @@
         <td><%=l klu.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_klu_path(klu), :class => 'btn btn-mini' %>
+                      edit_user_klu_path(:user_id => @user, :id => klu), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      klu_path(klu),
+                      user_klu_path(:user_id => @user, :id => klu),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -44,5 +44,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_klu_path,
+            new_user_klu_path(:user_id => @user),
             :class => 'btn btn-primary' %>

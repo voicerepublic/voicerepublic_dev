@@ -2,7 +2,7 @@ Kluuu2::Application.routes.draw do
 
   
 
-  resources :klu_images
+  #resources :klu_images
 
   match "(/:locale)/landing_page/index", :as => :landing_page
   
@@ -22,7 +22,9 @@ Kluuu2::Application.routes.draw do
           delete 'destroy_portrait'
         end
       end
-      resources :klus 
+      resources :klus do
+        resources :klu_images
+      end
       resources :bookmarks 
       resources :status_updates do
         resources :comments

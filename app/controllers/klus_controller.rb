@@ -2,7 +2,8 @@ class KlusController < ApplicationController
   # GET /klus
   # GET /klus.json
   def index
-    @klus = Klu.all
+    @user = User.find(params[:user_id])
+    @klus = @user.klus.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,7 @@ class KlusController < ApplicationController
   # GET /klus/1.json
   def show
     @klu = Klu.find(params[:id])
+    @user = @klu.user
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,6 +38,7 @@ class KlusController < ApplicationController
   # GET /klus/1/edit
   def edit
     @klu = Klu.find(params[:id])
+    @user = @klu.user
   end
 
   # POST /klus

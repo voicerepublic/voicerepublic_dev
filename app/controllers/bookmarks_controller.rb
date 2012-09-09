@@ -1,8 +1,11 @@
 class BookmarksController < ApplicationController
+  
+  before_filter :set_user
+  
   # GET /bookmarks
   # GET /bookmarks.json
   def index
-    @bookmarks = Bookmark.all
+    @bookmarks = @user.bookmarks
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +27,7 @@ class BookmarksController < ApplicationController
   # GET /bookmarks/new
   # GET /bookmarks/new.json
   def new
-    @bookmark = Bookmark.new
+    @bookmark = @user.bookmarks.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +43,7 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    @bookmark = Bookmark.new(params[:bookmark])
+    @bookmark = @user.bookmarks.build(params[:bookmark])
 
     respond_to do |format|
       if @bookmark.save
@@ -79,5 +82,11 @@ class BookmarksController < ApplicationController
       format.html { redirect_to bookmarks_url }
       format.json { head :no_content }
     end
+  end
+  
+  private
+  
+  def set_user
+    @user = User.find(params[:user_id])    
   end
 end

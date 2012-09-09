@@ -6,4 +6,6 @@ class Bookmark < ActiveRecord::Base
   validates :kluuu_id, :presence => true
   validates :user_id, :presence => true
   
+  
+  
 end

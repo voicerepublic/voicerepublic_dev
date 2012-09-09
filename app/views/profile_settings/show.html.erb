@@ -1,35 +1,72 @@
 <%- model_class = ProfileSetting -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+	<h1><%= t '.title', :default => model_class.model_name.human %></h1>
 </div>
 
-<div class="well well-small">
+<div class="row">
+	<div class="span6">
+	<div class="well well-small">
+		<dl class="dl-horizontal">
+
+			<dt>
+				<strong><%= t('.portrait') %></strong>
+			</dt>
+			<dd>
+				<%= image_tag  @profile_setting.portrait.url(:medium) , :class => "img-polaroid" %>
+			</dd>
+		</dl>
+	</div>
+	</div>
+	<div class="span6">
+		<div class="well well-small">
 	<dl class="dl-horizontal">
-		
-		<dt><strong><%= t('.portrait') %></strong></dt>
-		<dd><%= image_tag  @profile_setting.portrait.url(:medium) , :class => "img-polaroid" %></dd>
+		<dt>
+			<strong><%= t('.about_me') %>:</strong>
+		</dt>
+		<dd>
+			<%= @profile_setting.about %>
+		</dd>
+		<dt>
+			<strong><%= t('.timezone') %>:</strong>
+		</dt>
+		<dd>
+			<%= ActiveSupport::TimeZone::MAPPING[@profile_setting.timezone] %>
+		</dd>
+		<dt>
+			<strong><%= t('.your_time') %></strong>
+		</dt>
+		<dd>
+			<span class="label label-info"><%= l(@profile_setting.time_in_supplied_zone) %></span>
+		</dd>
+		<dt>
+			<strong><%= model_class.human_attribute_name(:language_1) %>:</strong>
+		</dt>
+		<dd>
+			<%= @profile_setting.language_name(1) %>
+		</dd>
+		<dt>
+			<strong><%= model_class.human_attribute_name(:language_2) %>:</strong>
+		</dt>
+		<dd>
+			<%= @profile_setting.language_name(2) %>
+		</dd>
+		<dt>
+			<strong><%= model_class.human_attribute_name(:language_3) %>:</strong>
+		</dt>
+		<dd>
+			<%= @profile_setting.language_name(3) %>
+		</dd>
 	</dl>
+	</div>
+	</div>
+
 </div>
-<dl class="dl-horizontal">
-  <dt><strong><%= t('.about_me') %>:</strong></dt>
-  <dd><%= @profile_setting.about %></dd>
-  <dt><strong><%= t('.timezone') %>:</strong></dt>
-  <dd><%= ActiveSupport::TimeZone::MAPPING[@profile_setting.timezone] %></dd>
-  <dt><strong><%= t('.your_time') %></strong></dt>
-	<dd><span class="label label-info"><%= @profile_setting.time_in_supplied_zone %></span></dd>
-  <dt><strong><%= model_class.human_attribute_name(:language_1) %>:</strong></dt>
-  <dd><%= @profile_setting.language_name(1) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:language_2) %>:</strong></dt>
-  <dd><%= @profile_setting.language_name(2) %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:language_3) %>:</strong></dt>
-  <dd><%= @profile_setting.language_name(3) %></dd>
-</dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              user_profile_setting_path(:user_id => @profile_setting.user), :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_user_profile_setting_path(:user_id => @profile_setting.user, :id => @profile_setting), :class => 'btn' %>
+	<%= link_to t('.back', :default => t("helpers.links.back")),
+	user_profile_setting_path(:user_id => @profile_setting.user), :class => 'btn'  %>
+	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+	edit_user_profile_setting_path(:user_id => @profile_setting.user, :id => @profile_setting), :class => 'btn' %>
 </div>
 
 <div class="row">
@@ -37,11 +74,15 @@
 		&nbsp;
 	</div>
 	<div class="span4">
-		&nbsp;
+		
+		<div class="well well-small">
+			<%= link_to t('.manage_your_bookmarks'), user_bookmarks_path(:user_id => @profile_setting.user), :class => "btn btn-large" %>
+		</div>
+		
 	</div>
 	<div class="span4">
 		<div class="well well-small">
-			<%= link_to t('.create_klu'), new_user_klu_path(:user_id => @profile_setting.user), :class => "btn btn-large" %>
+			<%= link_to t('.manage_your_kluuus'), user_klus_path(:user_id => @profile_setting.user), :class => "btn btn-large" %>
 		</div>
 	</div>
 </div>

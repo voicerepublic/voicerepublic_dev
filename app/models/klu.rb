@@ -3,9 +3,9 @@ class Klu < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :category
+  has_many :bookmarks, :dependent => :destroy, :foreign_key => :klu_id
   
   validates :title, :presence => true
   validates :user_id, :presence => true
-  
   
 end

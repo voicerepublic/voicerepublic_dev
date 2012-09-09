@@ -1,20 +1,25 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Bookmark -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Kluu:</b>
-  <%= @bookmark.kluu_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:klu_id) %>:</strong></dt>
+  <dd><%= @bookmark.klu_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
+  <dd><%= @bookmark.user_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @bookmark.description %></dd>
+</dl>
 
-<p>
-  <b>User:</b>
-  <%= @bookmark.user_id %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @bookmark.description %>
-</p>
-
-
-<%= link_to 'Edit', edit_bookmark_path(@bookmark) %> |
-<%= link_to 'Back', bookmarks_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              user_bookmarks_path(:user_id => @user), :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_user_bookmark_path(@bookmark), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              user_bookmark_path(@bookmark),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
