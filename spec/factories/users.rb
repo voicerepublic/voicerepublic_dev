@@ -10,7 +10,7 @@ FactoryGirl.define do
     password secret
     password_confirmation secret 
     factory :admin do
-      roles [Role.find_by_name('user'), Role.find_by_name('admin')]
+      #roles [Role.find_by_name('user'), Role.find_by_name('admin')]
     end
   end
 end
