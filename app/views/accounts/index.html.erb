@@ -1,4 +1,4 @@
-<%- model_class = ProfileSetting -%>
+<%- model_class = Account -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
@@ -17,21 +17,21 @@
     </tr>
   </thead>
   <tbody>
-    <% @profile_settings.each do |profile_setting| %>
+    <% @accounts.each do |account| %>
       <tr>
-        <td><%= link_to profile_setting.id, profile_setting_path(profile_setting) %></td>
-        <td><%= profile_setting.timezone %></td>
-        <td><%= profile_setting.language_1 %></td>
-        <td><%= profile_setting.language_2 %></td>
-        <td><%= profile_setting.language_3 %></td>
-        <td><%= profile_setting.user_id %></td>
-        <td><%= profile_setting.about %></td>
-        <td><%=l profile_setting.created_at %></td>
+        <td><%= link_to account.id, account_path(account) %></td>
+        <td><%= account.timezone %></td>
+        <td><%= account.language_1 %></td>
+        <td><%= account.language_2 %></td>
+        <td><%= account.language_3 %></td>
+        <td><%= account.user_id %></td>
+        <td><%= account.about %></td>
+        <td><%=l account.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_profile_setting_path(profile_setting), :class => 'btn btn-mini' %>
+                      edit_account_path(account), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      profile_setting_path(profile_setting),
+                      account_path(account),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -42,7 +42,7 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_profile_setting_path,
+            new_account_path,
             :class => 'btn btn-primary' %>
             
 

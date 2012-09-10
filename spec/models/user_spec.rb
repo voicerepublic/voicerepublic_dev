@@ -14,8 +14,8 @@ describe User do
   it "is invalid without lastname" do
     FactoryGirl.build(:user, lastname: nil).should_not be_valid
   end
-  it "has a profile_setting after creation" do
-    FactoryGirl.create(:user).profile_setting.should_not be_nil
+  it "has a account after creation" do
+    FactoryGirl.create(:user).account.should_not be_nil
   end
   
 end

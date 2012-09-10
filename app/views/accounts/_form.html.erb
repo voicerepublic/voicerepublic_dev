@@ -1,4 +1,4 @@
-<%= form_for @profile_setting, :url => user_profile_setting_path(:user_id => @user), :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+<%= form_for @account, :url => user_account_path(:user_id => @user), :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
 
 <div class="control-group">
 	<%= f.label :about, :class => 'control-label' %>
@@ -10,9 +10,9 @@
 <div class="control-group">
 	<%= f.label :portrait, :class => "control-label" %>
 	<div class="controls">
-		<% if @profile_setting.portrait.exists? %>
-			<%= link_to destroy_portrait_user_profile_setting_url(:user_id => @profile_setting.user), :class => "btn btn-danger", :method => :delete do %>
-				<%= image_tag @profile_setting.portrait.url(:thumb), :class => "img-circle" %> <i class="icon-trash"> </i> <%= t('.delete_portrait')%>
+		<% if @account.portrait.exists? %>
+			<%= link_to destroy_portrait_user_account_url(:user_id => @account.user), :class => "btn btn-danger", :method => :delete do %>
+				<%= image_tag @account.portrait.url(:thumb), :class => "img-circle" %> <i class="icon-trash"> </i> <%= t('.delete_portrait')%>
 			<% end %>
 		<% else %>
 			<%= f.file_field :portrait %>
@@ -48,6 +48,6 @@
 
 <div class="form-actions">
 	<%= f.submit nil, :class => 'btn btn-primary' %>
-	<%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_profile_setting_path(:user_id => @user), :class => 'btn' %>
+	<%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_account_path(:user_id => @user), :class => 'btn' %>
 </div>
 <% end %>

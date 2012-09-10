@@ -5,7 +5,7 @@
 
 <div class="row">
 	<div class="span4">
-		<%= image_tag( @user.profile_setting.portrait.url(:large), :class => "img-polaroid")  if @user.profile_setting && @user.profile_setting.portrait.exists? %>
+		<%= image_tag( @user.account.portrait.url(:large), :class => "img-polaroid")  if @user.account && @user.account.portrait.exists? %>
 	</div>
 	<div class="span8">
 		<div class="well well-large">

@@ -17,12 +17,12 @@ class User < ActiveRecord::Base
   has_many :no_kluuus
   has_many :kluuus
   
-  has_one :profile_setting, :dependent => :destroy
+  has_one :account, :dependent => :destroy
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   
   after_create :add_default_user_role
-  after_create :add_profile_setting
+  after_create :add_account
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -123,9 +123,9 @@ class User < ActiveRecord::Base
     user_roles << UserRole.create({:role_id => Role.find_by_name('user').id})
   end
   
-  def add_profile_setting
-    Rails.logger.debug("User#add_profile_setting - locale: #{I18n.locale}")
-    self.create_profile_setting(:language_1 => I18n.locale.upcase, :timezone => "Berlin" )
+  def add_account
+    Rails.logger.debug("User#add_account - locale: #{I18n.locale}")
+    self.create_account(:language_1 => I18n.locale.upcase, :timezone => "Berlin" )
   end
   
   def set_default_online_status

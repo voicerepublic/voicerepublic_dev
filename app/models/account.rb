@@ -1,4 +1,4 @@
-class ProfileSetting < ActiveRecord::Base
+class Account < ActiveRecord::Base
   attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait
   
   belongs_to :user
