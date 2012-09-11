@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
   
   before_filter :set_commentable
+  before_filter :authenticate_user!, :only => [:create]
+
   
   # GET /comments
   # GET /comments.json
@@ -49,7 +51,6 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    logger.debug("Comments#create - current_user: #{current_user.inspect}")
     if params[:status_update_id]
       @comment = StatusUpdate.find(params[:status_update_id]).comments.create(params[:comment].merge(:user_id => current_user.id))
       logger.debug(@comment.inspect)
@@ -60,7 +61,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.commentable.user, notice: 'Comment was successfully created.' }
+        format.html { redirect_to user_status_update_comments_path(:user_id => @comment.commentable.user, :status_update_id => @comment.commentable), notice: 'Comment was successfully created.' }
         format.json { render json: @comment, status: :created, location: @comment.commentable.user }
       else
         format.html { render action: "new" }
@@ -92,7 +93,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_status_update_url(:user_id => @comment.commentable.user.id, :status_update_id => @comment.commentable.id) }
+      format.html { redirect_to user_status_update_comments_url(:user_id => @comment.commentable.user.id, :status_update_id => @comment.commentable.id) }
       format.json { head :no_content }
     end
   end

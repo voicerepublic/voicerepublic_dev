@@ -14,4 +14,8 @@ describe Comment do
   it "is invalid without a commentable_type" do
     FactoryGirl.build(:comment, commentable_type: nil).should_not be_valid
   end 
+  it "is invalid without a user" do
+    FactoryGirl.build(:comment, user: nil).should_not be_valid
+  end
+  
 end
