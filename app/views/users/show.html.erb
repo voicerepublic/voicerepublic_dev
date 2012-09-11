@@ -7,14 +7,37 @@
 	<div class="row">
 		<section class="user-information span3">
 			<%= image_tag( @user.account.portrait.url(:large), :class => "img-polaroid user-image")  %>
+			<nav>
+				<!-- Nachricht senden -->
+				<!-- Folgen -->
+			</nav>
 			<div class="status-partial-container">
-				<!--- FOO-STATUS -->
+				<h4> <%= t('.status') %> </h4>
+				<% @status_update = @user.status_updates.limit(1).first unless @user.status_updates.empty? %>
+				<%= @status_update.content if @status_update%>	
+				<p> 
+					<span class=""> <%= @status_update.comments.count if @status_update %> </span>
+					<%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => @user, :id => @status_update) if @status_update %>
+					<% if current_user == @user %>
+						&nbsp;
+						<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini" do %>
+							<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+						<% end %>&nbsp;
+					<% end %>
+					<% if @status_update && current_user %>
+						&nbsp;
+						<%= link_to new_user_status_update_comment_path(:user_id => @user, :status_update_id => @status_update) do %>
+							&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
+						<% end %>&nbsp;
+					<% end %>
+				</p>
 			</div>
 			<nav>
 				<!-- FOO-NACHRICHT-SCHREIBEN -->
 				<!-- FOO-FOLGEN -->
 			</nav>
 			<article class="user-about">
+				<h3><%= t('.about_me') %></h3>
 				<%= simple_format(@user.account.about) %>
 			</article>
 			<aside class="user-meta-data">
@@ -43,10 +66,10 @@
 		</section>
 		<div class="user-content span9">
 			<nav>
-				<ul class="row8">
+				<ul>
 					<li class="span2">!</li>
 					<li class="span2">?</li>
-					<li class="span2"><%= link_to("foo",  user_status_updates_path(:user_id => @user)) %> </li>
+					<li class="span2"><%= link_to( t('.status_of_' + @user.name),  user_status_updates_path(:user_id => @user)) %> </li>
 					<li class="span2">Bookmarks</li>
 				</ul>
 			</nav>
