@@ -25,6 +25,9 @@ describe CommentsController do
     @status_update = FactoryGirl.create(:status_update, :user_id => @user.id)
     @commenter = FactoryGirl.create(:user)
     
+    request.env['warden'].stub :authenticate! => @commenter
+    controller.stub :current_user => @commenter 
+   
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -74,12 +77,17 @@ describe CommentsController do
 
   describe "POST create" do
     describe "with valid params" do
+      
       it "creates a new Comment" do
-        sign_in(@commenter) 
-        puts "##############\n NEW: commenter: #{@commenter.id} - stauts_update: #{@status_update.inspect}\n###############"
         expect {
           post :create, {:comment => valid_attributes, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
         }.to change(Comment, :count).by(1)
+      end
+      
+      it "creates a comment which should belong to @commenter" do
+        post :create, {:comment => valid_attributes, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
+        Comment.last.user.should == @commenter
+        assigns(:comment).user.should == @commenter
       end
 
       it "assigns a newly created comment as @comment" do
@@ -89,7 +97,6 @@ describe CommentsController do
       end
 
       it "redirects to the created comment - at given status_updates thread" do
-        puts "##############\n commenter: #{@commenter.id} - stauts_update: #{@status_update.inspect} comment: #{Comment.last.inspect}\n###############"
         post :create, {:comment => valid_attributes, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
         response.should redirect_to(user_status_update_comments_path(:user_id => @user, :status_update_id => @status_update))
       end

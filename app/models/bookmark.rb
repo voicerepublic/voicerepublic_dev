@@ -1,9 +1,10 @@
 class Bookmark < ActiveRecord::Base
-  attr_accessible :description, :kluuu_id, :user_id
+  attr_accessible :description, :klu_id, :user_id
   
   belongs_to :user, :dependent => :destroy
+  belongs_to :klu, :polymorphic => true
   
-  validates :kluuu_id, :presence => true
+  validates :klu_id, :presence => true
   validates :user_id, :presence => true
   
   

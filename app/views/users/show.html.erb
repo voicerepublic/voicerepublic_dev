@@ -3,6 +3,8 @@
 	<h1><%= @user.name %></h1>
 </div>
 
+<%= debug(@user.account.languages) %>
+
 <div class="row">
 	<div class="span4">
 		<%= image_tag( @user.account.portrait.url(:large), :class => "img-polaroid")  if @user.account && @user.account.portrait.exists? %>
