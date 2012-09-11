@@ -9,6 +9,8 @@ class Account < ActiveRecord::Base
   validates :language_1, :presence => true
   validates :timezone, :presence => true
   
+ 
+  
   # https://github.com/grosser/i18n_data
   # languages: I18nData.languages(:en) # {'DE' => 'Deutschland',...}
   
@@ -34,7 +36,7 @@ class Account < ActiveRecord::Base
   def languages(locale=I18n.locale)
     arr = []
     [1,2,3].each do |i|
-      arr.push( I18nData.languages(locale)[self.send("language_#{i}")] ) if self.send("language_#{i}")
+      arr.push( I18nData.languages(locale)[self.send("language_#{i}")] ) if self.send("language_#{i}").length > 1
     end
     arr
   end
@@ -43,5 +45,6 @@ class Account < ActiveRecord::Base
     Time.zone = self.timezone
     arg.in_time_zone
   end
+  
   
 end
