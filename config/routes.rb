@@ -16,7 +16,7 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /en|de/ do
-    resources :users do
+    resources :users, :except => [:create] do
       resource :account do
         member do
           delete 'destroy_portrait'

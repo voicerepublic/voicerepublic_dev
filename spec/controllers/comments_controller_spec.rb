@@ -23,13 +23,15 @@ describe CommentsController do
   before do
     @user = FactoryGirl.create(:user)
     @status_update = FactoryGirl.create(:status_update, :user_id => @user.id)
+    @commenter = FactoryGirl.create(:user)
+    
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Comment. As you add validations to Comment, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    FactoryGirl.attributes_for(:comment).merge(:user_id => @user.id, :commentable_id => @status_update.id, :commentable_type => @status_update.class.to_s)
+    FactoryGirl.attributes_for(:comment).merge(:user_id => @commenter.id, :commentable_id => @status_update.id, :commentable_type => @status_update.class.to_s)
   end
 
   # This should return the minimal set of values that should be in the session
@@ -73,6 +75,8 @@ describe CommentsController do
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Comment" do
+        sign_in(@commenter) 
+        puts "##############\n NEW: commenter: #{@commenter.id} - stauts_update: #{@status_update.inspect}\n###############"
         expect {
           post :create, {:comment => valid_attributes, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
         }.to change(Comment, :count).by(1)
@@ -84,9 +88,10 @@ describe CommentsController do
         assigns(:comment).should be_persisted
       end
 
-      it "redirects to the created comment" do
+      it "redirects to the created comment - at given status_updates thread" do
+        puts "##############\n commenter: #{@commenter.id} - stauts_update: #{@status_update.inspect} comment: #{Comment.last.inspect}\n###############"
         post :create, {:comment => valid_attributes, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
-        response.should redirect_to(user_path(:id => @user))
+        response.should redirect_to(user_status_update_comments_path(:user_id => @user, :status_update_id => @status_update))
       end
     end
 
@@ -110,6 +115,7 @@ describe CommentsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested comment" do
+        
         comment = Comment.create! valid_attributes
         # Assuming there are no other comments in the database, this
         # specifies that the Comment created on the previous line
@@ -120,12 +126,14 @@ describe CommentsController do
       end
 
       it "assigns the requested comment as @comment" do
+        
         comment = Comment.create! valid_attributes
         put :update, {:id => comment.to_param, :user_id => @user.id, :status_update_id => @status_update.id , :comment => valid_attributes}, valid_session
         assigns(:comment).should eq(comment)
       end
 
       it "redirects to the comment" do
+        
         comment = Comment.create! valid_attributes
         put :update, {:id => comment.to_param, :user_id => @user.id, :status_update_id => @status_update.id , :comment => valid_attributes}, valid_session
         response.should redirect_to(user_status_update_url(:user_id => @user.id, :status_update_id => @status_update.id ))
@@ -134,6 +142,7 @@ describe CommentsController do
 
     describe "with invalid params" do
       it "assigns the comment as @comment" do
+        
         comment = Comment.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
@@ -142,6 +151,7 @@ describe CommentsController do
       end
 
       it "re-renders the 'edit' template" do
+        
         comment = Comment.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
@@ -162,7 +172,7 @@ describe CommentsController do
     it "redirects to the comments list" do
       comment = Comment.create! valid_attributes
       delete :destroy, {:id => comment.to_param, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
-      response.should redirect_to(user_status_update_path(:user_id => @user.id, :status_update_id => @status_update.id))
+      response.should redirect_to(user_status_update_comments_path(:user_id => @user.id, :status_update_id => @status_update.id))
     end
   end
 

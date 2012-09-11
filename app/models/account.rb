@@ -31,6 +31,14 @@ class Account < ActiveRecord::Base
     end
   end
   
+  def languages(locale=I18n.locale)
+    arr = []
+    [1,2,3].each do |i|
+      arr.push( I18nData.languages(locale)[self.send("language_#{i}")] ) if self.send("language_#{i}")
+    end
+    arr
+  end
+  
   def time_in_supplied_zone(arg=Time.now)
     Time.zone = self.timezone
     arg.in_time_zone
