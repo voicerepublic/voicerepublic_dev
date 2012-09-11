@@ -1,13 +1,76 @@
 <%- model_class = @user.class -%>
+
+<div class="user-container">
+	<header>
+		<h2><%= @user.name %></h2>
+	</header>
+	<div class="row">
+		<section class="user-information span3">
+			<%= image_tag( @user.account.portrait.url(:large), :class => "img-polaroid user-image")  %>
+			<div class="status-partial-container">
+				<!--- FOO-STATUS -->
+			</div>
+			<nav>
+				<!-- FOO-NACHRICHT-SCHREIBEN -->
+				<!-- FOO-FOLGEN -->
+			</nav>
+			<article class="user-about">
+				<%= simple_format(@user.account.about) %>
+			</article>
+			<aside class="user-meta-data">
+				<!-- Activity-Score -->
+				<!-- Follower -->
+				<dl>
+					<dt><%= t('.place_and_time_there') %></dt>
+					<dd>
+						<!-- Ort? -->
+						<% ActiveSupport::TimeZone::MAPPING[@user.account.timezone] %>
+						<%= l(@user.account.time_in_supplied_zone) %>
+					</dd>
+					<dt>
+						<%= t('.languages') %>
+					</dt>
+					<dd>
+						<ul>
+							<% @user.account.languages.each do |lang| %>
+
+								<li><%= lang %></li>
+							<% end %>
+						</ul>
+					</dd>
+				</dl>
+			</aside>
+		</section>
+		<div class="user-content span9">
+			<nav>
+				<ul class="row8">
+					<li class="span2">!</li>
+					<li class="span2">?</li>
+					<li class="span2"><%= link_to("foo",  user_status_updates_path(:user_id => @user)) %> </li>
+					<li class="span2">Bookmarks</li>
+				</ul>
+			</nav>
+			<section class="user-content-shown">
+				<img src="http://lorempixel.com/1200/400/" alt="">
+			</section>
+		</div>
+	</div>
+</div>
+
+
+<!-- 
 <div class="page-header">
-	<h1><%= @user.name %></h1>
+	<h1></h1>
 </div>
 
 <div class="row">
 	<div class="span4">
-		<%= image_tag( @user.account.portrait.url(:large), :class => "img-polaroid")  if @user.account && @user.account.portrait.exists? %>
+		
 	</div>
 	<div class="span8">
+		<div class="well well-large" >
+			
+		</div>
 		<div class="well well-large">
 			<p>
 				<span class="label label-info">Status</span>
@@ -93,7 +156,7 @@
 		<%= @user.current_sign_in_at %>
 	</dd>
 	<dt>
-		<strong><%= model_class.human_attribute_name(:last_sign_in_at) %>:</strong>
+		<strong><%= t('.last_sign_at') %></strong>
 	</dt>
 	<dd>
 		<%= @user.last_sign_in_at %>
@@ -139,3 +202,6 @@
 		</div>
 	</div>
 </div>
+
+
+-->
