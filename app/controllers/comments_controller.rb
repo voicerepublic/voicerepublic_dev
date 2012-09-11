@@ -31,9 +31,10 @@ class CommentsController < ApplicationController
     if params[:status_update_id]
       @status_update = StatusUpdate.find(params[:status_update_id])
     end
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    end
+    
+    @user = current_user
+   
+    logger.debug
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @comment }
@@ -48,9 +49,9 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    
+    logger.debug("Comments#create - current_user: #{current_user.inspect}")
     if params[:status_update_id]
-      @comment = StatusUpdate.find(params[:status_update_id]).comments.create(params[:comment].merge(:user_id => params[:user_id]))
+      @comment = StatusUpdate.find(params[:status_update_id]).comments.create(params[:comment].merge(:user_id => current_user.id))
       logger.debug(@comment.inspect)
     else
       redirect_to :back, warn: 'at this time only status-updates can be commented...'
