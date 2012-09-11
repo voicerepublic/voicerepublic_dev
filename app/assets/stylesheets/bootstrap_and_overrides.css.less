@@ -31,7 +31,34 @@ body {
 // Example:
 // @linkColor: #ff0000;
 
-.navbar-inner {
-	height:15px;
-	.box-shadow(0 3px 0px green);
+/*             *
+ * BASESTYLES  *
+ *             */
+
+// Change of box-sizing-mode siehe http://paulirish.com/2012/box-sizing-border-box-ftw/
+* {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
+
+// Set line-height to 1.5 relative sizing and for better readability
+* {
+	line-height: 1.5;
+}
+
+
+
+
+
+
+/*
+ *  END OF TWITTERBOOTSTRAP-OVERRIDE  
+ *
+ */
+
+// KluuUs own Styles
+@import "kluuu.less";
+
+
+// Import der Klassen, die für verschiendene Javascripts verwendet werden.
+@import "javascript.less";
