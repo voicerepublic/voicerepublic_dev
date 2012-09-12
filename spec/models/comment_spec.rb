@@ -18,4 +18,13 @@ describe Comment do
     FactoryGirl.build(:comment, user: nil).should_not be_valid
   end
   
+  it "will be destroyed if related status_update is destroyed" do
+    _cmt = FactoryGirl.create(:comment)
+    _cmt.commentable.should be_a_kind_of(StatusUpdate)
+    _cmt.commentable.destroy
+    expect {
+      Comment.find(_cmt.id)
+    }.to raise_error
+  end
+  
 end
