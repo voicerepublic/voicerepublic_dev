@@ -13,9 +13,9 @@ class User < ActiveRecord::Base
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
   
-  has_many :klus        # -> base-class
-  has_many :no_kluuus
-  has_many :kluuus
+  has_many :klus ,  :dependent => :destroy       # -> base-class
+  has_many :no_kluuus,  :dependent => :destroy
+  has_many :kluuus, :dependent => :destroy
   
   has_one :account, :dependent => :destroy
   

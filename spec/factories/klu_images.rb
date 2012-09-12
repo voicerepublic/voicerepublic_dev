@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :klu_image do
-    description "MyText"
-    klu_id 1
+    description { Faker::Lorem.paragraph }
+    kluuu
+    image { File.open( File.join(Rails.root,'app','assets', 'images', 'rails.png'))}
   end
 end

@@ -25,6 +25,16 @@ describe Kluuu do
     FactoryGirl.build(:kluuu, description: nil).should_not be_valid
   end
   
-  it "has many images"
+  it "has many images" do
+    _pk = FactoryGirl.create(:published_kluuu)
+    _pk.klu_images.should_not be_empty
+  end
+  
+  it "will be destroyed if owning user is destroyed" do
+    _k = FactoryGirl.create(:published_kluuu)
+    _k.user.should be_valid
+    _k.user.destroy
+    expect { Kluuu.find(_k.id) }.to raise_error 
+  end
   
 end
