@@ -1,12 +1,9 @@
-<% raise if @user.nil? %>
-<% puts @user.inspect %>
-
 <% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
 <% method = @klu.new_record? ? :post : :put %>
-<%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal' }  do |f| %>
-  
- 
-  
+<%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal' }  do |f| %>  
+
+
+	<%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
   <div class="control-group">
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls">
@@ -25,7 +22,6 @@
       <%= f.text_area :available_at_times, :class => 'text_area', :rows => 3 %>
     </div>
   </div>
-  
   <div class="control-group">
     <%= f.label :published, :class => 'control-label' %>
     <div class="controls">

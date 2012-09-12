@@ -42,5 +42,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_klu_image_path,
+            new_user_klu_klu_image_path(:user_id => @kluuu.user, :klu_id => @kluuu),
             :class => 'btn btn-primary' %>

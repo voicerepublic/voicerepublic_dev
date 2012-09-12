@@ -1,44 +1,26 @@
-<%= form_for @klu_image, :html => { :class => 'form-horizontal' } do |f| %>
+<% method = @klu_image.new_record? ? 'post' : 'put' %>
+<% url = @klu_image.new_record? ? user_klu_klu_images_path(:user_id => @kluuu.user, :klu_id => @kluuu) : user_klu_klu_image_path(:user_id => @kluuu.user, :klu_id => @kluuu, :id => @klu_image) %>
+
+<%= form_for [@klu_image.kluuu.user, @klu_image.kluuu, @klu_image], :as => :klu_image, :url => url, :method => method,  :html => { :class => 'form-horizontal' } do |f| %>
+
+
   <div class="control-group">
     <%= f.label :description, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_area :description, :class => 'text_area' %>
+      <%= f.text_area :description, :class => 'text_area', :rows => 3 %>
     </div>
   </div>
+  
   <div class="control-group">
-    <%= f.label :klu_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :klu_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :image_file_name, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :image_file_name, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :image_content_type, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :image_content_type, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :image_file_size, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :image_file_size, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :image_updated_at, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_select :image_updated_at, :class => 'datetime_select' %>
-    </div>
+  	<%= f.label :image, :class => 'control-label' %>
+  	<div class="controls">
+  		<%= f.file_field :image %>
+  	</div>
   </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                klu_images_path, :class => 'btn' %>
+                user_klu_klu_images_path(:user_id => @kluuu.user, :klu_id => @kluuu), :class => 'btn' %>
   </div>
 <% end %>

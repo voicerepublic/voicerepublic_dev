@@ -3,28 +3,20 @@
   <h1><%=t '.title', :default => model_class.model_name.human %></h1>
 </div>
 
+<%= image_tag @klu_image.image.url(:large), :class => 'img-polaroid' %>
+
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @klu_image.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:klu_id) %>:</strong></dt>
-  <dd><%= @klu_image.klu_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_file_name) %>:</strong></dt>
-  <dd><%= @klu_image.image_file_name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_content_type) %>:</strong></dt>
-  <dd><%= @klu_image.image_content_type %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_file_size) %>:</strong></dt>
-  <dd><%= @klu_image.image_file_size %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:image_updated_at) %>:</strong></dt>
-  <dd><%= @klu_image.image_updated_at %></dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              klu_images_path, :class => 'btn'  %>
+              user_klu_path(:user_id => @klu_image.kluuu.user, :id => @klu_image.kluuu), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_klu_image_path(@klu_image), :class => 'btn' %>
+              edit_user_klu_klu_image_path(:user_id => @klu_image.kluuu.user, :klu_id => @klu_image.kluuu, :id => @klu_image), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              klu_image_path(@klu_image),
+              user_klu_klu_image_path(:user_id => @klu_image.kluuu.user, :klu_id => @klu_image.kluuu, :id => @klu_image),
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>

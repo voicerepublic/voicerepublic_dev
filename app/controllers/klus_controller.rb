@@ -3,7 +3,7 @@ class KlusController < ApplicationController
   # GET /klus.json
   def index
     @user = User.find(params[:user_id])
-    @klus = @user.klus.all
+    @klus = @user.klus
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,8 +27,11 @@ class KlusController < ApplicationController
   # GET /klus/new.json
   def new
     @user = User.find(params[:user_id])
-    @klu = Klu.new
-
+    if params[:klu_type] && params[:klu_type] == "Kluuu"
+      @klu = Kluuu.new
+    else
+      @klu = NoKluuu.new
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @klu }
