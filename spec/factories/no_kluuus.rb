@@ -5,7 +5,7 @@ FactoryGirl.define do
     #available_at_times "always when online"
     
     sequence :title do |t|
-      "#{Faker::Lorem.sentence(4)} #{t}"
+      "#{Faker::Lorem.sentence} #{t}"
     end
     
     user
