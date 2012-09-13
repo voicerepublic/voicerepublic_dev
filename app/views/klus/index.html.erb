@@ -2,13 +2,13 @@
 	<h1><%= t('.kluuus_of_user', :user_name => @user.name ) %></h1>
 </div>
 
-<% @klus.each do |k| %>
-	<% if k.instance_of?(Kluuu) %>
-		<%= render(:partial => 'medium_kluuu', :locals => {:medium_kluuu => k}) %>
-	<% else %>
-		<%= render(:partial => 'medium_no_kluuu', :locals => {:medium_no_kluuu => k }) %>
-	<% end %>
+<% @kluuus.each do |k| %>
+	<%= render(:partial => 'medium_kluuu', :locals => {:medium_kluuu => k}) %>
 <% end %>
+<% @no_kluuus.each do |nk| %>
+	<%= render(:partial => 'medium_no_kluuu', :locals => {:medium_no_kluuu => k }) %>
+<% end %>
+
 
 <%= link_to t('.new_no_kluuu'), new_user_klu_path(:user_id => @user), :class => 'btn btn-primary' %>
 <%= link_to t('.new_kluuu'), new_user_klu_path(:user_id => @user, :klu_type => "Kluuu"), :class => 'btn' %>

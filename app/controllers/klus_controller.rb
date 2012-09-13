@@ -3,8 +3,8 @@ class KlusController < ApplicationController
   # GET /klus.json
   def index
     @user = User.find(params[:user_id])
-    @klus = @user.klus
-
+    @kluuus = @user.kluuus
+    @no_kluuus = @user.no_kluuus
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @klus }
