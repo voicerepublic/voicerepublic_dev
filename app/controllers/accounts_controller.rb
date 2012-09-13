@@ -1,8 +1,9 @@
 class AccountsController < ApplicationController
   
+  layout 'users'
   before_filter :set_user
   
-
+  
   # GET /accounts/1
   # GET /accounts/1.json
   def show

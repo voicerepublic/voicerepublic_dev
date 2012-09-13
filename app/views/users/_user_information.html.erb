@@ -1,0 +1,77 @@
+<section class="user-information span3">
+	<div class="user-image img-polaroid">
+		<%= image_tag( user.account.portrait.url(:large), :class => "")  %> <!-- TODO: missing_user_image -->
+	</div>
+
+	<ul class="unstyled">
+		<li>
+			<a href="#"><i class="icon-envelope"></i> Nachricht senden</a>
+		</li>
+		<!-- TODO: link_to einbauen -->
+		<li>
+			<a href="#"><i>@</i> Folgen</a>
+		</li>
+		<!-- TODO: link_to einbauen -->
+	</ul>
+
+	<div class="status-partial-container">
+		<h4> <%= t('.status') %> </h4>
+		<% status_update = user.status_updates.limit(1).first unless user.status_updates.empty? %>
+		<%= status_update.content if status_update%>
+		<p>
+			<span class=""> <%= status_update.comments.count if status_update %> </span>
+			<%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => user, :id => status_update) if status_update %>
+			<% if current_user == user %>
+			&nbsp;
+			<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini" do %>
+			<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+			<% end %>&nbsp;
+			<% end %>
+			<% if status_update && current_user %>
+			&nbsp;
+			<%= link_to new_user_status_update_comment_path(:user_id => user, :status_update_id => status_update) do %>
+			&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
+			<% end %>&nbsp;
+			<% end %>
+		</p>
+	</div>
+	<article class="user-about">
+		<h3><%= t('.about_me') %></h3>
+		<%= simple_format(user.account.about) %>
+	</article>
+	<aside class="user-meta-data">
+		<ul class="unstyled">
+			<li>
+				<i class="icon-dashboard"></i> 55
+			</li>
+			<!-- TODO: Activityscore -->
+			<li>
+				<%= user.name %> hat 15 Follower
+			</li>
+			<!-- TODO: Follower -->
+		</ul>
+		<dl>
+			<dt>
+				<%= t('.place_and_time_there') %>
+			</dt>
+			<dd>
+				Berlin <!-- TODO: Ort einsetzen -->
+				<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
+				<%= l(user.account.time_in_supplied_zone) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
+			</dd>
+			<dt>
+				<%= t('.languages') %>
+			</dt>
+			<dd>
+				<ul>
+					<% user.account.languages.each do |lang| %>
+
+					<li>
+						<%= lang %>
+					</li>
+					<% end %>
+				</ul>
+			</dd>
+		</dl>
+	</aside>
+</section>

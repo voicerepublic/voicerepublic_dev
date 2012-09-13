@@ -1,4 +1,5 @@
 class KlusController < ApplicationController
+  #layout 'users', :except =>  [:index]
   # GET /klus
   # GET /klus.json
   def index
