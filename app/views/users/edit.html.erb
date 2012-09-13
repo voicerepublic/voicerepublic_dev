@@ -1,5 +1,26 @@
-<%- model_class = @user.class -%>
-<div class="page-header">
-  <h1><%=t('.edit_your_profile') %></h1>
+<%- model_class = @user.class -%><div class="user-container">
+	<header>
+		<h2><%= @user.name %></h2>
+	</header>
+	<div class="row">
+		<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
+		<div class="user-content span9">
+			<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>	
+			<section class="user-content-shown">
+				
+				
+				<div class="page-header">
+  					<h1><%=t('.edit_your_profile') %></h1>
+				</div>
+				<%= render :partial => 'form' %>
+				
+			</section>
+		</div>
+	</div>
 </div>
-<%= render :partial => 'form' %>
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 class StatusUpdatesController < ApplicationController
-  
+  layout 'users'
   before_filter :set_user
   
   # GET /status_updates
