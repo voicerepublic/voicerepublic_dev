@@ -47,11 +47,12 @@ class User < ActiveRecord::Base
   def has_role?(name)
     user_roles.map { |ur| ur.role.name }.include?(name.to_s)
   end
-  
+
   def is_admin?
     has_role?(:admin)
   end
   
+  # FIXME : test ist
   def role_names
     user_roles.map { |ur| ur.role.name }.join(", ")
   end

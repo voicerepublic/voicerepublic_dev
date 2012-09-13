@@ -3,14 +3,14 @@ class KluImagesController < ApplicationController
   before_filter :set_kluuu
   # GET /klu_images
   # GET /klu_images.json
-  def index
-    @klu_images = @kluuu.klu_images
+  #def index
+  #  @klu_images = @kluuu.klu_images
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @klu_images }
-    end
-  end
+  #    respond_to do |format|
+  #    format.html # index.html.erb
+  #    format.json { render json: @klu_images }
+  #  end
+  #end
 
   # GET /klu_images/1
   # GET /klu_images/1.json
@@ -43,7 +43,6 @@ class KluImagesController < ApplicationController
   # POST /klu_images.json
   def create
     @klu_image = KluImage.new(params[:klu_image].merge(:klu_id => @kluuu.id))
-    
     
     respond_to do |format|
       if @klu_image.save

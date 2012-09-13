@@ -13,7 +13,7 @@ FactoryGirl.define do
     trait :unpublished_kluuu do
       published false
     end
-
+    
     trait :published_kluuu do
       published true
     end
@@ -24,9 +24,11 @@ FactoryGirl.define do
 
     factory :unpublished_kluuu, traits: [:unpublished_kluuu]
     factory :published_kluuu, traits: [:published_kluuu]
-
-    after(:create) do |kluuu, evaluator|
-      FactoryGirl.create(:klu_image, :kluuu => kluuu)
+  
+    factory :kluuu_with_image do
+      after(:create) do |kluuu, evaluator|
+        FactoryGirl.create(:klu_image, :kluuu => kluuu)
+      end
     end
   end
 

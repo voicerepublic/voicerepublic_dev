@@ -26,7 +26,7 @@ describe Kluuu do
   end
   
   it "has many images" do
-    _pk = FactoryGirl.create(:published_kluuu)
+    _pk = FactoryGirl.create(:kluuu_with_image)
     _pk.klu_images.should_not be_empty
   end
   
