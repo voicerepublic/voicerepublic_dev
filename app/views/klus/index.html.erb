@@ -1,23 +1,14 @@
-<%- model_class = Klu -%>
 <div class="page-header">
-	<h1><%= t '.title', :default => model_class.model_name.human.pluralize %></h1>
+	<h1><%= t('.kluuus_of_user', :user_name => @user.name ) %></h1>
 </div>
 
-<ul class="thumbnails">
-	<% @klus.each do |k| %>
-	<li class="span=3">
-		<%= link_to user_klu_path(:user_id => @user, :id => k) do %>
-			<div class="thumbnail">
-				<small><%= k.class.name %></small>
-				<% if k.instance_of?(Kluuu)%>
-					<%= image_tag(k.klu_images.first.image.url(:medium), :class => "img-polaroid" ) unless k.klu_images.empty? %>
-				<% end %>
-				<h2><%= k.title %></h2>
-			</div>
-		<% end %>
-	</li>
+<% @klus.each do |k| %>
+	<% if k.instance_of?(Kluuu) %>
+		<%= render(:partial => 'medium_kluuu', :locals => {:medium_kluuu => k}) %>
+	<% else %>
+		<%= render(:partial => 'medium_no_kluuu', :locals => {:medium_no_kluuu => k }) %>
 	<% end %>
-</ul>
+<% end %>
 
 <%= link_to t('.new_no_kluuu'), new_user_klu_path(:user_id => @user), :class => 'btn btn-primary' %>
 <%= link_to t('.new_kluuu'), new_user_klu_path(:user_id => @user, :klu_type => "Kluuu"), :class => 'btn' %>

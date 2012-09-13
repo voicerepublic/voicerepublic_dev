@@ -1,0 +1,14 @@
+<%= link_to user_klu_path(:user_id => medium_no_kluuu.user, :id => medium_no_kluuu) do %>
+	<div class="page-header">
+		<h1><%= medium_no_kluuu.title %> </h1> - <%= medium_no_kluuu.user.name %>
+	</div>
+	
+	<div class="well well-small">
+		<%= simple_format(medium_no_kluuu.description) %>
+		<p><strong><%= t('.availability') %>:</strong> <%= simple_format(medium_no_kluuu.available_at_times) %></p>
+		<p><strong><%= t('.category')%>:</strong> <%= medium_no_kluuu.category.name %></p>
+	</div>
+	<div class="well well-small">
+		<span class="badge"><%= medium_no_kluuu.bookmarks.count %></span> <%= t('.times_bookmarked') %>
+	</div>
+<% end %>

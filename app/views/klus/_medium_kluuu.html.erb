@@ -1,0 +1,16 @@
+<%= link_to user_klu_path(:user_id => medium_kluuu.user, :id => medium_kluuu) do %>
+	<div class="page-header">
+		<h1><%= medium_kluuu.title %> </h1> - <%= medium_kluuu.user.name %>
+	</div>
+	<%= image_tag(medium_kluuu.klu_images.first.image.url(:medium), :class => "img-polaroid") unless medium_kluuu.klu_images.empty? %>
+	<div class="well well-small">
+		<%= simple_format(medium_kluuu.description) %>
+		<p><strong><%= t('.availability') %>:</strong> <%= simple_format(medium_kluuu.available_at_times) %></p>
+		<p><strong><%= t('.category') %>:</strong> <%= medium_kluuu.category.name %></p>
+	</div>
+	
+	<div class="well well-small">
+		<span class="badge"><%= medium_kluuu.bookmarks.count %></span> <%= t('.times_bookmarked') %>
+	</div>
+<% end %>
+
