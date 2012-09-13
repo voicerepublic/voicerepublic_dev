@@ -6,11 +6,13 @@
 	</header>
 	<div class="row">
 		<section class="user-information span3">
-			<%= image_tag( @user.account.portrait.url(:large), :class => "img-polaroid user-image")  %>
-			<nav>
-				<!-- Nachricht senden -->
-				<!-- Folgen -->
-			</nav>
+			<div class="user-image img-polaroid"><%= image_tag( @user.account.portrait.url(:large), :class => "")  %> <!-- TODO: missing_user_image --></div>
+			
+				<ul class="unstyled">
+					<li><a href="#"><i class="icon-envelope"></i> Nachricht senden</a></li> <!-- TODO: link_to einbauen -->
+					<li><a href="#"><i>@</i> Folgen</a></li> <!-- TODO: link_to einbauen -->
+				</ul>
+			
 			<div class="status-partial-container">
 				<h4> <%= t('.status') %> </h4>
 				<% @status_update = @user.status_updates.limit(1).first unless @user.status_updates.empty? %>
@@ -32,23 +34,21 @@
 					<% end %>
 				</p>
 			</div>
-			<nav>
-				<!-- FOO-NACHRICHT-SCHREIBEN -->
-				<!-- FOO-FOLGEN -->
-			</nav>
 			<article class="user-about">
 				<h3><%= t('.about_me') %></h3>
 				<%= simple_format(@user.account.about) %>
 			</article>
 			<aside class="user-meta-data">
-				<!-- Activity-Score -->
-				<!-- Follower -->
+				<ul class="unstyled">
+					<li> <i class="icon-dashboard"></i> 55 </li> <!-- TODO: Activityscore -->
+					<li> <%= @user.name %> hat 15 Follower </li> <!-- TODO: Follower -->
+				</ul>
 				<dl>
 					<dt><%= t('.place_and_time_there') %></dt>
 					<dd>
-						<!-- Ort? -->
+						Berlin <!-- TODO: Ort einsetzen -->
 						<% ActiveSupport::TimeZone::MAPPING[@user.account.timezone] %>
-						<%= l(@user.account.time_in_supplied_zone) %>
+						<%= l(@user.account.time_in_supplied_zone) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
 					</dd>
 					<dt>
 						<%= t('.languages') %>
@@ -66,15 +66,17 @@
 		</section>
 		<div class="user-content span9">
 			<nav>
-				<ul>
-					<li class="span2">!</li>
-					<li class="span2">?</li>
-					<li class="span2"><%= link_to( t('.status_of_' + @user.name),  user_status_updates_path(:user_id => @user)) %> </li>
-					<li class="span2">Bookmarks</li>
+				<ul class="clearfix">
+					<li class="span2"><a href="#">!</a></li>
+					<li class="span2"><a href="#">?</a></li>
+					<li class="span2"><%= link_to( "",  user_status_updates_path(:user_id => @user), :class => "icon-align-justify") %> </li>
+					<li class="span2"><a href="#" class="icon-star"></a></li>
 				</ul>
 			</nav>
 			<section class="user-content-shown">
-				<img src="http://lorempixel.com/1200/400/" alt="">
+				<% @user.kluuus.each do |klu| %>
+					<%= render(:partial => 'klus/medium_kluuu', :locals => {:medium_kluuu => klu}) %>
+				<% end %>
 			</section>
 		</div>
 	</div>

@@ -6,7 +6,32 @@
 
 .user-content > nav {
 	li {
-		list-style: none;
-		border: 1px solid #000;
+		max-width: 188px;
+		height: 188px;
+		font-size: 188px;
+		line-height: 188px;
+		text-align: center;
+
+		a {
+			color: lightgray;
+			vertical-align: middle;
+			display: block;
+			margin-top: -35%;
+		}
+
+		a:hover {
+			text-decoration: none;
+		}
+
+		a[class^="icon-"],
+		a[class*=" icon-"] {
+			padding-top: 33%;
+		}
 	}
+}
+
+.user-image {
+	height: 180px;
+	line-height: 180px;
+	vertical-align: middle;
 }
