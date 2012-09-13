@@ -47,7 +47,7 @@ class BookmarksController < ApplicationController
 
     respond_to do |format|
       if @bookmark.save
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
+        format.html { redirect_to( user_bookmarks_path(:user_id => @bookmark.user), notice: 'Bookmark was successfully created.') }
         format.json { render json: @bookmark, status: :created, location: @bookmark }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class BookmarksController < ApplicationController
 
     respond_to do |format|
       if @bookmark.update_attributes(params[:bookmark])
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully updated.' }
+        format.html { redirect_to user_bookmarks_url( :user_id => @bookmark.user), notice: 'Bookmark was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,10 +76,11 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1.json
   def destroy
     @bookmark = Bookmark.find(params[:id])
+    _user = @bookmark.user
     @bookmark.destroy
 
     respond_to do |format|
-      format.html { redirect_to bookmarks_url }
+      format.html { redirect_to user_bookmarks_url(:user_id => _user) }
       format.json { head :no_content }
     end
   end

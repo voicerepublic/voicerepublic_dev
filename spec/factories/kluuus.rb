@@ -18,10 +18,6 @@ FactoryGirl.define do
       published true
     end
 
-    trait :kluuu_with_image do
-      klu_images { [  File.open( File.join(Rails.root,'app','assets', 'images', 'rails.png')) ] }
-    end
-
     factory :unpublished_kluuu, traits: [:unpublished_kluuu]
     factory :published_kluuu, traits: [:published_kluuu]
   
@@ -30,6 +26,13 @@ FactoryGirl.define do
         FactoryGirl.create(:klu_image, :kluuu => kluuu)
       end
     end
+    
+    factory :bookmarked_kluuu do
+      after(:create) do |kluuu,evaluator|
+        FactoryGirl.create_list(:kluuu_bookmark, 3, :kluuu => kluuu)
+      end
+    end
+    
   end
 
 end
