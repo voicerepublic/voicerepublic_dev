@@ -71,6 +71,9 @@
 
 <div class="row">
 	<div class="span4">
+		<div class="well well-small">
+			<%= link_to t('.manage_your_follower'), user_follows_path(:user_id => @account.user), :class => "btn btn-large" %>
+		</div>
 		&nbsp;
 	</div>
 	<div class="span4">

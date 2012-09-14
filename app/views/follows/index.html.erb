@@ -4,15 +4,17 @@
 </div>
 
 <div class="row">
-	<div class="span6 well well-small">
+	
+	<div class="span6">
 		<h2><%= t('.my_follower')%></h2>
-		<ul class="thumbnails">
+		<ul class="thumbnails  well well-small">
 			<%= render(:partial => '/follows/follower', :collection => @follower, :as => :follower_relation) %>
 		</ul>
 	</div>
-	<div class="span6 well well-small">
+	
+	<div class="span6">
 		<h2><%= t('.followed_by_me')%></h2>
-		<ul class="thumbnails">
+		<ul class="thumbnails well well-small">
 			<%= render(:partial => '/follows/followed', :collection => @followed, :as => :followed_relation) %>
 		</ul>
 	</div>
