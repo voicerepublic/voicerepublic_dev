@@ -37,14 +37,12 @@ body {
 
 // Change of box-sizing-mode siehe http://paulirish.com/2012/box-sizing-border-box-ftw/
 * {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	.box-sizing(border-box);
 }
 
 // Set line-height to 1.5 relative sizing and for better readability
-* {
-	line-height: 1.5;
-}
+@baseLineHeight: 1.5;
+@baseFontSize: 15px;
 
 // responsive images
 img {
@@ -72,13 +70,29 @@ nav {
 	}
 }
 
-@textColor: red;
+@textColor: @grayDark;
 
 /*
  * TYPOGRAPHY
  *
  */
-@sansFontFamily: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ @sansFontFamily: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+h1 { font-size: 2.4em; font-size: 2.4rem; }
+h2 { font-size: 2em; font-size: 2rem; }
+h3 { font-size: 1.5em; font-size: 1.5rem; }
+h4 { font-size: 1.2em; font-size: 1.2rem; }
+h5 { font-size: 1em; font-size: 1rem; }
+h6 { font-size: 0.9em; font-size: 0.9rem }
+
+h1, h1, h3, h4, h5, h6 {
+	line-height: inherit;
+}
+
+h1 small { font-size: 24px; }
+h2 small { font-size: 18px; }
+h3 small { font-size: 14px; }
+h4 small { font-size: 14px; }
 
 
 
