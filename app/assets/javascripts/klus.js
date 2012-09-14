@@ -18,7 +18,6 @@
 			img.css({'margin-top': -(imgHeight/2 + imgPadding)});
 		},
 		bindActions: function() {
-			alert('r');
 			var callButton = $('.call-btn');
 			var callForm = callButton.find('form');
 			var callFormButtion = callForm.find('button');
