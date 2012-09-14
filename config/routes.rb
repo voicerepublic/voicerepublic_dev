@@ -1,6 +1,5 @@
 Kluuu2::Application.routes.draw do
 
-  
 
   #resources :klu_images
 
@@ -26,6 +25,7 @@ Kluuu2::Application.routes.draw do
         resources :klu_images
       end
       resources :bookmarks 
+      resources :follows, :only => [:create, :destroy, :index]
       resources :status_updates do
         resources :comments
       end

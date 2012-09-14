@@ -1,0 +1,20 @@
+<%= form_for @follow, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :follower_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :follower_id, :class => 'number_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :followed_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :followed_id, :class => 'number_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                follows_path, :class => 'btn' %>
+  </div>
+<% end %>
