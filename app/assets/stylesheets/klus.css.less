@@ -1,0 +1,75 @@
+.kluuu-title {
+	font-family: Georgia, serif;
+	font-style: italic;
+	font-weight: normal;
+	text-align: center;
+}
+
+.kluuu-layout {
+ 	padding: 3%;
+ 	box-shadow: 1px 1px 5px rgba(0,0,0,0.3) inset, -1px -1px 5px rgba(0,0,0,0.3) inset;
+}
+
+.kluuu {
+	background-color: rgba(152,44,68, 0.2);
+	border-radius: 4px;
+}
+
+.call-btn {
+	background: white;
+	padding: 4% 20% 4% 4%;
+	position: relative;
+
+	form, button {
+		display: inline-block;
+	}
+
+	dl {
+		margin: 0;
+		font-size: 70%;
+		color: @grayLight;
+		.clearfix;
+		dt, dd {
+			
+			float: left;
+		}
+		dt {
+			clear: both;
+			margin-right: 8px;
+		}
+	}
+
+	.user-image {
+		position: absolute;
+		display: block;
+		right: 4%;
+		top: 50%;
+		height: auto;
+		width: auto;
+	}
+}
+
+.call-btn.jqrfd {
+	display: block;
+	text-align: left;
+
+	button {
+		border: none;
+		background: none;
+		height: auto;
+		padding: 0;
+		display: inline;
+	}
+}
+
+.medium-kluuu {
+
+	&>a:hover {
+		text-decoration: none;
+	}
+	
+	h3 {
+		.kluuu-title;
+		color: @textColor;
+	}
+}
