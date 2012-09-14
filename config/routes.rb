@@ -16,6 +16,9 @@ Kluuu2::Application.routes.draw do
   
   scope "(/:locale)", :locale => /en|de/ do
     resources :users do
+      resources :bookmarks 
+      resources :follows, :only => [:destroy, :index]
+      post "follow/:followed_id", :controller => "follows", :action => 'create', :as => "create_follow"
       resource :account do
         member do
           delete 'destroy_portrait'
@@ -24,8 +27,6 @@ Kluuu2::Application.routes.draw do
       resources :klus do
         resources :klu_images
       end
-      resources :bookmarks 
-      resources :follows, :only => [:create, :destroy, :index]
       resources :status_updates do
         resources :comments
       end

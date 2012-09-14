@@ -45,9 +45,11 @@ class FollowsController < ApplicationController
   # POST /follows
   # POST /follows.json
   def create
-    
     logger.debug("Follows#create - params: #{params}")
-    @follow = Follow.new(params[:follow].merge(:follower_id => @user.id))
+    
+    _followed_id = params[:followed_id]
+    _user = User.find(params[:followed_id])
+    @follow = Follow.new(:followed_id => _user.id, :follower_id => @user.id)
     logger.debug("Follows#create - follow: #{@follow.inspect}")
     respond_to do |format|
       if @follow.save

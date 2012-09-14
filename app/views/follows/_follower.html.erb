@@ -2,9 +2,8 @@
 	<div class="thumbnail">
 		<%= image_tag(follower_relation.followed.account.portrait.url(:thumb)) if follower_relation.followed.account.portrait.exists? %>
 		<strong><%= follower_relation.followed.name %></strong>
-		<%= form_for [@user, Follow.new], :html => { :class => 'form-horizontal' } do |f| %>
-			<%= f.hidden_field :followed_id, :value => follower_relation.follower.id %>
-    		<%= f.submit t('.follow_back'), :class => 'btn btn-small' %>
-    	<% end %>
+		
+		<%= link_to( t('.follow_back'), user_create_follow_path(:user_id => follower_relation.followed_id, :followed_id => follower_relation.followed_id ), :method => "post", :class => "btn btn-small" )%>
+		
 	</div>
 </li>
