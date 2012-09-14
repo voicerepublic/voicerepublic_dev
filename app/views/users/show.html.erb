@@ -1,4 +1,5 @@
-<% @user.kluuus.each do |klu| %>
-	<%= render(:partial => 'klus/medium_kluuu', :locals => { :medium_kluuu => klu } ) %>
-<% end %>
-
+<div class="span4">
+	<% @user.kluuus.each do |klu| %>
+		<%= render(:partial => 'klus/medium_kluuu', :locals => { :medium_kluuu => klu } ) %>
+	<% end %>
+</div>
