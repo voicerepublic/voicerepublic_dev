@@ -15,3 +15,7 @@
 /tmp
 /config/database.yml
 
+public/system/accounts
+public/system/klu_images
+public/system/profile_settings
+
