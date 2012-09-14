@@ -4,14 +4,20 @@
 	</div>
 
 	<ul class="unstyled">
-		<li>
+		<li><!-- TODO: link_to einbauen -->
 			<a href="#"><i class="icon-envelope"></i> Nachricht senden</a>
 		</li>
-		<!-- TODO: link_to einbauen -->
+		
 		<li>
-			<a href="#"><i>@</i> Folgen</a>
+			<% if current_user && current_user.id != user.id %>
+				<% if user.follower.include?(current_user) %>
+					<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => user.follower_relations.where(:follower_id => current_user)), :class => "btn btn-small", :method => :delete) %>
+				<% else %>
+					<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => user.id ), :method => "post", :class => "btn btn-small" )%>
+				<% end %>
+			<% end %>
 		</li>
-		<!-- TODO: link_to einbauen -->
+		
 	</ul>
 
 	<div class="status-partial-container">
