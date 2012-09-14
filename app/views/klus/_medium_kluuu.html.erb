@@ -1,19 +1,18 @@
-<article class="span7 medium-kluuu kluuu-layout kluuu">
+<article class="medium-kluuu kluuu-layout kluuu">
 	<%= link_to( user_klu_path(:user_id => medium_kluuu.user, :id => medium_kluuu)) do %>
-		<h3><%= medium_kluuu.title %> </h3>	
+		<h3 class="no-margin"><%= medium_kluuu.title %> </h3>	
 		<%= image_tag(medium_kluuu.klu_images.first.image.url(:medium)) unless medium_kluuu.klu_images.empty? %>
-		
-			<%= simple_format(medium_kluuu.description) %>
-	
-			<div class="button">
-				<%= link_to(medium_kluuu.user.name, user_path(:id => medium_kluuu.user) )%> 
-				
-				<%= t('.call_now') %>
-				<p>Preis</p><!-- TODO: Preis einfügen/evtl Fallunertscheidung -->
-				<%= medium_kluuu.available_at_times %>
-				<%= link_to(image_tag( medium_kluuu.user.account.portrait.url(:thumb), :class => ""), user_path(:id => medium_kluuu.user) ) %>
-			</div>
-			<strong><%= t('.availability') %>:</strong> 
-			<form action="#"><button>Anrufen</button></form>
+		<%= simple_format(medium_kluuu.description) %>
 	<% end %>
+	<div class="call-btn jqrfd btn">
+		<%= link_to(medium_kluuu.user.name, user_path(:id => medium_kluuu.user) )%>
+		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+		<dl>
+			<dt><%= t('.price') %></dt>
+			<dd>5€</dd>
+			<dt><%= t('.availability') %></dt>
+			<dd><%= medium_kluuu.available_at_times %></dd>
+		</dl>
+		<%= link_to(image_tag( medium_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_kluuu.user), :class => 'kluuu-user-image' ) %>
+	</div>
 </article>
