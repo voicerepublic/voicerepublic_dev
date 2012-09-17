@@ -1,5 +1,5 @@
-<article class="medium-kluuu kluuu-layout kluuu span4">
-	<%= link_to( user_klu_path(:user_id => medium_kluuu.user, :id => medium_kluuu)) do %>
+<article class="medium-kluuu kluuu-layout kluuu">
+	<%= link_to( klu_path(:id => medium_kluuu)) do %>
 		<h3 class="no-margin"><%= medium_kluuu.title %> </h3>	
 		<%= image_tag(medium_kluuu.klu_images.first.image.url(:medium)) unless medium_kluuu.klu_images.empty? %>
 		<%= simple_format(medium_kluuu.description) %>

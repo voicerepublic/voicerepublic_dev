@@ -1,10 +1,14 @@
 <nav>
 	<ul class="clearfix">
 		<li>
-			<a href="#">!</a>
+			<%= link_to(kluuus_user_path(:id => user ) ) do %>
+			!
+			<% end %>
 		</li>
 		<li>
-			<a href="#">?</a>
+			<%= link_to(no_kluuus_user_path(:id => user ) ) do %>
+			?
+			<% end %>
 		</li>
 		<li>
 			<%= link_to( "",  user_status_updates_path(:user_id => user), :class => "icon-align-justify") %>

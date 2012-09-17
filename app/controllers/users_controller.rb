@@ -20,6 +20,17 @@ class UsersController < ApplicationController
       format.json { render json: @user }
     end
   end
+  
+  def no_kluuus
+     @user = User.find(params[:id])
+    @kluuus = @user.no_kluuus
+    render :template =>  'users/kluuus'
+  end
+  
+  def kluuus
+    @user = User.find(params[:id])
+    @kluuus = @user.kluuus
+  end
 
   # GET /users/new
   # GET /users/new.json
