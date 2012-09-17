@@ -38,10 +38,10 @@
 							</header>
 							<div class="row">
 								<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
-								<div class="user-content span9">
+								<div class="user-content span9 row">
 									<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
 									
-									<section class="user-content-shown">
+									<section class="user-content-shown row">
 										<%= yield %>
 									</section>
 									
