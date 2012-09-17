@@ -1,6 +1,8 @@
 <section class="user-information span3">
-	<div class="user-image img-polaroid">
-		<%= image_tag( user.account.portrait.url(:large), :class => "")  %> <!-- TODO: missing_user_image -->
+	<div class="top-content-distance">
+		<div class="user-image">
+			<%= image_tag( user.account.portrait.url(:large), :class => "img-polaroid")  %> <!-- TODO: missing_user_image -->
+		</div>
 	</div>
 
 	<ul class="unstyled">

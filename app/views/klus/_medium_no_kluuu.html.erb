@@ -1,14 +1,16 @@
-<%= link_to klu_path( :id => medium_no_kluuu ) do %>
-	<div class="page-header">
-		<h1><%= medium_no_kluuu.title %> </h1> - <%= medium_no_kluuu.user.name %>
+<article class="medium-kluuu kluuu-layout kluuu">
+	<%= link_to( klu_path(:id => medium_no_kluuu)) do %>
+		<h3 class="no-margin"><%= medium_no_kluuu.title %> </h3>	
+	<% end %>
+	<div class="call-btn jqrfd btn">
+		<%= link_to(medium_no_kluuu.user.name, user_path(:id => medium_no_kluuu.user) )%>
+		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+		<dl>
+			<dt><%= t('.price') %></dt>
+			<dd>5€</dd>
+			<dt><%= t('.availability') %></dt>
+			<dd><%= medium_no_kluuu.available_at_times %></dd>
+		</dl>
+		<%= link_to(image_tag( medium_no_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_no_kluuu.user), :class => 'kluuu-user-image' ) %>
 	</div>
-	
-	<div class="well well-small">
-		<%= simple_format(medium_no_kluuu.description) %>
-		<p><strong><%= t('.availability') %>:</strong> <%= simple_format(medium_no_kluuu.available_at_times) %></p>
-		<p><strong><%= t('.category')%>:</strong> <%= medium_no_kluuu.category.name %></p>
-	</div>
-	<div class="well well-small">
-		<span class="badge"><%= medium_no_kluuu.bookmarks.count %></span> <%= t('.times_bookmarked') %>
-	</div>
-<% end %>
+</article>
