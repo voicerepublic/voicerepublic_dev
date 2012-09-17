@@ -1,6 +1,14 @@
-.status-single {
+.status-list {
+  li {
+    border-bottom: 1px solid #000;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+}
+
+.status {
   padding: 20px 40px 20px 80px;
-  border-bottom: 1px solid #000;
   position: relative;
   min-height: 100px;
 
@@ -41,6 +49,3 @@
   }
 }
 
-.status-single:last-child {
-  border-bottom: none;
-}
