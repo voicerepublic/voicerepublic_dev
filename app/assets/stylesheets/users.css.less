@@ -19,7 +19,6 @@
 				color: lightgray;
 				vertical-align: baseline;
 				display: block;
-				margin-top: -35%;
 			}
 
 			a:hover {
@@ -33,9 +32,18 @@
 	}
 
 	.user-image {
+		width: 100%;
 		height: 180px;
-		line-height: 180px;
+		display: table-cell;
 		vertical-align: middle;
+		overflow:hidden;
+
+		img {
+			display: block;
+			max-height:100%;
+			overflow:hidden;
+			width: 100%;
+		}
 	}
 
 	.medium-kluuu:nth-child(even) {
