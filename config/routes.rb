@@ -17,6 +17,10 @@ Kluuu2::Application.routes.draw do
   
   scope "(/:locale)", :locale => /en|de/ do
     resources :users do
+      member do
+        get 'no_kluuus'
+        get 'kluuus'
+      end
       resources :bookmarks 
       resources :follows, :only => [:destroy, :index]
       post "follow/:followed_id", :controller => "follows", :action => 'create', :as => "create_follow"
