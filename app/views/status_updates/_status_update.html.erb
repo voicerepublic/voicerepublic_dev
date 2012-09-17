@@ -3,6 +3,11 @@
 		<div class="status-user-name">
 			<%= link_to(status_update.user.name, user_path(:id => status_update.user)) %>
 		</div>
+		<span class=""><%= status_update.comments.count %></span> <%= t('.comments') %>
+		
+		<%= link_to new_user_status_update_comment_path(:user_id => status_update.user, :status_update_id => status_update) do %>
+			&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
+		<% end if current_user %>
 		<%= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'status-user-image img-polaroid' ) %>
 	</header>
 	<%= link_to user_status_update_path(:user_id => status_update.user, :id => status_update) do %>
