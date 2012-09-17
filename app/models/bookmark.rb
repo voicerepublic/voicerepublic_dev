@@ -17,7 +17,7 @@ class Bookmark < ActiveRecord::Base
   end
   
   def self.bookmark_for(user_id, klu_id)
-    Bookmark.where("user_id=? AND klu_id=?", user_id, klu_id)
+    Bookmark.where("user_id=? AND klu_id=?", user_id, klu_id).first
   end
   
 end
