@@ -6,7 +6,7 @@
 				<article>
 					<header>
 						<div class="status-user-name"><%= link_to(status_update.user.name, user_path(:id => status_update.user)) %></div>
-						<%= link_to(image_tag( status_update.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => status_update.user), :class => 'status-user-image img-polaroid' ) %>
+						<%= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'status-user-image img-polaroid' ) %>
 					</header>
 					<%= link_to user_status_update_path(:user_id => status_update.user, :id => status_update) do %>
 						<%= simple_format(status_update.content) %>
