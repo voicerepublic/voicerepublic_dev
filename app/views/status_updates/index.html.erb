@@ -1,6 +1,6 @@
 <%- model_class = StatusUpdate -%>
 <section class="status-site span9">
-	<ul class="unstyled">
+	<ul class="unstyled status-list">
 		<% @status_updates.each do |status_update| %>
 			<li class="status-single">
 				<%= render(:partial => "status_updates/status_update", :locals => {:status_update => status_update}) %>
