@@ -8,7 +8,6 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:klu_id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,16 +15,13 @@
   <tbody>
     <% @bookmarks.each do |bookmark| %>
       <tr>
-        <td><%= link_to bookmark.id, bookmark_path(bookmark) %></td>
+        <td><%= bookmark.id %></td>
         <td><%= bookmark.klu_id %></td>
         <td><%= bookmark.user_id %></td>
-        <td><%= bookmark.description %></td>
         <td><%=l bookmark.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_user_bookmark_path(bookmark), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      user_bookmark_path(bookmark),
+                      user_bookmark_path(:user_id => bookmark.user, :id => bookmark),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -35,6 +31,3 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_user_bookmark_path(:user_id => @user),
-            :class => 'btn btn-primary' %>

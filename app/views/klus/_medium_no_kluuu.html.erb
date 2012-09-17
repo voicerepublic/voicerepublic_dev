@@ -1,4 +1,5 @@
 <article class="medium-kluuu kluuu-layout kluuu">
+	<%= bookmark_links(current_user, medium_no_kluuu) %>
 	<%= link_to( klu_path(:id => medium_no_kluuu)) do %>
 		<h3 class="no-margin"><%= medium_no_kluuu.title %> </h3>	
 	<% end %>

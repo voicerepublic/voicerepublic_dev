@@ -11,4 +11,13 @@ class Bookmark < ActiveRecord::Base
   scope :with_kluuus, joins(:kluuu)
   scope :with_no_kluuus, joins(:no_kluuu)
   
+  
+  def self.bookmarked?(user_id, klu_id)
+    Bookmark.where("user_id=? AND klu_id=?", user_id, klu_id).empty? ? false : true
+  end
+  
+  def self.bookmark_for(user_id, klu_id)
+    Bookmark.where("user_id=? AND klu_id=?", user_id, klu_id)
+  end
+  
 end
