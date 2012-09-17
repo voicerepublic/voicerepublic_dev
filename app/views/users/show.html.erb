@@ -1,6 +1,4 @@
 
 <div class="span4">
-	<% @user.kluuus.each do |klu| %>
-		<%= render(:partial => 'klus/medium_kluuu', :locals => { :medium_kluuu => klu } ) %>
-	<% end %>
+	<%= render(:partial => 'klus/medium_kluuu', :collection => @user.kluuus, :as => :medium_kluuu ) %>
 </div>
