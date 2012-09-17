@@ -14,7 +14,7 @@
 					<aside>
 						<time datetime="<%= l(status_update.created_at) %>"><%= time_ago_in_words(status_update.created_at) %></time>
 						<%= link_to t('.edit', :default => t("helpers.links.edit")),
-						edit_user_status_update_path(:user_id => status_update.user, :id =>status_update), :class => 'staus-edit btn btn-mini' %>
+						edit_user_status_update_path(:user_id => status_update.user, :id =>status_update), :class => 'status-edit btn btn-mini' %>
 						<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
 						user_status_update_path(:user_id => status_update.user, :id => status_update),
 						:method => :delete,
