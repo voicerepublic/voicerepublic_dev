@@ -15,8 +15,6 @@ Kluuu2::Application.routes.draw do
     devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   end
   
-  post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
-  
   scope "(/:locale)", :locale => /en|de/ do
     resources :users do
       member do
@@ -38,6 +36,10 @@ Kluuu2::Application.routes.draw do
         resources :comments
       end
     end
+  end
+  
+  scope "(/:locale)", :locale => /de|en/ do
+    post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
   end
   
   namespace :admin do
