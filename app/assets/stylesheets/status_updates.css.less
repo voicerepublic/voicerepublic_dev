@@ -1,0 +1,46 @@
+.status-single {
+  padding: 20px 40px 20px 80px;
+  border-bottom: 1px solid #000;
+  position: relative;
+  min-height: 100px;
+
+  .status-user-name, .status-user-image, time, .status-edit, .status-delete {
+    position: absolute;
+  }
+
+  .status-user-name {
+    left: 10px;
+    top: 12px;
+    font-weight: bold;
+    font-size: smaller;
+  }
+
+  .status-user-image {
+    display: block;
+    left: 10px;
+    top: 38px;
+  }
+
+  time {
+    left: 80px;
+    bottom: 8px;
+    font-size: smaller;
+    color: lightgrey;
+  }
+
+  .status-edit, .status-delete {
+    right: 0;
+  }
+
+  .status-edit {
+    top: 38px;
+  }
+
+  .status-delete {
+    bottom: 8px;
+  }
+}
+
+.status-single:last-child {
+  border-bottom: none;
+}
