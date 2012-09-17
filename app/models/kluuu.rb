@@ -9,4 +9,5 @@ class Kluuu < Klu
   validates :description, :presence => true
   validates :category_id, :presence => true
   
+  
 end

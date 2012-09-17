@@ -8,5 +8,7 @@ class Klu < ActiveRecord::Base
   validates :title, :presence => true
   validates :user_id, :presence => true
   
+  scope :published, where("published=?", true)
+  
   
 end
