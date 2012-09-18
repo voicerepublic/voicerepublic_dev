@@ -3,7 +3,6 @@
 FactoryGirl.define do
   factory :bookmark do
     user
-    description { Faker::Lorem.sentence }
     
     trait :no_kluuu_bookmark do
       no_kluuu

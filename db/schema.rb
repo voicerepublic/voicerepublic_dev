@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917164700) do
+ActiveRecord::Schema.define(:version => 20120917184823) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20120917164700) do
   create_table "klus", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.text     "available_at_times"
+    t.string   "available_at_times"
     t.integer  "user_id"
     t.boolean  "published",          :default => false
     t.integer  "category_id"

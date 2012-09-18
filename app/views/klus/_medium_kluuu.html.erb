@@ -1,5 +1,7 @@
 <article class="medium-kluuu kluuu-layout kluuu">
+	<!-- check if current_user has bookmarkd this klu -->
 	<%= bookmark_links(current_user, medium_kluuu) %>
+	
 	<%= link_to( klu_path(:id => medium_kluuu)) do %>
 		<h3 class="no-margin"><%= medium_kluuu.title %> </h3>	
 		<%= image_tag(medium_kluuu.klu_images.first.image.url(:medium)) unless medium_kluuu.klu_images.empty? %>

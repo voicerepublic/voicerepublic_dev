@@ -14,16 +14,6 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # GET /bookmarks/1
-  # GET /bookmarks/1.json
-  def show
-    @bookmark = Bookmark.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @bookmark }
-    end
-  end
 
   # POST /bookmarks
   # POST /bookmarks.json
@@ -42,21 +32,7 @@ class BookmarksController < ApplicationController
     end
   end
 
-  # PUT /bookmarks/1
-  # PUT /bookmarks/1.json
-  def update
-    @bookmark = Bookmark.find(params[:id])
-
-    respond_to do |format|
-      if @bookmark.update_attributes(params[:bookmark])
-        format.html { redirect_to user_bookmarks_url( :user_id => @bookmark.user), notice: 'Bookmark was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  
 
   # DELETE /bookmarks/1
   # DELETE /bookmarks/1.json

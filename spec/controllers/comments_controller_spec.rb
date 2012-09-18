@@ -96,9 +96,9 @@ describe CommentsController do
         assigns(:comment).should be_persisted
       end
 
-      it "redirects to the created comment - at given status_updates thread" do
+      it "redirects to the status_page  - at given status_updates thread" do
         post :create, {:comment => valid_attributes, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
-        response.should redirect_to(user_status_update_comments_path(:user_id => @user, :status_update_id => @status_update))
+        response.should redirect_to(user_status_update_path(:user_id => @user, :id => @status_update))
       end
     end
 
