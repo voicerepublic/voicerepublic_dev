@@ -6,18 +6,16 @@
   
   <section id="comments" class="comments">
     <ul class="unstyled">
-    <%= render(:partial => "comment", :collection => @status_update.comments ) %>
+    <%= render(:partial => "comment", :collection => @status_update.comments, :as => :comment ) %>
     </ul>
     <aside id="newcomment">
-      <% @comment = @status_update.comments.build %>
-      <%= render(:partial => "comments/form") if current_user %>
+      <% if current_user %>
+        <% @comment = @status_update.comments.build %>
+        <%= render(:partial => "comments/form") %>
+      <% end %>
     </aside>
   </section>
 </div>
-
-
-
-
 
 <div class="form-actions">
 	<!-- hack - display CRUD if current_user -->

@@ -7,7 +7,9 @@
 
 	<ul class="unstyled">
 		<li><!-- TODO: link_to einbauen -->
-			<a href="#"><i class="icon-envelope"></i> Nachricht senden</a>
+			<%= link_to(new_message_path(:receiver_id => user.id)) do %>
+			<i class="icon-envelope"></i> <%= t('.send_message') %>
+			<% end %>
 		</li>
 		
 		<li>
