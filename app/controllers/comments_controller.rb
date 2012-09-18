@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  layout 'users'
   
   before_filter :set_commentable
   before_filter :authenticate_user!, :only => [:create]

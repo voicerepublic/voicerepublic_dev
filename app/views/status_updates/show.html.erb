@@ -11,6 +11,8 @@
 <%= render(:partial => "comment", :collection => @status_update.comments ) %>
 
 <div class="form-actions">
+	<!-- hack - display CRUD if current_user -->
+	<% if current_user %>
   <%= link_to t('.back', :default => t("helpers.links.back")),
               user_status_updates_path(:user_id => current_user), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -20,4 +22,5 @@
               :method => 'delete', 
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+   <% end %>
 </div>
