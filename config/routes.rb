@@ -1,5 +1,7 @@
 Kluuu2::Application.routes.draw do
   
+  
+
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index, :as => 'user_root'
   end
@@ -21,6 +23,11 @@ Kluuu2::Application.routes.draw do
         get 'no_kluuus'
         get 'kluuus'
       end
+      resources :messages, :only => [:index, :show, :destroy, :update] do
+        member do
+          put "mark_read"
+        end
+      end
       resources :bookmarks, :only => [:index, :destroy]
       resources :follows, :only => [:destroy, :index]
       post "follow/:followed_id", :controller => "follows", :action => 'create', :as => "create_follow"
@@ -40,6 +47,8 @@ Kluuu2::Application.routes.draw do
   
   scope "(/:locale)", :locale => /de|en/ do
     post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
+    post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
+    get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
   end
   
   namespace :admin do

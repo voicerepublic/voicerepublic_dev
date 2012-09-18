@@ -10,10 +10,11 @@
 <!-- hier das partial -->
 <%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
 
-<%= render(:partial => "comment", :collection => @status_update.comments ) %>
-
-<% @comment = @status_update.comments.build %>
-<%= render(:partial => "comments/form") if current_user %>
+<%= render(:partial => "comment", :collection => @status_update.comments, :as => :comment ) %>
+<% if current_user %>
+	<% @comment = @status_update.comments.build %>
+	<%= render(:partial => "comments/form") %>
+<% end %>
 
 <div class="form-actions">
 	<!-- hack - display CRUD if current_user -->

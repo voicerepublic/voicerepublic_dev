@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   
   has_one :account, :dependent => :destroy
   
+  has_many :sent_messages, :foreign_key => :sender_id, :class_name => 'Message', :dependent => :destroy
+  has_many :received_messages, :foreign_key => :receiver_id, :class_name => 'Message', :dependent => :destroy
+  
   has_many :followed_relations, :foreign_key => :follower_id, :class_name => 'Follow', :dependent => :destroy
   has_many :follower_relations, :foreign_key => :followed_id, :class_name => 'Follow', :dependent => :destroy  
   has_many :follower, :through => :follower_relations, :source => :followed 
