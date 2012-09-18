@@ -8,12 +8,26 @@
   li:last-child {
     border-bottom: none;
   }
+
+  .status:hover {
+    background: rgba(0,0,0,0.05);
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.1) inset, -1px -1px 0 rgba(0,0,0,0.1) inset;
+    -moz-transition: 0.4s all;
+  }
 }
 
 .status, .comment article {
   padding: 20px @status-right-offset 30px @status-left-offset;
   position: relative;
   min-height: 100px;
+
+  time {
+    left: @status-left-offset;
+    bottom: 8px;
+    font-size: smaller;
+    color: lightgrey;
+  }
+}
 
   .status-user-name, .status-user-image, time, .status-comment-links, .status-edit, .status-delete, .comment-user-name, .comment-user-image {
     position: absolute;
@@ -37,13 +51,6 @@
     text-decoration: none;
   }
 
-  time {
-    left: @status-left-offset;
-    bottom: 8px;
-    font-size: smaller;
-    color: lightgrey;
-  }
-
   .status-comment-links {
     right: @status-right-offset;
     bottom: 8px;
@@ -61,7 +68,6 @@
   .status-delete {
     bottom: 8px;
   }
-}
 
 .status-comments {
   .status, .comment {
