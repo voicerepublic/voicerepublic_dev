@@ -3,20 +3,26 @@
 		<div class="status-user-name">
 			<%= link_to(status_update.user.name, user_path(:id => status_update.user)) %>
 		</div>
-		<span class=""><%= status_update.comments.count %></span> <%= t('.comments') %>
 		
-		<%= link_to new_user_status_update_comment_path(:user_id => status_update.user, :status_update_id => status_update) do %>
-			&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
-		<% end if current_user %>
 		<%= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'status-user-image img-polaroid' ) %>
+		<time datetime="<%= status_update.created_at.strftime("%Y-%m-%d") %>">
+			<%= time_ago_in_words(status_update.created_at) %>
+		</time>
 	</header>
-	<%= link_to user_status_update_path(:user_id => status_update.user, :id => status_update) do %>
+	<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update), :class => "status-content") do %>
 	<%= simple_format(status_update.content) %>
 	<% end %>
 	<aside>
-		<time datetime="<%= l(status_update.created_at) %>">
-			<%= time_ago_in_words(status_update.created_at) %>
-		</time>
+
+		<div class="status-comment-links">
+			<%= link_to new_user_status_update_comment_path(:user_id => status_update.user, :status_update_id => status_update) do %>
+				&nbsp; <%= t('.add_comment') %> &middot;
+			<% end if current_user %> 
+			<%= link_to new_user_status_update_comment_path(:user_id => status_update.user, :status_update_id => status_update) do %>
+				<i class="icon-comment"> </i>	<%= status_update.comments.count %> <%= t('.comments') %>
+			<% end %>
+		</div>
+		
 		<%= link_to t('.edit', :default => t("helpers.links.edit")),
 		edit_user_status_update_path(:user_id => status_update.user, :id =>status_update), :class => 'status-edit btn btn-mini' %>
 		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),

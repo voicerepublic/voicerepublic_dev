@@ -13,13 +13,13 @@
   <% end %>
 
 	<div class="control-group">
-	<%= label_tag t('.comment', :default => "comment"),nil,  :class => 'control-label'  %>
+	<%= label_tag t('.your_comment', :default => "comment"),nil,  :class => 'control-label'  %>
     <div class="controls">
       <%= text_area_tag 'comment[content]',nil, :class => 'text_area', :rows => 3 %>
     </div>
   </div>
 	
-  <div class="form-actions">
+  <div>
     <%= submit_tag nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 user_status_update_path(:user_id => @user.id, :id => @status_update), :class => 'btn' %>

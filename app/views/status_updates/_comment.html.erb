@@ -1,9 +1,9 @@
-<div class="well well-small">
-	<p>
-		<%= link_to comment.user.name, user_path(:id => comment.user), :class => "label label-info" %> <%= t('.commented_on') %> 
-		<%= l(comment.created_at, :format => :short) %>
-	</p>
-	<blockquote>
-		<p><%= comment.content %></p>
-	</blockquote>
-</div>
+<li class="comment">
+  <article>
+    <%= link_to comment.user.name, user_path(:id => comment.user), :class => "comment-user-name" %>
+    <%= link_to(image_tag( comment.user.account.portrait.url(:thumb)), user_path(:id => comment.user), :class => 'comment-user-image img-polaroid' ) %>
+    <time datetime="<%= comment.created_at.strftime("%Y-%m-%d") %>"><%= time_ago_in_words(comment.created_at) %></time>
+    <%= simple_format comment.content %>
+  </article>
+</li>
+	

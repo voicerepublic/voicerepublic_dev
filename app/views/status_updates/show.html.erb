@@ -1,19 +1,23 @@
 <%- model_class = StatusUpdate -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+
+<div class="status-comments">
+  <%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
+  
+  
+  <section id="comments" class="comments">
+    <ul class="unstyled">
+    <%= render(:partial => "comment", :collection => @status_update.comments ) %>
+    </ul>
+    <aside id="newcomment">
+      <% @comment = @status_update.comments.build %>
+      <%= render(:partial => "comments/form") if current_user %>
+    </aside>
+  </section>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
-  <dd><%= @status_update.content %></dd>
-</dl>
-<!-- hier das partial -->
-<%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
 
-<%= render(:partial => "comment", :collection => @status_update.comments ) %>
 
-<% @comment = @status_update.comments.build %>
-<%= render(:partial => "comments/form") if current_user %>
+
 
 <div class="form-actions">
 	<!-- hack - display CRUD if current_user -->
