@@ -7,6 +7,8 @@
   <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
   <dd><%= @status_update.content %></dd>
 </dl>
+<!-- hier das partial -->
+<%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
 
 <%= render(:partial => "comment", :collection => @status_update.comments ) %>
 
