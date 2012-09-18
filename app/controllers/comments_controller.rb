@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   layout 'users'
   
   before_filter :set_commentable
-  before_filter :authenticate_user!, :only => [:create]
+  before_filter :authenticate_user!, :except => [:show, :index]
 
   # GET /comments
   # GET /comments.json
