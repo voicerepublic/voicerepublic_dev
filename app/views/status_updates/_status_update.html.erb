@@ -15,10 +15,10 @@
 	<aside>
 
 		<div class="status-comment-links">
-			<%= link_to new_user_status_update_comment_path(:user_id => status_update.user, :status_update_id => status_update) do %>
+			<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment"), :class => "status-content") do %>
 				&nbsp; <%= t('.add_comment') %> &middot;
 			<% end if current_user %> 
-			<%= link_to new_user_status_update_comment_path(:user_id => status_update.user, :status_update_id => status_update) do %>
+			<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments"), :class => "status-content") do %>
 				<i class="icon-comment"> </i>	<%= status_update.comments.count %> <%= t('.comments') %>
 			<% end %>
 		</div>
