@@ -29,8 +29,8 @@
 
 		<div class="container">
 			<div class="content">
-				<div class="row">
-					<div class="span12">
+
+					
 
 						<div class="user-container">
 							<header>
@@ -40,18 +40,18 @@
 								<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
 								<div class="user-content span9 row">
 									<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
-									
-									<section class="user-content-shown row">
+								</div>	
+									<section class="user-content-shown span9 row">
 										<%= yield %>
 									</section>
 									
-								</div>
+								
 							</div>
 						</div>
 						
 
-					</div>
-				</div><!--/row-->
+					
+
 				<footer>
 					<p>
 						&copy; KluuU 2012
