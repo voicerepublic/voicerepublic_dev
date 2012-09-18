@@ -10,6 +10,9 @@
 
 <%= render(:partial => "comment", :collection => @status_update.comments ) %>
 
+<% @comment = @status_update.comments.build %>
+<%= render(:partial => "comments/form") if current_user %>
+
 <div class="form-actions">
 	<!-- hack - display CRUD if current_user -->
 	<% if current_user %>
