@@ -29,7 +29,8 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    @message = Message.new(:receiver_id => params[:receiver_id])
+    @message = Message.new
+    @message.receiver = User.find(params[:receiver_id])
     @user = User.find(params[:receiver_id])
 
     respond_to do |format|
