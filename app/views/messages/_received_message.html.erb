@@ -1,5 +1,8 @@
 <div class="well well-small">
 	<span class="pull-right">
+		<%= link_to(new_message_path(:receiver_id => message.sender)) do %>
+			<i class="icon-envelope"> </i> <%= t('.reply') %>
+		<% end %>&nbsp; |
 		<%= link_to(user_message_path(:user_id => message.receiver, :id => message), :method => :delete) do %>
 		<i class="icon-trash"> </i>
 		<% end %>
