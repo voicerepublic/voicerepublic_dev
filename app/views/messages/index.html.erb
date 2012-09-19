@@ -2,41 +2,9 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:receiver_id) %></th>
-      <th><%= model_class.human_attribute_name(:sender_id) %></th>
-      <th><%= model_class.human_attribute_name(:content) %></th>
-      <th><%= model_class.human_attribute_name(:read) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @messages.each do |message| %>
-      <tr>
-        <td><%= link_to message.id, message_path(message) %></td>
-        <td><%= message.receiver_id %></td>
-        <td><%= message.sender_id %></td>
-        <td><%= message.content %></td>
-        <td><%= message.read %></td>
-        <td><%=l message.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_message_path(message), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      message_path(message),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_message_path,
-            :class => 'btn btn-primary' %>
+
+	<% @messages.each do |message| %>
+		<%= partial_for(message, @user) %>
+	<% end %>
+

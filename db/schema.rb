@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120918134829) do
+ActiveRecord::Schema.define(:version => 20120919121000) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -102,11 +102,16 @@ ActiveRecord::Schema.define(:version => 20120918134829) do
     t.integer  "receiver_id"
     t.integer  "sender_id"
     t.text     "content"
-    t.boolean  "receiver_read"
-    t.boolean  "sender_read"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.boolean  "receiver_read",    :default => false
+    t.boolean  "sender_read",      :default => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "sender_deleted",   :default => false
+    t.boolean  "receiver_deleted", :default => false
   end
+
+  add_index "messages", ["receiver_id"], :name => "index_messages_on_receiver_id"
+  add_index "messages", ["sender_id"], :name => "index_messages_on_sender_id"
 
   create_table "roles", :force => true do |t|
     t.string "name"

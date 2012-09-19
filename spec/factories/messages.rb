@@ -2,9 +2,8 @@
 
 FactoryGirl.define do
   factory :message do
-    receiver_id 1
-    sender_id 1
-    content "MyText"
-    read false
+    association :receiver, factory: :user
+    association :sender, factory: :user
+    content { Faker::Lorem.paragraph }
   end
 end

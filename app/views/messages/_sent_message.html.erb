@@ -1,0 +1,12 @@
+<div class="well well-small">
+	<span class="pull-right">
+		<%= link_to(user_message_path(:user_id => message.sender, :id => message), :method => :delete) do %>
+		<i class="icon-trash"> </i>
+		<% end %>
+	</span>
+	<%= link_to(image_tag(message.receiver.account.portrait(:thumb)), user_path(:id => message.receiver), :class => "img-polaroid" )%>
+	<blockquote>
+	<small><%= t('.you_wrote_to') %> <%= message.receiver.name %> <%= t('.ago') %> <%= time_ago_in_words(message.created_at) %></small>
+	<%= simple_format(message.content) %>
+	<blockquote>
+</div>

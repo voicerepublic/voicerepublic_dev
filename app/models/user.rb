@@ -90,6 +90,10 @@ class User < ActiveRecord::Base
     update_attribute(:available, :bizzy)
   end
   
+  def message_queue
+    Message.where("receiver_id = ? AND receiver_deleted = ? OR sender_id = ? AND sender_deleted = ?", self.id, false, self.id, false).order('created_at DESC')
+  end
+  
   
   
   ######  class methods

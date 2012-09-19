@@ -1,16 +1,16 @@
 
 <%= form_for @message,  :url => create_message_path(:receiver_id => @message.receiver_id), :method => :post, :html => { :class => 'form-horizontal' }  do |f| %>  
   <div class="control-group">
-    <%= f.label :receiver_id, :class => 'control-label' %>
+    <%= f.label :to, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :receiver_id, :class => 'number_field' %>
+      <%= @message.receiver.name %>
     </div>
   </div>
   
   <div class="control-group">
     <%= f.label :content, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_area :content, :class => 'text_area' %>
+      <%= f.text_area :content, :class => 'text_area', :rows => 4 %>
     </div>
   </div>
 
