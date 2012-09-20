@@ -1,5 +1,7 @@
 class Kluuu < Klu
   
+  
+  
   CHARGE_TYPES = %w{free minute fix}
   has_many :bookmarks, :dependent => :destroy, :foreign_key => :klu_id
   

@@ -28,6 +28,8 @@ gem 'i18n_data' # delivers languages as key-value hash
 gem 'paperclip'
 gem 'awesome_nested_set'
 gem 'globalize3'
+gem 'acts-as-taggable-on'
+
 
 
 # To use ActiveModel has_secure_password
