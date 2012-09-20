@@ -1,7 +1,7 @@
 <section class="user-information span3">
 	<div class="top-content-distance">
 		<div class="user-image">
-			<%= image_tag( user.account.portrait.url(:large), :class => "img-polaroid")  %> <!-- TODO: missing_user_image -->
+			<%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user)) %>
 		</div>
 	</div>
 

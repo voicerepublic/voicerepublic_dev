@@ -34,7 +34,7 @@
 
 						<div class="user-container">
 							<header>
-								<h2><%= @user.name %></h2>
+								<h2><%= link_to(@user.name, user_path( :id => @user)) %></h2>
 							</header>
 							<div class="row">
 								<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
