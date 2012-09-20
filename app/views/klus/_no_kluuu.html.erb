@@ -60,6 +60,20 @@
 </div>
 <% end %>
 
+<div class="well well-small">
+	<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_klu') %>
+	<ul>
+	<% @klu.bookmarks.each do |b|%>
+		<li>
+			<%= link_to(user_path(:id => b.user) ) do %>
+				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %>
+				<%= b.user.name %>
+			<% end %>
+		</li>
+	<% end %>
+	</ul>
+</div>
+
 <div class="form-actions">
 	
 	<%= link_to( t('.add_image'), new_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu), :class => "btn") if @klu.instance_of?(Kluuu) %>

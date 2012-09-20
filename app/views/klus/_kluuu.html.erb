@@ -59,6 +59,19 @@
 	</ul>
 </div>
 <% end %>
+<div class="well well-small">
+	<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_kluuu') %>
+	<ul>
+	<% @klu.bookmarks.each do |b|%>
+		<li>
+			<%= link_to(user_path(:id => b.user) ) do %>
+				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %>
+				<%= b.user.name %>
+			<% end %>
+		</li>
+	<% end %>
+	</ul>
+</div>
 
 <div class="form-actions">
 	
