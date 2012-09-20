@@ -1,4 +1,4 @@
-<article class="medium-kluuu kluuu-layout kluuu span4">
+<article class="medium-klu klu-layout kluuu span4">
 	<!-- check if current_user has bookmarkd this klu -->
 	<%= bookmark_links(current_user, medium_kluuu) %>
 	
@@ -16,6 +16,6 @@
 			<dt><%= t('.availability') %></dt>
 			<dd><%= medium_kluuu.available_at_times %></dd>
 		</dl>
-		<%= link_to(image_tag( medium_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_kluuu.user), :class => 'kluuu-user-image' ) %>
+		<%= link_to(image_tag( medium_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_kluuu.user), :class => 'klu-user-image' ) %>
 	</div>
 </article>

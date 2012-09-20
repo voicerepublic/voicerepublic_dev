@@ -1,9 +1,7 @@
 <%- model_class = Bookmark -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-</div>
 
-<% @bookmarks.each do |bookmark| %>
-	<!-- either kluuu or no_kluuu-bookmark -->
-	<%= partial_for_bookmark(bookmark) %> 
-<% end %>
+<div class="user-bookmarks">
+  <% @bookmarks.each do |bookmark| %>
+    <%= partial_for_bookmark(bookmark) %>
+  <% end %>
+</div>

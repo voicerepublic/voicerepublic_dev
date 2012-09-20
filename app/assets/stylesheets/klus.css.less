@@ -5,19 +5,16 @@
 	text-align: center;
 }
 
-.kluuu-layout {
+.klu-layout {
  	padding: 3%;
  	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
  	background: #fff;
  	background: rgba(255,255,255,0.8);
+ 	border-radius: 4px;
 }
 
 .klu-eyecatcher {
 	border: 1px solid #ddd;
-}
-
-.kluuu {
-	border-radius: 4px;
 }
 
 .call-btn {
@@ -48,7 +45,7 @@
 		}
 	}
 
-	.kluuu-user-image {
+	.klu-user-image {
 		position: absolute;
 		display: block;
 		right: 4%;
@@ -72,7 +69,7 @@
 	}
 }
 
-.medium-kluuu {
+.medium-klu {
 
 	&>a:hover {
 		text-decoration: none;
@@ -90,21 +87,26 @@
 	}
 
 	.klu-eyecatcher {
-		font-size: 0;
-		line-height: 1;
 		text-align: center;
 		height: 239px;
+	}
 
-		.table-cell {
-			height: 239px;
-			display: table-cell;
-			vertical-align: middle;
-		}
+	.kluuu {
+		.klu-eyecatcher {
+			font-size: 0;
+			line-height: 1;
+			
+			.table-cell {
+				height: 239px;
+				display: table-cell;
+				vertical-align: middle;
+			}
 
-		img {
-			max-height:100%;
-			width: 100%;
-			margin: 0 auto;
+			img {
+				max-height:100%;
+				width: 100%;
+				margin: 0 auto;
+			}
 		}
 	}
 

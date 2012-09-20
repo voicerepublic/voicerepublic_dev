@@ -1,7 +1,7 @@
-<article class="medium-kluuu kluuu-layout kluuu no-kluuu span4">
+<article class="medium-klu klu-layout no-kluuu span4">
 	<%= bookmark_links(current_user, medium_no_kluuu) %>
 	<%= link_to( klu_path(:id => medium_no_kluuu)) do %>
-		<h3 class="no-margin klu-eyecatcher"><%= medium_no_kluuu.title %> </h3>	
+		<h3 class="no-margin klu-eyecatcher"><%= medium_no_kluuu.title %></h3>	
 	<% end %>
 	<div class="call-btn jqrfd btn">
 		<%= link_to(medium_no_kluuu.user.name, user_path(:id => medium_no_kluuu.user) )%>
@@ -12,6 +12,6 @@
 			<dt><%= t('.availability') %></dt>
 			<dd><%= medium_no_kluuu.available_at_times %></dd>
 		</dl>
-		<%= link_to(image_tag( medium_no_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_no_kluuu.user), :class => 'kluuu-user-image' ) %>
+		<%= link_to(image_tag( medium_no_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_no_kluuu.user), :class => 'klu-user-image' ) %>
 	</div>
 </article>

@@ -9,10 +9,11 @@
 
 	klus.callButton = {
 		init: function() {
-
+			this.placeUserImage();
+			this.bindActions();
 		},
 		placeUserImage: function() {
-			var img = $('.kluuu .call-btn img');
+			var img = $('.klu-layout .call-btn img');
 			var imgHeight = parseInt(img.height(), 10);
 			var imgPadding = parseInt(img.css('padding-top'), 10);
 			img.css({'margin-top': -(imgHeight/2 + imgPadding)});
@@ -21,14 +22,19 @@
 			var callButton = $('.call-btn');
 			var callForm = callButton.find('form');
 			var callFormButtion = callForm.find('button');
-			var callButtonLinks = callButton.find('a').css({'border': '1px red solid'});
+			var callButtonLinks = callButton.find('a').on('click', function(e){
+				e.stopPropagation();
+				e.preventDefault();
+				document.location = this.href;
+			});
+			/** TODO: @Timo: Bind Button-Action **/
 		}
 	};
 
 
 	// document.ready
 	$(function(){
-		klus.callButton.bindActions();
+		klus.callButton.init();
 	});
 })(jQuery);
 
