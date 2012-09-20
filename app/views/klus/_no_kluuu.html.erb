@@ -61,8 +61,8 @@
 <% end %>
 
 <div class="well well-small">
-	<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_klu') %>
 	<ul>
+	<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_klu') %>
 	<% @klu.bookmarks.each do |b|%>
 		<li>
 			<%= link_to(user_path(:id => b.user) ) do %>
