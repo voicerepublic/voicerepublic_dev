@@ -13,6 +13,10 @@ class Conversation < ActiveRecord::Base
   #before_destroy :cleanup_messages
   
   
+  validates :user_1, :presence => true
+  validates :user_2, :presence => true
+  
+  
   #def messages
   #  arr = receiver_messages.receiver_undeleted.to_a
   #  arr << sender_messages.sender_undeleted.to_a

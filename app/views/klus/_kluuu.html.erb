@@ -61,12 +61,12 @@
 <% end %>
 <div class="well well-small">
 	<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_kluuu') %>
-	<ul>
+	<ul class="unstyled">
 	<% @klu.bookmarks.each do |b|%>
 		<li>
 			<%= link_to(user_path(:id => b.user) ) do %>
-				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %>
-				<%= b.user.name %>
+				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %><br />
+				<small><%= b.user.firstname %></small>
 			<% end %>
 		</li>
 	<% end %>

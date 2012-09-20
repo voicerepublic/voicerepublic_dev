@@ -196,6 +196,10 @@ de:
     pm: nachmittags
   
   hello: "Hallo Welt"
+  
+  will_paginate:
+    next_label: "nächste Seite"
+    previous_label: "vorige Seite"
   ###########  controllers ###############
   ###########  models ####################
   ###########  helpers  ##################

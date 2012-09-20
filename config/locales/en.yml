@@ -200,6 +200,9 @@ en:
       short: ! '%d %b %H:%M'
     pm: pm
     
+  will_paginate:
+    next_label: "next page"
+    previous_label: "previous page"
   ###########  controllers ###############
   ###########  models ####################
   ###########  helpers  ##################
