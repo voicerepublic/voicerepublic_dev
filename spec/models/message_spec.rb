@@ -13,29 +13,17 @@ describe Message do
     FactoryGirl.build(:message, :receiver => false).should_not be_valid
   end
   
-  it "belongs to a sender_conversation after creation" do
+  
+  it "belongs to a conversation after creation" do
     c = FactoryGirl.create(:message)
-    c.sender_conversation.should be_valid
+    c.conversation.should be_valid
   end
   
-  it "belongs to a receiver_conversation after creation" do
-    c = FactoryGirl.create(:message)
-    c.receiver_conversation.should be_valid
-  end
   
-  it "has a receiver_conversation after creation" do
-    c = FactoryGirl.create(:message)
-    c.receiver_conversation.should be_valid
-  end
-  
-  it "has a receiver_conversation that belongs to receivers conversations" do
+  it "has a conversation that belongs to both involved users of the conversations" do
     m = FactoryGirl.create(:message)#, :sender_id => s.id, :receiver_id=> r.id)
-    m.receiver_conversation.user.id.should eql(m.receiver.id)
-  end
-  
-  it "has a sender_conversation that belongs to senders conversations" do
-    m = FactoryGirl.create(:message)#, :sender_id => s.id, :receiver_id=> r.id)
-    m.sender_conversation.user.id.should eql(m.sender.id)
+    [m.sender, m.receiver].should include(m.conversation.user_1) 
+    [m.sender, m.receiver].should include(m.conversation.user_2)  
   end
   
   

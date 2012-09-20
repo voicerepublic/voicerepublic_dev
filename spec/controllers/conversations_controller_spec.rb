@@ -22,6 +22,7 @@ describe ConversationsController do
   
   before do
     @user = FactoryGirl.create(:user)
+    @receiver = FactoryGirl.create(:user)
     #@receiver = FactoryGirl.create(:user)
     #@message = FactoryGirl.create(:message, :sender => @user, :receiver => @receiver)
     request.env['warden'].stub :authenticate! => @user
@@ -44,7 +45,7 @@ describe ConversationsController do
 
   describe "GET index" do
     it "assigns all conversations as @conversations" do
-      conversation = @user.conversations.create
+      conversation = FactoryGirl.create(:conversation, :user_1 => @user, :user_2 => @receiver)
       get :index, {:user_id => @user}, valid_session
       assigns(:conversations).should eq([conversation])
     end
@@ -52,7 +53,7 @@ describe ConversationsController do
 
   describe "GET show" do
     it "assigns the requested conversation as @conversation" do
-      conversation = @user.conversations.create
+      conversation = FactoryGirl.create(:conversation, :user_1 => @user, :user_2 => @receiver)
       #conversation = Conversation.create! valid_attributes
       get :show, {:user_id => @user, :id => conversation.to_param}, valid_session
       assigns(:conversation).should eq(conversation)
@@ -61,14 +62,14 @@ describe ConversationsController do
 
   describe "DELETE destroy" do
     it "destroys the requested conversation" do
-      conversation = @user.conversations.create #Conversation.create! valid_attributes
+      conversation = FactoryGirl.create(:conversation, :user_1 => @user, :user_2 => @receiver) #Conversation.create! valid_attributes
       expect {
         delete :destroy, {:user_id => @user, :id => conversation.to_param}, valid_session
       }.to change(Conversation, :count).by(-1)
     end
 
     it "redirects to the conversations list" do
-      conversation = @user.conversations.create
+      conversation = FactoryGirl.create(:conversation, :user_1 => @user, :user_2 => @receiver)
       delete :destroy, {:user_id => @user, :id => conversation.to_param}, valid_session
       response.should redirect_to(user_conversations_url(:user_id => @user))
     end
