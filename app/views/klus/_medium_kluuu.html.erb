@@ -1,18 +1,18 @@
-<article class="medium-kluuu kluuu-layout kluuu">
+<article class="medium-kluuu kluuu-layout kluuu span4">
 	<!-- check if current_user has bookmarkd this klu -->
 	<%= bookmark_links(current_user, medium_kluuu) %>
 	
 	<%= link_to( klu_path(:id => medium_kluuu)) do %>
 		<h3 class="no-margin"><%= medium_kluuu.title %> </h3>	
-		<%= image_tag(medium_kluuu.klu_images.first.image.url(:medium)) unless medium_kluuu.klu_images.empty? %>
-		<%= simple_format(medium_kluuu.description) %>
+		<div class="klu-eyecatcher"><%= image_tag(medium_kluuu.klu_images.first.image.url(:medium)) unless medium_kluuu.klu_images.empty? %></div>
+		<section class="kluuu-description"><div class="table-cell"><%= simple_format(medium_kluuu.description) %></div></section>
 	<% end %>
 	<div class="call-btn jqrfd btn">
 		<%= link_to(medium_kluuu.user.name, user_path(:id => medium_kluuu.user) )%>
 		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
 		<dl>
 			<dt><%= t('.price') %></dt>
-			<dd>5€</dd>
+			<dd>5€</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
 			<dt><%= t('.availability') %></dt>
 			<dd><%= medium_kluuu.available_at_times %></dd>
 		</dl>

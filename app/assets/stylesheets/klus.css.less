@@ -7,7 +7,13 @@
 
 .kluuu-layout {
  	padding: 3%;
- 	box-shadow: 1px 1px 5px rgba(0,0,0,0.3) inset, -1px -1px 5px rgba(0,0,0,0.3) inset;
+ 	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
+ 	background: #fff;
+ 	background: rgba(255,255,255,0.8);
+}
+
+.klu-eyecatcher {
+	border: 1px solid #ddd;
 }
 
 .kluuu {
@@ -29,12 +35,16 @@
 		color: @grayLight;
 		.clearfix;
 		dt, dd {
-			
 			float: left;
 		}
 		dt {
 			clear: both;
 			margin-right: 8px;
+		}
+		dd {
+			height: 12px;
+			width: 170px;
+			overflow:hidden;
 		}
 	}
 
@@ -58,6 +68,7 @@
 		height: auto;
 		padding: 0;
 		display: inline;
+		box-shadow: none;
 	}
 }
 
@@ -66,10 +77,55 @@
 	&>a:hover {
 		text-decoration: none;
 	}
+
+	&>a:first-child {
+		display: block;
+	}
 	
 	h3 {
 		.kluuu-title;
 		color: @textColor;
-		height: 2 * ;
+		height: 80px;
+		overflow:hidden;
+	}
+
+	.klu-eyecatcher {
+		font-size: 0;
+		line-height: 1;
+		text-align: center;
+		height: 239px;
+
+		.table-cell {
+			height: 239px;
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+		img {
+			max-height:100%;
+			width: 100%;
+			margin: 0 auto;
+		}
+	}
+
+	.kluuu-description {
+		height: 12px * @baseLineHeight * 3;
+		overflow:hidden;
+		margin: (12px * @baseLineHeight) 2px;
+		color: @textColor;
+		font-size: 12px;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	&:hover {
+		 background: rgba(151,60,83,0.05);
+    -moz-transition: 0.4s all;
+
+    .call-btn {
+    	background: rgba(0,0,0,0.05);
+    }
 	}
 }
