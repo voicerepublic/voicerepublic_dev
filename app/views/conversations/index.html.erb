@@ -1,0 +1,27 @@
+<%- model_class = Conversation -%>
+<div class="page-header">
+  <h1><%=t('.your_conversations') %></h1>
+</div>
+
+<div class="span2">
+	
+	<% @conversations.each do |conv| %>
+		<% partner = conv.partner_of(@user) %> 
+		<div class="well well-small">
+			<% if current_page?(user_conversation_path(:user_id => @user, :id => conv )) %>
+				<%= image_tag(partner.account.portrait(:thumb)) if partner.account.portrait.exists? %>
+				<strong><%= partner.name %></strong>
+			<% else %>
+				<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
+					<%= image_tag(partner.account.portrait(:thumb)) if partner.account.portrait.exists? %>
+					<%= partner.name %>
+				<% end %>
+			<% end %>
+		</div>
+	<% end %>
+</div>
+<div class="span6">
+</div>
+
+
+

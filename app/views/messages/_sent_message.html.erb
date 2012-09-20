@@ -1,7 +1,7 @@
 <div class="well well-small">
 	<span class="pull-right">
 		<%= link_to(user_message_path(:user_id => message.sender, :id => message), :method => :delete) do %>
-		<i class="icon-trash"> </i>
+		<i class="icon-trash"> </i> <%= t('.delete')%> &nbsp;
 		<% end %>
 	</span>
 	<%= link_to(image_tag(message.receiver.account.portrait(:thumb)), user_path(:id => message.receiver), :class => "img-polaroid" )%>

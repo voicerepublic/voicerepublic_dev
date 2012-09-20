@@ -13,6 +13,32 @@ describe Message do
     FactoryGirl.build(:message, :receiver => false).should_not be_valid
   end
   
+  it "belongs to a sender_conversation after creation" do
+    c = FactoryGirl.create(:message)
+    c.sender_conversation.should be_valid
+  end
+  
+  it "belongs to a receiver_conversation after creation" do
+    c = FactoryGirl.create(:message)
+    c.receiver_conversation.should be_valid
+  end
+  
+  it "has a receiver_conversation after creation" do
+    c = FactoryGirl.create(:message)
+    c.receiver_conversation.should be_valid
+  end
+  
+  it "has a receiver_conversation that belongs to receivers conversations" do
+    m = FactoryGirl.create(:message)#, :sender_id => s.id, :receiver_id=> r.id)
+    m.receiver_conversation.user.id.should eql(m.receiver.id)
+  end
+  
+  it "has a sender_conversation that belongs to senders conversations" do
+    m = FactoryGirl.create(:message)#, :sender_id => s.id, :receiver_id=> r.id)
+    m.sender_conversation.user.id.should eql(m.sender.id)
+  end
+  
+  
   it "is invalid without content" do
     FactoryGirl.build(:message, :content => " ").should_not be_valid
   end

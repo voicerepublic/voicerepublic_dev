@@ -43,8 +43,10 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(params[:message].merge(:receiver_id => params[:receiver_id]))
+    @message = Message.new(params[:message])
+    _receiver = User.find(params[:receiver_id])
     @message.sender = current_user
+    @message.receiver = _receiver
     
     respond_to do |format|
       if @message.save

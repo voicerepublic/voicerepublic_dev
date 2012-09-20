@@ -1,15 +1,24 @@
 class Message < ActiveRecord::Base
-  attr_accessible :content, :sender_read, :receiver_read, :receiver_id, :sender_id
+  attr_accessible :content, :sender_read, :receiver_read, :receiver_id, :sender_id, :conversation_id
   
   belongs_to :sender, :class_name => 'User'
   belongs_to :receiver, :class_name => 'User'
   
+  belongs_to :conversation
+  
+  #belongs_to :sender_conversation, :class_name => 'Conversation'
+  #belongs_to :receiver_conversation, :class_name => 'Conversation'
+  
   scope :sender_unread, where("sender_read = ?", false)
   scope :receiver_unread, where("receiver_read = ?", false)
+  scope :receiver_undeleted, where("receiver_deleted=?", false)
+  scope :sender_undeleted, where("sender_deleted=?", false)
   
   validates :receiver_id, :presence => true
   validates :sender_id, :presence => true
   validates :content, :presence => true
+  
+  after_create :add_to_or_create_conversation
   
   def destroy_for(user)
     if self.receiver == user
@@ -20,6 +29,35 @@ class Message < ActiveRecord::Base
       return true    
     end
     false
+  end
+  
+  private
+  
+  def add_to_or_create_conversation
+    
+    ids = [sender.id, receiver.id].sort
+    
+    conv = Conversation.where("user_1_id=? AND user_2_id=?", ids[0],ids[1] ).first
+    if conv.nil?
+      conv = Conversation.create(:user_1_id => ids[0], :user_2_id => ids[1])
+    end
+    
+    update_attribute(:conversation_id, conv.id)
+    
+    #myconf = Conversation.where("user_id = ? AND partner_id = ?", sender_id, receiver_id )
+    #otherconf = Conversation.where("user_id = ? AND partner_id = ?", receiver_id, sender_id )
+  # 
+  #  if myconf.empty?
+  #    update_attribute(:sender_conversation_id, sender.conversations.create(:partner_id => receiver.id).id )
+  #  else
+  #    update_attribute(:sender_conversation_id, myconf.first.id)
+  #  end
+  #  if otherconf.empty?
+  #    update_attribute(:receiver_conversation_id, receiver.conversations.create(:partner_id => sender.id).id )
+  #  else
+  #    update_attribute(:receiver_conversation_id, otherconf.first.id)
+  #  end
+    
   end
   
 end

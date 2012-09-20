@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :follower_relations, :foreign_key => :followed_id, :class_name => 'Follow', :dependent => :destroy  
   has_many :follower, :through => :follower_relations, :source => :followed 
   has_many :followed, :through => :followed_relations, :source => :follower 
+  #has_many :conversations, :foreign_key => [ :user_1_id, :user_2_id ]
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   
@@ -94,7 +95,9 @@ class User < ActiveRecord::Base
     Message.where("receiver_id = ? AND receiver_deleted = ? OR sender_id = ? AND sender_deleted = ?", self.id, false, self.id, false).order('created_at DESC')
   end
   
-  
+  def conversations
+    Conversation.where("user_1_id=? OR user_2_id=?", self.id, self.id).order("created_at DESC")
+  end
   
   ######  class methods
   

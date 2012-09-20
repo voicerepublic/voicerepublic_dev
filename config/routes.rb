@@ -1,6 +1,4 @@
 Kluuu2::Application.routes.draw do
-  
-  
 
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index, :as => 'user_root'
@@ -28,6 +26,7 @@ Kluuu2::Application.routes.draw do
           put "mark_read"
         end
       end
+      resources :conversations, :only => [:index, :show, :destroy]
       resources :bookmarks, :only => [:index, :destroy]
       resources :follows, :only => [:destroy, :index]
       post "follow/:followed_id", :controller => "follows", :action => 'create', :as => "create_follow"

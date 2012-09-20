@@ -23,7 +23,7 @@ describe MessagesController do
   before do
     @user = FactoryGirl.create(:user)
     @receiver = FactoryGirl.create(:user)
-    @message = FactoryGirl.create(:message, :sender => @user)
+    @message = FactoryGirl.create(:message, :sender => @user, :receiver => @receiver)
     request.env['warden'].stub :authenticate! => @user
     controller.stub :current_user => @user
   end
