@@ -22,6 +22,18 @@
     </div>
   </div>
   <div class="control-group">
+  	<%= f.label :charge_type, :class => 'control-label'%>
+  	<div class="controls">
+  		<%= f.select(:charge_type, Kluuu::CHARGE_TYPES, { :selected => @klu.charge_type} ) %>
+  	</div>
+  </div>
+  <div class="control-group">
+  	<%= f.label :charge_amount, :class => 'control-label'%>
+  	<div class="controls">
+  		<%= f.number_field(:charge_amount )%>
+  	</div>
+  </div>
+  <div class="control-group">
     <%= f.label :published, :class => 'control-label' %>
     <div class="controls">
       <%= f.check_box :published, :class => 'check_box' %>

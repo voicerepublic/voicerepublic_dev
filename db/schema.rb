@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120919132739) do
+ActiveRecord::Schema.define(:version => 20120920212859) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -106,9 +106,13 @@ ActiveRecord::Schema.define(:version => 20120919132739) do
     t.boolean  "published",          :default => false
     t.integer  "category_id"
     t.string   "type"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.integer  "charge_amount",      :default => 0
+    t.string   "charge_type",        :default => "free"
   end
+
+  add_index "klus", ["charge_type"], :name => "index_klus_on_charge_type"
 
   create_table "messages", :force => true do |t|
     t.integer  "receiver_id"
