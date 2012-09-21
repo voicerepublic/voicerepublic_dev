@@ -62,6 +62,15 @@
 	</dd>
 </dl>
 
+<div class="span4">
+	<span class="label label-info"><strong>Tags</strong></span>
+	<ul>
+	<% @klu.tags.each do |tag| %>
+		<li><%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %></li>
+	<% end %>
+	</ul>
+</div>
+
 <% if @klu.instance_of?(Kluuu) %>
 <div class="well well-large ">
 	<ul class="thumbnails">
@@ -90,6 +99,7 @@
 	<% end %>
 	</ul>
 </div>
+
 
 <div class="form-actions">
 	

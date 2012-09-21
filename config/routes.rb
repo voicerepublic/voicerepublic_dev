@@ -48,6 +48,7 @@ Kluuu2::Application.routes.draw do
     post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
     post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
+    get "tags/:tag", :controller => 'landing_page', :action => 'show_tagged_with', :as => 'tagged_with'
   end
   
   namespace :admin do
