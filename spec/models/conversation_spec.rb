@@ -14,5 +14,6 @@ describe Conversation do
   it "is destroyed if no more messages"
   it "has many messages"
   it "will not display messages to user_1 when he deleted thread but display this messages to user_2"
+  it "will not deliver messages to user_1 when user_1 deleted this message"
   
 end
