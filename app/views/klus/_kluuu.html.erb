@@ -41,9 +41,17 @@
 					STATUS ODER SELBSTBESCHREIBUNG
 				</div>
 				ACTIVITY_SCORE <br>
-				<a href="#" class="icon-envelope"> Nachricht schicken</a>
-				<a href="#">FOLGEN</a>
-				<a href="#">Mehr KluuUs von diesem User</a>
+				
+				<%= link_to(new_message_path(:receiver_id => @user)) do %>
+					<i class="icon-envelope"> </i> <%= t('.send_message') %>
+				<% end if current_user %>
+				
+				<%= link_to( user_create_follow_url(:user_id => current_user, :followed_id => @user), :method => :post ) do %>
+					<%= t('.follow') %>
+				<% end if current_user %>
+				
+				<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
+				
 			</aside>
 		</div>
 	</div><!-- End of Kluu-header kly-layout-->
