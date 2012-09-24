@@ -49,7 +49,7 @@ gem 'capistrano'
 
 
 # make rspec and cucumber the preferred test-suites
-group :development, :test do
+group :development, :test, :staging do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 end

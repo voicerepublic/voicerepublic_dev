@@ -1,5 +1,5 @@
 set :deploy_to, "/var/www/staging2.#{application}/staging"
-set :rails_env, "production"
+set :rails_env, "staging"
 set :branch, "master"
 
 role :web, "staging2.kluuu.com"       # Your HTTP server, Apache/etc
