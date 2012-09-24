@@ -1,3 +1,5 @@
+require 'capistrano/ext/multistage'
+
 set :application, "kluuu.com"
 set :repository,  "gitosis@devel.spampark.com:kluuu2.git"
 set :scm, :git
@@ -7,16 +9,22 @@ set :user, "rp"
 set :group, "www-data"
 set :scm_username, "gitosis"
 set :template_dir, "~/templates"
+set :stages , %w{staging stable}
+set :default_stage, "staging"
+
+default_run_options[:pty] = true
 
 
-
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+role :web, "staging2.kluuu.com"                          # Your HTTP server, Apache/etc
+role :app, "staging2.kluuu.com"                          # This may be the same as your `Web` server
+role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations will run
+#role :db,  "your slave db-server here"
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
+
+after "deploy:setup", "dbconf:setup" #, "ts:setup"
+after "deploy:finalize_update", "dbconf"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -67,5 +75,32 @@ namespace :ts do
   task :rebuild, :roles => :app do
     run "cd #{current_path}; bundle exec rake ts:rebuild RAILS_ENV=production"
   end
+end
+
+namespace :dbconf do
+  
+  task :default do
+    on_app
+    on_db
+  end
+  
+  desc "create a 'config' directory in shared_path for database.yml - to symlink it with everey deploy"
+  task :setup do
+    run "mkdir -p #{shared_path}/config"
+    puts "you should place your database.yml into shared_path/config..."
+  end
+
+  desc "symlink database yml to prod-host"
+  task :on_app, :roles => :app do
+    puts "linking database.yml from shared_path to current on app"
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
+  
+  desc "symlink database yml to db-host"
+  task :on_db, :roles => :db do
+    puts "linking database.yml from shared_path to current on db"
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  end
+
 end
 
