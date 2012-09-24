@@ -4,11 +4,7 @@ module ApplicationHelper
   #
   def limit_words(txt, num)
     arr = txt.split(" ")
-    if arr.length > num-1
-      arr[0..num-1].join(" ").concat(" ...")
-    else
-      txt
-    end
+    arr.length > num-1 ? arr[0..num-1].join(" ").concat(" ...") : txt
   end
   
 end
