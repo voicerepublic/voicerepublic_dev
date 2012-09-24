@@ -83,6 +83,8 @@
 	</ul>
 </div>
 
+
+<% if can? :manage, @klu %>
 <div class="form-actions">
 	
 	<%= link_to( t('.add_image'), new_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu), :class => "btn") if @klu.instance_of?(Kluuu) %>
@@ -96,3 +98,4 @@
 	:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
 	:class => 'btn btn-danger' %>
 </div>
+<% end %>

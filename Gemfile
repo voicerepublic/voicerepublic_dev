@@ -30,6 +30,7 @@ gem 'awesome_nested_set'
 gem 'globalize3'
 gem 'acts-as-taggable-on'
 gem 'money'
+gem 'cancan'
 
 
 
