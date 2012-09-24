@@ -6,7 +6,6 @@
 }
 
 .klu-layout {
- 	padding: 3%;
  	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
  	background: #fff;
  	background: rgba(255,255,255,0.8);
@@ -70,6 +69,7 @@
 }
 
 .medium-klu {
+	padding: 10px 8px;
 
 	&>a:hover {
 		text-decoration: none;
@@ -93,8 +93,10 @@
 
 	.kluuu {
 		.klu-eyecatcher {
-			font-size: 0;
-			line-height: 1;
+			
+			img {
+				display: block;
+			}
 			
 			.table-cell {
 				height: 239px;
@@ -130,4 +132,77 @@
     	background: rgba(0,0,0,0.05);
     }
 	}
+}
+
+.klu-large {
+		.klu-layout {
+			padding: 20px 30px;
+
+		.kluuu-pics {
+
+			ul {
+				margin: 0;
+				.clearfix;
+			}
+
+			li {
+				float: left;
+				width: 74px;
+				height: 56px;
+				line-height: 56px;
+				text-align: center;
+				border: 1px solid rgba(0,0,0,0.2);
+				margin-right: 4px;
+				font-size: 0;
+				background-color: rgba(0,0,0,0.7);
+
+				img {
+					font-size: 0;
+					vertical-align: middle;
+					max-height: 100%;
+				}
+			}
+
+			li:first-child {
+				float: none;
+				// width: 820px;
+				width: auto;
+				position: relative;
+				// height: 615px;
+				height: auto;
+				// line-height: 615px;
+				text-align: center;
+				margin-bottom: 15px;
+			}
+
+			img {
+				font-size: 0;
+				vertical-align: middle;
+				max-height: 100%;
+			}
+
+			.klu-image-caption {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				background: white;
+				width: 100%;
+				opacity: 0.66;
+				line-height: (@baseFontSize - 3) * @baseLineHeight;
+				font-size: @baseFontSize - 3;
+				padding: 4px 10px;
+				text-align: left;
+			}
+		}
+
+		.klu-user-info {
+			box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
+			position: relative;
+			height: 100%;
+		}
+	}
+}
+
+.kluuu-large-left {
+	padding: 0  30px;
 }

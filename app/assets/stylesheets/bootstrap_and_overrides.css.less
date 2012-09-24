@@ -31,6 +31,16 @@ body {
 // Example:
 // @linkColor: #ff0000;
 
+/*
+ *
+ * VARAIBLES_OVERRIDE
+ */
+
+// @gridColumns: 10;
+// @gridColumnWidth: 9%;
+// @gridGutterWidth: 1%;
+
+
 /*             *
  * BASESTYLES  *
  *             */
@@ -38,6 +48,7 @@ body {
 // Change of box-sizing-mode siehe http://paulirish.com/2012/box-sizing-border-box-ftw/
 * {
 	.box-sizing(border-box);
+	-ms-box-sizing: border-box;
 }
 
 // Set line-height to 1.5 relative sizing and for better readability
@@ -70,13 +81,17 @@ nav {
 	}
 }
 
+ul.unstyled {
+	margin: 0;
+}
+
 @textColor: @grayDark;
 
 /*
  * TYPOGRAPHY
  *
  */
- @sansFontFamily: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ @sansFontFamily: "Lato", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 h1 { font-size: 2.4em; font-size: 2.4rem; }
 h2 { font-size: 2em; font-size: 2rem; }
