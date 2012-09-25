@@ -30,5 +30,13 @@ class Ability
       klu.user == user
     end
     
+    can :manage, User do |usr|
+      usr == user
+    end
+    
+    can :manage, Account do |account|
+      user.account == account
+    end
+    
   end
 end

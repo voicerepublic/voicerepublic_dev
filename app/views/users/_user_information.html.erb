@@ -84,4 +84,7 @@
 			</dd>
 		</dl>
 	</aside>
+	<% if can? :manage, @user %>
+		<%= link_to(t('.edit_account'), edit_user_account_path(:user_id => @user)) %>
+	<% end %>
 </section>
