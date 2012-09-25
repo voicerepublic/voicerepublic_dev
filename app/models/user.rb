@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  attr_accessible :password, :password_confirmation, :remember_me
+  attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid, :last_request_at
  
@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   #has_many :conversations, :foreign_key => [ :user_1_id, :user_2_id ]
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
+  accepts_nested_attributes_for :account
   
   after_create :add_default_user_role
   after_create :add_account

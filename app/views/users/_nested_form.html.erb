@@ -1,0 +1,70 @@
+<%= form_for @user, :url => user_path(:id => @user), :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+
+<div class="control-group">
+	<%= f.label :firstname, :class => "control-label" %>
+	<div class="controls">
+		<%= f.text_field :firstname %>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= f.label :lastname, :class => "control-label" %>
+	<div class="controls">
+		<%= f.text_field :lastname %>
+	</div>
+</div>
+
+<% @account = @user.account %>
+<%= f.fields_for :account do |account_fields| %>
+
+<div class="control-group">
+	<%= account_fields.label :about, :class => 'control-label' %>
+	<div class="controls">
+		<%= account_fields.text_area :about, :class => 'text_area', :rows => 4 %>
+	</div>
+</div>
+
+<div class="control-group">
+	<%= account_fields.label :portrait, :class => "control-label" %>
+	<div class="controls">
+		<% if @user.account.portrait.exists? %>
+		<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "btn btn-danger", :method => :delete do %>
+		<%= image_tag @user.account.portrait.url(:thumb), :class => "img-circle" %> <i class="icon-trash"> </i> <%= t('.delete_portrait')%>
+		<% end %>
+		<% else %>
+		<%= account_fields.file_field :portrait %>
+		<% end %>
+	</div>
+</div>
+<div class="control-group">
+	<%= account_fields.label :timezone, :class => "control-label"%>
+	<div class="controls">
+		<%= account_fields.time_zone_select :timezone, ActiveSupport::TimeZone.all.sort, :include_blank => false, :default => "Berlin", :class => 'select_field' %>
+	</div>
+</div>
+<div class="control-group">
+	<%= account_fields.label :language_1, :class => 'control-label' %>
+	<div class="controls">
+		<% lang_hash = Hash.new %>
+		<% I18nData.languages(I18n.locale).each { |k,v| lang_hash[v] = k } %>
+		<%= account_fields.select :language_1, lang_hash.sort, :include_blank => false, :default => I18n.locale.upcase.to_s %>
+	</div>
+</div>
+<div class="control-group">
+	<%= account_fields.label :language_2, :class => 'control-label' %>
+	<div class="controls">
+		<%= account_fields.select :language_2, lang_hash.sort, :include_blank => true, :default => I18n.locale.upcase.to_s %>
+	</div>
+</div>
+<div class="control-group">
+	<%= account_fields.label :language_3, :class => 'control-label' %>
+	<div class="controls">
+		<%= account_fields.select :language_3, lang_hash.sort, :include_blank => true, :default => I18n.locale.upcase.to_s %>
+	</div>
+</div>
+<% end %>
+<div class="form-actions">
+	<%= f.submit nil, :class => 'btn btn-primary' %>
+	<%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(:id => @user), :class => 'btn' %>
+</div>
+<% end %>
