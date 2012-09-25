@@ -54,7 +54,7 @@ class KlusController < ApplicationController
       when 'Kluuu'
         @klu = @user.kluuus.build(params[:klu])
       when 'NoKluuu'
-        @klu = @user.no_kluus.build(params[:klu])
+        @klu = @user.no_kluuus.build(params[:klu])
       end
     else
       @klu = @user.no_kluuus.build(params[:klu])
