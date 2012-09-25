@@ -6,7 +6,23 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.destroy_all
+Klu.destroy_all
+
+
+Role.destroy_all
 Role.create([{name: 'admin'}, {name: 'user'}])
-Category.create([{name: 'sport'}, {name: 'lifestyle'}, {name: 'politics'}])
 
+Category.destroy_all
+h = { "culture" => "Kultur", "technics" => "Technik", "education" => "Bildung", "living" => "Leben" }
+I18n.locale = :en
+cats = []
+h.keys.each do |k|
+  cats.push Category.create(:name => k)
+end
 
+I18n.locale = :de
+cats.each_with_index do |category,i|
+  category.name = h.values[i]
+  category.save!
+end
