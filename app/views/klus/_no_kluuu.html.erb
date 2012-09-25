@@ -1,92 +1,67 @@
+<article class="no-kluuu klu-large">
+	<div class="klu-layout">
+		<div class="row-fluid">
+			<div class="span8">
+				<h2 class="klu-eyecatcher kluuu-title"><%= @klu.title %></h2>
+				<aside class="klu-meta clearfix">
+				<ul class="klu-categories">
+					<li>
+						<%= @klu.category_id %>
+					</li>
+				</ul>
+					<ul class="klu-tags">
+						<% @klu.tags.each do |tag| %>
+							<li><%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %></li>
+						<% end %>
+					</ul>
+					<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_kluuu') %>
+					<ul class="unstyled klu-bookmarked-by">
+						<% @klu.bookmarks.each do |b|%>
+							<li>
+								<%= link_to(user_path(:id => b.user) ) do %>
+									<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %><%= b.user.firstname %>
+								<% end %>
+							</li>
+						<% end %>
+					</ul>
+				</aside>
+			</div>
+			<aside class="klu-user-info span4">
+				<div class="call-btn jqrfd btn">
+					<%= link_to(@klu.user.name, user_path(:id => @klu.user) )%>
+					<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+					<dl>
+						<dt><%= t('.price') %></dt>
+						<dd><%= @klu.charge_amount %> €</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
+						<dt><%= t('.availability') %></dt>
+						<dd><%= @klu.available_at_times %></dd>
+					</dl>
+					<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
+				</div><!-- End of call-btn -->
+				<div>
+					STATUS ODER SELBSTBESCHREIBUNG
+				</div>
+				ACTIVITY_SCORE <br>
+				
+				<%= link_to(new_message_path(:receiver_id => @user)) do %>
+					<i class="icon-envelope"> </i> <%= t('.send_message') %>
+				<% end if current_user %>
+				
+				<%= link_to( user_create_follow_url(:user_id => current_user, :followed_id => @user), :method => :post ) do %>
+					<%= t('.follow') %>
+				<% end if current_user %>
+				
+				<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
+				
+			</aside>
+		</div>
+	</div><!-- End of Kluu-header kly-layout-->
+</article>
 
-<dl class="dl-horizontal">
-	<dt>
-		<strong>title:</strong>
-	</dt>
-	<dd>
-		<%= @klu.title %>
-	</dd>
-	<dt>
-		<strong>description:</strong>
-	</dt>
-	<dd>
-		<%= @klu.description %>
-	</dd>
-	<dt>
-		<strong>available_at_times:</strong>
-	</dt>
-	<dd>
-		<%= @klu.available_at_times %>
-	</dd>
-	<dt>
-		<strong>user_id:</strong>
-	</dt>
-	<dd>
-		<%= @klu.user_id %>
-	</dd>
-	<dt>
-		<strong>published:</strong>
-	</dt>
-	<dd>
-		<%= @klu.published %>
-	</dd>
-	<dt>
-		<strong>category_id:</strong>
-	</dt>
-	<dd>
-		<%= @klu.category_id %>
-	</dd>
-	<dt>
-		<strong>type:</strong>
-	</dt>
-	<dd>
-		<%= @klu.type %>
-	</dd>
-</dl>
-
-<div class="span4">
-	<span class="label label-info"><strong>Tags</strong></span>
-	<ul>
-	<% @klu.tags.each do |tag| %>
-		<li><%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %></li>
-	<% end %>
-	</ul>
-</div>
-
-<% if @klu.instance_of?(Kluuu) %>
-<div class="well well-large ">
-	<ul class="thumbnails">
-		<% @klu.klu_images.each do |ki| %>
-		<li class="span4">
-			<%= link_to user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki) do %>
-				<p><%= simple_format( ki.description ) %></p>
-				<%= image_tag(ki.image.url(:thumb), :class => "img-polaroid") %>&nbsp;
-			<% end %>
-			<%= link_to t('.destroy_image'), user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "btn"%>
-		</li>
-		<% end %>
-	</ul>
-</div>
-<% end %>
-
-<div class="well well-small">
-	<ul class="unstyled">
-	<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_klu') %>
-	<% @klu.bookmarks.each do |b|%>
-		<li>
-			<%= link_to(user_path(:id => b.user) ) do %>
-				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %><br />
-				<small><%= b.user.firstname %></small>
-			<% end %>
-		</li>
-	<% end %>
-	</ul>
-</div>
 
 
 <% if can? :manage, @klu %>
 <div class="form-actions">
-	
 	<%= link_to( t('.add_image'), new_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu), :class => "btn") if @klu.instance_of?(Kluuu) %>
 	<%= link_to t('.back', :default => t("helpers.links.back")),
 	user_klus_path(:user_id => @klu.user ), :class => 'btn'  %>
