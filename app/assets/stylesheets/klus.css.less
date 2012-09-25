@@ -125,11 +125,11 @@
 	}
 
 	&:hover {
-		 background: rgba(151,60,83,0.05);
+		 background: rgba(151,60,83,0.02);
     -moz-transition: 0.4s all;
 
     .call-btn {
-    	background: rgba(0,0,0,0.05);
+    	background: rgba(0,0,0,0.02);
     }
 	}
 }
@@ -205,4 +205,39 @@
 
 .kluuu-large-left {
 	padding: 0  30px;
+}
+
+.klu-large {
+	.klu-meta {
+		font-size: @baseFontSize - 3px;
+
+		ul {
+			margin: 0;
+		}
+
+		li {
+			display: inline;
+		}
+		.klu-categories, .klu-tags, .klu-bookmarked-by {
+			float: left;
+		}
+
+		.klu-categories, .klu-bookmarked-by {
+			width: 25%;
+		}
+
+		.klu-tags {
+			width: 50%;
+			text-align: center;
+		}
+		.klu-bookmarked-by {
+			text-align: right;
+		}
+	}
+}
+
+.no-kluuu.klu-large {
+	h2 {
+		margin: 0 0 (@baseFontSize * @baseLineHeight)/2;
+	}
 }
