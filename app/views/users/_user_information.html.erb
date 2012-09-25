@@ -27,7 +27,7 @@
 	<div class="status-partial-container">
 		<h4> <%= t('.status') %> </h4>
 		<% status_update = user.status_updates.limit(1).first unless user.status_updates.empty? %>
-		<%= status_update.content if status_update%>
+		<%= limit_words(status_update.content, 20) if status_update%>
 		<p>
 			<span class=""> <%= status_update.comments.count if status_update %> </span>
 			<%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => user, :id => status_update) if status_update %>
