@@ -1,0 +1,33 @@
+<%= form_for(@video_session) do |f| %>
+  <% if @video_session.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@video_session.errors.count, "error") %> prohibited this video_session from being saved:</h2>
+
+      <ul>
+      <% @video_session.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :offer_id %><br />
+    <%= f.number_field :offer_id %>
+  </div>
+  <div class="field">
+    <%= f.label :end_timestamp %><br />
+    <%= f.datetime_select :end_timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :begin_timestamp %><br />
+    <%= f.datetime_select :begin_timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :video_system_session_id %><br />
+    <%= f.text_field :video_system_session_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
