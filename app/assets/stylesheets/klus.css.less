@@ -208,6 +208,9 @@
 }
 
 .klu-large {
+	padding-top: @baseLineHeight * @baseFontSize * 1.5;
+	position: relative;
+
 	.klu-meta {
 		font-size: @baseFontSize - 3px;
 
@@ -231,6 +234,33 @@
 			text-align: center;
 		}
 		.klu-bookmarked-by {
+			text-align: right;
+		}
+	}
+
+	.klu-top-bar {
+		position: absolute;
+		top: 0;
+		left: 0px;
+		width: 100%;
+
+		ul {
+			margin: 0;
+			position: absolute;
+		}
+
+		li {
+			display: inline;
+		}
+		
+		.klu-actions {
+			left: 30px;
+			top: 0;
+		}
+
+		.klu-socials {
+			top: 0;
+			right: 30px;
 			text-align: right;
 		}
 	}
