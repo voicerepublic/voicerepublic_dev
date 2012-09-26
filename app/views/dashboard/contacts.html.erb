@@ -3,7 +3,7 @@
 </div>
 
 <ul class="nav nav-tabs">
-	<li class="active">
+	<li>
 		<%= link_to(t('.matches'), dashboard_matches_path )%>
 	</li>
 	<li>
@@ -12,12 +12,12 @@
 	<li>
 		<%= link_to(t('.bookmarks'), dashboard_bookmarks_path) %>
 	</li>
-	<li>
+	<li class="active">
 		<%= link_to(t('.contacts'), dashboard_contacts_path ) %>
 	</li>
 </ul>
 
 <div class="tab-content">
-	
+	<p><%= t('.no_contacts_available') if @followed.empty? && @follower.empty? %></p>
+	<%= render(:partial => 'dashboard/contacts') %>
 </div>
-

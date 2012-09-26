@@ -17,6 +17,9 @@
 							<i class="icon-wrench"> </i> <%= t('.settings') %>
 						<% end if current_user %>
 					</li>
+					<li>
+						<%= link_to('dashboard', dashboard_path )  if current_user %>
+					</li>
 				</ul>
 				<ul class="nav pull-right">
 					<% if current_user %>
