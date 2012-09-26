@@ -16,4 +16,12 @@ describe RegisteredParticipant do
   it "is invalid without user_id" do
     FactoryGirl.build(:registered_participant, user_id: nil).should_not be_valid
   end
+  it "is valid with video_session" do
+    p = FactoryGirl.create(:registered_participant)
+    p.video_session.should be_valid
+  end
+  it "is valid with user" do
+    p = FactoryGirl.create(:registered_participant)
+    p.user.should be_valid
+  end
 end
