@@ -2,11 +2,9 @@
 
 FactoryGirl.define do
   factory :registered_participant do
-    user_id 1
-    time_online 1
-    last_pay_tick_timestamp "2012-09-25 16:15:51"
-    pay_tick_counter 1
-    payment_started_timestamp "2012-09-25 16:15:51"
-    payment_stopped_timestamp "2012-09-25 16:15:51"
+    user {FactoryGirl.create(:user)}
+    type "RegisteredParticipant"
+    video_session {FactoryGirl.create(:video_session_with_participants)}
+    video_session_role "publisher"
   end
 end

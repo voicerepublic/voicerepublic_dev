@@ -2,6 +2,9 @@
 
 FactoryGirl.define do
   factory :anonymous_participant do
-    user_cookie_session_id "MyString"
+    type "AnonymousParticipant"
+    video_session_id 1
+    video_session_role "publisher"
+    user_cookie_session_id "0815participant"
   end
 end
