@@ -1,5 +1,7 @@
 Kluuu2::Application.routes.draw do
 
+  resources :video_sessions
+
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index, :as => 'user_root'
   end

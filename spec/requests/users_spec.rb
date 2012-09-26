@@ -15,7 +15,7 @@ feature "User visits another user" do
 end
 
 
-feature "Ueser can register" do
+feature "User can register" do
   scenario "user supplies correct values" do
     visit root_path()
     click_link("Sign Up")
@@ -28,7 +28,7 @@ feature "Ueser can register" do
     page.should have_content("Success")
   end
   
-  scenario "user misses email during registration" do
+  scenario "User misses email during registration" do
     visit root_path()
     click_link('Sign Up')
     page.fill_in('user_firstname', :with => "Jim")
