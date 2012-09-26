@@ -5,6 +5,8 @@
 .extra_padding { padding: 10px; }
 
 .user-container {
+	position: relative;
+
 	.user-content > nav {
 		li {
 			width: 25%;
@@ -42,11 +44,60 @@
 			display: block;
 			max-height:100%;
 			overflow:hidden;
-			width: 100%;
+			max-width: 100%
 		}
 	}
 
-.user-bookmarks	.medium-kluuu:nth-child(even) {
+	.user-bookmarks	.medium-kluuu:nth-child(even) {
 		margin-left: @gridColumnWidth + @gridGutterWidth;
+	}
+
+	.user-edit-link {
+			position: absolute;
+			left: 0;
+			top: -(@baseFontSize * @baseLineHeight * 1.5);
+			font-size: @baseFontSize - 3;
+	}
+}
+
+.user-information {
+	.top-content-distance {
+		overflow: hidden;
+	}
+}
+
+.user-edit {
+	width: 50%;
+	margin: 0 auto;
+	max-width: 400px;
+
+	.user-edit-name {
+		.control-group {
+			float: left;
+			width: 49%;
+		}
+		.control-group:first-child {
+			margin-right: 1%;
+		}
+		.control-group:last-child {
+			margin-left: 1%;
+		}
+	}
+	.user-edit-image {
+		font-size: @baseFontSize - 3;
+		
+
+		.controls {
+			display: inline-block;
+			position: relative;
+		}
+
+		img {
+			vertical-align:baseline;
+			margin-right: 8px;
+		}
+		.user-edit-picture-edit {
+			white-space: nowrap;
+		}
 	}
 }

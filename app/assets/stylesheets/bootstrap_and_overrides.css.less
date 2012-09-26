@@ -60,6 +60,53 @@ img {
 	max-width: 100%;
 }
 
+.form-horizontal {
+	.control-group {
+		margin: (@baseFontSize * @baseLineHeight * 0.5) 0;
+
+		label {
+			display: block;
+			width: auto;
+		}
+	}
+	
+	.control-label {
+		float: none;
+		text-align: left;
+		font-size: @baseFontSize - 3;
+		font-weight: bold;
+		color: lighten(@textColor, 25);
+	}
+	
+	.controls {
+		margin-left: 0;
+
+		input, select, textarea {
+			width: 100%;
+		}
+	}
+
+	.form-actions {
+		padding-left: 0;
+	}
+}
+
+.form-actions {
+	text-align: right;
+	background:none;
+	border: none;
+	margin-top: @baseFontSize * @baseLineHeight;
+
+	input, a {
+		margin: 0 3px;
+	}
+	input:first-child, a:first-child {
+		margin-left: 0;
+	}
+	input:last-child, a:last-child {
+		margin-right: 0;
+	}
+}
 
 /*
  *
