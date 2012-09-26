@@ -16,4 +16,8 @@ describe AnonymousParticipant do
   it "is invalid without user_cookie_session_id" do
     FactoryGirl.build(:anonymous_participant, user_cookie_session_id: nil).should_not be_valid
   end
+  it "is valid with video_session" do
+    p = FactoryGirl.create(:anonymous_participant)
+    p.video_session.should be_valid 
+  end
 end
