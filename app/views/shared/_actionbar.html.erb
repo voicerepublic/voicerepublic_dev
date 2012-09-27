@@ -23,9 +23,9 @@
 				</ul>
 				<ul class="nav pull-right">
 					<% if current_user %>
-					<% if current_user.is_admin? %>
-						<li><%= link_to "admin", admin_dashboard_index_path %></li>
-					<% end %>
+						<% if current_user.is_admin? %>
+							<li><%= link_to "admin", admin_dashboard_index_path %></li>
+						<% end %>
 					<li>
 						<%= link_to "/" do %>
 							<i class="icon-search"> </i> <%= t('.search') %>
