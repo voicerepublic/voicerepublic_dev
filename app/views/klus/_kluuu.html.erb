@@ -100,7 +100,7 @@
 			</li>
 			<li>
 				<%= link_to edit_user_klu_path(:user_id => @klu.user, :id => @klu) do %>
-					<i class="icon-pencil"></i>
+					<i class="icon-pencil"> </i>
 					<%= t('.edit', :default => t("helpers.links.edit")) %>
 				<% end %>
 			</li>
@@ -109,8 +109,8 @@
 					:method => 'delete',
 					:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
 					:class => '' do %>
-					<i class="icon-trash"></i>
-					<%= t('.edit', :default => t("helpers.links.edit")) %>
+					<i class="icon-trash"> </i>
+					<%= t('.destroy', :default => t("helpers.links.destroy")) %>
 				<% end %>
 			</li>
 		</ul>
