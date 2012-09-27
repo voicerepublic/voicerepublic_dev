@@ -3,14 +3,14 @@ class KluImagesController < ApplicationController
   before_filter :set_kluuu
   # GET /klu_images
   # GET /klu_images.json
-  #def index
-  #  @klu_images = @kluuu.klu_images
+  def index
+    @klu_images = @kluuu.klu_images
 
-  #    respond_to do |format|
-  #    format.html # index.html.erb
-  #    format.json { render json: @klu_images }
-  #  end
-  #end
+      respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @klu_images }
+    end
+  end
 
   # GET /klu_images/1
   # GET /klu_images/1.json
