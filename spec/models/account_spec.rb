@@ -20,7 +20,6 @@ describe Account do
     a = FactoryGirl.create(:account_with_portrait)
     a.portrait.destroy
     a.save
-    puts a.portrait.inspect
     a.portrait_file_name.should be_nil
   end
   
