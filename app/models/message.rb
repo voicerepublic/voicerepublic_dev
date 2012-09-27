@@ -19,6 +19,7 @@ class Message < ActiveRecord::Base
   validates :content, :presence => true
   
   after_create :add_to_or_create_conversation
+  after_create :generate_notification
   
   def destroy_for(user)
     if self.receiver == user
@@ -34,30 +35,16 @@ class Message < ActiveRecord::Base
   private
   
   def add_to_or_create_conversation
-    
     ids = [sender.id, receiver.id].sort
-    
     conv = Conversation.where("user_1_id=? AND user_2_id=?", ids[0],ids[1] ).first
     if conv.nil?
       conv = Conversation.create(:user_1_id => ids[0], :user_2_id => ids[1])
     end
-    
     update_attribute(:conversation_id, conv.id)
-    
-    #myconf = Conversation.where("user_id = ? AND partner_id = ?", sender_id, receiver_id )
-    #otherconf = Conversation.where("user_id = ? AND partner_id = ?", receiver_id, sender_id )
-  # 
-  #  if myconf.empty?
-  #    update_attribute(:sender_conversation_id, sender.conversations.create(:partner_id => receiver.id).id )
-  #  else
-  #    update_attribute(:sender_conversation_id, myconf.first.id)
-  #  end
-  #  if otherconf.empty?
-  #    update_attribute(:receiver_conversation_id, receiver.conversations.create(:partner_id => sender.id).id )
-  #  else
-  #    update_attribute(:receiver_conversation_id, otherconf.first.id)
-  #  end
-    
+  end
+  
+  def generate_notification
+    Notification::NewMessage.create(:other_id => sender.id, :user_id => receiver.id)
   end
   
 end
