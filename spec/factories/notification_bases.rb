@@ -2,7 +2,13 @@
 
 FactoryGirl.define do
   factory :notification_basis, :class => 'Notification::Base' do
-    user_id 1
+    user
     content "MyText"
+    
+    factory :notification_incoming_call do
+      type 'Notification::IncomingCall'
+    end
+    
   end
+  
 end
