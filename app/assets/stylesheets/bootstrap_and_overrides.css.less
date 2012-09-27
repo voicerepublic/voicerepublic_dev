@@ -84,6 +84,9 @@ img {
 		input, select, textarea {
 			width: 100%;
 		}
+		input[type="checkbox"] {
+			width: auto;
+		}
 	}
 
 	.form-actions {
@@ -138,7 +141,12 @@ ul.unstyled {
  * TYPOGRAPHY
  *
  */
- @sansFontFamily: "Lato", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ @sansFontFamily: "PT Sans", "Lato", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+* {
+	-moz-font-feature-settings: "liga=0";
+	font-feature-settings: "liga" off;
+}
 
 h1 { font-size: 2.4em; font-size: 2.4rem; }
 h2 { font-size: 2em; font-size: 2rem; }
