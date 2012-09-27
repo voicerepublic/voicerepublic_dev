@@ -10,4 +10,10 @@ module KlusHelper
     end
   end
   
+  # renders the corresponding form for STI-model type Kluuu or NoKluuu
+  #
+  def form_for_klu(klu)
+    klu.instance_of?(Kluuu) ? render(:partial => 'klus/form_kluuu') : render(:partial => 'klus/form_no_kluuu')
+  end
+  
 end
