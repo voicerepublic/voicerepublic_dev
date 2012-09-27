@@ -16,4 +16,12 @@ describe Account do
     ActiveSupport::TimeZone.all.map { |x| x.name }.include?(tz).should be_true
   end
   
+  it "has an empty portrait-path if deleted" do
+    a = FactoryGirl.create(:account_with_portrait)
+    a.portrait.destroy
+    a.save
+    puts a.portrait.inspect
+    a.portrait_file_name.should be_nil
+  end
+  
 end

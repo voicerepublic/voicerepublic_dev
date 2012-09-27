@@ -60,6 +60,7 @@ class AccountsController < ApplicationController
   
   def destroy_portrait
     @user.account.portrait.destroy
+    @user.account.save
     #@user.account.portrait = nil
     if @user.account.portrait.exists?
       logger.error("ProfileSetting#destroy_portrait - could not destroy portrait")
