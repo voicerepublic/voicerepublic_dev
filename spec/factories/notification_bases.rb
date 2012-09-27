@@ -10,6 +10,16 @@ FactoryGirl.define do
       klu
     end
     
+    factory :notification_new_follower, :class => 'Notification::NewFollower' do
+      type 'Notification::NewFollower'
+      association :other, factory: :user
+    end
+    
+    factory :notification_new_message, :class => 'Notification::NewMessage' do
+      type 'Notification::NewMessage'
+      association :other, factory: :user
+    end
+    
   end
   
 end
