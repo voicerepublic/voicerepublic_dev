@@ -7,6 +7,7 @@ FactoryGirl.define do
     
     factory :notification_incoming_call do
       type 'Notification::IncomingCall'
+      klu
     end
     
   end

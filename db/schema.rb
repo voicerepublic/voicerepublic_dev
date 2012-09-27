@@ -134,10 +134,16 @@ ActiveRecord::Schema.define(:version => 20120927111213) do
   create_table "notification_bases", :force => true do |t|
     t.integer  "user_id"
     t.text     "content"
+    t.integer  "klu_id"
+    t.integer  "other_id"
+    t.string   "url"
     t.string   "type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "read",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
+
+  add_index "notification_bases", ["user_id"], :name => "index_notification_bases_on_user_id"
 
   create_table "participants", :force => true do |t|
     t.string   "type"
@@ -217,12 +223,12 @@ ActiveRecord::Schema.define(:version => 20120927111213) do
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
   create_table "video_sessions", :force => true do |t|
-    t.integer  "offer_id"
     t.datetime "end_timestamp"
     t.datetime "begin_timestamp"
     t.string   "video_system_session_id"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
+    t.integer  "klu_id"
   end
 
 end
