@@ -26,10 +26,13 @@
 						<% if current_user.is_admin? %>
 							<li><%= link_to "admin", admin_dashboard_index_path %></li>
 						<% end %>
-					<li>
-						<%= link_to "/" do %>
-							<i class="icon-search"> </i> <%= t('.search') %>
+					<li class="navbar-search form-search">
+						
+						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
+						<i class="icon-search"> </i> 
+						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => "search term"), :class => "search-query span2" %>
 						<% end %>
+						
 				 	</li>
 				 	<li>
 				 		<%= link_to "/" do %>

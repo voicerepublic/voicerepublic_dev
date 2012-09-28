@@ -1,11 +1,15 @@
 Kluuu2::Application.routes.draw do
 
+  
+
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
     get "dashboard/contacts"
     get "dashboard/bookmarks"
     get "dashboard/news"
     get "dashboard/matches"
+    get "search", :controller => "search", :action => :search
+    get "match", :controller => "search", :action => :match
   end
 
   match "(/:locale)/landing_page/index", :as => :landing_page

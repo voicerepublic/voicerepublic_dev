@@ -30,6 +30,7 @@ gem 'cancan'                # authorization/privileges
 gem 'private_pub'           # push service
 gem 'thin'                  # faster develpment-server
 gem 'capistrano'            # deployment
+gem 'thinking-sphinx'       # indexed search
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do

@@ -1,19 +1,22 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse"> 
+				<span class="icon-bar"></span> <span class="icon-bar"></span> 
+				<span class="icon-bar"></span> 
+			</a>
 			<%= link_to "KluuU", root_path, :class => "brand", :alt => "KluuU-logo" %>
 			<!-- image_tag("logo.png") -->
-			
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
-					<li>
-						<%= link_to "/" do %>
-							<i class="icon-home"> </i> <%= current_user.name %>
-						<% end if current_user %>
-					</li>
 				</ul>
 				<ul class="nav pull-right">
+					<li class="navbar-search form-search">
+						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
+						<i class="icon-search"> </i>
+						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => "search term"), :class => "search-query span2" %>
+						<% end %>
+					</li>
 					<li>
 						<%= link_to t('.sign_in_with_facebook'), user_omniauth_authorize_path(:facebook) %>
 					</li>
@@ -22,7 +25,7 @@
 					</li>
 					<li>
 						<%= link_to new_user_session_path do %>
-							<i class="icon-user"> </i> <%= t('.sign_in') %>
+						<i class="icon-user"> </i> <%= t('.sign_in') %>
 						<% end %>
 					</li>
 					<li>
