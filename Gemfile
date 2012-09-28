@@ -4,13 +4,11 @@ gem 'rails', '3.2.8'
 gem 'rails-i18n'
 gem 'pg'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
 end
@@ -20,34 +18,18 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-#gem 'omniauth-twitter'  # ripped cause there is no access to email in twitters oauth-api
-
-gem 'friendly_id'
-gem 'will_paginate'
-gem 'i18n_data' # delivers languages as key-value hash
-gem 'paperclip'
+gem 'friendly_id'           # make urls more friendly
+gem 'will_paginate'         # pagination-extension to active-record
+gem 'i18n_data'             # delivers languages as key-value hash
+gem 'paperclip'             # used for images
 gem 'awesome_nested_set'
 gem 'globalize3'
 gem 'acts-as-taggable-on'
 gem 'money'
-gem 'cancan'
-
-
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-gem 'thin'
-
-# Deploy with Capistrano
-gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
-
+gem 'cancan'                # authorization/privileges
+gem 'private_pub'           # push service
+gem 'thin'                  # faster develpment-server
+gem 'capistrano'            # deployment
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
