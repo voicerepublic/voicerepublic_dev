@@ -38,7 +38,7 @@
 					<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
 				</div><!-- End of call-btn -->
 				<div>
-					STATUS ODER SELBSTBESCHREIBUNG
+					<%= @klu.status_or_about %>
 				</div>
 				ACTIVITY_SCORE <br>
 				
