@@ -1,4 +1,6 @@
 <li class="span2">
+	
+	<%= link_to user_path(:id => follower_relation.followed ) do %>
 	<div class="thumbnail">
 		<%= image_tag(follower_relation.followed.account.portrait.url(:thumb)) if follower_relation.followed.account.portrait.exists? %>
 		<strong><%= follower_relation.followed.name %></strong>
@@ -6,4 +8,5 @@
 		<%= link_to( t('.follow_back'), user_create_follow_path(:user_id => follower_relation.followed_id, :followed_id => follower_relation.followed_id ), :method => "post", :class => "btn btn-small" )%>
 		
 	</div>
+	<% end %>
 </li>
