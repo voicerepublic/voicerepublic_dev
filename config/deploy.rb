@@ -118,7 +118,7 @@ namespace :kluuu do
   namespace :faye do
     desc "start faye server with private_pub"
     task :start, :roles => :app do
-      run "cd #{current_path}; bundle exec rackup private_pub.ru -s thin -E #{rails_env} -P ./tmp/pids/faye.pid -D"
+      run "cd #{current_path}; RAILS_ENV=#{rails_env} bundle exec rackup private_pub.ru -s thin -E production -P ./tmp/pids/faye.pid -D"
     end
     desc "stop faye server"
     task :stop, :roles => :app do
