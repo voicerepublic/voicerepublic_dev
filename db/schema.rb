@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926113401) do
+ActiveRecord::Schema.define(:version => 20120928180921) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -80,6 +80,15 @@ ActiveRecord::Schema.define(:version => 20120926113401) do
   add_index "conversations", ["user_1_id"], :name => "index_conversations_on_user_1_id"
   add_index "conversations", ["user_2_id"], :name => "index_conversations_on_user_2_id"
 
+  create_table "credit_accounts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "prepaid_amount"
+    t.integer  "revenue_amount"
+    t.string   "currency"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "follows", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -110,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20120926113401) do
     t.datetime "updated_at",                             :null => false
     t.integer  "charge_amount",      :default => 0
     t.string   "charge_type",        :default => "free"
+    t.string   "currency"
   end
 
   add_index "klus", ["charge_type"], :name => "index_klus_on_charge_type"

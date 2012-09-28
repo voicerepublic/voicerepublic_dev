@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :video_session do
-    kluuu
+    klu_id 1
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"

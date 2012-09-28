@@ -1,7 +1,7 @@
 class VideoSession < ActiveRecord::Base
   
   has_many :participants, :autosave => true
-  belongs_to :kluuu, :class_name => 'Kluuu', :foreign_key => :klu_id
+  belongs_to :klu
   
   attr_accessible :begin_timestamp, :end_timestamp, :klu_id, :video_system_session_id
   

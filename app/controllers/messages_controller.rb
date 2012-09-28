@@ -30,9 +30,9 @@ class MessagesController < ApplicationController
   # GET /messages/new.json
   def new
     @message = Message.new
-    @message.receiver = User.find(params[:receiver_id])
     @user = User.find(params[:receiver_id])
-
+    @message.receiver = @user
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @message }
