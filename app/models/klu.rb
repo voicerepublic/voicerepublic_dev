@@ -12,4 +12,13 @@ class Klu < ActiveRecord::Base
   scope :published, where("published=?", true)
   
   
+  def status_or_about
+    if uses_status && ! user.status_updates.empty?
+      ret = self.user.status_updates.order("created_at DESC").limit(1).first.content
+    else
+      ret = self.user.account.about
+    end
+    ret.nil? || ret.blank? ? "..." : ret
+  end
+  
 end
