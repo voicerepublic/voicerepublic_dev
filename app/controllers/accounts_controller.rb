@@ -54,7 +54,7 @@ class AccountsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
-    end
+    end 
   end
   
   def destroy_portrait
