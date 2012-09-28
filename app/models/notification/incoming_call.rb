@@ -6,5 +6,18 @@ class Notification::IncomingCall < Notification::Base
   validates :klu_id, :presence => true
   validates :url, :presence => true
   
+  after_create :generate_push_notification
+  
+  private
+  
+  
+  def generate_push_notification
+    begin
+      PrivatePub.publish_to("/notifications/#{user.id}", "alert('someone is calling you now!');")
+    rescue Exception => e
+      self.logger.error("Notification::IncomingCall#generate_push_notification - error: #{e.inspect}")
+    end  
+  end
+  
   
 end
