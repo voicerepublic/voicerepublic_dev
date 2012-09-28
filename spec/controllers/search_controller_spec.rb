@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe SearchController do
 
-  RSpec.configure do |config|
-    config.use_transactional_fixtures = false
-  end
+  #RSpec.configure do |config|
+  #  config.use_transactional_fixtures = false
+  #end
   
   describe "GET 'search?query=foo'" do
     it "returns http success" do
