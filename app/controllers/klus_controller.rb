@@ -28,9 +28,12 @@ class KlusController < ApplicationController
   # GET /klus/new.json
   def new
     @user = User.find(params[:user_id])
-    if params[:klu_type] && params[:klu_type] == "Kluuu"
+    logger.debug("Klus#new - params: #{params.inspect} - '#{params[:klu_type]}'")
+    if params[:klu_type] && ( params[:klu_type] == 'Kluuu' )
+      logger.debug("Klus#new - in params scope - creating new Kluuu")
       @klu = Kluuu.new
     else
+      logger.debug("Klus#new  - creating new NoKluuu")
       @klu = NoKluuu.new
     end
     respond_to do |format|

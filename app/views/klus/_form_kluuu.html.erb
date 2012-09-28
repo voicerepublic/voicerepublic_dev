@@ -38,7 +38,7 @@
             <% end %>
           <% end %>
         </ul>
-        <%= link_to( t('.add_image'), new_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu), :class => "kluuu-add-image-link btn") if @klu.instance_of?(Kluuu) %>
+        <%= link_to( t('.add_image'), new_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu), :class => "kluuu-add-image-link btn") if @klu.instance_of?(Kluuu) &! @klu.new_record? %>
       </div>
       <div class="span4">
         <h4><%= t(".call_options") %></h4>
