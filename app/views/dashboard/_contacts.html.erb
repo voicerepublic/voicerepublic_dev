@@ -3,7 +3,7 @@
 <% unless @follower.empty? %>
 <div class="span6">
 	<h2><%= t('.my_follower')%></h2>
-	<ul class="thumbnails  well well-small">
+	<ul class="thumbnails">
 		<%= render(:partial => '/follows/follower', :collection => @follower, :as => :follower_relation) %>
 	</ul>
 </div>
@@ -12,7 +12,7 @@
 <% unless @followed.empty? %>
 <div class="span6">
 	<h2><%= t('.followed_by_me')%></h2>
-	<ul class="thumbnails well well-small">
+	<ul class="thumbnails">
 		<%= render(:partial => '/follows/followed', :collection => @followed, :as => :followed_relation) %>
 	</ul>
 </div>
