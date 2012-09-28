@@ -48,32 +48,32 @@ namespace :ts do
   
   desc "configure thinking sphinx in production"
   task :conf , :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:config RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:config RAILS_ENV=#{rails_env}"
   end
   
   desc "initialize indexes in thinking sphinx"
   task :in , :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
   end
   
   desc "start thinking sphinx in production"
   task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:start RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
   end
   
   desc "stop running sphinx in production"
   task :stop, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
   end
   
   desc "restart running sphinx-searchd in production"
   task :restart, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
   end
   
   desc "rebuild indexes"
   task :rebuild, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:rebuild RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:rebuild RAILS_ENV=#{rails_env}"
   end
 end
 
