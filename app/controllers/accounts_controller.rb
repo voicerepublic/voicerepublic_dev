@@ -1,6 +1,5 @@
 class AccountsController < ApplicationController
   
-  layout 'users'
   before_filter :set_user
   
   
