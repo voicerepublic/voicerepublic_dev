@@ -104,3 +104,30 @@ namespace :dbconf do
 
 end
 
+namespace :kluuu do
+  desc "Prints the available releases on webserver"
+  task :show_releases, :roles => :app do
+    puts capture("cd #{releases_path}; ls;")
+  end
+  
+  desc "Prints available space on server"
+  task :free_space, :roles => [:app, :db] do
+    puts capture("df -h")
+  end
+  
+  namespace :faye do
+    desc "start faye server with private_pub"
+    task :start, :roles => :app do
+      run "cd #{current_path}; bundle exec rackup private_pub.ru -s thin -E #{rails_env} -P ./tmp/pids/faye.pid -D"
+    end
+    desc "stop faye server"
+    task :stop, :roles => :app do
+      run "cd #{current_path}; kill -9 `cat tmp/pids/faye.pid`; rm tmp/pids/faye.pid"
+    end
+    desc "restart faye server"
+    task :restart, :roles => :app do
+      run "cd #{current_path}; kill -HUP `cat tmp/pids/faye.pid`"
+    end
+  end
+end
+
