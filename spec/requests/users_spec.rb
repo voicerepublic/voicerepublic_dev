@@ -25,7 +25,7 @@ feature "Ueser can register" do
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.click_button('Sign up!')
-    page.should have_content("Success")
+    page.should have_content("Dashboard")
   end
   
   scenario "user misses email during registration" do

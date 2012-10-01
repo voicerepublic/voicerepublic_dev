@@ -4,7 +4,6 @@ describe Admin::DashboardController do
   
   before do
     @user = FactoryGirl.create(:admin)
-    
   end
 
   describe "GET 'index'" do
