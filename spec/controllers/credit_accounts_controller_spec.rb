@@ -19,12 +19,17 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe CreditAccountsController do
+  
+  before do
+    @user = FactoryGirl.create(:user)  
+  end
+
 
   # This should return the minimal set of attributes required to create a valid
   # CreditAccount. As you add validations to CreditAccount, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:credit_account, user_id: @user.id)
   end
 
   # This should return the minimal set of values that should be in the session

@@ -1,6 +1,5 @@
 class Kluuu < Klu
   
-  attr_accessible :charge_type, :charge_amount, :currency
   
   CHARGE_TYPES = %w{free minute fix}
   

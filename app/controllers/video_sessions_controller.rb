@@ -38,8 +38,8 @@ class VideoSessionsController < ApplicationController
   # POST /video_sessions.json
   def create
     @video_session = VideoSession.new(params[:video_session])
-    @klu = Klu.find(@video_session.klu_id) unless @video_session.klu_id.nil? 
-    
+    @klu = Klu.find(@video_session.klu_id) unless @video_session.klu_id.nil?
+        
     begin
       check_sezzion_create_prerequisites(@klu)  # checks for things that should be in order before creating a sezzion
     rescue KluuuExceptions::KluuuException => e

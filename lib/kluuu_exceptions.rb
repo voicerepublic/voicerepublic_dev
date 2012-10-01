@@ -29,6 +29,9 @@ module KluuuExceptions
   class PaymentError < KluuuException
   end
   
+  class CallingUserError < KluuuException
+  end
+  
   class RatingError < KluuuException
   end
   

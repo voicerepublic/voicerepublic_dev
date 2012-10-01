@@ -41,7 +41,7 @@ describe VideoSessionsController do
 
   describe "GET index" do
     it "assigns all video_sessions as @video_sessions" do
-      video_session = VideoSession.create! valid_attributes
+      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
       get :index, {}, valid_session
       assigns(:video_sessions).should eq([video_session])
     end
@@ -49,7 +49,7 @@ describe VideoSessionsController do
 
   describe "GET show" do
     it "assigns the requested video_session as @video_session" do
-      video_session = VideoSession.create! valid_attributes
+      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
       get :show, {:id => video_session.to_param}, valid_session
       assigns(:video_session).should eq(video_session)
     end
@@ -146,7 +146,7 @@ describe VideoSessionsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested video_session" do
-        video_session = VideoSession.create! valid_attributes
+        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
         # Assuming there are no other video_sessions in the database, this
         # specifies that the VideoSession created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -156,13 +156,13 @@ describe VideoSessionsController do
       end
 
       it "assigns the requested video_session as @video_session" do
-        video_session = VideoSession.create! valid_attributes
+        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
         put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
         assigns(:video_session).should eq(video_session)
       end
 
       it "redirects to the video_session" do
-        video_session = VideoSession.create! valid_attributes
+        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
         put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
         response.should redirect_to(video_session)
       end
@@ -170,7 +170,7 @@ describe VideoSessionsController do
 
     describe "with invalid params" do
       it "assigns the video_session as @video_session" do
-        video_session = VideoSession.create! valid_attributes
+        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
         # Trigger the behavior that occurs when invalid params are submitted
         VideoSession.any_instance.stub(:save).and_return(false)
         put :update, {:id => video_session.to_param, :video_session => {}}, valid_session
@@ -181,14 +181,14 @@ describe VideoSessionsController do
 
   describe "DELETE destroy" do
     it "destroys the requested video_session" do
-      video_session = VideoSession.create! valid_attributes
+      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
       expect {
         delete :destroy, {:id => video_session.to_param}, valid_session
       }.to change(VideoSession, :count).by(-1)
     end
 
     it "redirects to the video_sessions list" do
-      video_session = VideoSession.create! valid_attributes
+      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
       delete :destroy, {:id => video_session.to_param}, valid_session
       response.should redirect_to(video_sessions_url)
     end
