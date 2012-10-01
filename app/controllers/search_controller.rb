@@ -5,5 +5,6 @@ class SearchController < ApplicationController
   end
 
   def match
+    
   end
 end
