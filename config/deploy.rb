@@ -59,7 +59,6 @@ namespace :ts do
   task :symlink, :roles => :app do
     puts "linking staging.sphinx.conf from shared_path to current on app"
     run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/config/#{rails_env}.sphinx.conf"
-    
   end
   
   desc "initialize indexes in thinking sphinx"
