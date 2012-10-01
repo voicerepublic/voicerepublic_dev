@@ -39,7 +39,7 @@
 					<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
 				</div><!-- End of call-btn -->
 				<div>
-					<%= @klu.status_or_about %>
+					<%= limit_words(@klu.status_or_about, 15) %>
 				</div>
 				ACTIVITY_SCORE <br>
 				
@@ -61,20 +61,23 @@
 			<li>
 				<%= bookmark_links(current_user, @klu) %>
 			</li>
-			<li>
-				<%= link_to edit_user_klu_path(:user_id => @klu.user, :id => @klu) do %>
-					<i class="icon-pencil"> </i>
-					<%= t('.edit', :default => t("helpers.links.edit")) %>
-				<% end %>
-			</li>
-			<li>
-				<%= link_to user_klu_path(:user_id => @klu.user, :id => @klu),
-					:method => 'delete',
-					:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-					:class => '' do %>
-					<i class="icon-trash"> </i>
-					<%= t('.delete', :default => t("helpers.links.destroy")) %>
-				<% end %>
+			<% if can? :manage, @klu %>
+				<li>
+					<%= link_to edit_user_klu_path(:user_id => @klu.user, :id => @klu) do %>
+						<i class="icon-pencil"> </i>
+						<%= t('.edit', :default => t("helpers.links.edit")) %>
+					<% end %>
+				</li>
+				<li>
+					<%= link_to user_klu_path(:user_id => @klu.user, :id => @klu),
+						:method => 'delete',
+						:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+						:class => '' do %>
+						<i class="icon-trash"> </i>
+						<%= t('.delete', :default => t("helpers.links.destroy")) %>
+					<% end %>
+				</li>
+			<% end %>
 			</li>
 		</ul>
 		<ul class="klu-socials">

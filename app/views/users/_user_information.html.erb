@@ -85,6 +85,12 @@
 		</dl>
 	</aside>
 	<% if can? :manage, @user %>
-		<%= link_to(t('.edit_account'), edit_user_account_path(:user_id => @user)) %>
+		<%= link_to( edit_user_account_path(:user_id => @user)) do %> 
+			<nav class="user-edit-link">
+				<i class="icon-pencil"></i>
+				<%= t('.edit_account') %> 
+			</nav>
+		<% end %>
 	<% end %>
+	
 </section>
