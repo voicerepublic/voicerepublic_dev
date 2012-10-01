@@ -3,7 +3,8 @@ class Account < ActiveRecord::Base
   
   belongs_to :user
   
-  has_attached_file :portrait, :styles => { :large => "300x300>", :medium => "150x150>", :thumb => "50x50>" }
+  has_attached_file :portrait, :styles => { :large => "300x300>", :medium => "150x150>", :thumb => "50x50>" }, :default_url => "/images/:style/missing.jpg"
+
   
   validates :user_id, :presence => true
   validates :language_1, :presence => true

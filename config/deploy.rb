@@ -48,32 +48,32 @@ namespace :ts do
   
   desc "configure thinking sphinx in production"
   task :conf , :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:config RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:config RAILS_ENV=#{rails_env}"
   end
   
   desc "initialize indexes in thinking sphinx"
   task :in , :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
   end
   
   desc "start thinking sphinx in production"
   task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:start RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
   end
   
   desc "stop running sphinx in production"
   task :stop, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
   end
   
   desc "restart running sphinx-searchd in production"
   task :restart, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
   end
   
   desc "rebuild indexes"
   task :rebuild, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:rebuild RAILS_ENV=production"
+    run "cd #{current_path}; bundle exec rake ts:rebuild RAILS_ENV=#{rails_env}"
   end
 end
 
@@ -102,5 +102,32 @@ namespace :dbconf do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
 
+end
+
+namespace :kluuu do
+  desc "Prints the available releases on webserver"
+  task :show_releases, :roles => :app do
+    puts capture("cd #{releases_path}; ls;")
+  end
+  
+  desc "Prints available space on server"
+  task :free_space, :roles => [:app, :db] do
+    puts capture("df -h")
+  end
+  
+  namespace :faye do
+    desc "start faye server with private_pub"
+    task :start, :roles => :app do
+      run "cd #{current_path}; RAILS_ENV=#{rails_env} bundle exec rackup -d private_pub.ru -s thin -E production -P tmp/pids/faye.pid -D "
+    end
+    desc "stop faye server"
+    task :stop, :roles => :app do
+      run "cd #{current_path}; kill -9 `cat tmp/pids/faye.pid`; rm tmp/pids/faye.pid"
+    end
+    desc "restart faye server"
+    task :restart, :roles => :app do
+      run "cd #{current_path}; kill -HUP `cat tmp/pids/faye.pid`"
+    end
+  end
 end
 

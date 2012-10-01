@@ -4,16 +4,20 @@
 
 <ul class="nav nav-tabs">
 	<li class="active">
-		<a href="#"><%= t('.matches')%></a>
+		<%= link_to(t('.matches'), dashboard_matches_path )%>
 	</li>
 	<li>
-		<a href="#"><%= t('.news')%></a>
+		<%= link_to(t('.news'), dashboard_news_path) %>
 	</li>
 	<li>
-		<a href="#"><%= t('.bookmarks')%></a>
+		<%= link_to(t('.bookmarks'), dashboard_bookmarks_path) %>
 	</li>
 	<li>
-		<a href="#"><%= t('.contacts')%></a>
+		<%= link_to(t('.contacts'), dashboard_contacts_path ) %>
 	</li>
 </ul>
+
+<div class="tab-content">
+	
+</div>
 

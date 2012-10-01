@@ -1,7 +1,5 @@
 <%- model_class = Klu -%>
 
-<%= bookmark_links(current_user, @klu) %>
-
 <% if @klu.instance_of?(NoKluuu )%>
 	<%= render(:partial => 'no_kluuu')%>
 <% else %>

@@ -119,7 +119,11 @@ ActiveRecord::Schema.define(:version => 20120928180921) do
     t.datetime "updated_at",                             :null => false
     t.integer  "charge_amount",      :default => 0
     t.string   "charge_type",        :default => "free"
+<<<<<<< HEAD
     t.string   "currency"
+=======
+    t.boolean  "uses_status",        :default => true
+>>>>>>> 04149e231b0d560ef1119452c21c95b25fea2cbd
   end
 
   add_index "klus", ["charge_type"], :name => "index_klus_on_charge_type"
@@ -141,6 +145,23 @@ ActiveRecord::Schema.define(:version => 20120928180921) do
   add_index "messages", ["receiver_id"], :name => "index_messages_on_receiver_id"
   add_index "messages", ["sender_id"], :name => "index_messages_on_sender_id"
 
+<<<<<<< HEAD
+=======
+  create_table "notification_bases", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "content"
+    t.integer  "klu_id"
+    t.integer  "other_id"
+    t.string   "url"
+    t.string   "type"
+    t.boolean  "read",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "notification_bases", ["user_id"], :name => "index_notification_bases_on_user_id"
+
+>>>>>>> 04149e231b0d560ef1119452c21c95b25fea2cbd
   create_table "participants", :force => true do |t|
     t.string   "type"
     t.integer  "video_session_id"

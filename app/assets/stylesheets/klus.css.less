@@ -146,6 +146,7 @@
 			}
 
 			li {
+				position: relative;
 				float: left;
 				width: 74px;
 				height: 56px;
@@ -160,6 +161,18 @@
 					font-size: 0;
 					vertical-align: middle;
 					max-height: 100%;
+				}
+
+				.kluuu-image-edit-link {
+					display: block;
+					position: absolute;
+					background: white;
+					background: rgba(255,255,255,0.8);
+					right: 0px;
+					top: 0px;
+					font-size: @baseFontSize - 3;
+					line-height: 1;
+					padding: 1px 4px;
 				}
 			}
 
@@ -270,4 +283,8 @@
 	h2 {
 		margin: 0 0 (@baseFontSize * @baseLineHeight)/2;
 	}
+}
+
+.kluuu-add-image-link {
+	margin-top: @baseFontSize * @baseLineHeight * 0.5;
 }

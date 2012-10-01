@@ -1,0 +1,14 @@
+<div class="page-header">
+	<h1><%= t('.search_results') %></h1>
+</div>
+
+
+<div class="results row-fluid">
+	<% @klus.each do |klu| %>
+		<% if klu.instance_of?(Kluuu) %>
+			<%= render(:partial => 'klus/medium_kluuu', :locals => {:medium_kluuu => klu}) %>
+		<% else %>
+			<%= render(:partial => 'klus/medium_no_kluuu', :locals => {:medium_no_kluuu => klu}) %>
+		<% end %>
+	<% end %>
+</div>

@@ -17,16 +17,22 @@
 							<i class="icon-wrench"> </i> <%= t('.settings') %>
 						<% end if current_user %>
 					</li>
+					<li>
+						<%= link_to('dashboard', dashboard_path )  if current_user %>
+					</li>
 				</ul>
 				<ul class="nav pull-right">
 					<% if current_user %>
-					<% if current_user.is_admin? %>
-						<li><%= link_to "admin", admin_dashboard_index_path %></li>
-					<% end %>
-					<li>
-						<%= link_to "/" do %>
-							<i class="icon-search"> </i> <%= t('.search') %>
+						<% if current_user.is_admin? %>
+							<li><%= link_to "admin", admin_dashboard_index_path %></li>
 						<% end %>
+					<li class="navbar-search form-search">
+						
+						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
+						<i class="icon-search"> </i> 
+						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => "search term"), :class => "search-query span2" %>
+						<% end %>
+						
 				 	</li>
 				 	<li>
 				 		<%= link_to "/" do %>
@@ -49,3 +55,4 @@
 		</div>
 	</div>
 </div>
+<%= subscribe_to "/notifications/#{current_user.id}" %>

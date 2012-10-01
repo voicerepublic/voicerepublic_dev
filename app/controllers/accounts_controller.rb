@@ -21,7 +21,6 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1/edit
   def edit
-    #@account = ProfileSetting.find(params[:id])
     @account = @user.account
   end
 
@@ -55,19 +54,19 @@ class AccountsController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
-    end
+    end 
   end
   
   def destroy_portrait
     @user.account.portrait.destroy
-    #@user.account.portrait = nil
+    @user.account.save
     if @user.account.portrait.exists?
       logger.error("ProfileSetting#destroy_portrait - could not destroy portrait")
       flash[:error] = "Portrait was not destroyed"
       redirect_to user_account_url(:user_id => @user)
     else
       logger.info("ProfileSetting#destroy_portrait - success")
-      redirect_to user_account_url(:user_id => @user), notice: "Portrait successfully destroyed." 
+      redirect_to edit_user_account_url(:user_id => @user), notice: "Portrait successfully destroyed." 
     end
   end
 

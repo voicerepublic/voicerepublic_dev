@@ -5,11 +5,17 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale 
   
   
-  
+  def after_sign_in_path_for(resource)
+    if resource.is_admin?
+      admin_dashboard_path
+    else
+      dashboard_path
+    end
+  end
   
   private
   
-  #get locale from browser settings
+  # get locale from browser settings
   def extract_locale_from_accept_language_header
     begin
       return request.env['HTTP_ACCEPT_LANGUAGE'] ? request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first : 'en'
@@ -27,11 +33,9 @@ class ApplicationController < ActionController::Base
     end 
     I18n.locale = %w{de en}.include?(_locale) ? _locale : I18n.default_locale
     logger.debug "* Locale set to '#{I18n.locale}'"
-    #@current_user.set_locale!(I18n.locale) unless @current_user.nil?
   end
   
   def set_last_request
-    #logger.debug("########### current_user: #{current_user.inspect}")
     if current_user 
       current_user.update_attribute(:last_request_at, Time.now) if ( current_user.last_request_at.nil? ) || ( current_user.last_request_at < Time.now - 1.minute )  
     end

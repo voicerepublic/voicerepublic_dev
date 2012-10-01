@@ -5,10 +5,20 @@ Kluuu2::Application.routes.draw do
   resources :video_sessions
 
   scope "(/:locale)", :locale => /de|en/ do
-    get "dashboard", :controller => "dashboard", :action => :index, :as => 'user_root'
+    get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
+    get "dashboard/contacts"
+    get "dashboard/bookmarks"
+    get "dashboard/news"
+    get "dashboard/matches"
+    get "search", :controller => "search", :action => :search
+    get "match", :controller => "search", :action => :match
+    get "landing_page/index", :as => :landing_page
+    post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
+    post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
+    get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
+    get "tags/:tag", :controller => 'landing_page', :action => 'show_tagged_with', :as => 'tagged_with'
+    
   end
-
-  match "(/:locale)/landing_page/index", :as => :landing_page
   
   scope "(/:locale)", :locale => /de|en/ do
     resources :categories
@@ -47,13 +57,6 @@ Kluuu2::Application.routes.draw do
       end
       resource :credit_account
     end
-  end
-  
-  scope "(/:locale)", :locale => /de|en/ do
-    post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
-    post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
-    get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
-    get "tags/:tag", :controller => 'landing_page', :action => 'show_tagged_with', :as => 'tagged_with'
   end
   
   namespace :admin do

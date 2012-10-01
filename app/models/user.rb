@@ -25,9 +25,9 @@ class User < ActiveRecord::Base
   
   has_many :followed_relations, :foreign_key => :follower_id, :class_name => 'Follow', :dependent => :destroy
   has_many :follower_relations, :foreign_key => :followed_id, :class_name => 'Follow', :dependent => :destroy  
-  has_many :follower, :through => :follower_relations, :source => :followed 
-  has_many :followed, :through => :followed_relations, :source => :follower 
-  #has_many :conversations, :foreign_key => [ :user_1_id, :user_2_id ]
+  has_many :follower, :through => :follower_relations#, :source => :followed 
+  has_many :followed, :through => :followed_relations#, :source => :follower 
+  has_many :notifications, :class_name => 'Notification::Base'
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   accepts_nested_attributes_for :account

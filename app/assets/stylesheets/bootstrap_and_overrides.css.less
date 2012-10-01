@@ -60,6 +60,56 @@ img {
 	max-width: 100%;
 }
 
+.form-horizontal {
+	.control-group {
+		margin: (@baseFontSize * @baseLineHeight * 0.5) 0;
+
+		label {
+			display: block;
+			width: auto;
+		}
+	}
+	
+	.control-label {
+		float: none;
+		text-align: left;
+		font-size: @baseFontSize - 3;
+		font-weight: bold;
+		color: lighten(@textColor, 25);
+	}
+	
+	.controls {
+		margin-left: 0;
+
+		input, select, textarea {
+			width: 100%;
+		}
+		input[type="checkbox"] {
+			width: auto;
+		}
+	}
+
+	.form-actions {
+		padding-left: 0;
+	}
+}
+
+.form-actions {
+	text-align: right;
+	background:none;
+	border: none;
+	margin-top: @baseFontSize * @baseLineHeight;
+
+	input, a {
+		margin: 0 3px;
+	}
+	input:first-child, a:first-child {
+		margin-left: 0;
+	}
+	input:last-child, a:last-child {
+		margin-right: 0;
+	}
+}
 
 /*
  *
@@ -91,7 +141,12 @@ ul.unstyled {
  * TYPOGRAPHY
  *
  */
- @sansFontFamily: "Lato", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ @sansFontFamily: "PT Sans", "Lato", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+* {
+	-moz-font-feature-settings: "liga=0";
+	font-feature-settings: "liga" off;
+}
 
 h1 { font-size: 2.4em; font-size: 2.4rem; }
 h2 { font-size: 2em; font-size: 2rem; }

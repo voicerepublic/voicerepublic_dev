@@ -38,17 +38,23 @@
 					<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
 				</div><!-- End of call-btn -->
 				<div>
-					STATUS ODER SELBSTBESCHREIBUNG
+					<%= @klu.status_or_about %>
 				</div>
 				ACTIVITY_SCORE <br>
 				
-				<%= link_to(new_message_path(:receiver_id => @user)) do %>
+				<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small") do %>
 					<i class="icon-envelope"> </i> <%= t('.send_message') %>
 				<% end if current_user %>
 				
-				<%= link_to( user_create_follow_url(:user_id => current_user, :followed_id => @user), :method => :post ) do %>
-					<%= t('.follow') %>
-				<% end if current_user %>
+				
+				<% if current_user && current_user.id != @user.id %>
+					<% if current_user.followed.include?(@klu.user) %>
+						<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :class => "btn btn-small", :method => :delete) %>
+					<% else %>
+						<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small" )%>
+					<% end %>
+				<% end %>
+				
 				
 				<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
 				
@@ -95,7 +101,24 @@
 	</div>
 	<aside class="klu-top-bar">
 		<ul class="klu-actions">
-			<li><%= bookmark_links(current_user, @klu) %></li>
+			<li>
+				<%= bookmark_links(current_user, @klu) %>
+			</li>
+			<li>
+				<%= link_to edit_user_klu_path(:user_id => @klu.user, :id => @klu) do %>
+					<i class="icon-pencil"> </i>
+					<%= t('.edit', :default => t("helpers.links.edit")) %>
+				<% end %>
+			</li>
+			<li>
+				<%= link_to user_klu_path(:user_id => @klu.user, :id => @klu),
+					:method => 'delete',
+					:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+					:class => '' do %>
+					<i class="icon-trash"> </i>
+					<%= t('.delete', :default => t("helpers.links.destroy")) %>
+				<% end %>
+			</li>
 		</ul>
 		<ul class="klu-socials">
 			<li>Hier Social Foo-Bar</li>

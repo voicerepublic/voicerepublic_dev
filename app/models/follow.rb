@@ -6,4 +6,14 @@ class Follow < ActiveRecord::Base
   
   validates :follower, :presence => true
   validates :followed, :presence => true
+  
+  
+  after_create :generate_notification
+  
+  
+  private
+  
+  def generate_notification
+    Notification::NewFollower.create(:user_id => followed.id, :other_id => follower.id)
+  end
 end
