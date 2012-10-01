@@ -51,6 +51,12 @@ namespace :ts do
     run "cd #{current_path}; bundle exec rake ts:config RAILS_ENV=#{rails_env}"
   end
   
+  desc "symlink thinking-sphinx yml to prod-host"
+  task :symlink, :roles => :app do
+    puts "linking staging.sphinx.conf from shared_path to current on app"
+    run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/#{rails_env}.sphinx.conf"
+  end
+  
   desc "initialize indexes in thinking sphinx"
   task :in , :roles => :app do
     run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
@@ -69,6 +75,11 @@ namespace :ts do
   desc "restart running sphinx-searchd in production"
   task :restart, :roles => :app do
     run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
+  end
+  
+  desc "reindex indexes - does not write new configuration"
+  task :reindex, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:reindex RAILS_ENV=#{rails_env}"
   end
   
   desc "rebuild indexes"
