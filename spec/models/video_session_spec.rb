@@ -4,6 +4,7 @@ describe VideoSession do
   it "has valid basic video session factory" do
     FactoryGirl.create(:video_session).should be_valid
   end
+  
   it "has valid kluuu video session factory" do
     FactoryGirl.build(:kluuu_video_session).should be_valid
   end

@@ -1,11 +1,13 @@
 class Notification::NewFollower < Notification::Base 
   
+  belongs_to :user
   belongs_to :other, :class_name => 'User'
-  validates :other_id, :presence => true
+  
+  attr_accessible :other_id, :user_id
+  
+  validates :other_id, :user_id, :presence => true
   
   after_create :generate_push_notification
-
-
 
   private
   

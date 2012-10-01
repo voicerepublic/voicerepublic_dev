@@ -19,7 +19,7 @@ FactoryGirl.define do
     calling_user_type 'registered'
   end
   factory :no_kluuu_video_session, class: VideoSession do
-    klu FactoryGirl.create(:no_kluuu)
+    klu {FactoryGirl.create(:no_kluuu)}
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"
