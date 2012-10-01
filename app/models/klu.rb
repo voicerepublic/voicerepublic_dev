@@ -36,6 +36,10 @@ class Klu < ActiveRecord::Base
     has charge_amount, :type => :integer
     has updated_at
     has created_at
+    #has tags(:id), :as => :tag_ids
+    #has tags(:id), :as => :tagids, :facet => true
+
+    
     where "published = true"
   end
   
@@ -55,18 +59,43 @@ class Klu < ActiveRecord::Base
     tags = self.tag_list
     klu_class = self.instance_of?(Kluuu) ? NoKluuu : Kluuu
     
-    ret = klu_class.search(self.title, :with => { :category_id => cat.id}, 
-                            :without => { :user_id => self.user_id } 
+    # best matches: same category - exakt same tags
+    results = klu_class.search( :with => { :category_id => cat.id}, 
+                            :without => { :user_id => self.user_id },
+                            :conditions => { :tag_name => self.tags.map { |t| t.name } }
                            )
+    if results.total_entries < 1
+      Rails.logger.debug("Klu#complementaries - no results in first case")
+      
+      # quite good match: tagged with one or more of self.tags
+      results = klu_class.search( build_tag_list_arguments,
+                                :without => { :user_id => self.user_id },
+                                :match_mode => :extended
+                                 )
+    else
+      Rails.logger.debug("Klu#complementaries - results in first case")
+    end
     
-   #Article.search "pancakes", :field_weights => {
-   #:title => 10,
-   #:tags    => 6,
-   #:content => 3
-   #
-   #rticle.search 'pancakes waffles', :star => true
-   #rticle.search_count 'pancakes'
+    if results.total_entries < 1
+      Rails.logger.debug("Klu#complementaries - no results in first and second case - trying text-search")
+      results = klu_class.search( "#{self.title} #{self.description}", :star => true, :without => { :user_id => self.user_id }  )
+    else
+       Rails.logger.debug("Klu#complementaries - no results in second case")
+    end
     
+    results
+    
+  end
+  
+  # generates argument list for @tag_name 
+  # to look up in other klus : e.g. (@tag_name foobar | @tag_name dumbazz | @tag_name fnord)
+  #
+  def build_tag_list_arguments
+    arr = []
+    self.tags.each do |t|
+      arr.push "@tag_name #{t.name}"
+    end
+    "( #{arr.join("|")} )"
   end
   
 end

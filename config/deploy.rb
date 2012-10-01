@@ -24,7 +24,7 @@ role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations wil
 after "deploy:restart", "deploy:cleanup"
 
 after "deploy:setup", "dbconf:setup" #, "ts:setup"
-after "deploy:finalize_update", "dbconf"
+after "deploy:finalize_update", "dbconf", "ts"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -39,6 +39,10 @@ end
 # Thinking Sphinx typing shortcuts
 namespace :ts do
   
+  task :default, :roles => :app do
+    symlink
+  end
+  
   desc "create ths-directories in shared dirs"
   task :setup, :roles => :app do
     puts "creating shared dirs for sphinx"
@@ -49,6 +53,12 @@ namespace :ts do
   desc "configure thinking sphinx in production"
   task :conf , :roles => :app do
     run "cd #{current_path}; bundle exec rake ts:config RAILS_ENV=#{rails_env}"
+  end
+  
+  desc "symlink thinking-sphinx yml to prod-host"
+  task :symlink, :roles => :app do
+    puts "linking staging.sphinx.conf from shared_path to current on app"
+    run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/config/#{rails_env}.sphinx.conf"
   end
   
   desc "initialize indexes in thinking sphinx"
@@ -69,6 +79,11 @@ namespace :ts do
   desc "restart running sphinx-searchd in production"
   task :restart, :roles => :app do
     run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
+  end
+  
+  desc "reindex indexes - does not write new configuration"
+  task :reindex, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:reindex RAILS_ENV=#{rails_env}"
   end
   
   desc "rebuild indexes"
