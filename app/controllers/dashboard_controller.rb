@@ -35,6 +35,7 @@ class DashboardController < ApplicationController
   
   
   def matches 
+    @user.klus
     @matches = nil
     respond_to do |format|
       format.html # index.html.erb
