@@ -47,9 +47,13 @@
 					<i class="icon-envelope"> </i> <%= t('.send_message') %>
 				<% end if current_user %>
 				
-				<%= link_to( user_create_follow_url(:user_id => current_user, :followed_id => @user), :method => :post ) do %>
-					<%= t('.follow') %>
-				<% end if current_user %>
+				<% if current_user && current_user.id != @user.id %>
+					<% if current_user.followed.include?(@klu.user) %>
+						<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :class => "btn btn-small", :method => :delete) %>
+					<% else %>
+						<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small" )%>
+					<% end %>
+				<% end %>
 				
 				<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
 				
