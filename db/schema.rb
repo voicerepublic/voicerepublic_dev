@@ -119,8 +119,8 @@ ActiveRecord::Schema.define(:version => 20121001204026) do
     t.datetime "updated_at",                             :null => false
     t.integer  "charge_amount",      :default => 0
     t.string   "charge_type",        :default => "free"
-    t.string   "currency"
     t.boolean  "uses_status",        :default => true
+    t.string   "currency"
   end
 
   add_index "klus", ["charge_type"], :name => "index_klus_on_charge_type"

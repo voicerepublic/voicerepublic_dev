@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Admin::DashboardController do
   
   before do
+    %w(admin user).each { |x| Role.create(:name => x)}
     @user = FactoryGirl.create(:admin)
   end
 
