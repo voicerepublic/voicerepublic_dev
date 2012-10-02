@@ -43,7 +43,7 @@ class VideoSessionsController < ApplicationController
     begin
       check_sezzion_create_prerequisites(@klu)  # checks for things that should be in order before creating a sezzion
     rescue KluuuExceptions::KluuuException => e
-      logger.info("############## \nvideo_sessions#create - Exception caught - \n#{e.inspect}\n#####################")
+      logger.error("\n###############\nVideoSession#create - Exception caught - \n#{e.inspect}\n#####################")
       if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
         redirect_to e.redirect_link, :alert => e.msg and return
       else
