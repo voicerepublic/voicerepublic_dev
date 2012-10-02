@@ -1,6 +1,6 @@
 class Klu < ActiveRecord::Base
   
-  attr_accessible :available_at_times, :category_id, :description, :published, :title, :type, :user_id, :charge_type, :charge_amount, :tag_list
+  attr_accessible :available_at_times, :category_id, :description, :published, :title, :type, :user_id, :charge_type, :charge_amount, :tag_list, :uses_status
   acts_as_taggable
   
   belongs_to :user
