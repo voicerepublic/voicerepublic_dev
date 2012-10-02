@@ -136,10 +136,10 @@ describe KluImagesController do
         assigns(:klu_image).should eq(klu_image)
       end
 
-      it "redirects to the klu_image" do
+      it "redirects to the kluuu" do
         klu_image = FactoryGirl.create(:klu_image) 
         put :update, {:user_id => klu_image.kluuu.user, :klu_id => klu_image.kluuu, :id => klu_image.to_param, :klu_image => valid_attributes }, valid_session
-        response.should redirect_to(user_klu_klu_image_path(:user_id => klu_image.kluuu.user, :klu_id => klu_image.kluuu, :id => klu_image) )
+        response.should redirect_to(user_klu_path(:user_id => klu_image.kluuu.user, :id => klu_image.kluuu) )
       end
     end
 
@@ -170,10 +170,10 @@ describe KluImagesController do
       }.to change(KluImage, :count).by(-1)
     end
 
-    it "redirects to the kluuus klu_images list" do
+    it "redirects to the kluuu if deleted klu_image" do
       _ki = FactoryGirl.create(:klu_image)
       delete :destroy, { :user_id => _ki.kluuu.user, :klu_id => _ki.kluuu, :id => _ki.id }, valid_session
-      response.should redirect_to( user_klu_klu_images_url(:user_id => _ki.kluuu.user, :klu_id => _ki.kluuu) )
+      response.should redirect_to( user_klu_path(:user_id => _ki.kluuu.user, :id => _ki.kluuu) )
     end
     
   end
