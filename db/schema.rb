@@ -157,24 +157,6 @@ ActiveRecord::Schema.define(:version => 20121001204026) do
 
   add_index "notification_bases", ["user_id"], :name => "index_notification_bases_on_user_id"
 
-  create_table "participants", :force => true do |t|
-    t.string   "type"
-    t.integer  "video_session_id"
-    t.datetime "entered_timestamp"
-    t.datetime "left_timestamp"
-    t.string   "room_url"
-    t.string   "video_session_role"
-    t.string   "user_cookie_session_id"
-    t.integer  "user_id"
-    t.integer  "seconds_online"
-    t.datetime "last_pay_tick_timestamp"
-    t.integer  "pay_tick_counter"
-    t.datetime "payment_started_timestamp"
-    t.datetime "payment_stopped_timestamp"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
   create_table "roles", :force => true do |t|
     t.string "name"
   end
@@ -233,14 +215,5 @@ ActiveRecord::Schema.define(:version => 20121001204026) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
-
-  create_table "video_sessions", :force => true do |t|
-    t.datetime "end_timestamp"
-    t.datetime "begin_timestamp"
-    t.string   "video_system_session_id"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-    t.integer  "klu_id"
-  end
 
 end
