@@ -5,6 +5,7 @@ class DashboardController < ApplicationController
   
   def index
     @user = current_user
+    redirect_to :action => 'matches'
   end
   
   def contacts
@@ -35,8 +36,17 @@ class DashboardController < ApplicationController
   
   
   def matches 
-    @user.klus
-    @matches = nil
+    @klus = @user.klus
+    if params[:id]
+      @matched_klu = Klu.find(params[:id])
+      @matching_klus = @matched_klu.complementaries 
+    else
+      unless @klus.empty?
+        @matched_klu = @klus.first
+        @matching_klus = @matched_klu.complementaries
+      end
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @matches }

@@ -90,6 +90,16 @@
 	</aside>
 </article>
 
+<div class="span4 offset8">
+	<strong>Matches</strong>
+	<% begin %>
+	<% @klu.complementaries.each do |k| %>
+		<%= medium_partial_for_klu(k) %>
+	<% end %>
+	<% rescue %>
+		<strong>you need to start thinking sphinx for matches to work...</strong>
+	<% end %>
+</div>
 
 
 <% if can? :manage, @klu %>
