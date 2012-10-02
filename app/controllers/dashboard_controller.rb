@@ -49,7 +49,7 @@ class DashboardController < ApplicationController
       logger.error("Dasboard#matches - problem with sphinx: #{e.inspect}")
       @matching_klus = []
     end
-    flash.now.error "there is a problem with sphinx"
+    flash.now[:error] =  "there is a problem with sphinx... see your logs"
 
     respond_to do |format|
       format.html # index.html.erb
