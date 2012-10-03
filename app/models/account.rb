@@ -1,21 +1,22 @@
+require 'kluuu_code'
+
 class Account < ActiveRecord::Base
-  attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait
+  include KluuuCode::Methods
   
-  belongs_to :user
+  attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait, :prefs
+  serialize :prefs, KluuuCode::Preferences
   
   has_attached_file :portrait, :styles => { :large => "300x300>", :medium => "150x150>", :thumb => "50x50>" }, :default_url => "/system/:style/missing.jpg"
-
+  
+  belongs_to :user
   
   validates :user_id, :presence => true
   validates :language_1, :presence => true
   validates :timezone, :presence => true
   
- 
   
   # https://github.com/grosser/i18n_data
   # languages: I18nData.languages(:en) # {'DE' => 'Deutschland',...}
-  
-  
   # translates e.g. attribute :language_1 with value 'DE' to 'German' or 'Deutsch'
   # according to supplied locale
   # 
@@ -46,6 +47,22 @@ class Account < ActiveRecord::Base
     Time.zone = self.timezone
     arg.in_time_zone
   end
+  
+  
+  #def prefs
+  #  # make sure we always return a UserPreference instance
+  #  if read_attribute(:prefs).nil?
+  #    write_attribute :prefs, Preference.new
+ #     read_attribute :prefs
+ #   else
+ #     read_attribute :prefs
+ #   end
+ # end
+# 
+#  def prefs=(val)
+#    write_attribute :prefs, val
+#  end
+  
   
   
 end

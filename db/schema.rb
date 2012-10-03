@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121002150215) do
+ActiveRecord::Schema.define(:version => 20121003004830) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20121002150215) do
     t.string   "portrait_content_type"
     t.integer  "portrait_file_size"
     t.datetime "portrait_updated_at"
+    t.text     "prefs"
   end
 
   create_table "bookmarks", :force => true do |t|

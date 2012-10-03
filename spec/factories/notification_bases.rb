@@ -47,6 +47,7 @@ FactoryGirl.define do
       other_id 43 
     end
     
+    
     factory :notification_new_comment, :class => 'Notification::NewComment' do
       type 'Notification::NewComment'
       content 'you have a new comment'
