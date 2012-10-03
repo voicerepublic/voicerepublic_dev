@@ -12,18 +12,17 @@ module KluuuCode
     end
 
     def prefs=(val)
-      self.prefs.update(val)
+      self.prefs.set_attributes(val)
       if val.instance_of?(KluuuCode::Preferences)
         write_attribute :prefs, val
       else
-        _p = KluuuCode::Prerences.new
+        _p = KluuuCode::Preferences.new
         _p.set_attributes(val)
       end
     end
     
   end
   
-
   
   class Preferences
     attr_accessor :email_concerning_me, :email_concerning_other

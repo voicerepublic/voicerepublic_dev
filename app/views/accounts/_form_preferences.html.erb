@@ -1,0 +1,16 @@
+<%= form_for account, :url => user_account_path(:user_id => account.user), :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+
+<%= f.fields_for :prefs, account.prefs do |p| %>
+<div class="control-group">
+	<%= p.label :inform_of_friends, :class => 'control-label' %>
+	<div class="controls">
+		<%= p.check_box :inform_of_friends, :class => 'check_box' %>
+	</div>
+</div>
+
+<div class="form-actions">
+	<%= f.submit nil, :class => 'btn btn-primary' %>
+	<%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_account_path(:user_id => account.user), :class => 'btn' %>
+</div>
+<% end %>
+<% end %>
