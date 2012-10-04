@@ -24,7 +24,7 @@ module KluuuCode
   end
   
   
-  class Preferences
+  class Preferences 
     attr_accessor :email_concerning_me, :email_concerning_other
     attr_accessor :inform_of_friends
     
