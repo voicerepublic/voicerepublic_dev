@@ -1,9 +1,8 @@
 class Notification::CallRejected < Notification::Base 
+  attr_accessible :user_id, :other_id, :video_session_id
   
   belongs_to :video_session
   belongs_to :other, :class_name => 'User'  # other here is klu-owner
-  
-  attr_accessible :user_id, :other_id, :video_session_id
   
   #user_id can be a session id of the cookie in case an anonymous user calls
   validates_presence_of :video_session_id, :other_id, :user_id

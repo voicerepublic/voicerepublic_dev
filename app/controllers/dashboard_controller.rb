@@ -2,6 +2,7 @@ class DashboardController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :set_user
+  
   def index
     @user = current_user
     redirect_to :action => 'matches'
@@ -12,7 +13,7 @@ class DashboardController < ApplicationController
     @follower = @user.follower_relations
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.json { render json: @follows }
     end
   end
@@ -20,15 +21,16 @@ class DashboardController < ApplicationController
   def bookmarks
     @bookmarks = @user.bookmarks
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.json { render json: @bookmarks }
     end
   end
 
   def news
-    @news = nil
+    @news = @user.notifications.order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
+    @news.each { |x| Notification::Base.find(x.id).update_attribute(:read, true) }
     respond_to do |format|
-      format.html # index.html.erb
+      format.html 
       format.json { render json: @news }
     end
   end
@@ -48,14 +50,14 @@ class DashboardController < ApplicationController
     rescue Exception => e
       logger.error("Dasboard#matches - problem with sphinx: #{e.inspect}")
       @matching_klus = []
+      flash.now[:error] =  "there is a problem with sphinx... see your logs"
     end
-    flash.now[:error] =  "there is a problem with sphinx... see your logs"
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @matches }
     end
   end
+  
 
   private
 

@@ -5,4 +5,9 @@ class Notification::NewMessage < Notification::Base
   belongs_to :other, :class_name => 'User'
    
   validates :other_id, :user_id, :presence => true
+  
+  def to_s
+    I18n.t('.new_message_from', :sender => other.name, :default => 'you have a new message')
+  end
+  
 end

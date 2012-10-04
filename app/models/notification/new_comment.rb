@@ -5,4 +5,9 @@ class Notification::NewComment < Notification::Base
   belongs_to :other, :class_name => 'User'
    
   validates :other_id, :user_id, :presence => true
+  
+  def to_s
+    I18n.t('.you_got_a_new_comment_by', :commenter => other.name)
+  end
+  
 end

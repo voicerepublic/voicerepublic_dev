@@ -1,14 +1,16 @@
 class Notification::CallAccepted < Notification::Base 
+ 
+  attr_accessible :user_id, :other_id, :video_session_id, :url 
+  
+  after_create :generate_push_notification
   
   belongs_to :video_session
   belongs_to :other, :class_name => 'User'  # other here is klu-owner
-  
-  attr_accessible :user_id, :other_id, :video_session_id, :url
-  
+
   #user_id can be a session id of the cookie in case an anonymous user calls
   validates_presence_of :url, :video_session_id, :other_id, :user_id
   
-  after_create :generate_push_notification
+  
   
   private
   
@@ -19,4 +21,5 @@ class Notification::CallAccepted < Notification::Base
       self.logger.error("Notification::CallAccepted#generate_push_notification - error: #{e.inspect}")
     end  
   end
+  
 end

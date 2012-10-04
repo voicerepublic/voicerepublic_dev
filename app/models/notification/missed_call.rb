@@ -8,14 +8,9 @@ class Notification::MissedCall < Notification::Base
   
   after_create :generate_push_notification
   
-  private
   
-  def generate_push_notification
-    begin
-      PrivatePub.publish_to("/notifications/#{user.id}", "alert('you missed a call!');")
-    rescue Exception => e
-      self.logger.error("Notification::MissedCall#generate_push_notification - error: #{e.inspect}")
-    end  
+  def to_s
+    I18n.t('.you_missed_a_call_on_your_klu', :caller => other ? other.name : 'anonymous', :klu => klu.title )
   end
   
   
