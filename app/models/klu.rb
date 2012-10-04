@@ -91,11 +91,7 @@ class Klu < ActiveRecord::Base
   # to look up in other klus : e.g. (@tag_name foobar | @tag_name dumbazz | @tag_name fnord)
   #
   def build_tag_list_arguments
-    arr = []
-    self.tags.each do |t|
-      arr.push "@tag_name #{t.name}"
-    end
-    "( #{arr.join("|")} )"
+    self.tags.collect { |t| "@tag_name #{t.name}" }.join("|") 
   end
   
 end
