@@ -49,20 +49,4 @@ class Account < ActiveRecord::Base
   end
   
   
-  #def prefs
-  #  # make sure we always return a UserPreference instance
-  #  if read_attribute(:prefs).nil?
-  #    write_attribute :prefs, Preference.new
- #     read_attribute :prefs
- #   else
- #     read_attribute :prefs
- #   end
- # end
-# 
-#  def prefs=(val)
-#    write_attribute :prefs, val
-#  end
-  
-  
-  
 end

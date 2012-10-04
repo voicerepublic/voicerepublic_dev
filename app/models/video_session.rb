@@ -15,6 +15,7 @@ class VideoSession < ActiveRecord::Base
  private
  
  def prepare_one_on_one_video_session   
+   
    klu_user = Klu.find(self.klu_id).user
    
    #create guest (calling) participant for video_session
