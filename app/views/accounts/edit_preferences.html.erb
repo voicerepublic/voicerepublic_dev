@@ -1,0 +1,10 @@
+<div class="row-fluid">
+	<div class="user user-edit span6 well well-large">
+		<h1><%=t(".edit_email") %></h1>
+  		<%= render :partial => 'users/basic_form', :locals => { :user => @user } %>
+	</div>
+	<div class="user user-edit span6 well well-large">
+    	<h1><%=t(".edit_preferences") %></h1>
+    	<%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account } %>
+  	</div>
+</div>

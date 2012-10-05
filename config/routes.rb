@@ -47,6 +47,9 @@ Kluuu2::Application.routes.draw do
       resource :account do
         member do
           delete 'destroy_portrait'
+          get 'preferences/edit', :action => 'edit_preferences'
+          get 'preferences/show', :action => 'show_preferences'
+          get 'password/edit', :action => 'edit_password'
         end
       end
       resources :klus do

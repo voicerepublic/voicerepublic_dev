@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  
+  
   def index
     @users = User.all
 
@@ -45,7 +47,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    
     @user = User.find(params[:id])
+    #render :layout => 'application'
   end
 
   # POST /users
@@ -68,12 +72,13 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+    
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to  preferences_show_user_account_url(:user_id => @user), notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
+        logger.error("Users#update - ERROR: #{@user.errors.inspect}")
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

@@ -70,22 +70,28 @@
 </div>
 
 <div class="row">
-	<div class="span4">
+	<div class="span3">
 		<div class="well well-small">
 			<%= link_to t('.manage_your_follower'), user_follows_path(:user_id => @account.user), :class => "btn btn-large" %>
 		</div>
 		&nbsp;
 	</div>
-	<div class="span4">
+	<div class="span3">
 
 		<div class="well well-small">
 			<%= link_to t('.manage_your_bookmarks'), user_bookmarks_path(:user_id => @account.user), :class => "btn btn-large" %>
 		</div>
 
 	</div>
-	<div class="span4">
+	<div class="span3">
 		<div class="well well-small">
 			<%= link_to t('.manage_your_kluuus'), user_klus_path(:user_id => @account.user), :class => "btn btn-large" %>
+		</div>
+	</div>
+	
+	<div class="span3">
+		<div class="well well-small">
+			<%= link_to t('.manage_your_preferences'), preferences_show_user_account_path(:user_id => @account.user), :class => "btn btn-large" %>
 		</div>
 	</div>
 </div>

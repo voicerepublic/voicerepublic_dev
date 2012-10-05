@@ -29,7 +29,7 @@ module KluuuCode
     attr_accessor :inform_of_friends
     
     def initialize(args=nil)
-      @email_concerning_me,  @email_concerning_other, @inform_of_friends = true
+      @email_concerning_me,  @email_concerning_other, @inform_of_friends = true, true, true
       unless args.nil?
         self.update_attributes(args)
       end
