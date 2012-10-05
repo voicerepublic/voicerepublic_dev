@@ -63,7 +63,7 @@ class KluImagesController < ApplicationController
 
     respond_to do |format|
       if @klu_image.update_attributes(params[:klu_image])
-        format.html { redirect_to user_klu_klu_image_path(:user_id => @klu_image.kluuu.user, :klu_id => @klu_image.kluuu, :id => @klu_image), notice: 'Klu image was successfully updated.' }
+        format.html { redirect_to user_klu_path(:user_id => params[:user_id], :id => @kluuu), notice: 'Klu image was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -80,7 +80,7 @@ class KluImagesController < ApplicationController
     @klu_image.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_klu_klu_images_url(:user_id => @kluuu.user, :klu_id => @kluuu) }
+      format.html { redirect_to user_klu_path(:user_id => params[:user_id], :id => @kluuu) }
       format.json { head :no_content }
     end
   end

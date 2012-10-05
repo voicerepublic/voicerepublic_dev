@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928100703) do
+ActiveRecord::Schema.define(:version => 20121003004830) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20120928100703) do
     t.string   "portrait_content_type"
     t.integer  "portrait_file_size"
     t.datetime "portrait_updated_at"
+    t.text     "prefs"
   end
 
   create_table "bookmarks", :force => true do |t|
@@ -80,6 +81,15 @@ ActiveRecord::Schema.define(:version => 20120928100703) do
   add_index "conversations", ["user_1_id"], :name => "index_conversations_on_user_1_id"
   add_index "conversations", ["user_2_id"], :name => "index_conversations_on_user_2_id"
 
+  create_table "credit_accounts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "prepaid_amount"
+    t.integer  "revenue_amount"
+    t.string   "currency"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "follows", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
@@ -111,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20120928100703) do
     t.integer  "charge_amount",      :default => 0
     t.string   "charge_type",        :default => "free"
     t.boolean  "uses_status",        :default => true
+    t.string   "currency"
   end
 
   add_index "klus", ["charge_type"], :name => "index_klus_on_charge_type"
@@ -139,12 +150,31 @@ ActiveRecord::Schema.define(:version => 20120928100703) do
     t.integer  "other_id"
     t.string   "url"
     t.string   "type"
-    t.boolean  "read",       :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "read",             :default => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.integer  "video_session_id"
   end
 
   add_index "notification_bases", ["user_id"], :name => "index_notification_bases_on_user_id"
+
+  create_table "participant_bases", :force => true do |t|
+    t.string   "type"
+    t.integer  "video_session_id"
+    t.datetime "entered_timestamp"
+    t.datetime "left_timestamp"
+    t.string   "room_url"
+    t.string   "video_session_role"
+    t.string   "user_cookie_session_id"
+    t.integer  "user_id"
+    t.integer  "seconds_online"
+    t.datetime "last_pay_tick_timestamp"
+    t.integer  "pay_tick_counter"
+    t.datetime "payment_started_timestamp"
+    t.datetime "payment_stopped_timestamp"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string "name"
@@ -204,5 +234,14 @@ ActiveRecord::Schema.define(:version => 20120928100703) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
+
+  create_table "video_sessions", :force => true do |t|
+    t.datetime "end_timestamp"
+    t.datetime "begin_timestamp"
+    t.string   "video_system_session_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.integer  "klu_id"
+  end
 
 end

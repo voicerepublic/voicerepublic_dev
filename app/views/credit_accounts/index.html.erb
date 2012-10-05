@@ -1,0 +1,29 @@
+<h1>Listing credit_accounts</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Prepaid amount</th>
+    <th>Revenue amount</th>
+    <th>Currency</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @credit_accounts.each do |credit_account| %>
+  <tr>
+    <td><%= credit_account.user_id %></td>
+    <td><%= credit_account.prepaid_amount %></td>
+    <td><%= credit_account.revenue_amount %></td>
+    <td><%= credit_account.currency %></td>
+    <td><%= link_to 'Show', credit_account %></td>
+    <td><%= link_to 'Edit', edit_credit_account_path(credit_account) %></td>
+    <td><%= link_to 'Destroy', credit_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Credit account', new_credit_account_path %>

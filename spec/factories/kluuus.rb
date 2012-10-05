@@ -5,6 +5,8 @@ FactoryGirl.define do
     available_at_times "always when online"
     user
     category
+    currency 'EUR'
+    charge_amount 0
 
     sequence :title do |t|
       "#{Faker::Lorem.sentence} #{t}"

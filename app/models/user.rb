@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :kluuus, :dependent => :destroy
   
   has_one :account, :dependent => :destroy
+  has_one :credit_account, :dependent => :destroy
   
   has_many :sent_messages, :foreign_key => :sender_id, :class_name => 'Message', :dependent => :destroy
   has_many :received_messages, :foreign_key => :receiver_id, :class_name => 'Message', :dependent => :destroy
@@ -72,12 +73,16 @@ class User < ActiveRecord::Base
   end
   
   def availability_status
-    if last_request_at < Time.now - 4.minutes
-      update_attribute(:available, :offline) if available == :online || :bizzy
+    if (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
+      update_attribute(:available, :offline) if available.to_sym == :online || :bizzy
       :offline
     else
-      available
+      available.to_sym
     end
+  end
+  
+  def available?
+    return true if availability_status == :online
   end
   
   def set_online!

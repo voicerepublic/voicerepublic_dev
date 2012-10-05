@@ -1,14 +1,16 @@
 class Klu < ActiveRecord::Base
   
   attr_accessible :available_at_times, :category_id, :description, :published, :title, :type, :user_id, :charge_type, :charge_amount, :tag_list, :uses_status
+  attr_accessible :charge_type, :charge_amount, :currency
+  
   acts_as_taggable
   
   belongs_to :user
   belongs_to :category
+  has_many :video_sessions, :inverse_of => :klu
   
-  validates :title, :presence => true
-  validates :user_id, :presence => true
-  
+  validates_presence_of :title, :user_id
+
   scope :published, where("published=?", true)
   
   WEIGHTS = {
@@ -60,6 +62,7 @@ class Klu < ActiveRecord::Base
                             :without => { :user_id => self.user_id },
                             :conditions => { :tag_name => self.tags.map { |t| t.name } }
                            )
+                           
     if results.total_entries < 1
       Rails.logger.debug("Klu#complementaries - no results in first case")
       
@@ -74,6 +77,7 @@ class Klu < ActiveRecord::Base
     
     if results.total_entries < 1
       Rails.logger.debug("Klu#complementaries - no results in first and second case - trying text-search")
+      # the worst - quite broad matches - simply on text-comparison
       results = klu_class.search( "#{self.title} #{self.description}", :star => true, :without => { :user_id => self.user_id }  )
     else
        Rails.logger.debug("Klu#complementaries - no results in second case")
@@ -87,11 +91,7 @@ class Klu < ActiveRecord::Base
   # to look up in other klus : e.g. (@tag_name foobar | @tag_name dumbazz | @tag_name fnord)
   #
   def build_tag_list_arguments
-    arr = []
-    self.tags.each do |t|
-      arr.push "@tag_name #{t.name}"
-    end
-    "( #{arr.join("|")} )"
+    self.tags.collect { |t| "@tag_name #{t.name}" }.join("|") 
   end
   
 end

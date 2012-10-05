@@ -1,5 +1,9 @@
 Kluuu2::Application.routes.draw do
 
+  resources :credit_accounts
+
+  resources :video_sessions
+
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
     get "dashboard/contacts"
@@ -51,6 +55,7 @@ Kluuu2::Application.routes.draw do
       resources :status_updates do
         resources :comments
       end
+      resource :credit_account
     end
   end
   

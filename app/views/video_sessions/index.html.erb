@@ -1,0 +1,29 @@
+<h1>Listing video_sessions</h1>
+
+<table>
+  <tr>
+    <th>Offer</th>
+    <th>End timestamp</th>
+    <th>Begin timestamp</th>
+    <th>Video system session</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @video_sessions.each do |video_session| %>
+  <tr>
+    <td><%= video_session.offer_id %></td>
+    <td><%= video_session.end_timestamp %></td>
+    <td><%= video_session.begin_timestamp %></td>
+    <td><%= video_session.video_system_session_id %></td>
+    <td><%= link_to 'Show', video_session %></td>
+    <td><%= link_to 'Edit', edit_video_session_path(video_session) %></td>
+    <td><%= link_to 'Destroy', video_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Video session', new_video_session_path %>

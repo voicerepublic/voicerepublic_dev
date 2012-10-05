@@ -6,8 +6,9 @@
   
   <section id="comments" class="comments">
     <ul class="unstyled">
-    <%= render(:partial => "comment", :collection => @status_update.comments, :as => :comment ) %>
+    <%= render(:partial => "comment", :collection => @comments, :as => :comment ) %>
     </ul>
+  	<%= will_paginate @comments %>
     <aside id="newcomment">
       <% if current_user %>
         <% @comment = @status_update.comments.build %>

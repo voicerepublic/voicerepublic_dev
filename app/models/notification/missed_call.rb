@@ -1,22 +1,16 @@
 class Notification::MissedCall < Notification::Base 
   
+  belongs_to :user
   belongs_to :klu
   belongs_to :other, :class_name => 'User'  # other may be nil in case of anonymous call?
   
-  validates :klu_id, :presence => true
-  validates :url, :presence => true
+  validates :klu_id, :url, :user_id, :presence => true
   
   after_create :generate_push_notification
   
-  private
   
-  
-  def generate_push_notification
-    begin
-      PrivatePub.publish_to("/notifications/#{user.id}", "alert('you missed a call!');")
-    rescue Exception => e
-      self.logger.error("Notification::MissedCall#generate_push_notification - error: #{e.inspect}")
-    end  
+  def to_s
+    I18n.t('.you_missed_a_call_on_your_klu', :caller => other ? other.name : 'anonymous', :klu => klu.title )
   end
   
   
