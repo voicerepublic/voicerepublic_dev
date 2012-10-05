@@ -1,0 +1,30 @@
+<div class="page-header">
+	<h1><%= t '.settings', :default => 'settings' %></h1>
+</div>
+
+<div class="row-fluid">
+	<div class="well well-large span6">
+		<dl>
+			<dt>
+				<%= t('.configured_email') %>
+			</dt>
+			<dd>
+				<%= @user.email %>
+			</dd>
+		</dl>
+		<%= link_to(t('.edit_password'), password_edit_user_account_path(:user_id => @user)) %>
+	</div>
+	<div class="well well-large span6">
+		<dl>
+			<dt><%= t('.get_email_if_actions_on_my_kluuus')%></dt>
+			<dd><%= @user.account.prefs.email_concerning_me == '1' ? t('.yes') : t('.no') %></dd>
+			<dt><%= t('.get_news_on_actions_of_fiends')%></dt>
+			<dd><%= @user.account.prefs.inform_of_friends == '1' ? t('.yes') : t('.no') %></dd>
+			<dt><%= t('.get_email_if_actions_of_friends')%></dt>
+			<dd><%= @user.account.prefs.email_concerning_other == '1' ? t('.yes') : t('.no') %></dd>
+		</dl>
+	</div>
+	<div class="form-actions">
+		<%= link_to( t('.edit_preferences'), preferences_edit_user_account_path(:user_id => @user), :class => "btn btn-primary") %>
+	</div>
+</div>

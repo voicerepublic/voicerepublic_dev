@@ -1,4 +1,4 @@
-<%= form_for @user, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for user, :html => { :class => 'form-horizontal' } do |f| %>
   
   <div class="control-group">
     <%= f.label :email, :class => 'control-label' %>
@@ -6,24 +6,10 @@
       <%= f.text_field :email, :class => 'text_field' %>
     </div>
   </div>
-  
-  <div class="control-group">
-  	<%= f.label :password, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.password_field :password, :class => 'password_field' %>
-  	</div>
-  </div>
-  
-  <div class="control-group">
-  	<%= f.label :password_confirmation, :class => 'control-label' %>
-  	<div class='controls'>
-  		<%= f.password_field :password_confirmation, :class => 'password_field' %>
-  	</div>
-  </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                users_path, :class => 'btn' %>
+                preferences_show_user_account_path(:user_id => user), :class => 'btn' %>
   </div>
 <% end %>
