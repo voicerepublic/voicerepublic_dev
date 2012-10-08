@@ -1,5 +1,9 @@
-@import "kluuu.css.less";
-
+/*
+ *= require main
+ *= require_self
+ */
+ @import "config.css.less";
+ 
 .kluuu-title {
 	font-family: Georgia, serif;
 	font-style: italic;
@@ -223,7 +227,7 @@
 }
 
 .klu-large {
-	padding-top: @baseLineHeight * @baseFontSize * 1.5;
+	padding-top: @baseFontSize * @baseLineHeight;
 	position: relative;
 
 	.klu-meta {
