@@ -1,5 +1,7 @@
 class Notification::Base < ActiveRecord::Base
   
+  scope :unread, where(:read => false)
+  
   alias_method :reason, :to_s
   
   

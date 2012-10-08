@@ -27,16 +27,18 @@
 							<li><%= link_to "admin", admin_dashboard_index_path %></li>
 						<% end %>
 					<li class="navbar-search form-search">
-						
 						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
 						<i class="icon-search"> </i> 
 						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => "search term"), :class => "search-query span2" %>
 						<% end %>
-						
 				 	</li>
 				 	<li>
 				 		<%= link_to "/" do %>
-				 			<i class="icon-bell"> </i> <%= t('.notifications') %>
+				 			<i class="icon-bell"> </i> 
+				 			<% unless current_user.notifications.unread.empty? %>
+				 				<span class="badge badge-important"><%= current_user.notifications.unread.count %></span>&nbsp;
+				 			<% end %>
+				 			<%= t('.notifications') %>
 				 		<% end %>
 				 	</li>
 				 	<li>
