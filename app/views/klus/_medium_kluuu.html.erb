@@ -1,6 +1,5 @@
 <article class="medium-klu klu-layout kluuu span4">
-	<!-- check if current_user has bookmarkd this klu -->
-	<%= bookmark_links(current_user, medium_kluuu) %>
+	<div class="klu-bookmark-link"><%= bookmark_links(current_user, medium_kluuu) %></div>
 	
 	<%= link_to( klu_path(:id => medium_kluuu)) do %>
 		<h3 class="no-margin"><%= medium_kluuu.title %> </h3>	

@@ -1,5 +1,5 @@
 <article class="medium-klu klu-layout no-kluuu span4">
-	<%= bookmark_links(current_user, medium_no_kluuu) %>
+	<div class="klu-bookmark-link"><%= bookmark_links(current_user, medium_no_kluuu) %></div>
 	<%= link_to( klu_path(:id => medium_no_kluuu)) do %>
 		<h3 class="no-margin klu-eyecatcher"><%= medium_no_kluuu.title %></h3>	
 	<% end %>
