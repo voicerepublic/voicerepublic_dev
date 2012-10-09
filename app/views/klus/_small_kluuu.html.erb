@@ -1,7 +1,7 @@
 <article class="small-klu klu-layout kluuu span3">
 	<%= link_to( klu_path(:id => small_kluuu)) do %>
-		<h3 class="no-margin klu-title"><%= small_kluuu.title %> </h3>	
 		<div class="klu-eyecatcher"><%= image_tag(small_kluuu.klu_images.first.image.url(:medium)) unless small_kluuu.klu_images.empty? %></div>
+    <h3 class="no-margin klu-title"><%= small_kluuu.title %> </h3>  
 	<% end %>
 	<%= link_to(image_tag( small_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => small_kluuu.user), :class => 'klu-user-image' ) %>
 </article>
