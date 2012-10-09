@@ -22,8 +22,8 @@ module KlusHelper
     klu.instance_of?(Kluuu) ? render(:partial => 'klus/form_kluuu') : render(:partial => 'klus/form_no_kluuu')
   end
   
-  def medium_partial_for_klu(klu)
-    klu.instance_of?(Kluuu) ? render(:partial => 'klus/medium_kluuu', :locals => {:medium_kluuu => klu }) : render(:partial => 'klus/medium_no_kluuu', :locals => { :medium_no_kluuu => klu })
+  def small_partial_for_klu(klu)
+    klu.instance_of?(Kluuu) ? render(:partial => 'klus/small_kluuu', :locals => {:small_kluuu => klu }) : render(:partial => 'klus/small_no_kluuu', :locals => { :small_no_kluuu => klu })
   end
   
 end

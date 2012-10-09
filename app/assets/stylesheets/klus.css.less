@@ -4,7 +4,7 @@
  */
  @import "config.css.less";
  
-.kluuu-title {
+.klu-title {
 	font-family: Georgia, serif;
 	font-style: italic;
 	font-weight: normal;
@@ -74,7 +74,7 @@
 	}
 }
 
-.medium-klu {
+.medium-klu, .small-klu {
 	padding: 10px 8px;
 
 	&>a:hover {
@@ -86,7 +86,7 @@
 	}
 	
 	h3 {
-		.kluuu-title;
+		.klu-title;
 		color: @textColor;
 		height: 80px;
 		overflow:hidden;
@@ -138,6 +138,10 @@
     	background: rgba(0,0,0,0.02);
     }
 	}
+}
+
+.small-klu.klu-layout, .klu-large .small-klu.klu-layout {
+	padding: 4px 5px;
 }
 
 .klu-large {
@@ -282,6 +286,16 @@
 			right: 30px;
 			text-align: right;
 		}
+	}
+
+	.klu-user-info {
+		.klu-user-info-inner {
+			padding: 4%;
+			position: relative;
+		}
+	}
+	.klu-user-info-more-klus {
+		margin-top: @baseFontSize * @baseLineHeight * 0.5;
 	}
 }
 
