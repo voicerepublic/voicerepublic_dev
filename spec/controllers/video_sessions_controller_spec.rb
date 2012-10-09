@@ -39,28 +39,28 @@ describe VideoSessionsController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all video_sessions as @video_sessions" do
-      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-      get :index, {}, valid_session
-      assigns(:video_sessions).should eq([video_session])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested video_session as @video_session" do
-      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-      get :show, {:id => video_session.to_param}, valid_session
-      assigns(:video_session).should eq(video_session)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new video_session as @video_session" do
-      get :new, {}, valid_session
-      assigns(:video_session).should be_a_new(VideoSession)
-    end
-  end
+#  describe "GET index" do
+#    it "assigns all video_sessions as @video_sessions" do
+#      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#      get :index, {}, valid_session
+#      assigns(:video_sessions).should eq([video_session])
+#    end
+#  end
+#
+#  describe "GET show" do
+#    it "assigns the requested video_session as @video_session" do
+#      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#      get :show, {:id => video_session.to_param}, valid_session
+#      assigns(:video_session).should eq(video_session)
+#    end
+#  end
+#
+#  describe "GET new" do
+#    it "assigns a new video_session as @video_session" do
+#      get :new, {}, valid_session
+#      assigns(:video_session).should be_a_new(VideoSession)
+#    end
+#  end
 
   describe "POST create" do
     describe "with valid params" do
@@ -69,11 +69,27 @@ describe VideoSessionsController do
           xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
         }.to change(VideoSession, :count).by(1)
       end
-
+      
+      it "creates a new Incoming Call Notification" do
+        expect {
+          xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
+        }.to change(Notification::IncomingCall, :count).by(1)
+      end
+      
       it "assigns a newly created video_session as @video_session" do
         xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
         assigns(:video_session).should be_a(VideoSession)
         assigns(:video_session).should be_persisted
+      end
+      
+      it "persists a newly created Incoming Call Notification associated to KluuU Owner" do
+        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+        video_session.participants.host.first.notifications.count.should == 1
+      end
+      
+      it "persists a newly created Incoming Call Notification with users id as other_id" do
+        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+        video_session.participants.host.first.notifications.first.other_id.should == video_session.participants.guest.first.user_id
       end
 
       it "renders the dialog for calling someone per video_session" do
@@ -143,55 +159,55 @@ describe VideoSessionsController do
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        # Assuming there are no other video_sessions in the database, this
-        # specifies that the VideoSession created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        VideoSession.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => video_session.to_param, :video_session => {'these' => 'params'}}, valid_session
-      end
-
-      it "assigns the requested video_session as @video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
-        assigns(:video_session).should eq(video_session)
-      end
-
-      it "redirects to the video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
-        response.should redirect_to(video_session)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the video_session as @video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        # Trigger the behavior that occurs when invalid params are submitted
-        VideoSession.any_instance.stub(:save).and_return(false)
-        put :update, {:id => video_session.to_param, :video_session => {}}, valid_session
-        assigns(:video_session).should eq(video_session)
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested video_session" do
-      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-      expect {
-        delete :destroy, {:id => video_session.to_param}, valid_session
-      }.to change(VideoSession, :count).by(-1)
-    end
-
-    it "redirects to the video_sessions list" do
-      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-      delete :destroy, {:id => video_session.to_param}, valid_session
-      response.should redirect_to(video_sessions_url)
-    end
-  end
+#  describe "PUT update" do
+#    describe "with valid params" do
+#      it "updates the requested video_session" do
+#        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#        # Assuming there are no other video_sessions in the database, this
+#        # specifies that the VideoSession created on the previous line
+#        # receives the :update_attributes message with whatever params are
+#        # submitted in the request.
+#        VideoSession.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+#        put :update, {:id => video_session.to_param, :video_session => {'these' => 'params'}}, valid_session
+#      end
+#
+#      it "assigns the requested video_session as @video_session" do
+#        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#        put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
+#        assigns(:video_session).should eq(video_session)
+#      end
+#
+#      it "redirects to the video_session" do
+#        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#        put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
+#        response.should redirect_to(video_session)
+#      end
+#    end
+#
+#    describe "with invalid params" do
+#      it "assigns the video_session as @video_session" do
+#        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#        # Trigger the behavior that occurs when invalid params are submitted
+#        VideoSession.any_instance.stub(:save).and_return(false)
+#        put :update, {:id => video_session.to_param, :video_session => {}}, valid_session
+#        assigns(:video_session).should eq(video_session)
+#      end
+#    end
+#  end
+#
+#  describe "DELETE destroy" do
+#    it "destroys the requested video_session" do
+#      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#      expect {
+#        delete :destroy, {:id => video_session.to_param}, valid_session
+#      }.to change(VideoSession, :count).by(-1)
+#    end
+#
+#    it "redirects to the video_sessions list" do
+#      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+#      delete :destroy, {:id => video_session.to_param}, valid_session
+#      response.should redirect_to(video_sessions_url)
+#    end
+#  end
 
 end
