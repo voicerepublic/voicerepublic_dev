@@ -1,12 +1,20 @@
-<div class="well well-small">
-	<span class="pull-right">
-		<%= link_to(user_message_path(:user_id => message.sender, :id => message), :method => :delete) do %>
-		<i class="icon-trash"> </i> <%= t('.delete')%> &nbsp;
-		<% end %>
-	</span>
-	<%= link_to(image_tag(message.sender.account.portrait(:thumb)), user_path(:id => message.sender), :class => "img-polaroid" )%>
-	<blockquote>
-	<small><%= t('.you_wrote_to') %> <%= message.receiver.name %> <%= t('.ago') %> <%= time_ago_in_words(message.created_at) %></small>
+<article class="message contribution">
+	<header>
+		<div class="contribution-user-name">
+			<%= link_to message.sender.name, user_path(:id => message.sender) %>
+		</div>
+		
+		<%= link_to(image_tag(message.sender.account.portrait(:thumb)), user_path(:id => message.sender),:class => "img-polaroid contribution-user-image")%>
+		<time datetime="<%= message.created_at.strftime("%Y-%m-%d") %>">
+			<%= time_ago_in_words(message.created_at) %>
+		</time>
+	</header>
 	<%= simple_format(message.content) %>
-	<blockquote>
-</div>
+	<aside>
+		
+	<%= link_to(user_message_path(:user_id => message.sender, :id => message), :method => :delete, :class => "contribution-delete") do %>
+	<i class="icon-trash"> </i> <%#= t('.delete')%>
+	<% end %>
+
+	</aside>
+</article>	

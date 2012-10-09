@@ -1,34 +1,34 @@
-<article class="status">
+<article class="status contribution">
 	<header>
-		<div class="status-user-name">
+		<div class="contribution-user-name">
 			<%= link_to(status_update.user.name, user_path(:id => status_update.user)) %>
 		</div>
 		
-		<%= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'status-user-image img-polaroid' ) %>
+		<%= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'contribution-user-image img-polaroid' ) %>
 		<time datetime="<%= status_update.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(status_update.created_at) %>
 		</time>
 	</header>
-	<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update), :class => "status-content") do %>
+	<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update), :class => "contribution-content") do %>
 	<%= simple_format(status_update.content) %>
 	<% end %>
 	<aside>
 
-		<div class="status-comment-links">
-			<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment"), :class => "status-content") do %>
+		<div class="contribution-comment-links">
+			<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment"), :class => "contribution-content") do %>
 				&nbsp; <%= t('.add_comment') %> &middot;
 			<% end if current_user %> 
-			<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments"), :class => "status-content") do %>
+			<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments"), :class => "contribution-content") do %>
 				<i class="icon-comment"> </i>	<%= status_update.comments.count %> <%= t('.comments') %>
 			<% end %>
 		</div>
 		
 		<%= link_to t('.edit', :default => t("helpers.links.edit")),
-		edit_user_status_update_path(:user_id => status_update.user, :id =>status_update), :class => 'status-edit btn btn-mini' %>
+		edit_user_status_update_path(:user_id => status_update.user, :id =>status_update), :class => 'contribution-edit btn btn-mini' %>
 		<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
 		user_status_update_path(:user_id => status_update.user, :id => status_update),
 		:method => :delete,
 		:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-		:class => 'btn btn-mini btn-danger status-delete' %>
+		:class => 'btn btn-mini btn-danger contribution-delete' %>
 	</aside>
 </article>

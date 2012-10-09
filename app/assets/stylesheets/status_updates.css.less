@@ -2,11 +2,9 @@
  *= require main
  *= require_self
  *= require users
+ *= require contributions
  */
  @import "config.css.less";
-
-@status-left-offset: 90px;
-@status-right-offset: 60px;
 
 .status-list {
   li {
@@ -23,84 +21,7 @@
   }
 }
 
-.status, .comment article {
-  padding: 20px @status-right-offset 30px @status-left-offset;
-  position: relative;
-  min-height: 100px;
-
-  time {
-    left: @status-left-offset;
-    bottom: 8px;
-    font-size: smaller;
-    color: lightgrey;
-  }
-}
-
-  .status-user-name, .status-user-image, time, .status-comment-links, .status-edit, .status-delete, .comment-user-name, .comment-user-image {
-    position: absolute;
-  }
-
-  .status-user-name, .comment-user-name {
-    left: 10px;
-    top: 12px;
-    font-weight: bold;
-    font-size: smaller;
-  }
-
-  .status-user-image, .comment-user-image {
-    display: block;
-    left: 10px;
-    top: 38px;
-  }
-
-  a.status-content {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .status-comment-links {
-    right: @status-right-offset;
-    bottom: 8px;
-    font-size: smaller;
-  }
-
-  .status-edit, .status-delete {
-    right: 0;
-  }
-
-  .status-edit {
-    top: 38px;
-  }
-
-  .status-delete {
-    bottom: 8px;
-  }
-
-.status-comments {
-  .status, .comment {
-    border-bottom: 1px solid #000;
-  }
-
-  .comment:last-child {
-    border-bottom: none;
-  }
-}
-
-.comments {
-  margin-left: @status-left-offset;
-
-  aside {
-    margin-left: @status-left-offset;
-
-    form {
-      margin-top: 36px;
-
-      textarea {
-        display: block;
-        width: 100%;
-        height: 270px;
-      }
-    }
-  }
+.status.contribution{
+  padding-bottom: 30px
 }
 

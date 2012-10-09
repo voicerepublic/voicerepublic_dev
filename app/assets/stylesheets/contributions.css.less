@@ -1,0 +1,95 @@
+@import "config.css.less";
+
+@contribution-left-offset: 90px;
+@contribution-right-offset: 60px;
+
+.contribution, .comment article {
+  padding: 20px @contribution-right-offset 6px @contribution-left-offset;
+  position: relative;
+  min-height: 70px;
+
+  time {
+    right:0;
+    bottom: 8px;
+    font-size: smaller;
+    color: lightgrey;
+  }
+}
+
+  .contribution-user-name, .contribution-user-image, time, .contribution-comment-links, .contribution-edit, .contribution-delete, .contribution-reply, .comment-user-name, .comment-user-image {
+    position: absolute;
+  }
+
+  .contribution-user-name, .comment-user-name {
+    left: 10px;
+    top: 12px;
+    font-weight: bold;
+    font-size: smaller;
+  }
+
+  .contribution-user-image, .comment-user-image {
+    display: block;
+    left: 10px;
+    top: 38px;
+  }
+
+  a.contribution-content {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .contribution-comment-links {
+    right: @contribution-right-offset;
+    bottom: 8px;
+    font-size: smaller;
+  }
+
+  .contribution-edit, .contribution-delete, {
+    right: 0;
+  }
+
+  .contribution-edit {
+    top: 38px;
+  }
+
+  .contribution-delete, .contribution-reply {
+    top: 12px + @baseFontSize * @baseLineHeight;
+    &:hover{
+      text-decoration: none;
+    }  
+  }
+
+  .contribution-reply{
+    right:20px;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+
+.contribution-comments {
+  .status, .comment {
+    border-bottom: 1px solid #000;
+  }
+
+  .comment:last-child {
+    border-bottom: none;
+  }
+}
+
+.comments {
+  margin-left: @contribution-left-offset;
+
+  aside {
+    margin-left: @contribution-left-offset;
+
+    form {
+      margin-top: 36px;
+
+      textarea {
+        display: block;
+        width: 100%;
+        height: 270px;
+      }
+    }
+  }
+}
