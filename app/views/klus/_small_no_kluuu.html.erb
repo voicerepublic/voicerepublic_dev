@@ -1,0 +1,6 @@
+<article class="small-klu klu-layout no-kluuu span3">
+	<%= link_to( klu_path(:id => small_no_kluuu)) do %>
+		<h3 class="no-margin klu-eyecatcher klu-title"><%= small_no_kluuu.title %></h3>	
+	<% end %>
+	<%= link_to(image_tag( small_no_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => small_no_kluuu.user), :class => 'klu-user-image' ) %>
+</article>
