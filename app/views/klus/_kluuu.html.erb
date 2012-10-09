@@ -1,7 +1,7 @@
 <article class="kluuu klu-large">
 	<div class="klu-layout">
 		<header>
-			<h2 class="kluuu-title"><%= @klu.title %></h2>
+			<h2 class="klu-title"><%= @klu.title %></h2>
 		</header>
 		<div class="row-fluid">
 			<section class="kluuu-pics span8">
@@ -37,27 +37,32 @@
 					</dl>
 					<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
 				</div><!-- End of call-btn -->
-				<div>
-					<%= limit_words(@klu.status_or_about, 15) %>
-				</div>
-				ACTIVITY_SCORE <br>
-				
-				<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small") do %>
-					<i class="icon-envelope"> </i> <%= t('.send_message') %>
-				<% end if current_user %>
-				
-				
-				<% if current_user && current_user.id != @user.id %>
-					<% if current_user.followed.include?(@klu.user) %>
-						<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :class => "btn btn-small", :method => :delete) %>
-					<% else %>
-						<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small" )%>
-					<% end %>
-				<% end %>
-				
-				
-				<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
-				
+				<div class="klu-user-info-inner">
+					<article class="klu-user-info-about-me">
+						<%= limit_words(@klu.status_or_about, 15) %>
+					</article>
+					<p class="klu-user-info-activity">ACTIVITY_SCORE</p>
+					<nav>
+						<ul>
+							<li>
+								<%= link_to(new_message_path(:receiver_id => @user)) do %>
+							  <%= t('.send_message') %>
+								<% end if current_user %>
+							</li>
+							<li>
+								<% if current_user && current_user.id != @user.id %>
+									<% if current_user.followed.include?(@klu.user) %>
+										<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :method => :delete) %>
+									<% else %>
+										<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post")%>
+									<% end %>
+								<% end %>
+							</li>
+							<li class="klu-user-info-more-klus">
+								<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %></div>
+							</li>
+						</ul>
+					</nav>
 			</aside>
 		</div>
 	</div><!-- End of Kluu-header kly-layout-->
@@ -97,6 +102,7 @@
 		</div><!-- End of right-column -->
 		<aside class="span4 klu-matches">
 				<h5> <%= t('.matching_?kluus?') %></h5>
+				<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
 		</aside>
 	</div>
 	<aside class="klu-top-bar">
@@ -130,7 +136,7 @@
 
 <div class="span4 offset8">
 	<span class="label label-info"><%= t('.matches')%></span>
-	<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
+	
 </div>
 
 
