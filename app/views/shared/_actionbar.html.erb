@@ -18,7 +18,9 @@
 						<% end if current_user %>
 					</li>
 					<li>
-						<%= link_to('dashboard', dashboard_path )  if current_user %>
+						<%= link_to(dashboard_path ) do %>
+							<span style="font-size: 3em;">d</span>ashboard
+						<% end %>
 					</li>
 				</ul>
 				<ul class="nav pull-right">
