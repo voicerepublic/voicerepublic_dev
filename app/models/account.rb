@@ -6,7 +6,7 @@ class Account < ActiveRecord::Base
   attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait, :prefs
   serialize :prefs, KluuuCode::Preferences
   
-  has_attached_file :portrait, :styles => { :large => "360x360#", :medium => "180x180#", :thumb => "90x90#" }, :default_url => "/system/:style/missing.jpg"
+  has_attached_file :portrait, :styles => { :large => "360x360#", :medium => "180x180#", :thumb => "45x45#" }, :default_url => "/system/:style/missing.jpg"
   
   belongs_to :user
   
