@@ -13,11 +13,6 @@
 						<% end if current_user %>
 					</li>
 					<li>
-						<%= link_to preferences_show_user_account_path(:user_id => current_user ) do %>
-							<i class="icon-wrench"> </i> <%= t('.settings') %>
-						<% end if current_user %>
-					</li>
-					<li>
 						<%= link_to('Dashboard', dashboard_path ) if current_user %>
 					</li>
 				</ul>

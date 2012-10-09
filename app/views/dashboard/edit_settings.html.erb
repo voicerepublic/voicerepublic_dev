@@ -1,0 +1,32 @@
+<div class="page-header">
+	<h1>Dashboard</h1>
+</div>
+
+<ul class="nav nav-tabs">
+	<li>
+		<%= link_to(t('.matches'), dashboard_matches_path )%>
+	</li>
+	<li>
+		<%= link_to(t('.news'), dashboard_news_path) %>
+	</li>
+	<li>
+		<%= link_to(t('.bookmarks'), dashboard_bookmarks_path) %>
+	</li>
+	<li>
+		<%= link_to(t('.contacts'), dashboard_contacts_path ) %>
+	</li>
+	<li class="active">
+		<%= link_to(t('.settings'), dashboard_settings_path) %>
+	</li>
+</ul>
+
+<div class="tab-content row-fluid">
+	<div class="user user-edit span6 well well-large">
+		<h1><%=t(".edit_email") %></h1>
+  		<%= render :partial => 'users/basic_form', :locals => { :user => @user } %>
+	</div>
+	<div class="user user-edit span6 well well-large">
+    	<h1><%=t(".edit_preferences") %></h1>
+    	<%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account } %>
+  	</div>
+</div>

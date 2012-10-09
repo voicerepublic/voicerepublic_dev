@@ -75,7 +75,7 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to  preferences_show_user_account_url(:user_id => @user), notice: 'User was successfully updated.' }
+        format.html { redirect_to  dashboard_settings_url, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         logger.error("Users#update - ERROR: #{@user.errors.inspect}")
