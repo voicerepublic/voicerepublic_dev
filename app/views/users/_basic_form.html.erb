@@ -10,6 +10,6 @@
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                preferences_show_user_account_path(:user_id => user), :class => 'btn' %>
+                dashboard_settings_edit_path, :class => 'btn' %>
   </div>
 <% end %>

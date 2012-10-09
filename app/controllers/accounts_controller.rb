@@ -56,7 +56,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.update_attributes(params[:account])
-        format.html { redirect_to preferences_show_user_account_url(:user_id => @user), notice: 'Profile setting was successfully updated.' }
+        format.html { redirect_to dashboard_settings_url, notice: 'Profile setting was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

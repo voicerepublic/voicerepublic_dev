@@ -10,6 +10,9 @@ Kluuu2::Application.routes.draw do
     get "dashboard/bookmarks"
     get "dashboard/news"
     get "dashboard/matches"
+    get "dashboard/settings"
+    get "dashboard/settings/edit", :controller => 'dashboard', :action => :edit_settings
+    get "dashboard/settings/edit_password", :controller => 'dashboard', :action => 'edit_password'
     get "search", :controller => "search", :action => :search
     get "match", :controller => "search", :action => :match
     get "landing_page/index", :as => :landing_page

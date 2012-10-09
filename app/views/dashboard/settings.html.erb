@@ -1,8 +1,26 @@
 <div class="page-header">
-	<h1><%= t '.settings', :default => 'settings' %></h1>
+	<h1>Dashboard</h1>
 </div>
 
-<div class="row-fluid">
+<ul class="nav nav-tabs">
+	<li>
+		<%= link_to(t('.matches'), dashboard_matches_path )%>
+	</li>
+	<li>
+		<%= link_to(t('.news'), dashboard_news_path) %>
+	</li>
+	<li>
+		<%= link_to(t('.bookmarks'), dashboard_bookmarks_path) %>
+	</li>
+	<li>
+		<%= link_to(t('.contacts'), dashboard_contacts_path ) %>
+	</li>
+	<li class="active">
+		<%= link_to(t('.settings'), dashboard_settings_path) %>
+	</li>
+</ul>
+
+<div class="tab-content row-fluid"> 
 	<div class="well well-large span6">
 		<dl>
 			<dt>
@@ -12,7 +30,7 @@
 				<%= @user.email %>
 			</dd>
 		</dl>
-		<%= link_to(t('.edit_password'), password_edit_user_account_path(:user_id => @user)) %>
+		<%= link_to(t('.edit_password'), dashboard_settings_edit_password_path ) %>
 	</div>
 	<div class="well well-large span6">
 		<dl>
@@ -25,6 +43,6 @@
 		</dl>
 	</div>
 	<div class="form-actions">
-		<%= link_to( t('.edit_preferences'), preferences_edit_user_account_path(:user_id => @user), :class => "btn btn-primary") %>
+		<%= link_to( t('.edit_preferences'), dashboard_settings_edit_path, :class => "btn btn-primary") %>
 	</div>
 </div>
