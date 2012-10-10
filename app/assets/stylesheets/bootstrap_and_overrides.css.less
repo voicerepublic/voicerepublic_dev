@@ -153,13 +153,16 @@ h6 { font-size: 0.9em; font-size: 0.9rem }
 
 h1, h2, h3, h4, h5, h6 {
 	line-height: @baseLineHeight;
-	margin: @verticalRhythm 0;
 }
 
 h1 small { font-size: 24px; }
 h2 small { font-size: 18px; }
 h3 small { font-size: 14px; }
 h4 small { font-size: 14px; }
+
+h1, h2, h3, h4, h5, h6, p, blockquote, table, ul, ol {
+	margin: @verticalRhythm 0;
+}
 
 /*
  * IMAGES
