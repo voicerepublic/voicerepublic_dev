@@ -9,7 +9,7 @@ class Kluuu < Klu
   has_many :ratings, :as => :rateable, :dependent => :destroy 
   
   # see base-class for base-validations
-  validates_presence_of :charge_amount, :description, :category_id, :currency  #, :currency
+  validates_presence_of :charge_amount, :description, :category_id #, :currency  #, :currency
   
   accepts_nested_attributes_for :klu_images
   
