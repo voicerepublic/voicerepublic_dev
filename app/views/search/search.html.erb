@@ -3,12 +3,12 @@
 </div>
 
 
-<div class="results row-fluid">
+<div class="search row-fluid">
 	<% @klus.each do |klu| %>
 		<% if klu.instance_of?(Kluuu) %>
-			<%= render(:partial => 'klus/medium_kluuu', :locals => {:medium_kluuu => klu}) %>
+			<%= render(:partial => 'klus/small_kluuu', :locals => {:klu => klu}) %>
 		<% else %>
-			<%= render(:partial => 'klus/medium_no_kluuu', :locals => {:medium_no_kluuu => klu}) %>
+			<%= render(:partial => 'klus/small_no_kluuu', :locals => {:klu => klu}) %>
 		<% end %>
 	<% end %>
 </div>
