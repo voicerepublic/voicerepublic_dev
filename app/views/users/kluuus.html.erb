@@ -1,9 +1,7 @@
-<div class="span4">
-	<% @kluuus.each do |klu| %>
-		<% if klu.instance_of?(Kluuu) %>
-			<%= render(:partial => 'klus/medium_kluuu', :locals => { :medium_kluuu => klu } ) %>
-		<% else %>
-			<%= render(:partial => 'klus/medium_no_kluuu', :locals => { :medium_no_kluuu => klu } ) %>
-		<% end %>
+<% @kluuus.each do |klu| %>
+	<% if klu.instance_of?(Kluuu) %>
+		<%= render(:partial => 'klus/medium_kluuu', :locals => { :medium_kluuu => klu } ) %>
+	<% else %>
+		<%= render(:partial => 'klus/medium_no_kluuu', :locals => { :medium_no_kluuu => klu } ) %>
 	<% end %>
-</div>
+<% end %>
