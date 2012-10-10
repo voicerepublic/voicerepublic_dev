@@ -29,6 +29,8 @@ class VideoSession < ActiveRecord::Base
   end
   
   def create_incoming_call_notification
-    Notification::IncomingCall.create(:other_id => self.calling_user_id, :video_session_id => self.id)
+    host = self.participants.host.first
+    guest = self.participants.guest.first
+    Notification::IncomingCall.create(:user_id => host.id, :other_id => guest.id, :video_session_id => self.id)
   end
 end
