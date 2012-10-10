@@ -1,5 +1,7 @@
 Kluuu2::Application.routes.draw do
 
+  #resources :ratings
+
   resources :credit_accounts
 
   resources :video_sessions
@@ -25,7 +27,9 @@ Kluuu2::Application.routes.draw do
   
   scope "(/:locale)", :locale => /de|en/ do
     resources :categories
-    resources :klus
+    resources :klus do
+      resources :ratings, :only => [:new, :create]
+    end
   end
   
   scope "(/:locale)", :locale => /de|en/ do

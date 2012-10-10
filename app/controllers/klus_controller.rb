@@ -68,6 +68,7 @@ class KlusController < ApplicationController
         format.html { redirect_to user_klus_url(:user_id => @user), notice: 'Klu was successfully created.' }
         format.json { render json: @klu, status: :created, location: @klu }
       else
+        flash.now[:error] = @klu.errors.inspect
         format.html { render action: "new" }
         format.json { render json: @klu.errors, status: :unprocessable_entity }
       end
@@ -77,11 +78,13 @@ class KlusController < ApplicationController
   # PUT /klus/1
   # PUT /klus/1.json
   def update
+    logger.debug("Klus#update - params: #{params.inspect}")
     @klu = Klu.find(params[:id])
+    _user = @klu.user
 
     respond_to do |format|
       if @klu.update_attributes(params[:klu])
-        format.html { redirect_to user_klu_path(:user_id => @klu.user, :id => @klu), notice: 'Klu was successfully updated.' }
+        format.html { redirect_to user_klu_path(:user_id => _user, :id => @klu), notice: 'Klu was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
