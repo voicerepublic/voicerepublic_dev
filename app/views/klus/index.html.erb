@@ -3,10 +3,10 @@
 </div>
 
 <% @kluuus.each do |k| %>
-	<%= render(:partial => 'medium_kluuu', :locals => {:medium_kluuu => k}) %>
+	<%= render(:partial => 'medium_kluuu', :locals => {:klu => k}) %>
 <% end %>
 <% @no_kluuus.each do |nk| %>
-	<%= render(:partial => 'medium_no_kluuu', :locals => {:medium_no_kluuu => nk }) %>
+	<%= render(:partial => 'medium_no_kluuu', :locals => {:klu => nk }) %>
 <% end %>
 
 
