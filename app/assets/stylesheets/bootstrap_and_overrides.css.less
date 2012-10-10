@@ -1,4 +1,10 @@
 @import "twitter/bootstrap/bootstrap";
+
+* {
+	box-sizing: border-box;
+	-ms-box-sizing: border-box;
+}
+
 body { 
 	padding-top: 40px;
 }
@@ -48,10 +54,6 @@ body {
  *             */
 
 // Change of box-sizing-mode siehe http://paulirish.com/2012/box-sizing-border-box-ftw/
-* {
-	.box-sizing(border-box);
-	-ms-box-sizing: border-box;
-}
 
 .container {
 	max-width: 960px;
@@ -187,16 +189,20 @@ p, blockquote, table, ul, ol {
 	margin:0;
 }
 
-.navbar .nav > li > a{
-	padding: 6px 15px 8px 15px ;
+.navbar .nav > li > a {
+	padding: 6px 15px 8px 0px;
 }
 
+.navbar .nav > li:last-child > a {
+	padding-right: 0;
+}
 .navbar .nav i{
 	margin-top:0
 }
 
  .navbar .brand{
- 	padding: 3px 10px 0 25px
+ 	padding: 3px 10px 0 0px;
+ 	margin-left: 0;
  }
 
 .navbar-search {

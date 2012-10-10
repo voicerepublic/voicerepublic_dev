@@ -1,19 +1,25 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
-		<div class="container-fluid">
+		<div class="container">
 			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
-			<%= link_to root_path, :class => "brand", :alt => "KluuU-logo", :class => "brand" do %>
-				<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %></h1>
-			<% end %>
-			<div class="container-fluid nav-collapse">
+			
+			<div class="container nav-collapse">
 				<ul class="nav">
 					<li>
+						<%= link_to root_path, :class => "brand", :title => "KluuU-logo", :class => "brand" do %>
+							<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %></h1>
+						<% end %>
+					</li>
+					<li class="actionbar-user">
 						<%= link_to user_path(:id => current_user) do %>
-							<i class="icon-user"> </i> <%= current_user.name %>
+							<%= image_tag current_user.account.portrait(:thumb) %> <%= current_user.name %>
 						<% end if current_user %>
 					</li>
 					<li>
-						<%= link_to('Dashboard', dashboard_path ) if current_user %>
+						<%= link_to(dashboard_path) do %>
+							<i class="icon-home"></i>
+							<%= t('.Dashboard') %>
+						<% end  if current_user %>
 					</li>
 				</ul>
 				<ul class="nav pull-right">
@@ -28,22 +34,21 @@
 						<% end %>
 				 	</li>
 				 	<li>
-				 		<%= link_to "/" do %>
+				 		<%= link_to("/", :title => t('.notifications', :default => "Notifications")) do %>
 				 			<i class="icon-bell"> </i> 
 				 			<% unless current_user.notifications.unread.empty? %>
 				 				<span class="badge badge-important"><%= current_user.notifications.unread.count %></span>&nbsp;
 				 			<% end %>
-				 			<%= t('.notifications') %>
 				 		<% end %>
 				 	</li>
 				 	<li>
-				 		<%= link_to user_conversations_path(:user_id => current_user) do %>
-				 			<i class="icon-envelope"> </i> <%= t('.messages') %>
+				 		<%= link_to(user_conversations_path(:user_id => current_user), :title => t('.messages', :default => "Messages")) do %>
+				 			<i class="icon-envelope"> </i>
 				 		<% end %>
 				 	</li>
 					<li>
-						<%= link_to destroy_user_session_path, :method => :delete  do %>
-							<i class="icon-off"> </i> <%= t('.logout') %>
+						<%= link_to(destroy_user_session_path, :method => :delete, :title => t('.logout', :default => "Logout") ) do %>
+							<i class="icon-off"> </i>
 						<% end %>
 					</li>
 					<% end %>
