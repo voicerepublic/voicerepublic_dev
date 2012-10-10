@@ -9,11 +9,16 @@ body {
 
 .navbar {
   .actionbar-user {
+      line-height: 22px * @baseLineHeight;
+
     img {
       height: 22px;
       vertical-align: middle;
-      margin: -8px 2px -4px 0;
       border: 1px solid @grayLight;
     }
+  }
+
+  i[class^="icon-"] {
+    font-size: 22px;
   }
 }
