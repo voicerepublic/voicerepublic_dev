@@ -53,7 +53,7 @@ class FollowsController < ApplicationController
     logger.debug("Follows#create - follow: #{@follow.inspect}")
     respond_to do |format|
       if @follow.save
-        format.html { redirect_to user_follows_path(:user_id => @user), notice: 'Follow was successfully created.' }
+        format.html { redirect_to dashboard_contacts_url, notice: 'Follow was successfully created.' }
         format.json { render json: @follow, status: :created, location: @follow }
       else
         format.html { render action: "new" }
@@ -85,7 +85,7 @@ class FollowsController < ApplicationController
     @follow.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_follows_url(:user_id => @user) }
+      format.html { redirect_to dashboard_contacts_url }
       format.json { head :no_content }
     end
   end
