@@ -64,9 +64,9 @@ describe FollowsController do
         assigns(:follow).should be_persisted
       end
       
-      it "redirects to the users follower-index page" do
+      it "redirects to the contacts list in dashboard" do
         post :create, { :user_id => @user, :followed_id => @to_follow.id }, valid_session
-        response.should redirect_to( user_follows_url(:user_id => @user) )
+        response.should redirect_to( dashboard_contacts_url )
       end
     end
 
@@ -85,10 +85,10 @@ describe FollowsController do
       }.to change(Follow, :count).by(-1)
     end
   
-    it "redirects to the follows list" do
+    it "redirects to the contacts list in dashboard" do
       follow = Follow.create! valid_attributes
       delete :destroy, {:user_id => @user, :id => follow.to_param}, valid_session
-      response.should redirect_to( user_follows_url(:user_id => @user))
+      response.should redirect_to( dashboard_contacts_url )
     end
   end
 end
