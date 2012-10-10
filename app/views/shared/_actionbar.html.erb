@@ -23,10 +23,14 @@
 					</li>
 				</ul>
 				<ul class="nav pull-right">
+
 					<% if current_user %>
 						<% if current_user.is_admin? %>
 							<li><%= link_to "admin", admin_dashboard_index_path %></li>
 						<% end %>
+					<li>
+						<%= link_to( t('.+ KluuU'), new_user_klu_path( :user_id => current_user)) %>
+					</li>
 					<li class="navbar-search form-search">
 						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
 						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
