@@ -19,4 +19,5 @@ class Comment < ActiveRecord::Base
   validates :commentable_id, :presence => true
   validates :commentable_type, :presence => true
   validates :content, :presence => true
+  
 end

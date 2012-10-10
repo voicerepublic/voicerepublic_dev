@@ -12,14 +12,13 @@ class User < ActiveRecord::Base
   has_many :bookmarks, :dependent => :destroy
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
+  has_many :notifications, :class_name => 'Notification::Base'
+  has_many :ratings
   
   has_many :klus ,  :dependent => :destroy       # -> base-class
   has_many :no_kluuus,  :dependent => :destroy
   has_many :kluuus, :dependent => :destroy
-  
-  has_one :account, :dependent => :destroy          # application-account-things
-  has_one :credit_account, :dependent => :destroy   # financial things
-  
+ 
   has_many :sent_messages, :foreign_key => :sender_id, :class_name => 'Message', :dependent => :destroy
   has_many :received_messages, :foreign_key => :receiver_id, :class_name => 'Message', :dependent => :destroy
   
@@ -27,7 +26,9 @@ class User < ActiveRecord::Base
   has_many :follower_relations, :foreign_key => :followed_id, :class_name => 'Follow', :dependent => :destroy  
   has_many :follower, :through => :follower_relations#, :source => :followed 
   has_many :followed, :through => :followed_relations#, :source => :follower 
-  has_many :notifications, :class_name => 'Notification::Base'
+  
+  has_one :account, :dependent => :destroy          # application-account-things
+  has_one :credit_account, :dependent => :destroy   # financial things
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   accepts_nested_attributes_for :account

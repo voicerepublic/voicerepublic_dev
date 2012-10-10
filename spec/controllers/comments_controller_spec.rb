@@ -86,8 +86,8 @@ describe CommentsController do
       
       it "creates a comment which should belong to @commenter" do
         post :create, {:comment => valid_attributes, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
-        Comment.last.user.should == @commenter
-        assigns(:comment).user.should == @commenter
+        Comment.last.user.should eq(@commenter)
+        assigns(:comment).user.should eq(@commenter)
       end
 
       it "assigns a newly created comment as @comment" do
