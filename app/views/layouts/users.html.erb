@@ -36,15 +36,15 @@
 							<header>
 								<h2><%= link_to(@user.name, user_path( :id => @user)) %></h2>
 							</header>
-							<div class="row">
+							<div class="row-fluid">
 								<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
 								<div class="user-content span9 row">
 									<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
-								</div>	
+									
 									<section class="user-content-shown span9 row">
 										<%= yield %>
 									</section>
-									
+								</div>	
 								
 							</div>
 						</div>
