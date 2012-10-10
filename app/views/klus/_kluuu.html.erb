@@ -95,9 +95,14 @@
 			</aside>
 			<section class="comments">
 				<h5><%= t('.schriftliche_bewertung') %></h5>
+				<small><span class="badge badge-info"><%= @klu.ratings.count %></span>&nbsp; <%= t('.times_rated') %></small>
+				<% unless @klu.ratings.empty? %>
 				<ul>
-					<li>KOMMENTARE!</li>
-				</ul>	
+					<% @klu.ratings.limit(5).each do |rating| %>
+						<li><%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %></li>
+					<% end %>
+				</ul>
+				<% end %>
 			</section>
 		</div><!-- End of right-column -->
 		<aside class="span4 klu-matches">

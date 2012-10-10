@@ -1,0 +1,13 @@
+<div class="klu-rating">
+	<span class="badge badge-info"><%= rating.score %></span>
+	<small>
+		<%= link_to(user_path(:id => rating.user) ) do %> 
+			<%= image_tag( rating.user.account.portrait(:thumb) ) %>&nbsp;
+			<%= rating.user.name %>&nbsp;
+		<% end %>
+		<%= t('.rated') %>
+	</small>
+	<blockquote>
+		<%= simple_format(rating.content) %>
+	</blockquote>
+</div>

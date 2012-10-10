@@ -1,5 +1,6 @@
-<h2>New rating</h2>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', ratings_path %>
+<%- model_class = Rating -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
+                                 :default => "New #{model_class.model_name.human}") %></h1>
+</div>
+<%= render :partial => 'form' %>
