@@ -1,24 +1,25 @@
-<div class="page-header">
-	<h2>das neue KluuU</h2>
-</div>
-
-<div class="hero-unit">
-	<h2>bitte warten...</h2>
-	<p>
-		auf das neue KluuU!
-	</p>
-</div>
-
-
-	<div class="row-fluid">
-		<div class="span6 well well-small">
-			<h2>No Kluuus </h2>
-			<%= render(:partial => "klus/medium_no_kluuu", :collection => @no_kluuus, :as => :klu) %>
-		</div>
-		
-		<div class="span6 well well-small">
-			<h2>Kluuus </h2>
-			<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => :klu) %>
-		</div>
+<div class="landing-page">
+	<div class="page-header">
+		<h2>das neue KluuU</h2>
 	</div>
-
+	
+	<div class="hero-unit">
+		<h2>bitte warten...</h2>
+		<p>
+			auf das neue KluuU!
+		</p>
+	</div>
+	
+	
+		<div class="row-fluid">
+			<div class="span6 well well-small">
+				<h2>No Kluuus </h2>
+				<%= render(:partial => "klus/medium_no_kluuu", :collection => @no_kluuus, :as => :klu) %>
+			</div>
+			
+			<div class="span6 well well-small">
+				<h2>Kluuus </h2>
+				<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => :klu) %>
+			</div>
+		</div>
+</div>
