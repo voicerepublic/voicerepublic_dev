@@ -31,7 +31,15 @@ module KlusHelper
                   when :large
                     ''
                   end
-    klu.instance_of?(Kluuu) ? render( :partial => "klus/#{tmp_prefix}kluuu", :locals => { :klu => klu} ) : render( :partial => "klus/#{tmpl_prefix}no_kluuu", :locals => { :klu => klu} )
+    klu.instance_of?(Kluuu) ? render( :partial => "klus/#{tmpl_prefix}kluuu", :locals => { :klu => klu} ) : render( :partial => "klus/#{tmpl_prefix}no_kluuu", :locals => { :klu => klu} )
+  end
+  
+  def rating_stars_for(rating)
+    y = Rating::MAX - rating.score
+    ret = ""
+    rating.score.times { ret.concat( content_tag(:i, '', :class => "icon icon-star") ) }
+    y.times { ret.concat( content_tag(:i, '', :class => "icon icon-star-empty")) }
+    ret.html_safe
   end
   
 end
