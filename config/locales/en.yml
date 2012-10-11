@@ -198,12 +198,16 @@ en:
       default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
+      micro: ! '%l:%M %P'
     pm: pm
     
   will_paginate:
     next_label: ">>"
     previous_label: "<<"
   ###########  controllers ###############
+  users:
+    user_information:
+      time_at_location: "Time at %{user}s place"
   ###########  models ####################
   ###########  helpers  ##################
   

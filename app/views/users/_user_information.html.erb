@@ -60,12 +60,11 @@
 		</ul>
 		<dl>
 			<dt>
-				<%= t('.place_and_time_there') %>
+				<%= t(".time_at_location", :user => user.firstname) %>
 			</dt>
 			<dd>
-				Berlin <!-- TODO: Ort einsetzen -->
 				<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
-				<%= l(user.account.time_in_supplied_zone) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
+				<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
 			</dd>
 			<dt>
 				<%= t('.languages') %>
