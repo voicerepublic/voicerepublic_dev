@@ -5,9 +5,10 @@
 				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> 
 			</a>
 
-			<%= link_to root_path, :class => "brand", :title => "KluuU-logo", :class => "brand" do %>
-				<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "KluuU" %></h1>The Web made personal
+			<%= link_to root_path, :class => "brand brand-big", :title => "KluuU-logo" do %>
+				<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "KluuU" %></h1>
 			<% end %>
+			<span class="logo-claim">The Web made personal</span>
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
 				</ul>
@@ -16,25 +17,17 @@
 						<%= link_to new_user_registration_path do %>
 						<%# <i class="icon-share-alt"> %> </i> <%= t('.sign_up', :default => 'Sign Up') %>
 						<% end %>
-					</li>					
-					<li class="navbar-search form-search">
-						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-							<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
-								<%= button_tag :type => 'submit', :class => "navbar-search-btn" do %>
-									<i class="icon-search"> </i>						
-								<% end %>	
-						<% end %>
 					</li>
-					<li class="nav-fb-connect">
-						<%= link_to user_omniauth_authorize_path(:facebook) do %>
-							<%= image_tag "facebook_connect.png", :alt => t('.sign_in_with_facebook', :default => "Sign in with facebook") %>
-						<% end %>
+<!-- 					<li class="nav-fb-connect">
+						<%#= link_to user_omniauth_authorize_path(:facebook) do %>
+							<%#= image_tag "facebook_connect.png", :alt => t('.sign_in_with_facebook', :default => "Sign in with facebook") %>
+						<%# end %>
 					</li>
 					<li class="nav-google-connect">
-						<%= link_to user_omniauth_authorize_path(:google_oauth2) do %>
-							<%= image_tag "google-sign-in.png", :alt => t('.sign_in_with_google', :default => "Sign in with Google +") %>
-						<% end %>						
-					</li>
+						<%#= link_to user_omniauth_authorize_path(:google_oauth2) do %>
+							<%#= image_tag "google-sign-in.png", :alt => t('.sign_in_with_google', :default => "Sign in with Google +") %>
+						<%# end %>						
+					</li> -->
 					<li>
 						<%= link_to new_user_session_path do %>
 							<%= t('.sign_in', :default => 'Login') %>

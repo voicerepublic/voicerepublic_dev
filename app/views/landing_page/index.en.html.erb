@@ -1,13 +1,18 @@
 <div class="landing-page">
 	
-	<h2 class="centered">VideoChat about what you are.</h2>
+	<h2 class="text-align-center landing-page-claim">VideoChat about what you are.</h2>
 
 	<div class="row-fluid">
 
 	
-		<div class="span12 hero-unit centered">
+		<div class="span12 hero-unit text-align-center">
 			<h3>I want to no more about</h3>
-			<%= text_field_tag :type => "text", :class => "landing-page-no-klu" %>
+			<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
+				<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
+				<%= button_tag :type => 'submit', :class => "navbar-search-btn" do %>
+					<i class="icon-search"> </i>						
+				<% end %>	
+			<% end %>
 		</div>
 	</div>
 
@@ -15,7 +20,7 @@
 	<div class="row-fluid">
 		<div class="span6 well well-small">
 			<h2>KluuUs on fire</h2>
-			<%= render(:partial => "klus/small_kluuu", :collection => @kluuus, :as => 'klu') %>
+			<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
 		</div>
 	
 		<div class="span6 well well-small">
