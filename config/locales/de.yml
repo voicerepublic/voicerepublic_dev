@@ -198,8 +198,8 @@ de:
   hello: "Hallo Welt"
   
   will_paginate:
-    next_label: "nächste Seite"
-    previous_label: "vorige Seite"
+    next_label: ">>"
+    previous_label: "<<"
   ###########  controllers ###############
   ###########  models ####################
   ###########  helpers  ##################

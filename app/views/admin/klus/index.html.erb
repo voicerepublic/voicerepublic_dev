@@ -44,6 +44,6 @@
 </table>
 
 <div class="pull-right">
-<%= will_paginate @klus %>
+<%= will_paginate @klus, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
 </div>
 

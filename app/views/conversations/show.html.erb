@@ -39,9 +39,7 @@
 		<% end %>
 	<% end unless @messages.empty? %>
 	
-	<div class="pagination pagination-centered">
-		<%= will_paginate @messages, :container => false, :renderer => BootstrapPagination::Rails %>
-	</div>
+	<%= will_paginate @messages, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
 
 	<div class="form-actions">
 		<%= link_to t('.back', :default => t("helpers.links.back")),
