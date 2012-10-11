@@ -14,23 +14,25 @@ group :assets do
 end
 
 gem 'twitter-bootstrap-rails'
+
 gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'friendly_id'           # make urls more friendly
-gem 'will_paginate'         # pagination-extension to active-record
-gem 'i18n_data'             # delivers languages as key-value hash
-gem 'paperclip'             # used for images
+gem 'friendly_id'             # make urls more friendly
+gem 'will_paginate'           # pagination-extension to active-record
+gem 'will_paginate-bootstrap' # integrate twitter-bootstrap with will_paginate
+gem 'i18n_data'               # delivers languages as key-value hash
+gem 'paperclip'               # used for images
 gem 'awesome_nested_set'
 gem 'globalize3'
 gem 'acts-as-taggable-on'
 gem 'money'
-gem 'cancan'                # authorization/privileges
-gem 'private_pub'           # push service
-gem 'thin'                  # faster develpment-server
-gem 'capistrano'            # deployment
-gem 'thinking-sphinx'       # indexed search
+gem 'cancan'                  # authorization/privileges
+gem 'private_pub'             # push service
+gem 'thin'                    # faster develpment-server
+gem 'capistrano'              # deployment
+gem 'thinking-sphinx'         # indexed search
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
