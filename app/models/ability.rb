@@ -26,7 +26,11 @@ class Ability
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     
     
-    can :manage, Kluuu, NoKluuu do |klu|
+    can :manage, Kluuu do |klu|
+      klu.user == user
+    end
+
+    can :manage, NoKluuu do |klu|
       klu.user == user
     end
     
