@@ -92,7 +92,7 @@ class Klu < ActiveRecord::Base
     average = 0
     sum = 0
     self.ratings.each { |r| sum += r.score }
-    average = sum / count
+    average = sum / count if count > 0
     average
   end
   
