@@ -14,7 +14,6 @@ group :assets do
 end
 
 gem 'twitter-bootstrap-rails'
-
 gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'
