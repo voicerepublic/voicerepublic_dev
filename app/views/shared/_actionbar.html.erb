@@ -29,7 +29,10 @@
 							<li><%= link_to "admin", admin_dashboard_index_path %></li>
 						<% end %>
 					<li>
-						<%= link_to( t('.+ KluuU'), new_user_klu_path( :user_id => current_user)) %>
+						<%= link_to( t('.+ !KluuU?!'), new_user_klu_path( :user_id => current_user, :klu_type => "Kluuu")) %>
+					</li>
+					<li>
+						<%= link_to( t('.+ ?KluuU?'), new_user_klu_path( :user_id => current_user)) %>
 					</li>
 					<li class="navbar-search form-search">
 						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
