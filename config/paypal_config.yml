@@ -1,0 +1,65 @@
+# certificates are expected to reside under Rails.root/config/certs_  ENV
+#
+
+:development:
+  :secret: a4hsihfusefr
+  :paypal_base_url: https://sandbox.paypal.com/cgi-bin/webscr
+  :cert_id: 5TLDNCX53XFUL
+  :app_cert: kluuu_cert.pem
+  :app_key: kluuu_key.pem
+  :paypal_cert: paypal_cert.pem
+  :kluuu_account:
+    :email: seller_1325681176_biz@spampark.com
+    :password: 325681113 
+  :customer_account:
+    :email: buyer_1325681373_pre@spampark.com
+    :password: 325880064
+
+:staging:
+  :secret: a4hsihfusefr
+  :paypal_base_url: https://sandbox.paypal.com/cgi-bin/webscr
+  :cert_id: 5TLDNCX53XFUL
+  :app_cert: kluuu_cert.pem
+  :app_key: kluuu_key.pem
+  :paypal_cert: paypal_cert.pem
+  :kluuu_account:
+    :email: seller_1325681176_biz@spampark.com
+    :password: 325681113 
+  :customer_account:
+    :email: buyer_1325681373_pre@spampark.com
+    :password: 325880064
+
+:production:
+  :secret: a4hsihfusefr
+  :paypal_base_url: https://www.paypal.com/cgi-bin/webscr
+  :cert_id: R35Z678YY7F78
+  :app_cert: kluuu_cert.pem
+  :app_key: kluuu_key.pem
+  :paypal_cert: paypal_cert.pem
+  :kluuu_account:
+    :email: kuurz@kluuu.com
+    :password: 325681113 
+  :customer_account:
+    :email: buyer_1325681373_pre@spampark.com
+    :password: 325880064
+    
+:test:
+  :secret: a4hsihfusefr
+  :paypal_base_url: https://sandbox.paypal.com/cgi-bin/webscr
+  :cert_id: 5TLDNCX53XFUL
+  :app_cert: app_cert.pem
+  :app_key: app_key.pem
+  :paypal_cert: paypal_cert.pem
+  :kluuu_account:
+    :email: seller_1325681176_biz@spampark.com
+    :password: 325681113 
+  :customer_account:
+    :email: buyer_1325681373_pre@spampark.com
+    :password: 325880064
+
+# Test Account:   seller_1325681176_biz@spampark.com 
+# API Username:   seller_1325681176_biz_api1.spampark.com
+# API Password:   1325681199
+# Signature:  ARKlpLi47cEWbdlB51I5k6.wyxTKAYuCBzNCOjor5ZvbFWVEb4Ie4WV0
+
+  
