@@ -93,11 +93,10 @@
 					<% end %>
 				</ul>
 			</aside>
-			<section class="comments">
-				<h5><%= t('.schriftliche_bewertung') %></h5>
-				<small><span class="badge badge-info"><%= @klu.ratings.count %></span>&nbsp; <%= t('.times_rated') %></small>
+			<section class="klu-ratings">
+				<h5><%= @klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
 				<% unless @klu.ratings.empty? %>
-				<ul>
+				<ul class="unstyled">
 					<% @klu.ratings.limit(5).each do |rating| %>
 						<li><%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %></li>
 					<% end %>
