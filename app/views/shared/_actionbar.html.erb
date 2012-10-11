@@ -12,13 +12,13 @@
 					</li>
 					<li class="actionbar-user">
 						<%= link_to user_path(:id => current_user) do %>
-							<%= image_tag current_user.account.portrait(:thumb) %> <%= current_user.name %>
+							<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <%= current_user.name %>
 						<% end if current_user %>
 					</li>
 					<li>
 						<%= link_to(dashboard_path) do %>
 							<i class="icon-home"></i>
-							<%= t('.Dashboard') %>
+							<%= t('.Dashboard', :default => "Dashboard") %>
 						<% end  if current_user %>
 					</li>
 				</ul>

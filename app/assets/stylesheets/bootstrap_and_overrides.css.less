@@ -180,8 +180,13 @@ p, blockquote, table, ul, ol {
  * NAVBAR
  */
 
+.navbar .nav{
+	margin-right:0;
+}
+
 .navbar-inner{
-	padding-top: 4px;
+	min-height: 0;
+	padding: 7px 0 5px 0;	
 }
 
 .navbar h1{
@@ -189,8 +194,29 @@ p, blockquote, table, ul, ol {
 	margin:0;
 }
 
+.navbar {
+
+  .actionbar-user {
+      line-height: 19px * @baseLineHeight;
+      padding-left: 15px;
+      margin-top:0px;
+    img {
+      height: 22px;
+      vertical-align: middle;
+      border: 1px solid @grayLight;
+    }
+  }
+
+  i[class^="icon-"] {
+    font-size: 20px;
+    vertical-align: middle;
+  }
+}
+
 .navbar .nav > li > a {
-	padding: 2px 15px 3px 0px;
+	padding: 0px 7px 0px 0px;
+	position: relative;
+	line-height:22px
 }
 
 .navbar .nav > li:last-child > a {
@@ -200,24 +226,30 @@ p, blockquote, table, ul, ol {
 	margin-top:0
 }
 
- .navbar .brand{
- 	padding: 3px 10px 0 0px;
+ .navbar a.brand{
+ 	padding: 0px 10px 0 0px;
  	margin-left: 0;
+ 	margin-top: -1px;
  }
 
 .navbar-search {
-	margin-top: 0px;
+	margin: 0px 10px 0 0;
+	line-height:22px;
 }
 
-.navbar-inner {
-	min-height: 0;
-}
 
 .navbar .navbar-search input[type="text"] {
-	padding: 1px 8px;
-	margin:0 5px 0 0;
+	padding: 0px 8px;
+	margin:-4px 0px 0 0px;
+	vertical-align: middle
 }
 
+.badge{
+	margin:-4px 0 0 -18px;
+	padding:2px 3px;
+	position: absolute;
+	font-size: @baseFontSize * 0.7;
+}
 
 /*
  *  END OF TWITTERBOOTSTRAP-OVERRIDE  
