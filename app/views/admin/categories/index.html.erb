@@ -34,7 +34,7 @@
 </table>
 
 <div class="pull-right">
-<%= will_paginate @categories %>
+<%= will_paginate @categories, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
 </div>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),

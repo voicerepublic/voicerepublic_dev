@@ -201,8 +201,8 @@ en:
     pm: pm
     
   will_paginate:
-    next_label: "next page"
-    previous_label: "previous page"
+    next_label: ">>"
+    previous_label: "<<"
   ###########  controllers ###############
   ###########  models ####################
   ###########  helpers  ##################

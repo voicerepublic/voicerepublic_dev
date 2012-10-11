@@ -25,6 +25,6 @@
 		<%= partial_for_notification(n) %>
 	<% end %>
 	<div class="form-actions">
-		<%= will_paginate(@news) %>
+		<%= will_paginate @news, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
 	</div>
 </div>
