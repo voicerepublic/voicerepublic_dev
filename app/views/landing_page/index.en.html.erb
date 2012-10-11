@@ -1,24 +1,32 @@
 <div class="landing-page">
-	<div class="page-header">
-		<h2>the new KluuU</h2>
-	</div>
 	
-	<div class="hero-unit">
-		<h2><%= t("just wait...") %></h2>
-		<p>
-			for the upcoming new kluuu
-		</p>
-	</div>
+	<h2 class="centered">VideoChat about what you are.</h2>
+
+	<div class="row-fluid">
+
 	
-	<div class="row">
+		<div class="span12 hero-unit centered">
+			<h3>I want to no more about</h3>
+			<%= text_field_tag :type => "text", :class => "landing-page-no-klu" %>
+		</div>
+	</div>
+
+	
+	<div class="row-fluid">
 		<div class="span6 well well-small">
-			<h2>No Kluuus </h2>
-			<%= render(:partial => "klus/medium_no_kluuu", :collection => @no_kluuus, :as => 'klu') %>
+			<h2>KluuUs on fire</h2>
+			<%= render(:partial => "klus/small_kluuu", :collection => @kluuus, :as => 'klu') %>
 		</div>
 	
 		<div class="span6 well well-small">
-			<h2>Kluuus</h2>
-			<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
+			<h2>Hot Topic</h2>
+			music, insurance, soccer
 		</div>
+
+		<div class="span6 well well-small">
+			<h2>Hot Users</h2>
+			Veronika, Rene, Pamela, Fritz
+		</div>		
 	</div>
 </div>
+
