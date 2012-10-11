@@ -3,6 +3,7 @@
 * {
 	box-sizing: border-box;
 	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 }
 
 body { 
@@ -272,6 +273,16 @@ p, blockquote, table, ul, ol {
 	position: absolute;
 	font-size: @baseFontSize * 0.7;
 	line-height: @baseLineHeight * 0.7;
+}
+
+/*
+ *  PAGINATION
+ *
+ */
+
+.pagination ul > li > a,
+.pagination ul > li > span{
+	line-height: (@baseLineHeight * @baseFontSize * 2) - 2;
 }
 
 /*

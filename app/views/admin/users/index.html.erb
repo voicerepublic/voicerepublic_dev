@@ -29,7 +29,7 @@
 </table>
 
 <div class="pull-right">
-<%= will_paginate @users %>
+<%= will_paginate @users, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
 </div>
 
 <p>Find me in app/views/admin/users/index.html.erb</p>
