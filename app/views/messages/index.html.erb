@@ -3,7 +3,8 @@
   <h2><%=t '.title', :default => model_class.model_name.human.pluralize %></h2>
 </div>
 
-<% @messages.each do |message| %>
-	<%= partial_for_message(message, @user) %>
-<% end %>
-
+<%= content_tag :ul do %>
+	<% @messages.each do |message| %>
+		<li><%= partial_for_message(message, @user) %></li>
+	<% end %>
+<% end unless @messages.empty? %>

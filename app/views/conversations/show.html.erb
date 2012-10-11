@@ -33,12 +33,16 @@
 
 <div class="span9">
 
-	<% @messages.each do |msg| %>
-		<%= partial_for_message(msg, @user) %>
-	<% end %>
+	<%= content_tag :ul, :class => "unstyled" do %>
+		<% @messages.each do |msg| %>
+			<li><%= partial_for_message(msg, @user) %></li>
+		<% end %>
+	<% end unless @messages.empty? %>
 	
-	<%= will_paginate @messages %>
-	
+	<div class="pagination pagination-centered">
+		<%= will_paginate @messages, :container => false, :renderer => BootstrapPagination::Rails %>
+	</div>
+
 	<div class="form-actions">
 		<%= link_to t('.back', :default => t("helpers.links.back")),
 		user_conversations_path(:user_id => @user), :class => 'btn'  %>
