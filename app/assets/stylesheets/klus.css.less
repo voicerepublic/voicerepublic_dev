@@ -13,7 +13,7 @@
 }
 
 .klu-layout {
- 	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
+ 	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset, 2px 2px 4px rgba(0,0,0,0.05);
  	background: #fff;
  	background: rgba(255,255,255,0.8);
  	border-radius: 4px;
@@ -323,6 +323,7 @@
 	margin-top: @baseFontSize * @baseLineHeight * 0.5;
 }
 
+
 .klu-bookmark-link {
 	position: absolute;
 	left: 10px;
@@ -342,3 +343,18 @@
 	}
 }
 
+.medium-klu {
+	.klu-bookmark-link {
+		position: absolute;
+		left: 10px;
+		top: -2px;
+	}
+}
+
+.klu-large {
+	.klu-bookmark-link {
+		position: absolute;
+		left: 0px;
+		top: @verticalRhythm * 2 - 1;
+	}
+}
