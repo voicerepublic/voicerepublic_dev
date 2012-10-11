@@ -1,36 +1,40 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
-			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+			</a>
 			
+			<%= link_to root_path, :class => "brand", :title => "KluuU-logo", :class => "brand" do %>
+				<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %></h1>
+			<% end %>			
 			<div class="container nav-collapse">
 				<ul class="nav">
-					<li>
-						<%= link_to root_path, :class => "brand", :title => "KluuU-logo", :class => "brand" do %>
-							<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %></h1>
-						<% end %>
-					</li>
 					<li class="actionbar-user">
 						<%= link_to user_path(:id => current_user) do %>
-							<%= image_tag current_user.account.portrait(:thumb) %> <%= current_user.name %>
+							<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <%= current_user.name %>
 						<% end if current_user %>
 					</li>
 					<li>
 						<%= link_to(dashboard_path) do %>
 							<i class="icon-home"></i>
-							<%= t('.Dashboard') %>
+							<%= t('.Dashboard', :default => "Dashboard") %>
 						<% end  if current_user %>
 					</li>
 				</ul>
 				<ul class="nav pull-right">
+
 					<% if current_user %>
 						<% if current_user.is_admin? %>
 							<li><%= link_to "admin", admin_dashboard_index_path %></li>
 						<% end %>
+					<li>
+						<%= link_to( t('.+ KluuU'), new_user_klu_path( :user_id => current_user)) %>
+					</li>
 					<li class="navbar-search form-search">
 						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-						<i class="icon-search"> </i> 
 						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
+						<i class="icon-search"> </i> 
 						<% end %>
 				 	</li>
 				 	<li>

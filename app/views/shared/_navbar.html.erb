@@ -1,36 +1,44 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
-		<div class="container-fluid">
+		<div class="container">
 			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse"> 
-				<span class="icon-bar"></span> <span class="icon-bar"></span> 
-				<span class="icon-bar"></span> 
+				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> 
 			</a>
-			<%= link_to root_path, :class => "brand", :alt => "KluuU-logo" do %>
-			<%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %>
+
+			<%= link_to root_path, :class => "brand", :title => "KluuU-logo", :class => "brand" do %>
+				<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %></h1>
 			<% end %>
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
 				</ul>
 				<ul class="nav pull-right">
+					<li>
+						<%= link_to new_user_registration_path do %>
+						<%# <i class="icon-share-alt"> %> </i> <%= t('.sign_up', :default => 'Sign Up') %>
+						<% end %>
+					</li>					
 					<li class="navbar-search form-search">
 						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-						<i class="icon-search"> </i>
-						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
+							<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
+								<%= button_tag :type => 'submit', :class => "navbar-search-btn" do %>
+									<i class="icon-search"> </i>						
+								<% end %>	
 						<% end %>
 					</li>
-					<li>
-						<%= link_to t('.sign_in_with_facebook'), user_omniauth_authorize_path(:facebook) %>
+					<li class="nav-fb-connect">
+						<%= link_to user_omniauth_authorize_path(:facebook) do %>
+							<%= image_tag "facebook_connect.png", :alt => t('.sign_in_with_facebook', :default => "Sign in with facebook") %>
+						<% end %>
 					</li>
-					<li>
-						<%= link_to t('.sign_in_with_google'), user_omniauth_authorize_path(:google_oauth2) %>
+					<li class="nav-google-connect">
+						<%= link_to user_omniauth_authorize_path(:google_oauth2) do %>
+							<%= image_tag "google-sign-in.png", :alt => t('.sign_in_with_google', :default => "Sign in with Google +") %>
+						<% end %>						
 					</li>
 					<li>
 						<%= link_to new_user_session_path do %>
-						<i class="icon-user"> </i> <%= t('.sign_in') %>
+							<%= t('.sign_in', :default => 'Login') %>
 						<% end %>
-					</li>
-					<li>
-						<%= link_to t('.sign_up'), new_user_registration_path -%>
 					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
