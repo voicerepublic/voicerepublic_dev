@@ -3,16 +3,14 @@
 		<div class="contribution-user-name">
 			<%= link_to rating.user.name, user_path(:id => rating.user) %>
 		</div>
-		
 		<%= link_to(image_tag(rating.user.account.portrait(:thumb)), user_path(:id => rating.user),:class => "img-polaroid contribution-user-image")%>
+		
 		<time datetime="<%= rating.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(rating.created_at) %>
 		</time>
-		
-		<span class="badge badge-info"><%= rating_stars_for(rating) %></span>		
 	</header>
-	<%= simple_format(rating.content) %>
-	<aside>
 
-	</aside>
+
+	<div><%= simple_format(rating.content) %></div>
+	<div class="klu-rating-stars"><%= rating_stars_for(rating) %></div>
 </article>
