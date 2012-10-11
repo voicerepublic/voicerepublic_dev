@@ -24,6 +24,7 @@ role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations wil
 after "deploy:restart", "deploy:cleanup"
 after "deploy:setup", "dbconf:setup" #, "ts:setup"
 after "deploy:finalize_update", "dbconf", "ts"
+after :deploy, "ts:stop", "ts:symlink", "ts:reindex", "ts:start"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
