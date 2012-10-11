@@ -31,7 +31,7 @@ module KlusHelper
                   when :large
                     ''
                   end
-    klu.instance_of?(Kluuu) ? render( :partial => "klus/#{tmp_prefix}kluuu", :locals => { :klu => klu} ) : render( :partial => "klus/#{tmpl_prefix}no_kluuu", :locals => { :klu => klu} )
+    klu.instance_of?(Kluuu) ? render( :partial => "klus/#{tmpl_prefix}kluuu", :locals => { :klu => klu} ) : render( :partial => "klus/#{tmpl_prefix}no_kluuu", :locals => { :klu => klu} )
   end
   
 end
