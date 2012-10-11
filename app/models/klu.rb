@@ -87,6 +87,17 @@ class Klu < ActiveRecord::Base
     
   end
   
+  def rating_score
+    count = self.ratings.count
+    average = 0
+    sum = 0
+    self.ratings.each { |r| sum += r.score }
+    average = sum / count
+    average
+  end
+  
+  
+  private
   # generates argument list for @tag_name 
   # to look up in other klus : e.g. (@tag_name foobar | @tag_name dumbazz | @tag_name fnord)
   #
