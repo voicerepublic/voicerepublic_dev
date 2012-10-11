@@ -5,12 +5,12 @@ module KlusHelper
     #return nil if user.new_record?
     if user && (klu.user != user) &! klu.user.nil?
       if Bookmark.bookmarked?(user.id, klu.id)
-        link_to(user_bookmark_path(:user_id => user, :id => Bookmark.bookmark_for(user.id, klu.id).id), :method => :delete) do
-          content_tag('i', '', :class => 'icon-star').concat(content_tag(:span, t('.delete_bookmark')))
+        link_to(user_bookmark_path(:user_id => user, :id => Bookmark.bookmark_for(user.id, klu.id).id), :method => :delete, :title => t('.delete_bookmark', :default => "Delete Bookmark"), :class => "klu-bookmark-delete") do
+          content_tag('i', '', :class => 'icon-bookmark')
         end
       else
-        link_to(create_bookmark_path(:klu_id => klu), :method => :post) do
-          content_tag('i', '', :class => 'icon-star-empty').concat(content_tag(:span, t('.add_bookmark')))
+        link_to(create_bookmark_path(:klu_id => klu), :method => :post, :title => t('.add_bookmark', :default => "Add Bookmark"), :class => "klu-bookmark-add") do
+          content_tag('i', '', :class => 'icon-bookmark-empty')
         end
       end
     end
