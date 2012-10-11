@@ -12,6 +12,7 @@ class Rating < ActiveRecord::Base
   
   after_create :generate_notification
   
+  MAX = 5
   
   private
   

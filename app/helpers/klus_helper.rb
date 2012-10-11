@@ -22,6 +22,9 @@ module KlusHelper
     klu.instance_of?(Kluuu) ? render(:partial => 'klus/form_kluuu') : render(:partial => 'klus/form_no_kluuu')
   end
   
+  
+  # returns a rendered partial for given kluuu in wanted size
+  #
   def partial_for_klu(klu,size=:large)
     tmpl_prefix = case size
                   when :medium
@@ -32,6 +35,22 @@ module KlusHelper
                     ''
                   end
     klu.instance_of?(Kluuu) ? render( :partial => "klus/#{tmpl_prefix}kluuu", :locals => { :klu => klu} ) : render( :partial => "klus/#{tmpl_prefix}no_kluuu", :locals => { :klu => klu} )
+  end
+  
+  # delivers stars to display in a rating
+  #
+  def rating_stars_for(rating)
+    ret = ""
+    rating.score.times { ret.concat( content_tag(:i, '', :class => "icon icon-star") ) }
+    (Rating::MAX - rating.score).times { ret.concat( content_tag(:i, '', :class => "icon icon-star-empty") ) } 
+    ret.html_safe
+  end
+  
+  def overall_rating_stars(klu)
+    ret = ""
+    klu.rating_score.times { ret.concat( content_tag(:i, '', :class => "icon icon-star") ) } 
+    (Rating::MAX - klu.rating_score).times { ret.concat( content_tag(:i, '', :class => "icon icon-star-empty") ) } 
+    ret.html_safe
   end
   
 end

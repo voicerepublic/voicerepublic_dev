@@ -1,6 +1,7 @@
 /*
  *= require main
  *= require_self
+ *= require contributions
  */
  @import "config.css.less";
  
@@ -264,6 +265,15 @@
 		}
 	}
 
+	.klu-rating{
+		.klu-rating-stars{
+			position: absolute;
+			right:0;
+			top: 12px;
+		}
+
+	}
+
 	.klu-top-bar {
 		position: absolute;
 		top: 0;
@@ -311,3 +321,4 @@
 .kluuu-add-image-link {
 	margin-top: @baseFontSize * @baseLineHeight * 0.5;
 }
+
