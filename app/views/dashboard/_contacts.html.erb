@@ -1,19 +1,15 @@
-
-
-<% unless @follower.empty? %>
-<div class="span6">
-	<h2><%= t('.my_follower')%></h2>
-	<ul class="thumbnails">
-		<%= render(:partial => '/follows/follower', :collection => @follower, :as => :follower_relation) %>
-	</ul>
+<div class="dashboard-contacts row-fluid">
+	<div class="span6">
+		<h2><%= t('.my_follower')%></h2>
+		<ul class="unstyled">
+			<%= render(:partial => '/follows/follower', :collection => @follower, :as => :follower_relation) %>
+		</ul>
+	</div>
+	<div class="span6">
+		<h2><%= t('.followed_by_me')%></h2>
+		<ul class="unstyled">
+			<%= render(:partial => '/follows/followed', :collection => @followed, :as => :followed_relation) %>
+		</ul>
+	</div>
 </div>
-<% end %>
 
-<% unless @followed.empty? %>
-<div class="span6">
-	<h2><%= t('.followed_by_me')%></h2>
-	<ul class="thumbnails">
-		<%= render(:partial => '/follows/followed', :collection => @followed, :as => :followed_relation) %>
-	</ul>
-</div>
-<% end %>

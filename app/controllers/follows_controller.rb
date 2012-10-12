@@ -1,5 +1,5 @@
 class FollowsController < ApplicationController
-  layout 'users'
+  #layout 'users'
   before_filter :authenticate_user! #, :only => [:create, :destroy, :index]
   before_filter :set_user
   
