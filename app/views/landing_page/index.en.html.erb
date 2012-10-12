@@ -30,10 +30,10 @@
 
 		<div class="span6 well well-small">
 			<h2>Hot Users</h2>
-			<ul>
+			<ul class="unstyled">
 			<% User.limit(3).order("created_at DESC").each do |user| %>
 				<li>
-					<%= user.name %>
+					<%= render(:partial => "users/user_small", :locals => {:user => user}) %>
 				</li>
 			<% end %>
 			</ul>
