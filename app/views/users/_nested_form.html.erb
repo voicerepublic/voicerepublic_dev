@@ -1,7 +1,28 @@
 <%= form_for @user, :url => user_path(:id => @user), :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+<% @account = @user.account %>
+<%= f.fields_for :account do |account_fields| %>
 
-<div class="row-fluid">
+<div class="row-fluid user-edit">
 	<div class="span4">
+		<div class="control-group user-edit-image">
+			<%= account_fields.label :portrait, :class => "control-label" %>
+			<div class="controls">
+				<% if @user.account.portrait.exists? %>
+					<%= image_tag @user.account.portrait.url(:large), :class => "img-polaroid" %> 
+					<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "user-edit-image-edit", :method => :delete do %>
+						<i class="icon-trash"> </i> <%= t('.delete_portrait')%>
+					<% end %>
+				<% else %>
+					<%= account_fields.file_field :portrait %>
+				<% end %>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<div class="span4">
+		
 		<div class="user-edit-name">
 			<div class="control-group">
 				<%= f.label :firstname, :class => "control-label" %>
@@ -17,34 +38,14 @@
 				</div>
 			</div>
 		</div>
-		
-		<% @account = @user.account %>
-		<%= f.fields_for :account do |account_fields| %>
-		
-		<div class="control-group user-edit-image">
-			<%= account_fields.label :portrait, :class => "control-label" %>
-			<div class="controls">
-				<% if @user.account.portrait.exists? %>
-					<%= image_tag @user.account.portrait.url(:medium), :class => "img-polaroid" %> 
-					<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "", :method => :delete do %>
-						<span class="user-edit-picture-edit">
-							<i class="icon-trash"> </i> <%= t('.delete_portrait')%>
-						</span>
-					<% end %>
-				<% else %>
-					<%= account_fields.file_field :portrait %>
-				<% end %>
-			</div>
-		</div>
-	</div>
-	
-	<div class="span4">
 		<div class="control-group">
 			<%= account_fields.label :about, :class => 'control-label' %>
 			<div class="controls">
-				<%= account_fields.text_area :about, :class => 'text_area', :rows => 8 %>
+				<%= account_fields.text_area :about, :class => 'text_area', :rows => 7 %>
 			</div>
 		</div>
+		
+		
 	</div>
 	
 	
