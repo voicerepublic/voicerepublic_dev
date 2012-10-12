@@ -15,6 +15,7 @@
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+
 	</head>
 	<body>
 		<% if current_user %>
@@ -25,14 +26,35 @@
 		<%= render(:partial => "shared/notice_or_error") %>
 
 		<div class="container">
-			<div class="content">
+			
 				<div class="user-container">
-					<header>
-						<h2><%= link_to(@user.name, user_path( :id => @user)) %></h2>
-					</header>
-					<div class="row-fluid">
+					<section class="user-information well">
+						<header class="row-fluid">
+							<%= link_to(image_tag( @user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => @user), :class=> "user-image span1") %>
+							<h2 class="span11"><%= link_to(@user.name, user_path( :id => @user)) %></h2>
+						</header>
 						<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
-						<div class="user-content span9 row">
+						<ul class="user-nav unstyled">
+							<li>
+								<%= link_to(new_message_path(:receiver_id => @user.id)) do %>
+								<i class="icon-envelope"></i> <%= t('.send_message') %>
+								<% end unless current_user && current_user.id == @user.id %>
+							</li>
+							<li>
+								<% if current_user && current_user.id != @user.id %>
+									<% if current_user.followed.include?(@user) %>
+										<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @user).first), :class => "btn btn-small", :method => :delete) %>
+									<% else %>
+										<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small" )%>
+									<% end %>
+								<% end %>
+							</li>
+							<li>
+								<a href="#" id="user-toggle">Mehr Unserinformationen</a>
+							</li>
+						</ul>
+					</section>
+						<div class="user-content ">
 							<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
 
 							<section class="user-content-shown">
@@ -40,7 +62,7 @@
 							</section>
 						</div>
 
-					</div>
+					
 				</div>
 				<footer>
 					<p>
@@ -59,5 +81,14 @@
 		<%= javascript_include_tag "application" %>
 		<%= javascript_include_tag "private_pub" %>
 		<%= subscribe_to "/notifications/new" %>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.user-more-information').toggle();
+  			$('#user-toggle').on('click', function() {
+
+      	$('.user-more-information').toggle(500);
+	    	});
+			});
+		</script>
 	</body>
 </html>

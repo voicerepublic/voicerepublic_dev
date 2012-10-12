@@ -1,93 +1,72 @@
-<section class="user-information span3">
-	<div class="top-content-distance">
-		<div class="user-image">
-			<%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user)) %>
-		</div>
-	</div>
-
-	<ul class="unstyled">
-		<li><!-- TODO: link_to einbauen -->
-			<%= link_to(new_message_path(:receiver_id => user.id)) do %>
-			<i class="icon-envelope"></i> <%= t('.send_message') %>
-			<% end unless current_user && current_user.id == user.id %>
-		</li>
-		<li>
-			<% if current_user && current_user.id != user.id %>
-				<% if current_user.followed.include?(user) %>
-					<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn btn-small", :method => :delete) %>
-				<% else %>
-					<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn btn-small" )%>
+	<div class="user-more-information row-fluid">
+		<aside class="user-meta-data span4">
+			<ul class="unstyled">
+				<li>
+					<i class="icon-dashboard"></i> 55
+				</li>
+				<li>
+					<%= user.name %> hat <%= user.follower.count %> Follower
+				</li>
+			</ul>
+			<dl class="no-margin">
+				<dt>
+					<%= t(".time_at_location", :user => user.firstname) %>
+				</dt>
+				<dd>
+					<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
+					<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
+				</dd>
+				<dt>
+					<%= t('.languages') %>
+				</dt>
+				<dd>
+					<ul class="unstyled">
+						<% user.account.languages.each do |lang| %>
+						<li>
+							<%= lang %>
+						</li>
+						<% end %>
+					</ul>
+				</dd>
+			</dl>
+		</aside>
+		
+		
+		<article class="user-about span4">
+			<h3><%= t('.about_me') %></h3>
+			<%= simple_format(user.account.about) %>
+		</article>
+		
+		<div class="status-partial-container span4">
+			<h4> <%= t('.status') %> </h4>
+			<% status_update = user.status_updates.limit(1).first unless user.status_updates.empty? %>
+			<%= limit_words(status_update.content, 20) if status_update%>
+			<p>
+				<span class=""> <%= status_update.comments.count if status_update %> </span>
+				<%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => user, :id => status_update) if status_update %>
+				<% if current_user == user %>
+				&nbsp;
+				<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini" do %>
+				<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+				<% end %>&nbsp;
 				<% end %>
-			<% end %>
-		</li>
-	</ul>
-
-	<div class="status-partial-container">
-		<h4> <%= t('.status') %> </h4>
-		<% status_update = user.status_updates.limit(1).first unless user.status_updates.empty? %>
-		<%= limit_words(status_update.content, 20) if status_update%>
-		<p>
-			<span class=""> <%= status_update.comments.count if status_update %> </span>
-			<%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => user, :id => status_update) if status_update %>
-			<% if current_user == user %>
-			&nbsp;
-			<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini" do %>
-			<i class="icon-edit"> </i> <%= t('.new_status_update') %>
-			<% end %>&nbsp;
-			<% end %>
-			<% if status_update && current_user %>
-			&nbsp;
-			<%= link_to new_user_status_update_comment_path(:user_id => user, :status_update_id => status_update) do %>
-			&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
-			<% end %>&nbsp;
-			<% end %>
-		</p>
+				<% if status_update && current_user %>
+				&nbsp;
+				<%= link_to new_user_status_update_comment_path(:user_id => user, :status_update_id => status_update) do %>
+				&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
+				<% end %>&nbsp;
+				<% end %>
+			</p>
+		</div>
+		
 	</div>
-	<article class="user-about">
-		<h3><%= t('.about_me') %></h3>
-		<%= simple_format(user.account.about) %>
-	</article>
-	<aside class="user-meta-data">
-		<ul class="unstyled">
-			<li>
-				<i class="icon-dashboard"></i> 55
-			</li>
-			<!-- TODO: Activityscore -->
-			<li>
-				<%= user.name %> hat <%= user.follower.count %> <%= link_to(t('.friends'), user_follows_path(:user_id => user) ) %>
-			</li>
-			<!-- TODO: Follower -->
-		</ul>
-		<dl>
-			<dt>
-				<%= t(".time_at_location", :user => user.firstname) %>
-			</dt>
-			<dd>
-				<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
-				<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
-			</dd>
-			<dt>
-				<%= t('.languages') %>
-			</dt>
-			<dd>
-				<ul>
-					<% user.account.languages.each do |lang| %>
-
-					<li>
-						<%= lang %>
-					</li>
-					<% end %>
-				</ul>
-			</dd>
-		</dl>
-	</aside>
-	<% if can? :manage, @user %>
-		<%= link_to( edit_user_account_path(:user_id => @user)) do %> 
-			<nav class="user-edit-link">
-				<i class="icon-pencil"></i>
-				<%= t('.edit_account') %> 
-			</nav>
-		<% end %>
-	<% end %>
 	
-</section>
+		
+		<% if can? :manage, @user %>
+			<%= link_to( edit_user_account_path(:user_id => @user)) do %> 
+				<nav class="user-edit-link">
+					<i class="icon-pencil"></i>
+					<%= t('.edit_account') %> 
+				</nav>
+			<% end %>
+		<% end %>
