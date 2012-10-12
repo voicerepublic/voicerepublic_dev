@@ -1,0 +1,13 @@
+<li class="user-small">
+	 
+	<div class="thumbnail user-thumbnail">
+		
+		<%# LINK FOR WHOLE THUMBAIL %>
+		<%= link_to user_path(:id => user), :class => "user-thumbnail-link" do %>	
+			<%= image_tag(user.account.portrait.url(:thumb)) %>
+			<strong><%= user.name %></strong>
+		<% end %>
+
+	</div>
+	
+</li>
