@@ -5,19 +5,20 @@
 <div class="well well-large">
 	<%= render(:partial => 'search/form', :locals => {:query => @query}) %>
 </div>
-
-<div class="search row-fluid">
+<div class="search">
 	
 	<% hash = hash_by_kluuu_type( @klus) %>
 	<% hash.keys.each do |k| %>
 		<h3><%= k.upcase %></h3>
-		
-		<% hash[k].each do |klu| %>
-			<% if klu.instance_of?(Kluuu) %>
-				<%= render(:partial => 'klus/small_kluuu', :locals => {:klu => klu}) %>
-			<% else %>
-				<%= render(:partial => 'klus/small_no_kluuu', :locals => {:klu => klu}) %>
+		<div class="row-fluid">
+			<% hash[k].each do |klu| %>
+				<% if klu.instance_of?(Kluuu) %>
+					<%= render(:partial => 'klus/small_kluuu', :locals => {:klu => klu}) %>
+				<% else %>
+					<%= render(:partial => 'klus/small_no_kluuu', :locals => {:klu => klu}) %>
+				<% end %>
 			<% end %>
-		<% end %>
+		</div>
 	<% end %>
+
 </div>
