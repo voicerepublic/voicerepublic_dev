@@ -1,7 +1,7 @@
-<li class="span2">
+<li class="span6">
 	<%= link_to user_path(:id => followed_relation.followed ) do %>
 	<div class="thumbnail">
-		<%= image_tag(followed_relation.followed.account.portrait.url(:thumb)) if followed_relation.followed.account.portrait.exists? %>
+		<%= image_tag(followed_relation.followed.account.portrait.url(:thumb)) %>
 		<strong><%= followed_relation.followed.name %></strong>
 		<%= link_to(t('.unfollow'), user_follow_path(:user_id => @user, :id => followed_relation), :class => "btn btn-small", :method => :delete) %>
 	</div>

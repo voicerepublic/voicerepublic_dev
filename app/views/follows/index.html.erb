@@ -1,19 +1,18 @@
-<%- model_class = Follow -%>
 <div class="page-header">
-  <h2><%=t '.title', :default => model_class.model_name.human.pluralize %></h2>
+  <h2><%= link_to(@user.name, user_path(:id => @user) )%> <%= t('.and_friends', :default => 'and friends') %></h2>
 </div>
 
-<div class="row">
+<div class="row-fluid">
 	
 	<div class="span6">
-		<h2><%= t('.my_follower')%></h2>
+		<h2><%= t('.his_follower')%></h2>
 		<ul class="thumbnails  well well-small">
 			<%= render(:partial => '/follows/follower', :collection => @follower, :as => :follower_relation) %>
 		</ul>
 	</div>
 	
 	<div class="span6">
-		<h2><%= t('.followed_by_me')%></h2>
+		<h2><%= t('.people_he_follows')%></h2>
 		<ul class="thumbnails well well-small">
 			<%= render(:partial => '/follows/followed', :collection => @followed, :as => :followed_relation) %>
 		</ul>
