@@ -2,6 +2,7 @@
  *= require main
  *= require_self
  *= require klus
+ *= require users
  */
  @import "config.css.less";
 
@@ -21,3 +22,7 @@ body{
  		line-height:@baseLineHeight * 2;
  		color:white
  }
+
+.user-small{
+	.set-rows(2);
+}
