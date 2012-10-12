@@ -30,7 +30,14 @@
 
 		<div class="span6 well well-small">
 			<h2>Hot Users</h2>
-			Veronika, Rene, Pamela, Fritz
+			<ul>
+			<% User.limit(3).order("created_at DESC").each do |user| %>
+				<li>
+					<%= user.name %>
+				</li>
+			<% end %>
+			</ul>
+			
 		</div>		
 	</div>
 </div>

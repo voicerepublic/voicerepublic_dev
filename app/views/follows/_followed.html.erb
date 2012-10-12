@@ -1,10 +1,10 @@
 
 <li class="followed">
 	 
-	<div class="thumbnail follows-user-thumbnail">
+	<div class="thumbnail user-thumbnail">
 		
 		<%# LINK FOR WHOLE THUMBAIL %>
-		<%= link_to user_path(:id => followed_relation.followed), :class => "follows-user-thumbnail-link" do %>	
+		<%= link_to user_path(:id => followed_relation.followed), :class => "user-thumbnail-link" do %>	
 			<%= image_tag(followed_relation.followed.account.portrait.url(:thumb)) %>
 			<strong><%= followed_relation.followed.name %></strong>
 		<% end %>
