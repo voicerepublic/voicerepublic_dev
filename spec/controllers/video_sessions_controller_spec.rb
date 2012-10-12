@@ -31,6 +31,10 @@ describe VideoSessionsController do
   def valid_attributes
     FactoryGirl.attributes_for(:video_session)
   end
+  
+  def valid_anonymous_participant_attributes
+    FactoryGirl.attributes_for(:anonymous_video_session)
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -39,65 +43,104 @@ describe VideoSessionsController do
     {}
   end
 
-#  describe "GET index" do
-#    it "assigns all video_sessions as @video_sessions" do
-#      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-#      get :index, {}, valid_session
-#      assigns(:video_sessions).should eq([video_session])
-#    end
-#  end
-#
-#  describe "GET show" do
-#    it "assigns the requested video_session as @video_session" do
-#      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-#      get :show, {:id => video_session.to_param}, valid_session
-#      assigns(:video_session).should eq(video_session)
-#    end
-#  end
-#
-#  describe "GET new" do
-#    it "assigns a new video_session as @video_session" do
-#      get :new, {}, valid_session
-#      assigns(:video_session).should be_a_new(VideoSession)
-#    end
-#  end
+  describe "GET index" do
+    it "assigns all video_sessions as @video_sessions" do
+      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+      get :index, {}, valid_session
+      assigns(:video_sessions).should eq([video_session])
+    end
+  end
+
+  describe "GET show" do
+    it "assigns the requested video_session as @video_session for registered participants" do
+      video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+      get :show, {:id => video_session.to_param}, valid_session
+      assigns(:video_session).should eq(video_session)
+    end
+    
+    it "assigns the requested video_session as @video_session for one anonymous participant" do
+      video_session = VideoSession.create! valid_anonymous_participant_attributes.merge(:klu_id => @klu.id)
+      get :show, {:id => video_session.to_param}, valid_session
+      assigns(:video_session).should eq(video_session)
+    end
+  end
+
+  describe "GET new" do
+    it "assigns a new video_session as @video_session" do
+      get :new, {}, valid_session
+      assigns(:video_session).should be_a_new(VideoSession)
+    end
+  end
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new VideoSession with Registered Participants" do
+      it "creates a new VideoSession with registered Participants" do
         expect {
           xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
         }.to change(VideoSession, :count).by(1)
       end
       
-      it "creates a new Incoming Call Notification" do
+      it "creates a new VideoSession with one anonymous Participants" do
+        expect {
+          xhr :post, :create, {:video_session => valid_anonymous_participant_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
+        }.to change(VideoSession, :count).by(1)
+      end
+      
+      it "creates a new Registered Incoming Call Notification" do
         expect {
           xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
         }.to change(Notification::IncomingCall, :count).by(1)
       end
       
-      it "assigns a newly created video_session as @video_session" do
+      it "creates a new Anonymous Incoming Call Notification" do
+        expect {
+          xhr :post, :create, {:video_session => valid_anonymous_participant_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
+        }.to change(Notification::IncomingCall, :count).by(1)
+      end
+      
+      it "assigns a newly created video_session with registered participants as @video_session" do
         xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
         assigns(:video_session).should be_a(VideoSession)
         assigns(:video_session).should be_persisted
       end
       
-      it "persists a newly created Incoming Call Notification associated to KluuU Owner" do
+      it "assigns a newly created video_session with one anonymous participant as @video_session" do
+        xhr :post, :create, {:video_session => valid_anonymous_participant_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
+        assigns(:video_session).should be_a(VideoSession)
+        assigns(:video_session).should be_persisted
+      end
+      
+      it "persists a newly created Registered Incoming Call Notification associated to KluuU Owner" do
         video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
         video_session.participants.host.first.user.notifications.count.should == 1
       end
       
-      it "persists a newly created Incoming Call Notification with calling users id as other_id" do
+      it "persists a newly created Anonymous Incoming Call Notification associated to KluuU Owner" do
+        video_session = VideoSession.create! valid_anonymous_participant_attributes.merge(:klu_id => @klu.id)
+        video_session.participants.host.first.user.notifications.count.should == 1
+      end
+      
+      it "persists a newly created Registered Incoming Call Notification with calling users id as other_id" do
         video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
         video_session.participants.host.first.user.notifications.first.other_id.should == video_session.participants.guest.first.user.id
       end
 
-      it "renders the dialog for calling someone per video_session" do
+      it "persists a newly created Anonymous Incoming Call Notification with calling users id as other_id" do
+        video_session = VideoSession.create! valid_anonymous_participant_attributes.merge(:klu_id => @klu.id)
+        video_session.participants.host.first.user.notifications.first.anon_id.should == video_session.participants.guest.first.user_cookie_session_id
+      end
+      
+      it "renders the dialog for calling someone per video_session for registered participants" do
         xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session
         response.should render_template("create")
       end
+      
+      it "renders the dialog for calling someone per video_session for one anonymous participant" do
+        xhr :post, :create, {:video_session => valid_anonymous_participant_attributes.merge(:klu_id => @klu.id)}, valid_session
+        response.should render_template("create")
+      end
     end
-
+    
     describe "with invalid params" do
       it "renders error flash" do
         # Trigger the behavior that occurs when invalid params are submitted
