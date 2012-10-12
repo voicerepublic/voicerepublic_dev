@@ -81,10 +81,10 @@ describe AccountsController do
         assigns(:account).should eq(account)
       end
 
-      it "redirects to the account" do
+      it "redirects to the account-settings in dashboard" do
         account = Account.create! valid_attributes
         put :update, {:user_id => account.user, :account => valid_attributes}, valid_session
-        response.should redirect_to(user_account_url(:user_id => account.user))
+        response.should redirect_to(dashboard_settings_url)
       end
     end
 

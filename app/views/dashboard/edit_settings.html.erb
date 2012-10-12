@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Dashboard</h1>
+	<h2>Dashboard</h2>
 </div>
 
 <ul class="nav nav-tabs">
@@ -22,11 +22,11 @@
 
 <div class="tab-content row-fluid">
 	<div class="user user-edit span6 well well-large">
-		<h1><%=t(".edit_email") %></h1>
+		<h2><%=t(".edit_email") %></h2>
   		<%= render :partial => 'users/basic_form', :locals => { :user => @user } %>
 	</div>
 	<div class="user user-edit span6 well well-large">
-    	<h1><%=t(".edit_preferences") %></h1>
+    	<h2><%=t(".edit_preferences") %></h2>
     	<%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account } %>
   	</div>
 </div>

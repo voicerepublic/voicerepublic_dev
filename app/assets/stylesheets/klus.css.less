@@ -1,6 +1,7 @@
 /*
  *= require main
  *= require_self
+ *= require contributions
  */
  @import "config.css.less";
  
@@ -12,13 +13,14 @@
 }
 
 .klu-layout {
- 	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
+ 	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset, 2px 2px 4px rgba(0,0,0,0.05);
  	background: #fff;
  	background: rgba(255,255,255,0.8);
  	border-radius: 4px;
+ 	position: relative;
 }
 
-.klu-eyecatcher {
+.klu-eyecatcher img {
 	border: 1px solid #ddd;
 }
 
@@ -94,6 +96,10 @@
 
 	.klu-eyecatcher {
 		text-align: center;
+
+		&, img {
+			min-width: 100%;
+		}
 	}
 
 	.kluuu {
@@ -140,7 +146,25 @@
 }
 
 .small-klu.klu-layout, .klu-large .small-klu.klu-layout {
-	padding: 4px 5px;
+	padding: 8px 6px;
+}
+
+.small-klu {
+	position: relative;
+	.klu-title {
+		padding-right: 40px;
+		height: 40px;
+	}
+
+	.klu-user-image {
+		position: absolute;
+		right: 10px;
+		bottom: 10px;
+	  
+	  img {
+      width: 30px;
+    }
+  }
 }
 
 .klu-large {
@@ -260,6 +284,15 @@
 		}
 	}
 
+	.klu-rating{
+		.klu-rating-stars{
+			position: absolute;
+			right:0;
+			top: 12px;
+		}
+
+	}
+
 	.klu-top-bar {
 		position: absolute;
 		top: 0;
@@ -306,4 +339,40 @@
 
 .kluuu-add-image-link {
 	margin-top: @baseFontSize * @baseLineHeight * 0.5;
+}
+
+
+.klu-bookmark-link {
+	position: absolute;
+	left: 10px;
+	top: -2px;
+	text-shadow: 0px 0px 1px #aaa;
+	font-size: 200%;
+	line-height: 1;
+
+	a {
+		color: @brandColor;
+		.transition(all 0.5s ease);
+
+		&:hover {
+			text-decoration: none;
+			color: @brandColorLighter;
+		}
+	}
+}
+
+.medium-klu {
+	.klu-bookmark-link {
+		position: absolute;
+		left: 10px;
+		top: -2px;
+	}
+}
+
+.klu-large {
+	.klu-bookmark-link {
+		position: absolute;
+		left: 0px;
+		top: @verticalRhythm * 2 - 1;
+	}
 }

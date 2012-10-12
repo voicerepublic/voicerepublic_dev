@@ -3,3 +3,26 @@
  *= require_self
  */
  @import "config.css.less";
+
+ .user-edit {
+  .user-edit-image {
+      .controls {
+      position: relative;
+    }
+    .user-edit-image-edit {
+      white-space: nowrap;
+      display: block;
+      position: absolute;
+      top: 2px;
+      right: 3px;
+      background: white;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(128,128,128,0.8);
+      line-height: 1;
+      padding: 3px 4px;
+    }
+    .input[type="file"] {
+      border: 2px red solid;
+    }
+  }
+}

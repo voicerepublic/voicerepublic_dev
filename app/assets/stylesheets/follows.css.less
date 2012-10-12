@@ -1,0 +1,42 @@
+/*
+ *= require main
+ *= require_self
+ */
+ @import "config.css.less";
+
+.follows-user-thumbnail{
+	position:relative;
+}
+
+.follows-user-thumbnail-link{
+	display:block;
+	width:100%;
+	height:100%;
+	img{
+		margin-right:5px
+	}
+	&:hover {
+		text-decoration:none;
+	}			
+}
+
+.follows-user-thumbnail-unfollow{
+	position:absolute;
+	top:5px;
+	right:5px;
+	line-height:10px;
+	opacity:0;
+	transition:0.2s;
+	-moz-transition:0.2s;
+	-webkit-transition:0.2s;
+	-ms-transition:0.2s;
+}
+
+.follows-user-thumbnail:hover{
+	background:rgba(0,0,0,0.02);
+	box-shadow:0 0 3px rgba(0,0,0,0.3);
+
+	.follows-user-thumbnail-unfollow{
+		opacity:0.2
+	}
+}

@@ -123,7 +123,7 @@ describe UsersController do
       it "redirects to the user" do
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => user.attributes[:email]  }, valid_session  #
-        response.should redirect_to(user)
+        response.should redirect_to(dashboard_settings_url)
       end
     end
 

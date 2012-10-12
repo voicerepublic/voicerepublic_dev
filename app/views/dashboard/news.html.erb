@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Dashboard</h1>
+	<h2>Dashboard</h2>
 </div>
 
 <ul class="nav nav-tabs">
@@ -25,6 +25,6 @@
 		<%= partial_for_notification(n) %>
 	<% end %>
 	<div class="form-actions">
-		<%= will_paginate(@news) %>
+		<%= will_paginate @news, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
 	</div>
 </div>

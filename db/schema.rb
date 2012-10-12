@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121003004830) do
+ActiveRecord::Schema.define(:version => 20121010120833) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -175,6 +175,20 @@ ActiveRecord::Schema.define(:version => 20121003004830) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  create_table "ratings", :force => true do |t|
+    t.integer  "rateable_id"
+    t.integer  "user_id"
+    t.string   "rateable_type"
+    t.text     "content"
+    t.integer  "score",         :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  add_index "ratings", ["rateable_id"], :name => "index_ratings_on_rateable_id"
+  add_index "ratings", ["rateable_type"], :name => "index_ratings_on_rateable_type"
+  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
 
   create_table "roles", :force => true do |t|
     t.string "name"

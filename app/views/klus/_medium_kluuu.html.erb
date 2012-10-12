@@ -1,20 +1,20 @@
-<article class="medium-klu klu-layout kluuu span4">
-	<div class="klu-bookmark-link"><%= bookmark_links(current_user, medium_kluuu) %></div>
+<article class="medium-klu klu-layout kluuu">
+	<div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
 	
-	<%= link_to( klu_path(:id => medium_kluuu)) do %>
-		<h3 class="no-margin"><%= medium_kluuu.title %> </h3>	
-		<div class="klu-eyecatcher"><%= image_tag(medium_kluuu.klu_images.first.image.url(:medium)) unless medium_kluuu.klu_images.empty? %></div>
-		<section class="kluuu-description"><div class="table-cell"><%= simple_format(medium_kluuu.description) %></div></section>
+	<%= link_to( klu_path(:id => klu)) do %>
+		<h3 class="no-margin"><%= klu.title %> </h3>	
+		<div class="klu-eyecatcher"><%= image_tag(klu.klu_images.first.image.url(:medium)) unless klu.klu_images.empty? %></div>
+		<section class="kluuu-description"><div class="table-cell"><%= simple_format(klu.description) %></div></section>
 	<% end %>
 	<div class="call-btn jqrfd btn">
-		<%= link_to(medium_kluuu.user.name, user_path(:id => medium_kluuu.user) )%>
+		<%= link_to(klu.user.name, user_path(:id => klu.user) )%>
 		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
 		<dl>
 			<dt><%= t('.price') %></dt>
-			<dd><%= medium_kluuu.charge_amount %> €</dd>
+			<dd><%= klu.charge_amount %> €</dd>
 			<dt><%= t('.availability') %></dt>
-			<dd><%= medium_kluuu.available_at_times %></dd>
+			<dd><%= klu.available_at_times %></dd>
 		</dl>
-		<%= link_to(image_tag( medium_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_kluuu.user), :class => 'klu-user-image' ) %>
+		<%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user), :class => 'klu-user-image' ) %>
 	</div>
 </article>

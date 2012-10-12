@@ -1,6 +1,18 @@
 @import "twitter/bootstrap/bootstrap";
+
+
+* {
+	box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
 body { 
-	padding-top: 60px;
+	padding-top: 40px;
+}
+
+.container {
+  margin-top: 0px;
 }
 
 @import "twitter/bootstrap/responsive";
@@ -37,6 +49,7 @@ body {
  */
 
 @import "bootstrap_vars_overrides.css.less";
+@import "kluuu-variables.css.less";
 
 
 /*             *
@@ -44,10 +57,6 @@ body {
  *             */
 
 // Change of box-sizing-mode siehe http://paulirish.com/2012/box-sizing-border-box-ftw/
-* {
-	.box-sizing(border-box);
-	-ms-box-sizing: border-box;
-}
 
 .container {
 	max-width: 960px;
@@ -138,12 +147,7 @@ ul.unstyled {
  * TYPOGRAPHY
  *
  */
- @sansFontFamily: "PT Sans", "Lato", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-* {
-	-moz-font-feature-settings: "liga=0";
-	font-feature-settings: "liga" off;
-}
+ 
 
 h1 { font-size: 2.4em; font-size: 2.4rem; }
 h2 { font-size: 2em; font-size: 2rem; }
@@ -152,8 +156,9 @@ h4 { font-size: 1.2em; font-size: 1.2rem; }
 h5 { font-size: 1em; font-size: 1rem; }
 h6 { font-size: 0.9em; font-size: 0.9rem }
 
-h1, h1, h3, h4, h5, h6 {
-	line-height: inherit;
+h1, h2, h3, h4, h5, h6 {
+	line-height: @baseLineHeight;
+	margin: (@verticalRhythm * 2) 0 @verticalRhythm 0;	
 }
 
 h1 small { font-size: 24px; }
@@ -161,14 +166,137 @@ h2 small { font-size: 18px; }
 h3 small { font-size: 14px; }
 h4 small { font-size: 14px; }
 
+p, blockquote, table, ul, ol {
+	margin: @verticalRhythm 0;
+}
+
 /*
  * IMAGES
  */
 
 .img-polaroid {
-	background: none;
+	background: rgba(0,0,0,0.1);
+	padding: 1px;
 }
 
+/*
+ * NAVBAR
+ */
+
+.navbar .nav{
+	margin-right:0;
+}
+
+.navbar .container-fluid{
+	padding-right: 0
+}
+
+.navbar-inner{
+	min-height: 0;
+	padding: 7px 0 5px 0;	
+}
+
+.navbar h1{
+	font-size:0;
+	margin:0;
+}
+
+.navbar {
+
+  .actionbar-user {
+      line-height: 19px * @baseLineHeight;
+      padding-left: 15px;
+      margin-top:0px;
+    img {
+      height: 22px;
+      vertical-align: top;
+      margin-top:-2px;
+      border: 1px solid @grayLight;
+    }
+  }
+
+  i[class^="icon-"] {
+    font-size: 20px;
+    vertical-align: middle;
+  }
+}
+
+.navbar .nav > li > a {
+	padding: 0px 7px 0px 0px;
+	position: relative;
+	line-height:22px;
+}
+
+.navbar .nav > li:last-child > a {
+	padding-right: 0;
+}
+.navbar .nav i{
+	margin-top:0
+}
+
+ .navbar a.brand{
+ 	padding: 0px 10px 0 0px;
+ 	margin-left: 0;
+ 	margin-top: -2px;
+ }
+
+.navbar a.brand-big{
+	img{
+		height:40px
+	}
+}
+
+.navbar-search {
+	margin: 0px 15px 0 10px;
+	line-height:22px;
+}
+
+
+.navbar .navbar-search input[type="text"] {
+	padding: 0px 8px;
+	margin:-4px 0px 0 0px;
+	vertical-align: middle;
+}
+
+.navbar-search-btn{
+	border:0;
+	height:24px;
+	width:20px;
+	margin-top:-6px;
+	padding:0;
+	background:none;
+}
+
+.nav-fb-connect a,
+.nav-google-connect a{
+	margin-top:-2px;
+	img {
+		height:22px
+	}
+}
+
+.nav .badge{
+	margin:-4px 0 0 -18px;
+	padding:2px 4px;
+	position: absolute;
+	font-size: @baseFontSize * 0.7;
+	line-height: @baseLineHeight * 0.7;
+}
+
+.klu-rating .icon{
+	font-size: @baseFontSize * 0.7;
+	line-height: @baseLineHeight * 0.7;	
+}
+
+/*
+ *  PAGINATION
+ *
+ */
+
+.pagination ul > li > a,
+.pagination ul > li > span{
+	line-height: (@baseLineHeight * @baseFontSize * 2) - 2;
+}
 
 /*
  *  END OF TWITTERBOOTSTRAP-OVERRIDE  

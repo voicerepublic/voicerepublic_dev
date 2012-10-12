@@ -1,5 +1,5 @@
 <div class="page-header">
-	<h1>Dashboard</h1>
+	<h2>Dashboard</h2>
 </div>
 
 <ul class="nav nav-tabs">
@@ -20,12 +20,10 @@
 	</li>
 </ul>
 
-<div class="tab-content">
+<div class="tab-content dashboard-bookmarks">
 	
 	<p><%= t('.no_bookmarks_available') if @bookmarks.empty? %></p>
   <% @bookmarks.each do |bookmark| %>
     <%= partial_for_bookmark(bookmark) %>
   <% end %>
-
-	
 </div>

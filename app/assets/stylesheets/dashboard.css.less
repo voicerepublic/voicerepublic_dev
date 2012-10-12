@@ -2,5 +2,19 @@
  *= require main
  *= require_self
  *= require klus
+ *= require follows
  */
  @import "config.css.less";
+
+ 
+.dashboard-bookmarks {
+  .small-klu {
+    .set-rows(5, @verticalRhythm, 0px);
+  }
+}
+
+.dashboard-contacts {
+  .follower, .followed {
+    .set-rows(4, @verticalRhythm, 200px);
+  }
+}

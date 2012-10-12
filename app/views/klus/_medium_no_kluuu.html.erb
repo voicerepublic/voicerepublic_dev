@@ -1,17 +1,17 @@
-<article class="medium-klu klu-layout no-kluuu span4">
-	<div class="klu-bookmark-link"><%= bookmark_links(current_user, medium_no_kluuu) %></div>
-	<%= link_to( klu_path(:id => medium_no_kluuu)) do %>
-		<h3 class="no-margin klu-eyecatcher"><%= medium_no_kluuu.title %></h3>	
+<article class="medium-klu klu-layout no-kluuu">
+	<div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
+	<%= link_to( klu_path(:id => klu)) do %>
+		<h3 class="no-margin klu-eyecatcher"><%= klu.title %></h3>	
 	<% end %>
 	<div class="call-btn jqrfd btn">
-		<%= link_to(medium_no_kluuu.user.name, user_path(:id => medium_no_kluuu.user) )%>
+		<%= link_to(klu.user.name, user_path(:id => klu.user) )%>
 		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
 		<dl>
 			<dt><%= t('.price') %></dt>
 			<dd>5€</dd>
 			<dt><%= t('.availability') %></dt>
-			<dd><%= medium_no_kluuu.available_at_times %></dd>
+			<dd><%= klu.available_at_times %></dd>
 		</dl>
-		<%= link_to(image_tag( medium_no_kluuu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => medium_no_kluuu.user), :class => 'klu-user-image' ) %>
+		<%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user), :class => 'klu-user-image' ) %>
 	</div>
 </article>

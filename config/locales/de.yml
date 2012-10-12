@@ -193,13 +193,17 @@ de:
       default: ! '%A, %d. %B %Y, %H:%M Uhr'
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d. %B, %H:%M Uhr'
+      micro: ! '%H:%M Uhr'
     pm: nachmittags
   
   hello: "Hallo Welt"
   
   will_paginate:
-    next_label: "nächste Seite"
-    previous_label: "vorige Seite"
+    next_label: ">>"
+    previous_label: "<<"
   ###########  controllers ###############
+  users:
+    user_information:
+      time_at_location: "Zeit an %{user}s Ort"
   ###########  models ####################
   ###########  helpers  ##################

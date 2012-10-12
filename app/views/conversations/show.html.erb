@@ -1,7 +1,7 @@
 <%- model_class = Conversation -%>
 <% partner = @conversation.partner_of(@user) %>
 <div class="page-header">
-	<h1><%= t('.your_conversation_with') %> <%= partner.name %></h1>
+	<h2><%= t('.your_conversation_with') %> <%= partner.name %></h2>
 </div>
 
 
@@ -31,14 +31,16 @@
 	<% end %>
 </div>
 
-<div class="span6">
+<div class="span9">
 
-	<% @messages.each do |msg| %>
-		<%= partial_for_message(msg, @user) %>
-	<% end %>
+	<%= content_tag :ul, :class => "unstyled" do %>
+		<% @messages.each do |msg| %>
+			<li><%= partial_for_message(msg, @user) %></li>
+		<% end %>
+	<% end unless @messages.empty? %>
 	
-	<%= will_paginate @messages %>
-	
+	<%= will_paginate @messages, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
+
 	<div class="form-actions">
 		<%= link_to t('.back', :default => t("helpers.links.back")),
 		user_conversations_path(:user_id => @user), :class => 'btn'  %>
