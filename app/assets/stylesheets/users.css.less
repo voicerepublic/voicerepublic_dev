@@ -4,12 +4,21 @@
  *= require_self
  */
 
+.strong {
+	font-weight: bold;
+}
+
+p.wichtig {
+	.strong;
+}
+
 @import "config.css.less";
 
 .extra_padding { padding: 10px; }
 
 .user-container {
 	position: relative;
+	margin-top: @verticalRhythm *3;
 
 	.user-content > nav {
 		li {
@@ -38,7 +47,6 @@
 	}
 
 	.user-image {
-		width: 100%;
 		img {
 			display: block;
 			max-height:100%;
@@ -48,11 +56,17 @@
 	}
 
 	.medium-klu {
-		.set-rows(2);
+		.set-rows(3);
 	}
 
 	.user-bookmarks	.medium-kluuu:nth-child(even) {
 		margin-left: @gridColumnWidth + @gridGutterWidth;
+	}
+
+	.user-bookmarks {
+		.small-klu {
+			.set-rows(4);
+		}
 	}
 
 	.user-edit-link {
@@ -64,44 +78,21 @@
 	}
 }
 
-.user-information {
-	.top-content-distance {
-		overflow: hidden;
+.user-nav {
+	.clearfix;
+
+	li {
+		float: left;
+		margin: 0 20px 0 0;
 	}
 }
 
-.user-edit {
-	width: 50%;
-	margin: 0 auto;
-	max-width: 400px;
-
-	.user-edit-name {
-		.control-group {
-			float: left;
-			width: 49%;
-		}
-		.control-group:first-child {
-			margin-right: 1%;
-		}
-		.control-group:last-child {
-			margin-left: 1%;
-		}
+.user-information {
+	h3, h4 {
+		font-size: @baseFontSize;
 	}
-	.user-edit-image {
-		font-size: @baseFontSize - 3;
-		
 
-		.controls {
-			display: inline-block;
-			position: relative;
-		}
-
-		img {
-			vertical-align:baseline;
-			margin-right: 8px;
-		}
-		.user-edit-picture-edit {
-			white-space: nowrap;
-		}
+	h2, h3, h4 {
+		margin-top: 0;
 	}
 }
