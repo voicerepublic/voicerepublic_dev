@@ -64,7 +64,7 @@ describe VideoSessionsController do
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new VideoSession" do
+      it "creates a new VideoSession with Registered Participants" do
         expect {
           xhr :post, :create, {:video_session => valid_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
         }.to change(VideoSession, :count).by(1)
@@ -84,12 +84,12 @@ describe VideoSessionsController do
       
       it "persists a newly created Incoming Call Notification associated to KluuU Owner" do
         video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        video_session.participants.host.first.notifications.count.should == 1
+        video_session.participants.host.first.user.notifications.count.should == 1
       end
       
-      it "persists a newly created Incoming Call Notification with users id as other_id" do
+      it "persists a newly created Incoming Call Notification with calling users id as other_id" do
         video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        video_session.participants.host.first.notifications.first.other_id.should == video_session.participants.guest.first.user_id
+        video_session.participants.host.first.user.notifications.first.other_id.should == video_session.participants.guest.first.user.id
       end
 
       it "renders the dialog for calling someone per video_session" do

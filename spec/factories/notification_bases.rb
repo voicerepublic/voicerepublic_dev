@@ -3,26 +3,48 @@
 FactoryGirl.define do
   factory :notification_basis, :class => 'Notification::Base' do
     
-    factory :notification_incoming_call, :class => 'Notification::IncomingCall' do
+    factory :notification_anonymous_incoming_call, :class => 'Notification::IncomingCall' do
       type 'Notification::IncomingCall'
       video_session_id 1
       user_id 23
-      other_id 'safd34h43l24'
+      anon_id 'safd34h43l24'
     end
     
-    factory :notification_call_accepted, :class => 'Notification::CallAccepted' do
+    factory :notification_anonymous_call_accepted, :class => 'Notification::CallAccepted' do
       type 'Notification::CallAccepted'
       url 'http://www.a.kluuu.com'
       video_session_id 1
-      other_id 43
-      user_id 'safd34h43l24'
+      other_id 23
+      anon_id 'safd34h43l24'
     end
     
-    factory :notification_call_rejected, :class => 'Notification::CallRejected' do
+    factory :notification_anonymous_call_rejected, :class => 'Notification::CallRejected' do
       type 'Notification::CallRejected'
       video_session_id 1
+      other_id 23
+      anon_id 'safd34h43l24'
+    end
+    
+    factory :notification_registered_incoming_call, :class => 'Notification::IncomingCall' do
+      type 'Notification::IncomingCall'
+      video_session_id 1
+      user_id 23
       other_id 43
-      user_id 'safd34h43l24'
+    end
+    
+    factory :notification_registered_call_accepted, :class => 'Notification::CallAccepted' do
+      type 'Notification::CallAccepted'
+      url 'http://www.a.kluuu.com'
+      video_session_id 1
+      other_id 23
+      user_id 43
+    end
+    
+    factory :notification_registered_call_rejected, :class => 'Notification::CallRejected' do
+      type 'Notification::CallRejected'
+      video_session_id 1
+      other_id 23
+      user_id 43
     end
     
     factory :notification_new_follower, :class => 'Notification::NewFollower' do
