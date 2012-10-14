@@ -1,5 +1,9 @@
 Kluuu2::Application.routes.draw do
 
+  resources :video_rooms
+
+  resources :video_servers
+
   #resources :ratings
 
   resources :credit_accounts

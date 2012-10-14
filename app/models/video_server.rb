@@ -27,14 +27,14 @@ class VideoServer < ActiveRecord::Base
             :inclusion => { :in => ['0.7', '0.8'] }
 
   # Array of VideoSession in VideoSystem
-  attr_reader :video_sessions
+  attr_reader :video_system_rooms
 
   after_initialize :init
   
   # Returns the API object associated with this server.
   def api
     if @api.nil?
-      @api = VideoSystemApi.new(self.url, self.salt, self.version.to_s, false, 2)
+      @api = VideoSystemApi::VideoSystemApi.new(self.url, self.salt, self.version.to_s, false, 2)
     end
     @api
   end
@@ -45,24 +45,24 @@ class VideoServer < ActiveRecord::Base
   # objects.
   #
   # Triggers API call: <tt>get_meetings</tt>.
-  def fetch_meetings
-    response = self.api.get_meetings
+  def fetch_video_system_rooms
+    response = self.api.get_video_system_rooms
 
     # updates the Information of the Rooms that are currently registered on this Video Server
-    @video_rooms = []
+    @video_system_rooms = []
     response[:meetings].each do |attr|
       room = VideoRoom.find_by_server_id_and_meeting_id(self.id, attr[:meetingID])
       if room.nil?
         room = VideoRoom.new(:server => self, :meetingid => attr[:meetingID],
-                             :name => attr[:meetingID], :attendee_password => attr[:attendeePW],
-                             :moderator_password => attr[:moderatorPW])
+                             :name => attr[:meetingID], :guest_password => attr[:attendeePW],
+                             :host_password => attr[:moderatorPW])
       else
-        room.update_attributes(:attendee_password => attr[:attendeePW],
-                               :moderator_password => attr[:moderatorPW])
+        room.update_attributes(:guest_password => attr[:attendeePW],
+                               :host_password => attr[:moderatorPW])
       end
       room.running = attr[:running]
 
-      @video_rooms << room
+      @video_system_rooms << room
     end
   end
 
@@ -70,6 +70,6 @@ class VideoServer < ActiveRecord::Base
 
   def init
     # fetched attributes
-    @video_rooms = []
+    @video_system_rooms = []
   end  
 end

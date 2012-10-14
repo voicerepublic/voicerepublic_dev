@@ -78,12 +78,11 @@ module VideoSystemApi
     # user_name::         Name of the user
     # password::          Password for this meeting - used to set the user as moderator or attendee
     # user_id::           Unique identifier for this user
-    # web_voice_conf::    Custom voice-extension for users using VoIP
     def join_meeting_url(meeting_id, user_name, password,
-                         user_id = nil, web_voice_conf = nil)
+                         user_id = nil)
 
       params = { :meetingID => meeting_id, :password => password, :fullName => user_name,
-                 :userID => user_id, :webVoiceConf => web_voice_conf}
+                 :userID => user_id}
       get_url(:join, params)
     end
 
@@ -118,8 +117,8 @@ module VideoSystemApi
     #   }
     #
     def create_meeting(meeting_name, meeting_id, moderator_password = nil, attendee_password = nil,
-                       welcome_message = nil, dial_number = nil, logout_url = nil,
-                       max_participants = nil, voice_bridge = nil, host = nil, tt = nil, ttp = nil, 
+                       welcome_message = nil, dial_number = nil, logout_url = 'http://www.kluuu.com',
+                       max_participants = 2, voice_bridge = 72879, tt = nil, ttp = nil, 
                        charge_amount = nil, currency = nil)
 
       params = { :name => meeting_name, :meetingID => meeting_id,
