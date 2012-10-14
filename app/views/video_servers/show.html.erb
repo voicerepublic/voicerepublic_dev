@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @video_server.name %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @video_server.url %>
+</p>
+
+<p>
+  <b>Salt:</b>
+  <%= @video_server.salt %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @video_server.version %>
+</p>
+
+<p>
+  <b>Activated:</b>
+  <%= @video_server.activated %>
+</p>
+
+
+<%= link_to 'Edit', edit_video_server_path(@video_server) %> |
+<%= link_to 'Back', video_servers_path %>
