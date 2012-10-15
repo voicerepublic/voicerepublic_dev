@@ -14,7 +14,7 @@ FactoryGirl.define do
     end 
     factory :admin do
       # TODO: create factory for role and user_role
-      roles [Role.find_by_name('user'), Role.find_by_name('admin')]
+      # roles [Role.find_by_name('user'), Role.find_by_name('admin')]
     end
     factory :user_with_portrait, traits: [:user_with_portrait]
   end
