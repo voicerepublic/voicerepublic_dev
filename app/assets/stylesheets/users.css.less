@@ -46,12 +46,26 @@ p.wichtig {
 		}
 	}
 
-	.user-image {
-		img {
-			display: block;
-			max-height:100%;
-			overflow:hidden;
-			max-width: 100%
+	.user-information {
+
+		& > header {
+			.clearfix;
+			margin-bottom: @verticalRhythm;
+
+			.user-image {
+				display: block;
+				width: 10%;
+				float: left;
+				margin-right: 20px;
+				min-width: 80px;
+
+				img {
+					display: block;
+					max-height:100%;
+					overflow:hidden;
+					max-width: 100%
+				}
+			}
 		}
 	}
 
