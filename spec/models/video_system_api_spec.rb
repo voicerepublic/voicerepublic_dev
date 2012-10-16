@@ -8,16 +8,19 @@ describe VideoSystemApi::VideoSystemApi do
   let(:salt) { "1234567890abcdefghijkl" }
   let(:version) { "0.7" }
   let(:debug) { false }
-  let(:api) { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug) }
+  let(:timeout) { 2 }
+  let(:ip) { '192.168.0.1' }
+  let(:api) { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip) }
 
   describe "#initialize" do
     context "standard initialization" do
-      subject { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug) }
+      subject { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip) }
       it { subject.url.should be(url) }
       it { subject.salt.should be(salt) }
       it { subject.version.should be(version) }
       it { subject.debug.should be(debug) }
-      it { subject.timeout.should be(2) }
+      it { subject.timeout.should be(timeout) }
+      it { subject.ip.should be(ip) }
       it { subject.supported_versions.should include("0.7") }
     end
 
@@ -44,14 +47,13 @@ describe VideoSystemApi::VideoSystemApi do
     let(:password) { "password" }
     let(:user_name) { "user-name" }
     let(:user_id) { "user-id" }
-    let(:web_voice_conf) { "web-voice-conf" }
     let(:params) {
       { :meetingID => meeting_id, :password => password, :fullName => user_name,
-        :userID => user_id, :webVoiceConf => web_voice_conf }
+        :userID => user_id}
     }
 
     before { api.should_receive(:get_url).with(:join, params).and_return("test-url") }
-    it { api.join_meeting_url(meeting_id, user_name, password, user_id, web_voice_conf).should == "test-url" }
+    it { api.join_meeting_url(meeting_id, user_name, password, user_id).should == "test-url" }
   end
 
   describe "#create_meeting" do
@@ -64,7 +66,7 @@ describe VideoSystemApi::VideoSystemApi do
     let(:logout_url) { "logout-url" }
     let(:max_participants) { "max-participants" }
     let(:voice_bridge) { "voice-bridge" }
-    let(:kluuuHost) { "192.168.2.180" }
+    let(:kluuuHost) { ip }
     let(:tt) { 1 }
     let(:ttp) { 5 }
     let(:charge) { 2.99 }
@@ -84,7 +86,7 @@ describe VideoSystemApi::VideoSystemApi do
     before { api.should_receive(:send_api_request).with(:create, params).and_return(response) }
     subject { api.create_meeting(meeting_name, meeting_id, moderator_password,
                                  attendee_password, welcome_message, dial_number,
-                                 logout_url, max_participants, voice_bridge, kluuuHost, tt,
+                                 logout_url, max_participants, voice_bridge, tt,
                                  ttp, charge, currency) }
     it { subject.should == expected_response }
   end

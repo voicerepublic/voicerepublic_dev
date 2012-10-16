@@ -52,19 +52,20 @@ module VideoSystemApi
   #
   class VideoSystemApi
 
-    attr_accessor :url, :supported_versions, :salt, :version, :debug, :timeout
+    attr_accessor :url, :supported_versions, :salt, :version, :debug, :timeout, :ip
 
     # Initializes an instance
     # url::       URL to a BigBlueButton server (e.g. http://demo.bigbluebutton.org/bigbluebutton/api)
     # salt::      Secret salt for this server
     # version::   API version: 0.7 (valid for 0.7, 0.71 and 0.71a)
-    def initialize(url, salt, version='0.7', debug=false, timeout=2)
+    def initialize(url, salt, version='0.7', debug=false, timeout=2, ip='127.0.0.1')
       @supported_versions = ['0.7']
+      @ip = ip
       @url = url
       @salt = salt
       @debug = debug
       @timeout = timeout # 2 seconds timeout for get requests
-
+      
       @version = version || get_api_version
       unless @supported_versions.include?(@version)
         raise VideoSystemApiException.new("VideoSystemApi error: Invalid API version #{version}. Supported versions: #{@supported_versions.join(', ')}")
@@ -72,7 +73,7 @@ module VideoSystemApi
 
       puts "VideoSystemApi: Using version #{@version}" if @debug
     end
-
+    
     # Returns the url used to join the meeting
     # meeting_id::        Unique identifier for the meeting
     # user_name::         Name of the user
@@ -125,7 +126,7 @@ module VideoSystemApi
                  :moderatorPW => moderator_password, :attendeePW => attendee_password,
                  :welcome => welcome_message, :dialNumber => dial_number,
                  :logoutURL => logout_url, :maxParticpants => max_participants,
-                 :voiceBridge => voice_bridge, :kluuuHost => host, :tt => tt, :ttp => ttp, 
+                 :voiceBridge => voice_bridge, :kluuuHost => @ip, :tt => tt, :ttp => ttp, 
                  :charge => charge_amount, :currency => currency }
 
       response = send_api_request(:create, params)

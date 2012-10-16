@@ -66,7 +66,7 @@ describe VideoServer do
       server.api.should_not be_nil
     }
     context "with the correct attributes" do
-      let(:api) { api = VideoSystemApi::VideoSystemApi.new(server.url, server.salt, server.version, false, 2) }
+      let(:api) { api = VideoSystemApi::VideoSystemApi.new(server.url, server.salt, server.version, false, 2, '192.168.0.1') }
       it { server.api.should == api }
 
       # updating any of these attributes should update the api
@@ -93,14 +93,14 @@ describe VideoServer do
 
   context "fetching info from video system" do
     let(:server) { FactoryGirl.create(:video_server) }
-    let(:room1) { FactoryGirl.create(:video_room, video_server: server, meeting_id: "room1") }
-    let(:room2) { FactoryGirl.create(:video_room, video_server: server, meeting_id: "room2") }
+    let(:room1) { FactoryGirl.create(:video_room, name: 'room1', video_server: server, video_system_room_id: "room1") }
+    let(:room2) { FactoryGirl.create(:video_room, name: 'room2', video_server: server, video_system_room_id: "room2") }
 
     # the hashes should be exactly as returned by bigbluebutton-api-ruby to be sure we are testing it right
     let(:video_system_rooms) {
       [
-       { :meetingID => room1.meeting_id, :attendeePW => "ap", :moderatorPW => "mp", :hasBeenForciblyEnded => false, :running => true},
-       { :meetingID => room2.meeting_id, :attendeePW => "pass", :moderatorPW => "pass", :hasBeenForciblyEnded => true, :running => false},
+       { :meetingID => room1.video_system_room_id, :attendeePW => "ap", :moderatorPW => "mp", :hasBeenForciblyEnded => false, :running => true},
+       { :meetingID => room2.video_system_room_id, :attendeePW => "pass", :moderatorPW => "pass", :hasBeenForciblyEnded => true, :running => false},
        { :meetingID => "im not in the db", :attendeePW => "pass", :moderatorPW => "pass", :hasBeenForciblyEnded => true, :running => true}
       ]
     }
@@ -125,8 +125,8 @@ describe VideoServer do
 
     it { server.video_system_rooms.count.should be(3) }
     it { server.video_system_rooms[0].should have_same_attributes_as(room1) }
-    it { server.video_system_roomss[1].should have_same_attributes_as(room2) }
-    it { server.video_system_rooms[2].meeting_id.should == "im not in the db" }
+    it { server.video_system_rooms[1].should have_same_attributes_as(room2) }
+    it { server.video_system_rooms[2].video_system_room_id.should == "im not in the db" }
     it { server.video_system_rooms[2].name.should == "im not in the db" }
     it { server.video_system_rooms[2].video_server.should == server }
     it { server.video_system_rooms[2].attendee_password.should == "pass" }

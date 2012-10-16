@@ -34,7 +34,7 @@ class VideoServer < ActiveRecord::Base
   # Returns the API object associated with this server.
   def api
     if @api.nil?
-      @api = VideoSystemApi::VideoSystemApi.new(self.url, self.salt, self.version.to_s, false, 2)
+      @api = VideoSystemApi::VideoSystemApi.new(self.url, self.salt, self.version.to_s, false, 2, Rails.configuration.ip_address)
     end
     @api
   end
@@ -46,7 +46,7 @@ class VideoServer < ActiveRecord::Base
   #
   # Triggers API call: <tt>get_meetings</tt>.
   def fetch_video_system_rooms
-    response = self.api.get_video_system_rooms
+    response = self.api.get_meetings
 
     # updates the Information of the Rooms that are currently registered on this Video Server
     @video_system_rooms = []
