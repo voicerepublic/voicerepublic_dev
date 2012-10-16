@@ -1,0 +1,18 @@
+
+<ul class="nav nav-tabs">
+	<li class="<%= current_page?(dashboard_matches_path) ? 'active' : '' %>" >
+		<%= link_to(t('.matches'), dashboard_matches_path )%>
+	</li>
+	<li class="<%= current_page?(dashboard_news_path) ? 'active' : '' %>">
+		<%= link_to(t('.news'), dashboard_news_path) %>
+	</li>
+	<li class="<%= current_page?(dashboard_bookmarks_path) ? 'active' : '' %>">
+		<%= link_to(t('.bookmarks'), dashboard_bookmarks_path) %>
+	</li>
+	<li class="<%= current_page?(dashboard_contacts_path) ? 'active' : '' %>">
+		<%= link_to(t('.contacts'), dashboard_contacts_path ) %>
+	</li>
+	<li class="<%= current_page?(dashboard_settings_path) ? 'active' : '' %>">
+		<%= link_to(t('.settings'), dashboard_settings_path ) %>
+	</li>
+</ul>
