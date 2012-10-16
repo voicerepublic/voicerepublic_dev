@@ -1,5 +1,9 @@
 Kluuu2::Application.routes.draw do
 
+  #namespace :balance do 
+  #  resources :check_in_orders 
+  #end
+
   #resources :ratings
 
   resources :credit_accounts
@@ -65,7 +69,10 @@ Kluuu2::Application.routes.draw do
       resources :status_updates do
         resources :comments
       end
-      resource :credit_account
+      namespace :balance do
+        resource :credit_account
+        resources :check_in_orders 
+      end
     end
   end
   

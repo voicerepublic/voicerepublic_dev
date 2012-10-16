@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Credit account:</b>
+  <%= @balance_check_in_order.credit_account_id %>
+</p>
+
+<p>
+  <b>Completed:</b>
+  <%= @balance_check_in_order.completed %>
+</p>
+
+<p>
+  <b>Completed at:</b>
+  <%= @balance_check_in_order.completed_at %>
+</p>
+
+<p>
+  <b>Currency:</b>
+  <%= @balance_check_in_order.currency %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @balance_check_in_order.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_balance_check_in_order_path(@balance_check_in_order) %> |
+<%= link_to 'Back', balance_check_in_orders_path %>

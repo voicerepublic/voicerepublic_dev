@@ -1,0 +1,31 @@
+<h1>Listing balance_check_in_orders</h1>
+
+<table>
+  <tr>
+    <th>Credit account</th>
+    <th>Completed</th>
+    <th>Completed at</th>
+    <th>Currency</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @balance_check_in_orders.each do |balance_check_in_order| %>
+  <tr>
+    <td><%= balance_check_in_order.credit_account_id %></td>
+    <td><%= balance_check_in_order.completed %></td>
+    <td><%= balance_check_in_order.completed_at %></td>
+    <td><%= balance_check_in_order.currency %></td>
+    <td><%= balance_check_in_order.amount %></td>
+    <td><%= link_to 'Show', balance_check_in_order %></td>
+    <td><%= link_to 'Edit', edit_balance_check_in_order_path(balance_check_in_order) %></td>
+    <td><%= link_to 'Destroy', balance_check_in_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Check in order', new_balance_check_in_order_path %>
