@@ -1,7 +1,6 @@
 <% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
 <% method = @klu.new_record? ? :post : :put %>
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal kluuu klu-large' }  do |f| %>
-
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 <div class="klu-layout">
 	<div class="control-group">
@@ -14,28 +13,28 @@
 		<div class="span8 kluuu-pics">
 			<ul class="unstyled">
 				<% @klu.klu_images.each_with_index do |ki, index| %>
-				<% if index == 0 %>
-				<li class="klu-eyecatcher">
-					<%= image_tag(ki.image.url(:large)) %>
-					<div class="klu-image-caption">
-						<%= ki.description %>
-					</div>
-					<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
-					<i class="icon-pencil"></i>
-					<%= t ".edit" %>
+					<% if index == 0 %>
+					<li class="klu-eyecatcher">
+						<%= image_tag(ki.image.url(:large)) %>
+						<div class="klu-image-caption">
+							<%= ki.description %>
+						</div>
+						<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
+						<i class="icon-pencil"></i>
+						<%= t ".edit" %>
+						<% end %>
+					</li>
+					<% else %>
+					<li>
+						<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki) do %>
+						<%= image_tag(ki.image.url(:medium)) %>
+						<% end %>
+						<%= link_to user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
+						<i class="icon-pencil"></i>
+						<%= t ".edit" %>
+						<% end %>
+					</li>
 					<% end %>
-				</li>
-				<% else %>
-				<li>
-					<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki) do %>
-					<%= image_tag(ki.image.url(:medium)) %>
-					<% end %>
-					<%= link_to user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
-					<i class="icon-pencil"></i>
-					<%= t ".edit" %>
-					<% end %>
-				</li>
-				<% end %>
 				<% end %>
 			</ul>
 			<%= link_to( t('.add_image'), new_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu), :class => "kluuu-add-image-link btn") if @klu.instance_of?(Kluuu) &! @klu.new_record? %>

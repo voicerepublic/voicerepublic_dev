@@ -29,9 +29,10 @@
 			
 				<div class="user-container">
 					<section class="user-information well">
-						<header class="row-fluid">
-							<%= link_to(image_tag( @user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => @user), :class=> "user-image span1") %>
-							<h2 class="span11"><%= link_to(@user.name, user_path( :id => @user)) %></h2>
+						<header>
+							<%= link_to(image_tag( @user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => @user), :class=> "user-image") %>
+							<h2 class="user-name"><%= link_to(@user.name, user_path( :id => @user)) %></h2>
+							<div class="user-about"><%= limit_words(@user.account.about, 30) %></div>
 						</header>
 						<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
 						<ul class="user-nav unstyled">
@@ -50,14 +51,14 @@
 								<% end %>
 							</li>
 							<li>
-								<a href="#" id="user-toggle">Mehr Unserinformationen</a>
+								<a href="#" id="user-toggle"><%= t('.show more') %></a>
 							</li>
 						</ul>
 					</section>
 						<div class="user-content ">
 							<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
 
-							<section class="user-content-shown">
+							<section class="user-content-shown clearfix">
 								<%= yield %>
 							</section>
 						</div>
@@ -81,14 +82,5 @@
 		<%= javascript_include_tag "application" %>
 		<%= javascript_include_tag "private_pub" %>
 		<%= subscribe_to "/notifications/new" %>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$('.user-more-information').toggle();
-  			$('#user-toggle').on('click', function() {
-
-      	$('.user-more-information').toggle(500);
-	    	});
-			});
-		</script>
 	</body>
 </html>

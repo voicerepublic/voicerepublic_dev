@@ -5,10 +5,10 @@
 	<div class="row-fluid">
 
 	
-		<div class="span12 hero-unit text-align-center">
-			<h3>I want to no more about</h3>
+		<div class="span12 well well-large text-align-center">
+			<h2>I want to no more about</h2>
 			<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
-				<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
+				<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span4" %>
 				<%= button_tag :type => 'submit', :class => "navbar-search-btn" do %>
 					<i class="icon-search"> </i>						
 				<% end %>	
@@ -18,19 +18,26 @@
 
 	
 	<div class="row-fluid">
-		<div class="span6 well well-small">
+		<div class="span6 well well-large">
 			<h2>KluuUs on fire</h2>
 			<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
 		</div>
 	
-		<div class="span6 well well-small">
+		<div class="span6 well well-large">
 			<h2>Hot Topic</h2>
-			music, insurance, soccer
+			<%= render(:partial => 'shared/tag_cloud') %>
 		</div>
 
-		<div class="span6 well well-small">
+		<div class="span6 well well-large">
 			<h2>Hot Users</h2>
-			Veronika, Rene, Pamela, Fritz
+			<ul class="unstyled">
+			<% User.limit(3).order("created_at DESC").each do |user| %>
+				<li>
+					<%= render(:partial => "users/user_small", :locals => {:user => user}) %>
+				</li>
+			<% end %>
+			</ul>
+			
 		</div>		
 	</div>
 </div>

@@ -46,12 +46,26 @@ p.wichtig {
 		}
 	}
 
-	.user-image {
-		img {
-			display: block;
-			max-height:100%;
-			overflow:hidden;
-			max-width: 100%
+	.user-information {
+
+		& > header {
+			.clearfix;
+			margin-bottom: @verticalRhythm;
+
+			.user-image {
+				display: block;
+				width: 10%;
+				float: left;
+				margin-right: 20px;
+				min-width: 80px;
+
+				img {
+					display: block;
+					max-height:100%;
+					overflow:hidden;
+					max-width: 100%
+				}
+			}
 		}
 	}
 
@@ -95,4 +109,29 @@ p.wichtig {
 	h2, h3, h4 {
 		margin-top: 0;
 	}
+}
+
+/* USER THUMBNAIL */
+.user-thumbnail{
+	position:relative;
+}
+
+.user-thumbnail-link{
+	display:block;
+	width:100%;
+	height:100%;
+	img{
+		margin-right:5px
+	}
+	&:hover {
+		text-decoration:none;
+	}			
+}
+
+.user-thumbnail:hover{
+	background:rgba(0,0,0,0.03);
+	box-shadow:0 0 3px rgba(0,0,0,0.1);
+	-moz-box-shadow:0 0 3px rgba(0,0,0,0.1);
+	-webkit-box-shadow:0 0 3px rgba(0,0,0,0.1);
+	-ms-box-shadow:0 0 3px rgba(0,0,0,0.1);
 }

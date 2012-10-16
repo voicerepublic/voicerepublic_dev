@@ -2,6 +2,7 @@
  *= require main
  *= require_self
  *= require klus
+ *= require users
  */
  @import "config.css.less";
 
@@ -21,3 +22,29 @@ body{
  		line-height:@baseLineHeight * 2;
  		color:white
  }
+
+.tag-cloud ul li{
+	display:inline;
+	padding-right:5px;
+}
+
+
+.tag-quant1{
+	font-size:@baseFontSize * 0.8;	
+}
+
+.tag-quant2{
+	font-size:@baseFontSize * 1;	
+}
+
+.tag-quant3{
+	font-size:@baseFontSize * 1.2;	
+}
+
+.tag-quant4{
+	font-size:@baseFontSize * 1.4;	
+}
+
+.user-small{
+	.set-rows(2);
+}

@@ -1,25 +1,43 @@
 <div class="landing-page">
-	<div class="page-header">
-		<h2>das neue KluuU</h2>
-	</div>
 	
-	<div class="hero-unit">
-		<h2>bitte warten...</h2>
-		<p>
-			auf das neue KluuU!
-		</p>
-	</div>
+	<h2 class="text-align-center landing-page-claim">VideoChat about what you are.</h2>
+
+	<div class="row-fluid">
+
 	
-	
-		<div class="row-fluid">
-			<div class="span6 well well-small">
-				<h2>No Kluuus </h2>
-				<%= render(:partial => "klus/medium_no_kluuu", :collection => @no_kluuus, :as => :klu) %>
-			</div>
-			
-			<div class="span6 well well-small">
-				<h2>Kluuus </h2>
-				<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => :klu) %>
-			</div>
+		<div class="span12 well well-large text-align-center">
+			<h2>I want to no more about</h2>
+			<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
+				<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span4" %>
+				<%= button_tag :type => 'submit', :class => "navbar-search-btn" do %>
+					<i class="icon-search"> </i>						
+				<% end %>	
+			<% end %>
 		</div>
+	</div>
+
+	
+	<div class="row-fluid">
+		<div class="span6 well well-large">
+			<h2>KluuUs on fire</h2>
+			<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
+		</div>
+	
+		<div class="span6 well well-large">
+			<h2>Hot Topic</h2>
+			<%= render(:partial => 'shared/tag_cloud') %>
+		</div>
+
+		<div class="span6 well well-large">
+			<h2>Hot Users</h2>
+			<ul class="unstyled">
+			<% User.limit(3).order("created_at DESC").each do |user| %>
+				<li>
+					<%= render(:partial => "users/user_small", :locals => {:user => user}) %>
+				</li>
+			<% end %>
+			</ul>
+			
+		</div>		
+	</div>
 </div>
