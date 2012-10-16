@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   
-  layout 'users'
+  #layout 'users'
   
   before_filter :authenticate_user!
   

@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  layout 'users'
+  #layout 'users'
   before_filter :set_user
   # GET /conversations
   # GET /conversations.json
