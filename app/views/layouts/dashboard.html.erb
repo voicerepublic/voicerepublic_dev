@@ -25,7 +25,7 @@
 			<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
-		<%= flash[:notice] %>
+		
 		<div class="container">
 			<h2><%= t('.dashboard', :default => 'Dashboard') %></h2>
 			<%= render(:partial => 'shared/dashboard_tabs') %>
