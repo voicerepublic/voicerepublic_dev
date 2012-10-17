@@ -1,5 +1,5 @@
 
 <div class="tab-content">
-	<p><%= t('.no_contacts_available') if @followed.empty? && @follower.empty? %></p>
+	<%= t('.no_contacts_available') if @followed.empty? && @follower.empty? %>
 	<%= render(:partial => 'dashboard/contacts') %>
 </div>
