@@ -1,8 +1,7 @@
 <%- model_class = Conversation -%>
 <% partner = @conversation.partner_of(@user) %>
-<div class="page-header">
-	<h2><%= t('.your_conversation_with') %> <%= partner.name %></h2>
-</div>
+<h3><%= t('.your_conversation_with') %> <%= partner.name %></h3>
+
 
 
 <div class="row-fluid">

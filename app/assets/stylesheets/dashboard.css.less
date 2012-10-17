@@ -6,6 +6,56 @@
  */
  @import "config.css.less";
 
+.dashboard {
+  & > .nav {
+    padding-bottom: @verticalRhythm;
+    border-bottom: 1px solid @grayLighter;
+    margin-bottom: @verticalRhythm * 2;
+  }
+
+   h3 {
+    font-size: @baseFontSize + 5;
+    font-weight: normal;
+    margin-top: 0;
+  }
+} /* End of .dashboard */
+
+.dashboard-matches {
+
+  h3 {
+    .klu-layout {
+      display: inline-block;
+    }
+  }
+
+  .dashboard-matches-own-klus {
+
+    li {
+     margin: @verticalRhythm 0 @verticalRhythm 5px; 
+    }
+
+    a.klu-layout {
+      color: @grayLight;
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 125%;
+      text-align: left;
+      .transition(color 0.2s ease);
+
+      &:hover {
+        text-decoration: none;
+        color: @linkColor;
+      }
+    }
+    a.klu-layout.active {
+      color: @linkColor;
+    }
+  }
+
+  .medium-klu {
+    .set-rows(3)
+  }
+}
  
 .dashboard-bookmarks {
   .small-klu {

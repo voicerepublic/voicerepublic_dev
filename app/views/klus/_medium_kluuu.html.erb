@@ -9,9 +9,11 @@
 	<aside class="klu-overall-rating">
 					<%= overall_rating_stars(klu) %>
 			</aside>
-	<div class="call-btn jqrfd btn">
-		<%= link_to(klu.user.name, user_path(:id => klu.user) )%>
-		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+	<div class="call-btn Mattis Pharetra Euismod Dapibus Vulputate btn">
+		<div class="klu-call-btn-text">
+			<%= link_to(klu.user.name, user_path(:id => klu.user) )%>
+			<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+		</div>
 		<dl>
 			<dt><%= t('.price') %></dt>
 			<dd><%= klu.charge_amount %> €</dd>

@@ -43,6 +43,10 @@
 		display: inline-block;
 	}
 
+	button {
+		white-space: nowrap;
+	}
+
 	dl {
 		margin: 0;
 		font-size: 70%;
@@ -63,13 +67,22 @@
 		position: absolute;
 		display: block;
 		right: 4%;
-		top: 50%;
+		top: 25%;
 		height: auto;
 		width: auto;
+		width: 15%;
 	}
-	&.jqrfd {
+	&.jqueryfied {
 		display: block;
 		text-align: left;
+
+		.klu-call-btn-text {
+			height: @baseFontSize *  @baseLineHeight * 2;
+		}
+
+		.klu-user-image {
+			top: 50%;
+		}
 
 		button {
 			border: none;
@@ -89,7 +102,7 @@
 
 	a {
 		color: @brandColor;
-		.transition(all 0.5s ease);
+		.transition(color 0.2s ease);
 
 		&:hover {
 			text-decoration: none;

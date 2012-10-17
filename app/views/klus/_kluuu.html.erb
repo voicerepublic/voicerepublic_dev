@@ -23,16 +23,17 @@
 									<%= link_to user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki) do %>
 										<%= image_tag(ki.image.url(:medium)) %>									
 									<% end %>
-									<!-- FIXME: Destroy-Button <%= link_to t('.destroy_image'), user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "btn"%> -->
 								</li>
 							<% end %>
 						<% end %>
 					</ul>
 				</section>
 				<aside class="klu-user-info span4">
-					<div class="call-btn jqrfd btn">
-						<%= link_to(@klu.user.name, user_path(:id => @klu.user) )%>
-						<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+					<div class="call-btn btn">
+						<div class="klu-call-btn-text">
+							<%= link_to(@klu.user.name, user_path(:id => @klu.user) )%>
+							<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+						</div>
 						<dl>
 							<dt><%= t('.price') %></dt>
 							<dd><%= @klu.charge_amount %> €</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->

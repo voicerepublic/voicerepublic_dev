@@ -9,8 +9,12 @@
 
 	klus.callButton = {
 		init: function() {
+			this.jqueryfy();
 			this.placeUserImage();
 			this.bindActions();
+		},
+		jqueryfy: function() {
+			$('.call-btn').addClass("jqueryfied")
 		},
 		placeUserImage: function() {
 			var img = $('.klu-layout .call-btn img');
