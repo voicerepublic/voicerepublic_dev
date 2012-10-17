@@ -1,0 +1,22 @@
+
+<div class="page-header">
+  <h3><%=t('.your_finances') %></h3>
+</div>
+
+<div class="well well-small">
+	<%= link_to( t('.check_some_money_in'), new_user_balance_check_in_order_path(:user_id => @user), :class => "btn btn-primary") %>
+</div>
+soon more...
+<dl class="dl-horizontal">
+  <dt><strong><%= t('.currency') %>:</strong></dt>
+  <dd><%= @balance_account.currency %></dd>
+  <dt><strong><%=t('.prepaid_cents') %>:</strong></dt>
+  <dd><%= @balance_account.prepaid_cents %></dd>
+  <dt><strong><%= t('.revenue_cents') %>:</strong></dt>
+  <dd><%= @balance_account.revenue_cents %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              user_balance_account_path(:user_id => @user), :class => 'btn'  %>
+</div>
