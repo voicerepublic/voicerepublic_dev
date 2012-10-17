@@ -48,12 +48,15 @@ class Balance::CheckInOrdersController < ApplicationController
   # POST /balance/check_in_orders.json
   def create
     @balance_check_in_order = Balance::CheckInOrder.new(params[:balance_check_in_order])
-
+    @balance_check_in_order.balance_account = @user.balance_account
     respond_to do |format|
       if @balance_check_in_order.save
-        format.html { redirect_to @balance_check_in_order, notice: 'Check in order was successfully created.' }
+        flash[:info] = "info success!"
+        flash[:notice] = "notice success"
+        format.html { redirect_to dashboard_url, notice: 'Check in order was successfully created.' }
         format.json { render json: @balance_check_in_order, status: :created, location: @balance_check_in_order }
       else
+        logger.error("Balance::CheckInOrder#create - ERROR - #{@balance_check_in_order.errors.inspect}")
         format.html { render action: "new" }
         format.json { render json: @balance_check_in_order.errors, status: :unprocessable_entity }
       end

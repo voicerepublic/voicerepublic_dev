@@ -1,12 +1,6 @@
 Kluuu2::Application.routes.draw do
 
-  #namespace :balance do 
-  #  resources :check_in_orders 
-  #end
-
   #resources :ratings
-
-  resources :credit_accounts
 
   resources :video_sessions
 
@@ -70,7 +64,7 @@ Kluuu2::Application.routes.draw do
         resources :comments
       end
       namespace :balance do
-        resource :credit_account
+        resource :account
         resources :check_in_orders 
       end
     end

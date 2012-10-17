@@ -18,12 +18,14 @@
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 	</head>
 	<body>
+		
 		<% if current_user %>
 			<%= render(:partial => "shared/actionbar") %>
 		<% else %>
 			<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
+		<%= flash[:notice] %>
 		<div class="container">
 			<h2><%= t('.dashboard', :default => 'Dashboard') %></h2>
 			<%= render(:partial => 'shared/dashboard_tabs') %>

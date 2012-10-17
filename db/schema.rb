@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121015151838) do
+ActiveRecord::Schema.define(:version => 20121017130809) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -29,14 +29,23 @@ ActiveRecord::Schema.define(:version => 20121015151838) do
     t.text     "prefs"
   end
 
+  create_table "balance_accounts", :force => true do |t|
+    t.string   "currency"
+    t.integer  "prepaid_cents", :default => 0
+    t.integer  "revenue_cents", :default => 0
+    t.integer  "user_id"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
   create_table "balance_check_in_orders", :force => true do |t|
-    t.integer  "credit_account_id"
+    t.integer  "balance_account_id"
     t.boolean  "completed"
     t.datetime "completed_at"
     t.string   "currency"
-    t.integer  "amount"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.integer  "amount_cents"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "bookmarks", :force => true do |t|

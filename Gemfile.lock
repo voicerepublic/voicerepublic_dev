@@ -79,6 +79,9 @@ GEM
     em-socksify (0.2.1)
       eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
+    eu_central_bank (0.3.2)
+      money (>= 5.0.0)
+      nokogiri
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -294,6 +297,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise
+  eu_central_bank
   factory_girl_rails
   faker
   friendly_id

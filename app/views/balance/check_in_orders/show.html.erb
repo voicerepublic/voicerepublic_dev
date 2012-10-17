@@ -1,30 +1,29 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = CheckInOrder -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
 
-<p>
-  <b>Credit account:</b>
-  <%= @balance_check_in_order.credit_account_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:credit_account_id) %>:</strong></dt>
+  <dd><%= @check_in_order.credit_account_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:completed) %>:</strong></dt>
+  <dd><%= @check_in_order.completed %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:completed_at) %>:</strong></dt>
+  <dd><%= @check_in_order.completed_at %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:currency) %>:</strong></dt>
+  <dd><%= @check_in_order.currency %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:amount_cents) %>:</strong></dt>
+  <dd><%= @check_in_order.amount_cents %></dd>
+</dl>
 
-<p>
-  <b>Completed:</b>
-  <%= @balance_check_in_order.completed %>
-</p>
-
-<p>
-  <b>Completed at:</b>
-  <%= @balance_check_in_order.completed_at %>
-</p>
-
-<p>
-  <b>Currency:</b>
-  <%= @balance_check_in_order.currency %>
-</p>
-
-<p>
-  <b>Amount:</b>
-  <%= @balance_check_in_order.amount %>
-</p>
-
-
-<%= link_to 'Edit', edit_balance_check_in_order_path(@balance_check_in_order) %> |
-<%= link_to 'Back', balance_check_in_orders_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              balance_check_in_orders_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_balance_check_in_order_path(@check_in_order), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              balance_check_in_order_path(@check_in_order),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

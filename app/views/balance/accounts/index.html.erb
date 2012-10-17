@@ -1,0 +1,41 @@
+<div class="page-header">
+  <h1><%=t('.money_account')%></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:currency) %></th>
+      <th><%= model_class.human_attribute_name(:prepaid_cents) %></th>
+      <th><%= model_class.human_attribute_name(:revenue_cents) %></th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |account| %>
+      <tr>
+        <td><%= link_to account.id, balance_account_path(account) %></td>
+        <td><%= account.currency %></td>
+        <td><%= account.prepaid_cents %></td>
+        <td><%= account.revenue_cents %></td>
+        <td><%= account.user_id %></td>
+        <td><%=l account.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_balance_account_path(account), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      balance_account_path(account),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_balance_account_path,
+            :class => 'btn btn-primary' %>

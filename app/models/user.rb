@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   has_many :followed, :through => :followed_relations#, :source => :follower 
   
   has_one :account, :dependent => :destroy          # application-account-things
-  has_one :credit_account, :dependent => :destroy   # financial things
+  has_one :balance_account, :dependent => :destroy, :class_name => 'Balance::Account'   # financial things
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   accepts_nested_attributes_for :account
