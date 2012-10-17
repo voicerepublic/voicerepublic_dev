@@ -5,12 +5,9 @@
  */
  @import "config.css.less";
  
-.klu-title {
-	font-family: Georgia, serif;
-	font-style: italic;
-	font-weight: normal;
-	text-align: center;
-}
+/*
+ * Common used layout for klus
+ */
 
 .klu-layout {
  	box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset, 2px 2px 4px rgba(0,0,0,0.05);
@@ -18,6 +15,19 @@
  	background: rgba(255,255,255,0.8);
  	border-radius: 4px;
  	position: relative;
+
+ 	.klu-overall-rating {
+ 		position: absolute;
+ 		right: 4px;
+ 		top: 4px;
+ 	}
+}
+
+.klu-title {
+	font-family: Georgia, serif;
+	font-style: italic;
+	font-weight: normal;
+	text-align: center;
 }
 
 .klu-eyecatcher img {
@@ -47,7 +57,7 @@
 		dd {
 			
 		}
-	}
+	} 
 
 	.klu-user-image {
 		position: absolute;
@@ -57,24 +67,48 @@
 		height: auto;
 		width: auto;
 	}
-}
+	&.jqrfd {
+		display: block;
+		text-align: left;
 
-.call-btn.jqrfd {
-	display: block;
-	text-align: left;
+		button {
+			border: none;
+			background: none;
+			height: auto;
+			padding: 0;
+			display: inline;
+			box-shadow: none;
+		}
+	}
+} /* End of call-btn */
 
-	button {
-		border: none;
-		background: none;
-		height: auto;
-		padding: 0;
-		display: inline;
-		box-shadow: none;
+.klu-bookmark-link {
+	position: absolute;
+	text-shadow: 0px 0px 1px #aaa;
+	line-height: 1;
+
+	a {
+		color: @brandColor;
+		.transition(all 0.5s ease);
+
+		&:hover {
+			text-decoration: none;
+			color: @brandColorLighter;
+		}
 	}
 }
 
+/*
+ *  End of common klu layout
+ */
+
+/*
+ * Common .medium-klu and .small-klu layout
+ */
+	
 .medium-klu, .small-klu {
-	padding: 10px 8px;
+
+	position: relative;
 
 	&>a:hover {
 		text-decoration: none;
@@ -140,14 +174,39 @@
     	background: rgba(0,0,0,0.02);
     }
 	}
-}
 
-.small-klu.klu-layout, .klu-large .small-klu.klu-layout {
-	padding: 8px 6px;
-}
+	.klu-bookmark-link {
+		position: absolute;
+		left: 10px;
+		top: -2px;
+		font-size: 125%;
+	}
+} /* End of common .medium-klu and .small-klu layout */
 
-.small-klu {
-	position: relative;
+.medium-klu {
+	@vertical-offset: @verticalRhythm;
+	@horizontal-offset: 8px;
+	padding: (@vertical-offset * 2) @horizontal-offset @vertical-offset;
+
+	.klu-overall-rating {
+		top: 4px;
+		right: @horizontal-offset;
+		font-size: @baseFontSize - 2px;
+	}
+} /* End of .medium-klu */
+
+.small-klu.klu-layout, .large-klu .small-klu.klu-layout {
+
+	@vertical-offset: @verticalRhythm;
+	@horizontal-offset: 8px;
+	padding: (@vertical-offset * 2.5) @horizontal-offset @vertical-offset;
+
+	.klu-overall-rating {
+		top: 4px;
+		right: @horizontal-offset;
+		font-size: @baseFontSize - 2px;
+	}
+	
 	.klu-title {
 		padding-right: 40px;
 		height: 40px;
@@ -162,11 +221,19 @@
       width: 30px;
     }
   }
-}
+} /* End of .small-kluu */
 
-.klu-large {
-		.klu-layout {
-			padding: 20px 30px;
+.large-klu {
+	@horizontal-offset: 30px;
+	@vertical-offset: 20px;
+	@large-klu-padding-top: @verticalRhythm * 3;
+
+	padding-top: @large-klu-padding-top;
+	position: relative;
+
+
+	.klu-layout {
+		padding: @vertical-offset @horizontal-offset;
 
 		.kluuu-pics {
 
@@ -243,16 +310,11 @@
 			position: relative;
 			height: 100%;
 		}
+	} /* End of .large-klu .klu-layout */
+
+	.kluuu-large-left {
+		padding: 0  30px;
 	}
-}
-
-.kluuu-large-left {
-	padding: 0  30px;
-}
-
-.klu-large {
-	padding-top: @baseFontSize * @baseLineHeight;
-	position: relative;
 
 	.klu-meta {
 		font-size: @baseFontSize - 3px;
@@ -279,7 +341,7 @@
 		.klu-bookmarked-by {
 			text-align: right;
 		}
-	}
+	} /* End of .klu-meta */
 
 	.klu-rating{
 		.klu-rating-stars{
@@ -287,12 +349,11 @@
 			right:0;
 			top: 12px;
 		}
-
 	}
 
 	.klu-top-bar {
 		position: absolute;
-		top: 0;
+		top: -@large-klu-padding-top;
 		left: 0px;
 		width: 100%;
 
@@ -315,7 +376,13 @@
 			right: 30px;
 			text-align: right;
 		}
-	}
+
+		.klu-bookmark-link {
+			top: @large-klu-padding-top - 1;
+			left: 0;
+			font-size: 150%;
+		}
+	} /* End of klu-top-bar */
 
 	.klu-user-info {
 		.klu-user-info-inner {
@@ -324,52 +391,23 @@
 		}
 	}
 	.klu-user-info-more-klus {
-		margin-top: @baseFontSize * @baseLineHeight * 0.5;
+		margin-top: @verticalRhythm;
 	}
-}
 
-.no-kluuu.klu-large {
+	.klu-overall-rating {
+		right: @horizontal-offset;
+		top: @verticalRhythm;
+	}
+} /* End of .large-klu */
+
+.no-kluuu.large-klu {
 	h2 {
 		margin: 0 0 (@baseFontSize * @baseLineHeight)/2;
 	}
 }
 
 .kluuu-add-image-link {
-	margin-top: @baseFontSize * @baseLineHeight * 0.5;
+	margin-top: @verticalRhythm;
 }
 
 
-.klu-bookmark-link {
-	position: absolute;
-	left: 10px;
-	top: -2px;
-	text-shadow: 0px 0px 1px #aaa;
-	font-size: 200%;
-	line-height: 1;
-
-	a {
-		color: @brandColor;
-		.transition(all 0.5s ease);
-
-		&:hover {
-			text-decoration: none;
-			color: @brandColorLighter;
-		}
-	}
-}
-
-.medium-klu {
-	.klu-bookmark-link {
-		position: absolute;
-		left: 10px;
-		top: -2px;
-	}
-}
-
-.klu-large {
-	.klu-bookmark-link {
-		position: absolute;
-		left: 0px;
-		top: @verticalRhythm * 2 - 1;
-	}
-}

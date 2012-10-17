@@ -1,4 +1,5 @@
 <article class="small-klu klu-layout no-kluuu">
+  <div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
 	<%= link_to( klu_path(:id => klu)) do %>
 		<h3 class="no-margin klu-eyecatcher klu-title"><%= klu.title %></h3>	
 	<% end %>
