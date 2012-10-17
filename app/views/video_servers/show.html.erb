@@ -6,23 +6,19 @@
 </p>
 
 <p>
-  <b>Url:</b>
-  <%= @video_server.url %>
-</p>
-
-<p>
-  <b>Salt:</b>
-  <%= @video_server.salt %>
-</p>
-
-<p>
-  <b>Version:</b>
-  <%= @video_server.version %>
-</p>
-
-<p>
-  <b>Activated:</b>
-  <%= @video_server.activated %>
+  <b>Video System Rooms List:</b>
+	<ul id="video_rooms_list">
+	  <% @video_server.video_system_rooms.each do |room| %>
+	    <li>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:video_system_room_id) %></label> <%= room.video_system_room_id %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:name) %></label> <%= room.name %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:guest_password) %></label> <%= room.guest_password %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:host_password) %></label> <%= room.host_password %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:welcome_msg) %></label> <%= room.welcome_msg %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:running) %></label> <%= room.is_running? %></div>
+	    </li>
+	  <% end %>
+	</ul>
 </p>
 
 

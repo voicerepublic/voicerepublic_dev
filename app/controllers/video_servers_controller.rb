@@ -14,7 +14,18 @@ class VideoServersController < ApplicationController
   # GET /video_servers/1.json
   def show
     @video_server = VideoServer.find(params[:id])
-
+    
+    begin
+      @video_server.fetch_video_system_rooms
+      unless @video_server.video_system_rooms.empty?
+        @video_server.video_system_rooms.each do |video_system_room|
+          video_system_room.fetch_video_system_room_info
+        end
+      end
+    rescue VideoSystemApi::VideoSystemApiException => e
+      flash[:notice] = 'Server unreachable - API timed out'
+    end
+      
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @video_server }

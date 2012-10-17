@@ -3,7 +3,6 @@ def mock_server_and_api
   @server_mock = mock_model(VideoServer)
   @server_mock.stub(:api).and_return(@api_mock)
   VideoServer.stub(:find).and_return(@server_mock)
-  VideoServer.stub(:find_by_param).and_return(@server_mock)
 end
 
 def mocked_server
