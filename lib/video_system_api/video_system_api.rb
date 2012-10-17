@@ -117,10 +117,11 @@ module VideoSystemApi
     #    :message=>"This conference was already in existence and may currently be in progress."
     #   }
     #
-    def create_meeting(meeting_name, meeting_id, moderator_password = nil, attendee_password = nil,
-                       welcome_message = nil, dial_number = nil, logout_url = 'http://www.kluuu.com',
-                       max_participants = 2, voice_bridge = 72879, tt = nil, ttp = nil, 
-                       charge_amount = nil, currency = nil)
+    def create_meeting(meeting_name, meeting_id, welcome_message = nil, 
+                       tt = nil, ttp = nil, charge_amount = nil, currency = nil, 
+                       dial_number = nil, logout_url = 'http://www.kluuu.com',
+                       max_participants = 2, voice_bridge = 72879,
+                       moderator_password = nil, attendee_password = nil)
 
       params = { :name => meeting_name, :meetingID => meeting_id,
                  :moderatorPW => moderator_password, :attendeePW => attendee_password,

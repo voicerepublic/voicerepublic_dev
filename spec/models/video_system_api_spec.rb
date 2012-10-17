@@ -59,35 +59,32 @@ describe VideoSystemApi::VideoSystemApi do
   describe "#create_meeting" do
     let(:meeting_name) { "name" }
     let(:meeting_id) { "meeting-id" }
-    let(:moderator_password) { "moderator-password" }
-    let(:attendee_password) { "attendee-password" }
+    let(:moderator_password) { nil }
+    let(:attendee_password) { nil }
     let(:welcome_message) { "welcome" }
-    let(:dial_number) { "dial-number" }
-    let(:logout_url) { "logout-url" }
-    let(:max_participants) { "max-participants" }
-    let(:voice_bridge) { "voice-bridge" }
+    let(:dial_number) { nil }
+    let(:logout_url) { "http://www.kluuu.com" }
+    let(:max_participants) { 2 }
+    let(:voice_bridge) { 72879 }
     let(:kluuuHost) { ip }
     let(:tt) { 1 }
     let(:ttp) { 5 }
-    let(:charge) { 2.99 }
+    let(:charge_amount) { 2.99 }
     let(:currency) { 'EUR' }
     let(:params) {
-      { :name => meeting_name, :meetingID => meeting_id,
-        :moderatorPW => moderator_password, :attendeePW => attendee_password,
-        :welcome => welcome_message, :dialNumber => dial_number,
-        :logoutURL => logout_url, :maxParticpants => max_participants,
-        :voiceBridge => voice_bridge, :kluuuHost => kluuuHost, :tt => tt,
-        :ttp => ttp, :charge => charge, :currency => currency }
+               { :name => meeting_name, :meetingID => meeting_id,
+                 :moderatorPW => moderator_password, :attendeePW => attendee_password,
+                 :welcome => welcome_message, :dialNumber => dial_number,
+                 :logoutURL => logout_url, :maxParticpants => max_participants,
+                 :voiceBridge => voice_bridge, :kluuuHost => ip, :tt => tt, :ttp => ttp, 
+                 :charge => charge_amount, :currency => currency }
     }
     let(:response) { { :meetingID => 123, :moderatorPW => 111, :attendeePW => 222, :hasBeenForciblyEnded => "FALSE" } }
     let(:expected_response) { { :meetingID => "123", :moderatorPW => "111", :attendeePW => "222", :hasBeenForciblyEnded => false } }
 
     # ps: not mocking the formatter here because it's easier to just check the results (expected_response)
     before { api.should_receive(:send_api_request).with(:create, params).and_return(response) }
-    subject { api.create_meeting(meeting_name, meeting_id, moderator_password,
-                                 attendee_password, welcome_message, dial_number,
-                                 logout_url, max_participants, voice_bridge, tt,
-                                 ttp, charge, currency) }
+    subject { api.create_meeting(meeting_name, meeting_id, welcome_message, tt, ttp, charge_amount, currency) }
     it { subject.should == expected_response }
   end
 

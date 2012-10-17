@@ -51,9 +51,9 @@ class VideoServer < ActiveRecord::Base
     # updates the Information of the Rooms that are currently registered on this Video Server
     @video_system_rooms = []
     response[:meetings].each do |attr|
-      room = VideoRoom.find_by_server_id_and_meeting_id(self.id, attr[:meetingID])
+      room = VideoRoom.find_by_video_server_id_and_video_system_room_id(self.id, attr[:meetingID])
       if room.nil?
-        room = VideoRoom.new(:server => self, :meetingid => attr[:meetingID],
+        room = VideoRoom.new(:video_server_id => self.id, :video_system_room_id => attr[:meetingID],
                              :name => attr[:meetingID], :guest_password => attr[:attendeePW],
                              :host_password => attr[:moderatorPW])
       else

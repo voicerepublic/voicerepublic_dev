@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'video_system_api'
 
 describe VideoRoom do
   it "has a valid factory do" do
@@ -49,52 +50,6 @@ describe VideoRoom do
 
   it { should respond_to(:is_running?) }
 
-  describe "#user_role" do
-    let(:room) { FactoryGirl.build(:video_room, :host_password => "mod", :guest_password => "att") }
-    it { should respond_to(:user_role) }
-    it { room.user_role({ :password => room.host_password }).should == :host }
-    it { room.user_role({ :password => room.guest_password }).should == :guest }
-    it { room.user_role({ :password => "wrong" }).should == nil }
-    it { room.user_role({ :password => nil }).should == nil }
-    it { room.user_role({ :not_password => "any" }).should == nil }
-  end
-
-  describe "#instance_variables_compare" do
-    let(:room) { FactoryGirl.create(:video_room) }
-    let(:room2) { VideoRoom.last }
-    it { should respond_to(:instance_variables_compare) }
-    it { room.instance_variables_compare(room2).should be_empty }
-    it "compares instance variables" do
-      room2.running = !room.running
-      room.instance_variables_compare(room2).should_not be_empty
-      room.instance_variables_compare(room2).should include(:@running)
-    end
-    it "ignores attributes" do
-      room2.video_system_room_id = 'asdaldhlh332424'
-      room.instance_variables_compare(room2).should be_empty
-    end
-  end
-
-  describe "#attr_equal?" do
-    before { FactoryGirl.create(:video_room) }
-    let(:room) { VideoRoom.last }
-    let(:room2) { VideoRoom.last }
-    it { should respond_to(:attr_equal?) }
-    it { room.attr_equal?(room2).should be_true }
-    it "compares instance variables" do
-      room2.running = !room.running
-      room.attr_equal?(room2).should be_false
-    end
-    it "compares attributes" do
-      room2.meeting_id = 'dadafhalkjlh423123'
-      room.attr_equal?(room2).should be_false
-    end
-    it "compares objects" do
-      room2 = room.clone
-      room.attr_equal?(room2).should be_false
-    end
-  end
-
   context "initializes" do
     let(:room) { VideoRoom.new }
 
@@ -108,13 +63,14 @@ describe VideoRoom do
     end
 
     context "video_system_room_id" do
-      it { room.video_system_room_id.should_not be_nil }
+      it { room.video_system_room_id.should be_nil }
     end
   end
 
   context "using the api" do
     before { mock_server_and_api }
-    let(:room) { FactoryGirl.create(:video_room) }
+    let(:video_session_1) { FactoryGirl.create(:video_session) }
+    let(:room) { FactoryGirl.create(:video_room, video_session_id: video_session_1.id) }
 
     describe "#fetch_is_running?" do
 
@@ -163,7 +119,7 @@ describe VideoRoom do
       }
       let(:hash_info2) {
         { :returncode=>true, :meetingID=>"test_id", :attendeePW=>"1234", :moderatorPW=>"4321",
-          :running=>true, :hasBeenForciblyEnded=>false, :startTime=>DateTime.parse("Wed Apr 06 17:09:57 UTC 2011").to_time.to_i,
+          :running=>true, :hasBeenForciblyEnded=>false, :startTime=>DateTime.parse("Wed Apr 06 17:09:57 UTC 2011").to_time,
           :endTime=>nil, :participantCount=>4, :moderatorCount=>2,
           :attendees=>users, :messageKey=>{ }, :message=>{ }
         }
@@ -202,7 +158,7 @@ describe VideoRoom do
         it { room.end_time.should == nil }
         it {
           users.each do |att|
-            participant = VideoSystemParticipant.new
+            participant = VideoSystemApi::VideoSystemParticipant.new
             participant.from_hash(att)
             room.participants.should include(participant)
           end
@@ -242,7 +198,7 @@ describe VideoRoom do
         before do
           room.should_receive(:default_welcome_message).and_return("Hi!")
           mocked_api.should_receive(:create_meeting).
-            with(anything, anything, hash_including(:welcome  => "Hi!"))
+            with(anything, anything, "Hi!", anything, anything, anything, anything)
           room.stub(:select_server).and_return(mocked_server)
           room.video_server = mocked_server
         end
@@ -261,13 +217,12 @@ describe VideoRoom do
 
         context "for a stored room" do
           before do
-            hash = hash_including(:moderatorPW => room.host_password, :attendeePW => room.guest_password,
-                                  :welcome => room.welcome_msg, :dialNumber => nil,
-                                  :logoutURL => 'http://www.kluuu.com', :maxParticpants => 2,
-                                  :voiceBridge => 72879, :kluuuHost => host, :tt => 2, :ttp => 5, 
-                                  :charge => 2.22, :currency => 'EUR')
             mocked_api.should_receive(:create_meeting).
-              with(room.name, room.video_system_room_id, hash).and_return(hash_create)
+              with(room.name, anything, room.welcome_msg, 
+                   room.video_session.klu.get_charge_type_as_integer, 
+                   room.video_session.klu.free_time,
+                   dollarize(room.video_session.klu.charge_amount), 
+                   room.video_session.klu.currency).and_return(hash_create)
             room.stub(:select_server).and_return(mocked_server)
             room.video_server = mocked_server
             room.send_create
@@ -278,15 +233,15 @@ describe VideoRoom do
         end
 
         context "for a new record" do
-          let(:new_room) { FactoryGirl.build(:video_room) }
+          let(:video_session_3) { FactoryGirl.create(:video_session) }
+          let(:new_room) { FactoryGirl.build(:video_room, video_session_id: video_session_3.id) }
           before do
-            hash = hash_including(:moderatorPW => new_room.host_password, :attendeePW => new_room.guest_password,
-                                  :welcome => new_room.welcome_msg, :dialNumber => nil,
-                                  :logoutURL => 'http://www.kluuu.com', :maxParticpants => 2,
-                                  :voiceBridge => 72879, :kluuuHost => host, :tt => 2, :ttp => 5, 
-                                  :charge => 2.22, :currency => 'EUR')
             mocked_api.should_receive(:create_meeting).
-              with(new_room.name, new_room.meetingid, hash).and_return(hash_create)
+              with(new_room.name, anything, new_room.welcome_msg, 
+                   new_room.video_session.klu.get_charge_type_as_integer, 
+                   new_room.video_session.klu.free_time,
+                   dollarize(new_room.video_session.klu.charge_amount), 
+                   new_room.video_session.klu.currency).and_return(hash_create)
             new_room.stub(:select_server).and_return(mocked_server)
             new_room.video_server = mocked_server
             new_room.send_create
@@ -308,39 +263,41 @@ describe VideoRoom do
 
         it "before calling create" do
           room.should_receive(:random_video_system_room_id).and_return(new_id)
-          hash = hash_including(:moderatorPW => room.host_password, :attendeePW => room.guest_password,
-                                  :welcome => room.welcome_msg, :dialNumber => nil,
-                                  :logoutURL => 'http://www.kluuu.com', :maxParticpants => 2,
-                                  :voiceBridge => 72879, :kluuuHost => host, :tt => 2, :ttp => 5, 
-                                  :charge => 2.22, :currency => 'EUR')
-          mocked_api.should_receive(:create_meeting).with(room.name, new_id, hash)
+          mocked_api.should_receive(:create_meeting).
+            with(room.name, new_id, room.welcome_msg, 
+                   room.video_session.klu.get_charge_type_as_integer, 
+                   room.video_session.klu.free_time,
+                   dollarize(room.video_session.klu.charge_amount), 
+                   room.video_session.klu.currency)
           room.send_create
         end
 
         it "and tries again on error" do
           # fails twice and then succeds
           room.should_receive(:random_video_system_room_id).exactly(3).times.and_return(new_id)
-          hash = hash_including(:moderatorPW => room.host_password, :attendeePW => room.guest_password,
-                                  :welcome => room.welcome_msg, :dialNumber => nil,
-                                  :logoutURL => 'http://www.kluuu.com', :maxParticpants => 2,
-                                  :voiceBridge => 72879, :kluuuHost => host, :tt => 2, :ttp => 5, 
-                                  :charge => 2.22, :currency => 'EUR')
           mocked_api.should_receive(:create_meeting).
-            with(room.name, new_id, hash).twice.and_return(fail_hash)
+            with(room.name, new_id, room.welcome_msg, 
+                   room.video_session.klu.get_charge_type_as_integer, 
+                   room.video_session.klu.free_time,
+                   dollarize(room.video_session.klu.charge_amount), 
+                   room.video_session.klu.currency).twice.and_return(fail_hash)
           mocked_api.should_receive(:create_meeting).
-            with(room.name, new_id, hash).once.and_return(success_hash)
+            with(room.name, new_id, room.welcome_msg, 
+                   room.video_session.klu.get_charge_type_as_integer, 
+                   room.video_session.klu.free_time,
+                   dollarize(room.video_session.klu.charge_amount), 
+                   room.video_session.klu.currency).once.and_return(success_hash)
           room.send_create
         end
 
         it "and limits to 10 tries" do
           room.should_receive(:random_video_system_room_id).exactly(11).times.and_return(new_id)
-          hash = hash_including(:moderatorPW => room.host_password, :attendeePW => room.guest_password,
-                                  :welcome => room.welcome_msg, :dialNumber => nil,
-                                  :logoutURL => 'http://www.kluuu.com', :maxParticpants => 2,
-                                  :voiceBridge => 72879, :kluuuHost => host, :tt => 2, :ttp => 5, 
-                                  :charge => 2.22, :currency => 'EUR')
           mocked_api.should_receive(:create_meeting).
-            with(room.name, new_id, hash).exactly(10).times.and_return(fail_hash)
+            with(room.name, new_id, room.welcome_msg, 
+                   room.video_session.klu.get_charge_type_as_integer, 
+                   room.video_session.klu.free_time,
+                   dollarize(room.video_session.klu.charge_amount), 
+                   room.video_session.klu.currency).exactly(10).times.and_return(fail_hash)
           room.send_create
         end
       end
@@ -360,7 +317,8 @@ describe VideoRoom do
         end
 
         context "and does not save when is a new record" do
-          let(:new_room) { FactoryGirl.build(:video_room) }
+          let(:video_session_2) { FactoryGirl.create(:video_session) }
+          let(:new_room) { FactoryGirl.build(:video_room, video_session_id: video_session_2.id) }
           before do
             new_room.should_receive(:select_server).and_return(another_server)
             new_room.should_receive(:require_server)
@@ -376,6 +334,7 @@ describe VideoRoom do
 
     describe "#join_url" do
       let(:username) { Faker::Name.first_name }
+      let(:user_id) { 1508 }
 
       it { should respond_to(:join_url) }
 
@@ -384,32 +343,19 @@ describe VideoRoom do
 
         it "with host role" do
           mocked_api.should_receive(:join_meeting_url).
-            with(room.video_system_room_id, username, room.host_password)
+            with(room.video_system_room_id, username, room.host_password, user_id)
           room.video_server = mocked_server
-          room.join_url(username, :host)
+          room.join_url(username, :host, user_id)
         end
 
         it "with guest role" do
           mocked_api.should_receive(:join_meeting_url).
-            with(room.video_sytem_room_id, username, room.guest_password)
+            with(room.video_system_room_id, username, room.guest_password, user_id)
           room.video_server = mocked_server
-          room.join_url(username, :guest)
-        end
-
-        it "without a role" do
-          mocked_api.should_receive(:join_meeting_url).
-            with(room.video_system_room_id, username, 'pass')
-          room.video_server = mocked_server
-          room.join_url(username, nil, 'pass')
+          room.join_url(username, :guest, user_id)
         end
       end
     end
-  end
-
-  context "validates passwords" do
-    let (:room) { FactoryGirl.build(:video_room) }
-    it { room.should allow_value('').for(:host_password) }
-    it { room.should allow_value('').for(:guest_password) }
   end
 
   describe "#require_server" do
@@ -436,7 +382,7 @@ describe VideoRoom do
   end
 
   describe "#select_server" do
-    let(:room) { FactoryGirl.create(:video_room, :server => nil) }
+    let(:room) { FactoryGirl.build(:video_room, video_server: nil) }
     it { should respond_to(:select_server) }
 
     context "selects the server with less rooms" do
@@ -467,5 +413,4 @@ describe VideoRoom do
       pending 'move server detection from sezzion model here'
     end
   end
-
 end

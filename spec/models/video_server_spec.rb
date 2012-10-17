@@ -93,8 +93,8 @@ describe VideoServer do
 
   context "fetching info from video system" do
     let(:server) { FactoryGirl.create(:video_server) }
-    let(:room1) { FactoryGirl.create(:video_room, name: 'room1', video_server: server, video_system_room_id: "room1") }
-    let(:room2) { FactoryGirl.create(:video_room, name: 'room2', video_server: server, video_system_room_id: "room2") }
+    let(:room1) { FactoryGirl.create(:video_room, name: 'room1', video_server_id: server.id, video_system_room_id: "room1") }
+    let(:room2) { FactoryGirl.create(:video_room, name: 'room2', video_server_id: server.id, video_system_room_id: "room2") }
 
     # the hashes should be exactly as returned by bigbluebutton-api-ruby to be sure we are testing it right
     let(:video_system_rooms) {
@@ -106,7 +106,7 @@ describe VideoServer do
     }
     let(:hash) {
       { :returncode => true,
-        :video_system_rooms => video_system_rooms
+        :meetings => video_system_rooms
       }
     }
 
@@ -117,10 +117,10 @@ describe VideoServer do
       server.fetch_video_system_rooms
 
       # the passwords are updated during fetch_meetings
-      room1.moderator_password = "mp"
-      room1.attendee_password = "ap"
-      room2.moderator_password = "pass"
-      room2.attendee_password = "pass"
+      room1.host_password = "mp"
+      room1.guest_password = "ap"
+      room2.host_password = "pass"
+      room2.guest_password = "pass"
     }
 
     it { server.video_system_rooms.count.should be(3) }
@@ -129,8 +129,8 @@ describe VideoServer do
     it { server.video_system_rooms[2].video_system_room_id.should == "im not in the db" }
     it { server.video_system_rooms[2].name.should == "im not in the db" }
     it { server.video_system_rooms[2].video_server.should == server }
-    it { server.video_system_rooms[2].attendee_password.should == "pass" }
-    it { server.video_system_rooms[2].moderator_password.should == "pass" }
+    it { server.video_system_rooms[2].guest_password.should == "pass" }
+    it { server.video_system_rooms[2].host_password.should == "pass" }
     it { server.video_system_rooms[2].running.should == true }
     it { server.video_system_rooms[2].new_record?.should be_true }
   end

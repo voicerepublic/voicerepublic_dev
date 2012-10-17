@@ -41,7 +41,23 @@ class Klu < ActiveRecord::Base
     where "published = true"
   end
   
+  def get_charge_type_as_integer
+    
+    if self.charge_type == 'fix' 
+      return 3
+    elsif self.charge_type == 'minute'
+      return 2
+    end
+    
+    return 1
+  end
   
+  #TODO dummy method for free minutes
+  def free_time
+    
+    return 5
+    
+  end
   
   def status_or_about
     if uses_status && ! user.status_updates.empty?
