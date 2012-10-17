@@ -28,9 +28,11 @@
 					</aside>
 				</div>
 				<aside class="klu-user-info span4">
-					<div class="call-btn jqrfd btn">
-						<%= link_to(@klu.user.name, user_path(:id => @klu.user) )%>
-						<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+					<div class="call-btn btn">
+						<div class="klu-call-btn-text">
+							<%= link_to(@klu.user.name, user_path(:id => @klu.user) )%>
+							<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+						</div>
 						<dl>
 							<dt><%= t('.price') %></dt>
 							<dd><%= @klu.charge_amount %> €</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
