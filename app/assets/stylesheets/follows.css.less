@@ -5,18 +5,44 @@
  */
  @import "config.css.less";
 
-.follows-user-thumbnail-unfollow{
+.user-thumbnail, .user-thumbnail .follows-user-thumbnail-unfollow, .follows-user-followback-link{
+	transition:0.1s;
+	-moz-transition:0.1s;
+	-webkit-transition:0.1s;
+	-ms-transition:0.1s;
+}
+
+.follows-user-thumbnail-unfollow, .follows-user-thumbnail-followback{
 	position:absolute;
 	top:5px;
 	right:5px;
 	line-height:10px;
 	opacity:0;
-	transition:0.2s;
-	-moz-transition:0.2s;
-	-webkit-transition:0.2s;
-	-ms-transition:0.2s;
+	-moz-opacity:0;
+	-webkit-opacity:0;
+	-ms-opacity:0;
 }
 
-.followed .user-thumbnail:hover .follows-user-thumbnail-unfollow{
-	opacity:0.2;
+.follows-user-thumbnail-followback{
+	color:#000;
+	font-size:@baseFontSize * 0.8;
+}
+
+.user-thumbnail{
+	&:hover{
+		.follows-user-thumbnail-unfollow, .follows-user-thumbnail-followback{
+			opacity:0.2;
+			-moz-opacity:0.2;
+			-webkit-opacity:0.2;
+			-ms-opacity:0.2;
+		}
+	}
+	.follows-user-thumbnail-unfollow:hover, .follows-user-thumbnail-followback:hover{
+		opacity:0.5;
+		-moz-opacity:0.5;
+		-webkit-opacity:0.5;
+		-ms-opacity:0.5;
+		color:#555;
+		text-decoration:none
+	}
 }
