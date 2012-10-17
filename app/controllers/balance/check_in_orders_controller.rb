@@ -51,9 +51,7 @@ class Balance::CheckInOrdersController < ApplicationController
     @balance_check_in_order.balance_account = @user.balance_account
     respond_to do |format|
       if @balance_check_in_order.save
-        flash[:info] = "info success!"
-        flash[:notice] = "notice success"
-        format.html { redirect_to dashboard_url, notice: 'Check in order was successfully created.' }
+        format.html { redirect_to( dashboard_url, notice: 'Check in order was successfully created.') }
         format.json { render json: @balance_check_in_order, status: :created, location: @balance_check_in_order }
       else
         logger.error("Balance::CheckInOrder#create - ERROR - #{@balance_check_in_order.errors.inspect}")
