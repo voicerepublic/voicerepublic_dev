@@ -1,7 +1,11 @@
 <article class="small-klu klu-layout kluuu">
+  <div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
 	<%= link_to( klu_path(:id => klu)) do %>
 		<div class="klu-eyecatcher"><%= image_tag(klu.klu_images.first.image.url(:medium)) unless klu.klu_images.empty? %></div>
-    <h3 class="no-margin klu-title"><%= klu.title %> </h3>  
+    <h3 class="no-margin klu-title"><%= limit_words(klu.title, 6) %> </h3>  
 	<% end %>
 	<%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user), :class => 'klu-user-image' ) %>
+  <aside class="klu-overall-rating">
+          <%= overall_rating_stars(klu) %>
+      </aside>
 </article>

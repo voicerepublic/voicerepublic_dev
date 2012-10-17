@@ -6,8 +6,6 @@ Kluuu2::Application.routes.draw do
 
   #resources :ratings
 
-  resources :credit_accounts
-
   resources :video_sessions
 
   scope "(/:locale)", :locale => /de|en/ do
@@ -69,7 +67,10 @@ Kluuu2::Application.routes.draw do
       resources :status_updates do
         resources :comments
       end
-      resource :credit_account
+      namespace :balance do
+        resource :account
+        resources :check_in_orders 
+      end
     end
   end
   

@@ -27,6 +27,8 @@ gem 'awesome_nested_set'
 gem 'globalize3'
 gem 'acts-as-taggable-on'
 gem 'money'
+gem 'money-rails'             # integrates some helper methods and AR-instance-functions...
+gem 'eu_central_bank'         # financial exchange rates
 gem 'cancan'                  # authorization/privileges
 gem 'private_pub'             # push service
 gem 'thin'                    # faster develpment-server

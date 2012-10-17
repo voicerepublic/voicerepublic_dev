@@ -1,0 +1,2 @@
+module Balance::AccountsHelper
+end

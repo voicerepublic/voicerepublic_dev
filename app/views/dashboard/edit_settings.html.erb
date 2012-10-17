@@ -1,32 +1,20 @@
-<div class="page-header">
-	<h2>Dashboard</h2>
-</div>
-
-<ul class="nav nav-tabs">
-	<li>
-		<%= link_to(t('.matches'), dashboard_matches_path )%>
-	</li>
-	<li>
-		<%= link_to(t('.news'), dashboard_news_path) %>
-	</li>
-	<li>
-		<%= link_to(t('.bookmarks'), dashboard_bookmarks_path) %>
-	</li>
-	<li>
-		<%= link_to(t('.contacts'), dashboard_contacts_path ) %>
-	</li>
-	<li class="active">
-		<%= link_to(t('.settings'), dashboard_settings_path) %>
-	</li>
-</ul>
 
 <div class="tab-content row-fluid">
-	<div class="user user-edit span6 well well-large">
-		<h2><%=t(".edit_email") %></h2>
+  <div class="span6">
+	<div class="user user-edit well well-large">
+		<h3><%=t(".edit_email") %></h3>
   		<%= render :partial => 'users/basic_form', :locals => { :user => @user } %>
 	</div>
-	<div class="user user-edit span6 well well-large">
-    	<h2><%=t(".edit_preferences") %></h2>
-    	<%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account } %>
-  	</div>
+
+  <div class="well well-large">
+    <h3><%= t('.edit_password') %></h3>
+    <%= render :partial => 'users/password_form', :locals => { :user => @user } %>
+  </div>
+  </div>
+	<div class="span6">
+    <div class="user user-edit well well-large">
+      <h3><%=t(".edit_preferences") %></h3>
+      <%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account } %>
+     </div>
+  </div>
 </div>

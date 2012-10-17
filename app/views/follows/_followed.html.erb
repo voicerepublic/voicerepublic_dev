@@ -1,4 +1,3 @@
-
 <li class="followed">
 	 
 	<div class="thumbnail user-thumbnail">
@@ -9,7 +8,7 @@
 			<strong><%= followed_relation.followed.name %></strong>
 		<% end %>
 			
-		<%= link_to user_follow_path(:user_id => @user, :id => followed_relation), :class => "close follows-user-thumbnail-unfollow", :method => :delete do %>
+		<%= link_to user_follow_path(:user_id => @user, :id => followed_relation), :title => "Delete", :class => "close follows-user-thumbnail-unfollow", :method => :delete do %>
 			&times;
 		<% end %>
 
