@@ -1,46 +1,34 @@
 # encoding : utf-8
 
 class Balance::Account < ActiveRecord::Base
-  attr_accessible :currency, :prepaid_cents, :revenue_cents, :user_id
-  attr_accessible :prepaid, :revenue
+  attr_accessible :currency, :balance_cents, :revenue_cents, :user_id
+  attr_accessible :balance, :revenue
   
   belongs_to :user
+  has_many :paypal_payments
   
-  monetize :prepaid_cents
+  monetize :balance_cents
   monetize :revenue_cents
   
   CURRENCIES = {"USD $" => "USD", "Euro €" => "EUR" }
   
-  #validates_presence_of :currency, :prepaid_cents, :revenue_cents
+  
+  validates :user_id, :presence => true
+  validates :currency, :presence => true
+  
+
   
   #to check the balance against the charge of a kluuu
+  #
   def check_balance(charge, tariff, time)
-    
-    if (tariff == 'minute')
-      
-      #check if the user has enough money for a given time 
-      if (((self.prepaid + self.revenue) <=> (charge * Integer(time))) < 0)
-        return false
-      else
-        return true
-      end
-    
-    elsif (tariff == 'fix')
-      
-      #check if the user has enough money to pay the fixed price 
-      if (((self.prepaid + self.revenue) <=> charge) < 0)
-        return false
-      else
-        return true
-      end
-    
-    else
-      
-      #is only returned if check_balance is called for a free kluuu
-      return true
-    
+    ret = true                                               # free kluuu
+    if tariff == 'minute'
+      ret = (self.balance + self.revenue) >= (charge * time) # time based payment
     end
+    if tariff == 'fix'
+      ret = (self.balance + self.revenue) >= charge          # fixed payment
+    end
+    ret                                             
   end
-  
   
 end

@@ -1,83 +1,34 @@
+# encoding : utf-8
+
 class PaypalPaymentsController < ApplicationController
-  # GET /paypal_payments
-  # GET /paypal_payments.json
-  def index
-    @paypal_payments = PaypalPayment.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @paypal_payments }
-    end
-  end
-
-  # GET /paypal_payments/1
-  # GET /paypal_payments/1.json
-  def show
-    @paypal_payment = PaypalPayment.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @paypal_payment }
-    end
-  end
-
-  # GET /paypal_payments/new
-  # GET /paypal_payments/new.json
-  def new
-    @paypal_payment = PaypalPayment.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @paypal_payment }
-    end
-  end
-
-  # GET /paypal_payments/1/edit
-  def edit
-    @paypal_payment = PaypalPayment.find(params[:id])
-  end
+  
 
   # POST /paypal_payments
   # POST /paypal_payments.json
   def create
-    @paypal_payment = PaypalPayment.new(params[:paypal_payment])
-
-    respond_to do |format|
-      if @paypal_payment.save
-        format.html { redirect_to @paypal_payment, notice: 'Paypal payment was successfully created.' }
-        format.json { render json: @paypal_payment, status: :created, location: @paypal_payment }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @paypal_payment.errors, status: :unprocessable_entity }
-      end
-    end
+    convert_charset()
+    pms = params.symbolize_keys
+    
+    cipn = PaypalPayment.create!(:params => pms, 
+                              :check_in_order_id => params[:invoice].to_i, 
+                              :status => params[:payment_status], 
+                              :tact_id => params[:txn_id], 
+                              :amount => params[:mc_gross].to_f, 
+                              :currency => params[:mc_currency])
+    
+    logger.info("\PaypalPayments#create - info: - cpn-id: #{cipn.id}: #{cipn.inspect}\n")
+    render :nothing => true
   end
 
-  # PUT /paypal_payments/1
-  # PUT /paypal_payments/1.json
-  def update
-    @paypal_payment = PaypalPayment.find(params[:id])
-
-    respond_to do |format|
-      if @paypal_payment.update_attributes(params[:paypal_payment])
-        format.html { redirect_to @paypal_payment, notice: 'Paypal payment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @paypal_payment.errors, status: :unprocessable_entity }
-      end
+  private
+  
+  # convert any charset not utf-8 to utf-8
+  #
+  def convert_charset
+    unless params["charset"] =~ /(?i:utf)-8/
+      logger.debug("CheckInPaymentNotifications#convert_charset from: #{params['charset']} to utf-8")
+      params.each_pair { |k,v| v.encode( "utf-8", params["charset"] ) }
     end
   end
-
-  # DELETE /paypal_payments/1
-  # DELETE /paypal_payments/1.json
-  def destroy
-    @paypal_payment = PaypalPayment.find(params[:id])
-    @paypal_payment.destroy
-
-    respond_to do |format|
-      format.html { redirect_to paypal_payments_url }
-      format.json { head :no_content }
-    end
-  end
+  
 end

@@ -29,7 +29,7 @@
 		
 		<div class="container dashboard">
 			<!-- <h2><%= t('.dashboard', :default => 'Dashboard') %></h2> -->
-			<%= render(:partial => 'shared/dashboard_tabs') %>
+			<%= render(:partial => 'shared/dashboard_tabs', :locals => { :user => current_user }) %>
 			
 			<%= yield %>
 			

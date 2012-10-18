@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018005600) do
+ActiveRecord::Schema.define(:version => 20121018124619) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20121018005600) do
 
   create_table "balance_accounts", :force => true do |t|
     t.string   "currency"
-    t.integer  "prepaid_cents", :default => 0
+    t.integer  "balance_cents", :default => 0
     t.integer  "revenue_cents", :default => 0
     t.integer  "user_id"
     t.datetime "created_at",                   :null => false

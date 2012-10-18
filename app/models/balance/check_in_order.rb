@@ -7,7 +7,11 @@ class Balance::CheckInOrder < ActiveRecord::Base
   monetize :amount_cents
 
   before_create :set_currency
-
+  
+  validates :currency, :presence => true
+  validates :amount_cents, :numericality => { :greater_than => 0 }
+  validates :balance_account_id, :presence => true
+  
   PAYMENT_VALUES = {"10" => 10.00, "20" => 20.00, "30" => 30.00, "50" => 50.00, "100" => 100.00}
   CERTS = File.join(Rails.root, "config", "certs_#{Rails.env}")
   PAYPALCONFIG = YAML.load_file(File.join(Rails.root,'config','paypal_config.yml'))[Rails.env.to_sym]
