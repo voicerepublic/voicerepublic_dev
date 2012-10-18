@@ -21,8 +21,8 @@ class PaypalPayment < ActiveRecord::Base
     self.logger.debug("PaypalPayment#mark_checkin_complete - DEBUG params: #{params.inspect}")
     
     if params[:payment_status] == "Completed" && 
-                              params[:secret] == CheckInOrder::PAYPALCONFIG[:secret] &&
-                              params[:receiver_email] == CheckInOrder::PAYPALCONFIG[:kluuu_account][:email] &&
+                              params[:secret] == Balance::CheckInOrder::PAYPALCONFIG[:secret] &&
+                              params[:receiver_email] == Balance::CheckInOrder::PAYPALCONFIG[:kluuu_account][:email] &&
                               params[:mc_gross].to_f == check_in_order.amount  &&
                               params[:mc_currency] == check_in_order.currency
         
@@ -34,7 +34,7 @@ class PaypalPayment < ActiveRecord::Base
       account.save!
       logger.debug("PaypalPayment#mark_checkin_order_complete - SUCCESS check_in_order_id:  #{self.check_in_order.id}")
     else
-      logger.error("\nPaypalPayment#mark_checkin_order_complete: ERROR \nparams[:secret]: #{params[:secret]}\nconfig secret: #{CheckInOrder::PAYPALCONFIG[:secret]}\nstatus: #{params[:payment_status]}\n")
+      logger.error("\nPaypalPayment#mark_checkin_order_complete: ERROR \nparams[:secret]: #{params[:secret]}\nconfig secret: #{Balance::CheckInOrder::PAYPALCONFIG[:secret]}\nstatus: #{params[:payment_status]}\n")
     end
   end
   
