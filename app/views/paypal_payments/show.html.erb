@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Params:</b>
+  <%= @paypal_payment.params %>
+</p>
+
+<p>
+  <b>Check in order:</b>
+  <%= @paypal_payment.check_in_order_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @paypal_payment.status %>
+</p>
+
+<p>
+  <b>Amount cents:</b>
+  <%= @paypal_payment.amount_cents %>
+</p>
+
+<p>
+  <b>Tact:</b>
+  <%= @paypal_payment.tact_id %>
+</p>
+
+<p>
+  <b>Currency:</b>
+  <%= @paypal_payment.currency %>
+</p>
+
+
+<%= link_to 'Edit', edit_paypal_payment_path(@paypal_payment) %> |
+<%= link_to 'Back', paypal_payments_path %>

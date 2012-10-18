@@ -1,5 +1,9 @@
 Kluuu2::Application.routes.draw do
 
+  resources :paypal_payments
+
+  get "ipn/create"
+
   #resources :ratings
 
   resources :video_sessions
@@ -69,6 +73,8 @@ Kluuu2::Application.routes.draw do
       end
     end
   end
+  
+  post "ipn", :controller => 'paypal_payments', :action => 'create'
   
   namespace :admin do
     resources :users
