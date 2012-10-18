@@ -15,6 +15,7 @@
  	background: rgba(255,255,255,0.8);
  	border-radius: 4px;
  	position: relative;
+ 	.transition(background 0.2s ease);
 
  	.klu-overall-rating {
  		position: absolute;
@@ -36,9 +37,28 @@
 }
 
 .call-btn {
-	background: white;
-	padding: 4% 20% 4% 4%;
+	background: @brandColor;
+	padding: 4% 30% (@baseFontSize * @baseLineHeight * 0.7 * 2) 4%;
 	position: relative;
+	color: @white;
+	text-shadow:none;
+	.transition(background 0.2s ease);
+	max-width: 280px;
+	margin: 0 auto;
+
+	&:hover {
+		background: @brandColorLighter;
+		color: @white;
+	}
+
+	a, button {
+		color: inherit;
+		text-shadow: none;
+	}
+
+	form {
+		margin-bottom: @verticalRhythm * 2;
+	}
 
 	form, button {
 		display: inline-block;
@@ -46,12 +66,22 @@
 
 	button {
 		white-space: nowrap;
+		font-size: 150%;
+
+		&:hover {
+			color: @white;
+		}
 	}
 
 	dl {
+		position: absolute;
 		margin: 0;
 		font-size: 70%;
-		color: @grayLight;
+		left: 4%;
+		bottom: 4%;
+		max-height: @baseFontSize * @baseLineHeight * 0.7 * 3;
+		width: 60%;
+		overflow: hidden;
 			
 		dt {
 			display: inline-block;
@@ -69,17 +99,15 @@
 		display: block;
 		right: 4%;
 		top: 25%;
-		height: auto;
-		width: auto;
-		width: 15%;
+		width: 20%;
+
+		img {
+			display: block;
+		}
 	}
 	&.jqueryfied {
 		display: block;
 		text-align: left;
-
-		.klu-call-btn-text {
-			height: @baseFontSize *  @baseLineHeight * 2;
-		}
 
 		.klu-user-image {
 			top: 50%;
@@ -182,11 +210,6 @@
 
 	&:hover {
 		 background: rgba(151,60,83,0.02);
-    -moz-transition: 0.4s all;
-
-    .call-btn {
-    	background: rgba(0,0,0,0.02);
-    }
 	}
 
 	.klu-bookmark-link {
@@ -400,8 +423,20 @@
 
 	.klu-user-info {
 		.klu-user-info-inner {
-			padding: 4%;
+			padding: @verticalRhythm 4%;
 			position: relative;
+
+			.klu-user-image {
+				height: 28px;
+				margin-right: 8px;
+			}
+
+			h4 {
+				display: inline;
+			}
+			.klu-user-status {
+				margin-top: @verticalRhythm;
+			}
 		}
 	}
 	.klu-user-info-more-klus {

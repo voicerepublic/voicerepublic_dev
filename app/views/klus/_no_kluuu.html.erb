@@ -29,10 +29,7 @@
 				</div>
 				<aside class="klu-user-info span4">
 					<div class="call-btn btn">
-						<div class="klu-call-btn-text">
-							<%= link_to(@klu.user.name, user_path(:id => @klu.user) )%>
-							<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
-						</div>
+						<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
 						<dl>
 							<dt><%= t('.price') %></dt>
 							<dd><%= @klu.charge_amount %> €</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
@@ -42,9 +39,9 @@
 						<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
 					</div><!-- End of call-btn -->
 					<div class="klu-user-info-inner">
-						<article class="klu-user-info-about-me">
-							<%= limit_words(@klu.status_or_about, 15) %>
-						</article>
+						<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
+						<h4><%= link_to@klu.user.name, user_path(:id => @klu.user) %></h4>
+						<article class="klu-user-status"><%= limit_words(@klu.status_or_about, 15) %></article>
 						<p class="klu-user-info-activity">ACTIVITY_SCORE</p>
 						<nav>
 							<ul>
