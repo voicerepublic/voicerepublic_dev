@@ -8,8 +8,9 @@
 			<strong><%= follower_relation.followed.name %></strong>
 		<% end %>
 			
-		<%= link_to( t('.follow_back'), user_create_follow_path(:user_id => follower_relation.follower_id, :followed_id => follower_relation.follower_id ), :method => "post", :class => "btn btn-small" )%>
-
+		<%= link_to( user_create_follow_path(:user_id => follower_relation.follower_id, :followed_id => follower_relation.follower_id ), :method => "post", :class => "follows-user-thumbnail-followback", :title => t('.follow_back', :default => "Follow Back") ) do %>
+			<i class="icon-retweet"></i>
+		<% end %>
 	</div>
 	
 </li>
