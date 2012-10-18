@@ -6,7 +6,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:currency) %></th>
-      <th><%= model_class.human_attribute_name(:prepaid_cents) %></th>
+      <th><%= model_class.human_attribute_name(:balance_cents) %></th>
       <th><%= model_class.human_attribute_name(:revenue_cents) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -18,7 +18,7 @@
       <tr>
         <td><%= link_to account.id, balance_account_path(account) %></td>
         <td><%= account.currency %></td>
-        <td><%= account.prepaid_cents %></td>
+        <td><%= account.balance_cents %></td>
         <td><%= account.revenue_cents %></td>
         <td><%= account.user_id %></td>
         <td><%=l account.created_at %></td>
