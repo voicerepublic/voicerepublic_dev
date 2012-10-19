@@ -1,6 +1,7 @@
 /*
  *= require main
  *= require klus
+ *= require contributions
  *= require_self
  */
 
@@ -20,18 +21,46 @@ p.wichtig {
 	position: relative;
 	margin-top: @verticalRhythm *3;
 
-	.user-content > nav {
+	nav.user-main-nav {
+		margin-bottom: @verticalRhythm * 2;
+
+		ul {
+			.clearfix;
+		}
+
 		li {
-			width: 25%;
+			width: 13%;
 			float: left;
 			height: 88px;
-			font-size: 88px;
+			padding-top: 11px;
+			font-size: 66px;
 			line-height: 1;
 			text-align: center;
 			vertical-align: baseline;
+			overflow:hidden;
+			margin: 0 6%;
+			border-radius: 30px;
+
+			&.active {
+				background: @linkColor;
+				
+				a {
+					color: @white;
+				}
+			}
+
+			&:hover {
+				background: lighten(@linkColor, 30%);
+
+				a {
+					color: @brandColorDarker;
+					text-shadow: 2px 2px 4px #aaa;
+				}
+			}
+
 
 			a {
-				color: orange;
+				color: @linkColor;
 				vertical-align: baseline;
 				display: block;
 			}
@@ -67,6 +96,35 @@ p.wichtig {
 				}
 			}
 		}
+
+		h3, h4 {
+		font-size: @baseFontSize;
+		}
+
+		h2, h3, h4 {
+			margin-top: 0;
+		}
+
+		h2 {
+			line-height: 1;
+		}
+
+		.user-about {
+			font-style: italic;
+			overflow:hidden;
+			height: auto;
+
+			&.jqueryfied {
+				height: @baseFontSize * @baseLineHeight * 2;
+			}
+
+			p:first-child {
+				margin-top: 0;
+			}
+			p:last-child {
+				margin-bottom: 0;
+			}
+		}
 	}
 
 	.medium-klu {
@@ -92,24 +150,55 @@ p.wichtig {
 	}
 }
 
-.user-nav {
+.user-more-information {
+	padding-top: @verticalRhythm;
+	margin-left: 10%;
+	padding-left: 20px;
+
+		.status {
+			&.contribution {
+				padding-top: 0;
+				padding-left: 70px;
+
+				p:first-child {
+					margin-top: 0;
+				}
+
+				p:last-child {
+					margin-bottom: 0;
+				}
+				
+				.contribution-delete {
+					top: 0;
+				}
+
+				.user-new-status {
+					position: absolute;
+					left: 67px;
+					bottom: 7px;
+				}
+			}
+			.icon-comment-alt {
+				font-size: 45px;
+				position: absolute;
+				display: block;
+		    left: 10px;
+		    top: 0px;
+		    line-height: 1;
+			}
+		}
+	}
+
+ul.user-nav.unstyled {
 	.clearfix;
+	margin-top: @verticalRhythm * 2;
 
 	li {
 		float: left;
-		margin: 0 20px 0 0;
+		margin-left: 8px;
 	}
 }
 
-.user-information {
-	h3, h4 {
-		font-size: @baseFontSize;
-	}
-
-	h2, h3, h4 {
-		margin-top: 0;
-	}
-}
 
 /* USER THUMBNAIL */
 .user-thumbnail{

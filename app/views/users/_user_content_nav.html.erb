@@ -1,20 +1,24 @@
-<nav class="top-content-distance">
+<nav class="user-main-nav">
 	<ul class="clearfix">
-		<li>
-			<%= link_to(kluuus_user_path(:id => user ) ) do %>
-			!
-			<% end %>
+		<li class="<%= current_page?(kluuus_user_path(:id => user)) ? 'active' : '' %>">
+				<%= link_to(kluuus_user_path(:id => user ) ) do %>
+					!
+				<% end %>
 		</li>
-		<li>
+		<li class="<%= current_page?(no_kluuus_user_path(:id => user )) ? 'active' : '' %>">
 			<%= link_to(no_kluuus_user_path(:id => user ) ) do %>
 			?
 			<% end %>
 		</li>
-		<li>
-			<%= link_to( "",  user_status_updates_path(:user_id => user), :class => "icon-align-justify") %>
+		<li class="<%= current_page?(user_status_updates_path(:user_id => user)) ? 'active' : '' %>">
+			<%= link_to(user_status_updates_path(:user_id => user)) do %>
+			  <i class="icon-comment-alt"></i>
+			<% end %>
 		</li>
-		<li>
-			<%= link_to( '', user_bookmarks_path(:user_id => user), :class => "icon-bookmark") %>
+		<li class="<%= current_page?(user_bookmarks_path(:user_id => user)) ? 'active' : '' %>">
+			<%= link_to(user_bookmarks_path(:user_id => user) ) do %>
+				<i class="icon-bookmark-empty"></i>
+			<% end %>
 		</li>
 	</ul>
 </nav>

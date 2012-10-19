@@ -1,62 +1,74 @@
-	<div class="user-more-information row-fluid">
-		<aside class="user-meta-data span4">
-			<ul class="unstyled">
-				<li>
-					<i class="icon-dashboard"></i> 55
-				</li>
-				<li>
-					<%= user.name %> hat <%= user.follower.count %> Follower
-				</li>
-			</ul>
-			<dl class="no-margin">
-				<dt>
-					<%= t(".time_at_location", :user => user.firstname) %>
-				</dt>
-				<dd>
-					<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
-					<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
-				</dd>
-				<dt>
-					<%= t('.languages') %>
-				</dt>
-				<dd>
-					<ul class="unstyled">
-						<% user.account.languages.each do |lang| %>
-						<li>
-							<%= lang %>
-						</li>
+	<div class="user-more-information">
+		<div class="row-fluid">
+			<aside class="user-meta-data span3">
+				<ul class="unstyled">
+					<li>
+						<i class="icon-bolt"></i> 55
+					</li>
+					<li>
+						<%= user.name %> <%= t('.has') %> <%= user.follower.count %>
+						<% if user.follower.count != 1 %>
+							<%= t('.followers') %>
+						<% else %>
+							<%= t('.follower') %>
 						<% end %>
-					</ul>
-				</dd>
-			</dl>
-		</aside>
-		
-		
-		<article class="user-about span4">
-			<h3><%= t('.about_me') %></h3>
-			<%= simple_format(user.account.about) %>
-		</article>
-		
-		<div class="status-partial-container span4">
-			<h4> <%= t('.status') %> </h4>
-			<% status_update = user.status_updates.limit(1).first unless user.status_updates.empty? %>
-			<%= limit_words(status_update.content, 20) if status_update%>
-			<p>
-				<span class=""> <%= status_update.comments.count if status_update %> </span>
-				<%= link_to t('.comments', :default => "comments" ), user_status_update_path(:user_id => user, :id => status_update) if status_update %>
-				<% if current_user == user %>
-				&nbsp;
-				<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini" do %>
-				<i class="icon-edit"> </i> <%= t('.new_status_update') %>
-				<% end %>&nbsp;
+					</li>
+				</ul>
+				<dl class="no-margin">
+					<dt>
+						<%= t(".time_at_location", :user => user.firstname) %>
+					</dt>
+					<dd>
+						<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
+						<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
+					</dd>
+					<dt>
+						<%= t('.languages') %>
+					</dt>
+					<dd>
+						<ul class="unstyled">
+							<% user.account.languages.each do |lang| %>
+							<li>
+								<%= lang %>
+							</li>
+							<% end %>
+						</ul>
+					</dd>
+				</dl>
+			</aside>
+			<article class="status-partial-container span9 status contribution">
+				<% status_update = user.status_updates.limit(1).first unless user.status_updates.empty? do %>
+				<header>
+					<i class="icon-comment-alt"></i>
+					<time datetime="<%= status_update.created_at.strftime("%Y-%m-%d") %>">
+						<%= time_ago_in_words(status_update.created_at) %>
+					</time>
+				</header>
+				<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update), :class => "contribution-content") do %>
+				<%= simple_format(status_update.content) %>
 				<% end %>
-				<% if status_update && current_user %>
-				&nbsp;
-				<%= link_to new_user_status_update_comment_path(:user_id => user, :status_update_id => status_update) do %>
-				&nbsp;<i class="icon-comment"> </i> <%= t('.add_comment') %>
-				<% end %>&nbsp;
+				<aside>
+			
+					<div class="contribution-comment-links">
+						<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment")) do %>
+							&nbsp; <%= t('.add_comment') %> &middot;
+						<% end if current_user %> 
+						<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments")) do %>
+							<i class="icon-comment"> </i>	<%= status_update.comments.count %> <%= t('.comments') %>
+						<% end %>
+					</div>
+						<%= link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do %>
+					<i class="icon-trash"> </i>
+					<% end %>
+					<% if current_user == user %>
+					&nbsp;
+					<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini user-new-status" do %>
+					<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+					<% end %>&nbsp;
+					<% end %>
+				</aside>
 				<% end %>
-			</p>
+			</article>
 		</div>
 		
 	</div>

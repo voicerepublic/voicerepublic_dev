@@ -32,7 +32,7 @@
 						<header>
 							<%= link_to(image_tag( @user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => @user), :class=> "user-image") %>
 							<h2 class="user-name"><%= link_to(@user.name, user_path( :id => @user)) %></h2>
-							<div class="user-about"><%= limit_words(@user.account.about, 30) %></div>
+							<div class="user-about"><%= simple_format(@user.account.about) %></div>
 						</header>
 						<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
 						<ul class="user-nav unstyled">
@@ -49,9 +49,6 @@
 										<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small" )%>
 									<% end %>
 								<% end %>
-							</li>
-							<li>
-								<a href="#" id="user-toggle"><%= t('.show more') %></a>
 							</li>
 						</ul>
 					</section>

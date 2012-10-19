@@ -13,8 +13,8 @@
     bottom: 8px;
     font-size: smaller;
     color: lightgrey;
+    }
   }
-}
 
   .contribution-user-name, .contribution-user-image, time, .contribution-comment-links, .contribution-edit, .contribution-delete, .contribution-reply, .comment-user-name, .comment-user-image {
     position: absolute;
@@ -36,6 +36,10 @@
   a.contribution-content {
     color: inherit;
     text-decoration: none;
+
+    a {
+      color: @linkColor;
+    }
   }
 
   .contribution-comment-links {
@@ -44,7 +48,7 @@
     font-size: smaller;
   }
 
-  .contribution-edit, .contribution-delete, {
+  a.contribution-edit, a.contribution-delete, {
     right: 0;
   }
 
