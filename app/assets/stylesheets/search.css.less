@@ -5,6 +5,30 @@
  */
  @import "config.css.less";
  .search { 
-   .small-klu { .set-rows(4); } 
-   .medium-klu { .set-rows(3); }
- }
+  .small-klu { 
+    .set-rows(3); 
+  } 
+  .medium-klu {
+    .set-rows(3); 
+  }
+}
+
+.search-form {
+  display: inline-block;
+
+  input[type="text"] {
+    margin-right: 8px;
+  }
+}
+.search-new-no-kluuu {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.search-results {
+  margin-top: @verticalRhythm * 2;
+
+  h3 {
+    margin-left: 1.5%;
+  }
+}
