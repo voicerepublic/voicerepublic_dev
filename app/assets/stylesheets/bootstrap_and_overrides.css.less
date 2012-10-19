@@ -87,32 +87,48 @@ img {
 		input, select, textarea {
 			width: 100%;
 		}
-		input[type="checkbox"] {
-			width: auto;
-		}
 	}
-
 	.form-actions {
 		padding-left: 0;
 	}
+	.form-actions {
+		text-align: right;
+		background:none;
+		border: none;
+		margin-top: @baseFontSize * @baseLineHeight;
+
+		input, a {
+			margin: 0 3px;
+		}
+		input:first-child, a:first-child {
+			margin-left: 0;
+		}
+		input:last-child, a:last-child {
+			margin-right: 0;
+		}
+	}
 }
 
-.form-actions {
-	text-align: right;
-	background:none;
-	border: none;
-	margin-top: @baseFontSize * @baseLineHeight;
+.control-group.checkbox {
+	position: relative;
+	padding-left: 20px;
 
-	input, a {
-		margin: 0 3px;
+	.control-label {
+		font-size: @baseFontSize;
 	}
-	input:first-child, a:first-child {
-		margin-left: 0;
-	}
-	input:last-child, a:last-child {
-		margin-right: 0;
+
+	.controls {
+		position: absolute;
+		left: 0;
+		top: 5px;
+
+		input[type="checkbox"] {
+			width: auto;
+			margin-left: 0;
+		}
 	}
 }
+
 
 /*
  *
@@ -223,6 +239,10 @@ p, blockquote, table, ul, ol {
 	padding: 0px 7px 0px 0px;
 	position: relative;
 	line-height:22px;
+
+	&:hover {
+		text-shadow: 0px 0px 1px rgba(255,255,255,0.1);
+	}
 }
 
 .navbar .nav > li:last-child > a {
