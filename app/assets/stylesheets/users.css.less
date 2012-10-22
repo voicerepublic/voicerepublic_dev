@@ -19,7 +19,7 @@ p.wichtig {
 
 .user-container {
 	position: relative;
-	margin-top: @verticalRhythm *3;
+	margin-top: @verticalRhythm * 3;
 
 	nav.user-main-nav {
 		margin-bottom: @verticalRhythm * 2;
@@ -41,16 +41,18 @@ p.wichtig {
 			margin: 0 6%;
 			border-radius: 30px;
 
-			&.active {
+			&.active, &.active:hover {
 				background: @linkColor;
 				
 				a {
 					color: @white;
+					text-shadow: none;
 				}
 			}
 
 			&:hover {
 				background: lighten(@linkColor, 30%);
+				.transition(all 0.3s ease);
 
 				a {
 					color: @brandColorDarker;
@@ -107,12 +109,20 @@ p.wichtig {
 
 		h2 {
 			line-height: 1;
+			display: inline-block;
+		}
+
+		.user-activity {
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 16px;
 		}
 
 		.user-about {
 			font-style: italic;
 			overflow:hidden;
 			height: auto;
+			margin-bottom: @verticalRhythm;
 
 			&.jqueryfied {
 				height: @baseFontSize * @baseLineHeight * 2;
@@ -146,19 +156,24 @@ p.wichtig {
 			left: 0;
 			top: -(@baseFontSize * @baseLineHeight * 1);
 			font-size: @baseFontSize - 3;
-			color:grey;
+			color: grey;
+
+			&:hover {
+				color: @linkColor;
+			}
 	}
 }
 
 .user-more-information {
-	padding-top: @verticalRhythm;
 	margin-left: 10%;
 	padding-left: 20px;
+	padding-top: @baseLineHeight * @baseFontSize;
 
 		.status {
 			&.contribution {
-				padding-top: 0;
+				margin-top: -@baseLineHeight * @baseFontSize;
 				padding-left: 70px;
+				padding-bottom: @baseLineHeight * @baseFontSize * 2;
 
 				p:first-child {
 					margin-top: 0;
@@ -169,7 +184,7 @@ p.wichtig {
 				}
 				
 				.contribution-delete {
-					top: 0;
+					top: @baseLineHeight * @baseFontSize;
 				}
 
 				.user-new-status {
@@ -177,26 +192,66 @@ p.wichtig {
 					left: 67px;
 					bottom: 7px;
 				}
+
+				time {
+					position: absolute;
+					right: 0;
+					top: 3px
+				}
 			}
 			.icon-comment-alt {
 				font-size: 45px;
 				position: absolute;
 				display: block;
 		    left: 10px;
-		    top: 0px;
+		    top: @baseLineHeight * @baseFontSize;
 		    line-height: 1;
 			}
 		}
 	}
 
 ul.user-nav.unstyled {
+	margin-left: 10%;
+	padding-left: 20px;
 	.clearfix;
 	margin-top: @verticalRhythm * 2;
+	position: relative;
 
 	li {
 		float: left;
-		margin-left: 8px;
+		margin-right: 8px;
 	}
+
+	li.user-show-more {
+		float: right;
+		margin-top: 6px;
+	}
+}
+
+.user-meta-data {
+	font-size: @baseFontSize - 2;
+	line-height: @baseLineHeight + 0.2;
+
+	& > ul {
+		& li {
+			margin: @verticalRhythm 0;
+
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+	}
+	dt {
+		margin-top: @verticalRhythm;
+	}
+	dd {
+		margin-bottom: @verticalRhythm;
+	}
+}
+
+.user-annotation {
+	color: lighten(@textColor, 40%);
+	padding-top: @verticalRhythm;
 }
 
 
