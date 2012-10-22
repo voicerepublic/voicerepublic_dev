@@ -14,3 +14,25 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+ function overlay(innerHTML){
+  var overlayContent = $("<div />");
+  overlayContent.append(innerHTML);
+  overlayContent.css({
+    width: "50%",
+    background: "white",
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    padding: "30px",
+    border: "1px black solid"
+  });
+  var body = $('body').css('position', 'relative');
+  body.append(overlayContent);
+  var overlayHeight = overlayContent.height();
+  var overlayWidth = overlayContent.width();
+  overlayContent.css({
+    marginTop: -parseInt(overlayHeight, 10)/2,
+    marginLeft: -parseInt(overlayWidth, 10)/2
+  });
+};
