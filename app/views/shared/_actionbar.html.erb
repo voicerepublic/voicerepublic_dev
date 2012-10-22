@@ -40,13 +40,14 @@
 						<i class="icon-search"> </i> 
 						<% end %>
 				 	</li>
-				 	<li>
-				 		<%= link_to("/", :title => t('.notifications', :default => "Notifications")) do %>
-				 			<i class="icon-bell"> </i> 
+				 	<li class="dropdown">
+				 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="<%= t('.notifications', :default => "Notifications") %>">
+				 			<i class="icon-bell"> </i>
 				 			<% unless current_user.notifications.unread.empty? %>
 				 				<span class="badge badge-important"><%= current_user.notifications.unread.count %></span>&nbsp;
 				 			<% end %>
-				 		<% end %>
+				 			<%= render(:partial => 'shared/notifications_list') %>
+				 		</a>
 				 	</li>
 				 	<li>
 				 		<%= link_to(user_conversations_path(:user_id => current_user), :title => t('.messages', :default => "Messages")) do %>

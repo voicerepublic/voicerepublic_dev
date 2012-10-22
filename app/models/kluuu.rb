@@ -11,7 +11,7 @@ class Kluuu < Klu
   # see base-class for base-validations
   validates_presence_of :charge_amount, :description, :category_id #, :currency  #, :currency
   
-  accepts_nested_attributes_for :klu_images
+  accepts_nested_attributes_for :klu_images, :allow_destroy => true
   
   composed_of :charge,
               :class_name => "Money",
