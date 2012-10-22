@@ -26,7 +26,7 @@ class VideoSessionsController < ApplicationController
   # GET /video_sessions/new
   # GET /video_sessions/new.json
   def new
-    @video_session = VideoSession.new
+    @video_session = VideoSession::Anonymous.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,9 +37,10 @@ class VideoSessionsController < ApplicationController
   # POST /video_sessions
   # POST /video_sessions.json
   def create
-    @video_session = VideoSession.new(params[:video_session])
+    @video_session = VideoSession::Base.new(params[:video_session])
     @klu = Klu.find(@video_session.klu_id) unless @video_session.klu_id.nil?
         
+    #TODO move to version of update method
     begin
       check_sezzion_create_prerequisites(@klu)  # checks for things that should be in order before creating a sezzion
     rescue KluuuExceptions::KluuuException => e
@@ -64,14 +65,21 @@ class VideoSessionsController < ApplicationController
   # PUT /video_sessions/1.json
   def update
     @video_session = VideoSession.find(params[:id])
-
+    
     respond_to do |format|
-      if @video_session.update_attributes(params[:video_session])
-        format.html { redirect_to @video_session, notice: 'Video session was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @video_session.errors, status: :unprocessable_entity }
+      begin 
+        if @video_session.update_attributes(params[:video_session])
+          format.js { redirect_to @video_session }
+        else
+          format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.update.failed_1')} and return }
+        end
+      rescue KluuuExceptions::KluuuException => e
+        logger.error("\n###############\nVideoSession#update - Exception caught - \n#{e.inspect}\n#####################")
+        if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
+          redirect_to e.redirect_link, :alert => e.msg and return
+        else
+          render e.render_partial, :locals => {:msg => e.msg} and return
+        end
       end
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017130809) do
+ActiveRecord::Schema.define(:version => 20121022105931) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -294,7 +294,7 @@ ActiveRecord::Schema.define(:version => 20121017130809) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "video_sessions", :force => true do |t|
+  create_table "video_session_bases", :force => true do |t|
     t.datetime "end_timestamp"
     t.datetime "begin_timestamp"
     t.string   "video_system_session_id"
