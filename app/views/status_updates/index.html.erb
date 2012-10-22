@@ -1,5 +1,10 @@
  <%- model_class = StatusUpdate -%>
-<section class="status-site">
+<section class="status status-site">
+	<% if @user == current_user %>
+		<aside class="status-new-link">
+			<%= link_to t('.new_status_update'), new_user_status_update_path, :class => 'btn btn-primary' %>		
+		</aside>
+	<% end %>
 	<ul class="unstyled status-list">
 		<% @status_updates.each do |status_update| %>
 			<li class="status-single">
@@ -7,7 +12,4 @@
 			</li>
 		<% end %>	
 	</ul>
-	<aside>
-		<%= link_to t('.new', :default => t("helpers.links.new")), new_user_status_update_path, :class => 'btn btn-primary' %>		
-	</aside>
 </section>

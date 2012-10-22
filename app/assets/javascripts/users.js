@@ -1,6 +1,8 @@
 (function($){
   $(function(){
-    $('.user-nav').append('<li><a href=\"#\" id=\"user-toggle\">Show more</a></li>');
+    var userShowMore = $('<li class=\"user-show-more\"><a href=\"#\" id=\"user-toggle\">Show more</a></li>');
+    var userShowMoreLink = userShowMore.find("a");
+    $('.user-nav').append(userShowMore);
     var userAboutShownLines = 2;
     var animationDuration = 300;
     var userInfo = $('.user-more-information').hide();
@@ -13,9 +15,11 @@
       if (userAboutHiddenToggle) {
         userAbout.animate({height: userAboutOriginalHeight}, animationDuration);
         userAboutHiddenToggle = !userAboutHiddenToggle;
+        userShowMoreLink.text("Show less");
       } else {
         userAbout.animate({height: userAboutHiddenHeight + "px"}, animationDuration);
         userAboutHiddenToggle = !userAboutHiddenToggle;
+        userShowMoreLink.text("Show more");
       };
       userInfo.slideToggle(animationDuration);
     });
