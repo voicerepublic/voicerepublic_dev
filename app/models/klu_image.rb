@@ -4,6 +4,6 @@ class KluImage < ActiveRecord::Base
   
   belongs_to :kluuu, :class_name => 'Kluuu', :foreign_key => :klu_id
   
-  validates :klu_id, :presence => true
+  #validates :klu_id, :presence => true # validation ripped because of nested forms wont work.
 
 end
