@@ -30,7 +30,8 @@
 				</section>
 				<aside class="klu-user-info span4">
 					<div class="call-btn btn">
-						<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
+						<%= render :partial => 'video_sessions/form' unless current_user.nil? %>
+						<%= button_to t('.call_now'), new_video_session_path, :remote => :true %>
 						<dl>
 							<dt><%= t('.price') %></dt>
 							<dd><%= @klu.charge_amount %> €</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->

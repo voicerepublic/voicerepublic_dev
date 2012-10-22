@@ -8,7 +8,6 @@ class VideoSessionsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @video_sessions }
     end
   end
 
@@ -19,18 +18,15 @@ class VideoSessionsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @video_session }
     end
   end
 
   # GET /video_sessions/new
   # GET /video_sessions/new.json
   def new
-    @video_session = VideoSession::Anonymous.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @video_session }
     end
   end
 
