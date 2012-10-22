@@ -1,10 +1,8 @@
-<%= form_tag "/search", :method => 'get', :class => 'form-search' do %>
-	<div class="input-append">
-		<input class="span8 search-query" id="appendedInputButton" size="16" type="text" value="<%= query %>" >
-		<button class="btn btn-primary" type="submit">
-			<i class="icon-search"> </i> <%= t('.search',:default => 'search') %>
-		</button>
-	</div>
+<%= form_tag "/search", :method => 'get', :class => 'search-form' do %>
+	<input class="search-query" name="query" type="text" value="<%= query %>" >
+	<button class="btn btn-primary" type="submit">
+		<i class="icon-search"> </i> <%= t('.search',:default => 'search') %>
+	</button>
 <% end %>
 
 

@@ -11,8 +11,9 @@
 		<![endif]-->
 		<%= stylesheet_link_tag "application", :media => "all" %>
 		<%= stylesheet_link_tag controller.controller_name, :media => "all" %>
+		<%= stylesheet_link_tag 'dashboard', :media => "all" %>
 		<%= javascript_include_tag "private_pub" %>
-		<link href="images/favicon.ico" rel="shortcut icon">
+		<link href="/images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
@@ -28,7 +29,7 @@
 		
 		<div class="container dashboard">
 			<!-- <h2><%= t('.dashboard', :default => 'Dashboard') %></h2> -->
-			<%= render(:partial => 'shared/dashboard_tabs') %>
+			<%= render(:partial => 'shared/dashboard_tabs', :locals => { :user => current_user }) %>
 			
 			<%= yield %>
 			

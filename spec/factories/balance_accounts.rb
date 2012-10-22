@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :balance_account, :class => 'Balance::Account' do
-    currency "MyString"
-    prepaid_cents 1
-    revenue_cents 1
-    user_id 1
+    currency "EUR"
+    balance_cents 25000
+    revenue_cents 0
+    user
   end
 end

@@ -8,7 +8,7 @@
 }
 
 body { 
-	padding-top: 45px;
+	padding-top: 70px;
 }
 
 .container {
@@ -87,32 +87,48 @@ img {
 		input, select, textarea {
 			width: 100%;
 		}
-		input[type="checkbox"] {
-			width: auto;
-		}
 	}
-
 	.form-actions {
 		padding-left: 0;
 	}
+	.form-actions {
+		text-align: right;
+		background:none;
+		border: none;
+		margin-top: @baseFontSize * @baseLineHeight;
+
+		input, a {
+			margin: 0 3px;
+		}
+		input:first-child, a:first-child {
+			margin-left: 0;
+		}
+		input:last-child, a:last-child {
+			margin-right: 0;
+		}
+	}
 }
 
-.form-actions {
-	text-align: right;
-	background:none;
-	border: none;
-	margin-top: @baseFontSize * @baseLineHeight;
+.control-group.checkbox {
+	position: relative;
+	padding-left: 20px;
 
-	input, a {
-		margin: 0 3px;
+	.control-label {
+		font-size: @baseFontSize;
 	}
-	input:first-child, a:first-child {
-		margin-left: 0;
-	}
-	input:last-child, a:last-child {
-		margin-right: 0;
+
+	.controls {
+		position: absolute;
+		left: 0;
+		top: 5px;
+
+		input[type="checkbox"] {
+			width: auto;
+			margin-left: 0;
+		}
 	}
 }
+
 
 /*
  *
@@ -153,7 +169,8 @@ h6 { font-size: 0.9em; font-size: 0.9rem }
 
 h1, h2, h3, h4, h5, h6 {
 	line-height: @baseLineHeight;
-	margin: (@verticalRhythm * 2) 0 @verticalRhythm 0;	
+	margin: (@verticalRhythm * 2) 0 @verticalRhythm 0;
+	font-weight: normal;
 }
 
 h1 small { font-size: 24px; }
@@ -170,13 +187,16 @@ p, blockquote, table, ul, ol {
  */
 
 .img-polaroid {
-	background: rgba(0,0,0,0.1);
 	padding: 1px;
 }
 
 /*
  * NAVBAR
  */
+
+ .navbar {
+ 	.box-shadow(0px 0px 2px lighten(@navbarBackgroundHighlight, 5%));
+ }
 
 .navbar .nav{
 	margin-right:0;
@@ -220,6 +240,10 @@ p, blockquote, table, ul, ol {
 	padding: 0px 7px 0px 0px;
 	position: relative;
 	line-height:22px;
+
+	&:hover {
+		text-shadow: 0px 0px 1px rgba(255,255,255,0.1);
+	}
 }
 
 .navbar .nav > li:last-child > a {

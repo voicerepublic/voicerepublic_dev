@@ -22,9 +22,9 @@ role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations wil
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
-after "deploy:setup", "dbconf:setup" #, "ts:setup"
-after "deploy:finalize_update", "dbconf", "ts"
-after :deploy, "ts:stop", "ts:symlink", "ts:reindex", "ts:start"
+after "deploy:setup", "dbconf:setup" 
+after "deploy:finalize_update", "dbconf", "ts:stop", "ts:symlink", "ts:reindex", "ts:start"
+
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -57,8 +57,8 @@ namespace :ts do
   desc "symlink thinking-sphinx yml to prod-host"
   task :symlink, :roles => :app do
     puts "linking staging.sphinx.conf from shared_path to current on app"
-    run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{current_path}/config/#{rails_env}.sphinx.conf"
-    run "ln -nfs #{shared_path}/db/sphinx #{current_path}/db/sphinx"
+    run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/config/#{rails_env}.sphinx.conf"
+    run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
   end
   
   desc "initialize indexes in thinking sphinx"

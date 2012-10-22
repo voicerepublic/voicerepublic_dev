@@ -1,6 +1,9 @@
 class ConversationsController < ApplicationController
   layout 'dashboard'
+  
+  before_filter :authenticate_user!
   before_filter :set_user
+  
   # GET /conversations
   # GET /conversations.json
   def index

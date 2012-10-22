@@ -4,7 +4,9 @@ describe Admin::DashboardController do
   
   before do
     %w(admin user).each { |x| Role.create(:name => x)}
-    @user = FactoryGirl.create(:admin)
+    @user = FactoryGirl.create(:user)
+    @user.roles << Role.find_by_name('admin')
+    @user.save
   end
 
   describe "GET 'index'" do

@@ -12,13 +12,13 @@
 	<li class="<%= current_page?(dashboard_contacts_path) ? 'active' : '' %>">
 		<%= link_to(t('.contacts'), dashboard_contacts_path ) %>
 	</li>
-	<li class="<%= (current_page?(user_conversations_path(:user_id => current_user)) || current_page?(user_messages_path(:user_id => current_user)))  ? 'active' : '' %>">
-		<%= link_to(t('.messages', :default => "Messages"), user_conversations_path(:user_id => current_user) ) %>
+	<li class="<%= (current_page?(user_conversations_path(:user_id => user)) || current_page?(user_messages_path(:user_id => user)))  ? 'active' : '' %>">
+		<%= link_to(t('.messages', :default => "Messages"), user_conversations_path(:user_id => user) ) %>
 	</li>
-	<li class="pull-right <%= current_page?(dashboard_settings_path) ? 'active' : '' %>">
+	<li class="pull-right <%= current_page?(dashboard_settings_edit_path) ? 'active' : '' %>">
 		<%= link_to(t('.settings'), dashboard_settings_edit_path ) %>
 	</li>
-	<li class="pull-right <%= current_page?(new_user_balance_check_in_order_path(:user_id => current_user)) ? 'active' : '' %>">
-		<%= link_to(t('.finances'), user_balance_account_path(:user_id => current_user) ) %>
+	<li class="pull-right <%= current_page?(new_user_balance_check_in_order_path(:user_id => user)) ? 'active' : '' %>">
+		<%= link_to(t('.finances'), user_balance_account_path(:user_id => user) ) %>
 	</li>
 </ul>

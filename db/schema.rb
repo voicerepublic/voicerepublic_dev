@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20121022105931) do
 
   create_table "balance_accounts", :force => true do |t|
     t.string   "currency"
-    t.integer  "prepaid_cents", :default => 0
+    t.integer  "balance_cents", :default => 0
     t.integer  "revenue_cents", :default => 0
     t.integer  "user_id"
     t.datetime "created_at",                   :null => false
@@ -194,6 +194,17 @@ ActiveRecord::Schema.define(:version => 20121022105931) do
     t.datetime "payment_stopped_timestamp"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+  end
+
+  create_table "paypal_payments", :force => true do |t|
+    t.text     "params"
+    t.integer  "check_in_order_id"
+    t.string   "status"
+    t.integer  "amount_cents"
+    t.string   "tact_id"
+    t.string   "currency"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "ratings", :force => true do |t|
