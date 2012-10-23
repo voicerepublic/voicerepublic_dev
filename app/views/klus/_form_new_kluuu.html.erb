@@ -1,0 +1,140 @@
+<% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
+<% method = @klu.new_record? ? :post : :put %>
+<%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal klu-new kluuu large-klu' }  do |f| %>
+<%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
+
+		<h4><%= t('.Describe_your_!KluuU!') %></h4>
+		<div class="row-fluid">
+			<div class="control-group span8 well">
+				<%= f.label :title, :class => 'control-label' %>
+				<div class="controls">
+					<%= f.text_field :title, :class => 'text_field klu-title' %>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.please_enter_the_name_of_your_!Kluu!') %>
+			</div>
+		</div>
+		
+		<div class="row-fluid">
+			<div class="span8 well">
+				<div class="control-group">
+					<%= f.label :tag_list, :class => "control-label"%>
+					<div class="controls">
+						<%= f.text_field :tag_list, :class => 'text_field' %>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<%= f.label :category_id, :class => 'control-label' %>
+					<div class="controls">
+						<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
+					</div>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.please_use_siginificant_tags_so_other_users_will_find_your_!Kluu!') %>
+			</div>
+		</div>
+		
+		<div class="row-fluid">
+			<div class="control-group well span8">
+				<%= f.label :description, :class => 'control-label' %>
+				<div class="controls">
+					<%= f.text_area :description, :class => 'text_area', :rows => 10 %>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.Please_describe_your_!kluuu!') %>	
+			</div>
+		</div>
+	
+	
+	<h4><%= t('.Image') %></h4>
+	<div class="row-fluid">
+		<div class="well span8">
+			<%= f.fields_for :klu_images do |builder| %>
+				<%= render(:partial => 'klu_image_fields', :locals => { :f => builder })%>
+			<% end %>
+		</div>
+		<div class="klu-new-help span4">
+			<%= t('.please_add_image_to_your_!Kluuu!') %>
+		</div>
+	</div>
+	
+  
+		<h4><%= t(".call_options") %></h4>
+		<div class="row-fluid">
+			<div class="control-group well span8">
+				<%= f.label :available_at_times, :class => 'control-label' %>
+				<div class="controls">
+					<%= f.text_field :available_at_times, :class => 'text_field'%>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.please_tell_the_people_at_which_time_you_are_available') %>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="control-group well span8">
+				<%= f.label :charge_type, :class => 'control-label'%>
+				<div class="controls">
+					<%= f.select(:charge_type, Kluuu::CHARGE_TYPES, { :selected => @klu.charge_type} ) %>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.if_you_like_you_can_charge_for_your_!KluuU!') %> <br>
+				<%= t('.you_can_charge_by_the_minute_or_charge_a_fixed_price') %>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="control-group well span8">
+				<%= f.label :charge_amount, :class => 'control-label'%>
+				<div class="controls">
+					<%= f.number_field(:charge_amount )%>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.how_much_do_you_want_to_charge?') %>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="control-group checkbox well span8">
+				<%= f.label :published, :class => 'control-label' %>
+				<div class="controls">
+					<%= f.check_box :published, :class => 'check_box' %>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.please_check_to_publish_your_!KluuU') %> <br>
+				<% t('.later_you_can_unpublish_and_publish_your_!KluuU!_at_any_time') %>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="control-group checkbox well span8">
+				<%= f.label :uses_status, :class => 'control-label' %>
+				<div class="controls">
+					<%= f.check_box :uses_status, :class => 'check_box' %>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.do_you_want_to_show_your_actual_status_in_your_!KluuU!?_otherwise_we_show_your_about_me_text') %>
+			</div>
+		</div>
+		
+	
+		
+			
+
+	
+
+		
+
+	<div class="form-actions span4">
+		<%= f.submit nil, :class => 'btn btn-primary' %>
+		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+		user_klus_path(:user_id => @user), :class => 'btn' %>
+	</div>
+</div>
+
+<% end %>

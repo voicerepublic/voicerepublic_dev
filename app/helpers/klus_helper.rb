@@ -22,6 +22,9 @@ module KlusHelper
     klu.instance_of?(Kluuu) ? render(:partial => 'klus/form_kluuu') : render(:partial => 'klus/form_no_kluuu')
   end
   
+  def form_for_new_klu(klu)
+    klu.instance_of?(Kluuu) ? render(:partial => 'klus/form_new_kluuu') : render(:partial => 'klus/form_new_no_kluuu')
+  end
   
   # returns a rendered partial for given kluuu in wanted size
   #
