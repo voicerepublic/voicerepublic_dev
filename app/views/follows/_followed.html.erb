@@ -5,7 +5,7 @@
 		<%# LINK FOR WHOLE THUMBAIL %>
 		<%= link_to user_path(:id => followed_relation.followed), :class => "user-thumbnail-link" do %>	
 			<%= image_tag(followed_relation.followed.account.portrait.url(:thumb)) %>
-			<strong><%= followed_relation.followed.name %></strong>
+			<%= followed_relation.followed.name %>
 		<% end %>
 			
 		<%= link_to user_follow_path(:user_id => @user, :id => followed_relation), :title => "Delete", :class => "close follows-user-thumbnail-unfollow", :method => :delete do %>
