@@ -57,6 +57,25 @@ img {
 	max-width: 100%;
 }
 
+.well {
+  
+  padding: @verticalRhythm;
+  margin-bottom: @verticalRhythm;
+  background-color: @wellBackground;
+  border: 1px solid darken(@wellBackground, 7%);
+  .border-radius(3px);
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.04));
+}
+
+// Sizes
+.well-large {
+  padding: @verticalRhythm + 5;
+  .border-radius(6px);
+}
+.well-small {
+  padding: @verticalRhythm - 5;
+}
+
 .form-horizontal {
 	.control-group {
 		margin: (@baseFontSize * @baseLineHeight * 0.5) 0;
@@ -307,10 +326,6 @@ p, blockquote, table, ul, ol {
 .klu-rating .icon{
 	font-size: @baseFontSize * 0.7;
 	line-height: @baseLineHeight * 0.7;	
-}
-
-.well, .well.well-large {
-	padding: 10px;
 }
 
 /*
