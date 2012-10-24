@@ -9,10 +9,13 @@
 			<% end %>			
 			<div class="container nav-collapse">
 				<ul class="nav">
-					<li class="actionbar-user">
-						<%= link_to user_path(:id => current_user) do %>
+					<li class="actionbar-user dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 							<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <%= current_user.name %>
-						<% end if current_user %>
+							<span id="user-availability" class="label label-<%= css_class_for_available(current_user.available) %>"><%= current_user.available %></span>
+							<b class="caret"></b>
+						</a>
+						<%= render(:partial => 'shared/user_dropdown_list') %>
 					</li>
 					<li>
 						<%= link_to(dashboard_path) do %>

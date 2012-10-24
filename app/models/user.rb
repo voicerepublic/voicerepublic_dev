@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
-  attr_accessible :provider, :uid, :last_request_at
+  attr_accessible :provider, :uid, :last_request_at, :available
  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :roles, :through => :user_roles
@@ -73,12 +73,12 @@ class User < ActiveRecord::Base
   end
   
   def availability_status
-    if (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
-      update_attribute(:available, :offline) if available.to_sym == :online || :bizzy
-      :offline
-    else
+    #if (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
+    #  update_attribute(:available, :offline) if available.to_sym == :online || :bizzy
+    #  :offline
+    #else
       available.to_sym
-    end
+    #end
   end
   
   def available?
