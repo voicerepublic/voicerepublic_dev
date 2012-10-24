@@ -10,7 +10,6 @@
 	klus.callButton = {
 		init: function() {
 			this.jqueryfy();
-			this.placeUserImage();
 		},
 		jqueryfy: function() {
 			$('.call-btn').addClass("jqueryfied")
