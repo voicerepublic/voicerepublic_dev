@@ -182,30 +182,12 @@
 			img {
 				display: block;
 			}
-			
-			.table-cell {
-				height: 239px;
-				display: table-cell;
-				vertical-align: middle;
-			}
 
 			img {
 				max-height:100%;
 				width: 100%;
 				margin: 0 auto;
 			}
-		}
-	}
-
-	.kluuu-description {
-		height: 12px * @baseLineHeight * 3;
-		overflow:hidden;
-		margin: (12px * @baseLineHeight) 2px;
-		color: @textColor;
-		font-size: 12px;
-
-		p {
-			margin: 0;
 		}
 	}
 
@@ -230,6 +212,20 @@
 		top: 4px;
 		right: @horizontal-offset;
 		font-size: @baseFontSize - 2px;
+	}
+
+	&.kluuu {
+		.kluuu-description {
+			height: 12px * @baseLineHeight * 3;
+			overflow:hidden;
+			margin: @verticalRhythm 2px;
+			color: @textColor;
+			font-size: 12px;
+
+			p {
+				margin: 0;
+			}
+		}
 	}
 } /* End of .medium-klu */
 
