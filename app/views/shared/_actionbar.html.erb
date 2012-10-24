@@ -4,7 +4,6 @@
 			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
 				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 			</a>
-			
 			<%= link_to root_path, :class => "brand", :title => "KluuU-logo", :class => "brand" do %>
 				<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %></h1>
 			<% end %>			
@@ -23,7 +22,6 @@
 					</li>
 				</ul>
 				<ul class="nav pull-right">
-
 					<% if current_user %>
 						<% if current_user.is_admin? %>
 							<li><%= link_to "admin", admin_dashboard_index_path %></li>
@@ -56,7 +54,7 @@
 				 		<% end %>
 				 	</li>
 					<li>
-						<% link_to(destroy_user_session_path, :method => :delete, :title => t('.logout', :default => "Logout") ) do %>
+						<%= link_to(destroy_user_session_path, :method => :delete, :title => t('.logout', :default => "Logout") ) do %>
 							<i class="icon-off"> </i>
 						<% end %>
 					</li>
