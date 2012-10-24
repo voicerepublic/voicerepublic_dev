@@ -25,54 +25,24 @@
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
-		<div class="container">
-			
-				<div class="user-container">
-					<section class="user-information well">
-						<header>
-							<%= link_to(image_tag( @user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => @user), :class=> "user-image") %>
-							<h2 class="user-name"><%= link_to(@user.name, user_path( :id => @user)) %></h2>
-							<div class="user-activity">
-								<i class="icon-bolt"></i> 55
-							</div>
-							<div class="user-about"><%= simple_format(@user.account.about) %></div>
-						</header>
-						<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
-						<ul class="user-nav unstyled">
-							<li>
-								<%= link_to(new_message_path(:receiver_id => @user.id), :class => "btn" ) do %>
-								<i class="icon-envelope"></i> <%= t('.send_message') %>
-								<% end unless current_user && current_user.id == @user.id %>
-							</li>
-							<li>
-								<% if current_user && current_user.id != @user.id %>
-									<% if current_user.followed.include?(@user) %>
-										<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @user).first), :class => "btn", :method => :delete) %>
-									<% else %>
-										<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small" )%>
-									<% end %>
-								<% end %>
-							</li>
-						</ul>
+		<div class="container user-container">
+				
+				<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
+				
+				<div class="user-content ">
+					<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
+
+					<section class="user-content-shown clearfix">
+						<%= yield %>
 					</section>
-						<div class="user-content ">
-							<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
-
-							<section class="user-content-shown clearfix">
-								<%= yield %>
-							</section>
-						</div>
-
-					
 				</div>
-				<footer>
-					<p>
-						&copy; KluuU 2012
-						<br />
-						<small><span class="label">rev: <%= git_revision %> - version <%= KluuuCode::VERSION %></span></small>
-					</p>
-				</footer>
-			</div>
+			<footer>
+				<p>
+					&copy; KluuU 2012
+					<br />
+					<small><span class="label">rev: <%= git_revision %> - version <%= KluuuCode::VERSION %></span></small>
+				</p>
+			</footer>
 		</div>
 		<!-- /container -->
 
