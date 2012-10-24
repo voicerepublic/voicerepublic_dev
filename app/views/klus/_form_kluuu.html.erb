@@ -3,6 +3,9 @@
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal kluuu large-klu' }  do |f| %>
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 <div class="klu-layout">
+	
+	<%= f.error_messages %>
+	
 	<div class="control-group">
 		<%= f.label :title, :class => 'control-label' %>
 		<div class="controls">

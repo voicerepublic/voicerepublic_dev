@@ -14,6 +14,14 @@ class Klu < ActiveRecord::Base
   #accepts_nested_attributes_for :klu_images, :allow_destroy => true
   
   validates_presence_of :title, :user_id
+  validates :tag_list, :presence => true 
+  #:length => { 
+  #                          :minimum => 2,
+  #                          :maximum => 10, 
+  #                          :too_short => '.must_supply_tags',
+  #                          :too_long  => '.must_supply_tags'
+  #                          }
+    
 
   scope :published, where("published=?", true)
   
