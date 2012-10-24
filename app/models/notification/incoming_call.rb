@@ -2,7 +2,7 @@ class Notification::IncomingCall < Notification::Base
   
   belongs_to :user
   belongs_to :other, :class_name => 'User'  # other here is klu-owner
-  belongs_to :video_session
+  belongs_to :video_session, :class_name => 'VideoSession::Base'
   
   attr_accessible :user_id, :other_id, :anon_id, :video_session_id
   
@@ -21,7 +21,8 @@ class Notification::IncomingCall < Notification::Base
   
   def generate_push_notification
     begin
-      PrivatePub.publish_to("/notifications/#{user_id}", "alert(<%= self.to_s %>);")
+      n = NotificationRenderer.new
+      PrivatePub.publish_to("/notifications/#{user_id}", n.render('notifications/incoming_call', :locals => {:video_session => self.video_session}))
     rescue Exception => e
       self.logger.error("#{self.class.name}#generate_push_notification - error: #{e.inspect}")
     end  

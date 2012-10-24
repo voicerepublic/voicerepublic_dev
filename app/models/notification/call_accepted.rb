@@ -16,10 +16,11 @@ class Notification::CallAccepted < Notification::Base
   
   def generate_push_notification
     begin
+      n = NotificationRenderer.new
       if self.anon_id.nil?
-        PrivatePub.publish_to("/notifications/#{self.user_id}", "alert('call accepted!');")
+        PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/call_accepted'))
       else
-        PrivatePub.publish_to("/notifications/#{self.anon_id}", "alert('call accepted!');")
+        PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_accepted'))
       end
     rescue Exception => e
       self.logger.error("Notification::CallAccepted#generate_push_notification - error: #{e.inspect}")

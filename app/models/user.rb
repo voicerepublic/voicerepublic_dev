@@ -82,7 +82,8 @@ class User < ActiveRecord::Base
   end
   
   def available?
-    return true if availability_status == :online
+    #TODO out for testing
+    return true #if availability_status == :online
   end
   
   def set_online!

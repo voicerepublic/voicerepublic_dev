@@ -29,25 +29,7 @@
 					</ul>
 				</section>
 				<aside class="klu-user-info span4">
-					<div class="call-btn btn">
-						<%= render :partial => 'video_sessions/form' unless current_user.nil? %>
-						<%= button_to t('.call_now'), new_video_session_path, :remote => :true %>
-						<dl>
-							<dt>
-								<%= t('.price') %>
-							</dt>
-							<dd>
-								<%= @klu.charge_amount %> €
-							</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
-							<dt>
-								<%= t('.availability') %>
-							</dt>
-							<dd>
-								<%= @klu.available_at_times %>
-							</dd>
-						</dl>
-						<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
-					</div><!-- End of call-btn -->
+					<%= render :partial => 'video_sessions/call_button', :locals => {:klu => @klu, :user => @user} %>
 					<div class="klu-user-info-inner">
 						<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
 						<h4><%= link_to@klu.user.name, user_path(:id => @klu.user) %></h4>

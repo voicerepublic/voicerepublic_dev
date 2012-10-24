@@ -25,8 +25,10 @@ class VideoSessionsController < ApplicationController
   # GET /video_sessions/new.json
   def new
     
+    @klu = Klu.find(params[:klu_id]) unless params[:klu_id].nil?
+    
     respond_to do |format|
-      format.html # new.html.erb
+      format.js # new.js.erb
     end
   end
 
@@ -89,11 +91,12 @@ class VideoSessionsController < ApplicationController
   # DELETE /video_sessions/1.json
   def destroy
     @video_session = VideoSession::Base.find(params[:id])
+    @video_session.canceling_participant_id = params[:canceling_participant_id]
     @video_session.destroy
 
     respond_to do |format|
-      format.html { redirect_to video_sessions_url }
-      format.json { head :no_content }
+      @msg = t('.call_ended', :default => 'call ended') 
+      format.js { render 'shared/notice_flash' }
     end
   end
   

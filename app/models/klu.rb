@@ -45,6 +45,10 @@ class Klu < ActiveRecord::Base
     where "published = true"
   end
   
+  def published?
+    return true if self.published
+  end
+  
   def get_charge_type_as_integer
     
     if self.charge_type == 'fix' 

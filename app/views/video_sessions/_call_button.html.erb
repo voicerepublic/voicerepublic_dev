@@ -1,0 +1,20 @@
+<div class="call-btn btn">
+	<%= render :partial => 'video_sessions/new_form', :locals => {:klu => klu} unless current_user.nil? %>
+	<%= button_to t('call_now'), new_video_session_path(:klu_id => klu.id), :method => :get, :remote => :true, :class => 'btn' if current_user.nil? %>
+	<dl>
+		<dt>
+			<%= t('.price') %>
+		</dt>
+		<dd>
+			<%= klu.charge_amount %> €
+		</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
+		<dt>
+			<%= t('.availability') %>
+		</dt>
+		<dd>
+			<%= klu.available_at_times %>
+		</dd>
+	</dl>
+	<%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user), :class => 'klu-user-image' ) %>
+</div><!-- End of call-btn -->
+					

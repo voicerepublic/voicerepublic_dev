@@ -1,0 +1,2 @@
+Take the call: <%= button_to t('.accept_call', :default => 'accept call'), video_session_path(video_session.id), :method => :put, :remote => :true, :class => 'btn', :disable_with => "#{t('connecting_call')}" %>
+or leave it <%= button_to t('.reject_call', :default => 'reject call'), video_session_path(:id => video_session.id, :canceling_participant_id => video_session.host_participant.id), :method => :delete, :remote => :true, :class => 'btn' %>

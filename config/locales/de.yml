@@ -196,7 +196,8 @@ de:
       micro: ! '%H:%M Uhr'
     pm: nachmittags
   
-  hello: "Hallo Welt"
+  call_now: "direkt anrufen"
+  call_dispatched: "anruf gestartet"
   
   will_paginate:
     next_label: ">>"

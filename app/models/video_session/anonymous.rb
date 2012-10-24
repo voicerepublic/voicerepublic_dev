@@ -9,6 +9,8 @@ class VideoSession::Anonymous < VideoSession::Base
   before_update :prepare_room_for_video_session
   after_create :create_call_accepted_notification
   
+  after_destroy :create_call_canceled_notification
+  
   validates_associated :host_participant, :guest_participant
 
  private
@@ -27,7 +29,7 @@ class VideoSession::Anonymous < VideoSession::Base
   end
   
   def create_incoming_call_notification
-   Notification::IncomingCall.create(:user_id => @klu_user.id, :anon_id => self.calling_user_id, :video_session_id => self.id)
+    Notification::IncomingCall.create(:user_id => @klu_user.id, :anon_id => self.calling_user_id, :video_session_id => self.id)
   end
   
   def prepare_room_for_video_session
@@ -45,5 +47,13 @@ class VideoSession::Anonymous < VideoSession::Base
   end
   
   def create_room_creation_failed_notification
+  end
+  
+  def create_call_canceled_notification  
+    if self.canceling_participant_id.to_i == self.guest_participant.id.to_i
+      Notification::MissedCall.create(:user_id => self.host_participant.user_id, :anon_id => self.guest_participant.user_cookie_session_id, :video_session_id => self.id)
+    else
+      Notification::CallRejected.create(:anon_id => self.guest_participant.user_cookie_session_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+    end
   end
 end
