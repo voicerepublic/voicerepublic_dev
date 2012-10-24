@@ -1,96 +1,148 @@
-	<div class="user-more-information">
-		<div class="row-fluid">
-			<aside class="user-meta-data span3">
-				<ul class="unstyled">
-					<li>
-						<%= user.name %> <%= t('.has') %> <%= user.follower.count %>
-						<% if user.follower.count != 1 %>
-							<%= t('.followers') %>
-						<% else %>
-							<%= t('.follower') %>
-						<% end %>
-					</li>
-				</ul>
-				<dl class="no-margin">
-					<dt>
-						<%= t(".time_at_location", :user => user.firstname) %>
-					</dt>
-					<dd>
-						<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
-						<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
-					</dd>
-					<dt>
-						<%= t('.languages') %>
-					</dt>
-					<dd>
-						<ul class="unstyled">
-							<% user.account.languages.each do |lang| %>
-							<li>
-								<%= lang %>
-							</li>
-							<% end %>
-						</ul>
-					</dd>
-				</dl>
-			</aside>
-			<article class="status-partial-container span9 status contribution">
-				
-				<header>
-					<i class="icon-comment-alt"></i>
-				</header>
-				<% unless user.status_updates.empty? %>
-					<% status_update = user.status_updates.limit(1).first %>
-					<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update), :class => "contribution-content") do %>
-						<%= simple_format(status_update.content) %>
-					<% end %>
-				<aside>
-			
-					<aside class="contribution-comment-links">
-						
-						<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment")) do %>
-							&nbsp; <%= t('.add_comment') %> &middot;
-						<% end if current_user %> 
-						<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments")) do %>
-							<i class="icon-comment"> </i>	<%= status_update.comments.count %> <%= t('.comments') %>
-						<% end %>
-					
-						
-						
-					</aside>
-					<time datetime="<%= status_update.created_at.strftime("%Y-%m-%d") %>">
-						<%= time_ago_in_words(status_update.created_at) %>
-					</time>
-					<%= link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do %>
-							<i class="icon-trash"> </i>
-					<% end %>
-					
-					<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini user-new-status" do %>
-						<i class="icon-edit"> </i> <%= t('.new_status_update') %>
-					<% end %>
-				<% else %>
-				<div class="user-annotation">
-					<% if current_user == user %>
-							<%= t(".you_haven't_written_any_status_updates_yet") %> <br />
-							<%= t(".what_do_you_have_to_say?") %>
-							<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini user-new-status" do %>
-									<i class="icon-edit"> </i> <%= t('.new_status_update') %>
-							<% end %>
-					<% else %>
-						<%= t(".the_user_hasn't_written_any_status_updates_yet") %>
-					<% end %>
+<section class="user-information well well-large clearfix">
+			<%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user), :class=> "user-image") %>
+			<div class="user-information-right">
+				<header class="row-fluid">
+					<div class="span7">
+						<h2 class="user-name"><%= link_to(user.name, user_path( :id => user)) %></h2>
+						<div class="user-activity badge">
+							<i class="icon-bolt"></i>55
+						</div>
 					</div>
-				<% end %>
-			</article>
-		</div>
+					<div class="span5">
+					<ul class="user-nav unstyled pull-right">
+						<li class="pull-right">
+							<%= link_to(new_message_path(:receiver_id => user.id), :class => "btn" ) do %>
+							<i class="icon-envelope"></i> <%= t('.send_message') %>
+							<% end unless current_user && current_user.id == user.id %>
+						</li>
+						<li class="pull-right">
+							<% if current_user && current_user.id != user.id %>
+								<% if current_user.followed.include?(user) %>
+									<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn", :method => :delete) %>
+								<% else %>
+									<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn btn-small" )%>
+								<% end %>
+							<% end %>
+						</li>
+					</ul>
+				</div>
+				</header>
+					<div class="user-information-more row-fluid">
+						<aside class="user-meta-data span5">
+							<ul class="unstyled user-other-links span8">
+								<li>
+									<%= link_to(user_status_updates_path(:user_id => user)) do %>
+  									<i class="icon-comment-alt"></i>
+										<%= user.name %> <%= t('.has') %> <%= user.status_updates.count %>
+										<% if user.status_updates.count != 1 %>
+											<%= t('.status') %>
+										<% else %>
+											<%= t('.status') %>
+										<% end %>
+									<% end %>
+								</li>
+								<li>
+									<%= link_to(user_bookmarks_path(:user_id => user) ) do %>
+										<i class="icon-bookmark-empty"></i>
+										<%= user.name %> <%= t('.has') %> <%= user.bookmarks.count %>
+										<% if user.bookmarks.count != 1 %>
+											<%= t('.bookmarks') %>
+										<% else %>
+											<%= t('.bookmark') %>
+										<% end %>
+									<% end %>
+								</li>
+								<li>
+									<%= user.name %> <%= t('.has') %> <%= user.follower.count %>
+									<% if user.follower.count != 1 %>
+										<%= t('.followers') %>
+									<% else %>
+										<%= t('.follower') %>
+									<% end %>
+								</li>
+							</ul>
+							<dl class="no-margin span4">
+								<dt>
+									<%= t(".time_at_location", :user => user.firstname) %>
+								</dt>
+								<dd>
+									<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
+									<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
+								</dd>
+								<dt class="user-languages">
+									<%= t('.languages') %>
+								</dt>
+								<dd>
+									<ul class="unstyled">
+										<% user.account.languages.each do |lang| %>
+										<li>
+											<%= lang  %>
+										</li>
+										<% end %>
+									</ul>
+								</dd>
+							</dl>
+							<section class="span12 no-margin">
+								<h4> <%= t(".user_description") %> </h4>
+								<%= simple_format(user.account.about) %>
+							</section>
+						</aside>
+						
+						<article class="status-partial-container status contribution span7">
+							<header>
+								<i class="icon-comment-alt"></i>
+								<h4 class="contribution-name"><%= t('.Status') %></h4>
+							</header>
+							<% unless user.status_updates.empty? %>
+								<% status_update = user.status_updates.limit(1).first %>
+								<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update), :class => "contribution-content") do %>
+									<%= simple_format(status_update.content) %>
+								<% end %>
+								<aside class="contribution-comment-links">
+									
+									<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment")) do %>
+										&nbsp; <%= t('.add_comment') %> &middot;
+									<% end if current_user %> 
+									<%= link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments")) do %>
+										<i class="icon-comment"> </i>	<%= status_update.comments.count %> <%= t('.comments') %>
+									<% end %>
+								
+									
+									
+								</aside>
+								<time datetime="<%= status_update.created_at.strftime("%Y-%m-%d") %>">
+									<%= time_ago_in_words(status_update.created_at) %>
+								</time>
+								<%= link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do %>
+										<i class="icon-trash"> </i>
+								<% end %>
+								
+								<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini user-new-status" do %>
+									<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+								<% end %>
+							<% else %>
+							<div class="user-annotation">
+								<% if current_user == user %>
+										<%= t(".you_haven't_written_any_status_updates_yet") %> <br />
+										<%= t(".what_do_you_have_to_say?") %>
+										<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-primary btn-mini user-new-status" do %>
+												<i class="icon-edit"> </i> <%= t('.new_status_update') %>
+										<% end %>
+								<% else %>
+									<%= t(".the_user_hasn't_written_any_status_updates_yet") %>
+								<% end %>
+								</div>
+							<% end %>
+						</article>
+					</div>
+				</div>
+		</section>
 		
-	</div>
-	
-		
-		<% if can? :manage, @user %>
-			<%= link_to( edit_user_account_path(:user_id => @user)) do %> 
-				<nav class="user-edit-link">
+		<% if can? :manage, user %>
+			<nav class="user-edit-link">
+				<%= link_to( edit_user_account_path(:user_id => user)) do %> 
 					<i class="icon-pencil"></i>
 					<%= t('.edit_account') %> 
-				</nav>
-			<% end %>
+				<% end %>
+			</nav>
 		<% end %>

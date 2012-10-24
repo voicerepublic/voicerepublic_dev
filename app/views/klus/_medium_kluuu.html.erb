@@ -4,7 +4,7 @@
 	<%= link_to( klu_path(:id => klu)) do %>
 		<h3 class="no-margin"><%= klu.title %> </h3>
 		<div class="klu-eyecatcher"><%= image_tag(klu.klu_images.first.image.url(:medium)) unless klu.klu_images.empty? %></div>
-		<section class="kluuu-description"><div class="table-cell"><%= simple_format(klu.description) %></div></section>
+		<section class="kluuu-description"><div class="table-cell"><%= limit_words(klu.description, 17) %></div></section>
 	<% end %>
 	<aside class="klu-overall-rating">
 					<%= overall_rating_stars(klu) %>

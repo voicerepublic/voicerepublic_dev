@@ -4,16 +4,18 @@
 			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
 				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 			</a>
-			
 			<%= link_to root_path, :class => "brand", :title => "KluuU-logo", :class => "brand" do %>
 				<h1><%= image_tag "KluuU_Logo_Black.png", :alt => "Logo" %></h1>
 			<% end %>			
 			<div class="container nav-collapse">
 				<ul class="nav">
-					<li class="actionbar-user">
-						<%= link_to user_path(:id => current_user) do %>
+					<li class="actionbar-user dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 							<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <%= current_user.name %>
-						<% end if current_user %>
+							<span id="user-availability" class="label label-<%= css_class_for_available(current_user.available) %>"><%= current_user.available %></span>
+							<b class="caret"></b>
+						</a>
+						<%= render(:partial => 'shared/user_dropdown_list') %>
 					</li>
 					<li>
 						<%= link_to(dashboard_path) do %>
@@ -23,7 +25,6 @@
 					</li>
 				</ul>
 				<ul class="nav pull-right">
-
 					<% if current_user %>
 						<% if current_user.is_admin? %>
 							<li><%= link_to "admin", admin_dashboard_index_path %></li>
@@ -40,7 +41,6 @@
 						<i class="icon-search"> </i> 
 						<% end %>
 				 	</li>
-				 	
 				 	<li class="dropdown">
 				 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications', :default => "Notifications") %>">
 				 			<i class="icon-bell"></i>

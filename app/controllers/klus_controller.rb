@@ -35,6 +35,10 @@ class KlusController < ApplicationController
     else
       logger.debug("Klus#new  - creating new NoKluuu")
       @klu = NoKluuu.new
+      if params[:query]
+        @klu.title = params[:query]
+        @klu.tag_list = params[:query].split(' ')
+      end
     end
     respond_to do |format|
       format.html # new.html.erb
