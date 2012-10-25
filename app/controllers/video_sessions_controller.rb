@@ -41,7 +41,7 @@ class VideoSessionsController < ApplicationController
       @video_session = VideoSession::Anonymous.new(params[:video_session])
     end 
     
-    @klu = Klu.find(@video_session.klu_id) unless @video_session.klu_id.nil?
+    @klu = Klu.find(@video_session.klu_id)
         
     #TODO move to version of update method
     begin
