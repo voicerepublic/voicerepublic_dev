@@ -19,12 +19,21 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe Balance::CheckInOrdersController do
+  
+  before do
+    @user = FactoryGirl.create(:user)
+    @user.create_balance_account(FactoryGirl.attributes_for(:balance_account))
+    @user.reload
+    #puts @user.balance_account.inspect
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub :current_user => @user
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Balance::CheckInOrder. As you add validations to Balance::CheckInOrder, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:balance_check_in_order)
   end
 
   # This should return the minimal set of values that should be in the session
@@ -34,54 +43,57 @@ describe Balance::CheckInOrdersController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all balance_check_in_orders as @balance_check_in_orders" do
-      check_in_order = Balance::CheckInOrder.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:balance_check_in_orders).should eq([check_in_order])
-    end
-  end
+  #describe "GET index" do
+  #  it "assigns all balance_check_in_orders as @balance_check_in_orders" do
+  #    check_in_order = Balance::CheckInOrder.create! valid_attributes
+  #    get :index, {}, valid_session
+  #    assigns(:balance_check_in_orders).should eq([check_in_order])
+  #  end
+  #end
 
-  describe "GET show" do
-    it "assigns the requested check_in_order as @check_in_order" do
-      check_in_order = Balance::CheckInOrder.create! valid_attributes
-      get :show, {:id => check_in_order.to_param}, valid_session
-      assigns(:check_in_order).should eq(check_in_order)
-    end
-  end
+  #describe "GET show" do
+  #  it "assigns the requested check_in_order as @check_in_order" do
+  #    check_in_order = Balance::CheckInOrder.create! valid_attributes
+  #    get :show, {:id => check_in_order.to_param}, valid_session
+  #    assigns(:check_in_order).should eq(check_in_order)
+  #  end
+  #end
 
   describe "GET new" do
     it "assigns a new check_in_order as @check_in_order" do
-      get :new, {}, valid_session
-      assigns(:check_in_order).should be_a_new(Balance::CheckInOrder)
+      get :new, {:user_id => @user}, valid_session
+      assigns(:balance_check_in_order).should be_a_new(Balance::CheckInOrder)
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested check_in_order as @check_in_order" do
-      check_in_order = Balance::CheckInOrder.create! valid_attributes
-      get :edit, {:id => check_in_order.to_param}, valid_session
-      assigns(:check_in_order).should eq(check_in_order)
-    end
-  end
+  #describe "GET edit" do
+  #  it "assigns the requested check_in_order as @check_in_order" do
+  #    check_in_order = Balance::CheckInOrder.create! valid_attributes
+  #    get :edit, {:id => check_in_order.to_param}, valid_session
+  #    assigns(:check_in_order).should eq(check_in_order)
+  #  end
+  #end
 
   describe "POST create" do
     describe "with valid params" do
-      it "creates a new Balance::CheckInOrder" do
+      it "creates a new Balance::CheckInOrder"  do
+        
+        x = FactoryGirl.build(:balance_check_in_order, :balance_account_id => @user.balance_account.id)
         expect {
-          post :create, {:check_in_order => valid_attributes}, valid_session
+          post :create, {:user_id => @user, :balance_check_in_order => FactoryGirl.attributes_for(:balance_check_in_order)}, valid_session
         }.to change(Balance::CheckInOrder, :count).by(1)
       end
 
-      it "assigns a newly created check_in_order as @check_in_order" do
-        post :create, {:check_in_order => valid_attributes}, valid_session
-        assigns(:check_in_order).should be_a(Balance::CheckInOrder)
-        assigns(:check_in_order).should be_persisted
+      it "assigns a newly created check_in_order as @balance_check_in_order" do
+        post :create, {:user_id => @user, :balance_check_in_order => valid_attributes}, valid_session
+        assigns(:balance_check_in_order).should be_a(Balance::CheckInOrder)
+        assigns(:balance_check_in_order).should be_persisted
       end
 
-      it "redirects to the created check_in_order" do
-        post :create, {:check_in_order => valid_attributes}, valid_session
-        response.should redirect_to(Balance::CheckInOrder.last)
+      it "renders the paypal form" do
+        post :create, {:user_id => @user, :balance_check_in_order => valid_attributes}, valid_session
+        #response.should redirect_to(Balance::CheckInOrder.last)
+        response.should render_template("paypal")
       end
     end
 
@@ -89,75 +101,31 @@ describe Balance::CheckInOrdersController do
       it "assigns a newly created but unsaved check_in_order as @check_in_order" do
         # Trigger the behavior that occurs when invalid params are submitted
         Balance::CheckInOrder.any_instance.stub(:save).and_return(false)
-        post :create, {:check_in_order => {}}, valid_session
-        assigns(:check_in_order).should be_a_new(Balance::CheckInOrder)
+        post :create, {:user_id => @user, :balance_check_in_order => {}}, valid_session
+        assigns(:balance_check_in_order).should be_a_new(Balance::CheckInOrder)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Balance::CheckInOrder.any_instance.stub(:save).and_return(false)
-        post :create, {:check_in_order => {}}, valid_session
+        post :create, {:user_id => @user, :balance_check_in_order => {}}, valid_session
         response.should render_template("new")
       end
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested check_in_order" do
-        check_in_order = Balance::CheckInOrder.create! valid_attributes
-        # Assuming there are no other balance_check_in_orders in the database, this
-        # specifies that the Balance::CheckInOrder created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Balance::CheckInOrder.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => check_in_order.to_param, :check_in_order => {'these' => 'params'}}, valid_session
-      end
-
-      it "assigns the requested check_in_order as @check_in_order" do
-        check_in_order = Balance::CheckInOrder.create! valid_attributes
-        put :update, {:id => check_in_order.to_param, :check_in_order => valid_attributes}, valid_session
-        assigns(:check_in_order).should eq(check_in_order)
-      end
-
-      it "redirects to the check_in_order" do
-        check_in_order = Balance::CheckInOrder.create! valid_attributes
-        put :update, {:id => check_in_order.to_param, :check_in_order => valid_attributes}, valid_session
-        response.should redirect_to(check_in_order)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the check_in_order as @check_in_order" do
-        check_in_order = Balance::CheckInOrder.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Balance::CheckInOrder.any_instance.stub(:save).and_return(false)
-        put :update, {:id => check_in_order.to_param, :check_in_order => {}}, valid_session
-        assigns(:check_in_order).should eq(check_in_order)
-      end
-
-      it "re-renders the 'edit' template" do
-        check_in_order = Balance::CheckInOrder.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Balance::CheckInOrder.any_instance.stub(:save).and_return(false)
-        put :update, {:id => check_in_order.to_param, :check_in_order => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
+  describe "cancel paypal form with DELETE destroy" do
     it "destroys the requested check_in_order" do
-      check_in_order = Balance::CheckInOrder.create! valid_attributes
+      check_in_order = @user.balance_account.check_in_orders.create(FactoryGirl.attributes_for(:balance_check_in_order))
       expect {
-        delete :destroy, {:id => check_in_order.to_param}, valid_session
+        delete :destroy, {:user_id => @user, :id => check_in_order.to_param}, valid_session
       }.to change(Balance::CheckInOrder, :count).by(-1)
     end
 
     it "redirects to the balance_check_in_orders list" do
-      check_in_order = Balance::CheckInOrder.create! valid_attributes
-      delete :destroy, {:id => check_in_order.to_param}, valid_session
-      response.should redirect_to(balance_check_in_orders_url)
+      check_in_order = @user.balance_account.check_in_orders.create(FactoryGirl.attributes_for(:balance_check_in_order))
+      delete :destroy, { :user_id => @user, :id => check_in_order.to_param}, valid_session
+      response.should redirect_to(user_balance_account_url(:user_id => @user))
     end
   end
 

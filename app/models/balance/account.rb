@@ -6,6 +6,7 @@ class Balance::Account < ActiveRecord::Base
   
   belongs_to :user
   has_many :paypal_payments
+  has_many :check_in_orders, :class_name => 'Balance::CheckInOrder', :foreign_key => 'balance_account_id'
   
   monetize :balance_cents
   monetize :revenue_cents
