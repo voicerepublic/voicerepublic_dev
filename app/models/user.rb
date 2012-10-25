@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   
   def availability_status
     puts self.inspect
-    if !available.nil? && (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
+    if (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
       update_attribute(:available, :offline) if available.to_sym == :online || :bizzy
       :offline
     else
