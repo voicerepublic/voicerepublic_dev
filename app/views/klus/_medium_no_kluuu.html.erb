@@ -1,7 +1,7 @@
 <article class="medium-klu klu-layout no-kluuu">
 	<div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
 	<%= link_to( klu_path(:id => klu)) do %>
-		<h3 class="no-margin klu-eyecatcher"><%= klu.title %></h3>	
+		<h3 class="no-margin klu-eyecatcher klu-title"><%= klu.title %></h3>	
 	<% end %>
 	<div class="call-btn btn">
 		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>

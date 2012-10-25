@@ -158,11 +158,12 @@
 		display: block;
 	}
 	
-	h3 {
+	h3.no-margin {
 		.klu-title;
 		color: @textColor;
+		font-size: 17px;
 		height: 80px;
-		overflow:hidden;
+		margin: @verticalRhythm 0;
 	}
 
 	.klu-eyecatcher {
@@ -262,6 +263,9 @@
 	padding-top: @large-klu-padding-top;
 	position: relative;
 
+	.klu-title {
+		height: 32px * 1.5;
+	}
 
 	.klu-layout {
 		padding: @vertical-offset @horizontal-offset;

@@ -2,7 +2,7 @@
 	<div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
 	
 	<%= link_to( klu_path(:id => klu)) do %>
-		<h3 class="no-margin"><%= klu.title %> </h3>
+		<h3 class="no-margin klu-title"><%= klu.title %> </h3>
 		<div class="klu-eyecatcher"><%= image_tag(klu.klu_images.first.image.url(:medium)) unless klu.klu_images.empty? %></div>
 		<section class="kluuu-description"><div class="table-cell"><%= limit_words(klu.description, 17) %></div></section>
 	<% end %>
