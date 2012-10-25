@@ -13,6 +13,8 @@ class PaypalPayment < ActiveRecord::Base
   after_create :mark_checkin_complete
 
   validates :check_in_order_id, :presence => true
+  
+  validates_associated :check_in_order
 
   
   private

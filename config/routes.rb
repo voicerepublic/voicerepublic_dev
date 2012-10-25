@@ -4,12 +4,6 @@ Kluuu2::Application.routes.draw do
 
   resources :video_servers
 
-  resources :paypal_payments
-
-  get "ipn/create"
-
-  #resources :ratings
-
   resources :video_sessions
 
   scope "(/:locale)", :locale => /de|en/ do
@@ -28,7 +22,6 @@ Kluuu2::Application.routes.draw do
     post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
     get "tags/:tag", :controller => 'landing_page', :action => 'show_tagged_with', :as => 'tagged_with'
-    
   end
   
   scope "(/:locale)", :locale => /de|en/ do
@@ -73,12 +66,10 @@ Kluuu2::Application.routes.draw do
       end
       namespace :balance do
         resource :account
-        resources :check_in_orders 
+        resources :check_in_orders, :only => [:new, :create, :destroy]
       end
     end
   end
-  
-  post "ipn", :controller => 'paypal_payments', :action => 'create'
   
   namespace :admin do
     resources :users
@@ -86,6 +77,9 @@ Kluuu2::Application.routes.draw do
     resources :klus
     get "dashboard/index"
   end
+  
+  post "ipn", :controller => 'paypal_payments', :action => 'create'
+  resources :paypal_payments
   
   
 

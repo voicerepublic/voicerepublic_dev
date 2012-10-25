@@ -6,7 +6,7 @@ FactoryGirl.define do
     completed false
     completed_at "2012-10-15 17:18:39"
     currency "EUR"
-    amount_cents 10000
+    amount_cents 1000
     
     trait :completed_check_in_order do
       completed true
