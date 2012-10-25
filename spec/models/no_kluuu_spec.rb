@@ -27,5 +27,9 @@ describe NoKluuu do
     FactoryGirl.build(:no_kluuu, description: nil).should be_valid
   end
   
+  it "is invalid without tag_list" do
+    FactoryGirl.build(:no_kluuu, tag_list: nil).should_not be_valid
+  end
+  
   
 end

@@ -25,6 +25,10 @@ describe Kluuu do
     FactoryGirl.build(:kluuu, description: nil).should_not be_valid
   end
   
+  it "is invalid without tag_list" do
+    FactoryGirl.build(:kluuu, tag_list: nil).should_not be_valid
+  end
+  
   it "has many images" do
     _pk = FactoryGirl.create(:kluuu_with_image)
     _pk.klu_images.should_not be_empty
