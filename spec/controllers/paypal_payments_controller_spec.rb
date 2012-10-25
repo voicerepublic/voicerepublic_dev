@@ -19,12 +19,16 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe PaypalPaymentsController do
+  
+  before do
+    @check_in_order = FactoryGirl.create(:balance_check_in_order)
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # PaypalPayment. As you add validations to PaypalPayment, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    FactoryGirl.attributes_for(:paypal_payment)
   end
 
   # This should return the minimal set of values that should be in the session
@@ -39,37 +43,34 @@ describe PaypalPaymentsController do
     describe "with valid params" do
       it "creates a new PaypalPayment" do
         expect {
-          post :create, {:paypal_payment => valid_attributes}, valid_session
+          post :create, {:paypal_payment => valid_attributes, :invoice => @check_in_order.id, :charset => 'utf-8' }, valid_session
         }.to change(PaypalPayment, :count).by(1)
       end
 
       it "assigns a newly created paypal_payment as @paypal_payment" do
-        post :create, {:paypal_payment => valid_attributes}, valid_session
+        post :create, {:paypal_payment => valid_attributes, :invoice => @check_in_order.id, :charset => 'utf-8'}, valid_session
         assigns(:paypal_payment).should be_a(PaypalPayment)
         assigns(:paypal_payment).should be_persisted
       end
 
       it "redirects to the created paypal_payment" do
-        post :create, {:paypal_payment => valid_attributes}, valid_session
-        response.should redirect_to(PaypalPayment.last)
+        post :create, {:paypal_payment => valid_attributes, :invoice => @check_in_order.id, :charset => 'utf-8'}, valid_session
+        response.should be_success
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved paypal_payment as @paypal_payment" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        PaypalPayment.any_instance.stub(:save).and_return(false)
-        post :create, {:paypal_payment => {}}, valid_session
-        assigns(:paypal_payment).should be_a_new(PaypalPayment)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        PaypalPayment.any_instance.stub(:save).and_return(false)
-        post :create, {:paypal_payment => {}}, valid_session
-        response.should render_template("new")
-      end
-    end
+    #describe "with invalid params" do
+    #  it "returns an error" do
+    #    # Trigger the behavior that occurs when invalid params are submitted
+    #    PaypalPayment.any_instance.stub(:save).and_return(false)
+    #    expect {
+    #      post :create, { :paypal_payment => nil, :charset => "utf-8" }, valid_session
+    #    }.to raise_error 
+    #    #response.should be_error
+    #    #assigns(:paypal_payment).should be_a_new(PaypalPayment)
+    #  end
+    #  
+    #end
   end
 
 end
