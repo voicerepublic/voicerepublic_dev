@@ -4,7 +4,7 @@ require 'video_system_api'
 class VideoRoom < ActiveRecord::Base
   
   belongs_to :video_server
-  belongs_to :video_session
+  belongs_to :video_session, :class_name => 'VideoSession::Base'
 
   attr_accessible :guest_password, :host_password, :video_system_room_id, :name, :video_server_id, :video_session_id, :welcome_msg
   

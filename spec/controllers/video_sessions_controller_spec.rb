@@ -259,16 +259,14 @@ describe VideoSessionsController do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
         delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
-      }.to change(Notification::Base, :count)
-      Notification::Base.where('video_session_id = ?', video_session.id).count.should == 1
+      }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "deletes all preceding notifications if host cancels the session" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
         delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
-      }.to change(Notification::Base, :count)
-      Notification::Base.where('video_session_id = ?', video_session.id).count.should == 1
+      }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "generates a missed call notification for registered video sessions if canceling user is guest" do
@@ -315,16 +313,14 @@ describe VideoSessionsController do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
         delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
-      }.to change(Notification::Base, :count)
-      Notification::Base.where('video_session_id = ?', video_session.id).count.should == 1
+      }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "deletes all preceding notifications if host cancels the session" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
         delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
-      }.to change(Notification::Base, :count)
-      Notification::Base.where('video_session_id = ?', video_session.id).count.should == 1
+      }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "generates a missed call notification for anonymous video sessions if canceling user is guest" do
@@ -352,7 +348,5 @@ describe VideoSessionsController do
       delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session
       response.should render_template 'notifications/call_rejected'
     end
-      
-  
   end
 end

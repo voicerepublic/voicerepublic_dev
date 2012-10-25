@@ -1,7 +1,7 @@
 class VideoSession::Anonymous < VideoSession::Base
   
-  has_one :host_participant, :autosave => true, :class_name => 'Participant::Registered', :foreign_key => 'video_session_id'
-  has_one :guest_participant, :autosave => true, :class_name => 'Participant::Anonymous', :foreign_key => 'video_session_id'
+  has_one :host_participant, :autosave => true, :class_name => 'Participant::Registered', :foreign_key => 'video_session_id', :dependent => :destroy
+  has_one :guest_participant, :autosave => true, :class_name => 'Participant::Anonymous', :foreign_key => 'video_session_id', :dependent => :destroy
   
   before_create :prepare_one_on_one_video_session
   after_create :create_incoming_call_notification
@@ -9,7 +9,7 @@ class VideoSession::Anonymous < VideoSession::Base
   before_update :prepare_room_for_video_session
   after_create :create_call_accepted_notification
   
-  after_destroy :create_call_canceled_notification
+  before_destroy :create_call_canceled_notification
   
   validates_associated :host_participant, :guest_participant
 
@@ -51,8 +51,10 @@ class VideoSession::Anonymous < VideoSession::Base
   
   def create_call_canceled_notification  
     if self.canceling_participant_id.to_i == self.guest_participant.id.to_i
+      self.notifications.destroy_all
       Notification::MissedCall.create(:user_id => self.host_participant.user_id, :anon_id => self.guest_participant.user_cookie_session_id, :video_session_id => self.id)
     else
+      self.notifications.destroy_all
       Notification::CallRejected.create(:anon_id => self.guest_participant.user_cookie_session_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
     end
   end
