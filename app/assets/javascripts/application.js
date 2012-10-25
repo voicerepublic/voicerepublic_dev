@@ -60,6 +60,7 @@ function fitText(jquerySelector) {
         text.css("font-size", currentFontSize + "px");
         console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
       };
+      inner.css("padding-top", (targetHeight - inner.height())/2 + "px");
     });
   };
   calculateSize();
