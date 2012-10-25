@@ -42,9 +42,16 @@ function fitText(jquerySelector) {
   var calculateSize = function() {
     var text = $(jquerySelector);
     $.each(text, function(){
-      var text = $(this);
+      var text = $(this).css({
+        lineHeight: 0,
+        fontSize: 0
+      });
       var targetHeight = text.height();
+      var targetWidth = text.width();
+      console.log("targetWidth: " + targetWidth)
       var inner = $("<div />").css({
+        display: "inline-block",
+        lineHeight: 1.5
       });
       text.wrapInner(inner);
       inner = text.find("div");
@@ -55,7 +62,7 @@ function fitText(jquerySelector) {
           text.css("font-size", currentFontSize + "px");
           console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
       };
-      while (inner.height() > targetHeight) {
+      while (inner.height() > targetHeight || inner.width() > targetWidth) {
         currentFontSize--;
         text.css("font-size", currentFontSize + "px");
         console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
