@@ -3,6 +3,7 @@
 
 <%= form_for [@klu_image.kluuu.user, @klu_image.kluuu, @klu_image], :as => :klu_image, :url => url, :method => method,  :html => { :class => 'form-horizontal' } do |f| %>
 
+	<%= f.error_messages %>
 
   <div class="control-group">
     <%= f.label :description, :class => 'control-label' %>

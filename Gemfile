@@ -31,9 +31,10 @@ gem 'money-rails'             # integrates some helper methods and AR-instance-f
 gem 'eu_central_bank'         # financial exchange rates
 gem 'cancan'                  # authorization/privileges
 gem 'private_pub'             # push service
-gem 'thin'                    # faster develpment-server
+gem 'thin'                    # faster development-server
 gem 'capistrano'              # deployment
 gem 'thinking-sphinx'         # indexed search
+gem "dynamic_form"            # form helper for errors
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do

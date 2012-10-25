@@ -1,6 +1,2 @@
-
-$("#user-availability").removeClass().addClass('<%= escape_javascript("label label-" + css_class_for_available(@user.available))%>');
+$("#user-availability").hide('slow').removeClass().addClass('<%= escape_javascript("label label-" + css_class_for_available(@user.available))%>').show('slow');
 $("#user-availability").html('<%= escape_javascript(@user.available) %>');	
-
-
-

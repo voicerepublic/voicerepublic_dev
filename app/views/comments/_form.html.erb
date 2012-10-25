@@ -1,16 +1,8 @@
 
 <%= form_tag user_status_update_comments_url(:user_id => @user, :status_update_id => @status_update ) do %>
-  <% if @comment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
 
-      <ul>
-      <% @comment.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<%= error_messages_on(@comment) %>
+  
 
 	<div class="control-group">
 	<%= label_tag t('.your_comment', :default => "comment"),nil,  :class => 'control-label'  %>

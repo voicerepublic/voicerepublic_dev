@@ -1,7 +1,15 @@
 <div class="search">
 	<h2><%= t('.search_results') %></h2>
+	<div class="well well-large">
 	<%= render(:partial => 'search/form', :locals => {:query => @query}) %>
-	<%= link_to( t('.publish_search_as_?KluuU?'), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn search-new-no-kluuu") %>
+	<% if current_user %>
+		<%= link_to( t('.publish_search_as_?KluuU?'), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn search-new-no-kluuu")  %>
+	<% else %>
+		<span class="label label-info"><%= t('.you_can_persist_your_search') %></span>
+		&nbsp;<%= link_to(t('.log_in'), new_user_session_path, :class => "btn") %> <%= t('.or')%> 
+		&nbsp;<%= link_to(t('.register'), new_user_registration_path , :class => "btn") %>
+	<% end %>
+	</div>
 	<div class="row-fluid search-results">
 		<% hash = hash_by_kluuu_type( @klus) %>
 		<% hash.keys.each do |k| %>

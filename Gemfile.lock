@@ -71,6 +71,7 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
+    dynamic_form (1.1.4)
     em-http-request (1.0.3)
       addressable (>= 2.2.3)
       cookiejar
@@ -306,6 +307,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise
+  dynamic_form
   eu_central_bank
   factory_girl_rails
   faker

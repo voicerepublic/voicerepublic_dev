@@ -34,36 +34,6 @@ describe PaypalPaymentsController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all paypal_payments as @paypal_payments" do
-      paypal_payment = PaypalPayment.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:paypal_payments).should eq([paypal_payment])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested paypal_payment as @paypal_payment" do
-      paypal_payment = PaypalPayment.create! valid_attributes
-      get :show, {:id => paypal_payment.to_param}, valid_session
-      assigns(:paypal_payment).should eq(paypal_payment)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new paypal_payment as @paypal_payment" do
-      get :new, {}, valid_session
-      assigns(:paypal_payment).should be_a_new(PaypalPayment)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested paypal_payment as @paypal_payment" do
-      paypal_payment = PaypalPayment.create! valid_attributes
-      get :edit, {:id => paypal_payment.to_param}, valid_session
-      assigns(:paypal_payment).should eq(paypal_payment)
-    end
-  end
 
   describe "POST create" do
     describe "with valid params" do
@@ -99,65 +69,6 @@ describe PaypalPaymentsController do
         post :create, {:paypal_payment => {}}, valid_session
         response.should render_template("new")
       end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested paypal_payment" do
-        paypal_payment = PaypalPayment.create! valid_attributes
-        # Assuming there are no other paypal_payments in the database, this
-        # specifies that the PaypalPayment created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        PaypalPayment.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => paypal_payment.to_param, :paypal_payment => {'these' => 'params'}}, valid_session
-      end
-
-      it "assigns the requested paypal_payment as @paypal_payment" do
-        paypal_payment = PaypalPayment.create! valid_attributes
-        put :update, {:id => paypal_payment.to_param, :paypal_payment => valid_attributes}, valid_session
-        assigns(:paypal_payment).should eq(paypal_payment)
-      end
-
-      it "redirects to the paypal_payment" do
-        paypal_payment = PaypalPayment.create! valid_attributes
-        put :update, {:id => paypal_payment.to_param, :paypal_payment => valid_attributes}, valid_session
-        response.should redirect_to(paypal_payment)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the paypal_payment as @paypal_payment" do
-        paypal_payment = PaypalPayment.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        PaypalPayment.any_instance.stub(:save).and_return(false)
-        put :update, {:id => paypal_payment.to_param, :paypal_payment => {}}, valid_session
-        assigns(:paypal_payment).should eq(paypal_payment)
-      end
-
-      it "re-renders the 'edit' template" do
-        paypal_payment = PaypalPayment.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        PaypalPayment.any_instance.stub(:save).and_return(false)
-        put :update, {:id => paypal_payment.to_param, :paypal_payment => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested paypal_payment" do
-      paypal_payment = PaypalPayment.create! valid_attributes
-      expect {
-        delete :destroy, {:id => paypal_payment.to_param}, valid_session
-      }.to change(PaypalPayment, :count).by(-1)
-    end
-
-    it "redirects to the paypal_payments list" do
-      paypal_payment = PaypalPayment.create! valid_attributes
-      delete :destroy, {:id => paypal_payment.to_param}, valid_session
-      response.should redirect_to(paypal_payments_url)
     end
   end
 

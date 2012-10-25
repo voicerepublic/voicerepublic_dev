@@ -10,6 +10,7 @@ FactoryGirl.define do
     
     user
     category
+    tag_list "foo, bar, baz"
     
     factory :unpublished_no_kluuu do
       published false

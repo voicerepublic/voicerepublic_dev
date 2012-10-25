@@ -4,6 +4,9 @@
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 
 		<h4><%= t('.Describe_your_!KluuU!') %></h4>
+		
+		<%= f.error_messages %>
+		
 		<div class="row-fluid">
 			<div class="control-group span8 well">
 				<%= f.label :title, :class => 'control-label' %>
