@@ -36,3 +36,34 @@
     marginLeft: -parseInt(overlayWidth, 10)/2
   });
 };
+
+function fitText(jquerySelector) {
+  var text = $(jquerySelector);
+  var calculateSize = function() {
+    var text = $(jquerySelector);
+    $.each(text, function(){
+      var text = $(this);
+      var targetHeight = text.height();
+      var inner = $("<div />").css({
+      });
+      text.wrapInner(inner);
+      inner = text.find("div");
+      var currentFontSize = parseInt(text.css("font-size"));
+      console.log(inner.text());
+      while (inner.height() < targetHeight) {
+          currentFontSize++;
+          text.css("font-size", currentFontSize + "px");
+          console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
+      };
+      while (inner.height() > targetHeight) {
+        currentFontSize--;
+        text.css("font-size", currentFontSize + "px");
+        console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
+      };
+    });
+  };
+  calculateSize();
+  setTimeout(calculateSize, 150);
+  setTimeout(calculateSize, 500);
+  setTimeout(calculateSize, 1000);
+};

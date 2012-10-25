@@ -10,6 +10,8 @@
 	klus.callButton = {
 		init: function() {
 			this.jqueryfy();
+			this.keepAspectRatio();
+			fitText('.klu-title:not(input)');
 		},
 		jqueryfy: function() {
 			$('.call-btn').addClass("jqueryfied")
@@ -24,6 +26,11 @@
 				document.location = this.href;
 			});
 			/** TODO: @Timo: Bind Button-Action **/
+		},
+		keepAspectRatio: function() {
+			$('.no-kluuu .klu-eyecatcher.klu-title').each(function() {
+				$(this).height(parseInt($(this).width(), 10) * 3/4 + "px").addClass('well well-small');
+			});
 		}
 	};
 
