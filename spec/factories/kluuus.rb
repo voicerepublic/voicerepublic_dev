@@ -3,7 +3,7 @@ FactoryGirl.define do
 
     description Faker::Lorem.paragraphs(2).join("\n")
     available_at_times "always when online"
-    association :user, factory: :user
+    association :user
     category
     currency 'EUR'
     charge_amount 0

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe VideoSession do
   it "has valid basic video session factory" do
-    FactoryGirl.build(:registered_video_session).should be_valid
+    FactoryGirl.build(:video_session).should be_valid
   end
   it "has valid anonymous video session factory" do
     FactoryGirl.build(:anonymous_video_session).should be_valid

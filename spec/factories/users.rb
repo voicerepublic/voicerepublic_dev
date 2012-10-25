@@ -6,8 +6,9 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
+    available "online"
+    last_request_at {Time.now}
     secret = "mysecret"
-    available = "online"
     password secret
     password_confirmation secret
     trait :user_with_portrait do
