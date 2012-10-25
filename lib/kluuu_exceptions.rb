@@ -32,7 +32,7 @@ module KluuuExceptions
   class VideoServerRequired < KluuuException
   end
   
-  class CallingUserError < KluuuException
+  class CallingUserError < KluuuExceptionWithRender
   end
   
   class RatingError < KluuuException

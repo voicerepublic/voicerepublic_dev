@@ -7,9 +7,7 @@ class VideoSession::Base < ActiveRecord::Base
   has_one :video_room, :foreign_key => 'video_session_id', :dependent => :delete
    
   belongs_to :klu, :inverse_of => :video_sessions
-  
+    
   validates_presence_of :klu, :calling_user_id
-  
-  
 
 end
