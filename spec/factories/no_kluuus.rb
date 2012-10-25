@@ -8,7 +8,7 @@ FactoryGirl.define do
       "#{Faker::Lorem.sentence} #{t}"
     end
     
-    user
+    association :user, factory: :user
     category
     tag_list "foo, bar, baz"
     

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :registered_video_session, class: VideoSession::Registered do
-    association :klu, factory: :kluuu
+    association :klu, factory: :published_kluuu
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"
@@ -11,7 +11,7 @@ FactoryGirl.define do
   end
   #for video_room and video_server
   factory :video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :kluuu
+    association :klu, factory: :published_kluuu
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"
@@ -20,7 +20,7 @@ FactoryGirl.define do
   end
   
   factory :anonymous_video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :kluuu
+    association :klu, factory: :published_kluuu
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"
@@ -28,7 +28,7 @@ FactoryGirl.define do
     type 'VideoSession::Anonymous'
   end
   factory :kluuu_registered_video_session, class: VideoSession::Registered do
-    association :klu, factory: :kluuu
+    association :klu, factory: :published_kluuu
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"
@@ -36,7 +36,7 @@ FactoryGirl.define do
     type 'VideoSession::Registered'
   end
   factory :kluuu_anonymous_video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :kluuu
+    association :klu, factory: :published_kluuu
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"
@@ -44,7 +44,7 @@ FactoryGirl.define do
     type 'VideoSession::Anonymous'
   end
   factory :no_kluuu_registered_video_session, class: VideoSession::Registered do
-    association :klu, factory: :no_kluuu
+    association :klu, factory: :published_no_kluuu
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"
@@ -52,7 +52,7 @@ FactoryGirl.define do
     type 'VideoSession::Registered'
   end
   factory :no_kluuu_anonymous_video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :no_kluuu
+    association :klu, factory: :published_no_kluuu
     end_timestamp "2012-09-25 15:46:18"
     begin_timestamp "2012-09-25 15:46:18"
     video_system_session_id "MyString"

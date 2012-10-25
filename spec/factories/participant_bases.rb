@@ -4,14 +4,14 @@ FactoryGirl.define do
   factory :participant_basis, :class => 'Participant::Base' do
 
     factory :guest_participant_registered, :class => 'Participant::Registered' do
-      user
+      association :user, factory: :user
       type "Participant::Registered"
       video_session_id 1
       video_session_role "guest"
     end
     
     factory :host_participant, :class => 'Participant::Registered' do
-      user
+      association :user, factory: :user
       type "Participant::Registered"
       video_session_id 1
       video_session_role "host"
