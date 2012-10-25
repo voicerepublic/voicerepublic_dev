@@ -3,13 +3,11 @@ class VideoSession::Registered < VideoSession::Base
   has_one :host_participant, :autosave => true, :class_name => 'Participant::Registered', :foreign_key => 'video_session_id', :dependent => :destroy
   has_one :guest_participant, :autosave => true, :class_name => 'Participant::Registered', :foreign_key => 'video_session_id', :dependent => :destroy
   
-  before_validation :check_sezzion_create_prerequisites  # checks for things that should be in order before creating a sezzion
-  
   before_create :prepare_one_on_one_video_session
   after_create :create_incoming_call_notification
   
   before_update :prepare_room_for_video_session
-  after_create :create_call_accepted_notification
+  after_update :create_call_accepted_notification
   
   before_destroy :create_call_canceled_notification
   
@@ -18,21 +16,20 @@ class VideoSession::Registered < VideoSession::Base
 
  private
  
- def prepare_one_on_one_video_session   
-   @klu = Klu.find(self.klu_id)
-   
-   @klu_user = @klu.user
+ def prepare_one_on_one_video_session  
+    
+   check_sezzion_create_prerequisites()
    
    #create guest (calling) participant for video_session
    self.guest_participant = Participant::Registered.new(:user_id => self.calling_user_id, :video_session_role => 'guest')
    
    #create host participant for video_session 
-   self.host_participant = Participant::Registered.new(:user_id => @klu_user.id, :video_session_role => 'host')
+   self.host_participant = Participant::Registered.new(:user_id => @klu.user_id, :video_session_role => 'host')
   
   end
   
   def create_incoming_call_notification
-    Notification::IncomingCall.create(:user_id => @klu_user.id, :other_id => self.calling_user_id, :video_session_id => self.id)  
+    Notification::IncomingCall.create(:user_id => @klu.user_id, :other_id => self.calling_user_id, :video_session_id => self.id)  
   end
   
   def prepare_room_for_video_session
@@ -63,12 +60,10 @@ class VideoSession::Registered < VideoSession::Base
   end
   
   def check_sezzion_create_prerequisites
-    @klu = Klu.find(self.klu_id) unless self.klu_id.nil?
-    @calling_user = User.find(self.calling_user_id) unless self.calling_user_id.nil?
-    #is calling_user_id ok?
-    raise KluuuExceptions::CallingUserError.new(I18n.t('video_sessions_controller.create.failed_0'), 'shared/alert_flash') if (@calling_user.nil?)
+    @klu = Klu.find(self.klu_id)
+    @calling_user = User.find(self.calling_user_id)
     #is the klu unpublished or not existing?
-    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (@klu.nil? || !@klu.published?)
+    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (!@klu.published?)
     #is the user trying to call his own klu?
     raise KluuuExceptions::SameUserError.new(I18n.t('video_sessions_controller.create.failed_2'), 'shared/alert_flash') if (@calling_user.id == @klu.user_id)
     #is the klus user not available?

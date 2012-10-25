@@ -8,6 +8,7 @@ class VideoSession::Base < ActiveRecord::Base
    
   belongs_to :klu, :inverse_of => :video_sessions
     
-  validates_presence_of :klu, :calling_user_id
+  validates_presence_of :klu 
+  validates_presence_of :calling_user_id, :on => :create
 
 end

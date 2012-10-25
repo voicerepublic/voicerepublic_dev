@@ -153,10 +153,6 @@ describe VideoSessionsController do
     end
     
     describe "with an exception thrown" do
-      it "renders an error flash if klu not found" do
-        xhr :post, :create, {:video_session => {}}, valid_session, :format => 'js'
-        response.should render_template 'shared/alert_flash'
-      end
       it "renders an error flash if klu not published" do
         klu = FactoryGirl.create(:unpublished_kluuu, user_id: @user.id) 
         xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id)}, valid_session, :format => 'js'
@@ -206,35 +202,60 @@ describe VideoSessionsController do
 
   describe "PUT update" do
     describe "with valid params" do
-      it "updates the requested video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+      it "updates the requested registered video_session" do
+        video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
         # Assuming there are no other video_sessions in the database, this
         # specifies that the VideoSession created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        VideoSession.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => video_session.to_param, :video_session => {'these' => 'params'}}, valid_session
+        VideoSession::Base.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        xhr :put, :update, {:id => video_session.to_param, :video_session => {'these' => 'params'}}, valid_session, :format => 'js'
+      end
+      
+      it "updates the requested anonymous video_session" do
+        video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
+        # Assuming there are no other video_sessions in the database, this
+        # specifies that the VideoSession created on the previous line
+        # receives the :update_attributes message with whatever params are
+        # submitted in the request.
+        VideoSession::Base.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
+        xhr :put, :update, {:id => video_session.to_param, :video_session => {'these' => 'params'}}, valid_session, :format => 'js'
       end
 
       it "assigns the requested video_session as @video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
+        video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
+        xhr :put, :update, {:id => video_session.to_param, :video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
         assigns(:video_session).should eq(video_session)
       end
 
-      it "redirects to the video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
-        put :update, {:id => video_session.to_param, :video_session => valid_attributes}, valid_session
-        response.should redirect_to(video_session)
+      it "redirects to the registered video_session" do
+        video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
+        xhr :put, :update, {:id => video_session.to_param, :video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
+        response.should render_template("update")
       end
+      
+      it "redirects to the anonymous video_session" do
+        video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
+        xhr :put, :update, {:id => video_session.to_param, :video_session => valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
+        response.should render_template("update")
+      end
+      
     end
 
     describe "with invalid params" do
-      it "assigns the video_session as @video_session" do
-        video_session = VideoSession.create! valid_attributes.merge(:klu_id => @klu.id)
+      it "assigns the registered video_session as @video_session" do
+        video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
         # Trigger the behavior that occurs when invalid params are submitted
-        VideoSession.any_instance.stub(:save).and_return(false)
-        put :update, {:id => video_session.to_param, :video_session => {}}, valid_session
+        VideoSession::Base.any_instance.stub(:save).and_return(false)
+        xhr :put, :update, {:id => video_session.to_param, :video_session => {}}, valid_session, :format => 'js'
+        assigns(:video_session).should eq(video_session)
+      end
+      
+      it "assigns the anonymous video_session as @video_session" do
+        video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
+        # Trigger the behavior that occurs when invalid params are submitted
+        VideoSession::Base.any_instance.stub(:save).and_return(false)
+        xhr :put, :update, {:id => video_session.to_param, :video_session => {}}, valid_session, :format => 'js'
         assigns(:video_session).should eq(video_session)
       end
     end
@@ -244,108 +265,108 @@ describe VideoSessionsController do
     it "destroys the requested registered video_session if guest cancels the session" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(VideoSession::Registered, :count).by(-1)
     end
     
     it "destroys the requested registered video_session if host cancels the session" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session, :format => 'js'
       }.to change(VideoSession::Registered, :count).by(-1)
     end
     
     it "deletes all preceding notifications if guest cancels the session" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "deletes all preceding notifications if host cancels the session" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "generates a missed call notification for registered video sessions if canceling user is guest" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::MissedCall, :count).by(1)
     end
     
     it "generates a rejected call notification for registered video sessions if canceling user is host" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::CallRejected, :count).by(1)
     end
     
     it "missed call renders a notification for the host" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
-      delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+      xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       response.should render_template 'notifications/missed_call'
     end
     
     it "rejected call renders a notification for the guest" do
       video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
-      delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session
+      xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session, :format => 'js'
       response.should render_template 'notifications/call_rejected'
     end
     
     it "destroys the requested anonymous video_session if guest cancels the session" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(VideoSession::Anonymous, :count).by(-1)
     end
     
     it "destroys the requested anonymous video_session if host cancels the session" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session, :format => 'js'
       }.to change(VideoSession::Anonymous, :count).by(-1)
     end
     
     it "deletes all preceding notifications if guest cancels the session" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "deletes all preceding notifications if host cancels the session" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::IncomingCall, :count).by(-1)
     end
     
     it "generates a missed call notification for anonymous video sessions if canceling user is guest" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::MissedCall, :count).by(1)
     end
     
     it "generates a rejected call notification for anonymous video sessions if canceling user is host" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       expect {
-        delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session
+        xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session, :format => 'js'
       }.to change(Notification::CallRejected, :count).by(1)
     end
     
     it "missed call renders a notification for the host" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
-      delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session
+      xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.guest_participant.id}, valid_session, :format => 'js'
       response.should render_template 'notifications/missed_call'
     end
     
     it "rejected call renders a notification for the guest" do
       video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
-      delete :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session
+      xhr :delete, :destroy, {:id => video_session.to_param, :canceling_participant_id => video_session.host_participant.id}, valid_session, :format => 'js'
       response.should render_template 'notifications/call_rejected'
     end
   end
