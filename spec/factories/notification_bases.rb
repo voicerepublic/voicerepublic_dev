@@ -53,6 +53,7 @@ FactoryGirl.define do
       content 'you have a new comment'
       user_id 23
       other_id 43
+      url "/path/to/commentable"
     end
     
     factory :notification_follower_action, :class => 'Notification::FollowerAction' do
