@@ -25,6 +25,8 @@ class Klu < ActiveRecord::Base
 
   scope :published, where("published=?", true)
   
+  after_create :generate_notification
+  
   WEIGHTS = {
   :tag_name => 12,
   :title => 15,
@@ -115,6 +117,18 @@ class Klu < ActiveRecord::Base
   #
   def build_tag_list_arguments
     self.tags.collect { |t| "@tag_name #{t.name}" }.join("|") 
+  end
+  
+  protected 
+  
+  def generate_notification
+    if self.published == true
+      self.user.follower.each do |follower|
+        if follower.account.prefs.inform_of_friends == true
+          Notification::NewKluuu.create(:user => follower, :other => self.user, :klu => self)
+        end
+      end
+    end
   end
   
 end

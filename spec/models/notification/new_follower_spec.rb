@@ -15,6 +15,7 @@ describe Notification::NewFollower do
     other = FactoryGirl.create(:user)
     f = FactoryGirl.create(:follow, follower: other, followed: me)
     me.notifications.count.should eq(num_notifications + 1)
+    me.notifications.alerts.first.should be_a_kind_of(Notification::NewFollower)
   end
 
 end
