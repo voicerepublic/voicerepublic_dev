@@ -2,6 +2,13 @@ class Notification::Base < ActiveRecord::Base
   
   scope :unread, where(:read => false)
   
+  scope :alerts, :conditions => { :type => %w{ Notification::NewBookmark 
+                                               Notification::NewComment
+                                               Notification::NewFollower
+                                               Notification::NewRating
+                                              } 
+                                 }, :order => "created_at DESC"
+  
   alias_method :reason, :to_s
   
   
