@@ -11,7 +11,7 @@
 		init: function() {
 			this.jqueryfy();
 			this.keepAspectRatio();
-			fitText('.klu-title:not(input)');
+			fitText('.klu-layout .klu-title:not(input)');
 		},
 		jqueryfy: function() {
 			$('.call-btn').addClass("jqueryfied")

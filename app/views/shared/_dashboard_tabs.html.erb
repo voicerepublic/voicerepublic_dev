@@ -18,7 +18,7 @@
 	<li class="pull-right <%= current_page?(dashboard_settings_edit_path) ? 'active' : '' %>">
 		<%= link_to(t('.settings'), dashboard_settings_edit_path ) %>
 	</li>
-	<li class="pull-right <%= current_page?(new_user_balance_check_in_order_path(:user_id => user)) ? 'active' : '' %>">
+	<li class="pull-right <%= current_page?(user_balance_account_path(:user_id => user)) ? 'active' : '' %>">
 		<%= link_to(t('.finances'), user_balance_account_path(:user_id => user) ) %>
 	</li>
 </ul>
