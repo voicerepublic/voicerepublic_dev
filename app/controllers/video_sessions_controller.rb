@@ -1,4 +1,3 @@
-require 'kluuu_exceptions'
 
 class VideoSessionsController < ApplicationController
   # GET /video_sessions
@@ -66,20 +65,23 @@ class VideoSessionsController < ApplicationController
     @video_session = VideoSession::Base.find(params[:id])
     
     respond_to do |format|
-      #begin 
-        if @video_session.update_attributes(params[:video_session])
+      begin 
+        if @video_session.save
           format.js { render and return }
         else
           format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.update.failed_1')} and return }
         end
-      #rescue KluuuExceptions::KluuuException => e
-      #  logger.error("\n###############\nVideoSession#update - Exception caught - \n#{e.inspect}\n#####################")
-      #  if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
-      #    redirect_to e.redirect_link, :alert => e.msg and return
-      #  else
-      #    render e.render_partial, :locals => {:msg => e.msg} and return
-      #  end
-      #end
+      rescue KluuuExceptions::KluuuException => e
+        logger.error("\n###############\nVideoSession#update - Exception caught - \n#{e.inspect}\n#####################")
+        if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
+          redirect_to e.redirect_link, :alert => e.msg and return
+        elsif e.class.name == 'KluuuExceptions::VideoSystemError'
+          @video_session.create_room_creation_failed_notification
+          render e.render_partial, :locals => {:msg => e.msg} and return
+        else
+          render e.render_partial, :locals => {:msg => e.msg} and return
+        end
+      end
     end
   end
 

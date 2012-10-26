@@ -1,1 +1,1 @@
-overlay('<%= escape_javascript(render(:partial => 'notifications/call_rejected')) %>');
+overlay('<%= escape_javascript(render(:partial => 'notifications/call_rejected', :locals => {:video_session => video_session})) %>');

@@ -14,6 +14,10 @@ class VideoSession::Registered < VideoSession::Base
   validates_associated :host_participant, :guest_participant
 
 
+  def create_room_creation_failed_notification
+    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+  end
+
  private
  
  def prepare_one_on_one_video_session  
@@ -33,20 +37,26 @@ class VideoSession::Registered < VideoSession::Base
   end
   
   def prepare_room_for_video_session
-    #2, "#{t('sezzions_controller.update.chat_system_welcome')}", klu_show_url(:id => offer.id), request.host
     
-    #raise KluuUException::RoomCreationFailed create_room_creation_failed_notification
+    self.build_video_room(:name => self.klu.title)
+    self.video_room.send_create
+    
+    create_video_session_links_for_participants
       
   end
   
   def create_video_session_links_for_participants
-    #raise KluuUException::LinkCreationFailed create_room_creation_failed_notification
+    begin
+      self.guest_participant.create_link(self.video_room)
+      self.host_participant.create_link(self.video_room)
+    rescue Exception => e
+      msg = I18n.t('video_sytem.rooms.errors.links.not_set')
+      raise KluuuExceptions::VideoSystemError.new(msg, 'shared/alert_flash')
+    end
   end  
   
   def create_call_accepted_notification  
-  end
-  
-  def create_room_creation_failed_notification
+    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
   end
   
   def create_call_canceled_notification 

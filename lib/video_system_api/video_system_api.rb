@@ -137,7 +137,8 @@ module VideoSystemApi
       formatter.to_string(:moderatorPW)
       formatter.to_string(:attendeePW)
       formatter.to_boolean(:hasBeenForciblyEnded)
-
+     
+      puts "VideoSystemApi:create_meeting:RESPONSE:after_format:#{response}" if @debug
       response
     end
 

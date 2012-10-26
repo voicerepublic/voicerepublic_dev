@@ -1,6 +1,5 @@
 require 'video_system_api'
 
-
 class VideoRoom < ActiveRecord::Base
   
   belongs_to :video_server
@@ -114,7 +113,7 @@ class VideoRoom < ActiveRecord::Base
   # Uses the API but does not require a request to the server.
   def join_url(username, role, password=nil, user_id)
     require_server
- 
+
     case role
     when :host
       self.video_server.api.join_meeting_url(self.video_system_room_id, username, self.host_password, user_id)
@@ -177,28 +176,7 @@ private
   def random_video_system_room_id
     SecureRandom.hex(16)
   end
-# 
-  # # The join logic
-  # # A moderator can create the meeting and join
-  # # An attendee can only join if the meeting is running
-  # def perform_join(username, role, request=nil)
-    # fetch_is_running?
-# 
-    # # if the user is a moderator, create the room (if needed) and join it
-    # if role == :moderator
-      # add_domain_to_logout_url(request.protocol, request.host_with_port) unless request.nil?
-      # send_create unless is_running?
-      # ret = join_url(username, role)
-# 
-    # # normal user only joins if the conference is running
-    # # if it's not, wait for a moderator to create the conference
-    # else
-      # ret = join_url(username, role) if is_running?
-    # end
-# 
-    # ret
-  # end
-# 
+
   # # add a domain name and/or protocol to the logout_url if needed
   # # it doesn't save in the db, just updates the instance
   # def add_domain_to_logout_url(protocol, host)
@@ -225,7 +203,7 @@ private
   def require_server
     if self.video_server.nil?
       msg = I18n.t('video_sytem.rooms.errors.server.not_set')
-      raise KluuuExceptions::VideoServerRequired.new(msg)
+      raise KluuuExceptions::VideoSystemError.new(msg, 'shared/alert_flash')
     end
   end
 

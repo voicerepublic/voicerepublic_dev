@@ -1,8 +1,8 @@
-class Notification::CallRejected < Notification::Base 
+class Notification::VideoSystemError < Notification::Base 
   
   belongs_to :user
   belongs_to :other, :class_name => 'User'  # other here is klu-offerer
-  belongs_to :video_session
+  belongs_to :video_session, :class_name => 'VideoSession::Base'
   
   attr_accessible :other_id, :video_session_id, :user_id, :anon_id
   
@@ -19,12 +19,12 @@ class Notification::CallRejected < Notification::Base
     begin
       n = NotificationRenderer.new
       if self.anon_id.nil?
-        PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/call_rejected'))
+        PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/video_system_error'))
       else
-        PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_rejected'))
+        PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/video_system_error'))
       end
     rescue Exception => e
-      self.logger.error("Notification::CallRejected#generate_push_notification - error: #{e.inspect}")
+      self.logger.error("Notification::VideoSystemError#generate_push_notification - error: #{e.inspect}")
     end  
   end  
 

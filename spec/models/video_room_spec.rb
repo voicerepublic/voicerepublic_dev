@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'video_system_api'
+require 'kluuu_exceptions'
 
 describe VideoRoom do
   it "has a valid factory do" do
@@ -367,7 +368,7 @@ describe VideoRoom do
       it {
         lambda {
           room.send(:require_server)
-        }.should raise_error(KluuuExceptions::VideoServerRequired)
+        }.should raise_error(KluuuExceptions::VideoSystemError)
       }
     end
 
@@ -376,7 +377,7 @@ describe VideoRoom do
       it {
         lambda {
           room.send(:require_server)
-        }.should_not raise_error(KluuuExceptions::VideoServerRequired)
+        }.should_not raise_error(KluuuExceptions::VideoSystemError)
       }
     end
   end

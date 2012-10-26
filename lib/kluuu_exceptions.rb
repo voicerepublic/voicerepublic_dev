@@ -29,7 +29,7 @@ module KluuuExceptions
   class PaymentError < KluuuException
   end
   
-  class VideoServerRequired < KluuuException
+  class VideoSystemError < KluuuExceptionWithRender
   end
   
   class CallingUserError < KluuuExceptionWithRender
