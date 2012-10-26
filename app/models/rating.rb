@@ -14,6 +14,7 @@ class Rating < ActiveRecord::Base
   
   MAX = 5
   
+  
   private
   
   def generate_notification
