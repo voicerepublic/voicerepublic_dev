@@ -80,6 +80,12 @@ FactoryGirl.define do
       klu_id 4
     end
     
+    factory :notification_new_status, :class => 'Notification::NewStatus' do
+      association :other, factory: :user
+      user
+      content { Faker::Lorem.paragraph }
+    end
+    
   end
   
 end
