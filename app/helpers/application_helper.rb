@@ -28,7 +28,7 @@ module ApplicationHelper
     when "Notification::NewComment"
       link_to(t('.see_more'), notification.url)
     when "Notification::NewFollower"
-      link_to(t('.visit_profile'), user_path(:user_id => notification.other ))
+      link_to(t('.visit_profile'), user_path(:id => notification.other ))
     when "Notification::NewRating"
       link_to(t('.see_more'), klu_url(:id => notification.klu))
     end
