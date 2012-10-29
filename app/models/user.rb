@@ -45,8 +45,8 @@ class User < ActiveRecord::Base
            :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   validates :email, :uniqueness => true, :presence => true
-  validates :firstname, :presence => true
-  validates :lastname, :presence => true
+  validates :firstname, :presence => true, :length => { :minimum => 1, :maximum => 100}
+  validates :lastname, :presence => true, :length => { :minimum => 1, :maximum => 100}
   validates :slug, :presence => true
   
   ###### instance methods
