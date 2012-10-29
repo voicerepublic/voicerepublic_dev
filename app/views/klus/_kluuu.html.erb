@@ -1,4 +1,4 @@
-<article class="kluuu large-klu">
+<article class="kluuu large-klu clearfix">
 	<div class="row-fluid">
 		<section class="klu-layout span9">
 			<header>
@@ -8,8 +8,8 @@
 				<%= overall_rating_stars(@klu) %>
 			</aside>
 			<div class="row-fluid">
-				<section class="kluuu-pics span8">
-					<ul class="unstyled">
+				<section class="span8">
+					<ul class="unstyled kluuu-pics">
 						<% @klu.klu_images.each_with_index do |ki, index| %>
 						<% if (index == 0) %>
 						<li class="klu-eyecatcher">
@@ -27,8 +27,12 @@
 						<% end %>
 						<% end %>
 					</ul>
+					<section class="klu-description">
+				<%= simple_format @klu.description %>
+			</section>
 				</section>
-				<aside class="klu-user-info span4">
+				<div class="span4">
+				<aside class="klu-user-info">
 					<div class="call-btn btn">
 						<form action="#">
 							<button class="btn">
@@ -41,7 +45,7 @@
 							</dt>
 							<dd>
 								<%= @klu.charge_amount %> €
-							</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
+							</dd>
 							<dt>
 								<%= t('.availability') %>
 							</dt>
@@ -78,11 +82,27 @@
 								<li class="klu-user-info-more-klus">
 									<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
 					
-					</li>
+							</li>
 					</ul>
 					</nav>
 					</div>
 				</aside>
+				<aside class="klu-meta">
+				<ul class="klu-categories">
+					<li>
+						<%= @klu.category.name %>
+					</li>
+				</ul>
+				<ul class="klu-tags">
+					<% @klu.tags.each do |tag| %>
+					<li>
+						<%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %>
+					</li>
+					<% end %>
+				</ul>
+			</aside>
+				</div>
+				
 			</div>
 			<aside class="klu-top-bar">
 				<ul class="klu-actions">
@@ -126,50 +146,39 @@
 		</aside>
 	</div>
 
-	<div class="row-fluid">
-		<div class="span9 kluuu-large-left">
-			<section class="klu-description">
-				<%= simple_format @klu.description %>
-			</section>
-			<aside class="klu-meta">
-				<ul class="klu-categories">
+	<div class="large-klu-left row-fluid">
+		<div class="span9">
+		
+				
+				
+				<div class="row-fluid">
+					<section class="klu-ratings span8">
+						<h5><%= @klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
+						<% unless @klu.ratings.empty? %>
+						<ul class="unstyled">
+							<% @klu.ratings.limit(5).each do |rating| %>
+							<li>
+								<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
+							</li>
+							<% end %>
+						</ul>
+						<% end %>
+					</section>
+					
+							<ul class="unstyled span4">
+					<h4>
+						<%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %>
+					</h4>
+					<% @klu.bookmarks.each do |b|%>
 					<li>
-						<%= @klu.category.name %>
-					</li>
-				</ul>
-				<ul class="klu-tags">
-					<% @klu.tags.each do |tag| %>
-					<li>
-						<%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %>
+						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
+						<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %>
+						<% end %>
 					</li>
 					<% end %>
-				</ul>
-				<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_kluuu') %>
-
-			</aside>
-			<section class="klu-ratings">
-				<h5><%= @klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
-				<% unless @klu.ratings.empty? %>
-				<ul class="unstyled">
-					<% @klu.ratings.limit(5).each do |rating| %>
-					<li>
-						<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
-					</li>
-					<% end %>
-				</ul>
-				<% end %>
-			</section>
+							</ul>
+				</div>
 		</div>
-		<ul class="unstyled span3">
-			<h4><%= t('.bookmarked_by') %></h4>
-			<% @klu.bookmarks.each do |b|%>
-			<li>
-				<%= link_to(user_path(:id => b.user) ) do %>
-				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %><%= b.user.firstname %>
-				<% end %>
-			</li>
-			<% end %>
-		</ul>
 	</div>
 </article>
 
