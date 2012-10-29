@@ -13,7 +13,8 @@ class Klu < ActiveRecord::Base
   
   #accepts_nested_attributes_for :klu_images, :allow_destroy => true
   
-  validates_presence_of :title, :user_id
+  validates :user_id, :presence => true
+  validates :title, :length => { :minimum => 2, :maximum => 150 }
   validates :tag_list, :presence => true 
   #:length => { 
   #                          :minimum => 2,
