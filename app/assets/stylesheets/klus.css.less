@@ -445,6 +445,26 @@
 		right: @horizontal-offset;
 		top: @verticalRhythm;
 	}
+
+	.klu-matches {
+		h4 {
+			font-size: @baseFontSize;
+			color: @grayLight;
+			margin: -(@baseFontSize * @baseLineHeight + @verticalRhythm) 0 @verticalRhythm;
+		}
+
+		.small-klu {
+			margin: (@verticalRhythm * 2) 0;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;			}
+		}
+	}
+
 } /* End of .large-klu */
 
 .no-kluuu.large-klu {
