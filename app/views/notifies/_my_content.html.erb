@@ -1,5 +1,13 @@
-<article class="notification well well-large">
+<article class="notification well well-large" id="notification-<%= notification.id %>">
+	<div class="pull-right">
+		<% if can? :manage, notification %>
+		<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true) do %>
+			<i class="icon-trash"></i> <%= t('.destroy') %>
+		<% end %>
+		<% end %>
+	</div>
 	<small><%= time_ago_in_words(notification.created_at) %> </small>
+	
 	<h4><%= notification %></h4>
 	<span class="label label-info"><%= link_to notification.other.name, user_path(:id => notification.other) %></span>
 	

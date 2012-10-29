@@ -42,5 +42,9 @@ class Ability
       user.account == account
     end
     
+    can :manage, Notification::Base do |notification|
+      user == notification.user
+    end
+    
   end
 end
