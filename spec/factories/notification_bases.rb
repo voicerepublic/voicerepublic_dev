@@ -50,7 +50,7 @@ FactoryGirl.define do
     
     factory :notification_new_comment, :class => 'Notification::NewComment' do
       type 'Notification::NewComment'
-      content 'you have a new comment'
+      content { Faker::Lorem.paragraph }
       user_id 23
       other_id 43
       url "/path/to/commentable"
@@ -66,7 +66,7 @@ FactoryGirl.define do
     
     factory :notification_new_rating, :class => 'Notification::NewRating' do
       type 'Notification::NewRating'
-      content 'one of your kluuus got rated'
+      content 'one of your kluuus got rated with some descriptive words'
       user_id 23
       other_id 43
       klu_id 4

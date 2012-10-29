@@ -10,12 +10,15 @@
       <%= render(:partial => "comment", :collection => @comments, :as => :comment ) %>
       </ul>
       <%= will_paginate @comments, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
+      
+     
       <aside id="newcomment">
         <% if current_user %>
           <% @comment = @status_update.comments.build %>
           <%= render(:partial => "comments/form") %>
         <% end %>
       </aside>
+    
     </section>
   </div>
   

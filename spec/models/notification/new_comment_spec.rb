@@ -12,10 +12,19 @@ describe Notification::NewComment do
     status_update.user.notifications.alerts.first.should be_a_kind_of(Notification::NewComment)
   end
   
-  it "points to a status_message" do
+  it "has the comment-text as content" do
     status_update = FactoryGirl.create(:status_update)
     status_update.comments << FactoryGirl.create(:comment, :commentable => status_update)
-    status_update.user.notifications.alerts.first.url.should_not be_empty
+    status_update.user.notifications.alerts.first.content.should_not be_empty
+  end
+  
+  it "is invalid without content" do
+    FactoryGirl.build(:notification_new_comment, :content => nil).should_not be_valid
+   
+  end
+  
+  it "is invalid without url" do
+    FactoryGirl.build(:notification_new_comment, :url => nil).should_not be_valid
   end
 
 end

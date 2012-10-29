@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   
-  attr_accessible :content, :commentable_id, :commentable_type, :user_id, :user
+  attr_accessible :content, :commentable_id, :commentable_type, :user_id, :user, :url
 
   belongs_to :commentable, :polymorphic => true
   belongs_to :user
@@ -20,7 +20,9 @@ class Comment < ActiveRecord::Base
     unless commentable.user == self.user
       Notification::NewComment.create(:user => commentable.user, 
                                       :other => self.user, 
-                                      :url => Rails.application.routes.url_helpers.user_status_update_url(:user_id => commentable.user, :id => commentable, :only_path => true) )
+                                      :content => self.content,
+                                      :url => Rails.application.routes.url_helpers.user_status_update_path(:user_id => self.commentable.user, :id => self.commentable )
+                                      )
     end
   end
   

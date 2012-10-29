@@ -1,0 +1,26 @@
+<article class="notification well well-large">
+	<small><%= time_ago_in_words(notification.created_at) %> </small>
+	<h4><%= notification %></h4>
+	<span class="label label-info"><%= link_to notification.other.name, user_path(:id => notification.other) %></span>
+	
+	<% if notification.instance_of?(Notification::NewBookmark) %>
+		<%= t('.bookmarked_your_kluuu') %> <%= link_to(notification.klu.title, klu_url(:id => notification.klu))%>
+	<% end %>
+	
+	<% if notification.instance_of?(Notification::NewComment) %>
+		<%= t('.commented_your_status') %>: <%= simple_format(notification.content) %> 
+	<% end %>
+	
+	<% if notification.instance_of?(Notification::NewFollower) %>
+		<%= notification.other.name %> <%= t('.follows_you_now') %>
+	<% end %>
+	
+	<% if notification.instance_of?(Notification::NewRating)%>
+		<%= t('.rated_your_kluuu') %>: <%= notification.klu.title %>
+	<% end %>
+	
+	<div class="form-actions">
+		<%= link_to_url_for_notification_reason(notification) %>
+	</div>
+	
+</article>

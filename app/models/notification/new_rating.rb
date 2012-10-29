@@ -5,7 +5,7 @@ class Notification::NewRating < Notification::Base
   belongs_to :other, :class_name => 'User'
   belongs_to :klu
    
-  validates :other_id, :user_id, :klu_id, :presence => true
+  validates :other_id, :user_id, :klu_id, :content , :presence => true
   
   def to_s 
     I18n.t('.you_got_rated_by', :rater => other.name )
