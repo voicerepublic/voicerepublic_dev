@@ -19,6 +19,10 @@
 		<%= t('.rated_your_kluuu') %>: <%= notification.klu.title %>
 	<% end %>
 	
+	<% if notification.instance_of?(Notification::NewMessage) %>
+		<%= t('.wrote_you_a_message') %>
+	<% end %>
+	
 	<div class="form-actions">
 		<%= link_to_url_for_notification_reason(notification) %>
 	</div>

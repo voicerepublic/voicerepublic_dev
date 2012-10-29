@@ -44,7 +44,7 @@ class Message < ActiveRecord::Base
   end
   
   def generate_notification
-    Notification::NewMessage.create(:other_id => sender.id, :user_id => receiver.id)
+    Notification::NewMessage.create(:other_id => sender.id, :user_id => receiver.id, :url => Rails.application.routes.url_helpers.user_conversation_url(:user_id => sender, :id => self.conversation, :only_path => true))
   end
   
 end

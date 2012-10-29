@@ -14,13 +14,13 @@ module DashboardHelper
     when 'NewBookmark'
       render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewMessage'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
+      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewComment'
       render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewFollower'
       render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewRating'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
+      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewKluuu'
       render(:partial => 'notifies/new_content', :locals => {:notification => notification})
     when 'NewStatus'

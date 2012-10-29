@@ -37,6 +37,7 @@ FactoryGirl.define do
       user_id 23
       content "you have a new message"
       other_id 43  
+      url "/path/to/conversation"
     end
     
     factory :notification_new_kluuu, :class => 'Notification::NewKluuu' do
