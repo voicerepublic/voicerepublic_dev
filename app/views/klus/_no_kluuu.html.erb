@@ -4,19 +4,6 @@
 			<div class="row-fluid">
 				<div class="span8">
 					<h2 class="klu-eyecatcher klu-title"><%= @klu.title %></h2>
-
-					<div class="form-actions">
-						<!-- AddThis Button BEGIN -->
-						<div class="addthis_toolbox addthis_default_style">
-							<a class="addthis_button_facebook_like"></a>
-							<a class="addthis_button_facebook_send"></a>
-							<a class="addthis_button_google_plusone"></a>
-							<a class="addthis_button_tweet"></a>
-						</div>
-						<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
-						<!-- AddThis Button END -->
-					</div>
-
 					<aside class="klu-meta clearfix">
 						<ul class="klu-categories">
 							<li>
@@ -98,7 +85,8 @@
 					</div>
 				</aside>
 			</div>
-			<aside class="klu-top-bar">
+	</div>
+	<aside class="klu-top-bar">
 				<ul class="klu-actions">
 					<li class="klu-bookmark-link">
 						<%= bookmark_links(current_user, @klu) %>
@@ -121,18 +109,23 @@
 					</li>
 					<% end %>
 				</ul>
-				<ul class="klu-socials">
-					<li>
-						Hier Social Foo-Bar
-					</li>
-				</ul>
+				<div class="klu-socials">
+						<!-- AddThis Button BEGIN -->
+						<div class="addthis_toolbox addthis_default_style">
+							<a class="addthis_button_facebook_like"></a>
+							<a class="addthis_button_facebook_send"></a>
+							<a class="addthis_button_google_plusone"></a>
+							<a class="addthis_button_tweet"></a>
+						</div>
+						<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
+						<!-- AddThis Button END -->
+					</div>
 			</aside>
 		</div><!-- End of Kluu-header kly-layout-->
 		<aside class="klu-matches span3">
 			<h4><%= t('.Matches') %></h4>
 			<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
 		</aside>
-	</div>
 </article>
 
 <% if can? :manage, @klu %>
