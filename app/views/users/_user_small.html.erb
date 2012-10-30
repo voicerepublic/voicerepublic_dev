@@ -5,9 +5,9 @@
 		<%# LINK FOR WHOLE THUMBAIL %>
 		<%= link_to user_path(:id => user), :class => "user-thumbnail-link" do %>	
 			<%= image_tag(user.account.portrait.url(:thumb)) %>
-			<%= user.name %>
+			<div class="user-thumbnail-name"><%= user.name %></div>
+			<span class="clearfix"></span>
 		<% end %>
 
 	</div>
-	
 </li>
