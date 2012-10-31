@@ -24,7 +24,7 @@ feature "User can register" do
     page.fill_in('user_email', :with => "jim@beam.com")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
-    page.click_button('Sign up!')
+    page.click_button('Sign Up')
     page.should have_content("Dashboard")
   end
   
@@ -35,7 +35,7 @@ feature "User can register" do
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
-    page.click_button('Sign up!')
+    page.click_button('Sign Up')
     page.should have_content("Email can't")
   end
 end

@@ -33,7 +33,6 @@ class Notification::Base < ActiveRecord::Base
   end
   
   def generate_mail_notification
-    
   end
   
   def set_notification_count
