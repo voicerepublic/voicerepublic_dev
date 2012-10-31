@@ -15,26 +15,55 @@
 //= require twitter/bootstrap
 //= require_tree .
 
- function overlay(innerHTML){
-  var overlayContent = $("<div />");
-  overlayContent.append(innerHTML);
-  overlayContent.css({
-    width: "50%",
-    background: "white",
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    padding: "30px",
-    border: "1px black solid"
-  });
-  var body = $('body').css('position', 'relative');
-  body.append(overlayContent);
-  var overlayHeight = overlayContent.height();
-  var overlayWidth = overlayContent.width();
-  overlayContent.css({
-    marginTop: -parseInt(overlayHeight, 10)/2,
-    marginLeft: -parseInt(overlayWidth, 10)/2
-  });
+overlay = {
+
+  build: function(innerHTML) {
+
+    var calculateOverlay = function() {
+      var windowHeight = $(window).height();
+      var bodyHeight = $('body').height();
+      var overlayHeight = overlayContent.height();
+      var overlayWidth = overlayContent.width();
+      var minMarginTop = 30;
+
+      function calculateBG() {
+        if (bodyHeight < windowHeight && overlayHeight < windowHeight) {
+          overlayBackground.height(windowHeight);
+        } else if (overlayHeight > windowHeight) {
+          overlayBackground.height((overlayHeight + minMarginTop) * 1.05);
+          overlayContent.css({
+            marginTop: 0,
+            top: minMarginTop
+          });
+        }
+      }
+      overlayContent.css({
+        marginTop: -overlayHeight/2,
+        marginLeft: -overlayWidth/2,
+        maxWidth: overlayContent.width()
+      });
+      calculateBG();
+    };
+    var overlayBackground = $("<div />", {"class": "overlay-background"});
+    var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground);
+    overlayContent.html(innerHTML);
+    overlayContent.find("button[data-function=closeOverlay], input[data-function=closeOverlay], a[data-function=closeOverlay]").on("click", function(e) {
+      overlay.close(overlayBackground);
+    });
+    var body = $('body').css({
+        position: 'relative'
+      }).append(overlayBackground);
+    calculateOverlay();
+  },
+
+  close: function(target) {
+    target = target || ".overlay-background";
+    if (typeof target == 'string' || typeof target == 'object') {
+      $(target).fadeOut("fast", function() {
+        $(this).remove();
+      });
+    }
+  }
 };
 
 function fitText(jquerySelector) {
