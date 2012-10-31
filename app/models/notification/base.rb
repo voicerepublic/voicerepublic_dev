@@ -22,15 +22,24 @@ class Notification::Base < ActiveRecord::Base
   private
   
   def generate_push_notification
+    Rails.logger.debug("#{self.class.name}#generate_push_notification - start")
     begin
-      PrivatePub.publish_to("/notifications/#{user_id}", "alert(<%= self.to_s %>);")
+      set_notification_count
+      #PrivatePub.publish_to("/notifications/#{user_id}", "alert('<%= self.to_s %>');")
     rescue Exception => e
       self.logger.error("#{self.class.name}#generate_push_notification - error: #{e.inspect}")
+      raise
     end  
   end
   
   def generate_mail_notification
     
+  end
+  
+  def set_notification_count
+    js = "$('#alerts-count-#{user_id}').html('#{self.user.notifications.alerts.unread.count}');"
+    Rails.logger.debug("#{self.class.name} - set_notification_count: js: '#{js}'")
+    PrivatePub.publish_to("/notifications/#{user_id}", js)
   end
   
 end

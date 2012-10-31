@@ -45,9 +45,11 @@
 				 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications', :default => "Notifications") %>">
 				 			<i class="icon-bell"></i>
 				 			<b class="caret"></b>
-				 			<% unless current_user.notifications.unread.empty? %>
-				 				<span class="badge badge-important"><%= current_user.notifications.unread.count %></span>&nbsp;
-				 			<% end %>
+				 			<% #unless current_user.notifications.unread.empty? %>
+				 			<span class="badge badge-important" id="alerts-count-<%= current_user.id %>">
+				 				<%= current_user.notifications.unread.count %>
+				 			</span>&nbsp;
+				 			<% #end %>
 				 		</a>
 				 		<%= render(:partial => 'shared/notifications_list') %>
 				 	</li>
