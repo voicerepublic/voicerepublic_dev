@@ -48,7 +48,15 @@ class VideoRoom < ActiveRecord::Base
   # This one selects the server with less rooms in it
   def select_server
      #TODO: Add Logic for Redundancy
-     VideoServer.select("video_servers.*, count(video_rooms.id) as video_room_count").joins(:video_rooms).group("video_servers.id").order("video_room_count ASC").first
+     #if no room exists
+     video_server = VideoServer.where('activated = ?', true).first
+      puts 'VIDEOSERVER'
+      puts video_server.inspect
+      
+      video_server
+     #Umbau wegen activated un video_rooms nil
+     #VideoServer.select("video_servers.*, count(video_rooms.id) as video_room_count").joins(:video_rooms).group("video_servers.id").order("video_room_count ASC").first
+     
   end
  
   # Fetches info from the Video System about this room.
@@ -202,6 +210,7 @@ private
   # anything else.
   def require_server
     if self.video_server.nil?
+      puts "SERVER IS NIL!!!"
       msg = I18n.t('video_sytem.rooms.errors.server.not_set')
       raise KluuuExceptions::VideoSystemError.new(msg, 'shared/alert_flash')
     end

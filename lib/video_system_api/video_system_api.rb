@@ -4,9 +4,6 @@ require 'rexml/document'
 require 'digest/sha1'
 require 'rubygems'
 require 'nokogiri'
-require 'video_system_api/hash_to_xml'
-require 'video_system_api/video_system_api_exception'
-require 'video_system_api/video_system_api_formatter'
 
 module VideoSystemApi
 

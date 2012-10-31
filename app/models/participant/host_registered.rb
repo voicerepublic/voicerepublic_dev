@@ -1,4 +1,4 @@
-class Participant::Registered < Participant::Base
+class Participant::HostRegistered < Participant::Base
   
   belongs_to :video_session, :class_name => 'VideoSession::Registered'
   belongs_to :user

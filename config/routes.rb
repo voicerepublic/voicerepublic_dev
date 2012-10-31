@@ -5,7 +5,10 @@ Kluuu2::Application.routes.draw do
   resources :video_servers
 
   resources :video_sessions
-
+  
+  #link to bbb-client_config
+  match 'bbb/:meeting_id/user/:user_id/config' => "video_sessions#video_session_config"
+  
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
     get "dashboard/contacts"

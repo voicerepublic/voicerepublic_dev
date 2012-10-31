@@ -1,7 +1,7 @@
 class VideoSession::Anonymous < VideoSession::Base
   
-  has_one :host_participant, :autosave => true, :class_name => 'Participant::Registered', :foreign_key => 'video_session_id', :dependent => :destroy
-  has_one :guest_participant, :autosave => true, :class_name => 'Participant::Anonymous', :foreign_key => 'video_session_id', :dependent => :destroy
+  has_one :host_participant, :autosave => true, :class_name => 'Participant::HostRegistered', :foreign_key => 'video_session_id', :dependent => :destroy
+  has_one :guest_participant, :autosave => true, :class_name => 'Participant::GuestAnonymous', :foreign_key => 'video_session_id', :dependent => :destroy
   
   before_create :prepare_one_on_one_video_session
   after_create :create_incoming_call_notification
@@ -24,10 +24,10 @@ class VideoSession::Anonymous < VideoSession::Base
     check_sezzion_create_prerequisites()
     
     #create guest (calling) participant for video_session
-    self.guest_participant =  Participant::Anonymous.new(:user_cookie_session_id => self.calling_user_id, :video_session_role => 'guest')
+    self.guest_participant =  Participant::GuestAnonymous.new(:user_cookie_session_id => self.calling_user_id, :video_session_role => 'guest')
    
     #create host participant for video_session 
-    self.host_participant = Participant::Registered.new(:user_id => @klu.user_id, :video_session_role => 'host')
+    self.host_participant = Participant::HostRegistered.new(:user_id => @klu.user_id, :video_session_role => 'host')
   
   end
   
@@ -49,7 +49,7 @@ class VideoSession::Anonymous < VideoSession::Base
       self.host_participant.create_link(self.video_room)
     rescue Exception => e
       msg = I18n.t('video_sytem.rooms.errors.links.not_set')
-      raise KluuuExceptions::VideoSystemError.new(msg, 'shared/alert_flash')
+      raise KluuuExceptions::VideoSystemError.new(msg, 'shared/_alert_flash')
     end
   end  
   
@@ -70,7 +70,7 @@ class VideoSession::Anonymous < VideoSession::Base
   def check_sezzion_create_prerequisites
     @klu = Klu.find(self.klu_id)
     #is the klu unpublished or not existing?
-    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (!@klu.published?)
+    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/_alert_flash') if (!@klu.published?)
     #is the klus user not available?
     raise KluuuExceptions::UserUnavailableError.new(I18n.t('video_sessions_controller.create.failed_3'), Rails.application.routes.url_helpers.new_message_path(:locale => I18n.locale, :receiver_id => @klu.user_id)) unless @klu.user.available?
     #if a anonymous user is calling a paid klu

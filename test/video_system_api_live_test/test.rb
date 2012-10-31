@@ -1,7 +1,12 @@
 $:.unshift File.expand_path(File.dirname(__FILE__))
 $:.unshift File.join(File.expand_path(File.dirname(__FILE__)), '..', 'lib')
 
-require 'video_system_api'
+path='../../lib/' # relative path from current file to required folder
+
+Dir[File.dirname(__FILE__) + '/'+path+'video_system_api.rb'].each do |file|
+  require_relative path+File.basename(file) # require all files with .rb extension in this folder
+end
+
 require 'thread'
 require 'yaml'
 
@@ -21,7 +26,7 @@ def prepare
     puts k + ": " + v
   end
 
-  @api = VideoSystemApi::VideoSystemApi.new(@config['bbb_url'], @config['bbb_salt'], @config['bbb_version'].to_s, true)
+  @api = VideoSystemApi::VideoSystemApi.new(@config['bbb_url'], @config['bbb_salt'], @config['bbb_version'].to_s, true, 2, @config['host_ip'])
 
 end
 
@@ -51,8 +56,19 @@ def general_test
 
   puts
   puts "---------------------------------------------------"
-  @api.create_meeting(@config['meeting_name'], @config['meeting_id'], @config['moderator_password'], @config['attendee_password'],
-                     'Welcome to my meeting', '1-800-000-0000x00000#', 'https://github.com/mconf/bigbluebutton-api-ruby', 10)
+  
+                       #Accepted by the API
+                       #meeting_name, meeting_id, welcome_message = nil, 
+                       #tt = nil, ttp = nil, charge_amount = nil, currency = nil, 
+                       #dial_number = nil, logout_url = 'http://www.kluuu.com',
+                       #max_participants = 2, voice_bridge = 72879,
+                       #moderator_password = nil, attendee_password = nil
+                       
+  @api.create_meeting(@config['meeting_name'], @config['meeting_id'], 'Hi, KluuU Folks', 
+                      @config['tt'], @config['ttp'], @config['charge_amount'], @config['currency'], 
+                      '0815', 'http://www.ficken.de', 
+                      2, 24325, @config['moderator_password'], @config['attendee_password'])
+  
   puts "The meeting has been created. Please open a web browser and enter the meeting using either of the URLs below."
 
   puts

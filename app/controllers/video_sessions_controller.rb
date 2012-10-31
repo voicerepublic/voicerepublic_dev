@@ -1,3 +1,4 @@
+require 'kluuu_exceptions'
 
 class VideoSessionsController < ApplicationController
   # GET /video_sessions
@@ -14,6 +15,9 @@ class VideoSessionsController < ApplicationController
   # GET /video_sessions/1.json
   def show
     @video_session = VideoSession::Base.find(params[:id])
+    @user = current_user 
+    @participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, @video_session.id).first
+    @klu = @video_session.klu
 
     respond_to do |format|
       format.js # show.html.erb
@@ -43,6 +47,14 @@ class VideoSessionsController < ApplicationController
     begin
       respond_to do |format|
         if @video_session.save
+          
+           puts '===================================================='
+           puts 'IN CREATE'
+           puts @video_session
+           puts @video_session.guest_participant.inspect
+           puts @video_session.host_participant.inspect
+           puts '===================================================='
+          
           format.js { render and return }
         else
           format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.create.failed_7')} and return }
@@ -64,10 +76,17 @@ class VideoSessionsController < ApplicationController
   def update
     @video_session = VideoSession::Base.find(params[:id])
     
+    puts '===================================================='
+    puts 'IN UPDATE'
+    puts @video_session
+    puts @video_session.guest_participant.inspect
+    puts @video_session.host_participant.inspect
+    puts '===================================================='
+    
     respond_to do |format|
       begin 
         if @video_session.save
-          format.js { render and return }
+          format.js { redirect_to video_session_path(:id => @video_session.id) and return }
         else
           format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.update.failed_1')} and return }
         end
@@ -94,7 +113,27 @@ class VideoSessionsController < ApplicationController
 
     respond_to do |format|
       @msg = t('.call_ended', :default => 'call ended') 
-      format.js { render 'shared/notice_flash' }
+      format.js { render and return }
     end
   end
+  
+  def video_session_config
+    @user = current_user
+    room = VideoRoom.find_by_video_system_room_id(params[:meeting_id])
+    video_session = room.video_session
+    
+    #TODO: check for equality of @user.id and participant.user_id.....
+    #participant = Participants.where('user_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first
+    
+    if (video_session.klu.get_charge_type_as_integer != 1)
+      @time_to_pay = 60 #participant.calculate_time_to_pay(sezzion)
+      @credit = 3.67 #dollarize(((participant.user.account.balance + participant.user.account.revenue).exchange_to(sezzion.currency)).cents)
+    else
+      @credit = -1
+      @time_to_pay = -1
+    end
+    
+    @video_server_address = room.video_server.url.gsub("http:\/\/","").gsub(/\/.*/,"")
+  end
+ 
 end

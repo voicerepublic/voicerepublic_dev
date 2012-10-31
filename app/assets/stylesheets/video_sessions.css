@@ -1,0 +1,42 @@
+#video_client_div{ 
+	height:680px;
+	width:937px;
+}
+
+#client_top_box{
+	width:937px;
+	height:61px;
+	border-bottom:2px solid #E0DDD7;
+	margin-bottom:10px
+}
+
+#client_top_semitransparency{
+	position:absolute;
+	width:937px;
+	height:61px;
+	background-color:rgba(250,250,250,0.8);
+}
+
+#client_top_arrow{
+	background:url(/images/kluuu_icons.png) no-repeat -672px -133px;
+	height:43px;
+	width:25px;
+	float:left
+}
+
+#client_top_title_box{
+	float:left;
+	margin:12px 0 0 18px;
+	width:400px;
+	position:relative
+}
+
+#client_top_title{
+	font:17pt/25px "AllerBold";
+	color:#6D414C;
+}
+
+#client_top_subtitle{
+	font:11pt/20px "AllerRegular";
+	color:#6D414C	
+}

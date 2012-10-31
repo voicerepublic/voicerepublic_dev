@@ -1,4 +1,4 @@
-class Participant::Anonymous < Participant::Base
+class Participant::GuestAnonymous < Participant::Base
   
   belongs_to :video_session, :class_name => 'VideoSession::Anonymous'
   

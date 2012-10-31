@@ -15,11 +15,11 @@
 //= require twitter/bootstrap
 //= require_tree .
 
- function overlay(innerHTML){
-  var overlayContent = $("<div />");
+function overlay(innerHTML){
+  var overlayContent = $("<div id='videoSessionOverlay' />");
   overlayContent.append(innerHTML);
   overlayContent.css({
-    width: "50%",
+    width: "80%",
     background: "white",
     position: "absolute",
     left: "50%",
@@ -36,6 +36,11 @@
     marginLeft: -parseInt(overlayWidth, 10)/2
   });
 };
+
+function closeOverlay(){
+	$('#videoSessionOverlay').remove();
+};
+
 
 function fitText(jquerySelector) {
   var text = $(jquerySelector);

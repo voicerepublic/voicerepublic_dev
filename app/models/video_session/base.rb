@@ -4,7 +4,7 @@ class VideoSession::Base < ActiveRecord::Base
   attr_accessor :canceling_participant_id
   
   has_many :notifications, :class_name => 'Notification::Base', :foreign_key => 'video_session_id'
-  has_one :video_room, :foreign_key => 'video_session_id', :dependent => :delete
+  has_one :video_room, :autosave => true, :foreign_key => 'video_session_id', :dependent => :delete
    
   belongs_to :klu, :inverse_of => :video_sessions
     
