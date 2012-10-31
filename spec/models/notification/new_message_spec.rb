@@ -16,5 +16,9 @@ describe Notification::NewMessage do
     f = FactoryGirl.create(:message, sender: other, receiver: me)
     me.notifications.count.should eq(num_notifications + 1)
   end
+  
+  it "is invalid without url" do
+    FactoryGirl.build(:notification_new_message, :url => nil).should_not be_valid
+  end
 
 end

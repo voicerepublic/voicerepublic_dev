@@ -1,5 +1,5 @@
 class Notification::NewFollower < Notification::Base 
-  attr_accessible :other_id, :user_id
+  attr_accessible :other_id, :user_id, :other, :user
    
   belongs_to :user
   belongs_to :other, :class_name => 'User'

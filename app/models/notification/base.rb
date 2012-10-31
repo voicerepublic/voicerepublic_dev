@@ -10,6 +10,9 @@ class Notification::Base < ActiveRecord::Base
                                                Notification::NewRating
                                               } 
                                  }, :order => "created_at DESC"
+                                 
+  scope :content_alerts, 
+                :conditions => { :type => %w{ Notification::NewKluuu Notification::NewStatus }  }, :order => "created_at DESC"
   
   alias_method :reason, :to_s
   

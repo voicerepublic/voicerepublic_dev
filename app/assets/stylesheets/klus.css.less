@@ -196,7 +196,7 @@
 	.klu-bookmark-link {
 		position: absolute;
 		left: 10px;
-		top: -2px;
+		top: -6px;
 		font-size: 125%;
 	}
 } /* End of common .medium-klu and .small-klu layout */
@@ -347,8 +347,9 @@
 		}
 	} /* End of .large-klu .klu-layout */
 
-	.kluuu-large-left {
+	.large-klu-left {
 		padding: 0  30px;
+		width: 74.359%;
 	}
 
 	.klu-meta {
@@ -388,9 +389,9 @@
 
 	.klu-top-bar {
 		position: absolute;
-		top: -@large-klu-padding-top;
+		top: 0;
 		left: 0px;
-		width: 100%;
+		width: 74.359%;
 
 		ul {
 			margin: 0;
@@ -407,13 +408,11 @@
 		}
 
 		.klu-socials {
-			top: 0;
-			right: 30px;
-			text-align: right;
+			float: right;
 		}
 
 		.klu-bookmark-link {
-			top: @large-klu-padding-top - 1;
+			top: 26px;
 			left: 0;
 			font-size: 150%;
 		}
@@ -446,6 +445,26 @@
 		right: @horizontal-offset;
 		top: @verticalRhythm;
 	}
+
+	.klu-matches {
+		h4 {
+			font-size: @baseFontSize;
+			color: @grayLight;
+			margin: -(@baseFontSize * @baseLineHeight + @verticalRhythm) 0 @verticalRhythm;
+		}
+
+		.small-klu {
+			margin: (@verticalRhythm * 2) 0;
+
+			&:first-child {
+				margin-top: 0;
+			}
+
+			&:last-child {
+				margin-bottom: 0;			}
+		}
+	}
+
 } /* End of .large-klu */
 
 .no-kluuu.large-klu {

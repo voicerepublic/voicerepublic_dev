@@ -18,7 +18,7 @@ class Message < ActiveRecord::Base
   validates :sender_id, :presence => true
   validates :content, :presence => true
   
-  after_create :add_to_or_create_conversation
+  before_create :add_to_or_create_conversation
   after_create :generate_notification
   
   def destroy_for(user)
@@ -40,11 +40,11 @@ class Message < ActiveRecord::Base
     if conv.nil?
       conv = Conversation.create(:user_1_id => ids[0], :user_2_id => ids[1])
     end
-    update_attribute(:conversation_id, conv.id)
+    self.conversation = conv
   end
   
   def generate_notification
-    Notification::NewMessage.create(:other_id => sender.id, :user_id => receiver.id)
+    Notification::NewMessage.create(:other_id => sender.id, :user_id => receiver.id, :url => Rails.application.routes.url_helpers.user_conversation_url(:user_id => sender, :id => self.conversation, :only_path => true))
   end
   
 end

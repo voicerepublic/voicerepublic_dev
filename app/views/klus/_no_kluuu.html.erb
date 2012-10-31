@@ -4,104 +4,140 @@
 			<div class="row-fluid">
 				<div class="span8">
 					<h2 class="klu-eyecatcher klu-title"><%= @klu.title %></h2>
-					<aside class="klu-meta clearfix">
+				</div>
+				<div class="span4">
+					<aside class="klu-user-info">
+						<div class="call-btn btn">
+							<form action="#">
+								<button class="btn">
+									<%= t('.call_now') %>
+								</button>
+							</form>
+							<dl>
+								<dt>
+									<%= t('.price') %>
+								</dt>
+								<dd>
+									<%= @klu.charge_amount %> €
+								</dd>
+								<dt>
+									<%= t('.availability') %>
+								</dt>
+								<dd>
+									<%= @klu.available_at_times %>
+								</dd>
+							</dl>
+							<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
+						</div><!-- End of call-btn -->
+						<div class="klu-user-info-inner">
+							<h4><%= link_to@klu.user.name, user_path(:id => @klu.user) %></h4>
+							<article class="klu-user-status">
+								<%= limit_words(@klu.status_or_about, 15) %>
+							</article>
+							<p class="klu-user-info-activity">
+								ACTIVITY_SCORE
+							</p>
+							<nav>
+								<ul>
+									<li>
+										<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small") do %>
+										<%= t('.send_message') %>
+										<% end if current_user %>
+									</li>
+									<li>
+										<% if current_user && current_user.id != @user.id %>
+										<% if current_user.followed.include?(@klu.user) %>
+										<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :method => :delete, :class => "btn btn-small") %>
+										<% else %>
+										<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small")%>
+										<% end %>
+										<% end %>
+									</li>
+									<li class="klu-user-info-more-klus">
+										<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</aside>
+					<aside class="klu-meta">
 					<ul class="klu-categories">
 						<li>
 							<%= @klu.category.name %>
 						</li>
 					</ul>
-						<ul class="klu-tags">
-							<% @klu.tags.each do |tag| %>
-								<li><%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %></li>
-							<% end %>
-						</ul>
-						<%= @klu.bookmarks.count %> <%= t('.people') %> <%= t('.bookmarked_this_kluuu') %>
-						<ul class="unstyled klu-bookmarked-by">
-							<% @klu.bookmarks.each do |b|%>
-								<li>
-									<%= link_to(user_path(:id => b.user) ) do %>
-										<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid") if b.user.account.portrait.exists? %><%= b.user.firstname %>
-									<% end %>
-								</li>
-							<% end %>
-						</ul>
-					</aside>
-				</div>
-				<aside class="klu-user-info span4">
-					<div class="call-btn btn">
-						<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
-						<dl>
-							<dt><%= t('.price') %></dt>
-							<dd><%= @klu.charge_amount %> €</dd><!-- TODO: @Rene, @Timo: Preis einbinden -->
-							<dt><%= t('.availability') %></dt>
-							<dd><%= @klu.available_at_times %></dd>
-						</dl>
-						<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
-					</div><!-- End of call-btn -->
-					<div class="klu-user-info-inner">
-						<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
-						<h4><%= link_to@klu.user.name, user_path(:id => @klu.user) %></h4>
-						<article class="klu-user-status"><%= limit_words(@klu.status_or_about, 15) %></article>
-						<p class="klu-user-info-activity">ACTIVITY_SCORE</p>
-						<nav>
-							<ul>
-								<li>
-									<%= link_to(new_message_path(:receiver_id => @user)) do %>
-								  <%= t('.send_message') %>
-									<% end if current_user %>
-								</li>
-								<li>
-									<% if current_user && current_user.id != @user.id %>
-										<% if current_user.followed.include?(@klu.user) %>
-											<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :method => :delete) %>
-										<% else %>
-											<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post")%>
-										<% end %>
-									<% end %>
-								</li>
-								<li class="klu-user-info-more-klus">
-									<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
-								</li>
-							</ul>
-						</nav>
-					</div>
+					<ul class="klu-tags">
+						<% @klu.tags.each do |tag| %>
+						<li>
+							<%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %>
+						</li>
+						<% end %>
+					</ul>
 				</aside>
 			</div>
-			<aside class="klu-top-bar">
+		</div>
+	</div>
+	<aside class="klu-top-bar">
 				<ul class="klu-actions">
 					<li class="klu-bookmark-link">
 						<%= bookmark_links(current_user, @klu) %>
 					</li>
 					<% if can? :manage, @klu %>
-						<li>
-							<%= link_to edit_user_klu_path(:user_id => @klu.user, :id => @klu) do %>
-								<i class="icon-pencil"> </i>
-								<%= t('.edit', :default => t("helpers.links.edit")) %>
-							<% end %>
-						</li>
-						<li>
-							<%= link_to user_klu_path(:user_id => @klu.user, :id => @klu),
-								:method => 'delete',
-								:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-								:class => '' do %>
-								<i class="icon-trash"> </i>
-								<%= t('.delete', :default => t("helpers.links.destroy")) %>
-							<% end %>
-						</li>
+					<li>
+						<%= link_to edit_user_klu_path(:user_id => @klu.user, :id => @klu) do %>
+						<i class="icon-pencil"> </i>
+						<%= t('.edit', :default => t("helpers.links.edit")) %>
+						<% end %>
+					</li>
+					<li>
+						<%= link_to user_klu_path(:user_id => @klu.user, :id => @klu),
+						:method => 'delete',
+						:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+						:class => '' do %>
+						<i class="icon-trash"> </i>
+						<%= t('.delete', :default => t("helpers.links.destroy")) %>
+						<% end %>
+					</li>
 					<% end %>
 				</ul>
-				<ul class="klu-socials">
-					<li>Hier Social Foo-Bar</li>
-				</ul>
+				<div class="klu-socials">
+						<!-- AddThis Button BEGIN -->
+						<div class="addthis_toolbox addthis_default_style">
+							<a class="addthis_button_facebook_like"></a>
+							<a class="addthis_button_facebook_send"></a>
+							<a class="addthis_button_google_plusone"></a>
+							<a class="addthis_button_tweet"></a>
+						</div>
+						<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
+						<!-- AddThis Button END -->
+					</div>
+			</aside>
+			<aside class="klu-matches span3">
+				<h4><%= t('.Matches') %></h4>
+				<div>
+					<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
+				</div>
 			</aside>
 		</div><!-- End of Kluu-header kly-layout-->
-		<aside class="klu-matches span3">
-			<h4><%= t('.Matches') %></h4>
-			<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
-		</aside>
+		<div class="large-klu-left row-fluid">
+
+
+				
+					
+						<ul class="unstyled">
+					<h4>
+						<%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %>
+					</h4>
+					<% @klu.bookmarks.each do |b|%>
+					<li>
+						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
+						<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %>
+						<% end %>
+					</li>
+					<% end %>
+							</ul>
 	</div>
 </article>
-
 
 <% if can? :manage, @klu %>
 <div class="form-actions">

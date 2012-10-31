@@ -12,17 +12,19 @@ module DashboardHelper
     when 'MissedCall'
       render(:partial => 'shared/notification', :locals => {:notification => notification})
     when 'NewBookmark'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
+      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewMessage'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
+      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewComment'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
+      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewFollower'
-      render(:partial => 'shared/notify_new_follower', :locals => {:notification => notification})
+      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewRating'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
+      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
     when 'NewKluuu'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
+      render(:partial => 'notifies/new_content', :locals => {:notification => notification})
+    when 'NewStatus'
+      render(:partial => 'notifies/new_content', :locals => { :notification => notification })
     end
     
   end

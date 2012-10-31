@@ -19,26 +19,6 @@
 			</div>
 		</div>
 		
-		<div class="row-fluid">
-			<div class="span8 well">
-				<div class="control-group">
-					<%= f.label :tag_list, :class => "control-label"%>
-					<div class="controls">
-						<%= f.text_field :tag_list, :class => 'text_field' %>
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<%= f.label :category_id, :class => 'control-label' %>
-					<div class="controls">
-						<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
-					</div>
-				</div>
-			</div>
-			<div class="klu-new-help span4">
-				<%= t('.please_use_siginificant_tags_so_other_users_will_find_your_!Kluu!') %>
-			</div>
-		</div>
 		
 		<div class="row-fluid">
 			<div class="control-group well span8">
@@ -52,6 +32,28 @@
 			</div>
 		</div>
 	
+		<div class="row-fluid">
+			<div class="span8 well">
+				<div class="row-fluid">
+					<div class="control-group span8">
+						<%= f.label :tag_list, :class => "control-label"%>
+						<div class="controls">
+							<%= f.text_field :tag_list, :class => 'text_field' %>
+						</div>
+					</div>
+					
+					<div class="control-group span3 pull-right">
+						<%= f.label :category_id, :class => 'control-label' %>
+						<div class="controls">
+							<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="klu-new-help span4">
+				<%= t('.please_use_siginificant_tags_so_other_users_will_find_your_!Kluu!') %>
+			</div>
+		</div>
 	
 	<h4><%= t('.Image') %></h4>
 	<div class="row-fluid">
@@ -79,25 +81,23 @@
 			</div>
 		</div>
 		<div class="row-fluid">
-			<div class="control-group well span8">
-				<%= f.label :charge_type, :class => 'control-label'%>
-				<div class="controls">
-					<%= f.select(:charge_type, Kluuu::CHARGE_TYPES, { :selected => @klu.charge_type} ) %>
+			<div class="well row-fluid span8">
+				<div class="control-group span3">
+					<%= f.label :charge_type, :class => 'control-label'%>
+					<div class="controls">
+						<%= f.select(:charge_type, Kluuu::CHARGE_TYPES, { :selected => @klu.charge_type} ) %>
+					</div>
+				</div>
+				<div class="control-group span3">
+					<%= f.label :charge_amount, :class => 'control-label'%>
+					<div class="controls">
+						<%= f.number_field(:charge_amount )%>
+					</div>
 				</div>
 			</div>
 			<div class="klu-new-help span4">
 				<%= t('.if_you_like_you_can_charge_for_your_!KluuU!') %> <br>
-				<%= t('.you_can_charge_by_the_minute_or_charge_a_fixed_price') %>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="control-group well span8">
-				<%= f.label :charge_amount, :class => 'control-label'%>
-				<div class="controls">
-					<%= f.number_field(:charge_amount )%>
-				</div>
-			</div>
-			<div class="klu-new-help span4">
+				<%= t('.you_can_charge_by_the_minute_or_charge_a_fixed_price') %> <br>
 				<%= t('.how_much_do_you_want_to_charge?') %>
 			</div>
 		</div>

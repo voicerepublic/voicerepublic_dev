@@ -59,6 +59,7 @@ FactoryGirl.define do
       user_id 23
       content "you have a new message"
       other_id 43  
+      url "/path/to/conversation"
     end
     
     factory :notification_new_kluuu, :class => 'Notification::NewKluuu' do
@@ -72,9 +73,10 @@ FactoryGirl.define do
     
     factory :notification_new_comment, :class => 'Notification::NewComment' do
       type 'Notification::NewComment'
-      content 'you have a new comment'
+      content { Faker::Lorem.paragraph }
       user_id 23
       other_id 43
+      url "/path/to/commentable"
     end
     
     factory :notification_follower_action, :class => 'Notification::FollowerAction' do
@@ -87,7 +89,7 @@ FactoryGirl.define do
     
     factory :notification_new_rating, :class => 'Notification::NewRating' do
       type 'Notification::NewRating'
-      content 'one of your kluuus got rated'
+      content 'one of your kluuus got rated with some descriptive words'
       user_id 23
       other_id 43
       klu_id 4
@@ -99,6 +101,12 @@ FactoryGirl.define do
       user_id 23
       other_id 43
       klu_id 4
+    end
+    
+    factory :notification_new_status, :class => 'Notification::NewStatus' do
+      association :other, factory: :user
+      user
+      content { Faker::Lorem.paragraph }
     end
     
   end

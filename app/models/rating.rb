@@ -14,11 +14,12 @@ class Rating < ActiveRecord::Base
   
   MAX = 5
   
+  
   private
   
   def generate_notification
     if rateable.kind_of?(Klu)
-      Notification::NewRating.create(:other_id => user.id, :user_id => rateable.user.id, :klu_id => rateable.id)
+      Notification::NewRating.create(:other_id => user.id, :user_id => rateable.user.id, :klu_id => rateable.id, :content => self.content)
     else
       self.logger.error("Rating#generate_notification - wanted to generate NewRating-notification  for type other than 'Klu'")
       raise "generate notification implemented for Klu-type only - change in class Rating"

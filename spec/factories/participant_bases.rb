@@ -3,22 +3,22 @@
 FactoryGirl.define do
   factory :participant_basis, :class => 'Participant::Base' do
 
-    factory :guest_participant_registered, :class => 'Participant::Registered' do
+    factory :guest_participant_registered, :class => 'Participant::GuestRegistered' do
       association :user, factory: :user
-      type "Participant::Registered"
+      type "Participant::GuestRegistered"
       video_session_id 1
       video_session_role "guest"
     end
     
-    factory :host_participant, :class => 'Participant::Registered' do
+    factory :host_participant, :class => 'Participant::HostRegistered' do
       association :user, factory: :user
-      type "Participant::Registered"
+      type "Participant::HostRegistered"
       video_session_id 1
       video_session_role "host"
     end
 
-    factory :guest_participant_anonymous, :class => 'Participant::Anonymous' do
-      type "Participant::Anonymous"
+    factory :guest_participant_anonymous, :class => 'Participant::GuestAnonymous' do
+      type "Participant::GuestAnonymous"
       video_session_id 1
       video_session_role "guest"
       user_cookie_session_id "0815participant"

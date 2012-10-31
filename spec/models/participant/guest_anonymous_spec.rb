@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Participant::Anonymous do
+describe Participant::GuestAnonymous do
   it "has a valid factory" do
     FactoryGirl.create(:guest_participant_anonymous).should be_valid
   end

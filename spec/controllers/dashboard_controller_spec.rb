@@ -70,4 +70,15 @@ describe DashboardController do
     end
     it "assigns news as @news"
   end
+  
+  
+  describe "DELETE dashboard/delete_notification" do
+    it "destroys the requested notification" do
+      notification = FactoryGirl.create(:notification_new_message, :user => @user)
+      expect {
+        delete :delete_notification, { :notification_id => notification.id }
+      }.to change(Notification::Base, :count).by(-1)
+    end
+  end
+  
 end

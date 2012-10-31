@@ -34,6 +34,20 @@ class DashboardController < ApplicationController
       format.json { render json: @news }
     end
   end
+  
+  def delete_notification
+    n = Notification::Base.find(params[:notification_id])
+    @css_id = "notification-#{params[:notification_id]}"
+    if n.destroy
+      flash.now[:notice] = t('destroyed notification')
+    else
+      flash.now[:error] = t('was not able to delete notification')
+    end
+    respond_to do |format|
+      format.html { redirect_to dashboard_url }
+      format.js 
+    end
+  end
 
   def matches
     @klus = @user.klus

@@ -8,4 +8,16 @@ class StatusUpdate < ActiveRecord::Base
   validates :user_id, :presence => true
   validates :content, :presence => true
   
+  after_create :generate_notification
+  
+  private
+  
+  def generate_notification
+    self.user.follower.each do |f|
+      if f.account.prefs.inform_of_friends
+        Notification::NewStatus.create(:user => f, :other => self.user, :content => self.content )
+      end
+    end
+  end
+  
 end
