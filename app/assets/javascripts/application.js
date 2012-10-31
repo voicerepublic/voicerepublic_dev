@@ -48,7 +48,7 @@ function fitText(jquerySelector) {
       });
       var targetHeight = text.height();
       var targetWidth = text.width();
-      console.log("targetWidth: " + targetWidth)
+      //console.log("targetWidth: " + targetWidth)
       var inner = $("<div />").css({
         display: "inline-block",
         lineHeight: 1.5
@@ -56,16 +56,16 @@ function fitText(jquerySelector) {
       text.wrapInner(inner);
       inner = text.find("div");
       var currentFontSize = parseInt(text.css("font-size"));
-      console.log(inner.text());
+      //console.log(inner.text());
       while (inner.height() < targetHeight) {
           currentFontSize++;
           text.css("font-size", currentFontSize + "px");
-          console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
+          //console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
       };
       while (inner.height() > targetHeight || inner.width() > targetWidth) {
         currentFontSize--;
         text.css("font-size", currentFontSize + "px");
-        console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
+        //console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
       };
       inner.css("padding-top", (targetHeight - inner.height())/2 + "px");
     });
