@@ -1,37 +1,83 @@
-<div class="page-header">
-	<h2>Login</h2>
-</div>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<div class="login row-fluid">
 
-	<%= devise_error_messages! %>
-
-  <div class="control-group">
-	<%= f.label :email, :class => 'control-label' %>
-	<div class="controls">
-		<%= f.text_field :email, :class => 'text_field' %>
-	</div>
-</div>
-
-  <div class='control-group'>
-  	<%= f.label :password, :class => 'control-label' %>
-  	<div class="controls">
-  	<%= f.password_field :password, :class => 'password_field' %>
-  	</div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class='control-group'>
-    	<div class="controls">
-    		<%= f.check_box :remember_me %>
-    	</div> 
-    	<%= f.label :remember_me, :class => 'control-label' %>
+  <div class="span6 well well-large pull-right">
+    <div class="row-fluid page-header">
+      <h2>Log In</h2>
     </div>
-  <% end -%>
+    
+    <div class="row-fluid">
+      <div class="span6">
+        <%= render "devise/shared/links" %>
+      </div>
 
-  <div class="form-actions">
-  	<%= f.submit "Login", :class => 'btn btn-primary' %>
+      <div class="span6">
+        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    
+        <%= devise_error_messages! %>
+    
+        <div class="control-group">
+          <%= f.label :email, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :email, :class => 'text_field' %>
+          </div>
+        </div>
+      
+        <div class='control-group'>
+          <%= f.label :password, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.password_field :password, :class => 'password_field' %>
+          </div>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class='control-group'>
+            <div class="controls">
+              <%= f.check_box :remember_me %>
+            </div> 
+            <%= f.label :remember_me, :class => 'control-label' %>
+          </div>
+        <% end -%>
+      
+        <div>
+          <%= button_tag "Log In", :name => "Login", :class => 'btn btn-primary pull-right' %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+  <%# Text about signup %>
+  <div class="span6 pull-left">
+
+    <div class="row">
+      <div class="span4">
+        <%= image_tag "signup/Nature_Mountains.jpg" %>
+      </div>
+      <div class="span6 offset">
+        <p class="lead">Duis aute irure dolor in reprehenderit in.</>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco 
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span4">
+        <%= image_tag "signup/signup_world.png" %>
+      </div>
+      <div class="span7">
+        <p class="lead">Excepteur sint occaecat cupidatat non</>
+        <p>
+          Laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
+    </div>    
+
+  </div>
 </div>
