@@ -84,11 +84,11 @@ class KlusController < ApplicationController
   def update
     logger.debug("Klus#update - params: #{params.inspect}")
     @klu = Klu.find(params[:id])
-    _user = @klu.user
+    @user = @klu.user
 
     respond_to do |format|
       if @klu.update_attributes(params[:klu])
-        format.html { redirect_to user_klu_path(:user_id => _user, :id => @klu), notice: 'Klu was successfully updated.' }
+        format.html { redirect_to user_klu_path(:user_id => @user, :id => @klu), notice: 'Klu was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

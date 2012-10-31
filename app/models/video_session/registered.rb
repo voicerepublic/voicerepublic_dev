@@ -21,9 +21,6 @@ class VideoSession::Registered < VideoSession::Base
  private
  
  def prepare_one_on_one_video_session  
-   
-   puts 'before create'
-   puts 'in prepare_one_on_one_video_session'
     
    check_sezzion_create_prerequisites()
    
@@ -42,7 +39,12 @@ class VideoSession::Registered < VideoSession::Base
   def prepare_room_for_video_session
     
     self.build_video_room(:name => self.klu.title)
-    self.video_room.send_create
+    begin
+      self.video_room.send_create
+    rescue VideoSystemApi::VideoSystemApiException => e
+      msg = I18n.t('video_sytem.rooms.errors.api_threw_exception')
+      raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error')
+    end
     
     create_video_session_links_for_participants
       
@@ -54,7 +56,7 @@ class VideoSession::Registered < VideoSession::Base
       self.host_participant.create_link(self.video_room)
     rescue Exception => e
       msg = I18n.t('video_sytem.rooms.errors.links.not_set')
-      raise KluuuExceptions::VideoSystemError.new(msg, 'shared/_alert_flash')
+      raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error')
     end
   end  
   
@@ -74,17 +76,18 @@ class VideoSession::Registered < VideoSession::Base
   
   def check_sezzion_create_prerequisites
     @klu = Klu.find(self.klu_id)
+    puts @klu.inspect
     @calling_user = User.find(self.calling_user_id)
     #is the klu unpublished or not existing?
-    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/_alert_flash') if (!@klu.published?)
+    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (!@klu.published?)
     #is the user trying to call his own klu?
-    raise KluuuExceptions::SameUserError.new(I18n.t('video_sessions_controller.create.failed_2'), 'shared/_alert_flash') if (@calling_user.id == @klu.user_id)
+    raise KluuuExceptions::SameUserError.new(I18n.t('video_sessions_controller.create.failed_2'), 'shared/alert_flash') if (@calling_user.id == @klu.user_id)
     #is the klus user not available?
-    raise KluuuExceptions::UserUnavailableError.new(I18n.t('video_sessions_controller.create.failed_3'), Rails.application.routes.url_helpers.new_message_path(:locale => I18n.locale, :receiver_id => @klu.user_id)) unless @klu.user.available?
+    raise KluuuExceptions::UserUnavailableError.new(I18n.t('video_sessions_controller.create.failed_3'), 'user_unavailable', {:receiver_id => @klu.user_id}) unless @klu.user.available?
     #if a registered user is calling a paid klu then make sure he has money
-    raise KluuuExceptions::NoAccountError.new(I18n.t('video_sessions_controller.create.failed_4'), Rails.application.routes.url_helpers.new_user_balance_account_path(:locale => I18n.locale, :user_id => @calling_user.id)) if (@klu.charge_type != 'free') && (@calling_user.balance_account.nil?)
+    raise KluuuExceptions::NoAccountError.new(I18n.t('video_sessions_controller.create.failed_4'), 'no_account') if (@klu.charge_type != 'free') && (@calling_user.balance_account.nil?)
     #make sure the caller has at least credit for one paid minute
-    raise KluuuExceptions::NoFundsError.new(I18n.t('video_sessions_controller.create.failed_6'), Rails.application.routes.url_helpers.edit_user_balance_account_path(:locale => I18n.locale, :user_id => @calling_user.id)) if ((@klu.charge_type != 'free') && (!@calling_user.balance_account.check_balance(@klu.charge, @klu.charge_type, 1)))
+    raise KluuuExceptions::NoFundsError.new(I18n.t('video_sessions_controller.create.failed_6'), 'no_funds') if ((@klu.charge_type != 'free') && (!@calling_user.balance_account.check_balance(@klu.charge, @klu.charge_type, 1)))
  
   end
 end

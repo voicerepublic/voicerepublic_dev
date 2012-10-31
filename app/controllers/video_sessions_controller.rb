@@ -44,31 +44,22 @@ class VideoSessionsController < ApplicationController
       @video_session = VideoSession::Anonymous.new(params[:video_session])
     end 
     
-    begin
-      respond_to do |format|
+    respond_to do |format|
+      begin
         if @video_session.save
-          
-           puts '===================================================='
-           puts 'IN CREATE'
-           puts @video_session
-           puts @video_session.guest_participant.inspect
-           puts @video_session.host_participant.inspect
-           puts '===================================================='
-          
           format.js { render and return }
         else
           format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.create.failed_7')} and return }
         end
-      end
-    rescue KluuuExceptions::KluuuException => e
-      logger.error("\n###############\nVideoSession#create - Exception caught - \n#{e.inspect}\n#####################")
-      if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
-        redirect_to e.redirect_link, :alert => e.msg and return
-      else
-        render e.render_partial, :locals => {:msg => e.msg} and return
+      rescue KluuuExceptions::KluuuException => e
+        logger.error("\n###############\nVideoSession#create - Exception caught - \n#{e.inspect}\n#####################")
+        if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
+          redirect_to e.redirect_link, :alert => e.msg and return
+        else
+          format.js { render e.render_partial, :locals => e.locals and return }
+        end
       end
     end
-
   end
 
   # PUT /video_sessions/1

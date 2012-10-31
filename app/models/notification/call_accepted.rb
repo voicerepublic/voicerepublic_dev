@@ -18,9 +18,6 @@ class Notification::CallAccepted < Notification::Base
     begin
       n = NotificationRenderer.new
       if self.anon_id.nil?
-        puts 'Trying to Push'
-        puts self.inspect
-        #
         PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/call_accepted', :locals => {:video_session => self.video_session}))
       else
         PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_accepted', :locals => {:video_session => self.video_session}))

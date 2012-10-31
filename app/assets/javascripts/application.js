@@ -41,6 +41,9 @@ function closeOverlay(){
 	$('#videoSessionOverlay').remove();
 };
 
+$('body').on('click', '#close_overlay_link', function(event){
+		closeOverlay();
+	});
 
 function fitText(jquerySelector) {
   var text = $(jquerySelector);
