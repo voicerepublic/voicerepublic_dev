@@ -43,3 +43,22 @@ body {
 }
 
 // error handling end
+
+.overlay-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #CCCCCC url(ajax-loader.gif) center center no-repeat;
+  background: rgba(0,0,0,0.2) url(ajax-loader.gif) center center no-repeat;
+
+  .overlay-content {
+    background: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 30px;
+    border: 1px solid #000;
+  }
+}

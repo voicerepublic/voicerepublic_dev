@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-
-
 feature "User visits another user" do
   background do
     @user = FactoryGirl.create(:user)
@@ -14,7 +12,6 @@ feature "User visits another user" do
   
 end
 
-
 feature "User can register" do
   scenario "user supplies correct values" do
     visit root_path()
@@ -24,7 +21,7 @@ feature "User can register" do
     page.fill_in('user_email', :with => "jim@beam.com")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
-    page.click_button('Sign up!')
+    page.click_button('Sign Up')
     page.should have_content("Dashboard")
   end
   
@@ -35,7 +32,31 @@ feature "User can register" do
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
-    page.click_button('Sign up!')
+    page.click_button('Sign Up')
     page.should have_content("Email can't")
   end
+end
+
+feature "User gets notifications via push" do
+  
+  before do
+    @user = FactoryGirl.create(:user)
+  end
+  
+  scenario "User sees number of notifications in actionbar - with css-id 'alerts-count-'" do
+    #user = FactoryGirl.create(:user)
+    login_user(@user)
+    visit dashboard_path()
+    page.should have_content("Dashboard")
+    page.should have_xpath("//*[@id='alerts-count-#{@user.id}']")
+  end
+  
+  scenario "User with alert-notifications has a dropdown-list with latest notifications" do
+    login_user(@user)
+    FactoryGirl.create_list(:notification_new_comment, 2, :user => @user) 
+    visit dashboard_path()
+    page.should have_xpath("//*[@id='notifications-#{@user.id}']")
+    page.should have_xpath("//*[@id='notifications-#{@user.id}']/li")
+  end
+  
 end
