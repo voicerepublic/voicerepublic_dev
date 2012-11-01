@@ -4,7 +4,7 @@ class Conversation < ActiveRecord::Base
   #has_many :receiver_messages, :class_name => 'Message', :foreign_key => :receiver_conversation_id
   #has_many :sender_messages, :class_name => 'Message', :foreign_key => :sender_conversation_id
   
-  has_many :messages
+  has_many :messages, :order => "created_at DESC"
   belongs_to :user_1, :class_name => 'User'
   belongs_to :user_2, :class_name => 'User'
   #belongs_to :user
