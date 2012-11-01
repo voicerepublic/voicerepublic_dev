@@ -44,6 +44,8 @@ class Notification::Base < ActiveRecord::Base
   # pushes notification into actionbar - notification-listing
   #
   def push_notification_in_actionbar
+    #n = NotificationRenderer.new
+    #  PrivatePub.publish_to("/notifications/#{user_id}", n.render('notifications/incoming_call', :locals => {:video_session => self.video_session}))
     # $('<p>Test</p>').insertAfter('.inner');
     
     #<li class="menu-item">
