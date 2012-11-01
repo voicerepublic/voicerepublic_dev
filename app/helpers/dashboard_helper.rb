@@ -31,21 +31,22 @@ module DashboardHelper
     render(:partial => partial, :locals => { :notification => notification } )
   end
   
+  
   def link_to_url_for_notification_reason(notification)
-    url = case notification.class.name
-          when "Notification::NewStatus"
+    url = case notification.class.name.split("::")[-1]
+          when "NewStatus"
             user_status_updates_url(:user_id => notification.other )
-          when "Notification::NewKluuu"
+          when "NewKluuu"
             klu_url(:id => notification.klu)
-          when "Notification::NewBookmark"
+          when "NewBookmark"
             user_bookmarks_url(:user_id => notification.other)
-          when "Notification::NewComment"
+          when "NewComment"
             notification.url
-          when "Notification::NewFollower"
+          when "NewFollower"
             user_path(:id => notification.other )
-          when "Notification::NewRating"
+          when "NewRating"
             klu_url(:id => notification.klu)
-          when "Notification::NewMessage"
+          when "NewMessage"
             notification.url
           end
     if block_given? 
