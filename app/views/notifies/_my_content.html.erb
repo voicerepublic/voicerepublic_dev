@@ -25,15 +25,18 @@
 	
 	<% if notification.instance_of?(Notification::NewRating)%>
 		<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		<%= t('.rated_your_kluuu') %>: <div class="klu-title"><%= notification.klu.title %></div>
+		<%= t('.rated_your_kluuu') %>: <span class="klu-title well"><%= notification.klu.title %></span>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewMessage) %>
 		<%= link_to notification.other.name, user_path(:id => notification.other) %>
 		<%= t('.wrote_you_a_message') %>
 	<% end %>
-	
 	<%= link_to_url_for_notification_reason(notification) %>
+	<%= link_to_url_for_notification_reason(notification) do  %>
+		beispiel_yield
+	<% end %>
+
 
 	<aside>
 		<% if can? :manage, notification %>
@@ -42,4 +45,7 @@
 			<% end %>
 		<% end %>
 	</aside>	
+
+		
+
 </article>

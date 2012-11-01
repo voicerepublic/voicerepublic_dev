@@ -15,13 +15,16 @@
 		<%= simple_format(notification.content) %>
 	<% end %>
 	<% if notification.instance_of?(Notification::NewKluuu)%>
-		<%= link_to notification.other.name, user_path(:id => notification.other) %>
+	<%= link_to notification.other.name, user_path(:id => notification.other) %>
+		<%= link_to_url_for_notification_reason(notification) do  %>
 			<%= t('.created_new_klu') %>:
-		<div class="klu-title"><%= notification.klu.title %></div>
+			<span class="klu-title well well-small"><%= notification.klu.title %></span>
+		<% end %>
 	<% end %>
-	
 	<%= link_to_url_for_notification_reason(notification) %>
-
+	<%= link_to_url_for_notification_reason(notification) do  %>
+		beispiel yield
+	<% end %>
 	<aside>
 		<% if can? :manage, notification %>
 			<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true,  :class => "contribution-delete") do %>
