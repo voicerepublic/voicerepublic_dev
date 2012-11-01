@@ -21,15 +21,14 @@ overlay = {
 
     var calculateOverlay = function() {
       var windowHeight = $(window).height();
-      var windowWidth = $(window).width();
       var bodyHeight = $('body').height();
-      var bodyWidth = $('body').width();
-
+      
       if (bodyHeight < windowHeight) {
           overlayBackground.height(windowHeight);
       }
 
-      
+      var bodyWidth = $('body').width();
+      var windowWidth = $(window).width();
       var overlayHeight = overlayContent.height();
       var overlayWidth = overlayContent.width();
       var minMarginTop = 30;
@@ -44,8 +43,7 @@ overlay = {
         if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
           overlayBackground.height(windowHeight);
         } else if (overlayContent.height() > windowHeight) {
-          overlayBackground.height((overlayContent.height()
-           + minMarginTop) * 1.05);
+          overlayBackground.height((overlayContent.height() + minMarginTop) * 1.05);
           overlayContent.css({
             marginTop: 0,
             top: minMarginTop
@@ -54,8 +52,7 @@ overlay = {
         if (bodyWidth < windowWidth && overlayContent.width() < windowWidth) {
           overlayBackground.width(windowWidth);
         } else if (overlayContent.width() > windowWidth) {
-          overlayBackground.width((overlayContent.width()
-           + minMarginTop) * 1.05);
+          overlayBackground.width((overlayContent.width() + minMarginTop) * 1.05);
           overlayContent.css({
             marginLeft: 0,
             left: minMarginTop
@@ -76,8 +73,15 @@ overlay = {
     var body = $('body').css({
         position: 'relative'
       });
-    var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
-    var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
+
+    if (!$('.overlayBackground')) {
+      var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
+      var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
+    } else {
+      var overlayBackground = $('.overlay-background')[0];
+      var overlayContent = overlayBackground.find('.overlay-content:first-child');
+    };
+
     overlayContent.html(innerHTML);
     overlayContent.find("button[data-function=closeOverlay], input[data-function=closeOverlay], a[data-function=closeOverlay]").on("click", function(e) {
       overlay.close(overlayBackground);
@@ -114,7 +118,7 @@ function fitText(jquerySelector) {
       });
       text.wrapInner(inner);
       inner = text.find("div");
-      var currentFontSize = parseInt(text.css("font-size"));
+      var currentFontSize = parseInt(text.css("font-size"), 10);
       //console.log(inner.text());
       while (inner.height() < targetHeight) {
           currentFontSize++;
