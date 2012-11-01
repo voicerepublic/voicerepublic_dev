@@ -49,7 +49,7 @@ module DashboardHelper
     if block_given?
       return link_to(url) { yield }
     else
-      return link_to(t('.see_more'), url)
+      return link_to(raw('<i class="icon-eye-open"></i>'), url, :class => "news-view")
     end
   end
   

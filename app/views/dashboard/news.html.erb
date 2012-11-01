@@ -1,9 +1,11 @@
-
-<div class="tab-content">
-	<% @news.each do |n| %>
-		<%= partial_for_notification(n) %>
-	<% end %>
-	<div class="form-actions">
+<div class="tab-content news">
+	<ul class="news-list">
+    <% @news.each do |n| %>
+      <li>
+        <%= partial_for_notification(n) %>
+      </li>
+    <% end %>
+  </ul>
+	
 		<%= will_paginate @news, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
-	</div>
 </div>
