@@ -4,6 +4,7 @@
  *= require follows
  *= require balance_accounts
  *= require_self
+ *= require notifications
  */
 
 @import "config.css.less";
@@ -69,4 +70,8 @@
   .follower, .followed {
     .set-rows(4, @verticalRhythm, 200px);
   }
+}
+
+.dashboard .news {
+  max-width: 50%;
 }

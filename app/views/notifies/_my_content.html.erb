@@ -1,8 +1,5 @@
-<article class="notification news-notification contribution" id="notification-<%= notification.id %>">
+<article class="notification news-notification news-nofication-my-content contribution" id="notification-<%= notification.id %>">
 	<header>
-		<div class="contribution-user-name">
-			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		</div>
 		<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => 'contribution-user-image img-polaroid' ) %>
 		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(notification.created_at) %>
@@ -10,22 +7,40 @@
 	</header>
 	
 	<% if notification.instance_of?(Notification::NewBookmark) %>
-		<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		<%= t('.bookmarked_your_kluuu') %> <%= link_to(notification.klu.title, klu_url(:id => notification.klu))%>
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
+			<%= t('.bookmarked_your_kluuu') %>
+		</h4>
+		<%= link_to(notification.klu.title, klu_url(:id => notification.klu))%>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewComment) %>
-		<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		<%= t('.commented_your_status') %>: <%= simple_format(notification.content) %> 
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
+		 	<%= t('.commented_your_status') %>:
+		 </h4>
+		 <%= link_to_url_for_notification_reason(notification) do %>
+		 	<div class="well well-small"><%= limit_words(notification.content, 15) %></div>
+		 <% end %>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewFollower) %>
-		<h4><%= link_to notification.other.name, user_path(:id => notification.other) %> <%= t('.follows_you_now') %></h4>
+		<h4 class="news-notification-top"><%= link_to notification.other.name, user_path(:id => notification.other) %> <%= t('.follows_you_now') %></h4>
+		<% if current_user.followed.include?(notification.other) %>
+			<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => notification.other).first), :class => "btn news-follow-reaction", :method => :delete) %>
+		<% else %>
+			<%= link_to( t('.follow_back'), user_create_follow_path(:user_id => current_user, :followed_id => notification.other ), :method => "post", :class => "btn news-follow-reaction" )%>
+		<% end %>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewRating)%>
-		<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		<%= t('.rated_your_kluuu') %>: <span class="klu-title well"><%= notification.klu.title %></span>
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
+		 	<%= t('.rated_your_kluuu') %>:
+		 </h4>
+		 <%= link_to_url_for_notification_reason(notification) do %>
+		 	<span class="klu-title well"><%= notification.klu.title %></span>
+		 <% end %>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewMessage) %>
@@ -33,9 +48,6 @@
 		<%= t('.wrote_you_a_message') %>
 	<% end %>
 	<%= link_to_url_for_notification_reason(notification) %>
-	<%= link_to_url_for_notification_reason(notification) do  %>
-		beispiel_yield
-	<% end %>
 
 
 	<aside>
@@ -45,7 +57,4 @@
 			<% end %>
 		<% end %>
 	</aside>	
-
-		
-
 </article>

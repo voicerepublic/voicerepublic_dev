@@ -1,8 +1,5 @@
-<article class="notification news-notification contribution" id="notification-<%= notification.id %>">
+<article class="notification news-notification news-notification-new-content contribution" id="notification-<%= notification.id %>">
 	<header>
-		<div class="contribution-user-name">
-			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		</div>
 		<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => 'contribution-user-image img-polaroid' ) %>
 		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(notification.created_at) %>
@@ -10,21 +7,26 @@
 	</header>
 
 	<% if notification.instance_of?(Notification::NewStatus) %>
-	<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		<%= t('.created_new_status_update') %>:
-		<%= simple_format(notification.content) %>
+	<h4 class="news-notification-top">
+		<%= link_to notification.other.name, user_path(:id => notification.other) %>
+			<%= t('.created_new_status_update') %>:
+		</h4>
+		<%= link_to_url_for_notification_reason(notification) do %>
+			<div class="well well-small">
+				<%= limit_words(notification.content, 40) %>
+			</div>
+		<% end %>
 	<% end %>
 	<% if notification.instance_of?(Notification::NewKluuu)%>
-	<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		<%= link_to_url_for_notification_reason(notification) do  %>
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
 			<%= t('.created_new_klu') %>:
+		</h4>
+		<%= link_to_url_for_notification_reason(notification) do  %>
 			<span class="klu-title well well-small"><%= notification.klu.title %></span>
 		<% end %>
 	<% end %>
 	<%= link_to_url_for_notification_reason(notification) %>
-	<%= link_to_url_for_notification_reason(notification) do  %>
-		beispiel yield
-	<% end %>
 	<aside>
 		<% if can? :manage, notification %>
 			<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true,  :class => "contribution-delete") do %>
