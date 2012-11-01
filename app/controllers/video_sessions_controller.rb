@@ -16,7 +16,13 @@ class VideoSessionsController < ApplicationController
   def show
     @video_session = VideoSession::Base.find(params[:id])
     @user = current_user 
-    @participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, @video_session.id).first
+    
+    if @user.nil? 
+      @participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', session[:id], @video_session.id).first
+    else 
+      @participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, @video_session.id).first
+    end   
+    
     @klu = @video_session.klu
 
     respond_to do |format|
@@ -67,12 +73,12 @@ class VideoSessionsController < ApplicationController
   def update
     @video_session = VideoSession::Base.find(params[:id])
     
-    puts '===================================================='
-    puts 'IN UPDATE'
-    puts @video_session
-    puts @video_session.guest_participant.inspect
-    puts @video_session.host_participant.inspect
-    puts '===================================================='
+    #puts '===================================================='
+    #puts 'IN UPDATE'
+    #puts @video_session
+    #puts @video_session.guest_participant.inspect
+    #puts @video_session.host_participant.inspect
+    #puts '===================================================='
     
     respond_to do |format|
       begin 

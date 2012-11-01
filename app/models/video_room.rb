@@ -37,6 +37,7 @@ class VideoRoom < ActiveRecord::Base
     self.start_time = nil
     self.end_time = nil
     self.participants = []
+    @video_server_ids_to_exclude = [1,23,4]
   end
   
   def is_running?
@@ -47,16 +48,24 @@ class VideoRoom < ActiveRecord::Base
   # before a room is created
   # This one selects the server with less rooms in it
   def select_server
-     #TODO: Add Logic for Redundancy
-     #if no room exists
-     video_server = VideoServer.where('activated = ?', true).first
-      puts 'VIDEOSERVER'
-      puts video_server.inspect
-      
-      video_server
-     #Umbau wegen activated un video_rooms nil
-     #VideoServer.select("video_servers.*, count(video_rooms.id) as video_room_count").joins(:video_rooms).group("video_servers.id").order("video_room_count ASC").first
-     
+    
+    #exclude servers that failed to connect     
+    unless self.video_server.nil?
+      @video_server_ids_to_exclude.push(self.video_server.id)
+    end
+    
+    video_servers = VideoServer.activated
+    
+    unless @video_server_ids_to_exclude.empty?
+      video_servers.where('id not in (?)', @video_server_ids_to_exclude)
+    end
+    
+    video_server = video_servers.first
+    video_servers.each do |s|
+      video_server = s if s.video_rooms.count < video_server.video_rooms.count
+    end
+    
+    video_server
   end
  
   # Fetches info from the Video System about this room.
@@ -144,13 +153,13 @@ class VideoRoom < ActiveRecord::Base
     # updates the server whenever a meeting will be created
     self.video_server = select_server
     self.save unless self.new_record?
-    require_server
-    
+   
     self.video_system_room_id = random_video_system_room_id
     # create a new random meetingid everytime create fails with "duplicateWarning"
     count = 0
     try_again = true
-    while try_again and count < 10
+    while try_again and count < 3
+      require_server
       response = do_create_video_system_room
       count += 1
       try_again = false
@@ -158,7 +167,10 @@ class VideoRoom < ActiveRecord::Base
         if response[:returncode] && response[:messageKey] == "duplicateWarning"
           self.video_system_room_id = random_video_system_room_id
           try_again = true
-        end
+        elsif !response[:returncode]
+          self.video_server = select_server
+          try_again = true
+        end  
       end
     end
     
@@ -210,7 +222,6 @@ private
   # anything else.
   def require_server
     if self.video_server.nil?
-      puts "SERVER IS NIL!!!"
       msg = I18n.t('video_sytem.rooms.errors.server.not_set')
       raise KluuuExceptions::VideoSystemError.new(msg, 'shared/alert_flash')
     end

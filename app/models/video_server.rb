@@ -3,8 +3,7 @@ require 'video_system_api/video_system_api'
 class VideoServer < ActiveRecord::Base
   attr_accessible :activated, :name, :salt, :url, :version
   
-  has_many :video_rooms,
-           :dependent => :nullify
+  has_many :video_rooms, :class_name => 'VideoRoom', :foreign_key => 'video_server_id', :dependent => :nullify
 
   validates :name,
             :presence => true,
@@ -28,6 +27,8 @@ class VideoServer < ActiveRecord::Base
 
   # Array of VideoSession in VideoSystem
   attr_reader :video_system_rooms
+  
+  scope :activated, where('activated=?', true)
 
   after_initialize :init
   

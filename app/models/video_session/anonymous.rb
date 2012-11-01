@@ -36,8 +36,19 @@ class VideoSession::Anonymous < VideoSession::Base
   end
   
   def prepare_room_for_video_session
+    
     self.build_video_room(:name => self.klu.title)
-    self.video_room.send_create
+    
+    begin
+      response = self.video_room.send_create
+    rescue VideoSystemApi::VideoSystemApiException => e
+      msg = I18n.t('video_sytem.rooms.errors.api_threw_exception')
+      raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error', {:response => response})
+    end
+    
+    if response.nil? || !response[:returncode]
+      raise KluuuExceptions::VideoSystemError.new('no server available for this room', 'video_sessions/video_system_error', {:response => response})
+    end
     
     create_video_session_links_for_participants
     
@@ -75,5 +86,5 @@ class VideoSession::Anonymous < VideoSession::Base
     raise KluuuExceptions::UserUnavailableError.new(I18n.t('video_sessions_controller.create.failed_3'), 'user_unavailable', {:receiver_id => @klu.user_id}) unless @klu.user.available?
     #if a anonymous user is calling a paid klu
     raise KluuuExceptions::AnonymousUserError.new(I18n.t('video_sessions_controller.create.failed_5'), 'anonymous_sign_up') if (klu.charge_type != 'free')
-    end
+  end
 end

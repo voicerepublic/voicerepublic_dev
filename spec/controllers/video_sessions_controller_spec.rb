@@ -24,6 +24,7 @@ describe VideoSessionsController do
   
   before do
     @user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
+    @user.balance_account = Balance::Account.create(:currency => 'EUR')
     @klu = FactoryGirl.create(:published_kluuu, user_id: @user.id)
     guest_password = Faker::Lorem.characters(8)
     host_password = Faker::Lorem.characters(8)
@@ -39,11 +40,7 @@ describe VideoSessionsController do
     @api_mock.stub(:join_meeting_url).and_return('http://www.kluuu.com')
     @server_mock = mock_model(VideoServer)
     @server_mock.stub(:api).and_return(@api_mock)
-    @server_mock.stub(:joins).and_return(@server_mock)   
-    @server_mock.stub(:group).and_return(@server_mock)   
-    @server_mock.stub(:order).and_return(@server_mock)
     @server_mock.stub(:first).and_return(@server_mock)   
-    VideoServer.stub(:select).and_return(@server_mock)
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -76,6 +73,7 @@ describe VideoSessionsController do
   describe "GET show" do
     it "assigns the requested video_session as @video_session with registered participants" do
       registered_video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
+      controller.stub :current_user => registered_video_session.host_participant.user
       get :show, {:id => registered_video_session.to_param}, valid_session
       assigns(:video_session).should eq(registered_video_session)
     end
@@ -83,6 +81,8 @@ describe VideoSessionsController do
     it "assigns the requested video_session as @video_session with anonymous participant" do
       anonymous_video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
       get :show, {:id => anonymous_video_session.to_param}, valid_session
+      puts assigns(:video_session).inspect
+      assigns(:participant)
       assigns(:video_session).should eq(anonymous_video_session)
     end
   end
@@ -184,39 +184,39 @@ describe VideoSessionsController do
         xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id, :calling_user_id => @user.id)}, valid_session, :format => 'js'
         response.should render_template 'shared/alert_flash'
       end
-      it "redirects to the message controller if klu user is not available" do
+      it "directs to the message controller if klu user is not available" do
         user = FactoryGirl.create(:user, available: :offline, last_request_at: Time.now)  
         klu = FactoryGirl.create(:published_kluuu, user_id: user.id)
         xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id)}, valid_session, :format => 'js' 
-        response.should redirect_to new_message_path(:receiver_id => klu.user_id)
+        response.should render_template 'user_unavailable'
       end
-      it "redirects to the credit account controller if registered calling user does not have an account" do
+      it "directs to the credit account controller if registered calling user does not have an account" do
         user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
         klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'minute')
         controller.stub :current_user => user
         xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id, :calling_user_id => user.id)}, valid_session, :format => 'js' 
-        response.should redirect_to new_user_balance_account_path(:user_id => user.id)
+        response.should render_template 'no_account'
       end
-      it "redirects to the registration page if an anonymous calling user tries to call a non-free kluuu" do
+      it "directs to the registration page if an anonymous calling user tries to call a non-free kluuu" do
         klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'minute')
         xhr :post, :create, {:video_session => valid_anonymous_video_session_attributes.merge(:klu_id => klu.id)}, valid_session, :format => 'js' 
-        response.should redirect_to new_user_registration_path()
+        response.should render_template 'anonymous_sign_up'
       end
-      it "redirects to the credit account controller if minute registered calling user does not have enough money" do
+      it "directs to the credit account controller if minute registered calling user does not have enough money" do
         user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
         balance_account =  FactoryGirl.create(:balance_account, user_id: user.id, balance_cents: 0)  
         klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'minute', charge_amount: 200)
         controller.stub :current_user => user
         xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id, :calling_user_id => user.id)}, valid_session, :format => 'js' 
-        response.should redirect_to edit_user_balance_account_path(:user_id => user.id)
+        response.should render_template 'no_funds'
       end
-      it "redirects to the credit account controller if fix registered calling user does not have enough money" do
+      it "directs to the credit account controller if fix registered calling user does not have enough money" do
         user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
         balance_account =  FactoryGirl.create(:balance_account, user_id: user.id, balance_cents: 0)  
         klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'fix', charge_amount: 200)
         controller.stub :current_user => user
         xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id, :calling_user_id => user.id)}, valid_session, :format => 'js' 
-        response.should redirect_to edit_user_balance_account_path(:user_id => user.id)
+        response.should render_template 'no_funds'
       end
     end
   end

@@ -6,60 +6,45 @@ FactoryGirl.define do
     factory :notification_anonymous_incoming_call, :class => 'Notification::IncomingCall' do
       type 'Notification::IncomingCall'
       video_session_id 1
-<<<<<<< HEAD
-      user_id 23
-      anon_id 'safd34h43l24'
-=======
       user
-      association :other, factory: :user
->>>>>>> a288b7c06230b026cd30ac40810a3f8bfe001f54
+      anon_id 'safd34h43l24'
     end
     
     factory :notification_anonymous_call_accepted, :class => 'Notification::CallAccepted' do
       type 'Notification::CallAccepted'
       url 'http://www.a.kluuu.com'
       video_session_id 1
-<<<<<<< HEAD
-      other_id 23
-      anon_id 'safd34h43l24'
-=======
       association :other, factory: :user
-      user
->>>>>>> a288b7c06230b026cd30ac40810a3f8bfe001f54
+      anon_id 'safd34h43l24'
     end
     
     factory :notification_anonymous_call_rejected, :class => 'Notification::CallRejected' do
       type 'Notification::CallRejected'
       video_session_id 1
-<<<<<<< HEAD
-      other_id 23
+      association :other, factory: :user
       anon_id 'safd34h43l24'
     end
     
     factory :notification_registered_incoming_call, :class => 'Notification::IncomingCall' do
       type 'Notification::IncomingCall'
       video_session_id 1
-      user_id 23
-      other_id 43
+      association :other, factory: :user
+      user
     end
     
     factory :notification_registered_call_accepted, :class => 'Notification::CallAccepted' do
       type 'Notification::CallAccepted'
       url 'http://www.a.kluuu.com'
       video_session_id 1
-      other_id 23
-      user_id 43
+      association :other, factory: :user
+      user
     end
     
     factory :notification_registered_call_rejected, :class => 'Notification::CallRejected' do
       type 'Notification::CallRejected'
       video_session_id 1
-      other_id 23
-      user_id 43
-=======
       association :other, factory: :user
       user
->>>>>>> a288b7c06230b026cd30ac40810a3f8bfe001f54
     end
     
     factory :notification_new_follower, :class => 'Notification::NewFollower' do

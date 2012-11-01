@@ -40,10 +40,14 @@ class VideoSession::Registered < VideoSession::Base
     
     self.build_video_room(:name => self.klu.title)
     begin
-      self.video_room.send_create
+      response = self.video_room.send_create
     rescue VideoSystemApi::VideoSystemApiException => e
       msg = I18n.t('video_sytem.rooms.errors.api_threw_exception')
-      raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error')
+      raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error', {:response => response})
+    end
+    
+    if response.nil? || !response[:returncode]
+      raise KluuuExceptions::VideoSystemError.new('no server available for this room', 'video_sessions/video_system_error', {:response => response})
     end
     
     create_video_session_links_for_participants
@@ -76,7 +80,6 @@ class VideoSession::Registered < VideoSession::Base
   
   def check_sezzion_create_prerequisites
     @klu = Klu.find(self.klu_id)
-    puts @klu.inspect
     @calling_user = User.find(self.calling_user_id)
     #is the klu unpublished or not existing?
     raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (!@klu.published?)

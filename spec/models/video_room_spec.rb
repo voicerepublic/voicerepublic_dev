@@ -255,6 +255,7 @@ describe VideoRoom do
 
       context "randomizes meetingid" do
         let(:fail_hash) { { :returncode => true, :meetingID => "new id", :messageKey => "duplicateWarning" } }
+        let(:error_hash) { { :returncode => false, :meetingID => "", :messageKey => "noPong" } }
         let(:success_hash) { { :returncode => true, :meetingID => "new id", :messageKey => "" } }
         let(:new_id) { "new id" }
         before {
@@ -290,15 +291,33 @@ describe VideoRoom do
                    room.video_session.klu.currency).once.and_return(success_hash)
           room.send_create
         end
-
-        it "and limits to 10 tries" do
-          room.should_receive(:random_video_system_room_id).exactly(11).times.and_return(new_id)
+        
+        it "and tries again on server error" do
+          # fails once and then succeds
+          room.should_receive(:random_video_system_room_id).exactly(1).times.and_return(new_id)
           mocked_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
                    dollarize(room.video_session.klu.charge_amount), 
-                   room.video_session.klu.currency).exactly(10).times.and_return(fail_hash)
+                   room.video_session.klu.currency).once.and_return(error_hash)
+          mocked_api.should_receive(:create_meeting).
+            with(room.name, new_id, room.welcome_msg, 
+                   room.video_session.klu.get_charge_type_as_integer, 
+                   room.video_session.klu.free_time,
+                   dollarize(room.video_session.klu.charge_amount), 
+                   room.video_session.klu.currency).once.and_return(success_hash)
+          room.send_create
+        end
+
+        it "and limits to 3 tries" do
+          room.should_receive(:random_video_system_room_id).exactly(4).times.and_return(new_id)
+          mocked_api.should_receive(:create_meeting).
+            with(room.name, new_id, room.welcome_msg, 
+                   room.video_session.klu.get_charge_type_as_integer, 
+                   room.video_session.klu.free_time,
+                   dollarize(room.video_session.klu.charge_amount), 
+                   room.video_session.klu.currency).exactly(3).times.and_return(fail_hash)
           room.send_create
         end
       end
@@ -331,8 +350,26 @@ describe VideoRoom do
           it { new_room.new_record?.should be_true }
         end
       end
+      
+      context "selects only specific servers" do
+        VideoServer.destroy_all
+        first_server = FactoryGirl.create(:video_server) 
+        test_room = FactoryGirl.create(:video_room, video_server_id: first_server.id)
+        second_server = FactoryGirl.create(:deactivated_video_server)
+           
+        context "they habe to be activated" do
+          it { room.select_server.id.should == first_server.id }
+        end
+    
+        context "and have the fewest rooms" do
+          before do
+            second_server.update_attribute(:activated, true)
+          end 
+          it { room.select_server.id.should == second_server.id }
+        end
+      end    
     end # #send_create
-
+    
     describe "#join_url" do
       let(:username) { Faker::Name.first_name }
       let(:user_id) { 1508 }
