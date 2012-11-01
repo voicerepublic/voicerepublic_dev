@@ -2,6 +2,7 @@ require 'spec_helper'
 
 
 
+
 feature "User visits another user" do
   background do
     @user = FactoryGirl.create(:user)
@@ -38,4 +39,30 @@ feature "User can register" do
     page.click_button('Sign Up')
     page.should have_content("Email can't")
   end
+ 
+end
+
+feature "User gets notifications via push" do
+  
+  before do
+    @user = FactoryGirl.create(:user)
+  end
+  
+  scenario "User sees number of notifications in actionbar - with css-id 'alerts-count-'" do
+    #user = FactoryGirl.create(:user)
+    login_user(@user)
+    visit dashboard_path()
+    page.should have_content("Dashboard")
+    page.should have_xpath("//*[@id='alerts-count-#{@user.id}']")
+  end
+  
+  scenario "User with alert-notifications has a dropdown-list with latest notifications" do
+    login_user(@user)
+    FactoryGirl.create_list(:notification_new_comment, 2, :user => @user) 
+    visit dashboard_path()
+    page.should have_xpath("//*[@id='notifications-#{@user.id}']")
+    page.should have_xpath("//*[@id='notifications-#{@user.id}']/li")
+  end
+  
+  
 end
