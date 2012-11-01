@@ -28,7 +28,7 @@ class Notification::Base < ActiveRecord::Base
       #PrivatePub.publish_to("/notifications/#{user_id}", "alert('<%= self.to_s %>');")
     rescue Exception => e
       self.logger.error("#{self.class.name}#generate_push_notification - error: #{e.inspect}")
-      raise
+      #raise
     end  
   end
   
