@@ -2,31 +2,33 @@ module DashboardHelper
   
   def partial_for_notification(notification)
     
-    case notification.class.name.split("::")[-1]
-    when 'CallAccepted'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
-    when 'CallRejected'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
-    when 'IncomingCall'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
-    when 'MissedCall'
-      render(:partial => 'shared/notification', :locals => {:notification => notification})
-    when 'NewBookmark'
-      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
-    when 'NewMessage'
-      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
-    when 'NewComment'
-      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
-    when 'NewFollower'
-      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
-    when 'NewRating'
-      render(:partial => 'notifies/my_content', :locals => {:notification => notification})
-    when 'NewKluuu'
-      render(:partial => 'notifies/new_content', :locals => {:notification => notification})
-    when 'NewStatus'
-      render(:partial => 'notifies/new_content', :locals => { :notification => notification })
-    end
-    
+    partial = case notification.class.name.split("::")[-1]
+              when 'CallAccepted'
+                  'shared/notification'
+              when 'CallRejected'
+                'shared/notification'
+              when 'IncomingCall'
+                'shared/notification'
+              when 'MissedCall'
+                'shared/notification'
+              when 'NewBookmark'
+                'notifies/my_content'
+              when 'NewMessage'
+                'notifies/my_content'
+              when 'NewComment'
+                'notifies/my_content'
+              when 'NewFollower'
+                'notifies/my_content'
+              when 'NewRating'
+                'notifies/my_content'
+              when 'NewKluuu'
+                'notifies/new_content'
+              when 'NewStatus'
+                'notifies/new_content'
+              end
+              
+    partial ||= 'shared/notification'  # if no partial fits - render debug-partial
+    render(:partial => partial, :locals => { :notification => notification } )
   end
   
   def link_to_url_for_notification_reason(notification)
@@ -46,7 +48,7 @@ module DashboardHelper
           when "Notification::NewMessage"
             notification.url
           end
-    if block_given?
+    if block_given? 
       return link_to(url) { yield }
     else
       return link_to( content_tag(:i, ' ', :class => "icon-eye-open"), url, :class => "news-view")
