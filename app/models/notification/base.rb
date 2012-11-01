@@ -1,4 +1,5 @@
 class Notification::Base < ActiveRecord::Base
+  include ActionView::Helpers::JavaScriptHelper
   
   ALERTS          = %w{ Notification::NewBookmark 
                         Notification::NewComment
@@ -22,11 +23,12 @@ class Notification::Base < ActiveRecord::Base
   def generate_push_notification
     Rails.logger.debug("#{self.class.name}#generate_push_notification - start")
     begin
-      set_notification_count if self.instance_of?()
+      set_notification_count 
+      push_notification_in_actionbar
       #PrivatePub.publish_to("/notifications/#{user_id}", "alert('<%= self.to_s %>');")
     rescue Exception => e
-      self.logger.error("#{self.class.name}#generate_push_notification - error: #{e.inspect}")
-      #raise
+      Rails.logger.error("#{self.class.name}#generate_push_notification - ERROR: #{e.inspect}")
+      raise
     end  
   end
   
@@ -43,18 +45,18 @@ class Notification::Base < ActiveRecord::Base
   
   # pushes notification into actionbar - notification-listing
   #
+  # FIXME - rendered content is not inserted at given DOM-position
   def push_notification_in_actionbar
-    #n = NotificationRenderer.new
-    #  PrivatePub.publish_to("/notifications/#{user_id}", n.render('notifications/incoming_call', :locals => {:video_session => self.video_session}))
-    # $('<p>Test</p>').insertAfter('.inner');
-    
-    #<li class="menu-item">
-    #  <%= link_to_url_for_notification_reason(notification) do %>
-    #    <%= notification %>
-    #  <% end %>
-    #</li>
-    js = "$('<li class=\'menu-item\'>').insertAfter('#notifications-#{user_id}');"
-    PrivatePub.publish_to("/notifications/#{user_id}", js)
+    if ALERTS.include?(self.class.name)
+      Rails.logger.debug("#{self.class.name}#push_notification_in_actionbar - start ")
+      n = KluuuCode::NotificationRenderer.new
+      content =  escape_javascript(n.render('shared/notification_list_item', :locals => {:notification => self }))
+      Rails.logger.debug("#{self.class.name}#push_notification_in_actionbar - content: #{content}")
+      PrivatePub.publish_to("/notifications/#{user_id}", "$('#{content}').insertAfter('#notification-#{user_id}');")
+      Rails.logger.debug("#{self.class.name}#push_notification_in_actionbar - end ")
+    else
+      Rails.logger.debug("#{self.class.name}#push_notification_in_actionbar - NOT IN ALERTS ")
+    end
   end
   
 end
