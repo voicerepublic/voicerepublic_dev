@@ -1,25 +1,33 @@
-<article class="notification well well-large" id="notification-<%= notification.id %>">
-	
-	<div class="pull-right">
-		<% if can? :manage, notification %>
-		<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true) do %>
-			<i class="icon-trash"></i> <%= t('.destroy') %>
-		<% end %>
-		<% end %>
-	</div>
-	
-	<small><%= time_ago_in_words(notification.created_at) %> </small>
-	<h4><%= notification %></h4>
-	<span class="label label-info"><%= link_to notification.other.name, user_path(:id => notification.other) %></span>
+<article class="notification news-notification contribution" id="notification-<%= notification.id %>">
+	<header>
+		<div class="contribution-user-name">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
+		</div>
+		<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => 'contribution-user-image img-polaroid' ) %>
+		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
+			<%= time_ago_in_words(notification.created_at) %>
+		</time>
+	</header>
+
 	<% if notification.instance_of?(Notification::NewStatus) %>
+	<%= link_to notification.other.name, user_path(:id => notification.other) %>
 		<%= t('.created_new_status_update') %>:
 		<%= simple_format(notification.content) %>
 	<% end %>
 	<% if notification.instance_of?(Notification::NewKluuu)%>
-		<%= t('.created_new_klu') %>:
-		<%= notifcation.klu.title %>
+		<%= link_to notification.other.name, user_path(:id => notification.other) %>
+			<%= t('.created_new_klu') %>:
+		<div class="klu-title"><%= notification.klu.title %></div>
 	<% end %>
-	<div class="form-actions">
-		<%= link_to_url_for_notification_reason(notification) %>
-	</div>
+	
+	<%= link_to_url_for_notification_reason(notification) %>
+
+	<aside>
+		<% if can? :manage, notification %>
+			<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true,  :class => "contribution-delete") do %>
+				<i class="icon-trash"></i>
+			<% end %>
+		<% end %>
+	</aside>	
 </article>
+

@@ -1,38 +1,45 @@
-<article class="notification well well-large" id="notification-<%= notification.id %>">
-	<div class="pull-right">
-		<% if can? :manage, notification %>
-		<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true) do %>
-			<i class="icon-trash"></i> <%= t('.destroy') %>
-		<% end %>
-		<% end %>
-	</div>
-	<small><%= time_ago_in_words(notification.created_at) %> </small>
-	
-	<h4><%= notification %></h4>
-	<span class="label label-info"><%= link_to notification.other.name, user_path(:id => notification.other) %></span>
+<article class="notification news-notification contribution" id="notification-<%= notification.id %>">
+	<header>
+		<div class="contribution-user-name">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
+		</div>
+		<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => 'contribution-user-image img-polaroid' ) %>
+		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
+			<%= time_ago_in_words(notification.created_at) %>
+		</time>
+	</header>
 	
 	<% if notification.instance_of?(Notification::NewBookmark) %>
+		<%= link_to notification.other.name, user_path(:id => notification.other) %>
 		<%= t('.bookmarked_your_kluuu') %> <%= link_to(notification.klu.title, klu_url(:id => notification.klu))%>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewComment) %>
+		<%= link_to notification.other.name, user_path(:id => notification.other) %>
 		<%= t('.commented_your_status') %>: <%= simple_format(notification.content) %> 
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewFollower) %>
-		<%= notification.other.name %> <%= t('.follows_you_now') %>
+		<h4><%= link_to notification.other.name, user_path(:id => notification.other) %> <%= t('.follows_you_now') %></h4>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewRating)%>
-		<%= t('.rated_your_kluuu') %>: <%= notification.klu.title %>
+		<%= link_to notification.other.name, user_path(:id => notification.other) %>
+		<%= t('.rated_your_kluuu') %>: <div class="klu-title"><%= notification.klu.title %></div>
 	<% end %>
 	
 	<% if notification.instance_of?(Notification::NewMessage) %>
+		<%= link_to notification.other.name, user_path(:id => notification.other) %>
 		<%= t('.wrote_you_a_message') %>
 	<% end %>
 	
-	<div class="form-actions">
-		<%= link_to_url_for_notification_reason(notification) %>
-	</div>
-	
+	<%= link_to_url_for_notification_reason(notification) %>
+
+	<aside>
+		<% if can? :manage, notification %>
+			<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true,  :class => "contribution-delete") do %>
+				<i class="icon-trash"></i>
+			<% end %>
+		<% end %>
+	</aside>	
 </article>
