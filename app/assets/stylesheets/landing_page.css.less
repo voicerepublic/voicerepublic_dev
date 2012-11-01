@@ -7,21 +7,86 @@
  @import "config.css.less";
 
  .landing-page {
+ 	padding-top:0px;
   .medium-klu {
-    .set-rows(2);
+    .set-rows(4);
   }
  }
 
 body{
-	background: url(phone_switchers.jpg);
-	background-size: cover
+	background:#983450;
+	padding-top:40px
+}
+
+.container{
+	width: 100%;
+	.row-fluid{
+		padding:5%
+	}
 }
 
  h2.landing-page-claim{
- 		font-size:@baseFontSize * 3;
+ 		font-size:@baseFontSize * 4;
  		line-height:@baseLineHeight * 2;
- 		color:white
+ 		color:white;
  }
+
+ .landing-page-claim-bg{
+	padding:15px 35px;
+	background:rgba(0,0,0,0.5)	
+}
+
+.landing-page-search{
+	margin:20px 25%;
+	padding:10px 0 45px 0;
+	background:rgba(255,255,255,0.8);
+	border-radius: 20px
+}
+
+#query{
+	font-size:@baseFontSize * 2;
+	padding-top:@verticalRhythm * 1.2;
+	padding-bottom:@verticalRhythm * 1.2;
+	padding-left:@verticalRhythm * 2;
+	padding-right:@verticalRhythm * 2;
+ 	line-height:@baseLineHeight * 1;
+ 	color:#56A5B3;
+ 	border-radius:35px;
+ 	&:focus{
+ 		border-color:#56A5B3
+ 	}
+}
+
+.landing-page-top-row{
+	background: url(phone_switchers.jpg) 0 -200px;
+	background-size: 100%;
+	background-repeat:no-repeat;
+	margin-top:0
+}
+
+.landing-page{
+	.row-fluid{
+		min-height:500px;
+		border-top:4px solid rgba(0,0,0,0.3)
+	}
+}
+
+.landing-page-search-button{
+	background:none;
+	border:none;
+	font-size: @baseFontSize * 3;
+	color:@brandColor
+}
+
+.landing-page-color1{
+	background:#983450;
+	margin:0;
+	padding:0
+}
+
+.landing-page-color2{
+	background:#56A5B3;
+}
 
 .tag-cloud ul li{
 	display:inline;

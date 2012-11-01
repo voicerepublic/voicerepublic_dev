@@ -225,11 +225,35 @@ p, blockquote, table, ul, ol {
 }
 
 /*
+ * INPUT:FOCUS
+ */
+
+ .input-append input[class*="span"], .input-append .uneditable-input[class*="span"], .input-prepend input[class*="span"], .input-prepend .uneditable-input[class*="span"], .row-fluid input[class*="span"], .row-fluid select[class*="span"], .row-fluid textarea[class*="span"], .row-fluid .uneditable-input[class*="span"], .row-fluid .input-prepend [class*="span"], .row-fluid .input-append [class*="span"]{
+ 	&:hover{
+ 		border-color:rgba(0,0,0, 0.3);
+ 		box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-o-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-ms-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0); 		
+ 	}
+ 	&:focus{
+ 		border-color:rgba(0,0,0, 0.3);
+ 		box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-o-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 		-ms-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+ 	}
+ }
+
+/*
  * NAVBAR
  */
 
  .navbar {
- 	.box-shadow(0px 0px 2px lighten(@navbarBackgroundHighlight, 5%));
+ 	/*.box-shadow(0px 0px 2px lighten(@navbarBackgroundHighlight, 5%));*/
+	.box-shadow(0px 0px 2px lighten(#56A5B3, 5%));
  }
 
 .navbar .nav{
@@ -243,6 +267,24 @@ p, blockquote, table, ul, ol {
 .navbar-inner{
 	min-height: 0;
 	padding: 7px 0 5px 0;	
+  background-color: #56A5B3;/*#45BCD2, #56A5B3*/
+
+
+	background-image: linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+	background-image: -o-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+	background-image: -moz-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgb(255,255,255,0.3) 100%);
+	background-image: -ms-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgba(255,255,255,0.1)),
+		color-stop(1, rgba(255,255,255,0.3))
+	);
+	
+  border-color:rgba(0,0,0,0.3);
 }
 
 .navbar h1{
