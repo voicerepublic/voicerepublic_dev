@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-
-
-
 feature "User visits another user" do
   background do
     @user = FactoryGirl.create(:user)
@@ -14,7 +11,6 @@ feature "User visits another user" do
   end
   
 end
-
 
 feature "User can register" do
   scenario "user supplies correct values" do
@@ -39,7 +35,6 @@ feature "User can register" do
     page.click_button('Sign Up')
     page.should have_content("Email can't")
   end
- 
 end
 
 feature "User gets notifications via push" do
@@ -63,6 +58,5 @@ feature "User gets notifications via push" do
     page.should have_xpath("//*[@id='notifications-#{@user.id}']")
     page.should have_xpath("//*[@id='notifications-#{@user.id}']/li")
   end
-  
   
 end
