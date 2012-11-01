@@ -1,0 +1,76 @@
+/*
+*= require main
+*= require_self
+*= require notifications
+*/
+@import "config.css.less";
+
+ul.news-list > li {
+  border: 1px solid #eaeaea;
+  margin-top: -1px;
+
+  &:nth-child(odd) {
+    background-color: #eaeaea;
+  }
+}
+
+.news {
+  .klu-title {
+    display: block;
+  }
+}
+
+.news-notification.contribution {
+  padding-top: 40px;
+  padding-bottom: 20px;
+
+  time, .contribution-delete, .news-view {
+    color: #999;
+    .transition(color 0.3s ease);
+  }
+
+  &:hover {
+    .contribution-delete, .news-view {
+      color: @linkColor;
+    }
+  }
+
+  time {
+    right: 5px;
+    bottom: 1px;
+  }
+
+  .well {
+    margin: 0;
+  }
+
+  .contribution-delete {
+    top: 40px;
+    right: 5px;
+  }
+
+  .news-view {
+    position: absolute;
+    right: 5px;
+    top: 12px;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .news-follow-reaction {
+    margin-top: 9px;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: @baseFontSize;
+  }
+  .news-notification-top {
+    font-size: @baseFontSize - 2;    
+    position: absolute;
+    left: 10px;
+    top: 12px;
+  }
+}
