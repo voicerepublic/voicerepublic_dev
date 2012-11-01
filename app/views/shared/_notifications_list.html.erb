@@ -1,8 +1,9 @@
 <ul class="dropdown-menu" aria-labelledby="dLabel" role="menu" id="notifications-<%= current_user.id %>">
-	
-	
 	<% current_user.notifications.alerts.limit(5).each do |notification| %>
-		<li class="menu-item"><%= notification %></li>
+		<li class="menu-item">
+			<%= link_to_url_for_notification_reason(notification) do %>
+				<%= notification %>
+			<% end %>
+		</li>
 	<% end %>
-	
 </ul>
