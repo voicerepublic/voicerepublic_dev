@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @video_server.name %>
+</p>
+
+<p>
+  <b>Video System Rooms List:</b>
+	<ul id="video_rooms_list">
+	  <% @video_server.video_system_rooms.each do |room| %>
+	    <li>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:video_system_room_id) %></label> <%= room.video_system_room_id %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:name) %></label> <%= room.name %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:guest_password) %></label> <%= room.guest_password %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:host_password) %></label> <%= room.host_password %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:welcome_msg) %></label> <%= room.welcome_msg %></div>
+	      <div class="field"><label><%= VideoRoom.human_attribute_name(:running) %></label> <%= room.is_running? %></div>
+	    </li>
+	  <% end %>
+	</ul>
+</p>
+
+
+<%= link_to 'Edit', edit_video_server_path(@video_server) %> |
+<%= link_to 'Back', video_servers_path %>

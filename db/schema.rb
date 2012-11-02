@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018124619) do
+ActiveRecord::Schema.define(:version => 20121022123818) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20121018124619) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.integer  "video_session_id"
+    t.string   "anon_id"
   end
 
   add_index "notification_bases", ["user_id"], :name => "index_notification_bases_on_user_id"
@@ -279,13 +280,39 @@ ActiveRecord::Schema.define(:version => 20121018124619) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
-  create_table "video_sessions", :force => true do |t|
+  create_table "video_rooms", :force => true do |t|
+    t.integer  "video_server_id"
+    t.integer  "video_session_id"
+    t.integer  "participant_count"
+    t.string   "video_system_room_id"
+    t.string   "name"
+    t.string   "guest_password"
+    t.string   "host_password"
+    t.string   "welcome_msg"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "video_rooms", ["video_system_room_id"], :name => "index_video_rooms_on_video_system_room_id", :unique => true
+
+  create_table "video_servers", :force => true do |t|
+    t.string   "name"
+    t.string   "url"
+    t.string   "salt"
+    t.string   "version"
+    t.boolean  "activated"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "video_session_bases", :force => true do |t|
     t.datetime "end_timestamp"
     t.datetime "begin_timestamp"
     t.string   "video_system_session_id"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
     t.integer  "klu_id"
+    t.string   "type"
   end
 
 end

@@ -1,7 +1,22 @@
 Kluuu2::Application.routes.draw do
 
-  resources :video_sessions
+  resources :video_rooms
 
+  resources :video_servers
+
+  resources :video_sessions
+  
+  #route to video-client_config
+  match 'bbb/:meeting_id/user/:user_id/config' => "video_sessions#video_session_config"
+  #routes to payment
+  match 'user_joined' => 'payment#user_joined'
+  match 'user_left' => 'payment#user_left'
+  match 'meeting_begin' => 'payment#meeting_begin'
+  match 'meeting_end' => 'payment#meeting_end'
+  match 'payment_started' => 'payment#payment_started'
+  match 'payment_stopped' => 'payment#payment_stopped'
+  
+  
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
     get "dashboard/contacts"

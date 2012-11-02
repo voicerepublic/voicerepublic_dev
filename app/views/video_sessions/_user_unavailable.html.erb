@@ -1,0 +1,5 @@
+User unavailable at the moment.....do you want to send a message?
+
+<%= button_to t('.send_message', :default => 'send message'), new_message_path(:receiver_id => receiver_id), :method => :get, :class => 'btn' %>
+or
+<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay' %>

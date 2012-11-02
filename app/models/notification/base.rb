@@ -1,3 +1,5 @@
+require 'notification_renderer'
+
 class Notification::Base < ActiveRecord::Base
   include ActionView::Helpers::JavaScriptHelper
   
@@ -6,6 +8,8 @@ class Notification::Base < ActiveRecord::Base
                         Notification::NewFollower
                         Notification::NewRating } 
   CONTENT_ALERTS  = %w{ Notification::NewKluuu Notification::NewStatus }
+  
+  attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
   
   scope :unread,          where(:read => false)
   scope :alerts,          :conditions => { :type => ALERTS }, :order => "created_at DESC"

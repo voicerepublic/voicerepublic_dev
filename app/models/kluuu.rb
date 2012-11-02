@@ -10,8 +10,10 @@ class Kluuu < Klu
   
   # see base-class for base-validations
   validates_presence_of :charge_amount, :description, :category_id #, :currency  #, :currency
+  validate :set_currency, :if => Proc.new {|k| k.charge_type != 'free'}
   
   accepts_nested_attributes_for :klu_images, :allow_destroy => true
+  
   
   composed_of :charge,
               :class_name => "Money",
@@ -19,6 +21,15 @@ class Kluuu < Klu
               :constructor => Proc.new { |cents , currency| Money.new(cents || 0, currency) },
               :converter => Proc.new { |value| value.respond_to?(:to_money) ? value.to_money : raise(ArgumentError, "Can't convert #{value.class} to Money") }
 
+  
   after_create :generate_notification  # defined in base-class
+  
+  def set_currency
+    unless self.user.balance_account.nil?
+      self.currency = self.user.balance_account.currency
+    else
+      self.errors.add(:currency, I18n.t('.no_account', :default => 'You got to create an balance account before You can charge for your KluuUs'))
+    end
+  end
     
 end

@@ -4,58 +4,66 @@ class VideoSessionsController < ApplicationController
   # GET /video_sessions
   # GET /video_sessions.json
   def index
-    @video_sessions = VideoSession.all
+    @video_sessions = VideoSession::Base.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @video_sessions }
     end
   end
 
   # GET /video_sessions/1
   # GET /video_sessions/1.json
   def show
-    @video_session = VideoSession.find(params[:id])
+    @video_session = VideoSession::Base.find(params[:id])
+    @user = current_user 
+    
+    if @user.nil? 
+      @participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', session[:id], @video_session.id).first
+    else 
+      @participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, @video_session.id).first
+    end   
+    
+    @klu = @video_session.klu
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @video_session }
+      format.js # show.html.erb
     end
   end
 
   # GET /video_sessions/new
   # GET /video_sessions/new.json
   def new
-    @video_session = VideoSession.new
-
+    
+    @klu = Klu.find(params[:klu_id]) unless params[:klu_id].nil?
+    
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @video_session }
+      format.js # new.js.erb
     end
   end
 
   # POST /video_sessions
   # POST /video_sessions.json
   def create
-    @video_session = VideoSession.new(params[:video_session])
-    @klu = Klu.find(@video_session.klu_id) unless @video_session.klu_id.nil?
-        
-    begin
-      check_sezzion_create_prerequisites(@klu)  # checks for things that should be in order before creating a sezzion
-    rescue KluuuExceptions::KluuuException => e
-      logger.error("\n###############\nVideoSession#create - Exception caught - \n#{e.inspect}\n#####################")
-      if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
-        redirect_to e.redirect_link, :alert => e.msg and return
-      else
-        render e.render_partial, :locals => {:msg => e.msg} and return
-      end
-    end
-
+    if params[:video_session][:type] == 'VideoSession::Registered'
+      @video_session = VideoSession::Registered.new(params[:video_session])
+    else
+      @video_session = VideoSession::Anonymous.new(params[:video_session])
+    end 
+    
     respond_to do |format|
-      if @video_session.save
-        format.js { render and return }
-      else
-        format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.create.failed_7')} and return }
+      begin
+        if @video_session.save
+          format.js { render and return }
+        else
+          format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.create.failed_7')} and return }
+        end
+      rescue KluuuExceptions::KluuuException => e
+        logger.error("\n###############\nVideoSession#create - Exception caught - \n#{e.inspect}\n#####################")
+        if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
+          redirect_to e.redirect_link, :alert => e.msg and return
+        else
+          format.js { render e.render_partial, :locals => e.locals and return }
+        end
       end
     end
   end
@@ -63,15 +71,32 @@ class VideoSessionsController < ApplicationController
   # PUT /video_sessions/1
   # PUT /video_sessions/1.json
   def update
-    @video_session = VideoSession.find(params[:id])
-
+    @video_session = VideoSession::Base.find(params[:id])
+    
+    #puts '===================================================='
+    #puts 'IN UPDATE'
+    #puts @video_session
+    #puts @video_session.guest_participant.inspect
+    #puts @video_session.host_participant.inspect
+    #puts '===================================================='
+    
     respond_to do |format|
-      if @video_session.update_attributes(params[:video_session])
-        format.html { redirect_to @video_session, notice: 'Video session was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @video_session.errors, status: :unprocessable_entity }
+      begin 
+        if @video_session.save
+          format.js { redirect_to video_session_path(:id => @video_session.id) and return }
+        else
+          format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.update.failed_1')} and return }
+        end
+      rescue KluuuExceptions::KluuuException => e
+        logger.error("\n###############\nVideoSession#update - Exception caught - \n#{e.inspect}\n#####################")
+        if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
+          redirect_to e.redirect_link, :alert => e.msg and return
+        elsif e.class.name == 'KluuuExceptions::VideoSystemError'
+          @video_session.create_room_creation_failed_notification
+          render e.render_partial, :locals => {:msg => e.msg} and return
+        else
+          render e.render_partial, :locals => {:msg => e.msg} and return
+        end
       end
     end
   end
@@ -79,29 +104,33 @@ class VideoSessionsController < ApplicationController
   # DELETE /video_sessions/1
   # DELETE /video_sessions/1.json
   def destroy
-    @video_session = VideoSession.find(params[:id])
+    @video_session = VideoSession::Base.find(params[:id])
+    @video_session.canceling_participant_id = params[:canceling_participant_id]
     @video_session.destroy
 
     respond_to do |format|
-      format.html { redirect_to video_sessions_url }
-      format.json { head :no_content }
+      @msg = t('.call_ended', :default => 'call ended') 
+      format.js { render and return }
     end
   end
   
-  private
-  
-  def check_sezzion_create_prerequisites(klu)
-    #is the klu unpublished or not existing?
-    raise KluuuExceptions::KluUnavailableError.new(t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (klu.nil? || !klu.published?)
-    #is the user trying to call his own klu?
-    raise KluuuExceptions::SameUserError.new(t('video_sessions_controller.create.failed_2'), 'shared/alert_flash') if (!current_user.nil?) && (current_user.id == klu.user_id)
-    #is the klus user not available?
-    raise KluuuExceptions::UserUnavailableError.new(t('video_sessions_controller.create.failed_3'), new_message_path(:receiver_id => klu.user_id)) unless klu.user.available?
-    #if a registered user is calling a paid klu then make sure he has money
-    raise KluuuExceptions::NoAccountError.new(t('video_sessions_controller.create.failed_4'), new_user_credit_account_path(:user_id => current_user.id)) if (!current_user.nil?) && (klu.charge_type != 'free') && (current_user.credit_account.nil?)
-    #if a anonymous user is calling a paid klu
-    raise KluuuExceptions::AnonymousUserError.new(t('video_sessions_controller.create.failed_5'), new_user_registration_path()) if current_user.nil? && (klu.charge_type != 'free')
-    #make sure the caller has at least credit for one paid minute
-    raise KluuuExceptions::NoFundsError.new(t('video_sessions_controller.create.failed_6'), edit_user_credit_account_path(:user_id => current_user.id)) if ((!current_user.nil?) && (klu.charge_type != 'free') && (!current_user.credit_account.check_balance(klu.charge, klu.charge_type, 1)))
+  def video_session_config
+    @user = current_user
+    room = VideoRoom.find_by_video_system_room_id(params[:meeting_id])
+    video_session = room.video_session
+    
+    #TODO: check for equality of @user.id and participant.user_id.....
+    #participant = Participants.where('user_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first
+    
+    if (video_session.klu.get_charge_type_as_integer != 1)
+      @time_to_pay = 60 #participant.calculate_time_to_pay(sezzion)
+      @credit = 3.67 #dollarize(((participant.user.account.balance + participant.user.account.revenue).exchange_to(sezzion.currency)).cents)
+    else
+      @credit = -1
+      @time_to_pay = -1
+    end
+    
+    @video_server_address = room.video_server.url.gsub("http:\/\/","").gsub(/\/.*/,"")
   end
+ 
 end
