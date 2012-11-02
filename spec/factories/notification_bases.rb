@@ -100,7 +100,7 @@ FactoryGirl.define do
       content 'one of your kluuus got bookmarked'
       user
       association :other, factory: :user
-      klu_id 4
+      association :klu, factory: :published_kluuu
     end
     
     factory :notification_new_status, :class => 'Notification::NewStatus' do

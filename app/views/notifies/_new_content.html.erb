@@ -1,25 +1,38 @@
-<article class="notification well well-large" id="notification-<%= notification.id %>">
-	
-	<div class="pull-right">
-		<% if can? :manage, notification %>
-		<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true) do %>
-			<i class="icon-trash"></i> <%= t('.destroy') %>
-		<% end %>
-		<% end %>
-	</div>
-	
-	<small><%= time_ago_in_words(notification.created_at) %> </small>
-	<h4><%= notification %></h4>
-	<span class="label label-info"><%= link_to notification.other.name, user_path(:id => notification.other) %></span>
+<article class="notification news-notification news-notification-new-content contribution" id="notification-<%= notification.id %>">
+	<header>
+		<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => 'contribution-user-image img-polaroid' ) %>
+		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
+			<%= time_ago_in_words(notification.created_at) %>
+		</time>
+	</header>
+
 	<% if notification.instance_of?(Notification::NewStatus) %>
-		<%= t('.created_new_status_update') %>:
-		<%= simple_format(notification.content) %>
+	<h4 class="news-notification-top">
+		<%= link_to notification.other.name, user_path(:id => notification.other) %>
+			<%= t('.created_new_status_update') %>:
+		</h4>
+		<%= link_to_url_for_notification_reason(notification) do %>
+			<div class="well well-small">
+				<%= limit_words(notification.content, 40) %>
+			</div>
+		<% end %>
 	<% end %>
 	<% if notification.instance_of?(Notification::NewKluuu)%>
-		<%= t('.created_new_klu') %>:
-		<%= notifcation.klu.title %>
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
+			<%= t('.created_new_klu') %>:
+		</h4>
+		<%= link_to_url_for_notification_reason(notification) do  %>
+			<span class="klu-title well well-small"><%= notification.klu.title %></span>
+		<% end %>
 	<% end %>
-	<div class="form-actions">
-		<%= link_to_url_for_notification_reason(notification) %>
-	</div>
+	<%= link_to_url_for_notification_reason(notification) %>
+	<aside>
+		<% if can? :manage, notification %>
+			<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true,  :class => "contribution-delete") do %>
+				<i class="icon-trash"></i>
+			<% end %>
+		<% end %>
+	</aside>	
 </article>
+
