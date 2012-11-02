@@ -48,7 +48,7 @@ overlay = {
             marginTop: 0,
             top: minMarginTop
           });
-        };
+        }
         if (bodyWidth < windowWidth && overlayContent.width() < windowWidth) {
           overlayBackground.width(windowWidth);
         } else if (overlayContent.width() > windowWidth) {
@@ -57,11 +57,11 @@ overlay = {
             marginLeft: 0,
             left: minMarginTop
           });
-        };
+        }
         overlayContent.fadeIn("fast");
-      };
+      }
 
-      if (images) {
+      if (images.length !== 0 ) {
         images.on("load", function() {
           set();
         });
@@ -69,18 +69,20 @@ overlay = {
        else {
           set();
         }
-    };
-    var body = $('body').css({
-        position: 'relative'
-      });
+    }; // End of calculateOverlay;
 
-    if (!$('.overlayBackground')) {
+
+    var body = $('body').css({
+      position: 'relative'
+    });
+    if ($('.overlay-background').length === 0) {
       var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
       var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
     } else {
       var overlayBackground = $('.overlay-background');
       var overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
     };
+ 
 
     overlayContent.html(innerHTML);
     overlayContent.find("button[data-function=closeOverlay], input[data-function=closeOverlay], a[data-function=closeOverlay]").on("click", function(e) {
@@ -88,6 +90,7 @@ overlay = {
     });
     
     calculateOverlay();
+    overlayBackground.css("background-image", "none");
   },
 
   close: function(target) {
