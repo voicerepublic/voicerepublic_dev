@@ -15,110 +15,91 @@
 //= require twitter/bootstrap
 //= require_tree .
 
-function overlay(innerHTML){
-  var overlayContent = $("<div id='videoSessionOverlay' />");
-  overlayContent.append(innerHTML);
-  overlayContent.css({
-    width: "80%",
-    background: "white",
-    position: "absolute",
-    left: "50%",
-    top: "50%",
-    padding: "30px",
-    border: "1px black solid"
-  });
-  var body = $('body').css('position', 'relative');
-  body.append(overlayContent);
-  var overlayHeight = overlayContent.height();
-  var overlayWidth = overlayContent.width();
-  overlayContent.css({
-    marginTop: -parseInt(overlayHeight, 10)/2,
-    marginLeft: -parseInt(overlayWidth, 10)/2
-  });
+overlay = {
 
-// overlay = {
-// 
-  // build: function(innerHTML) {
-// 
-    // var calculateOverlay = function() {
-      // var windowHeight = $(window).height();
-      // var bodyHeight = $('body').height();
-//       
-      // if (bodyHeight < windowHeight) {
-          // overlayBackground.height(windowHeight);
-      // }
-// 
-      // var bodyWidth = $('body').width();
-      // var windowWidth = $(window).width();
-      // var overlayHeight = overlayContent.height();
-      // var overlayWidth = overlayContent.width();
-      // var minMarginTop = 30;
-      // var images = overlayContent.find("img, iframe");
-// 
-      // function set() {
-        // overlayContent.css({
-          // marginTop: -overlayContent.height()/2,
-          // marginLeft: -overlayContent.width()/2,
-          // width: overlayContent.width()
-        // });
-        // if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
-          // overlayBackground.height(windowHeight);
-        // } else if (overlayContent.height() > windowHeight) {
-          // overlayBackground.height((overlayContent.height() + minMarginTop) * 1.05);
-          // overlayContent.css({
-            // marginTop: 0,
-            // top: minMarginTop
-          // });
-        // };
-        // if (bodyWidth < windowWidth && overlayContent.width() < windowWidth) {
-          // overlayBackground.width(windowWidth);
-        // } else if (overlayContent.width() > windowWidth) {
-          // overlayBackground.width((overlayContent.width() + minMarginTop) * 1.05);
-          // overlayContent.css({
-            // marginLeft: 0,
-            // left: minMarginTop
-          // });
-        // };
-        // overlayContent.fadeIn("fast");
-      // };
-// 
-      // if (images) {
-        // images.on("load", function() {
-          // set();
-        // });
-      // }
-       // else {
-          // set();
-        // }
-    // };
-    // var body = $('body').css({
-        // position: 'relative'
-      // });
-// 
-    // if (!$('.overlayBackground')) {
-      // var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
-      // var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
-    // } else {
-      // var overlayBackground = $('.overlay-background')[0];
-      // var overlayContent = overlayBackground.find('.overlay-content:first-child');
-    // };
-// 
-    // overlayContent.html(innerHTML);
-    // overlayContent.find("button[data-function=closeOverlay], input[data-function=closeOverlay], a[data-function=closeOverlay]").on("click", function(e) {
-      // overlay.close(overlayBackground);
-    // });
-//     
-    // calculateOverlay();
-  // },
+  build: function(innerHTML) {
+
+    var calculateOverlay = function() {
+      var windowHeight = $(window).height();
+      var bodyHeight = $('body').height();
+      
+      if (bodyHeight < windowHeight) {
+          overlayBackground.height(windowHeight);
+      }
+
+      var bodyWidth = $('body').width();
+      var windowWidth = $(window).width();
+      var overlayHeight = overlayContent.height();
+      var overlayWidth = overlayContent.width();
+      var minMarginTop = 30;
+      var images = overlayContent.find("img, iframe");
+
+      function set() {
+        overlayContent.css({
+          marginTop: -overlayContent.height()/2,
+          marginLeft: -overlayContent.width()/2,
+          width: overlayContent.width()
+        });
+        if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
+          overlayBackground.height(windowHeight);
+        } else if (overlayContent.height() > windowHeight) {
+          overlayBackground.height((overlayContent.height() + minMarginTop) * 1.05);
+          overlayContent.css({
+            marginTop: 0,
+            top: minMarginTop
+          });
+        };
+        if (bodyWidth < windowWidth && overlayContent.width() < windowWidth) {
+          overlayBackground.width(windowWidth);
+        } else if (overlayContent.width() > windowWidth) {
+          overlayBackground.width((overlayContent.width() + minMarginTop) * 1.05);
+          overlayContent.css({
+            marginLeft: 0,
+            left: minMarginTop
+          });
+        };
+        overlayContent.fadeIn("fast");
+      };
+
+      if (images) {
+        images.on("load", function() {
+          set();
+        });
+      }
+       else {
+          set();
+        }
+    };
+    var body = $('body').css({
+        position: 'relative'
+      });
+
+    if (!$('.overlayBackground')) {
+      var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
+      var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
+    } else {
+      var overlayBackground = $('.overlay-background');
+      var overlayContent = overlayBackground[0].find('.overlay-content:first-child');
+    };
+
+    overlayContent.html(innerHTML);
+    overlayContent.find("button[data-function=closeOverlay], input[data-function=closeOverlay], a[data-function=closeOverlay]").on("click", function(e) {
+      overlay.close(overlayBackground);
+    });
+    
+    calculateOverlay();
+  },
+
+  close: function(target) {
+    target = target || ".overlay-background";
+    if (typeof target == 'string' || typeof target == 'object') {
+      $(target).fadeOut("fast", function() {
+        $(this).remove();
+      });
+    }
+  }
 };
 
-function closeOverlay(){
-	$('#videoSessionOverlay').remove();
-};
-
-$('body').on('click', '#close_overlay_link', function(event){
-		closeOverlay();
-	});
 
 function fitText(jquerySelector) {
   var text = $(jquerySelector);

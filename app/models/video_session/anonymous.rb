@@ -17,6 +17,18 @@ class VideoSession::Anonymous < VideoSession::Base
     Notification::VideoSystemError.create(:anon_id => self.guest_participant.user_cookie_session_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
   end
 
+  def create_call_accepted_notification  
+    Notification::CallAccepted.create(:anon_id => self.guest_participant.user_cookie_session_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+  end
+
+  def create_call_ended_notification(role)
+    if (role == 'host')
+      Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id)  
+    else
+      Notification::CallEnded.create(:anon_id => self.guest_participant.user_cookie_session_id, :video_session_id => self.id)  
+    end
+  end
+
  private
  
   def prepare_one_on_one_video_session   
@@ -63,11 +75,7 @@ class VideoSession::Anonymous < VideoSession::Base
       raise KluuuExceptions::VideoSystemError.new(msg, 'shared/_alert_flash')
     end
   end  
-  
-  def create_call_accepted_notification  
-    Notification::CallAccepted.create(:anon_id => self.guest_participant.user_cookie_session_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
-  end
-  
+ 
   def create_call_canceled_notification  
     if self.canceling_participant_id.to_i == self.guest_participant.id.to_i
       self.notifications.destroy_all

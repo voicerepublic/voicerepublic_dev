@@ -1,10 +1,10 @@
-class Notification::CallAccepted < Notification::Base 
+class Notification::CallEnded < Notification::Base 
  
   belongs_to :user
   belongs_to :other, :class_name => 'User'  # other here is klu-offerer
   belongs_to :video_session, :class_name => 'VideoSession::Base'
   
-  attr_accessible :user_id, :other_id, :video_session_id, :url, :anon_id
+  attr_accessible :user_id, :video_session_id, :anon_id
   
   validates_presence_of :video_session_id
   
