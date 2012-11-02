@@ -78,8 +78,8 @@ overlay = {
       var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
       var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
     } else {
-      var overlayBackground = $('.overlay-background')[0];
-      var overlayContent = overlayBackground.find('.overlay-content:first-child');
+      var overlayBackground = $('.overlay-background');
+      var overlayContent = overlayBackground[0].find('.overlay-content:first-child');
     };
 
     overlayContent.html(innerHTML);
