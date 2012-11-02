@@ -37,7 +37,7 @@
 					</li>
 					<li class="navbar-search form-search">
 						<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-						<%= text_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
+						<%= search_field_tag 'query', nil, :id => "another_id_which_should_not_be_used_for_styling", :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span2" %>
 						<i class="icon-search"> </i> 
 						<% end %>
 				 	</li>
