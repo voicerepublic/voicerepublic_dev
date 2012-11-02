@@ -55,8 +55,8 @@ feature "User gets notifications via push" do
     login_user(@user)
     FactoryGirl.create_list(:notification_new_comment, 2, :user => @user) 
     visit dashboard_path()
-    page.should have_xpath("//*[@id='notifications-#{@user.id}']")
-    page.should have_xpath("//*[@id='notifications-#{@user.id}']/li")
+    page.should have_xpath("//*[@id='actionbar-notifications-#{@user.id}']")
+    page.should have_xpath("//*[@id='actionbar-notifications-#{@user.id}']/li")
   end
   
 end

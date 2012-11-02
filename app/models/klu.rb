@@ -73,10 +73,9 @@ class Klu < ActiveRecord::Base
   
   #TODO dummy method for free minutes
   def free_time
-    
     return 5
-    
   end
+  
   
   def status_or_about
     if uses_status && ! user.status_updates.empty?
