@@ -103,7 +103,6 @@ overlay = {
   }
 };
 
-
 function fitText(jquerySelector) {
   var text = $(jquerySelector);
   var calculateSize = function() {
