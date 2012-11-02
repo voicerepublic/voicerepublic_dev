@@ -17,7 +17,7 @@ class Notification::VideoSystemError < Notification::Base
   
   def generate_push_notification
     begin
-      n = NotificationRenderer.new
+      n = KluuuCode::NotificationRenderer.new
       if self.anon_id.nil?
         PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/video_system_error'))
       else
