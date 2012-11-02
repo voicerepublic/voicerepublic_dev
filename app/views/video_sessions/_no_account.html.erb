@@ -2,4 +2,4 @@ You don't have enough credit.....do you want to check in some money?
 
 <%= button_to t('.create_account', :default => 'create account'), new_user_balance_account_path(:user_id => current_user.id), :method => :get, :class => 'btn' %>
 or
-<%= link_to t('.close'), '#', :data_function => 'closeOverlay' %>
+<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay' %>

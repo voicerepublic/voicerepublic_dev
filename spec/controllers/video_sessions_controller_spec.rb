@@ -294,18 +294,6 @@ describe VideoSessionsController do
         assigns(:video_session).guest_participant.room_url.should == 'http://www.kluuu.com'
       end
       
-      it "creates a call accepted notification for registered session" do
-        video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
-        xhr :put, :update, {:id => video_session.to_param, :video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
-        Notification::CallAccepted.where('video_session_id = ?', video_session.id).count.should == 1
-      end
-      
-      it "creates a call accepted notification for anonymous session" do
-        video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
-        xhr :put, :update, {:id => video_session.to_param, :video_session => valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
-        Notification::CallAccepted.where('video_session_id = ?', video_session.id).count.should == 1
-      end
-      
       it "redirects to the registered video_session" do
         video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
         xhr :put, :update, {:id => video_session.to_param, :video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'

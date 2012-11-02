@@ -7,7 +7,6 @@ class VideoSession::Anonymous < VideoSession::Base
   after_create :create_incoming_call_notification
   
   before_update :prepare_room_for_video_session
-  after_update :create_call_accepted_notification
   
   before_destroy :create_call_canceled_notification
   
