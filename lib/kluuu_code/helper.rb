@@ -1,8 +1,10 @@
 require 'socket'
 
-module IpGetter
-  class IpAddress
-    def IpAddress.local_ip
+module KluuuCode
+  
+  module Helper
+    
+    def Helper.local_ip
       orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
       UDPSocket.open do |s|
@@ -12,5 +14,8 @@ module IpGetter
     ensure
       Socket.do_not_reverse_lookup = orig
     end
+    
+    
   end
+  
 end
