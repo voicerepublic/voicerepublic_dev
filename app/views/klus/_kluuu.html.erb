@@ -32,34 +32,9 @@
 				<%= simple_format @klu.description %>
 				</section>
 			</section>
-
-					
-
-
 				<div class="span4">
 					<aside class="klu-user-info">
-						<div class="call-btn btn">
-							<form action="#">
-								<button class="btn">
-									<%= t('.call_now') %>
-								</button>
-							</form>
-							<dl>
-								<dt>
-									<%= t('.price') %>
-								</dt>
-								<dd>
-									<%= @klu.charge_amount %> €
-								</dd>
-								<dt>
-									<%= t('.availability') %>
-								</dt>
-								<dd>
-									<%= @klu.available_at_times %>
-								</dd>
-							</dl>
-							<%= link_to(image_tag( @klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => @klu.user), :class => 'klu-user-image' ) %>
-						</div><!-- End of call-btn -->
+						<%= render :partial => 'video_sessions/call_button', :locals => {:klu => @klu, :user => @user} %>
 						<div class="klu-user-info-inner">
 							<h4><%= link_to@klu.user.name, user_path(:id => @klu.user) %></h4>
 							<article class="klu-user-status">

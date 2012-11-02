@@ -32,7 +32,6 @@ class KlusController < ApplicationController
     if params[:klu_type] && ( params[:klu_type] == 'Kluuu' )
       logger.debug("Klus#new - in params scope - creating new Kluuu")
       @klu = Kluuu.new
-      @klu.klu_images.build 
     else
       logger.debug("Klus#new  - creating new NoKluuu")
       @klu = NoKluuu.new
@@ -56,7 +55,6 @@ class KlusController < ApplicationController
   # POST /klus
   # POST /klus.json
   def create
-    logger.debug("Klus#create - params: #{params.inspect}")
     @user = User.find(params[:user_id]) 
     if params[:klu_type]
       case params[:klu_type]
@@ -86,11 +84,11 @@ class KlusController < ApplicationController
   def update
     logger.debug("Klus#update - params: #{params.inspect}")
     @klu = Klu.find(params[:id])
-    _user = @klu.user
+    @user = @klu.user
 
     respond_to do |format|
       if @klu.update_attributes(params[:klu])
-        format.html { redirect_to user_klu_path(:user_id => _user, :id => @klu), notice: 'Klu was successfully updated.' }
+        format.html { redirect_to user_klu_path(:user_id => @user, :id => @klu), notice: 'Klu was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

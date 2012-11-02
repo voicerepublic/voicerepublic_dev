@@ -1,12 +1,15 @@
 class Notification::CallRejected < Notification::Base 
-  attr_accessible :user_id, :other_id, :video_session_id, :other, :user
   
-  belongs_to :video_session
-  belongs_to :other, :class_name => 'User'  # other here is klu-owner
   belongs_to :user
+  belongs_to :other, :class_name => 'User'  # other here is klu-offerer
+  belongs_to :video_session, :class_name => 'VideoSession::Base'
   
-  #user_id can be a session id of the cookie in case an anonymous user calls
-  validates_presence_of :video_session_id, :other_id, :user_id
+  attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
+  
+  validates_presence_of :video_session_id, :other_id
+  validates_presence_of :user_id, :if => Proc.new { |n| n.anon_id.nil? }, :message => 'user_id is missing'
+  validates_presence_of :anon_id, :if => Proc.new { |n| n.other_id.nil? }, :message => 'anon_id is missing'
+  
   
   after_create :generate_push_notification
   
@@ -14,9 +17,14 @@ class Notification::CallRejected < Notification::Base
   
   def generate_push_notification
     begin
-      PrivatePub.publish_to("/notifications/#{user_id}", "alert('call accepted!');")
+      n = NotificationRenderer.new
+      if self.anon_id.nil?
+        PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/call_rejected', :locals => { :video_session => self.video_session }))
+      else
+        PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_rejected', :locals => { :video_session => self.video_session }))
+      end
     rescue Exception => e
-      self.logger.error("Notification::CallAccepted#generate_push_notification - error: #{e.inspect}")
+      self.logger.error("Notification::CallRejected#generate_push_notification - error: #{e.inspect}")
     end  
   end  
 

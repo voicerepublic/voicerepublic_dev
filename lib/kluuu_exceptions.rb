@@ -19,29 +19,36 @@ module KluuuExceptions
   
   class KluuuExceptionWithRender < KluuuException
     attr_reader :render_partial
+    attr_reader :locals
     
-    def initialize(msg, render_partial)
+    def initialize(msg, render_partial, locals = nil)
         super(msg)
         @render_partial = render_partial
+        locals ||=  {}
+        @locals = locals 
+        @locals[:msg] = msg
     end
   end
   
   class PaymentError < KluuuException
   end
   
-  class CallingUserError < KluuuException
+  class VideoSystemError < KluuuExceptionWithRender
+  end
+  
+  class CallingUserError < KluuuExceptionWithRender
   end
   
   class RatingError < KluuuException
   end
   
-  class NoAccountError < KluuuExceptionWithRedirect
+  class NoAccountError < KluuuExceptionWithRender
   end
   
-  class NoFundsError < KluuuExceptionWithRedirect
+  class NoFundsError < KluuuExceptionWithRender
   end
   
-  class UserUnavailableError < KluuuExceptionWithRedirect
+  class UserUnavailableError < KluuuExceptionWithRender
   end
   
   class KluUnavailableError < KluuuExceptionWithRender
@@ -50,6 +57,6 @@ module KluuuExceptions
   class SameUserError < KluuuExceptionWithRender
   end
   
-  class AnonymousUserError < KluuuExceptionWithRedirect
+  class AnonymousUserError < KluuuExceptionWithRender
   end
 end

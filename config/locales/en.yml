@@ -201,6 +201,9 @@ en:
       micro: ! '%l:%M %P'
     pm: pm
     
+  call_now: "call now"
+  call_dispatched: "call dispatched"
+    
   will_paginate:
     next_label: ">>"
     previous_label: "<<"

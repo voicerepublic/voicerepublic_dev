@@ -1,3 +1,5 @@
+require 'notification_renderer'
+
 class Notification::Base < ActiveRecord::Base
   include ActionView::Helpers::JavaScriptHelper
   
