@@ -9,6 +9,8 @@ class Notification::Base < ActiveRecord::Base
                         Notification::NewRating } 
   CONTENT_ALERTS  = %w{ Notification::NewKluuu Notification::NewStatus }
   
+  attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
+  
   scope :unread,          where(:read => false)
   scope :alerts,          :conditions => { :type => ALERTS }, :order => "created_at DESC"
   scope :content_alerts,  :conditions => { :type => CONTENT_ALERTS  }, :order => "created_at DESC"

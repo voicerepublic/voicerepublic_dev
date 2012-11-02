@@ -7,7 +7,7 @@ class VideoSession::Registered < VideoSession::Base
   after_create :create_incoming_call_notification
   
   before_update :prepare_room_for_video_session
-  after_update :create_call_accepted_notification
+  #after_update :create_call_accepted_notification
   
   before_destroy :create_call_canceled_notification
   
@@ -18,17 +18,31 @@ class VideoSession::Registered < VideoSession::Base
     Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
   end
 
+  def create_call_accepted_notification  
+    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+  end
+  
+  def create_call_ended_notification(role)
+    puts 'ROLE'
+    puts role.inspect
+    if (role == 'host')
+      Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id)  
+    else
+      Notification::CallEnded.create(:user_id => self.guest_participant.user_id, :video_session_id => self.id)  
+    end
+  end
+
  private
  
- def prepare_one_on_one_video_session  
+  def prepare_one_on_one_video_session  
     
-   check_sezzion_create_prerequisites()
+    check_sezzion_create_prerequisites()
    
-   #create guest (calling) participant for video_session
-   self.guest_participant = Participant::GuestRegistered.new(:user_id => self.calling_user_id, :video_session_role => 'guest')
+    #create guest (calling) participant for video_session
+    self.guest_participant = Participant::GuestRegistered.new(:user_id => self.calling_user_id, :video_session_role => 'guest')
    
-   #create host participant for video_session 
-   self.host_participant = Participant::HostRegistered.new(:user_id => @klu.user_id, :video_session_role => 'host')
+    #create host participant for video_session 
+    self.host_participant = Participant::HostRegistered.new(:user_id => @klu.user_id, :video_session_role => 'host')
   
   end
   
@@ -63,10 +77,6 @@ class VideoSession::Registered < VideoSession::Base
       raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error')
     end
   end  
-  
-  def create_call_accepted_notification  
-    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
-  end
   
   def create_call_canceled_notification 
     if self.canceling_participant_id.to_i == self.guest_participant.id.to_i
