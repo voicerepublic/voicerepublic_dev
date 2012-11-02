@@ -40,7 +40,10 @@ describe VideoSessionsController do
     @api_mock.stub(:join_meeting_url).and_return('http://www.kluuu.com')
     @server_mock = mock_model(VideoServer)
     @server_mock.stub(:api).and_return(@api_mock)
-    @server_mock.stub(:first).and_return(@server_mock)   
+    @server_mock.stub(:first).and_return(@server_mock)
+    @server_mock.stub(:where).and_return(@server_mock)
+    @server_mock.stub(:each).and_return(@server_mock)
+    VideoServer.stub(:activated).and_return(@server_mock)
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -75,14 +78,22 @@ describe VideoSessionsController do
       registered_video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
       controller.stub :current_user => registered_video_session.host_participant.user
       get :show, {:id => registered_video_session.to_param}, valid_session
+      assigns(:participant).user_id.should == registered_video_session.host_participant.user_id 
       assigns(:video_session).should eq(registered_video_session)
     end
     
-    it "assigns the requested video_session as @video_session with anonymous participant" do
-      anonymous_video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
+    it "assigns the requested video_session as @video_session with anonymous guest participant" do
+      anonymous_video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id, :calling_user_id => 'abcdefghi')
       get :show, {:id => anonymous_video_session.to_param}, valid_session
-      puts assigns(:video_session).inspect
       assigns(:participant)
+      assigns(:video_session).should eq(anonymous_video_session)
+    end
+    
+    it "assigns the requested video_session as @video_session with anonymous participant" do
+      anonymous_video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id, :calling_user_id => 'abcdefghi')
+      controller.stub :current_user => anonymous_video_session.host_participant.user
+      get :show, {:id => anonymous_video_session.to_param}, valid_session
+      assigns(:participant).user_id.should == anonymous_video_session.host_participant.user_id 
       assigns(:video_session).should eq(anonymous_video_session)
     end
   end
@@ -298,13 +309,13 @@ describe VideoSessionsController do
       it "redirects to the registered video_session" do
         video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
         xhr :put, :update, {:id => video_session.to_param, :video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
-        response.should render_template("update")
+        response.should redirect_to(video_session_path(:id => video_session.id))
       end
       
       it "redirects to the anonymous video_session" do
         video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
         xhr :put, :update, {:id => video_session.to_param, :video_session => valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
-        response.should render_template("update")
+        response.should redirect_to(video_session_path(:id => video_session.id))
       end
       
     end
