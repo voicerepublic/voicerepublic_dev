@@ -14,9 +14,11 @@
 						<% if (index == 0) %>
 						<li class="klu-eyecatcher">
 							<%= image_tag(ki.image.url(:large)) %>
-							<div class="klu-image-caption">
-								<%= ki.description %>
-							</div>
+							<% if ki.description.length > 0 %>
+								<div class="klu-image-caption">
+									<%= ki.description %>
+								</div>
+							<% end %>
 						</li>
 						<% else %>
 						<li>
@@ -46,7 +48,7 @@
 							<nav>
 								<ul>
 									<li>
-										<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small") do %>
+										<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small", :remote => true) do %>
 										<%= t('.send_message') %>
 										<% end if current_user %>
 									</li>

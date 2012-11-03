@@ -86,6 +86,7 @@ overlay = {
 
     overlayContent.html(innerHTML);
     overlayContent.find("button[data-function=closeOverlay], input[data-function=closeOverlay], a[data-function=closeOverlay]").on("click", function(e) {
+      e.preventDefault();
       overlay.close(overlayBackground);
     });
     

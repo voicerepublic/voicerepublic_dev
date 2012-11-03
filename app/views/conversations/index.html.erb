@@ -1,32 +1,25 @@
-<h3><%=t('.your_conversations') %></h3>
-<div class="row-fluid">
-	<div class="span2">
-		
+<h3><%=t('.your_last_conversations') %></h3>
+<section class="row-fluid conversations">
+	<ul class="conversations-list unstyled">
 		<% @conversations.each do |conv| %>
-			<% partner = conv.partner_of(@user) %> 
-			<div class="well well-small">
-				<% if current_page?(user_conversation_path(:user_id => @user, :id => conv )) %>
-					<%= image_tag(partner.account.portrait(:thumb)) if partner.account.portrait.exists? %>
-					<strong><%= partner.name %></strong>
-				<% else %>
-					<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
-						<%= image_tag(partner.account.portrait(:thumb)) if partner.account.portrait.exists? %>
-						<%= partner.name %>
-					<% end %>
-				<% end %>
-			</div>
-		<% end %>
-		
-	</div>
-	<div class="span10">
-		
-		<% @conversations.each do |conv| %>
-			<% msg = conv.messages.limit(1).first %>
-			<div class="well well-small">
-				<%= truncate( msg.content, :length => 72) %> 
-				<span class="pull-right"><%= l(msg.created_at, :format => :short) %></span>
-			</div>
-		<% end %>
-		
-	</div>
-</div>
+			<li>
+			<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
+				<article class="conversation contribution">
+					<% partner = conv.partner_of(@user) %> 
+					<header>
+						<%= image_tag(partner.account.portrait(:thumb), :class => "contribution-user-image")%>
+						<div class="contribution-user-name"><%= partner.name %></div>
+					</header>
+					<% msg = conv.messages.limit(1).first %>
+					<% msg_c = conv.messages.count - 1 %>
+					<%= t(".and_#{msg_c}_more_messagaes") %>
+					<p><%= truncate( msg.content, :length => 72) %></p>
+					<aside>
+						<time><%= l(msg.created_at, :format => :short) %></time>
+					</aside>
+				</article>
+			<% end %>
+			</li>
+		<% end %>	
+	</ul>
+</section>

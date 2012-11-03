@@ -11,7 +11,7 @@
 			<div class="span5">
 				<ul class="user-nav unstyled pull-right">
 					<li class="pull-right">
-						<%= link_to(new_message_path(:receiver_id => user.id), :class => "btn btn-primary btn-small" ) do %>
+						<%= link_to(new_message_path(:receiver_id => user.id), :class => "btn btn-primary btn-small", :remote => true ) do %>
 							<i class="icon-envelope"></i> <%= t('.send_message') %>
 						<% end unless current_user && current_user.id == user.id %>
 					</li>

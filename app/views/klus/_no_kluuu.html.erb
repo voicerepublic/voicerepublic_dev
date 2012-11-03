@@ -40,7 +40,7 @@
 							<nav>
 								<ul>
 									<li>
-										<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small") do %>
+										<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small", :remote => true) do %>
 										<%= t('.send_message') %>
 										<% end if current_user %>
 									</li>
