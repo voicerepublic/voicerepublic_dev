@@ -1,13 +1,30 @@
 <ul class="dropdown-menu" role="menu">
-<li class="menu-item">
-	<%= link_to user_path(:id => current_user) do %>
-	<i class="icon-home"> </i> <%= t('.home', :default => "Home") %>						
-<% end %>
-</li>
-<li class="divider"></li>
-<li class="menu-item"><%= button_to 'online ', user_path(:id => current_user, :user => { :available => 'online' } ), :method => 'put', :remote => true, :class => "btn btn-success" %></li>
-<li class="menu-item"><%= button_to 'busy   ', user_path(:id => current_user , :user => { :available => 'busy' } ), :method => 'put', :remote => true, :class => "btn btn-warning" %></li>
-<li class="menu-item"><%= button_to 'offline', user_path(:id => current_user , :user => { :available => 'offline' } ), :method => 'put', :remote => true, :class => "btn btn-danger" %></li>
+	
+	<li class="menu-item">
+		<%= link_to user_path(:id => current_user) do %>
+		<i class="icon-home"> </i> <%= t('.home', :default => "Home") %>						
+		<% end %>
+	</li>
+
+	<li class="divider"></li>
+
+	<li class="menu-item">
+		<%= button_to 'online ', user_path(:id => current_user, :user => { :available => 'online' } ), :method => 'put', :remote => true, :class => "btn btn-success" %>
+	</li>
+
+	<li class="menu-item">
+		<%= button_to 'busy   ', user_path(:id => current_user , :user => { :available => 'busy' } ), :method => 'put', :remote => true, :class => "btn btn-warning" %>
+	</li>
+
+	<li class="menu-item">
+		<%= button_to 'offline', user_path(:id => current_user , :user => { :available => 'offline' } ), :method => 'put', :remote => true, :class => "btn btn-danger" %>
+	</li>
+
+	<li>
+		<%= link_to(destroy_user_session_path, :method => :delete, :title => t('.logout', :default => "Logout") ) do %>
+			<i class="icon-off"> </i>
+		<% end %>
+	</li>
 
 </ul>
  
