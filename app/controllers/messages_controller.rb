@@ -35,7 +35,7 @@ class MessagesController < ApplicationController
     
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @message }
+      format.js { render }
     end
   end
 
@@ -50,7 +50,7 @@ class MessagesController < ApplicationController
     
     respond_to do |format|
       if @message.save
-        format.html { redirect_to user_messages_path(:user_id => @message.sender), notice: 'Message was successfully created.' }
+        format.html { redirect_to user_conversations_path(:user_id => @message.sender), notice: 'Message was successfully created.' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { render action: "new" }
