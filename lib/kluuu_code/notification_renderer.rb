@@ -5,7 +5,7 @@ module KluuuCode
     include AbstractController::Helpers
     include AbstractController::Translation
     include AbstractController::AssetPaths
-    include ActionView::Helpers::JavaScriptHelper
+    #include ActionView::Helpers::JavaScriptHelper
     include Rails.application.routes.url_helpers
     helper ApplicationHelper
     helper DashboardHelper

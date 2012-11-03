@@ -1,4 +1,4 @@
-<ul class="dropdown-menu" aria-labelledby="dLabel" role="menu" id="notifications-<%= current_user.id %>">
+<ul class="dropdown-menu" aria-labelledby="dLabel" role="menu" id="actionbar-notifications-<%= current_user.id %>">
 	<% current_user.notifications.alerts.limit(5).each do |notification| %>
 		<li class="menu-item">
 			<%= link_to_url_for_notification_reason(notification) do %>
@@ -6,4 +6,10 @@
 			<% end %>
 		</li>
 	<% end %>
+	<li class="divider"></li>
+	<li class="menu-item pull-right">
+		<%= link_to(dashboard_news_path) do %>
+			<i class="icon-hand-right"> </i> <%= t('.see_more') %>
+		<% end %>
+	</li>
 </ul>

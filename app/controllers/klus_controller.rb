@@ -105,7 +105,7 @@ class KlusController < ApplicationController
     @klu.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_klus_url(:user_id => _user) }
+      format.html { redirect_to user_url(:id => _user) }
       format.json { head :no_content }
     end
   end

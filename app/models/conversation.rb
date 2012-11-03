@@ -17,15 +17,12 @@ class Conversation < ActiveRecord::Base
   validates :user_2, :presence => true
   
   
-  #def messages
-  #  arr = receiver_messages.receiver_undeleted.to_a
-  #  arr << sender_messages.sender_undeleted.to_a
-  #  arr.flatten!
-  #  arr.sort { |x,y| y.created_at <=> x.created_at }
-  #end
-  
   def partner_of(user)
     self.user_1_id == user.id ? self.user_2 : self.user_1
+  end
+  
+  def undeleted_messages_for(user)
+    self.messages.where("receiver_id = ? AND receiver_deleted = ? OR sender_id = ? AND sender_deleted = ?", user.id, false, user.id, false)
   end
   
   
@@ -42,4 +39,5 @@ class Conversation < ActiveRecord::Base
       end
     end
   end
+  
 end

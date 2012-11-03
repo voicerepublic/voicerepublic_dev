@@ -10,7 +10,7 @@
 			
 				<h2>I want to know more about</h2>
 				<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
-					<%= text_field_tag 'query', nil, :id => "do_not_use_ids_to_style", :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span8" %>
+					<%= search_field_tag 'query', nil, :id => "do_not_use_ids_to_style", :placeholder => t('.enter_search_term', :default => ""), :class => "search-query span8" %>
 					<%= button_tag :type => 'submit', :class => "landing-page-search-button" do %>
 						<i class="icon-search"> </i>						
 					<% end %>	
