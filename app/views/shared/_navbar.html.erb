@@ -1,22 +1,24 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top navbar-logged-out">
 	<div class="navbar-inner">
 		<div class="container">
-
-			<%= link_to root_path, :class => "brand", :title => "KluuU-logo" do %>
-				<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
-			<% end %>
-			<span class="logo-claim">The Web made personal</span>
+			<div class="pull-left">
+				<%= link_to root_path, :title => "KluuU-logo" , :class => "brand-big" do %>
+					<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
+				<% end %>
+				<span class="logo-claim">The Web made personal</span>
+			</div>
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<%= link_to new_user_registration_path do %>
+						<%= link_to "tour", :class => "tell-me-more" do %>
+							Tell me more!
+						<% end %>
+					<li>
+						<%= link_to new_user_registration_path, :class => "first-landing-signup" do %>
 						<%# <i class="icon-share-alt">  </i>%> <%= t('.sign_up', :default => 'Sign Up') %>
 						<% end %>
-					</li>
-					<li>
-						|&nbsp;&nbsp;
 					</li>
 <!-- 					<li class="nav-fb-connect">
 						<%#= link_to user_omniauth_authorize_path(:facebook) do %>
