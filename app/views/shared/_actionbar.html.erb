@@ -32,18 +32,20 @@
 					<% if current_user %>
 						<li class="navbar-search form-search">
 							<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-								<%= search_field_tag 'query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query navbar-search-query span2" %>
-								<i class="icon-search"> </i> 
+								<%= search_field_tag 'query', nil, :class => "search-query navbar-search-query span2" %>
+								<%= button_tag :type => "submit", :class => "navbar-submit-button" do %>
+									<i class="icon-search"></i>
+								<% end %>
 							<% end %>
 					 	</li>
 					 	<li class="dropdown nav-left-border">
-					 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications', :default => "Notifications") %>">
+					 		<a href="#" class="dropdown-toggle nav-bar-notifications-link" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications', :default => "Notifications") %>">
 					 			<i class="icon-bell"></i>
 					 			<b class="caret"></b>
 					 			<% #unless current_user.notifications.unread.empty? %>
 					 			<span class="badge badge-important" id="alerts-count-<%= current_user.id %>">
 					 				<%= current_user.notifications.unread.count %>
-					 			</span>&nbsp;
+					 			</span>
 					 			<% #end %>
 					 		</a>
 					 		<%= render(:partial => 'shared/notifications_list') %>
