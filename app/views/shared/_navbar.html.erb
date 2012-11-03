@@ -1,25 +1,25 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top navbar-logged-out">
 	<div class="navbar-inner">
 		<div class="container">
-			<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse"> 
-				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> 
-			</a>
-
-			<%= link_to root_path, :class => "brand", :title => "KluuU-logo" do %>
-				<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
-			<% end %>
-			<span class="logo-claim">The Web made personal</span>
+			<div class="pull-left">
+				<%= link_to root_path, :title => "KluuU-logo" , :class => "brand-big" do %>
+					<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
+				<% end %>
+				<span class="logo-claim">The Web made personal</span>
+			</div>
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<%= link_to new_user_registration_path do %>
-						<%# <i class="icon-share-alt">  </i>%> <%= t('.sign_up', :default => 'Sign Up') %>
+						<%= link_to "tour", :class => "tell-me-more" do %>
+							What's this?
 						<% end %>
 					</li>
 					<li>
-						|&nbsp;&nbsp;
+						<%= link_to new_user_registration_path, :class => "first-landing-signup" do %>
+						<%= t('.sign_up', :default => 'Sign Up') %><i class="icon-share-alt"></i>
+						<% end %>
 					</li>
 <!-- 					<li class="nav-fb-connect">
 						<%#= link_to user_omniauth_authorize_path(:facebook) do %>
@@ -33,7 +33,7 @@
 					</li> -->
 					<li>
 						<%= link_to new_user_session_path do %>
-							<%= t('.sign_in', :default => 'Log In') %>
+							<%= t('.sign_in', :default => 'Log In') %><i class="icon-signin"></i>
 						<% end %>
 					</li>
 				</ul>
