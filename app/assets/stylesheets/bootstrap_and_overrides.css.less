@@ -292,19 +292,6 @@ p, blockquote, table, ul, ol {
 	  border-color:rgba(0,0,0,0.3);
 	}
 
-  .actionbar-user {
-      line-height: 19px * @baseLineHeight;
-      padding-left: 15px;
-      margin-top:0px;
-    img {
-      height: 22px;
-      vertical-align: top;
-      margin-top:-2px;
-      border: 1px solid @grayLight;
-    }
-
-  }
-
   i[class^="icon-"] {
     font-size: 20px;
     vertical-align: middle;
@@ -322,6 +309,10 @@ p, blockquote, table, ul, ol {
 			background:rgba(255,255,255,0.1);
 			color:rgba(0,0,0,0.6);
 			text-shadow: 0px 0px 1px rgba(0,0,0,0.1);
+		}
+
+		&:focus {
+			background:rgba(0,0,0,0.02);
 		}
 	}
 	
@@ -394,9 +385,7 @@ p, blockquote, table, ul, ol {
 		background:none;
 	}
 
-	.nav li.dropdown > .dropdown-toggle .caret{
-		margin-top:20px;
-		border-top-color:#333;
+	.actionbar-notifications .caret{
 		display: none;
 	}
 
@@ -409,6 +398,104 @@ p, blockquote, table, ul, ol {
 		line-height: @baseLineHeight * 0.7;
 	}
 
+  .actionbar-user {
+    line-height: 19px * @baseLineHeight;
+    img {
+      height: 22px;
+      vertical-align: top;
+      margin-top:10px;
+      margin-right: 7px;
+      border: 1px solid @grayLight;
+    }
+
+    a.actionbar-profile-link{
+    	border:none;
+    	padding-right:6px;
+    	float:left
+    }
+
+    .actionbar-user-dropdown{
+    	padding-left:6px;
+    	float:left;
+    	.online-status{
+    		margin:13px 0 13px 0;
+    	}
+    }
+
+		.dropdown-toggle{
+			.caret{
+				margin-top:19px;
+				margin-left:5px;
+				border-top-color:rgba(0,0,0,0.5) !important;
+			}
+		}
+
+		.dropdown-menu{
+			background:#eee;
+			padding:0 0 0 0;
+			.online-status{
+				margin-top:3px;
+				margin-right:10px
+			}
+			.divider{
+				border-bottom:1px solid #bbb;
+			}
+			li a{
+				color:#666;
+				padding:5px auto;
+				&:hover{
+					background:rgba(0,0,0,0.05);
+					color:#333
+				}
+			}
+		}
+
+  }
+  	.nav li.dropdown.open > .dropdown-toggle, .nav li.dropdown.active > .dropdown-toggle, .nav li.dropdown.open.active > .dropdown-toggle {
+				background-color:rgba(255,255,255,0.3);
+		}
+
+}
+
+/*
+ * ONLINE STATUS
+ *
+ */
+
+.online-status{
+	height:15px;
+	width:15px;
+	background:#666;
+  float:left;
+  border-radius:2px;
+}
+
+.online-status-success{
+	background-color:green;
+	box-shadow:0 0 2px green;
+	-moz-box-shadow:0 0 2px green;
+	-webkit-box-shadow:0 0 2px green;
+	-o-box-shadow:0 0 2px green;
+	-ms-box-shadow:0 0 2px green;
+}
+
+.online-status-warning{
+	background-color:orange;
+	box-shadow:0 0 2px orange;
+	-moz-box-shadow:0 0 2px orange;
+	-webkit-box-shadow:0 0 2px orange;
+	-o-box-shadow:0 0 2px orange;
+	-ms-box-shadow:0 0 2px orange;
+
+}
+
+.online-status-attention{
+	background-color:red;
+	box-shadow:0 0 2px red;
+	-moz-box-shadow:0 0 2px red;
+	-webkit-box-shadow:0 0 2px red;
+	-o-box-shadow:0 0 2px red;
+	-ms-box-shadow:0 0 2px red;
 }
 
 /*
