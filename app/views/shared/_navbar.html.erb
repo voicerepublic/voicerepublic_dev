@@ -13,11 +13,12 @@
 				<ul class="nav pull-right">
 					<li>
 						<%= link_to "tour", :class => "tell-me-more" do %>
-							Tell me more!
+							What's this?
 						<% end %>
+					</li>
 					<li>
 						<%= link_to new_user_registration_path, :class => "first-landing-signup" do %>
-						<%# <i class="icon-share-alt">  </i>%> <%= t('.sign_up', :default => 'Sign Up') %>
+						<%= t('.sign_up', :default => 'Sign Up') %><i class="icon-share-alt"></i>
 						<% end %>
 					</li>
 <!-- 					<li class="nav-fb-connect">
@@ -32,7 +33,7 @@
 					</li> -->
 					<li>
 						<%= link_to new_user_session_path do %>
-							<%= t('.sign_in', :default => 'Log In') %>
+							<%= t('.sign_in', :default => 'Log In') %><i class="icon-signin"></i>
 						<% end %>
 					</li>
 				</ul>

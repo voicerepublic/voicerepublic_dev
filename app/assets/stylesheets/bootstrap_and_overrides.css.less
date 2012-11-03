@@ -254,7 +254,7 @@ p, blockquote, table, ul, ol {
 .navbar {
 
  	/*.box-shadow(0px 0px 2px lighten(@navbarBackgroundHighlight, 5%));*/
-	.box-shadow(0px 0px 2px lighten(#56A5B3, 5%));
+	.box-shadow(0px 0px 2px rgba(0,0,0,0.2));
 
 	h1{
 		font-size:0;
@@ -471,15 +471,22 @@ p, blockquote, table, ul, ol {
 		color:rgba(0,0,0,0.6);
 	}
 	.first-landing-signup{
-		
+		border-left:1px solid rgba(0,0,0,0.2);		
 	}
 	a.tell-me-more{
-		background:rgba(255,255,255,0.6);
+		background:rgba(255,255,255,1);
+		line-height:1 !important;
+		padding:10px !important;
+		margin:7px 11px 0 11px;
+		border:1px solid #888 !important;
+		border-radius:6px;
 		color:black !important;
-		border-left:1px solid rgba(0,0,0,0.2);
 		&:hover{
 			background:rgba(255,255,255,0.8) !important;
 		}
+	}
+	i{
+		margin-left:5px
 	}
 }
 
