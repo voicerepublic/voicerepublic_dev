@@ -19,12 +19,19 @@ require 'video_system_api'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-describe VideoServersController do
+describe Admin::VideoServersController do
   render_views
   
   before do
     @server = FactoryGirl.create(:video_server)  
+    %w(admin user).each { |x| Role.create(:name => x)}
+    @user = FactoryGirl.create(:user)
+    @user.roles << Role.find_by_name('admin')
+    @user.save
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub :current_user => @user
   end
+    
   # This should return the minimal set of attributes required to create a valid
   # VideoServer. As you add validations to VideoServer, be sure to
   # update the return value of this method accordingly.
@@ -41,14 +48,16 @@ describe VideoServersController do
 
   describe "GET index" do
     it "assigns all video_servers as @video_servers" do
+      
       video_server = VideoServer.create! valid_attributes
-      get :index, {}, valid_session
+      get 'index'#, admin_video_servers_path, valid_session
+      #get :index, {:admin}, valid_session
       assigns(:video_servers).should eq(VideoServer.all)
       response.should render_template("index")
     end
   end
 
-  describe "GET show" do
+  describe "GET show"  do
     it "assigns the requested video_server as @video_server" do
       video_server = VideoServer.create! valid_attributes
       get :show, {:id => video_server.to_param}, valid_session
@@ -115,9 +124,9 @@ describe VideoServersController do
         assigns(:video_server).should be_persisted
       end
 
-      it "redirects to the created video_server" do
+      it "redirects to the created video_server"  do
         post :create, {:video_server => valid_attributes}, valid_session
-        response.should redirect_to(VideoServer.last)
+        response.should redirect_to(admin_video_server_url(:id => VideoServer.last))
       end
     end
 
@@ -159,7 +168,7 @@ describe VideoServersController do
       it "redirects to the video_server" do
         video_server = VideoServer.create! valid_attributes
         put :update, {:id => video_server.to_param, :video_server => valid_attributes}, valid_session
-        response.should redirect_to(video_server)
+        response.should redirect_to(admin_video_server_url)
       end
     end
 
@@ -193,7 +202,7 @@ describe VideoServersController do
     it "redirects to the video_servers list" do
       video_server = VideoServer.create! valid_attributes
       delete :destroy, {:id => video_server.to_param}, valid_session
-      response.should redirect_to(video_servers_url)
+      response.should redirect_to(admin_video_servers_url)
     end
   end
 
