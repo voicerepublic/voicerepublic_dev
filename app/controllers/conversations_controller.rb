@@ -19,7 +19,7 @@ class ConversationsController < ApplicationController
   # GET /conversations/1.json
   def show
     @conversation = Conversation.find(params[:id])
-    @messages = @conversation.undeleted_messages_for(@user).order("created_at DESC").paginate(:page => params[:page], :per_page => 10)
+    @messages = @conversation.undeleted_messages_for(@user).paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @conversation }

@@ -22,7 +22,7 @@ class Conversation < ActiveRecord::Base
   end
   
   def undeleted_messages_for(user)
-    self.messages.where("receiver_id = ? AND receiver_deleted = ? OR sender_id = ? AND sender_deleted = ?", user.id, false, user.id, false)
+    self.messages.where("receiver_id = ? AND receiver_deleted = ? OR sender_id = ? AND sender_deleted = ?", user.id, false, user.id, false).order("created_at DESC")
   end
   
   
