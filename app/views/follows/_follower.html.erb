@@ -5,7 +5,7 @@
 		<%# LINK FOR WHOLE THUMBAIL %>
 		<%= link_to user_path(:id => follower_relation.followed), :class => "user-thumbnail-link clearfix" do %>	
 			<%= image_tag(follower_relation.followed.account.portrait.url(:thumb)) %>
-			<%= follower_relation.followed.name %>
+			<div class="user-thumbnail-name"><%= follower_relation.followed.name %></div>
 		<% end %>
 			
 		<%= link_to( user_create_follow_path(:user_id => follower_relation.follower_id, :followed_id => follower_relation.follower_id ), :method => "post", :class => "follows-user-thumbnail-followback", :title => t('.follow_back', :default => "Follow Back") ) do %>
