@@ -44,10 +44,8 @@ feature "User gets notifications via push" do
   end
   
   scenario "User sees number of notifications in actionbar - with css-id 'alerts-count-'" do
-    #user = FactoryGirl.create(:user)
     login_user(@user)
     visit dashboard_path()
-    page.should have_css(".dashboard")
     page.should have_xpath("//*[@id='alerts-count-#{@user.id}']")
   end
   

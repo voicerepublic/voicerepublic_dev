@@ -8,7 +8,7 @@ describe "Conversations" do
   end
   
   describe "GET /conversations" do
-    it "works! (now write some real specs)" do
+    it "shows a headline mentioning last conversations" do
       login_user(@user)
       visit user_conversations_path(:user_id => @user)
       page.should have_content("Your Last Conversations")

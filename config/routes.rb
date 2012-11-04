@@ -1,9 +1,6 @@
 Kluuu2::Application.routes.draw do
 
   resources :video_rooms
-
-  resources :video_servers
-
   resources :video_sessions
   
   #route to video-client_config
@@ -87,6 +84,7 @@ Kluuu2::Application.routes.draw do
     resources :users
     resources :categories
     resources :klus
+    resources :video_servers
     get "dashboard/index"
   end
   

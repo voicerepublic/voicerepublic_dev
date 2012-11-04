@@ -3,7 +3,7 @@
 	<div class="thumbnail user-thumbnail">
 		
 		<%# LINK FOR WHOLE THUMBAIL %>
-		<%= link_to user_path(:id => followed_relation.followed), :class => "user-thumbnail-link" do %>	
+		<%= link_to user_path(:id => followed_relation.followed), :class => "user-thumbnail-link clearfix" do %>	
 			<%= image_tag(followed_relation.followed.account.portrait.url(:thumb)) %>
 			<%= followed_relation.followed.name %>
 		<% end %>
