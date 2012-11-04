@@ -22,7 +22,7 @@ feature "User can register" do
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.click_button('Sign Up')
-    page.should have_content("Dashboard")
+    page.should have_css(".dashboard")
   end
   
   scenario "User misses email during registration" do
@@ -47,7 +47,7 @@ feature "User gets notifications via push" do
     #user = FactoryGirl.create(:user)
     login_user(@user)
     visit dashboard_path()
-    page.should have_content("Dashboard")
+    page.should have_css(".dashboard")
     page.should have_xpath("//*[@id='alerts-count-#{@user.id}']")
   end
   
