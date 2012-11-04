@@ -11,7 +11,7 @@ describe "Conversations" do
     it "works! (now write some real specs)" do
       login_user(@user)
       visit user_conversations_path(:user_id => @user)
-      page.should have_content("Your Conversations")
+      page.should have_content("Your Last Conversations")
     end
   end
 end
