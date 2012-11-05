@@ -4,10 +4,10 @@ module UsersHelper
     case available
     when 'online'
       'success'
-    when 'offline'
-      'important'
     when 'busy'
-      'warning'
+      'important'
+    when 'offline'
+      'attention'
     end
   end
   
