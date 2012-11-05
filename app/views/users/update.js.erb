@@ -1,1 +1,2 @@
 $("#user-availability div").removeClass().addClass('<%= escape_javascript("online-status online-status-" + css_class_for_available(@user.available))%>');
+$(".actionbar-user-dropdown").attr('title','<%= @user.available.capitalize %>');
