@@ -48,5 +48,9 @@ class Account < ActiveRecord::Base
     arg.in_time_zone
   end
   
+  def english_or_german
+    
+  end
+  
   
 end

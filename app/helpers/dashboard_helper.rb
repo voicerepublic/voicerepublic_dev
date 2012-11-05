@@ -4,27 +4,38 @@ module DashboardHelper
     
     partial = case notification.class.name.split("::")[-1]
               when 'CallAccepted'
-                  listing ? nil : 'shared/notification'
+                #listing ? nil : 
+                'shared/notification'
               when 'CallRejected'
-                listing ? nil :  'shared/notification'
+                #listing ? nil :  
+                'shared/notification'
               when 'IncomingCall'
-                listing ? nil :  'shared/notification'
+                #listing ? nil :  
+                'shared/notification'
               when 'MissedCall'
-                listing ? 'notifies/user_centered' :  'shared/notification'
+                #listing ? 'notifies/user_centered' :  
+                'shared/notification'
               when 'NewBookmark'
-                listing ? 'notifies/user_centered' :  'notifies/my_content'
+                #listing ? 'notifies/user_centered' :  
+                'notifies/my_content'
               when 'NewMessage'
-                listing ? 'notifies/user_centered' : 'notifies/my_content'
+                #listing ? 'notifies/user_centered' : 
+                'notifies/my_content'
               when 'NewComment'
-                listing ? 'notifies/user_centered' : 'notifies/my_content'
+                #listing ? 'notifies/user_centered' : 
+                'notifies/my_content'
               when 'NewFollower'
-                listing ? 'notifies/user_centered' : 'notifies/my_content'
+                #listing ? 'notifies/user_centered' : 
+                'notifies/my_content'
               when 'NewRating'
-                listing ? 'notifies/user_centered' : 'notifies/my_content'
+                #listing ? 'notifies/user_centered' : 
+                'notifies/my_content'
               when 'NewKluuu'
-                listing ? nil : 'notifies/new_content'
+                #listing ? nil : 
+                'notifies/new_content'
               when 'NewStatus'
-                listing ? nil : 'notifies/new_content'
+                #listing ? nil : 
+                'notifies/new_content'
               end
               
     partial ||= 'shared/notification'  # if no partial fits - render debug-partial
