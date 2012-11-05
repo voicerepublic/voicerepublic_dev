@@ -10,7 +10,7 @@
 
 	<li class="menu-item">
 		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'busy' } ), :method => 'put', :remote => true do %>
-			<div class="online-status online-status-warning"></div>Busy
+			<div class="online-status online-status-important"></div>Busy
 		<% end %>
 	</li>
 
