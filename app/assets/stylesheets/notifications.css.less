@@ -24,8 +24,8 @@ ul.news-list > li {
   padding-top: 40px;
   padding-bottom: 20px;
 
-  time, .contribution-delete, .news-view {
-    color: #999;
+  .contribution-delete, .news-view {
+    color: lighten(desaturate(@brandColor, 20%), 20%);
     .transition(color 0.3s ease);
   }
 
@@ -38,6 +38,7 @@ ul.news-list > li {
   time {
     right: 5px;
     bottom: 1px;
+    color: #999;
   }
 
   .well {
