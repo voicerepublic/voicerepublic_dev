@@ -15,7 +15,7 @@
 				<ul class="nav">
 					<li>
 						<%= link_to(dashboard_path, :title => "Dashboard", :class => "nav-left-border") do %>
-							<i class="icon-dashboard"></i>
+							<!-- <i class="icon-dashboard"></i> --><span class="navbar-menu-name">Dashboard</span>
 						<% end  if current_user %>
 					</li>
 					<% if current_user.is_admin? %>
