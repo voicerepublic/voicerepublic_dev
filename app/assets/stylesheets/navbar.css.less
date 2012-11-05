@@ -245,10 +245,19 @@
 
 	.menu-item{
 		border-bottom: 1px solid #BBBBBB;
+		a{
+			padding:5px 10px 5px 5px;
+			font-size:@baseFontSize * 0.9;
+			line-height:@baseLineHeight *1.1;
+		}
+		img{
+			width:30px;
+			margin-right:4px
+		}
 		&:last-child{
 			border-bottom:none;
 			a{
-				color:@brandColor !important
+				color:@brandColor !important;
 			}
 		}
 	}

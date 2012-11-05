@@ -52,7 +52,7 @@
 					 			<b class="caret"></b>
 					 			<%# unless current_user.notifications.unread.empty? %>
 					 			<span class="badge badge-important" id="alerts-count-<%= current_user.id %>">
-					 				<%= current_user.notifications.unread.count %>
+					 				<%= current_user.notifications.alerts.unread.count %>
 					 			</span>
 					 			<%# end %>
 					 		</a>
