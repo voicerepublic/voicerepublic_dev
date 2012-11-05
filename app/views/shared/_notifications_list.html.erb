@@ -7,11 +7,12 @@
 			<% end %>
 		</li>
 	<% end %>
-	<li class="divider"></li>
-	<li class="menu-item pull-right">
+
+	
+	<li class="menu-item text-align-center">
 		<%= link_to(dashboard_news_path) do %>
-			<i class="icon-hand-right"> </i> <%= t('.see_more') %>
+			<%= t('.all', :default => "See All") %>
 		<% end %>
 	</li>
-	
+
 </ul>
