@@ -1,6 +1,8 @@
 /*
  *= require bootstrap_and_overrides
+ *= require navbar
  */
+ 
 @import "config.css.less";
 
 body {
@@ -60,5 +62,27 @@ body {
     top: 50%;
     padding: 30px;
     border: 1px solid #000;
+  }
+}
+
+/*
+ *  TOP ALERTS
+ *
+ */
+
+.flash_messages{
+  position: fixed;
+  top:48px;
+  width:100%;
+  text-align: center
+}
+
+.alert{
+  display: inline;
+  position: relative;
+  .close{
+    position:absolute;
+    right:6px;
+    top:-4px
   }
 }
