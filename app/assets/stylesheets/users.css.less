@@ -79,6 +79,50 @@ p.wichtig {
 
 	.user-information {
 		position: relative;
+
+		.status {
+			&.contribution {
+				margin-top: -@baseLineHeight * @baseFontSize;
+				padding-left: 70px;
+				padding-bottom: @baseLineHeight * @baseFontSize * 2;
+
+				p {
+					margin: @verticalRhythm*2 0;
+				}
+
+				p:first-child {
+					margin-top: 0;
+				}
+
+				p:last-child {
+					margin-bottom: 0;
+				}
+				
+				.contribution-delete {
+					top: @baseLineHeight * @baseFontSize + (@baseLineHeight * @baseFontSize - 2) + @verticalRhythm ;
+				}
+
+				.user-new-status {
+					position: absolute;
+					left: 67px;
+					bottom: 7px;
+				}
+
+				time {
+					position: absolute;
+					right: 0;
+					top:@baseLineHeight * @baseFontSize + 3px
+				}
+			}
+			.icon-comment-alt {
+				font-size: 45px;
+				position: absolute;
+				display: block;
+		    left: 10px;
+		    top: @baseLineHeight * @baseFontSize;
+		    line-height: 1;
+			}
+		}
 		
 		.user-information-right > header {
 			margin-bottom: @verticalRhythm * 2;
@@ -204,50 +248,6 @@ p.wichtig {
 }
 
 
-
-.status {
-	&.contribution {
-		margin-top: -@baseLineHeight * @baseFontSize;
-		padding-left: 70px;
-		padding-bottom: @baseLineHeight * @baseFontSize * 2;
-
-		p {
-			margin: @verticalRhythm*2 0;
-		}
-
-		p:first-child {
-			margin-top: 0;
-		}
-
-		p:last-child {
-			margin-bottom: 0;
-		}
-		
-		.contribution-delete {
-			top: @baseLineHeight * @baseFontSize + (@baseLineHeight * @baseFontSize - 2) + @verticalRhythm ;
-		}
-
-		.user-new-status {
-			position: absolute;
-			left: 67px;
-			bottom: 7px;
-		}
-
-		time {
-			position: absolute;
-			right: 0;
-			top:@baseLineHeight * @baseFontSize + 3px
-		}
-	}
-	.icon-comment-alt {
-		font-size: 45px;
-		position: absolute;
-		display: block;
-    left: 10px;
-    top: @baseLineHeight * @baseFontSize;
-    line-height: 1;
-	}
-}
 
 ul.user-nav.unstyled {
 	margin-left: 0;
