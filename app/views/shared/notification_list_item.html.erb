@@ -1,5 +1,7 @@
 <li class="menu-item">
 	<%= link_to_url_for_notification_reason(notification) do %>
-		<i class="icon-exclamation-sign"> </i>  <%= notification %>
+		<i class="icon-exclamation-sign"> </i>  
+		<%= image_tag notification.other.account.portrait(:thumb), :alt => notification.other.name  %>
+		<%= notification %>
 	<% end %>
 </li>

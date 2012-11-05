@@ -3,7 +3,7 @@
 	<% current_user.notifications.alerts.limit(5).each do |notification| %>
 		<li class="menu-item">
 			<%= link_to_url_for_notification_reason(notification) do %>
-				<%= notification %>
+				<%= partial_for_notification(notification,true) %>
 			<% end %>
 		</li>
 	<% end %>

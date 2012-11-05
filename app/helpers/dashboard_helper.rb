@@ -1,30 +1,30 @@
 module DashboardHelper
   
-  def partial_for_notification(notification)
+  def partial_for_notification(notification, listing=false)
     
     partial = case notification.class.name.split("::")[-1]
               when 'CallAccepted'
-                  'shared/notification'
+                  listing ? nil : 'shared/notification'
               when 'CallRejected'
-                'shared/notification'
+                listing ? nil :  'shared/notification'
               when 'IncomingCall'
-                'shared/notification'
+                listing ? nil :  'shared/notification'
               when 'MissedCall'
-                'shared/notification'
+                listing ? 'notifies/user_centered' :  'shared/notification'
               when 'NewBookmark'
-                'notifies/my_content'
+                listing ? 'notifies/user_centered' :  'notifies/my_content'
               when 'NewMessage'
-                'notifies/my_content'
+                listing ? 'notifies/user_centered' : 'notifies/my_content'
               when 'NewComment'
-                'notifies/my_content'
+                listing ? 'notifies/user_centered' : 'notifies/my_content'
               when 'NewFollower'
-                'notifies/my_content'
+                listing ? 'notifies/user_centered' : 'notifies/my_content'
               when 'NewRating'
-                'notifies/my_content'
+                listing ? 'notifies/user_centered' : 'notifies/my_content'
               when 'NewKluuu'
-                'notifies/new_content'
+                listing ? nil : 'notifies/new_content'
               when 'NewStatus'
-                'notifies/new_content'
+                listing ? nil : 'notifies/new_content'
               end
               
     partial ||= 'shared/notification'  # if no partial fits - render debug-partial
