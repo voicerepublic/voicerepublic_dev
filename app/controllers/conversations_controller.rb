@@ -7,14 +7,13 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
   def index
-    @conversations = @user.conversations
-
+    @conversations = @user.conversations.sort { |a,b| b.undeleted_messages_for(@user).limit(1).first.created_at <=> a.undeleted_messages_for(@user).limit(1).first.created_at }
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @conversations }
     end
   end
-
+  
   # GET /conversations/1
   # GET /conversations/1.json
   def show
