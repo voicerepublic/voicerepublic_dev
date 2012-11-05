@@ -1,4 +1,4 @@
-class VideoServersController < ApplicationController
+class Admin::VideoServersController < Admin::BaseController
   # GET /video_servers
   # GET /video_servers.json
   def index
@@ -55,7 +55,7 @@ class VideoServersController < ApplicationController
 
     respond_to do |format|
       if @video_server.save
-        format.html { redirect_to @video_server, notice: 'Video server was successfully created.' }
+        format.html { redirect_to admin_video_server_url(:id => @video_server), notice: 'Video server was successfully created.' }
         format.json { render json: @video_server, status: :created, location: @video_server }
       else
         format.html { render action: "new" }
@@ -71,7 +71,7 @@ class VideoServersController < ApplicationController
 
     respond_to do |format|
       if @video_server.update_attributes(params[:video_server])
-        format.html { redirect_to @video_server, notice: 'Video server was successfully updated.' }
+        format.html { redirect_to admin_video_server_url(:id => @video_server), notice: 'Video server was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -87,7 +87,7 @@ class VideoServersController < ApplicationController
     @video_server.destroy
 
     respond_to do |format|
-      format.html { redirect_to video_servers_url }
+      format.html { redirect_to admin_video_servers_url }
       format.json { head :no_content }
     end
   end

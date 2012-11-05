@@ -1,11 +1,21 @@
 require 'spec_helper'
 
 describe "VideoServers" do
-  describe "GET /video_servers" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get video_servers_path
-      response.status.should be(200)
+  
+  before do
+      %w(admin user).each { |x| Role.create(:name => x)}
+      @user = FactoryGirl.create(:user)
+      @user.roles << Role.find_by_name('admin')
+      @user.save
+      @user.reload
+   end
+  
+
+  describe "GET /admin/video_servers" do
+    it "it shows the videoserver-page if logged in as admin" do
+      login_user(@user)
+      click_link('Manage VideoServer')
+      page.should have_content("Video servers")
     end
   end
 end

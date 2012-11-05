@@ -160,10 +160,10 @@ describe KlusController do
       }.to change(Klu, :count).by(-1)
     end
 
-    it "redirects to the klus list" do
+    it "redirects to users profile" do
       klu = FactoryGirl.create(:published_kluuu)
       delete :destroy, {:id => klu.to_param, :user_id => klu.user.id}, valid_session
-      response.should redirect_to(user_klus_url(:user_id => klu.user))
+      response.should redirect_to(user_url(:id => klu.user))
     end
   end
 

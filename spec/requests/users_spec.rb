@@ -22,7 +22,7 @@ feature "User can register" do
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.click_button('Sign Up')
-    page.should have_content("Dashboard")
+    page.should have_css(".dashboard")
   end
   
   scenario "User misses email during registration" do
@@ -44,10 +44,8 @@ feature "User gets notifications via push" do
   end
   
   scenario "User sees number of notifications in actionbar - with css-id 'alerts-count-'" do
-    #user = FactoryGirl.create(:user)
     login_user(@user)
     visit dashboard_path()
-    page.should have_content("Dashboard")
     page.should have_xpath("//*[@id='alerts-count-#{@user.id}']")
   end
   
@@ -55,8 +53,8 @@ feature "User gets notifications via push" do
     login_user(@user)
     FactoryGirl.create_list(:notification_new_comment, 2, :user => @user) 
     visit dashboard_path()
-    page.should have_xpath("//*[@id='notifications-#{@user.id}']")
-    page.should have_xpath("//*[@id='notifications-#{@user.id}']/li")
+    page.should have_xpath("//*[@id='actionbar-notifications-#{@user.id}']")
+    page.should have_xpath("//*[@id='actionbar-notifications-#{@user.id}']/li")
   end
   
 end

@@ -21,7 +21,7 @@ class Notification::IncomingCall < Notification::Base
   
   def generate_push_notification
     begin
-      n = NotificationRenderer.new
+      n = KluuuCode::NotificationRenderer.new
       PrivatePub.publish_to("/notifications/#{user_id}", n.render('notifications/incoming_call', :locals => {:video_session => self.video_session}))
     rescue Exception => e
       self.logger.error("#{self.class.name}#generate_push_notification - error: #{e.inspect}")

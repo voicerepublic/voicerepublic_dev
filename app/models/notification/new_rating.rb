@@ -7,6 +7,8 @@ class Notification::NewRating < Notification::Base
    
   validates :other_id, :user_id, :klu_id, :content , :presence => true
   
+  after_create :generate_push_notification
+  
   def to_s 
     I18n.t('.you_got_rated_by', :rater => other.name )
   end

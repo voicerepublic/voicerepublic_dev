@@ -1,37 +1,52 @@
 <%- model_class = Conversation -%>
 <% partner = @conversation.partner_of(@user) %>
-<h3><%= t('.your_conversation_with') %> <%= partner.name %></h3>
 
+<div class="tabbable tabs-left">
+	<ul class="nav nav-tabs">
 
-
-<div class="row-fluid">
-	<div class="span2">
-		<div class="well well-small">
-		<%= link_to( user_path(:id => partner)) do %>
-		<%= image_tag(partner.account.portrait(:thumb), :class => "img-polaroid") if partner.account.portrait.exists? %>
-		<%= partner.name unless partner.account.portrait.exists? %>
-		<% end %>
-		<br />
-		<%= link_to(new_message_path(:receiver_id => partner)) do %>
-		<i class="icon-envelope"> </i> <%= t('.new_message') %>
-		<% end %>
-		</div>
 		
 		<% @user.conversations.each do |conv| %>
 			<% partner = conv.partner_of(@user) %>
-			<div class="well well-small">
+			
 				<% if current_page?(user_conversation_path(:user_id => @user, :id => conv )) %>
-					<%= image_tag(partner.account.portrait(:thumb)) if partner.account.portrait.exists? %>
-					<strong><%= partner.name %></strong>
+					<li class="active">
+						<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
+							<%= image_tag(partner.account.portrait(:thumb)) %>
+							<%= partner.name %>
+						<% end %>
+					</li>
 				<% else %>
-					<%= image_tag(partner.account.portrait(:thumb)) if partner.account.portrait.exists? %>
-					<%= link_to(partner.name, user_conversation_path(:user_id => @user, :id => conv)) %>
+					<li>
+						<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
+							<%= image_tag(partner.account.portrait(:thumb)) %>
+							<%= partner.name %>
+						<% end %>
+					</li>
 				<% end %>
-			</div>
+			
 		<% end %>
-	</div>
+	</ul>
 	
-	<div class="span9">
+	<section class="tab-content">
+		<header class="well well-small">
+		<% partner = @conversation.partner_of(@user) %>
+		<%= t('.your_messages_with_') %>
+		<%= link_to( user_path(:id => partner)) do %>
+			<%= image_tag(partner.account.portrait(:thumb), :class => "img-polaroid") %>
+			<%= partner.name %>
+		<% end %>
+		<br />
+		<%= link_to(new_message_path(:receiver_id => partner), :remote => true) do %>
+		<i class="icon-envelope"> </i> <%= t('.new_message') %>
+		<% end %>
+		<%= link_to t('.back_to_all_conversations', :default => t("helpers.links.back")),
+			user_conversations_path(:user_id => @user), :class => 'btn'  %>
+			<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+			user_conversation_path(:user_id => @user, :id => @conversation),
+			:method => 'delete',
+			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+			:class => 'btn btn-danger' %>
+	</header>
 	
 		<%= content_tag :ul, :class => "unstyled" do %>
 			<% @messages.each do |msg| %>
@@ -40,17 +55,6 @@
 		<% end unless @messages.empty? %>
 		
 		<%= will_paginate @messages, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
-	
-		<div class="form-actions">
-			<%= link_to t('.back', :default => t("helpers.links.back")),
-			user_conversations_path(:user_id => @user), :class => 'btn'  %>
-			<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-			user_conversation_path(:user_id => @user, :id => @conversation),
-			:method => 'delete',
-			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-			:class => 'btn btn-danger' %>
-		</div>
-	
-	</div>
+	</section>
 </div>
 

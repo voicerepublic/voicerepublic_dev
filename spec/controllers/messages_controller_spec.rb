@@ -78,9 +78,9 @@ describe MessagesController do
         assigns(:message).should be_persisted
       end
 
-      it "redirects to the senders messages page" do
+      it "redirects to the senders conversations page" do
         post :create, { :receiver_id => @receiver, :message => valid_attributes}, valid_session
-        response.should redirect_to(user_messages_path(:user_id => @user))
+        response.should redirect_to(user_conversations_path(:user_id => @user))
       end
     end
 
