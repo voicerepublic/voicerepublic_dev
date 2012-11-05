@@ -69,7 +69,7 @@
 							<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link", :title => current_user.name do %>
 								<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %><%= current_user.firstname %>
 							<% end %>
-							<a href="#" class="dropdown-toggle actionbar-user-dropdown" title="Online Status" data-toggle="dropdown" role="button">
+							<a href="#" class="dropdown-toggle actionbar-user-dropdown" title="<%=current_user.available %>" data-toggle="dropdown" role="button">
 								<div id="user-availability">
 									<div class="online-status online-status-<%= css_class_for_available(current_user.available) %>"></div>
 								</div>

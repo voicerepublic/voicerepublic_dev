@@ -1,19 +1,19 @@
 <ul class="dropdown-menu">
 
 	<li class="menu-item">
-		<%= link_to user_path(:id => current_user, :user => { :available => 'online' } ), :method => 'put', :remote => true do %>
+		<%= link_to user_path(:id => current_user, :user => { :available => 'online' } ), :method => 'put', :remote => true, :title => "Online" do %>
 			<div class="online-status online-status-success"></div>Online
 		<% end %>
 	</li>
 
 	<li class="menu-item">
-		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'busy' } ), :method => 'put', :remote => true do %>
+		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'busy' } ), :method => 'put', :remote => true, :title => "Busy" do %>
 			<div class="online-status online-status-important"></div>Busy
 		<% end %>
 	</li>
 
 	<li class="menu-item">
-		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'offline' } ), :method => 'put', :remote => true do %>
+		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'offline' } ), :method => 'put', :remote => true, :title => "Offline" do %>
 			<div class="online-status online-status-attention"></div>Offline
 		<% end %>
 	</li>
