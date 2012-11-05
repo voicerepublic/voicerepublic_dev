@@ -10,17 +10,19 @@ describe VideoSystemApi::VideoSystemApi do
   let(:debug) { false }
   let(:timeout) { 2 }
   let(:ip) { '192.168.0.1' }
-  let(:api) { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip) }
+  let(:port) { '3000' }
+  let(:api) { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip, port) }
 
   describe "#initialize" do
     context "standard initialization" do
-      subject { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip) }
+      subject { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip, port) }
       it { subject.url.should be(url) }
       it { subject.salt.should be(salt) }
       it { subject.version.should be(version) }
       it { subject.debug.should be(debug) }
       it { subject.timeout.should be(timeout) }
       it { subject.ip.should be(ip) }
+      it { subject.port.should be(port) }
       it { subject.supported_versions.should include("0.7") }
     end
 
@@ -66,7 +68,8 @@ describe VideoSystemApi::VideoSystemApi do
     let(:logout_url) { "http://www.kluuu.com" }
     let(:max_participants) { 2 }
     let(:voice_bridge) { 72879 }
-    let(:kluuuHost) { ip }
+    let(:kluuuIp) { ip }
+    let(:kluuuPort) { port }
     let(:tt) { 1 }
     let(:ttp) { 5 }
     let(:charge_amount) { 2.99 }
@@ -76,7 +79,8 @@ describe VideoSystemApi::VideoSystemApi do
                  :moderatorPW => moderator_password, :attendeePW => attendee_password,
                  :welcome => welcome_message, :dialNumber => dial_number,
                  :logoutURL => logout_url, :maxParticpants => max_participants,
-                 :voiceBridge => voice_bridge, :kluuuHost => ip, :tt => tt, :ttp => ttp, 
+                 :voiceBridge => voice_bridge, :kluuuIp => ip, :kluuuPort => port,
+                 :tt => tt, :ttp => ttp, 
                  :charge => charge_amount, :currency => currency }
     }
     let(:response) { { :meetingID => 123, :moderatorPW => 111, :attendeePW => 222, :hasBeenForciblyEnded => "FALSE" } }

@@ -1,18 +1,20 @@
 require 'socket'
 
 module KluuuCode
-  
   module Helper
-    class IpAddress
-      def IpAddress.local_ip
-        if Rails.env == 'production'
-          return Socket.gethostname
-        elsif Rails.env == 'test' || 'development'
-          tmp = Socket.ip_address_list.detect{|intf| intf.ipv4_private?}.ip_address + ':3000'
-          return tmp
-        else
-          raise 'No callback IP or hostname detected'
-        end
+    def Helper.local_ip
+      if Rails.env == 'test' || 'development'
+        return Socket.ip_address_list.detect{|intf| intf.ipv4_private?}.ip_address
+      else
+        return Socket.gethostname
+      end
+    end
+    
+    def Helper.local_port
+      if Rails.env == 'test' || 'development'
+        return '3000'
+      else
+        return '80'
       end
     end
   end
