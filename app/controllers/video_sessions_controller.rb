@@ -110,7 +110,7 @@ class VideoSessionsController < ApplicationController
 
     respond_to do |format|
       @msg = t('.call_ended', :default => 'call ended') 
-      format.js { render and return }
+      format.js {}
     end
   end
   
@@ -131,6 +131,7 @@ class VideoSessionsController < ApplicationController
     end
     
     @video_server_address = room.video_server.url.gsub("http:\/\/","").gsub(/\/.*/,"")
+    puts @video_server_address.inspect
   end
  
 end
