@@ -68,7 +68,6 @@ overlay = {
       }
        else {
           setTimeout(set, 1000);
-          alert('else');
         }
     }; // End of calculateOverlay;
 
