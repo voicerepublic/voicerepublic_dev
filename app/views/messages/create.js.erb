@@ -1,1 +1,2 @@
+$("#flash_messages").html( "<%= escape_javascript( render(:partial => 'shared/notice_or_error', :locals => { :flash => flash }) ).html_safe %>");
 overlay.close();
