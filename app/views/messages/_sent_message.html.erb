@@ -11,7 +11,6 @@
 	</header>
 	<%= simple_format(message.content) %>
 	<aside>
-		
 	<%= link_to(user_message_path(:user_id => message.sender, :id => message), :method => :delete, :class => "contribution-delete") do %>
 	<i class="icon-trash"> </i> <%#= t('.delete')%>
 	<% end %>

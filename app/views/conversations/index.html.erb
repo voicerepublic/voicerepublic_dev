@@ -1,24 +1,30 @@
-<h3><%=t('.your_last_conversations') %></h3>
 <section class="row-fluid conversations">
+	<h3><%=t('.your_last_conversations') %></h3>
 	<ul class="conversations-list unstyled">
 		<% @conversations.each do |conv| %>
 			<li>
-			<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
 				<article class="conversation contribution">
 					<% partner = conv.partner_of(@user) %> 
 					<header>
-						<%= image_tag(partner.account.portrait(:thumb), :class => "contribution-user-image")%>
-						<div class="contribution-user-name"><%= partner.name %></div>
+						<%= link_to(user_path(partner)) do %>
+							<%= image_tag(partner.account.portrait(:thumb), :class => "contribution-user-image img-polaroid")%>
+						<% end %>
+						<%= link_to(partner.name, user_path(partner), :class => "contribution-user-name") %>
 					</header>
+					<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
 					<% msg = conv.messages.limit(1).first %>
-					<% msg_c = conv.messages.count - 1 %>
-					<%= t(".and_#{msg_c}_more_messagaes") %>
 					<p><%= truncate( msg.content, :length => 72) %></p>
 					<aside>
+						<% msg_c = conv.messages.count - 1 %>
+						<%= t(".and_#{msg_c}_more_messages") %>
 						<time><%= l(msg.created_at, :format => :short) %></time>
+						<%= link_to(new_message_path(:receiver_id => partner), :remote => true, :class => "conversations-actions-new") do %>
+							<i class="icon-envelope"> </i> <%= t('.new_message') %>
+						<% end %>
 					</aside>
+					<% end %>
 				</article>
-			<% end %>
+			
 			</li>
 		<% end %>	
 	</ul>
