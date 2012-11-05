@@ -35,7 +35,7 @@ class VideoServer < ActiveRecord::Base
   # Returns the API object associated with this server.
   def api
     if @api.nil?
-      @api = VideoSystemApi::VideoSystemApi.new(self.url, self.salt, self.version.to_s, false, 2, Rails.configuration.ip_address)
+      @api = VideoSystemApi::VideoSystemApi.new(self.url, self.salt, self.version.to_s, false, 2, Rails.configuration.ip_address, Rails.configuration.ip_port)
     end
     @api
   end

@@ -49,14 +49,15 @@ module VideoSystemApi
   #
   class VideoSystemApi
 
-    attr_accessor :url, :supported_versions, :salt, :version, :debug, :timeout, :ip
+    attr_accessor :url, :supported_versions, :salt, :version, :debug, :timeout, :ip, :port
 
     # Initializes an instance
     # url::       URL to a BigBlueButton server (e.g. http://demo.bigbluebutton.org/bigbluebutton/api)
     # salt::      Secret salt for this server
     # version::   API version: 0.7 (valid for 0.7, 0.71 and 0.71a)
-    def initialize(url, salt, version='0.7', debug=false, timeout=2, ip='127.0.0.1')
+    def initialize(url, salt, version='0.7', debug=false, timeout=2, ip='127.0.0.1', port='3000')
       @supported_versions = ['0.7']
+      @port = port
       @ip = ip
       @url = url
       @salt = salt
@@ -124,8 +125,8 @@ module VideoSystemApi
                  :moderatorPW => moderator_password, :attendeePW => attendee_password,
                  :welcome => welcome_message, :dialNumber => dial_number,
                  :logoutURL => logout_url, :maxParticpants => max_participants,
-                 :voiceBridge => voice_bridge, :kluuuHost => @ip, :tt => tt, :ttp => ttp, 
-                 :charge => charge_amount, :currency => currency }
+                 :voiceBridge => voice_bridge, :kluuuIp => @ip, :kluuuPort => @port, 
+                 :tt => tt, :ttp => ttp, :charge => charge_amount, :currency => currency }
 
       response = send_api_request(:create, params)
 
