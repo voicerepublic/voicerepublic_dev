@@ -82,6 +82,10 @@
 		margin-top:0
 	}
 
+	.navbar-menu-name{
+		padding-left:5px;
+	}
+
 	a.brand{
 	 	padding: 7px 30px 0 0px;
 	 	margin-left: 0;
@@ -187,7 +191,7 @@
 		}
 
 		.dropdown-menu{
-			background:#eee;
+			background:#fff;
 			padding:0 0 0 0;
 			.online-status{
 				margin-top:3px;
@@ -210,6 +214,33 @@
   	.nav li.dropdown.open > .dropdown-toggle, .nav li.dropdown.active > .dropdown-toggle, .nav li.dropdown.open.active > .dropdown-toggle {
 				background-color:rgba(255,255,255,0.3);
 		}
+
+
+	.actionbar-notifications{
+
+		.caret{
+			margin-top:19px;
+			margin-left:5px;
+			border-top-color:rgba(0,0,0,0.5) !important;
+		}
+
+		.dropdown-menu{
+			background:#fff;
+			padding:0 0 0 0;
+			.divider{
+				border-bottom:1px solid #bbb;
+			}
+			li a{
+				color:#666;
+				padding:5px auto;
+				&:hover{
+					background:rgba(0,0,0,0.05);
+					color:#333
+				}
+			}
+		}
+	}
+
 
 }
 
