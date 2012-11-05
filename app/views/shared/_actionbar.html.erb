@@ -70,9 +70,9 @@
 								<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %><%= current_user.firstname %>
 							<% end %>
 							<a href="#" class="dropdown-toggle actionbar-user-dropdown" title="Online Status" data-toggle="dropdown" role="button">
-								<span id="user-availability">
+								<div id="user-availability">
 									<div class="online-status online-status-<%= css_class_for_available(current_user.available) %>"></div>
-								</span>
+								</div>
 								<b class="caret"></b>
 							</a>
 							<%= render(:partial => 'shared/user_dropdown_list') %>
