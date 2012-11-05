@@ -35,10 +35,10 @@ overlay = {
       var images = overlayContent.find("img, iframe");
 
       function set() {
+        overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
         overlayContent.css({
-          marginTop: -overlayContent.height()/2,
-          marginLeft: -overlayContent.width()/2,
-          width: overlayContent.width()
+          top: document.documentElement.clientHeight/2 - overlayContent.height()/2,
+          left: document.documentElement.clientWidth/2 - overlayContent.width()/2
         });
         if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
           overlayBackground.height(windowHeight);
@@ -67,7 +67,8 @@ overlay = {
         });
       }
        else {
-          set();
+          setTimeout(set, 1000);
+          alert('else');
         }
     }; // End of calculateOverlay;
 
