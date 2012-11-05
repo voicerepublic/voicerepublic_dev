@@ -6,23 +6,17 @@
 		<% end %>
 	</li>
 
-	<li class="divider"></li>
-
 	<li class="menu-item">
 		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'busy' } ), :method => 'put', :remote => true do %>
 			<div class="online-status online-status-important"></div>Busy
 		<% end %>
 	</li>
 
-	<li class="divider"></li>
-
 	<li class="menu-item">
 		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'offline' } ), :method => 'put', :remote => true do %>
 			<div class="online-status online-status-attention"></div>Offline
 		<% end %>
 	</li>
-
-	<li class="divider"></li>
 
 	<li>
 		<%= link_to(destroy_user_session_path, :method => :delete, :title => t('.logout', :default => "Logout") ) do %>
@@ -31,4 +25,3 @@
 	</li>
 
 </ul>
- 
