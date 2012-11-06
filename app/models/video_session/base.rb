@@ -5,7 +5,6 @@ class VideoSession::Base < ActiveRecord::Base
   
   has_many :notifications, :class_name => 'Notification::Base', :foreign_key => 'video_session_id'
   has_one :video_room, :autosave => true, :foreign_key => 'video_session_id', :dependent => :delete
-   
   belongs_to :klu, :inverse_of => :video_sessions
     
   validates_presence_of :klu 
