@@ -84,21 +84,27 @@
 		margin-top:0
 	}
 
-	.navbar-menu-name{
-		padding-left:5px;
-	}
-
 	a.brand{
 	 	padding: 7px 30px 0 0px;
 	 	margin-left: 0;
 	 	margin-top: -2px;
-	}
-
-  a.brand{
    	img{
    		height:30px
-  	}
-  }
+  	}	 	
+	}
+
+	.navbar-new-klu, .navbar-question-kluuu{
+		width:50px;
+		opacity:0.3;
+		padding:5px 5px;
+		background:#fff;
+		border:1px solid rgba(0,0,0,0.5);
+		border-radius:6px;
+	}
+
+	.navbar-question-kluuu{
+		width:56px;
+	}
 
 	.navbar-search {
 		margin: 5px 15px 0 10px;
@@ -109,7 +115,7 @@
 			margin:-4px 0px 0 0px;
 			vertical-align: middle;
 			border:1px solid #bbb;
-			font-size:@baseFontSize * 1;
+			font-size:@baseFontSize * 0.8;
 			&:hover{
 				border-color:#999;
 			}
@@ -156,66 +162,17 @@
 		line-height: @baseLineHeight * 0.7;
 	}
 
-  .actionbar-user {
-    line-height: 19px * @baseLineHeight;
-    img {
-      height: 22px;
-      vertical-align: top;
-      margin-top:10px;
-      margin-right: 7px;
-      border: 1px solid @grayLight;
-    }
-
-    a.actionbar-profile-link{
-    	border:none;
-    	padding-right:6px;
-    	float:left
-    }
-
-    .actionbar-user-dropdown{
-    	padding-left:6px;
-    	float:left;
-    	.online-status{
-    		margin:13px 0 13px 0;
-    	}
-    }
-
-    #user-availability{
-    	display: inline;
-    }
-
-		.dropdown-toggle{
-			.caret{
-				margin-top:19px;
-				margin-left:5px;
-				border-top-color:rgba(0,0,0,0.5) !important;
-			}
+	.actionbar-profile-link{
+		img{
+			width:26px;
+			border:1px solid #999;
+			margin-right:7px
 		}
+	}
 
-		.dropdown-menu{
-			background:#fff;
-			padding:0 0 0 0;
-			.online-status{
-				margin-top:3px;
-				margin-right:10px
-			}
-			.divider{
-				border-bottom:1px solid #bbb;
-			}
-			li a{
-				color:#666;
-				padding:5px auto;
-				&:hover{
-					background:rgba(0,0,0,0.05);
-					color:#333
-				}
-			}
-		}
-
-  }
-  	.nav li.dropdown.open > .dropdown-toggle, .nav li.dropdown.active > .dropdown-toggle, .nav li.dropdown.open.active > .dropdown-toggle {
-				background-color:rgba(255,255,255,0.3);
-		}
+ 	.nav li.dropdown.open > .dropdown-toggle, .nav li.dropdown.active > .dropdown-toggle, .nav li.dropdown.open.active > .dropdown-toggle {
+		background-color:rgba(255,255,255,0.3);
+	}
 
 
 	.actionbar-notifications{
@@ -229,9 +186,6 @@
 		.dropdown-menu{
 			background:#fff;
 			padding:0 0 0 0;
-			.divider{
-				border-bottom:1px solid #bbb;
-			}
 			li a{
 				color:#666;
 				padding:5px auto;
@@ -242,6 +196,44 @@
 			}
 		}
 	}
+
+  .actionbar-online-status {
+    line-height: 19px * @baseLineHeight;
+
+    a.actionbar-profile-link{
+    	border:none;
+    	padding-right:6px;
+    	float:left
+    }
+
+		.dropdown-toggle{
+    	float:left;			
+			.caret{
+				margin-top:19px;
+				margin-left:5px;
+				border-top-color:rgba(0,0,0,0.5) !important;
+			}
+		}
+
+		.dropdown-menu{
+			background:#fff;
+			padding:0 0px 0 0;
+			min-width:40px;
+			text-align: right;
+			li a{
+				color:#666;
+				padding:6px 31px 4px 10px;
+				&:hover{
+					background:rgba(0,0,0,0.05);
+					color:#333
+				}
+			}
+			li:last-child a{
+				padding-right:10px
+			}
+		}
+
+  }	
 
 	.menu-item{
 		border-bottom: 1px solid #BBBBBB;
@@ -260,6 +252,26 @@
 				color:@brandColor !important;
 			}
 		}
+	}
+
+	.label{
+		width:50px;
+		display:inline-block;
+		text-align: center;
+		padding-top:3px;
+		padding-bottom: 2px 
+	}
+
+	.label-success{
+		background-color:green;
+	}
+
+	.label-important{
+		background-color:orange;
+	}
+
+	.label-attention{
+		background-color:darkred;
 	}
 
 }
@@ -301,45 +313,4 @@
 	i{
 		margin-left:5px
 	}
-}
-
-/*
- * ONLINE STATUS
- *
- */
-
-.online-status{
-	height:15px;
-	width:15px;
-	background:#666;
-  float:left;
-  border-radius:2px;
-}
-
-.online-status-success{
-	background-color:green;
-	box-shadow:0 0 2px green;
-	-moz-box-shadow:0 0 2px green;
-	-webkit-box-shadow:0 0 2px green;
-	-o-box-shadow:0 0 2px green;
-	-ms-box-shadow:0 0 2px green;
-}
-
-.online-status-important{
-	background-color:orange;
-	box-shadow:0 0 2px orange;
-	-moz-box-shadow:0 0 2px orange;
-	-webkit-box-shadow:0 0 2px orange;
-	-o-box-shadow:0 0 2px orange;
-	-ms-box-shadow:0 0 2px orange;
-
-}
-
-.online-status-attention{
-	background-color:darkred;
-	box-shadow:0 0 2px darkred;
-	-moz-box-shadow:0 0 2px darkred;
-	-webkit-box-shadow:0 0 2px darkred;
-	-o-box-shadow:0 0 2px darkred;
-	-ms-box-shadow:0 0 2px darkred;
 }
