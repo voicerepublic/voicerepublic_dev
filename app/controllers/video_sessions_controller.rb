@@ -75,7 +75,7 @@ class VideoSessionsController < ApplicationController
     
     respond_to do |format|
       begin 
-        logger.warn("VideoSession#update - debug:  #{@video_session.inspect} \n errors: #{@video_session.errors.inspect}")
+        logger.warn("VideoSession#update - debug:  #{@video_session.inspect} \n valid? #{@video_session.valid?} \n errors: #{@video_session.errors.inspect}")
         if @video_session.save
           format.js { redirect_to video_session_path(:id => @video_session.id) and return }
         else
@@ -83,7 +83,7 @@ class VideoSessionsController < ApplicationController
           format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.update.failed_1')} and return }
         end
       rescue KluuuExceptions::KluuuException => e
-        logger.error("\n###############\nVideoSession#update - Exception caught - \n#{e.inspect}\n#####################")
+        logger.error("\nVideoSession#update - ERROR Exception caught - \n#{e.inspect}\n")
         if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
           redirect_to e.redirect_link, :alert => e.msg and return
         elsif e.class.name == 'KluuuExceptions::VideoSystemError'
