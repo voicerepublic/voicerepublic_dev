@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   # see config/initializers/warden.rb for overwritten callbacks in case of authentication or logout
-  # to set the default online/offline/bizzy - state of user
+  # to set the default online/offline/busy - state of user
   devise :database_authenticatable, :registerable, :omniauthable,
            :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
@@ -74,28 +74,28 @@ class User < ActiveRecord::Base
   
   def availability_status
     if (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
-      update_attribute(:available, :offline) if available.to_sym == :online || :bizzy
-      :offline
+      update_attribute(:available, 'offline') if available == 'online' || available == 'busy'
+      'offline'
     else
-      available.to_sym
+      available
     end
   end
   
   def available?
     #TODO out for testing
-    return true if availability_status == :online
+    availability_status == 'online' ? true : false
   end
   
   def set_online!
-    update_attribute(:available, :online)
+    update_attribute(:available, 'online')
   end
   
   def set_offline!
-    update_attribute(:available, :offline)
+    update_attribute(:available, 'offline')
   end
   
-  def set_bizzy!
-    update_attribute(:available, :bizzy)
+  def set_busy!
+    update_attribute(:available, 'busy')
   end
   
   def message_queue
@@ -105,6 +105,12 @@ class User < ActiveRecord::Base
   def conversations
     Conversation.where("user_1_id=? OR user_2_id=?", self.id, self.id).order("created_at DESC")
   end
+  
+  def after_database_authentication
+    logger.debug("User#after_database_authentication - setting online")
+    set_online!
+  end
+  
   
   ######  class methods
   
@@ -152,10 +158,10 @@ class User < ActiveRecord::Base
   end
   
   def set_default_online_status
-    update_attribute(:available, :online)
+    update_attribute(:available, 'online')
   end
   
   def set_offline_status
-    update_attribute(:available, :offline)
+    update_attribute(:available, 'offline')
   end
 end
