@@ -19,7 +19,7 @@ class PaymentController < ApplicationController
     
     unless participant.instance_of? Participant::GuestAnonymous
       user = participant.user
-      user.update_attribute(:available, 'bizzy')
+      user.update_attribute(:available, 'busy')
     end
     
     if participant.save
