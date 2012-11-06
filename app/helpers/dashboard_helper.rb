@@ -66,5 +66,8 @@ module DashboardHelper
       return link_to( content_tag(:i, ' ', :class => "icon-eye-open"), url, :class => "news-view")
     end
   end
-  
+
+  def css_class_for_klu(klu)
+    klu.instance_of?(Kluuu) ? "kluuu" : "no-kluuu"
+  end
 end

@@ -31,27 +31,71 @@
     }
   }
 
+  .tab-content {
+    overflow:hidden;
+  }
+
   .dashboard-matches-own-klus {
 
     li {
-     margin: @verticalRhythm 0 @verticalRhythm 5px; 
-    }
+     margin: @verticalRhythm 0 @verticalRhythm 5px;
+     position: relative;
+     
 
-    a.klu-layout {
-      color: @grayLight;
-      display: inline-block;
-      padding: 4px 8px;
-      font-size: 125%;
-      text-align: left;
-      .transition(color 0.2s ease);
+     & > a{
+      .transition(all 0.2s ease);
+     }
 
-      &:hover {
+     & > a:hover {
+      
+      span.klu-layout {
         text-decoration: none;
         color: @linkColor;
+        box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
       }
+     }
     }
-    a.klu-layout.active {
+
+    span.klu-layout {
+      color: @grayLight;
+      display: block;
+      padding: 4px 8px;
+      font-size: 125%;
+      height: (@baseFontSize * 1.25 * @baseLineHeight) + 4px * 2 ;
+      max-width: 390px;
+      margin: 14px 17px 8px 23px;
+      box-shadow: none;
+
+      .text {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+      }
+
+      &:before {
+        position: absolute;
+        top: 50%;
+        margin-top: -(@baseFontSize * 1.25 * 1.3)/2;
+        font-family: @sansFontFamily;
+        font-style: normal;
+        line-height: 1;
+        font-size: 130%;
+      }
+      &.kluuu:before {
+        content: "!";
+        left: -20px;
+      }
+      &.no-kluuu:before  {
+        content: "?";
+        left: -22px;
+      }
+
+    }
+    li.active span.klu-layout {
       color: @linkColor;
+      box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
     }
   }
 
@@ -59,6 +103,20 @@
     .set-rows(3)
   }
 }
+
+.matches-view-link {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  right: 38px;
+  color: lighten(desaturate(@brandColor, 20%), 20%);
+  font-size: @baseFontSize - 2;
+
+  &hover {
+    color: @linkColor;
+  }
+}
+
  
 .dashboard-bookmarks {
   .small-klu {

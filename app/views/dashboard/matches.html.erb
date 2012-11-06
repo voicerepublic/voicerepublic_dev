@@ -1,22 +1,25 @@
-
 <div class="tab-content dashboard-matches">
-	<div class="row-fluid">
-		<nav class="span4 dashboard-matches-own-klus">
-			<h3 class=""><%= t('.your_klus')%></h3>
-			<ul>
+	<div class="tabbable tabs-left">
+			<ul class="nav nav-tabs dashboard-matches-own-klus ">
 			<% @klus.each do |k| %>
+				<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
+					<li class="active">
+				<% else %>
 					<li>
-						<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
-							<%= link_to k.title, dashboard_matches_path(:id => k.id), :class => 'klu-title klu-layout active' %>
-						<% else %>
-							<%= link_to k.title, dashboard_matches_path(:id => k.id), :class => 'klu-title klu-layout' %>
+				<% end %>
+				<%= link_to(dashboard_matches_path(:id => k.id), :title => k.title) do %>
+					<span class="klu-title klu-layout <%= css_class_for_klu(k) %>"><span class="text"><%= k.title %></span></span>
+				<% end %>	
+					<aside>
+						<%= link_to( klu_path(:id => k), :class => "matches-view-link", :title => t('.view', :default => "view")) do %>
+							<i class="icon-eye-open"></i><%= t('.view') %>
 						<% end %>
-					</li>
+					</aside>
+				</li>
 			<% end %>
 			</ul>
-		</nav>
-		<div class="span8">
-			<h3><%= t('.matches_to_your_kluuu') %>:&nbsp; <span class="klu-title klu-layout"><%= @matched_klu.title if @matched_klu %></span></h3>
+		<div class="tab-content ">
+			<h3><%= t('.matches_to_your_kluuu') %></h3>
 			<% @matching_klus.each do |k| %>
 				<%= partial_for_klu(k,:medium) %>
 			<% end unless @matching_klus.nil? %>
