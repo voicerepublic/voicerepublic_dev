@@ -3,6 +3,7 @@
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
 
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
+<%= t('I\'d_like_to_know_more_about:') %>
 <div class="well">
 	<div class="row-fluid">
 		<div class="span8 kluuu-pics">

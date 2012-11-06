@@ -29,17 +29,21 @@ p.wichtig {
 		}
 
 		li {
-			width: 13%;
+			width: 17%;
 			float: left;
-			height: 88px;
 			padding-top: 11px;
+			padding-bottom: 11px;
 			font-size: 66px;
 			line-height: 1;
 			text-align: center;
 			vertical-align: baseline;
-			overflow:hidden;
-			margin: 0 6%;
+			margin: 0 4%;
 			border-radius: 30px;
+
+			.user-main-nav-subline {
+				font-size: @baseFontSize;
+				display: block;
+			}
 
 			&.active, &.active:hover {
 				background: @linkColor;
@@ -71,8 +75,10 @@ p.wichtig {
 				text-decoration: none;
 			}
 
-			a[class^="icon-"],
-			a[class*=" icon-"] {
+			i[class^="icon-"],
+			i[class*=" icon-"] {
+				display: block;
+				margin: -14px auto 0;
 			}
 		}
 	}
