@@ -71,6 +71,20 @@ overlay = {
         }
     }; // End of calculateOverlay;
 
+    function registerClose() {
+      overlayBackground.on('click', function(event) {
+          overlay.close();
+      });
+      overlayContent.on('click', function(event){
+        event.stopPropagation();
+      });
+      $(document).on('keyup', function(event) {
+        if(event.keyCode == 27 ) {
+          overlay.close();
+        }
+      });
+    };
+
 
     var body = $('body').css({
       position: 'relative'
@@ -92,6 +106,7 @@ overlay = {
     
     calculateOverlay();
     overlayBackground.css("background-image", "none");
+    registerClose();
   },
 
   close: function(target) {
