@@ -73,15 +73,9 @@ class VideoSessionsController < ApplicationController
   def update
     @video_session = VideoSession::Base.find(params[:id])
     
-    #puts '===================================================='
-    #puts 'IN UPDATE'
-    #puts @video_session
-    #puts @video_session.guest_participant.inspect
-    #puts @video_session.host_participant.inspect
-    #puts '===================================================='
-    
     respond_to do |format|
       begin 
+        logger.warn("VideoSession#update - debug:  #{@video_session.inspect} \n errors: #{@video_session.errors.inspect}")
         if @video_session.save
           format.js { redirect_to video_session_path(:id => @video_session.id) and return }
         else
