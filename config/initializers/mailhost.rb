@@ -8,3 +8,4 @@ _host = case Rails.env
         end
 
 Kluuu2::Application.config.action_mailer.default_url_options = { :host => _host }
+Rails.application.routes.default_url_options[:host] = _host 

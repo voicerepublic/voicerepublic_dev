@@ -8,6 +8,8 @@
   <% end -%>
 <% end -%>
 
+<%= link_to 'google', omniauth_authorize_path(resource_name, 'google_oauth2'), :class => "signup-google"%>
+
 </p>
 
 <%- if controller_name != 'sessions' %>
