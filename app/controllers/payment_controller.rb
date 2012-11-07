@@ -1,16 +1,12 @@
 class PaymentController < ApplicationController
   
   def user_joined
-    #TODO: all into model
+    
     video_room = VideoRoom.find_by_video_system_room_id(params[:meetingId])
     video_session = video_room.video_session
-    if video_session.instance_of? VideoSession::Anonymous
-      participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first
-      participant ||= Participant::HostRegistered.where('user_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first  
-    else 
-      participant = Participant::Base.where('user_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first
-    end
+    participant = get_participant(video_session, params)
     timestamp = Time.at(params[:timestamp].to_i)
+    
     
     check_prerequisites_user(video_session, video_room, participant, timestamp)
     check_checksum(request.url, video_room.video_server.salt, "user_joined", params[:checksum])
@@ -131,7 +127,17 @@ class PaymentController < ApplicationController
   def check_checksum(url, salt, api_call, checksum)
     p = url.gsub(/^.*\?/,"").gsub(/\&checksum=.*$/,"")
     cs = Digest::SHA1.hexdigest(api_call + p + salt)
-    raise "Checksum does not match URL:#{url}, PARAMS:#{p}, FROM BBB:#{checksum}, CALCULATED:#{cs}" if cs != checksum
+    raise "Checksum does not match URL:#{url}, PARAMS:#{p}, FROM VideoSystem:#{checksum}, CALCULATED:#{cs}" if cs != checksum
   end
   
+  def get_participant(video_session, params)
+    if video_session.instance_of? VideoSession::Anonymous
+      participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first
+      participant ||= Participant::HostRegistered.where('user_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first  
+    else 
+      participant = Participant::Base.where('user_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first
+    end
+    
+    participant
+  end
 end
