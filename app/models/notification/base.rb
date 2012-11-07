@@ -16,6 +16,7 @@ class Notification::Base < ActiveRecord::Base
   scope :content_alerts,  :conditions => { :type => CONTENT_ALERTS  }, :order => "created_at DESC"
 
   alias_method :reason, :to_s
+  alias_method :url_for_notify, :path_for_notify
   
   
   
@@ -40,10 +41,6 @@ class Notification::Base < ActiveRecord::Base
     when "NewMessage"
       url
     end
-  end
-  
-  def url_for_notify
-    "http://" + Rails.application.routes.default_url_options[:host] + path_for_notify
   end
 
   private
