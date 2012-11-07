@@ -40,8 +40,12 @@ class Notification::Base < ActiveRecord::Base
       url
     end
   end
+  
+  def url_for_notify
+    path_for_notify
+  end
 
-  alias_method :url_for_notify, :path_for_notify  
+  #alias_method :url_for_notify, :path_for_notify  
   
   private
 
