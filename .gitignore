@@ -21,3 +21,5 @@ public/system/klu_images
 public/system/profile_settings
 db/sphinx
 
+.DS_Store
+/start
