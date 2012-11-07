@@ -69,7 +69,7 @@ class KlusController < ApplicationController
 
     respond_to do |format|
       if @klu.save
-        format.html { redirect_to user_klus_url(:user_id => @user), notice: 'Klu was successfully created.' }
+        format.html { redirect_to user_url(:id => @user), notice: 'Klu was successfully created.' }
         format.json { render json: @klu, status: :created, location: @klu }
       else
         flash.now[:error] = @klu.errors.inspect

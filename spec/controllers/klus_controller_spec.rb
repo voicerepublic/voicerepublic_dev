@@ -85,9 +85,9 @@ describe KlusController do
         assigns(:klu).should be_persisted
       end
 
-      it "redirects to the created klu" do
+      it "redirects to the users profile" do
         post :create, {:klu => valid_attributes.merge(:user_id => @user), :user_id => @user}, valid_session
-        response.should redirect_to( user_klus_url(:user_id => @user) )
+        response.should redirect_to( user_url(:id => @user) )
       end
     end
 
