@@ -39,6 +39,7 @@ p.wichtig {
 			vertical-align: baseline;
 			margin: 0 4%;
 			border-radius: 30px;
+			.transition(all 0.2s ease);
 
 			.user-main-nav-subline {
 				font-size: @baseFontSize;
@@ -55,12 +56,11 @@ p.wichtig {
 			}
 
 			&:hover {
-				background: lighten(@linkColor, 30%);
+				background: @linkColor;
 				.transition(all 0.3s ease);
 
 				a {
-					color: @brandColorDarker;
-					text-shadow: 2px 2px 4px #aaa;
+					color: @white;
 				}
 			}
 
