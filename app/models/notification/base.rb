@@ -15,14 +15,12 @@ class Notification::Base < ActiveRecord::Base
   scope :alerts,          :conditions => { :type => ALERTS }, :order => "created_at DESC"
   scope :content_alerts,  :conditions => { :type => CONTENT_ALERTS  }, :order => "created_at DESC"
 
-  alias_method :reason, :to_s
-  alias_method :path_for_notify, :url_for_notify
-  
-  
   
   def to_s
     self.class.name
   end
+
+  alias_method :reason, :to_s
 
   def path_for_notify
     case self.class.name.split("::")[-1]
@@ -43,6 +41,8 @@ class Notification::Base < ActiveRecord::Base
     end
   end
 
+  alias_method :url_for_notify, :path_for_notify  
+  
   private
 
   def generate_push_notification
