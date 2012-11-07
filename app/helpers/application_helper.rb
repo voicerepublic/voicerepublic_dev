@@ -16,7 +16,9 @@ module ApplicationHelper
     gi.latest
   end
   
-  
+  def klu_type(klu)
+    klu.instance_of?(Kluuu) ? t('.!KluuU') : t('.?Question')
+  end
   
   
 end
