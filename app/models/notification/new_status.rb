@@ -6,7 +6,7 @@ class Notification::NewStatus < Notification::Base
    
   validates :other_id, :user_id, :presence => true
   
-  after_create :generate_mail_notification
+  #after_create :generate_mail_notification
   
   def to_s
     I18n.t('.friend_created_new_status', :friend => other.name)
