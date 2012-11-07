@@ -85,6 +85,8 @@ GEM
       money (>= 5.0.0)
       nokogiri
     eventmachine (1.0.0)
+    exception_notification (2.6.1)
+      actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.1.0)
@@ -309,6 +311,7 @@ DEPENDENCIES
   devise
   dynamic_form
   eu_central_bank
+  exception_notification
   factory_girl_rails
   faker
   friendly_id
