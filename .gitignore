@@ -20,4 +20,7 @@ public/system/accounts
 public/system/klu_images
 public/system/profile_settings
 db/sphinx
+<<<<<<< HEAD
+
 .DS_Store
+/start

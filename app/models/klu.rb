@@ -4,13 +4,14 @@ class Klu < ActiveRecord::Base
   attr_accessible :charge_type, :charge_amount, :currency
   attr_accessible :klu_images_attributes
   
+  
+  
   acts_as_taggable
   
   belongs_to :user
   belongs_to :category
   has_many :video_sessions, :inverse_of => :klu
   #has_many :klu_images, :foreign_key => :klu_id, :dependent => :destroy
-  
   #accepts_nested_attributes_for :klu_images, :allow_destroy => true
   
   validates :user_id, :presence => true
