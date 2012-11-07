@@ -1,17 +1,3 @@
-<p>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to omniauth_authorize_path(resource_name, provider), :class => "signup-#{provider}" do %>
-    	<%= image_tag "#{provider}_connect.png", :alt => t('.sign_in_with_#{provider}', :default => "Sign in with #{provider}") %>
-    <% end -%>
-  <% end -%>
-<% end -%>
-
-<%= link_to 'google', omniauth_authorize_path(resource_name, 'google_oauth2'), :class => "signup-google"%>
-
-</p>
-
 <%- if controller_name != 'sessions' %>
   <%= link_to "Log In", new_session_path(resource_name) %><br />	
 <% end -%>

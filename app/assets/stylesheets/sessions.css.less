@@ -3,3 +3,58 @@
  *= require_self
  */
  @import "config.css.less";
+
+	input[type="text"], input[type="password"], input[type="email"] {
+	    width: 100%;
+	}
+
+	.login{
+		h2{
+			margin-top:0;
+		}
+	}
+
+ .signup-facebook, .signup-google{
+ 	width:205px;
+ 	text-align: left;
+ 	padding-left:5px;
+ 	font-size:14px;
+ 	color:white;
+ 	font-weight: bold;
+ 	margin-bottom:10px;
+ 		img{
+ 			margin-right: 5px;
+ 		}
+ }
+
+ .signup-facebook{
+	  background-color: #306CA8;
+
+		background-image: linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+		background-image: -o-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+		background-image: -moz-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+		background-image: -webkit-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgb(255,255,255,0.3) 100%);
+		background-image: -ms-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+
+		background-image: -webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0, rgba(255,255,255,0.1)),
+			color-stop(1, rgba(255,255,255,0.3))
+		);
+		
+		filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#B1C6C9', endColorstr='#8BA3A7'); /* IE6 & IE7 */
+  	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#B1C6C9', endColorstr='#8BA3A7')"; /* IE8 */
+
+  	text-shadow:0 1px #306CA8;
+
+  	&:hover{
+  		background-color: #306CA8;
+  		color:white;
+  	}
+ }
+
+ .signup-google{
+ 	color:#333;
+ }
