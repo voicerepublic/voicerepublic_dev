@@ -20,7 +20,7 @@
 	<% if notification.instance_of?(Notification::NewKluuu)%>
 		<h4 class="news-notification-top">
 			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-			<%= t('.created_new_klu') %>:
+			<%= t('.created_new_') %><%= klu_type(notification.klu) %>:
 		</h4>
 		<%= link_to_url_for_notification_reason(notification) do  %>
 			<span class="klu-title well well-small"><%= notification.klu.title %></span>
