@@ -1,0 +1,14 @@
+Hallo <%= @user.firstname %>
+=================================================================
+
+Es gibt neues von einem deiner Freunde auf KluuU - 
+
+<%= @notification %>
+
+Weiteres hierzu findest du mit einem Besuch von: <%= @notification.url_for_notify %> 
+
+
+---
+du kannst deine Einstellungen zum Erhalt dieser Email einstellen:  
+<%= dashboard_settings_edit_url %>
+
