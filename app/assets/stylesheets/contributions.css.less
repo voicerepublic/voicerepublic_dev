@@ -1,18 +1,30 @@
 @import "config.css.less";
 
-@contribution-left-offset: 90px;
+@contribution-left-offset: 79px;
 @contribution-right-offset: 60px;
 
 .contribution, .comment article {
-  padding: 20px @contribution-right-offset 6px @contribution-left-offset;
+  .box-sizing(content-box);
+  padding: 17px @contribution-right-offset 6px @contribution-left-offset;
   position: relative;
   min-height: 70px;
 
+  & > aside {
+    font-size: @baseFontSize - 2;
+  }
+
+  & > aside, & > header {
+    color: lighten(desaturate(@brandColor, 10%), 15%);
+
+    a {
+      color: @linkColor;
+    }
+  }
+
   time {
-    right:0;
+    right:8px;
     bottom: 8px;
     font-size: smaller;
-    color: lightgrey;
     }
   }
 
@@ -21,8 +33,8 @@
   }
 
   .contribution-user-name, .comment-user-name {
-    left: 10px;
-    top: 12px;
+    left: 12px;
+    top: 6px;
     font-weight: bold;
     font-size: smaller;
   }
@@ -30,7 +42,7 @@
   .contribution-user-image, .comment-user-image {
     display: block;
     left: 10px;
-    top: 38px;
+    top: 27px;
   }
 
   a.contribution-content {
@@ -49,7 +61,7 @@
   }
 
   a.contribution-edit, a.contribution-delete, {
-    right: 0;
+    right: 8px;
   }
 
   .contribution-edit {
@@ -57,7 +69,7 @@
   }
 
   .contribution-delete, .contribution-reply {
-    top: 12px + @baseFontSize * @baseLineHeight;
+    top: 6px;
     &:hover{
       text-decoration: none;
     }  

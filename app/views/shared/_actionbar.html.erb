@@ -14,8 +14,14 @@
 			<div class="container nav-collapse">
 				<ul class="nav">
 					<li>
-						<%= link_to(dashboard_path, :title => "Dashboard", :class => "nav-left-border") do %>
-							<!-- <i class="icon-dashboard"></i> --><span class="navbar-menu-name">Dashboard</span>
+						<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link nav-left-border", :title => current_user.name do %>
+							<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %>Profile<%#= current_user.firstname %>
+						<% end %>						
+					</li>					
+					<li>
+						<%= link_to(dashboard_path, :title => "Dashboard") do %>
+							<!-- <i class="icon-dashboard"></i><span class="navbar-menu-name">Dashboard</span>-->
+							Dashboard
 						<% end  if current_user %>
 					</li>
 					<% if current_user.is_admin? %>
@@ -24,15 +30,15 @@
 							</li>
 						<% end %>
 					<li>
-						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :title => "Create KluuU" do %>
-							<i class="icon-bullhorn"></i>
-						<% end %>
-					</li>
-					<li>
 						<%= link_to new_user_klu_path( :user_id => current_user), :title => "New Question" do %>
-							<i class="icon-edit"></i>
+							<%#= image_tag '/assets/icon_question.png', :alt => "Question", :class => "navbar-question-kluuu" %>? Question
 						<% end %>
-					</li>					
+					</li>						
+					<li>
+						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :title => "Create KluuU" do %>
+							<%#= image_tag '/assets/icon_new_klu.png', :alt => "New KluuU!", :class => "navbar-new-klu" %>! KluuU
+						<% end %>
+					</li>			
 				</ul>
 				<ul class="nav pull-right">
 
@@ -50,11 +56,11 @@
 					 		<a href="#" class="dropdown-toggle actionbar-notifications-dropdown" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications', :default => "Notifications") %>">
 					 			<i class="icon-bell"></i>
 					 			<b class="caret"></b>
-					 			<% unless current_user.notifications.unread.empty? %>
+					 			<%# unless current_user.notifications.unread.empty? %>
 					 			<span class="badge badge-important" id="alerts-count-<%= current_user.id %>">
-					 				<%= current_user.notifications.unread.count %>
+					 				<%= current_user.notifications.alerts.unread.count %>
 					 			</span>
-					 			<% end %>
+					 			<%# end %>
 					 		</a>
 					 		<%= render(:partial => 'shared/notifications_list') %>
 					 	</li>
@@ -65,13 +71,10 @@
 					 		<% end %>
 					 	</li>
 
-						<li class="actionbar-user dropdown">
-							<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link", :title => current_user.name do %>
-								<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %><%= current_user.firstname %>
-							<% end %>
-							<a href="#" class="dropdown-toggle actionbar-user-dropdown" title="Online Status" data-toggle="dropdown" role="button">
-								<div id="user-availability">
-									<div class="online-status online-status-<%= css_class_for_available(current_user.available) %>"></div>
+						<li class="actionbar-online-status dropdown">
+							<a href="#" class="dropdown-toggle actionbar-user-dropdown" title="<%=current_user.available.capitalize %>" data-toggle="dropdown" role="button">
+								<div id="user-availability" class="label label-<%= css_class_for_available(current_user.available) %>">
+									<%= current_user.available.capitalize %>
 								</div>
 								<b class="caret"></b>
 							</a>

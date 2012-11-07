@@ -1,4 +1,3 @@
-
 <%= form_for @message,  :url => create_message_path(:receiver_id => @message.receiver_id), :method => :post, :remote => "true",  :html => { :class => 'form-horizontal' }  do |f| %>  
   <div class="control-group">
     <%= f.label :to, :class => 'control-label' %>

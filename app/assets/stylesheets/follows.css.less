@@ -17,10 +17,10 @@
 	top:5px;
 	right:5px;
 	line-height:10px;
-	opacity:0;
-	-moz-opacity:0;
-	-webkit-opacity:0;
-	-ms-opacity:0;
+	opacity:0.2;
+	-moz-opacity:0.2;
+	-webkit-opacity:0.2;
+	-ms-opacity:0.2;
 }
 
 .follows-user-thumbnail-followback{
@@ -28,15 +28,16 @@
 	font-size:@baseFontSize * 1;
 }
 
+/*zurzeit nicht in betrieb wegen touch */
 .user-thumbnail{
-	&:hover{
+/*	&:hover{
 		.follows-user-thumbnail-unfollow, .follows-user-thumbnail-followback{
 			opacity:0.2;
 			-moz-opacity:0.2;
 			-webkit-opacity:0.2;
 			-ms-opacity:0.2;
 		}
-	}
+	}*/
 	.follows-user-thumbnail-unfollow:hover, .follows-user-thumbnail-followback:hover{
 		opacity:0.5;
 		-moz-opacity:0.5;

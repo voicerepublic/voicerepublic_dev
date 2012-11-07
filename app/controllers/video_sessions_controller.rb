@@ -73,22 +73,17 @@ class VideoSessionsController < ApplicationController
   def update
     @video_session = VideoSession::Base.find(params[:id])
     
-    #puts '===================================================='
-    #puts 'IN UPDATE'
-    #puts @video_session
-    #puts @video_session.guest_participant.inspect
-    #puts @video_session.host_participant.inspect
-    #puts '===================================================='
-    
     respond_to do |format|
       begin 
+        logger.warn("VideoSession#update - debug:  #{@video_session.inspect} \n valid? #{@video_session.valid?} \n errors: #{@video_session.errors.inspect}")
         if @video_session.save
           format.js { redirect_to video_session_path(:id => @video_session.id) and return }
         else
+          logger.error("VideoSession#update - error saving video-session: #{@video_session.inspect}")
           format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.update.failed_1')} and return }
         end
       rescue KluuuExceptions::KluuuException => e
-        logger.error("\n###############\nVideoSession#update - Exception caught - \n#{e.inspect}\n#####################")
+        logger.error("\nVideoSession#update - ERROR Exception caught - \n#{e.inspect}\n")
         if e.class.superclass.name == 'KluuuExceptions::KluuuExceptionWithRedirect'
           redirect_to e.redirect_link, :alert => e.msg and return
         elsif e.class.name == 'KluuuExceptions::VideoSystemError'

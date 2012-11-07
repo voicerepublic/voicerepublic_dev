@@ -56,11 +56,13 @@ class VideoSession::Registered < VideoSession::Base
     begin
       response = self.video_room.send_create
     rescue VideoSystemApi::VideoSystemApiException => e
+      Rails.logger.error("VideoSession::Registered#prepare_room_for_video_session - ERROR rescued Exception: #{e.inspect}")
       msg = I18n.t('video_sytem.rooms.errors.api_threw_exception')
       raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error', {:response => response})
     end
     
     if response.nil? || !response[:returncode]
+      Rails.logger.error("VideoSession::Registered#prepare_room_for_video_session - ERROR - response is nil raising exception now.")
       raise KluuuExceptions::VideoSystemError.new('no server available for this room', 'video_sessions/video_system_error', {:response => response})
     end
     
@@ -73,6 +75,7 @@ class VideoSession::Registered < VideoSession::Base
       self.guest_participant.create_link(self.video_room)
       self.host_participant.create_link(self.video_room)
     rescue Exception => e
+      Rails.logger.error("VideoSession::Registered#create_video_session_links_for_participants - ERROR - rescuing: #{e.inspect}")
       msg = I18n.t('video_sytem.rooms.errors.links.not_set')
       raise KluuuExceptions::VideoSystemError.new(msg, 'video_sessions/video_system_error')
     end

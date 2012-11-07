@@ -1,16 +1,23 @@
 <article class="kluuu large-klu clearfix">
-	<div class="row-fluid">
+
+	<div class="row-fluid">		
 		<section class="klu-layout span9">
 			<header>
-				<h2 class="klu-title"><%= @klu.title %></h2>
+				<h2 class="klu-title"><%= klu.title %></h2>
 			</header>
+
+			<%# OVERALL RATING %>
 			<aside class="klu-overall-rating">
-				<%= overall_rating_stars(@klu) %>
+				<%= overall_rating_stars(klu) %>
 			</aside>
+
+	
 			<div class="row-fluid">
 				<section class="span8">
+
+					<%# PICTURES %>
 					<ul class="unstyled kluuu-pics">
-						<% @klu.klu_images.each_with_index do |ki, index| %>
+						<% klu.klu_images.each_with_index do |ki, index| %>
 						<% if (index == 0) %>
 						<li class="klu-eyecatcher">
 							<%= image_tag(ki.image.url(:large)) %>
@@ -22,7 +29,7 @@
 						</li>
 						<% else %>
 						<li>
-							<%= link_to user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki) do %>
+							<%= link_to user_klu_klu_image_path(:user_id => klu.user, :klu_id => klu, :id => ki) do %>
 							<%= image_tag(ki.image.url(:medium)) %>
 							<% end %>
 						</li>
@@ -30,81 +37,35 @@
 						<% end %>
 					</ul>
 
+					<%# DESCRIPTION %>
 					<section class="klu-description">
-				<%= simple_format @klu.description %>
+						<%= simple_format klu.description %>
+					</section>
+
 				</section>
-			</section>
-				<div class="span4">
-					<aside class="klu-user-info">
-						<%= render :partial => 'video_sessions/call_button', :locals => {:klu => @klu, :user => @user} %>
-						<div class="klu-user-info-inner">
-							<h4><%= link_to@klu.user.name, user_path(:id => @klu.user) %></h4>
-							<article class="klu-user-status">
-								<%= limit_words(@klu.status_or_about, 15) %>
-							</article>
-							<p class="klu-user-info-activity">
-								ACTIVITY_SCORE
-							</p>
-							<nav>
-								<ul>
-									<li>
-										<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small", :remote => true) do %>
-										<%= t('.send_message') %>
-										<% end if current_user %>
-									</li>
-									<li>
-										<% if current_user && current_user.id != @user.id %>
-										<% if current_user.followed.include?(@klu.user) %>
-										<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :method => :delete, :class => "btn btn-small") %>
-										<% else %>
-										<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small")%>
-										<% end %>
-										<% end %>
-									</li>
-									<li class="klu-user-info-more-klus">
-										<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
 
+				<%# USER DESCRIPTION %>
+				<%= render(:partial => 'kluuu_user', :locals => {:klu => klu}) %>
+		</section><!-- End of Kluu-header klu-layout-->
 
-									</li>
-								</ul>
-							</nav>
-						</div>
-					</aside>
-					<aside class="klu-meta">
-					<ul class="klu-categories">
-						<li>
-							<%= @klu.category.name %>
-						</li>
-					</ul>
-					<ul class="klu-tags">
-						<% @klu.tags.each do |tag| %>
-						<li>
-							<%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %>
-						</li>
-						<% end %>
-					</ul>
-				</aside>
-			</div>
-			
-
-		</section><!-- End of Kluu-header kly-layout-->
+		<%# MATCHES %>
 		<aside class="span3 klu-matches">
-			<h5> <%= t('.matching_?kluus?') %></h5>
-			<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
+			<h5> <%= t('.Menschen_die_mehr_erfahren_möchten_über') %><%=klu.title %></h5>
+			<%= render(:partial => 'matches', :locals => {:klu => klu }) %>
 		</aside>
+
 	</div>
 
 	<div class="large-klu-left row-fluid">
 		<div class="span9">
-		
-				
-				
+
+				<%# RATINGS %>		
 				<div class="row-fluid">
 					<section class="klu-ratings span8">
-						<h5><%= @klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
-						<% unless @klu.ratings.empty? %>
+						<h5><%= klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
+						<% unless klu.ratings.empty? %>
 						<ul class="unstyled">
-							<% @klu.ratings.limit(5).each do |rating| %>
+							<% klu.ratings.limit(5).each do |rating| %>
 							<li>
 								<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
 							</li>
@@ -113,11 +74,12 @@
 						<% end %>
 					</section>
 					
-							<ul class="unstyled span4">
+					<%# BOOKMARKS %>
+					<ul class="unstyled span4">
 					<h4>
-						<%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %>
+						<%= t('.this_kluuu_is_bookmarked') %> <%= klu.bookmarks.count %> <%= t('.times') %>
 					</h4>
-					<% @klu.bookmarks.each do |b|%>
+					<% klu.bookmarks.each do |b|%>
 					<li>
 						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
 						<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %>
@@ -128,46 +90,9 @@
 				</div>
 		</div>
 	</div>
-	<aside class="klu-top-bar clearfix">
-				<ul class="klu-actions">
-					<li class="klu-bookmark-link">
-						<%= bookmark_links(current_user, @klu) %>
-					</li>
-					<% if can? :manage, @klu %>
-					<li>
-						<%= link_to edit_user_klu_path(:user_id => @klu.user, :id => @klu) do %>
-						<i class="icon-pencil"> </i>
-						<%= t('.edit', :default => t("helpers.links.edit")) %>
-						<% end %>
-					</li>
-					<li>
-						<%= link_to user_klu_path(:user_id => @klu.user, :id => @klu),
-						:method => 'delete',
-						:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-						:class => '' do %>
-						<i class="icon-trash"> </i>
-						<%= t('.delete', :default => t("helpers.links.destroy")) %>
-						<% end %>
-					</li>
-					<li>
-						<%= link_to new_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu) do %>
-						<i class="icon-file"> </i><%= t('.add_image') %>
-						<% end %>
-					</li>
-					<% end %>
-				</ul>
-				<div class="klu-socials">
-						<!-- AddThis Button BEGIN -->
-						<div class="addthis_toolbox addthis_default_style">
-							<a class="addthis_button_pinterest_pinit"></a>
-							<a class="addthis_button_facebook_like"></a>
-							<a class="addthis_button_facebook_send"></a>
-							<a class="addthis_button_google_plusone"></a>
-							<a class="addthis_button_tweet"></a>
-						</div>
-						<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
-						<!-- AddThis Button END -->
-					</div>
-			</aside>
+
+	<%# KLUUU TOP ACTION BAR %>
+	<%= render(:partial => "kluuu_top_actions", :locals => {:klu => klu}) %>
+
 </article>
 

@@ -3,6 +3,7 @@
 	<% current_user.notifications.alerts.limit(5).each do |notification| %>
 		<li class="menu-item">
 			<%= link_to_url_for_notification_reason(notification) do %>
+				<%= image_tag notification.other.account.portrait(:thumb), :alt => notification.other.name  %>
 				<%= notification %>
 			<% end %>
 		</li>

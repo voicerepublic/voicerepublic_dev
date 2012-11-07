@@ -5,3 +5,54 @@
  *= require dashboard
  */
  @import "config.css.less";
+
+.conversations {
+  max-width: 585px;
+
+  .conversations-actions-new {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+  }
+}
+
+.conversation {
+  position: relative;
+
+  .conversation-action-new {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .conversation-action-delete-all {
+    position: absolute;
+    right: 0;
+    top: (@baseFontSize - 2) * @baseLineHeight;
+  }
+  .tab-content {
+    overflow: hidden;
+  }
+}
+
+ul.conversations-list, ul.messages-list {
+  & > li {
+    &:nth-child(odd) {
+      background: desaturate(lighten(@brandColor, 50%), 15%);  
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+
+.conversation-actions {
+  font-size: @baseFontSize - 2;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
