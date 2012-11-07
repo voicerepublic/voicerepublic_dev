@@ -1,0 +1,13 @@
+Hello <%= @user.firstname %>
+=================================================================
+
+There was some activity concerning you on KluuU- 
+
+<%= @notification %>
+
+You can get further information by visiting: <%= @notification.url_for_notify %> 
+
+
+---
+you can adjust your settings on receival of email-notifications by visiting: 
+<%= dashboard_settings_edit_url %>

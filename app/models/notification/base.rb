@@ -2,10 +2,10 @@ class Notification::Base < ActiveRecord::Base
   include ActionView::Helpers::JavaScriptHelper
 
   ALERTS          = %w{ Notification::NewBookmark
-                        Notification::NewComment
-                        Notification::NewFollower
-                        Notification::NewRating
-                        Notification::MissedCall }
+  Notification::NewComment
+  Notification::NewFollower
+  Notification::NewRating
+  Notification::MissedCall }
   CONTENT_ALERTS  = %w{ Notification::NewKluuu Notification::NewStatus }
 
   attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
@@ -15,9 +15,27 @@ class Notification::Base < ActiveRecord::Base
   scope :content_alerts,  :conditions => { :type => CONTENT_ALERTS  }, :order => "created_at DESC"
 
   alias_method :reason, :to_s
-  
   def to_s
     self.class.name
+  end
+
+  def url_for_notify
+    case self.class.name.split("::")[-1]
+    when 'NewStatus'
+      user_status_updates_url(:user_id => other )
+    when 'NewKluuu'
+      klu_url(:id => klu)
+    when "NewBookmark"
+      user_bookmarks_url(:user_id => other)
+    when "NewComment"
+      url
+    when "NewFollower"
+      user_path(:id => other )
+    when "NewRating"
+      klu_url(:id => klu_id)
+    when "NewMessage"
+      url
+    end
   end
 
   private
@@ -33,6 +51,14 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def generate_mail_notification
+    if ALERTS.include?(self.class.name) && self.user.account.prefs.email_concerning_me == "1" 
+      Rails.logger.debug("#{self.class.name}#generate_mail_notification - generating mail for alert-type notification")
+      UserMailer.content_notification(self).deliver
+    end
+    if CONTENT_ALERTS.include?(self.class.name) && ( self.user.account.prefs.inform_of_friends == "1" && self.user.account.prefs.email_concerning_other == "1" )
+      Rails.logger.debug("#{self.class.name}#generate_mail_notification - generating mail for content_alert-type notification")
+      UserMailer.friend_notification(self).deliver
+    end
   end
 
   # sets number of notifications unread in actionbar

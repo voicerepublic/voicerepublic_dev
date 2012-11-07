@@ -1,6 +1,8 @@
-<%- model_class = Klu -%>
-<h2><%=  %> <%= @klu.instance_of?(Kluuu) ? "Neues KluuU ! erstellen" : "Neues ? Frage-KluuU ?" %></h2>
+
+<h2><%= @klu.instance_of?(Kluuu) ? "Neues KluuU ! erstellen" : "Neues ? Frage-KluuU ?" %></h2>
 <div class="lead">Du fragst.<br />
-	Die KluuU-Community antwortet Dir.</div>
+	Die KluuU-Community antwortet Dir.
+</div>
+
 <%= form_for_new_klu(@klu) %>
 

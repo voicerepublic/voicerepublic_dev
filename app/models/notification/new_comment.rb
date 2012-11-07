@@ -7,6 +7,7 @@ class Notification::NewComment < Notification::Base
   validates :other_id, :user_id, :content, :url, :presence => true
   
   after_create :generate_push_notification
+  after_create :generate_mail_notification
   
   def to_s
     I18n.t('.you_got_a_new_comment_by', :commenter => other.name)
