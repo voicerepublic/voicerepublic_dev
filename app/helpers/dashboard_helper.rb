@@ -44,23 +44,23 @@ module DashboardHelper
   
   
   def link_to_url_for_notification_reason(notification)
-    url = notification.url_for_notify
-    #url = case notification.class.name.split("::")[-1]
-    #      when "NewStatus"
-    #        user_status_updates_url(:user_id => notification.other )
-    #      when "NewKluuu"
-    #        klu_url(:id => notification.klu)
-    #      when "NewBookmark"
-    #        user_bookmarks_url(:user_id => notification.other)
-    #      when "NewComment"
-    #        notification.url
-    #      when "NewFollower"
-    #        user_path(:id => notification.other )
-    #      when "NewRating"
-    #        klu_url(:id => notification.klu)
-    #      when "NewMessage"
-    #        notification.url
-    #      end
+    url = notification.path_for_notify
+   #url = case notification.class.name.split("::")[-1]
+   #      when "NewStatus"
+   #        user_status_updates_url(:user_id => notification.other )
+   #      when "NewKluuu"
+   #        klu_url(:id => notification.klu)
+   #      when "NewBookmark"
+   #        user_bookmarks_url(:user_id => notification.other)
+   #      when "NewComment"
+   #        notification.url
+   #      when "NewFollower"
+   #        user_path(:id => notification.other )
+   #      when "NewRating"
+   #        klu_url(:id => notification.klu)
+   #      when "NewMessage"
+   #        notification.url
+   #      end
     if block_given? 
       return link_to(url) { yield }
     else

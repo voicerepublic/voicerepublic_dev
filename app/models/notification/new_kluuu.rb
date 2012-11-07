@@ -7,7 +7,7 @@ class Notification::NewKluuu < Notification::Base
    
   validates :other_id, :user_id, :klu_id,  :presence => true
   
-  #after_create :generate_mail_notification
+  after_create :generate_mail_notification
   
   def to_s
     I18n.t('.friend_created_new_kluuu', :friend => other.name, :title => klu.title )

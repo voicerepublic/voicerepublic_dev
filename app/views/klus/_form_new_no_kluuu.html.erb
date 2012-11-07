@@ -1,11 +1,14 @@
 <% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
 <% method = @klu.new_record? ? :post : :put %>
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
-
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
-<%= t('I\'d_like_to_know_more_about:') %>
-<div class="well no-kluuu klu-form klu-form-new">
+<h2>Neues ? Frage-KluuU</h2>
+<div class="lead">Du fragst.<br />
+	Die KluuU-Community antwortet Dir.</div><br>
 
+<div class="well no-kluuu klu-form klu-form-new">
+	<div class="row-fluid">
+		<div class="span8 kluuu-pics">
 			<div class="control-group">
 				<%= f.label :title, :class => 'control-label' %>
 				<div class="controls">
