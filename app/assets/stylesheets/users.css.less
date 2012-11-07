@@ -11,6 +11,12 @@
 	font-weight: bold;
 }
 
+p {
+	hyphens: auto;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+}
+
 p.wichtig {
 	.strong;
 }
@@ -22,7 +28,7 @@ p.wichtig {
 	margin-top: @verticalRhythm * 3;
 
 	nav.user-main-nav {
-		margin-bottom: @verticalRhythm * 2;
+		margin: 19px 0 25px 0;
 
 		ul {
 			.clearfix;
@@ -85,55 +91,66 @@ p.wichtig {
 
 	.user-information {
 		position: relative;
+		padding-bottom: 18px;
+
+		.user-name {
+			a:hover {
+				text-decoration: none;
+			}
+		}
 
 		.status {
 			&.contribution {
-				margin-top: -@baseLineHeight * @baseFontSize;
-				padding-left: 70px;
+				padding-left: 67px;
 				padding-bottom: @baseLineHeight * @baseFontSize * 2;
+				padding-top: 22px;
+				margin-top: 0;
 
 				p {
-					margin: @verticalRhythm*2 0;
+					margin: @verticalRhythm 0;
 				}
 
-				p:first-child {
-					margin-top: 0;
+				.icon-bullhorn, .contribution-name {
+					color: @brandColorGrey;
 				}
+
 
 				p:last-child {
 					margin-bottom: 0;
 				}
 				
 				.contribution-delete {
-					top: @baseLineHeight * @baseFontSize + (@baseLineHeight * @baseFontSize - 2) + @verticalRhythm ;
+					top: 34px;
+				}
+
+				.contribution-name {
+					position: absolute;
+					top: 3px;
+					left: 67px;
 				}
 
 				.user-new-status {
 					position: absolute;
-					left: 67px;
-					bottom: 7px;
+					right: 8px;
+					top: 3px;
 				}
 
 				time {
 					position: absolute;
-					right: 0;
-					top:@baseLineHeight * @baseFontSize + 3px
+					left: 67px;
+					bottom: 11px;
 				}
 			}
 			.icon-bullhorn {
-				font-size: 45px;
-				position: absolute;
 				display: block;
-		    left: 10px;
-		    top: @baseLineHeight * @baseFontSize;
+		    font-size: 35px;
+		    left: 15px;
 		    line-height: 1;
+		    position: absolute;
+		    top: 25px;
 			}
 		}
 		
-		.user-information-right > header {
-			margin-bottom: @verticalRhythm * 2;
-		}
-
 		.user-image {
 			display: block;
 			width: 17.5%;
@@ -154,11 +171,16 @@ p.wichtig {
 			float: left;
 			margin-left: -20px;
 			padding-left: 20px;
+
+			& > header {
+				margin-bottom: 6px;
+			}
 		}
 
 
 		h3, h4 {
-		font-size: @baseFontSize;
+			font-size: @baseFontSize;
+			color: @brandColorGrey;
 		}
 
 		h2, h3, h4 {
@@ -186,14 +208,7 @@ p.wichtig {
 		}
 
 		.user-about {
-			font-style: italic;
-			overflow:hidden;
-			height: auto;
-			margin-bottom: @verticalRhythm;
-
-			&.jqueryfied {
-				height: @baseFontSize * @baseLineHeight * 2;
-			}
+			margin-top: 4px;
 
 			p:first-child {
 				margin-top: 0;
@@ -214,7 +229,7 @@ p.wichtig {
 				left: 0;
 				bottom: 0;
 				width: 100%;
-				height: @baseLineHeight * (@baseFontSize - 2);
+				height:3px;
 				#gradient.vertical(rgba(255,255, 255,0), @wellBackground);
 			}
 
@@ -242,7 +257,7 @@ p.wichtig {
 
 	.user-edit-link {
 			position: absolute;
-			left: @verticalRhythm + 5 + 1;
+			left: @verticalRhythm + 5 + 3;
 			top: -(@baseFontSize * @baseLineHeight * 1);
 			font-size: @baseFontSize - 3;
 			color: grey;
@@ -283,17 +298,18 @@ ul.user-nav.unstyled {
 
 .user-meta-data {
 	font-size: @baseFontSize - 2;
-	line-height: @baseLineHeight + 0.2;
+	margin-top: @verticalRhythm;
 
-	& > ul {
-		& > li {
-			margin: @verticalRhythm*2 0;
+	strong {
+		color: @brandColorGrey;
+	}
 
-			&:first-child {
-				margin-top: 0;
-			}
+	& > li {
+		&:last-child {
+			margin-left: 0;
 		}
 	}
+
 	dt {
 		margin-top: @verticalRhythm * 2;
 

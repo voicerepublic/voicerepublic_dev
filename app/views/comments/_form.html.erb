@@ -5,7 +5,7 @@
 <div class="control-group">
 	<%= label_tag t('.your_comment', :default => "comment"),nil,  :class => 'control-label'  %>
 	<div class="controls">
-		<%= text_area_tag 'comment[content]',nil, :class => 'text_area', :rows => 2 %>
+		<%= text_area_tag 'comment[content]',nil, :class => 'text_area', :rows => 2, :placeholder => t('write_a_comment', :default => 'Write a comment')%>
 	</div>
 </div>
 
