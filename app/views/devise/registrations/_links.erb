@@ -1,14 +1,12 @@
 <p>
 
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to omniauth_authorize_path(resource_name, provider), :class => "signup-#{provider}" do %>
-    	<%= image_tag "#{provider}_connect.png", :alt => t('.sign_in_with_#{provider}', :default => "Sign in with #{provider}") %>
-    <% end -%>
-  <% end -%>
-<% end -%>
+<%= link_to omniauth_authorize_path(resource_name, 'google_oauth2'), :class => "btn signup-facebook" do %>
+  <%= image_tag "connects/facebook_icon.png" %> Sign Up with facebook
+<% end %>
 
-<%= link_to 'google', omniauth_authorize_path(resource_name, 'google_oauth2'), :class => "signup-google"%>
+<%= link_to omniauth_authorize_path(resource_name, 'google_oauth2'), :class => "btn signup-google" do %>
+  <%= image_tag "connects/google_icon.png" %> Sign Up with Google
+<% end %>
 
 </p>
 
