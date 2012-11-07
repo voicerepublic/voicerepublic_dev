@@ -1,10 +1,11 @@
 <%- model_class = StatusUpdate -%>
-
-<section class="status">
+<section class="status-updates status-updates-comments">
   <div class="contribution-comments">
+    <%= link_to(user_status_updates_path(:user_id => current_user), :class => 'status-updates-back') do %>
+      <i class="icon-arrow-left"></i>
+      <%= t('.back') %>
+    <% end %>
     <%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
-    
-    
     <section id="comments" class="comments">
       <ul class="unstyled">
       <%= render(:partial => "comment", :collection => @comments, :as => :comment ) %>
@@ -20,20 +21,5 @@
       </aside>
     
     </section>
-  </div>
-  
-  <div class="form-actions">
-    <!-- hack - display CRUD if current_user -->
-    <% if current_user %>
-    <%= link_to t('.back', :default => t("helpers.links.back")),
-                user_status_updates_path(:user_id => current_user), :class => 'btn'  %>
-    <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_user_status_update_path(:user_id => current_user, :id => @status_update.id), :class => 'btn' %>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                user_status_update_path(:user_id => current_user, :id => @status_update.id),
-                :method => 'delete', 
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                :class => 'btn btn-danger' %>
-     <% end %>
   </div>
 </section>

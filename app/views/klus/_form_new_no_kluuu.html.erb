@@ -1,20 +1,18 @@
 <% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
 <% method = @klu.new_record? ? :post : :put %>
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
-
-	<%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
-
+<%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 <h2>Neues ? Frage-KluuU</h2>
 <div class="lead">Du fragst.<br />
 	Die KluuU-Community antwortet Dir.</div><br>
 
-<div class="well">
+<div class="well no-kluuu klu-form klu-form-new">
 	<div class="row-fluid">
 		<div class="span8 kluuu-pics">
 			<div class="control-group">
 				<%= f.label :title, :class => 'control-label' %>
 				<div class="controls">
-					<%= f.text_area :title, :class => 'text_area klu-title klu-eyecatcher', :rows => 5 %>
+					<%= f.text_field :title, :class => 'klu-title', :rows => 5 %>
 				</div>
 				<div class="control-group">
 					<%= f.label :category_id, :class => 'control-label' %>
@@ -29,8 +27,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="span4">
+
+
 			<h4><%= t(".call_options") %></h4>
 			<div class="control-group">
 				<%= f.label :available_at_times, :class => 'control-label' %>
@@ -50,8 +48,7 @@
 					<%= f.check_box :uses_status, :class => 'check_box' %>
 				</div>
 			</div>
-		</div>
-	</div>
+		
 </div>
 <div class="form-actions">
 	<%= f.submit nil, :class => 'btn btn-primary' %>
