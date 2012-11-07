@@ -1,36 +1,33 @@
 <div class="span4">
 
 	<aside class="klu-user-info">
-		<%= render :partial => 'klus/kluuu_call_button', :locals => {:klu => @klu, :user => @user} %>				
+		<%= render :partial => 'klus/kluuu_call_button', :locals => {:klu => klu, :user => klu.user} %>				
 		<div class="klu-user-info-inner">
-			<h4><%= link_to@klu.user.name, user_path(:id => @klu.user) %></h4>
+			<h4><%= link_to klu.user.name, user_path(:id => klu.user) %></h4>
 			<article class="klu-user-status">
-				<%= limit_words(@klu.status_or_about, 15) %>
+				<%= limit_words(klu.status_or_about, 15) %>
 			</article>
-			<p class="klu-user-info-activity">
-				ACTIVITY_SCORE
-			</p>
 			<p>
 				<%= t('.availability') %>
 			</p>
 			<nav>
 				<ul>
 					<li>
-						<%= link_to(new_message_path(:receiver_id => @user), :class => "btn btn-small", :remote => true) do %>
+						<%= link_to(new_message_path(:receiver_id => klu.user), :class => "btn btn-small", :remote => true) do %>
 						<%= t('.send_message') %>
 						<% end if current_user %>
 					</li>
 					<li>
-						<% if current_user && current_user.id != @user.id %>
-						<% if current_user.followed.include?(@klu.user) %>
-						<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => @klu.user).first), :method => :delete, :class => "btn btn-small") %>
+						<% if current_user && current_user.id != klu.user.id %>
+						<% if current_user.followed.include?(klu.user) %>
+						<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => klu.user).first), :method => :delete, :class => "btn btn-small") %>
 						<% else %>
-						<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => @user ), :method => "post", :class => "btn btn-small")%>
+							<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => klu.user ), :method => "post", :class => "btn btn-small")%>
 						<% end %>
 						<% end %>
 					</li>
 					<li class="klu-user-info-more-klus">
-						<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => @user) ) %>
+						<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => klu.user) ) %>
 					</li>
 				</ul>
 			</nav>
@@ -41,11 +38,11 @@
 	<aside class="klu-meta">
 		<ul class="klu-categories">
 			<li>
-				<%= @klu.category.name %>
+				<%= klu.category.name %>
 			</li>
 		</ul>
 		<ul class="klu-tags">
-			<% @klu.tags.each do |tag| %>
+			<% klu.tags.each do |tag| %>
 			<li>
 				<%= link_to(tag.name,tagged_with_path(:tag => tag.name) , :class => 'tags') %>
 			</li>
