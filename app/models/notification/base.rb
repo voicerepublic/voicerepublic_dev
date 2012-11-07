@@ -1,11 +1,12 @@
 class Notification::Base < ActiveRecord::Base
   include ActionView::Helpers::JavaScriptHelper
+  include Rails.application.routes.url_helpers
 
   ALERTS          = %w{ Notification::NewBookmark
-  Notification::NewComment
-  Notification::NewFollower
-  Notification::NewRating
-  Notification::MissedCall }
+                        Notification::NewComment
+                        Notification::NewFollower
+                        Notification::NewRating
+                        Notification::MissedCall }
   CONTENT_ALERTS  = %w{ Notification::NewKluuu Notification::NewStatus }
 
   attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
@@ -15,11 +16,14 @@ class Notification::Base < ActiveRecord::Base
   scope :content_alerts,  :conditions => { :type => CONTENT_ALERTS  }, :order => "created_at DESC"
 
   alias_method :reason, :to_s
+  
+  
+  
   def to_s
     self.class.name
   end
 
-  def url_for_notify
+  def path_for_notify
     case self.class.name.split("::")[-1]
     when 'NewStatus'
       user_status_updates_url(:user_id => other )
@@ -36,6 +40,10 @@ class Notification::Base < ActiveRecord::Base
     when "NewMessage"
       url
     end
+  end
+  
+  def url_for_notify
+    "http://" + Rails.application.routes.default_url_options[:host] + path_for_notify
   end
 
   private
