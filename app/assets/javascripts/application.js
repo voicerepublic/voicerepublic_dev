@@ -17,7 +17,7 @@
 
 overlay = {
 
-  build: function(innerHTML) {
+  build: function(innerHTML, force) {
 
     var calculateOverlay = function() {
       var windowHeight = $(window).height();
@@ -106,7 +106,7 @@ overlay = {
     
     calculateOverlay();
     overlayBackground.css("background-image", "none");
-    registerClose();
+    if (force !== true) {registerClose()};
   },
 
   close: function(target) {
