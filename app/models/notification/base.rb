@@ -7,13 +7,23 @@ class Notification::Base < ActiveRecord::Base
                         Notification::NewFollower
                         Notification::NewRating
                         Notification::MissedCall }
-  CONTENT_ALERTS  = %w{ Notification::NewKluuu Notification::NewStatus }
+                        
+  CONTENT_ALERTS  = %w{ Notification::NewKluuu 
+                        Notification::NewStatus }
+                        
+  CALL_ALERTS     = %w{ Notification::CallEnded 
+                        Notification::CallAccepted
+                        Notification::CallRejected }
 
+  NEWS            =     [ALERTS,CONTENT_ALERTS].flatten
+  
   attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
 
   scope :unread,          where(:read => false)
   scope :alerts,          :conditions => { :type => ALERTS }, :order => "created_at DESC"
   scope :content_alerts,  :conditions => { :type => CONTENT_ALERTS  }, :order => "created_at DESC"
+  scope :news_alerts,     :conditions => { :type => NEWS  }, :order => "created_at DESC"
+  scope :call_alerts,      :conditions => { :type => CALL_ALERTS  }, :order => "created_at DESC"
 
   
   def to_s
