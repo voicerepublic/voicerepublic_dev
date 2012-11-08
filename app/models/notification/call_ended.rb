@@ -21,7 +21,7 @@ class Notification::CallEnded < Notification::Base
         PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_ended'))
       end
     rescue Exception => e
-      self.logger.error("Notification::CallEnded#generate_push_notification - error: #{e.inspect}")
+      Rails.logger.error("Notification::CallEnded#generate_push_notification - error: #{e.inspect}")
     end  
   end
   

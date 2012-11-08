@@ -1,2 +1,13 @@
-Calling in process.....
-<%= button_to t('.cancel_call', :default => 'cancel call'), video_session_path(:id => video_session.id, :canceling_participant_id => video_session.guest_participant.id), :method => :delete, :remote => :true, :class => 'btn' %>
+<div class="row-fluid">
+	<div class="span6 text-align-center">
+		<div class="overlay-calling">
+			<h3 class="">VIDEO CALL</h3>			
+			<i class="icon-facetime-video"> </i><br>
+			in process...<br><br>
+			<%= button_to t('.cancel_call', :default => 'cancel call'), video_session_path(:id => video_session.id, :canceling_participant_id => video_session.guest_participant.id), :method => :delete, :remote => :true, :class => 'btn' %>
+		</div>
+	</div>
+	<div class="span6">
+		<%= render(:partial => "/klus/small_kluuu", :locals => {:klu => video_session.klu}) %>
+	</div>	
+</div>

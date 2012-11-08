@@ -10,6 +10,16 @@ body {
   overflow-y:scroll;
 }
 
+body.layout-logged-out{
+  padding-top: 92px;
+  .flash_messages{
+    top:60px
+  }
+  .landing-page{
+    margin-top:-40px;
+  }
+}
+
 .dropdown-menu {
   background: @brandColorLighter;
 }
@@ -46,6 +56,11 @@ body {
 
 // error handling end
 
+/*
+ * MODAL OVERLAY
+ *
+ */
+
 .overlay-background {
   width: 100%;
   height: 100%;
@@ -55,8 +70,20 @@ body {
   background: #CCCCCC url(ajax-loader.gif) center center no-repeat;
   background: rgba(0,0,0,0.2) url(ajax-loader.gif) center center no-repeat;
 
+  h3{
+    margin-top:0;
+    font-weight: bold;
+  }
+
+  .icon-facetime-video{
+    font-size:40px;
+    text-shadow:0 0 5px rgba(0,0,0,0.4);
+    color:#228b22
+  }
+
   .overlay-content {
     background: white;
+    background: rgba(255,255,255,0.95);
     position: absolute;
     left: 50%;
     top: 50%;

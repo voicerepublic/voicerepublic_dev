@@ -23,7 +23,7 @@ class Notification::CallAccepted < Notification::Base
         PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_accepted', :locals => {:video_session => self.video_session}))
       end
     rescue Exception => e
-      self.logger.error("Notification::CallAccepted#generate_push_notification - error: #{e.inspect}")
+      Rails.logger.error("Notification::CallAccepted#generate_push_notification - error: #{e.inspect}")
     end  
   end
   

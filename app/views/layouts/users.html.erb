@@ -19,9 +19,10 @@
 	</head>
 	<body>
 		<% if current_user %>
-		<%= render(:partial => "shared/actionbar") %>
+			<%= render(:partial => "shared/actionbar") %>
 		<% else %>
-		<%= render(:partial => "shared/navbar")%>
+			<body class="layout-logged-out">
+			<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
