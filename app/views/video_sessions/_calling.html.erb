@@ -4,7 +4,10 @@
 			<h3 class="">VIDEO CALL</h3>			
 			<i class="icon-facetime-video"> </i><br>
 			in process...<br><br>
-			<%= button_to t('.cancel_call', :default => 'cancel call'), video_session_path(:id => video_session.id, :canceling_participant_id => video_session.guest_participant.id), :method => :delete, :remote => :true, :class => 'btn' %>
+			<form>
+			<%= button_tag video_session_path(:id => video_session.id, :canceling_participant_id => video_session.guest_participant.id), :method => :delete, :remote => :true, :class => 'btn' do %>
+				<%= t('.cancel_call',:default => 'cancel call') %>
+			<% end %>
 		</div>
 	</div>
 	<div class="span6">
