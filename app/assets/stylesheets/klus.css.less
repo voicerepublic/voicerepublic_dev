@@ -31,10 +31,19 @@
 	font-style: italic;
 	font-weight: normal;
 	text-align: center;
+	hyphens: auto;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
 }
 
-.klu-eyecatcher img {
-	border: 1px solid #ddd;
+.klu-eyecatcher {
+	img {
+		border: 1px solid #ddd;
+	}
+	&.well {
+		background: none;
+	}
 }
 
 .call-btn {
