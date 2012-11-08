@@ -12,7 +12,7 @@
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<%= link_to "tour", :class => "tell-me-more" do %>
+						<%= link_to new_user_session_path, :class => "tell-me-more" do %>
 							What's this?
 						<% end %>
 					</li>
@@ -21,16 +21,6 @@
 						<%= t('.sign_up', :default => 'Sign Up') %><i class="icon-share-alt"></i>
 						<% end %>
 					</li>
-<!-- 					<li class="nav-fb-connect">
-						<%#= link_to user_omniauth_authorize_path(:facebook) do %>
-							<%#= image_tag "facebook_connect.png", :alt => t('.sign_in_with_facebook', :default => "Sign in with facebook") %>
-						<%# end %>
-					</li>
-					<li class="nav-google-connect">
-						<%#= link_to user_omniauth_authorize_path(:google_oauth2) do %>
-							<%#= image_tag "google-sign-in.png", :alt => t('.sign_in_with_google', :default => "Sign in with Google +") %>
-						<%# end %>						
-					</li> -->
 					<li>
 						<%= link_to new_user_session_path do %>
 							<%= t('.sign_in', :default => 'Log In') %><i class="icon-signin"></i>
