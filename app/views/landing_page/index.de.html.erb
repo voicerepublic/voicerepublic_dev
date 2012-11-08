@@ -1,42 +1,6 @@
 <div class="landing-page">
 
-	<div class="row-fluid landing-page-top-row">
-		<h2 class="text-align-center landing-page-claim">
-			<span class="landing-page-claim-bg">VideoChat about what you are.</span>
-		</h2>
 
-		<div class="landing-page-search text-align-center">	
-				<h2>I want to know more about</h2>
-				<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
-					<%= search_field_tag 'landin-page-query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span8" %>
-					<%= button_tag :type => 'submit', :class => "landing-page-search-button" do %>
-						<i class="icon-search"> </i>						
-					<% end %>	
-				<% end %>			
-		</div>
-	</div>
-
-	<div class="row-fluid landing-page-color2">
-		<div class="span6 well well-large">
-			<h2>KluuUs on fire</h2>
-				<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
-		</div>
-		<div class="span6">
-			<div class="well well-large">
-				<h2>Hot Topic</h2>
-				<%= render(:partial => 'shared/tag_cloud') %>
-			</div>
-			<div class="well well-large clearfix">
-				<h2>Hot Users</h2>
-				<ul class="unstyled">
-				<% User.limit(3).order("created_at DESC").each do |user| %>
-						<%= render(:partial => "users/user_small", :locals => {:user => user}) %>
-				<% end %>
-				</ul>
-			</div>
-		</div>	
-
-	</div>
 
 </div>
 
