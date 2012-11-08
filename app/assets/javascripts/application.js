@@ -140,7 +140,7 @@ function fitText(jquerySelector) {
           lineHeight: 1.5
         });
         text.wrapInner(inner);
-        inner = text.children('span').css("background", "red");
+        inner = text.children('span');
         inner = $(inner[0]);
         console.log($(inner) + " " + inner.length);
       };
