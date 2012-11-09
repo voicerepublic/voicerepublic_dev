@@ -168,6 +168,11 @@ class User < ActiveRecord::Base
     User.where("( available = ? OR available = ? ) AND last_request_at > ? ", 'busy','online', MAX_IDLE.ago ).select([:id,:available])
   end
   
+  def self.online_status_for_ids(ids)
+    Rails.logger.debug("User#online_status_for_ids - ids: #{ids}")
+    User.where("id IN (?)", ids).select([:id,:available])
+  end
+  
   # FIXME status is always 200 - 
   # we need a different way to check if user is online
   #
