@@ -160,7 +160,8 @@ class User < ActiveRecord::Base
   end
   
   def self.cleanup_online_states
-    User.where("available = ? OR available = ? AND last_request_at < ?", 'online', 'busy', 2.hour.ago ).each { |u| u.update_attribute(:available, 'offline') }.count
+    User.where(" (available = ? OR available = ?) AND last_request_at < ?", 'online', 'busy', 1.hour.ago ).each { |u| u.update_attribute(:available, 'offline') }.count
+    User.where("available = ? AND last_request_at < ?", 'online', 30.minutes.ago ).each { |u| u.update_attribute(:available, 'busy') }.count
   end
   
   def self.potentially_available

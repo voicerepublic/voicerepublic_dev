@@ -99,10 +99,14 @@ class UsersController < ApplicationController
     end
   end
   
-  def online_user
+  def status_for
+    
+  end
+  
+  def online_status
     d = params[:data]
-    logger.debug("Users#online_user - #{d.inspect}")
-    #ret = User.cleanup_online_states
+    logger.debug("Users#online_user - #{params.inspect}")
+    ret = User.cleanup_online_states
     #logger.debug("Users#online_user - cleaned up #{ret} states")
     @users = User.potentially_available
     
