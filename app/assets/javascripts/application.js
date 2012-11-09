@@ -19,7 +19,7 @@
 (function($){
   var checkUserOnline = {
     init: function() {
-      var url = "/users/online_user.json";
+      var url = "/users/status_for.json";
 
       var setUserStatus = function(payload) {
         console.log(payload);
