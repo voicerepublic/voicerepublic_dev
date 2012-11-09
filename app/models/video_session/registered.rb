@@ -22,13 +22,11 @@ class VideoSession::Registered < VideoSession::Base
   end
   
   def create_call_ended_notification(role)
-    puts 'ROLE'
-    puts role.inspect
-    if (role == 'host')
+    #if (role == 'host')
       Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id)  
-    else
+    #else
       Notification::CallEnded.create(:user_id => self.guest_participant.user_id, :video_session_id => self.id)  
-    end
+    #end
   end
 
  private
