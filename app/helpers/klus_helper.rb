@@ -56,4 +56,16 @@ module KlusHelper
     ret.html_safe
   end
   
+  def partial_for_status_or_about(klu)
+    if klu.uses_status
+      render(:partial => "klus/user_status", :locals => { :klu => klu } )  
+    else
+      render(:partial => "klus/user_about", :locals => { :klu => klu } )
+    end 
+  end
+  
+  def data_attributes_image_url(klu)
+    klu.klu_images.map.each_with_index { |ki,i| "data-image-url-#{i}=#{ki.image.url(:large) }" }.join(" ")
+  end
+  
 end
