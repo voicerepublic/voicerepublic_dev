@@ -117,7 +117,7 @@ module VideoSystemApi
     #
     def create_meeting(meeting_name, meeting_id, welcome_message = nil, 
                        tt = nil, ttp = nil, charge_amount = nil, currency = nil, 
-                       dial_number = nil, logout_url = 'http://www.kluuu.com',
+                       dial_number = nil, logout_url = '#',
                        max_participants = 2, voice_bridge = 72879,
                        moderator_password = nil, attendee_password = nil)
 
