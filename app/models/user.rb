@@ -81,6 +81,14 @@ class User < ActiveRecord::Base
     end
   end
   
+  def is_online?
+    # check_for_last_request - 
+    # if less than 3 minutes ago 
+    # check for online_status
+    # if more than 3 minutes
+    # send js via faye to client
+  end
+  
   def available?
     #TODO out for testing
     availability_status == 'online' ? true : false
@@ -145,6 +153,13 @@ class User < ActiveRecord::Base
     user
   end
   
+  # FIXME status is always 200 - 
+  # we need a different way to check if user is online
+  #
+  def check_with_push
+    ret = PrivatePub.publish_to("/notifications/#{self.id}", 'check')
+    Rails.logger.debug("User#check_with_push - #{ret}")
+  end
  
   private
  
