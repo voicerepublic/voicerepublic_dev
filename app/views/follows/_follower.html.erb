@@ -1,10 +1,9 @@
 <li class="follower">
-	 
-	<div class="thumbnail user-thumbnail">
-		
+	 <div class="thumbnail user-thumbnail">
+	
 		<%# LINK FOR WHOLE THUMBAIL %>
 		<%= link_to user_path(:id => follower_relation.follower), :class => "user-thumbnail-link clearfix",  :id => "fr-#{follower_relation.id}" do %>	
-			<%= image_tag(follower_relation.follower.account.portrait.url(:thumb)) %>
+			<div class="user-image" data-user-id="<%= follower_relation.follower.id %>"><%= image_tag(follower_relation.follower.account.portrait.url(:thumb)) %></div>
 			<div class="user-thumbnail-name"><%= follower_relation.follower.name %></div>
 		<% end %>
 			
