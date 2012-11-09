@@ -91,7 +91,12 @@ body.layout-logged-out{
     padding: 30px;
     border: 1px solid #000;
     .overlay-close-link{
-      
+      position: absolute;
+      right:14px;
+      top:0px;
+      font-size:26px;
+      color:#333;
+      text-decoration: none;
     }
   }
 }
@@ -159,6 +164,36 @@ body.layout-logged-out{
   -moz-box-shadow:0 0 3px rgba(0,0,0,0.1);
   -webkit-box-shadow:0 0 3px rgba(0,0,0,0.1);
   -ms-box-shadow:0 0 3px rgba(0,0,0,0.1);
+}
+
+/* HELP TEXT OVERLAY */
+.help-text-overlay{
+  position: absolute;
+  top:50px;
+  right:100px;
+  padding:10px 20px;
+  font:20px/30px 'Nothing You Could Do';
+  color:#000;
+  background:#F6E99A;
+  max-width: 400px;
+  border:1px solid #CCC17F;
+  display: inline-block;
+  width:auto;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+  -webit-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+  -o-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+  -ms-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+  z-index: 2000;
+  .close-icon{
+    position: absolute;
+    top:0px;
+    right:5px;
+    color:#333;
+    font-size: 35px;
+    text-decoration: none;
+    outline:none
+  }
 }
 
 
