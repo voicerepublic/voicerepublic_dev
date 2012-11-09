@@ -3,9 +3,18 @@
 	
 	<div class="control-group">
 		<div class="controls">
+			<%= label_tag "inform_of_friends", :class => 'checkbox control-label' do %>
+				<%= p.check_box :inform_of_friends, :class => 'check_box' %>
+				<%= t('get_notifications_contacts_activities', :default => "Get Notifications about Contacts activities") %>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<div class="controls">
 			<%= label_tag "email_concerning_other", :class => 'checkbox control-label' do %>
 				<%= p.check_box :email_concerning_other %>
-				Get Notifications about Contacts activities
+				<%= t('emails_about_contact_activities', :default => "Get Emails about Contacts activities") %>
 			<% end %>
 		</div>
 	</div>
@@ -14,24 +23,17 @@
 		<div class="controls">
 			<%= label_tag "email_concerning_me", :class => 'checkbox control-label' do %>
 				<%= p.check_box :email_concerning_me %>
-				Get Emails about me
+				<%= t('emails_about_me', :default => "Get Emails about me") %>
 			<% end %>
 		</div>
 	</div>
 	
-	<div class="control-group">
-		<div class="controls">
-			<%= label_tag "inform_of_friends", :class => 'checkbox control-label' do %>
-				<%= p.check_box :inform_of_friends, :class => 'check_box' %>
-				Get Emails about Contacts activities
-			<% end %>
-		</div>
-	</div>
 	<br>
 	<div class="control-group">
 		<%= f.submit nil, :class => 'btn btn-primary' %>
 		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), dashboard_settings_path, :class => 'btn' %>
 	</div>
 	<% end %>
-	
+
 <% end %>
+
