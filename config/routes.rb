@@ -13,6 +13,8 @@ Kluuu2::Application.routes.draw do
   match 'payment_started' => 'payment#payment_started'
   match 'payment_stopped' => 'payment#payment_stopped'
   
+  get 'users/online_users' => 'users#online_users'
+  
   
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
