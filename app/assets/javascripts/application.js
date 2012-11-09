@@ -29,9 +29,9 @@
       };
 
       var usersOnSite = $('.user-image'); //JqueryCollection
-      var userIDs = {};
-      $.each(usersOnSite, function() {
-        userIDs[$(this).data("user-id")] = "";
+      var userIDs = [];
+      $.each(usersOnSite, function(i) {
+        userIDs[i] = $(this).data("user-id");
       });
       $.ajax({
         url: url,
