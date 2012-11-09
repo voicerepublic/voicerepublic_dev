@@ -55,14 +55,16 @@ class DashboardController < ApplicationController
 
   def matches
     @klus = @user.klus
+    
     begin
       if params[:id]
         @matched_klu = Klu.find(params[:id])
         @matching_klus = @matched_klu.complementaries
       else
         unless @klus.empty?
-          @matched_klu = @klus.first
-          @matching_klus = @matched_klu.complementaries
+          redirect_to dashboard_matches_url(:id => @klus.first) and return
+          #@matched_klu = @klus.first
+          #@matching_klus = @matched_klu.complementaries
         end
       end
     rescue Exception => e
