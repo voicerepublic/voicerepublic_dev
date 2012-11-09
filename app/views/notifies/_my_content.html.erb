@@ -47,6 +47,20 @@
 		<%= link_to notification.other.name, user_path(:id => notification.other) %>
 		<%= t('.wrote_you_a_message') %>
 	<% end %>
+	
+	<% if notification.instance_of?(Notification::MissedCall) %>
+		<h4 class="news-notification-top">
+			<% if notification.other %> 
+				<%= link_to notification.other.name, user_path(:id => notification.other) %>
+			<% else %>
+				<%= t('.an_anonymous_person')%>
+			<% end %>
+			<%= t('.tried_to_call_your') %> 
+			<%= notification.klu.instance_of?(Kluuu) ? t('.kluuu') : t('.no_kluuu') %> 
+			<%= link_to(notification.klu.title, klu_url(:id => notification.klu.id )) %>
+		</h4>
+	<% end %>
+	
 	<%= link_to_url_for_notification_reason(notification) %>
 
 

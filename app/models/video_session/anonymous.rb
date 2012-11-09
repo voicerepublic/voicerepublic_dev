@@ -78,7 +78,7 @@ class VideoSession::Anonymous < VideoSession::Base
   def create_call_canceled_notification  
     if self.canceling_participant_id.to_i == self.guest_participant.id.to_i
       self.notifications.destroy_all
-      Notification::MissedCall.create(:user_id => self.host_participant.user_id, :anon_id => self.guest_participant.user_cookie_session_id, :video_session_id => self.id)
+      Notification::MissedCall.create(:user_id => self.host_participant.user_id, :klu_id => self.klu.id, :anon_id => self.guest_participant.user_cookie_session_id, :video_session_id => self.id)
     else
       self.notifications.destroy_all
       Notification::CallRejected.create(:anon_id => self.guest_participant.user_cookie_session_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
