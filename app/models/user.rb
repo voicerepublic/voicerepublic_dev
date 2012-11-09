@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   end
   
   def availability_status
-    if (last_request_at.nil? || (last_request_at < Time.now - 10.minutes))
+    if (last_request_at.nil? || (last_request_at < Time.now - MAX_IDLE))
       if available == 'online'
         update_attribute(:available, 'busy') 
         return 'busy'
