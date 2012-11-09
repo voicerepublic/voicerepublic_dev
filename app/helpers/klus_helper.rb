@@ -64,4 +64,8 @@ module KlusHelper
     end 
   end
   
+  def data_attributes_image_url(klu)
+    klu.klu_images.map.each_with_index { |ki,i| "data-image-url-#{i}=#{ki.image.url(:large) }" }.join(" ")
+  end
+  
 end

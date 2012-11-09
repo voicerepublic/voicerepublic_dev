@@ -17,6 +17,7 @@
 
 					<%# PICTURES %>
 					<ul class="unstyled kluuu-pics">
+						test: <%= data_attributes_image_url(@klu) %>
 						<% klu.klu_images.each_with_index do |ki, index| %>
 						<% if (index == 0) %>
 						<li class="klu-eyecatcher">
