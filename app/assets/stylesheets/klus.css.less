@@ -487,6 +487,12 @@
 	margin-top: @verticalRhythm;
 }
 
+/*hack*/
+form#new_klu{
+	max-width:800px !important;
+	margin:auto
+}
+
 .klu-new {
 	.klu-new-help {
 		margin-top: 63px;
@@ -498,10 +504,13 @@
 
 .kluuu.klu-layout, .kluuu .klu-layout {
 	background-color: desaturate(lighten(@brandColor, 50%), 42%);
-	background-color: #E8E3EF;
+	background-color: rgba(160, 55, 90, 0.92);
+	h3{
+		color:#fff
+	}
 }
 
 .no-kluuu.klu-layout, .no-kluuu .klu-layout {
 	background-color: spin(desaturate(lighten(@brandColor, 55%), 35%), 180);
-	background-color: #E7EAF1;
+	background-color: rgba(72, 125, 167, 0.38);
 }
