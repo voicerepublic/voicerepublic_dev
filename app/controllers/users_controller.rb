@@ -102,7 +102,7 @@ class UsersController < ApplicationController
   def status_for
     ret = User.cleanup_online_states
     logger.debug("Users#status_for - cleaned up #{ret} states")
-    @user = User.online_status_for_ids( params[:ids].split(",").collect )
+    @users = User.online_status_for_ids( params[:ids].split(",").collect )
     respond_to do |format|
       format.json {  render json: @users }
     end 
