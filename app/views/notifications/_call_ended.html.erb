@@ -1,0 +1,30 @@
+<%# call ended notification overlay %>
+
+<!-- <div class="row-fluid clearfix">
+	<%# if video_session.host_participant.user == user #host%>
+
+		<h3>
+			VIDEO CALL ENDED
+		</h3>
+		<%# if video_session.guest_participant.nil? %>
+			<%#= t('Video Call with {#video_session.guest_participant.user.name} ended.', :default => 'Video Call with {#video_session.guest_participant.user.name} ended.') %>
+		<%# else %>
+			<%#= t('Video Call with Cloud User ended.', :default => 'Video Call with Cloud User ended.') %>
+		<%# end %>
+
+	<%# else %>
+
+		<h3>
+			VIDEO CALL ENDED
+		</h3>
+		 
+		<%#= render(:partial => "/klus/small_kluuu", :locals => {:klu => video_session.klu}) %>
+	<%# end %>
+</div> -->
+
+<h3>
+	VIDEO CALL ENDED
+</h3>
+<br>
+
+<%= link_to "close", "#", "data-function" => "closeOverlay", :class => "btn" %>

@@ -11,6 +11,10 @@
 		</div>
 	</div>
 	<div class="span6">
-		<%= render(:partial => "/klus/small_kluuu", :locals => {:klu => video_session.klu}) %>
+		<% if video_session.klu.instance_of? NoKluuu %>
+			<%= render(:partial => "/klus/small_no_kluuu", :locals => {:klu => video_session.klu}) %>
+		<% else %>
+			<%= render(:partial => "/klus/small_kluuu", :locals => {:klu => video_session.klu}) %>
+		<% end %>
 	</div>	
 </div>
