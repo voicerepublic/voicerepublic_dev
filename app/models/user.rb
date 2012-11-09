@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   friendly_id :name, use: :slugged
   
   MAX_IDLE = 10.minutes
-  SET_BUSY = 30.minutes
-  SET_OFFLINE = 1.hour
+  SET_BUSY = 20.minutes
+  SET_OFFLINE = 40.minutes
   
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
