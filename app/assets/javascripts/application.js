@@ -33,9 +33,11 @@
       $.each(usersOnSite, function(i) {
         userIDs[i] = $(this).data("user-id");
       });
+      userIDs = userIDs.join(",");
+      console.log(userIDs);
       $.ajax({
         url: url,
-        data: userIDs,
+        data: {"ids": userIDs},
         success:  function(data) {
           setUserStatus(data);
         },
