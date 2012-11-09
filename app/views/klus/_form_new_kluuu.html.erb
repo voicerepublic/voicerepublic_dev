@@ -73,23 +73,7 @@
 <div class="row-fluid">
 	<div class="span8 well">
 		<%= f.fields_for :klu_images do |p| %>
-		AAAAA
-		<div class="control-group">
-			<%= p.label :image, :class => 'control-label' %>
-			<div class="controls">
-				field:
-				<%= p.file_field :image %>
-			</div>
-		</div>
-
-		<div class="control-group">
-			<%= p.label :image_description, :class => 'control-label' %>
-			<div class="controls">
-				<%= p.text_field :description, :class => 'text_area', :rows => 2 %>
-			</div>
-		</div>
-
-		<%#  =#  render(:partial => 'klu_image_fields', :locals => { :f => builder })%>
+			<%= render(:partial => 'klu_image_fields', :locals => { :f => p }) %>
 		<% end %>
 	</div>
 	<div class="klu-new-help span4">

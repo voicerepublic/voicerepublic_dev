@@ -32,7 +32,7 @@ class KlusController < ApplicationController
     if params[:klu_type] && ( params[:klu_type] == 'Kluuu' )
       logger.debug("Klus#new - in params scope - creating new Kluuu")
       @klu = Kluuu.new(:published => true)
-      
+      @klu.klu_images.build
     else
       logger.debug("Klus#new  - creating new NoKluuu")
       @klu = NoKluuu.new(:published => true)
