@@ -32,22 +32,17 @@
 							<%= link_to user_klu_klu_image_path(:user_id => klu.user, :klu_id => klu, :id => ki) do %>
 							<%= image_tag(ki.image.url(:medium)) %>
 							<% end %>
+							<data data-image-url-$i="http://something" />
 						</li>
 						<% end %>
 						<% end %>
 					</ul>
-
-					<%# DESCRIPTION %>
 					<section class="klu-description">
 						<%= simple_format klu.description %>
 					</section>
-
-				</section>
-
-				<%# USER DESCRIPTION %>
-				<%= render(:partial => 'kluuu_user', :locals => {:klu => klu}) %>
-		</section><!-- End of Kluu-header klu-layout-->
-
+				</section><!-- End of Kluu-header klu-layout-->
+		<%= render(:partial => 'kluuu_user', :locals => {:klu => klu}) %>
+	</section>
 		<%# MATCHES %>
 		<aside class="span3 klu-matches">
 			<h5> <%= t('.Menschen_die_mehr_erfahren_möchten_über') %><%=klu.title %></h5>
