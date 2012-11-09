@@ -104,10 +104,10 @@ class UsersController < ApplicationController
     logger.debug("Users#online_user - #{d.inspect}")
     ret = User.cleanup_online_states
     logger.debug("Users#online_user - cleaned up #{ret} states")
-    @user = User.potentially_available
+    @users = User.potentially_available
     
     respond_to do |format|
-      format.json {  @user.available }
+      format.json {  render json: @users }
     end      
   end
 end
