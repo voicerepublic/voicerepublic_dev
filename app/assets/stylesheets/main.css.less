@@ -132,6 +132,7 @@ body.layout-logged-out{
 .user-thumbnail{
   position:relative;
   height: 59px;
+  /*background:#eee;*/
 }
 
 .user-thumbnail-link{
@@ -169,11 +170,10 @@ body.layout-logged-out{
 /* HELP TEXT OVERLAY */
 .help-text-overlay{
   position: absolute;
-  top:50px;
-  right:100px;
-  padding:10px 20px;
+
+  padding:10px 30px 10px 16px;
   font:20px/30px 'Nothing You Could Do';
-  color:#000;
+  color:rgba(0,0,0,0.8);
   background:#F6E99A;
   max-width: 400px;
   border:1px solid #CCC17F;
@@ -194,8 +194,19 @@ body.layout-logged-out{
     text-decoration: none;
     outline:none
   }
+  &.help-text-top-right{
+    top:50px;
+    right:100px;
+  }
+  &.help-text-bottom-right{
+    bottom:50px;
+    right:100px;
+  }
+  &.help-text-bottom-left{
+    bottom:50px;
+    left:100px;
+  }  
 }
-
 
 .user-image {
   display: inline-block;
