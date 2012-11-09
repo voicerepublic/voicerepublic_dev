@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   friendly_id :name, use: :slugged
   
   MAX_IDLE = 10.minutes
+  SET_BUSY = 30.minutes
+  SET_OFFLINE = 1.hour
   
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
@@ -160,12 +162,14 @@ class User < ActiveRecord::Base
   end
   
   def self.cleanup_online_states
-    User.where(" (available = ? OR available = ?) AND last_request_at < ?", 'online', 'busy', 1.hour.ago ).each { |u| u.update_attribute(:available, 'offline') }.count
-    User.where("available = ? AND last_request_at < ?", 'online', 30.minutes.ago ).each { |u| u.update_attribute(:available, 'busy') }.count
+    ret = []
+    ret.push User.where(" (available = ? OR available = ?) AND last_request_at < ?", 'online', 'busy', SET_OFFLINE.ago ).each { |u| u.update_attribute(:available, 'offline') }.count
+    ret.push User.where("available = ? AND last_request_at < ?", 'online', SET_BUSY.ago ).each { |u| u.update_attribute(:available, 'busy') }.count
+    ret
   end
   
   def self.potentially_available
-    User.where("( available = ? OR available = ? ) AND last_request_at > ? ", 'busy','online', MAX_IDLE.ago ).select([:id,:available])
+    User.where("( available = ? OR available = ? ) AND last_request_at > ? ", 'busy','online', MAX_IDLE.ago )
   end
   
   def self.online_status_for_ids(ids)

@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
-  
-  
   def index
     @users = User.all
 
@@ -22,13 +20,13 @@ class UsersController < ApplicationController
       format.json { render json: @user }
     end
   end
-  
+
   def no_kluuus
-     @user = User.find(params[:id])
+    @user = User.find(params[:id])
     @kluuus = @user.no_kluuus
     render :template =>  'users/kluuus'
   end
-  
+
   def kluuus
     @user = User.find(params[:id])
     @kluuus = @user.kluuus
@@ -47,9 +45,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    
+
     @user = User.find(params[:id])
-    #render :layout => 'application'
+  #render :layout => 'application'
   end
 
   # POST /users
@@ -72,13 +70,13 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    
+
     respond_to do |format|
       logger.debug("Users#update - params[user]: #{params[:user].inspect}")
       if @user.update_attributes(params[:user])
         format.html { redirect_to  dashboard_settings_url, notice: 'User was successfully updated.' }
-        format.json { head :no_content } 
-        format.js 
+        format.json { head :no_content }
+      format.js
       else
         logger.error("Users#update - ERROR: #{@user.errors.inspect}")
         format.html { render action: "edit" }
@@ -98,25 +96,33 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
+  # called via JQuery.ajax call var checkUserOnline
+  # defined in application.js
+  #
   def status_for
     ret = User.cleanup_online_states
-    logger.debug("Users#status_for - cleaned up #{ret} states")
-    @users = User.online_status_for_ids( params[:ids].split(",").collect )
+    logger.debug("Users#status_for - cleaned up #{ret.inspect} states")
+    logger.debug("Users#status_for - params: #{params.inspect}")
+    if params[:ids] && params[:ids].length > 0
+      @users = User.online_status_for_ids( params[:ids].split(",").collect )
+    else
+      @users = []
+    end
     respond_to do |format|
-      format.json {  render json: @users }
-    end 
+      format.json { render json: @users  }
+    end
   end
-  
+
+  # NOT used anymore
   def online_user
     logger.debug("Users#online_user - #{params.inspect}")
     d = params[:ids].split(",").collect
     ret = User.cleanup_online_states
-    #logger.debug("Users#online_user - cleaned up #{ret} states")
+    logger.debug("Users#online_user - cleaned up #{ret} states")
     @users = User.potentially_available
-    
     respond_to do |format|
       format.json {  render json: @users }
-    end      
+    end
   end
 end
