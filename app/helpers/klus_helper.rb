@@ -56,4 +56,12 @@ module KlusHelper
     ret.html_safe
   end
   
+  def partial_for_status_or_about(klu)
+    if klu.uses_status
+      render(:partial => "klus/user_status", :locals => { :klu => klu } )  
+    else
+      render(:partial => "klus/user_about", :locals => { :klu => klu } )
+    end 
+  end
+  
 end

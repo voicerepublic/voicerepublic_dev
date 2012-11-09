@@ -5,7 +5,10 @@
 		<div class="klu-user-info-inner">
 			<h4><%= link_to klu.user.name, user_path(:id => klu.user) %></h4>
 			<article class="klu-user-status">
-				<%= limit_words(klu.status_or_about, 15) %>
+				
+				<%= partial_for_status_or_about(klu) %>
+				
+				
 			</article>
 			<p>
 				<%= t('.availability') %>
