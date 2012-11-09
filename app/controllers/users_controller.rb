@@ -73,8 +73,13 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       logger.debug("Users#update - params[user]: #{params[:user].inspect}")
+      url = if params[:from_settings]
+              dashboard_settings_url
+            else
+              user_url(:id => @user)
+            end
       if @user.update_attributes(params[:user])
-        format.html { redirect_to  dashboard_settings_url, notice: 'User was successfully updated.' }
+        format.html { redirect_to  url, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       format.js
       else
