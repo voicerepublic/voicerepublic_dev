@@ -102,8 +102,8 @@ class UsersController < ApplicationController
   def online_user
     d = params[:data]
     logger.debug("Users#online_user - #{d.inspect}")
-    ret = User.cleanup_online_states
-    logger.debug("Users#online_user - cleaned up #{ret} states")
+    #ret = User.cleanup_online_states
+    #logger.debug("Users#online_user - cleaned up #{ret} states")
     @users = User.potentially_available
     
     respond_to do |format|
