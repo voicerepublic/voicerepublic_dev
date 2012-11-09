@@ -1,6 +1,33 @@
+<div class="help-text-overlay help-text-top-right">
+<strong>Deine Matches</strong>.<br>
+Hier findest Du KluuUs, die zu Dir passen.<br>
+Klicke auf das KluuU, um mehr über den <br>
+Inhalt und den Gesprächspartner zu erfahren.<br>
+<a href="#" class="close-icon">&times;</a>
+</div>
+
+<div class="help-text-overlay help-text-bottom-right">
+	Unser Ziel ist es, Dich ins Gespräch zu bringen.<br>
+	<strong>Video-Chat</strong> ist dafür die ideale Technik.<br>
+
+	Übrigens: Du kannst auf KluuU <strong>Geld verdienen</strong> <br>
+	( Link auf 'Finanzen')<br>
+	<a href="#" class="close-icon">&times;</a>
+</div>
+
+<div class="help-text-overlay help-text-bottom-left">
+	Dein erstes <strong>KluuU</strong>. <br>
+	Übrigens: KluuUs sind Gesprächsthemen.<br>
+
+	Veröffentliche jetzt Dein eigenes Thema<br>
+	und finde Deinen Gesprächspartner.<br>
+	(links auf KluuU ! erstellen)<br>
+	<a href="#" class="close-icon">&times;</a>
+</div>
+
 <div class="tab-content dashboard-matches">
 	<div class="tabbable tabs-left">
-			<ul class="nav nav-tabs dashboard-matches-own-klus ">
+			<ul class="nav nav-tabs dashboard-matches-own-klus">
 			<% @klus.each do |k| %>
 				<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
 					<li class="active">
@@ -18,14 +45,13 @@
 				</li>
 			<% end %>
 			</ul>
-		<div class="tab-content ">
+		<div class="tab-content">
 			<h3><%= t('.matches_to_your_') %><%= klu_type_string(@matched_klu) %></h3>
-			<% if @matching_klus.nil? || @matching_klus.empty? %>
-				<%= t('.no_complementaries_found', :default => "No Complementary KluuUs found")%>
-			<% end %>
-			<% @matching_klus.each do |k| %>
-				<%= partial_for_klu(k,:medium) %>
-			<% end unless @matching_klus.nil? %>
+			<div class="clearfix">
+				<% @matching_klus.each do |k| %>
+					<%= partial_for_klu(k,:medium) %>
+				<% end unless @matching_klus.nil? %>
+			</div>
 		</div>
 	</div>
 </div>
