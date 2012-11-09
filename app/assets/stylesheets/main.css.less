@@ -153,3 +153,36 @@ body.layout-logged-out{
   -webkit-box-shadow:0 0 3px rgba(0,0,0,0.1);
   -ms-box-shadow:0 0 3px rgba(0,0,0,0.1);
 }
+
+.user-image {
+  position: relative;
+  right: 0;
+  top: 0;
+
+  &.online:before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 5px solid green;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+
+  &.busy:before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 5px solid orange;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+
+  &.offline:before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 5px solid orange;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+  }
+}
