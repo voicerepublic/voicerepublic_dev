@@ -4,20 +4,12 @@
 		<%= render :partial => 'klus/kluuu_call_button', :locals => {:klu => klu, :user => klu.user} %>				
 		<div class="klu-user-info-inner">
 			<h4><%= link_to klu.user.name, user_path(:id => klu.user) %></h4>
-			<article class="klu-user-status">
-				
-				<%= partial_for_status_or_about(klu) %>
-				
-				
-			</article>
-			<p>
-				<%= t('.availability') %>
-			</p>
+			<%= partial_for_status_or_about(klu) %>
 			<nav>
 				<ul>
 					<li>
 						<%= link_to(new_message_path(:receiver_id => klu.user), :class => "btn btn-small", :remote => true) do %>
-						<%= t('.send_message') %>
+						 <i class="icon-envelope"></i><%= t('.send_message') %>
 						<% end if current_user %>
 					</li>
 					<li>
@@ -39,6 +31,7 @@
 
 
 	<aside class="klu-meta">
+		<div class="klu-availability"> <strong><%= t('available_at_times') %></strong> <%= klu.available_at_times %></div>
 		<ul class="klu-categories">
 			<li>
 				<%= klu.category.name %>
