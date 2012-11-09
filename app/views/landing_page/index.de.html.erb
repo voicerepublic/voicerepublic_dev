@@ -30,7 +30,9 @@
 				<h2>Hot Users</h2>
 				<ul class="unstyled">
 				<% User.limit(3).order("created_at DESC").each do |user| %>
+					<li class="user-small">
 						<%= render(:partial => "users/user_small", :locals => {:user => user}) %>
+					</li>
 				<% end %>
 				</ul>
 			</div>
