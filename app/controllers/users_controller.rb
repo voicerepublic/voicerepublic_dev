@@ -98,4 +98,16 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def online_user
+    d = params[:data]
+    logger.debug("Users#online_user - #{d.inspect}")
+    ret = User.cleanup_online_states
+    logger.debug("Users#online_user - cleaned up #{ret} states")
+    @user = User.potentially_available
+    
+    respond_to do |format|
+      format.json {  @user.available }
+    end      
+  end
 end

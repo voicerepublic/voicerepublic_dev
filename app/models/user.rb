@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
+  MAX_IDLE = 10.minutes
+  
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid, :last_request_at, :available
@@ -29,6 +31,8 @@ class User < ActiveRecord::Base
   
   has_one :account, :dependent => :destroy          # application-account-things
   has_one :balance_account, :dependent => :destroy, :class_name => 'Balance::Account'   # financial things
+  
+  scope :online, where("available = ? OR available = ?", 'online', 'busy')
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   accepts_nested_attributes_for :account
@@ -73,9 +77,11 @@ class User < ActiveRecord::Base
   end
   
   def availability_status
-    if (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
-      update_attribute(:available, 'offline') if available == 'online' || available == 'busy'
-      'offline'
+    if (last_request_at.nil? || (last_request_at < Time.now - 10.minutes))
+      if available == 'online'
+        update_attribute(:available, 'busy') 
+        return 'busy'
+      end
     else
       available
     end
@@ -151,6 +157,14 @@ class User < ActiveRecord::Base
             )
     end
     user
+  end
+  
+  def self.cleanup_online_states
+    User.where("available = ? OR available = ? AND last_request_at < ?", 'online', 'offline', MAX_IDLE.ago ).each { |u| u.update_attribute(:available, 'offline') }.count
+  end
+  
+  def self.potentially_available
+    User.where("( available = ? OR available = ? ) AND last_request_at > ? ", 'busy','online', MAX_IDLE.ago ).select([:id,:available])
   end
   
   # FIXME status is always 200 - 
