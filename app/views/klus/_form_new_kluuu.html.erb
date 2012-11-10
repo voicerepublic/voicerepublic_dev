@@ -117,10 +117,11 @@
 	</div>
 </div>
 <div class="row-fluid">
-	<div class="control-group checkbox well span8">
-		<%= f.label :published, :class => 'control-label' %>
+	<div class="control-group well span8">
 		<div class="controls">
-			<%= f.check_box :published, :class => 'check_box' %>
+			<%= label_tag :published, :class => 'checkbox' do %>
+				<%= f.check_box :published, :class => 'check_box' %> <%= t('published', :default => "Öffentlich setzen") %>
+			<% end %>
 		</div>
 	</div>
 	<div class="klu-new-help span4">
@@ -130,10 +131,11 @@
 	</div>
 </div>
 <div class="row-fluid">
-	<div class="control-group checkbox well span8">
-		<%= f.label :uses_status, :class => 'control-label' %>
+	<div class="control-group well span8">
 		<div class="controls">
-			<%= f.check_box :uses_status, :class => 'check_box' %>
+			<%= label_tag :uses_status, :class => 'checkbox' do %>
+				<%= f.check_box :uses_status, :class => 'check_box' %> <%= t('uses_status', :default => "Aktuelle Ansagen anzeigen") %>
+			<% end %>
 		</div>
 	</div>
 	<div class="klu-new-help span4">
