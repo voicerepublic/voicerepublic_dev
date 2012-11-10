@@ -29,7 +29,7 @@
 			<% @klu.bookmarks.each do |b|%>
 			<li>
 				<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
-				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %>
+				<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
 				<% end %>
 			</li>
 			<% end %>
