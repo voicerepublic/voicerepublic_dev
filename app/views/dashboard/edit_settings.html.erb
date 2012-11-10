@@ -3,18 +3,18 @@
   <div class="span6">
 	<div class="user user-edit well well-large">
 		<h3><%=t(".email address") %></h3>
-  		<%= render :partial => 'users/basic_form', :locals => { :user => @user } %>
+  		<%= render :partial => 'users/basic_form', :locals => { :user => @user, :url_arg => 'from_settings' } %>
 	</div>
 
   <div class="well well-large">
     <h3><%= t('.new password') %></h3>
-    <%= render :partial => 'users/password_form', :locals => { :user => @user } %>
+    <%= render :partial => 'users/password_form', :locals => { :user => @user , :url_arg => 'from_settings'} %>
   </div>
   </div>
 	<div class="span6">
     <div class="user user-edit well well-large">
       <h3><%=t(".Notifications and Emails") %></h3>
-      <%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account } %>
+      <%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account, :url_arg => 'from_settings' } %>
      </div>
   </div>
 </div>

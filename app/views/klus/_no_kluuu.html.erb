@@ -8,33 +8,33 @@
 				<%= render(:partial => "kluuu_user", :locals => {:klu => klu}) %>
 			</div>
 		</div>
-	
 
-	<%= render(:partial => 'kluuu_top_actions', :locals => {:klu => klu}) %>
+		<%= render(:partial => 'kluuu_top_actions', :locals => {:klu => klu}) %>
 
-			<aside class="klu-matches span3">
-				<h4><%= t('.Menschen,_die_sich_auskennen_mit_dem_Thema_') %><%= @klu.title %></h4>
-				<div>
-					<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
-				</div>
-			</aside>
-		</div><!-- End of klu-layout-->
+		<aside class="klu-matches span3">
+			<div class="well">
+				<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.Menschen_die_sich_auskennen_mit') %></h4>
+				<p class="text-info">
+					<strong><%= @klu.title %>:</strong>
+				</p>
+			</div>
+			<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
+		</aside>
+	</div><!-- End of klu-layout-->
 
-		<div class="large-klu-left row-fluid">		
-					
-			<ul class="unstyled">
-				<h4>
-					<%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %>
-				</h4>
-				<% @klu.bookmarks.each do |b|%>
-					<li>
-					<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
-						<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %>
-					<% end %>
-					</li>
+	<div class="large-klu-left row-fluid">
+
+		<ul class="unstyled">
+			<h4> <%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %> </h4>
+			<% @klu.bookmarks.each do |b|%>
+			<li>
+				<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
+				<%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %>
 				<% end %>
-			</ul>
-		</div>
+			</li>
+			<% end %>
+		</ul>
+	</div>
 </article>
 
 <% if can? :manage, @klu %>

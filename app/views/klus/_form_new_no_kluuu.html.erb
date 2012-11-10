@@ -3,8 +3,12 @@
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 <h2>Neues ? Frage-KluuU</h2>
-<div class="lead">Du fragst.<br />
-	Die KluuU-Community antwortet Dir.</div><br>
+<div class="lead">Worüber möchtest Du mit jemandem sprechen?</div>
+Das Frag-KluuU ist eine einfache Möglichkeit, um ins Gespräch zu kommen.<br>
+Die KluuU-Community kann Deine ?-KluuU sehen und dich diesbezüglich ansprechen.<br><br>
+
+Übrigens: tags sind entscheidend für die Auffindbarkeit deines ?-KluuUs, füge 5 oder mehr tags ein. (z.B.:Freizeit, Sport, Fussball, Hobby)
+<br><br>
 
 <div class="well no-kluuu klu-form klu-form-new">
 	<div class="row-fluid">

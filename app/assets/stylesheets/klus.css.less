@@ -498,7 +498,7 @@
 		h4 {
 			font-size: @baseFontSize;
 			color: @grayLight;
-			margin: -(@baseFontSize * @baseLineHeight + @verticalRhythm) 0 @verticalRhythm;
+			//margin: -(@baseFontSize * @baseLineHeight + @verticalRhythm) 0 @verticalRhythm;
 		}
 
 		.small-klu {
@@ -525,6 +525,12 @@
 	margin-top: @verticalRhythm;
 }
 
+/*hack*/
+form#new_klu{
+	max-width:800px !important;
+	margin:auto
+}
+
 .klu-new {
 	.klu-new-help {
 		margin-top: 63px;
@@ -535,11 +541,15 @@
 }
 
 .kluuu.klu-layout, .kluuu .klu-layout {
-	background-color: desaturate(lighten(@brandColor, 50%), 42%);
-	background-color: #E8E3EF;
+	background-color: desaturate(lighten(@brandColor, 60%), 12%);
+	/* background-color: #889926; 
+	h3{
+		color:#fff
+	}
+	*/
 }
 
 .no-kluuu.klu-layout, .no-kluuu .klu-layout {
-	background-color: spin(desaturate(lighten(@brandColor, 55%), 35%), 180);
-	background-color: #E7EAF1;
+	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
+	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
 }
