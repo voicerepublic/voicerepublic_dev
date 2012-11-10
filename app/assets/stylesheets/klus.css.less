@@ -2,6 +2,7 @@
  *= require main
  *= require_self
  *= require contributions
+ *= reguire status_updates
  */
  @import "config.css.less";
  
@@ -277,6 +278,11 @@
 		height: 32px * 1.5;
 	}
 
+	.klu-availability {
+		font-size: @baseFontSize - 2;
+		margin-bottom: @verticalRhythm/2;
+	}
+
 	.klu-layout {
 		padding: @vertical-offset @horizontal-offset;
 
@@ -354,6 +360,38 @@
 			box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
 			position: relative;
 			height: 100%;
+
+			.contribution.status {
+				padding: 18px 9px 9px 36px;
+				min-height: auto;
+
+				.contribution-user-image {
+					font-size: 168%;
+					left: 8px;
+					top: 16px;
+				}
+
+				.contribution-user-name {
+					left: 8px;
+					top: 4px;
+				}
+			}
+		}
+
+		.klu-user-info-inner {
+			& > h4 {
+				margin-bottom: 20px;
+
+				a:hover {
+					text-decoration: none;
+				}
+			}
+
+			& > nav {
+				li {
+					margin: @verticalRhythm/2 0;
+				}
+			}
 		}
 	} /* End of .large-klu .klu-layout */
 
@@ -363,6 +401,8 @@
 	}
 
 	.klu-meta {
+		margin-top: @verticalRhythm;
+		margin-left: 11px;
 		font-size: @baseFontSize - 3px;
 
 		ul {
@@ -381,11 +421,7 @@
 		}
 
 		.klu-tags {
-			width: 50%;
-			text-align: center;
-		}
-		.klu-bookmarked-by {
-			text-align: right;
+			width: 75%;
 		}
 	} /* End of .klu-meta */
 
@@ -449,6 +485,8 @@
 	}
 	.klu-user-info-more-klus {
 		margin-top: @verticalRhythm;
+		font-size: @baseFontSize - 2;
+		margin-left: 2px;
 	}
 
 	.klu-overall-rating {
