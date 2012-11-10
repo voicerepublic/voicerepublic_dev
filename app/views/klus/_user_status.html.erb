@@ -1,1 +1,9 @@
-<strong> _user_status.html.erb </strong>
+<article class="status contribution">
+  <header>
+    <div class="contribution-user-name">
+      <%= t('.Opinion') %>
+    </div>
+    <i class="icon-bullhorn contribution-user-image"></i>
+  </header>
+  <%= limit_words(klu.status_or_about, 15) %>
+</article>

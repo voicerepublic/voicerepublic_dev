@@ -4,7 +4,7 @@
 			<%= link_to message.sender.name, user_path(:id => message.sender) %>
 		</div>
 		
-		<%= link_to(image_tag(message.sender.account.portrait(:thumb)), user_path(:id => message.sender),:class => "img-polaroid contribution-user-image")%>
+		<div class="user-image contribution-user-image" data-user-id="<%= message.sender.id %>"><%= link_to(image_tag(message.sender.account.portrait(:thumb)), user_path(:id => message.sender),:class => "img-polaroid")%></div>
 		<time datetime="<%= message.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(message.created_at) %>
 		</time>

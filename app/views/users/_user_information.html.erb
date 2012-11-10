@@ -1,5 +1,5 @@
 <section class="user-information well well-large clearfix">
-	<%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user), :class=> "user-image") %>
+	<div class="user-image" data-user-id="<%= user.id %>"><%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user)) %></div>
 	<div class="user-information-right">
 		<header class="row-fluid">
 			<div class="span7">

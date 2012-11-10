@@ -1,17 +1,14 @@
 <div class="call-btn btn">
 
 	<%= render :partial => 'video_sessions/new_form', :locals => {:klu => klu} unless current_user.nil? %>
-	<%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user), :class => 'klu-user-image' ) %>
+	<div class="user-image klu-user-image" data-user-id="<%= klu.user.id %>"><%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user) ) %></div>
 	
 	<dl>
-		<dt>
-			<%#= t('.price') %>
-		</dt>
 		<dd>
 			<%= klu.charge_amount %> €
 		</dd>
 		<dd>
-			<%= klu.available_at_times %>
+			
 		</dd>
 	</dl>
 

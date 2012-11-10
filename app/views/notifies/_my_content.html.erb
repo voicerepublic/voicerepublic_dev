@@ -1,6 +1,8 @@
 <article class="notification news-notification news-nofication-my-content contribution" id="notification-<%= notification.id %>">
 	<header>
-		<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => 'contribution-user-image img-polaroid' ) %>
+		<div class="user-image contribution-user-image" data-user-id="<%= notification.other.id %>">
+			<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => 'img-polaroid' ) %>
+		</div>
 		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(notification.created_at) %>
 		</time>

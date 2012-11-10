@@ -212,42 +212,28 @@ body.layout-logged-out{
   display: inline-block;
   position: relative;
 
-  &.online:before {
-    right: 2px;
-    top: 2px;
+  &:before {
+    left: 2px;
+    bottom: 2px;
     z-index:100;
     content: "";
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 10%;
+    height: 10%;
+  }
+
+  &.online:before {
     background-color: green;
-    border-radius: 6px;
     box-shadow: 0 0 3px white, 0 0 3px green;
   }
 
   &.busy:before {
-    right: 2px;
-    top: 2px;
-    z-index:100;
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 10px;
     background-color: orange;
-    border-radius: 6px;
     box-shadow:  0 0 3px white, 0 0 3px orange;
   }
 
   &.offline:before {
-    right: 2px;
-    top: 2px;
-    z-index:100;
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 6px;
-    box-shadow:  0 0 3px white, 0 0 3px red;
+    background-color: #780000;
+    box-shadow:  0 0 3px white, 0 0 3px #780000;
   }
 }

@@ -9,14 +9,6 @@
 	<aside class="klu-overall-rating">
 					<%= overall_rating_stars(klu) %>
 			</aside>
-	<div class="call-btn btn">
-		<form action="#"><button class="btn"><%= t('.call_now') %></button></form>
-		<dl>
-			<dt><%= t('.price') %></dt>
-			<dd><%= klu.charge_amount %> €</dd>
-			<dt><%= t('.availability') %></dt>
-			<dd><%= klu.available_at_times %></dd>
-		</dl>
-		<%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user), :class => 'klu-user-image' ) %>
-	</div>
+	<%= render :partial => 'klus/kluuu_call_button', :locals => {:klu => klu, :user => klu.user} %>
+	<div class="kluuu-type"></div>
 </article>
