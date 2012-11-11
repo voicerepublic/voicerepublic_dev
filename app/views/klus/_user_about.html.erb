@@ -1,2 +1,2 @@
-<strong> _user_about.html.erb </strong>
-
+<strong> <%= t('.User_description:') %> </strong><br />
+<%= limit_words(klu.user.account.about, 15) %>
