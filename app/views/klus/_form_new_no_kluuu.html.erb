@@ -40,16 +40,18 @@ Die KluuU-Community kann Deine ?-KluuU sehen und dich diesbezüglich ansprechen.
 					<%= f.text_field :available_at_times, :class => 'text_field'%>
 				</div>
 			</div>
-			<div class="control-group checkbox">
-				<%= f.label :published, :class => 'control-label' %>
+			<div class="control-group">
 				<div class="controls">
-					<%= f.check_box :published, :class => 'check_box' %>
+				<%= label_tag :published, :class => 'checkbox'  do %>
+					<%= f.check_box :published %> <%= t('published', :default => "? Frage-KluuU öffentlich anzeigen.") %>
+				<% end %>
 				</div>
 			</div>
-			<div class="control-group checkbox">
-				<%= f.label :uses_status, :class => 'control-label' %>
+			<div class="control-group">
 				<div class="controls">
-					<%= f.check_box :uses_status, :class => 'check_box' %>
+				<%= label_tag :uses_status, :class => 'checkbox' do %>
+					<%= f.check_box :uses_status %> <%= t('uses_status', :default => "Aktuelle Meinung anzeigen." ) %>
+				<% end %>
 				</div>
 			</div>
 		
