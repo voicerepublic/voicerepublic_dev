@@ -9,6 +9,7 @@
 User.destroy_all
 Klu.destroy_all
 
+User.create(:firstname => 'kluuu', :lastname => 'master', :email => 'admin@kluuu.com', :password => 'aendere_mich', :password_confirmation => 'aendere_mich')
 
 Role.destroy_all
 Role.create([{name: 'admin'}, {name: 'user'}])

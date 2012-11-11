@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121022123818) do
+ActiveRecord::Schema.define(:version => 20121109114220) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -139,8 +139,8 @@ ActiveRecord::Schema.define(:version => 20121022123818) do
     t.datetime "updated_at",                             :null => false
     t.integer  "charge_amount",      :default => 0
     t.string   "charge_type",        :default => "free"
-    t.boolean  "uses_status",        :default => true
     t.string   "currency"
+    t.boolean  "uses_status",        :default => true
   end
 
   add_index "klus", ["charge_type"], :name => "index_klus_on_charge_type"
@@ -187,13 +187,13 @@ ActiveRecord::Schema.define(:version => 20121022123818) do
     t.string   "video_session_role"
     t.string   "user_cookie_session_id"
     t.integer  "user_id"
-    t.integer  "seconds_online"
+    t.integer  "seconds_online",            :default => 0
     t.datetime "last_pay_tick_timestamp"
-    t.integer  "pay_tick_counter"
+    t.integer  "pay_tick_counter",          :default => 0
     t.datetime "payment_started_timestamp"
     t.datetime "payment_stopped_timestamp"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   create_table "paypal_payments", :force => true do |t|
@@ -247,6 +247,22 @@ ActiveRecord::Schema.define(:version => 20121022123818) do
 
   create_table "tags", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "transfers", :force => true do |t|
+    t.integer  "account_id"
+    t.integer  "video_session_id"
+    t.integer  "duration"
+    t.integer  "transfer_charge_cents"
+    t.string   "transfer_charge_currency"
+    t.integer  "transfer_gross_cents"
+    t.string   "transfer_gross_currency"
+    t.integer  "video_session_charge_cents"
+    t.string   "video_session_charge_currency"
+    t.decimal  "exchange_rate",                 :precision => 10, :scale => 5
+    t.string   "video_session_klu_name"
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
   end
 
   create_table "user_roles", :force => true do |t|
