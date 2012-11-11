@@ -122,6 +122,8 @@ class User < ActiveRecord::Base
     Conversation.where("user_1_id=? OR user_2_id=?", self.id, self.id).order("created_at DESC")
   end
   
+  # devise authentication hook
+  #
   def after_database_authentication
     logger.debug("User#after_database_authentication - setting online")
     set_online!

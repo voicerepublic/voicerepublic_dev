@@ -14,9 +14,13 @@
 					<li class="pull-right">
 						<% if current_user && current_user.id != user.id %>
 							<% if current_user.followed.include?(user) %>
-								<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn", :method => :delete) %>
+								<%= link_to( user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn", :method => :delete) do %>
+									<i class="icon-group"> </i>  <%= t('.unfollow') %>
+								<% end %>
 							<% else %>
-								<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn" )%>
+								<%= link_to( user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn" ) do %>
+									<i class="icon-group"> </i> <%= t('.follow')%>
+								<% end %>
 							<% end %>
 						<% end %>
 					</li>
@@ -28,7 +32,7 @@
 					<% if current_user && ( current_user != user ) %>
 					<li class="pull-right">
 						<%= link_to('', :class => 'btn', :disabled => user.available? ? false : true ) do %>
-							<i class="icon-comments"> </i> <%= t('.start_chat') %>
+							<i class="icon-comments"> </i> <%= t('.chat') %>
 						<% end %>
 					</li>
 					<% end %>
