@@ -56,9 +56,9 @@
 	.transition(background 0.2s ease);
 	max-width: 280px;
 	margin: 0 auto;
+	0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05)
 
 	&:hover {
-		background: @brandColorLighter;
 		color: @white;
 	}
 
@@ -85,25 +85,12 @@
 		}
 	}
 
-	dl {
+	.klu-price {
 		position: absolute;
 		margin: 0;
-		font-size: 70%;
 		left: 4%;
-		bottom: 6%;
-		max-height: @baseFontSize * @baseLineHeight * 0.7 * 3;
+		bottom: 8%;
 		width: 60%;
-		overflow: hidden;
-			
-		dt {
-			display: inline-block;
-			float: left;
-			clear: both;
-			margin-right: 6px;
-		}
-		dd {
-			
-		}
 	} 
 
 	.klu-user-image {
@@ -397,7 +384,12 @@
 
 	.large-klu-left {
 		padding: 0  30px;
-		width: 74.359%;
+	}
+
+	.klu-bookmarked-by {
+		li {
+			display: inline-block;
+		}
 	}
 
 	.klu-meta {
@@ -409,19 +401,20 @@
 			margin: 0;
 		}
 
-		li {
-			display: inline;
-		}
 		.klu-categories, .klu-tags, .klu-bookmarked-by {
 			float: left;
 		}
 
 		.klu-categories, .klu-bookmarked-by {
-			width: 25%;
+			width: 33%;
 		}
 
 		.klu-tags {
-			width: 75%;
+			width: 67%;
+
+			li {
+				display: inline;
+			}
 		}
 	} /* End of .klu-meta */
 
@@ -476,17 +469,24 @@
 			}
 
 			h4 {
-				display: inline;
+				margin: 0 0 @verticalRhythm;
+				line-height: 1.2;
 			}
-			.klu-user-status {
-				margin-top: @verticalRhythm;
+			.klu-status-or-about {
+				margin: @verticalRhythm 0;
+			}
+
+			nav {
+				.btn{
+					margin-left: -2px;
+				}
 			}
 		}
 	}
 	.klu-user-info-more-klus {
 		margin-top: @verticalRhythm;
-		font-size: @baseFontSize - 2;
-		margin-left: 2px;
+		font-size: @baseFontSize - 4;
+		margin-top: @verticalRhythm;
 	}
 
 	.klu-overall-rating {

@@ -1,7 +1,8 @@
 <article class="kluuu large-klu clearfix">
 
 	<div class="row-fluid">		
-		<section class="klu-layout span9">
+		<div class="span9">
+		<section class="klu-layout">
 			<header>
 				<h2 class="klu-title"><%= klu.title %></h2>
 			</header>
@@ -16,8 +17,8 @@
 				<section class="span8">
 
 					<%# PICTURES %>
-					<ul class="unstyled kluuu-pics">
-						test: <%= data_attributes_image_url(@klu) %>
+					<ul class="unstyled clearfix kluuu-pics" <%= data_attributes_image_url(@klu) %> >
+						
 						<% klu.klu_images.each_with_index do |ki, index| %>
 						<% if (index == 0) %>
 						<li class="klu-eyecatcher">
@@ -33,7 +34,6 @@
 							<%= link_to user_klu_klu_image_path(:user_id => klu.user, :klu_id => klu, :id => ki) do %>
 							<%= image_tag(ki.image.url(:medium)) %>
 							<% end %>
-							<data data-image-url-$i="http://something" />
 						</li>
 						<% end %>
 						<% end %>
@@ -44,6 +44,38 @@
 				</section><!-- End of Kluu-header klu-layout-->
 		<%= render(:partial => 'kluuu_user', :locals => {:klu => klu}) %>
 	</section>
+	<div class="large-klu-left row-fluid">
+		<%# RATINGS %>		
+			<section class="klu-ratings span8">
+				<h5><%= klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
+				<% unless klu.ratings.empty? %>
+				<ul class="unstyled">
+					<% klu.ratings.limit(5).each do |rating| %>
+					<li>
+						<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
+					</li>
+					<% end %>
+				</ul>
+				<% end %>
+			</section>
+			
+			<%# BOOKMARKS %>
+			<div class="span4">
+				<h5>
+					<%= t('.this_kluuu_is_bookmarked') %> <%= klu.bookmarks.count %> <%= t('.times') %>
+				</h5>
+				<ul class="unstyled klu-bookmarked-by">
+					<% klu.bookmarks.each do |b|%>
+					<li>
+						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
+						<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
+						<% end %>
+					</li>
+					<% end %>
+				</ul>
+			</div>
+	</div>
+	</div>
 		<%# MATCHES %>
 		<aside class="span3 klu-matches">
 			<div class="well">
@@ -55,40 +87,7 @@
 
 	</div>
 
-	<div class="large-klu-left row-fluid">
-		<div class="span9">
-
-				<%# RATINGS %>		
-				<div class="row-fluid">
-					<section class="klu-ratings span8">
-						<h5><%= klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
-						<% unless klu.ratings.empty? %>
-						<ul class="unstyled">
-							<% klu.ratings.limit(5).each do |rating| %>
-							<li>
-								<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
-							</li>
-							<% end %>
-						</ul>
-						<% end %>
-					</section>
-					
-					<%# BOOKMARKS %>
-					<ul class="unstyled span4">
-					<h4>
-						<%= t('.this_kluuu_is_bookmarked') %> <%= klu.bookmarks.count %> <%= t('.times') %>
-					</h4>
-					<% klu.bookmarks.each do |b|%>
-					<li>
-						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
-						<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
-						<% end %>
-					</li>
-					<% end %>
-							</ul>
-				</div>
-		</div>
-	</div>
+	
 
 	<%# KLUUU TOP ACTION BAR %>
 	<%= render(:partial => "kluuu_top_actions", :locals => {:klu => klu}) %>
