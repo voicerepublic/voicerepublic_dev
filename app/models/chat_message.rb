@@ -15,7 +15,7 @@ class ChatMessage
   define_model_callbacks :save
   
   after_save :send_push
-  after_save :generate_regular_message
+  after_save :create_regular_message
   
   def initialize(attributes = {})
     attributes.each do |name, value|
