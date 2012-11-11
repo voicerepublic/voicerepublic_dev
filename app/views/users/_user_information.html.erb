@@ -10,6 +10,7 @@
 			</div>
 			<div class="span5">
 				<ul class="user-nav unstyled pull-right">
+					
 					<li class="pull-right">
 						<% if current_user && current_user.id != user.id %>
 							<% if current_user.followed.include?(user) %>
@@ -24,6 +25,13 @@
 							<i class="icon-envelope"></i> <%= t('.send_message') %>
 						<% end unless current_user && current_user.id == user.id %>
 					</li>
+					<% if current_user && ( current_user != user ) %>
+					<li class="pull-right">
+						<%= link_to('', :class => 'btn', :disabled => user.available? ? false : true ) do %>
+							<i class="icon-comments"> </i> <%= t('.start_chat') %>
+						<% end %>
+					</li>
+					<% end %>
 				</ul>
 			</div>
 		</header>
