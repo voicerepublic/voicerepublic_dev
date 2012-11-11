@@ -7,39 +7,47 @@
 Das Frag-KluuU ist eine einfache Möglichkeit, um ins Gespräch zu kommen.<br>
 Die KluuU-Community kann Deine ?-KluuU sehen und dich diesbezüglich ansprechen.<br><br>
 
-Übrigens: tags sind entscheidend für die Auffindbarkeit deines ?-KluuUs, füge 5 oder mehr tags ein. (z.B.:Freizeit, Sport, Fussball, Hobby)
+<span class="label label-info">Übrigens</span> tags sind entscheidend für die Auffindbarkeit deines ?-KluuUs, füge 5 oder mehr tags ein. (z.B.:Freizeit, Sport, Fussball, Hobby)
 <br><br>
 
 <div class="well no-kluuu klu-form klu-form-new">
 	<div class="row-fluid">
 		<div class="span8 kluuu-pics">
 			<div class="control-group">
-				<%= f.label :title, :class => 'control-label' %>
+				<%= label_tag "klu_title", :class => 'control-label' do %>
+					<%= t('title', :default => "Titel") %>
+				<% end %>
 				<div class="controls">
 					<%= f.text_field :title, :class => 'klu-title', :rows => 5 %>
 				</div>
 				<div class="control-group">
-					<%= f.label :category_id, :class => 'control-label' %>
+					<%= label_tag "klu_category_id", :class => 'control-label' do %>
+						<%= t('category', :default => "Kategorie") %>
+					<% end %>
 					<div class="controls">
 						<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
 					</div>
 				</div>
 				<div class="control-group">
-					<%= f.label :tag_list, :class => "control-label"%>
+					<%= label_tag "klu_tag_list", :class => "control-label" do %>
+						<%= t('tag_list', :default => "Tag Liste") %>
+					<% end %>
 					<div class="controls">
 						<%= f.text_field :tag_list, :class => 'text_field' %>
 					</div>
 				</div>
 			</div>
 
-
-			<h4><%= t(".call_options") %></h4>
 			<div class="control-group">
-				<%= f.label :available_at_times, :class => 'control-label' %>
+				<%= label_tag "klu_available_at_times", :class => 'control-label' do %>
+					<%= t('available_at_times', :default => "Wann bist du jeweils Online? (z.B. Mo - Fr, 9.00 - 17.00)") %>
+				<% end %>
 				<div class="controls">
 					<%= f.text_field :available_at_times, :class => 'text_field'%>
 				</div>
 			</div>
+
+			<h4><%= t(".properties", :default => "Einstellungen") %></h4>
 			<div class="control-group">
 				<div class="controls">
 				<%= label_tag :published, :class => 'checkbox'  do %>
