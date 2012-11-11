@@ -218,8 +218,13 @@ body.layout-logged-out{
     z-index:100;
     content: "";
     position: absolute;
-    width: 10%;
-    height: 10%;
+    width: 24%;
+    height: 24%;
+
+    .user-information & {
+      width: 8%;
+      height: 8%;
+    }
   }
 
   &.online:before {
