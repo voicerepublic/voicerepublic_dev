@@ -17,7 +17,7 @@
 				<section class="span8">
 
 					<%# PICTURES %>
-					<ul class="unstyled clearfix kluuu-pics" <%= data_attributes_image_url(@klu) %> >
+					<ul class="unstyled clearfix kluuu-pics" data-images-urls="<%= data_attributes_images_gallery(@klu) %>">
 						
 						<% klu.klu_images.each_with_index do |ki, index| %>
 						<% if (index == 0) %>
@@ -27,12 +27,6 @@
 								<div class="klu-image-caption">
 									<%= ki.description %>
 								</div>
-							<% end %>
-						</li>
-						<% else %>
-						<li>
-							<%= link_to user_klu_klu_image_path(:user_id => klu.user, :klu_id => klu, :id => ki) do %>
-							<%= image_tag(ki.image.url(:medium)) %>
 							<% end %>
 						</li>
 						<% end %>
