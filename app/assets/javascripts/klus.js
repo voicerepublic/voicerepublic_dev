@@ -109,17 +109,19 @@
 
 			var firstRun = function($input) {
 				var previousTags = $input.val();
-				previousTags = previousTags.split(', ');
-				$.each(previousTags, function(i) {
-					newPill(previousTags[i]);
-					tagList.push(previousTags[i]);
-				});
+				if (previousTags !== "") {
+					previousTags = previousTags.split(', ');
+					$.each(previousTags, function(i) {
+						newPill(previousTags[i]);
+						tagList.push(previousTags[i]);
+					});
+				}
 			};
 
 			var $input =  $('#klu_tag_list').hide();
 			var $workingContainer = $input.parent();
 			var $newInput = $("<input>", {'type': 'text'}).appendTo($workingContainer);
-			$newInput.attr('placeholder', 'Add new tag with pressing enter after you typed it');
+			$newInput.attr('placeholder', 'Add new tag by pressing enter after you typed it');
 			firstRun($input);
 			$newInput.on('keydown', function(event) {
 				if(event.keyCode == 13) {
