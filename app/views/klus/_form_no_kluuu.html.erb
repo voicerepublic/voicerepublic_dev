@@ -1,6 +1,6 @@
 <% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
 <% method = @klu.new_record? ? :post : :put %>
-<%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
+<%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu klu-form' }  do |f| %>
 
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 <div class="well">
@@ -9,7 +9,7 @@
 			<div class="control-group">
 				<%= f.label :title, :class => 'control-label' %>
 				<div class="controls">
-					<%= f.text_area :title, :class => 'text_area klu-title klu-eyecatcher', :rows => 5 %>
+					<%= f.text_field :title, :class => 'text_area klu-title' %>
 				</div>
 				<div class="control-group">
 					<%= f.label :category_id, :class => 'control-label' %>

@@ -1,0 +1,1 @@
+$("#<%= @chat.css_id_for_chat %>").prepend('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat }) ) %>');

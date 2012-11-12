@@ -15,6 +15,43 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+
+(function($){
+  var checkUserOnline = {
+    init: function() {
+      var url = "/users/status_for.json";
+
+      var setUserStatus = function(payload) {
+        console.log(payload);
+        $.each(payload, function(i) {
+          $('.user-image[data-user-id=' +  payload[i].id +']').addClass(payload[i].available);
+        });
+      };
+
+      var usersOnSite = $('.user-image'); //JqueryCollection
+      var userIDs = [];
+      $.each(usersOnSite, function(i) {
+        userIDs[i] = $(this).data("user-id");
+      });
+      userIDs = userIDs.join(",");
+      console.log(userIDs);
+      $.ajax({
+        url: url,
+        data: {"ids": userIDs},
+        success:  function(data) {
+          setUserStatus(data);
+        },
+        error: function() { console.log("Connection Error"); }
+      });
+    }
+  };
+  $(function(){
+    checkUserOnline.init();
+  });
+})(jQuery);
+
+
+
 overlay = {
 
   build: function(innerHTML, force) {
@@ -133,7 +170,7 @@ function fitText(jquerySelector) {
       // console.log("Title " + text.html());
       // console.log("targetWidth: " + targetWidth);
       var inner = text.children('span');
-      console.log(inner + " " + inner.length);
+      // console.log(inner + " " + inner.length);
       if (inner.length === 0 ){
         inner = $("<span />").css({
           display: "block",
@@ -142,7 +179,7 @@ function fitText(jquerySelector) {
         text.wrapInner(inner);
         inner = text.children('span');
         inner = $(inner[0]);
-        console.log($(inner) + " " + inner.length);
+        // console.log($(inner) + " " + inner.length);
       };
       var currentFontSize = parseInt(text.css("font-size"), 10);
       // console.log(inner.text());

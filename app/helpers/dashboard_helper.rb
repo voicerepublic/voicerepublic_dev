@@ -14,7 +14,7 @@ module DashboardHelper
                 'shared/notification'
               when 'MissedCall'
                 #listing ? 'notifies/user_centered' :  
-                'shared/notification'
+                'notifies/my_content'
               when 'NewBookmark'
                 #listing ? 'notifies/user_centered' :  
                 'notifies/my_content'

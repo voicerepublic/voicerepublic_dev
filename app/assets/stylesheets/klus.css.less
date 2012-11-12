@@ -2,6 +2,7 @@
  *= require main
  *= require_self
  *= require contributions
+ *= reguire status_updates
  */
  @import "config.css.less";
  
@@ -55,9 +56,9 @@
 	.transition(background 0.2s ease);
 	max-width: 280px;
 	margin: 0 auto;
+	0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05)
 
 	&:hover {
-		background: @brandColorLighter;
 		color: @white;
 	}
 
@@ -84,25 +85,12 @@
 		}
 	}
 
-	dl {
+	.klu-price {
 		position: absolute;
 		margin: 0;
-		font-size: 70%;
 		left: 4%;
-		bottom: 6%;
-		max-height: @baseFontSize * @baseLineHeight * 0.7 * 3;
+		bottom: 8%;
 		width: 60%;
-		overflow: hidden;
-			
-		dt {
-			display: inline-block;
-			float: left;
-			clear: both;
-			margin-right: 6px;
-		}
-		dd {
-			
-		}
 	} 
 
 	.klu-user-image {
@@ -277,6 +265,11 @@
 		height: 32px * 1.5;
 	}
 
+	.klu-availability {
+		font-size: @baseFontSize - 2;
+		margin-bottom: @verticalRhythm/2;
+	}
+
 	.klu-layout {
 		padding: @vertical-offset @horizontal-offset;
 
@@ -295,9 +288,7 @@
 				line-height: 56px;
 				text-align: center;
 				border: 1px solid rgba(0,0,0,0.2);
-				margin-right: 4px;
 				font-size: 0;
-				background-color: rgba(0,0,0,0.7);
 
 				img {
 					font-size: 0;
@@ -318,22 +309,19 @@
 				}
 			}
 
-			li:first-child {
+			li.klu-eyecatcher {
 				float: none;
-				// width: 820px;
 				width: auto;
 				position: relative;
-				// height: 615px;
 				height: auto;
-				// line-height: 615px;
 				text-align: center;
-				margin-bottom: 15px;
 			}
 
 			img {
 				font-size: 0;
 				vertical-align: middle;
 				max-height: 100%;
+				display: block;
 			}
 
 			.klu-image-caption {
@@ -348,44 +336,93 @@
 				padding: 4px 10px;
 				text-align: left;
 			}
+
+			&.jqueryfied {
+				position: relative;
+				overflow: hidden;
+				cursor: pointer;
+
+				.klu-eyecatcher {
+					position: absolute;
+					top: 0;
+					width: 100%;
+					height: 100%;
+				}
+			}
 		}
 
 		.klu-user-info {
 			box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
 			position: relative;
 			height: 100%;
+
+			.contribution.status {
+				padding: 18px 9px 9px 36px;
+				min-height: auto;
+
+				.contribution-user-image {
+					font-size: 168%;
+					left: 8px;
+					top: 16px;
+				}
+
+				.contribution-user-name {
+					left: 8px;
+					top: 4px;
+				}
+			}
+		}
+
+		.klu-user-info-inner {
+			& > h4 {
+				margin-bottom: 20px;
+
+				a:hover {
+					text-decoration: none;
+				}
+			}
+
+			& > nav {
+				li {
+					margin: @verticalRhythm/2 0;
+				}
+			}
 		}
 	} /* End of .large-klu .klu-layout */
 
 	.large-klu-left {
 		padding: 0  30px;
-		width: 74.359%;
+	}
+
+	.klu-bookmarked-by {
+		li {
+			display: inline-block;
+		}
 	}
 
 	.klu-meta {
+		margin-top: @verticalRhythm;
+		margin-left: 11px;
 		font-size: @baseFontSize - 3px;
 
 		ul {
 			margin: 0;
 		}
 
-		li {
-			display: inline;
-		}
 		.klu-categories, .klu-tags, .klu-bookmarked-by {
 			float: left;
 		}
 
 		.klu-categories, .klu-bookmarked-by {
-			width: 25%;
+			width: 33%;
 		}
 
 		.klu-tags {
-			width: 50%;
-			text-align: center;
-		}
-		.klu-bookmarked-by {
-			text-align: right;
+			width: 67%;
+
+			li {
+				display: inline;
+			}
 		}
 	} /* End of .klu-meta */
 
@@ -440,14 +477,23 @@
 			}
 
 			h4 {
-				display: inline;
+				margin: 0 0 @verticalRhythm;
+				line-height: 1.2;
 			}
-			.klu-user-status {
-				margin-top: @verticalRhythm;
+			.klu-status-or-about {
+				margin: @verticalRhythm 0;
+			}
+
+			nav {
+				.btn{
+					margin-left: -2px;
+				}
 			}
 		}
 	}
 	.klu-user-info-more-klus {
+		margin-top: @verticalRhythm;
+		font-size: @baseFontSize - 4;
 		margin-top: @verticalRhythm;
 	}
 
@@ -460,7 +506,7 @@
 		h4 {
 			font-size: @baseFontSize;
 			color: @grayLight;
-			margin: -(@baseFontSize * @baseLineHeight + @verticalRhythm) 0 @verticalRhythm;
+			//margin: -(@baseFontSize * @baseLineHeight + @verticalRhythm) 0 @verticalRhythm;
 		}
 
 		.small-klu {
@@ -487,6 +533,12 @@
 	margin-top: @verticalRhythm;
 }
 
+/*hack*/
+form#new_klu{
+	max-width:800px !important;
+	margin:auto
+}
+
 .klu-new {
 	.klu-new-help {
 		margin-top: 63px;
@@ -497,11 +549,15 @@
 }
 
 .kluuu.klu-layout, .kluuu .klu-layout {
-	background-color: desaturate(lighten(@brandColor, 50%), 42%);
-	background-color: #E8E3EF;
+	background-color: desaturate(lighten(@brandColor, 60%), 12%);
+	/* background-color: #889926; 
+	h3{
+		color:#fff
+	}
+	*/
 }
 
 .no-kluuu.klu-layout, .no-kluuu .klu-layout {
-	background-color: spin(desaturate(lighten(@brandColor, 55%), 35%), 180);
-	background-color: #E7EAF1;
+	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
+	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
 }

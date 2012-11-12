@@ -48,6 +48,8 @@ class Notification::Base < ActiveRecord::Base
       klu_url(:id => klu_id)
     when "NewMessage"
       url
+    when "MissedCall"
+      dashboard_news_url
     end
   end
   

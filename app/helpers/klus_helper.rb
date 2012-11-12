@@ -56,4 +56,28 @@ module KlusHelper
     ret.html_safe
   end
   
+  def partial_for_status_or_about(klu)
+    if klu.uses_status
+      render(:partial => "klus/user_status", :locals => { :klu => klu } )  
+    else
+      render(:partial => "klus/user_about", :locals => { :klu => klu } )
+    end 
+  end
+  
+  def data_attributes_images_gallery(klu)
+    klu.klu_images.map.each_with_index { |ki,i| "#{ki.image.url(:large)}" }.join(" ")
+  end
+
+  def price_string(klu)
+    if klu.charge_type != 'free'
+      if klu.charge_type === "minute"
+        t(".#{klu.charge_amount}_#{klu.currency}_per_minute")
+      else
+        t(".#{klu.charge_amount}_#{klu.currency}")
+      end
+    else
+      t('.free')
+    end
+  end
+  
 end

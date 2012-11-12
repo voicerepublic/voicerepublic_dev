@@ -1,5 +1,5 @@
 <section class="user-information well well-large clearfix">
-	<%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user), :class=> "user-image") %>
+	<div class="user-image" data-user-id="<%= user.id %>"><%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user)) %></div>
 	<div class="user-information-right">
 		<header class="row-fluid">
 			<div class="span7">
@@ -10,12 +10,17 @@
 			</div>
 			<div class="span5">
 				<ul class="user-nav unstyled pull-right">
+					
 					<li class="pull-right">
 						<% if current_user && current_user.id != user.id %>
 							<% if current_user.followed.include?(user) %>
-								<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn", :method => :delete) %>
+								<%= link_to( user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn", :method => :delete) do %>
+									<i class="icon-group"> </i>  <%= t('.unfollow') %>
+								<% end %>
 							<% else %>
-								<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn" )%>
+								<%= link_to( user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn" ) do %>
+									<i class="icon-group"> </i> <%= t('.follow')%>
+								<% end %>
 							<% end %>
 						<% end %>
 					</li>
@@ -24,6 +29,13 @@
 							<i class="icon-envelope"></i> <%= t('.send_message') %>
 						<% end unless current_user && current_user.id == user.id %>
 					</li>
+					<% if current_user && ( current_user != user ) %>
+					<li class="pull-right">
+						<%= link_to( new_chat_path(:one => user, :two => current_user ), :class => 'btn', :disabled => user.available? ? false : true ) do %>
+							<i class="icon-comments"> </i> <%= t('.chat') %>
+						<% end %>
+					</li>
+					<% end %>
 				</ul>
 			</div>
 		</header>
