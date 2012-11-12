@@ -1,3 +1,23 @@
-Call was rejected....
 
-<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay' %>
+<div class="row-fluid">
+	<div class="span12">
+		<h3>
+			Video Call Rejected
+		</h3>
+		 
+		 <div class="thumbnail user-thumbnail">
+			<%= content_tag :span, :class => "user-thumbnail-link clearfix" do %>	
+				<%= image_tag(user.account.portrait.url(:thumb)) %>
+				<div class="user-thumbnail-name"><%= user.name %></div>
+			<% end %>
+		</div>
+		<br>
+		rejected your Video Call.
+	</div>
+</div>
+<br>
+<div class="row-fluid">
+	<div class="span12">
+		<%= link_to t('.close'), '#', :class => "btn", 'data-function' => 'closeOverlay' %>
+	</div>	
+</div>

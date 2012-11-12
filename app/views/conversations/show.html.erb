@@ -16,14 +16,14 @@
 					<% if current_page?(user_conversation_path(:user_id => @user, :id => conv )) %>
 						<li class="active">
 							<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
-								<%= image_tag(partner.account.portrait(:thumb), :class => "img-polaroid") %>
+								<div class="user-image" data-user-id="<%= partner.id %>"><%= image_tag(partner.account.portrait(:thumb), :class => "img-polaroid") %></div>
 								<%= partner.name %>
 							<% end %>
 						</li>
 					<% else %>
 						<li>
 							<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
-								<%= image_tag(partner.account.portrait(:thumb), :class => "img-polaroid") %>
+								<div class="user-image" data-user-id="<%= partner.id %>"><%= image_tag(partner.account.portrait(:thumb), :class => "img-polaroid") %></div>
 								<%= partner.name %>
 							<% end %>
 						</li>

@@ -53,10 +53,15 @@ class AccountsController < ApplicationController
   # PUT /accounts/1.json
   def update
     @account = @user.account
-
+    logger.debug("Accounts#update - params: #{params.inspect}")
+    if params[:from_settings] #&& params[:from_settings] == true
+      url = dashboard_settings_url
+    else
+      url = user_url(:id => @user)
+    end
     respond_to do |format|
       if @account.update_attributes(params[:account])
-        format.html { redirect_to dashboard_settings_url, notice: 'Profile setting was successfully updated.' }
+        format.html { redirect_to url, notice: 'Settings were successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

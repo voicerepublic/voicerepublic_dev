@@ -1,19 +1,5 @@
 Kluuu2::Application.routes.draw do
 
-  resources :video_rooms
-  resources :video_sessions
-  
-  #route to video-client_config
-  match 'bbb/:meeting_id/user/:user_id/config' => "video_sessions#video_session_config"
-  #routes to payment
-  match 'user_joined' => 'payment#user_joined'
-  match 'user_left' => 'payment#user_left'
-  match 'meeting_begin' => 'payment#meeting_begin'
-  match 'meeting_end' => 'payment#meeting_end'
-  match 'payment_started' => 'payment#payment_started'
-  match 'payment_stopped' => 'payment#payment_stopped'
-  
-  
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
     get "dashboard/contacts"
@@ -31,9 +17,14 @@ Kluuu2::Application.routes.draw do
     post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
     get "tags/:tag", :controller => 'landing_page', :action => 'show_tagged_with', :as => 'tagged_with'
+    post "chats/:one/:two", :controller => 'chats', :action => 'create', :as => 'post_chat'
+    get "chats/:one/:two/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
+    delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
+    get 'users/status_for' => 'users#status_for'
   end
   
   scope "(/:locale)", :locale => /de|en/ do
+    #resources :chats, :only => [ :new, :create ]
     resources :categories
     resources :klus do
       resources :ratings, :only => [:new, :create]
@@ -88,8 +79,21 @@ Kluuu2::Application.routes.draw do
     get "dashboard/index"
   end
   
+  resources :video_rooms
+  resources :video_sessions
+  
+  #route to video-client_config
+  match 'bbb/:meeting_id/user/:user_id/config' => "video_sessions#video_session_config"
+  #routes to payment
+  match 'user_joined' => 'payment#user_joined'
+  match 'user_left' => 'payment#user_left'
+  match 'meeting_begin' => 'payment#meeting_begin'
+  match 'meeting_end' => 'payment#meeting_end'
+  match 'payment_started' => 'payment#payment_started'
+  match 'payment_stopped' => 'payment#payment_stopped'
+  
   post "ipn", :controller => 'paypal_payments', :action => 'create'
-  resources :paypal_payments
+  resources :paypal_payments, :only => [:create]
   
   
 

@@ -1,31 +1,39 @@
-<%= form_for account, :url => user_account_path(:user_id => user), :html => { :class => 'form-horizontal', :multipart => true } do |f| %>
+<%= form_for account, :url => user_account_path(:user_id => user, url_arg => 1), :html => { :class => '', :multipart => true } do |f| %>
 	<%= f.fields_for :prefs, account.prefs do |p| %>
 	
-	<div class="control-group checkbox">
-		<%= p.label :receive_email_on_my_events , :class => 'control-label'%>
+	<div class="control-group">
 		<div class="controls">
-			<%= p.check_box :email_concerning_me %>
-		</div>
-	</div>
-	
-	<div class="control-group checkbox">
-		<%= p.label :receive_email_on_friends_events, :class => 'control-label' %>
-		<div class="controls">
-			<%= p.check_box :email_concerning_other %>
-		</div>
-	</div>
-	
-	<div class="control-group checkbox">
-		<%= p.label :inform_about_friends_activities, :class => 'control-label' %>
-		<div class="controls">
-			<%= p.check_box :inform_of_friends, :class => 'check_box' %>
+			<%= label_tag "inform_of_friends", :class => 'checkbox control-label' do %>
+				<%= p.check_box :inform_of_friends, :class => 'check_box' %>
+				<%= t('get_notifications_contacts_activities', :default => "Get Notifications about Contacts activities") %>
+			<% end %>
 		</div>
 	</div>
 
-	<div class="form-actions">
+	<div class="control-group">
+		<div class="controls">
+			<%= label_tag "email_concerning_other", :class => 'checkbox control-label' do %>
+				<%= p.check_box :email_concerning_other %>
+				<%= t('emails_about_contact_activities', :default => "Get Emails about Contacts activities") %>
+			<% end %>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="controls">
+			<%= label_tag "email_concerning_me", :class => 'checkbox control-label' do %>
+				<%= p.check_box :email_concerning_me %>
+				<%= t('emails_about_me', :default => "Get Emails about me") %>
+			<% end %>
+		</div>
+	</div>
+	
+	<br>
+	<div class="control-group">
 		<%= f.submit nil, :class => 'btn btn-primary' %>
 		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), dashboard_settings_path, :class => 'btn' %>
 	</div>
 	<% end %>
-	
+
 <% end %>
+

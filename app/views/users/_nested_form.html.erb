@@ -14,6 +14,7 @@
 					<% end %>
 				<% else %>
 					<%= account_fields.file_field :portrait %>
+					<p><%= t('Please_add_a_picture_of_yourself,_so_other_users_will_recognize_you') %>
 				<% end %>
 			</div>
 		</div>
@@ -41,7 +42,7 @@
 		<div class="control-group">
 			<%= account_fields.label :about, :class => 'control-label' %>
 			<div class="controls">
-				<%= account_fields.text_field :about, :class => 'text_field', :rows => 7 %>
+				<%= account_fields.text_area :about, :class => 'text_field', :rows => 7 %>
 			</div>
 		</div>
 		

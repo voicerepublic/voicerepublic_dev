@@ -218,6 +218,7 @@ describe VideoRoom do
 
         context "for a stored room" do
           before do
+            
             mocked_api.should_receive(:create_meeting).
               with(room.name, anything, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
@@ -352,20 +353,22 @@ describe VideoRoom do
       end
       
       context "selects only specific servers" do
-        VideoServer.destroy_all
-        first_server = FactoryGirl.create(:video_server) 
-        test_room = FactoryGirl.create(:video_room, video_server_id: first_server.id)
-        second_server = FactoryGirl.create(:deactivated_video_server)
-           
+        
+        before do
+          VideoServer.destroy_all
+          @first_server = FactoryGirl.create(:video_server) 
+          _test_room = FactoryGirl.create(:video_room, video_server_id: @first_server.id)
+          @second_server = FactoryGirl.create(:deactivated_video_server)
+        end
         context "they habe to be activated" do
-          it { room.select_server.id.should == first_server.id }
+          it { room.select_server.id.should == @first_server.id }
         end
     
         context "and have the fewest rooms" do
           before do
-            second_server.update_attribute(:activated, true)
+            @second_server.update_attribute(:activated, true)
           end 
-          it { room.select_server.id.should == second_server.id }
+          it { room.select_server.id.should == @second_server.id }
         end
       end    
     end # #send_create

@@ -1,7 +1,7 @@
 <li class="comment">
   <article>
     <%= link_to comment.user.name, user_path(:id => comment.user), :class => "comment-user-name" %>
-    <%= link_to(image_tag( comment.user.account.portrait.url(:thumb)), user_path(:id => comment.user), :class => 'comment-user-image img-polaroid' ) %>
+    <div class="user-image comment-user-image" data-user-id="<%= comment.user.id %>"><%= link_to(image_tag( comment.user.account.portrait.url(:thumb)), user_path(:id => comment.user), :class => 'img-polaroid' ) %></div>
     <time datetime="<%= comment.created_at.strftime("%Y-%m-%d") %>"><%= time_ago_in_words(comment.created_at) %></time>
     <%= simple_format comment.content %>
   </article>

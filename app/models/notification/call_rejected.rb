@@ -18,10 +18,11 @@ class Notification::CallRejected < Notification::Base
   def generate_push_notification
     begin
       n = KluuuCode::NotificationRenderer.new
+
       if self.anon_id.nil?
-        PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/call_rejected', :locals => { :video_session => self.video_session }))
+        PrivatePub.publish_to("/notifications/#{self.user_id}", n.render('notifications/call_rejected', :locals => { :user => self.other }))
       else
-        PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_rejected', :locals => { :video_session => self.video_session }))
+        PrivatePub.publish_to("/notifications/#{self.anon_id}", n.render('notifications/call_rejected', :locals => { :user => self.other }))
       end
     rescue Exception => e
       self.logger.error("Notification::CallRejected#generate_push_notification - error: #{e.inspect}")

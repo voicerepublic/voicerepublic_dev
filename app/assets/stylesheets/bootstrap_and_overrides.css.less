@@ -91,6 +91,11 @@ img {
 			display: block;
 			width: auto;
 		}
+		label.checkbox{
+			input{
+				width:auto
+			}
+		}
 	}
 	
 	.control-label {
@@ -127,36 +132,7 @@ img {
 			margin-right: 0;
 		}
 	}
-}
-
-.control-group.checkbox {
-	position: relative;
-	padding-left: 20px;
-
-	.control-label {
-		font-size: @baseFontSize;
-		padding-left: 20px;
-	}
-
-	.controls {
-		position: absolute;
-		left: 0;
-		top: 5px;
-
-		input[type="checkbox"] {
-			width: auto;
-			margin-left: 0;
-		}
-	}
-}
-
-.control-group.checkbox.well {
-	.controls {
-		left: 19px;
-		top: 24px;
-	}
-}
-
+}	
 
 /*
  *
@@ -211,7 +187,7 @@ p, blockquote, table, ul, ol {
 }
 
 .lead{
-	margin:0;
+	margin:0 0 5px 0;
 	line-height: @verticalRhythm * 2.5;
 	color:#999
 }

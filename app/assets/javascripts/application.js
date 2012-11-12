@@ -15,9 +15,46 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+
+(function($){
+  var checkUserOnline = {
+    init: function() {
+      var url = "/users/status_for.json";
+
+      var setUserStatus = function(payload) {
+        console.log(payload);
+        $.each(payload, function(i) {
+          $('.user-image[data-user-id=' +  payload[i].id +']').addClass(payload[i].available);
+        });
+      };
+
+      var usersOnSite = $('.user-image'); //JqueryCollection
+      var userIDs = [];
+      $.each(usersOnSite, function(i) {
+        userIDs[i] = $(this).data("user-id");
+      });
+      userIDs = userIDs.join(",");
+      console.log(userIDs);
+      $.ajax({
+        url: url,
+        data: {"ids": userIDs},
+        success:  function(data) {
+          setUserStatus(data);
+        },
+        error: function() { console.log("Connection Error"); }
+      });
+    }
+  };
+  $(function(){
+    checkUserOnline.init();
+  });
+})(jQuery);
+
+
+
 overlay = {
 
-  build: function(innerHTML) {
+  build: function(innerHTML, force) {
 
     var calculateOverlay = function() {
       var windowHeight = $(window).height();
@@ -106,7 +143,7 @@ overlay = {
     
     calculateOverlay();
     overlayBackground.css("background-image", "none");
-    registerClose();
+    if (force !== true) {registerClose()};
   },
 
   close: function(target) {
@@ -120,40 +157,48 @@ overlay = {
 };
 
 function fitText(jquerySelector) {
-  var text = $(jquerySelector);
   var calculateSize = function() {
     var text = $(jquerySelector);
     $.each(text, function(){
       var text = $(this).css({
         lineHeight: 0,
-        fontSize: 0
+        overflow: "hidden"
       });
       var targetHeight = text.height();
       var targetWidth = text.width();
-      //console.log("targetWidth: " + targetWidth)
-      var inner = $("<div />").css({
-        display: "inline-block",
-        lineHeight: 1.5
-      });
-      text.wrapInner(inner);
-      inner = text.find("div");
+      // console.log(text);
+      // console.log("Title " + text.html());
+      // console.log("targetWidth: " + targetWidth);
+      var inner = text.children('span');
+      // console.log(inner + " " + inner.length);
+      if (inner.length === 0 ){
+        inner = $("<span />").css({
+          display: "block",
+          lineHeight: 1.5
+        });
+        text.wrapInner(inner);
+        inner = text.children('span');
+        inner = $(inner[0]);
+        // console.log($(inner) + " " + inner.length);
+      };
       var currentFontSize = parseInt(text.css("font-size"), 10);
-      //console.log(inner.text());
+      // console.log(inner.text());
       while (inner.height() < targetHeight) {
           currentFontSize++;
-          text.css("font-size", currentFontSize + "px");
-          //console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
+          inner.css("font-size", currentFontSize + "px");
       };
-      while (inner.height() > targetHeight || inner.width() > targetWidth) {
+      // console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
+      while (inner.height() > targetHeight ) { //|| inner.width() > targetWidth
         currentFontSize--;
-        text.css("font-size", currentFontSize + "px");
-        //console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
+        inner.css("font-size", currentFontSize + "px");
       };
+      inner.css("word-wrap","break-word");
+      // console.log("font-size: " + text.css("font-size") + " height: " + inner.height() + " width: " + inner.width());
       inner.css("padding-top", (targetHeight - inner.height())/2 + "px");
     });
   };
   calculateSize();
-  setTimeout(calculateSize, 150);
+  setTimeout(calculateSize, 250);
   setTimeout(calculateSize, 500);
   setTimeout(calculateSize, 1000);
 };

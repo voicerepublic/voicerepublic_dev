@@ -6,7 +6,7 @@
 		</h2>
 
 		<div class="landing-page-search text-align-center">	
-				<h2>I want to know more about</h2>
+				<h2>I'd like to talk about</h2>
 				<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
 					<%= search_field_tag 'landin-page-query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span8" %>
 					<%= button_tag :type => 'submit', :class => "landing-page-search-button" do %>
@@ -29,8 +29,10 @@
 			<div class="well well-large clearfix">
 				<h2>Hot Users</h2>
 				<ul class="unstyled">
-				<% User.limit(3).order("created_at DESC").each do |user| %>
+				<% User.potentially_available.limit(5).order("created_at DESC").each do |user| %>
+					<li class="user-small">
 						<%= render(:partial => "users/user_small", :locals => {:user => user}) %>
+					</li>
 				<% end %>
 				</ul>
 			</div>

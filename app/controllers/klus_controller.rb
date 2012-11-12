@@ -31,10 +31,11 @@ class KlusController < ApplicationController
     logger.debug("Klus#new - params: #{params.inspect} - '#{params[:klu_type]}'")
     if params[:klu_type] && ( params[:klu_type] == 'Kluuu' )
       logger.debug("Klus#new - in params scope - creating new Kluuu")
-      @klu = Kluuu.new
+      @klu = Kluuu.new(:published => true)
+      @klu.klu_images.build
     else
       logger.debug("Klus#new  - creating new NoKluuu")
-      @klu = NoKluuu.new
+      @klu = NoKluuu.new(:published => true)
       if params[:query]
         @klu.title = params[:query]
         @klu.tag_list = params[:query].split(' ')
@@ -69,7 +70,7 @@ class KlusController < ApplicationController
 
     respond_to do |format|
       if @klu.save
-        format.html { redirect_to user_klus_url(:user_id => @user), notice: 'Klu was successfully created.' }
+        format.html { redirect_to user_url(:id => @user), notice: 'Klu was successfully created.' }
         format.json { render json: @klu, status: :created, location: @klu }
       else
         flash.now[:error] = @klu.errors.inspect

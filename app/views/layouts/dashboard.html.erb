@@ -23,6 +23,7 @@
 		<% if current_user %>
 			<%= render(:partial => "shared/actionbar") %>
 		<% else %>
+			<body class="layout-logged-out">
 			<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>

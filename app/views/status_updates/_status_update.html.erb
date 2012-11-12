@@ -4,7 +4,7 @@
 			<%= link_to(status_update.user.name, user_path(:id => status_update.user)) %>
 		</div>
 		
-		<%= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'contribution-user-image img-polaroid' ) %>
+		<div class="user-image contribution-user-image" data-user-id="<%= status_update.user.id %>"><%= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'img-polaroid' ) %></div>
 		<time datetime="<%= status_update.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(status_update.created_at) %>
 		</time>

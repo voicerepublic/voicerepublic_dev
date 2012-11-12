@@ -1,5 +1,5 @@
-
-<ul class="nav nav-pills">
+<h2 class="lead"><%= t('dashboard') %></h2>
+<ul class="nav nav-tabs">
 	<li class="<%= current_page?(dashboard_matches_path) ? 'active' : '' %>" >
 		<%= link_to(t('.matches'), dashboard_matches_path )%>
 	</li>

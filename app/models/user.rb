@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
+  MAX_IDLE = 10.minutes
+  SET_BUSY = 20.minutes
+  SET_OFFLINE = 40.minutes
+  
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid, :last_request_at, :available
@@ -29,6 +33,8 @@ class User < ActiveRecord::Base
   
   has_one :account, :dependent => :destroy          # application-account-things
   has_one :balance_account, :dependent => :destroy, :class_name => 'Balance::Account'   # financial things
+  
+  scope :online, where("available = ? OR available = ?", 'online', 'busy')
   
   accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   accepts_nested_attributes_for :account
@@ -73,12 +79,22 @@ class User < ActiveRecord::Base
   end
   
   def availability_status
-    if (last_request_at.nil? || (last_request_at < Time.now - 4.minutes))
-      update_attribute(:available, 'offline') if available == 'online' || available == 'busy'
-      'offline'
+    if (last_request_at.nil? || (last_request_at < Time.now - MAX_IDLE))
+      if available == 'online'
+        update_attribute(:available, 'busy') 
+        return 'busy'
+      end
     else
       available
     end
+  end
+  
+  def is_online?
+    # check_for_last_request - 
+    # if less than 3 minutes ago 
+    # check for online_status
+    # if more than 3 minutes
+    # send js via faye to client
   end
   
   def available?
@@ -106,6 +122,8 @@ class User < ActiveRecord::Base
     Conversation.where("user_1_id=? OR user_2_id=?", self.id, self.id).order("created_at DESC")
   end
   
+  # devise authentication hook
+  #
   def after_database_authentication
     logger.debug("User#after_database_authentication - setting online")
     set_online!
@@ -145,6 +163,29 @@ class User < ActiveRecord::Base
     user
   end
   
+  def self.cleanup_online_states
+    ret = []
+    ret.push User.where(" (available = ? OR available = ?) AND last_request_at < ?", 'online', 'busy', SET_OFFLINE.ago ).each { |u| u.update_attribute(:available, 'offline') }.count
+    ret.push User.where("available = ? AND last_request_at < ?", 'online', SET_BUSY.ago ).each { |u| u.update_attribute(:available, 'busy') }.count
+    ret
+  end
+  
+  def self.potentially_available
+    User.where("( available = ? OR available = ? ) AND last_request_at > ? ", 'busy','online', MAX_IDLE.ago )
+  end
+  
+  def self.online_status_for_ids(ids)
+    Rails.logger.debug("User#online_status_for_ids - ids: #{ids}")
+    User.where("id IN (?)", ids).select([:id,:available])
+  end
+  
+  # FIXME status is always 200 - 
+  # we need a different way to check if user is online
+  #
+  def check_with_push
+    ret = PrivatePub.publish_to("/notifications/#{self.id}", 'check')
+    Rails.logger.debug("User#check_with_push - #{ret}")
+  end
  
   private
  

@@ -47,6 +47,14 @@ FactoryGirl.define do
       user
     end
     
+    factory :notification_missed_call, :class => 'Notification::MissedCall' do
+      type 'Notification::MissedCall'
+      video_session_id 1
+      association :other, factory: :user
+      user
+      association :klu, factory: :published_kluuu
+    end
+    
     factory :notification_new_follower, :class => 'Notification::NewFollower' do
       type 'Notification::NewFollower'
       content 'you have a new follower'

@@ -1,25 +1,38 @@
 class Notification::Base < ActiveRecord::Base
   include ActionView::Helpers::JavaScriptHelper
+  include Rails.application.routes.url_helpers
 
   ALERTS          = %w{ Notification::NewBookmark
-  Notification::NewComment
-  Notification::NewFollower
-  Notification::NewRating
-  Notification::MissedCall }
-  CONTENT_ALERTS  = %w{ Notification::NewKluuu Notification::NewStatus }
+                        Notification::NewComment
+                        Notification::NewFollower
+                        Notification::NewRating
+                        Notification::MissedCall }
+                        
+  CONTENT_ALERTS  = %w{ Notification::NewKluuu 
+                        Notification::NewStatus }
+                        
+  CALL_ALERTS     = %w{ Notification::CallEnded 
+                        Notification::CallAccepted
+                        Notification::CallRejected }
 
+  NEWS            =     [ALERTS,CONTENT_ALERTS].flatten
+  
   attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
 
   scope :unread,          where(:read => false)
   scope :alerts,          :conditions => { :type => ALERTS }, :order => "created_at DESC"
   scope :content_alerts,  :conditions => { :type => CONTENT_ALERTS  }, :order => "created_at DESC"
+  scope :news_alerts,     :conditions => { :type => NEWS  }, :order => "created_at DESC"
+  scope :call_alerts,      :conditions => { :type => CALL_ALERTS  }, :order => "created_at DESC"
 
-  alias_method :reason, :to_s
+  
   def to_s
     self.class.name
   end
 
-  def url_for_notify
+  alias_method :reason, :to_s
+
+  def path_for_notify
     case self.class.name.split("::")[-1]
     when 'NewStatus'
       user_status_updates_url(:user_id => other )
@@ -35,9 +48,17 @@ class Notification::Base < ActiveRecord::Base
       klu_url(:id => klu_id)
     when "NewMessage"
       url
+    when "MissedCall"
+      dashboard_news_url
     end
   end
+  
+  def url_for_notify
+    path_for_notify
+  end
 
+  #alias_method :url_for_notify, :path_for_notify  
+  
   private
 
   def generate_push_notification

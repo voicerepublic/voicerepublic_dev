@@ -17,10 +17,12 @@
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 	</head>
-	<body>
+	
 		<% if current_user %>
+			<body>
 			<%= render(:partial => "shared/actionbar") %>
 		<% else %>
+			<body class="layout-logged-out">
 			<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
@@ -39,6 +41,9 @@
 		<!-- Javascripts
 		================================================== -->
 		<%= javascript_include_tag "application" %>
+
+
+
 		<!-- Placed at the end of the document so the pages load faster -->
 	</body>
 </html>

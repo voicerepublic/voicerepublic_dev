@@ -1,5 +1,5 @@
 <section class="user-information well well-large clearfix">
-	<%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user), :class=> "user-image") %>
+	<div class="user-image" data-user-id="<%= user.id %>"><%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user)) %></div>
 	<div class="user-information-right">
 		<header class="row-fluid">
 			<div class="span7">
@@ -10,71 +10,68 @@
 			</div>
 			<div class="span5">
 				<ul class="user-nav unstyled pull-right">
-					<li class="pull-right">
-						<%= link_to(new_message_path(:receiver_id => user.id), :class => "btn btn-primary btn-small", :remote => true ) do %>
-							<i class="icon-envelope"></i> <%= t('.send_message') %>
-						<% end unless current_user && current_user.id == user.id %>
-					</li>
+					
 					<li class="pull-right">
 						<% if current_user && current_user.id != user.id %>
 							<% if current_user.followed.include?(user) %>
-								<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn btn-small", :method => :delete) %>
+								<%= link_to( user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => user).first), :class => "btn", :method => :delete) do %>
+									<i class="icon-group"> </i>  <%= t('.unfollow') %>
+								<% end %>
 							<% else %>
-								<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn btn-small" )%>
+								<%= link_to( user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post", :class => "btn" ) do %>
+									<i class="icon-group"> </i> <%= t('.follow')%>
+								<% end %>
 							<% end %>
 						<% end %>
 					</li>
+					<li class="pull-right">
+						<%= link_to(new_message_path(:receiver_id => user.id), :class => "btn btn-primary", :remote => true ) do %>
+							<i class="icon-envelope"></i> <%= t('.send_message') %>
+						<% end unless current_user && current_user.id == user.id %>
+					</li>
+					<% if current_user && ( current_user != user ) %>
+					<li class="pull-right">
+						<%= link_to( new_chat_path(:one => user, :two => current_user ), :class => 'btn', :disabled => user.available? ? false : true ) do %>
+							<i class="icon-comments"> </i> <%= t('.chat') %>
+						<% end %>
+					</li>
+					<% end %>
 				</ul>
 			</div>
 		</header>
 		<div class="user-information-more row-fluid">
-			<aside class="user-meta-data span5">
-				<ul class="unstyled user-other-links span8">
-					<li>
-						<%= link_to(user_status_updates_path(:user_id => user)) do %>
-							<i class="icon-comment-alt"></i><%= user.name %> <%= t('.has') %>
-							<%= pluralize( user.status_updates.count, t('status', :default => 'Status') )%>
-						<% end %>
-					</li>
-					<li>
-						<%= link_to(user_bookmarks_path(:user_id => user) ) do %>
-							<i class="icon-bookmark-empty"></i>
-							<%= user.name %> <%= t('.has') %> <%= pluralize(user.bookmarks.count, t('bookmark', :default => 'Bookmark')) %>
-						<% end %>
-					</li>
-					<li>
-						<%= user.name %> <%= t('.has') %> <%= pluralize(user.follower.count, t('follower', :default => 'Follower')) %>
-					</li>
-				</ul>
-				<dl class="no-margin span4">
-					<dt>
-						<%= t(".time_at_location", :user => user.firstname) %>
-					</dt>
-					<dd>
+			<aside class="user-information-more span5">
+				<section class="no-margin user-about">
+					<h4> <%= t(".user_description") %> </h4>
+					<%= simple_format(user.account.about) %>
+				</section>
+				<ul class="no-margin row-fluid user-meta-data">
+					
+					<li class="span6">
+						<strong><%= t(".time_at_location", :user => user.firstname) %></strong> <br>
 						<% ActiveSupport::TimeZone::MAPPING[user.account.timezone] %>
 						<%= l(user.account.time_in_supplied_zone, :format => :micro) %> <!-- FIXME: Ortszeit nur in Uhrzeit ausgeben -->
-					</dd>
-					<dt class="user-languages">
-						<%= t('.languages') %>
-					</dt>
-					<dd>
+					</li>
+					
+					<li class="user-languages span6">
+						<strong><%= t('.languages') %></strong> <br>
 						<ul class="unstyled">
 							<% user.account.languages.each do |lang| %>
 								<li><%= lang  %></li>
 							<% end %>
 						</ul>
-					</dd>
-				</dl>
-				<section class="span12 no-margin">
-					<h4> <%= t(".user_description") %> </h4>
-					<%= simple_format(user.account.about) %>
-				</section>
+					</li>
+					<li class="span6">
+						<strong><%= t('.Follower') %></strong> <br>
+						<%= user.follower.count %>
+					</li>
+				</ul>
 			</aside>
 
 			<article class="status-partial-container status contribution span7">
 				<header>
 					<i class="icon-bullhorn"></i>
-					<h4 class="contribution-name"><%= t('.Status') %></h4>
+					<h4 class="contribution-name"><%= t('.Opinion') %></h4>
 				</header>
 				<% if user.status_updates.empty? %>
 					<%= render(:partial => 'users/no_status_updates', :locals => { :user => user }) %>
