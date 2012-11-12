@@ -47,6 +47,4 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
 end
 
-
-
 %w(admin user).each { |x| Role.create(:name => x)}

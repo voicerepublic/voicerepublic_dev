@@ -1,6 +1,10 @@
+require 'spec_helper'
+
+
 module Payment
   module Calculation
     
+    #TODO: Further DRY of fix price and minute price
     def Calculation.fix_price(video_session)
       #Percents for KluuU
       kluuu_percentage = 19
@@ -23,33 +27,35 @@ module Payment
         #round to full minutes
         payment_duration = (pay_period.to_f / 60).ceil
                   
-        #The publishers charge is the klus charge
-        publisher_charge =  video_session.klu.charge
+        if publisher.pay_tick_counter < 1
+          #The publishers charge is the klus charge
+          publisher_charge =  video_session.klu.charge
+                    
+          #set default exchange rates for all parties
+          #because first balance is consumed and then revenue and the video session may last longer than the credit of the participant
+          real_payment_amount = Calculation.payment_deduction_from_publisher_user_balance_account(publisher_user, publisher_charge)
+          
+          #in case the user doesnt have enough credit to pay the full amount (eg the moderator continued with the meeting even if the participant didnt have money any more)
+          publisher_charge = real_payment_amount
+          #in the Transfers it should be shown as negative
+          publisher_charge = publisher_charge * (-1)
+           
+          #moderator netto income
+          moderator_gain = Calculation.payment_incoming_for_moderator_user_balance_account(moderator_user, real_payment_amount, kluuu_percentage)
+          #moderator gross income
+          moderator_gross = real_payment_amount.exchange_to(moderator_user.balance_account.currency)
+          
+          #kluuu netto income
+          kluuu_gain = Calculation.payment_incoming_for_kluuu_user_balance_account(kluuu_user, real_payment_amount, kluuu_percentage)
+          #kluuu gross income
+          kluuu_gross = real_payment_amount.exchange_to(kluuu_user.balance_account.currency)                    
+        end 
                   
-        #set default exchange rates for all parties
-        #because first balance is consumed and then revenue and the video session may last longer than the credit of the participant
-        real_payment_amount = Calculation.payment_deduction_from_publisher_user_balance_account(publisher_user, publisher_charge)
-        
-        #in case the user doesnt have enough credit to pay the full amount (eg the moderator continued with the meeting even if the participant didnt have money any more)
-        publisher_charge = real_payment_amount
-        #in the Transfers it should be shown as negative
-        publisher_charge = publisher_charge * (-1)
-         
-        #moderator netto income
-        moderator_gain = Calculation.payment_incoming_for_moderator_user_balance_account(moderator_user, real_payment_amount, kluuu_percentage)
-        #moderator gross income
-        moderator_gross = real_payment_amount.exchange_to(moderator_user.balance_account.currency)
-        
-        #kluuu netto income
-        kluuu_gain = Calculation.payment_incoming_for_kluuu_user_balance_account(kluuu_user, real_payment_amount, kluuu_percentage)
-        #kluuu gross income
-        kluuu_gross = real_payment_amount.exchange_to(kluuu_user.balance_account.currency)                    
-                
-        Calculation.create_transfers(video_session,
+        Calculation.create_transfers(video_session, publisher,
                                         publisher_user, moderator_user, kluuu_user, 
                                         publisher_charge, 
                                         moderator_gain, moderator_gross, 
-                                        kluuu_gain, kluuu_gross
+                                        kluuu_gain, kluuu_gross,
                                         payment_duration)
                                             
         ActiveRecord::Base.transaction do
@@ -105,11 +111,11 @@ module Payment
         #kluuu gross income
         kluuu_gross = real_payment_amount.exchange_to(kluuu_user.balance_account.currency)
         
-        Calculation.create_transfers(video_session,
+        Calculation.create_transfers(video_session, publisher,
                                         publisher_user, moderator_user, kluuu_user, 
                                         publisher_charge, 
                                         moderator_gain, moderator_gross, 
-                                        kluuu_gain, kluuu_gross
+                                        kluuu_gain, kluuu_gross,
                                         payment_duration)
                     
         
@@ -120,14 +126,27 @@ module Payment
           raise "moderator cannot be saved" if !moderator_user.save!
           raise "kluuu cannot be saved" if !kluuu_user.save!
         end
+        
+        Rails.logger.info("############################################################################################")
+        Rails.logger.info("New Publisher transfer #{publisher_user.balance_account.transfers.last.inspect}")
+        Rails.logger.info("New Publisher Balance Account Values - Balance: #{publisher_user.balance_account.balance.inspect}, Revenue: #{publisher_user.balance_account.revenue.inspect}")
+        Rails.logger.info("############################################################################################")
+        Rails.logger.info("############################################################################################")
+        Rails.logger.info("New Moderator transfer #{moderator_user.balance_account.transfers.last.inspect}")
+        Rails.logger.info("New Moderator Balance Account Values - Balance: #{moderator_user.balance_account.balance.inspect}, Revenue: #{moderator_user.balance_account.revenue.inspect}")
+        Rails.logger.info("############################################################################################")
+        Rails.logger.info("############################################################################################")
+        Rails.logger.info("New KluuU transfer #{kluuu_user.balance_account.transfers.last.inspect}")
+        Rails.logger.info("New KluuU Balance Account Values - Balance: #{kluuu_user.balance_account.balance.inspect}, Revenue: #{kluuu_user.balance_account.revenue.inspect}")
+        Rails.logger.info("############################################################################################")
       end      
     end
     
-    def Calculation.create_transfers(video_session,
+    def Calculation.create_transfers(video_session, publisher,
                                         publisher_user, moderator_user, kluuu_user, 
                                         publisher_charge, 
                                         moderator_gain, moderator_gross, 
-                                        kluuu_gain, kluuu_gross
+                                        kluuu_gain, kluuu_gross,
                                         payment_duration)
                                         
       existing_transfer = publisher_user.balance_account.transfers.find_by_video_session_id(video_session.id)
@@ -136,21 +155,12 @@ module Payment
         
         #PUBLISHER-Konto Transaktion
         publisher_user.balance_account.transfers << Transfer.create!(:video_session_klu_name => video_session.klu.title, :video_session_id => video_session.id, :duration => payment_duration, :video_session_charge => video_session.klu.charge, :transfer_gross => publisher_charge, :transfer_charge => publisher_charge, :exchange_rate => Calculation.get_custom_exchange_rate(publisher_charge.currency.iso_code, publisher_user.balance_account.currency))
-        logger.info("############################################################################################")
-        logger.info("New Publisher transfer #{publisher_user.balance_account.transfers.latest.inspect}")
-        logger.info("############################################################################################")
                                               
         #MODERATOR-Konto Transaktion
         moderator_user.balance_account.transfers << Transfer.create!(:video_session_klu_name => video_session.klu.title, :video_session_id => video_session.id, :duration => payment_duration, :video_session_charge => video_session.klu.charge, :transfer_gross => moderator_gross, :transfer_charge => moderator_gain, :exchange_rate => Calculation.get_custom_exchange_rate(publisher_charge.currency.iso_code, moderator_user.balance_account.currency))
-        logger.info("############################################################################################")
-        logger.info("New Moderator transfer #{moderator_user.balance_account.transfers.latest.inspect}")
-        logger.info("############################################################################################")
         
         #KLUUU-Konto Transaktion
         kluuu_user.balance_account.transfers << Transfer.create(:video_session_klu_name => video_session.klu.title, :video_session_id => video_session.id, :duration => payment_duration, :video_session_charge => video_session.klu.charge, :transfer_gross => kluuu_gross, :transfer_charge => kluuu_gain, :exchange_rate => Calculation.get_custom_exchange_rate(publisher_charge.currency.iso_code, kluuu_user.balance_account.currency))
-        logger.info("############################################################################################")
-        logger.info("New KluuU transfer #{kluuu_user.balance_account.transfers.latest.inspect}")
-        logger.info("############################################################################################")
                       
       else
         
@@ -158,9 +168,6 @@ module Payment
           payment_duration += existing_transfer.duration
           publisher_charge = publisher_charge + existing_transfer.transfer_charge
           existing_transfer.update_attributes(:duration => payment_duration, :transfer_gross => publisher_charge * (-1), :transfer_charge => publisher_charge)
-          logger.info("############################################################################################")
-          logger.info("Publisher transfer updated #{existing_transfer.inspect}")
-          logger.info("############################################################################################")
                           
           #MODERATOR-Konto Transaktion
           existing_moderator_transfer = moderator_user.balance_account.transfers.find_by_video_session_id(video_session.id)
@@ -168,9 +175,6 @@ module Payment
           moderator_gain = moderator_gain + existing_moderator_transfer.transfer_charge
           moderator_gross = moderator_gross + existing_moderator_transfer.transfer_gross
           existing_moderator_transfer.update_attributes(:duration => payment_duration, :transfer_gross => moderator_gross, :transfer_charge => moderator_gain)
-          logger.info("############################################################################################")
-          logger.info("Moderator transfer updated #{existing_moderator_transfer.inspect}")
-          logger.info("############################################################################################")
           
           #KLUUU-Konto Transaktion
           existing_kluuu_transfer = kluuu_user.balance_account.transfers.find_by_sezzion_id(sezzion.id)
@@ -178,29 +182,20 @@ module Payment
           kluuu_gain = kluuu_gain + existing_kluuu_transfer.transfer_charge
           kluuu_gross = kluuu_gross + existing_kluuu_transfer.transfer_gross
           existing_kluuu_transfer.update_attributes(:duration => payment_duration, :transfer_gross => kluuu_gross, :transfer_charge => kluuu_gain)
-          logger.info("############################################################################################")
-          logger.info("KluuU transfer updated #{existing_kluuu_transfer.inspect}")
-          logger.info("############################################################################################")
+          
         else
+        
           payment_duration += existing_transfer.duration
           existing_transfer.update_attribute(:duration, payment_duration)
-          logger.info("############################################################################################")
-          logger.info("Publisher transfer updated #{existing_transfer.inspect}")
-          logger.info("############################################################################################")
                         
           existing_moderator_transfer = moderator_user.balance_account.transfers.find_by_video_session_id(video_session.id)
           payment_duration += existing_moderator_transfer.duration
           existing_moderator_transfer.update_attribute(:duration, payment_duration)
-          logger.info("############################################################################################")
-          logger.info("Moderator transfer updated #{existing_moderator_transfer.inspect}")
-          logger.info("############################################################################################")
                         
           existing_kluuu_transfer = kluuu_user.balance_account.transfers.find_by_video_session_id(video_session.id)
           payment_duration += existing_kluuu_transfer.duration
           existing_kluuu_transfer.update_attribute(:duration, payment_duration)
-          logger.info("############################################################################################")
-          logger.info("KluuU transfer updated #{existing_kluuu_transfer.inspect}")
-          logger.info("############################################################################################")
+        
         end                
       
       end
@@ -249,24 +244,25 @@ module Payment
       #Wieviel Zeit war der Nutzer dann insgesamt bereits mit dem Moderator zusammen online?
       publisher.seconds_online += timespan_with_moderator
      
-      logger.info("############################################################################################")
-      logger.info("########################### Spitting out some time variables ###############################")
-      logger.info("###### moderator.entered_sezzion_timestamp - #{moderator.entered_timestamp.inspect} #################")
-      logger.info("###### moderator_end_timestamp - #{moderator_end_timestamp.inspect} #################")
-      logger.info("###### participant.entered_sezzion_timestamp - #{publisher.entered_timestamp} #################")
-      logger.info("###### participant.left_sezzion_timestamp - #{publisher.left_timestamp} #################")
-      logger.info("###### participant.payment_started_timestamp - #{publisher.payment_started_timestamp} #################")
-      logger.info("###### participant.payment_stopped_timestamp - #{publisher.payment_stopped_timestamp} #################")
-      logger.info("###### publisher_timespan - #{publisher_timespan} ############################")
-      logger.info("###### timespan_with_moderator - #{timespan_with_moderator} #################")
-      logger.info("###### participant.time_to_pay - #{free_time} ############################")
-      logger.info("###### participant.pay_period - #{pay_period} #################")
-      logger.info("###### participant.pay tick counter - #{publisher.pay_tick_counter} ############################")
-      logger.info("###### participant.time_online - #{publisher.time_online} ############################")
-      logger.info("############################################################################################")
+      Rails.logger.info("############################################################################################")
+      Rails.logger.info("########################### Spitting out some time variables ###############################")
+      Rails.logger.info("###### moderator.entered_sezzion_timestamp - #{moderator.entered_timestamp.inspect} #################")
+      Rails.logger.info("###### moderator_end_timestamp - #{moderator_end_timestamp.inspect} #################")
+      Rails.logger.info("###### participant.entered_sezzion_timestamp - #{publisher.entered_timestamp} #################")
+      Rails.logger.info("###### participant.left_sezzion_timestamp - #{publisher.left_timestamp} #################")
+      Rails.logger.info("###### participant.payment_started_timestamp - #{publisher.payment_started_timestamp} #################")
+      Rails.logger.info("###### participant.payment_stopped_timestamp - #{publisher.payment_stopped_timestamp} #################")
+      Rails.logger.info("###### publisher_timespan - #{publisher_timespan} ############################")
+      Rails.logger.info("###### timespan_with_moderator - #{timespan_with_moderator} #################")
+      Rails.logger.info("###### participant.time_to_pay - #{free_time} ############################")
+      Rails.logger.info("###### participant.pay_period - #{pay_period} #################")
+      Rails.logger.info("###### participant.pay tick counter - #{publisher.pay_tick_counter} ############################")
+      Rails.logger.info("###### participant.time_online - #{publisher.seconds_online} ############################")
+      Rails.logger.info("############################################################################################")
      
       #IMPORTANT: reset payment_started_timestamp as indicator for a new payment period
       publisher.payment_started_timestamp = nil
+      publisher.payment_stopped_timestamp = nil
      
       #return the amount of seconds that have to be paid       
       return pay_period 
@@ -304,15 +300,15 @@ module Payment
       end
     end
     
-    Calculation.payment_deduction_from_publisher_user_balance_account(user, charge)
+    def Calculation.payment_deduction_from_publisher_user_balance_account(user, charge)
     
-      #if the Klu has a different currency as the publisher then convert the charge to this currency         
+      #if the Klu has a different currency as the publisher then convert the charge to this currency
       charge = charge.exchange_to(user.balance_account.currency)  
       
       balance = user.balance_account.balance
       revenue = user.balance_account.revenue
    
-      payment_amount = Money.new(0,user.balance_account.currency)
+      payment = Money.new(0,user.balance_account.currency)
       
       #if charge is smaller than than the users whole credit
       if ((charge <=> (balance + revenue)) < 0)
@@ -341,7 +337,7 @@ module Payment
           
           user.balance_account.balance = balance
           
-          payment = tmp_charge
+          payment = charge
           
           return payment          
         end
@@ -358,21 +354,19 @@ module Payment
       end
     end
     
-    Calculation.payment_incoming_for_kluuu_user_balance_account(user, charge, kluuu_percentage)
+    def Calculation.payment_incoming_for_kluuu_user_balance_account(user, charge, kluuu_percentage)
       
-      #Kluuu only offers Kluus in his own currency
       charge = charge.exchange_to(user.balance_account.currency)
-      
+     
       incoming_payment = charge * kluuu_percentage/100
-      
+     
       user.balance_account.revenue = user.balance_account.revenue + incoming_payment
       
       return incoming_payment
     end
     
-    Calculation.payment_incoming_for_moderator_user_balance_account(user, charge, kluuu_percentage)
+    def Calculation.payment_incoming_for_moderator_user_balance_account(user, charge, kluuu_percentage)
       
-      #Moderator only offers Kluus in his own currency
       charge = charge.exchange_to(user.balance_account.currency)
       
       incoming_payment = charge - (charge * kluuu_percentage/100)
@@ -382,7 +376,7 @@ module Payment
       return incoming_payment
     end
     
-    Calculation.get_custom_exchange_rate(from_currency, to_currency)
+    def Calculation.get_custom_exchange_rate(from_currency, to_currency)
       custom_rate = Money.default_bank.get_rate(from_currency, to_currency)
       
       #if there was no direct conversion possible
@@ -392,10 +386,10 @@ module Payment
         custom_rate = to_base_rate / from_base_rate
       end
       
-      logger.info("############################################################################################")
-      logger.info("########################### exchange rate  ###############################")
-      logger.info("###### Rate after conversion - #{custom_rate.inspect} #################")
-      logger.info("############################################################################################")
+      Rails.logger.info("############################################################################################")
+      Rails.logger.info("########################### exchange rate  ###############################")
+      Rails.logger.info("###### Rate after conversion - #{custom_rate.inspect} #################")
+      Rails.logger.info("############################################################################################")
       
       return custom_rate
     end

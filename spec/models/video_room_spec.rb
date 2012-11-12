@@ -360,7 +360,7 @@ describe VideoRoom do
           _test_room = FactoryGirl.create(:video_room, video_server_id: @first_server.id)
           @second_server = FactoryGirl.create(:deactivated_video_server)
         end
-        context "they habe to be activated" do
+        context "they have to be activated" do
           it { room.select_server.id.should == @first_server.id }
         end
     

@@ -3,7 +3,7 @@ class Transfer < ActiveRecord::Base
   belongs_to :account, :class_name => 'Balance::Account'
   belongs_to :video_session, :class_name => 'VideoSession'
   
-  attr_accessible :account_id, :duration, :exchange_rate, :transfer_charge_cents, :transfer_charge_currency, :transfer_gross_cents, :transfer_gross_currency, :video_session_charge_cents, :video_session_charge_currency, :video_session_id, :video_session_klu_name
+  attr_accessible :account_id, :duration, :exchange_rate, :transfer_gross, :transfer_charge, :video_session_charge, :transfer_charge_cents, :transfer_charge_currency, :transfer_gross_cents, :transfer_gross_currency, :video_session_charge_cents, :video_session_charge_currency, :video_session_id, :video_session_klu_name
   
   validates_presence_of :video_session_id, :video_session_charge_cents, :transfer_charge_cents, :transfer_gross_cents, :duration, :transfer_charge_currency, :transfer_gross_currency, :video_session_charge_currency, :exchange_rate, :video_session_klu_name
   

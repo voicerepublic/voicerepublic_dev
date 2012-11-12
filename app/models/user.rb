@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   has_many :followed, :through => :followed_relations#, :source => :follower 
   
   has_one :account, :dependent => :destroy          # application-account-things
-  has_one :balance_account, :dependent => :destroy, :class_name => 'Balance::Account'   # financial things
+  has_one :balance_account, :dependent => :destroy, :autosave => true, :class_name => 'Balance::Account'   # financial things
   
   scope :online, where("available = ? OR available = ?", 'online', 'busy')
   
