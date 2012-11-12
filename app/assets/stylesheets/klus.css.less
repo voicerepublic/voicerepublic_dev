@@ -288,9 +288,7 @@
 				line-height: 56px;
 				text-align: center;
 				border: 1px solid rgba(0,0,0,0.2);
-				margin-right: 4px;
 				font-size: 0;
-				background-color: rgba(0,0,0,0.7);
 
 				img {
 					font-size: 0;
@@ -311,22 +309,19 @@
 				}
 			}
 
-			li:first-child {
+			li.klu-eyecatcher {
 				float: none;
-				// width: 820px;
 				width: auto;
 				position: relative;
-				// height: 615px;
 				height: auto;
-				// line-height: 615px;
 				text-align: center;
-				margin-bottom: 15px;
 			}
 
 			img {
 				font-size: 0;
 				vertical-align: middle;
 				max-height: 100%;
+				display: block;
 			}
 
 			.klu-image-caption {
@@ -340,6 +335,19 @@
 				font-size: @baseFontSize - 3;
 				padding: 4px 10px;
 				text-align: left;
+			}
+
+			&.jqueryfied {
+				position: relative;
+				overflow: hidden;
+				cursor: pointer;
+
+				.klu-eyecatcher {
+					position: absolute;
+					top: 0;
+					width: 100%;
+					height: 100%;
+				}
 			}
 		}
 
