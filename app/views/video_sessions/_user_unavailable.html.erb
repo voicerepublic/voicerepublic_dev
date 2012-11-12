@@ -1,5 +1,20 @@
-User unavailable at the moment.....do you want to send a message?
+<div class="row-fluid">
+	<div class="span12">
+		<h3>
+			<%= t('unavailable_title', :default => "Video Call") %>
+		</h3>
+		
+		<p>	
+			<%= raw t('unavailable_text', :default => 'Dieser User ist zurzeit nicht erreichbar. <br>Hier kannst du ihm eine Nachricht schreiben.') %>
+		</p>
 
-<%= button_to t('.send_message', :default => 'send message'), new_message_path(:receiver_id => receiver_id), :method => :get, :class => 'btn', :remote => true %>
-or
-<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay' %>
+		<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay', :class => "btn pull-right" %>
+		
+		<form class="button_to" method="get" data-remote="true" action="/en/messages/2/new">
+			<%= button_tag new_message_path(:receiver_id => receiver_id), :method => :get, :class => 'btn btn-success pull-right', :remote => true,	:style => "margin-right:5px" do %>
+				<%= t('.send_message', :default => 'Nachricht') %>
+			<% end %>
+		</form>
+			
+	</div>
+</div>

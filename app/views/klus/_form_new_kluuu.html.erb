@@ -24,7 +24,9 @@
 
 <div class="row-fluid">
 	<div class="control-group span8 well">
-		<%= f.label :title, :class => 'control-label' %>
+		<%= label_tag "klu_title", :class => 'control-label' do %>
+			<%= t('title', :default => "Titel") %>
+		<% end %>
 		<div class="controls">
 			<%= f.text_field :title, :class => 'text_field klu-title' %>
 		</div>
@@ -36,7 +38,9 @@
 
 <div class="row-fluid">
 	<div class="control-group well span8">
-		<%= f.label :description, :class => 'control-label' %>
+		<%= label_tag "klu_description", :class => 'control-label' do %>
+			<%= t('description', :default => "Beschreibung") %>
+		<% end %>
 		<div class="controls">
 			<%= f.text_area :description, :class => 'text_area', :rows => 10 %>
 		</div>
@@ -50,14 +54,18 @@
 	<div class="span8 well">
 		<div class="row-fluid">
 			<div class="control-group span8">
-				<%= f.label :tag_list, :class => "control-label"%>
+				<%= label_tag "klu_tag_list", :class => 'control-label' do %>
+					<%= t('tag_list', :default => "Tag Liste") %>
+				<% end %>
 				<div class="controls">
 					<%= f.text_field :tag_list, :class => 'text_field' %>
 				</div>
 			</div>
 
 			<div class="control-group span3 pull-right">
-				<%= f.label :category_id, :class => 'control-label' %>
+				<%= label_tag "klu_category_id", :class => 'control-label' do %>
+					<%= t('category', :default => "Kategorie") %>
+				<% end %>
 				<div class="controls">
 					<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
 				</div>
@@ -69,7 +77,7 @@
 	</div>
 </div>
 
-<h4><%= t('.Image') %></h4>
+<h4><%= t('.Image', :default => "Bild") %></h4>
 <div class="row-fluid">
 	<div class="span8 well">
 		<%= f.fields_for :klu_images do |p| %>
@@ -81,10 +89,12 @@
 	</div>
 </div>
 
-<h4><%= t(".call_options") %></h4>
+<h4><%= t(".call_options", :default => "Video Call Einstellungen") %></h4>
 <div class="row-fluid">
 	<div class="control-group well span8">
-		<%= f.label :available_at_times, :class => 'control-label' %>
+		<%= label_tag "klu_available_at_times", :class => 'control-label' do %>
+			<%= t('available_at_times', :default => "Wann bist du Online? (z.B. Mo - Fr, 9.00 - 17.00)") %>
+		<% end %>
 		<div class="controls">
 			<%= f.text_field :available_at_times, :class => 'text_field'%>
 		</div>
@@ -96,13 +106,17 @@
 <div class="row-fluid">
 	<div class="well row-fluid span8">
 		<div class="control-group span3">
-			<%= f.label :charge_type, :class => 'control-label'%>
+			<%= label_tag "klu_charge_type", :class => 'control-label' do %>
+				<%= t('charge_type', :default => "Preis") %>
+			<% end %>
 			<div class="controls">
 				<%= f.select(:charge_type, Kluuu::CHARGE_TYPES, { :selected => @klu.charge_type} ) %>
 			</div>
 		</div>
 		<div class="control-group span3">
-			<%= f.label :charge_amount, :class => 'control-label'%>
+			<%= label_tag "klu_charge_amount", :class => 'control-label' do %>
+				<%= t('charge_amount', :default => "Betrag") %>
+			<% end %>
 			<div class="controls">
 				<%= f.number_field(:charge_amount )%>
 			</div>
