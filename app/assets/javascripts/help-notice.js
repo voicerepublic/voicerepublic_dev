@@ -4,45 +4,47 @@
 
 (function($){
 
-	var help_notices = {};
+	var helpNotices = {};
 
-	help_notices.init = function(){
+  helpNotices.build = function() {
+    helpNotices.onPage = $('.help-text');
 
-		var $notice = $(".help-text-overlay");
+    function closeBox() {
+      var closeIt = $('<div />').addClass('alert alert-info').html('<a href="#">Hilfe schließen</a>');
+      closeIt.appendTo('#flash_messages');
+      closeIt.children('a').on('click', function(e){
+        e.preventDefault();
+        helpNotices.onPage.fadeOut('fast', function() {
+          helpNotices.onPage.remove();
+        });
+        closeIt.fadeOut('fast', function() {
+          closeIt.remove();
+        });
+      });
+    }
 
-		var register_close = function(){
-			$notice.find(".help-text-overlay, .close-icon").on("click", function(){
-				$notice.fadeOut();
-			});
-		};
+    var parent;
+    $.each(helpNotices.onPage, function() {
+      parent = $(this).parent();
+      if (parent.css("position") === "static") {
+        parent.css("position", "relative");
+      }
+    });
+    closeBox();
+  };
 
-		register_close();
+  helpNotices.init = function() {
+    helpNotices.onPage = $('.help-text');
+    if (helpNotices.onPage.length > 0){
+      helpNotices.build();
+    }
+  };
 
-		var set_cookie = function (c_name,value){
-			document.cookie=c_name + "=" + value;
-		};
-
-		var getCookie = function (c_name){
-
-			var i,x,y,ARRcookies=document.cookie.split(";");
-			for (i=0;i<ARRcookies.length;i++)
-			{
-			  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-			  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-			  x=x.replace(/^\s+|\s+$/g,"");
-			  if (x==c_name)
-			    {
-			    return unescape(y);
-			    }
-			  }
-			};
-		
-		};
-
-
+	
 
 	// document.ready
 	$(function(){
-		help_notices.init();
+
+		helpNotices.init();
 	});
 })(jQuery);

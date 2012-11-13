@@ -459,9 +459,12 @@
 		}
 
 		.klu-bookmark-link {
-			top: 26px;
-			left: 0;
-			font-size: 150%;
+			top: 23px;
+			left: -6px;
+			
+			i {
+				font-size: 40px;
+			}
 		}
 	} /* End of klu-top-bar */
 
@@ -533,18 +536,26 @@
 	margin-top: @verticalRhythm;
 }
 
-/*hack*/
-form#new_klu{
-	max-width:800px !important;
-	margin:auto
-}
+
 
 .klu-new {
 	.klu-new-help {
-		margin-top: 63px;
+		margin-top: @verticalRhythm;
+		display: inline-block;
+		background: lighten(@brandColorGrey, 15%);
+		color: @white;
+		padding: @verticalRhythm/4 @verticalRhythm;
+		border-radius: 5px;
 	}
-	.checkbox + .klu-new-help {
-		margin-top: 35px;
+	.well {
+		margin: @verticalRhythm 0;
+	}
+}
+
+.klu-form {
+	.klu-title {
+		height: auto;
+		text-align: left;
 	}
 }
 
