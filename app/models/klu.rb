@@ -1,7 +1,7 @@
 class Klu < ActiveRecord::Base
   
-  attr_accessible :available_at_times, :category_id, :description, :published, :title, :type, :user_id, :charge_type, :charge_amount, :tag_list, :uses_status
-  attr_accessible :charge_type, :charge_amount, :currency
+  attr_accessible :available_at_times, :category_id, :description, :published, :title, :type, :user_id, :tag_list, :uses_status
+  attr_accessible :charge_type, :charge_cents, :currency
   
   
   acts_as_taggable
@@ -43,7 +43,7 @@ class Klu < ActiveRecord::Base
     has category_id, :type => :integer
     has user_id, :type => :integer
     has charge_type
-    has charge_amount, :type => :integer
+    has charge_cents, :type => :integer
     has updated_at
     has created_at
     #has tags(:id), :as => :tag_ids

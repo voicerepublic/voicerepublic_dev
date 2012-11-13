@@ -116,8 +116,8 @@ module VideoSystemApi
     #   }
     #
     def create_meeting(meeting_name, meeting_id, welcome_message = nil, 
-                       tt = nil, ttp = nil, charge_amount = nil, currency = nil, 
-                       dial_number = nil, logout_url = 'http://www.kluuu.com',
+                       tt = nil, ttp = nil, charge_cents = nil, currency = nil, 
+                       dial_number = nil, logout_url = '#',
                        max_participants = 2, voice_bridge = 72879,
                        moderator_password = nil, attendee_password = nil)
 
@@ -126,7 +126,7 @@ module VideoSystemApi
                  :welcome => welcome_message, :dialNumber => dial_number,
                  :logoutURL => logout_url, :maxParticpants => max_participants,
                  :voiceBridge => voice_bridge, :kluuuIp => @ip, :kluuuPort => @port, 
-                 :tt => tt, :ttp => ttp, :charge => charge_amount, :currency => currency }
+                 :tt => tt, :ttp => ttp, :charge => charge_cents, :currency => currency }
 
       response = send_api_request(:create, params)
 

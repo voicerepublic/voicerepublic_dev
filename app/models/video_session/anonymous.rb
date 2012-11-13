@@ -6,7 +6,7 @@ class VideoSession::Anonymous < VideoSession::Base
   before_create :prepare_one_on_one_video_session
   after_create :create_incoming_call_notification
   
-  before_update :prepare_room_for_video_session
+  before_update :prepare_room_for_video_session, :if => Proc.new {|s| s.begin_timestamp.nil? }
   
   before_destroy :create_call_canceled_notification
   

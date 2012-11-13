@@ -22,6 +22,13 @@ module KluuuCode
       end
     end
     
-  end
+    def Helper.centisize(amount)
+      return (amount.to_f * 100).round
+    end
   
+    def Helper.dollarize(amount)
+      return (amount.to_f / 100).round(2)
+    end
+    
+  end
 end

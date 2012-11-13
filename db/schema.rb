@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109114220) do
+ActiveRecord::Schema.define(:version => 20121113132505) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -137,10 +137,10 @@ ActiveRecord::Schema.define(:version => 20121109114220) do
     t.string   "type"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.integer  "charge_amount",      :default => 0
     t.string   "charge_type",        :default => "free"
     t.string   "currency"
     t.boolean  "uses_status",        :default => true
+    t.integer  "charge_cents",       :default => 0
   end
 
   add_index "klus", ["charge_type"], :name => "index_klus_on_charge_type"

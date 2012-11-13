@@ -223,7 +223,7 @@ describe VideoRoom do
               with(room.name, anything, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
-                   dollarize(room.video_session.klu.charge_amount), 
+                   dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).and_return(hash_create)
             room.stub(:select_server).and_return(mocked_server)
             room.video_server = mocked_server
@@ -242,7 +242,7 @@ describe VideoRoom do
               with(new_room.name, anything, new_room.welcome_msg, 
                    new_room.video_session.klu.get_charge_type_as_integer, 
                    new_room.video_session.klu.free_time,
-                   dollarize(new_room.video_session.klu.charge_amount), 
+                   dollarize(new_room.video_session.klu.charge_cents), 
                    new_room.video_session.klu.currency).and_return(hash_create)
             new_room.stub(:select_server).and_return(mocked_server)
             new_room.video_server = mocked_server
@@ -270,7 +270,7 @@ describe VideoRoom do
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
-                   dollarize(room.video_session.klu.charge_amount), 
+                   dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency)
           room.send_create
         end
@@ -282,13 +282,13 @@ describe VideoRoom do
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
-                   dollarize(room.video_session.klu.charge_amount), 
+                   dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).twice.and_return(fail_hash)
           mocked_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
-                   dollarize(room.video_session.klu.charge_amount), 
+                   dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).once.and_return(success_hash)
           room.send_create
         end
@@ -300,13 +300,13 @@ describe VideoRoom do
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
-                   dollarize(room.video_session.klu.charge_amount), 
+                   dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).once.and_return(error_hash)
           mocked_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
-                   dollarize(room.video_session.klu.charge_amount), 
+                   dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).once.and_return(success_hash)
           room.send_create
         end
@@ -317,7 +317,7 @@ describe VideoRoom do
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
-                   dollarize(room.video_session.klu.charge_amount), 
+                   dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).exactly(3).times.and_return(fail_hash)
           room.send_create
         end

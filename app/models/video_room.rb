@@ -185,14 +185,6 @@ class VideoRoom < ActiveRecord::Base
 
 private
   
-  def centisize(amount)
-    return (amount.to_f * 100).round
-  end
-  
-  def dollarize(amount)
-    return (amount.to_f / 100).round(2)
-  end
-
   def random_video_system_room_id
     SecureRandom.hex(16)
   end
@@ -232,7 +224,7 @@ private
     self.video_server.api.create_meeting(self.name, self.video_system_room_id, msg, 
                                          self.video_session.klu.get_charge_type_as_integer, 
                                          self.video_session.klu.free_time,
-                                         dollarize(self.video_session.klu.charge_amount), 
+                                         KluuuCode::Helper.dollarize(self.video_session.klu.charge_cents), 
                                          self.video_session.klu.currency)
   end
 

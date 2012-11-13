@@ -1,6 +1,3 @@
-require 'spec_helper'
-
-
 module Payment
   module Calculation
     
@@ -60,11 +57,13 @@ module Payment
                                             
         ActiveRecord::Base.transaction do
           raise "participant user cannot be saved" if !publisher_user.save!
-          raise "participant cannot be saved" if !publisher.save!
           raise "moderator user cannot be saved" if !moderator_user.save!
           raise "kluuu user cannot be saved" if !kluuu_user.save!
         end
       end
+      
+      raise "participant cannot be saved" if !publisher.save!
+          
     end  
     
     def Calculation.minute_price(video_session)
@@ -122,9 +121,8 @@ module Payment
                     
         ActiveRecord::Base.transaction do
           raise "participant user cannot be saved" if !publisher_user.save!
-          raise "participant cannot be saved" if !publisher.save!
-          raise "moderator cannot be saved" if !moderator_user.save!
-          raise "kluuu cannot be saved" if !kluuu_user.save!
+          raise "moderator user cannot be saved" if !moderator_user.save!
+          raise "kluuu user cannot be saved" if !kluuu_user.save!
         end
         
         Rails.logger.info("############################################################################################")
@@ -139,7 +137,10 @@ module Payment
         Rails.logger.info("New KluuU transfer #{kluuu_user.balance_account.transfers.last.inspect}")
         Rails.logger.info("New KluuU Balance Account Values - Balance: #{kluuu_user.balance_account.balance.inspect}, Revenue: #{kluuu_user.balance_account.revenue.inspect}")
         Rails.logger.info("############################################################################################")
-      end      
+      end 
+           
+      raise "participant cannot be saved" if !publisher.save!
+          
     end
     
     def Calculation.create_transfers(video_session, publisher,
@@ -177,8 +178,8 @@ module Payment
           existing_moderator_transfer.update_attributes(:duration => payment_duration, :transfer_gross => moderator_gross, :transfer_charge => moderator_gain)
           
           #KLUUU-Konto Transaktion
-          existing_kluuu_transfer = kluuu_user.balance_account.transfers.find_by_sezzion_id(sezzion.id)
-          transfer_duration += existing_kluuu_transfer.duration
+          existing_kluuu_transfer = kluuu_user.balance_account.transfers.find_by_video_session_id(video_session.id)
+          payment_duration += existing_kluuu_transfer.duration
           kluuu_gain = kluuu_gain + existing_kluuu_transfer.transfer_charge
           kluuu_gross = kluuu_gross + existing_kluuu_transfer.transfer_gross
           existing_kluuu_transfer.update_attributes(:duration => payment_duration, :transfer_gross => kluuu_gross, :transfer_charge => kluuu_gain)
@@ -284,7 +285,7 @@ module Payment
       #notwendig für set_on_hold da sonst die reste der minutenabrechnung verloren gehen
       elsif (publisher.pay_tick_counter > 0)
         #dann hole ich mir die bereits vorgenommenen transfers
-        transfers = publisher.user.balance_account.transfers.find_by_video_session_id(video_session.id)
+        transfer = publisher.user.balance_account.transfers.find_by_video_session_id(video_session.id)
         #die zeit die bei der letzten bezahlung noch übrig war 
         time_paid_overhead = (publisher.seconds_online.seconds - video_session.klu.free_time.minutes - transfer.duration.minutes) * (-1)
         #if time paid equals exactly time 

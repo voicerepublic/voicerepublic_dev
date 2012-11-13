@@ -89,7 +89,8 @@ xml.config{
 		      
       	xml.module(:name => "PaymentModule", :url => "/kluuu/bbb/PaymentModule.swf?v=0003", 
 			:credit => @credit,
-			:ttp => @time_to_pay)
+			:ttp => @time_to_pay,
+			:start => "true")
 					
 	}
 	

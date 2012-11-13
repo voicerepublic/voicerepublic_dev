@@ -59,13 +59,13 @@ def general_test
   
                        #Accepted by the API
                        #meeting_name, meeting_id, welcome_message = nil, 
-                       #tt = nil, ttp = nil, charge_amount = nil, currency = nil, 
+                       #tt = nil, ttp = nil, charge_cents = nil, currency = nil, 
                        #dial_number = nil, logout_url = 'http://www.kluuu.com',
                        #max_participants = 2, voice_bridge = 72879,
                        #moderator_password = nil, attendee_password = nil
                        
   @api.create_meeting(@config['meeting_name'], @config['meeting_id'], 'Hi, KluuU Folks', 
-                      @config['tt'], @config['ttp'], @config['charge_amount'], @config['currency'], 
+                      @config['tt'], @config['ttp'], @config['charge_cents'], @config['currency'], 
                       '0815', 'http://www.ficken.de', 
                       2, 24325, @config['moderator_password'], @config['attendee_password'])
   

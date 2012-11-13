@@ -114,11 +114,11 @@
 			</div>
 		</div>
 		<div class="control-group span3">
-			<%= label_tag "klu_charge_amount", :class => 'control-label' do %>
-				<%= t('charge_amount', :default => "Betrag") %>
+			<%= label_tag "klu_charge_cents", :class => 'control-label' do %>
+				<%= t('charge_cents', :default => "Betrag") %>
 			<% end %>
 			<div class="controls">
-				<%= f.number_field(:charge_amount )%>
+				<%= f.number_field(:charge_cents )%>
 			</div>
 		</div>
 	</div>
