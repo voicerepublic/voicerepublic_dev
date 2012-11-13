@@ -28,8 +28,9 @@
 				<% end unless @matching_klus.nil? %>
 			</div>
 		</div>
-		<%= render(:partial => "inline_help/dashboard_matches_matches") %>
-		<%= render( :partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) %>
 	</div>
-	<%= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user}) %>
 </div>
+
+	<%= render(:partial => "inline_help/dashboard_matches_matches") %>
+	<%= render( :partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) %>	
+	<%= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user}) %>	

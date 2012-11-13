@@ -117,6 +117,7 @@ body.layout-logged-out{
 .alert{
   display: inline;
   position: relative;
+  z-index:101;
   .close{
     position:absolute;
     right:10px;
@@ -170,7 +171,9 @@ body.layout-logged-out{
 
 /* HELP TEXT OVERLAY */
 .help-text {
-  background: none repeat scroll 0 0 rgba(225, 214, 252, 0.97);
+  background:rgb(225, 214, 252);
+  /*background: none repeat scroll 0 0 rgba(225, 214, 252, 0.97);*/
+  background:rgba(255, 232, 123, 0.94);
   border: rgba(241, 242, 254, 1);
   border-radius: 1px 1px 1px 1px;
   .box-shadow(2px 2px 4px rgba(0, 0, 0, 0.19), 0px 0px 2px rgba(0,0,0,0.1));
@@ -181,6 +184,20 @@ body.layout-logged-out{
   padding: 10px 30px 10px 16px;
   position: absolute;
   width: auto;
+  z-index:100;
+  .help-text-close{
+    position:absolute;
+    display: block;
+    top:0px;
+    right:6px;
+    font-size: 27px;
+    line-height: 1;
+    color:#333;
+    text-decoration: none;
+    &:hover{
+      color:#000;
+    }
+  }
 }
 
 /* ONLINE STATUS LIGHT */
