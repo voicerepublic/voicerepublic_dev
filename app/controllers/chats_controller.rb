@@ -1,29 +1,50 @@
 class ChatsController < ApplicationController
-
+  include ActionView::Helpers::JavaScriptHelper 
+  before_filter :authenticate_user!
+  
   # GET /chats/new
   # GET /chats/new.json
   def new
     
-    user_1 = User.find params[:one]
-    user_2 = User.find params[:two]
+    user1 = User.find params[:one]
+    user2 = User.find params[:two]
     
-    @chat = Chat.new(:user1 => user_1, :user2 => user_2)
+    @chat = Chat.new(:user1 => user1, :user2 => user2)
+    #@connected_user = user_1
+    #@initiating_user = user_2
+    
+    
+    # send notification via push to subscribe to chat-channel
+    
+    #content =  renderer.render('shared/notification_list_item', :locals => {:notification => self })
+    #  js = "$('#actionbar-notifications-#{user_id}').prepend('#{escape_javascript(content)}');"
+    
+    content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => user2 } )
+    js = "overlay.build('#{escape_javascript(content)}', true);"
+    ret = PrivatePub.publish_to("/notifications/#{user1.id}", js)
+    Rails.logger.debug("#{self.class.name}#new - sent notification to the one beeing connected \nret: #{ret.inspect}\n")
+    
 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @chat }
+      format.js 
     end
+  end
+  
+  def update
+    
   end
 
   # POST /chats
   # POST /chats.json
   def create
-    user_1 = User.find(params[:one])
-    user_2 = User.find(params[:two])
+    user1 = User.find(params[:one])
+    user2 = User.find(params[:two])
     
     @chat = Chat.new(params[:chat])
-    @chat.user1 = user_1
-    @chat.user2 = user_2
+    @chat.user1 = user1
+    @chat.user2 = user2
     
     logger.debug("Chats#create - about to create chat message: #{@chat.inspect}")
     respond_to do |format|

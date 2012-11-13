@@ -19,7 +19,7 @@
 			<% end %>
 			</ul>
 		<div class="tab-content">
-			<h3><%= t('.matches_to_your_') %><%= klu_type_string(@matched_klu) %></h3>
+			<h3><%#= t('.matches_to_your_') %><%#= klu_type_string(@matched_klu) %></h3>
 			<div class="clearfix">
 				<% @matching_klus.each do |k| %>
 					<%= partial_for_klu(k,:medium) %>
