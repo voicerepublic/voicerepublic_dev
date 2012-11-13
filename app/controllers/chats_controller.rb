@@ -19,7 +19,7 @@ class ChatsController < ApplicationController
     #content =  renderer.render('shared/notification_list_item', :locals => {:notification => self })
     #  js = "$('#actionbar-notifications-#{user_id}').prepend('#{escape_javascript(content)}');"
     
-    content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat } )
+    content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => user2 } )
     js = "overlay.build('#{escape_javascript(content)}', true);"
     ret = PrivatePub.publish_to("/notifications/#{user1.id}", js)
     Rails.logger.debug("#{self.class.name}#new - sent notification to the one beeing connected \nret: #{ret.inspect}\n")
