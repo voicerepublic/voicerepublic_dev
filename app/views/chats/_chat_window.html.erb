@@ -1,0 +1,29 @@
+
+<div id="container-<%= chat.css_id_for_chat %>">
+	<div class="page-header">
+		<h2><%= t('.text_chat') %></h2>
+		<small>work in progress...</small>
+	</div>
+
+	<div class="thumbnail user-thumbnail">
+		<%# LINK FOR WHOLE THUMBAIL %>
+		<% user = user_for_chat(chat, current_user) %>
+		<%= link_to user_path(:id => user), :class => "user-thumbnail-link clearfix", :target => '_blank' do %>
+		<div class="user-image" data-user-id="<%= user.id %>">
+			<%= image_tag(user.account.portrait.url(:thumb)) %>
+		</div>
+		<div class="user-thumbnail-name">
+			<%= user.name %>
+		</div>
+		<% end %>
+	</div>
+
+	<div class="well well-small scrollable-chat">
+		<ul class="chat-message unstyled" id="<%= chat.css_id_for_chat %>">
+			<!-- chat-messages to be here. renders chats/_single_chat_message.js.erb -->
+		</ul>
+	</div>
+	<%= render(:partial => 'form', :locals => { :chat => chat }) %>
+</div>
+subscribed to: '<%= "/chats/#{chat.user1.id}-#{chat.user2.id}" %>' with userid: <%= user_for_chat(chat,current_user).id %>
+<%= subscribe_to "/chats/#{chat.user1.id}-#{chat.user2.id}" %>

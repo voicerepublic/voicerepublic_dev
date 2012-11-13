@@ -1,1 +1,5 @@
-$("#<%= @chat.css_id_for_chat %>").prepend('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat }) ) %>');
+<% publish_to "/chats/#{@chat.user1.id}-#{@chat.user2.id}" do %>
+  $("#<%= @chat.css_id_for_chat %>").append('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat }) ) %>');
+  /* $("#new_message")[0].reset(); */
+<% end %>
+
