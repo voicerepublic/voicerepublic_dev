@@ -1,30 +1,4 @@
-<div class="help-text-overlay help-text-top-right" data-help-notice="matches_top">
-<strong>Deine Matches</strong>.<br>
-Hier findest Du KluuUs, die zu Dir passen.<br>
-Klicke auf das KluuU, um mehr über den <br>
-Inhalt und den Gesprächspartner zu erfahren.<br>
-<a href="#" class="close-icon">&times;</a>
-<a href="#" class="show_cookie">ja</a>
-</div>
 
-<div class="help-text-overlay help-text-bottom-right">
-	Unser Ziel ist es, Dich ins Gespräch zu bringen.<br>
-	<strong>Video-Chat</strong> ist dafür die ideale Technik.<br>
-
-	Übrigens: Du kannst auf KluuU <strong>Geld verdienen</strong> <br>
-	<%= link_to "-> Finanzen", "/users/martin-meyer/balance/account/new" %><br>
-	<a href="#" class="close-icon">&times;</a>
-</div>
-
-<div class="help-text-overlay help-text-bottom-left">
-	Dein erstes <strong>KluuU</strong>. <br>
-	Übrigens: KluuUs sind Gesprächsthemen.<br>
-
-	Veröffentliche jetzt Dein eigenes Thema<br>
-	und finde Deinen Gesprächspartner.<br>
-	<%= link_to "-> Frage-KluuU ? erstellen", "/users/martin-meyer/klus/new" %><br>
-	<a href="#" class="close-icon">&times;</a>
-</div>
 
 <div class="tab-content dashboard-matches">
 	<div class="tabbable tabs-left">
@@ -54,5 +28,8 @@ Inhalt und den Gesprächspartner zu erfahren.<br>
 				<% end unless @matching_klus.nil? %>
 			</div>
 		</div>
+		<%= render(:partial => "inline_help/dashboard_matches_matches") %>
+		<%= render( :partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) %>
 	</div>
+	<%= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user}) %>
 </div>
