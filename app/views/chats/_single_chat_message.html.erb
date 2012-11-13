@@ -1,5 +1,6 @@
 <li>
 	<span class="label label-info"><%= chat.user2.name %>:</span>
+	<small class="pull-right"><%= l( Time.now, :format => :short ) %></small>
 	<blockquote>
 		<%= simple_format(chat.body) %>
 	</blockquote>

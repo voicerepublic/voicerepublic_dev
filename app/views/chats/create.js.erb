@@ -1,11 +1,9 @@
 
 <% publish_to "/notifications/#{@chat.user1.id}" do %>
-
-	$("#<%= @chat.css_id_for_chat %>").prepend('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user2 }) ) %>').fadeIn("slow");
-	
+	$("#<%= @chat.css_id_for_chat %>").prepend('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user2 }) ) %>').slideDown('slow').fadeIn("slow");
 <% end %>
 
 <% publish_to "/notifications/#{@chat.user2.id}" do %>
-	$("#<%= @chat.css_id_for_chat %>").prepend('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user1 }) ) %>').fadeIn("slow");
+	$("#<%= @chat.css_id_for_chat %>").prepend('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user1 }) ) %>').slideDown('slow').fadeIn("slow");
 <% end %>
 
