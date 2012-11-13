@@ -215,13 +215,14 @@ body.layout-logged-out{
   position: relative;
 
   &:before {
-    left: 2px;
-    bottom: 2px;
+    left: -1px;
+    bottom: -1px;
     z-index:100;
     content: "";
     position: absolute;
     width: 24%;
     height: 24%;
+    border: 1px solid #eee;
 
     .user-information & {
       width: 8%;

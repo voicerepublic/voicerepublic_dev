@@ -11,9 +11,12 @@
 
 .dashboard {
   & > .nav {
-    padding-bottom: @verticalRhythm;
-    border-bottom: 1px solid @grayLighter;
+    /*padding-bottom: @verticalRhythm;*/
+    padding-bottom:0;
+    /*border-bottom: 1px solid @grayLighter;*/
+    border-bottom: 1px solid #ddd;
     margin-bottom: @verticalRhythm * 2;
+    background:#eee
   }
 
    h3 {
@@ -33,10 +36,18 @@
 
   .nav-tabs {
     max-width: 390px;
+    min-height:500px;
+    margin-right: 0px;
+    margin-top:0
   }
 
   .tab-content {
     overflow:hidden;
+    padding-left:19px;
+    border:solid 1px #ddd;
+    border-left:0;
+    border-bottom:0;
+    border-right:0
   }
 
   .dashboard-matches-own-klus {

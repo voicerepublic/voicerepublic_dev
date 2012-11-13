@@ -1,20 +1,24 @@
 <div class="search">
-	<h2><%= t('.search_results') %></h2>
+	<h2><%= t('.search_results', :default => "Suche") %></h2>
 	<div class="well well-large">
 	<%= render(:partial => 'search/form', :locals => {:query => @query}) %>
 	<% if current_user %>
-		<%= link_to( t('.publish_search_as_?KluuU?'), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn search-new-no-kluuu")  %>
+		<%= link_to( t('.publish_search_as_?KluuU?', :default => "Als Frage-KluuU speichern?"), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn search-new-no-kluuu")  %>
 	<% else %>
-		<span class="label label-info"><%= t('.you_can_persist_your_search') %></span>
-		&nbsp;<%= link_to(t('.log_in'), new_user_session_path, :class => "btn") %> <%= t('.or')%> 
-		&nbsp;<%= link_to(t('.register'), new_user_registration_path , :class => "btn") %>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><%= t('.persist_search', :default => "Tipp:") %></span>&nbsp;&nbsp;Erstelle ein Frage-KluuU und nutze unser Matching System!
+		&nbsp;<%#= link_to(t('.log_in', :default => "Log In"), new_user_session_path, :class => "btn") %> <%#= t('.or')%> 
+		&nbsp;<%= link_to(t('.sign_up', :default => "Sign Up"), new_user_registration_path , :class => "btn") %>
 	<% end %>
 	</div>
 	<div class="row-fluid search-results">
 		<% hash = hash_by_kluuu_type( @klus) %>
 		<% hash.keys.each do |k| %>
 			<div class="span6 row-fluid">
-				<h3><%= k.upcase %></h3>
+				<% if ("#{k}" == 'kluuu') %>
+					<h3 class="lead">KluuUs</h3>
+				<% else %>
+					<h3 class="lead">Frage-KluuUs</h3>
+				<% end %>
 				<% hash[k].each do |klu| %>
 					<% if klu.instance_of?(Kluuu) %>
 						<%= render(:partial => 'klus/small_kluuu', :locals => {:klu => klu}) %>
