@@ -4,45 +4,39 @@
 
 (function($){
 
-	var help_notices = {};
+	var helpNotices = {};
 
-	help_notices.init = function(){
+  helpNotices.init = function() {
+    var parent;
+    helpNotices.onPage = $('.help-text');
+    var closeIt = $('<div />').addClass('alert').html('<a href="#">Hilfe schließen</a>');
 
-		var $notice = $(".help-text-overlay");
+    closeIt.appendTo('#flash_messages');
 
-		var register_close = function(){
-			$notice.find(".help-text-overlay, .close-icon").on("click", function(){
-				$notice.fadeOut();
-			});
-		};
+    closeIt.children('a').on('click', function(e){
+      e.preventDefault();
+      helpNotices.onPage.fadeOut('fast', function() {
+        helpNotices.onPage.remove();
+      });
+      closeIt.fadeOut('fast', function() {
+        closeIt.remove();
+      });
+    });
 
-		register_close();
+    
 
-		var set_cookie = function (c_name,value){
-			document.cookie=c_name + "=" + value;
-		};
+    $.each(helpNotices.onPage, function() {
+      parent = $(this).parent();
+      if (parent.css("position") === "static") {
+        parent.css("position", "relative");
+      }
+    });
+  };
 
-		var getCookie = function (c_name){
-
-			var i,x,y,ARRcookies=document.cookie.split(";");
-			for (i=0;i<ARRcookies.length;i++)
-			{
-			  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-			  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-			  x=x.replace(/^\s+|\s+$/g,"");
-			  if (x==c_name)
-			    {
-			    return unescape(y);
-			    }
-			  }
-			};
-		
-		};
-
-
+	
 
 	// document.ready
 	$(function(){
-		help_notices.init();
+		helpNotices.init();
 	});
 })(jQuery);

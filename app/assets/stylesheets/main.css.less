@@ -169,44 +169,18 @@ body.layout-logged-out{
 }
 
 /* HELP TEXT OVERLAY */
-.help-text-overlay{
-  position: absolute;
-
-  padding:10px 30px 10px 16px;
-  font:20px/30px 'Nothing You Could Do';
-  color:rgba(0,0,0,0.8);
-  background:#F6E99A;
-  max-width: 400px;
-  border:1px solid #CCC17F;
+.help-text {
+  background: none repeat scroll 0 0 rgba(225, 214, 252, 0.97);
+  border: rgba(241, 242, 254, 1);
+  border-radius: 1px 1px 1px 1px;
+  .box-shadow(2px 2px 4px rgba(0, 0, 0, 0.19), 0px 0px 2px rgba(0,0,0,0.1));
+  color: rgba(0, 0, 0, 0.8);
   display: inline-block;
-  width:auto;
-  box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -webit-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -o-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -ms-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  z-index: 2000;
-  .close-icon{
-    position: absolute;
-    top:0px;
-    right:5px;
-    color:#333;
-    font-size: 35px;
-    text-decoration: none;
-    outline:none
-  }
-  &.help-text-top-right{
-    top:50px;
-    right:100px;
-  }
-  &.help-text-bottom-right{
-    bottom:50px;
-    right:100px;
-  }
-  &.help-text-bottom-left{
-    bottom:50px;
-    left:100px;
-  }  
+  font: 17px/1.5 'Nothing You Could Do';
+  max-width: 400px;
+  padding: 10px 30px 10px 16px;
+  position: absolute;
+  width: auto;
 }
 
 /* ONLINE STATUS LIGHT */
