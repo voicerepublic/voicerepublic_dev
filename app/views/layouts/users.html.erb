@@ -27,26 +27,25 @@
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
-		<div class="container user-container">
-				
-				<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
-				
-				<div class="user-content ">
-					<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
-
-					<section class="user-content-shown clearfix">
-						<%= yield %>
-					</section>
-				</div>
-			<footer>
-				<p>
-					&copy; KluuU 2012
-					<br />
-					<small><span class="label">rev: <%= git_revision %> - version <%= KluuuCode::VERSION %></span></small>
-				</p>
-			</footer>
+		<div class="footer-wrapper">
+			<div class="container user-container">
+					
+					<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
+					
+					<div class="user-content ">
+						<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
+			
+						<section class="user-content-shown clearfix">
+							<%= yield %>
+						</section>
+					</div>
+			</div>
+		<div class="footer-push"></div>			
 		</div>
-		<!-- /container -->
+		</div><!-- /wrapper for sticky footer -->
+		<div class="footer-content-wrapper">
+			<%= render(:partial => "shared/footer") %>
+		</div>
 
 		<!-- Javascripts
 		================================================== -->

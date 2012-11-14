@@ -1,0 +1,60 @@
+/*
+ *= require_self
+ */
+ 
+@import "config.css.less";
+
+footer{
+  background:#ccc;
+  background:rgba(0,0,0,0.06);
+  padding:30px;
+  box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  -moz-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  -ms-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  -o-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  color:#aaa;
+  text-shadow:1px 1px rgba(255,255,255,0.5), -1px -1px rgba(255,255,255,0.4);
+  height:300px;
+  font-size:@baseFontSize * 0.9;
+   
+  .footer-container{
+    max-width:900px;
+    margin:auto;
+    .footer-column{
+      float:left;
+      padding:0 10px;
+      p{
+        margin:0;
+        padding:0
+      }
+      h3{
+        margin:0 0 0px 0;
+        font-size:@baseFontSize * 0.9;
+        line-height:@baseLineHeight * 1.1;
+        color:#888;
+        
+        text-shadow:1px 1px rgba(0,0,0,0.0), -1px -1px rgba(0,0,0,0.0);
+      }
+      a, a:hover{
+        color:#999;
+      }
+    }
+  }
+}
+
+.footer-wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -300px; /* same as the footer */
+    position: relative;
+}
+
+.footer-push {
+    height: 300px; /* same as the footer */
+}
+.footer-content-wrapper {
+    position: relative;
+    height: 300px;
+}

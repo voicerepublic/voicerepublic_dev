@@ -27,9 +27,10 @@ module KluuuCode
   class Preferences 
     attr_accessor :email_concerning_me, :email_concerning_other
     attr_accessor :inform_of_friends
+    attr_accessor :no_initial_help
     
     def initialize(args=nil)
-      @email_concerning_me,  @email_concerning_other, @inform_of_friends = true, true, true
+      @email_concerning_me,  @email_concerning_other, @inform_of_friends, @no_initial_help = true, true, true, true
       unless args.nil?
         self.update_attributes(args)
       end
@@ -41,7 +42,9 @@ module KluuuCode
         if self.respond_to?(k) 
           self.send("#{k}=", v)
         else 
-          raise NoMethodError.new("undefined attribut '#{k}' for Preferences")
+          Rails.logger.warn("KluuuCode::Preferences#update_attributes - writing non-existent attr: #{k}")#
+          self.send("#{k}=", v)
+          #raise NoMethodError.new("undefined attribut '#{k}' for Preferences")
         end
       end
     end
@@ -49,6 +52,10 @@ module KluuuCode
     def set_attributes(hash)
       update_attributes(hash)
     end
+    
+    #def method_missing
+      
+    #end
     
   end
 

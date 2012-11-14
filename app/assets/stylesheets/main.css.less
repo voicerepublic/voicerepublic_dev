@@ -1,17 +1,24 @@
 /*
  *= require bootstrap_and_overrides
  *= require navbar
+ *= require footer
  */
  
 @import "config.css.less";
 
+html{
+  height:100%; /* for footer wrapper */
+}
+
 body {
   background: @white;
   overflow-y:scroll;
+  height:100%; /* for footer wrapper */
+  position: relative;
 }
 
 body.layout-logged-out{
-  padding-top: 0px;
+  
   .flash_messages{
     top:60px
   }
@@ -111,7 +118,8 @@ body.layout-logged-out{
   position: fixed;
   top:48px;
   width:100%;
-  text-align: center
+  text-align: center;
+  z-index:101;  
 }
 
 .alert{
@@ -235,5 +243,18 @@ body.layout-logged-out{
     background-color: #780000;
     box-shadow:  0 0 3px white, 0 0 3px #780000;
   }
+}
+
+#chat-container {
+  position: fixed;
+  right: 0;
+  top: 10%;
+  width: 200px;
+}
+
+.chat-instance {
+  background: @white;
+  padding: @verticalRhythm;
+  border: 1px solid #000;
 }
 
