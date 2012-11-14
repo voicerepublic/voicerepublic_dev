@@ -9,8 +9,12 @@ footer{
   background:rgba(0,0,0,0.06);
   padding:30px;
   box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
-  color:#fff;
-  text-shadow:1px 1px rgba(0,0,0,0.2), -1px -1px rgba(0,0,0,0.1);
+  -moz-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  -webkit-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  -ms-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  -o-box-shadow:0 5px 5px rgba(0,0,0,0.15) inset;
+  color:#aaa;
+  text-shadow:1px 1px rgba(255,255,255,0.5), -1px -1px rgba(255,255,255,0.4);
   height:300px;
   font-size:@baseFontSize * 0.9;
    
@@ -26,13 +30,14 @@ footer{
       }
       h3{
         margin:0 0 0px 0;
-        font-size:@baseFontSize * 1;
+        font-size:@baseFontSize * 0.9;
         line-height:@baseLineHeight * 1.1;
-        color:#777;
+        color:#888;
+        
         text-shadow:1px 1px rgba(0,0,0,0.0), -1px -1px rgba(0,0,0,0.0);
       }
       a, a:hover{
-        color:#fff;
+        color:#999;
       }
     }
   }
