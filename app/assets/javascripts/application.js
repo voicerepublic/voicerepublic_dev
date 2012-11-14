@@ -18,7 +18,7 @@
 /* Alters-Success fade out after 8secs */
 (function($){
   function hideAlerts() {
-    var alerts = $('#flash_messages .alert.alert-success').css('border', '3px red solid');
+    var alerts = $('#flash_messages .alert.alert-success');
     setTimeout(function(){
       alerts.fadeOut('slow', function(){
         alerts.remove();
