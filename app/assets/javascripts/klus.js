@@ -31,13 +31,13 @@
 			var $kluuuPicsWidth = $kluuuPics.width();
 			$kluuuPics.addClass('jqueryfied');
 			var imagesURLs = this.getImageURLs();
-			var $kluEyecatcher = $('.klu-eyecatcher').remove();
+			var $kluEyecatcher = $('.klu-main .klu-eyecatcher').remove();
 			var newLi, previous;
 			$.each(imagesURLs, function(i){
 				newLi = $kluEyecatcher.clone().appendTo($kluuuPics);
 				newLi.find('img').attr('src', imagesURLs[i]);
 			});
-			var $eyeCatchers = $('.klu-eyecatcher').css({
+			var $eyeCatchers = $('.klu-main .klu-eyecatcher').css({
 				left: $kluuuPicsWidth
 			});
 
