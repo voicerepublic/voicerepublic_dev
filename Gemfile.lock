@@ -335,7 +335,7 @@ DEPENDENCIES
   therubyracer
   thin
   thinking-sphinx
-  twitter-bootstrap-rails
+  twitter-bootstrap-rails (= 2.1.4)
   uglifier (>= 1.0.3)
   will_paginate
   will_paginate-bootstrap
