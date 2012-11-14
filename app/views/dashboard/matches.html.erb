@@ -43,6 +43,6 @@
 	</div>
 </div>
 
-	<%= render(:partial => "inline_help/dashboard_matches_matches") %>
-	<%= render( :partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) %>	
-	<%= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user}) %>	
+	<%= render(:partial => "inline_help/dashboard_matches_matches") unless @user.account(true).prefs.no_initial_help == '1' %>
+	<%= render( :partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
+	<%= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user})  unless @user.account(true).prefs.no_initial_help == '1' %>	
