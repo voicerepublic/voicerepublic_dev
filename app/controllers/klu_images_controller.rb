@@ -1,6 +1,8 @@
 class KluImagesController < ApplicationController
   
   before_filter :set_kluuu
+  before_filter :authenticate_user!, :only => [:create,:destroy,:edit, :new, :update]
+  
   # GET /klu_images
   # GET /klu_images.json
   def index

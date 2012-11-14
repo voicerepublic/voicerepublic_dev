@@ -22,7 +22,10 @@ describe StatusUpdatesController do
 
   before  do
     @user = FactoryGirl.create(:user)
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub :current_user => @user
   end
+  
   # This should return the minimal set of attributes required to create a valid
   # StatusUpdate. As you add validations to StatusUpdate, be sure to
   # update the return value of this method accordingly.
