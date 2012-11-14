@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.8'
 gem 'rails-i18n'
 gem 'pg'
 
@@ -37,6 +37,7 @@ gem 'capistrano'              # deployment
 gem 'thinking-sphinx'         # indexed search
 gem "dynamic_form"            # form helper for errors
 gem 'exception_notification'  # deliver emails if exception occures
+#gem 'psych'
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
