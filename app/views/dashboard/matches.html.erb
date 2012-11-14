@@ -1,3 +1,17 @@
+<nav class="dashboard-matches-new-content">
+	<ul class="clearfix">
+		<li>
+			<%= link_to new_user_klu_path(:user_id => @user, :klu_type => "Kluuu"), :title => "Create KluuU", :class => 'btn btn-small' do %>
+				neues ! KluuU
+			<% end %>
+		</li>
+		<li>
+			<%= link_to new_user_klu_path( :user_id => @user), :title => "New Question", :class => 'btn btn-small' do %>
+				neue ? Question
+			<% end %>
+		</li>						
+	</ul>
+</nav>
 <div class="tab-content dashboard-matches">
 	<div class="tabbable tabs-left">
 			<ul class="nav nav-tabs dashboard-matches-own-klus">
