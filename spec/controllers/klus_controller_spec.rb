@@ -22,6 +22,8 @@ describe KlusController do
 
   before do
     @user = FactoryGirl.create(:user)  
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub :current_user => @user
   end
   
   # This should return the minimal set of attributes required to create a valid
@@ -42,7 +44,7 @@ describe KlusController do
 
   describe "GET index" do
     it "assigns all klus as @klus" do
-      klu = FactoryGirl.create(:published_kluuu)
+      klu = FactoryGirl.create(:published_kluuu, :user => @user)
       get :index, {:user_id => klu.user }, valid_session 
       assigns(:kluuus).should eq([klu])
     end
@@ -50,7 +52,7 @@ describe KlusController do
 
   describe "GET show" do
     it "assigns the requested klu as @klu" do
-      klu = FactoryGirl.create(:published_kluuu)
+      klu = FactoryGirl.create(:published_kluuu, :user => @user)
       get :show, {:id => klu.to_param}, valid_session
       assigns(:klu).should eq(klu)
     end
@@ -65,7 +67,7 @@ describe KlusController do
 
   describe "GET edit" do
     it "assigns the requested klu as @klu" do
-      klu = FactoryGirl.create(:published_kluuu)
+      klu = FactoryGirl.create(:published_kluuu, :user => @user)
       get :edit, {:id => klu.to_param}, valid_session
       assigns(:klu).should eq(klu)
     end
@@ -111,7 +113,7 @@ describe KlusController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested users klu" do
-        klu = FactoryGirl.create(:published_kluuu)
+        klu = FactoryGirl.create(:published_kluuu, :user => @user)
         # Assuming there are no other klus in the database, this
         # specifies that the Klu created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -121,13 +123,13 @@ describe KlusController do
       end
 
       it "assigns the requested users klu as @klu" do
-        klu = FactoryGirl.create(:published_kluuu)
+        klu = FactoryGirl.create(:published_kluuu, :user => @user)
         put :update, {:id => klu.to_param, :klu => valid_attributes, :user_id => klu.user.id}, valid_session
         assigns(:klu).should eq(klu)
       end
 
       it "redirects to the users klu" do
-        klu = FactoryGirl.create(:published_kluuu)
+        klu = FactoryGirl.create(:published_kluuu, :user => @user)
         put :update, {:id => klu.to_param, :klu => valid_attributes, :user_id => klu.user}, valid_session
         response.should redirect_to(user_klu_url(:user_id => klu.user, :id => klu))
       end
@@ -135,7 +137,7 @@ describe KlusController do
 
     describe "with invalid params" do
       it "assigns the users klu as @klu" do
-        klu = FactoryGirl.create(:published_kluuu)
+        klu = FactoryGirl.create(:published_kluuu, :user => @user)
         # Trigger the behavior that occurs when invalid params are submitted
         Klu.any_instance.stub(:save).and_return(false)
         put :update, {:user_id => klu.user, :id => klu.to_param, :klu => {}}, valid_session
@@ -143,7 +145,7 @@ describe KlusController do
       end
 
       it "re-renders the 'edit' template" do
-        klu = FactoryGirl.create(:published_kluuu)
+        klu = FactoryGirl.create(:published_kluuu, :user => @user)
         # Trigger the behavior that occurs when invalid params are submitted
         Klu.any_instance.stub(:save).and_return(false)
         put :update, {:user_id => klu.user, :id => klu.to_param, :klu => {}}, valid_session
@@ -154,14 +156,14 @@ describe KlusController do
 
   describe "DELETE destroy" do
     it "destroys the requested klu" do
-      klu = FactoryGirl.create(:published_kluuu)
+      klu = FactoryGirl.create(:published_kluuu, :user => @user)
       expect {
         delete :destroy, {:id => klu.to_param, :user_id => klu.user.id }, valid_session
       }.to change(Klu, :count).by(-1)
     end
 
     it "redirects to users profile" do
-      klu = FactoryGirl.create(:published_kluuu)
+      klu = FactoryGirl.create(:published_kluuu, :user => @user)
       delete :destroy, {:id => klu.to_param, :user_id => klu.user.id}, valid_session
       response.should redirect_to(user_url(:id => klu.user))
     end

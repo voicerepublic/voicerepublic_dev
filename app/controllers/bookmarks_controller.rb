@@ -1,5 +1,8 @@
 class BookmarksController < ApplicationController
   layout "users"
+  
+  before_filter :authenticate_user!, :only => [:create, :destroy]
+  
   #before_filter :set_user
   
   # GET /bookmarks
@@ -39,6 +42,9 @@ class BookmarksController < ApplicationController
   def destroy
     @bookmark = Bookmark.find(params[:id])
     _user = @bookmark.user
+    
+    authorize! :destroy, @bookmark
+    
     @bookmark.destroy
 
     respond_to do |format|

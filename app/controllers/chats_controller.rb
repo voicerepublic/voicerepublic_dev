@@ -11,7 +11,7 @@ class ChatsController < ApplicationController
     
     # send notification via push to subscribe to chat-channel
     content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => user2 } )
-    js = "overlay.build('#{escape_javascript(content)}', true);"
+    js = "chat.build('#{escape_javascript(content)}', true);"
     ret = PrivatePub.publish_to("/notifications/#{user1.id}", js)
     Rails.logger.debug("#{self.class.name}#new - sent notification to the one beeing connected \nret: #{ret.inspect}\n")
     
@@ -57,5 +57,19 @@ class ChatsController < ApplicationController
       format.json { head :no_content }
       format.js
     end
+  end
+  
+  # TODO complete functionality - 
+  # if user clicks while having chat open
+  # frontend will call this method to rebuild chat 
+  # based on already submitted chat-messages
+  #
+  def show
+    @conversation = Conversation.find(params[:id])
+    @chat = Chat.new 
+    logger.debug("Chats#show - showing conversation for chat-view")
+    respond_to do |format|
+      format.js
+    end  
   end
 end

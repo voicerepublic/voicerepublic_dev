@@ -250,11 +250,58 @@ body.layout-logged-out{
   right: 0;
   top: 10%;
   width: 200px;
+  max-height: 80%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .chat-instance {
-  background: @white;
-  padding: @verticalRhythm;
-  border: 1px solid #000;
-}
+  margin: -30px + @verticalRhythm;
+  width: 400px;
+  & > header {
+    margin-bottom: @verticalRhythm;
 
+    img {
+      vertical-align: top;
+      margin-right: @verticalRhythm;
+    }
+  }
+
+  .scrollable-chat {
+    height: 600px;
+
+    li {
+      padding: (@verticalRhythm * 2) 12px @verticalRhythm 12px;
+      position: relative;
+
+      time {
+        position: absolute;
+        right: 12px;
+        top: 6px;
+        font-size: @baseFontSize - 4;
+      }
+
+      .label.chat-speaker-name {
+        position: absolute;
+        background: @brandColorGrey;
+        left: 0;
+        top: 4px;
+      }
+    }
+  }
+
+  label {
+    font-size: @baseFontSize - 3;
+    line-height: 1.2;
+    color: @grayLight;
+  }
+
+  textarea {
+    width: 100%;
+  }
+
+  .btns {
+    text-align: right;
+  }
+
+}

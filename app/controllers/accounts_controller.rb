@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   
+  before_filter :authenticate_user!
   before_filter :set_user
   
   
@@ -7,6 +8,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1.json
   def show
     @account = @user.account 
+    authorize! :show, @account
     if @account.nil?
       @account = @user.build_account
       flash[:warning] = t('.settings_controller.no_settings_made_yet')
@@ -87,6 +89,6 @@ class AccountsController < ApplicationController
   private
   
   def set_user
-    @user = current_user || User.find(params[:user_id])
+    @user = current_user #|| User.find(params[:user_id])
   end
 end
