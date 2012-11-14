@@ -6,19 +6,29 @@ class ChatsController < ApplicationController
   # GET /chats/new.json
   def new
     user1 = User.find params[:one]
+    
+   
     user2 = User.find params[:two]
     @chat = Chat.new(:user1 => user1, :user2 => user2)
     
     # send notification via push to subscribe to chat-channel
-    content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => user2 } )
-    js = "chat.build('#{escape_javascript(content)}', true);"
-    ret = PrivatePub.publish_to("/notifications/#{user1.id}", js)
-    Rails.logger.debug("#{self.class.name}#new - sent notification to the one beeing connected \nret: #{ret.inspect}\n")
     
+    if user1.available? 
+      content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => user2 } )
+      js = "chat.build('#{escape_javascript(content)}', true);"
+      ret = PrivatePub.publish_to("/notifications/#{user1.id}", js)
+      Rails.logger.debug("#{self.class.name}#new - sent notification to the one beeing connected \nret: #{ret.inspect}\n")
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @chat }
-      format.js 
+      format.js do 
+        unless  user1.available? 
+          @user = user1
+          flash.now[:error] = "#{user1.name} is busy"
+          render(:partial => 'busy') and return 
+        end
+      end
     end
   end
   
