@@ -16,7 +16,6 @@
       
       // closeIt.children('a').on('click', function(e){
         $('.help-text-close, .alert-help-layer').on('click', function(e){
-        e.preventDefault();
         helpNotices.onPage.fadeOut('fast', function() {
           helpNotices.onPage.remove();
         });

@@ -28,19 +28,19 @@
 							<li>
 								<%= link_to "admin", admin_dashboard_index_path %>
 							</li>
-						<% end %>
-					<li>
-						<%= link_to new_user_klu_path( :user_id => current_user), :title => "New Question" do %>
-							<%#= image_tag '/assets/icon_question.png', :alt => "Question", :class => "navbar-question-kluuu" %>
-							? Question
-						<% end %>
-					</li>						
+						<% end %>				
 					<li>
 						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :title => "Create KluuU" do %>
 							<%#= image_tag '/assets/icon_new_klu.png', :alt => "New KluuU!", :class => "navbar-new-klu" %>
 							! KluuU
 						<% end %>
-					</li>			
+					</li>
+					<li>
+						<%= link_to new_user_klu_path( :user_id => current_user), :title => "New Question" do %>
+							<%#= image_tag '/assets/icon_question.png', :alt => "Question", :class => "navbar-question-kluuu" %>
+							? Question
+						<% end %>
+					</li>
 				</ul>
 				<ul class="nav pull-right">
 
