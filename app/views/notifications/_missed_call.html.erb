@@ -1,3 +1,23 @@
-Call was canceled.....
+<div class="row-fluid">
+	<div class="span12">
+		<h3>
+			<%= t('unavailable_title', :default => "Video Call") %>
+		</h3>
+	</div>
+</div>
 
-<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay' %>
+<div class="row-fluid">
+	<div class="span6">	
+		<!-- !Hier kommt name des Users hin! -->
+	</div>
+	<div class="span6">	
+			<%= t('has cancelled this Video Call', :default => "hat den Video Call abgebrochen.") %>
+	</div>	
+</div>
+
+<div class="row-fluid">
+	<div class="span12">
+		<%= link_to t('.close', :default => "schliessen"), '#', :class => "btn", 'data-function' => 'closeOverlay' %>
+	</div>
+</div>
+
