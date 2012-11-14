@@ -20,6 +20,9 @@
 			<dd><%= @user.account.prefs.inform_of_friends == '1' ? t('.yes') : t('.no') %></dd>
 			<dt><%= t('.get_email_if_actions_of_friends')%></dt>
 			<dd><%= @user.account.prefs.email_concerning_other == '1' ? t('.yes') : t('.no') %></dd>
+			<dt><%= t('.hide_initial_help')%></dt>
+			<dd><%= @user.account.prefs.no_initial_help == '1' ? t('.yes') : t('.no') %></dd>
+			
 		</dl>
 	</div>
 	<div class="form-actions">
