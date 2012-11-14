@@ -16,13 +16,13 @@
 <% end %>
 
 <div class="control-group">
-	<%= f.label t('.your_message', :default => 'Your Message') %>
+	<%= f.label t('.your_message', :default => 'Your Message') %></strong>
 	<div class="controls">
-		<%= f.text_area :body, :class => 'text_area', :size => "72x2" %>
+		<%= f.text_area :body, :class => 'text_area chat_textarea', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus" %>
 	</div>
 </div>
-<div class="form-actions">
-	<%= link_to(t('.end_chat'), "", :class => 'btn' ) %>
-	<%= f.submit t('.submit', :default => 'Submit'), :class => 'btn btn-primary' %>
+<div class="btns">
+	<%= link_to(t('.end_chat'), "", :class => 'btn btn-small chat_close' ) %>
+	<%= f.submit t('.submit', :default => 'Submit'), :class => 'btn btn-small btn-primary chat_submit' %>
 </div>
 <% end %>
