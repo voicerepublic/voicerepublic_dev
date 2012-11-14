@@ -1,11 +1,12 @@
-
-<div class="page-header">
-  <h3><%= t('.configure_your_financial_account')%></h3>
+<div class="dashboard-finances dashboard-finances-new">
+  <div class="page-header">
+    <h3><%= t('.configure_your_financial_account')%></h3>
+  </div>
+  
+  <div class="well well-small">
+    
+  <p><span class="label label-important"><%= t('.you_need_to_initialize_your_account') %></span></p>
+  <p><%= t('.please_choose_your_desired_currency') %></p>
+  </div>
+  <%= render :partial => 'form' %>
 </div>
-
-<div class="well well-small">
-	
-<p><span class="label label-important"><%= t('.you_need_to_initialize_your_account') %></span></p>
-<p><%= t('.please_choose_your_desired_currency') %></p>
-</div>
-<%= render :partial => 'form' %>

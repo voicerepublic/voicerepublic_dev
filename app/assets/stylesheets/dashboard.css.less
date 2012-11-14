@@ -17,7 +17,7 @@
     /*border-bottom: 1px solid @grayLighter;*/
     border-bottom: 1px solid #ddd;
     margin-bottom: @verticalRhythm * 2;
-    background:#eee
+    background:#eee;
   }
 
    h3 {
@@ -39,7 +39,15 @@
     max-width: 390px;
     min-height:500px;
     margin-right: 0px;
-    margin-top:0
+    margin-top:0;
+
+    li {
+      margin: @verticalRhythm 0 @verticalRhythm 5px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
   }
 
   .tab-content {
@@ -54,10 +62,8 @@
   .dashboard-matches-own-klus {
 
     li {
-     margin: @verticalRhythm 0 @verticalRhythm 5px;
      position: relative;
      
-
      & > a{
       .transition(all 0.2s ease);
      }
@@ -120,6 +126,10 @@
   }
 }
 
+h4.dashboard-matches-headlines {
+  font-size: 18px;
+}
+
 .matches-view-link {
   position: absolute;
   right: 5px;
@@ -130,6 +140,14 @@
 
   &hover {
     color: @linkColor;
+  }
+}
+
+.dashboard-matches-new-content {
+  left: 4px;
+  li {
+    float: left;
+    margin: 0 5px @verticalRhythm;
   }
 }
 
@@ -148,4 +166,8 @@
 
 .dashboard .news {
   max-width: 50%;
+}
+
+.dashboard-finances-new {
+  max-width: 400px;
 }
