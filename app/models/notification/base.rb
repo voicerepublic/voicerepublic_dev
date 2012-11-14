@@ -35,21 +35,21 @@ class Notification::Base < ActiveRecord::Base
   def path_for_notify
     case self.class.name.split("::")[-1]
     when 'NewStatus'
-      user_status_updates_url(:user_id => other )
+      user_status_updates_path(:user_id => other )
     when 'NewKluuu'
-      klu_url(:id => klu)
+      klu_path(:id => klu)
     when "NewBookmark"
-      user_bookmarks_url(:user_id => other)
+      user_bookmarks_path(:user_id => other)
     when "NewComment"
       url
     when "NewFollower"
-      user_url(:id => other )
+      user_path(:id => other )
     when "NewRating"
-      klu_url(:id => klu_id)
+      klu_path(:id => klu_id)
     when "NewMessage"
       url
     when "MissedCall"
-      dashboard_news_url
+      dashboard_news_path
     end
   end
   
