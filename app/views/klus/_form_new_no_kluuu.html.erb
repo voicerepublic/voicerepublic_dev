@@ -1,17 +1,44 @@
 <% the_url = @klu.new_record? ? user_klus_path(:user_id => @user) : user_klu_path(:user_id => @user, :id => @klu ) %>
 <% method = @klu.new_record? ? :post : :put %>
+
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
+
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
-<div class="row-fluid">
-	
-	
-	<div class="well no-kluuu klu-form klu-form-new span4">
-		<div class="control-group">
-			<%= label_tag "klu_title", :class => 'control-label' do %>
-				<%= t('title', :default => "Titel") %>
-			<% end %>
-			<div class="controls">
-				<%= f.text_field :title, :class => 'klu-title', :rows => 5 %>
+<h2>Neues ? Frage-KluuU</h2>
+<div class="lead">Worüber möchtest du mit jemandem sprechen?</div>
+Das ?-KluuU ist eine einfache Möglichkeit, um ins Gespräch zu kommen.<br>
+Die KluuU-Community kann deine ?-KluuUs sehen und dich diesbezüglich ansprechen.<br><br>
+
+<span class="label label-info">Übrigens</span> Tags sind entscheidend für die Auffindbarkeit deines ?-KluuUs, füge 5 oder mehr tags ein. (z.B.:Freizeit, Sport, Fussball, Hobby)
+<br><br>
+
+<div class="well no-kluuu klu-form klu-form-new">
+	<div class="row-fluid">
+		<div class="span8">
+			<div class="control-group">
+				<%= label_tag "klu_title", :class => 'control-label' do %>
+					<%= t('title', :default => "Titel") %>
+				<% end %>
+				<div class="controls">
+					<%= f.text_field :title, :class => 'klu-title' %>
+				</div>
+				<div class="control-group">
+					<%= label_tag "klu_category_id", :class => 'control-label' do %>
+						<%= t('category', :default => "Kategorie") %>
+					<% end %>
+					<div class="controls">
+						<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
+					</div>
+				</div>
+				<div class="control-group">
+					<%= label_tag "klu_tag_list", :class => "control-label" do %>
+						<%= t('tag_list', :default => "Tag Liste") %>
+					<% end %>
+					<div class="controls">
+						<%= f.text_field :tag_list, :class => 'text_field' %>
+					</div>
+				</div>
+>>>>>>> a8fd229d2a3446ccdbcd1fbd4148fb9e739fe910
 			</div>
 			<div class="control-group">
 				<%= label_tag "klu_category_id", :class => 'control-label' do %>
@@ -22,10 +49,17 @@
 				</div>
 			</div>
 			<div class="control-group">
+<<<<<<< HEAD
 				<%= label_tag "klu_tag_list", :class => "control-label" do %>
 					<%= t('tag_list', :default => "Tag Liste") %>
+=======
+				<div class="controls">
+				<%= label_tag "klu_published", :class => 'checkbox'  do %>
+					<%= f.check_box :published %> <%= t('published', :default => "? Frage-KluuU öffentlich anzeigen.") %>
+>>>>>>> a8fd229d2a3446ccdbcd1fbd4148fb9e739fe910
 				<% end %>
 				<div class="controls">
+<<<<<<< HEAD
 					<%= f.text_field :tag_list, :class => 'text_field' %>
 				</div>
 			</div>
@@ -47,7 +81,17 @@
 		<div class="lead">Worüber möchtest du mit jemandem sprechen?</div>
 		Das ?-KluuU ist eine einfache Möglichkeit, um ins Gespräch zu kommen.<br>
 		Die KluuU-Community kann deine ?-KluuUs sehen und dich diesbezüglich ansprechen.<br><br>
+=======
+				<%= label_tag "klu_uses_status", :class => 'checkbox' do %>
+					<%= f.check_box :uses_status %> <%= t('uses_status', :default => "Aktuelle Meinung anzeigen." ) %>
+				<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+>>>>>>> a8fd229d2a3446ccdbcd1fbd4148fb9e739fe910
 		
 		<span class="label label-info">Übrigens</span> Tags sind entscheidend für die Auffindbarkeit deines ?-KluuUs, füge 5 oder mehr tags ein. (z.B.:Freizeit, Sport, Fussball, Hobby)</div>
 </div>
-<% end %>
+
+<% end %> <%#form end %>
