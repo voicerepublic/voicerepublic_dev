@@ -1,5 +1,5 @@
 development:
-  server: "http://localhost:9292/faye"
+  server: "http://192.168.2.101:9292/faye"
   secret_token: "secret"
 test:
   server: "http://localhost:9292/faye"

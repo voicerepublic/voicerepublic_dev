@@ -5,8 +5,6 @@ class Participant::GuestRegistered < Participant::Base
   belongs_to :video_session, :class_name => 'VideoSession::Registered'
   belongs_to :user
   
-  attr_accessible :last_pay_tick_timestamp, :pay_tick_counter, :payment_started_timestamp, :payment_stopped_timestamp, :seconds_online, :user_id
-  
   after_update :payment, :unless => Proc.new { |p| p.payment_started_timestamp.nil? || p.payment_stopped_timestamp.nil? }
   
   validates_presence_of :user_id
