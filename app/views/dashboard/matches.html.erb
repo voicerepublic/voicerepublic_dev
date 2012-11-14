@@ -13,6 +13,7 @@
 	</ul>
 </nav>
 <div class="tab-content dashboard-matches">
+	<h4 class="no-margin dashboard-matches-headlines"><%= t('.my_kluuus', :default => 'Meine KluuUs') %></h4>
 	<div class="tabbable tabs-left">
 			<ul class="nav nav-tabs dashboard-matches-own-klus">
 			<% @klus.each do |k| %>
@@ -33,7 +34,7 @@
 			<% end %>
 			</ul>
 		<div class="tab-content">
-			<h3><%#= t('.matches_to_your_') %><%#= klu_type_string(@matched_klu) %></h3>
+			<h4 class="dashboard-matches-headlines"><%= t('.matches_to_my_') %><%= klu_type_string(@matched_klu) %></h4>
 			<div class="clearfix">
 				<% @matching_klus.each do |k| %>
 					<%= partial_for_klu(k,:medium) %>
