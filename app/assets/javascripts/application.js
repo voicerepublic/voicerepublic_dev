@@ -15,10 +15,27 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+
 var params = {};
 params.play = "true";
 params.bgcolor = "#FFFFFF";
 swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "", params);
+
+/* Alters-Success fade out after 8secs */
+(function($){
+  function hideAlerts() {
+    var alerts = $('#flash_messages .alert.alert-success');
+    setTimeout(function(){
+      alerts.fadeOut('slow', function(){
+        alerts.remove();
+      });
+    }, 5000);
+  }
+
+  $(function(){
+    hideAlerts();
+  });
+})(jQuery);
 
 
 
