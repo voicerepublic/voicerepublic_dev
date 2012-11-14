@@ -14,6 +14,7 @@ body {
   background: @white;
   overflow-y:scroll;
   height:100%; /* for footer wrapper */
+  position: relative;
 }
 
 body.layout-logged-out{
@@ -244,4 +245,15 @@ body.layout-logged-out{
   }
 }
 
+#chat-container {
+  position: fixed;
+  right: 0;
+  top: 10%;
+  width: 200px;
+}
+
+.chat-instance {
+  background: @white;
+  padding: @verticalRhythm;
+}
 
