@@ -27,6 +27,14 @@
 			<% end %>
 		</div>
 	</div>
+	<div class="control-group">
+		<div class="controls">
+			<%= label_tag "no_initial_help", :class => 'checkbox control-label' do %>
+				<%= p.check_box :no_initial_help %>
+				<%= t('dont_show_initial_help', :default => "Don't show initial help") %>
+			<% end %>
+		</div>
+	</div>
 	
 	<br>
 	<div class="control-group">
