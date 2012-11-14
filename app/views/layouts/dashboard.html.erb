@@ -22,6 +22,7 @@
 		
 		<% if current_user %>
 			<%= render(:partial => "shared/actionbar") %>
+			<%= render(:partial => '/shared/check_flash') -%>
 		<% else %>
 			<body class="layout-logged-out">
 			<%= render(:partial => "shared/navbar")%>

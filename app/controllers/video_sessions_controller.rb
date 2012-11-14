@@ -18,7 +18,7 @@ class VideoSessionsController < ApplicationController
     @user = current_user 
     
     if @user.nil? 
-      @participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', session[:id], @video_session.id).first
+      @participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', session[:session_id], @video_session.id).first
     else 
       @participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, @video_session.id).first
     end   
@@ -114,19 +114,24 @@ class VideoSessionsController < ApplicationController
     room = VideoRoom.find_by_video_system_room_id(params[:meeting_id])
     video_session = room.video_session
     
-    #TODO: check for equality of @user.id and participant.user_id.....
-    #participant = Participants.where('user_id = ? AND video_session_id = ?', params[:user_id], video_session.id).first
+    if @user.nil? 
+      participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', session[:session_id], video_session.id).first
+    else 
+      participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, video_session.id).first
+      raise "Security Error" if participant.user != current_user
+    end   
     
-    if (video_session.klu.get_charge_type_as_integer != 1)
-      @time_to_pay = 60 #participant.calculate_time_to_pay(sezzion)
-      @credit = 3.67 #dollarize(((participant.user.account.balance + participant.user.account.revenue).exchange_to(sezzion.currency)).cents)
+    #TODO: equality of @user.id and participant.user_id to make sure there is no tampering going on
+    
+    if ((video_session.klu.get_charge_type_as_integer != 1)) #&& (participant.instance_of? Participant::GuestRegistered))
+      @time_to_pay = Payment::Calculation.free_time(video_session, participant)
+      @credit = KluuuCode::Helper.dollarize(((participant.user.balance_account.balance + participant.user.balance_account.revenue).exchange_to(video_session.klu.currency)).cents)
     else
       @credit = -1
       @time_to_pay = -1
     end
     
     @video_server_address = room.video_server.url.gsub("http:\/\/","").gsub(/\/.*/,"")
-    puts @video_server_address.inspect
   end
  
 end

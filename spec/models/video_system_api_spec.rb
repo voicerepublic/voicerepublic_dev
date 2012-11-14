@@ -1,4 +1,4 @@
-require 'video_system_api/video_system_api'
+require 'video_system_api'
 require 'date'
 
 describe VideoSystemApi::VideoSystemApi do
@@ -65,14 +65,14 @@ describe VideoSystemApi::VideoSystemApi do
     let(:attendee_password) { nil }
     let(:welcome_message) { "welcome" }
     let(:dial_number) { nil }
-    let(:logout_url) { "http://www.kluuu.com" }
+    let(:logout_url) { "#" }
     let(:max_participants) { 2 }
     let(:voice_bridge) { 72879 }
     let(:kluuuIp) { ip }
     let(:kluuuPort) { port }
     let(:tt) { 1 }
     let(:ttp) { 5 }
-    let(:charge_amount) { 2.99 }
+    let(:charge_cents) { 2.99 }
     let(:currency) { 'EUR' }
     let(:params) {
                { :name => meeting_name, :meetingID => meeting_id,
@@ -81,14 +81,14 @@ describe VideoSystemApi::VideoSystemApi do
                  :logoutURL => logout_url, :maxParticpants => max_participants,
                  :voiceBridge => voice_bridge, :kluuuIp => ip, :kluuuPort => port,
                  :tt => tt, :ttp => ttp, 
-                 :charge => charge_amount, :currency => currency }
+                 :charge => charge_cents, :currency => currency }
     }
     let(:response) { { :meetingID => 123, :moderatorPW => 111, :attendeePW => 222, :hasBeenForciblyEnded => "FALSE" } }
     let(:expected_response) { { :meetingID => "123", :moderatorPW => "111", :attendeePW => "222", :hasBeenForciblyEnded => false } }
 
     # ps: not mocking the formatter here because it's easier to just check the results (expected_response)
     before { api.should_receive(:send_api_request).with(:create, params).and_return(response) }
-    subject { api.create_meeting(meeting_name, meeting_id, welcome_message, tt, ttp, charge_amount, currency) }
+    subject { api.create_meeting(meeting_name, meeting_id, welcome_message, tt, ttp, charge_cents, currency) }
     it { subject.should == expected_response }
   end
 

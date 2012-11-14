@@ -7,17 +7,15 @@ class Balance::Account < ActiveRecord::Base
   belongs_to :user
   has_many :paypal_payments
   has_many :check_in_orders, :class_name => 'Balance::CheckInOrder', :foreign_key => 'balance_account_id'
+  has_many :transfers, :foreign_key => 'account_id'
   
   monetize :balance_cents
   monetize :revenue_cents
   
   CURRENCIES = {"USD $" => "USD", "Euro €" => "EUR" }
   
-  
   validates :user_id, :presence => true
   validates :currency, :presence => true
-  
-
   
   #to check the balance against the charge of a kluuu
   #

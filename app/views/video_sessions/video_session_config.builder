@@ -7,7 +7,7 @@ xml.config{
       xml.application(:uri => "rtmp://#{@video_server_address}/bigbluebutton", :host => "http://#{@video_server_address}/bigbluebutton/api/enter")
       xml.language(:userSelectionEnabled => "false")
       xml.skinning(:enabled => "true", :url => "/kluuu/bbb/branding/css/kluuu.css.swf?v=0003")
-      xml.layout(:showDebugWindow => "true", :showLogButton => "true", :showVideoLayout => "false", :showResetLayout => "false", :showToolbar => "true", :showHelpButton => "true", :showLogoutWindow => "true")
+      xml.layout(:showDebugWindow => "false", :showLogButton => "false", :showVideoLayout => "false", :showResetLayout => "false", :showToolbar => "true", :showHelpButton => "true", :showLogoutWindow => "true")
       
       xml.modules{
       

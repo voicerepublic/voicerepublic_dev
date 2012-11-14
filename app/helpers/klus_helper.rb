@@ -71,9 +71,9 @@ module KlusHelper
   def price_string(klu)
     if klu.charge_type != 'free'
       if klu.charge_type === "minute"
-        t(".#{klu.charge_amount}_#{klu.currency}_per_minute")
+        t(".#{klu.charge_cents}_#{klu.currency}_per_minute")
       else
-        t(".#{klu.charge_amount}_#{klu.currency}")
+        t(".#{klu.charge_cents}_#{klu.currency}")
       end
     else
       t('.free')

@@ -6,7 +6,7 @@ FactoryGirl.define do
     association :user
     category
     currency 'EUR'
-    charge_amount 0
+    charge_cents 0
     tag_list "foo, bar, baz"
 
     sequence :title do |t|

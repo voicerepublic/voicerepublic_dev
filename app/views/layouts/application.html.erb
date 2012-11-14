@@ -18,9 +18,10 @@
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 	</head>
-	<% if current_user %>
-	<body>
-		<%= render(:partial => "shared/actionbar") %>
+		<% if current_user %>
+			<body>
+			<%= render(:partial => "shared/actionbar") %>
+			<%= render(:partial => '/shared/check_flash') -%>
 		<% else %>
 	<body class="layout-logged-out">
 		<%= render(:partial => "shared/navbar")%>

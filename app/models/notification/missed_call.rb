@@ -23,7 +23,7 @@ class Notification::MissedCall < Notification::Base
   def generate_push_notification
     begin
       n = KluuuCode::NotificationRenderer.new
-      PrivatePub.publish_to("/notifications/#{user_id}", n.render('notifications/missed_call'))
+      PrivatePub.publish_to("/notifications/#{user_id}", n.render('notifications/missed_call', :locals => {:user_id => self.user_id, :count => self.user.notifications.alerts.unread.count}))
     rescue Exception => e
       Rails.logger.error("#{self.class.name}#generate_push_notification - error: #{e.inspect}")
     end  

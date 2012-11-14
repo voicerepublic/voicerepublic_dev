@@ -6,7 +6,7 @@ FactoryGirl.define do
     association :user, factory: :user
     category
     currency 'EUR'
-    charge_amount 0
+    charge_cents 0
 
     sequence :title do |t|
       "#{Faker::Lorem.sentence} #{t}"

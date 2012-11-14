@@ -1,1 +1,2 @@
-overlay.build('<%= escape_javascript(render(:partial => 'notifications/missed_call', :locals => {:video_session => @video_session})) %>');
+overlay.close();
+$('#alerts-count-<%= user_id %>').html('<%= count %>');
