@@ -15,6 +15,12 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+var params = {};
+params.play = "true";
+params.bgcolor = "#FFFFFF";
+swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "", params);
+
+
 
 (function($){
   var checkUserOnline = {
@@ -202,26 +208,3 @@ function fitText(jquerySelector) {
   setTimeout(calculateSize, 500);
   setTimeout(calculateSize, 1000);
 };
-
-
-//ringtone
-$('body').on('click', 'audio', function(event) {
-		    var flashvars = {};
-			flashvars.mp3 = "/static/sounds/ringtone1.mp3";
-			flashvars.volume = "75";
-			flashvars.loop = "1";
-			flashvars.autoplay = "1";
-			var params = {};
-			params.play = "true";
-			params.quality = "best";
-			swfobject.embedSWF(
-		      "/static/sounds/player_mp3_normal.swf", 
-		      "player_fallback", 
-		      "0", 
-		      "0", 
-		      "9.0.0", 
-		      "", 
-		      flashvars,
-		      params)  
-		
-});

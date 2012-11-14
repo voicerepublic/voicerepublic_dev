@@ -3,7 +3,7 @@
 <% method = @video_session.new_record? ? :post : :put %>
 <%= form_for [@video_session], :as => :video_session,  :url => the_url, :method => method, :remote => :true, :html => { :class => 'form-horizontal' }  do |f| %>
 	<%= f.hidden_field :calling_user_id, :value => current_user.nil? ? session[:session_id] : current_user.id %>
-	<%= f.hidden_field :klu_id, :value => klu.id %>
+	<%= f.hidden_field :klu_id, :value => klu.id, :id => "video_session_klu_id_#{klu.id}" %>
 	<%= f.hidden_field :type, :value => @video_session.instance_of?(VideoSession::Registered) ? 'VideoSession::Registered' : 'VideoSession::Anonymous' %>
 	<%#= f.submit t('call_now'), :class => 'btn call-icon', :disable_with => "#{t('dispatching_call')}" %>
 	<%= button_tag :class => 'btn btn-success call-icon', :type => "submit", :disable_with => "#{t('dispatching_call')}" do %>

@@ -295,10 +295,11 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    twitter-bootstrap-rails (2.1.6)
+    twitter-bootstrap-rails (2.1.4)
       actionpack (>= 3.1)
-      execjs
+      less-rails (~> 2.2.3)
       railties (>= 3.1)
+      therubyracer (>= 0.10.2)
     twitter-stream (0.1.16)
       eventmachine (>= 0.12.8)
       http_parser.rb (~> 0.5.1)
@@ -355,7 +356,7 @@ DEPENDENCIES
   therubyracer
   thin
   thinking-sphinx
-  twitter-bootstrap-rails
+  twitter-bootstrap-rails (= 2.1.4)
   uglifier (>= 1.0.3)
   will_paginate
   will_paginate-bootstrap
