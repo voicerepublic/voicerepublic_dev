@@ -43,7 +43,7 @@ class Notification::Base < ActiveRecord::Base
     when "NewComment"
       url
     when "NewFollower"
-      user_path(:id => other )
+      user_url(:id => other )
     when "NewRating"
       klu_url(:id => klu_id)
     when "NewMessage"
