@@ -65,7 +65,7 @@ module KlusHelper
   end
   
   def data_attributes_images_gallery(klu)
-    klu.klu_images.map.each_with_index { |ki,i| "#{ki.image.url(:large)}" }.join(" ")
+    klu.klu_images.map.each { |ki| "#{ki.image.url(:large)}" }.join(" ")
   end
 
   def price_string(klu)

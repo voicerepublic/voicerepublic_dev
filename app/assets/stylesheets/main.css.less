@@ -11,12 +11,12 @@ body {
 }
 
 body.layout-logged-out{
-  padding-top: 92px;
+  padding-top: 0px;
   .flash_messages{
     top:60px
   }
   .landing-page{
-    margin-top:-40px;
+    margin-top:0px;
   }
 }
 
@@ -117,6 +117,7 @@ body.layout-logged-out{
 .alert{
   display: inline;
   position: relative;
+  z-index:101;
   .close{
     position:absolute;
     right:10px;
@@ -169,44 +170,34 @@ body.layout-logged-out{
 }
 
 /* HELP TEXT OVERLAY */
-.help-text-overlay{
-  position: absolute;
-
-  padding:10px 30px 10px 16px;
-  font:20px/30px 'Nothing You Could Do';
-  color:rgba(0,0,0,0.8);
-  background:#F6E99A;
-  max-width: 400px;
-  border:1px solid #CCC17F;
+.help-text {
+  background:rgb(225, 214, 252);
+  /*background: none repeat scroll 0 0 rgba(225, 214, 252, 0.97);*/
+  background:rgba(255, 232, 123, 0.94);
+  border: rgba(241, 242, 254, 1);
+  border-radius: 1px 1px 1px 1px;
+  .box-shadow(2px 2px 4px rgba(0, 0, 0, 0.19), 0px 0px 2px rgba(0,0,0,0.1));
+  color: rgba(0, 0, 0, 0.8);
   display: inline-block;
-  width:auto;
-  box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -webit-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -o-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  -ms-box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
-  z-index: 2000;
-  .close-icon{
-    position: absolute;
+  font: 17px/1.5 'Nothing You Could Do';
+  max-width: 400px;
+  padding: 10px 30px 10px 16px;
+  position: absolute;
+  width: auto;
+  z-index:100;
+  .help-text-close{
+    position:absolute;
+    display: block;
     top:0px;
-    right:5px;
+    right:6px;
+    font-size: 27px;
+    line-height: 1;
     color:#333;
-    font-size: 35px;
     text-decoration: none;
-    outline:none
+    &:hover{
+      color:#000;
+    }
   }
-  &.help-text-top-right{
-    top:50px;
-    right:100px;
-  }
-  &.help-text-bottom-right{
-    bottom:50px;
-    right:100px;
-  }
-  &.help-text-bottom-left{
-    bottom:50px;
-    left:100px;
-  }  
 }
 
 /* ONLINE STATUS LIGHT */
@@ -215,13 +206,14 @@ body.layout-logged-out{
   position: relative;
 
   &:before {
-    left: 2px;
-    bottom: 2px;
+    left: -1px;
+    bottom: -1px;
     z-index:100;
     content: "";
     position: absolute;
     width: 24%;
     height: 24%;
+    border: 1px solid #eee;
 
     .user-information & {
       width: 8%;
@@ -244,3 +236,4 @@ body.layout-logged-out{
     box-shadow:  0 0 3px white, 0 0 3px #780000;
   }
 }
+

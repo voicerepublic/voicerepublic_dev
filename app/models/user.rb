@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   
   after_create :add_default_user_role
   after_create :add_account
+  after_create :add_beginner_klu
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -188,6 +189,18 @@ class User < ActiveRecord::Base
   end
  
   private
+  
+  def add_beginner_klu
+    begin
+    self.no_kluuus.create(:title => "I'am new to Kluuu", 
+                          :category => (Category.find_by_name('living') || Category.find_by_name('Leben') ) , 
+                          :published => true , 
+                          :uses_status => false,
+                          :tag_list => "newcomer, newbie, new to kluuu" )
+    rescue Exception => e
+      logger.error("User#add_beginner_klu - user created but could not add initial no_kluuu: #{e.inspect}")
+    end
+  end
  
   def add_default_user_role
     user_roles << UserRole.create({:role_id => Role.find_by_name('user').id})

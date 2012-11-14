@@ -103,6 +103,7 @@
 		<%= t('.please_tell_the_people_at_which_time_you_are_available') %>
 	</div>
 </div>
+
 <div class="row-fluid">
 	<div class="well row-fluid span8">
 		<div class="control-group span3">
@@ -130,6 +131,7 @@
 		<%= t('.how_much_do_you_want_to_charge?') %>
 	</div>
 </div>
+
 <div class="row-fluid">
 	<div class="control-group well span8">
 		<div class="controls">
@@ -157,11 +159,12 @@
 	</div>
 </div>
 
-<div class="form-actions span4">
-	<%= f.submit nil, :class => 'btn btn-primary' %>
-	<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-	user_klus_path(:user_id => @user), :class => 'btn' %>
-</div>
+<div class="row-fluid">
+	<div class="form-actions span8">
+		<%= f.submit nil, :class => 'btn btn-primary' %>
+		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+		user_klus_path(:user_id => @user), :class => 'btn' %>
+	</div>
 </div>
 
 <% end %>

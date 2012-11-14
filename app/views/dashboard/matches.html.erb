@@ -1,30 +1,17 @@
-<div class="help-text-overlay help-text-top-right">
-<strong>Deine Matches</strong>.<br>
-Hier findest Du KluuUs, die zu Dir passen.<br>
-Klicke auf das KluuU, um mehr über den <br>
-Inhalt und den Gesprächspartner zu erfahren.<br>
-<a href="#" class="close-icon">&times;</a>
-</div>
-
-<div class="help-text-overlay help-text-bottom-right">
-	Unser Ziel ist es, Dich ins Gespräch zu bringen.<br>
-	<strong>Video-Chat</strong> ist dafür die ideale Technik.<br>
-
-	Übrigens: Du kannst auf KluuU <strong>Geld verdienen</strong> <br>
-	<%= link_to "-> Finanzen", "/users/martin-meyer/balance/account/new" %><br>
-	<a href="#" class="close-icon">&times;</a>
-</div>
-
-<div class="help-text-overlay help-text-bottom-left">
-	Dein erstes <strong>KluuU</strong>. <br>
-	Übrigens: KluuUs sind Gesprächsthemen.<br>
-
-	Veröffentliche jetzt Dein eigenes Thema<br>
-	und finde Deinen Gesprächspartner.<br>
-	<%= link_to "-> Frage-KluuU ? erstellen", "/users/martin-meyer/klus/new" %><br>
-	<a href="#" class="close-icon">&times;</a>
-</div>
-
+<nav class="dashboard-matches-new-content">
+	<ul class="clearfix">
+		<li>
+			<%= link_to new_user_klu_path(:user_id => @user, :klu_type => "Kluuu"), :title => "Create KluuU", :class => 'btn btn-small' do %>
+				neues ! KluuU
+			<% end %>
+		</li>
+		<li>
+			<%= link_to new_user_klu_path( :user_id => @user), :title => "New Question", :class => 'btn btn-small' do %>
+				neue ? Question
+			<% end %>
+		</li>						
+	</ul>
+</nav>
 <div class="tab-content dashboard-matches">
 	<div class="tabbable tabs-left">
 			<ul class="nav nav-tabs dashboard-matches-own-klus">
@@ -46,7 +33,7 @@ Inhalt und den Gesprächspartner zu erfahren.<br>
 			<% end %>
 			</ul>
 		<div class="tab-content">
-			<h3><%= t('.matches_to_your_') %><%= klu_type_string(@matched_klu) %></h3>
+			<h3><%#= t('.matches_to_your_') %><%#= klu_type_string(@matched_klu) %></h3>
 			<div class="clearfix">
 				<% @matching_klus.each do |k| %>
 					<%= partial_for_klu(k,:medium) %>
@@ -55,3 +42,7 @@ Inhalt und den Gesprächspartner zu erfahren.<br>
 		</div>
 	</div>
 </div>
+
+	<%= render(:partial => "inline_help/dashboard_matches_matches") %>
+	<%= render( :partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) %>	
+	<%= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user}) %>	

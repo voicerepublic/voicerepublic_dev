@@ -41,7 +41,7 @@ class Chat
   end
   
   def css_id_for_chat
-    "chat-" + [user1.id,user2.id].sort.join("-")
+    "chat-" + [user1.id,user2.id].join("-")
   end
   
   private

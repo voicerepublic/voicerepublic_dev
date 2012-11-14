@@ -8,6 +8,7 @@
 			<%= button_tag video_session_path(:id => video_session.id, :canceling_participant_id => video_session.guest_participant.id), :method => :delete, :remote => :true, :class => 'btn' do %>
 				<%= t('.cancel_call',:default => 'cancel call') %>
 			<% end %>
+			</form>
 		</div>
 	</div>
 	<div class="span6">
