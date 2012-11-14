@@ -2,13 +2,13 @@
 	<div class="user-image" data-user-id="<%= user.id %>"><%= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user)) %></div>
 	<div class="user-information-right">
 		<header class="row-fluid">
-			<div class="span7">
+			<div class="span6">
 				<h2 class="user-name"><%= link_to(user.name, user_path( :id => user)) %></h2>
-				<div class="user-activity badge">
+				<!-- <div class="user-activity badge">
 					<i class="icon-bolt"></i>55
-				</div>
+				</div> -->
 			</div>
-			<div class="span5">
+			<div class="span6">
 				<ul class="user-nav unstyled pull-right">
 					
 					<li class="pull-right">
