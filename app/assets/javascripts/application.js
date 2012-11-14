@@ -15,6 +15,22 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+/* Alters-Success fade out after 8secs */
+(function($){
+  function hideAlerts() {
+    var alerts = $('#flash_messages .alert.alert-success').css('border', '3px red solid');
+    setTimeout(function(){
+      alerts.fadeOut('slow', function(){
+        alerts.remove();
+      });
+    }, 5000);
+  }
+
+  $(function(){
+    hideAlerts();
+  });
+})(jQuery);
+
 
 (function($){
   var checkUserOnline = {
