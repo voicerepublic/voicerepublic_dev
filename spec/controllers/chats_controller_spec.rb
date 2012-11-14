@@ -22,6 +22,8 @@ describe ChatsController do
   before do 
     @user = FactoryGirl.create(:user)
     @recipient = FactoryGirl.create(:user)
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub :current_user => @user
   end
   # This should return the minimal set of attributes required to create a valid
   # Chat. As you add validations to Chat, be sure to
@@ -39,7 +41,7 @@ describe ChatsController do
 
 
   describe "GET new" do
-    it "assigns a new chat as @chat" do
+    it "assigns a new chat as @chat - prerequisite is a running faye instance - otherwise an error occurs" do
       get :new, {:one => @recipient, :two => @user}, valid_session
       assigns(:chat).should be_a(Chat)
     end

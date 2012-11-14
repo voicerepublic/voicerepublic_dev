@@ -5,26 +5,16 @@ class ChatsController < ApplicationController
   # GET /chats/new
   # GET /chats/new.json
   def new
-    
     user1 = User.find params[:one]
     user2 = User.find params[:two]
-    
     @chat = Chat.new(:user1 => user1, :user2 => user2)
-    #@connected_user = user_1
-    #@initiating_user = user_2
-    
     
     # send notification via push to subscribe to chat-channel
-    
-    #content =  renderer.render('shared/notification_list_item', :locals => {:notification => self })
-    #  js = "$('#actionbar-notifications-#{user_id}').prepend('#{escape_javascript(content)}');"
-    
     content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => user2 } )
     js = "overlay.build('#{escape_javascript(content)}', true);"
     ret = PrivatePub.publish_to("/notifications/#{user1.id}", js)
     Rails.logger.debug("#{self.class.name}#new - sent notification to the one beeing connected \nret: #{ret.inspect}\n")
     
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @chat }
@@ -32,9 +22,6 @@ class ChatsController < ApplicationController
     end
   end
   
-  def update
-    
-  end
 
   # POST /chats
   # POST /chats.json
