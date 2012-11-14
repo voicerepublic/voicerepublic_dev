@@ -23,9 +23,8 @@
 	</div><!-- End of klu-layout-->
 
 	<div class="large-klu-left row-fluid">
-
-		<ul class="unstyled">
-			<h4> <%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %> </h4>
+	<h4> <%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %> </h4>
+		<ul class="unstyled">		
 			<% @klu.bookmarks.each do |b|%>
 			<li>
 				<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>

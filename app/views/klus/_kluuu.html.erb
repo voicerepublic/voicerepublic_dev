@@ -1,75 +1,66 @@
 <article class="kluuu large-klu clearfix">
-
 	<div class="row-fluid">		
 		<div class="span9">
-		<section class="klu-layout klu-main">
-			<header>
-				<h2 class="klu-title"><%= klu.title %></h2>
-			</header>
-
-			<%# OVERALL RATING %>
-			<aside class="klu-overall-rating">
-				<%= overall_rating_stars(klu) %>
-			</aside>
-
-	
-			<div class="row-fluid">
-				<section class="span8">
-
-					<%# PICTURES %>
-					<ul class="unstyled clearfix kluuu-pics" data-images-urls="<%= data_attributes_images_gallery(@klu) %>">
-						
-						<% klu.klu_images.each_with_index do |ki, index| %>
-						<% if (index == 0) %>
-						<li class="klu-eyecatcher">
-							<%= image_tag(ki.image.url(:large)) %>
-							<% if ki.description.length > 0 %>
-								<div class="klu-image-caption">
-									<%= ki.description %>
-								</div>
+			<section class="klu-layout klu-main">
+				<header>
+					<h2 class="klu-title"><%= klu.title %></h2>
+				</header>
+				<aside class="klu-overall-rating">
+					<%= overall_rating_stars(klu) %>
+				</aside>
+				<div class="row-fluid">
+					<section class="span8">
+						<ul class="unstyled clearfix kluuu-pics" data-images-urls="<%= data_attributes_images_gallery(@klu) %>">
+							<% klu.klu_images.each_with_index do |ki, index| %>
+								<% if (index == 0) %>
+									<li class="klu-eyecatcher">
+										<%= image_tag(ki.image.url(:large)) %>
+										<% if ki.description.length > 0 %>
+											<div class="klu-image-caption">
+												<%= ki.description %>
+											</div>
+										<% end %>
+									</li>
+								<% end %>
+							<% end %>
+						</ul>
+						<section class="klu-description">
+							<%= simple_format klu.description %>
+						</section>
+					</section>
+					<%= render(:partial => 'kluuu_user', :locals => {:klu => klu}) %>
+				</div>
+			</section><!-- End of Kluu-header klu-layout-->
+			<div class="large-klu-left row-fluid">
+				<section class="klu-ratings span8">
+					<h5><%= klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
+					<% unless klu.ratings.empty? %>
+					<ul class="unstyled">
+						<% klu.ratings.limit(5).each do |rating| %>
+						<li>
+							<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
+						</li>
+						<% end %>
+					</ul>
+					<% end %>
+				</section>	
+				<%# BOOKMARKS %>
+				<div class="span4">
+					<h5>
+						<%= t('.this_kluuu_is_bookmarked') %> <%= klu.bookmarks.count %> <%= t('.times') %>
+					</h5>
+					<ul class="unstyled klu-bookmarked-by">
+						<% klu.bookmarks.each do |b|%>
+						<li>
+							<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
+							<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
 							<% end %>
 						</li>
 						<% end %>
-						<% end %>
 					</ul>
-					<section class="klu-description">
-						<%= simple_format klu.description %>
-					</section>
-				</section><!-- End of Kluu-header klu-layout-->
-		<%= render(:partial => 'kluuu_user', :locals => {:klu => klu}) %>
-	</section>
-	<div class="large-klu-left row-fluid">
-		<%# RATINGS %>		
-			<section class="klu-ratings span8">
-				<h5><%= klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
-				<% unless klu.ratings.empty? %>
-				<ul class="unstyled">
-					<% klu.ratings.limit(5).each do |rating| %>
-					<li>
-						<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
-					</li>
-					<% end %>
-				</ul>
-				<% end %>
-			</section>
-			
-			<%# BOOKMARKS %>
-			<div class="span4">
-				<h5>
-					<%= t('.this_kluuu_is_bookmarked') %> <%= klu.bookmarks.count %> <%= t('.times') %>
-				</h5>
-				<ul class="unstyled klu-bookmarked-by">
-					<% klu.bookmarks.each do |b|%>
-					<li>
-						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
-						<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
-						<% end %>
-					</li>
-					<% end %>
-				</ul>
+				</div>
 			</div>
-	</div>
-	</div>
+		</div>
 		<%# MATCHES %>
 		<aside class="span3 klu-matches">
 			<div class="well">
@@ -80,11 +71,7 @@
 		</aside>
 
 	</div>
-
-	
-
 	<%# KLUUU TOP ACTION BAR %>
 	<%= render(:partial => "kluuu_top_actions", :locals => {:klu => klu}) %>
-
 </article>
 
