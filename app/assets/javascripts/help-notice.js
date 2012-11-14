@@ -4,22 +4,27 @@
 
 (function($){
 
+
 	var helpNotices = {};
 
   helpNotices.build = function() {
     helpNotices.onPage = $('.help-text');
 
     function closeBox() {
-      var closeIt = $('<div />').addClass('alert alert-info').html('<a href="#">Hilfe schließen</a>');
-      closeIt.appendTo('#flash_messages');
-      closeIt.children('a').on('click', function(e){
+      // var closeIt = $('<div />').addClass('alert alert-help-layer').html('<a href="#">Help schliessen</a>');
+        var closeIt = $('<li />').html('<a href="#" class="nav-help nav-help-active">Help</a>');
+      // closeIt.appendTo('#flash_messages');
+        closeIt.appendTo('.nav.pull-right');
+      // closeIt.children('a').on('click', function(e){
+        $('.nav-help, .help-text-close').on('click', function(e){
         e.preventDefault();
         helpNotices.onPage.fadeOut('fast', function() {
           helpNotices.onPage.remove();
         });
-        closeIt.fadeOut('fast', function() {
-          closeIt.remove();
-        });
+        $('.nav-help').removeClass('nav-help-active');
+        // closeIt.fadeOut('fast', function() {
+        //   closeIt.remove();
+        // });
       });
     }
 
@@ -39,8 +44,6 @@
       helpNotices.build();
     }
   };
-
-	
 
 	// document.ready
 	$(function(){
