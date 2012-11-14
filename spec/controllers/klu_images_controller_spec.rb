@@ -20,6 +20,16 @@ require 'spec_helper'
 
 describe KluImagesController do
   
+  before do
+    @user = FactoryGirl.create(:user)  
+    
+    @klu = FactoryGirl.create(:published_kluuu, :user => @user)
+    @klu_image = FactoryGirl.create(:klu_image, :kluuu => @klu)
+    
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub :current_user => @user
+  end
+  
   # This should return the minimal set of attributes required to create a valid
   # KluImage. As you add validations to KluImage, be sure to
   # update the return value of this method accordingly.
@@ -44,73 +54,57 @@ describe KluImagesController do
 
   describe "GET show" do
     it "assigns the requested klu_image as @klu_image" do
-      #klu_image = KluImage.create! valid_attributes
-      ki = FactoryGirl.create(:klu_image)
-      user = ki.kluuu.user 
-      klu = ki.kluuu
-      get :show, { :user_id => user, :klu_id => klu, :id => ki }, valid_session
-      assigns(:klu_image).should eq(ki)
+      get :show, { :user_id => @user, :klu_id =>  @klu.id, :id => @klu_image }, valid_session
+      assigns(:klu_image).should eq(@klu_image)
     end
   end
   
-  
-
   describe "GET new" do
     it "assigns a new klu_image as @klu_image" do
-      klu = FactoryGirl.create(:published_kluuu)
-      get :new, {:user_id => klu.user, :klu_id => klu }, valid_session
+      get :new, {:user_id => @user, :klu_id => @klu }, valid_session
       assigns(:klu_image).should be_a_new(KluImage)
     end
   end
 
   describe "GET edit" do
     it "assigns the requested klu_image as @klu_image" do
-      klu_image = FactoryGirl.create(:klu_image)
-      klu = klu_image.kluuu
-      user = klu.user
-      get :edit, {:user_id => user, :klu_id => klu, :id => klu_image.to_param}, valid_session
-      assigns(:klu_image).should eq(klu_image)
+      get :edit, {:user_id => @user.to_param, :klu_id => @klu.id, :id => @klu_image.to_param}, valid_session
+      assigns(:klu_image).should eq(@klu_image)
     end
   end
 
   describe "POST create" do
     describe "with valid params" do
       it "creates a new KluImage" do
-        klu = FactoryGirl.create(:published_kluuu)
         expect {
-          post :create, {:user_id => klu.user, :klu_id => klu, :klu_image => valid_attributes}, valid_session
+          post :create, {:user_id => @user, :klu_id => @klu, :klu_image => valid_attributes}, valid_session
         }.to change(KluImage, :count).by(1)
       end
 
       it "assigns a newly created klu_image as @klu_image" do
-        klu = FactoryGirl.create(:published_kluuu)
-        post :create, {:user_id => klu.user, :klu_id => klu, :klu_image => valid_attributes.merge(:klu_id => klu.id)}, valid_session
+        post :create, {:user_id => @user, :klu_id => @klu, :klu_image => valid_attributes.merge(:klu_id => @klu.id)}, valid_session
         assigns(:klu_image).should be_a(KluImage)
         assigns(:klu_image).should be_persisted
       end
     
       
       it "redirects to the created klu_images KluuU"  do
-        klu = FactoryGirl.create(:published_kluuu)
-        post :create, {:user_id => klu.user, :klu_id => klu, :klu_image => valid_attributes }, valid_session
-        response.should redirect_to( user_klu_path(:user_id => klu.user, :id => klu) )
+        post :create, {:user_id => @user, :klu_id => @klu, :klu_image => valid_attributes }, valid_session
+        response.should redirect_to( user_klu_path(:user_id => @user.to_param, :id => @klu) )
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved klu_image as @klu_image" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        klu = FactoryGirl.create(:published_kluuu)
         KluImage.any_instance.stub(:save).and_return(false)
-        post :create, {:user_id => klu.user, :klu_id => klu, :klu_image => {}}, valid_session
+        post :create, {:user_id => @user, :klu_id => @klu, :klu_image => {}}, valid_session
         assigns(:klu_image).should be_a_new(KluImage)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        klu = FactoryGirl.create(:published_kluuu)
         KluImage.any_instance.stub(:save).and_return(false)
-        post :create, {:user_id => klu.user, :klu_id => klu, :klu_image => {}}, valid_session
+        post :create, {:user_id => @user, :klu_id => @klu, :klu_image => {}}, valid_session
         response.should render_template("new")
       end
     end
@@ -119,14 +113,12 @@ describe KluImagesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested klu_image" do
-        
-        klu_image = FactoryGirl.create(:klu_image) 
         # Assuming there are no other klu_images in the database, this
         # specifies that the KluImage created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         KluImage.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:user_id => klu_image.kluuu.user, :klu_id => klu_image.kluuu, :id => klu_image.to_param, :klu_image => {'these' => 'params'}}, valid_session
+        put :update, {:user_id => @user, :klu_id => @klu, :id => @klu_image.to_param, :klu_image => {'these' => 'params'}}, valid_session
       end
 
       it "assigns the requested klu_image as @klu_image" do

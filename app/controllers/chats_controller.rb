@@ -58,4 +58,18 @@ class ChatsController < ApplicationController
       format.js
     end
   end
+  
+  # TODO complete functionality - 
+  # if user clicks while having chat open
+  # frontend will call this method to rebuild chat 
+  # based on already submitted chat-messages
+  #
+  def show
+    @conversation = Conversation.find(params[:id])
+    @chat = Chat.new 
+    logger.debug("Chats#show - showing conversation for chat-view")
+    respond_to do |format|
+      format.js
+    end  
+  end
 end

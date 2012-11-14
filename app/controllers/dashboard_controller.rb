@@ -42,6 +42,9 @@ class DashboardController < ApplicationController
   def delete_notification
     n = Notification::Base.find(params[:notification_id])
     @css_id = "notification-#{params[:notification_id]}"
+    
+    authorize! :destroy, n
+    
     if n.destroy
       flash.now[:notice] = t('destroyed notification')
     else

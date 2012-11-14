@@ -34,6 +34,10 @@ class Ability
       klu.user == user
     end
     
+    can :manage, KluImage do |ki|
+      user == ki.kluuu.user
+    end
+    
     can :manage, User do |usr|
       usr == user
     end
@@ -44,6 +48,38 @@ class Ability
     
     can :manage, Notification::Base do |notification|
       user == notification.user
+    end
+    
+    can :manage, StatusUpdate do |su|
+      user == su.user
+    end
+    
+    can :manage, Message do |message|
+      user == message.sender || message.receiver 
+    end
+    
+    can :manage, Conversation do |conversation|
+      user ==  conversation.user_1 || conversation.user_2
+    end
+    
+    can :manage, Category do |category|
+      user.is_admin?
+    end
+    
+    can :manage, Comment do |comment|
+      comment.commentable.user == user || comment.user == user
+    end
+    
+    can :manage, Follow do |f|
+      f.follower == user
+    end
+    
+    can :manage, Balance::Account do  |ba|
+      ba.user == user
+    end
+    
+    can :manage, Bookmark do |bookmark|
+      user == bookmark.user
     end
     
   end

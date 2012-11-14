@@ -86,6 +86,8 @@ class KlusController < ApplicationController
     logger.debug("Klus#update - params: #{params.inspect}")
     @klu = Klu.find(params[:id])
     @user = @klu.user
+    
+    authorize! :update, @klu
 
     respond_to do |format|
       if @klu.update_attributes(params[:klu])
@@ -102,6 +104,9 @@ class KlusController < ApplicationController
   # DELETE /klus/1.json
   def destroy
     @klu = Klu.find(params[:id])
+    
+    authorize! :destroy, @klu
+    
     _user = @klu.user
     @klu.destroy
 

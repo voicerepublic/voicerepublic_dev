@@ -46,6 +46,7 @@ class CommentsController < ApplicationController
   # GET /comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
+    authorize! :edit, @comment
   end
 
   # POST /comments
@@ -74,7 +75,9 @@ class CommentsController < ApplicationController
   # PUT /comments/1.json
   def update
     @comment = Comment.find(params[:id])
-
+    
+    authorize! :update, @comment
+    
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         format.html { redirect_to user_status_update_path(:user_id => @comment.commentable.user.id, :status_update_id => @comment.commentable ), notice: 'Comment was successfully updated.' }
@@ -90,6 +93,9 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
+    
+    authorize! :destroy, @comment
+    
     @comment.destroy
 
     respond_to do |format|

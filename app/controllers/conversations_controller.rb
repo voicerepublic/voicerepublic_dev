@@ -8,6 +8,7 @@ class ConversationsController < ApplicationController
   # GET /conversations.json
   def index
     @conversations = @user.conversations.sort { |a,b| b.undeleted_messages_for(@user).limit(1).first.created_at <=> a.undeleted_messages_for(@user).limit(1).first.created_at }
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @conversations }
@@ -18,6 +19,9 @@ class ConversationsController < ApplicationController
   # GET /conversations/1.json
   def show
     @conversation = Conversation.find(params[:id])
+    
+    authorize! :show, @conversation
+    
     @messages = @conversation.undeleted_messages_for(@user).paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.html # show.html.erb
@@ -30,6 +34,9 @@ class ConversationsController < ApplicationController
   # DELETE /conversations/1.json
   def destroy
     @conversation = Conversation.find(params[:id])
+    
+    authorize! :destroy, @conversation 
+    
     @conversation.destroy
 
     respond_to do |format|
