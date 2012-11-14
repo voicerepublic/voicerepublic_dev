@@ -1,6 +1,6 @@
 <%= form_tag "/search", :method => 'get', :class => 'search-form' do %>
 	<input class="search-query" name="query" type="text" value="<%= query %>" >
-	<button class="btn btn-primary" type="submit">
+	<button class="btn" type="submit">
 		<i class="icon-search"> </i> <%= t('.search',:default => 'Go!') %>
 	</button>
 <% end %>

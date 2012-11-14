@@ -3,7 +3,7 @@
 	<div class="well well-large">
 	<%= render(:partial => 'search/form', :locals => {:query => @query}) %>
 	<% if current_user %>
-		<%= link_to( t('.publish_search_as_?KluuU?', :default => "Als Frage-KluuU speichern?"), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn search-new-no-kluuu")  %>
+		<%= link_to( t('.publish_search_as_?KluuU?', :default => "Als Frage-KluuU speichern?"), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn btn-primary search-new-no-kluuu")  %>
 	<% else %>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><%= t('.persist_search', :default => "Tipp:") %></span>&nbsp;&nbsp;Erstelle ein Frage-KluuU und nutze unser Matching System!
 		&nbsp;<%#= link_to(t('.log_in', :default => "Log In"), new_user_session_path, :class => "btn") %> <%#= t('.or')%> 
@@ -13,7 +13,7 @@
 	<div class="row-fluid search-results">
 		<% hash = hash_by_kluuu_type( @klus) %>
 		<% hash.keys.each do |k| %>
-			<div class="span6 row-fluid">
+			<div class="span5 row-fluid">
 				<% if ("#{k}" == 'kluuu') %>
 					<h3 class="lead">KluuUs</h3>
 				<% else %>
@@ -28,5 +28,8 @@
 				<% end %>
 			</div>
 		<% end %>
+		<div class="span2">
+			<h3 class="lead"><%= t('.user', :default => "Nutzer") %></h3>
+		</div>
 	</div>
 </div>
