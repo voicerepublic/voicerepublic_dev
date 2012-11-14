@@ -1,7 +1,6 @@
-<%- model_class = StatusUpdate -%>
 <section class="status-updates status-updates-comments">
   <div class="contribution-comments">
-    <%= link_to(user_status_updates_path(:user_id => current_user), :class => 'status-updates-back') do %>
+    <%= link_to(user_status_updates_path(:user_id => @status_update.user), :class => 'status-updates-back') do %>
       <i class="icon-arrow-left"></i>
       <%= t('.back') %>
     <% end %>
