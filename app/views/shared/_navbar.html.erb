@@ -1,6 +1,12 @@
 <div class="navbar navbar-fixed-top navbar-logged-out">
 	<div class="navbar-inner">
 		<div class="container">
+			<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
 			<div class="pull-left">
 				<%= link_to root_path, :title => "KluuU-logo" , :class => "brand-big" do %>
 					<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
