@@ -12,18 +12,18 @@
 		<%= stylesheet_link_tag "application", :media => "all" %>
 		<%= stylesheet_link_tag controller.controller_name, :media => "all" %>
 		<%= javascript_include_tag "private_pub" %>
+
 		<link href="/images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 	</head>
-	
-		<% if current_user %>
-			<body>
-			<%= render(:partial => "shared/actionbar") %>
+	<% if current_user %>
+	<body>
+		<%= render(:partial => "shared/actionbar") %>
 		<% else %>
-			<body class="layout-logged-out">
-			<%= render(:partial => "shared/navbar")%>
+	<body class="layout-logged-out">
+		<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
@@ -31,7 +31,8 @@
 			<%= yield %>
 			<footer>
 				<p>
-					&copy; KluuU 2012<br />
+					&copy; KluuU 2012
+					<br />
 					<small><span class="label">rev: <%= git_revision %> - version <%= KluuuCode::VERSION %></span></small>
 				</p>
 			</footer>
@@ -41,9 +42,6 @@
 		<!-- Javascripts
 		================================================== -->
 		<%= javascript_include_tag "application" %>
-
-
-
 		<!-- Placed at the end of the document so the pages load faster -->
 	</body>
 </html>
