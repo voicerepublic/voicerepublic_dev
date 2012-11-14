@@ -27,17 +27,15 @@
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
-		<div class="container">
-			<%= yield %>
-			<footer>
-				<p>
-					&copy; KluuU 2012
-					<br />
-					<small><span class="label">rev: <%= git_revision %> - version <%= KluuuCode::VERSION %></span></small>
-				</p>
-			</footer>
+		<div class="footer-wrapper">
+			<div class="container">
+				<%= yield %>
+			</div>
+			<div class="footer-push"></div>
+		</div><!-- /wrapper for sticky footer -->
+		<div class="footer-content-wrapper">
+			<%= render(:partial => "shared/footer") %>
 		</div>
-		<!-- /container -->
 
 		<!-- Javascripts
 		================================================== -->

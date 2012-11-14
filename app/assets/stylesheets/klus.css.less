@@ -56,11 +56,6 @@
 	.transition(background 0.2s ease);
 	max-width: 280px;
 	margin: 0 auto;
-	0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05)
-
-	&:hover {
-		color: @white;
-	}
 
 	a, button {
 		color: inherit;
@@ -73,16 +68,6 @@
 
 	form, button {
 		display: inline-block;
-	}
-
-	button {
-		white-space: nowrap;
-		font-size: 150%;
-		line-height: 1;
-
-		&:hover {
-			color: @white;
-		}
 	}
 
 	.klu-price {
@@ -259,6 +244,7 @@
 	@large-klu-padding-top: @verticalRhythm * 3;
 
 	padding-top: @large-klu-padding-top;
+	padding-bottom: 30px;
 	position: relative;
 
 	.klu-title {
