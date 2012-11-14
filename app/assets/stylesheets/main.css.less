@@ -1,13 +1,19 @@
 /*
  *= require bootstrap_and_overrides
  *= require navbar
+ *= require footer
  */
  
 @import "config.css.less";
 
+html{
+  height:100%; /* for footer wrapper */
+}
+
 body {
   background: @white;
   overflow-y:scroll;
+  height:100%; /* for footer wrapper */
 }
 
 body.layout-logged-out{
@@ -111,7 +117,8 @@ body.layout-logged-out{
   position: fixed;
   top:48px;
   width:100%;
-  text-align: center
+  text-align: center;
+  z-index:101;  
 }
 
 .alert{
@@ -236,4 +243,5 @@ body.layout-logged-out{
     box-shadow:  0 0 3px white, 0 0 3px #780000;
   }
 }
+
 
