@@ -21,8 +21,9 @@ ul.news-list > li {
 }
 
 .news-notification.contribution {
-  padding-top: 40px;
+  padding-top: 28px;
   padding-bottom: 20px;
+  min-height: @baseFontSize * @baseLineHeight * 2;
 
   .contribution-delete, .news-view {
     color: lighten(desaturate(@brandColor, 20%), 20%);
@@ -35,10 +36,15 @@ ul.news-list > li {
     }
   }
 
-  time {
+  .tiny-klu {
+    margin: 0;
+  }
+
+  header time {
     right: 5px;
     bottom: 1px;
     color: #999;
+    text-align: right;
   }
 
   .well {
@@ -48,6 +54,18 @@ ul.news-list > li {
   .contribution-delete {
     top: 40px;
     right: 5px;
+  }
+
+  .status {
+    padding-left: 26px;
+    position: relative;
+
+    i.icon-bullhorn {
+      color: @brandColorGrey;
+      position: absolute;
+      left: @verticalRhythm - 4;
+      top: @verticalRhythm - 4;
+    }
   }
 
   .news-view {
@@ -71,7 +89,7 @@ ul.news-list > li {
   .news-notification-top {
     font-size: @baseFontSize - 2;    
     position: absolute;
-    left: 10px;
-    top: 12px;
+    left: 14px;
+    top: 6px;
   }
 }

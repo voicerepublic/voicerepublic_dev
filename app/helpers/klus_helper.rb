@@ -79,5 +79,9 @@ module KlusHelper
       t('.free')
     end
   end
+
+  def tiny_klu(klu)
+    klu.instance_of?(Kluuu) ? render(:partial => 'klus/tiny_kluuu', :locals => { :klu => klu}) : render(:partial => 'klus/tiny_no_kluuu', :locals => { :klu => klu})
+  end
   
 end

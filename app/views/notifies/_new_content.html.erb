@@ -1,7 +1,7 @@
 <article class="notification news-notification news-notification-new-content contribution" id="notification-<%= notification.id %>">
 	<header>
 		<div class="user-image contribution-user-image" data-user-id="<%= notification.other.id %>">
-			<%= link_to(image_tag( notification.other.account.portrait.url(:thumb)), user_path(:id => notification.other), :class => ' img-polaroid' ) %>
+			<%= link_to(image_tag( notification.other.account.portrait.url(:thumb), :class => ' img-polaroid'), user_path(:id => notification.other)) %>
 		</div>
 		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(notification.created_at) %>
@@ -14,7 +14,8 @@
 			<%= t('.created_new_status_update') %>:
 		</h4>
 		<%= link_to_url_for_notification_reason(notification) do %>
-			<div class="well well-small">
+			<div class="well well-small status">
+				<i class="icon-bullhorn"></i>
 				<%= limit_words(notification.content, 40) %>
 			</div>
 		<% end %>
@@ -25,7 +26,7 @@
 			<%= t('.created_new_') %><%= klu_type_string(notification.klu) %>:
 		</h4>
 		<%= link_to_url_for_notification_reason(notification) do  %>
-			<span class="klu-title well well-small"><%= notification.klu.title %></span>
+			<%= tiny_klu(notification.klu) %>
 		<% end %>
 	<% end %>
 	<%= link_to_url_for_notification_reason(notification) %>
