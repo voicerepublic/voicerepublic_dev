@@ -1,17 +1,18 @@
 <div class="row-fluid">
 	<div class="span12">
+
 		<h3>
-			<%= t('unavailable_title', :default => "Video Call") %>
+			<%= t('video_call_title', :default => "VIDEO CALL") %>
 		</h3>
-		
-		<p>	
-			<%= raw t('unavailable_text', :default => 'Dieser User ist zurzeit nicht erreichbar. <br>Hier kannst du ihm eine Nachricht schreiben.') %>
+
+		<p>
+			<%= raw t('.unavailable_text', :default => 'Dieser User ist zurzeit nicht erreichbar. <br>Hier kannst du ihm eine Nachricht schreiben.') %>
 		</p>
 
-		<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay', :class => "btn pull-right" %>
+		<%= link_to t('.close', :default => "Schliessen"), '#', 'data-function' => 'closeOverlay', :class => "btn pull-right left-small-margin" %>
 		
 		<%= form_tag new_message_path(:receiver_id => receiver_id), :method => :get, :remote => true do %>
-			<%= button_tag 	:style => "margin-right:5px", :class => 'btn btn-success pull-right' do %>
+			<%= button_tag :class => 'btn btn-primary pull-right' do %>
 				<%= t('.send_message', :default => 'Nachricht') %>
 			<% end %>
 		<% end %>
