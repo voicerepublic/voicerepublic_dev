@@ -170,7 +170,7 @@
 			});
 		},
 		keepAspectRatio: function() {
-			$('.no-kluuu .klu-eyecatcher.klu-title').each(function() {
+			$('.no-kluuu:not(.tiny-klu) .klu-eyecatcher.klu-title').each(function() {
 				$(this).height(parseInt($(this).width(), 10) * 3/4 + "px").addClass('well well-small');
 			});
 		}

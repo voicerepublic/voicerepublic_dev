@@ -558,3 +558,42 @@
 	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
 	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
 }
+
+.tiny-klu {
+	&.klu-layout {
+		position: relative;
+		padding: @verticalRhythm/2 50px @verticalRhythm/2 @verticalRhythm/2;
+	}
+
+	.klu-user-image {
+		position: absolute;
+		right: @verticalRhythm/2;
+		bottom: @verticalRhythm/2;
+		width: 35px;
+		height: 35px;
+	}
+
+	&.kluuu {
+
+		padding: (@verticalRhythm/2) 50px @verticalRhythm/2 90px ;
+
+		.klu-eyecatcher {
+			position: absolute;
+			left: @verticalRhythm/2;
+			top: @verticalRhythm/2;
+
+			img{
+				height: 60px;
+			}
+		}
+
+		.klu-overall-rating {
+			font-size: 8px;
+			top: 2px;
+		}
+	}
+
+	.klu-title {
+		height: 60px;
+	}
+}
