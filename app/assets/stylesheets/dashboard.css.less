@@ -28,6 +28,7 @@
 } /* End of .dashboard */
 
 .dashboard-matches {
+  position: relative;
 
   h3 {
     .klu-layout {
@@ -40,14 +41,6 @@
     min-height:500px;
     margin-right: 0px;
     margin-top:0;
-
-    li {
-      margin: @verticalRhythm 0 @verticalRhythm 5px;
-
-      &:first-child {
-        margin-top: 0;
-      }
-    }
   }
 
   .tab-content {
@@ -63,9 +56,12 @@
 
     li {
      position: relative;
+
      
      & > a{
       .transition(all 0.2s ease);
+      padding-right: 40px;
+      position: relative;
      }
 
      & > a:hover {
@@ -115,6 +111,18 @@
       }
 
     }
+
+    li.active > a{
+      &:after {
+        color: #CCCCCC;
+        content: "→";
+        font-size: 31px;
+        position: absolute;
+        right: -6px;
+        top: 29%;
+      }
+    }
+
     li.active span.klu-layout {
       color: @linkColor;
       box-shadow: 0px 0px 4px rgba(0,0,0,0.15);
@@ -126,15 +134,24 @@
   }
 }
 
-h4.dashboard-matches-headlines {
+h4.dashboard-matches-headlines-my-kluuus, h4.dashboard-matches-headlines-matches {
   font-size: 18px;
+}
+
+h4.dashboard-matches-headlines-my-kluuus {
+  margin-left: 18px;
+}
+
+h4.dashboard-matches-headlines-matches {
+  position: absolute;
+  left: 418px;
+  top: 0;
 }
 
 .matches-view-link {
   position: absolute;
-  right: 5px;
   top: 3px;
-  right: 38px;
+  right: 44px;
   color: lighten(desaturate(@brandColor, 20%), 20%);
   font-size: @baseFontSize - 2;
 
@@ -144,7 +161,7 @@ h4.dashboard-matches-headlines {
 }
 
 .dashboard-matches-new-content {
-  left: 4px;
+  margin-left: 11px;
   li {
     float: left;
     margin: 0 5px @verticalRhythm;

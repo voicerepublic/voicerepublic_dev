@@ -562,6 +562,18 @@
 .tiny-klu {
 	margin: @verticalRhythm 0;
 
+	a & {
+		color: @textColor;
+	}
+
+	a:hover & {
+		color: lighten(@textColor, 10%);
+
+		h3 span {
+			text-decoration: none;
+		}
+	}
+
 	&.klu-layout {
 		position: relative;
 		padding: @verticalRhythm/2 50px @verticalRhythm/2 @verticalRhythm/2;

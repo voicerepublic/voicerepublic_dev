@@ -1,6 +1,4 @@
 <article class="tiny-klu klu-layout no-kluuu">
-	<%= link_to( klu_path(:id => klu)) do %>
-		<h3 class="no-margin klu-eyecatcher klu-title"><%= klu.title %></h3>	
-	<% end %>
-	<div class="user-image klu-user-image" data-user-id="<%= klu.user.id %>"><%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user) ) %></div>
+	<h3 class="no-margin klu-eyecatcher klu-title"><%= klu.title %></h3>	
+	<div class="user-image klu-user-image" data-user-id="<%= klu.user.id %>"><%= image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid")  %></div>
 </article>
