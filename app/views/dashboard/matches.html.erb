@@ -16,6 +16,7 @@
 	<h4 class="no-margin dashboard-matches-headlines"><%= t('.my_kluuus', :default => 'Meine KluuUs') %></h4>
 	<div class="tabbable tabs-left">
 			<ul class="nav nav-tabs dashboard-matches-own-klus">
+		  	<!-- jetzt zwei arrays: @klus und @no_klus -->
 			<% @klus.each do |k| %>
 				<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
 					<li class="active">
