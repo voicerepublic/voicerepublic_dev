@@ -1,8 +1,8 @@
 class SearchController < ApplicationController
   
   def search
-    @query = params[:query]
-    @klus = Klu.search(params[:query])  
+    @query = params[:query] || params[:landing_page_query]
+    @klus = Klu.search(@query)  
   end
 
   def match
