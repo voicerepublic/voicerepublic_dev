@@ -2,7 +2,7 @@
 <div class="row-fluid">
 	<div class="span12">
 		<h3>
-			Video Call Rejected
+			<%= t('video_call_title', :default => "VIDEO CALL") %>
 		</h3>
 		 
 		 <div class="thumbnail user-thumbnail">
@@ -11,13 +11,13 @@
 				<div class="user-thumbnail-name"><%= user.name %></div>
 			<% end %>
 		</div>
-		<br>
-		rejected your Video Call.
+		<p>
+		<%= t('.rejected_text', :default => 'hat deinen Video Call abgelehnt.') %>
 	</div>
 </div>
 <br>
 <div class="row-fluid">
 	<div class="span12">
-		<%= link_to t('.close'), '#', :class => "btn", 'data-function' => 'closeOverlay' %>
+		<%= link_to t('.close', :default => "Schliessen"), '#', :class => "btn pull-right", 'data-function' => 'closeOverlay' %>
 	</div>	
 </div>

@@ -2,7 +2,7 @@
 <div class="row-fluid">
 	<div class="span12">
 		<h3>
-			VIDEO CALL!
+			<%= t('video_call_title', :default => "VIDEO CALL") %>
 		</h3>
 		 
 		 <div class="thumbnail user-thumbnail">
@@ -17,9 +17,9 @@
 <br>
 <div class="row-fluid">
 	<div class="span6">
-		<%= button_to t('.accept_call', :default => 'Accept'), video_session_path(video_session.id), :method => :put, :remote => :true, :class => 'btn pull-right', :style => "width:150px", :disable_with => "t('.connecting_call')" %>
+		<%= button_to t('.accept_call', :default => 'Akzeptieren'), video_session_path(video_session.id), :method => :put, :remote => :true, :class => 'btn btn-primary pull-right', :style => "width:150px", :disable_with => "#{t('.connecting_call', :default => "Wird geladen...")}" %>
 	</div>
 	<div class="span6">
-		<%= button_to t('.reject_call', :default => 'Reject'), video_session_path(:id => video_session.id, :canceling_participant_id => video_session.host_participant.id), :method => :delete, :remote => :true, :class => 'btn pull-left', :style => "width:150px; margin-right:10px" %>
+		<%= button_to t('.reject_call', :default => 'Ablehnen'), video_session_path(:id => video_session.id, :canceling_participant_id => video_session.host_participant.id), :method => :delete, :remote => :true, :class => 'btn pull-left', :style => "width:150px; margin-right:10px" %>
 	</div>	
 </div>

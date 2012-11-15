@@ -1,3 +1,12 @@
-Sry, the Video System is unavailable at the moment. We are working on it. Thx for using KluuU.
+<div class="row-fluid">
+	<div class="span12">
+		<h3>
+			<%= t('video_call_title', :default => "VIDEO CALL") %>
+		</h3>
+		<p>
+			<%= raw t('.video_down_text', :default => 'Sorry! Das Video System ist zurzeit nicht ansprechbar. Wir arbeiten daran.<br>Danke das Du KluuU benutzt.') %>
+		</p>
 
-<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay' %>
+		<%= link_to t('.close', :default => "Schliessen"), '#', 'data-function' => 'closeOverlay', :class => "btn pull-right left-small-margin" %>
+	</div>
+</div>
