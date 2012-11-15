@@ -1,4 +1,4 @@
-<%= form_for account, :url => user_account_path(:user_id => user, url_arg => 1), :html => { :class => '', :multipart => true } do |f| %>
+<%= form_for account, :url => user_account_path(:user_id => user, url_arg => 1), :html => { :multipart => true } do |f| %>
 	<%= f.fields_for :prefs, account.prefs do |p| %>
 	
 	<div class="control-group">
@@ -39,7 +39,7 @@
 	<br>
 	<div class="control-group">
 		<%= f.submit nil, :class => 'btn btn-primary' %>
-		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), dashboard_settings_path, :class => 'btn' %>
+		<%#= link_to t('.cancel', :default => t("helpers.links.cancel")), dashboard_settings_path, :class => 'btn' %>
 	</div>
 	<% end %>
 
