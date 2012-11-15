@@ -13,16 +13,18 @@
 						<%= link_to(partner.name, user_path(partner), :class => "contribution-user-name") %>
 					</header>
 					<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
-					<% msg = conv.messages.limit(1).first %>
-					<p><%= truncate( msg.content, :length => 72) %></p>
-					<aside>
-						<% msg_c = conv.messages.count - 1 %>
-						<%= t(".and_#{msg_c}_more_messages") %>
-						<time><%= l(msg.created_at, :format => :short) %></time>
-						<%= link_to(new_message_path(:receiver_id => partner), :remote => true, :class => "conversations-actions-new") do %>
-							<i class="icon-envelope"> </i> <%= t('.new_message') %>
-						<% end %>
-					</aside>
+						<% msg = conv.messages.limit(1).first %>
+						<p><%= truncate( msg.content, :length => 72) %></p>
+						<aside>
+							<span class="conversations-more-messages">
+								<% msg_c = conv.messages.count - 1 %>
+								<%= t(".and_#{msg_c}_more_messages") %>
+							</span>								
+							<time><%= l(msg.created_at, :format => :short) %></time>
+						</aside>
+					<% end %>
+					<%= link_to(new_message_path(:receiver_id => partner), :remote => true, :class => "conversations-actions-new") do %>
+						<i class="icon-envelope"> </i> <%= t('.new_message') %>
 					<% end %>
 				</article>
 			</li>
