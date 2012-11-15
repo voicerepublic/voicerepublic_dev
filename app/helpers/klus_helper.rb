@@ -34,6 +34,8 @@ module KlusHelper
                     'medium_'
                   when :small
                     'small_'
+                  when :tiny
+                    'tiny_'
                   when :large
                     ''
                   end
