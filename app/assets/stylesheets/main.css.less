@@ -306,3 +306,45 @@ body.layout-logged-out{
   }
 
 }
+
+.errorExplanation {
+  background-color: #FADDDE;
+  border: 1px solid #F9D1D7;
+  color: #D63946;
+  padding: @verticalRhythm;
+
+  h2 {
+    font-size: @baseFontSize * 2;
+    margin: 0 0 @verticalRhythm;
+  }
+
+  ul {
+    li {
+      list-style: none;
+      padding-left: 12px;
+      position: relative;
+    }
+    li:before {
+      content: "!";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      font-weight: bold;
+    }
+  }
+}
+
+form {
+  .field_with_errors {
+    background-color: #D63946;
+    display: block;
+
+    label, label.control-label {
+      color: @white;
+    }
+
+    input, textarea {
+      background-color: #FADDDE;
+    }
+  }
+}

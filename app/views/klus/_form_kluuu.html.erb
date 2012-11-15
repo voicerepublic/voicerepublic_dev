@@ -13,41 +13,62 @@
 		</div>
 	</div>
 	<div class="row-fluid">
-		<div class="span8 kluuu-pics">
-			<%if @klu.new_record? %>
-				<%= f.fields_for :klu_images do |builder| %>
-					<%= render(:partial => 'klu_image_fields', :locals => { :f => builder })%>
-  			<% end %>
-  		<% else %>
-	  		<ul class="unstyled">
-					<% @klu.klu_images.each_with_index do |ki, index| %>
-						<% if index == 0 && !@klu.new_record?%>
-						<li class="klu-eyecatcher">
-							<%= image_tag(ki.image.url(:large)) unless ki.new_record? %>
-							<div class="klu-image-caption">
-								<%= ki.description unless ki.new_record? %>
-							</div>
-							<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
-							<i class="icon-pencil"></i>
-							<%= t ".edit" %>
-							<% end unless ki.new_record? %>
-						</li>
-						<% else %>
-						<li>
-							<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki) do %>
-							<%= image_tag(ki.image.url(:medium)) %>
-							<% end unless ki.new_record? %>
-							<%= link_to user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
-							<i class="icon-pencil"></i>
-							<%= t ".edit" %>
-							<% end unless ki.new_record? %>
-						</li>
+		<div class="span8">	
+			<div class="kluuu-pics">
+				<%if @klu.new_record? %>
+					<%= f.fields_for :klu_images do |builder| %>
+						<%= render(:partial => 'klu_image_fields', :locals => { :f => builder })%>
+	  			<% end %>
+	  		<% else %>
+		  		<ul class="unstyled">
+						<% @klu.klu_images.each_with_index do |ki, index| %>
+							<% if index == 0 && !@klu.new_record?%>
+							<li class="klu-eyecatcher">
+								<%= image_tag(ki.image.url(:large)) unless ki.new_record? %>
+								<div class="klu-image-caption">
+									<%= ki.description unless ki.new_record? %>
+								</div>
+								<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
+								<i class="icon-pencil"></i>
+								<%= t ".edit" %>
+								<% end unless ki.new_record? %>
+							</li>
+							<% else %>
+							<li>
+								<%= link_to edit_user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki) do %>
+								<%= image_tag(ki.image.url(:medium)) %>
+								<% end unless ki.new_record? %>
+								<%= link_to user_klu_klu_image_path(:user_id => @klu.user, :klu_id => @klu, :id => ki), :class => "kluuu-image-edit-link" do %>
+								<i class="icon-pencil"></i>
+								<%= t ".edit" %>
+								<% end unless ki.new_record? %>
+							</li>
+							<% end %>
 						<% end %>
-					<% end %>
-				</ul>
-  		<% end %>
+					</ul>
+	  		<% end %>
+			</div>
+			<div class="control-group">
+				<%= f.label :description, :class => 'control-label' %>
+				<div class="controls">
+					<%= f.text_area :description, :class => 'text_area', :rows => 10 %>
+				</div>
+			</div>
+			
 		</div>
 		<div class="span4">
+			<div class="control-group">
+			<%= f.label :category_id, :class => 'control-label' %>
+			<div class="controls">
+				<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
+			</div>
+			</div>
+			<div class="control-group">
+				<%= f.label :tag_list, :class => "control-label" %>
+				<div class="controls">
+					<%= f.text_field :tag_list, :class => 'text_field' %>
+				</div>
+			</div>
 			<h4><%= t(".call_options") %></h4>
 			<div class="control-group">
 				<%= f.label :available_at_times, :class => 'control-label' %>
@@ -82,32 +103,10 @@
 		</div>
 	</div>
 </div>
-<div class="row-fluid">
-	<div class="span8">
-		<div class="control-group">
-			<%= f.label :description, :class => 'control-label' %>
-			<div class="controls">
-				<%= f.text_area :description, :class => 'text_area', :rows => 10 %>
-			</div>
-		</div>
-		<div class="control-group">
-			<%= f.label :category_id, :class => 'control-label' %>
-			<div class="controls">
-				<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
-			</div>
-		</div>
-		<div class="control-group">
-			<%= f.label :tag_list, :class => "control-label" %>
-			<div class="controls">
-				<%= f.text_field :tag_list, :class => 'text_field' %>
-			</div>
-		</div>
-	</div>
-	<div class="form-actions span4">
-		<%= f.submit nil, :class => 'btn btn-primary' %>
-		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-		user_klus_path(:user_id => @user), :class => 'btn' %>
-	</div>
+<div class="form-actions">
+	<%= f.submit nil, :class => 'btn btn-primary' %>
+	<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	user_klus_path(:user_id => @user), :class => 'btn' %>
 </div>
 
 <% end %>

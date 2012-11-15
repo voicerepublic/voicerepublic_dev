@@ -234,6 +234,7 @@
 	  
 	  img {
       width: 30px;
+      height: 30px;
     }
   }
 } /* End of .small-kluu */
@@ -286,10 +287,10 @@
 					display: block;
 					position: absolute;
 					background: white;
-					background: rgba(255,255,255,0.8);
+					background: rgba(128,128,255,0.3);
 					right: 0px;
 					top: 0px;
-					font-size: @baseFontSize - 3;
+					font-size: @baseFontSize;
 					line-height: 1;
 					padding: 1px 4px;
 				}
@@ -543,6 +544,20 @@
 		height: auto;
 		text-align: left;
 	}
+
+	&.kluuu {
+
+		.kluuu-pics {
+			li {
+				margin: @verticalRhythm;
+				float: left;
+			}
+			li.klu-eyecatcher {
+				margin: 0;
+				float: none;
+			}
+		}
+	}
 }
 
 .kluuu.klu-layout, .kluuu .klu-layout {
@@ -598,6 +613,7 @@
 
 			img{
 				height: 60px;
+				width: 79px;
 			}
 		}
 
