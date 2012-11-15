@@ -1,12 +1,14 @@
-<% publish_to "/notifications/#{@chat.user1.id}" do %>
-  $('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user1 }) ) %>').appendTo("#<%= @chat.css_id_for_chat %>").hide().fadeIn("slow", function(){
+
+
+<% publish_to "/notifications/#{@chat.my_partner(current_user).id}" do %>
+  $('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => current_user }) ) %>').appendTo("#<%= @chat.css_id_for_chat %>").hide().fadeIn("slow", function(){
     $("#<%= @chat.css_id_for_chat %>").get(0).scrollTop = $("#<%= @chat.css_id_for_chat %>").get(0).scrollHeight;
   });
 	// $("#<%= @chat.css_id_for_chat %>").append('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user2 }) ) %>').hide().slideDown('slow').fadeIn("slow");
 <% end %>
 
-<% publish_to "/notifications/#{@chat.user2.id}" do %>
- $('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user2 }) ) %>').appendTo("#<%= @chat.css_id_for_chat %>").hide().fadeIn("slow", function(){
+<% publish_to "/notifications/#{current_user.id}" do %>
+ $('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.my_partner(current_user)}) ) %>').appendTo("#<%= @chat.css_id_for_chat %>").hide().fadeIn("slow", function(){
   $("#<%= @chat.css_id_for_chat %>").get(0).scrollTop = $("#<%= @chat.css_id_for_chat %>").get(0).scrollHeight;
  });
 	//$("#<%= @chat.css_id_for_chat %>").append('<%= escape_javascript( render( :partial => 'chats/single_chat_message', :locals => { :chat => @chat, :partner => @chat.user1 }) ) %>').hide().slideDown('slow').fadeIn("slow");

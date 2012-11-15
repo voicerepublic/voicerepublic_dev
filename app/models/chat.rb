@@ -40,6 +40,10 @@ class Chat
     user == user1 ? user2 : user1
   end
   
+  def my_partner(me_user)
+    me_user == user1 ? user2 : user1
+  end
+  
   def css_id_for_chat
     "chat-" + [user1.id,user2.id].sort.join("-")
   end
