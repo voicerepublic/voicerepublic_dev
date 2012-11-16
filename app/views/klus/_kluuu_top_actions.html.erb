@@ -19,11 +19,13 @@
 			<%= t('.delete', :default => t("helpers.links.destroy")) %>
 			<% end %>
 		</li>
-		<li>
-			<%= link_to new_user_klu_klu_image_path(:user_id => klu.user, :klu_id => klu) do %>
-			<i class="icon-file"> </i><%= t('.add_image') %>
+			<% if klu.kind_of?(Kluuu) %>
+			<li>
+				<%= link_to new_user_klu_klu_image_path(:user_id => klu.user, :klu_id => klu) do %>
+				<i class="icon-file"> </i><%= t('.add_image') %>
+				<% end %>
+			</li>
 			<% end %>
-		</li>
 		<% end %>
 	</ul>
 	<div class="klu-socials">
