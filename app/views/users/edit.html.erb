@@ -1,4 +1,4 @@
-<%- model_class = @user.class -%><div class="user-container">
+<div class="user-container">
 	<header>
 		<h2><%= @user.name %></h2>
 	</header>
@@ -8,11 +8,10 @@
 			<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>	
 			<section class="user-content-shown">
 				
-				
 				<div class="page-header">
   					<h2><%=t('.edit_your_profile') %></h2>
 				</div>
-				<%= render :partial => 'basic_form' %>
+				<%= render(:partial => 'basic_form', :locals => { :user => @user }) %>
 				
 			</section>
 		</div>
