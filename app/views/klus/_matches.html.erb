@@ -1,7 +1,8 @@
-
 <% begin %>
 	<% klu.complementaries.each do |k| %>
-		<%= partial_for_klu(k, :tiny) %>
+		<%= link_to klu_path :id => k do %>
+      <%= partial_for_klu(k, :tiny) %>
+    <% end %>
 	<% end %>
 <% rescue %>
 		<span class="label label-warning">running thinking sphinx is mandatory for matches to work...</span>
