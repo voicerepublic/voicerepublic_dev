@@ -48,8 +48,8 @@
     padding-left:19px;
     border:solid 1px #ddd;
     border-left:0;
-    border-bottom:0;
-    border-right:0
+    background-color: #F8F9FF;
+    padding-top: 13px;
   }
 
   .dashboard-matches-own-klus {
@@ -112,14 +112,17 @@
 
     }
 
-    li.active > a{
-      &:after {
-        color: #CCCCCC;
-        content: "→";
-        font-size: 31px;
-        position: absolute;
-        right: -6px;
-        top: 29%;
+    li.active {
+      & > a{
+        background-color: #F8F9FF;
+        &:after {
+          color: #CCCCCC;
+          content: "→";
+          font-size: 31px;
+          position: absolute;
+          right: -6px;
+          top: 29%;
+        }
       }
     }
 
