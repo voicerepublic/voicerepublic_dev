@@ -1,4 +1,6 @@
-
+<% content_for :title do %>
+	<%= t('.friends', :default => 'friends')%> &middot; <%= @user.name %>
+<% end %>
 <div class="tab-content">
 	<%= t('.no_contacts_available') if @followed.empty? && @follower.empty? %>
 	<%= render(:partial => 'dashboard/contacts') %>

@@ -1,4 +1,7 @@
-<%- model_class = Conversation -%>
+<% content_for :title do %>
+	<%= t('.conversations', :default => 'conversations')%> &middot; <%= @user.name %>
+<% end %>
+
 <% partner = @conversation.partner_of(@user) %>
 <div class="conversation">
 	<h4>

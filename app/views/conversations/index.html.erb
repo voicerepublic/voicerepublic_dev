@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	<%= t('.conversations', :default => 'conversations')%> &middot; <%= @user.name %>
+<% end %>
+
 <section class="row-fluid conversations">
 	<ul class="conversations-list unstyled">
 		<% @conversations.each do |conv| %>

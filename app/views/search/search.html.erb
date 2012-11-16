@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	<%= t('.searchresults', :default => 'Search Results')%> &middot; <%= @query %>
+<% end %>
+
 <div class="search">
 	<h2><%= t('.search_results', :default => "Suche") %></h2>
 	<div class="well well-large">
@@ -5,8 +9,7 @@
 	<% if current_user %>
 		<%= link_to( t('.publish_search_as_?KluuU?', :default => "Als Frage-KluuU speichern?"), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn btn-primary search-new-no-kluuu")  %>
 	<% else %>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-warning"><%= t('.persist_search', :default => "Tipp:") %></span>&nbsp;&nbsp;Erstelle ein Frage-KluuU und nutze unser Matching System!
-		&nbsp;<%#= link_to(t('.log_in', :default => "Log In"), new_user_session_path, :class => "btn") %> <%#= t('.or')%> 
+		<span class="label label-warning"><%= t('.persist_search', :default => "Tipp:") %></span>&nbsp;Erstelle ein Frage-KluuU und nutze unser Matching System!
 		&nbsp;<%= link_to(t('.sign_up', :default => "Sign Up"), new_user_registration_path , :class => "btn") %>
 	<% end %>
 	</div>
