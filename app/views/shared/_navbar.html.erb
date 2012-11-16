@@ -8,22 +8,25 @@
 				<span class="icon-bar"></span>
 			</a>
 			<div class="pull-left">
-				<%= link_to root_path, :title => "KluuU-logo" , :class => "brand-big" do %>
-					<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
+				<div class="phone-left-padding hidden-desktop"></div><%# left-border, visible by phone only %>
+
+				<%= link_to root_path, :title => "Home" , :class => "brand" do %>
+				<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
 				<% end %>
 				<span class="logo-claim">The Web made personal</span>
 			</div>
+
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<%= link_to new_user_session_path, :class => "tell-me-more" do %>
+						<%= link_to new_user_registration_path, :class => "tell-me-more" do %>
 							What's this?
 						<% end %>
 					</li>
 					<li>
-						<%= link_to new_user_registration_path, :class => "first-landing-signup" do %>
+						<%= link_to new_user_registration_path, :class => "first-landing-signup nav-left-border" do %>
 						<%= t('.sign_up', :default => 'Sign Up') %><i class="icon-share-alt"></i>
 						<% end %>
 					</li>
@@ -31,24 +34,10 @@
 						<%= link_to new_user_session_path do %>
 							<%= t('.sign_in', :default => 'Log In') %><i class="icon-signin"></i>
 						<% end %>
-					</li>
-<!-- 					<li>
-							<a href="#" class="dropdown-toggle actionbar-user-dropdown" title="language" data-toggle="dropdown" role="button">
-									EN
-								
-								<b class="caret"></b>
-							</a>
-							<ul class="dropdown-menu">
-								<li class="menu-item">
-									DE
-								</li>
-								<li class="menu-item">
-									EN
-								</li>
-							</ul>								
-					</li>	 -->				
+					</li>			
 				</ul>
 			</div><!--/.nav-collapse -->
+
 		</div>
 	</div>
 </div>

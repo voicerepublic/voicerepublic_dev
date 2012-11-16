@@ -7,35 +7,37 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			
-			<%= link_to root_path, :class => "brand", :title => "KluuU" do %>
+				<div class="phone-left-padding visible-phone visible-tablet"></div><%# left-border, visible by phone only %>
+				<%= link_to root_path, :class => "brand", :title => "KluuU" do %>
 				<h1><%= image_tag "logo.png", :alt => "KluuU Logo" %></h1>
 			<% end %>			
+			<ul class="nav">
+				<li>
+					<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link nav-left-border", :title => current_user.name do %>
+						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <span class="hidden-phone">Profile</span>
+					<% end %>						
+				</li>					
+				<li>
+					<%= link_to(dashboard_path, :title => "Dashboard") do %>
+						<!-- <i class="icon-dashboard"></i><span class="navbar-menu-name">Dashboard</span>-->
+						Dashboard
+					<% end  if current_user %>
+				</li>
+			</ul>
 			<div class="container nav-collapse">
 				<ul class="nav">					
-					<li>
-						<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link nav-left-border", :title => current_user.name do %>
-							<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> Profile
-						<% end %>						
-					</li>					
-					<li>
-						<%= link_to(dashboard_path, :title => "Dashboard") do %>
-							<!-- <i class="icon-dashboard"></i><span class="navbar-menu-name">Dashboard</span>-->
-							Dashboard
-						<% end  if current_user %>
-					</li>
 					<% if current_user.is_admin? %>
 							<li>
 								<%= link_to "admin", admin_dashboard_index_path %>
 							</li>
 						<% end %>				
-					<li>
+					<li class="hidden-tablet">
 						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :title => "Create KluuU" do %>
 							<%#= image_tag '/assets/icon_new_klu.png', :alt => "New KluuU!", :class => "navbar-new-klu" %>
 							! KluuU
 						<% end %>
 					</li>
-					<li>
+					<li class="hidden-tablet">
 						<%= link_to new_user_klu_path( :user_id => current_user), :title => "New Question" do %>
 							<%#= image_tag '/assets/icon_question.png', :alt => "Question", :class => "navbar-question-kluuu" %>
 							? Question
@@ -47,7 +49,7 @@
 					<% if current_user %>
 						<li class="navbar-search form-search">
 							<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-								<%= search_field_tag 'query', nil, :class => "search-query navbar-search-query span2" %>
+								<%= search_field_tag 'query', nil, :class => "search-query navbar-search-query" %>
 								<%= button_tag :type => "submit", :class => "navbar-submit-button" do %>
 									<i class="icon-search"></i>
 								<% end %>
