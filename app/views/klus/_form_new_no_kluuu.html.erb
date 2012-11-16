@@ -3,9 +3,9 @@
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 <div class="row-fluid">
-	
-	
+	<%= f.error_messages %>
 	<div class="well no-kluuu klu-form klu-form-new span4">
+		
 		<div class="control-group">
 			<%= label_tag "klu_title", :class => 'control-label' do %>
 				<%= t('title', :default => "Titel") %>
