@@ -5,6 +5,9 @@
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 <div class="well">
 	<div class="row-fluid">
+		
+		<%= f.error_messages %>
+		
 		<div class="span8 kluuu-pics">
 			<div class="control-group">
 				<%= f.label :title, :class => 'control-label' %>

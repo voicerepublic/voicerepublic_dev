@@ -10,6 +10,7 @@ class Klu < ActiveRecord::Base
   has_many :video_sessions, :inverse_of => :klu
   
   validates :user_id, :presence => true
+  validates :title, :presence => true
   validates :title, :length => { :minimum => 2, :maximum => 150 }
   validates :tag_list, :presence => true 
   #:length => { 
