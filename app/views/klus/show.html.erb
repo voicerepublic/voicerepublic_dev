@@ -1,4 +1,6 @@
-<%- model_class = Klu -%>
+<% content_for :title do %>
+	<%= @klu.title %>
+<% end %>
 
 <% if @klu.instance_of?(NoKluuu) %>
 	<%= render(:partial => 'no_kluuu', :locals => {:klu => @klu})%>

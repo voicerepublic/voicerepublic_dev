@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	<%= t('.matches', :default => 'matches')%> &middot; <%= @user.name %>
+<% end %>
+
 <nav class="dashboard-matches-new-content">
 	<ul class="clearfix">
 		<li>

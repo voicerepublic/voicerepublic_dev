@@ -1,3 +1,6 @@
+<% content_for :title do %>
+	<%= t('.settings', :default => 'settings')%> &middot; <%= @user.name %>
+<% end %>
 
 <div class="tab-content row-fluid">
   <div class="span6">

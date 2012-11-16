@@ -1,1 +1,5 @@
+<% content_for :title do %>
+	<%= @user.name %>
+<% end %>
+
 <%= render(:partial => 'klus/medium_kluuu', :collection => @user.kluuus, :as => :klu ) %>
