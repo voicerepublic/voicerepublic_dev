@@ -1,16 +1,28 @@
 <article class="no-kluuu large-klu">
 	<div class="row-fluid">
-		<div class="klu-layout span9">
-			<div class="row-fluid">
-				<div class="span8">
-					<h2 class="klu-eyecatcher klu-title"><%= @klu.title %></h2>
+		<div class="span9">
+			<div class="klu-layout">
+				<div class="row-fluid">
+					<div class="span8">
+						<h2 class="klu-eyecatcher klu-title"><%= @klu.title %></h2>
+					</div>
+					<%= render(:partial => "kluuu_user", :locals => {:klu => klu}) %>
 				</div>
-				<%= render(:partial => "kluuu_user", :locals => {:klu => klu}) %>
+			</div>
+			<div class="large-klu-left row-fluid">
+				<h4> <%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %> </h4>
+				<ul class="unstyled">		
+					<% @klu.bookmarks.each do |b|%>
+					<li>
+						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
+						<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
+						<% end %>
+					</li>
+					<% end %>
+				</ul>
 			</div>
 		</div>
-
 		<%= render(:partial => 'kluuu_top_actions', :locals => {:klu => klu}) %>
-
 		<aside class="klu-matches span3">
 			<div class="well">
 				<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.Menschen_die_sich_auskennen_mit') %></h4>
@@ -21,17 +33,4 @@
 			<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
 		</aside>
 	</div><!-- End of klu-layout-->
-
-	<div class="large-klu-left row-fluid">
-	<h4> <%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %> </h4>
-		<ul class="unstyled">		
-			<% @klu.bookmarks.each do |b|%>
-			<li>
-				<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
-				<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
-				<% end %>
-			</li>
-			<% end %>
-		</ul>
-	</div>
 </article>
