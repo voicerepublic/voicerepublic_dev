@@ -58,8 +58,12 @@
 	margin: 0 auto;
 
 	a, button {
-		color: inherit;
-		text-shadow: none;
+		border: none;
+		background: none;
+		height: auto;
+		padding: 0;
+		display: inline;
+		box-shadow: none;
 	}
 
 	form {
@@ -384,6 +388,7 @@
 	.klu-bookmarked-by {
 		li {
 			display: inline-block;
+			margin: 3px;
 		}
 	}
 
@@ -561,7 +566,8 @@
 }
 
 .kluuu.klu-layout, .kluuu .klu-layout {
-	background-color: desaturate(lighten(@brandColor, 60%), 12%);
+	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
+	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
 	/* background-color: #889926; 
 	h3{
 		color:#fff
@@ -570,8 +576,7 @@
 }
 
 .no-kluuu.klu-layout, .no-kluuu .klu-layout {
-	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
-	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
+	background-color: desaturate(lighten(@brandColor, 60%), 12%);
 }
 
 .tiny-klu {
