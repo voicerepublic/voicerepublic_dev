@@ -1,6 +1,6 @@
 <nav class="user-main-nav">
 	<ul class="clearfix">
-		<li class="<%= current_page?(kluuus_user_path(:id => user)) || current_page?(user_path(:id => user)) ? 'active' : '' %>">
+		<li class="<%= current_page?(kluuus_user_path(:id => user)) || current_page?(user_path(:id => user)) ? 'active' : '' %> kluuu-color">
 				<%= link_to(kluuus_user_path(:id => user ) ) do %>
 					!
 				<span class="user-main-nav-subline">
@@ -8,7 +8,7 @@
 				</span>
 				<% end %>
 		</li>
-		<li class="<%= current_page?(no_kluuus_user_path(:id => user )) ? 'active' : '' %>">
+		<li class="<%= current_page?(no_kluuus_user_path(:id => user )) ? 'active' : '' %> no-kluuu-color">
 			<%= link_to(no_kluuus_user_path(:id => user ) ) do %>
 			?
 			<span class="user-main-nav-subline">

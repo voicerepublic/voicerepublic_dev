@@ -1,7 +1,6 @@
 (function($){
   $(function(){
     var userShowMore = $('<a href=\"#\" id=\"user-toggle\" class=\"user-show-more\">Show more</a><');
-    $('.user-information').append(userShowMore);
     var userInfoShownLines = 7.5;
     var animationDuration = 300;
     var userInfo = $('.user-information-more');
@@ -15,21 +14,24 @@
       var userInfoHiddenHeight = parseInt(userInfoLineHeight, 10) * userInfoShownLines;
     };
     /* End of Hack */
-    userInfo.addClass("jqueryfied gradient");
-    var userInfoHiddenToggle  = true; 
-    userInfo.height(userInfoHiddenHeight + "px");
-    $('#user-toggle').on('click', function() {
-      if (userInfoHiddenToggle) {
-        userInfo.animate({height: userInfoOriginalHeight}, animationDuration);
-        userInfoHiddenToggle = !userInfoHiddenToggle;
-        userShowMore.text("Show less");
-        userInfo.removeClass("gradient");
-      } else {
-        userInfo.animate({height: userInfoHiddenHeight + "px"}, animationDuration);
-        userInfoHiddenToggle = !userInfoHiddenToggle;
-        userShowMore.text("Show more");
-        userInfo.addClass("gradient");
-      };
-    });
+    if (userInfoOriginalHeight > userInfoHiddenHeight) {
+      $('.user-information').append(userShowMore);
+      userInfo.addClass("jqueryfied gradient");
+      var userInfoHiddenToggle  = true; 
+      userInfo.height(userInfoHiddenHeight + "px");
+      $('#user-toggle').on('click', function() {
+        if (userInfoHiddenToggle) {
+          userInfo.animate({height: userInfoOriginalHeight}, animationDuration);
+          userInfoHiddenToggle = !userInfoHiddenToggle;
+          userShowMore.text("Show less");
+          userInfo.removeClass("gradient");
+        } else {
+          userInfo.animate({height: userInfoHiddenHeight + "px"}, animationDuration);
+          userInfoHiddenToggle = !userInfoHiddenToggle;
+          userShowMore.text("Show more");
+          userInfo.addClass("gradient");
+        };
+      });
+    }
   });
 })(jQuery);

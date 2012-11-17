@@ -63,9 +63,12 @@
 					</li>
 					<% if user.follower.count > 0 %>
 					<li class="span6">
-						<%= link_to user_follows_path(user), :class => 'btn btn-small btn-info' do %>
-							<strong><%= user.follower.count %> <%= t('.follower', :default => 'friends') %></strong> 
-						<% end %>
+						<br>
+						<strong>
+							<%= link_to user_follows_path(user) do %>
+								<%= user.follower.count %> <%= t('.follower', :default => 'friends') %>
+							<% end %>
+						</strong>
 					</li>
 					<% end %>
 				</ul>
