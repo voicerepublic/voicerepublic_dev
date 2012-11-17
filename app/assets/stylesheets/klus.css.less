@@ -28,8 +28,8 @@
 }
 
 .klu-title {
-	font-family: @serifFontFamily, serif;
-	font-style: italic;
+	/* font-family: @serifFontFamily, serif; */
+	/* font-style: italic; */
 	font-weight: normal;
 	text-align: center;
 	hyphens: auto;
@@ -268,6 +268,36 @@
 
 	.klu-layout {
 		padding: @vertical-offset @horizontal-offset;
+
+		#gallery-container {
+			overflow:hidden;
+
+			& > a {
+				position: absolute;
+				top: 25%;
+				font-size: 83px;
+				color: @white;
+				opacity: 0.3;
+
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+
+			&:hover > a {
+				opacity: 0.75;
+				.transition(opacity 0.3s);
+			}
+
+			#gallery-last {
+				left: -15px;
+			}
+
+			#gallery-next {
+				right: -15px;
+			}
+		}
 
 		.kluuu-pics {
 
@@ -574,16 +604,19 @@
 	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
 	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
 	background-color: #fff;
-	/* background-color: #889926; 
-	h3{
-		color:#fff
+	
+	.klu-title {
+		color: @brandColor;
 	}
-	*/
 }
 
 .no-kluuu.klu-layout, .no-kluuu .klu-layout {
 	background-color: desaturate(lighten(@brandColor, 60%), 12%);
-	background-color: #FFF9E4;
+	background-color: #fff;
+
+	.klu-title {
+		color: ##FFF9E4;
+	}
 }
 
 .tiny-klu {

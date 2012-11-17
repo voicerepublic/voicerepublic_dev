@@ -6,7 +6,10 @@
 	klus.imageGallery = {
 		init: function() {
 			if ($('.large-klu:not(.klu-form) .kluuu-pics').length > 0) {
-				this.buildGallery();
+				var urls = this.getImageURLs();
+				if (urls.length > 1) {
+					this.buildGallery(urls);
+				}
 			}
 		},
 
@@ -14,7 +17,7 @@
 			return $('.kluuu-pics').data('images-urls').split(' ');
 		},
 
-		buildGallery: function() {
+		buildGallery: function(imagesURLs) {
 
 			var iPlusOne = function(array, i) {
 				if (i+1 < array.length) {
@@ -25,12 +28,44 @@
 				}
 			};
 
+			var iMinusOne = function(array, i) {
+				if (i !== 0) {
+					return i-1;
+				}
+				else {
+					return array.length - 1;
+				}
+			};
+
+			var nextPicture = function(i) {
+				previous = $($eyeCatchers[i]);
+				previous.animate({left: -$kluuuPicsWidth}, 'fast', function() {
+					console.log(previous);
+					previous.css({left: $kluuuPicsWidth});
+				});
+				i = iPlusOne($eyeCatchers, i);
+				$($eyeCatchers[i]).animate({left: 0}, 'fast');
+				return i;
+			};
+
+			var previousPicture = function(i) {
+				previous = $($eyeCatchers[i]);
+				previous.animate({left: $kluuuPicsWidth}, 'fast', function() {
+					console.log(previous);
+					previous.css({left: -$kluuuPicsWidth});
+				});
+				i = iMinusOne($eyeCatchers, i);
+				$($eyeCatchers[i]).animate({left: 0}, 'fast');
+				return i;
+			};
+
 			var i = 0;
 			var $kluuuPics = $('.kluuu-pics');
+			$kluuuPics.wrap("<div id='gallery-container' />");
 			$kluuuPics.css('height', $kluuuPics.height());
 			var $kluuuPicsWidth = $kluuuPics.width();
 			$kluuuPics.addClass('jqueryfied');
-			var imagesURLs = this.getImageURLs();
+			var $galleryContainer = $('#gallery-container').css('position', 'relative').append('<a href="#" id="gallery-last"><i class="icon-circle-arrow-left"></i></a>').append('<a href="#" id="gallery-next"><i class="icon-circle-arrow-right"></i></a>');
 			var $kluEyecatcher = $('.klu-main .klu-eyecatcher').remove();
 			var newLi, previous;
 			$.each(imagesURLs, function(i){
@@ -45,14 +80,15 @@
 
 
 			$kluuuPics.on('click', function() {
-				previous = $($eyeCatchers[i]);
-				previous.animate({left: -$kluuuPicsWidth}, 'fast', function() {
-					console.log(previous);
-					previous.css({left: $kluuuPicsWidth});
-				});
-				i = iPlusOne($eyeCatchers, i);
-				$($eyeCatchers[i]).animate({left: 0}, 'fast');
-
+				i = nextPicture(i);
+			});
+			$('#gallery-next').on('click', function(e){
+				e.preventDefault();
+				i = nextPicture(i);
+			});
+			$('#gallery-last').on('click', function(e){
+				e.preventDefault();
+				i = previousPicture(i);
 			});
 		}
 	};
