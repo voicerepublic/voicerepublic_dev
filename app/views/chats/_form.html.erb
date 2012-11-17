@@ -18,7 +18,7 @@
 <div class="control-group">
 	<%= f.label t('.your_message', :default => 'Your Message') %></strong>
 	<div class="controls">
-		<%= f.text_area :body, :class => 'text_area chat_textarea', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus" %>
+		<%= f.text_area :body, :class => 'text_area chat_textarea', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1%>
 	</div>
 </div>
 <div class="btns">
