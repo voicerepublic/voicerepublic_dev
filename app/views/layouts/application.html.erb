@@ -28,15 +28,10 @@
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
-		<div class="footer-wrapper">
-			<div class="container">
-				<%= yield %>
-			</div>
-			<div class="footer-push"></div>
-		</div><!-- /wrapper for sticky footer -->
-		<div class="footer-content-wrapper">
-			<%= render(:partial => "shared/footer") %>
+		<div class="container">
+			<%= yield %>
 		</div>
+		<%= render(:partial => "shared/footer") %>
 
 		<!-- Javascripts
 		================================================== -->

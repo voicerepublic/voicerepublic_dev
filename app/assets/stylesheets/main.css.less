@@ -7,14 +7,14 @@
 @import "config.css.less";
 
 html{
-  height:100%; /* for footer wrapper */
+  min-height:100%;
+  position: relative;
 }
 
 body {
   background: @white;
   overflow-y:scroll;
-  height:100%; /* for footer wrapper */
-  position: relative;
+  margin: 0 0 340px; /* bottom = footer height */  
 }
 
 body.layout-logged-out{

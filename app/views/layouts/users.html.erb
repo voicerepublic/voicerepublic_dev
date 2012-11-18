@@ -27,24 +27,19 @@
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
-		<div class="footer-wrapper">
-			<div class="container user-container">
-					
-					<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
-					
-					<div class="user-content ">
-						<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
+		<div class="container user-container">
+				
+			<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
 			
-						<section class="user-content-shown clearfix">
-							<%= yield %>
-						</section>
-					</div>
+			<div class="user-content ">
+				<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
+	
+				<section class="user-content-shown clearfix">
+					<%= yield %>
+				</section>
 			</div>
-		<div class="footer-push"></div>
-		</div><!-- /wrapper for sticky footer -->
-		<div class="footer-content-wrapper">
-			<%= render(:partial => "shared/footer") %>
 		</div>
+		<%= render(:partial => "shared/footer") %>
 
 		<!-- Javascripts
 		================================================== -->
