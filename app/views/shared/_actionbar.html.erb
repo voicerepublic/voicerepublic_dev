@@ -33,14 +33,16 @@
 						<% end %>				
 					<li class="hidden-tablet">
 						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :title => "Create KluuU" do %>
-							<%#= image_tag '/assets/icon_new_klu.png', :alt => "New KluuU!", :class => "navbar-new-klu" %>
-							! KluuU
+							<span class="label label-kluuu">
+								<%= t(".Create KluuU", :default => "Neues KluuU") %>
+							</span>
 						<% end %>
 					</li>
 					<li class="hidden-tablet">
-						<%= link_to new_user_klu_path( :user_id => current_user), :title => "New Question" do %>
-							<%#= image_tag '/assets/icon_question.png', :alt => "Question", :class => "navbar-question-kluuu" %>
-							? Question
+						<%= link_to new_user_klu_path( :user_id => current_user), :title => "Create Question" do %>							
+							<span class="label label-question">
+								<%= t(".Create Question", :default => "Neue Frage") %>
+							</span>
 						<% end %>
 					</li>
 				</ul>
