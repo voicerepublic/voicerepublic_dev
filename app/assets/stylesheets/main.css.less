@@ -70,7 +70,7 @@ body.layout-logged-out{
   position: absolute;
   left: 0;
   top: 0;
-  background: #CCCCCC url(ajax-loader.gif) center center no-repeat;
+  background: @white url(ajax-loader.gif) center center no-repeat;
   background: rgba(0,0,0,0.2) url(ajax-loader.gif) center center no-repeat;
   background-attachment:fixed;
   z-index:9999;
@@ -230,7 +230,7 @@ body.layout-logged-out{
   display: inline-block;
   position: relative;
 
-  &:before {
+  &:after {
     left: -1px;
     bottom: -1px;
     z-index:100;
@@ -246,17 +246,17 @@ body.layout-logged-out{
     }
   }
 
-  &.online:before {
+  &.online:after {
     background-color: green;
     box-shadow: 0 0 3px white, 0 0 3px green;
   }
 
-  &.busy:before {
+  &.busy:after {
     background-color: orange;
     box-shadow:  0 0 3px white, 0 0 3px orange;
   }
 
-  &.offline:before {
+  &.offline:after {
     background-color: #780000;
     box-shadow:  0 0 3px white, 0 0 3px #780000;
   }
