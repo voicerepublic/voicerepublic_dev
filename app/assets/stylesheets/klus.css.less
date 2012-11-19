@@ -48,27 +48,24 @@
 }
 
 .call-btn {
-	background: @brandColor;
+	/*background: @brandColor;*/
+	background:#f4f4f4;
 	padding: 4% 30% (@baseFontSize * @baseLineHeight * 0.7 * 2) 4%;
 	position: relative;
-	color: @white;
+	/*color: @white;*/
 	text-shadow:none;
 	.transition(background 0.2s ease);
 	max-width: 280px;
 	margin: 0 auto;
 
 	&:hover {
-		background: @brandColorLighter;
-		color: @white;
+		/*background: @brandColorLighter;
+		color: @white;*/
+		background:#f4f4f4;
 	}
 
 	a, button {
-		border: none;
-		background: none;
-		height: auto;
-		padding: 0;
-		display: inline;
-		box-shadow: none;
+
 	}
 
 	form {
@@ -105,11 +102,11 @@
 
 		button {
 			border: none;
-			background: none;
+			font-weight: bold;
+			text-shadow:1px 1px 1px rgba(0,0,0,0.2), -1px -1px 1px rgba(0,0,0,0.3);
 			height: auto;
-			padding: 0;
 			display: inline;
-			box-shadow: none;
+			
 		}
 	}
 } /* End of call-btn */
