@@ -45,7 +45,7 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
       var url = "/users/status_for.json";
 
       var setUserStatus = function(payload) {
-        console.log(payload);
+       // console.log(payload);
         $.each(payload, function(i) {
           $('.user-image[data-user-id=' +  payload[i].id +']').addClass(payload[i].available);
         });
@@ -57,14 +57,14 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
         userIDs[i] = $(this).data("user-id");
       });
       userIDs = userIDs.join(",");
-      console.log(userIDs);
+      // console.log(userIDs);
       $.ajax({
         url: url,
         data: {"ids": userIDs},
         success:  function(data) {
           setUserStatus(data);
         },
-        error: function() { console.log("Connection Error"); }
+        error: function() { // console.log("Connection Error"); }
       });
     }
   };
@@ -155,7 +155,7 @@ overlay = {
         position: 'relative'
       });
       overlay.dataStorage.bodyMargin = body.css('margin-bottom');
-      console.log(overlay.dataStorage.bodyMargin);
+      // console.log(overlay.dataStorage.bodyMargin);
       body.css({
         marginBottom: 0,
         paddingBottom: overlay.dataStorage.bodyMargin
