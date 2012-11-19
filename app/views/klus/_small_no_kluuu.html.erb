@@ -1,7 +1,7 @@
 <article class="small-klu klu-layout no-kluuu">
   <div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
 	<%= link_to( klu_path(:id => klu)) do %>
-		<h3 class="no-margin klu-eyecatcher klu-title"><%= klu.title %></h3>	
+		<h3 class="no-margin klu-eyecatcher klu-title"><%= limit_words(klu.title, 10) %></h3>	
 	<% end %>
 	<div class="user-image klu-user-image" data-user-id="<%= klu.user.id %>"><%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user) ) %></div>
 </article>

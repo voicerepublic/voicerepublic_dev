@@ -1,7 +1,7 @@
 <article class="medium-klu klu-layout no-kluuu">
 	<div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
 	<%= link_to( klu_path(:id => klu)) do %>
-		<h3 class="no-margin klu-eyecatcher klu-title"><%= klu.title %></h3>	
+		<h3 class="no-margin klu-eyecatcher klu-title"><%= limit_words(klu.title, 10) %></h3>	
 	<% end %>
 	<%= render :partial => 'klus/kluuu_call_button', :locals => {:klu => klu, :user => klu.user} %>
 </article>
