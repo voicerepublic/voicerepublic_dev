@@ -7,6 +7,9 @@
 	<%= f.hidden_field :type, :value => @video_session.instance_of?(VideoSession::Registered) ? 'VideoSession::Registered' : 'VideoSession::Anonymous' %>
 	<%#= f.submit t('call_now'), :class => 'btn call-icon', :disable_with => "#{t('dispatching_call')}" %>
 	<%= button_tag :class => 'btn btn-success call-icon', :type => "submit", :disable_with => "#{t('dispatching_call')}" do %>
-		<i class="icon-comment-alt"></i><%= t('._video_call') %>
+		<i class="icon-comment-alt"> </i>
+		<span class="btn-call-link">
+			<%= t('.Start Video Call') %>
+		</span>
 	<% end %>
 <% end %>
