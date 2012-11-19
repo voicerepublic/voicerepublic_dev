@@ -64,7 +64,8 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
         success:  function(data) {
           setUserStatus(data);
         },
-        error: function() { // console.log("Connection Error"); }
+        error: function() { // console.log("Connection Error");
+         }
       });
     }
   };
