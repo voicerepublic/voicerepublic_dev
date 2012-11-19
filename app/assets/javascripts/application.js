@@ -77,6 +77,8 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
 
 overlay = {
 
+  dataStorage: {},
+
   build: function(innerHTML, force) {
 
     var calculateOverlay = function() {
@@ -146,15 +148,24 @@ overlay = {
     };
 
 
-    var body = $('body').css({
-      position: 'relative'
-    });
+   
+
     if ($('.overlay-background').length === 0) {
+     var body = $('body').css({
+        position: 'relative'
+      });
+      overlay.dataStorage.bodyMargin = body.css('margin-bottom');
+      console.log(overlay.dataStorage.bodyMargin);
+      body.css({
+        marginBottom: 0,
+        paddingBottom: overlay.dataStorage.bodyMargin
+      });
       var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
       var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
     } else {
       var overlayBackground = $('.overlay-background');
       var overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
+      overlayContent.fadeOut('fast');
     };
  
 
@@ -165,7 +176,6 @@ overlay = {
     });
     
     calculateOverlay();
-    overlayBackground.css("background-image", "none");
     if (force !== true) {registerClose()};
   },
 
@@ -174,6 +184,11 @@ overlay = {
     if (typeof target == 'string' || typeof target == 'object') {
       $(target).fadeOut("fast", function() {
         $(this).remove();
+      });
+      $('body').css({
+        position: 'static',
+        marginBottom: overlay.dataStorage.bodyMargin,
+        paddingBottom: 0
       });
     }
   }

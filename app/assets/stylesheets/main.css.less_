@@ -7,14 +7,14 @@
 @import "config.css.less";
 
 html{
-  min-height:100%;
-  position: relative;
+  height:100%; /* for footer wrapper */
 }
 
 body {
   background: @white;
   overflow-y:scroll;
-  margin: 0 0 340px; /* bottom = footer height */  
+  /* height:100%; /* for footer wrapper */
+  position: relative;
 }
 
 body.layout-logged-out{
@@ -76,7 +76,6 @@ body.layout-logged-out{
   top: 0;
   background: #CCCCCC url(ajax-loader.gif) center center no-repeat;
   background: rgba(0,0,0,0.2) url(ajax-loader.gif) center center no-repeat;
-  background-attachment:fixed;
   z-index:9999;
 
   h3{
@@ -97,10 +96,10 @@ body.layout-logged-out{
     position: fixed;
     left: 50%;
     top: 50%;
-    padding: 30px;
-    border: 1px solid @textColor;
+    padding: 25px;
+    border: 1px solid #000;
     .overlay-close-link{
-      position: fixed;
+      position: absolute;
       right:14px;
       top:0px;
       font-size:26px;
@@ -206,25 +205,6 @@ body.layout-logged-out{
     text-decoration: none;
     &:hover{
       color:#000;
-    }
-  }
-  .help-text-arrow{
-    
-    background-repeat: no-repeat;
-    position: absolute;
-    &.arrow-left{
-      background-image: url(/assets/help-arrow-left.png);      
-      top:-35px;
-      left:-120px;     
-      height:54px;
-      width:271px; 
-    }
-    &.arrow-top{
-      background-image: url(/assets/help-arrow-top.png);      
-      top:-140px;
-      left:-65px;
-      height:271px;
-      width:54px; 
     }
   }
 }
