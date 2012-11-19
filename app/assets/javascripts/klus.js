@@ -40,7 +40,7 @@
 			var nextPicture = function(i) {
 				previous = $($eyeCatchers[i]);
 				previous.animate({left: -$kluuuPicsWidth}, 'fast', function() {
-					console.log(previous);
+					// console.log(previous);
 					previous.css({left: $kluuuPicsWidth});
 				});
 				i = iPlusOne($eyeCatchers, i);
@@ -51,7 +51,7 @@
 			var previousPicture = function(i) {
 				previous = $($eyeCatchers[i]);
 				previous.animate({left: $kluuuPicsWidth}, 'fast', function() {
-					console.log(previous);
+					// console.log(previous);
 					previous.css({left: -$kluuuPicsWidth});
 				});
 				i = iMinusOne($eyeCatchers, i);
