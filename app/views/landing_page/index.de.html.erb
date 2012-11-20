@@ -12,7 +12,7 @@
 		<div class="landing-page-search text-align-center">	
 				<h2>Was interessiert Dich?</h2>
 				<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
-					<%= search_field_tag 'landin-page-query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span8" %>
+					<%= search_field_tag 'landing_page_query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span8" %>
 					<%= button_tag :type => 'submit', :class => "landing-page-search-button" do %>
 						<i class="icon-search"> </i>						
 					<% end %>	
