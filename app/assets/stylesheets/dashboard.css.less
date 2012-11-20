@@ -25,6 +25,25 @@
     font-weight: normal;
     margin-top: 0;
   }
+
+  .nav-tabs{
+    li>a{
+      color:rgba(0,0,0,0.7);
+      font-weight: bold;
+      font-size:@baseFontSize * 1.1;
+      text-shadow:1px 1px 1px rgba(255,255,255,0.5), -1px -1px 1px rgba(255,255,255,0.5);
+      &:hover{
+        color:#212121;
+      }
+    }
+
+    li.active{
+      &>a{
+        color:#212121;
+      }
+    }
+  }
+
 } /* End of .dashboard */
 
 .dashboard-matches {
