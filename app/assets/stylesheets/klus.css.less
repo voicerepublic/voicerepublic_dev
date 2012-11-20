@@ -50,65 +50,42 @@
 }
 
 .call-btn {
-	/*background: @brandColor;*/
-	background:#f4f4f4;
-	padding: 4% 30% (@baseFontSize * @baseLineHeight * 0.7 * 2) 4%;
+	background:#fcfcfc;
+	border:1px solid rgba(0,0,0,0.1);
+
+	padding:8px;
 	position: relative;
-	/*color: @white;*/
-	text-shadow:none;
-	.transition(background 0.2s ease);
-	max-width: 280px;
-	margin: 0 auto;
-
-	&:hover {
-		/*background: @brandColorLighter;
-		color: @white;*/
-		background:#f4f4f4;
-	}
-
-	a, button {
-
-	}
-
-	form {
-		margin-bottom: @verticalRhythm * 2;
-	}
-
-	form, button {
+	height:55px;
+	width:100%;
+	button {
 		display: inline-block;
+		font-size:@baseFontSize * 0.8;
+		line-height:1.2;
+		font-weight:bold;
+		padding:5px 7px 4px 7px;
 	}
 
 	.klu-price {
 		position: absolute;
 		margin: 0;
-		left: 4%;
-		bottom: 8%;
+		left: 8px;
+		bottom: 3px;
 		width: 60%;
+		color:#555;
+		font-size:@baseFontSize * 0.8;
+		line-height:@baseLineHeight * 0.8;
 	} 
 
 	.klu-user-image {
 		position: absolute;
 		display: block;
-		right: 4%;
-		top: 50%;
-		width: 45px;
-		margin-top: -22px;
+		right: 5px;
+		top: 5px;
+		width: 21%;
+		max-width:44px;
 
 		img {
 			display: block;
-		}
-	}
-	&.jqueryfied {
-		display: block;
-		text-align: left;
-
-		button {
-			border: none;
-			font-weight: bold;
-			text-shadow:1px 1px 1px rgba(0,0,0,0.2), -1px -1px 1px rgba(0,0,0,0.3);
-			height: auto;
-			display: inline;
-			
 		}
 	}
 } /* End of call-btn */
@@ -205,7 +182,8 @@
 
 	&.kluuu {
 		.kluuu-description {
-			height: 12px * @baseLineHeight * 3;
+			/*height: 12px * @baseLineHeight * 3;*/
+			height:40px;
 			overflow:hidden;
 			margin: @verticalRhythm 2px;
 			color: @textColor;
