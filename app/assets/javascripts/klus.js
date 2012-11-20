@@ -182,7 +182,7 @@
 	klus.callButton = {
 		init: function() {
 			this.jqueryfy();
-			this.bindActions();
+			// this.bindActions();
 			this.keepAspectRatio();
 			fitText('.klu-layout .klu-title:not(input)');
 		},
