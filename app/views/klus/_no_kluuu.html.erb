@@ -25,7 +25,7 @@
 		<%= render(:partial => 'kluuu_top_actions', :locals => {:klu => klu}) %>
 		<aside class="klu-matches span3">
 			<div class="well">
-				<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.Menschen_die_sich_auskennen_mit') %></h4>
+				<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.people_who_wanna_know_about', :default => 'Menschen die sich auskennen mit') %></h4>
 				<p class="text-info">
 					<strong><%= @klu.title %>:</strong>
 				</p>

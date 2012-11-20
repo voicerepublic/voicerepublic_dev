@@ -10,13 +10,13 @@
 	</div>
 
   <div class="well well-large">
-    <h3><%= t('.new password', :default => "Mein Passwort") %></h3>
+    <h3><%= t('.new_password', :default => "Mein Passwort") %></h3>
     <%= render :partial => 'users/password_form', :locals => { :user => @user , :url_arg => 'from_settings'} %>
   </div>
   </div>
 	<div class="span6">
     <div class="user user-edit well well-large">
-      <h3><%=t(".Notifications and Emails", :default => "Nachrichten und E-Mails") %></h3>
+      <h3><%=t(".notifications_and_emails", :default => "Nachrichten und E-Mails") %></h3>
       <%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account, :url_arg => 'from_settings' } %>
      </div>
   </div>

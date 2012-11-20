@@ -64,7 +64,7 @@
 		<%# MATCHES %>
 		<aside class="span3 klu-matches">
 			<div class="well">
-			<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.Menschen_die_mehr_erfahren_möchten_über') %></h4>
+			<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.people_how_wanna_know_about', :default => "Menschen die mehr erfahren möchten über") %></h4>
 			<p class="text-info"><strong><%=klu.title %>:</strong></p>
 			</div>
 			<%= render(:partial => 'matches', :locals => {:klu => klu }) %>
