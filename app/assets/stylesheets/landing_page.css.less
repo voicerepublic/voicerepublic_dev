@@ -14,7 +14,7 @@
  }
 
 body{
-	background:url(/assets/phone_switchers.jpg) no-repeat;
+	background:url(/assets/finger.jpg) no-repeat 0 -400px;
 	background-size: 100%;
 }
 
@@ -23,8 +23,9 @@ body .container .well{
 }
 
 .lead{
-	color:#888 !important;
+	color:white !important;
 	margin-bottom: 40px !important;
+	text-shadow:1px 1px 2px rgba(0,0,0,0.7), -1px -1px 2px rgba(0,0,0,0.7);
 }
 
 .container{
@@ -76,8 +77,18 @@ input.landing-page-query{
 		background:#fefefe;
 	}
 	.landing-page-top-row{
+		padding-top:20px;
+		position: relative;
 		height:430px;
 		background:transparent;
+		.landing-page-bottom-background{
+			position: absolute;
+			bottom: 0;
+			left:0;
+			height:120px;
+			width: 100%;
+			background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0 0 transparent;
+		}
 	}
 }
 
