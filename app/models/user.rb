@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   
   after_create :add_default_user_role
   after_create :add_account
-  after_create :add_beginner_klu
+  #after_create :add_beginner_klu
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -188,11 +188,11 @@ class User < ActiveRecord::Base
     Rails.logger.debug("User#check_with_push - #{ret}")
   end
  
-  private
+  private 
   
   def add_beginner_klu
     begin
-    self.no_kluuus.create(:title => "I'am new to Kluuu", 
+    self.no_kluuus.create(:title => "I'm a KluuU Newcomer", 
                           :category => (Category.find_by_name('living') || Category.find_by_name('Leben') ) , 
                           :published => true , 
                           :uses_status => false,

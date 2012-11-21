@@ -308,6 +308,10 @@ de:
     describe_your_picture_in_a_few_words: "Beschreibe dein Bild in ein paar Worten"
     
   klus:
+    form_welcome_new_no_kluuu:
+      your_interest_today: "Was interessiert dich?"
+      what_are_you_interested_in: "Schreib uns, was sich heute interessiert!"
+      continue: "weiter"
     form_kluuu:
       call_options: "Anruf-Optionen"
     form_new_kluuu:
@@ -453,6 +457,10 @@ de:
       back: "Zurück"
   
   users:
+    sessions:
+      welcome:
+        welcome_user: "Schön dich hier zu sehen!"
+        no_klu_text: "Um für andere erreichbar zu sein, sag uns was dich heute interessiert!"
     basic_form:
       edit_your_email: "Email-Adresse bearbeiten"
       save_email: "Email-Adresse speichern"  

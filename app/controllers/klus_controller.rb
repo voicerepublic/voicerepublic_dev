@@ -70,8 +70,13 @@ class KlusController < ApplicationController
 
     respond_to do |format|
       if @klu.save
-        format.html { redirect_to user_url(:id => @user), notice: 'Klu was successfully created.' }
-        format.json { render json: @klu, status: :created, location: @klu }
+        if @user.klus.count == 1
+          format.html { redirect_to dashboard_url(), notice: "Your first Klu was successfully created!"}
+          format.json { render json: @klu, status: :created, location: @klu }
+        else
+          format.html { redirect_to user_url(:id => @user), notice: 'Klu was successfully created.' }
+          format.json { render json: @klu, status: :created, location: @klu }
+        end
       else
         flash.now[:error] = @klu.errors.inspect
         format.html { render action: "new" }
