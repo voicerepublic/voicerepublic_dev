@@ -8,7 +8,7 @@
 	<%= button_tag :class => 'btn btn-success call-icon', :type => "submit", :disable_with => "#{t('.dispatching_call')}" do %>
 		<i class="icon-comment-alt"> </i>
 		<span class="btn-call-link">
-			<%= t('.start_video_call') %>
+			<%= t('.start_video_call', :default => "Start Video Call") %>
 		</span>
 	<% end %>
 <% end %>

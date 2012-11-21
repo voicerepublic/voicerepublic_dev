@@ -8,14 +8,14 @@
 		
 		<div class="control-group">
 			<%= label_tag "klu_title", :class => 'control-label' do %>
-				<%= t('title', :default => "Titel") %>
+				<%= t('.title', :default => "Titel") %>
 			<% end %>
 			<div class="controls">
 				<%= f.text_field :title, :class => 'klu-title' %>
 			</div>
 			<div class="control-group">
 				<%= label_tag "klu_category_id", :class => 'control-label' do %>
-					<%= t('category', :default => "Kategorie") %>
+					<%= t('.category', :default => "Kategorie") %>
 				<% end %>
 				<div class="controls">
 					<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
@@ -23,7 +23,7 @@
 			</div>
 			<div class="control-group">
 				<%= label_tag "klu_tag_list", :class => "control-label" do %>
-					<%= t('tag_list', :default => "Tag Liste") %>
+					<%= t('.tag_list', :default => "Tag Liste") %>
 				<% end %>
 				<div class="controls">
 					<%= f.text_field :tag_list, :class => 'text_field' %>
@@ -33,7 +33,7 @@
 		<div class="control-group hidden">
 			<div class="controls">
 			<%= label_tag :published, :class => 'checkbox'  do %>
-				<%= f.check_box :published %> <%= t('published', :default => "? Frage-KluuU öffentlich anzeigen.") %>
+				<%= f.check_box :published %> <%= t('.published', :default => "? Frage-KluuU öffentlich anzeigen.") %>
 			<% end %>
 			</div>
 		</div>
