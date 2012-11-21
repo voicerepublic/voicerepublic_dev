@@ -1,12 +1,14 @@
-<div class="dashboard-finances dashboard-finances-new">
+<div class="well centered-box">
   <div class="page-header">
     <h3><%= t('.configure_your_financial_account')%></h3>
   </div>
   
-  <div class="well well-small">
+  <div>
     
   <p><span class="label label-important"><%= t('.initialize_your_account') %></span></p>
   <p><%= t('.desired_currency') %></p>
   </div>
   <%= render :partial => 'form' %>
 </div>
+
+<%= render( :partial => "inline_help/dashboard_finances_info", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
