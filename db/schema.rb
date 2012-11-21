@@ -138,8 +138,8 @@ ActiveRecord::Schema.define(:version => 20121121110104) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "charge_type",        :default => "free"
-    t.string   "currency"
     t.boolean  "uses_status",        :default => true
+    t.string   "currency"
     t.integer  "charge_cents",       :default => 0
   end
 
