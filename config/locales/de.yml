@@ -502,7 +502,7 @@ de:
       cancel_call: "Abbrechen"
     new_form:
       dispatching_call: "Verbindung wird hergestellt..."
-      start_video_call: "Starte den Video Anruf"
+      start_video_call: "Video Anruf"
     new:
       video_call_title: "Video Anruf"
       not_logged_in_text: "Du bist derzeit nicht angemeldet. Willst du dich anmelden oder weiterfahren?"
