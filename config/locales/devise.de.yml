@@ -24,6 +24,8 @@ de:
     sessions:
       signed_in: 'Erfolgreich angemeldet.'
       signed_out: 'Erfolgreich abgemeldet.'
+      new:
+        login_directly: 'Registriere Dich direkt bei KluuU!'
     passwords:
       send_instructions: 'Du bekommst in wenigen Minuten eine Email mit einer Beschreibung, wie du dein Passwort zurücksetzen kannst.'
       updated: 'Dein Passwort wurde erfolgreich geändert. Du bist nun angemeldet.'
