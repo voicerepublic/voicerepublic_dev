@@ -26,25 +26,25 @@
 	<div class="span6">
 		<div class="control-group  well">
 			<%= label_tag "klu_title", :class => 'control-label' do %>
-				<%= t('title', :default => "Titel (notwendig)") %>*
+				<%= t('.title', :default => "Titel (notwendig)") %>*
 			<% end %>
 			<div class="controls">
 				<%= f.text_field :title, :class => 'text_field klu-title' %>
 			</div>
 			<div class="klu-new-help">
-				<%= t('.please_enter_the_name_of_your_!Kluu!') %>
+				<%= t('.enter_the_name_of_your_kluuu') %>
 			</div>
 		</div>
 	
 		<div class="control-group well">
 			<%= label_tag "klu_description", :class => 'control-label' do %>
-				<%= t('description', :default => "Beschreibung (notwendig)") %>*
+				<%= t('.description', :default => "Beschreibung (notwendig)") %>*
 			<% end %>
 			<div class="controls">
 				<%= f.text_area :description, :class => 'text_area', :rows => 10 %>
 			</div>
 			<div class="klu-new-help">
-				<%= t('.Please_describe_your_!kluuu!') %>
+				<%= t('.describe_your_kluuu') %>
 			</div>
 		</div>
 
@@ -54,7 +54,7 @@
 			<%= render(:partial => 'klu_image_fields', :locals => { :f => p }) %>
 		<% end %>
 		<div class="klu-new-help ">
-			<%= t('.please_add_image_to_your_!Kluuu!') %>
+			<%= t('.add_image_to_your_kluuu') %>
 		</div>
 	</div>
 
@@ -65,7 +65,7 @@
 		<div class="row-fluid">
 			<div class="control-group span8">
 				<%= label_tag "klu_tag_list", :class => 'control-label' do %>
-					<%= t('tag_list', :default => "Tags (notwendig)") %>*
+					<%= t('.tag_list', :default => "Tags (notwendig)") %>*
 				<% end %>
 				<div class="controls">
 					<%= f.text_field :tag_list, :class => 'text_field' %>
@@ -74,7 +74,7 @@
 	
 			<div class="control-group span3 pull-right">
 				<%= label_tag "klu_category_id", :class => 'control-label' do %>
-					<%= t('category', :default => "Kategorie (notwendig)") %>*
+					<%= t('.category', :default => "Kategorie (notwendig)") %>*
 				<% end %>
 				<div class="controls">
 					<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
@@ -82,19 +82,19 @@
 			</div>
 		</div>
 		<div class="klu-new-help ">
-			<%= t('.please_use_siginificant_tags_so_other_users_will_find_your_!Kluu!') %>
+			<%= t('.please_use_siginificant_tags') %>
 		</div>
 	</div>
 	
 		<div class="control-group well">
 			<%= label_tag "klu_available_at_times", :class => 'control-label' do %>
-				<%= t('available_at_times', :default => "Wann bist du Online? (z.B. Mo - Fr, 9.00 - 17.00)") %>
+				<%= t('.available_at_times', :default => "Wann bist du Online? (z.B. Mo - Fr, 9.00 - 17.00)") %>
 			<% end %>
 			<div class="controls">
 				<%= f.text_field :available_at_times, :class => 'text_field'%>
 			</div>
 			<div class="klu-new-help">
-				<%= t('.please_tell_the_people_at_which_time_you_are_available') %>
+				<%= t('.at_what_time_are_you_available') %>
 			</div>
 		</div>
 		
@@ -103,7 +103,7 @@
 			<div class="row-fluid">
 				<div class="control-group span3">
 					<%= label_tag "klu_charge_type", :class => 'control-label' do %>
-						<%= t('charge_type', :default => "Preis") %>
+						<%= t('.charge_type', :default => "Preis") %>
 					<% end %>
 					<div class="controls">
 						<%= f.select(:charge_type, Kluuu::CHARGE_TYPES, { :selected => @klu.charge_type} ) %>
@@ -111,7 +111,7 @@
 				</div>
 				<div class="control-group span3">
 					<%= label_tag "klu_charge_amount", :class => 'control-label' do %>
-						<%= t('charge_cents', :default => "Betrag") %>
+						<%= t('.charge_cents', :default => "Betrag") %>
 					<% end %>
 					<div class="controls">
 						<%= f.number_field(:charge_cents )%>
@@ -119,24 +119,24 @@
 				</div>
 			</div>
 			<div class="klu-new-help">
-				<%= t('.if_you_like_you_can_charge_for_your_!KluuU!') %>
+				<%= t('.you_can_charge_for_your_kluuu') %>
 				<br>
-				<%= t('.you_can_charge_by_the_minute_or_charge_a_fixed_price') %>
+				<%= t('.you_can_charge_by_minute_or_a_fixed_price') %>
 				<br>
-				<%= t('.how_much_do_you_want_to_charge?') %>
+				<%= t('.how_much_do_you_want_to_charge') %>
 			</div>
 		</div>
 		
 		<div class="control-group well">
 			<div class="controls">
 				<%= label_tag :published, :class => 'checkbox' do %>
-					<%= f.check_box :published, :class => 'check_box' %> <%= t('published', :default => "Öffentlich setzen") %>
+					<%= f.check_box :published, :class => 'check_box' %> <%= t('.published', :default => "Öffentlich setzen") %>
 				<% end %>
 			</div>
 			<div class="klu-new-help">
-				<%= t('.please_check_to_publish_your_!KluuU') %>
+				<%= t('.please_check_to_publish_your_kluuu') %>
 				<br>
-				<% t('.later_you_can_unpublish_and_publish_your_!KluuU!_at_any_time') %>
+				<% t('.later_you_can_unpublish_and_publish_any_time') %>
 			</div>
 		</div>
 		
@@ -147,7 +147,7 @@
 				<% end %>
 			</div>
 			<div class="klu-new-help">
-				<%= t('.do_you_want_to_show_your_actual_status_in_your_!KluuU!?_otherwise_we_show_your_about_me_text') %>
+				<%= t('.you_can_show_status_or_about_in_kluuu') %>
 			</div>
 		</div>
 	</div>

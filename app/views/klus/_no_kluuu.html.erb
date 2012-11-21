@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="large-klu-left row-fluid">
-				<h4> <%= t('.this_kluuu_is_bookmarked') %> <%= @klu.bookmarks.count %> <%= t('.times') %> </h4>
+				<h4> <%= t('.this_kluuu_is_bookmarked', :times => @klu.bookmarks.count) %> </h4>
 				<ul class="unstyled">		
 					<% @klu.bookmarks.each do |b|%>
 					<li>
@@ -25,7 +25,7 @@
 		<%= render(:partial => 'kluuu_top_actions', :locals => {:klu => klu}) %>
 		<aside class="klu-matches span3">
 			<div class="well">
-				<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.Menschen_die_sich_auskennen_mit') %></h4>
+				<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.people_who_know_about') %></h4>
 				<p class="text-info">
 					<strong><%= @klu.title %>:</strong>
 				</p>

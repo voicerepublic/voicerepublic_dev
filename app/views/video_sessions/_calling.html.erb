@@ -3,12 +3,12 @@
 		<div class="overlay-calling">
 
 			<h3 class="">
-				<%= t('video_call_title', :default => "VIDEO CALL") %>
+				<%= t('.video_call_title', :default => "VIDEO CALL") %>
 			</h3>
 
 			<i class="icon-facetime-video"> </i>
 			<p>
-				<%= t('in_process', :default => "wird ausgeführt...") %>
+				<%= t('.in_process', :default => "wird ausgeführt...") %>
 			</p>
 			<br><br>
 			<%= form_tag video_session_path(:id => video_session.id, :canceling_participant_id => video_session.guest_participant.id), :method => :delete, :remote => :true do %>

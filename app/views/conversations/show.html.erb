@@ -5,7 +5,7 @@
 <% partner = @conversation.partner_of(@user) %>
 <div class="conversation">
 	<h4>
-		<%= t('.your_messages_with_') %>
+		<%= t('.your_messages_with') %>
 		<%= link_to( user_path(:id => partner)) do %>
 			<%= partner.name %>
 		<% end %>
