@@ -32,7 +32,10 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /de|en/ do
-    devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :sessions => "users/sessions" }
+    devise_for :users, :controllers => {  :omniauth_callbacks => "users/omniauth_callbacks" 
+                                          #:sessions => "users/sessions"
+                                          #:registrations => "users/registrations" 
+                                        }
   end
   
   scope "(/:locale)", :locale => /en|de/ do
@@ -40,6 +43,7 @@ Kluuu2::Application.routes.draw do
       member do
         get 'no_kluuus'
         get 'kluuus'
+        get 'welcome'
       end
       resources :messages, :only => [:index, :show, :destroy, :update] do
         member do
