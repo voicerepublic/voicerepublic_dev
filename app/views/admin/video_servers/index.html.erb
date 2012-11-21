@@ -9,7 +9,6 @@
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:url) %></th>
       <th><%= model_class.human_attribute_name(:salt) %></th>
-      <th><%= model_class.human_attribute_name(:version) %></th>
       <th><%= model_class.human_attribute_name(:activated) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -22,7 +21,6 @@
         <td><%= video_server.name %></td>
         <td><%= video_server.url %></td>
         <td><%= video_server.salt %></td>
-        <td><%= video_server.version %></td>
         <td><%= video_server.activated %></td>
         <td><%=l video_server.created_at %></td>
         <td>

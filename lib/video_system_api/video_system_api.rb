@@ -54,8 +54,8 @@ module VideoSystemApi
     # Initializes an instance
     # url::       URL to a BigBlueButton server (e.g. http://demo.bigbluebutton.org/bigbluebutton/api)
     # salt::      Secret salt for this server
-    # version::   API version: 0.7 (valid for 0.7, 0.71 and 0.71a)
-    def initialize(url, salt, version='0.7', debug=false, timeout=2, ip='127.0.0.1', port='3000')
+    # version::   API version: 0.7 (valid for 0.7, 0.71 and 0.71a but also running with 0.8 servers)
+    def initialize(url, salt, debug=false, timeout=2, ip='127.0.0.1', port='3000', version='0.7')
       @supported_versions = ['0.7']
       @port = port
       @ip = ip

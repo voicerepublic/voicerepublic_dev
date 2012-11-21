@@ -11,11 +11,11 @@ describe VideoSystemApi::VideoSystemApi do
   let(:timeout) { 2 }
   let(:ip) { '192.168.0.1' }
   let(:port) { '3000' }
-  let(:api) { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip, port) }
+  let(:api) { VideoSystemApi::VideoSystemApi.new(url, salt, debug, timeout, ip, port, version) }
 
   describe "#initialize" do
     context "standard initialization" do
-      subject { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, timeout, ip, port) }
+      subject { VideoSystemApi::VideoSystemApi.new(url, salt, debug, timeout, ip, port, version) }
       it { subject.url.should be(url) }
       it { subject.salt.should be(salt) }
       it { subject.version.should be(version) }
@@ -28,13 +28,13 @@ describe VideoSystemApi::VideoSystemApi do
 
     context "when the version is not informed, get it from the BBB server" do
       before { VideoSystemApi::VideoSystemApi.any_instance.should_receive(:get_api_version).and_return("0.7") }
-      subject { VideoSystemApi::VideoSystemApi.new(url, salt, nil) }
+      subject { VideoSystemApi::VideoSystemApi.new(url, salt, nil, nil, nil, nil, nil) }
       it { subject.version.should == "0.7" }
     end
 
     it "when the version is not supported raise an error" do
       expect {
-        VideoSystemApi::VideoSystemApi.new(url, salt, "0.not-supported", nil)
+        VideoSystemApi::VideoSystemApi.new(url, salt, nil, nil, nil, nil, "0.not-supported")
       }.to raise_error(VideoSystemApi::VideoSystemApiException)
     end
 
@@ -186,7 +186,7 @@ describe VideoSystemApi::VideoSystemApi do
   end
 
   describe "#==" do
-    let(:api2) { VideoSystemApi::VideoSystemApi.new(url, salt, version, debug, 2) }
+    let(:api2) { VideoSystemApi::VideoSystemApi.new(url, salt, debug, 2) }
 
     context "compares attributes" do
       it { api.should == api2 }
