@@ -35,3 +35,5 @@
 		<% end %>	
 	</ul>
 </section>
+
+<%= render( :partial => "inline_help/dashboard_messages", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
