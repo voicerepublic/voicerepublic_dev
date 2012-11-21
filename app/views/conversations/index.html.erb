@@ -22,7 +22,7 @@
 						<aside>
 							<span class="conversations-more-messages">
 								<% msg_c = conv.messages.count - 1 %>
-								<%= t(".and_#{msg_c}_more_messages") %>
+								<%= t(".and_more_messages", :count => msg_c) %>
 							</span>								
 							<time><%= l(msg.created_at, :format => :short) %></time>
 						</aside>
