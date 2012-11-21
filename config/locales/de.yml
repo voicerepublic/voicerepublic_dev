@@ -206,7 +206,12 @@ de:
   users:
     user_information:
       time_at_location: "Zeit an %{user}s Ort"
+      
   ###########  models ####################
+  # in notification-models generiert
+  your_klu_got_bookmarked: "für Dein KluuU wurde ein Lesezeichen gesetzt"
+  you_missed_a_call_on_your_klu: "Du hast einen Anruf für Dein KluuU verpasst"
+  
   ###########  helpers  ##################
   ###########  views #####################
   accounts:
@@ -521,9 +526,7 @@ de:
       video_down_text: "Sorry! Wir warten gerade das Video System. Danke das Du KluuU benutzt"
       close: "Schliessen"
       
-  # in notification-models generiert
-  your_klu_got_bookmarked: "für Dein KluuU wurde ein Lesezeichen gesetzt"
-  you_missed_a_call_on_your_klu: "Du hast einen Anruf für Dein KluuU verpasst"
+  
       
       
       
