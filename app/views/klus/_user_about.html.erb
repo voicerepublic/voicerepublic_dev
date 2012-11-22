@@ -1,2 +1,4 @@
+<% if klu.user.account.about && klu.user.account.about.length > 2 %>
 <strong> <%= t('.user_description') %>: </strong><br />
 <%= limit_words(klu.user.account.about, 15) %>
+<% end %>

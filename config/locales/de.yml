@@ -360,7 +360,7 @@ de:
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
       people_who_know_about: "Menschen, die sich auskennen mit "
     user_about:
-      user_description: "Nutzer Beschreibung"
+      user_description: "Über mich"
     user_status:
       opinion: "Meinung"
     edit:
