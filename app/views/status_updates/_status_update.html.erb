@@ -22,9 +22,10 @@
 				<i class="icon-comment"> </i>	<%= status_update.comments.count %> <%= t('.comments') %>
 			<% end %>
 		</div>
+		
 		<%= link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do %>
-		<i class="icon-trash"> </i>
-		<% end %>
+			<i class="icon-trash"> </i>
+		<% end  if can? :manage, status_update %>
 
 	</aside>
 </article>
