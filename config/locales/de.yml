@@ -220,7 +220,8 @@ de:
       emails_about_contact_activities: "Erhalte Emails über die Aktivitäten Deiner Kontakte"
       emails_about_me: "Erhalte Emails über Dich"
       dont_show_initial_help: "Verstecke die Hilfe-Notizen"
-      save_preferences: "Nachrichten und Emails speichern"
+      save_preferences: "Einstellungen speichern"
+      on_site_help: "Hilfe Darstellung"
     form: 
       delete_portrait: "Portrait löschen"
     edit:
@@ -278,7 +279,7 @@ de:
       settings: "Einstellungen"
       email: "Meine Email Adresse"
       new_password: "Neues Passwort"
-      notifications_and_emails: "Nachrichten und Emails"
+      notifications_and_emails: "Email Empfang"
     matches:
       matches: "Passende KluuUs"
       my_kluuus: "Meine KluuUs"
