@@ -409,6 +409,9 @@ de:
       created_new_status_update: "Hat seinen Status geändert"
       created_new: "Erstellte ein neues"
   search:
+    tagged_with:
+      taggings_with: "Mit '%{tag}' gekennzeichnete KluuUs und Fragen"
+      no_kluuus_tagged_with: "Keine mit '%{tag}' verschlagworteten Ergebnisse vorhanden"
     form:
       search: "Suche!"
     search:

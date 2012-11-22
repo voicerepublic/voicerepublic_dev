@@ -16,7 +16,7 @@ Kluuu2::Application.routes.draw do
     post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
     post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
-    get "tags/:tag", :controller => 'landing_page', :action => 'show_tagged_with', :as => 'tagged_with'
+    get "tags/:tag", :controller => 'search', :action => 'tagged_with', :as => 'tagged_with'
     post "chats/:one/:two", :controller => 'chats', :action => 'create', :as => 'post_chat'
     get "chats/:one/:two/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
     delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
