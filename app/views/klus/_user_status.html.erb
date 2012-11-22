@@ -5,5 +5,5 @@
     </div>
     <i class="icon-bullhorn contribution-user-image"></i>
   </header>
-  <%= limit_words(klu.status_or_about, 15) %>
+  <%= limit_words(klu.user.account.about, 15) %>
 </article>
