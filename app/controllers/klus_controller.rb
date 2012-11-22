@@ -78,7 +78,7 @@ class KlusController < ApplicationController
           format.json { render json: @klu, status: :created, location: @klu }
         end
       else
-        flash.now[:error] = @klu.errors.inspect
+        flash.now[:error] = "An Error occured during save..."
         format.html { render action: "new" }
         format.json { render json: @klu.errors, status: :unprocessable_entity }
       end
