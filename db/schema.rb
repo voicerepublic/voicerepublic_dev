@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122102118) do
+ActiveRecord::Schema.define(:version => 20121122105617) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20121122102118) do
     t.integer  "portrait_file_size"
     t.datetime "portrait_updated_at"
     t.text     "prefs"
+    t.string   "website"
   end
 
   create_table "balance_accounts", :force => true do |t|

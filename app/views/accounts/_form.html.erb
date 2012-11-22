@@ -8,6 +8,13 @@
 </div>
 
 <div class="control-group">
+	<%= f.label :website, :class => 'control-label' %>
+	<div class="controls">
+		<%= f.text_field :website, :class => 'text_field' %>
+	</div>
+</div>
+
+<div class="control-group">
 	<%= f.label :portrait, :class => "control-label" %>
 	<div class="controls">
 		<% if @account.portrait.exists? %>

@@ -3,26 +3,26 @@
 <%= f.fields_for :account do |account_fields| %>
 
 <div class="row-fluid user-edit">
-	
+
 	<div class="span4">
 		<div class="control-group user-edit-image">
 			<%= account_fields.label :portrait, :class => "control-label" %>
 			<div class="controls">
 				<% if @user.account.portrait.exists? %>
-					<%= image_tag @user.account.portrait.url(:large), :class => "img-polaroid" %> 
-					<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "user-edit-image-edit", :method => :delete do %>
-						<i class="icon-trash"> </i> <%= t('.delete_portrait')%>
-					<% end %>
-				<% else %>
-					<%= account_fields.file_field :portrait %>
-					<p><%= t('.add_a_portrait') %>
+				<%= image_tag @user.account.portrait.url(:large), :class => "img-polaroid" %>
+				<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "user-edit-image-edit", :method => :delete do %>
+				<i class="icon-trash"> </i> <%= t('.delete_portrait')%>
 				<% end %>
+				<% else %>
+				<%= account_fields.file_field :portrait %>
+				<p>
+					<%= t('.add_a_portrait') %>
+					<% end %>
 			</div>
 		</div>
-		
-		
+
 	</div>
-	
+
 	<div class="span4">
 		<%= f.error_messages %>
 		<div class="user-edit-name">
@@ -32,7 +32,7 @@
 					<%= f.text_field :firstname %>
 				</div>
 			</div>
-			
+
 			<div class="control-group">
 				<%= f.label :lastname, :class => "control-label" %>
 				<div class="controls">
@@ -46,12 +46,18 @@
 				<%= account_fields.text_area :about, :class => 'text_field', :rows => 7 %>
 			</div>
 		</div>
-		
-		
+
 	</div>
-	
-	
+
 	<div class="span4">
+		
+		<div class="control-group">
+			<%= account_fields.label :website, :class => 'control-label' %>
+			<div class="controls">
+				<%= account_fields.text_field :website, :class => 'text_field' %>
+			</div>
+		</div>
+		
 		<div class="control-group">
 			<%= account_fields.label :timezone, :class => "control-label"%>
 			<div class="controls">
@@ -78,6 +84,7 @@
 				<%= account_fields.select :language_3, lang_hash.sort, :include_blank => true, :default => I18n.locale.upcase.to_s %>
 			</div>
 		</div>
+		
 	</div>
 </div>
 <% end %>
