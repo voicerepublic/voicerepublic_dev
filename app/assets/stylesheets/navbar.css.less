@@ -107,7 +107,7 @@
 	}
 
 	a.brand{
-	 	padding: 5px 30px 7px 0px;
+	 	padding: 0px 30px 1px 0px;
 	 	margin-left: 0;
 
 	 	h1{
@@ -116,7 +116,7 @@
 	 		font-size:@baseFontSize * 1.1;
 	 	}
    	img{
-   		height:30px
+   		height:40px
   	}	 	
 	}
 
@@ -320,35 +320,28 @@
 /* LOGGED OUT landing-page*/
 
 .navbar-logged-out{
-/*	a.brand-big{ 
-		float:left;
-		margin:7px 10px 0 0;
-		img{
-			height:40px
+	.navbar-inner{
+		background:rgba(255,255,255,0.3);
+		text-shadow:1px 1px 1px rgba(255,255,255,0.4), -1px -1px 1px rgba(255,255,255,0.3) !important;
+		a{
+			color:#000 !important;
+			text-shadow:1px 1px 1px rgba(255,255,255,0.4), -1px -1px 1px rgba(255,255,255,0.3) !important;
 		}
 	}
-
-	li a{
-		font-size:@baseFontSize * 1.3;
-		padding:0 25px !important;
-	}
-	.first-landing-signup{
-		border-left:1px solid rgba(0,0,0,0.2);		
-	}*/
 
 	a.brand{
 		padding-right:10px;
 	}
 	.logo-claim{
 		line-height:@baseLineHeight *1.4;
-		color:rgba(0,0,0,0.6);
+		color:rgba(0,0,0,1);
 	}
 	a.tell-me-more{
 		background:rgba(39, 136, 153, 0.8);
 		line-height:1 !important;
 		padding:8px 10px !important;
 		margin:5px 11px 0 11px;
-		border:1px solid #aaa;
+		border:1px solid #aaa !important;
 		border-radius:5px;
 		color:white !important;
 		text-shadow:1px 1px 1px rgba(0,0,0,0.5), -1px -1px 1px rgba(0,0,0,0.3) !important;
