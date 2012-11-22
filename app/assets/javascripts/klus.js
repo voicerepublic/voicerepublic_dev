@@ -217,7 +217,7 @@
 	$(function(){
 		klus.callButton.init();
 		klus.imageGallery.init();
-		klus.tagInput.init();
+		//klus.tagInput.init();
 	});
 })(jQuery);
 
