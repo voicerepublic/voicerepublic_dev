@@ -16,8 +16,8 @@
 		<div class="controls">
 			<%= f.text_field :title, :class => 'klu-title' %>
 		</div>
-
-		<%= f.hidden_field :category_id, :value => Category.first.id %>
+		<% cat = Category.first %>
+		<%= f.hidden_field :category_id, :value => cat.id || 0 %>
 		<%= f.hidden_field :tag_list, :class => 'text_field' %>
 	</div>
 

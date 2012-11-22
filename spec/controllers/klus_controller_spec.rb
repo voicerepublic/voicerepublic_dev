@@ -86,8 +86,14 @@ describe KlusController do
         assigns(:klu).should be_a(Klu)
         assigns(:klu).should be_persisted
       end
+      
+      it "redirects to dashboard if this is the first kluuu - generated after user registers" do
+        post :create, {:klu => valid_attributes.merge(:user_id => @user), :user_id => @user}, valid_session
+        response.should redirect_to( dashboard_url() )
+      end
 
-      it "redirects to the users profile" do
+      it "redirects to the users profile if there are already kluuus existent" do
+        FactoryGirl.create(:published_no_kluuu, :user => @user)
         post :create, {:klu => valid_attributes.merge(:user_id => @user), :user_id => @user}, valid_session
         response.should redirect_to( user_url(:id => @user) )
       end

@@ -3,7 +3,7 @@ module KlusHelper
   def bookmark_links(user, klu)
     #puts user.inspect
     #return nil if user.new_record?
-    if user && (klu.user != user) &! klu.user.nil?
+    if user && klu && (klu.user != user) &! klu.user.nil?
       if Bookmark.bookmarked?(user.id, klu.id)
         link_to(user_bookmark_path(:user_id => user, :id => Bookmark.bookmark_for(user.id, klu.id).id), :method => :delete, :title => t('.delete_bookmark', :default => "Delete Bookmark"), :class => "klu-bookmark-delete") do
           content_tag('i', '', :class => 'icon-bookmark')
