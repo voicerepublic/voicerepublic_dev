@@ -43,9 +43,9 @@ end
 
 feature "User gets notifications via push" do
   
-  before do
+  before :each do
     @user = FactoryGirl.create(:user)
-    @klu = FactoryGirl.create(:published_no_kluuu, :user => @user)
+    _klus = FactoryGirl.create(:published_no_kluuu, :user => @user)
   end
   
   scenario "User sees number of notifications in actionbar - with css-id 'alerts-count-'" do
