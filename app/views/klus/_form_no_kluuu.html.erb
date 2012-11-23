@@ -49,6 +49,6 @@
 <div class="form-actions">
 	<%= f.submit nil, :class => 'btn btn-primary' %>
 	<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-	user_klus_path(:user_id => @user), :class => 'btn' %>
+	user_path(:id => @user), :class => 'btn' %>
 </div>
 <% end %>
