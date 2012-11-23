@@ -5,7 +5,7 @@
 	<%= f.hidden_field :calling_user_id, :value => current_user.nil? ? session[:session_id] : current_user.id, :id => "new_video_session_calling_user_id_#{klu.id}" %>
 	<%= f.hidden_field :klu_id, :value => klu.id, :id => "new_video_session_klu_id_#{klu.id}" %>
 	<%= f.hidden_field :type, :value => @video_session.instance_of?(VideoSession::Registered) ? 'VideoSession::Registered' : 'VideoSession::Anonymous', :id => "new_video_session_type_#{klu.id}" %>
-	<%= button_tag :class => 'btn btn-success call-icon', :type => "submit", :disable_with => "#{t('dispatching_call')}", :id => "new_video_session_button_#{klu.id}" do %>
+	<%= button_tag :class => 'btn btn-success call-icon', :type => "submit", :id => "new_video_session_button_#{klu.id}" do %>
 		<i class="icon-comment-alt"> </i>
 		<span class="btn-call-link">
 			<%= t('.start_video_call', :default => "Start Video Call") %>
