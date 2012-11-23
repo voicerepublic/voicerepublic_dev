@@ -206,6 +206,23 @@ de:
   users:
     user_information:
       time_at_location: "Zeit an %{user}s Ort"
+  controller_accounts:
+    no_settings_made_yet: "Einstellungen noch nicht vollständig"
+    account_settings_created: "Profileinstellungen erstellt"
+    settings_updated: "Einstellungen aktualisiert"
+    portrait_destroyed: "Portrait entfernt"
+  controller_bookmarks:
+    bookmark_created: "Lesezeichen gesetzt"
+    bookmark_destroyed: "Lesezeichen entfernt"
+  controller_comments:
+    comment_created: "Kommentar erstellt"
+  controller_conversations:
+    conversation_destroyed: "Konversationsverlauf entfernt"
+  controller_dashboard:
+    notification_destroyed: "Nachricht entfernt"
+  controller_follows:
+    follow_created: "Freundschaft eingerichtet"
+    
       
   ###########  models ####################
   # in notification-models generiert

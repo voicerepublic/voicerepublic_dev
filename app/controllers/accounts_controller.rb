@@ -11,7 +11,7 @@ class AccountsController < ApplicationController
     authorize! :show, @account
     if @account.nil?
       @account = @user.build_account
-      flash[:warning] = t('.settings_controller.no_settings_made_yet')
+      flash[:warning] = t('controller_accounts.no_settings_made_yet')
       redirect_to :action => :new and return
     end
     respond_to do |format|
@@ -42,7 +42,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to user_account_url(:user_id => @account.user) , notice: 'Profile setting was successfully created.' }
+        format.html { redirect_to user_account_url(:user_id => @account.user) , notice: I18n.t('controller_accounts.account_settings_created', :default => 'Profile setting was successfully created.') }
         format.json { render json: @account, status: :created, location: @account }
       else
         format.html { render action: "new" }
@@ -63,7 +63,7 @@ class AccountsController < ApplicationController
     end
     respond_to do |format|
       if @account.update_attributes(params[:account])
-        format.html { redirect_to url, notice: 'Settings were successfully updated.' }
+        format.html { redirect_to url, notice: I18n.t('controller_accounts.settings_updated', :default => 'Settings were successfully updated.') }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -81,7 +81,7 @@ class AccountsController < ApplicationController
       redirect_to user_account_url(:user_id => @user)
     else
       logger.info("ProfileSetting#destroy_portrait - success")
-      redirect_to edit_user_account_url(:user_id => @user), notice: "Portrait successfully destroyed." 
+      redirect_to edit_user_account_url(:user_id => @user), notice: I18n.t('controller_accounts.portrait_destroyed', :default => "Portrait successfully destroyed." )
     end
   end
 

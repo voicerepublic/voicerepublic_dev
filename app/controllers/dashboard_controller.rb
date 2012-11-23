@@ -46,7 +46,7 @@ class DashboardController < ApplicationController
     authorize! :destroy, n
     
     if n.destroy
-      flash.now[:notice] = t('destroyed notification')
+      flash.now[:notice] = t('controller_dashboard.notification_destroyed', :default => 'destroyed notification')
     else
       flash.now[:error] = t('was not able to delete notification')
     end
@@ -75,7 +75,7 @@ class DashboardController < ApplicationController
     rescue Exception => e
       logger.error("Dasboard#matches - problem with sphinx: #{e.inspect}")
       @matching_klus = []
-      flash.now[:error] =  "there is a problem with sphinx... see your logs"
+      flash.now[:error] =  "there is a problem with sphinx... stay calm"
     end
     respond_to do |format|
       format.html # index.html.erb
