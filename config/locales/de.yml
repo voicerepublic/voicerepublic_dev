@@ -209,8 +209,24 @@ de:
       
   ###########  models ####################
   # in notification-models generiert
-  your_klu_got_bookmarked: "für Dein KluuU wurde ein Lesezeichen gesetzt"
   you_missed_a_call_on_your_klu: "Du hast einen Anruf für Dein KluuU verpasst"
+  model_notification_follower_action:
+    friend_took_action: "Aktivität von %{friend} auf KluuU"
+  model_notification_new_bookmark:
+    your_klu_got_bookmarked: "%{bookmarker} hat ein Lesezeichen auf dein KluuU '%{klu_title}' gesetzt" 
+  model_notification_new_comment:
+    you_got_a_new_comment_by: "Du hast einen Kommentar von %{commenter} erhalten"
+  model_notification_new_follower:
+    you_got_a_new_follower: "%{name} folgt dir jetzt"
+  model_notification_new_kluuu:
+    friend_created_new_kluuu: "Dein Freund %{name} hat ein neues KluuU erstellt"
+  model_notification_new_message:
+    new_message_from: "Du hast eine neue Nachricht von %{name}"
+  model_notification_new_rating:
+    you_got_rated_by: "%{name} hat dich bewertet"
+  model_notification_new_status:
+    friend_created_new_status: "%{name} hat einen neuen Status erstellt"
+    
   
   ###########  helpers  ##################
   ###########  views #####################

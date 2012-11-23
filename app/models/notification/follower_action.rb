@@ -9,7 +9,7 @@ class Notification::FollowerAction < Notification::Base
   #before_create :check_account_preferences
   
   def to_s
-    I18n.t('.friend_took_action', :friend => other.name )
+    I18n.t('model_notification_follower_action.friend_took_action', :friend => other.name )
   end
   
   private

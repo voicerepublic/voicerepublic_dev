@@ -9,7 +9,7 @@ class Notification::NewStatus < Notification::Base
   after_create :generate_mail_notification
   
   def to_s
-    I18n.t('.friend_created_new_status', :friend => other.name)
+    I18n.t('model_notification_new_status.friend_created_new_status', :name => other.name)
   end
   
 end
