@@ -206,6 +206,7 @@ de:
   users:
     user_information:
       time_at_location: "Zeit an %{user}s Ort"
+      will_open_in_new_tab: "Der Link wird in einem neuen tab geöffnet"
   controller_accounts:
     no_settings_made_yet: "Einstellungen noch nicht vollständig"
     account_settings_created: "Profileinstellungen erstellt"
