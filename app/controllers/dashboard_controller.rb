@@ -57,8 +57,8 @@ class DashboardController < ApplicationController
   end
 
   def matches
-    @klus = @user.kluuus
-    @no_klus = @user.no_kluuus
+    @klus = @user.kluuus.order("created_at DESC")
+    @no_klus = @user.no_kluuus.order("created_at DESC")
     
     begin
       if params[:id]
