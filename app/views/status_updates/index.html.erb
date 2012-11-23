@@ -2,7 +2,7 @@
 <section class="status-site status-updates">
 	<% if @user == current_user %>
 		<aside class="status-new-link clearfix">
-			<%= link_to t('._new_status_update'), new_user_status_update_path, :class => 'btn icon-edit' %>		
+			<%= link_to t('.new_status_update'), new_user_status_update_path, :class => 'btn icon-edit' %>		
 		</aside>
 	<% end %>
 	<ul class="unstyled status-list">

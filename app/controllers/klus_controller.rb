@@ -70,10 +70,10 @@ class KlusController < ApplicationController
 
     respond_to do |format|
       if @klu.save
-        format.html { redirect_to user_url(:id => @user), notice: 'Klu was successfully created.' }
-        format.json { render json: @klu, status: :created, location: @klu }
+          format.html { redirect_to dashboard_url(), notice: "Your Klu was successfully created!"}
+          format.json { render json: @klu, status: :created, location: @klu }
       else
-        flash.now[:error] = @klu.errors.inspect
+        flash.now[:error] = "An Error occured during save..."
         format.html { render action: "new" }
         format.json { render json: @klu.errors, status: :unprocessable_entity }
       end

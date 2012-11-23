@@ -20,5 +20,4 @@ module ApplicationHelper
     klu.instance_of?(Kluuu) ? t('.!KluuU') : t('.?Question')
   end
   
-  
 end

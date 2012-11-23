@@ -1,6 +1,7 @@
 <%= form_for account, :url => user_account_path(:user_id => user, url_arg => 1), :html => { :multipart => true } do |f| %>
 	<%= f.fields_for :prefs, account.prefs do |p| %>
 	
+	<!-- 
 	<div class="control-group">
 		<div class="controls">
 			<%= label_tag "inform_of_friends", :class => 'checkbox control-label' do %>
@@ -9,7 +10,7 @@
 			<% end %>
 		</div>
 	</div>
-
+	-->
 	<div class="control-group">
 		<div class="controls">
 			<%= label_tag "email_concerning_other", :class => 'checkbox control-label' do %>
@@ -27,6 +28,8 @@
 			<% end %>
 		</div>
 	</div>
+	
+	<h3><%= t('.on_site_help')%></h3>
 	<div class="control-group">
 		<div class="controls">
 			<%= label_tag "no_initial_help", :class => 'checkbox control-label' do %>
@@ -38,8 +41,7 @@
 	
 	<br>
 	<div class="control-group">
-		<%= f.submit t('.save_preferences', :default => 'Nachrichten und E-Mails speichern'), :class => 'btn btn-primary' %>
-		<%#= link_to t('.cancel', :default => t("helpers.links.cancel")), dashboard_settings_path, :class => 'btn' %>
+		<%= f.submit t('.save_preferences', :default => 'Einstellungen speichern'), :class => 'btn btn-primary' %>
 	</div>
 	<% end %>
 

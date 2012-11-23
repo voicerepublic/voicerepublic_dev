@@ -62,7 +62,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to user_status_update_path(:user_id => @comment.commentable.user, :id => @comment.commentable), notice: 'Comment was successfully created.' }
+        format.html { redirect_to user_status_update_path(:user_id => @comment.commentable.user, :id => @comment.commentable), notice: I18n.t('controller_comments.comment_created', :default => 'Comment was successfully created.') }
         format.json { render json: @comment, status: :created, location: @comment.commentable.user }
       else
         format.html { render action: "new" }

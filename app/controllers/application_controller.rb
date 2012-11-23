@@ -10,7 +10,13 @@ class ApplicationController < ActionController::Base
     if resource.is_admin?
       admin_dashboard_index_path
     else
-      dashboard_path
+      if resource.klus.empty?
+        #@klu = resource.no_kluuus.build(:tag_list => "fun, kluuu, newcomer, talk")
+        #@user = resource
+        welcome_user_path(:id => resource)
+      else
+        dashboard_path
+      end
     end
   end
   

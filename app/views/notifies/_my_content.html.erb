@@ -11,7 +11,7 @@
 	<% if notification.instance_of?(Notification::NewBookmark) %>
 		<h4 class="news-notification-top">
 			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-			<%= t('.bookmarked_your_') %> <%= klu_type_string(notification.klu) %>
+			<%= t('.bookmarked_your') %> <%= klu_type_string(notification.klu) %>
 		</h4>
 		<%= link_to klu_url(:id => notification.klu) do%>
 			<%= tiny_klu(notification.klu) %>
@@ -40,7 +40,7 @@
 	<% if notification.instance_of?(Notification::NewRating)%>
 		<h4 class="news-notification-top">
 			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		 	<%= t('.rated_your_') %> <%= klu_type_string(notification.klu) %>:
+		 	<%= t('.rated_your') %> <%= klu_type_string(notification.klu) %>:
 		 </h4>
 		 <%= link_to_url_for_notification_reason(notification) do %>
 		 	<%= tiny_klu(notification.klu) %>

@@ -11,7 +11,7 @@
         <%= render(:partial => "/devise/shared/social_network_connects") %>
         <hr>
         
-        <h4>Log In directly by KluuU!</h4>
+        <h4><%= t(".login_directly") %></h4>
         
         <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     

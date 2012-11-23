@@ -47,7 +47,7 @@
 				<%# BOOKMARKS %>
 				<div class="span4">
 					<h5>
-						<%= t('.this_kluuu_is_bookmarked') %> <%= klu.bookmarks.count %> <%= t('.times') %>
+						<%= t('.this_kluuu_is_bookmarked', :times => klu.bookmarks.count) %> 
 					</h5>
 					<ul class="unstyled klu-bookmarked-by">
 						<% klu.bookmarks.each do |b|%>
@@ -64,7 +64,7 @@
 		<%# MATCHES %>
 		<aside class="span3 klu-matches">
 			<div class="well">
-			<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.people_how_wanna_know_about', :default => "Menschen die mehr erfahren möchten über") %></h4>
+			<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.people_who_wanna_know_more_about') %></h4>
 			<p class="text-info"><strong><%=klu.title %>:</strong></p>
 			</div>
 			<%= render(:partial => 'matches', :locals => {:klu => klu }) %>

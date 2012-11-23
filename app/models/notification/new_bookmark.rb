@@ -12,7 +12,7 @@ class Notification::NewBookmark < Notification::Base
   after_create :generate_mail_notification
   
   def to_s
-    I18n.t('.your_klu_got_bookmarked', :klu_title => klu.title, :bookmarker => other.name )
+    I18n.t('model_notification_new_bookmark.your_klu_got_bookmarked', :klu_title => klu.title, :bookmarker => other.name )
   end
   
 end

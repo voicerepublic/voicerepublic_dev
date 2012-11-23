@@ -1,5 +1,7 @@
 <div class="call-btn">
 	<%= render :partial => 'video_sessions/new_form', :locals => {:klu => klu} %>
 	<div class="user-image klu-user-image" data-user-id="<%= klu.user.id %>"><%= link_to(image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid"), user_path(:id => klu.user) ) %></div>
-	<div class="klu-price"><%= price_string(klu) %></div>
+	<% if klu.instance_of?(Kluuu)%>
+	<div class="klu-price"><%= humanized_money_with_symbol(klu.charge) %> / <%= klu.charge_type %></div>
+	<% end %>
 </div><!-- End of call-btn -->

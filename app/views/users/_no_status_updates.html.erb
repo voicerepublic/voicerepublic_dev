@@ -1,12 +1,12 @@
 <div class="user-annotation">
 	<% if current_user && (current_user == user) %>
-		<%= t(".you_haven't_written_any_status_updates_yet") %>
+		<%= t(".no_status_updates_of_you") %>
 		<br />
-		<%= t(".what_do_you_have_to_say") %>?
+		<%= t(".what_you_say") %>
 		<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-mini user-new-status" do %>
 			<i class="icon-edit"> </i> <%= t('.new_opinion') %>
 		<% end %>
 	<% else %>
-		<%= t(".the_user_hasn't_written_any_status_updates_yet") %>
+		<%= t(".no_status_updates_here") %>
 	<% end %>
 </div>

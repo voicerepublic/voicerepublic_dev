@@ -26,7 +26,7 @@ class FollowsController < ApplicationController
     logger.debug("Follows#create - follow: #{@follow.inspect}")
     respond_to do |format|
       if @follow.save
-        format.html { redirect_to dashboard_contacts_url, notice: 'Follow was successfully created.' }
+        format.html { redirect_to dashboard_contacts_url, notice: t('controller_follows.follow_created', :default => 'Follow was successfully created.') }
         format.json { render json: @follow, status: :created, location: @follow }
       else
         format.html { render action: "new" }

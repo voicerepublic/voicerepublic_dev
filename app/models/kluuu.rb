@@ -10,7 +10,8 @@ class Kluuu < Klu
   
   # see base-class for base-validations
   validates_presence_of :charge_cents, :description, :category_id #, :currency  #, :currency
-  validate :set_currency, :if => Proc.new {|k| k.charge_type != 'free'}
+  validate :set_currency, :if => Proc.new { |k| k.charge_type != 'free' }
+  validate :check_charge, :if => Proc.new { |k| k.charge_type != 'free' }
   
   accepts_nested_attributes_for :klu_images, :allow_destroy => true
   
@@ -23,6 +24,19 @@ class Kluuu < Klu
       self.currency = self.user.balance_account.currency
     else
       self.errors.add(:currency, I18n.t('.no_account', :default => 'You got to create an balance account before You can charge for your KluuUs'))
+    end
+  end
+  
+  def check_charge
+    if charge_type == 'minute'
+      unless charge_cents < 501 || charge_cents > 9
+        self.errors.add(:charge_cents, I18n.t('.charge_per_minute_error', :default => "Minimum 10 and maximum 500"))
+      end
+    end
+    if charge_type == 'fix'
+      unless charge_cents < 5001 || charge_cents > 99
+        self.errors.add(:charge_cents, I18n.t('.charge_fixed_error', :default => "Minimum 100 and maximum 5000"))
+      end
     end
   end
     

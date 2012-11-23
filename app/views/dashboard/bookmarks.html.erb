@@ -7,3 +7,5 @@
     <%= partial_for_bookmark(bookmark) %>
   <% end %>
 </div>
+
+<%= render( :partial => "inline_help/dashboard_bookmarks_info", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	

@@ -5,7 +5,7 @@
 <div class="tab-content row-fluid">
   <div class="span6">
 	<div class="user user-edit well well-large">
-		<h3><%=t(".email", :default => "Meine Email-Adresse") %></h3>
+		<h3><%= t('.email', :default => "Meine Email-Adresse") %></h3>
   		<%= render :partial => 'users/basic_form', :locals => { :user => @user, :url_arg => 'from_settings' } %>
 	</div>
 
@@ -16,7 +16,7 @@
   </div>
 	<div class="span6">
     <div class="user user-edit well well-large">
-      <h3><%=t(".notifications_and_emails", :default => "Nachrichten und E-Mails") %></h3>
+      <h3><%=t(".notifications_and_emails", :default => "E-Mail Einstellungen") %></h3>
       <%= render :partial => 'accounts/form_preferences', :locals => { :user => @user, :account => @account, :url_arg => 'from_settings' } %>
      </div>
   </div>
