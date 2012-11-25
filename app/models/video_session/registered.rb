@@ -15,18 +15,18 @@ class VideoSession::Registered < VideoSession::Base
 
 
   def create_room_creation_failed_notification
-    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)
   end
 
   def create_call_accepted_notification  
-    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id,  :klu_id => self.klu_id)
   end
   
   def create_call_ended_notification(role)
     #if (role == 'host')
-      Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id)  
+      Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id,  :klu_id => self.klu_id)  
     #else
-      Notification::CallEnded.create(:user_id => self.guest_participant.user_id, :video_session_id => self.id)  
+      Notification::CallEnded.create(:user_id => self.guest_participant.user_id, :video_session_id => self.id,  :klu_id => self.klu_id)  
     #end
   end
 
@@ -45,7 +45,7 @@ class VideoSession::Registered < VideoSession::Base
   end
   
   def create_incoming_call_notification
-    Notification::IncomingCall.create(:user_id => @klu.user_id, :other_id => self.calling_user_id, :video_session_id => self.id)  
+    Notification::IncomingCall.create(:user_id => @klu.user_id, :other_id => self.calling_user_id, :video_session_id => self.id, :klu_id => @klu.id)  
   end
   
   def prepare_room_for_video_session
@@ -82,10 +82,10 @@ class VideoSession::Registered < VideoSession::Base
   def create_call_canceled_notification 
     if self.canceling_participant_id.to_i == self.guest_participant.id.to_i
       self.notifications.destroy_all
-      Notification::MissedCall.create(:user_id => self.host_participant.user_id, :other_id => self.guest_participant.user_id, :klu_id => self.klu.id, :video_session_id => self.id, :url => Rails.application.routes.url_helpers.user_path(:id => self.guest_participant.user_id))
+      Notification::MissedCall.create(:user_id => self.host_participant.user_id, :other_id => self.guest_participant.user_id, :klu_id => self.klu_id, :video_session_id => self.id, :klu_id => self.klu_id, :url => Rails.application.routes.url_helpers.user_path(:id => self.guest_participant.user_id))
     else  
       self.notifications.destroy_all
-      Notification::CallRejected.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+      Notification::CallRejected.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id,  :klu_id => self.klu_id)
     end
   end
   
