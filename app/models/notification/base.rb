@@ -54,7 +54,12 @@ class Notification::Base < ActiveRecord::Base
       url
     when "MissedCall"
       dashboard_news_path
-    end
+    when "CallEnded"
+    when "CallAccepted"
+    when "CallRejected"
+    when "IncomingCall"
+      klu_path(:id => klu_id)
+    end 
   end
   
   def url_for_notify
