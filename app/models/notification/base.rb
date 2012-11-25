@@ -17,7 +17,7 @@ class Notification::Base < ActiveRecord::Base
 
   NEWS            =     [ALERTS,CONTENT_ALERTS].flatten
   
-  attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
+  attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user, :klu, :klu_id
 
   scope :unread,          where(:read => false)
   scope :alerts,          :conditions => { :type => ALERTS }, :order => "created_at DESC"

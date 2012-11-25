@@ -1,5 +1,5 @@
 class VideoSession::Anonymous < VideoSession::Base
-  
+ 
   has_one :host_participant, :autosave => true, :class_name => 'Participant::HostRegistered', :foreign_key => 'video_session_id', :dependent => :destroy
   has_one :guest_participant, :autosave => true, :class_name => 'Participant::GuestAnonymous', :foreign_key => 'video_session_id', :dependent => :destroy
   

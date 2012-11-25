@@ -1,5 +1,5 @@
 class VideoSession::Base < ActiveRecord::Base
-  attr_accessible :begin_timestamp, :end_timestamp, :klu_id, :video_system_session_id, :calling_user_id, :type, :canceling_participant_id
+  attr_accessible :begin_timestamp, :end_timestamp, :klu_id,:klu, :video_system_session_id, :calling_user_id, :type, :canceling_participant_id
   attr_accessor :calling_user_id
   attr_accessor :canceling_participant_id
   

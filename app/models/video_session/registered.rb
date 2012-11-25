@@ -4,6 +4,7 @@ class VideoSession::Registered < VideoSession::Base
   has_one :guest_participant, :autosave => true, :class_name => 'Participant::GuestRegistered', :foreign_key => 'video_session_id', :dependent => :destroy
   has_many :transfers, :foreign_key => 'video_session_id' 
   
+  
   before_create :prepare_one_on_one_video_session
   after_create :create_incoming_call_notification
   
@@ -15,11 +16,11 @@ class VideoSession::Registered < VideoSession::Base
 
 
   def create_room_creation_failed_notification
-    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)
+    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
   end
 
   def create_call_accepted_notification  
-    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id,  :klu_id => self.klu_id)
+    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)
   end
   
   def create_call_ended_notification(role)
