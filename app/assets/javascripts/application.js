@@ -81,6 +81,7 @@ overlay = {
   dataStorage: {},
 
   build: function(innerHTML, force) {
+    var ajaxImageURL = 'ajax-loader.gif';
 
     var calculateOverlay = function() {
       var windowHeight = $(window).height();
@@ -100,16 +101,16 @@ overlay = {
       function set() {
         overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
         overlayContent.css({
-          top: document.documentElement.clientHeight/2 - overlayContent.height()/2,
+          top: document.documentElement.clientHeight/2 - overlayContent.height()/2 + $(window).scrollTop(),
           left: document.documentElement.clientWidth/2 - overlayContent.width()/2
         });
         if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
           overlayBackground.height(windowHeight);
         } else if (overlayContent.height() > windowHeight) {
-          overlayBackground.height((overlayContent.height() + minMarginTop) * 1.05);
+          overlayBackground.height((overlayContent.height() + minMarginTop * 2) * 1.05);
           overlayContent.css({
             marginTop: 0,
-            top: minMarginTop
+            top: minMarginTop + $(window).scrollTop()
           });
         }
         if (bodyWidth < windowWidth && overlayContent.width() < windowWidth) {
@@ -122,6 +123,7 @@ overlay = {
           });
         }
         overlayContent.fadeIn("fast");
+        overlayBackground.css('background-image', 'none');
       }
 
       if (images.length !== 0 ) {
@@ -164,7 +166,7 @@ overlay = {
       var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
       var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
     } else {
-      var overlayBackground = $('.overlay-background');
+      var overlayBackground = $('.overlay-background').css('background-image', ajaxImageURL);
       var overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
       overlayContent.fadeOut('fast');
     };
