@@ -4,5 +4,6 @@ class NoKluuu < Klu
   
   def init
     self.published = true
+    self.charge_type = 'free'
   end
 end
