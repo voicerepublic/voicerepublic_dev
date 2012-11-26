@@ -2,8 +2,8 @@ class SafeUpdateRates
   
   def SafeUpdateRates.safe_save_rates
     begin 
-      Money.default_bank.save_rates("log/exchange_rates/exchange_rates_tmp.xml")
-      move("log/exchange_rates/exchange_rates_tmp.xml","log/exchange_rates/exchange_rates.xml")
+      Money.default_bank.save_rates("tmp/exchange_rates/exchange_rates_tmp.xml")
+      move("tmp/exchange_rates/exchange_rates_tmp.xml","tmp/exchange_rates/exchange_rates.xml")
       Rails.logger.info("#################### save rates SUCCESS ####################")
     rescue Exception => e
       Rails.logger.warn("###########################################################")
@@ -15,7 +15,7 @@ class SafeUpdateRates
   
   def SafeUpdateRates.safe_update_rates
     begin 
-      Money.default_bank.update_rates("log/exchange_rates/exchange_rates.xml")
+      Money.default_bank.update_rates("tmp/exchange_rates/exchange_rates.xml")
       Rails.logger.info("#################### update rates SUCCESS ####################")
     rescue Exception => e
       Rails.logger.warn("###########################################################")
