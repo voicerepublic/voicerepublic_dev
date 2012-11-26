@@ -101,7 +101,7 @@ overlay = {
       function set() {
         overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
         overlayContent.css({
-          top: document.documentElement.clientHeight/2 - overlayContent.height()/2 + document.body.scrollTop,
+          top: document.documentElement.clientHeight/2 - overlayContent.height()/2 + $(window).scrollTop(),
           left: document.documentElement.clientWidth/2 - overlayContent.width()/2
         });
         if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
@@ -110,7 +110,7 @@ overlay = {
           overlayBackground.height((overlayContent.height() + minMarginTop * 2) * 1.05);
           overlayContent.css({
             marginTop: 0,
-            top: minMarginTop + document.body.scrollTop
+            top: minMarginTop + $(window).scrollTop()
           });
         }
         if (bodyWidth < windowWidth && overlayContent.width() < windowWidth) {
