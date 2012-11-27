@@ -15,7 +15,7 @@
 								<% if (index == 0) %>
 									<li class="klu-eyecatcher">
 										<%= image_tag(ki.image.url(:large)) %>
-										<% if ki.description.length > 0 %>
+										<% if ki.description && ki.description.length > 0 %>
 											<div class="klu-image-caption">
 												<%= ki.description %>
 											</div>
@@ -25,7 +25,7 @@
 							<% end %>
 						</ul>
 						<section class="klu-description">
-							<%= simple_format klu.description %>
+							<%= simple_format( klu.description ) %>
 						</section>
 					</section>
 					<%= render(:partial => 'kluuu_user', :locals => {:klu => klu}) %>
