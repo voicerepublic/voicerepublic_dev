@@ -4,6 +4,9 @@ class Account < ActiveRecord::Base
   include KluuuCode::Methods
 
   attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait, :prefs, :website
+  # FIXME: for migration of old kluuu
+  attr_accessible :portrait_file_name, :portrait_content_type, :portrait_file_size
+  
   serialize :prefs, KluuuCode::Preferences
 
   has_attached_file :portrait, :styles => { :large => "360x360#", :medium => "180x180#", :thumb => "45x45#" }, :default_url => "/system/:style/missing.jpg"

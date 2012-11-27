@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid, :last_request_at, :available
+  # FIXME: for migration of old kluuu:
+  attr_accessible :encrypted_password
+  
  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :roles, :through => :user_roles

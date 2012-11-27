@@ -19,7 +19,7 @@ feature "User can register" do
   end
   scenario "user supplies correct values" do
     visit root_path()
-    click_link("Sign Up")
+    click_link("sign-up")
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
@@ -31,7 +31,7 @@ feature "User can register" do
   
   scenario "User misses email during registration" do
     visit root_path()
-    click_link('Sign Up')
+    click_link('sign-up')
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_password', :with => "foobar")
