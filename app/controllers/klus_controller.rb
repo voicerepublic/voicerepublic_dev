@@ -60,12 +60,12 @@ class KlusController < ApplicationController
     if params[:klu_type]
       case params[:klu_type]
       when 'Kluuu'
-        @klu = @user.kluuus.build(params[:klu])
+        @klu = @user.kluuus.build(params[:klu].merge(:published => true))
       when 'NoKluuu'
-        @klu = @user.no_kluuus.build(params[:klu])
+        @klu = @user.no_kluuus.build(params[:klu].merge(:published => true))
       end
     else
-      @klu = @user.no_kluuus.build(params[:klu])
+      @klu = @user.no_kluuus.build(params[:klu].merge(:published => true))
     end
 
     respond_to do |format|
