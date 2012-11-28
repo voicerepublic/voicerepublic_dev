@@ -58,7 +58,7 @@ class Klu < ActiveRecord::Base
     return true if self.published
   end
   
-  def allow_anonymous_calls?
+  def Klu.allow_anonymous_calls?
     user.account.prefs.anonymous_calls  
   end
   
