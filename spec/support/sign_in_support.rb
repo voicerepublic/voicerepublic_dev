@@ -11,7 +11,7 @@ module ValidUserRequestHelper
   
   def login_user(user)
     visit root_path()
-    click_link 'Log In'
+    click_link 'log-in'
     page.fill_in('user_email', :with => user.email)
     page.fill_in('user_password', :with => user.password)
     page.click_button('Log In')
