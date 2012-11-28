@@ -9,16 +9,46 @@
 
 @import "config.css.less";
 
+  
+  body{
+    padding-top:34px;
+  }
+
+@media (max-width: 900px) {
+  body {
+    padding-top: 0;
+  }
+}
+
 .dashboard {
+  .dashboard-tabs-fake-background{
+    position: absolute;
+    height:45px;  
+    width:100%;
+    left:0;
+    top:44px;
+    background: #eee;
+    z-index:-1;
+    border-bottom: 1px solid #ddd;
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) { 
+    .dashboard-tabs-fake-background{
+      height:43px !important;
+    }
+  }  
+
   min-height: 400px;
   & > .nav {
     /*padding-bottom: @verticalRhythm;*/
     padding:3px 4px 0 4px;
-
+    
     /*border-bottom: 1px solid @grayLighter;*/
     border-bottom: 1px solid #ddd;
-    margin-bottom: @verticalRhythm * 2;
+    margin-bottom: @verticalRhythm * 4;
     background:#eee;
+    /*border:1px solid #aaa;*/
+    border-radius:3px;
   }
 
    h3 {
@@ -47,9 +77,86 @@
 
 } /* End of .dashboard */
 
+
+/* MATCHES */
+.dashboard-matches-nav{
+  border:0;
+  margin-bottom:10px;
+  h4.matches-nav-title{
+    display: inline;
+    margin:0;
+    margin-right: 5px;
+    color:#333;
+    font-size:20px;
+    text-shadow:1px 1px 2px rgba(255, 255, 255, 0.4), -1px -1px 2px rgba(255, 255, 255, 0.4);
+  }
+  .btn-group h4{
+    margin:0;
+    font-size:14px;
+    
+  }
+  .btn-question.active{
+    background-color: #188BC1;
+    background-image: linear-gradient(bottom, #156082 0%, #1879A6 100%);
+    background-image: -o-linear-gradient(bottom, #156082 0%, #1879A6 100%);
+    background-image: -moz-linear-gradient(bottom, #156082 0%, #1879A6 100%);
+    background-image: -webkit-linear-gradient(bottom, #156082 0%, #1879A6 100%);
+    background-image: -ms-linear-gradient(bottom, #156082 0%, #1879A6 100%);
+
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, #156082),
+      color-stop(1, #1879A6)
+    );
+    
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6')"; /* IE8 */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.32) inset, 0 1px 0 rgba(255, 255, 255, 0.4);
+    color: #FFFFFF;
+    text-shadow:0 -1px 1px rgba(0, 0, 0, 0.4);
+  }
+  .btn-kluuu.active{
+    background-color: #660F0F;
+    background-image: linear-gradient(bottom, #660F0F 0%, #981347 100%);
+    background-image: -o-linear-gradient(bottom, #660F0F 0%, #981347 100%);
+    background-image: -moz-linear-gradient(bottom, #660F0F 0%, #981347 100%);
+    background-image: -webkit-linear-gradient(bottom, #660F0F 0%, #981347 100%);
+    background-image: -ms-linear-gradient(bottom, #660F0F 0%, #981347 100%);
+
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, #660F0F),
+      color-stop(1, #981347)
+    );
+    
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#660F0F', endColorstr='#981347'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#660F0F', endColorstr='#981347')"; /* IE8 */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.32) inset, 0 1px 0 rgba(255, 255, 255, 0.4);
+    color: #FFFFFF;
+    text-shadow:0 -1px 1px rgba(0, 0, 0, 0.4);
+  }
+  .btn-popular.active{
+    background-color: #932945;
+    background:-moz-linear-gradient(center bottom , #932945, #932945);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.32) inset, 0 1px 0 rgba(255, 255, 255, 0.4);
+    color: #FFFFFF;
+    text-shadow:0 -1px 1px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.matches-right{
+  display: inline-block;
+  .active{
+    cursor: default;
+  }
+}
+
 .dashboard-matches {
   position: relative;
-
   h3 {
     .klu-layout {
       display: inline-block;
@@ -68,9 +175,14 @@
     overflow:hidden;
     padding-left:19px;
     border:solid 1px #ddd;
-    background-color: #F8F9FF;
+    background-color: #eee;
+    
+    background-size: 100%;
     padding-top: 13px;
     padding-bottom: 13px;
+    min-height:500px;
+    border-radius:8px;
+    border-top-left-radius: 0px; 
   }
 
   .dashboard-matches-own-klus {
@@ -135,9 +247,9 @@
 
     li.active {
       & > a{
-        background-color: #F8F9FF;
+        background-color: #eee;
         &:after {
-          color: #CCCCCC;
+          color: #888;
           content: "→";
           font-size: 31px;
           position: absolute;
@@ -156,14 +268,6 @@
   .medium-klu {
     .set-rows(3)
   }
-}
-
-h4.dashboard-matches-headlines-my-kluuus, h4.dashboard-matches-headlines-matches {
-  font-size: 18px;
-}
-
-h4.dashboard-matches-headlines-my-kluuus {
-  margin-left: 18px;
 }
 
 h4.dashboard-matches-headlines-matches {
