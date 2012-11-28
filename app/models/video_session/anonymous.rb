@@ -21,11 +21,8 @@ class VideoSession::Anonymous < VideoSession::Base
   end
 
   def create_call_ended_notification(role)
-    if (role == 'host')
-      Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)  
-    else
-      Notification::CallEnded.create(:anon_id => self.guest_participant.user_cookie_session_id, :video_session_id => self.id, :klu_id => self.klu_id)  
-    end
+    Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)  
+    Notification::CallEnded.create(:anon_id => self.guest_participant.user_cookie_session_id, :video_session_id => self.id, :klu_id => self.klu_id)  
   end
 
  private
