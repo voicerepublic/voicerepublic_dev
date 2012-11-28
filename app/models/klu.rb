@@ -137,7 +137,7 @@ class Klu < ActiveRecord::Base
   def generate_notification
     if self.published == true
       self.user.follower.each do |follower|
-        if follower.account.prefs.inform_of_friends == true
+        if follower.account.prefs.inform_of_friends == "1" || true
           Notification::NewKluuu.create(:user => follower, :other => self.user, :klu => self)
         end
       end
