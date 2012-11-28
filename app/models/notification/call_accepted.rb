@@ -1,12 +1,14 @@
 class Notification::CallAccepted < Notification::Base 
- 
+  attr_accessible :user_id, :other_id, :video_session_id, :url, :anon_id, :other, :user
+  
   belongs_to :user
   belongs_to :other, :class_name => 'User'  # other here is klu-offerer
   belongs_to :video_session, :class_name => 'VideoSession::Base'
+  belongs_to :klu
   
-  attr_accessible :user_id, :other_id, :video_session_id, :url, :anon_id, :other, :user
   
-  validates_presence_of :video_session_id, :other_id
+  
+  validates_presence_of :video_session_id, :other_id, :klu_id
   validates_presence_of :user_id, :if => Proc.new { |n| n.anon_id.nil? }
   validates_presence_of :anon_id, :if => Proc.new { |n| n.other_id.nil? }
   

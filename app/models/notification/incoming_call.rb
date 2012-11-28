@@ -1,13 +1,14 @@
 class Notification::IncomingCall < Notification::Base 
+
+  attr_accessible :user_id, :other_id, :anon_id, :video_session_id, :other  
   
   belongs_to :user
   belongs_to :other, :class_name => 'User'  # other here is klu-owner
   belongs_to :video_session, :class_name => 'VideoSession::Base'
-  
-  attr_accessible :user_id, :other_id, :anon_id, :video_session_id, :other  
+  belongs_to :klu
   
   #other_id can be a session id of the cookie in case an anonymous user calls
-  validates_presence_of :user_id, :video_session_id
+  validates_presence_of :user_id, :video_session_id, :klu_id
   validates_presence_of :other_id, :if => Proc.new { |n| n.anon_id.nil? }
   validates_presence_of :anon_id, :if => Proc.new { |n| n.other_id.nil? }
   

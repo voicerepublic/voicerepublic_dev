@@ -3,6 +3,7 @@ class Notification::FollowerAction < Notification::Base
  
   belongs_to :user
   belongs_to :other, :class_name => 'User'
+  belongs_to :klu
    
   validates :other_id, :user_id, :presence => true
   
