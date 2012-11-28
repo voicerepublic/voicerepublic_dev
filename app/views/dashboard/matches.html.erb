@@ -6,17 +6,19 @@
 <div class="dashboard-matches">
 
 	<div class="tabbable tabs-left pull-left">
-	<nav class="dashboard-matches-nav">
-		<div class="btn-group">
-			<div class="btn btn-kluuu">
-				<h4><%= t('.my_kluuus', :default => 'Meine KluuUs') %></h4>	
-			</div>		
-			<div class="btn btn-question active">
-				<h4><%= t('.my_questions', :default => 'Meine Fragen') %></h4>
+
+		<%# NAVIGATION LEFT %>
+		<nav class="dashboard-matches-nav">
+			<div class="btn-group">
+				<div class="btn btn-kluuu">
+					<h4><%= t('.my_kluuus', :default => 'Meine KluuUs') %></h4>	
+				</div>		
+				<div class="btn btn-question active">
+					<h4><%= t('.my_questions', :default => 'Meine Fragen') %></h4>
+				</div>
 			</div>
-		</div>
-		<span class="clearfix"></span>
-	</nav>
+			<span class="clearfix"></span>
+		</nav>
 		<ul class="nav nav-tabs dashboard-matches-own-klus">
 	  	<!-- jetzt zwei arrays: @klus und @no_klus -->
 
@@ -59,10 +61,12 @@
 	</div>
 
 	<%# MATCHES %>
+
+	<%# NAVIGATION RIGHT, ZURZEIT NUR EIN BUTTON %>
 	<nav class="dashboard-matches-nav matches-right">
 		<div class="btn-group">		
 			<div class="btn btn-kluuu active">
-				<h4><%= t('.matching_something') %> KluuUs</h4>
+				<h4>KluuU <%# TODO %><%= t('.matching_something') %></h4>
 			</div>
 		</div>
 		<span class="clearfix"></span>
