@@ -48,11 +48,11 @@ p.wichtig {
 			.transition(all 0.2s ease);
 
 			&.kluuu-color a {
-				color: @brandBlue;
+				color: @brandKluuu;
 			}
 
 			&.no-kluuu-color a {
-				color: @brandGreen;
+				color: @brandQuestion;
 			}
 
 			.user-main-nav-subline {
@@ -69,20 +69,20 @@ p.wichtig {
 				}
 
 				&.kluuu-color {
-					background-color: @brandBlue;
+					background-color: @brandKluuu;
 				}
 
 				&.no-kluuu-color {
-					background-color: @brandGreen;
+					background-color: @brandQuestion;
 				}
 			}
 
 			&.kluuu-color:hover {
-				background-color: @brandBlue;
+				background-color: @brandKluuu;
 			}
 
 			&.no-kluuu-color:hover {
-				background-color: @brandGreen;
+				background-color: @brandQuestion;
 			}
 
 			&:hover {
@@ -218,7 +218,13 @@ p.wichtig {
 			white-space: nowrap;
   		width: 100%;                   
   		overflow: hidden;              /* "overflow" value must be different from "visible" */ 
-			text-overflow:    ellipsis;
+			text-overflow: ellipsis;
+			a{
+				color: #333;
+				&:hover{
+					color: @linkColor;
+				}
+			}
 		}
 
 		.user-activity {
