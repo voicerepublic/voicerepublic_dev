@@ -43,7 +43,7 @@ class VideoSession::Anonymous < VideoSession::Base
   end
   
   def create_incoming_call_notification
-    Notification::IncomingCall.create(:user_id => self.klu.user_id, :anon_id => self.calling_user_id, :video_session_id => self.id, :klu_id => self.klu.id)
+    Notification::IncomingCall.create(:user_id => self.klu.user_id, :anon_id => self.calling_user_id, :video_session_id => self.id, :klu_id => self.klu_id)
   end
   
   def prepare_room_for_video_session

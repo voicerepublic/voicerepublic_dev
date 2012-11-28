@@ -16,7 +16,7 @@ class VideoSession::Registered < VideoSession::Base
 
 
   def create_room_creation_failed_notification
-    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)
   end
 
   def create_call_accepted_notification  
@@ -46,7 +46,7 @@ class VideoSession::Registered < VideoSession::Base
   end
   
   def create_incoming_call_notification
-    Notification::IncomingCall.create(:user_id => @klu.user_id, :other_id => self.calling_user_id, :video_session_id => self.id, :klu_id => @klu.id)  
+    Notification::IncomingCall.create(:user_id => @klu.user_id, :other_id => self.calling_user_id, :video_session_id => self.id, :klu_id => self.klu_id)  
   end
   
   def prepare_room_for_video_session
