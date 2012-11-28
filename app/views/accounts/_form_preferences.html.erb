@@ -29,6 +29,17 @@
 		</div>
 	</div>
 	
+	<h3><%= t('.call_settings')%></h3>
+	
+	<div class="control-group">
+		<div class="controls">
+			<%= label_tag "anonymous_calls", :class => 'checkbox control-label' do %>
+				<%= p.check_box :anonymous_calls %>
+				<%= t('.allow_anonymous_calls', :default => "Erlaube anonyme Anrufe auf deinen KluuUs oder Fragen") %>
+			<% end %>
+		</div>
+	</div>
+	
 	<h3><%= t('.on_site_help')%></h3>
 	<div class="control-group">
 		<div class="controls">

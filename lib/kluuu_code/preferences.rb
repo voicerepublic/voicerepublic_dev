@@ -31,7 +31,7 @@ module KluuuCode
     attr_accessor :anonymous_calls
     
     def initialize(args=nil)
-      @anonymous_calls, @email_concerning_me,  @email_concerning_other, @inform_of_friends, @no_initial_help = false, true, true, true, true
+      @anonymous_calls, @email_concerning_me,  @email_concerning_other, @inform_of_friends, @no_initial_help = 0, 1, 1, 1, 1
       unless args.nil?
         self.update_attributes(args)
       end
@@ -40,7 +40,7 @@ module KluuuCode
     
     def update_attributes(hash)
       hash.each_pair do |k,v|
-        v = v == (1 || true) ? true : false
+        
         if self.respond_to?(k) 
           self.send("#{k}=", v )
         else 
