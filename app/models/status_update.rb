@@ -14,7 +14,7 @@ class StatusUpdate < ActiveRecord::Base
   
   def generate_notification
     self.user.follower.each do |f|
-      if f.account.prefs.inform_of_friends
+      if f.account.prefs.inform_of_friends ==  "1"
         Notification::NewStatus.create(:user => f, :other => self.user, :content => self.content )
       end
     end

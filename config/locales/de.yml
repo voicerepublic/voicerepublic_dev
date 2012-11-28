@@ -261,6 +261,7 @@ de:
       dont_show_initial_help: "Hilfe-Texte nicht mehr anzeigen."
       save_preferences: "Einstellungen speichern"
       on_site_help: "Hilfe Texte an/aus"
+      call_settings: "Anrufeinstellungen"
     form: 
       delete_portrait: "Portrait löschen"
     edit:

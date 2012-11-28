@@ -243,6 +243,7 @@ en:
       dont_show_initial_help: "Verstecke die Hilfe-Notizen"
       save_preferences: "Einstellungen speichern"
       on_site_help: "Hilfe Darstellung"
+      call_settings: "Anrufeinstellungen"
     form: 
       delete_portrait: "Portrait löschen"
     edit:
