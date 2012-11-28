@@ -85,10 +85,11 @@ class VideoSession::Anonymous < VideoSession::Base
   def check_sezzion_create_prerequisites
     @klu = Klu.find(self.klu_id)
     #is the klu unpublished or not existing?
-    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (!@klu.published?)
+    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (@klu.instance_of?(Kluuu) && (!@klu.published?))
     #is the klus user not available?
     raise KluuuExceptions::UserUnavailableError.new(I18n.t('video_sessions_controller.create.failed_3'), 'user_unavailable', {:receiver_id => @klu.user_id}) unless @klu.user.available?
     #if a anonymous user is calling a paid klu
     raise KluuuExceptions::AnonymousUserError.new(I18n.t('video_sessions_controller.create.failed_5'), 'anonymous_sign_up') if (klu.charge_type != 'free')
+    raise KluuuExceptions::AnonymousUserError.new(I18n.t('video_sessions_controller.create.failed_8'), 'anonymous_calls_sign_up') unless klu.allow_anonymous_calls?
   end
 end
