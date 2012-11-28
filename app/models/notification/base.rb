@@ -35,18 +35,18 @@ class Notification::Base < ActiveRecord::Base
   def path_for_notify
     case self.class.name.split("::")[-1]
     when 'NewStatus'
-      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other.id}")
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_status_updates_path(:user_id => other )
     when 'NewKluuu'
-      Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu.id}")
+      Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
       klu_path(:id => klu_id)
     when "NewBookmark"
-      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other.id}")
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_bookmarks_path(:user_id => other)
     when "NewComment"
       url
     when "NewFollower"
-      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other.id}")
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_path(:id => other )
     when "NewRating"
       klu_path(:id => klu_id)

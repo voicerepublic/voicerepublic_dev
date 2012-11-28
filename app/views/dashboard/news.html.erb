@@ -1,16 +1,15 @@
 <% content_for :title do %>
-	<%= t('.news', :default => 'news')%> &middot; <%= @user.name %>
+<%= t('.news', :default => 'news')%> &middot; <%= @user.name %>
 <% end %>
 
 <div class="tab-content news">
 	<ul class="news-list">
-    <% @news.each do |n| %>
-      <li>
-        <%= partial_for_notification(n) %>
-      </li>
-    <% end %>
-  </ul>
-	
-		<%= will_paginate @news, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
+		<% @news.each do |n| %>
+		<li>
+			<%= partial_for_notification(n) %>
+		</li>
+		<% end %>
+	</ul>
+	<%= will_paginate @news, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
 </div>
 <%= render(:partial => "inline_help/dashboard_news_info", :locals => {:user => @user}) unless @user.account(true).prefs.no_initial_help == '1' %>

@@ -25,8 +25,7 @@ class Bookmark < ActiveRecord::Base
   private
   
   def generate_notification
-    _klu = self.kluuu || self.no_kluuu
-    Notification::NewBookmark.create(:klu_id => _klu.id, :other => self.user, :user =>  _klu.user )
+    Notification::NewBookmark.create(:klu_id => klu_id, :other => self.user, :user =>  klu.user )
   end
   
 end

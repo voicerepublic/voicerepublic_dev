@@ -9,6 +9,8 @@ class Klu < ActiveRecord::Base
   belongs_to :category
   has_many :video_sessions, :inverse_of => :klu
   
+  has_many :notifications, :class_name => "Notification::Base", :dependent => :destroy, :foreign_key => :klu_id
+  
   validates :user_id, :presence => true
   validates :title, :presence => true
   validates :title, :length => { :minimum => 2, :maximum => 150 }

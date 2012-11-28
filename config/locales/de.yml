@@ -247,6 +247,11 @@ de:
     
   
   ###########  helpers  ##################
+  
+  helper:
+    application:
+      kluuu_string: "KluuU"
+      no_kluuu_string: "Frage"
   ###########  views #####################
   accounts:
     form_preferences:
