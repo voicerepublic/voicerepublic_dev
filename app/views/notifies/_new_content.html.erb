@@ -9,8 +9,8 @@
 	</header>
 
 	<% if notification.instance_of?(Notification::NewStatus) %>
-	<h4 class="news-notification-top">
-		<%= link_to notification.other.name, user_path(:id => notification.other) %>
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %>
 			<%= t('.created_new_status_update') %>:
 		</h4>
 		<%= link_to_url_for_notification_reason(notification) do %>
@@ -20,6 +20,7 @@
 			</div>
 		<% end %>
 	<% end %>
+	
 	<% if notification.instance_of?(Notification::NewKluuu)%>
 		<h4 class="news-notification-top">
 			<%= link_to notification.other.name, user_path(:id => notification.other) %>
@@ -30,12 +31,13 @@
 		<% end %>
 	<% end %>
 	<%= link_to_url_for_notification_reason(notification) %>
+	
 	<aside>
 		<% if can? :manage, notification %>
 			<%= link_to(delete_notification_path(:notification_id => notification), :method => :delete, :remote => true,  :class => "contribution-delete") do %>
 				<i class="icon-trash"></i>
 			<% end %>
 		<% end %>
-	</aside>	
+	</aside>
 </article>
 

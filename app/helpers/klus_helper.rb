@@ -58,21 +58,8 @@ module KlusHelper
     ret.html_safe
   end
   
-  
   def data_attributes_images_gallery(klu)
     klu.klu_images.map.each { |ki| "#{ki.image.url(:large)}" }.join(" ")
-  end
-
-  def price_string(klu)
-    if klu.charge_type != 'free'
-      if klu.charge_type === "minute"
-        t(".#{klu.charge_cents}_#{klu.currency}_per_minute")
-      else
-        t(".#{klu.charge_cents}_#{klu.currency}")
-      end
-    else
-      t('.free')
-    end
   end
 
   def tiny_klu(klu)
