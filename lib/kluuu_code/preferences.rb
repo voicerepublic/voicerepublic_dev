@@ -28,9 +28,10 @@ module KluuuCode
     attr_accessor :email_concerning_me, :email_concerning_other
     attr_accessor :inform_of_friends
     attr_accessor :no_initial_help
+    attr_accessor :anonymous_calls
     
     def initialize(args=nil)
-      @email_concerning_me,  @email_concerning_other, @inform_of_friends, @no_initial_help = true, true, true, true
+      @anonymous_calls, @email_concerning_me,  @email_concerning_other, @inform_of_friends, @no_initial_help = false, true, true, true, true
       unless args.nil?
         self.update_attributes(args)
       end
@@ -39,8 +40,9 @@ module KluuuCode
     
     def update_attributes(hash)
       hash.each_pair do |k,v|
+        v = v == (1 || true) ? true : false
         if self.respond_to?(k) 
-          self.send("#{k}=", v)
+          self.send("#{k}=", v )
         else 
           Rails.logger.warn("KluuuCode::Preferences#update_attributes - writing non-existent attr: #{k}")#
           self.send("#{k}=", v)

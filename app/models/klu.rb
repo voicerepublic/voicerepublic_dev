@@ -58,6 +58,10 @@ class Klu < ActiveRecord::Base
     return true if self.published
   end
   
+  def allow_anonymous_calls?
+    user.account.prefs.anonymous_calls  
+  end
+  
   def get_charge_type_as_integer
     
     if self.charge_type == 'fix' 
