@@ -11,18 +11,18 @@
 				<%= link_to root_path, :class => "brand", :title => "KluuU" do %>
 				<h1><%= image_tag "logo.png", :alt => "KluuU Logo" %></h1>
 			<% end %>			
-			<ul class="nav">
-				<li class="<%= current_page?current_user ? 'active' : '' %>">
-					<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link nav-left-border", :title => current_user.name do %>
-						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <span class="hidden-phone">Profile</span>
-					<% end %>						
-				</li>					
+			<ul class="nav">			
 				<li class="<%= current_page?(dashboard_path) ? 'active' : '' %>">
-					<%= link_to(dashboard_path, :title => "Dashboard") do %>
+					<%= link_to(dashboard_path, :title => "Dashboard", :class => "nav-left-border") do %>
 						<!-- <i class="icon-dashboard"></i><span class="navbar-menu-name">Dashboard</span>-->
-						Dashboard
+						<%= t(".dashboard", :default => "Übersicht") %>
 					<% end  if current_user %>
 				</li>
+				<li class="<%= current_page?current_user ? 'active' : '' %>">
+					<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link", :title => current_user.name do %>
+						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <span class="hidden-phone">Profile</span>
+					<% end %>						
+				</li>						
 			</ul>
 			<div class="container nav-collapse">
 				<ul class="nav">					
