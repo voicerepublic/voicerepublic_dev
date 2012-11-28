@@ -17,7 +17,7 @@ module ApplicationHelper
   end
   
   def klu_type_string(klu)
-    klu.instance_of?(Kluuu) ? t('helper.application.kluuu_string) : t('helper.application.no_kluuu_string')
+    klu.instance_of?(Kluuu) ? t('helper.application.kluuu_string') : t('helper.application.no_kluuu_string')
   end
   
 end
