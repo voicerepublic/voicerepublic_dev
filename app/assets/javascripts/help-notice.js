@@ -11,7 +11,7 @@
     helpNotices.onPage = $('.help-text');
 
     function closeBox() {
-        var closeIt = $('<div />').addClass('alert alert-help-layer').html('<h3>Hilfe</h3><a href="#">Hilfe kurzfristig schliessen</a><br><a href="/de/dashboard/settings/edit">Hilfe in Einstellungen ausschalten</a>');
+        var closeIt = $('<div />').addClass('alert alert-help-layer').html('<h3>Hilfe</h3><a href="/de/dashboard/settings/edit">Hilfe in Einstellungen ausschalten</a>');
         closeIt.appendTo('#flash_messages');
       
       // closeIt.children('a').on('click', function(e){
