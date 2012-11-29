@@ -17,7 +17,7 @@ describe Notification::NewStatus do
   it "is not created if a follower configured inform_of_friends false" do
     relation = FactoryGirl.create(:follow)
     receiver = relation.follower
-    receiver.account.prefs.inform_of_friends = false
+    receiver.account.prefs.inform_of_friends = "0"
     receiver.account.save
     
     creator = relation.followed

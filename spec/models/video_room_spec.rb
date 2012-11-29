@@ -3,6 +3,11 @@ require 'video_system_api'
 require 'kluuu_exceptions'
 
 describe VideoRoom do
+  
+  before do
+    Klu.stub(:allow_anonymous_calls?).and_return(true)
+  end
+  
   it "has a valid factory do" do
     FactoryGirl.create(:video_room).should be_valid
   end
@@ -41,7 +46,7 @@ describe VideoRoom do
   it "is invalid with too long welcome_msg" do
     FactoryGirl.build(:video_room, welcome_msg: Faker::Lorem.characters(255)).should_not be_valid
   end
-    
+  
   # attr_accessors
   [:running, :participant_count, :participants,
    :has_been_forcibly_ended, :start_time, :end_time, :video_server].each do |attr|

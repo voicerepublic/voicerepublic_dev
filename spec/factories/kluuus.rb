@@ -8,7 +8,7 @@ FactoryGirl.define do
     currency 'EUR'
     charge_cents 0
     tag_list "foo, bar, baz"
-
+    
     sequence :title do |t|
       "#{Faker::Lorem.sentence} #{t}"
     end

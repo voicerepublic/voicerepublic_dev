@@ -4,6 +4,7 @@ _host = case Rails.env
         when 'production'
           'www.kluuu.com'
         when 'development'
+        when 'test'
           'localhost'
         end
 

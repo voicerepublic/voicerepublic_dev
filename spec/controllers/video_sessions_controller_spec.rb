@@ -27,6 +27,7 @@ describe VideoSessionsController do
     @user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
     @user.balance_account = Balance::Account.create(:currency => 'EUR')
     @klu = FactoryGirl.create(:published_kluuu, user_id: @user.id)
+    Klu.stub(:allow_anonymous_calls?).and_return(true)
     guest_password = Faker::Lorem.characters(8)
     host_password = Faker::Lorem.characters(8)
     hash_create =

@@ -91,7 +91,7 @@ class VideoSession::Registered < VideoSession::Base
     @klu = Klu.find(self.klu_id)
     @calling_user = User.find(self.calling_user_id)
     #is the klu unpublished or not existing?
-    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (!@klu.published?)
+    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (@klu.instance_of?(Kluuu) && (!@klu.published?))
     #is the user trying to call his own klu?
     raise KluuuExceptions::SameUserError.new(I18n.t('video_sessions_controller.create.failed_2'), 'shared/alert_flash') if (@calling_user.id == @klu.user_id)
     #is the klus user not available?

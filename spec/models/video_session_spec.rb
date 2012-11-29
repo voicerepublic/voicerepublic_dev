@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe VideoSession do
+  
+  before do
+    Klu.stub(:allow_anonymous_calls?).and_return(true)
+  end
+  
   it "has valid basic video session factory" do
     FactoryGirl.build(:video_session).should be_valid
   end
