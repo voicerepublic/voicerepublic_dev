@@ -278,6 +278,7 @@ en:
       conversations: "Konversationen"
       and_more_messages: "und weitere %{count} Nachrichten"
       new_message: "Neue Nachricht"
+      no_conversations_yet: "Du hast noch keine Nachrichten hier."
     show:
       conversations: "Konversationen"
       your_messages_with: "Deine Unterhaltung mit"
@@ -310,6 +311,7 @@ en:
       we_could_not_find_matches_for_you: "Wir konnten keine passenden KluuUs finden"
     news:
       news: "Neues"
+      no_news_yet: "Du hast noch keine Neuigkeiten"
     settings:
       settings: "Einstellungen"
       configured_email: "Deine verwendete Email Adresse"
