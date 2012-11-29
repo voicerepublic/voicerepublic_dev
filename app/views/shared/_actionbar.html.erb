@@ -20,7 +20,7 @@
 				</li>
 				<li class="<%= current_page?current_user ? 'active' : '' %>">
 					<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link", :title => current_user.name do %>
-						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <span class="hidden-phone">Profile</span>
+						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <span class="hidden-phone"><%= t(".profile") %></span>
 					<% end %>						
 				</li>						
 			</ul>
