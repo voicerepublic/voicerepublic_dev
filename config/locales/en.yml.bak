@@ -1,0 +1,564 @@
+en:
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: ! '%{count} days'
+      x_minutes:
+        one: 1 minute
+        other: ! '%{count} minutes'
+      x_months:
+        one: 1 month
+        other: ! '%{count} months'
+      x_seconds:
+        one: 1 second
+        other: ! '%{count} seconds'
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      confirmation: doesn't match confirmation
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      record_invalid: ! 'Validation failed: %{errors}'
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+    template:
+      body: ! 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: ! '%{count} errors prohibited this %{model} from being saved'
+  helpers:
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u%n'
+        precision: 2
+        separator: .
+        significant: false
+        strip_insignificant_zeros: false
+        unit: $
+    format:
+      delimiter: ! ','
+      precision: 3
+      separator: .
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ! ', and '
+      two_words_connector: ! ' and '
+      words_connector: ! ', '
+  time:
+    am: am
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+      micro: ! '%l:%M %P'
+    pm: pm
+    
+  call_now: "call now"
+  call_dispatched: "call dispatched"
+    
+  will_paginate:
+    next_label: ">>"
+    previous_label: "<<"
+  ###########  controllers ###############
+  users:
+    user_information:
+      time_at_location: "Time at %{user}s place"
+  ###########  models ####################
+  # in notification-models generiert
+  you_missed_a_call_on_your_klu: "Du hast einen Anruf für Dein KluuU verpasst"
+  model_notification_follower_action:
+    friend_took_action: "Aktivität von %{friend} auf KluuU"
+  model_notification_new_bookmark:
+    your_klu_got_bookmarked: "%{bookmarker} hat ein Lesezeichen auf dein KluuU '%{klu_title}' gesetzt" 
+  model_notification_new_comment:
+    you_got_a_new_comment_by: "Du hast einen Kommentar von %{commenter} erhalten"
+  model_notification_new_follower:
+    you_got_a_new_follower: "%{name} folgt dir jetzt"
+  model_notification_new_kluuu:
+    friend_created_new_kluuu: "Dein Freund %{name} hat ein neues KluuU erstellt"
+  model_notification_new_message:
+    new_message_from: "Du hast eine neue Nachricht von %{name}"
+  model_notification_new_rating:
+    you_got_rated_by: "%{name} hat dich bewertet"
+  model_notification_new_status:
+    friend_created_new_status: "%{name} hat einen neuen Status erstellt"
+  ###########  helpers  ##################
+  
+  helper:
+    application:
+      kluuu_string: "KluuU"
+      no_kluuu_string: "Question"
+      
+  ###########  views #####################
+  accounts:
+    form_preferences:
+      get_notifications_contacts_activities: "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte"
+      emails_about_contact_activities: "Erhalte Emails über die Aktivitäten Deiner Kontakte"
+      emails_about_me: "Erhalte Emails über Dich"
+      dont_show_initial_help: "Verstecke die Hilfe-Notizen"
+      save_preferences: "Einstellungen speichern"
+      on_site_help: "Hilfe Darstellung"
+      call_settings: "Anrufeinstellungen"
+    form: 
+      delete_portrait: "Portrait löschen"
+    edit:
+      edit_profile: "Profil editieren"
+  balance:
+    accounts:
+      new:
+        desired_currency: "Wähle Deine Währung"
+        initialize_your_account: "Du musst Dein Konto initialisieren"
+        configure_your_financial_account: "Dein Finanz-Konto einrichten"
+      show:
+        check_some_money_in: "Geld einzahlen"
+      check_in_orders: 
+        new:
+          check_in_money: "Geld einzahlen"
+        paypal:
+          check_in_prepaid_amount: "Prepaid Guthaben erwerben"
+          cancel_check_in_order: "Einzahlung verwerfen"
+  chats:
+    form:
+      your_message: "Deine Nachricht"
+      end_chat: "Chat beenden"
+      submit: "Absenden"
+    show:
+      text_chat: "Text-Chat"
+  comments:
+    form:
+      your_comment: "Kommentar"
+      write_a_comment: "Schreibe einen Kommentar"
+  conversations:
+    index:
+      conversations: "Konversationen"
+      and_more_messages: "und weitere %{count} Nachrichten"
+      new_message: "Neue Nachricht"
+      no_conversations_yet: "Du hast noch keine Nachrichten hier."
+    show:
+      conversations: "Konversationen"
+      your_messages_with: "Deine Unterhaltung mit"
+      back_to_all_conversations: "Zurück zur Übersicht"
+      new_message: "Neue Nachricht"
+      delete_conversation: "Konversation löschen"
+      
+  dashboard:
+    contacts_page:
+      my_follower: "Menschen die mir folgen"
+      followed_by_me: "Menschen, denen ich folge"    
+    bookmarks:
+      bookmarks: "Lesezeichen"
+      no_bookmarks_available: "Keine Lesezeichen vorhanden"
+    contacts:
+      friends: "Freunde"
+      no_contacts_available: "Keine Kontakte vorhanden"
+    edit_password:
+      edit_password: "Passwort editieren"
+    edit_settings:
+      settings: "Einstellungen"
+      email: "Meine Email Adresse"
+      new_password: "Neues Passwort"
+      notifications_and_emails: "Email Empfang"
+    matches:
+      matches: "Passende KluuUs"
+      my_kluuus: "Meine KluuUs"
+      matches_to_my: "passende KluuUs zu meinem"
+      view: "Ansehen"
+      we_could_not_find_matches_for_you: "Wir konnten keine passenden KluuUs finden"
+    news:
+      news: "Neues"
+      no_news_yet: "Du hast noch keine Neuigkeiten"
+    settings:
+      settings: "Einstellungen"
+      configured_email: "Deine verwendete Email Adresse"
+      edit_password: "Passwort editieren"
+      get_email_if_actions_on_my_kluuus: "Email an mich sobald es mich betrifft"
+      get_news_on_actions_of_friends: "Ich möchte einen Hinweis in Neues über die Aktivitäten meiner Freunde"
+      get_email_if_actions_of_friends: "Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde"
+      hide_initial_help: "Die initialen Hilfe-Texte verstecken"
+      edit_preferences: "Einstellungen editieren"
+  follows:
+    follower:
+      follow_back: "Ebenfalls folgen"
+    index:
+      and_friends: "und Freunde"
+      his_follower: "Follower"
+      people_he_follows: "Gefolgte"
+      
+  klu_images:
+    describe_your_picture_in_a_few_words: "Beschreibe dein Bild in ein paar Worten"
+    
+  klus:
+    form_welcome_new_no_kluuu:
+      your_interest_today: "Was interessiert dich?"
+      what_are_you_interested_in: "Schreib uns, was sich heute interessiert!"
+      continue: "weiter"
+    form_kluuu:
+      call_options: "Anruf-Optionen"
+    form_new_kluuu:
+      title: "Titel (notwendig)"
+      enter_the_name_of_your_kluuu: "Bitte gib deinem Kluuu einen Namen"
+      description: "Beschreibung (notwendig)"
+      describe_your_kluuu: "Beschreibe dein KluuU"
+      add_image_to_your_kluuu: "Bitte füge deinem KluuU ein Bild an"
+      tag_list: "Tags (notwendig - mindestens 3 - durch Komma trennen)"
+      category: "Kategorie (notwendig)"
+      please_use_significant_tags: "Bitte füge mindestens 3 treffende Tags hinzu"
+      available_at_times: "Wann bist du Online? (z.B. Mo-Fr, 9.00 - 17.00)"
+      at_what_time_are_you_available: "Zu welcher Zeit bist du erreichbar?"
+      charge_type: "Preis"
+      charge_cents: "Betrag"
+      you_can_charge_for_your_kluuu: "Du kannst eine Bezahlung für dein Kluuu veranschlagen"
+      you_can_charge_by_minute_or_a_fixed_price: "Du kannst Minuten- oder Festpreise definieren"
+      how_much_do_you_want_to_charge: "Wieviel willst du verlangen?"
+      please_check_to_publish_your_kluuu: "Markieren, um dein Kluuu zu veröffentlichen"
+      later_you_can_unpublish_and_publish_any_time: "Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren."
+      uses_status: "Deine aktuelle Status-Message im Kluuu anzeigen"
+      you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
+    form_new_no_kluuu:
+      title: "Titel"
+      category: "Kategorie"
+      tag_list: "Tag Liste"
+      published: "Öffentlich anzeigen"
+    form_no_kluuu:
+      call_options: "Anruf-Optionen"
+    kluuu_top_actions:
+      add_image: "Bild hinzufügen"
+    kluuu_user:
+      send_message: "Nachricht schicken"
+      unfollow: "Entfolgen"
+      follow: "Folgen"
+      more_klus_by_this_user: "Weitere KluuUs dieses Nutzers"
+      available_at_times: "Wann bist du Online"
+      category: "Kategorie"
+      tags: "Tags"
+    kluuu:
+      feedbacks: "Bewertungen"
+      this_kluuu_is_bookmarked: "Dieses Kluuu wurde %{times} mal gebookmarkt"
+      people_who_wanna_know_more_about: "Menschen, die mehr erfahren möchten über "
+    no_kluuu:
+      this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
+      people_who_know_about: "Menschen, die sich auskennen mit "
+    user_about:
+      user_description: "Über mich"
+    user_status:
+      opinion: "Meinung"
+    edit:
+      edit: "Bearbeiten"
+    index:
+      kluuus_of_user: "KluuUs von %{user_name}"
+      new_no_kluuu: "Neue Frage erstellen"
+      new_kluuu: "Neues KluuU erstellen"
+    new:
+      create_a_new_kluuu: "Erstelle Dein KluuU"
+  
+  landing_page:
+    index:
+      enter_search_term: "Suchbegriff eingeben"
+      
+  messages:
+    received_message:
+      delete: "Löschen"
+    sent_message:
+      delete: "Löschen"
+      
+  notifications:
+    call_rejected:
+      video_call_title: "Video Anruf"
+      rejected_text: "hat deinen Video Anruf abgelehnt"
+      close: "Schliessen"
+    incoming_call:
+      video_call_title: "Video Anruf"
+      accept_call: "Aktzeptieren"
+      reject_call: "Ablehnen"
+    video_system_error:
+      video_down_text: "Sorry! Das Video System wird derzeit gewartet. Danke das Du KluuU benutzt."
+      close: "Schliessen"
+  notifies:
+    my_content:
+      bookmarked_your: "hat einen Bookmark gesetzt auf"
+      commented_your_status: "hat deinen Status kommentiert"
+      follows_you_now: "folgt Dir jetzt"
+      unfollow: "Entfolgen"
+      follow_back: "Folgen"
+      rated_your: "Hat Dein KluuU bewertet"
+      wrote_you_a_message: "Hat dir eine Nachricht geschrieben"
+      an_anonymous_person: "Ein anonymer Nutzer "
+      tried_to_call_your: "Hat einen Anrufversuch bei Deinem "
+    new_content:
+      created_new_status_update: "Hat seinen Status geändert"
+      created_new: "Erstellte ein neues"
+  search:
+    tagged_with:
+      taggings_with: "Mit '%{tag}' gekennzeichnete KluuUs und Fragen"
+      no_kluuus_tagged_with: "Keine mit '%{tag}' verschlagworteten Ergebnisse vorhanden"
+    form:
+      search: "Suche!"
+    search:
+      searchresults: "Suchresultate"
+      search_results: "Suchergebnisse"
+      publish_search_as_kluuu: "Deine Suche als KluuU veröffentlichen"
+      persist_search: "Tip"
+      sign_up: "Anmelden"
+      user: "Nutzer"
+  
+  shared:
+    actionbar:
+      create_kluuu: "Neues KluuU" 
+      create_question: "Neue Frage"
+      notifications: "Neuigkeiten"
+      messages: "Nachrichten" 
+    check_flash:
+      no_flash_version_notice: "Kein untersütztes Flash-Plugin gefunden. Installiere bitte mindestens Version 10.3 um KluuU Video-Anrufe zu benutzen"
+    dashboard_tabs:
+      dashboard: "Schaltstelle"
+      matches: "Passende KluuUs"
+      news: "Neuigkeiten"
+      bookmarks: "Lesezeichen"
+      contacts: "Kontakte"
+      messages: "Nachrichten"
+      settings: "Einstellungen"
+      finances: "Finanzen"
+    navbar:
+      sign_up: "Registrieren"
+      sign_in: "Anmelden"
+    notice_or_error:
+      success: "Erfolg"
+      warning: "Warnung"
+      error: "Fehler"
+    notifications_list:
+      all: "Alle ansehen"
+    user_dropdown_list:
+      logout: "Abmelden"
+  
+  status_updates:
+    status_update:
+      add_comment: "Kommentieren"
+      comments: "Kommentare"
+    index:
+      new_status_update: "Neuen Status erstellen"
+    show:
+      back: "Zurück"
+  
+  users:
+    welcome:
+      welcome_user: "Schön dich hier zu sehen!"
+      no_klu_text: "Um für andere erreichbar zu sein, sag uns was dich heute interessiert!"
+    basic_form:
+      edit_your_email: "Email-Adresse bearbeiten"
+      save_email: "Email-Adresse speichern"  
+    nested_form:
+      delete_portrait: "Portrait löschen"
+      add_a_portrait: "Füge ein Portrait von Dir hinzu"
+    no_status_updates:
+      no_status_updates_of_you: "Du hast noch keinen Status veröffentlicht"
+      what_you_say: "Was hast du zu sagen?"
+      new_opinion: "Neuen Status"
+      no_status_updates_here: "Der Nutzer hat keinen Status veröffentlicht"
+    password_form:
+      new_password: "Neues Passwort"
+      update_password: "Passwort speichern"
+    status_updates:
+      add_comment: "kommentieren"
+      comment: "Kommentar"
+      new_status_update: "Neuen Status"
+    user_content_nav:
+      i_talk_about: "Ich spreche über"
+      i_like_to_know_more_about: "Ich möchte mehr wissen zu"
+      opinions: "Meinung"
+      bookmarks: "Lesezeichen"
+    user_information:
+      unfollow: "Entfolgen"
+      follow: "Folgen"
+      send_message: "Nachricht schicken"
+      chat: "Text-Chat"
+      user_description: "Beschreibung"
+      time_at_location: "Zeit am Ort des Nutzers"
+      languages: "Sprachen"
+      follower: "Freunde"
+      opinion: "Meinung"
+      edit_account: "Profil bearbeiten"
+    edit:
+      edit_your_profile: "Dein Profil bearbeiten"
+  
+  video_sessions:
+    anonymous_sign_up:
+      video_call_title: "Video Anruf"
+      guest_to_charge_text: "Als Gast kannst du kein kostenpflichtiges KluuuU anrufen. Willst du dich anmelden?"
+      close: "Schliessen"
+      sign_up: "Registrieren"
+    calling:
+      video_call_title: "Video Anruf"
+      in_process: "Wird ausgeführt..."
+      cancel_call: "Abbrechen"
+    new_form:
+      dispatching_call: "Verbindung wird hergestellt..."
+      start_video_call: "Video Anruf"
+    new:
+      video_call_title: "Video Anruf"
+      not_logged_in_text: "Du bist derzeit nicht angemeldet. Willst du dich anmelden oder weiterfahren?"
+      log_in: "Anmelden"
+    no_account:
+      video_call_title: "Video Anruf"
+      not_enough_money_text: "Du hast nicht genug Geld auf deinem KluuU-Konto. Willst du Geld einzahlen?"
+      close: "Schliessen"
+      create_account: "Konto einrichten"
+    no_funds:
+      video_call_title: "Video Anruf"
+      not_enough_money_text: "Du hast nicht genug Geld auf deinem KluuU-Konto. Willst du Geld einzahlen?"
+      close: "Schliessen"
+      check_in_money: "Geld einzahlen"
+    user_unavailable:
+      video_call_title: "Video Anruf"
+      unavailable_text: "Der Nutzer ist zurzeit nicht erreichbar. Du kannst ihm eine Nachricht schreiben."
+      close: "Schliessen"
+      send_message: "Nachricht"
+    video_system_error:
+      video_down_text: "Sorry! Wir warten gerade das Video System. Danke das Du KluuU benutzt"
+      close: "Schliessen"
+  
+  hello: "Hello world"
