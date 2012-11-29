@@ -3,6 +3,7 @@
 <% end %>
 
 <div class="tab-content news">
+	<%= t('.no_news_yet', :default => "There is no news for you ...") if @news.empty? %>
 	<ul class="news-list">
 		<% @news.each do |n| %>
 		<li>
