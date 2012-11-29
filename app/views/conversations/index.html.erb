@@ -4,6 +4,7 @@
 
 <section class="row-fluid conversations">
 	<ul class="conversations-list unstyled">
+		<%= t('.no_conversations_yet', :default => "you have no conversations yet") if @conversations.empty? %>
 		<% @conversations.each do |conv| %>
 			<li>
 				<article class="conversation contribution">
