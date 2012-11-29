@@ -11,6 +11,10 @@ describe Account do
     FactoryGirl.build(:account, timezone: nil).should_not be_valid
   end
   
+  it "has a valid with prefs factory" do
+    FactoryGirl.build(:account_with_prefs).should be_valid
+  end
+  
   it "has a valid timezone" do
     tz = FactoryGirl.create(:account).timezone
     ActiveSupport::TimeZone.all.map { |x| x.name }.include?(tz).should be_true

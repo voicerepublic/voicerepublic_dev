@@ -120,8 +120,8 @@ overlay = {
         });
         if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
           overlayBackground.height(windowHeight);
-        } else if (overlayContent.height() > windowHeight) {
-          overlayBackground.height((overlayContent.height() + minMarginTop * 2) * 1.05);
+        } else if (bodyHeight < windowHeight && overlayContent.height() > windowHeight) {
+          overlayBackground.height((overlayContent.height() + minMarginTop * 2) * 1.2);
           overlayContent.css({
             marginTop: 0,
             top: minMarginTop + $(window).scrollTop()
