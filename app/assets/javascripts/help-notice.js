@@ -15,7 +15,7 @@
         closeIt.appendTo('#flash_messages');
       
       // closeIt.children('a').on('click', function(e){
-        $('.help-text-close, .alert-help-layer').on('click', function(e){
+        $('.help-text-close').on('click', function(e){
         helpNotices.onPage.fadeOut('fast', function() {
           helpNotices.onPage.remove();
         });
