@@ -80,11 +80,10 @@
 			<%= t('.we_could_not_find_matches_for_you', :default => "Leider konnten wir keine passenden Kluuus für dich finden")%>
 			</p>
 			<% end %>
-		
 	</div>
 
 </div>
-
-	<%= render(:partial => "inline_help/dashboard_matches_matches") unless @user.account(true).prefs.no_initial_help == '1' %>
-	<%= render( :partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
-	<%#= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user})  unless @user.account(true).prefs.no_initial_help == '1' %>	
+<%= debug( @user.account(true).prefs) %>
+<%= render(:partial => "inline_help/dashboard_matches_matches") unless @user.account(true).prefs.no_initial_help == '1' %>
+<%= render(:partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
+<%#= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user})  unless @user.account(true).prefs.no_initial_help == '1' %>	
