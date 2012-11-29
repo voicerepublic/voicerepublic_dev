@@ -31,7 +31,7 @@ module KluuuCode
     attr_accessor :anonymous_calls
     
     def initialize(args=nil)
-      @anonymous_calls, @email_concerning_me,  @email_concerning_other, @inform_of_friends, @no_initial_help = "0", "1", "1", "1", "1"
+      @anonymous_calls, @email_concerning_me,  @email_concerning_other, @inform_of_friends, @no_initial_help = "0", "1", "1", "1", "0"
       unless args.nil?
         self.update_attributes(args)
       end
