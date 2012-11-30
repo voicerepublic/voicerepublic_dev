@@ -12,4 +12,5 @@
 		</ul>
 	</div>
 	<%= render(:partial => 'form', :locals => { :chat => chat }) %>
+	<%= subscribe_to chat.channel_name %>
 </div>

@@ -5,17 +5,20 @@ class ChatsController < ApplicationController
   # GET /chats/new
   # GET /chats/new.json
   def new
-    user1 = User.find params[:one]
-    user2 = User.find params[:two]
-    @chat = Chat.new(:user1 => user1, :user2 => user2)
+    @recipient = User.find(params[:user_id])
+    @sender = current_user
+    
+    @chat = Chat.new(:user1 => @receiver, :user2 => @sender)
+    @chat.sender = @sender
+    @chat.recipient = @recipient
     
     # send notification via push to subscribe to chat-channel
     
     #if user1.available? 
       #logger.debug("Chats#new - user1 is available")
-      content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => user2 } )
+      content = render_to_string( :partial => 'chat_window', :locals => { :chat => @chat, :partner => @sender } )
       js = "chat.build('#{escape_javascript(content)}', true);"
-      ret = PrivatePub.publish_to("/notifications/#{user1.id}", js)
+      ret = PrivatePub.publish_to( "/notifications/#{@recipient.id}", js)
       Rails.logger.debug("#{self.class.name}#new - sent notification to the one beeing connected \nret: #{ret.inspect}\n")
     #else
     #  logger.debug("Chats#new - user1 is NOT available")
@@ -38,12 +41,12 @@ class ChatsController < ApplicationController
   # POST /chats
   # POST /chats.json
   def create
-    user1 = User.find(params[:one])
-    user2 = User.find(params[:two])
     
     @chat = Chat.new(params[:chat])
-    @chat.user1 = user1
-    @chat.user2 = user2
+    @chat.user1 = User.find(params[:one])
+    @chat.user2 = User.find(params[:two])
+    @chat.sender = current_user
+    @chat.recipient = current_user == @chat.user1 ? @chat.user2 : @chat.user1
     
     logger.debug("Chats#create - about to create chat message: #{@chat.inspect}")
     respond_to do |format|
@@ -64,6 +67,11 @@ class ChatsController < ApplicationController
     user_1, user_2 = User.find(params[:one]), User.find(params[:two])
     @chat = Chat.new(:user1 => user_1, :user2 => user_2 )
 
+    sender = current_user
+    recipient = current_user == user_1 ? user_2 : user_1
+    @chat.sender = sender
+    @chat.recipient = recipient
+    
     respond_to do |format|
       format.html { redirect_to chats_url }
       format.json { head :no_content }

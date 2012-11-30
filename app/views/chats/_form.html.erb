@@ -1,5 +1,5 @@
 
-<%= form_for(chat, :url => post_chat_path(:one => chat.recipient_for(current_user).id, :two => current_user.id ), :remote => true ) do |f| %>
+<%= form_for(chat, :url => post_chat_path(:one => chat.recipient.id, :two => chat.sender.id ), :remote => true ) do |f| %>
 
 <% if chat.errors.any? %>
 
@@ -22,7 +22,7 @@
 	</div>
 </div>
 <div class="btns">
-	<%= link_to(t('.end_chat'), "", :class => 'btn btn-small chat_close' ) %>
+	<%= link_to(t('.end_chat'), destroy_chat_path(:one => chat.sender.id, :two => chat.recipient.id ), :remote => true, :method => :delete, :class => 'btn btn-small chat_close' ) %>
 	<%= f.submit t('.submit', :default => 'Submit'), :class => 'btn btn-small btn-primary chat_submit' %>
 </div>
 <% end %>
