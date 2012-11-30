@@ -1,16 +1,18 @@
 <div class="welcome-page">
-<div class="page-header">
-	<h2><span class="label label-info"><%= t('.welcome_user')%></span> <%= current_user.name %></h2>
-</div>
-
-<div class="well well-large row-fluid">
-	<div class="span4">
-		<h2><%= t('.no_klu_text') %></h2>
+	<div class="page-header pull-right">
+		<h2><%= t('.welcome_user')%>, <%= current_user.name %>!</h2>
 	</div>
-	
-	<div class="span8">
-		<%= render(:partial => 'klus/form_welcome_new_no_kluuu') %>
+	<div class="clearfix"></div>
+	<div class="well row-fluid">
+		<div class="span5">
+			<img src="/assets/signup/signup_world.png" class="hidden-phone alt="KluuU World" />
+		</div>
+		
+		<div class="span7">
+			<h3><%= t('.no_klu_title', :default => "Was interessiert Dich?") %></h3>
+			<p><%= t('.no_klu_text') %></p>
+			<%= render(:partial => 'klus/form_welcome_new_no_kluuu') %>
+		</div>
 	</div>
-</div>
 </div>
 

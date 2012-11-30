@@ -2,17 +2,12 @@
 <% method = @klu.new_record? ? :post : :put %>
 <%= form_for [@user,@klu], :as => :klu,  :url => the_url, :method => method, :html => { :class => 'form-horizontal no-kluuu large-klu' }  do |f| %>
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
-<div class="span4">
 	<%= f.error_messages %>
 
-	<div class="lead">
-		<span class="label label-important"><%= t('.what_are_you_interested_in')%></span>
-	</div>
-
 	<div class="control-group">
-		<%= label_tag "klu_title", :class => 'control-label' do %>
-		<%= t('.your_interest_today') %>
-		<% end %>
+		<%#= label_tag "klu_title", :class => 'control-label' do %>
+			<%#= t('.your_interest_today') %>
+		<%# end %>
 		<div class="controls">
 			<%= f.text_field :title, :class => 'klu-title' %>
 		</div>
@@ -25,5 +20,4 @@
 		<%= f.submit t('.continue', :default => 'continue'), :class => 'btn btn-primary' %>
 	</div>
 
-</div>
 <% end %>

@@ -354,8 +354,6 @@ de:
     
   klus:
     form_welcome_new_no_kluuu:
-      your_interest_today: "Was interessiert dich?"
-      what_are_you_interested_in: "Über was möchtest Du mit jemandem sprechen?"
       continue: "weiter"
     form_kluuu:
       call_options: "Anruf-Optionen"

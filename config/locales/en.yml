@@ -333,8 +333,6 @@ en:
     
   klus:
     form_welcome_new_no_kluuu:
-      your_interest_today: "Was interessiert dich?"
-      what_are_you_interested_in: "Schreib uns, was dich heute interessiert!"
       continue: "Continue"
     form_kluuu:
       call_options: "Video call options"
