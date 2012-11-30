@@ -79,7 +79,7 @@ class Klu < ActiveRecord::Base
   end
   
   
-  def complementaries
+  def complementaries(limit=nil)
     cat = self.category
     tags = self.tag_list
     klu_class = self.instance_of?(Kluuu) ? NoKluuu : Kluuu
@@ -87,6 +87,7 @@ class Klu < ActiveRecord::Base
     # best matches: same category - exakt same tags
     results = klu_class.search( :with => { :category_id => cat.id}, 
                             :without => { :user_id => self.user_id },
+                            :per_page => limit || 10,
                             :conditions => { :tag_name => self.tags.map { |t| t.name } }
                            )
                            
@@ -95,6 +96,7 @@ class Klu < ActiveRecord::Base
       
       # quite good match: tagged with one or more of self.tags
       results = klu_class.search( build_tag_list_arguments,
+                                :per_page => limit || 10,
                                 :without => { :user_id => self.user_id },
                                 :match_mode => :extended
                                  )
