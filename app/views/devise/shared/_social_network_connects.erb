@@ -1,19 +1,9 @@
 <%= link_to omniauth_authorize_path(resource_name, 'facebook'), :class => "btn signup-facebook" do %>
   <%= image_tag "connects/facebook_icon.png" %> 
-  <%- if controller_name == 'registrations' %>
-  	<%= t('.with', :default => "mit") %>
-  <% else %>
-  	<%= t('.with', :default => "mit") %>
-	<% end -%>
-	facebook
+  <%= t('.with', :default => "mit") %>&nbsp; facebook
 <% end %>
 
 <%= link_to omniauth_authorize_path(resource_name, 'google_oauth2'), :class => "btn signup-google" do %>
   <%= image_tag "connects/google_icon.png" %>
-  <%- if controller_name == 'registrations' %>
-  	<%= t('.with', :default => "mit") %>
-  <% else %>
-  	<%= t('.with', :default => "mit") %>
-	<% end -%>
-	Google+
+  <%= t('.with', :default => "mit") %>&nbsp; Google+
 <% end %>
