@@ -42,7 +42,7 @@ describe ChatsController do
 
   describe "GET new" do
     it "assigns a new chat as @chat - prerequisite is a running faye instance - otherwise an error occurs" do
-      get :new, {:one => @recipient, :two => @user}, valid_session
+      get :new, {:user_id => @recipient }, valid_session
       assigns(:chat).should be_a(Chat)
     end
   end
