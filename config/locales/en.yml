@@ -486,8 +486,9 @@ en:
   
   users:
     welcome:
-      welcome_user: "Welcome"
-      no_klu_text: "Um für andere erreichbar zu sein, sag uns was dich heute interessiert!"
+      welcome_user: "Willkommen bei KluuU"
+      no_klu_title: "Was interessiert Dich?"
+      no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
     basic_form:
       edit_your_email: "Change email address"
       save_email: "Save email address"  
