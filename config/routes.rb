@@ -19,8 +19,6 @@ Kluuu2::Application.routes.draw do
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
     get "tags/:tag", :controller => 'search', :action => 'tagged_with', :as => 'tagged_with'
     post "chats/:one/:two", :controller => 'chats', :action => 'create', :as => 'post_chat'
-    #post "chats/:user_id", :controller => 'chats', :action => 'create', :as => 'post_chat'
-    #get "chats/:one/:two/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
     get "chats/:user_id/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
     delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
     get 'users/status_for' => 'users#status_for'
@@ -155,10 +153,5 @@ Kluuu2::Application.routes.draw do
   # just remember to delete public/index.html.
   root :to => "landing_page#index"
   
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
 end
