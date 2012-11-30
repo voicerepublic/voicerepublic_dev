@@ -507,8 +507,9 @@ de:
   
   users:
     welcome:
-      welcome_user: "Schön dich hier zu sehen! Herzlich willkommen."
-      no_klu_text: "Diskutiere, erzähle, berate, unterhalte, helfe  - per live Video Gespräch."
+      welcome_user: "Willkommen bei KluuU"
+      no_klu_title: "Was interessiert Dich?"
+      no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
     basic_form:
       edit_your_email: "Hier kannst Du die Email Adresse ändern, mit der Du bei KluuU registriert bist."
       save_email: "Email-Adresse speichern"  
