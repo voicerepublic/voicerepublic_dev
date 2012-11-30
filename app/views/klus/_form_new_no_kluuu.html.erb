@@ -5,17 +5,17 @@
 <div class="row-fluid">
 	<%= f.error_messages %>
 	<div class="well no-kluuu klu-form klu-form-new span4">
-		
+
 		<div class="control-group">
 			<%= label_tag "klu_title", :class => 'control-label' do %>
-				<%= t('.title', :default => "Titel") %>
+			<%= t('.title', :default => "Titel") %>
 			<% end %>
 			<div class="controls">
 				<%= f.text_field :title, :class => 'klu-title' %>
 			</div>
 			<div class="control-group">
 				<%= label_tag "klu_category_id", :class => 'control-label' do %>
-					<%= t('.category', :default => "Kategorie") %>
+				<%= t('.category', :default => "Kategorie") %>
 				<% end %>
 				<div class="controls">
 					<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
@@ -23,7 +23,7 @@
 			</div>
 			<div class="control-group">
 				<%= label_tag "klu_tag_list", :class => "control-label" do %>
-					<%= t('.tag_list', :default => "Tag Liste") %>
+				<%= t('.tag_list', :default => "Tag Liste") %>
 				<% end %>
 				<div class="controls">
 					<%= f.text_field :tag_list, :class => 'text_field' %>
@@ -32,22 +32,20 @@
 		</div>
 		<div class="control-group hidden">
 			<div class="controls">
-			<%= label_tag :published, :class => 'checkbox'  do %>
+				<%= label_tag :published, :class => 'checkbox'  do %>
 				<%= f.check_box :published %> <%= t('.published', :default => "? Frage-KluuU öffentlich anzeigen.") %>
-			<% end %>
+				<% end %>
 			</div>
 		</div>
 		<div class="form-actions">
-			<%= f.submit nil, :class => 'btn btn-primary' %>
+			<%= f.submit t('.save_no_kluuu', :default => "Frage speichern"), :class => 'btn btn-primary' %>
 			<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
 			user_path(:id => @user), :class => 'btn' %>
 		</div>
-	</div> 
-	<div class="span8"><h2>Neues ? Frage-KluuU</h2>
-		<div class="lead">Worüber möchtest du mit jemandem sprechen?</div>
-		Das ?-KluuU ist eine einfache Möglichkeit, um ins Gespräch zu kommen.<br>
-		Die KluuU-Community kann deine ?-KluuUs sehen und dich diesbezüglich ansprechen.<br><br>
-		
-		<span class="label label-info">Übrigens</span> Tags sind entscheidend für die Auffindbarkeit deines ?-KluuUs, füge 5 oder mehr tags ein. (z.B.:Freizeit, Sport, Fussball, Hobby)</div>
+	</div>
+
+	<div class="span8">
+		<%= render(:partial => 'klus/texte/new_no_kluuu_intro_text') %>
+	</div>
 </div>
 <% end %>

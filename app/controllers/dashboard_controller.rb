@@ -95,6 +95,17 @@ class DashboardController < ApplicationController
     @user
   end
   
+  # simple keep-alive ping by authenticated user
+  #
+  def ping
+    logger.debug("Dashboard#ping - by #{@user.name} - [#{@user.id}]")
+    respond_to do |format|  
+      format.js { render(:message => 'pong', :nothing => true) and return }
+      format.json { render(:head => :created, :message => 'pong') and return }
+      format.html { render :text => "pong" }
+    end
+  end
+  
 
   private
 

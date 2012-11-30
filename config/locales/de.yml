@@ -262,6 +262,7 @@ de:
       save_preferences: "Einstellungen speichern"
       on_site_help: "Hilfe Texte an/aus"
       call_settings: "Anrufeinstellungen"
+      allow_anonymous_calls: "Erlaube anonyme Video-Anrufe (von nicht angemeldeten Nutzern)"
     form: 
       delete_portrait: "Portrait löschen"
     edit:
@@ -383,6 +384,7 @@ de:
       category: "Kategorie"
       tag_list: "Tag Liste"
       published: "Öffentlich anzeigen"
+      save_no_kluuu: "Frage speichern"
     form_no_kluuu:
       call_options: "Anruf-Optionen"
     kluuu_top_actions:
@@ -398,7 +400,7 @@ de:
     kluuu:
       feedbacks: "Bewertungen"
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
-      people_who_wanna_know_more_about: "Maches auf das KluuU "
+      people_who_wanna_know_more_about: "Matches auf das KluuU"
     no_kluuu:
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
       people_who_know_about: "Matches auf die Frage "

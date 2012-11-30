@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top stay-alive">
 	<div class="navbar-inner">
 		<div class="container">
 			 <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
@@ -93,4 +93,7 @@
 		</div>
 	</div>
 </div>
+<!-- $(document).ready(function(){setInterval(function(){$.ajax({ url:"<%= dashboard_ping_url -%>", type:"GET",dataType:"script" });},180000);}); -->
 <%= subscribe_to "/notifications/#{current_user.id}" %>
+
+

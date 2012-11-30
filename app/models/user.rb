@@ -3,9 +3,9 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  MAX_IDLE = 10.minutes
-  SET_BUSY = 20.minutes
-  SET_OFFLINE = 40.minutes
+  MAX_IDLE = 5.minutes
+  SET_BUSY = 5.minutes
+  SET_OFFLINE = 6.minutes
   
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   end
   
   def availability_status
-    if (last_request_at.nil? || (last_request_at < Time.now - MAX_IDLE))
+    if (last_request_at.nil? || (last_request_at < Time.now - SET_BUSY))
       if available == 'online'
         update_attribute(:available, 'busy') 
         return 'busy'
