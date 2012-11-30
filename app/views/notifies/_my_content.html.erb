@@ -1,61 +1,67 @@
 <article class="notification news-notification news-nofication-my-content contribution" id="notification-<%= notification.id %>">
 	<header>
+		<% if notification.other %>
 		<div class="user-image contribution-user-image" data-user-id="<%= notification.other.id %>">
 			<%= link_to(image_tag( notification.other.account.portrait.url(:thumb), :class => 'img-polaroid'), user_path(:id => notification.other)) %>
 		</div>
+		<% end %>
 		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(notification.created_at) %>
 		</time>
 	</header>
-	
+
 	<% if notification.instance_of?(Notification::NewBookmark) %>
 		<h4 class="news-notification-top">
 			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-			<%= t('.bookmarked_your_') %> <%= klu_type_string(notification.klu) %>
+			<%= t('.bookmarked_your') %> <%= klu_type_string(notification.klu) %>
 		</h4>
 		<%= link_to klu_url(:id => notification.klu) do%>
 			<%= tiny_klu(notification.klu) %>
 		<% end %>
 	<% end %>
-	
+
 	<% if notification.instance_of?(Notification::NewComment) %>
 		<h4 class="news-notification-top">
 			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		 	<%= t('.commented_your_status') %>:
-		 </h4>
-		 <%= link_to_url_for_notification_reason(notification) do %>
-		 	<div class="well well-small"><%= limit_words(notification.content, 15) %></div>
-		 <% end %>
+			<%= t('.commented_your_status') %>:
+		</h4>
+		<%= link_to_url_for_notification_reason(notification) do %>
+			<div class="well well-small">
+				<%= limit_words(notification.content, 15) %>
+			</div>
+		<% end %>
 	<% end %>
-	
+
 	<% if notification.instance_of?(Notification::NewFollower) %>
-		<h4 class="news-notification-top"><%= link_to notification.other.name, user_path(:id => notification.other) %> <%= t('.follows_you_now') %></h4>
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.name, user_path(:id => notification.other) %> <%= t('.follows_you_now') %>
+		</h4>
 		<% if current_user.followed.include?(notification.other) %>
 			<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => notification.other).first), :class => "btn news-follow-reaction", :method => :delete) %>
 		<% else %>
 			<%= link_to( t('.follow_back'), user_create_follow_path(:user_id => current_user, :followed_id => notification.other ), :method => "post", :class => "btn news-follow-reaction" )%>
 		<% end %>
 	<% end %>
-	
+
 	<% if notification.instance_of?(Notification::NewRating)%>
 		<h4 class="news-notification-top">
 			<%= link_to notification.other.name, user_path(:id => notification.other) %>
-		 	<%= t('.rated_your_') %> <%= klu_type_string(notification.klu) %>:
-		 </h4>
-		 <%= link_to_url_for_notification_reason(notification) do %>
-		 	<%= tiny_klu(notification.klu) %>
-		 <% end %>
+			<%= t('.rated_your') %> <%= klu_type_string(notification.klu) %>: 
+		</h4>
+		<%= link_to_url_for_notification_reason(notification) do %>
+			<%= tiny_klu(notification.klu) %>
+		<% end %>
 	<% end %>
-	
+
 	<% if notification.instance_of?(Notification::NewMessage) %>
 		<%= link_to notification.other.name, user_path(:id => notification.other) %>
 		<%= t('.wrote_you_a_message') %>
 	<% end %>
-	
+
 	<% if notification.instance_of?(Notification::MissedCall) %>
-		<h4 class="news-notification-top">
-			<% if notification.other %> 
-				<%= link_to notification.other.name, user_path(:id => notification.other) %>	
+		<h4 class="news-notification-top"> 
+			<% if notification.other %>
+				<%= link_to notification.other.name, user_path(:id => notification.other) %>
 			<% else %>
 				<%= t('.an_anonymous_person')%>
 			<% end %>
@@ -65,9 +71,8 @@
 			<%= tiny_klu(notification.klu) %>
 		<% end %>
 	<% end %>
-	
-	<%= link_to_url_for_notification_reason(notification) %>
 
+	<%= link_to_url_for_notification_reason(notification) %>
 
 	<aside>
 		<% if can? :manage, notification %>
@@ -75,5 +80,5 @@
 				<i class="icon-trash"></i>
 			<% end %>
 		<% end %>
-	</aside>	
+	</aside>
 </article>

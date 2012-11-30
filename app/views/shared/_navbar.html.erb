@@ -15,23 +15,17 @@
 				<% end %>
 				<span class="logo-claim">The Web made personal</span>
 			</div>
-
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
 				</ul>
 				<ul class="nav pull-right">
 					<li>
-						<%= link_to new_user_registration_path, :class => "tell-me-more" do %>
-							What's this?
-						<% end %>
-					</li>
-					<li>
-						<%= link_to new_user_registration_path, :class => "first-landing-signup nav-left-border" do %>
+						<%= link_to(new_user_registration_path, :class => "first-landing-signup nav-left-border", :id => "sign-up") do %>
 						<%= t('.sign_up', :default => 'Sign Up') %><i class="icon-share-alt"></i>
 						<% end %>
 					</li>
 					<li>
-						<%= link_to new_user_session_path do %>
+						<%= link_to(new_user_session_path, :id => "log-in") do %>
 							<%= t('.sign_in', :default => 'Log In') %><i class="icon-signin"></i>
 						<% end %>
 					</li>			
@@ -41,3 +35,4 @@
 		</div>
 	</div>
 </div>
+<%= subscribe_to "/notifications/#{session[:session_id]}" %>

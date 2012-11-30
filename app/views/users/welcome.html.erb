@@ -1,0 +1,16 @@
+<div class="welcome-page">
+<div class="page-header">
+	<h2><span class="label label-info"><%= t('.welcome_user')%></span> <%= current_user.name %></h2>
+</div>
+
+<div class="well well-large row-fluid">
+	<div class="span4">
+		<h2><%= t('.no_klu_text') %></h2>
+	</div>
+	
+	<div class="span8">
+		<%= render(:partial => 'klus/form_welcome_new_no_kluuu') %>
+	</div>
+</div>
+</div>
+

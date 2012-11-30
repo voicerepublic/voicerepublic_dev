@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113132505) do
+ActiveRecord::Schema.define(:version => 20121122105617) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20121113132505) do
     t.integer  "portrait_file_size"
     t.datetime "portrait_updated_at"
     t.text     "prefs"
+    t.string   "website"
   end
 
   create_table "balance_accounts", :force => true do |t|
@@ -138,7 +139,6 @@ ActiveRecord::Schema.define(:version => 20121113132505) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "charge_type",        :default => "free"
-    t.boolean  "uses_status",        :default => true
     t.string   "currency"
     t.integer  "charge_cents",       :default => 0
   end
@@ -315,7 +315,6 @@ ActiveRecord::Schema.define(:version => 20121113132505) do
     t.string   "name"
     t.string   "url"
     t.string   "salt"
-    t.string   "version"
     t.boolean  "activated"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

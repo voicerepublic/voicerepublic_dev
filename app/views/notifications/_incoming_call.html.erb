@@ -2,13 +2,13 @@
 <div class="row-fluid">
 	<div class="span12">
 		<h3>
-			<%= t('video_call_title', :default => "VIDEO CALL") %>
+			<%= t('.video_call_title', :default => "VIDEO CALL") %>
 		</h3>
 		 
 		 <div class="thumbnail user-thumbnail">
 			<%= content_tag :span, :class => "user-thumbnail-link clearfix" do %>	
-				<%= image_tag(video_session.guest_participant.user.account.portrait.url(:thumb)) %>
-				<div class="user-thumbnail-name"><%= video_session.guest_participant.user.name %></div>
+				<%= video_session.guest_participant.instance_of?(Participant::GuestRegistered) ? image_tag(video_session.guest_participant.user.account.portrait.url(:thumb)) : nil %>
+				<div class="user-thumbnail-name"><%= video_session.guest_participant.instance_of?(Participant::GuestRegistered) ? video_session.guest_participant.user.name : 'Anonymous' %></div>
 			<% end %>
 		</div>
 

@@ -3,7 +3,7 @@ module KlusHelper
   def bookmark_links(user, klu)
     #puts user.inspect
     #return nil if user.new_record?
-    if user && (klu.user != user) &! klu.user.nil?
+    if user && klu && (klu.user != user) &! klu.user.nil?
       if Bookmark.bookmarked?(user.id, klu.id)
         link_to(user_bookmark_path(:user_id => user, :id => Bookmark.bookmark_for(user.id, klu.id).id), :method => :delete, :title => t('.delete_bookmark', :default => "Delete Bookmark"), :class => "klu-bookmark-delete") do
           content_tag('i', '', :class => 'icon-bookmark')
@@ -58,28 +58,8 @@ module KlusHelper
     ret.html_safe
   end
   
-  def partial_for_status_or_about(klu)
-    if klu.uses_status
-      render(:partial => "klus/user_status", :locals => { :klu => klu } )  
-    else
-      render(:partial => "klus/user_about", :locals => { :klu => klu } )
-    end 
-  end
-  
   def data_attributes_images_gallery(klu)
     klu.klu_images.map.each { |ki| "#{ki.image.url(:large)}" }.join(" ")
-  end
-
-  def price_string(klu)
-    if klu.charge_type != 'free'
-      if klu.charge_type === "minute"
-        t(".#{klu.charge_cents}_#{klu.currency}_per_minute")
-      else
-        t(".#{klu.charge_cents}_#{klu.currency}")
-      end
-    else
-      t('.free')
-    end
   end
 
   def tiny_klu(klu)

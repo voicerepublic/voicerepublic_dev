@@ -7,26 +7,30 @@
  @import "config.css.less";
 
  .landing-page {
- 	padding-top:0px;
+ 	
   .medium-klu {
     .set-rows(4);
+  }
+  h2{
+  	margin:0px 0 0 14px
   }
  }
 
 body{
-	/*background:@brandColor;*/
-	/*background:url(/assets/creampaper.png);*/
+	background:url(/assets/Cafe-Griensteidl-1896-e.jpg) no-repeat 0 -100px;
+	background-size: contain;
 }
 
 body .container .well{
 	box-shadow: inset 0 0 0px rgba(0,0,0,0.3) !important;
-	
-	background:rgba(0,0,0,0.05);
+	border:1px solid #BEBEBE;
+	background:#F2F2F2
 }
 
 .lead{
-	color:#888 !important;
+	color:white !important;
 	margin-bottom: 40px !important;
+	text-shadow:1px 1px 2px rgba(0,0,0,0.7), -1px -1px 2px rgba(0,0,0,0.7);
 }
 
 .container{
@@ -39,8 +43,11 @@ body .container .well{
  h2.landing-page-claim{
  		font-size:@baseFontSize * 3.4;
  		line-height:@baseLineHeight * 0.8;
- 		color:#333;
- 		font-weight: bold
+ 		color:#fff;
+ 		font-weight: bold;
+ 		text-shadow:1px 1px 3px rgba(0,0,0,0.5), -1px -1px 3px rgba(0,0,0,0.2);
+ 		margin:0;
+ 		margin-top:40px;
  }
 
  .landing-page-claim-bg{
@@ -49,12 +56,25 @@ body .container .well{
 }
 
 .landing-page-search{
-	margin:20px 25%;
-	padding:10px 0 45px 0;
-	background:rgba(255,255,255,0.8);
-	background:rgba(0,0,0,0.4);
+	width:400px;
+	margin:auto;
+	padding:0px 0 20px 0;
+	background:rgba(255,255,255,0.5);
 	border-radius: 20px;
-	color:white
+	color:black;
+	text-shadow:1px 1px 2px rgba(255,255,255,0.7), -1px -1px 2px rgba(255,255,255,0.7);
+	h2{
+		padding-top:10px;
+		font-size:27px;
+		font-weight: bold;
+		text-align: left;
+		margin-left:48px;
+		margin-bottom:5px
+	}
+	i{
+		color:#9A2D45;
+		text-shadow:1px 1px 2px rgba(255,255,255,0.7), -1px -1px 2px rgba(255,255,255,0.7);
+	}
 }
 
 input.landing-page-query{
@@ -64,24 +84,34 @@ input.landing-page-query{
 	padding-left:@verticalRhythm * 2;
 	padding-right:@verticalRhythm * 2;
  	line-height:@baseLineHeight * 1;
- 	color:#90AEB3;/*#56A5B3*/
+ 	color:#6C6C6C;
+ 	background: rgba(255,255,255,0.9);
+ 	width:300px !important;
  	border-radius:25px;
  	&:focus{
- 		border-color:#56A5B3
+ 		border-color:#999;
  	}
-}
-
-.landing-page-top-row{
-	
-	background-size: 100%;
-	background-repeat:no-repeat;
-	margin-top:0
 }
 
 .landing-page{
 	.row-fluid{
-		min-height:500px;
-		/*border-top:4px solid rgba(0,0,0,0.3)*/
+		background:#fefefe;
+		padding-top:20px;
+		padding-bottom:10px;
+	}
+	.landing-page-top-row{
+		padding-top:20px;
+		position: relative;
+		height:430px;
+		background:transparent;
+		.landing-page-bottom-background{
+			position: absolute;
+			bottom: 0;
+			left:0;
+			height:120px;
+			width: 100%;
+			background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0 0 transparent;
+		}
 	}
 }
 
@@ -93,13 +123,43 @@ input.landing-page-query{
 }
 
 .landing-page-color1{
-	background:#90AEB3;
+	background:#f9f9f9;
 	margin:0;
 	padding:0
 }
 
+.lp-treffpunkt{
+	h2{
+		margin:0;
+	}
+	.well{
+		padding-left:20px !important;	
+		/*background: #f7f7f7;*/
+	}
+	img{
+		float:left;
+		vertical-align: bottom;
+		margin-top:15px;
+		margin-left:20px
+	}
+}
+
+.lp-kluuus{
+	.well{
+		/*background: #f7f7f7;*/
+	}
+}
+
+.lp-trends-people{
+	.well{
+		/*background: #f7f7f7;*/
+	}
+}
+
 .landing-page-color2{
-	
+	.well{
+		
+	}
 }
 
 .tag-cloud ul li{

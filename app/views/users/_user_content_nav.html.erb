@@ -1,6 +1,6 @@
 <nav class="user-main-nav">
 	<ul class="clearfix">
-		<li class="<%= current_page?(kluuus_user_path(:id => user)) || current_page?(user_path(:id => user)) ? 'active' : '' %>">
+		<li class="<%= current_page?(kluuus_user_path(:id => user)) || current_page?(user_path(:id => user)) ? 'active' : '' %> kluuu-color">
 				<%= link_to(kluuus_user_path(:id => user ) ) do %>
 					!
 				<span class="user-main-nav-subline">
@@ -8,11 +8,11 @@
 				</span>
 				<% end %>
 		</li>
-		<li class="<%= current_page?(no_kluuus_user_path(:id => user )) ? 'active' : '' %>">
+		<li class="<%= current_page?(no_kluuus_user_path(:id => user )) ? 'active' : '' %> no-kluuu-color">
 			<%= link_to(no_kluuus_user_path(:id => user ) ) do %>
 			?
 			<span class="user-main-nav-subline">
-				<%= t('.i\'d_like_to_know_more_about') %>
+				<%= t('.i_like_to_know_more_about') %>
 			</span>
 			<% end %>
 		</li>
@@ -20,7 +20,7 @@
 			<%= link_to(user_status_updates_path(:user_id => user)) do %>
 			  <i class="icon-bullhorn"></i>
 			  <span class="user-main-nav-subline">
-					<%= t('.Opinions') %>
+					<%= t('.opinions') %>
 				</span>
 			<% end %>
 		</li>

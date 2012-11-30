@@ -8,6 +8,7 @@ FactoryGirl.define do
       video_session_id 1
       user
       anon_id 'safd34h43l24'
+      association :klu, factory: :published_kluuu
     end
     
     factory :notification_anonymous_call_accepted, :class => 'Notification::CallAccepted' do
@@ -16,12 +17,14 @@ FactoryGirl.define do
       video_session_id 1
       association :other, factory: :user
       anon_id 'safd34h43l24'
+      association :klu, factory: :published_kluuu
     end
     
     factory :notification_anonymous_call_rejected, :class => 'Notification::CallRejected' do
       type 'Notification::CallRejected'
       video_session_id 1
       association :other, factory: :user
+      association :klu, factory: :published_kluuu
       anon_id 'safd34h43l24'
     end
     
@@ -29,6 +32,7 @@ FactoryGirl.define do
       type 'Notification::IncomingCall'
       video_session_id 1
       association :other, factory: :user
+      association :klu, factory: :published_kluuu
       user
     end
     
@@ -37,6 +41,7 @@ FactoryGirl.define do
       url 'http://www.a.kluuu.com'
       video_session_id 1
       association :other, factory: :user
+      association :klu, factory: :published_kluuu
       user
     end
     
@@ -44,6 +49,7 @@ FactoryGirl.define do
       type 'Notification::CallRejected'
       video_session_id 1
       association :other, factory: :user
+      association :klu, factory: :published_kluuu
       user
     end
     
@@ -73,7 +79,7 @@ FactoryGirl.define do
     factory :notification_new_kluuu, :class => 'Notification::NewKluuu' do
       type 'Notification::NewKluuu'
       user
-      klu_id 6
+      association :klu, factory: :published_kluuu
       content "somebody created a new kluuu"
       association :other, factory: :user
     end
@@ -92,7 +98,7 @@ FactoryGirl.define do
       content 'one of your friend took some action'
       user
       association :other, factory: :user
-      klu_id 4
+      association :klu, factory: :published_kluuu
     end
     
     factory :notification_new_rating, :class => 'Notification::NewRating' do
@@ -100,7 +106,7 @@ FactoryGirl.define do
       content 'one of your kluuus got rated with some descriptive words'
       user
       association :other, factory: :user
-      klu_id 4
+      association :klu, factory: :published_kluuu
     end
     
     factory :notification_new_bookmark, :class => 'Notification::NewBookmark' do

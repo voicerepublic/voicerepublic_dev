@@ -208,8 +208,19 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
-  config.omniauth :facebook, "343355799056546", "ceb280bc9f085cc4b64252f9b75f9895", :scope => 'email', :display => 'popup'
-  config.omniauth :google_oauth2, "833767655435.apps.googleusercontent.com", "Qa1tDkIJNp7jwGeSSF7mUG6R",  { access_type: "offline", approval_prompt: "" }
+  
+  if Rails.env == "development"
+    config.omniauth :facebook, "343355799056546", "ceb280bc9f085cc4b64252f9b75f9895", :scope => 'email', :display => 'popup'
+    config.omniauth :google_oauth2, "833767655435.apps.googleusercontent.com", "Qa1tDkIJNp7jwGeSSF7mUG6R",  { access_type: "offline", approval_prompt: "" }
+  end
+  if Rails.env == "staging"
+    config.omniauth :google_oauth2, "833767655435-e17hn8bbursc2hscs9b38t05ma9tg6of.apps.googleusercontent.com", "H3s7bEuDoQBBfFWhLhe7KtWF", { access_tpye: "offline", approval_prompt: ""}
+    config.omniauth :facebook, "446344418757421","dd2b8dda6c0c2a38718e6a5c7e57f5d8", :scope => "email", :display => 'popup'
+  end  
+  if Rails.env == "production"
+    config.omniauth :facebook, "317175341661486","d6a24cf275aa820fe01a914f4e21784e", :scope => "email", :display => "popup"
+    config.omniauth :google_oauth2, "833767655435-f2ppc2226qmauv10rkpofgqnekspep29.apps.googleusercontent.com","prOIh1BoufSKpkHRSqekT0Zv", {access_tpye: "offline", approval_prompt: ""}
+  end
   #config.omniauth :twitter, "OU5dro3Xu0Fb58DfNUFIrw", "XaNE30BTz3VVpiTvMpO10fuuYIxX0NO2X3WQwjnM"  
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

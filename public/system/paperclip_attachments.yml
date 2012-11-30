@@ -1,5 +1,10 @@
 ---
-:ProfileSetting:
+:KluImage:
+  :image:
+  - :large
+  - :medium
+  - :thumb
+:Account:
   :portrait:
   - :large
   - :medium

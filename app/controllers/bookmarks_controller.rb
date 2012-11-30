@@ -26,7 +26,7 @@ class BookmarksController < ApplicationController
 
     respond_to do |format|
       if @bookmark.save
-        format.html { redirect_to( user_bookmarks_path(:user_id => @bookmark.user), notice: 'Bookmark was successfully created.') }
+        format.html { redirect_to( user_bookmarks_path(:user_id => @bookmark.user), notice: I18n.t('controller_bookmarks.bookmark_created', :default => 'Bookmark was successfully created.') ) }
         format.json { render json: @bookmark, status: :created, location: @bookmark }
       else
         format.html { render action: "new" }
@@ -48,7 +48,7 @@ class BookmarksController < ApplicationController
     @bookmark.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_bookmarks_url(:user_id => _user) }
+      format.html { redirect_to user_bookmarks_url(:user_id => _user), notice: I18n.t('controller_bookmarks.bookmark_destroyed', :default => "Bookmark destroyed")}
       format.json { head :no_content }
     end
   end

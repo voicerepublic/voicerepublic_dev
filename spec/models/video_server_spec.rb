@@ -17,17 +17,11 @@ describe VideoServer do
   it "is invalid without url" do
     FactoryGirl.build(:video_server, url: nil).should_not be_valid
   end
-  it "is invalid without version" do
-    FactoryGirl.build(:video_server, version: nil).should_not be_valid
-  end
   it "is invalid without http before url" do
     FactoryGirl.build(:video_server, url: 'www.foobar.com').should_not be_valid
   end
   it "is invalid with malformed url" do
     FactoryGirl.build(:video_server, url: 'http://www.foobar.com').should_not be_valid
-  end
-  it "is invalid with wrong version" do
-    FactoryGirl.build(:video_server, version: '0.5').should_not be_valid
   end
   it "is invalid with non_unique name version" do
     FactoryGirl.create(:video_server, name: 'mama').should be_valid
@@ -66,12 +60,12 @@ describe VideoServer do
       server.api.should_not be_nil
     }
     context "with the correct attributes" do
-      let(:api) { api = VideoSystemApi::VideoSystemApi.new(server.url, server.salt, server.version, false, 2, '192.168.0.1') }
+      let(:api) { api = VideoSystemApi::VideoSystemApi.new(server.url, server.salt, false, 2, '192.168.0.1') }
       it { server.api.should == api }
 
       # updating any of these attributes should update the api
       { :url => 'http://anotherurl.com/bigbluebutton/api',
-        :salt => '12345-abcde-67890-fghijk', :version => '0.7' }.each do |k,v|
+        :salt => '12345-abcde-67890-fghijk' }.each do |k,v|
         it {
           server.send("#{k}=", v)
           server.api.send(k).should == v

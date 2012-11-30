@@ -3,7 +3,9 @@
 	<% current_user.notifications.alerts.limit(5).each do |notification| %>
 		<li class="menu-item">
 			<%= link_to_url_for_notification_reason(notification) do %>
-				<span class="user-image" data-user-id="<%= notification.other.id %>"><%= image_tag notification.other.account.portrait(:thumb), :alt => notification.other.name  %></span>
+				<% if notification.other %>
+					<span class="user-image" data-user-id="<%= notification.other.id %>"><%= image_tag notification.other.account.portrait(:thumb), :alt => notification.other.name  %></span>
+				<% end %>
 				<%= notification %>
 			<% end %>
 		</li>

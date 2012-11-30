@@ -17,7 +17,7 @@ class Notification::Base < ActiveRecord::Base
 
   NEWS            =     [ALERTS,CONTENT_ALERTS].flatten
   
-  attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user
+  attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user, :klu, :klu_id
 
   scope :unread,          where(:read => false)
   scope :alerts,          :conditions => { :type => ALERTS }, :order => "created_at DESC"
@@ -35,14 +35,18 @@ class Notification::Base < ActiveRecord::Base
   def path_for_notify
     case self.class.name.split("::")[-1]
     when 'NewStatus'
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_status_updates_path(:user_id => other )
     when 'NewKluuu'
-      klu_path(:id => klu)
+      Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
+      klu_path(:id => klu_id)
     when "NewBookmark"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_bookmarks_path(:user_id => other)
     when "NewComment"
       url
     when "NewFollower"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_path(:id => other )
     when "NewRating"
       klu_path(:id => klu_id)
@@ -50,7 +54,12 @@ class Notification::Base < ActiveRecord::Base
       url
     when "MissedCall"
       dashboard_news_path
-    end
+    when "CallEnded"
+    when "CallAccepted"
+    when "CallRejected"
+    when "IncomingCall"
+      klu_path(:id => klu_id)
+    end 
   end
   
   def url_for_notify

@@ -3,13 +3,16 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   
-  MAX_IDLE = 10.minutes
-  SET_BUSY = 20.minutes
-  SET_OFFLINE = 40.minutes
+  MAX_IDLE = 5.minutes
+  SET_BUSY = 5.minutes
+  SET_OFFLINE = 6.minutes
   
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname #:encrypted_password,
   attr_accessible :provider, :uid, :last_request_at, :available
+  # FIXME: for migration of old kluuu:
+  attr_accessible :encrypted_password
+  
  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :roles, :through => :user_roles
@@ -41,7 +44,7 @@ class User < ActiveRecord::Base
   
   after_create :add_default_user_role
   after_create :add_account
-  after_create :add_beginner_klu
+  #after_create :add_beginner_klu
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -80,7 +83,7 @@ class User < ActiveRecord::Base
   end
   
   def availability_status
-    if (last_request_at.nil? || (last_request_at < Time.now - MAX_IDLE))
+    if (last_request_at.nil? || (last_request_at < Time.now - SET_BUSY))
       if available == 'online'
         update_attribute(:available, 'busy') 
         return 'busy'
@@ -151,7 +154,7 @@ class User < ActiveRecord::Base
   def self.find_for_google_oauth2(auth, signed_in_resource=nil)
     data = auth.info
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
-    #user = User.where(:email => data["email"]).first
+    
     unless user
         user = User.create(lastname:data["last_name"],
               firstname:data["first_name"],
@@ -188,11 +191,11 @@ class User < ActiveRecord::Base
     Rails.logger.debug("User#check_with_push - #{ret}")
   end
  
-  private
+  private 
   
   def add_beginner_klu
     begin
-    self.no_kluuus.create(:title => "I'am new to Kluuu", 
+    self.no_kluuus.create(:title => "I'm a KluuU Newcomer", 
                           :category => (Category.find_by_name('living') || Category.find_by_name('Leben') ) , 
                           :published => true , 
                           :uses_status => false,

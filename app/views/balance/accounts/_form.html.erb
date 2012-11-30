@@ -1,6 +1,6 @@
 <%= form_for @balance_account, :url => user_balance_account_path(:user_id => current_user), :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :currency, :class => 'control-label' %>
+    <%#= f.label :currency, :class => 'control-label' %>
     <div class="controls">
       <%= f.select :currency, Balance::Account::CURRENCIES , {}, :class => 'select_field' %>
     </div>

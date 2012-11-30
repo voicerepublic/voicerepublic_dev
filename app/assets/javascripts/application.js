@@ -37,7 +37,21 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
   });
 })(jQuery);
 
-
+/**  keep track of users logged in - 
+ * 
+ * div with class stay-alive is in actionbar
+ **/
+(function($){
+    function stayAlive(interval) {
+      var pongs = $('.stay-alive');
+      if (pongs[0]) {
+        window.setInterval(function(){$.ajax({ url: "/dashboard/ping", type:"GET",dataType:"script" });},interval);
+      }
+    }
+    $(function(){
+      stayAlive(180000);
+    });
+})(jQuery);
 
 (function($){
   var checkUserOnline = {
@@ -45,7 +59,7 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
       var url = "/users/status_for.json";
 
       var setUserStatus = function(payload) {
-        console.log(payload);
+       // console.log(payload);
         $.each(payload, function(i) {
           $('.user-image[data-user-id=' +  payload[i].id +']').addClass(payload[i].available);
         });
@@ -57,14 +71,15 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
         userIDs[i] = $(this).data("user-id");
       });
       userIDs = userIDs.join(",");
-      console.log(userIDs);
+      // console.log(userIDs);
       $.ajax({
         url: url,
         data: {"ids": userIDs},
         success:  function(data) {
           setUserStatus(data);
         },
-        error: function() { console.log("Connection Error"); }
+        error: function() { // console.log("Connection Error");
+         }
       });
     }
   };
@@ -77,7 +92,10 @@ swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "
 
 overlay = {
 
+  dataStorage: {},
+
   build: function(innerHTML, force) {
+    var ajaxImageURL = 'ajax-loader.gif';
 
     var calculateOverlay = function() {
       var windowHeight = $(window).height();
@@ -97,16 +115,16 @@ overlay = {
       function set() {
         overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
         overlayContent.css({
-          top: document.documentElement.clientHeight/2 - overlayContent.height()/2,
+          top: document.documentElement.clientHeight/2 - overlayContent.height()/2 + $(window).scrollTop(),
           left: document.documentElement.clientWidth/2 - overlayContent.width()/2
         });
         if (bodyHeight < windowHeight && overlayContent.height() < windowHeight) {
           overlayBackground.height(windowHeight);
-        } else if (overlayContent.height() > windowHeight) {
-          overlayBackground.height((overlayContent.height() + minMarginTop) * 1.05);
+        } else if (bodyHeight < windowHeight && overlayContent.height() > windowHeight) {
+          overlayBackground.height((overlayContent.height() + minMarginTop * 2) * 1.2);
           overlayContent.css({
             marginTop: 0,
-            top: minMarginTop
+            top: minMarginTop + $(window).scrollTop()
           });
         }
         if (bodyWidth < windowWidth && overlayContent.width() < windowWidth) {
@@ -119,6 +137,7 @@ overlay = {
           });
         }
         overlayContent.fadeIn("fast");
+        overlayBackground.css('background-image', 'none');
       }
 
       if (images.length !== 0 ) {
@@ -146,15 +165,24 @@ overlay = {
     };
 
 
-    var body = $('body').css({
-      position: 'relative'
-    });
+   
+
     if ($('.overlay-background').length === 0) {
+     var body = $('body').css({
+        position: 'relative'
+      });
+      overlay.dataStorage.bodyMargin = body.css('margin-bottom');
+      // console.log(overlay.dataStorage.bodyMargin);
+      body.css({
+        marginBottom: 0,
+        paddingBottom: overlay.dataStorage.bodyMargin
+      });
       var overlayBackground = $("<div />", {"class": "overlay-background"}).appendTo(body);
       var overlayContent = $("<div />", {"class": "overlay-content"}).appendTo(overlayBackground).hide();
     } else {
-      var overlayBackground = $('.overlay-background');
+      var overlayBackground = $('.overlay-background').css('background-image', ajaxImageURL);
       var overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
+      overlayContent.fadeOut('fast');
     };
  
 
@@ -165,7 +193,6 @@ overlay = {
     });
     
     calculateOverlay();
-    overlayBackground.css("background-image", "none");
     if (force !== true) {registerClose()};
   },
 
@@ -174,6 +201,11 @@ overlay = {
     if (typeof target == 'string' || typeof target == 'object') {
       $(target).fadeOut("fast", function() {
         $(this).remove();
+      });
+      $('body').css({
+        position: 'static',
+        marginBottom: overlay.dataStorage.bodyMargin,
+        paddingBottom: 0
       });
     }
   }

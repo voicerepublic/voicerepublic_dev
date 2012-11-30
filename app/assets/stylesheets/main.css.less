@@ -7,21 +7,17 @@
 @import "config.css.less";
 
 html{
-  height:100%; /* for footer wrapper */
+  min-height:100%;
+  position: relative;
 }
 
 body {
   background: @white;
   overflow-y:scroll;
-  height:100%; /* for footer wrapper */
-  position: relative;
+  margin: 0 0 340px; /* bottom = footer height */  
 }
 
 body.layout-logged-out{
-  
-  .flash_messages{
-    top:60px
-  }
   .landing-page{
     margin-top:0px;
   }
@@ -29,6 +25,11 @@ body.layout-logged-out{
 
 .dropdown-menu {
   background: @brandColorLighter;
+}
+
+.centered-box{
+  max-width:500px;
+  margin:auto;
 }
 
 // error handling in forms
@@ -74,8 +75,9 @@ body.layout-logged-out{
   position: absolute;
   left: 0;
   top: 0;
-  background: #CCCCCC url(ajax-loader.gif) center center no-repeat;
-  background: rgba(0,0,0,0.2) url(ajax-loader.gif) center center no-repeat;
+  background: @white url(ajax-loader.gif) center center fixed no-repeat;
+  background: rgba(0,0,0,0.2) url(ajax-loader.gif) center center fixed no-repeat;
+  background-attachment:fixed;
   z-index:9999;
 
   h3{
@@ -97,14 +99,20 @@ body.layout-logged-out{
     left: 50%;
     top: 50%;
     padding: 30px;
-    border: 1px solid #000;
+    border: 1px solid @textColor;
     .overlay-close-link{
-      position: absolute;
+      position: fixed;
       right:14px;
       top:0px;
       font-size:26px;
       color:#333;
       text-decoration: none;
+    }
+  }
+
+  .muted-kluuu{
+    .klu-layout{
+      max-width:300px
     }
   }
 }
@@ -116,6 +124,7 @@ body.layout-logged-out{
 
 .flash_messages{
   position: fixed;
+  height:1px;
   top:48px;
   width:100%;
   text-align: center;
@@ -164,7 +173,9 @@ body.layout-logged-out{
     margin-left: 60px;  
     margin-top:3px;
     max-width:140px;
-    display: inline;
+    max-height:45px;
+    overflow: hidden;
+    display: inline-block;
   }
 
 }
@@ -179,18 +190,35 @@ body.layout-logged-out{
 }
 
 /* HELP TEXT OVERLAY */
+.alert-help-layer{
+  background:#FFEE66;
+  display: inline-block;
+  h3{
+    color:black;
+    margin: 0;
+  }
+  a{
+    color:black;
+  }
+  box-shadow:2px 2px 4px rgba(0, 0, 0, 0.19), 0 0 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow:2px 2px 4px rgba(0, 0, 0, 0.19), 0 0 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow:2px 2px 4px rgba(0, 0, 0, 0.19), 0 0 2px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow:2px 2px 4px rgba(0, 0, 0, 0.19), 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
 .help-text {
-  background:rgb(225, 214, 252);
+  /*background:#F9F779;*/
+  background:url(/assets/bg_help.png);
   /*background: none repeat scroll 0 0 rgba(225, 214, 252, 0.97);*/
-  background:rgba(255, 232, 123, 0.94);
+  /*background:rgba(255, 232, 123, 0.94);*/
   border: rgba(241, 242, 254, 1);
   border-radius: 1px 1px 1px 1px;
   .box-shadow(2px 2px 4px rgba(0, 0, 0, 0.19), 0px 0px 2px rgba(0,0,0,0.1));
   color: rgba(0, 0, 0, 0.8);
   display: inline-block;
-  font: 17px/1.5 'Nothing You Could Do';
+  font: 15px/1.5 Helvetica;
   max-width: 400px;
-  padding: 10px 30px 10px 16px;
+  padding: 20px 30px 10px 40px;
   position: absolute;
   width: auto;
   z-index:100;
@@ -199,12 +227,31 @@ body.layout-logged-out{
     display: block;
     top:0px;
     right:6px;
-    font-size: 27px;
+    font-size: 17px;
     line-height: 1;
     color:#333;
     text-decoration: none;
     &:hover{
       color:#000;
+    }
+  }
+  .help-text-arrow{
+    
+    background-repeat: no-repeat;
+    position: absolute;
+    &.arrow-left{
+      background-image: url(/assets/help-arrow-left.png);      
+      top:-35px;
+      left:-120px;     
+      height:54px;
+      width:271px; 
+    }
+    &.arrow-top{
+      background-image: url(/assets/help-arrow-top.png);      
+      top:-140px;
+      left:-65px;
+      height:271px;
+      width:54px; 
     }
   }
 }
@@ -214,7 +261,7 @@ body.layout-logged-out{
   display: inline-block;
   position: relative;
 
-  &:before {
+  &:after {
     left: -1px;
     bottom: -1px;
     z-index:100;
@@ -230,17 +277,17 @@ body.layout-logged-out{
     }
   }
 
-  &.online:before {
+  &.online:after {
     background-color: green;
     box-shadow: 0 0 3px white, 0 0 3px green;
   }
 
-  &.busy:before {
+  &.busy:after {
     background-color: orange;
     box-shadow:  0 0 3px white, 0 0 3px orange;
   }
 
-  &.offline:before {
+  &.offline:after {
     background-color: #780000;
     box-shadow:  0 0 3px white, 0 0 3px #780000;
   }

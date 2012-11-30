@@ -7,6 +7,7 @@ Kluuu2::Application.routes.draw do
     get "dashboard/news"
     get "dashboard/matches"
     get "dashboard/settings"
+    get "dashboard/ping"
     delete "dashboard/news/:notification_id", :controller => 'dashboard', :action => :delete_notification, :as => 'delete_notification'
     get "dashboard/settings/edit", :controller => 'dashboard', :action => :edit_settings
     get "dashboard/settings/edit_password", :controller => 'dashboard', :action => 'edit_password'
@@ -16,9 +17,11 @@ Kluuu2::Application.routes.draw do
     post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
     post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
-    get "tags/:tag", :controller => 'landing_page', :action => 'show_tagged_with', :as => 'tagged_with'
+    get "tags/:tag", :controller => 'search', :action => 'tagged_with', :as => 'tagged_with'
     post "chats/:one/:two", :controller => 'chats', :action => 'create', :as => 'post_chat'
-    get "chats/:one/:two/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
+    #post "chats/:user_id", :controller => 'chats', :action => 'create', :as => 'post_chat'
+    #get "chats/:one/:two/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
+    get "chats/:user_id/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
     delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
     get 'users/status_for' => 'users#status_for'
   end
@@ -32,7 +35,10 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /de|en/ do
-    devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+    devise_for :users, :controllers => {  :omniauth_callbacks => "users/omniauth_callbacks" 
+                                          #:sessions => "users/sessions"
+                                          #:registrations => "users/registrations" 
+                                        }
   end
   
   scope "(/:locale)", :locale => /en|de/ do
@@ -40,6 +46,7 @@ Kluuu2::Application.routes.draw do
       member do
         get 'no_kluuus'
         get 'kluuus'
+        get 'welcome'
       end
       resources :messages, :only => [:index, :show, :destroy, :update] do
         member do

@@ -9,6 +9,8 @@ class Klu < ActiveRecord::Base
   belongs_to :category
   has_many :video_sessions, :inverse_of => :klu
   
+  has_many :notifications, :class_name => "Notification::Base", :dependent => :destroy, :foreign_key => :klu_id
+  
   validates :user_id, :presence => true
   validates :title, :presence => true
   validates :title, :length => { :minimum => 2, :maximum => 150 }
@@ -56,6 +58,10 @@ class Klu < ActiveRecord::Base
     return true if self.published
   end
   
+  def allow_anonymous_calls?
+    user.account.prefs.anonymous_calls  
+  end
+  
   def get_charge_type_as_integer
     
     if self.charge_type == 'fix' 
@@ -72,15 +78,6 @@ class Klu < ActiveRecord::Base
     return 5
   end
   
-  
-  def status_or_about
-    if uses_status && ! user.status_updates.empty?
-      ret = self.user.status_updates.order("created_at DESC").limit(1).first.content
-    else
-      ret = self.user.account.about
-    end
-    ret.nil? || ret.blank? ? "..." : ret
-  end
   
   def complementaries
     cat = self.category
@@ -140,7 +137,7 @@ class Klu < ActiveRecord::Base
   def generate_notification
     if self.published == true
       self.user.follower.each do |follower|
-        if follower.account.prefs.inform_of_friends == true
+        if follower.account.prefs.inform_of_friends == "1" || true
           Notification::NewKluuu.create(:user => follower, :other => self.user, :klu => self)
         end
       end

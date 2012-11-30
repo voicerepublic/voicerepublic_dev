@@ -1,7 +1,7 @@
 require 'video_system_api/video_system_api'
 
 class VideoServer < ActiveRecord::Base
-  attr_accessible :activated, :name, :salt, :url, :version
+  attr_accessible :activated, :name, :salt, :url
   
   has_many :video_rooms, :class_name => 'VideoRoom', :foreign_key => 'video_server_id', :dependent => :nullify
 
@@ -21,9 +21,6 @@ class VideoServer < ActiveRecord::Base
             :presence => true,
             :length => { :minimum => 1, :maximum => 500 }
 
-  validates :version,
-            :presence => true,
-            :inclusion => { :in => ['0.7', '0.8'] }
 
   # Array of VideoSession in VideoSystem
   attr_reader :video_system_rooms
@@ -35,7 +32,7 @@ class VideoServer < ActiveRecord::Base
   # Returns the API object associated with this server.
   def api
     if @api.nil?
-      @api = VideoSystemApi::VideoSystemApi.new(self.url, self.salt, self.version.to_s, false, 2, Rails.configuration.ip_address, Rails.configuration.ip_port)
+      @api = VideoSystemApi::VideoSystemApi.new(self.url, self.salt, false, 2, Rails.configuration.ip_address, Rails.configuration.ip_port)
     end
     @api
   end

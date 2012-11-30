@@ -4,7 +4,11 @@
 		<%= render :partial => 'klus/kluuu_call_button', :locals => {:klu => klu, :user => klu.user} %>				
 		<div class="klu-user-info-inner">
 			<h4><%= link_to klu.user.name, user_path(:id => klu.user) %></h4>
-			<div class="klu-status-or-about"><%= partial_for_status_or_about(klu) %></div>
+			
+			<div class="klu-status-or-about">
+				<%= render(:partial => "klus/user_about", :locals => { :klu => klu } ) %>
+			</div>
+			
 			<nav>
 				<ul>
 					<% if current_user && current_user.id != klu.user.id %>
@@ -13,18 +17,9 @@
 						 <i class="icon-envelope"></i><%= t('.send_message') %>
 						<% end if current_user %>
 					</li>
-					<li>
-						
-						<% if current_user.followed.include?(klu.user) %>
-						<%= link_to(t('.unfollow'), user_follow_path(:user_id => current_user, :id => current_user.followed_relations.where(:followed_id => klu.user).first), :method => :delete, :class => "btn btn-small") %>
-						<% else %>
-							<%= link_to( t('.follow'), user_create_follow_path(:user_id => current_user, :followed_id => klu.user ), :method => "post", :class => "btn btn-small")%>
-						<% end %>
-						
-					</li>
 					<% end %>
 					<li class="klu-user-info-more-klus">
-						<%= link_to(t('.more_klus_by_this_user'), user_klus_path(:user_id => klu.user) ) %>
+						<%= link_to(t('.more_klus_by_this_user'), user_path(:id => klu.user) ) %>
 					</li>
 				</ul>
 			</nav>
@@ -33,7 +28,7 @@
 
 
 	<aside class="klu-meta">
-		<div class="klu-availability"> <strong><%= t('available_at_times') %></strong> <%= klu.available_at_times %></div>
+		<div class="klu-availability"> <strong><%= t('.available_at_times') %></strong> <%= klu.available_at_times %></div>
 		<ul class="klu-categories unstyled">
 			<li>
 				<strong><%=t('.category:_') %></strong> <br>

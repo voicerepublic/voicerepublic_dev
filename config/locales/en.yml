@@ -1,6 +1,3 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   date:
     abbr_day_names:
@@ -212,6 +209,357 @@ en:
     user_information:
       time_at_location: "Time at %{user}s place"
   ###########  models ####################
+  # in notification-models generiert
+  you_missed_a_call_on_your_klu: "You missed a call to your KluuU."
+  model_notification_follower_action:
+    friend_took_action: "Activity by %{friend} on KluuU"
+  model_notification_new_bookmark:
+    your_klu_got_bookmarked: "%{bookmarker} bookmarked your KluuU '%{klu_title}'" 
+  model_notification_new_comment:
+    you_got_a_new_comment_by: "%{commenter} commented on your KluuU."
+  model_notification_new_follower:
+    you_got_a_new_follower: "%{name} now follows you."
+  model_notification_new_kluuu:
+    friend_created_new_kluuu: "%{name} has created a new KluuU."
+  model_notification_new_message:
+    new_message_from: "You have a message from %{name}."
+  model_notification_new_rating:
+    you_got_rated_by: "%{name} rated your KluuU."
+  model_notification_new_status:
+    friend_created_new_status: "%{name} posted a new status."
   ###########  helpers  ##################
+  
+  helper:
+    application:
+      kluuu_string: "KluuU"
+      no_kluuu_string: "Question"
+  
+  ###########  views #####################
+  accounts:
+    form_preferences:
+      get_notifications_contacts_activities: "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte"
+      emails_about_contact_activities: "if someone sends me a message/ follows me / bookmarks my KluuU."
+      emails_about_me: "when someone tries to call me while I am offline."
+      dont_show_initial_help: "don't show help text."
+      save_preferences: "save settings."
+      on_site_help: "Help text on / off"
+      call_settings: "Call settings"
+      allow_anonymous_calls: "Allow anonymous calls"
+    form: 
+      delete_portrait: "Delete profilephoto"
+    edit:
+      edit_profile: "Edit profile"
+  balance:
+    accounts:
+      new:
+        desired_currency: "Choose your currency."
+        initialize_your_account: "Please activate your financial account."
+        configure_your_financial_account: "Configure your financial account."
+      show:
+        check_some_money_in: "Buy credit"
+      check_in_orders: 
+        new:
+          check_in_money: "Buy credit"
+        paypal:
+          check_in_prepaid_amount: "Buy credit"
+          cancel_check_in_order: "Cancel purchase"
+  chats:
+    form:
+      your_message: "message"
+      end_chat: "end chat"
+      submit: "send"
+    show:
+      text_chat: "Chat"
+  comments:
+    form:
+      your_comment: "Comment"
+      write_a_comment: "Write a comment."
+  conversations:
+    index:
+      conversations: "Conversation"
+      and_more_messages: "and %{count} more messages."
+      new_message: "New message"
+    show:
+      conversations: "Conversation"
+      your_messages_with: "Your conversation with"
+      back_to_all_conversations: "Compact view "
+      new_message: "New message"
+      delete_conversation: "Delete conversation"
+      
+  dashboard:
+    contacts_page:
+      my_follower: "Followers"
+      followed_by_me: "Following"    
+    bookmarks:
+      bookmarks: "Bookmarks"
+      no_bookmarks_available: "Not bookmarked"
+    contacts:
+      friends: "Friends"
+      no_contacts_available: "No current contacts"
+    edit_password:
+      edit_password: "Change password"
+    edit_settings:
+      settings: "Settings"
+      email: "My email adresse"
+      new_password: "New password"
+      notifications_and_emails: "Notify me via email..."
+    matches:
+      matches: "Matches"
+      my_kluuus: "My KluuUs"
+      matches_to_my: "Matches for"
+      view: "View"
+      we_could_not_find_matches_for_you: "Sorry, no matches yet."
+    news:
+      news: "News"
+    settings:
+      settings: "Settings"
+      configured_email: "Your current email adresse"
+      edit_password: "Change password"
+      get_email_if_actions_on_my_kluuus: "Email an mich sobald es mich betrifft"
+      get_news_on_actions_of_friends: "Ich möchte einen Hinweis in Neues über die Aktivitäten meiner Freunde"
+      get_email_if_actions_of_friends: "Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde"
+      hide_initial_help: "Die initialen Hilfe-Texte verstecken"
+      edit_preferences: "Einstellungen editieren"
+  follows:
+    follower:
+      follow_back: "Follow back"
+    index:
+      and_friends: "and contacts"
+      his_follower: "Followers"
+      people_he_follows: "Following"
+      
+  klu_images:
+    describe_your_picture_in_a_few_words: "Upload a photo"
+    
+  klus:
+    form_welcome_new_no_kluuu:
+      your_interest_today: "Was interessiert dich?"
+      what_are_you_interested_in: "Schreib uns, was dich heute interessiert!"
+      continue: "Continue"
+    form_kluuu:
+      call_options: "Video call options"
+    form_new_kluuu:
+      title: "Title (mandatory)"
+      enter_the_name_of_your_kluuu: "Conversation theme"
+      description: "Description (mandatory)"
+      describe_your_kluuu: "A good description will generate interest. You can change the description anytime."
+      add_image_to_your_kluuu: "Please upload a photo for this KluuU."
+      tag_list: "Tags (mandatory) Please 3 or more - separate by comma - recipe, cooking, organic,"
+      category: "Category (mandatory)"
+      please_use_significant_tags: "Tags are key words. The more tags you use, the easier other will be able to find your KluuU."
+      available_at_times: "Times available."
+      at_what_time_are_you_available: "This information is optional."
+      charge_type: "Charge type"
+      charge_cents: "Rate"
+      you_can_charge_for_your_kluuu: "You can offer your KluuU for free, charge per minute or at a fixed price."
+      you_can_charge_by_minute_or_a_fixed_price: "Set a rate per minute between $ 0.10 and $ 5 or a fixed price between $ 1 and $ 50."
+      how_much_do_you_want_to_charge: "The first 5 minutes of all conversation are free."
+      please_check_to_publish_your_kluuu: "Markieren, um dein Kluuu zu veröffentlichen"
+      later_you_can_unpublish_and_publish_any_time: "Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren."
+      uses_status: "Deine aktuelle Status-Message im Kluuu anzeigen"
+      you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
+    form_new_no_kluuu:
+      title: "Title"
+      category: "Category"
+      tag_list: "Tag list"
+      published: "Public"
+      save_no_kluuu: "Save question"
+    form_no_kluuu:
+      call_options: "Call options"
+    kluuu_top_actions:
+      add_image: "Add image"
+    kluuu_user:
+      send_message: "Send message"
+      unfollow: "Unfollow"
+      follow: "Follow"
+      more_klus_by_this_user: "More KluuUs by this person"
+      available_at_times: "Online:"
+      category: "Category"
+      tags: "Tags"
+    kluuu:
+      feedbacks: "Reviews"
+      this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times}"
+      people_who_wanna_know_more_about: "Matches for this KluuU"
+    no_kluuu:
+      this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times}"
+      people_who_know_about: "Matches for this question"
+    user_about:
+      user_description: "About me"
+    user_status:
+      opinion: "Status"
+    edit:
+      edit: "Edit"
+    index:
+      kluuus_of_user: "%{user_name}'s KluuUs"
+      new_no_kluuu: "Ask a new Question"
+      new_kluuu: "Create a new KluuU"
+    new:
+      create_a_new_kluuu: "Create a new KluuU"
+  
+  landing_page:
+    index:
+      enter_search_term: "Enter search term"
+      
+  messages:
+    received_message:
+      delete: "Delete"
+    sent_message:
+      delete: "Delete"
+      
+  notifications:
+    call_rejected:
+      video_call_title: "Video call"
+      rejected_text: "Video call wasn't answered."
+      close: "Close"
+    incoming_call:
+      video_call_title: "Video call"
+      accept_call: "Accept"
+      reject_call: "Reject"
+    video_system_error:
+      video_down_text: "Sorry! The video system is temporarily out of order. We're working on it. Please try again later."
+      close: "Close"
+  notifies:
+    my_content:
+      bookmarked_your: "bookmarked your KluuU"
+      commented_your_status: "commented on your status"
+      follows_you_now: "is following you"
+      unfollow: "Unfollow"
+      follow_back: "Follow"
+      rated_your: "Rated your KluuU"
+      wrote_you_a_message: "Send you a Message"
+      an_anonymous_person: "an anonymous call"
+      tried_to_call_your: "attempted to reach"
+    new_content:
+      created_new_status_update: "changed their status"
+      created_new: "crated a new"
+  search:
+    tagged_with:
+      taggings_with: "KluuUs and questions tagged with: '%{tag}'"
+      no_kluuus_tagged_with: "No results for tag '%{tag}' found."
+    form:
+      search: "Search!"
+    search:
+      searchresults: "Search result"
+      search_results: "Search result"
+      publish_search_as_kluuu: "Post this search term"
+      persist_search: "Tipp"
+      sign_up: "Sign up"
+      user: "User"
+  
+  shared:
+    actionbar:
+      create_kluuu: "New KluuU" 
+      create_question: "New Question"
+      notifications: "News"
+      messages: "Messages" 
+    check_flash:
+      no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
+    dashboard_tabs:
+      dashboard: "Dashboard"
+      matches: "Matching KluuUs"
+      news: "News"
+      bookmarks: "Bookmark"
+      contacts: "Contacts"
+      messages: "Messages"
+      settings: "Settings"
+      finances: "Finances"
+    navbar:
+      sign_up: "Sign up"
+      sign_in: "Sign in"
+    notice_or_error:
+      success: "Successful"
+      warning: "Warning"
+      error: "Error"
+    notifications_list:
+      all: "View all"
+    user_dropdown_list:
+      logout: "Logout"
+  
+  status_updates:
+    status_update:
+      add_comment: "Comment "
+      comments: "Comments"
+    index:
+      new_status_update: "post new status"
+    show:
+      back: "back"
+  
+  users:
+    welcome:
+      welcome_user: "Willkommen bei KluuU"
+      no_klu_title: "Was interessiert Dich?"
+      no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
+    basic_form:
+      edit_your_email: "Change email address"
+      save_email: "Save email address"  
+    nested_form:
+      delete_portrait: "Delete photo"
+      add_a_portrait: "Upload a profile photo"
+    no_status_updates:
+      no_status_updates_of_you: "You have not posted a status"
+      what_you_say: "What's on your mind?"
+      new_opinion: "New status"
+      no_status_updates_here: "This user has not posted a status"
+    password_form:
+      new_password: "New password"
+      update_password: "Save Passwort"
+    status_updates:
+      add_comment: "kommentieren"
+      comment: "Kommentar"
+      new_status_update: "Neuen Status"
+    user_content_nav:
+      i_talk_about: "KluuUs"
+      i_like_to_know_more_about: "Questions"
+      opinions: "Status"
+      bookmarks: "Bookmark"
+    user_information:
+      unfollow: "Unfollow"
+      follow: "Follow"
+      send_message: "Send message"
+      chat: "Chat"
+      user_description: "Description"
+      time_at_location: "Local time"
+      languages: "Languages"
+      follower: "Followers"
+      opinion: "Status"
+      edit_account: "Edit profil"
+    edit:
+      edit_your_profile: "Edit profil"
+  
+  video_sessions:
+    anonymous_sign_up:
+      video_call_title: "Video call"
+      guest_to_charge_text: "Please sign in to call this KluuU."
+      close: "Close"
+      sign_up: "Sign up"
+    calling:
+      video_call_title: "Video Call"
+      in_process: "In progess..."
+      cancel_call: "Abbrechen"
+    new_form:
+      dispatching_call: "Connecting to..."
+      start_video_call: "Video Call"
+    new:
+      video_call_title: "Video Call"
+      not_logged_in_text: "Your are not signed in. Continue?"
+      log_in: "Sign in"
+    no_account:
+      video_call_title: "Video Call"
+      not_enough_money_text: "You don't have sufficient credits. Do you like to buy credit now?"
+      close: "Close"
+      create_account: "Configure your financial account"
+    no_funds:
+      video_call_title: "Video Call"
+      not_enough_money_text: "You don't have a sufficient credit. Do you like to buy credit now?"
+      close: "Close"
+      check_in_money: "Buy credit"
+    user_unavailable:
+      video_call_title: "Video Call"
+      unavailable_text: "The User is currently offline. Write a message."
+      close: "Close"
+      send_message: "Message"
+    video_system_error:
+      video_down_text: "Sorry! The video system is temporarily out of order. We're working on it. Please try again later."
+      close: "Close"
   
   hello: "Hello world"

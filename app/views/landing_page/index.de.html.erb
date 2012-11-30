@@ -7,31 +7,50 @@
 			</span>
 		</h2>
 		<div class="lead">
-			KluuU macht Online VideoChat zum Erlebnis.
+			Diskutiere, erzähle, unterhalte, berate, unterrichte  … direkt über Video Gespräch.
 		</div>
 		<div class="landing-page-search text-align-center">	
 				<h2>Was interessiert Dich?</h2>
 				<%= form_tag "/search", :method => 'get', :class => 'form-search landing-page-search-form' do %>
-					<%= search_field_tag 'landin-page-query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span8" %>
+					<%= search_field_tag 'landing_page_query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span8" %>
 					<%= button_tag :type => 'submit', :class => "landing-page-search-button" do %>
 						<i class="icon-search"> </i>						
 					<% end %>	
 				<% end %>			
 		</div>
+		<div class="landing-page-bottom-background">
+			
+		</div>
 	</div>
 
-	<div class="row-fluid landing-page-color2">
-		<div class="span6 well well-large">
-			<h2>KluuUs on fire</h2>
+	<div class="row-fluid landing-page-color2 lp-treffpunkt">
+		<div class="span12 well well-large clearfix">
+			<div class="pull-left">
+				<h2>Treffpunkt</h2>
+				Nächster Treffpunkt:<br>
+				<strong>Dienstag, 4.Dezember, 19.00 - 20.00: Ich spiel dir die Fidel</strong>
+			</div>
+				<img src="/assets/tiny.png" >
+		</div>
+	</div>
+
+	<div class="row-fluid landing-page-color2 lp-kluuus">
+		<div class="span12 well well-large clearfix">
+			<h2>KluuUs</h2>
 				<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
 		</div>
+	</div>
+
+	<div class="row-fluid lp-trends-people">
 		<div class="span6">
 			<div class="well well-large">
-				<h2>Hot Topic</h2>
+				<h2>Trends</h2>
 				<%= render(:partial => 'shared/tag_cloud') %>
 			</div>
+		</div>
+		<div class="span6">
 			<div class="well well-large clearfix">
-				<h2>Hot Users</h2>
+				<h2>People</h2>
 				<ul class="unstyled">
 				<% User.potentially_available.limit(5).order("created_at DESC").each do |user| %>
 					<li class="user-small">

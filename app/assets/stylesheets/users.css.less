@@ -47,6 +47,14 @@ p.wichtig {
 			border-radius: 30px;
 			.transition(all 0.2s ease);
 
+			&.kluuu-color a {
+				color: @brandKluuu;
+			}
+
+			&.no-kluuu-color a {
+				color: @brandQuestion;
+			}
+
 			.user-main-nav-subline {
 				font-size: @baseFontSize;
 				display: block;
@@ -59,6 +67,22 @@ p.wichtig {
 					color: @white;
 					text-shadow: none;
 				}
+
+				&.kluuu-color {
+					background-color: @brandKluuu;
+				}
+
+				&.no-kluuu-color {
+					background-color: @brandQuestion;
+				}
+			}
+
+			&.kluuu-color:hover {
+				background-color: @brandKluuu;
+			}
+
+			&.no-kluuu-color:hover {
+				background-color: @brandQuestion;
 			}
 
 			&:hover {
@@ -105,13 +129,14 @@ p.wichtig {
 				padding-bottom: @baseLineHeight * @baseFontSize * 2;
 				padding-top: 22px;
 				margin-top: 0;
+				margin-bottom: 8px;
 
 				p {
 					margin: @verticalRhythm 0;
 				}
 
 				.icon-bullhorn, .contribution-name {
-					color: @brandColorGrey;
+					color: @grayLight;
 				}
 
 
@@ -180,7 +205,7 @@ p.wichtig {
 
 		h3, h4 {
 			font-size: @baseFontSize;
-			color: @brandColorGrey;
+			color: @grayLight;
 		}
 
 		h2, h3, h4 {
@@ -188,12 +213,18 @@ p.wichtig {
 		}
 
 		h2 {
-			line-height: 1;
+			line-height: 1.1;
 			display: inline-block;
 			white-space: nowrap;
   		width: 100%;                   
   		overflow: hidden;              /* "overflow" value must be different from "visible" */ 
-			text-overflow:    ellipsis;
+			text-overflow: ellipsis;
+			a{
+				color: #333;
+				&:hover{
+					color: @linkColor;
+				}
+			}
 		}
 
 		.user-activity {
@@ -305,7 +336,7 @@ ul.user-nav.unstyled {
 	margin-top: @verticalRhythm;
 
 	strong {
-		color: @brandColorGrey;
+		color: @grayLight;
 	}
 
 	& > li {

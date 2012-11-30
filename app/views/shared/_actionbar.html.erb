@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-fixed-top stay-alive">
 	<div class="navbar-inner">
 		<div class="container">
 			 <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
@@ -11,18 +11,18 @@
 				<%= link_to root_path, :class => "brand", :title => "KluuU" do %>
 				<h1><%= image_tag "logo.png", :alt => "KluuU Logo" %></h1>
 			<% end %>			
-			<ul class="nav">
-				<li>
-					<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link nav-left-border", :title => current_user.name do %>
-						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <span class="hidden-phone">Profile</span>
-					<% end %>						
-				</li>					
-				<li>
-					<%= link_to(dashboard_path, :title => "Dashboard") do %>
+			<ul class="nav">			
+				<li class="<%= current_page?(dashboard_path) ? 'active' : '' %>">
+					<%= link_to(dashboard_path, :title => "Dashboard", :class => "nav-left-border") do %>
 						<!-- <i class="icon-dashboard"></i><span class="navbar-menu-name">Dashboard</span>-->
-						Dashboard
+						<%= t(".dashboard", :default => "Übersicht") %>
 					<% end  if current_user %>
 				</li>
+				<li class="<%= current_page?current_user ? 'active' : '' %>">
+					<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link", :title => current_user.name do %>
+						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %> <span class="hidden-phone"><%= t(".profile") %></span>
+					<% end %>						
+				</li>						
 			</ul>
 			<div class="container nav-collapse">
 				<ul class="nav">					
@@ -33,14 +33,16 @@
 						<% end %>				
 					<li class="hidden-tablet">
 						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :title => "Create KluuU" do %>
-							<%#= image_tag '/assets/icon_new_klu.png', :alt => "New KluuU!", :class => "navbar-new-klu" %>
-							! KluuU
+							<span class="label label-kluuu">
+								<%= t(".create_kluuu", :default => "Neues KluuU") %>
+							</span>
 						<% end %>
 					</li>
 					<li class="hidden-tablet">
-						<%= link_to new_user_klu_path( :user_id => current_user), :title => "New Question" do %>
-							<%#= image_tag '/assets/icon_question.png', :alt => "Question", :class => "navbar-question-kluuu" %>
-							? Question
+						<%= link_to new_user_klu_path( :user_id => current_user), :title => "Create Question" do %>							
+							<span class="label label-question">
+								<%= t(".create_question", :default => "Neue Frage") %>
+							</span>
 						<% end %>
 					</li>
 				</ul>
@@ -91,4 +93,7 @@
 		</div>
 	</div>
 </div>
+<!-- $(document).ready(function(){setInterval(function(){$.ajax({ url:"<%= dashboard_ping_url -%>", type:"GET",dataType:"script" });},180000);}); -->
 <%= subscribe_to "/notifications/#{current_user.id}" %>
+
+

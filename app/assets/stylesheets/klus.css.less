@@ -12,11 +12,13 @@
 
 .klu-layout {
  	box-shadow:  2px 2px 4px rgba(0,0,0,0.05);
+ 	border: 1px solid #d8d8d8;
  	border: 1px solid rgba(0,0,0,0.15);
  	background: #fff;
  	background: rgba(255,255,255,0.8);
  	border-radius: 4px;
  	position: relative;
+ 	overflow:hidden;
  	.transition(background 0.2s ease);
 
  	.klu-overall-rating {
@@ -48,68 +50,42 @@
 }
 
 .call-btn {
-	background: @brandColor;
-	padding: 4% 30% (@baseFontSize * @baseLineHeight * 0.7 * 2) 4%;
+	background:#fcfcfc;
+	border:1px solid rgba(0,0,0,0.1);
+
+	padding:8px;
 	position: relative;
-	color: @white;
-	text-shadow:none;
-	.transition(background 0.2s ease);
-	max-width: 280px;
-	margin: 0 auto;
-
-	&:hover {
-		background: @brandColorLighter;
-		color: @white;
-	}
-
-	a, button {
-		border: none;
-		background: none;
-		height: auto;
-		padding: 0;
-		display: inline;
-		box-shadow: none;
-	}
-
-	form {
-		margin-bottom: @verticalRhythm * 2;
-	}
-
-	form, button {
+	height:55px;
+	width:100%;
+	button {
 		display: inline-block;
+		font-size:@baseFontSize * 0.8;
+		line-height:1.2;
+		font-weight:bold;
+		padding:5px 7px 4px 7px;
 	}
 
 	.klu-price {
 		position: absolute;
 		margin: 0;
-		left: 4%;
-		bottom: 8%;
+		left: 8px;
+		bottom: 3px;
 		width: 60%;
+		color:#555;
+		font-size:@baseFontSize * 0.8;
+		line-height:@baseLineHeight * 0.8;
 	} 
 
 	.klu-user-image {
 		position: absolute;
 		display: block;
-		right: 4%;
-		top: 50%;
-		width: 45px;
-		margin-top: -22px;
+		right: 5px;
+		top: 5px;
+		width: 21%;
+		max-width:44px;
 
 		img {
 			display: block;
-		}
-	}
-	&.jqueryfied {
-		display: block;
-		text-align: left;
-
-		button {
-			border: none;
-			background: none;
-			height: auto;
-			padding: 0;
-			display: inline;
-			box-shadow: none;
 		}
 	}
 } /* End of call-btn */
@@ -120,7 +96,8 @@
 	line-height: 1;
 
 	a {
-		color: @brandColor;
+		/*color: @brandColor;*/
+		color:#333;
 		.transition(color 0.2s ease);
 
 		&:hover {
@@ -206,7 +183,8 @@
 
 	&.kluuu {
 		.kluuu-description {
-			height: 12px * @baseLineHeight * 3;
+			/*height: 12px * @baseLineHeight * 3;*/
+			height:40px;
 			overflow:hidden;
 			margin: @verticalRhythm 2px;
 			color: @textColor;
@@ -268,6 +246,40 @@
 
 	.klu-layout {
 		padding: @vertical-offset @horizontal-offset;
+
+		#gallery-container {
+			overflow:hidden;
+
+			& > a {
+				position: absolute;
+				top: 25%;
+				font-size: 83px;
+				color: @white;
+				opacity: 0.3;
+
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+
+			&:hover > a {
+				opacity: 0.5;
+				.transition(opacity 0.3s);
+
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+
+			#gallery-last {
+				left: -15px;
+			}
+
+			#gallery-next {
+				right: -15px;
+			}
+		}
 
 		.kluuu-pics {
 
@@ -349,6 +361,7 @@
 
 		.klu-user-info {
 			box-shadow: 1px 1px 1px rgba(0,0,0,0.15) inset, -1px -1px 1px rgba(0,0,0,0.15) inset;
+			border: 1px solid #d8d8d8\9; /* IE8 Hack */
 			position: relative;
 			height: 100%;
 
@@ -574,16 +587,19 @@
 	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
 	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
 	background-color: #fff;
-	/* background-color: #889926; 
-	h3{
-		color:#fff
+	
+	.klu-title {
+		color: @brandBlue;
 	}
-	*/
 }
 
 .no-kluuu.klu-layout, .no-kluuu .klu-layout {
 	background-color: desaturate(lighten(@brandColor, 60%), 12%);
-	background-color: #FFF9E4;
+	background-color: #fff;
+
+	.klu-title {
+		color: @brandGreen;
+	}
 }
 
 .tiny-klu {

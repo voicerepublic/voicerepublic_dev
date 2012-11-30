@@ -4,3 +4,5 @@
                                    :default => "Edit #{model_class.model_name.human}") %></h1>
 </div>
 <%= render :partial => 'form' %>
+
+<%= render( :partial => "inline_help/dashboard_finances_charged", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	

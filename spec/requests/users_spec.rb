@@ -3,6 +3,7 @@ require 'spec_helper'
 feature "User visits another user" do
   background do
     @user = FactoryGirl.create(:user)
+    #@klu = FactoryGirl.create(:published_kluuu, :user => @user)
   end
   
   scenario "user visits user-page" do
@@ -13,21 +14,24 @@ feature "User visits another user" do
 end
 
 feature "User can register" do
+  before do
+    Category.create(:name => "testcategory")
+  end
   scenario "user supplies correct values" do
     visit root_path()
-    click_link("Sign Up")
+    click_link("sign-up")
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.click_button('Sign Up')
-    page.should have_css(".dashboard")
+    page.should have_css(".welcome-page")
   end
   
   scenario "User misses email during registration" do
     visit root_path()
-    click_link('Sign Up')
+    click_link('sign-up')
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_password', :with => "foobar")
@@ -39,8 +43,9 @@ end
 
 feature "User gets notifications via push" do
   
-  before do
+  before :each do
     @user = FactoryGirl.create(:user)
+    _klus = FactoryGirl.create(:published_no_kluuu, :user => @user)
   end
   
   scenario "User sees number of notifications in actionbar - with css-id 'alerts-count-'" do

@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
   
+  layout "application", :only => [:welcome]
+  
   # GET /users
   # GET /users.json
   def index
@@ -145,5 +147,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json {  render json: @users }
     end
+  end
+  
+  def welcome
+    @klu = current_user.no_kluuus.build(:tag_list => "newcomer")
+    @user = current_user
   end
 end

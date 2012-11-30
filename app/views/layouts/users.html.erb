@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-		<title><%= content_for?(:title) ? yield(:title) : "Kluuu - VideoConferencing" %> &middot; on KluuU</title>
+		<title><%= content_for?(:title) ? yield(:title) : t(".landing_title", :default => "KluuU - Video Gespräche") %> &middot; on KluuU</title>
 		<%= csrf_meta_tags %>
 		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 		<!--[if lt IE 9]>
@@ -17,34 +17,28 @@
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 
 	</head>
-	<body>
+	<body class='<%= current_user ? "" : "layout-logged-out" %>'>
 		<% if current_user %>
 			<%= render(:partial => "shared/actionbar") %>
 			<%= render(:partial => '/shared/check_flash') -%>
 		<% else %>
-			<body class="layout-logged-out">
 			<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
-		<div class="footer-wrapper">
-			<div class="container user-container">
-					
-					<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
-					
-					<div class="user-content ">
-						<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
+		<div class="container user-container">
+				
+			<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
 			
-						<section class="user-content-shown clearfix">
-							<%= yield %>
-						</section>
-					</div>
+			<div class="user-content ">
+				<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
+	
+				<section class="user-content-shown clearfix">
+					<%= yield %>
+				</section>
 			</div>
-		<div class="footer-push"></div>
-		</div><!-- /wrapper for sticky footer -->
-		<div class="footer-content-wrapper">
-			<%= render(:partial => "shared/footer") %>
 		</div>
+		<%= render(:partial => "shared/footer") %>
 
 		<!-- Javascripts
 		================================================== -->

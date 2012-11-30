@@ -4,6 +4,7 @@ class VideoSession::Registered < VideoSession::Base
   has_one :guest_participant, :autosave => true, :class_name => 'Participant::GuestRegistered', :foreign_key => 'video_session_id', :dependent => :destroy
   has_many :transfers, :foreign_key => 'video_session_id' 
   
+  
   before_create :prepare_one_on_one_video_session
   after_create :create_incoming_call_notification
   
@@ -15,19 +16,16 @@ class VideoSession::Registered < VideoSession::Base
 
 
   def create_room_creation_failed_notification
-    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+    Notification::VideoSystemError.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)
   end
 
   def create_call_accepted_notification  
-    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+    Notification::CallAccepted.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id, :klu_id => self.klu_id)
   end
   
   def create_call_ended_notification(role)
-    #if (role == 'host')
-      Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id)  
-    #else
-      Notification::CallEnded.create(:user_id => self.guest_participant.user_id, :video_session_id => self.id)  
-    #end
+    Notification::CallEnded.create(:user_id => self.host_participant.user_id, :video_session_id => self.id,  :klu_id => self.klu_id)  
+    Notification::CallEnded.create(:user_id => self.guest_participant.user_id, :video_session_id => self.id,  :klu_id => self.klu_id)  
   end
 
  private
@@ -45,7 +43,7 @@ class VideoSession::Registered < VideoSession::Base
   end
   
   def create_incoming_call_notification
-    Notification::IncomingCall.create(:user_id => @klu.user_id, :other_id => self.calling_user_id, :video_session_id => self.id)  
+    Notification::IncomingCall.create(:user_id => @klu.user_id, :other_id => self.calling_user_id, :video_session_id => self.id, :klu_id => self.klu_id)  
   end
   
   def prepare_room_for_video_session
@@ -82,10 +80,10 @@ class VideoSession::Registered < VideoSession::Base
   def create_call_canceled_notification 
     if self.canceling_participant_id.to_i == self.guest_participant.id.to_i
       self.notifications.destroy_all
-      Notification::MissedCall.create(:user_id => self.host_participant.user_id, :other_id => self.guest_participant.user_id, :klu_id => self.klu.id, :video_session_id => self.id, :url => Rails.application.routes.url_helpers.user_path(:id => self.guest_participant.user_id))
+      Notification::MissedCall.create(:user_id => self.host_participant.user_id, :other_id => self.guest_participant.user_id, :klu_id => self.klu_id, :video_session_id => self.id, :url => Rails.application.routes.url_helpers.user_path(:id => self.guest_participant.user_id))
     else  
       self.notifications.destroy_all
-      Notification::CallRejected.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :video_session_id => self.id)
+      Notification::CallRejected.create(:user_id => self.guest_participant.user_id, :other_id => self.host_participant.user_id, :klu_id => self.klu_id, :video_session_id => self.id)
     end
   end
   
@@ -93,7 +91,7 @@ class VideoSession::Registered < VideoSession::Base
     @klu = Klu.find(self.klu_id)
     @calling_user = User.find(self.calling_user_id)
     #is the klu unpublished or not existing?
-    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (!@klu.published?)
+    raise KluuuExceptions::KluUnavailableError.new(I18n.t('video_sessions_controller.create.failed_1'), 'shared/alert_flash') if (@klu.instance_of?(Kluuu) && (!@klu.published?))
     #is the user trying to call his own klu?
     raise KluuuExceptions::SameUserError.new(I18n.t('video_sessions_controller.create.failed_2'), 'shared/alert_flash') if (@calling_user.id == @klu.user_id)
     #is the klus user not available?

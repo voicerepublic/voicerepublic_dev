@@ -11,7 +11,7 @@ class Notification::NewRating < Notification::Base
   after_create :generate_mail_notification
   
   def to_s 
-    I18n.t('.you_got_rated_by', :rater => other.name )
+    I18n.t('model_notification_new_rating.you_got_rated_by', :name => other.name )
   end
   
 end

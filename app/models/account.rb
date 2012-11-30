@@ -3,7 +3,10 @@ require 'kluuu_code'
 class Account < ActiveRecord::Base
   include KluuuCode::Methods
 
-  attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait, :prefs
+  attr_accessible :language_1, :language_2, :language_3, :timezone, :user_id, :about, :portrait, :prefs, :website
+  # FIXME: for migration of old kluuu
+  attr_accessible :portrait_file_name, :portrait_content_type, :portrait_file_size
+  
   serialize :prefs, KluuuCode::Preferences
 
   has_attached_file :portrait, :styles => { :large => "360x360#", :medium => "180x180#", :thumb => "45x45#" }, :default_url => "/system/:style/missing.jpg"
@@ -54,6 +57,14 @@ class Account < ActiveRecord::Base
       return self.send("language_#{i}").downcase if %w{ DE EN }.include?( self.send("language_#{i}") )
     end
     "en" # return english as default if user has not configured available langs
+  end
+  
+  def website_as_url
+    website =~ /\Ahttps?:/ ? website : "http://#{website}"
+  end
+  
+  def website_as_name
+    website =~ /\Ahttps?:/ ? website.gsub(%r/\Ahttps?:\/\//,"") : website
   end
 
 end

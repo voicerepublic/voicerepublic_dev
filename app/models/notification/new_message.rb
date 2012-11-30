@@ -9,7 +9,7 @@ class Notification::NewMessage < Notification::Base
   after_create :generate_mail_notification
   
   def to_s
-    I18n.t('.new_message_from', :sender => other.name, :default => 'you have a new message')
+    I18n.t('model_notification_new_message.new_message_from', :name => other.name, :default => 'you have a new message')
   end
   
 end

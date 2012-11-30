@@ -11,7 +11,7 @@ class Notification::NewFollower < Notification::Base
   
   
   def to_s
-    I18n.t('.you_got_a_new_follower', :follower => other.name, :default => "#{other.name} follows you." )
+    I18n.t('model_notification_new_follower.you_got_a_new_follower', :name => other.name, :default => "#{other.name} follows you." )
   end
   
 end

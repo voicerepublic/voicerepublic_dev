@@ -9,6 +9,44 @@
  * NAVBAR für Logged out and logged in, spezial für LOGGED OUT unten gekennzeichnet
  */
 
+/* for phone and table, bootstrap override */
+@media (max-width: 900px) {
+	.nav-collapse{
+		.nav>li{
+			text-align: center;
+			border-top:1px solid #eee !important;
+		}
+		.actionbar-notifications{
+			.menu-item{
+				display: none;
+			}
+		}
+		.navbar-search{
+			border-bottom:0;
+			border-top:0;
+			margin:0 !important;
+			padding:5px !important;
+			.navbar-search .navbar-submit-button{
+				position: static;
+			}
+		}
+		.badge-important{
+			position: static !important;
+		}
+
+		.actionbar-online-status{
+			.dropdown-toggle{
+				float:none !important;
+				margin:auto !important
+			}
+			li{
+				height:30px !important;
+				text-align: center !important
+			}
+		}
+	}
+}
+
 .navbar {
 
  	/*.box-shadow(0px 0px 2px lighten(@navbarBackgroundHighlight, 5%));*/
@@ -22,7 +60,7 @@
 		padding-right: 0
 	}
 
-	.navbar-inner{
+	.navbar-inner{ /* OLD GREEN NAVBAR */
 		min-height: 0;
 		padding: 0px 0 0px 0;	
 	  background-color: #90AEB3;/*#45BCD2, #56A5B3*/
@@ -92,6 +130,10 @@
 		}	
 	}
 	
+	.nav > .active > a, .nav > .active > a:hover, .nav > .active > a:focus {
+		background:#878887;
+	}
+
 	.nav-left-border{ /* First Element Gets Left Border */
 		border-left:1px solid rgba(0,0,0,0.2);	
 	}
@@ -107,7 +149,7 @@
 	}
 
 	a.brand{
-	 	padding: 5px 30px 7px 0px;
+	 	padding: 0px 30px 1px 0px;
 	 	margin-left: 0;
 
 	 	h1{
@@ -116,7 +158,7 @@
 	 		font-size:@baseFontSize * 1.1;
 	 	}
    	img{
-   		height:30px
+   		height:40px
   	}	 	
 	}
 
@@ -138,8 +180,8 @@
 		line-height:22px;
 		position: relative;
 		.navbar-search-query{
-			width:110px;
-			padding: 4px 12px;
+			max-width:80px;
+			padding: 4px 30px 4px 12px;
 			margin:0px 0px 0 0px;
 			vertical-align: middle;
 			border:1px solid #bbb;
@@ -283,7 +325,7 @@
 		}
 	}
 
-	.label{
+	.actionbar-user-dropdown .label{
 		width:50px;
 		display:inline-block;
 		text-align: center;
@@ -303,39 +345,45 @@
 		background-color:darkred;
 	}
 
+	.label-kluuu,
+	.label-question{
+		margin-top:6px;
+		padding:6px 9px;
+		background:@brandKluuu;
+		text-shadow:1px 1px 1px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.2);
+	}
+
+	.label-question{
+		background:@brandQuestion;
+	}	
+
 }
 
 /* LOGGED OUT landing-page*/
 
 .navbar-logged-out{
-/*	a.brand-big{ 
-		float:left;
-		margin:7px 10px 0 0;
-		img{
-			height:40px
+	.navbar-inner{
+		background:rgba(255,255,255,0.5);
+		text-shadow:1px 1px 1px rgba(255,255,255,0.4), -1px -1px 1px rgba(255,255,255,0.3) !important;
+		a{
+			color:#000 !important;
+			text-shadow:1px 1px 1px rgba(255,255,255,0.4), -1px -1px 1px rgba(255,255,255,0.3) !important;
 		}
 	}
 
-	li a{
-		font-size:@baseFontSize * 1.3;
-		padding:0 25px !important;
-	}
-	.first-landing-signup{
-		border-left:1px solid rgba(0,0,0,0.2);		
-	}*/
 	a.brand{
 		padding-right:10px;
 	}
 	.logo-claim{
 		line-height:@baseLineHeight *1.4;
-		color:rgba(0,0,0,0.6);
+		color:rgba(0,0,0,1);
 	}
 	a.tell-me-more{
 		background:rgba(39, 136, 153, 0.8);
 		line-height:1 !important;
 		padding:8px 10px !important;
 		margin:5px 11px 0 11px;
-		border:1px solid #aaa;
+		border:1px solid #aaa !important;
 		border-radius:5px;
 		color:white !important;
 		text-shadow:1px 1px 1px rgba(0,0,0,0.5), -1px -1px 1px rgba(0,0,0,0.3) !important;

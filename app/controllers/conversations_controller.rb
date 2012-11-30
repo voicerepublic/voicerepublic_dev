@@ -40,7 +40,7 @@ class ConversationsController < ApplicationController
     @conversation.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_conversations_url(:user_id => params[:user_id]) }
+      format.html { redirect_to user_conversations_url(:user_id => params[:user_id]), notice: I18n.t('controller_conversations.conversation_destroyed', :default => 'conversation destroyed') }
       format.json { head :no_content }
     end
   end

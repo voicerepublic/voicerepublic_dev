@@ -5,12 +5,22 @@ class Chat
   include ActiveModel::Conversion
   include ActiveModel::Serializers::JSON
   
-  attr_accessor :user1  # is recipient
-  attr_accessor :user2  # is sender
+  #attr_accessible :user1  
+  #attr_accessible :user2
+  attr_accessor :sender, :user1, :user2
+  attr_accessor :recipient
   attr_accessor :body
   
+  #belongs_to :user1, :class_name => "User"
+  #belongs_to :user2, :class_name => "User"
+  #belongs_to :sender, :class_name => "User"
+  #belongs_to :recipient, :class_name => "User"
+ 
+ 
   validates :user2, :presence => true
   validates :user1, :presence => true
+  validates :sender, :presence => true
+  validates :recipient, :presence => true
   validates :body, :presence => true
   
   define_model_callbacks :save
@@ -45,7 +55,11 @@ class Chat
   end
   
   def css_id_for_chat
-    "chat-" + [user1.id,user2.id].sort.join("-")
+    "chat-" + [sender.id, recipient.id].sort.join("-")
+  end
+  
+  def channel_name
+    "/chatchannel/" + [sender.id, recipient.id].sort.join("-")
   end
   
   private

@@ -3,13 +3,14 @@ class Notification::FollowerAction < Notification::Base
  
   belongs_to :user
   belongs_to :other, :class_name => 'User'
+  belongs_to :klu
    
   validates :other_id, :user_id, :presence => true
   
   #before_create :check_account_preferences
   
   def to_s
-    I18n.t('.friend_took_action', :friend => other.name )
+    I18n.t('model_notification_follower_action.friend_took_action', :friend => other.name )
   end
   
   private

@@ -1,17 +1,19 @@
-<div class="well well-small">
-	<%= link_to( t('.check_some_money_in'), new_user_balance_check_in_order_path(:user_id => @user), :class => "btn btn-primary") %>
-</div>
-soon more...
-<dl class="dl-horizontal">
-  <dt><strong><%= t('.currency') %>:</strong></dt>
-  <dd><%= @balance_account.currency %></dd>
-  <dt><strong><%=t('.prepaid_cents') %>:</strong></dt>
-  <dd><%= @balance_account.balance_cents %></dd>
-  <dt><strong><%= t('.revenue_cents') %>:</strong></dt>
-  <dd><%= @balance_account.revenue_cents %></dd>
-</dl>
-
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              user_balance_account_path(:user_id => @user), :class => 'btn'  %>
+<div class="well centered-box">
+	
+		<%= link_to( t('.check_some_money_in'), new_user_balance_check_in_order_path(:user_id => @user), :class => "btn btn-primary") %>
+		&nbsp;soon more...
+	<dl class="dl-horizontal">
+	  <dt><strong><%= t('.currency') %>:</strong></dt>
+	  <dd><%= @balance_account.currency %></dd>
+	  <dt><strong><%=t('.prepaid') %>:</strong></dt>
+	  <dd><%= humanized_money_with_symbol(@balance_account.balance) %></dd>
+	  <dt><strong><%= t('.revenue') %>:</strong></dt>
+	  <dd><%= humanized_money_with_symbol(@balance_account.revenue) %></dd>
+	</dl>
+	
+	<div class="form-actions">
+	  <%= link_to t('.back', :default => t("helpers.links.back")),
+	              user_balance_account_path(:user_id => @user), :class => 'btn'  %>
+	</div>
+	<%= render( :partial => "inline_help/dashboard_finances_charged", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
 </div>
