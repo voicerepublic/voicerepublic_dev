@@ -116,7 +116,6 @@
  */
 	
 .medium-klu, .small-klu {
-
 	position: relative;
 
 	&>a:hover {
@@ -235,6 +234,26 @@
 	padding-bottom: 30px;
 	position: relative;
 
+	.large-klu-left-span{
+		position: relative;
+	}
+
+	.border-klu-color,
+	.border-klu-color-no-klu{
+		position: absolute;
+		border-top:3px solid @brandKluuu;
+		border-top-right-radius: 3px !important;
+		top:0px;
+		right:0;
+		height:3px;
+		width:33%;
+		z-index: 1000;
+	}
+
+	.border-klu-color-no-klu{
+		border-top:3px solid @brandQuestion;
+	}
+
 	.klu-title {
 		height: 32px * 1.5;
 	}
@@ -242,6 +261,13 @@
 	.klu-availability {
 		font-size: @baseFontSize - 2;
 		margin-bottom: @verticalRhythm/2;
+	}
+
+	.large-klu-left-span{ /* für largeklu top border */
+		.klu-layout{
+			border-top: 1px solid #d8d8d8;
+			border-top: 1px solid rgba(0,0,0,0.15);
+		}
 	}
 
 	.klu-layout {
@@ -540,6 +566,9 @@
 	h2 {
 		margin: 0 0 (@baseFontSize * @baseLineHeight)/2;
 	}
+	.tiny-klu{
+		border-top:3px solid @brandKluuu;
+	}
 }
 
 .kluuu-add-image-link {
@@ -587,6 +616,7 @@
 	background-color: desaturate(lighten(@brandColor, 55%), 35%); /*, 180); */
 	background-color: spin(desaturate(lighten(@brandColor,45%),45%),30%); 
 	background-color: #fff;
+	border-top:3px solid @brandKluuu;
 	
 	.klu-title {
 		color: @brandBlue;
@@ -596,6 +626,7 @@
 .no-kluuu.klu-layout, .no-kluuu .klu-layout {
 	background-color: desaturate(lighten(@brandColor, 60%), 12%);
 	background-color: #fff;
+	border-top:3px solid @brandQuestion;
 
 	.klu-title {
 		color: @brandGreen;
