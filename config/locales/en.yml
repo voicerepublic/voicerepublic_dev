@@ -332,6 +332,8 @@ en:
     describe_your_picture_in_a_few_words: "Upload a photo"
     
   klus:
+    facebook_value_template:
+      talk_on_kluuu_with: "Talk on KluuU with %{name}: "
     form_welcome_new_no_kluuu:
       continue: "Continue"
     form_kluuu:

@@ -353,6 +353,8 @@ de:
     describe_your_picture_in_a_few_words: "Beschreibe dein Bild mit ein paar Worten."
     
   klus:
+    facebook_value_template:
+      talk_on_kluuu_with: "Sprich auf KluuU mit %{name}: "
     form_welcome_new_no_kluuu:
       continue: "weiter"
     form_kluuu:
