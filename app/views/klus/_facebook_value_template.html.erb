@@ -1,0 +1,13 @@
+<% if klu.instance_of?(NoKluuu) %>
+	<meta property="og:title" content="<%= klu.title %>" /> 
+	<meta property="og:description" content="<%= t('.a_question_on_kluuu_about', :about => klu.title,  :default => 'Kommuniziere auf KluuU') %>" />  
+	<meta property="og:image" content="/images/medium/missing.png" /> 
+<% else %>
+	<meta property="og:title" content="<%= klu.title %>" /> 
+	<meta property="og:description" content=" <%= klu.description %> " />  
+	<% if klu.klu_images.empty? %>
+		<meta property="og:image" content="/images/medium/missing.png" /> 
+	<% else %>
+		<meta property="og:image" content="<%= klu.klu_images.first.image.path(:medium) %>" /> 
+	<% end %>
+<% end %>
