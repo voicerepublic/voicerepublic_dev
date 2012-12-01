@@ -432,8 +432,10 @@ en:
       created_new: "crated a new"
   search:
     tagged_with:
-      taggings_with: "KluuUs and questions tagged with: '%{tag}'"
-      no_kluuus_tagged_with: "No results for tag '%{tag}' found."
+      taggings_with: "KluuUs and questions tagged with #%{tag}"
+      no_kluuus_tagged_with: "No results for tag #%{tag} found."
+      no_kluuu: "Questions"
+      title_other_tags: "Trends"      
     form:
       search: "Search!"
     search:

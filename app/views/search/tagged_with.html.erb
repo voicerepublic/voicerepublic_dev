@@ -3,25 +3,25 @@
 		<h2><%= t('.taggings_with', :tag => @tag, :default => "Taggings with '#{@tag}'") %></h2>
 	</div>
 
-	<div class="row-fluid">
-		<div class="span6">
+	<div class="row-fluid clearfix">
+		<div class="span6 clearfix">
 			<h3>KluuUs</h3>
 			<% if @kluuus.empty? %>
 			<span class="label label-info"><%= t('.no_kluuus_tagged_with', :tag => @tag, :default => "nothing tagged with '#{@tag}'") %></span>
 			<% end %>
 			<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
 		</div>
-		<div class="span6">
-			<h3><%= t('no_kluuu', :default => "Question")%></h3>
+		<div class="span6 clearfix">
+			<h3><%= t('.no_kluuu') %></h3>
 			<% if @no_kluuus.empty? %>
 			<span class="label label-info"><%= t('.no_kluuus_tagged_with', :tag => @tag, :default => "nothig tagged with '#{@tag}'") %></span>
 			<% end %>
 			<%= render(:partial => "klus/medium_no_kluuu", :collection => @no_kluuus, :as => 'klu') %>
 		</div>
 	</div>
-
-	<div class="well well-large clearfix">
-		<h3>Hot Topic</h3>
+	<br>
+	<div class="well well-large">
+		<h3><%= t('.title_other_tags') %></h3>
 		<%= render(:partial => 'shared/tag_cloud') %>
 	</div>
 </div>

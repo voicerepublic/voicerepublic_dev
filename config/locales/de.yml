@@ -453,8 +453,10 @@ de:
       created_new: "Erstellte ein neues"
   search:
     tagged_with:
-      taggings_with: "Mit '%{tag}' gekennzeichnete KluuUs und Fragen"
-      no_kluuus_tagged_with: "Keine mit '%{tag}' verschlagworteten Ergebnisse vorhanden"
+      taggings_with: "Treffer mit Schlagwort #%{tag}"
+      no_kluuus_tagged_with: "Keine Treffer mit Schlagwort #%{tag} gefunden."
+      no_kluuu: "Fragen"
+      title_other_tags: "Trends"
     form:
       search: "Suche!"
     search:
