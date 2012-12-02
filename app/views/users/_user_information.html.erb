@@ -27,7 +27,7 @@
 					</li>
 					<% if current_user && ( current_user != user ) %>
 					<li class="pull-right">
-						<%= link_to( new_chat_path(:user_id => user.id ), :remote => true, :class => 'btn' ) do %>
+						<%= link_to( new_chat_path(:user_id => user.id ), :remote => true, :class => 'btn btn-primary btn-chat' ) do %>
 							<i class="icon-comments"> </i> <%= t('.chat') %>
 						<% end if user.available? %>
 					</li>
