@@ -35,13 +35,13 @@ body.layout-logged-out{
 // error handling in forms
 .field_with_errors {
   padding: 2px;
-  background-color: red;
+  background-color: #BC0000;
   display: table;
 }
 
 #error_explanation {
-  width: 450px;
-  border: 2px solid red;
+  border: 2px solid #BC0000;
+  border-radius:3px;
   padding: 7px;
   padding-bottom: 0;
   margin-bottom: 20px;
@@ -53,8 +53,11 @@ body.layout-logged-out{
     font-size: 12px;
     margin: -7px;
     margin-bottom: 0px;
-    background-color: #c00;
+    background-color: #BC0000;
     color: #fff;
+  }
+  ul{
+    padding-left:15px;
   }
   ul li {
     font-size: 12px;
@@ -384,15 +387,17 @@ body.layout-logged-out{
 
 form {
   .field_with_errors {
-    background-color: #D63946;
     display: block;
+    background:none;
 
     label, label.control-label {
       color: @white;
     }
 
     input, textarea {
-      background-color: #FADDDE;
+      /*background-color: #FADDDE;*/
+      border-color:#BC0000;
+      box-shadow:0 0 4px #BC0000;
     }
   }
 }
