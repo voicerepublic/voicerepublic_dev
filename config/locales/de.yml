@@ -546,7 +546,7 @@ de:
       time_at_location: "Zeit am Ort des Nutzers"
       languages: "Sprachen"
       follower: "Freunde"
-      opinion: "Meinung"
+      opinion: "Status"
       edit_account: "Profil bearbeiten"
     edit:
       edit_your_profile: "Dein Profil bearbeiten"
