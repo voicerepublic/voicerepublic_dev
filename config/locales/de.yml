@@ -400,10 +400,10 @@ de:
     kluuu:
       feedbacks: "Bewertungen"
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
-      people_who_wanna_know_more_about: "Matches auf das KluuU"
+      people_who_wanna_know_more_about: "Fragen Treffer"
     no_kluuu:
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
-      people_who_know_about: "Matches auf die Frage "
+      people_who_know_about: "KluuU Treffer"
     user_about:
       user_description: "Über mich"
     user_status:

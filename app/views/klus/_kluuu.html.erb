@@ -64,10 +64,11 @@
 		</div>
 		<%# MATCHES %>
 		<aside class="span3 klu-matches">
-			<div class="well">
-			<h4><span class="badge badge-info">Tip: </span>&nbsp; <%= t('.people_who_wanna_know_more_about') %></h4>
-			<p class="text-info"><strong><%=klu.title %>:</strong></p>
-			</div>
+			
+			<h4><%= t('.people_who_wanna_know_more_about') %></h4>
+			<!-- <span class="label"><%#=klu.title %></span> -->
+			
+			
 			<%= render(:partial => 'matches', :locals => {:klu => klu }) %>
 		</aside>
 
