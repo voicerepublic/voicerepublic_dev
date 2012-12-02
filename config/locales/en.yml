@@ -466,8 +466,8 @@ en:
       settings: "Settings"
       finances: "Finances"
     navbar:
-      sign_up: "Sign up"
-      sign_in: "Sign in"
+      sign_up: "Sign Up"
+      sign_in: "Log In"
     notice_or_error:
       success: "Successful"
       warning: "Warning"

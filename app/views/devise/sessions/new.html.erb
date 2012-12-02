@@ -2,28 +2,35 @@
 
 	<div class="span5 well well-large pull-right">
 		<div class="row-fluid page-header">
-			<h2>Log In</h2>
+			<h2><%= t(".login_title") %></h2>
 		</div>
 		<div class="row-fluid">
 			<div class="span12">
 
 				<%= render(:partial => "/devise/shared/social_network_connects") %>
-				<hr>
-				<h4><%= t(".login_directly") %></h4>
+				<div class="sessions-or-box">
+					<hr>
+					<div class="sessions-or-overlap"><%= t(".login_or") %></div>
+				</div>
+				<!-- <h4><%#= t(".login_directly") %></h4> -->
 
 				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
 				<%= devise_error_messages! %>
 
 				<div class="control-group">
-					<%= f.label :email, :class => 'control-label' %>
+					<%= f.label :email, :class => 'control-label' do %>
+						Email
+					<% end %>
 					<div class="controls">
 						<%= f.text_field :email,:type => "email", :class => 'text_field' %>
 					</div>
 				</div>
 
 				<div class='control-group'>
-					<%= f.label :password, :class => 'control-label' %>
+					<%= f.label :password, :class => 'control-label' do %>
+						<%= t('.password') %>
+					<% end %>
 					<div class="controls">
 						<%= f.password_field :password, :class => 'password_field' %>
 					</div>
@@ -33,14 +40,14 @@
 				<div class='control-group'>
 					<div class="controls">
 						<%= label_tag :remember_me, :class => 'checkbox' do %>
-						<%= check_box_tag :remember_me %> Remember me
+						<%= check_box_tag :remember_me %> <%= t('.remember') %>
 						<% end %>
 					</div>
 				</div>
 				<% end -%>
 
 				<div>
-					<%= button_tag "Log In", :name => "Login", :class => 'btn btn-primary pull-right' %>
+					<%= button_tag t('.login_title'), :name => "Login", :class => 'btn btn-primary pull-right' %>
 				</div>
 
 				<% end %>

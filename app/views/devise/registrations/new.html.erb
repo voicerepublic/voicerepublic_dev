@@ -2,7 +2,7 @@
 
 	<div class="span5 well well-large pull-right">
 		<div class='row-fluid page-header'>
-			<h2>Sign Up</h2>
+			<h2><%= t(".registration_title") %></h2>
 		</div>
 		
 		<div class="row-fluid">
@@ -10,21 +10,26 @@
 				
 				<%= render(:partial => 'devise/shared/social_network_connects') %>
 				
-				<hr>
-
-				<h4>Sign Up mit KluuU!</h4>	
+				<div class="sessions-or-box">
+					<hr>
+					<div class="sessions-or-overlap"><%= t(".registration_or") %></div>
+				</div>
 
 				<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 				<%= devise_error_messages! %>
 
 				<div class="control-group">
-					<%= f.label :firstname, :class => 'control-label' %>
+					<%= f.label :firstname, :class => 'control-label' do %>
+						<%= t('.firstname') %>
+					<% end %>
 					<div class="controls">
 						<%= f.text_field :firstname, :class => 'text_field' %>
 					</div>
 				</div>
 				<div class="control-group">
-					<%= f.label :lastname, :class => 'control-label' %>
+					<%= f.label :lastname, :class => 'control-label' do %>
+						<%= t('.lastname') %>
+					<% end %>
 					<div class="controls">
 						<%= f.text_field :lastname, :class => 'text_field' %>
 					</div>
@@ -37,14 +42,18 @@
 				</div>
 
 				<div class="control-group">
-					<%= f.label :password, :class => 'control-label' %>
+					<%= f.label :password, :class => 'control-label' do %>
+						<%= t('.password') %>
+					<% end %>
 					<div class="controls">
 						<%= f.password_field :password, :class => 'password_field' %>
 					</div>
 				</div>
 
 				<div class="control-group">
-					<%= f.label :password_confirmation, :class => 'control-label' %>
+					<%= f.label :password_confirmation, :class => 'control-label' do %>
+						<%= t('.password_confirmation') %>
+					<% end %>
 					<div class="controls">
 						<%= f.password_field :password_confirmation, :class => 'password_field' %>
 					</div>
@@ -52,8 +61,8 @@
 
 				<div class="control-group">
 					<div class="controls">
-					<%= button_tag 'Sign Up', :name => "signup_button", :class => 'btn btn-primary pull-right' %>
-					<%= link_to t('.cancel', :default => t("helpers.links.cancel")), new_user_registration_path, :class => 'btn pull-right' %>
+					<%= button_tag t('.registration_title'), :name => "signup_button", :class => 'btn btn-primary pull-right' %>
+					<%#= link_to t('.cancel', :default => t("helpers.links.cancel")), new_user_registration_path, :class => 'btn pull-right' %>
 					</div>
 				</div>
 
