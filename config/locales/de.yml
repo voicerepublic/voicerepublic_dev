@@ -319,7 +319,7 @@ de:
       edit_password: "Passwort ändern"
     edit_settings:
       settings: "Einstellungen"
-      email: "Meine Email Adresse"
+      email: "Meine Email-Adresse"
       new_password: "Neues Passwort"
       notifications_and_emails: "Ich wünsche eine Benachrichtigung per E-Mail..."
     matches:
@@ -515,7 +515,7 @@ de:
       no_klu_title: "Was interessiert Dich?"
       no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
     basic_form:
-      edit_your_email: "Hier kannst Du die Email Adresse ändern, mit der Du bei KluuU registriert bist."
+      edit_your_email: "Hier kannst Du die Email-Adresse ändern, mit der Du bei KluuU registriert bist."
       save_email: "Email-Adresse speichern"  
     nested_form:
       delete_portrait: "Portrait löschen"
@@ -527,6 +527,7 @@ de:
       no_status_updates_here: "Der Nutzer hat noch keinen Status veröffentlicht"
     password_form:
       new_password: "Neues Passwort"
+      rewrite_new_password: "Passwort wiederholen"
       update_password: "Passwort speichern"
     status_updates:
       add_comment: "kommentieren"

@@ -4,48 +4,50 @@
 	<!-- 
 	<div class="control-group">
 		<div class="controls">
-			<%= label_tag "inform_of_friends", :class => 'checkbox control-label' do %>
-				<%= p.check_box :inform_of_friends, :class => 'check_box' %>
-				<%= t('.get_notifications_contacts_activities', :default => "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte") %>
-			<% end %>
+			<%#= label_tag "inform_of_friends", :class => 'checkbox control-label' do %>
+				<%#= p.check_box :inform_of_friends, :class => 'check_box' %>
+				<%#= t('.get_notifications_contacts_activities', :default => "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte") %>
+			<#% end %>
 		</div>
 	</div>
 	-->
 	<div class="control-group">
 		<div class="controls">
-			<%= label_tag "email_concerning_other", :class => 'checkbox control-label' do %>
+			<%= p.label :email_concerning_other, :class => 'checkbox control-label' do %>
 				<%= p.check_box :email_concerning_other %>
-				<%= t('.emails_about_contact_activities', :default => "Erhalte E-Mails über die Aktivitäten Deiner Kontakte") %>
+				<%= t('.emails_about_contact_activities') %>
 			<% end %>
 		</div>
 	</div>
 	
 	<div class="control-group">
 		<div class="controls">
-			<%= label_tag "email_concerning_me", :class => 'checkbox control-label' do %>
+			<%= p.label :email_concerning_me, :class => 'checkbox control-label' do %>
 				<%= p.check_box :email_concerning_me %>
-				<%= t('.emails_about_me', :default => "Erhalte E-Mails über Dich") %>
+				<%= t('.emails_about_me') %>
 			<% end %>
 		</div>
 	</div>
 	
+	<br>
 	<h3><%= t('.call_settings')%></h3>
 	
 	<div class="control-group">
 		<div class="controls">
-			<%= label_tag "anonymous_calls", :class => 'checkbox control-label' do %>
+			<%= p.label :anonymous_calls, :class => 'checkbox control-label' do %>
 				<%= p.check_box :anonymous_calls %>
-				<%= t('.allow_anonymous_calls', :default => "Erlaube anonyme Anrufe auf deinen KluuUs oder Fragen") %>
+				<%= t('.allow_anonymous_calls') %>
 			<% end %>
 		</div>
 	</div>
 	
+	<br>
 	<h3><%= t('.on_site_help')%></h3>
 	<div class="control-group">
 		<div class="controls">
-			<%= label_tag "no_initial_help", :class => 'checkbox control-label' do %>
+			<%= p.label :no_initial_help, :class => 'checkbox control-label' do %>
 				<%= p.check_box :no_initial_help %>
-				<%= t('.dont_show_initial_help', :default => "Verstecke die Hilfe-Notizen") %>
+				<%= t('.dont_show_initial_help') %>
 			<% end %>
 		</div>
 	</div>
