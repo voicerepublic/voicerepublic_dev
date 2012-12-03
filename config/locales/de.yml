@@ -329,7 +329,7 @@ de:
       my_questions: "Meine Fragen"
       matching_something: "Treffer"
       view: "Ansehen"
-      we_could_not_find_matches_for_you: "Schade, wir konnten kein passendes KluuU finden. Tipp: Füge Deinem KluuU weitere 'tags' zu, um Matches zu bekommen."
+      we_could_not_find_matches_for_you: "Schade, wir konnten kein passendes KluuU finden. Tipp: Füge Deinem KluuU weitere Schlagworte zu, um Matches zu bekommen."
     news:
       news: "Neues"
       no_news_yet: "Du hast noch keine Neuigkeiten."
@@ -365,10 +365,14 @@ de:
       enter_the_name_of_your_kluuu: "Was ist das Thema Deines Gesprächs?"
       description: "Beschreibung (notwendig)"
       describe_your_kluuu: "Eine gute Beschreibung macht Lust auf ein persönliches Gespräch. Du kannst die Beschreibung jederzeit ändern."
+      image: "Bild (notwendig)"
+      klu_image_fields:
+        image_browse: "Bild"
+        image_desc_title: "Beschreibung"
       add_image_to_your_kluuu: "Bitte füge deinem KluuU ein Bild an."
-      tag_list: "Tags (notwendig - mindestens 3 - durch Komma trennen. Z.B.: Kochen, Rezept)"
+      tag_list: "Schlagworte (notwendig - mindestens 3 - durch Komma trennen. Z.B.: Kochen, Rezept)"
       category: "Kategorie (notwendig)"
-      please_use_significant_tags: "Tags sind Schlagworte. Schau in Deiner Beschreibung für gute tags. Je mehr tags du benutzt, desto besser lässt sich Dein KluuU finden."
+      please_use_significant_tags: "Schau in Deiner Beschreibung für gute Schlagworte. Je mehr Schlagworte du benutzt, desto besser lässt sich Dein KluuU finden."
       available_at_times: "Wann bist du Online? "
       at_what_time_are_you_available: "Diese Angabe ist optional." 
       charge_type: "Preis"
@@ -383,7 +387,7 @@ de:
     form_new_no_kluuu:
       title: "Titel"
       category: "Kategorie"
-      tag_list: "Tag Liste"
+      tag_list: "Schlagwort Liste"
       published: "Öffentlich anzeigen"
       save_no_kluuu: "Frage speichern"
     form_no_kluuu:
@@ -397,7 +401,7 @@ de:
       more_klus_by_this_user: "Weitere KluuUs dieses Nutzers"
       available_at_times: "Wann bist du Online?"
       category: "Kategorie"
-      tags: "Tags"
+      tags: "Schlagworte"
     kluuu:
       feedbacks: "Bewertungen"
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"

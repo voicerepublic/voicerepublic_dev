@@ -17,7 +17,7 @@
 		Du kannst über KluuU auch unterrichten oder Beratungen anbieten und dabei Geld verdienen. Mehr dazu findest Du hier (Link zu Finanzen.)
 	</p>
 	<p>
-		<span class="label label-info">Übrings</span>: Veröffentliche Dein KluuU auf Deiner Webseite (oder Deinem Blog) und biete Deinen Kunden die Möglichkeit live mit Dir zu sprechen.
+		<span class="label label-info">Übrigens</span>: Veröffentliche Dein KluuU auf Deiner Webseite (oder Deinem Blog) und biete Deinen Kunden die Möglichkeit live mit Dir zu sprechen.
 	</p>
 </div>
 
@@ -50,11 +50,11 @@
 		</div>
 
 		<div class="well">
-			<h6 class="no-margin"><%= t('.image', :default => "Bild (notwendig)") %>*</h6>
+			<h6 class="no-margin"><%= t('.image') %>*</h6>
 			<%= f.fields_for :klu_images do |p| %>
 			<%= render(:partial => 'klu_image_fields', :locals => { :f => p }) %>
 			<% end %>
-			<div class="klu-new-help ">
+			<div class="klu-new-help">
 				<%= t('.add_image_to_your_kluuu') %>
 			</div>
 		</div>
@@ -66,7 +66,7 @@
 			<div class="row-fluid">
 				<div class="control-group span8">
 					<%= label_tag "klu_tag_list", :class => 'control-label' do %>
-					<%= t('.tag_list', :default => "Tags (notwendig)") %>*
+					<%= t('.tag_list', :default => "Schlagwörter (notwendig)") %>*
 					<% end %>
 					<div class="controls">
 						<%= f.text_field :tag_list, :class => 'text_field' %>

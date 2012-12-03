@@ -344,6 +344,10 @@ en:
       enter_the_name_of_your_kluuu: "Conversation theme"
       description: "Description (mandatory)"
       describe_your_kluuu: "A good description will generate interest. You can change the description anytime."
+      image: "Image (mandatory)"
+      klu_image_fields:
+        image_browse: "Image"
+        image_desc_title: "Description"      
       add_image_to_your_kluuu: "Please upload a photo for this KluuU."
       tag_list: "Tags (mandatory) Please 3 or more - separate by comma - recipe, cooking, organic,"
       category: "Category (mandatory)"
