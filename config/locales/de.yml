@@ -374,7 +374,7 @@ de:
       call_options: "Anruf-Optionen"
       available_at_times: "Zu folgenden Zeiten erreichbar"
       charge_type: "Preis"
-      charge_cents: "Betrag"
+      charge_cents: "Betrag in Cent"
     form_new_kluuu:
       title: "Titel (notwendig)"
       enter_the_name_of_your_kluuu: "Was ist das Thema Deines Gesprächs?"
@@ -391,7 +391,7 @@ de:
       available_at_times: "Wann bist du Online? "
       at_what_time_are_you_available: "Diese Angabe ist optional." 
       charge_type: "Preis"
-      charge_cents: "Betrag" 
+      charge_cents: "Betrag in Cent"
       you_can_charge_for_your_kluuu: "Du hast die Möglichkeit Dein KluuU gratis /  für einen Minutenpreis / einen Fixpreis anzubieten."
       you_can_charge_by_minute_or_a_fixed_price: "Wähle eine Minuten-Preis zwischen 0,1 und 5 Euro. Wähle einen Fix-Preis zwischen 0,1 und 50 Euro."
       how_much_do_you_want_to_charge: "Alle kostenpflichtigen Gespräche sind die ersten 5 Minuten gratis."

@@ -352,7 +352,7 @@ en:
       call_options: "Video call options"
       available_at_times: "Availabitlity"
       charge_type: "Charge Type"
-      charge_cents: "Charge Price"    
+      charge_cents: "Charge in cent"    
     form_new_kluuu:
       title: "Title (mandatory)"
       enter_the_name_of_your_kluuu: "Conversation theme"
@@ -369,7 +369,7 @@ en:
       available_at_times: "Times available."
       at_what_time_are_you_available: "This information is optional."
       charge_type: "Charge type"
-      charge_cents: "Rate"
+      charge_cents: "Charge in cent"   
       you_can_charge_for_your_kluuu: "You can offer your KluuU for free, charge per minute or at a fixed price."
       you_can_charge_by_minute_or_a_fixed_price: "Set a rate per minute between $ 0.10 and $ 5 or a fixed price between $ 1 and $ 50."
       how_much_do_you_want_to_charge: "The first 5 minutes of all conversation are free."
