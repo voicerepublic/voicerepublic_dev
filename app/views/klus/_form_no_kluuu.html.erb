@@ -10,23 +10,29 @@
 		
 		<div class="span8 kluuu-pics">
 			<div class="control-group">
-				<%= f.label :title, :class => 'control-label' %>
+				<%= f.label :title, :class => 'control-label' do %>
+					<%= t('.title') %>
+				<% end %>
 				<div class="controls">
 					<%= f.text_field :title, :class => 'text_area klu-title' %>
 				</div>
 				<div class="control-group">
-					<%= f.label :category_id, :class => 'control-label' %>
+					<%= f.label :category_id, :class => 'control-label' do %>
+						<%= t('.category') %>
+					<% end %>
 					<div class="controls">
 						<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
 					</div>
 				</div>
 				<div class="control-group">
-					<%= f.label :tag_list, :class => "control-label" %>
+					<%= f.label :tag_list, :class => "control-label" do %>
+						<%= t('.tag_list') %>
+					<% end %>
 					<div class="controls">
 						<%= f.text_field :tag_list, :class => 'text_field' %>
 					</div>
 				</div>
-				<div class="control-group checkbox">
+				<div class="control-group checkbox" style="display:none">
 				<%= f.label :published, :class => 'control-label' %>
 				<div class="controls">
 					<%= f.check_box :published, :class => 'check_box' %>
@@ -37,7 +43,7 @@
 	</div>
 </div>
 <div class="form-actions">
-	<%= f.submit nil, :class => 'btn btn-primary' %>
+	<%= f.submit t('.save'), :class => 'btn btn-primary' %>
 	<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
 	user_path(:id => @user), :class => 'btn' %>
 </div>
