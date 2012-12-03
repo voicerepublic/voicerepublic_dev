@@ -22,23 +22,7 @@
 		<ul class="nav nav-tabs dashboard-matches-own-klus">
 	  	<!-- jetzt zwei arrays: @klus und @no_klus -->
 
-	  <%# NO KLUUUS %>
-		<% @no_klus.each do |k| %>
-			<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
-				<li class="active">
-			<% else %>
-				<li>
-			<% end %>
-			<%= link_to(dashboard_matches_path(:id => k.id), :title => k.title) do %>
-				<%= render(:partial => "klus/tiny_no_kluuu", :locals => { :klu => k }) %>
-			<% end %>	
-				<aside>
-					<%= link_to( klu_path(:id => k), :class => "matches-view-link", :title => t('.view', :default => "view")) do %>
-						<i class="icon-eye-open"></i><%= t('.view') %>
-					<% end %>
-				</aside>
-			</li>
-		<% end %>	  
+ 
 
 		<%# KLUUUS %>
 		<% @klus.each do |k| %>
@@ -57,6 +41,25 @@
 				</aside>
 			</li>
 		<% end %>
+
+	  <%# NO KLUUUS %>
+		<% @no_klus.each do |k| %>
+			<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
+				<li class="active">
+			<% else %>
+				<li>
+			<% end %>
+			<%= link_to(dashboard_matches_path(:id => k.id), :title => k.title) do %>
+				<%= render(:partial => "klus/tiny_no_kluuu", :locals => { :klu => k }) %>
+			<% end %>	
+				<aside>
+					<%= link_to( klu_path(:id => k), :class => "matches-view-link", :title => t('.view', :default => "view")) do %>
+						<i class="icon-eye-open"></i><%= t('.view') %>
+					<% end %>
+				</aside>
+			</li>
+		<% end %>	 
+
 		</ul>
 	</div>
 
