@@ -1,14 +1,16 @@
-Hallo <%= @user.firstname %>
+Hallo <%= @user.firstname %>!
 =================================================================
 
-Es gibt neues von einem deiner Freunde auf KluuU - 
+Es gibt Neuigkeiten von einem Deiner Kontakte: 
 
 <%= @notification %>
 
-Weiteres hierzu findest du mit einem Besuch von: <%= @notification.url_for_notify %> 
+Schau Dir diese Benachrichtigung auf KluuU an: <%= @notification.url_for_notify %> 
 
 
----
-du kannst deine Einstellungen zum Erhalt dieser Email einstellen:  
-<%= dashboard_settings_edit_url %>
+Grüsse vom KluuU Team
 
+--
+Wenn Du in Zukunft keine Benachrichtigungen per Email wünscht bitte klicke hier: <%= dashboard_settings_edit_url %>
+
+www.KluuU.com von kuurz&lumpur ag - 8004 zürich - Schweiz
