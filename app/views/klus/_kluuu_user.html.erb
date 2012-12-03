@@ -31,13 +31,13 @@
 		<div class="klu-availability"> <strong><%= t('.available_at_times') %></strong> <%= klu.available_at_times %></div>
 		<ul class="klu-categories unstyled">
 			<li>
-				<strong><%=t('.category:_') %></strong> <br>
+				<strong><%=t('.category') %></strong> <br>
 				<%= klu.category.name %>
 			</li>
 		</ul>
 
 		<div class="klu-tags">
-			<strong><%= t('.tags:_') %> </strong>
+			<strong><%= t('.tags') %> </strong>
 			<ul>
 				<% klu.tags.each do |tag| %>
 				<li>
