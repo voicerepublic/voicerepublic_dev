@@ -1,12 +1,16 @@
 <div class="control-group">
-	<%= f.label :image, :class => 'control-label' %>
+	<%= f.label :image, :class => 'control-label' do %>
+		<%= t('.image_browse', :default => "Bild") %>
+	<% end %>
 	<div class="controls">
 		<%= f.file_field :image %>
 	</div>
 </div>
 
 <div class="control-group">
-	<%= f.label :image_description, :class => 'control-label' %>
+	<%= f.label :image_description, :class => 'control-label' do %>
+		<%= t('.image_desc_title', :default => "Beschreibung") %>
+	<% end %>
 	<div class="controls">
 		<%= f.text_field :description, :class => 'text_area' %>
 	</div>

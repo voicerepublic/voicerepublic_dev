@@ -7,7 +7,9 @@
 	<%= f.error_messages %>
 	
 	<div class="control-group">
-		<%= f.label :title, :class => 'control-label' %>
+		<%= f.label :title, :class => 'control-label' do %>
+			<%= t('.title') %>
+		<% end %>
 		<div class="controls">
 			<%= f.text_field :title, :class => 'text_field klu-title' %>
 		</div>
@@ -49,7 +51,9 @@
 	  		<% end %>
 			</div>
 			<div class="control-group">
-				<%= f.label :description, :class => 'control-label' %>
+				<%= f.label :description, :class => 'control-label' do %>
+					<%= t('.description') %>
+				<% end %>
 				<div class="controls">
 					<%= f.text_area :description, :class => 'text_area', :rows => 10 %>
 				</div>
@@ -58,37 +62,47 @@
 		</div>
 		<div class="span4">
 			<div class="control-group">
-			<%= f.label :category_id, :class => 'control-label' %>
+			<%= f.label :category_id, :class => 'control-label' do %>
+				<%= t('.category') %>
+			<% end %>
 			<div class="controls">
 				<%= f.select :category_id, Category.all.sort.collect { |x| [x.name, x.id] }, :include_blank => false, :class => 'select_field'%>
 			</div>
 			</div>
 			<div class="control-group">
-				<%= f.label :tag_list, :class => "control-label" %>
+				<%= f.label :tag_list, :class => "control-label" do %>
+					<%= t('.tag_list') %>
+				<% end %>
 				<div class="controls">
 					<%= f.text_field :tag_list, :class => 'text_field' %>
 				</div>
 			</div>
 			<h4><%= t(".call_options") %></h4>
 			<div class="control-group">
-				<%= f.label :available_at_times, :class => 'control-label' %>
+				<%= f.label :available_at_times, :class => 'control-label' do %>
+					<%= t('.available_at_times') %>
+				<% end %>
 				<div class="controls">
 					<%= f.text_field :available_at_times, :class => 'text_field'%>
 				</div>
 			</div>
 			<div class="control-group">
-				<%= f.label :charge_type, :class => 'control-label'%>
+				<%= f.label :charge_type, :class => 'control-label' do %>
+					<%= t('.charge_type') %>
+				<% end %>
 				<div class="controls">
 					<%= f.select(:charge_type, Kluuu::CHARGE_TYPES, { :selected => @klu.charge_type} ) %>
 				</div>
 			</div>
 			<div class="control-group">
-				<%= f.label :charge_cents, :class => 'control-label'%>
+				<%= f.label :charge_cents, :class => 'control-label' do %>
+					<%= t('.charge_cents') %>
+				<% end %>
 				<div class="controls">
 					<%= f.number_field(:charge_cents )%>
 				</div>
 			</div>
-			<div class="control-group checkbox">
+			<div class="control-group checkbox" style="display:none">
 				<%= f.label :published, :class => 'control-label' %>
 				<div class="controls">
 					<%= f.check_box :published, :class => 'check_box' %>
