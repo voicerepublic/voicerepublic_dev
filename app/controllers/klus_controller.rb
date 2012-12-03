@@ -108,10 +108,11 @@ class KlusController < ApplicationController
     authorize! :destroy, @klu
     
     _user = @klu.user
+    url = @klu.instance_of?(NoKluuu) ? no_kluuus_user_path(:id => _user) : user_path(:id => _user)
     @klu.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_url(:id => _user) }
+      format.html { redirect_to url }
       format.json { head :no_content }
     end
   end
