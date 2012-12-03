@@ -422,7 +422,8 @@ de:
     user_status:
       opinion: "Status"
     edit:
-      edit: "Bearbeiten"
+      edit_klu: "KluuU bearbeiten"
+      edit_noklu: "Frage bearbeiten"
     index:
       kluuus_of_user: "KluuUs von %{user_name}"
       new_no_kluuu: "Neue Frage erstellen."
