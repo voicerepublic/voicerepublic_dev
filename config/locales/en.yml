@@ -371,12 +371,15 @@ en:
       later_you_can_unpublish_and_publish_any_time: "Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren."
       uses_status: "Deine aktuelle Status-Message im Kluuu anzeigen"
       you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
+      create_kluuu: "Create KluuU"
+      cancel: "Cancel"
     form_new_no_kluuu:
       title: "Title"
       category: "Category"
       tag_list: "Tag list"
       published: "Public"
       save_no_kluuu: "Save Question"
+      cancel: "Cancel"      
     form_no_kluuu:
       title: "Title"
       category: "Category"
@@ -399,10 +402,10 @@ en:
     kluuu:
       feedbacks: "Reviews"
       this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times}"
-      people_who_wanna_know_more_about: "Question Matches"
+      people_who_wanna_know_more_about: "→ Matches for the KluuU:"
     no_kluuu:
       this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times}"
-      people_who_know_about: "KluuU Matches"
+      people_who_know_about: "→ Matches for the Question"
     user_about:
       user_description: "About me"
     user_status:
