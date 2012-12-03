@@ -22,8 +22,6 @@
 		<ul class="nav nav-tabs dashboard-matches-own-klus">
 	  	<!-- jetzt zwei arrays: @klus und @no_klus -->
 
- 
-
 		<%# KLUUUS %>
 		<% @klus.each do |k| %>
 			<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
@@ -86,7 +84,6 @@
 	</div>
 
 </div>
-<%= debug( @user.account(true).prefs) %>
 <%= render(:partial => "inline_help/dashboard_matches_matches") unless @user.account(true).prefs.no_initial_help == '1' %>
 <%= render(:partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
 <%#= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user})  unless @user.account(true).prefs.no_initial_help == '1' %>	

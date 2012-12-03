@@ -334,7 +334,7 @@ en:
     
   klus:
     facebook_value_template:
-      talk_on_kluuu_with: "Talk on KluuU with %{name}: "
+      talk_on_kluuu_about: "Talk with %{name} about '%{subject}'"
     form_welcome_new_no_kluuu:
       continue: "Continue"
     form_kluuu:
@@ -376,10 +376,17 @@ en:
       category: "Category"
       tag_list: "Tag list"
       published: "Public"
-      save_no_kluuu: "Save question"
+      save_no_kluuu: "Save Question"
     form_no_kluuu:
+      title: "Title"
+      category: "Category"
+      tag_list: "Tag list"
+      save: "Save Question"
+      cancel: "Cancel" 
       call_options: "Call options"
     kluuu_top_actions:
+      edit: "Edit"
+      destroy: "Delete"    
       add_image: "Add image"
     kluuu_user:
       send_message: "Send message"

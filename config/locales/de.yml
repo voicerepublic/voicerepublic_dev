@@ -355,7 +355,7 @@ de:
     
   klus:
     facebook_value_template:
-      talk_on_kluuu_with: "Sprich auf KluuU mit %{name}: "
+      talk_on_kluuu_with: "Sprich mit %{name} über '%{subject}'"
     form_welcome_new_no_kluuu:
       continue: "weiter"
     form_kluuu:
@@ -399,8 +399,15 @@ de:
       published: "Öffentlich anzeigen"
       save_no_kluuu: "Frage speichern"
     form_no_kluuu:
+      title: "Titel"
+      category: "Kategorie"
+      tag_list: "Schlagwort Liste"   
+      save: "Frage aktualisieren"
+      cancel: "Abbrechen"
       call_options: "Anruf-Optionen"
     kluuu_top_actions:
+      edit: "Bearbeiten"
+      delete: "Löschen"
       add_image: "Bild hinzufügen"
     kluuu_user:
       send_message: "Nachricht schicken"
