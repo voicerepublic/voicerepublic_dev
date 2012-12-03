@@ -399,6 +399,11 @@ de:
       published: "Öffentlich anzeigen"
       save_no_kluuu: "Frage speichern"
     form_no_kluuu:
+      title: "Titel"
+      category: "Kategorie"
+      tag_list: "Schlagwort Liste"   
+      save: "Frage aktualisieren"
+      cancel: "Abbrechen"
       call_options: "Anruf-Optionen"
     kluuu_top_actions:
       add_image: "Bild hinzufügen"
