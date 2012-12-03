@@ -9,18 +9,17 @@
 			<%= account_fields.label :portrait, :class => "control-label" %>
 			<div class="controls">
 				<% if @user.account.portrait.exists? %>
-				<%= image_tag @user.account.portrait.url(:large), :class => "img-polaroid" %>
-				<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "user-edit-image-edit", :method => :delete do %>
-				<i class="icon-trash"> </i> <%= t('.delete_portrait')%>
-				<% end %>
-				<% else %>
-				<%= account_fields.file_field :portrait %>
-				<p>
-					<%= t('.add_a_portrait') %>
+					<%= image_tag @user.account.portrait.url(:large), :class => "img-polaroid" %>
+					<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "user-edit-image-edit", :method => :delete do %>
+						<i class="icon-trash"> </i> <%= t('.delete_portrait')%>
 					<% end %>
+				<% else %>
+					<%= account_fields.file_field :portrait %>
+					<p>
+					<%= t('.add_a_portrait') %>
+				<% end %>
 			</div>
 		</div>
-
 	</div>
 
 	<div class="span4">

@@ -75,6 +75,7 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
+    @account = @user.account
     authorize! :update, @user
     
     respond_to do |format|
@@ -96,6 +97,8 @@ class UsersController < ApplicationController
         format.html do
             if params[:from_account]
               render :template => 'accounts/edit', :layout => 'application'
+            elsif params[:from_settings]
+              render(:template => 'dashboard/edit_settings', :layout => 'dashboard')
             else
               render :action => :edit
             end
