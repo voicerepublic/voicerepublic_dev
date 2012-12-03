@@ -338,7 +338,15 @@ en:
     form_welcome_new_no_kluuu:
       continue: "Continue"
     form_kluuu:
+      title: "Title"
+      edit: "Edit"
+      description: "Description"
+      category: "Category"
+      tag_list: "Tag list"
       call_options: "Video call options"
+      available_at_times: "Availabitlity"
+      charge_type: "Charge Type"
+      charge_cents: "Charge Price"    
     form_new_kluuu:
       title: "Title (mandatory)"
       enter_the_name_of_your_kluuu: "Conversation theme"

@@ -359,7 +359,15 @@ de:
     form_welcome_new_no_kluuu:
       continue: "weiter"
     form_kluuu:
+      title: "Titel"
+      edit: "Bearbeiten"
+      description: "Beschreibung"
+      category: "Kategorie"
+      tag_list: "Schlagworte"
       call_options: "Anruf-Optionen"
+      available_at_times: "Zu folgenden Zeiten erreichbar"
+      charge_type: "Preis"
+      charge_cents: "Betrag"
     form_new_kluuu:
       title: "Titel (notwendig)"
       enter_the_name_of_your_kluuu: "Was ist das Thema Deines Gesprächs?"
