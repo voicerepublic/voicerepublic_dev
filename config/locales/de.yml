@@ -433,7 +433,7 @@ de:
       people_who_wanna_know_more_about: "→ Treffer zum KluuU:"
     no_kluuu:
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
-      people_who_know_about: "Treffer zur Frage:"
+      people_who_know_about: "→ Treffer zur Frage:"
     user_about:
       user_description: "Über mich"
     user_status:
