@@ -233,6 +233,12 @@ en:
     application:
       kluuu_string: "KluuU"
       no_kluuu_string: "Question"
+      
+  ########### mailers ####################
+  
+  mailers:
+    your_friend_took_action: "Activity on KluuU"
+    activity_around_you: "Activity concerning you on KluuU"
   
   ###########  views #####################
   accounts:

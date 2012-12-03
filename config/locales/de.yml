@@ -252,6 +252,13 @@ de:
     application:
       kluuu_string: "KluuU"
       no_kluuu_string: "Frage"
+      
+  ########### mailer #####################
+  
+  mailers:
+    your_friend_took_action: "Aktivität auf KluuU"
+    activity_around_you: "Aktivität um dich auf KluuU"
+  
   ###########  views #####################
   accounts:
     form_preferences:

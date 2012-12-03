@@ -63,7 +63,33 @@ class Notification::Base < ActiveRecord::Base
   end
   
   def url_for_notify
-    path_for_notify
+    case self.class.name.split("::")[-1]
+    when 'NewStatus'
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
+      user_status_updates_url(:user_id => other )
+    when 'NewKluuu'
+      Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
+      klu_url(:id => klu_id)
+    when "NewBookmark"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
+      user_bookmarks_url(:user_id => other)
+    when "NewComment"
+      url
+    when "NewFollower"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
+      user_url(:id => other )
+    when "NewRating"
+      klu_url(:id => klu_id)
+    when "NewMessage"
+      url
+    when "MissedCall"
+      dashboard_news_url
+    when "CallEnded"
+    when "CallAccepted"
+    when "CallRejected"
+    when "IncomingCall"
+      klu_url(:id => klu_id)
+    end 
   end
 
   #alias_method :url_for_notify, :path_for_notify  
