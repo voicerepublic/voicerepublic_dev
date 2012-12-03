@@ -401,7 +401,8 @@ en:
     user_status:
       opinion: "Status"
     edit:
-      edit: "Edit"
+      edit_klu: "Edit KluuU"
+      edit_noklu: "Edit Question"
     index:
       kluuus_of_user: "%{user_name}'s KluuUs"
       new_no_kluuu: "Ask a new Question"
