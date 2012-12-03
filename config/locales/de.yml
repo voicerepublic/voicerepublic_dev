@@ -406,6 +406,8 @@ de:
       cancel: "Abbrechen"
       call_options: "Anruf-Optionen"
     kluuu_top_actions:
+      edit: "Bearbeiten"
+      delete: "Löschen"
       add_image: "Bild hinzufügen"
     kluuu_user:
       send_message: "Nachricht schicken"

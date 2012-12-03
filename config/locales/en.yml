@@ -385,6 +385,8 @@ en:
       cancel: "Cancel" 
       call_options: "Call options"
     kluuu_top_actions:
+      edit: "Edit"
+      destroy: "Delete"    
       add_image: "Add image"
     kluuu_user:
       send_message: "Send message"
