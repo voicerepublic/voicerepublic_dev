@@ -291,7 +291,8 @@ de:
   comments:
     form:
       your_comment: "Kommentar"
-      write_a_comment: "Bitte schreibe einen Kommentar."
+      write_a_comment: "Bitte schreibe einen Kommentar"
+      save: "Senden"
   conversations:
     index:
       conversations: "Nachrichten"
