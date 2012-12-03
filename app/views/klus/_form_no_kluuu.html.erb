@@ -21,28 +21,18 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<%= f.label :tag_list, :class => "control-label"%>
+					<%= f.label :tag_list, :class => "control-label" %>
 					<div class="controls">
 						<%= f.text_field :tag_list, :class => 'text_field' %>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="span4">
-			<h4><%= t(".call_options") %></h4>
-			<div class="control-group">
-				<%= f.label :available_at_times, :class => 'control-label' %>
-				<div class="controls">
-					<%= f.text_field :available_at_times, :class => 'text_field'%>
-				</div>
-			</div>
-			<div class="control-group checkbox">
+				<div class="control-group checkbox">
 				<%= f.label :published, :class => 'control-label' %>
 				<div class="controls">
 					<%= f.check_box :published, :class => 'check_box' %>
 				</div>
 			</div>
-			
+			</div>
 		</div>
 	</div>
 </div>
