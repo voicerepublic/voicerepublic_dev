@@ -4,21 +4,12 @@
 
 <%= hidden_field_tag 'klu_type', @klu.instance_of?(Kluuu) ? 'Kluuu' : 'NoKluuu' %>
 
-<h2>Neues KluuU ! erstellen</h2>
+<h2>Neues KluuU erstellen</h2>
 <div class="well well-large">
-	<p class="lead">
-		Du kennst dich mit einem Thema aus und möchtest mit anderen darüber sprechen?
-	</p>
-	<p>
-		Dann bist Du hier richtig. Ein KluuU bietet Dir die Möglichkeit Dein spezifischen Thema zu veröffentlichen und mit interessierten Menschen in den Dialog zu treten.
-		<br />
-		<span class="label label-info">Übrigens</span>: Dein KluuU ist auffindbar - auch über Suchmaschinen wie Google.
-		<br />
-		Du kannst über KluuU auch unterrichten oder Beratungen anbieten und dabei Geld verdienen. Mehr dazu findest Du hier (Link zu Finanzen.)
-	</p>
-	<p>
-		<span class="label label-info">Übrigens</span>: Veröffentliche Dein KluuU auf Deiner Webseite (oder Deinem Blog) und biete Deinen Kunden die Möglichkeit live mit Dir zu sprechen.
-	</p>
+<p>Gib ein Privatkonzert, koche Dein Lieblingsgericht, erzähle Deine besten Witze, spiele Schach,
+	diskutiere, debattiere, musiziere, erzähle, lese vor, vermittle, unterhalte, lehre, berate, helfe, motiviere, lache, weine, schreie… per Video Gespräch</p>
+<p><span class="label">Tipp:</span> Dein KluuU ist auffindbar - auch über Suchmaschinen wie Google. 
+	Du kannst über KluuU auch unterrichten oder Beratungen anbieten und dabei Geld verdienen.</p>
 </div>
 
 <%= f.error_messages %>
@@ -143,7 +134,7 @@
 	</div>
 
 	<div class="form-actions">
-		<%= f.submit nil, :class => 'btn btn-primary' %>
+		<%= f.submit t('.create_kluuu'), :class => 'btn btn-primary' %>
 		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(:id => @user), :class => 'btn' %>
 	</div>
 </div>

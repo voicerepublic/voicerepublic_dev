@@ -399,12 +399,15 @@ de:
       later_you_can_unpublish_and_publish_any_time: "Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren."
       uses_status: "Deine aktuelle Status-Message im Kluuu anzeigen"
       you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
+      create_kluuu: "KluuU erstellen"
+      cancel: "Abbrechen"
     form_new_no_kluuu:
       title: "Titel"
       category: "Kategorie"
       tag_list: "Schlagwort Liste"
       published: "Öffentlich anzeigen"
       save_no_kluuu: "Frage speichern"
+      cancel: "Abbrechen"
     form_no_kluuu:
       title: "Titel"
       category: "Kategorie"
@@ -427,10 +430,10 @@ de:
     kluuu:
       feedbacks: "Bewertungen"
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
-      people_who_wanna_know_more_about: "Fragen Treffer"
+      people_who_wanna_know_more_about: "→ Treffer zum KluuU:"
     no_kluuu:
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
-      people_who_know_about: "KluuU Treffer"
+      people_who_know_about: "Treffer zur Frage:"
     user_about:
       user_description: "Über mich"
     user_status:

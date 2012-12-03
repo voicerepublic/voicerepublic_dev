@@ -47,46 +47,65 @@ p.wichtig {
 			border-radius: 30px;
 			.transition(all 0.2s ease);
 
-			&.kluuu-color a {
-				color: @brandKluuu;
-			}
-
-			&.no-kluuu-color a {
-				color: @brandQuestion;
-			}
-
 			.user-main-nav-subline {
 				font-size: @baseFontSize;
 				display: block;
 			}
 
-			&.active, &.active:hover {
-				background: @linkColor;
-				
+			&.kluuu-color{
 				a {
-					color: @white;
-					text-shadow: none;
+					color: @brandKluuu;
 				}
-
-				&.kluuu-color {
+				&:hover, &.active, &.active:hover {
 					background-color: @brandKluuu;
+					a {
+						color: @white;
+						text-shadow: none;
+					}
 				}
+			}
 
-				&.no-kluuu-color {
-					background-color: @brandQuestion;
+			&.no-kluuu-color{
+				a {
+					color: @brandQuestion;
 				}
+				&:hover, &.active, &.active:hover {
+					background: @brandQuestion;
+					a {
+						color: @white;
+						text-shadow: none;
+					}		
+				}				
 			}
 
-			&.kluuu-color:hover {
-				background-color: @brandKluuu;
+			&.status-color{
+				a {
+					color: @brandStatus;
+				}
+				&:hover, &.active, &.active:hover {
+					background: @brandStatus;
+					a {
+						color: @white;
+						text-shadow: none;
+					}		
+				}				
 			}
 
-			&.no-kluuu-color:hover {
-				background-color: @brandQuestion;
-			}
+			&.bookmarks-color{
+				a {
+					color: @brandBookmarks;
+				}
+				&:hover, &.active, &.active:hover {
+					background: @brandBookmarks;
+					a {
+						color: @white;
+						text-shadow: none;
+					}	
+				}				
+			}			
+
 
 			&:hover {
-				background: @linkColor;
 				.transition(all 0.3s ease);
 
 				a {
