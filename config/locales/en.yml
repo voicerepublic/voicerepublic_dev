@@ -334,7 +334,7 @@ en:
     
   klus:
     facebook_value_template:
-      talk_on_kluuu_with: "Talk on KluuU with %{name}: "
+      talk_on_kluuu_about: "Talk with %{name} about '%{subject}'"
     form_welcome_new_no_kluuu:
       continue: "Continue"
     form_kluuu:
