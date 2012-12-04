@@ -227,6 +227,11 @@ en:
     you_got_rated_by: "%{name} rated your KluuU."
   model_notification_new_status:
     friend_created_new_status: "%{name} posted a new status."
+  video_system:
+    rooms:
+      default_welcome_msg: "Welcome to the KluuU Video Chat"
+    
+    
   ###########  helpers  ##################
   
   helper:
