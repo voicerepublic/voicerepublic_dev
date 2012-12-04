@@ -9,15 +9,15 @@ set :user, "rp"
 set :group, "www-data"
 set :scm_username, "gitosis"
 set :template_dir, "~/templates"
-set :stages , %w{staging stable}
+set :stages , %w{staging production}
 set :default_stage, "staging"
 
 default_run_options[:pty] = true
 
 
-role :web, "staging2.kluuu.com"                          # Your HTTP server, Apache/etc
-role :app, "staging2.kluuu.com"                          # This may be the same as your `Web` server
-role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations will run
+#role :web, "staging2.kluuu.com"                          # Your HTTP server, Apache/etc
+#role :app, "staging2.kluuu.com"                          # This may be the same as your `Web` server
+#role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 # if you want to clean up old releases on each deploy uncomment this:
