@@ -165,6 +165,8 @@ module Upgrade
 
           if offer.public
             t_list = offer.offer_categories.map { |x| [x.name, (Upgrade::OfferCategory.find(x.parent_id).name if x.parent_id) ] }.join(",")
+            
+            old_cat = offer.offer_categories.first
 
             unless offer.taggings.empty?
               t_list = t_list + "," + offer.taggings.map { |tgs| tgs.tag.name }.join(",")
@@ -177,7 +179,7 @@ module Upgrade
               :charge_cents => offer.charge_amount || 0,
               :published => true,
               :tag_list => t_list,
-              :category => Category.first
+              :category => Category.find(fit_category(old_cat))
               )
               k_image = klu.klu_images.create!(:image_file_name => offer.image_file_name, :image_content_type => offer.image_content_type, :image_file_size => offer.image_file_size)
               copy_image(k_image,offer)
@@ -189,13 +191,28 @@ module Upgrade
               :charge_cents => 0,
               :published => true,
               :tag_list => t_list,
-              :category => Category.first
+              :category => Category.find(fit_category(old_cat))
             )
             end
           end
-
         end
-
+      end
+      
+      
+      def fit_category(old_cat)
+        if [2,5,7,8,30,31,32,33,12,13,14,36].include?(old_cat.id) 
+          return 1
+        end
+        if [3,4,22,23,24,25,26,27,28,29].include?(old_cat.id)
+          return 2
+        end
+        if [10,34,15,16].include?(old_cat.id)
+          return 3
+        end
+        if [1,9,11,6,17,18,19,20,21,35].include?(old_cat.id)
+          return 4
+        end
+        return 1
       end
 
       def copy_portrait(user, old_user)
