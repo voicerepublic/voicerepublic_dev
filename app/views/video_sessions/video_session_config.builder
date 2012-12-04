@@ -52,12 +52,12 @@ xml.config{
 			:h264Profile => "main",
 			:start => "true",
 			:silenceLevel => "0",
-			:autoGain => "true",
+			:autoGain => "false",
 			:showButton => "true",
 			:samplingRate => "16",
 			:echoCancelation => "true",
 			:setLoopBack => "false",
-			:echoPath => "256",
+			:echoPath => "128",
 			:encodeQuality => "8",
 			:framesPerPacket => "1")
 		
@@ -78,12 +78,12 @@ xml.config{
 			:camQualityPicture => "80",
 			:start => "true",
 			:silenceLevel => "0",
-			:autoGain => "true",
+			:autoGain => "false",
 			:showButton => "true",
 			:samplingRate => "16",
 			:echoCancelation => "true",
 			:setLoopBack => "false",
-			:echoPath => "256",
+			:echoPath => "128",
 			:encodeQuality => "8",
 			:framesPerPacket => "1")
 		      
