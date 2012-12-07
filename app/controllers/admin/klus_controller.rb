@@ -2,7 +2,7 @@ class Admin::KlusController < Admin::BaseController
   # GET /klus
   # GET /klus.json
   def index
-    @klus = Klu.paginate(:page => params[:page], :per_page => 5)
+    @klus = Klu.paginate(:page => params[:page], :per_page => 5).order("created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
