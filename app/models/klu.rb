@@ -111,7 +111,7 @@ class Klu < ActiveRecord::Base
       Rails.logger.debug("Klu#complementaries - found results in first case")
     end
     
-    if results.total_entris < 1
+    if results.total_entries < 1
       Rails.logger.debug("Klu#complementaries - no results in second case")
       # quite ok match: 
       # - minimum one tag
