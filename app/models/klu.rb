@@ -84,7 +84,11 @@ class Klu < ActiveRecord::Base
     tags = self.tag_list
     klu_class = self.instance_of?(Kluuu) ? NoKluuu : Kluuu
     
-    # best matches: same category - exakt same tags
+    # best matches: same category - 
+    # - exakt same tags
+    # - same category
+    # - complementary class klu => no_klu
+    # first-case
     results = klu_class.search( :with => { :category_id => cat.id}, 
                             :without => { :user_id => self.user_id },
                             :per_page => limit || 10,
@@ -93,23 +97,42 @@ class Klu < ActiveRecord::Base
                            
     if results.total_entries < 1
       Rails.logger.debug("Klu#complementaries - no results in first case")
-      
-      # quite good match: tagged with one or more of self.tags
+      # quite good match: 
+      # - tagged with one or more of self.tags
+      # - same category
+      # second-case
+      results = klu_class.search( build_tag_list_arguments,
+                                :with => { :category_id => cat.id}, 
+                                :per_page => limit || 10,
+                                :without => { :user_id => self.user_id },
+                                :match_mode => :extended
+                                 )
+    else
+      Rails.logger.debug("Klu#complementaries - found results in first case")
+    end
+    
+    if results.total_entris < 1
+      Rails.logger.debug("Klu#complementaries - no results in second case")
+      # quite ok match: 
+      # - minimum one tag
+      # - complementary class klu => no_klu
+      # third-case
       results = klu_class.search( build_tag_list_arguments,
                                 :per_page => limit || 10,
                                 :without => { :user_id => self.user_id },
                                 :match_mode => :extended
                                  )
     else
-      Rails.logger.debug("Klu#complementaries - results in first case")
+      Rails.logger.debug("Klu#complementaries - found results in second case")
     end
     
     if results.total_entries < 1
-      Rails.logger.debug("Klu#complementaries - no results in first and second case - trying text-search")
+      Rails.logger.debug("Klu#complementaries - no results in third case - trying text-search")
       # the worst - quite broad matches - simply on text-comparison
-      results = klu_class.search( "#{self.title} #{self.description}", :star => true, :without => { :user_id => self.user_id }  )
+      # forth-case
+      results = Klu.search( "#{self.title} #{self.description}", :star => true, :without => { :user_id => self.user_id }  )
     else
-       Rails.logger.debug("Klu#complementaries - no results in second case")
+       Rails.logger.debug("Klu#complementaries - found results in third case")
     end
     
     results
