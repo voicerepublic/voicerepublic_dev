@@ -101,11 +101,11 @@ class Klu < ActiveRecord::Base
       # - tagged with one or more of self.tags
       # - same category
       # second-case
-      results = klu_class.search( build_tag_list_arguments,
-                                :with => { :category_id => cat.id}, 
-                                :per_page => limit || 10,
-                                :without => { :user_id => self.user_id },
-                                :match_mode => :extended
+      results = klu_class.search( :conditions => { :tag_name => build_tag_list_arguments },
+                                  :with => { :category_id => cat.id}, 
+                                  :per_page => limit || 10,
+                                  :without => { :user_id => self.user_id },
+                                  :match_mode => :extended
                                  )
     else
       Rails.logger.debug("Klu#complementaries - found results in first case")
@@ -117,10 +117,10 @@ class Klu < ActiveRecord::Base
       # - minimum one tag
       # - complementary class klu => no_klu
       # third-case
-      results = klu_class.search( build_tag_list_arguments,
-                                :per_page => limit || 10,
-                                :without => { :user_id => self.user_id },
-                                :match_mode => :extended
+      results = klu_class.search( :conditions => { :tag_name => build_tag_list_arguments },
+                                  :per_page => limit || 10,
+                                  :without => { :user_id => self.user_id },
+                                  :match_mode => :extended
                                  )
     else
       Rails.logger.debug("Klu#complementaries - found results in second case")
@@ -154,7 +154,7 @@ class Klu < ActiveRecord::Base
   # to look up in other klus : e.g. (@tag_name foobar | @tag_name dumbazz | @tag_name fnord)
   #
   def build_tag_list_arguments
-    self.tags.collect { |t| "@tag_name #{t.name}" }.join("|") 
+    self.tags.collect { |t| t.name }.join("|") 
   end
   
   protected 
