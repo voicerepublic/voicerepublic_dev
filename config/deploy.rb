@@ -23,7 +23,7 @@ default_run_options[:pty] = true
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
 after "deploy:setup", "dbconf:setup" 
-after "deploy:finalize_update", "dbconf", "ts:stop", "ts:symlink", "ts:reindex", "ts:start"
+after "deploy:finalize_update", "dbconf", "ts:stop", "ts:symlink", "ts:start" # ts:reindex
 
 
 # If you are using Passenger mod_rails uncomment this:
