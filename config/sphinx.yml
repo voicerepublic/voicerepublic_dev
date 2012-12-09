@@ -1,0 +1,8 @@
+production:
+  pid_file: /var/www/www.kluuu.com/production/shared/tmp/searchd.pid
+  searchd_file_path: /var/www/www.kluuu.com/production/shared/db/sphinx
+    
+staging:
+  pid_file: /var/www/staging2.kluuu.com/staging/shared/tmp/searchd.pid
+  searchd_file_path: /var/www/staging2.kluuu.com/staging/shared/db/sphinx
+

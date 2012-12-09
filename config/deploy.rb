@@ -1,4 +1,7 @@
 require 'capistrano/ext/multistage'
+require 'whenever/capistrano'
+
+#require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
 
 set :application, "kluuu.com"
 set :repository,  "gitosis@devel.spampark.com:kluuu2.git"
@@ -11,6 +14,9 @@ set :scm_username, "gitosis"
 set :template_dir, "~/templates"
 set :stages , %w{staging production}
 set :default_stage, "staging"
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+set :whenever_roles, [:app]
 
 default_run_options[:pty] = true
 
@@ -20,11 +26,21 @@ default_run_options[:pty] = true
 #role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
-# if you want to clean up old releases on each deploy uncomment this:
+
+
+
+#before 'deploy:update_code', 'sphinx:stop'
 after "deploy:restart", "deploy:cleanup"
 after "deploy:setup", "dbconf:setup" 
-after "deploy:finalize_update", "dbconf", "ts:stop", "ts:symlink", "ts:start" # ts:reindex
+after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab' #, 'sphinx:start'
+#after 'deploy:update_code'#, 'sphinx:start'
 
+
+
+#namespace :whenever do
+#  task :update_crontab, :roles => [:app] do ; end
+#  task :clear_crontab, :roles => [:app] do ; end
+#end
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -36,61 +52,7 @@ namespace :deploy do
 end
 
 
-# Thinking Sphinx typing shortcuts
-namespace :ts do
-  
-  task :default, :roles => :app do
-    symlink
-  end
-  
-  desc "create ths-directories in shared dirs"
-  task :setup, :roles => :app do
-    puts "creating shared dirs for sphinx" 
-    run "mkdir -p #{shared_path}/db/sphinx/#{rails_env}"
-  end
-  
-  desc "configure thinking sphinx in production"
-  task :conf , :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:config RAILS_ENV=#{rails_env}"
-  end
-  
-  desc "symlink thinking-sphinx yml to prod-host"
-  task :symlink, :roles => :app do
-    puts "linking staging.sphinx.conf from shared_path to current on app"
-    run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/config/#{rails_env}.sphinx.conf"
-    run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
-  end
-  
-  desc "initialize indexes in thinking sphinx"
-  task :in , :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
-  end
-  
-  desc "start thinking sphinx in production"
-  task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
-  end
-  
-  desc "stop running sphinx in production"
-  task :stop, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
-  end
-  
-  desc "restart running sphinx-searchd in production"
-  task :restart, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
-  end
-  
-  desc "reindex indexes - does not write new configuration"
-  task :reindex, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:reindex RAILS_ENV=#{rails_env}"
-  end
-  
-  desc "rebuild indexes"
-  task :rebuild, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:rebuild RAILS_ENV=#{rails_env}"
-  end
-end
+
 
 namespace :dbconf do
   
@@ -119,7 +81,38 @@ namespace :dbconf do
 
 end
 
+
+
+
+namespace :sphinx do
+  
+  desc "Symlink Sphinx indexes"
+  task :symlink_indexes, :roles => [:app] do
+    run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
+    run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/config/#{rails_env}.sphinx.conf"
+  end
+  
+  desc "stop Sphinx"
+  task :stop, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
+    run "ps ax | grep search"
+  end
+  
+  desc "start Sphinx"
+  task :start, :roles => :app do
+    run "ps ax | grep search"
+    run "cd #{release_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
+  end
+  
+  desc "restart Sphinx"
+  task :restart, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
+  end
+end
+
+
 namespace :kluuu do
+  
   desc "Prints the available releases on webserver"
   task :show_releases, :roles => :app do
     puts capture("cd #{releases_path}; ls;")
