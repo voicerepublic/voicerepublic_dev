@@ -4,5 +4,6 @@
 
 
 require File.expand_path('../config/application', __FILE__)
+require 'thinking_sphinx/tasks'
 
 Kluuu2::Application.load_tasks
