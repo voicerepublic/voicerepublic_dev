@@ -24,11 +24,11 @@ default_run_options[:pty] = true
 
 
 
-before 'deploy:update_code', 'thinking_sphinx:stop'
+before 'deploy:update_code', 'sphinx:stop'
 after "deploy:restart", "deploy:cleanup"
 after "deploy:setup", "dbconf:setup" 
 after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes'
-after 'deploy:update_code', 'thinking_sphinx:start'
+after 'deploy:update_code', 'sphinx:start'
 
 
 
@@ -78,6 +78,14 @@ namespace :sphinx do
   desc "Symlink Sphinx indexes"
   task :symlink_indexes, :roles => [:app] do
     run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
+  end
+  
+  task :stop, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
+  end
+  
+  task :start, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
   end
 end
 
