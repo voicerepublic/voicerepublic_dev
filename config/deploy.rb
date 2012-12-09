@@ -1,6 +1,9 @@
 require 'capistrano/ext/multistage'
+
+set :whenever_environment, defer { stage }
 set :whenever_command, "bundle exec whenever"
 require 'whenever/capistrano'
+
 #require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
 
 set :application, "kluuu.com"
