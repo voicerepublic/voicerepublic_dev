@@ -83,10 +83,12 @@ namespace :sphinx do
   
   task :stop, :roles => :app do
     run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
+    run "ps ax | grep search"
   end
   
   task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
+    run "ps ax | grep search"
+    run "cd #{release_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
   end
 end
 
