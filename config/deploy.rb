@@ -1,5 +1,5 @@
 require 'capistrano/ext/multistage'
-require 'thinking_sphinx/deploy/capistrano'
+#require 'thinking_sphinx/deploy/capistrano'
 
 set :application, "kluuu.com"
 set :repository,  "gitosis@devel.spampark.com:kluuu2.git"
@@ -89,6 +89,10 @@ namespace :sphinx do
   task :start, :roles => :app do
     run "ps ax | grep search"
     run "cd #{release_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
+  end
+  
+  task :restart, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
   end
 end
 
