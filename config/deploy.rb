@@ -28,7 +28,7 @@ before 'deploy:update_code', 'sphinx:stop'
 after "deploy:restart", "deploy:cleanup"
 after "deploy:setup", "dbconf:setup" 
 after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes'
-after 'deploy:update_code'#, 'sphinx:start'
+#after 'deploy:update_code'#, 'sphinx:start'
 
 
 
