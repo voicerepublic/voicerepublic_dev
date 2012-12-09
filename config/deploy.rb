@@ -16,6 +16,7 @@ set :stages , %w{staging production}
 set :default_stage, "staging"
 set :whenever_command, "bundle exec whenever"
 set :whenever_environment, defer { stage }
+set :wenever_roles, [:app]
 
 default_run_options[:pty] = true
 
