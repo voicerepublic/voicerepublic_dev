@@ -37,7 +37,7 @@ gem 'capistrano'              # deployment
 gem 'thinking-sphinx'         # indexed search
 gem "dynamic_form"            # form helper for errors
 gem 'exception_notification'  # deliver emails if exception occures
-gem 'whenever'                # create cron-jobs 
+gem 'whenever', :require => false   # create cron-jobs 
 
 
 # make rspec and cucumber the preferred test-suites
