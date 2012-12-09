@@ -78,6 +78,7 @@ namespace :sphinx do
   desc "Symlink Sphinx indexes"
   task :symlink_indexes, :roles => [:app] do
     run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
+    run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/config/#{rails_env}.sphinx.conf"
   end
   
   task :stop, :roles => :app do
