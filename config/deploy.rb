@@ -24,10 +24,10 @@ default_run_options[:pty] = true
 
 
 
-before 'deploy:update_code', 'sphinx:stop'
+#before 'deploy:update_code', 'sphinx:stop'
 after "deploy:restart", "deploy:cleanup"
 after "deploy:setup", "dbconf:setup" 
-after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'sphinx:start'
+after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes'#, 'sphinx:start'
 #after 'deploy:update_code'#, 'sphinx:start'
 
 
