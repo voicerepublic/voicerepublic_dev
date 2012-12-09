@@ -81,11 +81,11 @@ namespace :sphinx do
   end
   
   task :stop, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
+    run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
   end
   
   task :start, :roles => :app do
-    run "cd #{current_path}; bundle exec rake ts:index RAILS_ENV=#{rails_env}"
+    run "cd #{current_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
   end
 end
 
