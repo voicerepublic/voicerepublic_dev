@@ -37,7 +37,7 @@ gem 'capistrano'              # deployment
 gem 'thinking-sphinx'         # indexed search
 gem "dynamic_form"            # form helper for errors
 gem 'exception_notification'  # deliver emails if exception occures
-#gem 'psych'
+
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
