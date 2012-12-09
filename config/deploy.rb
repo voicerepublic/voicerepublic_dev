@@ -1,7 +1,4 @@
 require 'capistrano/ext/multistage'
-
-set :whenever_environment, defer { stage }
-set :whenever_command, "bundle exec whenever"
 require 'whenever/capistrano'
 
 #require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
@@ -17,6 +14,8 @@ set :scm_username, "gitosis"
 set :template_dir, "~/templates"
 set :stages , %w{staging production}
 set :default_stage, "staging"
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
 
 default_run_options[:pty] = true
 
@@ -36,10 +35,11 @@ after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:up
 #after 'deploy:update_code'#, 'sphinx:start'
 
 
-namespace :whenever do
-  task :update_crontab, :roles => [:app] do ; end
-  task :clear_crontab, :roles => [:app] do ; end
-end
+
+#namespace :whenever do
+#  task :update_crontab, :roles => [:app] do ; end
+#  task :clear_crontab, :roles => [:app] do ; end
+#end
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
