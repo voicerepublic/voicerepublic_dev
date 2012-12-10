@@ -42,14 +42,15 @@ gem 'whenever', :require => false   # create cron-jobs
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
-  gem 'rspec-rails'
+  #gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
 end
 
 group :test do
+  gem 'rspec-rails'
   gem 'faker'
-  gem 'capybara'
+  gem 'capybara', '1.1.4'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'database_cleaner'
