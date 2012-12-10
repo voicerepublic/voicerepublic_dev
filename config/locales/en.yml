@@ -363,10 +363,7 @@ en:
       enter_the_name_of_your_kluuu: "Conversation theme"
       description: "Description (mandatory)"
       describe_your_kluuu: "A good description will generate interest. You can change the description anytime."
-      image: "Image (mandatory)"
-      klu_image_fields:
-        image_browse: "Image"
-        image_desc_title: "Description"      
+      image: "Image (mandatory)"      
       add_image_to_your_kluuu: "Please upload a photo for this KluuU."
       tag_list: "Tags (mandatory) Please 3 or more - separate by comma - recipe, cooking, organic,"
       category: "Category (mandatory)"
@@ -384,6 +381,9 @@ en:
       you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
       create_kluuu: "Create KluuU"
       cancel: "Cancel"
+    klu_image_fields:
+        image_browse: "Image"
+        image_desc_title: "Description"
     form_new_no_kluuu:
       title: "Title"
       category: "Category"
@@ -412,10 +412,10 @@ en:
       tags: "Tags"
     kluuu:
       feedbacks: "Reviews"
-      this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times}"
+      this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times} times"
       people_who_wanna_know_more_about: "→ Matches for the KluuU:"
     no_kluuu:
-      this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times}"
+      this_no_kluuu_is_bookmarked: "This Question has been bookmarked %{times} times"
       people_who_know_about: "→ Matches for the Question"
     user_about:
       user_description: "About me"
