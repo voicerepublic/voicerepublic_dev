@@ -104,8 +104,7 @@ class Klu < ActiveRecord::Base
       results = klu_class.search( :conditions => { :tag_name => build_tag_list_arguments },
                                   :with => { :category_id => cat.id}, 
                                   :per_page => limit || 10,
-                                  :without => { :user_id => self.user_id },
-                                  :match_mode => :extended
+                                  :without => { :user_id => self.user_id }
                                  )
     else
       Rails.logger.debug("Klu#complementaries - found results in first case")
@@ -119,8 +118,7 @@ class Klu < ActiveRecord::Base
       # third-case
       results = klu_class.search( :conditions => { :tag_name => build_tag_list_arguments },
                                   :per_page => limit || 10,
-                                  :without => { :user_id => self.user_id },
-                                  :match_mode => :extended
+                                  :without => { :user_id => self.user_id }
                                  )
     else
       Rails.logger.debug("Klu#complementaries - found results in second case")
