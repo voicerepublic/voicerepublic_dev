@@ -383,9 +383,6 @@ de:
       description: "Beschreibung (notwendig)"
       describe_your_kluuu: "Eine gute Beschreibung macht Lust auf ein persönliches Gespräch. Du kannst die Beschreibung jederzeit ändern."
       image: "Bild (notwendig)"
-      klu_image_fields:
-        image_browse: "Bild"
-        image_desc_title: "Beschreibung"
       add_image_to_your_kluuu: "Bitte füge deinem KluuU ein Bild an."
       tag_list: "Schlagworte (notwendig - mindestens 3 - durch Komma trennen. Z.B.: Kochen, Rezept)"
       category: "Kategorie (notwendig)"
@@ -403,6 +400,9 @@ de:
       you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
       create_kluuu: "KluuU erstellen"
       cancel: "Abbrechen"
+    klu_image_fields:
+        image_browse: "Bild"
+        image_desc_title: "Beschreibung"
     form_new_no_kluuu:
       title: "Titel"
       category: "Kategorie"
@@ -434,7 +434,7 @@ de:
       this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
       people_who_wanna_know_more_about: "→ Treffer zum KluuU:"
     no_kluuu:
-      this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
+      this_no_kluuu_is_bookmarked: "Diese Frage wurde %{times} mal gebookmarkt"
       people_who_know_about: "→ Treffer zur Frage:"
     user_about:
       user_description: "Über mich"
