@@ -110,19 +110,18 @@ class VideoSessionsController < ApplicationController
   end
   
   def video_session_config
-    @user = current_user
     room = VideoRoom.find_by_video_system_room_id(params[:meeting_id])
     video_session = room.video_session
     
-    if @user.nil? 
+    begin
+      user = User.find(params[:user_id])
+      participant = Participant::Base.where('user_id = ? AND video_session_id = ?', user.id, video_session.id).first
+    rescue
       participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', session[:session_id], video_session.id).first
-    else 
-      participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, video_session.id).first
-      raise "Security Error" if participant.user != current_user
-    end   
+    end
     
     if participant.nil? || video_session.nil? || room.nil?
-      logger.error("\n###############\nVideoSession#video_session_config \n Participant #{participant.inspect} \n User #{@user.inspect} \n Video Session #{video_session.inspect} \n Room #{room.inspect} \n#####################")
+      logger.error("\n###############\nVideoSession#video_session_config \n Participant #{participant.inspect} \n Video Session #{video_session.inspect} \n Room #{room.inspect} \n#####################")
     end 
     
     #TODO: equality of @user.id and participant.user_id to make sure there is no tampering going on
