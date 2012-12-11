@@ -164,7 +164,7 @@ GEM
       activesupport (~> 3.0)
       money (~> 5.1.0)
       railties (~> 3.0)
-    multi_json (1.4.0)
+    multi_json (1.5.0)
     multipart-post (1.1.5)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
@@ -331,7 +331,7 @@ DEPENDENCIES
   awesome_nested_set
   cancan
   capistrano
-  capybara
+  capybara (= 2.0.1)
   coffee-rails (~> 3.2.1)
   database_cleaner
   devise
