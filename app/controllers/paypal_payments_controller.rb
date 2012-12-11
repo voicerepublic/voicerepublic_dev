@@ -14,15 +14,16 @@ class PaypalPaymentsController < ApplicationController
       #render :status => 500 and return
     #end
     pms = params.symbolize_keys
-    
+    logger.debug("PaypalPayments#create - #{params.inspect}")
     @paypal_payment = PaypalPayment.create!(:params => pms, 
                               :check_in_order_id => params[:invoice].to_i, 
                               :status => params[:payment_status], 
                               :tact_id => params[:txn_id], 
-                              :amount => params[:mc_gross].to_f, 
+                              :amount_cents => params[:mc_gross].to_f * 100, 
                               :currency => params[:mc_currency])
-    
+    logger.error("PaypalPayments#create: errors: #{@paypal_payment.errors.inspect}") unless @paypal_payment.errors.empty?
     logger.info("\PaypalPayments#create - info: - cpn-id: #{@paypal_payment.id}: #{@paypal_payment.inspect}\n")
+   
     if @paypal_payment.valid?
       logger.debug("PaypalPayment#create - is a valid!")
        render :nothing => true and return

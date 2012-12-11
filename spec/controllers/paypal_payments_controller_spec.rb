@@ -23,6 +23,7 @@ describe PaypalPaymentsController do
   before do
     @check_in_order = FactoryGirl.create(:balance_check_in_order)
     puts @check_in_order.inspect
+    puts FactoryGirl.attributes_for(:paypal_payment)
   end
 
   # This should return the minimal set of attributes required to create a valid
