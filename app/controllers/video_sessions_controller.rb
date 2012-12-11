@@ -121,6 +121,10 @@ class VideoSessionsController < ApplicationController
       raise "Security Error" if participant.user != current_user
     end   
     
+    if participant.nil? || video_session.nil? || room.nil?
+      logger.error("\n###############\nVideoSession#video_session_config \n Participant #{participant.inspect} \n User #{@user.inspect} \n Video Session #{video_session.inspect} \n Room #{room.inspect} \n#####################")
+    end 
+    
     #TODO: equality of @user.id and participant.user_id to make sure there is no tampering going on
     
     if ((video_session.klu.get_charge_type_as_integer != 1)) #&& (participant.instance_of? Participant::GuestRegistered))
