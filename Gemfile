@@ -50,7 +50,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'faker'
-  gem 'capybara', '1.1.4'
+  gem 'capybara', '2.0.1'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'database_cleaner'

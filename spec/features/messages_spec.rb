@@ -11,10 +11,8 @@ describe "Messages" do
   describe "GET /messages" do
     
     it "works! (now write some real specs)" do
-      
-      
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get user_messages_path(:user_id => @user)
+      visit user_messages_path(:user_id => @user)
       response.status.should be(302)
     end
   end
