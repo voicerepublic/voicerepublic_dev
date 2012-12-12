@@ -18,6 +18,14 @@ chat.build = function(htmlstring) {
       overlay.close();
     });
   }
+  
+  function registerCleanOnClick() {
+    var $chatBody = $('textarea.chat_textarea');
+    $('.chat_submit').on('click', function(){
+       $('.chat_submit').submit();
+       $chatBody.val(''); 
+    });    
+  }
 
   function registerSubmitOnEnter() {
     var $chatBody = $('textarea.chat_textarea');
@@ -32,5 +40,6 @@ chat.build = function(htmlstring) {
 
   overlay.build(htmlstring, true);
   registerClose();
+  registerCleanOnClick();
   registerSubmitOnEnter();
 };
