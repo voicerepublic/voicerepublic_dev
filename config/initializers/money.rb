@@ -25,7 +25,7 @@ module ExchangeRates
     else
       Rails.logger.warn("Money - initializer: could not fetch exchange_rates  - ignoring!")
       latest_xml = Dir.glob(File.join(Rails.root,"tmp","exchange_rates_*"))[-1]
-      if File.readable?(latest_xml)
+      if latest_xml && File.readable?(latest_xml)
         Money.default_bank.update_rates(latest_xml)
         return true
       else
