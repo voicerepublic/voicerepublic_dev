@@ -24,9 +24,9 @@ gem 'will_paginate'           # pagination-extension to active-record
 gem 'will_paginate-bootstrap' # integrate twitter-bootstrap with will_paginate
 gem 'i18n_data'               # delivers languages as key-value hash
 gem 'paperclip'               # used for images
-gem 'awesome_nested_set'
-gem 'globalize3'
-gem 'acts-as-taggable-on'
+gem 'awesome_nested_set'      # used for categories
+gem 'globalize3'              # internationalization
+gem 'acts-as-taggable-on'     # tag-system
 gem 'money'
 gem 'money-rails'             # integrates some helper methods and AR-instance-functions...
 gem 'eu_central_bank'         # financial exchange rates

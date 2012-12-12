@@ -20,6 +20,7 @@ class PaypalPaymentsController < ApplicationController
                               :status => params[:payment_status], 
                               :tact_id => params[:txn_id], 
                               :amount_cents => params[:mc_gross].to_f * 100, 
+                              #:amount => params[:mc_gross].to_f,
                               :currency => params[:mc_currency])
     logger.error("PaypalPayments#create: errors: #{@paypal_payment.errors.inspect}") unless @paypal_payment.errors.empty?
     logger.info("\PaypalPayments#create - info: - cpn-id: #{@paypal_payment.id}: #{@paypal_payment.inspect}\n")

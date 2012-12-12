@@ -31,6 +31,7 @@ class Balance::CheckInOrdersController < ApplicationController
         end
         format.json { render json: @balance_check_in_order, status: :created, location: @balance_check_in_order }
       else
+        flash.now[:error] =  "Check in order could not be created."
         logger.error("Balance::CheckInOrder#create - ERROR - #{@balance_check_in_order.errors.inspect}")
         format.html { render action: "new" }
         format.json { render json: @balance_check_in_order.errors, status: :unprocessable_entity }
