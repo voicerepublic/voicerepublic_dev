@@ -1,9 +1,16 @@
 <footer>
-	<div class="footer-container">
+	<section class="footer-container">
 		<div class="pull-left">
 
 			<div class="footer-column">
-				<h3>Company Name:</h3>
+				<h3>Languages</h3>
+				<%= link_to "Deutsch", "pathtolocalde" %>
+				<br>
+				<%= link_to "English", "pathtolocalen" %>
+			</div>
+
+			<div class="footer-column">
+				<h3>Company Name</h3>
 				Kuurz & Lumpur AG
 				
 			</div>
@@ -35,5 +42,5 @@
 			&copy; KluuU 2012<br />
 			<small><span class="label">rev: <%= git_revision %> - version <%= Kluuu2::VERSION %></span></small>
 		</div>
-	</div>
+	</section>
 </footer>
