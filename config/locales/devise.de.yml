@@ -26,10 +26,10 @@ de:
       signed_out: 'Erfolgreich abgemeldet.'
       new:
         login_title: 'Anmelden'
-        login_directly: 'Registriere Dich direkt bei KluuU!'
         login_or: 'oder'
         password: 'Passwort'
         remember: 'Angemeldet bleiben'
+        text1: 'Koche Dein Lieblingsgericht, erzähle Deine besten Witze, spiele Schach, diskutiere, musiziere, erzähle, unterhalte, lehre, berate, helfe, motiviere … direkt über Video Chat.'
     passwords:
       send_instructions: 'Du bekommst in wenigen Minuten eine Email mit einer Beschreibung, wie du dein Passwort zurücksetzen kannst.'
       updated: 'Dein Passwort wurde erfolgreich geändert. Du bist nun angemeldet.'
@@ -60,6 +60,8 @@ de:
         login: 'Anmelden'
         signup: 'Registrieren'
         forgot_password: 'Passwort vergessen?'
+      social_network_connects:
+        with: 'mit'
     unlocks:
       send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
       unlocked: 'Your account has been unlocked successfully. Please sign in to continue.'

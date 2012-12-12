@@ -12,7 +12,6 @@
 					<hr>
 					<div class="sessions-or-overlap"><%= t(".login_or") %></div>
 				</div>
-				<!-- <h4><%#= t(".login_directly") %></h4> -->
 
 				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
@@ -64,7 +63,7 @@
 			</div>
 			<div class="span7 offset">
 				<p>
-					Koche Dein Lieblingsgericht, erzähle Deine besten Witze, spiele Schach, diskutiere, musiziere, erzähle, unterhalte, lehre, berate, helfe, motiviere … direkt über Video Chat.
+					<%= t('.text1') %>
 				</p>
 			</div>
 		</div>
