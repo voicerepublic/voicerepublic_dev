@@ -108,6 +108,11 @@ namespace :sphinx do
   task :restart, :roles => :app do
     run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
   end
+  
+  desc "reindex sphinx"
+  task :reindex, :roles => :app do
+    run "cd #{current_path}; bundle exec rake ts:reindex RAILS_ENV=#{rails_env}"
+  end
 end
 
 
