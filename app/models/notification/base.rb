@@ -121,7 +121,7 @@ class Notification::Base < ActiveRecord::Base
   #
   def set_notification_count
     if ALERTS.include?(self.class.name)
-      js = "$('#alerts-count-#{user_id}').html('#{self.user.notifications.alerts.unread.count}');"
+      js = "$('#alerts-count-#{user_id}').removeClass('badge-info').addClass('badge-important').html('#{self.user.notifications.alerts.unread.count}');"
       ret = PrivatePub.publish_to("/notifications/#{user_id}", js)
       Rails.logger.debug("#{self.class.name} - set_notification_count: js: '#{js}' with return: #{ret}")
     else
