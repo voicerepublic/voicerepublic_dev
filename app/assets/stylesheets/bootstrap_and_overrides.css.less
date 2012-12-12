@@ -58,6 +58,22 @@ body {
 @import "kluuu-variables.css.less";
 
 
+/*
+ * FOR PHONE AND TABLET, STATIC NAVBAR
+ */
+
+@media (max-width: 900px) {
+	body{
+		&> .container{
+			padding-top:27px;
+		}
+	}
+	.layout-logged-out{
+		background-size:auto 600px;
+		background-position: center top;
+	}
+}
+
 /*             *
  * BASESTYLES  *
  *             */
