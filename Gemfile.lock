@@ -348,7 +348,6 @@ DEPENDENCIES
   jquery-rails
   launchy
   less-rails
-  money
   money-rails (= 0.6.0)
   omniauth-facebook
   omniauth-google-oauth2

@@ -2,41 +2,40 @@
 
 MoneyRails.configure do |config|
 
-  # To set the default currency
-  #
+# To set the default currency
+#
   config.default_currency = :eur
-  
 
   # Set default bank object
   #
-  # Example:
   config.default_bank = EuCentralBank.new
+end
 
-  # Add exchange rates to current money bank object.
-  # (The conversion rate refers to one direction only)
-  #
-  # Example:
-  # config.add_rate "USD", "CAD", 1.24515
-  # config.add_rate "CAD", "USD", 0.803115
+module ExchangeRates
+  def self.update(i=0)
+    unless i < 4
+      begin
+        Money.default_bank.update_rates
+        Money.default_bank.save_rates(File.join(Rails.root,'log',"exchange_rates_#{Time.now.to_i}.xml"))
+      rescue Exception => e
+        Rails.logger.error("Money - initializer: #{e.to_s}")
+        sleep 1
+        ExchangeRates.update(i += 1)
+      end
+    else
+      Rails.logger.warn("Money - initializer: could not fetch exchange_rates  - ignoring!")
+      latest_xml = Dir.glob(File.join(Rails.root,"tmp","exchange_rates_*"))[-1]
+      if File.readable?(latest_xml)
+        Money.default_bank.update_rates(latest_xml)
+        return true
+      else
+        return false
+      end
+    end
 
-  # To handle the inclusion of validations for monetized fields
-  # The default value is true
-  #
-  #config.include_validations = true
-
-  # Register a custom currency
-  #
-  # Example:
-  # config.register_currency = {
-  #   :priority            => 1,
-  #   :iso_code            => "EU4",
-  #   :name                => "Euro with subunit of 4 digits",
-  #   :symbol              => "€",
-  #   :symbol_first        => true,
-  #   :subunit             => "Subcent",
-  #   :subunit_to_unit     => 10000,
-  #   :thousands_separator => ".",
-  #   :decimal_mark        => ","
-  # }
+  end
 
 end
+
+ExchangeRates.update
+
