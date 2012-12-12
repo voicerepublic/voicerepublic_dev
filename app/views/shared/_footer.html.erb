@@ -4,9 +4,9 @@
 
 			<div class="footer-column">
 				<h3>Languages</h3>
-				<%= link_to "Deutsch", "pathtolocalde" %>
+				<%= link_to_unless I18n.locale == :en, 'English', url_for(:controller => controller_name, :action => action_name, :locale => :en) -%> 
 				<br>
-				<%= link_to "English", "pathtolocalen" %>
+				<%= link_to_unless I18n.locale == :de, 'Deutsch', url_for(:controller => controller_name, :action => action_name, :locale => :de) -%>
 			</div>
 
 			<div class="footer-column">
