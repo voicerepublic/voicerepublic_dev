@@ -17,14 +17,14 @@
 						</div>
 						<%= link_to(partner.name, user_path(partner), :class => "contribution-user-name") %>
 					</header>
-					<% msg = conv.messages.limit(1).first %>
+					<% msg = conv.undeleted_messages_for(@user).limit(1).first %>
 					<% if msg %>
 					<%= link_to(user_conversation_path(:user_id => @user, :id => conv)) do %>
 						
 						<p><%= truncate( msg.content, :length => 72) %></p>
 						<aside>
 							<span class="conversations-more-messages">
-								<% msg_c = conv.messages.count - 1 %>
+								<% msg_c = conv.undeleted_messages_for(@user).count - 1 %>
 								<%= t(".and_more_messages", :count => msg_c) %>
 							</span>								
 							<time><%= l(msg.created_at, :format => :short) %></time>
