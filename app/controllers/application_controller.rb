@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_last_request 
+  before_filter :set_last_request, :check_rates
   before_filter :set_locale 
   
   
@@ -21,6 +21,13 @@ class ApplicationController < ActionController::Base
   end
   
   private
+  
+  
+  def check_rates
+    if Money.default_bank.rates.empty?
+      ExchangeRates.update
+    end
+  end
   
   # get locale from browser settings
   def extract_locale_from_accept_language_header
