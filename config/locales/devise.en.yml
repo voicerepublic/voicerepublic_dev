@@ -55,6 +55,7 @@ en:
         lastname: 'Last name'
         password: 'Password'
         password_confirmation: 'Password confirmation'        
+        text1: 'Cook your favorite meal, tell your best jokes, play chess, discuss, play music, tell, entertain, teach, advise, help, motivate ... directly via videochat.'                
     shared:
       links:
         login: 'Log In'
