@@ -23,6 +23,7 @@ class ConversationsController < ApplicationController
     authorize! :show, @conversation
     
     @messages = @conversation.undeleted_messages_for(@user).paginate(:page => params[:page], :per_page => 10)
+    @messages.each { |m| m.update_attribute(:receiver_read, true) }
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @conversation }

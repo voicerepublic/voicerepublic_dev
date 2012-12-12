@@ -11,4 +11,12 @@ module UsersHelper
     end
   end
   
+  def badge_for_count(count)
+    if count > 0
+      return "badge-important"
+    else
+      return "badge-info"
+    end
+  end
+  
 end

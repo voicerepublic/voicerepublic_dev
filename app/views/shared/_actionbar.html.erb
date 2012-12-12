@@ -62,11 +62,9 @@
 					 		<a href="#" class="dropdown-toggle actionbar-notifications-dropdown" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications', :default => "Notifications") %>">
 					 			<i class="icon-bell"></i>
 					 			<b class="caret"></b>
-					 			<%# unless current_user.notifications.unread.empty? %>
-					 			<span class="badge badge-important" id="alerts-count-<%= current_user.id %>">
+					 			<span class="badge <%= badge_for_count(current_user.notifications.alerts.unread.count) %>" id="alerts-count-<%= current_user.id %>">
 					 				<%= current_user.notifications.alerts.unread.count %>
 					 			</span>
-					 			<%# end %>
 					 		</a>
 					 		<%= render(:partial => 'shared/notifications_list') %>
 					 	</li>
@@ -74,6 +72,9 @@
 					 	<li>
 					 		<%= link_to(user_conversations_path(:user_id => current_user), :title => t('.messages', :default => "Messages")) do %>
 					 			<i class="icon-envelope"> </i>
+					 			<span class="badge <%= badge_for_count(current_user.received_messages.receiver_unread.count) %>" id="messages-count-<%= current_user.id %>">
+					 				<%= current_user.received_messages.receiver_unread.count %>
+					 			</span>
 					 		<% end %>
 					 	</li>
 
