@@ -410,6 +410,7 @@ en:
       available_at_times: "Online:"
       category: "Category"
       tags: "Tags"
+      chat: "Chat"
     kluuu:
       feedbacks: "Reviews"
       this_kluuu_is_bookmarked: "This KluuU has been bookmarked %{times} times"

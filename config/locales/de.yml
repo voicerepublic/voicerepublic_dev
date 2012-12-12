@@ -423,6 +423,7 @@ de:
       add_image: "Bild hinzufügen"
     kluuu_user:
       send_message: "Nachricht schicken"
+      chat : "Text-Chat"
       unfollow: "Entfolgen"
       follow: "Folgen"
       more_klus_by_this_user: "Weitere KluuUs dieses Nutzers"
@@ -575,7 +576,7 @@ de:
       unfollow: "Entfolgen"
       follow: "Folgen"
       send_message: "Nachricht schicken"
-      chat: "Text-Chat"
+      chat : "Text-Chat"
       user_description: "Beschreibung"
       time_at_location: "Zeit am Ort des Nutzers"
       languages: "Sprachen"

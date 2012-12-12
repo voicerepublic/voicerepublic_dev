@@ -17,6 +17,11 @@
 						 <i class="icon-envelope"></i><%= t('.send_message') %>
 						<% end if current_user %>
 					</li>
+					<li>
+						<%= link_to( new_chat_path(:user_id => klu.user.id ), :remote => true, :class => 'btn btn-primary btn-chat' ) do %>
+							<i class="icon-comments"> </i> <%= t('.chat') %>
+						<% end if klu.user.available? %>
+					</li>
 					<% end %>
 					<li class="klu-user-info-more-klus">
 						<%= link_to(t('.more_klus_by_this_user'), user_path(:id => klu.user) ) %>
