@@ -25,7 +25,10 @@ class ApplicationController < ActionController::Base
   
   def check_rates
     if Money.default_bank.rates.empty?
-      ExchangeRates.update
+      Money.default_bank.update_rates
+      logger.info("ApplicationController#check_rates - updated rates: #{Money.default_bank.rates}")
+    else
+      logger.debug("ApplicationController#check_rates - found rates!")
     end
   end
   
