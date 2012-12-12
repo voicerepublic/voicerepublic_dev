@@ -7,7 +7,15 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
   def index
-    @conversations = @user.conversations.sort { |a,b| b.undeleted_messages_for(@user).limit(1).first.created_at <=> a.undeleted_messages_for(@user).limit(1).first.created_at }
+    # TODO cleanup this mess!
+    @conversations = @user.conversations.sort do |a,b| 
+                        y = b.undeleted_messages_for(@user).limit(1).first
+                        z = a.undeleted_messages_for(@user).limit(1).first
+                        if y && z
+                          y.created_at <=> z.created_at 
+                        end
+                      end
+                      
     @conversations.each_with_index do |x,i| 
       if x.messages.empty? 
         x.destroy
