@@ -21,6 +21,7 @@ class Balance::CheckInOrdersController < ApplicationController
   def create
     @balance_check_in_order = Balance::CheckInOrder.new(params[:balance_check_in_order])
     @balance_check_in_order.balance_account = @user.balance_account
+    logger.debug("CheckInOrdersController#create - debug: bcio: #{@balance_check_in_order.inspect}")
     
     respond_to do |format|
       if @balance_check_in_order.save
@@ -59,6 +60,6 @@ class Balance::CheckInOrdersController < ApplicationController
   private
   
   def set_user
-    @user = @user || current_user
+    @user = current_user
   end
 end

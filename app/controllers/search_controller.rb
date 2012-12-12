@@ -11,6 +11,7 @@ class SearchController < ApplicationController
   
   def tagged_with
     _klus = Klu.tagged_with(params[:tag])
+    logger.debug("SearchController#tagged_with - tag: #{params[:tag]} count: #{_klus.count}")
     @tag = params[:tag]
     @kluuus = []
     @no_kluuus = []
