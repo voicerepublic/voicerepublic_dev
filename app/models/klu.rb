@@ -26,6 +26,7 @@ class Klu < ActiveRecord::Base
   scope :published, where("published=?", true)
   
   after_create :generate_notification
+  before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
   
   WEIGHTS = {
   :tag_name => 12,
@@ -153,6 +154,10 @@ class Klu < ActiveRecord::Base
   #
   def build_tag_list_arguments
     self.tags.collect { |t| t.name }.join("|") 
+  end
+ 
+  def clean_taglist
+    self.tag_list.each { |i| i.gsub!('#','') }
   end
   
   protected 
