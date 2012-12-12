@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
   has_many :follower_relations, :foreign_key => :followed_id, :class_name => 'Follow', :dependent => :destroy  
   has_many :follower, :through => :follower_relations#, :source => :followed 
   has_many :followed, :through => :followed_relations#, :source => :follower 
+  # hackish - to be able to destroy these conversations if user is destroyed.
+  has_many :conversations_1, :foreign_key => :user_1_id, :class_name => 'Conversation', :dependent => :destroy
+  has_many :conversations_2, :foreign_key => :user_2_id, :class_name => 'Conversation', :dependent => :destroy
   
   has_one :account, :dependent => :destroy          # application-account-things
   has_one :balance_account, :dependent => :destroy, :autosave => true, :class_name => 'Balance::Account'   # financial things

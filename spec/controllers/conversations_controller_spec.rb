@@ -45,7 +45,9 @@ describe ConversationsController do
 
   describe "GET index" do
     it "assigns all conversations as @conversations" do
-      conversation = FactoryGirl.create(:conversation, :user_1 => @user, :user_2 => @receiver)
+      msg = FactoryGirl.create(:message, :receiver_id => @receiver.id, :sender_id => @user.id)
+      conversation = msg.conversation
+      
       get :index, {:user_id => @user}, valid_session
       assigns(:conversations).should eq([conversation])
     end
@@ -53,9 +55,9 @@ describe ConversationsController do
 
   describe "GET show" do
     it "assigns the requested conversation as @conversation" do
-      conversation = FactoryGirl.create(:conversation, :user_1 => @user, :user_2 => @receiver)
-      #conversation = Conversation.create! valid_attributes
-      get :show, {:user_id => @user, :id => conversation.to_param}, valid_session
+      msg = FactoryGirl.create(:message, :receiver_id => @receiver.id, :sender_id => @user.id)
+      conversation = msg.conversation
+      get :show, {:user_id => @receiver, :id => conversation.id}, valid_session
       assigns(:conversation).should eq(conversation)
     end
   end

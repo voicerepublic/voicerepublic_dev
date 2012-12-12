@@ -5,9 +5,8 @@ FactoryGirl.define do
     association :receiver, factory: :user
     association :sender, factory: :user
     
-    #association :sender_conversation, factory: :conversation
-    #association :receiver_conversation, factory: :conversation
-    
+    conversation_id 1
+   
     content { Faker::Lorem.paragraph }
   end
 end
