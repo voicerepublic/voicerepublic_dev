@@ -336,7 +336,7 @@ de:
       matches: "Matching KluuUs"
       my_kluuus: "Meine KluuUs / Meine Fragen"
       my_questions: "Meine Fragen"
-      matching_something: "Treffer"
+      matching_something: "KluuU / Fragen Treffer"
       view: "Ansehen"
       we_could_not_find_matches_for_you: "Schade, wir konnten kein passendes KluuU finden. Tipp: Füge Deinem KluuU weitere Schlagworte zu, um Matches zu bekommen."
     news:
@@ -475,7 +475,7 @@ de:
       close: "Schliessen"
   notifies:
     my_content:
-      bookmarked_your: "hat einen Lesezeichen gesetzt auf"
+      bookmarked_your: "hat ein Lesezeichen gesetzt auf"
       commented_your_status: "hat deinen Status kommentiert"
       follows_you_now: "folgt Dir jetzt"
       unfollow: "Entfolgen"
@@ -483,7 +483,8 @@ de:
       rated_your: "Hat Dein KluuU bewertet"
       wrote_you_a_message: "Hat dir eine Nachricht geschrieben"
       an_anonymous_person: "Ein anonymer Nutzer "
-      tried_to_call_your: "Hat einen Anrufversuch bei Deinem "
+      tried_to_call_your_klu: "hat einen Anrufversuch beim KluuU"
+      tried_to_call_your_noklu: "hat einen Anrufversuch bei der Frage"
     new_content:
       created_new_status_update: "Hat seinen Status geändert"
       created_new: "Erstellte ein neues"

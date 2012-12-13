@@ -317,8 +317,8 @@ en:
       notifications_and_emails: "Notify me via email..."
     matches:
       matches: "Matches"
-      my_kluuus: "My KluuUs"
-      matches_to_my: "Matches for"
+      my_kluuus: "My KluuUs / My Questions"
+      matching_something: "KluuU / Question Matches"
       view: "View"
       we_could_not_find_matches_for_you: "Sorry, no matches yet."
     news:
@@ -464,7 +464,8 @@ en:
       rated_your: "Rated your KluuU"
       wrote_you_a_message: "Send you a Message"
       an_anonymous_person: "an anonymous call"
-      tried_to_call_your: "attempted to reach"
+      tried_to_call_your_klu: "attempted to reach KluuU"
+      tried_to_call_your_noklu: "attempted to reach Question"
     new_content:
       created_new_status_update: "changed their status"
       created_new: "crated a new"
@@ -496,7 +497,7 @@ en:
       no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
     dashboard_tabs:
       dashboard: "Dashboard"
-      matches: "Matching KluuUs"
+      matches: "Matches"
       news: "News"
       bookmarks: "Bookmark"
       contacts: "Contacts"

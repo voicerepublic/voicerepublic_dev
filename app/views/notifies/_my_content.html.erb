@@ -65,7 +65,7 @@
 			<% else %>
 				<%= t('.an_anonymous_person')%>
 			<% end %>
-			<%= t('.tried_to_call_your') %> <%= notification.klu.instance_of?(Kluuu) ? t('.kluuu') : t('.no_kluuu') %>:
+			<%= notification.klu.instance_of?(Kluuu) ? t('.tried_to_call_your_klu') : t('.tried_to_call_your_noklu') %>:
 		</h4>
 		<%= link_to klu_url(:id => notification.klu.id) do %>
 			<%= tiny_klu(notification.klu) %>

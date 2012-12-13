@@ -1,5 +1,5 @@
 <% content_for :title do %>
-	<%= t('.matches', :default => 'Matches')%> &middot; <%= @user.name %>
+	<%= t('.matches')%> &middot; <%= @user.name %>
 <% end %>
 
 
@@ -11,7 +11,7 @@
 		<nav class="dashboard-matches-nav">
 			<div class="btn-group">
 				<div class="btn btn-kluuu" style="cursor:default">
-					<h4><%= t('.my_kluuus', :default => 'Meine KluuUs') %></h4>	
+					<h4><%= t('.my_kluuus') %></h4>	
 				</div>		
 <!-- 				<div class="btn btn-question active">
 					<h4><%#= t('.my_questions', :default => 'Meine Fragen') %></h4>
@@ -33,7 +33,7 @@
 				<%= render(:partial => "klus/tiny_kluuu", :locals => { :klu => k }) %>
 			<% end %>	
 				<aside>
-					<%= link_to( klu_path(:id => k), :class => "matches-view-link", :title => t('.view', :default => "view")) do %>
+					<%= link_to( klu_path(:id => k), :class => "matches-view-link" ) do %>
 						<i class="icon-eye-open"></i><%= t('.view') %>
 					<% end %>
 				</aside>
@@ -51,7 +51,7 @@
 				<%= render(:partial => "klus/tiny_no_kluuu", :locals => { :klu => k }) %>
 			<% end %>	
 				<aside>
-					<%= link_to( klu_path(:id => k), :class => "matches-view-link", :title => t('.view', :default => "view")) do %>
+					<%= link_to( klu_path(:id => k), :class => "matches-view-link" ) do %>
 						<i class="icon-eye-open"></i><%= t('.view') %>
 					<% end %>
 				</aside>
@@ -67,7 +67,7 @@
 	<nav class="dashboard-matches-nav matches-right">
 		<div class="btn-group">		
 			<div class="btn btn-kluuu" style="cursor:default">
-				<h4>KluuU / Fragen <%# TODO %><%= t('.matching_something') %></h4>
+				<h4><%# TODO %><%= t('.matching_something') %></h4>
 			</div>
 		</div>
 		<span class="clearfix"></span>
@@ -85,5 +85,4 @@
 
 </div>
 <%= render(:partial => "inline_help/dashboard_matches_matches") unless @user.account(true).prefs.no_initial_help == '1' %>
-<%= render(:partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
-<%#= render( :partial =>  "inline_help/dashboard_matches_finances", :locals => {:user => @user})  unless @user.account(true).prefs.no_initial_help == '1' %>	
+<%= render(:partial => "inline_help/dashboard_matches_first_kluuu", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>
