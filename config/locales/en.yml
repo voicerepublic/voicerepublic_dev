@@ -268,6 +268,10 @@ en:
         configure_your_financial_account: "Configure your financial account."
       show:
         check_some_money_in: "Buy credit"
+        soon_more: "soon more..."
+        currency: "Currency"
+        prepaid: "Prepaid"
+        revenue: "Revenue"
       check_in_orders: 
         new:
           check_in_money: "Buy credit"
@@ -524,11 +528,15 @@ en:
       new_status_update: "post new status"
     show:
       back: "back"
+    new:
+      title: "New status"
+    form:
+      update_status: "Update"
   
   users:
     welcome:
-      welcome_user: "Willkommen bei KluuU"
-      no_klu_title: "Was interessiert Dich?"
+      welcome_user: "Welcome to KluuU"
+      no_klu_title: "What interests you?"
       no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
     basic_form:
       edit_your_email: "Change email address"
@@ -546,9 +554,9 @@ en:
       rewrite_new_password: "Password confirmation"
       update_password: "Save password"
     status_updates:
-      add_comment: "kommentieren"
-      comment: "Kommentar"
-      new_status_update: "Neuen Status"
+      add_comment: "comment"
+      comment: "comment"
+      new_status_update: "New status"
     user_content_nav:
       i_talk_about: "KluuUs"
       i_like_to_know_more_about: "Questions"

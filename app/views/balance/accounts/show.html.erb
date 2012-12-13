@@ -1,7 +1,7 @@
 <div class="well centered-box">
 	
 		<%= link_to( t('.check_some_money_in'), new_user_balance_check_in_order_path(:user_id => @user), :class => "btn btn-primary") %>
-		&nbsp;soon more...
+		&nbsp;<%= t('.soon_more') %>
 	<dl class="dl-horizontal">
 	  <dt><strong><%= t('.currency') %>:</strong></dt>
 	  <dd><%= @balance_account.currency %></dd>

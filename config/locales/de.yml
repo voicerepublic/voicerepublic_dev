@@ -284,6 +284,10 @@ de:
         configure_your_financial_account: "Finanz-Konto einrichten"
       show:
         check_some_money_in: "Prepaid Guthaben einzahlen"
+        soon_more: "bald gibts hier mehr..."
+        currency: "Währung"
+        prepaid: "Prepaid"
+        revenue: "Ertrag"        
       check_in_orders: 
         new:
           check_in_money: "Prepaid Guthaben einzahlen"
@@ -543,6 +547,10 @@ de:
       new_status_update: "Neuen Status veröffentlichen"
     show:
       back: "Zurück"
+    new:
+      title: "Neuer Status"
+    form:
+      update_status: "Aktualisieren"
   
   users:
     welcome:
@@ -558,7 +566,7 @@ de:
     no_status_updates:
       no_status_updates_of_you: "Veröffentliche jetzt einen Status!"
       what_you_say: "Was Du hier veröffentlichst, sehen Deine Besucher und Followers."
-      new_opinion: "Neuen Status"
+      new_opinion: "Neuer Status"
       no_status_updates_here: "Der Nutzer hat noch keinen Status veröffentlicht"
     password_form:
       new_password: "Neues Passwort"
@@ -567,7 +575,7 @@ de:
     status_updates:
       add_comment: "kommentieren"
       comment: "Kommentar"
-      new_status_update: "Neuen Status"
+      new_status_update: "Neuer Status"
     user_content_nav:
       i_talk_about: "KluuUs"
       i_like_to_know_more_about: "Fragen"
@@ -586,7 +594,14 @@ de:
       edit_account: "Profil bearbeiten"
     edit:
       edit_your_profile: "Dein Profil bearbeiten"
-  
+
+  messages:
+    form:
+      to: "An:"
+      message: "Nachricht"
+      send: "Senden"
+      cancel: "Abbrechen"
+
   video_sessions:
     anonymous_sign_up:
       video_call_title: "Video Anruf"
