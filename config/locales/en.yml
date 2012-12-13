@@ -489,7 +489,9 @@ en:
       create_kluuu: "New KluuU" 
       create_question: "New Question"
       notifications: "News"
-      messages: "Messages" 
+      messages: "Messages"
+      dashboard: "Dashboard"
+      profile: "Profile"
     check_flash:
       no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
     dashboard_tabs:
@@ -511,7 +513,7 @@ en:
     notifications_list:
       all: "View all"
     user_dropdown_list:
-      logout: "Logout"
+      logout: "Log Out"
   
   status_updates:
     status_update:

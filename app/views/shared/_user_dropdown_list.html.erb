@@ -1,26 +1,26 @@
 <ul class="dropdown-menu">
 
 	<li class="menu-item">
-		<%= link_to user_path(:id => current_user, :user => { :available => 'online' } ), :method => 'put', :remote => true, :title => "Online" do %>
+		<%= link_to user_path(:id => current_user, :user => { :available => 'online' } ), :method => 'put', :remote => true do %>
 			<span class="label label-success">Online</span>
 		<% end %>
 	</li>
 
 	<li class="menu-item">
-		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'busy' } ), :method => 'put', :remote => true, :title => "Busy" do %>
+		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'busy' } ), :method => 'put', :remote => true do %>
 			<span class="label label-important">Busy</span>
 		<% end %>
 	</li>
 
 	<li class="menu-item">
-		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'offline' } ), :method => 'put', :remote => true, :title => "Offline" do %>
+		<%= link_to user_path(:id => current_user , :type => "submit", :user => { :available => 'offline' } ), :method => 'put', :remote => true do %>
 			<span class="label label-attention">Offline</span>
 		<% end %>
 	</li>
 
 	<li>
-		<%= link_to(destroy_user_session_path, :method => :delete, :title => t('.logout', :default => "Logout") ) do %>
-			<i class="icon-off"></i>Log Out
+		<%= link_to(destroy_user_session_path, :method => :delete) do %>
+			<i class="icon-off"> </i><%= t('.logout') %>
 		<% end %>
 	</li>
 
