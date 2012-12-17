@@ -208,6 +208,27 @@ en:
   users:
     user_information:
       time_at_location: "Time at %{user}s place"
+  
+  controller_accounts:
+    no_settings_made_yet: "Your Settings are not finished yet"
+    account_settings_created: "your Settings were created"
+    settings_updated: "settings changed"
+    portrait_destroyed: "image removed"
+  controller_bookmarks:
+    bookmark_created: "bookmark set"
+    bookmark_destroyed: "bookmark removed"
+  controller_comments:
+    comment_created: "comment created"
+  controller_conversations:
+    conversation_destroyed: "thread removed"
+  controller_dashboard:
+    notification_destroyed: "message removed"
+  controller_follows:
+    follow_created: "you are following this user now"
+  controller_klus:
+    balance_account_not_created_yet: "you need to create your finance-account"
+  
+  
   ###########  models ####################
   # in notification-models generiert
   you_missed_a_call_on_your_klu: "You missed a call to your KluuU."

@@ -223,6 +223,8 @@ de:
     notification_destroyed: "Die Nachricht wurde entfernt."
   controller_follows:
     follow_created: "Du folgst diesem Nutzer jetzt."
+  controller_klus:
+    balance_account_not_created_yet: "Du musst zunächst dein Finanz-Konto einrichten!"
     
       
   ###########  models ####################
