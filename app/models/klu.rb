@@ -90,14 +90,14 @@ class Klu < ActiveRecord::Base
     # - same category
     # - complementary class klu => no_klu
     # first-case
-    results = klu_class.search( :with => { :category_id => cat.id}, 
+    @results = klu_class.search( :with => { :category_id => cat.id}, 
                             :without => { :user_id => self.user_id },
                             :per_page => limit || 10,
                             :conditions => { :tag_name => self.tags.map { |t| t.name } }
                            )
-    Rails.logger.info("Klu#complementaries - results first case #{results.count}")
+    Rails.logger.info("Klu#complementaries - results first case #{@results.count}")
                            
-    if results.flatten.count < 2
+    if @results.flatten.count < 2
       Rails.logger.info("Klu#complementaries - few results in first case")
       # quite good match: 
       # - tagged with one or more of self.tags
@@ -108,13 +108,13 @@ class Klu < ActiveRecord::Base
                                   :per_page => limit || 10,
                                   :without => { :user_id => self.user_id }
                                  )
-      results << temp_result
-      Rails.logger.info("Klu#complementaries - results in second case - #{temp_result.count} - overall: #{results.flatten.count}")                           
+      temp_result.each { |i| @results.push(i) }
+      Rails.logger.info("Klu#complementaries - results in second case - #{temp_result.count} - overall: #{@results.flatten.count}")                           
     else
-      Rails.logger.info("Klu#complementaries - found results #{results.flatten.count} in first case")
+      Rails.logger.info("Klu#complementaries - found results #{@results.flatten.count} in first case")
     end
     
-    if results.flatten.count < 3
+    if @results.flatten.count < 3
       Rails.logger.info("Klu#complementaries - few results in second case")
       # quite ok match: 
       # - minimum one tag
@@ -124,24 +124,24 @@ class Klu < ActiveRecord::Base
                                   :per_page => limit || 10,
                                   :without => { :user_id => self.user_id }
                                  )
-      results << temp_result
-      Rails.logger.info("Klu#complementaries - results in third case #{temp_result.count} - overall: #{results.flatten.count}")                         
+      temp_result.each { |i| @results.push(i) }
+      Rails.logger.info("Klu#complementaries - results in third case #{temp_result.count} - overall: #{@results.flatten.count}")                         
     else
-      Rails.logger.info("Klu#complementaries - found results #{results.flatten.count} in second case")
+      Rails.logger.info("Klu#complementaries - found results #{@results.flatten.count} in second case")
     end
     
-    if results.flatten.count < 1
+    if @results.flatten.count < 1
       Rails.logger.info("Klu#complementaries - no results in third case - trying text-search")
       # the worst - quite broad matches - simply on text-comparison
       # forth-case
       temp_result = Klu.search( "#{self.title} #{self.description}", :star => true, :without => { :user_id => self.user_id }  )
-      results << temp_result
+      temp_result.each { |i| @results.push(i) }
       Rails.logger.info("Klu#complementaries - results now in text-search: #{temp_result.count}")
     else
-      Rails.logger.info("Klu#complementaries - found results: #{results.flatten.count} in third case")
+      Rails.logger.info("Klu#complementaries - found results: #{@results.flatten.count} in third case")
     end
     
-    results.flatten
+    @results.flatten.uniq
     
   end
   
