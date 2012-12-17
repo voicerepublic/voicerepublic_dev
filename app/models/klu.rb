@@ -134,7 +134,7 @@ class Klu < ActiveRecord::Base
        Rails.logger.debug("Klu#complementaries - found results in third case")
     end
     
-    results
+    results.flatten
     
   end
   
