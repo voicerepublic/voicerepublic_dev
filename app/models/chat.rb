@@ -47,11 +47,11 @@ class Chat
   end
   
   def recipient_for(user)
-    user == user1 ? user2 : user1
+    ( user == user1 ) ? user2 : user1
   end
   
   def my_partner(me_user)
-    me_user == user1 ? user2 : user1
+    ( me_user == user1 ) ? user2 : user1
   end
   
   def css_id_for_chat
