@@ -134,11 +134,26 @@ class Klu < ActiveRecord::Base
       Rails.logger.info("Klu#complementaries - no results in third case - trying text-search")
       # the worst - quite broad matches - simply on text-comparison
       # forth-case
-      temp_result = Klu.search( "#{self.title} #{self.description}", :star => true, :without => { :user_id => self.user_id }  )
+      temp_result = Klu.search( "#{self.title} #{self.description}", 
+                                :star => true, 
+                                :without => { :user_id => self.user_id }  
+                              )
       temp_result.each { |i| @results.push(i) }
       Rails.logger.info("Klu#complementaries - results now in text-search: #{temp_result.count}")
     else
       Rails.logger.info("Klu#complementaries - found results: #{@results.flatten.count} in third case")
+    end
+    
+    if @results.flatten.count < 1
+      # even more worse:
+      # simply fetch some entries in given category
+      # independent of class
+      Rails.logger.info("Klu#complementaries - no results in fourth case - trying category")
+      temp_result = Klu.search(:with => { :category_id => cat.id },
+                                :per_page => limit || 10,
+                                :without => { :user_id => self.user_id } )
+      temp_result.each { |i| @results.push(i) }
+      Rails.logger.info("Klu#complementaries - results now of category: #{temp_result.count}")
     end
     
     @results.flatten.uniq
