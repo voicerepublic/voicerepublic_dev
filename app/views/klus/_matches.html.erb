@@ -1,6 +1,6 @@
 <% begin %>
 	<% klu.complementaries.each do |k| %>
-		<%= link_to klu_path :id => k do %>
+		<%= link_to klu_path(:id => k) do %>
       		<%= partial_for_klu(k, :tiny) %>
     	<% end %>
 	<% end %>

@@ -5,15 +5,15 @@
 			<div class="klu-layout">
 				<div class="row-fluid">
 					<div class="span8">
-						<h2 class="klu-eyecatcher klu-title"><%= @klu.title %></h2>
+						<h2 class="klu-eyecatcher klu-title"><%= klu.title %></h2>
 					</div>
 					<%= render(:partial => "kluuu_user", :locals => {:klu => klu}) %>
 				</div>
 			</div>
 			<div class="large-klu-left row-fluid">
-				<h4> <%= t('.this_no_kluuu_is_bookmarked', :times => @klu.bookmarks.count) %> </h4>
+				<h4> <%= t('.this_no_kluuu_is_bookmarked', :times => klu.bookmarks.count) %> </h4>
 				<ul class="unstyled">		
-					<% @klu.bookmarks.each do |b|%>
+					<% klu.bookmarks.each do |b|%>
 					<li>
 						<%= link_to(user_path(:id => b.user), :title => b.user.name ) do %>
 						<div class="user-image" data-user-id="<%= b.user.id %>"><%= image_tag(b.user.account.portrait(:thumb), :class => "img-polaroid", :alt => b.user.name ) %></div>
@@ -29,7 +29,7 @@
 			<h4 class="text-align-center"><%= t('.people_who_know_about') %></h4>
 			<div class="text-align-center"><em>'<%=klu.title %>'</em></div>			
 
-			<%= render(:partial => 'matches', :locals => {:klu => @klu }) %>
+			<%= render(:partial => 'matches', :locals => {:klu => klu }) %>
 		</aside>
 	</div><!-- End of klu-layout-->
 </article>

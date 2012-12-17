@@ -11,7 +11,7 @@
 				</aside>
 				<div class="row-fluid">
 					<section class="span8">
-						<ul class="unstyled clearfix kluuu-pics" data-images-urls="<%= data_attributes_images_gallery(@klu) %>">
+						<ul class="unstyled clearfix kluuu-pics" data-images-urls="<%= data_attributes_images_gallery(klu) %>">
 							<% klu.klu_images.each_with_index do |ki, index| %>
 								<% if (index == 0) %>
 									<li class="klu-eyecatcher">
@@ -67,8 +67,6 @@
 			
 			<h4 class="text-align-center"><%= t('.people_who_wanna_know_more_about') %></h4>
 			<div class="text-align-center"><em>'<%=klu.title %>'</em></div>
-			
-			
 			<%= render(:partial => 'matches', :locals => {:klu => klu }) %>
 		</aside>
 
