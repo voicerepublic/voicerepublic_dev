@@ -165,6 +165,7 @@ class Klu < ActiveRecord::Base
  
   def clean_taglist
     self.tag_list.each { |i| i.gsub!('#','') }
+    self.tag_list.each { |i| i.gsub!(' ', '_') }
   end
   
   protected 
