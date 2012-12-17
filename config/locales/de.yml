@@ -249,6 +249,11 @@ de:
   video_system:
     rooms:
       default_welcome_msg: "Willkommen im KluuU Video Chat"
+  model_kluuu:
+    no_account: "Du musst zunächst deine Finanz-Einstellungen vervollständigen."
+    charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
+    charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
+    charge_free_error: "Wenn du ein kostenloses Kluuu erstellst, belasse den Betrag auf 0 cents"
   
   ###########  helpers  ##################
   
