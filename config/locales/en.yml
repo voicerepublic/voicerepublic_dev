@@ -567,7 +567,7 @@ en:
     welcome:
       welcome_user: "Welcome to KluuU"
       no_klu_title: "What interests you?"
-      no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
+      no_klu_text: "For your interest we can generate a Question, which we are matching with appropriate KluuUs. Try it out, our matching system is fun!"
     basic_form:
       edit_your_email: "Change email address"
       save_email: "Save email address"  
