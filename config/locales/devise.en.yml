@@ -29,7 +29,7 @@ en:
         login_or: 'or'
         password: 'Password'        
         remember: 'Remember me'
-        text1: 'Cook your favorite meal, tell your best jokes, play chess, discuss, play music, tell, entertain, teach, advise, help, motivate ... directly via videochat.'        
+        text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp;&nbsp;<strong>teach</strong>,&nbsp;&nbsp; advice<br>play music<br>entertain,&nbsp;&nbsp; motivate,&nbsp;&nbsp;<strong>help</strong><br>directly via live<br><strong>video chat</strong>.'        
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
       updated: 'Your password was changed successfully. You are now signed in.'
@@ -55,7 +55,7 @@ en:
         lastname: 'Last name'
         password: 'Password'
         password_confirmation: 'Password confirmation'        
-        text1: 'Cook your favorite meal, tell your best jokes, play chess, discuss, play music, tell, entertain, teach, advise, help, motivate ... directly via videochat.'                
+        text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp;&nbsp;<strong>teach</strong>,&nbsp;&nbsp; advice<br>play music<br>entertain,&nbsp;&nbsp; motivate,&nbsp;&nbsp;<strong>help</strong><br>directly via live<br><strong>video chat</strong>.'        
     shared:
       links:
         login: 'Log In'

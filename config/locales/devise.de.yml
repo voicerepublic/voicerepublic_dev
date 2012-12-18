@@ -29,7 +29,7 @@ de:
         login_or: 'oder'
         password: 'Passwort'
         remember: 'Angemeldet bleiben'
-        text1: 'Koche Dein Lieblingsgericht, erzähle Deine besten Witze, spiele Schach, diskutiere, musiziere, erzähle, unterhalte, lehre, berate, helfe, motiviere … direkt über Video Chat.'
+        text1: '<strong>Koche</strong> Dein Lieblingsgericht<br>erzähle Deine besten Witze<br>spiele Schach<br>diskutiere, &nbsp;&nbsp;musiziere, &nbsp;&nbsp;<strong>erzähle</strong><br>unterhalte, &nbsp;&nbsp;&nbsp;&nbsp;lehre, &nbsp;&nbsp;&nbsp;&nbsp;berate<br><strong>helfe</strong>, &nbsp;&nbsp;motiviere<br>direkt über <strong>Video Chat</strong>.'
     passwords:
       send_instructions: 'Du bekommst in wenigen Minuten eine Email mit einer Beschreibung, wie du dein Passwort zurücksetzen kannst.'
       updated: 'Dein Passwort wurde erfolgreich geändert. Du bist nun angemeldet.'
@@ -55,7 +55,7 @@ de:
         lastname: 'Nachname'
         password: 'Passwort'
         password_confirmation: 'Passwort wiederholen'
-        text1: 'Koche Dein Lieblingsgericht, erzähle Deine besten Witze, spiele Schach, diskutiere, musiziere, erzähle, unterhalte, lehre, berate, helfe, motiviere … direkt über Video Chat.'
+        text1: '<strong>Koche</strong> Dein Lieblingsgericht<br>erzähle Deine besten Witze<br>spiele Schach<br>diskutiere, &nbsp;&nbsp;musiziere, &nbsp;&nbsp;<strong>erzähle</strong><br>unterhalte, &nbsp;&nbsp;&nbsp;&nbsp;lehre, &nbsp;&nbsp;&nbsp;&nbsp;berate<br><strong>helfe</strong>, &nbsp;&nbsp;motiviere<br>direkt über <strong>Video Chat</strong>.'
     shared:
       links:
         login: 'Anmelden'
