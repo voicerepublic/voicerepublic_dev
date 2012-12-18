@@ -60,12 +60,23 @@
 						<%= f.password_field :password_confirmation, :class => 'password_field' %>
 					</div>
 				</div>
+				
+				<div class="control-group">
+					<%= f.label :accept_terms_of_use, :class => 'control-label' do %>
+						<%= link_to( t('.agree_agb_and_tou'), txt_tou_path) %>
+					<% end %>
+					<div class="controls">
+						<%= f.check_box :accept_terms_of_use, :class => "check_box" %>
+					</div>
+				</div>
 
 				<div class="control-group">
 					<div class="controls">
 					<%= button_tag t('.registration_title'), :name => "signup_button", :class => 'btn btn-primary pull-right' %>
 					</div>
 				</div>
+				
+				
 
 				<div class="clearfix"></div>
 				<hr>

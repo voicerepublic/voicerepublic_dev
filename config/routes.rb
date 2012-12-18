@@ -1,6 +1,10 @@
 Kluuu2::Application.routes.draw do
 
+  
+
   scope "(/:locale)", :locale => /de|en/ do
+    get "txt/agb"
+    get "txt/tou"
     get "dashboard", :controller => "dashboard", :action => :index #, :as => 'user_root'
     get "dashboard/contacts"
     get "dashboard/bookmarks"

@@ -534,6 +534,10 @@ de:
       messages: "Nachrichten"
       settings: "Einstellungen"
       finances: "Finanzen"
+    footer:
+      legal: "Rechtliches"
+      terms_of_use: "Nutzungsbedingungen"
+      terms_and_conditions: "AGB"
     navbar:
       sign_up: "Registrieren"
       sign_in: "Anmelden"
