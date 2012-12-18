@@ -534,6 +534,10 @@ en:
       messages: "Messages"
       settings: "Settings"
       finances: "Finances"
+    footer:
+      legal: "Legal"
+      terms_of_use: "Terms Of Use"
+      terms_and_conditions: "Terms and Conditions"
     navbar:
       sign_up: "Sign Up"
       sign_in: "Log In"
