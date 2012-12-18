@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   attr_accessible :provider, :uid, :last_request_at, :available
   # FIXME: for migration of old kluuu:
   attr_accessible :encrypted_password
-  
+  attr_accessible :accept_terms_of_use
  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :roles, :through => :user_roles
@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
   validates :firstname, :presence => true, :length => { :minimum => 1, :maximum => 100}
   validates :lastname, :presence => true, :length => { :minimum => 1, :maximum => 100}
   validates :slug, :presence => true
+  validates_acceptance_of :accept_terms_of_use
+  
   
   ###### instance methods
   
