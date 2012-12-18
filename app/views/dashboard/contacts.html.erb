@@ -7,4 +7,4 @@
 </div>
 
 <%= render( :partial => "inline_help/dashboard_contacts_interesting_people", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
-<%= render( :partial => "inline_help/dashboard_contacts_customer_service", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
+<%#= render( :partial => "inline_help/dashboard_contacts_customer_service", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1' %>	
