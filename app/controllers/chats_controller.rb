@@ -46,12 +46,12 @@ class ChatsController < ApplicationController
     @chat.user1 = User.find(params[:one])
     @chat.user2 = User.find(params[:two])
     @chat.sender = current_user
-    @chat.recipient = current_user == @chat.user1 ? @chat.user2 : @chat.user1
+    @chat.recipient = ( current_user == @chat.user1 ) ? @chat.user2 : @chat.user1
     
     logger.debug("Chats#create - about to create chat message: #{@chat.inspect}")
     respond_to do |format|
       if @chat.save
-        format.html { redirect_to new_chat_path(:one => @chat.recipient_for(@chat), :two => current_user ), notice: 'Chat was successfully created.' }
+        #format.html { redirect_to new_chat_path(:one => @chat.recipient_for(@chat), :two => current_user ), notice: 'Chat was successfully created.' }
         format.json { render json: @chat, status: :created, location: @chat }
         format.js 
       else
