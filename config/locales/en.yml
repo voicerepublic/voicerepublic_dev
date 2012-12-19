@@ -570,7 +570,7 @@ en:
     welcome:
       welcome_user: "Welcome to KluuU"
       no_klu_title: "What interests you?"
-      no_klu_text: "For your interest we can generate a Question, which we are matching with appropriate KluuUs. Try it out, our matching system is fun!"
+      no_klu_text: "Choose an interest, and KluuU turns it into a<br>'Question'. This gets matched to similar KluuUs so you can find some answers. Try it out! Fun guaranteed."
     basic_form:
       edit_your_email: "Change email address"
       save_email: "Save email address"  
