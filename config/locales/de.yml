@@ -514,7 +514,8 @@ de:
       searchresults: "Suchresultate"
       search_results: "Suchergebnisse"
       publish_search_as_kluuu: "Diese Suche veröffentlichen"
-      persist_search: "Tip"
+      persist_search: "Tipp:"
+      text: "Erstelle ein Frage und nutze unser Matching System!"
       sign_up: "Anmelden"
       user: "Nutzer"
   

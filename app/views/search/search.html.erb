@@ -13,7 +13,7 @@
 		<% if (@klus.count > 0) %>
 
 			<%# NUR WENN RESULTS VORHANDEN %>
-			<span class="label label-warning"><%= t('.persist_search', :default => "Tipp:") %></span>&nbsp;Erstelle ein Frage-KluuU und nutze unser Matching System!
+			<span class="label label-warning"><%= t('.persist_search', :default => "Tipp:") %></span>&nbsp;<%= t('.text') %>
 			&nbsp;<%= link_to(t('.sign_up', :default => "Sign Up"), new_user_registration_path , :class => "btn") %>
 
 		<% end %>

@@ -62,15 +62,15 @@
 				</div>
 				
 				<div class="control-group">
-					<%= f.label :accept_terms_of_use, :class => 'control-label' do %>
-						<%= link_to( t('.agree_agb_and_tou'), txt_tou_path) %>
-					<% end %>
-					<div class="controls">
-						<%= f.check_box :accept_terms_of_use, :class => "check_box" %>
-					</div>
+						<div class="controls">
+							<div class="checkbox">
+								<%= f.check_box :accept_terms_of_use %>
+								<%= link_to( t('.agree_agb_and_tou'), txt_tou_path) %>
+							</div>
+						</div>
 				</div>
 
-				<div class="control-group">
+				<div class="control-group signup-button">
 					<div class="controls">
 					<%= button_tag t('.registration_title'), :name => "signup_button", :class => 'btn btn-primary pull-right' %>
 					</div>
