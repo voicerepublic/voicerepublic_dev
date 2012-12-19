@@ -246,6 +246,8 @@ de:
     you_got_rated_by: "%{name} hat dich bewertet."
   model_notification_new_status:
     friend_created_new_status: "%{name} hat einen neuen Status veröffentlicht."
+  model_notification_make_rate:
+    please_rate: "Bitte bewerte den Video-Chat - %{title} - mit %{name}"
   video_system:
     rooms:
       default_welcome_msg: "Willkommen im KluuU Video Chat"

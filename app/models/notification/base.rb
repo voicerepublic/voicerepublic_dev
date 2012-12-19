@@ -6,7 +6,8 @@ class Notification::Base < ActiveRecord::Base
                         Notification::NewComment
                         Notification::NewFollower
                         Notification::NewRating
-                        Notification::MissedCall }
+                        Notification::MissedCall
+                        Notification::MakeRate }
                         
   CONTENT_ALERTS  = %w{ Notification::NewKluuu 
                         Notification::NewStatus }
@@ -50,6 +51,8 @@ class Notification::Base < ActiveRecord::Base
       user_path(:id => other )
     when "NewRating"
       klu_path(:id => klu_id)
+    when "MakeRate"
+      new_klu_rating_path(:klu_id => klu_id)
     when "NewMessage"
       url
     when "MissedCall"
@@ -77,9 +80,11 @@ class Notification::Base < ActiveRecord::Base
       url
     when "NewFollower"
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
-      user_url(:id => other )
+      user_url(:id => other)
     when "NewRating"
       klu_url(:id => klu_id)
+    when "MakeRate"
+      new_klu_rating_url(:klu_id => klu_id)
     when "NewMessage"
       url
     when "MissedCall"

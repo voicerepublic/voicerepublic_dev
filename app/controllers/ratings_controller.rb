@@ -17,6 +17,7 @@ class RatingsController < ApplicationController
   # POST /ratings
   # POST /ratings.json
   def create
+    logger.debug("RatingsController#create - params: #{params.inspect}")
     @rating = @klu.ratings.build(params[:rating].merge(:user_id => current_user.id))
     
     logger.debug("Ratings#create - initialized rating before save: #{@rating.inspect}")

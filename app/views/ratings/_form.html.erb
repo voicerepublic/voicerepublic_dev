@@ -1,38 +1,28 @@
-<%= form_for @rating, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
-    <%= f.label :rateable_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :rateable_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :user_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :rateable_type, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :rateable_type, :class => 'text_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :content, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :content, :class => 'text_area' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :score, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :score, :class => 'number_field' %>
-    </div>
-  </div>
+<div class="span6">
+	<%= form_for [@rating.rateable, @rating], :as => :rating, :url => klu_ratings_path(:klu_id => @rating.rateable), :html => { :class => 'form-horizontal' } do |f| %>
 
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                ratings_path, :class => 'btn' %>
-  </div>
-<% end %>
+	<div class="control-group">
+		<%= f.label :score, :class => 'control-label' do %>
+			<%= t('.how_many_stars') %>
+		<% end %>
+		<div class="controls">
+			<%= f.select :score, 0..5, :class => 'select_field' %>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :content, :class => 'control-label' do %>
+			<%= t('.write_about_the_video_conference') %>
+		<% end %>
+		<div class="controls">
+			<%= f.text_area :content, :class => 'text_area input-medium', :rows => 3,  :placeholder => "your comment" %>
+		</div>
+	</div>
+
+	<div class="form-actions">
+		<%= f.submit nil, :class => 'btn btn-primary' %>
+		<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+		klu_path(:id => @rating.rateable), :class => 'btn' %>
+	</div>
+	<% end %>
+</div>
