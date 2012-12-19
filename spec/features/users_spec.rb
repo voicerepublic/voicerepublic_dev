@@ -25,6 +25,7 @@ feature "User can register" do
     page.fill_in('user_email', :with => "jim@beam.com")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
+    page.check('user_accept_terms_of_use')
     page.click_button('Sign Up')
     page.should have_css(".welcome-page")
   end
