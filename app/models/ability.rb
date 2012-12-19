@@ -29,12 +29,18 @@ class Ability
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     
     
+    
     can :manage, Kluuu do |klu|
       klu.user == user
     end
 
     can :manage, NoKluuu do |klu|
       klu.user == user
+    end
+    
+    can :rate, Kluuu do |klu|
+      n = Notification::MakeRate.where("user_id = ? AND klu_id = ?", user.id,klu.id)
+      n.empty? ? false : true
     end
     
     can :manage, KluImage do |ki|

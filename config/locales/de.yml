@@ -494,6 +494,7 @@ de:
       unfollow: "Entfolgen"
       follow_back: "Folgen"
       rated_your: "Hat Dein KluuU bewertet"
+      please_rate_video_chat: "Bitte bewerte den Video-Chat mit %{name}"
       wrote_you_a_message: "Hat dir eine Nachricht geschrieben"
       an_anonymous_person: "Ein anonymer Nutzer "
       tried_to_call_your_klu: "hat einen Anrufversuch beim KluuU"

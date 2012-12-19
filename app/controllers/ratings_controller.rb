@@ -6,6 +6,7 @@ class RatingsController < ApplicationController
   # GET /ratings/new
   # GET /ratings/new.json
   def new
+    authorize! :rate, @klu
     @rating = @klu.ratings.build
 
     respond_to do |format|
@@ -17,6 +18,8 @@ class RatingsController < ApplicationController
   # POST /ratings
   # POST /ratings.json
   def create
+    authorize! :rate, @klu
+    
     logger.debug("RatingsController#create - params: #{params.inspect}")
     @rating = @klu.ratings.build(params[:rating].merge(:user_id => current_user.id))
     

@@ -25,6 +25,7 @@ describe RatingsController do
     request.env['warden'].stub :authenticate! => @user
     controller.stub :current_user => @user
     @klu = FactoryGirl.create(:published_kluuu)
+    Notification::MakeRate.create!(:user => @user, :klu => @klu, :other =>  @klu.user, :content => "nice one")
   end
 
   # This should return the minimal set of attributes required to create a valid
