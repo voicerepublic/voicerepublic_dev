@@ -29,9 +29,14 @@ class Notification::CallEnded < Notification::Base
   def generate_make_rate_notification
     vs = VideoSession::Base.find(self.video_session_id)
     if vs && vs.is_rateable?
-      Notification::MakeRate.create(:user => vs.guest_participant.user, 
-                                    :other => vs.host_participant.user, 
-                                    :klu => vs.klu  )
+      n = Notification::MakeRate.where("user_id = ? AND klu_id = ?", vs.guest_participant.user.id, vs.klu.id)
+      if n.empty?
+        Notification::MakeRate.create(
+                                      :user => vs.guest_participant.user, 
+                                      :other => vs.host_participant.user, 
+                                      :klu => vs.klu  
+                                      )
+      end
       
     end
   end
