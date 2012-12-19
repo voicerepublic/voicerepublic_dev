@@ -52,6 +52,15 @@
 			<%= tiny_klu(notification.klu) %>
 		<% end %>
 	<% end %>
+	
+	<% if notification.instance_of?(Notification::MakeRate) %>
+		<h4 class="news-notification-top">
+			<%= link_to t('.please_rate_video_chat', :name => notification.klu.title), new_klu_rating_path(:klu_id => notification.klu_id) %>
+		</h4>
+		<%= link_to klu_path(:id => notification.klu.id) do %>
+			<%= tiny_klu(notification.klu) %>
+		<% end %>
+	<% end %>
 
 	<% if notification.instance_of?(Notification::NewMessage) %>
 		<%= link_to notification.other.name, user_path(:id => notification.other) %>

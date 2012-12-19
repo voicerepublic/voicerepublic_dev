@@ -11,6 +11,7 @@ class Rating < ActiveRecord::Base
   validates :score, :inclusion => {  :in => 0..5 }
   
   after_create :generate_notification
+  after_create :destroy_make_rate_notification
   
   MAX = 5
   
@@ -24,6 +25,11 @@ class Rating < ActiveRecord::Base
       self.logger.error("Rating#generate_notification - wanted to generate NewRating-notification  for type other than 'Klu'")
       raise "generate notification implemented for Klu-type only - change in class Rating"
     end
+  end
+  
+  def destroy_make_rate_notification
+    Rails.logger.info("Rating#destroy_make_rate_notification - destroying MakeRate-notification for: user: #{user_id} and #{rateable_id}")
+    Notification::MakeRate.where("user_id = ? AND klu_id = ?", user_id, rateable_id ).destroy_all
   end
   
 end
