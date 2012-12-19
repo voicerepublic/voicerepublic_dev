@@ -21,12 +21,42 @@
 	</div>
 
 	<div class="row-fluid landing-page-color2 lp-treffpunkt">
-		<div class="span12 well well-large clearfix">
-			<div class="pull-left">
-				<h2>Venue</h2>
-				Next venue:<br>
-				<strong>Tuesday, december 4th, 19.00 - 20.00 CET: Analog Photography!'</strong><br>
-				Use the following Tag in your KluuU / Question to join the conversation: <strong>photo</strong>
+		<div class="well well-large clearfix">
+
+			<h2>Rendezvous</h2>
+			<div class="span7">
+				<div class="hero-unit">
+					<h3>Analog photography</h3>
+					<h4>Thursdays 6 pm - 8 pm</h4>
+					<span class="label">With:</span> <strong>Ole Kretschmann, Photoautomat Berlin and Susanna Kraus, Kamera Imago 1:1</strong><br>
+
+					Analog photography is still alive! At this rendezvous, we exchange our experiences, offer advice, and learn new stuff ourselves.<br>
+
+					Use the keyword <span class="landing-bigger">photo</span> to join in.<br>
+
+				</div>
+			</div>
+			<div class="span4">
+				<% begin %>
+
+				<% if klu = Klu.find(223) %>
+					<%= link_to klu_path(:id => klu) do %>
+						<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => klu }) %>
+					<% end %>
+				<% end %>
+
+				<% if klu = Klu.find(242) %>
+					<%= link_to klu_path(:id => klu) do %>
+						<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => klu }) %>
+					<% end %>
+				<% end %>
+
+				<% rescue Exception => e %>
+				<% end %>
+			</div>
+			<div class="clearfix"></div>
+			<div class="hero-unit landing-page-joinin">
+				<span class="label">Join in:</span> Create a <span class="label label-kluuu">KluuU</span> or a <span class="label label-question">Question</span> with the appropriate tag. In your 'matches' you will see the matching counterparts.
 			</div>
 		</div>
 	</div>
