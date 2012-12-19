@@ -17,9 +17,9 @@ class Participant::GuestRegistered < Participant::Base
     
    video_session = self.video_session
    
-   if ((video_session.klu.instance_of? Kluuu) && (video_session.klu.charge_type == "fix"))
+   if video_session.klu.instance_of?(Kluuu)  && video_session.klu.charge_type == "fix"
      Payment::Calculation.fix_price(video_session)
-   elsif ((video_session.klu.instance_of? Kluuu) && (video_session.klu.charge_type == "minute"))
+   elsif video_session.klu.instance_of?(Kluuu)  && video_session.klu.charge_type == "minute"
      Payment::Calculation.minute_price(video_session)
    end
   

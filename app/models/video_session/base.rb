@@ -20,7 +20,9 @@ class VideoSession::Base < ActiveRecord::Base
   # enough time to create a rating?
   #
   def enough_time_passed?
-    (end_timestamp - begin_timestamp) > 3.minutes
+    p = self.guest_participant
+    Rails.logger.info("#{self.class.name}#enough_time_passed? - guest: #{p.inspect}")
+    ( p.left_timestamp - p.entered_timestamp ) >= 3.minutes
   end
 
 end
