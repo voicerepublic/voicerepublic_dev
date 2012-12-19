@@ -30,6 +30,8 @@ module DashboardHelper
               when 'NewRating'
                 #listing ? 'notifies/user_centered' : 
                 'notifies/my_content'
+              when 'MakeRate'
+                'notifies/my_content'
               when 'NewKluuu'
                 #listing ? nil : 
                 'notifies/new_content'

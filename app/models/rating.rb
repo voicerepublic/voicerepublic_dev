@@ -10,8 +10,7 @@ class Rating < ActiveRecord::Base
   validates :rateable_type, :presence => true
   validates :score, :inclusion => {  :in => 0..5 }
   
-  after_create :generate_notification
-  after_create :destroy_make_rate_notification
+  after_create :generate_notification, :destroy_make_rate_notification
   
   MAX = 5
   

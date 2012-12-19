@@ -9,5 +9,18 @@ class VideoSession::Base < ActiveRecord::Base
     
   validates_presence_of :klu 
   validates_presence_of :calling_user_id, :on => :create
+  
+  
+  def is_rateable?
+    self.instance_of?(VideoSession::Registered) && self.klu.instance_of?(Kluuu) && enough_time_passed?
+  end
+  
+  private
+  
+  # enough time to create a rating?
+  #
+  def enough_time_passed?
+    (end_timestamp - begin_timestamp) > 3.minutes
+  end
 
 end
