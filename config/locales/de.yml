@@ -230,6 +230,13 @@ de:
   ###########  models ####################
   # in notification-models generiert
   you_missed_a_call_on_your_klu: "Du hast einen Anruf für dein KluuU verpasst."
+  model_kluuu:
+    no_account: "Du musst zunächst deine Finanz-Einstellungen vervollständigen."
+    charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
+    charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
+    charge_free_error: "Wenn du ein kostenloses Kluuu erstellst, belasse den Betrag auf 0 cents"
+  model_notification_make_rate:
+    please_rate: "Bitte bewerte den Video-Chat - %{title} - mit %{name}"
   model_notification_follower_action:
     friend_took_action: "Aktivität von %{friend} auf KluuU."
   model_notification_new_bookmark:
@@ -496,6 +503,7 @@ de:
       an_anonymous_person: "Ein anonymer Nutzer "
       tried_to_call_your_klu: "hat einen Anrufversuch beim KluuU"
       tried_to_call_your_noklu: "hat einen Anrufversuch bei der Frage"
+      please_rate_video_chat: "Bitte bewerte den Video-Chat mit %{name}"
     new_content:
       created_new_status_update: "Hat seinen Status geändert"
       created_new: "Erstellte ein neues"
@@ -512,6 +520,7 @@ de:
       search_results: "Suchergebnisse"
       publish_search_as_kluuu: "Diese Suche veröffentlichen"
       persist_search: "Tipp"
+      text: "Erstelle ein Frage und nutze unser Matching System!"
       sign_up: "Anmelden"
       user: "Nutzer"
   
@@ -534,6 +543,10 @@ de:
       messages: "Nachrichten"
       settings: "Einstellungen"
       finances: "Finanzen"
+    footer:
+      legal: "Rechtliches"
+      terms_of_use: "Nutzungsbedingungen"   
+      terms_and_conditions: "AGB"
     navbar:
       sign_up: "Registrieren"
       sign_in: "Anmelden"

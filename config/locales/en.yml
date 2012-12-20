@@ -208,7 +208,6 @@ en:
   users:
     user_information:
       time_at_location: "Time at %{user}s place"
-  
   controller_accounts:
     no_settings_made_yet: "Your Settings are not finished yet"
     account_settings_created: "your Settings were created"
@@ -232,6 +231,13 @@ en:
   ###########  models ####################
   # in notification-models generiert
   you_missed_a_call_on_your_klu: "You missed a call to your KluuU."
+  model_kluuu:
+    no_account: "Please adjust your finance-settings."
+    charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
+    charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
+    charge_free_error: "Kepp amount at 0 when creating a free KluuU"
+  model_notification_make_rate:
+    please_rate: "Please rate your Video-Chat - %{title} - with %{name}"
   model_notification_follower_action:
     friend_took_action: "Activity by %{friend} on KluuU"
   model_notification_new_bookmark:
@@ -417,7 +423,7 @@ en:
     form_new_no_kluuu:
       title: "Title"
       category: "Category"
-      tag_list: "Tag list"
+      tag_list: "Tag list (separate by comma: recipe, cooking, organic)"
       published: "Public"
       save_no_kluuu: "Save Question"
       cancel: "Cancel"      
@@ -512,6 +518,7 @@ en:
       search_results: "Search result"
       publish_search_as_kluuu: "Post this search term"
       persist_search: "Tipp"
+      text: "Create a question and use our matching system!"
       sign_up: "Sign up"
       user: "User"
   
@@ -534,6 +541,10 @@ en:
       messages: "Messages"
       settings: "Settings"
       finances: "Finances"
+    footer:
+      legal: "Legal"
+      terms_of_use: "Terms Of Use"
+      terms_and_conditions: "Terms and Conditions"
     navbar:
       sign_up: "Sign Up"
       sign_in: "Log In"
@@ -558,17 +569,14 @@ en:
       title: "New status"
     form:
       update_status: "Update"
-  
   users:
     welcome:
       welcome_user: "Welcome to KluuU"
       no_klu_title: "What interests you?"
-      no_klu_text: "Create a \"Question\" with the current keyword. You'll see matching conversation partners in your Matches."
-
-Tip: "Create a question and use our matching system!"
+      no_klu_text: "Choose an interest, and KluuU turns it into a<br>'Question'. This gets matched to similar KluuUs so you can find some answers. Try it out! Fun guaranteed."
     basic_form:
       edit_your_email: "Change email address"
-      save_email: "Save email address"  
+      save_email: "Save email address"
     nested_form:
       delete_portrait: "Delete photo"
       add_a_portrait: "Upload a profile photo"

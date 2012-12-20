@@ -29,7 +29,7 @@ en:
         login_or: 'or'
         password: 'Password'        
         remember: 'Remember me'
-        text1: 'Cook your favorite meal, tell your best jokes, play chess, discuss, play music, tell, entertain, teach, advise, help, motivate ... directly via videochat.'        
+        text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp;<strong>teach</strong>,&nbsp;advice<br>play music<br>entertain,&nbsp; motivate,&nbsp; <strong>help</strong><br>directly via live<br><strong>video chat</strong>.'
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
       updated: 'Your password was changed successfully. You are now signed in.'
@@ -49,13 +49,14 @@ en:
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
       new:
+        agree_agb_and_tou: 'I accept the Terms of Use'
         registration_title: 'Sign Up'
         registration_or: 'or'
         firstname: 'First name'
         lastname: 'Last name'
         password: 'Password'
-        password_confirmation: 'Password confirmation'        
-        text1: 'Cook your favorite meal, tell your best jokes, play chess, discuss, play music, tell, entertain, teach, advise, help, motivate ... directly via videochat.'                
+        password_confirmation: 'Password confirmation'
+        text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp; <strong>teach</strong>,&nbsp; advice<br>play music<br>entertain,&nbsp; motivate,&nbsp; <strong>help</strong><br>directly via live<br><strong>video chat</strong>.'
     shared:
       links:
         login: 'Log In'

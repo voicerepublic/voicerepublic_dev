@@ -28,8 +28,8 @@ de:
         login_title: 'Anmelden'
         login_or: 'oder'
         password: 'Passwort'
-        remember: 'Angemeldet bleiben'
-        text1: 'Koche Dein Lieblingsgericht, erzähle Deine besten Witze, spiele Schach, diskutiere, musiziere, erzähle, unterhalte, lehre, berate, helfe, motiviere … direkt über Video Chat.'
+        remember: 'Angemeldet bleiben' 
+        text1: '<strong>Koche</strong> Dein Lieblingsgericht<br>erzähle Deine besten Witze<br>spiele Schach<br>diskutiere, &nbsp;musiziere, &nbsp;<strong>erzähle</strong><br>unterhalte, &nbsp;lehre,&nbsp;berate<br><strong>helfe</strong>,&nbsp;motiviere<br>direkt über <strong>Video Chat</strong>.'
     passwords:
       send_instructions: 'Du bekommst jetzt eine E-Mail in Deine Inbox, von der aus du dein Passwort zurücksetzen kannst.'
       updated: 'Dein Passwort wurde erfolgreich geändert. Du bist nun angemeldet.'
@@ -49,13 +49,14 @@ de:
       update_needs_confirmation: "Dein Konto wurde aktualisiert. Du erhältst jetzt eine E-Mail mit einem Link, über den du die neue E-Mail Adresse bestätigen musst."
       destroyed: 'Dein KluuU Konto wurde gelöscht. Wir hoffen Dich bald wieder zu sehen.'
       new:
+        agree_agb_and_tou: 'Ich aktzeptiere die Nutzungsbedingungen'
         registration_title: 'Registrieren'
         registration_or: 'oder'
         firstname: 'Vorname'
         lastname: 'Nachname'
         password: 'Passwort'
         password_confirmation: 'Passwort wiederholen'
-        text1: 'Koche Dein Lieblingsgericht, erzähle Deine besten Witze, spiele Schach, diskutiere, musiziere, erzähle, unterhalte, lehre, berate, helfe, motiviere … direkt über Video Chat.'
+        text1: '<strong>Koche</strong> Dein Lieblingsgericht<br>erzähle Deine besten Witze<br>spiele Schach<br>diskutiere, &nbsp;musiziere, &nbsp;<strong>erzähle</strong><br>unterhalte, &nbsp;lehre,&nbsp;berate<br><strong>helfe</strong>,&nbsp;motiviere<br>direkt über <strong>Video Chat</strong>.'
     shared:
       links:
         login: 'Anmelden'

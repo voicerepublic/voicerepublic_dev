@@ -5,5 +5,5 @@ require File.expand_path('../application', __FILE__)
 
 
 Kluuu2::Application.initialize!
-Kluuu2::VERSION = "2.0-pre"
+Kluuu2::VERSION = "2.0"
 
