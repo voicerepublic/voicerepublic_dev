@@ -248,8 +248,6 @@ en:
     you_got_rated_by: "%{name} rated your KluuU."
   model_notification_new_status:
     friend_created_new_status: "%{name} posted a new status."
-  model_notification_make_rate:
-    please_rate: "Please rate your Video-Chat - %{title} - with %{name}"
   video_system:
     rooms:
       default_welcome_msg: "Welcome to the KluuU Video Chat"
@@ -270,20 +268,20 @@ en:
   ########### mailers ####################
   
   mailers:
-    your_friend_took_action: "Activity on KluuU"
-    activity_around_you: "Activity concerning you on KluuU"
+    your_friend_took_action: "About: KluuU activities"
+    activity_around_you: "About: KluuU video call"
   
   ###########  views #####################
   accounts:
     form_preferences:
       get_notifications_contacts_activities: "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte"
-      emails_about_contact_activities: "if someone sends me a message/ follows me / bookmarks my KluuU."
+      emails_about_contact_activities: "if there are news around my account e.g.: new message, follower, bookmark, status."
       emails_about_me: "when someone tries to call me while I am offline."
-      dont_show_initial_help: "Don't show help text"
+      dont_show_initial_help: "Don't show help text."
       save_preferences: "Save settings"
       on_site_help: "Help text on / off"
       call_settings: "Call settings"
-      allow_anonymous_calls: "Allow anonymous calls"
+      allow_anonymous_calls: "Allow video calls from anonymous caller."
     form: 
       delete_portrait: "Delete profilephoto"
     edit:
@@ -309,8 +307,8 @@ en:
   chats:
     form:
       your_message: "message"
-      end_chat: "end chat"
-      submit: "send"
+      end_chat: "End chat"
+      submit: "Send"
     show:
       text_chat: "Chat"
   comments:
@@ -327,7 +325,7 @@ en:
       conversations: "Conversation"
       your_messages_with: "Your conversation with"
       back_to_all_conversations: "Compact view "
-      new_message: "New message"
+      new_message: "Reply to sender"
       delete_conversation: "Delete conversation"
       
   dashboard:
@@ -350,9 +348,9 @@ en:
     matches:
       matches: "Matches"
       my_kluuus: "My KluuUs / My Questions"
-      matching_something: "KluuU / Question Matches"
+      matching_something: "Matches KluuU / Question "
       view: "View"
-      we_could_not_find_matches_for_you: "Sorry, no matches yet."
+      we_could_not_find_matches_for_you: "Sorry, no matches yet. Tip: Ad more 'tags' to your KluuU / Question to get results."
     news:
       news: "News"
     settings:
@@ -385,7 +383,7 @@ en:
       edit: "Edit"
       description: "Description"
       category: "Category"
-      tag_list: "Tag list (comma separated)"
+      tag_list: "Tag list"
       call_options: "Video call options"
       available_at_times: "Availabitlity"
       charge_type: "Charge Type"
@@ -397,7 +395,7 @@ en:
       describe_your_kluuu: "A good description will generate interest. You can change the description anytime."
       image: "Image (mandatory)"      
       add_image_to_your_kluuu: "Please upload a photo for this KluuU."
-      tag_list: "Tags (mandatory) Please 3 or more - separate by comma - recipe, cooking, organic,"
+      tag_list: "Tags (mandatory) Please 3 or more - separate by comma: recipe, cooking, organic,"
       category: "Category (mandatory)"
       please_use_significant_tags: "Tags are key words. The more tags you use, the easier other will be able to find your KluuU."
       available_at_times: "Times available."
@@ -405,8 +403,8 @@ en:
       charge_type: "Charge type"
       charge_cents: "Charge in cent"   
       you_can_charge_for_your_kluuu: "You can offer your KluuU for free, charge per minute or at a fixed price."
-      you_can_charge_by_minute_or_a_fixed_price: "Set a rate per minute between $ 0.10 and $ 5 or a fixed price between $ 1 and $ 50."
-      how_much_do_you_want_to_charge: "The first 5 minutes of all conversation are free."
+      you_can_charge_by_minute_or_a_fixed_price: "Set a rate per minute between $ 10 Cents and $ 5 or a fixed price between $ 10 Cents and $ 50."
+      how_much_do_you_want_to_charge: "Note: The first 5 minutes of all conversation are free."
       please_check_to_publish_your_kluuu: "Markieren, um dein Kluuu zu veröffentlichen"
       later_you_can_unpublish_and_publish_any_time: "Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren."
       uses_status: "Deine aktuelle Status-Message im Kluuu anzeigen"
@@ -419,14 +417,14 @@ en:
     form_new_no_kluuu:
       title: "Title"
       category: "Category"
-      tag_list: "Tag list (comma separated)"
+      tag_list: "Tag list"
       published: "Public"
       save_no_kluuu: "Save Question"
       cancel: "Cancel"      
     form_no_kluuu:
       title: "Title"
       category: "Category"
-      tag_list: "Tag list (comma separated)"
+      tag_list: "Tag list"
       save: "Save Question"
       cancel: "Cancel" 
       call_options: "Call options"
@@ -494,7 +492,6 @@ en:
       unfollow: "Unfollow"
       follow_back: "Follow"
       rated_your: "Rated your KluuU"
-      please_rate_video_chat: "Please rate your Video-Chat with %{name}"
       wrote_you_a_message: "Send you a Message"
       an_anonymous_person: "an anonymous call"
       tried_to_call_your_klu: "attempted to reach KluuU"
@@ -504,8 +501,8 @@ en:
       created_new: "crated a new"
   search:
     tagged_with:
-      taggings_with: "KluuUs and questions tagged with #%{tag}"
-      no_kluuus_tagged_with: "No results for tag #%{tag} found."
+      taggings_with: "KluuUs and questions tagged with %{tag}"
+      no_kluuus_tagged_with: "No results for tag %{tag} found."
       no_kluuu: "Questions"
       title_other_tags: "Trends"      
     form:
@@ -514,8 +511,7 @@ en:
       searchresults: "Search result"
       search_results: "Search result"
       publish_search_as_kluuu: "Post this search term"
-      persist_search: "Tip:"
-      text: "Create a Question and use our matching system!"
+      persist_search: "Tipp"
       sign_up: "Sign up"
       user: "User"
   
@@ -538,10 +534,6 @@ en:
       messages: "Messages"
       settings: "Settings"
       finances: "Finances"
-    footer:
-      legal: "Legal"
-      terms_of_use: "Terms Of Use"
-      terms_and_conditions: "Terms and Conditions"
     navbar:
       sign_up: "Sign Up"
       sign_in: "Log In"
@@ -571,7 +563,9 @@ en:
     welcome:
       welcome_user: "Welcome to KluuU"
       no_klu_title: "What interests you?"
-      no_klu_text: "Choose an interest, and KluuU turns it into a<br>'Question'. This gets matched to similar KluuUs so you can find some answers. Try it out! Fun guaranteed."
+      no_klu_text: "Create a \"Question\" with the current keyword. You'll see matching conversation partners in your Matches."
+
+Tip: "Create a question and use our matching system!"
     basic_form:
       edit_your_email: "Change email address"
       save_email: "Save email address"  
@@ -579,10 +573,10 @@ en:
       delete_portrait: "Delete photo"
       add_a_portrait: "Upload a profile photo"
     no_status_updates:
-      no_status_updates_of_you: "You have not posted a status"
+      no_status_updates_of_you: "You have not posted a status."
       what_you_say: "What's on your mind?"
       new_opinion: "New status"
-      no_status_updates_here: "This user has not posted a status"
+      no_status_updates_here: "This user has not posted a status."
     password_form:
       new_password: "New password"
       rewrite_new_password: "Password confirmation"
@@ -619,7 +613,7 @@ en:
     calling:
       video_call_title: "Video Call"
       in_process: "In progess..."
-      cancel_call: "Abbrechen"
+      cancel_call: "Cancel"
     new_form:
       dispatching_call: "Connecting to..."
       start_video_call: "Video Call"

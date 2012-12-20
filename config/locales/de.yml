@@ -120,7 +120,7 @@ de:
       too_short: ist zu kurz (nicht weniger als %{count} Zeichen)
       wrong_length: hat die falsche Länge (muss genau %{count} Zeichen haben)
     template:
-      body: ! 'Bitte überprüfen Sie die folgenden Felder:'
+      body: ! 'Bitte überprüfe folgenden Felder:'
       header:
         one: ! 'Konnte %{model} nicht speichern: ein Fehler.'
         other: ! 'Konnte %{model} nicht speichern: %{count} Fehler.'
@@ -206,19 +206,19 @@ de:
   users:
     user_information:
       time_at_location: "Zeit an %{user}s Ort."
-      will_open_in_new_tab: "Dieser Link wird in einem neuen Tab geöffnet."
+      will_open_in_new_tab: "Hinweis: Dieser Link wird in einem neuen Tab geöffnet."
   controller_accounts:
     no_settings_made_yet: "Die Einstellungen sind noch nicht vollständig."
-    account_settings_created: "Deine Profileinstellungen wurden erstellt."
+    account_settings_created: "Deine Profileinstellungen wurden gespeichert."
     settings_updated: "Deine Einstellungen wurden aktualisiert."
-    portrait_destroyed: "Dein Portrait wurde entfernt."
+    portrait_destroyed: "Dein Foto wurde entfernt."
   controller_bookmarks:
     bookmark_created: "Das Lesezeichen wurde gesetzt."
     bookmark_destroyed: "Das Lesezeichen wurde entfernt."
   controller_comments:
     comment_created: "Der Kommentar wurde erstellt."
   controller_conversations:
-    conversation_destroyed: "Der Konversationsverlauf wurde entfernt."
+    conversation_destroyed: "Das Gespräch wurde entfernt."
   controller_dashboard:
     notification_destroyed: "Die Nachricht wurde entfernt."
   controller_follows:
@@ -229,7 +229,7 @@ de:
       
   ###########  models ####################
   # in notification-models generiert
-  you_missed_a_call_on_your_klu: "Du hast einen Anruf für Dein KluuU verpasst."
+  you_missed_a_call_on_your_klu: "Du hast einen Anruf für dein KluuU verpasst."
   model_notification_follower_action:
     friend_took_action: "Aktivität von %{friend} auf KluuU."
   model_notification_new_bookmark:
@@ -246,8 +246,6 @@ de:
     you_got_rated_by: "%{name} hat dich bewertet."
   model_notification_new_status:
     friend_created_new_status: "%{name} hat einen neuen Status veröffentlicht."
-  model_notification_make_rate:
-    please_rate: "Bitte bewerte den Video-Chat - %{title} - mit %{name}"
   video_system:
     rooms:
       default_welcome_msg: "Willkommen im KluuU Video Chat"
@@ -255,7 +253,7 @@ de:
     no_account: "Du musst zunächst deine Finanz-Einstellungen vervollständigen."
     charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
     charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
-    charge_free_error: "Wenn du ein kostenloses Kluuu erstellst, belasse den Betrag auf 0 cents"
+    charge_free_error: "Wenn du ein kostenloses KluuU erstellst, belasse den Betrag auf 0 cents"
   
   ###########  helpers  ##################
   
@@ -267,20 +265,20 @@ de:
   ########### mailer #####################
   
   mailers:
-    your_friend_took_action: "Aktivität auf KluuU"
-    activity_around_you: "Aktivität um dich auf KluuU"
+    your_friend_took_action: "Benachrichtigung über Aktivitäten"
+    activity_around_you: "Benachrichtigung: Anruf verpasst"
   
   ###########  views #####################
   accounts:
     form_preferences:
       get_notifications_contacts_activities: "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte."
-      emails_about_contact_activities: "wenn ich eine Nachrichten erhalte / mir jemand folgt / mein KluuU ein Lesezeichen erhält."
+      emails_about_contact_activities: "wenn es Neuigkeiten gibt. Z.B.: mir folgt jemand / Lesezeichen erhalten / neuer Status."
       emails_about_me: "wenn jemand versucht mich anzurufen während ich offline bin."
-      dont_show_initial_help: "Hilfe-Texte nicht mehr anzeigen."
+      dont_show_initial_help: "Hilfe Texte nicht mehr anzeigen."
       save_preferences: "Einstellungen speichern"
       on_site_help: "Hilfe Texte an/aus"
       call_settings: "Anrufeinstellungen"
-      allow_anonymous_calls: "Erlaube anonyme Video-Anrufe (von nicht angemeldeten Nutzern)"
+      allow_anonymous_calls: "Ich erlaube anonyme Video-Anrufe von nicht angemeldeten Nutzern."
     form: 
       delete_portrait: "Portrait löschen"
     edit:
@@ -313,7 +311,7 @@ de:
   comments:
     form:
       your_comment: "Kommentar"
-      write_a_comment: "Bitte schreibe einen Kommentar"
+      write_a_comment: "Bitte schreibe einen Kommentar."
       save: "Senden"
   conversations:
     index:
@@ -325,7 +323,7 @@ de:
       conversations: "Nachrichten"
       your_messages_with: "Deine Unterhaltung mit"
       back_to_all_conversations: "Zurück zur Übersicht"
-      new_message: "Neue Nachricht"
+      new_message: "Schreibe eine Antwort"
       delete_conversation: "Unterhaltung löschen"
       
   dashboard:
@@ -342,27 +340,27 @@ de:
       edit_password: "Passwort ändern"
     edit_settings:
       settings: "Einstellungen"
-      email: "Meine Email-Adresse"
+      email: "Meine E-Mail Adresse"
       new_password: "Neues Passwort"
       notifications_and_emails: "Ich wünsche eine Benachrichtigung per E-Mail..."
     matches:
       matches: "Matching KluuUs"
       my_kluuus: "Meine KluuUs / Meine Fragen"
       my_questions: "Meine Fragen"
-      matching_something: "KluuU / Fragen Treffer"
+      matching_something: "Treffer KluuUs / Fragen "
       view: "Ansehen"
-      we_could_not_find_matches_for_you: "Schade, wir konnten kein passendes KluuU finden. Tipp: Füge Deinem KluuU weitere Schlagworte zu, um Matches zu bekommen."
+      we_could_not_find_matches_for_you: "Wir konnten keinen passenden Treffer finden. Tipp: Füge deinem KluuU / deiner Frage weitere Schlagworte zu, um Treffer zu bekommen."
     news:
       news: "Neues"
       no_news_yet: "Du hast noch keine Neuigkeiten."
     settings:
       settings: "Einstellungen"
-      configured_email: "Deine verwendete Email Adresse"
+      configured_email: "Deine verwendete E-Mail Adresse"
       edit_password: "Passwort ändern"
-      get_email_if_actions_on_my_kluuus: "Email an mich sobald es mich betrifft"
-      get_news_on_actions_of_friends: "Ich möchte einen Hinweis in Neues über die Aktivitäten meiner Freunde"
-      get_email_if_actions_of_friends: "Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde"
-      hide_initial_help: "Hilfe-Texte verstecken."
+      get_email_if_actions_on_my_kluuus: "E-Mail an mich sobald es mich betrifft"
+      get_news_on_actions_of_friends: "Ich möchte einen Hinweis in Neuigkeiten über die Aktivitäten meiner Kontakte"
+      get_email_if_actions_of_friends: "Ich möchte einen Hinweis per E-Mail über die Aktivitäten meiner Kontakte"
+      hide_initial_help: "Hilfe Texte verstecken."
       edit_preferences: "Einstellungen bearbeiten"
   follows:
     follower:
@@ -385,7 +383,7 @@ de:
       edit: "Bearbeiten"
       description: "Beschreibung"
       category: "Kategorie"
-      tag_list: "Schlagworte (durch Komma getrennt)"
+      tag_list: "Schlagworte"
       call_options: "Anruf-Optionen"
       available_at_times: "Zu folgenden Zeiten erreichbar"
       charge_type: "Preis"
@@ -397,17 +395,17 @@ de:
       describe_your_kluuu: "Eine gute Beschreibung macht Lust auf ein persönliches Gespräch. Du kannst die Beschreibung jederzeit ändern."
       image: "Bild (notwendig)"
       add_image_to_your_kluuu: "Bitte füge deinem KluuU ein Bild an."
-      tag_list: "Schlagworte (notwendig - mindestens 3 - durch Komma trennen. Z.B.: Kochen, Rezept)"
+      tag_list: "Schlagworte (notwendig) bitte mindestens 3 - durch Komma trennen. (Rezept, kochen, vegetarisch)"
       category: "Kategorie (notwendig)"
       please_use_significant_tags: "Schau in Deiner Beschreibung für gute Schlagworte. Je mehr Schlagworte du benutzt, desto besser lässt sich Dein KluuU finden."
-      available_at_times: "Wann bist du Online? "
+      available_at_times: "Wann bist du zu diesem KluuU online? "
       at_what_time_are_you_available: "Diese Angabe ist optional." 
-      charge_type: "Preis"
+      charge_type: "Preismodel"
       charge_cents: "Betrag in Cent"
-      you_can_charge_for_your_kluuu: "Du hast die Möglichkeit Dein KluuU gratis /  für einen Minutenpreis / einen Fixpreis anzubieten."
-      you_can_charge_by_minute_or_a_fixed_price: "Wähle eine Minuten-Preis zwischen 0,1 und 5 Euro. Wähle einen Fix-Preis zwischen 0,1 und 50 Euro."
-      how_much_do_you_want_to_charge: "Alle kostenpflichtigen Gespräche sind die ersten 5 Minuten gratis."
-      please_check_to_publish_your_kluuu: "Markieren, um dein Kluuu zu veröffentlichen"
+      you_can_charge_for_your_kluuu: "Du hast die Möglichkeit Dein KluuU gratis /  per Minutenpreis / einen Fixpreis anzubieten."
+      you_can_charge_by_minute_or_a_fixed_price: "Wähle eine Minutenpreis zwischen 10 Cent und 5 Euro. Wähle einen Fixpreis zwischen 10 Cent und 50 Euro."
+      how_much_do_you_want_to_charge: "Wichtig: kostenpflichtige Gespräche sind immer die ersten 5 Minuten gratis."
+      please_check_to_publish_your_kluuu: "Markiere, um dein Kluuu zu veröffentlichen"
       later_you_can_unpublish_and_publish_any_time: "Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren."
       uses_status: "Deine aktuelle Status-Message im Kluuu anzeigen"
       you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
@@ -419,14 +417,14 @@ de:
     form_new_no_kluuu:
       title: "Titel"
       category: "Kategorie"
-      tag_list: "Schlagwort Liste (getrennt mit Komma)"
+      tag_list: "Schlagwort Liste"
       published: "Öffentlich anzeigen"
-      save_no_kluuu: "Frage speichern"
+      save_no_kluuu: "Frage veröffentlichen"
       cancel: "Abbrechen"
     form_no_kluuu:
       title: "Titel"
       category: "Kategorie"
-      tag_list: "Schlagwort Liste (getrennt mit Komma)"   
+      tag_list: "Schlagwort Liste - getrennt mit Komma. Z.B.: Rezept, kochen, vegetarisch)"   
       save: "Frage aktualisieren"
       cancel: "Abbrechen"
       call_options: "Anruf-Optionen"
@@ -440,15 +438,15 @@ de:
       unfollow: "Entfolgen"
       follow: "Folgen"
       more_klus_by_this_user: "Weitere KluuUs dieses Nutzers"
-      available_at_times: "Wann bist du Online?"
+      available_at_times: "Online:"
       category: "Kategorie"
       tags: "Schlagworte"
     kluuu:
-      feedbacks: "Bewertungen"
-      this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal gebookmarkt"
+      feedbacks: "Kommentare"
+      this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal mit einem Lesezeichen versehen."
       people_who_wanna_know_more_about: "→ Treffer zum KluuU:"
     no_kluuu:
-      this_no_kluuu_is_bookmarked: "Diese Frage wurde %{times} mal gebookmarkt"
+      this_no_kluuu_is_bookmarked: "Diese Frage wurde %{times} mal mit einem Lesezeichen versehen."
       people_who_know_about: "→ Treffer zur Frage:"
     user_about:
       user_description: "Über mich"
@@ -462,7 +460,7 @@ de:
       new_no_kluuu: "Neue Frage erstellen."
       new_kluuu: "Neues KluuU erstellen."
     new:
-      create_a_new_kluuu: "Erstelle Dein KluuU"
+      create_a_new_kluuu: "Erstelle dein KluuU"
   
   landing_page:
     index:
@@ -477,14 +475,14 @@ de:
   notifications:
     call_rejected:
       video_call_title: "Video Anruf"
-      rejected_text: "hat deinen Video Anruf abgelehnt"
+      rejected_text: "hat deinen Anruf abgelehnt"
       close: "Schliessen"
     incoming_call:
       video_call_title: "Video Anruf"
       accept_call: "Annehmen"
       reject_call: "Ablehnen"
     video_system_error:
-      video_down_text: "Sorry! Das Video System wird derzeit gewartet. Wir beeilen uns! Vielen Dank für Dein Verständnis."
+      video_down_text: "Sorry! Das Video System wird derzeit gewartet. Wir beeilen uns! Vielen Dank für dein Verständnis."
       close: "Schliessen"
   notifies:
     my_content:
@@ -493,8 +491,7 @@ de:
       follows_you_now: "folgt Dir jetzt"
       unfollow: "Entfolgen"
       follow_back: "Folgen"
-      rated_your: "Hat Dein KluuU bewertet"
-      please_rate_video_chat: "Bitte bewerte den Video-Chat mit %{name}"
+      rated_your: "Hat dein KluuU bewertet"
       wrote_you_a_message: "Hat dir eine Nachricht geschrieben"
       an_anonymous_person: "Ein anonymer Nutzer "
       tried_to_call_your_klu: "hat einen Anrufversuch beim KluuU"
@@ -504,18 +501,17 @@ de:
       created_new: "Erstellte ein neues"
   search:
     tagged_with:
-      taggings_with: "Treffer mit Schlagwort #%{tag}"
-      no_kluuus_tagged_with: "Keine Treffer mit Schlagwort #%{tag} gefunden."
+      taggings_with: "Treffer mit Schlagwort %{tag}"
+      no_kluuus_tagged_with: "Keine Treffer mit Schlagwort %{tag} gefunden."
       no_kluuu: "Fragen"
       title_other_tags: "Trends"
     form:
       search: "Suche!"
     search:
-      searchresults: "Suchresultate"
+      searchresults: "Suchergebnis"
       search_results: "Suchergebnisse"
       publish_search_as_kluuu: "Diese Suche veröffentlichen"
-      persist_search: "Tipp:"
-      text: "Erstelle ein Frage und nutze unser Matching System!"
+      persist_search: "Tipp"
       sign_up: "Anmelden"
       user: "Nutzer"
   
@@ -538,10 +534,6 @@ de:
       messages: "Nachrichten"
       settings: "Einstellungen"
       finances: "Finanzen"
-    footer:
-      legal: "Rechtliches"
-      terms_of_use: "Nutzungsbedingungen"
-      terms_and_conditions: "AGB"
     navbar:
       sign_up: "Registrieren"
       sign_in: "Anmelden"
@@ -573,10 +565,10 @@ de:
       no_klu_title: "Was interessiert Dich?"
       no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
     basic_form:
-      edit_your_email: "Hier kannst Du die Email-Adresse ändern, mit der Du bei KluuU registriert bist."
-      save_email: "Email-Adresse speichern"  
+      edit_your_email: "Hier kannst Du die E-Mail Adresse ändern, mit der Du bei KluuU registriert bist."
+      save_email: "E-Mail Adresse speichern"  
     nested_form:
-      delete_portrait: "Portrait löschen"
+      delete_portrait: "Foto löschen"
       add_a_portrait: "Füge hier ein Portrait Foto ein."
     no_status_updates:
       no_status_updates_of_you: "Veröffentliche jetzt einen Status!"
@@ -650,7 +642,7 @@ de:
       close: "Schliessen"
       send_message: "Nachricht"
     video_system_error:
-      video_down_text: "Sorry! Wir warten gerade das Video System. Wir beeilen uns. Vielen Dank für Dein Verständnis."
+      video_down_text: "Sorry! Wir warten gerade das Video System. Wir beeilen uns. Vielen Dank für dein Verständnis."
       close: "Schliessen"
       
   
