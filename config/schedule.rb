@@ -20,6 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, "/var/www/www.kluuu.com/production/shared/logs/whenever-cron.log"
+env :PATH, '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
 
 every 5.minutes, :roles => [:app] do
   rake "ts:reindex"
