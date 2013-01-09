@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
   has_many :bookmarks, :dependent => :destroy
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
-  has_many :notifications, :class_name => 'Notification::Base'
+  has_many :notifications, :class_name => 'Notification::Base', :dependent => :destroy
+  has_many :message_notifications, :class_name => 'Notification::NewMessage', :foreign_key => :other_id, :dependent => :destroy
   has_many :ratings, :dependent => :destroy
   has_many :klus ,  :dependent => :destroy       # -> base-class
   has_many :no_kluuus,  :dependent => :destroy
