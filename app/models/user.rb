@@ -20,8 +20,7 @@ class User < ActiveRecord::Base
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
   has_many :notifications, :class_name => 'Notification::Base'
-  has_many :ratings
-  
+  has_many :ratings, :dependent => :destroy
   has_many :klus ,  :dependent => :destroy       # -> base-class
   has_many :no_kluuus,  :dependent => :destroy
   has_many :kluuus, :dependent => :destroy

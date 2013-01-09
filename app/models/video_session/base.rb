@@ -22,7 +22,13 @@ class VideoSession::Base < ActiveRecord::Base
   def enough_time_passed?
     p = self.guest_participant
     Rails.logger.info("#{self.class.name}#enough_time_passed? - guest: #{p.inspect}")
-    ( p.left_timestamp - p.entered_timestamp ) >= 3.minutes
+    if  p.left_timestamp.nil?
+      Rails.logger.error("#{self.class.name}#enough_time_passed? - ERROR - no left_timestamp available")
+      # FIXME - check why there is no left-timestamp - until then use Time.now
+      ( Time.now - p.entered_timestamp ) >= 3.minutes
+    else
+      ( p.left_timestamp - p.entered_timestamp ) >= 3.minutes
+    end
   end
 
 end
