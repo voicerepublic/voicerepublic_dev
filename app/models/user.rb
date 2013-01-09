@@ -20,22 +20,21 @@ class User < ActiveRecord::Base
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
   has_many :notifications, :class_name => 'Notification::Base', :dependent => :destroy
-  has_many :message_notifications, :class_name => 'Notification::NewMessage', :foreign_key => :other_id, :dependent => :destroy
   has_many :ratings, :dependent => :destroy
   has_many :klus ,  :dependent => :destroy       # -> base-class
   has_many :no_kluuus,  :dependent => :destroy
   has_many :kluuus, :dependent => :destroy
- 
   has_many :sent_messages, :foreign_key => :sender_id, :class_name => 'Message', :dependent => :destroy
   has_many :received_messages, :foreign_key => :receiver_id, :class_name => 'Message', :dependent => :destroy
-  
   has_many :followed_relations, :foreign_key => :follower_id, :class_name => 'Follow', :dependent => :destroy
   has_many :follower_relations, :foreign_key => :followed_id, :class_name => 'Follow', :dependent => :destroy  
   has_many :follower, :through => :follower_relations#, :source => :followed 
   has_many :followed, :through => :followed_relations#, :source => :follower 
+  
   # hackish - to be able to destroy these conversations if user is destroyed.
   has_many :conversations_1, :foreign_key => :user_1_id, :class_name => 'Conversation', :dependent => :destroy
   has_many :conversations_2, :foreign_key => :user_2_id, :class_name => 'Conversation', :dependent => :destroy
+  has_many :message_notifications, :class_name => 'Notification::NewMessage', :foreign_key => :other_id, :dependent => :destroy
   
   has_one :account, :dependent => :destroy          # application-account-things
   has_one :balance_account, :dependent => :destroy, :autosave => true, :class_name => 'Balance::Account'   # financial things
