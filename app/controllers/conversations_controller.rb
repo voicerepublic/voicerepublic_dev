@@ -11,8 +11,13 @@ class ConversationsController < ApplicationController
     @conversations = @user.conversations.sort do |a,b| 
                         y = b.undeleted_messages_for(@user).limit(1).first
                         z = a.undeleted_messages_for(@user).limit(1).first
-                        if y && z
-                          y.created_at <=> z.created_at 
+                        
+                        if y.nil? || z.nil?
+                          0
+                        else
+                          if y && z
+                            y.created_at <=> z.created_at 
+                          end
                         end
                       end
                       
