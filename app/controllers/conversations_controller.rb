@@ -7,7 +7,6 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
   def index
-    #authorize! :index
     # TODO cleanup this mess!
     @conversations = @user.conversations.sort do |a,b| 
                         y = b.undeleted_messages_for(@user).limit(1).first
@@ -68,7 +67,6 @@ class ConversationsController < ApplicationController
   private
   
   def set_user
-    #if User.find(params[:user_id]) 
     @user ||= current_user #||= User.find(params[:user_id])
   end
 end
