@@ -21,7 +21,7 @@ class ConversationsController < ApplicationController
                           end
                         end
                       end
-    authorize! :show, @conversations.first
+    
         
     @conversations.each_with_index do |x,i| 
       if x.messages.empty? 
@@ -66,7 +66,9 @@ class ConversationsController < ApplicationController
   end
   
   private
+  
   def set_user
-    @user ||= User.find(params[:user_id])
+    #if User.find(params[:user_id]) 
+    @user ||= current_user #||= User.find(params[:user_id])
   end
 end
