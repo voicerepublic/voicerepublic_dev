@@ -21,7 +21,7 @@ class ConversationsController < ApplicationController
                           end
                         end
                       end
-    authorize! :index, @conversations.first
+    authorize! :show, @conversations.first
         
     @conversations.each_with_index do |x,i| 
       if x.messages.empty? 
