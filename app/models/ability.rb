@@ -68,7 +68,7 @@ class Ability
     end
     
     can :manage, Conversation do |conversation|
-      user ==  conversation.user_1 || conversation.user_2
+      user == conversation.user_1 || conversation.user_2
     end
     
     can :manage, Category do |category|

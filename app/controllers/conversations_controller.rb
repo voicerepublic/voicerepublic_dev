@@ -7,6 +7,7 @@ class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
   def index
+    #authorize! :index
     # TODO cleanup this mess!
     @conversations = @user.conversations.sort do |a,b| 
                         y = b.undeleted_messages_for(@user).limit(1).first
@@ -20,7 +21,8 @@ class ConversationsController < ApplicationController
                           end
                         end
                       end
-                      
+    authorize! :index, @conversations.first
+        
     @conversations.each_with_index do |x,i| 
       if x.messages.empty? 
         x.destroy
@@ -38,9 +40,7 @@ class ConversationsController < ApplicationController
   # GET /conversations/1.json
   def show
     @conversation = Conversation.find(params[:id])
-    
     authorize! :show, @conversation
-    
     @messages = @conversation.undeleted_messages_for(@user).paginate(:page => params[:page], :per_page => 10)
     @messages.each { |m| m.update_attribute(:receiver_read, true) }
     respond_to do |format|
