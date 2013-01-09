@@ -44,7 +44,7 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /en|de/ do
-    resources :users, :only => [:update, :show, :edit] do
+    resources :users, :only => [:update, :show] do
       member do
         get 'no_kluuus'
         get 'kluuus'
