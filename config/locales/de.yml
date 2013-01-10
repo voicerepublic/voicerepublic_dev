@@ -272,15 +272,15 @@ de:
   ########### mailer #####################
   
   mailers:
-    your_friend_took_action: "Benachrichtigung über Aktivitäten"
-    activity_around_you: "Benachrichtigung: Anruf verpasst"
+    your_friend_took_action: "Aktivitäten deiner Freunde auf KluuU"
+    activity_around_you: "Aktivität um deinen Account auf KluuU"
   
   ###########  views #####################
   accounts:
     form_preferences:
       get_notifications_contacts_activities: "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte."
-      emails_about_contact_activities: "wenn es Neuigkeiten gibt. Z.B.: mir folgt jemand / Lesezeichen erhalten / neuer Status."
-      emails_about_me: "wenn jemand versucht mich anzurufen während ich offline bin."
+      emails_about_contact_activities: "wenn es Neuigkeiten von meinen Freunden gibt. Z.B.: neuer Status."
+      emails_about_me: "wenn es Neuigkeiten gibt, die mich betreffen. Z.B. jemand versuchte mich anzurufen während ich offline bin."
       dont_show_initial_help: "Hilfe Texte nicht mehr anzeigen."
       save_preferences: "Einstellungen speichern"
       on_site_help: "Hilfe Texte an/aus"

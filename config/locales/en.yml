@@ -274,15 +274,15 @@ en:
   ########### mailers ####################
   
   mailers:
-    your_friend_took_action: "About: KluuU activities"
-    activity_around_you: "About: KluuU video call"
+    your_friend_took_action: "Activities of your fiends on KluuU"
+    activity_around_you: "Activities concerning your account on KluuU"
   
   ###########  views #####################
   accounts:
     form_preferences:
-      get_notifications_contacts_activities: "Erhalte Nachrichten auf KluuU über die Aktivitäten Deiner Kontakte"
-      emails_about_contact_activities: "if there are news around my account e.g.: new message, follower, bookmark, status."
-      emails_about_me: "when someone tries to call me while I am offline."
+      get_notifications_contacts_activities: "Get notifications about your friends activities."
+      emails_about_contact_activities: "if there are news about my friends e.g.: new status."
+      emails_about_me: "if there are news concerning me. E.g. when someone tried to call me while I was offline."
       dont_show_initial_help: "Don't show help text."
       save_preferences: "Save settings"
       on_site_help: "Help text on / off"
