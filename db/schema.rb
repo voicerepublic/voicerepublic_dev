@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121122105617) do
+ActiveRecord::Schema.define(:version => 20130111152324) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -295,6 +295,25 @@ ActiveRecord::Schema.define(:version => 20121122105617) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
+
+  create_table "venue_klus", :force => true do |t|
+    t.integer  "venue_id"
+    t.integer  "klu_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "venue_klus", ["venue_id"], :name => "index_venue_klus_on_venue_id"
+
+  create_table "venues", :force => true do |t|
+    t.integer  "host_kluuu_id"
+    t.datetime "start_time"
+    t.text     "description"
+    t.string   "title"
+    t.string   "intro_video"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "video_rooms", :force => true do |t|
     t.integer  "video_server_id"

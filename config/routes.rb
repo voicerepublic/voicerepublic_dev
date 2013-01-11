@@ -2,6 +2,9 @@ Kluuu2::Application.routes.draw do
 
   
 
+  resources :venues
+
+
   scope "(/:locale)", :locale => /de|en/ do
     get "txt/agb"
     get "txt/tou"
