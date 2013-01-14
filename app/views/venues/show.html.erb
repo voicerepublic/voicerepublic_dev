@@ -1,27 +1,82 @@
-<%- model_class = Venue -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+	<h2><%= t('.venue')%>: <%= @venue.title %></h2>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:host_kluuu_id) %>:</strong></dt>
-  <dd><%= @venue.host_kluuu_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:start_time) %>:</strong></dt>
-  <dd><%= @venue.start_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @venue.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:intro_video) %>:</strong></dt>
-  <dd><%= @venue.intro_video %></dd>
-</dl>
+<aside>
+	<p>
+		<% if @venue.start_time > Time.now %>
+		<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time, true ) ) %> </span>
+		<% else %>
+		<span class="label label-info"><%= t('.past_venue')%></span>
+		<% end %>
+	</p>
+</aside>
 
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              venues_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_venue_path(@venue), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              venue_path(@venue),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+<div class="venue-page row-fluid clearfix">
+
+	<article class="span6 clearfix">
+
+		<div class="well well-large venue-box row-fluid clearfix">
+			<div class="span6">
+				<h3><%= @venue.title %></h3>
+				<%= simple_format @venue.description, :class => "text-info" %>
+			</div>
+			<div class="span6">
+				<p>
+					<%= t('.venue_moderated_by', :name => @venue.host_kluuu.user.name ) %>
+					<br />
+					<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
+					<span class="label label-info"><%= t('.start_date')%></span>&nbsp;
+					<%= l(@venue.start_time) %>
+				</p>
+			</div>
+		</div>
+
+		<div class="form-actions">
+			<%= link_to t('.back', :default => t("helpers.links.back")), venues_path, :class => 'btn'  %>
+			<% if can? :manage, @venue %>
+			<%= link_to t('.edit', :default => t("helpers.links.edit")), edit_venue_path(@venue), :class => 'btn' %>
+			<%= link_to t('.destroy', :default => t("helpers.links.destroy")),venue_path(@venue), :method => 'delete',
+			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+			:class => 'btn btn-danger' %>
+			<% end %>
+			<% if can? :join, @venue %>
+				<% if @venue.user_participates?(current_user) %>
+					<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
+						:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-danger") %>
+				<% else %>
+					<%= link_to t('.join_venue'), venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-success" %>
+				<% end %>
+			<% end %>
+		</div>
+
+		<section class="participating-klus">
+			<h3><%= t('.participating_klus') %></h3>
+			<% if @venue.klus.empty? %>
+				<%= t('.be_the_first_to_participate') %>! - 
+				<% if can? :join, @venue %>
+					<%= link_to t('.join_venue'), venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-success" %>
+				<% end %>
+			<% end %>
+			<% @venue.klus.each do |klu| %>
+				<%= link_to(klu_path(klu)) do %>
+					<%= partial_for_klu(klu, :tiny) %>
+				<% end %>
+			<% end %>
+		</section>
+
+	</article>
+
+	<section class="group-chat span6">
+		<h3><%= t('.group_chat')%></h3>
+		<p>
+			<% if @venue.start_time > Time.now - 5.minutes %>
+			<span class="label label-important"><%= t('attention') %></span>
+			<%= t('.chat_will_be_available_short_before_start')%>
+			<% else %>
+			<% end %>
+		</p>
+	</section>
+
 </div>
+

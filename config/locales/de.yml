@@ -622,6 +622,25 @@ de:
       send: "Senden"
       cancel: "Abbrechen"
 
+  venues:
+    show:
+      time_until_takeoff: "Noch %{time} bis Start"
+      venue_moderated_by: "Moderiert von %{name}"
+      start_date: "Zeitpunkt"
+      past_venue: "Vergangener Treffpunkt"
+      join_venue: "Teilnehmen"
+      participating_klus: "Teilnehmende KluuUs"
+      chat_will_be_available_short_before_start: "Der Gruppen-Chat wird 5 Minuten vor Beginn aktiviert"
+      group_chat: "Gruppen-Chat"
+      be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
+      confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
+    new_join:
+      participate_in_venue: "Nimm am Treffpunkt '%{title}' teil" 
+      no_klus_available_to_join_venue: "Du hast noch keine 'Fragen' um am Treffpunkt teilzunehmen - erstelle zunächst eine!"
+      click_on_your_klu_to_participate_in_venue: "Mit klick auf eine deiner Fragen wählst du diese aus um am Treffpunkt teilzunehmen."
+      confirm_join: "Willst du mit deiner Frage '%{klu_name}' am Treffpunkt '%{title}' teilnehmen?"
+      so_easy: "So einfach"
+      
   video_sessions:
     anonymous_sign_up:
       video_call_title: "Video Anruf"
@@ -657,5 +676,8 @@ de:
     video_system_error:
       video_down_text: "Sorry! Wir warten gerade das Video System. Wir beeilen uns. Vielen Dank für dein Verständnis."
       close: "Schliessen"
+
+######## globals #############
+  attention: "Achtung"
       
   

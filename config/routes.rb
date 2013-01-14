@@ -1,10 +1,5 @@
 Kluuu2::Application.routes.draw do
 
-  
-
-  resources :venues
-
-
   scope "(/:locale)", :locale => /de|en/ do
     get "txt/agb"
     get "txt/tou"
@@ -32,8 +27,12 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /de|en/ do
-    #resources :chats, :only => [ :new, :create ]
     resources :categories
+    resources :venues do
+      post 'join_venue/:klu_id', :action => 'join_venue', :as => "join"
+      get 'new_join', :action => 'new_join', :as => 'new_join'
+      delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 
+    end
     resources :klus do
       resources :ratings, :only => [:new, :create]
     end

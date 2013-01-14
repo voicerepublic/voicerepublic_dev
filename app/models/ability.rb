@@ -91,5 +91,13 @@ class Ability
       user == bookmark.user
     end
     
+    can :manage, Venue do |venue|
+      user.roles.include?(Role.find_by_name('venue_host')) && venue.host_kluuu.user == user
+    end
+    
+    can :manage, VenueKlu do |vk|
+      vk.klu.user == user 
+    end
+    
   end
 end

@@ -1,22 +1,40 @@
-<%= form_for @venue, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @venue, :html => { :class => 'form-vertical' } do |f| %>
+
+	<% if current_user.kluuus.empty? %>
+		<div class="alert alert-error">
+			<%= t('.available_kluuu_prerequisite_for_creating_venue') %>
+		</div>
+	<% end %>
+
+
   <div class="control-group">
-    <%= f.label :host_kluuu_id, :class => 'control-label' %>
+  	<%= f.label :title, :class => 'control-label' %>
+  	<div class="controls">
+  		<%= f.text_field :title, :class => 'text_field' %>
+  	</div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :host_kluuu, :class => 'control-label' %>
     <div class="controls">
-      <%= f.number_field :host_kluuu_id, :class => 'number_field' %>
+      <%= f.select :host_kluuu_id, current_user.kluuus.map {|klu| [klu.title, klu.id] } , :class => 'select_field' %>
     </div>
   </div>
+  
+   <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :description, :class => 'text_area' %>
+    </div>
+  </div>
+  
   <div class="control-group">
     <%= f.label :start_time, :class => 'control-label' %>
     <div class="controls">
       <%= f.datetime_select :start_time, :class => 'datetime_select' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :description, :class => 'text_area' %>
-    </div>
-  </div>
+ 
   <div class="control-group">
     <%= f.label :intro_video, :class => 'control-label' %>
     <div class="controls">
