@@ -624,6 +624,7 @@ de:
 
   venues:
     show:
+      venue: "Treffpunkt"
       time_until_takeoff: "Noch %{time} bis Start"
       venue_moderated_by: "Moderiert von %{name}"
       start_date: "Zeitpunkt"
@@ -640,6 +641,11 @@ de:
       click_on_your_klu_to_participate_in_venue: "Mit klick auf eine deiner Fragen wählst du diese aus um am Treffpunkt teilzunehmen."
       confirm_join: "Willst du mit deiner Frage '%{klu_name}' am Treffpunkt '%{title}' teilnehmen?"
       so_easy: "So einfach"
+    index:
+      upcoming_venues: "Künftige Treffpunkte"
+    venue_compact:
+      go_venue_page: "Zur Treffpunkt Seite"
+      host: "Gastgeber"
       
   video_sessions:
     anonymous_sign_up:

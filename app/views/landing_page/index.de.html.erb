@@ -25,7 +25,9 @@
 
 	<div class="row-fluid landing-page-color2 lp-treffpunkt">
 		<div class="well well-large clearfix">
-
+			<% venue = Venue.upcoming %>
+			<%= render(:partial => 'venues/venue_compact', :locals => { :venue => venue}) if venue %>
+			
 			<h2>Treffpunkt</h2>
 			<div class="span7">
 				<div class="hero-unit">

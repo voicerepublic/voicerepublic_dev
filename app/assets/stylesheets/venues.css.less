@@ -10,10 +10,36 @@
 }
 
 .participating-klus {
-  
   margin: 11px 0 11px 0;
-  
   .tiny-klu {
     .set-rows(2)
   }
 }
+  
+.venue-list {
+  margin: 11px 0 0 0;
+  
+  .compact { 
+    margin: 0 0 20px 0;
+  } 
+  .odd {
+    background: @oddColor;
+  }
+  .even {
+    background: @evenColor;
+  }  
+
+  .single-venue {
+    box-shadow:  2px 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid #d8d8d8;
+    border-radius: 4px; 
+    padding: 11px;
+    
+    .btn-large {
+      margin: 45px 45px 45px 0;
+    }
+  }
+}
+  
+
+
