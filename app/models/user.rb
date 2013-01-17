@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   
   scope :online, where("available = ? OR available = ?", 'online', 'busy')
   
-  accepts_nested_attributes_for :user_roles, :allow_destroy => true 
+  #accepts_nested_attributes_for :user_roles, :allow_destroy => true 
   accepts_nested_attributes_for :account
   
   after_create :add_default_user_role

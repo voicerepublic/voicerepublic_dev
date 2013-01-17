@@ -4,9 +4,9 @@
 
 <div class="well">
 	<%= debug(@user) %>
-	<%= link_to edit_admin_user_path(:id => @user.id), :class => "btn btn-primary" do  %>
-		<i class="icon-pencil"> </i> edit
-	<% end%>
 </div>
 
-<%= link_to "back", admin_users_path, :class => "pull-right"%>
+<div class="form-actions">
+<%= link_to "back", admin_users_path %> | 
+<%= link_to "edit", edit_admin_user_path(:id => @user) %>
+</div>

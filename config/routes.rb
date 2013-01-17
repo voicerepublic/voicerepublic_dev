@@ -83,7 +83,10 @@ Kluuu2::Application.routes.draw do
   end
   
   namespace :admin do
-    resources :users
+    resources :users do 
+      post "add_role/:role_id", :action => :add_role, :as => 'add_role'
+      delete "remove_role/:user_role_id", :action => :remove_role,  :as => 'remove_role'
+    end
     resources :categories
     resources :klus
     resources :video_servers
