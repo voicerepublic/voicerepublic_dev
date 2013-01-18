@@ -1,50 +1,53 @@
-<%= form_for @venue, :html => { :class => 'form-vertical' } do |f| %>
+<%= form_for @venue, :html => { :class => 'form-horizontal' } do |f| %>
 
-	<% if current_user.kluuus.empty? %>
-		<div class="alert alert-error">
-			<%= t('.available_kluuu_prerequisite_for_creating_venue') %>
+<div class="span5">
+	<div class="control-group">
+
+		<%= f.label :title, :class => 'control-label' do %>
+		<%= t('.title') %>
+		<% end %>
+		<div class="controls">
+			<%= f.text_field :title, :class => 'text_field' %>
 		</div>
-	<% end %>
+	</div>
+
+	<div class="control-group">
+		<%= f.label :description, :class => 'control-label' do %>
+		<%= t('.description') %>
+		<% end %>
+		<div class="controls">
+			<%= f.text_area :description, :class => 'text_area', :rows => 3 %>
+		</div>
+	</div>
+</div>
+
+<div class="span6">
+	<div class="control-group">
+		<%= f.label :host_kluuu, :class => 'control-label' do %>
+		<%= t('.host_kluuu') %>
+		<% end %>
+		<div class="controls">
+			<%= f.select :host_kluuu_id, current_user.kluuus.map {|klu| [klu.title, klu.id] } , :class => 'select_field' %>
+		</div>
+	</div>
+
+	<div class="control-group" >
+		<%= f.label :start_time, :class => 'control-label' do %>
+			<%= t('.start_time')%>
+		<% end %>
+		
+		<div class="controls">
+			<%= f.datetime_select :start_time, :start_year => Date.today.year %>
+		</div>
+		
+	</div>
+
+	<div class="form-actions">
+		<%= f.submit nil, :class => 'btn btn-primary' %>
+		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn' %>
+	</div>
+	
+</div>
 
 
-  <div class="control-group">
-  	<%= f.label :title, :class => 'control-label' %>
-  	<div class="controls">
-  		<%= f.text_field :title, :class => 'text_field' %>
-  	</div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label :host_kluuu, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.select :host_kluuu_id, current_user.kluuus.map {|klu| [klu.title, klu.id] } , :class => 'select_field' %>
-    </div>
-  </div>
-  
-   <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :description, :class => 'text_area' %>
-    </div>
-  </div>
-  
-  <div class="control-group">
-    <%= f.label :start_time, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.datetime_select :start_time, :class => 'datetime_select' %>
-    </div>
-  </div>
- 
-  <div class="control-group">
-    <%= f.label :intro_video, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :intro_video, :class => 'text_field' %>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                venues_path, :class => 'btn' %>
-  </div>
 <% end %>

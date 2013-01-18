@@ -611,7 +611,52 @@ en:
       edit_account: "Edit profil"
     edit:
       edit_your_profile: "Edit profil"
-  
+  venues:
+    show:
+      venue: "Venue"
+      time_until_takeoff: "%{time} until start"
+      venue_moderated_by: "Moderated by %{name}"
+      start_date: "Time"
+      past_venue: "Past Venue"
+      ongoing_venue: "Venue active"
+      join_venue: "Participate!"
+      unjoin_venue: "Unjoin venue"
+      participating_klus: "Participating KluuUs"
+      chat_will_be_available_short_before_start: "Group-chat will be available short before start"
+      group_chat: "Group-Chat"
+      be_the_first_to_participate: "Be the first to participate!"
+      confirm_unjoin_venue: "Really want to unjoin this venue?"
+      only_attendies_can_see_group_chat: "Only participants can read the group-chat"
+      see_other_venues: "More Venues"
+    new:
+      create_new_venue: "Create a new Venue"
+      available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
+      create_kluuu: "create a KluuU now"
+    new_join:
+      participate_in_venue: "Participate at venue '%{title}'"
+      no_klus_available_to_join_venue: "You need to create a Question to participate - create one!"
+      click_on_your_klu_to_participate_in_venue: "Selected question will participate at the venue"
+      confirm_join: "Would you like to participate with '%{klu_name}' at the venue '%{title}'?"
+      so_easy: "Its easy"
+    index:
+      upcoming_venues: "Upcoming venues"
+    venue_compact:
+      go_venue_page: "Proceed to venue-page"
+      host: "Host"
+    venue_big:
+      host: "Host"
+      go_venue_page: "Proceed to venue-page"
+    landing_page_venue:
+      upcoming_venue: "Upcoming venue"
+      venue_list: "All venues"
+    form:
+      title: "Title of venue"
+      description: "Description of venue"
+      start_time: "Time"
+      host_kluuu: "Hosting KluuU"
+    group_chat:
+      venue_chat: "Group-chat of '%{title}' participants"
+      
   video_sessions:
     anonymous_sign_up:
       video_call_title: "Video call"

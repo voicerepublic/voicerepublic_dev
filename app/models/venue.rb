@@ -14,8 +14,20 @@ class Venue < ActiveRecord::Base
     self.klus.collect { |k| k.user }.include?(user)
   end
   
+  def attendies
+    self.klus.collect { |k| k.user}.push(self.host_kluuu.user)
+  end
+  
   def Venue.upcoming
     Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
+  end
+  
+  def chat_name
+    "vgc-#{self.id}"
+  end
+  
+  def channel_name
+    "/chatchannel/vgc-#{self.id}"
   end
   
   private

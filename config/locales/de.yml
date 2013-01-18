@@ -629,12 +629,20 @@ de:
       venue_moderated_by: "Moderiert von %{name}"
       start_date: "Zeitpunkt"
       past_venue: "Vergangener Treffpunkt"
+      ongoing_venue: "Treffpunkt aktiv"
       join_venue: "Teilnehmen"
+      unjoin_venue: "Teilnahme zurückziehen"
       participating_klus: "Teilnehmende KluuUs"
-      chat_will_be_available_short_before_start: "Der Gruppen-Chat wird 5 Minuten vor Beginn aktiviert"
+      chat_will_be_available_short_before_start: "Der Gruppen-Chat wird kurz vor Beginn aktiviert"
       group_chat: "Gruppen-Chat"
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
+      only_attendies_can_see_group_chat: "Nur Teilnehmer des Treffpunktes können den Gruppen-Chat lesen"
+      see_other_venues: "Andere Treffpunkte"
+    new:
+      create_new_venue: "Einen neuen Treffpunkt erstellen"
+      available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
+      create_kluuu: "jetzt ein KluuU erstellen"
     new_join:
       participate_in_venue: "Nimm am Treffpunkt '%{title}' teil" 
       no_klus_available_to_join_venue: "Du hast noch keine 'Fragen' um am Treffpunkt teilzunehmen - erstelle zunächst eine!"
@@ -646,6 +654,19 @@ de:
     venue_compact:
       go_venue_page: "Zur Treffpunkt Seite"
       host: "Gastgeber"
+    venue_big:
+      host: "Gastgeber"
+      go_venue_page: "Zur Treffpunkt Seite"
+    landing_page_venue:
+      upcoming_venue: "Nächster Treffpunkt"
+      venue_list: "Alle Treffpunkte"
+    form:
+      title: "Titel des Treffpunkts"
+      description: "Beschreibung des Treffpunktes"
+      start_time: "Zeitpunkt"
+      host_kluuu: "Gastgebendes KluuU"
+    group_chat:
+      venue_chat: "Unterhaltung der Teilnehmer von '%{title}'"
       
   video_sessions:
     anonymous_sign_up:

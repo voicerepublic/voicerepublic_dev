@@ -60,6 +60,18 @@ class ChatsController < ApplicationController
       end
     end
   end
+  
+  def post_group_chat
+    logger.debug("Chats#post_group_chat - params: #{params.inspect}")
+    
+    @user = current_user
+    @venue = Venue.find(params[:id])
+    @content = params[:chat][:body]
+    
+    respond_to do |format|
+      format.js 
+    end
+  end
 
   # DELETE /chats/1
   # DELETE /chats/1.json

@@ -1,0 +1,15 @@
+<% venue = Venue.upcoming %>
+
+<% if venue %>
+<section class="row-fluid landing-page-venue">
+	<div class="span3">
+		<big><span class="label label-important">Neu</span> Treffpunkte</big>
+	</div>
+	<div class="span9 lp-venue-box">
+		<div class="row-fluid">
+		<strong><%= t('.upcoming_venue') %></strong>
+		<%= render(:partial => 'venues/venue_big', :locals => {:venue => venue}) %>
+		</div>
+	</div>
+</section>
+<% end %>
