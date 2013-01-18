@@ -2,7 +2,7 @@
 	<h2><%= t('.venue')%>: <%= @venue.title %></h2>
 </div>
 
-<aside>
+<aside>	<small><%= Time.now %></small>
 		<% if @venue.start_time > Time.now %>
 		<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time, true ) ) %> </span>
 		<% end %>
@@ -26,7 +26,6 @@
 			<div class="span6">
 				<p>
 					<small><%= t('.venue_moderated_by', :name => @venue.host_kluuu.user.name ) %></small>
-					<%= link_to image_tag(@venue.host_kluuu.user.account.portrait(:thumb)), user_path(:id => @venue.host_kluuu.user), :class => 'pull-right'%>
 					<br />
 					<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
 					<span class="label label-info"><%= t('.start_date')%></span>&nbsp;
