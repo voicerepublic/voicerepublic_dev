@@ -2,14 +2,14 @@
 	<h2><%= t('.venue')%>: <%= @venue.title %></h2>
 </div>
 
-<aside>	<small><%= Time.now %></small>
-		<% if @venue.start_time > Time.now %>
-		<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time, true ) ) %> </span>
+<aside>	<small><%= Time.now %> - <%= Time.now.in_time_zone %></small>
+		<% if @venue.start_time.in_time_zone > Time.now.in_time_zone %>
+		<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time.in_time_zone, true ) ) %> </span>
 		<% end %>
-		<% if @venue.start_time > Time.now && @venue.start_time <= Time.now + 60.minutes %>
+		<% if ( @venue.start_time.in_time_zone > Time.now.in_time_zone ) && ( (Time.now.in_time_zone - 60.minutes ) > @venue.start_time.in_time_zone ) %>
 		<span class="label label-info"><%= t('.ongoing_venue')%></span>
 		<% end %>
-		<% if @venue.start_time + 61.minutes <= Time.now %>
+		<% if @venue.start_time.in_time_zone + 61.minutes <= Time.now.in_time_zone %>
 		<span class="label label-info"><%= t('.past_venue')%></span>
 		<% end %>
 </aside>
@@ -71,19 +71,21 @@
 	</article>
 
 	<section class="group-chat span6">
-		<% if @venue.start_time  > Time.now - 10.minutes  %>
-		<div class="hero-unit">
+		
+		<% if  ( @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone  %>
+			<% if @venue.attendies.include?(current_user) %>
+				<%= render(:partial => 'venues/group_chat', :locals => { :venue => @venue })%>
+			<% else %>
+				<div class="hero-unit">
+					<span class="label label-warning"><%= t('.only_attendies_can_see_group_chat')%></span>
+				</div>
+			<% end %>
+		<% else %>
+			<div class="hero-unit">
 			<span class="label label-important"><%= t('attention') %></span>
 			<%= t('.chat_will_be_available_short_before_start') %>
 		</div>
-		<% else %>
-		<% if @venue.attendies.include?(current_user) %>
-		<%= render(:partial => 'venues/group_chat', :locals => { :venue => @venue })%>
-		<% else %>
-		<div class="hero-unit">
-			<span class="label label-warning"><%= t('.only_attendies_can_see_group_chat')%></span>
-		</div>
-		<% end %>
+		
 		<% end %>
 	</section>
 	
