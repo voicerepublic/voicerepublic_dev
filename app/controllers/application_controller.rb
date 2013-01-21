@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
   
   before_filter :set_last_request, :check_rates
   before_filter :set_locale 
-  #around_filter :user_time_zone, :if => :current_user
+  around_filter :user_time_zone, :if => :current_user
 
-  #def user_time_zone(&block)
-  #  Time.use_zone(current_user.time_zone, &block)
-  #end
+  def user_time_zone(&block)
+    Time.use_zone(current_user.account.timezone, &block)
+  end
   
   def after_sign_in_path_for(resource)
     resource.update_attribute(:available, 'online') if resource.available.nil?
