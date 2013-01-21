@@ -1,3 +1,6 @@
+<% content_for :title do %>
+	<%= t('venues.venue_list')%>
+<% end %>
 
 <div class="page-header">
   <h2><%= t('.upcoming_venues') %></h2>
@@ -5,9 +8,7 @@
 
 <section class="venue-list row-fluid clearfix">
 	<%= render(:partial => 'venues/venue_compact', :collection => @venues, :as => :venue ) %>
-	
 	<%= will_paginate @venues, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
-	
 </section>
 
 <div class="form-actions">

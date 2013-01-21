@@ -624,6 +624,7 @@ de:
 
   venues:
     new_venue: "Neuen Treffpunkt erstellen"
+    venue_list: "Künftige Treffpunkte"
     show:
       venue: "Treffpunkt"
       time_until_takeoff: "Noch %{time} bis Start"

@@ -612,6 +612,7 @@ en:
     edit:
       edit_your_profile: "Edit profil"
   venues:
+    venue_list: "Upcoming venues"
     new_venue: "Create new Venue"
     show:
       venue: "Venue"

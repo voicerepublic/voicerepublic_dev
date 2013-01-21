@@ -48,4 +48,4 @@ RSpec.configure do |config|
   config.include ValidUserRequestHelper, :type => :feature
 end
 
-%w(admin user).each { |x| Role.create(:name => x)}
+%w(admin user venue_host).each { |x| Role.create(:name => x)}

@@ -3,7 +3,7 @@ class Venue < ActiveRecord::Base
   
   belongs_to :host_kluuu, :class_name => 'Kluuu'
   has_many :venue_klus, :dependent => :destroy
-  has_many :klus, :class_name => 'Klu', :through => :venue_klus#, :uniq => true
+  has_many :klus, :class_name => 'Klu', :through => :venue_klus
   
   validates :host_kluuu, :title, :description, :start_time, :presence => true
   

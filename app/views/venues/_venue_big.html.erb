@@ -13,8 +13,8 @@
 		<% end %>
 	</div>
 	<div class="span4">
-		<%= link_to(venue_path(venue), :class => "btn btn-large btn-info pull-right") do %>
+		<%= link_to(venue_path(venue), :class => "btn btn-large btn-info pull-right", :disabled => current_user ? false : true ) do %>
 		<i class="icon-glass"> </i> &nbsp; <%= t('.go_venue_page') %>
-		<% end %>
+		<% end  %>
 	</div>
 </article>

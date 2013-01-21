@@ -19,88 +19,120 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe VenuesController do
+  
+  before  do
+    @user = FactoryGirl.create(:user)
+    @user.roles << Role.find_by_name('venue_host')
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub :current_user => @user
+    @user.reload
+    @kluuu = FactoryGirl.create(:published_kluuu, :user => @user)
+    #@venue = FactoryGirl.create(:venue)
+  end
 
 # # This should return the minimal set of attributes required to create a valid
 # # Venue. As you add validations to Venue, be sure to
 # # update the return value of this method accordingly.
-# def valid_attributes
-#   { "host_kluuu_id" => "1" }
-# end
+  def valid_attributes
+    FactoryGirl.attributes_for(:venue)
+  end
 #
 # # This should return the minimal set of values that should be in the session
 # # in order to pass any filters (e.g. authentication) defined in
 # # VenuesController. Be sure to keep this updated too.
-# def valid_session
-#   {}
-# end
+  def valid_session
+    {}
+  end
 #
-# describe "GET index" do
-#   it "assigns all venues as @venues" do
-#     venue = Venue.create! valid_attributes
-#     get :index, {}, valid_session
-#     assigns(:venues).should eq([venue])
-#   end
-# end
+  describe "GET index" do
+    it "assigns all venues as @venues" do
+      venue = FactoryGirl.create(:venue)
+      get :index, {}, valid_session
+      assigns(:venues).should eq([venue])
+    end
+  end
+
+
+
+  describe "GET show" do
+    it "assigns the requested venue as @venue when logged in" do
+      venue = FactoryGirl.create(:venue)
+      get :show, {:id => venue.to_param}
+      assigns(:venue).should eq(venue)
+    end
+  end
+  
+
+  describe "GET new" do
+    it "assigns a new venue as @venue" do
+      get :new, {}
+      assigns(:venue).should be_a_new(Venue)
+    end
+  end
 #
-# describe "GET show" do
-#   it "assigns the requested venue as @venue" do
-#     venue = Venue.create! valid_attributes
-#     get :show, {:id => venue.to_param}, valid_session
-#     assigns(:venue).should eq(venue)
-#   end
-# end
+  describe "GET edit" do
+    it "assigns the requested venue as @venue when edited by owner" do
+      k = FactoryGirl.create(:published_kluuu, :user => @user)
+      venue = FactoryGirl.create(:venue, :host_kluuu => k)
+      get :edit, {:id => venue.to_param}, valid_session
+      assigns(:venue).should eq(venue)
+    end
+  end
+  
+  describe "GET edit" do
+    it "raises CanCan::AccessDenied if venue requested by other user" do
+      venue = FactoryGirl.create(:venue)
+      expect {
+        get :edit, {:id => venue.to_param}, valid_session
+      }.to raise_error(CanCan::AccessDenied)
+      
+    end
+  end
 #
-# describe "GET new" do
-#   it "assigns a new venue as @venue" do
-#     get :new, {}, valid_session
-#     assigns(:venue).should be_a_new(Venue)
-#   end
-# end
-#
-# describe "GET edit" do
-#   it "assigns the requested venue as @venue" do
-#     venue = Venue.create! valid_attributes
-#     get :edit, {:id => venue.to_param}, valid_session
-#     assigns(:venue).should eq(venue)
-#   end
-# end
-#
-# describe "POST create" do
-#   describe "with valid params" do
-#     it "creates a new Venue" do
-#       expect {
-#         post :create, {:venue => valid_attributes}, valid_session
-#       }.to change(Venue, :count).by(1)
-#     end
-#
-#     it "assigns a newly created venue as @venue" do
-#       post :create, {:venue => valid_attributes}, valid_session
-#       assigns(:venue).should be_a(Venue)
-#       assigns(:venue).should be_persisted
-#     end
-#
-#     it "redirects to the created venue" do
-#       post :create, {:venue => valid_attributes}, valid_session
-#       response.should redirect_to(Venue.last)
-#     end
-#   end
-#
-#   describe "with invalid params" do
-#     it "assigns a newly created but unsaved venue as @venue" do
-#       # Trigger the behavior that occurs when invalid params are submitted
-#       Venue.any_instance.stub(:save).and_return(false)
-#       post :create, {:venue => { "host_kluuu_id" => "invalid value" }}, valid_session
-#       assigns(:venue).should be_a_new(Venue)
-#     end
-#
-#     it "re-renders the 'new' template" do
-#       # Trigger the behavior that occurs when invalid params are submitted
-#       Venue.any_instance.stub(:save).and_return(false)
-#       post :create, {:venue => { "host_kluuu_id" => "invalid value" }}, valid_session
-#       response.should render_template("new")
-#     end
-#   end
-# end
+  describe "POST create" do
+    describe "with valid params" do
+     it "creates a new Venue" do
+       expect {
+         k = FactoryGirl.create(:published_kluuu, :user => @user)
+         post :create, { :venue => FactoryGirl.attributes_for(:venue, :host_kluuu_id => k.id ) }, valid_session
+       }.to change(Venue, :count).by(1)
+     end
+     
+     it "assigns a newly created venue as @venue" do
+       k = FactoryGirl.create(:published_kluuu, :user => @user)
+       post :create, { :venue => FactoryGirl.attributes_for(:venue, :host_kluuu_id => k.id ) }, valid_session
+       assigns(:venue).should be_a(Venue)
+       assigns(:venue).should be_persisted
+     end
+
+     it "redirects to the created venue" do
+       k = FactoryGirl.create(:published_kluuu, :user => @user)
+       post :create, {:venue => FactoryGirl.attributes_for(:venue, :host_kluuu_id => k.id ) }, valid_session
+       response.should redirect_to(Venue.last)
+     end
+   end
+
+   describe "with invalid params" do
+     it "assigns a newly created but unsaved venue as @venue" do
+       k = FactoryGirl.create(:published_kluuu, :user => @user)
+       post :create, {:venue => { "host_kluuu_id" => k.id, :start_time => nil }}, valid_session
+       assigns(:venue).should be_a_new(Venue)
+     end
+
+     it "re-renders the 'new' template" do
+       k = FactoryGirl.create(:published_kluuu, :user => @user)
+       post :create, {:venue => { "host_kluuu_id" => k.id, :start_time => nil }}, valid_session
+       response.should render_template("new")
+     end
+     
+     it "raises authorization error when person without venue_host-role tries to create a venue" do
+       k = FactoryGirl.create(:published_kluuu)
+       expect {
+         post :create, { :venue => FactoryGirl.attributes_for(:venue, :host_kluuu_id => k.id)}, valid_session
+       }.to raise_error(CanCan::AccessDenied)
+     end
+   end
+ end
 #
 # describe "PUT update" do
 #   describe "with valid params" do

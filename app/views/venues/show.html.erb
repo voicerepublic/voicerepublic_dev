@@ -1,3 +1,7 @@
+<% content_for :title do %>
+	<%= t('.venue') %> &middot; <%= @venue.title %>
+<% end %>
+
 <div class="page-header">
 	<h2><%= t('.venue')%>: <%= @venue.title %></h2>
 </div>
@@ -27,7 +31,9 @@
 				<p>
 					<small><%= t('.venue_moderated_by', :name => @venue.host_kluuu.user.name ) %></small>
 					<br />
-					<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
+					<%= link_to(klu_path(@venue.host_kluuu)) do %>
+						<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
+					<% end %>
 					<span class="label label-info"><%= t('.start_date')%></span>&nbsp;
 					<%= l(@venue.start_time) %>
 				</p>

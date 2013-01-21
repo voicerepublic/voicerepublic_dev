@@ -39,6 +39,7 @@ class VenuesController < ApplicationController
   # GET /venues/1/edit
   def edit
     @venue = Venue.find(params[:id])
+    authorize! :edit, @venue
   end
 
   # POST /venues
@@ -63,6 +64,7 @@ class VenuesController < ApplicationController
   # PUT /venues/1.json
   def update
     @venue = Venue.find(params[:id])
+    authorize! :update, @venue
 
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
@@ -118,6 +120,9 @@ class VenuesController < ApplicationController
   # DELETE /venues/1.json
   def destroy
     @venue = Venue.find(params[:id])
+    
+    authorize! :destroy, venue_klu
+    
     @venue.destroy
 
     respond_to do |format|
