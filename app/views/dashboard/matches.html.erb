@@ -5,9 +5,11 @@
 
 
 <div class="dashboard-matches">
+	
 	<%= link_to( new_venue_path, :class => 'btn btn-primary pull-right' ) do %>
-			<i class="icon icon-glass"> </i> <%= t('venues.new_venue') %>
-<% end if current_user.has_role?('venue_host') %>
+		<i class="icon icon-glass"> </i> <%= t('venues.new_venue') %>
+	<% end if current_user.has_role?('venue_host') %>
+	
 	<div class="tabbable tabs-left pull-left">	
 		<%# NAVIGATION LEFT %>
 		<nav class="dashboard-matches-nav">
