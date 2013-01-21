@@ -2,7 +2,7 @@
 	<h2><%= t('.venue')%>: <%= @venue.title %></h2>
 </div>
 
-<aside>	<small><%= Time.now %> - <%= Time.now.in_time_zone %></small>
+<aside>	
 		<% if @venue.start_time.in_time_zone > Time.now.in_time_zone %>
 		<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time.in_time_zone, true ) ) %> </span>
 		<% end %>

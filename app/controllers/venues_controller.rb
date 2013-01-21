@@ -5,7 +5,7 @@ class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
   def index
-    @venues = Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").paginate(:page => params[:page], :per_page => 5)
+    @venues = Venue.where("start_time > ?", Time.now - 12.hours).order("start_time ASC").paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
       format.html # index.html.erb

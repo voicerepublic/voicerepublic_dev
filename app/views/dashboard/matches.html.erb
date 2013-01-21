@@ -3,13 +3,16 @@
 <% end %>
 
 
+
 <div class="dashboard-matches">
-
-	<div class="tabbable tabs-left pull-left">
-
+	<%= link_to( new_venue_path, :class => 'btn btn-primary pull-right' ) do %>
+			<i class="icon icon-glass"> </i> <%= t('venues.new_venue') %>
+<% end if current_user.has_role?('venue_host') %>
+	<div class="tabbable tabs-left pull-left">	
 		<%# NAVIGATION LEFT %>
 		<nav class="dashboard-matches-nav">
 			<div class="btn-group">
+			
 				<div class="btn btn-kluuu" style="cursor:default">
 					<h4><%= t('.my_kluuus') %></h4>	
 				</div>		
@@ -17,6 +20,7 @@
 					<h4><%#= t('.my_questions', :default => 'Meine Fragen') %></h4>
 				</div> -->
 			</div>
+			
 			<span class="clearfix"></span>
 		</nav>
 		<ul class="nav nav-tabs dashboard-matches-own-klus">

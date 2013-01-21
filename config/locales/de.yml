@@ -623,6 +623,7 @@ de:
       cancel: "Abbrechen"
 
   venues:
+    new_venue: "Neuen Treffpunkt erstellen"
     show:
       venue: "Treffpunkt"
       time_until_takeoff: "Noch %{time} bis Start"

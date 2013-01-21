@@ -612,6 +612,7 @@ en:
     edit:
       edit_your_profile: "Edit profil"
   venues:
+    new_venue: "Create new Venue"
     show:
       venue: "Venue"
       time_until_takeoff: "%{time} until start"

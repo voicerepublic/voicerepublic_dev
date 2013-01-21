@@ -1,6 +1,6 @@
 <article class="single-venue compact <%= cycle('odd', 'even') %> clearfix">
 	<div class="span6">
-	<aside><span class="label label-important"><%= l(venue.start_time)%></span></aside>
+	<aside><span class="label label-important"><%= l(venue.start_time) %></span></aside>
 	<h3><%= venue.title %></h3>
 	<%= simple_format( truncate(venue.description, :length => 100), :class => "text-info") %>
 	<span class="label label-info"><%= t('.host') %>:</span> <%= link_to venue.host_kluuu.user.name, user_path(venue.host_kluuu.user) %>
