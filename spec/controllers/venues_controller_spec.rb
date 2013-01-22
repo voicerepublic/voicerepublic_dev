@@ -27,7 +27,6 @@ describe VenuesController do
     controller.stub :current_user => @user
     @user.reload
     @kluuu = FactoryGirl.create(:published_kluuu, :user => @user)
-    #@venue = FactoryGirl.create(:venue)
   end
 
 # # This should return the minimal set of attributes required to create a valid
@@ -134,63 +133,80 @@ describe VenuesController do
    end
  end
 #
-# describe "PUT update" do
-#   describe "with valid params" do
-#     it "updates the requested venue" do
-#       venue = Venue.create! valid_attributes
-#       # Assuming there are no other venues in the database, this
-#       # specifies that the Venue created on the previous line
-#       # receives the :update_attributes message with whatever params are
-#       # submitted in the request.
-#       Venue.any_instance.should_receive(:update_attributes).with({ "host_kluuu_id" => "1" })
-#       put :update, {:id => venue.to_param, :venue => { "host_kluuu_id" => "1" }}, valid_session
-#     end
-#
-#     it "assigns the requested venue as @venue" do
-#       venue = Venue.create! valid_attributes
-#       put :update, {:id => venue.to_param, :venue => valid_attributes}, valid_session
-#       assigns(:venue).should eq(venue)
-#     end
-#
-#     it "redirects to the venue" do
-#       venue = Venue.create! valid_attributes
-#       put :update, {:id => venue.to_param, :venue => valid_attributes}, valid_session
-#       response.should redirect_to(venue)
-#     end
-#   end
-#
-#   describe "with invalid params" do
-#     it "assigns the venue as @venue" do
-#       venue = Venue.create! valid_attributes
-#       # Trigger the behavior that occurs when invalid params are submitted
-#       Venue.any_instance.stub(:save).and_return(false)
-#       put :update, {:id => venue.to_param, :venue => { "host_kluuu_id" => "invalid value" }}, valid_session
-#       assigns(:venue).should eq(venue)
-#     end
-#
-#     it "re-renders the 'edit' template" do
-#       venue = Venue.create! valid_attributes
-#       # Trigger the behavior that occurs when invalid params are submitted
-#       Venue.any_instance.stub(:save).and_return(false)
-#       put :update, {:id => venue.to_param, :venue => { "host_kluuu_id" => "invalid value" }}, valid_session
-#       response.should render_template("edit")
-#     end
-#   end
-# end
-#
-# describe "DELETE destroy" do
-#   it "destroys the requested venue" do
-#     venue = Venue.create! valid_attributes
-#     expect {
-#       delete :destroy, {:id => venue.to_param}, valid_session
-#     }.to change(Venue, :count).by(-1)
-#   end
-#
-#   it "redirects to the venues list" do
-#     venue = Venue.create! valid_attributes
-#     delete :destroy, {:id => venue.to_param}, valid_session
-#     response.should redirect_to(venues_url)
-#   end
-# end
+ describe "PUT update" do
+   describe "with valid params" do
+     it "updates the requested venue" do
+       venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
+       _time = Time.now 
+       # Assuming there are no other venues in the database, this
+       # specifies that the Venue created on the previous line
+       # receives the :update_attributes message with whatever params are
+       # submitted in the request.
+       Venue.any_instance.should_receive(:update_attributes).with({ "start_time" => _time.to_s })
+       put :update, {:id => venue.to_param, :venue => { "start_time" => _time.to_s }}, valid_session
+     end
+
+     it "assigns the requested venue as @venue" do
+       venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
+       put :update, {:id => venue.to_param, :venue => {:description => "hier einige changes"}}, valid_session
+       assigns(:venue).should eq(venue)
+     end
+
+     it "redirects to the venue" do
+       venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
+       put :update, {:id => venue.to_param, :venue => {:description => "noch mehr changes"}}, valid_session
+       response.should redirect_to(venue)
+     end
+   end
+
+   describe "with invalid params" do
+     it "assigns the venue as @venue" do
+       venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
+       # Trigger the behavior that occurs when invalid params are submitted
+       Venue.any_instance.stub(:save).and_return(false)
+       put :update, {:id => venue.to_param, :venue => { "host_kluuu_id" => "invalid value" }}, valid_session
+       assigns(:venue).should eq(venue)
+     end
+
+     it "re-renders the 'edit' template" do
+       venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
+       # Trigger the behavior that occurs when invalid params are submitted
+       Venue.any_instance.stub(:save).and_return(false)
+       put :update, {:id => venue.to_param, :venue => { "host_kluuu_id" => "invalid value" }}, valid_session
+       response.should render_template("edit")
+     end
+   end
+   
+   describe "with unauthorized user" do
+     it "raises permission denied" do
+       venue = FactoryGirl.create(:venue)
+       expect {
+         put :update, {:id => venue.to_param, :venue => { "host_kluuu_id" => "invalid value" }}, valid_session
+       }.to raise_error(CanCan::AccessDenied)
+     end
+   end
+ end
+
+ describe "DELETE destroy" do
+   it "destroys the requested venue" do
+     venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
+     expect {
+       delete :destroy, {:id => venue.to_param}, valid_session
+     }.to change(Venue, :count).by(-1)
+   end
+
+   it "redirects to the venues list" do
+     venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
+     delete :destroy, {:id => venue.to_param}, valid_session
+     response.should redirect_to(venues_url)
+   end
+   
+   it "raises permission if unauthorized user" do
+     venue = FactoryGirl.create(:venue)
+       expect {
+         delete :destroy, {:id => venue.to_param}, valid_session
+       }.to raise_error(CanCan::AccessDenied)
+   end
+ end
 
 end

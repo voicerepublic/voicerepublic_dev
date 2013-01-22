@@ -121,7 +121,7 @@ class VenuesController < ApplicationController
   def destroy
     @venue = Venue.find(params[:id])
     
-    authorize! :destroy, venue_klu
+    authorize! :destroy, @venue
     
     @venue.destroy
 
