@@ -261,6 +261,12 @@ de:
     charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
     charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
     charge_free_error: "Wenn du ein kostenloses KluuU erstellst, belasse den Betrag auf 0 cents"
+  model_venue:
+    no_repeat: "Keine Wiederholung"
+    weekly: "Wöchentlich"
+    biweekly: "Zweiwöchentlich"
+    monthly: "Monatlich"
+    
   
   ###########  helpers  ##################
   
@@ -629,7 +635,8 @@ de:
       venue: "Treffpunkt"
       time_until_takeoff: "Noch %{time} bis Start"
       venue_moderated_by: "Moderiert von %{name}"
-      start_date: "Zeitpunkt"
+      start_date: "Start"
+      duration: "Dauer"
       past_venue: "Vergangener Treffpunkt"
       ongoing_venue: "Treffpunkt aktiv"
       join_venue: "Teilnehmen"
@@ -641,6 +648,8 @@ de:
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
       only_attendies_can_see_group_chat: "Nur Teilnehmer des Treffpunktes können den Gruppen-Chat lesen"
       see_other_venues: "Andere Treffpunkte"
+      minutes: "Minuten"
+      repeating: "Rhythmus"
     new:
       create_new_venue: "Einen neuen Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"

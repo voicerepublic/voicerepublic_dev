@@ -262,7 +262,11 @@ en:
     charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
     charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
     charge_free_error: "You should leave the amount at zero if this is a free kluuu"
-    
+  model_venue:
+    no_repeat: "does not repeat"
+    weekly: "weekly"
+    biweekly: "biweekly"
+    monthly: "monthly"
     
   ###########  helpers  ##################
   
@@ -618,7 +622,8 @@ en:
       venue: "Venue"
       time_until_takeoff: "%{time} until start"
       venue_moderated_by: "Moderated by %{name}"
-      start_date: "Time"
+      start_date: "Begin"
+      duration: "Duration"
       past_venue: "Past Venue"
       ongoing_venue: "Venue active"
       join_venue: "Participate!"
@@ -630,6 +635,8 @@ en:
       confirm_unjoin_venue: "Really want to unjoin this venue?"
       only_attendies_can_see_group_chat: "Only participants can read the group-chat"
       see_other_venues: "More Venues"
+      minutes: "Minutes"
+      repeating: "Rhythm"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"

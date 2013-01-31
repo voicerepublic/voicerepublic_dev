@@ -1,5 +1,5 @@
 class Venue < ActiveRecord::Base
-  attr_accessible :title, :description, :host_kluuu_id, :intro_video, :start_time
+  attr_accessible :title, :description, :host_kluuu_id, :intro_video, :start_time, :duration, :repeating
   
   belongs_to :host_kluuu, :class_name => 'Kluuu'
   has_many :venue_klus, :dependent => :destroy
@@ -9,6 +9,9 @@ class Venue < ActiveRecord::Base
   
   
   after_create :generate_notification
+  
+  DURATION = [ 30, 60, 90, 120, -1 ]
+  REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, I18n.t('model_venue.biweekly') => 2, I18n.t('model_venue.monthly') => 3 }
   
   def user_participates?(user)
     self.klus.collect { |k| k.user }.include?(user)

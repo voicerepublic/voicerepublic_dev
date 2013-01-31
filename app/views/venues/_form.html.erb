@@ -1,6 +1,6 @@
 <%= form_for @venue, :html => { :class => 'form-horizontal' } do |f| %>
 
-<div class="span5">
+<div class="span6">
 	<div class="control-group">
 
 		<%= f.label :title, :class => 'control-label' do %>
@@ -19,9 +19,25 @@
 			<%= f.text_area :description, :class => 'text_area', :rows => 3 %>
 		</div>
 	</div>
+	<div class="control-group">
+		<%= f.label :duration, :class => "control-label" do %>
+			<%= t('.duration') %>
+		<% end %>
+		<div class="controls">
+			<%= f.select(:duration, Venue::DURATION) %>
+		</div>
+	</div>
+	<div class="control-group">
+		<%= f.label :repeating, :class => "control-label" do %>
+			<%= t('.repeating') %>
+		<% end %>
+		<div class="controls">
+			<%= f.select :repeating, Venue::REPEATING %>
+		</div>
+	</div>
 </div>
 
-<div class="span6">
+<div class="span5">
 	<div class="control-group">
 		<%= f.label :host_kluuu, :class => 'control-label' do %>
 		<%= t('.host_kluuu') %>

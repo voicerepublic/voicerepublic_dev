@@ -35,7 +35,16 @@
 						<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
 					<% end %>
 					<span class="label label-info"><%= t('.start_date')%></span>&nbsp;
-					<%= l(@venue.start_time) %>
+					<%= l(@venue.start_time) %><br />
+					<span class="label label-info"><%= t('.duration')%></span>&nbsp;
+					<% if @venue.duration > 1 %>
+						<%= @venue.duration %> <%=t('.minutes') %>
+					<% else %>
+						<%= t('.open_ended') %>
+					<% end %>
+					<% if @venue.repeating > 1 %>
+						<br /><span class="label label-info"><%= t('.repeating') %></span> <%= Venue::REPEATING.keys.at(@venue.repeating) %>
+					<% end %>
 				</p>
 			</div>
 		</div>
