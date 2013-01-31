@@ -1,0 +1,7 @@
+<% unless klu.upcoming_venues.empty? %>
+<section class="kluuu-venues row-fluid">
+	
+	<h3 class="span3"> <i class="icon icon-glass"> </i> <%= t('.this_kluuu_hosts_venues') %></h3>
+	<%= render(:partial => "venues/venue_tiny", :collection => klu.upcoming_venues, :as => :venue ) %>
+</section>
+<% end %>

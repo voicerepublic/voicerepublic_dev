@@ -7,6 +7,7 @@ class Kluuu < Klu
   has_many :klu_images, :foreign_key => :klu_id, :dependent => :destroy
   # because of STI in Klu - rateable_type will always be 'Klu'
   has_many :ratings, :as => :rateable, :dependent => :destroy 
+  has_many :venues, :foreign_key => :host_kluuu_id
   
   # see base-class for base-validations
   validates_presence_of :charge_cents, :description, :category_id #, :currency  #, :currency
@@ -18,6 +19,11 @@ class Kluuu < Klu
   monetize :charge_cents
   
   after_create :generate_notification  # defined in base-class
+  
+  
+  def upcoming_venues
+    self.venues.where("start_time > ?", Time.now)
+  end
   
   def set_currency
     unless self.user.balance_account.nil?

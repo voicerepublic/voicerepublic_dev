@@ -427,6 +427,8 @@ de:
     klu_image_fields:
         image_browse: "Bild"
         image_desc_title: "Beschreibung"
+    kluuu_venues:
+      this_kluuu_hosts_venues: "Nimm am Treffpunkt dieses KluuU teil!"
     form_new_no_kluuu:
       title: "Titel"
       category: "Kategorie"

@@ -424,6 +424,8 @@ en:
     klu_image_fields:
         image_browse: "Image"
         image_desc_title: "Description"
+    kluuu_venues:
+      this_kluuu_hosts_venues: "Join this KluuUs venue!"
     form_new_no_kluuu:
       title: "Title"
       category: "Category"
