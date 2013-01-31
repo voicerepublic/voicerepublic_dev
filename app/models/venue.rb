@@ -15,7 +15,7 @@ class Venue < ActiveRecord::Base
   end
   
   def attendies
-    self.klus.collect { |k| k.user}.push(self.host_kluuu.user)
+    self.klus.collect { |k| k.user }.push(self.host_kluuu.user)
   end
   
   def Venue.upcoming
