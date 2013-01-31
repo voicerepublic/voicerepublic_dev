@@ -10,6 +10,7 @@ class Klu < ActiveRecord::Base
   has_many :video_sessions, :inverse_of => :klu
   
   has_many :notifications, :class_name => "Notification::Base", :dependent => :destroy, :foreign_key => :klu_id
+  has_many :venue_klus, :class_name => "VenueKlu", :dependent => :destroy, :foreign_key => :klu_id
   
   validates :user_id, :presence => true
   validates :title, :presence => true

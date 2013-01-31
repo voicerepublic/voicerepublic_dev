@@ -5,7 +5,7 @@ class Venue < ActiveRecord::Base
   has_many :venue_klus, :dependent => :destroy
   has_many :klus, :class_name => 'Klu', :through => :venue_klus
   
-  validates :host_kluuu, :title, :description, :start_time, :presence => true
+  validates :host_kluuu, :title, :description, :start_time, :duration, :repeating, :presence => true
   
   
   after_create :generate_notification

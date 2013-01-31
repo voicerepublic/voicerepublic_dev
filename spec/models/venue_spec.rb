@@ -21,5 +21,13 @@ describe Venue do
   it "is invalid without start_time" do
     FactoryGirl.build(:venue, :start_time => nil).should_not be_valid
   end
+  
+  it "is invalid without duration" do
+    FactoryGirl.build(:venue, :duration => nil).should_not be_valid
+  end
+  
+  it "is invalid without rhythm" do
+    FactoryGirl.build(:venue, :repeating => nil).should_not be_valid
+  end 
 
 end

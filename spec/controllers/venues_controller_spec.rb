@@ -21,6 +21,7 @@ require 'spec_helper'
 describe VenuesController do
   
   before  do
+    #puts Role.all
     @user = FactoryGirl.create(:user)
     @user.roles << Role.find_by_name('venue_host')
     request.env['warden'].stub :authenticate! => @user

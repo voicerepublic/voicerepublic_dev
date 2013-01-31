@@ -10,7 +10,7 @@
 	<%= t('.click_on_your_klu_to_participate_in_venue') %> 
 	<span class="label label-important"><%= l(@venue.start_time ) %></span>
 	
-	<% current_user.no_kluuus.each do |klu| %>
+	<% current_user.klus.each do |klu| %>
 		<%= link_to( venue_join_path(:venue_id => @venue, :klu_id => klu), :method => :post, :data => { :confirm => t('.confirm_join', :title => @venue.title, :klu_name => klu.title ) } ) do %>
 			<%= partial_for_klu(klu, :tiny)%>
 		<% end %>
