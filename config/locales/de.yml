@@ -652,6 +652,7 @@ de:
       see_other_venues: "Andere Treffpunkte"
       minutes: "Minuten"
       repeating: "Rhythmus"
+      comments: "Kommentare"
     new:
       create_new_venue: "Einen neuen Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
@@ -664,12 +665,17 @@ de:
       so_easy: "So einfach"
     index:
       upcoming_venues: "Künftige Treffpunkte"
+    venue_comment:
+      delete_comment: "löschen"
     venue_compact:
       go_venue_page: "Zur Treffpunkt Seite"
       host: "Gastgeber"
     venue_big:
       host: "Gastgeber"
       go_venue_page: "Zur Treffpunkt Seite"
+    venue_form:
+      write_a_comment: "Verfasse einen Kommentar"
+      save_comment: "Kommentar speichern"
     landing_page_venue:
       upcoming_venue: "Nächster Treffpunkt"
       venue_list: "Alle Treffpunkte"

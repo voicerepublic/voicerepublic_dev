@@ -639,6 +639,7 @@ en:
       see_other_venues: "More Venues"
       minutes: "Minutes"
       repeating: "Rhythm"
+      comments: "Comments"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
@@ -654,9 +655,14 @@ en:
     venue_compact:
       go_venue_page: "Proceed to venue-page"
       host: "Host"
+    venue_comment:
+      delete_comment: "destroy"
     venue_big:
       host: "Host"
       go_venue_page: "Proceed to venue-page"
+    venue_form:
+      write_a_comment: "write a comment"
+      save_comment: "Save comment"
     landing_page_venue:
       upcoming_venue: "Upcoming venue"
       venue_list: "All venues"

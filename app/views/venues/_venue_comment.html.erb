@@ -1,0 +1,10 @@
+<article class="comment well well-small">
+	<%= link_to( venue_comment_path(:venue_id => comment.commentable, :id => comment), :method => :delete ) do %>
+		<i class="icon icon-trash action pull-right"> </i>
+	<% end if can? :destroy, comment %>
+		
+	<%= link_to( image_tag(comment.user.account.portrait.url(:thumb), :class => "pull-left"), user_path(:id => comment.user)) %> 
+	<small class="pull-right muted"><%= time_ago_in_words comment.created_at %></small>
+	<%= simple_format( comment.content ) %>
+	
+</article>

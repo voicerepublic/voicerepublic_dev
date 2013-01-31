@@ -76,7 +76,12 @@ class Ability
     end
     
     can :manage, Comment do |comment|
-      comment.commentable.user == user || comment.user == user
+      if comment.commentable.kind_of?(Venue)
+        comment.commentable.host_kluuu.user == user || comment.user == user
+      end
+      if comment.commentable.kind_of?(StatusUpdate)
+        comment.commentable.user == user || comment.user == user
+      end
     end
     
     can :manage, Follow do |f|
