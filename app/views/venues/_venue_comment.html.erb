@@ -3,8 +3,8 @@
 		<i class="icon icon-trash action pull-right"> </i>
 	<% end if can? :destroy, comment %>
 		
-	<%= link_to( image_tag(comment.user.account.portrait.url(:thumb), :class => "pull-left"), user_path(:id => comment.user)) %> 
+	<%= link_to( image_tag(comment.user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"), user_path(:id => comment.user)) %> 
 	<small class="pull-right muted"><%= time_ago_in_words comment.created_at %></small>
-	<%= simple_format( comment.content ) %>
+	<div class="comment-content"><%= simple_format( comment.content ) %></div>
 	
 </article>
