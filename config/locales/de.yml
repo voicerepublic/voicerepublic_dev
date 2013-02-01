@@ -635,6 +635,8 @@ de:
   venues:
     new_venue: "Neuen Treffpunkt erstellen"
     venue_list: "Künftige Treffpunkte"
+    facebook_value_template:
+      join_the_venue: "Nimm am Treffpunkt teil: %{title}"
     show:
       venue: "Treffpunkt"
       time_until_takeoff: "Noch %{time} bis Start"

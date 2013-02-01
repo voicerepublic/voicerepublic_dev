@@ -11,7 +11,7 @@
 		<meta property="og:image" content="/images/medium/missing.png" /> 
 		<link rel="image_src" href="/images/medium/missing.png" />
 	<% else %>
-		<meta property="og:image" content="<%= klu.klu_images.first.image.path(:medium) %>" /> 
-		<link rel="image_src" href="<%= klu.klu_images.first.image.path(:medium) %>" />
+		<meta property="og:image" content="<%= klu.klu_images.first.image.url(:medium) %>" /> 
+		<link rel="image_src" href="<%= klu.klu_images.first.image.url(:medium) %>" />
 	<% end %>
 <% end %>

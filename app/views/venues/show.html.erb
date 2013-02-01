@@ -2,6 +2,11 @@
 	<%= t('.venue') %> &middot; <%= @venue.title %>
 <% end %>
 
+<% content_for :facebook_values do %>
+	<%= render(:partial => 'facebook_value_template', :locals => { :venue => @venue } ) %>
+<% end %>
+
+
 <div class="page-header">
 	<h2><%= t('.venue')%>: <%= @venue.title %></h2>
 </div>
@@ -16,6 +21,7 @@
 		<% if @venue.timed_out? %>
 		<span class="label label-info"><%= t('.past_venue')%></span>
 		<% end %>
+		
 </aside>
 
 <div class="venue-page row-fluid clearfix">
@@ -48,7 +54,22 @@
 				</p>
 			</div>
 		</div>
-
+		
+		<div class="form-actions pull-right">
+			<div class="venue-socials">
+			<!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style">
+					<a class="addthis_button_pinterest_pinit"></a>
+					<a class="addthis_button_facebook_like"></a>
+					<a class="addthis_button_facebook_send"></a>
+					<a class="addthis_button_google_plusone"></a>
+					<a class="addthis_button_tweet"></a>
+				</div>
+				<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
+				<!-- AddThis Button END -->
+			</div>
+		</div>
+		<br />
 		<div class="form-actions">
 			<%= link_to t('.back', :default => t("helpers.links.back")), venues_path, :class => 'btn btn-small'  %>
 			<% if can? :manage, @venue %>
@@ -65,6 +86,9 @@
 			<%= link_to t('.join_venue'), venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-success btn-small" %>
 			<% end %>
 			<% end %>
+			
+			
+			
 		</div>
 		
 		<section class="venue-comments">

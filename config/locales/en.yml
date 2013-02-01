@@ -622,6 +622,8 @@ en:
   venues:
     venue_list: "Upcoming venues"
     new_venue: "Create new Venue"
+    facebook_value_template:
+      join_the_venue: "Join the venue: %{title}"
     show:
       venue: "Venue"
       time_until_takeoff: "%{time} until start"
