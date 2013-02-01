@@ -5,6 +5,6 @@
 	<meta property="og:image" content="" /> 
 	<link rel="image_src" href="" />
 <% else %>
-<meta property="og:image" content="<%= venue.host_kluuu.klu_images.first.image.url(:medium) %>" /> 
-<link rel="image_src" href="<%= venue.host_kluuu.klu_images.first.image.url(:medium) %>" />
+<meta property="og:image" content="<%= image_tag venue.host_kluuu.klu_images.first.image.url(:medium) %>" /> 
+<link rel="image_src" href="<%= image_tag venue.host_kluuu.klu_images.first.image.url(:medium) %>" />
 <% end %>
