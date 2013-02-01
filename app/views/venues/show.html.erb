@@ -10,10 +10,10 @@
 		<% if @venue.start_time.in_time_zone > Time.now.in_time_zone %>
 		<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time.in_time_zone, true ) ) %> </span>
 		<% end %>
-		<% if ( @venue.start_time.in_time_zone > Time.now.in_time_zone ) && ( (Time.now.in_time_zone - 60.minutes ) > @venue.start_time.in_time_zone ) %>
+		<% if  @venue.ongoing?  %>
 		<span class="label label-info"><%= t('.ongoing_venue')%></span>
 		<% end %>
-		<% if @venue.start_time.in_time_zone + 61.minutes <= Time.now.in_time_zone %>
+		<% if @venue.timed_out? %>
 		<span class="label label-info"><%= t('.past_venue')%></span>
 		<% end %>
 </aside>
@@ -35,7 +35,7 @@
 						<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
 					<% end %>
 					<span class="label label-info"><%= t('.start_date')%></span>&nbsp;
-					<%= l(@venue.start_time) %><br />
+					<%= l(@venue.start_time.in_time_zone) %><br />
 					<span class="label label-info"><%= t('.duration')%></span>&nbsp;
 					<% if @venue.duration > 1 %>
 						<%= @venue.duration %> <%=t('.minutes') %>
@@ -104,7 +104,7 @@
 
 	<section class="group-chat span6">
 		
-		<% if  ( @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone  %>
+		<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out?  %>
 			<% if @venue.attendies.include?(current_user) %>
 				<%= render(:partial => 'venues/group_chat', :locals => { :venue => @venue })%>
 			<% else %>

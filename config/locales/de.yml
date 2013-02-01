@@ -681,6 +681,7 @@ de:
     landing_page_venue:
       upcoming_venue: "Nächster Treffpunkt"
       venue_list: "Alle Treffpunkte"
+      venue_is_in_process: "im Gange"
     form:
       title: "Titel des Treffpunkts"
       description: "Beschreibung des Treffpunktes"

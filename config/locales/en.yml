@@ -668,6 +668,7 @@ en:
     landing_page_venue:
       upcoming_venue: "Upcoming venue"
       venue_list: "All venues"
+      venue_is_in_process: "in process"
     form:
       title: "Title of venue"
       description: "Description of venue"

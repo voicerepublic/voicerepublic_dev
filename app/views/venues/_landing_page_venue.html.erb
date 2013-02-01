@@ -8,6 +8,9 @@
 	<div class="span9 lp-venue-box">
 		<div class="row-fluid">
 		<strong><%= t('.upcoming_venue') %></strong>
+		<% if venue.ongoing? %>
+			<span class="label label-attention"><%= t('venues.landing_page_venue.venue_is_in_process')  %></span>
+		<% end %>
 		<%= render(:partial => 'venues/venue_big', :locals => {:venue => venue}) %>
 		</div>
 	</div>
