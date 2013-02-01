@@ -5,6 +5,6 @@
 	<meta property="og:image" content="" /> 
 	<link rel="image_src" href="" />
 <% else %>
-<meta property="og:image" content="<%= 'http://staging2.kluuu.com' + venue.host_kluuu.klu_images.first.image.url(:medium) %>" /> 
-<link rel="image_src" href="<%= 'http://staging2.kluuu.com' + venue.host_kluuu.klu_images.first.image.url(:medium) %>" />
+<meta property="og:image" content="<%= 'http://'+ request.host + venue.host_kluuu.klu_images.first.image.url(:medium) %>" /> 
+<link rel="image_src" href="<%= 'http://'+ request.host + venue.host_kluuu.klu_images.first.image.url(:medium) %>" />
 <% end %>
