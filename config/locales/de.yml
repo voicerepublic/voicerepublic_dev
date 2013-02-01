@@ -375,6 +375,8 @@ de:
       get_email_if_actions_of_friends: "Ich möchte einen Hinweis per E-Mail über die Aktivitäten meiner Kontakte"
       hide_initial_help: "Hilfe Texte verstecken."
       edit_preferences: "Einstellungen bearbeiten"
+    venues:
+      my_venues: "Meine Treffpunkte"
   follows:
     follower:
       follow_back: "Ebenfalls folgen"

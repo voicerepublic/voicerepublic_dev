@@ -15,7 +15,21 @@ describe DashboardController do
       response.should be_redirect
     end
   end
-
+  
+  describe "GET 'dasboard/venues'" do
+    it "returns http success" do
+      get 'venues'
+      response.should be_success
+    end
+    
+    it "assigns users @venues" do
+      kluuu = FactoryGirl.create(:published_kluuu, :user => @user)
+      venue = FactoryGirl.create(:venue, :host_kluuu => kluuu)
+      get 'venues'
+      assigns(:venues).should eq([venue])
+    end
+  end
+  
   describe "Get dashboard/contacts" do
     it "returns http success" do
       get 'contacts'
@@ -62,7 +76,7 @@ describe DashboardController do
   # end
 
   end
-
+  
   describe "GET dashboard/news" do
     it "returns http success" do
       get "news"
@@ -70,7 +84,6 @@ describe DashboardController do
     end
     it "assigns news as @news"
   end
-  
   
   describe "DELETE dashboard/delete_notification" do
     it "destroys the requested notification" do

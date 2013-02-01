@@ -14,6 +14,12 @@ class Venue < ActiveRecord::Base
   DURATION = [ 30, 60, 90, 120, -1 ]
   REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, I18n.t('model_venue.biweekly') => 2, I18n.t('model_venue.monthly') => 3 }
   
+  
+  def self.of_user(user)
+    Venue.joins(:host_kluuu => :user).where("user_id = ?", user.id)
+  end
+  
+  
   def user_participates?(user)
     self.klus.collect { |k| k.user }.include?(user)
   end

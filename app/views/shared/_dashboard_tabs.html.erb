@@ -15,6 +15,11 @@
 	<li class="<%= (current_page?(user_conversations_path(:user_id => user)) || current_page?(user_messages_path(:user_id => user)))  ? 'active' : '' %>">
 		<%= link_to(t('.messages', :default => "Nachrichten"), user_conversations_path(:user_id => user) ) %>
 	</li>
+	<% unless Venue.of_user(current_user).empty? %>
+	<li class="<%= current_page?(dashboard_venues_path) ? 'active' : '' %>">
+		<%= link_to(t('.venues'), dashboard_venues_path() ) %>
+	</li>
+	<% end %>
 	<li class="pull-right <%= current_page?(dashboard_settings_edit_path) ? 'active' : '' %>">
 		<%= link_to(t('.settings', :default => "Einstellungen"), dashboard_settings_edit_path ) %>
 	</li>

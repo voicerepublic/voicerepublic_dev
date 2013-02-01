@@ -372,6 +372,8 @@ en:
       get_email_if_actions_of_friends: "Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde"
       hide_initial_help: "Die initialen Hilfe-Texte verstecken"
       edit_preferences: "Einstellungen editieren"
+    venues:
+      my_venues: "My venues"
   follows:
     follower:
       follow_back: "Follow back"
