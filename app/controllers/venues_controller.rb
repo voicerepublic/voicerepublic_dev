@@ -1,6 +1,6 @@
 class VenuesController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:index]
+  before_filter :authenticate_user!, :except => [:index, :show]
   
   # GET /venues
   # GET /venues.json
