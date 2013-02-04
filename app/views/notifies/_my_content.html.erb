@@ -42,6 +42,12 @@
 			<%= link_to( t('.follow_back'), user_create_follow_path(:user_id => current_user, :followed_id => notification.other ), :method => "post", :class => "btn news-follow-reaction" )%>
 		<% end %>
 	<% end %>
+	
+	<% if notification.instance_of?(Notification::NewVenueParticipant) %>
+		<h4 class="news-notification-top">
+			<%= link_to notification.klu.user.name, venue_path(:id => notification.other) %> <%= t('.joined_venue', :title => notification.other.title) %>
+		</h4>
+	<% end %>
 
 	<% if notification.instance_of?(Notification::NewRating)%>
 		<h4 class="news-notification-top">

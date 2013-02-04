@@ -254,6 +254,8 @@ en:
     you_got_rated_by: "%{name} rated your KluuU."
   model_notification_new_status:
     friend_created_new_status: "%{name} posted a new status."
+  model_notification_new_venue_participant:
+    new_participant: "%{name} joined venue %{title}!"
   video_system:
     rooms:
       default_welcome_msg: "Welcome to the KluuU Video Chat"
@@ -510,6 +512,7 @@ en:
       an_anonymous_person: "an anonymous call"
       tried_to_call_your_klu: "attempted to reach KluuU"
       tried_to_call_your_noklu: "attempted to reach Question"
+      joined_venue: "joined the venue %{title}"
     new_content:
       created_new_status_update: "changed their status"
       created_new: "crated a new"

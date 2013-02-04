@@ -253,6 +253,8 @@ de:
     you_got_rated_by: "%{name} hat dich bewertet."
   model_notification_new_status:
     friend_created_new_status: "%{name} hat einen neuen Status veröffentlicht."
+  model_notification_new_venue_participant:
+    new_participant: "%{name} nimmt nun auch am Treffpunkt %{title} teil!"
   video_system:
     rooms:
       default_welcome_msg: "Willkommen im KluuU Video Chat"
@@ -514,6 +516,7 @@ de:
       tried_to_call_your_klu: "hat einen Anrufversuch beim KluuU"
       tried_to_call_your_noklu: "hat einen Anrufversuch bei der Frage"
       please_rate_video_chat: "Bitte bewerte den Video-Chat mit %{name}"
+      joined_venue: "nimmt jetzt auch am Treffpunkt %{title} teil."
     new_content:
       created_new_status_update: "Hat seinen Status geändert"
       created_new: "Erstellte ein neues"

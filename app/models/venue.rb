@@ -37,6 +37,10 @@ class Venue < ActiveRecord::Base
     self.klus.collect { |k| k.user }.push(self.host_kluuu.user)
   end
   
+  def guests
+    self.klus.collect { |k| k.user }
+  end
+  
   def Venue.upcoming
     Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
   end
@@ -56,6 +60,11 @@ class Venue < ActiveRecord::Base
   end
   
   def generate_notification
-    
+    host_kluuu.user.follower.each do |follower|
+      if follower.account.prefs.inform_of_friends == "1" || true
+        Notification::NewVenue.create(:user => follower, :other => self)
+      end
+    end
   end
+  
 end
