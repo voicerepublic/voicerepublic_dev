@@ -137,7 +137,8 @@ FactoryGirl.define do
     end
     
     factory :notification_venue_info, :class => "Notification::VenueInfo" do
-      
+      user
+      association :other, factory: :venue_with_klus
     end
     
   end

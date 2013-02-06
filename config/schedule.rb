@@ -25,3 +25,8 @@ env :PATH, '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
 every 30.minutes, :roles => [:app] do
   rake "ts:reindex"
 end
+
+every :hour, :roles => [:app] do
+  runner 'Venue.notify_next_day'
+  runner 'Venue.notify_next_2_hour'
+end

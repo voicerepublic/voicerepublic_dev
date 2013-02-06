@@ -48,6 +48,12 @@
 			<%= link_to notification.klu.user.name, venue_path(:id => notification.other) %> <%= t('.joined_venue', :title => notification.other.title) %>
 		</h4>
 	<% end %>
+	
+	<% if notification.instance_of?(Notification::VenueInfo) %>
+		<h4 class="news-notification-top">
+			<%= link_to notification, venue_path(:id => notification.other) %> 
+		</h4>
+	<% end %>
 
 	<% if notification.instance_of?(Notification::NewRating)%>
 		<h4 class="news-notification-top">

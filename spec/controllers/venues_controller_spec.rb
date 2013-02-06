@@ -23,6 +23,7 @@ describe VenuesController do
   before  do
     #puts Role.all
     @user = FactoryGirl.create(:user)
+    Role.all
     @user.roles << Role.find_by_name('venue_host')
     request.env['warden'].stub :authenticate! => @user
     controller.stub :current_user => @user

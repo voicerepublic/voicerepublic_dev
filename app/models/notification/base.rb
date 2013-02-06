@@ -9,7 +9,8 @@ class Notification::Base < ActiveRecord::Base
                         Notification::MissedCall
                         Notification::MakeRate
                         Notification::NewMessage
-                        Notification::NewVenueParticipant }
+                        Notification::NewVenueParticipant
+                        Notification::VenueInfo }
                         
   CONTENT_ALERTS  = %w{ Notification::NewKluuu 
                         Notification::NewStatus

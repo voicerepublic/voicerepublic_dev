@@ -41,10 +41,6 @@ class Venue < ActiveRecord::Base
     self.klus.collect { |k| k.user }
   end
   
-  def Venue.upcoming
-    Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
-  end
-  
   def chat_name
     "vgc-#{self.id}"
   end
@@ -53,11 +49,45 @@ class Venue < ActiveRecord::Base
     "/chatchannel/vgc-#{self.id}"
   end
   
+  def self.upcoming
+    Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
+  end
+  
+  def self.one_day_ahead
+    venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 24.hours, Time.now + 23.hours)
+  end
+  
+  def self.two_hour_ahead
+    venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 120.minutes, Time.now + 60.minutes )
+  end
+  
+  def self.notify_next_day
+    self.generate_time_info_for(self.one_day_ahead)
+  end
+  
+  def self.notify_next_2_hour
+    self.generate_time_info_for(self.two_hour_ahead)
+  end
+  
+  def self.generate_time_info_for(venues)
+    notifies = false
+    venues.each do |venue|
+      venue.attendies.each do |user|
+        I18n.locale = user.account.preferred_locale
+        Notification::VenueInfo.create(:user => user, :other => venue)
+        notifies = true
+      end
+    end
+    notifies
+  end
+  
   private
   
   def runtime
     ( duration < 0 ) ? MIN_TIME : duration
   end
+  
+  
   
   def generate_notification
     host_kluuu.user.follower.each do |follower|
