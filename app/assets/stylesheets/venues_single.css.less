@@ -1,0 +1,87 @@
+/*
+ *= require_self
+ */
+
+.venue-big{
+  padding: 10px 20px;
+  margin-top:5px;
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+  -moz-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+  -ms-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+  -o-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
+  border-radius: 3px;
+  border:1px solid #ddd;  
+
+  .venue-time{
+    font-size: 18px;
+    color:#932945;
+    .label{
+      vertical-align: top;
+      display: inline-block;
+    }
+  }
+
+  .venue-big-content{
+    margin-top:17px;
+    &> div:first-child{
+      width:60%;
+      min-width:300px;
+
+      img{
+        width:70px;
+        margin-right:13px;
+        vertical-align:top;
+        float:left
+      }
+      a{
+        vertical-align: top;
+        line-height: 15px
+      }
+      h3{
+        display: inline;
+        hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        -o-hyphens: auto;
+        font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 22px;
+        line-height: 25px
+      }   
+    }
+    &> div:last-child{
+      min-width:250px;
+    }
+    .btn-info{
+      img{
+        width:33px;
+      }
+      display:inline-block;
+      background-color: #1A6E6D;
+      background-image: linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+      background-image: -o-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+      background-image: -moz-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+      background-image: -webkit-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+      background-image: -ms-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+
+      background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0, #1A6E6D),
+        color-stop(1, #2AA2A0)
+      );
+      
+      filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6'); /* IE6 & IE7 */
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6')"; /* IE8 */
+    }
+  }
+
+  p{
+    margin-top: 8px;
+    margin-bottom: 20px
+  }
+}
