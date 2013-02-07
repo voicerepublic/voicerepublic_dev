@@ -1,6 +1,7 @@
 /*
  *= require main
  *= require klus
+ *= require venues_single 
  *= require_self
  */
 @import "config.css.less";
@@ -16,30 +17,38 @@
   border-top: 1px solid #d8d8d8;
   margin: 11px 0 11px 0;
   padding-top: 10px;
-} 
+}
+
 .venue-list {
   margin: 11px 0 0 0;
   
-  .compact { 
-    margin: 0 0 20px 0;
+  .venue-big { 
+    margin: 0 0 30px 0;
   } 
   .odd {
     background: @oddColor;
   }
   .even {
     background: @evenColor;
-  }  
-
-  .single-venue {
-    box-shadow:  2px 2px 6px rgba(0,0,0,0.08);
-    border: 1px solid #d8d8d8;
-    border-radius: 4px; 
-    padding: 11px;
-    
-    .btn-large {
-      margin: 45px 45px 45px 0;
-    }
   }
+
+  .venue-desc{
+    h3{
+      margin:0 0 5px 10px;
+      font-size: 18px
+    }
+    .venue-desc-content{
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      background: #208583;
+      color:white;
+      padding:1px 15px 10px 15px;
+      
+      font-size: 13px;
+      border-radius: 5px
+    }
+  }  
 }
 
 .venue-socials {
@@ -72,4 +81,5 @@
     }
   }
 }
+
 

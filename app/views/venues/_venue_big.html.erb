@@ -1,11 +1,11 @@
-<article class="venue-big">
+<article class="venue-big <%= cycle('odd', 'even') %>">
 	<aside class="venue-time">
 		<%= l(venue.start_time) %>
-		<% if venue.ongoing? %>
+		<%# if venue.ongoing? %>
 			<span class="label label-attention">
 				<%= t('venues.landing_page_venue.venue_is_in_process')  %>
 			</span>
-		<% end %>
+		<%# end %>
 	</aside>
 	<div class="venue-big-content clearfix">
 
