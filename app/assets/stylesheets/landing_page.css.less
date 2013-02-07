@@ -3,6 +3,7 @@
  *= require_self
  *= require klus
  *= require users
+ *= require venues_single
  */
  @import "config.css.less";
 
@@ -12,7 +13,8 @@
     .set-rows(4);
   }
   h2{
-  	margin:0px 0 0 14px
+  	margin:0px 0 0 20px;
+  	font-size: 26px
   }
  }
 
@@ -128,48 +130,6 @@ input.landing-page-query{
 	padding:0
 }
 
-.lp-treffpunkt{
-	.page-header{
-	}
-	h2{
-		margin:0;
-		margin-bottom:10px;
-	}
-	.well{
-		padding-left:30px;
-		padding-right:30px;
-		padding-bottom:0px;
-		/*background-color: #93B77D !important;*/
-		background-color: #D8E199 !important
-	}
-
-	.span7{
-		margin-left:0
-	}
-
-	.landing-bigger{
-		font-size:20px;
-	}
-	.hero-unit{
-		padding:30px;
-		&:first-child{
-			max-width: 600px;
-		}
-		h3{
-			margin-top:0;
-			border-bottom:1px solid #999;
-		}
-		h4{
-			margin-top:10px;
-			margin-bottom:5px;
-		}
-	}
-	.landing-page-joinin{
-		padding:8px 30px 8px 30px;
-	}
-
-}
-
 .lp-kluuus{
 	.well{
 		/*background: #f7f7f7;*/
@@ -192,6 +152,26 @@ input.landing-page-query{
 	.set-rows(2);
 }
 
-.lp-venue-box {
-  border: 1px solid #d8d8d8;
+.lp-news{
+	ul{
+		height:200px;
+		overflow-y:auto;
+		margin:0;
+	}
+
+	h2{
+		margin-left:0
+	}
+	li{
+		margin:2px 0 18px 0;
+	}
+	.lp-news-date{
+		color:#932945;
+		font-size: 11px;
+		line-height: 15px
+	}
+	p{
+		margin:0px 0px 0px 0;
+		line-height: 18px
+	}
 }

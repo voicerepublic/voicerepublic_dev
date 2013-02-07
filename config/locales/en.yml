@@ -464,7 +464,7 @@ en:
       this_kluuu_is_bookmarked: "Bookmarked by:"
       people_who_wanna_know_more_about: "→ Matches for the KluuU:"
     no_kluuu:
-      this_no_kluuu_is_bookmarked: "This Question has been bookmarked %{times} times"
+      this_no_kluuu_is_bookmarked: "Bookmarked by:"
       people_who_know_about: "→ Matches for the Question"
     user_about:
       user_description: "About me"
@@ -668,14 +668,17 @@ en:
       delete_comment: "destroy"
     venue_big:
       host: "Host"
+      venue_title: "Venue"
       go_venue_page: "Proceed to venue-page"
     venue_form:
       write_a_comment: "write a comment"
       save_comment: "Save comment"
     landing_page_venue:
+      venue_title: "Venues"
       upcoming_venue: "Upcoming venue"
       venue_list: "All venues"
       venue_is_in_process: "in process"
+      news_title: "News"
     form:
       title: "Title of venue"
       description: "Description of venue"

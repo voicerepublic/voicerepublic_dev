@@ -1,18 +1,29 @@
 <% venue = Venue.upcoming %>
 
 <% if venue %>
-<section class="row-fluid landing-page-venue">
-	<div class="span3">
-		<big><span class="label label-important">Neu</span> Treffpunkte</big>
-	</div>
-	<div class="span9 lp-venue-box">
-		<div class="row-fluid">
-		<strong><%= t('.upcoming_venue') %></strong>
-		<% if venue.ongoing? %>
-			<span class="label label-attention"><%= t('venues.landing_page_venue.venue_is_in_process')  %></span>
-		<% end %>
+<section class="row-fluid">
+
+	<%# VENUE %>
+	<div class="span9">
+		<h2><%=t('.venue_title')%></h2>
 		<%= render(:partial => 'venues/venue_big', :locals => {:venue => venue}) %>
-		</div>
+	</div>
+
+	<%# NEWS %>
+	<div class="lp-news span3">
+		<h2><%=t('.news_title')%></h2>
+		<ul class="lp-news-list">
+			<%# TODO %>
+			<li>
+				<p class="lp-news-date">
+					23.3.2013
+				</p>
+				<p>
+					Aenean lacinia bibendum nulla sed consectetur.
+				</p>
+			</li>
+
+		</ul>
 	</div>
 </section>
 <% end %>

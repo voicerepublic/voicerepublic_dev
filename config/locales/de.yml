@@ -467,7 +467,7 @@ de:
       this_kluuu_is_bookmarked: "Mit Lesezeichen versehen von:"
       people_who_wanna_know_more_about: "→ Treffer zum KluuU:"
     no_kluuu:
-      this_no_kluuu_is_bookmarked: "Diese Frage wurde %{times} mal mit einem Lesezeichen versehen."
+      this_no_kluuu_is_bookmarked: "Mit Lesezeichen versehen von:"
       people_who_know_about: "→ Treffer zur Frage:"
     user_about:
       user_description: "Über mich"
@@ -681,14 +681,17 @@ de:
       host: "Gastgeber"
     venue_big:
       host: "Gastgeber"
-      go_venue_page: "Zur Treffpunkt Seite"
+      venue_title: "Treffpunkt"
+      go_venue_page: "Zum Treffpunkt!"
     venue_form:
       write_a_comment: "Verfasse einen Kommentar"
       save_comment: "Kommentar speichern"
     landing_page_venue:
+      venue_title: "Treffpunkte"
       upcoming_venue: "Nächster Treffpunkt"
       venue_list: "Alle Treffpunkte"
       venue_is_in_process: "im Gange"
+      news_title: "Neuigkeiten"
     form:
       title: "Titel des Treffpunkts"
       description: "Beschreibung des Treffpunktes"

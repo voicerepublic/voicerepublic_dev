@@ -1,20 +1,31 @@
 <article class="venue-big">
-	<div class="span4">
-		<aside>
-			<span class="label label-important"><%= l(venue.start_time) %></span>
-		</aside>
-		<h3><%= venue.title %></h3>
-		<%= simple_format( truncate(venue.description, :length => 100), :class => "text-info") %>
-	</div>
-	<div class="span4">
-		<span class="label label-info"><%= t('.host') %>:</span> <%= link_to venue.host_kluuu.user.name, user_path(venue.host_kluuu.user) %>
-		<%= link_to klu_path(:id => venue.host_kluuu) do %>
-		<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => venue.host_kluuu})%>
+	<aside class="venue-time">
+		<%= l(venue.start_time) %>
+		<% if venue.ongoing? %>
+			<span class="label label-attention">
+				<%= t('venues.landing_page_venue.venue_is_in_process')  %>
+			</span>
 		<% end %>
-	</div>
-	<div class="span4">
-		<%= link_to(venue_path(venue), :class => "btn btn-large btn-info pull-right", :disabled => current_user ? false : true ) do %>
-		<i class="icon-glass"> </i> &nbsp; <%= t('.go_venue_page') %>
-		<% end  %>
+	</aside>
+	<div class="venue-big-content clearfix">
+
+		<div class="pull-left">
+			<%= image_tag venue.host_kluuu.user.account.portrait.url(:large) %>
+			<%= link_to (venue.host_kluuu.user.name + "s " + t('.venue_title')), user_path(venue.host_kluuu.user) %><br>
+			<h3><%= venue.title %></h3>
+			<div class="clearfix"></div>
+			<%= simple_format( truncate(venue.description, :length => 100)) %>
+		</div>
+
+		<div class="pull-right">
+			<%= link_to(venue_path(venue), :class => "btn btn-large btn-info pull-right", :disabled => current_user ? false : true ) do %>
+			<%= t('.go_venue_page') %>&nbsp;<%= image_tag "/assets/coffee_icon_white.png" %>
+			<% end  %>
+			<br>
+			<%= link_to klu_path(:id => venue.host_kluuu), :class => "pull-right" do %>
+			<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => venue.host_kluuu})%>
+			<% end %>		
+		</div>
+
 	</div>
 </article>
