@@ -123,6 +123,24 @@ FactoryGirl.define do
       content { Faker::Lorem.paragraph }
     end
     
+    factory :notification_new_venue, :class => "Notification::NewVenue" do
+      association :other, factory: :venue
+      user
+      content { Faker::Lorem.paragraph}
+    end
+    
+    factory :notification_new_venue_participant, :class => "Notification::NewVenueParticipant" do
+      user
+      association :other, factory: :venue
+      association :klu, factory: :published_no_kluuu
+      content { Faker::Lorem.paragraph }
+    end
+    
+    factory :notification_venue_info, :class => "Notification::VenueInfo" do
+      user
+      association :other, factory: :venue_with_klus
+    end
+    
   end
   
 end

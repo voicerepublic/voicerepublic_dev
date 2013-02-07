@@ -25,6 +25,14 @@ class DashboardController < ApplicationController
       format.json { render json: @bookmarks }
     end
   end
+  
+  def venues
+    @venues = Venue.of_user(@user)
+    respond_to do |format|
+      format.html
+      format.json { render json: @venues }
+    end
+  end
 
   def news
     ret = @user.notifications.call_alerts.destroy_all

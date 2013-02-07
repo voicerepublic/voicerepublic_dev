@@ -254,6 +254,10 @@ en:
     you_got_rated_by: "%{name} rated your KluuU."
   model_notification_new_status:
     friend_created_new_status: "%{name} posted a new status."
+  model_notification_new_venue_participant:
+    new_participant: "%{name} joined venue %{title}!"
+  model_notification_venue_info:
+    venue_starts_soon: "Venue %{title} takes place %{time}"
   video_system:
     rooms:
       default_welcome_msg: "Welcome to the KluuU Video Chat"
@@ -372,6 +376,8 @@ en:
       get_email_if_actions_of_friends: "Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde"
       hide_initial_help: "Die initialen Hilfe-Texte verstecken"
       edit_preferences: "Einstellungen editieren"
+    venues:
+      my_venues: "My venues"
   follows:
     follower:
       follow_back: "Follow back"
@@ -508,6 +514,7 @@ en:
       an_anonymous_person: "an anonymous call"
       tried_to_call_your_klu: "attempted to reach KluuU"
       tried_to_call_your_noklu: "attempted to reach Question"
+      joined_venue: "joined the venue %{title}"
     new_content:
       created_new_status_update: "changed their status"
       created_new: "crated a new"
@@ -620,6 +627,8 @@ en:
   venues:
     venue_list: "Upcoming venues"
     new_venue: "Create new Venue"
+    facebook_value_template:
+      join_the_venue: "Join the venue: %{title}"
     show:
       venue: "Venue"
       time_until_takeoff: "%{time} until start"
@@ -639,6 +648,7 @@ en:
       see_other_venues: "More Venues"
       minutes: "Minutes"
       repeating: "Rhythm"
+      comments: "Comments"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
@@ -654,12 +664,18 @@ en:
     venue_compact:
       go_venue_page: "Proceed to venue-page"
       host: "Host"
+    venue_comment:
+      delete_comment: "destroy"
     venue_big:
       host: "Host"
       go_venue_page: "Proceed to venue-page"
+    venue_form:
+      write_a_comment: "write a comment"
+      save_comment: "Save comment"
     landing_page_venue:
       upcoming_venue: "Upcoming venue"
       venue_list: "All venues"
+      venue_is_in_process: "in process"
     form:
       title: "Title of venue"
       description: "Description of venue"

@@ -35,6 +35,10 @@ module DashboardHelper
               when 'NewKluuu'
                 #listing ? nil : 
                 'notifies/new_content'
+              when 'NewVenue'
+                'notifies/new_content'
+              when 'NewVenueParticipant'
+                'notifies/my_content'
               when 'NewStatus'
                 #listing ? nil : 
                 'notifies/new_content'

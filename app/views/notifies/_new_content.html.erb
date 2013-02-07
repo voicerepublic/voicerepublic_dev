@@ -30,6 +30,14 @@
 			<%= tiny_klu(notification.klu) %>
 		<% end %>
 	<% end %>
+	
+	<% if notification.instance_of?(Notification::NewVenue)%>
+		<h4 class="news-notification-top">
+			<%= link_to notification.other.title, venue_path(:id => notification.other) %>
+			<%= t('.created_new') %> <%= t('venues.show.venue') %>.
+		</h4>
+	<% end %>
+	
 	<%= link_to_url_for_notification_reason(notification) %>
 	
 	<aside>

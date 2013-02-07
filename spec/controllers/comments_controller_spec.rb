@@ -27,6 +27,8 @@ describe CommentsController do
     
     request.env['warden'].stub :authenticate! => @commenter
     controller.stub :current_user => @commenter 
+  
+    request.env["HTTP_REFERER"] = user_status_update_path(:user_id => @user, :id => @status_update )
    
   end
 
@@ -149,7 +151,6 @@ describe CommentsController do
 
     describe "with invalid params" do
       it "assigns the comment as @comment" do
-        
         comment = Comment.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
@@ -158,7 +159,6 @@ describe CommentsController do
       end
 
       it "re-renders the 'edit' template" do
-        
         comment = Comment.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Comment.any_instance.stub(:save).and_return(false)
@@ -178,8 +178,8 @@ describe CommentsController do
 
     it "redirects to the comments list" do
       comment = Comment.create! valid_attributes
-      delete :destroy, {:id => comment.to_param, :user_id => @user.id, :status_update_id => @status_update.id}, valid_session
-      response.should redirect_to(user_status_update_comments_path(:user_id => @user.id, :status_update_id => @status_update.id))
+      delete :destroy, {:id => comment.to_param, :user_id => @user.id, :status_update_id => @status_update}, valid_session
+      response.should redirect_to(user_status_update_path(:user_id => @user, :id => @status_update))
     end
   end
 

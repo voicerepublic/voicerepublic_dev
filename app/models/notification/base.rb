@@ -8,10 +8,13 @@ class Notification::Base < ActiveRecord::Base
                         Notification::NewRating
                         Notification::MissedCall
                         Notification::MakeRate
-                        Notification::NewMessage }
+                        Notification::NewMessage
+                        Notification::NewVenueParticipant
+                        Notification::VenueInfo }
                         
   CONTENT_ALERTS  = %w{ Notification::NewKluuu 
-                        Notification::NewStatus }
+                        Notification::NewStatus
+                        Notification::NewVenue }
                         
   CALL_ALERTS     = %w{ Notification::CallEnded 
                         Notification::CallAccepted
@@ -41,6 +44,13 @@ class Notification::Base < ActiveRecord::Base
       user_status_updates_path(:user_id => other )
     when 'NewKluuu'
       Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
+      klu_path(:id => klu_id)
+    when "NewVenue"
+    when "VenueInfo"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
+      venue_path(:id => other_id)
+    when "NewVenueParticipant"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       klu_path(:id => klu_id)
     when "NewBookmark"
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
@@ -73,6 +83,13 @@ class Notification::Base < ActiveRecord::Base
       user_status_updates_url(:user_id => other )
     when 'NewKluuu'
       Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
+      klu_url(:id => klu_id)
+    when 'NewVenue'
+    when "VenueInfo"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
+      venue_url(:id => other_id)
+    when "NewVenueParticipant"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       klu_url(:id => klu_id)
     when "NewBookmark"
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")

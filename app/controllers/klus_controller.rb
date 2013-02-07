@@ -69,7 +69,13 @@ class KlusController < ApplicationController
       when 'Kluuu'
         @klu = @user.kluuus.build(params[:klu].merge(:published => true))
       when 'NoKluuu'
-        @klu = @user.no_kluuus.build(params[:klu].merge(:published => true))
+        logger.debug params[:klu][:tag_list]
+        if params[:klu][:tag_list] == "newcomer"
+          tag_list = params[:klu][:tag_list] + ", " + params[:klu][:title]
+          @klu = @user.no_kluuus.build(params[:klu].merge(:published => true).merge(:tag_list => tag_list))
+        else
+          @klu = @user.no_kluuus.build(params[:klu].merge(:published => true))
+        end
       end
     else
       @klu = @user.no_kluuus.build(params[:klu].merge(:published => true))

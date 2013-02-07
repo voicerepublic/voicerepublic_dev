@@ -17,12 +17,18 @@ class Comment < ActiveRecord::Base
   private
   
   def generate_notification
-    unless commentable.user == self.user
-      Notification::NewComment.create(:user => commentable.user, 
+    
+    if commentable.kind_of?(StatusUpdate)
+      unless commentable.user == self.user
+        Notification::NewComment.create(:user => commentable.user, 
                                       :other => self.user, 
                                       :content => self.content,
                                       :url => Rails.application.routes.url_helpers.user_status_update_path(:user_id => self.commentable.user, :id => self.commentable )
                                       )
+      end
+      
+    end
+    if commentable.kind_of?(Venue)
     end
   end
   

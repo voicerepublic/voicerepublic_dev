@@ -55,10 +55,6 @@ module KluuuCode
       update_attributes(hash)
     end
     
-    #def method_missing
-      
-    #end
-    
   end
 
 end

@@ -1,6 +1,6 @@
 <article class="notification news-notification news-nofication-my-content contribution" id="notification-<%= notification.id %>">
 	<header>
-		<% if notification.other %>
+		<% if notification.other && notification.other.instance_of?(User) %>
 		<div class="user-image contribution-user-image" data-user-id="<%= notification.other.id %>">
 			<%= link_to(image_tag( notification.other.account.portrait.url(:thumb), :class => 'img-polaroid'), user_path(:id => notification.other)) %>
 		</div>
@@ -41,6 +41,18 @@
 		<% else %>
 			<%= link_to( t('.follow_back'), user_create_follow_path(:user_id => current_user, :followed_id => notification.other ), :method => "post", :class => "btn news-follow-reaction" )%>
 		<% end %>
+	<% end %>
+	
+	<% if notification.instance_of?(Notification::NewVenueParticipant) %>
+		<h4 class="news-notification-top">
+			<%= link_to notification.klu.user.name, venue_path(:id => notification.other) %> <%= t('.joined_venue', :title => notification.other.title) %>
+		</h4>
+	<% end %>
+	
+	<% if notification.instance_of?(Notification::VenueInfo) %>
+		<h4 class="news-notification-top">
+			<%= link_to notification, venue_path(:id => notification.other) %> 
+		</h4>
 	<% end %>
 
 	<% if notification.instance_of?(Notification::NewRating)%>

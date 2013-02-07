@@ -52,18 +52,26 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
+    
     if params[:status_update_id]
-      @comment = StatusUpdate.find(params[:status_update_id]).comments.create(params[:comment].merge(:user_id => current_user.id))
+      @comment = StatusUpdate.find(params[:status_update_id]).comments.build(params[:comment].merge(:user_id => current_user.id))
       logger.debug(@comment.inspect)
-    else
-      redirect_to :back, warn: 'at this time only status-updates can be commented...'
+    end
+    if params[:venue_id]
+      @comment = Venue.find( params[:venue_id] ).comments.build(params[:comment].merge(:user_id => current_user.id) )
+    end
+    
+    unless @comment
+      flash[:alert] = 'type can not be commented ...' 
+      redirect_to :back and return
     end
     
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to user_status_update_path(:user_id => @comment.commentable.user, :id => @comment.commentable), notice: I18n.t('controller_comments.comment_created', :default => 'Comment was successfully created.') }
-        format.json { render json: @comment, status: :created, location: @comment.commentable.user }
+        format.html { redirect_to :back }
+        #format.html { redirect_to user_status_update_path(:user_id => @comment.commentable.user, :id => @comment.commentable), notice: I18n.t('controller_comments.comment_created', :default => 'Comment was successfully created.') }
+        #format.json { render json: @comment, status: :created, location: @comment.commentable.user }
       else
         format.html { render action: "new" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -99,7 +107,11 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_status_update_comments_url(:user_id => @comment.commentable.user.id, :status_update_id => @comment.commentable.id) }
+      format.html do 
+        flash[:notice] = "Comment destroyed"
+        redirect_to :back
+      end
+       #user_status_update_comments_url(:user_id => @comment.commentable.user.id, :status_update_id => @comment.commentable.id) }
       format.json { head :no_content }
     end
   end

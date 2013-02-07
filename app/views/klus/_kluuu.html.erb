@@ -33,7 +33,8 @@
 				</div>
 			</section><!-- End of Kluu-header klu-layout-->
 			
-			<%= render(:partial => 'kluuu_venues', :locals => { :klu => klu } ) %>
+			<%= render(:partial => 'kluuu_venues', :locals => { :klu => klu } ) unless klu.upcoming_venues.empty? %>
+			
 			<br class="clearfix">
 			<div class="large-klu-left row-fluid">
 				<section class="klu-ratings span8">
