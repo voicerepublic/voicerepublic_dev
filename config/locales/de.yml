@@ -457,8 +457,8 @@ de:
       category: "Kategorie"
       tags: "Schlagworte"
     kluuu:
-      feedbacks: "Kommentare"
-      this_kluuu_is_bookmarked: "Dieses KluuU wurde %{times} mal mit einem Lesezeichen versehen."
+      feedbacks: "Bewertungen:"
+      this_kluuu_is_bookmarked: "Mit Lesezeichen versehen von:"
       people_who_wanna_know_more_about: "→ Treffer zum KluuU:"
     no_kluuu:
       this_no_kluuu_is_bookmarked: "Diese Frage wurde %{times} mal mit einem Lesezeichen versehen."
