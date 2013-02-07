@@ -33,24 +33,11 @@
 				</div>
 			</section><!-- End of Kluu-header klu-layout-->
 			
-			<%= render(:partial => 'kluuu_venues', :locals => { :klu => klu } ) unless klu.upcoming_venues.empty? %>
 			
 			<br class="clearfix">
 			<div class="large-klu-left row-fluid">
-				<section class="klu-ratings span8">
-					<h5><%= klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %></h5>
-					<% unless klu.ratings.empty? %>
-					<ul class="unstyled">
-						<% klu.ratings.limit(5).each do |rating| %>
-						<li>
-							<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
-						</li>
-						<% end %>
-					</ul>
-					<% end %>
-				</section>	
 				<%# BOOKMARKS %>
-				<div class="span4">
+				<section class="span4">
 					<h5>
 						<%= t('.this_kluuu_is_bookmarked', :times => klu.bookmarks.count) %> 
 					</h5>
@@ -63,8 +50,28 @@
 						</li>
 						<% end %>
 					</ul>
-				</div>
+				</section>
+				<%# REVIEWS %>				
+				<section class="klu-ratings span8">
+					<% unless klu.ratings.empty? %>
+						<h5>
+							<%= klu.ratings.count %> <%= t('.feedbacks', :default => 'Feedbacks') %>
+						</h5>
+						<ul class="unstyled">
+							<% klu.ratings.limit(5).each do |rating| %>
+								<li>
+									<%= render(:partial => 'ratings/rating', :locals => { :rating => rating}) %>
+								</li>
+							<% end %>
+						</ul>
+					<% end %>
+				</section>	
+
 			</div>
+
+			<%# TREFFPUNKT %>
+			<%= render(:partial => 'kluuu_venues', :locals => { :klu => klu } ) unless klu.upcoming_venues.empty? %>
+
 		</div>
 		<%# MATCHES %>
 		<aside class="well span3 klu-matches">
