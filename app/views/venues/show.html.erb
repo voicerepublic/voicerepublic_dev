@@ -56,9 +56,7 @@
 						<%= simple_format @venue.description %>
 					</div>
 					<div class="span6">
-						<%= link_to(klu_path(@venue.host_kluuu)) do %>
-							<%= render(:partial => 'klus/medium_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
-						<% end %>
+						<%= render(:partial => 'klus/medium_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
 					</div>
 				</div>
 			</div>
