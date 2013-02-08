@@ -93,9 +93,11 @@
 
 
 		<section class="venue-comments">
-			<a  href="#" data-toggle="collapse" data-target="#collapsing-comments">
-				<small><%= @venue.comments.count if @venue.comments.count > 0 %> <%= t('.comments') %></small>
-			</a>
+			
+			<button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#collapsing-comments">
+				<%= @venue.comments.count if @venue.comments.count > 0 %> <%= t('.comments') %>
+			</button>
+			
 			<div id="collapsing-comments" class="collapse">
 				<%= render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment ) %>
 			</div>	
