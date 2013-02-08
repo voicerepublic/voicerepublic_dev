@@ -23,9 +23,12 @@ class VideoSessionsController < ApplicationController
       @participant = Participant::Base.where('user_id = ? AND video_session_id = ?', @user.id, @video_session.id).first
     end   
     
+    logger.info("VideoSessions#show - STEP 3  - show video_session: #{@video_session.id}")
+    
     @klu = @video_session.klu
 
     respond_to do |format|
+     
       format.js # show.html.erb
     end
   end
@@ -53,6 +56,7 @@ class VideoSessionsController < ApplicationController
     respond_to do |format|
       begin
         if @video_session.save
+          logger.info("VideoSessions#create - STEP 1 CALLING - saved new video_session: #{@video_session.id}")
           format.js { render and return }
         else
           format.js { render 'shared/error_flash', :locals => {:msg => t('video_sessions_controller.create.failed_7')} and return }
@@ -77,6 +81,7 @@ class VideoSessionsController < ApplicationController
       begin 
         logger.warn("VideoSession#update - debug:  #{@video_session.inspect} \n valid? #{@video_session.valid?} \n errors: #{@video_session.errors.inspect}")
         if @video_session.save
+          logger.info("VideoSessions#update - STEP 2 ACCEPTING - updated video_session: #{@video_session.id}")
           format.js { redirect_to video_session_path(:id => @video_session.id) and return }
         else
           logger.error("VideoSession#update - error saving video-session: #{@video_session.inspect}")
