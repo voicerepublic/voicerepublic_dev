@@ -662,6 +662,7 @@ en:
       back: "Back"
     index:
       upcoming_venues: "Upcoming venues"
+      what_is_a_venue: "Tell me about venues"
     venue_compact:
       go_venue_page: "Proceed to venue-page"
       host: "Host"
