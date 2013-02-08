@@ -1,23 +1,33 @@
+<div class="venue-new-join">
+
 <div class="page-header">
-  <h2><%= t('.participate_in_venue', :title => @venue.title) %></h2>
+	<p><%= t('.participate_in_venue') %><%= image_tag "/assets/coffee_icon.png" %></p>
+	<h2 class="venue-new-join-desc-title"><%= @venue.title %>:</h2>
+	<p><%= t('.click_on_your_klu_to_participate_in_venue') %></p>
 </div>
 
 <div>
 <% if current_user.no_kluuus.empty? %>
 	<span class="label label-attention"><%= t('.no_klus_available_to_join_venue')%></span>
 <% else %>
-	<span class="label label-info"><%= t('.so_easy') %></span> 
-	<%= t('.click_on_your_klu_to_participate_in_venue') %> 
-	<span class="label label-important"><%= l(@venue.start_time ) %></span>
 	
-	<% current_user.klus.each do |klu| %>
-		<%= link_to( venue_join_path(:venue_id => @venue, :klu_id => klu), :method => :post, :data => { :confirm => t('.confirm_join', :title => @venue.title, :klu_name => klu.title ) } ) do %>
-			<%= partial_for_klu(klu, :tiny)%>
-		<% end %>
-	<% end %>
+	<section class="row-fluid">
+		<div class="span6">
+			<% current_user.klus.each do |klu| %>
+				<%= link_to( venue_join_path(:venue_id => @venue, :klu_id => klu), :method => :post, :data => { :confirm => t('.confirm_join', :title => @venue.title, :klu_name => klu.title ) } ) do %>
+					<%= partial_for_klu(klu, :tiny)%>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="span6">		
+		</div>
+	</section>
+
 <% end %>
 </div>
 
-<div class="form-actions">
-	<%= link_to t('cancel'), venue_path(@venue), :class => "btn btn-cancel" %>
+<div>
+	<%= link_to t('.back'), venue_path(@venue), :class => "btn btn-cancel" %>
+</div>
+
 </div>

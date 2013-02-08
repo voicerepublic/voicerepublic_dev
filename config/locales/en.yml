@@ -654,11 +654,12 @@ en:
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
       create_kluuu: "create a KluuU now"
     new_join:
-      participate_in_venue: "Participate at venue '%{title}'"
+      participate_in_venue: "Participate at venue"
       no_klus_available_to_join_venue: "You need to create a Question to participate - create one!"
       click_on_your_klu_to_participate_in_venue: "Selected question will participate at the venue"
       confirm_join: "Would you like to participate with '%{klu_name}' at the venue '%{title}'?"
       so_easy: "Its easy"
+      back: "Back"
     index:
       upcoming_venues: "Upcoming venues"
     venue_compact:

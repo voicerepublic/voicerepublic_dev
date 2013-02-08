@@ -667,11 +667,12 @@ de:
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
       create_kluuu: "jetzt ein KluuU erstellen"
     new_join:
-      participate_in_venue: "Nimm am Treffpunkt '%{title}' teil" 
+      participate_in_venue: "Teilnehmen am Treffpunkt" 
       no_klus_available_to_join_venue: "Du hast noch keine 'Fragen' um am Treffpunkt teilzunehmen - erstelle zunächst eine!"
-      click_on_your_klu_to_participate_in_venue: "Mit klick auf eine deiner Fragen wählst du diese aus um am Treffpunkt teilzunehmen."
+      click_on_your_klu_to_participate_in_venue: "Wähle einen KluuU oder eine Frage aus. Damit nimmst Du am Treffpunkt teil!"
       confirm_join: "Willst du mit deiner Frage '%{klu_name}' am Treffpunkt '%{title}' teilnehmen?"
       so_easy: "So einfach"
+      back: "Zurück"
     index:
       upcoming_venues: "Künftige Treffpunkte"
     venue_comment:
