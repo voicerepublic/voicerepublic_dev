@@ -6,9 +6,22 @@
 	<%= render(:partial => 'facebook_value_template', :locals => { :venue => @venue } ) %>
 <% end %>
 
+<div class="venue-show">
 
 <div class="page-header">
-	<h2><%= t('.venue')%>: <%= @venue.title %></h2>
+	<div class="venue-time">
+		<%= l(@venue.start_time.in_time_zone) %>,
+		<% if @venue.duration > 1 %>
+			<%= @venue.duration %> <%=t('.minutes') %>
+		<% else %>
+			<%= t('.open_ended') %>
+		<% end %>
+		<% if @venue.repeating > 1 %>
+			<br /><span class="label label-info"><%= t('.repeating') %></span> <%= Venue::REPEATING.keys.at(@venue.repeating) %>
+		<% end %>		
+	</div>
+	<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user) %><br>
+	<h2><%= @venue.title %></h2>
 </div>
 
 <aside>	
@@ -20,77 +33,67 @@
 		<% end %>
 		<% if @venue.timed_out? %>
 		<span class="label label-info"><%= t('.past_venue')%></span>
-		<% end %>
-		
+		<% end %>	
 </aside>
 
 <div class="venue-page row-fluid clearfix">
-
 	<article class="span6 clearfix">
-
 		<div class="well well-large venue-box row-fluid clearfix">
-			<div class="span6">
-				<h3><%= @venue.title %></h3>
-				<%= simple_format @venue.description, :class => "text-info" %>
-			</div>
-			<div class="span6">
-				<p>
-					<small><%= t('.venue_moderated_by', :name => @venue.host_kluuu.user.name ) %></small>
-					<br />
-					<%= link_to(klu_path(@venue.host_kluuu)) do %>
-						<%= render(:partial => 'klus/tiny_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
-					<% end %>
-					<span class="label label-info"><%= t('.start_date')%></span>&nbsp;
-					<%= l(@venue.start_time.in_time_zone) %><br />
-					<span class="label label-info"><%= t('.duration')%></span>&nbsp;
-					<% if @venue.duration > 1 %>
-						<%= @venue.duration %> <%=t('.minutes') %>
+			<div class="span12 clearfix">
+				<% if @venue.host_kluuu.user != current_user %>
+					<% if @venue.user_participates?(current_user) %>
+						<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
+						:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-danger btn-small") %>
 					<% else %>
-						<%= t('.open_ended') %>
+						<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-info btn-small" do %>
+							<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+						<% end %>
 					<% end %>
-					<% if @venue.repeating > 1 %>
-						<br /><span class="label label-info"><%= t('.repeating') %></span> <%= Venue::REPEATING.keys.at(@venue.repeating) %>
-					<% end %>
-				</p>
-			</div>
-		</div>
-		
-		<div class="form-actions pull-right">
-			<div class="venue-socials">
-			<!-- AddThis Button BEGIN -->
-				<div class="addthis_toolbox addthis_default_style">
-					<a class="addthis_button_pinterest_pinit"></a>
-					<a class="addthis_button_facebook_like"></a>
-					<a class="addthis_button_facebook_send"></a>
-					<a class="addthis_button_google_plusone"></a>
-					<a class="addthis_button_tweet"></a>
+				<% end %>
+				<br><br>
+				<div class="row-fluid">
+					<div class="span6">
+						<%= simple_format @venue.description %>
+					</div>
+					<div class="span6">
+						<%= link_to(klu_path(@venue.host_kluuu)) do %>
+							<%= render(:partial => 'klus/medium_kluuu', :locals => { :klu => @venue.host_kluuu }) %>
+						<% end %>
+					</div>
 				</div>
-				<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
-				<!-- AddThis Button END -->
 			</div>
 		</div>
-		<br />
-		<div class="form-actions">
-			<%= link_to t('.back', :default => t("helpers.links.back")), venues_path, :class => 'btn btn-small'  %>
+
+
+		<div class="actions-bar">
+			<%#= link_to t('.back', :default => t("helpers.links.back")), venues_path, :class => 'btn btn-small'  %>
 			<% if can? :manage, @venue %>
 			<%= link_to t('.edit', :default => t("helpers.links.edit")), edit_venue_path(@venue), :class => 'btn btn-small' %>
 			<%= link_to t('.destroy', :default => t("helpers.links.destroy")),venue_path(@venue), :method => 'delete',
 			:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
 			:class => 'btn btn-danger btn-small' %>
 			<% end %>
-			<% if @venue.host_kluuu.user != current_user %>
-			<% if @venue.user_participates?(current_user) %>
-			<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
-			:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-danger btn-small") %>
-			<% else %>
-			<%= link_to t('.join_venue'), venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-success btn-small" %>
-			<% end %>
-			<% end %>
-			
-			
-			
 		</div>
 		
+
+		<section class="participating-klus clearfix">
+			<h3><%= t('.participating_klus') %></h3>
+			<% if @venue.klus.empty? %>
+			<%= t('.be_the_first_to_participate') %>! -
+			<% if @venue.host_kluuu.user != current_user %>
+			<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-info" do %>
+				<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+			<% end %>
+			<% end %>
+			<% end %>
+			<% @venue.klus.each do |klu| %>
+			<%= link_to(klu_path(klu)) do %>
+			<%= partial_for_klu(klu, :tiny) %>
+			<% end %>
+			<% end %>
+		</section>
+
+
 		<section class="venue-comments">
 			<a  href="#" data-toggle="collapse" data-target="#collapsing-comments">
 				<small><%= @venue.comments.count if @venue.comments.count > 0 %> <%= t('.comments') %></small>
@@ -106,21 +109,6 @@
         	<% end %>
       		</aside>
 			
-		</section>
-		
-		<section class="participating-klus clearfix">
-			<h3><%= t('.participating_klus') %></h3>
-			<% if @venue.klus.empty? %>
-			<%= t('.be_the_first_to_participate') %>! -
-			<% if @venue.host_kluuu.user != current_user %>
-			<%= link_to t('.join_venue'), venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-success" %>
-			<% end %>
-			<% end %>
-			<% @venue.klus.each do |klu| %>
-			<%= link_to(klu_path(klu)) do %>
-			<%= partial_for_klu(klu, :tiny) %>
-			<% end %>
-			<% end %>
 		</section>
 		
 		<div class="venues-hint"><%= link_to t('.see_other_venues'), venues_path, :class => "btn" %></div>
@@ -147,3 +135,17 @@
 	
 </div>
 
+	<div class="venue-socials">
+	<!-- AddThis Button BEGIN -->
+		<div class="addthis_toolbox addthis_default_style">
+			<!-- <a class="addthis_button_pinterest_pinit"></a> -->
+			<a class="addthis_button_facebook_like"></a>
+			<a class="addthis_button_facebook_send"></a>
+			<a class="addthis_button_google_plusone"></a>
+			<a class="addthis_button_tweet"></a>
+		</div>
+		<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
+		<!-- AddThis Button END -->
+	</div>
+
+</div>

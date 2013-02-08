@@ -7,7 +7,7 @@
 @import "config.css.less";
 
 .participating-klus {
-  margin: 21px 0 21px 0;
+  margin: 0px 0 21px 0;
   .tiny-klu {
     .set-rows(2)
   }
@@ -19,6 +19,8 @@
   padding-top: 10px;
 }
 
+
+/* ALLE TREFFPUNKTE */
 .venue-list {
   margin: 11px 0 0 0;
   
@@ -51,34 +53,93 @@
   }  
 }
 
-.venue-socials {
-  margin-left: 20px;
-}
 
-
-.venue-comments {
-   margin-top: 20px;
-   img {
-    margin-right: 10px 
-   }
-  .comment-content {
-    margin-left: 10px;
+/* TREFFPUNKT GROSS */
+.venue-show{
+  position: relative;
+  .venue-time{
+    font-size: 18px;
+    color:#932945;
+    margin-bottom: 10px
   }
-  .action {
-    margin-left: 10px;
-  }
-}
 
-.venue-box {
-  border: 1px solid #d8d8d8;
-}
-
-.group-chat-instance {
-  
-  .group-chat-item {
-    blockquote p {
-      font-size: 11px;
+  .page-header{
+    border:0;
+    margin-bottom: 40px;
+    a{
+      font-size:16px
     }
+    h2{
+      font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
+      font-style: italic;
+      font-weight: normal;
+      margin-top:0;
+      line-height: 40px
+    }    
+  }
+
+  .venue-box{
+    p:first-child{
+      margin-top:0;
+    }
+  }
+
+  .venue-socials {
+    position: absolute;
+    right: 0;
+    top:0
+  }
+
+
+  .venue-comments {
+     margin-top: 20px;
+     img {
+      margin-right: 10px 
+     }
+    .comment-content {
+      margin-left: 10px;
+    }
+    .action {
+      margin-left: 10px;
+    }
+  }
+
+  .venue-box {
+    border: 1px solid #d8d8d8;
+  }
+
+  .group-chat-instance {
+    
+    .group-chat-item {
+      blockquote p {
+        font-size: 11px;
+      }
+    }
+  }
+  .btn-info{
+    img{
+      width:33px;
+      margin-left: 10px
+    }
+    display:inline-block;
+    background-color: #1A6E6D;
+    background-image: linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+    background-image: -o-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+    background-image: -moz-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+    background-image: -webkit-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+    background-image: -ms-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
+
+    background-image: -webkit-gradient(
+      linear,
+      left bottom,
+      left top,
+      color-stop(0, #1A6E6D),
+      color-stop(1, #2AA2A0)
+    );
+    
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6'); /* IE6 & IE7 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6')"; /* IE8 */
+    font-size:16px;
   }
 }
 
