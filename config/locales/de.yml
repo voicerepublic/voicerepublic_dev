@@ -689,6 +689,7 @@ de:
       write_a_comment: "Verfasse einen Kommentar"
       save_comment: "Kommentar speichern"
     landing_page_venue:
+      discuss_in_virtual_cafe: "Diskutiere live im virtuellen Café."
       venue_title: "Treffpunkte"
       upcoming_venue: "Nächster Treffpunkt"
       venue_list: "Alle Treffpunkte"
