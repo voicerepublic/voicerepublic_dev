@@ -662,6 +662,7 @@ de:
       minutes: "Minuten"
       repeating: "Rhythmus"
       comments: "Kommentare"
+      what_is_a_venue: "Was ist ein Treffpunkt?"
     new:
       create_new_venue: "Einen neuen Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"

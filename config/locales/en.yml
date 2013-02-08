@@ -649,6 +649,7 @@ en:
       minutes: "Minutes"
       repeating: "Rhythm"
       comments: "Comments"
+      what_is_a_venue: "Tell me about venues"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
