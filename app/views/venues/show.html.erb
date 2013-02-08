@@ -77,17 +77,27 @@
 		<section class="participating-klus clearfix">
 			<h3><%= t('.participating_klus') %></h3>
 			<% if @venue.klus.empty? %>
-			<%= t('.be_the_first_to_participate') %>! -
-			<% if @venue.host_kluuu.user != current_user %>
-			<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
-				<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+				<%= t('.be_the_first_to_participate') %>! -
+				<% if @venue.host_kluuu.user != current_user %>
+					<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
+						<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+					<% end %>
+				<% end %>
 			<% end %>
-			<% end %>
-			<% end %>
+
 			<% @venue.klus.each do |klu| %>
-			<%= link_to(klu_path(klu)) do %>
-			<%= partial_for_klu(klu, :tiny) %>
-			<% end %>
+
+				<span class="participating-klus-box">
+
+					<%= link_to(klu_path(klu)) do %>
+						<%= partial_for_klu(klu, :tiny) %>
+					<% end %>
+					<div class="tiny-klu-call-overlay">
+						<%= render(:partial => 'klus/kluuu_call_button', :locals => { :klu => klu }) %>
+					</div>
+					
+				</span>	
+
 			<% end %>
 		</section>
 
