@@ -45,7 +45,7 @@
 						<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
 						:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-danger btn-small") %>
 					<% else %>
-						<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-info btn-small" do %>
+						<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue btn-small" do %>
 							<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
 						<% end %>
 					<% end %>
@@ -79,7 +79,7 @@
 			<% if @venue.klus.empty? %>
 			<%= t('.be_the_first_to_participate') %>! -
 			<% if @venue.host_kluuu.user != current_user %>
-			<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-info" do %>
+			<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
 				<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
 			<% end %>
 			<% end %>
@@ -103,11 +103,11 @@
 			</div>	
 			
 			<aside class="newcomment">
-        	<% if current_user %>
-          	<% @comment = @venue.comments.build %>
-          		<%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
-        	<% end %>
-      		</aside>
+      	<% if current_user %>
+        	<% @comment = @venue.comments.build %>
+        		<%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
+      	<% end %>
+      </aside>
 			
 		</section>
 		
