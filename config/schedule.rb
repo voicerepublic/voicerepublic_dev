@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, "/var/www/www.kluuu.com/production/shared/log/whenever-cron.log"
+set :output, "/var/www/#{Kluuu2::Application.config.action_mailer.default_url_options[:host]}/#{Rails.env}/shared/log/whenever-cron.log"
 env :PATH, '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
 
 every 30.minutes, :roles => [:app] do
