@@ -1,8 +1,15 @@
 <article class="notification news-notification news-notification-new-content contribution" id="notification-<%= notification.id %>">
 	<header>
+		<% if notification.other.instance_of?(User)%>
 		<div class="user-image contribution-user-image" data-user-id="<%= notification.other.id %>">
 			<%= link_to(image_tag( notification.other.account.portrait.url(:thumb), :class => ' img-polaroid'), user_path(:id => notification.other)) %>
 		</div>
+		<% end %>
+		<% if notification.other.instance_of?(Venue) %>
+		<div class="user-image contribution-user-image" data-user-id="<%= notification.other.host_kluuu.user.id %>">
+			<%= link_to(image_tag( notification.other.host_kluuu.user.account.portrait.url(:thumb), :class => ' img-polaroid'), user_path(:id => notification.other.host_kluuu.user)) %>
+		</div>
+		<% end %>
 		<time datetime="<%= notification.created_at.strftime("%Y-%m-%d") %>">
 			<%= time_ago_in_words(notification.created_at) %>
 		</time>
