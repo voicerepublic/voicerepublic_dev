@@ -104,6 +104,7 @@ class VideoSessionsController < ApplicationController
   # DELETE /video_sessions/1
   # DELETE /video_sessions/1.json
   def destroy
+    logger.info("VideoSession#destroy - params: #{params.inspect}")
     @video_session = VideoSession::Base.find(params[:id])
     @video_session.canceling_participant_id = params[:canceling_participant_id]
     @video_session.destroy
