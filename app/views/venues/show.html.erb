@@ -18,7 +18,7 @@
 		<% end %>
 		<% if @venue.repeating > 1 %>
 			<br /><span class="label label-info"><%= t('.repeating') %></span> <%= Venue::REPEATING.keys.at(@venue.repeating) %>
-		<% end %>		
+		<% end %>
 	</div>
 	<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user) %><br>
 	<h2><%= @venue.title %></h2>
@@ -130,15 +130,20 @@
 			<% if @venue.attendies.include?(current_user) %>
 				<%= render(:partial => 'venues/group_chat', :locals => { :venue => @venue })%>
 			<% else %>
-				<div class="hero-unit">
-					<span class="label label-warning"><%= t('.only_attendies_can_see_group_chat')%></span>
-				</div>
+				<aside class="venue-desc">
+					<h3><%= t('.what_is_a_venue') %></h3>
+					<div class="venue-desc-content">
+						<%= render(:partial => 'venues/txt/venue_desc') %>
+					</div>
+				</aside>
 			<% end %>
 		<% else %>
-			<div class="hero-unit">
-			<span class="label label-important"><%= t('attention') %></span>
-			<%= t('.chat_will_be_available_short_before_start') %>
-		</div>
+			<aside class="venue-desc">
+				<h3><%= t('.what_is_a_venue') %></h3>
+				<div class="venue-desc-content">
+					<%= render(:partial => 'venues/txt/venue_desc') %>
+				</div>
+			</aside>
 		
 		<% end %>
 	</section>
