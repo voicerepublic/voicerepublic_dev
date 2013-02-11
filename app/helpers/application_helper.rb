@@ -7,6 +7,13 @@ module ApplicationHelper
     arr.length > num-1 ? arr[0..num-1].join(" ").concat(" ...") : txt
   end
   
+  def simple_links(txt)
+    txt.match(/(https?:\/\/\S*)/).to_a.each do |link|
+      txt.gsub!(link, "<a href='#{link}' target='_blank'>#{link}</a> ")
+    end
+    txt
+  end
+  
   def app_mode
     Rails.env
   end
