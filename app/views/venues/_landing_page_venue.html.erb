@@ -4,14 +4,14 @@
 <section class="row-fluid">
 
 	<%# VENUE %>
-	<div class="span9">
+	<div class="span12">
 		<h2 class="venue-title"><%=t('.venue_title')%></h2>&nbsp;<span class="lp-venue-slogan"><%= t('.discuss_in_virtual_cafe') %></span> <%= link_to t('.learn_more'), venues_path %>
 		<%= render(:partial => 'venues/venue_big', :locals => {:venue => venue}) %>
 	</div>
 
 	<%# NEWS %>
-	<div class="lp-news span3">
-		<h2><%=t('.news_title')%></h2>
+<!-- 	<div class="lp-news span3">
+		<h2><%#=t('.news_title')%></h2>
 		<ul class="lp-news-list">
 			<%# TODO %>
 			<li>
@@ -24,6 +24,6 @@
 			</li>
 
 		</ul>
-	</div>
+	</div> -->
 </section>
 <% end %>
