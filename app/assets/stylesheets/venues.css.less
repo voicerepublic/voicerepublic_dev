@@ -8,19 +8,22 @@
 
 .participating-klus {
   margin: 0px 0 21px 0;
+  .hero-unit{
+    padding:0;
+  }
   .participating-klus-box{
     position: relative;
-    display: block;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    float: left;
 
     .tiny-klu-call-overlay{
       z-index: 1000;
       position: absolute;
-      display: none;
-      left:20%;
-      top: 20%;
+      /*display: none;*/
+      left:50%;
+      top: 50%;
       background:white;
-      width:200px;
+      min-width:200px;
       border-radius: 3px;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
       -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
@@ -32,11 +35,41 @@
       -webkit-opacity:0;
       -ms-opacity:0;
       -o-opacity:0;
-      transition:all 0.2s ease 0.4s;
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+
+      transition:all 0.2s ease 0.2s;
+      -moz-transition:all 0.2s ease 0.2s;
+      -webkit-transition:all 0.2s ease 0.2s;
+      -ms-transition:all 0.2s ease 0.2s;
+      -o-transition:all 0.2s ease 0.2s;
 
       .call-btn{
-        padding-right:20px;
+        padding:8px 10px;
+        height: auto;
+        width: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 16px;
+        .klu-price{
+          position: static;
+          width: 100%
+        }
+        .klu-user-image{
+          position: relative;
+          float: left;
+          background: green;
+          max-width:none;
+          width:60px;
+          top:0;
+          left:0;
+          margin-right: 8px;
+          img{
+            width:100%;
+          }
+        }
         .btn{
+          margin-top:4px;
+          margin-bottom: 4px;
           font-size: 10px;
         }
       }
@@ -50,19 +83,20 @@
         -webkit-opacity:1;
         -ms-opacity:1;
         -o-opacity:1;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
       }
     }
   }
 
 
-  .tiny-klu {
-    .set-rows(2)
+  .participating-klus-box {
+    .set-rows(4);
   }
 }
   
 .venues-hint {
   border-top: 1px solid #d8d8d8;
-  margin: 11px 0 11px 0;
+  margin: 31px 0 11px 0;
   padding-top: 10px;
 }
 
@@ -146,15 +180,25 @@
 
 
   .venue-comments {
-     margin-top: 20px;
+    position: relative;
+    width: 50%;
+     margin-top: 10px;
+     padding-top: 10px;
      img {
       margin-right: 10px 
      }
-    .comment-content {
-      margin-left: 10px;
+    .comment {
+      overflow: hidden;
     }
     .action {
       margin-left: 10px;
+    }
+    aside{
+      width:100%;
+    }
+    h3{
+      top:0;
+      margin-top: 0
     }
   }
 
