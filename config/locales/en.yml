@@ -258,6 +258,8 @@ en:
     new_participant: "%{name} joined venue %{title}!"
   model_notification_venue_info:
     venue_starts_soon: "Venue %{title} takes place %{time}"
+  model_notification_new_venue:
+    friend_created_new_venue: "Your friend created a new venue: %{name}"
   video_system:
     rooms:
       default_welcome_msg: "Welcome to the KluuU Video Chat"
