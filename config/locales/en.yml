@@ -323,6 +323,8 @@ en:
       your_message: "message"
       end_chat: "End chat"
       submit: "Send"
+    group_form:
+      your_message: "Write here..."      
     show:
       text_chat: "Chat"
   comments:
@@ -690,7 +692,7 @@ en:
       start_time: "Time"
       host_kluuu: "Hosting KluuU"
     group_chat:
-      venue_chat: "Group-chat of '%{title}' participants"
+      venue_chat: "Join the discussion!"
       
   video_sessions:
     anonymous_sign_up:

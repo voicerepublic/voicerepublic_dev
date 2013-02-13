@@ -1,7 +1,9 @@
-<li class="group-chat-item">
-	<span class="label label-info"><%= user.name %>:</span>
-	<small class="pull-right"><%= l( Time.now, :format => :short ) %></small>
-	<blockquote>
-		<%= simple_format(content) %>
-	</blockquote>
+<li class="group-chat-item clearfix">
+	<span class="venue-chat-user <%=(@venue.host_kluuu.user == user)?"venue-chat-host":"" %>">
+			<%= user.name %>:
+	</span>
+	<%= content %>
+	<div class="venue-chat-time">
+		<%= l( Time.now, :format => :micro ) %>
+	</div>
 </li>

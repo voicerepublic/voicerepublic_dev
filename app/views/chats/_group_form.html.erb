@@ -1,9 +1,9 @@
 <%= form_tag( group_chat_path(:id => venue) , :remote => true) do |f| %>
 
 <div class="control-group">
-	<%= label_tag t('.your_message', :default => 'Your Message') %>
+	<%#= label_tag t('.your_message', :default => 'Your Message') %>
 	<div class="controls">
-		<%= text_area_tag 'chat[body]','', :class => 'text_area group_chat_textarea input-block-level', :rows => 2, :cols => 80, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1%>
+		<%= text_area_tag 'chat[body]','', :class => 'text_area group_chat_textarea input-block-level', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1%>
 	</div>
 </div>
 <div class="btns">

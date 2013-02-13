@@ -207,11 +207,50 @@
   }
 
   .group-chat-instance {
+    .label-chat{
+      background: #1A6E6D
+    }
+    .scrollable-chat{
+      max-height:358px;
+      margin-top:10px;
+    }
     
-    .group-chat-item {
-      blockquote p {
-        font-size: 11px;
+    .group-chat-item{
+
+      font-size:12px;
+      line-height:22px;
+      position: relative;
+      display: block;
+      padding-right:70px;
+
+      .venue-chat-user{
+        color: #034869;
+        font-weight: bold;
+        &.venue-chat-host{
+          color: #932945;
+        }
       }
+      .venue-chat-time{
+        position: absolute;
+        top:0;
+        right: 5px;
+        color: #bbb;
+      }
+    }
+    form{
+      position: relative;
+      width:100%;
+      padding-right:80px;
+      .btn{
+        position: absolute;
+        right: 0;
+        top:0;
+        width:70px;
+      }
+    }
+    .group_chat_textarea{
+      width:100%;
+      height:55px;
     }
   }
   .btn-venue{

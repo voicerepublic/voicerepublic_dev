@@ -1,6 +1,7 @@
 <div class="group-chat-instance" id="group-chat-<%= venue.id %>">
 	<div class="well well-large">
-		<header class="label label-attention"><%= t('.venue_chat', :title => venue.title ) %></header>
+		<header class="label label-chat"><%= t('.venue_chat', :title => venue.title ) %></header>
+		<div class="clear"></div>
 		<ul class="chat-message unstyled scrollable-chat" id="<%= venue.chat_name %>">
 			<!-- chat-messages to be here. renders chats/_single_chat_message.js.erb -->
 		</ul>

@@ -323,6 +323,8 @@ de:
       your_message: "Deine Nachricht"
       end_chat: "Chat beenden"
       submit: "Absenden"
+    group_form:
+      your_message: "Schreibe hier..."
     show:
       text_chat: "Text-Chat"
   comments:
@@ -703,7 +705,7 @@ de:
       start_time: "Zeitpunkt"
       host_kluuu: "Gastgebendes KluuU"
     group_chat:
-      venue_chat: "Unterhaltung der Teilnehmer von '%{title}'"
+      venue_chat: "Steige in die Diskussion ein"
       
   video_sessions:
     anonymous_sign_up:
