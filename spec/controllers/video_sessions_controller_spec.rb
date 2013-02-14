@@ -26,6 +26,8 @@ describe VideoSessionsController do
   before do
     @user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
     @user.balance_account = Balance::Account.create(:currency => 'EUR')
+    @user.account.prefs.anonymous_calls = "1"
+    @user.account.save
     @klu = FactoryGirl.create(:published_kluuu, user_id: @user.id)
     Klu.stub(:allow_anonymous_calls?).and_return(true)
     guest_password = Faker::Lorem.characters(8)
@@ -210,11 +212,21 @@ describe VideoSessionsController do
         xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id, :calling_user_id => user.id)}, valid_session, :format => 'js' 
         response.should render_template 'no_account'
       end
+      
       it "directs to the registration page if an anonymous calling user tries to call a non-free kluuu" do
         klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'minute')
         xhr :post, :create, {:video_session => valid_anonymous_video_session_attributes.merge(:klu_id => klu.id)}, valid_session, :format => 'js' 
         response.should render_template 'anonymous_sign_up'
       end
+      
+      it "directs to the registration page if anonymous calls a kluuu which cant be called anonymous" do
+        @user.account.prefs.anonymous_calls = "0"
+        @user.account.save
+        klu = FactoryGirl.create(:published_kluuu, user_id: @user.id)
+        xhr :post, :create, {:video_session => valid_anonymous_video_session_attributes.merge(:klu_id => klu.id)}, valid_session, :format => 'js' 
+        response.should render_template 'anonymous_calls_sign_up'
+      end
+      
       it "directs to the credit account controller if minute registered calling user does not have enough money" do
         user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
         balance_account =  FactoryGirl.create(:balance_account, user_id: user.id, balance_cents: 0)  

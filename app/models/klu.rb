@@ -61,7 +61,7 @@ class Klu < ActiveRecord::Base
   end
   
   def allow_anonymous_calls?
-    user.account.prefs.anonymous_calls  
+    user.account.prefs.anonymous_calls == "1"
   end
   
   def get_charge_type_as_integer

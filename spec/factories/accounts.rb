@@ -9,6 +9,7 @@ FactoryGirl.define do
     language_2 "EN"
     language_3 "FR"
     user
+    
     factory :account_with_portrait do
       portrait { fixture_file_upload( File.join(Rails.root,'app','assets', 'images', 'rails.png')) }
     end
