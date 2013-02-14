@@ -666,6 +666,7 @@ en:
       so_easy: "Its easy"
       back: "Back"
     index:
+      venues: "Venues"
       upcoming_venues: "Upcoming venues"
       what_is_a_venue: "Tell me about venues"
     venue_compact:

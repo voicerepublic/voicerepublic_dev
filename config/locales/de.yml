@@ -679,6 +679,7 @@ de:
       so_easy: "So einfach"
       back: "Zurück"
     index:
+      venues: "Treffpunkte"
       upcoming_venues: "Künftige Treffpunkte"
       what_is_a_venue: "Was ist ein Treffpunkt?"
     venue_comment:
