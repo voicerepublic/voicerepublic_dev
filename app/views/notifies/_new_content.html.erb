@@ -40,8 +40,8 @@
 	
 	<% if notification.instance_of?(Notification::NewVenue)%>
 		<h4 class="news-notification-top">
-			<%= link_to notification.other.title, venue_path(:id => notification.other) %>
-			<%= t('.created_new') %> <%= t('venues.show.venue') %>.
+			<%= t('.new_venue_created') %>:
+			&nbsp;<%= link_to notification.other.title, venue_path(:id => notification.other) %>
 		</h4>
 	<% end %>
 	

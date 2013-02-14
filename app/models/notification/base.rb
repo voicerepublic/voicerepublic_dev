@@ -46,6 +46,8 @@ class Notification::Base < ActiveRecord::Base
       Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
       klu_path(:id => klu_id)
     when "NewVenue"
+      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
+      venue_path(:id => other_id)
     when "VenueInfo"
       Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       venue_path(:id => other_id)
@@ -85,6 +87,8 @@ class Notification::Base < ActiveRecord::Base
       Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
       klu_url(:id => klu_id)
     when 'NewVenue'
+      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
+      venue_url(:id => other_id)
     when "VenueInfo"
       Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       venue_url(:id => other_id)

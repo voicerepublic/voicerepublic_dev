@@ -526,6 +526,7 @@ de:
     new_content:
       created_new_status_update: "Hat seinen Status geändert"
       created_new: "Erstellte ein neues"
+      new_venue_created: "Ein neuer Treffpunkt wurde erstellt"
   search:
     tagged_with:
       taggings_with: "Treffer mit Schlagwort %{tag}"

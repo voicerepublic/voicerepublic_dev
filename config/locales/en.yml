@@ -522,6 +522,7 @@ en:
     new_content:
       created_new_status_update: "changed their status"
       created_new: "crated a new"
+      new_venue_create: "A new venue was set up"
   search:
     tagged_with:
       taggings_with: "KluuUs and questions tagged with %{tag}"
