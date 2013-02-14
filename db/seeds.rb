@@ -11,7 +11,7 @@ Klu.destroy_all
 Role.destroy_all
 Category.destroy_all
 
-Role.create([{name: 'admin'}, {name: 'user'}])
+Role.create([{name: 'admin'}, {name: 'user'}, {name: 'venue_host'}])
 
 user = User.create!(:firstname => 'kluuu', :lastname => 'master', :email => 'admin@kluuu.com', :password => 'aendere_mich', :password_confirmation => 'aendere_mich')
 Balance::Account.create!(:user_id => user.id, :currency => 'EUR')
