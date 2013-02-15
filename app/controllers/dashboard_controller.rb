@@ -65,6 +65,7 @@ class DashboardController < ApplicationController
   end
 
   def matches
+    
     @klus = @user.kluuus.order("created_at DESC")
     @no_klus = @user.no_kluuus.order("created_at DESC")
     
@@ -72,13 +73,14 @@ class DashboardController < ApplicationController
       if params[:id]
         @matched_klu = Klu.find(params[:id])
         @matching_klus = @matched_klu.complementaries
+        logger.debug("Dashboard#matches - @matching_klus: #{@matching_klus.inspect}")
       else
         unless @klus.empty? &&  @no_klus.empty?
           _klu = @klus.first || @no_klus.first
+          logger.info("######################## \nDashboard#matches - _klu: \n#{_klu.inspect}\n######################")
           redirect_to dashboard_matches_url(:id => _klu) and return
-          #@matched_klu = @klus.first
-          #@matching_klus = @matched_klu.complementaries
         end
+        
       end
     rescue Exception => e
       logger.error("Dasboard#matches - problem with sphinx: #{e.inspect}")

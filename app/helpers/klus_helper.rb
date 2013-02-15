@@ -28,7 +28,8 @@ module KlusHelper
   
   # returns a rendered partial for given kluuu in wanted size
   #
-  def partial_for_klu(klu,size=:large)
+  def partial_for_klu(klu, size=:large)
+    #return '' if klu.nil?
     tmpl_prefix = case size
                   when :medium
                     'medium_'
@@ -39,7 +40,7 @@ module KlusHelper
                   when :large
                     ''
                   end
-    klu.instance_of?(Kluuu) ? render( :partial => "klus/#{tmpl_prefix}kluuu", :locals => { :klu => klu} ) : render( :partial => "klus/#{tmpl_prefix}no_kluuu", :locals => { :klu => klu} )
+    klu.instance_of?(Kluuu) ? render( :partial => "klus/#{tmpl_prefix}kluuu", :locals => { :klu => klu } ) : render( :partial => "klus/#{tmpl_prefix}no_kluuu", :locals => { :klu => klu } )
   end
   
   # delivers stars to display in a rating

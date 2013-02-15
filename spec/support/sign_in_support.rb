@@ -13,8 +13,11 @@ require 'capybara/rails'
 module ValidUserRequestHelper
   
   def login_user(user)
-    Capybara.visit root_path()
-    Capybara.click_link 'log-in'
+    #sign_in user
+    #Capybara.
+    visit root_path()
+    #Capybara.
+    click_link 'log-in'
     page.fill_in('user_email', :with => user.email)
     page.fill_in('user_password', :with => user.password)
     page.click_button('Log In')

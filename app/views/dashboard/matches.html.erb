@@ -11,24 +11,20 @@
 	<% end if current_user.has_role?('venue_host') %>
 	
 	<div class="tabbable tabs-left pull-left">	
-		<%# NAVIGATION LEFT %>
+		
 		<nav class="dashboard-matches-nav">
 			<div class="btn-group">
 			
 				<div class="btn btn-kluuu" style="cursor:default">
 					<h4><%= t('.my_kluuus') %></h4>	
 				</div>		
-<!-- 				<div class="btn btn-question active">
-					<h4><%#= t('.my_questions', :default => 'Meine Fragen') %></h4>
-				</div> -->
 			</div>
 			
 			<span class="clearfix"></span>
 		</nav>
 		<ul class="nav nav-tabs dashboard-matches-own-klus">
-	  	<!-- jetzt zwei arrays: @klus und @no_klus -->
 
-		<%# KLUUUS %>
+		
 		<% @klus.each do |k| %>
 			<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
 				<li class="active">
@@ -46,7 +42,7 @@
 			</li>
 		<% end %>
 
-	  <%# NO KLUUUS %>
+	  
 		<% @no_klus.each do |k| %>
 			<% if current_page?(dashboard_matches_path(:id => @matched_klu)) && k == @matched_klu  %>
 				<li class="active">
@@ -67,26 +63,22 @@
 		</ul>
 	</div>
 
-	<%# MATCHES %>
-
-	<%# NAVIGATION RIGHT, ZURZEIT NUR EIN BUTTON %>
+	
 	<nav class="dashboard-matches-nav matches-right">
 		<div class="btn-group">		
 			<div class="btn btn-kluuu" style="cursor:default">
-				<h4><%# TODO %><%= t('.matching_something') %></h4>
+				<h4>
 			</div>
 		</div>
 		<span class="clearfix"></span>
 	</nav>
 	<div class="tab-content matches-results clearfix">
-			<% @matching_klus.each do |k| %>
-				<%= partial_for_klu(k,:medium) %>
-			<% end unless @matching_klus.nil? %>
-			<% if @matching_klus.nil? || @matching_klus.empty? %>
-			<p>
-			<%= t('.we_could_not_find_matches_for_you', :default => "Leider konnten wir keine passenden Kluuus für dich finden")%>
-			</p>
-			<% end %>
+		<% @matching_klus.each do |k| %> 
+			<%= partial_for_klu(k,:medium) unless k.nil? %>
+		<% end unless @matching_klus.nil? || @matching_klus.empty? %>
+		<% if @matching_klus.nil? || @matching_klus.empty? %>
+		<p><%= t('.we_could_not_find_matches_for_you', :default => "Leider konnten wir keine passenden Kluuus für dich finden")%></p>
+		<% end %>
 	</div>
 
 </div>
