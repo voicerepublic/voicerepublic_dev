@@ -26,6 +26,10 @@ class Venue < ActiveRecord::Base
     ! timed_out?  && ( start_time.in_time_zone + runtime.minutes ) >= Time.now.in_time_zone &&  start_time.in_time_zone < Time.now.in_time_zone
   end
   
+  def past?
+    (start_time.in_time_zone + runtime.minutes) < Time.now.in_time_zone
+  end
+  
   def self.of_user(user)
     Venue.joins(:host_kluuu => :user).where("user_id = ?", user.id)
   end

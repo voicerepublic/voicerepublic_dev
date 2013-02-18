@@ -4,6 +4,14 @@
 
   <h2><%= t('.venues') %></h2>
 
+<div class="form-actions">
+	<% if params[:upcoming] %>
+		<%= link_to( t('.show_all_venues'), venues_path(), :class => "btn btn-primary") %>
+	<% else %>
+		<%= link_to( t('.show_only_upcoming_venues'), venues_path(:upcoming => 1), :class => "btn btn-primary") %>
+	<% end %>
+</div>
+
 <section class="venue-list row-fluid clearfix">
 	<div class="span9">
 		<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue ) %>

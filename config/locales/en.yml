@@ -670,6 +670,8 @@ en:
       venues: "Venues"
       upcoming_venues: "Upcoming venues"
       what_is_a_venue: "Tell me about venues"
+      show_only_upcoming_venues: "Show only upcoming venues"
+      show_all_venues: "Show also past venues"
     venue_compact:
       go_venue_page: "Proceed to venue-page"
       host: "Host"
@@ -690,6 +692,7 @@ en:
       venue_list: "All venues"
       venue_is_in_process: "in process"
       news_title: "News"
+      venue_is_over: "past venue"
     form:
       title: "Title of venue"
       description: "Description of venue"

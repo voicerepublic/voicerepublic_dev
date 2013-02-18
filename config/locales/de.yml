@@ -683,6 +683,8 @@ de:
       venues: "Treffpunkte"
       upcoming_venues: "Künftige Treffpunkte"
       what_is_a_venue: "Was ist ein Treffpunkt?"
+      show_only_upcoming_venues: "Zeige nur künftige Treffunkte"
+      show_all_venues: "Zeige auch vergangene Treffpunkte"
     venue_comment:
       delete_comment: "löschen"
     venue_compact:
@@ -703,6 +705,7 @@ de:
       venue_list: "Alle Treffpunkte"
       venue_is_in_process: "im Gange"
       news_title: "Neuigkeiten"
+      venue_is_over: "Vergangener Treffpunkt"
     form:
       title: "Titel des Treffpunkts"
       description: "Beschreibung des Treffpunktes"
