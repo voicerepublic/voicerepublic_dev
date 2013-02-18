@@ -1,9 +1,9 @@
 <% content_for :title do %>
-	<%= t('.venue') %> &middot; <%= @venue.title %>
+<%= t('.venue') %> &middot; <%= @venue.title %>
 <% end %>
 
 <% content_for :facebook_values do %>
-	<%= render(:partial => 'facebook_value_template', :locals => { :venue => @venue } ) %>
+<%= render(:partial => 'facebook_value_template', :locals => { :venue => @venue } ) %>
 <% end %>
 
 <div class="venue-show">
@@ -12,28 +12,30 @@
 		<div class="venue-time">
 			<%= l(@venue.start_time.in_time_zone) %>,
 			<% if @venue.duration > 1 %>
-				<%= @venue.duration %> <%=t('.minutes') %>
+			<%= @venue.duration %> <%= t('.minutes') %>
 			<% else %>
-				<%= t('.open_ended') %>
+			<%= t('.open_ended') %>
 			<% end %>
 			<% if @venue.repeating > 1 %>
-				<br /><span class="label label-info"><%= t('.repeating') %></span> <%= Venue::REPEATING.keys.at(@venue.repeating) %>
+			<br />
+			<span class="label label-info"><%= t('.repeating') %></span> <%= Venue::REPEATING.keys.at(@venue.repeating) %>
 			<% end %>
 		</div>
-		<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user) %><br>
+		<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user) %>
+		<br>
 		<h2><%= @venue.title %></h2>
 	</div>
 
-	<aside>	
-			<% if @venue.start_time.in_time_zone > Time.now.in_time_zone %>
-			<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time.in_time_zone, true ) ) %> </span>
-			<% end %>
-			<% if  @venue.ongoing?  %>
-			<span class="label label-info"><%= t('.ongoing_venue')%></span>
-			<% end %>
-			<% if @venue.timed_out? %>
-			<span class="label label-info"><%= t('.past_venue')%></span>
-			<% end %>	
+	<aside>
+		<% if @venue.start_time.in_time_zone > Time.now.in_time_zone %>
+		<span class="label label-important"> <%= t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time.in_time_zone, true ) ) %> </span>
+		<% end %>
+		<% if  @venue.ongoing?  %>
+		<span class="label label-info"><%= t('.ongoing_venue')%></span>
+		<% end %>
+		<% if @venue.timed_out? %>
+		<span class="label label-info"><%= t('.past_venue')%></span>
+		<% end %>
 	</aside>
 
 	<div class="venue-page row-fluid clearfix">
@@ -41,16 +43,17 @@
 			<div class="well well-large venue-box row-fluid clearfix">
 				<div class="span12 clearfix">
 					<% if @venue.host_kluuu.user != current_user %>
-						<% if @venue.user_participates?(current_user) %>
-							<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
-							:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-danger btn-small") %>
-						<% else %>
-							<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue btn-small" do %>
-								<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
-							<% end %>
-						<% end %>
+					<% if @venue.user_participates?(current_user) %>
+					<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
+					:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-danger btn-small") %>
+					<% else %>
+					<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue btn-small" do %>
+					<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
 					<% end %>
-					<br><br>
+					<% end %>
+					<% end %>
+					<br>
+					<br>
 					<div class="row-fluid">
 						<div class="span6">
 							<%= simple_format @venue.description %>
@@ -64,29 +67,29 @@
 		</article>
 
 		<section class="group-chat span6">
-			
+
 			<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out?  %>
-				<% if @venue.attendies.include?(current_user) %>
-					<%= render(:partial => 'venues/group_chat', :locals => { :venue => @venue })%>
-				<% else %>
-					<aside class="venue-desc">
-						<h3><%= t('.what_is_a_venue') %></h3>
-						<div class="venue-desc-content">
-							<%= render(:partial => 'venues/txt/venue_desc') %>
-						</div>
-					</aside>
-				<% end %>
+			<% if @venue.attendies.include?(current_user) %>
+			<%= render(:partial => 'venues/group_chat', :locals => { :venue => @venue })%>
 			<% else %>
-				<aside class="venue-desc">
-					<h3><%= t('.what_is_a_venue') %></h3>
-					<div class="venue-desc-content">
-						<%= render(:partial => 'venues/txt/venue_desc') %>
-					</div>
-				</aside>
-			
+			<aside class="venue-desc">
+				<h3><%= t('.what_is_a_venue') %></h3>
+				<div class="venue-desc-content">
+					<%= render(:partial => 'venues/txt/venue_desc') %>
+				</div>
+			</aside>
+			<% end %>
+			<% else %>
+			<aside class="venue-desc">
+				<h3><%= t('.what_is_a_venue') %></h3>
+				<div class="venue-desc-content">
+					<%= render(:partial => 'venues/txt/venue_desc') %>
+				</div>
+			</aside>
+
 			<% end %>
 		</section>
-		
+
 	</div>
 
 	<%# ACTIONS, PARTICIPANTS, COMMENTS %>
@@ -101,21 +104,20 @@
 				:class => 'btn btn-danger btn-small' %>
 				<% end %>
 			</div>
-				
 
 			<section class="participating-klus clearfix">
 				<h3><%= t('.participating_klus') %></h3>
 				<% if @venue.klus.empty? %>
-					<%= t('.be_the_first_to_participate') %>! -
-					<% if @venue.host_kluuu.user != current_user %>
-						<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
-							<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
-						<% end %>
-					<% end %>
+				<%= t('.be_the_first_to_participate') %>! -
+				<% if @venue.host_kluuu.user != current_user %>
+				<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
+				<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+				<% end %>
+				<% end %>
 				<% end %>
 
 				<div class="hero-unit clearfix">
-				<% @venue.klus.each do |klu| %>
+					<% @venue.klus.each do |klu| %>
 
 					<div class="participating-klus-box">
 
@@ -123,56 +125,78 @@
 							<%= render(:partial => 'klus/tiny_klu_overlay', :locals => { :klu => klu }) %>
 						</div>
 						<%= link_to(klu_path(klu)) do %>
-							<%= partial_for_klu(klu, :tiny) %>
+						<%= partial_for_klu(klu, :tiny) %>
 						<% end %>
-						
-					</div>	
 
-				<% end %>
+					</div>
+
+					<% end %>
 				</div>
 			</section>
 
-
-
 			<section class="venue-comments">
 				<h3><%= t('.comments') %></h3>
-<!-- 				<button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#collapsing-comments">
-					<%#= @venue.comments.count if @venue.comments.count > 0 %> <%#= t('.comments') %>
+				<!-- 				<button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#collapsing-comments">
+				<%#= @venue.comments.count if @venue.comments.count > 0 %> <%#= t('.comments') %>
 				</button> -->
 
-
-				
 				<!-- <div id="collapsing-comments" class="collapse"> -->
-					<%= render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment ) %>
+				<%= render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment ) %>
 				<!-- </div>	 -->
 
 				<aside class="newcomment clearfix">
-		    	<% if current_user %>
-		      	<% @comment = @venue.comments.build %>
-		      		<%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
-		    	<% end %>
-		    </aside>
-				
-				
+					<% if current_user %>
+					<% @comment = @venue.comments.build %>
+					<%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
+					<% end %>
+				</aside>
+
 			</section>
-			
-			<div class="venues-hint"><%= link_to t('.see_other_venues'), venues_path, :class => "btn" %></div>
-		
+
+			<div class="venues-hint">
+				<%= link_to t('.see_other_venues'), venues_path, :class => "btn" %>
+			</div>
+
 		</div>
 	</div>
 
-
 	<div class="venue-socials">
-	<!-- AddThis Button BEGIN -->
+		<!-- AddThis Button BEGIN -->
 		<div class="addthis_toolbox addthis_default_style">
 			<!-- <a class="addthis_button_pinterest_pinit"></a> -->
 			<a class="addthis_button_facebook_like"></a>
 			<a class="addthis_button_facebook_send"></a>
 			<a class="addthis_button_google_plusone"></a>
 			<a class="addthis_button_tweet"></a>
+			<a href="#" id="fb-feed" onclick='postToFeed(); return false;'>FB-Feed</a>
 		</div>
 		<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
 		<!-- AddThis Button END -->
 	</div>
 
 </div>
+
+<script>
+    FB.init({
+        appId : "317175341661486",
+        status : true,
+        cookie : true
+    });
+
+    function postToFeed() {
+        var obj = {
+            method : 'feed',
+            redirect_uri : '<%= venue_url(:id => @venue) %>',
+            link : '<%= venue_url(:id => @venue) %>',
+            picture : '<%= ( 'http://'+ request.host + @venue.host_kluuu.klu_images.first.image.url(:medium) ) unless @venue.host_kluuu.klu_images.empty? %>',
+            name : '<%= @venue.title %>',
+            caption : 'Join this venue on KluuU',
+            description : '<%= @venue.description %>'
+        };
+
+        function callback(response) {
+            document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+        }
+        FB.ui(obj, callback);
+    }
+</script>
