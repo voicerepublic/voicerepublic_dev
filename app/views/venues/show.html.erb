@@ -168,35 +168,9 @@
 			<a class="addthis_button_facebook_send"></a>
 			<a class="addthis_button_google_plusone"></a>
 			<a class="addthis_button_tweet"></a>
-			<a href="#" id="fb-feed" onclick='postToFeed(); return false;'>FB-Feed</a>
 		</div>
 		<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-508eb69c4ada1b57"></script>
 		<!-- AddThis Button END -->
 	</div>
 
 </div>
-
-<script>
-    FB.init({
-        appId : "317175341661486",
-        status : true,
-        cookie : true
-    });
-
-    function postToFeed() {
-        var obj = {
-            method : 'feed',
-            redirect_uri : '<%= venue_url(:id => @venue) %>',
-            link : '<%= venue_url(:id => @venue) %>',
-            picture : '<%= ( 'http://'+ request.host + @venue.host_kluuu.klu_images.first.image.url(:medium) ) unless @venue.host_kluuu.klu_images.empty? %>',
-            name : '<%= @venue.title %>',
-            caption : 'Join this venue on KluuU',
-            description : '<%= @venue.description %>'
-        };
-
-        function callback(response) {
-            document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
-        }
-        FB.ui(obj, callback);
-    }
-</script>
