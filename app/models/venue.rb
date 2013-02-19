@@ -7,7 +7,7 @@ class Venue < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
   has_many :notifications_new_venues, :class_name => 'Notification::NewVenue', :foreign_key => :other_id, :dependent => :destroy
   has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo', :foreign_key => :other_id, :dependent => :destroy
-  
+  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', :foreign_key => :other_id, :dependent => :destroy  
   validates :host_kluuu, :title, :description, :start_time, :duration, :repeating, :presence => true
   
   
