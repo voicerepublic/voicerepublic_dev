@@ -643,6 +643,11 @@ de:
       cancel: "Abbrechen"
 
   venues:
+    date_changed: "Treffpunkt Termin aktualisiert"
+    edit: 
+      venue_edit_title: "Bearbeite den Treffpunkt"
+      venue_renew_title: "Neuer Treffpunkt Termin"
+      confirm_change_date: "Die Änderung des Termins wird im Anschluss den bisherigen Teilnehmern mitgeteilt"
     new_venue: "Neuen Treffpunkt erstellen"
     venue_list: "Künftige Treffpunkte"
     facebook_value_template:
@@ -667,6 +672,7 @@ de:
       minutes: "Minuten"
       repeating: "Rhythmus"
       comments: "Kommentare"
+      renew: "Datum aktualisieren"
       what_is_a_venue: "Was ist ein Treffpunkt?"
     new:
       create_new_venue: "Einen neuen Treffpunkt erstellen"
@@ -711,6 +717,8 @@ de:
       description: "Beschreibung des Treffpunktes"
       start_time: "Zeitpunkt"
       host_kluuu: "Gastgebendes KluuU"
+      duration: "Dauer des Treffpunktes in Minuten"
+      
     group_chat:
       venue_chat: "Steige in die Diskussion ein"
       

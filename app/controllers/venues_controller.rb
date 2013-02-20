@@ -46,6 +46,10 @@ class VenuesController < ApplicationController
       @renew = true
     end
     authorize! :edit, @venue
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
   # POST /venues

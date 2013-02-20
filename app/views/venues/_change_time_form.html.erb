@@ -1,4 +1,4 @@
-<%= form_for @venue, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for venue, :html => { :class => 'form-horizontal' } do |f| %>
     <%= hidden_field_tag(:renew,1) %>
 		<div class="control-group" >
 		<%= f.label :start_time, :class => 'control-label' do %>
@@ -12,8 +12,8 @@
 	</div>
 
 	<div class="form-actions">
-		<%= f.submit nil, :class => 'btn btn-primary' %>
-		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn' %>
+		<%= f.submit nil, :data => { :confirm => t('venues.edit.confirm_change_date') }, :class => 'btn btn-primary' %>
+		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), venue_path(:id => venue), :class => 'btn' %>
 	</div>
 	
 <% end %>

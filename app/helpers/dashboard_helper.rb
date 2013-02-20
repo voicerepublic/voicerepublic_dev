@@ -37,6 +37,8 @@ module DashboardHelper
                 'notifies/new_content'
               when 'NewVenue'
                 'notifies/new_content'
+              when 'VenueInfo'
+                'notifies/my_content'
               when 'NewVenueParticipant'
                 'notifies/my_content'
               when 'NewStatus'

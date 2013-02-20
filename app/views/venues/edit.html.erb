@@ -1,10 +1,15 @@
-<%- model_class = Venue -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
-                                   :default => "Edit #{model_class.model_name.human}") %></h1>
+  <h1>
+  <% if @renew == true %>
+    <%= t('.venue_renew_title') %>
+  <% else %>
+    <%= t('.venue_edit_title') %></h1>
+  <% end %>
+  </h1>
 </div>
+
 <% if @renew == true %>
-  <%= render(:partial => 'change_time_form') %>
+  <%= render(:partial => 'change_time_form', :locals => { :venue => @venue }) %>
 <% else %>
   <%= render :partial => 'form' %>
 <% end %>

@@ -25,7 +25,7 @@
 
 		<div class="pull-right">
 			<%= link_to(venue_path(venue), :class => "btn btn-large btn-venue pull-right", :disabled => current_user ? false : true ) do %>
-			<%= t('.go_venue_page') %>&nbsp;<%= image_tag "/assets/coffee_icon_white.png" %>
+			<%= t('.go_venue_page') %>&nbsp;<%= image_tag "coffee_icon_white.png" %>
 			<% end  %>
 			<br>
 			<%= link_to klu_path(:id => venue.host_kluuu), :class => "pull-right" do %>
