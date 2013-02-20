@@ -5,9 +5,12 @@ class Venue < ActiveRecord::Base
   has_many :venue_klus, :dependent => :destroy
   has_many :klus, :class_name => 'Klu', :through => :venue_klus
   has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
-  has_many :notifications_new_venues, :class_name => 'Notification::NewVenue', :foreign_key => :other_id, :dependent => :destroy
-  has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo', :foreign_key => :other_id, :dependent => :destroy
-  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', :foreign_key => :other_id, :dependent => :destroy  
+  has_many :notifications_new_venues, :class_name => 'Notification::NewVenue', :foreign_key => :other_id, 
+            :dependent => :destroy
+  has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo', :foreign_key => :other_id, 
+            :dependent => :destroy
+  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', 
+            :foreign_key => :other_id, :dependent => :destroy  
   validates :host_kluuu, :title, :description, :start_time, :duration, :repeating, :presence => true
   
   
@@ -15,7 +18,8 @@ class Venue < ActiveRecord::Base
   
   MIN_TIME = 240
   DURATION = [ 30, 60, 90, 120, -1 ]
-  REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, I18n.t('model_venue.biweekly') => 2, I18n.t('model_venue.monthly') => 3 }
+  REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, 
+                I18n.t('model_venue.biweekly') => 2, I18n.t('model_venue.monthly') => 3 }
   
   def timed_out?
     min = ( duration < 0 ) ? 240 : duration
