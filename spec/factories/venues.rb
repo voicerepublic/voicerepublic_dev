@@ -9,17 +9,9 @@ FactoryGirl.define do
     title Faker::Lorem.sentence
     intro_video "MyString"
     duration 90
-    repeating 0
-    
     #after(:create) do |venue|
     #  FactoryGirl.create_list(:venue_klu, 2, :venue => venue)
     #end
-    
-    trait :repeating_venue do
-      repeating 1
-    end
-    
-    
     trait :with_venue_klus do
       
       after(:create) do |venue|
@@ -27,9 +19,7 @@ FactoryGirl.define do
       end
   
     end
-    
    
-    factory :repeating_venue, traits: [:repeating_venue] 
     factory :venue_with_klus, traits: [:with_venue_klus]
    
   end

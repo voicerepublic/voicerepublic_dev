@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131110154) do
+ActiveRecord::Schema.define(:version => 20130220163606) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -314,7 +314,6 @@ ActiveRecord::Schema.define(:version => 20130131110154) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "duration"
-    t.integer  "repeating"
   end
 
   create_table "video_rooms", :force => true do |t|
