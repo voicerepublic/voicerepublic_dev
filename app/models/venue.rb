@@ -90,6 +90,16 @@ class Venue < ActiveRecord::Base
     end
     notifies
   end
+
+  # called in controller on update of only
+  # start_time attributes
+  #
+  def self.generate_renew_info_for(venue)
+    venue.attendies.each do |user|
+      I18n.locale = user.account.preferred_locale
+      Notification::VenueInfo.create(:user => user, :other => venue)
+    end
+  end
   
   private
   

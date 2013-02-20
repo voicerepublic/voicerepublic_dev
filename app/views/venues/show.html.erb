@@ -99,6 +99,7 @@
 				<%#= link_to t('.back', :default => t("helpers.links.back")), venues_path, :class => 'btn btn-small'  %>
 				<% if can? :manage, @venue %>
 				<%= link_to t('.edit', :default => t("helpers.links.edit")), edit_venue_path(@venue), :class => 'btn btn-small' %>
+        <%= link_to t('.renew'), edit_venue_path(@venue, :renew => 1), :class => 'btn btn-small' %>
 				<%= link_to t('.destroy', :default => t("helpers.links.destroy")),venue_path(@venue), :method => 'delete',
 				:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
 				:class => 'btn btn-danger btn-small' %>
