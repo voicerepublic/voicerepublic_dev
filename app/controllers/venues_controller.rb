@@ -42,6 +42,9 @@ class VenuesController < ApplicationController
   # GET /venues/1/edit
   def edit
     @venue = Venue.find(params[:id])
+    if params[:renew]
+      @renew = true
+    end
     authorize! :edit, @venue
   end
 
@@ -68,9 +71,13 @@ class VenuesController < ApplicationController
   def update
     @venue = Venue.find(params[:id])
     authorize! :update, @venue
-
+    
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
+        if params[:renew]
+          logger.debug("Venues#update - updating just the start time - notify others")
+          Venue.generate_renew_info_for(@venue)
+        end
         format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
         format.json { head :no_content }
       else
