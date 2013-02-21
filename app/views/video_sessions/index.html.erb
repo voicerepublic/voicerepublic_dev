@@ -1,3 +1,4 @@
+<% if current_user && current_user.is_admin? %>
 <h2>Listing video_sessions</h2>
 
 <table>
@@ -13,7 +14,7 @@
 
 <% @video_sessions.each do |video_session| %>
   <tr>
-    <td><%= video_session.offer_id %></td>
+    <td><%= video_session.klu_id %></td>
     <td><%= video_session.end_timestamp %></td>
     <td><%= video_session.begin_timestamp %></td>
     <td><%= video_session.video_system_session_id %></td>
@@ -27,3 +28,4 @@
 <br />
 
 <%= link_to 'New Video session', new_video_session_path %>
+<% end %>
