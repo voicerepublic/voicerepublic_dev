@@ -97,7 +97,7 @@ Kluuu2::Application.routes.draw do
   end
   
   resources :video_rooms
-  resources :video_sessions
+  resources :video_sessions #, :except => [:index]
   
   #route to video-client_config
   match 'bbb/:meeting_id/user/:user_id/config' => "video_sessions#video_session_config"
