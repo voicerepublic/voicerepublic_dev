@@ -18,9 +18,9 @@
     <td><%= video_session.end_timestamp %></td>
     <td><%= video_session.begin_timestamp %></td>
     <td><%= video_session.video_system_session_id %></td>
-    <td><%= link_to 'Show', video_session %></td>
+    <td><%= link_to 'Show', video_session_path(:id => video_session) %></td>
     <td><%= link_to 'Edit', edit_video_session_path(video_session) %></td>
-    <td><%= link_to 'Destroy', video_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', video_session_path(:id => video_session), method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
