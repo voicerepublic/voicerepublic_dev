@@ -82,11 +82,12 @@ class Ability
            t = true
          end
       end
-      if comment.commentable.kind_of?(StatusUpdate)
+      if comment.commentable.kind_of?(StatusUpdate)  || comment.commentable.kind_of?(Klu)
         if comment.commentable.user == user || comment.user == user 
           t = true
         end
       end
+      
       t
     end
     

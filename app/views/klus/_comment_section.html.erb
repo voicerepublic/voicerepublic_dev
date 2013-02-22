@@ -1,4 +1,14 @@
-<section class="comments span12">
-	<h5><%= t('.comments') %></h5>
-	<%= render(:partial => 'klu_comments', :collection => klu.comments, :as => klu %>
+<section class="klu-comments">
+	<h5><a id="comments" name="comments"><%= t('.comments') %></a></h5>
+
+	<%= render(:partial => 'klu_comments', :collection => @comments, :as => :comment ) %>
+	<div class="controls">
+		<%= will_paginate(@comments, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered", :params => { :anchor => "comments" }) %>
+	</div>
+
+	<aside class="newcomment clearfix">
+		<% if current_user %>
+		<%= render(:partial => 'comments/klu_form', :locals => {:commentable => klu })%>
+		<% end %>
+	</aside>
 </section>

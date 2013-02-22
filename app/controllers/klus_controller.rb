@@ -17,6 +17,7 @@ class KlusController < ApplicationController
   def show
     @klu = Klu.find(params[:id])
     @user = @klu.user
+    @comments = @klu.comments.paginate(:page => params[:page], :per_page => 5, :order => 'created_at DESC')
 
     respond_to do |format|
       format.html # show.html.erb

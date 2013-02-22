@@ -334,6 +334,8 @@ en:
       your_comment: "Comment"
       write_a_comment: "Write a comment"
       save: "Post"
+    klu_form:
+      write_a_comment: "write a comment on this KluuU"
   conversations:
     index:
       conversations: "Conversation"
@@ -394,6 +396,8 @@ en:
     describe_your_picture_in_a_few_words: "Upload a photo"
     
   klus:
+    comment_section:
+      comments: "Comments"
     facebook_value_template:
       talk_on_kluuu_about: "Talk with %{name} about '%{subject}'"
     form_welcome_new_no_kluuu:

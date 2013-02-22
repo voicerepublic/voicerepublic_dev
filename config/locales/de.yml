@@ -330,6 +330,8 @@ de:
     show:
       text_chat: "Text-Chat"
   comments:
+    klu_form:
+      write_a_comment: "Schreib einen Kommentar zu diesem KluuU"
     form:
       your_comment: "Kommentar"
       write_a_comment: "Bitte schreibe einen Kommentar."
@@ -397,6 +399,8 @@ de:
     describe_your_picture_in_a_few_words: "Beschreibe dein Bild mit ein paar Worten."
     
   klus:
+    comment_section:
+      comments: "Kommentare"
     facebook_value_template:
       talk_on_kluuu_about: "Sprich mit %{name} über '%{subject}'"
     form_welcome_new_no_kluuu:

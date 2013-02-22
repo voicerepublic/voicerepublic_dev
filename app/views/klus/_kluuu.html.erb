@@ -65,13 +65,11 @@
 							<% end %>
 						</ul>
 					<% end %>
-				</section>	
-				<%= render(:partial => 'comments_section', :locals => { :klu => klu }) unless klu.comments.empty? %>
+				</section>
+					
 			</div>
-
-			<%# TREFFPUNKT %>
 			<%= render(:partial => 'kluuu_venues', :locals => { :klu => klu } ) %>
-
+			<%= render(:partial => 'comment_section', :locals => { :klu => klu }) %>
 		</div>
 		<%# MATCHES %>
 		<aside class="well span3 klu-matches">

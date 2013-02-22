@@ -38,6 +38,7 @@ Kluuu2::Application.routes.draw do
     end
     resources :klus do
       resources :ratings, :only => [:new, :create]
+      resources :comments
     end
   end
   
