@@ -66,7 +66,7 @@
 						</ul>
 					<% end %>
 				</section>	
-
+				<%= render(:partial => 'comments_section', :locals => { :klu => klu }) unless klu.comments.empty? %>
 			</div>
 
 			<%# TREFFPUNKT %>
