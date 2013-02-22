@@ -53,20 +53,14 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     
-    if params[:status_update_id]
-      @comment = StatusUpdate.find(params[:status_update_id]).comments.build(params[:comment].merge(:user_id => current_user.id))
-      logger.debug(@comment.inspect)
-    end
-    if params[:venue_id]
-      @comment = Venue.find( params[:venue_id] ).comments.build(params[:comment].merge(:user_id => current_user.id) )
-    end
+    @comment = @commentable.comments.build(params[:comment].merge(:user_id => current_user.id))
+    logger.debug(@comment.inspect)
     
     unless @comment
       flash[:alert] = 'type can not be commented ...' 
       redirect_to :back and return
     end
     
-
     respond_to do |format|
       if @comment.save
         format.html { redirect_to :back }
@@ -118,9 +112,18 @@ class CommentsController < ApplicationController
   
   private 
   
+  
+  
   def set_commentable
     if params[:status_update_id]
       @commentable = StatusUpdate.find(params[:status_update_id])
     end
+    if params[:venue_id]
+      @commentable = Venue.find(params[:venue_id])
+    end
+    if params[:klu_id]
+      @commentable = Klu.find(params[:klu_id])
+    end
   end
+  
 end

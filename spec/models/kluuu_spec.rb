@@ -34,11 +34,27 @@ describe Kluuu do
     _pk.klu_images.should_not be_empty
   end
   
+  it "has many comments" do
+    k = FactoryGirl.create(:published_kluuu)
+    user = FactoryGirl.create(:user)
+    c = k.comments.create(:content => "ein kommentar", :user => user )
+    c.should be_valid
+  end
+  
   it "will be destroyed if owning user is destroyed" do
     _k = FactoryGirl.create(:published_kluuu)
     _k.user.should be_valid
     _k.user.destroy
     expect { Kluuu.find(_k.id) }.to raise_error 
+  end
+  
+  it "has comments that will be destroyed after deletion of commentable klu" do
+    _klu = FactoryGirl.create(:published_kluuu)
+    _user = FactoryGirl.create(:user)
+    _comment = _klu.comments.create(:content => "ein comment", :user => _user)
+    expect {
+      _klu.destroy
+    }.to change { Comment.count }.by(-1)
   end
   
 end
