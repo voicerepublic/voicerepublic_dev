@@ -8,7 +8,7 @@ class VenuesController < ApplicationController
     if params[:upcoming]
       @venues = Venue.where("start_time > ?", Time.now - 12.hours).order("start_time ASC").paginate(:page => params[:page], :per_page => 5)
     else
-      @venues = Venue.order("start_time DESC").paginate(:page => params[:page], :per_page => 5)      
+      @venues = Venue.order("start_time ASC").paginate(:page => params[:page], :per_page => 5)      
     end
     respond_to do |format|
       format.html # index.html.erb
