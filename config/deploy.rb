@@ -4,7 +4,7 @@ require 'whenever/capistrano'
 #require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
 
 set :application, "kluuu.com"
-set :repository,  "gitosis@devel.spampark.com:kluuu2.git"
+set :repository,  "gitosis@devel.kluuu.com:kluuu2.git"
 set :scm, :git
 set :scm_verbose, true
 set :keep_releases, 3
