@@ -1,16 +1,16 @@
 <article class="venue-big <%= cycle('odd', 'even') %>">
 	<aside class="venue-time">
 		
-		<% if venue.ongoing? %>
+<!-- 		<%# if venue.ongoing? %>
 			<span class="label label-attention">
-				<%= t('venues.landing_page_venue.venue_is_in_process')  %>
+				<%#= t('venues.landing_page_venue.venue_is_in_process')  %>
 			</span>
-		<% end %>
-		<% if venue.past? %>
+		<%# end %>
+		<%# if venue.past? %>
 			<span class="label label-info">
-				<%= t('venues.landing_page_venue.venue_is_over')  %>
+				<%#= t('venues.landing_page_venue.venue_is_over')  %>
 			</span>
-		<% end %>
+		<%# end %> -->
 		<%= l(venue.start_time) %>
 	</aside>
 	<div class="venue-big-content clearfix">

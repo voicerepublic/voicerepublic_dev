@@ -93,13 +93,6 @@
     .set-rows(4);
   }
 }
-  
-.venues-hint {
-  border-top: 1px solid #d8d8d8;
-  margin: 31px 0 11px 0;
-  padding-top: 10px;
-}
-
 
 /* ALLE TREFFPUNKTE */
 .venue-list {
@@ -120,9 +113,22 @@
 
 
 .venue-desc{
+  .btn{
+    color:#333;
+    font-weight: normal;
+  }
+  p{
+    margin:0 0 10px 0;
+  }
   h3{
     margin:0 0 5px 10px;
     font-size: 18px
+  }
+
+  h4{
+    font-size:14px;
+    font-weight: bold;
+    margin:10px 0 2px 0;
   }
   .venue-desc-content{
     hyphens: auto;
@@ -253,32 +259,13 @@
       height:55px;
     }
   }
-  .btn-venue{
-    img{
-      width:33px;
-      margin-left: 10px;
-    }
-    font-size:16px;
-    color:white;
-    text-shadow:1px 1px 2px rgba(0, 0, 0, 0.15);
-    display:inline-block;
-    background-color: #1A6E6D;
-    background-image: linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
-    background-image: -o-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
-    background-image: -moz-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
-    background-image: -webkit-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
-    background-image: -ms-linear-gradient(bottom, #1A6E6D 0%, #2AA2A0 100%);
 
-    background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0, #1A6E6D),
-      color-stop(1, #2AA2A0)
-    );
-    
-    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6'); /* IE6 & IE7 */
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#156082', endColorstr='#1879A6')"; /* IE8 */
+  .btn-venue{
+    font-size:16px;
+  }
+
+  .venue-new-date{
+    margin-bottom: 5px
   }
 }
 

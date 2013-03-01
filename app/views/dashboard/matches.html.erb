@@ -5,10 +5,8 @@
 
 
 <div class="dashboard-matches">
-	
-	<%= link_to( new_venue_path, :class => 'btn btn-primary pull-right' ) do %>
-		<i class="icon icon-glass"> </i> <%= t('venues.new_venue') %>
-	<% end if current_user.has_role?('venue_host') %>
+
+	<%= link_to t('.all_venues'), venues_path, :class => "btn btn-venue pull-right" %>
 	
 	<div class="tabbable tabs-left pull-left">	
 		

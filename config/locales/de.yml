@@ -128,9 +128,21 @@ de:
     select:
       prompt: Bitte wählen
     submit:
-      create: ! '%{model} erstellen'
-      submit: ! '%{model} speichern'
-      update: ! '%{model} aktualisieren'
+      create: ! 'Speichern'    
+      submit: ! 'Speichern'
+      update: ! 'Speichern'
+
+      ### OLD ###
+      # create: ! '%{model} erstellen'
+      # submit: ! '%{model} speichern'
+      # update: ! '%{model} aktualisieren' 
+      ### OLD END ###
+    links:
+      cancel: 'Abbrechen'
+      edit: 'Bearbeiten'
+      save: 'Speichern'
+      destroy: 'Löschen'
+      confirm: 'Willst du wirklich löschen?'
   number:
     currency:
       format:
@@ -373,6 +385,7 @@ de:
       matching_something: "Treffer KluuUs / Fragen "
       view: "Ansehen"
       we_could_not_find_matches_for_you: "Wir konnten keinen passenden Treffer finden. Tipp: Füge deinem KluuU / deiner Frage weitere Schlagworte zu, um Treffer zu bekommen."
+      all_venues: "Treffpunkte"
     news:
       news: "Neues"
       no_news_yet: "Du hast noch keine Neuigkeiten."
@@ -650,10 +663,11 @@ de:
     date_changed: "Treffpunkt Termin aktualisiert"
     edit: 
       venue_edit_title: "Bearbeite den Treffpunkt"
-      venue_renew_title: "Neuer Treffpunkt Termin"
+      venue_renew_title: "Neues Datum"
       confirm_change_date: "Die Änderung des Termins wird im Anschluss den bisherigen Teilnehmern mitgeteilt"
-    new_venue: "Neuen Treffpunkt erstellen"
-    venue_list: "Künftige Treffpunkte"
+      save: "Speichern"
+    new_venue: "Treffpunkt erstellen"
+    venue_list: "Treffpunkte"
     facebook_value_template:
       join_the_venue: "Nimm am Treffpunkt teil: %{title}"
     show:
@@ -672,14 +686,14 @@ de:
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
       only_attendies_can_see_group_chat: "Nur Teilnehmer des Treffpunktes können den Gruppen-Chat lesen"
-      see_other_venues: "Andere Treffpunkte"
+      see_other_venues: "Alle Treffpunkte"
       minutes: "Minuten"
       repeating: "Rhythmus"
       comments: "Kommentare"
-      renew: "Datum aktualisieren"
+      renew: "Neues Datum"
       what_is_a_venue: "Was ist ein Treffpunkt?"
     new:
-      create_new_venue: "Einen neuen Treffpunkt erstellen"
+      create_new_venue: "Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
       create_kluuu: "jetzt ein KluuU erstellen"
     new_join:
@@ -691,10 +705,10 @@ de:
       back: "Zurück"
     index:
       venues: "Treffpunkte"
-      upcoming_venues: "Künftige Treffpunkte"
+      upcoming_venues: "Treffpunkte"
       what_is_a_venue: "Was ist ein Treffpunkt?"
-      show_only_upcoming_venues: "Zeige nur künftige Treffunkte"
-      show_all_venues: "Zeige auch vergangene Treffpunkte"
+      show_only_upcoming_venues: "Treffpunkte demnächst"
+      show_all_venues: "Alle Treffpunkte"
     venue_comment:
       delete_comment: "löschen"
     venue_compact:
@@ -706,7 +720,7 @@ de:
       go_venue_page: "Zum Treffpunkt!"
     venue_form:
       write_a_comment: "Verfasse einen Kommentar"
-      save_comment: "Kommentar speichern"
+      save_comment: "Posten"
     landing_page_venue:
       discuss_in_virtual_cafe: "Diskutiere live im virtuellen Café."
       venue_title: "Treffpunkte"
