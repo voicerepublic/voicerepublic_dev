@@ -71,9 +71,11 @@
 			<%= render(:partial => 'kluuu_venues', :locals => { :klu => klu } ) %>
 			<%= render(:partial => 'comment_section', :locals => { :klu => klu }) %>
 		</div>
+		
+		
+		
 		<%# MATCHES %>
 		<aside class="well span3 klu-matches">
-			
 			<h4 class="text-align-center"><%= t('.people_who_wanna_know_more_about') %></h4>
 			<div class="text-align-center"><em>'<%=klu.title %>'</em></div>
 			<%= render(:partial => 'matches', :locals => {:klu => klu }) %>

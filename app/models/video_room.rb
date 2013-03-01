@@ -182,6 +182,21 @@ class VideoRoom < ActiveRecord::Base
      
     response
   end
+  
+  
+  #protected 
+  # Every room needs a server to be used.
+  # The server of a room can change during the room's lifespan, but
+  # it should not change if the room is running or if it was created
+  # but not yet ended.
+  # Any action that requires a server should call 'require_server' before
+  # anything else.
+  def require_server
+    if self.video_server.nil?
+      msg = I18n.t('video_sytem.rooms.errors.server.not_set')
+      raise KluuuExceptions::VideoSystemError.new(msg, 'shared/alert_flash')
+    end
+  end
 
 private
   
@@ -206,18 +221,7 @@ private
 # 
   protected
 
-  # Every room needs a server to be used.
-  # The server of a room can change during the room's lifespan, but
-  # it should not change if the room is running or if it was created
-  # but not yet ended.
-  # Any action that requires a server should call 'require_server' before
-  # anything else.
-  def require_server
-    if self.video_server.nil?
-      msg = I18n.t('video_sytem.rooms.errors.server.not_set')
-      raise KluuuExceptions::VideoSystemError.new(msg, 'shared/alert_flash')
-    end
-  end
+  
 
   def do_create_video_system_room
     msg = (self.welcome_msg.nil? or self.welcome_msg.empty?) ? default_welcome_message : self.welcome_msg
