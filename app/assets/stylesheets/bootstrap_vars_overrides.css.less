@@ -4,13 +4,16 @@
 @serifFontFamily: "Droid Serif" , Georgia, "Times New Roman", Times, serif;
 
 @white: #f9f9f9;
+@blue: #444;
+
 
 @linkColor: #0075BC;
-@linkColorHover: #0075BC;
+@linkColorHover: #004B7A;
 
 @navbarCollapseWidth:   900px;
-@btnBackgroundHighlight: darken(@white, 3%);
-@btnPrimaryBackgroundHighlight: lighten(@btnPrimaryBackground, 3%);
+/*@btnBackgroundHighlight: darken(@white, 3%);*/
+@btnPrimaryBackground: lighten(@linkColor,8%);
+@btnPrimaryBackgroundHighlight: darken(@btnPrimaryBackground, 8%);
 @navbarBackgroundHighlight: desaturate(darken(@brandColor, 2%), 20%);
 @navbarText: @white;
 @navbarLinkColor: @navbarText;

@@ -1,6 +1,5 @@
 @import "roboto.css.less";
 @import "droidserif.css.less";
-@import url("http://fonts.googleapis.com/css?family=Nothing+You+Could+Do");
 @import "twitter/bootstrap/bootstrap";
 
 // Change of box-sizing-mode siehe http://paulirish.com/2012/box-sizing-border-box-ftw/
@@ -85,7 +84,10 @@ img {
 
 a:hover {
   text-decoration: none;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+}
+
+a.btn{
+
 }
 
 /* NAVBAR HOVER NO BOOTSTRAP HOVER */
@@ -258,23 +260,23 @@ p, blockquote, table, ul, ol {
  * INPUT:FOCUS
  */
 
- .form-search input, .form-inline input, .form-horizontal input, .form-search textarea, .form-inline textarea, .form-horizontal textarea, .form-search select, .form-inline select, .form-horizontal select, .form-search .help-inline, .form-inline .help-inline, .form-horizontal .help-inline, .form-search .uneditable-input, .form-inline .uneditable-input, .form-horizontal .uneditable-input, .form-search .input-prepend, .form-inline .input-prepend, .form-horizontal .input-prepend, .form-search .input-append, .form-inline .input-append, .form-horizontal .input-append{
- 	&:hover{
- 		border-color:rgba(0,0,0, 0.3);
- 		box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-o-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-ms-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0); 		
- 	}
- 	&:focus{
- 		border-color:rgba(0,0,0, 0.3);
- 		box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-o-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 		-ms-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
- 	}
+input:not(.btn){
+	 	&:hover{
+	 		border-color:rgba(0,0,0, 0.3);
+	 		box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-moz-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-o-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-ms-box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0); 		
+	 	}
+	 	&:focus{
+	 		border-color:rgba(0,0,0, 0.3);
+	 		box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-o-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 		-ms-box-shadow:0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
+	 	}
  }
 
 
