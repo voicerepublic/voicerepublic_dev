@@ -620,6 +620,9 @@ de:
     nested_form:
       delete_portrait: "Foto löschen"
       add_a_portrait: "Füge hier ein Portrait Foto ein."
+      select: "Bild auswählen"
+      change: "Ändern"
+      remove: "Löschen"
     no_status_updates:
       no_status_updates_of_you: "Veröffentliche jetzt einen Status!"
       what_you_say: "Was Du hier veröffentlichst, sehen Deine Besucher und Followers."

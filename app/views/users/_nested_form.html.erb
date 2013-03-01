@@ -8,16 +8,29 @@
 		<div class="control-group user-edit-image">
 			<%= account_fields.label :portrait, :class => "control-label" %>
 			<div class="controls">
-				<% if @user.account.portrait.exists? %>
-					<%= image_tag @user.account.portrait.url(:large), :class => "img-polaroid" %>
-					<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "user-edit-image-edit", :method => :delete do %>
-						<i class="icon-trash"> </i> <%= t('.delete_portrait')%>
-					<% end %>
-				<% else %>
-					<%= account_fields.file_field :portrait %>
-					<p>
-					<%= t('.add_a_portrait') %>
-				<% end %>
+
+				<div class="fileupload fileupload-new" data-provides="fileupload">
+					<div class="fileupload-new thumbnail" style="width: 100%;">
+						
+						<% if @user.account.portrait.exists? %>
+							<%= image_tag @user.account.portrait.url(:large) %>
+						<% else %>
+							<img src="/system/large/missing.jpg" />
+						<% end %>
+					</div>
+						
+					<div class="fileupload-preview fileupload-exists thumbnail" style="width: 100%;line-height: 20px;"></div>
+					<div>
+						<span class="btn btn-file">
+							<span class="fileupload-new"><%= t('.select') %></span>
+							<span class="fileupload-exists"><%= t('.change') %></span>
+							<%= account_fields.file_field :portrait %>
+						</span>
+						<a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><%= t('.remove') %></a>
+					
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>

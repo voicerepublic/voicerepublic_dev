@@ -615,6 +615,9 @@ en:
     nested_form:
       delete_portrait: "Delete photo"
       add_a_portrait: "Upload a profile photo"
+      select: "Select"
+      change: "Ändern"
+      remove: "Remove"
     no_status_updates:
       no_status_updates_of_you: "You have not posted a status."
       what_you_say: "What's on your mind?"

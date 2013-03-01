@@ -260,7 +260,8 @@ p, blockquote, table, ul, ol {
  * INPUT:FOCUS
  */
 
-input:not(.btn){
+input:not(.btn):not([type="file"]),
+textarea{
 	 	&:hover{
 	 		border-color:rgba(0,0,0, 0.3);
 	 		box-shadow:0 1px 1px rgba(0, 0, 0, 0.2) inset, 0 0 0px rgba(0, 0, 0, 0.0);
