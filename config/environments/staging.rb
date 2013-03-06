@@ -79,6 +79,6 @@ Kluuu2::Application.configure do
   config.middleware.use ExceptionNotifier,
                             :email_prefix         => "[K2-Error]  ",
                             :sender_address       => %{"notifier" <support@kluuu.com>},
-                            :exception_recipients => %w{observer@kluuu.com},
+                            :exception_recipients => %w{rene@kluuu.com},
                             :ignore_crawlers      => %w{Googlebot}
 end
