@@ -6,9 +6,9 @@
 	<li class="<%= current_page?(dashboard_news_path) ? 'active' : '' %>">
 		<%= link_to(t('.news', :default => "Neuigkeiten"), dashboard_news_path) %>
 	</li>
-	<li class="<%= current_page?(dashboard_bookmarks_path) ? 'active' : '' %>">
-		<%= link_to(t('.bookmarks', :default => "Lesezeichen"), dashboard_bookmarks_path) %>
-	</li>
+<!-- 	<li class="<%#= current_page?(dashboard_bookmarks_path) ? 'active' : '' %>">
+		<%#= link_to(t('.bookmarks', :default => "Lesezeichen"), dashboard_bookmarks_path) %>
+	</li> -->
 	<li class="<%= current_page?(dashboard_contacts_path) ? 'active' : '' %>">
 		<%= link_to(t('.contacts', :default => "Kontakte"), dashboard_contacts_path ) %>
 	</li>

@@ -576,6 +576,7 @@ en:
       messages: "Messages"
       settings: "Settings"
       finances: "Finances"
+      venues: "Venues"
     footer:
       legal: "Legal"
       terms_of_use: "Terms Of Use"
