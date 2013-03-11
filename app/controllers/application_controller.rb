@@ -14,15 +14,37 @@ class ApplicationController < ActionController::Base
     if resource.is_admin?
       admin_dashboard_index_path
     else
+      
+      return_to = request.env['omniauth.origin'] || stored_location_for(resource) || dashboard_path
+      
       if resource.klus.empty?
         #@klu = resource.no_kluuus.build(:tag_list => "fun, kluuu, newcomer, talk")
         #@user = resource
+        session[:return_to] = return_to
         welcome_user_path(:id => resource)
       else
-        dashboard_path
+        return_to
+        #dashboard_path
       end
     end
   end
+  
+  
+  #def after_sign_in_path_for(resource)
+  #  str = stored_location_for(resource) || stored_location || root_path
+  #  debugger
+  #  str
+  #end##
+
+  #def stored_location
+  #  session.delete(:return_to)
+  #end
+
+  #def store_location
+  #  session[:return_to] = request.fullpath
+  #end
+  
+  
   
   private
   
