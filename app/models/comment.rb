@@ -35,7 +35,7 @@ class Comment < ActiveRecord::Base
           Notification::NewComment.create(:user => attendie,
                                       :other => self.user,
                                       :content => self.content,
-                                      :url => Rails.application.routes.url_helpers.venue_path(self.commentable))
+                                      :url => Rails.application.routes.url_helpers.venue_path(:id => self.commentable))
         end
       end
     end
