@@ -29,6 +29,15 @@ class Comment < ActiveRecord::Base
       
     end
     if commentable.kind_of?(Venue)
+      # venue participants will receive a notification
+      self.commentable.attendies.each do |attendie|
+        unless self.user == attendie
+          Notification::NewComment.create(:user => attendie,
+                                      :other => self.user,
+                                      :content => self.content,
+                                      :url => Rails.application.routes.url_helpers.venue_path(self.commentable))
+        end
+      end
     end
   end
   
