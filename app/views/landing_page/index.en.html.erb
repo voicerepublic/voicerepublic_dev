@@ -27,7 +27,7 @@
         <%= render(:partial => 'venues/landing_page_venue') %>
       </section>
       <section class="kblog span4">
-        <%= display_latest_articles(1) %>
+        <%= display_latest_articles(1,400) %>
       </section>
     <% end %>
   </div>
@@ -39,7 +39,7 @@
     </div>
     <% unless news_shown %>
       <section class="span4">
-        <%= display_latest_articles(1) %>
+        <%= display_latest_articles(1,400) %>
       </section>
     <% end %>
   </div> 

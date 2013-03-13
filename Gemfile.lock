@@ -141,7 +141,7 @@ GEM
     json (1.7.7)
     jwt (0.1.5)
       multi_json (>= 1.0)
-    kblog (0.0.3)
+    kblog (0.0.4)
       RedCloth
       rails (~> 3.2.0)
       sass
@@ -338,7 +338,7 @@ DEPENDENCIES
   guard-rspec
   i18n_data
   jquery-rails
-  kblog (= 0.0.3)
+  kblog (= 0.0.4)
   launchy
   less-rails
   money-rails (= 0.6.0)
