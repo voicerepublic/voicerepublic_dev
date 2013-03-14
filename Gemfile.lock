@@ -54,6 +54,8 @@ GEM
     childprocess (0.3.8)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.9.1)
+    ci_reporter (1.8.4)
+      builder (>= 2.1.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -325,6 +327,7 @@ DEPENDENCIES
   cancan
   capistrano
   capybara
+  ci_reporter
   coffee-rails
   database_cleaner
   devise

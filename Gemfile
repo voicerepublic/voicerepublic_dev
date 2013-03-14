@@ -48,7 +48,7 @@ group :development, :test, :staging do
 end
 
 group :test do
-  
+  gem 'ci_reporter'  
   gem 'capybara'#, '2.0.1'
   gem 'guard-rspec'
   gem 'launchy'
