@@ -50,6 +50,11 @@ class Comment < ActiveRecord::Base
                                       )
         
       end
+      Notification::NewComment.create(:user => commentable.user,
+                                    :other => self.user,
+                                    :content => self.content,
+                                    :url => Rails.application.routes.url_helpers.klu_url(:id => self.commentable.id)
+                                    )
     end
     
   end
