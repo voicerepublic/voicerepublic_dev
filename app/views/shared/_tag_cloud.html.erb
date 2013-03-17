@@ -3,7 +3,7 @@
 <div class="tag-cloud">
 	<ul class="unstyled text-align-center">
 	<% tag_cloud(tags, %w(tag-quant1 tag-quant2 tag-quant3 tag-quant4)) do |t, css_class| %>
-		<li><%= link_to "##{t.name}", tagged_with_path(:tag => t.name ), :class => css_class %></li>
+		<li><%= link_to "#{t.name}", tagged_with_path(:tag => t.name ), :class => css_class %></li>
 	<% end %>
 </ul>
 </div>
