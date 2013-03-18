@@ -505,6 +505,7 @@ de:
       create_a_new_kluuu: "Erstelle dein KluuU"
   
   landing_page:
+    news: "Aktuelles"
     index:
       enter_search_term: "Suchbegriff eingeben"
       

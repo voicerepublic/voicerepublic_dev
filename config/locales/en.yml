@@ -502,6 +502,7 @@ en:
       create_a_new_kluuu: "Create a new KluuU"
   
   landing_page:
+    news: "News"
     index:
       enter_search_term: "Enter search term"
       
