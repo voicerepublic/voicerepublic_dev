@@ -11,7 +11,7 @@
 				</aside>
 				<div class="row-fluid">
 					<section class="span8">
-						<ul class="unstyled clearfix kluuu-pics" data-images-urls="<%= data_attributes_images_gallery(klu) %>">
+						<ul class="unstyled clearfix kluuu-pics" data-images-urls="<%= data_attributes_images_gallery(klu) %>" data-images-desc="<%= data_attributes_image_description(klu) %>">
 							<% klu.klu_images.each_with_index do |ki, index| %>
 								<% if (index == 0) %>
 									<li class="klu-eyecatcher">
