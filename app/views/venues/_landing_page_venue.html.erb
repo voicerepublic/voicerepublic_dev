@@ -1,13 +1,11 @@
 <% venue = Venue.upcoming %>
 
 <% if venue %>
-<section class="row-fluid">
-
-	<%# VENUE %>
-	<div class="span12">
-		<h2 class="venue-title"><%=t('.venue_title')%></h2>&nbsp;<span class="lp-venue-slogan"><%= t('.discuss_in_virtual_cafe') %></span> <%= link_to t('.learn_more'), venues_path %>
+<section class="lp-venue">
+	<div>
+		<h2 class="venue-title"><%=t('.venue_title')%></h2>
+		&nbsp;<span class="lp-venue-slogan"><%= t('.discuss_in_virtual_cafe') %></span> <%= link_to t('.learn_more'), venues_path %>
 		<%= render(:partial => 'venues/venue_big', :locals => {:venue => venue}) %>
 	</div>
-
 </section>
 <% end %>
