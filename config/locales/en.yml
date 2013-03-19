@@ -598,7 +598,7 @@ en:
       add_comment: "Comment "
       comments: "Comments"
     index:
-      new_status_update: "post new status"
+      new_status_update: "New status"
     show:
       back: "back"
     new:

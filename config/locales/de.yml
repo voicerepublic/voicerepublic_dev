@@ -602,7 +602,7 @@ de:
       add_comment: "Kommentieren"
       comments: "Kommentare"
     index:
-      new_status_update: "Neuen Status veröffentlichen"
+      new_status_update: "Neuer Status"
     show:
       back: "Zurück"
     new:
