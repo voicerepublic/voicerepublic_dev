@@ -84,7 +84,13 @@ class KlusController < ApplicationController
 
     respond_to do |format|
       if @klu.save
-          format.html { redirect_to dashboard_url(), notice: "Your Klu was successfully created!"}
+          format.html do 
+            if session[:return_to]
+              redirect_to session.delete(:return_to)
+            else
+              redirect_to dashboard_url(), notice: "Your Klu was successfully created!" 
+            end
+           end
           format.json { render json: @klu, status: :created, location: @klu }
       else
         flash.now[:error] = "An Error occured during save..."

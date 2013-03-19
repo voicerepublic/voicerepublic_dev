@@ -62,6 +62,10 @@ module KlusHelper
   def data_attributes_images_gallery(klu)
     klu.klu_images.map.each { |ki| "#{ki.image.url(:large)}" }.join(" ")
   end
+  
+  def data_attributes_image_description(klu)
+    klu.klu_images.map.each { |ki| "#{ki.description}" }.join("|")
+  end
 
   def tiny_klu(klu)
     klu.instance_of?(Kluuu) ? render(:partial => 'klus/tiny_kluuu', :locals => { :klu => klu}) : render(:partial => 'klus/tiny_no_kluuu', :locals => { :klu => klu})

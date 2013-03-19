@@ -23,13 +23,40 @@ class Comment < ActiveRecord::Base
         Notification::NewComment.create(:user => commentable.user, 
                                       :other => self.user, 
                                       :content => self.content,
-                                      :url => Rails.application.routes.url_helpers.user_status_update_path(:user_id => self.commentable.user, :id => self.commentable )
+                                      :url => Rails.application.routes.url_helpers.user_status_update_url(:user_id => self.commentable.user, :id => self.commentable )
                                       )
       end
       
     end
     if commentable.kind_of?(Venue)
+      # venue participants will receive a notification
+      self.commentable.attendies.each do |attendie|
+        unless self.user == attendie
+          Notification::NewComment.create(:user => attendie,
+                                      :other => self.user,
+                                      :content => self.content,
+                                      :url => Rails.application.routes.url_helpers.venue_url(:id => self.commentable.id)
+                                      )
+        end
+      end
     end
+    
+    if commentable.kind_of?(Klu)
+      self.commentable.bookmarks.map { |b| b.user }.each do |bookmarker|
+        Notification::NewComment.create(:user => bookmarker,
+                                      :other => self.user,
+                                      :content => self.content,
+                                      :url => Rails.application.routes.url_helpers.klu_url(:id => self.commentable.id)
+                                      )
+        
+      end
+      Notification::NewComment.create(:user => commentable.user,
+                                    :other => self.user,
+                                    :content => self.content,
+                                    :url => Rails.application.routes.url_helpers.klu_url(:id => self.commentable.id)
+                                    )
+    end
+    
   end
   
 end

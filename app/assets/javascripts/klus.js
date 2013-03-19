@@ -7,8 +7,9 @@
 		init: function() {
 			if ($('.large-klu:not(.klu-form) .kluuu-pics').length > 0) {
 				var urls = this.getImageURLs();
+				var descriptions = this.getImageDescription();
 				if (urls.length > 1) {
-					this.buildGallery(urls);
+					this.buildGallery(urls,descriptions);
 				}
 			}
 		},
@@ -16,8 +17,11 @@
 		getImageURLs: function() {
 			return $('.kluuu-pics').data('images-urls').split(' ');
 		},
+		getImageDescription: function() {
+		  return $('.kluuu-pics').data('images-desc').split('|');  
+		},
 
-		buildGallery: function(imagesURLs) {
+		buildGallery: function(imagesURLs, descriptions) {
 
 			var iPlusOne = function(array, i) {
 				if (i+1 < array.length) {
@@ -45,6 +49,7 @@
 				});
 				i = iPlusOne($eyeCatchers, i);
 				$($eyeCatchers[i]).animate({left: 0}, 'fast');
+				
 				return i;
 			};
 
@@ -56,21 +61,25 @@
 				});
 				i = iMinusOne($eyeCatchers, i);
 				$($eyeCatchers[i]).animate({left: 0}, 'fast');
+				
 				return i;
 			};
 
 			var i = 0;
 			var $kluuuPics = $('.kluuu-pics');
+			//var $kluuuDesc = $('.klu-image-caption');
 			$kluuuPics.wrap("<div id='gallery-container' />");
 			$kluuuPics.css('height', $kluuuPics.height());
 			var $kluuuPicsWidth = $kluuuPics.width();
 			$kluuuPics.addClass('jqueryfied');
 			var $galleryContainer = $('#gallery-container').css('position', 'relative').append('<a href="#" id="gallery-last"><i class="icon-circle-arrow-left"></i></a>').append('<a href="#" id="gallery-next"><i class="icon-circle-arrow-right"></i></a>');
 			var $kluEyecatcher = $('.klu-main .klu-eyecatcher').remove();
+			var $kluuuDesc = $('.klu-image-caption').remove();
 			var newLi, previous;
 			$.each(imagesURLs, function(i){
 				newLi = $kluEyecatcher.clone().appendTo($kluuuPics);
 				newLi.find('img').attr('src', imagesURLs[i]);
+				newLi.find('.klu-image-caption').html(descriptions[i])
 			});
 			var $eyeCatchers = $('.klu-main .klu-eyecatcher').css({
 				left: $kluuuPicsWidth
@@ -78,17 +87,18 @@
 
 			$($eyeCatchers[0]).css('left', 0);
 
-
 			$kluuuPics.on('click', function() {
 				i = nextPicture(i);
 			});
 			$('#gallery-next').on('click', function(e){
 				e.preventDefault();
 				i = nextPicture(i);
+				//console.log(descriptions[i])
 			});
 			$('#gallery-last').on('click', function(e){
 				e.preventDefault();
 				i = previousPicture(i);
+				//console.log(descriptions[i])
 			});
 		}
 	};

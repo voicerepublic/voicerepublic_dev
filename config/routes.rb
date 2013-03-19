@@ -1,4 +1,5 @@
 Kluuu2::Application.routes.draw do
+  
   mount Kblog::Engine => "/blog"
 
   scope "(/:locale)", :locale => /de|en/ do
