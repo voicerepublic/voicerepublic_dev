@@ -729,6 +729,7 @@ en:
       duration;: "Duration of your venue in minutes"
     group_chat:
       venue_chat: "Join the discussion!"
+      show_host_info_controlls: "toggle moderator-form"
       
   video_sessions:
     anonymous_sign_up:

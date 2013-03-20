@@ -29,7 +29,7 @@ describe "Venues" do
    it "will render the chat area with a specific field rendering host-info" do
      visit venue_path(:id => @venue)
      @venue.start_time.should eq(@time)
-     page.should have_css('div.host-info span.label-important')
+     page.should have_css('div.host-info')
    end
    
    it "will have a button for venue-host to broadcast new info" do

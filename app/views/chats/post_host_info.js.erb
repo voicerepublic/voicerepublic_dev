@@ -1,3 +1,5 @@
+<% prepend = @venue.host_kluuu.user.name %>
 <% publish_to @venue.channel_host_info do %>
-	$("#host-info-<%= @venue.id %>").fadeOut().html("<%= @content %>").fadeIn();
+	$(".host-info").fadeOut().html("<span class='label label-important'><%= prepend << ": " << @content %></span>").fadeIn("slow");
+	$(".collapse").collapse('hide');
 <% end %>
