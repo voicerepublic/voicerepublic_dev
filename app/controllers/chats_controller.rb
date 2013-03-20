@@ -72,6 +72,18 @@ class ChatsController < ApplicationController
       format.js 
     end
   end
+  
+  # method for venue-host to set
+  # chat-info
+  #
+  def post_host_info
+    @user = current_user
+    @venue = Venue.find(params[:id])
+    @content = params[:chat][:body]
+    respond_to do |format|
+      format.js
+    end
+  end
 
   # DELETE /chats/1
   # DELETE /chats/1.json

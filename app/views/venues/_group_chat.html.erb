@@ -1,3 +1,4 @@
+
 <div class="group-chat-instance" id="group-chat-<%= venue.id %>">
 	<div class="well well-large">
 		<header class="label label-chat"><%= t('.venue_chat', :title => venue.title ) %></header>
@@ -6,6 +7,17 @@
 			<!-- chat-messages to be here. renders chats/_single_chat_message.js.erb -->
 		</ul>
 	</div>
+	<div class="host-info">
+		<span class="label label-important" id="host-info-<%= venue.id %>"></span>
+	</div>
 	<%= render(:partial => 'chats/group_form', :locals => { :venue => venue }) %>
+	
+	<% if venue.host_kluuu.user == current_user %>
+	<div class="host-info-form">
+		<%= render(:partial => 'host_info_form', :locals => {:venue => venue}) %>
+	</div>
+	<% end %>
+	
 </div>
 <%= subscribe_to venue.channel_name %>
+<%= subscribe_to venue.channel_host_info %>

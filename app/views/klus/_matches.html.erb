@@ -4,6 +4,7 @@
       		<%= partial_for_klu(k, :tiny) %>
     	<% end %>
 	<% end %>
-<% rescue %>
+<% rescue Exception => e %>
 		<span class="label label-warning">running thinking sphinx is mandatory for matches to work...</span>
+		<%= debug(e) if Rails.env == 'development' %>
 <% end %>

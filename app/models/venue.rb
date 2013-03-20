@@ -59,6 +59,10 @@ class Venue < ActiveRecord::Base
     "/chatchannel/vgc-#{self.id}"
   end
   
+  def channel_host_info
+    "/chatchannel/host-info/vgc-#{self.id}"
+  end
+  
   def self.upcoming
     Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
   end

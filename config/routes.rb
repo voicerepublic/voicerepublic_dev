@@ -24,6 +24,7 @@ Kluuu2::Application.routes.draw do
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
     get "tags/:tag", :controller => 'search', :action => 'tagged_with', :as => 'tagged_with'
     post "chats/venue/:id", :controller => 'chats', :action => 'post_group_chat', :as => 'group_chat'
+    post "chats/venue/:id/info", :controller => 'chats', :action => 'post_host_info', :as => 'group_chat_info'
     post "chats/:one/:two", :controller => 'chats', :action => 'create', :as => 'post_chat'
     get "chats/:user_id/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
     delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
