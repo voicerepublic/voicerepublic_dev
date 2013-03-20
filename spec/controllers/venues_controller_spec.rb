@@ -126,12 +126,12 @@ describe VenuesController do
        response.should render_template("new")
      end
      
-     it "raises authorization error when person without venue_host-role tries to create a venue" do
-       k = FactoryGirl.create(:published_kluuu)
-       expect {
-         post :create, { :venue => FactoryGirl.attributes_for(:venue, :host_kluuu_id => k.id)}, valid_session
-       }.to raise_error(CanCan::AccessDenied)
-     end
+     #it "raises authorization error when person without venue_host-role tries to create a venue" do
+     #  k = FactoryGirl.create(:published_kluuu)
+     #  expect {
+     #    post :create, { :venue => FactoryGirl.attributes_for(:venue, :host_kluuu_id => k.id)}, valid_session
+     #  }.to raise_error(CanCan::AccessDenied)
+     #end
    end
  end
 #

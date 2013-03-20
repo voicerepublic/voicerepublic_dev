@@ -4,20 +4,19 @@
 
 <h2><%= t('.venues') %></h2>
 
-
-		  <%= link_to( new_venue_path, :class => 'btn btn-small btn-primary' ) do %>
-				<%= t('venues.new_venue') %>
-			<% end if current_user.has_role?('venue_host') %>
+<%= link_to( new_venue_path, :class => 'btn btn-small btn-primary' ) do %>
+	<%= t('venues.new_venue') %>
+<% end if can? :create, Venue %>
 
 <section class="venue-list row-fluid clearfix">
 
 	<div class="span9">
 		<div class="clearfix">
-<!-- 			<%# if params[:upcoming] %>
-				<%#= link_to( t('.show_all_venues'), venues_path(), :class => "btn btn-small pull-left") %>
-			<%# else %>
-				<%#= link_to( t('.show_only_upcoming_venues'), venues_path(:upcoming => 1), :class => "btn btn-small pull-left") %>
-			<%# end %> -->
+		<% if params[:upcoming] %>
+			<%= link_to( t('.show_all_venues'), venues_path(), :class => "btn btn-small pull-left") %>
+		<% else %>
+			<%= link_to( t('.show_only_upcoming_venues'), venues_path(:upcoming => 1), :class => "btn btn-small pull-left") %>
+		<% end %> 
 		</div>
 		<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue ) %>
 		<%= will_paginate @venues, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
