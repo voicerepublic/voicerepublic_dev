@@ -1,0 +1,3 @@
+<% publish_to @venue.channel_host_info do %>
+	$("#host-info-<%= @venue.id %>").fadeOut().html("<%= @content %>").fadeIn();
+<% end %>
