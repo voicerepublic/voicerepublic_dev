@@ -749,6 +749,7 @@ de:
       
     group_chat:
       venue_chat: "Steige in die Diskussion ein"
+      show_host_info_controlls: "ein/ausblenden Moderator-Formular"
       
   video_sessions:
     anonymous_sign_up:
