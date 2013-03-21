@@ -11,7 +11,6 @@
    
   .kluuu-lead {
     min-width: 450px;
-    padding: 20px;
     border-radius: 5px;
     margin: auto; 
     .btn {
@@ -22,17 +21,24 @@
   .venue-top {
     padding-left: 0;
   }
+  .venue-title, .lp-klus-title{
+  	margin-left:22px;
+  }
   
   .lp-venue {
-    .venue-big {
-      margin-top: 25px;
-    }
+  	h2{
+  		margin-right:10px;
+  	}
+  	.lp-learn-more{
+  		float:right;
+  		margin-top: 13px
+  	}
   }
   
   .news-top {
-    margin-top: 40px;
+    margin-top: 44px;
     padding-right: 10px;
-    padding-left: 0;
+    min-height: 210px
   }
  	
   .medium-klu {
@@ -45,8 +51,10 @@
  }
 
 body{
-	background:url(/assets/people.jpg) no-repeat;
-	background-size: contain;
+	/*background:url(/assets/people.jpg) no-repeat;*/
+	/*background-size: contain;*/
+	/*background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.2)) repeat scroll 0 0 transparent;*/
+
 }
 
 body .container .well {
@@ -69,10 +77,10 @@ body .container .well {
 }
 
  h2.landing-page-claim{
- 		font-size:@baseFontSize * 3.4;
+ 		font-size:@baseFontSize * 4;
  		color: @brandKluuu;
  		font-weight: bold;
- 		margin:0;
+ 		margin:0 0 20px 0;
  }
 
  .landing-page-claim-bg{ }
@@ -120,7 +128,37 @@ input.landing-page-query{
 			left:0;
 			height:120px;
 			width: 100%;
-			background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0 0 transparent;
+			/*background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0 0 transparent;*/
+		}
+	}
+	.landing-page-illu{
+		border:3px solid #ccc;
+		border-radius: 10px;
+		padding:17px 60px 10px 60px;
+		max-width: 746px;
+		margin: auto;
+		margin-bottom: 30px;
+		li{
+			margin-right:60px;
+			list-style-type: none;
+			float:left;
+			h2{
+				margin:41px 0 0px 0;
+				line-height:28px;
+			}
+			.landing-page-illu-subtitle{
+				font-style: italic;
+				font-size: 16px
+			}
+		}
+		li:first-child{
+			margin-top:1px;
+			h2{
+				margin-top:21px;
+			}
+		}
+		li:last-child{
+			margin-right:0;
 		}
 	}
 }
@@ -158,41 +196,45 @@ input.landing-page-query{
 	.set-rows(2);
 }
 
-.lp-news{
-	ul{
-		height:200px;
-		overflow-y:auto;
-		margin:0;
-	}
-
-	h2{
-		margin-left:0
-	}
-	li{
-		margin:2px 0 18px 0;
-	}
-	.lp-news-date{
-		color:#932945;
-		font-size: 11px;
-		line-height: 15px
-	}
-	p{
-		margin:0px 0px 0px 0;
-		line-height: 18px
-	}
-}
-
 .kblog {
+	font-family: inherit;
+	border:3px solid #ccc;
+	border-radius: 8px;
+	padding:20px 15px;
+	hr{
+		margin: 0 0 15px 0 !important
+	}
   .kblog-article {
-    
+  	margin-top: 0;
+  	padding:0;
+		h2{
+			margin-left:0;
+			font-size: 17px;
+			font-weight: bold;
+			line-height: 19px;
+			margin-bottom: 2px;
+		}
+		.kblog-created{
+			color:#932945;
+			font-size: 11px;
+			line-height: 15px;
+			text-align: left;
+			float: none;
+		}
+		.kblog-content{
+			text-indent: 0;
+			p{
+				margin:0;
+				line-height: 18px
+			}
+		}
+		box-shadow: none
   }
-  .news-header { 
-    margin-top: -40px;
+  .news-header {
     margin-left: 0px;
     display:block;
-    background-color: @brandKluuu;
-    border-radius:8px;
-    color: white;
-    padding: 2px 4px 2px 20px;
+		line-height: 22px;
+		margin-bottom: 10px
+		/*font-weight: bold;    */
   }
 }

@@ -505,8 +505,13 @@ de:
       create_a_new_kluuu: "Erstelle dein KluuU"
   
   landing_page:
-    news: "Aktuelles"
+    news: "News"
     index:
+      headline: "Action Blogging"
+      illu_1: "Dein Blog..."
+      illu_2: "mit Treffpunkt..."
+      illu_2_subtitle: "(Chatraum)"
+      illu_3: "und 1:1 Video"
       enter_search_term: "Suchbegriff eingeben"
       
   messages:

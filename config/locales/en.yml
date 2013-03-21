@@ -504,6 +504,11 @@ en:
   landing_page:
     news: "News"
     index:
+      headline: "Action Blogging"
+      illu_1: "Your Blog..."
+      illu_2: "with Venue..."
+      illu_2_subtitle: "(Chatroom)"
+      illu_3: "and 1:1 Video"
       enter_search_term: "Enter search term"
       
   messages:

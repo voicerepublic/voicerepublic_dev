@@ -13,12 +13,20 @@
 				<%= link_to root_path, :title => "Home" , :class => "brand" do %>
 				<h1><%= image_tag "logo.png", :alt => "KluuU" %></h1>
 				<% end %>
-				<span class="logo-claim">Video Chat</span>
+				<!-- <span class="logo-claim">Video Chat</span> -->
 			</div>
 			<div class="container-fluid nav-collapse">
 				<ul class="nav">
 				</ul>
 				<ul class="nav pull-right">
+						<li class="navbar-search form-search">
+							<%= form_tag "/search", :method => 'get', :class => 'navbar-search form-search' do %>
+								<%= search_field_tag 'query', nil, :class => "search-query navbar-search-query" %>
+								<%= button_tag :type => "submit", :class => "navbar-submit-button" do %>
+									<i class="icon-search"></i>
+								<% end %>
+							<% end %>
+					 	</li>					
 					<li>
 						<%= link_to(new_user_registration_path, :class => "first-landing-signup nav-left-border", :id => "sign-up") do %>
 						<%= t('.sign_up', :default => 'Sign Up') %><i class="icon-share-alt"></i>

@@ -10,13 +10,14 @@
 			<div class="controls">
 
 				<div class="fileupload fileupload-new" data-provides="fileupload">
-					<div class="fileupload-new thumbnail" style="width: 100%;">
+					<div class="fileupload-new thumbnail">
 						
 						<% if @user.account.portrait.exists? %>
 							<%= image_tag @user.account.portrait.url(:large) %>
 						<% else %>
 							<img src="/system/large/missing.jpg" />
 						<% end %>
+						
 					</div>
 						
 					<div class="fileupload-preview fileupload-exists thumbnail" style="width: 100%;line-height: 20px;"></div>
