@@ -505,6 +505,7 @@ en:
     news: "News"
     index:
       headline: "Action Blogging"
+      is: "is..."
       illu_1: "Your Blog..."
       illu_2: "with Venue..."
       illu_2_subtitle: "(Chatroom)"
@@ -688,6 +689,7 @@ en:
       comments: "Comments"
       renew: "New date"
       what_is_a_venue: "Tell me about venues"
+      leave_venue_popup: "This link opens a new tab!"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"

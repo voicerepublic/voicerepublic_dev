@@ -508,6 +508,7 @@ de:
     news: "News"
     index:
       headline: "Action Blogging"
+      is: "ist..."
       illu_1: "Dein Blog..."
       illu_2: "mit Treffpunkt..."
       illu_2_subtitle: "(Chatraum)"
@@ -702,6 +703,7 @@ de:
       comments: "Kommentare"
       renew: "Neues Datum"
       what_is_a_venue: "Was ist ein Treffpunkt?"
+      leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     new:
       create_new_venue: "Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"

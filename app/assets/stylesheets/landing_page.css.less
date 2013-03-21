@@ -80,10 +80,14 @@ body .container .well {
  		font-size:@baseFontSize * 4;
  		color: @brandKluuu;
  		font-weight: bold;
- 		margin:0 0 20px 0;
+ 		margin:0 11px 0px 0px;
+ 		display: inline-block;
  }
 
- .landing-page-claim-bg{ }
+ .lp-claim-is{
+ 	font-size: 22px;
+ 	font-weight: bold;
+ }
 
 .landing-page-search {
 	width:300px;
@@ -132,33 +136,47 @@ input.landing-page-query{
 		}
 	}
 	.landing-page-illu{
-		border:3px solid #ccc;
-		border-radius: 10px;
-		padding:17px 60px 10px 60px;
-		max-width: 746px;
+		padding:0px 5% 10px 5%;
 		margin: auto;
+		margin-top: 0;
 		margin-bottom: 30px;
+		text-align: center;
+		a{
+			color:@black;
+		}
+		ul{
+			display: inline-block;
+			border:3px solid #ccc;
+			border-radius: 10px;
+			width:100%;
+			max-width:700px;
+			padding:25px 0px 20px 0;
+			@media (max-width: 800px) {
+				li{
+					h2{
+						font-size: 20px
+					}
+				}
+			}		
+		}
 		li{
-			margin-right:60px;
+			margin:0 1.5% 0 1.5%;
 			list-style-type: none;
+			display: block;
 			float:left;
+			/*height:190px;*/
+			width:30%;
+			img{
+				/*width:100%*/
+			}
 			h2{
-				margin:41px 0 0px 0;
+				margin:21px 0 0px 0;
 				line-height:28px;
 			}
 			.landing-page-illu-subtitle{
 				font-style: italic;
 				font-size: 16px
 			}
-		}
-		li:first-child{
-			margin-top:1px;
-			h2{
-				margin-top:21px;
-			}
-		}
-		li:last-child{
-			margin-right:0;
 		}
 	}
 }

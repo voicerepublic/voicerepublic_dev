@@ -1,22 +1,30 @@
 <div class="landing-page">
 
 	<!-- landing-page-top-row -->
- 	<div class="text-align-center kluuu-lead page-header">
+ 	<div class="text-align-center kluuu-lead">
 		<h2 class="text-align-center landing-page-claim">
 				<%= t('.headline') %>
 		</h2>
+		<span class="lp-claim-is">
+			<%= t('.is') %>
+		</span>
+		
 		<div class="landing-page-illu clearfix">
 			<ul>
 				<li>
-					<%= image_tag "landing-page-illu-1.png" %>
-					<h2><%= t('.illu_1') %></h2>
+					<%= link_to "/" + I18n.locale.to_s + "/search" do %>
+						<%= image_tag "landing-page-illu-1.png" %>
+						<h2><%= t('.illu_1') %></h2>
+					<% end %>
 				</li>
 				<li>
-					<%= image_tag "landing-page-illu-2.png" %>
-					<h2><%= t('.illu_2') %></h2>
-					<span class="landing-page-illu-subtitle">
-						<%= t('.illu_2_subtitle') %>
-					</span>
+					<%= link_to venues_path do %>
+						<%= image_tag "landing-page-illu-2.png" %>
+						<h2><%= t('.illu_2') %></h2>
+						<span class="landing-page-illu-subtitle">
+							<%= t('.illu_2_subtitle') %>
+						</span>
+					<% end %>
 				</li>
 				<li>
 					<%= image_tag "landing-page-illu-3.png" %>
