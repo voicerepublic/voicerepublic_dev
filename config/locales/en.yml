@@ -623,11 +623,11 @@ en:
       edit_your_email: "Change email address"
       save_email: "Save email address"
     nested_form:
-      delete_portrait: "Delete photo"
+      delete_portrait: "Delete image"
       add_a_portrait: "Upload a profile photo"
-      select: "Select"
-      change: "Ändern"
-      remove: "Remove"
+      select: "Upload new image"
+      change: "Upload new image"
+      remove: "Delete image"
     no_status_updates:
       no_status_updates_of_you: "You have not posted a status."
       what_you_say: "What's on your mind?"

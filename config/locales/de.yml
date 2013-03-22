@@ -628,11 +628,11 @@ de:
       edit_your_email: "Hier kannst Du die E-Mail Adresse ändern, mit der Du bei KluuU registriert bist."
       save_email: "E-Mail Adresse speichern"  
     nested_form:
-      delete_portrait: "Foto löschen"
+      delete_portrait: "Löschen"
       add_a_portrait: "Füge hier ein Portrait Foto ein."
       select: "Bild auswählen"
-      change: "Ändern"
-      remove: "Löschen"
+      change: "Bild auswählen"
+      remove: "Bild Löschen"
     no_status_updates:
       no_status_updates_of_you: "Veröffentliche jetzt einen Status!"
       what_you_say: "Was Du hier veröffentlichst, sehen Deine Besucher und Followers."

@@ -27,8 +27,11 @@
 							<span class="fileupload-exists"><%= t('.change') %></span>
 							<%= account_fields.file_field :portrait %>
 						</span>
-						<a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><%= t('.remove') %></a>
-					
+						<% if @user.account.portrait.exists? %>
+							<%= link_to destroy_portrait_user_account_url(:user_id => @user), :class => "btn", :method => :delete do %>
+								<%= t('.delete_portrait')%>
+							<% end %>
+						<% end %>
 					</div>
 				</div>
 
