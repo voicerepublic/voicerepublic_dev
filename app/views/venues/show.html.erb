@@ -25,7 +25,11 @@
 			<% end %>
 
 		</div>
-		<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user) %>
+		<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? & @venue.attendies.include?(current_user) %>
+			<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user), :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" %>
+		<% else %>
+			<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user) %>
+		<% end %>
 		<br>
 		<h2><%= @venue.title %></h2>
 	</div>
@@ -47,17 +51,16 @@
 			<div class="well well-large venue-box row-fluid clearfix">
 				<div class="span12 clearfix">
 					<% if @venue.host_kluuu.user != current_user %>
-					<% if @venue.user_participates?(current_user) %>
-					<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
-					:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-danger btn-small") %>
-					<% else %>
-					<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue btn-small" do %>
-					<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+						<% if @venue.user_participates?(current_user) %>
+
+						<% else %>
+							<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue btn-small" do %>
+								<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+							<% end %>
+							<br><br>
+						<% end %>
 					<% end %>
-					<% end %>
-					<% end %>
-					<br>
-					<br>
+
 					<div class="row-fluid">
 						<div class="span6">
 							<%= simple_format @venue.description %>
@@ -70,7 +73,13 @@
 			</div>
 			<%# ACTIONS %>
 			<div class="actions-bar">
-				<%#= link_to t('.back', :default => t("helpers.links.back")), venues_path, :class => 'btn btn-small'  %>
+				<% if @venue.host_kluuu.user != current_user %>
+					<% if @venue.user_participates?(current_user) %>
+						<%= link_to( t('.unjoin_venue'), venue_unjoin_path(:venue_id => @venue.id), :method => :delete,
+						:data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-small") %>
+					<% end %>
+				<% end %>
+
 				<% if can? :manage, @venue %>
 				<%= link_to t('.edit', :default => t("helpers.links.edit")), edit_venue_path(@venue), :class => 'btn btn-small' %>
 				<%= link_to t('.destroy', :default => t("helpers.links.destroy")),venue_path(@venue), :method => 'delete',
@@ -80,22 +89,12 @@
 			</div>
 		</article>
 
+		<%# CHAT %>
 		<section class="group-chat span6">
 
-			<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out?  %>
-				<% if @venue.attendies.include?(current_user) %>
+			<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? & @venue.attendies.include?(current_user)  %>
 					<%= render(:partial => 'venues/group_chat', :locals => { :venue => @venue })%>
-				<% else %>
-					<aside class="venue-desc">
-						<div class="clearfix">
-							<h3 class="pull-left"><%= t('.what_is_a_venue') %></h3>
-							<%= link_to t('.see_other_venues'), venues_path, :class => "btn btn-small pull-right" %>
-						</div>
-						<div class="venue-desc-content">
-							<%= render(:partial => 'venues/txt/venue_desc') %>
-						</div>
-					</aside>
-				<% end %>
+
 			<% else %>
 			<aside class="venue-desc">
 				<div class="clearfix">
@@ -135,10 +134,15 @@
 						<div class="tiny-klu-call-overlay">
 							<%= render(:partial => 'klus/tiny_klu_overlay', :locals => { :klu => klu }) %>
 						</div>
-						<%= link_to(klu_path(klu)) do %>
-						<%= partial_for_klu(klu, :tiny) %>
+						<% if ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? %>
+							<%= link_to klu_path(klu), :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do %>
+								<%= partial_for_klu(klu, :tiny) %>
+							<% end %>
+						<% else %>
+							<%= link_to klu_path(klu) do %>
+								<%= partial_for_klu(klu, :tiny) %>
+							<% end %>
 						<% end %>
-
 					</div>
 
 					<% end %>

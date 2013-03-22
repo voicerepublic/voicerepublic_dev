@@ -14,5 +14,20 @@
         $chatBody.val('');
       }
     });
+
+    //Disable KluuU Links
+    var disableKluLinks = {};
+    disableKluLinks = function() {
+      if ($('.label-chat').text().length > 0){
+        $('.medium-klu a').css('cursor','default');
+        $('.medium-klu a').click(function(e){
+          e.preventDefault();
+        });
+        
+      }
+    };
+
+    disableKluLinks();
+
 })(jQuery);
   

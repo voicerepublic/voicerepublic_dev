@@ -490,6 +490,8 @@ de:
     no_kluuu:
       this_no_kluuu_is_bookmarked: "Mit Lesezeichen versehen von:"
       people_who_know_about: "→ Treffer zur Frage:"
+    tiny_klu_overlay:
+      leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     user_about:
       user_description: "Über mich"
     user_status:
