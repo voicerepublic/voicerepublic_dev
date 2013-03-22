@@ -34,17 +34,19 @@
 		<h2><%= @venue.title %></h2>
 	</div>
 
-	<aside class="venue-new-date">
+	<% if can? :manage, @venue %>
+		<aside class="venue-new-date">
 
-<!-- 		<%# if @venue.timed_out? %>
-		<span class="label label-info"><%#= t('.past_venue')%></span>
-		<%# end %> -->
-		<% if @venue.past? %>
-			<%= link_to  edit_venue_path(@venue, :renew => 1), :class => 'btn btn-large btn-warning', :remote => true do %>
-				<i class="icon-calendar"></i> <%=t('.renew')%>
+	<!-- 		<%# if @venue.timed_out? %>
+			<span class="label label-info"><%#= t('.past_venue')%></span>
+			<%# end %> -->
+			<% if @venue.past? %>
+				<%= link_to  edit_venue_path(@venue, :renew => 1), :class => 'btn btn-large btn-warning', :remote => true do %>
+					<i class="icon-calendar"></i> <%=t('.renew')%>
+				<% end %>
 			<% end %>
-		<% end %>
-	</aside>
+		</aside>
+	<% end %>
 
 	<div class="venue-page row-fluid clearfix">
 		<article class="span6 clearfix">
