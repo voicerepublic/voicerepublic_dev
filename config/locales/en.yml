@@ -506,7 +506,7 @@ en:
   landing_page:
     news: "News"
     index:
-      headline: "Action Blogging"
+      headline: "LET'S TALK"
       is: "is..."
       illu_1: "Your Blog..."
       illu_2: "with Venue..."
@@ -625,9 +625,9 @@ en:
     nested_form:
       delete_portrait: "Delete image"
       add_a_portrait: "Upload a profile photo"
-      select: "Upload new image"
-      change: "Upload new image"
-      remove: "Delete image"
+      select: "Upload"
+      change: "Upload"
+      remove: "Delete"
     no_status_updates:
       no_status_updates_of_you: "You have not posted a status."
       what_you_say: "What's on your mind?"

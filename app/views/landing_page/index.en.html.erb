@@ -2,48 +2,27 @@
 
 	<!-- landing-page-top-row -->
  	<div class="text-align-center kluuu-lead">
+
 		<h2 class="text-align-center landing-page-claim">
 				<%= t('.headline') %>
 		</h2>
-		<span class="lp-claim-is">
-			<%= t('.is') %>
-		</span>
 		
 		<div class="landing-page-illu clearfix">
-			<ul>
-				<li>
-					<%= link_to "/" + I18n.locale.to_s + "/search" do %>
-						<%= image_tag "landing-page-illu-1.png" %>
-						<h2><%= t('.illu_1') %></h2>
-					<% end %>
-				</li>
-				<li>
-					<%= link_to venues_path do %>
-						<%= image_tag "landing-page-illu-2.png" %>
-						<h2><%= t('.illu_2') %></h2>
-						<span class="landing-page-illu-subtitle">
-							<%= t('.illu_2_subtitle') %>
-						</span>
-					<% end %>
-				</li>
-				<li>
-					<%= image_tag "landing-page-illu-3.png" %>
-					<h2><%= t('.illu_3') %></h2>
-				</li>
-			</ul>
-<!-- 		<div class="landing-page-search text-align-center">	
+
+			<div class="lead">
+				Discuss, consult, teach, help...
+			</div>
+			<div class="landing-page-search text-align-center">	
 				<h2>I'd like to talk about</h2>
-				<%#= form_tag "/search", :method => 'get', :class => 'form-search' do %>
+				<%= form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'form-search' do %>
 					<div class="input-append">
-					<%#= search_field_tag 'landing_page_query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span2" %>
-						<%#= button_tag :type => 'submit', :class => "btn" do %>
+					<%= search_field_tag 'landing_page_query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span2" %>
+						<%= button_tag :type => 'submit', :class => "btn" do %>
 							<i class="icon-search"> </i>						
-						<%# end %>
+						<% end %>
 					</div>
-				<%# end %>			
-		</div> -->
-		<!-- <div class="landing-page-bottom-background">
-		</div> -->
+				<% end %>			
+			</div>
 		</div>
 	</div>
 	
