@@ -1,59 +1,46 @@
 <div class="landing-page">
 
 	<!-- landing-page-top-row -->
- 	<div class="text-align-center kluuu-lead">
-		
-		<h2 class="text-align-center landing-page-claim">
-				<%= t('.headline') %>
-		</h2>
-		
+	<div class="text-align-center kluuu-lead">
+
+		<h2 class="text-align-center landing-page-claim"> <%= t('.headline') %> </h2>
+
 		<div class="landing-page-illu clearfix">
 
 			<div class="lead">
 				Erzähle, diskutiere, berate, unterrichte, helfe…
 			</div>
-			<div class="landing-page-search text-align-center">	
+			<div class="landing-page-search text-align-center">
 				<h2>Was interessiert Dich?</h2>
 				<%= form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'form-search' do %>
-					<div class="input-append">
+				<div class="input-append">
 					<%= search_field_tag 'landing_page_query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span2" %>
-						<%= button_tag :type => 'submit', :class => "btn" do %>
-							<i class="icon-search"> </i>						
-						<% end %>
-					</div>
+					<%= button_tag :type => 'submit', :class => "btn" do %>
+					<i class="icon-search"> </i>
+					<% end %>
+				</div>
 				<% end %>
 			</div>
 		</div>
 	</div>
-	
-	<% if Venue.upcoming %>
-  		<div class="row-fluid venue-top">	
-      		<% news_shown = true %>
-      		<section class="landing-page-venue venue-top span8">
-  	     		<%= render(:partial => 'venues/landing_page_venue') %>
-      		</section>
-      		<section class="kblog news-top span4">
-      			<h2 class="news-header"><%= t('landing_page.news')%></h2>
-      			<hr>
-        		<%= display_latest_articles(1, 250) %>
-      		</section>
-  		</div>
-   <% end %>
-  
-  <div class="row-fluid landing-page-color2 lp-kluuus">
-    <div class="span12  clearfix">
-     
-		<% unless news_shown %>
-      		<section class="medium-klu kblog">
-      			<h2 class="news-header"><%= t('landing_page.news')%></h2>
-        		<%= display_latest_articles(1, 400) %>
-      		</section>
-		<% end %>
-		
-		<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
-	 </div>
-    
-  </div>
+
+	<%= partial_for_venue_and_news() %>
+
+	<div class="row-fluid landing-page-color2 lp-kluuus">
+		<div class="span12  clearfix">
+			<% if Kblog::Article.first &&! @news_shown %>
+				<section class="medium-klu kblog">
+					<h2 class="news-header"><%= t('landing_page.news')%></h2>
+					<%= display_latest_articles(1, 400) %>
+				</section>
+			<% end %>
+			<%= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu') %>
+			
+		</div>
+		<div class="span12 clearfix">
+			<%= will_paginate @kluuus, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
+		</div>
+	</div>
 
 	<div class="row-fluid lp-trends-people">
 		<div class="span6">
@@ -66,14 +53,14 @@
 			<div class="well well-large clearfix">
 				<h2>People</h2>
 				<ul class="unstyled">
-				<% User.potentially_available.limit(5).order("created_at DESC").each do |user| %>
+					<% User.potentially_available.limit(5).order("created_at DESC").each do |user| %>
 					<li class="user-small">
 						<%= render(:partial => "users/user_small", :locals => {:user => user}) %>
 					</li>
-				<% end %>
+					<% end %>
 				</ul>
 			</div>
-		</div>	
+		</div>
 
 	</div>
 

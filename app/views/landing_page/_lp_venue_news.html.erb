@@ -1,0 +1,11 @@
+<div class="row-fluid venue-top">
+	<% @news_shown = true %>
+	<section class="landing-page-venue venue-top span8">
+		<%= render(:partial => 'venues/landing_page_venue') %>
+	</section>
+	<section class="kblog news-top span4">
+		<h2 class="news-header"><%= t('landing_page.news')%></h2>
+		<hr>
+		<%= display_latest_articles(1, 250) %>
+	</section>
+</div>
