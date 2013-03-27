@@ -343,10 +343,10 @@ de:
       text_chat: "Text-Chat"
   comments:
     klu_form:
-      write_a_comment: "Schreib einen Kommentar zu diesem KluuU"
+      write_a_comment: "Veröffentliche Neuigkeiten zu diesem KluuU."
     form:
       your_comment: "Kommentar"
-      write_a_comment: "Bitte schreibe einen Kommentar."
+      write_a_comment: "Veröffentliche Neuigkeiten zu diesem KluuU."
       save: "Senden"
   conversations:
     index:
@@ -413,7 +413,7 @@ de:
     
   klus:
     comment_section:
-      comments: "Kommentare"
+      comments: "Neuigkeiten"
     facebook_value_template:
       talk_on_kluuu_about: "Sprich mit %{name} über '%{subject}'"
     form_welcome_new_no_kluuu:

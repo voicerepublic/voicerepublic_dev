@@ -343,11 +343,11 @@ en:
       text_chat: "Chat"
   comments:
     form:
-      your_comment: "Comment"
-      write_a_comment: "Write a comment"
+      your_comment: "News"
+      write_a_comment: "Post news to this KluuU."
       save: "Post"
     klu_form:
-      write_a_comment: "write a comment on this KluuU"
+      write_a_comment: "Post news to this KluuU."
   conversations:
     index:
       conversations: "Conversation"
