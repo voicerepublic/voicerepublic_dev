@@ -1,3 +1,4 @@
+require 'split'
 require 'split/dashboard'
 
 #Split.configure do |config|
