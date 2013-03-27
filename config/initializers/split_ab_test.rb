@@ -1,3 +1,5 @@
+require 'split/dashboard'
+
 #Split.configure do |config|
 #  config.experiments = YAML.load_file "config/experiments.yml"
 #end
