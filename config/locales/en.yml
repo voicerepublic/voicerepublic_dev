@@ -347,7 +347,9 @@ en:
       write_a_comment: "Post news to this KluuU."
       save: "Post"
     klu_form:
-      write_a_comment: "Post news to this KluuU."
+      write_a_comment: "write a comment on this KluuU"
+      write_addition_1: "comment on this KluuU"
+      write_addition_2: "add content to this blog"
   conversations:
     index:
       conversations: "Conversation"
@@ -410,7 +412,9 @@ en:
     
   klus:
     comment_section:
-      comments: "Comments"
+      headline_1: "Comments"
+      headline_2: "Blog for %{name}"
+      
     facebook_value_template:
       talk_on_kluuu_about: "Talk with %{name} about '%{subject}'"
     form_welcome_new_no_kluuu:

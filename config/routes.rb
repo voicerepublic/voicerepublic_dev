@@ -1,6 +1,9 @@
+require 'split/dashboard'
+
 Kluuu2::Application.routes.draw do
   
   mount Kblog::Engine => "/blog"
+  mount Split::Dashboard => "/split" 
 
   scope "(/:locale)", :locale => /de|en/ do
     get "txt/agb"

@@ -1,0 +1,17 @@
+<section class="klu-comments row-fluid">
+	<h5><a id="comments" name="comments">
+		<%=  t('klus.comment_section.headline_1', name: klu.title) %>
+		</a></h5>
+
+	<%= render(:partial => 'klu_comments', :collection => @comments, :as => :comment ) %>
+	
+	<div class="controls">
+		<%= will_paginate(@comments, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered", :params => { :anchor => "comments" }) %>
+	</div>
+
+	<aside class="newcomment clearfix">
+		<% if current_user %>
+		<%= render(:partial => 'comments/klu_form', :locals => {:commentable => klu, :cmd => t('comments.klu_form.write_addition_1') })%>
+		<% end %>
+	</aside>
+</section>

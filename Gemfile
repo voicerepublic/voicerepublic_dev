@@ -38,7 +38,10 @@ gem 'thinking-sphinx','2.0.13'         # indexed search
 gem "dynamic_form"            # form helper for errors
 gem 'exception_notification'  # deliver emails if exception occures
 gem 'whenever', :require => false   # create cron-jobs 
-gem 'kblog', '0.0.4'
+gem 'kblog', '0.0.4'          # blog-engine
+gem 'split'                   # A/B-Testing    
+#gem 'SystemTimer'            # A/B-Testing for ruby-1.8
+
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do

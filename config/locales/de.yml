@@ -343,7 +343,9 @@ de:
       text_chat: "Text-Chat"
   comments:
     klu_form:
-      write_a_comment: "Veröffentliche Neuigkeiten zu diesem KluuU."
+      write_a_comment: "Schreib einen Kommentar zu diesem KluuU"
+      write_addition_1: "Schreib einen Kommentar zu diesem KluuU"
+      write_addition_2: "Ergänze dieses Blog"
     form:
       your_comment: "Kommentar"
       write_a_comment: "Veröffentliche Neuigkeiten zu diesem KluuU."
@@ -413,7 +415,13 @@ de:
     
   klus:
     comment_section:
+<<<<<<< HEAD
       comments: "Neuigkeiten"
+=======
+      headline_1: "Kommentare"
+      headline_2: "Das Blog zum KluuU %{name}"
+      
+>>>>>>> 7016255543287ad69f1c878d883e13c1a5b31342
     facebook_value_template:
       talk_on_kluuu_about: "Sprich mit %{name} über '%{subject}'"
     form_welcome_new_no_kluuu:
