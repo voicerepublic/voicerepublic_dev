@@ -415,13 +415,8 @@ de:
     
   klus:
     comment_section:
-<<<<<<< HEAD
-      comments: "Neuigkeiten"
-=======
       headline_1: "Kommentare"
       headline_2: "Das Blog zum KluuU %{name}"
-      
->>>>>>> 7016255543287ad69f1c878d883e13c1a5b31342
     facebook_value_template:
       talk_on_kluuu_about: "Sprich mit %{name} über '%{subject}'"
     form_welcome_new_no_kluuu:
