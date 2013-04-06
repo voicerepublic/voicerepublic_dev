@@ -29,21 +29,29 @@
 							<li>
 								<%= link_to "admin", admin_dashboard_index_path %>
 							</li>
-						<% end %>				
-					<li class="hidden-tablet">
-						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu") do %>
-							<span class="label label-kluuu">
+					<% end %>
+					<li class="hidden-tablet navbar-button">
+						<span>
+						<%= link_to venues_path, :class => "btn btn-small btn-venue" do %>
+							<%= t('.see_other_venues') %>
+							<%#= image_tag "coffee_icon_white.png" %>
+						<% end %>
+						</span>
+					</li>
+					<li class="hidden-tablet navbar-button">
+						<span>
+						<%= link_to new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :class => "btn btn-small btn-newklu" do %>
 								<%= t(".create_kluuu") %>
-							</span>
 						<% end %>
+						</span>
 					</li>
-					<li class="hidden-tablet">
-						<%= link_to new_user_klu_path( :user_id => current_user) do %>							
+<!-- 					<li class="hidden-tablet">
+						<%#= link_to new_user_klu_path( :user_id => current_user) do %>							
 							<span class="label label-question">
-								<%= t(".create_question") %>
+								<%#= t(".create_question") %>
 							</span>
-						<% end %>
-					</li>
+						<%# end %>
+					</li> -->
 				</ul>
 				<ul class="nav pull-right">
 

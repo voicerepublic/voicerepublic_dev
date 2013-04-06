@@ -109,6 +109,20 @@
     vertical-align: middle;
   }
 
+  .nav > li{
+  	&.navbar-button{
+  		border-right:1px solid rgba(0,0,0,0.2);
+  		a{
+  			display: block;
+  			margin: 8px 14px 8px 14px;
+  			img{
+  				width: 20px;
+  				margin-left: 5px
+  			}
+  		}
+  	}
+  }
+
 	.nav > li > a {
 		padding: 0px 14px 0px 14px;
 		position: relative;
@@ -128,7 +142,7 @@
 		&:focus {
 			background:rgba(0,0,0,0.02);
 			color:#333 !important;
-		}	
+		}
 	}
 	
 	.nav > .active > a, .nav > .active > a:hover, .nav > .active > a:focus {

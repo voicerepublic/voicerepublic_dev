@@ -23,9 +23,9 @@ body.layout-logged-out{
   }
 }
 
-.dropdown-menu {
+/*.dropdown-menu {
   background: @brandColorLighter;
-}
+}*/
 
 .centered-box{
   max-width:500px;
@@ -463,4 +463,39 @@ form {
 .btn-venue:active,
 .btn-venue.active {
   background-color: #1A6E6D \9;
+}
+
+/* NEW KLUUU BUTTON */
+.btn-newklu {
+
+  color: #ffffff;
+  text-shadow:0px -1px 0px rgba(0, 0, 0, 0.15);
+  background-color: @brandKluuu;
+  *background-color: @brandKluuu;
+  background-image: -moz-linear-gradient(top, #BC627A, @brandKluuu);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#BC627A), to(@brandKluuu));
+  background-image: -webkit-linear-gradient(top, #BC627A, @brandKluuu);
+  background-image: -o-linear-gradient(top, #BC627A, @brandKluuu);
+  background-image: linear-gradient(to bottom, #BC627A, @brandKluuu);
+  background-repeat: repeat-x;
+  border-color: #BC627A #BC627A #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#BC627A', endColorstr='@brandKluuu', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-newklu:hover,
+.btn-newklu:focus,
+.btn-newklu:active,
+.btn-newklu.active,
+.btn-newklu.disabled,
+.btn-newklu[disabled] {
+  color: #ffffff;
+  background-color: @brandKluuu;
+  *background-color: @brandKluuu;
+}
+
+.btn-newklu:active,
+.btn-newklu.active {
+  background-color: #932945 \9;
 }
