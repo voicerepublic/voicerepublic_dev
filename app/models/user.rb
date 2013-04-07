@@ -202,7 +202,8 @@ class User < ActiveRecord::Base
     self.no_kluuus.create(:title => self.name, 
                           :category => (Category.find_by_name('living') || Category.find_by_name('Leben') ) , 
                           :published => true , 
-                          :tag_list => "newcomer, newbie, new to kluuu" )
+                          :tag_list => "newcomer, newbie, new to kluuu",
+                          :category => Category.first )
     rescue Exception => e
       logger.error("User#add_beginner_klu - user created but could not add initial no_kluuu: #{e.inspect}")
     end
