@@ -104,7 +104,7 @@ class VenuesController < ApplicationController
     @venue = Venue.find(params[:venue_id])
     
     if current_user.no_kluuus.empty?
-      klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser")
+      klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
     else
       klu = current_user.no_kluuus.first
     end
