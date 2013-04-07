@@ -37,8 +37,8 @@ Kluuu2::Application.routes.draw do
   scope "(/:locale)", :locale => /de|en/ do
     resources :categories
     resources :venues do
-      post 'join_venue/:klu_id', :action => 'join_venue', :as => "join"
-      get 'new_join', :action => 'new_join', :as => 'new_join'
+      post 'join_venue', :action => 'join_venue', :as => "join"
+      #get 'new_join', :action => 'new_join', :as => 'new_join'
       delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 
       resources :comments
     end

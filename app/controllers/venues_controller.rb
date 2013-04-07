@@ -1,6 +1,7 @@
 class VenuesController < ApplicationController
-  
+  before_filter :remember_location, :only => [:join_venue]
   before_filter :authenticate_user!, :except => [:index, :show]
+  
   
   # GET /venues
   # GET /venues.json
@@ -97,8 +98,18 @@ class VenuesController < ApplicationController
   # POST /venues/1/join_venue/5
   #
   def join_venue
+    
+    logger.debug("Venues#join_venue - at start of function ####################### ")
+    
     @venue = Venue.find(params[:venue_id])
-    klu = Klu.find(params[:klu_id])
+    
+    if current_user.no_kluuus.empty?
+      klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser")
+    else
+      klu = current_user.no_kluuus.first
+    end
+    
+    #klu = Klu.find(params[:klu_id])
     
     venue_klu = VenueKlu.new(:venue => @venue, :klu => klu )
     
@@ -147,4 +158,13 @@ class VenuesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+  
+  def remember_location
+    logger.debug("Venues#remember_location - storing location: #{venue_url(:id => params[:venue_id])}")
+    session[:venue_path] = venue_url(:id => params[:venue_id])
+  end
+  
+  
 end

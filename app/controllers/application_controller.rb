@@ -14,18 +14,9 @@ class ApplicationController < ActionController::Base
     if resource.is_admin?
       admin_dashboard_index_path
     else
-      
-      return_to = request.env['omniauth.origin'] || stored_location_for(resource) || user_path(resource)
-      
-      #if resource.klus.empty?
-      #  #@klu = resource.no_kluuus.build(:tag_list => "fun, kluuu, newcomer, talk")
-      #  #@user = resource
-      #  session[:return_to] = return_to
-      #  welcome_user_path(:id => resource)
-      #else
-      #  return_to
-      #  #dashboard_path
-      #end
+      return_to = request.env['omniauth.origin'] || stored_location_for(resource) || session[:venue_path] || user_path(resource)
+      logger.debug("################### RETURNING: #{return_to} - venue_path: #{session[:venue_path]} #################")
+      return_to
     end
   end
   

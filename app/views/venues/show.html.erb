@@ -56,7 +56,7 @@
 						<% if @venue.user_participates?(current_user) %>
 
 						<% else %>
-							<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue btn-small" do %>
+							<%= link_to venue_join_path(:venue_id => @venue.id), :class => "btn btn-venue btn-small", :method => :post do %>
 								<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
 							<% end %>
 							<br><br>
@@ -122,8 +122,8 @@
 				<% if @venue.klus.empty? %>
 				<%= t('.be_the_first_to_participate') %>! -
 				<% if @venue.host_kluuu.user != current_user %>
-				<%= link_to venue_new_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
-				<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
+				<%= link_to venue_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
+					<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
 				<% end %>
 				<% end %>
 				<% end %>
