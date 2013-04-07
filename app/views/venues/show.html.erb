@@ -130,6 +130,7 @@
 
 				<div class="hero-unit clearfix">
 					<% @venue.klus.each do |klu| %>
+					<% link = klu.instance_of?(Kluuu) ? klu_path(klu) : user_path(klu.user) %>
 
 					<div class="participating-klus-box">
 
@@ -137,13 +138,17 @@
 							<%= render(:partial => 'klus/tiny_klu_overlay', :locals => { :klu => klu }) %>
 						</div>
 						<% if ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? %>
-							<%= link_to klu_path(klu), :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do %>
+						
+							<%= link_to link, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do %>
 								<%= partial_for_klu(klu, :tiny) %>
 							<% end %>
+							
 						<% else %>
-							<%= link_to klu_path(klu) do %>
+						
+							<%= link_to link do %>
 								<%= partial_for_klu(klu, :tiny) %>
 							<% end %>
+							
 						<% end %>
 					</div>
 
