@@ -1,13 +1,15 @@
-<%= form_tag( group_chat_path(:id => venue) , :remote => true) do |f| %>
-
-<div class="control-group">
-	<%#= label_tag t('.your_message', :default => 'Your Message') %>
-	<div class="controls">
-		<%= text_area_tag 'chat[body]','', :class => 'text_area group_chat_textarea input-block-level', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1%>
-	</div>
-</div>
-<div class="btns">
-	<%= submit_tag t('.submit', :default => 'Submit'), :class => 'btn btn-small btn-primary group_chat_submit pull-right' %>
-</div>
-
+<% if current_user && venue.user_participates?(current_user) %>
+	<%= form_tag( group_chat_path(:id => venue) , :remote => true) do |f| %>
+		<div class="control-group">
+			<%#= label_tag t('.your_message', :default => 'Your Message') %>
+			<div class="controls">
+				<%= text_area_tag 'chat[body]','', :class => 'text_area group_chat_textarea input-block-level', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1%>
+			</div>
+		</div>
+		<div class="btns">
+			<%= submit_tag t('.submit', :default => 'Submit'), :class => 'btn btn-small btn-primary group_chat_submit pull-right' %>
+		</div>
+	<% end %>
+<% else %>
+	<span class="label label-info"><%= t('.join_this_venue_to_chat') %></span>
 <% end %>

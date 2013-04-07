@@ -338,7 +338,8 @@ en:
       end_chat: "End chat"
       submit: "Send"
     group_form:
-      your_message: "Write here..."      
+      your_message: "Write here..." 
+      join_this_venue_to_chat: "You need to join this venue to write here"     
     show:
       text_chat: "Chat"
   comments:

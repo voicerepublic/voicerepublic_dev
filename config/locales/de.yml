@@ -339,6 +339,7 @@ de:
       submit: "Absenden"
     group_form:
       your_message: "Schreibe hier..."
+      join_this_venue_to_chat: "Um hier zu schreiben, musst du am Treffpunkt teilnehmen"
     show:
       text_chat: "Text-Chat"
   comments:
