@@ -348,7 +348,7 @@ de:
       write_addition_2: "Ergänze dieses Blog"
     form:
       your_comment: "Kommentar"
-      write_a_comment: "Bitte schreibe einen Kommentar."
+      write_a_comment: "Veröffentliche Neuigkeiten zu diesem KluuU."
       save: "Senden"
   conversations:
     index:
@@ -417,7 +417,6 @@ de:
     comment_section:
       headline_1: "Kommentare"
       headline_2: "Das Blog zum KluuU %{name}"
-      
     facebook_value_template:
       talk_on_kluuu_about: "Sprich mit %{name} über '%{subject}'"
     form_welcome_new_no_kluuu:
@@ -582,6 +581,7 @@ de:
       messages: "Nachrichten"
       dashboard: "Übersicht"
       profile: "Profil"
+      see_other_venues: "Treffpunkte"
     check_flash:
       no_flash_version_notice: "Kein untersütztes Flash-Plugin gefunden. Installiere bitte mindestens Version 10.3 um KluuU Video-Anrufe zu benutzen"
     dashboard_tabs:

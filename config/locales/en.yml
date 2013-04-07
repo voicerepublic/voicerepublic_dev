@@ -343,8 +343,8 @@ en:
       text_chat: "Chat"
   comments:
     form:
-      your_comment: "Comment"
-      write_a_comment: "Write a comment"
+      your_comment: "News"
+      write_a_comment: "Post news to this KluuU."
       save: "Post"
     klu_form:
       write_a_comment: "write a comment on this KluuU"
@@ -578,6 +578,7 @@ en:
       messages: "Messages"
       dashboard: "Dashboard"
       profile: "Profile"
+      see_other_venues: "Venues"
     check_flash:
       no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
     dashboard_tabs:
