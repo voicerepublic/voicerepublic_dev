@@ -29,7 +29,7 @@ feature "User can register" do
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
     page.click_button('Sign Up')
-    page.should have_css(".welcome-page")
+    page.should have_css(".user-name")
   end
   
   scenario "User misses email during registration" do
