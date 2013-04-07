@@ -63,7 +63,7 @@ describe DashboardController do
 
     it "returns http success" do
       get "matches"
-      puts response.inspect
+      #puts response.inspect
       response.should be_redirect
     end
 
