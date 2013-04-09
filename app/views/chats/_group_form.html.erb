@@ -1,4 +1,4 @@
-<% if current_user && venue.user_participates?(current_user) %>
+<% if current_user && ( venue.user_participates?(current_user) || venue.host_kluuu.user == current_user ) %>
 	<%= form_tag( group_chat_path(:id => venue) , :remote => true) do |f| %>
 		<div class="control-group">
 			<%#= label_tag t('.your_message', :default => 'Your Message') %>
