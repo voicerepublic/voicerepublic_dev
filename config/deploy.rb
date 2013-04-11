@@ -20,27 +20,12 @@ set :whenever_roles, [:app]
 
 default_run_options[:pty] = true
 
-
-#role :web, "staging2.kluuu.com"                          # Your HTTP server, Apache/etc
-#role :app, "staging2.kluuu.com"                          # This may be the same as your `Web` server
-#role :db,  "db.kluuu.com", :primary => true # This is where Rails migrations will run
-#role :db,  "your slave db-server here"
-
-
-
-
 #before 'deploy:update_code', 'sphinx:stop'
 after "deploy:restart", "deploy:cleanup"
 after "deploy:setup", "dbconf:setup" 
-after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab' #, 'sphinx:start'
+after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab' 'kluuu:link_paypal_certs' #, 'sphinx:start'
 #after 'deploy:update_code'#, 'sphinx:start'
 
-
-
-#namespace :whenever do
-#  task :update_crontab, :roles => [:app] do ; end
-#  task :clear_crontab, :roles => [:app] do ; end
-#end
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
@@ -50,8 +35,6 @@ namespace :deploy do
      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
    end
 end
-
-
 
 
 namespace :dbconf do
@@ -78,7 +61,6 @@ namespace :dbconf do
     puts "linking database.yml from shared_path to current on db"
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   end
-
 end
 
 
@@ -117,6 +99,12 @@ end
 
 
 namespace :kluuu do
+	
+	desc "link paypal-certs to production-host" 
+	task :link_paypal_certs, :roles => :web do
+		puts "linking paypal-certs"
+		run "ln -nfs #{shared_path}/config/certs_production #{release_path}/config/certs_production"
+	end
   
   desc "Prints the available releases on webserver"
   task :show_releases, :roles => :app do

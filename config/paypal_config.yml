@@ -32,9 +32,9 @@
 :production:
   :secret: a4hsihfusefr
   :paypal_base_url: https://www.paypal.com/cgi-bin/webscr
-  :cert_id: R35Z678YY7F78
-  :app_cert: kluuu_cert.pem
-  :app_key: kluuu_key.pem
+  :cert_id: YQNG7C3CXPJ9A
+  :app_cert: kluuu_pp.pem
+  :app_key: kluuu_pp.key
   :paypal_cert: paypal_cert.pem
   :kluuu_account:
     :email: kuurz@kluuu.com
