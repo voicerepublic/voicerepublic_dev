@@ -649,7 +649,7 @@ en:
       new_status_update: "New status"
     user_content_nav:
       i_talk_about: "KluuUs"
-      i_like_to_know_more_about: "Questions"
+      venues: "Venues"
       opinions: "Status"
       bookmarks: "Bookmark"
     user_information:

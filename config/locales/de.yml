@@ -653,7 +653,7 @@ de:
       new_status_update: "Neuer Status"
     user_content_nav:
       i_talk_about: "KluuUs"
-      i_like_to_know_more_about: "Fragen"
+      venues: "Treffpunkte"
       opinions: "Status"
       bookmarks: "Lesezeichen"
     user_information:
