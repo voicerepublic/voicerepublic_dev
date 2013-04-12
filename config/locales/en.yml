@@ -573,6 +573,7 @@ en:
   
   shared:
     actionbar:
+      my_profile: "My profile"
       create_kluuu: "New KluuU" 
       create_question: "New Question"
       notifications: "News"

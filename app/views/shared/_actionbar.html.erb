@@ -17,10 +17,16 @@
 						<%= t(".dashboard") %>
 					<% end  if current_user %>
 				</li>
-				<li class="<%= current_page?current_user ? 'active' : '' %>">
-					<%= link_to user_path(:id => current_user), :class => "actionbar-profile-link", :title => current_user.name do %>
-						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %><span class="hidden-phone">&nbsp;&nbsp;&nbsp;<%= t(".profile") %></span>
-					<% end %>						
+				<li class="<%= current_page?current_user ? 'active' : '' %> dropdown actionbar-profile">
+					<%= link_to '#', :class => "actionbar-profile-link dropdown-toggle",:data => {:toggle=>"dropdown"}, :title => current_user.name do %>
+
+						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %>
+						<span class="hidden-phone">
+							&nbsp;&nbsp;<%= current_user.firstname %>
+						</span>
+						<b class="caret"></b>
+					<% end %>
+					<%= render(:partial => 'shared/profile_dropdown_list') %>		
 				</li>						
 			</ul>
 			<div class="container nav-collapse">

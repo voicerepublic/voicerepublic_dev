@@ -610,7 +610,15 @@ de:
       all: "Alle ansehen"
     user_dropdown_list:
       logout: "Abmelden"
-  
+    profile_dropdown_list:
+      my_profile: "Mein Profil"
+      create_kluuu: "KluuU erstellen"
+      create_venue: "Treffpunkt erstellen"
+      contacts: "Kontakte"
+      messages: "Nachrichten"
+      settings: "Einstellungen"
+      finances: "Finanzen"    
+
   status_updates:
     status_update:
       add_comment: "Kommentieren"
