@@ -66,12 +66,13 @@ p.wichtig {
 				}
 			}
 
-			&.no-kluuu-color{
+			&.venue-color{
+				background: url(/assets/coffee-icon-green.png) no-repeat center 20px;
 				a {
-					color: @brandQuestion;
+					color: #208583;
 				}
 				&:hover, &.active, &.active:hover {
-					background: @brandQuestion;
+					background: #208583 url(/assets/coffee-icon-white.png) no-repeat center 20px;
 					a {
 						color: @white;
 						text-shadow: none;
@@ -109,12 +110,18 @@ p.wichtig {
 				a {
 					color: #bbb !important;
 				}
+				&.venue-color{
+					background: url(/assets/coffee-icon-grey.png) no-repeat no-repeat center 20px !important;
+				}
 				&:hover, &.active, &.active:hover {
 					background: #bbb !important;
+					&.venue-color{
+						background:#bbb url(/assets/coffee-icon-white.png) no-repeat no-repeat center 20px !important;
+					}
 					a {
 						color: @white !important;
 						text-shadow: none;
-					}	
+					}
 				}					
 			}
 			&:hover {

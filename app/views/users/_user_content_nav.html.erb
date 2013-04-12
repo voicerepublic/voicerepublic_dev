@@ -1,6 +1,6 @@
 <nav class="user-main-nav">
 	<ul class="clearfix">
-		<li class="<%= current_page?(kluuus_user_path(:id => user)) || current_page?(user_path(:id => user)) ? 'active' : '' %> kluuu-color">
+		<li class="<%# TODO add class 'empty' for empty content %><%= current_page?(kluuus_user_path(:id => user)) || current_page?(user_path(:id => user)) ? 'active' : '' %> kluuu-color">
 				<%= link_to(kluuus_user_path(:id => user ) ) do %>
 					!
 				<span class="user-main-nav-subline">
@@ -8,15 +8,15 @@
 				</span>
 				<% end %>
 		</li>
-		<li class="<%= current_page?(no_kluuus_user_path(:id => user )) ? 'active' : '' %> no-kluuu-color">
+		<li class="<%# TODO add class 'empty' for empty content %><%= current_page?(no_kluuus_user_path(:id => user )) ? 'active' : '' %> venue-color">
 			<%= link_to(no_kluuus_user_path(:id => user ) ) do %>
-			?
+			&nbsp;
 			<span class="user-main-nav-subline">
-				<%= t('.i_like_to_know_more_about') %>
+				<%= t('.venues') %>
 			</span>
 			<% end %>
 		</li>
-		<li class="<%= current_page?(user_status_updates_path(:user_id => user)) ? 'active' : '' %> status-color">
+		<li class="<%# TODO add class 'empty' for empty content %><%= current_page?(user_status_updates_path(:user_id => user)) ? 'active' : '' %> status-color">
 			<%= link_to(user_status_updates_path(:user_id => user)) do %>
 			  <i class="icon-bullhorn"></i>
 			  <span class="user-main-nav-subline">
@@ -24,13 +24,14 @@
 				</span>
 			<% end %>
 		</li>
-		<li class="<%= current_page?(user_bookmarks_path(:user_id => user)) ? 'active' : '' %> bookmarks-color">
+		<li class="<%# TODO add class 'empty' for empty content %><%= current_page?(user_bookmarks_path(:user_id => user)) ? 'active' : '' %> bookmarks-color">
 			<%= link_to(user_bookmarks_path(:user_id => user) ) do %>
 				<i class="icon-bookmark-empty"></i>
 				<span class="user-main-nav-subline">
 					<%= t('.bookmarks') %>
 				</span>
 			<% end %>
+
 		</li>
 	</ul>
 </nav>
