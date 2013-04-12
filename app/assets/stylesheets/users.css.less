@@ -105,7 +105,18 @@ p.wichtig {
 				}				
 			}			
 
-
+			&.empty{
+				a {
+					color: #bbb !important;
+				}
+				&:hover, &.active, &.active:hover {
+					background: #bbb !important;
+					a {
+						color: @white !important;
+						text-shadow: none;
+					}	
+				}					
+			}
 			&:hover {
 				.transition(all 0.3s ease);
 
