@@ -21,6 +21,7 @@ class Balance::CheckInOrdersController < ApplicationController
   def create
     @balance_check_in_order = Balance::CheckInOrder.new(params[:balance_check_in_order])
     @balance_check_in_order.balance_account = @user.balance_account
+    @balance_check_in_order.currency = @user.balance_account.currency
     logger.debug("CheckInOrdersController#create - debug: bcio: #{@balance_check_in_order.inspect}")
     
     respond_to do |format|
