@@ -67,3 +67,19 @@ feature "User gets notifications via push" do
   end
   
 end
+
+feature "there is a link to kluuus, venues, status_updates and bookmarks in his profile" do
+  
+  scenario "there is a link to users venues visible on his profile" do
+    include Rails.application.routes.url_helpers
+    venue = FactoryGirl.create(:venue)
+    visit user_path(:id => venue.host_kluuu.user.id)
+    page.should have_link( 'Venues' )
+    page.should have_link('Status')
+    page.should have_link('Bookmark')
+    page.should have_link('KluuUs')
+  end
+  
+end
+
+

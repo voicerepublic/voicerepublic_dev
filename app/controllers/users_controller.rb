@@ -36,6 +36,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @kluuus = @user.kluuus
   end
+  
+  def venues
+    @user = User.find(params[:id])
+    @venues = Venue.of_user(@user)
+    
+  end
 
   # GET /users/new
   # GET /users/new.json

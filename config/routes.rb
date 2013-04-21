@@ -61,6 +61,7 @@ Kluuu2::Application.routes.draw do
         get 'no_kluuus'
         get 'kluuus'
         get 'welcome'
+        get 'venues'
       end
       resources :messages, :only => [:index, :show, :destroy, :update] do
         member do

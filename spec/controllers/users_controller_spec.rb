@@ -38,6 +38,16 @@ describe UsersController do
   def valid_session
     {}
   end
+  
+  describe "GET venues" do
+    it "assigns users venues as @venues" do
+      _klu = FactoryGirl.create(:published_kluuu, :user => @user)
+      _venue = FactoryGirl.create(:venue, :host_kluuu => _klu)
+      
+      get :venues, {:id => @user.to_param}, valid_session
+      assigns(:venues).should include(_venue)
+    end
+  end
 
  #describe "GET index" do
  #  it "assigns all users as @users" do
