@@ -8,15 +8,6 @@
  @import "config.css.less";
 
  .landing-page {
-   
-  .kluuu-lead {
-    min-width: 450px;
-    border-radius: 5px;
-    margin: auto; 
-    .btn {
-      line-height:1.3;
-    }
-  }
   
   .venue-top {
     padding-left: 0;
@@ -63,12 +54,6 @@ body .container .well {
 	background:#F2F2F2
 }
 
-
-
-.lead {
-	margin-bottom: 40px !important;
-}
-
 .container{
 	width: 100%;
 	.row-fluid{
@@ -77,48 +62,23 @@ body .container .well {
 }
 
  h2.landing-page-claim{
- 		font-size:@baseFontSize * 4;
+ 		font-size:@baseFontSize * 2.5;
  		color: @brandKluuu;
- 		font-weight: bold;
- 		margin:0 11px 0px 0px;
+ 		font-weight: normal;
+ 		margin:40px 11px 10px 0px;
  		display: inline-block;
+			-webkit-hyphens: auto;
+			-moz-hyphens: auto;
+			hyphens: auto; 		
  }
 
- .lp-claim-is{
- 	font-size: 22px;
- 	font-weight: bold;
+ .lead{
+ 	margin-bottom: 25px
  }
-
-.landing-page-search {
-	width:300px;
-	margin:auto;
-	padding:20px 20px 20px 20px;
-	background-color: grey;
-	border-radius: 8px;
-	.shaddowed-box;
-	
-	h2 {
-	  color: #fff;
-		font-size:25px;
-		font-weight: bold;
-		text-align: left;
-		margin-bottom:5px
-	}
-	i{ }
-}
-
-input.landing-page-query{
-
-	line-height: 1.2;
- 	color:#6C6C6C;
- 	&:focus{
- 		border-color: red;
- 	}
-}
 
 .landing-page{
 	.row-fluid{
-		padding-top:20px;
+		padding-top:0px;
 		padding-bottom:10px;
 	}
 	.landing-page-top-row{
@@ -136,7 +96,8 @@ input.landing-page-query{
 		}
 	}
 	.landing-page-illu{
-		padding:0px 5% 10px 5%;
+		padding:0px 5% 60px 5%;
+		border-bottom: 1px solid #999;
 		margin: auto;
 		margin-top: 0;
 		margin-bottom: 30px;
@@ -149,8 +110,8 @@ input.landing-page-query{
 			border:3px solid #ccc;
 			border-radius: 10px;
 			width:100%;
-			max-width:700px;
-			padding:25px 0px 20px 0;
+			max-width:610px;
+			padding:5px 0px 25px 0;
 			@media (max-width: 800px) {
 				li{
 					h2{
@@ -160,18 +121,22 @@ input.landing-page-query{
 			}		
 		}
 		li{
+			&.lp-venue-icon img{
+				border-radius: 10px
+			}
 			margin:0 1.5% 0 1.5%;
 			list-style-type: none;
 			display: block;
 			float:left;
 			/*height:190px;*/
-			width:30%;
+			width:47%;
 			img{
-				/*width:100%*/
+				margin-bottom: 10px
 			}
 			h2{
 				margin:21px 0 0px 0;
-				line-height:28px;
+				font-size: 32px;
+				line-height:34px;
 			}
 			.landing-page-illu-subtitle{
 				font-style: italic;

@@ -5,22 +5,29 @@
 
 		<h2 class="text-align-center landing-page-claim"><%= t('.headline') %></h2>
 
-		<div class="landing-page-illu clearfix">
+		<div class="clearfix">
 
 			<div class="lead">
 				Discuss, consult, teach, help...
 			</div>
-			<div class="landing-page-search text-align-center">
-				<h2>I'd like to talk about</h2>
-				<%= form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'form-search' do %>
-				<div class="input-append">
-					<%= search_field_tag 'landing_page_query', nil, :placeholder => t('.enter_search_term', :default => ""), :class => "search-query landing-page-query span2" %>
-					<%= button_tag :type => 'submit', :class => "btn" do %>
-					<i class="icon-search"> </i>
-					<% end %>
-				</div>
-				<% end %>
+
+			<div class="landing-page-illu clearfix">
+				<ul>
+					<li class="lp-venue-icon">
+						<h2>KluuU</h2>
+						<%= image_tag "/assets/blog-icon.png", :alt => "blog-icon" %><br>
+							is the blog to your topic<br>
+							- with video chat
+					</li>
+					<li>
+						<h2>Treffpunkt</h2>
+						<%= image_tag "/assets/venue-icon.png", :alt => "blog-icon" %><br>
+						is the chat room to your topic
+					</li>
+				</ul>
 			</div>
+
+
 		</div>
 	</div>
 
