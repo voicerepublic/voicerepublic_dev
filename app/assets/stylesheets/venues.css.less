@@ -2,6 +2,7 @@
  *= require main
  *= require klus
  *= require venues_single 
+ *= require bootstrap_datetimepicker.min.css
  *= require_self
  */
 @import "config.css.less";
@@ -156,14 +157,15 @@
 /* TREFFPUNKT GROSS */
 .venue-show{
   position: relative;
-  
+
   .host-info {
     margin-bottom: 10px;
-    padding-left: 15px;
+    padding-left: 16px;
+    border:1px solid #932945;
+    max-height: 88px;
+    overflow: auto;
   }
-  .host-info-form {
-    margin-top: 60px;
-  }
+
   .venue-time{
     font-size: 18px;
     color:#932945;
@@ -228,11 +230,16 @@
   }
 
   .group-chat-instance {
+    h3{
+      padding: 0;
+      margin: 0;
+      font-size: @baseFontSize * 1.3;
+    }
     .label-chat{
       background: #1A6E6D
     }
     .scrollable-chat{
-      max-height:358px;
+      max-height:288px;
       margin-top:10px;
     }
     

@@ -339,6 +339,7 @@ en:
       submit: "Send"
     group_form:
       your_message: "Write here..." 
+      submit: "Post"
       join_this_venue_to_chat: "You need to join this venue to write here"     
     show:
       text_chat: "Chat"
@@ -746,6 +747,10 @@ en:
     group_chat:
       venue_chat: "Join the discussion!"
       show_host_info_controlls: "toggle moderator-form"
+      host_field_title: "Infos about chat"
+    host_info_form:
+      your_host_message: "Write here your chat infos..."
+      submit: "Post"    
       
   video_sessions:
     anonymous_sign_up:

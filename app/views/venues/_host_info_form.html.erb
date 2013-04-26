@@ -1,10 +1,10 @@
 <%= form_tag( group_chat_info_path(:id => venue) , :remote => true) do |f| %>
 	<div class="control-group">
 		<div class="controls">
-			<%= text_field_tag 'chat[body]','', :class => 'text_field input-block-level', :placeholder => t('.your_moderator_message', :default => 'Your moderator message') %>
+			<%= text_field_tag 'chat[body]','', :class => 'text_field input-block-level host-text-field', :placeholder => t('.your_host_message', :default => 'Your info messages...') %>
 		</div>
 	</div>
 	<div class="btns">
-		<%= submit_tag t('.chat_info', :default => 'chat-info'), :class => 'btn btn-small btn-danger  pull-right', :id => "broadcast" %>
+		<%= submit_tag t('.submit'), :class => 'btn btn-small btn-danger  pull-right', :id => "broadcast" %>
 	</div>
 <% end %>

@@ -1,5 +1,19 @@
 
 <div class="group-chat-instance" id="group-chat-<%= venue.id %>">
+	<header>
+		<h3><%= t('.host_field_title') %></h3>
+	</header>
+
+	<% if venue.host_kluuu.user == current_user %>
+	<div class="host-info-form">
+		<%= render(:partial => 'host_info_form', :locals => {:venue => venue}) %>
+	</div>
+	<% end %>
+
+	<div class="well host-info">
+		<div class="">&nbsp;</div>
+	</div>	
+
 	<div class="well well-large">
 		<header class="label label-chat"><%= t('.venue_chat', :title => venue.title ) %></header>
 		<div class="clear"></div>
@@ -7,17 +21,7 @@
 			<!-- chat-messages to be here. renders chats/_single_chat_message.js.erb -->
 		</ul>
 	</div>
-	<div class="host-info"></div>
 	<%= render(:partial => 'chats/group_form', :locals => { :venue => venue }) %>
-	
-	<% if venue.host_kluuu.user == current_user %>
-	<button type="button" class="btn btn-small pull-right" data-toggle="collapse" data-target="#info-collapsable">
-    	<%= t('.show_host_info_controlls') %>
-    </button>
-	<div class="host-info-form collapse out" id="info-collapsable">
-		<%= render(:partial => 'host_info_form', :locals => {:venue => venue}) %>
-	</div>
-	<% end %>
 </div>
 <%= subscribe_to venue.channel_name %>
 <%= subscribe_to venue.channel_host_info %>
