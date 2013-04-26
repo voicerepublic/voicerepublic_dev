@@ -1,1 +1,12 @@
-<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue) %>
+
+<section class="venue-list row-fluid">
+	<div class="span4">
+		<h2><%= t('.venues') %></h2>
+		<%= render(:partial => 'venues/no_venues') if @venues.empty? %>
+		<%= render(:partial => 'venues/with_venues') unless @venues.empty? %>
+	</div>
+	<div class="span8">
+	<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue) unless @venues.empty? %>
+	<%= render(:partial => 'venues/venue_video') if @venues.empty? %>
+	</div>
+<section>

@@ -200,7 +200,7 @@ describe VenuesController do
    it "redirects to the venues list" do
      venue = FactoryGirl.create(:venue, :host_kluuu_id => @kluuu.id)
      delete :destroy, {:id => venue.to_param}, valid_session
-     response.should redirect_to(venues_url)
+     response.should redirect_to(user_url(@kluuu.user))
    end
    
    it "raises permission if unauthorized user" do
