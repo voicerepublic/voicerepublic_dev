@@ -403,6 +403,9 @@ de:
       edit_preferences: "Einstellungen bearbeiten"
     venues:
       my_venues: "Meine Treffpunkte"
+     
+      
+      
   follows:
     follower:
       follow_back: "Ebenfalls folgen"
@@ -677,6 +680,8 @@ de:
       edit_account: "Profil bearbeiten"
     edit:
       edit_your_profile: "Dein Profil bearbeiten"
+    venues:
+      venues: "Treffpunkte"
 
   messages:
     form:
@@ -768,6 +773,14 @@ de:
       venue_chat: "Steige in die Diskussion ein"
       show_host_info_controlls: "ein/ausblenden Moderator-Formular"
       
+    with_venues:
+      these_are_your_venues: "%{name}'s Treffpunkte"
+      create_venue: "Treffpunkt erstellen"
+    no_venues: 
+      create_venue_for_your_kluuu: "Erstelle einen Treffpunkt zu deinem KluuU"   
+      create_venue: "Treffpunkt erstellen" 
+    
+  
   video_sessions:
     anonymous_sign_up:
       video_call_title: "Video Anruf"

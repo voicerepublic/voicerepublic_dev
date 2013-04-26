@@ -608,6 +608,8 @@ en:
       all: "View all"
     user_dropdown_list:
       logout: "Log Out"
+    venues:
+      venues: "Venues"
   
   status_updates:
     status_update:
@@ -746,6 +748,12 @@ en:
     group_chat:
       venue_chat: "Join the discussion!"
       show_host_info_controlls: "toggle moderator-form"
+    with_venues:
+      these_are_your_venues: "%{name}'s Venues"
+      create_venue: "create Venue"
+    no_venues: 
+      create_venue_for_your_kluuu: "Create a Venue for your KluuU"   
+      create_venue: "create Venue"
       
   video_sessions:
     anonymous_sign_up:
