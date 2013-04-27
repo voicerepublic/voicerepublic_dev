@@ -15,7 +15,7 @@
 	<% else %>
 
 		<% if @venues.empty? %>
-			<div class="text-align-center"><br><br><%= t('.guest_empty_venue', :name => @user.firstname) %><br><br></div>				
+			<div class="text-align-center muted"><br><br><%= t('.guest_empty_venue', :name => @user.firstname) %><br><br></div>				
 		<% else %>
 			<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue) unless @venues.empty? %>		
 		<% end %>

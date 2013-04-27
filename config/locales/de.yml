@@ -513,6 +513,12 @@ de:
       new_kluuu: "Neues KluuU erstellen."
     new:
       create_a_new_kluuu: "Erstelle dein KluuU"
+    user_no_kluuus:
+      no_klu_text: "Erstelle Dein KluuU."
+      create_klu: "KluuU erstellen"
+    user_with_kluuu:
+      with_klu_text: "Hier siehst Du Deine KluuUs."
+      new_klu: "KluuU erstellen"
   
   landing_page:
     news: "News"
@@ -681,6 +687,9 @@ de:
       edit_account: "Profil bearbeiten"
     edit:
       edit_your_profile: "Dein Profil bearbeiten"
+    kluuus:
+      klus: "KluuUs"
+      guest_empty_klu: "%{name} hat noch kein KluuU."
     venues:
       venues: "Treffpunkte"
       guest_empty_venue: "%{name} hat noch keinen Treffpunkt."
