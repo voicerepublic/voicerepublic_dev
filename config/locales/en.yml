@@ -669,6 +669,10 @@ en:
       edit_account: "Edit profil"
     edit:
       edit_your_profile: "Edit profil"
+    venues:
+      venues: "Venues"
+      guest_empty_venue: "%{name} has no venues yet."
+
   venues:
     date_changed: "New venue date"
     edit:
@@ -754,11 +758,11 @@ en:
       your_host_message: "Write here your chat infos..."
       submit: "Post"    
     with_venues:
-      these_are_your_venues: "%{name}'s Venues"
-      create_venue: "create Venue"
+      these_are_your_venues: "See your Venues here."
+      create_venue: "Create Venue"
     no_venues: 
-      create_venue_for_your_kluuu: "Create a Venue for your KluuU"   
-      create_venue: "create Venue"
+      create_venue_for_your_kluuu: "Create your own chat room for your KluuU."   
+      create_venue: "Create Venue"
       
   video_sessions:
     anonymous_sign_up:

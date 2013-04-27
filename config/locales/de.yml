@@ -683,6 +683,7 @@ de:
       edit_your_profile: "Dein Profil bearbeiten"
     venues:
       venues: "Treffpunkte"
+      guest_empty_venue: "%{name} hat noch keinen Treffpunkt."
 
   messages:
     form:
@@ -779,10 +780,10 @@ de:
       submit: "Posten"    
       
     with_venues:
-      these_are_your_venues: "%{name}'s Treffpunkte"
+      these_are_your_venues: "Hier siehst Du Deine Treffpunkte."
       create_venue: "Treffpunkt erstellen"
     no_venues: 
-      create_venue_for_your_kluuu: "Erstelle einen Treffpunkt zu deinem KluuU"   
+      create_venue_for_your_kluuu: "Erstelle Deinen eigenen Chatraum zu Deinem KluuU."   
       create_venue: "Treffpunkt erstellen" 
     
   
