@@ -113,7 +113,7 @@
 				<% if @venue.klus.empty? %>
 					<%= t('.be_the_first_to_participate') %>! -
 					<% if @venue.host_kluuu.user != current_user %>
-						<%= link_to venue_join_path(:venue_id => @venue.id), :class => "btn btn-venue" do %>
+						<%= link_to venue_join_path(:venue_id => @venue.id), :class => "btn btn-venue", :method => :post do %>
 							<%= t('.join_venue')%><%= image_tag "/assets/coffee_icon_white.png" %>
 						<% end %>
 					<% end %>
