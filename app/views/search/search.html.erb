@@ -5,19 +5,7 @@
 <div class="search">
 	<h2><%= t('.search_results', :default => "Suche") %></h2>
 	<div class="well well-large">
-	<%= render(:partial => 'search/form', :locals => {:query => @query}) %>
-	<% if current_user %>
-		<%= link_to( t('.publish_search_as_kluuu', :default => "Als Frage-KluuU speichern?"), new_user_klu_path( :user_id => current_user, :query => @query), :class => "btn btn-primary search-new-no-kluuu")  %>
-	<% else %>
-
-		<% if (@klus.count > 0) %>
-
-			<%# NUR WENN RESULTS VORHANDEN %>
-			<span class="label label-warning"><%= t('.persist_search', :default => "Tipp:") %></span>&nbsp;<%= t('.text') %>
-			&nbsp;<%= link_to(t('.sign_up', :default => "Sign Up"), new_user_registration_path , :class => "btn") %>
-
-		<% end %>
-	<% end %>
+		<%= render(:partial => 'search/form', :locals => {:query => @query}) %>
 	</div>
 
 	<div class="row-fluid search-results">

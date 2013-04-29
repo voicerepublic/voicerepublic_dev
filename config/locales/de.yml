@@ -593,6 +593,7 @@ de:
       dashboard: "Übersicht"
       profile: "Profil"
       see_other_venues: "Treffpunkte"
+      search: "Suchen..."
     check_flash:
       no_flash_version_notice: "Kein untersütztes Flash-Plugin gefunden. Installiere bitte mindestens Version 10.3 um KluuU Video-Anrufe zu benutzen"
     dashboard_tabs:

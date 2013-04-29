@@ -588,6 +588,7 @@ en:
       dashboard: "Dashboard"
       profile: "Profile"
       see_other_venues: "Venues"
+      search: "Search..."
     check_flash:
       no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
     dashboard_tabs:
