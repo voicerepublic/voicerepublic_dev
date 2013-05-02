@@ -105,7 +105,6 @@ class Ability
     
     can :manage, Venue do |venue|
       venue.host_kluuu.user == user
-      #user.roles.include?(Role.find_by_name('venue_host')) && venue.host_kluuu.user == user
     end
     
     #can :create, Venue do |venue|
