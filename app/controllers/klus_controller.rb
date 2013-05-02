@@ -11,6 +11,10 @@ class KlusController < ApplicationController
       format.json { render json: @klus }
     end
   end
+  
+  def  latest_klus
+    
+  end
 
   # GET /klus/1
   # GET /klus/1.json
@@ -88,7 +92,7 @@ class KlusController < ApplicationController
             if session[:return_to]
               redirect_to session.delete(:return_to)
             else
-              redirect_to dashboard_url(), notice: "Your Klu was successfully created!" 
+              redirect_to user_url(:id => @user), notice: "Your Klu was successfully created!" 
             end
            end
           format.json { render json: @klu, status: :created, location: @klu }
