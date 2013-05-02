@@ -1,17 +1,40 @@
-<%- model_class = StatusUpdate -%>
-<section class="status-site status-updates">
+<section class=" row-fluid">
 	<% if @user == current_user %>
-		<aside class="status-new-link clearfix">
-			<%= link_to new_user_status_update_path, :class => 'btn' do %>		
-				<i class="icon-edit"></i> <%=t('.new_status_update')%>
-			<% end %>
-		</aside>
+		<div class="span4">
+			<%= render(:partial => 'status_updates/no_status', :locals => {:user => @user}) if @status_updates.empty? %>
+			<%= render(:partial => 'status_updates/with_status', :locals => {:user => @user} ) unless @status_updates.empty? %>
+		</div>
+		
+		<div class="span8">
+			<% if @status_updates.empty? %>
+				<%= render(:partial => 'status_updates/status_update_video') if @status_updates.empty? %>
+			<% else %>
+				<ul class="unstyled status-list">
+					<% @status_updates.each do |status_update| %>
+					<li class="status-single">
+						<%= render(:partial => "status_updates/status_update", :locals => {:status_update => status_update}) %>
+					</li>
+					<% end %>
+				</ul>
+			<% end %>	
+		</div>
+		
+	<% else %>
+
+		<% if @status_updates.empty? %>
+			<div class="text-align-center muted">
+				<br><%= t('.guest_empty_status_update', :name => @user.firstname) %><br>
+			</div>
+		<% else %>
+			<ul class="unstyled status-list">
+				<% @status_updates.each do |status_update| %>
+				<li class="status-single">
+					<%= render(:partial => "status_updates/status_update", :locals => {:status_update => status_update}) %>
+				</li>
+				<% end %>
+			</ul>
+		<% end %>
+	
 	<% end %>
-	<ul class="unstyled status-list">
-		<% @status_updates.each do |status_update| %>
-			<li class="status-single">
-				<%= render(:partial => "status_updates/status_update", :locals => {:status_update => status_update}) %>
-			</li>
-		<% end %>	
-	</ul>
+		
 </section>

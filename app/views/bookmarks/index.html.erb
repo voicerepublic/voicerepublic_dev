@@ -1,7 +1,23 @@
-<%- model_class = Bookmark -%>
+<section class="user-bookmarks row-fluid">
+	<% if @user == current_user %>
+		<div class="span4">
+			<%= render(:partial => 'bookmarks/no_bookmarks') if @bookmarks.empty? %>
+			<%= render(:partial => 'bookmarks/with_bookmarks', :locals => {:user => @user} ) unless @bookmarks.empty? %>
+		</div>
+		<div class="span8">
+			<% @bookmarks.each do |bookmark| %>
+				<%= partial_for_bookmark(bookmark) %>
+			<% end unless @bookmarks.empty? %>
+			<%= render(:partial => 'bookmarks/bookmark_video') if @bookmarks.empty? %>
+		</div>
+	<% else %>
+		<% if @bookmarks.empty? %>
+			<div class="text-align-center muted"><br><br><%= t('.guest_empty_bookmark', :name => @user.firstname) %><br><br></div>				
+		<% else %>
+			<% @bookmarks.each do |bookmark| %>
+				<%= partial_for_bookmark(bookmark) %>
+			<% end unless @bookmarks.empty? %>
+		<% end %>
+	<% end %>
+</section>
 
-<div class="user-bookmarks">
-  <% @bookmarks.each do |bookmark| %>
-    <%= partial_for_bookmark(bookmark) %>
-  <% end %>
-</div>
