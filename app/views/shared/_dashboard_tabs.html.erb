@@ -1,8 +1,8 @@
 
 <ul class="nav nav-tabs dashboard-tabs">
-	<li class="<%= current_page?(dashboard_matches_path) ? 'active' : '' %>" >
-		<%= link_to(t('.matches'), dashboard_matches_path )%>
-	</li>
+	<!-- ><li class="<%#= current_page?(dashboard_matches_path) ? 'active' : '' %>" >
+		<%#= link_to(t('.matches'), dashboard_matches_path )%>
+	</li> -->
 	<li class="<%= current_page?(dashboard_news_path) ? 'active' : '' %>">
 		<%= link_to(t('.news', :default => "Neuigkeiten"), dashboard_news_path) %>
 	</li>

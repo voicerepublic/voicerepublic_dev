@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
   
   def index
     @user = current_user
-    redirect_to :action => 'matches'
+    redirect_to :action => 'news'
   end
 
   def contacts
