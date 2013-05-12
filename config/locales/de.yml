@@ -518,7 +518,7 @@ de:
       create_klu: "KluuU erstellen"
     user_with_kluuu:
       with_klu_text: "Hier siehst Du Deine KluuUs."
-      new_klu: "KluuU erstellen"
+      create_klu: "KluuU erstellen"
   
   landing_page:
     news: "News"

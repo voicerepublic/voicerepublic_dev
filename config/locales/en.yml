@@ -513,7 +513,7 @@ en:
       create_klu: "Create KluuU"
     user_with_kluuu:
       with_klu_text: "See your KluuUs here."
-      new_klu: "Create KluuU"      
+      create_klu: "Create KluuU"      
   
   landing_page:
     news: "News"
