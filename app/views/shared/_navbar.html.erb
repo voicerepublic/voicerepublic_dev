@@ -21,7 +21,7 @@
 				<ul class="nav pull-right">
 						<li class="navbar-search form-search">
 							<%= form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-								<%= search_field_tag 'query', nil, :class => "search-query navbar-search-query" %>
+								<%= search_field_tag 'query', nil, :class => "search-query navbar-search-query", :placeholder => t('.search') %>
 								<%= button_tag :type => "submit", :class => "navbar-submit-button" do %>
 									<i class="icon-search"></i>
 								<% end %>

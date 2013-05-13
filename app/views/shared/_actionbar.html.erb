@@ -12,13 +12,13 @@
 					<h1><%= image_tag "logo.png", :alt => "KluuU Logo" %></h1>
 				<% end %>			
 			<ul class="nav">			
-				<!-- <li class="<%= current_page?(dashboard_path) ? 'active' : '' %>"> -->
-					<!-- <%= link_to(dashboard_path, :class => "nav-left-border") do %> -->
-						<!-- <%= t(".dashboard") %> -->
-					<!-- <% end  if current_user %> -->
+				<!-- <li class="<%#= current_page?(dashboard_path) ? 'active' : '' %>"> -->
+					<!-- <%#= link_to(dashboard_path, :class => "nav-left-border") do %> -->
+						<!-- <%#= t(".dashboard") %> -->
+					<!-- <%# end  if current_user %> -->
 				</li>
 				<li class="<%= current_page?current_user ? 'active' : '' %> dropdown actionbar-profile">
-					<%= link_to '#', :class => "actionbar-profile-link dropdown-toggle",:data => {:toggle=>"dropdown"}, :title => current_user.name do %>
+					<%= link_to '#', :class => "actionbar-profile-link dropdown-toggle nav-left-border",:data => {:toggle=>"dropdown"}, :title => current_user.name do %>
 
 						<%= image_tag current_user.account.portrait(:thumb), :alt => current_user.name %>
 						<span class="hidden-phone">
