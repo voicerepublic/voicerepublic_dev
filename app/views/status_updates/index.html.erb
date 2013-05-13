@@ -1,11 +1,11 @@
 <section class=" row-fluid">
 	<% if @user == current_user %>
-		<div class="span4">
+		<div class="span3">
 			<%= render(:partial => 'status_updates/no_status', :locals => {:user => @user}) if @status_updates.empty? %>
 			<%= render(:partial => 'status_updates/with_status', :locals => {:user => @user} ) unless @status_updates.empty? %>
 		</div>
 		
-		<div class="span8">
+		<div class="span9">
 			<% if @status_updates.empty? %>
 				<%= render(:partial => 'status_updates/status_update_video') if @status_updates.empty? %>
 			<% else %>

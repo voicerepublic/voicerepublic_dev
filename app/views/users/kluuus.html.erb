@@ -1,12 +1,12 @@
 <section class="user-klus row-fluid">
 	<% if @user == current_user %>
 
-		<div class="span4">
+		<div class="span3">
 			<h3><%= t('.klus') %></h3>
 			<%= render(:partial => 'klus/user_no_kluuus') if @kluuus.empty? %>
 			<%= render(:partial => 'klus/user_with_kluuu') unless @kluuus.empty? %>
 		</div>
-		<div class="span8">
+		<div class="span9">
 			<% if @kluuus.empty? %>
 				<%= render(:partial => 'klus/kluuu_video') %>
 			<% else %>

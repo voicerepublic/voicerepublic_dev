@@ -2,12 +2,12 @@
 <section class="venue-list row-fluid">
 	<% if @user == current_user %>
 
-		<div class="span4">
+		<div class="span3">
 			<h3><%= t('.venues') %></h3>
 			<%= render(:partial => 'venues/no_venues') if @venues.empty? %>
 			<%= render(:partial => 'venues/with_venues') unless @venues.empty? %>
 		</div>
-		<div class="span8">
+		<div class="span9">
 		<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue) unless @venues.empty? %>
 		<%= render(:partial => 'venues/venue_video') if @venues.empty? %>
 		</div>

@@ -613,6 +613,7 @@ de:
     navbar:
       sign_up: "Registrieren"
       sign_in: "Anmelden"
+      search: "Suchen..."
     notice_or_error:
       success: "Erfolg"
       warning: "Warnung"
@@ -636,13 +637,32 @@ de:
       comments: "Kommentare"
     index:
       new_status_update: "Neuer Status"
+      guest_empty_status_update: "%{name} hat noch keinen Status."      
     show:
       back: "Zurück"
     new:
       title: "Neuer Status"
     form:
       update_status: "Aktualisieren"
+    no_status:
+      title: "Status"
+      no_status_text: "Veröffentliche Deinen ersten Status."
+      new_status: "Neuer Status"
+    with_status:
+      title: "Status"
+      these_are_your_status_updates: "Hier siehst du alle Deine Status."
+      new_status: "Neuer Status"
   
+  bookmarks:
+    index:
+      guest_empty_bookmark: "%{name} hat noch keine Lesezeichen."
+    no_bookmarks:
+      title: "Lesezeichen"
+      no_bookmarks_text: "Hier sind Deine Lesezeichen."
+    with_bookmarks:
+      title: "Lesezeichen"
+      with_bookmarks_text: "Hier sind Deine Lesezeichen."
+
   users:
     welcome:
       welcome_user: "Willkommen bei KluuU"

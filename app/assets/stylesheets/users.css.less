@@ -29,7 +29,9 @@ p.wichtig {
 	margin-top: @verticalRhythm * 3;
 
 	nav.user-main-nav {
-		margin: 19px 0 25px 0;
+		margin: 29px 0 25px 0;
+		padding: 10px 0;
+		/*background: white;*/
 
 		ul {
 			.clearfix;
@@ -44,13 +46,21 @@ p.wichtig {
 			line-height: 1;
 			text-align: center;
 			vertical-align: baseline;
-			margin: 0 4%;
+			margin: 0 5.3%;
 			border-radius: 30px;
 			.transition(all 0.2s ease);
 
 			.user-main-nav-subline {
 				font-size: @baseFontSize;
 				display: block;
+			}
+
+			&:first-child{
+				margin-left: 0;
+			}
+
+			&:last-child{
+				margin-right: 0;
 			}
 
 			&.kluuu-color{
@@ -315,7 +325,7 @@ p.wichtig {
 	}
 
 	.medium-klu {
-		.set-rows(4);
+		.set-rows(3);
 	}
 
 	.user-bookmarks	.medium-kluuu:nth-child(even) {

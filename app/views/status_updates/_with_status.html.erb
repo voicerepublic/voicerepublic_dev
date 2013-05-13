@@ -1,9 +1,11 @@
+<h3><%= t('.title') %></h3>
+
 <p>
 	<%= t('.these_are_your_status_updates', :name => @user.firstname ) %>
 </p>
 <br>
 <div class="control-group">
 	<%= link_to new_user_status_update_path, :class => 'btn btn-primary' do %>
-		<i class="icon-edit"></i> <%= t('.new_status_update')%>
+		<%= t('.new_status')%>
 	<% end %>
 </div>

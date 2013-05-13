@@ -1,10 +1,10 @@
 <section class="user-bookmarks row-fluid">
 	<% if @user == current_user %>
-		<div class="span4">
+		<div class="span3">
 			<%= render(:partial => 'bookmarks/no_bookmarks') if @bookmarks.empty? %>
 			<%= render(:partial => 'bookmarks/with_bookmarks', :locals => {:user => @user} ) unless @bookmarks.empty? %>
 		</div>
-		<div class="span8">
+		<div class="span9">
 			<% @bookmarks.each do |bookmark| %>
 				<%= partial_for_bookmark(bookmark) %>
 			<% end unless @bookmarks.empty? %>
@@ -12,7 +12,7 @@
 		</div>
 	<% else %>
 		<% if @bookmarks.empty? %>
-			<div class="text-align-center muted"><br><br><%= t('.guest_empty_bookmark', :name => @user.firstname) %><br><br></div>				
+			<div class="text-align-center muted"><br><%= t('.guest_empty_bookmark', :name => @user.firstname) %><br><br></div>				
 		<% else %>
 			<% @bookmarks.each do |bookmark| %>
 				<%= partial_for_bookmark(bookmark) %>

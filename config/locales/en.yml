@@ -608,6 +608,7 @@ en:
     navbar:
       sign_up: "Sign Up"
       sign_in: "Log In"
+      search: "Search..."
     notice_or_error:
       success: "Successful"
       warning: "Warning"
@@ -625,12 +626,32 @@ en:
       comments: "Comments"
     index:
       new_status_update: "New status"
+      guest_empty_status_update: "%{name} has no Status yet."
     show:
       back: "back"
     new:
       title: "New status"
     form:
       update_status: "Update"
+    no_status:
+      title: "Status"
+      no_status_text: "Post your first Status."
+      new_status: "New Status"
+    with_status:
+      title: "Status"
+      these_are_your_status_updates: "See your Status here."
+      new_status: "New Status"
+
+  bookmarks:
+    index: 
+      guest_empty_bookmark: "%{name} has no Bookmarks yet."
+    no_bookmarks:
+      title: "Bookmarks"
+      no_bookmarks_text: "See here your Bookmarks."
+    with_bookmarks:
+      title: "Bookmarks"
+      with_bookmarks_text: "See here your Bookmarks."
+
   users:
     welcome:
       welcome_user: "Welcome to KluuU"
@@ -662,7 +683,7 @@ en:
       i_talk_about: "KluuUs"
       venues: "Venues"
       opinions: "Status"
-      bookmarks: "Bookmark"
+      bookmarks: "Bookmarks"
     user_information:
       unfollow: "Unfollow"
       follow: "Follow"
