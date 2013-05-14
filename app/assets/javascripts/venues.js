@@ -27,7 +27,14 @@
       }
     };
 
+    var datetimePicker = function() {
+      $('#datetimepicker1').datetimepicker({
+        language: '<%= I18n.locale.to_s %>'
+      });
+    };
+
     disableKluLinks();
+    datetimePicker();
 
 })(jQuery);
   

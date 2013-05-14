@@ -39,6 +39,18 @@
 		</div>
 	</div>
 
+	<%# TODO, dieses Feld als Datum und Zeit selector benützen. %>
+	<div class="well">
+	  <div id="datetimepicker1" class="input-append date">
+	    <input data-format="dd/MM/yyyy hh:mm" type="text"></input>
+	    <span class="add-on">
+	      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+	      </i>
+	    </span>
+	  </div>
+	</div>
+	<%# TODO END %>
+
 	<div class="control-group" >
 		<%= f.label :start_time, :class => 'control-label' do %>
 			<%= t('.start_time')%>

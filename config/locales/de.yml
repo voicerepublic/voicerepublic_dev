@@ -725,7 +725,7 @@ de:
   venues:
     date_changed: "Treffpunkt Termin aktualisiert"
     edit: 
-      venue_edit_title: "Bearbeite den Treffpunkt"
+      venue_edit_title: "Treffpunkt bearbeiten"
       venue_renew_title: "Neues Datum"
       confirm_change_date: "Die Änderung des Termins wird im Anschluss den bisherigen Teilnehmern mitgeteilt"
       save: "Speichern"
