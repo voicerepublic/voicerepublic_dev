@@ -5,12 +5,13 @@
 	<%# TODO, dieses Feld als Datum und Zeit selector benützen. %>
 	<div class="well">
 	  <div id="datetimepicker1" class="input-append date">
-	    <input data-format="dd/MM/yyyy hh:mm" type="text"></input>
+	    <input data-format="dd/MM/yyyy hh:mm" placeholder="<%=t('.datepick_placeholder')%>" type="text"></input>
 	    <span class="add-on">
 	      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
 	      </i>
 	    </span>
-	  </div>
+	  </div><br>
+	  <span class="help-block"><%=t('.datepick_help')%></span>
 	</div>
 	<%# TODO END %>
 
