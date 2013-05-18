@@ -7,7 +7,7 @@ class Kluuu < Klu
   has_many :klu_images, :foreign_key => :klu_id, :dependent => :destroy
   # because of STI in Klu - rateable_type will always be 'Klu'
   has_many :ratings, :as => :rateable, :dependent => :destroy 
-  has_many :venues, :foreign_key => :host_kluuu_id
+  has_many :venues, :foreign_key => :host_kluuu_id, :dependent => :destroy
   
   # see base-class for base-validations
   validates_presence_of :charge_cents, :description, :category_id #, :currency  #, :currency
