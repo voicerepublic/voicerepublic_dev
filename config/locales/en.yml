@@ -708,7 +708,7 @@ en:
     date_changed: "New venue date"
     edit:
       venue_edit_title: "Edit Venue"
-      venue_renew_title: "Change venue date"
+      venue_renew_title: "New date"
       confirm_change_date: "All participants will be notified of your changes"
     venue_list: "Venues"
     new_venue: "Create Venue"
@@ -781,11 +781,19 @@ en:
       start_time: "Time"
       host_kluuu: "Hosting KluuU"
       duration: "Duration of your venue (in minutes)"
-      datepick_placeholder: "Select date and time    -->"
-      datepick_help: "Example: 20/12/2013 18:15"
+      start_date: "Date"
+      start_time: "Time"      
+      datepick_placeholder: "select..."
+      timepick_placeholder: "select..."
+      datepick_help: "Example: 20/12/2013"
+      timepick_help: "Example: 18:15"
     change_time_form:
-      datepick_placeholder: "Select date and time    -->"
-      datepick_help: "Example: 20/12/2013 18:15" 
+      start_date: "Date"
+      start_time: "Time"    
+      datepick_placeholder: "select..."
+      timepick_placeholder: "select..."
+      datepick_help: "Example: 20/12/2013"
+      timepick_help: "Example: 18:15" 
 
     group_chat:
       venue_chat: "Join the discussion!"

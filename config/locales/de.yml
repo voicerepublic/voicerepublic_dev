@@ -800,11 +800,19 @@ de:
       start_time: "Zeitpunkt"
       host_kluuu: "Gastgebendes KluuU"
       duration: "Dauer des Treffpunktes in Minuten"
-      datepick_placeholder: "Datum und Zeit auswählen -->"
-      datepick_help: "Beispiel: 20/12/2013 18:15"
+      start_date: "Datum"
+      start_time: "Zeit"      
+      datepick_placeholder: "auswählen..."
+      timepick_placeholder: "auswählen..."
+      datepick_help: "Beispiel: 20/12/2013"
+      timepick_help: "Beispiel: 18:15"
     change_time_form:
-      datepick_placeholder: "Datum und Zeit auswählen -->"
-      datepick_help: "Beispiel: 20/12/2013 18:15" 
+      start_date: "Datum"
+      start_time: "Zeit"
+      datepick_placeholder: "auswählen..."
+      timepick_placeholder: "auswählen..."
+      datepick_help: "Beispiel: 20/12/2013"
+      timepick_help: "Beispiel: 18:15"
       
     group_chat:
       venue_chat: "Steige in die Diskussion ein"

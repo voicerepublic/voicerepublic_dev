@@ -28,8 +28,13 @@
     };
 
     var datetimePicker = function() {
-      $('#datetimepicker1').datetimepicker({
-        language: '<%= I18n.locale.to_s %>'
+      $('#datepicker').datetimepicker({
+        language: '<%= I18n.locale.to_s %>',
+        pickTime: false
+      });
+      $('#timepicker').datetimepicker({
+        language: '<%= I18n.locale.to_s %>',
+        pickDate: false
       });
     };
 

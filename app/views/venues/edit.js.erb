@@ -1,6 +1,11 @@
 overlay.build('<%= escape_javascript( render(:partial => 'edit_start_time', :locals => { :venue => @venue} )) %>', true);
 $(function() {
-  $('#datetimepicker1').datetimepicker({
-    language: '<%= I18n.locale.to_s %>'
+  $('#datepicker').datetimepicker({
+    language: '<%= I18n.locale.to_s %>',
+    pickTime: false
+  });
+  $('#timepicker').datetimepicker({
+    language: '<%= I18n.locale.to_s %>',
+    pickDate: false
   });
 });
