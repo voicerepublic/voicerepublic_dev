@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   # see config/initializers/warden.rb for overwritten callbacks in case of authentication or logout
   # to set the default online/offline/busy - state of user
   devise :database_authenticatable, :registerable, :omniauthable,
-           :recoverable, :rememberable, :trackable, :validatable, :timeoutable
+           :recoverable, :rememberable, :trackable, :validatable #, :timeoutable
 
   validates :email, :uniqueness => true, :presence => true
   validates :firstname, :presence => true, :length => { :minimum => 1, :maximum => 100}
