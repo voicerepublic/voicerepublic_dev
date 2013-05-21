@@ -433,11 +433,11 @@ en:
       charge_cents: "Charge in cent"    
     form_new_kluuu:
       title: "Title"
-      enter_the_name_of_your_kluuu: "What's your KluuU theme?"
+      enter_the_name_of_your_kluuu: "What's your theme?"
       description: "Description"
       describe_your_kluuu: "You can change the description anytime."
       image: "Image"      
-      add_image_to_your_kluuu: "Please upload a photo for this KluuU."
+      add_image_to_your_kluuu: "Please upload a photo."
       tag_list: "Tags, 3 or more - separate by comma: recipe, cooking, organic,"
       category: "Category"
       please_use_significant_tags: "Tags are key words. The more tags you use, the easier other will be able to find your KluuU."
@@ -780,7 +780,7 @@ en:
       description: "Description of venue"
       start_time: "Time"
       host_kluuu: "Hosting KluuU"
-      duration;: "Duration of your venue in minutes"
+      duration: "Duration of your venue (in minutes)"
       datepick_placeholder: "Select date and time    -->"
       datepick_help: "Example: 20/12/2013 18:15"
     change_time_form:
