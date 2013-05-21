@@ -2,10 +2,11 @@
     <%= hidden_field_tag(:renew,1) %>
 
 
-	<%# TODO, dieses Feld als Datum und Zeit selector benützen. %>
+	<%# TODO, diese inputs als Datum und Zeit selector benützen. %>
 	<div class="well">
-	  <div id="datetimepicker1" class="input-append date">
-	    <input data-format="dd/MM/yyyy hh:mm" placeholder="<%=t('.datepick_placeholder')%>" type="text"></input>
+		<label><%= t('.start_date')%></label>
+	  <div id="datepicker" class="input-append date">
+	    <input data-format="dd/MM/yyyy" placeholder="<%=t('.datepick_placeholder')%>" type="text"></input>
 	    <span class="add-on">
 	      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
 	      </i>
@@ -13,6 +14,17 @@
 	  </div><br>
 	  <span class="help-block"><%=t('.datepick_help')%></span>
 	</div>
+	<div class="well">
+		<label><%= t('.start_time')%></label>
+	  <div id="timepicker" class="input-append date">
+	    <input data-format="hh:mm" placeholder="<%=t('.timepick_placeholder')%>" type="text"></input>
+	    <span class="add-on">
+	      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+	      </i>
+	    </span>
+	  </div><br>
+	  <span class="help-block"><%=t('.timepick_help')%></span>
+	</div>	
 	<%# TODO END %>
 
 
