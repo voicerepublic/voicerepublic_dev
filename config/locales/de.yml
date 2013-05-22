@@ -498,6 +498,10 @@ de:
     no_kluuu:
       this_no_kluuu_is_bookmarked: "Mit Lesezeichen versehen von:"
       people_who_know_about: "→ Treffer zur Frage:"
+    medium_kluuu:
+      add_bookmark: "Lesezeichen"
+      add_bookmark_title: "Lesezeichen hinzufügen"
+      delete_bookmark_title: "Lesezeichen löschen"
     tiny_klu_overlay:
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     user_about:
