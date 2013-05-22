@@ -482,6 +482,9 @@ de:
       edit: "Bearbeiten"
       delete: "Löschen"
       add_image: "Bild hinzufügen"
+      add_bookmark: "Lesezeichen"
+      add_bookmark_title: "Lesezeichen hinzufügen"
+      delete_bookmark_title: "Lesezeichen löschen"    
     kluuu_user:
       send_message: "Nachricht schicken"
       chat : "Text-Chat"
@@ -492,6 +495,9 @@ de:
       category: "Kategorie"
       tags: "Schlagworte"
     kluuu:
+      add_bookmark: "Lesezeichen"
+      add_bookmark_title: "Lesezeichen hinzufügen"
+      delete_bookmark_title: "Lesezeichen löschen"    
       feedbacks: "Bewertungen:"
       this_kluuu_is_bookmarked: "Mit Lesezeichen versehen von:"
       people_who_wanna_know_more_about: "→ Treffer zum KluuU:"

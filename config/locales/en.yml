@@ -477,6 +477,9 @@ en:
       edit: "Edit"
       destroy: "Delete"    
       add_image: "Add image"
+      add_bookmark: "Add Bookmark"
+      add_bookmark_title: "Add Bookmark"
+      delete_bookmark_title: "Delete Bookmark"
     kluuu_user:
       send_message: "Send message"
       unfollow: "Unfollow"
