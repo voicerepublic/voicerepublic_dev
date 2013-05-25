@@ -477,6 +477,9 @@ en:
       edit: "Edit"
       destroy: "Delete"    
       add_image: "Add image"
+      add_bookmark: "Add Bookmark"
+      add_bookmark_title: "Add Bookmark"
+      delete_bookmark_title: "Delete Bookmark"
     kluuu_user:
       send_message: "Send message"
       unfollow: "Unfollow"
@@ -493,6 +496,10 @@ en:
     no_kluuu:
       this_no_kluuu_is_bookmarked: "Bookmarked by:"
       people_who_know_about: "→ Matches for the Question"
+    medium_kluuu:
+      add_bookmark: "Add Bookmark"
+      add_bookmark_title: "Add Bookmark"
+      delete_bookmark_title: "Delete Bookmark"
     tiny_klu_overlay:
       leave_venue_popup: "This link opens a new tab!"
     user_about:

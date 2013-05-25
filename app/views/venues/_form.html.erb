@@ -41,6 +41,7 @@
 
 	<%# TODO, dieses inputs als Datum und Zeit selector benützen. %>
 	<div class="well">
+		<label><%= t('.start_date')%></label>
 	  <div id="datepicker" class="input-append date">
 	    <input data-format="dd/MM/yyyy" placeholder="<%=t('.datepick_placeholder')%>" type="text"></input>
 	    <span class="add-on">
@@ -51,6 +52,7 @@
 	  <span class="help-block"><%=t('.datepick_help')%></span>
 	</div>
 	<div class="well">
+		<label><%= t('.start_time')%></label>
 	  <div id="timepicker" class="input-append date">
 	    <input data-format="hh:mm" placeholder="<%=t('.timepick_placeholder')%>" type="text"></input>
 	    <span class="add-on">

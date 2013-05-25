@@ -107,11 +107,58 @@
 
 	a {
 		color: @brandBookmarks;
-		.transition(color 0.2s ease);
+		display: block;
+		&.klu-bookmark-add{
+			min-width:100px;
+			height:30px;
+		}
+
+		.icon-bookmark, .icon-bookmark-empty{
+			.transition(opacity 0.15s ease);
+		}
+
+		&.klu-bookmark-add .icon-bookmark,
+		&.klu-bookmark-delete .icon-bookmark-empty{
+				opacity: 0;
+				-moz-opacity: 0;
+				-webkit-opacity: 0;
+				position: absolute;
+				top:0;
+				left: 0;
+		}
+
+		.bookmark-text{
+			font-size: @baseFontSize * 0.8;
+			text-shadow: none;
+			margin-left: 6px;
+			opacity: 0;
+			-moz-opacity: 0;
+			-webkit-opacity: 0;
+			.transition(opacity 0.15s ease);
+		}
 
 		&:hover {
 			text-decoration: none;
-			color: @brandColorLighter;
+			.bookmark-text{
+				opacity: 1;
+				-moz-opacity: 1;
+				-webkit-opacity: 1;
+			}			
+		}
+
+		&.klu-bookmark-add:hover .icon-bookmark,
+		&.klu-bookmark-delete:hover .icon-bookmark-empty{
+			opacity: 1;
+			-moz-opacity: 1;
+			-webkit-opacity: 1;
+		}
+
+		&.klu-bookmark-delete:hover{
+			.icon-bookmark{
+				opacity: 0;
+				-moz-opacity: 0;
+				-webkit-opacity: 0;
+			}
 		}
 	}
 }
