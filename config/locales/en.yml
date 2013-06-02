@@ -415,7 +415,7 @@ en:
   klus:
     comment_section:
       headline_1: "Comments"
-      headline_2: "Blog for %{name}"
+      headline_2: "Blog for: %{name}"
       
     facebook_value_template:
       talk_on_kluuu_about: "Talk with %{name} about '%{subject}'"

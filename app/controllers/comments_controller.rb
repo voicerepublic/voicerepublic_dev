@@ -54,9 +54,7 @@ class CommentsController < ApplicationController
   def create
     
     @comment = @commentable.comments.build(params[:comment].merge(:user_id => current_user.id))
-    if @commentable.kind_of?(Klu)
-      finished("blog_vs_comment")
-    end
+
     logger.debug(@comment.inspect)
     
     unless @comment

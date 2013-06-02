@@ -421,7 +421,7 @@ de:
   klus:
     comment_section:
       headline_1: "Kommentare"
-      headline_2: "Das Blog zum KluuU %{name}"
+      headline_2: "Das Blog zum KluuU: %{name}"
     facebook_value_template:
       talk_on_kluuu_about: "Sprich mit %{name} über '%{subject}'"
     form_welcome_new_no_kluuu:
