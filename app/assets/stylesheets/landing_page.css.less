@@ -63,7 +63,7 @@ body .container .well {
 
  h2.landing-page-claim{
  		font-size:@baseFontSize * 2.5;
- 		color: @brandKluuu;
+ 		/*color: @brandKluuu;*/
  		font-weight: normal;
  		margin:40px 11px 10px 0px;
  		display: inline-block;
@@ -102,11 +102,13 @@ body .container .well {
 		margin-top: 0;
 		margin-bottom: 30px;
 		text-align: center;
+
 		a{
 			color:@black;
 		}
 		ul{
 			display: inline-block;
+			background:url(bg-illu.png) no-repeat center top;
 			border:3px solid #ccc;
 			border-radius: 10px;
 			width:100%;
@@ -128,8 +130,8 @@ body .container .well {
 			list-style-type: none;
 			display: block;
 			float:left;
-			/*height:190px;*/
 			width:47%;
+			color:#777;
 			img{
 				margin-bottom: 10px
 			}
@@ -137,11 +139,15 @@ body .container .well {
 				margin:21px 0 0px 0;
 				font-size: 32px;
 				line-height:34px;
+				color:#555;
 			}
 			.landing-page-illu-subtitle{
 				font-style: italic;
 				font-size: 16px
 			}
+		}
+		li:last-child h2{
+			margin-right: 28px
 		}
 	}
 }
