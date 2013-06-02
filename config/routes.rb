@@ -49,6 +49,9 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /de|en/ do
+    devise_scope :user do
+      delete "/users/sign_out" => "devise/sessions#destroy"
+    end
     devise_for :users, :controllers => {  :omniauth_callbacks => "users/omniauth_callbacks" 
                                           #:sessions => "users/sessions"
                                           #:registrations => "users/registrations" 
