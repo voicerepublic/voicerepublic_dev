@@ -37,11 +37,11 @@ class KlusController < ApplicationController
     if params[:klu_type] && ( params[:klu_type] == 'Kluuu' )
       logger.debug("Klus#new - in params scope - creating new Kluuu")
       
-      unless @user.balance_account
-        logger.info("KlusController#new - redirecting to balance_account_path")
-        flash[:warn] = I18n.translate('controller_klus.balance_account_not_created_yet')
-        redirect_to user_balance_account_path(:user_id => @user)  and return
-      end
+      #unless @user.balance_account
+      #  logger.info("KlusController#new - redirecting to balance_account_path")
+      #  flash[:warn] = I18n.translate('controller_klus.balance_account_not_created_yet')
+      #  redirect_to user_balance_account_path(:user_id => @user)  and return
+      #end
    
       @klu = Kluuu.new(:published => true)
       @klu.klu_images.build

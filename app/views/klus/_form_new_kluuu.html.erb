@@ -85,7 +85,12 @@
 		</div>
 
 		<div class="well">
+			<% if @user.balance_account.nil? %>
+				<span class="label label-warning"><%= t('.missing_balance_account_create_one_now') %>&nbsp;
+				<%= link_to t('balance.accounts.new.configure_your_financial_account'), user_balance_account_path(@user) %></span> 
+			<% end %>
 			<div class="row-fluid">
+				
 				<div class="control-group span3">
 					<%= label_tag "klu_charge_type", :class => 'control-label' do %>
 					<%= t('.charge_type', :default => "Preis") %>
@@ -95,12 +100,16 @@
 					</div>
 				</div>
 				<div class="control-group span3">
+					
 					<%= label_tag "klu_charge_amount", :class => 'control-label' do %>
 					<%= t('.charge_cents', :default => "Betrag in Cents") %>
 					<% end %>
+					
 					<div class="controls">
 						<%= f.number_field(:charge_cents )%>
+						
 					</div>
+					
 				</div>
 			</div>
 			<div class="klu-new-help">
