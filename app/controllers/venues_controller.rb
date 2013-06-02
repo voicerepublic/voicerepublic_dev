@@ -68,6 +68,7 @@ class VenuesController < ApplicationController
          end
         format.json { render json: @venue, status: :created, location: @venue }
       else
+        logger.error("Venues#create - ERROR: #{@venue.errors.inspect}")
         format.html { render action: "new" }
         format.json { render json: @venue.errors, status: :unprocessable_entity }
       end

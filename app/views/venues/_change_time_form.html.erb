@@ -1,43 +1,18 @@
 <%= form_for venue, :html => { :class => 'form-horizontal' } do |f| %>
     <%= hidden_field_tag(:renew,1) %>
-
-
-	<%# TODO, diese inputs als Datum und Zeit selector benützen. %>
-	<div class="well">
-		<label><%= t('.start_date')%></label>
-	  <div id="datepicker" class="input-append date">
-	    <input data-format="dd/MM/yyyy" placeholder="<%=t('.datepick_placeholder')%>" type="text"></input>
+	
+	<div class="control-group">	
+	<label class="control-label"><%= t('.start_time')%></label>
+	  <div id="datetimepicker" class="input-append date controls">
+	  	<% start_time = venue.start_time ? venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : t('.datepick_placeholder') %>
+	    <input id="venue_s_date" name="venue[s_date]" data-format="dd/MM/yyyy hh:mm"  placeholder="<%= start_time %>" type="text">
+	  </input>&nbsp;&nbsp;
 	    <span class="add-on">
 	      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
 	      </i>
 	    </span>
 	  </div><br>
-	  <span class="help-block"><%=t('.datepick_help')%></span>
-	</div>
-	<div class="well">
-		<label><%= t('.start_time')%></label>
-	  <div id="timepicker" class="input-append date">
-	    <input data-format="hh:mm" placeholder="<%=t('.timepick_placeholder')%>" type="text"></input>
-	    <span class="add-on">
-	      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-	      </i>
-	    </span>
-	  </div><br>
-	  <span class="help-block"><%=t('.timepick_help')%></span>
-	</div>	
-	<%# TODO END %>
-
-
-	<div class="control-group" >
-		<%= f.label :start_time, :class => 'control-label' do %>
-			<%= t('.start_time')%>
-		<% end %>
-		
-		<div class="controls">
-			<%= f.datetime_select :start_time, :start_year => Date.today.year %>
-		</div>
-		
-
+	  <span class="help-block">Format: 02/07/1967 17:00</span>
 	</div>
 
 	<div class="form-actions">

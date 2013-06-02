@@ -1,5 +1,7 @@
 class Venue < ActiveRecord::Base
   attr_accessible :title, :description, :host_kluuu_id, :intro_video, :start_time, :duration
+  attr_accessor :s_date, :s_time
+  attr_accessible :s_date, :s_time
   
   belongs_to :host_kluuu, :class_name => 'Kluuu'
   has_many :venue_klus, :dependent => :destroy
@@ -14,6 +16,7 @@ class Venue < ActiveRecord::Base
   validates :host_kluuu, :title, :description, :start_time, :duration, :presence => true
   
   
+  before_validation :parse_datetimepicker
   after_create :generate_notification
   
   MIN_TIME = 240
@@ -106,6 +109,11 @@ class Venue < ActiveRecord::Base
   end
   
   private
+  
+  def parse_datetimepicker
+    self.logger.debug("Venue#parse_datetimepicker - timezone: #{Time.zone}")
+    self.start_time =  Time.zone.parse("#{s_date}")
+  end
   
   def runtime
     ( duration < 0 ) ? MIN_TIME : duration
