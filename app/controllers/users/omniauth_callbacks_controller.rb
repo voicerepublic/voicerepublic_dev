@@ -1,6 +1,8 @@
 require 'pp'
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  include Devise::Controllers::Rememberable
+  
   def facebook
     logger.debug("OmniauthCallbacks#facebook - omniauth.auth: \n #{request.env['omniauth.auth']}\n")
     @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)
@@ -14,6 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
       @user.update_attribute(:available, 'online')
+      remember_me(@user)
       sign_in_and_redirect @user, :event => :authentication
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
@@ -32,6 +35,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
       @user.update_attribute(:available, 'online')
+      remember_me(@user)
       sign_in_and_redirect @user, :event => :authentication
     else
       session["devise.google_data"] = request.env["omniauth.auth"]
