@@ -21,7 +21,7 @@
 	</div>
 	<div class="control-group">
 		<%= f.label :duration, :class => "control-label" do %>
-			<%= t('.duration') %>
+		<%= t('.duration') %>
 		<% end %>
 		<div class="controls">
 			<%= f.select(:duration, Venue::DURATION) %>
@@ -41,24 +41,32 @@
 
 	<div class="control-group">
 		<label class="control-label"><%= t('.start_time')%></label>
-	  <div id="datetimepicker" class="input-append date controls">
-	  	<% start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : t('.datepick_placeholder') %>
-	    <input id="venue_s_date" name="venue[s_date]" data-format="dd/MM/yyyy hh:mm"  placeholder="<%= start_time %>" type="text">
-	    </input>
-	    <span class="add-on">
-	      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-	      </i>
-	    </span>
-	  </div><br>
-	  <span class="help-block">Format: 02/07/1967 17:00</span>
+		<div id="datetimepicker" class="input-append date controls">
+			<% start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : t('.datepick_placeholder') %>
+			<input id="venue_s_date" name="venue[s_date]" data-format="dd/MM/yyyy hh:mm"  placeholder="<%= start_time %>" type="text">
+			</input>
+			<span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i> </span>
+		</div>
+		<br>
+		<span class="help-block">Format: 02/07/1967 17:00</span>
 	</div>
+
+	<noscript>
+		<div class="control-group" >
+			<%= f.label :start_time, :class => 'control-label' do %>
+			<%= t('.start_time')%>
+			<% end %>
+			<div class="controls">
+				<%= f.datetime_select :start_time, :start_year => Date.today.year %>
+			</div>
+		</div>
+	</noscript>
 
 	<div class="form-actions">
 		<%= f.submit nil, :class => 'btn btn-primary' %>
 		<%= link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn' %>
 	</div>
-	
-</div>
 
+</div>
 
 <% end %>

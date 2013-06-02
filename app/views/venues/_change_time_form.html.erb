@@ -14,6 +14,17 @@
 	  </div><br>
 	  <span class="help-block">Format: 02/07/1967 17:00</span>
 	</div>
+	
+	<noscript>
+	<div class="control-group" >
+		<%= f.label :start_time, :class => 'control-label' do %>
+			<%= t('.start_time')%>
+		<% end %>
+		<div class="controls">
+			<%= f.datetime_select :start_time, :start_year => Date.today.year %>
+		</div>
+	</div>
+	</noscript>
 
 	<div class="form-actions">
 		<%= f.submit nil, :data => { :confirm => t('venues.edit.confirm_change_date') }, :class => 'btn btn-primary' %>
