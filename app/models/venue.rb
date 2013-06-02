@@ -112,7 +112,7 @@ class Venue < ActiveRecord::Base
   
   def parse_datetimepicker
     self.logger.debug("Venue#parse_datetimepicker - timezone: #{Time.zone}")
-    self.start_time =  Time.zone.parse("#{s_date}")
+    self.start_time =  Time.zone.parse("#{s_date}") if s_date
   end
   
   def runtime
