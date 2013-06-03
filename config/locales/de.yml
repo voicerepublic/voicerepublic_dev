@@ -793,6 +793,7 @@ de:
       host: "Gastgeber"
       venue_title: "Treffpunkt"
       go_venue_page: "Zum Treffpunkt!"
+      join_venue: "Jetzt Teilnehmen!"
     venue_form:
       write_a_comment: "Verfasse einen Kommentar"
       save_comment: "Posten"

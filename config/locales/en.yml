@@ -771,6 +771,8 @@ en:
       host: "Host"
       venue_title: "Venue"
       go_venue_page: "Proceed to venue-page"
+      join_venue: "Participate now!"
+      
     venue_form:
       write_a_comment: "write a comment"
       save_comment: "Post"
