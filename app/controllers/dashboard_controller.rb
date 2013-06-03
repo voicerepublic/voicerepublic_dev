@@ -40,7 +40,8 @@ class DashboardController < ApplicationController
     @news = @user.notifications.news_alerts.order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
     #@news.each { |x| Notification::Base.find(x.id).update_attribute(:read, true) }
     logger.debug("Dashboard#news - updating attribute 'read' to true")
-    @news.each { |x| x.update_attribute(:read, true) }
+    @user.notifications.news_alerts.each { |x| x.update_attribute(:read, true) }
+    #@news.each { |x| x.update_attribute(:read, true) }
     respond_to do |format|
       format.html 
       format.json { render json: @news }
