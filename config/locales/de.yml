@@ -534,7 +534,7 @@ de:
   landing_page:
     news: "News"
     index:
-      headline: "KluuU ist ein themenbasiertes Netzwerk."
+      headline: "Diskussionen – Gespräche – Chats"
       is: "ist..."
       illu_1: "Dein Blog..."
       illu_2: "mit Treffpunkt..."
@@ -725,6 +725,9 @@ de:
     venues:
       venues: "Treffpunkte"
       guest_empty_venue: "%{name} hat noch keinen Treffpunkt."
+    show:
+      klus: "KluuUs"
+      guest_empty_klu: "%{name} hat noch kein KluuU."
 
   messages:
     form:

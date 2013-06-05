@@ -526,7 +526,7 @@ en:
   landing_page:
     news: "News"
     index:
-      headline: "KluuU is a theme-based network."
+      headline: "Discussions – Talks – Chats"
       is: "is..."
       illu_1: "Your Blog..."
       illu_2: "with Venue..."
@@ -711,6 +711,10 @@ en:
     venues:
       venues: "Venues"
       guest_empty_venue: "%{name} has no venues yet."
+    show:
+      klus: "KluuUs"
+      guest_empty_klu: "%{name} has no KluuU yet."  
+
 
   venues:
     date_changed: "New venue date"
