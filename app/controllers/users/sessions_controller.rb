@@ -1,4 +1,5 @@
 class Users::SessionsController < Devise::SessionsController 
+    include Devise::Controllers::Rememberable
 
   # POST /resource/sign_in
   def create
