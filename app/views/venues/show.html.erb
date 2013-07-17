@@ -30,7 +30,27 @@
 			<%= link_to (@venue.host_kluuu.user.name + "s " + t('.venue')), user_path(@venue.host_kluuu.user) %>
 		<% end %>
 		<br>
-		<h2><%= @venue.title %></h2>
+
+		<div class="title-info-box">
+			<h2><%= @venue.title %>
+
+				<%# INFO-BOX if onair %>
+				<% if  @venue.ongoing?  %>
+				<div class="info-link-onair">
+					<%= image_tag 'info-link-icon.png' %>
+					info
+				</div>
+				<aside class="venue-desc-onair">
+					<%= image_tag( @venue.host_kluuu.user.account.portrait.url(:large), :class => "img-polaroid") %>
+					<%= @venue.description %>
+					<div class="close-icon">&times;</div>
+				</aside>
+				<% end %>
+
+			</h2>
+		</div>
+		
+
 	</div>
 
 	<% if can? :manage, @venue %>
@@ -48,6 +68,21 @@
 
 	<div class="venue-page row-fluid clearfix">
 		<article class="span6 clearfix">
+
+			<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? %>
+
+				<div class="well host-info">
+					<div class="">&nbsp;</div>
+				</div>	
+
+				<% if @venue.host_kluuu.user == current_user %>
+					<div class="host-info-form">
+						<%= render(:partial => 'host_info_form', :locals => {:venue => @venue}) %>
+					</div>
+				<% end %>
+
+			<% else %>	
+
 			<div class="well well-large venue-box row-fluid clearfix">
 				<div class="span12 clearfix">
 					<% if @venue.host_kluuu.user != current_user %>
@@ -68,7 +103,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> 
 			<%# ACTIONS %>
 			<div class="actions-bar">
 				<% if @venue.host_kluuu.user != current_user %>
@@ -85,6 +120,8 @@
 								:class => 'btn btn-danger btn-small' %>
 				<% end %>
 			</div>
+			<% end %>
+
 		</article>
 		<%# CHAT %>
 		<section class="group-chat span6">
@@ -106,7 +143,27 @@
 
 	<%# PARTICIPANTS, COMMENTS %>
 	<div class="row-fluid">
-		<div class="span12">
+
+		<div class="span6">
+
+			<section class="venue-comments">
+				<h3><%= t('.comments') %></h3>
+				<!-- <button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#collapsing-comments">
+				<%#= @venue.comments.count if @venue.comments.count > 0 %> <%#= t('.comments') %>
+				</button> -->
+				<!-- <div id="collapsing-comments" class="collapse"> -->
+				<%= render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment ) %>
+				<!-- </div>	 -->
+				<aside class="newcomment clearfix">
+					<% if current_user %>
+						<% @comment = @venue.comments.build %>
+						<%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
+					<% end %>
+				</aside>
+			</section>
+		</div>
+
+		<div class="span6">
 
 			<section class="participating-klus clearfix">
 				<h3><%= t('.participating_klus') %></h3>
@@ -140,22 +197,8 @@
 				</div>
 			</section>
 
-			<section class="venue-comments">
-				<h3><%= t('.comments') %></h3>
-				<!-- <button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#collapsing-comments">
-				<%#= @venue.comments.count if @venue.comments.count > 0 %> <%#= t('.comments') %>
-				</button> -->
-				<!-- <div id="collapsing-comments" class="collapse"> -->
-				<%= render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment ) %>
-				<!-- </div>	 -->
-				<aside class="newcomment clearfix">
-					<% if current_user %>
-						<% @comment = @venue.comments.build %>
-						<%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
-					<% end %>
-				</aside>
-			</section>
 		</div>
+		
 	</div>
 
 	<div class="venue-socials">

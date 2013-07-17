@@ -766,7 +766,7 @@ de:
       see_other_venues: "Alle Treffpunkte"
       minutes: "Minuten"
       repeating: "Rhythmus"
-      comments: "Kommentare"
+      comments: "Forum"
       renew: "Neues Datum"
       what_is_a_venue: "Was ist ein Treffpunkt?"
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
@@ -830,7 +830,7 @@ de:
       timepick_help: "Beispiel: 18:15"
       
     group_chat:
-      venue_chat: "Steige in die Diskussion ein"
+      venue_chat: "Chat"
       show_host_info_controlls: "ein/ausblenden Moderator-Formular"
       host_field_title: "Infos zur Diskussion"
     host_info_form:

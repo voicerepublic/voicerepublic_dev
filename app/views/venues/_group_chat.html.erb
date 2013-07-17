@@ -1,22 +1,8 @@
 
 <div class="group-chat-instance" id="group-chat-<%= venue.id %>">
-	<header>
-		<h3><%= t('.host_field_title') %></h3>
-	</header>
-
-	<% if venue.host_kluuu.user == current_user %>
-	<div class="host-info-form">
-		<%= render(:partial => 'host_info_form', :locals => {:venue => venue}) %>
-	</div>
-	<% end %>
-
-	<div class="well host-info">
-		<div class="">&nbsp;</div>
-	</div>	
 
 	<div class="well well-large">
-		<header class="label label-chat"><%= t('.venue_chat', :title => venue.title ) %></header>
-		<div class="clear"></div>
+		<h3><%= t('.venue_chat') %></h3>
 		<ul class="chat-message unstyled scrollable-chat" id="<%= venue.chat_name %>">
 			<!-- chat-messages to be here. renders chats/_single_chat_message.js.erb -->
 		</ul>

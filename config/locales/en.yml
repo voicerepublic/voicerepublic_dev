@@ -745,7 +745,7 @@ en:
       see_other_venues: "All Venues"
       minutes: "Minutes"
       repeating: "Rhythm"
-      comments: "Comments"
+      comments: "Forum"
       renew: "New date"
       what_is_a_venue: "Tell me about venues"
       leave_venue_popup: "This link opens a new tab!"
@@ -810,7 +810,7 @@ en:
       timepick_help: "Example: 18:15" 
 
     group_chat:
-      venue_chat: "Join the discussion!"
+      venue_chat: "Chat"
       show_host_info_controlls: "toggle moderator-form"
       host_field_title: "Infos about chat"
     host_info_form:
