@@ -31,7 +31,8 @@
       left:50%;
       top: 50%;
       background:white;
-      min-width:200px;
+      width:0;
+      overflow: hidden;
       border-radius: 3px;
       box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
       -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
@@ -45,11 +46,11 @@
       -o-opacity:0;
       -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 
-      transition:all 0.2s ease 0.2s;
-      -moz-transition:all 0.2s ease 0.2s;
-      -webkit-transition:all 0.2s ease 0.2s;
-      -ms-transition:all 0.2s ease 0.2s;
-      -o-transition:all 0.2s ease 0.2s;
+      transition:opacity 0.2s ease 0.2s;
+      -moz-transition:opacity 0.2s ease 0.2s;
+      -webkit-transition:opacity 0.2s ease 0.2s;
+      -ms-transition:opacity 0.2s ease 0.2s;
+      -o-transition:opacity 0.2s ease 0.2s;
 
       .call-btn{
         padding:8px 10px;
@@ -85,7 +86,8 @@
     }
     &:hover{
       .tiny-klu-call-overlay{
-        display: block;
+        min-width:200px;
+        width:auto;
         opacity:1;
         -moz-opacity:1;
         -webkit-opacity:1;
@@ -98,7 +100,7 @@
 
 
   .participating-klus-box {
-    .set-rows(4);
+    .set-rows(2);
   }
 }
 
@@ -166,11 +168,14 @@
   position: relative;
 
   .host-info {
-    margin-bottom: 10px;
+    margin:150px auto 10px auto;
     padding-left: 16px;
     border:1px solid #932945;
-    max-height: 88px;
+    /*min-height: 88px;*/
     overflow: auto;
+    width:274px;
+    font-size: @baseFontSize * 1.1;
+    font-style: italic;
   }
 
   .venue-time{
@@ -183,15 +188,81 @@
     border:0;
     margin-bottom: 40px;
     a{
-      font-size:16px
+      font-size:16px;
     }
-    h2{
-      font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
-      font-style: italic;
-      font-weight: normal;
-      margin-top:0;
-      line-height: 40px
-    }    
+
+    .title-info-box{
+      text-align: center;
+      h2{
+        font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
+        font-style: italic;
+        font-weight: normal;
+        margin-top:0;
+        line-height: 40px;
+        position: relative;
+        display: inline-block;
+
+        .info-link-onair{
+          position: absolute;
+          width: 60px;
+          right: -70px;
+          top: 14px;
+          font-family: 'Roboto';
+          font-style: normal;
+          font-size: @baseFontSize * 1.3;
+          color: #972944;
+          height:20px;
+          line-height: 100%;
+          text-align: left;
+          cursor: pointer;
+          img{
+            width: 17px;
+            margin-bottom: 5px
+          }
+        }
+      }
+      .venue-desc-onair{
+        position: absolute;
+        width:800px;
+        left:50%;
+        margin-left: -400px;
+        top:50px;    
+        background: white;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        -ms-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        -o-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        font-family: 'Roboto', sans-serif;
+        font-size: @baseFontSize * 1;
+        font-style: normal;
+        line-height: 140%;
+        text-align: left;
+        vertical-align: top;
+        padding: 20px 20px;
+        z-index: 10;
+        display: none;
+        &.show{
+          display: block;
+        }
+        img{
+          width: 130px;
+          display: block;
+          float: left;
+          margin-right: 10px
+        }
+        a{
+          font-size: @baseFontSize;
+        }
+        .close-icon{
+          position: absolute;
+          top:6px;
+          right:10px;
+          font-size: @baseFontSize * 1.5;
+          cursor: pointer;
+        }
+      }
+    }
   }
 
   .venue-box{
@@ -211,7 +282,7 @@
 
   .venue-comments {
     position: relative;
-    width: 50%;
+    width: 95%;
      margin-top: 10px;
      padding-top: 10px;
      img {
@@ -236,18 +307,34 @@
     border: 1px solid #d8d8d8;
   }
 
+  .host-info-form{
+    form{
+      padding-right:80px;
+      position: relative;
+
+      input[type="submit"]{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 70px
+      }
+    }
+  }
   .group-chat-instance {
     h3{
       padding: 0;
-      margin: 0;
-      font-size: @baseFontSize * 1.3;
+      margin: 0 0 10px 0;
+      font-size: @baseFontSize * 1.2;
+      border-bottom: 1px solid #777;
+      color:#555;
     }
     .label-chat{
       background: #1A6E6D
     }
     .scrollable-chat{
       max-height:288px;
-      margin-top:10px;
+      min-height: 288px;
+      margin-top:0px;
     }
     
     .group-chat-item{

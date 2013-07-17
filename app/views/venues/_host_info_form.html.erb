@@ -1,4 +1,4 @@
-<%= form_tag( group_chat_info_path(:id => venue) , :remote => true) do |f| %>
+<%= form_tag( group_chat_info_path(:id => venue) , :remote => true, :class => "host-chat-instance") do |f| %>
 	<div class="control-group">
 		<div class="controls">
 			<%= text_field_tag 'chat[body]','', :class => 'text_field input-block-level host-text-field', :placeholder => t('.your_host_message', :default => 'Your info messages...') %>

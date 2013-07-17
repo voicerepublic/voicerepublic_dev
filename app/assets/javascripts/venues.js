@@ -1,5 +1,11 @@
 
 (function($){
+ 
+    $('.info-link-onair, .venue-desc-onair .close-icon').click(function(){
+
+      $('.venue-desc-onair').toggleClass('show');
+    });
+
     var $chatBody = $('textarea.group_chat_textarea');
     $('.group_chat_submit').on('click', function(event){
        event.preventDefault();
