@@ -1,0 +1,9 @@
+				<div class="well host-info">
+					<div class="">&nbsp;</div>
+				</div>	
+
+				<% if @venue.host_kluuu.user == current_user %>
+					<div class="host-info-form">
+						<%= render(:partial => 'host_info_form', :locals => {:venue => @venue}) %>
+					</div>
+				<% end %>
