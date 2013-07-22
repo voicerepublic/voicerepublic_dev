@@ -75,6 +75,7 @@ GEM
       railties (>= 3.2.6, < 5)
       warden (~> 1.2.3)
     diff-lcs (1.2.4)
+    dotenv (0.8.0)
     dynamic_form (1.1.4)
     em-http-request (1.1.0)
       addressable (>= 2.3.4)
@@ -114,6 +115,9 @@ GEM
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.2.0)
     ffi (1.9.0)
+    foreman (0.63.0)
+      dotenv (>= 0.7)
+      thor (>= 0.13.6)
     formatador (0.2.4)
     friendly_id (4.0.9)
     globalize3 (0.3.0)
@@ -338,6 +342,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   faker
+  foreman
   friendly_id
   globalize3
   guard-rspec
