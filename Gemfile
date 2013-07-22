@@ -28,7 +28,7 @@ gem 'awesome_nested_set'      # used for categories
 gem 'globalize3'              # internationalization
 gem 'acts-as-taggable-on'     # tag-system
 #gem 'money'
-gem 'money-rails', '0.8.0'    # integrates some helper methods and AR-instance-functions...
+gem 'money-rails'             # integrates some helper methods and AR-instance-functions...
 gem 'eu_central_bank'         # financial exchange rates
 gem 'cancan'                  # authorization/privileges
 gem 'private_pub'             # push service
