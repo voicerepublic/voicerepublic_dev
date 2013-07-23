@@ -1,3 +1,9 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * content [text] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * updated_at [datetime, not null] - last update time
+# * user_id [integer] - belongs to :user
 class StatusUpdate < ActiveRecord::Base
   #acts_as_commentable
   

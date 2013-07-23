@@ -1,3 +1,13 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * description [text] - TODO: document me
+# * image_content_type [string] - Paperclip for image
+# * image_file_name [string] - Paperclip for image
+# * image_file_size [integer] - Paperclip for image
+# * image_updated_at [datetime] - Paperclip for image
+# * klu_id [integer] - TODO: document me
+# * updated_at [datetime, not null] - last update time
 class KluImage < ActiveRecord::Base
   attr_accessible :description, :klu_id, :image
   

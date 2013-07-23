@@ -1,3 +1,12 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * begin_timestamp [datetime] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * end_timestamp [datetime] - TODO: document me
+# * klu_id [integer] - belongs to :klu
+# * type [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * video_system_session_id [string] - TODO: document me
 class VideoSession::Anonymous < VideoSession::Base
  
   has_one :host_participant, :autosave => true, :class_name => 'Participant::HostRegistered', :foreign_key => 'video_session_id', :dependent => :destroy

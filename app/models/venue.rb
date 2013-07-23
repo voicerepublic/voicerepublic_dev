@@ -1,3 +1,13 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * description [text] - TODO: document me
+# * duration [integer] - TODO: document me
+# * host_kluuu_id [integer] - belongs to :host_kluuu
+# * intro_video [string] - TODO: document me
+# * start_time [datetime] - TODO: document me
+# * title [string]
+# * updated_at [datetime, not null] - last update time
 class Venue < ActiveRecord::Base
   attr_accessible :title, :description, :host_kluuu_id, :intro_video, :start_time, :duration
   attr_accessor :s_date, :s_time

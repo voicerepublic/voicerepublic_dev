@@ -1,3 +1,9 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * klu_id [integer] - belongs to :klu
+# * updated_at [datetime, not null] - last update time
+# * user_id [integer] - belongs to :user
 class Bookmark < ActiveRecord::Base
   attr_accessible :description, :klu_id, :user_id, :klu
   

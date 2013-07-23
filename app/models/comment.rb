@@ -1,3 +1,11 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * commentable_id [integer] - belongs to :commentable (polymorphic)
+# * commentable_type [string] - belongs to :commentable (polymorphic)
+# * content [text] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * updated_at [datetime, not null] - last update time
+# * user_id [integer] - belongs to :user
 class Comment < ActiveRecord::Base
   
   attr_accessible :content, :commentable_id, :commentable_type, :user_id, :user, :url

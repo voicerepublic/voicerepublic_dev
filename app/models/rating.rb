@@ -1,3 +1,12 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * content [text] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * rateable_id [integer] - belongs to :rateable (polymorphic)
+# * rateable_type [string] - belongs to :rateable (polymorphic)
+# * score [integer, default=0] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * user_id [integer] - belongs to :user
 class Rating < ActiveRecord::Base
   attr_accessible :content, :rateable_id, :user_id, :rateable_type, :score
   
