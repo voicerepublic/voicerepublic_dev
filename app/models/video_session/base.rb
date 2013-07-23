@@ -1,3 +1,12 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * begin_timestamp [datetime] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * end_timestamp [datetime] - TODO: document me
+# * klu_id [integer] - belongs to :klu
+# * type [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * video_system_session_id [string] - TODO: document me
 class VideoSession::Base < ActiveRecord::Base
   attr_accessible :begin_timestamp, :end_timestamp, :klu_id,:klu, :video_system_session_id, :calling_user_id, :type, :canceling_participant_id
   attr_accessor :calling_user_id

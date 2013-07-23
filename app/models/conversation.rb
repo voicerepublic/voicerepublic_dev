@@ -1,3 +1,11 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * offset_1 [integer] - TODO: document me
+# * offset_2 [integer] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * user_1_id [integer] - belongs to :user_1
+# * user_2_id [integer] - belongs to :user_2
 class Conversation < ActiveRecord::Base
   #attr_accessible :partner_id, :user_id
   attr_accessible :user_1_id, :user_2_id

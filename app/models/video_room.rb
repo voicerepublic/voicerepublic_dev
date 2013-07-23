@@ -1,5 +1,18 @@
 require 'video_system_api'
 
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * guest_password [string] - TODO: document me
+# * host_password [string] - TODO: document me
+# * name [string]
+# * participant_count [integer] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * video_server_id [integer] - belongs to :video_server
+# * video_session_id [integer] - belongs to :video_session
+# * video_system_room_id [string] - TODO: document me
+# * welcome_msg [string] - TODO: document me
+
 class VideoRoom < ActiveRecord::Base
   
   belongs_to :video_server

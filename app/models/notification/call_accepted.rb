@@ -1,3 +1,16 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * anon_id [string] - TODO: document me
+# * content [text] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * klu_id [integer] - belongs to :klu
+# * other_id [integer] - belongs to :other
+# * read [boolean] - TODO: document me
+# * type [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * url [string] - TODO: document me
+# * user_id [integer] - belongs to :user
+# * video_session_id [integer] - belongs to :video_session
 class Notification::CallAccepted < Notification::Base 
   attr_accessible :user_id, :other_id, :video_session_id, :url, :anon_id, :other, :user
   

@@ -48,6 +48,7 @@ group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'annotator'
 end
 
 group :test do

@@ -1,3 +1,9 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * followed_id [integer] - belongs to :followed
+# * follower_id [integer] - belongs to :follower
+# * updated_at [datetime, not null] - last update time
 class Follow < ActiveRecord::Base
   attr_accessible :followed_id, :follower_id
   

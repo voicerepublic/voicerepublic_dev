@@ -32,6 +32,8 @@ GEM
     acts-as-taggable-on (2.4.1)
       rails (>= 3, < 5)
     addressable (2.3.5)
+    annotator (0.0.9)
+      activerecord (>= 3.0)
     arel (3.0.2)
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
@@ -329,6 +331,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  annotator
   awesome_nested_set
   cancan
   capistrano

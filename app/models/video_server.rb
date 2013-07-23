@@ -1,5 +1,14 @@
 require 'video_system_api/video_system_api'
 
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * activated [boolean] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * name [string]
+# * salt [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * url [string] - TODO: document me
+
 class VideoServer < ActiveRecord::Base
   attr_accessible :activated, :name, :salt, :url
   

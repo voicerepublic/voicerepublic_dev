@@ -1,3 +1,9 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * klu_id [integer] - belongs to :klu
+# * updated_at [datetime, not null] - last update time
+# * venue_id [integer] - belongs to :venue
 class VenueKlu < ActiveRecord::Base
   
   attr_accessible :klu_id, :venue_id, :klu, :venue

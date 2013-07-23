@@ -1,3 +1,16 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * anon_id [string] - TODO: document me
+# * content [text] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * klu_id [integer] - TODO: document me
+# * other_id [integer] - TODO: document me
+# * read [boolean] - TODO: document me
+# * type [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * url [string] - TODO: document me
+# * user_id [integer] - TODO: document me
+# * video_session_id [integer] - TODO: document me
 class Notification::Base < ActiveRecord::Base
   include ActionView::Helpers::JavaScriptHelper
   include Rails.application.routes.url_helpers

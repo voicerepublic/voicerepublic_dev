@@ -1,5 +1,16 @@
 # encoding : utf-8
 
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * amount_cents [integer] - TODO: document me
+# * check_in_order_id [integer] - belongs to :check_in_order
+# * created_at [datetime, not null] - creation time
+# * currency [string] - TODO: document me
+# * params [text] - TODO: document me
+# * status [string] - TODO: document me
+# * tact_id [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+
 class PaypalPayment < ActiveRecord::Base
 
   attr_accessible :amount_cents, :check_in_order_id, :currency, :params, :status, :tact_id

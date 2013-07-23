@@ -1,3 +1,18 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * account_id [integer] - belongs to :account
+# * created_at [datetime, not null] - creation time
+# * duration [integer] - TODO: document me
+# * exchange_rate [decimal, limit=10] - TODO: document me
+# * transfer_charge_cents [integer] - TODO: document me
+# * transfer_charge_currency [string] - TODO: document me
+# * transfer_gross_cents [integer] - TODO: document me
+# * transfer_gross_currency [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * video_session_charge_cents [integer] - TODO: document me
+# * video_session_charge_currency [string] - TODO: document me
+# * video_session_id [integer] - belongs to :video_session
+# * video_session_klu_name [string] - TODO: document me
 class Transfer < ActiveRecord::Base
   
   belongs_to :account, :class_name => 'Balance::Account'
