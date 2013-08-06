@@ -3,6 +3,7 @@
 # * created_at [datetime, not null] - creation time
 # * description [text] - TODO: document me
 # * duration [integer] - TODO: document me
+# * featured_from [datetime] - TODO: document me
 # * host_kluuu_id [integer] - belongs to :host_kluuu
 # * intro_video [string] - TODO: document me
 # * start_time [datetime] - TODO: document me
@@ -10,7 +11,7 @@
 # * title [string]
 # * updated_at [datetime, not null] - last update time
 class Venue < ActiveRecord::Base
-  attr_accessible :title, :summary, :description, :host_kluuu_id, :intro_video, :start_time, :duration
+  attr_accessible :title, :summary, :description, :host_kluuu_id, :intro_video, :start_time, :duration, :featured_from
   attr_accessor :s_date, :s_time
   attr_accessible :s_date, :s_time
   
@@ -29,7 +30,12 @@ class Venue < ActiveRecord::Base
   
   before_validation :parse_datetimepicker
   after_create :generate_notification
-  
+
+  END_TIME_PGSQL = "start_time + duration * interval '1 minute'"
+
+  scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone) }
+  scope :not_past, proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }  
+
   MIN_TIME = 240
   DURATION = [ 30, 60, 90, 120, -1 ]
   #REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, 

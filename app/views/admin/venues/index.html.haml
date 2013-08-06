@@ -12,6 +12,7 @@
       -# %th= model_class.human_attribute_name(:published)
       -# %th= model_class.human_attribute_name(:category_id)
       -# %th= model_class.human_attribute_name(:type)
+      %th= model_class.human_attribute_name(:featured_from)
       %th= model_class.human_attribute_name(:created_at)
       %th= t '.actions', :default => t("helpers.actions")
   %tbody
@@ -25,6 +26,7 @@
         -# %td= venue.published
         -# %td= venue.category_id
         -# %td= venue.type
+        %td= l venue.featured_from
         %td= l venue.created_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), |

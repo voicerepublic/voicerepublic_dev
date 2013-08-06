@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806091520) do
+ActiveRecord::Schema.define(:version => 20130806135856) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -458,6 +458,7 @@ ActiveRecord::Schema.define(:version => 20130806091520) do
     t.datetime "updated_at",    :null => false
     t.integer  "duration"
     t.text     "summary"
+    t.datetime "featured_from"
   end
 
   create_table "video_rooms", :force => true do |t|

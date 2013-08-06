@@ -29,5 +29,19 @@ describe Venue do
   it "is invalid without duration" do
     FactoryGirl.build(:venue, :duration => nil).should_not be_valid
   end
+
+  it 'should scope not_past' do
+    expected = [ FactoryGirl.create(:venue, :start_time => 1.day.from_now),
+                 FactoryGirl.create(:venue, :start_time => 30.minutes.ago, :duration => 60) ]
+    FactoryGirl.create(:venue, :start_time => 1.day.ago)
+    Venue.not_past.should == expected
+  end
+
+  it 'scope scope featured' do
+    expected = [ FactoryGirl.create(:venue, :featured_from => 1.day.ago),
+                 FactoryGirl.create(:venue, :featured_from => 1.week.ago) ]
+    FactoryGirl.create(:venue, :featured_from => 1.day.from_now)
+    Venue.featured.should == expected
+  end
   
 end
