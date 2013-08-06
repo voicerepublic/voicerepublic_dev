@@ -74,7 +74,7 @@ describe VideoRoom do
   end
 
   context "using the api" do
-    before { mock_server_and_api }
+    before { double_server_and_api }
     let(:video_session_1) { FactoryGirl.create(:video_session) }
     let(:room) { FactoryGirl.create(:video_room, video_session_id: video_session_1.id) }
 
@@ -84,9 +84,9 @@ describe VideoRoom do
 
       context "fetches is_running? when not running" do
         before {
-          mocked_api.should_receive(:is_meeting_running?).with(room.video_system_room_id).and_return(false)
+          doubled_api.should_receive(:is_meeting_running?).with(room.video_system_room_id).and_return(false)
           room.should_receive(:require_server)
-          room.video_server = mocked_server
+          room.video_server = doubled_server
         }
         before(:each) { room.fetch_is_running? }
         it { room.running.should == false }
@@ -95,9 +95,9 @@ describe VideoRoom do
 
       context "fetches is_running? when running" do
         before {
-          mocked_api.should_receive(:is_meeting_running?).with(room.video_system_room_id).and_return(true)
+          doubled_api.should_receive(:is_meeting_running?).with(room.video_system_room_id).and_return(true)
           room.should_receive(:require_server)
-          room.video_server = mocked_server
+          room.video_server = doubled_server
         }
         before(:each) { room.fetch_is_running? }
         it { room.running.should == true }
@@ -135,10 +135,10 @@ describe VideoRoom do
 
       context "fetches meeting info when the meeting is not running" do
         before {
-          mocked_api.should_receive(:get_meeting_info).
+          doubled_api.should_receive(:get_meeting_info).
             with(room.video_system_room_id, room.host_password).and_return(hash_info)
           room.should_receive(:require_server)
-          room.video_server = mocked_server
+          room.video_server = doubled_server
         }
         before(:each) { room.fetch_video_system_room_info }
         it { room.running.should == false }
@@ -151,10 +151,10 @@ describe VideoRoom do
 
       context "fetches meeting info when the meeting is running" do
         before {
-          mocked_api.should_receive(:get_meeting_info).
+          doubled_api.should_receive(:get_meeting_info).
             with(room.video_system_room_id, room.host_password).and_return(hash_info2)
           room.should_receive(:require_server)
-          room.video_server = mocked_server
+          room.video_server = doubled_server
         }
         before(:each) { room.fetch_video_system_room_info }
         it { room.running.should == true }
@@ -176,9 +176,9 @@ describe VideoRoom do
       it { should respond_to(:send_end) }
 
       it "send end_meeting" do
-        mocked_api.should_receive(:end_meeting).with(room.video_system_room_id, room.host_password)
+        doubled_api.should_receive(:end_meeting).with(room.video_system_room_id, room.host_password)
         room.should_receive(:require_server)
-        room.video_server = mocked_server
+        room.video_server = doubled_server
         room.send_end
       end
     end
@@ -195,7 +195,7 @@ describe VideoRoom do
       }
       before {
         room.update_attributes(:welcome_msg => "Anything")
-        mocked_api.should_receive(:"request_headers=").any_number_of_times.with({})
+        #doubled_api.should_receive(:"request_headers=").at_least(0).times.with({})
       }
 
       it { should respond_to(:send_create) }
@@ -203,10 +203,10 @@ describe VideoRoom do
       context "calls #default_welcome_msg if welcome_msg is" do
         before do
           room.should_receive(:default_welcome_message).and_return("Hi!")
-          mocked_api.should_receive(:create_meeting).
+          doubled_api.should_receive(:create_meeting).
             with(anything, anything, "Hi!", anything, anything, anything, anything)
-          room.stub(:select_server).and_return(mocked_server)
-          room.video_server = mocked_server
+          room.stub(:select_server).and_return(doubled_server)
+          room.video_server = doubled_server
         end
 
         context "nil" do
@@ -224,14 +224,14 @@ describe VideoRoom do
         context "for a stored room" do
           before do
             
-            mocked_api.should_receive(:create_meeting).
+            doubled_api.should_receive(:create_meeting).
               with(room.name, anything, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
                    dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).and_return(hash_create)
-            room.stub(:select_server).and_return(mocked_server)
-            room.video_server = mocked_server
+            room.stub(:select_server).and_return(doubled_server)
+            room.video_server = doubled_server
             room.send_create
           end
           it { room.guest_password.should be(guest_password) }
@@ -243,14 +243,14 @@ describe VideoRoom do
           let(:video_session_3) { FactoryGirl.create(:video_session) }
           let(:new_room) { FactoryGirl.build(:video_room, video_session_id: video_session_3.id) }
           before do
-            mocked_api.should_receive(:create_meeting).
+            doubled_api.should_receive(:create_meeting).
               with(new_room.name, anything, new_room.welcome_msg, 
                    new_room.video_session.klu.get_charge_type_as_integer, 
                    new_room.video_session.klu.free_time,
                    dollarize(new_room.video_session.klu.charge_cents), 
                    new_room.video_session.klu.currency).and_return(hash_create)
-            new_room.stub(:select_server).and_return(mocked_server)
-            new_room.video_server = mocked_server
+            new_room.stub(:select_server).and_return(doubled_server)
+            new_room.video_server = doubled_server
             new_room.send_create
           end
           it { new_room.guest_password.should be(guest_password) }
@@ -265,13 +265,13 @@ describe VideoRoom do
         let(:success_hash) { { :returncode => true, :meetingID => "new id", :messageKey => "" } }
         let(:new_id) { "new id" }
         before {
-          room.stub(:select_server).and_return(mocked_server)
-          room.video_server = mocked_server
+          room.stub(:select_server).and_return(doubled_server)
+          room.video_server = doubled_server
         }
 
         it "before calling create" do
           room.should_receive(:random_video_system_room_id).and_return(new_id)
-          mocked_api.should_receive(:create_meeting).
+          doubled_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
@@ -283,13 +283,13 @@ describe VideoRoom do
         it "and tries again on error" do
           # fails twice and then succeds
           room.should_receive(:random_video_system_room_id).exactly(3).times.and_return(new_id)
-          mocked_api.should_receive(:create_meeting).
+          doubled_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
                    dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).twice.and_return(fail_hash)
-          mocked_api.should_receive(:create_meeting).
+          doubled_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
@@ -301,13 +301,13 @@ describe VideoRoom do
         it "and tries again on server error" do
           # fails once and then succeds
           room.should_receive(:random_video_system_room_id).exactly(1).times.and_return(new_id)
-          mocked_api.should_receive(:create_meeting).
+          doubled_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
                    dollarize(room.video_session.klu.charge_cents), 
                    room.video_session.klu.currency).once.and_return(error_hash)
-          mocked_api.should_receive(:create_meeting).
+          doubled_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
@@ -318,7 +318,7 @@ describe VideoRoom do
 
         it "and limits to 3 tries" do
           room.should_receive(:random_video_system_room_id).exactly(4).times.and_return(new_id)
-          mocked_api.should_receive(:create_meeting).
+          doubled_api.should_receive(:create_meeting).
             with(room.name, new_id, room.welcome_msg, 
                    room.video_session.klu.get_charge_type_as_integer, 
                    room.video_session.klu.free_time,
@@ -336,7 +336,7 @@ describe VideoRoom do
             room.should_receive(:select_server).and_return(another_server)
             room.should_receive(:require_server)
             room.should_receive(:do_create_video_system_room)
-            room.video_server = mocked_server
+            room.video_server = doubled_server
             room.send_create
           end
           it { VideoRoom.find(room.id).video_server_id.should == another_server.id }
@@ -350,7 +350,7 @@ describe VideoRoom do
             new_room.should_receive(:require_server)
             new_room.should_receive(:do_create_video_system_room).and_return(nil)
             new_room.should_not_receive(:save)
-            new_room.video_server = mocked_server
+            new_room.video_server = doubled_server
             new_room.send_create
           end
           it { new_room.new_record?.should be_true }
@@ -388,16 +388,16 @@ describe VideoRoom do
         before { room.should_receive(:require_server) }
 
         it "with host role" do
-          mocked_api.should_receive(:join_meeting_url).
+          doubled_api.should_receive(:join_meeting_url).
             with(room.video_system_room_id, username, room.host_password, user_id)
-          room.video_server = mocked_server
+          room.video_server = doubled_server
           room.join_url(username, :host, user_id)
         end
 
         it "with guest role" do
-          mocked_api.should_receive(:join_meeting_url).
+          doubled_api.should_receive(:join_meeting_url).
             with(room.video_system_room_id, username, room.guest_password, user_id)
-          room.video_server = mocked_server
+          room.video_server = doubled_server
           room.join_url(username, :guest, user_id)
         end
       end
@@ -422,7 +422,7 @@ describe VideoRoom do
       it {
         lambda {
           room.send(:require_server)
-        }.should_not raise_error(KluuuExceptions::VideoSystemError)
+        }.should_not raise_error # KluuuExceptions::VideoSystemError
       }
     end
   end

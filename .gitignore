@@ -24,3 +24,4 @@ db/sphinx
 .DS_Store
 /start
 /coverage
+/config/test.sphinx.conf

@@ -39,15 +39,15 @@ describe VideoSessionsController do
             :hasBeenForciblyEnded => "false", :messageKey => {}, :message => {}
           }
           
-    @api_mock = mock(VideoSystemApi::VideoSystemApi)
-    @api_mock.stub(:create_meeting).and_return(hash_create)
-    @api_mock.stub(:join_meeting_url).and_return('http://www.kluuu.com')
-    @server_mock = mock_model(VideoServer)
-    @server_mock.stub(:api).and_return(@api_mock)
-    @server_mock.stub(:first).and_return(@server_mock)
-    @server_mock.stub(:where).and_return(@server_mock)
-    @server_mock.stub(:each).and_return(@server_mock)
-    VideoServer.stub(:activated).and_return(@server_mock)
+    @api_double = double(VideoSystemApi::VideoSystemApi)
+    @api_double.stub(:create_meeting).and_return(hash_create)
+    @api_double.stub(:join_meeting_url).and_return('http://www.kluuu.com')
+    @server_double = mock_model(VideoServer)
+    @server_double.stub(:api).and_return(@api_double)
+    @server_double.stub(:first).and_return(@server_double)
+    @server_double.stub(:where).and_return(@server_double)
+    @server_double.stub(:each).and_return(@server_double)
+    VideoServer.stub(:activated).and_return(@server_double)
   end
 
   # This should return the minimal set of attributes required to create a valid
@@ -290,7 +290,7 @@ describe VideoSessionsController do
       
       it "creates links for the registered video_session users" do
         video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
-        @api_mock.should_receive(:join_meeting_url).twice
+        @api_double.should_receive(:join_meeting_url).twice
         video_session.guest_participant.room_url.should be_nil
         video_session.host_participant.room_url.should be_nil
         xhr :put, :update, {:id => video_session.to_param, :video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
@@ -300,7 +300,7 @@ describe VideoSessionsController do
       
       it "creates links for the anonymous video_session users" do
         video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
-        @api_mock.should_receive(:join_meeting_url).twice
+        @api_double.should_receive(:join_meeting_url).twice
         video_session.guest_participant.room_url.should be_nil
         video_session.host_participant.room_url.should be_nil
         xhr :put, :update, {:id => video_session.to_param, :video_session => valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
@@ -343,7 +343,7 @@ describe VideoSessionsController do
     describe "if room cannot be created" do
       context "because no video_server is available" do
         it "does not create a video room for the registered video_session" do
-          @server_mock.stub(:first).and_return(nil)
+          @server_double.stub(:first).and_return(nil)
           video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
           xhr :put, :update, {:id => video_session.to_param, :video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
           Notification::VideoSystemError.where('video_session_id = ?', video_session.id).count.should == 1
@@ -351,7 +351,7 @@ describe VideoSessionsController do
         end
         
         it "does not create a video room for the anonymous video_session" do
-          @server_mock.stub(:first).and_return(nil)
+          @server_double.stub(:first).and_return(nil)
           video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)
           xhr :put, :update, {:id => video_session.to_param, :video_session => valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id)}, valid_session, :format => 'js'
           Notification::VideoSystemError.where('video_session_id = ?', video_session.id).count.should == 1

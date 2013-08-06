@@ -105,9 +105,9 @@ describe VideoServer do
     }
 
     before {
-      @api_mock = mock(VideoSystemApi::VideoSystemApi)
-      server.stub(:api).and_return(@api_mock)
-      @api_mock.should_receive(:get_meetings).and_return(hash)
+      @api_double = double(VideoSystemApi::VideoSystemApi)
+      server.stub(:api).and_return(@api_double)
+      @api_double.should_receive(:get_meetings).and_return(hash)
       server.fetch_video_system_rooms
 
       # the passwords are updated during fetch_meetings

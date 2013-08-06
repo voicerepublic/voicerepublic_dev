@@ -74,7 +74,7 @@ describe Admin::VideoServersController do
       hash2 = { :meetingID => "Ended Meeting", :attendeePW => "pass", :moderatorPW => "pass", :hasBeenForciblyEnded => true, :running => false }
       flattened_response = { :returncode => true, :meetings => [ hash1, hash2 ], :messageKey => "mkey", :message => "m" }
       
-      video_system_api = mock(VideoSystemApi::VideoSystemApi)
+      video_system_api = double(VideoSystemApi::VideoSystemApi)
       video_system_api.stub(:get_meetings).and_return(flattened_response)
       
       video_server.stub(:api).and_return(video_system_api)
