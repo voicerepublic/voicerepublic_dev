@@ -817,6 +817,7 @@ de:
       venue_is_over: "Vergangener Treffpunkt"
     form:
       title: "Titel des Treffpunkts"
+      summary: "Zusammenfassung des Treffpunktes"
       description: "Beschreibung des Treffpunktes"
       start_time: "Zeitpunkt"
       host_kluuu: "Gastgebendes KluuU"

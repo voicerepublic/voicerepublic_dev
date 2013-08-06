@@ -1,0 +1,48 @@
+= form_for @venue, :html => { :class => 'form-horizontal' } do |f|
+
+  .span6
+    .control-group
+      = f.label :title, :class => 'control-label' do
+        = t('.title')
+      .controls
+        = f.text_field :title, :class => 'text_field'
+    .control-group
+      = f.label :summary, :class => 'control-label' do
+        = t('.summary')
+      .controls
+        = f.text_area :summary, :class => 'text_area', :rows => 2
+    .control-group
+      = f.label :description, :class => 'control-label' do
+        = t('.description')
+      .controls
+        = f.text_area :description, :class => 'text_area', :rows => 4
+    .control-group
+      = f.label :duration, :class => "control-label" do
+        = t('.duration')
+      .controls
+        = f.select(:duration, Venue::DURATION)
+
+  .span5
+    .control-group
+      = f.label :host_kluuu, :class => 'control-label' do
+        = t('.host_kluuu')
+      .controls
+        = f.select :host_kluuu_id, current_user.kluuus.map {|klu| [klu.title, klu.id] } , :class => 'select_field'
+    .control-group
+      %label.control-label= t('.start_time')
+      #datetimepicker.input-append.date.controls
+        - start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : t('.datepick_placeholder')
+        %input#venue_s_date{'data-format' => "dd/MM/yyyy hh:mm", :name => "venue[s_date]", :placeholder => start_time, :type => "text"}/
+        %span.add-on
+          %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
+      %br/
+      %span.help-block Format: 02/07/1967 17:00
+    %noscript
+      .control-group
+        = f.label :start_time, :class => 'control-label' do
+          = t('.start_time')
+        .controls
+          = f.datetime_select :start_time, :start_year => Date.today.year
+    .form-actions
+      = f.submit nil, :class => 'btn btn-primary'
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn'

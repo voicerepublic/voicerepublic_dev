@@ -5,6 +5,7 @@ FactoryGirl.define do
   factory :venue do
     association :host_kluuu, factory: :published_kluuu
     start_time Time.now + 1.week
+    summary Faker::Lorem.paragraphs(1)
     description Faker::Lorem.paragraphs(2)
     title Faker::Lorem.sentence
     intro_video "MyString"

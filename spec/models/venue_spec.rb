@@ -14,6 +14,10 @@ describe Venue do
     FactoryGirl.build(:venue, :title => nil).should_not be_valid
   end
   
+  it "is invalid without summary" do
+    FactoryGirl.build(:venue, :summary => nil).should_not be_valid
+  end
+
   it "is invalid without description" do
     FactoryGirl.build(:venue, :description => nil).should_not be_valid
   end

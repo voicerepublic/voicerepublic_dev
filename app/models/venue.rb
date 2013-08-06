@@ -6,10 +6,11 @@
 # * host_kluuu_id [integer] - belongs to :host_kluuu
 # * intro_video [string] - TODO: document me
 # * start_time [datetime] - TODO: document me
+# * summary [text] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
 class Venue < ActiveRecord::Base
-  attr_accessible :title, :description, :host_kluuu_id, :intro_video, :start_time, :duration
+  attr_accessible :title, :summary, :description, :host_kluuu_id, :intro_video, :start_time, :duration
   attr_accessor :s_date, :s_time
   attr_accessible :s_date, :s_time
   
@@ -23,7 +24,7 @@ class Venue < ActiveRecord::Base
             :dependent => :destroy
   has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', 
             :foreign_key => :other_id, :dependent => :destroy  
-  validates :host_kluuu, :title, :description, :start_time, :duration, :presence => true
+  validates :host_kluuu, :title, :summary, :description, :start_time, :duration, :presence => true
   
   
   before_validation :parse_datetimepicker
