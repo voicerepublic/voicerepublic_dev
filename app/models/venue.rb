@@ -35,6 +35,7 @@ class Venue < ActiveRecord::Base
 
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone) }
   scope :not_past, proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }  
+  scope :upcoming_first, proc { order('start_time ASC') }
 
   MIN_TIME = 240
   DURATION = [ 30, 60, 90, 120, -1 ]
