@@ -8,12 +8,15 @@ module ApplicationHelper
   end
   
   def simple_links(txt)
-    txt.match(/(https?:\/\/\S*)/).to_a.each do |link|
-      txt.gsub!(link, "<a href='#{link}' target='_blank'>#{link}</a> ")
-    end
-    txt
+    p txt
+    txt.gsub(/(https?:\/\/\S*)/, "<a href='\\1' target='_blank'>\\1</a>")
   end
   
+  # simple_format, but with simple links target blanks preserved
+  def sophisticated_format(txt)
+    simple_format(simple_links(sanitize(txt)), {}, :sanitize => false)
+  end
+
   def app_mode
     Rails.env
   end
