@@ -102,7 +102,9 @@ Kluuu2::Application.routes.draw do
       delete "remove_role/:user_role_id", :action => :remove_role,  :as => 'remove_role'
     end
     resources :categories
+    # TODO this has to go
     resources :klus
+    resources :venues
     resources :video_servers
     get "dashboard/index"
   end

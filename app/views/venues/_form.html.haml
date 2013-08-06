@@ -32,7 +32,7 @@
       %label.control-label= t('.start_time')
       #datetimepicker.input-append.date.controls
         - start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : t('.datepick_placeholder')
-        %input#venue_s_date{'data-format' => "dd/MM/yyyy hh:mm", :name => "venue[s_date]", :placeholder => start_time, :type => "text"}/
+        %input#venue_s_date{'data-format' => "dd/MM/yyyy hh:mm", :name => "venue[s_date]", :placeholder => start_time, :type => "text", :value => @venue.start_time && @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") }/
         %span.add-on
           %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
       %br/
