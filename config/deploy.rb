@@ -1,6 +1,10 @@
+require 'capistrano-rbenv'
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'whenever/capistrano'
+
+set :rbenv_ruby_version, "1.9.3-p429"
+set :rbenv_install_dependencies, false
 
 #require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
 set :application, "kluuu2"
@@ -13,6 +17,7 @@ set :use_sudo, false
 set :default_run_options, { :pty => true }
 set :ssh_options, { :forward_agent => true }
 
+set :deploy_to, "/home/rails/app"
 set :rails_env, "production"
 
 # set :template_dir, "~/templates"
@@ -28,6 +33,12 @@ end
 after "deploy:update_code", :update_config_links
 
 after "deploy", "deploy:cleanup"
+
+namespace :deploy do
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "RAILS_ENV=#{rails_env} $HOME/bin/unicorn_wrapper restart"
+  end
+end
 
 #before 'deploy:update_code', 'sphinx:stop'
 #after "deploy:setup", "dbconf:setup" 

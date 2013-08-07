@@ -52,6 +52,7 @@ group :development, :test, :staging do
   gem 'rspec-rails'
   gem 'annotator'
   gem 'foreman', :require => false
+  gem 'capistrano-rbenv', '>= 1.0.0'
 end
 
 group :test do
@@ -64,4 +65,6 @@ group :test do
   gem 'simplecov'
 end
 
-
+group :production do
+  gem 'unicorn'
+end

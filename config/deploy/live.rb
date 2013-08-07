@@ -1,2 +1,2 @@
-server 'kluu-production.panter.ch', :app, :web, :db, :primary => true
+server 'kluuu-production.panter.ch', :app, :web, :db, :primary => true
 set :branch, "production"
