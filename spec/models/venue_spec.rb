@@ -46,7 +46,7 @@ describe Venue do
   
   it 'should know when to start' do
     venue = create :venue, :start_time => 42.minutes.from_now
-    venue.start_in_seconds.should be_close(42.minutes, 1)
+    venue.start_in_seconds.should be_within(1).of(42.minutes)
   end
 
 end
