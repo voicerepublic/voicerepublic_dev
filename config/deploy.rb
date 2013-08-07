@@ -10,7 +10,6 @@ set :rbenv_install_dependencies, false
 set :application, "kluuu2"
 set :repository,  "gitosis@git.panter.ch:klu-001.git"
 set :scm, :git
-set :scm_verbose, true
 set :keep_releases, 5
 set :user, "rails"
 set :use_sudo, false
