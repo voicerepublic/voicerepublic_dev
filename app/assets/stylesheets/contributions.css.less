@@ -5,82 +5,66 @@
 
 .contribution, .comment article {
   .box-sizing(content-box);
-  padding: 17px @contribution-right-offset 6px @contribution-left-offset;
   position: relative;
   min-height: 70px;
 
-  & > aside {
-    font-size: @baseFontSize - 2;
+  p{
+    margin: 2px 0 2px 0;
   }
-
-  & > aside, & > header {
-    color: lighten(desaturate(@brandColor, 10%), 15%);
-
-    a {
-      color: @linkColor;
-    }
-  }
-
   .contribution-comment-links {
-      right: @contribution-right-offset;
-      bottom: 8px;
-      font-size: @baseFontSize - 4;
-    }
-
-  time {
-      left:@contribution-left-offset;
-      bottom: 8px;
-      font-size: @baseFontSize - 4;
+    a{
+      font-size: @baseFontSize * 0.8;
+      margin-right: 12px
     }
   }
+}
 
-  .contribution-user-name, .contribution-user-image, time, .contribution-comment-links, .contribution-edit, .contribution-delete, .contribution-reply, .comment-user-name, .comment-user-image {
-    position: absolute;
+.comment article{
+  padding: 17px @contribution-right-offset 6px @contribution-left-offset;
+}
+
+
+
+.contribution-user-name, .contribution-user-image, .contribution-comment-links, .contribution-edit, .contribution-reply, .comment-user-name, .comment-user-image {
+  font-size: @baseFontSize * 0.8;
+}
+
+.contribution-user-name, .comment-user-name {
+  left: 12px;
+  top: 6px;
+  font-weight: bold;
+  font-size: smaller;
+}
+
+.contribution-user-image, .comment-user-image {
+  display: block;
+  left: 10px;
+  top: 27px;
+}
+
+a.contribution-content {
+  color: inherit;
+  text-decoration: none;
+
+  a {
+    color: @linkColor;
   }
+}
 
-  .contribution-user-name, .comment-user-name {
-    left: 12px;
-    top: 6px;
-    font-weight: bold;
-    font-size: smaller;
-  }
+a.contribution-edit, a.contribution-delete, {
+  right: 8px;
+}
 
-  .contribution-user-image, .comment-user-image {
-    display: block;
-    left: 10px;
-    top: 27px;
-  }
+.contribution-edit {
+  top: 38px;
+}
 
-  a.contribution-content {
-    color: inherit;
+.contribution-reply{
+  right:20px;
+  &:hover{
     text-decoration: none;
-
-    a {
-      color: @linkColor;
-    }
   }
-
-  a.contribution-edit, a.contribution-delete, {
-    right: 8px;
-  }
-
-  .contribution-edit {
-    top: 38px;
-  }
-
-  .contribution-delete, .contribution-reply {
-    top: 6px;
-    &:hover{
-      text-decoration: none;
-    }  
-  }
-
-  .contribution-reply{
-    right:20px;
-    &:hover{
-      text-decoration: none;
-    }
-  }
+}
 
 .comments {
   /*margin-left: @contribution-left-offset;*/

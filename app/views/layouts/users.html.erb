@@ -27,11 +27,11 @@
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
-		<div class="container user-container">
-				
+		<div class="container user-container">				
 			<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
 			
 			<div class="user-content ">
+				<%= render(:partial => 'users/status_updates', :locals => { :user => @user } ) %>
 				<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
 	
 				<section class="user-content-shown clearfix">

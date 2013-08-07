@@ -684,14 +684,15 @@ en:
       rewrite_new_password: "Password confirmation"
       update_password: "Save password"
     status_updates:
+      opinion: "Status"
       add_comment: "comment"
       comment: "comment"
       new_status_update: "New status"
     user_content_nav:
-      i_talk_about: "KluuUs"
-      venues: "Venues"
-      opinions: "Status"
-      bookmarks: "Bookmarks"
+      venues_title: "Venues"
+      venues_participant: "Participants"
+      venues_host: "Host"
+      venue_new: "Create Venue"
     user_information:
       unfollow: "Unfollow"
       follow: "Follow"

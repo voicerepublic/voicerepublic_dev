@@ -643,6 +643,7 @@ de:
       finances: "Finanzen"    
 
   status_updates:
+    opinion: 'Status'
     status_update:
       add_comment: "Kommentieren"
       comments: "Kommentare"
@@ -698,14 +699,15 @@ de:
       rewrite_new_password: "Passwort wiederholen"
       update_password: "Passwort speichern"
     status_updates:
+      opinion: "Status"    
       add_comment: "kommentieren"
       comment: "Kommentar"
       new_status_update: "Neuer Status"
     user_content_nav:
-      i_talk_about: "KluuUs"
-      venues: "Treffpunkte"
-      opinions: "Status"
-      bookmarks: "Lesezeichen"
+      venues_title: "Treffpunkte"
+      venues_participant: "Teilnehmer"
+      venues_host: "Host"
+      venue_new: "Neuer Treffpunkt"
     user_information:
       unfollow: "Entfolgen"
       follow: "Folgen"

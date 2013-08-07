@@ -1,25 +1,10 @@
 
 <section class="venue-list row-fluid">
-	<% if @user == current_user %>
-
-		<div class="span3">
-			<h3><%= t('.venues') %></h3>
-			<%= render(:partial => 'venues/no_venues') if @venues.empty? %>
-			<%= render(:partial => 'venues/with_venues') unless @venues.empty? %>
-		</div>
-		<div class="span9">
-		<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue) unless @venues.empty? %>
-		<%= render(:partial => 'venues/venue_video') if @venues.empty? %>
-		</div>
-	
-	<% else %>
 
 		<% if @venues.empty? %>
 			<div class="text-align-center muted"><br><br><%= t('.guest_empty_venue', :name => @user.firstname) %><br><br></div>				
 		<% else %>
 			<%= render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue) unless @venues.empty? %>		
 		<% end %>
-	
-	<% end %>
 
 <section>
