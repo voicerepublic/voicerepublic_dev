@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806135856) do
+ActiveRecord::Schema.define(:version => 20130807084437) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(:version => 20130806135856) do
     t.text     "prefs"
     t.string   "website"
   end
+
+  create_table "articles", :force => true do |t|
+    t.integer  "venue_id"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "articles", ["user_id"], :name => "index_articles_on_user_id"
+  add_index "articles", ["venue_id"], :name => "index_articles_on_venue_id"
 
   create_table "balance_accounts", :force => true do |t|
     t.string   "currency"
