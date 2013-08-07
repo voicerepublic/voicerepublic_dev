@@ -1,4 +1,4 @@
-- if @venue.start_in_seconds
+- if @venue.start_in_seconds > 0
   - content_for :head do
     %meta(http-equiv="refresh" content="#{@venue.start_in_seconds + rand * 3}")/
 
