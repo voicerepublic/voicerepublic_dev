@@ -44,6 +44,7 @@ gem 'kblog', '0.0.4'          # blog-engine
 gem 'haml-rails'
 gem 'simple_form'
 gem "acts_as_paranoid", "~>0.4.0"
+gem 'unicorn'
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
@@ -65,6 +66,3 @@ group :test do
   gem 'simplecov'
 end
 
-group :production do
-  gem 'unicorn'
-end
