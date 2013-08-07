@@ -43,6 +43,11 @@ class Venue < ActiveRecord::Base
   #REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, 
   #              I18n.t('model_venue.biweekly') => 2, I18n.t('model_venue.monthly') => 3 }
   
+  # returns 0 if past or already started
+  def start_in_seconds
+    [ (start_time - Time.now.in_time_zone).round, 0 ].max
+  end
+
   def timed_out?
     min = ( duration < 0 ) ? 240 : duration
     ( start_time.in_time_zone + min.minutes ) <= Time.now.in_time_zone 

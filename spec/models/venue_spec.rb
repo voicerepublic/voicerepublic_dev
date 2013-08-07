@@ -44,4 +44,9 @@ describe Venue do
     Venue.featured.should == expected
   end
   
+  it 'should know when to start' do
+    venue = create :venue, :start_time => 42.minutes.from_now
+    venue.start_in_seconds.should be_close(42.minutes, 1)
+  end
+
 end

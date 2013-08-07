@@ -1,3 +1,7 @@
+- if @venue.start_in_seconds
+  - content_for :head do
+    %meta(http-equiv="refresh" content="#{@venue.start_in_seconds + rand * 3}")/
+
 - content_for :title do
   = t('.venue')
   \&middot;
