@@ -736,7 +736,6 @@ en:
       unjoin_venue: "Unjoin venue"
       chat_will_be_available_short_before_start: "Group-chat will be available short before start"
       group_chat: "Group-Chat"
-      confirm_unjoin_venue: "Really want to unjoin this venue?"
       only_attendies_can_see_group_chat: "Only participants can read the group-chat"
       repeating: "Rhythm"
       renew: "New date"
@@ -755,7 +754,10 @@ en:
     venue_show_participants:
       leave_venue_popup: "This link opens a new tab!"
       participating_klus: "Participants"
-      be_the_first_to_participate: "Be the first to participate!"      
+      be_the_first_to_participate: "Be the first to participate!"     
+    venue_show_actions:
+      unjoin_venue: "Unjoin"
+      confirm_unjoin_venue: "Really want to unjoin this venue?" 
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
@@ -786,8 +788,8 @@ en:
       
     venue_form:
       write_a_comment: "write a comment"
-      write_a_article: "write an article"
-      save_comment: "Post"
+      write_an_article: "write an article"
+      save_article: "Post"
     landing_page_venue:
       discuss_in_virtual_cafe: "Discuss live in our virtual Café."
       learn_more: "Learn more..."

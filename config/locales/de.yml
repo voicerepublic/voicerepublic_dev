@@ -758,7 +758,6 @@ de:
       unjoin_venue: "Teilnahme zurückziehen"
       chat_will_be_available_short_before_start: "Der Gruppen-Chat wird kurz vor Beginn aktiviert"
       group_chat: "Gruppen-Chat"
-      confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
       only_attendies_can_see_group_chat: "Nur Teilnehmer des Treffpunktes können den Gruppen-Chat lesen"
       repeating: "Rhythmus"
       renew: "Neues Datum"
@@ -778,7 +777,10 @@ de:
     venue_show_participants:
       participating_klus: "Teilnehmer"
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
-      leave_venue_popup: "Dieser Link öffnet neuen Tab!"      
+      leave_venue_popup: "Dieser Link öffnet neuen Tab!"
+    venue_show_actions:
+      unjoin_venue: "Treffpunkt absagen" 
+      confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"     
     new:
       create_new_venue: "Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
@@ -806,10 +808,11 @@ de:
       venue_title: "Treffpunkt"
       go_venue_page: "Zum Treffpunkt!"
       join_venue: "Jetzt Teilnehmen!"
+
     venue_form:
       write_a_comment: "Verfasse einen Kommentar"
       write_an_article: "Verfasse einen Artikel"
-      save_comment: "Posten"
+      save_article: "Posten"
     landing_page_venue:
       discuss_in_virtual_cafe: "Diskutiere live im virtuellen Café."
       venue_title: "Treffpunkte"
