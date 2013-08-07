@@ -1,20 +1,18 @@
-	<div class="row-fluid">
+<div class="span6">
 
-		<div class="span6">
-
-			<section class="venue-comments">
-				<h3><%= t('.comments') %></h3>
-				<!-- <button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#collapsing-comments">
-				<%#= @venue.comments.count if @venue.comments.count > 0 %> <%#= t('.comments') %>
-				</button> -->
-				<!-- <div id="collapsing-comments" class="collapse"> -->
-				<%= render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment ) %>
-				<!-- </div>	 -->
-				<aside class="newcomment clearfix">
-					<% if current_user %>
-						<% @comment = @venue.comments.build %>
-						<%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
-					<% end %>
-				</aside>
-			</section>
-		</div>
+  <section class="venue-comments">
+    <h3><%= t('.comments') %></h3>
+    <!-- <button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#collapsing-comments">
+         <%#= @venue.comments.count if @venue.comments.count > 0 %> <%#= t('.comments') %>
+    </button> -->
+    <!-- <div id="collapsing-comments" class="collapse"> -->
+    <%= render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment ) %>
+    <!-- </div>  -->
+    <aside class="newcomment clearfix">
+      <% if current_user %>
+      <% @comment = @venue.comments.build %>
+      <%= render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment }) %>
+      <% end %>
+    </aside>
+  </section>
+</div>

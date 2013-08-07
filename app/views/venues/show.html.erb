@@ -1,63 +1,62 @@
-	<% content_for :title do %>
-	<%= t('.venue') %> &middot; <%= @venue.title %>
+<% content_for :title do %>
+<%= t('.venue') %> &middot; <%= @venue.title %>
 <% end %>
 
-	<% content_for :facebook_values do %>
-		<%= render(:partial => 'facebook_value_template', :locals => { :venue => @venue } ) %>
-	<% end %>
+<% content_for :facebook_values do %>
+<%= render(:partial => 'facebook_value_template', :locals => { :venue => @venue } ) %>
+<% end %>
 
 
-	<%= render(:partial => 'venue_show_header', :locals => { :venue => @venue } ) %>
+<%= render(:partial => 'venue_show_header', :locals => { :venue => @venue } ) %>
 
-	<% if can? :manage, @venue %>
-	<aside class="venue-new-date">
+<% if can? :manage, @venue %>
+<aside class="venue-new-date">
 
-		<% if @venue.past? %>
-			<%= link_to  edit_venue_path(@venue, :renew => 1), :class => 'btn btn-large btn-warning', :remote => true do %>
-				<i class="icon-calendar"></i> <%= t('.renew')%>
-			<% end %>
-		<% end %>
-	</aside>
-	<% end %>
-
-
-	<div class="venue-page row-fluid clearfix">
-		<article class="span6 clearfix">
-
-		<%# CONTENT LEFT %>
-
-			<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? %>
-
-				<%# LIVE %>
-				<%= render(:partial => 'venue_show_live', :locals => { :venue => @venue } ) %>
-
-			<% else %>	
-
-			<%# STATIC %>
-			<%= render(:partial => 'venue_show_static', :locals => { :venue => @venue } ) %>
-			
-			<% end %>
-
-		</article>
+  <% if @venue.past? %>
+  <%= link_to  edit_venue_path(@venue, :renew => 1), :class => 'btn btn-large btn-warning', :remote => true do %>
+  <i class="icon-calendar"></i> <%= t('.renew')%>
+  <% end %>
+  <% end %>
+</aside>
+<% end %>
 
 
-		<%# CHAT %>
-		<%= render(:partial => 'venue_show_chat', :locals => { :venue => @venue } ) %>
-	
-	</div>
+<div class="venue-page row-fluid clearfix">
+  <article class="span6 clearfix">
 
-	<%# PARTICIPANTS, FORUM %>
-	<div class="row-fluid">
+    <%# CONTENT LEFT %>
 
-			<%# FORUM %>
-			<%= render(:partial => 'venue_show_forum', :locals => { :venue => @venue } ) %>
+    <% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? %>
 
-			<%# PARTICIPANTS %>
-			<%= render(:partial => 'venue_show_participants', :locals => { :venue => @venue } ) %>
-		
-	</div>
+       <%# LIVE %>
+       <%= render(:partial => 'venue_show_live', :locals => { :venue => @venue } ) %>
+
+    <% else %>
+
+    <%# STATIC %>
+    <%= render(:partial => 'venue_show_static', :locals => { :venue => @venue } ) %>
+
+    <% end %>
+
+  </article>
 
 
-			<%# SOCIAL NETWORKS %>
-			<%= render(:partial => 'venue_show_social', :locals => { :venue => @venue } ) %>
+  <%# CHAT %>
+  <%= render(:partial => 'venue_show_chat', :locals => { :venue => @venue } ) %>
+
+</div>
+
+<%# PARTICIPANTS, FORUM %>
+<div class="row-fluid">
+
+  <%# FORUM %>
+  <%= render(:partial => 'venue_show_forum', :locals => { :venue => @venue } ) %>
+
+  <%# PARTICIPANTS %>
+  <%= render(:partial => 'venue_show_participants', :locals => { :venue => @venue } ) %>
+
+
+
+<%# SOCIAL NETWORKS %>
+<%= render(:partial => 'venue_show_social', :locals => { :venue => @venue } ) %>
 </div>
