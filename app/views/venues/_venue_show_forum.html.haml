@@ -1,0 +1,8 @@
+.span6
+  %section.venue-comments
+    %h3= t('.comments')
+    = render(:partial => 'venue_comment', :collection => @venue.comments, :as => :comment )
+    %aside.newcomment.clearfix
+      - if current_user
+        - @comment = @venue.comments.build
+        = render(:partial => "comments/venue_form", :locals => { :venue => @venue, :comment => @comment })
