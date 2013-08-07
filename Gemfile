@@ -43,6 +43,7 @@ gem 'kblog', '0.0.4'          # blog-engine
 #gem 'SystemTimer'            # A/B-Testing for ruby-1.8
 gem 'haml-rails'
 gem 'simple_form'
+gem "acts_as_paranoid", "~>0.4.0"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
