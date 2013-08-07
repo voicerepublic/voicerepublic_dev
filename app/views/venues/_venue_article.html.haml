@@ -1,0 +1,7 @@
+%article.article.well.well-small
+  = link_to( venue_article_path(:venue_id => article.venue, :id => article), :method => :delete ) do
+    %i.icon.icon-trash.action.pull-right
+  - end if can? :manage, article
+  %small.pull-right.muted= time_ago_in_words article.created_at
+  = link_to( image_tag(article.user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"), user_path(:id => article.user))
+  = sophisticated_format(article.content)

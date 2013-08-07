@@ -19,6 +19,7 @@ class Venue < ActiveRecord::Base
   has_many :venue_klus, :dependent => :destroy
   has_many :klus, :class_name => 'Klu', :through => :venue_klus
   has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
+  has_many :articles, :dependent => :destroy, :order => "created_at DESC"
   has_many :notifications_new_venues, :class_name => 'Notification::NewVenue', :foreign_key => :other_id, 
             :dependent => :destroy
   has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo', :foreign_key => :other_id, 

@@ -41,6 +41,7 @@ Kluuu2::Application.routes.draw do
       #get 'new_join', :action => 'new_join', :as => 'new_join'
       delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 
       resources :comments
+      resources :articles
     end
     resources :klus do
       resources :ratings, :only => [:new, :create]

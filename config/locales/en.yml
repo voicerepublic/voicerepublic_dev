@@ -785,6 +785,7 @@ en:
       
     venue_form:
       write_a_comment: "write a comment"
+      write_a_article: "write an article"
       save_comment: "Post"
     landing_page_venue:
       discuss_in_virtual_cafe: "Discuss live in our virtual Café."
