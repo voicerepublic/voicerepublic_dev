@@ -41,7 +41,6 @@ gem 'whenever', :require => false   # create cron-jobs
 gem 'kblog', '0.0.4'          # blog-engine
 #gem 'split'                   # A/B-Testing    
 #gem 'SystemTimer'            # A/B-Testing for ruby-1.8
-gem 'foreman'
 gem 'haml-rails'
 gem 'simple_form'
 
@@ -51,6 +50,7 @@ group :development, :test, :staging do
   gem 'faker'
   gem 'rspec-rails'
   gem 'annotator'
+  gem 'foreman', :require => false
 end
 
 group :test do
