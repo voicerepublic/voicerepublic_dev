@@ -44,7 +44,7 @@ class FayeNSA
 
 end
 
-faye.add_extension(FayeNSA.new)
+# faye.add_extension(FayeNSA.new)
 
 
 run faye
