@@ -1,0 +1,28 @@
+%article{:class => "venue-big #{cycle('odd', 'even')} block"}
+  = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
+  %aside.venue-time
+    = l(venue.start_time)
+  .venue-big-content.clearfix
+    .pull-left
+      = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
+      = link_to user_path(venue.user) do
+        = image_tag venue.user.account.portrait.url(:large)
+      = link_to (venue.user.name + "s " + t('.venue_title')), venue_path(venue)
+      %br/
+      %h3= link_to venue.title, venue_path(venue)
+      .clearfix
+      = simple_format( truncate(venue.description, :length => 100))
+    .pull-right
+      - if venue.user != current_user
+        - unless  venue.user_participates?(current_user)
+          = link_to venue_join_path(:venue_id => venue.id), :class => "btn btn-venue btn-large pull-right", :method => :post do
+            = t('.join_venue')
+            \&nbsp;#{image_tag "coffee_icon_white.png"}
+          %br/
+      - else
+        = link_to(venue_path(venue), :class => "btn btn-large btn-venue pull-right", :disabled => current_user ? false : true ) do
+          = t('.go_venue_page')
+          \&nbsp;#{image_tag "coffee_icon_white.png"}
+      %br/
+      -#= link_to klu_path(:id => venue.host_kluuu), :class => "pull-right" do
+      -#  = render(:partial => 'klus/tiny_kluuu', :locals => { :klu => venue.host_kluuu})

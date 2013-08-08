@@ -1,0 +1,21 @@
+.span6
+-#  %section.participating-klus.clearfix
+-#    %h3= t('.participating_klus')
+-#    - if @venue.klus.empty?
+-#      = t('.be_the_first_to_participate')
+-#      - if @venue.host_kluuu.user != current_user
+-#        = link_to venue_join_path(:venue_id => @venue.id), :class => "btn btn-venue", :method => :post do
+-#          = t('.join_venue')
+-#          = image_tag "/assets/coffee_icon_white.png"
+-#    .hero-unit.clearfix
+-#      - @venue.klus.each do |klu|
+-#        - link = klu.instance_of?(Kluuu) ? klu_path(klu) : user_path(klu.user)
+-#        .participating-klus-box
+-#          .tiny-klu-call-overlay
+-#            = render(:partial => 'klus/tiny_klu_overlay', :locals => { :klu => klu })
+-#          - if ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out?
+-#            = link_to link, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
+-#              = partial_for_klu(klu, :tiny)
+-#          - else
+-#            = link_to link do
+-#              = partial_for_klu(klu, :tiny)

@@ -1,0 +1,8 @@
+.group-chat-instance{:id => "group-chat-#{venue.id}"}
+  .well.well-large
+    %h3= t('.venue_chat')
+    %ul.chat-message.unstyled.scrollable-chat{:id => venue.chat_name}
+      / chat-messages to be here. renders chats/_single_chat_message.js.erb
+  = render(:partial => 'chats/group_form', :locals => { :venue => venue })
+= subscribe_to venue.channel_name
+= subscribe_to venue.channel_host_info

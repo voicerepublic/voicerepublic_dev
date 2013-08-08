@@ -54,6 +54,7 @@ group :development, :test, :staging do
   gem 'annotator'
   gem 'foreman', :require => false
   gem 'capistrano-rbenv', '>= 1.0.0'
+  #gem 'rails_view_annotator'
 end
 
 group :test do

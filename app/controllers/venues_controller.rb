@@ -53,6 +53,7 @@ class VenuesController < ApplicationController
   # POST /venues.json
   def create
     @venue = Venue.new(params[:venue])
+    @venue.user = current_user
     
     authorize! :create, @venue
 
