@@ -1,6 +1,10 @@
-= form_for @article, :url => venue_articles_url(:venue_id => venue), :class => "form-vertical" do |f|
-  .control-group
-    .controls
-      = f.text_area :content, :class => 'text-area span12', :rows => 1, :placeholder => t('venues.venue_form.write_an_article')
-  %div
-    = button_tag t('venues.venue_form.save_article'), :type => "submit", :class => "btn btn-mini pull-right"
+= form_for article, :url => venue_articles_url(:venue_id => venue), :html => {:class => "clearfix"} do |f|
+  
+  .contribution-left
+    = image_tag current_user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"
+  .contribution-right
+    .control-group
+      .controls
+        = f.text_area :content, :rows => 1, :placeholder => t('venues.venue_form.write_an_article')
+    %div
+      = button_tag t('venues.venue_form.save_article'), :type => "submit", :class => "btn btn-mini pull-right"

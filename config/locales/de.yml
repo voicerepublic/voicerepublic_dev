@@ -132,17 +132,13 @@ de:
       submit: ! 'Speichern'
       update: ! 'Speichern'
 
-      ### OLD ###
-      # create: ! '%{model} erstellen'
-      # submit: ! '%{model} speichern'
-      # update: ! '%{model} aktualisieren' 
-      ### OLD END ###
     links:
       cancel: 'Abbrechen'
       edit: 'Bearbeiten'
       save: 'Speichern'
       destroy: 'Löschen'
       confirm: 'Willst du wirklich löschen?'
+
   number:
     currency:
       format:
@@ -350,7 +346,7 @@ de:
       write_addition_2: "Ergänze dieses Blog"
     form:
       your_comment: "Kommentar"
-      write_a_comment: "Veröffentliche Neuigkeiten zu diesem KluuU."
+      write_a_comment: "Verfasse hier deinen Kommentar."
       save: "Senden"
   conversations:
     index:

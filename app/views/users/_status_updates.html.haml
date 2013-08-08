@@ -1,12 +1,13 @@
+-# STATUS ON TOP
 %article.contribution.status
   - if user.status_updates.empty?
     = render(:partial => 'users/no_status_updates', :locals => { :user => user })
   - else
     - status_update = user.status_updates.limit(1).first
     %header
-    %h4.user-name= t('.opinion')
-    %time{:datetime => status_update.created_at.strftime("%Y-%m-%d")}
-      = time_ago_in_words(status_update.created_at)
+      %h4= t('.opinion')
+      %time{:datetime => status_update.created_at.strftime("%Y-%m-%d")}
+        = time_ago_in_words(status_update.created_at)
     = simple_format(status_update.content)
 
     -# NICE TO HAVE
@@ -16,7 +17,7 @@
         %submit{:value => 'submit', :class => 'btn btn-small'}
           = 'post'
 
-    %aside.contribution-comment-links 
+    %aside.contribution-actions
       - if current_user && current_user == user   
         = link_to new_user_status_update_path(:user_id => user), :class => "btn btn-mini user-new-status" do
           %i.icon-edit

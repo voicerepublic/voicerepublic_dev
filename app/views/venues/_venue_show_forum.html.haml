@@ -1,8 +1,10 @@
 .span6
   %section.venue-articles
     %h3= t('.articles')
-    = render(:partial => 'venue_article', :collection => @venue.articles, :as => :article )
-    %aside.newarticle.clearfix
+
+    %aside.newarticle.contribution.clearfix
       - if current_user
-        - @article = @venue.articles.build
-        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => @article })
+        - article = Article.new
+        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_user })
+
+    = render(:partial => 'venue_article', :collection => @venue.articles, :as => :article )

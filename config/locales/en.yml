@@ -346,7 +346,7 @@ en:
   comments:
     form:
       your_comment: "News"
-      write_a_comment: "Post news to this KluuU."
+      write_a_comment: "Write your comment here..."
       save: "Post"
     klu_form:
       write_a_comment: "write a comment on this KluuU"

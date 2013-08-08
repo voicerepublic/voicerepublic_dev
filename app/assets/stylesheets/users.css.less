@@ -61,12 +61,20 @@ p.wichtig {
 
 		.user-about {
 			margin-top: 4px;
+		}
 
-			p:first-child {
-				margin-top: 0;
-			}
-			p:last-child {
-				margin-bottom: 0;
+
+		.user-actions{
+			margin: 15px 0 0 0;
+			padding-top: 1px;
+			border-top: 1px solid #ddd;
+			li{
+				display: inline;
+				a{
+					display: inline;
+					font-size: @baseFontSize * 0.8;
+					padding-right: 10px;
+				}
 			}
 		}
 
@@ -147,7 +155,7 @@ p.wichtig {
 
 				&.venue-ext-color{
 					background: url(/assets/venue-icon-ext.png) no-repeat center 13px;
-					border-top: 1px solid white;
+					border-top: 1px solid #f9f9f9;
 					a{
 						color: @brandVenueExt;
 					}
@@ -158,7 +166,7 @@ p.wichtig {
 
 				&.venue-int-color{
 					background: url(/assets/venue-icon-int.png) no-repeat center 13px;
-					border-top: 1px solid white;
+					border-top: 1px solid #f9f9f9;
 					a{
 						color: @brandVenueInt;
 					}

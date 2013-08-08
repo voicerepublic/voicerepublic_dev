@@ -4,25 +4,25 @@
   %header
     %h2=user.name
 
-    %p.user-about
-      =user.account.about
+  %p.user-about
+    =user.account.about
 
-    - if user.account.website
-      %p
-        = link_to(user.account.website_as_url, :target => "new", :confirm => t('.will_open_in_new_tab', :default => "this will open a new tab")) do
-          = truncate(user.account.website_as_name, :length => 25)
-      
-    - user.account.languages.each do |lang|
-      = lang
+  - if user.account.website
+    %p
+      = link_to(user.account.website_as_url, :target => "new", :confirm => t('.will_open_in_new_tab', :default => "this will open a new tab")) do
+        = truncate(user.account.website_as_name, :length => 25)
+    
+  - user.account.languages.each do |lang|
+    = lang
 
-    -# WENN VIEL LOS IST, KANN DAS WIEDER EINGESCHALTET WERDEN
-      - if user.follower.count > 0
-        = link_to user_follows_path(user) do
-          = user.follower.count
-          = t('.follower', :default => 'friends')
+  -# WENN VIEL LOS IST, KANN DAS WIEDER EINGESCHALTET WERDEN
+    - if user.follower.count > 0
+      = link_to user_follows_path(user) do
+        = user.follower.count
+        = t('.follower', :default => 'friends')
 
   - if current_user && current_user.id != user.id
-    %ul
+    %ul.unstyled.user-actions
       %li
         - unless current_user.followed.include?(user)
           = link_to( user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post" ) do
