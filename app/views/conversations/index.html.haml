@@ -1,31 +1,29 @@
 - content_for :title do
   = t('.conversations', :default => 'conversations')
   \&middot; #{@user.name}
-%header
-  %h2
-    = t('.conversations')
-    %section.row-fluid.conversations
-      %ul.conversations-list.unstyled
-        = t('.no_conversations_yet', :default => "you have no conversations yet") if @conversations.empty?
-        - @conversations.each do |conv|
-          %li
-            %article.conversation.contribution
-              - partner = conv.partner_of(@user)
-              %header
-                .user-image.contribution-user-image{"data-user-id" => partner.id}
-                  = link_to(user_path(partner)) do
-                    = image_tag(partner.account.portrait(:thumb), :class => "img-polaroid")
-                = link_to(partner.name, user_path(partner), :class => "contribution-user-name")
-              - msg = conv.undeleted_messages_for(@user).limit(1).first
+
+%section.center-box  
+  %header
+    %h2
+      = t('.conversations')
+  %section.row-fluid.conversations
+    %ul.conversations-list.unstyled
+      = t('.no_conversations_yet', :default => "you have no conversations yet") if @conversations.empty?
+      - @conversations.each do |conv|
+
+        %li
+          %article.contribution.clearfix
+            - partner = conv.partner_of(@user)
+            - msg = conv.undeleted_messages_for(@user).limit(1).first
+            .contribution-left.user-image{"data-user-id" => partner.id}
+              = link_to user_conversation_path(:user_id => @user, :id => conv) do
+                = image_tag(partner.account.portrait(:thumb), :class => "img-polaroid")
+              
+            .contribution-right
+              = link_to(partner.name, user_conversation_path(:user_id => @user, :id => conv), :class => "contribution-username")
+              %time.muted{:datetime => msg.created_at.strftime("%Y-%m-%d")}
+                = time_ago_in_words(msg.created_at)
+
               - if msg
                 = link_to(user_conversation_path(:user_id => @user, :id => conv)) do
                   %p= truncate( msg.content, :length => 72)
-                  %aside
-                    %span.conversations-more-messages
-                      - msg_c = conv.undeleted_messages_for(@user).count - 1
-                      = t(".and_more_messages", :count => msg_c)
-                    %time= l(msg.created_at, :format => :short)
-              = link_to(new_message_path(:receiver_id => partner), :remote => true, :class => "conversations-actions-new") do
-                %i.icon-envelope
-                = t('.new_message')
-    = render( :partial => "inline_help/dashboard_messages", :locals => {:user => @user} ) unless @user.account(true).prefs.no_initial_help == '1'

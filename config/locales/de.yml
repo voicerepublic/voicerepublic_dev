@@ -539,6 +539,7 @@ de:
   messages:
     received_message:
       delete: "Löschen"
+      reply: "Antworten"
     sent_message:
       delete: "Löschen"
       
