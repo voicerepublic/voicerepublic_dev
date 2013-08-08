@@ -1,0 +1,15 @@
+- content_for :title do
+  = t('.news')
+  \&middot; #{@user.name}
+
+%header
+  %h2
+    = t('.news')
+.tab-content.news
+  = t('.no_news_yet', :default => "There is no news for you ...") if @news.empty?
+  %ul.news-list
+    - @news.each do |n|
+      %li
+        = partial_for_notification(n)
+  = will_paginate @news, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered"
+= render(:partial => "inline_help/dashboard_news_info", :locals => {:user => @user}) unless @user.account(true).prefs.no_initial_help == '1'

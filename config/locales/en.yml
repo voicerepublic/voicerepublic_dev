@@ -354,11 +354,11 @@ en:
       write_addition_2: "add content to this blog"
   conversations:
     index:
-      conversations: "Conversation"
+      conversations: "Conversations"
       and_more_messages: "and %{count} more messages."
       new_message: "New message"
     show:
-      conversations: "Conversation"
+      conversations: "Conversations"
       your_messages_with: "Your conversation with"
       back_to_all_conversations: "Compact view "
       new_message: "Reply to sender"
@@ -366,14 +366,11 @@ en:
       
   dashboard:
     contacts_page:
-      title: "Contacts"
+      contacts: "Contacts"
       my_follower: "Followers"
-      followed_by_me: "Following"    
-    bookmarks:
-      bookmarks: "Bookmarks"
-      no_bookmarks_available: "Not bookmarked"
+      followed_by_me: "Following"
     contacts:
-      friends: "Friends"
+      friends: "Contacts"
       no_contacts_available: "No current contacts"
     edit_password:
       edit_password: "Change password"
@@ -592,7 +589,7 @@ en:
       my_profile: "My profile"
       create_kluuu: "New KluuU" 
       create_question: "New Question"
-      notifications: "Notifications"
+      notifications: "News"
       messages: "Messages"
       dashboard: "Dashboard"
       profile: "Profile"
