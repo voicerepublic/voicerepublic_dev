@@ -363,6 +363,7 @@ de:
       
   dashboard:
     contacts_page:
+      title: "Kontakte"
       my_follower: "Nutzer, die mir folgen:"
       followed_by_me: "Nutzer, denen ich folge:"    
     bookmarks:
