@@ -29,4 +29,6 @@ Branches and Hosts
 develop
 
 master     -> staging
-production -> live system
+production -> live
+
+
