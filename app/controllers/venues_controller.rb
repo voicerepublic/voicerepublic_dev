@@ -2,7 +2,6 @@ class VenuesController < ApplicationController
   before_filter :remember_location, :only => [:join_venue]
   before_filter :authenticate_user!, :except => [:index, :show]
   
-  
   # GET /venues
   # GET /venues.json
   def index
