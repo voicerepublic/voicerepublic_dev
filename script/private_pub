@@ -43,7 +43,7 @@ case $1 in
     # ;;
 
     stop)
-        kill ${private_pub_pidfile}
+        kill `cat ${private_pub_pidfile}`
     ;;
 
     # graceful-stop)
