@@ -366,6 +366,7 @@ en:
       
   dashboard:
     contacts_page:
+      title: "Contacts"
       my_follower: "Followers"
       followed_by_me: "Following"    
     bookmarks:
@@ -591,7 +592,7 @@ en:
       my_profile: "My profile"
       create_kluuu: "New KluuU" 
       create_question: "New Question"
-      notifications: "News"
+      notifications: "Notifications"
       messages: "Messages"
       dashboard: "Dashboard"
       profile: "Profile"
