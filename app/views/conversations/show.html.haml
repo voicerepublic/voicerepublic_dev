@@ -2,6 +2,10 @@
   = t('.conversations', :default => 'conversations')
   \&middot; #{@user.name}
 - partner = @conversation.partner_of(@user)
+
+%header
+  %h2
+    = t('.conversations')
 .conversation
   %h4
     = t('.your_messages_with')

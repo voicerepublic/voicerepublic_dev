@@ -363,12 +363,9 @@ de:
       
   dashboard:
     contacts_page:
-      title: "Kontakte"
+      contacts: "Kontakte"
       my_follower: "Nutzer, die mir folgen:"
-      followed_by_me: "Nutzer, denen ich folge:"    
-    bookmarks:
-      bookmarks: "Lesezeichen"
-      no_bookmarks_available: "Du hast noch keine Lesezeichen."
+      followed_by_me: "Nutzer, denen ich folge:"
     contacts:
       friends: "Freunde"
       no_contacts_available: "Du hast noch keine Kontakte."
@@ -388,7 +385,7 @@ de:
       we_could_not_find_matches_for_you: "Wir konnten keinen passenden Treffer finden. Tipp: Füge deinem KluuU / deiner Frage weitere Schlagworte zu, um Treffer zu bekommen."
       all_venues: "Treffpunkte"
     news:
-      news: "Neues"
+      news: "Neuigkeiten"
       no_news_yet: "Du hast noch keine Neuigkeiten."
     settings:
       settings: "Einstellungen"
