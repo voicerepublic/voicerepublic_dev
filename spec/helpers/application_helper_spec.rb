@@ -15,17 +15,17 @@ describe ApplicationHelper do
 
     it "work with ordinary links" do
       txt = 'check out http://www.youtube.com/watch?v=F0G0YNHINwY'
-      helper.youtubify("hello #{txt} 123").should == 'iframe'
+      helper.youtubify("hello #{txt} 123").should match('iframe')
     end
 
     it "work with short links" do
       txt = 'check out http://youtu.be/F0G0YNHINwY'
-      helper.youtubify("hello #{txt} 123").should == 'iframe'
+      helper.youtubify("hello #{txt} 123").should match('iframe')
     end
 
     it "work with multiple links" do
       txt = 'check out http://www.youtube.com/watch?v=F0G0YNHINwY or http://youtu.be/F0G0YNHINwY'
-      helper.youtubify("hello #{txt} 123").should == 'iframe'
+      helper.youtubify("hello #{txt} 123").should match('iframe')
     end
   end  
 
