@@ -56,6 +56,7 @@ class Venue < ActiveRecord::Base
   def ongoing?
     ! timed_out?  && ( start_time.in_time_zone + runtime.minutes ) >= Time.now.in_time_zone &&  start_time.in_time_zone < Time.now.in_time_zone
   end
+  alias_method :live?, :ongoing?
   
   def past?
     (start_time.in_time_zone + runtime.minutes) < Time.now.in_time_zone
@@ -139,6 +140,7 @@ class Venue < ActiveRecord::Base
     self.start_time =  Time.zone.parse("#{s_date}") if s_date
   end
   
+  # returns runtime in minutes
   def runtime
     ( duration < 0 ) ? MIN_TIME : duration
   end

@@ -2,9 +2,10 @@
   %section.venue-articles
     %h3= t('.articles')
 
-    %aside.newarticle.contribution.clearfix
-      - if current_user
-        - article = Article.new
-        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_user })
+    - unless @venue.live?
+      %aside.newarticle.contribution.clearfix
+        - if current_user
+          - article = Article.new
+          = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_user })
 
     = render(:partial => 'venue_article', :collection => @venue.articles, :as => :article )
