@@ -12,8 +12,10 @@
 # * updated_at [datetime, not null] - last update time
 class Venue < ActiveRecord::Base
 
+  acts_as_taggable
+
   attr_accessible :title, :summary, :description, :intro_video, :featured_from,
-                  :events_attributes
+                  :events_attributes, :tag_list
   
   belongs_to :user
 
@@ -28,9 +30,10 @@ class Venue < ActiveRecord::Base
   has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', 
            :foreign_key => :other_id, :dependent => :destroy  
 
-  validates :title, :summary, :description, :presence => true
+  validates :title, :summary, :description, :tag_list, :presence => true
   
   after_create :generate_notification
+  before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :events
 
@@ -40,11 +43,7 @@ class Venue < ActiveRecord::Base
   # upcoming & running
   scope :not_past, proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }  
   scope :upcoming_first, proc { order('start_time ASC') }
-
   scope :of_user, proc { |user| where(:user_id => user.id) }
-
-  #REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, 
-  #              I18n.t('model_venue.biweekly') => 2, I18n.t('model_venue.monthly') => 3 }
 
   # safe delegate
   def start_time
@@ -158,7 +157,9 @@ class Venue < ActiveRecord::Base
     ( duration < 0 ) ? MIN_TIME : duration
   end
   
-  
+  def clean_taglist
+    self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
+  end
   
   def generate_notification
     user.follower.each do |follower|
