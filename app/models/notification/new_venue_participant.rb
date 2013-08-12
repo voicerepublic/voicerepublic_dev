@@ -24,8 +24,9 @@ class Notification::NewVenueParticipant < Notification::Base
   
   after_create :generate_mail_notification, :generate_push_notification
   
-  def to_s
-    I18n.t('model_notification_new_venue_participant.new_participant', :title => other.title, :name => klu.user.name )
-  end
+  # FIXME
+  #def to_s
+  #  I18n.t('model_notification_new_venue_participant.new_participant', :title => other.title, :name => klu.user.name )
+  #end
   
 end

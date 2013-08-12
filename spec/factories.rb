@@ -20,8 +20,19 @@ FactoryGirl.define do
     title       Faker::Lorem.sentence
     intro_video "MyString"
     user
-  end
 
+    factory :venue_with_events do
+      ignore do
+        events_count 3
+      end
+      after(:create) do |venue, evaluator|
+        evaluator.events_count.times do |i|
+          FactoryGirl.create(:event, venue: venue, start_time: (1+i).weeks.from_now)
+        end
+      end
+    end
+  end
+  
   factory :account do
     timezone { ActiveSupport::TimeZone.all[rand(ActiveSupport::TimeZone.all.length)].name }
     language_1 "DE"
@@ -356,13 +367,16 @@ FactoryGirl.define do
     
     factory :notification_venue_info, :class => "Notification::VenueInfo" do
       user
-      association :other, factory: :venue
+      association :other, factory: :venue_with_events
     end
     
   end
   
   factory :participant_basis, :class => 'Participant::Base' do
-
+    #ignore do
+    #  invalid_factory true
+    #end
+    
     factory :guest_participant_registered, :class => 'Participant::GuestRegistered' do
       association :user, factory: :user
       type "Participant::GuestRegistered"

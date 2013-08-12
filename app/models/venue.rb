@@ -37,35 +37,18 @@ class Venue < ActiveRecord::Base
 
   accepts_nested_attributes_for :events
 
-  END_TIME_PGSQL = "start_time + duration * interval '1 minute'"
-
-  scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone) }
-  # upcoming & running
-  scope :not_past, proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }  
-  scope :upcoming_first, proc { order('start_time ASC') }
   scope :of_user, proc { |user| where(:user_id => user.id) }
+  scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone) }
+  scope :not_past, proc { joins(:events).merge(Event.not_past) }
 
-  # safe delegate
-  def start_time
-    return 1.day.ago if current_or_upcoming_event.nil?
-    current_or_upcoming_event.start_time
-  end
-
-  # safe delegate
-  def duration
-    return 0 if current_or_upcoming_event.nil?
-    current_or_upcoming_event.duration
-  end
+  # start_time, duration, start_in_seconds wil return nil if no next_event
+  delegate :start_time, :duration, :start_in_seconds, to: :next_event, allow_nil: true
 
   # returns nil if no current or upcoming event
-  def current_or_upcoming_event
-    events.where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone).first
+  def next_event
+    events.not_past.upcoming_first.first
   end
-  
-  # returns 0 if past or already started
-  def start_in_seconds
-    [ (start_time - Time.now.in_time_zone).round, 0 ].max
-  end
+
 
   def timed_out?
     min = ( duration < 0 ) ? 240 : duration

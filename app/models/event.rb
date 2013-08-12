@@ -15,9 +15,19 @@ class Event < ActiveRecord::Base
 
   belongs_to :venue, :inverse_of => :events
 
+  END_TIME_PGSQL = "events.start_time + events.duration * interval '1 minute'"
+
+  scope :not_past, proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }
+  scope :upcoming_first, proc { order('start_time ASC') }
+
   validates :venue, :start_time, :duration, :presence => true
 
   before_validation :parse_datetimepicker
+
+  # returns 0 if past or already started
+  def start_in_seconds
+    [ (start_time - Time.now.in_time_zone).round, 0 ].max
+  end
 
   private
 
