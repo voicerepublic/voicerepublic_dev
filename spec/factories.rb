@@ -5,6 +5,8 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
 
+  # basic models
+
   factory :event do
     start_time 1.week.from_now
     duration   90
@@ -12,12 +14,12 @@ FactoryGirl.define do
   end
 
   factory :venue do
-    user
     tag_list    'some, tags'
     summary     Faker::Lorem.paragraphs(1)
     description Faker::Lorem.paragraphs(2)
     title       Faker::Lorem.sentence
     intro_video "MyString"
+    user
   end
 
   factory :account do
@@ -48,6 +50,27 @@ FactoryGirl.define do
     user
   end
 
+  factory :user do
+    email { Faker::Internet.email }
+    firstname { Faker::Name.first_name }
+    lastname { Faker::Name.last_name }
+    available "online"
+    last_request_at {Time.now}
+    secret = "mysecret"
+    password secret
+    password_confirmation secret
+    # trait :with_portrait do
+    #   association :account, factory: :account_with_portrait
+    # end 
+    factory :admin do
+      # TODO: create factory for role and user_role
+      # roles [Role.find_by_name('user'), Role.find_by_name('admin')]
+    end
+    #factory :user_with_portrait, traits: [:with_portrait]
+  end
+
+  # bookkeeping models
+
   factory :balance_account, :class => 'Balance::Account' do
     currency "EUR"
     balance_cents 25000
@@ -69,30 +92,30 @@ FactoryGirl.define do
     factory :completed_check_in_order, traits: [:completed_check_in_order]
   end
 
-  factory :bookmark do
-    user
-    
-    trait :no_kluuu_bookmark do
-      no_kluuu
-    end
-    
-    trait :kluuu_bookmark do
-      kluuu
-    end
-    
-    factory :no_kluuu_bookmark, traits: [:no_kluuu_bookmark]
-    factory :kluuu_bookmark, :traits => [:kluuu_bookmark]
-  end
-  
-  factory :category do
-    name { Faker::Lorem.words(1)}
-  end
-  
-  factory :child_category, :class => Category do
-    _category = 
-    name { Faker::Lorem.words(1)}
-    parent_id { FactoryGirl.create(:category).id }
-  end
+  # factory :bookmark do
+  #   user
+  #   
+  #   trait :no_kluuu_bookmark do
+  #     no_kluuu
+  #   end
+  #   
+  #   trait :kluuu_bookmark do
+  #     kluuu
+  #   end
+  #   
+  #   factory :no_kluuu_bookmark, traits: [:no_kluuu_bookmark]
+  #   factory :kluuu_bookmark, :traits => [:kluuu_bookmark]
+  # end
+  # 
+  # factory :category do
+  #   name { Faker::Lorem.words(1)}
+  # end
+  # 
+  # factory :child_category, :class => Category do
+  #   _category = 
+  #   name { Faker::Lorem.words(1)}
+  #   parent_id { FactoryGirl.create(:category).id }
+  # end
 
   factory :comment do
     content { Faker::Lorem.paragraph }
@@ -110,62 +133,62 @@ FactoryGirl.define do
     association :followed, factory: :user
   end
 
-  factory :klu_image do
-    description { Faker::Lorem.paragraph }
-    kluuu
-    image { fixture_file_upload(File.join(Rails.root,'app','assets', 'images', 'rails.png'))}
-  end
-
-  factory :klu do
-    description Faker::Lorem.paragraphs(2).join("\n")
-    available_at_times "always when online"
-    association :user, factory: :user
-    category
-    currency 'EUR'
-    charge_cents 0
-
-    sequence :title do |t|
-      "#{Faker::Lorem.sentence} #{t}"
-    end
-  end
-
-  factory :kluuu do
-    description Faker::Lorem.paragraphs(2).join("\n")
-    available_at_times "always when online"
-    association :user
-    category
-    currency 'EUR'
-    charge_cents 0
-    tag_list "foo, bar, baz"
-    
-    sequence :title do |t|
-      "#{Faker::Lorem.sentence} #{t}"
-    end
-
-    trait :unpublished_kluuu do
-      published false
-    end
-    
-    trait :published_kluuu do
-      published true
-    end
-
-    factory :unpublished_kluuu, traits: [:unpublished_kluuu]
-    factory :published_kluuu, traits: [:published_kluuu]
-  
-    factory :kluuu_with_image do
-      after(:create) do |kluuu, evaluator|
-        FactoryGirl.create(:klu_image, :kluuu => kluuu)
-      end
-    end
-    
-    factory :bookmarked_kluuu do
-      after(:create) do |kluuu,evaluator|
-        FactoryGirl.create_list(:kluuu_bookmark, 3, :kluuu => kluuu)
-      end
-    end
-    
-  end
+  # factory :klu_image do
+  #   description { Faker::Lorem.paragraph }
+  #   kluuu
+  #   image { fixture_file_upload(File.join(Rails.root,'app','assets', 'images', 'rails.png'))}
+  # end
+  # 
+  # factory :klu do
+  #   description Faker::Lorem.paragraphs(2).join("\n")
+  #   available_at_times "always when online"
+  #   association :user, factory: :user
+  #   category
+  #   currency 'EUR'
+  #   charge_cents 0
+  # 
+  #   sequence :title do |t|
+  #     "#{Faker::Lorem.sentence} #{t}"
+  #   end
+  # end
+  # 
+  # factory :kluuu do
+  #   description Faker::Lorem.paragraphs(2).join("\n")
+  #   available_at_times "always when online"
+  #   association :user
+  #   category
+  #   currency 'EUR'
+  #   charge_cents 0
+  #   tag_list "foo, bar, baz"
+  #   
+  #   sequence :title do |t|
+  #     "#{Faker::Lorem.sentence} #{t}"
+  #   end
+  # 
+  #   trait :unpublished_kluuu do
+  #     published false
+  #   end
+  #   
+  #   trait :published_kluuu do
+  #     published true
+  #   end
+  # 
+  #   factory :unpublished_kluuu, traits: [:unpublished_kluuu]
+  #   factory :published_kluuu, traits: [:published_kluuu]
+  # 
+  #   factory :kluuu_with_image do
+  #     after(:create) do |kluuu, evaluator|
+  #       FactoryGirl.create(:klu_image, :kluuu => kluuu)
+  #     end
+  #   end
+  #   
+  #   factory :bookmarked_kluuu do
+  #     after(:create) do |kluuu,evaluator|
+  #       FactoryGirl.create_list(:kluuu_bookmark, 3, :kluuu => kluuu)
+  #     end
+  #   end
+  #   
+  # end
 
   factory :message do
     association :receiver, factory: :user
@@ -176,27 +199,27 @@ FactoryGirl.define do
     content { Faker::Lorem.paragraph }
   end
 
-  factory :no_kluuu do
-    
-    #description Faker::Lorem.paragraphs(2).join("\n")
-    #available_at_times "always when online"
-    
-    sequence :title do |t|
-      "#{Faker::Lorem.sentence} #{t}"
-    end
-    
-    association :user, factory: :user
-    category
-    tag_list "foo, bar, baz"
-    
-    factory :unpublished_no_kluuu do
-      published false
-    end
-    factory :published_no_kluuu do
-      published true
-    end    
-  end
-
+  # factory :no_kluuu do
+  #   
+  #   #description Faker::Lorem.paragraphs(2).join("\n")
+  #   #available_at_times "always when online"
+  #   
+  #   sequence :title do |t|
+  #     "#{Faker::Lorem.sentence} #{t}"
+  #   end
+  #   
+  #   association :user, factory: :user
+  #   category
+  #   tag_list "foo, bar, baz"
+  #   
+  #   factory :unpublished_no_kluuu do
+  #     published false
+  #   end
+  #   factory :published_no_kluuu do
+  #     published true
+  #   end    
+  # end
+   
   factory :notification_basis, :class => 'Notification::Base' do
     
     factory :notification_anonymous_incoming_call, :class => 'Notification::IncomingCall' do
@@ -204,7 +227,7 @@ FactoryGirl.define do
       video_session_id 1
       user
       anon_id 'safd34h43l24'
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
     end
     
     factory :notification_anonymous_call_accepted, :class => 'Notification::CallAccepted' do
@@ -213,14 +236,14 @@ FactoryGirl.define do
       video_session_id 1
       association :other, factory: :user
       anon_id 'safd34h43l24'
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
     end
     
     factory :notification_anonymous_call_rejected, :class => 'Notification::CallRejected' do
       type 'Notification::CallRejected'
       video_session_id 1
       association :other, factory: :user
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
       anon_id 'safd34h43l24'
     end
     
@@ -228,7 +251,7 @@ FactoryGirl.define do
       type 'Notification::IncomingCall'
       video_session_id 1
       association :other, factory: :user
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
       user
     end
     
@@ -237,7 +260,7 @@ FactoryGirl.define do
       url 'http://www.a.kluuu.com'
       video_session_id 1
       association :other, factory: :user
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
       user
     end
     
@@ -245,7 +268,7 @@ FactoryGirl.define do
       type 'Notification::CallRejected'
       video_session_id 1
       association :other, factory: :user
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
       user
     end
     
@@ -254,7 +277,7 @@ FactoryGirl.define do
       video_session_id 1
       association :other, factory: :user
       user
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
     end
     
     factory :notification_new_follower, :class => 'Notification::NewFollower' do
@@ -272,13 +295,13 @@ FactoryGirl.define do
       url "/path/to/conversation"
     end
     
-    factory :notification_new_kluuu, :class => 'Notification::NewKluuu' do
-      type 'Notification::NewKluuu'
-      user
-      association :klu, factory: :published_kluuu
-      content "somebody created a new kluuu"
-      association :other, factory: :user
-    end
+    # factory :notification_new_kluuu, :class => 'Notification::NewKluuu' do
+    #   type 'Notification::NewKluuu'
+    #   user
+    #   association :klu, factory: :published_kluuu
+    #   content "somebody created a new kluuu"
+    #   association :other, factory: :user
+    # end
     
     factory :notification_new_comment, :class => 'Notification::NewComment' do
       type 'Notification::NewComment'
@@ -293,7 +316,7 @@ FactoryGirl.define do
       content 'one of your friend took some action'
       user
       association :other, factory: :user
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
     end
     
     factory :notification_new_rating, :class => 'Notification::NewRating' do
@@ -301,16 +324,16 @@ FactoryGirl.define do
       content 'one of your kluuus got rated with some descriptive words'
       user
       association :other, factory: :user
-      association :klu, factory: :published_kluuu
+      #association :klu, factory: :published_kluuu
     end
     
-    factory :notification_new_bookmark, :class => 'Notification::NewBookmark' do
-      type 'Notification::NewBookmark'
-      content 'one of your kluuus got bookmarked'
-      user
-      association :other, factory: :user
-      association :klu, factory: :published_kluuu
-    end
+    # factory :notification_new_bookmark, :class => 'Notification::NewBookmark' do
+    #   type 'Notification::NewBookmark'
+    #   content 'one of your kluuus got bookmarked'
+    #   user
+    #   association :other, factory: :user
+    #   association :klu, factory: :published_kluuu
+    # end
     
     factory :notification_new_status, :class => 'Notification::NewStatus' do
       association :other, factory: :user
@@ -321,19 +344,19 @@ FactoryGirl.define do
     factory :notification_new_venue, :class => "Notification::NewVenue" do
       association :other, factory: :venue
       user
-      content { Faker::Lorem.paragraph}
+      content { Faker::Lorem.paragraph }
     end
     
     factory :notification_new_venue_participant, :class => "Notification::NewVenueParticipant" do
       user
       association :other, factory: :venue
-      association :klu, factory: :published_no_kluuu
+      #association :klu, factory: :published_no_kluuu
       content { Faker::Lorem.paragraph }
     end
     
     factory :notification_venue_info, :class => "Notification::VenueInfo" do
       user
-      association :other, factory: :venue_with_klus
+      association :other, factory: :venue
     end
     
   end
@@ -372,13 +395,13 @@ FactoryGirl.define do
     currency { check_in_order ? check_in_order.currency : "EUR" }
   end
 
-  factory :rating do
-    association :rateable, factory: :published_kluuu
-    #rateable_type "Klu"
-    user 
-    content "MyText"
-    score 3
-  end
+  # factory :rating do
+  #   #association :rateable, factory: :published_kluuu
+  #   #rateable_type "Klu"
+  #   user 
+  #   content "MyText"
+  #   score 3
+  # end
 
   factory :status_update do
     content Faker::Lorem.paragraph
@@ -399,38 +422,19 @@ FactoryGirl.define do
     video_session_klu_name "MyString"
   end
 
-  factory :user do
-    email { Faker::Internet.email }
-    firstname { Faker::Name.first_name }
-    lastname { Faker::Name.last_name }
-    available "online"
-    last_request_at {Time.now}
-    secret = "mysecret"
-    password secret
-    password_confirmation secret
-    trait :user_with_portrait do
-      portrait File.open(File.join(Rails.root,'app','assets','images','rails.png'))
-    end 
-    factory :admin do
-      # TODO: create factory for role and user_role
-      # roles [Role.find_by_name('user'), Role.find_by_name('admin')]
-    end
-    factory :user_with_portrait, traits: [:user_with_portrait]
-  end
-
-  factory :venue_klu do
-    association :venue, factory: :venue
-    association :klu, factory: :published_no_kluuu
-    
-    factory :venue_no_kluuu do
-      association :klu, factory: :published_no_kluuu
-    end
-    
-    factory :venue_kluuu do
-      association :klu, factory: :published_kluuu
-    end
-    
-  end
+  # factory :venue_klu do
+  #   association :venue, factory: :venue
+  #   association :klu, factory: :published_no_kluuu
+  #   
+  #   factory :venue_no_kluuu do
+  #     association :klu, factory: :published_no_kluuu
+  #   end
+  #   
+  #   factory :venue_kluuu do
+  #     association :klu, factory: :published_kluuu
+  #   end
+  #   
+  # end
 
   factory :video_room do
     sequence(:video_server_id) { |n| n } 
@@ -442,14 +446,14 @@ FactoryGirl.define do
     welcome_msg "Viel Spass"
   end
 
-  factory :video_room_without_system_id, class: VideoRoom do
-    sequence(:video_server_id) { |n| n } 
-    sequence(:video_session_id) { |n| n } 
-    guest_password { Faker::Lorem.characters(16) }
-    host_password { Faker::Lorem.characters(16) }
-    name { Faker::Name.name }
-    welcome_msg "Viel Spass"
-  end
+  # factory :video_room_without_system_id, class: VideoRoom do
+  #   sequence(:video_server_id) { |n| n } 
+  #   sequence(:video_session_id) { |n| n } 
+  #   guest_password { Faker::Lorem.characters(16) }
+  #   host_password { Faker::Lorem.characters(16) }
+  #   name { Faker::Name.name }
+  #   welcome_msg "Viel Spass"
+  # end
 
   factory :video_server do
     name { Faker::Name.name }
@@ -466,7 +470,7 @@ FactoryGirl.define do
   end
 
   factory :registered_video_session, class: VideoSession::Registered do
-    association :klu, factory: :published_kluuu
+    #association :klu, factory: :published_kluuu
     video_system_session_id {Faker::Lorem.characters(25)}
     calling_user_id {FactoryGirl.create(:user).id}
     type 'VideoSession::Registered'
@@ -474,45 +478,45 @@ FactoryGirl.define do
 
   #for video_room and video_server
   factory :video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :published_kluuu
+    #association :klu, factory: :published_kluuu
     video_system_session_id {Faker::Lorem.characters(25)}
     calling_user_id 'pt32742jddddj23'
     type 'VideoSession::Anonymous'
   end
   
   factory :anonymous_video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :published_kluuu
+    #association :klu, factory: :published_kluuu
     video_system_session_id {Faker::Lorem.characters(25)}
     calling_user_id 'pt32742jddddj23'
     type 'VideoSession::Anonymous'
   end
 
-  factory :kluuu_registered_video_session, class: VideoSession::Registered do
-    association :klu, factory: :published_kluuu
-    video_system_session_id {Faker::Lorem.characters(25)}
-    calling_user_id {FactoryGirl.create(:user).id}
-    type 'VideoSession::Registered'
-  end
-
-  factory :kluuu_anonymous_video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :published_kluuu
-    video_system_session_id {Faker::Lorem.characters(25)}
-    calling_user_id 'pt32742jddddj23'
-    type 'VideoSession::Anonymous'
-  end
-
-  factory :no_kluuu_registered_video_session, class: VideoSession::Registered do
-    association :klu, factory: :published_no_kluuu
-    video_system_session_id {Faker::Lorem.characters(25)}
-    calling_user_id {FactoryGirl.create(:user).id}
-    type 'VideoSession::Registered'
-  end
-
-  factory :no_kluuu_anonymous_video_session, class: VideoSession::Anonymous do
-    association :klu, factory: :published_no_kluuu
-    video_system_session_id {Faker::Lorem.characters(25)}
-    calling_user_id 'pt32742jddddj23'
-    type 'VideoSession::Anonymous'
-  end
+  # factory :kluuu_registered_video_session, class: VideoSession::Registered do
+  #   association :klu, factory: :published_kluuu
+  #   video_system_session_id {Faker::Lorem.characters(25)}
+  #   calling_user_id {FactoryGirl.create(:user).id}
+  #   type 'VideoSession::Registered'
+  # end
+  # 
+  # factory :kluuu_anonymous_video_session, class: VideoSession::Anonymous do
+  #   association :klu, factory: :published_kluuu
+  #   video_system_session_id {Faker::Lorem.characters(25)}
+  #   calling_user_id 'pt32742jddddj23'
+  #   type 'VideoSession::Anonymous'
+  # end
+  # 
+  # factory :no_kluuu_registered_video_session, class: VideoSession::Registered do
+  #   association :klu, factory: :published_no_kluuu
+  #   video_system_session_id {Faker::Lorem.characters(25)}
+  #   calling_user_id {FactoryGirl.create(:user).id}
+  #   type 'VideoSession::Registered'
+  # end
+  # 
+  # factory :no_kluuu_anonymous_video_session, class: VideoSession::Anonymous do
+  #   association :klu, factory: :published_no_kluuu
+  #   video_system_session_id {Faker::Lorem.characters(25)}
+  #   calling_user_id 'pt32742jddddj23'
+  #   type 'VideoSession::Anonymous'
+  # end
 
 end

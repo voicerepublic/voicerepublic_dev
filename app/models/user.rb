@@ -60,6 +60,8 @@ class User < ActiveRecord::Base
   has_one :account, :dependent => :destroy          # application-account-things
   has_one :balance_account, :dependent => :destroy, :autosave => true, :class_name => 'Balance::Account'   # financial things
   
+  has_many :venues
+
   scope :online, where("available = ? OR available = ?", 'online', 'busy')
   
   #accepts_nested_attributes_for :user_roles, :allow_destroy => true 
