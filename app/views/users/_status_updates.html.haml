@@ -23,7 +23,6 @@
           %i.icon-edit
           = t('.new_status_update')       
       = link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments")) do
-        %i.icon-comment
         = pluralize(status_update.comments.count, t('.comment', :default => 'Comment') )
 
       - if current_user && current_user == user   

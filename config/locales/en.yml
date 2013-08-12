@@ -354,11 +354,11 @@ en:
       write_addition_2: "add content to this blog"
   conversations:
     index:
-      conversations: "Conversations"
+      conversations: "Messages"
       and_more_messages: "and %{count} more messages."
       new_message: "New message"
     show:
-      conversations: "Conversations"
+      conversations: "Messages"
       your_messages_with: "Your conversation with"
       back_to_all_conversations: "Compact view "
       new_message: "Reply to sender"
@@ -534,6 +534,7 @@ en:
       
   messages:
     received_message:
+      reply: "Reply"
       delete: "Delete"
     sent_message:
       delete: "Delete"

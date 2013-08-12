@@ -27,6 +27,7 @@ p.wichtig {
 .user-container {
 	position: relative;
 	margin-top: @verticalRhythm * 3;
+	min-height: 600px;
 
 
 
@@ -153,25 +154,25 @@ p.wichtig {
 					margin-right: 0;
 				}
 
-				&.venue-ext-color{
-					background: url(/assets/venue-icon-ext.png) no-repeat center 13px;
+				&.venue-part-color{
+					background: url(/assets/venue-icon-part.png) no-repeat center 13px;
 					border-top: 1px solid #f9f9f9;
 					a{
-						color: @brandVenueExt;
+						color: @brandVenuePart;
 					}
 					&:hover, &.active, &.active:hover {
-						border-top: 1px solid @brandVenueExt;
+						border-top: 1px solid @brandVenuePart;
 					}
 				}
 
-				&.venue-int-color{
-					background: url(/assets/venue-icon-int.png) no-repeat center 13px;
+				&.venue-host-color{
+					background: url(/assets/venue-icon-host.png) no-repeat center 13px;
 					border-top: 1px solid #f9f9f9;
 					a{
-						color: @brandVenueInt;
+						color: @brandVenueHost;
 					}
 					&:hover, &.active, &.active:hover {
-						border-top: 1px solid @brandVenueInt;
+						border-top: 1px solid @brandVenueHost;
 					}			
 				}	
 
@@ -200,10 +201,10 @@ p.wichtig {
 					background: url(/assets/venue-icon-new.png) no-repeat center 13px !important;
 					border-top: 1px solid white;
 					a{
-						color: @brandVenueInt;
+						color: @brandVenueHost;
 					}
 					&:hover, &.active, &.active:hover {
-						border-top: 1px solid @brandVenueInt;
+						border-top: 1px solid @brandVenueHost;
 					}		
 				}
 

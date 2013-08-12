@@ -12,4 +12,3 @@
       %li
         = partial_for_notification(n)
   = will_paginate @news, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered"
-= render(:partial => "inline_help/dashboard_news_info", :locals => {:user => @user}) unless @user.account(true).prefs.no_initial_help == '1'
