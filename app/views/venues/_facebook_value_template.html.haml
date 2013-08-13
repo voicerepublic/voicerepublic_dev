@@ -1,0 +1,10 @@
+%meta{:content => "317175341661486", :property => "fb:app_id"}/
+%meta{:content => t('.join_the_venue', :title => venue.title ), :property => "og:title"}/
+%meta{:content => venue.description, :property => "og:description"}/
+-# TODO this needs fixing
+-# - if venue.host_kluuu.klu_images.empty?
+-#   %meta{:content => "", :property => "og:image"}/
+-#   %link{:href => "", :rel => "image_src"}/
+-# - else
+-#   %meta{:content => 'http://'+ request.host + venue.host_kluuu.klu_images.first.image.url(:medium), :property => "og:image"}/
+-#   %link{:href => 'http://'+ request.host + venue.host_kluuu.klu_images.first.image.url(:medium), :rel => "image_src"}/

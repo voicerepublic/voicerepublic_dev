@@ -49,21 +49,21 @@ class Comment < ActiveRecord::Base
       end
     end
     
-    if commentable.kind_of?(Klu)
-      self.commentable.bookmarks.map { |b| b.user }.each do |bookmarker|
-        Notification::NewComment.create(:user => bookmarker,
-                                      :other => self.user,
-                                      :content => self.content,
-                                      :url => Rails.application.routes.url_helpers.klu_url(:id => self.commentable.id)
-                                      )
-        
-      end
-      Notification::NewComment.create(:user => commentable.user,
-                                    :other => self.user,
-                                    :content => self.content,
-                                    :url => Rails.application.routes.url_helpers.klu_url(:id => self.commentable.id)
-                                    )
-    end
+    # if commentable.kind_of?(Klu)
+    #   self.commentable.bookmarks.map { |b| b.user }.each do |bookmarker|
+    #     Notification::NewComment.create(:user => bookmarker,
+    #                                   :other => self.user,
+    #                                   :content => self.content,
+    #                                   :url => Rails.application.routes.url_helpers.klu_url(:id => self.commentable.id)
+    #                                   )
+    #     
+    #   end
+    #   Notification::NewComment.create(:user => commentable.user,
+    #                                 :other => self.user,
+    #                                 :content => self.content,
+    #                                 :url => Rails.application.routes.url_helpers.klu_url(:id => self.commentable.id)
+    #                                 )
+    # end
     
   end
   

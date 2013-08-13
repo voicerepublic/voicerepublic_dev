@@ -96,18 +96,18 @@ class Notification::Base < ActiveRecord::Base
     when 'NewStatus'
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_status_updates_url(:user_id => other )
-    when 'NewKluuu'
-      Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
-      klu_url(:id => klu_id)
+    # when 'NewKluuu'
+    #   Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
+    #   klu_url(:id => klu_id)
     when 'NewVenue'
       Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       venue_url(:id => other_id)
     when "VenueInfo"
       Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       venue_url(:id => other_id)
-    when "NewVenueParticipant"
-      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
-      klu_url(:id => klu_id)
+    # when "NewVenueParticipant"
+    #   Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
+    #   klu_url(:id => klu_id)
     when "NewBookmark"
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_bookmarks_url(:user_id => other)
@@ -116,10 +116,10 @@ class Notification::Base < ActiveRecord::Base
     when "NewFollower"
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_url(:id => other)
-    when "NewRating"
-      klu_url(:id => klu_id)
-    when "MakeRate"
-      new_klu_rating_url(:klu_id => klu_id)
+    # when "NewRating"
+    #   klu_url(:id => klu_id)
+    # when "MakeRate"
+    #   new_klu_rating_url(:klu_id => klu_id)
     when "NewMessage"
       url
     when "MissedCall"
@@ -127,8 +127,10 @@ class Notification::Base < ActiveRecord::Base
     when "CallEnded"
     when "CallAccepted"
     when "CallRejected"
-    when "IncomingCall"
-      klu_url(:id => klu_id)
+    # when "IncomingCall"
+    #   klu_url(:id => klu_id)
+    else
+      root_url
     end 
   end
 

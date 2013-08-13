@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe Comment do
   
-  it "has a valid factory" do
-    FactoryGirl.create(:comment).should be_valid
-  end
   it "is invalid without content" do
     FactoryGirl.build(:comment, content: nil).should_not be_valid
   end
@@ -22,9 +19,7 @@ describe Comment do
     _cmt = FactoryGirl.create(:comment)
     _cmt.commentable.should be_a_kind_of(StatusUpdate)
     _cmt.commentable.destroy
-    expect {
-      Comment.find(_cmt.id)
-    }.to raise_error
+    expect { Comment.find(_cmt.id) }.to raise_error
   end
   
 end

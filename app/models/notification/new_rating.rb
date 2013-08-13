@@ -12,13 +12,15 @@
 # * user_id [integer] - belongs to :user
 # * video_session_id [integer] - TODO: document me
 class Notification::NewRating < Notification::Base 
-  attr_accessible :other_id, :user_id, :klu_id, :content
+  #attr_accessible :other_id, :user_id, :klu_id, :content
+  attr_accessible :other_id, :user_id, :content
  
   belongs_to :user
   belongs_to :other, :class_name => 'User'
-  belongs_to :klu
+  #belongs_to :klu
    
-  validates :other_id, :user_id, :klu_id, :content , :presence => true
+  #validates :other_id, :user_id, :klu_id, :content , :presence => true
+  validates :other_id, :user_id, :content , :presence => true
   
   after_create :generate_push_notification
   after_create :generate_mail_notification

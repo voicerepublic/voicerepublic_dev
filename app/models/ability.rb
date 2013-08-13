@@ -29,23 +29,24 @@ class Ability
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     
     
-    
-    can :manage, Kluuu do |klu|
-      klu.user == user
-    end
+    # TODO cleanup mess
 
-    can :manage, NoKluuu do |klu|
-      klu.user == user
-    end
-    
-    can :rate, Kluuu do |klu|
-      n = Notification::MakeRate.where("user_id = ? AND klu_id = ?", user.id,klu.id)
-      n.empty? ? false : true
-    end
-    
-    can :manage, KluImage do |ki|
-      user == ki.kluuu.user
-    end
+    # can :manage, Kluuu do |klu|
+    #   klu.user == user
+    # end
+
+    # can :manage, NoKluuu do |klu|
+    #   klu.user == user
+    # end
+    # 
+    # can :rate, Kluuu do |klu|
+    #   n = Notification::MakeRate.where("user_id = ? AND klu_id = ?", user.id,klu.id)
+    #   n.empty? ? false : true
+    # end
+    # 
+    # can :manage, KluImage do |ki|
+    #   user == ki.kluuu.user
+    # end
     
     can :manage, User do |usr|
       usr == user
@@ -78,7 +79,7 @@ class Ability
     can :manage, Comment do |comment|
       t = false
       if comment.commentable.kind_of?(Venue)
-         if comment.commentable.host_kluuu.user == user  || comment.user == user 
+         if comment.commentable.user == user  || comment.user == user 
            t = true
          end
       end
@@ -99,12 +100,12 @@ class Ability
       ba.user == user
     end
     
-    can :manage, Bookmark do |bookmark|
-      user == bookmark.user
-    end
+    # can :manage, Bookmark do |bookmark|
+    #   user == bookmark.user
+    # end
     
     can :manage, Venue do |venue|
-      venue.host_kluuu.user == user
+      venue.user == user
     end
     
     #can :create, Venue do |venue|

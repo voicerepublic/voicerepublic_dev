@@ -17,7 +17,7 @@ class Notification::MakeRate < Notification::Base
  
   belongs_to :user
   belongs_to :other, :class_name => 'User'
-  belongs_to :klu
+  # belongs_to :klu
    
   validates :other_id, :user_id, :klu_id, :presence => true
   

@@ -1,40 +1,54 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime, not null] - creation time
+# * description [text] - TODO: document me
+# * duration [integer] - TODO: document me
+# * featured_from [datetime] - TODO: document me
+# * host_kluuu_id [integer] - belongs to :host_kluuu
+# * intro_video [string] - TODO: document me
+# * start_time [datetime] - TODO: document me
+# * summary [text] - TODO: document me
+# * title [string]
+# * updated_at [datetime, not null] - last update time
 class Venue < ActiveRecord::Base
-  attr_accessible :title, :summary, :description, :host_kluuu_id, :intro_video, :start_time, :duration, :featured_from
-  attr_accessor :s_date, :s_time
-  attr_accessible :s_date, :s_time
+
+  acts_as_taggable
+
+  attr_accessible :title, :summary, :description, :intro_video, :featured_from,
+                  :events_attributes, :tag_list
   
-  belongs_to :host_kluuu, :class_name => 'Kluuu'
-  has_many :venue_klus, :dependent => :destroy
-  has_many :klus, :class_name => 'Klu', :through => :venue_klus
+  belongs_to :user
+
   has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
   has_many :articles, :dependent => :destroy, :order => "created_at DESC"
-  has_many :notifications_new_venues, :class_name => 'Notification::NewVenue', :foreign_key => :other_id, 
-            :dependent => :destroy
-  has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo', :foreign_key => :other_id, 
-            :dependent => :destroy
+  has_many :events, :dependent => :destroy, :inverse_of => :venue
+
+  has_many :notifications_new_venues, :class_name => 'Notification::NewVenue',
+           :foreign_key => :other_id,:dependent => :destroy
+  has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo',
+           :foreign_key => :other_id, :dependent => :destroy
   has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', 
-            :foreign_key => :other_id, :dependent => :destroy  
-  validates :host_kluuu, :title, :summary, :description, :start_time, :duration, :presence => true
+           :foreign_key => :other_id, :dependent => :destroy  
+
+  validates :title, :summary, :description, :tag_list, :presence => true
   
-  
-  before_validation :parse_datetimepicker
   after_create :generate_notification
+  before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
-  END_TIME_PGSQL = "start_time + duration * interval '1 minute'"
+  accepts_nested_attributes_for :events
 
+  scope :of_user, proc { |user| where(:user_id => user.id) }
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone) }
-  scope :not_past, proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }  
-  scope :upcoming_first, proc { order('start_time ASC') }
+  scope :not_past, proc { joins(:events).merge(Event.not_past) }
 
-  MIN_TIME = 240
-  DURATION = [ 30, 60, 90, 120, -1 ]
-  #REPEATING = { I18n.t('model_venue.no_repeat') => 0, I18n.t('model_venue.weekly') => 1, 
-  #              I18n.t('model_venue.biweekly') => 2, I18n.t('model_venue.monthly') => 3 }
-  
-  # returns 0 if past or already started
-  def start_in_seconds
-    [ (start_time - Time.now.in_time_zone).round, 0 ].max
+  # start_time, duration, start_in_seconds wil return nil if no next_event
+  delegate :start_time, :duration, :start_in_seconds, to: :next_event, allow_nil: true
+
+  # returns nil if no current or upcoming event
+  def next_event
+    events.not_past.upcoming_first.first
   end
+
 
   def timed_out?
     min = ( duration < 0 ) ? 240 : duration
@@ -50,21 +64,19 @@ class Venue < ActiveRecord::Base
     (start_time.in_time_zone + runtime.minutes) < Time.now.in_time_zone
   end
   
-  def self.of_user(user)
-    Venue.joins(:host_kluuu => :user).where("user_id = ?", user.id)
-  end
-  
-  
   def user_participates?(user)
-    self.klus.collect { |k| k.user }.include?(user)
+    #self.klus.collect { |k| k.user }.include?(user)
+    true
   end
   
   def attendies
-    self.klus.collect { |k| k.user }.push(self.host_kluuu.user)
+    #self.klus.collect { |k| k.user }.push(self.host_kluuu.user)
+    [ user ]
   end
   
   def guests
-    self.klus.collect { |k| k.user }
+    #self.klus.collect { |k| k.user }
+    []
   end
   
   def chat_name
@@ -123,20 +135,17 @@ class Venue < ActiveRecord::Base
   
   private
   
-  def parse_datetimepicker
-    self.logger.debug("Venue#parse_datetimepicker - timezone: #{Time.zone}")
-    self.start_time =  Time.zone.parse("#{s_date}") if s_date
-  end
-  
   # returns runtime in minutes
   def runtime
     ( duration < 0 ) ? MIN_TIME : duration
   end
   
-  
+  def clean_taglist
+    self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
+  end
   
   def generate_notification
-    host_kluuu.user.follower.each do |follower|
+    user.follower.each do |follower|
       if follower.account.prefs.inform_of_friends == "1" || true
         Notification::NewVenue.create(:user => follower, :other => self)
       end

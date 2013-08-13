@@ -1,10 +1,8 @@
 require 'spec_helper'
 
+# for these specs the faye message proxy has to run!
 describe Message do
-  it "has a valid factory" do
-    FactoryGirl.create(:message).should be_valid
-  end
- 
+
   it "is invalid without sender" do
     FactoryGirl.build(:message, :sender => false).should_not be_valid
   end

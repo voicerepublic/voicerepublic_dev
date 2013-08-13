@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    @kluuus = @user.kluuus
+    #@kluuus = @user.kluuus
 
     respond_to do |format|
       format.html # show.html.erb
@@ -29,13 +29,13 @@ class UsersController < ApplicationController
 
   def no_kluuus
     @user = User.find(params[:id])
-    @kluuus = @user.no_kluuus
+    #@kluuus = @user.no_kluuus
     render :template =>  'users/kluuus'
   end
 
   def kluuus
     @user = User.find(params[:id])
-    @kluuus = @user.kluuus
+    #@kluuus = @user.kluuus
   end
   
   def venues
@@ -160,7 +160,7 @@ class UsersController < ApplicationController
   end
   
   def welcome
-    @klu = current_user.no_kluuus.build(:tag_list => "newcomer")
+    #@klu = current_user.no_kluuus.build(:tag_list => "newcomer")
     @user = current_user
   end
 end
