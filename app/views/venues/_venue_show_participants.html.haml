@@ -1,4 +1,26 @@
 .span6
+  %section.participating-klus.clearfix
+    %h3= t('.participating_klus')
+    - if 1==0 #TODO if venue has no participants
+      = t('.be_the_first_to_participate')
+      - if 1=0 #TODO if venue host is current user
+        = link_to venue_join_path(:venue_id => @venue.id), :class => "btn btn-venue", :method => :post do
+          = t('.join_venue')
+          = image_tag "/assets/coffee_icon_white.png"
+    .clearfix
+      - if 1==1 #TODO loop through participants
+        - link = "/#" #TODO
+        .participating-box
+          .promote-icon
+            +
+          - if ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out?
+            = link_to link, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
+              = render(:partial => 'users/user_small', :locals => { :user => klu.user })
+          - else
+            = link_to link do
+              = render(:partial => 'users/user_small', :locals => { :user => klu.user })
+
+
 -#  %section.participating-klus.clearfix
 -#    %h3= t('.participating_klus')
 -#    - if @venue.klus.empty?

@@ -16,15 +16,12 @@
 
 .participating-klus {
   margin: 0px 0 21px 0;
-  .hero-unit{
-    padding:0;
-  }
-  .participating-klus-box{
+  .participating-box{
     position: relative;
     /*overflow: hidden;*/
     float: left;
 
-    .tiny-klu-call-overlay{
+    .live-event-overlay{
       z-index: 1000;
       position: absolute;
       /*display: none;*/
@@ -51,41 +48,10 @@
       -webkit-transition:opacity 0.2s ease 0.2s;
       -ms-transition:opacity 0.2s ease 0.2s;
       -o-transition:opacity 0.2s ease 0.2s;
-
-      .call-btn{
-        padding:8px 10px;
-        height: auto;
-        width: auto;
-        font-size: 16px;
-        font-weight: normal;
-        line-height: 16px;
-        .klu-price{
-          position: static;
-          width: 100%
-        }
-        .klu-user-image{
-          position: relative;
-          float: left;
-          background: green;
-          max-width:none;
-          width:60px;
-          top:0;
-          left:0;
-          margin-right: 8px;
-          img{
-            width:100%;
-          }
-        }
-        .btn{
-          margin-top:4px;
-          margin-bottom: 4px;
-          font-size: 10px;
-        }
-      }
-
     }
+
     &:hover{
-      .tiny-klu-call-overlay{
+      .live-event-overlay{
         min-width:200px;
         width:auto;
         opacity:1;
@@ -96,11 +62,6 @@
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
       }
     }
-  }
-
-
-  .participating-klus-box {
-    .set-rows(2);
   }
 }
 
