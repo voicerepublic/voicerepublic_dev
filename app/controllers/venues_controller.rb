@@ -5,7 +5,8 @@ class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
   def index
-    @venues = Venue.not_past.upcoming_first.paginate(:page => params[:page], :per_page => 5)
+    @venues = Venue.not_past.merge(Event.upcoming_first).
+      paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
       format.html # index.html.erb

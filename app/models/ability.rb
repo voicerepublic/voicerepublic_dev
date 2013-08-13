@@ -100,9 +100,9 @@ class Ability
       ba.user == user
     end
     
-    can :manage, Bookmark do |bookmark|
-      user == bookmark.user
-    end
+    # can :manage, Bookmark do |bookmark|
+    #   user == bookmark.user
+    # end
     
     can :manage, Venue do |venue|
       venue.user == user
