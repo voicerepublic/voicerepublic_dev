@@ -27,7 +27,7 @@
       = f.label :tag_list, :class => 'control-label' do
         = t('.tag_list')
       .controls
-        = f.text_field :tag_list      
+        = f.text_field :tag_list, :class => 'tagList'
     = f.fields_for :events do |ef|
       .control-group
         %label.control-label= t('.start_time')

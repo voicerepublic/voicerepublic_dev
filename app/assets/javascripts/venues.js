@@ -52,8 +52,13 @@
       });
     };
 
+    var tagList = function() {
+      $('.tagList').select2();
+    };
+
     disableKluLinks();
     datetimePicker();
+    tagList();
 
 })(jQuery);
   
