@@ -830,6 +830,7 @@ de:
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
       timepick_help: "Beispiel: 18:15"
+      record: 'Zeichne diese Session auf'
     change_time_form:
       start_date: "Datum"
       start_time: "Zeit"

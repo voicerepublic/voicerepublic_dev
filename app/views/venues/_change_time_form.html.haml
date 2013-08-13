@@ -3,26 +3,6 @@
 = form_for venue, :html => { :class => 'form-horizontal' } do |f|
   = hidden_field_tag(:renew,1)
 
-  -# TODO cleanup mess
-  -# .control-group
-  -#   %label.control-label= t('.start_time')
-  -#   #datetimepicker.input-append.date.controls
-  -#     %input#venue_s_date{"data-format" => "dd/MM/yyyy hh:mm", :name => "venue[s_date]", :placeholder => start_time, :type => "text"}/
-  -#     \&nbsp;&nbsp;
-  -#     %span.add-on
-  -#       %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
-  -#   %br/
-  -#   %span.help-block Format: 02/07/1967 17:00
-  -# %noscript
-  -#   .control-group
-  -#     = f.label :start_time, :class => 'control-label' do
-  -#       = t('.start_time')
-  -#     .controls
-  -#       = f.datetime_select :start_time, :start_year => Date.today.year
-  -# .form-actions
-  -#   = f.submit nil, :data => { :confirm => t('venues.edit.confirm_change_date') }, :class => 'btn btn-primary'
-  -#   = link_to t('.cancel', :default => t("helpers.links.cancel")), venue_path(:id => venue), :class => 'btn'
-
   -# TODO resolve code duplication in venues/form
   = f.fields_for :events, [venue.events.build] do |ef|
     .control-group
@@ -44,6 +24,11 @@
         = t('.duration')
       .controls
         = ef.select :duration, options_for_select(Event::DURATIONS)
+    .control-group
+      = ef.label :record, :class => "control-label" do
+        = t('.record')
+      .controls
+        = ef.check_box :record
 
   .form-actions
     = f.submit nil, :class => 'btn btn-primary'
