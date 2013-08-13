@@ -1,4 +1,7 @@
 class ParticipationsController < ApplicationController
+
+  before_filter :authenticate_user!
+
   # # GET /participations
   # # GET /participations.json
   # def index

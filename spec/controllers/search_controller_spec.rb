@@ -7,7 +7,6 @@ require 'database_cleaner'
 describe SearchController do
 
     before(:all)  do
-      puts "in before"
       self.use_transactional_fixtures = false
       DatabaseCleaner.strategy = :truncation#, {:only => tables}
       ThinkingSphinx::Test.create_indexes_folder
