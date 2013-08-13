@@ -1,6 +1,7 @@
-- if @venue.start_in_seconds > 0
+- if @venue.reload_time
   - content_for :head do
-    %meta(http-equiv="refresh" content="#{@venue.start_in_seconds + rand * 3}")/
+    -# force reload at @venue.reload_time
+    %meta(http-equiv="refresh" content="#{@venue.reload_time}")/
 
 - content_for :title do
   = t('.venue')
@@ -22,7 +23,7 @@
   -# content (left)
   %article.span6.clearfix
     -# TODO get rid of logic in view
-    - if ((@venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone) &! @venue.timed_out?
+    - if @venue.start_time && ((@venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone) &! @venue.timed_out?
       -# live
       = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )
     - else

@@ -13,6 +13,8 @@
 # * user_id [integer] - belongs to :user
 class Venue < ActiveRecord::Base
 
+  LIVE_TOLERANCE = 5.minutes
+
   acts_as_taggable
 
   attr_accessible :title, :summary, :description, :intro_video, :featured_from,
@@ -53,24 +55,29 @@ class Venue < ActiveRecord::Base
     events.not_past.upcoming_first.first
   end
 
+  def end_time
+    start_time.in_time_zone + duration.minutes
+  end
 
-  def timed_out?
-    min = ( duration < 0 ) ? 240 : duration
-    ( start_time.in_time_zone + min.minutes ) <= Time.now.in_time_zone 
+  def reload_time
+    return false if next_event.nil?
+    start_time.in_time_zone - LIVE_TOLERANCE + rand * 3.0
   end
-  
-  def ongoing?
-    ! timed_out?  && ( start_time.in_time_zone + runtime.minutes ) >= Time.now.in_time_zone &&  start_time.in_time_zone < Time.now.in_time_zone
+
+  def live?(opts={})
+    return false if next_event.nil?
+    tolerance = opts[:tolerance] || LIVE_TOLERANCE
+    (end_time >= Time.now.in_time_zone + tolerance) and
+      (start_time <= Time.now.in_time_zone - tolerance)
   end
-  alias_method :live?, :ongoing?
   
   def past?
-    (start_time.in_time_zone + runtime.minutes) < Time.now.in_time_zone
+    end_time < Time.now.in_time_zone
   end
+  alias_method :timed_out?, :past?
   
   def user_participates?(user)
-    #self.klus.collect { |k| k.user }.include?(user)
-    true
+    users.include?(user)
   end
   
   def attendies
@@ -138,11 +145,6 @@ class Venue < ActiveRecord::Base
   end
   
   private
-  
-  # returns runtime in minutes
-  def runtime
-    ( duration < 0 ) ? MIN_TIME : duration
-  end
   
   def clean_taglist
     self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }

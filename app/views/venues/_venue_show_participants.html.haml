@@ -13,7 +13,7 @@
         .participating-box
           .promote-icon
             +
-          - if ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out?
+          - if @venue.live?
             = link_to link, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
               -#= render(:partial => 'users/user_small', :locals => { :user => klu.user })
           - else

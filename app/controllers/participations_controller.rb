@@ -1,15 +1,25 @@
 class ParticipationsController < ApplicationController
-  # # GET /participations
-  # # GET /participations.json
-  # def index
-  #   @participations = Participation.all
-  # 
-  #   respond_to do |format|
-  #     format.html # index.html.erb
-  #     format.json { render json: @participations }
-  #   end
-  # end
-  # 
+
+  before_filter :store_location
+  before_filter :authenticate_user!
+
+  # This is somewhat f*ckd! Devise might redirect here if a currently
+  # not signed in user clicks on a participate now button. For now
+  # we'll simpy redirect to the venue.
+  #
+  # GET /participations
+  # GET /participations.json
+  def index
+    redirect_to venue_path(:id => params[:participation][:venue_id]), :notice => 'hey.'
+
+    # @participations = Participation.all
+    # 
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @participations }
+    # end
+  end
+  
   # # GET /participations/1
   # # GET /participations/1.json
   # def show

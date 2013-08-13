@@ -32,3 +32,13 @@ master     -> staging
 production -> live
 
 
+TODO
+----
+
+* fix authentication/authorization participation
+
+* rm app/models/rating.rb
+* rm app/models/klu_image.rb
+* Venue.update_all('user_id = 1', :user_id => nil)
+* landing_page/index en/de -> localize
+* Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
