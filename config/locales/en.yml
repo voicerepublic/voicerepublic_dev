@@ -810,6 +810,7 @@ en:
       timepick_placeholder: "select..."
       datepick_help: "Example: 20/12/2013"
       timepick_help: "Example: 18:15"
+      record: "Record this session"
     change_time_form:
       start_date: "Date"
       start_time: "Time"    

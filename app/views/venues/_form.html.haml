@@ -23,6 +23,11 @@
         = f.text_area :description, :class => 'text_area', :rows => 4
 
   .span5
+    .control-group
+      = f.label :tag_list, :class => 'control-label' do
+        = t('.tag_list')
+      .controls
+        = f.text_field :tag_list      
     = f.fields_for :events do |ef|
       .control-group
         %label.control-label= t('.start_time')
@@ -43,11 +48,11 @@
           = t('.duration')
         .controls
           = ef.select :duration, options_for_select(Event::DURATIONS)
-    .control-group
-      = f.label :tag_list, :class => 'control-label' do
-        = t('.tag_list')
-      .controls
-        = f.text_field :tag_list      
+      .control-group
+        = ef.label :record, :class => "control-label" do
+          = t('.record')
+        .controls
+          = ef.check_box :record
 
     .form-actions
       = f.submit nil, :class => 'btn btn-primary'
