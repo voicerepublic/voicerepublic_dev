@@ -4,6 +4,7 @@
  *= require venues_single 
  *= require_self
  *= require bootstrap_datetimepicker.min.css
+ *= require bootstrap-fileupload.css
  */
 
 
@@ -364,5 +365,90 @@
   }
   h3.venue-new-join-t-title{
     margin-top:0
+  }
+}
+
+.venue-form{
+  max-width: 800px;
+  margin:0 auto;
+  padding-left: 4%; 
+  padding-right: 4%; 
+
+  h2{
+    padding-bottom: 10px;
+  }
+
+  .venue-form-fields-left{
+    padding-right: 20px;   
+  }
+
+  .help-block{
+    margin-top: -8px;
+  }
+
+  .control-group{
+    padding-top: 26px;
+  }
+  .control-group:first-child{
+    padding-top: 0;
+  }
+
+  .venue-form-icon{
+    display: block;
+    width: 60px;
+    margin-bottom: 20px;
+  }
+  .venue-form-description{
+    min-height: 700px;
+    border-left: 1px solid #ddd;
+    padding:0 30px 0 30px;
+    font-size: @baseFontSize * 0.9;
+    ul{
+      margin-left: 12px
+    }
+  }
+
+  .venue-form-image{
+    .controls{
+      float:left;
+      margin-right: 10px;
+    }
+    input{
+      float:left;
+    }
+    .help-block{
+      margin-top: 0
+    }
+  }
+
+  .event-box{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 1.5% 3%;
+    border: 1px solid #ddd;
+    background: #FFFADC;
+    border-radius: 4px;
+    .event-header{
+      h2{
+        margin-top: 0;
+        font-size: @baseFontSize * 1.6
+      }
+      font-weight: bold;
+    }
+    #datetimepicker{
+      input[type="text"]{
+        width:80%;
+      }
+    }
+    .venue-form-duration{
+      .controls{
+        select{
+          width: 90%
+        }
+      }
+    }
+    .help-datetimepicker{
+      margin-top: 0;
+    }
   }
 }

@@ -823,13 +823,14 @@ de:
       description: "Beschreibung des Treffpunktes"
       start_time: "Zeitpunkt"
       host_kluuu: "Gastgebendes KluuU"
-      duration: "Dauer des Treffpunktes in Minuten"
+      duration: "Dauer des Gesprächs in Minuten"
       start_date: "Datum"
       start_time: "Zeit"      
       datepick_placeholder: "auswählen..."
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
       timepick_help: "Beispiel: 18:15"
+      settings: "Einstellungen"
       record: 'Zeichne diese Session auf'
     change_time_form:
       start_date: "Datum"
