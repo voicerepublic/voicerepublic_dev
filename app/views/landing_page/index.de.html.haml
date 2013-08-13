@@ -43,6 +43,6 @@
       .well.well-large.clearfix
         %h2 People
         %ul.unstyled
-          - User.potentially_available.limit(5).order("created_at DESC").each do |user|
-            %li.user-small
-              = render(:partial => "users/user_small", :locals => {:user => user})
+          -#- User.potentially_available.limit(5).order("created_at DESC").each do |user|
+          -#  %li.user-small
+          -#    = render(:partial => "users/user_small", :locals => {:user => user})

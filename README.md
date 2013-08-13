@@ -32,3 +32,8 @@ master     -> staging
 production -> live
 
 
+TODO
+----
+
+* rm app/models/rating.rb
+* rm app/models/klu_image.rb
