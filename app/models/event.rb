@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
 
   attr_accessor :s_date, :s_time
   attr_accessible :s_date, :s_time
-  attr_accessible :duration, :start_time
+  attr_accessible :duration, :start_time, :record
 
   belongs_to :venue, :inverse_of => :events
 
