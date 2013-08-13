@@ -1,0 +1,31 @@
+.venue-show
+  .page-header
+    .venue-time
+      = l(@venue.start_time.in_time_zone)
+      ,
+      - if @venue.duration > 1
+        = @venue.duration
+        = t('.minutes')
+      - else
+        = t('.open_ended')
+      - if @venue.start_time.in_time_zone > Time.now.in_time_zone
+        %span.label.label-important
+          = t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time.in_time_zone, true ) )
+      - if  @venue.ongoing?
+        %span.label.label-important= t('.ongoing_venue')
+    - if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? & @venue.attendies.include?(current_user)
+      = link_to (@venue.user.name + "s " + t('.venue')), user_path(@venue.user), :target => "_blank", :confirm => "#{t('.leave_venue_popup')}"
+    - else
+      = link_to (@venue.user.name + "s " + t('.venue')), user_path(@venue.user)
+    %br/
+    .title-info-box
+      %h2
+        = @venue.title
+        - if  @venue.ongoing?
+          .info-link-onair
+            = image_tag 'info-link-icon.png'
+            info
+          %aside.venue-desc-onair
+            = image_tag( @venue.user.account.portrait.url(:large), :class => "img-polaroid")
+            = @venue.description
+            .close-icon &times;
