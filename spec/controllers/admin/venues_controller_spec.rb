@@ -42,7 +42,7 @@ describe Admin::VenuesController do
 
   describe "GET new" do
     it "assigns all venues as @venues" do
-      venue = create(:venue)
+      venue = FactoryGirl.create(:venue)
       get :index, {}, valid_session
       assigns(:venues).should eq([venue])
     end
@@ -50,7 +50,7 @@ describe Admin::VenuesController do
 
   describe "GET show" do
     it "assigns the requested venue as @venue" do
-      venue = create(:venue)
+      venue = FactoryGirl.create(:venue)
       get :show, {:id => venue.to_param}, valid_session
       assigns(:venue).should eq(venue)
     end
@@ -65,7 +65,7 @@ describe Admin::VenuesController do
 
   describe "GET edit" do
     it "assigns the requested venue as @venue" do
-      venue = create(:venue)
+      venue = FactoryGirl.create(:venue)
       get :edit, {:id => venue.to_param}, valid_session
       assigns(:venue).should eq(venue)
     end
@@ -154,14 +154,14 @@ describe Admin::VenuesController do
 
   describe "DELETE destroy" do
     it "destroys the requested venue" do
-      venue = create(:venue)
+      venue = FactoryGirl.create(:venue)
       expect {
         delete :destroy, {:id => venue.to_param}, valid_session
       }.to change(Venue, :count).by(-1)
     end
 
     it "redirects to the venues list" do
-      venue = create(:venue)
+      venue = FactoryGirl.create(:venue)
       delete :destroy, {:id => venue.to_param}, valid_session
       response.should redirect_to(admin_venues_url)
     end

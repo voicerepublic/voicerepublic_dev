@@ -35,6 +35,8 @@ production -> live
 TODO
 ----
 
+* fix authentication/authorization participation
+
 * rm app/models/rating.rb
 * rm app/models/klu_image.rb
 * Venue.update_all('user_id = 1', :user_id => nil)

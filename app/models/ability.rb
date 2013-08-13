@@ -72,9 +72,9 @@ class Ability
       user == conversation.user_1 || conversation.user_2
     end
     
-    can :manage, Category do |category|
-      user.is_admin?
-    end
+    # can :manage, Category do |category|
+    #   user.is_admin?
+    # end
     
     can :manage, Comment do |comment|
       t = false
@@ -112,9 +112,9 @@ class Ability
     #  user.roles.include?(Role.find_by_name('venue_host'))
     #end
     
-    can :manage, VenueKlu do |vk|
-      vk.klu.user == user 
-    end
+    # can :manage, VenueKlu do |vk|
+    #   vk.klu.user == user 
+    # end
     
   end
 end
