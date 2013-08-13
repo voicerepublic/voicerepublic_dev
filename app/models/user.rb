@@ -60,7 +60,9 @@ class User < ActiveRecord::Base
   has_one :account, :dependent => :destroy          # application-account-things
   has_one :balance_account, :dependent => :destroy, :autosave => true, :class_name => 'Balance::Account'   # financial things
   
-  has_many :venues
+  has_many :venues # as owner
+  has_many :participations
+  has_many :participating_venues, :through => :participations, :class_name => 'Venue'
 
   scope :online, where("available = ? OR available = ?", 'online', 'busy')
   

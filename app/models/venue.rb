@@ -10,6 +10,7 @@
 # * summary [text] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
+# * user_id [integer] - belongs to :user
 class Venue < ActiveRecord::Base
 
   acts_as_taggable
@@ -22,6 +23,9 @@ class Venue < ActiveRecord::Base
   has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
   has_many :articles, :dependent => :destroy, :order => "created_at DESC"
   has_many :events, :dependent => :destroy, :inverse_of => :venue
+
+  has_many :participations, :dependent => :destroy
+  has_many :users, :through => :participations
 
   has_many :notifications_new_venues, :class_name => 'Notification::NewVenue',
            :foreign_key => :other_id,:dependent => :destroy

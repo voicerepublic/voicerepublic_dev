@@ -2,6 +2,7 @@
 # * id [integer, primary, not null] - primary key
 # * created_at [datetime, not null] - creation time
 # * duration [integer] - TODO: document me
+# * record [boolean] - TODO: document me
 # * start_time [datetime] - TODO: document me
 # * updated_at [datetime, not null] - last update time
 # * venue_id [integer] - belongs to :venue

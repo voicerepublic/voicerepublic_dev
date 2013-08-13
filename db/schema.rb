@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130813083653) do
+ActiveRecord::Schema.define(:version => 20130813093957) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -227,6 +227,16 @@ ActiveRecord::Schema.define(:version => 20130813083653) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
   end
+
+  create_table "participations", :force => true do |t|
+    t.integer  "venue_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "participations", ["user_id"], :name => "index_participations_on_user_id"
+  add_index "participations", ["venue_id"], :name => "index_participations_on_venue_id"
 
   create_table "paypal_payments", :force => true do |t|
     t.text     "params"

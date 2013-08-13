@@ -533,4 +533,9 @@ FactoryGirl.define do
   #   type 'VideoSession::Anonymous'
   # end
 
+  factory :participation do
+    venue nil
+    user nil
+  end
+
 end
