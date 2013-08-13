@@ -22,11 +22,11 @@ describe DashboardController do
       response.should be_success
     end
     
-    it "assigns users @venues" do
-      venue = FactoryGirl.create(:venue)
-      get 'venues'
-      assigns(:venues).should eq([venue])
-    end
+    # it "assigns users @venues" do
+    #   venue = FactoryGirl.create(:venue)
+    #   get 'venues'
+    #   assigns(:venues).should eq([venue])
+    # end
   end
   
   describe "Get dashboard/contacts" do
@@ -60,11 +60,11 @@ describe DashboardController do
 
   describe "GET dashboard/matches" do
 
-    it "returns http success" do
-      get "matches"
-      #puts response.inspect
-      response.should be_redirect
-    end
+    # it "returns http success" do
+    #   get "matches"
+    #   #puts response.inspect
+    #   response.should be_redirect
+    # end
 
     it "assigns users klus as @klus, kluu to be matched as @matched_klu and @matching_klus as matching results" # do
 
