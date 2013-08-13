@@ -9,13 +9,26 @@ class ApplicationController < ActionController::Base
     Time.use_zone(current_user.account.timezone, &block)
   end
   
-  def after_sign_in_path_for(resource)
-    resource.update_attribute(:available, 'online') if resource.available.nil?
-    if resource.is_admin?
+  #def after_sign_in_path_for(resource)
+  #  current_user_path
+  #end
+
+  def after_sign_in_path_for(user)
+    user.update_attribute(:available, 'online') if user.available.nil?
+    if user.is_admin?
       admin_dashboard_index_path
     else
-      return_to = request.env['omniauth.origin'] || stored_location_for(resource) || session[:venue_path] || user_path(resource)
-      logger.debug("################### RETURNING: #{return_to} - venue_path: #{session[:venue_path]} #################")
+      # logger.debug ">>> Redirect after sign in..."
+      # logger.debug "omniauth:      #{request.env['omniauth.origin']}"
+      # logger.debug "stored_for:    #{stored_location_for(user)}"
+      # logger.debug "stored_hack:   #{stored_location}"
+      # logger.debug "session(hack): #{session[:venue_path]}"
+      # logger.debug "user_path:     #{user_path(user)}"
+
+      return_to = ( request.env['omniauth.origin'] || stored_location || 
+        stored_location_for(user) || session[:venue_path] || user_path(user) )
+    
+      logger.debug(">>> RETURNING TO: #{return_to}")
       return_to
     end
   end
@@ -27,13 +40,13 @@ class ApplicationController < ActionController::Base
   #  str
   #end##
 
-  #def stored_location
-  #  session.delete(:return_to)
-  #end
+  def stored_location
+    session.delete(:return_to)
+  end
 
-  #def store_location
-  #  session[:return_to] = request.fullpath
-  #end
+  def store_location
+    session[:return_to] = request.fullpath
+  end
   
   
   
