@@ -1,6 +1,7 @@
-- if !@venue.start_in_seconds.nil? && @venue.start_in_seconds > 0
+- if @venue.reload_time
   - content_for :head do
-    %meta(http-equiv="refresh" content="#{@venue.start_in_seconds + rand * 3}")/
+    -# force reload at @venue.reload_time
+    %meta(http-equiv="refresh" content="#{@venue.reload_time}")/
 
 - content_for :title do
   = t('.venue')

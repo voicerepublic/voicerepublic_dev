@@ -13,6 +13,8 @@
 # * user_id [integer] - belongs to :user
 class Venue < ActiveRecord::Base
 
+  LIVE_TOLERANCE = 5.minutes
+
   acts_as_taggable
 
   attr_accessible :title, :summary, :description, :intro_video, :featured_from,
@@ -57,13 +59,17 @@ class Venue < ActiveRecord::Base
     start_time.in_time_zone + duration.minutes
   end
 
+  def reload_time
+    return false if next_event.nil?
+    start_time.in_time_zone - LIVE_TOLERANCE + rand * 3.0
+  end
+
   def live?(opts={})
     return false if next_event.nil?
-    tolerance = opts[:tolerance] || 0
+    tolerance = opts[:tolerance] || LIVE_TOLERANCE
     (end_time >= Time.now.in_time_zone + tolerance) and
       (start_time <= Time.now.in_time_zone - tolerance)
   end
-  alias_method :ongoing?, :live?
   
   def past?
     end_time < Time.now.in_time_zone

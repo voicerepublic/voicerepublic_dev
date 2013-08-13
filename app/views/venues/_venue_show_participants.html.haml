@@ -13,7 +13,7 @@
         .participating-box
           .promote-icon
             +
-          - if @venue.live?(:tolerance => 5.minutes)
+          - if @venue.live?
             = link_to link, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
               -#= render(:partial => 'users/user_small', :locals => { :user => klu.user })
           - else

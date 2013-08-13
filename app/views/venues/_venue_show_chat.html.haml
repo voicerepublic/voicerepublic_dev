@@ -1,5 +1,5 @@
 %section.group-chat.span6
-  - if @venue.live?(:tolerance => 5.minutes)
+  - if @venue.live?
     = render(:partial => 'venues/group_chat', :locals => { :venue => @venue })
   - else
     %aside.venue-desc
