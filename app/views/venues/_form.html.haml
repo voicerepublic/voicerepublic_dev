@@ -43,6 +43,11 @@
           = t('.duration')
         .controls
           = ef.select :duration, options_for_select(Event::DURATIONS)
+    .control-group
+      = f.label :tag_list, :class => 'control-label' do
+        = t('.tag_list')
+      .controls
+        = f.text_field :tag_list      
 
     .form-actions
       = f.submit nil, :class => 'btn btn-primary'
