@@ -1,6 +1,4 @@
 package {
-  //import flash.events.MouseEvent;
-  //import fl.controls.TextInput;
  
   import flash.events.Event;
   import flash.events.NetStatusEvent;
@@ -16,29 +14,26 @@ package {
   public class Blackbox extends MovieClip {
     var mic: Microphone;
     var netStreams: Array = new Array();
-    var nc: NetConnection;
  
     public function Blackbox() {
-      //publishBtn.addEventListener(MouseEvent.CLICK, mouseEventHandler(publishStream, publishInput));
-      //playBtn2.addEventListener(MouseEvent.CLICK, mouseEventHandler(playStream, playInput2));
-      //playBtn3.addEventListener(MouseEvent.CLICK, mouseEventHandler(playStream, playInput3));
-      //playBtn4.addEventListener(MouseEvent.CLICK, mouseEventHandler(playStream, playInput4));
-      nc = new NetConnection();
-      ExternalInterface.addCallback("publishStream", publishStream);
-      ExternalInterface.addCallback("playStream", playStream);
+      ExternalInterface.addCallback("publish", publishStream);
+      ExternalInterface.addCallback("subscribe", subscribeStream);
       ExternalInterface.call("flashInitialized");
     }
 
-    //function mouseEventHandler(func: Function, input: TextInput): Function {
-    //  return function (event: MouseEvent) {
-    //    var stream: String = input.text;
-    //    var nc: NetConnection = new NetConnection();
-    //    nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(func, nc, stream));
-    //    nc.connect("rtmp://kluuu-staging.panter.ch/discussions");
-    //  }
-    //}
- 
     function publishStream(stream: String) {
+      var nc: NetConnection = new NetConnection();
+      nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(sendStream, nc, stream));
+      nc.connect("rtmp://kluuu-staging.panter.ch/discussions");
+    }
+
+    function subscribeStream(stream: String) {
+      var nc: NetConnection = new NetConnection();
+      nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(receiveStream, nc, stream));
+      nc.connect("rtmp://kluuu-staging.panter.ch/discussions");
+    }
+
+    function sendStream(nc: NetConnection, stream: String) {
       mic = Microphone.getMicrophone();
       mic.codec = SoundCodec.SPEEX;
       mic.setUseEchoSuppression(true);
@@ -52,14 +47,14 @@ package {
       netStreams.push(ns);
     }
  
-    function playStream(stream: String) {
+    function receiveStream(nc: NetConnection, stream: String) {
       var ns: NetStream = new NetStream(nc);
       ns.receiveVideo(false);
       ns.play(stream);
       netStreams.push(ns);
     }
  
-    function netStatusHandler(func: Function, stream: String): Function {
+    function netStatusHandler(func: Function, nc: NetConnection, stream: String): Function {
       return function (event: NetStatusEvent) {
         if (event.info.code == "NetConnection.Connect.Success") {
           func(nc, stream);
