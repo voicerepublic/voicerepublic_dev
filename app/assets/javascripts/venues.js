@@ -75,10 +75,10 @@
                                  },
                                  // we want to return the names not the ids
                                  id: function (e) { return e.name; },
-                                 // select2 assumes 'text', but in our case it's 'name'
                                  createSearchChoice: function (term) {
                                    return {id: $.trim(term), name: $.trim(term)};
                                  },
+                                 // select2 assumes 'text', but in our case it's 'name'
                                  formatResult: function(result, container, query, escapeMarkup) {
                                      var markup=[];
                                      Select2.util.markMatch(result.name, query.term,

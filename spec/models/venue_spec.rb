@@ -47,4 +47,15 @@ describe Venue do
     expect(venue.next_event).to eq expected
   end
 
+  # FIXME
+  it "should provide a reasonable reload time" do
+    venue = FactoryGirl.create(:venue_with_events)
+    start, now = 1.hour.from_now, Time.now
+    delta = (1.hour.from_now - now).round
+    venue.next_event.update_attributes :start_time => start
+    expect(venue.reload_time).to be_a(Float)
+    tolerance = ( 5.minutes + 3.seconds ).to_i
+    #expect(venue.reload_time).to be be_within(tolerance).of(delta)
+  end
+
 end

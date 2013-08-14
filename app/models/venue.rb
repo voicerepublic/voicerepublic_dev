@@ -50,6 +50,12 @@ class Venue < ActiveRecord::Base
   # start_time, duration, start_in_seconds wil return nil if no next_event
   delegate :start_time, :duration, :start_in_seconds, to: :next_event, allow_nil: true
 
+  attr_accessible :image
+  attr_accessor :image_file_name
+  has_attached_file( :image,
+                     :styles => { :medium => '242x145>', :thumb => "100x100>" },
+                     :default_url => "/images/:style/missing.png" )
+
   # returns nil if no current or upcoming event
   def next_event
     events.not_past.upcoming_first.first
@@ -61,17 +67,18 @@ class Venue < ActiveRecord::Base
 
   def reload_time
     return false if next_event.nil?
-    start_time.in_time_zone - LIVE_TOLERANCE + rand * 3.0
+    (start_time.in_time_zone - Time.now.in_time_zone) - LIVE_TOLERANCE + rand * 3.0
   end
 
   def live?(opts={})
     return false if next_event.nil?
     tolerance = opts[:tolerance] || LIVE_TOLERANCE
-    (end_time >= Time.now.in_time_zone + tolerance) and
-      (start_time <= Time.now.in_time_zone - tolerance)
+    (end_time >= Time.now.in_time_zone - tolerance) and
+      (start_time <= Time.now.in_time_zone + tolerance)
   end
   
   def past?
+    return true if next_event.nil?
     end_time < Time.now.in_time_zone
   end
   alias_method :timed_out?, :past?

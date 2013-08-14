@@ -3,7 +3,7 @@
 - start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : |
                t('.datepick_placeholder')                                                      |
 
-= form_for @venue do |f|
+= form_for @venue, html: { multipart: true } do |f|
 
   .row-fluid
     .span8.venue-form-fields-left
@@ -38,12 +38,7 @@
       .control-group.venue-form-image
         .fileupload.fileupload-new{:data => {:provides => "fileupload"}}
           .fileupload-new.thumbnail
-            
-            - if 1==2 #TODO image upload
-              = image_tag @user.account.portrait.url(:large)
-            - else
-              = image_tag "/system/large/missing.jpg"
-            
+            = image_tag @venue.image.url(:large)
           .fileupload-preview.fileupload-exists.thumbnail{:html => 'style="width: 100%;line-height: 20px;'}
           .box
             %span.btn.btn-file
@@ -51,10 +46,11 @@
                 = t('.select')
               %span.fileupload-exists
                 = t('.change')
-              = file_field_tag 'picture'
+              = f.file_field :image
             - if 1==1
               = link_to '#', :class => "btn", :method => :delete do
                 = t('.delete_portrait', :default => "Delete")
+          -#= f.file_field :image
         .help-block
           = t('.help_image')
 
