@@ -7,11 +7,21 @@
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script src='//kluuu-staging.panter.ch:9293/faye/client.js'></script>
     <script>
+      var flash = null;
+
+      var flashInitialized = function() {
+        var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
+        flash = isInternetExplorer ? document.all.blackbox : document.blackbox;
+      }
+
+      var flashLog = function(msg) {
+        // TODO do something useful
+      }
+
       var subscriptions = [];
 
       var subscribeStream = function(uuid) {
-        // TODO subscribe to stream with uuid
-
+        flash.subscribe(uuid);
         // keep track of what streams already subscribed to
         subscriptions.push(uuid);
       }
