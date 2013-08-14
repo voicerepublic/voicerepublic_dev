@@ -3,57 +3,112 @@
 - start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : |
                t('.datepick_placeholder')                                                      |
 
-= form_for @venue, :html => { :class => 'form-horizontal' } do |f|
+= form_for @venue do |f|
 
-  .span6
-    .control-group
-      = f.label :title, :class => 'control-label' do
-        = t('.title')
-      .controls
-        = f.text_field :title, :class => 'text_field'
-    .control-group
-      = f.label :summary, :class => 'control-label' do
-        = t('.summary')
-      .controls
-        = f.text_area :summary, :class => 'text_area', :rows => 2
-    .control-group
-      = f.label :description, :class => 'control-label' do
-        = t('.description')
-      .controls
-        = f.text_area :description, :class => 'text_area', :rows => 4
+  .row-fluid
+    .span8.venue-form-fields-left
+      .control-group
+        = f.label :title, :class => 'control-label' do
+          = t('.title')
+        .controls
+          = f.text_field :title, :class => "input-block-level"
+        .help-block
+          = t('.help_title')          
+      .control-group
+        = f.label :summary, :class => 'control-label' do
+          = t('.summary')
+        .controls
+          = f.text_area :summary, :rows => 2, :class => "input-block-level"
+        .help-block
+          = t('.help_summery')          
+      .control-group
+        = f.label :description, :class => 'control-label' do
+          = t('.description')
+        .controls
+          = f.text_area :description, :rows => 4, :class => "input-block-level"
+        .help-block
+          = t('.help_description')          
+      .control-group
+        = f.label :tag_list, :class => 'control-label' do
+          = t('.tag_list')
+        .controls
+          = f.text_field :tag_list, :class => 'tagList input-block-level'     
+        .help-block
+          = t('.help_tags')               
+      .control-group.venue-form-image
+        .fileupload.fileupload-new{:data => {:provides => "fileupload"}}
+          .fileupload-new.thumbnail
+            
+            - if 1==2 #TODO image upload
+              = image_tag @user.account.portrait.url(:large)
+            - else
+              = image_tag "/system/large/missing.jpg"
+            
+          .fileupload-preview.fileupload-exists.thumbnail{:html => 'style="width: 100%;line-height: 20px;'}
+          .box
+            %span.btn.btn-file
+              %span.fileupload-new
+                = t('.select')
+              %span.fileupload-exists
+                = t('.change')
+              = file_field_tag 'picture'
+            - if 1==1
+              = link_to '#', :class => "btn", :method => :delete do
+                = t('.delete_portrait', :default => "Delete")
+        .help-block
+          = t('.help_image')
 
-  .span5
-    .control-group
-      = f.label :tag_list, :class => 'control-label' do
-        = t('.tag_list')
-      .controls
-        = f.text_field :tag_list, :class => 'tagList'
+    .span4.venue-form-description
+      = image_tag "venue-icon-host.png", :class => "venue-form-icon"
+      %strong
+        Aenean
+      %br
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod.
+      %br
+      Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+      %br
+      %br
+      %ul
+        %li Cras Nibh Justo Etiam Bibendum
+        %li Venenatis Parturient Adipiscing
+        %li Dolor Ipsum Aenean
+
+  .event-box.clearfix
+    %header.event-header
+      %h2 Your Talk
     = f.fields_for :events do |ef|
-      .control-group
-        %label.control-label= t('.start_time')
-        .controls.input-append.date#datetimepicker
-          = ef.text_field :start_time, :id => 'venue_s_date', 'data-format' => "dd/MM/yyyy hh:mm"
-          %span.add-on
-            %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
-          %br/
-          %span.help-block Format: 02/07/1967 17:00
-      %noscript
-        .control-group
-          = f.label :start_time, :class => 'control-label' do
-            = t('.start_time')
-          .controls
-            = f.datetime_select :start_time, :start_year => Date.today.year
-      .control-group
-        = ef.label :duration, :class => "control-label" do
-          = t('.duration')
-        .controls
-          = ef.select :duration, options_for_select(Event::DURATIONS)
-      .control-group
-        = ef.label :record, :class => "control-label" do
-          = t('.record')
-        .controls
-          = ef.check_box :record
-
-    .form-actions
-      = f.submit nil, :class => 'btn btn-primary'
-      = link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn'
+      .row-fluid
+        .span12
+          .control-group
+            %label.control-label= t('.title')
+            .controls
+              = text_area_tag 'TODO', nil, :class => "input-block-level"
+            .help-block
+              = t('.help-title-event')
+      .row-fluid.event-fields
+        .span4
+          .control-group
+            %label.control-label= t('.start_time')
+            .controls.input-append.date#datetimepicker
+              = ef.text_field :start_time, :id => 'venue_s_date', 'data-format' => "dd/MM/yyyy hh:mm"
+              %span.add-on
+                %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
+              .help-block.help-datetimepicker Format: 02/07/1967 17:00
+        .span4
+          .control-group.venue-form-duration
+            = ef.label :duration, :class => "control-label" do
+              = t('.duration')
+            .controls
+              = ef.select :duration, options_for_select(Event::DURATIONS), :class => "input-block-level"
+        .span4          
+          .control-group
+            = ef.label :record, :class => "control-label" do
+              = t('.settings')
+            .controls
+              = ef.label :record, :class => "control-label checkbox" do
+                = ef.check_box :record
+                = t('.record')            
+    
+  .pull-right.clearfix
+    = f.submit nil, :class => 'btn btn-primary'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn'
