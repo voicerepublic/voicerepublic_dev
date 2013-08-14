@@ -10,17 +10,13 @@
 
       var flash = null;
 
-      var flashInitialized = function() {
-        var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
-        flash = isInternetExplorer ? document.all.blackbox : document.blackbox;
-      }
-
       var flashLog = function(msg) {
-        log(msg);
+        log('flashLog: '+msg);
       }
 
       var log = function(msg) {
         if(console!=undefined) console.log(msg);
+        $('#log').prepend('<p>'+msg+'</p>');
       }
 
       var subscriptions = [];
@@ -30,8 +26,9 @@
       }
 
       var subscribeStream = function(uuid) {
+        log('subscribe '+uuid);
         flash.subscribe(uuid);
-        subscriptions.puhs(uuid);
+        subscriptions.push(uuid);
       }
 
       var generateUuid = function() {
@@ -53,21 +50,25 @@
         subscribeStream(msg.uuid);
       });
 
-      publishStream(uuid);
-
-      // announce stream
-      log('announce '+uuid);
-      client.publish('/announce', { uuid: uuid });
+      var flashInitialized = function() {
+        log('flashInitialized');
+        var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
+        flash = isInternetExplorer ? document.all.blackbox : document.blackbox;
+        log('publish '+uuid);
+        publishStream(uuid);
+        log('announce '+uuid);
+        client.publish('/announce', { uuid: uuid });
+      };
 
       // reannounce stream, when receiver registers
       client.subscribe('/register', function(msg) {
-        log('reannounce '+uuid);
+        log('received register, reannounce '+uuid);
         client.publish('/announce', { uuid: uuid });
       });
 
       // collect feedback, sent by receivers
       client.subscribe('/feedback', function(msg) {
-        $('.dialog').prepend('<p>'+msg+'</p>');
+        $('#dialog').prepend('<p>'+msg+'</p>');
       });
     </script>
   </head>
@@ -75,7 +76,11 @@
   <body>
     <h1>Sender</h1>
     Your mic is being streamed to all participants.
-    <div class="dialog">
+    <h2>Feedback</h2>
+    <div id="dialog">
+    </div>
+    <h2>Log</h2>
+    <div id="log">
     </div>
   </body>
 </html>
