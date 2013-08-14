@@ -9,11 +9,6 @@
     <script>
       var flash = null;
 
-      var flashInitialized = function() {
-        var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
-        flash = isInternetExplorer ? document.all.blackbox : document.blackbox;
-      }
-
       var flashLog = function(msg) {
         // TODO do something useful
       }
@@ -34,9 +29,6 @@
         subscribeStream(msg.uuid);
       });
 
-      // register so streams get reannounced
-      client.publish('/register');
-
       $(function() {
         // send feeback
         $('#send').click(function() {
@@ -46,6 +38,13 @@
           $('#content').val('');
         });
       });
+
+      var flashInitialized = function() {
+        var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
+        flash = isInternetExplorer ? document.all.blackbox : document.blackbox;
+        // register so streams get reannounced
+        client.publish('/register');
+      }
     </script>
   </head>
 
@@ -56,6 +55,9 @@
     <br/>
     <button id="send">send</button>
     <div id='dialog'>
+    </div>
+    <h2>Log</h2>
+    <div id='log'>
     </div>
   </body>
 </html>

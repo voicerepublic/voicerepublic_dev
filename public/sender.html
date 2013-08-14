@@ -58,6 +58,7 @@
         publishStream(uuid);
         log('announce '+uuid);
         client.publish('/announce', { uuid: uuid });
+        client.publish('/register');
       };
 
       // reannounce stream, when receiver registers
