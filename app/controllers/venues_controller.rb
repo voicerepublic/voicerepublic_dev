@@ -1,6 +1,6 @@
 class VenuesController < ApplicationController
   before_filter :remember_location, :only => [:join_venue]
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :tags]
   
   # GET /venues
   # GET /venues.json
@@ -157,7 +157,13 @@ class VenuesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
+  def tags
+    scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])
+    tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
+    render json: { tags: tags, total: scope.count }
+  end
+
   private
   
   def remember_location

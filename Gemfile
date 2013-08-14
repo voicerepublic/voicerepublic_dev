@@ -45,6 +45,7 @@ gem 'haml-rails'
 gem 'simple_form'
 gem "acts_as_paranoid", "~>0.4.0"
 gem 'unicorn'
+gem "select2-rails"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
@@ -57,6 +58,7 @@ group :development, :test, :staging do
   #gem 'rails_view_annotator'
   gem 'zeus'
   gem 'debugger'
+  gem 'disable_assets_logger'
 end
 
 group :test do

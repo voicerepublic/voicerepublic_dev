@@ -92,6 +92,7 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.2)
+    disable_assets_logger (1.0.0)
     dotenv (0.8.0)
     dynamic_form (1.1.4)
     em-http-request (1.0.3)
@@ -291,6 +292,9 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    select2-rails (3.4.8)
+      sass-rails
+      thor (~> 0.14)
     simple_form (2.1.0)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -364,6 +368,7 @@ DEPENDENCIES
   database_cleaner
   debugger
   devise
+  disable_assets_logger
   dynamic_form
   eu_central_bank
   exception_notification
@@ -389,6 +394,7 @@ DEPENDENCIES
   rails-i18n
   rspec-rails
   sass-rails
+  select2-rails
   simple_form
   simplecov
   therubyracer

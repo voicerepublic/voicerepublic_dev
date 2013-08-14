@@ -35,6 +35,7 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /de|en/ do
+    get 'venues/tags' => 'venues#tags'
     resources :categories
     resources :venues do
       post 'join_venue', :action => 'join_venue', :as => "join"
