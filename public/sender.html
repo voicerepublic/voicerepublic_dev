@@ -6,7 +6,12 @@
     </style>
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script src='//kluuu-staging.panter.ch:9293/faye/client.js'></script>
+    <script type="text/javascript" src="/swfobject.js"></script>
     <script>
+      var flashvars = {};
+      var params = {};
+      var attributes = { id: "Blackbox", name: "Blackbox" };
+      swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "550", "400", "10.3.181.22", null, flashvars, params, attributes);
 
       var flash = null;
 
@@ -32,28 +37,27 @@
       }
 
       var generateUuid = function() {
-        'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
           var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
           return v.toString(16);
         });
       };
 
-      var uuid = localStorage.getItem('uuid');
-      if(uuid==undefined) { uuid = generateUuid(); }
+      var uuid = localStorage.getItem('uuid') || generateUuid();
       localStorage.setItem('uuid', uuid);
 
       var client = new Faye.Client('http://kluuu-staging.panter.ch:9293/faye');
 
       client.subscribe('/announce', function(msg) {
-        if(uuid==msg.uuid) { return; }
-        if($.inArray(msg.uuid, subscriptions)) { return; }
+        if (uuid == msg.uuid) return;
+        if ($.inArray(msg.uuid, subscriptions) != -1) return;
         subscribeStream(msg.uuid);
       });
 
       var flashInitialized = function() {
         log('flashInitialized');
         var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
-        flash = isInternetExplorer ? document.all.blackbox : document.blackbox;
+        flash = isInternetExplorer ? document.all.Blackbox : document.Blackbox;
         log('publish '+uuid);
         publishStream(uuid);
         log('announce '+uuid);
@@ -82,6 +86,9 @@
     </div>
     <h2>Log</h2>
     <div id="log">
+    </div>
+    <div id="flashcontent">
+      <p>Flash not installed</p>
     </div>
   </body>
 </html>
