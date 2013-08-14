@@ -4,9 +4,13 @@
     <title>Sender</title>
     <style type="text/css">
     </style>
-    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'>
-    <script src='//kluuu-staging.panter.ch:9293/faye/client.js'>
+    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+    <script src='//kluuu-staging.panter.ch:9293/faye/client.js'></script>
     <script>
+      var log = function(msg) {
+        if(console!=undefined) console.log(msg);
+      }
+
       var subscriptions = [];
 
       var publishStream = function(uuid) {
@@ -26,9 +30,9 @@
         });
       };
 
-      var uuid = localStorage.get('uuid');
+      var uuid = localStorage.getItem('uuid');
       if(uuid==undefined) { uuid = generateUuid(); }
-      localStorage.set('uuid', uuid);
+      localStorage.setItem('uuid', uuid);
 
       var client = new Faye.Client('http://kluuu-staging.panter.ch:9293/faye');
 
@@ -41,10 +45,12 @@
       publishStream(uuid);
 
       // announce stream
+      log('announce '+uuid);
       client.publish('/announce', { uuid: uuid });
 
       // reannounce stream, when receiver registers
       client.subscribe('/register', function(msg) {
+        log('reannounce '+uuid);
         client.publish('/announce', { uuid: uuid });
       });
 

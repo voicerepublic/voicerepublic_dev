@@ -4,8 +4,8 @@
     <title>Receiver</title>
     <style type="text/css">
     </style>
-    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'>
-    <script src='//kluuu-staging.panter.ch:9293/faye/client.js'>
+    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+    <script src='//kluuu-staging.panter.ch:9293/faye/client.js'></script>
     <script>
       var subscriptions = [];
 
@@ -20,27 +20,30 @@
 
       // subscribe to streams when they are announced
       client.subscribe('/announce', function(msg) {
-        if($.inArray(msg.uuid, subscriptions) { return; }
+        if($.inArray(msg.uuid, subscriptions)) return;
         subscribeStream(msg.uuid);
       });
 
       // register so streams get reannounced
       client.publish('/register');
 
-      // send feeback
-      $('#send').click(function() {
-        var content = $('#content').val();
-        client.publish('/feedback', content);
-        $('#dialog').prepend('<p>'+content+'</p>');
-        $('#content').val('');
+      $(function() {
+        // send feeback
+        $('#send').click(function() {
+          var content = $('#content').val();
+          client.publish('/feedback', content);
+          $('#dialog').prepend('<p>'+content+'</p>');
+          $('#content').val('');
+        });
       });
     </script>
   </head>
 
   <body>
     <h1>Receiver</h1>
-    Please send feedback on your listening experience.
-    <textarea id="content"></textarea>
+    <p>Please describe your listening experience.</p>
+    <textarea id="content" style='width: 400px; height: 100px'></textarea>
+    <br/>
     <button id="send">send</button>
     <div id='dialog'>
     </div>
