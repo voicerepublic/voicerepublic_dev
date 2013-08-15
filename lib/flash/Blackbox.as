@@ -21,7 +21,17 @@
       streamer = root.loaderInfo.parameters['streamer'];
       ExternalInterface.addCallback("publish", publishStream);
       ExternalInterface.addCallback("subscribe", subscribeStream);
+      ExternalInterface.addCallback("mute", muteMic);
+      ExternalInterface.addCallback("unmute", unmuteMic);
       ExternalInterface.call("flashInitialized");
+    }
+
+    function muteMic() {
+      mic.gain = 0;
+    }
+
+    function unmuteMic() {
+      mic.gain = 50;
     }
 
     function publishStream(stream: String) {

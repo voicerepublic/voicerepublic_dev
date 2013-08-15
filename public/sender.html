@@ -78,12 +78,23 @@
       client.subscribe('/feedback', function(msg) {
         $('#dialog').prepend('<p>'+msg+'</p>');
       });
+
+      function mute () {
+        console.log("mute"); flash.mute();
+      }
+
+      function unmute () {
+        console.log("unmute"); flash.unmute();
+      }
+
     </script>
   </head>
 
   <body>
     <h1>Sender</h1>
     Your mic is being streamed to all participants.
+    <a href="#mute" onclick="mute()">Mute</a>
+    <a href="#unmute" onclick="unmute()">Unmute</a>
     <h2>Feedback</h2>
     <div id="dialog">
     </div>
