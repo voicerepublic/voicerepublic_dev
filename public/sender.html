@@ -8,7 +8,7 @@
     <script src='//kluuu-staging.panter.ch:9293/faye/client.js'></script>
     <script type="text/javascript" src="/swfobject.js"></script>
     <script>
-      var flashvars = {};
+      var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions' };
       var params = {};
       var attributes = { id: "Blackbox", name: "Blackbox" };
       swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "215", "140", "10.3.181.22", null, flashvars, params, attributes);
@@ -78,12 +78,23 @@
       client.subscribe('/feedback', function(msg) {
         $('#dialog').prepend('<p>'+msg+'</p>');
       });
+
+      function mute () {
+        console.log("mute"); flash.mute();
+      }
+
+      function unmute () {
+        console.log("unmute"); flash.unmute();
+      }
+
     </script>
   </head>
 
   <body>
     <h1>Sender</h1>
     Your mic is being streamed to all participants.
+    <a href="#mute" onclick="mute()">Mute</a>
+    <a href="#unmute" onclick="unmute()">Unmute</a>
     <h2>Feedback</h2>
     <div id="dialog">
     </div>

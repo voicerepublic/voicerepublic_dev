@@ -15,23 +15,35 @@
   public class Blackbox extends MovieClip {
     var mic: Microphone;
     var netStreams: Array = new Array();
- 
+    var streamer:String;
+
     public function Blackbox() {
+      streamer = root.loaderInfo.parameters['streamer'];
       ExternalInterface.addCallback("publish", publishStream);
       ExternalInterface.addCallback("subscribe", subscribeStream);
+      ExternalInterface.addCallback("mute", muteMic);
+      ExternalInterface.addCallback("unmute", unmuteMic);
       ExternalInterface.call("flashInitialized");
+    }
+
+    function muteMic() {
+      mic.gain = 0;
+    }
+
+    function unmuteMic() {
+      mic.gain = 50;
     }
 
     function publishStream(stream: String) {
       var nc: NetConnection = new NetConnection();
       nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(sendStream, nc, stream));
-      nc.connect("rtmp://kluuu-staging.panter.ch/discussions");
+      nc.connect(streamer);
     }
 
     function subscribeStream(stream: String) {
       var nc: NetConnection = new NetConnection();
       nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(receiveStream, nc, stream));
-      nc.connect("rtmp://kluuu-staging.panter.ch/discussions");
+      nc.connect(streamer);
     }
 
     function sendStream(nc: NetConnection, stream: String) {
@@ -45,7 +57,7 @@
       mic.setSilenceLevel(0, 2000);
       mic.enhancedOptions = options;
       mic.codec = SoundCodec.SPEEX;
-      mic.encodeQuality = 6;
+      mic.encodeQuality = 11;
       mic.framesPerPacket = 1;
       mic.gain = 50;
       mic.setUseEchoSuppression(true);
