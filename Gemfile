@@ -55,7 +55,7 @@ group :development, :test, :staging do
   gem 'annotator'
   gem 'foreman', :require => false
   gem 'capistrano-rbenv', '>= 1.0.0'
-  #gem 'rails_view_annotator'
+  # gem 'rails_view_annotator'
   gem 'zeus'
   gem 'debugger'
   gem 'disable_assets_logger'

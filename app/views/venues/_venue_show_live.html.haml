@@ -1,3 +1,18 @@
+-# this should move into model venue
+- venue_id  = "v#{@venue.id}"
+- stream_id = "v#{@venue.id}u#{current_user.id}"
+- channel   = "/live/#{venue_id}"
+:javascript
+  window.Venue = { venueId: "#{venue_id}", streamId: "#{stream_id}", channel: "#{channel}" };
+
+-# listen to commands from others
+= subscribe_to channel
+
+-# load swfobject and provide element to hook into
+- content_for :head do
+  = javascript_include_tag '/swfobject.js'
+#flashcontent Flash not installed
+
 .well.host-info
   %div &nbsp;
 - if @venue.user == current_user

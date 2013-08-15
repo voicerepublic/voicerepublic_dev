@@ -46,5 +46,8 @@ end
 
 faye.add_extension(FayeNSA.new)
 
+faye.bind(:publish) do |client_id, channel, data|
+  puts "publish #{client_id} #{channel} #{data.inspect}"
+end
 
 run faye

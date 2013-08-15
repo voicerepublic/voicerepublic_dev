@@ -90,9 +90,53 @@
                                  }
                                });
      };
-     
-     disableKluLinks();
-     datetimePicker();
-     tagList();
+  
+
+  var initBlackbox = function() {
+    var flashvars = {};
+    var params = {};
+    var attributes = { id: "Blackbox", name: "Blackbox" };
+    swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "215", "140",
+                       "10.3.181.22", null, flashvars, params, attributes);
+    // for now, this in global namespace
+    window.flashInitialized = function() {
+      // http://stackoverflow.com/questions/7235417
+      // http://stackoverflow.com/questions/952732
+      var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
+      window.blackbox = isInternetExplorer ? document.all.Blackbox : document.Blackbox;
+    };
+  };
+  
+  disableKluLinks();
+  datetimePicker();
+  tagList();
+  initBlackbox();
+  
+  // window.Venue is initially defined in venues/_venue_show_live
+  // so here we'll have to merge
+  window.Venue = $.extend({}, window.Venue, {
+    // publishes data via /fayeproxy to private_pub
+    publish: function(channel, data) {
+      $.ajax('/fayeproxy', {
+        type: 'POST', data: { channel: channel, data: data }
+      });
+    },
+    // reigster is triggered by new participants
+    // all senders (the host and all guests) should
+    // respond with triggering a subscribe
+    register: function(streamId) {
+      if(streamId == Venue.streamId) return;
+      console.log('hello from '+streamId);
+      // TODO trigger subscribe
+    },
+    // subscribe is triggered by senders upon
+    // receiving a register
+    subscribe: function(streamId) {
+      // TODO subscribe to streamId
+    }
+  });
+  
+  // 'register' is being send to announce a new client
+  $( window.Venue.publish(Venue.channel, "Venue.register('"+Venue.streamId+"');") );
 
 })(jQuery);

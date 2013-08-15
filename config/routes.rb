@@ -2,6 +2,8 @@
 
 Kluuu2::Application.routes.draw do
   
+  post "fayeproxy" => "fayeproxy#publish"
+
   mount Kblog::Engine => "/blog"
   #mount Split::Dashboard => "/split" 
 
