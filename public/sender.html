@@ -11,7 +11,7 @@
       var flashvars = {};
       var params = {};
       var attributes = { id: "Blackbox", name: "Blackbox" };
-      swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "550", "400", "10.3.181.22", null, flashvars, params, attributes);
+      swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "215", "140", "10.3.181.22", null, flashvars, params, attributes);
 
       var flash = null;
 
@@ -54,22 +54,25 @@
         subscribeStream(msg.uuid);
       });
 
+      // reannounce stream, when receiver registers
+      client.subscribe('/register', function(msg) {
+        log('received register, reannounce '+uuid);
+        client.publish('/announce', { uuid: uuid });
+      });
+
       var flashInitialized = function() {
         log('flashInitialized');
         var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
         flash = isInternetExplorer ? document.all.Blackbox : document.Blackbox;
         log('publish '+uuid);
         publishStream(uuid);
-        log('announce '+uuid);
-        client.publish('/announce', { uuid: uuid });
-        client.publish('/register');
+        //log('announce '+uuid);
+        //client.publish('/announce', { uuid: uuid });
+        setTimeout(function() { 
+          log('register');
+          client.publish('/register', { uuid: uuid });
+        }, 1000);
       };
-
-      // reannounce stream, when receiver registers
-      client.subscribe('/register', function(msg) {
-        log('received register, reannounce '+uuid);
-        client.publish('/announce', { uuid: uuid });
-      });
 
       // collect feedback, sent by receivers
       client.subscribe('/feedback', function(msg) {
