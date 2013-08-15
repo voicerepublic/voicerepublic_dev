@@ -1,5 +1,7 @@
 class VenuesController < ApplicationController
-  before_filter :remember_location, :only => [:join_venue]
+
+  before_filter :store_location
+  #before_filter :remember_location, :only => [:join_venue]
   before_filter :authenticate_user!, :except => [:index, :show, :tags]
   
   # GET /venues
