@@ -45,9 +45,9 @@
       mic.setSilenceLevel(0, 2000);
       mic.enhancedOptions = options;
       mic.codec = SoundCodec.SPEEX;
-      mic.encodeQuality = 6;
+      mic.encodeQuality = 9;
       mic.framesPerPacket = 1;
-      mic.gain = 50;
+      mic.gain = 60;
       mic.setUseEchoSuppression(true);
 
       var ns: NetStream = new NetStream(nc);
