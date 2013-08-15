@@ -45,7 +45,7 @@
       mic.setSilenceLevel(0, 2000);
       mic.enhancedOptions = options;
       mic.codec = SoundCodec.SPEEX;
-      mic.encodeQuality = 9;
+      mic.encodeQuality = 11;
       mic.framesPerPacket = 1;
       mic.gain = 60;
       mic.setUseEchoSuppression(true);
