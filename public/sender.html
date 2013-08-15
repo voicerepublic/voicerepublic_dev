@@ -8,7 +8,7 @@
     <script src='//kluuu-staging.panter.ch:9293/faye/client.js'></script>
     <script type="text/javascript" src="/swfobject.js"></script>
     <script>
-      var flashvars = {};
+      var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions' };
       var params = {};
       var attributes = { id: "Blackbox", name: "Blackbox" };
       swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "215", "140", "10.3.181.22", null, flashvars, params, attributes);
