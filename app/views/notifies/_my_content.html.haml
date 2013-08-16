@@ -5,7 +5,7 @@
         = image_tag( notification.other.account.portrait.url(:thumb), :class => 'img-polaroid')
     - if notification.other && notification.other.instance_of?(Venue)
       = link_to user_path(:id => notification.other) do
-        = image_tag( notification.other.host_kluuu.user.account.portrait.url(:thumb), :class => 'img-polaroid')
+        -#= image_tag( notification.other.account.portrait.url(:thumb), :class => 'img-polaroid')
 
   .contribution-right
     - if notification.instance_of?(Notification::NewComment)
@@ -24,7 +24,7 @@
           =t('.follow_back')
     - if notification.instance_of?(Notification::NewVenueParticipant)
       = link_to venue_path(:id => notification.other) do
-        = notification.klu.user.name
+        -# =>= notification.venues.user.name
       = t('.joined_venue', :title => '"' + notification.other.title + '"')
     - if notification.instance_of?(Notification::VenueInfo)
       = t('venues.date_changed')
