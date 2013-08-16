@@ -1,6 +1,0 @@
-= form_tag( group_chat_info_path(:id => venue) , :remote => true, :class => "host-chat-instance") do |f|
-  .control-group
-    .controls
-      = text_field_tag 'chat[body]','', :class => 'text_field input-block-level host-text-field', :placeholder => t('.your_host_message', :default => 'Your info messages...')
-  .btns
-    = submit_tag t('.submit'), :class => 'btn btn-small btn-danger  pull-right', :id => "broadcast"

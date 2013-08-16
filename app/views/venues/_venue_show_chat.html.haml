@@ -1,10 +1,2 @@
-%section.group-chat.span6
-  - if @venue.live?
-    = render(:partial => 'venues/group_chat', :locals => { :venue => @venue })
-  - else
-    %aside.venue-desc
-      .clearfix
-        %h3.pull-left= t('.what_is_a_venue')
-        = link_to t('.see_other_venues'), venues_path, :class => "btn btn-small pull-right"
-      .venue-desc-content
-        = render(:partial => 'venues/txt/venue_desc')
+%section.group-chat
+  = render(:partial => 'venues/group_chat', :locals => { :venue => @venue })

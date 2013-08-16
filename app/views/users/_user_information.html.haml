@@ -1,5 +1,6 @@
 %section.user-information
-  .user-image{"data-user-id" => user.id}= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user))
+  .user-image-box
+    .user-image{"data-user-id" => user.id}= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user))
 
   %header
     %h2=user.name

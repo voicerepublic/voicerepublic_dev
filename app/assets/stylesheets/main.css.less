@@ -146,82 +146,50 @@ body.layout-logged-out{
 }
 
 /* USER THUMBNAIL */
-.user-thumbnail{
-  position:relative;
-  height: 59px;
-  background:#F6FBFC;
-}
-
-.user-thumbnail-link{
-  position: relative;
-  width:100%;
-  height:100%;
-  display: block;
-
-  .user-image {
-    position: absolute;
-    left: 7px;
-    top: 2px;
-    width:45px;
-  }
-  &:hover {
-    text-decoration:none;
-  }
-  .user-thumbnail-name{
-    margin-left: 60px;  
-    margin-top:3px;
-    max-width:140px;
-    max-height:45px;
-    overflow: hidden;
-    display: inline-block;
-  }
-
-}
-
-.user-thumbnail:hover{
-  /*background:rgba(0,0,0,0.03);*/
-  background:#F6FBFC;
-  box-shadow:0 0 3px rgba(0,0,0,0.2);
-  -moz-box-shadow:0 0 3px rgba(0,0,0,0.2);
-  -webkit-box-shadow:0 0 3px rgba(0,0,0,0.2);
-  -ms-box-shadow:0 0 3px rgba(0,0,0,0.2);
+.img-polaroid{
+  padding: 0;
+  border: 1px solid #eee;
+  box-shadow: 0 0 0
 }
 
 /* ONLINE STATUS LIGHT */
-.user-image {
-  display: inline-block;
-  position: relative;
+.user-image-box{
+  .user-image {
+    display: block;
+    position: relative;
+    text-align: center;
 
-  &:after {
-    left: -1px;
-    bottom: -1px;
-    z-index:100;
-    content: "";
-    position: absolute;
-    width: 24%;
-    height: 24%;
-    border: 1px solid #eee;
+    &:after {
+      left: -2px;
+      bottom: -2px;
+      z-index:100;
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border: 1px solid #eee;
 
-    .user-information & {
-      width: 8%;
-      height: 8%;
+      .user-information & {
+        width: 8%;
+        height: 8%;
+      }
     }
-  }
 
-  &.online:after {
-    background-color: green;
-    box-shadow: 0 0 3px white, 0 0 3px green;
-  }
+    &.online:after {
+      background-color: green;
+      /*box-shadow: 0 0 3px white, 0 0 3px green;*/
+    }
 
-  &.busy:after {
-    background-color: orange;
-    box-shadow:  0 0 3px white, 0 0 3px orange;
-  }
+    &.busy:after {
+      background-color: orange;
+      /*box-shadow:  0 0 3px white, 0 0 3px orange;*/
+    }
 
-  &.offline:after {
-    display: none;
-    background-color: #780000;
-    box-shadow:  0 0 3px white, 0 0 3px #780000;
+    &.offline:after {
+      display: none;
+      background-color: #780000;
+      /*box-shadow:  0 0 3px white, 0 0 3px #780000;*/
+    }
   }
 }
 

@@ -11,7 +11,8 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-= render(:partial => 'venue_show_header', :locals => { :venue => @venue } )
+-#
+  = render(:partial => 'venue_show_header', :locals => { :venue => @venue } )
 - if can? :manage, @venue
   %aside.venue-new-date
     - if @venue.past?
@@ -19,22 +20,53 @@
         %i.icon-calendar
         = t('.renew')
 
-.venue-page.row-fluid.clearfix
-  -# content (left)
-  %article.span6.clearfix
-    - if @venue.live?
-      -# live
-      = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )
-    - else
-      -# static
-      = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
-  -# chat (right)
-  = render(:partial => 'venue_show_chat', :locals => { :venue => @venue } )
+-#title and host
+%header.venue-header
+  %h2.venue-title
+    = @venue.title
+  = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
 
-.row-fluid
-  -# forum (left)
-  = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
-  -# participants (right)
-  = render(:partial => 'venue_show_participants', :locals => { :venue => @venue } )
+-if @venue.live?
+  -# live layout
+    
+  %section.venue-live-box.clearfix
+    = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )  
+  .row-fluid.clearfix
+    .span8
+      -# description
+      = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
+    .span4
+      -# participants
+      = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
+    
+  .row-fluid
+    .span8
+      -# forum (left)
+      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
+    .span4
+      -# participants (right)
+      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+
+- else
+  -# static layout
+  .row-fluid
+    .span8
+      -# description
+      = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
+
+      -# forum
+      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
+    .span4.left-light-border
+      -# next event
+      - unless @venue.next_event.nil?
+        = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
+        %hr.venue-horiz-line
+      
+      -# archive
+      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+      %hr.venue-horiz-line
+
+      -# participants
+      = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
 
 = render(:partial => 'venue_show_social', :locals => { :venue => @venue } )

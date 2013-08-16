@@ -15,359 +15,272 @@
   padding: 0 30px 0 0;
 }
 
-.participating-klus {
-  margin: 0px 0 21px 0;
-  .participating-box{
-    position: relative;
-    /*overflow: hidden;*/
-    float: left;
-
-    .live-event-overlay{
-      z-index: 1000;
-      position: absolute;
-      /*display: none;*/
-      left:50%;
-      top: 50%;
-      background:white;
-      width:0;
-      overflow: hidden;
-      border-radius: 3px;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -ms-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -o-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      opacity:0;
-      -moz-opacity:0;
-      -webkit-opacity:0;
-      -ms-opacity:0;
-      -o-opacity:0;
-      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-
-      transition:opacity 0.2s ease 0.2s;
-      -moz-transition:opacity 0.2s ease 0.2s;
-      -webkit-transition:opacity 0.2s ease 0.2s;
-      -ms-transition:opacity 0.2s ease 0.2s;
-      -o-transition:opacity 0.2s ease 0.2s;
-    }
-
-    &:hover{
-      .live-event-overlay{
-        min-width:200px;
-        width:auto;
-        opacity:1;
-        -moz-opacity:1;
-        -webkit-opacity:1;
-        -ms-opacity:1;
-        -o-opacity:1;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-      }
-    }
-  }
-}
-
-/* ALLE TREFFPUNKTE */
+/* VENUE INDEX ----------------------------------------*/
 .venue-list {
   margin: 11px 0 0 0;
   
   .venue-big { 
     margin: 0 0 30px 0;
-  } 
-  .odd {
-    /*background: @oddColor;*/
   }
-  .even {
-    /*background: @evenColor;*/
-  }
-
- 
 }
 
+/* GLOBAL VENUE CSS */
+.venue-section-title{
+  margin:10px 0 15px 0; 
+}
 
-.venue-desc{
-  .btn{
-    color:#333;
-    font-weight: normal;
+.well-large{
+  .venue-section-title{
+    margin-top: 0
   }
-  p{
-    margin:0 0 10px 0;
-  }
-  h3{
-    margin:0 0 5px 10px;
-    font-size: 18px
-  }
+}
 
-  h4{
-    font-size:14px;
-    font-weight: bold;
-    margin:10px 0 2px 0;
-  }
-  .venue-desc-content{
-    .venue-desc-box{
-      background:#10ABA9;
-      padding:1px 10px;
-      margin:20px 0 10px 0
-    }
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    background: #208583;
-    color:white;
-    padding:1px 15px 10px 15px;
-    
-    font-size: 13px;
-    border-radius: 5px
-  }
-  a{
-    color:white;
-    font-weight: bold
-  }
-} 
+/* VENUE HEADER */
+.venue-header{
+  margin-bottom: 15px;
+}
 
+.venue-title{
+  font-style: italic;
+  font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
+  line-height: 1.3;
+  margin: 0 0 0 0;  
+}
 
-/* TREFFPUNKT GROSS */
-.venue-show{
+.venue-host-link{
+  margin-left: 15px;
+}
+
+.venue-horiz-line{
+  margin: 20px 0
+}
+
+/* VENUE UPCOMING EVENT ----------------------------------------*/
+.venue-event-box{
+  background: #E8F6EC;
+  margin-bottom: 20px;
+}
+
+.venue-event-time{
+  color:#932945;
+  font-size: @baseFontSize 1.2;
+  font-weight: bold;
+}
+
+.venue-event-title{
+  font-style: italic;
+  font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
+  font-size: @baseFontSize * 1.4;
+  line-height: 1.3;
+  margin: 0 0 0 0;
+}
+
+/* VENUE DESCRIPTION -------------------------------------------*/
+.venue-description{
   position: relative;
+  margin-bottom: 50px;
+}
 
-  .host-info {
-    margin:150px auto 10px auto;
-    padding-left: 16px;
-    border:1px solid #932945;
-    /*min-height: 88px;*/
-    overflow: auto;
-    width:274px;
-    font-size: @baseFontSize * 1.1;
-    font-style: italic;
+.venue-description-image{
+  width:245px;
+  float: left;
+  border: 1px solid #eee;
+  margin-bottom: 5px;
+}
+
+.venue-summery{
+  font-size: @baseFontSize * 1.3;
+  line-height: 1.2;
+  color:#999;
+  padding-right: 120px
+}
+
+.venue-socials {
+  position: absolute;
+  right: 0;
+  top:0;
+  @media (max-width:1000px){
+    margin-top:40px;
   }
+}
 
-  .venue-time{
-    font-size: 18px;
-    color:#932945;
-    margin-bottom: 10px
-  }
+/* FORUM/ARTICLES -------------------------------------------*/
+.venue-articles{
+  background: #FAF5D8
+}
 
-  .page-header{
-    border:0;
-    margin-bottom: 40px;
+/* PARTICIPANTS ---------------------------------------*/
+.venue-participants {
+  margin: 0px 0 21px 0;
+
+  .participant-box{
+    position: relative;
+    width: 65px;
+    float: left;
+    text-align: center;
+    font-size: @baseFontSize * 0.9;
     a{
-      font-size:16px;
+      color:#333;
     }
-
-    .title-info-box{
-      text-align: center;
-      h2{
-        font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
-        font-style: italic;
-        font-weight: normal;
-        margin-top:0;
-        line-height: 40px;
-        position: relative;
-        display: inline-block;
-
-        .info-link-onair{
-          position: absolute;
-          width: 60px;
-          right: -70px;
-          top: 14px;
-          font-family: 'Roboto';
-          font-style: normal;
-          font-size: @baseFontSize * 1.3;
-          color: #972944;
-          height:20px;
-          line-height: 100%;
-          text-align: left;
-          cursor: pointer;
-          img{
-            width: 17px;
-            margin-bottom: 5px
-          }
-        }
-      }
-      .venue-desc-onair{
-        position: absolute;
-        width:800px;
-        left:50%;
-        margin-left: -400px;
-        top:50px;    
-        background: white;
-        box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        -ms-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        -o-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        font-family: 'Roboto', sans-serif;
-        font-size: @baseFontSize * 1;
-        font-style: normal;
-        line-height: 140%;
-        text-align: left;
-        vertical-align: top;
-        padding: 20px 20px;
-        z-index: 10;
-        display: none;
-        &.show{
-          display: block;
-        }
-        img{
-          width: 130px;
-          display: block;
-          float: left;
-          margin-right: 10px
-        }
-        a{
-          font-size: @baseFontSize;
-        }
-        .close-icon{
-          position: absolute;
-          top:6px;
-          right:10px;
-          font-size: @baseFontSize * 1.5;
-          cursor: pointer;
-        }
-      }
+    .user-image-box{
+      width:45px;
+      display: inline-block;
+      margin-bottom: 4px;
     }
   }
+}
 
-  .venue-box{
-    p:first-child{
-      margin-top:0;
+.promote-icon, .demote-icon{
+  position: absolute;
+  top:-4px;
+  left:44px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border:1px solid #777;
+  text-align: center;
+  line-height: 15px;
+  color:#777;
+  background: white;
+}
+
+.demote-icon{
+  left:36px;
+}
+
+/* ARCHIVE ---------------------------------------------*/
+.venue-archive-event-time{
+  font-size: @baseFontSize * 0.8;
+  color:#999;
+  font-weight: bold;
+}
+
+.venue-archive-event-title{
+  font-size: @baseFontSize * 1.2;
+  margin-bottom: 10px;
+}
+
+/* CHAT ------------------------------------------------*/
+.group-chat-instance {
+  h3{
+    padding: 0;
+    margin: 0 0 10px 0;
+    font-size: @baseFontSize * 1.2;
+    border-bottom: 1px solid #777;
+    color:#555;
+  }
+  .label-chat{
+    background: #1A6E6D
+  }
+  .scrollable-chat{
+    max-height:288px;
+    min-height: 288px;
+    margin-top:0px;
+  }
+  
+  .group-chat-item{
+
+    font-size:12px;
+    line-height:22px;
+    position: relative;
+    display: block;
+    padding-right:70px;
+
+    .venue-chat-user{
+      color: #034869;
+      font-weight: bold;
+      &.venue-chat-host{
+        color: #932945;
+      }
+    }
+    .venue-chat-time{
+      position: absolute;
+      top:0;
+      right: 5px;
+      color: #bbb;
     }
   }
+}
 
-  .venue-socials {
+.venue-group-chat-form{
+  position: relative;
+  width:100%;
+  padding-right:80px;
+  .btn{
     position: absolute;
     right: 0;
     top:0;
-    @media (max-width:1000px){
-      margin-top:40px;
-    }
+    width:70px;
   }
+}
+.venue-group-chat-textarea{
+  width:100%;
+  height:55px;
+}
 
-  .venue-box {
-    border: 1px solid #d8d8d8;
-  }
+.btn-venue-description{
+  font-size:16px;
+  position: absolute;
+  right: 0;
+  top: 110px;  
+}
 
-  .host-info-form{
-    form{
-      padding-right:80px;
-      position: relative;
+.left-light-border{
+  border-left:1px solid #eee;
+  padding-left: 3%; 
+}
 
-      input[type="submit"]{
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 70px
-      }
-    }
-  }
-  .group-chat-instance {
-    h3{
-      padding: 0;
-      margin: 0 0 10px 0;
-      font-size: @baseFontSize * 1.2;
-      border-bottom: 1px solid #777;
-      color:#555;
-    }
-    .label-chat{
-      background: #1A6E6D
-    }
-    .scrollable-chat{
-      max-height:288px;
-      min-height: 288px;
-      margin-top:0px;
-    }
-    
-    .group-chat-item{
+.venue-new-date{
+  margin-bottom: 5px
+}
 
-      font-size:12px;
-      line-height:22px;
-      position: relative;
-      display: block;
-      padding-right:70px;
+/* VENUE LIVE ------------------------------------------*/
+#Blackbox{
+  display: none
+}
 
-      .venue-chat-user{
-        color: #034869;
-        font-weight: bold;
-        &.venue-chat-host{
-          color: #932945;
-        }
-      }
-      .venue-chat-time{
-        position: absolute;
-        top:0;
-        right: 5px;
-        color: #bbb;
-      }
-    }
-    form{
-      position: relative;
-      width:100%;
-      padding-right:80px;
-      .btn{
-        position: absolute;
-        right: 0;
-        top:0;
-        width:70px;
-      }
-    }
-    .group_chat_textarea{
-      width:100%;
-      height:55px;
-    }
-  }
+.venue-live{
+  margin-bottom: 50px
+}
 
-  .btn-venue{
-    font-size:16px;
-  }
+.venue-live-left{
+  background-color: #A9C158;
+  width: 50% !important;
+  border-radius: 0;
+  min-height: 467px !important;
+}
 
-  .venue-new-date{
-    margin-bottom: 5px
+.venue-live-right{
+  background-color: #D7E2B0;
+  margin-left: 0 !important;
+  width: 50% !important;
+  border-radius: 0;
+  min-height: 467px !important;  
+}
+
+@media (max-width: 900px) {
+  .venue-live-right, .venue-live-left {
+    width: inherit !important
   }
 }
 
+.users-onair{
+  margin-top: 30px;
+}
 
-
-.venue-new-join{
-
-    p{
-      font-size: 18px;
-      margin-bottom: 0
-    }
-
-  .page-header{
-    border:0;
-    img{
-      width:30px;
-      margin-left:10px;
-      margin-bottom: 2px
-    }
-  }
-  .hero-unit{
-    margin-top:10px;
-    padding:30px;
-  }
-  .venue-time{
-    font-size: 18px;
-    color:#932945;
-  }
-  h2.venue-new-join-desc-title{
-    font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
-    font-style: italic;
-    font-weight: normal;
-    margin-top:0;
-    line-height: 30px;
-    font-size: 22px;
-    margin-bottom: 20px
-  }
-
-  h2 > span{
-    font-family: "Roboto";
-    font-style:normal
-  }
-  h3.venue-new-join-t-title{
-    margin-top:0
+.users-onair-box{
+  height: 60px;
+  position: relative;
+  line-height: 3;
+  .user-image{
+    text-align: left;
+    display: block;
+    float: left;
+    margin-right: 20px;
   }
 }
 
+/* VENUE FORM ------------------------------------------*/
 .venue-form{
   max-width: 800px;
   margin:0 auto;

@@ -27,7 +27,7 @@ describe "Venues" do
   describe "GET a specific venue page" do
     it "will render the venues page" do
       visit venue_path(:id => @venue)
-      page.should have_selector(".venue-show")
+      page.should have_selector(".venue-header")
     end
 
     # FIXME

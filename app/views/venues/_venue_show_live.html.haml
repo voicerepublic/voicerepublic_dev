@@ -13,8 +13,11 @@
   = javascript_include_tag '/swfobject.js'
 #flashcontent Flash not installed
 
-.well.host-info
-  %div &nbsp;
-- if @venue.user == current_user
-  .host-info-form
-    = render(:partial => 'host_info_form', :locals => {:venue => @venue})
+.row-fluid.venue-live.clearfix
+  .span6.well-large.venue-live-left
+    -# talking user list (left)
+    = render(:partial => 'venue_show_talking_users', :locals => { :venue => @venue })
+
+  .span6.well-large.venue-live-right
+    -# chat (right)
+    = render(:partial => 'group_chat', :locals => { :venue => @venue } )

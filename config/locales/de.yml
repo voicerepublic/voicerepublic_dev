@@ -745,6 +745,7 @@ de:
     facebook_value_template:
       join_the_venue: "Nimm am Treffpunkt teil: %{title}"
     show:
+      by: "von"
       venue: "Treffpunkt"
       start_date: "Start"
       duration: "Dauer"
@@ -767,10 +768,10 @@ de:
       what_is_a_venue: "Was ist ein Treffpunkt?"
       see_other_venues: "Alle Treffpunkte"
     venue_show_forum:
-      comments: "Forum"
-      articles: "Forum"
+      comments: "Kommentare"
+      articles: "DISKUSSION"
     venue_show_participants:
-      participating_klus: "Teilnehmer"
+      participants: "TEILNEHMER"
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     venue_show_actions:

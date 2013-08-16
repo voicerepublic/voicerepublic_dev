@@ -1,3 +1,4 @@
-.thumbnail.user-thumbnail
-  = link_to user_path(:id => user), :class => "user-thumbnail-link clearfix" do
-    %span.user-image.img-polaroid{"data-user-id" => user.id}= image_tag(user.account.portrait.url(:thumb))
+.user-image-box
+  %span.user-image{"data-user-id" => user.id}
+    = image_tag(user.account.portrait.url(:thumb), :class => "img-circle")
+= user.name
