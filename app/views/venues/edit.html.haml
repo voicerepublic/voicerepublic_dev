@@ -1,0 +1,11 @@
+.well
+  %header
+    %h2
+      - if @renew == true
+        = t('.venue_renew_title')
+      - else
+        = t('.venue_edit_title')
+  - if @renew == true
+    = render(:partial => 'change_time_form', :locals => { :venue => @venue })
+  - else
+    = render :partial => 'form'
