@@ -47,7 +47,10 @@ end
 faye.add_extension(FayeNSA.new)
 
 require 'logger'
-logger = Logger.new(File.new('private_pub-publish.log', 'a'))
+logfilename = File.expand_path('../log/private_pub-publish.log', __FILE__)
+logfile = File.new(logfilename, 'a')
+logfile.sync = true
+logger = Logger.new(logfile)
 faye.bind(:publish) do |client_id, channel, data|
   logger.info "publish #{client_id} #{channel} #{data.inspect}"
 end
