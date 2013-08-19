@@ -25,6 +25,7 @@
   %h2.venue-title
     = @venue.title
   = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
+  = render(:partial => 'venue_show_social', :locals => { :venue => @venue } )
 
 -if @venue.live?
   -# live layout
@@ -69,4 +70,3 @@
       -# participants
       = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
 
-= render(:partial => 'venue_show_social', :locals => { :venue => @venue } )
