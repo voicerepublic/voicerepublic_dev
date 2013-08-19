@@ -159,7 +159,7 @@ function flashInitialized() {
     window.Venue.register();
   };
 
-  var initBlackbox = function() {
+  window.initBlackbox = function() {
     var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions' };
     var params = {};
     var attributes = { id: "Blackbox", name: "Blackbox" };
@@ -179,6 +179,6 @@ function flashInitialized() {
     initVenue();
   };
 
-  initBlackbox();
+  //initBlackbox();
 
 })(jQuery);
