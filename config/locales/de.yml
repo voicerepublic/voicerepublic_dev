@@ -774,6 +774,9 @@ de:
       participants: "TEILNEHMER"
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
+    venue_show_talking_users:
+      host: "Gastgeber"
+      participants: "Teilnehmer"      
     venue_show_actions:
       unjoin_venue: "Treffpunkt absagen" 
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"     

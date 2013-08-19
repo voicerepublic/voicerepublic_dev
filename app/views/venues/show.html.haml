@@ -20,26 +20,15 @@
         %i.icon-calendar
         = t('.renew')
 
--#title and host
-%header.venue-header
-  %h2.venue-title
-    = @venue.title
-  = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
-  = render(:partial => 'venue_show_social', :locals => { :venue => @venue } )
 
 -if @venue.live?
   -# live layout
     
   %section.venue-live-box.clearfix
+    -# description
+    = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )  
     = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )  
-  .row-fluid.clearfix
-    .span8
-      -# description
-      = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
-    .span4
-      -# participants
-      = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
-    
+
   .row-fluid
     .span8
       -# forum (left)

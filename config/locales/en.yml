@@ -755,7 +755,10 @@ en:
     venue_show_participants:
       leave_venue_popup: "This link opens a new tab!"
       participants: "PARTICIPANTS"
-      be_the_first_to_participate: "Be the first to participate!"     
+      be_the_first_to_participate: "Be the first to participate!"  
+    venue_show_talking_users:
+      host: "Host"   
+      participants: "Participants"
     venue_show_actions:
       unjoin_venue: "Unjoin"
       confirm_unjoin_venue: "Really want to unjoin this venue?" 
