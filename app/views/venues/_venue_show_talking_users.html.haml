@@ -3,7 +3,8 @@
     .span4
       %header.users-onair-host-title
         = t('.host') + ':'
-      = render(:partial => 'venue_show_avatar', :locals => { :user => @venue.user })
+      .venue-host
+        = render(:partial => 'venue_show_avatar', :locals => { :user => @venue.user })
     .span8
       .users-onair-participants-box
         %header.users-onair-participants

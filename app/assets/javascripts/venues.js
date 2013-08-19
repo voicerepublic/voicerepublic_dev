@@ -95,6 +95,25 @@
   datetimePicker();
   tagList();
 
+  var promoteHandler = function(event) {
+    var elem = $(this).closest('.avatar-box');
+    $('.promote-icon', elem).hide();
+    $('.demote-icon', elem).show();
+
+    var streamId = elem.attr('data-stream-id');
+    Venue.promote(streamId);
+  };
+
+  var demoteHandler = function(event) {
+    var streamId = $(this).closest('.avatar-box').attr('data-stream-id');
+
+    var elem = $('.venue-participants *[data-stream-id='+streamId+']');
+    $('.promote-icon', elem).show();
+    $('.demote-icon', elem).hide();
+
+    Venue.demote(streamId);
+  };
+
   var initVenue = function() {
     // http://stackoverflow.com/questions/7235417
     // http://stackoverflow.com/questions/952732
@@ -110,14 +129,15 @@
         log('received onPromote for '+streamId);
 
         // ui changes (seems to work on host but not on participant)
-        var user = $('*[data-stream-id='+streamId+']').closest('.participant-box');
+        var user = $('.venue-participants *[data-stream-id='+streamId+']');
         var clone = user.clone();
         clone.hide();
-        $('.users-onair-box').append(clone);
+        $('.users-onair-participants-box').append(clone);
+        $('.demote-icon', clone).on('click', demoteHandler);
         clone.fadeIn();
         user.fadeOut();
 
-        // bl changes
+        // business logic changes
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.publish(Venue.streamId);
         Venue.sender = true;
@@ -127,6 +147,11 @@
       onDemote: function(streamId) {
         log('received onDemote for '+streamId);
 
+        // ui changes
+        $('.users-onair-participants-box *[data-stream-id='+streamId+']').fadeOut();
+        $('.venue-participants *[data-stream-id='+streamId+']').fadeIn();
+
+        // business logic changes
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.unpublish();
         Venue.sender = false;
@@ -149,6 +174,7 @@
         Venue.blackbox.subscribe(streamId);
         Venue.subscriptions.push(streamId);
       },
+      // --- Triggers
       // tiggers onRegister on other side
       register: function() {
         log('sending register of '+Venue.streamId);
@@ -167,6 +193,7 @@
       demote: function(streamId) {
         Venue.publish("Venue.onDemote('"+streamId+"');");
       },
+      // --- Helpers
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
         log('publish: '+data);
@@ -201,10 +228,17 @@
 
   initBlackbox();
 
-  // activate promote icons
-  $('.promote-icon').click(function(event) {
-    var streamId = $(this).attr('data-stream-id');
-    Venue.promote(streamId);
-  });
+  // NOTE data-stream-id needs to be on .avatar-box
+
+  $('.promote-icon').on('click', promoteHandler);
+  $('.demote-icon').on('click', demoteHandler);
+
+  $('.venue-participants .demote-icon').hide();
+  $('.users-onair-participants-box .promote-icon').hide();
+
+  $('.venue-host .demote-icon').hide();
+  $('.venue-host .promote-icon').hide();
+
+  // TODO autopromote host
 
 })(jQuery);

@@ -19,10 +19,10 @@
 
 .row-fluid.venue-live.clearfix
   .span6.well-large.venue-live-left
-    -# participants
-    = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
     #onair On Air
     #flashcontent Flash not installed
+    -# participants
+    = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
 
   .span6.well-large.venue-live-right
     -# chat (right)
