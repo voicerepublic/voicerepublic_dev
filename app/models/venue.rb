@@ -51,10 +51,9 @@ class Venue < ActiveRecord::Base
   delegate :start_time, :duration, :start_in_seconds, to: :next_event, allow_nil: true
 
   attr_accessible :image
-  attr_accessor :image_file_name
-  has_attached_file( :image,
-                     :styles => { :medium => '242x145>', :thumb => "100x100>" },
-                     :default_url => "/images/:style/missing.png" )
+  has_attached_file :image,
+    :styles => { :medium => '242x145>', :thumb => "100x100>" },
+    :default_url => "/images/:style/missing.png"
 
   define_index do
     indexes title, :as => :title, :sortable => true
