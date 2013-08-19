@@ -104,59 +104,61 @@ function flashInitialized() {
     // http://stackoverflow.com/questions/7235417
     // http://stackoverflow.com/questions/952732
     var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
-    window.Venue.blackbox = isInternetExplorer ? document.all.Blackbox : document.Blackbox;
+    Venue.blackbox = isInternetExplorer ? document.all.Blackbox : document.Blackbox;
 
-    // window.Venue is initially defined in venues/_venue_show_live
+    // Venue is initially defined in venues/_venue_show_live
     // so here we'll have to merge here
-    window.Venue = $.extend({}, window.Venue, {
+    Venue = $.extend({}, Venue, {
       subscriptions: [],
       sender: false,
-      promote: function() {
-        window.Venue.blackbox.publish(window.Venue.streamId);
-        window.Venue.sender = true;
-        window.Venue.subscribe();
+      promote: function(streamId) {
+        if(streamId!=Venue.streamId) return;
+        Venue.blackbox.publish(Venue.streamId);
+        Venue.sender = true;
+        Venue.subscribe();
       },
-      demote: function() {
-        window.Venue.blackbox.unpublish();
-        window.Venue.sender = false;
+      demote: function(streamId) {
+        if(streamId!=Venue.streamId) return;
+        Venue.blackbox.unpublish();
+        Venue.sender = false;
       },
       // onRegister is triggered by new participants
       // all senders (the host and all guests) should
       // respond with triggering a subscribe
       onRegister: function(streamId) {
-        log('received onRegister of '+streamId+', '+window.Venue.streamId+', '+window.Venue.sender);
-        if(streamId == window.Venue.streamId) return; // ignore self
-        if(!window.Venue.sender) return; // skip unless sender
-        window.Venue.subscribe();
+        log('received onRegister of '+streamId+', '+Venue.streamId+', '+Venue.sender);
+        if(streamId == Venue.streamId) return; // ignore self
+        if(!Venue.sender) return; // skip unless sender
+        Venue.subscribe();
       },
       // onSubscribe is triggered by senders upon receiving a onRegister
       onSubscribe: function(streamId) {
         log('received onSubscribe to '+streamId);
-        if(streamId == window.Venue.streamId) return; // ignore self
-        if($.inArray(streamId, window.Venue.subscriptions) != -1) return; // skip known
-        window.Venue.blackbox.subscribe(streamId);
-        window.Venue.subscriptions.push(streamId);
+        if(streamId == Venue.streamId) return; // ignore self
+        if($.inArray(streamId, Venue.subscriptions) != -1) return; // skip known
+        Venue.blackbox.subscribe(streamId);
+        Venue.subscriptions.push(streamId);
       },
       // tiggers onRegister on other side
       register: function() {
-        log('sending register of '+window.Venue.streamId);
-        window.Venue.publish("window.Venue.onRegister('"+window.Venue.streamId+"');");
+        log('sending register of '+Venue.streamId);
+        Venue.publish("Venue.onRegister('"+Venue.streamId+"');");
       },
       // tiggers onSubscribe on other side
       subscribe: function() {
-        log('sending subscribe to '+window.Venue.streamId);
-        window.Venue.publish("window.Venue.onSubscribe('"+window.Venue.streamId+"');");
+        log('sending subscribe to '+Venue.streamId);
+        Venue.publish("Venue.onSubscribe('"+Venue.streamId+"');");
       },
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
         log('publish: '+data);
-        var channel = window.Venue.channel;
+        var channel = Venue.channel;
         $.ajax('/fayeproxy', { type: 'POST', data: { channel: channel, data: data } });
       }
     });
 
     // 'register' is called to announce a new client
-    window.Venue.register();
+    Venue.register();
   };
 
   window.initBlackbox = function() {
