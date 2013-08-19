@@ -21,18 +21,18 @@
       streamer = root.loaderInfo.parameters['streamer'];
       ExternalInterface.addCallback("publish", publishStream);
       ExternalInterface.addCallback("subscribe", subscribeStream);
-      ExternalInterface.addCallback("mute", muteMic);
-      ExternalInterface.addCallback("unmute", unmuteMic);
-      ExternalInterface.call("flashInitialized");
+			ExternalInterface.addCallback("mute", muteMic);
+			ExternalInterface.addCallback("unmute", unmuteMic);
+			ExternalInterface.call("flashInitialized");
     }
 
     function muteMic() {
-      mic.gain = 0;
-    }
+			mic.gain = 0;
+		}
 
     function unmuteMic() {
-      mic.gain = 50;
-    }
+			mic.gain = 50;
+		}
 
     function publishStream(stream: String) {
       var nc: NetConnection = new NetConnection();
@@ -57,7 +57,7 @@
       mic.setSilenceLevel(0, 2000);
       mic.enhancedOptions = options;
       mic.codec = SoundCodec.SPEEX;
-      mic.encodeQuality = 11;
+      mic.encodeQuality = 9;
       mic.framesPerPacket = 1;
       mic.gain = 50;
       mic.setUseEchoSuppression(true);
