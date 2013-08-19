@@ -12,6 +12,15 @@
 - content_for :head do
   = javascript_include_tag '/swfobject.js'
 
+%aside.venue-event-time
+  = l(@venue.start_time.in_time_zone)
+  ,
+  - if @venue.duration > 1
+    = @venue.duration
+    = t('.minutes')
+%h3.venue-event-title
+  Event-title
+
 .row-fluid.clearfix
   .span12.talking-users-box.well-large
     -# talking user list (left)
