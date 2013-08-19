@@ -38,7 +38,7 @@
       .control-group.venue-form-image
         .fileupload.fileupload-new{:data => {:provides => "fileupload"}}
           .fileupload-new.thumbnail
-            = image_tag @venue.image.url(:large)
+            = image_tag @venue.image.url(:medium)
           .fileupload-preview.fileupload-exists.thumbnail{:html => 'style="width: 100%;line-height: 20px;'}
           .box
             %span.btn.btn-file
@@ -47,12 +47,6 @@
               %span.fileupload-exists
                 = t('.change')
               = f.file_field :image
-            - if 1==1
-              = link_to '#', :class => "btn", :method => :delete do
-                = t('.delete_portrait', :default => "Delete")
-          -#= f.file_field :image
-        .help-block
-          = t('.help_image')
 
     .span4.venue-form-description
       = image_tag "venue-icon-host.png", :class => "venue-form-icon"

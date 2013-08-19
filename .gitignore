@@ -18,7 +18,7 @@
 /config/database.yml*
 /config/development.sphinx.conf
 public/system/accounts
-public/system/klu_images
+public/system/venues
 public/system/profile_settings
 db/sphinx
 
