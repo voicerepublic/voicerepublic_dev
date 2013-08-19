@@ -56,6 +56,11 @@ class Venue < ActiveRecord::Base
                      :styles => { :medium => '242x145>', :thumb => "100x100>" },
                      :default_url => "/images/:style/missing.png" )
 
+  define_index do
+    indexes title, :as => :title, :sortable => true
+    indexes taggings.tag.name, :as => :tags
+  end
+
   # returns nil if no current or upcoming event
   def next_event
     events.not_past.upcoming_first.first
