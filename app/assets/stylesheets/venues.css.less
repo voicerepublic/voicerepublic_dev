@@ -123,21 +123,22 @@
 /* PARTICIPANTS ---------------------------------------*/
 .venue-participants {
   margin: 0px 0 21px 0;
+}
 
-  .participant-box{
-    position: relative;
-    width: 65px;
-    float: left;
-    text-align: center;
-    font-size: @baseFontSize * 0.9;
-    a{
-      color:#333;
-    }
-    .user-image-box{
-      width:45px;
-      display: inline-block;
-      margin-bottom: 4px;
-    }
+.avatar-box{
+  position: relative;
+  width: 65px;
+  min-height:100px;
+  float: left;
+  text-align: center;
+  font-size: @baseFontSize * 0.9;
+  a{
+    color:#333;
+  }
+  .user-image-box{
+    width:45px;
+    display: inline-block;
+    margin-bottom: 4px;
   }
 }
 
@@ -270,11 +271,17 @@
   display: none;
 }
 
+.talking-users-box{
+  background:#A9C158;
+  border-radius: 0 !important
+}
+
 .venue-live-left{
-  background-color: #A9C158;
+  background-color: #D7E2B0;
   width: 50% !important;
   border-radius: 0;
   min-height: 467px !important;
+  border-right: 3px solid #A9C158
 }
 
 .venue-live-right{

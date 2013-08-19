@@ -1,4 +1,4 @@
-.participant-box
+.avatar-box
   - if @venue.live?
     = link_to user, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
       = render(:partial => 'users/user_small', :locals => { :user => user })
