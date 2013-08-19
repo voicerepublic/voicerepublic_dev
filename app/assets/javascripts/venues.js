@@ -179,6 +179,6 @@ function flashInitialized() {
     initVenue();
   };
 
-  //initBlackbox();
+  initBlackbox();
 
 })(jQuery);
