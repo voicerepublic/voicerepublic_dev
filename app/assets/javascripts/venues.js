@@ -1,8 +1,3 @@
-function flashInitialized() {
-  console.log('hello');
-}
-
-
 (function($){
 
   $('.info-link-onair, .venue-desc-onair .close-icon').click(function(){
@@ -112,6 +107,17 @@ function flashInitialized() {
       subscriptions: [],
       sender: false,
       onPromote: function(streamId) {
+        log('received onPromote for '+streamId);
+
+        // ui changes (seems to work on host but not on participant)
+        var user = $('*[data-stream-id='+streamId+']').closest('.participant-box');
+        var clone = user.clone();
+        clone.hide();
+        $('.users-onair-box').append(clone);
+        clone.fadeIn();
+        user.fadeOut();
+
+        // bl changes
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.publish(Venue.streamId);
         Venue.sender = true;
@@ -119,6 +125,8 @@ function flashInitialized() {
         $('#onair').fadeIn();
       },
       onDemote: function(streamId) {
+        log('received onDemote for '+streamId);
+
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.unpublish();
         Venue.sender = false;
@@ -197,7 +205,6 @@ function flashInitialized() {
   $('.promote-icon').click(function(event) {
     var streamId = $(this).attr('data-stream-id');
     Venue.promote(streamId);
-    $(this).fadeOut();
   });
 
 })(jQuery);
