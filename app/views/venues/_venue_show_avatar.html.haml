@@ -1,0 +1,10 @@
+.participant-box
+  - if @venue.live?
+    = link_to user, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
+      = render(:partial => 'users/user_small', :locals => { :user => user })
+  - else
+    = link_to user do
+      = render(:partial => 'users/user_small', :locals => { :user => user })
+
+  - if @venue.user == current_user
+    .promote-icon +

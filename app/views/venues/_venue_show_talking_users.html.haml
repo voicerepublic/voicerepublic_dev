@@ -1,19 +1,8 @@
-%header.venue-section-title
-  =t('.running_event', :default => 'RUNNING EVENT')
-.venue-event-time
-  = @venue.start_time.strftime("%d/%m/%y %H:%M")
-  ,
-  - if @venue.duration > 1
-    = @venue.duration
-    = t('.minutes')
-
--#TODO @venue.next_event.title
-%h3.venue-event-title Neuer Konzeptionalismus I: Gespräch mit Johannes Kreidler
 %section.users-onair
-  - link = @venue.users.each do |p|
-    .users-onair-box
-      = link_to link do
-        = render(:partial => 'users/user_small', :locals => { :user => p })
+  %header.users-onair-host-title
+    = t('.host')
+  = render(:partial => 'venue_show_avatar', :locals => { :user => @venue.user })
 
-      - if @venue.user == current_user
-        .demote-icon -
+  %header.users-onair-participants
+    = t('.participants')
+  .users-onair-participans
