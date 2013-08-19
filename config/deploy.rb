@@ -2,6 +2,7 @@ require 'capistrano-rbenv'
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'whenever/capistrano'
+#require 'thinking_sphinx/deploy/capistrano'
 
 set :rbenv_ruby_version, "1.9.3-p429"
 set :rbenv_install_dependencies, false
@@ -39,11 +40,12 @@ namespace :deploy do
   end
 end
 
-#before 'deploy:update_code', 'sphinx:stop'
+#before 'deploy:update_code', 'thinking_sphinx:stop'
+#after  'deploy:update_code', 'thinking_sphinx:start'
+
 #after "deploy:setup", "dbconf:setup" 
 #after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab', 'kluuu:link_paypal_certs' #, 'sphinx:start'
-##after 'deploy:update_code'#, 'sphinx:start'
-
+#after "deploy:finalize_update", 'sphinx:symlink_indexes'
 
 # # If you are using Passenger mod_rails uncomment this:
 # namespace :deploy do
@@ -78,40 +80,6 @@ end
 #   task :on_db, :roles => :db do
 #     puts "linking database.yml from shared_path to current on db"
 #     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-#   end
-# end
-
-
-
-
-# namespace :sphinx do
-#   
-#   desc "Symlink Sphinx indexes"
-#   task :symlink_indexes, :roles => [:app] do
-#     run "ln -nfs #{shared_path}/db/sphinx #{release_path}/db/sphinx"
-#     run "ln -nfs #{shared_path}/config/#{rails_env}.sphinx.conf #{release_path}/config/#{rails_env}.sphinx.conf"
-#   end
-#   
-#   desc "stop Sphinx"
-#   task :stop, :roles => :app do
-#     run "cd #{current_path}; bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
-#     run "ps ax | grep search"
-#   end
-#   
-#   desc "start Sphinx"
-#   task :start, :roles => :app do
-#     run "ps ax | grep search"
-#     run "cd #{release_path}; bundle exec rake ts:start RAILS_ENV=#{rails_env}"
-#   end
-#   
-#   desc "restart Sphinx"
-#   task :restart, :roles => :app do
-#     run "cd #{current_path}; bundle exec rake ts:restart RAILS_ENV=#{rails_env}"
-#   end
-#   
-#   desc "reindex sphinx"
-#   task :reindex, :roles => :app do
-#     run "cd #{current_path}; bundle exec rake ts:reindex RAILS_ENV=#{rails_env}"
 #   end
 # end
 

@@ -11,7 +11,6 @@
 -# load swfobject and provide element to hook into
 - content_for :head do
   = javascript_include_tag '/swfobject.js'
-#flashcontent Flash not installed
 
 .row-fluid.clearfix
   .span12.well-large
@@ -22,6 +21,8 @@
   .span6.well-large.venue-live-left
     -# participants
     = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
+    #onair On Air
+    #flashcontent Flash not installed
 
   .span6.well-large.venue-live-right
     -# chat (right)

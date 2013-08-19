@@ -1,0 +1,27 @@
+-#title and host
+%header.well-large.venue-header
+  %h2.venue-title
+    = @venue.title
+  = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
+  = render(:partial => 'venue_show_social', :locals => { :venue => @venue } )
+  = link_to '#', :class => "venue-live-more-link", :'data-toggle' => "collapse", :'data-target' => ".venue-description" do
+    info
+
+.section.venue-description.collapse.out
+  .row-fluid.clearfix
+    .span4
+      = image_tag @venue.image.url(:large), :class => "venue-description-image"
+    .span8
+      .venue-summery
+        -#TODO summery
+        Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+
+  = simple_format @venue.description
+
+  - if @venue.user != current_user
+    - unless  @venue.user_participates?(current_user)
+      = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-description btn-small", :method => :post do
+        = t('.join_venue')
+        = image_tag "/assets/coffee_icon_white.png"
+
+  = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
