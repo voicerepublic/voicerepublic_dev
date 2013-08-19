@@ -20,12 +20,12 @@
 						<h3>Fragen</h3>
 					<% end %>
 					<% hash[k].each do |klu| %>
-						<% if klu.instance_of?(Kluuu) %>
-							<%= link_to( klu_path(:id => klu)) do %>
+						<% if klu.instance_of?(Venue) %>
+							<%= link_to( venue_path(:id => klu)) do %>
 								<%= render(:partial => 'klus/tiny_kluuu', :locals => {:klu => klu}) %>
 							<% end %>
 						<% else %>
-							<%= link_to( klu_path(:id => klu)) do %>
+							<%= link_to( venue_path(:id => klu)) do %>
 								<%= render(:partial => 'klus/tiny_no_kluuu', :locals => {:klu => klu}) %>
 							<% end %>
 						<% end %>
