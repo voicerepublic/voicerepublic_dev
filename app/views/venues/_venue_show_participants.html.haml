@@ -10,4 +10,6 @@
           = render(:partial => 'users/user_small', :locals => { :user => p })
 
       - if @venue.user == current_user
-        .promote-icon +
+        = link_to 'javascript:false;' do
+          -# TODO resort to methods on venue
+          .promote-icon(data-stream-id="v#{@venue.id}u#{p.id}") +

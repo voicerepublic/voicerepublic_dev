@@ -111,13 +111,13 @@ function flashInitialized() {
     Venue = $.extend({}, Venue, {
       subscriptions: [],
       sender: false,
-      promote: function(streamId) {
+      onPromote: function(streamId) {
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.publish(Venue.streamId);
         Venue.sender = true;
         Venue.subscribe();
       },
-      demote: function(streamId) {
+      onDemote: function(streamId) {
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.unpublish();
         Venue.sender = false;
@@ -148,6 +148,14 @@ function flashInitialized() {
       subscribe: function() {
         log('sending subscribe to '+Venue.streamId);
         Venue.publish("Venue.onSubscribe('"+Venue.streamId+"');");
+      },
+      // triggers onPromote
+      promote: function(streamId) {
+        Venue.publish("Venue.onPromote('"+streamId+"');");
+      },
+      // triggers onDemote
+      demote: function(streamId) {
+        Venue.publish("Venue.onDemote('"+streamId+"');");
       },
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
@@ -182,5 +190,12 @@ function flashInitialized() {
   };
 
   initBlackbox();
+
+  // activate promote icons
+  $('.promote-icon').click(function(event) {
+    var streamId = $(this).attr('data-stream-id');
+    Venue.promote(streamId);
+    $(this).fadeOut();
+  });
 
 })(jQuery);
