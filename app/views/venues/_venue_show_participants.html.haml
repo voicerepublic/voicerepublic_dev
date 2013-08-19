@@ -1,19 +1,5 @@
 %section.venue-participants
   %header.venue-section-title= t('.participants')
   - link = @venue.users.each do |p|
-<<<<<<< HEAD
     = render(:partial => 'venue_show_avatar', :locals => { :user => p })
-=======
-    .participant-box
-      - if @venue.live?
-        = link_to link, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
-          = render(:partial => 'users/user_small', :locals => { :user => p })
-      - else
-        = link_to link do
-          = render(:partial => 'users/user_small', :locals => { :user => p })
 
-      - if @venue.user == current_user
-        = link_to 'javascript:false;' do
-          -# TODO resort to methods on venue
-          .promote-icon(data-stream-id="v#{@venue.id}u#{p.id}") +
->>>>>>> 147dea10313221c97814d27cd448be2f7b67c403
