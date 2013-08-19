@@ -3,11 +3,11 @@
     = t('.venues_title')
 %nav.user-main-nav
   %ul.clearfix
-    -# %li{:class => "#{'empty ' if user.kluuus.empty?}#{current_page?(kluuus_user_path(:id => user)) || current_page?(user_path(:id => user)) ? 'active' : ''} venue-part-color"}
-    -#   = link_to(kluuus_user_path(:id => user ) ) do
-    -#     \&nbsp;
-    -#     %span.user-main-nav-subline
-    -#       = t('.venues_participant')
+    %li{:class => "#{'empty ' if Venue.of_user(user).empty?}#{current_page?(venues_user_path(:id => user )) || current_page?(user_path(:id => user)) ? 'active' : ''} venue-part-color"}
+      = link_to(venues_user_path(:id => user ) ) do
+        \&nbsp;
+        %span.user-main-nav-subline
+          = t('.venues_participant')
     %li{:class => "#{'empty ' if Venue.of_user(user).empty?}#{current_page?(venues_user_path(:id => user )) ? 'active' : ''} venue-host-color"}
       = link_to(venues_user_path(:id => user ) ) do
         \&nbsp;
