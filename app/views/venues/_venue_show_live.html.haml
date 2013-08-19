@@ -13,10 +13,15 @@
   = javascript_include_tag '/swfobject.js'
 #flashcontent Flash not installed
 
+.row-fluid.clearfix
+  .span12.well-large
+    -# talking user list (left)
+    = render(:partial => 'venue_show_talking_users', :locals => { :venue => @venue })    
+
 .row-fluid.venue-live.clearfix
   .span6.well-large.venue-live-left
-    -# talking user list (left)
-    = render(:partial => 'venue_show_talking_users', :locals => { :venue => @venue })
+    -# participants
+    = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
 
   .span6.well-large.venue-live-right
     -# chat (right)
