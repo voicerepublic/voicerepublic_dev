@@ -116,11 +116,13 @@ function flashInitialized() {
         Venue.blackbox.publish(Venue.streamId);
         Venue.sender = true;
         Venue.subscribe();
+        $('#onair').fadeIn();
       },
       onDemote: function(streamId) {
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.unpublish();
         Venue.sender = false;
+        $('#onair').fadeOut();
       },
       // onRegister is triggered by new participants
       // all senders (the host and all guests) should
