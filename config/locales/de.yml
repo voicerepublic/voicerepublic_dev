@@ -724,7 +724,7 @@ de:
       guest_empty_venue: "%{name} hat noch keinen Treffpunkt."
     show:
       klus: "KluuUs"
-      guest_empty_klu: "%{name} hat noch kein KluuU."
+      guest_empty_venue: "%{name} nimmt noch an keinem Treffpunkt teil."
 
   messages:
     form:

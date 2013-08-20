@@ -713,7 +713,7 @@ en:
       guest_empty_venue: "%{name} has no venues yet."
     show:
       klus: "KluuUs"
-      guest_empty_klu: "%{name} has no KluuU yet."  
+      guest_empty_venue: "%{name} has not yet participated a venue yet."  
 
 
   venues:
