@@ -30,7 +30,7 @@
         %td= l venue.created_at
         %td
           = link_to t('.edit', :default => t("helpers.links.edit")), |
-            edit_admin_venue_path(venue), :class => 'btn btn-mini'             |
+            venue_path(venue), :class => 'btn btn-mini'             |
           - confirm = t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))
           = link_to t('.destroy', :default => t("helpers.links.destroy")), venue, |
               :method => :delete,                                                 |

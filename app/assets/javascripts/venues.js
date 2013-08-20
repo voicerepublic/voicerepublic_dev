@@ -33,17 +33,7 @@
   };
 
   var datetimePicker = function() {
-    /**
-       $('#datepicker').datetimepicker({
-       language: '<%= I18n.locale.to_s %>',
-       pickDate: true,
-       pickTime: true
-       });
-       $('#timepicker').datetimepicker({
-       language: '<%= I18n.locale.to_s %>',
-       pickDate: false
-       });
-    **/
+
     $('#datetimepicker').datetimepicker({
       language: '<%= I18n.locale.to_s %>',
       pickDate: true,

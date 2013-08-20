@@ -65,12 +65,12 @@
 
   .event-box.clearfix
     %header.event-header
-      %h2 Your Talk
+      %h2= t('.your_talk')
     = f.fields_for :events do |ef|
       .row-fluid
         .span12
           .control-group
-            %label.control-label= t('.title')
+            %label.control-label= t('.event_title')
             .controls
               = text_area_tag 'TODO', nil, :class => "input-block-level"
             .help-block

@@ -1,5 +1,5 @@
 -#title and host
-%header.well-large.venue-header
+%header.well-large.venue-header-live
   %h2.venue-title
     = @venue.title
   = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
@@ -16,7 +16,7 @@
         -#TODO summery
         Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
 
-  = simple_format @venue.description
+  .venue-description-content= simple_format @venue.description
 
   - if @venue.user != current_user
     - unless  @venue.user_participates?(current_user)

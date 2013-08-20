@@ -778,8 +778,8 @@ de:
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     venue_show_talking_users:
-      host: "Gastgeber"
-      participants: "Teilnehmer"      
+      host: "GASTGEBER"
+      participants: "GÄSTE"      
     venue_show_actions:
       unjoin_venue: "Treffpunkt absagen" 
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"     
@@ -825,6 +825,7 @@ de:
       news_title: "Neuigkeiten"
       venue_is_over: "Vergangener Treffpunkt"
     form:
+      featured_from: "Featured from"
       title: "Titel des Treffpunkts"
       summary: "Zusammenfassung des Treffpunktes"
       description: "Beschreibung des Treffpunktes"
@@ -839,6 +840,8 @@ de:
       timepick_help: "Beispiel: 18:15"
       settings: "Einstellungen"
       record: 'Zeichne diese Session auf'
+      your_talk: 'Dein Gespräch'
+      event_title: 'Gesprächstitel'      
     change_time_form:
       start_date: "Datum"
       start_time: "Zeit"
@@ -848,7 +851,7 @@ de:
       timepick_help: "Beispiel: 18:15"
       
     group_chat:
-      venue_chat: "Chat"
+      venue_chat: "CHAT"
       show_host_info_controlls: "ein/ausblenden Moderator-Formular"
       host_field_title: "Infos zur Diskussion"
     host_info_form:

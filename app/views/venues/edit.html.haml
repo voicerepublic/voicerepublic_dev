@@ -1,11 +1,4 @@
-.well
-  %header
-    %h2
-      - if @renew == true
-        = t('.venue_renew_title')
-      - else
-        = t('.venue_edit_title')
-  - if @renew == true
-    = render(:partial => 'change_time_form', :locals => { :venue => @venue })
-  - else
+.well.venue-form
+  .row-fluid
+    %h2.span12= t('.edit_venue')
     = render :partial => 'form'

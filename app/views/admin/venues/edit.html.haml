@@ -1,7 +1,1 @@
-%h1 Editing Venue
-
-= render 'form'
-
--# = link_to 'Show', @admin_venue
--# \|
--# = link_to 'Back', admin_venues_path
+= render( :partial => 'venues/form', :venue => @venue)

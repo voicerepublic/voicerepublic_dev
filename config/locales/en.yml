@@ -760,8 +760,8 @@ en:
       comment: "Comment"
       all_comments: "All comments"       
     venue_show_talking_users:
-      host: "Host"   
-      participants: "Participants"
+      host: "HOST"   
+      participants: "GUESTS"
     venue_show_actions:
       unjoin_venue: "Unjoin"
       confirm_unjoin_venue: "Really want to unjoin this venue?" 
@@ -807,6 +807,7 @@ en:
       news_title: "News"
       venue_is_over: "past venue"
     form:
+      featured_from: "Featured from"    
       title: "Title of venue"
       description: "Description of venue"
       start_time: "Time"
@@ -820,6 +821,8 @@ en:
       timepick_help: "Example: 18:15"
       settings: "Settings"
       record: "Record this session"
+      your_talk: 'Your talk'
+      event_title: 'Talk title'
     change_time_form:
       start_date: "Date"
       start_time: "Time"    
@@ -829,7 +832,7 @@ en:
       timepick_help: "Example: 18:15" 
 
     group_chat:
-      venue_chat: "Chat"
+      venue_chat: "CHAT"
       show_host_info_controlls: "toggle moderator-form"
       host_field_title: "Infos about chat"
     host_info_form:
