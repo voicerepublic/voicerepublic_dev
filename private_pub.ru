@@ -13,6 +13,8 @@ faye = PrivatePub.faye_app
 
 class FayeNSA
 
+  HISTORIZE_REGEX = /\/(chatchannel|live)\/(.*)/
+
   attr_accessor :history
 
   def added(e)
@@ -21,8 +23,8 @@ class FayeNSA
 
   def incoming(message, callback)
     channel = message['channel']
-    if channel =~ /\/chatchannel\/(.*)/
-      history[$1] << message['data']['eval']
+    if channel =~ HISTORIZE_REGEX
+      history[$2] << message['data']['eval']
     end
 
     callback.call(message)
@@ -32,9 +34,9 @@ class FayeNSA
     channel = message['channel']
     if channel =~ /\/meta\/subscribe/
       subscription = message['subscription']
-      if subscription =~ /\/chatchannel\/(.*)/
-        unless history[$1].empty?
-          message['ext'] = { 'data' => { 'eval' => history[$1].join('') } }
+      if subscription =~ HISTORIZE_REGEX
+        unless history[$2].empty?
+          message['ext'] = { 'data' => { 'eval' => history[$2].join('') } }
         end
       end
     end
@@ -46,17 +48,16 @@ end
 
 faye.add_extension(FayeNSA.new)
 
-require 'logger'
-logfilename = File.expand_path('../log/private_pub-publish.log', __FILE__)
-logfile = File.new(logfilename, 'a')
-logfile.sync = true
-logger = Logger.new(logfile)
-faye.bind(:publish) do |client_id, channel, data|
-  logger.info "publish #{client_id} #{channel} #{data.inspect}"
-end
-faye.bind(:subscribe) do |client_id, channel|
-  logger.info "subscribe #{client_id} #{channel}"
-end
-
+# require 'logger'
+# logfilename = File.expand_path('../log/private_pub-publish.log', __FILE__)
+# logfile = File.new(logfilename, 'a')
+# logfile.sync = true
+# logger = Logger.new(logfile)
+# faye.bind(:publish) do |client_id, channel, data|
+#   logger.info "publish #{client_id} #{channel} #{data.inspect}"
+# end
+# faye.bind(:subscribe) do |client_id, channel|
+#   logger.info "subscribe #{client_id} #{channel}"
+# end
 
 run faye

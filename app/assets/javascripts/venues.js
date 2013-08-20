@@ -206,6 +206,7 @@
   };
 
   window.initBlackbox = function() {
+    if($('#flashcontent').size==0) return;
     var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions' };
     var params = {};
     var attributes = { id: "Blackbox", name: "Blackbox" };
@@ -223,6 +224,13 @@
   window.flashInitialized = function() {
     //log('flash initialized');
     initVenue();
+    Venue.initFaye();
+    // auto publish host
+    if(Venue.role == 'host') {
+      Venue.blackbox.publish(Venue.streamId);
+      Venue.subscribe();
+      $('#onair').fadeIn();
+    }
   };
 
   initBlackbox();
@@ -235,12 +243,5 @@
 
   $('.venue-host .demote-icon').hide();
   $('.venue-host .promote-icon').hide();
-
-  // auto publish host
-  if(Venue.role == 'host') {
-    Venue.blackbox.publish(Venue.streamId);
-    Venue.subscribe();
-    $('#onair').fadeIn();
-  }
 
 })(jQuery);

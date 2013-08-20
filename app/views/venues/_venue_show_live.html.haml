@@ -3,15 +3,14 @@
 - stream_id = "v#{@venue.id}u#{current_user.id}"
 - channel   = "/live/#{venue_id}"
 :javascript
-  Venue = { venueId: "#{venue_id}", streamId: "#{stream_id}",
-            channel: "#{channel}", role: 'participant' };
-
-- if @venue.user == current_user
-  :javascript
-    Venue.role = 'host';
-
--# listen to commands from others
-= subscribe_to channel
+  Venue = {
+    venueId: "#{venue_id}", streamId: "#{stream_id}", channel: "#{channel}",
+    role: '#{@venue.user == current_user ? 'host' : 'participant'}',
+    // listen to events from others
+    initFaye: function() {
+      PrivatePub.sign(#{PrivatePub.subscription(channel: channel).to_json})
+    }
+  };
 
 -# load swfobject and provide element to hook into
 - content_for :head do
