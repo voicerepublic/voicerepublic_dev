@@ -44,7 +44,8 @@ class Venue < ActiveRecord::Base
   accepts_nested_attributes_for :events
 
   scope :of_user,           proc { |user| where(:user_id => user.id) }
-  scope :featured,          proc { where('featured_from <= ?', Time.now.in_time_zone) }
+  scope :featured,          proc { where('featured_from <= ?', Time.now.in_time_zone).
+                                     order('featured_from DESC') }
   scope :not_past,          proc { joins(:events).merge(Event.not_past) }
   scope :upcoming_first,    proc { joins(:events).merge(Event.upcoming_first) }
   #scope :past,              proc { joins(:events).merge(Event.past) }
