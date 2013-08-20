@@ -235,7 +235,7 @@ class User < ActiveRecord::Base
   end
  
   def add_default_user_role
-    user_roles << UserRole.create({:role_id => Role.find_by_name('user').id})
+    user_roles << UserRole.create({:role_id => Role.find_or_create_by_name('user').id})
   end
   
   def add_account

@@ -1,15 +1,23 @@
 - content_for :title do
   = t('venues.venue_list')
+
 %h2= t('.venues')
 %section.venue-list.row-fluid.clearfix
   .span9
     .clearfix
-      = link_to( new_venue_path, :class => 'btn btn-small btn-primary' ) do
-        = t('venues.new_venue')
-      - end if can? :create, Venue
+      - if can? :create, Venue
+        = link_to( new_venue_path, :class => 'btn btn-small btn-primary' ) do
+          = t('venues.new_venue')
     %br/
     = render(:partial => 'venues/venue_big', :collection => @venues, :as => :venue )
-    = will_paginate @venues, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered"
+
+%h2= t('.past_venues')
+%section.venue-list.row-fluid.clearfix
+  .span9
+    = render(:partial => 'venues/venue_big', :collection => @past_venues, :as => :venue )
+
+    -#= will_paginate @venues, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered"
+
   %aside.venue-desc.span3
     %h3= t('.what_is_a_venue')
     .venue-desc-content

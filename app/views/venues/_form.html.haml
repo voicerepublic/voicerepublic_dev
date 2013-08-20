@@ -72,7 +72,7 @@
           .control-group
             %label.control-label= t('.event_title')
             .controls
-              = text_area_tag 'TODO', nil, :class => "input-block-level"
+              = ef.text_field :title, :class => "input-block-level"
             .help-block
               = t('.help-title-event')
       .row-fluid.event-fields

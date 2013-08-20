@@ -10,16 +10,22 @@ class Event < ActiveRecord::Base
 
   DURATIONS = [ 30, 60, 90, 120, 240 ]
 
+  attr_accessible :title, :start_time, :duration, :record
   attr_accessor :s_date, :s_time
   attr_accessible :s_date, :s_time
-  attr_accessible :duration, :start_time, :record
 
   belongs_to :venue, :inverse_of => :events
 
   END_TIME_PGSQL = "events.start_time + events.duration * interval '1 minute'"
 
-  scope :not_past, proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }
-  scope :upcoming_first, proc { order('start_time ASC') }
+  scope :not_past,          proc { where("#{END_TIME_PGSQL} > ?", Time.now.in_time_zone) }
+  scope :upcoming_first,    proc { order('start_time ASC') }
+  scope :past,              proc { where("#{END_TIME_PGSQL} <= ?", Time.now.in_time_zone) }
+  scope :most_recent_first, proc { order("#{END_TIME_PGSQL} DESC") }
+
+  # http://stackoverflow.com/questions/7745609/sql-select-only-rows-with-max-value-on-a-column
+  #MRO = "LEFT OUTER JOIN events e2 ON (events.id = e2.id AND events.start_time < e2.start_time)"
+  #scope :most_recent_only,  proc { past.joins(MRO).where('e2.start_time IS NULL') }
 
   validates :venue, :start_time, :duration, :presence => true
 

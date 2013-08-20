@@ -39,6 +39,17 @@ describe Venue do
     expect(Venue.not_past).to eq([expected])
   end
 
+  # it "should have a past scope" do
+  #   expected = FactoryGirl.create(:venue)
+  #   FactoryGirl.create(:event, venue: expected, start_time: 1.week.ago)
+  #   FactoryGirl.create(:event, venue: expected, start_time: 2.weeks.ago)
+  #   FactoryGirl.create(:venue)
+  #   unexpected = FactoryGirl.create(:venue)
+  #   FactoryGirl.create(:event, venue: unexpected, start_time: 1.week.from_now)
+  #   expect(expected).to have(2).events
+  #   expect(Venue.past).to eq([expected])
+  # end
+
   it "should have a next event" do
     venue = FactoryGirl.create(:venue)
     expected = FactoryGirl.create(:event, venue: venue, start_time: 1.week.from_now)
