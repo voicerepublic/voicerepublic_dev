@@ -23,7 +23,7 @@ module ApplicationHelper
   #     src="//www.youtube.com/embed/F0G0YNHINwY"></iframe>
   #
   def youtubify(txt)
-    template = "\n\n<iframe width='560' height='315' " +
+    template = "\n\n<iframe width='307' height='188' " +
       "src='//www.youtube.com/embed/%s' " +
       "frameborder='0' allowfullscreen></iframe>"
 
