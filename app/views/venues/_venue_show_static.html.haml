@@ -1,3 +1,10 @@
+-#title and host
+%header.well-large.venue-header-static
+  %h2.venue-title
+    = @venue.title
+  = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
+  = render(:partial => 'venue_show_social', :locals => { :venue => @venue } )  
+
 .section.venue-description
   .row-fluid.clearfix
     .span4
