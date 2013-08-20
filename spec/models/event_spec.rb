@@ -27,4 +27,12 @@ describe Event do
     event.start_in_seconds.should be_within(1).of(42.minutes)
   end
 
+  # it 'should have scope most_recent_only' do
+  #   venue = FactoryGirl.create(:venue)
+  #   expected = FactoryGirl.create(:event, :venue => venue, :start_time => 1.week.ago)
+  #   FactoryGirl.create(:event, :venue => venue, :start_time => 2.weeks.ago)
+  #   FactoryGirl.create(:event, :venue => venue, :start_time => 3.weeks.ago)
+  #   expect(Event.most_recent_only.to_sql).to eq([expected])
+  # end
+
 end

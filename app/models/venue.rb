@@ -43,10 +43,13 @@ class Venue < ActiveRecord::Base
 
   accepts_nested_attributes_for :events
 
-  scope :of_user, proc { |user| where(:user_id => user.id) }
-  scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone) }
-  scope :not_past, proc { joins(:events).merge(Event.not_past) }
-
+  scope :of_user,           proc { |user| where(:user_id => user.id) }
+  scope :featured,          proc { where('featured_from <= ?', Time.now.in_time_zone) }
+  scope :not_past,          proc { joins(:events).merge(Event.not_past) }
+  scope :upcoming_first,    proc { joins(:events).merge(Event.upcoming_first) }
+  #scope :past,              proc { joins(:events).merge(Event.past) }
+  scope :most_recent_first, proc { joins(:events).merge(Event.most_recent_first) }
+  
   # start_time, duration, start_in_seconds wil return nil if no next_event
   delegate :start_time, :duration, :start_in_seconds, to: :next_event, allow_nil: true
 
