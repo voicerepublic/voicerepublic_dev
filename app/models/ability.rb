@@ -48,6 +48,10 @@ class Ability
     #   user == ki.kluuu.user
     # end
     
+    can :manage, Article do |article|
+      article.user == user
+    end
+
     can :manage, User do |usr|
       usr == user
     end
