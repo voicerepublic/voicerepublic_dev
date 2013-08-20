@@ -9,19 +9,14 @@
         </div>
       .landing-page-illu.clearfix
         %ul
-          %li.lp-venue-icon
-            %h2 KluuU
-            = image_tag "/assets/blog-icon.png", :alt => "blog-icon"
-            %br/
-            KluuU is the blog for your subject
-            %br/
-            \- with video chat.
           %li
             %h2 Venue
             = image_tag "/assets/venue-icon.png", :alt => "blog-icon"
             %br/
             Venue is the chatroom for your subject.
-  = partial_for_venue_and_news()
+  = render 'featured'
+  Upcoming
+  
   .row-fluid.landing-page-color2.lp-kluuus
     .span12.clearfix
       - if Kblog::Article.first &&! @news_shown
