@@ -66,10 +66,10 @@ Kluuu2::Application.routes.draw do
     resources :participations, :only => [:index, :create]
     resources :users, :only => [:update, :show] do
       member do
-        get 'no_kluuus'
-        get 'kluuus'
+        #get 'no_kluuus'
+        #get 'kluuus'
         get 'welcome'
-        get 'venues'
+        get 'venues' # venues_user_path
       end
       resources :messages, :only => [:index, :show, :destroy, :update] do
         member do

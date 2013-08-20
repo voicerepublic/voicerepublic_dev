@@ -1,28 +1,14 @@
 - content_for :title do
   = @user.name
-%section.user-klus.row-fluid
-  - if @user == current_user
-    .span3
-      %h3= t('.klus')
-      -#= render(:partial => 'klus/user_no_kluuus') if @kluuus.empty?
-      -#= render(:partial => 'klus/user_with_kluuu') unless @kluuus.empty?
-    .span9
-      -#- if @kluuus.empty?
-      -#  = render(:partial => 'klus/kluuu_video')
-      -#- else
-      -#  - @kluuus.each do |klu|
-      -#    - if klu.instance_of?(Kluuu)
-      -#      = render(:partial => 'klus/medium_kluuu', :locals => { :klu => klu } )
+
+%section.venue-list.row-fluid
+  - if @user.participating_venues.empty?
+    .text-align-center.muted
+      %br/
+      %br/
+      = t('.guest_empty_venue', :name => @user.firstname)
+      %br/
+      %br/
   - else
-    -#- if @kluuus.empty?
-    -#  .text-align-center.muted
-    -#    %br/
-    -#    %br/
-    -#    = t('.guest_empty_klu', :name => @user.firstname)
-    -#    %br/
-    -#    %br/
-    -#- else
-    -#  - @kluuus.each do |klu|
-    -#    - if klu.instance_of?(Kluuu)
-    -#      = render(:partial => 'klus/medium_kluuu', :locals => { :klu => klu } )
-  %section/
+    = render(:partial => 'venues/venue_big', :collection => @user.participating_venues, :as => :venue)
+  %section
