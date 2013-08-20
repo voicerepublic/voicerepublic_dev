@@ -15,15 +15,18 @@
   public class Blackbox extends MovieClip {
     var mic: Microphone;
     var netStreams: Array = new Array();
-    var streamer:String;
+    var streamer: String;
 
     public function Blackbox() {
       streamer = root.loaderInfo.parameters['streamer'];
+
       ExternalInterface.addCallback("publish", publishStream);
       ExternalInterface.addCallback("subscribe", subscribeStream);
 			ExternalInterface.addCallback("mute", muteMic);
 			ExternalInterface.addCallback("unmute", unmuteMic);
-			ExternalInterface.call("flashInitialized");
+
+			var callback: String = root.loaderInfo.parameters['afterInitialize'] || "flashInitialized";
+			ExternalInterface.call(callback);
     }
 
     function muteMic() {
