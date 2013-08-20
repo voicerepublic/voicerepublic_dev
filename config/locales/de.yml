@@ -839,7 +839,7 @@ de:
       datepick_help: "Beispiel: 20/12/2013"
       timepick_help: "Beispiel: 18:15"
       settings: "Einstellungen"
-      record: 'Zeichne diese Session auf'
+      record: 'Zeichne dieses Gespräch auf'
       your_talk: 'Dein Gespräch'
       event_title: 'Gesprächstitel'      
     change_time_form:

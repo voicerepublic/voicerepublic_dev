@@ -820,7 +820,7 @@ en:
       datepick_help: "Example: 20/12/2013"
       timepick_help: "Example: 18:15"
       settings: "Settings"
-      record: "Record this session"
+      record: "Record this talk"
       your_talk: 'Your talk'
       event_title: 'Talk title'
     change_time_form:
