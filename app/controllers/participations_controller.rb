@@ -10,7 +10,7 @@ class ParticipationsController < ApplicationController
   # GET /participations
   # GET /participations.json
   def index
-    redirect_to venue_path(:id => params[:participation][:venue_id]), :notice => 'hey.'
+    redirect_to venue_path(:id => params[:participation][:venue_id])#, :notice => 'hey.'
 
     # @participations = Participation.all
     # 
@@ -58,7 +58,7 @@ class ParticipationsController < ApplicationController
         format.html { redirect_to @participation.venue }
         format.json { render json: @participation, status: :created, location: @participation }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to @participation.venue }
         format.json { render json: @participation.errors, status: :unprocessable_entity }
       end
     end
