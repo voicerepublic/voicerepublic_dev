@@ -43,7 +43,7 @@ module ApplicationHelper
 
   # simple_format, but with simple links target blanks preserved
   def sophisticated_format(txt)
-    simple_format(simple_links(sanitize(txt)), {}, :sanitize => false)
+    simple_format(youtubify(simple_links(sanitize(txt))), {}, :sanitize => false)
   end
 
   def app_mode
