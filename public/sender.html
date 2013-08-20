@@ -79,12 +79,19 @@
         $('#dialog').prepend('<p>'+msg+'</p>');
       });
 
-      function mute () {
-        console.log("mute"); flash.mute();
+      var mute = function () {
+        console.log("mute");
+        flash.mute();
       }
 
-      function unmute () {
-        console.log("unmute"); flash.unmute();
+      var unmute = function () {
+        console.log("unmute");
+        flash.unmute();
+      }
+
+      var unpublish = function () {
+        console.log("unpublish");
+        flash.unpublish();
       }
 
     </script>
@@ -94,7 +101,8 @@
     <h1>Sender</h1>
     Your mic is being streamed to all participants.
     <a href="#mute" onclick="mute()">Mute</a>
-    <a href="#unmute" onclick="unmute()">Unmute</a>
+    <a href="#unmute" onclick="unmute()">Unmute</a> |
+    <a href="#unpublish" onclick="unpublish()">Unpublish</a>
     <h2>Feedback</h2>
     <div id="dialog">
     </div>
