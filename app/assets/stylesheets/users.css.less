@@ -154,6 +154,7 @@ p.wichtig {
 					margin-right: 0;
 				}
 
+				/* VENUE AS PARTICIPANT */
 				&.venue-part-color{
 					background: url(/assets/venue-icon-part.png) no-repeat center 13px;
 					border-top: 1px solid #f9f9f9;
@@ -165,6 +166,7 @@ p.wichtig {
 					}
 				}
 
+				/* VENUE AS HOST */
 				&.venue-host-color{
 					background: url(/assets/venue-icon-host.png) no-repeat center 13px;
 					border-top: 1px solid #f9f9f9;
@@ -176,21 +178,15 @@ p.wichtig {
 					}			
 				}	
 
+				/* EMPTY LIST */
 				&.empty{
+					background: url(/assets/venue-icon-grey.png) no-repeat no-repeat center 13px !important;
+					border-top: 1px solid #f9f9f9;
 					a {
 						color: #bbb !important;
 					}
-					&.venue-color{
-						background: url(/assets/venue-icon-grey.png) no-repeat no-repeat center 13px !important;
-					}
 					&:hover, &.active, &.active:hover {
-						&.venue-color{
-							background: url(/assets/venue-icon-grey.png) no-repeat no-repeat center 13px !important;
-						}
-						a {
-							color: #999 !important;
-							text-shadow: none;
-						}
+						border-top: 1px solid #bbb;
 					}					
 				}
 				&:hover {

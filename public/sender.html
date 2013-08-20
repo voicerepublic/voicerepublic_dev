@@ -5,10 +5,10 @@
     <style type="text/css">
     </style>
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <script src='//kluuu-staging.panter.ch:9293/faye/client.js'></script>
+    <script src='//kluuu-staging.panter.ch:9294/faye/client.js'></script>
     <script type="text/javascript" src="/swfobject.js"></script>
     <script>
-      var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions' };
+      var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions', afterInitialize: "init" };
       var params = {};
       var attributes = { id: "Blackbox", name: "Blackbox" };
       swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "215", "140", "10.3.181.22", null, flashvars, params, attributes);
@@ -46,7 +46,7 @@
       var uuid = localStorage.getItem('uuid') || generateUuid();
       localStorage.setItem('uuid', uuid);
 
-      var client = new Faye.Client('http://kluuu-staging.panter.ch:9293/faye');
+      var client = new Faye.Client('http://kluuu-staging.panter.ch:9294/faye');
 
       client.subscribe('/announce', function(msg) {
         if (uuid == msg.uuid) return;
@@ -60,7 +60,7 @@
         client.publish('/announce', { uuid: uuid });
       });
 
-      var flashInitialized = function() {
+      var init = function() {
         log('flashInitialized');
         var isInternetExplorer = navigator.appName.indexOf("Microsoft") != -1;
         flash = isInternetExplorer ? document.all.Blackbox : document.Blackbox;
@@ -79,12 +79,19 @@
         $('#dialog').prepend('<p>'+msg+'</p>');
       });
 
-      function mute () {
-        console.log("mute"); flash.mute();
+      var mute = function () {
+        console.log("mute");
+        flash.mute();
       }
 
-      function unmute () {
-        console.log("unmute"); flash.unmute();
+      var unmute = function () {
+        console.log("unmute");
+        flash.unmute();
+      }
+
+      var unpublish = function () {
+        console.log("unpublish");
+        flash.unpublish();
       }
 
     </script>
@@ -94,7 +101,8 @@
     <h1>Sender</h1>
     Your mic is being streamed to all participants.
     <a href="#mute" onclick="mute()">Mute</a>
-    <a href="#unmute" onclick="unmute()">Unmute</a>
+    <a href="#unmute" onclick="unmute()">Unmute</a> |
+    <a href="#unpublish" onclick="unpublish()">Unpublish</a>
     <h2>Feedback</h2>
     <div id="dialog">
     </div>

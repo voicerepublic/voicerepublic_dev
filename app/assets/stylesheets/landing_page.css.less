@@ -41,13 +41,6 @@
   }
  }
 
-body{
-	/*background:url(/assets/people.jpg) no-repeat;*/
-	/*background-size: contain;*/
-	/*background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.2)) repeat scroll 0 0 transparent;*/
-
-}
-
 body .container .well {
 	box-shadow: inset 0 0 0px rgba(0,0,0,0.3) !important;
 	border:1px solid #BEBEBE;
@@ -109,11 +102,20 @@ body .container .well {
 		}
 		ul{
 			display: inline-block;
-			background:url(bg-illu.png) no-repeat center top;
+			/*background:url(bg-illu.png) no-repeat center top;*/
+background: -moz-linear-gradient(top,  rgba(226,226,226,0.65) 0%, rgba(226,226,226,0) 29%, rgba(226,226,226,0) 30%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,226,226,0.65)), color-stop(29%,rgba(226,226,226,0)), color-stop(30%,rgba(226,226,226,0))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', endColorstr='#00e2e2e2',GradientType=0 ); /* IE6-9 */
+
+
 			border:3px solid #ccc;
 			border-radius: 10px;
 			width:100%;
-			max-width:610px;
+			max-width:300px;
 			padding:5px 0px 25px 0;
 			@media (max-width: 800px) {
 				li{
@@ -130,8 +132,6 @@ body .container .well {
 			margin:0 1.5% 0 1.5%;
 			list-style-type: none;
 			display: block;
-			float:left;
-			width:47%;
 			color:#777;
 			img{
 				margin-bottom: 10px

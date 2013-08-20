@@ -15,15 +15,20 @@
   public class Blackbox extends MovieClip {
     var mic: Microphone;
     var netStreams: Array = new Array();
-    var streamer:String;
+    var streamer: String;
+		var publishNetConnection: NetConnection;
 
     public function Blackbox() {
       streamer = root.loaderInfo.parameters['streamer'];
+
       ExternalInterface.addCallback("publish", publishStream);
+			ExternalInterface.addCallback("unpublish", unpublishStream);
       ExternalInterface.addCallback("subscribe", subscribeStream);
 			ExternalInterface.addCallback("mute", muteMic);
 			ExternalInterface.addCallback("unmute", unmuteMic);
-			ExternalInterface.call("flashInitialized");
+
+			var callback: String = root.loaderInfo.parameters['afterInitialize'] || "flashInitialized";
+			ExternalInterface.call(callback);
     }
 
     function muteMic() {
@@ -35,10 +40,16 @@
 		}
 
     function publishStream(stream: String) {
-      var nc: NetConnection = new NetConnection();
-      nc.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(sendStream, nc, stream));
-      nc.connect(streamer);
+      publishNetConnection = new NetConnection();
+      publishNetConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(sendStream, publishNetConnection, stream));
+      publishNetConnection.connect(streamer);
     }
+
+    function unpublishStream() {
+			if (publishNetConnection != null) {
+				publishNetConnection.close();
+			}
+		}
 
     function subscribeStream(stream: String) {
       var nc: NetConnection = new NetConnection();
