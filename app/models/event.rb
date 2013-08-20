@@ -8,7 +8,7 @@
 # * venue_id [integer] - belongs to :venue
 class Event < ActiveRecord::Base
 
-  DURATIONS = [ 30, 60, 90, 120, 240 ]
+  DURATIONS = [ 30, 45, 60, 90, 120, 240 ]
 
   attr_accessible :title, :start_time, :duration, :record
   attr_accessor :s_date, :s_time
