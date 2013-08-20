@@ -770,6 +770,9 @@ de:
     venue_show_forum:
       comments: "Kommentare"
       articles: "DISKUSSION"
+    venue_article:
+      comment: "Kommentieren"
+      all_comments: "Alle Kommentare"
     venue_show_participants:
       participants: "TEILNEHMER"
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
