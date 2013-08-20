@@ -124,7 +124,6 @@
     // so here we'll have to merge here
     Venue = $.extend({}, Venue, {
       subscriptions: [],
-      sender: false,
       onPromote: function(streamId) {
         log('received onPromote for '+streamId);
 
@@ -139,8 +138,8 @@
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
+        Venue.role = 'guest';
         Venue.blackbox.publish(Venue.streamId);
-        Venue.sender = true;
         Venue.subscribe();
         $('#onair').fadeIn();
       },
@@ -154,16 +153,16 @@
         // business logic changes
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.unpublish();
-        Venue.sender = false;
+        Venue.role = 'participant';
         $('#onair').fadeOut();
       },
       // onRegister is triggered by new participants
       // all senders (the host and all guests) should
       // respond with triggering a subscribe
       onRegister: function(streamId) {
-        log('received onRegister of '+streamId+', '+Venue.streamId+', '+Venue.sender);
+        log('received onRegister of '+streamId+', '+Venue.streamId+', '+Venue.role);
         if(streamId == Venue.streamId) return; // ignore self
-        if(!Venue.sender) return; // skip unless sender
+        if(Venue.role == 'participant') return; // skip unless sender (guest or host)
         Venue.subscribe();
       },
       // onSubscribe is triggered by senders upon receiving a onRegister
@@ -222,13 +221,11 @@
   // for now, this is in global namespace
   // later we'll pass it to initBlackbox
   window.flashInitialized = function() {
-    log('flash initialized');
+    //log('flash initialized');
     initVenue();
   };
 
   initBlackbox();
-
-  // NOTE data-stream-id needs to be on .avatar-box
 
   $('.promote-icon').on('click', promoteHandler);
   $('.demote-icon').on('click', demoteHandler);
@@ -239,6 +236,11 @@
   $('.venue-host .demote-icon').hide();
   $('.venue-host .promote-icon').hide();
 
-  // TODO autopromote host
+  // auto publish host
+  if(Venue.role == 'host') {
+    Venue.blackbox.publish(Venue.streamId);
+    Venue.subscribe();
+    $('#onair').fadeIn();
+  }
 
 })(jQuery);

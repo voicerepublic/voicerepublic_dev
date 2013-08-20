@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   
   has_many :venues # as owner
   has_many :participations
-  has_many :participating_venues, :through => :participations, :class_name => 'Venue'
+  has_many :participating_venues, :through => :participations, :source => :venue
 
   scope :online, where("available = ? OR available = ?", 'online', 'busy')
   
