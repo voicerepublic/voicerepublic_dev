@@ -23,7 +23,7 @@
     = @venue.duration
     = t('.minutes')
 %h3.venue-event-title
-  Event-title
+  = @venue.next_event.title || '(no title)'
 
 .row-fluid.clearfix
   .span12.talking-users-box.well-large
