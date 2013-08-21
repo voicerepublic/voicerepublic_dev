@@ -58,11 +58,20 @@ class ParticipationsController < ApplicationController
 
     respond_to do |format|
       if @participation.save
-        format.html { redirect_to @participation.venue }
-        format.json { render json: @participation, status: :created, location: @participation }
+        format.html do
+          # make avatars appear on participant's view
+          @venue = @participation.venue
+          channel = @venue.event_channel
+          markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_user }
+          markup = markup.gsub('"', "'").gsub("\n", '')
+          PrivatePub.publish_to channel, "$('.venue-participants').append(\"#{markup}\")"
+          # after join redirect to venue page
+          redirect_to @participation.venue
+        end
+        #format.json { render json: @participation, status: :created, location: @participation }
       else
         format.html { redirect_to Venue.find(params[:participation][:venue_id]) }
-        format.json { render json: @participation.errors, status: :unprocessable_entity }
+        #format.json { render json: @participation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -92,7 +101,7 @@ class ParticipationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @participation.venue }
-      format.json { head :no_content }
+      #format.json { head :no_content }
     end
   end
 end

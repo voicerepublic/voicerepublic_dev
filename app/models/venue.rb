@@ -106,7 +106,6 @@ class Venue < ActiveRecord::Base
   end
   
   def details_for(user)
-    event_channel = "/live/v#{id}e#{next_event.id}"
     { 
       streamId: "v#{id}u#{user.id}",
       channel: event_channel,
@@ -114,6 +113,10 @@ class Venue < ActiveRecord::Base
       eventSubscription: PrivatePub.subscription(channel: event_channel),
       chatSubscription: PrivatePub.subscription(channel: channel_name)
     }
+  end
+
+  def event_channel
+    "/live/v#{id}e#{next_event.id}"
   end
 
   def chat_name
