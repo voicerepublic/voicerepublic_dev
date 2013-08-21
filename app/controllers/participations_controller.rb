@@ -50,6 +50,9 @@ class ParticipationsController < ApplicationController
   # POST /participations
   # POST /participations.json
   def create
+    params[:participation] ||= {}
+    params[:participation][:venue_id] = params[:venue_id]
+
     @participation = Participation.new(params[:participation])
     @participation.user_id = current_user.id
 
@@ -58,7 +61,7 @@ class ParticipationsController < ApplicationController
         format.html { redirect_to @participation.venue }
         format.json { render json: @participation, status: :created, location: @participation }
       else
-        format.html { redirect_to @participation.venue }
+        format.html { redirect_to Venue.find(params[:participation][:venue_id]) }
         format.json { render json: @participation.errors, status: :unprocessable_entity }
       end
     end
@@ -83,11 +86,12 @@ class ParticipationsController < ApplicationController
   # DELETE /participations/1
   # DELETE /participations/1.json
   def destroy
-    @participation = Participation.find(params[:id])
+    #@participation = Participation.find(params[:id])
+    @participation = current_user.participations.find_by_venue_id(params[:venue_id])
     @participation.destroy
 
     respond_to do |format|
-      format.html { redirect_to participations_url }
+      format.html { redirect_to @participation.venue }
       format.json { head :no_content }
     end
   end

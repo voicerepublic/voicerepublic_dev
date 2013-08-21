@@ -63,7 +63,7 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /en|de/ do
-    resources :participations, :only => [:index, :create]
+    resources :participations, :only => [:index, :create, :destroy]
     resources :users, :only => [:update, :show] do
       member do
         #get 'no_kluuus'
