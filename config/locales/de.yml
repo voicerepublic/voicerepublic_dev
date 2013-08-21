@@ -764,6 +764,8 @@ de:
       time_until_takeoff: "Noch %{time} bis Start"
       venue_moderated_by: "Moderiert von %{name}"
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
+    venue_show_static_live:
+      by: "von"
     venue_show_chat:
       what_is_a_venue: "Was ist ein Treffpunkt?"
       see_other_venues: "Alle Treffpunkte"
@@ -781,7 +783,7 @@ de:
       host: "GASTGEBER"
       participants: "GÄSTE"      
     venue_show_actions:
-      unjoin_venue: "Treffpunkt absagen" 
+      unjoin_venue: "Teilnahme zurückziehen" 
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"     
     new:
       create_new_venue: "Treffpunkt erstellen"
