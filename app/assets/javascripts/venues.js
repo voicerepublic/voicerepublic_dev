@@ -37,7 +37,8 @@
     $('.datetimepicker').datetimepicker({
       language: '<%= I18n.locale.to_s %>',
       pickDate: true,
-      pickTime: true
+      pickTime: true,
+      pickSeconds: false
     });
   };
 

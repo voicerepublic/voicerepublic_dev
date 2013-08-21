@@ -38,8 +38,10 @@
 /* VENUE HEADER */
 .venue-header-live{
   margin-bottom: 15px;
-  background: #eee;
   position: relative;
+  padding-left: 0;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0
 }
 
 .venue-header-static{
@@ -62,11 +64,11 @@
 
 .venue-live-box{
   .venue-title{
-    font-size: @baseFontSize * 1.2;
-    font-weight: bold;
+    font-size: @baseFontSize * 1.8;
+    font-weight: normal;
     font-family: "Roboto", sans-serif;
     font-style: normal;
-    color:#888;
+    color:#333;
   }
 }
 
@@ -288,16 +290,20 @@
 
 .icon-onair {
   position: absolute;
-  right: 8px;
-  top:7px;
-  background-color: red;
-  color: white;
+  right: 0px;
+  top:-2px;
+  color: red;
   padding: 5px 10px;
-  font-size: @baseFontSize * 1.5;
-  width: 150px;
+  background-color:white;
+  font-size: @baseFontSize * 1.4;
+  line-height: 100%;
+  font-weight: bold;
+  width: 100px;
+  border:4px solid #000;
   border-radius: 3px;
   text-align: center;
   display: none;
+  .box-shadow(inset 0 0 10px rgba(0,0,0,.5));
 }
 
 #Blackbox{
@@ -387,6 +393,8 @@
     padding-top: 0;
   }
 
+  .date
+
   .venue-form-icon{
     display: block;
     width: 60px;
@@ -429,7 +437,7 @@
       }
       font-weight: bold;
     }
-    #datetimepicker{
+    .datetimepicker{
       input[type="text"]{
         width:80%;
       }

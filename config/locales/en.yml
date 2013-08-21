@@ -733,7 +733,7 @@ en:
       duration: "Duration"
       past_venue: "Past Venue"
       join_venue: "Participate!"
-      unjoin_venue: "Unjoin venue"
+      unjoin_venue: "Cancel participation"
       chat_will_be_available_short_before_start: "Group-chat will be available short before start"
       group_chat: "Group-Chat"
       only_attendies_can_see_group_chat: "Only participants can read the group-chat"
@@ -746,6 +746,8 @@ en:
       time_until_takeoff: "%{time} until start"
       venue_moderated_by: "Moderated by %{name}"
       leave_venue_popup: "This link opens a new tab!"
+    venue_show_static_live:
+      by: "by"
     venue_show_chat:
       what_is_a_venue: "Tell me about venues"
       see_other_venues: "All Venues"      
