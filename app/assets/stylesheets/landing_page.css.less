@@ -90,8 +90,7 @@ body .container .well {
 		}
 	}
 	.landing-page-illu{
-		padding:0px 5% 60px 5%;
-		border-bottom: 1px solid #999;
+		padding:0px 5% 20px 5%;
 		margin: auto;
 		margin-top: 0;
 		margin-bottom: 30px;
@@ -102,20 +101,9 @@ body .container .well {
 		}
 		ul{
 			display: inline-block;
-			/*background:url(bg-illu.png) no-repeat center top;*/
-background: -moz-linear-gradient(top,  rgba(226,226,226,0.65) 0%, rgba(226,226,226,0) 29%, rgba(226,226,226,0) 30%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,226,226,0.65)), color-stop(29%,rgba(226,226,226,0)), color-stop(30%,rgba(226,226,226,0))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', endColorstr='#00e2e2e2',GradientType=0 ); /* IE6-9 */
-
-
-			border:3px solid #ccc;
 			border-radius: 10px;
 			width:100%;
-			max-width:300px;
+			max-width:850px;
 			padding:5px 0px 25px 0;
 			@media (max-width: 800px) {
 				li{
@@ -126,16 +114,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', e
 			}		
 		}
 		li{
+      width: 30%;
+      height: 150px;
+      border:3px solid #ccc;
+      text-align: left;
+      background: -moz-linear-gradient(top,  rgba(226,226,226,0.65) 0%, rgba(226,226,226,0) 29%, rgba(226,226,226,0) 30%); /* FF3.6+ */
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,226,226,0.65)), color-stop(29%,rgba(226,226,226,0)), color-stop(30%,rgba(226,226,226,0))); /* Chrome,Safari4+ */
+      background: -webkit-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Chrome10+,Safari5.1+ */
+      background: -o-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Opera 11.10+ */
+      background: -ms-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* IE10+ */
+      background: linear-gradient(to bottom,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', endColorstr='#00e2e2e2',GradientType=0 ); /* IE6-9 */      
 			&.lp-venue-icon img{
 				border-radius: 10px
 			}
 			margin:0 1.5% 0 1.5%;
 			list-style-type: none;
-			display: block;
+			display: inline-block;
 			color:#777;
-			img{
-				margin-bottom: 10px
-			}
 			h2{
 				margin:21px 0 0px 0;
 				font-size: 20px;
@@ -143,7 +139,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', e
 				color:#777;
 				font-family: sans-serif;
 				font-weight: bold;
-
 			}
 			.landing-page-illu-subtitle{
 				font-style: italic;
@@ -167,33 +162,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', e
 	font-size: 14px
 }
 
-.lp-kluuus{
-	.well{
-		
-	}
+.lp-featured-box{
+  position: relative;
 }
 
-.lp-trends-people{
-	.well{
-	
-	}
+.lp-featured-arrow-box{
+  position: relative;
+  height:100%;
+} 
+
+.lp-featured-arrow-inside{
+  display: inline-block;
+  margin-left: 20%;
+  margin-top: 27%;
+  background: url(lp-arrow.png) top right no-repeat;
+  position: relative;
+  width:200px;
+  height: 60px
 }
 
-.landing-page-color2{
-	.well{
-		
-	}
+.lp-featured-arrow-text{
+  background: black;
+  margin-right: 30px;
+  padding:20px 0px 20px 20px;
+  width:150px;
+  height: 60px;
+  color:white;
+  display: inline-block;
 }
 
-.user-small{
-	.set-rows(2);
+.lp-featured-arrow{
+  position: absolute;
+  top:50px;
+  left: 170px;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 60px solid black;
+}
+
+.kblog-box{
+  padding-top: 2px;
 }
 
 .kblog {
+  margin-top: 3px;
 	font-family: inherit;
-	border:3px solid #ccc;
-	border-radius: 8px;
-	padding:20px 15px;
+  border: 3px solid #CCCCCC;
+  border-radius: 8px 8px 8px 8px;
+  padding: 10px 15px !important;
 	hr{
 		margin: 0 0 15px 0 !important
 	}

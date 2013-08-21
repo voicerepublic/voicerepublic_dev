@@ -522,15 +522,18 @@ en:
       create_klu: "Create KluuU"      
   
   landing_page:
-    news: "News"
+    news: "NEWS"
     index:
-      headline: "Discussions – Talks – Chats"
+      headline: "Let's talk about it."
       is: "is..."
       illu_1: "Your Blog..."
       illu_2: "with Venue..."
       illu_2_subtitle: "(Chatroom)"
       illu_3: "and 1:1 Video"
       enter_search_term: "Enter search term"
+    lp_venues:
+      featured_venue: "KluuU recommends"
+      upcoming_venues: "UPCOMING VENUES"
       
   messages:
     received_message:
