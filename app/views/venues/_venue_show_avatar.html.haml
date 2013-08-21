@@ -1,4 +1,4 @@
-.avatar-box(data-stream-id="v#{@venue.id}u#{user.id}")
+.avatar-box(data-stream-id="#{@venue.details_for(user)[:streamId]}")
   - if @venue.live?
     = link_to user, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
       = render(:partial => 'users/user_small', :locals => { :user => user })

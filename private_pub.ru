@@ -53,11 +53,13 @@ faye.add_extension(FayeNSA.new)
 # logfile = File.new(logfilename, 'a')
 # logfile.sync = true
 # logger = Logger.new(logfile)
-# faye.bind(:publish) do |client_id, channel, data|
-#   logger.info "publish #{client_id} #{channel} #{data.inspect}"
-# end
-# faye.bind(:subscribe) do |client_id, channel|
-#   logger.info "subscribe #{client_id} #{channel}"
-# end
+faye.bind(:publish) do |client_id, channel, data|
+  # logger.info "publish #{client_id} #{channel} #{data.inspect}"
+  puts "publish #{client_id} #{channel} #{data.inspect}"
+end
+faye.bind(:subscribe) do |client_id, channel|
+  # logger.info "subscribe #{client_id} #{channel}"
+  puts "subscribe #{client_id} #{channel}"
+end
 
 run faye
