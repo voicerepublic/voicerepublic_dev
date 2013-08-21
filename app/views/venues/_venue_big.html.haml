@@ -6,7 +6,7 @@
     .pull-left
       = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
       = link_to user_path(venue.user) do
-        = image_tag venue.user.account.portrait.url(:large)
+        = image_tag venue.image.url(:medium), :class => "venue-big-image"
       = link_to (venue.user.name + "s " + t('.venue_title')), venue_path(venue)
       %br/
       %h3= link_to venue.title, venue_path(venue)

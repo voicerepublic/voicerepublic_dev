@@ -526,15 +526,18 @@ de:
       create_klu: "KluuU erstellen"
   
   landing_page:
-    news: "News"
+    news: "NEWS"
     index:
-      headline: "Diskussionen – Gespräche – Chats"
+      headline: "Du, lass uns drüber reden."
       is: "ist..."
       illu_1: "Dein Blog..."
       illu_2: "mit Treffpunkt..."
       illu_2_subtitle: "(Chatraum)"
       illu_3: "und 1:1 Video"
       enter_search_term: "Suchbegriff eingeben"
+    lp_venues:  
+      featured_venue: "UNSER TIPP!"
+      upcoming_venues: "KOMMENDE TREFFPUNKTE"
       
   messages:
     received_message:

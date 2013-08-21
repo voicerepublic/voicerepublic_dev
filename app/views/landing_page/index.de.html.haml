@@ -1,41 +1,21 @@
 .landing-page
-  / landing-page-top-row
-  .text-align-center
-    %h2.text-align-center.landing-page-claim
-      = t('.headline')
+  .text-align-center.kluuu-lead
+    %h2.text-align-center.landing-page-claim= t('.headline')
     .clearfix
-      /
-        <div class="lead">
-        Diskutiere, erzähle, berate, unterrichte, helfe…
-        </div>
       .landing-page-illu.clearfix
         %ul
           %li
-            %h2 Treffpunkt
-            = image_tag "/assets/venue-icon.png", :alt => "blog-icon"
+            %h2 How does it work
             %br/
-            Treffpunkt ist der Chatraum zu Deinem Thema.
-  = partial_for_venue_and_news()
-  .row-fluid.landing-page-color2.lp-kluuus
-    .span12.clearfix
-      - if Kblog::Article.first &&! @news_shown
-        %section.medium-klu.kblog
-          %h2.news-header= t('landing_page.news')
-          = display_latest_articles(1, 400)
-      -# TODO
-      -#= render(:partial => "klus/medium_kluuu", :collection => @kluuus, :as => 'klu')
-    .span12.clearfix
-      -# TODO
-      -#= will_paginate @kluuus, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered"
-  .row-fluid.lp-trends-people
-    .span6
-      .well.well-large
-        %h2 Trends
-        = render(:partial => 'shared/tag_cloud')
-    .span6
-      .well.well-large.clearfix
-        %h2 People
-        %ul.unstyled
-          - User.potentially_available.limit(5).order("created_at DESC").each do |user|
-            %li.user-small
-              = render(:partial => "users/user_small", :locals => {:user => user})
+            Join a conversation and participate; initiate your own roundtable, discussion or interview and invite other people to join.
+          %li
+            %h2 How to get started
+            %br/
+            Register and create your KluuU profile for free.
+            Browse the intriguing topics, and join any of them.
+            Create your own discussion or talk and invite people to participate!
+          %li
+            %h2 Keeping track
+            %br/
+            You can record your conversations so that your audience always can get back to them.
+  = render(:partial => "lp_venues")
