@@ -36,6 +36,9 @@ function buildPrivatePub(doc) {
         if (message.channel == '/meta/subscribe') {
           if ( message.ext && message.ext.data && message.ext.data.eval ) {
             try {
+              if(console!=undefined) {
+                console.log('Replaying: '+message.ext.data.eval);
+              }
               eval(message.ext.data.eval);
             } catch (error) {
               if(console!=undefined) {
