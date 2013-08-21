@@ -1,0 +1,31 @@
+%hr
+%br/
+%br/
+%br/
+.row-fluid.lp-featured-box
+  .span4.lp-featured-arrow-box
+    .lp-featured-arrow-inside
+      .lp-featured-arrow-text= t('.featured_venue')
+  .span8
+    - venue = Venue.featured.first
+    = render(:partial => 'venues/venue_big', :locals => {:venue => venue})
+%br/
+%br/    
+%hr
+%br/
+%br/
+.row-fluid
+  .span12
+    %header.lp-upcoming-header
+      = t('.upcoming_venues')
+.row-fluid
+  .span9
+    - venues = Venue.not_past.upcoming_first - [venue]
+    - venues.each do |venue|
+      = render(:partial => 'venues/venue_big', :locals => {:venue => venue})
+  .span3.kblog-box
+    .kblog
+      - if Kblog::Article.first &&! @news_shown
+        %header.news-header= t('landing_page.news')
+        = display_latest_articles(1, 400)
+
