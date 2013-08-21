@@ -5,7 +5,5 @@
   - else
     = link_to user do
       = render(:partial => 'users/user_small', :locals => { :user => user })
-
-  - if @venue.user == current_user
-    .promote-icon +
-    .demote-icon -
+  .promote-icon(style='display:none') +
+  .demote-icon(style='display:none') -

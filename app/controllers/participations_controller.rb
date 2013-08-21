@@ -61,12 +61,14 @@ class ParticipationsController < ApplicationController
         format.html do
           # make avatars appear on participant's view
           @venue = @participation.venue
-          channel = @venue.event_channel
+
           markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_user }
           markup = markup.gsub('"', "'").gsub("\n", '')
-          PrivatePub.publish_to channel, "$('.venue-participants').append(\"#{markup}\")"
+          script = "$('.venue-participants').append(\"#{markup}\");Venue.initMote();"
+          PrivatePub.publish_to @venue.back_channel, script
+
           # after join redirect to venue page
-          redirect_to @participation.venue
+          redirect_to @venue
         end
         #format.json { render json: @participation, status: :created, location: @participation }
       else

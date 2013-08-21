@@ -105,18 +105,26 @@ class Venue < ActiveRecord::Base
     []
   end
   
+  # this is rendered as json in venue/venue_show_live
   def details_for(user)
     { 
       streamId: "v#{id}u#{user.id}",
-      channel: event_channel,
+      channel: story_channel,
       role: (self.user == user) ? 'host' : 'participant',
-      eventSubscription: PrivatePub.subscription(channel: event_channel),
+      storySubscription: PrivatePub.subscription(channel: story_channel),
+      backSubscription: PrivatePub.subscription(channel: back_channel),
       chatSubscription: PrivatePub.subscription(channel: channel_name)
     }
   end
 
-  def event_channel
-    "/live/v#{id}e#{next_event.id}"
+  # the event channel propagates events, which get replayed on join
+  def story_channel
+    "/story/v#{id}e#{next_event.id}"
+  end
+
+  # the back channel propagates events, which don't get replayed
+  def back_channel
+    "/back/v#{id}e#{next_event.id}"
   end
 
   def chat_name

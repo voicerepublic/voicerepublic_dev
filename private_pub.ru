@@ -13,7 +13,7 @@ faye = PrivatePub.faye_app
 
 class FayeNSA
 
-  HISTORIZE_REGEX = /\/(chatchannel|live)\/(.*)/
+  HISTORIZE_REGEX = /\/(chatchannel|story)\/(.*)/
 
   attr_accessor :history
 
