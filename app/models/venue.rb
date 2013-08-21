@@ -108,7 +108,7 @@ class Venue < ActiveRecord::Base
   # this is rendered as json in venue/venue_show_live
   def details_for(user)
     { 
-      streamId: "v#{id}u#{user.id}",
+      streamId: "v#{id}e#{next_event.id}u#{user.id}",
       channel: story_channel,
       role: (self.user == user) ? 'host' : 'participant',
       storySubscription: PrivatePub.subscription(channel: story_channel),
