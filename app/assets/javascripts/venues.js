@@ -214,7 +214,8 @@
   window.flashInitialized = function() {
     //log('flash initialized');
     initVenue();
-    Venue.initFaye();
+    PrivatePub.sign(Venue.eventSubscription);
+    PrivatePub.sign(Venue.chatSubscription);
     // auto publish host
     if(Venue.role == 'host') {
       Venue.blackbox.publish(Venue.streamId);

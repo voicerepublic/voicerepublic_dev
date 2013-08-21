@@ -1,16 +1,5 @@
--# this should move into model venue
-- venue_id  = "v#{@venue.id}"
-- stream_id = "v#{@venue.id}u#{current_user.id}"
-- channel   = "/live/#{venue_id}"
 :javascript
-  Venue = {
-    venueId: "#{venue_id}", streamId: "#{stream_id}", channel: "#{channel}",
-    role: '#{@venue.user == current_user ? 'host' : 'participant'}',
-    // listen to events from others
-    initFaye: function() {
-      PrivatePub.sign(#{PrivatePub.subscription(channel: channel).to_json})
-    }
-  };
+  Venue = #{@venue.details_for(current_user).to_json};
 
 -# load swfobject and provide element to hook into
 - content_for :head do
