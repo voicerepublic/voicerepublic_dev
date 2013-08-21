@@ -116,7 +116,7 @@
     Venue = $.extend({}, Venue, {
       subscriptions: [],
       onPromote: function(streamId) {
-        log('received onPromote for '+streamId);
+        //log('received onPromote for '+streamId);
 
         // ui changes (seems to work on host but not on participant)
         var user = $('.venue-participants *[data-stream-id='+streamId+']');
@@ -135,10 +135,11 @@
         $('#onair').fadeIn();
       },
       onDemote: function(streamId) {
-        log('received onDemote for '+streamId);
+        //log('received onDemote for '+streamId);
 
         // ui changes
-        $('.users-onair-participants-box *[data-stream-id='+streamId+']').fadeOut();
+        var avatar = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
+        avatar.fadeOut(function() { avatar.remove() });
         $('.venue-participants *[data-stream-id='+streamId+']').fadeIn();
 
         // business logic changes
@@ -151,14 +152,14 @@
       // all senders (the host and all guests) should
       // respond with triggering a subscribe
       onRegister: function(streamId) {
-        log('received onRegister of '+streamId+', '+Venue.streamId+', '+Venue.role);
+        //log('received onRegister of '+streamId+', '+Venue.streamId+', '+Venue.role);
         if(streamId == Venue.streamId) return; // ignore self
         if(Venue.role == 'participant') return; // skip unless sender (guest or host)
         Venue.subscribe();
       },
       // onSubscribe is triggered by senders upon receiving a onRegister
       onSubscribe: function(streamId) {
-        log('received onSubscribe to '+streamId);
+        //log('received onSubscribe to '+streamId);
         if(streamId == Venue.streamId) return; // ignore self
         if($.inArray(streamId, Venue.subscriptions) != -1) return; // skip known
         Venue.blackbox.subscribe(streamId);
@@ -167,12 +168,12 @@
       // --- Triggers
       // tiggers onRegister on other side
       register: function() {
-        log('sending register of '+Venue.streamId);
+        //log('sending register of '+Venue.streamId);
         Venue.publish("Venue.onRegister('"+Venue.streamId+"');");
       },
       // tiggers onSubscribe on other side
       subscribe: function() {
-        log('sending subscribe to '+Venue.streamId);
+        //log('sending subscribe to '+Venue.streamId);
         Venue.publish("Venue.onSubscribe('"+Venue.streamId+"');");
       },
       // triggers onPromote
@@ -184,9 +185,16 @@
         Venue.publish("Venue.onDemote('"+streamId+"');");
       },
       // --- Helpers
+      initMote: function() {
+        if(Venue.role != 'host') return;
+        $('.promote-icon').on('click', promoteHandler);
+        $('.demote-icon').on('click', demoteHandler);
+        $('.venue-participants .promote-icon').show();
+        $('.users-onair-participants-box .demote-icon').show();
+      },
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
-        log('publish: '+data);
+        //log('publish: '+data);
         var channel = Venue.channel;
         $.ajax('/fayeproxy', { type: 'POST', data: { channel: channel, data: data } });
       }
@@ -215,10 +223,12 @@
   window.flashInitialized = function() {
     //log('flash initialized');
     initVenue();
-    PrivatePub.sign(Venue.eventSubscription);
+    PrivatePub.sign(Venue.storySubscription);
+    PrivatePub.sign(Venue.backSubscription);
     PrivatePub.sign(Venue.chatSubscription);
     // auto publish host
     if(Venue.role == 'host') {
+      Venue.initMote();
       Venue.blackbox.publish(Venue.streamId);
       Venue.subscribe();
       $('#onair').fadeIn();
@@ -226,14 +236,5 @@
   };
 
   initBlackbox();
-
-  $('.promote-icon').on('click', promoteHandler);
-  $('.demote-icon').on('click', demoteHandler);
-
-  $('.venue-participants .demote-icon').hide();
-  $('.users-onair-participants-box .promote-icon').hide();
-
-  $('.venue-host .demote-icon').hide();
-  $('.venue-host .promote-icon').hide();
 
 })(jQuery);

@@ -14,10 +14,9 @@
       = image_tag @venue.image.url(:large), :class => "venue-description-image"
     .span8
       .venue-summery
-        -#TODO summery
-        Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+        = sophisticated_format(@venue.summary)
 
-  .venue-description-content= simple_format @venue.description
+  .venue-description-content= sophisticated_format @venue.description
 
   - if @venue.user != current_user
     - unless  @venue.user_participates?(current_user)

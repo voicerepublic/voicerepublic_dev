@@ -35,7 +35,13 @@ function buildPrivatePub(doc) {
       incoming: function(message, callback) {
         if (message.channel == '/meta/subscribe') {
           if ( message.ext && message.ext.data && message.ext.data.eval ) {
-            eval(message.ext.data.eval);
+            try {
+              eval(message.ext.data.eval);
+            } catch (error) {
+              if(console!=undefined) {
+                console.log('An error occured evaluating: '+message.ext.data.eval);
+              }
+            }
           }
         }  
         callback(message);
@@ -65,7 +71,14 @@ function buildPrivatePub(doc) {
 
     handleResponse: function(message) {
       if (message.eval) {
-        eval(message.eval);
+        try {
+          eval(message.eval);
+        }
+        catch(error) {
+          if(console!=undefined) {
+            console.log('An error occured evaluating: '+message.eval);
+          }
+        }
       }
       if (callback = self.subscriptionCallbacks[message.channel]) {
         callback(message.data, message.channel);

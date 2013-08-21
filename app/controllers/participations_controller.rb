@@ -50,16 +50,30 @@ class ParticipationsController < ApplicationController
   # POST /participations
   # POST /participations.json
   def create
+    params[:participation] ||= {}
+    params[:participation][:venue_id] = params[:venue_id]
+
     @participation = Participation.new(params[:participation])
     @participation.user_id = current_user.id
 
     respond_to do |format|
       if @participation.save
-        format.html { redirect_to @participation.venue }
-        format.json { render json: @participation, status: :created, location: @participation }
+        format.html do
+          # make avatars appear on participant's view
+          @venue = @participation.venue
+
+          markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_user }
+          markup = markup.gsub('"', "'").gsub("\n", '')
+          script = "$('.venue-participants').append(\"#{markup}\");Venue.initMote();"
+          PrivatePub.publish_to @venue.back_channel, script
+
+          # after join redirect to venue page
+          redirect_to @venue
+        end
+        #format.json { render json: @participation, status: :created, location: @participation }
       else
-        format.html { redirect_to @participation.venue }
-        format.json { render json: @participation.errors, status: :unprocessable_entity }
+        format.html { redirect_to Venue.find(params[:participation][:venue_id]) }
+        #format.json { render json: @participation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -83,12 +97,13 @@ class ParticipationsController < ApplicationController
   # DELETE /participations/1
   # DELETE /participations/1.json
   def destroy
-    @participation = Participation.find(params[:id])
+    #@participation = Participation.find(params[:id])
+    @participation = current_user.participations.find_by_venue_id(params[:venue_id])
     @participation.destroy
 
     respond_to do |format|
-      format.html { redirect_to participations_url }
-      format.json { head :no_content }
+      format.html { redirect_to @participation.venue }
+      #format.json { head :no_content }
     end
   end
 end
