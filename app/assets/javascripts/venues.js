@@ -189,8 +189,10 @@
         if(Venue.role != 'host') return;
         $('.promote-icon').on('click', promoteHandler);
         $('.demote-icon').on('click', demoteHandler);
+        $('.venue-participants .demote-icon').hide();
         $('.venue-participants .promote-icon').show();
         $('.users-onair-participants-box .demote-icon').show();
+        $('.users-onair-participants-box .promote-icon').hide();
       },
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
