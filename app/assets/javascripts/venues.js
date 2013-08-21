@@ -138,7 +138,8 @@
         //log('received onDemote for '+streamId);
 
         // ui changes
-        $('.users-onair-participants-box *[data-stream-id='+streamId+']').fadeOut();
+        var avatar = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
+        avatar.fadeOut(function() { avatar.remove() });
         $('.venue-participants *[data-stream-id='+streamId+']').fadeIn();
 
         // business logic changes
