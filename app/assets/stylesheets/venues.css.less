@@ -91,6 +91,7 @@
 }
 
 .venue-event-time{
+  padding-top: 35px;
   color:#932945;
   font-size: @baseFontSize * 1.2;
   font-weight: bold;
@@ -281,6 +282,10 @@
   margin-bottom: 50px
 }
 
+.venue-show-live{
+  position: relative;
+}
+
 .venue-live-box{
   .venue-description{
 /*    height:0;
@@ -307,12 +312,15 @@
 }
 
 #Blackbox{
-  /*visibility: hidden*/
+  position: absolute;
+  right: 0px;
+  top:-15px;
 }
 
 .talking-users-box{
   background:#A9C158;
-  border-radius: 0 !important
+  border-radius: 0 !important;
+  position: relative;
 }
 
 .venue-live-left{
