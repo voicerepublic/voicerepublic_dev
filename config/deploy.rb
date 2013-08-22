@@ -23,7 +23,7 @@ set :rails_env, "production"
 # set :stages , %w{staging production}
 # set :default_stage, "staging"
 set :whenever_command, "bundle exec whenever"
-set :whenever_environment, defer { stage }
+set :whenever_environment, "production"
 set :whenever_roles, [:app]
 #TODO update bundler on the servers for using: require 'whenever/capistrano'
 require "whenever/capistrano/recipes"
