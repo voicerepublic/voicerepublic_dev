@@ -1,7 +1,6 @@
 require 'capistrano-rbenv'
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
-require 'whenever/capistrano'
 require 'thinking_sphinx/deploy/capistrano'
 
 set :rbenv_ruby_version, "1.9.3-p429"
@@ -26,6 +25,10 @@ set :rails_env, "production"
 set :whenever_command, "bundle exec whenever"
 set :whenever_environment, defer { stage }
 set :whenever_roles, [:app]
+#TODO update bundler on the servers for using: require 'whenever/capistrano'
+require "whenever/capistrano/recipes"
+after "deploy:finalize_update", "whenever:update_crontab"
+after "deploy:rollback", "whenever:update_crontab"
 
 task :update_config_links, :roles => [:app] do
   run "ln -sf #{shared_path}/config/* #{release_path}/config/"
