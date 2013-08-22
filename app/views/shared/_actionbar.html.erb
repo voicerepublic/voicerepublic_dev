@@ -74,8 +74,8 @@
 					 	<li>
 					 		<%= link_to(user_conversations_path(:user_id => current_user), :title => t('.messages', :default => "Messages")) do %>
 					 			<i class="icon-envelope"> </i>
-					 			<span class="badge <%= badge_for_count(notification_count) %>" id="messages-count-<%= current_user.id %>">
-                                                                  <%= notification_count > 0 ? notification_count : "" %>
+					 			<span class="badge <%= badge_for_count(unread_messages_count) %>" id="messages-count-<%= current_user.id %>">
+                                                                  <%= unread_messages_count > 0 ? unread_messages_count : "" %>
 					 			</span>
 					 		<% end %>
 					 	</li>
