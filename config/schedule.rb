@@ -20,11 +20,12 @@
 # Learn more: http://github.com/javan/whenever
 
 set :rbenv_root, "/home/rails/.rbenv"
-env :PATH, "#{rbenv_root}/shims:#{rbenv_root}/bin:/bin:/usr/bin"
+env :PATH, "#{rbenv_root}/shims:#{rbenv_root}/bin:/bin:/usr/bin:$PATH"
 set :output, "/home/rails/app/shared/log/whenever-cron.log"
 
 every 1.minutes do
   command 'echo "test $(date)"'
+  runner 'raise "#{Venue.count}"'
 end
 
 every 60.minutes, :roles => [:app] do
