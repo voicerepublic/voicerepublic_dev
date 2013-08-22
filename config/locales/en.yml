@@ -209,10 +209,10 @@ en:
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
     pm: pm
-    
+
   call_now: "call now"
   call_dispatched: "call dispatched"
-    
+
   will_paginate:
     next_label: ">>"
     previous_label: "<<"
@@ -238,8 +238,8 @@ en:
     follow_created: "you are following this user now"
   controller_klus:
     balance_account_not_created_yet: "you need to create your finance-account"
-  
-  
+
+
   ###########  models ####################
   # in notification-models generiert
   you_missed_a_call_on_your_klu: "You missed a call to your KluuU."
@@ -253,9 +253,9 @@ en:
   model_notification_follower_action:
     friend_took_action: "Activity by %{friend} on KluuU"
   model_notification_new_bookmark:
-    your_klu_got_bookmarked: "%{bookmarker} bookmarked your KluuU '%{klu_title}'" 
+    your_klu_got_bookmarked: "%{bookmarker} bookmarked your Venue '%{klu_title}'"
   model_notification_new_comment:
-    you_got_a_new_comment_by: "%{commenter} commented on your KluuU."
+    you_got_a_new_comment_by: "%{commenter} commented on your Venue."
   model_notification_new_follower:
     you_got_a_new_follower: "%{name} now follows you."
   model_notification_new_kluuu:
@@ -285,20 +285,20 @@ en:
     weekly: "weekly"
     biweekly: "biweekly"
     monthly: "monthly"
-    
+
   ###########  helpers  ##################
-  
+
   helper:
     application:
       kluuu_string: "KluuU"
       no_kluuu_string: "Question"
-      
+
   ########### mailers ####################
-  
+
   mailers:
     your_friend_took_action: "Activities of your friends on KluuU"
     activity_around_you: "Activities concerning your account on KluuU"
-  
+
   ###########  views #####################
   accounts:
     form_preferences:
@@ -310,7 +310,7 @@ en:
       on_site_help: "Help text on / off"
       call_settings: "Call settings"
       allow_anonymous_calls: "Allow video calls from anonymous caller."
-    form: 
+    form:
       delete_portrait: "Delete profilephoto"
     edit:
       edit_profile: "Edit profile"
@@ -326,7 +326,7 @@ en:
         currency: "Currency"
         prepaid: "Prepaid"
         revenue: "Revenue"
-      check_in_orders: 
+      check_in_orders:
         new:
           check_in_money: "Buy credit"
         paypal:
@@ -338,9 +338,9 @@ en:
       end_chat: "End chat"
       submit: "Send"
     group_form:
-      your_message: "Write here..." 
+      your_message: "Write here..."
       submit: "Post"
-      join_this_venue_to_chat: "You need to join this venue to write here"     
+      join_this_venue_to_chat: "You need to join this venue to write here"
     show:
       text_chat: "Chat"
   comments:
@@ -363,7 +363,7 @@ en:
       back_to_all_conversations: "Compact view "
       new_message: "Reply to sender"
       delete_conversation: "Delete conversation"
-      
+
   dashboard:
     contacts_page:
       contacts: "Contacts"
@@ -406,15 +406,15 @@ en:
       and_friends: "and contacts"
       his_follower: "Followers"
       people_he_follows: "Following"
-      
+
   klu_images:
     describe_your_picture_in_a_few_words: "Upload a photo"
-    
+
   klus:
     comment_section:
       headline_1: "Comments"
       headline_2: "Blog for: %{name}"
-      
+
     facebook_value_template:
       talk_on_kluuu_about: "Talk with %{name} about '%{subject}'"
     form_welcome_new_no_kluuu:
@@ -428,13 +428,13 @@ en:
       call_options: "Video call options"
       available_at_times: "Availabitlity"
       charge_type: "Charge Type"
-      charge_cents: "Charge in cent"    
+      charge_cents: "Charge in cent"
     form_new_kluuu:
       title: "Title"
       enter_the_name_of_your_kluuu: "What's your theme?"
       description: "Description"
       describe_your_kluuu: "You can change the description anytime."
-      image: "Image"      
+      image: "Image"
       add_image_to_your_kluuu: "Please upload a photo."
       tag_list: "Tags, 3 or more - separate by comma: recipe, cooking, organic,"
       category: "Category"
@@ -442,7 +442,7 @@ en:
       available_at_times: "Times available."
       at_what_time_are_you_available: "This information is optional."
       charge_type: "Charge type"
-      charge_cents: "Charge in cent"   
+      charge_cents: "Charge in cent"
       missing_balance_account_create_one_now: "for payed KluuUs - settup your financial preferences first!"
       you_can_charge_for_your_kluuu: "You can offer your conversations for free, charge per minute or at a fixed price."
       you_can_charge_by_minute_or_a_fixed_price: "Set a rate per minute between $ 10 Cents and $ 5 or a fixed price between $ 10 Cents and $ 50."
@@ -464,17 +464,17 @@ en:
       tag_list: "Tag list (separate by comma: recipe, cooking, organic)"
       published: "Public"
       save_no_kluuu: "Save Question"
-      cancel: "Cancel"      
+      cancel: "Cancel"
     form_no_kluuu:
       title: "Title"
       category: "Category"
       tag_list: "Tag list"
       save: "Save Question"
-      cancel: "Cancel" 
+      cancel: "Cancel"
       call_options: "Call options"
     kluuu_top_actions:
       edit: "Edit"
-      destroy: "Delete"    
+      destroy: "Delete"
       add_image: "Add image"
       add_bookmark: "Add Bookmark"
       add_bookmark_title: "Add Bookmark"
@@ -519,8 +519,8 @@ en:
       create_klu: "Create KluuU"
     user_with_kluuu:
       with_klu_text: "See your KluuUs here."
-      create_klu: "Create KluuU"      
-  
+      create_klu: "Create KluuU"
+
   landing_page:
     news: "NEWS"
     index:
@@ -534,14 +534,14 @@ en:
     lp_venues:
       featured_venue: "KluuU recommends"
       upcoming_venues: "UPCOMING VENUES"
-      
+
   messages:
     received_message:
       reply: "Reply"
       delete: "Delete"
     sent_message:
       delete: "Delete"
-      
+
   notifications:
     call_rejected:
       video_call_title: "Video call"
@@ -576,7 +576,7 @@ en:
       taggings_with: "KluuUs and questions tagged with %{tag}"
       no_kluuus_tagged_with: "No results for tag %{tag} found."
       no_kluuu: "Questions"
-      title_other_tags: "Trends"      
+      title_other_tags: "Trends"
     form:
       search: "Search!"
     search:
@@ -587,11 +587,11 @@ en:
       text: "Create a question and use our matching system!"
       sign_up: "Sign up"
       user: "User"
-  
+
   shared:
     actionbar:
       my_profile: "My profile"
-      create_kluuu: "New KluuU" 
+      create_kluuu: "New KluuU"
       create_question: "New Question"
       notifications: "News"
       messages: "Messages"
@@ -629,7 +629,7 @@ en:
       logout: "Log Out"
     venues:
       venues: "Venues"
-  
+
   status_updates:
     status_update:
       add_comment: "Comment "
@@ -653,7 +653,7 @@ en:
       new_status: "New Status"
 
   bookmarks:
-    index: 
+    index:
       guest_empty_bookmark: "%{name} has no Bookmarks yet."
     no_bookmarks:
       title: "Bookmarks"
@@ -710,13 +710,13 @@ en:
       edit_your_profile: "Edit profil"
     kluuus:
       klus: "KluuUs"
-      guest_empty_klu: "%{name} has no KluuU yet."    
+      guest_empty_klu: "%{name} has no KluuU yet."
     venues:
       venues: "Venues"
       guest_empty_venue: "%{name} has no venues yet."
     show:
       klus: "KluuUs"
-      guest_empty_venue: "%{name} has not yet participated a venue yet."  
+      guest_empty_venue: "%{name} has not yet participated a venue yet."
 
 
   venues:
@@ -753,23 +753,23 @@ en:
       by: "by"
     venue_show_chat:
       what_is_a_venue: "Tell me about venues"
-      see_other_venues: "All Venues"      
+      see_other_venues: "All Venues"
     venue_show_forum:
       comments: "Comments"
       articles: "DISCUSSION"
     venue_show_participants:
       leave_venue_popup: "This link opens a new tab!"
       participants: "PARTICIPANTS"
-      be_the_first_to_participate: "Be the first to participate!"      
+      be_the_first_to_participate: "Be the first to participate!"
     venue_article:
       comment: "Comment"
-      all_comments: "All comments"       
+      all_comments: "All comments"
     venue_show_talking_users:
-      host: "HOST"   
+      host: "HOST"
       participants: "GUESTS"
     venue_show_actions:
       unjoin_venue: "Unjoin"
-      confirm_unjoin_venue: "Really want to unjoin this venue?" 
+      confirm_unjoin_venue: "Really want to unjoin this venue?"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
@@ -798,7 +798,7 @@ en:
       venue_title: "Venue"
       go_venue_page: "Proceed to venue-page"
       join_venue: "Participate now!"
-      
+
     venue_form:
       write_a_comment: "write a comment"
       write_an_article: "write an article"
@@ -813,14 +813,14 @@ en:
       news_title: "News"
       venue_is_over: "past venue"
     form:
-      featured_from: "Featured from"    
+      featured_from: "Featured from"
       title: "Title of venue"
       description: "Description of venue"
       start_time: "Time"
       host_kluuu: "Hosting KluuU"
       duration: "Duration of your talk in minutes"
       start_date: "Date"
-      start_time: "Time"      
+      start_time: "Time"
       datepick_placeholder: "select..."
       timepick_placeholder: "select..."
       datepick_help: "Example: 20/12/2013"
@@ -831,11 +831,11 @@ en:
       event_title: 'Talk title'
     change_time_form:
       start_date: "Date"
-      start_time: "Time"    
+      start_time: "Time"
       datepick_placeholder: "select..."
       timepick_placeholder: "select..."
       datepick_help: "Example: 20/12/2013"
-      timepick_help: "Example: 18:15" 
+      timepick_help: "Example: 18:15"
 
     group_chat:
       venue_chat: "CHAT"
@@ -843,14 +843,14 @@ en:
       host_field_title: "Infos about chat"
     host_info_form:
       your_host_message: "Write here your chat infos..."
-      submit: "Post"    
+      submit: "Post"
     with_venues:
       these_are_your_venues: "See your Venues here."
       create_venue: "Create Venue"
-    no_venues: 
-      create_venue_for_your_kluuu: "Create your own chat room for your KluuU."   
+    no_venues:
+      create_venue_for_your_kluuu: "Create your own chat room for your KluuU."
       create_venue: "Create Venue"
-      
+
   video_sessions:
     anonymous_sign_up:
       video_call_title: "Video call"
@@ -886,5 +886,5 @@ en:
     video_system_error:
       video_down_text: "Sorry! The video system is temporarily out of order. We're working on it. Please try again later."
       close: "Close"
-  
+
   hello: "Hello world"

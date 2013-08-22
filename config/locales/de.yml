@@ -128,7 +128,7 @@ de:
     select:
       prompt: Bitte wählen
     submit:
-      create: ! 'Speichern'    
+      create: ! 'Speichern'
       submit: ! 'Speichern'
       update: ! 'Speichern'
 
@@ -203,10 +203,10 @@ de:
       short: ! '%d. %B, %H:%M Uhr'
       micro: ! '%H:%M Uhr'
     pm: nachmittags
-  
+
   call_now: "direkt anrufen"
   call_dispatched: "anruf gestartet"
-  
+
   will_paginate:
     next_label: ">>"
     previous_label: "<<"
@@ -233,8 +233,8 @@ de:
     follow_created: "Du folgst diesem Nutzer jetzt."
   controller_klus:
     balance_account_not_created_yet: "Du musst zunächst dein Finanz-Konto einrichten!"
-    
-      
+
+
   ###########  models ####################
   # in notification-models generiert
   you_missed_a_call_on_your_klu: "Du hast einen Anruf für dein KluuU verpasst."
@@ -248,7 +248,7 @@ de:
   model_notification_follower_action:
     friend_took_action: "Aktivität von %{friend} auf KluuU."
   model_notification_new_bookmark:
-    your_klu_got_bookmarked: "%{bookmarker} hat dein KluuU '%{klu_title}' mit einem Lesezeichen versehen." 
+    your_klu_got_bookmarked: "%{bookmarker} hat dein Venue '%{klu_title}' mit einem Lesezeichen versehen."
   model_notification_new_comment:
     you_got_a_new_comment_by: "Du hast einen Kommentar von %{commenter} erhalten."
   model_notification_new_follower:
@@ -280,21 +280,21 @@ de:
     weekly: "Wöchentlich"
     biweekly: "Zweiwöchentlich"
     monthly: "Monatlich"
-    
-  
+
+
   ###########  helpers  ##################
-  
+
   helper:
     application:
       kluuu_string: "KluuU"
       no_kluuu_string: "Frage"
-      
+
   ########### mailer #####################
-  
+
   mailers:
     your_friend_took_action: "Aktivitäten deiner Freunde auf KluuU"
     activity_around_you: "Aktivität um deinen Account auf KluuU"
-  
+
   ###########  views #####################
   accounts:
     form_preferences:
@@ -306,7 +306,7 @@ de:
       on_site_help: "Hilfe Texte an/aus"
       call_settings: "Anrufeinstellungen"
       allow_anonymous_calls: "Ich erlaube anonyme Video-Anrufe von nicht angemeldeten Nutzern."
-    form: 
+    form:
       delete_portrait: "Portrait löschen"
     edit:
       edit_profile: "Profil bearbeiten"
@@ -321,8 +321,8 @@ de:
         soon_more: "bald gibts hier mehr..."
         currency: "Währung"
         prepaid: "Prepaid"
-        revenue: "Ertrag"        
-      check_in_orders: 
+        revenue: "Ertrag"
+      check_in_orders:
         new:
           check_in_money: "Prepaid Guthaben einzahlen"
         paypal:
@@ -360,7 +360,7 @@ de:
       back_to_all_conversations: "Zurück zur Übersicht"
       new_message: "Schreibe eine Antwort"
       delete_conversation: "Unterhaltung löschen"
-      
+
   dashboard:
     contacts_page:
       contacts: "Kontakte"
@@ -398,9 +398,9 @@ de:
       edit_preferences: "Einstellungen bearbeiten"
     venues:
       my_venues: "Meine Treffpunkte"
-     
-      
-      
+
+
+
   follows:
     follower:
       follow_back: "Ebenfalls folgen"
@@ -408,10 +408,10 @@ de:
       and_friends: "und Freunde"
       his_follower: "Follower"
       people_he_follows: "Gefolgte"
-      
+
   klu_images:
     describe_your_picture_in_a_few_words: "Beschreibe dein Bild mit ein paar Worten."
-    
+
   klus:
     comment_section:
       headline_1: "Kommentare"
@@ -441,7 +441,7 @@ de:
       category: "Kategorie"
       please_use_significant_tags: "Schau in Deiner Beschreibung für gute Schlagworte. Je mehr Schlagworte du benutzt, desto besser lässt sich Dein KluuU finden."
       available_at_times: "Wann bist du zu diesem KluuU online? "
-      at_what_time_are_you_available: "Diese Angabe ist optional." 
+      at_what_time_are_you_available: "Diese Angabe ist optional."
       charge_type: "Preismodel"
       charge_cents: "Betrag in Cent"
       missing_balance_account_create_one_now: "Für Kluuus mit Tarif - zunächst Konto einrichten!"
@@ -469,7 +469,7 @@ de:
     form_no_kluuu:
       title: "Titel"
       category: "Kategorie"
-      tag_list: "Schlagwort Liste - getrennt mit Komma. Z.B.: Rezept, kochen, vegetarisch)"   
+      tag_list: "Schlagwort Liste - getrennt mit Komma. Z.B.: Rezept, kochen, vegetarisch)"
       save: "Frage aktualisieren"
       cancel: "Abbrechen"
       call_options: "Anruf-Optionen"
@@ -479,7 +479,7 @@ de:
       add_image: "Bild hinzufügen"
       add_bookmark: "Lesezeichen"
       add_bookmark_title: "Lesezeichen hinzufügen"
-      delete_bookmark_title: "Lesezeichen löschen"    
+      delete_bookmark_title: "Lesezeichen löschen"
     kluuu_user:
       send_message: "Nachricht schicken"
       chat : "Text-Chat"
@@ -492,7 +492,7 @@ de:
     kluuu:
       add_bookmark: "Lesezeichen"
       add_bookmark_title: "Lesezeichen hinzufügen"
-      delete_bookmark_title: "Lesezeichen löschen"    
+      delete_bookmark_title: "Lesezeichen löschen"
       feedbacks: "Bewertungen:"
       this_kluuu_is_bookmarked: "Mit Lesezeichen versehen von:"
       people_who_wanna_know_more_about: "→ Treffer zum KluuU:"
@@ -524,7 +524,7 @@ de:
     user_with_kluuu:
       with_klu_text: "Hier siehst Du Deine KluuUs."
       create_klu: "KluuU erstellen"
-  
+
   landing_page:
     news: "NEWS"
     index:
@@ -535,17 +535,17 @@ de:
       illu_2_subtitle: "(Chatraum)"
       illu_3: "und 1:1 Video"
       enter_search_term: "Suchbegriff eingeben"
-    lp_venues:  
+    lp_venues:
       featured_venue: "UNSER TIPP!"
       upcoming_venues: "KOMMENDE TREFFPUNKTE"
-      
+
   messages:
     received_message:
       delete: "Löschen"
       reply: "Antworten"
     sent_message:
       delete: "Löschen"
-      
+
   notifications:
     call_rejected:
       video_call_title: "Video Anruf"
@@ -592,10 +592,10 @@ de:
       text: "Erstelle ein Frage und nutze unser Matching System!"
       sign_up: "Anmelden"
       user: "Nutzer"
-  
+
   shared:
     actionbar:
-      create_kluuu: "Neues KluuU" 
+      create_kluuu: "Neues KluuU"
       create_question: "Neue Frage"
       notifications: "Neuigkeiten"
       messages: "Nachrichten"
@@ -617,7 +617,7 @@ de:
       venues: "Treffpunkte"
     footer:
       legal: "Rechtliches"
-      terms_of_use: "Nutzungsbedingungen"   
+      terms_of_use: "Nutzungsbedingungen"
       terms_and_conditions: "AGB"
     navbar:
       sign_up: "Registrieren"
@@ -638,7 +638,7 @@ de:
       contacts: "Kontakte"
       messages: "Nachrichten"
       settings: "Einstellungen"
-      finances: "Finanzen"    
+      finances: "Finanzen"
 
   status_updates:
     opinion: 'Status'
@@ -647,7 +647,7 @@ de:
       comments: "Kommentare"
     index:
       new_status_update: "Neuer Status"
-      guest_empty_status_update: "%{name} hat noch keinen Status."      
+      guest_empty_status_update: "%{name} hat noch keinen Status."
     show:
       back: "Zurück"
     new:
@@ -662,7 +662,7 @@ de:
       title: "Status"
       these_are_your_status_updates: "Hier siehst du alle Deine Status."
       new_status: "Neuer Status"
-  
+
   bookmarks:
     index:
       guest_empty_bookmark: "%{name} hat noch keine Lesezeichen."
@@ -680,7 +680,7 @@ de:
       no_klu_text: "Aus Deinem Interesse generieren wir eine \"Frage\". Diese matchen wir mit passenden KluuUs. Probier's aus, unser Matching-System macht Spass!"
     basic_form:
       edit_your_email: "Hier kannst Du die E-Mail Adresse ändern, mit der Du bei KluuU registriert bist."
-      save_email: "E-Mail Adresse speichern"  
+      save_email: "E-Mail Adresse speichern"
     nested_form:
       delete_portrait: "Löschen"
       add_a_portrait: "Füge hier ein Portrait Foto ein."
@@ -697,7 +697,7 @@ de:
       rewrite_new_password: "Passwort wiederholen"
       update_password: "Passwort speichern"
     status_updates:
-      opinion: "Status"    
+      opinion: "Status"
       add_comment: "kommentieren"
       comment: "Kommentar"
       new_status_update: "Neuer Status"
@@ -738,7 +738,7 @@ de:
 
   venues:
     date_changed: "Treffpunkt Termin aktualisiert"
-    edit: 
+    edit:
       venue_edit_title: "Treffpunkt bearbeiten"
       venue_renew_title: "Neues Datum"
       confirm_change_date: "Die Änderung des Termins wird im Anschluss den bisherigen Teilnehmern mitgeteilt"
@@ -784,16 +784,16 @@ de:
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     venue_show_talking_users:
       host: "GASTGEBER"
-      participants: "GÄSTE"      
+      participants: "GÄSTE"
     venue_show_actions:
-      unjoin_venue: "Teilnahme zurückziehen" 
-      confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"     
+      unjoin_venue: "Teilnahme zurückziehen"
+      confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
     new:
       create_new_venue: "Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
       create_kluuu: "jetzt ein KluuU erstellen"
     new_join:
-      participate_in_venue: "Teilnehmen am Treffpunkt" 
+      participate_in_venue: "Teilnehmen am Treffpunkt"
       no_klus_available_to_join_venue: "Du hast noch keine 'Fragen' um am Treffpunkt teilzunehmen - erstelle zunächst eine!"
       click_on_your_klu_to_participate_in_venue: "Wähle einen KluuU oder eine Frage aus. Damit nimmst Du am Treffpunkt teil!"
       confirm_join: "Willst du mit deiner Frage '%{klu_name}' am Treffpunkt '%{title}' teilnehmen?"
@@ -839,7 +839,7 @@ de:
       host_kluuu: "Gastgebendes KluuU"
       duration: "Dauer des Gesprächs in Minuten"
       start_date: "Datum"
-      start_time: "Zeit"      
+      start_time: "Zeit"
       datepick_placeholder: "auswählen..."
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
@@ -847,7 +847,7 @@ de:
       settings: "Einstellungen"
       record: 'Zeichne dieses Gespräch auf'
       your_talk: 'Dein Gespräch'
-      event_title: 'Gesprächstitel'      
+      event_title: 'Gesprächstitel'
     change_time_form:
       start_date: "Datum"
       start_time: "Zeit"
@@ -855,23 +855,23 @@ de:
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
       timepick_help: "Beispiel: 18:15"
-      
+
     group_chat:
       venue_chat: "CHAT"
       show_host_info_controlls: "ein/ausblenden Moderator-Formular"
       host_field_title: "Infos zur Diskussion"
     host_info_form:
       your_host_message: "Schreibe hier die Infos zum Chat..."
-      submit: "Posten"    
-      
+      submit: "Posten"
+
     with_venues:
       these_are_your_venues: "Hier siehst Du Deine Treffpunkte."
       create_venue: "Treffpunkt erstellen"
-    no_venues: 
-      create_venue_for_your_kluuu: "Erstelle Deinen eigenen Chatraum zu Deinem KluuU."   
-      create_venue: "Treffpunkt erstellen" 
-    
-  
+    no_venues:
+      create_venue_for_your_kluuu: "Erstelle Deinen eigenen Chatraum zu Deinem KluuU."
+      create_venue: "Treffpunkt erstellen"
+
+
   video_sessions:
     anonymous_sign_up:
       video_call_title: "Video Anruf"
@@ -910,5 +910,5 @@ de:
 
 ######## globals #############
   attention: "Achtung"
-      
-  
+
+
