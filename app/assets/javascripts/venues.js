@@ -5,16 +5,33 @@
     $('.venue-desc-onair').toggleClass('show');
   });
 
-  $('.icon-microphone').click(function() {
+
+  muteMicrophone: function(elem) {
     Venue.blackbox.mute();
-    $(this).removeClass('icon-microphone');
-    $(this).addClass('icon-microphone-off');
+    $(elem).removeClass('icon-microphone');
+    $(elem).addClass('icon-microphone-off');
+    $(elem).append("mic off");
+    $('.icon-microphone-off').click(function() {
+      enableMicrophone($(this));
+    });
+  }
+
+  enableMicrophone: function(elem) {
+    Venue.blackbox.unmute();
+    $(elem).addClass('icon-microphone');
+    $(elem).removeClass('icon-microphone-off');
+    $(elem).append("mic on");
+    $('.icon-microphone').click(function() {
+      muteMicrophone($(this));
+    });
+  }
+
+  $('.icon-microphone').click(function() {
+    muteMicrophone($(this));
   });
 
   $('.icon-microphone-off').click(function() {
-    Venue.blackbox.unmute();
-    $(this).addClass('icon-microphone');
-    $(this).removeClass('icon-microphone-off');
+    enableMicrophone($(this));
   });
 
   var $chatBody = $('textarea.group_chat_textarea');
