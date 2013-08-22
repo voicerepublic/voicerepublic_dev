@@ -12,17 +12,13 @@
   min-height: 210px;
 }
 
-.venue-big-left{
-  width:252px;
-  position: absolute;
-  left: 20px;
-  top: 20px;
+.venue-big-header{
+  display: block;
+  margin-bottom: 10px;
 }
 
-.venue-big-right{
-  float:right;
-  padding-left:252px;
-  width: 100%;
+.venue-big-row{
+  padding: 0 !important
 }
 
 .venue-big-bg-link{
@@ -34,19 +30,34 @@
   top:0;
 }
 
-.venue-time{
+.venue-big-time{
   font-size: 13px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   color:#932945;
 }
 
+.venue-big-icon-box{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  display: block;
+  width: 25px;
+}
+
+.venue-big-icon{
+  display: block;
+  width: 25px;
+  max-width: 25px;
+  margin-right: 5px;
+  margin-top: -2px; 
+}
+
 .venue-big-image{
-  width:235px;
-  height:137px
+  width:100%;
 }
 
 .venue-big-title{
-  font-size: 16px;
+  font-size: 15px;
   line-height: 100%;
   display: inline;
   a{
@@ -54,8 +65,12 @@
   }
 }
 
+.venue-big-hr{
+  margin-top: 0
+}
+
 .venue-big-event-title{
-  margin-top: 0;
+  margin: 0;
   font-family: "Droid Serif";
   font-size: 20px;
   a{
@@ -64,10 +79,9 @@
 }
 
 .venue-big-host-link{
-  display: block;
+  display: inline;
   height: 22px;
   font-size: 12px;
-  padding-left: 26px;
   position: relative;
 }
 
@@ -76,4 +90,8 @@
   position: absolute;
   left: 0;
   top:-6px;
+}
+
+.venue-big-description{
+  margin: 0
 }

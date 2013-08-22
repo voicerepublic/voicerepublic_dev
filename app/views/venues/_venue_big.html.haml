@@ -2,41 +2,41 @@
   -#overall link to venue
   = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
 
-  -#time and image
-  .venue-big-left
-    .venue-time= l(venue.start_time)
-    = link_to venue_path(venue) do
-      = image_tag venue.image.url(:medium), :class => "venue-big-image"
-
-  -#venue summery
-  .venue-big-right
-    -#host link
-    %aside.venue-big-host-link
-      / = t('.by') + ' '
-      = link_to user_path(venue.user) do
-        = image_tag venue.user.account.portrait.url(:thumb), :class => "venue-big-user-thumb"      
-        = venue.user.name
-
+  %header.venue-big-header
+    %span.venue-big-icon-box
+      = image_tag "venue-icon-host.png", :class => "venue-big-icon"
     -#venue title
     %h3.venue-big-title= link_to venue.title, venue_path(venue)
-    
-    - if !venue.next_event.nil?
-      %h4.venue-big-event-title= link_to venue.next_event.title, venue_path(venue)
-      -#event title
-    = simple_format( truncate(venue.description, :length => 100))
+    -#host link
+    %aside.venue-big-host-link
+      = t('.by') + ' '
+      = link_to user_path(venue.user) do
+        -#= image_tag venue.user.account.portrait.url(:thumb), :class => "venue-big-user-thumb"      
+        = venue.user.name
+  .row-fluid.venue-big-row
+    .span3.venue-big-left
+      -#venue image
+      = link_to venue_path(venue) do
+        = image_tag venue.image.url(:medium), :class => "venue-big-image"
 
-    -#join-button
-    .venue-big-join-button.pull-right
+    .span9.venue-big-right
+      -#venue summery
+      %hr.venue-big-hr
+      -#time and image
+      .venue-big-time= l(venue.start_time)
+      - if !venue.next_event.nil?
+        %h4.venue-big-event-title= link_to venue.next_event.title, venue_path(venue)
+        -#event title
+      = simple_format( truncate(venue.summary, :length => 100), :class => "venue-big-description")
 
-      - if true or venue.user != current_user
-        - unless false and venue.user_participates?(current_user)
-          -#= link_to venue_join_path(:venue_id => venue.id), :class => "btn btn-venue btn-large pull-right", :method => :post do
-          = link_to participations_path(venue_id: venue.id),
-              :class => "btn btn-venue btn-large pull-right", :method => :post do
-            = t('.join_venue')
-            \&nbsp;#{image_tag "coffee_icon_white.png"}
-      - else
-        = link_to(venue_path(venue), :class => "btn btn-large btn-venue pull-right", :disabled => current_user ? false : true ) do
-          = t('.go_venue_page')
-          \&nbsp;#{image_tag "coffee_icon_white.png"}
+      -#join-button
+      .venue-big-join-button.pull-right
+
+        - if venue.user != current_user
+          - unless false and venue.user_participates?(current_user)
+            -#= link_to venue_join_path(:venue_id => venue.id), :class => "btn btn-venue btn-large pull-right", :method => :post do
+            = link_to participations_path(venue_id: venue.id),
+                :class => "btn btn-venue btn-large pull-right", :method => :post do
+              = t('.join_venue')
+              \&nbsp;#{image_tag "coffee_icon_white.png"}
   .clearfix
