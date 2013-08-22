@@ -5,6 +5,18 @@
     $('.venue-desc-onair').toggleClass('show');
   });
 
+  $('.icon-microphone').click(function() {
+    Venue.blackbox.mute();
+    $(this).removeClass('icon-microphone');
+    $(this).addClass('icon-microphone-off');
+  });
+
+  $('.icon-microphone-off').click(function() {
+    Venue.blackbox.unmute();
+    $(this).addClass('icon-microphone');
+    $(this).removeClass('icon-microphone-off');
+  });
+
   var $chatBody = $('textarea.group_chat_textarea');
   $('.group_chat_submit').on('click', function(event){
     event.preventDefault();
