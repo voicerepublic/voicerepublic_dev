@@ -28,4 +28,3 @@
       - if Kblog::Article.first &&! @news_shown
         %header.news-header= t('landing_page.news')
         = display_latest_articles(1, 400)
-

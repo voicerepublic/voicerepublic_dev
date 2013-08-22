@@ -1,87 +1,79 @@
 /*
  *= require_self
  */
-
-.venue-title{
-  display: inline;
-}
+@import "config.css.less";
 
 .venue-big{
-  padding: 10px 20px;
+  padding: 20px 30px;
   margin-top:5px;
-/*  box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -moz-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -webkit-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -ms-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -o-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);*/
   border-radius: 8px;
   border:3px solid #ccc;
-  position: relative; 
+  position: relative;
+  min-height: 210px;
+}
 
-  .venue-big-bg-link{
-    width:100%;
-    height:100%;
-    display: block;
-    position: absolute;
-    left:0;
-    top:0;
+.venue-big-left{
+  width:252px;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.venue-big-right{
+  float:right;
+  padding-left:252px;
+  width: 100%;
+}
+
+.venue-big-bg-link{
+  width:100%;
+  height:100%;
+  display: block;
+  position: absolute;
+  left:0;
+  top:0;
+}
+
+.venue-time{
+  font-size: 13px;
+  margin-bottom: 5px;
+  color:#932945;
+}
+
+.venue-big-image{
+  width:235px;
+  height:137px
+}
+
+.venue-big-title{
+  font-size: 16px;
+  line-height: 100%;
+  display: inline;
+  a{
+    color:#333;
   }
+}
 
-  .venue-time{
-    font-size: 18px;
-    color:#932945;
-    .label{
-      vertical-align: top;
-      display: inline-block;
-    }
+.venue-big-event-title{
+  margin-top: 0;
+  font-family: "Droid Serif";
+  font-size: 20px;
+  a{
+    color:#333;
   }
+}
 
-  .venue-big-content{
-    .venue-big-image{
-      width:192px;
-      margin-right:13px;
-      vertical-align:top;
-      float:left      
-    }
-    margin-top:17px;
-    &> div:first-child{
-      position: relative;
-      width:60%;
-      min-width:300px;
+.venue-big-host-link{
+  display: block;
+  height: 22px;
+  font-size: 12px;
+  padding-left: 26px;
+  position: relative;
+}
 
-      a{
-        vertical-align: top;
-        line-height: 15px;
-        &:nth-child(2){
-          position:relative;
-          display: block;
-        }
-      }
-      h3{
-        display: inline;
-        hyphens: auto;
-        -moz-hyphens: auto;
-        -webkit-hyphens: auto;
-        -ms-hyphens: auto;
-        -o-hyphens: auto;
-        font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
-        font-style: italic;
-        font-weight: normal;
-        font-size: 22px;
-        line-height: 25px;
-        a{
-          color:#333;
-        }
-      }   
-    }
-    &> div:last-child{
-      position: relative;
-      width:250px;
-    }
-  }
-
-  p{
-    margin-top: 8px;
-    margin-bottom: 20px
-  }
+.venue-big-user-thumb{
+  width:20px;
+  position: absolute;
+  left: 0;
+  top:-6px;
 }

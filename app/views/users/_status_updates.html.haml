@@ -5,7 +5,7 @@
   - else
     - status_update = user.status_updates.limit(1).first
     %header
-      %h4= t('.opinion')
+      %h4.layout-title= t('.opinion')
       %time{:datetime => status_update.created_at.strftime("%Y-%m-%d")}
         = time_ago_in_words(status_update.created_at)
     = simple_format(status_update.content)
