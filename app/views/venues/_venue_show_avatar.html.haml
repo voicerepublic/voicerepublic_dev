@@ -1,9 +1,12 @@
-.avatar-box(data-stream-id="#{@venue.details_for(user)[:streamId]}")
-  - if @venue.live?
-    = link_to user, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
-      = render(:partial => 'users/user_small', :locals => { :user => user })
-  - else
-    = link_to user do
-      = render(:partial => 'users/user_small', :locals => { :user => user })
-  .promote-icon(style='display:none') +
-  .demote-icon(style='display:none') -
+- if @venue.live?
+  .avatar-box(data-stream-id="#{@venue.details_for(user)[:streamId]}")
+- else
+  .avatar-box
+    - if @venue.live?
+      = link_to user, :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" do
+        = render(:partial => 'users/user_small', :locals => { :user => user })
+    - else
+      = link_to user do
+        = render(:partial => 'users/user_small', :locals => { :user => user })
+    .promote-icon(style='display:none') +
+    .demote-icon(style='display:none') -
