@@ -29,10 +29,3 @@
     .span6.well-large.venue-live-right
       -# chat (right)
       = render(:partial => 'group_chat', :locals => { :venue => @venue } )
-
-      -# FIXME just copied here, needs styling
-      - if @venue.user != current_user
-        - unless  @venue.user_participates?(current_user)
-          = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-description btn-small", :method => :post do
-            = t('.join_venue')
-            = image_tag "/assets/coffee_icon_white.png"

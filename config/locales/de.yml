@@ -811,6 +811,7 @@ de:
       go_venue_page: "Zur Treffpunkt Seite"
       host: "Gastgeber"
     venue_big:
+      by: "von"
       host: "Gastgeber"
       venue_title: "Treffpunkt"
       go_venue_page: "Zum Treffpunkt!"

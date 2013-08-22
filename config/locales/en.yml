@@ -793,6 +793,7 @@ en:
     venue_comment:
       delete_comment: "destroy"
     venue_big:
+      by: "by"
       host: "Host"
       venue_title: "Venue"
       go_venue_page: "Proceed to venue-page"

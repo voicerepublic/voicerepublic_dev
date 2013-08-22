@@ -23,5 +23,5 @@
       = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-description btn-small", :method => :post do
         = t('.join_venue')
         = image_tag "/assets/coffee_icon_white.png"
-
-  = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
+  - if current_user.is_admin?
+    = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
