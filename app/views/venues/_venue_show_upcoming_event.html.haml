@@ -1,12 +1,12 @@
 .well-large.venue-event-box
   %header.venue-section-title
     =t('.upcoming_event', :default => 'UPCOMING EVENT')
-  .venue-event-time
+  .venue-upcoming-event-time
     = @venue.start_time.strftime("%d/%m/%y %H:%M")
     ,
     - if @venue.duration > 1
       = @venue.duration
       = t('.minutes')
 
-  -#TODO @venue.next_event.title
-  %h3.venue-event-title Neuer Konzeptionalismus I: Gespräch mit Johannes Kreidler
+  %h3.venue-upcoming-event-title
+    = @venue.next_event.title

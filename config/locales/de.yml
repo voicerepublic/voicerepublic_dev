@@ -815,7 +815,7 @@ de:
       host: "Gastgeber"
       venue_title: "Treffpunkt"
       go_venue_page: "Zum Treffpunkt!"
-      join_venue: "Jetzt Teilnehmen!"
+      join_venue: "Jetzt teilnehmen!"
 
     venue_form:
       write_a_comment: "Verfasse einen Kommentar"
