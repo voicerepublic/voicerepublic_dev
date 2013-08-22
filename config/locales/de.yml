@@ -740,7 +740,7 @@ de:
     date_changed: "Treffpunkt Termin aktualisiert"
     edit:
       venue_edit_title: "Treffpunkt bearbeiten"
-      venue_renew_title: "Neues Datum"
+      venue_renew_title: "Neues Gespräch"
       confirm_change_date: "Die Änderung des Termins wird im Anschluss den bisherigen Teilnehmern mitgeteilt"
       save: "Speichern"
     new_venue: "Treffpunkt erstellen"
@@ -800,8 +800,8 @@ de:
       so_easy: "So einfach"
       back: "Zurück"
     index:
-      venues: "Treffpunkte"
-      upcoming_venues: "Treffpunkte"
+      upcoming_venues: "TREFFPUNKTE"
+      past_venues: "VERGANGENE TREFFPUNKTE"
       what_is_a_venue: "Was ist ein Treffpunkt?"
       show_only_upcoming_venues: "Treffpunkte demnächst"
       show_all_venues: "Alle Treffpunkte"
@@ -849,6 +849,7 @@ de:
       your_talk: 'Dein Gespräch'
       event_title: 'Gesprächstitel'
     change_time_form:
+      new_event: "Neues Gespräch"
       start_date: "Datum"
       start_time: "Zeit"
       datepick_placeholder: "auswählen..."

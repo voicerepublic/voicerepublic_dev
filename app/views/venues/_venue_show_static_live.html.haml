@@ -11,7 +11,7 @@
 .section.venue-description.collapse.out
   .row-fluid.clearfix
     .span4
-      = image_tag @venue.image.url(:large), :class => "venue-description-image"
+      = image_tag @venue.image.url(:medium), :class => "venue-description-image"
     .span8
       .venue-summery
         = sophisticated_format(@venue.summary)

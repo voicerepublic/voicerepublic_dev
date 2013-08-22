@@ -723,7 +723,7 @@ en:
     date_changed: "New venue date"
     edit:
       venue_edit_title: "Edit Venue"
-      venue_renew_title: "New date"
+      venue_renew_title: "New talk"
       confirm_change_date: "All participants will be notified of your changes"
     venue_list: "Venues"
     new_venue: "Create Venue"
@@ -783,7 +783,8 @@ en:
       back: "Back"
     index:
       venues: "Venues"
-      upcoming_venues: "Upcoming venues"
+      upcoming_venues: "VENUES"
+      past_venues: "PAST VENUES"
       what_is_a_venue: "Tell me about venues"
       show_only_upcoming_venues: "Upcoming venues"
       show_all_venues: "All venues"
@@ -830,6 +831,7 @@ en:
       your_talk: 'Your talk'
       event_title: 'Talk title'
     change_time_form:
+      new_event: "New talk"
       start_date: "Date"
       start_time: "Time"
       datepick_placeholder: "select..."

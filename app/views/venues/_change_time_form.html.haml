@@ -6,6 +6,12 @@
   -# TODO resolve code duplication in venues/form
   = f.fields_for :events, [venue.events.build] do |ef|
     .control-group
+      %label.control-label= t('.event_title')
+      .controls
+        = ef.text_field :title, :class => "input-block-level"
+      .help-block
+        = t('.help-title-event') 
+    .control-group
       %label.control-label= t('.start_time')
       .controls.input-append.date#datetimepicker
         = ef.text_field :start_time, :id => 'venue_s_date', 'data-format' => "dd/MM/yyyy hh:mm"

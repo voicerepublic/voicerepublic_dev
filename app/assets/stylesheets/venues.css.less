@@ -16,11 +16,23 @@
 }
 
 /* VENUE INDEX ----------------------------------------*/
-.venue-list {
+.venue-index {
   margin: 11px 0 0 0;
+  position: relative;
 
-  .venue-big {
-    margin: 0 0 30px 0;
+  .venue-new-round-button{
+    position: absolute;
+    right: 00px;
+    top:0;
+  }
+}
+
+.venue-index-description{
+  min-height: 650px;
+  padding:0 30px 0 30px;
+  font-size: @baseFontSize * 0.9;
+  ul{
+    margin-left: 12px
   }
 }
 
@@ -223,8 +235,8 @@
     background: #1A6E6D
   }
   .scrollable-chat{
-    max-height:288px;
-    min-height: 288px;
+    max-height:330px;
+    min-height: 330px;
     margin-top:0px;
   }
 
@@ -365,9 +377,19 @@
   }
 }
 
-.users-onair-host-title,
-.users-onair-participants-title{
+.venue-live-chat-input-form{
+  position: relative;
+}
 
+.group_chat_submit{
+  position: absolute;
+  right: 5px;
+  top:5px;  
+}
+
+.group_chat_textarea{
+  margin-bottom: 0;
+  height:70px;
 }
 
 /* VENUE FORM ------------------------------------------*/
@@ -393,6 +415,10 @@
     margin-top: 0;
   }
 
+  .help-datetimepicker{
+    margin-top: 0;
+  }
+
   .select2-container-multi .select2-choices{
     background: #F9F9F9;
     border: 1px solid #ccc;
@@ -408,8 +434,6 @@
   .control-group:first-child{
     padding-top: 0;
   }
-
-  .date
 
   .venue-form-icon{
     display: block;
@@ -464,9 +488,6 @@
           width: 90%
         }
       }
-    }
-    .help-datetimepicker{
-      margin-top: 0;
     }
   }
 }
