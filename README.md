@@ -6,8 +6,10 @@ Setup
 
 ### Thinking sphinx
 
-    rake ts:config
-
+* Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
+* bundle exec rake thinking_sphinx:configure
+* bundle exec rake thinking_sphinx:index
+* bundle exec rake thinking_sphinx:start
 
 Start the whole stack
 ---------------------

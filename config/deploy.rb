@@ -2,7 +2,7 @@ require 'capistrano-rbenv'
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'whenever/capistrano'
-#require 'thinking_sphinx/deploy/capistrano'
+require 'thinking_sphinx/deploy/capistrano'
 
 set :rbenv_ruby_version, "1.9.3-p429"
 set :rbenv_install_dependencies, false
@@ -40,8 +40,8 @@ namespace :deploy do
   end
 end
 
-#before 'deploy:update_code', 'thinking_sphinx:stop'
-#after  'deploy:update_code', 'thinking_sphinx:start'
+before 'deploy:update_code', 'thinking_sphinx:stop'
+after  'deploy:update_code', 'thinking_sphinx:start'
 
 #after "deploy:setup", "dbconf:setup" 
 #after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab', 'kluuu:link_paypal_certs' #, 'sphinx:start'
