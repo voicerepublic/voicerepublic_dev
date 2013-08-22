@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'rails-i18n'
 gem 'pg'
+gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -39,7 +40,7 @@ gem "dynamic_form"            # form helper for errors
 gem 'exception_notification'  # deliver emails if exception occures
 gem 'whenever'   # create cron-jobs
 gem 'kblog', '0.0.4'          # blog-engine
-#gem 'split'                   # A/B-Testing    
+#gem 'split'                   # A/B-Testing
 #gem 'SystemTimer'            # A/B-Testing for ruby-1.8
 gem 'haml-rails'
 gem 'simple_form'
@@ -62,7 +63,7 @@ group :development, :test, :staging do
 end
 
 group :test do
-  gem 'ci_reporter'  
+  gem 'ci_reporter'
   gem 'capybara'#, '2.0.1'
   gem 'guard-rspec'
   gem 'launchy'

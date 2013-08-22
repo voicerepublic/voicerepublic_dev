@@ -13,13 +13,15 @@
       = @venue.duration
       = t('.minutes')
   %h3.venue-event-title
+    %i.icon-microphone
+      mic on
     = @venue.next_event.title || '(no title)'
   #flashcontent Flash not installed
 
   .row-fluid.clearfix
     .span12.talking-users-box.well-large
       -# talking user list (left)
-      = render(:partial => 'venue_show_talking_users', :locals => { :venue => @venue })    
+      = render(:partial => 'venue_show_talking_users', :locals => { :venue => @venue })
 
   .row-fluid.venue-live.clearfix
     .span6.well-large.venue-live-left

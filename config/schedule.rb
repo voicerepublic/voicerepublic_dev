@@ -19,13 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :rbenv_root, "/home/rails/.rbenv"
-env :PATH, "#{rbenv_root}/shims:#{rbenv_root}/bin:/bin:/usr/bin"
+set :job_template, "bash -l -c 'export PATH=/home/rails/.rbenv/shims:$PATH && :job'"
 set :output, "/home/rails/app/shared/log/whenever-cron.log"
-
-every 1.minutes do
-  command 'echo "test $(date)"'
-end
 
 every 60.minutes, :roles => [:app] do
   runner 'Venue.notify_next_day; Venue.notify_next_2_hour'
