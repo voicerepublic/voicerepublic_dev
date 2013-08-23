@@ -1,16 +1,19 @@
 $(function () {
-  var player = $("#jquery_jplayer_1")
-  player.jPlayer({
-    ready: function (event) {
-      console.log("init");
-      $(this).jPlayer("setMedia", {
-        m4a: player.data('recording')
-      });
-    },
-    swfPath: "/flash",
-    supplied: "m4a",
-    wmode: "window",
-    smoothPlayBar: true,
-    keyEnabled: true
+  $(".kluuu.jp-jplayer").each(function (i, el) {
+    var player = $(el)
+
+    player.jPlayer({
+      ready: function (event) {
+        $(this).jPlayer("setMedia", {
+          m4a: player.data('recording')
+        })
+      },
+      cssSelectorAncestor: player.data('selector'),
+      swfPath: "/flash",
+      supplied: "m4a",
+      wmode: "window",
+      smoothPlayBar: true,
+      keyEnabled: true
+    })    
   })
 })

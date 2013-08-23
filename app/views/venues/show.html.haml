@@ -37,11 +37,6 @@
       -# description
       = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
 
-      -# player
-      - if @venue.recording
-        %section.clearfix
-          .span8= render 'player', :recording => @venue.recording
-
       -# forum
       = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
     .span4.left-light-border
