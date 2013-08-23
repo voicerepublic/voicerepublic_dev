@@ -138,9 +138,9 @@ de:
       save: 'Speichern'
       destroy: 'Löschen'
       confirm: 'Willst du wirklich löschen?'
-      
+
     venue_actions:
-      participate_button: 'Participate now!'      
+      participate_button: 'Teilnehmen'
 
   number:
     currency:
