@@ -11,15 +11,8 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
--#
-  = render(:partial => 'venue_show_header', :locals => { :venue => @venue } )
-- if can? :manage, @venue
-  %aside.venue-new-date
-    - if @venue.past?
-      = link_to  edit_venue_path(@venue, :renew => 1), :class => 'btn btn-large btn-warning', :remote => true do
-        %i.icon-calendar
-        = t('.new_talk')
-
+-# action buttons
+= render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
 
 -if @venue.live?
   -# live layout

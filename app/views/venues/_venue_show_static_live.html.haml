@@ -23,5 +23,7 @@
 
   .venue-description-content= sophisticated_format @venue.description
 
-  - if current_user.is_admin?
-    = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
+  - if @venue.user != current_user
+    - if @venue.user_participates?(current_user)
+      = link_to( t('.unjoin_venue'), participation_path(:venue_id => @venue.id), :method => :delete, |
+        :data => { :confirm => t('.confirm_unjoin_venue') },  :class => "btn btn-small")             |
