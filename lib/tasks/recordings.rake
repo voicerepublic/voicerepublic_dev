@@ -3,7 +3,7 @@ namespace :recordings do
   RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
 
   desc "Merge streams per venue"
-  task :merge  do
+  task :merge => :environment do
     # Build records grouped by venue id:
     #   { '1' => [[v1-e2-1377005700.flv], [v1-e2-1377005703.flv]] }
     #   where filename constists of venue ID at the beginning and UNIX timestamp at the end
@@ -29,7 +29,7 @@ namespace :recordings do
       if streams.size == 1
         name = streams.first[0]
         `cd #{STREAMS_PATH} && ffmpeg -i #{name}.flv -vn #{recording}.m4a`
-        move_recording(recording)
+        save_recording(venue, recording)
         File.delete("#{STREAMS_PATH}/#{name}.flv")
       else
         # Convert FLV streams to WAVs
@@ -48,8 +48,7 @@ namespace :recordings do
 
         # Convert WAV result to M4A
         `cd #{STREAMS_PATH} && ffmpeg -i #{recording}.wav #{recording}.m4a`
-        move_recording(recording)
-        venue.update_column(:recording, "#{recording}.m4a")
+        save_recording(venue, recording)
 
         # Remove WAVs and FLVs
         File.delete("#{STREAMS_PATH}/#{recording}.wav")
@@ -59,9 +58,10 @@ namespace :recordings do
         end
       end      
     end
+  end
 
-    def move_recording(name)
-      FileUtils.mv("#{STREAMS_PATH}/#{name}.m4a", "#{RECORDINGS_PATH}/#{name}.m4a")
-    end
+  def save_recording(venue, name)
+    FileUtils.mv("#{STREAMS_PATH}/#{name}.m4a", "#{RECORDINGS_PATH}/#{name}.m4a")
+    venue.update_column(:recording, "#{name}.m4a")
   end
 end
