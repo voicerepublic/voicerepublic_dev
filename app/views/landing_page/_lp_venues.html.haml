@@ -1,16 +1,20 @@
-%hr
-%br/
-%br/
-%br/
-.row-fluid.lp-featured-box
-  .span4.lp-featured-arrow-box
-    .lp-featured-arrow-inside
-      .lp-featured-arrow-text= t('.featured_venue')
-  .span8
-    - venue = Venue.featured.first
-    = render(:partial => 'venues/venue_big', :locals => {:venue => venue})
-%br/
-%br/    
+-#featured venues
+- if !Venue.featured.first.nil?
+  %hr
+  %br/
+  %br/
+  %br/
+  .row-fluid.lp-featured-box
+    .span4.lp-featured-arrow-box
+      .lp-featured-arrow-inside
+        .lp-featured-arrow-text= t('.featured_venue')
+    .span8
+      - venue = Venue.featured.first
+      = render(:partial => 'venues/venue_big', :locals => {:venue => venue})
+  %br/
+  %br/   
+
+-#upcoming venues
 %hr
 %br/
 %br/
