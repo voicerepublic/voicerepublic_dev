@@ -707,7 +707,7 @@ de:
     user_content_nav:
       venues_title: "Treffpunkte"
       venues_participant: "Teilnehmer"
-      venues_host: "Host"
+      venues_host: "Gastgeber"
       venue_new: "Neuer Treffpunkt"
     user_information:
       unfollow: "Entfolgen"

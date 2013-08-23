@@ -11,11 +11,12 @@
       = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-live-header btn-small", :method => :post do
         = t('helpers.venue_actions.participate_button')
         = image_tag "/assets/coffee_icon_white.png"    
-  #onair.icon-onair ON<br />AIR
-  .venue-live-mute-button
-    %i.icon-microphone
-    &nbsp;
-
+  .venue-live-top-right-actions
+    #onair.icon-onair ON<br />AIR
+    .venue-live-mute-button
+      %i.icon-microphone
+      &nbsp;
+    .clearfix
 .section.venue-description.collapse.out
   .row-fluid.clearfix
     .span3

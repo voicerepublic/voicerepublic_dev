@@ -113,13 +113,6 @@
   font-weight: normal;
 }
 
-.venue-event-time{
-  padding-top: 35px;
-  color:#932945;
-  font-size: @baseFontSize * 1.2;
-  font-weight: normal;   
-}
-
 .venue-upcoming-event-title{
   font-style: italic;
   font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
@@ -252,8 +245,8 @@
     background: #1A6E6D
   }
   .scrollable-chat{
-    max-height:330px;
-    min-height: 330px;
+    max-height:325px;
+    min-height: 325px;
     margin-top:0px;
   }
 
@@ -341,23 +334,28 @@
   top: 10px;
 }
 
-.venue-live-mute-button{
+.venue-live-top-right-actions{
   position: absolute;
-  right: 110px;
-  top: 10px;
+  right: 0px;
+  top: 5px;  
+}
+
+.venue-live-mute-button{
+  float: right;
+  display: none;
 }
 
 /* HACK TODO */
 .icon-microphone{
-  background:url(microphone-icon.png) no-repeat;
+  background:url(microphone-icon.png) no-repeat left 10px;
   background-size: 30px;
   width:30px;
-  height:40px;
+  height:50px;
   display: inline-block;
 }
 
 .icon-microphone-off{
-  background:url(microphone-icon-off.png) no-repeat;
+  background:url(microphone-icon-off.png) no-repeat left 10px;
   background-size: 30px;
   width:30px;
   height:40px;
@@ -366,8 +364,18 @@
 
 /* HACK FERTIG */
 
+.venue-event-time{
+  color:#932945;
+  font-size: @baseFontSize * 1.2;
+  font-weight: normal;   
+}
+
 .venue-live-event-title{
   font-family: "Droid Serif", Times;
+  line-height: 120%;
+  margin-top: 0;
+  padding-right: 251px;
+  height:92px;
 }
 
 .venue-live-box{
@@ -378,9 +386,6 @@
 }
 
 .icon-onair {
-  position: absolute;
-  right: 0px;
-  top:-2px;
   color: red;
   padding: 5px 10px;
   background-color:white;
@@ -391,7 +396,8 @@
   border:4px solid #000;
   border-radius: 3px;
   text-align: center;
-  display: none;
+  display: block;
+  float: right;
   .box-shadow(inset 0 0 10px rgba(0,0,0,.5));
 }
 

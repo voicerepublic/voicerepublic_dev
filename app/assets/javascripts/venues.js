@@ -160,7 +160,7 @@
         Venue.role = 'guest';
         Venue.blackbox.publish(Venue.streamId);
         Venue.subscribe();
-        $('#onair').fadeIn();
+        $('.venue-live-mute-button').fadeIn();
       },
       onDemote: function(streamId) {
         //log('received onDemote for '+streamId);
@@ -174,7 +174,7 @@
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.unpublish();
         Venue.role = 'participant';
-        $('#onair').fadeOut();
+        $('.venue-live-mute-button').fadeOut();
       },
       // onRegister is triggered by new participants
       // all senders (the host and all guests) should
@@ -261,7 +261,7 @@
       Venue.initMote();
       Venue.blackbox.publish(Venue.streamId);
       Venue.subscribe();
-      $('#onair').fadeIn();
+      $('.venue-live-mute-button').fadeIn();
     }
   };
 
