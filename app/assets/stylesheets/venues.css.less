@@ -102,7 +102,8 @@
 
 /* VENUE UPCOMING EVENT ----------------------------------------*/
 .venue-event-box{
-  background: #E8F6EC;
+  /*background: #E8F6EC;*/
+  background:#ADC55A;
   margin-bottom: 20px;
 }
 
@@ -125,6 +126,12 @@
   font-size: @baseFontSize * 1.6;
   line-height: 1.3;
   margin: 0 0 30px 0;
+}
+
+.venue-event-box-hr{
+  border-color: transparent;
+  border-top-color: #666;
+  margin-top: 2px
 }
 
 /* VENUE DESCRIPTION -------------------------------------------*/
@@ -172,7 +179,8 @@
 
 /* FORUM/ARTICLES -------------------------------------------*/
 .venue-articles{
-  background: #FAF5D8
+  /*background: #FAF5D8*/
+  border: 1px solid #ddd;
 }
 
 /* PARTICIPANTS ---------------------------------------*/
@@ -183,8 +191,9 @@
 .avatar-box{
   position: relative;
   width: 65px;
-  min-height:100px;
+  min-height:80px;
   float: left;
+  margin-right: 4px;
   text-align: center;
   font-size: @baseFontSize * 0.9;
   line-height: 108%;
@@ -210,6 +219,7 @@
   line-height: 15px;
   color:#777;
   background: white;
+  cursor: pointer;
 }
 
 .demote-icon{
@@ -430,6 +440,11 @@
     float: left;
     margin-right: 20px;
   }
+}
+
+.venue-live-chat-hr{
+  border-color: transparent;
+  border-top-color: #777
 }
 
 .venue-live-chat-input-form{

@@ -1,6 +1,7 @@
 .well-large.venue-event-box
   %header.venue-section-title
-    =t('.upcoming_event', :default => 'UPCOMING EVENT')
+    =t('.upcoming_event')
+    %hr.venue-event-box-hr
   .venue-upcoming-event-time
     = @venue.start_time.strftime("%d/%m/%y %H:%M")
     ,

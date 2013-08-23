@@ -757,6 +757,8 @@ en:
     venue_show_chat:
       what_is_a_venue: "Tell me about venues"
       see_other_venues: "All Venues"
+    venue_show_upcoming_event:
+      upcoming_event: "UPCOMING TALK"      
     venue_show_forum:
       comments: "Comments"
       articles: "DISCUSSION"
@@ -774,7 +776,7 @@ en:
       unjoin_venue: "Unjoin"
       confirm_unjoin_venue: "Really want to unjoin this venue?"
     venue_show_archive:  
-      past_talks: "PAST TALKS"
+      past_talks: "ARCHIVE"
     venue_show_avatar:
       leave_venue_popup: "This link opens a new tab!"
     new:

@@ -775,6 +775,8 @@ de:
     venue_show_chat:
       what_is_a_venue: "Was ist ein Treffpunkt?"
       see_other_venues: "Alle Treffpunkte"
+    venue_show_upcoming_event:
+      upcoming_event: "KOMMENDES GESPRÄCH"
     venue_show_forum:
       comments: "Kommentare"
       articles: "DISKUSSION"
@@ -792,7 +794,7 @@ de:
       unjoin_venue: "Teilnahme zurückziehen"
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
     venue_show_archive:
-      past_talks: "VERGANGENE GESPRÄCHE"
+      past_talks: "ARCHIV"
     venue_show_avatar:
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     new:
