@@ -10,8 +10,7 @@
     .span4
       = image_tag @venue.image.url(:medium), :class => "venue-description-image"
     .span8
-      .venue-summery
-        -#TODO summery
+      .venue-summary
         = @venue.summary
 
   = simple_format @venue.description

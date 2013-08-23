@@ -13,9 +13,7 @@
     - if @venue.duration > 1
       = @venue.duration
       = t('.minutes')
-  %h3.venue-event-title
-    %i.icon-microphone
-      mic on
+  %h3.venue-live-event-title
     = @venue.next_event.title || '(no title)'
   #flashcontent Flash not installed
 

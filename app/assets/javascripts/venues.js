@@ -9,7 +9,7 @@
     Venue.blackbox.mute();
     $(elem).removeClass('icon-microphone');
     $(elem).addClass('icon-microphone-off');
-    $(elem).html("").append("mic off");
+    // $(elem).html("").append("mic off");
     $('.icon-microphone-off').click(function() {
       enableMicrophone($(this));
     });
@@ -19,7 +19,7 @@
     Venue.blackbox.unmute();
     $(elem).addClass('icon-microphone');
     $(elem).removeClass('icon-microphone-off');
-    $(elem).html("").append("mic on");
+    // $(elem).html("").append("mic on");
     $('.icon-microphone').click(function() {
       muteMicrophone($(this));
     });

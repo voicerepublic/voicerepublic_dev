@@ -12,13 +12,16 @@
         = t('helpers.venue_actions.participate_button')
         = image_tag "/assets/coffee_icon_white.png"    
   #onair.icon-onair ON<br />AIR
+  .venue-live-mute-button
+    %i.icon-microphone
+    &nbsp;
 
 .section.venue-description.collapse.out
   .row-fluid.clearfix
-    .span4
+    .span3
       = image_tag @venue.image.url(:medium), :class => "venue-description-image"
-    .span8
-      .venue-summery
+    .span9
+      .venue-summary
         = sophisticated_format(@venue.summary)
 
   .venue-description-content= sophisticated_format @venue.description
