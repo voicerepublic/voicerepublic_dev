@@ -236,7 +236,7 @@
 
   window.initBlackbox = function() {
     if($('#flashcontent').size==0) return;
-    var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions' };
+    var flashvars = { streamer: Venue.streamer };
     var params = {};
     var attributes = { id: "Blackbox", name: "Blackbox" };
     swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "215", "140",

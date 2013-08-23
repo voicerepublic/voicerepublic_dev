@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130822113835) do
+ActiveRecord::Schema.define(:version => 20130823141142) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20130822113835) do
     t.datetime "updated_at", :null => false
     t.boolean  "record"
     t.string   "title"
+    t.string   "recording"
   end
 
   add_index "events", ["start_time"], :name => "index_events_on_start_time"
@@ -368,7 +369,6 @@ ActiveRecord::Schema.define(:version => 20130822113835) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "recording"
   end
 
   add_index "venues", ["user_id"], :name => "index_venues_on_user_id"

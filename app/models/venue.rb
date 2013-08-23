@@ -14,6 +14,8 @@
 class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE = 5.minutes
+  DISCUSSIONS_STREAMER = "rtmp://kluuu-staging.panter.ch/discussions"
+  RECORDINGS_STREAMER = "rtmp://kluuu-staging.panter.ch/recordings"
 
   acts_as_taggable
 
@@ -113,7 +115,8 @@ class Venue < ActiveRecord::Base
       role: (self.user == user) ? 'host' : 'participant',
       storySubscription: PrivatePub.subscription(channel: story_channel),
       backSubscription: PrivatePub.subscription(channel: back_channel),
-      chatSubscription: PrivatePub.subscription(channel: channel_name)
+      chatSubscription: PrivatePub.subscription(channel: channel_name),
+      streamer: (next_event.record ? RECORDINGS_STREAMER : DISCUSSIONS_STREAMER)
     }
   end
 
