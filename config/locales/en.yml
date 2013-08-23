@@ -149,6 +149,9 @@ en:
       cancel: 'Cancel'
       destroy: 'Delete'
       confirm: 'Are you sure to delete?'
+      
+    venue_actions:
+      participate_button: 'Participate now!'
   number:
     currency:
       format:
@@ -735,7 +738,7 @@ en:
       start_date: "Begin"
       duration: "Duration"
       past_venue: "Past Venue"
-      join_venue: "Participate!"
+      join_venue: "Participate now!"
       unjoin_venue: "Cancel participation"
       chat_will_be_available_short_before_start: "Group-chat will be available short before start"
       group_chat: "Group-Chat"
