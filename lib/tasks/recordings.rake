@@ -22,6 +22,7 @@ namespace :recordings do
     Dir.mkdir(RECORDINGS_PATH) unless File.exists?(RECORDINGS_PATH)
     records.each do |event_id, streams|
       event = Event.find(event_id)
+      next if event.venue.live?
       recording = "#{event_id}-#{Time.now.strftime('%s')}"
 
       if streams.size == 1
