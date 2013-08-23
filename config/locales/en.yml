@@ -772,6 +772,8 @@ en:
       confirm_unjoin_venue: "Really want to unjoin this venue?"
     venue_show_archive:  
       past_talks: "PAST TALKS"
+    venue_show_avatar:
+      leave_venue_popup: "This link opens a new tab!"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
