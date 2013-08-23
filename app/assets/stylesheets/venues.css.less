@@ -343,11 +343,16 @@
 .venue-live-mute-button{
   float: right;
   display: none;
+  cursor: pointer;
+  opacity: 0.8;
+  &:hover{
+    opacity:1;
+  }
 }
 
 /* HACK TODO */
 .icon-microphone{
-  background:url(microphone-icon.png) no-repeat left 10px;
+  background:url(microphone-icon-red.png) no-repeat left 10px;
   background-size: 30px;
   width:30px;
   height:50px;
@@ -358,7 +363,7 @@
   background:url(microphone-icon-off.png) no-repeat left 10px;
   background-size: 30px;
   width:30px;
-  height:40px;
+  height:50px;
   display: inline-block;
 }
 
@@ -398,6 +403,7 @@
   text-align: center;
   display: block;
   float: right;
+  margin-left: 7px;
   .box-shadow(inset 0 0 10px rgba(0,0,0,.5));
 }
 
