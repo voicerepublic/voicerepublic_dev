@@ -5,12 +5,7 @@
   = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
   = render(:partial => 'venue_show_social', :locals => { :venue => @venue } )
   = link_to '#', :class => "venue-live-more-link", :'data-toggle' => "collapse", :'data-target' => ".venue-description" do
-    info
-  - if @venue.user != current_user
-    - unless  @venue.user_participates?(current_user)
-      = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-live-header btn-small", :method => :post do
-        = t('helpers.venue_actions.participate_button')
-        = image_tag "/assets/coffee_icon_white.png"    
+    info   
   .venue-live-top-right-actions
     #onair.icon-onair
       %span.icon-onair-text
@@ -18,6 +13,11 @@
     .venue-live-mute-button
       %i.icon-microphone
       &nbsp;
+    - if @venue.user != current_user
+      - unless  @venue.user_participates?(current_user)
+        = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-live-header btn-small", :method => :post do
+          = t('helpers.venue_actions.participate_button')
+          = image_tag "/assets/coffee_icon_white.png"  
     .clearfix
 .section.venue-description.collapse.out
   .row-fluid.clearfix
