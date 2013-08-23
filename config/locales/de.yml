@@ -759,7 +759,7 @@ de:
       group_chat: "Gruppen-Chat"
       only_attendies_can_see_group_chat: "Nur Teilnehmer des Treffpunktes können den Gruppen-Chat lesen"
       repeating: "Rhythmus"
-      renew: "Neues Datum"
+      new_talk: "Neues Gespräch"
     venue_show_header:
       venue: "Treffpunkt"
       minutes: "Minuten"
@@ -788,6 +788,8 @@ de:
     venue_show_actions:
       unjoin_venue: "Teilnahme zurückziehen"
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
+    venue_show_archive:
+      past_talks: "VERGANGENE GESPRÄCHE"
     new:
       create_new_venue: "Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
@@ -848,8 +850,10 @@ de:
       record: 'Zeichne dieses Gespräch auf'
       your_talk: 'Dein Gespräch'
       event_title: 'Gesprächstitel'
+    edit_start_time:
+      new_talk: "Neues Gespräch"      
     change_time_form:
-      new_event: "Neues Gespräch"
+      event_title: 'Gesprächstitel'
       start_date: "Datum"
       start_time: "Zeit"
       datepick_placeholder: "auswählen..."

@@ -692,7 +692,7 @@ en:
       new_status_update: "New status"
     user_content_nav:
       venues_title: "Venues"
-      venues_participant: "Participants"
+      venues_participant: "Participant"
       venues_host: "Host"
       venue_new: "Create Venue"
     user_information:
@@ -741,7 +741,7 @@ en:
       group_chat: "Group-Chat"
       only_attendies_can_see_group_chat: "Only participants can read the group-chat"
       repeating: "Rhythm"
-      renew: "New date"
+      new_talk: "New talk"
     venue_show_header:
       venue: "Venue"
       minutes: "Minutes"
@@ -770,6 +770,8 @@ en:
     venue_show_actions:
       unjoin_venue: "Unjoin"
       confirm_unjoin_venue: "Really want to unjoin this venue?"
+    venue_show_archive:  
+      past_talks: "PAST TALKS"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
@@ -830,8 +832,10 @@ en:
       record: "Record this talk"
       your_talk: 'Your talk'
       event_title: 'Talk title'
+    edit_start_time:
+      new_talk: "New talk"
     change_time_form:
-      new_event: "New talk"
+      event_title: 'Talk title'
       start_date: "Date"
       start_time: "Time"
       datepick_placeholder: "select..."
