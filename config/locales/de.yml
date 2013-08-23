@@ -141,6 +141,8 @@ de:
 
     venue_actions:
       participate_button: 'Teilnehmen'
+      unjoin_venue: 'Teilnahme zurückziehen'
+      confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
 
   number:
     currency:

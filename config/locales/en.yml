@@ -152,6 +152,9 @@ en:
 
     venue_actions:
       participate_button: 'Participate'
+      unjoin_venue: 'Cancel participation'
+      confirm_unjoin_venue: 'Really want to unjoin this venue?'
+
   number:
     currency:
       format:
