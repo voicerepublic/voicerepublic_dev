@@ -16,6 +16,26 @@
 .venue-big-header{
   display: block;
   margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.venue-big-header{
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis; /* required for Opera */
+  -ms-text-overflow: ellipsis;  /* required for IE8, allegedly */
+  -moz-binding: url('ellipsis.xml#ellipsis');    /* for Firefox; details here */    
+  padding-right: 40px;
+}
+
+.venue-big.unjoined{
+  .venue-big-header{
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis; /* required for Opera */
+    -ms-text-overflow: ellipsis;  /* required for IE8, allegedly */
+    -moz-binding: url('ellipsis.xml#ellipsis');    /* for Firefox; details here */  
+    padding-right: 190px;
+  }
 }
 
 .venue-big-row{
@@ -39,8 +59,8 @@
 
 .venue-big-icon-box{
   position: absolute;
-  right: 30px;
-  top: 26px;
+  right: -10px;
+  top: 10px;
   display: block;
   width: 25px;
 }
@@ -96,4 +116,10 @@
 
 .venue-big-description{
   margin: 0
+}
+
+.venue-big-join-button{
+  position: absolute;
+  right: 30px;
+  top: 5px;
 }
