@@ -33,7 +33,8 @@ class VenuesController < ApplicationController
   def new
 
     @venue = Venue.new
-    
+    @venue.events.build
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @venue }

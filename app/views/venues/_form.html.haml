@@ -71,10 +71,10 @@
         %li Dolor Ipsum Aenean
 
   .event-box.clearfix
-    - if @venue.events.not_past.any?
+    - if upcoming_events.any?
       %header.event-header
         %h2= t('.your_talk')
-      = f.fields_for :events, @venue.events.not_past do |ef|
+      = f.fields_for :events, upcoming_events do |ef|
         .row-fluid
           .span12
             .control-group
