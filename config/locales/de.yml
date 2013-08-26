@@ -846,7 +846,7 @@ de:
       title: "Titel des Treffpunkts"
       summary: "Zusammenfassung des Treffpunktes"
       description: "Beschreibung des Treffpunktes"
-      start_time: "Zeitpunkt"
+      start_time: "Datum und Zeit auswählen"
       host_kluuu: "Gastgebendes KluuU"
       duration: "Dauer des Gesprächs in Minuten"
       start_date: "Datum"

@@ -829,7 +829,7 @@ en:
       featured_from: "Featured from"
       title: "Title of venue"
       description: "Description of venue"
-      start_time: "Time"
+      start_time: "Select start time"
       host_kluuu: "Hosting KluuU"
       duration: "Duration of your talk in minutes"
       start_date: "Date"
