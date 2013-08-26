@@ -1,6 +1,3 @@
-- start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : |
-               t('.datepick_placeholder')                                                      |
-
 = form_for @venue, html: { multipart: true } do |f|
 
   .row-fluid
@@ -119,4 +116,7 @@
 
   .pull-right.clearfix
     = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), venue_path(@venue), :class => 'btn'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")),
+      (@venue.persisted? ? venue_path(@venue) : venues_path),
+      :class => 'btn'
+
