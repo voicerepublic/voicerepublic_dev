@@ -744,7 +744,7 @@ de:
   venues:
     date_changed: "Treffpunkt Termin aktualisiert"
     edit:
-      venue_edit_title: "Treffpunkt bearbeiten"
+      edit_venue: "Treffpunkt bearbeiten"
       venue_renew_title: "Neues Gespräch"
       confirm_change_date: "Die Änderung des Termins wird im Anschluss den bisherigen Teilnehmern mitgeteilt"
       save: "Speichern"
@@ -811,7 +811,7 @@ de:
       so_easy: "So einfach"
       back: "Zurück"
     index:
-      upcoming_venues: "TREFFPUNKTE"
+      upcoming_venues: "KOMMENDE TREFFPUNKTE"
       past_venues: "VERGANGENE TREFFPUNKTE"
       what_is_a_venue: "Was ist ein Treffpunkt?"
       show_only_upcoming_venues: "Treffpunkte demnächst"

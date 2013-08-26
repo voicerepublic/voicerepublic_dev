@@ -728,7 +728,7 @@ en:
   venues:
     date_changed: "New venue date"
     edit:
-      venue_edit_title: "Edit Venue"
+      edit_venue: "Edit Venue"
       venue_renew_title: "New talk"
       confirm_change_date: "All participants will be notified of your changes"
     venue_list: "Venues"
@@ -795,7 +795,7 @@ en:
       back: "Back"
     index:
       venues: "Venues"
-      upcoming_venues: "VENUES"
+      upcoming_venues: "UPCOMING VENUES"
       past_venues: "PAST VENUES"
       what_is_a_venue: "Tell me about venues"
       show_only_upcoming_venues: "Upcoming venues"
