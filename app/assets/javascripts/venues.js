@@ -271,6 +271,6 @@
     }
   };
 
-  initBlackbox();
+  if (typeof Venue != 'undefined') initBlackbox();
 
 })(jQuery);
