@@ -68,6 +68,9 @@
       pickTime: true,
       pickSeconds: false
     });
+    $(".datetimepicker input").focus(function() {
+        $(this).parent().datetimepicker("show");
+    });
   };
 
   var tagList = function() {
