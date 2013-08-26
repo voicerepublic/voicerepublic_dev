@@ -40,7 +40,7 @@ namespace :recordings do
     records
   end
 
-  def merge(event_id, streams)
+  def merge(event, streams)
     recording = "#{event.id}-#{Time.now.strftime('%s')}"
 
     if streams.size == 1
