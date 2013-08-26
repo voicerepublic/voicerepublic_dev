@@ -9,8 +9,7 @@
     %h3.venue-big-title= link_to venue.title, venue_path(venue)
     -#host link
     %aside.venue-big-host-link
-      = link_to user_path(venue.user) do
-        -#= image_tag venue.user.account.portrait.url(:thumb), :class => "venue-big-user-thumb"      
+      = link_to user_path(venue.user) do    
         = t('.by') + ' '
         = venue.user.name
 

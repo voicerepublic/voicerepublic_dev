@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_last_request, :check_rates
+  before_filter :set_last_request#, :check_rates
   before_filter :set_locale 
   around_filter :user_time_zone, :if => :current_user
 
