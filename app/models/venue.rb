@@ -43,7 +43,7 @@ class Venue < ActiveRecord::Base
   after_create :generate_notification
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
-  accepts_nested_attributes_for :events
+  accepts_nested_attributes_for :events, :reject_if => proc { |attrs| attrs['start_time'].blank? }
 
   scope :of_user,           proc { |user| where(:user_id => user.id) }
   scope :featured,          proc { where('featured_from <= ?', Time.now.in_time_zone).
