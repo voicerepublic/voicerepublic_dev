@@ -3,4 +3,7 @@ $(function() {
   $('#datetimepicker').datetimepicker({
     language: '<%= I18n.locale.to_s %>'
   });
+  $("#datetimepicker input").focus(function() {
+    $("#datetimepicker").datetimepicker("show");
+  });
 });
