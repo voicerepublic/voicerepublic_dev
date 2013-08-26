@@ -85,7 +85,7 @@ class VenuesController < ApplicationController
     
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
-        if params[:renew]
+        if params[:renew] && @venue.next_event.present?
           logger.debug("Venues#update - updating just the start time - notify others")
           Venue.generate_renew_info_for(@venue)
         end
