@@ -4,7 +4,7 @@
     .span8.venue-form-fields-left
       - if current_user.is_admin?
         .control-group
-          %label.control-label= t('.start_time')
+          %label.control-label= t('.featured_from')
           .controls.input-append.date.datetimepicker
             - featured_from = f.object.featured_from && f.object.featured_from.strftime('%d/%m/%Y %H:%M')
             = f.text_field :featured_from, :value => featured_from, 'data-format' => "dd/MM/yyyy hh:mm"
