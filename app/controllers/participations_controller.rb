@@ -61,11 +61,13 @@ class ParticipationsController < ApplicationController
         format.html do
           # make avatars appear on participant's view
           @venue = @participation.venue
-
-          markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_user }
-          markup = markup.gsub('"', "'").gsub("\n", '')
-          script = "$('.venue-participants').append(\"#{markup}\");Venue.initMote();"
-          PrivatePub.publish_to @venue.back_channel, script
+          
+          if @venue.live?
+            markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_user }
+            markup = markup.gsub('"', "'").gsub("\n", '')
+            script = "$('.venue-participants').append(\"#{markup}\");Venue.initMote();"
+            PrivatePub.publish_to @venue.back_channel, script
+          end
 
           # after join redirect to venue page
           redirect_to @venue

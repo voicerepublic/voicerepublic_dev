@@ -68,9 +68,12 @@
       pickTime: true,
       pickSeconds: false
     });
-    $(".datetimepicker input").focus(function() {
-        $(this).parent().datetimepicker("show");
+    $(".datetimepicker > input").focus(function() {
+      $(this).parent().datetimepicker("show");
     });
+    $('.datetimepicker > field_with_errors > input').focus(function(){
+      $(this).parent().parent().datetimepicker("show");
+    })
   };
 
   var tagList = function() {

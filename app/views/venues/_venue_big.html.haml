@@ -34,7 +34,6 @@
 
         - if venue.user != current_user
           - unless false and venue.user_participates?(current_user)
-            -#= link_to venue_join_path(:venue_id => venue.id), :class => "btn btn-venue btn-large pull-right", :method => :post do
             = link_to participations_path(venue_id: venue.id),
                 :class => "btn btn-venue btn-large pull-right", :method => :post do
               = t('helpers.venue_actions.participate_button')
