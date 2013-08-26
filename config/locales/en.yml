@@ -577,6 +577,7 @@ en:
       created_new_status_update: "changed their status"
       created_new: "crated a new"
       new_venue_create: "A new venue was set up"
+
   search:
     tagged_with:
       taggings_with: "KluuUs and questions tagged with %{tag}"
@@ -593,6 +594,7 @@ en:
       text: "Create a question and use our matching system!"
       sign_up: "Sign up"
       user: "User"
+      no_results_sentence: 'Oops, no results.'
 
   shared:
     actionbar:
@@ -832,8 +834,6 @@ en:
       start_time: "Select start time"
       host_kluuu: "Hosting KluuU"
       duration: "Duration of your talk in minutes"
-      start_date: "Date"
-      start_time: "Time"
       datepick_placeholder: "select..."
       timepick_placeholder: "select..."
       datepick_help: "Example: 20/12/2013"

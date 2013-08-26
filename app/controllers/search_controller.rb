@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 
   def search
     @query = params[:query] || params[:landing_page_query]
-    @klus = Venue.search(@query)
+    @venues = Venue.search(@query)
   end
   # 
   # def match

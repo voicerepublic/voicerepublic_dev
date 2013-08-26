@@ -4,10 +4,10 @@
   %br/
   %br/
   %br/
-  .row-fluid.lp-featured-box
-    .span4.lp-featured-arrow-box
-      .lp-featured-arrow-inside
-        .lp-featured-arrow-text= t('.featured_venue')
+  .row-fluid.featured-box
+    .span4.featured-arrow-box
+      .featured-arrow-inside
+        .featured-arrow-text= t('.featured_venue')
     .span8
       - venue = Venue.featured.first
       = render(:partial => 'venues/venue_big', :locals => {:venue => venue})

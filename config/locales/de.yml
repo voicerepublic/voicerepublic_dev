@@ -597,6 +597,7 @@ de:
       text: "Erstelle ein Frage und nutze unser Matching System!"
       sign_up: "Anmelden"
       user: "Nutzer"
+      no_results_sentence: 'Wir konnten zur Zeit leider keine Ergebnisse finden.'
 
   shared:
     actionbar:
@@ -849,8 +850,6 @@ de:
       start_time: "Datum und Zeit auswählen"
       host_kluuu: "Gastgebendes KluuU"
       duration: "Dauer des Gesprächs in Minuten"
-      start_date: "Datum"
-      start_time: "Zeit"
       datepick_placeholder: "auswählen..."
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
