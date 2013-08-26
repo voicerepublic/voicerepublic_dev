@@ -859,6 +859,7 @@ de:
       record: 'Zeichne dieses Gespräch auf'
       your_talk: 'Dein Gespräch'
       event_title: 'Gesprächstitel'
+      archive: 'Archiv'
     edit_start_time:
       new_talk: "Neues Gespräch"      
     change_time_form:

@@ -105,18 +105,26 @@
                   = ef.check_box :record
                   = t('.record')
 
-    - if @venue.events.past.any?
-      %header.event-header
-        %h2= t('.past_talks')
-      - @venue.events.past.each do |event|
-        .row-fluid
-          .span12
-            %strong= event.title || event.venue.title
-            %small= l event.start_time, :format => :short
-
   .pull-right.clearfix
     = f.submit nil, :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")),
       (@venue.persisted? ? venue_path(@venue) : venues_path),
       :class => 'btn'
+
+  .clearfix
+
+  -# PAST EVENTS
+
+  - if @venue.events.past.any?
+    %header.event-header
+      %h3.layout-title= t('.archive')
+      %hr.venue-form-archive-box-hr
+    - @venue.events.past.each do |event|
+      .row-fluid
+        .span12
+          .venue-upcoming-event-time
+            = l event.start_time, :format => :short
+          %h3.venue-upcoming-event-title
+            = event.title || event.venue.title                
+
 

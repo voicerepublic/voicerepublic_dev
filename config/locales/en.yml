@@ -842,6 +842,7 @@ en:
       record: "Record this talk"
       your_talk: 'Your talk'
       event_title: 'Talk title'
+      archive: 'Archive'
     edit_start_time:
       new_talk: "New talk"
     change_time_form:
