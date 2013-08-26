@@ -54,18 +54,7 @@
 
     .span4.venue-form-description
       = image_tag "venue-icon-host.png", :class => "venue-form-icon"
-      %strong
-        Aenean
-      %br
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod.
-      %br
-      Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-      %br
-      %br
-      %ul
-        %li Cras Nibh Justo Etiam Bibendum
-        %li Venenatis Parturient Adipiscing
-        %li Dolor Ipsum Aenean
+      = render "venues/txt/venue_desc"
 
   .event-box.clearfix
     - if upcoming_events.any?
