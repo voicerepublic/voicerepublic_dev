@@ -45,9 +45,10 @@
         = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
         %hr.venue-horiz-line
       
-      -# archive
-      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
-      %hr.venue-horiz-line
+      - unless @venue.past?
+        -# archive
+        = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+        %hr.venue-horiz-line
 
       -# participants
       = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      

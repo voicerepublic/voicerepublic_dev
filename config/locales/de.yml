@@ -405,6 +405,16 @@ de:
     venues:
       my_venues: "Meine Treffpunkte"
 
+  devise:
+    passwords:
+      edit:
+        welcome_text: "Willkommen im neuen KluuU!"
+        change_password: "Passwort ändern"
+        new_password: "Neues Passwort"
+        confirm_new_password: "Neues Passwort bestätigen"
+      new:
+        reset_password: "Passwort zurücksetzen"
+        your_email_address: "Deine E-Mail Adresse"
 
 
   follows:

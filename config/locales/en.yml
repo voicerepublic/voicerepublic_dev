@@ -406,6 +406,18 @@ en:
       edit_preferences: "Einstellungen editieren"
     venues:
       my_venues: "My venues"
+
+  devise:
+    passwords:
+      edit:
+        welcome_text: "Welcome to the new KluuU!"
+        change_password: "Change password"
+        new_password: "New password"
+        confirm_new_password: "Confirm new password"
+      new:
+        reset_password: "Reset password"
+        your_email_address: "Your email address"
+
   follows:
     follower:
       follow_back: "Follow back"
