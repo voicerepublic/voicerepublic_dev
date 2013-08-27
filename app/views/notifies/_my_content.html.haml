@@ -36,4 +36,4 @@
     .contribution-actions
       - if can? :manage, notification
         = link_to delete_notification_path(:notification_id => notification), :method => :delete, :remote => true do
-          = t('destroy')
+          = t('helpers.links.destroy')
