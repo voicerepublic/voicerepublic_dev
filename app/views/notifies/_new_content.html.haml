@@ -14,13 +14,6 @@
       \:
       = link_to_url_for_notification_reason(notification) do
         = limit_words(notification.content, 40)
-    - if notification.instance_of?(Notification::NewKluuu)
-      = link_to notification.other.name, user_path(:id => notification.other)
-      = t('.created_new')
-      = klu_type_string(notification.klu)
-      \:
-      = link_to_url_for_notification_reason(notification) do
-        = tiny_klu(notification.klu)
     - if notification.instance_of?(Notification::NewVenue)
       = t('.new_venue_created')
       \:
