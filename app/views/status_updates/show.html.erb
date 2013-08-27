@@ -1,8 +1,9 @@
 <section class="status-updates">
-  <%= link_to(user_status_updates_path(:user_id => @status_update.user), :class => 'status-updates-back') do %>
-    <i class="icon-arrow-left"></i>
-    <%= t('.back') %>
+  <%= link_to(user_status_updates_path(:user_id => @status_update.user), :class => 'status-updates-back pull-right') do %>
+    <i class="icon-arrow-right"></i>
+    <%= t('.all_status') %>
   <% end %>
+  <br />
   <%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
   <section id="comments" class="contribution-comments">
     <ul>

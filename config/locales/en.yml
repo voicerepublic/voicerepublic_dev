@@ -643,10 +643,11 @@ en:
       add_comment: "Comment "
       comments: "Comments"
     index:
+      all_status: "All status"
       new_status_update: "New status"
       guest_empty_status_update: "%{name} has no Status yet."
     show:
-      back: "back"
+      all_status: "All status"
     new:
       title: "New status"
     form:

@@ -652,10 +652,11 @@ de:
       add_comment: "Kommentieren"
       comments: "Kommentare"
     index:
+      all_status: "Alle Status"
       new_status_update: "Neuer Status"
       guest_empty_status_update: "%{name} hat noch keinen Status."
     show:
-      back: "Zurück"
+      back: "Alle Status"
     new:
       title: "Neuer Status"
     form:
