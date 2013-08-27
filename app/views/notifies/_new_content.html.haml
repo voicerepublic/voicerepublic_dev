@@ -5,22 +5,15 @@
         = image_tag( notification.other.account.portrait.url(:thumb), :class => 'img-polaroid')
     - if notification.other && notification.other.instance_of?(Venue)
       = link_to user_path(:id => notification.other) do
-        = image_tag( notification.other.host_kluuu.user.account.portrait.url(:thumb), :class => 'img-polaroid')
+        = image_tag( notification.other.user.account.portrait.url(:thumb), :class => 'img-polaroid')
 
-  .contribution-right        
+  .contribution-right
     - if notification.instance_of?(Notification::NewStatus)
       = link_to notification.other.name, user_path(:id => notification.other)
       = t('.created_new_status_update')
       \:
       = link_to_url_for_notification_reason(notification) do
         = limit_words(notification.content, 40)
-    - if notification.instance_of?(Notification::NewKluuu)
-      = link_to notification.other.name, user_path(:id => notification.other)
-      = t('.created_new')
-      = klu_type_string(notification.klu)
-      \:
-      = link_to_url_for_notification_reason(notification) do
-        = tiny_klu(notification.klu)
     - if notification.instance_of?(Notification::NewVenue)
       = t('.new_venue_created')
       \:

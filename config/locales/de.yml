@@ -850,7 +850,6 @@ de:
       summary: "Zusammenfassung des Treffpunktes"
       description: "Beschreibung des Treffpunktes"
       start_time: "Datum und Zeit auswählen"
-      host_kluuu: "Gastgebendes KluuU"
       duration: "Dauer des Gesprächs in Minuten"
       datepick_placeholder: "auswählen..."
       timepick_placeholder: "auswählen..."
@@ -862,7 +861,7 @@ de:
       event_title: 'Gesprächstitel'
       archive: 'Archiv'
     edit_start_time:
-      new_talk: "Neues Gespräch"      
+      new_talk: "Neues Gespräch"
     change_time_form:
       event_title: 'Gesprächstitel'
       start_date: "Datum"
