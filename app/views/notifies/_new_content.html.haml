@@ -5,9 +5,9 @@
         = image_tag( notification.other.account.portrait.url(:thumb), :class => 'img-polaroid')
     - if notification.other && notification.other.instance_of?(Venue)
       = link_to user_path(:id => notification.other) do
-        = image_tag( notification.other.host_kluuu.user.account.portrait.url(:thumb), :class => 'img-polaroid')
+        = image_tag( notification.other.user.account.portrait.url(:thumb), :class => 'img-polaroid')
 
-  .contribution-right        
+  .contribution-right
     - if notification.instance_of?(Notification::NewStatus)
       = link_to notification.other.name, user_path(:id => notification.other)
       = t('.created_new_status_update')
