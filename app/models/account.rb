@@ -26,7 +26,7 @@ class Account < ActiveRecord::Base
   
   serialize :prefs, KluuuCode::Preferences
 
-  has_attached_file :portrait, :styles => { :large => "360x360#", :medium => "180x180#", :thumb => "45x45#" }, :default_url => "/system/:style/missing.jpg"
+  has_attached_file :portrait, :styles => { :large => "360x360#", :medium => "180x180#", :thumb => "45x45#" }, :default_url => "/system/:style/missing.png"
 
   belongs_to :user
 
