@@ -5,7 +5,4 @@
         = text_area_tag 'chat[body]','', :class => 'text_area group_chat_textarea input-block-level', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1
       = submit_tag t('.submit'), :class => 'btn btn-small btn-primary group_chat_submit pull-right'
 - else
-  = link_to participations_path(venue_id: venue.id),
-      :class => "btn btn-venue btn-large pull-right", :method => :post do
-    = t('helpers.venue_actions.participate_button')
-    \&nbsp;#{image_tag "coffee_icon_white.png"}
+  = render 'shared/participate_button', :venue => venue

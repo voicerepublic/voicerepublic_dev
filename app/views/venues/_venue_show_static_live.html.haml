@@ -15,9 +15,7 @@
       &nbsp;
     - if @venue.user != current_user
       - unless  @venue.user_participates?(current_user)
-        = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-live-header btn-small", :method => :post do
-          = t('helpers.venue_actions.participate_button')
-          = image_tag "/assets/coffee_icon_white.png"  
+        = render 'shared/participate_button', :venue => @venue
     .clearfix
 .section.venue-description.collapse.out
   .row-fluid.clearfix

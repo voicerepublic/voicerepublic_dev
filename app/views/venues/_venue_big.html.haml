@@ -17,10 +17,7 @@
     .venue-big-join-button.pull-right
 
       - if venue.user != current_user and !venue.user_participates?(current_user)
-        = link_to participations_path(venue_id: venue.id),
-            :class => "btn btn-venue btn-large pull-right", :method => :post do
-          = t('helpers.venue_actions.participate_button')
-          \&nbsp;#{image_tag "coffee_icon_white.png"}
+        = render 'shared/participate_button', :venue => venue
       - else
         %span.venue-big-icon-box
           = image_tag "venue-icon-host.png", :class => "venue-big-icon"
