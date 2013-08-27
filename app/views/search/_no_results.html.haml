@@ -23,12 +23,7 @@
     %header.lp-upcoming-header
       = t('.upcoming_venues')
 .row-fluid
-  .span9
+  .span12
     - venues = Venue.not_past.upcoming_first - [venue]
     - venues.each do |venue|
       = render(:partial => 'venues/venue_big', :locals => {:venue => venue})
-  .span3.kblog-box
-    .kblog
-      - if Kblog::Article.first &&! @news_shown
-        %header.news-header= t('landing_page.news')
-        = display_latest_articles(1, 400)

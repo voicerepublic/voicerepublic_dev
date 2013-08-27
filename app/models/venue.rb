@@ -14,6 +14,8 @@
 class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE = 5.minutes
+  DISCUSSIONS_STREAMER = "rtmp://kluuu-staging.panter.ch/discussions"
+  RECORDINGS_STREAMER = "rtmp://kluuu-staging.panter.ch/recordings"
 
   acts_as_taggable
 
@@ -41,7 +43,7 @@ class Venue < ActiveRecord::Base
   after_create :generate_notification
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
-  accepts_nested_attributes_for :events
+  accepts_nested_attributes_for :events, :reject_if => proc { |attrs| attrs['start_time'].blank? }
 
   scope :of_user,           proc { |user| where(:user_id => user.id) }
   scope :featured,          proc { where('featured_from <= ?', Time.now.in_time_zone).
@@ -113,7 +115,8 @@ class Venue < ActiveRecord::Base
       role: (self.user == user) ? 'host' : 'participant',
       storySubscription: PrivatePub.subscription(channel: story_channel),
       backSubscription: PrivatePub.subscription(channel: back_channel),
-      chatSubscription: PrivatePub.subscription(channel: channel_name)
+      chatSubscription: PrivatePub.subscription(channel: channel_name),
+      streamer: (next_event.record ? RECORDINGS_STREAMER : DISCUSSIONS_STREAMER)
     }
   end
 

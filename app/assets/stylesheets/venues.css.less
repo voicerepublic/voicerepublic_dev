@@ -11,21 +11,38 @@
 @import "config.css.less";
 
 .venue-edit-ajax {
-  padding: 0 30px 0 0;
+  width: 400px;
+  h2{
+    margin-top: 0;
+  }
 }
 
 /* VENUE INDEX ----------------------------------------*/
-.venue-list {
+.venue-index {
   margin: 11px 0 0 0;
+  position: relative;
 
-  .venue-big {
-    margin: 0 0 30px 0;
+  .venue-new-round-button{
+    position: absolute;
+    right: 40%;
+    top:0;
+  }
+}
+
+.venue-index-description{
+  position: relative;
+  min-height: 650px;
+  padding:0 0px 0 20px;
+  font-size: @baseFontSize;
+  ul{
+    margin-left: 12px
   }
 }
 
 /* GLOBAL VENUE CSS */
 .venue-section-title{
   margin:10px 0 15px 0;
+  font-size: 17px;
 }
 
 .well-large{
@@ -86,7 +103,8 @@
 
 /* VENUE UPCOMING EVENT ----------------------------------------*/
 .venue-event-box{
-  background: #E8F6EC;
+  /*background: #E8F6EC;*/
+  background:#ADC55A;
   margin-bottom: 20px;
 }
 
@@ -96,19 +114,18 @@
   font-weight: normal;
 }
 
-.venue-event-time{
-  padding-top: 35px;
-  color:#932945;
-  font-size: @baseFontSize * 1.2;
-  font-weight: normal;   
-}
-
 .venue-upcoming-event-title{
   font-style: italic;
   font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
   font-size: @baseFontSize * 1.6;
   line-height: 1.3;
   margin: 0 0 30px 0;
+}
+
+.venue-event-box-hr{
+  border-color: transparent;
+  border-top-color: #666;
+  margin-top: 2px
 }
 
 /* VENUE DESCRIPTION -------------------------------------------*/
@@ -125,16 +142,18 @@
 
 .venue-description-image{
   width:245px;
-  float: left;
   border: 1px solid #eee;
   margin-bottom: 5px;
+  width: 100%;  
 }
 
-.venue-summery{
+.venue-summary{
+  p:first-child{
+    margin-top:0;
+  }
   font-size: @baseFontSize * 1.3;
   line-height: 1.2;
   color:#999;
-  padding-right: 120px
 }
 
 .venue-description-content{
@@ -154,7 +173,15 @@
 
 /* FORUM/ARTICLES -------------------------------------------*/
 .venue-articles{
-  background: #FAF5D8
+  /*background: #FAF5D8*/
+  border: 1px solid #ddd;
+  #article_content{
+    height:46px;
+    .transition(height 0.2s ease)
+  }
+  #article_content:focus{
+    height:140px;
+  }
 }
 
 /* PARTICIPANTS ---------------------------------------*/
@@ -165,10 +192,12 @@
 .avatar-box{
   position: relative;
   width: 65px;
-  min-height:100px;
+  min-height:80px;
   float: left;
+  margin-right: 4px;
   text-align: center;
   font-size: @baseFontSize * 0.9;
+  line-height: 108%;
   a{
     color:#333;
   }
@@ -191,6 +220,7 @@
   line-height: 15px;
   color:#777;
   background: white;
+  cursor: pointer;
 }
 
 .demote-icon{
@@ -200,13 +230,14 @@
 /* ARCHIVE ---------------------------------------------*/
 .venue-archive-event-time{
   font-size: @baseFontSize * 0.8;
-  color:#999;
+  color:#932944;
   font-weight: bold;
 }
 
 .venue-archive-event-title{
   font-size: @baseFontSize * 1.2;
   margin-bottom: 10px;
+  font-family: "Droid Serif", Times;
 }
 
 /* CHAT ------------------------------------------------*/
@@ -222,8 +253,8 @@
     background: #1A6E6D
   }
   .scrollable-chat{
-    max-height:288px;
-    min-height: 288px;
+    max-height:325px;
+    min-height: 325px;
     margin-top:0px;
   }
 
@@ -269,9 +300,6 @@
 
 .btn-venue-description{
   font-size:16px;
-  position: absolute;
-  right: 0;
-  top: 110px;
 }
 
 .left-light-border{
@@ -280,7 +308,15 @@
 }
 
 .venue-new-date{
+  display: inline;
   margin-bottom: 5px
+}
+
+.venue-user-action-bar{
+  margin-bottom: 10px;
+  .btn{
+    margin-right: 10px;
+  }
 }
 
 /* VENUE LIVE ------------------------------------------*/
@@ -292,6 +328,65 @@
   position: relative;
 }
 
+.venue-live-titles{
+  font-size: 17px;
+}
+
+.btn-venue-live-header{
+  font-size:16px;
+  float:right;
+  margin-top: 34px
+}
+
+.venue-live-top-right-actions{
+  position: absolute;
+  right: 0px;
+  top: -4px;  
+}
+
+.venue-live-mute-button{
+  float: right;
+  display: none;
+  cursor: pointer;
+  opacity: 0.8;
+  &:hover{
+    opacity:1;
+  }
+}
+
+/* HACK TODO */
+.icon-microphone{
+  background:url(microphone-icon-red.png) no-repeat left 17px;
+  background-size: 30px;
+  width:30px;
+  height:60px;
+  display: inline-block;
+}
+
+.icon-microphone-off{
+  background:url(microphone-icon-off.png) no-repeat left 17px;
+  background-size: 30px;
+  width:30px;
+  height:60px;
+  display: inline-block;
+}
+
+/* HACK FERTIG */
+
+.venue-event-time{
+  color:#932945;
+  font-size: @baseFontSize * 1.2;
+  font-weight: normal;   
+}
+
+.venue-live-event-title{
+  font-family: "Droid Serif", Times;
+  line-height: 120%;
+  margin-top: 0;
+  padding-right: 251px;
+  height:92px;
+}
+
 .venue-live-box{
   .venue-description{
 /*    height:0;
@@ -300,9 +395,6 @@
 }
 
 .icon-onair {
-  position: absolute;
-  right: 0px;
-  top:-2px;
   color: red;
   padding: 5px 10px;
   background-color:white;
@@ -313,8 +405,30 @@
   border:4px solid #000;
   border-radius: 3px;
   text-align: center;
-  display: none;
+  display: block;
+  float: right;
+  margin-left: 7px;
   .box-shadow(inset 0 0 10px rgba(0,0,0,.5));
+}
+
+.icon-onair-text{
+  animation: pulsate 2s ease-out;
+  animation-iteration-count: infinite; 
+  -webkit-animation: pulsate 2s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.0  
+}
+
+@keyframes pulsate {
+    0% {-webkit-transform: scale(1); opacity: 0.5;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1); opacity: 0.5;}
+}
+
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(1); opacity: 0.5;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1); opacity: 0.5;}
 }
 
 #Blackbox{
@@ -364,9 +478,24 @@
   }
 }
 
-.users-onair-host-title,
-.users-onair-participants-title{
+.venue-live-chat-hr{
+  border-color: transparent;
+  border-top-color: #777
+}
 
+.venue-live-chat-input-form{
+  position: relative;
+}
+
+.group_chat_submit{
+  position: absolute;
+  right: 5px;
+  top:5px;  
+}
+
+.group_chat_textarea{
+  margin-bottom: 0;
+  height:70px;
 }
 
 /* VENUE FORM ------------------------------------------*/
@@ -392,6 +521,16 @@
     margin-top: 0;
   }
 
+  .help-datetimepicker{
+    margin-top: 0;
+  }
+
+  .datetimepicker{
+    .field_with_errors{
+      display: inline;
+    }
+  }
+
   .select2-container-multi .select2-choices{
     background: #F9F9F9;
     border: 1px solid #ccc;
@@ -407,8 +546,6 @@
   .control-group:first-child{
     padding-top: 0;
   }
-
-  .date
 
   .venue-form-icon{
     display: block;
@@ -464,8 +601,8 @@
         }
       }
     }
-    .help-datetimepicker{
-      margin-top: 0;
-    }
+  }
+  .venue-form-archive-box-hr{
+    border-top-color: #ddd;
   }
 }

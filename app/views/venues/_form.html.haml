@@ -1,15 +1,10 @@
--# TODO should move out the view
-- @venue.events.build if @venue.events.empty?
-- start_time = @venue.start_time ? @venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : |
-               t('.datepick_placeholder')                                                      |
-
 = form_for @venue, html: { multipart: true } do |f|
 
   .row-fluid
     .span8.venue-form-fields-left
       - if current_user.is_admin?
         .control-group
-          %label.control-label= t('.start_time')
+          %label.control-label= t('.featured_from')
           .controls.input-append.date.datetimepicker
             - featured_from = f.object.featured_from && f.object.featured_from.strftime('%d/%m/%Y %H:%M')
             = f.text_field :featured_from, :value => featured_from, 'data-format' => "dd/MM/yyyy hh:mm"
@@ -59,56 +54,66 @@
 
     .span4.venue-form-description
       = image_tag "venue-icon-host.png", :class => "venue-form-icon"
-      %strong
-        Aenean
-      %br
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod.
-      %br
-      Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-      %br
-      %br
-      %ul
-        %li Cras Nibh Justo Etiam Bibendum
-        %li Venenatis Parturient Adipiscing
-        %li Dolor Ipsum Aenean
+      = render "venues/txt/venue_desc"
 
   .event-box.clearfix
-    %header.event-header
-      %h2= t('.your_talk')
-    = f.fields_for :events do |ef|
-      .row-fluid
-        .span12
-          .control-group
-            %label.control-label= t('.event_title')
-            .controls
-              = ef.text_field :title, :class => "input-block-level"
-            .help-block
-              = t('.help-title-event')
-      .row-fluid.event-fields
-        .span4
-          .control-group
-            %label.control-label= t('.start_time')
-            .controls.input-append.date.datetimepicker
-              - start_time = ef.object.start_time && ef.object.start_time.strftime('%d/%m/%Y %H:%M')
-              = ef.text_field :start_time, :value => start_time, 'data-format' => "dd/MM/yyyy hh:mm"
-              %span.add-on
-                %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
-              .help-block.help-datetimepicker Format: 02/07/1967 17:00
-        .span4
-          .control-group.venue-form-duration
-            = ef.label :duration, :class => "control-label" do
-              = t('.duration')
-            .controls
-              = ef.select :duration, options_for_select(Event::DURATIONS), :class => "input-block-level"
-        .span4          
-          .control-group
-            = ef.label :record, :class => "control-label" do
-              = t('.settings')
-            .controls
-              = ef.label :record, :class => "control-label checkbox" do
-                = ef.check_box :record
-                = t('.record')            
-    
+    - if upcoming_events.any?
+      %header.event-header
+        %h2= t('.your_talk')
+      = f.fields_for :events, upcoming_events do |ef|
+        .row-fluid
+          .span12
+            .control-group
+              %label.control-label= t('.event_title')
+              .controls
+                = ef.text_field :title, :class => "input-block-level"
+              .help-block
+                = t('.help-title-event')
+        .row-fluid.event-fields
+          .span4
+            .control-group
+              %label.control-label= t('.start_time')
+              .controls.input-append.date.datetimepicker
+                - start_time = ef.object.start_time && ef.object.start_time.strftime('%d/%m/%Y %H:%M')
+                = ef.text_field :start_time, :value => start_time, 'data-format' => "dd/MM/yyyy hh:mm"
+                %span.add-on
+                  %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
+                .help-block.help-datetimepicker Format: 02/07/1967 17:00
+          .span4
+            .control-group.venue-form-duration
+              = ef.label :duration, :class => "control-label" do
+                = t('.duration')
+              .controls
+                = ef.select :duration, options_for_select(Event::DURATIONS), :class => "input-block-level"
+          .span4
+            .control-group
+              = ef.label :record, :class => "control-label" do
+                = t('.settings')
+              .controls
+                = ef.label :record, :class => "control-label checkbox" do
+                  = ef.check_box :record
+                  = t('.record')
+
   .pull-right.clearfix
     = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")),
+      (@venue.persisted? ? venue_path(@venue) : venues_path),
+      :class => 'btn'
+
+  .clearfix
+
+  -# PAST EVENTS
+
+  - if @venue.events.past.any?
+    %header.event-header
+      %h3.layout-title= t('.archive')
+      %hr.venue-form-archive-box-hr
+    - @venue.events.past.each do |event|
+      .row-fluid
+        .span12
+          .venue-upcoming-event-time
+            = l event.start_time, :format => :short
+          %h3.venue-upcoming-event-title
+            = event.title || event.venue.title                
+
+

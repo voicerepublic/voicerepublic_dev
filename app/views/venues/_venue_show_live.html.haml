@@ -1,6 +1,7 @@
 .section.venue-show-live
-  :javascript
-    Venue = #{@venue.details_for(current_user).to_json};
+  - if !current_user.nil?
+    :javascript
+      Venue = #{@venue.details_for(current_user).to_json};
 
   -# load swfobject and provide element to hook into
   - content_for :head do
@@ -12,9 +13,7 @@
     - if @venue.duration > 1
       = @venue.duration
       = t('.minutes')
-  %h3.venue-event-title
-    %i.icon-microphone
-      mic on
+  %h3.venue-live-event-title
     = @venue.next_event.title || '(no title)'
   #flashcontent Flash not installed
 

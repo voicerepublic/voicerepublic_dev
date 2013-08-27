@@ -39,15 +39,24 @@ body .container .well {
 }
 
  h2.landing-page-claim{
- 		font-size:@baseFontSize * 2.5;
- 		/*color: @brandKluuu;*/
- 		font-weight: 500;
- 		font-family: sans-serif;
- 		margin:40px 11px 30px 0px;
- 		display: inline-block;
-			-webkit-hyphens: auto;
-			-moz-hyphens: auto;
-			hyphens: auto; 		
+  	font-size:50px;
+  	/*color: @brandKluuu;*/
+  	font-weight: 300;
+  	font-family: sans-serif;
+  	margin:40px 11px 40px 0px;
+  	display: inline-block;
+  	-webkit-hyphens: auto;
+  	-moz-hyphens: auto;
+  	hyphens: auto;
+    position: relative;
+ }
+
+ .claim-author{
+    position: absolute;
+    right: -30px;
+    bottom:-16px;
+    font-size: 20px;
+    color:#999;
  }
 
  .lead{
@@ -77,7 +86,7 @@ body .container .well {
 		padding:0px 5% 20px 5%;
 		margin: auto;
 		margin-top: 0;
-		margin-bottom: 30px;
+		margin-bottom: 0px;
 		text-align: center;
 
 		a{
@@ -130,9 +139,15 @@ body .container .well {
 				font-size: 16px
 			}
 		}
-		li:last-child h2{
-			/*margin-right: 28px*/
+		li:first-child{
+			border-color: #A9C158
 		}
+    li:nth-child(2){
+      border-color: #9D2E44
+    }
+    li:nth-child(3){
+      border-color: #536731
+    }
 	}
 }
 
@@ -145,46 +160,6 @@ body .container .well {
 
 .lp-venue-slogan{
 	font-size: 14px
-}
-
-.lp-featured-box{
-  position: relative;
-}
-
-.lp-featured-arrow-box{
-  position: relative;
-  height:100%;
-} 
-
-.lp-featured-arrow-inside{
-  display: inline-block;
-  margin-left: 20%;
-  margin-top: 27%;
-  background: url(lp-arrow.png) top right no-repeat;
-  position: relative;
-  width:200px;
-  height: 60px
-}
-
-.lp-featured-arrow-text{
-  background: black;
-  margin-right: 30px;
-  padding:20px 0px 20px 20px;
-  width:150px;
-  height: 60px;
-  color:white;
-  display: inline-block;
-}
-
-.lp-featured-arrow{
-  position: absolute;
-  top:50px;
-  left: 170px;
-  width: 0;
-  height: 0;
-  border-top: 30px solid transparent;
-  border-bottom: 30px solid transparent;
-  border-left: 60px solid black;
 }
 
 .kblog-box{

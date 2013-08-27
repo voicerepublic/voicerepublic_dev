@@ -1,18 +1,30 @@
-%article{:class => "venue-big #{cycle('odd', 'even')} block"} 
+- participating = (venue.user != current_user and !venue.user_participates?(current_user)) ? ' unjoined':''
+%article{:class => "venue-big block" + participating} 
   -#overall link to venue
   = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
 
-  %header.venue-big-header
-    %span.venue-big-icon-box
-      = image_tag "venue-icon-host.png", :class => "venue-big-icon"
+  %header.venue-big-header{:class => participating}
     -#venue title
     %h3.venue-big-title= link_to venue.title, venue_path(venue)
     -#host link
     %aside.venue-big-host-link
-      = t('.by') + ' '
-      = link_to user_path(venue.user) do
-        -#= image_tag venue.user.account.portrait.url(:thumb), :class => "venue-big-user-thumb"      
+      = link_to user_path(venue.user) do    
+        = t('.by') + ' '
         = venue.user.name
+
+
+    -#join-button
+    .venue-big-join-button.pull-right
+
+      - if venue.user != current_user and !venue.user_participates?(current_user)
+        = link_to participations_path(venue_id: venue.id),
+            :class => "btn btn-venue btn-large pull-right", :method => :post do
+          = t('helpers.venue_actions.participate_button')
+          \&nbsp;#{image_tag "coffee_icon_white.png"}
+      - else
+        %span.venue-big-icon-box
+          = image_tag "venue-icon-host.png", :class => "venue-big-icon"
+
   .row-fluid.venue-big-row
     .span3.venue-big-left
       -#venue image
@@ -27,16 +39,6 @@
       - if !venue.next_event.nil?
         %h4.venue-big-event-title= link_to venue.next_event.title, venue_path(venue)
         -#event title
-      = simple_format( truncate(venue.summary, :length => 100), :class => "venue-big-description")
+      = simple_format( truncate(venue.summary, :length => 200), :class => "venue-big-description")
 
-      -#join-button
-      .venue-big-join-button.pull-right
-
-        - if venue.user != current_user
-          - unless false and venue.user_participates?(current_user)
-            -#= link_to venue_join_path(:venue_id => venue.id), :class => "btn btn-venue btn-large pull-right", :method => :post do
-            = link_to participations_path(venue_id: venue.id),
-                :class => "btn btn-venue btn-large pull-right", :method => :post do
-              = t('.join_venue')
-              \&nbsp;#{image_tag "coffee_icon_white.png"}
   .clearfix

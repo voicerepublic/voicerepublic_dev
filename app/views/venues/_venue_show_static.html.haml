@@ -10,16 +10,19 @@
     .span4
       = image_tag @venue.image.url(:medium), :class => "venue-description-image"
     .span8
-      .venue-summery
-        -#TODO summery
-        Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+      .venue-summary
+        = @venue.summary
 
   = simple_format @venue.description
 
   - if @venue.user != current_user
-    - unless  @venue.user_participates?(current_user)
-      = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-description btn-small", :method => :post do
-        = t('.join_venue')
-        = image_tag "/assets/coffee_icon_white.png"
+  
+    - if  @venue.user_participates?(current_user)
+      = link_to( t('helpers.venue_actions.unjoin_venue'), participation_path(:venue_id => @venue.id), :method => :delete, |
+        :data => { :confirm => t('helpers.venue_actions.confirm_unjoin_venue') },  :class => "btn btn-small")             |        
 
-  = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
+
+    - else
+      = link_to participations_path(:venue_id => @venue.id), :class => "btn btn-venue btn-venue-description btn-small", :method => :post do
+        = t('helpers.venue_actions.participate_button')
+        = image_tag "/assets/coffee_icon_white.png"

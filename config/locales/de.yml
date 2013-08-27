@@ -139,6 +139,11 @@ de:
       destroy: 'Löschen'
       confirm: 'Willst du wirklich löschen?'
 
+    venue_actions:
+      participate_button: 'Teilnehmen'
+      unjoin_venue: 'Teilnahme zurückziehen'
+      confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
+
   number:
     currency:
       format:
@@ -592,6 +597,7 @@ de:
       text: "Erstelle ein Frage und nutze unser Matching System!"
       sign_up: "Anmelden"
       user: "Nutzer"
+      no_results_sentence: 'Wir konnten zur Zeit leider keine Ergebnisse finden.'
 
   shared:
     actionbar:
@@ -704,7 +710,7 @@ de:
     user_content_nav:
       venues_title: "Treffpunkte"
       venues_participant: "Teilnehmer"
-      venues_host: "Host"
+      venues_host: "Gastgeber"
       venue_new: "Neuer Treffpunkt"
     user_information:
       unfollow: "Entfolgen"
@@ -739,8 +745,8 @@ de:
   venues:
     date_changed: "Treffpunkt Termin aktualisiert"
     edit:
-      venue_edit_title: "Treffpunkt bearbeiten"
-      venue_renew_title: "Neues Datum"
+      edit_venue: "Treffpunkt bearbeiten"
+      venue_renew_title: "Neues Gespräch"
       confirm_change_date: "Die Änderung des Termins wird im Anschluss den bisherigen Teilnehmern mitgeteilt"
       save: "Speichern"
     new_venue: "Treffpunkt erstellen"
@@ -759,7 +765,7 @@ de:
       group_chat: "Gruppen-Chat"
       only_attendies_can_see_group_chat: "Nur Teilnehmer des Treffpunktes können den Gruppen-Chat lesen"
       repeating: "Rhythmus"
-      renew: "Neues Datum"
+      new_talk: "Neues Gespräch"
     venue_show_header:
       venue: "Treffpunkt"
       minutes: "Minuten"
@@ -772,6 +778,8 @@ de:
     venue_show_chat:
       what_is_a_venue: "Was ist ein Treffpunkt?"
       see_other_venues: "Alle Treffpunkte"
+    venue_show_upcoming_event:
+      upcoming_event: "KOMMENDES GESPRÄCH"
     venue_show_forum:
       comments: "Kommentare"
       articles: "DISKUSSION"
@@ -788,6 +796,10 @@ de:
     venue_show_actions:
       unjoin_venue: "Teilnahme zurückziehen"
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
+    venue_show_archive:
+      past_talks: "ARCHIV"
+    venue_show_avatar:
+      leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     new:
       create_new_venue: "Treffpunkt erstellen"
       available_kluuu_prerequisite_for_creating_venue: "Du musst zuerst ein KluuU erstellen, um damit einen Treffpunkt zu schaffen"
@@ -800,8 +812,8 @@ de:
       so_easy: "So einfach"
       back: "Zurück"
     index:
-      venues: "Treffpunkte"
-      upcoming_venues: "Treffpunkte"
+      upcoming_venues: "KOMMENDE TREFFPUNKTE"
+      past_venues: "VERGANGENE TREFFPUNKTE"
       what_is_a_venue: "Was ist ein Treffpunkt?"
       show_only_upcoming_venues: "Treffpunkte demnächst"
       show_all_venues: "Alle Treffpunkte"
@@ -835,11 +847,9 @@ de:
       title: "Titel des Treffpunkts"
       summary: "Zusammenfassung des Treffpunktes"
       description: "Beschreibung des Treffpunktes"
-      start_time: "Zeitpunkt"
+      start_time: "Datum und Zeit auswählen"
       host_kluuu: "Gastgebendes KluuU"
       duration: "Dauer des Gesprächs in Minuten"
-      start_date: "Datum"
-      start_time: "Zeit"
       datepick_placeholder: "auswählen..."
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
@@ -848,7 +858,11 @@ de:
       record: 'Zeichne dieses Gespräch auf'
       your_talk: 'Dein Gespräch'
       event_title: 'Gesprächstitel'
+      archive: 'Archiv'
+    edit_start_time:
+      new_talk: "Neues Gespräch"      
     change_time_form:
+      event_title: 'Gesprächstitel'
       start_date: "Datum"
       start_time: "Zeit"
       datepick_placeholder: "auswählen..."

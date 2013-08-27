@@ -1,10 +1,12 @@
-- start_time = venue.start_time ? venue.start_time.in_time_zone.strftime("%d/%m/%Y %H:%M") : t('.datepick_placeholder')
-
-= form_for venue, :html => { :class => 'form-horizontal' } do |f|
+= form_for venue do |f|
   = hidden_field_tag(:renew,1)
 
   -# TODO resolve code duplication in venues/form
   = f.fields_for :events, [venue.events.build] do |ef|
+    .control-group
+      %label.control-label= t('.event_title')
+      .controls
+        = ef.text_field :title, :class => "input-block-level" 
     .control-group
       %label.control-label= t('.start_time')
       .controls.input-append.date#datetimepicker
@@ -26,10 +28,12 @@
         = ef.select :duration, options_for_select(Event::DURATIONS)
     .control-group
       = ef.label :record, :class => "control-label" do
-        = t('.record')
+        = t('.settings')
       .controls
-        = ef.check_box :record
-
-  .form-actions
+        = ef.label :record, :class => "control-label checkbox" do
+          = ef.check_box :record
+          = t('.record')           
+  %br
+  .pull-right.clearfix          
     = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")), venues_path, :class => 'btn'
+    = link_to t('.cancel', :default => t("helpers.links.cancel")), venue_path(venue), :class => 'btn'

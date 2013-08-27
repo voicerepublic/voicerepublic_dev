@@ -32,6 +32,12 @@ body.layout-logged-out{
   margin:auto;
 }
 
+.layout-title{
+  font-size: @baseFontSize * 1;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
 // error handling in forms
 .field_with_errors {
   padding: 2px;
@@ -323,6 +329,13 @@ form {
 }
 
 /* VENUE BUTTON */
+.venue-new-round-button{
+  background: url(/assets/venue-icon-new.png) no-repeat top left;
+  display: block;
+  width: 50px;
+  height: 50px;
+}
+
 .btn-venue {
   img{
     /*width:40px;*/
@@ -330,30 +343,18 @@ form {
   }
 
   color: #ffffff;
-  text-shadow:0px -1px 0px rgba(0, 0, 0, 0.15);
-/*  background-color: #546832;
-  *background-color: #546832;
-  background-image: -moz-linear-gradient(top, #8DAE51, #546832);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#8DAE51), to(#546832));
-  background-image: -webkit-linear-gradient(top, #8DAE51, #546832);
-  background-image: -o-linear-gradient(top, #8DAE51, #546832);
-  background-image: linear-gradient(to bottom, #8DAE51, #546832);
+  text-shadow:0px -1px 0px rgba(0, 0, 0, 0.55);
+  background-color: #A9C158;
+  *background-color: #A9C158;
+  background-image: -moz-linear-gradient(top, #A9C158, #A9C158);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#A9C158), to(#A9C158));
+  background-image: -webkit-linear-gradient(top, #A9C158, #A9C158);
+  background-image: -o-linear-gradient(top, #A9C158, #A9C158);
+  background-image: linear-gradient(to bottom, #A9C158, #A9C158);
   background-repeat: repeat-x;
-  border-color: #8DAE51 #8DAE51 #002a80;
+  border-color: #A9C158 #A9C158 #002a80;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8DAE51', endColorstr='#546832', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);*/
-  background-color: #546832;
-  *background-color: #546832;
-  background-image: -moz-linear-gradient(top, #546832, #546832);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#546832), to(#546832));
-  background-image: -webkit-linear-gradient(top, #546832, #546832);
-  background-image: -o-linear-gradient(top, #546832, #546832);
-  background-image: linear-gradient(to bottom, #546832, #546832);
-  background-repeat: repeat-x;
-  border-color: #546832 #546832 #002a80;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#546832', endColorstr='#546832', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A9C158', endColorstr='#A9C158', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);  
 }
 
@@ -364,13 +365,13 @@ form {
 .btn-venue.disabled,
 .btn-venue[disabled] {
   color: #ffffff;
-  background-color: #1A6E6D;
-  *background-color: #1A6E6D;
+  background-color: #A9C158;
+  *background-color: #A9C158;
 }
 
 .btn-venue:active,
 .btn-venue.active {
-  background-color: #1A6E6D \9;
+  background-color: #A9C158 \9;
 }
 
 /* NEW KLUUU BUTTON */
@@ -406,4 +407,44 @@ form {
 .btn-newklu:active,
 .btn-newklu.active {
   background-color: #932945 \9;
+}
+
+.featured-box{
+  position: relative;
+}
+
+.featured-arrow-box{
+  position: relative;
+  height:100%;
+} 
+
+.featured-arrow-inside{
+  display: inline-block;
+  margin-left: 20%;
+  margin-top: 27%;
+  background: url(lp-arrow.png) top right no-repeat;
+  position: relative;
+  width:200px;
+  height: 60px
+}
+
+.featured-arrow-text{
+  background: black;
+  margin-right: 30px;
+  padding:20px 0px 20px 20px;
+  width:150px;
+  height: 60px;
+  color:white;
+  display: inline-block;
+}
+
+.featured-arrow{
+  position: absolute;
+  top:50px;
+  left: 170px;
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 60px solid black;
 }

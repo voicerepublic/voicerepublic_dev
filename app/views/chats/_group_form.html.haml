@@ -1,9 +1,11 @@
 - if current_user && ( venue.user_participates?(current_user) || venue.user == current_user )
-  = form_tag( group_chat_path(:id => venue) , :remote => true) do |f|
+  = form_tag( group_chat_path(:id => venue) , :remote => true, :class => "venue-live-chat-input-form") do |f|
     .control-group
       .controls
         = text_area_tag 'chat[body]','', :class => 'text_area group_chat_textarea input-block-level', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1
-    .btns
       = submit_tag t('.submit'), :class => 'btn btn-small btn-primary group_chat_submit pull-right'
 - else
-  %span.label.label-info= t('.join_this_venue_to_chat')
+  = link_to participations_path(venue_id: venue.id),
+      :class => "btn btn-venue btn-large pull-right", :method => :post do
+    = t('helpers.venue_actions.participate_button')
+    \&nbsp;#{image_tag "coffee_icon_white.png"}

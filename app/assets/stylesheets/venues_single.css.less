@@ -6,6 +6,7 @@
 .venue-big{
   padding: 20px 30px;
   margin-top:5px;
+  margin-bottom: 40px;
   border-radius: 8px;
   border:3px solid #ccc;
   position: relative;
@@ -15,6 +16,26 @@
 .venue-big-header{
   display: block;
   margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.venue-big-header{
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis; /* required for Opera */
+  -ms-text-overflow: ellipsis;  /* required for IE8, allegedly */
+  -moz-binding: url('ellipsis.xml#ellipsis');    /* for Firefox; details here */    
+  padding-right: 40px;
+}
+
+.venue-big.unjoined{
+  .venue-big-header{
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis; /* required for Opera */
+    -ms-text-overflow: ellipsis;  /* required for IE8, allegedly */
+    -moz-binding: url('ellipsis.xml#ellipsis');    /* for Firefox; details here */  
+    padding-right: 190px;
+  }
 }
 
 .venue-big-row{
@@ -38,8 +59,8 @@
 
 .venue-big-icon-box{
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: -10px;
+  top: 10px;
   display: block;
   width: 25px;
 }
@@ -66,7 +87,8 @@
 }
 
 .venue-big-hr{
-  margin-top: 0
+  margin-top: 0;
+  border-top-color: #ddd
 }
 
 .venue-big-event-title{
@@ -94,4 +116,10 @@
 
 .venue-big-description{
   margin: 0
+}
+
+.venue-big-join-button{
+  position: absolute;
+  right: 30px;
+  top: 5px;
 }

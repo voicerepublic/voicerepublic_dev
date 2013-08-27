@@ -149,6 +149,12 @@ en:
       cancel: 'Cancel'
       destroy: 'Delete'
       confirm: 'Are you sure to delete?'
+
+    venue_actions:
+      participate_button: 'Participate'
+      unjoin_venue: 'Cancel participation'
+      confirm_unjoin_venue: 'Really want to unjoin this venue?'
+
   number:
     currency:
       format:
@@ -524,7 +530,7 @@ en:
   landing_page:
     news: "NEWS"
     index:
-      headline: "Let's talk about it."
+      headline: "Debate is so much better than denial."
       is: "is..."
       illu_1: "Your Blog..."
       illu_2: "with Venue..."
@@ -571,6 +577,7 @@ en:
       created_new_status_update: "changed their status"
       created_new: "crated a new"
       new_venue_create: "A new venue was set up"
+
   search:
     tagged_with:
       taggings_with: "KluuUs and questions tagged with %{tag}"
@@ -587,6 +594,7 @@ en:
       text: "Create a question and use our matching system!"
       sign_up: "Sign up"
       user: "User"
+      no_results_sentence: 'Oops, no results.'
 
   shared:
     actionbar:
@@ -692,7 +700,7 @@ en:
       new_status_update: "New status"
     user_content_nav:
       venues_title: "Venues"
-      venues_participant: "Participants"
+      venues_participant: "Participant"
       venues_host: "Host"
       venue_new: "Create Venue"
     user_information:
@@ -722,8 +730,8 @@ en:
   venues:
     date_changed: "New venue date"
     edit:
-      venue_edit_title: "Edit Venue"
-      venue_renew_title: "New date"
+      edit_venue: "Edit Venue"
+      venue_renew_title: "New talk"
       confirm_change_date: "All participants will be notified of your changes"
     venue_list: "Venues"
     new_venue: "Create Venue"
@@ -735,13 +743,13 @@ en:
       start_date: "Begin"
       duration: "Duration"
       past_venue: "Past Venue"
-      join_venue: "Participate!"
+      join_venue: "Participate now!"
       unjoin_venue: "Cancel participation"
       chat_will_be_available_short_before_start: "Group-chat will be available short before start"
       group_chat: "Group-Chat"
       only_attendies_can_see_group_chat: "Only participants can read the group-chat"
       repeating: "Rhythm"
-      renew: "New date"
+      new_talk: "New talk"
     venue_show_header:
       venue: "Venue"
       minutes: "Minutes"
@@ -754,6 +762,8 @@ en:
     venue_show_chat:
       what_is_a_venue: "Tell me about venues"
       see_other_venues: "All Venues"
+    venue_show_upcoming_event:
+      upcoming_event: "UPCOMING TALK"      
     venue_show_forum:
       comments: "Comments"
       articles: "DISCUSSION"
@@ -770,6 +780,10 @@ en:
     venue_show_actions:
       unjoin_venue: "Unjoin"
       confirm_unjoin_venue: "Really want to unjoin this venue?"
+    venue_show_archive:  
+      past_talks: "ARCHIVE"
+    venue_show_avatar:
+      leave_venue_popup: "This link opens a new tab!"
     new:
       create_new_venue: "Create a new Venue"
       available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
@@ -783,7 +797,8 @@ en:
       back: "Back"
     index:
       venues: "Venues"
-      upcoming_venues: "Upcoming venues"
+      upcoming_venues: "UPCOMING VENUES"
+      past_venues: "PAST VENUES"
       what_is_a_venue: "Tell me about venues"
       show_only_upcoming_venues: "Upcoming venues"
       show_all_venues: "All venues"
@@ -816,11 +831,9 @@ en:
       featured_from: "Featured from"
       title: "Title of venue"
       description: "Description of venue"
-      start_time: "Time"
+      start_time: "Select start time"
       host_kluuu: "Hosting KluuU"
       duration: "Duration of your talk in minutes"
-      start_date: "Date"
-      start_time: "Time"
       datepick_placeholder: "select..."
       timepick_placeholder: "select..."
       datepick_help: "Example: 20/12/2013"
@@ -829,7 +842,11 @@ en:
       record: "Record this talk"
       your_talk: 'Your talk'
       event_title: 'Talk title'
+      archive: 'Archive'
+    edit_start_time:
+      new_talk: "New talk"
     change_time_form:
+      event_title: 'Talk title'
       start_date: "Date"
       start_time: "Time"
       datepick_placeholder: "select..."
