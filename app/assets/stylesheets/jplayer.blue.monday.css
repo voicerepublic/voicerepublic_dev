@@ -33,6 +33,11 @@ div.jp-video {
 div.jp-audio {
   width:420px;
 }
+
+/* KLUUU */
+div.jp-audio {
+  width:310px;
+}
 div.jp-audio-stream {
   width:182px;
 }
@@ -119,6 +124,11 @@ div.jp-interface ul.jp-controls {
 div.jp-audio ul.jp-controls {
   width: 380px;
   padding:20px 20px 0 20px;
+}
+
+/* KLUUU */
+div.jp-audio ul.jp-controls {
+  width: 200px;
 }
 
 div.jp-audio-stream ul.jp-controls {
@@ -212,6 +222,7 @@ div.jp-audio div.jp-type-single div.jp-progress {
   left:110px;
   width:186px;
 }
+
 div.jp-audio div.jp-type-playlist div.jp-progress {
   left:166px;
   width:130px;
@@ -250,6 +261,13 @@ a.jp-volume-max {
   width:18px;
   height:15px;
   margin-top:12px;
+}
+
+/* KLUUU */
+a.jp-mute,
+a.jp-unmute,
+a.jp-volume-max {
+  display: none !important;
 }
 
 div.jp-audio div.jp-type-single a.jp-mute,
@@ -316,6 +334,12 @@ div.jp-volume-bar {
   height:5px;
   cursor: pointer;
 }
+
+/* KLUUU */
+div.jp-volume-bar {
+  display: none !important
+}
+
 div.jp-audio div.jp-volume-bar {
   top:37px;
   left:330px;
@@ -529,6 +553,11 @@ ul.jp-toggles {
   padding:0;
   margin:0 auto;
   overflow:hidden;
+}
+
+/* KLUUU */
+ul.jp-toggles{
+  display: none;
 }
 
 div.jp-audio .jp-type-single ul.jp-toggles {

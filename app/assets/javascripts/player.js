@@ -8,6 +8,8 @@ $(function () {
           m4a: player.data('recording')
         })
       },
+  
+      volume: 1,
       cssSelectorAncestor: player.data('selector'),
       swfPath: "/flash",
       supplied: "m4a",
