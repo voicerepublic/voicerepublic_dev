@@ -21,6 +21,8 @@ en:
       invalid_token: 'Invalid authentication token.'
       timeout: 'You are locked out, please sign in again to continue.'
       inactive: 'Your account has not been activated yet.'
+      user:
+        not_found_in_database: 'Invalid email or password.'
     sessions:
       signed_in: 'You are signed in.'
       signed_out: 'You are logged out.'

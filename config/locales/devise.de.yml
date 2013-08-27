@@ -21,6 +21,8 @@ de:
       invalid_token: 'Ungültiger Authentifizierungs-Token.'
       timeout: 'Du wurdest automatisch abgemeldet - Bitte melde dich erneut an.'
       inactive: 'Dein Konto wurde noch nicht aktiviert.'
+      user:
+        not_found_in_database: 'Ungültige Email-Adresse oder falsches Passwort.'
     sessions:
       signed_in: 'Erfolgreich angemeldet.'
       signed_out: 'Erfolgreich abgemeldet.'
