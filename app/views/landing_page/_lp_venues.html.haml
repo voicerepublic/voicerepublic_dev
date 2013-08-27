@@ -3,7 +3,6 @@
   %hr
   %br/
   %br/
-  %br/
   .row-fluid.featured-box
     .span4.featured-arrow-box
       .featured-arrow-inside
@@ -29,6 +28,14 @@
       = render(:partial => 'venues/venue_big', :locals => {:venue => venue})
   .span3.kblog-box
     .kblog
-      - if Kblog::Article.first &&! @news_shown
-        %header.news-header= t('landing_page.news')
-        = display_latest_articles(1, 400)
+      %header.lp-klog-header
+        NEWS
+      %article.kblog-article
+        %aside.kblog-created
+          Mittwoch, 27. August 2013
+
+        .kblog-title
+          Relaunch!
+
+        .kblog-content
+          The KluuU platform is relaunching tomorrow!
