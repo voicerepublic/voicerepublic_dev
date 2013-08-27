@@ -270,6 +270,7 @@ de:
     new_participant: "%{name} nimmt nun auch am Treffpunkt %{title} teil!"
   model_notification_venue_info:
     venue_starts_soon: "Der Treffpunkt %{title} beginnt %{time}"
+    new_venue: "Neuen Treffpunkt %{title}"
   model_notification_new_venue:
     friend_created_new_venue: "Dein Freund hat einen neuen Treffpunkt eingerichtet: %{name}"
   video_system:
@@ -652,10 +653,11 @@ de:
       add_comment: "Kommentieren"
       comments: "Kommentare"
     index:
+      all_status: "Alle Status"
       new_status_update: "Neuer Status"
       guest_empty_status_update: "%{name} hat noch keinen Status."
     show:
-      back: "Zurück"
+      back: "Alle Status"
     new:
       title: "Neuer Status"
     form:

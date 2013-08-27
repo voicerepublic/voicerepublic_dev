@@ -4,7 +4,7 @@
       = link_to_url_for_notification_reason(notification) do
         - if notification.other && notification.other.instance_of?(User)
           %span.user-image{"data-user-id" => notification.other.id}= image_tag notification.other.account.portrait(:thumb), :alt => notification.other.name
-        -#= notification
+        = notification
   %li.menu-item.text-align-center
     = link_to(dashboard_news_path) do
       = t('.all', :default => "See All")
