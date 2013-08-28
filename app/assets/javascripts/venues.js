@@ -158,7 +158,7 @@
         clone.hide();
         $('.users-onair-participants-box').append(clone);
         $('.demote-icon', clone).on('click', demoteHandler);
-        clone.fadeIn();
+        clone.fadeIn('slow', Venue.toggleManageIcons);
         user.fadeOut();
 
         // business logic changes
@@ -174,7 +174,7 @@
         // ui changes
         var avatar = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
         avatar.fadeOut(function() { avatar.remove() });
-        $('.venue-participants *[data-stream-id='+streamId+']').fadeIn();
+        $('.venue-participants *[data-stream-id='+streamId+']').fadeIn('slow', Venue.toggleManageIcons);
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
@@ -223,16 +223,19 @@
         if(Venue.role != 'host') return;
         $('.promote-icon').on('click', promoteHandler);
         $('.demote-icon').on('click', demoteHandler);
-        $('.venue-participants .demote-icon').hide();
-        $('.venue-participants .promote-icon').show();
-        $('.users-onair-participants-box .demote-icon').show();
-        $('.users-onair-participants-box .promote-icon').hide();
+        Venue.toggleManageIcons();
       },
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
         //log('publish: '+data);
         var channel = Venue.channel;
         $.ajax('/fayeproxy', { type: 'POST', data: { channel: channel, data: data } });
+      },
+      toggleManageIcons: function () {
+        $('.venue-participants .demote-icon').hide();
+        $('.venue-participants .promote-icon').show();
+        $('.users-onair-participants-box .demote-icon').show();
+        $('.users-onair-participants-box .promote-icon').hide();        
       }
     });
 
