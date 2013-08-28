@@ -771,6 +771,8 @@ en:
       time_until_takeoff: "%{time} until start"
       venue_moderated_by: "Moderated by %{name}"
       leave_venue_popup: "This link opens a new tab!"
+    venue_show_static:
+      by: "by"
     venue_show_static_live:
       by: "by"
     venue_show_chat:
