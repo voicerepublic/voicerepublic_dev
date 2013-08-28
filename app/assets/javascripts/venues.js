@@ -1,4 +1,23 @@
 (function($){
+  uniquify_avatars = function() {
+
+    attributes = []
+
+    $(".avatar-box").map(function(){
+      attributes.push($(this).attr('data-stream-id'));
+    })
+
+    for(i=0; i<attributes.length; i++) {
+      id = attributes[i];
+      len = $(".avatar-box[data-stream-id=" + id +"]").filter(':visible').length
+      if(len) {
+        $(".avatar-box[data-stream-id=" + id + "]").filter(':visible').each( function(index, elem) {
+          if(index == (len-1)) return;
+          $(elem).hide();
+        })
+      }
+    }
+  }
 
   $('.info-link-onair, .venue-desc-onair .close-icon').click(function(){
 
@@ -167,6 +186,7 @@
         Venue.blackbox.publish(Venue.streamId);
         Venue.subscribe();
         $('.venue-live-mute-button').fadeIn();
+        uniquify_avatars();
       },
       onDemote: function(streamId) {
         //log('received onDemote for '+streamId);
@@ -181,6 +201,7 @@
         Venue.blackbox.unpublish();
         Venue.role = 'participant';
         $('.venue-live-mute-button').fadeOut();
+        uniquify_avatars();
       },
       // onRegister is triggered by new participants
       // all senders (the host and all guests) should
@@ -235,7 +256,7 @@
         $('.venue-participants .demote-icon').hide();
         $('.venue-participants .promote-icon').show();
         $('.users-onair-participants-box .demote-icon').show();
-        $('.users-onair-participants-box .promote-icon').hide();        
+        $('.users-onair-participants-box .promote-icon').hide();
       }
     });
 
