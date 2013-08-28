@@ -2,16 +2,13 @@
 - if !Venue.featured.first.nil?
   %hr
   %br/
-  %br/
   .row-fluid.featured-box
     .span4.featured-arrow-box
       .featured-arrow-inside
         .featured-arrow-text= t('.featured_venue')
     .span8
       - venue = Venue.featured.first
-      = render(:partial => 'venues/venue_big', :locals => {:venue => venue})
-  %br/
-  %br/   
+      = render(:partial => 'venues/venue_big', :locals => {:venue => venue})   
 
 -#upcoming venues
 %hr
