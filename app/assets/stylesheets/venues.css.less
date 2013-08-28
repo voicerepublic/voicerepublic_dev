@@ -359,31 +359,32 @@
   top: -4px;  
 }
 
+/* HACK TODO */
+.icon-microphone{
+  background:url(microphone-icon-green.png) no-repeat left 17px;
+  background-size: 30px;
+  width:30px;
+  height:60px;
+  display: inline-block;
+  &:hover{
+    background:url(microphone-icon-off-green.png) no-repeat left 17px;
+    background-size: 30px;
+  }  
+}
+
+.icon-microphone-off{
+  background:url(microphone-icon-off-grey.png) no-repeat left 17px;
+  background-size: 30px;
+  width:30px;
+  height:60px;
+  display: inline-block;
+}
+
 .venue-live-mute-button{
   float: right;
   display: none;
   cursor: pointer;
-  opacity: 0.8;
-  &:hover{
-    opacity:1;
-  }
-}
-
-/* HACK TODO */
-.icon-microphone{
-  background:url(microphone-icon-red.png) no-repeat left 17px;
-  background-size: 30px;
-  width:30px;
-  height:60px;
-  display: inline-block;
-}
-
-.icon-microphone-off{
-  background:url(microphone-icon-off.png) no-repeat left 17px;
-  background-size: 30px;
-  width:30px;
-  height:60px;
-  display: inline-block;
+  opacity: 1;
 }
 
 /* HACK FERTIG */
