@@ -12,10 +12,9 @@
       len = $(".avatar-box[data-stream-id=" + id +"]").filter(':visible').length
       if(len) {
         $(".avatar-box[data-stream-id=" + id + "]").filter(':visible').each( function(index, elem) {
-          if(index != (len-1)) {
-            $(elem).hide();
-          }
-        )
+          if(index == (len-1)) continue;
+          $(elem).hide();
+        })
       }
     }
   }
