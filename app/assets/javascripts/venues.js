@@ -1,21 +1,22 @@
 (function($){
   uniquify_avatars = function() {
+
     attributes = []
 
-      $(".avatar-box").map(function(){
-        attributes.push($(this).attr('data-stream-id'));
-      })
+    $(".avatar-box").map(function(){
+      attributes.push($(this).attr('data-stream-id'));
+    })
 
     for(i=0; i<attributes.length; i++) {
       id = attributes[i];
       len = $(".avatar-box[data-stream-id=" + id +"]").filter(':visible').length
-        if(len) {
-          $(".avatar-box[data-stream-id=" + id + "]").filter(':visible').each( function(index, elem) {
-            if(index != (len-1)) {
-              $(elem).hide();
-            }
-          })
-        }
+      if(len) {
+        $(".avatar-box[data-stream-id=" + id + "]").filter(':visible').each( function(index, elem) {
+          if(index != (len-1)) {
+            $(elem).hide();
+          }
+        )
+      }
     }
   }
 
