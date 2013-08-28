@@ -12,7 +12,7 @@
       len = $(".avatar-box[data-stream-id=" + id +"]").filter(':visible').length
       if(len) {
         $(".avatar-box[data-stream-id=" + id + "]").filter(':visible').each( function(index, elem) {
-          if(index == (len-1)) continue;
+          if(index == (len-1)) return;
           $(elem).hide();
         })
       }
