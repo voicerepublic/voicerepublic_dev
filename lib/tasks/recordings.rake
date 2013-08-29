@@ -5,14 +5,15 @@ namespace :recordings do
   desc "Merge streams per event"
   task :merge => :environment do
     Dir.mkdir(RECORDINGS_PATH) unless File.exists?(RECORDINGS_PATH)
-    remove_empty_streams
+    remove_empty_flvs
 
     errors = []
     grouped_streams.each do |event_id, streams|
-      event = Event.find(event_id)
-      next if event.venue.live?
-
       begin
+        event = Event.find_by_id(event_id)
+        remove_flvs(streams) and next if event.blank?
+        next if event.venue.live?
+
         merge(event, streams)
       rescue Exception => e
         errors << [event_id, e.message, e.backtrace]
@@ -47,7 +48,6 @@ namespace :recordings do
       name = streams.first[0]
       `cd #{STREAMS_PATH} && ffmpeg -i #{name}.flv -vn #{recording}.m4a`
       save_recording(event, recording)
-      File.delete("#{STREAMS_PATH}/#{name}.flv")
     else
       # Convert FLV streams to WAVs
       streams = streams.sort_by { |_, datetime| datetime }
@@ -67,13 +67,12 @@ namespace :recordings do
       `cd #{STREAMS_PATH} && ffmpeg -i #{recording}.wav #{recording}.m4a`
       save_recording(event, recording)
 
-      # Remove WAVs and FLVs
+      # Remove WAVs
       File.delete("#{STREAMS_PATH}/#{recording}.wav")
-      streams.each do |name, _|
-        File.delete("#{STREAMS_PATH}/#{name}.wav")
-        File.delete("#{STREAMS_PATH}/#{name}.flv")
-      end
+      streams.each { |name, _| File.delete("#{STREAMS_PATH}/#{name}.wav") }
     end
+
+    remove_flvs(streams)
   end
 
   def save_recording(event, name)
@@ -81,11 +80,17 @@ namespace :recordings do
     event.update_column(:recording, "#{name}.m4a")
   end
 
-  def remove_empty_streams
+  def remove_empty_flvs
     flvs = Dir.entries(STREAMS_PATH).select { |f| f[-4..-1] == '.flv' }
     flvs.each do |file|
       path = "#{STREAMS_PATH}/#{file}"
       File.delete(path) if File.size(path) == 0
+    end
+  end
+
+  def remove_flvs(streams)
+    streams.each do |name, _|
+      File.delete("#{STREAMS_PATH}/#{name}.flv")
     end
   end
 end
