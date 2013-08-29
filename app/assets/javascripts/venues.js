@@ -158,7 +158,7 @@
         clone.hide();
         $('.users-onair-participants-box').append(clone);
         $('.demote-icon', clone).on('click', demoteHandler);
-        clone.fadeIn('slow', Venue.toggleManageIcons);
+        clone.fadeIn('fast', Venue.toggleManageIcons);
         user.fadeOut();
 
         // business logic changes
@@ -174,7 +174,7 @@
         // ui changes
         var avatar = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
         avatar.fadeOut(function() { avatar.remove() });
-        $('.venue-participants *[data-stream-id='+streamId+']').fadeIn('slow', Venue.toggleManageIcons);
+        $('.venue-participants *[data-stream-id='+streamId+']').fadeIn('fast', Venue.toggleManageIcons);
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
@@ -232,6 +232,7 @@
         $.ajax('/fayeproxy', { type: 'POST', data: { channel: channel, data: data } });
       },
       toggleManageIcons: function () {
+        if (Venue.role != 'host') return;
         $('.venue-participants .demote-icon').hide();
         $('.venue-participants .promote-icon').show();
         $('.users-onair-participants-box .demote-icon').show();
