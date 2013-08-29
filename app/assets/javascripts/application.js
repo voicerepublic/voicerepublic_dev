@@ -264,3 +264,12 @@ function fitText(jquerySelector) {
   setTimeout(calculateSize, 500);
   setTimeout(calculateSize, 1000);
 };
+
+function datetimePicker () {
+  $('.datetimepicker').datetimepicker({
+    pickDate: true,
+    pickTime: true,
+    pickSeconds: false
+  });
+};
+$(function() { datetimePicker() })

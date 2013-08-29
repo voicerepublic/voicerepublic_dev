@@ -9,7 +9,7 @@
         = ef.text_field :title, :class => "input-block-level" 
     .control-group
       %label.control-label= t('.start_time')
-      .controls.input-append.date#datetimepicker
+      .controls.input-append.date.datetimepicker
         = ef.text_field :start_time, :id => 'venue_s_date', 'data-format' => "dd/MM/yyyy hh:mm"
         %span.add-on
           %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}

@@ -60,22 +60,6 @@
     }
   };
 
-  var datetimePicker = function() {
-
-    $('.datetimepicker').datetimepicker({
-      language: '<%= I18n.locale.to_s %>',
-      pickDate: true,
-      pickTime: true,
-      pickSeconds: false
-    });
-    $(".datetimepicker > input").focus(function() {
-      $(this).parent().datetimepicker("show");
-    });
-    $('.datetimepicker > field_with_errors > input').focus(function(){
-      $(this).parent().parent().datetimepicker("show");
-    })
-  };
-
   var tagList = function() {
     $('.tagList').select2(
       { width: 'element',
@@ -117,7 +101,6 @@
   };
 
   disableKluLinks();
-  datetimePicker();
   tagList();
 
   var promoteHandler = function(event) {
