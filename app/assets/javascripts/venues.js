@@ -137,12 +137,8 @@
 
         // ui changes (seems to work on host but not on participant)
         var user = $('.venue-participants *[data-stream-id='+streamId+']');
-        var clone = user.clone();
-        clone.hide();
-        $('.users-onair-participants-box').append(clone);
-        $('.demote-icon', clone).on('click', demoteHandler);
-        clone.fadeIn('fast', Venue.toggleManageIcons);
-        user.fadeOut();
+        user.appendTo('.users-onair-participants-box')
+        if (Venue.role == 'host') Venue.toggleManageIcons();
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
@@ -155,9 +151,9 @@
         //log('received onDemote for '+streamId);
 
         // ui changes
-        var avatar = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
-        avatar.fadeOut(function() { avatar.remove() });
-        $('.venue-participants *[data-stream-id='+streamId+']').fadeIn('fast', Venue.toggleManageIcons);
+        var user = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
+        user.appendTo('.venue-participants');
+        if (Venue.role == 'host') Venue.toggleManageIcons();
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
@@ -204,8 +200,8 @@
       // --- Helpers
       initMote: function() {
         if(Venue.role != 'host') return;
-        $('.promote-icon').on('click', promoteHandler);
-        $('.demote-icon').on('click', demoteHandler);
+        $('body').on('click', '.promote-icon', promoteHandler);
+        $('body').on('click', '.demote-icon', demoteHandler);
         Venue.toggleManageIcons();
       },
       // publishes data via /fayeproxy to private_pub
@@ -215,7 +211,6 @@
         $.ajax('/fayeproxy', { type: 'POST', data: { channel: channel, data: data } });
       },
       toggleManageIcons: function () {
-        if (Venue.role != 'host') return;
         $('.venue-participants .demote-icon').hide();
         $('.venue-participants .promote-icon').show();
         $('.users-onair-participants-box .demote-icon').show();
