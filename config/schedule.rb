@@ -22,9 +22,9 @@
 set :job_template, "bash -l -c 'export PATH=/home/rails/.rbenv/shims:$PATH && :job'"
 set :output, "/home/rails/app/shared/log/whenever-cron.log"
 
-every 60.minutes, :roles => [:app] do
-  runner 'Venue.notify_next_day; Venue.notify_next_2_hour'
-end
+# every 60.minutes, :roles => [:app] do
+#   runner 'Venue.notify_next_day; Venue.notify_next_2_hour'
+# end
 
 every 67.minutes, :roles => [:app] do
   rake "thinking_sphinx:reindex"
