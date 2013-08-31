@@ -861,6 +861,7 @@ de:
       title: "Titel des Treffpunkts"
       summary: "Zusammenfassung des Treffpunktes"
       description: "Beschreibung des Treffpunktes"
+      tag_list: "Schlagworte"
       start_time: "Datum und Zeit auswählen"
       duration: "Dauer des Gesprächs in Minuten"
       datepick_placeholder: "auswählen..."
