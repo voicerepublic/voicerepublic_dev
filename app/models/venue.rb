@@ -14,8 +14,8 @@
 class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE = 5.minutes
-  DISCUSSIONS_STREAMER = "rtmp://kluuu-staging.panter.ch/discussions"
-  RECORDINGS_STREAMER = "rtmp://kluuu-staging.panter.ch/recordings"
+  DISCUSSIONS_STREAMER = "rtmp://kluuu-production.panter.ch/discussions"
+  RECORDINGS_STREAMER = "rtmp://kluuu-production.panter.ch/recordings"
 
   acts_as_taggable
 

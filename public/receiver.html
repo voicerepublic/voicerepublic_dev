@@ -5,10 +5,10 @@
     <style type="text/css">
     </style>
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <script src='//kluuu-staging.panter.ch:9294/faye/client.js'></script>
+    <script src='//kluuu-production.panter.ch:9294/faye/client.js'></script>
     <script type="text/javascript" src="/swfobject.js"></script>
     <script>
-      var flashvars = { streamer: 'rtmp://kluuu-staging.panter.ch/discussions' };
+      var flashvars = { streamer: 'rtmp://kluuu-production.panter.ch/discussions' };
       var params = {};
       var attributes = { id: "Blackbox", name: "Blackbox" };
       swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "550", "400", "10.3.181.22", null, flashvars, params, attributes);
@@ -33,7 +33,7 @@
         subscriptions.push(uuid);
       }
 
-      var client = new Faye.Client('http://kluuu-staging.panter.ch:9294/faye');
+      var client = new Faye.Client('http://kluuu-production.panter.ch:9294/faye');
 
       // subscribe to streams when they are announced
       client.subscribe('/announce', function(msg) {
