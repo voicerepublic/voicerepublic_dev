@@ -847,6 +847,7 @@ en:
       featured_from: "Featured from"
       title: "Title of venue"
       description: "Description of venue"
+      tag_list: "Tags"
       start_time: "Select start time"
       duration: "Duration of your talk in minutes"
       datepick_placeholder: "select..."
