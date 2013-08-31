@@ -16,9 +16,9 @@
 		<td><%= user.email %></td>
 		<td><%= user.created_at.strftime("%d.%m.%y")%></td>
 		<td>	
-			<%= link_to admin_user_path(:id => user.id), :method => :delete, :class => "btn btn-danger" do %>
-				<i class="icon-trash"> </i> delete
-			<% end %>
+			<%#= link_to admin_user_path(:id => user.id), :method => :delete, :class => "btn btn-danger" do %>
+				<!-- <i class="icon-trash"> </i> delete -->
+			<%# end %>
 			<%= link_to admin_user_path(:id => user.id), :class => "btn btn-primary" do %>
 				<i class="icon-eye-open"> </i> show
 			<% end %>

@@ -1,0 +1,28 @@
+.venue-show-description-box
+
+  -#title and host
+  - tmp_class = (@venue.user != current_user and !@venue.user_participates?(current_user)) ? 'button-padding-right':''
+  %header.well-large.venue-header-static{:class => tmp_class}
+    %h2.venue-title
+      = @venue.title
+    = link_to (t('.by') + " " + @venue.user.name), user_path(@venue.user), :class => "venue-host-link"
+    = render(:partial => 'venue_show_social', :locals => { :venue => @venue } )  
+
+  .section.venue-description
+    .row-fluid.clearfix
+      .span4
+        = image_tag @venue.image.url(:medium), :class => "venue-description-image"
+      .span8
+        .venue-summary
+          = @venue.summary
+
+    = simple_format @venue.description
+
+    - if @venue.user != current_user
+    
+      - if  @venue.user_participates?(current_user)
+        = link_to( t('helpers.venue_actions.unjoin_venue'), participation_path(:venue_id => @venue.id), :method => :delete, |
+          :data => { :confirm => t('helpers.venue_actions.confirm_unjoin_venue') },  :class => "btn btn-small")
+      - else
+        .venue-show-static-join-button
+          = render 'shared/participate_button', :venue => @venue

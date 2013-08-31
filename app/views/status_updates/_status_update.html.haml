@@ -1,0 +1,21 @@
+%article.contribution
+  .contribution-left     
+    .user-image{"data-user-id" => status_update.user.id}= link_to(image_tag( status_update.user.account.portrait.url(:thumb)), user_path(:id => status_update.user), :class => 'img-polaroid' )
+  .contribution-right
+    = link_to(status_update.user.name, user_path(:id => status_update.user), :class => 'contribution-username')
+    %time{:datetime => status_update.created_at.strftime("%Y-%m-%d")}
+      = time_ago_in_words(status_update.created_at)
+    = simple_format(status_update.content)
+
+    %aside.contribution-actions
+      - if !current_user
+        = link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment")) do
+          #{t('.add_comment')}
+      
+      = link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments")) do
+        = status_update.comments.count
+        = t('.comments')
+  
+      - if can? :manage, status_update
+        = link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do
+          = t('helpers.links.destroy')

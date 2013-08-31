@@ -1,0 +1,29 @@
+- content_for :title do
+  = t('.conversations', :default => 'conversations')
+  \&middot; #{@user.name}
+
+%section.center-box  
+  %header
+    %h2
+      = t('.conversations')
+  %section.row-fluid.conversations
+    %ul.conversations-list.unstyled
+      = t('.no_conversations_yet', :default => "you have no conversations yet") if @conversations.empty?
+      - @conversations.each do |conv|
+
+        %li
+          %article.contribution.clearfix
+            - partner = conv.partner_of(@user)
+            - msg = conv.undeleted_messages_for(@user).limit(1).first
+            .contribution-left.user-image{"data-user-id" => partner.id}
+              = link_to user_conversation_path(:user_id => @user, :id => conv) do
+                = image_tag(partner.account.portrait(:thumb), :class => "img-polaroid")
+              
+            .contribution-right
+              = link_to(partner.name, user_conversation_path(:user_id => @user, :id => conv), :class => "contribution-username")
+              %time.muted{:datetime => msg.created_at.strftime("%Y-%m-%d")}
+                = time_ago_in_words(msg.created_at)
+
+              - if msg
+                = link_to(user_conversation_path(:user_id => @user, :id => conv)) do
+                  %p= truncate( msg.content, :length => 72)

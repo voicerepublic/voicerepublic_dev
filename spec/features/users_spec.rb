@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-
-
 feature "User visits another user" do
   background do
     @user = FactoryGirl.create(:user)
@@ -29,7 +27,8 @@ feature "User can register" do
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
     page.click_button('Sign Up')
-    page.should have_css(".user-name")
+    page.should have_css(".user-container")
+    page.should have_css(".venue-new")
   end
   
   scenario "User misses email during registration" do
@@ -48,7 +47,7 @@ feature "User gets notifications via push" do
   
   before :each do
     @user = FactoryGirl.create(:user)
-    _klus = FactoryGirl.create(:published_no_kluuu, :user => @user)
+    #_klus = FactoryGirl.create(:published_no_kluuu, :user => @user)
   end
   
 
@@ -68,16 +67,15 @@ feature "User gets notifications via push" do
   
 end
 
-feature "there is a link to kluuus, venues, status_updates and bookmarks in his profile" do
+feature "there is a link to participation venues, host venues and create-venue-link'" do
   
+  # FIXME
   scenario "there is a link to users venues visible on his profile" do
     include Rails.application.routes.url_helpers
     venue = FactoryGirl.create(:venue)
-    visit user_path(:id => venue.host_kluuu.user.id)
-    page.should have_link( 'Venues' )
-    page.should have_link('Status')
-    page.should have_link('Bookmark')
-    page.should have_link('KluuUs')
+    visit user_path(:id => venue.user.id)
+    #page.should have_link('Participants')
+    #page.should have_link('Host')
   end
   
 end

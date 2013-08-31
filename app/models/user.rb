@@ -37,14 +37,14 @@ class User < ActiveRecord::Base
  
   has_many :user_roles, :class_name => "UserRole", :dependent => :destroy
   has_many :roles, :through => :user_roles
-  has_many :bookmarks, :dependent => :destroy
+  #has_many :bookmarks, :dependent => :destroy
   has_many :status_updates, :dependent => :destroy, :order => "created_at DESC"
   has_many :comments, :dependent => :destroy
   has_many :notifications, :class_name => 'Notification::Base', :dependent => :destroy
   has_many :ratings, :dependent => :destroy
-  has_many :klus ,  :dependent => :destroy       # -> base-class
-  has_many :no_kluuus,  :dependent => :destroy
-  has_many :kluuus, :dependent => :destroy
+  #has_many :klus ,  :dependent => :destroy       # -> base-class
+  #has_many :no_kluuus,  :dependent => :destroy
+  #has_many :kluuus, :dependent => :destroy
   has_many :sent_messages, :foreign_key => :sender_id, :class_name => 'Message', :dependent => :destroy
   has_many :received_messages, :foreign_key => :receiver_id, :class_name => 'Message', :dependent => :destroy
   has_many :followed_relations, :foreign_key => :follower_id, :class_name => 'Follow', :dependent => :destroy
@@ -60,6 +60,10 @@ class User < ActiveRecord::Base
   has_one :account, :dependent => :destroy          # application-account-things
   has_one :balance_account, :dependent => :destroy, :autosave => true, :class_name => 'Balance::Account'   # financial things
   
+  has_many :venues # as owner
+  has_many :participations
+  has_many :participating_venues, :through => :participations, :source => :venue
+
   scope :online, where("available = ? OR available = ?", 'online', 'busy')
   
   #accepts_nested_attributes_for :user_roles, :allow_destroy => true 
@@ -67,7 +71,7 @@ class User < ActiveRecord::Base
   
   after_create :add_default_user_role
   after_create :add_account
-  after_create :add_beginner_klu
+  # after_create :add_beginner_klu
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -231,7 +235,7 @@ class User < ActiveRecord::Base
   end
  
   def add_default_user_role
-    user_roles << UserRole.create({:role_id => Role.find_by_name('user').id})
+    user_roles << UserRole.create({:role_id => Role.find_or_create_by_name('user').id})
   end
   
   def add_account

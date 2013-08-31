@@ -1,12 +1,15 @@
 class VenuesController < ApplicationController
-  before_filter :remember_location, :only => [:join_venue]
-  before_filter :authenticate_user!, :except => [:index, :show]
-  
+
+  before_filter :store_location
+  #before_filter :remember_location, :only => [:join_venue]
+  before_filter :authenticate_user!, :except => [:index, :show, :tags]
   
   # GET /venues
   # GET /venues.json
   def index
-    @venues = Venue.where("start_time > ?", Time.now - 12.hours).order("start_time ASC").paginate(:page => params[:page], :per_page => 5)
+    # FIXME these are horrible hacks!
+    @venues      = Event.joins(:venue).not_past.upcoming_first.map(&:venue).uniq
+    @past_venues = Event.joins(:venue).past.most_recent_first.limit(15).map(&:venue).uniq
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,7 +33,8 @@ class VenuesController < ApplicationController
   def new
 
     @venue = Venue.new
-    
+    @venue.events.build
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @venue }
@@ -54,6 +58,7 @@ class VenuesController < ApplicationController
   # POST /venues.json
   def create
     @venue = Venue.new(params[:venue])
+    @venue.user = current_user
     
     authorize! :create, @venue
 
@@ -80,7 +85,7 @@ class VenuesController < ApplicationController
     
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
-        if params[:renew]
+        if params[:renew] && @venue.next_event.present?
           logger.debug("Venues#update - updating just the start time - notify others")
           Venue.generate_renew_info_for(@venue)
         end
@@ -93,46 +98,46 @@ class VenuesController < ApplicationController
     end
   end
   
-  # POST /venues/1/join_venue/5
-  #
-  def join_venue
-    
-    logger.debug("Venues#join_venue - at start of function ####################### ")
-    
-    @venue = Venue.find(params[:venue_id])
-    
-    if current_user.no_kluuus.empty?
-      klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
-    else
-      klu = current_user.no_kluuus.first
-    end
-    
-    #klu = Klu.find(params[:klu_id])
-    
-    venue_klu = VenueKlu.new(:venue => @venue, :klu => klu )
-    
-    authorize! :create, venue_klu
-    
-    respond_to do |format|
-      if venue_klu.save
-        format.html { redirect_to @venue, notice: "Successfully joined venue" }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @venue, alert: "Wasn't not able to join venue - perhaps already subscribed?" }
-        format.json { head :no_content }
-      end
-    end
-  end
-  
-  def unjoin_venue
-    @venue = Venue.find(params[:venue_id])
-    @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_user }
-    
-    respond_to do |format|
-      format.html { redirect_to @venue, notice: "Successfully unjoined venue" }
-      #format.js {}
-    end
-  end
+  # # POST /venues/1/join_venue/5
+  # #
+  # def join_venue
+  #   
+  #   logger.debug("Venues#join_venue - at start of function ####################### ")
+  #   
+  #   @venue = Venue.find(params[:venue_id])
+  #   
+  #   if current_user.no_kluuus.empty?
+  #     klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
+  #   else
+  #     klu = current_user.no_kluuus.first
+  #   end
+  #   
+  #   #klu = Klu.find(params[:klu_id])
+  #   
+  #   venue_klu = VenueKlu.new(:venue => @venue, :klu => klu )
+  #   
+  #   authorize! :create, venue_klu
+  #   
+  #   respond_to do |format|
+  #     if venue_klu.save
+  #       format.html { redirect_to @venue, notice: "Successfully joined venue" }
+  #       format.json { head :no_content }
+  #     else
+  #       format.html { redirect_to @venue, alert: "Wasn't not able to join venue - perhaps already subscribed?" }
+  #       format.json { head :no_content }
+  #     end
+  #   end
+  # end
+  # 
+  # def unjoin_venue
+  #   @venue = Venue.find(params[:venue_id])
+  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_user }
+  #   
+  #   respond_to do |format|
+  #     format.html { redirect_to @venue, notice: "Successfully unjoined venue" }
+  #     #format.js {}
+  #   end
+  # end
   
   def new_join
     @venue = Venue.find(params[:venue_id])
@@ -156,7 +161,13 @@ class VenuesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
+  def tags
+    scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])
+    tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
+    render json: { tags: tags, total: scope.count }
+  end
+
   private
   
   def remember_location

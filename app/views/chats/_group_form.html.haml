@@ -1,0 +1,8 @@
+- if current_user && ( venue.user_participates?(current_user) || venue.user == current_user )
+  = form_tag( group_chat_path(:id => venue) , :remote => true, :class => "venue-live-chat-input-form") do |f|
+    .control-group
+      .controls
+        = text_area_tag 'chat[body]','', :class => 'text_area group_chat_textarea input-block-level', :rows => 2, :placeholder => t('.your_message', :default => 'Your Message'), :autofocus => "autofocus", :tabindex => 1
+      = submit_tag t('.submit'), :class => 'btn btn-small btn-primary group_chat_submit pull-right'
+- else
+  = render 'shared/participate_button', :venue => venue

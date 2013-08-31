@@ -12,14 +12,21 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.jplayer.min
 //= require twitter/bootstrap
-//= require_tree .
+//= require bootstrap-datetimepicker.min.js
+//= require bootstrap-fileupload.js
+//= require bootstrap-maxlength.js
+//= require bootstrap.js.coffee
+//= require bookmarks.js.coffee
+//= require select2
+//= require swfobject.js
 
-
-var params = {};
-params.play = "true";
-params.bgcolor = "#FFFFFF";
-swfobject.embedSWF("/static/test.swf?v=0003", "check_flash", "0", "0", "10.3", "", params);
+//= require player.js
+//= require chat.js
+//= require klus.js
+//= require users.js
+//= require venues.js
 
 /* Alters-Success fade out after 8secs */
 (function($){
@@ -257,3 +264,12 @@ function fitText(jquerySelector) {
   setTimeout(calculateSize, 500);
   setTimeout(calculateSize, 1000);
 };
+
+function datetimePicker () {
+  $('.datetimepicker').datetimepicker({
+    pickDate: true,
+    pickTime: true,
+    pickSeconds: false
+  });
+};
+$(function() { datetimePicker() })

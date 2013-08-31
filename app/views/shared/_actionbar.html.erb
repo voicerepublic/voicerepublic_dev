@@ -10,13 +10,9 @@
 				<div class="phone-left-padding visible-phone visible-tablet"></div><%# left-border, visible by phone only %>
 				<%= link_to root_path, :class => "brand", :title => "KluuU" do %>
 					<h1><%= image_tag "logo.png", :alt => "KluuU Logo" %></h1>
-				<% end %>			
-			<ul class="nav">			
-				<!-- <li class="<%#= current_page?(dashboard_path) ? 'active' : '' %>"> -->
-					<!-- <%#= link_to(dashboard_path, :class => "nav-left-border") do %> -->
-						<!-- <%#= t(".dashboard") %> -->
-					<!-- <%# end  if current_user %> -->
-				</li>
+				<% end %>
+			<ul class="nav">
+
 				<li class="<%= current_page?current_user ? 'active' : '' %> dropdown actionbar-profile">
 					<%= link_to '#', :class => "actionbar-profile-link dropdown-toggle nav-left-border",:data => {:toggle=>"dropdown"}, :title => current_user.name do %>
 
@@ -26,11 +22,11 @@
 						</span>
 						<b class="caret"></b>
 					<% end %>
-					<%= render(:partial => 'shared/profile_dropdown_list') %>		
-				</li>						
+					<%= render(:partial => 'shared/profile_dropdown_list') %>
+				</li>
 			</ul>
 			<div class="container nav-collapse">
-				<ul class="nav">					
+				<ul class="nav">
 					<% if current_user.is_admin? %>
 							<li>
 								<%= link_to "admin", admin_dashboard_index_path %>
@@ -38,9 +34,8 @@
 					<% end %>
 					<li class="hidden-tablet navbar-button">
 						<span>
-						<%= link_to venues_path, :class => "btn btn-small btn-venue" do %>
-							<%= t('.see_other_venues') %>
-							<%#= image_tag "coffee_icon_white.png" %>
+						<%= link_to venues_path, :class => "action-bar-venue-link" do %>
+							<%= image_tag "venue-icon-host.png", :class => "venue-form-icon" %>
 						<% end %>
 						</span>
 					</li>
@@ -65,12 +60,14 @@
 					 	</li>
 
 					 	<li class="dropdown nav-left-border actionbar-notifications">
-					 		<a href="#" class="dropdown-toggle actionbar-notifications-dropdown" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications', :default => "Notifications") %>">
+					 		<a href="#" class="dropdown-toggle actionbar-notifications-dropdown" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications') %>">
 					 			<i class="icon-bell"></i>
 					 			<b class="caret"></b>
-					 			<span class="badge <%= badge_for_count(current_user.notifications.alerts.unread.count) %>" id="alerts-count-<%= current_user.id %>">
-					 				<%= current_user.notifications.alerts.unread.count %>
-					 			</span>
+                                                                <%- if notification_count > 0 %>
+                                                                  <span class="badge <%= badge_for_count(notification_count) %>" id="alerts-count-<%= current_user.id %>">
+                                                                    <%= notification_count %>
+                                                                  </span>
+                                                                <% end %>
 					 		</a>
 					 		<%= render(:partial => 'shared/notifications_list') %>
 					 	</li>
@@ -78,9 +75,11 @@
 					 	<li>
 					 		<%= link_to(user_conversations_path(:user_id => current_user), :title => t('.messages', :default => "Messages")) do %>
 					 			<i class="icon-envelope"> </i>
-					 			<span class="badge <%= badge_for_count(current_user.received_messages.receiver_unread.count) %>" id="messages-count-<%= current_user.id %>">
-					 				<%= current_user.received_messages.receiver_unread.count %>
-					 			</span>
+                                                                <%- if unread_messages_count > 0 %>
+                                                                  <span class="badge <%= badge_for_count(unread_messages_count) %>" id="messages-count-<%= current_user.id %>">
+                                                                    <%= unread_messages_count %>
+                                                                  </span>
+                                                                <% end %>
 					 		<% end %>
 					 	</li>
 

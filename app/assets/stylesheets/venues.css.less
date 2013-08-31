@@ -1,343 +1,624 @@
 /*
  *= require main
  *= require klus
- *= require venues_single 
+ *= require venues_single
  *= require_self
  *= require bootstrap_datetimepicker.min.css
+ *= require bootstrap-fileupload.css
+ *= require jplayer.blue.monday
  */
-
-
 
 @import "config.css.less";
 
 .venue-edit-ajax {
-  padding: 0 30px 0 0;
-}
-
-.participating-klus {
-  margin: 0px 0 21px 0;
-  .hero-unit{
-    padding:0;
-  }
-  .participating-klus-box{
-    position: relative;
-    /*overflow: hidden;*/
-    float: left;
-
-    .tiny-klu-call-overlay{
-      z-index: 1000;
-      position: absolute;
-      /*display: none;*/
-      left:50%;
-      top: 50%;
-      background:white;
-      min-width:200px;
-      border-radius: 3px;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -ms-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      -o-box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      opacity:0;
-      -moz-opacity:0;
-      -webkit-opacity:0;
-      -ms-opacity:0;
-      -o-opacity:0;
-      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-
-      transition:all 0.2s ease 0.2s;
-      -moz-transition:all 0.2s ease 0.2s;
-      -webkit-transition:all 0.2s ease 0.2s;
-      -ms-transition:all 0.2s ease 0.2s;
-      -o-transition:all 0.2s ease 0.2s;
-
-      .call-btn{
-        padding:8px 10px;
-        height: auto;
-        width: auto;
-        font-size: 16px;
-        font-weight: normal;
-        line-height: 16px;
-        .klu-price{
-          position: static;
-          width: 100%
-        }
-        .klu-user-image{
-          position: relative;
-          float: left;
-          background: green;
-          max-width:none;
-          width:60px;
-          top:0;
-          left:0;
-          margin-right: 8px;
-          img{
-            width:100%;
-          }
-        }
-        .btn{
-          margin-top:4px;
-          margin-bottom: 4px;
-          font-size: 10px;
-        }
-      }
-
-    }
-    &:hover{
-      .tiny-klu-call-overlay{
-        display: block;
-        opacity:1;
-        -moz-opacity:1;
-        -webkit-opacity:1;
-        -ms-opacity:1;
-        -o-opacity:1;
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-      }
-    }
-  }
-
-
-  .participating-klus-box {
-    .set-rows(4);
+  width: 400px;
+  h2{
+    margin-top: 0;
   }
 }
 
-/* ALLE TREFFPUNKTE */
-.venue-list {
+/* VENUE INDEX ----------------------------------------*/
+.venue-index {
   margin: 11px 0 0 0;
-  
-  .venue-big { 
-    margin: 0 0 30px 0;
-  } 
-  .odd {
-    /*background: @oddColor;*/
-  }
-  .even {
-    /*background: @evenColor;*/
-  }
-
- 
-}
-
-
-.venue-desc{
-  .btn{
-    color:#333;
-    font-weight: normal;
-  }
-  p{
-    margin:0 0 10px 0;
-  }
-  h3{
-    margin:0 0 5px 10px;
-    font-size: 18px
-  }
-
-  h4{
-    font-size:14px;
-    font-weight: bold;
-    margin:10px 0 2px 0;
-  }
-  .venue-desc-content{
-    .venue-desc-box{
-      background:#10ABA9;
-      padding:1px 10px;
-      margin:20px 0 10px 0
-    }
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    background: #208583;
-    color:white;
-    padding:1px 15px 10px 15px;
-    
-    font-size: 13px;
-    border-radius: 5px
-  }
-  a{
-    color:white;
-    font-weight: bold
-  }
-} 
-
-
-/* TREFFPUNKT GROSS */
-.venue-show{
   position: relative;
 
-  .host-info {
-    margin-bottom: 10px;
-    padding-left: 16px;
-    border:1px solid #932945;
-    max-height: 88px;
-    overflow: auto;
+  .venue-new-round-button{
+    position: absolute;
+    right: 40%;
+    top:0;
+  }
+}
+
+.venue-index-description{
+  position: relative;
+  min-height: 650px;
+  padding:0 0px 0 20px;
+  font-size: @baseFontSize;
+  ul{
+    margin-left: 12px
+  }
+}
+
+/* GLOBAL VENUE CSS */
+.venue-section-title{
+  margin:10px 0 15px 0;
+  font-size: 17px;
+}
+
+.well-large{
+  .venue-section-title{
+    margin-top: 0
+  }
+}
+
+/* VENUE HEADER */
+.venue-header-live{
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 0;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0
+}
+
+.venue-header-static{
+  padding: 0 0 1% 0
+}
+.button-padding-right{
+  padding-right: 200px
+}
+
+.venue-live-more-link{
+  margin-left: 30px;
+  color:#999;
+}
+
+.venue-title{
+  display: inline;
+  font-style: italic;
+  font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
+  line-height: 1.3;
+  margin: 0 0 0 0;
+}
+
+.venue-live-box{
+  .venue-title{
+    font-size: @baseFontSize * 1.8;
+    font-weight: normal;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    color:#333;
+  }
+}
+
+.venue-host-link{
+  margin-left: 15px;
+}
+
+.venue-horiz-line{
+  margin: 20px 0
+}
+
+.venue-description{
+
+}
+
+/* VENUE UPCOMING EVENT ----------------------------------------*/
+.venue-event-box{
+  /*background: #E8F6EC;*/
+  background:#ADC55A;
+  margin-bottom: 20px;
+}
+
+.venue-upcoming-event-time{
+  color:#932945;
+  font-size: @baseFontSize * 1.2;
+  font-weight: normal;
+}
+
+.venue-upcoming-event-title{
+  font-style: italic;
+  font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
+  font-size: @baseFontSize * 1.6;
+  line-height: 1.3;
+  margin: 0 0 30px 0;
+}
+
+.venue-event-box-hr{
+  border-color: transparent;
+  border-top-color: #666;
+  margin-top: 2px
+}
+
+/* VENUE DESCRIPTION -------------------------------------------*/
+.venue-show-description-box{
+  position: relative;
+}
+
+.venue-description{
+  margin-bottom: 50px;
+}
+
+.venue-live-box{
+  .venue-description{
+    margin-bottom: 0
+  }
+}
+
+.venue-description-image{
+  width:245px;
+  border: 1px solid #eee;
+  margin-bottom: 5px;
+  width: 100%;  
+}
+
+.venue-summary{
+  p:first-child{
+    margin-top:0;
+  }
+  font-size: @baseFontSize * 1.3;
+  line-height: 1.2;
+  color:#999;
+}
+
+.venue-description-content{
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.venue-socials {
+  position: absolute;
+  right: 0;
+  top:0;
+  @media (max-width:1000px){
+    margin-top:40px;
+  }
+}
+
+/* FORUM/ARTICLES -------------------------------------------*/
+.venue-articles{
+  /*background: #FAF5D8*/
+  border: 1px solid #ddd;
+  #article_content{
+    height:46px;
+    .transition(height 0.2s ease)
+  }
+  #article_content:focus{
+    height:140px;
+  }
+}
+
+/* PARTICIPANTS ---------------------------------------*/
+.venue-participants {
+  margin: 0px 0 21px 0;
+}
+
+.avatar-box{
+  position: relative;
+  width: 65px;
+  min-height:90px;
+  float: left;
+  margin-right: 4px;
+  text-align: center;
+  font-size: @baseFontSize * 0.9;
+  line-height: 108%;
+  a{
+    color:#333;
+  }
+  .user-image-box{
+    width:45px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+}
+
+.promote-icon, .demote-icon{
+  position: absolute;
+  top:-4px;
+  left:44px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border:1px solid #777;
+  text-align: center;
+  line-height: 15px;
+  color:#777;
+  background: white;
+  cursor: pointer;
+}
+
+.demote-icon{
+  left:36px;
+}
+
+/* ARCHIVE ---------------------------------------------*/
+.venue-archive-item{
+  margin-bottom: 30px
+}
+
+.venue-archive-event-time{
+  font-size: @baseFontSize * 0.8;
+  color:#932944;
+  font-weight: bold;
+}
+
+.venue-archive-event-title{
+  font-size: @baseFontSize * 1.2;
+  margin-bottom: 10px;
+  font-family: "Droid Serif", Times;
+}
+
+/* CHAT ------------------------------------------------*/
+.group-chat-instance {
+  h3{
+    padding: 0;
+    margin: 0 0 10px 0;
+    font-size: @baseFontSize * 1.2;
+    border-bottom: 1px solid #777;
+    color:#555;
+  }
+  .label-chat{
+    background: #1A6E6D
+  }
+  .scrollable-chat{
+    max-height:325px;
+    min-height: 325px;
+    margin-top:0px;
   }
 
-  .venue-time{
-    font-size: 18px;
-    color:#932945;
-    margin-bottom: 10px
-  }
+  .group-chat-item{
 
-  .page-header{
-    border:0;
-    margin-bottom: 40px;
-    a{
-      font-size:16px
+    font-size:12px;
+    line-height:22px;
+    position: relative;
+    display: block;
+    padding-right:70px;
+
+    .venue-chat-user{
+      color: #034869;
+      font-weight: bold;
+      &.venue-chat-host{
+        color: #932945;
+      }
     }
-    h2{
-      font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
-      font-style: italic;
-      font-weight: normal;
-      margin-top:0;
-      line-height: 40px
-    }    
-  }
-
-  .venue-box{
-    p:first-child{
-      margin-top:0;
+    .venue-chat-time{
+      position: absolute;
+      top:0;
+      right: 5px;
+      color: #bbb;
     }
   }
+}
 
-  .venue-socials {
+.venue-group-chat-form{
+  position: relative;
+  width:100%;
+  padding-right:80px;
+  .btn{
     position: absolute;
     right: 0;
     top:0;
-    @media (max-width:1000px){
-      margin-top:40px;
+    width:70px;
+  }
+}
+.venue-group-chat-textarea{
+  width:100%;
+  height:55px;
+}
+
+.btn-venue-description{
+  font-size:16px;
+}
+
+.left-light-border{
+  border-left:1px solid #eee;
+  padding-left: 3%;
+  min-height: 600px !important
+}
+
+.venue-new-date{
+  display: inline;
+  margin-bottom: 5px
+}
+
+.venue-user-action-bar{
+  margin-bottom: 10px;
+  .btn{
+    margin-right: 10px;
+  }
+}
+
+.venue-show-static-join-button{
+  position: absolute;
+  right:0;
+  top:0;
+}
+
+/* VENUE LIVE ------------------------------------------*/
+.venue-live{
+  margin-bottom: 50px
+}
+
+.venue-show-live{
+  position: relative;
+}
+
+.venue-live-titles{
+  font-size: 17px;
+}
+
+.btn-venue-live-header{
+  font-size:16px;
+  float:right;
+  margin-top: 34px
+}
+
+.venue-live-top-right-actions{
+  position: absolute;
+  right: 0px;
+  top: -4px;  
+}
+
+/* HACK TODO */
+.icon-microphone{
+  background:url(microphone-icon-green.png) no-repeat left 17px;
+  background-size: 30px;
+  width:30px;
+  height:60px;
+  display: inline-block;
+  &:hover{
+    background:url(microphone-icon-off-green.png) no-repeat left 17px;
+    background-size: 30px;
+  }  
+}
+
+.icon-microphone-off{
+  background:url(microphone-icon-off-grey.png) no-repeat left 17px;
+  background-size: 30px;
+  width:30px;
+  height:60px;
+  display: inline-block;
+}
+
+.venue-live-mute-button{
+  float: right;
+  display: none;
+  cursor: pointer;
+  opacity: 1;
+}
+
+/* HACK FERTIG */
+
+.venue-event-time{
+  color:#932945;
+  font-size: @baseFontSize * 1.2;
+  font-weight: normal;   
+}
+
+.venue-live-event-title{
+  font-family: "Droid Serif", Times;
+  line-height: 120%;
+  margin-top: 0;
+  padding-right: 251px;
+  height:92px;
+}
+
+.venue-live-box{
+  .venue-description{
+/*    height:0;
+    overflow: hidden;*/
+  }
+}
+
+.icon-onair {
+  color: red;
+  padding: 5px 10px;
+  background-color:white;
+  font-size: @baseFontSize * 1.4;
+  line-height: 100%;
+  font-weight: bold;
+  width: 100px;
+  border:4px solid #000;
+  border-radius: 3px;
+  text-align: center;
+  display: block;
+  float: right;
+  margin-left: 7px;
+  .box-shadow(inset 0 0 10px rgba(0,0,0,.5));
+}
+
+.icon-onair-text{
+  animation: pulsate 2s ease-out;
+  animation-iteration-count: infinite; 
+  -webkit-animation: pulsate 2s ease-out;
+  -webkit-animation-iteration-count: infinite; 
+  opacity: 0.0  
+}
+
+@keyframes pulsate {
+    0% {-webkit-transform: scale(1); opacity: 0.5;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1); opacity: 0.5;}
+}
+
+@-webkit-keyframes pulsate {
+    0% {-webkit-transform: scale(1); opacity: 0.5;}
+    50% {opacity: 1.0;}
+    100% {-webkit-transform: scale(1); opacity: 0.5;}
+}
+
+#Blackbox{
+  position: absolute;
+  right: 0px;
+  top:-15px;
+  z-index: 1;
+}
+
+.talking-users-box{
+  background:#A9C158;
+  border-radius: 0 !important;
+  position: relative;
+}
+
+.venue-live-left{
+  background-color: #D7E2B0;
+  width: 50% !important;
+  border-radius: 0;
+  min-height: 467px !important;
+  border-right: 3px solid #A9C158
+}
+
+.venue-live-right{
+  background-color: #D7E2B0;
+  margin-left: 0 !important;
+  width: 50% !important;
+  border-radius: 0;
+  min-height: 467px !important;
+}
+
+@media (max-width: 900px) {
+  .venue-live-right, .venue-live-left {
+    width: inherit !important
+  }
+}
+
+.users-onair-box{
+  height: 60px;
+  position: relative;
+  line-height: 3;
+  .user-image{
+    text-align: left;
+    display: block;
+    float: left;
+    margin-right: 20px;
+  }
+}
+
+.venue-live-chat-hr{
+  border-color: transparent;
+  border-top-color: #777
+}
+
+.venue-live-chat-input-form{
+  position: relative;
+}
+
+.group_chat_submit{
+  position: absolute;
+  right: 5px;
+  top:5px;  
+}
+
+.group_chat_textarea{
+  margin-bottom: 0;
+  height:70px;
+}
+
+/* VENUE FORM ------------------------------------------*/
+.venue-form{
+  max-width: 800px;
+  margin:0 auto;
+  padding-left: 4%;
+  padding-right: 4%;
+
+  h2{
+    padding-bottom: 10px;
+  }
+
+  .venue-form-fields-left{
+    padding-right: 20px;
+  }
+
+  .help-block{
+    margin-top: -8px;
+  }
+
+  .help-tags{
+    margin-top: 0;
+  }
+
+  .help-datetimepicker{
+    margin-top: 0;
+  }
+
+  .datetimepicker{
+    .field_with_errors{
+      display: inline;
     }
   }
 
-  .venue-comments {
-    position: relative;
-    width: 50%;
-     margin-top: 10px;
-     padding-top: 10px;
-     img {
-      margin-right: 10px 
-     }
-    .comment {
-      overflow: hidden;
+  .select2-container-multi .select2-choices{
+    background: #F9F9F9;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  }
+
+  .control-group{
+    padding-top: 26px;
+  }
+  .control-group:first-child{
+    padding-top: 0;
+  }
+
+  .venue-form-icon{
+    display: block;
+    width: 60px;
+    margin-bottom: 20px;
+  }
+  .venue-form-description{
+    min-height: 700px;
+    border-left: 1px solid #ddd;
+    padding:0 30px 0 30px;
+    font-size: @baseFontSize * 0.9;
+    ul{
+      margin-left: 12px
     }
-    .action {
-      margin-left: 10px;
+  }
+
+  .venue-form-image{
+    .controls{
+      float:left;
+      margin-right: 10px;
     }
-    aside{
-      width:100%;
+    input{
+      float:left;
     }
-    h3{
-      top:0;
+    .help-block{
       margin-top: 0
     }
   }
 
-  .venue-box {
-    border: 1px solid #d8d8d8;
-  }
-
-  .group-chat-instance {
-    h3{
-      padding: 0;
-      margin: 0;
-      font-size: @baseFontSize * 1.3;
+  .event-box{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 1.5% 3%;
+    border: 1px solid #ddd;
+    background: #FFFADC;
+    border-radius: 4px;
+    .event-header{
+      h2{
+        margin-top: 0;
+        font-size: @baseFontSize * 1.6
+      }
+      font-weight: bold;
     }
-    .label-chat{
-      background: #1A6E6D
+    .datetimepicker{
+      input[type="text"]{
+        width:80%;
+      }
     }
-    .scrollable-chat{
-      max-height:288px;
-      margin-top:10px;
-    }
-    
-    .group-chat-item{
-
-      font-size:12px;
-      line-height:22px;
-      position: relative;
-      display: block;
-      padding-right:70px;
-
-      .venue-chat-user{
-        color: #034869;
-        font-weight: bold;
-        &.venue-chat-host{
-          color: #932945;
+    .venue-form-duration{
+      .controls{
+        select{
+          width: 90%
         }
       }
-      .venue-chat-time{
-        position: absolute;
-        top:0;
-        right: 5px;
-        color: #bbb;
-      }
-    }
-    form{
-      position: relative;
-      width:100%;
-      padding-right:80px;
-      .btn{
-        position: absolute;
-        right: 0;
-        top:0;
-        width:70px;
-      }
-    }
-    .group_chat_textarea{
-      width:100%;
-      height:55px;
     }
   }
-
-  .btn-venue{
-    font-size:16px;
-  }
-
-  .venue-new-date{
-    margin-bottom: 5px
-  }
-}
-
-
-
-.venue-new-join{
-
-    p{
-      font-size: 18px;
-      margin-bottom: 0
-    }
-
-  .page-header{
-    border:0;
-    img{
-      width:30px;
-      margin-left:10px;
-      margin-bottom: 2px
-    }
-  }
-  .hero-unit{
-    margin-top:10px;
-    padding:30px;
-  }
-  .venue-time{
-    font-size: 18px;
-    color:#932945;
-  }
-  h2.venue-new-join-desc-title{
-    font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
-    font-style: italic;
-    font-weight: normal;
-    margin-top:0;
-    line-height: 30px;
-    font-size: 22px;
-    margin-bottom: 20px
-  }
-
-  h2 > span{
-    font-family: "Roboto";
-    font-style:normal
-  }
-  h3.venue-new-join-t-title{
-    margin-top:0
+  .venue-form-archive-box-hr{
+    border-top-color: #ddd;
   }
 }

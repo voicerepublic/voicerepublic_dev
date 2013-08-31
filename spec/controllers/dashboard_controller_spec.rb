@@ -22,12 +22,11 @@ describe DashboardController do
       response.should be_success
     end
     
-    it "assigns users @venues" do
-      kluuu = FactoryGirl.create(:published_kluuu, :user => @user)
-      venue = FactoryGirl.create(:venue, :host_kluuu => kluuu)
-      get 'venues'
-      assigns(:venues).should eq([venue])
-    end
+    # it "assigns users @venues" do
+    #   venue = FactoryGirl.create(:venue)
+    #   get 'venues'
+    #   assigns(:venues).should eq([venue])
+    # end
   end
   
   describe "Get dashboard/contacts" do
@@ -47,25 +46,25 @@ describe DashboardController do
   end
 
   describe "GET dashboard/bookmarks" do
-    it "returns http success" do
-      get 'bookmarks'
-      response.should be_success
-    end
+    # it "returns http success" do
+    #   get 'bookmarks'
+    #   response.should be_success
+    # end
 
-    it "assigns users bookmarks as @bookmarks" do
-      bookmark = FactoryGirl.create(:kluuu_bookmark, user: @user)
-      get "bookmarks"
-      assigns(:bookmarks).should eq([bookmark])
-    end
+    # it "assigns users bookmarks as @bookmarks" do
+    #   bookmark = FactoryGirl.create(:kluuu_bookmark, user: @user)
+    #   get "bookmarks"
+    #   assigns(:bookmarks).should eq([bookmark])
+    # end
   end
 
   describe "GET dashboard/matches" do
 
-    it "returns http success" do
-      get "matches"
-      #puts response.inspect
-      response.should be_redirect
-    end
+    # it "returns http success" do
+    #   get "matches"
+    #   #puts response.inspect
+    #   response.should be_redirect
+    # end
 
     it "assigns users klus as @klus, kluu to be matched as @matched_klu and @matching_klus as matching results" # do
 

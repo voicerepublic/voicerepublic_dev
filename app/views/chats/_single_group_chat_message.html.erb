@@ -1,9 +1,0 @@
-<li class="group-chat-item clearfix">
-	<span class="venue-chat-user <%=(@venue.host_kluuu.user == user)?"venue-chat-host":"" %>">
-			<%= user.name %>:
-	</span>
-	<%= content %>
-	<div class="venue-chat-time">
-		<%= l( Time.now, :format => :micro ) %>
-	</div>
-</li>

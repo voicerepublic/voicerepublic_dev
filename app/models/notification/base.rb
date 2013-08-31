@@ -24,17 +24,16 @@ class Notification::Base < ActiveRecord::Base
                         Notification::NewMessage
                         Notification::NewVenueParticipant
                         Notification::VenueInfo }
-                        
-  CONTENT_ALERTS  = %w{ Notification::NewKluuu 
-                        Notification::NewStatus
+
+  CONTENT_ALERTS  = %w{ Notification::NewStatus
                         Notification::NewVenue }
-                        
-  CALL_ALERTS     = %w{ Notification::CallEnded 
+
+  CALL_ALERTS     = %w{ Notification::CallEnded
                         Notification::CallAccepted
                         Notification::CallRejected }
 
   NEWS            =     [ALERTS,CONTENT_ALERTS].flatten
-  
+
   attr_accessible :other_id, :video_session_id, :user_id, :anon_id, :other, :user, :klu, :klu_id
 
   scope :unread,          where(:read => false)
@@ -43,7 +42,7 @@ class Notification::Base < ActiveRecord::Base
   scope :news_alerts,     :conditions => { :type => NEWS  }, :order => "created_at DESC"
   scope :call_alerts,      :conditions => { :type => CALL_ALERTS  }, :order => "created_at DESC"
 
-  
+
   def to_s
     self.class.name
   end
@@ -55,9 +54,6 @@ class Notification::Base < ActiveRecord::Base
     when 'NewStatus'
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_status_updates_path(:user_id => other )
-    when 'NewKluuu'
-      Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
-      klu_path(:id => klu_id)
     when "NewVenue"
       Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       venue_path(:id => other_id)
@@ -88,26 +84,23 @@ class Notification::Base < ActiveRecord::Base
     when "CallRejected"
     when "IncomingCall"
       klu_path(:id => klu_id)
-    end 
+    end
   end
-  
+
   def url_for_notify
     case self.class.name.split("::")[-1]
     when 'NewStatus'
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_status_updates_url(:user_id => other )
-    when 'NewKluuu'
-      Rails.logger.debug("#{self.class.name}#path_for_notify - klu: #{klu_id}")
-      klu_url(:id => klu_id)
     when 'NewVenue'
       Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       venue_url(:id => other_id)
     when "VenueInfo"
       Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
       venue_url(:id => other_id)
-    when "NewVenueParticipant"
-      Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
-      klu_url(:id => klu_id)
+    # when "NewVenueParticipant"
+    #   Rails.logger.debug("#{self.class.name}#path_for_notify - venue: #{other_id}")
+    #   klu_url(:id => klu_id)
     when "NewBookmark"
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_bookmarks_url(:user_id => other)
@@ -116,10 +109,10 @@ class Notification::Base < ActiveRecord::Base
     when "NewFollower"
       Rails.logger.debug("#{self.class.name}#path_for_notify - other: #{other_id}")
       user_url(:id => other)
-    when "NewRating"
-      klu_url(:id => klu_id)
-    when "MakeRate"
-      new_klu_rating_url(:klu_id => klu_id)
+    # when "NewRating"
+    #   klu_url(:id => klu_id)
+    # when "MakeRate"
+    #   new_klu_rating_url(:klu_id => klu_id)
     when "NewMessage"
       url
     when "MissedCall"
@@ -127,13 +120,15 @@ class Notification::Base < ActiveRecord::Base
     when "CallEnded"
     when "CallAccepted"
     when "CallRejected"
-    when "IncomingCall"
-      klu_url(:id => klu_id)
-    end 
+    # when "IncomingCall"
+    #   klu_url(:id => klu_id)
+    else
+      root_url
+    end
   end
 
-  #alias_method :url_for_notify, :path_for_notify  
-  
+  #alias_method :url_for_notify, :path_for_notify
+
   private
 
   def generate_push_notification
@@ -147,7 +142,7 @@ class Notification::Base < ActiveRecord::Base
   end
 
   def generate_mail_notification
-    if ALERTS.include?(self.class.name) && self.user.account.prefs.email_concerning_me == "1" 
+    if ALERTS.include?(self.class.name) && self.user.account.prefs.email_concerning_me == "1"
       Rails.logger.debug("#{self.class.name}#generate_mail_notification - generating mail for alert-type notification")
       UserMailer.content_notification(self).deliver
     end

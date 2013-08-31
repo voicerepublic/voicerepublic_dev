@@ -1,0 +1,10 @@
+%section.well-large.venue-articles
+  %header.venue-section-title= t('.articles')
+
+  - unless @venue.live?
+    %aside.newarticle.contribution.clearfix
+      - if current_user
+        - article = Article.new
+        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_user })
+
+  = render(:partial => 'venue_article', :collection => @venue.articles, :as => :article )

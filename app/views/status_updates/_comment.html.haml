@@ -1,0 +1,8 @@
+%article.contribution.comment
+  .contribution-left     
+    .user-image{"data-user-id" => comment.user.id}= link_to(image_tag( comment.user.account.portrait.url(:thumb)), user_path(:id => comment.user), :class => 'img-polaroid' )
+  .contribution-right
+    = link_to comment.user.name, user_path(:id => comment.user), :class => "contribution-username"
+    %time{:datetime => comment.created_at.strftime("%Y-%m-%d")}
+      = time_ago_in_words(comment.created_at)
+    = simple_format(comment.content)

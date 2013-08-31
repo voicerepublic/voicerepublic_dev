@@ -12,41 +12,18 @@
   .venue-top {
     padding-left: 0;
   }
-  .venue-title, .lp-klus-title{
-  	margin-left:22px;
-  }
-  
-  .lp-venue {
-  	h2{
-  		margin-right:10px;
-  	}
-  	.lp-learn-more{
-  		float:right;
-  		margin-top: 13px
-  	}
-  }
   
   .news-top {
     margin-top: 44px;
     padding-right: 10px;
     min-height: 210px
   }
- 	
-  .medium-klu {
-    .set-rows(4);
-  }
+
   h2{
   	margin:0px 0 0 0px;
   	font-size: 26px
   }
  }
-
-body{
-	/*background:url(/assets/people.jpg) no-repeat;*/
-	/*background-size: contain;*/
-	/*background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.2)) repeat scroll 0 0 transparent;*/
-
-}
 
 body .container .well {
 	box-shadow: inset 0 0 0px rgba(0,0,0,0.3) !important;
@@ -62,15 +39,24 @@ body .container .well {
 }
 
  h2.landing-page-claim{
- 		font-size:@baseFontSize * 2.5;
- 		/*color: @brandKluuu;*/
- 		font-weight: 500;
- 		font-family: sans-serif;
- 		margin:40px 11px 30px 0px;
- 		display: inline-block;
-			-webkit-hyphens: auto;
-			-moz-hyphens: auto;
-			hyphens: auto; 		
+  	font-size:50px;
+  	/*color: @brandKluuu;*/
+  	font-weight: 300;
+  	font-family: sans-serif;
+  	margin:40px 11px 40px 0px;
+  	display: inline-block;
+  	-webkit-hyphens: auto;
+  	-moz-hyphens: auto;
+  	hyphens: auto;
+    position: relative;
+ }
+
+ .claim-author{
+    position: absolute;
+    right: -30px;
+    bottom:-16px;
+    font-size: 20px;
+    color:#999;
  }
 
  .lead{
@@ -97,62 +83,54 @@ body .container .well {
 		}
 	}
 	.landing-page-illu{
-		padding:0px 5% 60px 5%;
-		border-bottom: 1px solid #999;
-		margin: auto;
-		margin-top: 0;
-		margin-bottom: 30px;
-		text-align: center;
-
+    
+    max-width: 1000px;
+    margin:50px auto 0 auto;
 		a{
 			color:@black;
 		}
-		ul{
-			display: inline-block;
-			background:url(bg-illu.png) no-repeat center top;
-			border:3px solid #ccc;
-			border-radius: 10px;
-			width:100%;
-			max-width:610px;
-			padding:5px 0px 25px 0;
-			@media (max-width: 800px) {
-				li{
-					h2{
-						font-size: 20px
-					}
-				}
-			}		
-		}
-		li{
+		.lp-box{
+      border-radius:5px;
+      max-width: 320px;
+      height: 220px;
+
+      border:3px solid #ccc;
+      text-align: left;
+      padding:0 8%;
+      margin:0 auto 35px auto;
 			&.lp-venue-icon img{
 				border-radius: 10px
 			}
-			margin:0 1.5% 0 1.5%;
 			list-style-type: none;
 			display: block;
-			float:left;
-			width:47%;
 			color:#777;
-			img{
-				margin-bottom: 10px
-			}
-			h2{
-				margin:21px 0 0px 0;
+
+      .lp-box-content{
+        margin-left: 15px;
+        padding-left: 2px;
+        list-style-type: disc;
+      }
+
+			.lp-box-title{
+				margin:20px 0 0px 0;
 				font-size: 20px;
 				line-height:34px;
-				color:#777;
+				color:#333;
 				font-family: sans-serif;
-				font-weight: bold;
-
+				font-weight: normal;
 			}
 			.landing-page-illu-subtitle{
 				font-style: italic;
 				font-size: 16px
 			}
 		}
-		li:last-child h2{
-			/*margin-right: 28px*/
+		.span6:first-child .lp-box{
+			border-color: #A9C158
 		}
+  
+    .span6:nth-child(2) .lp-box{
+      border-color: #536731
+    }
 	}
 }
 
@@ -167,40 +145,36 @@ body .container .well {
 	font-size: 14px
 }
 
-.lp-kluuus{
-	.well{
-		
-	}
-}
-
-.lp-trends-people{
-	.well{
-	
-	}
-}
-
-.landing-page-color2{
-	.well{
-		
-	}
-}
-
-.user-small{
-	.set-rows(2);
+.kblog-box{
+  padding-top: 2px;
 }
 
 .kblog {
+  margin-top: 3px;
 	font-family: inherit;
-	border:3px solid #ccc;
-	border-radius: 8px;
-	padding:20px 15px;
-	hr{
-		margin: 0 0 15px 0 !important
-	}
+  border: 3px solid #CCCCCC;
+  border-radius: 8px 8px 8px 8px;
+  padding: 10px 15px !important;
+
+  a{
+    color:#333;
+  }
+
+  .kblog-article-hr{
+    margin-top: 15px;
+    margin-bottom: 0px
+  }
+
+  .lp-klog-header{
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0;
+    margin-bottom: 10px
+  }
   .kblog-article {
   	margin-top: 0;
   	padding:0;
-		h2{
+    text-align: left;
+		.kblog-title{
 			margin-left:0;
 			font-size: 17px;
 			font-weight: bold;
@@ -213,21 +187,23 @@ body .container .well {
 			line-height: 15px;
 			text-align: left;
 			float: none;
+      margin-bottom: 3px
 		}
 		.kblog-content{
-			text-indent: 0;
-			p{
-				margin:0;
-				line-height: 18px
-			}
+      text-indent: 0;
+      text-align: inherit;
+      /*line-height: 116%;*/
 		}
 		box-shadow: none
   }
-  .news-header {
-    margin-left: 0px;
-    display:block;
-		line-height: 22px;
-		margin-bottom: 10px
-		/*font-weight: bold;    */
-  }
+}
+
+.lp-box-background{
+  background: -moz-linear-gradient(top,  rgba(226,226,226,0.65) 0%, rgba(226,226,226,0) 29%, rgba(226,226,226,0) 30%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,226,226,0.65)), color-stop(29%,rgba(226,226,226,0)), color-stop(30%,rgba(226,226,226,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', endColorstr='#00e2e2e2',GradientType=0 ); /* IE6-9 */      
 }
