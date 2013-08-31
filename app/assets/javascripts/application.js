@@ -271,5 +271,9 @@ function datetimePicker () {
     pickTime: true,
     pickSeconds: false
   });
+  // show datetimepicker on focus
+  $('.datetimepicker input').focus(function(){
+    $('.datetimepicker').datetimepicker('show');
+  });
 };
 $(function() { datetimePicker() })
