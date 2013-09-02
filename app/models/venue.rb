@@ -14,8 +14,7 @@
 class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE = 5.minutes
-  DISCUSSIONS_STREAMER = "rtmp://kluuu-production.panter.ch/discussions"
-  RECORDINGS_STREAMER = "rtmp://kluuu-production.panter.ch/recordings"
+  STREAMER_CONFIG = YAML.load_file(Rails.root.join("config", "rtmp_config.yml"))
 
   acts_as_taggable
 
@@ -116,7 +115,7 @@ class Venue < ActiveRecord::Base
       storySubscription: PrivatePub.subscription(channel: story_channel),
       backSubscription: PrivatePub.subscription(channel: back_channel),
       chatSubscription: PrivatePub.subscription(channel: channel_name),
-      streamer: (next_event.record ? RECORDINGS_STREAMER : DISCUSSIONS_STREAMER)
+      streamer: (next_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
     }
   end
 
@@ -141,7 +140,7 @@ class Venue < ActiveRecord::Base
   def channel_host_info
     "/chatchannel/host-info/vgc-#{self.id}"
   end
-  
+
   def self.upcoming
     Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
   end
