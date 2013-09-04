@@ -140,26 +140,6 @@ class Venue < ActiveRecord::Base
   def self.two_hour_ahead
     venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 120.minutes, Time.now + 60.minutes )
   end
-  
-  def self.notify_next_day
-    self.generate_time_info_for(self.one_day_ahead)
-  end
-  
-  def self.notify_next_2_hour
-    self.generate_time_info_for(self.two_hour_ahead)
-  end
-  
-  def self.generate_time_info_for(venues)
-    notifies = false
-    venues.each do |venue|
-      venue.attendies.each do |user|
-        I18n.locale = user.account.preferred_locale
-        Notification::VenueInfo.create(:user => user, :other => venue)
-        notifies = true
-      end
-    end
-    notifies
-  end
 
   # called in controller on update of only
   # start_time attributes
