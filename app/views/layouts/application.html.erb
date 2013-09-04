@@ -22,7 +22,7 @@
     <%= yield(:head) %>
 	</head>
 	<body class='<%= current_user ? "" : "layout-logged-out" %>'>
-		
+
 		<% if current_user %>
 			<%= render(:partial => "shared/actionbar") %>
 			<%#= render(:partial => '/shared/check_flash') -%>
@@ -41,6 +41,6 @@
 		<%= javascript_include_tag "application" %>
 		<%= yield :javascript %>
 		<!-- Placed at the end of the document so the pages load faster -->
-		<%= render(:partial => 'shared/piwik') %>
+		<%= render(:partial => 'shared/google_analytics') %>
 	</body>
 </html>
