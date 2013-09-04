@@ -63,6 +63,7 @@ class Venue < ActiveRecord::Base
   define_index do
     indexes title, :as => :title, :sortable => true
     indexes taggings.tag.name, :as => :tags
+    indexes events.title, :as => :event_title
   end
 
   # returns nil if no current or upcoming event
