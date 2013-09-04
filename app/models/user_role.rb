@@ -1,7 +1,3 @@
-# Attributes:
-# * id [integer, primary, not null] - primary key
-# * role_id [integer] - belongs to :role
-# * user_id [integer] - belongs to :user
 class UserRole < ActiveRecord::Base
   
   attr_accessible :role_id, :user_id

@@ -1,15 +1,3 @@
-# Attributes:
-# * id [integer, primary, not null] - primary key
-# * content [text] - TODO: document me
-# * conversation_id [integer] - belongs to :conversation
-# * created_at [datetime, not null] - creation time
-# * receiver_deleted [boolean] - TODO: document me
-# * receiver_id [integer] - belongs to :receiver
-# * receiver_read [boolean] - TODO: document me
-# * sender_deleted [boolean] - TODO: document me
-# * sender_id [integer] - belongs to :sender
-# * sender_read [boolean] - TODO: document me
-# * updated_at [datetime, not null] - last update time
 class Message < ActiveRecord::Base
   attr_accessible :content, :sender_read, :receiver_read, :receiver_id, :sender_id, :conversation_id
   

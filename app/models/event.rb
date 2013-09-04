@@ -1,11 +1,3 @@
-# Attributes:
-# * id [integer, primary, not null] - primary key
-# * created_at [datetime, not null] - creation time
-# * duration [integer] - TODO: document me
-# * record [boolean] - TODO: document me
-# * start_time [datetime] - TODO: document me
-# * updated_at [datetime, not null] - last update time
-# * venue_id [integer] - belongs to :venue
 class Event < ActiveRecord::Base
 
   DURATIONS = [ 30, 45, 60, 90, 120, 240 ]
