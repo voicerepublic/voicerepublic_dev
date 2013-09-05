@@ -15,11 +15,7 @@ class Event < ActiveRecord::Base
   scope :past,              proc { where("#{END_TIME_PGSQL} <= ?", Time.now.in_time_zone) }
   scope :most_recent_first, proc { order("#{END_TIME_PGSQL} DESC") }
 
-  # http://stackoverflow.com/questions/7745609/sql-select-only-rows-with-max-value-on-a-column
-  #MRO = "LEFT OUTER JOIN events e2 ON (events.id = e2.id AND events.start_time < e2.start_time)"
-  #scope :most_recent_only,  proc { past.joins(MRO).where('e2.start_time IS NULL') }
-
-  validates :venue, :start_time, :duration, :presence => true
+  validates :venue, :title, :start_time, :duration, :presence => true
 
   before_validation :parse_datetimepicker
 
