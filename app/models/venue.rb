@@ -26,7 +26,6 @@ class Venue < ActiveRecord::Base
 
   validates :title, :summary, :description, :tag_list, :presence => true
   
-  after_create :generate_notification
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :events, :reject_if => proc { |attrs| attrs['start_time'].blank? }
@@ -140,29 +139,10 @@ class Venue < ActiveRecord::Base
   def self.two_hour_ahead
     venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 120.minutes, Time.now + 60.minutes )
   end
-
-  # called in controller on update of only
-  # start_time attributes
-  #
-  def self.generate_renew_info_for(venue)
-    venue.attendies.each do |user|
-      I18n.locale = user.account.preferred_locale
-      Notification::VenueInfo.create(:user => user, :other => venue)
-    end
-  end
   
   private
   
   def clean_taglist
     self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
   end
-  
-  def generate_notification
-    user.follower.each do |follower|
-      if follower.account.prefs.inform_of_friends == "1" || true
-        Notification::NewVenue.create(:user => follower, :other => self)
-      end
-    end
-  end
-  
 end

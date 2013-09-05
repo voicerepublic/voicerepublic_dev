@@ -59,19 +59,6 @@
 							<% end %>
 					 	</li>
 
-					 	<li class="dropdown nav-left-border actionbar-notifications">
-					 		<a href="#" class="dropdown-toggle actionbar-notifications-dropdown" data-toggle="dropdown" role="button" id="dLabel" title="<%= t('.notifications') %>">
-					 			<i class="icon-bell"></i>
-					 			<b class="caret"></b>
-                                                                <%- if notification_count > 0 %>
-                                                                  <span class="badge <%= badge_for_count(notification_count) %>" id="alerts-count-<%= current_user.id %>">
-                                                                    <%= notification_count %>
-                                                                  </span>
-                                                                <% end %>
-					 		</a>
-					 		<%= render(:partial => 'shared/notifications_list') %>
-					 	</li>
-
 					 	<li>
 					 		<%= link_to(user_conversations_path(:user_id => current_user), :title => t('.messages', :default => "Messages")) do %>
 					 			<i class="icon-envelope"> </i>

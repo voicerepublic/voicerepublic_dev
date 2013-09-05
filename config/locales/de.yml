@@ -644,8 +644,6 @@ de:
       success: "Erfolg"
       warning: "Warnung"
       error: "Fehler"
-    notifications_list:
-      all: "Alle ansehen"
     user_dropdown_list:
       logout: "Abmelden"
     profile_dropdown_list:

@@ -644,8 +644,6 @@ en:
       success: "Successful"
       warning: "Warning"
       error: "Error"
-    notifications_list:
-      all: "View all"
     user_dropdown_list:
       logout: "Log Out"
     venues:
