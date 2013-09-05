@@ -861,26 +861,24 @@ de:
       description: "Beschreibung des Treffpunktes"
       tag_list: "Schlagworte"
       start_time: "Datum und Zeit auswählen"
-      duration: "Dauer des Gesprächs in Minuten"
+      datepick_placeholder: "auswählen..."
+      timepick_placeholder: "auswählen..."
+      datepick_help: "Beispiel: 20/12/2013"
+      timepick_help: "Beispiel: 18:15"      
+      your_talk: 'Dein Gespräch'
+      archive: 'Archiv'
+    event_fields:
+      new_talk: "Neues Gespräch"
+      event_title: 'Gesprächstitel'
+      duration: "Dauer des Gesprächs"
+      start_time: "Datum und Zeit"
       datepick_placeholder: "auswählen..."
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
       timepick_help: "Beispiel: 18:15"
       settings: "Einstellungen"
       record: 'Zeichne dieses Gespräch auf'
-      your_talk: 'Dein Gespräch'
       event_title: 'Gesprächstitel'
-      archive: 'Archiv'
-    edit_start_time:
-      new_talk: "Neues Gespräch"
-    change_time_form:
-      event_title: 'Gesprächstitel'
-      start_date: "Datum"
-      start_time: "Zeit"
-      datepick_placeholder: "auswählen..."
-      timepick_placeholder: "auswählen..."
-      datepick_help: "Beispiel: 20/12/2013"
-      timepick_help: "Beispiel: 18:15"
 
     group_chat:
       venue_chat: "CHAT"
