@@ -61,9 +61,11 @@
   };
 
   var tagList = function() {
+    var tags = $('.tagList').val().split(', ')
+
     $('.tagList').select2(
       { width: 'element',
-        tags: [],
+        multiple: true,
         tokenSeparators: [",", " "],
         ajax: {
           url: "/venues/tags.json",
@@ -98,10 +100,22 @@
           return data ? escapeMarkup(data.name) : undefined;
         }
       });
+
+    // Workaround to populate select2 with existing data
+    var formatted = [];
+    $.each(tags, function (i, tag) {
+      if (tag != "") {
+        formatted.push({ id: Math.floor(Math.random() * 1000), name: tag })
+      }
+    })
+
+    if (tags.length > 0) {
+      $('.tagList').select2('data', formatted)
+    }
   };
 
   disableKluLinks();
-  tagList();
+  if ($('.tagList').length) tagList();
 
   var promoteHandler = function(event) {
     var elem = $(this).closest('.avatar-box');
