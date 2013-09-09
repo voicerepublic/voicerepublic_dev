@@ -117,9 +117,9 @@ class Venue < ActiveRecord::Base
   end
 
   def chat_name
-    "vgc-#{self.id}"
+    "vgc-#{id}-#{next_event.id}"
   end
-  
+
   def channel_name
     "/chatchannel/vgc-#{self.id}e#{next_event.id}"
   end
