@@ -38,8 +38,8 @@ class Venue < ActiveRecord::Base
   #scope :past,              proc { joins(:events).merge(Event.past) }
   scope :most_recent_first, proc { joins(:events).merge(Event.most_recent_first) }
   
-  # start_time, duration, start_in_seconds wil return nil if no next_event
-  delegate :start_time, :duration, :start_in_seconds, to: :next_event, allow_nil: true
+  # start_time, duration, start_in_seconds wil return nil if no current_event
+  delegate :start_time, :duration, :start_in_seconds, to: :current_event, allow_nil: true
 
   attr_accessible :image
   has_attached_file :image,
@@ -53,7 +53,7 @@ class Venue < ActiveRecord::Base
   end
 
   # returns nil if no current or upcoming event
-  def next_event
+  def current_event
     events.not_past.upcoming_first.first
   end
 
@@ -62,19 +62,19 @@ class Venue < ActiveRecord::Base
   end
 
   def reload_time
-    return false if next_event.nil?
+    return false if current_event.nil?
     (start_time.in_time_zone - Time.now.in_time_zone) - LIVE_TOLERANCE + rand * 3.0
   end
 
   def live?(opts={})
-    return false if next_event.nil?
+    return false if current_event.nil?
     tolerance = opts[:tolerance] || LIVE_TOLERANCE
     (end_time >= Time.now.in_time_zone - tolerance) and
       (start_time <= Time.now.in_time_zone + tolerance)
   end
   
   def past?
-    return true if next_event.nil?
+    return true if current_event.nil?
     end_time < Time.now.in_time_zone
   end
   alias_method :timed_out?, :past?
@@ -96,32 +96,32 @@ class Venue < ActiveRecord::Base
   # this is rendered as json in venue/venue_show_live
   def details_for(user)
     { 
-      streamId: "v#{id}-e#{next_event.id}-u#{user.id}",
+      streamId: "v#{id}-e#{current_event.id}-u#{user.id}",
       channel: story_channel,
       role: (self.user == user) ? 'host' : 'participant',
       storySubscription: PrivatePub.subscription(channel: story_channel),
       backSubscription: PrivatePub.subscription(channel: back_channel),
       chatSubscription: PrivatePub.subscription(channel: channel_name),
-      streamer: (next_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
+      streamer: (current_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
     }
   end
 
   # the event channel propagates events, which get replayed on join
   def story_channel
-    "/story/v#{id}e#{next_event.id}"
+    "/story/v#{id}e#{current_event.id}"
   end
 
   # the back channel propagates events, which don't get replayed
   def back_channel
-    "/back/v#{id}e#{next_event.id}"
+    "/back/v#{id}e#{current_event.id}"
   end
 
   def chat_name
-    "vgc-#{id}-#{next_event.id}"
+    "vgc-#{id}-#{current_event.id}"
   end
 
   def channel_name
-    "/chatchannel/vgc-#{self.id}e#{next_event.id}"
+    "/chatchannel/vgc-#{self.id}e#{current_event.id}"
   end
   
   def channel_host_info

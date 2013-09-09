@@ -14,7 +14,7 @@
       = @venue.duration
       = t('.minutes')
   %h3.venue-live-event-title
-    = @venue.next_event.title || '(no title)'
+    = @venue.current_event.title || '(no title)'
   #flashcontent Flash not installed
 
   .row-fluid.clearfix

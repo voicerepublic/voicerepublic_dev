@@ -42,7 +42,7 @@
 
     .span4.left-light-border
       -# next event
-      - unless @venue.next_event.nil?
+      - unless @venue.current_event.nil?
         = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
         %hr.venue-horiz-line
 

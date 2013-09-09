@@ -55,7 +55,7 @@ describe Venue do
     expected = FactoryGirl.create(:event, venue: venue, start_time: 1.week.from_now)
     FactoryGirl.create(:event, venue: venue, start_time: 2.weeks.from_now)
     expect(venue).to have(2).events
-    expect(venue.next_event).to eq expected
+    expect(venue.current_event).to eq expected
   end
 
   # FIXME
@@ -63,7 +63,7 @@ describe Venue do
     venue = FactoryGirl.create(:venue_with_events)
     start, now = 1.hour.from_now, Time.now
     delta = (1.hour.from_now - now).round
-    venue.next_event.update_attributes :start_time => start
+    venue.current_event.update_attributes :start_time => start
     expect(venue.reload_time).to be_a(Float)
     tolerance = ( 5.minutes + 3.seconds ).to_i
     #expect(venue.reload_time).to be be_within(tolerance).of(delta)

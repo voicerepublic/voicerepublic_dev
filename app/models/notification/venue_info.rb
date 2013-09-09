@@ -22,7 +22,7 @@ class Notification::VenueInfo < Notification::Base
   after_create :generate_mail_notification, :generate_push_notification
 
   def to_s
-    if other.next_event
+    if other.current_event
       I18n.t('model_notification_venue_info.venue_starts_soon',
         :title => other.title, :time => I18n.l(other.start_time))
     else
