@@ -13,9 +13,10 @@
     .venue-live-mute-button
       %i.icon-microphone
       &nbsp;
-    - if @venue.user != current_user
-      - unless  @venue.user_participates?(current_user)
-        = render 'shared/participate_button', :venue => @venue
+    - if @venue.user == current_user
+      = link_to 'End this talk', '#end', :id => 'end_talk'
+    - elsif !@venue.user_participates?(current_user)
+      = render 'shared/participate_button', :venue => @venue
     .clearfix
 .section.venue-description.collapse.out
   .row-fluid.clearfix
