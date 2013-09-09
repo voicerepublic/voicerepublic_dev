@@ -1,9 +1,23 @@
 (function($){
 
   $('.info-link-onair, .venue-desc-onair .close-icon').click(function(){
-
     $('.venue-desc-onair').toggleClass('show');
   });
+
+  var endTalk = function (e) {
+    e.preventDefault()
+    alert('Bingo')
+  }
+
+  var showEndTalkBtn = function () {
+    $('#end_talk').show()
+  }
+
+  var endTalkButton = $('#end_talk')
+  if (endTalkButton.length) {
+    endTalkButton.click(endTalk)
+    setTimeout(showEndTalkBtn, endTalkButton.data('duration'))
+  }
 
   muteMicrophone = function(elem) {
     Venue.blackbox.mute();
