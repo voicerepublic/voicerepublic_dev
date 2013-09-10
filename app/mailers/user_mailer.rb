@@ -24,6 +24,15 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def reminder_notification(event, user)
+    @event = event
+    @user = user
+
+    I18n.with_locale locale(user) do
+      mail(:to => user.email, :subject => "Talk Reminder")
+    end
+  end
+
   private
 
   def locale(user)

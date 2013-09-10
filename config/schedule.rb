@@ -23,6 +23,11 @@
 set :job_template, "bash -l -c 'export PATH=/home/rails/.rbenv/shims:$PATH && :job'"
 set :output, "/home/rails/app/shared/log/whenever-cron.log"
 
+# Task invokation should be once in an hour
+every 40.minutes, :roles => [:app] do
+  rake "talks:remind"
+end
+
 every 67.minutes, :roles => [:app] do
   rake "thinking_sphinx:reindex"
 end
