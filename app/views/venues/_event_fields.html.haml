@@ -21,7 +21,7 @@
       = ef.label :duration, :class => "control-label" do
         = t('.duration')
       .controls
-        = ef.select :duration, options_for_select(Event::DURATIONS), :class => "input-block-level"
+        = ef.select :duration, Event::DURATIONS, :class => "input-block-level"
   .span4
     .control-group
       = ef.label :record, :class => "control-label" do
