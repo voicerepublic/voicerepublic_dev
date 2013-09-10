@@ -93,7 +93,19 @@ class VenuesController < ApplicationController
       end
     end
   end
-  
+
+  def end_event
+    @venue = Venue.find(params[:id])
+    @event = @venue.events.find(params[:event_id])
+    @event.end_at = Time.now.in_time_zone
+
+    if @event.save
+      render nothing: true
+    else
+      render text: @event.errors.full_messages.join(', '), status: :unprocessable_entity
+    end
+  end
+
   # # POST /venues/1/join_venue/5
   # #
   # def join_venue

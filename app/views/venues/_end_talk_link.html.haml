@@ -1,0 +1,6 @@
+= link_to 'End this talk', end_event_venue_path(venue), id: 'end_talk',
+  data: { url: venue_path(venue),
+    duration: end_in_milli(venue),
+    event: venue.current_event.id,
+    message: 'The talk has been ended.',
+    confirm: 'Are you sure?' }

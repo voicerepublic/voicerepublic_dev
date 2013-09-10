@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905111553) do
+ActiveRecord::Schema.define(:version => 20130910071549) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(:version => 20130905111553) do
     t.boolean  "record"
     t.string   "title",      :null => false
     t.string   "recording"
+    t.datetime "end_at"
   end
 
   add_index "events", ["start_time"], :name => "index_events_on_start_time"

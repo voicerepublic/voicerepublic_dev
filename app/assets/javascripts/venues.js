@@ -6,7 +6,17 @@
 
   var endTalk = function (e) {
     e.preventDefault()
-    alert('Bingo')
+    var link = $(this)
+
+    if (confirm(link.data('confirm'))) {
+      $.post(this.href, {
+        event_id: link.data('event')
+      }).success(function () {
+        Venue.publish("alert('" + link.data('message') + "'); window.location.replace('" + link.data('url') + "');");
+      }).error(function (jqXHR) {
+        alert(jqXHR.responseText)
+      })
+    }
   }
 
   var showEndTalkBtn = function () {

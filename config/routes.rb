@@ -35,11 +35,14 @@ Kluuu2::Application.routes.draw do
     delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
     get 'users/status_for' => 'users#status_for'
   end
-  
+
   scope "(/:locale)", :locale => /de|en/ do
     get 'venues/tags' => 'venues#tags'
     resources :categories
     resources :venues do
+      member do
+        post 'end_event'        
+      end
       post 'join_venue', :action => 'join_venue', :as => "join"
       #get 'new_join', :action => 'new_join', :as => 'new_join'
       delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 

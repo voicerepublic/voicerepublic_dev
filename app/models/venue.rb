@@ -35,8 +35,6 @@ class Venue < ActiveRecord::Base
                                      order('featured_from DESC') }
   scope :not_past,          proc { joins(:events).merge(Event.not_past) }
   scope :upcoming_first,    proc { joins(:events).merge(Event.upcoming_first) }
-  #scope :past,              proc { joins(:events).merge(Event.past) }
-  scope :most_recent_first, proc { joins(:events).merge(Event.most_recent_first) }
   
   # start_time, duration, start_in_seconds wil return nil if no current_event
   delegate :start_time, :duration, :start_in_seconds, to: :current_event, allow_nil: true

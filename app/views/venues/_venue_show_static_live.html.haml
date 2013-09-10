@@ -14,7 +14,7 @@
       %i.icon-microphone
       &nbsp;
     - if @venue.user == current_user
-      = link_to 'End this talk', '#end', id: 'end_talk', data: { duration: end_in_milli(@venue) }
+      = render 'venues/end_talk_link', :venue => @venue
     - elsif !@venue.user_participates?(current_user)
       = render 'shared/participate_button', :venue => @venue
     .clearfix
