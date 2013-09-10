@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
   validates :venue, :title, :start_time, :duration, :presence => true
 
   before_validation :parse_datetimepicker
+  after_create :notify_participants
 
   # returns 0 if past or already started
   def start_in_seconds
@@ -27,6 +28,12 @@ class Event < ActiveRecord::Base
   def parse_datetimepicker
     self.logger.debug("Venue#parse_datetimepicker - timezone: #{Time.zone}")
     self.start_time =  Time.zone.parse("#{s_date}") if s_date
+  end
+
+  def notify_participants
+    venue.users.each do |participant|
+      UserMailer.new_talk_notification(self, participant).deliver
+    end
   end
 
 end

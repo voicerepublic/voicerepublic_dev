@@ -85,12 +85,7 @@ class Venue < ActiveRecord::Base
     #self.klus.collect { |k| k.user }.push(self.host_kluuu.user)
     [ user ]
   end
-  
-  def guests
-    #self.klus.collect { |k| k.user }
-    []
-  end
-  
+
   # this is rendered as json in venue/venue_show_live
   def details_for(user)
     { 

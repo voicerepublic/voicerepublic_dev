@@ -15,4 +15,18 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :subject => t('mailers.activity_around_you'))
   end
 
+  def new_talk_notification(event, user)
+    @event = event
+    @user = user
+
+    I18n.with_locale locale(user) do
+      mail(:to => user.email, :subject => "New Talk")
+    end
+  end
+
+  private
+
+  def locale(user)
+    user.account.preferred_locale.to_sym
+  end
 end
