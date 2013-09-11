@@ -840,6 +840,8 @@ de:
       venue_title: "Treffpunkt"
       go_venue_page: "Zum Treffpunkt!"
       join_venue: "Jetzt teilnehmen!"
+    end_talk_link:
+      end_this_talk: "Talk beenden"
 
     venue_form:
       write_a_comment: "Verfasse einen Kommentar"

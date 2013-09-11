@@ -827,6 +827,8 @@ en:
       venue_title: "Venue"
       go_venue_page: "Proceed to venue-page"
       join_venue: "Participate now!"
+    end_talk_link:
+      end_this_talk: "End this talk"
 
     venue_form:
       write_a_comment: "write a comment"
