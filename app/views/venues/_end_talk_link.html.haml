@@ -1,4 +1,5 @@
-= link_to t('.end_this_talk'), end_event_venue_path(venue), id: 'end_talk', class: 'btn btn-small btn-warning',
+= link_to t('.end_this_talk'), end_event_venue_path(venue),
+  id: 'end_talk', class: 'btn btn-small btn-warning hidden',
   data: { url: venue_path(venue),
     duration: end_in_milli(venue),
     event: venue.current_event.id,

@@ -20,7 +20,7 @@
   }
 
   var showEndTalkBtn = function () {
-    $('#end_talk').show()
+    $('#end_talk').removeClass('hidden');
   }
 
   var endTalkButton = $('#end_talk')

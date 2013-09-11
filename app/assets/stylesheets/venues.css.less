@@ -449,12 +449,16 @@
     100% {-webkit-transform: scale(1); opacity: 0.5;}
 }
 
-#end_talk{
+#end_talk {
   display: block;
   position: absolute;
   right:0;
   top:-30px;
   width:100px;
+
+  &:hidden {
+    display: none;
+  }
 }
 
 #Blackbox{
