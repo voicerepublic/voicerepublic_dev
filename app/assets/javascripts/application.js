@@ -269,7 +269,8 @@ function datetimePicker () {
   $('.datetimepicker').datetimepicker({
     pickDate: true,
     pickTime: true,
-    pickSeconds: false
+    pickSeconds: false,
+    startDate: new Date()
   });
   // show datetimepicker on focus
   $('.datetimepicker input').focus(function(){
