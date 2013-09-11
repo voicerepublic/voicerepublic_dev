@@ -8,7 +8,7 @@
     e.preventDefault()
     var link = $(this)
 
-    if (confirm(link.data('confirm'))) {
+    if (confirm(link.data('confirmation'))) {
       $.post(this.href, {
         event_id: link.data('event')
       }).success(function () {
