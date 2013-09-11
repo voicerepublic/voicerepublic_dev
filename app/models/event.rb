@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
   scope :most_recent_first, proc { order('events.end_at DESC') }
 
   validates :venue, :title, :start_time, :duration, :presence => true
+  validate :must_not_exist_upcoming, on: :create
 
   before_validation :parse_datetimepicker
   after_create :notify_participants
@@ -33,6 +34,12 @@ class Event < ActiveRecord::Base
   def notify_participants
     venue.users.each do |participant|
       UserMailer.new_talk_notification(self, participant).deliver
+    end
+  end
+
+  def must_not_exist_upcoming
+    if venue && venue.events.not_past.any?
+      errors.add(:venue, 'Must be only one upcoming event')
     end
   end
 
