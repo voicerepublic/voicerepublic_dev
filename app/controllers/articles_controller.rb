@@ -48,10 +48,7 @@ class ArticlesController < ApplicationController
     authorize! :edit, @article
   end
 
-  # POST /articles
-  # POST /articles.json
   def create
-    
     @article = @venue.articles.build(params[:article])
     @article.user_id = current_user.id
 
@@ -61,12 +58,13 @@ class ArticlesController < ApplicationController
       flash[:alert] = 'type can not be articled ...' 
       redirect_to :back and return
     end
-    
+
     respond_to do |format|
       if @article.save
+        if @article.user != @article.venue_user
+          UserMailer.new_article_notification(@article).deliver
+        end
         format.html { redirect_to :back }
-        #format.html { redirect_to user_status_update_path(:user_id => @comment.venue.user, :id => @comment.venue), notice: I18n.t('controller_comments.comment_created', :default => 'Comment was successfully created.') }
-        #format.json { render json: @comment, status: :created, location: @comment.venue.user }
       else
         format.html { render action: "new" }
         format.json { render json: @article.errors, status: :unprocessable_entity }

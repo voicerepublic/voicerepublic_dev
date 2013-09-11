@@ -5,6 +5,8 @@ class Article < ActiveRecord::Base
   belongs_to :venue
   belongs_to :user
 
+  delegate :user, to: :venue, prefix: true
+
   attr_accessible :content
 
   validates :venue, :user, :content, :presence => true
