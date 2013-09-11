@@ -2,7 +2,7 @@
   %header.venue-section-title
     =t('.past_talks')
 
-  - venue.events.each do |event|
+  - venue.events.past.most_recent_first.each do |event|
     %article.venue-archive-item
       .venue-archive-event-time
         = l event.start_time, :format => :short
