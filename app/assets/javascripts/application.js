@@ -21,6 +21,7 @@
 //= require bookmarks.js.coffee
 //= require select2
 //= require swfobject.js
+//= require private_pub_nsa
 
 //= require player.js
 //= require chat.js
