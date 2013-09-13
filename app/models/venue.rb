@@ -55,25 +55,18 @@ class Venue < ActiveRecord::Base
     events.not_past.upcoming_first.first
   end
 
-  def end_time
-    start_time.in_time_zone + duration.minutes
-  end
-
   def reload_time
     return false if current_event.nil?
     (start_time.in_time_zone - Time.now.in_time_zone) - LIVE_TOLERANCE + rand * 3.0
   end
 
-  def live?(opts={})
-    return false if current_event.nil?
-    tolerance = opts[:tolerance] || LIVE_TOLERANCE
-    (end_time >= Time.now.in_time_zone - tolerance) and
-      (start_time <= Time.now.in_time_zone + tolerance)
+  def live?
+    return false if current_event.nil? || current_event.end_at.present?
+    start_time <= Time.now.in_time_zone + LIVE_TOLERANCE
   end
   
   def past?
-    return true if current_event.nil?
-    end_time < Time.now.in_time_zone
+    current_event.nil? || current_event.end_at.present?
   end
   alias_method :timed_out?, :past?
   
