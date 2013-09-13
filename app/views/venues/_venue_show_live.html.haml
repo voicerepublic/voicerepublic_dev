@@ -1,12 +1,7 @@
-.section.venue-show-live
-  - if !current_user.nil?
-    :javascript
-      Venue = #{@venue.details_for(current_user).to_json};
+- content_for :head do
+  = javascript_include_tag '/swfobject.js'
 
-  -# load swfobject and provide element to hook into
-  - content_for :head do
-    = javascript_include_tag '/swfobject.js'
-
+.section.venue-show-live{ data: { details: venue_details(@venue).to_json } }
   %aside.venue-event-time
     = l(@venue.start_time.in_time_zone)
     ,

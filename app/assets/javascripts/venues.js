@@ -244,9 +244,10 @@
       },
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
-        //log('publish: '+data);
-        var channel = Venue.channel;
-        $.ajax('/fayeproxy', { type: 'POST', data: { channel: channel, data: data } });
+        $.ajax('/fayeproxy', {
+          type: 'POST',
+          data: { channel: Venue.eventChannel, data: data }
+        });
       },
       toggleManageIcons: function () {
         $('.venue-participants .demote-icon').hide();
@@ -277,11 +278,14 @@
   // for now, this is in global namespace
   // later we'll pass it to initBlackbox
   window.flashInitialized = function() {
-    //log('flash initialized');
     initVenue();
-    PrivatePub.sign(Venue.storySubscription);
+
+    // The channels will be subscribed on through "eval" handler,
+    // see https://github.com/ryanb/private_pub/blob/1.0.3/app/assets/javascripts/private_pub.js#L57
+    PrivatePub.sign(Venue.eventSubscription);
     PrivatePub.sign(Venue.backSubscription);
     PrivatePub.sign(Venue.chatSubscription);
+
     // auto publish host
     if(Venue.role == 'host') {
       Venue.initMote();
@@ -291,6 +295,6 @@
     }
   };
 
-  if (typeof Venue != 'undefined') initBlackbox();
-
+  Venue = $('.venue-show-live').data('details')
+  if (!$.isEmptyObject(Venue)) initBlackbox()
 })(jQuery);
