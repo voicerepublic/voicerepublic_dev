@@ -1,6 +1,9 @@
 ﻿package {
 
-  import flash.events.Event;
+  import flash.system.Security;
+	import flash.system.SecurityPanel;
+	import flash.events.Event;
+	import flash.events.StatusEvent;
   import flash.events.NetStatusEvent;
   import flash.net.NetConnection;
   import flash.net.NetStream;
@@ -9,7 +12,6 @@
   import flash.media.MicrophoneEnhancedMode;
   import flash.media.SoundCodec;
   import flash.display.MovieClip;
-
   import flash.external.ExternalInterface;
 
   public class Blackbox extends MovieClip {
@@ -26,6 +28,7 @@
       ExternalInterface.addCallback("subscribe", subscribeStream);
 			ExternalInterface.addCallback("mute", muteMic);
 			ExternalInterface.addCallback("unmute", unmuteMic);
+			ExternalInterface.addCallback("activate", activateMic);
 
 			var callback: String = root.loaderInfo.parameters['afterInitialize'] || "flashInitialized";
 			ExternalInterface.call(callback);
@@ -37,6 +40,25 @@
 
     function unmuteMic() {
 			mic.gain = 50;
+		}
+
+    function activateMic() {
+			mic = Microphone.getEnhancedMicrophone();
+
+		  if (!mic) {
+			  ExternalInterface.call("alert", "No microphone installed.");
+			} else if (mic.muted) {
+        Security.showSettings(SecurityPanel.PRIVACY);
+				mic.addEventListener(StatusEvent.STATUS, micHandler, false, 0, true);
+			} else {
+        ExternalInterface.call("micActivated");
+			}
+    }
+
+    function micHandler(event: StatusEvent) {
+			if (event.code == "Microphone.Unmuted") {
+        ExternalInterface.call("micActivated");
+			}
 		}
 
     function publishStream(stream: String) {
@@ -64,7 +86,10 @@
       options.echoPath = 128;
       options.nonLinearProcessing = true;
 
-      mic = Microphone.getEnhancedMicrophone();
+			if (!mic) {
+        mic = Microphone.getEnhancedMicrophone();
+			}
+
       mic.setSilenceLevel(0, 2000);
       mic.enhancedOptions = options;
       mic.codec = SoundCodec.SPEEX;

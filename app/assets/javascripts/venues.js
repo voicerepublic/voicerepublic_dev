@@ -160,6 +160,18 @@
     Venue.demote(streamId);
   };
 
+  var raiseHand = function (e) {
+    e.preventDefault();
+    alert($(this).data('note'));
+    Venue.blackbox.activate();
+  }
+
+  $('body').on('click', '.raise_hand', raiseHand)
+
+  window.micActivated = function () {
+    Venue.raiseHand();
+  }
+
   var initVenue = function() {
     // http://stackoverflow.com/questions/7235417
     // http://stackoverflow.com/questions/952732
@@ -175,6 +187,7 @@
 
         // ui changes (seems to work on host but not on participant)
         var user = $('.venue-participants *[data-stream-id='+streamId+']');
+        user.removeClass('raising');
         user.appendTo('.users-onair-participants-box')
         if (Venue.role == 'host') Venue.toggleManageIcons();
 
@@ -184,6 +197,7 @@
         Venue.blackbox.publish(Venue.streamId);
         Venue.subscribe();
         $('.venue-live-mute-button').fadeIn();
+        $('.raise_hand').fadeOut();
       },
       onDemote: function(streamId) {
         //log('received onDemote for '+streamId);
@@ -198,6 +212,7 @@
         Venue.blackbox.unpublish();
         Venue.role = 'participant';
         $('.venue-live-mute-button').fadeOut();
+        $('.raise_hand').fadeIn();
       },
       // onRegister is triggered by new participants
       // all senders (the host and all guests) should
@@ -215,6 +230,10 @@
         if($.inArray(streamId, Venue.subscriptions) != -1) return; // skip known
         Venue.blackbox.subscribe(streamId);
         Venue.subscriptions.push(streamId);
+      },
+      onRaiseHand: function(streamId) {
+        var user = $('.venue-participants *[data-stream-id='+streamId+']');
+        user.addClass('raising');
       },
       // --- Triggers
       // tiggers onRegister on other side
@@ -234,6 +253,10 @@
       // triggers onDemote
       demote: function(streamId) {
         Venue.publish("Venue.onDemote('"+streamId+"');");
+      },
+      // triggers onRaiseHand
+      raiseHand: function () {
+        Venue.publish("Venue.onRaiseHand('"+Venue.streamId+"');");
       },
       // --- Helpers
       initMote: function() {
