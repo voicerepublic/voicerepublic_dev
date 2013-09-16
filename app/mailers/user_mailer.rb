@@ -33,6 +33,15 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def new_article_notification(article)
+    @article = article
+    @user = article.venue_user
+
+    I18n.with_locale locale(@user) do
+      mail(:to => @user.email, :subject => "New Article")
+    end    
+  end
+
   private
 
   def locale(user)

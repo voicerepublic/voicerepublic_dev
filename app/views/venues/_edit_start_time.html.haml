@@ -10,5 +10,5 @@
           = f.fields_for :events, [venue.events.build] do |ef|
             = render 'venues/event_fields', :ef => ef
         .pull-right.clearfix
-          = f.submit nil, :class => 'btn btn-primary'
+          = f.submit nil, class: 'btn btn-primary', data: { disable_with: "Please Wait" }
           = link_to t('.cancel', :default => t("helpers.links.cancel")), venue_path(venue), :class => 'btn'

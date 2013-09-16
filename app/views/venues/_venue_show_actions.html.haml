@@ -1,7 +1,7 @@
 %aside.venue-user-action-bar
   -# new talk
-  - if can? :manage, @venue and @venue.past?
-    = link_to  edit_venue_path(@venue, :renew => 1), :class => 'btn btn-large btn-warning', :remote => true do
+  - if can?(:manage, @venue) && @venue.current_event.nil?
+    = link_to edit_venue_path(@venue, :renew => 1), :class => 'btn btn-large btn-warning', :remote => true do
       %i.icon-calendar
       = t('.new_talk')
 

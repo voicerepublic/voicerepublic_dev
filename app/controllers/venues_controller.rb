@@ -106,6 +106,14 @@ class VenuesController < ApplicationController
     end
   end
 
+  def remove_recording
+    @venue = Venue.find(params[:id])
+    @event = @venue.events.find(params[:event_id])
+    File.delete("#{Venue::RECORDINGS_PATH}/#{@event.recording}")
+    @event.update_column(:recording, nil)
+    redirect_to @venue, notice: 'Recording was successfully removed.'
+  end
+
   # # POST /venues/1/join_venue/5
   # #
   # def join_venue

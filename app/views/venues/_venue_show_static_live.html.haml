@@ -17,6 +17,9 @@
       = render 'venues/end_talk_link', :venue => @venue
     - elsif !@venue.user_participates?(current_user)
       = render 'shared/participate_button', :venue => @venue
+    - else
+      = link_to 'Want to say', '#say', class: 'raise_hand btn',
+        data: { note: 'Make sure that your mic is accepted' }
     .clearfix
 .section.venue-description.collapse.out
   .row-fluid.clearfix
