@@ -9,4 +9,8 @@
       .venue-event-title.venue-archive-event-title
         = event.title || venue.title
       - if event.recording.present?
-        .venue-archive-event-player= render 'player', :event => event
+        .venue-archive-event-player
+          = render 'player', :event => event
+          - if can? :destroy, event.venue
+            = link_to 'Remove', remove_recording_venue_path(id: event.venue_id, event_id: event.id),
+              confirm: 'Are you sure?', method: :delete

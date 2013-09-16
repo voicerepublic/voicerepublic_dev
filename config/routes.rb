@@ -40,8 +40,10 @@ Kluuu2::Application.routes.draw do
     get 'venues/tags' => 'venues#tags'
     resources :categories
     resources :venues do
+      # move out into a separate controller
       member do
-        post 'end_event'        
+        post 'end_event'
+        delete 'remove_recording'
       end
       post 'join_venue', :action => 'join_venue', :as => "join"
       #get 'new_join', :action => 'new_join', :as => 'new_join'

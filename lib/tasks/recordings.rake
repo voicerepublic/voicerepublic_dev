@@ -1,10 +1,9 @@
 namespace :recordings do
   STREAMS_PATH = '/home/rails/recordings'
-  RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
 
   desc "Merge streams per event"
   task :merge => :environment do
-    Dir.mkdir(RECORDINGS_PATH) unless File.exists?(RECORDINGS_PATH)
+    Dir.mkdir(Venue::RECORDINGS_PATH) unless File.exists?(Venue::RECORDINGS_PATH)
     remove_empty_flvs
 
     errors = []
@@ -76,7 +75,7 @@ namespace :recordings do
   end
 
   def save_recording(event, name)
-    FileUtils.mv("#{STREAMS_PATH}/#{name}.m4a", "#{RECORDINGS_PATH}/#{name}.m4a")
+    FileUtils.mv("#{STREAMS_PATH}/#{name}.m4a", "#{Venue::RECORDINGS_PATH}/#{name}.m4a")
     event.update_column(:recording, "#{name}.m4a")
   end
 
