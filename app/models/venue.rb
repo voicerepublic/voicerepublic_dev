@@ -79,14 +79,13 @@ class Venue < ActiveRecord::Base
     [ user ]
   end
 
-  # After changing streamId you should adapt a task "recordings.rake"
-  # for a correct parsing of event ID
+  # this is rendered as json in venue/venue_show_live
   def details_for(user)
     { 
       streamId: "v#{id}-e#{current_event.id}-u#{user.id}",
-      eventChannel: event_channel,
+      channel: story_channel,
       role: (self.user == user) ? 'host' : 'participant',
-      eventSubscription: PrivatePub.subscription(channel: event_channel),
+      storySubscription: PrivatePub.subscription(channel: story_channel),
       backSubscription: PrivatePub.subscription(channel: back_channel),
       chatSubscription: PrivatePub.subscription(channel: channel_name),
       streamer: (current_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
@@ -94,25 +93,25 @@ class Venue < ActiveRecord::Base
   end
 
   # the event channel propagates events, which get replayed on join
-  def event_channel
-    "/event/#{current_event.id}"
+  def story_channel
+    "/story/v#{id}e#{current_event.id}"
   end
 
   # the back channel propagates events, which don't get replayed
   def back_channel
-    "/back/#{current_event.id}"
+    "/back/v#{id}e#{current_event.id}"
   end
 
   def chat_name
-    "chat-#{current_event.id}"
+    "vgc-#{id}-#{current_event.id}"
   end
 
   def channel_name
-    "/chatchannel/chat-#{current_event.id}"
+    "/chatchannel/vgc-#{self.id}e#{current_event.id}"
   end
   
   def channel_host_info
-    "/chatchannel/host-info/chat-#{current_event.id}"
+    "/chatchannel/host-info/vgc-#{self.id}"
   end
 
   def self.upcoming
