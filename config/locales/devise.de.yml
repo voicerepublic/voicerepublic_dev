@@ -58,6 +58,7 @@ de:
         lastname: 'Nachname'
         password: 'Passwort'
         password_confirmation: 'Passwort wiederholen'
+        text1: '<strong>Koche</strong> Dein Lieblingsgericht<br>erzähle Deine besten Witze<br>spiele Schach<br>diskutiere, &nbsp;musiziere, &nbsp;<strong>erzähle</strong><br>unterhalte, &nbsp;lehre,&nbsp;berate<br><strong>helfe</strong>,&nbsp;motiviere<br>direkt über <strong>Video Chat</strong>.'
     shared:
       links:
         login: 'Anmelden'
