@@ -61,9 +61,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        if @article.user != @article.venue_user
-          UserMailer.new_article_notification(@article).deliver
-        end
+        send_notification(@article)
         format.html { redirect_to :back }
       else
         format.html { render action: "new" }
@@ -114,5 +112,12 @@ class ArticlesController < ApplicationController
   def set_venue
     @venue = Venue.find(params[:venue_id])
   end
-  
+
+  def send_notification(article)
+    users = article.venue.attendees
+    (users - [current_user]).each do |user|
+      UserMailer.new_article_notification(article, user).deliver
+    end
+  end
+
 end

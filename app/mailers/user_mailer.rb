@@ -33,13 +33,13 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def new_article_notification(article)
+  def new_article_notification(article, user)
     @article = article
-    @user = article.venue_user
+    @user = user
 
     I18n.with_locale locale(@user) do
       mail(:to => @user.email, :subject => "New Article")
-    end    
+    end
   end
 
   private

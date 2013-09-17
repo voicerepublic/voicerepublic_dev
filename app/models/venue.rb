@@ -76,7 +76,11 @@ class Venue < ActiveRecord::Base
   end
 
   def user_attends?(user)
-    user_participates?(user) || self.user == user
+    attendees.include?(user)
+  end
+
+  def attendees
+    [user] + users
   end
 
   def attendies
