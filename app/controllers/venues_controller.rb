@@ -9,7 +9,7 @@ class VenuesController < ApplicationController
   def index
     # FIXME these are horrible hacks!
     @venues      = Event.joins(:venue).not_past.upcoming_first.map(&:venue).uniq
-    @past_venues = Event.joins(:venue).past.most_recent_first.limit(15).map(&:venue).uniq
+    @past_venues = Event.joins(:venue).past.most_recent_first.limit(15).map(&:venue).select(&:past?).uniq
 
     respond_to do |format|
       format.html # index.html.erb
