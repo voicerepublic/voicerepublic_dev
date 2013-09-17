@@ -72,9 +72,13 @@ class Venue < ActiveRecord::Base
   alias_method :timed_out?, :past?
   
   def user_participates?(participant)
-    users.include?(participant) || user == participant
+    users.include?(participant)
   end
-  
+
+  def user_attends?(user)
+    user_participates?(user) || self.user == user
+  end
+
   def attendies
     #self.klus.collect { |k| k.user }.push(self.host_kluuu.user)
     [ user ]
