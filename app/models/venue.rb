@@ -71,8 +71,8 @@ class Venue < ActiveRecord::Base
   end
   alias_method :timed_out?, :past?
   
-  def user_participates?(user)
-    users.include?(user)
+  def user_participates?(participant)
+    users.include?(participant) || user == participant
   end
   
   def attendies
