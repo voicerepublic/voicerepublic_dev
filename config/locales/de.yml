@@ -144,6 +144,9 @@ de:
       unjoin_venue: 'Teilnahme zurückziehen'
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
 
+    confirms:
+      are_you_sure: "Bist Du sicher?"
+
   number:
     currency:
       format:
@@ -810,6 +813,7 @@ de:
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
     venue_show_archive:
       past_talks: "ARCHIV"
+      delete_this_recording: "Aufnahme löschen"
     venue_show_avatar:
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     new:
@@ -843,7 +847,6 @@ de:
     end_talk_link:
       end_this_talk: "Drücke hier um den Talk zu beenden."
       talk_ended: 'The talk has been ended.'
-      are_you_sure: "Bist Du sicher?"
 
     venue_form:
       write_a_comment: "Verfasse einen Kommentar"

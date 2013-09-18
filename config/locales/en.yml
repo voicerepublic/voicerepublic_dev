@@ -154,6 +154,9 @@ en:
       participate_button: 'Participate'
       unjoin_venue: 'Cancel participation'
       confirm_unjoin_venue: 'Really want to unjoin this venue?'
+    
+    confirms:
+      are_you_sure: "Are you sure?"      
 
   number:
     currency:
@@ -796,6 +799,7 @@ en:
       confirm_unjoin_venue: "Really want to unjoin this venue?"
     venue_show_archive:
       past_talks: "ARCHIVE"
+      delete_this_recording: "Delete this recording"
     venue_show_avatar:
       leave_venue_popup: "This link opens a new tab!"
     new:
@@ -830,7 +834,6 @@ en:
     end_talk_link:
       end_this_talk: "Click here to end this talk."
       talk_ended: "Der Talk wurde beendet."
-      are_you_sure: "Are you sure?"
 
     venue_form:
       write_a_comment: "write a comment"
