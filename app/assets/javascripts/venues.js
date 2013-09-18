@@ -4,6 +4,13 @@
     $('.venue-desc-onair').toggleClass('show');
   });
 
+  $('article a.reply').click(function (e) {
+    e.preventDefault();
+    var article = $(this).parents('article.venue');
+    var form = $('form.new_comment', article);
+    form.show();
+  })
+
   var endTalk = function (e) {
     e.preventDefault()
     var link = $(this)

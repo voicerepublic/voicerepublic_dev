@@ -1,4 +1,4 @@
-%article.contribution.clearfix
+%article.venue.contribution.clearfix
   .contribution-left
     = link_to user_path(:id => article.user) do
       = image_tag article.user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"
@@ -11,15 +11,11 @@
     = sophisticated_format(article.content)
 
     .contribution-actions
-      - if cannot? :manage, article 
-        /% TODO %/ 
-        -#= link_to '#' do
-            = t('.create_comment') 
-
-      -# TODO
-        = link_to '#' do
-          = t('.all_comments')
-
+      - if can_comment_venue?(article.venue)
+        = link_to 'Reply', '#comment', class: 'reply'
       - if !@venue.live? and can? :manage, article
         = link_to venue_article_path(:venue_id => article.venue, :id => article), :method => :delete do
           = t('helpers.links.destroy')
+
+  = render 'comments/form', article: article
+  = render partial: 'comments/comment', collection: article.comments, as: :comment

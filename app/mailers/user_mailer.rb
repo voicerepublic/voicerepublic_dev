@@ -42,6 +42,15 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def new_comment_notification(comment, user)
+    @comment = comment
+    @user = user
+
+    I18n.with_locale locale(@user) do
+      mail(:to => @user.email, :subject => "New Comment")
+    end
+  end
+
   private
 
   def locale(user)

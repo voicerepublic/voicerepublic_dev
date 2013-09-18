@@ -2,6 +2,7 @@ class Article < ActiveRecord::Base
 
   acts_as_paranoid
 
+  has_many :comments, dependent: :destroy
   belongs_to :venue
   belongs_to :user
 

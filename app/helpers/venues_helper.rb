@@ -8,4 +8,10 @@ module VenuesHelper
     diff = end_time - Time.now.utc
     diff < 0 ? 0 : diff * 1000.0
   end
+
+  #TODO replace with cancan
+  def can_comment_venue?(venue)
+    return false unless user_signed_in?
+    venue.user_attends?(current_user)
+  end
 end
