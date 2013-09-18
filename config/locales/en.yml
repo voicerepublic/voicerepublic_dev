@@ -790,7 +790,7 @@ en:
       all_comments: "All comments"
     venue_show_talking_users:
       host: "HOST"
-      participants: "GUESTS"
+      participants: "GUESTS"  
     venue_show_actions:
       unjoin_venue: "Unjoin"
       confirm_unjoin_venue: "Really want to unjoin this venue?"
@@ -828,7 +828,7 @@ en:
       go_venue_page: "Proceed to venue-page"
       join_venue: "Participate now!"
     end_talk_link:
-      end_this_talk: "End this talk"
+      end_this_talk: "Click here to end this talk."
 
     venue_form:
       write_a_comment: "write a comment"
@@ -871,6 +871,8 @@ en:
       timepick_help: "Example: 18:15"
 
     group_chat:
+      want_to_say: "I want to say something!"    
+      prepare_mic: 'Activate your microphone! (Accept flash-access below the "On Air"-icon)'          
       venue_chat: "CHAT"
       show_host_info_controlls: "toggle moderator-form"
       host_field_title: "Infos about chat"

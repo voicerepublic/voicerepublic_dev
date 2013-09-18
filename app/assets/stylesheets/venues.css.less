@@ -201,7 +201,16 @@
   font-size: @baseFontSize * 0.9;
   line-height: 108%;
   &.raising {
-    border: 1px solid red;
+    &:after{
+      content: '';
+      background: url(/assets/raising-icon-white.png) no-repeat;
+      background-size: 100%;
+      width: 16px;
+      height: 50px;
+      position: absolute;
+      top: -20px;
+      right: 6px;
+    }
   }
   a{
     color:#333;
@@ -216,7 +225,7 @@
 .promote-icon, .demote-icon{
   position: absolute;
   top:-4px;
-  left:44px;
+  right:44px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -251,6 +260,7 @@
 
 /* CHAT ------------------------------------------------*/
 .group-chat-instance {
+  position: relative;
   h3{
     padding: 0;
     margin: 0 0 10px 0;
@@ -451,9 +461,9 @@
 #end_talk {
   display: block;
   position: absolute;
-  right:0;
-  top:-30px;
-  width:100px;
+  left:110px;
+  top:0px;
+  /*width:100px;*/
 
   &:hidden {
     display: none;
@@ -472,6 +482,31 @@
   border-radius: 0 !important;
   position: relative;
 }
+
+.users-moderators{
+  position: relative; 
+}
+
+.users-onair-participants-box{
+  position: relative; 
+}
+
+.raise_hand{
+  position: absolute;
+  padding-right: 40px;
+  right: 0px;
+  top: -7px;
+  background: #A9C158;
+  &:hover{
+    background: #A9C158
+  }
+  img{
+    width:12px;
+    position: absolute;
+    right:10px;
+    top:2px;
+  }   
+}  
 
 .venue-live-left{
   background-color: #D7E2B0;
@@ -492,18 +527,6 @@
 @media (max-width: 900px) {
   .venue-live-right, .venue-live-left {
     width: inherit !important
-  }
-}
-
-.users-onair-box{
-  height: 60px;
-  position: relative;
-  line-height: 3;
-  .user-image{
-    text-align: left;
-    display: block;
-    float: left;
-    margin-right: 20px;
   }
 }
 

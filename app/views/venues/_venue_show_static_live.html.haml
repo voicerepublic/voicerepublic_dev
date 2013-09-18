@@ -13,11 +13,6 @@
     .venue-live-mute-button
       %i.icon-microphone
       &nbsp;
-    - if can? :manage, @venue
-      = render 'venues/end_talk_link', :venue => @venue
-    - if @venue.user_participates?(current_user)
-      = link_to 'Want to say', '#say', class: 'raise_hand btn',
-        data: { note: 'Make sure that your mic is accepted' }
     - if !@venue.user_attends?(current_user)
       = render 'shared/participate_button', :venue => @venue
     .clearfix
