@@ -48,12 +48,13 @@ Kluuu2::Application.routes.draw do
       post 'join_venue', :action => 'join_venue', :as => "join"
       #get 'new_join', :action => 'new_join', :as => 'new_join'
       delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 
-      resources :comments
       resources :articles
     end
     resources :klus do
       resources :ratings, :only => [:new, :create]
-      resources :comments
+    end
+    resources :articles, only: [] do
+      resources :comments, only: [:create]
     end
   end
   
@@ -96,9 +97,7 @@ Kluuu2::Application.routes.draw do
       resources :klus do
         resources :klu_images
       end
-      resources :status_updates do
-        resources :comments
-      end
+      resources :status_updates
       namespace :balance do
         resource :account
         resources :check_in_orders, :only => [:new, :create, :destroy]

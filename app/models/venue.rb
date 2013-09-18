@@ -11,7 +11,6 @@ class Venue < ActiveRecord::Base
   
   belongs_to :user
 
-  has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
   has_many :articles, :dependent => :destroy, :order => "created_at DESC"
   has_many :events, :dependent => :destroy, :inverse_of => :venue
 

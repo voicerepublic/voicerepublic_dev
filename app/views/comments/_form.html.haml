@@ -1,11 +1,3 @@
-= form_tag user_status_update_comments_url(:user_id => @user, :status_update_id => @status_update ), :class => "contribution clearfix" do
-  = error_message_on @comment, :content
-
-  .contribution-left
-    = image_tag current_user.account.portrait.url(:thumb), :class => "img-polaroid"
-    
-  .contribution-right
-    .control-group
-      .controls
-        = text_area_tag 'comment[content]',nil, :class => 'text_area', :rows => 2, :placeholder => t('.write_a_comment')
-        = submit_tag t('.save'), :class => 'btn btn-small pull-right'
+= form_for Comment.new, url: article_comments_path(article), html: { class: 'new_comment' } do |f|
+  = f.text_field :content
+  = f.submit 'Reply'
