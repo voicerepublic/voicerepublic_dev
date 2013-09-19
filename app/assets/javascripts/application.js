@@ -69,7 +69,9 @@
       var setUserStatus = function(payload) {
        // console.log(payload);
         $.each(payload, function(i) {
-          $('.user-image[data-user-id=' +  payload[i].id +']').addClass(payload[i].available);
+          var user = $('.user-image[data-user-id=' +  payload[i].id +']');
+          user.addClass(payload[i].available);
+          user.data('status', payload[i].available);
         });
       };
 

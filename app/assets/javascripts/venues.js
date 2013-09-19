@@ -197,6 +197,7 @@
         user.removeClass('raising');
         user.appendTo('.users-onair-participants-box')
         if (Venue.role == 'host') Venue.toggleManageIcons();
+        Venue.sortParticipants();
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
@@ -213,6 +214,7 @@
         var user = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
         user.appendTo('.venue-participants');
         if (Venue.role == 'host') Venue.toggleManageIcons();
+        Venue.sortParticipants();
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
@@ -282,12 +284,39 @@
         $('.venue-participants .demote-icon').hide();
         $('.venue-participants .promote-icon').show();
         $('.users-onair-participants-box .demote-icon').show();
-        $('.users-onair-participants-box .promote-icon').hide();        
+        $('.users-onair-participants-box .promote-icon').hide();
+      },
+      sortParticipants: function () {
+        var statuses = ['offline', 'busy', 'online'];
+        var users = $.map($('.venue-participants .avatar-box'), function (box) {
+          var status = $('.user-image', box).data('status');
+          var streamId = $(box).data('stream-id')
+          return {
+            streamId: streamId,
+            index: statuses.indexOf(status)
+          };
+        });
+
+        var sorted = users.sort(function (a, b) {
+          if (a.index > b.index) {
+            return -1;
+          } else if (a.index < b.index) {
+            return 1;
+          } else {
+            return 0;
+          }
+        })
+
+        $.each(sorted, function (_, user) {
+          var box = $('.venue-participants *[data-stream-id=' + user.streamId + ']');
+          box.appendTo('.venue-participants');
+        })
       }
     });
 
     // 'register' is called to announce a new client
     Venue.register();
+    Venue.sortParticipants();
   };
 
   window.initBlackbox = function() {

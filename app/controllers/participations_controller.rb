@@ -61,11 +61,12 @@ class ParticipationsController < ApplicationController
         format.html do
           # make avatars appear on participant's view
           @venue = @participation.venue
-          
+
+          #TODO get rid of JS eval
           if @venue.live?
             markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_user }
             markup = markup.gsub('"', "'").gsub("\n", '')
-            script = "$('.venue-participants').append(\"#{markup}\");Venue.initMote();"
+            script = "$('.venue-participants').append(\"#{markup}\");Venue.initMote();Venue.sortParticipants();"
             PrivatePub.publish_to @venue.back_channel, script
           end
 
