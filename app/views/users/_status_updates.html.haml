@@ -27,7 +27,3 @@
       - if current_user && current_user == user   
         = link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do
           =t('helpers.links.destroy').downcase
-      - else
-        = link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment")) do
-          \&middot;
-          = t('.add_comment')
