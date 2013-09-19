@@ -11,11 +11,12 @@
     = sophisticated_format(article.content)
 
     .contribution-actions
-      - if can_comment_venue?(article.venue)
-        = link_to 'Reply', '#comment', class: 'reply'
-      - if !@venue.live? and can? :manage, article
-        = link_to venue_article_path(:venue_id => article.venue, :id => article), :method => :delete do
-          = t('helpers.links.destroy')
+      - if @venue.past?
+        - if can_comment_venue?(article.venue)
+          = link_to 'Reply', '#comment', class: 'reply'
+        - if can? :manage, article
+          = link_to venue_article_path(:venue_id => article.venue, :id => article), :method => :delete do
+            = t('helpers.links.destroy')
 
   = render 'comments/form', article: article
   = render partial: 'comments/comment', collection: article.comments, as: :comment
