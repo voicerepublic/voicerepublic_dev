@@ -1,3 +1,10 @@
-= form_for Comment.new, url: article_comments_path(article), html: { class: 'new_comment' } do |f|
-  = f.text_field :content
-  = f.submit 'Reply'
+= form_for Comment.new, url: article_comments_path(article), html: { class: 'contribution-new-comment clearfix' } do |f|
+
+  .contribution-left
+    = image_tag current_user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"
+  .contribution-right
+    .control-group
+      .controls
+        = f.text_area :content, :rows => 1, :placeholder => t('.write_a_comment'), :class => "article-comment-input"
+    %div
+      = button_tag t('.save_comment'), :type => "submit", :class => "btn btn-mini pull-right"

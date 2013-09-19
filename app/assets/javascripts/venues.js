@@ -6,9 +6,9 @@
 
   $('article a.reply').click(function (e) {
     e.preventDefault();
-    var article = $(this).parents('article.venue');
-    var form = $('form.new_comment', article);
-    form.show();
+    var article = $(this).parents('article.venue-article');
+    var form = $('form.contribution-new-comment', article);
+    form.toggle();
   })
 
   var endTalk = function (e) {
