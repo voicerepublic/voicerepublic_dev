@@ -1,4 +1,6 @@
 .landing-page
+  .lp-bg
+    = image_tag "/assets/Bilder_KluuU_Studio/shutterstock_139940296_b_Verlauf.jpg"
   .row-fluid
     .span8
       %h2.lp-claim
@@ -7,12 +9,12 @@
         \– Julie Walters
       .lp-info
         Broadcast and Record your live talk!
-      %hr.lp-hr
     .span4
       .well.well-large.lp-login
         = render 'lp_login', :user => @user
+  .row-fluid
+    .span8.lp-left-bottom.featured-box
+      = render(:partial => "lp_venues")
+    .span4
       .well.well-large.lp-signup
         = render 'lp_signup', :user => @user
-
-
-  / = render(:partial => "lp_venues")

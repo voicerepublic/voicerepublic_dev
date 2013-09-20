@@ -554,7 +554,7 @@ de:
       illu_3: "und 1:1 Video"
       enter_search_term: "Suchbegriff eingeben"
     lp_login:
-      username_or_email: "Benutzername oder E-Mail"
+      email: "E-Mail"
       password: "Passwort"
       login: "Anmelden"
       remember: 'Angemeldet bleiben.'
@@ -563,8 +563,9 @@ de:
     lp_signup:
       new_to_kluuu: "<strong>Neu bei KluuU?</strong> Registriere Dich!"
       or: "oder registrieren"
-      full_name: "Full Name"
-      email: "E-mail"
+      firstname: "Vorname"
+      lastname: "Nachname"
+      email: "E-Mail"
       password: "Passwort"
       register: "Registriere Dich bei KluuU!"
     lp_venues:

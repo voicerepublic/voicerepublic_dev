@@ -15,8 +15,6 @@
         = t('.remember') + '.'
         = link_to t('.forgot_password'), new_password_path(:user)
 
-/ = render(:partial => "/devise/shared/social_network_connects") #TODO
-
 .sessions-or-box
   .sessions-or-overlap= t(".or")
 = render(:partial => "/devise/shared/social_network_connects")

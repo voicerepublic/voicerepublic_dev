@@ -6,9 +6,7 @@
       = f.text_field :lastname, :placeholder => t('.lastname'), :class => 'input-block-level'
   .control-group
     .controls
-      = f.text_field :email, :type => "email", :placeholder => t('.email'), :class => 'input-block-level'
-  .control-group
-    .controls.right-fixed-box      
+      = f.text_field :email, :type => "email", :placeholder => t('.email'), :class => 'input-block-level lp-signup-input-email'  
       = button_tag t('.register'), :name => "signup_button", :class => 'btn btn-lp-register pull-right'
       .clearfix
   .clearfix
