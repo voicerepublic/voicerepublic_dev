@@ -1,15 +1,14 @@
 %h2.lp-signup-title= raw t(".new_to_kluuu")
 = form_for('todo') do |f|
-  /= devise_error_messages! TODO
   .control-group
     .controls
-      = f.text_field :fullname, :placeholder => t('.full_name'), :class => 'input-block-level'
+      = f.text_field :firstname, :placeholder => t('.firstname'), :class => 'input-block-level'
+      = f.text_field :fullname, :placeholder => t('.lastname'), :class => 'input-block-level'
   .control-group
     .controls
       = f.text_field :email, :type => "email", :placeholder => t('.email'), :class => 'input-block-level'
   .control-group
     .controls.right-fixed-box      
-      = f.password_field :password, :placeholder => t('.password'), :class => 'lp-input-password'
       = button_tag t('.register'), :name => "signup_button", :class => 'btn btn-lp-register pull-right'
       .clearfix
   .clearfix

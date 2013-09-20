@@ -1,15 +1,13 @@
 = form_for('todo') do |f| #TODO
-  / = devise_error_messages! #TODO
   .control-group
     .controls
-      = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.username_or_email')
+      = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email')
   .control-group
     .controls.right-fixed-box 
       = f.password_field :password, :placeholder => t('.password'), :class => "lp-input-password"
       = button_tag t('.login'), :name => "Login", :class => 'btn btn-lp-register pull-right'
 
   .clearfix
-  / - if devise_mapping.rememberable? #TODO
   - if true
     .control-group
       .controls
