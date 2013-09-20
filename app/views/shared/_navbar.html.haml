@@ -10,24 +10,14 @@
         .phone-left-padding.hidden-desktop
         = link_to root_path, :title => "Home" , :class => "brand" do
           %h1= image_tag "logo.png", :alt => "KluuU"
-        / <span class="logo-claim">Video Chat</span>
       .container-fluid.nav-collapse
         %ul.nav
         %ul.nav.pull-right
           %li
+            = link_to "login","/users/sign_in"
+          %li
+            = link_to "signup","/users/sign_up"
+          %li
             = link_to venues_path, :class => "action-bar-venue-link" do
-              = image_tag "venue-icon-host.png", :class => "venue-form-icon"
-          %li.navbar-search.form-search
-            = form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'navbar-search form-search' do
-              = search_field_tag 'query', nil, :class => "search-query navbar-search-query", :placeholder => t('.search')
-              = button_tag :type => "submit", :class => "navbar-submit-button" do
-                %i.icon-search
-          %li
-            = link_to(new_user_registration_path, :class => "first-landing-signup nav-left-border", :id => "sign-up") do
-              = t('.sign_up', :default => 'Sign Up')
-              %i.icon-share-alt
-          %li
-            = link_to(new_user_session_path, :id => "log-in") do
-              = t('.sign_in', :default => 'Log In')
-              %i.icon-signin
+              = t('.more_talks')
       / /.nav-collapse

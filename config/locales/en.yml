@@ -553,6 +553,20 @@ en:
       illu_2_subtitle: "(Chatroom)"
       illu_3: "and 1:1 Video"
       enter_search_term: "Enter search term"
+    lp_login:
+      username_or_email: "Username or e-mail"
+      password: "Password"
+      login: "Log In"
+      remember: 'Remember me'
+      forgot_password: 'Forgot password?'
+      or: "or log in"
+    lp_signup:
+      new_to_kluuu: "<strong>New to KluuU?</strong> Sign Up!"
+      or: "or sign up"
+      full_name: "Full Name"
+      email: "E-mail"
+      password: "Password"
+      register: "Sign Up to KluuU!"      
     lp_venues:
       featured_venue: "KluuU recommends"
       upcoming_venues: "UPCOMING VENUES"
@@ -612,34 +626,21 @@ en:
       user: "User"
       no_results_sentence: 'Oops, no results.'
 
-  shared:
+  shared:  
     actionbar:
-      my_profile: "My profile"
-      create_kluuu: "New KluuU"
-      create_question: "New Question"
       notifications: "News"
       messages: "Messages"
-      dashboard: "Dashboard"
       profile: "Profile"
-      see_other_venues: "Venues"
+      see_other_venues: "More Talks"
       search: "Search..."
     check_flash:
       no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
-    dashboard_tabs:
-      dashboard: "Dashboard"
-      matches: "Matches"
-      news: "News"
-      bookmarks: "Bookmark"
-      contacts: "Contacts"
-      messages: "Messages"
-      settings: "Settings"
-      finances: "Finances"
-      venues: "Venues"
     footer:
       legal: "Legal"
       terms_of_use: "Terms Of Use"
       terms_and_conditions: "Terms and Conditions"
     navbar:
+      more_talks: "More talks"
       sign_up: "Sign Up"
       sign_in: "Log In"
       search: "Search..."
@@ -651,6 +652,12 @@ en:
       logout: "Log Out"
     venues:
       venues: "Venues"
+    profile_dropdown_list:
+      my_profile: "My profile"
+      create_venue: "Create venue"
+      contacts: "Contacts"
+      messages: "Messages"
+      settings: "Settings"      
 
   status_updates:
     status_update:

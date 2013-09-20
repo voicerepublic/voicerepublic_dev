@@ -545,7 +545,6 @@ de:
       create_klu: "KluuU erstellen"
 
   landing_page:
-    news: "NEWS"
     index:
       headline: "Du, lass uns drüber reden."
       is: "ist..."
@@ -554,6 +553,20 @@ de:
       illu_2_subtitle: "(Chatraum)"
       illu_3: "und 1:1 Video"
       enter_search_term: "Suchbegriff eingeben"
+    lp_login:
+      username_or_email: "Benutzername oder E-Mail"
+      password: "Passwort"
+      login: "Anmelden"
+      remember: 'Angemeldet bleiben.'
+      forgot_password: 'Passwort vergessen?'
+      or: "oder anmelden"
+    lp_signup:
+      new_to_kluuu: "<strong>Neu bei KluuU?</strong> Registriere Dich!"
+      or: "oder registrieren"
+      full_name: "Full Name"
+      email: "E-mail"
+      password: "Passwort"
+      register: "Registriere Dich bei KluuU!"
     lp_venues:
       featured_venue: "UNSER TIPP!"
       upcoming_venues: "KOMMENDE TREFFPUNKTE"
@@ -640,6 +653,7 @@ de:
       terms_of_use: "Nutzungsbedingungen"
       terms_and_conditions: "AGB"
     navbar:
+      more_talks: "Weitere Talks"
       sign_up: "Registrieren"
       sign_in: "Anmelden"
       search: "Suchen..."
