@@ -1,9 +1,9 @@
 %h2.lp-signup-title= raw t(".new_to_kluuu")
-= form_for('todo') do |f|
+= form_for(user, :url => new_user_registration_path, :method => :get) do |f|
   .control-group
     .controls
       = f.text_field :firstname, :placeholder => t('.firstname'), :class => 'input-block-level'
-      = f.text_field :fullname, :placeholder => t('.lastname'), :class => 'input-block-level'
+      = f.text_field :lastname, :placeholder => t('.lastname'), :class => 'input-block-level'
   .control-group
     .controls
       = f.text_field :email, :type => "email", :placeholder => t('.email'), :class => 'input-block-level'

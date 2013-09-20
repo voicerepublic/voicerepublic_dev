@@ -63,8 +63,8 @@ Kluuu2::Application.routes.draw do
       delete "/users/sign_out" => "devise/sessions#destroy"
     end
     devise_for :users, :controllers => {  :omniauth_callbacks => "users/omniauth_callbacks",
-                                          :sessions => "users/sessions"
-                                          #:registrations => "users/registrations" 
+                                          :sessions => "users/sessions",
+                                          :registrations => "users/registrations"
                                         }
   end
   
