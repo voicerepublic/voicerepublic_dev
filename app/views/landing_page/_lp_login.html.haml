@@ -1,4 +1,4 @@
-= form_for(@user, :url => session_path(:user)) do |f|
+= form_for(user, :url => session_path(:user)) do |f|
   .control-group
     .controls
       = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email')

@@ -10,9 +10,9 @@
       %hr.lp-hr
     .span4
       .well.well-large.lp-login
-        = render(:partial => "lp_login")
+        = render 'lp_login', :user => @user
       .well.well-large.lp-signup
-        = render(:partial => "lp_signup")
+        = render 'lp_signup', :user => @user
 
 
   / = render(:partial => "lp_venues")
