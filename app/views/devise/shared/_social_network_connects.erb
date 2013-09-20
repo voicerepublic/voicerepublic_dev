@@ -1,4 +1,4 @@
-<%= link_to omniauth_authorize_path(resource_name, 'facebook'), :class => "btn signup-facebook" do %>
+<%= link_to omniauth_authorize_path(:user, 'facebook'), :class => "btn signup-facebook" do %>
   <%= image_tag "connects/facebook_icon.png" %> 
   <%= t('.with') %> facebook
 <% end %>
