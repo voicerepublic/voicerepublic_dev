@@ -16,9 +16,10 @@
 
   public class Blackbox extends MovieClip {
     var mic: Microphone;
-    var netStreams: Array = new Array();
+    var subscribedStreams: Array = new Array();
+		var publishedStream: NetStream;
+    var publishedConnection: NetConnection;
     var streamer: String;
-		var publishNetConnection: NetConnection;
 
     public function Blackbox() {
       streamer = root.loaderInfo.parameters['streamer'];
@@ -62,16 +63,22 @@
 		}
 
     function publishStream(stream: String) {
-      publishNetConnection = new NetConnection();
-      publishNetConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(sendStream, publishNetConnection, stream));
-      publishNetConnection.connect(streamer);
+      publishedConnection = new NetConnection();
+      publishedConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler(sendStream, publishedConnection, stream));
+      publishedConnection.connect(streamer);
     }
 
     function unpublishStream() {
-			if (publishNetConnection != null) {
-				publishNetConnection.close();
-			}
-		}
+      if (publishedStream != null) {
+        publishedStream.close();
+        publishedStream = null;
+      }
+
+      if (publishedConnection != null) {
+        publishedConnection.close();
+        publishedConnection = null;
+      }
+    }
 
     function subscribeStream(stream: String) {
       var nc: NetConnection = new NetConnection();
@@ -98,17 +105,16 @@
       mic.gain = 50;
       mic.setUseEchoSuppression(true);
 
-      var ns: NetStream = new NetStream(nc);
-      ns.attachAudio(mic);
-      ns.publish(stream, "live");
-      netStreams.push(ns);
+      publishedStream = new NetStream(nc);
+      publishedStream.attachAudio(mic);
+      publishedStream.publish(stream, "live");
     }
  
     function receiveStream(nc: NetConnection, stream: String) {
       var ns: NetStream = new NetStream(nc);
       ns.receiveVideo(false);
       ns.play(stream);
-      netStreams.push(ns);
+      subscribedStreams.push(ns);
     }
  
     function netStatusHandler(func: Function, nc: NetConnection, stream: String): Function {
