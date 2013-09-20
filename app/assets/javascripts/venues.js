@@ -190,7 +190,7 @@
     Venue = $.extend({}, Venue, {
       subscriptions: [],
       onPromote: function(streamId) {
-        //log('received onPromote for '+streamId);
+        log('received onPromote for '+streamId);
 
         // ui changes (seems to work on host but not on participant)
         var user = $('.venue-participants *[data-stream-id='+streamId+']');
@@ -208,7 +208,7 @@
         $('.raise_hand').fadeOut();
       },
       onDemote: function(streamId) {
-        //log('received onDemote for '+streamId);
+        log('received onDemote for '+streamId);
 
         // ui changes
         var user = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
@@ -227,14 +227,14 @@
       // all senders (the host and all guests) should
       // respond with triggering a subscribe
       onRegister: function(streamId) {
-        //log('received onRegister of '+streamId+', '+Venue.streamId+', '+Venue.role);
+        log('received onRegister of '+streamId+', '+Venue.streamId+', '+Venue.role);
         if(streamId == Venue.streamId) return; // ignore self
         if(Venue.role == 'participant') return; // skip unless sender (guest or host)
         Venue.subscribe();
       },
       // onSubscribe is triggered by senders upon receiving a onRegister
       onSubscribe: function(streamId) {
-        //log('received onSubscribe to '+streamId);
+        log('received onSubscribe to '+streamId);
         if(streamId == Venue.streamId) return; // ignore self
         if($.inArray(streamId, Venue.subscriptions) != -1) return; // skip known
         Venue.blackbox.subscribe(streamId);
@@ -247,12 +247,12 @@
       // --- Triggers
       // tiggers onRegister on other side
       register: function() {
-        //log('sending register of '+Venue.streamId);
+        log('sending register of '+Venue.streamId);
         Venue.publish("Venue.onRegister('"+Venue.streamId+"');");
       },
       // tiggers onSubscribe on other side
       subscribe: function() {
-        //log('sending subscribe to '+Venue.streamId);
+        log('sending subscribe to '+Venue.streamId);
         Venue.publish("Venue.onSubscribe('"+Venue.streamId+"');");
       },
       // triggers onPromote
@@ -276,7 +276,7 @@
       },
       // publishes data via /fayeproxy to private_pub
       publish: function(data) {
-        //log('publish: '+data);
+        log('publish: '+data);
         var channel = Venue.channel;
         $.ajax('/fayeproxy', { type: 'POST', data: { channel: channel, data: data } });
       },
