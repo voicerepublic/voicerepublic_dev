@@ -18,5 +18,6 @@
         = link_to venue_article_path(:venue_id => article.venue, :id => article), :method => :delete do
           = t('helpers.links.destroy')
 
-  = render 'comments/form', article: article
+  - if can_comment_venue?(article.venue)
+    = render 'comments/form', article: article
   = render partial: 'comments/comment', collection: article.comments, as: :comment
