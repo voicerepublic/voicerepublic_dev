@@ -1,87 +1,123 @@
 /*
  *= require_self
  */
-
-.venue-title{
-  display: inline;
-}
+@import "config.css.less";
 
 .venue-big{
-  padding: 10px 20px;
+  padding: 20px 30px;
   margin-top:5px;
-/*  box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -moz-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -webkit-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -ms-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);
-  -o-box-shadow: 2px 3px 6px rgba(0,0,0,0.4);*/
+  margin-bottom: 40px;
   border-radius: 8px;
   border:3px solid #ccc;
-  position: relative; 
+  position: relative;
+  min-height: 210px;
+}
 
-  .venue-big-bg-link{
-    width:100%;
-    height:100%;
-    display: block;
-    position: absolute;
-    left:0;
-    top:0;
+.venue-big-header{
+  display: block;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.venue-big-header{
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis; /* required for Opera */
+  -ms-text-overflow: ellipsis;  /* required for IE8, allegedly */  
+  padding-right: 40px;
+}
+
+.venue-big.unjoined{
+  .venue-big-header{
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis; /* required for Opera */
+    -ms-text-overflow: ellipsis;  /* required for IE8, allegedly */
+    padding-right: 190px;
   }
+}
 
-  .venue-time{
-    font-size: 18px;
-    color:#932945;
-    .label{
-      vertical-align: top;
-      display: inline-block;
-    }
+.venue-big-row{
+  padding: 0 !important
+}
+
+.venue-big-bg-link{
+  width:100%;
+  height:100%;
+  display: block;
+  position: absolute;
+  left:0;
+  top:0;
+}
+
+.venue-big-time{
+  font-size: 13px;
+  margin-bottom: 0px;
+  color:#932945;
+}
+
+.venue-big-icon-box{
+  position: absolute;
+  right: -10px;
+  top: 10px;
+  display: block;
+  width: 25px;
+}
+
+.venue-big-icon{
+  display: block;
+  width: 25px;
+  max-width: 25px;
+  margin-right: 5px;
+  margin-top: -2px; 
+}
+
+.venue-big-image{
+  width:100%;
+}
+
+.venue-big-title{
+  font-size: 15px;
+  line-height: 100%;
+  display: inline;
+  a{
+    color:#333;
   }
+}
 
-  .venue-big-content{
-    margin-top:17px;
-    &> div:first-child{
-      position: relative;
-      width:60%;
-      min-width:300px;
+.venue-big-hr{
+  margin-top: 0;
+  border-top-color: #ddd
+}
 
-      img{
-        width:70px;
-        margin-right:13px;
-        vertical-align:top;
-        float:left
-      }
-      a{
-        vertical-align: top;
-        line-height: 15px;
-        &:nth-child(2){
-          position:relative;
-          display: block;
-        }
-      }
-      h3{
-        display: inline;
-        hyphens: auto;
-        -moz-hyphens: auto;
-        -webkit-hyphens: auto;
-        -ms-hyphens: auto;
-        -o-hyphens: auto;
-        font-family: "Droid Serif",Georgia,"Times New Roman",Times,serif,serif;
-        font-style: italic;
-        font-weight: normal;
-        font-size: 22px;
-        line-height: 25px;
-        a{
-          color:#333;
-        }
-      }   
-    }
-    &> div:last-child{
-      position: relative;
-      width:250px;
-    }
+.venue-big-event-title{
+  margin: 0;
+  font-family: "Droid Serif";
+  font-size: 20px;
+  a{
+    color:#333;
   }
+}
 
-  p{
-    margin-top: 8px;
-    margin-bottom: 20px
-  }
+.venue-big-host-link{
+  display: inline;
+  height: 22px;
+  font-size: 12px;
+  position: relative;
+}
+
+.venue-big-user-thumb{
+  width:20px;
+  position: absolute;
+  left: 0;
+  top:-6px;
+}
+
+.venue-big-description{
+  margin: 0
+}
+
+.venue-big-join-button{
+  position: absolute;
+  right: 30px;
+  top: 5px;
 }

@@ -1,26 +1,6 @@
-<section class=" row-fluid">
-	<% if @user == current_user %>
-		<div class="span3">
-			<%= render(:partial => 'status_updates/no_status', :locals => {:user => @user}) if @status_updates.empty? %>
-			<%= render(:partial => 'status_updates/with_status', :locals => {:user => @user} ) unless @status_updates.empty? %>
-		</div>
-		
-		<div class="span9">
-			<% if @status_updates.empty? %>
-				<%= render(:partial => 'status_updates/status_update_video') if @status_updates.empty? %>
-			<% else %>
-				<ul class="unstyled status-list">
-					<% @status_updates.each do |status_update| %>
-					<li class="status-single">
-						<%= render(:partial => "status_updates/status_update", :locals => {:status_update => status_update}) %>
-					</li>
-					<% end %>
-				</ul>
-			<% end %>	
-		</div>
-		
-	<% else %>
-
+<section class="row-fluid">
+	<span class="span12">
+	<header><h3 class="layout-title"><%= t('.all_status') %></h3></header>
 		<% if @status_updates.empty? %>
 			<div class="text-align-center muted">
 				<br><%= t('.guest_empty_status_update', :name => @user.firstname) %><br>
@@ -34,7 +14,6 @@
 				<% end %>
 			</ul>
 		<% end %>
-	
-	<% end %>
+		</span>
 		
 </section>

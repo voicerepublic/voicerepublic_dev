@@ -41,10 +41,9 @@ describe UsersController do
   
   describe "GET venues" do
     it "assigns users venues as @venues" do
-      _klu = FactoryGirl.create(:published_kluuu, :user => @user)
-      _venue = FactoryGirl.create(:venue, :host_kluuu => _klu)
+      _venue = FactoryGirl.create(:venue)
       
-      get :venues, {:id => @user.to_param}, valid_session
+      get :venues, {:id => _venue.user.to_param}, valid_session
       assigns(:venues).should include(_venue)
     end
   end

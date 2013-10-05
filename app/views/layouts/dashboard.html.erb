@@ -20,17 +20,15 @@
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 	</head>
 	<body>
-		<div class="dashboard-tabs-fake-background visible-desktop"></div>
+		<!-- <div class="dashboard-tabs-fake-background visible-desktop"></div> -->
 		<% if current_user %>
 			<%= render(:partial => "shared/actionbar") %>
-			<%#= render(:partial => '/shared/check_flash') -%>
 		<% else %>
 			<%= render(:partial => "shared/navbar")%>
 		<% end %>
 		<%= render(:partial => "shared/notice_or_error") %>
 
 		<div class="container dashboard">
-			<%= render(:partial => 'shared/dashboard_tabs', :locals => { :user => current_user }) %>
 			
 			<%= yield %>
 						

@@ -7,7 +7,7 @@ gem 'pg'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'less-rails'
+  gem 'less-rails', "~> 2.2.3"
   gem 'sass-rails' #,   '~> 3.2.3'
   gem 'coffee-rails' #, '~> 3.2.1'
   gem 'therubyracer', :platforms => :ruby
@@ -37,11 +37,15 @@ gem 'capistrano'              # deployment
 gem 'thinking-sphinx','2.0.13'         # indexed search
 gem "dynamic_form"            # form helper for errors
 gem 'exception_notification'  # deliver emails if exception occures
-gem 'whenever', :require => false   # create cron-jobs 
+gem 'whenever'   # create cron-jobs
 gem 'kblog', '0.0.4'          # blog-engine
-#gem 'split'                   # A/B-Testing    
+#gem 'split'                   # A/B-Testing
 #gem 'SystemTimer'            # A/B-Testing for ruby-1.8
-gem 'foreman'
+gem 'haml-rails'
+gem 'simple_form'
+gem "acts_as_paranoid", "~>0.4.0"
+gem 'unicorn'
+gem "select2-rails"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
@@ -49,16 +53,21 @@ group :development, :test, :staging do
   gem 'faker'
   gem 'rspec-rails'
   gem 'annotator'
+  gem 'foreman', :require => false
+  gem 'capistrano-rbenv', '>= 1.0.0'
+  # gem 'rails_view_annotator'
+  gem 'zeus'
+  gem 'debugger'
+  gem 'disable_assets_logger'
 end
 
 group :test do
-  gem 'ci_reporter'  
+  gem 'ci_reporter'
   gem 'capybara'#, '2.0.1'
   gem 'guard-rspec'
   gem 'launchy'
   gem 'database_cleaner'
-  gem 'rb-inotify'
+  #gem 'rb-inotify'
   gem 'simplecov'
 end
-
 

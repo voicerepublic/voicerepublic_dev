@@ -14,13 +14,15 @@ en:
   devise:
     failure:
       already_authenticated: 'You are already signed in.'
-      unauthenticated: 'You need to sign in or sign up to continue.'
+      unauthenticated: 'You need to login or sign up to continue.'
       unconfirmed: 'You need to confirm your account to continue.'
       locked: 'Your account is locked.'
       invalid: 'Invalid email or password.'
       invalid_token: 'Invalid authentication token.'
       timeout: 'You are locked out, please sign in again to continue.'
       inactive: 'Your account has not been activated yet.'
+      user:
+        not_found_in_database: 'Invalid email or password.'
     sessions:
       signed_in: 'You are signed in.'
       signed_out: 'You are logged out.'

@@ -1,0 +1,40 @@
+- model_class = Venue
+.page-header
+  %h2= t '.title', :default => model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th= model_class.human_attribute_name(:title)
+      -# %th= model_class.human_attribute_name(:description)
+      %th= model_class.human_attribute_name(:start_time)
+      -# %th= model_class.human_attribute_name(:user_id)
+      -# %th= model_class.human_attribute_name(:published)
+      -# %th= model_class.human_attribute_name(:category_id)
+      -# %th= model_class.human_attribute_name(:type)
+      %th= model_class.human_attribute_name(:featured_from)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @venues.each do |venue|
+      %tr
+        %td= link_to venue.id, venue_path(venue)
+        %td= venue.title
+        -# %td= venue.description
+        %td= l venue.start_time
+        -# %td= venue.user_id
+        -# %td= venue.published
+        -# %td= venue.category_id
+        -# %td= venue.type
+        %td= l venue.featured_from
+        %td= l venue.created_at
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")), |
+            venue_path(venue), :class => 'btn btn-mini'             |
+          - confirm = t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), venue, |
+              :method => :delete,                                                 |
+              :data => { :confirm => confirm },                                   |
+              :class => 'btn btn-mini btn-danger'                                 |
+.pull-right
+  = will_paginate @venues, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered"

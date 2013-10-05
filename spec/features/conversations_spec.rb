@@ -5,7 +5,7 @@ describe "Conversations" do
  
   before do
     @user = FactoryGirl.create(:user)
-    @klu = FactoryGirl.create(:published_no_kluuu, :user => @user)
+    #@klu = FactoryGirl.create(:published_no_kluuu, :user => @user)
   end
   
   describe "GET /conversations" do

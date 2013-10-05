@@ -20,9 +20,14 @@ class Notification::VenueInfo < Notification::Base
   validates :other_id, :user_id, :presence => true
   
   after_create :generate_mail_notification, :generate_push_notification
-  
+
   def to_s
-    I18n.t('model_notification_venue_info.venue_starts_soon', :title => other.title, :time => I18n.l(other.start_time) )
+    if other.next_event
+      I18n.t('model_notification_venue_info.venue_starts_soon',
+        :title => other.title, :time => I18n.l(other.start_time))
+    else
+      I18n.t('model_notification_venue_info.new_venue', :title => other.title)
+    end
   end
   
 end

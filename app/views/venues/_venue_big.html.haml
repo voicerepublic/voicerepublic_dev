@@ -1,0 +1,41 @@
+- participating = (venue.user != current_user and !venue.user_participates?(current_user)) ? ' unjoined':''
+%article{:class => "venue-big block" + participating} 
+  -#overall link to venue
+  = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
+
+  %header.venue-big-header{:class => participating}
+    -#venue title
+    %h3.venue-big-title= link_to venue.title, venue_path(venue)
+    -#host link
+    %aside.venue-big-host-link
+      = link_to user_path(venue.user) do    
+        = t('.by') + ' '
+        = venue.user.name
+
+
+    -#join-button
+    .venue-big-join-button.pull-right
+
+      - if venue.user != current_user and !venue.user_participates?(current_user)
+        = render 'shared/participate_button', :venue => venue
+      - else
+        %span.venue-big-icon-box
+          = image_tag "venue-icon-host.png", :class => "venue-big-icon"
+
+  .row-fluid.venue-big-row
+    .span3.venue-big-left
+      -#venue image
+      = link_to venue_path(venue) do
+        = image_tag venue.image.url(:medium), :class => "venue-big-image"
+
+    .span9.venue-big-right
+      -#venue summery
+      %hr.venue-big-hr
+      -#time and image
+      .venue-big-time= l(venue.start_time)
+      - if !venue.next_event.nil?
+        %h4.venue-big-event-title= link_to venue.next_event.title, venue_path(venue)
+        -#event title
+      = simple_format( truncate(venue.summary, :length => 200), :class => "venue-big-description")
+
+  .clearfix

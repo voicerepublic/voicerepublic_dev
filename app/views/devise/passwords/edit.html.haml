@@ -1,0 +1,21 @@
+%br
+%br
+.centered-box
+  %h2.welcome-text{:style => "font-family:'Droid Serif';text-align:center"}= t('.welcome_text')
+  = image_tag "welcome-avatars.png", :class => "centered-box", :style => "display:block"
+%br
+.well.well-large.centered-box
+  %h2.layout-= t('.change_password')
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+    = devise_error_messages!
+    = f.hidden_field :reset_password_token
+    %div
+      = f.label :password, t('.new_password')
+      = f.password_field :password, :class => "input-block-level"
+    %div
+      = f.label :password_confirmation, t('.confirm_new_password')
+      = f.password_field :password_confirmation, :class => "input-block-level"
+    %div= f.submit t('helpers.links.save'), :class => "btn btn-primary pull-right"
+  .clearfix
+  %hr/
+  = render "devise/shared/links"

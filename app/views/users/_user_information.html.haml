@@ -1,0 +1,46 @@
+%section.user-information
+  .user-image-box
+    .user-image{"data-user-id" => user.id}= link_to(image_tag( user.account.portrait.url(:large), :class => "img-polaroid"), user_path( :id => user))
+
+  %header
+    %h2=user.name
+
+  %p.user-about
+    =user.account.about
+
+  - if user.account.website
+    %p
+      = link_to(user.account.website_as_url, :target => "new", :confirm => t('.will_open_in_new_tab', :default => "this will open a new tab")) do
+        = truncate(user.account.website_as_name, :length => 25)
+    
+  - user.account.languages.each do |lang|
+    = lang
+
+  -# WENN VIEL LOS IST, KANN DAS WIEDER EINGESCHALTET WERDEN
+    - if user.follower.count > 0
+      = link_to user_follows_path(user) do
+        = user.follower.count
+        = t('.follower', :default => 'friends')
+
+  - if current_user && current_user.id != user.id
+    %ul.unstyled.user-actions
+      %li
+        - unless current_user.followed.include?(user)
+          = link_to( user_create_follow_path(:user_id => current_user, :followed_id => user ), :method => "post" ) do
+            = t('.follow')
+
+      %li
+        = link_to(new_message_path(:receiver_id => user.id), :remote => true ) do
+          = t('.send_message')
+
+      - if user.available?
+        %li
+          = link_to( new_chat_path(:user_id => user.id ), :remote => true ) do
+            = t('.chat')
+
+- if can? :manage, user
+  %nav.user-edit-link
+    = link_to( edit_user_account_path(:user_id => user)) do
+      %i.icon-pencil
+      = t('.edit_account')
+

@@ -1,9 +1,0 @@
-<div class="thumbnail user-thumbnail">
-	
-	<%# LINK FOR WHOLE THUMBAIL %>
-	<%= link_to user_path(:id => user), :class => "user-thumbnail-link clearfix" do %>	
-		<span class="user-image" data-user-id="<%= user.id %>"><%= image_tag(user.account.portrait.url(:thumb)) %></span>		
-    <div class="user-thumbnail-name"><%= user.name %></div>
-	<% end %>
-
-</div>

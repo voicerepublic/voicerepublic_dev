@@ -1,16 +1,16 @@
-def mock_server_and_api
-  @api_mock = mock(VideoSystemApi::VideoSystemApi)
-  @server_mock = mock_model(VideoServer)
-  @server_mock.stub(:api).and_return(@api_mock)
-  VideoServer.stub(:find).and_return(@server_mock)
+def double_server_and_api
+  @api_double = double(VideoSystemApi::VideoSystemApi)
+  @server_double = mock_model(VideoServer)
+  @server_double.stub(:api).and_return(@api_double)
+  VideoServer.stub(:find).and_return(@server_double)
 end
 
-def mocked_server
-  @server_mock
+def doubled_server
+  @server_double
 end
 
-def mocked_api
-  @api_mock
+def doubled_api
+  @api_double
 end
 
 def centisize(amount)

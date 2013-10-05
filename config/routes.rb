@@ -2,6 +2,8 @@
 
 Kluuu2::Application.routes.draw do
   
+  post "fayeproxy" => "fayeproxy#publish"
+
   mount Kblog::Engine => "/blog"
   #mount Split::Dashboard => "/split" 
 
@@ -35,12 +37,14 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /de|en/ do
+    get 'venues/tags' => 'venues#tags'
     resources :categories
     resources :venues do
       post 'join_venue', :action => 'join_venue', :as => "join"
       #get 'new_join', :action => 'new_join', :as => 'new_join'
       delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 
       resources :comments
+      resources :articles
     end
     resources :klus do
       resources :ratings, :only => [:new, :create]
@@ -59,12 +63,13 @@ Kluuu2::Application.routes.draw do
   end
   
   scope "(/:locale)", :locale => /en|de/ do
+    resources :participations, :only => [:index, :create, :destroy]
     resources :users, :only => [:update, :show] do
       member do
-        get 'no_kluuus'
-        get 'kluuus'
+        #get 'no_kluuus'
+        #get 'kluuus'
         get 'welcome'
-        get 'venues'
+        get 'venues' # venues_user_path
       end
       resources :messages, :only => [:index, :show, :destroy, :update] do
         member do
@@ -102,7 +107,9 @@ Kluuu2::Application.routes.draw do
       delete "remove_role/:user_role_id", :action => :remove_role,  :as => 'remove_role'
     end
     resources :categories
+    # TODO this has to go
     resources :klus
+    resources :venues
     resources :video_servers
     get "dashboard/index"
   end

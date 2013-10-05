@@ -29,24 +29,29 @@ class Ability
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     
     
+    # TODO cleanup mess
+
+    # can :manage, Kluuu do |klu|
+    #   klu.user == user
+    # end
+
+    # can :manage, NoKluuu do |klu|
+    #   klu.user == user
+    # end
+    # 
+    # can :rate, Kluuu do |klu|
+    #   n = Notification::MakeRate.where("user_id = ? AND klu_id = ?", user.id,klu.id)
+    #   n.empty? ? false : true
+    # end
+    # 
+    # can :manage, KluImage do |ki|
+    #   user == ki.kluuu.user
+    # end
     
-    can :manage, Kluuu do |klu|
-      klu.user == user
+    can :manage, Article do |article|
+      article.user == user
     end
 
-    can :manage, NoKluuu do |klu|
-      klu.user == user
-    end
-    
-    can :rate, Kluuu do |klu|
-      n = Notification::MakeRate.where("user_id = ? AND klu_id = ?", user.id,klu.id)
-      n.empty? ? false : true
-    end
-    
-    can :manage, KluImage do |ki|
-      user == ki.kluuu.user
-    end
-    
     can :manage, User do |usr|
       usr == user
     end
@@ -71,14 +76,14 @@ class Ability
       user == conversation.user_1 || conversation.user_2
     end
     
-    can :manage, Category do |category|
-      user.is_admin?
-    end
+    # can :manage, Category do |category|
+    #   user.is_admin?
+    # end
     
     can :manage, Comment do |comment|
       t = false
       if comment.commentable.kind_of?(Venue)
-         if comment.commentable.host_kluuu.user == user  || comment.user == user 
+         if comment.commentable.user == user  || comment.user == user 
            t = true
          end
       end
@@ -99,21 +104,21 @@ class Ability
       ba.user == user
     end
     
-    can :manage, Bookmark do |bookmark|
-      user == bookmark.user
-    end
+    # can :manage, Bookmark do |bookmark|
+    #   user == bookmark.user
+    # end
     
     can :manage, Venue do |venue|
-      venue.host_kluuu.user == user
+      venue.user == user
     end
     
     #can :create, Venue do |venue|
     #  user.roles.include?(Role.find_by_name('venue_host'))
     #end
     
-    can :manage, VenueKlu do |vk|
-      vk.klu.user == user 
-    end
+    # can :manage, VenueKlu do |vk|
+    #   vk.klu.user == user 
+    # end
     
   end
 end

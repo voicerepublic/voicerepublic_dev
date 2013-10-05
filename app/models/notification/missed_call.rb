@@ -16,10 +16,10 @@ class Notification::MissedCall < Notification::Base
   belongs_to :user
   belongs_to :other, :class_name => 'User'  # other may be nil in case of anonymous call?
   belongs_to :video_session, :class_name => 'VideoSession::Base'
-  belongs_to :klu
+  #belongs_to :klu
   
-  attr_accessible :user_id, :other_id, :anon_id, :video_session_id, :url, :klu_id
-  validates :klu_id, :presence => true
+  attr_accessible :user_id, :other_id, :anon_id, :video_session_id, :url#, :klu_id
+  #validates :klu_id, :presence => true
   #other_id can be a session id of the cookie in case an anonymous user calls
   #validates_presence_of :user_id, :video_session_id
   #validates_presence_of :other_id, :if => Proc.new { |n| n.anon_id.nil? }, :message => 'other_id is missing'

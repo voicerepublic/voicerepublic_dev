@@ -19,14 +19,17 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, "/var/www/www.kluuu.com/production/shared/log/whenever-cron.log"
-env :PATH, '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
+set :job_template, "bash -l -c 'export PATH=/home/rails/.rbenv/shims:$PATH && :job'"
+set :output, "/home/rails/app/shared/log/whenever-cron.log"
 
-every 30.minutes, :roles => [:app] do
-  rake "ts:reindex"
+# every 60.minutes, :roles => [:app] do
+#   runner 'Venue.notify_next_day; Venue.notify_next_2_hour'
+# end
+
+every 67.minutes, :roles => [:app] do
+  rake "thinking_sphinx:reindex"
 end
 
-every :hour, :roles => [:app] do
-  runner 'Venue.notify_next_day'
-  runner 'Venue.notify_next_2_hour'
+every :day, :at => '03:15am', :roles => [:app] do
+  rake "recordings:merge"
 end

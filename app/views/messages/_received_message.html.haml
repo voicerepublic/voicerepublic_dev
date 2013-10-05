@@ -1,0 +1,17 @@
+%article.contribution.clearfix
+  .contribution-left
+    = link_to user_path(:id => message.sender) do
+      = image_tag(message.sender.account.portrait(:thumb))
+    
+  .contribution-right
+    = link_to message.sender.name, user_path(:id => message.sender), :class => "contribution-username"
+    %time.muted{:datetime => message.created_at.strftime("%Y-%m-%d")}
+      = time_ago_in_words(message.created_at)
+    = sophisticated_format(message.content)
+
+    .contribution-actions
+      = link_to(new_message_path(:receiver_id => message.sender), :remote => true) do
+        = t('.reply')    
+      - if can? :manage, message 
+        = link_to user_message_path(:user_id => message.receiver, :id => message), :method => :delete do
+          = t('helpers.links.destroy')

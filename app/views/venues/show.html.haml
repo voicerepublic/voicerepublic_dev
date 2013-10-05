@@ -1,0 +1,55 @@
+- if @venue.reload_time
+  - content_for :head do
+    -# force reload at @venue.reload_time
+    %meta(http-equiv="refresh" content="#{@venue.reload_time}")/
+
+- content_for :title do
+  = t('.venue')
+  \&middot;
+  = @venue.title
+
+- content_for :facebook_values do
+  = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
+
+-# action buttons
+= render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
+
+-if @venue.live?
+  -# live layout
+    
+  %section.venue-live-box.clearfix
+    -# description
+    = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )  
+    = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )  
+
+  .row-fluid
+    .span8
+      -# forum (left)
+      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
+    .span4
+      -# participants (right)
+      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+
+- else
+  -# static layout
+  .row-fluid
+    .span8
+      -# description
+      = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
+
+      -# forum
+      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
+
+    .span4.left-light-border
+      -# next event
+      - unless @venue.next_event.nil?
+        = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
+        %hr.venue-horiz-line
+
+      -# archive
+      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+      %hr.venue-horiz-line
+
+      -# participants
+      = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
+

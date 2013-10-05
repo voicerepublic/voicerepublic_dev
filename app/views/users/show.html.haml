@@ -1,0 +1,14 @@
+- content_for :title do
+  = @user.name
+
+%section.venue-list.row-fluid
+  - if @user.participating_venues.empty?
+    .text-align-center.muted
+      %br/
+      %br/
+      = t('.guest_empty_venue', :name => @user.firstname)
+      %br/
+      %br/
+  - else
+    = render(:partial => 'venues/venue_big', :collection => @user.participating_venues, :as => :venue)
+  %section

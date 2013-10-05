@@ -1,24 +1,23 @@
-<section class="status-updates status-updates-comments">
-  <div class="contribution-comments">
-    <%= link_to(user_status_updates_path(:user_id => @status_update.user), :class => 'status-updates-back') do %>
-      <i class="icon-arrow-left"></i>
-      <%= t('.back') %>
-    <% end %>
-    <%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
-    <section id="comments" class="comments">
-      <ul class="unstyled">
-      <%= render(:partial => "comment", :collection => @comments, :as => :comment ) %>
-      </ul>
-      <%= will_paginate @comments, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
-      
-     
-      <aside id="newcomment">
-        <% if current_user %>
-          <% @comment = @status_update.comments.build %>
-          <%= render(:partial => "comments/form") %>
-        <% end %>
-      </aside>
+<section class="status-updates">
+  <%= link_to(user_status_updates_path(:user_id => @status_update.user), :class => 'status-updates-back pull-right') do %>
+    <i class="icon-arrow-right"></i>
+    <%= t('.all_status') %>
+  <% end %>
+  <br />
+  <%= render(:partial => 'status_update', :locals => {:status_update => @status_update})%>
+  <section id="comments" class="contribution-comments">
+    <ul>
+    <%= render(:partial => "comment", :collection => @comments, :as => :comment ) %>
+    </ul>
+    <%= will_paginate @comments, :renderer => BootstrapPagination::Rails, :class => "pagination pagination-centered" %>
     
-    </section>
-  </div>
+   
+    <aside id="newcomment">
+      <% if current_user %>
+        <% @comment = @status_update.comments.build %>
+        <%= render(:partial => "comments/form") %>
+      <% end %>
+    </aside>
+  
+  </section>
 </section>
