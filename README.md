@@ -63,6 +63,7 @@ KluuU makes use of the following external services:
 
 * [NewRelic](https://rpm.newrelic.com/accounts/xxx/servers) for monitoring the application and collecting errors on the backend.
 * [Google Analytics](http://www.google.com/analytics/) for web analytics.
+* [Uptimerobot](http://uptimerobot.com/) (accounts@dispatched.ch / JaG9UAbXezJ8zm)
 
 ## Platforms
 
