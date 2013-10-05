@@ -51,19 +51,21 @@ KluuU makes use of the following external services:
 ### Analysis
 
 * [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/927712) for managing the user stories.
-* kluuu@dispatched.ch / gFxmaJCue3AD9j
+ * kluuu@dispatched.ch / gFxmaJCue3AD9j
 
 ### Development
 
 * [GitHub](https://github.com/munen/KluuU) for source control management and developer collaboration.
 * [CircleCI](https://circleci.com/xxx) as continuous integration server.
-* [Code climate](https://codeclimate.com/repos/xxx/feed) for automated code reviews.
+* [Code climate](https://codeclimate.com/repos/52508e7013d6371cde004e5f/feed) for automated code reviews.
+ * kluuu@dispatched.ch / g9jMmjckwzKb2o  
 
 ### Monitoring
 
 * [NewRelic](https://rpm.newrelic.com/accounts/xxx/servers) for monitoring the application and collecting errors on the backend.
 * [Google Analytics](http://www.google.com/analytics/) for web analytics.
-* [Uptimerobot](http://uptimerobot.com/) (accounts@dispatched.ch / JaG9UAbXezJ8zm)
+* [Uptimerobot](http://uptimerobot.com/) 
+ * accounts@dispatched.ch / JaG9UAbXezJ8zm
 
 ## Platforms
 
@@ -84,5 +86,5 @@ KluuU makes use of the following external services:
 
 ## Code Quality
 
-* Integration: [![Code Climate](https://codeclimate.com/repos/xxx/badges/yyy/gpa.png)](https://codeclimate.com/repos/51875a30c7f3a37a7f00f592/feed)
-* Master: [![Code Climate](https://codeclimate.com/repos/xxx/badges/yyy/gpa.png)](https://codeclimate.com/repos/5162f8a6f3ea0001d700664a/feed)
+* Develop: [![Code Climate](https://codeclimate.com/repos/52508f2589af7e49eb005def/badges/41b20408f4ce36c7daed/gpa.png)](https://codeclimate.com/repos/52508f2589af7e49eb005def/feed)
+* Master: [![Code Climate](https://codeclimate.com/repos/52508e7013d6371cde004e5f/badges/464d25e7b07281374bab/gpa.png)](https://codeclimate.com/repos/52508e7013d6371cde004e5f/feed)
