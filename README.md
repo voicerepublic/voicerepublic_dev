@@ -50,7 +50,8 @@ KluuU makes use of the following external services:
 
 ### Analysis
 
-* [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/xxx) for managing the user stories.
+* [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/927712) for managing the user stories.
+* kluuu@dispatched.ch / gFxmaJCue3AD9j
 
 ### Development
 
