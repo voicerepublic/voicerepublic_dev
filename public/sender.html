@@ -5,10 +5,10 @@
     <style type="text/css">
     </style>
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <script src='//kluuu-production.panter.ch:9294/faye/client.js'></script>
+    <script src='//kluuu.com:9294/faye/client.js'></script>
     <script type="text/javascript" src="/swfobject.js"></script>
     <script>
-      var flashvars = { streamer: 'rtmp://kluuu-production.panter.ch/discussions', afterInitialize: "init" };
+      var flashvars = { streamer: 'rtmp://kluuu.com/discussions', afterInitialize: "init" };
       var params = {};
       var attributes = { id: "Blackbox", name: "Blackbox" };
       swfobject.embedSWF("/flash/Blackbox.swf", "flashcontent", "215", "140", "10.3.181.22", null, flashvars, params, attributes);
@@ -46,7 +46,7 @@
       var uuid = localStorage.getItem('uuid') || generateUuid();
       localStorage.setItem('uuid', uuid);
 
-      var client = new Faye.Client('http://kluuu-production.panter.ch:9294/faye');
+      var client = new Faye.Client('http://kluuu.com:9294/faye');
 
       client.subscribe('/announce', function(msg) {
         if (uuid == msg.uuid) return;
@@ -68,7 +68,7 @@
         publishStream(uuid);
         //log('announce '+uuid);
         //client.publish('/announce', { uuid: uuid });
-        setTimeout(function() { 
+        setTimeout(function() {
           log('register');
           client.publish('/register', { uuid: uuid });
         }, 1000);

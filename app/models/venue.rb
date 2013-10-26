@@ -14,14 +14,14 @@
 class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE = 5.minutes
-  DISCUSSIONS_STREAMER = "rtmp://kluuu-production.panter.ch/discussions"
-  RECORDINGS_STREAMER = "rtmp://kluuu-production.panter.ch/recordings"
+  DISCUSSIONS_STREAMER = "rtmp://kluuu.com/discussions"
+  RECORDINGS_STREAMER = "rtmp://kluuu.com/recordings"
 
   acts_as_taggable
 
   attr_accessible :title, :summary, :description, :intro_video, :featured_from,
                   :events_attributes, :tag_list
-  
+
   belongs_to :user
 
   has_many :comments, :as => :commentable, :dependent => :destroy, :order => "created_at DESC"
@@ -35,11 +35,11 @@ class Venue < ActiveRecord::Base
            :foreign_key => :other_id,:dependent => :destroy
   has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo',
            :foreign_key => :other_id, :dependent => :destroy
-  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', 
-           :foreign_key => :other_id, :dependent => :destroy  
+  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant',
+           :foreign_key => :other_id, :dependent => :destroy
 
   validates :title, :summary, :description, :tag_list, :presence => true
-  
+
   after_create :generate_notification
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
@@ -52,7 +52,7 @@ class Venue < ActiveRecord::Base
   scope :upcoming_first,    proc { joins(:events).merge(Event.upcoming_first) }
   #scope :past,              proc { joins(:events).merge(Event.past) }
   scope :most_recent_first, proc { joins(:events).merge(Event.most_recent_first) }
-  
+
   # start_time, duration, start_in_seconds wil return nil if no next_event
   delegate :start_time, :duration, :start_in_seconds, to: :next_event, allow_nil: true
 
@@ -86,30 +86,30 @@ class Venue < ActiveRecord::Base
     (end_time >= Time.now.in_time_zone - tolerance) and
       (start_time <= Time.now.in_time_zone + tolerance)
   end
-  
+
   def past?
     return true if next_event.nil?
     end_time < Time.now.in_time_zone
   end
   alias_method :timed_out?, :past?
-  
+
   def user_participates?(user)
     users.include?(user)
   end
-  
+
   def attendies
     #self.klus.collect { |k| k.user }.push(self.host_kluuu.user)
     [ user ]
   end
-  
+
   def guests
     #self.klus.collect { |k| k.user }
     []
   end
-  
+
   # this is rendered as json in venue/venue_show_live
   def details_for(user)
-    { 
+    {
       streamId: "v#{id}-e#{next_event.id}-u#{user.id}",
       channel: story_channel,
       role: (self.user == user) ? 'host' : 'participant',
@@ -133,35 +133,35 @@ class Venue < ActiveRecord::Base
   def chat_name
     "vgc-#{self.id}"
   end
-  
+
   def channel_name
     "/chatchannel/vgc-#{self.id}e#{next_event.id}"
   end
-  
+
   def channel_host_info
     "/chatchannel/host-info/vgc-#{self.id}"
   end
-  
+
   def self.upcoming
     Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
   end
-  
+
   def self.one_day_ahead
     venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 24.hours, Time.now + 23.hours)
   end
-  
+
   def self.two_hour_ahead
     venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 120.minutes, Time.now + 60.minutes )
   end
-  
+
   def self.notify_next_day
     self.generate_time_info_for(self.one_day_ahead)
   end
-  
+
   def self.notify_next_2_hour
     self.generate_time_info_for(self.two_hour_ahead)
   end
-  
+
   def self.generate_time_info_for(venues)
     notifies = false
     venues.each do |venue|
@@ -183,13 +183,13 @@ class Venue < ActiveRecord::Base
       Notification::VenueInfo.create(:user => user, :other => venue)
     end
   end
-  
+
   private
-  
+
   def clean_taglist
     self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
   end
-  
+
   def generate_notification
     user.follower.each do |follower|
       if follower.account.prefs.inform_of_friends == "1" || true
@@ -197,5 +197,5 @@ class Venue < ActiveRecord::Base
       end
     end
   end
-  
+
 end
