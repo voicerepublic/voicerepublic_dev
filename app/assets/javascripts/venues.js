@@ -1,9 +1,40 @@
 (function($){
 
   $('.info-link-onair, .venue-desc-onair .close-icon').click(function(){
-
     $('.venue-desc-onair').toggleClass('show');
   });
+
+  $('article a.reply').click(function (e) {
+    e.preventDefault();
+    var article = $(this).parents('article.venue-article');
+    var form = $('form.contribution-new-comment', article);
+    form.toggle();
+  })
+
+  var endTalk = function (e) {
+    e.preventDefault()
+    var link = $(this)
+
+    if (confirm(link.data('confirmation'))) {
+      $.post(this.href, {
+        event_id: link.data('event')
+      }).success(function () {
+        Venue.publish("alert('" + link.data('message') + "'); window.location.replace('" + link.data('url') + "');");
+      }).error(function (jqXHR) {
+        alert(jqXHR.responseText)
+      })
+    }
+  }
+
+  var showEndTalkBtn = function () {
+    $('#end_talk').removeClass('hidden');
+  }
+
+  var endTalkButton = $('#end_talk')
+  if (endTalkButton.length) {
+    endTalkButton.click(endTalk)
+    setTimeout(showEndTalkBtn, endTalkButton.data('duration'))
+  }
 
   muteMicrophone = function(elem) {
     Venue.blackbox.mute();
@@ -61,9 +92,11 @@
   };
 
   var tagList = function() {
+    var tags = $('.tagList').val().split(', ')
+
     $('.tagList').select2(
       { width: 'element',
-        tags: [],
+        multiple: true,
         tokenSeparators: [",", " "],
         ajax: {
           url: "/venues/tags.json",
@@ -98,10 +131,22 @@
           return data ? escapeMarkup(data.name) : undefined;
         }
       });
+
+    // Workaround to populate select2 with existing data
+    var formatted = [];
+    $.each(tags, function (i, tag) {
+      if (tag != "") {
+        formatted.push({ id: Math.floor(Math.random() * 1000), name: tag })
+      }
+    })
+
+    if (tags.length > 0) {
+      $('.tagList').select2('data', formatted)
+    }
   };
 
   disableKluLinks();
-  tagList();
+  if ($('.tagList').length) tagList();
 
   var promoteHandler = function(event) {
     var elem = $(this).closest('.avatar-box');
@@ -122,6 +167,18 @@
     Venue.demote(streamId);
   };
 
+  var raiseHand = function (e) {
+    e.preventDefault();
+    alert($(this).data('note'));
+    Venue.blackbox.activate();
+  }
+
+  $('body').on('click', '.raise_hand', raiseHand)
+
+  window.micActivated = function () {
+    Venue.raiseHand();
+  }
+
   var initVenue = function() {
     // http://stackoverflow.com/questions/7235417
     // http://stackoverflow.com/questions/952732
@@ -137,8 +194,10 @@
 
         // ui changes (seems to work on host but not on participant)
         var user = $('.venue-participants *[data-stream-id='+streamId+']');
+        user.removeClass('raising');
         user.appendTo('.users-onair-participants-box')
         if (Venue.role == 'host') Venue.toggleManageIcons();
+        Venue.sortParticipants();
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
@@ -146,6 +205,7 @@
         Venue.blackbox.publish(Venue.streamId);
         Venue.subscribe();
         $('.venue-live-mute-button').fadeIn();
+        $('.raise_hand').fadeOut();
       },
       onDemote: function(streamId) {
         //log('received onDemote for '+streamId);
@@ -154,12 +214,14 @@
         var user = $('.users-onair-participants-box *[data-stream-id='+streamId+']');
         user.appendTo('.venue-participants');
         if (Venue.role == 'host') Venue.toggleManageIcons();
+        Venue.sortParticipants();
 
         // business logic changes
         if(streamId!=Venue.streamId) return;
         Venue.blackbox.unpublish();
         Venue.role = 'participant';
         $('.venue-live-mute-button').fadeOut();
+        $('.raise_hand').fadeIn();
       },
       // onRegister is triggered by new participants
       // all senders (the host and all guests) should
@@ -177,6 +239,10 @@
         if($.inArray(streamId, Venue.subscriptions) != -1) return; // skip known
         Venue.blackbox.subscribe(streamId);
         Venue.subscriptions.push(streamId);
+      },
+      onRaiseHand: function(streamId) {
+        var user = $('.venue-participants *[data-stream-id='+streamId+']');
+        user.addClass('raising');
       },
       // --- Triggers
       // tiggers onRegister on other side
@@ -197,6 +263,10 @@
       demote: function(streamId) {
         Venue.publish("Venue.onDemote('"+streamId+"');");
       },
+      // triggers onRaiseHand
+      raiseHand: function () {
+        Venue.publish("Venue.onRaiseHand('"+Venue.streamId+"');");
+      },
       // --- Helpers
       initMote: function() {
         if(Venue.role != 'host') return;
@@ -214,12 +284,39 @@
         $('.venue-participants .demote-icon').hide();
         $('.venue-participants .promote-icon').show();
         $('.users-onair-participants-box .demote-icon').show();
-        $('.users-onair-participants-box .promote-icon').hide();        
+        $('.users-onair-participants-box .promote-icon').hide();
+      },
+      sortParticipants: function () {
+        var statuses = ['offline', 'busy', 'online'];
+        var users = $.map($('.venue-participants .avatar-box'), function (box) {
+          var status = $('.user-image', box).data('status');
+          var streamId = $(box).data('stream-id')
+          return {
+            streamId: streamId,
+            index: statuses.indexOf(status)
+          };
+        });
+
+        var sorted = users.sort(function (a, b) {
+          if (a.index > b.index) {
+            return -1;
+          } else if (a.index < b.index) {
+            return 1;
+          } else {
+            return 0;
+          }
+        })
+
+        $.each(sorted, function (_, user) {
+          var box = $('.venue-participants *[data-stream-id=' + user.streamId + ']');
+          box.appendTo('.venue-participants');
+        })
       }
     });
 
     // 'register' is called to announce a new client
     Venue.register();
+    Venue.sortParticipants();
   };
 
   window.initBlackbox = function() {

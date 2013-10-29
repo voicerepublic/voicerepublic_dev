@@ -35,20 +35,26 @@ Kluuu2::Application.routes.draw do
     delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
     get 'users/status_for' => 'users#status_for'
   end
-  
+
   scope "(/:locale)", :locale => /de|en/ do
     get 'venues/tags' => 'venues#tags'
     resources :categories
     resources :venues do
+      # move out into a separate controller
+      member do
+        post 'end_event'
+        delete 'remove_recording'
+      end
       post 'join_venue', :action => 'join_venue', :as => "join"
       #get 'new_join', :action => 'new_join', :as => 'new_join'
       delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 
-      resources :comments
       resources :articles
     end
     resources :klus do
       resources :ratings, :only => [:new, :create]
-      resources :comments
+    end
+    resources :articles, only: [] do
+      resources :comments, only: [:create]
     end
   end
   
@@ -57,8 +63,8 @@ Kluuu2::Application.routes.draw do
       delete "/users/sign_out" => "devise/sessions#destroy"
     end
     devise_for :users, :controllers => {  :omniauth_callbacks => "users/omniauth_callbacks",
-                                          :sessions => "users/sessions"
-                                          #:registrations => "users/registrations" 
+                                          :sessions => "users/sessions",
+                                          :registrations => "users/registrations"
                                         }
   end
   
@@ -91,9 +97,7 @@ Kluuu2::Application.routes.draw do
       resources :klus do
         resources :klu_images
       end
-      resources :status_updates do
-        resources :comments
-      end
+      resources :status_updates
       namespace :balance do
         resource :account
         resources :check_in_orders, :only => [:new, :create, :destroy]

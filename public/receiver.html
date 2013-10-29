@@ -33,7 +33,7 @@
         subscriptions.push(uuid);
       }
 
-      var client = new Faye.Client('http://kluuu.com:9294/faye');
+      var client = new Faye.Client('http://kluuu-staging.panter.ch:9294/faye');
 
       // subscribe to streams when they are announced
       client.subscribe('/announce', function(msg) {

@@ -1,15 +1,3 @@
-# Attributes:
-# * id [integer, primary, not null] - primary key
-# * content [text] - TODO: document me
-# * conversation_id [integer] - belongs to :conversation
-# * created_at [datetime, not null] - creation time
-# * receiver_deleted [boolean] - TODO: document me
-# * receiver_id [integer] - belongs to :receiver
-# * receiver_read [boolean] - TODO: document me
-# * sender_deleted [boolean] - TODO: document me
-# * sender_id [integer] - belongs to :sender
-# * sender_read [boolean] - TODO: document me
-# * updated_at [datetime, not null] - last update time
 class Message < ActiveRecord::Base
   attr_accessible :content, :sender_read, :receiver_read, :receiver_id, :sender_id, :conversation_id
   
@@ -31,7 +19,6 @@ class Message < ActiveRecord::Base
   validates :content, :presence => true
   
   before_create :add_to_or_create_conversation
-  after_create :generate_notification
   
   def destroy_for(user)
     if self.receiver == user
@@ -54,9 +41,4 @@ class Message < ActiveRecord::Base
     end
     self.conversation = conv
   end
-  
-  def generate_notification
-    Notification::NewMessage.create(:other_id => sender.id, :user_id => receiver.id, :url => Rails.application.routes.url_helpers.user_conversation_url(:user_id => receiver, :id => self.conversation))
-  end
-  
 end

@@ -11,7 +11,7 @@
 @import "config.css.less";
 
 .venue-edit-ajax {
-  width: 400px;
+  min-width: 600px;
   h2{
     margin-top: 0;
   }
@@ -182,11 +182,7 @@
   /*background: #FAF5D8*/
   border: 1px solid #ddd;
   #article_content{
-    height:46px;
-    .transition(height 0.2s ease)
-  }
-  #article_content:focus{
-    height:140px;
+    height:50px;
   }
 }
 
@@ -204,6 +200,18 @@
   text-align: center;
   font-size: @baseFontSize * 0.9;
   line-height: 108%;
+  &.raising {
+    &:after{
+      content: '';
+      background: url(/assets/raising-icon-white.png) no-repeat;
+      background-size: 100%;
+      width: 16px;
+      height: 50px;
+      position: absolute;
+      top: -20px;
+      right: 6px;
+    }
+  }
   a{
     color:#333;
   }
@@ -217,7 +225,7 @@
 .promote-icon, .demote-icon{
   position: absolute;
   top:-4px;
-  left:44px;
+  right:44px;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -250,8 +258,15 @@
   font-family: "Droid Serif", Times;
 }
 
+.venue-archive-recording-delete-link{
+  width: 310px;
+  display: inline-block;
+  text-align: right;
+}
+
 /* CHAT ------------------------------------------------*/
 .group-chat-instance {
+  position: relative;
   h3{
     padding: 0;
     margin: 0 0 10px 0;
@@ -449,6 +464,18 @@
     100% {-webkit-transform: scale(1); opacity: 0.5;}
 }
 
+#end_talk {
+  display: block;
+  position: absolute;
+  left:110px;
+  top:0px;
+  /*width:100px;*/
+
+  &:hidden {
+    display: none;
+  }
+}
+
 #Blackbox{
   position: absolute;
   right: 0px;
@@ -461,6 +488,31 @@
   border-radius: 0 !important;
   position: relative;
 }
+
+.users-moderators{
+  position: relative; 
+}
+
+.users-onair-participants-box{
+  position: relative; 
+}
+
+.raise_hand{
+  position: absolute;
+  padding-right: 40px;
+  right: 0px;
+  top: -7px;
+  background: #A9C158;
+  &:hover{
+    background: #A9C158
+  }
+  img{
+    width:12px;
+    position: absolute;
+    right:10px;
+    top:2px;
+  }   
+}  
 
 .venue-live-left{
   background-color: #D7E2B0;
@@ -481,18 +533,6 @@
 @media (max-width: 900px) {
   .venue-live-right, .venue-live-left {
     width: inherit !important
-  }
-}
-
-.users-onair-box{
-  height: 60px;
-  position: relative;
-  line-height: 3;
-  .user-image{
-    text-align: left;
-    display: block;
-    float: left;
-    margin-right: 20px;
   }
 }
 
@@ -556,6 +596,11 @@
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  }
+
+  .field_with_errors .select2-choices {
+    border-color: #BC0000;
+    box-shadow: 0 0 4px #BC0000;
   }
 
   .control-group{

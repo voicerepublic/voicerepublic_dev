@@ -1,24 +1,20 @@
 .landing-page
-  .text-align-center.kluuu-lead
-    %h2.text-align-center.landing-page-claim
-      Debate is so much better than denial.
-      .claim-author
-        \- Julie Walters
-    .clearfix
-      .row-fluid.landing-page-illu.clearfix
-        .span6
-          .lp-box.lp-box-background
-            %h2.lp-box-title Why are you here?
-            %ul
-              %li.lp-box-content Broadcast your live talk
-              %li.lp-box-content Invite talk guests spontaneously
-              %li.lp-box-content Record your talk an build your talk-channel
-              %li.lp-box-content Join talks from others
-        .span6
-          .lp-box.lp-box-background
-            %h2.lp-box-title How to get started
-            %ul
-              %li.lp-box-content Browse the intriguing topics, and join any of them.
-              %li.lp-box-content Create your own talk, discussion or interview and invite people to participate!
-
-  = render(:partial => "lp_venues")
+  .lp-bg
+    = image_tag "/assets/Bilder_KluuU_Studio/#{rand(7)}.jpg"
+  .row-fluid
+    .span8
+      %h2.lp-claim
+        Debate is so much better than denial.
+      .lp-claim-author
+        \– Julie Walters
+      .lp-info
+        Broadcast and Record your live talk!
+    .span4
+      .well.well-large.lp-login
+        = render 'lp_login', :user => @user
+  .row-fluid
+    .span8.lp-left-bottom.featured-box
+      = render(:partial => "lp_venues")
+    .span4
+      .well.well-large.lp-signup
+        = render 'lp_signup', :user => @user

@@ -1,14 +1,4 @@
 # encoding : utf-8
-
-# Attributes:
-# * id [integer, primary, not null] - primary key
-# * balance_cents [integer, default=0] - TODO: document me
-# * created_at [datetime, not null] - creation time
-# * currency [string] - TODO: document me
-# * revenue_cents [integer, default=0] - TODO: document me
-# * updated_at [datetime, not null] - last update time
-# * user_id [integer] - belongs to :user
-
 class Balance::Account < ActiveRecord::Base
   attr_accessible :currency, :balance_cents, :revenue_cents, :user_id
   attr_accessible :balance, :revenue

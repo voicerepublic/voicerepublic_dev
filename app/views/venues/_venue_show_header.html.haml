@@ -1,6 +1,6 @@
 .venue-show
   .page-header
-    - unless @venue.next_event.nil?
+    - unless @venue.current_event.nil?
       .venue-time
         = l(@venue.start_time.in_time_zone)
         ,

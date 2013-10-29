@@ -1,0 +1,16 @@
+Hello <%= @user.firstname %>!
+=================================================================
+
+There a new talk for you on KluuU:
+
+<%= @event.title %>
+<%= l @event.start_time %>
+
+Get further information by visiting: <%= venue_url(:id => @event.venue) %>
+
+
+Best the KluuU Team
+
+--
+
+www.KluuU.com by kuurz&lumpur AG, Switzerland. 

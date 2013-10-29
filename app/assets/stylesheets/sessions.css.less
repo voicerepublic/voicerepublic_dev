@@ -4,78 +4,61 @@
  */
  @import "config.css.less";
 
-	input[type="text"], input[type="password"], input[type="email"] {
-	    width: 100%;
-	}
+.signup,
+.login{
+  max-width:400px;
+  margin: 0 auto;
+  h2{
+  	margin-top: 0
+  }
+}
 
-	input[type="text"],
-	input[type="password"]{
-		width:100%	
-	}
-
-	.login, .signup{
-		margin:50px auto 50px auto;
-		max-width:400px;
-		h2{
-			margin-top:0;
+.signup-facebook, .signup-google{
+	width:142px;
+	text-align: left;
+	padding-left:5px;
+	padding-right:0px;
+	font-size:12px;
+	color:white;
+	font-weight: bold;
+	margin-bottom:10px;
+		img{
+			margin-right: 5px;
+			width:20px;
 		}
+}
 
-		.page-header {
- 			border-bottom: 1px solid #EEEEEE;
- 			margin-bottom:15px
-		}
-		a.btn{
-			/*margin-right:10px*/
-		}	
+.signup-facebook{
+  background-color: #306CA8;
 
+	background-image: linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+	background-image: -o-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+	background-image: -moz-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgb(255,255,255,0.3) 100%);
+	background-image: -ms-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0, rgba(255,255,255,0.1)),
+		color-stop(1, rgba(255,255,255,0.3))
+	);
+	
+	filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#B1C6C9', endColorstr='#8BA3A7'); /* IE6 & IE7 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#B1C6C9', endColorstr='#8BA3A7')"; /* IE8 */
+
+	text-shadow:0 1px #306CA8;
+
+	&:hover{
+		background-color: #306CA8;
+		color:white;
 	}
+}
 
- .signup-facebook, .signup-google{
- 	width:142px;
- 	text-align: left;
- 	padding-left:5px;
- 	padding-right:0px;
- 	font-size:12px;
- 	color:white;
- 	font-weight: bold;
- 	margin-bottom:10px;
- 		img{
- 			margin-right: 5px;
- 			width:20px;
- 		}
- }
-
- .signup-facebook{
-	  background-color: #306CA8;
-
-		background-image: linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
-		background-image: -o-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
-		background-image: -moz-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
-		background-image: -webkit-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgb(255,255,255,0.3) 100%);
-		background-image: -ms-linear-gradient(bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 100%);
-
-		background-image: -webkit-gradient(
-			linear,
-			left bottom,
-			left top,
-			color-stop(0, rgba(255,255,255,0.1)),
-			color-stop(1, rgba(255,255,255,0.3))
-		);
-		
-		filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#B1C6C9', endColorstr='#8BA3A7'); /* IE6 & IE7 */
-  	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#B1C6C9', endColorstr='#8BA3A7')"; /* IE8 */
-
-  	text-shadow:0 1px #306CA8;
-
-  	&:hover{
-  		background-color: #306CA8;
-  		color:white;
-  	}
- }
-
- .signup-google{
- 	color:#333;
- }
+.signup-google{
+	color:#333;
+}
 
 .sessions-or-box{
 	position: relative;
@@ -95,17 +78,4 @@
 		font-style: italic;
 		color:#555;
 	}
-}
-
-h3.devise-text-intro{
-	color:#444;
-	font-size:18px;
-	strong{
-		font-size:28px;
-		font-weight: normal
-	}
-}
-
-.signup-button{
-	margin-top:10px
 }

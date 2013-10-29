@@ -15,15 +15,10 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    #@kluuus = @user.kluuus
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
+    if @user.participating_venues.empty? && @user.venues.any?
+      redirect_to venues_user_url(@user)
     end
   end
 

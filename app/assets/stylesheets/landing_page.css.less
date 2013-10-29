@@ -7,203 +7,247 @@
  */
  @import "config.css.less";
 
- .landing-page {
-  
-  .venue-top {
-    padding-left: 0;
-  }
-  
-  .news-top {
-    margin-top: 44px;
-    padding-right: 10px;
-    min-height: 210px
-  }
-
-  h2{
-  	margin:0px 0 0 0px;
-  	font-size: 26px
-  }
- }
-
-body .container .well {
-	box-shadow: inset 0 0 0px rgba(0,0,0,0.3) !important;
-	border:1px solid #BEBEBE;
-	background:#F2F2F2
-}
-
-.container{
-	width: 100%;
-	.row-fluid{
-		padding:5%
-	}
-}
-
- h2.landing-page-claim{
-  	font-size:50px;
-  	/*color: @brandKluuu;*/
-  	font-weight: 300;
-  	font-family: sans-serif;
-  	margin:40px 11px 40px 0px;
-  	display: inline-block;
-  	-webkit-hyphens: auto;
-  	-moz-hyphens: auto;
-  	hyphens: auto;
-    position: relative;
- }
-
- .claim-author{
-    position: absolute;
-    right: -30px;
-    bottom:-16px;
-    font-size: 20px;
-    color:#999;
- }
-
- .lead{
- 	margin-bottom: 25px
- }
-
 .landing-page{
-	.row-fluid{
-		padding-top:0px;
-		padding-bottom:10px;
-	}
-	.landing-page-top-row{
-		padding-top:20px;
-		position: relative;
-		height:430px;
-		background:transparent;
-		.landing-page-bottom-background{
-			position: absolute;
-			bottom: 0;
-			left:0;
-			height:120px;
-			width: 100%;
-			/*background:-moz-linear-gradient(center top , transparent, rgba(0, 0, 0, 0.7)) repeat scroll 0 0 transparent;*/
-		}
-	}
-	.landing-page-illu{
-    
-    max-width: 1000px;
-    margin:50px auto 0 auto;
-		a{
-			color:@black;
-		}
-		.lp-box{
-      border-radius:5px;
-      max-width: 320px;
-      height: 220px;
+  padding-top: 80px
+}
 
-      border:3px solid #ccc;
-      text-align: left;
-      padding:0 8%;
-      margin:0 auto 35px auto;
-			&.lp-venue-icon img{
-				border-radius: 10px
-			}
-			list-style-type: none;
-			display: block;
-			color:#777;
+h2.lp-claim{
+	font-size:34px;
+  line-height: 100%;
+  letter-spacing: 1px;
+	color: #fff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.2), -1px -1px 1px rgba(0,0,0,0.2);
+	font-weight: bold;
+	margin:0px 11px 5px 0px;
+	display: inline-block;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+  position: relative;
+}
 
-      .lp-box-content{
-        margin-left: 15px;
-        padding-left: 2px;
-        list-style-type: disc;
-      }
+.lp-claim-author{
+  font-size: 18px;
+  font-weight: bold;
+  color:#fff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.2), -1px -1px 1px rgba(0,0,0,0.2);
+}
 
-			.lp-box-title{
-				margin:20px 0 0px 0;
-				font-size: 20px;
-				line-height:34px;
-				color:#333;
-				font-family: sans-serif;
-				font-weight: normal;
-			}
-			.landing-page-illu-subtitle{
-				font-style: italic;
-				font-size: 16px
-			}
-		}
-		.span6:first-child .lp-box{
-			border-color: #A9C158
-		}
-  
-    .span6:nth-child(2) .lp-box{
-      border-color: #536731
+.lp-info{
+  margin-top: 42px;
+  font-size: 22px;
+  color:#fff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.2), -1px -1px 1px rgba(0,0,0,0.2);
+}
+
+.lead{
+	margin-bottom: 25px
+}
+
+.right-fixed-box{
+  position: relative;
+  width: 100%;
+  padding-right: 126px;
+  .btn-lp-register{
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .lp-input-password{
+    width: 100%;
+  }
+}
+
+.lp-login,
+.lp-signup{
+  border-radius: 0;
+  background:rgba(255,255,255,0.6);
+  border: none;
+  input[type="text"],
+  input[type="password"],
+  input[type="email"]{
+    background:rgba(255,255,255,0.7);
+  }
+}
+
+.btn-lp-register {
+  color: #ffffff;
+  background: #57963D;
+  border:none;
+  border-radius:0;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow:0 0 0;
+  width: 110px;
+}
+
+.btn-lp-register:hover,
+.btn-lp-register:focus,
+.btn-lp-register:active,
+.btn-lp-register.active,
+.btn-lp-register.disabled,
+.btn-lp-register[disabled] {
+  color: #ffffff;
+  background-color: #57963D;
+  *background-color: #57963D;
+}
+
+.btn-lp-register:active,
+.btn-lp-register.active {
+  background-color: #57963D \9;
+}
+
+.lp-signup{
+  .lp-signup-title{
+    color: #555;
+    font-size: 130%;
+    margin-top: 0;
+    strong{
+      color: #333;
     }
-	}
-}
-
-
-.landing-page-color1{
-	background:#f9f9f9;
-	margin:0;
-	padding:0
-}
-
-.lp-venue-slogan{
-	font-size: 14px
-}
-
-.kblog-box{
-  padding-top: 2px;
-}
-
-.kblog {
-  margin-top: 3px;
-	font-family: inherit;
-  border: 3px solid #CCCCCC;
-  border-radius: 8px 8px 8px 8px;
-  padding: 10px 15px !important;
-
-  a{
-    color:#333;
   }
-
-  .kblog-article-hr{
-    margin-top: 15px;
-    margin-bottom: 0px
-  }
-
-  .lp-klog-header{
-    border-bottom: 1px solid #ddd;
-    padding: 5px 0;
-    margin-bottom: 10px
-  }
-  .kblog-article {
-  	margin-top: 0;
-  	padding:0;
+  .btn-lp-register{
     text-align: left;
-		.kblog-title{
-			margin-left:0;
-			font-size: 17px;
-			font-weight: bold;
-			line-height: 19px;
-			margin-bottom: 2px;
-		}
-		.kblog-created{
-			color:#932945;
-			font-size: 11px;
-			line-height: 15px;
-			text-align: left;
-			float: none;
-      margin-bottom: 3px
-		}
-		.kblog-content{
-      text-indent: 0;
-      text-align: inherit;
-      /*line-height: 116%;*/
-		}
-		box-shadow: none
   }
 }
 
-.lp-box-background{
-  background: -moz-linear-gradient(top,  rgba(226,226,226,0.65) 0%, rgba(226,226,226,0) 29%, rgba(226,226,226,0) 30%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(226,226,226,0.65)), color-stop(29%,rgba(226,226,226,0)), color-stop(30%,rgba(226,226,226,0))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(226,226,226,0.65) 0%,rgba(226,226,226,0) 29%,rgba(226,226,226,0) 30%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e2e2e2', endColorstr='#00e2e2e2',GradientType=0 ); /* IE6-9 */      
+.lp-login{
+  .lp-remember{
+    font-size: 85%;
+    input[type="checkbox"]{
+      margin-top: 1px
+    }
+  }
+  margin-bottom: 30px;
+}
+
+.signup-google{
+  color:#333;
+}
+
+.sessions-or-box{
+  margin: 15px 0 40px 0;
+  position: relative;
+  border-top: 1px solid #fff;
+  .sessions-or-overlap{
+    position:absolute;
+    top:-1px;
+    border-radius: 3px;
+    left:50%;
+    margin-left:-50px;
+    height:20px;
+    width:100px;
+    border:0px solid #333;
+    text-align:center;
+    font-style: italic;
+    font-size: 12px;
+    color:#555;
+    background-color: white
+  }
+}
+
+.signup-facebook, .signup-google{
+  width:122px;
+  display: block;
+  text-align: left;
+  padding-left:5px;
+  padding-right:0px;
+  font-size:12px;
+  color:#666;
+  font-weight: bold;
+  margin:0 auto;
+  img{
+    margin-right: 5px;
+  }
+  &:hover{
+    color:#666;
+  }
+}
+
+.lp-left-bottom{
+  border-top: 1px solid white;
+}
+
+.lp-bg{
+  background: none repeat scroll 0 0 #000000;
+  height: 200%;
+  left: -50%;
+  top:0;
+  position: fixed;
+  width: 200%;
+  z-index: -1;
+  img{
+    display: block;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    min-height: 50%;
+    min-width: 50%;
+    right: 0;
+    top: 0;    
+  }
+}
+
+.featured-box{
+  .venue-big{
+    margin-top:28px;
+    padding: 0;
+    border:none;
+    border-radius: 0
+  }
+  .lp-claim{
+    float: left;
+  }
+  .venue-big-header{
+    margin-bottom: 50px;
+    padding-right: 0 !important;
+  }
+  .venue-big-title{
+    a{
+      color: #fff;
+    }
+  }
+  .venue-big-time{
+    color: #fff;
+    font-size: 17px;
+    display: block;
+    margin-top: 0px;
+  }
+  .venue-big-event-title{
+    display: inline;
+    a{
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      line-height: 100%;
+      display: inline-block;
+    }
+  }
+  .venue-big-host-link{
+    display: inline-block;
+    a{
+      color: #fff;
+      font-size: 80%;
+      font-style: italic;
+    }
+  }
+  .venue-big-event-title{
+
+  }
+  .venue-big-description{
+    color: #fff;
+    font-size: 16px;
+    line-height: 110%;
+  }
+  .btn-lp-register{
+    width:auto;
+    border:0;
+    a{
+      background: none;
+      border: 0;
+      border-radius: 0
+    }
+  }
 }

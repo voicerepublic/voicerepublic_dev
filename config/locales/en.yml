@@ -154,6 +154,9 @@ en:
       participate_button: 'Participate'
       unjoin_venue: 'Cancel participation'
       confirm_unjoin_venue: 'Really want to unjoin this venue?'
+    
+    confirms:
+      are_you_sure: "Are you sure?"      
 
   number:
     currency:
@@ -550,6 +553,21 @@ en:
       illu_2_subtitle: "(Chatroom)"
       illu_3: "and 1:1 Video"
       enter_search_term: "Enter search term"
+    lp_login:
+      email: "E-mail"
+      password: "Password"
+      login: "Log In"
+      remember: 'Remember me'
+      forgot_password: 'Forgot password?'
+      or: "or log in"
+    lp_signup:
+      new_to_kluuu: "<strong>New to KluuU?</strong> Sign Up!"
+      or: "or sign up"
+      firstname: "Firstname"
+      lastname: "Lastname"
+      email: "E-mail"
+      password: "Password"
+      register: "Sign Up to KluuU!"      
     lp_venues:
       featured_venue: "KluuU recommends"
       upcoming_venues: "UPCOMING VENUES"
@@ -609,34 +627,21 @@ en:
       user: "User"
       no_results_sentence: 'Oops, no results.'
 
-  shared:
+  shared:  
     actionbar:
-      my_profile: "My profile"
-      create_kluuu: "New KluuU"
-      create_question: "New Question"
       notifications: "News"
       messages: "Messages"
-      dashboard: "Dashboard"
       profile: "Profile"
-      see_other_venues: "Venues"
+      see_other_venues: "More Talks"
       search: "Search..."
     check_flash:
       no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
-    dashboard_tabs:
-      dashboard: "Dashboard"
-      matches: "Matches"
-      news: "News"
-      bookmarks: "Bookmark"
-      contacts: "Contacts"
-      messages: "Messages"
-      settings: "Settings"
-      finances: "Finances"
-      venues: "Venues"
     footer:
       legal: "Legal"
       terms_of_use: "Terms Of Use"
       terms_and_conditions: "Terms and Conditions"
     navbar:
+      more_talks: "More talks"
       sign_up: "Sign Up"
       sign_in: "Log In"
       search: "Search..."
@@ -644,12 +649,16 @@ en:
       success: "Successful"
       warning: "Warning"
       error: "Error"
-    notifications_list:
-      all: "View all"
     user_dropdown_list:
       logout: "Log Out"
     venues:
       venues: "Venues"
+    profile_dropdown_list:
+      my_profile: "My profile"
+      create_venue: "Create venue"
+      contacts: "Contacts"
+      messages: "Messages"
+      settings: "Settings"      
 
   status_updates:
     status_update:
@@ -788,16 +797,16 @@ en:
       participants: "PARTICIPANTS"
       be_the_first_to_participate: "Be the first to participate!"
     venue_article:
-      comment: "Comment"
-      all_comments: "All comments"
+      reply: "Reply"
     venue_show_talking_users:
       host: "HOST"
-      participants: "GUESTS"
+      participants: "GUESTS"  
     venue_show_actions:
       unjoin_venue: "Unjoin"
       confirm_unjoin_venue: "Really want to unjoin this venue?"
     venue_show_archive:
       past_talks: "ARCHIVE"
+      delete_this_recording: "Delete this recording"
     venue_show_avatar:
       leave_venue_popup: "This link opens a new tab!"
     new:
@@ -829,11 +838,10 @@ en:
       venue_title: "Venue"
       go_venue_page: "Proceed to venue-page"
       join_venue: "Participate now!"
+    end_talk_link:
+      end_this_talk: "Click here to end this talk."
+      talk_ended: "Der Talk wurde beendet."
 
-    venue_form:
-      write_a_comment: "write a comment"
-      write_an_article: "write an article"
-      save_article: "Post"
     landing_page_venue:
       discuss_in_virtual_cafe: "Discuss live in our virtual Café."
       learn_more: "Learn more..."
@@ -871,6 +879,8 @@ en:
       timepick_help: "Example: 18:15"
 
     group_chat:
+      want_to_say: "I want to say something!"    
+      prepare_mic: 'Activate your microphone! (Accept flash-access below the "On Air"-icon)'          
       venue_chat: "CHAT"
       show_host_info_controlls: "toggle moderator-form"
       host_field_title: "Infos about chat"
@@ -883,6 +893,15 @@ en:
     no_venues:
       create_venue_for_your_kluuu: "Create your own chat room for your KluuU."
       create_venue: "Create Venue"
+
+  articles:
+    venue_form:
+      write_an_article: "write an article"
+      save_article: "Post"
+  comments:
+    form:
+      write_a_comment: "write a comment"
+      save_comment: "Post"
 
   video_sessions:
     anonymous_sign_up:
