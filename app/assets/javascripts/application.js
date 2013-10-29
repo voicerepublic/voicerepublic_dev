@@ -21,6 +21,7 @@
 //= require bookmarks.js.coffee
 //= require select2
 //= require swfobject.js
+//= require private_pub_nsa
 
 //= require player.js
 //= require chat.js
@@ -68,7 +69,9 @@
       var setUserStatus = function(payload) {
        // console.log(payload);
         $.each(payload, function(i) {
-          $('.user-image[data-user-id=' +  payload[i].id +']').addClass(payload[i].available);
+          var user = $('.user-image[data-user-id=' +  payload[i].id +']');
+          user.addClass(payload[i].available);
+          user.data('status', payload[i].available);
         });
       };
 
@@ -269,7 +272,8 @@ function datetimePicker () {
   $('.datetimepicker').datetimepicker({
     pickDate: true,
     pickTime: true,
-    pickSeconds: false
+    pickSeconds: false,
+    startDate: new Date()
   });
   // show datetimepicker on focus
   $('.datetimepicker input').focus(function(){

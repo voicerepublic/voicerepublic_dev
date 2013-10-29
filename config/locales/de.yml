@@ -144,6 +144,9 @@ de:
       unjoin_venue: 'Teilnahme zurückziehen'
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
 
+    confirms:
+      are_you_sure: "Bist Du sicher?"
+
   number:
     currency:
       format:
@@ -542,7 +545,6 @@ de:
       create_klu: "KluuU erstellen"
 
   landing_page:
-    news: "NEWS"
     index:
       headline: "Du, lass uns drüber reden."
       is: "ist..."
@@ -551,6 +553,21 @@ de:
       illu_2_subtitle: "(Chatraum)"
       illu_3: "und 1:1 Video"
       enter_search_term: "Suchbegriff eingeben"
+    lp_login:
+      email: "E-Mail"
+      password: "Passwort"
+      login: "Anmelden"
+      remember: 'Angemeldet bleiben.'
+      forgot_password: 'Passwort vergessen?'
+      or: "oder anmelden"
+    lp_signup:
+      new_to_kluuu: "<strong>Neu bei KluuU?</strong> Registriere Dich!"
+      or: "oder registrieren"
+      firstname: "Vorname"
+      lastname: "Nachname"
+      email: "E-Mail"
+      password: "Passwort"
+      register: "Registriere Dich bei KluuU!"
     lp_venues:
       featured_venue: "UNSER TIPP!"
       upcoming_venues: "KOMMENDE TREFFPUNKTE"
@@ -637,6 +654,7 @@ de:
       terms_of_use: "Nutzungsbedingungen"
       terms_and_conditions: "AGB"
     navbar:
+      more_talks: "Weitere Talks"
       sign_up: "Registrieren"
       sign_in: "Anmelden"
       search: "Suchen..."
@@ -644,8 +662,6 @@ de:
       success: "Erfolg"
       warning: "Warnung"
       error: "Fehler"
-    notifications_list:
-      all: "Alle ansehen"
     user_dropdown_list:
       logout: "Abmelden"
     profile_dropdown_list:
@@ -788,7 +804,7 @@ de:
     venue_show_static:
       by: "von"      
     venue_show_static_live:
-      by: "von"
+      by: "von"  
     venue_show_chat:
       what_is_a_venue: "Was ist ein Treffpunkt?"
       see_other_venues: "Alle Treffpunkte"
@@ -798,20 +814,20 @@ de:
       comments: "Kommentare"
       articles: "DISKUSSION"
     venue_article:
-      comment: "Kommentieren"
-      all_comments: "Alle Kommentare"
+      reply: "Kommentieren"
     venue_show_participants:
       participants: "TEILNEHMER"
       be_the_first_to_participate: "Nimm als erster am Treffpunkt teil!"
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     venue_show_talking_users:
       host: "GASTGEBER"
-      participants: "GÄSTE"
+      participants: "GÄSTE"  
     venue_show_actions:
       unjoin_venue: "Teilnahme zurückziehen"
       confirm_unjoin_venue: "Willst du wirklich deine Teilnahme am Treffpunkt absagen?"
     venue_show_archive:
       past_talks: "ARCHIV"
+      delete_this_recording: "Aufnahme löschen"
     venue_show_avatar:
       leave_venue_popup: "Dieser Link öffnet neuen Tab!"
     new:
@@ -842,11 +858,10 @@ de:
       venue_title: "Treffpunkt"
       go_venue_page: "Zum Treffpunkt!"
       join_venue: "Jetzt teilnehmen!"
+    end_talk_link:
+      end_this_talk: "Drücke hier um den Talk zu beenden."
+      talk_ended: 'The talk has been ended.'
 
-    venue_form:
-      write_a_comment: "Verfasse einen Kommentar"
-      write_an_article: "Verfasse einen Artikel"
-      save_article: "Posten"
     landing_page_venue:
       discuss_in_virtual_cafe: "Diskutiere live im virtuellen Café."
       venue_title: "Treffpunkte"
@@ -863,28 +878,28 @@ de:
       description: "Beschreibung des Treffpunktes"
       tag_list: "Schlagworte"
       start_time: "Datum und Zeit auswählen"
-      duration: "Dauer des Gesprächs in Minuten"
+      datepick_placeholder: "auswählen..."
+      timepick_placeholder: "auswählen..."
+      datepick_help: "Beispiel: 20/12/2013"
+      timepick_help: "Beispiel: 18:15"      
+      your_talk: 'Dein Gespräch'
+      archive: 'Archiv'
+    event_fields:
+      new_talk: "Neues Gespräch"
+      event_title: 'Gesprächstitel'
+      duration: "Dauer des Gesprächs"
+      start_time: "Datum und Zeit"
       datepick_placeholder: "auswählen..."
       timepick_placeholder: "auswählen..."
       datepick_help: "Beispiel: 20/12/2013"
       timepick_help: "Beispiel: 18:15"
       settings: "Einstellungen"
       record: 'Zeichne dieses Gespräch auf'
-      your_talk: 'Dein Gespräch'
       event_title: 'Gesprächstitel'
-      archive: 'Archiv'
-    edit_start_time:
-      new_talk: "Neues Gespräch"
-    change_time_form:
-      event_title: 'Gesprächstitel'
-      start_date: "Datum"
-      start_time: "Zeit"
-      datepick_placeholder: "auswählen..."
-      timepick_placeholder: "auswählen..."
-      datepick_help: "Beispiel: 20/12/2013"
-      timepick_help: "Beispiel: 18:15"
 
     group_chat:
+      want_to_say: "Ich möchte etwas sagen!"    
+      prepare_mic: 'Bitte aktiviere Dein Mikrofon! (Akzeptiere die Flash-Abfrage unterhalb "On Air")'
       venue_chat: "CHAT"
       show_host_info_controlls: "ein/ausblenden Moderator-Formular"
       host_field_title: "Infos zur Diskussion"
@@ -899,6 +914,14 @@ de:
       create_venue_for_your_kluuu: "Erstelle Deinen eigenen Chatraum zu Deinem KluuU."
       create_venue: "Treffpunkt erstellen"
 
+  articles:
+    venue_form:
+      write_an_article: "Verfasse einen Artikel"
+      save_article: "Posten"
+  comments:
+    form:
+      write_a_comment: "Verfasse einen Kommentar"
+      save_comment: "Posten"
 
   video_sessions:
     anonymous_sign_up:

@@ -47,10 +47,12 @@ class Ability
     # can :manage, KluImage do |ki|
     #   user == ki.kluuu.user
     # end
-    
+
     can :manage, Article do |article|
       article.user == user
     end
+
+    can :manage, Comment, user_id: user.id
 
     can :manage, User do |usr|
       usr == user
@@ -79,23 +81,7 @@ class Ability
     # can :manage, Category do |category|
     #   user.is_admin?
     # end
-    
-    can :manage, Comment do |comment|
-      t = false
-      if comment.commentable.kind_of?(Venue)
-         if comment.commentable.user == user  || comment.user == user 
-           t = true
-         end
-      end
-      if comment.commentable.kind_of?(StatusUpdate)  || comment.commentable.kind_of?(Klu)
-        if comment.commentable.user == user || comment.user == user 
-          t = true
-        end
-      end
-      
-      t
-    end
-    
+
     can :manage, Follow do |f|
       f.follower == user
     end

@@ -23,13 +23,7 @@
         = link_to new_user_status_update_path(:user_id => user), :class => "btn btn-mini user-new-status" do
           %i.icon-edit
           = t('.new_status_update')       
-      = link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "comments")) do
-        = pluralize(status_update.comments.count, t('.comment', :default => 'Comment') )
 
       - if current_user && current_user == user   
         = link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do
           =t('helpers.links.destroy').downcase
-      - else
-        = link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment")) do
-          \&middot;
-          = t('.add_comment')

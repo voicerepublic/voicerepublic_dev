@@ -1,6 +1,3 @@
-# Attributes:
-# * id [integer, primary, not null] - primary key
-# * name [string]
 class Role < ActiveRecord::Base
   attr_accessible :name
   

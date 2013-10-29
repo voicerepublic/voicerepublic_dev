@@ -1,12 +1,3 @@
-# Attributes:
-# * id [integer, primary, not null] - primary key
-# * amount_cents [integer] - TODO: document me
-# * balance_account_id [integer] - belongs to :balance_account
-# * completed [boolean] - TODO: document me
-# * completed_at [datetime] - TODO: document me
-# * created_at [datetime, not null] - creation time
-# * currency [string] - TODO: document me
-# * updated_at [datetime, not null] - last update time
 class Balance::CheckInOrder < ActiveRecord::Base
   attr_accessible :amount_cents, :completed, :completed_at, :balance_account_id, :currency
   attr_accessible :amount  # used by rails_money-gem uses amount_cents as base
