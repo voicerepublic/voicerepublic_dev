@@ -45,12 +45,12 @@ namespace :recordings do
 
     if streams.size == 1
       name = streams.first[0]
-      `cd #{STREAMS_PATH} && ffmpeg -i #{name}.flv -vn #{recording}.m4a`
+      `cd #{STREAMS_PATH} && avconv -i #{name}.flv -vn -b:a 64k -strict experimental  #{recording}.m4a`
       save_recording(event, recording)
     else
       # Convert FLV streams to WAVs
       streams = streams.sort_by { |_, datetime| datetime }
-      streams.each { |name, _| `cd #{STREAMS_PATH} && ffmpeg -i #{name}.flv -vn #{name}.wav` }
+      streams.each { |name, _| `cd #{STREAMS_PATH} && avconv -i #{name}.flv -vn #{name}.wav` }
 
       # Merge all WAVs into one WAV
       start_at = streams.first[1]
@@ -63,7 +63,7 @@ namespace :recordings do
       `cd #{STREAMS_PATH} && #{sox}`
 
       # Convert WAV result to M4A
-      `cd #{STREAMS_PATH} && ffmpeg -i #{recording}.wav #{recording}.m4a`
+      `cd #{STREAMS_PATH} && avconv -i #{recording}.wav -b:a 64k -strict experimental #{recording}.m4a`
       save_recording(event, recording)
 
       # Remove WAVs
