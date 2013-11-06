@@ -10,7 +10,7 @@ namespace :recordings do
     grouped_streams.each do |event_id, streams|
       begin
         event = Event.find_by_id(event_id)
-        remove_flvs(streams) and next if event.blank?
+        archive_flvs(streams) and next if event.blank?
         next if event.venue.live?
 
         merge(event, streams)
@@ -71,7 +71,7 @@ namespace :recordings do
       streams.each { |name, _| File.delete("#{STREAMS_PATH}/#{name}.wav") }
     end
 
-    remove_flvs(streams)
+    archive_flvs(streams)
   end
 
   def save_recording(event, name)
@@ -87,9 +87,9 @@ namespace :recordings do
     end
   end
 
-  def remove_flvs(streams)
+  def archive_flvs(streams)
     streams.each do |name, _|
-      File.delete("#{STREAMS_PATH}/#{name}.flv")
+      FileUtils.mv("#{STREAMS_PATH}/#{name}.flv", "#{Venue::RECORDINGS_ARCHIVE_PATH}/#{name}.flv")
     end
   end
 end

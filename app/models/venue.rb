@@ -1,14 +1,15 @@
 class Venue < ActiveRecord::Base
 
-  LIVE_TOLERANCE = 5.minutes
-  STREAMER_CONFIG = YAML.load_file(Rails.root.join("config", "rtmp_config.yml"))
-  RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
+  LIVE_TOLERANCE          = 5.minutes
+  STREAMER_CONFIG         = YAML.load_file(Rails.root.join("config", "rtmp_config.yml"))
+  RECORDINGS_PATH         = "#{Rails.root}/public/system/recordings"
+  RECORDINGS_ARCHIVE_PATH = "#{Rails.root}/public/system/recordings_raw_archive"
 
   acts_as_taggable
 
   attr_accessible :title, :summary, :description, :intro_video, :featured_from,
                   :events_attributes, :tag_list
-  
+
   belongs_to :user
 
   has_many :articles, :dependent => :destroy, :order => "created_at DESC"
@@ -21,11 +22,11 @@ class Venue < ActiveRecord::Base
            :foreign_key => :other_id,:dependent => :destroy
   has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo',
            :foreign_key => :other_id, :dependent => :destroy
-  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant', 
-           :foreign_key => :other_id, :dependent => :destroy  
+  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant',
+           :foreign_key => :other_id, :dependent => :destroy
 
   validates :title, :summary, :description, :tag_list, :presence => true
-  
+
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :events, :reject_if => proc { |attrs| attrs['start_time'].blank? }
@@ -35,7 +36,7 @@ class Venue < ActiveRecord::Base
                                      order('featured_from DESC') }
   scope :not_past,          proc { joins(:events).merge(Event.not_past) }
   scope :upcoming_first,    proc { joins(:events).merge(Event.upcoming_first) }
-  
+
   # start_time, duration, start_in_seconds wil return nil if no current_event
   delegate :start_time, :duration, :start_in_seconds, to: :current_event, allow_nil: true
 
@@ -69,7 +70,7 @@ class Venue < ActiveRecord::Base
     current_event.nil? || current_event.end_at.present?
   end
   alias_method :timed_out?, :past?
-  
+
   def user_participates?(participant)
     users.include?(participant)
   end
@@ -89,7 +90,7 @@ class Venue < ActiveRecord::Base
 
   # this is rendered as json in venue/venue_show_live
   def details_for(user)
-    { 
+    {
       streamId: "v#{id}-e#{current_event.id}-u#{user.id}",
       channel: story_channel,
       role: (self.user == user) ? 'host' : 'participant',
@@ -117,7 +118,7 @@ class Venue < ActiveRecord::Base
   def channel_name
     "/chatchannel/vgc-#{self.id}e#{current_event.id}"
   end
-  
+
   def channel_host_info
     "/chatchannel/host-info/vgc-#{self.id}"
   end
@@ -125,17 +126,17 @@ class Venue < ActiveRecord::Base
   def self.upcoming
     Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
   end
-  
+
   def self.one_day_ahead
     venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 24.hours, Time.now + 23.hours)
   end
-  
+
   def self.two_hour_ahead
     venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 120.minutes, Time.now + 60.minutes )
   end
-  
+
   private
-  
+
   def clean_taglist
     self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
   end
