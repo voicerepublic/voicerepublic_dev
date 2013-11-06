@@ -8,7 +8,7 @@ set :rbenv_install_dependencies, false
 
 #require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
 set :application, "kluuu2"
-set :repository,  "git@github.com:munen/KluuU.git"
+set :repository,  "git@github.com:munen/voicerepublic_dev.git"
 set :scm, :git
 set :keep_releases, 5
 set :user, "rails"
