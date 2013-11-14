@@ -1,7 +1,7 @@
 = form_for article, :url => venue_articles_url(:venue_id => venue), :html => {:class => "clearfix"} do |f|
   
   .contribution-left
-    = image_tag current_user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"
+    = image_tag guest_or_current_user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"
   .contribution-right
     .control-group
       .controls

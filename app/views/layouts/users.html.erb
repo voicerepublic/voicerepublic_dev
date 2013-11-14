@@ -18,8 +18,8 @@
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
 
 	</head>
-	<body class='<%= current_user ? "" : "layout-logged-out" %>'>
-		<% if current_user %>
+	<body class='<%= guest_or_current_user ? "" : "layout-logged-out" %>'>
+		<% if guest_or_current_user %>
 			<%= render(:partial => "shared/actionbar") %>
 			<%#= render(:partial => '/shared/check_flash') -%>
 		<% else %>

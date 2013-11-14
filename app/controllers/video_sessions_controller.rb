@@ -15,7 +15,7 @@ class VideoSessionsController < ApplicationController
   # GET /video_sessions/1.json
   def show
     @video_session = VideoSession::Base.find(params[:id])
-    @user = current_user 
+    @user = guest_or_current_user 
     
     if @user.nil? 
       @participant = Participant::GuestAnonymous.where('user_cookie_session_id = ? AND video_session_id = ?', session[:session_id], @video_session.id).first

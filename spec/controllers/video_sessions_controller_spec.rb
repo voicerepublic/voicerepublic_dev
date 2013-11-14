@@ -80,7 +80,7 @@ describe VideoSessionsController do
   # describe "GET show" do
   #   it "assigns the requested video_session as @video_session with registered participants" do
   #     registered_video_session = VideoSession::Registered.create! valid_registered_video_session_attributes.merge(:klu_id => @klu.id)
-  #     controller.stub :current_user => registered_video_session.host_participant.user
+  #     controller.stub :guest_or_current_user => registered_video_session.host_participant.user
   #     get :show, {:id => registered_video_session.to_param}, valid_session
   #     assigns(:participant).user_id.should == registered_video_session.host_participant.user_id 
   #     assigns(:video_session).should eq(registered_video_session)
@@ -95,7 +95,7 @@ describe VideoSessionsController do
   #   
   #   it "assigns the requested video_session as @video_session with anonymous participant" do
   #     anonymous_video_session = VideoSession::Anonymous.create! valid_anonymous_video_session_attributes.merge(:klu_id => @klu.id, :calling_user_id => 'abcdefghi')
-  #     controller.stub :current_user => anonymous_video_session.host_participant.user
+  #     controller.stub :guest_or_current_user => anonymous_video_session.host_participant.user
   #     get :show, {:id => anonymous_video_session.to_param}, valid_session
   #     assigns(:participant).user_id.should == anonymous_video_session.host_participant.user_id 
   #     assigns(:video_session).should eq(anonymous_video_session)
@@ -195,7 +195,7 @@ describe VideoSessionsController do
   #       response.should render_template 'shared/alert_flash'
   #     end
   #     it "renders an error flash if klu user is the calling user" do
-  #       controller.stub :current_user => @user
+  #       controller.stub :guest_or_current_user => @user
   #       xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => @klu.id, :calling_user_id => @user.id)}, valid_session, :format => 'js'
   #       response.should render_template 'shared/alert_flash'
   #     end
@@ -208,7 +208,7 @@ describe VideoSessionsController do
   #     it "directs to the credit account controller if registered calling user does not have an account" do
   #       user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
   #       klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'minute')
-  #       controller.stub :current_user => user
+  #       controller.stub :guest_or_current_user => user
   #       xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id, :calling_user_id => user.id)}, valid_session, :format => 'js' 
   #       response.should render_template 'no_account'
   #     end
@@ -231,7 +231,7 @@ describe VideoSessionsController do
   #       user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
   #       balance_account =  FactoryGirl.create(:balance_account, user_id: user.id, balance_cents: 0)  
   #       klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'minute', charge_cents: 200)
-  #       controller.stub :current_user => user
+  #       controller.stub :guest_or_current_user => user
   #       xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id, :calling_user_id => user.id)}, valid_session, :format => 'js' 
   #       response.should render_template 'no_funds'
   #     end
@@ -239,7 +239,7 @@ describe VideoSessionsController do
   #       user = FactoryGirl.create(:user, available: :online, last_request_at: Time.now)  
   #       balance_account =  FactoryGirl.create(:balance_account, user_id: user.id, balance_cents: 0)  
   #       klu = FactoryGirl.create(:published_kluuu, user_id: @user.id, charge_type: 'fix', charge_cents: 200)
-  #       controller.stub :current_user => user
+  #       controller.stub :guest_or_current_user => user
   #       xhr :post, :create, {:video_session => valid_registered_video_session_attributes.merge(:klu_id => klu.id, :calling_user_id => user.id)}, valid_session, :format => 'js' 
   #       response.should render_template 'no_funds'
   #     end

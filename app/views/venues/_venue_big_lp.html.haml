@@ -1,4 +1,4 @@
-- participating = venue.user_attends?(current_user) ? '':' unjoined'
+- participating = venue.user_attends?(guest_or_current_user) ? '':' unjoined'
 %article{:class => "venue-big block" + participating} 
   -#overall link to venue
   = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
@@ -12,7 +12,7 @@
     -#join-button
     .btn-lp-register.pull-right
 
-      - if venue.user != current_user and !venue.user_participates?(current_user)
+      - if venue.user != guest_or_current_user and !venue.user_participates?(guest_or_current_user)
         = render 'shared/participate_button', :venue => venue
 
   .row-fluid.venue-big-row

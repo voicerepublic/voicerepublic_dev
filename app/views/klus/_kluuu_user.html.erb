@@ -11,11 +11,11 @@
 			
 			<nav>
 				<ul>
-					<% if current_user && current_user.id != klu.user.id %>
+					<% if guest_or_current_user && guest_or_current_user.id != klu.user.id %>
 					<li>
 						<%= link_to(new_message_path(:receiver_id => klu.user), :class => "btn btn-small", :remote => true) do %>
 						 <i class="icon-envelope"></i><%= t('.send_message') %>
-						<% end if current_user %>
+						<% end if guest_or_current_user %>
 					</li>
 					<li>
 						<%= link_to( new_chat_path(:user_id => klu.user.id ), :remote => true, :class => 'btn btn-primary btn-chat' ) do %>

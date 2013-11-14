@@ -58,7 +58,7 @@ class VenuesController < ApplicationController
   # POST /venues.json
   def create
     @venue = Venue.new(params[:venue])
-    @venue.user = current_user
+    @venue.user = guest_or_current_user
     
     authorize! :create, @venue
 
@@ -122,10 +122,10 @@ class VenuesController < ApplicationController
   #   
   #   @venue = Venue.find(params[:venue_id])
   #   
-  #   if current_user.no_kluuus.empty?
-  #     klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
+  #   if guest_or_current_user.no_kluuus.empty?
+  #     klu = guest_or_current_user.no_kluuus.create(:title => guest_or_current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
   #   else
-  #     klu = current_user.no_kluuus.first
+  #     klu = guest_or_current_user.no_kluuus.first
   #   end
   #   
   #   #klu = Klu.find(params[:klu_id])
@@ -147,7 +147,7 @@ class VenuesController < ApplicationController
   # 
   # def unjoin_venue
   #   @venue = Venue.find(params[:venue_id])
-  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_user }
+  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == guest_or_current_user }
   #   
   #   respond_to do |format|
   #     format.html { redirect_to @venue, notice: "Successfully unjoined venue" }
@@ -173,7 +173,7 @@ class VenuesController < ApplicationController
     @venue.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_path(current_user) }
+      format.html { redirect_to user_path(guest_or_current_user) }
       format.json { head :no_content }
     end
   end

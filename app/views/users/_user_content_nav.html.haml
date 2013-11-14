@@ -23,7 +23,7 @@
           = t('.venues_host')
 
     %li
-    - if current_user == user
+    - if guest_or_current_user == user
       %li.venue-new
         = link_to( new_venue_path ) do
           \&nbsp;

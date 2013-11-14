@@ -37,7 +37,7 @@ describe Admin::VenuesController do
     @user.roles << Role.find_by_name('admin')
     @user.save
     request.env['warden'].stub :authenticate! => @user
-    controller.stub :current_user => @user
+    controller.stub :guest_or_current_user => @user
   end
 
   describe "GET new" do

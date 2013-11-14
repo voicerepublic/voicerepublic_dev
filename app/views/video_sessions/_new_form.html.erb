@@ -1,8 +1,8 @@
-<% @video_session = build_video_session(current_user) %>
+<% @video_session = build_video_session(guest_or_current_user) %>
 <% the_url = @video_session.new_record? ? video_sessions_path() : video_sessions_path(:id => @video_session.id) %>
 <% method = @video_session.new_record? ? :post : :put %>
 <%= form_for [@video_session], :as => :video_session,  :url => the_url, :method => method, :remote => :true, :html => { :class => 'form-horizontal', :id => "new_video_session_#{klu.id}" }  do |f| %>
-	<%= f.hidden_field :calling_user_id, :value => current_user.nil? ? session[:session_id] : current_user.id, :id => "new_video_session_calling_user_id_#{klu.id}" %>
+	<%= f.hidden_field :calling_user_id, :value => guest_or_current_user.nil? ? session[:session_id] : guest_or_current_user.id, :id => "new_video_session_calling_user_id_#{klu.id}" %>
 	<%= f.hidden_field :klu_id, :value => klu.id, :id => "new_video_session_klu_id_#{klu.id}" %>
 	<%= f.hidden_field :type, :value => @video_session.instance_of?(VideoSession::Registered) ? 'VideoSession::Registered' : 'VideoSession::Anonymous', :id => "new_video_session_type_#{klu.id}" %>
 	<%= button_tag :class => 'btn btn-success call-icon', :type => "submit", :id => "new_video_session_button_#{klu.id}" do %>

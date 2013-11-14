@@ -1,4 +1,4 @@
-- if current_user && ( venue.user_participates?(current_user) || venue.user == current_user )
+- if guest_or_current_user && ( venue.user_participates?(guest_or_current_user) || venue.user == guest_or_current_user )
   = form_tag( group_chat_path(:id => venue) , :remote => true, :class => "venue-live-chat-input-form") do |f|
     .control-group
       .controls

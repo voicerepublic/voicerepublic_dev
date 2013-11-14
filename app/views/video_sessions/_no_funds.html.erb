@@ -11,7 +11,7 @@
 
 		<%= link_to t('.close'), '#', 'data-function' => 'closeOverlay', :class => "btn pull-right left-small-margin" %>
 
-		<%= form_tag new_user_balance_check_in_order_path(:user_id => current_user.id), :method => :get do %>
+		<%= form_tag new_user_balance_check_in_order_path(:user_id => guest_or_current_user.id), :method => :get do %>
 			<%= button_tag :class => 'btn btn-primary pull-right' do %>
 				<%= t('.check_in_money', :default => 'Geld einzahlern') %>
 			<% end %>

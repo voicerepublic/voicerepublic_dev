@@ -26,7 +26,7 @@ describe CommentsController do
     @commenter = FactoryGirl.create(:user)
     
     request.env['warden'].stub :authenticate! => @commenter
-    controller.stub :current_user => @commenter 
+    controller.stub :guest_or_current_user => @commenter 
   
     request.env["HTTP_REFERER"] = user_status_update_path(:user_id => @user, :id => @status_update )
    

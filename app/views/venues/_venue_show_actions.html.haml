@@ -5,8 +5,8 @@
       %i.icon-calendar
       = t('.new_talk')
 
-  - if current_user
-    - if (can? :manage, @venue and !@venue.live?) or current_user.is_admin?
+  - if guest_or_current_user
+    - if (can? :manage, @venue and !@venue.live?) or guest_or_current_user.is_admin?
       = link_to t('.edit', :default => t("helpers.links.edit")), edit_venue_path(@venue), :class => 'btn btn-small'
       = link_to t('.destroy', :default => t("helpers.links.destroy")),venue_path(@venue), :method => 'delete', |
         :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },                        |

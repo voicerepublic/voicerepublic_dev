@@ -25,7 +25,7 @@ describe MessagesController do
     @receiver = FactoryGirl.create(:user)
     @message = FactoryGirl.create(:message, :sender => @user, :receiver => @receiver)
     request.env['warden'].stub :authenticate! => @user
-    controller.stub :current_user => @user
+    controller.stub :guest_or_current_user => @user
   end
 
   # This should return the minimal set of attributes required to create a valid
