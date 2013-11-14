@@ -6,7 +6,7 @@ class ChatsController < ApplicationController
   # GET /chats/new.json
   def new
     @recipient = User.find(params[:user_id])
-    @sender = guest_or_current_user
+    @sender = current_or_guest_user
     
     @chat = Chat.new(:user1 => @receiver, :user2 => @sender)
     @chat.sender = @sender
@@ -45,13 +45,13 @@ class ChatsController < ApplicationController
     @chat = Chat.new(params[:chat])
     @chat.user1 = User.find(params[:one])
     @chat.user2 = User.find(params[:two])
-    @chat.sender = guest_or_current_user
-    @chat.recipient = ( guest_or_current_user == @chat.user1 ) ? @chat.user2 : @chat.user1
+    @chat.sender = current_or_guest_user
+    @chat.recipient = ( current_or_guest_user == @chat.user1 ) ? @chat.user2 : @chat.user1
     
     logger.debug("Chats#create - about to create chat message: #{@chat.inspect}")
     respond_to do |format|
       if @chat.save
-        #format.html { redirect_to new_chat_path(:one => @chat.recipient_for(@chat), :two => guest_or_current_user ), notice: 'Chat was successfully created.' }
+        #format.html { redirect_to new_chat_path(:one => @chat.recipient_for(@chat), :two => current_or_guest_user ), notice: 'Chat was successfully created.' }
         format.json { render json: @chat, status: :created, location: @chat }
         format.js 
       else
@@ -64,7 +64,7 @@ class ChatsController < ApplicationController
   def post_group_chat
     logger.debug("Chats#post_group_chat - params: #{params.inspect}")
     
-    @user = guest_or_current_user
+    @user = current_or_guest_user
     @venue = Venue.find(params[:id])
     @content = params[:chat][:body]
     
@@ -77,7 +77,7 @@ class ChatsController < ApplicationController
   # chat-info
   #
   def post_host_info
-    @user = guest_or_current_user
+    @user = current_or_guest_user
     @venue = Venue.find(params[:id])
     @content = params[:chat][:body]
     respond_to do |format|
@@ -91,8 +91,8 @@ class ChatsController < ApplicationController
     user_1, user_2 = User.find(params[:one]), User.find(params[:two])
     @chat = Chat.new(:user1 => user_1, :user2 => user_2 )
 
-    sender = guest_or_current_user
-    recipient = guest_or_current_user == user_1 ? user_2 : user_1
+    sender = current_or_guest_user
+    recipient = current_or_guest_user == user_1 ? user_2 : user_1
     @chat.sender = sender
     @chat.recipient = recipient
     

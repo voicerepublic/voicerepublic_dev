@@ -7,13 +7,13 @@
 </div>
 
 <div>
-<% if guest_or_current_user.klus.empty? %>
+<% if current_or_guest_user.klus.empty? %>
 	<span class="label label-attention"><%= t('.no_klus_available_to_join_venue')%></span>
 <% else %>
 	
 	<section class="row-fluid">
 		<div class="span6">
-			<% guest_or_current_user.klus.each do |klu| %>
+			<% current_or_guest_user.klus.each do |klu| %>
 				<%= link_to( venue_join_path(:venue_id => @venue, :klu_id => klu), :method => :post, :data => { :confirm => t('.confirm_join', :title => @venue.title, :klu_name => klu.title ) } ) do %>
 					<%= partial_for_klu(klu, :tiny)%>
 				<% end %>

@@ -1,7 +1,7 @@
 .venue-show-description-box
 
   -#title and host
-  - tmp_class = (@venue.user != guest_or_current_user and !@venue.user_participates?(guest_or_current_user)) ? 'button-padding-right':''
+  - tmp_class = (@venue.user != current_or_guest_user and !@venue.user_participates?(current_or_guest_user)) ? 'button-padding-right':''
   %header.well-large.venue-header-static{:class => tmp_class}
     %h2.venue-title
       = @venue.title
@@ -18,9 +18,9 @@
 
     = simple_format @venue.description
 
-    - if @venue.user != guest_or_current_user
+    - if @venue.user != current_or_guest_user
     
-      - if  @venue.user_participates?(guest_or_current_user)
+      - if  @venue.user_participates?(current_or_guest_user)
         = link_to( t('helpers.venue_actions.unjoin_venue'), participation_path(:venue_id => @venue.id), :method => :delete, |
           :data => { :confirm => t('helpers.venue_actions.confirm_unjoin_venue') },  :class => "btn btn-small")
       - else

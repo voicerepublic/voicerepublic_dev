@@ -61,6 +61,6 @@ class Balance::CheckInOrdersController < ApplicationController
   private
   
   def set_user
-    @user = guest_or_current_user
+    @user = current_or_guest_user
   end
 end

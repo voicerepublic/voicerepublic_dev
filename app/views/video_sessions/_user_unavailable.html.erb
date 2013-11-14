@@ -11,7 +11,7 @@
 
 		<%= link_to t('.close', :default => "Schliessen"), '#', 'data-function' => 'closeOverlay', :class => "btn pull-right left-small-margin" %>
 		
-		<% if guest_or_current_user %>
+		<% if current_or_guest_user %>
 		<%= form_tag new_message_path(:receiver_id => receiver_id), :method => :get, :remote => true do %>
 			<%= button_tag :class => 'btn btn-primary pull-right' do %>
 				<%= t('.send_message', :default => 'Nachricht') %>

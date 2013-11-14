@@ -21,7 +21,7 @@ class RatingsController < ApplicationController
     authorize! :rate, @klu
     
     logger.debug("RatingsController#create - params: #{params.inspect}")
-    @rating = @klu.ratings.build(params[:rating].merge(:user_id => guest_or_current_user.id))
+    @rating = @klu.ratings.build(params[:rating].merge(:user_id => current_or_guest_user.id))
     
     logger.debug("Ratings#create - initialized rating before save: #{@rating.inspect}")
  

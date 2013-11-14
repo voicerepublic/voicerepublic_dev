@@ -1,5 +1,5 @@
 <article class="small-klu klu-layout kluuu">
-  <div class="klu-bookmark-link"><%= bookmark_links(guest_or_current_user, klu) %></div>
+  <div class="klu-bookmark-link"><%= bookmark_links(current_or_guest_user, klu) %></div>
 	<%= link_to( klu_path(:id => klu)) do %>
 		<div class="klu-eyecatcher"><%= image_tag(klu.klu_images.first.image.url(:medium)) unless klu.klu_images.empty? %></div>
     <h3 class="no-margin klu-title"><%= limit_words(klu.title, 6) %> </h3>  

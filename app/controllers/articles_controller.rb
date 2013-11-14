@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
       @status_update = StatusUpdate.find(params[:status_update_id])
     end
     
-    @user = guest_or_current_user
+    @user = current_or_guest_user
    
     respond_to do |format|
       format.html # new.html.erb
@@ -50,7 +50,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = @venue.articles.build(params[:article])
-    @article.user_id = guest_or_current_user.id
+    @article.user_id = current_or_guest_user.id
 
     logger.debug(@article.inspect)
     
@@ -115,7 +115,7 @@ class ArticlesController < ApplicationController
 
   def send_notification(article)
     users = article.venue.attendees
-    (users - [guest_or_current_user]).each do |user|
+    (users - [current_or_guest_user]).each do |user|
       UserMailer.new_article_notification(article, user).deliver
     end
   end

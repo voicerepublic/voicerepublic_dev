@@ -2,7 +2,7 @@
 
   .row-fluid
     .span8.venue-form-fields-left
-      - if guest_or_current_user.is_admin?
+      - if current_or_guest_user.is_admin?
         .control-group
           %label.control-label= t('.featured_from')
           .controls.input-append.date.datetimepicker

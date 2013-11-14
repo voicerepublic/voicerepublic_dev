@@ -5,6 +5,6 @@
     %aside.newarticle.contribution.clearfix
       - if can_comment_venue?(@venue)
         - article = Article.new
-        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => guest_or_current_user })
+        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_or_guest_user })
 
   = render(:partial => 'venue_article', :collection => @venue.articles, :as => :article )

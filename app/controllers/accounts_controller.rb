@@ -89,6 +89,6 @@ class AccountsController < ApplicationController
   private
   
   def set_user
-    @user = guest_or_current_user #|| User.find(params[:user_id])
+    @user = current_or_guest_user #|| User.find(params[:user_id])
   end
 end

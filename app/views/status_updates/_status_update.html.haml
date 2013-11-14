@@ -8,7 +8,7 @@
     = simple_format(status_update.content)
 
     %aside.contribution-actions
-      - if !guest_or_current_user
+      - if !current_or_guest_user
         = link_to(user_status_update_path(:user_id => status_update.user, :id => status_update, :anchor => "newcomment")) do
           #{t('.add_comment')}
 

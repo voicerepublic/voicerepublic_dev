@@ -1,4 +1,4 @@
-<%= form_for @balance_account, :url => user_balance_account_path(:user_id => guest_or_current_user), :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @balance_account, :url => user_balance_account_path(:user_id => current_or_guest_user), :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%#= f.label :currency, :class => 'control-label' %>
     <div class="controls">

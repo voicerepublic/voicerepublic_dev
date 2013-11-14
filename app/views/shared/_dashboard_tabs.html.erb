@@ -15,7 +15,7 @@
 	<li class="<%= (current_page?(user_conversations_path(:user_id => user)) || current_page?(user_messages_path(:user_id => user)))  ? 'active' : '' %>">
 		<%= link_to(t('.messages', :default => "Nachrichten"), user_conversations_path(:user_id => user) ) %>
 	</li>
-	<% unless Venue.of_user(guest_or_current_user).empty? %>
+	<% unless Venue.of_user(current_or_guest_user).empty? %>
 	<li class="<%= current_page?(dashboard_venues_path) ? 'active' : '' %>">
 		<%= link_to(t('.venues'), dashboard_venues_path() ) %>
 	</li>

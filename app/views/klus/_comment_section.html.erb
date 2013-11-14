@@ -11,7 +11,7 @@
 	</div>
 
 	<aside class="newcomment clearfix">
-		<% if guest_or_current_user %>
+		<% if current_or_guest_user %>
 		<%= render(:partial => 'comments/klu_form', :locals => {:commentable => klu, :cmd => t('comments.klu_form.write_addition_2') })%>
 		<% end %>
 	</aside>

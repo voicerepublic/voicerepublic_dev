@@ -13,7 +13,7 @@
     
    
     <aside id="newcomment">
-      <% if guest_or_current_user %>
+      <% if current_or_guest_user %>
         <% @comment = @status_update.comments.build %>
         <%= render(:partial => "comments/form") %>
       <% end %>

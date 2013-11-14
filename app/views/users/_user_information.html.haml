@@ -22,11 +22,11 @@
         = user.follower.count
         = t('.follower', :default => 'friends')
 
-  - if guest_or_current_user && guest_or_current_user.id != user.id
+  - if current_or_guest_user && current_or_guest_user.id != user.id
     %ul.unstyled.user-actions
       %li
-        - unless guest_or_current_user.followed.include?(user)
-          = link_to( user_create_follow_path(:user_id => guest_or_current_user, :followed_id => user ), :method => "post" ) do
+        - unless current_or_guest_user.followed.include?(user)
+          = link_to( user_create_follow_path(:user_id => current_or_guest_user, :followed_id => user ), :method => "post" ) do
             = t('.follow')
 
       %li

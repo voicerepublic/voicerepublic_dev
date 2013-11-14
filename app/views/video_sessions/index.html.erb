@@ -1,4 +1,4 @@
-<% if guest_or_current_user && guest_or_current_user.is_admin? %>
+<% if current_or_guest_user && current_or_guest_user.is_admin? %>
 <h2>Listing video_sessions</h2>
 
 <table>

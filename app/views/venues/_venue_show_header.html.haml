@@ -14,7 +14,7 @@
             = t('.time_until_takeoff', :time => distance_of_time_in_words_to_now( @venue.start_time.in_time_zone, true ) )
         - if  @venue.live?
           %span.label.label-important= t('.ongoing_venue')
-      - if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? & @venue.attendies.include?(guest_or_current_user)
+      - if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? & @venue.attendies.include?(current_or_guest_user)
         = link_to (@venue.user.name + "s " + t('.venue')), user_path(@venue.user), :target => "_blank", :confirm => "#{t('.leave_venue_popup')}"
       - else
         = link_to (@venue.user.name + "s " + t('.venue')), user_path(@venue.user)
