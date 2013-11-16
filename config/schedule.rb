@@ -32,6 +32,10 @@ every 67.minutes, :roles => [:app] do
   rake "thinking_sphinx:reindex"
 end
 
+every 60.minutes, :roles => [:app] do
+  rake "cleanup:guests"
+end
+
 every :day, :at => '03:15am', :roles => [:app] do
   rake "recordings:merge"
 end
