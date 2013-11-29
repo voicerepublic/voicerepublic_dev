@@ -76,8 +76,7 @@ class ApplicationController < ActionController::Base
 
   def create_guest_user
     name = "guest_#{Time.now.to_i}#{rand(99)}"
-    u = User.create :name => 'guest',
-                    :email => "#{name}@example.com",
+    u = User.create :email => "#{name}@example.com",
                     :available => "online",
                     :firstname => 'guest',
                     :lastname => name
