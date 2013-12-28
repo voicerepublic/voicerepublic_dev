@@ -20,7 +20,7 @@
   </head>
   <body>
 	
-	<% if current_user %>
+	<% if current_or_guest_user %>
     	<%= render(:partial => "shared/actionbar") %>
     <% else %>
     	<%= render(:partial => "shared/navbar")%>

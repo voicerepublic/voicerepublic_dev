@@ -21,7 +21,7 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    _user = current_user
+    _user = current_or_guest_user
     @bookmark = _user.bookmarks.build(:klu_id => params[:klu_id])
 
     respond_to do |format|

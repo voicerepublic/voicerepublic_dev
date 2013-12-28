@@ -3,7 +3,7 @@
 .hero-unit
   %h2 Welcome
   %p
-    = current_user.name
+    = current_or_guest_user.name
   %p
     Manage KluuU from here!
 .row-fluid

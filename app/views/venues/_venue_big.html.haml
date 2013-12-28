@@ -1,4 +1,4 @@
-- participating = (venue.user != current_user and !venue.user_participates?(current_user)) ? ' unjoined':''
+- participating = (venue.user != current_or_guest_user and !venue.user_participates?(current_or_guest_user)) ? ' unjoined':''
 %article{:class => "venue-big block" + participating} 
   -#overall link to venue
   = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
@@ -16,7 +16,7 @@
     -#join-button
     .venue-big-join-button.pull-right
 
-      - if venue.user != current_user and !venue.user_participates?(current_user)
+      - if venue.user != current_or_guest_user and !venue.user_participates?(current_or_guest_user)
         = render 'shared/participate_button', :venue => venue
       - else
         %span.venue-big-icon-box
@@ -33,8 +33,8 @@
       %hr.venue-big-hr
       -#time and image
       .venue-big-time= l(venue.start_time)
-      - if !venue.next_event.nil?
-        %h4.venue-big-event-title= link_to venue.next_event.title, venue_path(venue)
+      - if !venue.current_event.nil?
+        %h4.venue-big-event-title= link_to venue.current_event.title, venue_path(venue)
         -#event title
       = simple_format( truncate(venue.summary, :length => 200), :class => "venue-big-description")
 

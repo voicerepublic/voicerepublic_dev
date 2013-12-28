@@ -1,7 +1,7 @@
 <aside class="klu-top-bar clearfix">
 	<ul class="klu-actions">
 		<li class="klu-bookmark-link">
-			<%= bookmark_links(current_user, klu) if current_user	 %>
+			<%= bookmark_links(current_or_guest_user, klu) if current_or_guest_user	 %>
 		</li>
 		<% if can? :manage, klu %>
 		<li>

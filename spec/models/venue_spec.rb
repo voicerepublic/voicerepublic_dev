@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Venue do
-  
+
   it "is invalid without title" do
     FactoryGirl.build(:venue, :title => nil).should_not be_valid
   end
-  
+
   it "is invalid without summary" do
     FactoryGirl.build(:venue, :summary => nil).should_not be_valid
   end
@@ -24,7 +24,7 @@ describe Venue do
     expect(featured).to include(expected[1])
     expect(featured).not_to include(unexpected)
   end
-   
+
   it 'should know when to start (by delegation)' do
     venue = FactoryGirl.create(:venue)
     FactoryGirl.create(:event, venue: venue, :start_time => 42.minutes.from_now)
@@ -52,10 +52,11 @@ describe Venue do
 
   it "should have a next event" do
     venue = FactoryGirl.create(:venue)
-    expected = FactoryGirl.create(:event, venue: venue, start_time: 1.week.from_now)
-    FactoryGirl.create(:event, venue: venue, start_time: 2.weeks.from_now)
+    expected = FactoryGirl.build(:event, start_time: 1.week.ago)
+    venue.events << expected
+    venue.events << FactoryGirl.create(:event, start_time: 2.weeks.from_now)
     expect(venue).to have(2).events
-    expect(venue.next_event).to eq expected
+    expect(venue.current_event).to eq expected
   end
 
   # FIXME
@@ -63,7 +64,7 @@ describe Venue do
     venue = FactoryGirl.create(:venue_with_events)
     start, now = 1.hour.from_now, Time.now
     delta = (1.hour.from_now - now).round
-    venue.next_event.update_attributes :start_time => start
+    venue.current_event.update_attributes :start_time => start
     expect(venue.reload_time).to be_a(Float)
     tolerance = ( 5.minutes + 3.seconds ).to_i
     #expect(venue.reload_time).to be be_within(tolerance).of(delta)

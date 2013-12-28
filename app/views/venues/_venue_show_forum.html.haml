@@ -3,8 +3,8 @@
 
   - unless @venue.live?
     %aside.newarticle.contribution.clearfix
-      - if current_user
+      - if can_comment_venue?(@venue)
         - article = Article.new
-        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_user })
+        = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_or_guest_user })
 
   = render(:partial => 'venue_article', :collection => @venue.articles, :as => :article )

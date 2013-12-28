@@ -1,7 +1,7 @@
 <div class="call-btn clearfix">
 	<div class="user-image klu-user-image" data-user-id="<%= klu.user.id %>">
 
-		<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? & @venue.attendies.include?(current_user) %>
+		<% if  ((  @venue.start_time.in_time_zone - 5.minutes) < Time.now.in_time_zone ) &! @venue.timed_out? & @venue.attendies.include?(current_or_guest_user) %>
 			<%= link_to(image_tag( klu.user.account.portrait.url(:large), :class => "img-polaroid"), user_path(:id => klu.user), :target => "_blank", :confirm => "#{t('.leave_venue_popup')}" ) %>
 		<% else %>
 			<%= link_to(image_tag( klu.user.account.portrait.url(:large), :class => "img-polaroid"), user_path(:id => klu.user) ) %>

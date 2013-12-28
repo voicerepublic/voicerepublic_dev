@@ -1,5 +1,5 @@
 <p><%= t('.no_klu_text') %></p>
 <br>
 <div class="control-group">
-	<%= link_to t('.create_klu'),new_user_klu_path(:user_id => current_user, :klu_type => "Kluuu"), :class => "btn btn-primary" %>
+	<%= link_to t('.create_klu'),new_user_klu_path(:user_id => current_or_guest_user, :klu_type => "Kluuu"), :class => "btn btn-primary" %>
 </div>

@@ -13,7 +13,6 @@
 		<%= stylesheet_link_tag "application", :media => "all" %>
       <%= stylesheet_link_tag 'kblog/articles', :media => "all" %>
 		<%= stylesheet_link_tag controller.controller_name, :media => "all" %>
-		<%= javascript_include_tag "private_pub_nsa" %>
 
 		<link href="/images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
@@ -21,9 +20,9 @@
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
     <%= yield(:head) %>
 	</head>
-	<body class='<%= current_user ? "" : "layout-logged-out" %>'>
-		
-		<% if current_user %>
+	<body class='<%= current_or_guest_user ? "" : "layout-logged-out" %>'>
+
+		<% if current_or_guest_user %>
 			<%= render(:partial => "shared/actionbar") %>
 			<%#= render(:partial => '/shared/check_flash') -%>
 		<% else %>
@@ -41,6 +40,6 @@
 		<%= javascript_include_tag "application" %>
 		<%= yield :javascript %>
 		<!-- Placed at the end of the document so the pages load faster -->
-		<%= render(:partial => 'shared/piwik') %>
+		<%= render(:partial => 'shared/google_analytics') %>
 	</body>
 </html>

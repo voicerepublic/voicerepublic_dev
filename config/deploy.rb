@@ -8,7 +8,7 @@ set :rbenv_install_dependencies, false
 
 #require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
 set :application, "kluuu2"
-set :repository,  "gitosis@git.panter.ch:klu-001.git"
+set :repository,  "git@github.com:munen/voicerepublic_dev.git"
 set :scm, :git
 set :keep_releases, 5
 set :user, "rails"
@@ -46,7 +46,7 @@ end
 before 'deploy:update_code', 'thinking_sphinx:stop'
 after  'deploy:update_code', 'thinking_sphinx:start'
 
-#after "deploy:setup", "dbconf:setup" 
+#after "deploy:setup", "dbconf:setup"
 #after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab', 'kluuu:link_paypal_certs' #, 'sphinx:start'
 #after "deploy:finalize_update", 'sphinx:symlink_indexes'
 
@@ -61,24 +61,24 @@ after  'deploy:update_code', 'thinking_sphinx:start'
 
 
 # namespace :dbconf do
-#   
+#
 #   task :default do
 #     on_app
 #     on_db
 #   end
-#   
+#
 #   desc "create a 'config' directory in shared_path for database.yml - to symlink it with everey deploy"
 #   task :setup do
 #     run "mkdir -p #{shared_path}/config"
 #     puts "you should place your database.yml into shared_path/config..."
 #   end
-# 
+#
 #   desc "symlink database yml to prod-host"
 #   task :on_app, :roles => :app do
 #     puts "linking database.yml from shared_path to current on app"
 #     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
 #   end
-#   
+#
 #   desc "symlink database yml to db-host"
 #   task :on_db, :roles => :db do
 #     puts "linking database.yml from shared_path to current on db"
@@ -88,23 +88,23 @@ after  'deploy:update_code', 'thinking_sphinx:start'
 
 
 # namespace :kluuu do
-# 	
-# 	desc "link paypal-certs to production-host" 
+#
+# 	desc "link paypal-certs to production-host"
 # 	task :link_paypal_certs, :roles => :web do
 # 		puts "linking paypal-certs"
 # 		run "ln -nfs #{shared_path}/config/certs_production #{release_path}/config/certs_production"
 # 	end
-#   
+#
 #   desc "Prints the available releases on webserver"
 #   task :show_releases, :roles => :app do
 #     puts capture("cd #{releases_path}; ls;")
 #   end
-#   
+#
 #   desc "Prints available space on server"
 #   task :free_space, :roles => [:app, :db] do
 #     puts capture("df -h")
 #   end
-#   
+#
 #   namespace :faye do
 #     desc "start faye server with private_pub"
 #     task :start, :roles => :app do

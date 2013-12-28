@@ -94,6 +94,6 @@ class Balance::AccountsController < ApplicationController
   private
   
   def set_user
-    @user = @user || current_user
+    @user = @user || current_or_guest_user
   end
 end

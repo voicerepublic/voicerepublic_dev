@@ -1,17 +1,16 @@
 namespace :recordings do
   STREAMS_PATH = '/home/rails/recordings'
-  RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
 
   desc "Merge streams per event"
   task :merge => :environment do
-    Dir.mkdir(RECORDINGS_PATH) unless File.exists?(RECORDINGS_PATH)
+    Dir.mkdir(Venue::RECORDINGS_PATH) unless File.exists?(Venue::RECORDINGS_PATH)
     remove_empty_flvs
 
     errors = []
     grouped_streams.each do |event_id, streams|
       begin
         event = Event.find_by_id(event_id)
-        remove_flvs(streams) and next if event.blank?
+        archive_flvs(streams) and next if event.blank?
         next if event.venue.live?
 
         merge(event, streams)
@@ -46,12 +45,12 @@ namespace :recordings do
 
     if streams.size == 1
       name = streams.first[0]
-      `cd #{STREAMS_PATH} && ffmpeg -i #{name}.flv -vn #{recording}.m4a`
+      `cd #{STREAMS_PATH} && avconv -i #{name}.flv -vn -b:a 64k -strict experimental  #{recording}.m4a`
       save_recording(event, recording)
     else
       # Convert FLV streams to WAVs
       streams = streams.sort_by { |_, datetime| datetime }
-      streams.each { |name, _| `cd #{STREAMS_PATH} && ffmpeg -i #{name}.flv -vn #{name}.wav` }
+      streams.each { |name, _| `cd #{STREAMS_PATH} && avconv -i #{name}.flv -vn #{name}.wav` }
 
       # Merge all WAVs into one WAV
       start_at = streams.first[1]
@@ -64,7 +63,7 @@ namespace :recordings do
       `cd #{STREAMS_PATH} && #{sox}`
 
       # Convert WAV result to M4A
-      `cd #{STREAMS_PATH} && ffmpeg -i #{recording}.wav #{recording}.m4a`
+      `cd #{STREAMS_PATH} && avconv -i #{recording}.wav -b:a 64k -strict experimental #{recording}.m4a`
       save_recording(event, recording)
 
       # Remove WAVs
@@ -72,11 +71,11 @@ namespace :recordings do
       streams.each { |name, _| File.delete("#{STREAMS_PATH}/#{name}.wav") }
     end
 
-    remove_flvs(streams)
+    archive_flvs(streams)
   end
 
   def save_recording(event, name)
-    FileUtils.mv("#{STREAMS_PATH}/#{name}.m4a", "#{RECORDINGS_PATH}/#{name}.m4a")
+    FileUtils.mv("#{STREAMS_PATH}/#{name}.m4a", "#{Venue::RECORDINGS_PATH}/#{name}.m4a")
     event.update_column(:recording, "#{name}.m4a")
   end
 
@@ -88,9 +87,9 @@ namespace :recordings do
     end
   end
 
-  def remove_flvs(streams)
+  def archive_flvs(streams)
     streams.each do |name, _|
-      File.delete("#{STREAMS_PATH}/#{name}.flv")
+      FileUtils.mv("#{STREAMS_PATH}/#{name}.flv", "#{Venue::RECORDINGS_ARCHIVE_PATH}/#{name}.flv")
     end
   end
 end

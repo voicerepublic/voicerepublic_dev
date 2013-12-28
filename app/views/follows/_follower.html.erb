@@ -9,7 +9,7 @@
 			
 		<%= link_to( user_create_follow_path(:user_id => follower_relation.followed_id, :followed_id => follower_relation.follower_id ), :method => "post", :class => "follows-user-thumbnail-followback", :title => t('.follow_back', :default => "Follow Back") ) do %>
 			<i class="icon-retweet"></i>
-		<% end unless current_user.followed.include?( follower_relation.follower ) %>
+		<% end unless current_or_guest_user.followed.include?( follower_relation.follower ) %>
 	</div>
 	
 </li>

@@ -1,5 +1,5 @@
 <article class="medium-klu klu-layout kluuu">
-	<div class="klu-bookmark-link"><%= bookmark_links(current_user, klu) %></div>
+	<div class="klu-bookmark-link"><%= bookmark_links(current_or_guest_user, klu) %></div>
 	<% if !klu.upcoming_venues.empty? %>
 		<%= link_to venue_path(klu.upcoming_venues.find(:first)), :class => "klu-venue-link" do %>
 		Treffpunkt<%= image_tag "/assets/coffee_icon_white.png" %>

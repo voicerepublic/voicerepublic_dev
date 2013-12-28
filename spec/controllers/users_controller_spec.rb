@@ -23,7 +23,7 @@ describe UsersController do
   before do
     @user = FactoryGirl.create(:user)  
     request.env['warden'].stub :authenticate! => @user
-    controller.stub :current_user => @user
+    controller.stub :current_or_guest_user => @user
   end
   # This should return the minimal set of attributes required to create a valid
   # User. As you add validations to User, be sure to

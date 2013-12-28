@@ -60,7 +60,7 @@ Kluuu2::Application.configure do
   #                                        :password             => '<password>',
   #                                        :authentication       => 'plain',
   #                                        :enable_starttls_auto => true  }
-  # 
+  #
 
   # Enable threaded mode
   # config.threadsafe!

@@ -26,7 +26,7 @@ describe CategoriesController do
   #   #role = Role.create([:name => 'admin', :name => 'user'])
   #   @user.roles << Role.find_by_name('admin')
   #   request.env['warden'].stub :authenticate! => @user
-  #   controller.stub :current_user => @user
+  #   controller.stub :current_or_guest_user => @user
   # end
   # 
   # # This should return the minimal set of attributes required to create a valid

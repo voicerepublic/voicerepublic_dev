@@ -13,9 +13,8 @@
     .venue-live-mute-button
       %i.icon-microphone
       &nbsp;
-    - if @venue.user != current_user
-      - unless  @venue.user_participates?(current_user)
-        = render 'shared/participate_button', :venue => @venue
+    - if !@venue.user_attends?(current_or_guest_user)
+      = render 'shared/participate_button', :venue => @venue
     .clearfix
 .section.venue-description.collapse.out
   .row-fluid.clearfix
@@ -28,7 +27,7 @@
   .venue-description-content
     = sophisticated_format @venue.description
 
-    - if @venue.user != current_user
-      - if @venue.user_participates?(current_user)
+    - if @venue.user != current_or_guest_user
+      - if @venue.user_participates?(current_or_guest_user)
         = link_to( t('helpers.venue_actions.unjoin_venue'), participation_path(:venue_id => @venue.id), :method => :delete, |
           :data => { :confirm => t('helpers.venue_actions.confirm_unjoin_venue') },  :class => "btn btn-small")             |

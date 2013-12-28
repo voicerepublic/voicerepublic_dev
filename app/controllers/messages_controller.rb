@@ -48,7 +48,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(params[:message])
     _receiver = User.find(params[:receiver_id])
-    @message.sender = current_user
+    @message.sender = current_or_guest_user
     @message.receiver = _receiver
     
     respond_to do |format|
@@ -71,7 +71,7 @@ class MessagesController < ApplicationController
     
     authorize! :destroy, @message
     
-    if @message.destroy_for(current_user)
+    if @message.destroy_for(current_or_guest_user)
       logger.debug("Messages#destroy - #{@message.inspect}")
       flash[:notice] = "Message destroyed"
     else

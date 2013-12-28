@@ -35,3 +35,34 @@ TODO
 * Venue.update_all('user_id = 1', :user_id => nil)
 * landing_page/index en/de -> localize
 * Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
+
+
+
+
+## Documentation
+
+For general platform and development documentation please refer to the
+[GitHub wiki pages](https://github.com/munen/kluuu/wiki).
+
+
+## Platforms
+
+### Production
+
+* Site: [http://kluuu.com](http://kluuu.com)
+
+### Staging
+
+* Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
+
+## Build status
+
+* Integration: [![Build Status](https://circleci.com/gh/munen/KluuU/tree/integration.png?circle-token=xxx
+)](https://circleci.com/gh/munen/KluuU/tree/integration)
+* Master: [![Build Status](https://circleci.com/gh/munen/KluuU/tree/master.png?circle-token=xxx
+)](https://circleci.com/gh/munen/KluuU/tree/master)
+
+## Code Quality
+
+* Develop: [![Code Climate](https://codeclimate.com/repos/52508f2589af7e49eb005def/badges/41b20408f4ce36c7daed/gpa.png)](https://codeclimate.com/repos/52508f2589af7e49eb005def/feed)
+* Master: [![Code Climate](https://codeclimate.com/repos/52508e7013d6371cde004e5f/badges/464d25e7b07281374bab/gpa.png)](https://codeclimate.com/repos/52508e7013d6371cde004e5f/feed)

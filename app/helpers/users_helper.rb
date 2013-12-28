@@ -21,11 +21,11 @@ module UsersHelper
   end
 
   def notification_count
-    current_user.notifications.alerts.unread.count
+    current_or_guest_user.notifications.alerts.unread.count
   end
 
   def unread_messages_count
-    current_user.received_messages.receiver_unread.count
+    current_or_guest_user.received_messages.receiver_unread.count
   end
 
 end

@@ -1,5 +1,5 @@
 <section class="user-bookmarks row-fluid">
-	<% if @user == current_user %>
+	<% if @user == current_or_guest_user %>
 		<div class="span3">
 			<%= render(:partial => 'bookmarks/no_bookmarks') if @bookmarks.empty? %>
 			<%= render(:partial => 'bookmarks/with_bookmarks', :locals => {:user => @user} ) unless @bookmarks.empty? %>

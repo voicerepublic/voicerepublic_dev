@@ -9,7 +9,7 @@ class VenuesController < ApplicationController
   def index
     # FIXME these are horrible hacks!
     @venues      = Event.joins(:venue).not_past.upcoming_first.map(&:venue).uniq
-    @past_venues = Event.joins(:venue).past.most_recent_first.limit(15).map(&:venue).uniq
+    @past_venues = Event.joins(:venue).past.most_recent_first.limit(15).map(&:venue).select(&:past?).uniq
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +58,7 @@ class VenuesController < ApplicationController
   # POST /venues.json
   def create
     @venue = Venue.new(params[:venue])
-    @venue.user = current_user
+    @venue.user = current_or_guest_user
     
     authorize! :create, @venue
 
@@ -85,10 +85,6 @@ class VenuesController < ApplicationController
     
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
-        if params[:renew] && @venue.next_event.present?
-          logger.debug("Venues#update - updating just the start time - notify others")
-          Venue.generate_renew_info_for(@venue)
-        end
         format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
         format.json { head :no_content }
       else
@@ -97,7 +93,27 @@ class VenuesController < ApplicationController
       end
     end
   end
-  
+
+  def end_event
+    @venue = Venue.find(params[:id])
+    @event = @venue.events.find(params[:event_id])
+    @event.end_at = Time.now.in_time_zone
+
+    if @event.save
+      render nothing: true
+    else
+      render text: @event.errors.full_messages.join(', '), status: :unprocessable_entity
+    end
+  end
+
+  def remove_recording
+    @venue = Venue.find(params[:id])
+    @event = @venue.events.find(params[:event_id])
+    File.delete("#{Venue::RECORDINGS_PATH}/#{@event.recording}")
+    @event.update_column(:recording, nil)
+    redirect_to @venue, notice: 'Recording was successfully removed.'
+  end
+
   # # POST /venues/1/join_venue/5
   # #
   # def join_venue
@@ -106,10 +122,10 @@ class VenuesController < ApplicationController
   #   
   #   @venue = Venue.find(params[:venue_id])
   #   
-  #   if current_user.no_kluuus.empty?
-  #     klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
+  #   if current_or_guest_user.no_kluuus.empty?
+  #     klu = current_or_guest_user.no_kluuus.create(:title => current_or_guest_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
   #   else
-  #     klu = current_user.no_kluuus.first
+  #     klu = current_or_guest_user.no_kluuus.first
   #   end
   #   
   #   #klu = Klu.find(params[:klu_id])
@@ -131,7 +147,7 @@ class VenuesController < ApplicationController
   # 
   # def unjoin_venue
   #   @venue = Venue.find(params[:venue_id])
-  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_user }
+  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_or_guest_user }
   #   
   #   respond_to do |format|
   #     format.html { redirect_to @venue, notice: "Successfully unjoined venue" }
@@ -157,7 +173,7 @@ class VenuesController < ApplicationController
     @venue.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_path(current_user) }
+      format.html { redirect_to user_path(current_or_guest_user) }
       format.json { head :no_content }
     end
   end
