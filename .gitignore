@@ -26,8 +26,6 @@ db/*.sqlite3.db
 log/*.log
 tmp/**/*
 
-*~
-\#*\#
 config/database.yml
 coverage/
 db/*.sqlite3
