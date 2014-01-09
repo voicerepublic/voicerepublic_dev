@@ -3,7 +3,7 @@ require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'thinking_sphinx/deploy/capistrano'
 
-set :rbenv_ruby_version, "1.9.3-p429"
+set :rbenv_ruby_version, "1.9.3-p448"
 set :rbenv_install_dependencies, false
 
 #require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
