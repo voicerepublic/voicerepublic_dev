@@ -259,6 +259,8 @@ GEM
       railties (= 3.2.13)
     rails-i18n (0.7.3)
       i18n (~> 0.5)
+    rails_config (0.3.3)
+      activesupport (>= 3.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -392,6 +394,7 @@ DEPENDENCIES
   private_pub
   rails (= 3.2.13)
   rails-i18n
+  rails_config
   rspec-rails
   sass-rails
   select2-rails

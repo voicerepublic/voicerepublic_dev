@@ -78,6 +78,6 @@ Kluuu2::Application.configure do
   config.middleware.use ExceptionNotifier,
                             :email_prefix         => "[VR] ",
                             :sender_address       => %{"notifier" <notifier@voicerepublic.com>},
-                            :exception_recipients => %w{tech@voicerepublic.com},
+                            :exception_recipients => Settings.exception_recipients,
                             :ignore_crawlers      => %w{Googlebot}
 end

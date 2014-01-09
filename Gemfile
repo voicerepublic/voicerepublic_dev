@@ -15,6 +15,7 @@ group :assets do
 end
 
 gem 'airbrake'
+gem 'rails_config'
 gem 'twitter-bootstrap-rails','2.1.4'
 gem 'jquery-rails'
 gem 'devise'
