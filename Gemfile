@@ -14,6 +14,7 @@ group :assets do
   gem 'uglifier'#, '>= 1.0.3'
 end
 
+gem 'rails_config'
 gem 'twitter-bootstrap-rails','2.1.4'
 gem 'jquery-rails'
 gem 'devise'
