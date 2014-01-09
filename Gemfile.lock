@@ -34,6 +34,9 @@ GEM
     acts_as_paranoid (0.4.2)
       activerecord (~> 3.2)
     addressable (2.3.3)
+    airbrake (3.1.15)
+      builder
+      multi_json
     annotator (0.0.9)
       activerecord (>= 3.0)
     arel (3.0.2)
@@ -359,6 +362,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   acts_as_paranoid (~> 0.4.0)
+  airbrake
   annotator
   awesome_nested_set
   cancan
