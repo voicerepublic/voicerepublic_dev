@@ -18,6 +18,7 @@
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+                <%= airbrake_javascript_notifier %>
     <%= yield(:head) %>
 	</head>
 	<body class='<%= current_or_guest_user ? "" : "layout-logged-out" %>'>
