@@ -7,7 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.destroy_all
-Klu.destroy_all
 Role.destroy_all
 Category.destroy_all
 
