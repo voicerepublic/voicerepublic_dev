@@ -4,12 +4,18 @@ Welcome to Kluuu
 Setup
 -----
 
+    bundle
+    rake db:setup
+    rake db:migrate
+
 ### Thinking sphinx
 
-* Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
-* bundle exec rake thinking_sphinx:configure
-* bundle exec rake thinking_sphinx:index
-* bundle exec rake thinking_sphinx:start
+Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
+
+    bundle exec rake thinking_sphinx:configure
+    bundle exec rake thinking_sphinx:index
+    bundle exec rake thinking_sphinx:start
+
 
 Start the whole stack
 ---------------------

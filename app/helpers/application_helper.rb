@@ -58,5 +58,22 @@ module ApplicationHelper
   def klu_type_string(klu)
     klu.instance_of?(Kluuu) ? t('helper.application.kluuu_string') : t('helper.application.no_kluuu_string')
   end
+
+  class << self
+    def determine_release
+      tag = %x[ git describe --tags --abbrev=0 ].chomp || 'notag'
+      patchlevel = %x[ git log --oneline #{tag}.. | wc -l ].chomp
+      # date = %x[ git log -1 --format=%ai ].chomp
+      # "#{tag} p#{patchlevel} (#{date})"
+      "#{tag} p#{patchlevel}"
+    end
+  end
+  
+  def release
+    RELEASE
+  end
   
 end
+
+# determine release once when module is loaded
+ApplicationHelper::RELEASE = ApplicationHelper.determine_release
