@@ -44,3 +44,7 @@ public/uploads/**/*
 .yardoc
 .idea
 .sass-cache
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
