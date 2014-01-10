@@ -22,10 +22,6 @@
     <%= yield(:head) %>
 	</head>
 	<body class='<%= current_or_guest_user ? "" : "layout-logged-out" %>'>
-          <script>
-          // create js error that should be logged to errbit
-          1 / new_variable
-          </script>
 
 		<% if current_or_guest_user %>
 			<%= render(:partial => "shared/actionbar") %>
