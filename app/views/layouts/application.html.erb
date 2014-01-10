@@ -28,11 +28,11 @@
 
 var mod = angular.module('testApp', []);
 
-mod.factory('$exceptionHandler', function ($log) {
-    return function (exception, cause) {
-      exception.message += ' (caused by "' + cause + '")';
-      throw exception;
-    };
+angular.module('exceptionOverride', []).factory('$exceptionHandler', function () {
+  return function (exception, cause) {
+    exception.message += ' (caused by "' + cause + '")';
+    throw exception;
+  };
 });
 
 mod.controller('testController', function($scope) {
