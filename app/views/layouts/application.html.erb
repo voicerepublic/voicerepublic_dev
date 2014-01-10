@@ -18,33 +18,14 @@
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
-                <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.js'></script>
                 <%= airbrake_javascript_notifier %>
     <%= yield(:head) %>
 	</head>
 	<body class='<%= current_or_guest_user ? "" : "layout-logged-out" %>'>
-<div ng-app="testApp" ng-controller="testController">
-<script type='text/javascript'>//<![CDATA[
-
-var mod = angular.module('testApp', []);
-
-mod.factory('$exceptionHandler', function ($log) {
-    return function (exception, cause) {
-        // also log browser, os (code from Aizuchi)
-        $log.error("Message: " + exception.message);
-        $log.error("Stack: " + exception.stack);
-        $log.error("Location: " + window.location);
-    };
-});
-
-mod.controller('testController', function($scope) {
-    1 / new_variable;
-    throw { message: 'error message' };
-});
-
-//]]>
-
-</script>
+          <script>
+          // create js error that should be logged to errbit
+          1 / new_variable
+          </script>
 
 		<% if current_or_guest_user %>
 			<%= render(:partial => "shared/actionbar") %>
