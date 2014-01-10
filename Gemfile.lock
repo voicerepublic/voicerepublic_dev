@@ -111,8 +111,6 @@ GEM
       money (>= 5.0.0)
       nokogiri
     eventmachine (1.0.3)
-    exception_notification (3.0.1)
-      actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -377,7 +375,6 @@ DEPENDENCIES
   disable_assets_logger
   dynamic_form
   eu_central_bank
-  exception_notification
   factory_girl_rails
   faker
   foreman

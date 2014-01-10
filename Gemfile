@@ -38,7 +38,6 @@ gem 'thin'                    # faster development-server
 gem 'capistrano'              # deployment
 gem 'thinking-sphinx','2.0.13'         # indexed search
 gem "dynamic_form"            # form helper for errors
-gem 'exception_notification'  # deliver emails if exception occures
 gem 'whenever'   # create cron-jobs
 gem 'kblog', '0.0.4'          # blog-engine
 #gem 'split'                   # A/B-Testing
