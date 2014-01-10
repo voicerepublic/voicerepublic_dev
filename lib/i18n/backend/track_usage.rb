@@ -15,6 +15,10 @@ module I18n
         nil
       end
 
+      def localize(*args)
+        nil
+      end
+
     end
   end
 end
