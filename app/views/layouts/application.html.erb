@@ -28,15 +28,6 @@
 
 var mod = angular.module('testApp', []);
 
-mod.factory('$exceptionHandler', function ($log) {
-    return function (exception, cause) {
-        // also log browser, os (code from Aizuchi)
-        $log.error("Message: " + exception.message);
-        $log.error("Stack: " + exception.stack);
-        $log.error("Location: " + window.location);
-    };
-});
-
 mod.controller('testController', function($scope) {
     1 / new_variable;
     throw { message: 'error message' };
