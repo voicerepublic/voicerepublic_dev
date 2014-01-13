@@ -29,7 +29,6 @@ gem 'paperclip'               # used for images
 gem 'awesome_nested_set'      # used for categories
 gem 'globalize3'              # internationalization
 gem 'acts-as-taggable-on'     # tag-system
-#gem 'money'
 gem 'money-rails'             # integrates some helper methods and AR-instance-functions...
 gem 'eu_central_bank'         # financial exchange rates
 gem 'cancan'                  # authorization/privileges
@@ -40,11 +39,8 @@ gem 'thinking-sphinx','2.0.13'         # indexed search
 #gem 'thinking-sphinx'
 #gem 'mysql2',          '0.3.13' # stupid dependency of thinking-sphinx
 gem "dynamic_form"            # form helper for errors
-gem 'exception_notification'  # deliver emails if exception occures
 gem 'whenever'   # create cron-jobs
 gem 'kblog', '0.0.4'          # blog-engine
-#gem 'split'                   # A/B-Testing
-#gem 'SystemTimer'            # A/B-Testing for ruby-1.8
 gem 'haml-rails'
 gem 'simple_form'
 gem "acts_as_paranoid", "~>0.4.0"
@@ -61,6 +57,7 @@ group :development, :test, :staging do
   gem 'capistrano-rbenv', '>= 1.0.0'
   # gem 'rails_view_annotator'
   gem 'zeus'
+  gem 'pry-rails'
   gem 'debugger'
   gem 'disable_assets_logger'
 end
@@ -71,7 +68,5 @@ group :test do
   gem 'guard-rspec'
   gem 'launchy'
   gem 'database_cleaner'
-  #gem 'rb-inotify'
   gem 'simplecov'
 end
-

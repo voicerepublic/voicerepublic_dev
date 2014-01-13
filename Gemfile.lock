@@ -111,8 +111,6 @@ GEM
       money (>= 5.0.0)
       nokogiri
     eventmachine (1.0.3)
-    exception_notification (3.0.1)
-      actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -245,6 +243,8 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -377,7 +377,6 @@ DEPENDENCIES
   disable_assets_logger
   dynamic_form
   eu_central_bank
-  exception_notification
   factory_girl_rails
   faker
   foreman
@@ -396,6 +395,7 @@ DEPENDENCIES
   paperclip
   pg
   private_pub
+  pry-rails
   rails (= 3.2.13)
   rails-i18n
   rails_config
