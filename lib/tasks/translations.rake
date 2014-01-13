@@ -13,22 +13,26 @@ task :translations do
   
   # sort
   sorted = stats.to_a.sort_by { |a| a.last }.reverse
-  w = sorted.first.last.to_s.length
+  w2 = sorted.first.last.to_s.length
 
   # fetch keys from locale files and add with 0
-  locale = 'de'
-  nested = { locale => I18n.backend.translate(locale, '') }
-  c = Class.new.tap { |t| t.extend(I18n::Backend::Flatten) }
-  flat = c.flatten_translations(locale, nested, true, false)
-  flat.each do |key, value|
-    key = key.to_s[3..-1] # slice locale
-    if stats[key] == 0
-      sorted << [key, 0]
+  locales = I18n.available_locales
+  locales.each do |locale|
+    nested = { locale => I18n.backend.translate(locale, '') }
+    c = Class.new.tap { |t| t.extend(I18n::Backend::Flatten) }
+    flat = c.flatten_translations(locale, nested, true, false)
+    flat.each do |key, value|
+      key = key.to_s[3..-1] # slice locale
+      if stats[key] == 0
+        sorted << [key, 0]
+      end
     end
   end
 
+  w1 = sorted.size.to_s.length
+
   # output
-  sorted.each do |e|
-    puts "% #{w}s\t%s" % e.reverse
+  sorted.each_with_index do |e, index|
+    puts "% #{w1}s\t% #{w2}s\t%s" % ([ index+1 ] + e.reverse)
   end
 end

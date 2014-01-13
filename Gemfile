@@ -37,6 +37,8 @@ gem 'private_pub'             # push service
 gem 'thin'                    # faster development-server
 gem 'capistrano'              # deployment
 gem 'thinking-sphinx','2.0.13'         # indexed search
+#gem 'thinking-sphinx'
+#gem 'mysql2',          '0.3.13' # stupid dependency of thinking-sphinx
 gem "dynamic_form"            # form helper for errors
 gem 'exception_notification'  # deliver emails if exception occures
 gem 'whenever'   # create cron-jobs
