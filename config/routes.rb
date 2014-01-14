@@ -110,7 +110,6 @@ Kluuu2::Application.routes.draw do
     # TODO this has to go
     resources :klus
     resources :venues
-    resources :video_servers
     get "dashboard/index"
   end
   
