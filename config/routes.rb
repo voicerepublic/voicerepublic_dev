@@ -18,7 +18,6 @@ Kluuu2::Application.routes.draw do
     get "dashboard/settings"
     get "dashboard/ping"
     get "dashboard/venues"
-    delete "dashboard/news/:notification_id", :controller => 'dashboard', :action => :delete_notification, :as => 'delete_notification'
     get "dashboard/settings/edit", :controller => 'dashboard', :action => :edit_settings
     get "dashboard/settings/edit_password", :controller => 'dashboard', :action => 'edit_password'
     get "search", :controller => "search", :action => :search
