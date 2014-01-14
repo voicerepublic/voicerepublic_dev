@@ -18,14 +18,11 @@
 //= require bootstrap-fileupload.js
 //= require bootstrap-maxlength.js
 //= require bootstrap.js.coffee
-//= require bookmarks.js.coffee
 //= require select2
 //= require swfobject.js
 //= require private_pub_nsa
 
 //= require player.js
-//= require chat.js
-//= require klus.js
 //= require users.js
 //= require venues.js
 

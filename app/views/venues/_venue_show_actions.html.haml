@@ -6,7 +6,7 @@
       = t('.new_talk')
 
   - if current_or_guest_user
-    - if (can? :manage, @venue and !@venue.live?) or current_or_guest_user.is_admin?
+    - if (can? :manage, @venue and !@venue.live?)
       = link_to t('.edit', :default => t("helpers.links.edit")), edit_venue_path(@venue), :class => 'btn btn-small'
       = link_to t('.destroy', :default => t("helpers.links.destroy")),venue_path(@venue), :method => 'delete', |
         :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm")) },                        |

@@ -1,9 +1,0 @@
-<% content_for :title do %>
-	<%= t('.bookmarks', :default => 'bookmarks')%> &middot; <%= @user.name %>
-<% end %>
-<div class="tab-content dashboard-bookmarks">
-	<p><%= t('.no_bookmarks_available') if @bookmarks.empty? %></p>
-  <% @bookmarks.each do |bookmark| %>
-    <%= partial_for_bookmark(bookmark) %>
-  <% end %>
-</div>

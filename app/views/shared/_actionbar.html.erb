@@ -1,91 +1,74 @@
 <div class="navbar navbar-fixed-top stay-alive">
-	<div class="navbar-inner">
-		<div class="container">
-			 <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-				<div class="phone-left-padding visible-phone visible-tablet"></div><%# left-border, visible by phone only %>
-				<%= link_to root_path, :class => "brand", :title => "KluuU" do %>
-					<h1><%= image_tag "logo.png", :alt => "KluuU Logo" %></h1>
-				<% end %>
-			<ul class="nav">
+  <div class="navbar-inner">
+    <div class="container">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <div class="phone-left-padding visible-phone visible-tablet"></div><%# left-border, visible by phone only %>
+      <%= link_to root_path, :class => "brand", :title => "KluuU" do %>
+      <h1><%= image_tag "logo.png", :alt => "KluuU Logo" %></h1>
+      <% end %>
+      <ul class="nav">
 
-				<li class="<%= current_page?current_or_guest_user ? 'active' : '' %> dropdown actionbar-profile">
-					<%= link_to '#', :class => "actionbar-profile-link dropdown-toggle nav-left-border",:data => {:toggle=>"dropdown"}, :title => current_or_guest_user.name do %>
+        <li class="<%= current_page?current_or_guest_user ? 'active' : '' %> dropdown actionbar-profile">
+          <%= link_to '#', :class => "actionbar-profile-link dropdown-toggle nav-left-border",:data => {:toggle=>"dropdown"}, :title => current_or_guest_user.name do %>
 
-						<%= image_tag current_or_guest_user.account.portrait(:thumb), :alt => current_or_guest_user.name %>
-						<span class="hidden-phone">
-							&nbsp;&nbsp;<%= current_or_guest_user.firstname %>
-						</span>
-						<b class="caret"></b>
-					<% end %>
-					<%= render(:partial => 'shared/profile_dropdown_list') %>
-				</li>
-			</ul>
-			<div class="container nav-collapse">
-				<ul class="nav">
-					<% if current_or_guest_user.is_admin? %>
-							<li>
-								<%= link_to "admin", admin_dashboard_index_path %>
-							</li>
-					<% end %>
-					<li class="hidden-tablet navbar-button">
-						<span>
-						<%= link_to venues_path, :class => "action-bar-venue-link" do %>
-							<%= image_tag "venue-icon-host.png", :class => "venue-form-icon" %>
-						<% end %>
-						</span>
-					</li>
-<!-- 					<li class="hidden-tablet navbar-button">
-						<span>
-						<%#= link_to new_user_klu_path(:user_id => current_or_guest_user, :klu_type => "Kluuu"), :class => "btn btn-small btn-newklu" do %>
-								<%#= t(".create_kluuu") %>
-						<%# end %>
-						</span>
-					</li> -->
-				</ul>
-				<ul class="nav pull-right">
+          <%= image_tag current_or_guest_user.account.portrait(:thumb), :alt => current_or_guest_user.name %>
+          <span class="hidden-phone">
+            &nbsp;&nbsp;<%= current_or_guest_user.firstname %>
+          </span>
+          <b class="caret"></b>
+          <% end %>
+          <%= render(:partial => 'shared/profile_dropdown_list') %>
+        </li>
+      </ul>
+      <div class="container nav-collapse">
+        <ul class="nav">
+          <li class="hidden-tablet navbar-button">
+            <span>
+              <%= link_to venues_path, :class => "action-bar-venue-link" do %>
+              <%= image_tag "venue-icon-host.png", :class => "venue-form-icon" %>
+              <% end %>
+            </span>
+          </li>
+          <!--          <li class="hidden-tablet navbar-button">
+                        <span>
+                          <%#= link_to new_user_klu_path(:user_id => current_or_guest_user, :klu_type => "Kluuu"), :class => "btn btn-small btn-newklu" do %>
+                          <%#= t(".create_kluuu") %>
+                          <%# end %>
+                        </span>
+          </li> -->
+        </ul>
+        <ul class="nav pull-right">
 
-					<% if current_or_guest_user %>
-						<li class="navbar-search form-search">
-							<%= form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'navbar-search form-search' do %>
-								<%= search_field_tag 'query', nil, :placeholder => t('.search'), :class => "search-query navbar-search-query" %>
-								<%= button_tag :type => "submit", :class => "navbar-submit-button" do %>
-									<i class="icon-search"></i>
-								<% end %>
-							<% end %>
-					 	</li>
+          <% if current_or_guest_user %>
+          <li class="navbar-search form-search">
+            <%= form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'navbar-search form-search' do %>
+            <%= search_field_tag 'query', nil, :placeholder => t('.search'), :class => "search-query navbar-search-query" %>
+            <%= button_tag :type => "submit", :class => "navbar-submit-button" do %>
+            <i class="icon-search"></i>
+            <% end %>
+            <% end %>
+          </li>
 
-					 	<li>
-					 		<%= link_to(user_conversations_path(:user_id => current_or_guest_user), :title => t('.messages', :default => "Messages")) do %>
-					 			<i class="icon-envelope"> </i>
-                                                                <%- if unread_messages_count > 0 %>
-                                                                  <span class="badge <%= badge_for_count(unread_messages_count) %>" id="messages-count-<%= current_or_guest_user.id %>">
-                                                                    <%= unread_messages_count %>
-                                                                  </span>
-                                                                <% end %>
-					 		<% end %>
-					 	</li>
-
-                                                <%- if current_user %>
-                                                  <li class="actionbar-online-status dropdown">
-                                                          <a href="#" class="dropdown-toggle actionbar-user-dropdown" data-toggle="dropdown" role="button">
-                                                                  <div id="user-availability" class="label label-<%= css_class_for_available(current_or_guest_user.available) %>">
-                                                                          <%= current_or_guest_user.available.capitalize %>
-                                                                  </div>
-                                                                  <b class="caret"></b>
-                                                          </a>
-                                                          <%= render(:partial => 'shared/user_dropdown_list') %>
-                                                  </li>
-                                                <%- end %>
-
-					<% end %>
-				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
-	</div>
+          <%- if current_user %>
+          <li class="actionbar-online-status dropdown">
+            <a href="#" class="dropdown-toggle actionbar-user-dropdown" data-toggle="dropdown" role="button">
+              <div id="user-availability" class="label label-<%= css_class_for_available(current_or_guest_user.available) %>">
+                <%= current_or_guest_user.available.capitalize %>
+              </div>
+              <b class="caret"></b>
+            </a>
+            <%= render(:partial => 'shared/user_dropdown_list') %>
+          </li>
+          <%- end %>
+          <% end %>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
 </div>
 <!-- $(document).ready(function(){setInterval(function(){$.ajax({ url:"<%= dashboard_ping_url -%>", type:"GET",dataType:"script" });},180000);}); -->
