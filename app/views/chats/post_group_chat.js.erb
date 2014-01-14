@@ -1,6 +1,0 @@
-<% publish_to @venue.channel_name do %>
-    $('<%= escape_javascript( render( :partial => 'chats/single_group_chat_message', :locals => { :user => @user, :content => @content }) ) %>').appendTo("#<%= @venue.chat_name %>").hide().fadeIn("slow", function(){
-    $("#<%= @venue.chat_name %>").get(0).scrollTop = $("#<%= @venue.chat_name %>").get(0).scrollHeight;
-  });
-<% end %>
-

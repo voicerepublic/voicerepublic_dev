@@ -1,9 +1,0 @@
-<article class="tiny-klu klu-layout kluuu">
-  <div class="klu-eyecatcher"><%= image_tag(klu.image.url(:thumb)) if klu.image.present? %></div>
-  <h3 class="no-margin klu-title"><%= limit_words(klu.title, 6) %></h3>
-
-  <div class="user-image klu-user-image" data-user-id="<%= klu.user.id %>"><%= image_tag( klu.user.account.portrait.url(:thumb), :class => "img-polaroid") %></div>
-   <aside class="klu-overall-rating">
-    <%#= overall_rating_stars(klu) %>
-  </aside>
-</article>

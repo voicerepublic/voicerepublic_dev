@@ -1,8 +1,0 @@
-<article class="comment well well-small">
-	<%= link_to( klu_comment_path(:klu_id => comment.commentable, :id => comment), :method => :delete ) do %>
-		&nbsp;<i class="icon icon-trash action pull-right"> </i>
-	<% end if can? :manage, comment %>
-	<small class="pull-right muted"><%= time_ago_in_words comment.created_at %>&nbsp;</small>
-	<%= link_to( image_tag(comment.user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"), user_path(:id => comment.user)) %> 
-	<%= simple_format( simple_links(comment.content) ) %>
-</article>
