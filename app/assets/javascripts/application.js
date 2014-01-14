@@ -42,22 +42,6 @@
   });
 })(jQuery);
 
-/**  keep track of users logged in - 
- * 
- * div with class stay-alive is in actionbar
- **/
-(function($){
-    function stayAlive(interval) {
-      var pongs = $('.stay-alive');
-      if (pongs[0]) {
-        window.setInterval(function(){$.ajax({ url: "/dashboard/ping", type:"GET",dataType:"script" });},interval);
-      }
-    }
-    $(function(){
-      stayAlive(180000);
-    });
-})(jQuery);
-
 (function($){
   var checkUserOnline = {
     init: function() {
