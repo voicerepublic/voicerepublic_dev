@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+
   attr_accessible :content
 
   belongs_to :article
@@ -11,4 +12,5 @@ class Comment < ActiveRecord::Base
   validates :user, presence: true
   validates :article, presence: true
   validates :content, presence: true
+
 end

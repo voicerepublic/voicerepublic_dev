@@ -8,89 +8,11 @@ class DashboardController < ApplicationController
     redirect_to :action => 'news'
   end
 
-  def contacts
-    @followed = @user.followed_relations
-    @follower = @user.follower_relations
-
-    respond_to do |format|
-      format.html 
-      format.json { render json: @follows }
-    end
-  end
-
-  def bookmarks
-    @bookmarks = @user.bookmarks
-    respond_to do |format|
-      format.html 
-      format.json { render json: @bookmarks }
-    end
-  end
-  
   def venues
     @venues = Venue.of_user(@user)
     respond_to do |format|
       format.html
       format.json { render json: @venues }
-    end
-  end
-
-  def news
-    ret = @user.notifications.call_alerts.destroy_all
-    logger.debug("Dashboard#news - destroying all call_alerts - count deleted: #{ret.length}")
-    @news = @user.notifications.news_alerts.order("created_at DESC").paginate(:page => params[:page], :per_page => 5)
-    #@news.each { |x| Notification::Base.find(x.id).update_attribute(:read, true) }
-    logger.debug("Dashboard#news - updating attribute 'read' to true")
-    @user.notifications.news_alerts.each { |x| x.update_attribute(:read, true) }
-    #@news.each { |x| x.update_attribute(:read, true) }
-    respond_to do |format|
-      format.html 
-      format.json { render json: @news }
-    end
-  end
-  
-  def delete_notification
-    n = Notification::Base.find(params[:notification_id])
-    @css_id = "notification-#{params[:notification_id]}"
-    
-    authorize! :destroy, n
-    
-    if n.destroy
-      flash.now[:notice] = t('controller_dashboard.notification_destroyed', :default => 'destroyed notification')
-    else
-      flash.now[:error] = t('was not able to delete notification')
-    end
-    respond_to do |format|
-      format.html { redirect_to dashboard_url }
-      format.js 
-    end
-  end
-
-  def matches
-    
-    #@klus = @user.kluuus.order("created_at DESC")
-    #@no_klus = @user.no_kluuus.order("created_at DESC")
-    
-    begin
-      if params[:id]
-        @matched_klu = Klu.find(params[:id])
-        @matching_klus = @matched_klu.complementaries
-        logger.debug("Dashboard#matches - @matching_klus: #{@matching_klus.inspect}")
-      else
-        unless @klus.empty? &&  @no_klus.empty?
-          _klu = @klus.first || @no_klus.first
-          logger.info("######################## \nDashboard#matches - _klu: \n#{_klu.inspect}\n######################")
-          redirect_to dashboard_matches_url(:id => _klu) and return
-        end
-        
-      end
-    rescue Exception => e
-      logger.error("Dasboard#matches - problem with sphinx: #{e.inspect}")
-      @matching_klus = []
-      flash.now[:error] =  "there is a problem with sphinx... stay calm"
-    end
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @matches }
     end
   end
   
@@ -106,21 +28,10 @@ class DashboardController < ApplicationController
     @user
   end
   
-  # simple keep-alive ping by authenticated user
-  #
-  def ping
-    logger.debug("Dashboard#ping - by #{@user.name} - [#{@user.id}]")
-    respond_to do |format|  
-      format.js { render(:message => 'pong', :nothing => true) and return }
-      format.json { render(:head => :created, :message => 'pong') and return }
-      format.html { render :text => "pong" }
-    end
-  end
-  
-
   private
 
   def set_user
     @user = current_or_guest_user
   end
+
 end

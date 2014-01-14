@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+
   before_filter :authenticate_user!
 
   def create
@@ -8,7 +9,7 @@ class CommentsController < ApplicationController
     comment.user = current_or_guest_user
 
     if comment.save
-      send_notification(comment)
+      send_email(comment)
       redirect_to venue, notice: 'Comment was created.'
     else
       errors = comment.errors.full_messages.join(', ')
@@ -18,7 +19,8 @@ class CommentsController < ApplicationController
 
   private
 
-  def send_notification(comment)
+  # TODO delay
+  def send_email(comment)
     users = comment.article_venue.attendees - [current_or_guest_user]
     users.each do |user|
       UserMailer.new_comment_notification(comment, user).deliver
