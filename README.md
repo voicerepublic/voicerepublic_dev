@@ -34,21 +34,24 @@ To run specs Faye and a Sphinx daemon have to run.
 TODO
 ----
 
-* fix authentication/authorization participation
-* rm app/models/klu_image.rb
-* landing_page/index en/de -> localize
-* clean up rake tasks in lib/tasks
+ * fix authentication/authorization participation
+ * rm app/models/klu_image.rb
+ * landing_page/index en/de -> localize
+ * clean up rake tasks in lib/tasks
+ * write a cleanup db migration
+ * cleanup assets
+ * use request log analyzer
+ * log which views/partials are actually used
+ 
 
 FIXES (maybe outdated)
 ----------------------
 
-* Venue.update_all('user_id = 1', :user_id => nil)
-* Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
+ * Venue.update_all('user_id = 1', :user_id => nil)
+ * Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
 
-
-
-
-## Documentation
+Documentation
+-------------
 
 For general platform and development documentation please refer to the
 [GitHub wiki pages](https://github.com/munen/kluuu/wiki).
@@ -65,7 +68,7 @@ For general platform and development documentation please refer to the
 
 ### Production
 
-* Site: [http://kluuu.com](http://kluuu.com)
+ * Site: [http://kluuu.com](http://kluuu.com)
 
 ### Staging
 
