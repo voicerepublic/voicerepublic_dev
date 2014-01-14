@@ -73,10 +73,6 @@ FactoryGirl.define do
     # trait :with_portrait do
     #   association :account, factory: :account_with_portrait
     # end
-    factory :admin do
-      # TODO: create factory for role and user_role
-      # roles [Role.find_by_name('user'), Role.find_by_name('admin')]
-    end
     #factory :user_with_portrait, traits: [:with_portrait]
   end
 

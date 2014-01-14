@@ -5,12 +5,6 @@ describe "Venues" do
 
   before do
     @user = FactoryGirl.create(:user)
-    unless Role.find_by_name('venue_host')
-      Role.create!(:name => 'venue_host')
-    end
-    @user.roles << Role.find_by_name('venue_host')
-    @user.save
-    @user.reload
     @time = 1.day.from_now
     @venue = FactoryGirl.create(:venue, user: @user)
     FactoryGirl.create(:event, venue: @venue, start_time: @time)

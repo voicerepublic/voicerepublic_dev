@@ -22,9 +22,6 @@ describe VenuesController do
   
   before  do
     @user = FactoryGirl.create(:user)
-    
-    Role.create(:name => 'venue_host') unless Role.find_by_name('venue_host')
-    @user.roles << Role.find_by_name('venue_host')
     request.env['warden'].stub :authenticate! => @user
     controller.stub :current_or_guest_user => @user
     @user.reload
