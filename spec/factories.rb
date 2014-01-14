@@ -19,7 +19,6 @@ FactoryGirl.define do
     summary     Faker::Lorem.paragraphs(1)
     description Faker::Lorem.paragraphs(2)
     title       Faker::Lorem.sentence
-    intro_video "MyString"
     user
 
     factory :venue_with_events do

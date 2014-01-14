@@ -7,6 +7,7 @@ module KluuuCode
     def Helper.local_ip
       
       if Rails.env ==  "test" || Rails.env == "development"
+        return nil # ok for now
         return Socket.ip_address_list.detect { |intf| intf.ipv4_private? }.ip_address
       else
         return Socket.gethostname

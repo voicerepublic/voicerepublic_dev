@@ -50,6 +50,13 @@ TODO
 For general platform and development documentation please refer to the
 [GitHub wiki pages](https://github.com/munen/kluuu/wiki).
 
+### Build diagrams
+
+    railroady -M | dot -Tsvg > doc/models_complete.svg
+    railroady -b -M | dot -Tsvg > doc/models_brief.sv
+    railroady -C | dot -Tsvg > doc/controllers_complete.svg
+    railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
+
 
 ## Platforms
 

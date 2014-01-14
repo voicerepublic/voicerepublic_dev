@@ -1,7 +1,7 @@
 = form_for(user, :url => session_path(:user)) do |f|
   .control-group
     .controls
-      = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email')
+      = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email'), :id => 'user_login'
   .control-group
     .controls.right-fixed-box 
       = f.password_field :password, :placeholder => t('.password'), :class => "lp-input-password"
