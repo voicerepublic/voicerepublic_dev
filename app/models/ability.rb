@@ -86,10 +86,6 @@ class Ability
       f.follower == user
     end
     
-    can :manage, Balance::Account do  |ba|
-      ba.user == user
-    end
-    
     # can :manage, Bookmark do |bookmark|
     #   user == bookmark.user
     # end

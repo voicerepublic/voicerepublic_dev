@@ -1,7 +1,0 @@
-<form action="<%= check_in_order.paypal_base_url -%>" method="post" style="float:left">
-	<input type="hidden" name="cmd" value="_s-xclick">
-	<input type="hidden" name="encrypted" value="<%= check_in_order.encrypted_paypal(request.referer, ipn_url() ) -%>">
-	<input type="image" name="submit" id="complete_check_in_order" border="0" src="https://www.paypal.com/<%= locale_paypal %>/i/btn/btn_buynow_LG.gif" alt="PayPal - The safer, easier way to pay online">
-	<img alt="" border="0" width="1" height="1" src="https://www.paypal.com/<%= locale_paypal %>/i/scr/pixel.gif" >
-</form>
-

@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   has_many :message_notifications, :class_name => 'Notification::NewMessage', :foreign_key => :other_id, :dependent => :destroy
   
   has_one :account, :dependent => :destroy          # application-account-things
-  has_one :balance_account, :dependent => :destroy, :autosave => true, :class_name => 'Balance::Account'   # financial things
   
   has_many :venues # as owner
   has_many :participations

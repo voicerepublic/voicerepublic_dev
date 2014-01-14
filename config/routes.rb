@@ -98,10 +98,6 @@ Kluuu2::Application.routes.draw do
         resources :klu_images
       end
       resources :status_updates
-      namespace :balance do
-        resource :account
-        resources :check_in_orders, :only => [:new, :create, :destroy]
-      end
     end
   end
   
