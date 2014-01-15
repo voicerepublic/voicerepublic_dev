@@ -43,14 +43,34 @@ TODO
 ----
 
  * fix authentication/authorization participation
- * rm app/models/klu_image.rb
- * landing_page/index en/de -> localize
  * clean up rake tasks in lib/tasks
  * write a cleanup db migration
  * cleanup assets
  * use request log analyzer
  * log which views/partials are actually used
  * https://github.com/ryanb/cancan#4-lock-it-down 
+ * cleanup routes
+ * get rid of local specific views
+ 
+    % find ./ -name \*.en.html.erb
+    ./app/views/inline_help/_dashboard_finances_charged.en.html.erb
+    ./app/views/inline_help/_dashboard_finances_checkout.en.html.erb
+    ./app/views/inline_help/_dashboard_bookmarks_info.en.html.erb
+    ./app/views/inline_help/_dashboard_contacts_customer_service.en.html.erb
+    ./app/views/inline_help/_dashboard_matches_finances.en.html.erb
+    ./app/views/inline_help/_dashboard_messages.en.html.erb
+    ./app/views/inline_help/_dashboard_news_info.en.html.erb
+    ./app/views/inline_help/_dashboard_matches_first_kluuu.en.html.erb
+    ./app/views/inline_help/_dashboard_finances_info.en.html.erb
+    ./app/views/inline_help/_dashboard_matches_matches.en.html.erb
+    ./app/views/inline_help/_dashboard_contacts_interesting_people.en.html.erb
+    ./app/views/txt/agb.en.html.erb
+    ./app/views/txt/tou.en.html.erb
+    ./app/views/venues/_venue_video.en.html.erb
+    % find ./ -name \*.en.html.haml
+    ./app/views/landing_page/index.en.html.haml
+    ./app/views/venues/txt/_venue_desc.en.html.haml
+ 
 
 FIXES (maybe outdated)
 ----------------------
@@ -58,11 +78,13 @@ FIXES (maybe outdated)
  * Venue.update_all('user_id = 1', :user_id => nil)
  * Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
 
+
 Documentation
 -------------
 
 For general platform and development documentation please refer to the
 [GitHub wiki pages](https://github.com/munen/kluuu/wiki).
+
 
 ### Build diagrams
 
@@ -72,7 +94,23 @@ For general platform and development documentation please refer to the
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
 
 
-## Platforms
+### Working with Settings
+
+Config entries are compiled from:
+
+    config/settings.yml
+    config/settings/#{environment}.yml
+    config/environments/#{environment}.yml
+    
+    config/settings.local.yml
+    config/settings/#{environment}.local.yml
+    config/environments/#{environment}.local.yml    
+
+Settings defined in files that are lower in the list override settings higher.
+
+
+Platforms
+---------
 
 ### Production
 
@@ -86,3 +124,4 @@ For general platform and development documentation please refer to the
 
 * Develop: [![Code Climate](https://codeclimate.com/repos/52508f2589af7e49eb005def/badges/41b20408f4ce36c7daed/gpa.png)](https://codeclimate.com/repos/52508f2589af7e49eb005def/feed)
 circleci.com/gh/munen/voicerepublic_devcodeclimate.com/repos/52508e7013d6371cde004e5f/badges/464d25e7b07281374bab/gpa.8ebbe8b002c7556614695f94dd6bd0e92ec532de)](https://codeclimate.com/repos/52508e7013d6371cde004e5f/feed)
+

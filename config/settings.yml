@@ -1,0 +1,5 @@
+rtmp:
+  discussions: "rtmp://kluuu.com/discussions"
+  recordings: "rtmp://kluuu.com/recordings"
+errbit:
+  api_key: '710bf38280e0f96f26a74682519794d5'

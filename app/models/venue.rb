@@ -1,8 +1,7 @@
 class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE          = 5.minutes
-  # TODO get from settings!
-  STREAMER_CONFIG         = YAML.load_file(Rails.root.join("config", "rtmp_config.yml"))
+  STREAMER_CONFIG         = Settings.rtmp
   RECORDINGS_PATH         = "#{Rails.root}/public/system/recordings"
   RECORDINGS_ARCHIVE_PATH = "#{Rails.root}/public/system/recordings_raw_archive"
 
