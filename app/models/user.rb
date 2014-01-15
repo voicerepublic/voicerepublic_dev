@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :name, use: [:slugged, :finders]
 
   MAX_IDLE = 5.minutes
   SET_BUSY = 5.minutes

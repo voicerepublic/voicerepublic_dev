@@ -19,6 +19,10 @@ module I18n
         nil
       end
 
+      def available_locales
+        nil
+      end
+
     end
   end
 end

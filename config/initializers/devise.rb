@@ -6,7 +6,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "noreply@kluuu.com"
+  config.mailer_sender = Settings.devise.from_address
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -210,7 +210,10 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   
-  
+  # TODO this has to move into the settings! this is prepared already
+  # Settings.devise.omniauth.each do |args|
+  #   config.omniauth *args
+  # end
   case Rails.env
   when "production"
     config.omniauth :facebook, "317175341661486","d6a24cf275aa820fe01a914f4e21784e", :scope => "email", :display => "popup"
@@ -237,7 +240,6 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
   # is mountable, there are some extra configurations to be taken into account.
@@ -251,4 +253,8 @@ Devise.setup do |config|
   # When using omniauth, Devise cannot automatically set Omniauth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = "/my_engine/users/auth"
+
+
+  config.secret_key = Settings.devise.secret_key
+
 end

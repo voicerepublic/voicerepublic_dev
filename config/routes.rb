@@ -46,12 +46,15 @@ Kluuu2::Application.routes.draw do
     devise_scope :user do
       delete "/users/sign_out" => "devise/sessions#destroy"
     end
-    devise_for :users, :controllers => {  :omniauth_callbacks => "users/omniauth_callbacks",
-                                          :sessions => "users/sessions",
-                                          :registrations => "users/registrations"
-                                        }
   end
   
+  devise_for(:users,
+             controllers: {  
+               omniauth_callbacks: "users/omniauth_callbacks",
+               sessions: "users/sessions",
+               registrations: "users/registrations"
+             })
+
   scope "(/:locale)", :locale => /en|de/ do
     resources :participations, :only => [:index, :create, :destroy]
     resources :users, :only => [:update, :show] do
@@ -71,7 +74,7 @@ Kluuu2::Application.routes.draw do
   end
   
   root :to => "landing_page#index"
-  
+
   # match ':controller(/:action(/:id))(.:format)'
 
 end

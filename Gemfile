@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'turbolinks'
-gem 'strong_parameters'
 gem 'protected_attributes' # support legacy 'attr_accessible'
 
 gem 'rails-i18n'
@@ -47,7 +46,7 @@ gem "dynamic_form"            # form helper for errors
 gem 'whenever'   # create cron-jobs
 gem 'haml-rails'
 gem 'simple_form'
-gem "acts_as_paranoid", "~>0.4.0"
+gem 'paranoia', '~> 2.0'
 gem 'unicorn'
 gem "select2-rails"
 

@@ -45,7 +45,10 @@ To run specs Faye and a Sphinx daemon have to run.
 
 TODO
 ----
-
+ 
+ * "noreply@kluuu.com" is a bad idea.
+ * get rid of config/environments/staging.rb staging is not an environment
+   (to have a different log level on staging put this info into settings)
  * app/views/layouts/application loads stylesheets based on controller
    this undermines the asset pipeline, get rid of it
  * fix authentication/authorization participation
