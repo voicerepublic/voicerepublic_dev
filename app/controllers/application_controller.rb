@@ -53,6 +53,11 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.fullpath
   end
 
+  # fix cancan's assumption that it should use current_user
+  def current_ability
+    @current_ability ||= Ability.new(current_or_guest_user)
+  end
+
   private
   
   # called (once) when the user logs in, insert any code your application needs
