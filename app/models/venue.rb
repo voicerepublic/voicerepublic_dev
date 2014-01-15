@@ -8,7 +8,7 @@ class Venue < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :summary, :description, :intro_video, :featured_from,
+  attr_accessible :title, :summary, :description, :intro_video,
                   :events_attributes, :tag_list
 
   belongs_to :user
