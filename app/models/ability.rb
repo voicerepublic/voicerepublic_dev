@@ -1,24 +1,20 @@
+# this is heavily spec'ed in spec/models/ability_spec.rb
+#
 class Ability
   include CanCan::Ability
 
   def initialize(user)
 
-    can :manage, Article do |article|
-      article.user == user
-    end
-
+    user ||= User.new
+    
+    can :manage, User,    id: user.id
+    can :manage, Account, user_id: user.id
+    can :manage, Venue,   user_id: user.id
+    can :manage, Article, user_id: user.id
     can :manage, Comment, user_id: user.id
-
-    can :manage, User do |usr|
-      usr == user
-    end
     
-    can :manage, Account do |account|
-      user.account == account
-    end
-    
-    can :manage, Venue do |venue|
-      venue.user == user
+    can :create, Venue do |venue|
+      !user.guest?
     end
     
   end

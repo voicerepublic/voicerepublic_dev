@@ -65,7 +65,8 @@ class ApplicationController < ActionController::Base
     u = User.create( :email => "#{name}@example.com",
                      :available => "online",
                      :firstname => 'guest',
-                     :lastname => name )
+                     :lastname => name,
+                     :guest => true )
     u.save!(:validate => false)
     session[:guest_user_id] = u.id
     u

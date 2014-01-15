@@ -60,3 +60,12 @@ RSpec.configure do |config|
   #config.include ValidUserRequestHelper, :type => :controller
 end
 
+module FactoryGirl
+  class << self
+    def build_attributes(*args)
+      FactoryGirl.build(*args).attributes.delete_if do |k, v| 
+        ["id", "created_at", "updated_at"].member?(k)
+      end
+    end
+  end
+end

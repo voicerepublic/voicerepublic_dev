@@ -42,7 +42,7 @@ TODO
  * cleanup assets
  * use request log analyzer
  * log which views/partials are actually used
- 
+ * https://github.com/ryanb/cancan#4-lock-it-down 
 
 FIXES (maybe outdated)
 ----------------------

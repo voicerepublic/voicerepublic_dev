@@ -1,6 +1,9 @@
 class Comment < ActiveRecord::Base
 
   attr_accessible :content
+  
+  # FIXME this is a security hack
+  attr_accessible :user_id, :article_id
 
   belongs_to :article
   belongs_to :user

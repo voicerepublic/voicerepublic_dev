@@ -18,8 +18,8 @@ describe Event do
   it 'should scope not_past' do
     expected = [ FactoryGirl.create(:event, :start_time => 1.day.from_now),
                  FactoryGirl.create(:event, :start_time => 30.minutes.ago, :duration => 60) ]
-    FactoryGirl.create(:event, :start_time => 1.day.ago)
-    Event.not_past.should == expected
+    FactoryGirl.create(:event, :start_time => 1.day.ago, :end_at => 1.minute.ago)
+    Event.not_past.pluck(:id).should == expected.map(&:id)
   end
   
   it 'should know when to start' do
