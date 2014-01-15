@@ -1,6 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '4.0.2'
+
+gem 'turbolinks'
+gem 'strong_parameters'
+gem 'protected_attributes' # support legacy 'attr_accessible'
+
 gem 'rails-i18n'
 gem 'pg'
 
@@ -28,7 +33,7 @@ gem 'i18n_data'               # delivers languages as key-value hash
 gem 'paperclip'               # used for images
 gem 'awesome_nested_set'      # used for categories
 gem 'globalize3'              # internationalization
-gem 'acts-as-taggable-on'     # tag-system
+gem 'acts-as-taggable-on', '3.0.1' # tag-system
 gem 'money-rails'             # integrates some helper methods and AR-instance-functions...
 gem 'eu_central_bank'         # financial exchange rates
 gem 'cancan'                  # authorization/privileges
