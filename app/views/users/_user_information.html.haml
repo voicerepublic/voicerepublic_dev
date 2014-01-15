@@ -16,27 +16,11 @@
   - user.account.languages.each do |lang|
     = lang
 
-  -# WENN VIEL LOS IST, KANN DAS WIEDER EINGESCHALTET WERDEN
-    - if user.follower.count > 0
-      = link_to user_follows_path(user) do
-        = user.follower.count
-        = t('.follower', :default => 'friends')
-
   - if current_or_guest_user && current_or_guest_user.id != user.id
     %ul.unstyled.user-actions
       %li
-        - unless current_or_guest_user.followed.include?(user)
-          = link_to( user_create_follow_path(:user_id => current_or_guest_user, :followed_id => user ), :method => "post" ) do
-            = t('.follow')
-
-      %li
         = link_to(new_message_path(:receiver_id => user.id), :remote => true ) do
           = t('.send_message')
-
-      - if user.available?
-        %li
-          = link_to( new_chat_path(:user_id => user.id ), :remote => true ) do
-            = t('.chat')
 
 - if can? :manage, user
   %nav.user-edit-link

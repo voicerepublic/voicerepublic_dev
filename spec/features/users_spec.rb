@@ -14,9 +14,6 @@ feature "User visits another user" do
 end
 
 feature "User can register" do
-  before do
-    Category.create(:name => "testcategory")
-  end
   scenario "user supplies correct values" do
     visit root_path()
     page.fill_in('user_firstname', :with => "Jim")
