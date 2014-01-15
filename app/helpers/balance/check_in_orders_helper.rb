@@ -1,2 +1,0 @@
-module Balance::CheckInOrdersHelper
-end

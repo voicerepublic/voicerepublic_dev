@@ -3,7 +3,6 @@ class AccountsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_user
   
-  
   # GET /accounts/1
   # GET /accounts/1.json
   def show
@@ -20,7 +19,6 @@ class AccountsController < ApplicationController
     end
   end
 
-
   # GET /accounts/1/edit
   def edit
     @account = @user.account
@@ -34,22 +32,23 @@ class AccountsController < ApplicationController
     @account = @user.account
   end
 
-  # POST /accounts
-  # POST /accounts.json
-  def create
-    @account = ProfileSetting.new(params[:account])
-    @account.user = @user
-
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to user_account_url(:user_id => @account.user) , notice: I18n.t('controller_accounts.account_settings_created', :default => 'Profile setting was successfully created.') }
-        format.json { render json: @account, status: :created, location: @account }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # TODO accounts are created within users, so check if the following code can go
+  # # POST /accounts
+  # # POST /accounts.json
+  # def create
+  #   @account = ProfileSetting.new(params[:account])
+  #   @account.user = @user
+  # 
+  #   respond_to do |format|
+  #     if @account.save
+  #       format.html { redirect_to user_account_url(:user_id => @account.user) , notice: I18n.t('controller_accounts.account_settings_created', :default => 'Profile setting was successfully created.') }
+  #       format.json { render json: @account, status: :created, location: @account }
+  #     else
+  #       format.html { render action: "new" }
+  #       format.json { render json: @account.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PUT /accounts/1
   # PUT /accounts/1.json
@@ -84,11 +83,11 @@ class AccountsController < ApplicationController
       redirect_to edit_user_account_url(:user_id => @user), notice: I18n.t('controller_accounts.portrait_destroyed', :default => "Portrait successfully destroyed." )
     end
   end
-
   
   private
   
   def set_user
     @user = current_or_guest_user #|| User.find(params[:user_id])
   end
+
 end

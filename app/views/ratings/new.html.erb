@@ -1,9 +1,0 @@
-<div class="page-header">
-  <h1><%= t('.please_rate_klu')%></h1>
-</div>
-
-<% if can? :rate, @klu %>
-	<%= render :partial => 'form' %>
-<% else %>
-	<%= t('.authorization_missing') %>
-<% end %>

@@ -1,10 +1,11 @@
 class SearchController < ApplicationController
 
+  # TODO implement 'redirect after POST'
   def search
     @query = params[:query] || params[:landing_page_query]
     @venues = Venue.search(@query)
   end
-  # 
+
   # def match
   #   
   # end

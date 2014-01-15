@@ -2,15 +2,6 @@
 
   .row-fluid
     .span8.venue-form-fields-left
-      - if current_or_guest_user.is_admin?
-        .control-group
-          %label.control-label= t('.featured_from')
-          .controls.input-append.date.datetimepicker
-            - featured_from = f.object.featured_from && f.object.featured_from.strftime('%d/%m/%Y %H:%M')
-            = f.text_field :featured_from, :value => featured_from, 'data-format' => "dd/MM/yyyy hh:mm"
-            %span.add-on
-              %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
-            .help-block.help-datetimepicker Format: 02/07/1967 17:00    
       .control-group
         = f.label :title, :class => 'control-label' do
           = t('.title')

@@ -6,11 +6,5 @@
     = link_to( new_venue_path ) do
       %span.label.label-venue= t('.create_venue')
   %li.menu-item
-    = link_to user_conversations_path(:user_id => current_or_guest_user), :title => "#{t('.messages')}" do
-      = t('.messages')
-  %li.menu-item
-    = link_to(dashboard_contacts_path) do
-      = t('.contacts')
-  %li.menu-item
     = link_to dashboard_settings_edit_path do
       = t('.settings')

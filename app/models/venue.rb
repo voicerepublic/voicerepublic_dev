@@ -1,6 +1,7 @@
 class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE          = 5.minutes
+  # TODO get from settings!
   STREAMER_CONFIG         = YAML.load_file(Rails.root.join("config", "rtmp_config.yml"))
   RECORDINGS_PATH         = "#{Rails.root}/public/system/recordings"
   RECORDINGS_ARCHIVE_PATH = "#{Rails.root}/public/system/recordings_raw_archive"
@@ -17,13 +18,6 @@ class Venue < ActiveRecord::Base
 
   has_many :participations, :dependent => :destroy
   has_many :users, :through => :participations
-
-  has_many :notifications_new_venues, :class_name => 'Notification::NewVenue',
-           :foreign_key => :other_id,:dependent => :destroy
-  has_many :notifications_venue_infos, :class_name => 'Notification::VenueInfo',
-           :foreign_key => :other_id, :dependent => :destroy
-  has_many :notifications_new_venue_participants, :class_name => 'Notification::NewVenueParticipant',
-           :foreign_key => :other_id, :dependent => :destroy
 
   validates :title, :summary, :description, :tag_list, :presence => true
 
@@ -123,16 +117,20 @@ class Venue < ActiveRecord::Base
     "/chatchannel/host-info/vgc-#{self.id}"
   end
 
-  def self.upcoming
-    Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
-  end
+  class << self
 
-  def self.one_day_ahead
-    venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 24.hours, Time.now + 23.hours)
-  end
+    def upcoming
+      Venue.where("start_time > ?", Time.now - 1.hour).order("start_time ASC").limit(1).first
+    end
 
-  def self.two_hour_ahead
-    venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 120.minutes, Time.now + 60.minutes )
+    def one_day_ahead
+      venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 24.hours, Time.now + 23.hours)
+    end
+
+    def two_hour_ahead
+      venues = Venue.where("start_time < ? AND start_time > ?", Time.now + 120.minutes, Time.now + 60.minutes )
+    end
+
   end
 
   private
@@ -140,4 +138,5 @@ class Venue < ActiveRecord::Base
   def clean_taglist
     self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
   end
+
 end

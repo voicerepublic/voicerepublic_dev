@@ -1,29 +1,13 @@
-
 <ul class="nav nav-tabs dashboard-tabs">
-	<!-- ><li class="<%#= current_page?(dashboard_matches_path) ? 'active' : '' %>" >
-		<%#= link_to(t('.matches'), dashboard_matches_path )%>
-	</li> -->
-	<li class="<%= current_page?(dashboard_news_path) ? 'active' : '' %>">
-		<%= link_to(t('.news', :default => "Neuigkeiten"), dashboard_news_path) %>
-	</li>
-<!-- 	<li class="<%#= current_page?(dashboard_bookmarks_path) ? 'active' : '' %>">
-		<%#= link_to(t('.bookmarks', :default => "Lesezeichen"), dashboard_bookmarks_path) %>
-	</li> -->
-	<li class="<%= current_page?(dashboard_contacts_path) ? 'active' : '' %>">
-		<%= link_to(t('.contacts', :default => "Kontakte"), dashboard_contacts_path ) %>
-	</li>
-	<li class="<%= (current_page?(user_conversations_path(:user_id => user)) || current_page?(user_messages_path(:user_id => user)))  ? 'active' : '' %>">
-		<%= link_to(t('.messages', :default => "Nachrichten"), user_conversations_path(:user_id => user) ) %>
-	</li>
-	<% unless Venue.of_user(current_or_guest_user).empty? %>
-	<li class="<%= current_page?(dashboard_venues_path) ? 'active' : '' %>">
-		<%= link_to(t('.venues'), dashboard_venues_path() ) %>
-	</li>
-	<% end %>
-	<li class="pull-right <%= current_page?(dashboard_settings_edit_path) ? 'active' : '' %>">
-		<%= link_to(t('.settings', :default => "Einstellungen"), dashboard_settings_edit_path ) %>
-	</li>
-	<li class="pull-right <%= current_page?(user_balance_account_path(:user_id => user)) ? 'active' : '' %>">
-		<%= link_to(t('.finances', :default => "Finanzen"), user_balance_account_path(:user_id => user) ) %>
-	</li>
+  <li class="<%= current_page?(dashboard_news_path) ? 'active' : '' %>">
+    <%= link_to(t('.news', :default => "Neuigkeiten"), dashboard_news_path) %>
+  </li>
+  <% unless Venue.of_user(current_or_guest_user).empty? %>
+  <li class="<%= current_page?(dashboard_venues_path) ? 'active' : '' %>">
+    <%= link_to(t('.venues'), dashboard_venues_path() ) %>
+  </li>
+  <% end %>
+  <li class="pull-right <%= current_page?(dashboard_settings_edit_path) ? 'active' : '' %>">
+    <%= link_to(t('.settings', :default => "Einstellungen"), dashboard_settings_edit_path ) %>
+  </li>
 </ul>

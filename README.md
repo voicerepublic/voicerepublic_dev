@@ -42,18 +42,24 @@ To run specs Faye and a Sphinx daemon have to run.
 TODO
 ----
 
-* fix authentication/authorization participation
+ * fix authentication/authorization participation
+ * rm app/models/klu_image.rb
+ * landing_page/index en/de -> localize
+ * clean up rake tasks in lib/tasks
+ * write a cleanup db migration
+ * cleanup assets
+ * use request log analyzer
+ * log which views/partials are actually used
+ * https://github.com/ryanb/cancan#4-lock-it-down 
 
-* rm app/models/rating.rb
-* rm app/models/klu_image.rb
-* Venue.update_all('user_id = 1', :user_id => nil)
-* landing_page/index en/de -> localize
-* Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
+FIXES (maybe outdated)
+----------------------
 
+ * Venue.update_all('user_id = 1', :user_id => nil)
+ * Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
 
-
-
-## Documentation
+Documentation
+-------------
 
 For general platform and development documentation please refer to the
 [GitHub wiki pages](https://github.com/munen/kluuu/wiki).
@@ -61,7 +67,7 @@ For general platform and development documentation please refer to the
 ### Build diagrams
 
     railroady -M | dot -Tsvg > doc/models_complete.svg
-    railroady -b -M | dot -Tsvg > doc/models_brief.sv
+    railroady -b -M | dot -Tsvg > doc/models_brief.svg
     railroady -C | dot -Tsvg > doc/controllers_complete.svg
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
 
@@ -70,7 +76,7 @@ For general platform and development documentation please refer to the
 
 ### Production
 
-* Site: [http://kluuu.com](http://kluuu.com)
+ * Site: [http://kluuu.com](http://kluuu.com)
 
 ### Staging
 

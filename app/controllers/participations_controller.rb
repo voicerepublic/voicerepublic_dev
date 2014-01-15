@@ -10,42 +10,8 @@ class ParticipationsController < ApplicationController
   # GET /participations
   # GET /participations.json
   def index
-    redirect_to venue_path(:id => params[:participation][:venue_id])#, :notice => 'hey.'
-
-    # @participations = Participation.all
-    # 
-    # respond_to do |format|
-    #   format.html # index.html.erb
-    #   format.json { render json: @participations }
-    # end
+    redirect_to venue_path(:id => params[:participation][:venue_id])
   end
-  
-  # # GET /participations/1
-  # # GET /participations/1.json
-  # def show
-  #   @participation = Participation.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.json { render json: @participation }
-  #   end
-  # end
-  # 
-  # # GET /participations/new
-  # # GET /participations/new.json
-  # def new
-  #   @participation = Participation.new
-  # 
-  #   respond_to do |format|
-  #     format.html # new.html.erb
-  #     format.json { render json: @participation }
-  #   end
-  # end
-  # 
-  # # GET /participations/1/edit
-  # def edit
-  #   @participation = Participation.find(params[:id])
-  # end
 
   # POST /participations
   # POST /participations.json
@@ -62,7 +28,7 @@ class ParticipationsController < ApplicationController
           # make avatars appear on participant's view
           @venue = @participation.venue
 
-          #TODO get rid of JS eval
+          # TODO get rid of JS eval
           if @venue.live?
             markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_or_guest_user }
             markup = markup.gsub('"', "'").gsub("\n", '')
@@ -73,40 +39,21 @@ class ParticipationsController < ApplicationController
           # after join redirect to venue page
           redirect_to @venue
         end
-        #format.json { render json: @participation, status: :created, location: @participation }
       else
         format.html { redirect_to Venue.find(params[:participation][:venue_id]) }
-        #format.json { render json: @participation.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # # PUT /participations/1
-  # # PUT /participations/1.json
-  # def update
-  #   @participation = Participation.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     if @participation.update_attributes(params[:participation])
-  #       format.html { redirect_to @participation, notice: 'Participation was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render action: "edit" }
-  #       format.json { render json: @participation.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   # DELETE /participations/1
   # DELETE /participations/1.json
   def destroy
-    #@participation = Participation.find(params[:id])
     @participation = current_or_guest_user.participations.find_by_venue_id(params[:venue_id])
     @participation.destroy
 
     respond_to do |format|
       format.html { redirect_to @participation.venue }
-      #format.json { head :no_content }
     end
   end
+
 end

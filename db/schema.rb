@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131129191735) do
+ActiveRecord::Schema.define(:version => 20140114153146) do
 
   create_table "accounts", :force => true do |t|
     t.string   "timezone"
@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(:version => 20131129191735) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.boolean  "guest"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

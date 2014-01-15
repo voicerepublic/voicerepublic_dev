@@ -15,7 +15,6 @@ describe SearchController do
 
     before(:each) do
       DatabaseCleaner.start
-      %w(admin user).each { |x| Role.create(:name => x)}
     end
     
     after(:all) do
@@ -23,7 +22,6 @@ describe SearchController do
       ThinkingSphinx::Test.stop
       DatabaseCleaner.strategy = :transaction
       self.use_transactional_fixtures = true
-      %w(admin user).each { |x| Role.create(:name => x) }
     end
 
     describe "GET 'search?query=foo'" do
@@ -42,7 +40,7 @@ describe SearchController do
     end
 
     describe "GET 'match'" do
-      it "returns http success" do
+      pending "returns http success" do
         get 'match'
         response.should be_success
       end
