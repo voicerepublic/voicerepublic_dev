@@ -40,7 +40,7 @@ describe SearchController do
     end
 
     describe "GET 'match'" do
-      it "returns http success" do
+      pending "returns http success" do
         get 'match'
         response.should be_success
       end
