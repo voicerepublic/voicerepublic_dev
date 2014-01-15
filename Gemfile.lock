@@ -1,7 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    RedCloth (4.2.9)
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
       mail (~> 2.5.3)
@@ -170,11 +169,6 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    kblog (0.0.4)
-      RedCloth
-      rails (~> 3.2.0)
-      sass
-      will_paginate
     kgio (2.8.0)
     launchy (2.2.0)
       addressable (~> 2.3)
@@ -386,7 +380,6 @@ DEPENDENCIES
   haml-rails
   i18n_data
   jquery-rails
-  kblog (= 0.0.4)
   launchy
   less-rails (~> 2.2.3)
   money-rails
