@@ -1,6 +1,14 @@
 Welcome to Kluuu
 ================
 
+## Build status
+
+* Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
+)](https://circleci.com/gh/munen/KluuU/tree/integration)
+* Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
+)](https://circleci.com/gh/munen/KluuU/tree/master)
+
+
 Setup
 -----
 
@@ -67,13 +75,6 @@ For general platform and development documentation please refer to the
 ### Staging
 
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
-
-## Build status
-
-* Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/integration)
-* Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/master)
 
 ## Code Quality
 
