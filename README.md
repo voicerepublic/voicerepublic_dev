@@ -8,6 +8,10 @@ Welcome to Kluuu
 * Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
 )](https://circleci.com/gh/munen/KluuU/tree/master)
 
+## Code Quality
+
+* Develop: [![Code Climate](https://codeclimate.com/repos/52d695526956802e2600897b/badges/d72650afa4aea3392af9/gpa.png)](https://codeclimate.com/repos/52d695526956802e2600897b/feed)
+
 
 Setup
 -----
@@ -82,7 +86,3 @@ For general platform and development documentation please refer to the
 
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
 
-## Code Quality
-
-* Develop: [![Code Climate](https://codeclimate.com/repos/52508f2589af7e49eb005def/badges/41b20408f4ce36c7daed/gpa.png)](https://codeclimate.com/repos/52508f2589af7e49eb005def/feed)
-circleci.com/gh/munen/voicerepublic_devcodeclimate.com/repos/52508e7013d6371cde004e5f/badges/464d25e7b07281374bab/gpa.8ebbe8b002c7556614695f94dd6bd0e92ec532de)](https://codeclimate.com/repos/52508e7013d6371cde004e5f/feed)
