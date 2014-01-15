@@ -40,7 +40,6 @@ gem 'thinking-sphinx','2.0.13'         # indexed search
 #gem 'mysql2',          '0.3.13' # stupid dependency of thinking-sphinx
 gem "dynamic_form"            # form helper for errors
 gem 'whenever'   # create cron-jobs
-gem 'kblog', '0.0.4'          # blog-engine
 gem 'haml-rails'
 gem 'simple_form'
 gem "acts_as_paranoid", "~>0.4.0"

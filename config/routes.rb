@@ -2,8 +2,6 @@ Kluuu2::Application.routes.draw do
   
   post "fayeproxy" => "fayeproxy#publish"
 
-  mount Kblog::Engine => "/blog"
-
   scope "(/:locale)", :locale => /de|en/ do
     get "txt/agb"
     get "txt/tou"

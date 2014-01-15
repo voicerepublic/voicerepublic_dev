@@ -46,6 +46,8 @@ To run specs Faye and a Sphinx daemon have to run.
 TODO
 ----
 
+ * app/views/layouts/application loads stylesheets based on controller
+   this undermines the asset pipeline, get rid of it
  * fix authentication/authorization participation
  * clean up rake tasks in lib/tasks
  * write a cleanup db migration
