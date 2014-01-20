@@ -379,7 +379,7 @@ DEPENDENCIES
   disable_assets_logger
   dynamic_form
   eu_central_bank
-  factory_girl_rails
+  factory_girl_rails (~> 4.0)
   faker
   foreman
   friendly_id

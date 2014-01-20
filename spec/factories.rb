@@ -10,6 +10,7 @@ FactoryGirl.define do
   factory :event do
     start_time 1.week.ago
     duration   90
+    #association :venue
     venue
     title      "Spec event title"
   end

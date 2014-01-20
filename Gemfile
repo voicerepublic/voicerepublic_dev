@@ -52,7 +52,7 @@ gem "select2-rails"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', "~> 4.0"
   gem 'faker'
   gem 'rspec-rails'
   gem 'annotator'

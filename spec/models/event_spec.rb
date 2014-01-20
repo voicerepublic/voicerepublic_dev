@@ -7,6 +7,9 @@ describe Event do
   end
 
   it "is invalid without start_time" do
+    #debugger
+    # /home/phil/.rbenv/versions/1.9.3-p448/lib/ruby/gems/1.9.1/gems/factory_girl-4.3.0/lib/factory_girl/factory_runner.rb:23
+    # /home/phil/.rbenv/versions/1.9.3-p448/lib/ruby/gems/1.9.1/gems/factory_girl-4.3.0/lib/factory_girl/factory.rb:39
     FactoryGirl.build(:event, :start_time => nil).should_not be_valid
   end
   
