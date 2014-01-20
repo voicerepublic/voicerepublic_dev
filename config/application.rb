@@ -41,8 +41,5 @@ module Kluuu2
     end
 
     config.active_record.whitelist_attributes = true
-
-    # LESS wants this, although its deprecated in rails 4
-    config.assets.enabled = true
   end
 end

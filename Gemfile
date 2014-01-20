@@ -11,7 +11,7 @@ gem 'pg'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'less-rails'
+  gem 'less-rails', "2.3.2"
   gem 'sass-rails' #,   '~> 3.2.3'
   gem 'coffee-rails' #, '~> 3.2.1'
   gem 'therubyracer', :platforms => :ruby
@@ -20,7 +20,7 @@ end
 
 gem 'airbrake'
 gem 'rails_config'
-gem 'twitter-bootstrap-rails','2.1.4'
+gem 'twitter-bootstrap-rails'#,'2.1.4'
 gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'

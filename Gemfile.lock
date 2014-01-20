@@ -172,11 +172,11 @@ GEM
     kgio (2.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
-    less (2.2.2)
+    less (2.3.3)
       commonjs (~> 0.2.6)
-    less-rails (2.2.6)
+    less-rails (2.3.2)
       actionpack (>= 3.1)
-      less (~> 2.2.0)
+      less (~> 2.3.1)
     libv8 (3.16.14.3)
     listen (2.4.0)
       celluloid (>= 0.15.2)
@@ -335,11 +335,11 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.0)
       coffee-rails
-    twitter-bootstrap-rails (2.1.4)
+    twitter-bootstrap-rails (2.2.8)
       actionpack (>= 3.1)
-      less-rails (~> 2.2.3)
+      execjs
+      rails (>= 3.1)
       railties (>= 3.1)
-      therubyracer (>= 0.10.2)
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -392,7 +392,7 @@ DEPENDENCIES
   i18n_data
   jquery-rails
   launchy
-  less-rails
+  less-rails (= 2.3.2)
   money-rails
   omniauth-facebook
   omniauth-google-oauth2
@@ -415,7 +415,7 @@ DEPENDENCIES
   thin
   thinking-sphinx (= 2.0.13)
   turbolinks
-  twitter-bootstrap-rails (= 2.1.4)
+  twitter-bootstrap-rails
   uglifier
   unicorn
   whenever (= 0.8.4)
