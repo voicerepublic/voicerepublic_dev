@@ -1,12 +1,10 @@
 require 'capistrano-rbenv'
 require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
-require 'thinking_sphinx/deploy/capistrano'
 
 set :rbenv_ruby_version, "1.9.3-p448"
 set :rbenv_install_dependencies, false
 
-#require 'thinking_sphinx/deploy/capistrano'  # strange: tasks do exist although not required ?
 set :application, "kluuu2"
 set :repository,  "git@github.com:munen/voicerepublic_dev.git"
 set :scm, :git
@@ -44,7 +42,20 @@ namespace :deploy do
 end
 
 before 'deploy:update_code', 'thinking_sphinx:stop'
-after  'deploy:update_code', 'thinking_sphinx:start'
+after  'deploy:update_code', 'thinking_sphinx:configure_and_start'
+
+namespace :thinking_sphinx do
+
+  task :configure_and_start, :roles => [:app] do
+    run "cd #{release_path}; bundle exec rake RAILS_ENV=production thinking_sphinx:configure "
+    run "cd #{release_path}; bundle exec rake RAILS_ENV=production thinking_sphinx:start"
+  end
+
+  task :stop, :roles => [:app] do
+    run "cd #{current_path}; bundle exec rake RAILS_ENV=production thinking_sphinx:stop"
+  end
+
+end
 
 #after "deploy:setup", "dbconf:setup"
 #after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab', 'kluuu:link_paypal_certs' #, 'sphinx:start'
