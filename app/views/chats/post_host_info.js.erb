@@ -1,0 +1,7 @@
+<%# prepend = @venue.host_kluuu.user.name %>
+<% prepend = '' %>
+<% publish_to @venue.channel_host_info do %>
+	$(".host-info").fadeOut().html("<%= prepend << "" << @content %>").fadeIn("slow");
+	$(".host-text-field").val('');
+	// $(".collapse").collapse('hide');
+<% end %>

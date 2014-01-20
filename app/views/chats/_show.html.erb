@@ -1,0 +1,24 @@
+<div id="container-<%= chat.css_id_for_chat %>">
+	<div class="page-header">
+		<h2><%= t('.text_chat') %></h2>
+	</div>
+
+	<div class="thumbnail user-thumbnail">
+		<%= link_to user_path(:id => partner), :class => "user-thumbnail-link clearfix", :target => '_blank' do %>
+		<div class="user-image" data-user-id="<%= partner.id %>">
+			<%= image_tag(partner.account.portrait.url(:thumb)) %>
+		</div>
+		<div class="user-thumbnail-name">
+			<%= partner.name %>
+		</div>
+		<% end %>
+	</div>
+
+	<div class="well well-small scrollable-chat">
+		<ul class="chat-message unstyled" id="<%= chat.css_id_for_chat %>">
+			<%= render(:partial => 'chats/single_chat_message_from_message', :collection => conversation.messages.order("created_at DESC").limit(5), :as => :message)  %>
+			<!-- chat-messages to be here. renders chats/_single_chat_message.js.erb -->
+		</ul>
+	</div>
+	<%= render(:partial => 'form', :locals => { :chat => chat }) %>
+</div>

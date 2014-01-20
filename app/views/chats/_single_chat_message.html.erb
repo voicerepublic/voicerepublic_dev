@@ -1,0 +1,5 @@
+<li>
+	<span class="chat-speaker-name label label-info"><%= chat.sender.name %>:</span>
+	<time><%= l( Time.now, :format => :short ) %></time>
+	<%= simple_format(chat.body) %>
+</li>

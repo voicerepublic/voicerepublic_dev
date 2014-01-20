@@ -28,7 +28,7 @@ describe "Venues" do
     # FIXME
     it "will render the chat area with a specific field rendering host-info" do
       visit venue_path(:id => @venue)
-      @venue.start_time.should eq(@time)
+      @venue.start_time.to_i.should eq(@time.to_i)
       #page.should have_css('div.host-info')
     end
 

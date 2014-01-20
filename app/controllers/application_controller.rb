@@ -60,6 +60,15 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_or_guest_user)
   end
 
+  before_filter :update_sanitized_params, if: :devise_controller?
+
+  def update_sanitized_params
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:firstname, :lastname, :accept_terms_of_use,
+               :email, :password, :password_confirmation)
+    end
+  end
+
   private
   
   # called (once) when the user logs in, insert any code your application needs

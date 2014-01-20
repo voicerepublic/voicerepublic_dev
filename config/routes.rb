@@ -18,11 +18,18 @@ Kluuu2::Application.routes.draw do
     get "search", :controller => "search", :action => :search
     get "match", :controller => "search", :action => :match
     get "landing_page/index", :as => :landing_page
+    # TODO remove
     post "bookmark/:klu_id", :controller => "bookmarks", :action => "create", :as => "create_bookmark"
     post "messages/:receiver_id", :controller => 'messages', :action => 'create', :as => 'create_message'
     get 'messages/:receiver_id/new', :controller => 'messages', :action => 'new', :as => 'new_message'
     get "tags/:tag", :controller => 'search', :action => 'tagged_with', :as => 'tagged_with'
     get 'users/status_for' => 'users#status_for'
+    # TODO cleanup
+    post "chats/venue/:id", :controller => 'chats', :action => 'post_group_chat', :as => 'group_chat'
+    post "chats/venue/:id/info", :controller => 'chats', :action => 'post_host_info', :as => 'group_chat_info'
+    post "chats/:one/:two", :controller => 'chats', :action => 'create', :as => 'post_chat'
+    get "chats/:user_id/new", :controller => 'chats', :action => 'new', :as => 'new_chat'
+    delete "chats/:one/:two", :controller => 'chats', :action => 'destroy', :as => 'destroy_chat'
   end
 
   scope "(/:locale)", :locale => /de|en/ do

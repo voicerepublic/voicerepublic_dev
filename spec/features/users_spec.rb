@@ -25,6 +25,8 @@ feature "User can register" do
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
     page.click_button('Sign Up')
+    # FIXME
+    page.should_not have_css("#error_explanation")
     page.should have_css(".user-container")
     page.should have_css(".venue-new")
   end

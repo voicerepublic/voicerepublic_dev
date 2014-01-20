@@ -39,5 +39,7 @@ module Kluuu2
                         :request_specs => true )
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
+
+    config.active_record.whitelist_attributes = true
   end
 end

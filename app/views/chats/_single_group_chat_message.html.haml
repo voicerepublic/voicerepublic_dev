@@ -1,0 +1,7 @@
+%li.group-chat-item.clearfix
+  %span{:class => "venue-chat-user #{(@venue.user == user)?"venue-chat-host":""}"}
+    = user.name
+    \:
+  = content
+  .venue-chat-time
+    = l( Time.now, :format => :micro )
