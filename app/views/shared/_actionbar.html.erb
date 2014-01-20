@@ -54,7 +54,15 @@
             <% end %>
           </li>
 
+
+          <li>
+            <%= link_to(destroy_user_session_path, :method => :delete) do %>
+              <i class="icon-off"></i>
+                <%= t('.logout') %>
+            <% end %>
+          </li>
           <% end %>
+
         </ul>
       </div><!--/.nav-collapse -->
     </div>
