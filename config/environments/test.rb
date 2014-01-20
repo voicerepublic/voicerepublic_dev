@@ -36,8 +36,4 @@ Kluuu2::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-
-  # LESS wants this
-  config.assets.enabled = true
-
 end
