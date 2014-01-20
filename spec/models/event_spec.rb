@@ -7,16 +7,13 @@ describe Event do
   end
 
   it "is invalid without start_time" do
-    #debugger
-    # /home/phil/.rbenv/versions/1.9.3-p448/lib/ruby/gems/1.9.1/gems/factory_girl-4.3.0/lib/factory_girl/factory_runner.rb:23
-    # /home/phil/.rbenv/versions/1.9.3-p448/lib/ruby/gems/1.9.1/gems/factory_girl-4.3.0/lib/factory_girl/factory.rb:39
     FactoryGirl.build(:event, :start_time => nil).should_not be_valid
   end
-  
+
   it "is invalid without duration" do
     FactoryGirl.build(:event, :duration => nil).should_not be_valid
   end
-  
+
 
   it 'should scope not_past' do
     expected = [ FactoryGirl.create(:event, :start_time => 1.day.from_now),
@@ -24,7 +21,7 @@ describe Event do
     FactoryGirl.create(:event, :start_time => 1.day.ago, :end_at => 1.minute.ago)
     Event.not_past.pluck(:id).should == expected.map(&:id)
   end
-  
+
   it 'should know when to start' do
     event = FactoryGirl.create(:event, :start_time => 42.minutes.from_now)
     event.start_in_seconds.should be_within(1).of(42.minutes)
