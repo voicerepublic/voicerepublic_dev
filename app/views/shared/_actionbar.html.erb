@@ -54,18 +54,15 @@
             <% end %>
           </li>
 
-          <%- if current_user %>
-          <li class="actionbar-online-status dropdown">
-            <a href="#" class="dropdown-toggle actionbar-user-dropdown" data-toggle="dropdown" role="button">
-              <div id="user-availability" class="label label-<%= css_class_for_available(current_or_guest_user.available) %>">
-                <%= current_or_guest_user.available.capitalize %>
-              </div>
-              <b class="caret"></b>
-            </a>
-            <%= render(:partial => 'shared/user_dropdown_list') %>
+
+          <li>
+            <%= link_to(destroy_user_session_path, :method => :delete) do %>
+              <i class="icon-off"></i>
+                <%= t('.logout') %>
+            <% end %>
           </li>
-          <%- end %>
           <% end %>
+
         </ul>
       </div><!--/.nav-collapse -->
     </div>
