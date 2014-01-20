@@ -10,7 +10,7 @@
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 		<![endif]-->
-		<%= stylesheet_link_tag "application", :media => "all" %>
+		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": true %>
 		<%= stylesheet_link_tag controller.controller_name, :media => "all" %>
 
 		<link href="/images/favicon.ico" rel="shortcut icon">
@@ -37,7 +37,7 @@
 
 		<!-- Javascripts
 		================================================== -->
-		<%= javascript_include_tag "application" %>
+		<%= javascript_include_tag "application", "data-turbolinks-track": true %>
 		<%= yield :javascript %>
 		<!-- Placed at the end of the document so the pages load faster -->
 		<%= render(:partial => 'shared/google_analytics') %>
