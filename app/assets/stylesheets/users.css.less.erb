@@ -152,7 +152,7 @@ p.wichtig {
 
 				/* VENUE AS PARTICIPANT */
 				&.venue-part-color{
-					background: url(icons/venue-icon-part.png) no-repeat center 13px;
+					background: url(<%= asset_path 'icons/venue-icon-part.png' %>) no-repeat center 13px;
 					border-top: 1px solid #f9f9f9;
 					a{
 						color: @brandVenuePart;
@@ -164,7 +164,7 @@ p.wichtig {
 
 				/* VENUE AS HOST */
 				&.venue-host-color{
-					background: url(icons/venue-icon-host.png) no-repeat center 13px;
+					background: url(<%= asset_path 'icons/venue-icon-host.png' %>) no-repeat center 13px;
 					border-top: 1px solid #f9f9f9;
 					a{
 						color: @brandVenueHost;
@@ -176,7 +176,7 @@ p.wichtig {
 
 				/* EMPTY LIST */
 				&.empty{
-					background: url(icons/venue-icon-grey.png) no-repeat no-repeat center 13px !important;
+					background: url(<%= asset_path 'icons/venue-icon-grey.png' %>) no-repeat no-repeat center 13px !important;
 					border-top: 1px solid #f9f9f9;
 					a {
 						color: #bbb !important;
@@ -190,7 +190,7 @@ p.wichtig {
 				}
 
 				&.venue-new{
-					background: url(icons/venue-icon-new.png) no-repeat center 13px !important;
+					background: url(<%= asset_path 'icons/venue-icon-new.png' %>) no-repeat center 13px !important;
 					border-top: 1px solid white;
 					a{
 						color: @brandVenueHost;
