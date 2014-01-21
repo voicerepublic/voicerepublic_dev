@@ -11,38 +11,27 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 		<![endif]-->
 		<%= stylesheet_link_tag controller.controller_name, :media => "all" %>
-		<%= javascript_include_tag "private_pub" %>
 		<link href="/images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
-
 	</head>
-	<body class='<%= current_or_guest_user ? "" : "layout-logged-out" %>'>
-		<% if current_or_guest_user %>
-			<%= render(:partial => "shared/actionbar") %>
-			<%#= render(:partial => '/shared/check_flash') -%>
-		<% else %>
-			<%= render(:partial => "shared/navbar")%>
-		<% end %>
+	<body>
+		<%= render(:partial => "shared/actionbar") %>
 		<%= render(:partial => "shared/notice_or_error") %>
-
 		<div class="container user-container">				
 			<%= render(:partial => 'users/user_information', :locals => { :user =>  @user } ) %>
-			
 			<div class="user-content ">
 				<%= render(:partial => 'users/user_content_nav', :locals => { :user => @user } ) %>
-	
 				<section class="user-content-shown clearfix">
 					<%= yield %>
 				</section>
 			</div>
 		</div>
 		<%= render(:partial => "shared/footer") %>
-	
-		<!-- Javascripts
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<%= javascript_include_tag "application" %>
+    <div id="scripts">
+		  <%= javascript_include_tag "private_pub" %>
+		  <%= javascript_include_tag "application" %>
+    </div>
 	</body>
 </html>

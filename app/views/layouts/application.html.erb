@@ -12,34 +12,24 @@
 		<![endif]-->
 		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 		<%= stylesheet_link_tag controller.controller_name, media: "all", "data-turbolinks-track" => true %>
-
 		<link href="/images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
-    <%= airbrake_javascript_notifier %>
     <%= yield(:head) %>
 	</head>
-	<body class='<%= current_or_guest_user ? "" : "layout-logged-out" %>'>
-
-		<% if current_or_guest_user %>
-			<%= render(:partial => "shared/actionbar") %>
-			<%#= render(:partial => '/shared/check_flash') -%>
-		<% else %>
-			<%= render(:partial => "shared/navbar")%>
-		<% end %>
+	<body>
+		<%= render(:partial => "shared/actionbar") %>
 		<%= render(:partial => "shared/notice_or_error") %>
-
 		<div class="container">
 			<%= yield %>
 		</div>
 		<%= render(:partial => "shared/footer") %>
-
-		<!-- Javascripts
-		================================================== -->
-		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-		<%= yield :javascript %>
-		<!-- Placed at the end of the document so the pages load faster -->
-		<%= render(:partial => 'shared/google_analytics') %>
+    <div id='scripts'>
+      <%= airbrake_javascript_notifier %>
+		  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		  <%= yield :javascript %>
+		  <%= render(:partial => 'shared/google_analytics') %>
+    </div>
 	</body>
 </html>

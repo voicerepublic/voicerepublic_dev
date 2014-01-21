@@ -13,7 +13,6 @@
 		<%= stylesheet_link_tag "application", :media => "all" %>
 		<%= stylesheet_link_tag controller.controller_name, :media => "all" %>
 		<%= stylesheet_link_tag 'dashboard', :media => "all" %>
-		<%= javascript_include_tag "private_pub" %>
 		<link href="/images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
@@ -21,23 +20,15 @@
 	</head>
 	<body>
 		<!-- <div class="dashboard-tabs-fake-background visible-desktop"></div> -->
-		<% if current_or_guest_user %>
-			<%= render(:partial => "shared/actionbar") %>
-		<% else %>
-			<%= render(:partial => "shared/navbar")%>
-		<% end %>
+		<%= render(:partial => "shared/actionbar") %>
 		<%= render(:partial => "shared/notice_or_error") %>
-
 		<div class="container dashboard">
-			
 			<%= yield %>
-						
-		</div><!-- /container -->
+		</div>
 		<%= render(:partial => "shared/footer") %>
-
-		<!-- Javascripts
-		================================================== -->
-		<%= javascript_include_tag "application" %>
-		<!-- Placed at the end of the document so the pages load faster -->
+    <div id="scripts">
+		  <%= javascript_include_tag "private_pub" %>
+		  <%= javascript_include_tag "application" %>
+    </div>
 	</body>
 </html>
