@@ -61,9 +61,10 @@ module ApplicationHelper
 
   class << self
     def determine_release
-      tag = %x[ git describe --tags --abbrev=0 ].chomp || 'notag'
-      patchlevel = %x[ git log --oneline #{tag}.. | wc -l ].chomp
-      # date = %x[ git log -1 --format=%ai ].chomp
+      path = Rails.env.production? ? '../repo' : '.'
+      tag = %x[ (cd #{path} && git describe --tags --abbrev=0) ].chomp || 'notag'
+      patchlevel = %x[ (cd #{path} && git log --oneline #{tag}.. | wc -l) ].chomp
+      # date = %x[ (cd #{path} && git log -1 --format=%ai) ].chomp
       # "#{tag} p#{patchlevel} (#{date})"
       "#{tag} p#{patchlevel}"
     end
