@@ -8,7 +8,7 @@
 /log/*.log
 /log/*.pid
 /tmp
-/config/database.yml*
+/config/database.yml
 /config/development.sphinx.conf
 public/system/accounts
 public/system/venues
