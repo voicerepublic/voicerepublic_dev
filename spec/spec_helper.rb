@@ -10,25 +10,6 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
-# Don't need passwords in test DB to be secure, but we would like 'em to be
-# fast -- and the stretches mechanism is intended to make passwords
-# computationally expensive.
-module Devise
-  module Models
-    module DatabaseAuthenticatable
-      protected
-
-      def password_digest(password)
-        password
-      end
-    end
-  end
-end
-Devise.setup do |config|
-  config.stretches = 0
-end
-
-
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -89,12 +70,15 @@ RSpec.configure do |config|
     GC.enable
   end
 
-  every_nths = Hash.new(2).merge(Hash[*%w(
-
+  # How many specs can your machine ran before it runs out of RAM when GC is
+  # turned off?
+  hosts = %w(
     phorce-debian 20
     your-hostname 5
+  )
 
-  )])[%x[hostname].chomp].to_i
+  every_nths = Hash.new(2).merge(Hash[*hosts
+  ])[%x[hostname].chomp].to_i
 
   example_counter = 0
   # trigger GC after every_nths examples, defaults to 2
@@ -108,6 +92,28 @@ RSpec.configure do |config|
     end
     example_counter += 1
   end
+
+  # Don't need passwords in test DB to be secure, but we would like 'em to be
+  # fast -- and the stretches mechanism is intended to make passwords
+  # computationally expensive.
+  module Devise
+    module Models
+      module DatabaseAuthenticatable
+        protected
+
+        def password_digest(password)
+          password
+        end
+      end
+    end
+  end
+  # CircleCI does not want the strech to be set to 0, locally we want fastest
+  # possible specs, though.
+  Devise.setup do |config|
+    config.stretches = hosts.include?(`hostname`) ? 0 : 1
+  end
+
+
 
 
 end
