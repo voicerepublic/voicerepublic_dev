@@ -2,6 +2,7 @@
 
 class ChangeEventTitle < ActiveRecord::Migration
   def up
+    # TODO this is bad
     Event.where("events.title IS NULL OR events.title = ''").find_each do |event|
       event.update_column(:title, event.venue.title)
     end

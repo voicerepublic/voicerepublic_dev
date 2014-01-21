@@ -1,134 +1,71 @@
-require 'capistrano-rbenv'
-require 'bundler/capistrano'
-require 'capistrano/ext/multistage'
+# TODO setup thinking sphinx
+# TODO setup whenever
+# see https://semaphoreapp.com/blog/2013/11/26/capistrano-3-upgrade-guide.html
 
-set :rbenv_ruby_version, "1.9.3-p448"
-set :rbenv_install_dependencies, false
+# config valid only for Capistrano 3.1
+lock '3.1.0'
 
-set :application, "kluuu2"
-set :repository,  "git@github.com:munen/voicerepublic_dev.git"
-set :scm, :git
-set :keep_releases, 5
-set :user, "rails"
-set :use_sudo, false
-set :default_run_options, { :pty => true }
-set :ssh_options, { :forward_agent => true }
+set :rbenv_ruby, "1.9.3-p448"
 
-set :deploy_to, "/home/rails/app"
-set :rails_env, "production"
+set :application, 'kluuu2'
+set :repo_url, 'git@github.com:munen/voicerepublic_dev.git'
 
-# set :template_dir, "~/templates"
-# set :stages , %w{staging production}
-# set :default_stage, "staging"
-set :whenever_command, "bundle exec whenever"
-set :whenever_environment, "production"
-set :whenever_roles, [:app]
-#TODO update bundler on the servers for using: require 'whenever/capistrano'
-require "whenever/capistrano/recipes"
-after "deploy:finalize_update", "whenever:update_crontab"
-after "deploy:rollback", "whenever:update_crontab"
+set :ssh_options, { forward_agent: true }
 
-task :update_config_links, :roles => [:app] do
-  run "ln -sf #{shared_path}/config/* #{release_path}/config/"
-end
-after "deploy:update_code", :update_config_links
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-after "deploy", "deploy:cleanup"
+# Default deploy_to directory is /var/www/my_app
+set :deploy_to, '/home/rails/app'
+
+# Default value for :scm is :git
+# set :scm, :git
+
+# Default value for :format is :pretty
+# set :format, :pretty
+
+# Default value for :log_level is :debug
+set :log_level, :info
+
+# Default value for :pty is false
+# set :pty, true
+
+# Default value for :linked_files is []
+set :linked_files, %w{ config/database.yml }
+
+# Default value for linked_dirs is []
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache
+#                      tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{ log tmp/pids public/system }
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
+
+set :rails_env, 'production'
 
 namespace :deploy do
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "RAILS_ENV=#{rails_env} $HOME/bin/unicorn_wrapper restart"
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      # execute :touch, release_path.join('tmp/restart.txt')
+      execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
+    end
   end
+
+  after :publishing, :restart
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
+  end
+
 end
-
-before 'deploy:update_code', 'thinking_sphinx:stop'
-after  'deploy:update_code', 'thinking_sphinx:configure_and_start'
-
-namespace :thinking_sphinx do
-
-  task :configure_and_start, :roles => [:app] do
-    run "cd #{release_path}; bundle exec rake RAILS_ENV=production thinking_sphinx:configure "
-    run "cd #{release_path}; bundle exec rake RAILS_ENV=production thinking_sphinx:start"
-  end
-
-  task :stop, :roles => [:app] do
-    run "cd #{current_path}; bundle exec rake RAILS_ENV=production thinking_sphinx:stop"
-  end
-
-end
-
-#after "deploy:setup", "dbconf:setup"
-#after "deploy:finalize_update", "dbconf", 'sphinx:symlink_indexes', 'whenever:update_crontab', 'kluuu:link_paypal_certs' #, 'sphinx:start'
-#after "deploy:finalize_update", 'sphinx:symlink_indexes'
-
-# # If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#    task :start do ; end
-#    task :stop do ; end
-#    task :restart, :roles => :app, :except => { :no_release => true } do
-#      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#    end
-# end
-
-
-# namespace :dbconf do
-#
-#   task :default do
-#     on_app
-#     on_db
-#   end
-#
-#   desc "create a 'config' directory in shared_path for database.yml - to symlink it with everey deploy"
-#   task :setup do
-#     run "mkdir -p #{shared_path}/config"
-#     puts "you should place your database.yml into shared_path/config..."
-#   end
-#
-#   desc "symlink database yml to prod-host"
-#   task :on_app, :roles => :app do
-#     puts "linking database.yml from shared_path to current on app"
-#     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-#   end
-#
-#   desc "symlink database yml to db-host"
-#   task :on_db, :roles => :db do
-#     puts "linking database.yml from shared_path to current on db"
-#     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-#   end
-# end
-
-
-# namespace :kluuu do
-#
-# 	desc "link paypal-certs to production-host"
-# 	task :link_paypal_certs, :roles => :web do
-# 		puts "linking paypal-certs"
-# 		run "ln -nfs #{shared_path}/config/certs_production #{release_path}/config/certs_production"
-# 	end
-#
-#   desc "Prints the available releases on webserver"
-#   task :show_releases, :roles => :app do
-#     puts capture("cd #{releases_path}; ls;")
-#   end
-#
-#   desc "Prints available space on server"
-#   task :free_space, :roles => [:app, :db] do
-#     puts capture("df -h")
-#   end
-#
-#   namespace :faye do
-#     desc "start faye server with private_pub"
-#     task :start, :roles => :app do
-#       run "cd #{current_path}; RAILS_ENV=#{rails_env} bundle exec rackup -d private_pub.ru -s thin -E production -P tmp/pids/faye.pid -D "
-#     end
-#     desc "stop faye server"
-#     task :stop, :roles => :app do
-#       run "cd #{current_path}; kill -9 `cat tmp/pids/faye.pid`; rm tmp/pids/faye.pid"
-#     end
-#     desc "restart faye server"
-#     task :restart, :roles => :app do
-#       run "cd #{current_path}; kill -HUP `cat tmp/pids/faye.pid`"
-#     end
-#   end
-# end
-

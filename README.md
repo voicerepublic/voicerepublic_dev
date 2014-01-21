@@ -55,6 +55,7 @@ TODO
  * clean up rake tasks in lib/tasks
  * write a cleanup db migration
  * cleanup assets
+ * cleanup images !
  * use request log analyzer
  * log which views/partials are actually used
  * https://github.com/ryanb/cancan#4-lock-it-down 

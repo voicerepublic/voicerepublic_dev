@@ -27,14 +27,14 @@ body {
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
 // Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not
 //       have the proper paths. So for now we use the absolute path.
-@fontAwesomeEotPath: '/assets/fontawesome-webfont.eot';
-@fontAwesomeWoffPath: '/assets/fontawesome-webfont.woff';
-@fontAwesomeTtfPath: '/assets/fontawesome-webfont.ttf';
+@fontAwesomeEotPath: 'fontawesome-webfont.eot';
+@fontAwesomeWoffPath: 'fontawesome-webfont.woff';
+@fontAwesomeTtfPath: 'fontawesome-webfont.ttf';
 @fontAwesomeSvgzPath: 'fontawesome-webfont.svgz';
-@fontAwesomeSvgPath: '/assets/fontawesome-webfont.svg';
+@fontAwesomeSvgPath: 'fontawesome-webfont.svg';
 
 // Font Awesome
-@import "fontawesome";
+/* FIXME @import "fontawesome"; */
 
 
 // Your custom LESS stylesheets goes here
@@ -133,7 +133,7 @@ a.btn{
 // Sizes
 .well-large {
   padding: @verticalRhythm + 5;
-  /* FIXME .border-radius(6px); *?
+  /* FIXME .border-radius(6px); */
 }
 .well-small {
   padding: @verticalRhythm - 5;

@@ -7,16 +7,13 @@ gem 'protected_attributes' # support legacy 'attr_accessible'
 
 gem 'rails-i18n'
 gem 'pg'
+gem 'sqlite3'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'less-rails', "2.3.2"
-  gem 'sass-rails' #,   '~> 3.2.3'
-  gem 'coffee-rails' #, '~> 3.2.1'
-  gem 'therubyracer', :platforms => :ruby
-  gem 'uglifier'#, '>= 1.0.3'
-end
+gem 'less-rails', "2.3.2"
+gem 'sass-rails' #,   '~> 3.2.3'
+gem 'coffee-rails' #, '~> 3.2.1'
+gem 'therubyracer', :platforms => :ruby
+gem 'uglifier'#, '>= 1.0.3'
 
 gem 'airbrake'
 gem 'rails_config'
@@ -38,7 +35,6 @@ gem 'eu_central_bank'              # financial exchange rates
 gem 'cancan'                       # authorization/privileges
 gem 'private_pub'                  # push service
 gem 'thin'                         # faster development-server
-gem 'capistrano', '2.14.2'         # deployment
 gem 'thinking-sphinx','2.0.13'     # indexed search
 #gem 'mysql2', '0.3.13'            # stupid dependency of thinking-sphinx
 gem "dynamic_form"                 # form helper for errors
@@ -51,13 +47,18 @@ gem "select2-rails"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
-  gem 'sqlite3'
+  gem 'capistrano',         '~> 3.1.0'
+  gem 'capistrano-rbenv',   '~> 2.0.1'
+  gem 'capistrano-bundler', '~> 1.1.1'
+  gem 'capistrano-rails',   '~> 1.1.1'
+  # Capistrano 2
+  # gem 'capistrano', '2.14.2'
+  # gem 'capistrano-rbenv', '1.0.5'
   gem 'factory_girl_rails', "~> 4.0"
   gem 'faker'
   gem 'rspec-rails'
   gem 'annotator'
   gem 'foreman', :require => false
-  gem 'capistrano-rbenv', '1.0.5'
   # gem 'rails_view_annotator'
   gem 'zeus'
   gem 'pry-rails'

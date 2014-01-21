@@ -25,9 +25,6 @@ module Kluuu2
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :de
 
-    # still needed with rails4 ?
-    config.assets.paths << "#{Rails.root}/app/assets/fonts"
-
     # configure some test-suite thingies
     config.generators do |g|
       g.test_framework( :rspec,
@@ -40,8 +37,20 @@ module Kluuu2
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
+    # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
 
-    config.assets.initialize_on_precompile = false
+    # still needed with rails4 ?
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
+
+    config.assets.precompile += %w( *.js *.png *.jpg )
+    # TODO use assets the right way and we won't need these hacks, ask phil
+    config.assets.precompile += %w(
+      landing_page.css
+      venues.css
+      users.css
+      dashboard.css
+    )
   end
 end
+

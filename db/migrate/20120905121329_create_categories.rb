@@ -8,12 +8,12 @@ class CreateCategories < ActiveRecord::Migration
 
       t.timestamps
     end
-    Category.reset_column_information
-    Category.create_translation_table! :name => :string
+    #Category.reset_column_information
+    #Category.create_translation_table! :name => :string
   end
   
   def down
     drop_table :categories
-    Category.drop_translation_table!
+    #Category.drop_translation_table!
   end
 end
