@@ -7,7 +7,6 @@ gem 'protected_attributes' # support legacy 'attr_accessible'
 
 gem 'rails-i18n'
 gem 'pg'
-gem 'sqlite3'
 
 gem 'less-rails', "2.3.2"
 gem 'sass-rails' #,   '~> 3.2.3'
@@ -47,13 +46,11 @@ gem "select2-rails"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
+  gem 'sqlite3'
   gem 'capistrano',         '~> 3.1.0'
   gem 'capistrano-rbenv',   '~> 2.0.1'
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
-  # Capistrano 2
-  # gem 'capistrano', '2.14.2'
-  # gem 'capistrano-rbenv', '1.0.5'
   gem 'factory_girl_rails', "~> 4.0"
   gem 'faker'
   gem 'rspec-rails'

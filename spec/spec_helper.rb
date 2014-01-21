@@ -51,21 +51,57 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   # filter only the specs with :focus => true
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
-  
+
   config.include Devise::TestHelpers, :type => :controller
   #config.include Devise::TestHelpers, :type => :feature
   config.include ValidUserRequestHelper, :type => :feature
   #config.include ValidUserRequestHelper, :type => :controller
+
+  # Disable GC and Start Stats
+  # disable GC by default
+  config.before(:suite) do
+    GC.disable
+  end
+
+  ## Enable GC
+  config.after(:suite) do
+    example_counter = 0
+    GC.enable
+  end
+
+  # How many specs can your machine ran before it runs out of RAM when GC is
+  # turned off?
+  hosts = %w(
+    phorce-debian 20
+    your-hostname 5
+  )
+
+  every_nths = Hash.new(2).merge(Hash[*hosts
+  ])[%x[hostname].chomp].to_i
+
+  example_counter = 0
+  # trigger GC after every_nths examples, defaults to 2
+  # Simply add your host's name to the list above to change this.
+  config.after(:each) do
+    if example_counter % every_nths == 0
+      print 'G'
+      GC.enable
+      GC.start
+      GC.disable
+    end
+    example_counter += 1
+  end
+
 end
 
 module FactoryGirl
   class << self
     def build_attributes(*args)
-      FactoryGirl.build(*args).attributes.delete_if do |k, v| 
+      FactoryGirl.build(*args).attributes.delete_if do |k, v|
         ["id", "created_at", "updated_at"].member?(k)
       end
     end

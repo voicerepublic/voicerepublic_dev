@@ -35,7 +35,7 @@ Start the whole stack
 Rails, Faye (PrivatePub) & Sphinx.
 
     foreman start
-    
+
 
 Run Specs
 ---------
@@ -45,7 +45,7 @@ To run specs Faye and a Sphinx daemon have to run.
 
 TODO
 ----
- 
+
  * "noreply@kluuu.com" is a bad idea.
  * get rid of config/environments/staging.rb staging is not an environment
    (to have a different log level on staging put this info into settings)
@@ -58,13 +58,13 @@ TODO
  * cleanup images !
  * use request log analyzer
  * log which views/partials are actually used
- * https://github.com/ryanb/cancan#4-lock-it-down 
+ * https://github.com/ryanb/cancan#4-lock-it-down
  * cleanup routes
  * get rid of 'bookmarks' remeniscence
  * get rid of 'status_update' remeniscence
  * rename app from Kluuu2 to VoiceRepublic
  * get rid of locale specific views
- 
+
     % find ./ -name \*.en.html.erb
     ./app/views/inline_help/_dashboard_finances_charged.en.html.erb
     ./app/views/inline_help/_dashboard_finances_checkout.en.html.erb
@@ -83,7 +83,7 @@ TODO
     % find ./ -name \*.en.html.haml
     ./app/views/landing_page/index.en.html.haml
     ./app/views/venues/txt/_venue_desc.en.html.haml
- 
+
 
 FIXES (maybe outdated)
 ----------------------
@@ -96,7 +96,7 @@ Documentation
 -------------
 
 For general platform and development documentation please refer to the
-[GitHub wiki pages](https://github.com/munen/kluuu/wiki).
+[GitHub wiki pages](https://github.com/munen/voicerepublic_dev/wiki).
 
 
 ### Build diagrams
@@ -114,10 +114,10 @@ Config entries are compiled from:
     config/settings.yml
     config/settings/#{environment}.yml
     config/environments/#{environment}.yml
-    
+
     config/settings.local.yml
     config/settings/#{environment}.local.yml
-    config/environments/#{environment}.local.yml    
+    config/environments/#{environment}.local.yml
 
 Settings defined in files that are lower in the list override settings higher.
 
@@ -133,9 +133,3 @@ Platforms
 
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
 
-
-Code Quality
-------------
-
-* Develop: [![Code Climate](https://codeclimate.com/repos/52508f2589af7e49eb005def/badges/41b20408f4ce36c7daed/gpa.png)](https://codeclimate.com/repos/52508f2589af7e49eb005def/feed)
-circleci.com/gh/munen/voicerepublic_devcodeclimate.com/repos/52508e7013d6371cde004e5f/badges/464d25e7b07281374bab/gpa.8ebbe8b002c7556614695f94dd6bd0e92ec532de)](https://codeclimate.com/repos/52508e7013d6371cde004e5f/feed)
