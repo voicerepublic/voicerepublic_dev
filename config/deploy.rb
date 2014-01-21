@@ -31,7 +31,7 @@ set :deploy_to, '/home/rails/app'
 # set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache
@@ -68,12 +68,12 @@ namespace :deploy do
     end
   end
 
-  task :dummy_database_config do
-    on roles(:web) do
-      execute "cd #{release_path} && cp config/database.yml.sqlite3 config/database.yml"
-    end
-  end
+  # task :dummy_database_config do
+  #   on roles(:web) do
+  #     execute "cd #{release_path} && cp config/database.yml.sqlite3 config/database.yml"
+  #   end
+  # end
 
-  before 'deploy:compile_assets', 'deploy:dummy_database_config'
+  # before 'deploy:compile_assets', 'deploy:dummy_database_config'
 
 end
