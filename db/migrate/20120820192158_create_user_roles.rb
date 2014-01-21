@@ -3,7 +3,7 @@ class CreateUserRoles < ActiveRecord::Migration
     create_table :roles do |t|
       t.string :name
     end
-    Role.reset_column_information
+    #Role.reset_column_information
     
     create_table :user_roles do |t|
       t.integer :user_id
