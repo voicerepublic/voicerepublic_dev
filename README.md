@@ -61,7 +61,8 @@ TODO
  * cleanup routes
  * get rid of 'bookmarks' remeniscence
  * get rid of 'status_update' remeniscence
- * get rid of local specific views
+ * rename app from Kluuu2 to VoiceRepublic
+ * get rid of locale specific views
  
     % find ./ -name \*.en.html.erb
     ./app/views/inline_help/_dashboard_finances_charged.en.html.erb
