@@ -1,7 +1,6 @@
-if Settings.localeapp.enabled?
-  require 'localeapp/rails'
+require 'localeapp/rails'
 
-  Localeapp.configure do |config|
-    config.api_key = Settings.localeapp.api_key
-  end
+Localeapp.configure do |config|
+  config.api_key = '5EzAUJzfRXXHzt5xW5h6hyOIuJ4dy49d9Il3imi4JKZoXV8IlL'
 end
+
