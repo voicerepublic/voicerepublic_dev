@@ -77,6 +77,39 @@ RSpec.configure do |config|
   config.include ValidUserRequestHelper, :type => :feature
   #config.include ValidUserRequestHelper, :type => :controller
 
+  # Disable GC and Start Stats
+  # disable GC by default
+  config.before(:suite) do
+    GC.disable
+  end
+
+  ## Enable GC
+  config.after(:suite) do
+    example_counter = 0
+    GC.enable
+  end
+
+  every_nths = Hash.new(2).merge(Hash[*%w(
+
+    phorce-debian 20
+    your-hostname 5
+
+  )])[%x[hostname].chomp].to_i
+
+  example_counter = 0
+  # trigger GC after every_nths examples, defaults to 2
+  # Simply add your host's name to the list above to change this.
+  config.after(:each) do
+    if example_counter % every_nths == 0
+      print 'G'
+      GC.enable
+      GC.start
+      GC.disable
+    end
+    example_counter += 1
+  end
+
+
 end
 
 module FactoryGirl
