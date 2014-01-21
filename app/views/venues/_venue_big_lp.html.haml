@@ -5,7 +5,7 @@
 
   %header.venue-big-header{:class => participating}
     %h2.lp-claim
-      Unser Tipp!
+      = t('.our_recommendation', default: 'Check this out...')
     -#venue title
     / %h3.venue-big-title= link_to venue.title, venue_path(venue)
 
