@@ -70,9 +70,7 @@ namespace :deploy do
 
   task :dummy_database_config do
     on roles(:web) do
-      within release_path do
-        execute "cp config/database.yml.sqlite3 config/database.yml"
-      end
+      execute "cd #{release_path} && cp config/database.yml.sqlite3 config/database.yml"
     end
   end
 
