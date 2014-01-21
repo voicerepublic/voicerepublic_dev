@@ -59,6 +59,8 @@ TODO
  * log which views/partials are actually used
  * https://github.com/ryanb/cancan#4-lock-it-down 
  * cleanup routes
+ * get rid of 'bookmarks' remeniscence
+ * get rid of 'status_update' remeniscence
  * get rid of local specific views
  
     % find ./ -name \*.en.html.erb
