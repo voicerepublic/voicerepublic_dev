@@ -41,7 +41,5 @@ module Kluuu2
     end
 
     config.active_record.whitelist_attributes = true
-
-    config.assets.initialize_on_precompile = false
   end
 end
