@@ -10,6 +10,24 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
+# Don't need passwords in test DB to be secure, but we would like 'em to be
+# fast -- and the stretches mechanism is intended to make passwords
+# computationally expensive.
+module Devise
+  module Models
+    module DatabaseAuthenticatable
+      protected
+
+      def password_digest(password)
+        password
+      end
+    end
+  end
+end
+Devise.setup do |config|
+  config.stretches = 0
+end
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -49,21 +67,22 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   # filter only the specs with :focus => true
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
-  
+
   config.include Devise::TestHelpers, :type => :controller
   #config.include Devise::TestHelpers, :type => :feature
   config.include ValidUserRequestHelper, :type => :feature
   #config.include ValidUserRequestHelper, :type => :controller
+
 end
 
 module FactoryGirl
   class << self
     def build_attributes(*args)
-      FactoryGirl.build(*args).attributes.delete_if do |k, v| 
+      FactoryGirl.build(*args).attributes.delete_if do |k, v|
         ["id", "created_at", "updated_at"].member?(k)
       end
     end

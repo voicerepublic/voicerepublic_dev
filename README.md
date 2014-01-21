@@ -23,7 +23,7 @@ Start the whole stack
 Rails, Faye (PrivatePub) & Sphinx.
 
     foreman start
-    
+
 
 Run Specs
 ---------
@@ -42,7 +42,7 @@ TODO
  * cleanup assets
  * use request log analyzer
  * log which views/partials are actually used
- * https://github.com/ryanb/cancan#4-lock-it-down 
+ * https://github.com/ryanb/cancan#4-lock-it-down
 
 FIXES (maybe outdated)
 ----------------------
@@ -54,7 +54,7 @@ Documentation
 -------------
 
 For general platform and development documentation please refer to the
-[GitHub wiki pages](https://github.com/munen/kluuu/wiki).
+[GitHub wiki pages](https://github.com/munen/voicerepublic_dev/wiki).
 
 ### Build diagrams
 
