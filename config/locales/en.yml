@@ -9,7 +9,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    -
+    - 
     - Jan
     - Feb
     - Mar
@@ -35,7 +35,7 @@ en:
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    -
+    - 
     - January
     - February
     - March
@@ -95,7 +95,7 @@ en:
       month: Month
       second: Seconds
       year: Year
-  errors: &errors
+  errors:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: must be accepted
@@ -134,30 +134,21 @@ en:
     select:
       prompt: Please select
     submit:
-      create: 'Save'
-      submit: 'Save'
-      update: 'Save'
-
-      ### OLD ###
-      # create: Create %{model}
-      # submit: Save %{model}
-      # update: Update %{model}
-      ### OLD END ###
+      create: Save
+      submit: Save
+      update: Save
     links:
-      save: 'Save'
-      edit: 'Edit'
-      cancel: 'Cancel'
-      destroy: 'Delete'
-      confirm: 'Are you sure to delete?'
-
+      save: Save
+      edit: Edit
+      cancel: Cancel
+      destroy: Delete
+      confirm: Are you sure to delete?
     venue_actions:
-      participate_button: 'Participate'
-      unjoin_venue: 'Cancel participation'
-      confirm_unjoin_venue: 'Really want to unjoin this venue?'
-    
+      participate_button: Participate
+      unjoin_venue: Cancel participation
+      confirm_unjoin_venue: Really want to unjoin this venue?
     confirms:
-      are_you_sure: "Are you sure?"      
-
+      are_you_sure: Are you sure?
   number:
     currency:
       format:
@@ -218,725 +209,677 @@ en:
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
     pm: pm
-
-  call_now: "call now"
-  call_dispatched: "call dispatched"
-
+  call_now: call now
+  call_dispatched: call dispatched
   will_paginate:
-    next_label: ">>"
-    previous_label: "<<"
-  ###########  controllers ###############
+    next_label: ! '>>'
+    previous_label: <<
   users:
+    welcome:
+      welcome_user: Welcome to KluuU
+      no_klu_title: What interests you?
+      no_klu_text: Choose an interest, and KluuU turns it into a<br>'Question'. This gets matched to similar KluuUs so you can find some answers. Try it out! Fun guaranteed.
+    basic_form:
+      edit_your_email: Change email address
+      save_email: Save email address
+    nested_form:
+      delete_portrait: Delete image
+      add_a_portrait: Upload a profile photo
+      select: Upload
+      change: Upload
+      remove: Delete
+    no_status_updates:
+      no_status_updates_of_you: You have not posted a status.
+      what_you_say: What's on your mind?
+      new_opinion: New status
+      no_status_updates_here: This user has not posted a status.
+    password_form:
+      new_password: New password
+      rewrite_new_password: Password confirmation
+      update_password: Save password
+    status_updates:
+      opinion: Status
+      add_comment: comment
+      comment: comment
+      new_status_update: New status
+    user_content_nav:
+      venues_title: Venues
+      venues_participant: Participant
+      venues_host: Host
+      venue_new: Create Venue
     user_information:
-      time_at_location: "Time at %{user}s place"
+      unfollow: Unfollow
+      follow: Follow
+      send_message: Send message
+      chat: Chat
+      user_description: Description
+      time_at_location: Local time
+      languages: Languages
+      follower: Followers
+      opinion: Status
+      edit_account: Edit profil
+    edit:
+      edit_your_profile: Edit profil
+    kluuus:
+      klus: KluuUs
+      guest_empty_klu: ! '%{name} has no KluuU yet.'
+    venues:
+      venues: Venues
+      guest_empty_venue: ! '%{name} has no venues yet.'
+    show:
+      klus: KluuUs
+      guest_empty_venue: ! '%{name} has not yet participated a venue yet.'
   controller_accounts:
-    no_settings_made_yet: "Your Settings are not finished yet"
-    account_settings_created: "your Settings were created"
-    settings_updated: "settings changed"
-    portrait_destroyed: "image removed"
+    no_settings_made_yet: Your Settings are not finished yet
+    account_settings_created: your Settings were created
+    settings_updated: settings changed
+    portrait_destroyed: image removed
   controller_bookmarks:
-    bookmark_created: "bookmark set"
-    bookmark_destroyed: "bookmark removed"
+    bookmark_created: bookmark set
+    bookmark_destroyed: bookmark removed
   controller_comments:
-    comment_created: "comment created"
+    comment_created: comment created
   controller_conversations:
-    conversation_destroyed: "thread removed"
+    conversation_destroyed: thread removed
   controller_dashboard:
-    notification_destroyed: "message removed"
+    notification_destroyed: message removed
   controller_follows:
-    follow_created: "you are following this user now"
+    follow_created: you are following this user now
   controller_klus:
-    balance_account_not_created_yet: "you need to create your finance-account"
-
-
-  ###########  models ####################
-  # in notification-models generiert
-  you_missed_a_call_on_your_klu: "You missed a call to your KluuU."
+    balance_account_not_created_yet: you need to create your finance-account
+  you_missed_a_call_on_your_klu: You missed a call to your KluuU.
   model_kluuu:
-    no_account: "Please adjust your finance-settings."
-    charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
-    charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
-    charge_free_error: "Kepp amount at 0 when creating a free KluuU"
+    no_account: Please complete your financial Settings before continuing
+    charge_per_minute_error: Minimim 10 cents - Maximum 500 cents
+    charge_fixed_error: Minimum 100 cents - Maximum 5000 cents
+    charge_free_error: You should leave the amount at zero if this is a free kluuu
   model_notification_make_rate:
-    please_rate: "Please rate your Video-Chat - %{title} - with %{name}"
+    please_rate: Please rate your Video-Chat - %{title} - with %{name}
   model_notification_follower_action:
-    friend_took_action: "Activity by %{friend} on KluuU"
+    friend_took_action: Activity by %{friend} on KluuU
   model_notification_new_bookmark:
-    your_klu_got_bookmarked: "%{bookmarker} bookmarked your Venue '%{klu_title}'"
+    your_klu_got_bookmarked: ! '%{bookmarker} bookmarked your Venue ''%{klu_title}'''
   model_notification_new_comment:
-    you_got_a_new_comment_by: "%{commenter} commented on your Venue."
+    you_got_a_new_comment_by: ! '%{commenter} commented on your Venue.'
   model_notification_new_follower:
-    you_got_a_new_follower: "%{name} now follows you."
+    you_got_a_new_follower: ! '%{name} now follows you.'
   model_notification_new_kluuu:
-    friend_created_new_kluuu: "%{name} has created a new KluuU."
+    friend_created_new_kluuu: ! '%{name} has created a new KluuU.'
   model_notification_new_message:
-    new_message_from: "You have a message from %{name}."
+    new_message_from: You have a message from %{name}.
   model_notification_new_rating:
-    you_got_rated_by: "%{name} rated your KluuU."
+    you_got_rated_by: ! '%{name} rated your KluuU.'
   model_notification_new_status:
-    friend_created_new_status: "%{name} posted a new status."
+    friend_created_new_status: ! '%{name} posted a new status.'
   model_notification_new_venue_participant:
-    new_participant: "%{name} joined venue %{title}!"
+    new_participant: ! '%{name} joined venue %{title}!'
   model_notification_venue_info:
-    venue_starts_soon: "Venue %{title} takes place %{time}"
-    new_venue: "New venue %{title}"
+    venue_starts_soon: Venue %{title} takes place %{time}
+    new_venue: New venue %{title}
   model_notification_new_venue:
-    friend_created_new_venue: "Your friend created a new venue: %{name}"
+    friend_created_new_venue: ! 'Your friend created a new venue: %{name}'
   video_system:
     rooms:
-      default_welcome_msg: "Welcome to the KluuU Video Chat"
-  model_kluuu:
-    no_account: "Please complete your financial Settings before continuing"
-    charge_per_minute_error: "Minimim 10 cents - Maximum 500 cents"
-    charge_fixed_error: "Minimum 100 cents - Maximum 5000 cents"
-    charge_free_error: "You should leave the amount at zero if this is a free kluuu"
+      default_welcome_msg: Welcome to the KluuU Video Chat
   model_venue:
-    no_repeat: "does not repeat"
-    weekly: "weekly"
-    biweekly: "biweekly"
-    monthly: "monthly"
-
-  ###########  helpers  ##################
-
+    no_repeat: does not repeat
+    weekly: weekly
+    biweekly: biweekly
+    monthly: monthly
   helper:
     application:
-      kluuu_string: "KluuU"
-      no_kluuu_string: "Question"
-
-  ########### mailers ####################
-
+      kluuu_string: KluuU
+      no_kluuu_string: Question
   mailers:
-    your_friend_took_action: "Activities of your friends on KluuU"
-    activity_around_you: "Activities concerning your account on KluuU"
-
-  ###########  views #####################
+    your_friend_took_action: Activities of your friends on KluuU
+    activity_around_you: Activities concerning your account on KluuU
   accounts:
     form_preferences:
-      get_notifications_contacts_activities: "Get notifications about your friends activities."
-      emails_about_contact_activities: "if there are news about my friends e.g.: new status."
-      emails_about_me: "if there are news concerning me. E.g. when someone tried to call me while I was offline."
-      dont_show_initial_help: "Don't show help text."
-      save_preferences: "Save settings"
-      on_site_help: "Help text on / off"
-      call_settings: "Call settings"
-      allow_anonymous_calls: "Allow video calls from anonymous caller."
+      get_notifications_contacts_activities: Get notifications about your friends activities.
+      emails_about_contact_activities: ! 'if there are news about my friends e.g.: new status.'
+      emails_about_me: if there are news concerning me. E.g. when someone tried to call me while I was offline.
+      dont_show_initial_help: Don't show help text.
+      save_preferences: Save settings
+      on_site_help: Help text on / off
+      call_settings: Call settings
+      allow_anonymous_calls: Allow video calls from anonymous caller.
     form:
-      delete_portrait: "Delete profilephoto"
+      delete_portrait: Delete profilephoto
     edit:
-      edit_profile: "Edit profile"
+      edit_profile: Edit profile
   balance:
     accounts:
       new:
-        desired_currency: "Choose your currency."
-        initialize_your_account: "Please activate your financial account."
-        configure_your_financial_account: "Configure your financial account."
+        desired_currency: Choose your currency.
+        initialize_your_account: Please activate your financial account.
+        configure_your_financial_account: Configure your financial account.
       show:
-        check_some_money_in: "Buy credit"
-        soon_more: "soon more..."
-        currency: "Currency"
-        prepaid: "Prepaid"
-        revenue: "Revenue"
+        check_some_money_in: Buy credit
+        soon_more: soon more...
+        currency: Currency
+        prepaid: Prepaid
+        revenue: Revenue
       check_in_orders:
         new:
-          check_in_money: "Buy credit"
+          check_in_money: Buy credit
         paypal:
-          check_in_prepaid_amount: "Buy credit"
-          cancel_check_in_order: "Cancel purchase"
+          check_in_prepaid_amount: Buy credit
+          cancel_check_in_order: Cancel purchase
   chats:
     form:
-      your_message: "message"
-      end_chat: "End chat"
-      submit: "Send"
+      your_message: message
+      end_chat: End chat
+      submit: Send
     group_form:
-      your_message: "Write here..."
-      submit: "Post"
-      join_this_venue_to_chat: "You need to join this venue to write here"
+      your_message: Write here...
+      submit: Post
+      join_this_venue_to_chat: You need to join this venue to write here
     show:
-      text_chat: "Chat"
+      text_chat: Chat
   comments:
     form:
-      your_comment: "News"
-      write_a_comment: "Write your comment here..."
-      save: "Post"
-    klu_form:
-      write_a_comment: "write a comment on this KluuU"
-      write_addition_1: "comment on this KluuU"
-      write_addition_2: "add content to this blog"
+      write_a_comment: write a comment
+      save_comment: Post
   conversations:
     index:
-      conversations: "Messages"
-      and_more_messages: "and %{count} more messages."
-      new_message: "New message"
+      conversations: Messages
+      and_more_messages: and %{count} more messages.
+      new_message: New message
     show:
-      conversations: "Messages"
-      your_messages_with: "Your conversation with"
-      back_to_all_conversations: "Compact view "
-      new_message: "Reply to sender"
-      delete_conversation: "Delete conversation"
-
+      conversations: Messages
+      your_messages_with: Your conversation with
+      back_to_all_conversations: ! 'Compact view '
+      new_message: Reply to sender
+      delete_conversation: Delete conversation
   dashboard:
     contacts_page:
-      contacts: "Contacts"
-      my_follower: "Followers"
-      followed_by_me: "Following"
+      contacts: Contacts
+      my_follower: Followers
+      followed_by_me: Following
     contacts:
-      friends: "Contacts"
-      no_contacts_available: "No current contacts"
+      friends: Contacts
+      no_contacts_available: No current contacts
     edit_password:
-      edit_password: "Change password"
+      edit_password: Change password
     edit_settings:
-      settings: "Settings"
-      email: "My email address"
-      new_password: "New password"
-      notifications_and_emails: "Notify me via email..."
+      settings: Settings
+      email: My email address
+      new_password: New password
+      notifications_and_emails: Notify me via email...
     matches:
-      matches: "Matches"
-      my_kluuus: "My KluuUs / My Questions"
-      matching_something: "Matches KluuU / Question "
-      view: "View"
-      we_could_not_find_matches_for_you: "Sorry, no matches yet. Tip: Ad more 'tags' to your KluuU / Question to get results."
-      all_venues: "Venues"
+      matches: Matches
+      my_kluuus: My KluuUs / My Questions
+      matching_something: ! 'Matches KluuU / Question '
+      view: View
+      we_could_not_find_matches_for_you: ! 'Sorry, no matches yet. Tip: Ad more ''tags'' to your KluuU / Question to get results.'
+      all_venues: Venues
     news:
-      news: "News"
+      news: News
     settings:
-      settings: "Settings"
-      configured_email: "Your current email adresse"
-      edit_password: "Change password"
-      get_email_if_actions_on_my_kluuus: "Email an mich sobald es mich betrifft"
-      get_news_on_actions_of_friends: "Ich möchte einen Hinweis in Neues über die Aktivitäten meiner Freunde"
-      get_email_if_actions_of_friends: "Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde"
-      hide_initial_help: "Die initialen Hilfe-Texte verstecken"
-      edit_preferences: "Einstellungen editieren"
+      settings: Settings
+      configured_email: Your current email adresse
+      edit_password: Change password
+      get_email_if_actions_on_my_kluuus: Email an mich sobald es mich betrifft
+      get_news_on_actions_of_friends: Ich möchte einen Hinweis in Neues über die Aktivitäten meiner Freunde
+      get_email_if_actions_of_friends: Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde
+      hide_initial_help: Die initialen Hilfe-Texte verstecken
+      edit_preferences: Einstellungen editieren
     venues:
-      my_venues: "My venues"
-
+      my_venues: My venues
   devise:
     passwords:
       edit:
-        welcome_text: "Welcome to the new KluuU!"
-        change_password: "Change password"
-        new_password: "New password"
-        confirm_new_password: "Confirm new password"
+        welcome_text: Welcome to the new KluuU!
+        change_password: Change password
+        new_password: New password
+        confirm_new_password: Confirm new password
       new:
-        reset_password: "Reset password"
-        your_email_address: "Your email address"
-
+        reset_password: Reset password
+        your_email_address: Your email address
   follows:
     follower:
-      follow_back: "Follow back"
+      follow_back: Follow back
     index:
-      and_friends: "and contacts"
-      his_follower: "Followers"
-      people_he_follows: "Following"
-
+      and_friends: and contacts
+      his_follower: Followers
+      people_he_follows: Following
   klu_images:
-    describe_your_picture_in_a_few_words: "Upload a photo"
-
+    describe_your_picture_in_a_few_words: Upload a photo
   klus:
     comment_section:
-      headline_1: "Comments"
-      headline_2: "Blog for: %{name}"
-
+      headline_1: Comments
+      headline_2: ! 'Blog for: %{name}'
     facebook_value_template:
-      talk_on_kluuu_about: "Talk with %{name} about '%{subject}'"
+      talk_on_kluuu_about: Talk with %{name} about '%{subject}'
     form_welcome_new_no_kluuu:
-      continue: "Continue"
+      continue: Continue
     form_kluuu:
-      title: "Title"
-      edit: "Edit"
-      description: "Description"
-      category: "Category"
-      tag_list: "Tag list"
-      call_options: "Video call options"
-      available_at_times: "Availabitlity"
-      charge_type: "Charge Type"
-      charge_cents: "Charge in cent"
+      title: Title
+      edit: Edit
+      description: Description
+      category: Category
+      tag_list: Tag list
+      call_options: Video call options
+      available_at_times: Availabitlity
+      charge_type: Charge Type
+      charge_cents: Charge in cent
     form_new_kluuu:
-      title: "Title"
-      enter_the_name_of_your_kluuu: "What's your theme?"
-      description: "Description"
-      describe_your_kluuu: "You can change the description anytime."
-      image: "Image"
-      add_image_to_your_kluuu: "Please upload a photo."
-      tag_list: "Tags, 3 or more - separate by comma: recipe, cooking, organic,"
-      category: "Category"
-      please_use_significant_tags: "Tags are key words. The more tags you use, the easier other will be able to find your KluuU."
-      available_at_times: "Times available."
-      at_what_time_are_you_available: "This information is optional."
-      charge_type: "Charge type"
-      charge_cents: "Charge in cent"
-      missing_balance_account_create_one_now: "for payed KluuUs - settup your financial preferences first!"
-      you_can_charge_for_your_kluuu: "You can offer your conversations for free, charge per minute or at a fixed price."
-      you_can_charge_by_minute_or_a_fixed_price: "Set a rate per minute between $ 10 Cents and $ 5 or a fixed price between $ 10 Cents and $ 50."
-      how_much_do_you_want_to_charge: "Note: The first 5 minutes of all conversation are free."
-      please_check_to_publish_your_kluuu: "Markieren, um dein Kluuu zu veröffentlichen"
-      later_you_can_unpublish_and_publish_any_time: "Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren."
-      uses_status: "Deine aktuelle Status-Message im Kluuu anzeigen"
-      you_can_show_status_or_about_in_kluuu: "Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen"
-      create_kluuu: "Create KluuU"
-      cancel: "Cancel"
+      title: Title
+      enter_the_name_of_your_kluuu: What's your theme?
+      description: Description
+      describe_your_kluuu: You can change the description anytime.
+      image: Image
+      add_image_to_your_kluuu: Please upload a photo.
+      tag_list: ! 'Tags, 3 or more - separate by comma: recipe, cooking, organic,'
+      category: Category
+      please_use_significant_tags: Tags are key words. The more tags you use, the easier other will be able to find your KluuU.
+      available_at_times: Times available.
+      at_what_time_are_you_available: This information is optional.
+      charge_type: Charge type
+      charge_cents: Charge in cent
+      missing_balance_account_create_one_now: for payed KluuUs - settup your financial preferences first!
+      you_can_charge_for_your_kluuu: You can offer your conversations for free, charge per minute or at a fixed price.
+      you_can_charge_by_minute_or_a_fixed_price: Set a rate per minute between $ 10 Cents and $ 5 or a fixed price between $ 10 Cents and $ 50.
+      how_much_do_you_want_to_charge: ! 'Note: The first 5 minutes of all conversation are free.'
+      please_check_to_publish_your_kluuu: Markieren, um dein Kluuu zu veröffentlichen
+      later_you_can_unpublish_and_publish_any_time: Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren.
+      uses_status: Deine aktuelle Status-Message im Kluuu anzeigen
+      you_can_show_status_or_about_in_kluuu: Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen
+      create_kluuu: Create KluuU
+      cancel: Cancel
     klu_image_fields:
-        image_browse: "Image"
-        image_desc_title: "Description"
+      image_browse: Image
+      image_desc_title: Description
     kluuu_venues:
-      this_kluuu_hosts_venues: "Join this KluuUs venue!"
+      this_kluuu_hosts_venues: Join this KluuUs venue!
     form_new_no_kluuu:
-      title: "Title"
-      category: "Category"
-      tag_list: "Tag list (separate by comma: recipe, cooking, organic)"
-      published: "Public"
-      save_no_kluuu: "Save Question"
-      cancel: "Cancel"
+      title: Title
+      category: Category
+      tag_list: ! 'Tag list (separate by comma: recipe, cooking, organic)'
+      published: Public
+      save_no_kluuu: Save Question
+      cancel: Cancel
     form_no_kluuu:
-      title: "Title"
-      category: "Category"
-      tag_list: "Tag list"
-      save: "Save Question"
-      cancel: "Cancel"
-      call_options: "Call options"
+      title: Title
+      category: Category
+      tag_list: Tag list
+      save: Save Question
+      cancel: Cancel
+      call_options: Call options
     kluuu_top_actions:
-      edit: "Edit"
-      destroy: "Delete"
-      add_image: "Add image"
-      add_bookmark: "Add Bookmark"
-      add_bookmark_title: "Add Bookmark"
-      delete_bookmark_title: "Delete Bookmark"
+      edit: Edit
+      destroy: Delete
+      add_image: Add image
+      add_bookmark: Add Bookmark
+      add_bookmark_title: Add Bookmark
+      delete_bookmark_title: Delete Bookmark
     kluuu_user:
-      send_message: "Send message"
-      unfollow: "Unfollow"
-      follow: "Follow"
-      more_klus_by_this_user: "More KluuUs by this person"
-      available_at_times: "Online:"
-      category: "Category"
-      tags: "Tags"
-      chat: "Chat"
+      send_message: Send message
+      unfollow: Unfollow
+      follow: Follow
+      more_klus_by_this_user: More KluuUs by this person
+      available_at_times: ! 'Online:'
+      category: Category
+      tags: Tags
+      chat: Chat
     kluuu:
-      feedbacks: "Reviews:"
-      this_kluuu_is_bookmarked: "Bookmarked by:"
-      people_who_wanna_know_more_about: "→ Matches for the KluuU:"
+      feedbacks: ! 'Reviews:'
+      this_kluuu_is_bookmarked: ! 'Bookmarked by:'
+      people_who_wanna_know_more_about: ! '→ Matches for the KluuU:'
     no_kluuu:
-      this_no_kluuu_is_bookmarked: "Bookmarked by:"
-      people_who_know_about: "→ Matches for the Question"
+      this_no_kluuu_is_bookmarked: ! 'Bookmarked by:'
+      people_who_know_about: → Matches for the Question
     medium_kluuu:
-      add_bookmark: "Add Bookmark"
-      add_bookmark_title: "Add Bookmark"
-      delete_bookmark_title: "Delete Bookmark"
+      add_bookmark: Add Bookmark
+      add_bookmark_title: Add Bookmark
+      delete_bookmark_title: Delete Bookmark
     tiny_klu_overlay:
-      leave_venue_popup: "This link opens a new tab!"
+      leave_venue_popup: This link opens a new tab!
     user_about:
-      user_description: "About me"
+      user_description: About me
     user_status:
-      opinion: "Status"
+      opinion: Status
     edit:
-      edit_klu: "Edit KluuU"
-      edit_noklu: "Edit Question"
+      edit_klu: Edit KluuU
+      edit_noklu: Edit Question
     index:
-      kluuus_of_user: "%{user_name}'s KluuUs"
-      new_no_kluuu: "Ask a new Question"
-      new_kluuu: "Create a new KluuU"
+      kluuus_of_user: ! '%{user_name}''s KluuUs'
+      new_no_kluuu: Ask a new Question
+      new_kluuu: Create a new KluuU
     new:
-      create_a_new_kluuu: "Create a new KluuU"
+      create_a_new_kluuu: Create a new KluuU
     user_no_kluuus:
-      no_klu_text: "Create a KluuU."
-      create_klu: "Create KluuU"
+      no_klu_text: Create a KluuU.
+      create_klu: Create KluuU
     user_with_kluuu:
-      with_klu_text: "See your KluuUs here."
-      create_klu: "Create KluuU"
-
+      with_klu_text: See your KluuUs here.
+      create_klu: Create KluuU
   landing_page:
-    news: "NEWS"
+    news: NEWS
     index:
-      headline: "Debate is so much better than denial."
-      is: "is..."
-      illu_1: "Your Blog..."
-      illu_2: "with Venue..."
-      illu_2_subtitle: "(Chatroom)"
-      illu_3: "and 1:1 Video"
-      enter_search_term: "Enter search term"
+      headline: Debate is so much better than denial.
+      is: is...
+      illu_1: Your Blog...
+      illu_2: with Venue...
+      illu_2_subtitle: (Chatroom)
+      illu_3: and 1:1 Video
+      enter_search_term: Enter search term
     lp_login:
-      email: "E-mail"
-      password: "Password"
-      login: "Log In"
-      remember: 'Remember me'
-      forgot_password: 'Forgot password?'
-      or: "or log in"
+      email: E-mail
+      password: Password
+      login: Log In
+      remember: Remember me
+      forgot_password: Forgot password?
+      or: or log in
     lp_signup:
-      new_to_kluuu: "<strong>New to KluuU?</strong> Sign Up!"
-      or: "or sign up"
-      firstname: "Firstname"
-      lastname: "Lastname"
-      email: "E-mail"
-      password: "Password"
-      register: "Sign Up to KluuU!"      
+      new_to_kluuu: <strong>New to KluuU?</strong> Sign Up!
+      or: or sign up
+      firstname: Firstname
+      lastname: Lastname
+      email: E-mail
+      password: Password
+      register: Sign Up to KluuU!
     lp_venues:
-      featured_venue: "KluuU recommends"
-      upcoming_venues: "UPCOMING VENUES"
-
+      featured_venue: KluuU recommends
+      upcoming_venues: UPCOMING VENUES
   messages:
     received_message:
-      reply: "Reply"
-      delete: "Delete"
+      reply: Reply
+      delete: Delete
     sent_message:
-      delete: "Delete"
-
+      delete: Delete
   notifications:
     call_rejected:
-      video_call_title: "Video call"
-      rejected_text: "Video call wasn't answered."
-      close: "Close"
+      video_call_title: Video call
+      rejected_text: Video call wasn't answered.
+      close: Close
     incoming_call:
-      video_call_title: "Video call"
-      accept_call: "Accept"
-      reject_call: "Reject"
+      video_call_title: Video call
+      accept_call: Accept
+      reject_call: Reject
     video_system_error:
-      video_down_text: "Sorry! The video system is temporarily out of order. We're working on it. Please try again later."
-      close: "Close"
+      video_down_text: Sorry! The video system is temporarily out of order. We're working on it. Please try again later.
+      close: Close
   notifies:
     my_content:
-      bookmarked_your: "bookmarked your KluuU"
-      commented_your_status: "commented on your status"
-      follows_you_now: "is following you"
-      unfollow: "Unfollow"
-      follow_back: "Follow"
-      rated_your: "Rated your KluuU"
-      wrote_you_a_message: "Send you a Message"
-      an_anonymous_person: "an anonymous call"
-      tried_to_call_your_klu: "attempted to reach KluuU"
-      tried_to_call_your_noklu: "attempted to reach Question"
-      joined_venue: "joined the venue %{title}"
+      bookmarked_your: bookmarked your KluuU
+      commented_your_status: commented on your status
+      follows_you_now: is following you
+      unfollow: Unfollow
+      follow_back: Follow
+      rated_your: Rated your KluuU
+      wrote_you_a_message: Send you a Message
+      an_anonymous_person: an anonymous call
+      tried_to_call_your_klu: attempted to reach KluuU
+      tried_to_call_your_noklu: attempted to reach Question
+      joined_venue: joined the venue %{title}
     new_content:
-      created_new_status_update: "changed their status"
-      created_new: "crated a new"
-      new_venue_create: "A new venue was set up"
-
+      created_new_status_update: changed their status
+      created_new: crated a new
+      new_venue_create: A new venue was set up
   search:
     tagged_with:
-      taggings_with: "KluuUs and questions tagged with %{tag}"
-      no_kluuus_tagged_with: "No results for tag %{tag} found."
-      no_kluuu: "Questions"
-      title_other_tags: "Trends"
+      taggings_with: KluuUs and questions tagged with %{tag}
+      no_kluuus_tagged_with: No results for tag %{tag} found.
+      no_kluuu: Questions
+      title_other_tags: Trends
     form:
-      search: "Search!"
+      search: Search!
     search:
-      searchresults: "Search result"
-      search_results: "Search result"
-      publish_search_as_kluuu: "Post this search term"
-      persist_search: "Tip:"
-      text: "Create a question and use our matching system!"
-      sign_up: "Sign up"
-      user: "User"
-      no_results_sentence: 'Oops, no results.'
-
-  shared:  
+      searchresults: Search result
+      search_results: Search result
+      publish_search_as_kluuu: Post this search term
+      persist_search: ! 'Tip:'
+      text: Create a question and use our matching system!
+      sign_up: Sign up
+      user: User
+      no_results_sentence: Oops, no results.
+  shared:
     actionbar:
-      notifications: "News"
-      messages: "Messages"
-      profile: "Profile"
-      see_other_venues: "More Talks"
-      search: "Search..."
+      notifications: News
+      messages: Messages
+      profile: Profile
+      see_other_venues: More Talks
+      search: Search...
     check_flash:
-      no_flash_version_notice: "Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call."
+      no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
-      legal: "Legal"
-      terms_of_use: "Terms Of Use"
-      terms_and_conditions: "Terms and Conditions"
+      legal: Legal
+      terms_of_use: Terms Of Use
+      terms_and_conditions: Terms and Conditions
     navbar:
-      more_talks: "More talks"
-      sign_up: "Sign Up"
-      sign_in: "Log In"
-      search: "Search..."
+      more_talks: More talks
+      sign_up: Sign Up
+      sign_in: Log In
+      search: Search...
     notice_or_error:
-      success: "Successful"
-      warning: "Warning"
-      error: "Error"
+      success: Successful
+      warning: Warning
+      error: Error
     user_dropdown_list:
-      logout: "Log Out"
+      logout: Log Out
     venues:
-      venues: "Venues"
+      venues: Venues
     profile_dropdown_list:
-      my_profile: "My profile"
-      create_venue: "Create venue"
-      contacts: "Contacts"
-      messages: "Messages"
-      settings: "Settings"      
-
+      my_profile: My profile
+      create_venue: Create venue
+      contacts: Contacts
+      messages: Messages
+      settings: Settings
   status_updates:
     status_update:
-      add_comment: "Comment "
-      comments: "Comments"
+      add_comment: ! 'Comment '
+      comments: Comments
     index:
-      all_status: "All status"
-      new_status_update: "New status"
-      guest_empty_status_update: "%{name} has no Status yet."
+      all_status: All status
+      new_status_update: New status
+      guest_empty_status_update: ! '%{name} has no Status yet.'
     show:
-      all_status: "All status"
+      all_status: All status
     new:
-      title: "New status"
+      title: New status
     form:
-      update_status: "Update"
+      update_status: Update
     no_status:
-      title: "Status"
-      no_status_text: "Post your first Status."
-      new_status: "New Status"
+      title: Status
+      no_status_text: Post your first Status.
+      new_status: New Status
     with_status:
-      title: "Status"
-      these_are_your_status_updates: "See your Status here."
-      new_status: "New Status"
-
+      title: Status
+      these_are_your_status_updates: See your Status here.
+      new_status: New Status
   bookmarks:
     index:
-      guest_empty_bookmark: "%{name} has no Bookmarks yet."
+      guest_empty_bookmark: ! '%{name} has no Bookmarks yet.'
     no_bookmarks:
-      title: "Bookmarks"
-      no_bookmarks_text: "See here your Bookmarks."
+      title: Bookmarks
+      no_bookmarks_text: See here your Bookmarks.
     with_bookmarks:
-      title: "Bookmarks"
-      with_bookmarks_text: "See here your Bookmarks."
-
-  users:
-    welcome:
-      welcome_user: "Welcome to KluuU"
-      no_klu_title: "What interests you?"
-      no_klu_text: "Choose an interest, and KluuU turns it into a<br>'Question'. This gets matched to similar KluuUs so you can find some answers. Try it out! Fun guaranteed."
-    basic_form:
-      edit_your_email: "Change email address"
-      save_email: "Save email address"
-    nested_form:
-      delete_portrait: "Delete image"
-      add_a_portrait: "Upload a profile photo"
-      select: "Upload"
-      change: "Upload"
-      remove: "Delete"
-    no_status_updates:
-      no_status_updates_of_you: "You have not posted a status."
-      what_you_say: "What's on your mind?"
-      new_opinion: "New status"
-      no_status_updates_here: "This user has not posted a status."
-    password_form:
-      new_password: "New password"
-      rewrite_new_password: "Password confirmation"
-      update_password: "Save password"
-    status_updates:
-      opinion: "Status"
-      add_comment: "comment"
-      comment: "comment"
-      new_status_update: "New status"
-    user_content_nav:
-      venues_title: "Venues"
-      venues_participant: "Participant"
-      venues_host: "Host"
-      venue_new: "Create Venue"
-    user_information:
-      unfollow: "Unfollow"
-      follow: "Follow"
-      send_message: "Send message"
-      chat: "Chat"
-      user_description: "Description"
-      time_at_location: "Local time"
-      languages: "Languages"
-      follower: "Followers"
-      opinion: "Status"
-      edit_account: "Edit profil"
-    edit:
-      edit_your_profile: "Edit profil"
-    kluuus:
-      klus: "KluuUs"
-      guest_empty_klu: "%{name} has no KluuU yet."
-    venues:
-      venues: "Venues"
-      guest_empty_venue: "%{name} has no venues yet."
-    show:
-      klus: "KluuUs"
-      guest_empty_venue: "%{name} has not yet participated a venue yet."
-
-
+      title: Bookmarks
+      with_bookmarks_text: See here your Bookmarks.
   venues:
-    date_changed: "New venue date"
+    date_changed: New venue date
     edit:
-      edit_venue: "Edit Venue"
-      venue_renew_title: "New talk"
-      confirm_change_date: "All participants will be notified of your changes"
-    venue_list: "Venues"
-    new_venue: "Create Venue"
+      edit_venue: Edit Venue
+      venue_renew_title: New talk
+      confirm_change_date: All participants will be notified of your changes
+    venue_list: Venues
+    new_venue: Create Venue
     facebook_value_template:
-      join_the_venue: "Join the venue: %{title}"
+      join_the_venue: ! 'Join the venue: %{title}'
     show:
-      by: "by"
-      venue: "Venue"
-      start_date: "Begin"
-      duration: "Duration"
-      past_venue: "Past Venue"
-      join_venue: "Participate now!"
-      unjoin_venue: "Cancel participation"
-      chat_will_be_available_short_before_start: "Group-chat will be available short before start"
-      group_chat: "Group-Chat"
-      only_attendies_can_see_group_chat: "Only participants can read the group-chat"
-      repeating: "Rhythm"
-      new_talk: "New talk"
+      by: by
+      venue: Venue
+      start_date: Begin
+      duration: Duration
+      past_venue: Past Venue
+      join_venue: Participate now!
+      unjoin_venue: Cancel participation
+      chat_will_be_available_short_before_start: Group-chat will be available short before start
+      group_chat: Group-Chat
+      only_attendies_can_see_group_chat: Only participants can read the group-chat
+      repeating: Rhythm
+      new_talk: New talk
     venue_show_header:
-      venue: "Venue"
-      minutes: "Minutes"
-      ongoing_venue: "Venue active"
-      time_until_takeoff: "%{time} until start"
-      venue_moderated_by: "Moderated by %{name}"
-      leave_venue_popup: "This link opens a new tab!"
+      venue: Venue
+      minutes: Minutes
+      ongoing_venue: Venue active
+      time_until_takeoff: ! '%{time} until start'
+      venue_moderated_by: Moderated by %{name}
+      leave_venue_popup: This link opens a new tab!
     venue_show_static:
-      by: "by"
+      by: by
     venue_show_static_live:
-      by: "by"
+      by: by
     venue_show_chat:
-      what_is_a_venue: "Tell me about venues"
-      see_other_venues: "All Venues"
+      what_is_a_venue: Tell me about venues
+      see_other_venues: All Venues
     venue_show_upcoming_event:
-      upcoming_event: "UPCOMING TALK"
+      upcoming_event: UPCOMING TALK
     venue_show_forum:
-      comments: "Comments"
-      articles: "DISCUSSION"
+      comments: Comments
+      articles: DISCUSSION
     venue_show_participants:
-      leave_venue_popup: "This link opens a new tab!"
-      participants: "PARTICIPANTS"
-      be_the_first_to_participate: "Be the first to participate!"
+      leave_venue_popup: This link opens a new tab!
+      participants: PARTICIPANTS
+      be_the_first_to_participate: Be the first to participate!
     venue_article:
-      reply: "Reply"
+      reply: Reply
     venue_show_talking_users:
-      host: "HOST"
-      participants: "GUESTS"  
+      host: HOST
+      participants: GUESTS
     venue_show_actions:
-      unjoin_venue: "Unjoin"
-      confirm_unjoin_venue: "Really want to unjoin this venue?"
+      unjoin_venue: Unjoin
+      confirm_unjoin_venue: Really want to unjoin this venue?
     venue_show_archive:
-      past_talks: "ARCHIVE"
-      delete_this_recording: "Delete this recording"
+      past_talks: ARCHIVE
+      delete_this_recording: Delete this recording
     venue_show_avatar:
-      leave_venue_popup: "This link opens a new tab!"
+      leave_venue_popup: This link opens a new tab!
     new:
-      create_new_venue: "Create a new Venue"
-      available_kluuu_prerequisite_for_creating_venue: "You need an existing KluuU to create a new Venue"
-      create_kluuu: "create a KluuU now"
+      create_new_venue: Create a new Venue
+      available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Venue
+      create_kluuu: create a KluuU now
     new_join:
-      participate_in_venue: "Participate at venue"
-      no_klus_available_to_join_venue: "You need to create a Question to participate - create one!"
-      click_on_your_klu_to_participate_in_venue: "Selected question will participate at the venue"
-      confirm_join: "Would you like to participate with '%{klu_name}' at the venue '%{title}'?"
-      so_easy: "Its easy"
-      back: "Back"
+      participate_in_venue: Participate at venue
+      no_klus_available_to_join_venue: You need to create a Question to participate - create one!
+      click_on_your_klu_to_participate_in_venue: Selected question will participate at the venue
+      confirm_join: Would you like to participate with '%{klu_name}' at the venue '%{title}'?
+      so_easy: Its easy
+      back: Back
     index:
-      venues: "Venues"
-      upcoming_venues: "UPCOMING VENUES"
-      past_venues: "PAST VENUES"
-      what_is_a_venue: "Tell me about venues"
-      show_only_upcoming_venues: "Upcoming venues"
-      show_all_venues: "All venues"
+      venues: Venues
+      upcoming_venues: UPCOMING VENUES
+      past_venues: PAST VENUES
+      what_is_a_venue: Tell me about venues
+      show_only_upcoming_venues: Upcoming venues
+      show_all_venues: All venues
     venue_compact:
-      go_venue_page: "Proceed to venue-page"
-      host: "Host"
+      go_venue_page: Proceed to venue-page
+      host: Host
     venue_comment:
-      delete_comment: "destroy"
+      delete_comment: destroy
     venue_big:
-      by: "by"
-      host: "Host"
-      venue_title: "Venue"
-      go_venue_page: "Proceed to venue-page"
-      join_venue: "Participate now!"
+      by: by
+      host: Host
+      venue_title: Venue
+      go_venue_page: Proceed to venue-page
+      join_venue: Participate now!
     end_talk_link:
-      end_this_talk: "Click here to end this talk."
-      talk_ended: "Der Talk wurde beendet."
-
+      end_this_talk: Click here to end this talk.
+      talk_ended: Der Talk wurde beendet.
     landing_page_venue:
-      discuss_in_virtual_cafe: "Discuss live in our virtual Café."
-      learn_more: "Learn more..."
-      venue_title: "Venues"
-      upcoming_venue: "Upcoming venue"
-      venue_list: "All venues"
-      venue_is_in_process: "in process"
-      news_title: "News"
-      venue_is_over: "past venue"
+      discuss_in_virtual_cafe: Discuss live in our virtual Café.
+      learn_more: Learn more...
+      venue_title: Venues
+      upcoming_venue: Upcoming venue
+      venue_list: All venues
+      venue_is_in_process: in process
+      news_title: News
+      venue_is_over: past venue
     form:
-      featured_from: "Featured from"
-      title: "Title of venue"
-      description: "Description of venue"
-      tag_list: "Tags"
-      start_time: "Select start time"
-      duration: "Duration of your talk in minutes"
-      datepick_placeholder: "select..."
-      timepick_placeholder: "select..."
-      datepick_help: "Example: 20/12/2013"
-      timepick_help: "Example: 18:15"
-      settings: "Settings"
-      record: "Record this talk"
-      your_talk: 'Your talk'
-      event_title: 'Talk title'
-      archive: 'Archive'
+      featured_from: Featured from
+      title: Title of venue
+      description: Description of venue
+      tag_list: Tags
+      start_time: Select start time
+      duration: Duration of your talk in minutes
+      datepick_placeholder: select...
+      timepick_placeholder: select...
+      datepick_help: ! 'Example: 20/12/2013'
+      timepick_help: ! 'Example: 18:15'
+      settings: Settings
+      record: Record this talk
+      your_talk: Your talk
+      event_title: Talk title
+      archive: Archive
     edit_start_time:
-      new_talk: "New talk"
+      new_talk: New talk
     change_time_form:
-      event_title: 'Talk title'
-      start_date: "Date"
-      start_time: "Time"
-      datepick_placeholder: "select..."
-      timepick_placeholder: "select..."
-      datepick_help: "Example: 20/12/2013"
-      timepick_help: "Example: 18:15"
-
+      event_title: Talk title
+      start_date: Date
+      start_time: Time
+      datepick_placeholder: select...
+      timepick_placeholder: select...
+      datepick_help: ! 'Example: 20/12/2013'
+      timepick_help: ! 'Example: 18:15'
     group_chat:
-      want_to_say: "I want to say something!"    
-      prepare_mic: 'Activate your microphone! (Accept flash-access below the "On Air"-icon)'          
-      venue_chat: "CHAT"
-      show_host_info_controlls: "toggle moderator-form"
-      host_field_title: "Infos about chat"
+      want_to_say: I want to say something!
+      prepare_mic: Activate your microphone! (Accept flash-access below the "On Air"-icon)
+      venue_chat: CHAT
+      show_host_info_controlls: toggle moderator-form
+      host_field_title: Infos about chat
     host_info_form:
-      your_host_message: "Write here your chat infos..."
-      submit: "Post"
+      your_host_message: Write here your chat infos...
+      submit: Post
     with_venues:
-      these_are_your_venues: "See your Venues here."
-      create_venue: "Create Venue"
+      these_are_your_venues: See your Venues here.
+      create_venue: Create Venue
     no_venues:
-      create_venue_for_your_kluuu: "Create your own chat room for your KluuU."
-      create_venue: "Create Venue"
-
+      create_venue_for_your_kluuu: Create your own chat room for your KluuU.
+      create_venue: Create Venue
   articles:
     venue_form:
-      write_an_article: "write an article"
-      save_article: "Post"
-  comments:
-    form:
-      write_a_comment: "write a comment"
-      save_comment: "Post"
-
+      write_an_article: write an article
+      save_article: Post
   video_sessions:
     anonymous_sign_up:
-      video_call_title: "Video call"
-      guest_to_charge_text: "Please sign in to call this KluuU."
-      close: "Close"
-      sign_up: "Sign up"
+      video_call_title: Video call
+      guest_to_charge_text: Please sign in to call this KluuU.
+      close: Close
+      sign_up: Sign up
     calling:
-      video_call_title: "Video Call"
-      in_process: "In progess..."
-      cancel_call: "Cancel"
+      video_call_title: Video Call
+      in_process: In progess...
+      cancel_call: Cancel
     new_form:
-      dispatching_call: "Connecting to..."
-      start_video_call: "Video Call"
+      dispatching_call: Connecting to...
+      start_video_call: Video Call
     new:
-      video_call_title: "Video Call"
-      not_logged_in_text: "Your are not signed in. Continue?"
-      log_in: "Sign in"
+      video_call_title: Video Call
+      not_logged_in_text: Your are not signed in. Continue?
+      log_in: Sign in
     no_account:
-      video_call_title: "Video Call"
-      not_enough_money_text: "You don't have sufficient credits. Do you like to buy credit now?"
-      close: "Close"
-      create_account: "Configure your financial account"
+      video_call_title: Video Call
+      not_enough_money_text: You don't have sufficient credits. Do you like to buy credit now?
+      close: Close
+      create_account: Configure your financial account
     no_funds:
-      video_call_title: "Video Call"
-      not_enough_money_text: "You don't have a sufficient credit. Do you like to buy credit now?"
-      close: "Close"
-      check_in_money: "Buy credit"
+      video_call_title: Video Call
+      not_enough_money_text: You don't have a sufficient credit. Do you like to buy credit now?
+      close: Close
+      check_in_money: Buy credit
     user_unavailable:
-      video_call_title: "Video Call"
-      unavailable_text: "The User is currently offline. Write a message."
-      close: "Close"
-      send_message: "Message"
+      video_call_title: Video Call
+      unavailable_text: The User is currently offline. Write a message.
+      close: Close
+      send_message: Message
     video_system_error:
-      video_down_text: "Sorry! The video system is temporarily out of order. We're working on it. Please try again later."
-      close: "Close"
-
-  hello: "Hello world"
+      video_down_text: Sorry! The video system is temporarily out of order. We're working on it. Please try again later.
+      close: Close
+  hello: Hello world
+  layouts:
+    application:
+      landing_title: KluuU - Discussions
+    users:
+      landing_title: KluuU - Discussions
