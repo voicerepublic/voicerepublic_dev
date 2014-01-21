@@ -53,7 +53,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      run "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
+      execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
     end
   end
 
@@ -67,5 +67,15 @@ namespace :deploy do
       # end
     end
   end
+
+  task :dummy_database_config do
+    on roles(:web) do
+      within release_path do
+        execute "cp config/database.yml.sqlite3 config/database.yml"
+      end
+    end
+  end
+
+  before 'deploy:compile_assets', 'deploy:dummy_database_config'
 
 end
