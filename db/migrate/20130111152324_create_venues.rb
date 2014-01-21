@@ -19,7 +19,7 @@ class CreateVenues < ActiveRecord::Migration
     
     add_index :venue_klus, :venue_id
     
-    Role.create!(:name => 'venue_host')
+    #Role.create!(:name => 'venue_host')
     
   end
   
