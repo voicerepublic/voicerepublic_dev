@@ -25,18 +25,18 @@ set :deploy_to, '/home/rails/app'
 # set :format, :pretty
 
 # Default value for :log_level is :debug
-# set :log_level, :debug
+set :log_level, :info
 
 # Default value for :pty is false
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{ config/database.yml }
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache
 #                      tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w{log tmp/pids public/system}
+set :linked_dirs, %w{ log tmp/pids public/system }
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -67,13 +67,5 @@ namespace :deploy do
       # end
     end
   end
-
-  # task :dummy_database_config do
-  #   on roles(:web) do
-  #     execute "cd #{release_path} && cp config/database.yml.sqlite3 config/database.yml"
-  #   end
-  # end
-
-  # before 'deploy:compile_assets', 'deploy:dummy_database_config'
 
 end

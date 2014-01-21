@@ -43,8 +43,8 @@ module Kluuu2
     # still needed with rails4 ?
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
+    config.assets.precompile += %w( *.js *.png *.jpg )
     # TODO use assets the right way and we won't need these hacks, ask phil
-    config.assets.precompile += %w( *.js )
     config.assets.precompile += %w(
       landing_page.css
       venues.css
