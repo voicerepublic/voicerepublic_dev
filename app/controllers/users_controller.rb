@@ -125,31 +125,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # called via JQuery.ajax call var checkUserOnline
-  # defined in application.js
-  #
-  def status_for
-    logger.debug("Users#status_for - params: #{params.inspect}")
-    if params[:ids] && params[:ids].length > 0
-      @users = User.online_status_for_ids( params[:ids].split(",").collect )
-    else
-      @users = []
-    end
-    respond_to do |format|
-      format.json { render json: @users  }
-    end
-  end
-
-  # NOT used anymore
-  def online_user
-    logger.debug("Users#online_user - #{params.inspect}")
-    d = params[:ids].split(",").collect
-    @users = User.potentially_available
-    respond_to do |format|
-      format.json {  render json: @users }
-    end
-  end
-  
   def welcome
     #@klu = current_or_guest_user.no_kluuus.build(:tag_list => "newcomer")
     @user = current_or_guest_user

@@ -43,45 +43,6 @@
   });
 })(jQuery);
 
-(function($){
-  var checkUserOnline = {
-    init: function() {
-      var url = "/users/status_for.json";
-
-      var setUserStatus = function(payload) {
-       // console.log(payload);
-        $.each(payload, function(i) {
-          var user = $('.user-image[data-user-id=' +  payload[i].id +']');
-          user.addClass(payload[i].available);
-          user.data('status', payload[i].available);
-        });
-      };
-
-      var usersOnSite = $('.user-image'); //JqueryCollection
-      var userIDs = [];
-      $.each(usersOnSite, function(i) {
-        userIDs[i] = $(this).data("user-id");
-      });
-      userIDs = userIDs.join(",");
-      // console.log(userIDs);
-      $.ajax({
-        url: url,
-        data: {"ids": userIDs},
-        success:  function(data) {
-          setUserStatus(data);
-        },
-        error: function() { // console.log("Connection Error");
-         }
-      });
-    }
-  };
-  $(function(){
-    checkUserOnline.init();
-  });
-})(jQuery);
-
-
-
 overlay = {
 
   dataStorage: {},
