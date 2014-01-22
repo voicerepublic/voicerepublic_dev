@@ -52,16 +52,18 @@ group :development, :test, :staging do
   gem 'capistrano-rbenv',   '~> 2.0.1'
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
-  gem 'factory_girl_rails', "~> 4.0"
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
   gem 'rspec-rails'
   gem 'annotator'
-  gem 'foreman', :require => false
+  gem 'foreman',                            require: false
   # gem 'rails_view_annotator'
   gem 'zeus'
   gem 'pry-rails'
   gem 'debugger'
   gem 'disable_assets_logger'
+  gem 'vcr',                '2.8.0',        require: false
+  gem 'webmock',            '~> 1.16.0',    require: false
 end
 
 group :test do
