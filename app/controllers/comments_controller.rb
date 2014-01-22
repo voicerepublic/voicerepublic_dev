@@ -1,11 +1,11 @@
 class CommentsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :set_article
 
   def create
-    article = Article.find(params[:article_id])
-    venue = article.venue
-    comment = article.comments.build(params[:comment])
+    venue = @article.venue
+    comment = @article.comments.build(params[:comment])
     comment.user = current_or_guest_user
 
     if comment.save
@@ -25,6 +25,10 @@ class CommentsController < ApplicationController
     users.each do |user|
       UserMailer.new_comment_notification(comment, user).deliver
     end
+  end
+
+  def set_article
+    @article = Article.find(params[:article_id])
   end
 
 end

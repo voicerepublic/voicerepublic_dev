@@ -2,27 +2,27 @@ require 'spec_helper'
 
 describe CommentsController do
   
-  before do
-    @user = FactoryGirl.create(:user)
-    @commenter = FactoryGirl.create(:user)
-    
-    #request.env['warden'].stub :authenticate! => @commenter
-    controller.stub :current_or_guest_user => @commenter 
+  describe 'with user logged in' do
   
-    #request.env["HTTP_REFERER"] = user_status_update_path(:user_id => @user, :id => @status_update )
-   
-  end
+    before do
+      @user = FactoryGirl.create(:user)
+      request.env['warden'].stub :authenticate! => @user
+      controller.stub :current_or_guest_user => @user 
+    end
 
-  def valid_attributes
-    article = FactoryGirl.create(:article)
-    FactoryGirl.attributes_for(:comment).merge(:user_id => @commenter.id,
-                                               :article_id => article.id)
-  end
+    describe 'POST create' do
+      describe 'with valid attributes' do
+        it 'creates a comment' do
+          @article = FactoryGirl.create(:article)
+          params = {
+            article_id: @article.id,
+            comment: FactoryGirl.attributes_for(:comment)
+          }
+          expect { post :create, params }.to change(Comment, :count).by(1)
+        end
+      end
+    end
 
-  def valid_session
-    {}
   end
-
-  pending 'no specs at all'
 
 end
