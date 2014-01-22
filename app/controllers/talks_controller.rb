@@ -1,4 +1,6 @@
 class TalksController < ApplicationController
+
+  before_action :set_venue
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
 
   # GET /talks
@@ -22,6 +24,7 @@ class TalksController < ApplicationController
   # POST /talks
   def create
     @talk = Talk.new(talk_params)
+    @talk.venue = @venue
 
     if @talk.save
       redirect_to @talk, notice: 'Talk was successfully created.'
@@ -46,13 +49,19 @@ class TalksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_talk
-      @talk = Talk.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def talk_params
-      params.require(:talk).permit(:title, :venue, :starts_at, :ends_at, :ended_at, :record, :recording)
-    end
+  def set_venue
+    @venue = Venue.find(params[:venue_id])
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_talk
+    @talk = Talk.find(params[:id])
+  end
+  
+  # Only allow a trusted parameter "white list" through.
+  def talk_params
+    params.require(:talk).permit(:title, :starts_at, :duration, :record)
+  end
+
 end

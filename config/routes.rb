@@ -1,7 +1,5 @@
 Kluuu2::Application.routes.draw do
   
-  resources :talks
-
   post "fayeproxy" => "fayeproxy#publish"
 
   scope "(/:locale)", :locale => /de|en/ do
@@ -36,6 +34,7 @@ Kluuu2::Application.routes.draw do
   scope "(/:locale)", :locale => /de|en/ do
     get 'venues/tags' => 'venues#tags'
     resources :venues do
+      resources :talks
       resources :participations, :only => [:index, :create, :destroy]
       # move out into a separate controller
       member do

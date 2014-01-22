@@ -3,7 +3,7 @@ class Talk < ActiveRecord::Base
 
   attr_accessor :duration
 
-  attr_accessible :title, :starts_at, :duration, :record
+  # attr_accessible :title, :starts_at, :duration, :record
 
   belongs_to :venue, :inverse_of => :talks
 

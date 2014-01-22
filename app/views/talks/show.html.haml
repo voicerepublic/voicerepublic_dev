@@ -22,6 +22,6 @@
   %b Recording:
   = @talk.recording
 
-= link_to 'Edit', edit_talk_path(@talk)
+= link_to 'Edit', edit_venue_talk_path(@venue, @talk)
 \|
-= link_to 'Back', talks_path
+= link_to 'Back', venue_talks_path(@venues)

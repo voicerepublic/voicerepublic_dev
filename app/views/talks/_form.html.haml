@@ -1,14 +1,11 @@
-= simple_form_for(@talk) do |f|
+= simple_form_for([@venue, @talk]) do |f|
   = f.error_notification
 
   .form-inputs
     = f.input :title
-    = f.input :venue
     = f.input :starts_at
-    = f.input :ends_at
-    = f.input :ended_at
+    = f.input :duration, collection: Settings.durations
     = f.input :record
-    = f.input :recording
 
   .form-actions
     = f.button :submit
