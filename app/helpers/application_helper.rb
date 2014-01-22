@@ -1,4 +1,14 @@
 module ApplicationHelper
+
+  def destroy_participation_link(venue)
+    link_to( I18n.t('helpers.venue_actions.unjoin_venue'),
+             venue_participation_path(:venue_id => @venue.id),
+             :method => :delete,
+             :data => {
+               :confirm => I18n.t('helpers.venue_actions.confirm_unjoin_venue')
+             },
+             :class => "btn btn-small" )
+  end
   
   # limit number of words beeing displayed.
   #

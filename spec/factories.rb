@@ -84,8 +84,8 @@ FactoryGirl.define do
   end
 
   factory :participation do
-    venue nil
-    user nil
+    venue
+    user
   end
 
 end

@@ -34,6 +34,7 @@ Kluuu2::Application.routes.draw do
   scope "(/:locale)", :locale => /de|en/ do
     get 'venues/tags' => 'venues#tags'
     resources :venues do
+      resources :participations, :only => [:index, :create, :destroy]
       # move out into a separate controller
       member do
         post 'end_event'
@@ -62,7 +63,6 @@ Kluuu2::Application.routes.draw do
              })
 
   scope "(/:locale)", :locale => /en|de/ do
-    resources :participations, :only => [:index, :create, :destroy]
     resources :users, :only => [:update, :show] do
       member do
         get 'welcome'
