@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @talk.title
+%p
+  %b Venue:
+  = @talk.venue
+%p
+  %b Starts at:
+  = @talk.starts_at
+%p
+  %b Ends at:
+  = @talk.ends_at
+%p
+  %b Ended at:
+  = @talk.ended_at
+%p
+  %b Record:
+  = @talk.record
+%p
+  %b Recording:
+  = @talk.recording
+
+= link_to 'Edit', edit_talk_path(@talk)
+\|
+= link_to 'Back', talks_path

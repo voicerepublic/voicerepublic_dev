@@ -1,0 +1,14 @@
+= simple_form_for(@talk) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :venue
+    = f.input :starts_at
+    = f.input :ends_at
+    = f.input :ended_at
+    = f.input :record
+    = f.input :recording
+
+  .form-actions
+    = f.button :submit

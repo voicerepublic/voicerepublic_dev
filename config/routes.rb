@@ -1,5 +1,7 @@
 Kluuu2::Application.routes.draw do
   
+  resources :talks
+
   post "fayeproxy" => "fayeproxy#publish"
 
   scope "(/:locale)", :locale => /de|en/ do

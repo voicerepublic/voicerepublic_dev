@@ -29,6 +29,7 @@ class Venue < ActiveRecord::Base
 
   has_many :articles, -> { order "created_at DESC" }, :dependent => :destroy
   has_many :events, :dependent => :destroy, :inverse_of => :venue
+  has_many :talks, :dependent => :destroy, :inverse_of => :venue
 
   has_many :participations, :dependent => :destroy
   has_many :users, :through => :participations
