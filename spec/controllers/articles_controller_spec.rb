@@ -1,26 +1,46 @@
 require 'spec_helper'
 
-describe ParticipationsController do
+describe ArticlesController do
+  
+  describe 'with user logged in' do
 
-  pending 'Write some specs here'
+    # login user
+    before  do
+      @user = FactoryGirl.create(:user)
+      request.env['warden'].stub :authenticate! => @user
+      controller.stub :current_or_guest_user => @user
+    end
+    
+    def valid_attributes
+      FactoryGirl.attributes_for(:article)
+    end
+    
+    describe 'POST create' do
+      describe 'with valid parameters' do
+        it 'creates a new Article' do
+          @venue = FactoryGirl.create(:venue)
+          # set referrer for 'redirect_to :back'
+          request.env["HTTP_REFERER"] = venue_path(@venue)
+          expect {
+            post :create, { venue_id: @venue.id, article: valid_attributes }
+          }.to change(Article, :count).by(1)
+        end
+      end
+      describe 'with invalid parameters' do
+        pending "re-renders the 'new' template" do
+          @venue = FactoryGirl.create(:venue)
+          # Trigger the behavior that occurs when invalid params are submitted
+          Article.any_instance.stub(:save).and_return(false)
+          post :create, { venue_id: @venue.id, article: {} }
+          response.should render_template("new")
+        end
+      end
+    end
 
-  # def valid_attributes
-  #   { :venue_id => FactoryGirl.create(:venue).id }
-  # end
-  # 
-  # # TODO log in user
-  # def valid_session
-  #   {} 
-  # end
-  # 
+  end
+
   # describe "POST create" do
   #   describe "with valid params" do
-  #     it "creates a new Participation" do
-  #       expect {
-  #         post :create, {:participation => valid_attributes}, valid_session
-  #       }.to change(Participation, :count).by(1)
-  #     end
-  # 
   #     it "assigns a newly created participation as @participation" do
   #       post :create, {:participation => valid_attributes}, valid_session
   #       assigns(:participation).should be_a(Participation)
@@ -39,13 +59,6 @@ describe ParticipationsController do
   #       Participation.any_instance.stub(:save).and_return(false)
   #       post :create, {:participation => {  }}, valid_session
   #       assigns(:participation).should be_a_new(Participation)
-  #     end
-  # 
-  #     it "re-renders the 'new' template" do
-  #       # Trigger the behavior that occurs when invalid params are submitted
-  #       Participation.any_instance.stub(:save).and_return(false)
-  #       post :create, {:participation => {  }}, valid_session
-  #       response.should render_template("new")
   #     end
   #   end
   # end

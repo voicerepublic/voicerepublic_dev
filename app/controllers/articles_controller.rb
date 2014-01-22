@@ -65,7 +65,7 @@ class ArticlesController < ApplicationController
         send_email(@article)
         format.html { redirect_to :back }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new" } # this is wrong
         format.json { render json: @article.errors, status: :unprocessable_entity }
       end
     end
