@@ -47,6 +47,7 @@ gem "select2-rails"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
+  gem 'annotator'
   gem 'sqlite3'
   gem 'capistrano',         '~> 3.1.0'
   gem 'capistrano-rbenv',   '~> 2.0.1'

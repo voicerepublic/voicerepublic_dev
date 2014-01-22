@@ -1,5 +1,22 @@
 require 'kluuu_code'
 
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * about [text] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * language_1 [string] - TODO: document me
+# * language_2 [string] - TODO: document me
+# * language_3 [string] - TODO: document me
+# * portrait_content_type [string] - Paperclip for portrait
+# * portrait_file_name [string] - Paperclip for portrait
+# * portrait_file_size [integer] - Paperclip for portrait
+# * portrait_updated_at [datetime] - Paperclip for portrait
+# * prefs [text] - TODO: document me
+# * timezone [string] - TODO: document me
+# * updated_at [datetime, not null] - last update time
+# * user_id [integer] - belongs to :user
+# * website [string] - TODO: document me
+
 class Account < ActiveRecord::Base
   include KluuuCode::Methods
 
