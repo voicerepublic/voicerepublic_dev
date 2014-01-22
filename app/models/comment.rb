@@ -2,9 +2,6 @@ class Comment < ActiveRecord::Base
 
   attr_accessible :content
   
-  # FIXME this is a security hack
-  attr_accessible :user_id, :article_id
-
   belongs_to :article
   belongs_to :user
 
@@ -12,8 +9,6 @@ class Comment < ActiveRecord::Base
 
   default_scope { order('created_at DESC') }
 
-  validates :user, presence: true
-  validates :article, presence: true
-  validates :content, presence: true
+  validates :user, :article, :content, presence: true
 
 end

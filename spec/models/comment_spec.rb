@@ -2,7 +2,34 @@ require 'spec_helper'
 
 describe Comment do
 
-  pending "add real specs" do
+  describe 'built' do
+    before do
+      @comment = FactoryGirl.build(:comment)
+    end
+    it 'has a valid factory' do
+      expect(@comment).to be_valid
+    end
+    it 'validates presence of user' do
+      @comment.user = nil
+      expect(@comment).to_not be_valid
+    end
+    it 'validates presence of article' do
+      @comment.article = nil
+      expect(@comment).to_not be_valid
+    end
+    it 'validates presence of content' do
+      @comment.content = nil
+      expect(@comment).to_not be_valid
+    end
+  end
+
+  describe 'created' do
+    before do
+      @comment = FactoryGirl.create(:comment)
+    end
+    it 'delegates to article_venue' do
+      expect(@comment.article_venue).to eq(@comment.article.venue)
+    end
   end
 
 end
