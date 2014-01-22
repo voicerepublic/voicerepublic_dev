@@ -3,13 +3,19 @@ class Talk < ActiveRecord::Base
 
   attr_accessor :duration
 
-  # attr_accessible :title, :starts_at, :duration, :record
+  attr_accessible :title, :starts_at, :duration, :record
 
   belongs_to :venue, :inverse_of => :talks
 
   validates :venue, :title, :starts_at, :ends_at, presence: true
 
   before_validation :set_ends_at
+
+  scope :upcoming, -> { where('starts_at > NOW()') }
+
+  def starts_in
+    starts_at - Time.now
+  end
 
   private
 

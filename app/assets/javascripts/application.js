@@ -223,4 +223,4 @@ function datetimePicker () {
     $('.datetimepicker').datetimepicker('show');
   });
 };
-$(function() { datetimePicker() })
+$(function() { datetimePicker(); });
