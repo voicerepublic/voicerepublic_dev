@@ -62,6 +62,8 @@ group :development, :test, :staging do
   gem 'pry-rails'
   gem 'debugger'
   gem 'disable_assets_logger'
+  gem 'vcr', require: false
+  gem 'webmock', require: false
 end
 
 group :test do
