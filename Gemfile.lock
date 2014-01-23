@@ -79,6 +79,8 @@ GEM
     columnize (0.3.6)
     commonjs (0.2.7)
     cookiejar (0.3.0)
+    crack (0.4.1)
+      safe_yaml (~> 0.9.0)
     daemons (1.1.9)
     database_cleaner (1.2.0)
     debugger (1.6.5)
@@ -295,6 +297,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    safe_yaml (0.9.7)
     sass (3.2.13)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -362,8 +365,12 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vcr (2.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    webmock (1.15.2)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
     websocket-driver (0.3.2)
     whenever (0.8.4)
       activesupport (>= 2.3.4)
@@ -436,6 +443,8 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier
   unicorn
+  vcr (= 2.8.0)
+  webmock (~> 1.15.0)
   whenever (= 0.8.4)
   will_paginate
   will_paginate-bootstrap
