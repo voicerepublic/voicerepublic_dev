@@ -19,11 +19,10 @@ class CommentsController < ApplicationController
 
   private
 
-  # TODO delay
   def send_email(comment)
     users = comment.article_venue.attendees - [current_or_guest_user]
     users.each do |user|
-      UserMailer.new_comment_notification(comment, user).deliver
+      UserMailer.delay(queue: 'mail').new_comment_notification(comment, user)
     end
   end
 

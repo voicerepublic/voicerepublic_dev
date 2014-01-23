@@ -8,6 +8,10 @@ gem 'localeapp'
 
 gem 'rails-i18n'
 gem 'pg'
+# https://github.com/collectiveidea/delayed_job
+gem "daemons"
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 gem 'less-rails', "2.3.2"
 gem 'sass-rails' #,   '~> 3.2.3'
