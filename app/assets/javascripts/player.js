@@ -6,7 +6,7 @@ $(function () {
       ready: function (event) {
         $(this).jPlayer("setMedia", {
           m4a: player.data('recording')
-        })
+        });
       },
   
       volume: 1,
@@ -16,6 +16,6 @@ $(function () {
       wmode: "window",
       smoothPlayBar: true,
       keyEnabled: true
-    })    
-  })
-})
+    });
+  });
+});
