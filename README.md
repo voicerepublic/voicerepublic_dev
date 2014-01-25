@@ -28,6 +28,13 @@ Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
     bundle exec rake thinking_sphinx:index
     bundle exec rake thinking_sphinx:start
 
+### nginx/rtmp server (Debian 7 & optional)
+
+Make sure `libpcre++-dev` is installed. Run `rake rtmp:build`. The
+config file is located here `config/rtmp.conf`. See
+`lib/tasks/rtmp.rake` for more details.
+
+
 
 Start the whole stack
 ---------------------
