@@ -28,7 +28,7 @@ class RtmpAuth < Struct.new(:app, :opts)
     # TODO only accept connections from our rtmp servers, to prevent brute forcing
     params = env['rack.request.form_hash']
 
-    return [ 302, {}, [] ] unless params['swfurl'] =~ '/Blackbox.swf'
+    return [ 302, {}, [] ] unless params['swfurl'] =~ /Blackbox.swf$/
 
     [ 200, {}, [] ] # access granted
   end
