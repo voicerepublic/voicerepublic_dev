@@ -12,6 +12,8 @@ module Kluuu2
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.autoload_paths += %W( #{config.root}/app/middlewares )
+
     config.i18n.enforce_available_locales = true
 
     # Set Time.zone default to the specified zone and make Active
@@ -37,11 +39,14 @@ module Kluuu2
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
+    # please find the middelware in lib/rack/rtmp_auth.rb
+    config.middleware.use 'RtmpAuth'
+
     # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
 
     # still needed with rails4 ?
-    config.assets.paths << "#{Rails.root}/app/assets/fonts"
+    config.assets.paths << "#{config.root}/app/assets/fonts"
 
     config.assets.precompile += %w( *.js *.png *.jpg )
     # TODO use assets the right way and we won't need these hacks, ask phil
