@@ -41,6 +41,7 @@ module Kluuu2
 
     # please find the middelware in lib/rack/rtmp_auth.rb
     config.middleware.use 'RtmpAuth'
+    config.middleware.use 'RtmpRecorded'
 
     # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
