@@ -27,7 +27,7 @@ namespace :rtmp do
     Dir.chdir(nginx_path) do
       %x[ ./configure --prefix='' --add-module=../#{rtmp_path} && make ]
     end
-    FileUtils.mkdir_p('./run')
+    FileUtils.mkdir_p('./run/recordings')
     FileUtils.ln_sf('../' + nginx_path + '/objs/nginx', 'run/rtmpd')
     puts 
     puts "Good news everyone. You're all set."
