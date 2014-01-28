@@ -20,4 +20,5 @@ devise:
       - 'Qa1tDkIJNp7jwGeSSF7mUG6R'
       - access_type: "offline"
         approval_prompt: ""
-
+rspec:
+  gc_cycle: 20

@@ -73,19 +73,14 @@ RSpec.configure do |config|
     GC.enable
   end
 
-  # How many specs can your machine ran before it runs out of RAM when GC is
-  # turned off?
-  hosts = %w(
-    phorce-debian 20
-    your-hostname 5
-  )
-
-  every_nths = Hash.new(2).merge(Hash[*hosts
-  ])[%x[hostname].chomp].to_i
-
+  # Trigger GC after every_nths examples, defaults to 20.
+  # Set an appropriate value via config/settings.local.yml
+  #
+  # (How many specs can your machine ran before it runs out of RAM
+  # when GC is turned off?)
+  #
+  every_nths = Settings.rspec.gc_cycle
   example_counter = 0
-  # trigger GC after every_nths examples, defaults to 2
-  # Simply add your host's name to the list above to change this.
   config.after(:each) do
     if example_counter % every_nths == 0
       print 'G'
