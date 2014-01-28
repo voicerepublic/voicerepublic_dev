@@ -90,7 +90,7 @@ class Venue < ActiveRecord::Base
       storySubscription: PrivatePub.subscription(channel: story_channel),
       backSubscription: PrivatePub.subscription(channel: back_channel),
       chatSubscription: PrivatePub.subscription(channel: channel_name),
-      streamer: (current_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
+      streamer: (current_event.record ? STREAMER_CONFIG['record'] : STREAMER_CONFIG['offrecord'])
     }
   end
 

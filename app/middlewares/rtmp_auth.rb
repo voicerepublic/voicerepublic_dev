@@ -22,8 +22,8 @@
 class RtmpAuth < Struct.new(:app, :opts)
   
   def call(env)
-    return app.call(env) unless env['PATH_INFO'] == '/rtmp/auth' and
-      env['REQUEST_METHOD'] == 'POST'
+    return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
+    return app.call(env) unless env['PATH_INFO'] == '/rtmp/auth'
 
     # TODO only accept connections from our rtmp servers, to prevent brute forcing
     params = env['rack.request.form_hash']

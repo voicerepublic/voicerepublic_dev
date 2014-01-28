@@ -1,6 +1,7 @@
 rtmp:
-  discussions: "rtmp://kluuu.com/discussions"
-  recordings: "rtmp://kluuu.com/recordings"
+  offrecord: "rtmp://kluuu.com/offrecord"
+  record: "rtmp://kluuu.com/record"
+  log_notifications: true
 errbit:
   api_key: '710bf38280e0f96f26a74682519794d5'
 localeapp:
