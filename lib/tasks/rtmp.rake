@@ -8,7 +8,7 @@
 namespace :rtmp do
 
   task :setup => :environment do
-    p path = Rails.root.join(settings.base_path)
+    path = Rails.root.join(settings.base_path)
     unless File.exist?(path)
       FileUtils.mkdir_p(path) 
       puts "created directory #{path}"
