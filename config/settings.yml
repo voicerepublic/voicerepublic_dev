@@ -1,7 +1,12 @@
 rtmp:
+  base_path: 'vendor/rtmp'
   offrecord: "rtmp://kluuu.com/offrecord"
-  record: "rtmp://kluuu.com/record"
+  record: "rtmp://kluuu.com/record" 
+  worker_processes: 1
+  send_notifications: true
   log_notifications: true
+  notify_base: 'http://0.0.0.0:3000/rtmp'
+  record_max_size: '100M'
 errbit:
   api_key: '710bf38280e0f96f26a74682519794d5'
 localeapp:
