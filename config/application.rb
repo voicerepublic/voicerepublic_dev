@@ -44,13 +44,6 @@ module Kluuu2
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     config.assets.precompile += %w( *.js *.png *.jpg )
-    # TODO use assets the right way and we won't need these hacks, ask phil
-    config.assets.precompile += %w(
-      landing_page.css
-      venues.css
-      users.css
-      dashboard.css
-    )
   end
 end
 

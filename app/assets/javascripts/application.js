@@ -20,7 +20,6 @@
 //= require bootstrap-datetimepicker.min.js
 //= require bootstrap-fileupload.js
 //= require bootstrap-maxlength.js
-//= require bootstrap.js.coffee
 //= require select2
 //= require swfobject.js
 //= require private_pub_nsa

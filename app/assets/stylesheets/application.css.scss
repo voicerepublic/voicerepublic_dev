@@ -25,15 +25,16 @@
  */
 $navbar-height: 50px;
 
+
 /* 3. imports of 3rd party stylsheets based on sass/scss
  * -----------------------------------------------------
  *
  * mostly those provided by 3rd party libraries */
-@import "bootstrap";
+@import "bootstrap-custom";
 
 
-/* 4. sass/scss variables
- * ----------------------
+/* 4. custom (non-bootstrap) sass/scss variables
+ * ---------------------------------------------
  */
 $baseFontSize:   14px;
 $baseLineHeight: 1.5;
@@ -42,7 +43,7 @@ $baseLineHeight: 1.5;
 /* 5. styles for components of layouts
  * ----------------------------------- 
  */
-@import "footer";
+@import "components/footer";
 
 
 /* 6. styles for specific controllers
@@ -53,4 +54,4 @@ $baseLineHeight: 1.5;
  *  - encapsulate all content in a class with the same name as the file
  *  - underscores must be replaced with hyphens
  */
-@import "landing_page";
+@import "controllers/landing_page";
