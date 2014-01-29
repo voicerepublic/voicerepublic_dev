@@ -1,0 +1,57 @@
+/*
+ * This is a manifest file that'll be compiled into application.css,
+ * which will include all the files listed below.
+ *
+ * Any CSS and SCSS file within this directory,
+ * lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced
+ * here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll
+ * appear at the top of the compiled file, but it's generally better
+ * to create a new file per style scope.
+ *
+ * 1. requires of 3rd party stylesheets based on css
+ * -------------------------------------------------
+ *
+ *= require_self
+ *= require select2
+ *
+ *
+ * 2. override bootstrap variables 
+ * -------------------------------
+ * The full list of bootstrap variables can be found here:
+ * http://getbootstrap.com/customize/#less-variables
+ */
+$navbar-height: 50px;
+
+
+/* 3. imports of 3rd party stylsheets based on sass/scss
+ * -----------------------------------------------------
+ *
+ * mostly those provided by 3rd party libraries */
+@import "bootstrap-custom";
+
+
+/* 4. custom (non-bootstrap) sass/scss variables
+ * ---------------------------------------------
+ */
+$baseFontSize:   14px;
+$baseLineHeight: 1.5;
+
+
+/* 5. styles for components of layouts
+ * ----------------------------------- 
+ */
+@import "components/footer";
+
+
+/* 6. styles for specific controllers
+ * ----------------------------------
+ * 
+ * every stylesheet must follow these rules
+ *
+ *  - encapsulate all content in a class with the same name as the file
+ *  - underscores must be replaced with hyphens
+ */
+@import "controllers/landing_page";
