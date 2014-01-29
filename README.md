@@ -129,6 +129,29 @@ Config entries are compiled from:
 Settings defined in files that are lower in the list override settings higher.
 
 
+### Merging Streams
+
+#### Legacy code (lib/tasks/recordings.rake)
+
+Merge all available recordings by event.
+
+    rake recordings:merge
+
+#### Strategy oriented code
+
+The first argument is the ID of the talk to merge, the second is the
+merge strategy to use, which is optional. The path to work in is set
+by `Settings.rtmp.recordings_path`
+
+    rake stream:merge[1]
+    rake stream:merge[1,highly_experimental]
+
+(Depending on you shell you might need to escape the square brackets.)
+
+Note: Starting the StreamMerger via rake is only for development and
+experiments. The StreamMerger will usually run via Delayed::Job.
+
+
 Platforms
 ---------
 

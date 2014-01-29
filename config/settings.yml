@@ -1,6 +1,8 @@
 rtmp:
   discussions: "rtmp://kluuu.com/discussions"
   recordings: "rtmp://kluuu.com/recordings"
+  recordings_path: 'vendor/rtmp/run/recordings'
+  archive_path: 'vendor/rtmp/run/archive'
 errbit:
   api_key: '710bf38280e0f96f26a74682519794d5'
 localeapp:

@@ -2,8 +2,10 @@ class Venue < ActiveRecord::Base
 
   LIVE_TOLERANCE          = 5.minutes
   STREAMER_CONFIG         = Settings.rtmp
-  RECORDINGS_PATH         = "#{Rails.root}/public/system/recordings"
-  RECORDINGS_ARCHIVE_PATH = "#{Rails.root}/public/system/recordings_raw_archive"
+  # RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
+  RECORDINGS_PATH         = Settings.rtmp.recordings_path
+  # RECORDINGS_ARCHIVE_PATH = "#{Rails.root}/public/system/recordings_raw_archive"
+  RECORDINGS_ARCHIVE_PATH = Settings.rtmp.archive_path
 
   acts_as_taggable
 
