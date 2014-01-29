@@ -23,6 +23,7 @@ db/sphinx
 db/*.sqlite3
 db/*.sqlite3.db
 log/*.log
+log/localeapp.yml
 tmp/**/*
 
 config/database.yml
