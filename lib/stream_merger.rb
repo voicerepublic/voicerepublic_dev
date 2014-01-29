@@ -26,7 +26,7 @@ class StreamMerger < Struct.new(:base)
     # write journals
     def fake_journal(path, name)
       # FIXME implicit assumption about filenames
-      flvs = Dir.glob("#{path}/t#{name}*.flv")
+      flvs = Dir.glob("#{path}/t#{name}*.flv").sort
       result = flvs.map do |flv|
         _, basename, timestamp = flv.match(/.*\/(.*?(\d+)\.flv)/).to_a
         ['record_done', basename, timestamp] * ' '
