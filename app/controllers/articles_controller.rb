@@ -114,11 +114,10 @@ class ArticlesController < ApplicationController
     @venue = Venue.find(params[:venue_id])
   end
 
-  # TODO delay
   def send_email(article)
     users = article.venue.attendees
     (users - [current_or_guest_user]).each do |user|
-      UserMailer.new_article_notification(article, user).deliver
+      UserMailer.delay(queue: 'mail').new_article_notification(article, user)
     end
   end
 

@@ -1,19 +1,13 @@
 /.bundle
 /vendor/bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3*
-
 # Ignore all logfiles and tempfiles.
-/log/*.log
 /log/*.pid
 /tmp
 /config/database.yml
 /config/development.sphinx.conf
-public/system/accounts
-public/system/venues
-public/system/profile_settings
 db/sphinx
+log/localeapp.yml
 
 .DS_Store
 /start
@@ -26,20 +20,17 @@ log/*.log
 tmp/**/*
 
 config/database.yml
-coverage/
-db/*.sqlite3
 db/*.sqlite3-journal
-log/*.log
 *.swp
 nbproject
-public/system/**/*
-private/**/*
+public/system/
+private/
 .DS_Store
 webrat*html
 mkmf.log
 public/javascripts/all.js
 public/stylesheets/all.css
-public/uploads/**/*
+public/uploads/
 .yardoc
 .idea
 .sass-cache
@@ -47,3 +38,6 @@ public/uploads/**/*
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
+
+/log/localeapp.yml
+/vendor/rtmp/

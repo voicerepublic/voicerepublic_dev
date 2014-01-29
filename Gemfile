@@ -8,6 +8,10 @@ gem 'localeapp'
 
 gem 'rails-i18n'
 gem 'pg'
+# https://github.com/collectiveidea/delayed_job
+gem "daemons"
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 gem 'less-rails', "2.3.2"
 gem 'sass-rails' #,   '~> 3.2.3'
@@ -53,16 +57,18 @@ group :development, :test, :staging do
   gem 'capistrano-rbenv',   '~> 2.0.1'
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
-  gem 'factory_girl_rails', "~> 4.0"
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
   gem 'rspec-rails'
   gem 'annotator'
-  gem 'foreman', :require => false
+  gem 'foreman',                            require: false
   # gem 'rails_view_annotator'
   gem 'zeus'
   gem 'pry-rails'
   gem 'debugger'
   gem 'disable_assets_logger'
+  gem 'vcr',                '2.8.0',        require: false
+  gem 'webmock',            '~> 1.15.0',    require: false
 end
 
 group :test do

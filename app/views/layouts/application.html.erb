@@ -28,8 +28,8 @@
     <div id='scripts'>
       <%= airbrake_javascript_notifier %>
 		  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-		  <%= yield :javascript %>
 		  <%= render(:partial => 'shared/google_analytics') %>
+		  <%= yield :javascript %>
     </div>
 	</body>
 </html>
