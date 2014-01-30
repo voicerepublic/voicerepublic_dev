@@ -25,7 +25,8 @@
     ends in
     = distance_of_time_in_words_to_now(@talk.ends_at)
     (#{@talk.ends_in} seconds)
-  %p TODO edit and delete button for host
+  %p= link_to t('.edit'), [:edit, @venue, @talk]
+  %p= link_to t('.delete'), [@venue, @talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?' ) }
   %p TODO progressbar
   %p TODO host and quests
 

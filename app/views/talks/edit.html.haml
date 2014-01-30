@@ -1,7 +1,3 @@
-%h1 Editing talk
-
-= render 'form'
-
-= link_to 'Show', @talk
-\|
-= link_to 'Back', talks_path
+.draft
+  = render 'form'
+  %p= link_to t('.cancel'), [@venue, @talk]
