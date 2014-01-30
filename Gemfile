@@ -13,6 +13,7 @@ gem "daemons"
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
+gem 'less-rails', "2.3.2"
 gem 'sass-rails' #,   '~> 3.2.3'
 gem 'coffee-rails' #, '~> 3.2.1'
 gem 'therubyracer', :platforms => :ruby

@@ -75,6 +75,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
+    commonjs (0.2.7)
     cookiejar (0.3.0)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
@@ -181,6 +182,11 @@ GEM
     kgio (2.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
+    less (2.3.3)
+      commonjs (~> 0.2.6)
+    less-rails (2.3.2)
+      actionpack (>= 3.1)
+      less (~> 2.3.1)
     libv8 (3.16.14.3)
     listen (2.4.0)
       celluloid (>= 0.15.2)
@@ -422,6 +428,7 @@ DEPENDENCIES
   i18n_data
   jquery-rails
   launchy
+  less-rails (= 2.3.2)
   localeapp
   money-rails
   omniauth-facebook
