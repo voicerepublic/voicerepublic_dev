@@ -35,8 +35,6 @@ GEM
       activerecord (>= 3.0)
     arel (4.0.1)
     atomic (1.1.14)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
     cancan (1.6.10)
@@ -77,7 +75,6 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
-    commonjs (0.2.7)
     cookiejar (0.3.0)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
@@ -104,6 +101,9 @@ GEM
     disable_assets_logger (1.0.0)
     docile (1.1.2)
     dotenv (0.9.0)
+    dragonfly (1.0.3)
+      multi_json (~> 1.0)
+      rack
     dynamic_form (1.1.4)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
@@ -181,11 +181,6 @@ GEM
     kgio (2.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
-    less (2.3.3)
-      commonjs (~> 0.2.6)
-    less-rails (2.3.2)
-      actionpack (>= 3.1)
-      less (~> 2.3.1)
     libv8 (3.16.14.3)
     listen (2.4.0)
       celluloid (>= 0.15.2)
@@ -257,6 +252,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.5.2)
+    rack-cache (1.2)
+      rack (>= 0.4)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -397,7 +394,6 @@ DEPENDENCIES
   acts-as-taggable-on (= 3.0.1)
   airbrake
   annotator
-  awesome_nested_set
   cancan
   capistrano (~> 3.1.0)
   capistrano-bundler (~> 1.1.1)
@@ -413,6 +409,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   disable_assets_logger
+  dragonfly (= 1.0.3)
   dynamic_form
   eu_central_bank
   factory_girl_rails (~> 4.0)
@@ -425,7 +422,6 @@ DEPENDENCIES
   i18n_data
   jquery-rails
   launchy
-  less-rails (= 2.3.2)
   localeapp
   money-rails
   omniauth-facebook
@@ -436,6 +432,7 @@ DEPENDENCIES
   private_pub
   protected_attributes
   pry-rails
+  rack-cache
   rails (= 4.0.2)
   rails-i18n
   rails_config

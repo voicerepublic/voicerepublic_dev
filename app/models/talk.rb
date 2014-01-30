@@ -16,7 +16,8 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
-  attr_accessible :title, :teaser, :starts_at, :duration, :description, :record
+  attr_accessible :title, :teaser, :starts_at, :duration,
+                  :description, :record, :image
 
   belongs_to :venue, :inverse_of => :talks
 
@@ -25,6 +26,8 @@ class Talk < ActiveRecord::Base
   before_validation :set_ends_at
 
   delegate :user, to: :venue
+
+  dragonfly_accessor :image
 
   scope :upcoming, -> { where('ends_at > NOW()') }
   scope :archived, -> { where('ends_at < NOW()') }

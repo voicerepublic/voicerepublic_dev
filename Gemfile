@@ -13,7 +13,6 @@ gem "daemons"
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
-gem 'less-rails', "2.3.2"
 gem 'sass-rails' #,   '~> 3.2.3'
 gem 'coffee-rails' #, '~> 3.2.1'
 gem 'therubyracer', :platforms => :ruby
@@ -31,7 +30,7 @@ gem 'will_paginate'                # pagination-extension to active-record
 gem 'will_paginate-bootstrap'      # integrate twitter-bootstrap with will_paginate
 gem 'i18n_data'                    # delivers languages as key-value hash
 gem 'paperclip'                    # used for images
-gem 'awesome_nested_set'           # used for categories
+gem 'dragonfly', '1.0.3'           # used for images
 gem 'globalize3'                   # internationalization
 gem 'acts-as-taggable-on', '3.0.1' # tag-system
 gem 'money-rails'                  # integrates some helper methods and AR-instance-functions...
@@ -79,4 +78,8 @@ group :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'simplecov'
+end
+
+group :production do
+  gem 'rack-cache', require: 'rack/cache'
 end

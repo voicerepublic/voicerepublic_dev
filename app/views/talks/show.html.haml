@@ -1,6 +1,7 @@
 %p#notice= notice
 
 .draft
+  = image_tag @talk.image.thumb('400x200#').url if @talk.image_stored?
   %h2 This is the common part.
   %p= @talk.user.name  
   %p= @talk.title
