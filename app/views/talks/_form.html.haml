@@ -5,8 +5,8 @@
     = f.input :title
     = f.input :teaser
 
+    %p TODO make this a datepicker:
     = f.input :starts_at, as: :string
-    %p make it a datepicker
     -#.control-group.string.required.talk_starts_at
     -#  %label.string.required.control-label(for="talk_starts_at")
     -#    %abbr(title="required") *
@@ -18,11 +18,12 @@
     -#    .help-block.help-datetimepicker Format: 02/07/1967 17:00
 
     = f.input :duration, collection: Settings.durations
-    %p file upload missing
-    %p guest selection missing
+    %p TODO file upload button
+    %p TODO guest selection
     = f.input :description
     = f.input :record
 
   .form-actions
     = f.button :submit
-    %p cancel missing (back to venue?)
+
+  = link_to t('.cancel'), @venue

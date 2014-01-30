@@ -13,8 +13,9 @@
       .span4
         = image_tag @venue.image.url(:medium), :class => "venue-description-image"
       .span8
+        -# FIXME summary is now teaser
         .venue-summary
-          = @venue.summary
+          = @venue.teaser
 
     = simple_format @venue.description
 

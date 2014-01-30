@@ -12,7 +12,30 @@
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
 .draft
-  = link_to 'Add a new talk', new_venue_talk_path(@venue)
+  %p= link_to t('.create_new_talk'), new_venue_talk_path(@venue)
+  %p= link_to t('.edit_venue'), [:edit, @venue]
+  %p= link_to t('.delete_venue'), @venue, method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }
+  %p= @venue.title
+  %p= @venue.teaser
+  %p TODO upload button for background image
+
+  %h2= t('.upcoming_talks')
+  %ul
+    - unless @next_talk.nil?
+      %li(style='background-color: yellowgreen;')
+        Next:
+        = link_to @next_talk.title, [@venue, @next_talk]
+    - for talk in @upcoming_talks
+      %li= link_to talk.title, [@venue, talk]
+
+  %h2= t('.description')
+  %p= @venue.description
+
+  %h2= t('.archived_talks')
+  %ul
+    - for talk in @archived_talks
+      %li= link_to talk.title, [@venue, talk]
+
 
 -# action buttons
 = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )

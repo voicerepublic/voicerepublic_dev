@@ -6,8 +6,8 @@ describe Venue do
     FactoryGirl.build(:venue, :title => nil).should_not be_valid
   end
 
-  it "is invalid without summary" do
-    FactoryGirl.build(:venue, :summary => nil).should_not be_valid
+  it "is invalid without teaser" do
+    FactoryGirl.build(:venue, :teaser => nil).should_not be_valid
   end
 
   it "is invalid without description" do

@@ -3,6 +3,7 @@ class VenuesController < ApplicationController
   before_filter :store_location
   #before_filter :remember_location, :only => [:join_venue]
   before_filter :authenticate_user!, :except => [:index, :show, :tags]
+  before_filter :set_venue, only: [:show, :edit, :update, :destroy]
   
   # GET /venues
   # GET /venues.json
@@ -20,7 +21,9 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
-    @venue = Venue.find(params[:id])
+    @upcoming_talks = @venue.talks.upcoming
+    @next_talk = @upcoming_talks.shift
+    @archived_talks = @venue.talks.archived
 
     respond_to do |format|
       format.html # show.html.erb
@@ -31,7 +34,6 @@ class VenuesController < ApplicationController
   # GET /venues/new
   # GET /venues/new.json
   def new
-
     @venue = Venue.new
     @venue.events.build
 
@@ -43,7 +45,6 @@ class VenuesController < ApplicationController
 
   # GET /venues/1/edit
   def edit
-    @venue = Venue.find(params[:id])
     if params[:renew]
       @renew = true
     end
@@ -80,7 +81,6 @@ class VenuesController < ApplicationController
   # PUT /venues/1
   # PUT /venues/1.json
   def update
-    @venue = Venue.find(params[:id])
     authorize! :update, @venue
     
     respond_to do |format|
@@ -166,8 +166,6 @@ class VenuesController < ApplicationController
   # DELETE /venues/1
   # DELETE /venues/1.json
   def destroy
-    @venue = Venue.find(params[:id])
-    
     authorize! :destroy, @venue
     
     @venue.destroy
@@ -187,9 +185,13 @@ class VenuesController < ApplicationController
   private
   
   def remember_location
-    logger.debug("Venues#remember_location - storing location: #{venue_url(:id => params[:venue_id])}")
+    logger.debug("Venues#remember_location - storing location: " +
+                 "#{venue_url(:id => params[:venue_id])}")
     session[:venue_path] = venue_url(:id => params[:venue_id])
   end
   
+  def set_venue
+    @venue = Venue.find(params[:id])
+  end
   
 end

@@ -17,7 +17,7 @@ FactoryGirl.define do
 
   factory :venue do
     tag_list    'some, tags'
-    summary     Faker::Lorem.paragraph
+    teaser      Faker::Lorem.paragraph
     description Faker::Lorem.paragraphs(2).join("\n")
     title       Faker::Lorem.sentence
     user

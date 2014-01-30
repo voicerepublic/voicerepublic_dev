@@ -29,8 +29,8 @@
           = t('.by') + ' '
           = venue.user.name  
       
-      -#venue summery        
-      = simple_format( truncate(venue.summary, :length => 200), :class => "venue-big-description")    
+      -#venue teaser
+      = simple_format( truncate(venue.teaser, :length => 200), :class => "venue-big-description")    
     .span3.venue-big-right
       -#venue image
       = link_to venue_path(venue) do

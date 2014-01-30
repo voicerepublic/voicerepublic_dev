@@ -40,8 +40,8 @@ describe Talk do
       expected << FactoryGirl.create(:talk, starts_at: 1.day.from_now)
       expected << FactoryGirl.create(:talk, starts_at: 1.hour.from_now)
       expected << FactoryGirl.create(:talk, starts_at: 1.minute.from_now)
+      expected << FactoryGirl.create(:talk, starts_at: 1.minute.ago)
       unexpected << FactoryGirl.create(:talk, starts_at: 1.day.ago)
-      unexpected << FactoryGirl.create(:talk, starts_at: 1.minute.ago)
       expect(Talk.upcoming).to eq(expected)
     end
   end

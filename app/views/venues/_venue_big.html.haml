@@ -36,6 +36,6 @@
       - if !venue.current_event.nil?
         %h4.venue-big-event-title= link_to venue.current_event.title, venue_path(venue)
         -#event title
-      = simple_format( truncate(venue.summary, :length => 200), :class => "venue-big-description")
+      = simple_format( truncate(venue.teaser, :length => 200), :class => "venue-big-description")
 
   .clearfix

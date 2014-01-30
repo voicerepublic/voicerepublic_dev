@@ -9,7 +9,7 @@
 # * image_file_size [integer] - Paperclip for image
 # * image_updated_at [datetime] - Paperclip for image
 # * start_time [datetime] - TODO: document me
-# * summary [text] - TODO: document me
+# * teaser [text] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
 # * user_id [integer] - belongs to :user
@@ -22,8 +22,7 @@ class Venue < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :summary, :description, :intro_video,
-                  :events_attributes, :tag_list
+  attr_accessible :title, :teaser, :description, :events_attributes, :tag_list
 
   belongs_to :user
 
@@ -34,7 +33,7 @@ class Venue < ActiveRecord::Base
   has_many :participations, :dependent => :destroy
   has_many :users, :through => :participations
 
-  validates :title, :summary, :description, :tag_list, :presence => true
+  validates :title, :teaser, :description, :tag_list, :presence => true
 
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
