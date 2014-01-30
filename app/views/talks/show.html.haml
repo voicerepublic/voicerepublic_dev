@@ -1,9 +1,31 @@
 %p#notice= notice
 
-%p= @talk.title
-%p Venue: #{@talk.venue}
-%p Starts in: #{@talk.starts_in}
-%p Starts at: #{@talk.starts_at}
-%p Ends at:#{@talk.ends_at}
+.draft
+  %h2 This is the common part.
+  %p= @talk.user.name  
+  %p= @talk.title
+  %p= @talk.teaser
 
-This will be the new Talk/LiveTalk page
+.draft
+  %h2 This will be the new talk page (prelive).
+  %p
+    = l(@talk.starts_at, format: :designed)
+    —
+    = distance_of_time_in_words(@talk.starts_at, @talk.ends_at)
+    (#{@talk.duration} minutes)
+  %p
+    starts in
+    = distance_of_time_in_words_to_now(@talk.starts_at)
+    (#{@talk.starts_in} seconds)
+
+.draft
+  %h2 This will be the new talk page (live).
+
+  %p
+    ends in
+    = distance_of_time_in_words_to_now(@talk.ends_at)
+    (#{@talk.ends_in} seconds)
+  %p edit and delete button for host
+  %p progressbar
+  %p host and quests
+

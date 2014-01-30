@@ -11,6 +11,9 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
+.draft
+  = link_to 'Add a new talk', new_venue_talk_path(@venue)
+
 -# action buttons
 = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
 

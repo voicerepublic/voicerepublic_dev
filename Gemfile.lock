@@ -350,6 +350,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    timecop (0.5.9.2)
     timers (1.1.0)
     tins (0.13.1)
     treetop (1.4.15)
@@ -447,6 +448,7 @@ DEPENDENCIES
   therubyracer
   thin
   thinking-sphinx (= 2.0.13)
+  timecop
   turbolinks
   twitter-bootstrap-rails
   uglifier

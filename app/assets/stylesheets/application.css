@@ -12,3 +12,11 @@
  *= require bootstrap_and_overrides
  *= require select2
  */
+
+.draft {
+    margin-top: 80px;
+    background-color: hotpink;
+    border: 3px solid greenyellow;
+    padding: 5px 10px;
+    border-radius: 15px;
+}

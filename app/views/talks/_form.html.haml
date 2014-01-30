@@ -3,20 +3,26 @@
 
   .form-inputs
     = f.input :title
+    = f.input :teaser
 
-    -#= f.input :starts_at, as: :string
-    .control-group.string.required.talk_starts_at
-      %label.string.required.control-label(for="talk_starts_at")
-        %abbr(title="required") *
-        = t('.starts_at')
-      .controls.input-append.date.datetimepicker
-        = f.input_field :starts_at, as: 'string', input_html: { 'data-format' => "dd/MM/yyyy hh:mm" }
-        %span.add-on
-          %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
-        .help-block.help-datetimepicker Format: 02/07/1967 17:00
+    = f.input :starts_at, as: :string
+    %p make it a datepicker
+    -#.control-group.string.required.talk_starts_at
+    -#  %label.string.required.control-label(for="talk_starts_at")
+    -#    %abbr(title="required") *
+    -#    = t('.starts_at')
+    -#  .controls.input-append.date.datetimepicker
+    -#    = f.input_field :starts_at, as: 'string', input_html: { 'data-format' => "dd/MM/yyyy hh:mm" }
+    -#    %span.add-on
+    -#      %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
+    -#    .help-block.help-datetimepicker Format: 02/07/1967 17:00
 
     = f.input :duration, collection: Settings.durations
+    %p file upload missing
+    %p guest selection missing
+    = f.input :description
     = f.input :record
 
   .form-actions
     = f.button :submit
+    %p cancel missing (back to venue?)

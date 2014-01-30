@@ -46,4 +46,26 @@ describe Talk do
     end
   end
 
+  describe 'created' do
+    before do
+      @talk = FactoryGirl.create(:talk)
+    end
+    it 'computes starts_in for use in prelive' do
+      Timecop.freeze do
+        expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
+      end
+    end
+  end
+
+  describe 'customized' do
+    it 'computes starts_in for use in prelive' do
+      date_str = '2014-03-20 11:11'
+      @talk = FactoryGirl.create(:talk, starts_at: date_str)
+      expect(@talk.starts_at.strftime('%Y-%m-%d %H:%M')).to eq(date_str)
+      Timecop.freeze do
+        expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
+      end
+    end
+  end
+
 end

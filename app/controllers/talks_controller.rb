@@ -27,7 +27,7 @@ class TalksController < ApplicationController
     @talk.venue = @venue
 
     if @talk.save
-      redirect_to @talk, notice: 'Talk was successfully created.'
+      redirect_to [@venue, @talk], notice: 'Talk was successfully created.'
     else
       render action: 'new'
     end
@@ -36,7 +36,7 @@ class TalksController < ApplicationController
   # PATCH/PUT /talks/1
   def update
     if @talk.update(talk_params)
-      redirect_to @talk, notice: 'Talk was successfully updated.'
+      redirect_to [@venue, @talk], notice: 'Talk was successfully updated.'
     else
       render action: 'edit'
     end
@@ -45,7 +45,7 @@ class TalksController < ApplicationController
   # DELETE /talks/1
   def destroy
     @talk.destroy
-    redirect_to talks_url, notice: 'Talk was successfully destroyed.'
+    redirect_to @venue, notice: 'Talk was successfully destroyed.'
   end
 
   private
@@ -61,7 +61,9 @@ class TalksController < ApplicationController
   
   # Only allow a trusted parameter "white list" through.
   def talk_params
-    params.require(:talk).permit(:title, :starts_at, :duration, :record)
+    params.require(:talk).permit(:title, :teaser,
+                                 :starts_at, :duration,
+                                 :description, :record)
   end
 
 end

@@ -69,6 +69,7 @@ group :development, :test, :staging do
   gem 'disable_assets_logger'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
+  gem 'timecop'
 end
 
 group :test do
