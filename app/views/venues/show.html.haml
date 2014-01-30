@@ -23,10 +23,13 @@
   %ul
     - unless @next_talk.nil?
       %li(style='background-color: yellowgreen;')
-        Next:
+        = t('.talk_begins_in')
+        = distance_of_time_in_words_to_now(@next_talk.starts_at)
         = link_to @next_talk.title, [@venue, @next_talk]
     - for talk in @upcoming_talks
-      %li= link_to talk.title, [@venue, talk]
+      %li
+        = l(talk.starts_at, format: :designed)
+        = link_to talk.title, [@venue, talk]
 
   %h2= t('.description')
   %p= @venue.description
@@ -34,8 +37,13 @@
   %h2= t('.archived_talks')
   %ul
     - for talk in @archived_talks
-      %li= link_to talk.title, [@venue, talk]
-
+      = link_to [@venue, talk] do
+        %li
+          %p
+            = distance_of_time_in_words(talk.starts_at, talk.ends_at)
+            (#{talk.duration} minutes)
+          %p= talk.title 
+          %p= l(talk.starts_at, format: :designed)
 
 -# action buttons
 = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
