@@ -22,7 +22,8 @@ class Venue < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :teaser, :description, :events_attributes, :tag_list
+  attr_accessible :title, :teaser, :description, :events_attributes, :tag_list,
+                  :talks_attributes
 
   belongs_to :user
 
@@ -38,6 +39,7 @@ class Venue < ActiveRecord::Base
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :events, :reject_if => proc { |attrs| attrs['start_time'].blank? }
+  accepts_nested_attributes_for :talks
 
   scope :of_user,           proc { |user| where(:user_id => user.id) }
   scope :featured,          proc { where('featured_from <= ?', Time.now.in_time_zone).

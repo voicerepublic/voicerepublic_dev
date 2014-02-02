@@ -231,11 +231,15 @@ $(function() { datetimePicker(); });
 
 
 $(function() {
-  // TODO when using for venue, wrap in a meta selector
+  // FIXME fix position of toolbar (clone or namespace it for multiple editors)
   $('#wysihtml5-toolbar').prependTo('.control-group.talk_description .controls');
-  var editor = new wysihtml5.Editor("talk_description", {
-    toolbar:     "wysihtml5-toolbar",
-    parserRules: wysihtml5ParserRules,
-    stylesheets: ['/assets/wysihtml5.css']
+
+  $('[data-wysiwyg=true]').each(function(index, candidate) {
+    var id = candidate.id;
+    var editor = new wysihtml5.Editor(id, {
+      toolbar:     "wysihtml5-toolbar",
+      parserRules: wysihtml5ParserRules,
+      stylesheets: ['/assets/wysihtml5.css']
+    });
   });
 });
