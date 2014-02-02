@@ -20,8 +20,10 @@
     = f.input :duration, collection: Settings.durations
     = f.input :image, as: :file
     %p TODO guest selection
+    = render 'shared/wysihtml5_toolbar'
     = f.input :description
     = f.input :record
 
   .form-actions
     = f.button :submit
+

@@ -23,6 +23,9 @@
 //= require swfobject.js
 //= require private_pub_nsa
 
+//= require advanced
+//= require wysihtml5.min
+
 //= require player.js
 //= require users.js
 //= require venues.js
@@ -224,3 +227,15 @@ function datetimePicker () {
   });
 };
 $(function() { datetimePicker(); });
+
+
+
+$(function() {
+  // TODO wrap in a meta selector
+  $('#wysihtml5-toolbar').prependTo('.control-group.talk_description .controls');
+  var editor = new wysihtml5.Editor("talk_description", {
+    toolbar:     "wysihtml5-toolbar",
+    parserRules: wysihtml5ParserRules,
+    stylesheets: ['/assets/wysihtml5.css']
+  });
+});
