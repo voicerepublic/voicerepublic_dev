@@ -21,6 +21,7 @@ describe Talk do
       @talk.starts_at = nil
       expect(@talk).to_not be_valid
     end
+    # NOTE I have seen this spec fail in a 'sometimes fashion'
     it 'provides a method starts_in' do
       expect(@talk.starts_in).to be > 0
     end

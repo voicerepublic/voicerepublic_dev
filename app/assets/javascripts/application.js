@@ -231,7 +231,7 @@ $(function() { datetimePicker(); });
 
 
 $(function() {
-  // TODO wrap in a meta selector
+  // TODO when using for venue, wrap in a meta selector
   $('#wysihtml5-toolbar').prependTo('.control-group.talk_description .controls');
   var editor = new wysihtml5.Editor("talk_description", {
     toolbar:     "wysihtml5-toolbar",
