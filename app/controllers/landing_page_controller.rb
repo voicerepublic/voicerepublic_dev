@@ -1,7 +1,7 @@
 class LandingPageController < ApplicationController
   
   def index
-    @venues = Venue.not_past
+    @venues = Venue.all
     @user = User.new
   end
   

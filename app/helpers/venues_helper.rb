@@ -12,6 +12,6 @@ module VenuesHelper
   #TODO replace with cancan
   def can_comment_venue?(venue)
     return false unless user_signed_in?
-    venue.user_attends?(current_or_guest_user)
+    venue.users.include?(current_or_guest_user)
   end
 end

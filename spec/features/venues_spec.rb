@@ -7,7 +7,7 @@ describe "Venues" do
     @user = FactoryGirl.create(:user)
     @time = 1.day.from_now
     @venue = FactoryGirl.create(:venue, user: @user)
-    FactoryGirl.create(:event, venue: @venue, start_time: @time)
+    # FactoryGirl.create(:event, venue: @venue, start_time: @time)
     login_user(@user)
   end
 
@@ -23,13 +23,6 @@ describe "Venues" do
     it "will render the venues page" do
       visit venue_path(:id => @venue)
       #page.should have_selector(".venue-header")
-    end
-
-    # FIXME
-    it "will render the chat area with a specific field rendering host-info" do
-      visit venue_path(:id => @venue)
-      @venue.start_time.to_i.should eq(@time.to_i)
-      #page.should have_css('div.host-info')
     end
 
     # FIXME

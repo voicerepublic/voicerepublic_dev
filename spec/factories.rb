@@ -7,13 +7,13 @@ FactoryGirl.define do
 
   # basic models
 
-  factory :event do
-    start_time 1.week.ago
-    duration   90
-    #association :venue
-    venue
-    title      "Spec event title"
-  end
+  # factory :event do
+  #   start_time 1.week.ago
+  #   duration   90
+  #   #association :venue
+  #   venue
+  #   title      "Spec event title"
+  # end
 
   factory :venue do
     tag_list    'some, tags'
@@ -22,16 +22,16 @@ FactoryGirl.define do
     title       Faker::Lorem.sentence
     user
 
-    factory :venue_with_events do
-      ignore do
-        events_count 3
-      end
-      after(:build) do |venue, evaluator|
-        evaluator.events_count.times do |i|
-          venue.events << FactoryGirl.create(:event)
-        end
-      end
-    end
+    # factory :venue_with_events do
+    #   ignore do
+    #     events_count 3
+    #   end
+    #   after(:build) do |venue, evaluator|
+    #     evaluator.events_count.times do |i|
+    #       venue.events << FactoryGirl.create(:event)
+    #     end
+    #   end
+    # end
   end
 
   factory :account do

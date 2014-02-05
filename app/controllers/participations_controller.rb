@@ -25,7 +25,7 @@ class ParticipationsController < ApplicationController
 
     respond_to do |format|
       if @participation.save
-        make_avatar_appear_live if @venue.live?
+        # make_avatar_appear_live if @venue.live? # CHECK still needed?
         format.html { redirect_to @venue } # after join redirect to venue page 
       else
         format.html { redirect_to @venue }

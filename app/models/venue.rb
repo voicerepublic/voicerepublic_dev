@@ -38,9 +38,9 @@ class Venue < ActiveRecord::Base
 
   accepts_nested_attributes_for :talks
 
-  scope :of_user,           proc { |user| where(:user_id => user.id) }
-  scope :featured,          proc { where('featured_from <= ?', Time.now.in_time_zone).
-                                     order('featured_from DESC') }
+  scope :of_user,  proc { |user| where(:user_id => user.id) }
+  scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
+                          order('featured_from DESC') }
 
   attr_accessible :image
   has_attached_file :image,
@@ -51,41 +51,6 @@ class Venue < ActiveRecord::Base
     indexes title, :as => :title, :sortable => true
     indexes taggings.tag.name, :as => :tags
     indexes talks.title, :as => :talks_title
-  end
-
-  # # this is rendered as json in venue/venue_show_live
-  # def details_for(user)
-  #   {
-  #     streamId: "v#{id}-e#{current_event.id}-u#{user.id}",
-  #     channel: story_channel,
-  #     role: (self.user == user) ? 'host' : 'participant',
-  #     storySubscription: PrivatePub.subscription(channel: story_channel),
-  #     backSubscription: PrivatePub.subscription(channel: back_channel),
-  #     chatSubscription: PrivatePub.subscription(channel: channel_name),
-  #     streamer: (current_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
-  #   }
-  # end
-
-  # the event channel propagates events, which get replayed on join
-  def story_channel
-    "/story/v#{id}e#{current_event.id}"
-  end
-
-  # the back channel propagates events, which don't get replayed
-  def back_channel
-    "/back/v#{id}e#{current_event.id}"
-  end
-
-  def chat_name
-    "vgc-#{id}-#{current_event.id}"
-  end
-
-  def channel_name
-    "/chatchannel/vgc-#{self.id}e#{current_event.id}"
-  end
-
-  def channel_host_info
-    "/chatchannel/host-info/vgc-#{self.id}"
   end
 
   private

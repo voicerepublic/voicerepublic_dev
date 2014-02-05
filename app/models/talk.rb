@@ -40,6 +40,20 @@ class Talk < ActiveRecord::Base
     (ends_at - Time.now).to_i
   end
 
+  # copy and pasted from old venue
+  # # this is rendered as json in venue/venue_show_live
+  # def details_for(user)  
+  #   {
+  #     streamId: "v#{id}-e#{current_event.id}-u#{user.id}",
+  #     channel: story_channel,
+  #     role: (self.user == user) ? 'host' : 'participant',
+  #     storySubscription: PrivatePub.subscription(channel: story_channel),
+  #     backSubscription: PrivatePub.subscription(channel: back_channel),
+  #     chatSubscription: PrivatePub.subscription(channel: channel_name),
+  #     streamer: (current_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
+  #   }
+  # end
+
   private
 
   def set_ends_at

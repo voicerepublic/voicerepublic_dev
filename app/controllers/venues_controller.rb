@@ -8,9 +8,7 @@ class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
   def index
-    # FIXME these are horrible hacks!
-    @venues      = Event.joins(:venue).not_past.upcoming_first.map(&:venue).uniq
-    @past_venues = Event.joins(:venue).past.most_recent_first.limit(15).map(&:venue).select(&:past?).uniq
+    @venues = Venue.order('updated_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,7 +20,7 @@ class VenuesController < ApplicationController
   # GET /venues/1.json
   def show
     @upcoming_talks = @venue.talks.upcoming
-    @next_talk = @upcoming_talks.shift
+    @next_talk      = @upcoming_talks.shift
     @archived_talks = @venue.talks.archived
 
     respond_to do |format|
@@ -35,7 +33,6 @@ class VenuesController < ApplicationController
   # GET /venues/new.json
   def new
     @venue = Venue.new
-    @venue.events.build
 
     respond_to do |format|
       format.html # new.html.erb
