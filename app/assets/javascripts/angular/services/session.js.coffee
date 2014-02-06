@@ -7,26 +7,9 @@
 Livepage.factory 'session', ($log, privatePub, util, $rootScope,
                                     upstream, config, blackbox) ->
 
-  data = config
+  users = config.session
 
-  name = "noname#{Math.round(Math.random()*1000)}"
-  role = 'participant'
-
-  # demo data, this data object is hidden via closures
-  # this data will eventually be provided by faye
-  # which will act as a dependency to this service
-  session =
-    me: {
-      name: name
-      role: 'participant'
-      image: "http://lorempixel.com/80/80/people/#{Math.round(Math.random()*9)+2}/"
-    }
-    users: {
-      # 1: { name: 'Bob',  role: 'participant' },
-      # 2: { name: 'Jim',  role: 'participant' },
-      # 3: { name: 'Mary', role: 'guest' }
-    }
-
+  id = config.user_id
   onair = true # false
 
   fsm = StateMachine.create
@@ -37,8 +20,9 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         alert 'soundcheck'
         fsm.SucceededSoundCheck()
       onListening: ->
-        setTimeout (-> upstream.put 'register', user: { name }), 2000
-        # alert 'listening'
+        # FIXME don't use a timeout here
+        useThisId = id
+        setTimeout (-> upstream.put 'register', user: { id: useThisId }), 1000
       onOnAir: ->
         onair = true
       onHosting: ->
@@ -47,36 +31,26 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         onair = false
 
   promote = (name) ->
-    for id, user of session.users when user.name == name
-      upstream.put 'promote', handle: user.name
+    for id, user of users when user.name == name
+      upstream.put 'promote', id: user.id
   demote = (name) ->
-    for id, user of session.users when user.name == name
-      upstream.put 'demote', handle: user.name
+    for id, user of users when user.name == name
+      upstream.put 'demote', id: user.id
 
-  # filter user array. this should be an angular filter.
-  # it still works, though. this is fuckin' magic!
   guests = ->
-    (user for id, user of session.users when user.role == 'guest')
+    (user for id, user of users when user.role == 'guest')
   participants = ->
-    (user for id, user of session.users when user.role == 'participant')
-
-  processEvent = (data) ->
-    switch data.event
-      when 'promote' then session.users[data.user].role = 'guest'
-      when 'demote' then session.users[data.user].role = 'participant'
-      when 'register'
-        session = util.merge session, data.session
-        # merge new user into session and send session back to user
-      else $log.error "Unknown event: #{event.name}"
+    (user for id, user of users when user.role == 'participant')
 
   dataHandler = (data) ->
+    data = data.data
     $log.info data # TODO +++ remove debug output +++
-    switch data.type
-      when 'full' then session = data.data
-      when 'diff' then util.merge session, data.data
-      when 'event' then processEvent data
+    switch data.command
+      when 'register' then users[data.user.id] = data.user
+      when 'promote' then users[data.id].role = 'guest'
+      when 'demote' then users[data.id].role = 'participant'
       when undefined then $log.info 'Ignoring malformed message.'
-      else $log.error "Unknown data type: #{data.type}"
+      else $log.error "Unknown event command: #{data.command}"
     $rootScope.$apply()
 
   privatePub.subscribe "/#{config.namespace}/public", dataHandler
@@ -84,14 +58,11 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   # expose
   {
-    data
     onair
-    name
-    role
+    name: config.fullname
     fsm 
     promote
     demote
     guests
     participants
-    session
   }

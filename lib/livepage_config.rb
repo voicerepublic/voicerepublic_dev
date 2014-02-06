@@ -12,6 +12,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       host: talk.user.name,
       title: talk.title,
       teaser: talk.teaser,
+      session: talk.session,
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
       fayeUrl: PrivatePub.config[:server],
@@ -20,6 +21,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       namespace: "t#{talk.id}",
       # misc
       fullname: user.name,
+      user_id: user.id,
       handle: "u#{user.id}",
       role: role,
       statemachine: statemachine[role.to_sym]

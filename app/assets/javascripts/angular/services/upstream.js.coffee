@@ -1,7 +1,8 @@
 Livepage.factory 'upstream', (config, privatePub, $log, $http) ->
 
-  put = (event, data) ->
-    data.event = event
-    $http.put "/api/talk/#{config.talk_id}", data
+  put = (type, data) ->
+    event = data
+    event.command = type
+    $http.put "/api/talk/#{config.talk_id}", { event }
 
   { put }
