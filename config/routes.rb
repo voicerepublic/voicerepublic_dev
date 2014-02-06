@@ -1,5 +1,5 @@
 Kluuu2::Application.routes.draw do
-  
+
   post "fayeproxy" => "fayeproxy#publish"
 
   scope "(/:locale)", :locale => /de|en/ do
@@ -41,22 +41,22 @@ Kluuu2::Application.routes.draw do
         delete 'remove_recording'
       end
       post 'join_venue', :action => 'join_venue', :as => "join"
-      delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin' 
+      delete 'unjoin_venue', :action => 'unjoin_venue', :as => 'unjoin'
       resources :articles
     end
     resources :articles, only: [] do
       resources :comments, only: [:create]
     end
   end
-  
+
   scope "(/:locale)", :locale => /de|en/ do
     devise_scope :user do
       delete "/users/sign_out" => "devise/sessions#destroy"
     end
   end
-  
+
   devise_for(:users,
-             controllers: {  
+             controllers: {
                omniauth_callbacks: "users/omniauth_callbacks",
                sessions: "users/sessions",
                registrations: "users/registrations"
@@ -78,7 +78,9 @@ Kluuu2::Application.routes.draw do
       end
     end
   end
-  
+
+  resource :embed_talk, :only => :show
+
   root :to => "landing_page#index"
 
   # match ':controller(/:action(/:id))(.:format)'
