@@ -13,8 +13,8 @@ Livepage.factory "privatePub", ($log, $q, config) ->
     outgoing: (message, callback) ->
       if message.channel == "/meta/subscribe"
         message.ext ||= {}
-        message.ext.private_pub_signature = config.signature
-        message.ext.private_pub_timestamp = config.timestamp
+        message.ext.private_pub_signature = config.subscription.signature
+        message.ext.private_pub_timestamp = config.subscription.timestamp
       callback message
 
   $log.debug 'Loading Faye client...'
@@ -34,13 +34,6 @@ Livepage.factory "privatePub", ($log, $q, config) ->
     # queue the call onto the promise chain
     promise = promise.then success
 
-  # NOTE this will not and is not supposed to work with PrivatePub
-  publish = (channel, data) ->
-    $log.debug "Push publishing to Faye channel '#{channel}' onto promise chain."
-    promise = promise.then ->
-      client.publish channel, data
-                                
   {
     subscribe
-    publish
   }

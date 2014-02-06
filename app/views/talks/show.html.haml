@@ -8,7 +8,7 @@
     .talk-live-box.large-10.large-offset-1.columns
       .host.avatar.avatar-host      
         %p.avatar-name.text-center
-          The Host
+          {{session.data.host}}
         %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
         
       .guest.avatar(ng-repeat="guest in session.guests()")

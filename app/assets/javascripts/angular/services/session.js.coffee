@@ -7,6 +7,8 @@
 Livepage.factory 'session', ($log, privatePub, util, $rootScope,
                                     upstream, config, blackbox) ->
 
+  data = config
+
   name = "noname#{Math.round(Math.random()*1000)}"
   role = 'participant'
 
@@ -27,11 +29,16 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   onair = true # false
 
-  # events in 'Simple Past', states in 'Present Progressive'
   fsm = StateMachine.create
     initial: 'Initializing'
     events: config.statemachine
     callbacks:
+      onSoundChecking: ->
+        alert 'soundcheck'
+        fsm.SucceededSoundCheck()
+      onListening: ->
+        setTimeout (-> upstream.put 'register', user: { name }), 2000
+        # alert 'listening'
       onOnAir: ->
         onair = true
       onHosting: ->
@@ -41,10 +48,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   promote = (name) ->
     for id, user of session.users when user.name == name
-      upstream.publish type: 'event', event: 'promote', user: user.name
+      upstream.put 'promote', handle: user.name
   demote = (name) ->
     for id, user of session.users when user.name == name
-      upstream.publish type: 'event', event: 'demote', user: user.name
+      upstream.put 'demote', handle: user.name
 
   # filter user array. this should be an angular filter.
   # it still works, though. this is fuckin' magic!
@@ -73,12 +80,11 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     $rootScope.$apply()
 
   privatePub.subscribe "/#{config.namespace}/public", dataHandler
-  privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
-
-  upstream.register({ name })
+  # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
   # expose
   {
+    data
     onair
     name
     role

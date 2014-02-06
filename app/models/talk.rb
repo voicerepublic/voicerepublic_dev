@@ -25,6 +25,8 @@ class Talk < ActiveRecord::Base
 
   before_validation :set_ends_at
 
+  serialize :session
+
   delegate :user, to: :venue
 
   dragonfly_accessor :image
@@ -41,7 +43,11 @@ class Talk < ActiveRecord::Base
   end
 
   def config_for(user)
-    ::LivepageConfig.new(self, user).to_json
+    LivepageConfig.new(self, user).to_json
+  end
+
+  def public_channel
+    "/t#{id}/public"
   end
 
   private

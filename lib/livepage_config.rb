@@ -7,14 +7,27 @@ class LivepageConfig < Struct.new(:talk, :user)
 
   def to_hash
     {
-      fayeClientUrl: 'http://kluuu.com:9293/faye/client.js',
-      fayeUrl: 'http://kluuu.com:9293/faye',
-      timestamp: 1302306682972,
-      signature: '123',
-      namespace: 'talk123',
+      # talk
+      talk_id: talk.id,
+      host: talk.user.name,
+      title: talk.title,
+      teaser: talk.teaser,
+      # faye
+      fayeClientUrl: PrivatePub.config[:server] + '/client.js',
+      fayeUrl: PrivatePub.config[:server],
+      subscription: subscription,
+      # streams
+      namespace: "t#{talk.id}",
+      # misc
+      fullname: user.name,
+      handle: "u#{user.id}",
       role: role,
       statemachine: statemachine[role.to_sym]
     }
+  end
+
+  def subscription
+    PrivatePub.subscription channel: talk.public_channel
   end
 
   def role
@@ -23,6 +36,7 @@ class LivepageConfig < Struct.new(:talk, :user)
     :listener
   end
 
+  # events in 'Simple Past', states in 'Present Progressive'
   def statemachine
     { 
       host: 
