@@ -13,12 +13,8 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require jquery.jplayer.min
-//= require twitter/bootstrap
-//= require bootstrap-datetimepicker.min.js
-//= require bootstrap-fileupload.js
-//= require bootstrap-maxlength.js
-//= require bootstrap.js.coffee
 //= require select2
 //= require swfobject.js
 //= require private_pub_nsa
@@ -243,3 +239,5 @@ $(function() {
     });
   });
 });
+
+$(function(){ $(document).foundation(); });

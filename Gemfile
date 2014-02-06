@@ -21,7 +21,7 @@ gem 'uglifier'#, '>= 1.0.3'
 
 gem 'airbrake'
 gem 'rails_config'
-gem 'twitter-bootstrap-rails'#,'2.1.4'
+gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'

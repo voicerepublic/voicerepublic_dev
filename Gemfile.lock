@@ -145,6 +145,9 @@ GEM
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     formatador (0.2.4)
+    foundation-rails (5.1.0.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     friendly_id (5.0.2)
       activerecord (~> 4.0.0)
     gli (2.9.0)
@@ -361,11 +364,6 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.0)
       coffee-rails
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -421,6 +419,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   faker
   foreman
+  foundation-rails
   friendly_id
   globalize3
   guard-rspec
@@ -454,7 +453,6 @@ DEPENDENCIES
   thinking-sphinx (= 2.0.13)
   timecop
   turbolinks
-  twitter-bootstrap-rails
   uglifier
   unicorn
   vcr (= 2.8.0)
