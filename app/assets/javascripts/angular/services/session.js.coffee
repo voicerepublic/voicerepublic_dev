@@ -30,24 +30,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # events in 'Simple Past', states in 'Present Progressive'
   fsm = StateMachine.create
     initial: 'Initializing'
-    events: [
-      # Host
-      { name: 'HostInitialized',          from: 'Initializing',        to: 'HostSoundChecking' },
-      { name: 'SucceededHostSoundCheck',  from: 'HostSoundChecking',   to: 'Hosting' },
-      # Guest
-      { name: 'GuestInitialized',         from: 'Initializing',        to: 'GuestSoundChecking' },
-      { name: 'SucceededGuestSoundCheck', from: 'GuestSoundChecking',  to: 'OnAir' },
-      # Listener
-      { name: 'ListenerInitialized',      from: 'Initializing',        to: 'Listening' },
-      # MicRequest/Promote
-      { name: 'MicRequested',             from: 'Listening',           to: 'ColdSoundChecking' },
-      { name: 'SucceededColdSoundCheck',  from: 'ColdSoundChecking',   to: 'WaitingForPromotion' },
-      { name: 'Promoted',                 from: 'WaitingForPromotion', to: 'OnAir' },
-      { name: 'Promoted',                 from: 'Listening',           to: 'HotSoundChecking' },
-      { name: 'SucceededHotSoundCheck',   from: 'HotSoundChecking',    to: 'OnAir' },
-      # Demote
-      { name: 'Demoted',                  from: 'OnAir',               to: 'Listening' }
-    ]
+    events: config.statemachine
     callbacks:
       onOnAir: ->
         onair = true
@@ -58,10 +41,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   promote = (name) ->
     for id, user of session.users when user.name == name
-      upstream.update user.name, role: 'guest'
+      upstream.publish type: 'event', event: 'promote', user: user.name
   demote = (name) ->
     for id, user of session.users when user.name == name
-      upstream.update user.name, role: 'participant'
+      upstream.publish type: 'event', event: 'demote', user: user.name
 
   # filter user array. this should be an angular filter.
   # it still works, though. this is fuckin' magic!
@@ -70,20 +53,22 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   participants = ->
     (user for id, user of session.users when user.role == 'participant')
 
-  processEvent = (event) ->
-    switch event.name
-      when 'promote' then session.users[event.user].role = 'guest'
-      when 'demote' then session.users[event.user].role = 'participant'
+  processEvent = (data) ->
+    switch data.event
+      when 'promote' then session.users[data.user].role = 'guest'
+      when 'demote' then session.users[data.user].role = 'participant'
       when 'register'
+        session = util.merge session, data.session
         # merge new user into session and send session back to user
       else $log.error "Unknown event: #{event.name}"
 
   dataHandler = (data) ->
-    $log.info data
+    $log.info data # TODO +++ remove debug output +++
     switch data.type
       when 'full' then session = data.data
       when 'diff' then util.merge session, data.data
-      when 'event' then processEvent data.event
+      when 'event' then processEvent data
+      when undefined then $log.info 'Ignoring malformed message.'
       else $log.error "Unknown data type: #{data.type}"
     $rootScope.$apply()
 

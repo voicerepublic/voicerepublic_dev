@@ -14,7 +14,8 @@ module Kluuu2
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.autoload_paths += %W( #{config.root}/app/middlewares )
+    config.autoload_paths += %W( #{config.root}/app/middlewares
+                                 #{config.root}/lib )
 
     config.i18n.enforce_available_locales = true
 

@@ -6,21 +6,16 @@ Livepage.factory 'upstream', (config, privatePub, $log) ->
     privatePub.publish "/#{config.namespace}/public", data
 
   register = (data) ->
-    temp = { users: {} }
-    temp.users[data.name] = {
+    temp = { type: 'event', event: 'register', session: { users: {} } }
+    temp.session.users[data.name] = {
       name: data.name
       role: 'participant'
       image: "http://lorempixel.com/80/80/people/#{Math.round(Math.random()*9)+2}/"
     }
     publish temp
 
-  update = (name, attrs) ->
-    temp = { users: {} }
-    temp.users[name] = attrs
-    publish temp
-
   # expose
   {
     register
-    update
+    publish
   }
