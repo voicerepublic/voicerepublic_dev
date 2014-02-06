@@ -78,7 +78,7 @@ Livepage.factory 'BlackboxService', ($log, $window, $q) ->
   $log.debug 'Initializing BlackboxService...'
   margin = 0
 
-  swfobject.embedSWF "Blackbox.swf", "flashContent",
+  swfobject.embedSWF "/flash/Blackbox.swf", "flashContent",
     215 + margin, 140 + margin,
     version, null, flashVars, params, attributes
 
@@ -173,6 +173,7 @@ Livepage.factory 'SessionService', ($log, PrivatePubService, UtilService, $rootS
   blackbox = BlackboxService
 
   name = "noname#{Math.round(Math.random()*1000)}"
+  role = 'participant'
 
   # demo data, this data object is hidden via closures
   # this data will eventually be provided by faye
