@@ -38,7 +38,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   reportState = (state) ->
     $log.info "reporting new state: #{state}"
-    upstream.put state, user: { id: config.user_id }
+    upstream.state config.user_id, state
 
   promote = (name) ->
     for id, user of users when user.name == name
@@ -60,45 +60,38 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   #
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
-    $log.debug data
     data = data.data # unpack private_pub message
-    if data.command == undefined # guard
-      return $log.info 'Ignoring malformed message.'
+    $log.debug 'Receiving...'
+    $log.debug data
+    method = data.state || data.event
+    if method == undefined # guard
+      return $log.info 'Ignoring malformed message. ' +
+        'Neither state nor event given.'
     if data.id = config.user_id # delegate # FIXME = should be ==
-      egoMsgHandler data
+      egoMsgHandler method, data
     else
-      othersMsgHandler data
+      othersMsgHandler method, data
     $rootScope.$apply() # trigger refresh
 
   # It's the egoMsgHandlers responsibility to trigger events
   # on the state machine, which in turn will create upstream
   # notifications as a side effect.
-  egoMsgHandler = (data) ->
-    switch data.command
+  egoMsgHandler = (method, data) ->
+    switch method
       when 'Registering' then fsm.Registered()
-      when 'Listening' then ;
-      when 'WaitingForPromotion' then ;
       when 'Promotion' then fsm.Promoted() # external event
       when 'Demotion' then fsm.Demoted() # external event
-      else $log.info "Unknown event command: #{data.command}"
+      else $log.info "EgoIgnoring: #{method}"
 
-  othersMsgHandler = (data) ->
-    switch data.command
+  othersMsgHandler = (method, data) ->
+    switch method
       when 'Registering' then users[data.user.id] = data.user
-      when 'Listening' then ;
-      when 'WaitingForPromotion' then ;
-      #when 'promote' then users[data.id].role = 'guest'
-      #when 'demote' then users[data.id].role = 'participant'
-      else $log.info "Unknown event command: #{data.command}"
-
+      else $log.info "OtherIgnoring: #{method}"
 
   privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
-  #setTimeout (-> upstream.put 'register', user: { id: config.user_id }), 1000
-
-  # expose
-  {
+  { # expose
     onair
     name: config.fullname
     fsm 
