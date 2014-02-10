@@ -10,7 +10,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   users = config.session
 
   id = config.user_id
-  onair = true # false
+  onair = false
 
   fsm = StateMachine.create
     initial: 'Initializing'
@@ -21,8 +21,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         fsm.SucceededSoundCheck()
       onListening: ->
         # FIXME don't use a timeout here
-        useThisId = id
-        setTimeout (-> upstream.put 'register', user: { id: useThisId }), 1000
+        setTimeout (-> upstream.put 'register', user: { id: config.user_id }), 1000
       onOnAir: ->
         onair = true
       onHosting: ->
@@ -43,12 +42,15 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     (user for id, user of users when user.role == 'participant')
 
   dataHandler = (data) ->
-    data = data.data
-    $log.info data # TODO +++ remove debug output +++
+    data = data.data # unpack private_pub message
     switch data.command
       when 'register' then users[data.user.id] = data.user
-      when 'promote' then users[data.id].role = 'guest'
-      when 'demote' then users[data.id].role = 'participant'
+      when 'promote'
+        fsm.Promoted() if data.id == config.user_id
+        users[data.id].role = 'guest'
+      when 'demote'
+        # fsm.Demoted() if data.id == config.user_id
+        users[data.id].role = 'participant'
       when undefined then $log.info 'Ignoring malformed message.'
       else $log.error "Unknown event command: #{data.command}"
     $rootScope.$apply()
