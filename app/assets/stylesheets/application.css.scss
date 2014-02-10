@@ -11,6 +11,7 @@
  *= require_self
  *= require foundation_and_overrides
  *= require select2
+ *= require foundation_calendar
  */
 
 /* Testing */
@@ -41,7 +42,8 @@
 
 	.talk-upper-block {
 	  position: relative;
-	  background: url(http://lorempixel.com/1200/600/peeqqwople/1) no-repeat center center; 
+	  background-repeat: no-repeat;
+	  background-position: center center; 
 	  background-size: cover;
 	  margin-top: -55px;
 	  padding-top: 85px;
