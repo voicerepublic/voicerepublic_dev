@@ -8,7 +8,7 @@
 namespace :rtmp do
 
   task :setup => :environment do
-    path = Rails.root.join('vendor/rtmp')
+    path = Rails.root.join(settings.base_path)
     unless File.exist?(path)
       FileUtils.mkdir_p(path) 
       puts "created directory #{path}"
@@ -27,7 +27,8 @@ namespace :rtmp do
     Dir.chdir(nginx_path) do
       %x[ ./configure --prefix='' --add-module=../#{rtmp_path} && make ]
     end
-    FileUtils.mkdir_p('./run/recordings')
+    FileUtils.mkdir_p('run/logs')
+    FileUtils.mkdir_p('run/recordings')
     FileUtils.ln_sf('../' + nginx_path + '/objs/nginx', 'run/rtmpd')
     puts 
     puts "Good news everyone. You're all set."
@@ -36,25 +37,31 @@ namespace :rtmp do
     puts
   end
 
-  desc 'start the nginx-rtmp server'
-  task :start => :setup do
-    config = Rails.root.join('config/rtmp.conf')
-    %x[ mkdir -p run/logs && cd run && ./rtmpd -c #{config} ]
+  desc 'generates the rtmp config based on template and settings'
+  task :config => :setup do
+    template = File.read(Rails.root.join('config/rtmp.conf.erb'))
+    File.open('run/rtmp.conf', 'w') do |f|
+      f.puts render_erb(template, settings.to_hash)
+    end
+  end
+
+  desc 'start the nginx-rtmp server (also generates config)'
+  task :start => :config do
+    %x[ cd run && ./rtmpd -c rtmp.conf ]
     pids = %x[ pgrep rtmpd ].split("\n")
     puts "rtmpd started with pids #{pids * ', '}"
   end
 
   desc 'stop the nginx-rtmp server'
   task :stop => :setup do
-    config = Rails.root.join('config/rtmp.conf')
-    %x[ mkdir -p run/logs && cd run && ./rtmpd -c #{config} -s stop ]
+    %x[ cd run && ./rtmpd -c rtmp.conf -s stop ]
   end
 
   desc 'restart the nginx-rtmp server'
   task :restart => [:stop, :start]
 
   task :clobber => :setup do
-    FileUtils.rm_rf Rails.root.join('vendor/rtmp')
+    FileUtils.rm_rf Rails.root.join(settings.base_path)
   end
 
   # TODO
@@ -74,6 +81,14 @@ namespace :rtmp do
     end
     output = %x[ tar xfvz #{file} ]
     output.split('/').first
+  end
+
+  def render_erb(template, locals)
+    ERB.new(template).result(OpenStruct.new(locals).instance_eval { binding })
+  end
+
+  def settings
+    Settings.reload!.rtmp
   end
 
 end

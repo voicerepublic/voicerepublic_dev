@@ -42,8 +42,14 @@ module Kluuu2
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
-    # please find the middelware in lib/rack/rtmp_auth.rb
+    # authenticate access to rtmp against rack middleware
     config.middleware.use 'RtmpAuth'
+
+    # has to be wrapped in `config.before_initialize` in order to use Settings
+    config.before_initialize do
+      opts = { :log => Settings.rtmp.log_notifications? }
+      config.middleware.use 'RtmpNotifications', opts
+    end
 
     # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
