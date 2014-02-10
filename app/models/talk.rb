@@ -31,8 +31,8 @@ class Talk < ActiveRecord::Base
 
   dragonfly_accessor :image
 
-  scope :upcoming, -> { where('ends_at > NOW()') }
-  scope :archived, -> { where('ends_at < NOW()') }
+  scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
+  scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
 
   def starts_in # seconds (for prelive)
     (starts_at - Time.now).to_i
