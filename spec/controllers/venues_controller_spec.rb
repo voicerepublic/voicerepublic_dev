@@ -38,7 +38,7 @@ describe VenuesController do
   describe "GET index" do
     it "assigns all venues as @venues" do
       venue = FactoryGirl.create(:venue)
-      FactoryGirl.create(:event, venue: venue, start_time: 1.day.from_now)
+      #FactoryGirl.create(:event, venue: venue, start_time: 1.day.from_now)
       get :index, {}, valid_session
       assigns(:venues).should eq([venue])
     end

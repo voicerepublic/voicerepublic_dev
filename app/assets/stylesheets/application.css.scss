@@ -1,0 +1,84 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require foundation_and_overrides
+ *= require select2
+ */
+
+/* Testing */
+.draft {
+  margin-top: 80px;
+  background-color: hotpink;
+  border: 3px solid greenyellow;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+
+
+/* ACTIONBAR */
+.top-bar {
+	z-index: 1;
+	.top-bar-vr-logo{
+		position: absolute;
+		top:0;
+		left: 50%;
+		margin-left: -40px;
+		width:80px;
+		line-height: 2.4rem
+	}
+}
+
+.layout-talk{
+
+	.talk-upper-block {
+	  position: relative;
+	  background: url(http://lorempixel.com/1200/600/peeqqwople/1) no-repeat center center; 
+	  background-size: cover;
+	  margin-top: -55px;
+	  padding-top: 85px;
+	  color: #fff;
+	}
+
+	.talk-title-box{
+	  background: rgba(0,0,0,0.3);
+	  padding:1rem 0.5rem 4rem 0.5rem;
+	  .talk-title{
+	  	color: #fff;
+	  }
+	}
+
+	h3.talk-teaser{
+		color: #fff;
+	}
+
+	.talk-talkers-box{
+	  margin-top: 20px;
+	  background: rgba(0,0,0,0.5);
+	  padding:1rem 0.5rem 4rem 0.5rem;
+	  color: #fff;
+	}
+	
+}
+
+/* TABS */
+.talk-tabs-content-block{
+  border-top: 2px solid;
+  background: #F9F7EF;
+  .row{
+ 		background: #fff
+	}
+}
+
+.talk-tabs dd{
+  top:0;
+  width: 33.33%
+}

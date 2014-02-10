@@ -1,3 +1,4 @@
+durations: [ 30, 45, 60, 90, 120, 240 ]
 rtmp:
   discussions: "rtmp://kluuu.com/discussions"
   recordings: "rtmp://kluuu.com/recordings"

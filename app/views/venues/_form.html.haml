@@ -10,10 +10,10 @@
         .help-block
           = t('.help_title')          
       .control-group
-        = f.label :summary, :class => 'control-label' do
-          = t('.summary')
+        = f.label :teaser, :class => 'control-label' do
+          = t('.teaser')
         .controls
-          = f.text_area :summary, :rows => 2, :class => "input-block-level"
+          = f.text_area :teaser, :rows => 2, :class => "input-block-level"
         .help-block
           = t('.help_summery')          
       .control-group
@@ -47,12 +47,20 @@
       = image_tag "icons/venue-icon-host.png", :class => "venue-form-icon"
       = render "venues/txt/venue_desc"
 
-  .event-box.clearfix
-    - if upcoming_events.any?
+  -# .event-box.clearfix
+  -#   - if upcoming_events.any?
+  -#     %header.event-header
+  -#       %h2= t('.your_talk')
+  -#     = f.fields_for :events, upcoming_events do |ef|
+  -#       = render 'venues/event_fields', :ef => ef
+  -# FIXME event is now called talk
+  - if @venue.new_record?
+    .event-box.clearfix
       %header.event-header
         %h2= t('.your_talk')
-      = f.fields_for :events, upcoming_events do |ef|
-        = render 'venues/event_fields', :ef => ef
+      = f.fields_for :talks, @venue.talks.build do |n|
+        = render 'talks/fields', :f => n
+   
   .pull-right.clearfix
     = f.submit nil, :class => 'btn btn-primary'
     = link_to t('.cancel', :default => t("helpers.links.cancel")),

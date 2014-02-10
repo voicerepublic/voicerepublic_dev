@@ -1,8 +1,3 @@
-- if @venue.reload_time
-  - content_for :head do
-    -# force reload at @venue.reload_time
-    %meta(http-equiv="refresh" content="#{@venue.reload_time}")/
-
 - content_for :title do
   = t('.venue')
   \&middot;
@@ -11,45 +6,80 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
+.draft
+  %p= link_to t('.create_new_talk'), new_venue_talk_path(@venue)
+  %p= link_to t('.edit_venue'), [:edit, @venue]
+  %p= link_to t('.delete_venue'), @venue, method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }
+  %p= @venue.title
+  %p= @venue.teaser
+  %p TODO upload button for background image
+
+  %h2= t('.upcoming_talks')
+  %ul
+    - unless @next_talk.nil?
+      %li(style='background-color: yellowgreen;')
+        = t('.talk_begins_in')
+        = distance_of_time_in_words_to_now(@next_talk.starts_at)
+        = link_to @next_talk.title, [@venue, @next_talk]
+    - for talk in @upcoming_talks
+      %li
+        = l(talk.starts_at, format: :designed)
+        = link_to talk.title, [@venue, talk]
+
+  %h2= t('.description')
+  %p= @venue.description
+
+  %h2= t('.archived_talks')
+  %ul
+    - for talk in @archived_talks
+      = link_to [@venue, talk] do
+        %li
+          %p
+            = distance_of_time_in_words(talk.starts_at, talk.ends_at)
+            (#{talk.duration} minutes)
+          %p= talk.title 
+          %p= l(talk.starts_at, format: :designed)
+
 -# action buttons
 = render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
 
--if @venue.live?
-  -# live layout
-    
-  %section.venue-live-box.clearfix
+-# -if @venue.live?
+-#   -# live layout
+-#     
+-#   %section.venue-live-box.clearfix
+-#     -# description
+-#     = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )  
+-#     = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )  
+-# 
+-#   .row-fluid
+-#     .span8
+-#       -# forum (left)
+-#       = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
+-#     .span4
+-#       -# participants (right)
+-#       = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+-# 
+-# - else
+
+-# static layout
+.row-fluid
+  .span8
     -# description
-    = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )  
-    = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )  
+    = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
 
-  .row-fluid
-    .span8
-      -# forum (left)
-      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
-    .span4
-      -# participants (right)
-      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+    -# forum
+    = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
 
-- else
-  -# static layout
-  .row-fluid
-    .span8
-      -# description
-      = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
-
-      -# forum
-      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
-
-    .span4.left-light-border
-      -# next event
-      - if @venue.current_event.present?
-        = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
-        %hr.venue-horiz-line
-
-      -# archive
-      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+  .span4.left-light-border
+    -# next event
+    -# - if @venue.current_event.present?
+    -#   = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
       %hr.venue-horiz-line
 
-      -# participants
-      = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
+    -# archive
+    = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+    %hr.venue-horiz-line
+
+    -# participants
+    = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
 

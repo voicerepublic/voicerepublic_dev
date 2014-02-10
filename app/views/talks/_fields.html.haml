@@ -1,0 +1,16 @@
+= f.error_messages
+
+= f.text_field :title
+= f.text_field :teaser
+
+%p TODO make this a datepicker:
+= f.text_field :starts_at
+
+= f.select :duration, Settings.durations
+= f.file_field :image
+
+%p TODO guest selection
+= render 'shared/wysihtml5_toolbar'
+= f.text_area :description, 'data-wysiwyg' => true
+= f.label :record do
+  = f.check_box :record

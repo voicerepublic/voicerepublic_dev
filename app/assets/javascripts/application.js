@@ -13,19 +13,12 @@
 //= require turbolinks
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require jquery.jplayer.min
-//= require twitter/bootstrap
-//= require bootstrap-datetimepicker.min.js
-//= require bootstrap-fileupload.js
-//= require bootstrap-maxlength.js
-//= require bootstrap.js.coffee
 //= require select2
-//= require swfobject.js
-//= require private_pub_nsa
 
-//= require player.js
-//= require users.js
-//= require venues.js
+//= require advanced
+//= require wysihtml5.min
 
 /* Alters-Success fade out after 8secs */
 (function($){
@@ -211,16 +204,34 @@ function fitText(jquerySelector) {
   setTimeout(calculateSize, 1000);
 };
 
-function datetimePicker () {
-  $('.datetimepicker').datetimepicker({
-    pickDate: true,
-    pickTime: true,
-    pickSeconds: false,
-    startDate: new Date()
+// function datetimePicker () {
+//   $('.datetimepicker').datetimepicker({
+//     pickDate: true,
+//     pickTime: true,
+//     pickSeconds: false,
+//     startDate: new Date()
+//   });
+//   // show datetimepicker on focus
+//   $('.datetimepicker input').focus(function(){
+//     $('.datetimepicker').datetimepicker('show');
+//   });
+// };
+// $(function() { datetimePicker(); });
+
+
+
+$(function() {
+  // FIXME fix position of toolbar (clone or namespace it for multiple editors)
+  $('#wysihtml5-toolbar').prependTo('.control-group.talk_description .controls');
+
+  $('[data-wysiwyg=true]').each(function(index, candidate) {
+    var id = candidate.id;
+    var editor = new wysihtml5.Editor(id, {
+      toolbar:     "wysihtml5-toolbar",
+      parserRules: wysihtml5ParserRules,
+      stylesheets: ['/assets/wysihtml5.css']
+    });
   });
-  // show datetimepicker on focus
-  $('.datetimepicker input').focus(function(){
-    $('.datetimepicker').datetimepicker('show');
-  });
-};
-$(function() { datetimePicker() })
+});
+
+$(function(){ $(document).foundation(); });

@@ -208,6 +208,7 @@ en:
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
+      designed: ! '%-d%o %B %Y — %l%P'
     pm: pm
   call_now: call now
   call_dispatched: call dispatched

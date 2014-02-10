@@ -21,7 +21,7 @@ gem 'uglifier'#, '>= 1.0.3'
 
 gem 'airbrake'
 gem 'rails_config'
-gem 'twitter-bootstrap-rails'#,'2.1.4'
+gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'
@@ -31,7 +31,7 @@ gem 'will_paginate'                # pagination-extension to active-record
 gem 'will_paginate-bootstrap'      # integrate twitter-bootstrap with will_paginate
 gem 'i18n_data'                    # delivers languages as key-value hash
 gem 'paperclip'                    # used for images
-gem 'awesome_nested_set'           # used for categories
+gem 'dragonfly', '1.0.3'           # used for images
 gem 'globalize3'                   # internationalization
 gem 'acts-as-taggable-on', '3.0.1' # tag-system
 gem 'money-rails'                  # integrates some helper methods and AR-instance-functions...
@@ -51,6 +51,7 @@ gem "select2-rails"
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
+  gem 'annotator'
   gem 'sqlite3'
   gem 'capistrano',         '~> 3.1.0'
   gem 'capistrano-rbenv',   '~> 2.0.1'
@@ -68,6 +69,7 @@ group :development, :test, :staging do
   gem 'disable_assets_logger'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
+  gem 'timecop'
 end
 
 group :test do
@@ -77,4 +79,8 @@ group :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'simplecov'
+end
+
+group :production do
+  gem 'rack-cache', require: 'rack/cache'
 end
