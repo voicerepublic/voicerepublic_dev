@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale.to_s %>" xmlns:fb="http://ogp.me/ns/fb#">
+<html lang="<%= I18n.locale.to_s %>" xmlns:fb="http://ogp.me/ns/fb#" ng-app='Livepage'>
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
@@ -11,19 +11,19 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 		<![endif]-->
 		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-		<%= stylesheet_link_tag controller.controller_name, media: "all", "data-turbolinks-track" => true %>
 		<link href="/images/favicon.ico" rel="shortcut icon">
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
     <%= yield(:head) %>
+    <%= javascript_include_tag "vendor/modernizr" %>
 	</head>
 	<body>
 		<%= render(:partial => "shared/actionbar") %>
 		<%= render(:partial => "shared/notice_or_error") %>
-		<div class="container">
-			<%= yield %>
-		</div>
+		
+		<%= yield %>
+		
 		<%= render(:partial => "shared/footer") %>
     <div id='scripts'>
       <%= airbrake_javascript_notifier %>

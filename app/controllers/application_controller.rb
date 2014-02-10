@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_last_request
   before_filter :set_locale
   around_filter :user_time_zone, :if => :current_user
+  after_filter :set_csrf_cookie_for_ng
 
   # if user is logged in, return current_user, else return guest_user
   def current_or_guest_user
@@ -117,6 +118,10 @@ class ApplicationController < ActionController::Base
   def default_url_options(options={})
     logger.debug "default_url_options is passed options: #{options.inspect}\n"
     { :locale => I18n.locale }
+  end
+
+  def set_csrf_cookie_for_ng
+    cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
   end
 
 end

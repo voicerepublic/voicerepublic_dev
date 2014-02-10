@@ -115,7 +115,7 @@ class ArticlesController < ApplicationController
   end
 
   def send_email(article)
-    users = article.venue.attendees
+    users = article.venue.users
     (users - [current_or_guest_user]).each do |user|
       UserMailer.delay(queue: 'mail').new_article_notification(article, user)
     end

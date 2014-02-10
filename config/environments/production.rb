@@ -88,4 +88,7 @@ Kluuu2::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # http://markevans.github.io/dragonfly/rails/
+  config.action_dispatch.rack_cache = true
 end

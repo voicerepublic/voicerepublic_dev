@@ -35,8 +35,6 @@ GEM
       activerecord (>= 3.0)
     arel (4.0.1)
     atomic (1.1.14)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
     cancan (1.6.10)
@@ -104,6 +102,9 @@ GEM
     disable_assets_logger (1.0.0)
     docile (1.1.2)
     dotenv (0.9.0)
+    dragonfly (1.0.3)
+      multi_json (~> 1.0)
+      rack
     dynamic_form (1.1.4)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
@@ -144,6 +145,9 @@ GEM
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     formatador (0.2.4)
+    foundation-rails (5.1.0.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     friendly_id (5.0.2)
       activerecord (~> 4.0.0)
     gli (2.9.0)
@@ -257,6 +261,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.5.2)
+    rack-cache (1.2)
+      rack (>= 0.4)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -350,6 +356,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    timecop (0.5.9.2)
     timers (1.1.0)
     tins (0.13.1)
     treetop (1.4.15)
@@ -357,11 +364,6 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.0)
       coffee-rails
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -396,7 +398,6 @@ DEPENDENCIES
   acts-as-taggable-on (= 3.0.1)
   airbrake
   annotator
-  awesome_nested_set
   cancan
   capistrano (~> 3.1.0)
   capistrano-bundler (~> 1.1.1)
@@ -412,11 +413,13 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   disable_assets_logger
+  dragonfly (= 1.0.3)
   dynamic_form
   eu_central_bank
   factory_girl_rails (~> 4.0)
   faker
   foreman
+  foundation-rails
   friendly_id
   globalize3
   guard-rspec
@@ -435,6 +438,7 @@ DEPENDENCIES
   private_pub
   protected_attributes
   pry-rails
+  rack-cache
   rails (= 4.0.2)
   rails-i18n
   rails_config
@@ -447,8 +451,8 @@ DEPENDENCIES
   therubyracer
   thin
   thinking-sphinx (= 2.0.13)
+  timecop
   turbolinks
-  twitter-bootstrap-rails
   uglifier
   unicorn
   vcr (= 2.8.0)
