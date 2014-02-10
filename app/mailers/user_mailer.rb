@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "service@kluuu.com"
+  default from: "service@voicerepublic.com"
 
   def friend_notification(notification)
     @notification = notification
