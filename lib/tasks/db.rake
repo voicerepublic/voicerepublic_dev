@@ -9,7 +9,7 @@ namespace :db do
         scp rails@kluuu.com:#{ dump }.gz .
         ssh rails@kluuu.com "rm #{ dump }.gz"
         gunzip #{ dump }.gz
-        psql vr_dev < #{ dump }
+        psql #{Rails.configuration.database_configuration[Rails.env]["database"]} < #{ dump }
         rm #{ dump }*
       SCRIPT
 

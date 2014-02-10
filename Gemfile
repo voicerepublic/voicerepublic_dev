@@ -60,7 +60,6 @@ group :development, :test, :staging do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
   gem 'rspec-rails'
-  gem 'annotator'
   gem 'foreman',                            require: false
   # gem 'rails_view_annotator'
   gem 'zeus'
