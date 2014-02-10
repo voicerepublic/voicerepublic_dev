@@ -22,15 +22,26 @@
   border-radius: 15px;
 }
 
+
+
+/* ACTIONBAR */
 .top-bar {
 	z-index: 1;
+	.top-bar-vr-logo{
+		position: absolute;
+		top:0;
+		left: 50%;
+		margin-left: -40px;
+		width:80px;
+		line-height: 2.4rem
+	}
 }
 
 .layout-talk{
 
 	.talk-upper-block {
 	  position: relative;
-	  background: url(http://lorempixel.com/1200/600/people/1) no-repeat center center; 
+	  background: url(http://lorempixel.com/1200/600/peeqqwople/1) no-repeat center center; 
 	  background-size: cover;
 	  margin-top: -55px;
 	  padding-top: 85px;

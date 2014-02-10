@@ -1,5 +1,5 @@
 .layout-talk(ng-controller='Livepage')
-  .talk-upper-block
+  .talk-upper-block{ :style => "background: url(http://lorempixel.com/1200/600/people/1) no-repeat center center"}
     %section.talk-title-box.row.text-center
       .talk-host-name
         = @talk.user.name
@@ -37,13 +37,13 @@
     .talk-tabs-box.row
       .small-12
         %dl.tabs.talk-tabs(data-tab="true")
-          %dd
+          %dd.text-center
             %a(href="#talk-tab-description")
               Description
-          %dd
+          %dd.text-center
             %a(href="#talk-tab-discussion")
               Discussion
-          %dd.active
+          %dd.active.text-center
             %a(href="#talk-tab-participants")
               Participants
 
@@ -63,13 +63,13 @@
                 {{ participant.name }}
               %img.avatar-img(ng-src="{{participant.image}}")
   
-    .chat
-  
-    .log
-  
-    .scripts
-      %script(src='/assets/livepage.js')
-      = render 'config'
+.chat
+
+.log
+
+.scripts
+  %script(src='/assets/livepage.js')
+  = render 'config'
         
 
 %p#notice= notice
