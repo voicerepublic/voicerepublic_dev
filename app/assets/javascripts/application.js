@@ -16,15 +16,9 @@
 //= require foundation
 //= require jquery.jplayer.min
 //= require select2
-//= require swfobject.js
-//= require private_pub_nsa
 
 //= require advanced
 //= require wysihtml5.min
-
-//= require player.js
-//= require users.js
-//= require venues.js
 
 /* Alters-Success fade out after 8secs */
 (function($){
@@ -210,19 +204,19 @@ function fitText(jquerySelector) {
   setTimeout(calculateSize, 1000);
 };
 
-function datetimePicker () {
-  $('.datetimepicker').datetimepicker({
-    pickDate: true,
-    pickTime: true,
-    pickSeconds: false,
-    startDate: new Date()
-  });
-  // show datetimepicker on focus
-  $('.datetimepicker input').focus(function(){
-    $('.datetimepicker').datetimepicker('show');
-  });
-};
-$(function() { datetimePicker(); });
+// function datetimePicker () {
+//   $('.datetimepicker').datetimepicker({
+//     pickDate: true,
+//     pickTime: true,
+//     pickSeconds: false,
+//     startDate: new Date()
+//   });
+//   // show datetimepicker on focus
+//   $('.datetimepicker input').focus(function(){
+//     $('.datetimepicker').datetimepicker('show');
+//   });
+// };
+// $(function() { datetimePicker(); });
 
 
 

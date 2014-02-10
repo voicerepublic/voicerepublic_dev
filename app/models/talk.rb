@@ -17,13 +17,15 @@
 class Talk < ActiveRecord::Base
 
   attr_accessible :title, :teaser, :starts_at, :duration,
-                  :description, :record, :image
+  :description, :record, :image
 
   belongs_to :venue, :inverse_of => :talks
 
   validates :venue, :title, :starts_at, :ends_at, presence: true
 
   before_validation :set_ends_at
+
+  serialize :session
 
   delegate :user, to: :venue
 
@@ -40,19 +42,13 @@ class Talk < ActiveRecord::Base
     (ends_at - Time.now).to_i
   end
 
-  # copy and pasted from old venue
-  # # this is rendered as json in venue/venue_show_live
-  # def details_for(user)  
-  #   {
-  #     streamId: "v#{id}-e#{current_event.id}-u#{user.id}",
-  #     channel: story_channel,
-  #     role: (self.user == user) ? 'host' : 'participant',
-  #     storySubscription: PrivatePub.subscription(channel: story_channel),
-  #     backSubscription: PrivatePub.subscription(channel: back_channel),
-  #     chatSubscription: PrivatePub.subscription(channel: channel_name),
-  #     streamer: (current_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
-  #   }
-  # end
+  def config_for(user)
+    LivepageConfig.new(self, user).to_json
+  end
+
+  def public_channel
+    "/t#{id}/public"
+  end
 
   private
 

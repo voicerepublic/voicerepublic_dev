@@ -1,5 +1,7 @@
 Kluuu2::Application.routes.draw do
   
+  put 'api/talk/:id' => 'api/talks#update'
+
   post "fayeproxy" => "fayeproxy#publish"
 
   scope "(/:locale)", :locale => /de|en/ do

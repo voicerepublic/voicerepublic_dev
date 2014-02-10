@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205085706) do
+ActiveRecord::Schema.define(version: 20140206122105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -497,6 +497,7 @@ ActiveRecord::Schema.define(version: 20140205085706) do
     t.text     "description"
     t.integer  "duration"
     t.string   "image_uid"
+    t.text     "session"
   end
 
   create_table "transfers", force: true do |t|

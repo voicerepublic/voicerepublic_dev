@@ -100,6 +100,14 @@ class User < ActiveRecord::Base
 
   end
 
+  def details_for(talk)
+    { 
+      name: name,
+      role: 'participant',
+      image: "http://lorempixel.com/80/80/people/#{rand(9)}/"
+    }
+  end
+
   private
 
   def add_account
