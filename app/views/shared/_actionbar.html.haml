@@ -1,39 +1,40 @@
-%nav.top-bar{"data-topbar" => ""}
-  %ul.title-area
-    %li.name
-      %h1
-        = link_to root_path do
-          = image_tag "logo.png", :alt => "Voice Republic Logo"        
-    %li.toggle-topbar.menu-icon
-      %a{href: "#"} Menu
-  %section.top-bar-section
-    / Right Nav Section
-    %ul.right
-      %li
-        = link_to '/en/venues/72/talks/9' do
-          live-talk    
-      %li.has-dropdown
-        = link_to '#' do #TODO
-          =# image_tag current_or_guest_user.account.portrait(:thumb), :alt => current_or_guest_user.name
-          = image_tag 'http://lorempixel.com/25/25/animals'
+.row 
+  %nav.top-bar{"data-topbar" => ""}
+    %ul.title-area
+      %li.name
+        %h1
+          = link_to root_path do
+            = image_tag "logo.png", :alt => "Voice Republic Logo"        
+      %li.toggle-topbar.menu-icon
+        %a{href: "#"} Menu
+    %section.top-bar-section
+      / Right Nav Section
+      %ul.right
+        %li
+          = link_to '/en/venues/72/talks/9' do
+            live-talk    
+        %li.has-dropdown
+          = link_to '#' do #TODO
+            =# image_tag current_or_guest_user.account.portrait(:thumb), :alt => current_or_guest_user.name
+            = image_tag 'http://lorempixel.com/25/25/animals'
 
-        %ul.dropdown
-          %li
-          = link_to user_path(:id => current_or_guest_user) do
-            = t('.my_profile')
-          %li
-            = link_to( new_venue_path ) do
-              = t('.create_venue')
-          %li
-            = link_to dashboard_settings_edit_path do
-              = t('.settings')
-          %li
-            = link_to(destroy_user_session_path, :method => :delete) do
-              %i.icon-off
-              = t('.logout')          
-    / Left Nav Section
-    %ul.left
-      %li
-        = form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'navbar-search form-search' do
-          = search_field_tag 'query', nil, :placeholder => t('.search'), :class => ""
-          =# button_tag :type => "submit", :class => "" do %i.icon-search #TODO
+          %ul.dropdown
+            %li
+            = link_to user_path(:id => current_or_guest_user) do
+              = t('.my_profile')
+            %li
+              = link_to( new_venue_path ) do
+                = t('.create_venue')
+            %li
+              = link_to dashboard_settings_edit_path do
+                = t('.settings')
+            %li
+              = link_to(destroy_user_session_path, :method => :delete) do
+                %i.icon-off
+                = t('.logout')          
+      / Left Nav Section
+      %ul.left
+        %li
+          = form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'navbar-search form-search' do
+            = search_field_tag 'query', nil, :placeholder => t('.search'), :class => ""
+            =# button_tag :type => "submit", :class => "" do %i.icon-search #TODO

@@ -33,9 +33,9 @@
         %button.button(ng-click='blackbox.mute()') Mute
         %button.button(ng-click='blackbox.unmute()') Unmute 
     
-    .talk-tabs-row.row
-      .large-12
-        %dl.tabs(data-tab="true")
+    .talk-tabs-box.row
+      .small-12
+        %dl.tabs.talk-tabs(data-tab="true")
           %dd
             %a(href="#talk-tab-description")
               Description
@@ -46,7 +46,9 @@
             %a(href="#talk-tab-participants")
               Participants
 
-      .tabs-content
+  .talk-tabs-content-block
+    .row
+      .tabs-content.small-12       
         #talk-tab-description.content
           %p
             Dapibus Purus
