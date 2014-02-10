@@ -2,12 +2,15 @@
   %nav.top-bar{"data-topbar" => ""}
     %ul.title-area
       %li.name
-        %h1
-          = link_to root_path do
-            = image_tag "logo.png", :alt => "Voice Republic Logo"        
+        &nbsp;      
       %li.toggle-topbar.menu-icon
         %a{href: "#"} Menu
+    %h1.top-bar-vr-logo.text-center
+      = link_to root_path do
+        =# image_tag "logo.png", :alt => "Voice Republic Logo" 
+        VR 
     %section.top-bar-section
+
       / Right Nav Section
       %ul.right
         %li
@@ -31,7 +34,8 @@
             %li
               = link_to(destroy_user_session_path, :method => :delete) do
                 %i.icon-off
-                = t('.logout')          
+                = t('.logout') 
+
       / Left Nav Section
       %ul.left
         %li
