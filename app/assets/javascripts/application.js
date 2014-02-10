@@ -17,6 +17,9 @@
 //= require jquery.jplayer.min
 //= require select2
 
+//= require date.js
+//= require foundation_calendar-min.js
+
 //= require advanced
 //= require wysihtml5.min
 
