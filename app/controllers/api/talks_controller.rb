@@ -6,6 +6,7 @@ class Api::TalksController < ApplicationController
   def update
     event = params[:event]
     event_type = (event && event[:command]) || 'event_type_missing'
+    event_type = event_type.underscore
     if respond_to? event_type
       send event_type, event
       head :ok
@@ -20,19 +21,46 @@ class Api::TalksController < ApplicationController
   protected
 
   # update the session on talk, publish event via faye for instant update
-  def register(event)
+  # state
+  def registering(event)
     details = nil
+    user_id = event[:user][:id]
+    user = User.find(user_id)
     Talk.transaction do
       session = @talk.reload.session || {}
-      user_id = event[:user][:id]
-      user = User.find(user_id)
-      session[user_id] = details = user.details_for(@talk)
+      session[user_id] = details = user.details_for(@talk).merge state: 'Registering'
       @talk.update_attribute :session, session
     end
     event[:user].merge! details # merge additional info
     publish event.to_hash
   end
 
+  # state
+  def listening(event)
+    # TODO check if current_user.id is id
+    user_id = event[:user][:id]
+    Talk.transaction do
+      session = @talk.reload.session || {}
+      session[user_id][:state] = 'Listening'
+      @talk.update_attribute :session, session
+    end
+    publish event.to_hash
+  end
+
+  # state
+  def waiting_for_promotion(event)
+    # TODO check if current_user.id is id
+    user_id = event[:user][:id]
+    Talk.transaction do
+      session = @talk.reload.session || {}
+      session[user_id][:state] = 'WaitingForPromotion'
+      @talk.update_attribute :session, session
+    end
+    publish event.to_hash
+  end
+
+
+  # event
   def demote(event)
     # TODO check if current_or_guest_user is the host of the talk
     Talk.transaction do
@@ -43,6 +71,7 @@ class Api::TalksController < ApplicationController
     publish event.to_hash
   end
 
+  # event
   def promote(event)
     # TODO check if current_or_guest_user is the host of the talk
     Talk.transaction do

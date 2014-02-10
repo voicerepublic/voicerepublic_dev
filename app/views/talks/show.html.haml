@@ -10,6 +10,10 @@
       .talk-date-time MAY 6, 2014 | 17:00 -17.30
       #flashContent
 
+    .debug
+      {{session.fsm.current}}
+
+  .talk-live-row
     .row
       .talk-talkers-box.large-10.large-offset-1.columns
         .host.avatar.avatar-host      
@@ -26,6 +30,7 @@
     .talk-live-mic-states-row.row
       .large-12.text-center
         #onair(ng-show='session.onair') On Air
+        %button.button(ng-show='session.fsm.is("Listening")' ng-click='session.fsm.RequestedMic()') Request Mic
         %button.button(ng-click='blackbox.mute()') Mute
         %button.button(ng-click='blackbox.unmute()') Unmute 
     

@@ -42,23 +42,30 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine
     { 
       host: 
-      [ { name: 'Initialized', from: 'Initializing', to: 'SoundChecking' },
+      [ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
         { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'Hosting' } ],
       guest:
-      [ { name: 'Initialized', from: 'Initializing', to: 'SoundChecking' },
+      [ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
         { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'OnAir' },
         { name: 'Demoted', from: 'OnAir', to: 'ListeningButReady'},
         { name: 'Promoted', from: 'ListeningButReady', to: 'OnAir' } ],
       listener:
-      [ { name: 'Initialized', from: 'Initializing', to: 'Listening' },
-        { name: 'MicRequested', from: 'Listening', to: 'ColdSoundChecking' },
-        { name: 'SucceededColdSoundCheck',
-          from: 'ColdSoundChecking', to: 'WaitingForPromotion' },
+      [ { name: 'Registered', from: 'Registering', to: 'Listening' },
+        { name: 'RequestedMic', from: 'Listening', to: 'WaitingForPromotion' },
         { name: 'Promoted', from: 'WaitingForPromotion', to: 'OnAir' },
-        { name: 'Promoted', from: 'Listening', to: 'HotSoundChecking' },
-        { name: 'SucceededHotSoundCheck', from: 'HotSoundChecking', to: 'OnAir' },
+        { name: 'Promoted', from: 'Listening', to: 'OnAir' },
         { name: 'Demoted', from: 'OnAir', to: 'ListeningButReady' },
         { name: 'Promoted', from: 'ListeningButReady', to: 'OnAir' } ]
+      # listener:
+      # [ { name: 'Initialized', from: 'Registering', to: 'Listening' },
+      #   { name: 'MicRequested', from: 'Listening', to: 'ColdSoundChecking' },
+      #   { name: 'SucceededColdSoundCheck',
+      #     from: 'ColdSoundChecking', to: 'WaitingForPromotion' },
+      #   { name: 'Promoted', from: 'WaitingForPromotion', to: 'OnAir' },
+      #   { name: 'Promoted', from: 'Listening', to: 'HotSoundChecking' },
+      #   { name: 'SucceededHotSoundCheck', from: 'HotSoundChecking', to: 'OnAir' },
+      #   { name: 'Demoted', from: 'OnAir', to: 'ListeningButReady' },
+      #   { name: 'Promoted', from: 'ListeningButReady', to: 'OnAir' } ]
     }
   end
 
