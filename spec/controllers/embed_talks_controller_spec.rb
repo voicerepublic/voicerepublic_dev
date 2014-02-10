@@ -13,13 +13,13 @@ describe EmbedTalksController do
     end
 
     it 'renders' do
-      event = FactoryGirl.create :event
-      get :show, id: event.id
+      talk = FactoryGirl.create :talk
+      get :show, id: talk.id
     end
 
     it 'has content' do
-      event = FactoryGirl.create :event, title: 'my title'
-      get :show, id: event.id
+      talk = FactoryGirl.create :talk, title: 'my title'
+      get :show, id: talk.id
       response.body.should =~ /my title/
     end
 
