@@ -1,43 +1,51 @@
-.draft.livepage(ng-controller='Livepage')
-  .row
-    .large-12.columns.text-center
-      %h1 Voice Republic Livepage
+.layout-talk(ng-controller='Livepage')
+  .talk-upper-block
+    %section.talk-title-box.row.text-center
+      .talk-host-name
+        = @talk.user.name
+      %h2.talk-title
+        = @talk.title
+      %h3.talk-teaser
+        = @talk.teaser
+      .talk-date-time MAY 6, 2014 | 17:00 -17.30
       #flashContent
 
     .debug
       {{session.fsm.current}}
 
-  .talk-live-row.row
-    .talk-live-box.large-10.large-offset-1.columns
-      .host.avatar.avatar-host      
-        %p.avatar-name.text-center
-          {{session.config.host}}
-        %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
-        
-      .guest.avatar(ng-repeat="guest in session.guests()")
-        %span(ng-click="session.demote(guest.name)")
+  .talk-live-row
+    .row
+      .talk-talkers-box.large-10.large-offset-1.columns
+        .host.avatar.avatar-host      
           %p.avatar-name.text-center
-            {{ guest.name }}
-          %img.avatar-img(ng-src="{{guest.image}}")
-  
-  .talk-live-mic-states-row.row
-    .large-12.text-center
-      #onair(ng-show='session.onair') On Air
-      %button.button(ng-click='blackbox.mute()') Mute
-      %button.button(ng-click='blackbox.unmute()') Unmute 
-  
-  .talk-tabs-row.row
-    .large-12
-      %dl.tabs(data-tab="true")
-        %dd
-          %a(href="#talk-tab-description")
-            Description
-        %dd
-          %a(href="#talk-tab-discussion")
-            Discussion
-        %dd.active
-          %a(href="#talk-tab-participants")
-            Participants
+            {{session.config.host}}
+          %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
+          
+        .guest.avatar(ng-repeat="guest in session.guests()")
+          %span(ng-click="session.demote(guest.name)")
+            %p.avatar-name.text-center
+              {{ guest.name }}
+            %img.avatar-img(ng-src="{{guest.image}}")
+    
+    .talk-live-mic-states-row.row
+      .large-12.text-center
+        #onair(ng-show='session.onair') On Air
+        %button.button(ng-click='blackbox.mute()') Mute
+        %button.button(ng-click='blackbox.unmute()') Unmute 
+    
+    .talk-tabs-row.row
+      .large-12
+        %dl.tabs(data-tab="true")
+          %dd
+            %a(href="#talk-tab-description")
+              Description
+          %dd
+            %a(href="#talk-tab-discussion")
+              Discussion
+          %dd.active
+            %a(href="#talk-tab-participants")
+              Participants
+
       .tabs-content
         #talk-tab-description.content
           %p
