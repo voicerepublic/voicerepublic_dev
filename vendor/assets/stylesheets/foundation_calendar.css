@@ -1,0 +1,275 @@
+.calendar {
+    margin: 0;
+    padding: 0;
+    border: none;
+    position: relative;
+}
+.calendar>.hidden {
+    display: none;
+}
+.calendar .selector {
+    width: 100%;
+    display: table;
+}
+.calendar .selector .clear {
+    position: absolute;
+    height: 24px;
+    width: auto;
+    right: 5px;
+    top: 11px;
+}
+.calendar .selector .date-selector, .calendar .selector .time-selector {
+    display: table-cell;
+    margin: 0;
+    padding: 0;
+    height: 24px;
+    width: 100%;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    background-color: #fff;
+    font-family: inherit;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.75);
+    display: block;
+    font-size: 0.875rem;
+    margin: 0 0 1rem 0;
+    padding: 0.5rem;
+    height: 2.3125rem;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: -webkit-box-shadow 0.45s, border-color 0.45s ease-in-out;
+    -moz-transition: -moz-box-shadow 0.45s, border-color 0.45s ease-in-out;
+    transition: box-shadow 0.45s, border-color 0.45s ease-in-out;
+}
+.calendar .selector .date-selector:focus, .calendar .selector .time-selector:focus {
+    -webkit-box-shadow: 0 0 5px #999;
+    -moz-box-shadow: 0 0 5px #999;
+    box-shadow: 0 0 5px #999;
+    border-color: #999;
+}
+.calendar .selector .date-selector:focus, .calendar .selector .time-selector:focus {
+    background: #fafafa;
+    border-color: #999;
+    outline: none;
+}
+.calendar .selector .date-selector[disabled], .calendar .selector .time-selector[disabled] {
+    background-color: #ddd;
+}
+.calendar .selector .date-selector .value, .calendar .selector .time-selector .value {
+    margin-left: 10px;
+}
+.calendar .selector.date.time .date-selector {
+    display: table-cell;
+    width: 50%;
+    padding-top: 11px;
+    padding-bottom: 5px;
+}
+.calendar .selector.date.time .time-selector {
+    display: table-cell;
+    width: 50%;
+    padding-top: 11px;
+    padding-bottom: 5px;
+}
+.calendar .time-picker {
+    position: absolute;
+    right: 0;
+    display: none;
+    border: 1px solid #006687;
+    width: auto;
+    height: auto;
+    background: #FFF;
+    z-index: 10000;
+}
+.calendar .time-picker .header {
+    background: #006687;
+    color: #fff;
+    width: 100%;
+    position: relative;
+}
+.calendar .time-picker .header .time {
+    width: 97%;
+    margin: 0 2% 0 0%;
+    text-align: right;
+    height: 28px;
+    font-size: 16px;
+    color: #fff;
+    padding: 5px 0;
+}
+.calendar .time-picker>.time .value-control {
+    padding: 10px 3px 0 3px;
+    width: auto;
+    text-align: center;
+    display: inline-block;
+    float: left;
+}
+.calendar .time-picker>.time .value-control label {
+    background: #008cba;
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+    display: block;
+    margin: -10px -3px 0 -3px;
+    padding: 5px 0;
+}
+.calendar .time-picker>.time .value-control a.value-change {
+    display: block;
+    margin: 0 auto;
+    line-height: 0;
+    *zoom: 1;
+}
+.calendar .time-picker>.time .value-control a.value-change span {
+    display: block;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    margin: 0 auto;
+}
+.calendar .time-picker>.time .value-control a.value-change.up span {
+    border: 8px solid transparent;
+    border-bottom: 8px solid #333;
+}
+.calendar .time-picker>.time .value-control a.value-change.down span {
+    border: 8px solid transparent;
+    border-top: 8px solid #333;
+}
+.calendar .time-picker>.time .value-control a.value-change:before, .calendar .time-picker>.time .value-control a.value-change:after {
+    content: " ";
+    display: table;
+}
+.calendar .time-picker>.time .value-control a.value-change:after {
+    clear: both;
+}
+.calendar .time-picker>.time .value-control .display {
+    display: block;
+    padding: 0 5px;
+    height: 25px;
+    width: 40px;
+    text-align: center;
+    color: #008cba;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.calendar .date-picker {
+    position: absolute;
+    left: 0;
+    display: none;
+    border: 1px solid #006687;
+    width: auto;
+    height: auto;
+    background: #FFF;
+    z-index: 10000;
+}
+.calendar .date-picker .header {
+    background: #006687;
+    width: 100%;
+    position: relative;
+}
+.calendar .date-picker .header .month {
+    width: 80%;
+    margin: 0 20% 0 2%;
+    text-align: left;
+    height: 28px;
+    font-size: 16px;
+    color: #fff;
+    padding: 5px 0;
+}
+.calendar .date-picker .header .month-nav {
+    position: absolute;
+    display: block;
+    top: 7px;
+}
+.calendar .date-picker .header .month-nav span {
+    display: block;
+    width: 0;
+    font-size: 0;
+}
+.calendar .date-picker .header .month-nav.next {
+    right: 0;
+}
+.calendar .date-picker .header .month-nav.next span {
+    border: 6.4px solid #eee;
+    border-top: 6.4px solid transparent;
+    border-bottom: 6.4px solid transparent;
+    border-right: 6.4px solid transparent;
+}
+.calendar .date-picker .header .month-nav.prev {
+    right: 24px;
+}
+.calendar .date-picker .header .month-nav.prev span {
+    border: 6.4px solid #eee;
+    border-top: 6.4px solid transparent;
+    border-bottom: 6.4px solid transparent;
+    border-left: 6.4px solid transparent;
+}
+.calendar .date-picker .header .month-nav:hover.next span {
+    border: 6.4px solid #d4d4d4;
+    border-top: 6.4px solid transparent;
+    border-bottom: 6.4px solid transparent;
+    border-right: 6.4px solid transparent;
+}
+.calendar .date-picker .header .month-nav:hover.prev span {
+    border: 6.4px solid #d4d4d4;
+    border-top: 6.4px solid transparent;
+    border-bottom: 6.4px solid transparent;
+    border-left: 6.4px solid transparent;
+}
+.calendar .date-picker .week {
+    display: block;
+    width: auto;
+    height: auto;
+    white-space: no-wrap;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.calendar .date-picker .week .day {
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    background: #fff;
+    color: #008cba;
+    border: 1px solid #FFF;
+    vertical-align: middle;
+    padding: 3px;
+    width: 31.5px;
+    height: 21px;
+}
+.calendar .date-picker .week .day.weekend {
+    background: #e7e7e7;
+    color: #008cba;
+    border: 1px solid #e7e7e7;
+}
+.calendar .date-picker .week .day.weekend.current, .calendar .date-picker .week .day.current {
+    background: #f08a24;
+    color: #fff;
+    border: 1px solid #f08a24;
+}
+.calendar .date-picker .week .day.other-month {
+    color: #ccc;
+    background: #fff;
+    border: 1px solid #fff;
+}
+.calendar .date-picker .week .day.other-month.weekend {
+    color: #bbb;
+    background: #e7e7e7;
+    border: 1px solid #e7e7e7;
+}
+.calendar .date-picker .week a.day:hover {
+    border: 1px solid #008cba;
+}
+.calendar .date-picker .week a.day.weekend:hover {
+    border: 1px solid #008cba;
+}
+.calendar .date-picker .week.labels .day {
+    background: #008cba;
+    color: #fff;
+    border: 1px solid #008cba;
+    height: 23px;
+    padding: 5px;
+    font-size: 11px;
+}
