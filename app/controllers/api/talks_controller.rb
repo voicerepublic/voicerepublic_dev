@@ -7,29 +7,31 @@ class Api::TalksController < ApplicationController
     msg = params[:msg]
     return render text: 'No `msg` given.', status: 422 unless msg
 
+    @user_id = msg[:user] && msg[:user][:id]
+    return render text: 'No `user id` given.', status: 422 unless @user_id
+
     state, event = msg[:state], msg[:event]
     either = state || event
     return render text: 'Neither `state` nor `event` given.', status: 422 unless either
 
-    method = either.underscore
-    method = :store_state if state && !respond_to?(method)
+    @method = either.underscore
+    @method = :store_state if state && !respond_to?(@method)
 
     # TODO check for security issue (whitelist methods)
     # TODO check if current_or_guest_user is the host of the talk if event
-    msg = send method, msg if respond_to? method
+    if respond_to? @method
+      msg = send(@method, msg)
+    end
 
     publish msg.to_hash
     head :ok
   end
 
-  protected
-
   def store_state(msg)
-    user_id = msg[:user][:id]
-    # TODO check if current_user.id is user_id (use before_action)
+    # TODO check if current_user.id is @user_id (use before_action)
     Talk.transaction do
       session = @talk.reload.session || {}
-      session[user_id][:state] = msg[:state]
+      session[@user_id][:state] = msg[:state]
       @talk.update_attribute :session, session
     end
     msg
@@ -37,12 +39,11 @@ class Api::TalksController < ApplicationController
 
   def registering(msg)
     details = nil
-    user_id = msg[:user][:id]
-    # TODO check if current_user.id is user_id (use before_action)
-    user = User.find(user_id)
+    # TODO check if current_user.id is @user_id (use before_action)
+    user = User.find(@user_id)
     Talk.transaction do
       session = @talk.reload.session || {}
-      session[user_id] = details = user.details_for(@talk).merge state: 'Registering'
+      session[@user_id] = details = user.details_for(@talk).merge state: 'Registering'
       @talk.update_attribute :session, session
     end
     msg[:user].merge details # merge additional info
