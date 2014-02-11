@@ -71,14 +71,14 @@
 
   -# PAST EVENTS
 
-  - if @venue.events.past.any?
-    %header.event-header
-      %h3.layout-title= t('.archive')
-      %hr.venue-form-archive-box-hr
-    - @venue.events.past.each do |event|
-      .row-fluid
-        .span12
-          .venue-upcoming-event-time
-            = l event.start_time, :format => :short
-          %h3.venue-upcoming-event-title
-            = event.title
+  -#- if @venue.events.past.any?
+  -#  %header.event-header
+  -#    %h3.layout-title= t('.archive')
+  -#    %hr.venue-form-archive-box-hr
+  -#  - @venue.events.past.each do |event|
+  -#    .row-fluid
+  -#      .span12
+  -#        .venue-upcoming-event-time
+  -#          = l event.start_time, :format => :short
+  -#        %h3.venue-upcoming-event-title
+  -#          = event.title

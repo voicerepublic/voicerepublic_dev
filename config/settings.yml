@@ -3,13 +3,18 @@ rtmp:
   recordings_path: 'vendor/rtmp/run/recordings'
   archive_path: 'vendor/rtmp/run/archive'
   base_path: 'vendor/rtmp'
-  offrecord: "rtmp://kluuu.com/offrecord"
-  record: "rtmp://kluuu.com/record" 
+  #offrecord: "rtmp://172.21.21.171/offrecord"
+  #record: "rtmp://172.21.21.171/record" 
+  #offrecord: "rtmp://localhost/offrecord"
+  #record: "rtmp://localhost/record" 
+  offrecord: "rtmp://kluuu.com/discussions"
+  record: "rtmp://kluuu.com/recordings" 
   worker_processes: 1
   send_notifications: true
   log_notifications: true
   notify_base: 'http://0.0.0.0:3000/rtmp'
   record_max_size: '100M'
+  authenticate: true
 errbit:
   api_key: '710bf38280e0f96f26a74682519794d5'
 localeapp:

@@ -1,5 +1,6 @@
 # The LivepageController
-Livepage.controller 'Livepage', ($log, config, $scope, session, blackbox) ->
+Livepage.controller 'Livepage', ($scope, $log, config, session, blackbox) ->
 
-  $scope.session = session
+  $scope.config   = config
+  $scope.session  = session
   $scope.blackbox = blackbox

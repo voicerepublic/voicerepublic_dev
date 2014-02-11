@@ -24,7 +24,9 @@ class LivepageConfig < Struct.new(:talk, :user)
       user_id: user.id,
       handle: "u#{user.id}",
       role: role,
-      statemachine: statemachine[role.to_sym]
+      statemachine: statemachine[role.to_sym],
+      stream: "t#{talk.id}-u#{user.id}",
+      streaming_server: Settings.rtmp.record
     }
   end
 
@@ -42,8 +44,9 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine
     { 
       host: 
-      [ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
-        { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'Hosting' } ],
+      #[ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
+      #  { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'Hosting' } ],
+      [ { name: 'Registered', from: 'Registering', to: 'Hosting' } ],
       guest:
       [ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
         { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'OnAir' },

@@ -150,7 +150,6 @@ GEM
       sass (>= 3.2.0)
     friendly_id (5.0.2)
       activerecord (~> 4.0.0)
-    gli (2.9.0)
     globalize3 (0.1.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -195,13 +194,6 @@ GEM
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    localeapp (0.6.14)
-      gli
-      i18n
-      json
-      rack
-      rest-client
-      ya2yaml
     lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -289,8 +281,6 @@ GEM
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
     ref (1.0.5)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     riddle (1.5.10)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -387,7 +377,6 @@ GEM
       will_paginate (>= 3.0.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    ya2yaml (0.31)
     zeus (0.13.3)
       method_source (>= 0.6.7)
 
@@ -428,7 +417,6 @@ DEPENDENCIES
   jquery-rails
   launchy
   less-rails (= 2.3.2)
-  localeapp
   money-rails
   omniauth-facebook
   omniauth-google-oauth2
