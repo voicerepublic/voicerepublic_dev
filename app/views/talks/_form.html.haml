@@ -1,34 +1,36 @@
-Nicht funktionierende Inputfields (TEST):
-= text_field 'input-talk-date', 'input-talk-date', {'data-date' => ''}
-= text_field 'input-talk-time', 'input-talk-time', {'data-time' => ''}
+.row.collapse
+  .large-12.columns
+    = simple_form_for([@venue, @talk]) do |f|
+      = f.error_notification
 
-= simple_form_for([@venue, @talk]) do |f|
-  = f.error_notification
+      .form-inputs
+        = f.input :title
+        = f.input :teaser
 
-  .form-inputs
-    = f.input :title
-    = f.input :teaser
+        %p TODO make this a datepicker:
+        = f.input :starts_at, as: :string
+        -#.control-group.string.required.talk_starts_at
+        -#  %label.string.required.control-label(for="talk_starts_at")
+        -#    %abbr(title="required") *
+        -#    = t('.starts_at')
+        -#  .controls.input-append.date.datetimepicker
+        -#    = f.input_field :starts_at, as: 'string', input_html: { 'data-format' => "dd/MM/yyyy hh:mm" }
+        -#    %span.add-on
+        -#      %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
+        -#    .help-block.help-datetimepicker Format: 02/07/1967 17:00
 
-    %p TODO make this a datepicker:
-    = f.input :starts_at, as: :string
-    -#.control-group.string.required.talk_starts_at
-    -#  %label.string.required.control-label(for="talk_starts_at")
-    -#    %abbr(title="required") *
-    -#    = t('.starts_at')
-    -#  .controls.input-append.date.datetimepicker
-    -#    = f.input_field :starts_at, as: 'string', input_html: { 'data-format' => "dd/MM/yyyy hh:mm" }
-    -#    %span.add-on
-    -#      %i{"data-date-icon" => "icon-calendar", "data-time-icon" => "icon-time"}
-    -#    .help-block.help-datetimepicker Format: 02/07/1967 17:00
+        = f.input :duration, collection: Settings.durations
+        = f.input :image, as: :file
+        %p TODO guest selection
+        = render 'shared/wysihtml5_toolbar'
+        = f.input :description, input_html: { 'data-wysiwyg' => true }
+        = f.input :record
 
-    = f.input :duration, collection: Settings.durations
-    = f.input :image, as: :file
-    %p TODO guest selection
-    = render 'shared/wysihtml5_toolbar'
-    = f.input :description, input_html: { 'data-wysiwyg' => true }
-    = f.input :record
+        = f.button :submit
 
-  .form-actions
-    = f.button :submit
-
-
+.row.collapse
+  .draft.large-12.columns
+    -#testdatepicker  
+    Foundation Datepicker (TODO, ohne Rails Anbindung)
+    = text_field 'input-talk-date', 'input-talk-date', {'data-date' => ''}
+    = text_field 'input-talk-time', 'input-talk-time', {'data-time' => ''}
