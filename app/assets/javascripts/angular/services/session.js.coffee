@@ -51,7 +51,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   guests = ->
     (user for id, user of users when user.state == 'OnAir')
   participants = ->
-    (user for id, user of users when user.state == 'Listening')
+    (user for id, user of users when user.state in ['Listening', 'ListeningButReady'])
 
   # The pushMsgHandler is where the push notifications end up.
   #
@@ -94,6 +94,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       when 'Registering' then users[data.user.id] = data.user
       when 'Listening' then users[data.user.id].state = 'Listening'
       when 'OnAir' then users[data.user.id].state = 'OnAir'
+      when 'ListeningButReady' then users[data.user.id].state = 'ListeningButReady'
       # else $log.info "OtherIgnoring: #{method}"
 
   privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
