@@ -49,16 +49,11 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     $log.info "reporting new state: #{state}"
     upstream.state config.user_id, state
 
-  # TODO change name to id
-  promote = (name) ->
-    for id, user of users when user.name == name
-      upstream.event user.id, 'Promotion'
-  demote = (name) ->
-    for id, user of users when user.name == name
-      if id is config.user_id
-        fsm.Demoted()
-      else
-        upstream.event user.id, 'Demotion'
+  promote = (id) ->
+    upstream.event id, 'Promotion'
+  demote = (id) ->
+    return fsm.Demoted() if id is config.user_id
+    upstream.event user.id, 'Demotion'
 
   guests = ->
     (user for id, user of users when user.state == 'OnAir')

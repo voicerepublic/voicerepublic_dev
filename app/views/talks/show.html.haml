@@ -31,7 +31,7 @@
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
           
         .guest.avatar(ng-repeat="guest in session.guests()")
-          %span(ng-click="session.demote(guest.name)")
+          %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
             %img.avatar-img(ng-src="{{guest.image}}")
