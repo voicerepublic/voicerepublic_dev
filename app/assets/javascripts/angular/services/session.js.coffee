@@ -42,15 +42,18 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   promote = (name) ->
     for id, user of users when user.name == name
-      upstream.put 'promote', id: user.id
+      # FIXME
+      upstream.event user.id, 'Promotion'
   demote = (name) ->
     for id, user of users when user.name == name
-      upstream.put 'demote', id: user.id
+      # FIXME
+      upstream.event user.id, 'Demotion'
+
 
   guests = ->
-    (user for id, user of users when user.role == 'guest')
+    (user for id, user of users when user.state == 'OnAir')
   participants = ->
-    (user for id, user of users when user.role == 'participant')
+    (user for id, user of users when user.state == 'Listening')
 
   # The pushMsgHandler is where the push notifications end up.
   #

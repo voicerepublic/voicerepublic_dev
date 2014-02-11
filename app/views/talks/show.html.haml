@@ -10,15 +10,23 @@
       .talk-date-time MAY 6, 2014 | 17:00 -17.30
       #flashContent
 
-    .debug
-      {{session.fsm.current}}
-
   .talk-live-row
     .row
       .talk-talkers-box.large-10.large-offset-1.columns
+        .debug
+          %ul
+            -#%li config: {{ config }}
+            %li session: {{ session }}
+            %li session.config: {{ session.config }}
+            %li session.config.host: {{ session.config.host }}
+            %li config.host: {{ config.host }}
+            %li config.title: {{ config.title }}
+            %li config.teaser: {{ config.teaser }}
+            %li session.users: {{ session.users }}
+            %li session.fsm.current: {{ session.fsm.current }}
         .host.avatar.avatar-host      
           %p.avatar-name.text-center
-            {{session.config.host}}
+            {{ session.config.host }}
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
           
         .guest.avatar(ng-repeat="guest in session.guests()")
@@ -58,6 +66,7 @@
             Dapibus Purus              
         #talk-tab-participants.content.active
           .participant.avatar(ng-repeat="participant in session.participants()")
+            {{participant}}
             %span(ng-click="session.promote(participant.name)")
               %p.avatar-name.text-center
                 {{ participant.name }}

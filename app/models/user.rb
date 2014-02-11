@@ -102,6 +102,7 @@ class User < ActiveRecord::Base
 
   def details_for(talk)
     { 
+      id: id,
       name: name,
       role: 'participant',
       image: "http://lorempixel.com/80/80/people/#{rand(9)}/"
