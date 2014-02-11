@@ -9,7 +9,12 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   users = config.session || {}
 
-  id = config.user_id
+  blackbox.setStreamingServer config.streaming_server
+  for id, user of users
+    if user.state in ['OnAir', 'Hosting']
+      unless id is "#{config.user_id}"
+        blackbox.subscribe user.stream
+
   config.onair = false
 
   fsm = StateMachine.create
@@ -30,8 +35,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       onListeningButReady: ->
         config.onair = false
       onOnAir: ->
+        blackbox.publish config.stream
         config.onair = true
       onHosting: ->
+        blackbox.publish config.stream
         config.onair = true
       # onafterOnAir: ->
       #   onair = false
@@ -98,7 +105,12 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     switch method
       when 'Registering' then users[data.user.id] = data.user
       when 'Listening' then users[data.user.id].state = 'Listening'
-      when 'OnAir' then users[data.user.id].state = 'OnAir'
+      when 'OnAir'
+        users[data.user.id].state = 'OnAir'
+        blackbox.subscribe users[data.user.id].stream
+      when 'Hosting'
+        users[data.user.id].state = 'Hosting'
+        blackbox.subscribe users[data.user.id].stream
       when 'ListeningButReady' then users[data.user.id].state = 'ListeningButReady'
       # else $log.info "OtherIgnoring: #{method}"
 

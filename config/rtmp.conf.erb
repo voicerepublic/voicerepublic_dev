@@ -19,8 +19,10 @@ rtmp {
     server {
         listen 1935;
 
+        <% if authenticate %>
         # authentication (needs an absolute url)
         on_connect <%= notify_base %>/auth;
+        <% end %>
 
         application offrecord {
             live on;
