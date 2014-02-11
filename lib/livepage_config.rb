@@ -42,8 +42,9 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine
     { 
       host: 
-      [ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
-        { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'Hosting' } ],
+      #[ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
+      #  { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'Hosting' } ],
+      [ { name: 'Registered', from: 'Registering', to: 'Hosting' } ],
       guest:
       [ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
         { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'OnAir' },

@@ -68,10 +68,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     if method == undefined # guard
       return $log.info 'Ignoring malformed message. ' +
         'Neither state nor event given.'
-    if data.id = config.user_id # delegate # FIXME = should be ==
+    if data.user.id == config.user_id
       egoMsgHandler method, data
     else
-      othersMsgHandler method, data
+      otherMsgHandler method, data
     $log.debug 'trigger refresh'
     $rootScope.$apply()
 
@@ -80,15 +80,21 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # notifications as a side effect.
   egoMsgHandler = (method, data) ->
     switch method
-      when 'Registering' then fsm.Registered()
+      when 'Registering'
+        fsm.Registered()
+        users[data.user.id] = data.user
       when 'Promotion' then fsm.Promoted() # external event
       when 'Demotion' then fsm.Demoted() # external event
       else $log.info "EgoIgnoring: #{method}"
+    # store the current state on the users hash
+    users[data.user.id].state = fsm.current
 
-  othersMsgHandler = (method, data) ->
+  otherMsgHandler = (method, data) ->
     switch method
       when 'Registering' then users[data.user.id] = data.user
-      else $log.info "OtherIgnoring: #{method}"
+      when 'Listening' then users[data.user.id].state = 'Listening'
+      when 'OnAir' then users[data.user.id].state = 'OnAir'
+      # else $log.info "OtherIgnoring: #{method}"
 
   privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler

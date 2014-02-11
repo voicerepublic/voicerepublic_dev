@@ -26,7 +26,7 @@
             %li session.users: {{ session.users }}
         .host.avatar.avatar-host      
           %p.avatar-name.text-center
-            {{ session.config.host }}
+            {{ config.host }}
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
           
         .guest.avatar(ng-repeat="guest in session.guests()")
