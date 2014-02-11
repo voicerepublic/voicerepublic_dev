@@ -2,7 +2,7 @@
 # data and contains the session logic.
 #
 # CHECK Maybe it makes sense to split this further into
-#  * stuff that belongs to the user 
+#  * stuff that belongs to the user
 #  * stuff that belongs to the whole session (all users)
 Livepage.factory 'session', ($log, privatePub, util, $rootScope,
                              $timeout, upstream, config, blackbox) ->
@@ -55,7 +55,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       upstream.event user.id, 'Promotion'
   demote = (name) ->
     for id, user of users when user.name == name
-      upstream.event user.id, 'Demotion'
+      if id is config.user_id
+        fsm.Demoted()
+      else
+        upstream.event user.id, 'Demotion'
 
   guests = ->
     (user for id, user of users when user.state == 'OnAir')
@@ -119,7 +122,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   { # expose
     name: config.fullname
-    fsm 
+    fsm
     promote
     demote
     guests
