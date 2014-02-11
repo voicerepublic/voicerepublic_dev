@@ -42,11 +42,9 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   promote = (name) ->
     for id, user of users when user.name == name
-      # FIXME
       upstream.event user.id, 'Promotion'
   demote = (name) ->
     for id, user of users when user.name == name
-      # FIXME
       upstream.event user.id, 'Demotion'
 
 
@@ -74,7 +72,8 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       egoMsgHandler method, data
     else
       othersMsgHandler method, data
-    $rootScope.$apply() # trigger refresh
+    $log.debug 'trigger refresh'
+    $rootScope.$apply()
 
   # It's the egoMsgHandlers responsibility to trigger events
   # on the state machine, which in turn will create upstream
@@ -102,4 +101,5 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     demote
     guests
     participants
+    users # debug
   }
