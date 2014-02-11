@@ -24,6 +24,7 @@
             %li config.teaser: {{ config.teaser }}
             %li session.fsm.current: {{ session.fsm.current }}
             %li session.users: {{ session.users }}
+            %li config.onair: {{ config.onair }}
         .host.avatar.avatar-host      
           %p.avatar-name.text-center
             {{ config.host }}
@@ -37,8 +38,8 @@
     
     .talk-live-mic-states-row.row
       .large-12.text-center
-        #onair(ng-show='session.onair') On Air
-        %button.button(ng-show='session.fsm.is("Listening")' ng-click='session.fsm.RequestedMic()') Request Mic
+        #onair(ng-show='config.onair') On Air
+        %button.button(ng-show='session.isListening()' ng-click='session.fsm.RequestedMic()') Request Mic
         %button.button(ng-click='blackbox.mute()') Mute
         %button.button(ng-click='blackbox.unmute()') Unmute 
     

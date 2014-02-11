@@ -10,7 +10,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   users = config.session || {}
 
   id = config.user_id
-  onair = false
+  config.onair = false
 
   fsm = StateMachine.create
     initial: 'Registering'
@@ -25,12 +25,14 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       # onSoundChecking: ->
       #   alert 'soundcheck'
       #   fsm.SucceededSoundCheck()
-      # onListening: ->
-      #   upstream.put 'listening', user: { id: config.user_id }
-      # onOnAir: ->
-      #   onair = true
-      # onHosting: ->
-      #   onair = true
+      onListening: ->
+        config.onair = false
+      onListeningButReady: ->
+        config.onair = false
+      onOnAir: ->
+        config.onair = true
+      onHosting: ->
+        config.onair = true
       # onafterOnAir: ->
       #   onair = false
       # onWaitingForPromotion: ->
@@ -40,6 +42,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     $log.info "reporting new state: #{state}"
     upstream.state config.user_id, state
 
+  # TODO change name to id
   promote = (name) ->
     for id, user of users when user.name == name
       upstream.event user.id, 'Promotion'
@@ -47,11 +50,13 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     for id, user of users when user.name == name
       upstream.event user.id, 'Demotion'
 
-
   guests = ->
     (user for id, user of users when user.state == 'OnAir')
   participants = ->
     (user for id, user of users when user.state in ['Listening', 'ListeningButReady'])
+
+  isListening = ->
+    (fsm.current in ['Listening', 'ListeningButReady'])
 
   # The pushMsgHandler is where the push notifications end up.
   #
@@ -101,7 +106,6 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
   { # expose
-    onair
     name: config.fullname
     fsm 
     promote
@@ -109,4 +113,5 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     guests
     participants
     users # debug
+    isListening
   }
