@@ -5,7 +5,8 @@
 #  * stuff that belongs to the user
 #  * stuff that belongs to the whole session (all users)
 Livepage.factory 'session', ($log, privatePub, util, $rootScope,
-                             $timeout, upstream, config, blackbox) ->
+                             $timeout, upstream, config, blackbox,
+                             $interval) ->
 
   users = config.session || {}
 
@@ -124,4 +125,5 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     participants
     users # debug
     isListening
+    countdown: config.countdown
   }
