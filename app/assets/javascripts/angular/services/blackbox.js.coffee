@@ -90,15 +90,19 @@ Livepage.factory 'blackbox', ($log, $window, $q) ->
 
   mute = ->
     deferred.promise.then (api) ->
-      api.mute()
+      api.muteMic()
   
   unmute = ->
     deferred.promise.then (api) ->
-      api.unmute()
+      api.unmuteMic()
 
   setStreamingServer = (url) ->
     deferred.promise.then (api) ->
       api.setStreamingServer(url)
+
+  setVolume = (vol) ->
+    deferred.promise.then (api) ->
+      api.setVolume(vol)
       
   # expose public methods
   {
@@ -109,4 +113,5 @@ Livepage.factory 'blackbox', ($log, $window, $q) ->
     mute
     unmute
     setStreamingServer
+    setVolume
   }
