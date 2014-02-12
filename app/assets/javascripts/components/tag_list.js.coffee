@@ -39,7 +39,7 @@ tagList = ->
   $.each tags, (i, name) ->
     if name != ''
       id = Math.floor(Math.random() * 1000)
-      formated.push { id, name }
+      formatted.push { id, name }
   if tags.length > 0
     $('.tagList').select2 'data', formatted                   
 
