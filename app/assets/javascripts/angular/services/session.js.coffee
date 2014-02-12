@@ -55,10 +55,12 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     return fsm.Demoted() if id is config.user_id
     upstream.event user.id, 'Demotion'
 
-  guests = ->
+  onair = ->
     (user for id, user of users when user.state == 'OnAir')
-  participants = ->
+  listening = ->
     (user for id, user of users when user.state in ['Listening', 'ListeningButReady'])
+  waitingForPromotion = ->
+    (user for id, user of users when user.state == 'WaitingForPromotion')
 
   isListening = ->
     (fsm.current in ['Listening', 'ListeningButReady'])
@@ -116,12 +118,16 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
   { # expose
-    name: config.fullname
-    fsm
+    # -- events
     promote
     demote
-    guests
-    participants
+    # --- groups
+    onair
+    listening
+    waitingForPromotion
+    # -- misc
+    name: config.fullname
+    fsm
     users # debug
     isListening
   }
