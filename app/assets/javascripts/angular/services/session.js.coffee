@@ -74,8 +74,8 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
     data = data.data # unpack private_pub message
-    $log.debug 'Receiving...'
-    $log.debug data
+    #$log.debug 'Receiving...'
+    #$log.debug data
     method = data.state || data.event
     if method == undefined # guard
       return $log.info 'Ignoring malformed message. ' +
@@ -83,8 +83,8 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     if data.user.id == config.user_id
       egoMsgHandler method, data
     else
-      otherMsgHandler method, data
-    $log.debug 'trigger refresh'
+      stateNotification data.state, data if data.state
+    #$log.debug 'trigger refresh'
     $rootScope.$apply()
 
   # It's the egoMsgHandlers responsibility to trigger events
@@ -101,18 +101,13 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     # store the current state on the users hash
     users[data.user.id].state = fsm.current
 
-  otherMsgHandler = (method, data) ->
-    switch method
-      when 'Registering' then users[data.user.id] = data.user
-      when 'Listening' then users[data.user.id].state = 'Listening'
-      when 'OnAir'
-        users[data.user.id].state = 'OnAir'
+  stateNotification = (state, data) ->
+    users[data.user.id]?.state = state
+    switch state
+      when 'Registering'
+        users[data.user.id] = data.user
+      when 'OnAir', 'Hosting'
         blackbox.subscribe users[data.user.id].stream
-      when 'Hosting'
-        users[data.user.id].state = 'Hosting'
-        blackbox.subscribe users[data.user.id].stream
-      when 'ListeningButReady' then users[data.user.id].state = 'ListeningButReady'
-      # else $log.info "OtherIgnoring: #{method}"
 
   privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
