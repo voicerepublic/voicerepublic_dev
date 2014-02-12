@@ -7,6 +7,7 @@ tagList = ->
     multiple: true
     tokenSeparators: [",", " "]
     ajax:
+      # TODO refactor into api/tags
       url: "/venues/tags.json"
       data: (term, page) ->
         q = term

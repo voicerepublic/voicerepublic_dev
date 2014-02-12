@@ -6,6 +6,7 @@
       .form-inputs
         = f.input :title
         = f.input :teaser
+        = f.input :tag_list, input_html: { class: 'tagList' }
 
         %p TODO make this a datepicker:
         = f.input :starts_at, as: :string
