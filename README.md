@@ -50,53 +50,18 @@ Run Specs
 To run specs Faye and a Sphinx daemon have to run.
 
 
-TODO
-----
+Compile Flash
+-------------
 
- * "noreply@kluuu.com" is a bad idea.
- * get rid of config/environments/staging.rb staging is not an environment
-   (to have a different log level on staging put this info into settings)
- * app/views/layouts/application loads stylesheets based on controller
-   this undermines the asset pipeline, get rid of it
- * fix authentication/authorization participation
- * clean up rake tasks in lib/tasks
- * write a cleanup db migration
- * cleanup assets
- * cleanup images !
- * use request log analyzer
- * log which views/partials are actually used
- * https://github.com/ryanb/cancan#4-lock-it-down
- * cleanup routes
- * get rid of 'bookmarks' remeniscence
- * get rid of 'status_update' remeniscence
- * rename app from Kluuu2 to VoiceRepublic
- * get rid of locale specific views
+Install Flex
 
-    % find ./ -name \*.en.html.erb
-    ./app/views/inline_help/_dashboard_finances_charged.en.html.erb
-    ./app/views/inline_help/_dashboard_finances_checkout.en.html.erb
-    ./app/views/inline_help/_dashboard_bookmarks_info.en.html.erb
-    ./app/views/inline_help/_dashboard_contacts_customer_service.en.html.erb
-    ./app/views/inline_help/_dashboard_matches_finances.en.html.erb
-    ./app/views/inline_help/_dashboard_messages.en.html.erb
-    ./app/views/inline_help/_dashboard_news_info.en.html.erb
-    ./app/views/inline_help/_dashboard_matches_first_kluuu.en.html.erb
-    ./app/views/inline_help/_dashboard_finances_info.en.html.erb
-    ./app/views/inline_help/_dashboard_matches_matches.en.html.erb
-    ./app/views/inline_help/_dashboard_contacts_interesting_people.en.html.erb
-    ./app/views/txt/agb.en.html.erb
-    ./app/views/txt/tou.en.html.erb
-    ./app/views/venues/_venue_video.en.html.erb
-    % find ./ -name \*.en.html.haml
-    ./app/views/landing_page/index.en.html.haml
-    ./app/views/venues/txt/_venue_desc.en.html.haml
+    http://www.adobe.com/devnet/flex/flex-sdk-download.html
 
+Make `bin` available in your PATH.
 
-FIXES (maybe outdated)
-----------------------
+Run
 
- * Venue.update_all('user_id = 1', :user_id => nil)
- * Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
+    mxmlc lib/flash/Blackbox.as
 
 
 Documentation
