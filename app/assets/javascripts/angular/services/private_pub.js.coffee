@@ -18,6 +18,7 @@ Livepage.factory "privatePub", ($log, $q, config) ->
       callback message
 
   $log.debug 'Loading Faye client...'
+  # TODO get rid of dependency on jquery, for testability
   $.getScript config.fayeClientUrl, (x) ->
     $log.debug 'Faye client loaded. Instanciating Faye client...'
     client = new Faye.Client(config.fayeUrl)
