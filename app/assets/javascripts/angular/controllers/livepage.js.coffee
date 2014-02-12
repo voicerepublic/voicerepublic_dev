@@ -31,3 +31,7 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
 
   $interval setCountdown, 1000
   
+  # expose to test
+  # TODO maybe move into util
+  $scope.calculateCountdown = calculateCountdown
+
