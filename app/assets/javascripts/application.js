@@ -23,6 +23,8 @@
 //= require advanced
 //= require wysihtml5.min
 
+//= require components/tag_list
+
 /* Alters-Success fade out after 8secs */
 (function($){
   function hideAlerts() {
