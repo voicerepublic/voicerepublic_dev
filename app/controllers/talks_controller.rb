@@ -58,12 +58,12 @@ class TalksController < ApplicationController
   def set_talk
     @talk = Talk.find(params[:id])
   end
-  
+
   # Only allow a trusted parameter "white list" through.
   def talk_params
     params.require(:talk).permit(:title, :teaser,
                                  :starts_at, :duration,
-                                 :description, :record, :image)
+                                 :description, :record, :image, :tag_list)
   end
 
 end

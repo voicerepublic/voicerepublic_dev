@@ -8,7 +8,11 @@
           = @talk.title
         %h3.talk-teaser
           = @talk.teaser
+        %h3.talk-tags
+          = @talk.tag_list
         .talk-date-time MAY 6, 2014 | 17:00 -17.30
+        .talk-date-time
+          {{ countdown }}
         #flashContent
 
   .talk-live-row
@@ -49,23 +53,22 @@
         %dl.tabs.talk-tabs(data-tab="true")
           %dd.text-center
             %a(href="#talk-tab-description")
-              Description
+              =t('.description')
           %dd.text-center
             %a(href="#talk-tab-discussion")
-              Discussion
+              =t('.discussion')
           %dd.active.text-center
             %a(href="#talk-tab-participants")
-              Participants
+              =t('.participants')
 
   .talk-tabs-content-block
     .row
       .tabs-content.large-12.columns     
         #talk-tab-description.content
-          %p
-            Dapibus Purus
+          = @talk.description.html_safe
         #talk-tab-discussion.content
           %p
-            Dapibus Purus              
+            Some discussion here
         #talk-tab-participants.content.active
           .participant.avatar(ng-repeat="participant in session.participants()")
             {{participant}}

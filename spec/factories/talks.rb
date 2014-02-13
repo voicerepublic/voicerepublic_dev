@@ -10,5 +10,6 @@ FactoryGirl.define do
     duration 60
     record false
     # recording "MyString"
+    tag_list 'lorem, ipsum, dolor'
   end
 end

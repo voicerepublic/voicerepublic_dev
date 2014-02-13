@@ -92,7 +92,7 @@
   };
 
   var tagList = function() {
-    var tags = $('.tagList').val().split(', ')
+    var tags = $('.tagList').val().split(', ');
 
     $('.tagList').select2(
       { width: 'element',
@@ -136,12 +136,12 @@
     var formatted = [];
     $.each(tags, function (i, tag) {
       if (tag != "") {
-        formatted.push({ id: Math.floor(Math.random() * 1000), name: tag })
+        formatted.push({ id: Math.floor(Math.random() * 1000), name: tag });
       }
-    })
+    });
 
     if (tags.length > 0) {
-      $('.tagList').select2('data', formatted)
+      $('.tagList').select2('data', formatted);
     }
   };
 
