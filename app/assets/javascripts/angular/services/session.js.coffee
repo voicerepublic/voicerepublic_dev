@@ -8,15 +8,15 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
                              $timeout, upstream, config, blackbox,
                              $interval) ->
 
-  users = config.session || {}
-
+  users = {}
   blackbox.setStreamingServer config.streaming_server
-  for id, user of users
-    if user.state in ['OnAir', 'Hosting']
-      unless id is "#{config.user_id}"
-        blackbox.subscribe user.stream
-
   config.onair = false
+
+  subscribeAllStreams = ->
+    for id, user of users
+      if user.state in ['OnAir', 'Hosting']
+        unless id is "#{config.user_id}"
+          blackbox.subscribe user.stream
 
   fsm = StateMachine.create
     initial: 'Registering'
@@ -28,38 +28,36 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
           $timeout (-> reportState(to)), 1000
         else
           reportState(to)
-      # onSoundChecking: ->
-      #   alert 'soundcheck'
-      #   fsm.SucceededSoundCheck()
       onListening: ->
-        config.onair = false
-      onListeningButReady: ->
-        config.onair = false
+        subscribeAllStreams()
       onOnAir: ->
         blackbox.publish config.stream
         config.onair = true
       onHosting: ->
+        users = config.session
         blackbox.publish config.stream
         config.onair = true
-      # onafterOnAir: ->
-      #   onair = false
-      # onWaitingForPromotion: ->
-      #   upstream.put 'WaitingForPromotion'
+      onafterOnAir: ->
+        blackbox.unpublish()
+        config.onair = false
 
   reportState = (state) ->
     $log.info "reporting new state: #{state}"
-    upstream.state config.user_id, state
+    upstream.state state
 
   promote = (id) ->
-    upstream.event id, 'Promotion'
+    $log.debug "promote #{id}"
+    upstream.event 'Promote', user: { id }
   demote = (id) ->
     return fsm.Demoted() if id is config.user_id
-    upstream.event user.id, 'Demotion'
+    upstream.event 'Demote', user: { id }
 
-  guests = ->
+  onair = ->
     (user for id, user of users when user.state == 'OnAir')
-  participants = ->
+  listening = ->
     (user for id, user of users when user.state in ['Listening', 'ListeningButReady'])
+  waitingForPromotion = ->
+    (user for id, user of users when user.state == 'WaitingForPromotion')
 
   isListening = ->
     (fsm.current in ['Listening', 'ListeningButReady'])
@@ -73,17 +71,18 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
     data = data.data # unpack private_pub message
-    $log.debug 'Receiving...'
-    $log.debug data
+    #$log.debug 'Receiving...'
+    #$log.debug data
     method = data.state || data.event
     if method == undefined # guard
       return $log.info 'Ignoring malformed message. ' +
         'Neither state nor event given.'
-    if data.user.id == config.user_id
+    if data.user?.id == config.user_id
       egoMsgHandler method, data
     else
-      otherMsgHandler method, data
-    $log.debug 'trigger refresh'
+      stateHandler method, data if data.state
+      eventHandler method, data if data.event
+    #$log.debug 'trigger refresh'
     $rootScope.$apply()
 
   # It's the egoMsgHandlers responsibility to trigger events
@@ -94,35 +93,56 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       when 'Registering'
         fsm.Registered()
         users[data.user.id] = data.user
-      when 'Promotion' then fsm.Promoted() # external event
-      when 'Demotion' then fsm.Demoted() # external event
-      else $log.info "EgoIgnoring: #{method}"
+      when 'Waiting'
+        if config.talk.state == 'live'
+          # TODO pull session info
+          fsm.StartTalk()
+      when 'Promote' then fsm.Promoted() # external event
+      when 'Demote' then fsm.Demoted() # external event
+      else $log.info "Ignore: #{method}"
     # store the current state on the users hash
     users[data.user.id].state = fsm.current
 
-  otherMsgHandler = (method, data) ->
-    switch method
-      when 'Registering' then users[data.user.id] = data.user
-      when 'Listening' then users[data.user.id].state = 'Listening'
-      when 'OnAir'
-        users[data.user.id].state = 'OnAir'
-        blackbox.subscribe users[data.user.id].stream
-      when 'Hosting'
-        users[data.user.id].state = 'Hosting'
-        blackbox.subscribe users[data.user.id].stream
-      when 'ListeningButReady' then users[data.user.id].state = 'ListeningButReady'
-      # else $log.info "OtherIgnoring: #{method}"
+  stateHandler = (state, data) ->
+    users[data.user.id]?.state = state
+    switch state
+      when 'Registering'
+        users[data.user.id] = data.user
+      when 'OnAir', 'Hosting'
+        if isListening()
+          blackbox.subscribe users[data.user.id].stream
+
+  eventHandler = (event, data) ->
+    switch event
+      when 'StartTalk'
+        config.talk.state = 'live'
+        unless fsm.is('Hosting')
+          users = data.session
+          fsm.StartTalk()
+      when 'EndTalk'
+        fsm.EndTalk()
+
+  startTalk = ->
+    upstream.event 'StartTalk'
+  endTalk = ->
+    upstream.event 'EndTalk'
 
   privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
   { # expose
-    name: config.fullname
-    fsm
+    # -- events
     promote
     demote
-    guests
-    participants
+    startTalk
+    endTalk
+    # --- groups
+    onair
+    listening
+    waitingForPromotion
+    # -- misc
+    name: config.fullname
+    fsm
     users # debug
     isListening
     countdown: config.countdown

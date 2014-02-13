@@ -14,28 +14,32 @@
         .talk-date-time
           {{ countdown }}
         #flashContent
+        %h3(ng-show='talkIsPrelive()') talk is prelive
+        %h3(ng-show='talkIsLive()') talk is live
+        %h3(ng-show='talkIsPostlive()') talk is postlive
 
   .talk-live-row
     .row
       .talk-talkers-box.large-10.large-offset-1.columns
         .debug
           %ul
-            -#%li config: {{ config }}
-            %li session: {{ session }}
-            %li session.config: {{ session.config }}
-            %li session.config.host: {{ session.config.host }}
-            %li config.host: {{ config.host }}
-            %li config.title: {{ config.title }}
-            %li config.teaser: {{ config.teaser }}
-            %li session.fsm.current: {{ session.fsm.current }}
-            %li session.users: {{ session.users }}
-            %li config.onair: {{ config.onair }}
+            -# %li config: {{ config }}
+            -# %li session: {{ session }}
+            -# %li session.config: {{ session.config }}
+            -# %li session.config.host: {{ session.config.host }}
+            -# %li config.host: {{ config.host }}
+            -# %li config.title: {{ config.title }}
+            -# %li config.teaser: {{ config.teaser }}
+            -# %li session.fsm.current: {{ session.fsm.current }}
+            -# %li session.users: {{ session.users }}
+            -# %li config.onair: {{ config.onair }}
+            %li config.talk.state: {{ config.talk.state }}
         .host.avatar.avatar-host      
           %p.avatar-name.text-center
             {{ config.host }}
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
           
-        .guest.avatar(ng-repeat="guest in session.guests()")
+        .guest.avatar(ng-repeat="guest in session.onair()")
           %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
@@ -44,7 +48,12 @@
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
         #onair(ng-show='config.onair') On Air
-        %button.button(ng-show='session.isListening()' ng-click='session.fsm.RequestedMic()')
+        %button.button(ng-show='showStartTalk()'
+          ng-click='session.startTalk()')= t('.start_talk')
+        %button.button(ng-show='showEndTalk()'
+          ng-click='session.endTalk()')= t('.end_talk')
+        %button.button(ng-show='session.isListening()'
+          ng-click='session.fsm.RequestedMic()')
         %button.button(ng-click='blackbox.mute()') Mute
         %button.button(ng-click='blackbox.unmute()') Unmute 
     
@@ -59,7 +68,9 @@
               =t('.discussion')
           %dd.active.text-center
             %a(href="#talk-tab-participants")
-              =t('.participants')
+              Participants
+              %span(ng-show='session.waitingForPromotion().length')
+                ({{ session.waitingForPromotion().length }} Mic Req.)
 
   .talk-tabs-content-block
     .row
@@ -70,12 +81,20 @@
           %p
             Some discussion here
         #talk-tab-participants.content.active
-          .participant.avatar(ng-repeat="participant in session.participants()")
-            {{participant}}
-            %span(ng-click="session.promote(participant.name)")
-              %p.avatar-name.text-center
-                {{ participant.name }}
-              %img.avatar-img(ng-src="{{participant.image}}")
+          .waiting_for_promotion
+            %h3= t('.microphone_requests')
+            .participant.avatar(ng-repeat="participant in session.waitingForPromotion()")
+              %span(ng-click="session.promote(participant.id)")
+                %p.avatar-name.text-center
+                  {{ participant.name }}
+                %img.avatar-img(ng-src="{{participant.image}}")
+          .listening
+            %h3= t('.listening')
+            .participant.avatar(ng-repeat="participant in session.listening()")
+              %span(ng-click="session.promote(participant.id)")
+                %p.avatar-name.text-center
+                  {{ participant.name }}
+                %img.avatar-img(ng-src="{{participant.image}}")
   
 .chat
 

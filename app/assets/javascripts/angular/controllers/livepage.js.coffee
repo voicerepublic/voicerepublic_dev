@@ -6,7 +6,24 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
   $scope.session  = session
   $scope.blackbox = blackbox
 
+  $scope.talkIsPrelive = ->
+    config.talk.state == 'prelive'
 
+  $scope.talkIsLive = ->
+    config.talk.state == 'live'
+
+  $scope.talkIsPostlive = ->
+    config.talk.state == 'postlive'
+
+  $scope.showStartTalk = ->
+    session.fsm.is('Hosting') and
+      config.talk.state == 'prelive'
+
+  $scope.showEndTalk = ->
+    session.fsm.is('Hosting') and
+      config.talk.state == 'live'
+
+  # countdown logic
   $scope.countdown = 'computing...'
 
   setCountdown = ->

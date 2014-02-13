@@ -13,6 +13,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       title: talk.title,
       teaser: talk.teaser,
       session: talk.session,
+      talk: { state: talk.state },
       starts_at: talk.starts_at.to_i,
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
@@ -54,7 +55,8 @@ class LivepageConfig < Struct.new(:talk, :user)
         { name: 'Demoted', from: 'OnAir', to: 'ListeningButReady'},
         { name: 'Promoted', from: 'ListeningButReady', to: 'OnAir' } ],
       listener:
-      [ { name: 'Registered', from: 'Registering', to: 'Listening' },
+      [ { name: 'Registered', from: 'Registering', to: 'Waiting' },
+        { name: 'StartTalk', from: 'Waiting', to: 'Listening' },
         { name: 'RequestedMic', from: 'Listening', to: 'WaitingForPromotion' },
         { name: 'Promoted', from: 'WaitingForPromotion', to: 'OnAir' },
         { name: 'Promoted', from: 'Listening', to: 'OnAir' },
