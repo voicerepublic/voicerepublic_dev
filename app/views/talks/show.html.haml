@@ -10,6 +10,9 @@
           = @talk.teaser
         .talk-date-time MAY 6, 2014 | 17:00 -17.30
         #flashContent
+        %h3(ng-show='talkIsPrelive()') talk is prelive
+        %h3(ng-show='talkIsLive()') talk is live
+        %h3(ng-show='talkIsPostlive()') talk is postlive
 
   .talk-live-row
     .row
