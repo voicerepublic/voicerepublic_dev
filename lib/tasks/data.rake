@@ -21,6 +21,10 @@ namespace :data do
       end
     end
 
+    # TODO as soon as this task is obsolete
+    # rewrite scopes upcoming and archived to
+    # use the state attribute
+    # also add a db index on state
     task talk_states: :environment do
       puts 'postlive:'
       Talk.archived.where(state: nil).each do |talk|
