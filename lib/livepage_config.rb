@@ -13,6 +13,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       title: talk.title,
       teaser: talk.teaser,
       session: talk.session,
+      talk: { state: talk.state },
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
       fayeUrl: PrivatePub.config[:server],

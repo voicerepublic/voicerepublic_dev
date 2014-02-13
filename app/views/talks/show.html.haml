@@ -16,16 +16,17 @@
       .talk-talkers-box.large-10.large-offset-1.columns
         .debug
           %ul
-            -#%li config: {{ config }}
-            %li session: {{ session }}
-            %li session.config: {{ session.config }}
-            %li session.config.host: {{ session.config.host }}
-            %li config.host: {{ config.host }}
-            %li config.title: {{ config.title }}
-            %li config.teaser: {{ config.teaser }}
-            %li session.fsm.current: {{ session.fsm.current }}
-            %li session.users: {{ session.users }}
-            %li config.onair: {{ config.onair }}
+            -# %li config: {{ config }}
+            -# %li session: {{ session }}
+            -# %li session.config: {{ session.config }}
+            -# %li session.config.host: {{ session.config.host }}
+            -# %li config.host: {{ config.host }}
+            -# %li config.title: {{ config.title }}
+            -# %li config.teaser: {{ config.teaser }}
+            -# %li session.fsm.current: {{ session.fsm.current }}
+            -# %li session.users: {{ session.users }}
+            -# %li config.onair: {{ config.onair }}
+            %li config.talk.state: {{ config.talk.state }}
         .host.avatar.avatar-host      
           %p.avatar-name.text-center
             {{ config.host }}
@@ -40,7 +41,12 @@
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
         #onair(ng-show='config.onair') On Air
-        %button.button(ng-show='session.isListening()' ng-click='session.fsm.RequestedMic()')
+        %button.button(ng-show='showStartTalk()'
+          ng-click='session.startTalk()')= t('.start_talk')
+        %button.button(ng-show='showEndTalk()'
+          ng-click='session.endTalk()')= t('.end_talk')
+        %button.button(ng-show='session.isListening()'
+          ng-click='session.fsm.RequestedMic()')
         %button.button(ng-click='blackbox.mute()') Mute
         %button.button(ng-click='blackbox.unmute()') Unmute 
     
@@ -72,14 +78,14 @@
           .waiting_for_promotion
             %h3= t('.microphone_requests')
             .participant.avatar(ng-repeat="participant in session.waitingForPromotion()")
-              %span(ng-click="session.promote(participant.name)")
+              %span(ng-click="session.promote(participant.id)")
                 %p.avatar-name.text-center
                   {{ participant.name }}
                 %img.avatar-img(ng-src="{{participant.image}}")
           .listening
             %h3= t('.listening')
             .participant.avatar(ng-repeat="participant in session.listening()")
-              %span(ng-click="session.promote(participant.name)")
+              %span(ng-click="session.promote(participant.id)")
                 %p.avatar-name.text-center
                   {{ participant.name }}
                 %img.avatar-img(ng-src="{{participant.image}}")
