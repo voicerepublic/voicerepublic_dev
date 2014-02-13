@@ -15,7 +15,9 @@ class Api::TalksController < ApplicationController
     either = state || event
     return render text: 'Neither `state` nor `event` given.', status: 422 unless either
 
+    # states may only be send by the user themselves
     gfy = state && current_or_guest_user.id != @user_id.to_i
+    # events may only be send by the host
     gfy = gfy || event && current_or_guest_user != @talk.user
     return render text: 'Computer says no', status: 740 if gfy
 
@@ -29,6 +31,7 @@ class Api::TalksController < ApplicationController
     head :ok
   end
 
+  # genericly stores the state on the authenticated user
   def store_state(msg)
     Talk.transaction do
       session = @talk.reload.session || {}
@@ -49,6 +52,24 @@ class Api::TalksController < ApplicationController
     msg[:user].merge! details # merge additional info
     msg
   end
+
+  # event
+  #  * tigger state transition on talk
+  #  * send session around
+  #  * publish will trigger participants
+  def start_talk(msg)
+    talk.start_talk!
+    msg[:session] = talk.session
+    msg
+  end
+
+  # event
+  #  * trigger state transtion on talk
+  def end_talk(msg)
+    talk.end_talk!
+    msg
+  end
+
 
   def set_talk
     @talk = Talk.find(params[:id])
