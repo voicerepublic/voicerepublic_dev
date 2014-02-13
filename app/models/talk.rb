@@ -16,12 +16,27 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
+  include ActiveModel::Transitions
+
+  state_machine do
+    state :prelive # initial
+    state :live
+    state :postlive
+    event :start_talk, timestamp: :started_at do
+      transitions from: :prelive, to: :live
+    end
+    event :end_talk, timestamp: :ended_at do
+      transitions from: :live, to: :postlive
+    end
+  end
+
   attr_accessible :title, :teaser, :starts_at, :duration,
   :description, :record, :image
 
   belongs_to :venue, :inverse_of => :talks
 
   validates :venue, :title, :starts_at, :ends_at, presence: true
+  #validates :state, inclusion: { in: available_states }
 
   before_validation :set_ends_at
 

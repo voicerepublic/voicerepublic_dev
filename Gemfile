@@ -48,6 +48,7 @@ gem 'simple_form'
 gem 'paranoia', '~> 2.0'
 gem 'unicorn'
 gem "select2-rails"
+gem "transitions", :require => ["transitions", "active_model/transitions"]
 
 # make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
