@@ -34,6 +34,7 @@ class Api::TalksController < ApplicationController
       session[user_id][:state] = msg[:state]
       @talk.update_attribute :session, session
     end
+    msg[:user] = { id: user_id }
     msg
   end
 

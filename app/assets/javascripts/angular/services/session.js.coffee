@@ -47,13 +47,13 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   reportState = (state) ->
     $log.info "reporting new state: #{state}"
-    upstream.state config.user_id, state
+    upstream.state state
 
   promote = (id) ->
-    upstream.event id, 'Promotion'
+    upstream.event 'Promote', user: { id }
   demote = (id) ->
     return fsm.Demoted() if id is config.user_id
-    upstream.event user.id, 'Demotion'
+    upstream.event 'Demote', user: { id }
 
   onair = ->
     (user for id, user of users when user.state == 'OnAir')
@@ -95,8 +95,8 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       when 'Registering'
         fsm.Registered()
         users[data.user.id] = data.user
-      when 'Promotion' then fsm.Promoted() # external event
-      when 'Demotion' then fsm.Demoted() # external event
+      when 'Promote' then fsm.Promoted() # external event
+      when 'Demote' then fsm.Demoted() # external event
       else $log.info "EgoIgnoring: #{method}"
     # store the current state on the users hash
     users[data.user.id].state = fsm.current
