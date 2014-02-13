@@ -30,12 +30,14 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  acts_as_taggable
+
   attr_accessible :title, :teaser, :starts_at, :duration,
-  :description, :record, :image
+                  :description, :record, :image, :tag_list
 
   belongs_to :venue, :inverse_of => :talks
 
-  validates :venue, :title, :starts_at, :ends_at, presence: true
+  validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
   #validates :state, inclusion: { in: available_states }
 
   before_validation :set_ends_at

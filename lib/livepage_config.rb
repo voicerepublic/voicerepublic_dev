@@ -14,6 +14,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       teaser: talk.teaser,
       session: talk.session,
       talk: { state: talk.state },
+      starts_at: talk.starts_at.to_i,
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
       fayeUrl: PrivatePub.config[:server],
