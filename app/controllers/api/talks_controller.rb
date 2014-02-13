@@ -8,17 +8,12 @@ class Api::TalksController < ApplicationController
     msg = params[:msg]
     return render text: 'No `msg` given.', status: 422 unless msg
 
-    @user_id = msg[:user] && msg[:user][:id]
-    return render text: 'No `user id` given.', status: 422 unless @user_id
-
     state, event = msg[:state], msg[:event]
     either = state || event
     return render text: 'Neither `state` nor `event` given.', status: 422 unless either
 
-    # states may only be send by the user themselves
-    gfy = state && current_or_guest_user.id != @user_id.to_i
     # events may only be send by the host
-    gfy = gfy || event && current_or_guest_user != @talk.user
+    gfy = event && current_or_guest_user != @talk.user
     return render text: 'Computer says no', status: 740 if gfy
 
     @method = either.underscore
@@ -33,23 +28,26 @@ class Api::TalksController < ApplicationController
 
   # genericly stores the state on the authenticated user
   def store_state(msg)
+    user_id = current_or_guest_user.id
     Talk.transaction do
       session = @talk.reload.session || {}
-      session[@user_id][:state] = msg[:state]
+      session[user_id][:state] = msg[:state]
       @talk.update_attribute :session, session
     end
     msg
   end
 
+  # state
+  #  * merges user data
   def registering(msg)
-    details = nil
-    user = User.find(@user_id)
+    user = current_or_guest_user
+    details = user.details_for(@talk).merge state: 'Registering'
     Talk.transaction do
       session = @talk.reload.session || {}
-      session[@user_id] = details = user.details_for(@talk).merge state: 'Registering'
+      session[user.id] = details
       @talk.update_attribute :session, session
     end
-    msg[:user].merge! details # merge additional info
+    msg[:user] = details
     msg
   end
 
@@ -58,15 +56,15 @@ class Api::TalksController < ApplicationController
   #  * send session around
   #  * publish will trigger participants
   def start_talk(msg)
-    talk.start_talk!
-    msg[:session] = talk.session
+    @talk.start_talk!
+    msg[:session] = @talk.session
     msg
   end
 
   # event
   #  * trigger state transtion on talk
   def end_talk(msg)
-    talk.end_talk!
+    @talk.end_talk!
     msg
   end
 
