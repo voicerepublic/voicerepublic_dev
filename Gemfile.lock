@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:bmabey/database_cleaner.git
+  revision: b254ce57bdeea927e514a486aedc2ac97199324b
+  specs:
+    database_cleaner (1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,11 +65,14 @@ GEM
       xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    childprocess (0.4.2)
+      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     ci_reporter (1.9.1)
       builder (>= 2.1.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    cliver (0.3.2)
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
@@ -80,7 +89,6 @@ GEM
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
     daemons (1.1.9)
-    database_cleaner (1.2.0)
     debugger (1.6.5)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -241,6 +249,11 @@ GEM
     paranoia (2.0.1)
       activerecord (~> 4.0)
     pg (0.17.1)
+    poltergeist (1.5.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.3)
     private_pub (1.0.3)
       faye
@@ -298,6 +311,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    rubyzip (1.1.0)
     safe_yaml (0.9.7)
     sass (3.2.14)
     sass-rails (4.0.1)
@@ -306,6 +320,11 @@ GEM
       sprockets-rails (~> 2.0.0)
     select2-rails (3.5.2)
       thor (~> 0.14)
+    selenium-webdriver (2.39.0)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0.4)
     simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
@@ -368,6 +387,7 @@ GEM
     webmock (1.15.2)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
+    websocket (1.0.7)
     websocket-driver (0.3.2)
     whenever (0.8.4)
       activesupport (>= 2.3.4)
@@ -396,7 +416,7 @@ DEPENDENCIES
   ci_reporter
   coffee-rails
   daemons
-  database_cleaner
+  database_cleaner!
   debugger
   delayed_job
   delayed_job_active_record
@@ -423,6 +443,7 @@ DEPENDENCIES
   paperclip
   paranoia (~> 2.0)
   pg
+  poltergeist
   private_pub
   protected_attributes
   pry-rails
@@ -433,6 +454,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   select2-rails
+  selenium-webdriver
   simple_form
   simplecov
   sqlite3
