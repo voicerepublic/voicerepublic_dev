@@ -8,6 +8,7 @@ module AudioConversionStrategy
         begin
           convert_wav_to_m4a talk
           talk.audio_formats << 'm4a'
+          talk.save!
           Rails.logger.info
             "Talk ##{talk.id} has been converted into audio format 'm4a'"
         rescue Exception => e
