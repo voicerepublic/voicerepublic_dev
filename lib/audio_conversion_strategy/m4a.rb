@@ -3,7 +3,8 @@ module AudioConversionStrategy
   class M4a < Base
 
     def run
-      without_audio_format('m4a').each do |talk|
+      Talk.without_audio_format('m4a').each do |talk|
+        next if talk.ends_at < Time.now
         begin
           convert_wav_to_m4a talk
           talk.audio_formats << 'm4a'
