@@ -22,6 +22,8 @@
 
 //= require advanced
 //= require wysihtml5.min
+//
+//= require player.js.erb
 
 /* Alters-Success fade out after 8secs */
 (function($){
@@ -49,7 +51,7 @@ overlay = {
     var calculateOverlay = function() {
       var windowHeight = $(window).height();
       var bodyHeight = $('body').height();
-      
+
       if (bodyHeight < windowHeight) {
           overlayBackground.height(windowHeight);
       }
@@ -114,7 +116,7 @@ overlay = {
     };
 
 
-   
+
 
     if ($('.overlay-background').length === 0) {
      var body = $('body').css({
@@ -133,14 +135,14 @@ overlay = {
       var overlayContent = $(overlayBackground[0]).find('.overlay-content:first-child');
       overlayContent.fadeOut('fast');
     };
- 
+
 
     overlayContent.html(innerHTML);
     overlayContent.find("button[data-function=closeOverlay], input[data-function=closeOverlay], a[data-function=closeOverlay]").on("click", function(e) {
       e.preventDefault();
       overlay.close(overlayBackground);
     });
-    
+
     calculateOverlay();
     if (force !== true) {registerClose()};
   },

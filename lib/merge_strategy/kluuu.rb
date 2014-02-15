@@ -2,7 +2,7 @@ module MergeStrategy
 
   # that's how things worked pre-voicerepublic
   class Kluuu < Base
-    
+
     # this describes the path from journal to final result
     def run
       # step 1
@@ -13,18 +13,11 @@ module MergeStrategy
       # step 2
       merge_wavs File.basename(base), journal['record_done']
 
-      # step 3
-      convert_wav_to_m4a File.basename(base)
-
-      # TODO cleanup
+      # TODO: cleanup
     end
-    
+
     def convert_flv_to_wav_cmd(name)
       "avconv -v quiet -y -i #{name}.flv -vn #{name}.wav"
-    end
-    
-    def convert_wav_to_m4a_cmd(name)
-      "avconv -v quiet -y -i #{name}.wav -b:a 64k -strict experimental #{name}.m4a"
     end
 
     # streams is a nested array
@@ -46,7 +39,7 @@ module MergeStrategy
       sox << " #{result}.wav"
       sox
     end
-    
+
   end
-  
+
 end

@@ -27,12 +27,22 @@ class Talk < ActiveRecord::Base
 
   serialize :session
 
+  serialize :audio_formats, Array
+
   delegate :user, to: :venue
 
   dragonfly_accessor :image
 
   scope :upcoming, -> { where('ends_at > NOW()') }
   scope :archived, -> { where('ends_at < NOW()') }
+
+  scope :audio_format, ->(format = nil) do
+    where("audio_formats LIKE '%#{format}%'")
+  end
+
+  scope :without_audio_format, ->(format = nil) do
+    all - audio_format(format)
+  end
 
   def starts_in # seconds (for prelive)
     (starts_at - Time.now).to_i

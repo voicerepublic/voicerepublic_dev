@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206122105) do
+ActiveRecord::Schema.define(version: 20140207131937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -498,6 +498,7 @@ ActiveRecord::Schema.define(version: 20140206122105) do
     t.integer  "duration"
     t.string   "image_uid"
     t.text     "session"
+    t.text     "audio_formats", default: "--- []\n"
   end
 
   create_table "transfers", force: true do |t|

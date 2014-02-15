@@ -3,5 +3,5 @@
 //= require jquery_ujs
 //= require jquery.jplayer.min
 
-//= require player.js
+//= require player.js.erb
 

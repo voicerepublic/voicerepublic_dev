@@ -12,10 +12,10 @@ namespace :stream do
       puts "Journal not found for talk #{talk}, generated a fake journal."
     end
     StreamMerger.run(path, strategy)
-    puts 
+    puts
     puts "Streams merged. Result:"
-    puts 
-    puts "  #{path}.m4a"
+    puts
+    puts "  #{path}"
     puts
   end
 
