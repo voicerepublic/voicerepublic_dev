@@ -8,6 +8,7 @@
   import flash.media.MicrophoneEnhancedOptions;
   import flash.media.MicrophoneEnhancedMode;
   import flash.media.SoundCodec;
+  import flash.media.SoundTransform;
   import flash.display.MovieClip;
 
   import flash.external.ExternalInterface;
@@ -23,12 +24,14 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
+    internal var version: String = '2.1';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
 		internal var publishNetConnection: NetConnection;
     internal var logMethod: String;
     internal var feedbackMethod: String;
+    internal var volume: Number = 1;
     // internal var myCircle:Shape = new Shape();
 
     // constructor
@@ -53,16 +56,17 @@
       ExternalInterface.addCallback("publish", publishStream);
 			ExternalInterface.addCallback("unpublish", unpublishStream);
       ExternalInterface.addCallback("subscribe", subscribeStream);
-			ExternalInterface.addCallback("mute", muteMic);
-			ExternalInterface.addCallback("unmute", unmuteMic);
+			ExternalInterface.addCallback("muteMic", muteMic);
+			ExternalInterface.addCallback("unmuteMic", unmuteMic);
 			ExternalInterface.addCallback("setStreamingServer", setStreamingServer);
+			ExternalInterface.addCallback("setVolume", setVolume);
 
       logMethod = root.loaderInfo.parameters['logMethod'] || "console.log";
       feedbackMethod = root.loaderInfo.parameters['feedbackMethod'] || "console.log";
 			var callback: String =
           root.loaderInfo.parameters['afterInitialize'] || "flashInitialized";
 
-      log('Instanciation complete, calling ' + callback);
+      log('Instanciation of version '+version+' complete, calling ' + callback);
 			ExternalInterface.call(callback);
     }
 
@@ -106,6 +110,29 @@
       log("Unmute mic by setting gain to 50.")
 			mic.gain = 50;
 		}
+
+    internal function setStreamVolume(ns:NetStream, vol:Number): void {
+      var st:SoundTransform = ns.soundTransform;
+      st.volume = vol;
+      ns.soundTransform = st;
+    }
+
+    internal function updateStreamsVolume(vol:Number): void {
+      for each (var ns:NetStream in netStreams) {
+        setStreamVolume(ns, vol);
+      }
+      log("Set volume of "+netStreams.length+" streams to "+vol+".")
+    }
+
+    internal function setVolume(vol:Number): void {
+      try {
+        volume = vol;
+        updateStreamsVolume(volume);
+      }
+      catch(e:Error) {
+        log(e.toString());
+      }
+    }
 
     internal function publishStream(stream: String): void {
       log("Publishing mic to " + stream);
@@ -157,6 +184,7 @@
     internal function receiveStream(nc: NetConnection, stream: String): void {
       var ns: NetStream = new NetStream(nc);
       ns.receiveVideo(false);
+      setStreamVolume(ns, volume);
       ns.play(stream);
       netStreams.push(ns);
     }
