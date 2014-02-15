@@ -1,63 +1,77 @@
 .layout-talk(ng-controller='Livepage')
   .talk-upper-block{ :style => "background-image: url(http://lorempixel.com/1200/600/people/1)"}
     %section.talk-title-box.row.text-center
-      .talk-host-name
-        = @talk.user.name
-      %h2.talk-title
-        = @talk.title
-      %h3.talk-teaser
-        = @talk.teaser
-      .talk-date-time MAY 6, 2014 | 17:00 -17.30
-      #flashContent
-
-    .debug
-      {{session.fsm.current}}
+      .large-12.columns
+        .talk-host-name
+          = @talk.user.name
+        %h2.talk-title
+          = @talk.title
+        %h3.talk-teaser
+          = @talk.teaser
+        %h3.talk-tags
+          = @talk.tag_list
+        .talk-date-time MAY 6, 2014 | 17:00 -17.30
+        .talk-date-time
+          {{ countdown }}
+        #flashContent
 
   .talk-live-row
     .row
       .talk-talkers-box.large-10.large-offset-1.columns
+        .debug
+          %ul
+            -#%li config: {{ config }}
+            %li session: {{ session }}
+            %li session.config: {{ session.config }}
+            %li session.config.host: {{ session.config.host }}
+            %li config.host: {{ config.host }}
+            %li config.title: {{ config.title }}
+            %li config.teaser: {{ config.teaser }}
+            %li session.fsm.current: {{ session.fsm.current }}
+            %li session.users: {{ session.users }}
+            %li config.onair: {{ config.onair }}
         .host.avatar.avatar-host      
           %p.avatar-name.text-center
-            {{session.config.host}}
+            {{ config.host }}
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
           
         .guest.avatar(ng-repeat="guest in session.guests()")
-          %span(ng-click="session.demote(guest.name)")
+          %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
             %img.avatar-img(ng-src="{{guest.image}}")
     
     .talk-live-mic-states-row.row
-      .large-12.text-center
-        #onair(ng-show='session.onair') On Air
-        %button.button(ng-show='session.fsm.is("Listening")' ng-click='session.fsm.RequestedMic()') Request Mic
+      .large-12.columns.text-center
+        #onair(ng-show='config.onair') On Air
+        %button.button(ng-show='session.isListening()' ng-click='session.fsm.RequestedMic()')
         %button.button(ng-click='blackbox.mute()') Mute
         %button.button(ng-click='blackbox.unmute()') Unmute 
     
     .talk-tabs-box.row
-      .small-12
+      .large-12.columns
         %dl.tabs.talk-tabs(data-tab="true")
           %dd.text-center
             %a(href="#talk-tab-description")
-              Description
+              =t('.description')
           %dd.text-center
             %a(href="#talk-tab-discussion")
-              Discussion
+              =t('.discussion')
           %dd.active.text-center
             %a(href="#talk-tab-participants")
-              Participants
+              =t('.participants')
 
   .talk-tabs-content-block
     .row
-      .tabs-content.small-12       
+      .tabs-content.large-12.columns     
         #talk-tab-description.content
-          %p
-            Dapibus Purus
+          = @talk.description.html_safe
         #talk-tab-discussion.content
           %p
-            Dapibus Purus              
+            Some discussion here
         #talk-tab-participants.content.active
           .participant.avatar(ng-repeat="participant in session.participants()")
+            {{participant}}
             %span(ng-click="session.promote(participant.name)")
               %p.avatar-name.text-center
                 {{ participant.name }}

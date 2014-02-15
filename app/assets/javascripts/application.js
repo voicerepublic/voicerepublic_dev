@@ -25,6 +25,8 @@
 //
 //= require player.js.erb
 
+//= require components/tag_list
+
 /* Alters-Success fade out after 8secs */
 (function($){
   function hideAlerts() {

@@ -4,7 +4,7 @@ gem 'rails', '4.0.2'
 
 gem 'turbolinks'
 gem 'protected_attributes' # support legacy 'attr_accessible'
-gem 'localeapp'
+#gem 'localeapp'
 
 gem 'rails-i18n'
 gem 'pg'

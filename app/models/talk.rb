@@ -16,12 +16,14 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
+  acts_as_taggable
+
   attr_accessible :title, :teaser, :starts_at, :duration,
-  :description, :record, :image
+                  :description, :record, :image, :tag_list
 
   belongs_to :venue, :inverse_of => :talks
 
-  validates :venue, :title, :starts_at, :ends_at, presence: true
+  validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
 
   before_validation :set_ends_at
 
@@ -33,8 +35,8 @@ class Talk < ActiveRecord::Base
 
   dragonfly_accessor :image
 
-  scope :upcoming, -> { where('ends_at > NOW()') }
-  scope :archived, -> { where('ends_at < NOW()') }
+  scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
+  scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
 
   scope :audio_format, ->(format = nil) do
     where("audio_formats LIKE '%#{format}%'")
