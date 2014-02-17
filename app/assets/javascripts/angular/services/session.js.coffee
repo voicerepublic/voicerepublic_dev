@@ -8,62 +8,89 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
                              $timeout, upstream, config, blackbox,
                              $interval) ->
 
-  users = {}
+  # reconfigure blackbox
   blackbox.setStreamingServer config.streaming_server
-  config.onair = false
 
+  # initialize defaults
+  users = {}
+  config.flags =
+    onair: false
+    reqmic: false
+    acceptOrDecline: false
+
+  # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
     for id, user of users
       if user.state in ['OnAir', 'Hosting']
         unless id is "#{config.user_id}"
           blackbox.subscribe user.stream
 
+  unsubscribeAllStreams = ->
+    # TODO blackbox.unsubscribeAll()
+
+  reportState = (state) ->
+    # $log.info "reporting new state: #{state}"
+    upstream.state state
+
+  # definition of the state machine, incl. callbacks
   fsm = StateMachine.create
     initial: config.initial_state
     events: config.statemachine
     callbacks:
       onenterstate: (event, from, to) ->
-        # FIXME the timeout is a hack!
         switch to
           when 'Registering', 'GuestRegistering', 'HostRegistering'
-            $timeout (-> reportState(to)), 1000
+            # FIXME the timeout is a hack! better: wait until subscribed
+            $timeout (-> reportState(to)), 2000
           else
             reportState(to)
       onListening: ->
+        # subscribeStreams (#2)
         subscribeAllStreams()
+        config.flags.reqmic = true
+      onleaveListening: ->
+        config.flags.reqmic = false # (#3/5)
+        true
+      onListeningOnStandby: ->
+        config.flags.reqmic = true # (#6)
+      onleaveListeningOnStandby: ->
+        config.flags.reqmic = false # (#3/5)
+        true
+      onAcceptingPromotion: ->
+        config.flags.acceptOrDecline = true
+      onleaveAcceptingPromotion: ->
+        config.flags.acceptOrDecline = false
+        true
       onOnAir: ->
+        # publishStream, showOnAir/UnMute (#4)
         blackbox.publish config.stream
-        config.onair = true
-      onHosting: ->
-        users = config.session
-        blackbox.publish config.stream
-        config.onair = true
-      onafterOnAir: ->
+        config.flags.onair = true
+      onleaveOnAir: ->
+        # unpublishStream, hideOnAir/UnMute (#6)
         blackbox.unpublish()
-        config.onair = false
+        config.flags.onair = false
+        true
+      onHostOnAir: ->
+        users = config.session
+        # publishStream, showOnAir/UnMute (#1)
+        blackbox.publish config.stream
+        config.flags.onair = true
+      onleaveHostOnAir: ->
+        # unpublishStream, hideOnAir/UnMute (#7)
+        blackbox.unpublish()
+        config.flags.onair = false
+        true
+      onLoitering: ->
+        # unsubscribeStreams (#7)
+        unsubscribeAllStreams()
 
-  reportState = (state) ->
-    $log.info "reporting new state: #{state}"
-    upstream.state state
-
-  promote = (id) ->
-    $log.debug "promote #{id}"
-    upstream.event 'Promote', user: { id }
-  demote = (id) ->
-    return fsm.Demoted() if id is config.user_id
-    upstream.event 'Demote', user: { id }
-
-  onair = ->
-    (user for id, user of users when user.state == 'OnAir')
-  listening = ->
-    (user for id, user of users when user.state in ['Listening', 'ListeningOnStandby'])
-  waitingForPromotion = ->
-    (user for id, user of users when user.state == 'ExpectingPromotion')
-
+  # some comprehending queries on the state
   isListening = ->
-    (fsm.current in ['Listening', 'ListeningButReady'])
+    !!fsm.current.match /^Listening/
+  isNotRegisteringNorWaiting = ->
+    !fsm.current.match /(Register|Wait)ing$/
 
-  # The pushMsgHandler is where the push notifications end up.
+  # the pushMsgHandler is single point of entry for push notifications
   #
   # For now all messages are publicly communicated, so the pushMsgHandler
   # has to check whether the event is addressed to the current user
@@ -86,61 +113,99 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     #$log.debug 'trigger refresh'
     $rootScope.$apply()
 
-  # It's the egoMsgHandlers responsibility to trigger events
-  # on the state machine, which in turn will create upstream
-  # notifications as a side effect.
+  # the egoMsgHandlers will trigger transitions and other side
+  # effects based on incoming state notifications as well as
+  # events. It will only handle messages targeted at it's own user.
   egoMsgHandler = (method, data) ->
+    $log.debug "ego: #{method}"
     switch method
       when 'Registering', 'GuestRegistering', 'HostRegistering'
+        # merge myself (#14)
         fsm.Registered()
         users[data.user.id] = data.user
-      when 'Waiting'
+      when 'Waiting' # state
         if config.talk.state == 'live'
+          # progress (#15)
           # TODO pull session info
           fsm.TalkStarted()
-      when 'Promote' then fsm.Promoted() # external event
-      when 'Demote' then fsm.Demoted() # external event
-      else $log.info "Ignore: #{method}"
+      when 'Promote' # event (#12)
+        fsm.Promoted()
+      when 'Demote' # event (#12)
+        fsm.Demoted()
+      # else $log.info "Ignore: #{method}"
     # store the current state on the users hash
     users[data.user.id].state = fsm.current
 
+  # the stateHandler handles the state notification of other users
   stateHandler = (state, data) ->
+    $log.debug "user #{data.user.id}: #{state}"
     users[data.user.id]?.state = state
     switch state
-      when 'Registering'
+      when 'Registering', 'GuestRegistering', 'HostRegistering'
+        # mergeUser (#10)
         users[data.user.id] = data.user
-      when 'OnAir', 'Hosting'
-        if isListening()
+      when 'OnAir', 'HostOnAir'
+        if isNotRegisteringNorWaiting()
+          # subscribeStream (#8)
           blackbox.subscribe users[data.user.id].stream
+      when 'Listening', 'ListeningOnStandby'
+        if isNotRegisteringNorWaiting()
+          # unsubscribeStream (#9)
+          # TODO blackbox.unsubscribe users[data.user.id].stream
+          ;
 
+  # the eventHandler handles events (as opposed to states)
   eventHandler = (event, data) ->
+    $log.debug "event: #{event}"
     switch event
       when 'StartTalk'
+        # sendStartTalk (#11)
         config.talk.state = 'live'
         unless fsm.is('HostOnAir')
           users = data.session
           fsm.TalkStarted()
       when 'EndTalk'
+        # sendEndTalk (#13)
         fsm.TalkEnded()
 
+  # some methods only available to the host
+  promote = (id) ->
+    upstream.event 'Promote', user: { id }
+  demote = (id) ->
+    return fsm.Demoted() if id is config.user_id
+    upstream.event 'Demote', user: { id }
   startTalk = ->
     upstream.event 'StartTalk'
   endTalk = ->
     upstream.event 'EndTalk'
 
+  # separate the audience into four groups
+  guests = ->
+    (user for id, user of users when user.state == 'OnAir')
+  expectingPromotion = ->
+    (user for id, user of users when user.state == 'ExpectingPromotion')
+  acceptingPromotion = ->
+    (user for id, user of users when user.state == 'AcceptingPromotion')
+  participants = ->
+    (user for id, user of users when user.state?.match(/^Listening/))
+
+  # TODO idealy this should move into callback: on/Registering$/
+  # subscribe to push notifications
   privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
-  { # expose
+  # exposed objects
+  { 
     # -- events
     promote
     demote
     startTalk
     endTalk
     # --- groups
-    onair
-    listening
-    waitingForPromotion
+    guests
+    expectingPromotion
+    acceptingPromotion
+    participants
     # -- misc
     name: config.fullname
     fsm

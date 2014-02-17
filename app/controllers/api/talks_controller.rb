@@ -42,7 +42,7 @@ class Api::TalksController < ApplicationController
   #  * merges user data
   def registering(msg)
     user = current_or_guest_user
-    details = user.details_for(@talk).merge state: 'Registering'
+    details = user.details_for(@talk).merge state: msg[:event]
     Talk.transaction do
       session = @talk.reload.session || {}
       session[user.id] = details
@@ -51,6 +51,8 @@ class Api::TalksController < ApplicationController
     msg[:user] = details
     msg
   end
+  alias_method :host_registering, :registering
+  alias_method :guest_registering, :registering
 
   # event
   #  * tigger state transition on talk

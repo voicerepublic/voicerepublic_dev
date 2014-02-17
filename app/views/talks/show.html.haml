@@ -32,14 +32,15 @@
             -# %li config.teaser: {{ config.teaser }}
             -# %li session.fsm.current: {{ session.fsm.current }}
             -# %li session.users: {{ session.users }}
-            -# %li config.onair: {{ config.onair }}
+            %li acceptOrDecline: {{ flags.acceptOrDecline }}
+            %li onair: {{ flags.onair }}
             %li config.talk.state: {{ config.talk.state }}
         .host.avatar.avatar-host      
           %p.avatar-name.text-center
             {{ config.host }}
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
           
-        .guest.avatar(ng-repeat="guest in session.onair()")
+        .guest.avatar(ng-repeat="guest in session.guests()")
           %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
@@ -47,15 +48,21 @@
     
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
-        #onair(ng-show='config.onair') On Air
+        #onair(ng-show='flags.onair') On Air
         %button.button(ng-show='showStartTalk()'
           ng-click='session.startTalk()')= t('.start_talk')
         %button.button(ng-show='showEndTalk()'
           ng-click='session.endTalk()')= t('.end_talk')
-        %button.button(ng-show='session.isListening()'
+        %button.button(ng-show='flags.reqmic'
           ng-click='requestMic()') Request Mic
-        %button.button(ng-click='blackbox.mute()') Mute
-        %button.button(ng-click='blackbox.unmute()') Unmute 
+        %button.button(ng-show='flags.onair'
+          ng-click='blackbox.mute()') Mute
+        %button.button(ng-show='flags.onair'
+          ng-click='blackbox.unmute()') Unmute 
+        %button.button(ng-show='flags.acceptOrDecline'
+          ng-click='acceptPromotion()') Accept
+        %button.button(ng-show='flags.acceptOrDecline'
+          ng-click='declinePromotion()') Decline
     
     .talk-tabs-box.row
       .large-12.columns
@@ -69,8 +76,10 @@
           %dd.active.text-center
             %a(href="#talk-tab-participants")
               Participants
-              %span(ng-show='session.waitingForPromotion().length')
-                ({{ session.waitingForPromotion().length }} Mic Req.)
+              %span(ng-show='session.expectingPromotion().length')
+                ({{ session.expectingPromotion().length }} MicReq.)
+              %span(ng-show='session.acceptingPromotion().length')
+                ({{ session.acceptingPromotion().length }} Await.)
 
   .talk-tabs-content-block
     .row
@@ -78,23 +87,25 @@
         #talk-tab-description.content
           = @talk.description.html_safe
         #talk-tab-discussion.content
-          %p
-            Some discussion here
+          %p Some discussion here
         #talk-tab-participants.content.active
-          .waiting_for_promotion
+          .expecting_promotion(ng-show='session.expectingPromotion().length')
             %h3= t('.microphone_requests')
-            .participant.avatar(ng-repeat="participant in session.waitingForPromotion()")
-              %span(ng-click="session.promote(participant.id)")
-                %p.avatar-name.text-center
-                  {{ participant.name }}
-                %img.avatar-img(ng-src="{{participant.image}}")
-          .listening
-            %h3= t('.listening')
-            .participant.avatar(ng-repeat="participant in session.listening()")
-              %span(ng-click="session.promote(participant.id)")
-                %p.avatar-name.text-center
-                  {{ participant.name }}
-                %img.avatar-img(ng-src="{{participant.image}}")
+            .participant.avatar(ng-repeat="parti in session.expectingPromotion()")
+              %span(ng-click="session.promote(parti.id)")
+                %p.avatar-name.text-center {{ parti.name }}
+                %img.avatar-img(ng-src="{{parti.image}}")
+          .accepting_promotion(ng-show='session.acceptingPromotion().length')
+            %h3= t('.awaiting_to_speak')
+            .participant.avatar(ng-repeat="parti in session.acceptingPromotion()")
+              %p.avatar-name.text-center {{ parti.name }}
+              %img.avatar-img(ng-src="{{parti.image}}")
+          .listening(ng-show='session.participants().length')
+            %h3= t('.just_listening')
+            .participant.avatar(ng-repeat="parti in session.participants()")
+              %span(ng-click="session.promote(parti.id)")
+                %p.avatar-name.text-center {{ parti.name }}
+                %img.avatar-img(ng-src="{{parti.image}}")
   
 .chat
 

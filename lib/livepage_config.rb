@@ -54,6 +54,8 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine_spec
     # events in 'Simple Past', states in 'Present Progressive'
     #
+    # NOTE: 'PromotionDeclined' always leads to 'Listening'
+    #
     # from-state         -> transition        -> to-state
     <<-EOF
       Registering        -> Registered        -> Waiting
@@ -62,6 +64,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       ExpectingPromotion -> Promoted          -> OnAir
       Listening          -> Promoted          -> AcceptingPromotion
       AcceptingPromotion -> PromotionAccepted -> OnAir
+      AcceptingPromotion -> PromotionDeclined -> Listening
       OnAir              -> Demoted           -> ListeningOnStandby
       ListeningOnStandby -> MicRequested      -> ExpectingPromotion
       ListeningOnStandby -> Promoted          -> AcceptingPromotion
