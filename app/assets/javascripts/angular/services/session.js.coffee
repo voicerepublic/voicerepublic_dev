@@ -19,15 +19,16 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
           blackbox.subscribe user.stream
 
   fsm = StateMachine.create
-    initial: 'Registering'
+    initial: config.initial_state
     events: config.statemachine
     callbacks:
       onenterstate: (event, from, to) ->
         # FIXME the timeout is a hack!
-        if to == 'Registering'
-          $timeout (-> reportState(to)), 1000
-        else
-          reportState(to)
+        switch to
+          when 'Registering', 'GuestRegistering', 'HostRegistering'
+            $timeout (-> reportState(to)), 1000
+          else
+            reportState(to)
       onListening: ->
         subscribeAllStreams()
       onOnAir: ->
@@ -55,9 +56,9 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   onair = ->
     (user for id, user of users when user.state == 'OnAir')
   listening = ->
-    (user for id, user of users when user.state in ['Listening', 'ListeningButReady'])
+    (user for id, user of users when user.state in ['Listening', 'ListeningOnStandby'])
   waitingForPromotion = ->
-    (user for id, user of users when user.state == 'WaitingForPromotion')
+    (user for id, user of users when user.state == 'ExpectingPromotion')
 
   isListening = ->
     (fsm.current in ['Listening', 'ListeningButReady'])
@@ -90,13 +91,13 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # notifications as a side effect.
   egoMsgHandler = (method, data) ->
     switch method
-      when 'Registering'
+      when 'Registering', 'GuestRegistering', 'HostRegistering'
         fsm.Registered()
         users[data.user.id] = data.user
       when 'Waiting'
         if config.talk.state == 'live'
           # TODO pull session info
-          fsm.StartTalk()
+          fsm.TalkStarted()
       when 'Promote' then fsm.Promoted() # external event
       when 'Demote' then fsm.Demoted() # external event
       else $log.info "Ignore: #{method}"
@@ -116,11 +117,11 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     switch event
       when 'StartTalk'
         config.talk.state = 'live'
-        unless fsm.is('Hosting')
+        unless fsm.is('HostOnAir')
           users = data.session
-          fsm.StartTalk()
+          fsm.TalkStarted()
       when 'EndTalk'
-        fsm.EndTalk()
+        fsm.TalkEnded()
 
   startTalk = ->
     upstream.event 'StartTalk'

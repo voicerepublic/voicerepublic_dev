@@ -16,13 +16,17 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
     config.talk.state == 'postlive'
 
   $scope.showStartTalk = ->
-    session.fsm.is('Hosting') and
+    session.fsm.is('HostOnAir') and
       config.talk.state == 'prelive'
 
   $scope.showEndTalk = ->
-    session.fsm.is('Hosting') and
+    session.fsm.is('HostOnAir') and
       config.talk.state == 'live'
 
+  $scope.requestMic = ->
+    # trigger transition
+    session.fsm.MicRequested()
+  
   # countdown logic
   $scope.countdown = 'computing...'
 

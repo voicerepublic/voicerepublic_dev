@@ -53,7 +53,7 @@
         %button.button(ng-show='showEndTalk()'
           ng-click='session.endTalk()')= t('.end_talk')
         %button.button(ng-show='session.isListening()'
-          ng-click='session.fsm.RequestedMic()')
+          ng-click='requestMic()') Request Mic
         %button.button(ng-click='blackbox.mute()') Mute
         %button.button(ng-click='blackbox.unmute()') Unmute 
     
