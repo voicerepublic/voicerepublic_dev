@@ -44,9 +44,11 @@
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
         #onair(ng-show='config.onair') On Air
-        %button.button(ng-show='session.isListening()' ng-click='session.fsm.RequestedMic()')
-        %button.button(ng-click='blackbox.mute()') Mute
-        %button.button(ng-click='blackbox.unmute()') Unmute 
+        %button.button(ng-show='session.isListening()' ng-click='session.fsm.RequestedMic()') Request Mic
+        %button.button(ng-show='session.isOnAir()' ng-click='blackbox.mute()') Mute Mic
+        %button.button(ng-show='session.isOnAir()' ng-click='blackbox.unmute()') Unmute Mic 
+        %button.button(ng-click='blackbox.setVolume(0)') Mute Streams
+        %button.button(ng-click='blackbox.setVolume(1)') Unmute Streams
     
     .talk-tabs-box.row
       .large-12.columns
