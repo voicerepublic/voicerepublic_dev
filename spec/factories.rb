@@ -88,4 +88,17 @@ FactoryGirl.define do
     user
   end
 
+  factory :talk do
+    title "MyString"
+    venue
+    starts_at 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
+    # ends_at   2.hour.from_now
+    # ended_at 90.minutes.from_now
+    duration 60
+    record false
+    # recording "MyString"
+    tag_list 'lorem, ipsum, dolor'
+    description 'talk description'
+  end
+
 end
