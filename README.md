@@ -1,6 +1,8 @@
 Welcome to Kluuu
 ================
 
+![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
+
 ## Build status
 
 * Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
@@ -53,6 +55,11 @@ Install phantomjs (globaly)
 
 To run specs Faye and a Sphinx daemon have to run.
 
+### Run Jasmine specs for Angular with Karma
+
+    sudo npm install -g karma
+    sudo npm install -g karma-ng-scenario
+    karma start spec/javascripts/livepage.conf.js.coffee
 
 Compile Flash
 -------------
