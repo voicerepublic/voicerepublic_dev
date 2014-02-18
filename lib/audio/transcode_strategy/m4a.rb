@@ -14,6 +14,7 @@ module Audio
           convert_wav_to_m4a name
           logger.info "File #{base} has been " + 
             "converted into audio format 'm4a'"
+          [ base, EXTENSION ] * '.'
         rescue Exception => e
           logger.error "File #{base} could not " +
             "be converted into audio format 'm4a': #{e.message}"

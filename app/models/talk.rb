@@ -62,19 +62,25 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  def merge_audio!(strategy=nil)
+  # TODO write this to recording when starting talk
+  # TODO then use the stored value
+  def recording_path
     base = Settings.rtmp.recordings_path
     path = "#{base}/#{id}"
-    Audio::Merger.run(path, strategy)
+  end
+
+  def merge_audio!(strategy=nil)
+    Audio::Merger.run(recording_path, strategy)
   end
 
   def transcode_audio!(strategy=nil, ext=nil)
     strategy ||= 'Audio::TranscodeStrategy::M4a'
     strategy = strategy.constantize if strategy.is_a?(String)
     extension ||= strategy::EXTENSION
-    Audio::Transcoder.run(recording, strategy)
+    result = Audio::Transcoder.run(recording_path, strategy)
     audio_formats |= [ extension ]
     save!
+    result
   end
 
   private

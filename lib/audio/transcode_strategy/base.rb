@@ -13,8 +13,7 @@ module Audio
       end
 
       def exec(method, *args)
-        # TODO output or log for debugging
-        cmd = send(method, *args)
+        puts cmd = send(method, *args)
         Dir.chdir(File.dirname(base)) { %x[#{cmd}] }
       end
 

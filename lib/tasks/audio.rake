@@ -4,9 +4,9 @@ namespace :audio do
   task :transcode, [:talk_id, :strategy_name] => :environment do |t, args|
     talk_id, strategy_name = args[:talk_id], args[:strategy_name]
     raise 'talk_id not set' if talk_id.nil?
-    path = Talk.find(talk_id).transcode_audio!(strategy_name)
+    result = Talk.find(talk_id).transcode_audio!(strategy_name)
     puts
-    puts "Audio transcoded to: #{path}"
+    puts "Audio transcoded to: #{result}"
     puts
   end
 
@@ -26,9 +26,9 @@ namespace :audio do
   task :merge, [:talk_id, :strategy_name] => :environment do |t, args|
     talk_id, strategy_name = args[:talk_id], args[:strategy_name]
     raise 'talk_id not set' if talk_id.nil?
-    path = Talk.find(talk_id).merge_audio!(strategy_name)
+    result = Talk.find(talk_id).merge_audio!(strategy_name)
     puts
-    puts "Audio merged to: #{path}"
+    puts "Audio merged to: #{result}"
     puts
   end
 
