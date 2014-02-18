@@ -14,6 +14,7 @@
 .row
   .large-12.columns.text-center
     = image_tag @venue.image.url(:medium), class: "venue-image"
+    %h4= @venue.user.name
     %h2= @venue.title
     %h3= @venue.teaser
 
