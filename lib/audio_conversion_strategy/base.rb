@@ -2,7 +2,7 @@ require 'date'
 
 module AudioConversionStrategy
 
-  class Base
+  class Base < Struct.new(:base)
 
     class << self
       def call(base)
