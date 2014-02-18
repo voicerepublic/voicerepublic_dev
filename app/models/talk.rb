@@ -38,12 +38,12 @@ class Talk < ActiveRecord::Base
   scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
   scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
 
-  scope :audio_format, ->(format = nil) do
-    where("audio_formats LIKE '%#{format}%'")
+  scope :audio_format, ->(format) do
+    where('audio_formats LIKE ?', "%#{format}%")
   end
 
-  scope :without_audio_format, ->(format = nil) do
-    all - audio_format(format)
+  scope :without_audio_format, ->(format) do
+    where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
   def starts_in # seconds (for prelive)
@@ -61,6 +61,13 @@ class Talk < ActiveRecord::Base
   def public_channel
     "/t#{id}/public"
   end
+
+  # def convert!(strategy='Audio::ConversionStrategy::M4a')
+  #   converter = Audio::Converter.new(strategy)
+  #   converter.run(recording)
+  #   audio_formats |= [ converter.extension ]
+  #   save!
+  # end
 
   private
 
