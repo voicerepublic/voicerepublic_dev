@@ -104,10 +104,16 @@ class User < ActiveRecord::Base
     { 
       id: id,
       name: name,
-      role: 'participant',
+      role: role_for(talk),
       image: "http://lorempixel.com/80/80/people/#{rand(9)}/",
       stream: "t#{talk.id}-u#{id}"
     }
+  end
+
+  def role_for(talk)
+    return :host if self == talk.user
+    return :guest if true == false # FIXME
+    :participant # FIXME listener
   end
 
   private

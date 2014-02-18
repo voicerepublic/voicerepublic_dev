@@ -26,9 +26,11 @@
 		
 		<%= render(:partial => "shared/footer") %>
     <div id='scripts'>
-      <%= airbrake_javascript_notifier %>
 		  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-		  <%= render(:partial => 'shared/google_analytics') %>
+      <% unless Rails.env.development? %>
+        <%= airbrake_javascript_notifier %>
+		    <%= render(:partial => 'shared/google_analytics') %>
+      <% end %>
 		  <%= yield :javascript %>
     </div>
 	</body>

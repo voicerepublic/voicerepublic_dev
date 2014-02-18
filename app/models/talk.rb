@@ -16,6 +16,20 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
+  include ActiveModel::Transitions
+
+  state_machine do
+    state :prelive # initial
+    state :live
+    state :postlive
+    event :start_talk, timestamp: :started_at do
+      transitions from: :prelive, to: :live
+    end
+    event :end_talk, timestamp: :ended_at, success: :postprocess do
+      transitions from: :live, to: :postlive
+    end
+  end
+
   acts_as_taggable
 
   attr_accessible :title, :teaser, :starts_at, :duration,
@@ -58,5 +72,20 @@ class Talk < ActiveRecord::Base
     return unless starts_at
     self.ends_at = starts_at + duration.minutes
   end
+
+  def postprocess
+    base_path = Settings.rtmp.recordings_path
+    talk_path = File.join(base_path, id)
+    FileUtils.mkdir_p(talk_path)
+    files = Dir.glob(File.join(base_path, "t#{id}-*.*"))
+    files += "#{id}.journal"
+    FileUtils.mv(files, talk_path)
+    
+    StreamMerger.run(talk_path)
+
+    # TODO create attribute processed_at and set
+  end
+
+  handle_asynchronously :postprocess, queue: 'process_talk'
 
 end

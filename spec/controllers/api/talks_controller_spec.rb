@@ -36,24 +36,22 @@ describe Api::TalksController do
     it 'uses the expected method' do
       other = FactoryGirl.create(:user)
       VCR.use_cassette 'talk_update_event_wfp' do
-        put :update, id: @talk.id, msg:
-          { event: 'WaitingForPromotion', user: { id: other.id } }
-        assigns(:method).should eq('waiting_for_promotion')
+        put :update, id: @talk.id, msg: { event: 'StartTalk' }
+        assigns(:method).should eq('start_talk')
       end
     end
 
     it 'uses the method store_state for state by default' do
-      @talk.update_attribute :session, { @current_user.id.to_s => {} }
+      @talk.update_attribute :session, { @current_user.id => {} }
       VCR.use_cassette 'talk_update_state_wfp' do
-        put :update, id: @talk.id, msg:
-          { state: 'WaitingForPromotion', user: { id: @current_user.id } }
+        put :update, id: @talk.id, msg: { state: 'WaitingForPromotion' }
         assigns(:method).should eq(:store_state)
       end
     end
 
     it 'should receive store_state' do
-      @talk.update_attribute :session, { @current_user.id.to_s => {} }
-      message = { state: 'WaitingForPromotion', user: { id: @current_user.id } }
+      @talk.update_attribute :session, { @current_user.id => {} }
+      message = { state: 'WaitingForPromotion' }
       controller.should_receive(:store_state).and_return(message)
       VCR.use_cassette 'talk_update_state_wfp' do
         put :update, id: @talk.id, msg: message
@@ -61,41 +59,30 @@ describe Api::TalksController do
     end
 
     it 'returns on store_state' do
-      @talk.update_attribute :session, { @current_user.id.to_s => {} }
+      @talk.update_attribute :session, { @current_user.id => {} }
       VCR.use_cassette 'talk_update_state_wfp' do
-        put :update, id: @talk.id, msg:
-          { state: 'WaitingForPromotion', user: { id: @current_user.id } }
+        put :update, id: @talk.id, msg: { state: 'WaitingForPromotion' }
         response.status.should be(200)
       end
     end
 
     it 'returns on registering' do
       VCR.use_cassette 'talk_update_state_registering' do
-        put :update, id: @talk.id, msg:
-          { state: 'Registering', user: { id: @current_user.id } }
+        put :update, id: @talk.id, msg: { state: 'Registering' }
         response.status.should be(200)
       end
     end
 
     it 'should actually store the state' do
-      @talk.update_attribute :session, { @current_user.id.to_s => {} }
-      message = { state: 'WaitingForPromotion', user: { id: @current_user.id } }
+      @talk.update_attribute :session, { @current_user.id => {} }
+      message = { state: 'WaitingForPromotion' }
       VCR.use_cassette 'talk_update_state_wfp' do
         put :update, id: @talk.id, msg: message
-        @talk.reload.session[@current_user.id.to_s].should_not be_empty
+        @talk.reload.session[@current_user.id].should_not be_empty
       end
     end
 
     describe 'authorization' do
-
-      it 'should verify user identity on state change' do
-        other = FactoryGirl.create(:user)
-        message = { state: 'OnAir', user: { id: other.id } }
-        VCR.use_cassette 'talk_update_dummy' do
-          put :update, id: @talk.id, msg: message
-          response.status.should be(740)
-        end
-      end
 
       it 'should verify host identity on events' do
         @talk.venue.update_attribute :user, FactoryGirl.create(:user)

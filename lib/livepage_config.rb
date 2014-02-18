@@ -7,12 +7,17 @@ class LivepageConfig < Struct.new(:talk, :user)
 
   def to_hash
     {
+      # user
+      user: user_details,
+      initial_state: initial_state(user_details[:role]),
+      statemachine: statemachine,
       # talk
       talk_id: talk.id,
       host: talk.user.name,
       title: talk.title,
       teaser: talk.teaser,
       session: talk.session,
+      talk: { state: talk.state },
       starts_at: talk.starts_at.to_i,
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
@@ -24,68 +29,61 @@ class LivepageConfig < Struct.new(:talk, :user)
       fullname: user.name,
       user_id: user.id,
       handle: "u#{user.id}",
-      role: role,
-      statemachine: statemachine[role.to_sym],
+      role: role, # TODO remove in favor of user.role
       stream: "t#{talk.id}-u#{user.id}",
       streaming_server: Settings.rtmp.record
     }
+  end
+
+  def user_details
+    @user_details ||= user.details_for(talk)
+  end
+
+  def initial_state(role)
+    case role
+    when :host then 'HostRegistering'
+    when :guest then 'GuestRegistering'
+    else 'Registering'
+    end
   end
 
   def subscription
     PrivatePub.subscription channel: talk.public_channel
   end
 
-  def role
-    return :host if user == talk.user
-    return :guest if true == false # FIXME
-    :listener
+  def statemachine_spec
+    # events in 'Simple Past', states in 'Present Progressive'
+    #
+    # NOTE: 'PromotionDeclined' always leads to 'Listening'
+    #
+    # from-state         -> transition        -> to-state
+    <<-EOF
+      Registering        -> Registered        -> Waiting
+      Waiting            -> TalkStarted       -> Listening
+      Listening          -> MicRequested      -> ExpectingPromotion
+      ExpectingPromotion -> Promoted          -> OnAir
+      Listening          -> Promoted          -> AcceptingPromotion
+      AcceptingPromotion -> PromotionAccepted -> OnAir
+      AcceptingPromotion -> PromotionDeclined -> Listening
+      OnAir              -> Demoted           -> ListeningOnStandby
+      ListeningOnStandby -> MicRequested      -> ExpectingPromotion
+      ListeningOnStandby -> Promoted          -> AcceptingPromotion
+      GuestRegistering   -> Registered        -> OnAir
+      HostRegistering    -> Registered        -> HostOnAir
+      *                  -> TalkEnded         -> Loitering
+    EOF
   end
-
-  # events in 'Simple Past', states in 'Present Progressive'
+  
   def statemachine
-    { 
-      host: 
-      #[ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
-      #  { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'Hosting' } ],
-      [ { name: 'Registered', from: 'Registering', to: 'Hosting' } ],
-      guest:
-      [ { name: 'Registered', from: 'Registering', to: 'SoundChecking' },
-        { name: 'SucceededSoundCheck', from: 'SoundChecking', to: 'OnAir' },
-        { name: 'Demoted', from: 'OnAir', to: 'ListeningButReady'},
-        { name: 'Promoted', from: 'ListeningButReady', to: 'OnAir' } ],
-      listener:
-      [ { name: 'Registered', from: 'Registering', to: 'Listening' },
-        { name: 'RequestedMic', from: 'Listening', to: 'WaitingForPromotion' },
-        { name: 'Promoted', from: 'WaitingForPromotion', to: 'OnAir' },
-        { name: 'Promoted', from: 'Listening', to: 'OnAir' },
-        { name: 'Demoted', from: 'OnAir', to: 'ListeningButReady' },
-        { name: 'Promoted', from: 'ListeningButReady', to: 'OnAir' } ]
-      # listener:
-      # [ { name: 'Initialized', from: 'Registering', to: 'Listening' },
-      #   { name: 'MicRequested', from: 'Listening', to: 'ColdSoundChecking' },
-      #   { name: 'SucceededColdSoundCheck',
-      #     from: 'ColdSoundChecking', to: 'WaitingForPromotion' },
-      #   { name: 'Promoted', from: 'WaitingForPromotion', to: 'OnAir' },
-      #   { name: 'Promoted', from: 'Listening', to: 'HotSoundChecking' },
-      #   { name: 'SucceededHotSoundCheck', from: 'HotSoundChecking', to: 'OnAir' },
-      #   { name: 'Demoted', from: 'OnAir', to: 'ListeningButReady' },
-      #   { name: 'Promoted', from: 'ListeningButReady', to: 'OnAir' } ]
-    }
+    statemachine_spec.split("\n").map do |transition|
+      from, name, to = transition.split('->').map(&:strip)
+      { name: name, from: from, to: to }
+    end
+   end
+
+  # TODO remove
+  def role
+    user.role_for(talk)
   end
 
 end
-
-  # copy and pasted from old venue
-  # # this is rendered as json in venue/venue_show_live
-  # def details_for(user)
-  #   {
-  #     streamId: "v#{id}-e#{current_event.id}-u#{user.id}",
-  #     channel: story_channel,
-  #     role: (self.user == user) ? 'host' : 'participant',
-  #     storySubscription: PrivatePub.subscription(channel: story_channel),
-  #     backSubscription: PrivatePub.subscription(channel: back_channel),
-  #     chatSubscription: PrivatePub.subscription(channel: channel_name),
-  #     streamer: (current_event.record ? STREAMER_CONFIG['recordings'] : STREAMER_CONFIG['discussions'])
-  #   }
-  # end
-

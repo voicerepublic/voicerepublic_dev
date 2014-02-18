@@ -368,6 +368,7 @@ GEM
     timecop (0.5.9.2)
     timers (1.1.0)
     tins (0.13.1)
+    transitions (0.1.12)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -462,6 +463,7 @@ DEPENDENCIES
   thin
   thinking-sphinx (= 2.0.13)
   timecop
+  transitions
   turbolinks
   uglifier
   unicorn
