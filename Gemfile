@@ -49,34 +49,35 @@ gem 'paranoia', '~> 2.0'
 gem 'unicorn'
 gem "select2-rails"
 
-# make rspec and cucumber the preferred test-suites
 group :development, :test, :staging do
+  # gem 'rails_view_annotator'
   gem 'annotator'
-  gem 'sqlite3'
   gem 'capistrano',         '~> 3.1.0'
-  gem 'capistrano-rbenv',   '~> 2.0.1'
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
-  gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
-  gem 'rspec-rails'
-  gem 'foreman',                            require: false
-  # gem 'rails_view_annotator'
-  gem 'zeus'
-  gem 'pry-rails'
+  gem 'capistrano-rbenv',   '~> 2.0.1'
   gem 'debugger'
   gem 'disable_assets_logger'
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'faker'
+  gem 'foreman',                            require: false
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'sqlite3'
+  gem 'timecop'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
-  gem 'timecop'
+  gem 'zeus'
 end
 
 group :test do
-  gem 'ci_reporter'
   gem 'capybara'#, '2.0.1'
+  gem 'ci_reporter'
+  gem 'database_cleaner', git: 'git@github.com:bmabey/database_cleaner.git'
   gem 'guard-rspec'
   gem 'launchy'
-  gem 'database_cleaner'
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
   gem 'simplecov'
 end
 

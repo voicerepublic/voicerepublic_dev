@@ -1,4 +1,4 @@
 .well.venue-form
   .row-fluid
     %h2.span12= t('.edit_venue')
-    = render 'form', :upcoming_events => @venue.events.not_past
+    = render 'form'#, :upcoming_events => @venue.events.not_past

@@ -2,6 +2,8 @@
   .talk-upper-block{ :style => "background-image: url(http://lorempixel.com/1200/600/people/1)"}
     %section.talk-title-box.row.text-center
       .large-12.columns
+        .talk-venue-title
+          = link_to @talk.venue.title, @talk.venue
         .talk-host-name
           = @talk.user.name
         %h2.talk-title

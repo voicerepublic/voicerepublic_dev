@@ -47,6 +47,10 @@ Rails, Faye (PrivatePub) & Sphinx.
 Run Specs
 ---------
 
+Install phantomjs (globaly)
+
+    sudo npm install -g phantomjs
+
 To run specs Faye and a Sphinx daemon have to run.
 
 

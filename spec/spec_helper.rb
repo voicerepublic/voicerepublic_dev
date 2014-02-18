@@ -10,6 +10,41 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
+require 'capybara/poltergeist'
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, options = {
+    # js errors would otherwise get elevated into an exception
+    :js_errors => false,
+    :port => 44678
+  })
+end
+
+Capybara.register_driver :firefox do |app|
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  profile.add_extension(File.expand_path(File.join(Rails.root, 'spec', 'support', 'firefox_extensions', 'firebug-1.12.6.xpi')))
+
+  Capybara::Selenium::Driver.new(app, browser: :firefox, profile: profile)
+end
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.configure do |config|
+  config.default_selector = :css
+
+  config.ignore_hidden_elements = true
+
+  config.default_driver    = :rack_test
+  config.javascript_driver = :poltergeist
+  config.default_wait_time = ENV['CI'] ? 15 : 2
+end
+
+# Specific for CircleCI
+if ENV['CI']
+  # nothing yet
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -19,6 +54,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+
+  config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
   config.color_enabled = true
 
@@ -35,11 +72,6 @@ RSpec.configure do |config|
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -89,6 +121,27 @@ RSpec.configure do |config|
       GC.disable
     end
     example_counter += 1
+  end
+
+  # database_cleaner is required to allow for feature specs with ajax calls.
+  # also transactional fixtures have to be turned off.
+
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = false
+  config.use_transactional_examples = false
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 
 end
