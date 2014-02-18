@@ -62,10 +62,10 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  # def convert!(strategy='Audio::ConversionStrategy::M4a')
-  #   converter = Audio::Converter.new(strategy)
-  #   converter.run(recording)
-  #   audio_formats |= [ converter.extension ]
+  # def transcode!(strategy='Audio::TranscodeStrategy::M4a')
+  #   transcoder = Audio::Transcoder.new(strategy)
+  #   transcoder.run(recording)
+  #   audio_formats |= [ transcoder.extension ]
   #   save!
   # end
 

@@ -1,6 +1,11 @@
-namespace :stream do
+namespace :audio do
 
-  desc 'merge streams with StreamMerger'
+  desc 'transcode audio with Audio::Transcoder'
+  task :transcode, [:talk, :strategy] => :environment do |t, args|
+    # TODO
+  end
+
+  desc 'merge audio with Audio::Merger'
   task :merge, [:talk, :strategy] => :environment do |t, args|
     talk, strategy = args[:talk], args[:strategy]
     raise 'talk not set' if talk.nil?
