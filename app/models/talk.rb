@@ -62,10 +62,15 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  # def transcode!(strategy='Audio::TranscodeStrategy::M4a')
-  #   transcoder = Audio::Transcoder.new(strategy)
-  #   transcoder.run(recording)
-  #   audio_formats |= [ transcoder.extension ]
+  # def transcode!(strategy=Audio::TranscodeStrategy::M4a, ext=nil)
+  #   if ext.nil? && !strategy.is_a?(Class)
+  #     raise 'If strategy is not a class, ext needs to be given.'
+  #   end
+  #
+  #   ext ||= strategy::EXTENSION
+  #   transcoder = Audio::Transcoder.new(recording)
+  #   transcoder.run(strategy)
+  #   audio_formats |= [ ext ]
   #   save!
   # end
 

@@ -9,25 +9,18 @@ module Audio
       EXTENSION = 'm4a'
 
       def run
-        # TODO
-        Talk.without_audio_format('m4a').each do |talk|
-          next if talk.ends_at < Time.now
-          begin
-            convert_wav_to_m4a talk
-            talk.audio_formats << 'm4a'
-            talk.save!
-            Rails.logger.info "Talk ##{talk.id} has been " + 
-              "converted into audio format 'm4a'"
-            
-          rescue Exception => e
-            Rails.logger.error "Talk ##{talk.id} could not " +
-              "be converted into audio format 'm4a': #{e.message}"
-          end
+        begin
+          name = File.basename(base)
+          convert_wav_to_m4a name
+          logger.info "File #{base} has been " + 
+            "converted into audio format 'm4a'"
+        rescue Exception => e
+          logger.error "File #{base} could not " +
+            "be converted into audio format 'm4a': #{e.message}"
         end
       end
-
-      def convert_wav_to_m4a_cmd(talk)
-        name = File.basename(talk.recording)
+      
+      def convert_wav_to_m4a_cmd(name)
         "avconv -v quiet -y -i #{name}.wav -b:a 64k -strict experimental #{name}.m4a"
       end
 

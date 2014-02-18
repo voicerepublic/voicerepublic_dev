@@ -1,10 +1,10 @@
 module Audio
   module TranscodeStrategy
-    class Base < Struct.new(:base)
+    class Base < Struct.new(:base, :logger)
 
       class << self
-        def call(base)
-          new(base).run
+        def call(base, logger=Rails.logger)
+          new(base, logger).run
         end
       end
 
