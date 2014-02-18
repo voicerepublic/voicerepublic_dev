@@ -112,8 +112,9 @@ class User < ActiveRecord::Base
 
   def role_for(talk)
     return :host if self == talk.user
-    return :guest if true == false # FIXME
-    :participant # FIXME listener
+    return :guest if true == false # FIXME is a guest
+    :participant # FIXME a Participation exists
+    # FIXME else listener
   end
 
   private

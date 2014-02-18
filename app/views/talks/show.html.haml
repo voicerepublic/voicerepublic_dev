@@ -104,12 +104,16 @@
             .participant.avatar(ng-repeat="parti in session.acceptingPromotion()")
               %p.avatar-name.text-center {{ parti.name }}
               %img.avatar-img(ng-src="{{parti.image}}")
-          .listening(ng-show='session.participants().length')
-            %h3= t('.just_listening')
+          .participating(ng-show='session.participants().length')
+            %h3= t('.participating')
             .participant.avatar(ng-repeat="parti in session.participants()")
               %span(ng-click="session.promote(parti.id)")
                 %p.avatar-name.text-center {{ parti.name }}
                 %img.avatar-img(ng-src="{{parti.image}}")
+          .listening
+            %h3
+              {{ numberOfListeners() }}
+              = t('.just_listening_in')
   
 .chat
 

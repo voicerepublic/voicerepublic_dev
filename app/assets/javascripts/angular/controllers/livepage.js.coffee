@@ -23,6 +23,8 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
     session.fsm.is('HostOnAir') and
       config.talk.state == 'live'
 
+  $scope.numberOfListeners = session.numberOfListeners
+
   # show/hide-flags
   $scope.flags = config.flags
 
