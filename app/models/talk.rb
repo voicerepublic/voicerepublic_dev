@@ -64,6 +64,7 @@ class Talk < ActiveRecord::Base
 
   # TODO write this to recording when starting talk
   # TODO then use the stored value
+  # TODO maybe we should use a date base folder structure
   def recording_path
     base = Settings.rtmp.recordings_path
     path = "#{base}/#{id}"
