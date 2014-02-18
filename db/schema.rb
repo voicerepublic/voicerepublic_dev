@@ -501,6 +501,7 @@ ActiveRecord::Schema.define(version: 20140213103341) do
     t.datetime "featured_from"
     t.string   "state"
     t.datetime "started_at"
+    t.text     "audio_formats", default: "--- []\n"
   end
 
   create_table "transfers", force: true do |t|

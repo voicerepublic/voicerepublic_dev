@@ -43,12 +43,22 @@ class Talk < ActiveRecord::Base
 
   serialize :session
 
+  serialize :audio_formats, Array
+
   delegate :user, to: :venue
 
   dragonfly_accessor :image
 
   scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
   scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
+
+  scope :audio_format, ->(format) do
+    where('audio_formats LIKE ?', "%#{format}%")
+  end
+
+  scope :without_audio_format, ->(format) do
+    where('audio_formats NOT LIKE ?', "%#{format}%")
+  end
 
   def starts_in # seconds (for prelive)
     (starts_at - Time.now).to_i
@@ -64,6 +74,28 @@ class Talk < ActiveRecord::Base
 
   def public_channel
     "/t#{id}/public"
+  end
+
+  # TODO write this to recording when starting talk
+  # TODO then use the stored value
+  # TODO maybe we should use a date base folder structure
+  def recording_path
+    base = Settings.rtmp.recordings_path
+    path = "#{base}/#{id}"
+  end
+
+  def merge_audio!(strategy=nil)
+    Audio::Merger.run(recording_path, strategy)
+  end
+
+  def transcode_audio!(strategy=nil, ext=nil)
+    strategy ||= 'Audio::TranscodeStrategy::M4a'
+    strategy = strategy.constantize if strategy.is_a?(String)
+    extension ||= strategy::EXTENSION
+    result = Audio::Transcoder.run(recording_path, strategy)
+    audio_formats |= [ extension ]
+    save!
+    result
   end
 
   private
