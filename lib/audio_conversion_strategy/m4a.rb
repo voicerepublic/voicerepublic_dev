@@ -1,3 +1,7 @@
+# will be called like this
+#
+#     AudioConversionStrategy.call(talk.recording)
+#
 module AudioConversionStrategy
 
   class M4a < Base
