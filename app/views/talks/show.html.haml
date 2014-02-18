@@ -35,7 +35,7 @@
             {{ config.host }}
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
           
-        .guest.avatar(ng-repeat="guest in session.guests()")
+        .guest.avatar(ng-repeat="guest in session.onair()")
           %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
@@ -62,6 +62,8 @@
           %dd.active.text-center
             %a(href="#talk-tab-participants")
               =t('.participants')
+              %span(ng-show='session.waitingForPromotion().length')
+                ({{ session.waitingForPromotion().length }} Mic Req.)
 
   .talk-tabs-content-block
     .row
@@ -72,12 +74,20 @@
           %p
             Some discussion here
         #talk-tab-participants.content.active
-          .participant.avatar(ng-repeat="participant in session.participants()")
-            {{participant}}
-            %span(ng-click="session.promote(participant.name)")
-              %p.avatar-name.text-center
-                {{ participant.name }}
-              %img.avatar-img(ng-src="{{participant.image}}")
+          .waiting_for_promotion
+            %h3= t('.microphone_requests')
+            .participant.avatar(ng-repeat="participant in session.waitingForPromotion()")
+              %span(ng-click="session.promote(participant.name)")
+                %p.avatar-name.text-center
+                  {{ participant.name }}
+                %img.avatar-img(ng-src="{{participant.image}}")
+          .listening
+            %h3= t('.listening')
+            .participant.avatar(ng-repeat="participant in session.listening()")
+              %span(ng-click="session.promote(participant.name)")
+                %p.avatar-name.text-center
+                  {{ participant.name }}
+                %img.avatar-img(ng-src="{{participant.image}}")
   
 .chat
 

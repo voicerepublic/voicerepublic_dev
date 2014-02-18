@@ -6,8 +6,8 @@ Livepage.factory 'upstream', (config, $http, $log) ->
     msg ||= {}
     msg.user ||= {}
     msg.user.id = userId
-    $log.debug 'Sending...'
-    $log.debug msg
+    #$log.debug 'Sending...'
+    #$log.debug msg
     $http.put "/api/talk/#{config.talk_id}", { msg }
 
   event = (userId, name, msg) ->
