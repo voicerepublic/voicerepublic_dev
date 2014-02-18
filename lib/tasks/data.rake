@@ -1,5 +1,19 @@
 namespace :data do
   namespace :migrate do
+
+    task recordings_without_file_suffix: :environment do
+      Talk.all.each do |talk|
+        next unless talk.recording
+        begin
+          talk.update_attribute :recording, talk.recording.match(/(.*).m4a/).captures.first
+          puts "Updated recording for talk #{talk.id}: #{talk.recording}"
+        rescue Exception => e
+          puts "Could not update recording for talk #{talk.id}: #{talk.recording}"
+          puts "Reason: #{e.message}"
+        end
+      end
+    end
+
     task events_to_talks: :environment do
       Event.all.each do |event|
         puts "Create talk for event #{event.id}"

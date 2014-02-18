@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe 'StreamMerger' do
+describe Audio::Merger do
 
   it 'generates fake journals' do
     path, name = 'spec/support/fixtures/talk_a', 1
-    journal_1 = StreamMerger.fake_journal(path, name)
+    journal_1 = Audio::Merger.fake_journal(path, name)
     journal_0 = File.read("#{path}/#{name}.journal").chomp
     expect(journal_1).to eq(journal_0)
   end
@@ -13,8 +13,8 @@ describe 'StreamMerger' do
     path, name = 'spec/support/fixtures/talk_a', 1
     Dir.mktmpdir do |dir|
       FileUtils.cp(Dir.glob("#{path}/*.flv"), dir)
-      StreamMerger.generate_fake_journal(dir, name)
-      StreamMerger.run("#{dir}/#{name}")
+      Audio::Merger.generate_fake_journal(dir, name)
+      Audio::Merger.run("#{dir}/#{name}")
 
       size_0 = File.size("#{path}/#{name}.wav")
       size_1 = File.size("#{dir}/#{name}.wav")

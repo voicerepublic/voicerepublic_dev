@@ -45,6 +45,29 @@ describe Talk do
       unexpected << FactoryGirl.create(:talk, starts_at: 1.day.ago)
       expect(Talk.upcoming).to eq(expected)
     end
+
+    it 'provides a scope audio_format(format)' do
+      t1 = FactoryGirl.create :talk
+      t2 = FactoryGirl.create :talk
+
+      t1.audio_formats << 'mp3'
+      t1.save
+      Talk.audio_format('mp4').count.should be(0)
+      Talk.audio_format('mp3').count.should be(1)
+      t2.audio_formats << 'mp3'
+      t2.save
+      Talk.audio_format('mp3').count.should be(2)
+    end
+
+    it 'provides a scope without_audio_format(format)' do
+      t1 = FactoryGirl.create :talk
+      t2 = FactoryGirl.create :talk
+
+      Talk.without_audio_format('mp4').count.should be(2)
+      t2.audio_formats << 'mp3'
+      t2.save
+      Talk.without_audio_format('mp3').count.should be(1)
+    end
   end
 
   describe 'created' do
