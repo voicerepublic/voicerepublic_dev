@@ -62,17 +62,20 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  # def transcode!(strategy=Audio::TranscodeStrategy::M4a, ext=nil)
-  #   if ext.nil? && !strategy.is_a?(Class)
-  #     raise 'If strategy is not a class, ext needs to be given.'
-  #   end
-  #
-  #   ext ||= strategy::EXTENSION
-  #   transcoder = Audio::Transcoder.new(recording)
-  #   transcoder.run(strategy)
-  #   audio_formats |= [ ext ]
-  #   save!
-  # end
+  def merge_audio!(strategy=nil)
+    base = Settings.rtmp.recordings_path
+    path = "#{base}/#{id}"
+    Audio::Merger.run(path, strategy)
+  end
+
+  def transcode_audio!(strategy=nil, ext=nil)
+    strategy ||= 'Audio::TranscodeStrategy::M4a'
+    strategy = strategy.constantize if strategy.is_a?(String)
+    extension ||= strategy::EXTENSION
+    Audio::Transcoder.run(recording, strategy)
+    audio_formats |= [ extension ]
+    save!
+  end
 
   private
 

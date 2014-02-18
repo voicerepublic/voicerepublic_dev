@@ -63,6 +63,13 @@ Run
 
     mxmlc lib/flash/Blackbox.as
 
+Noteworthy Rake Tasks
+---------------------
+
+    rake audio:merge[talk_id,strategy_name]
+    rake audio:transcode[talk_id,strategy_name]
+    rake audio:transcode_missing[strategy_name]
+
 
 Documentation
 -------------

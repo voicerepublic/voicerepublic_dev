@@ -14,6 +14,9 @@ module Audio
         merge_wavs File.basename(base), journal['record_done']
 
         # TODO: cleanup
+
+        # return path
+        "#{base}.wav"
       end
 
       def convert_flv_to_wav_cmd(name)

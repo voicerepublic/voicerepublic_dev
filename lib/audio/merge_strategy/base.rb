@@ -51,8 +51,9 @@ module Audio
       #
       def parse_journal
         raise "Journal not found: #{journal_path}" unless File.exist?(journal_path)
+        puts journal = File.read(journal_path)
         Hash.new { |h, k| h[k] = [] }.tap do |hash|
-          File.read(journal_path).split("\n").each do |line|
+          journal.split("\n").each do |line|
             _, event, path, args = line.match(/^(\w+) ([.\w-]+) ?(.*)$/).to_a
             hash[event] << [path] + args.split if _
           end
@@ -65,8 +66,9 @@ module Audio
 
       def exec(method, *args)
         # TODO output or log for debugging
-        cmd = send(method, *args)
-        Dir.chdir(File.dirname(base)) { %x[#{cmd}] }
+        path = File.dirname(base)
+        puts cmd = send(method, *args)
+        Dir.chdir(path) { %x[#{cmd}] }
       end
 
       private
