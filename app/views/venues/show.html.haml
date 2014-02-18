@@ -48,8 +48,8 @@
           %li.panel
             %p= l(talk.starts_at, format: :designed)
             %p= link_to talk.title, [@venue, talk]
-            = link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button'
-            = link_to t('.delete_talk'), [@venue, @talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+            = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
+            = link_to t('.delete_talk'), [@venue, talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
     #tab-archived-talks.content
       %ul
         - for talk in @archived_talks
@@ -60,8 +60,8 @@
                 (#{talk.duration} minutes)
               %p= talk.title 
               %p= l(talk.starts_at, format: :designed)
-              = link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button'
-              = link_to t('.delete_talk'), [@venue, @talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+              = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
+              = link_to t('.delete_talk'), [@venue, talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
     #tab-comments.content
       TODO
 
