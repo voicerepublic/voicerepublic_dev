@@ -1,6 +1,7 @@
 Kluuu2::Application.routes.draw do
   
   put 'api/talk/:id' => 'api/talks#update'
+  get 'api/users'    => 'api/users#index'
 
   post "fayeproxy" => "fayeproxy#publish"
 

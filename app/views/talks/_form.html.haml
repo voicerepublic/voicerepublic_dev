@@ -22,7 +22,7 @@
 
         = f.input :duration, collection: Settings.durations
         = f.input :image, as: :file
-        %p TODO guest selection
+        = f.input :guest_list, input_html: { class: 'guestList' }
         = render 'shared/wysihtml5_toolbar'
         = f.input :description, input_html: { 'data-wysiwyg' => true }
         = f.input :record
