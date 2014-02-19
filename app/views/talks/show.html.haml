@@ -112,7 +112,7 @@
                 %img.avatar-img(ng-src="{{parti.image}}")
           .listening
             %h3
-              {{ numberOfListeners() }}
+              {{ session.listeners().length }}
               = t('.just_listening_in')
   
 .chat
