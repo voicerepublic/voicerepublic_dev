@@ -91,11 +91,11 @@
         #talk-tab-description.content
           = @talk.description.html_safe
         #talk-tab-discussion.content
-          .panel(ng-hide="config.user.role == 'listener'")
+          .panel.callout(ng-hide="config.user.role == 'listener'")
             %input(ng-model='message.content')
             %button(ng-click='sendMessage()')
-          %p(ng-repeat='message in discussion')
-            {{ users[message.user_id].name }}: {{ message.content }}
+          .panel(ng-repeat='message in session.discussion')
+            {{ message.name }}: {{ message.content }}
         #talk-tab-participants.content.active
           .expecting_promotion(ng-show='session.expectingPromotion().length')
             %h3= t('.microphone_requests')

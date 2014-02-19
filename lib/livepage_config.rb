@@ -30,10 +30,21 @@ class LivepageConfig < Struct.new(:talk, :user)
       fullname: user.name,
       user_id: user.id,
       handle: "u#{user.id}",
-      role: user_details[:role], # TODO remove in favor of user.role
+      role: user_details[:role], # TODO: remove in favor of user.role
       stream: "t#{talk.id}-u#{user.id}",
-      streaming_server: Settings.rtmp.record
+      streaming_server: Settings.rtmp.record,
+      discussion: discussion
     }
+  end
+
+  def discussion
+    talk.messages.order('created_at ASC').map do |message|
+      { 
+        name: message.user.name,
+        image: message.user.image_file_name, # FIXME: f q url
+        content: message.content
+      }
+    end
   end
 
   def user_details

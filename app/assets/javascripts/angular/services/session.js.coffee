@@ -9,7 +9,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   blackbox.setStreamingServer config.streaming_server
 
   # initialize defaults
-  discussion = []
+  discussion = config.discussion
   users = {}
   config.flags =
     onair: false
@@ -94,8 +94,12 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     #$log.debug 'Receiving...'
     #$log.debug data
     if data.message
-      discussion.push data.message
-      $log.error discussion
+      # enrich discussion with further data for display
+      user = users[data.message.user_id]
+      data.message.name = user.name
+      data.message.image = user.image
+      # prepend to discussion array
+      discussion.unshift data.message
     if method = data.state || data.event
       if data.user?.id == config.user_id
         egoMsgHandler method, data
@@ -130,7 +134,6 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   # the stateHandler handles the state notification of other users
   stateHandler = (state, data) ->
-    $log.error data
     $log.debug "user #{data.user.id}: #{state}"
     users[data.user.id]?.state = state
     switch state
