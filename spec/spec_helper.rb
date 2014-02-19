@@ -7,6 +7,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
+require 'rspec/retry'
+
 require 'capybara/rspec'
 require 'capybara/rails'
 
@@ -54,6 +56,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+
+  config.verbose_retry = true # show retry status in spec process
 
   config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
