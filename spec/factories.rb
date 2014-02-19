@@ -101,4 +101,8 @@ FactoryGirl.define do
     description 'talk description'
   end
 
+  factory :appearance do
+    user
+    talk
+  end
 end
