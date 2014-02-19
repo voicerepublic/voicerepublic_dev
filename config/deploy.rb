@@ -5,7 +5,11 @@
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :rbenv_ruby, "1.9.3-p448"
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '1.9.3-p448'
+#set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+#set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+#set :rbenv_roles, :all # default value
 
 set :application, 'kluuu2'
 set :repo_url, 'git@github.com:munen/voicerepublic_dev.git'

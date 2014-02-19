@@ -56,7 +56,7 @@ group :development, :test, :staging do
   gem 'capistrano',         '~> 3.1.0'
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
-  gem 'capistrano-rbenv',   '~> 2.0.1'
+  gem 'capistrano-rbenv', '~> 2.0'
   gem 'debugger'
   gem 'disable_assets_logger'
   gem 'factory_girl_rails', '~> 4.0'
