@@ -9,6 +9,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   blackbox.setStreamingServer config.streaming_server
 
   # initialize defaults
+  discussion = []
   users = {}
   config.flags =
     onair: false
@@ -92,15 +93,15 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     data = data.data # unpack private_pub message
     #$log.debug 'Receiving...'
     #$log.debug data
-    method = data.state || data.event
-    if method == undefined # guard
-      return $log.info 'Ignoring malformed message. ' +
-        'Neither state nor event given.'
-    if data.user?.id == config.user_id
-      egoMsgHandler method, data
-    else
-      stateHandler method, data if data.state
-      eventHandler method, data if data.event
+    if data.message
+      discussion.push data.message
+      $log.error discussion
+    if method = data.state || data.event
+      if data.user?.id == config.user_id
+        egoMsgHandler method, data
+      else
+        stateHandler method, data if data.state
+        eventHandler method, data if data.event
     #$log.debug 'trigger refresh'
     $rootScope.$apply()
 
@@ -129,6 +130,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   # the stateHandler handles the state notification of other users
   stateHandler = (state, data) ->
+    $log.error data
     $log.debug "user #{data.user.id}: #{state}"
     users[data.user.id]?.state = state
     switch state
@@ -198,6 +200,8 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     acceptingPromotion
     participants
     # -- misc
+    discussion
+    upstream
     name: config.fullname
     fsm
     users # debug
