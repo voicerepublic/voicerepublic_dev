@@ -30,7 +30,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       fullname: user.name,
       user_id: user.id,
       handle: "u#{user.id}",
-      role: role, # TODO remove in favor of user.role
+      role: user_details[:role], # TODO remove in favor of user.role
       stream: "t#{talk.id}-u#{user.id}",
       streaming_server: Settings.rtmp.record
     }
@@ -55,8 +55,6 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine_spec
     # events in 'Simple Past', states in 'Present Progressive'
     #
-    # NOTE: 'PromotionDeclined' always leads to 'Listening'
-    #
     # from-state         -> transition        -> to-state
     <<-EOF
       Registering        -> Registered        -> Waiting
@@ -78,11 +76,6 @@ class LivepageConfig < Struct.new(:talk, :user)
       from, name, to = transition.split('->').map(&:strip)
       { name: name, from: from, to: to }
     end
-   end
-
-  # TODO remove
-  def role
-    user.role_for(talk)
   end
 
 end

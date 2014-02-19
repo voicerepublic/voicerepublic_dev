@@ -3,6 +3,8 @@ class Api::TalksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_talk
 
+  # single point of entry for updates during live talks
+  #
   # delegate to a sepcific message handler or complain
   def update
     msg = params[:msg]
@@ -10,7 +12,8 @@ class Api::TalksController < ApplicationController
 
     state, event = msg[:state], msg[:event]
     either = state || event
-    return render text: 'Neither `state` nor `event` given.', status: 422 unless either
+    error = 'Neither `state` nor `event` given.'
+    return render text: error, status: 422 unless either
 
     # events may only be send by the host
     gfy = event && current_or_guest_user != @talk.user
@@ -25,6 +28,8 @@ class Api::TalksController < ApplicationController
     publish msg.to_hash
     head :ok
   end
+
+  private
 
   # genericly stores the state on the authenticated user
   def store_state(msg)
