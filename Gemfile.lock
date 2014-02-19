@@ -311,6 +311,8 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    rspec-retry (0.2.1)
+      rspec
     rubyzip (1.1.0)
     safe_yaml (0.9.7)
     sass (3.2.14)
@@ -453,6 +455,7 @@ DEPENDENCIES
   rails-i18n
   rails_config
   rspec-rails
+  rspec-retry
   sass-rails
   select2-rails
   selenium-webdriver
