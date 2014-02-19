@@ -44,7 +44,8 @@ end
 
 # Specific for CircleCI
 if ENV['CI']
-  # nothing yet
+  # Increase log level on CircleCI to reduce IO
+  Rails.logger.level = 4
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
