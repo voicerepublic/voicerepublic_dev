@@ -29,7 +29,7 @@ class Api::TalksController < ApplicationController
     head :ok
   end
 
-  private
+  # private
 
   # genericly stores the state on the authenticated user
   def store_state(msg)
