@@ -23,6 +23,12 @@ class VenuesController < ApplicationController
     @next_talk      = @upcoming_talks.shift
     @archived_talks = @venue.talks.archived
 
+    @participation =
+      @venue.participations.find_by(user_id: current_or_guest_user.id)
+
+    @show_join = @participation.nil? &&
+      current_or_guest_user != @venue.user
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @venue }
