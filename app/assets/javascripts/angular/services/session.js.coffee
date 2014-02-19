@@ -1,9 +1,6 @@
 # The SessionService is the single source for insession
 # data and contains the session logic.
 #
-# CHECK Maybe it makes sense to split this further into
-#  * stuff that belongs to the user
-#  * stuff that belongs to the whole session (all users)
 Livepage.factory 'session', ($log, privatePub, util, $rootScope,
                              $timeout, upstream, config, blackbox,
                              $interval) ->
@@ -44,16 +41,12 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
             $timeout (-> reportState(to)), 2000
           else
             reportState(to)
-      onListening: ->
+      onleaveWaiting: ->
         # subscribeStreams (#2)
         subscribeAllStreams()
+      onListening: ->
         config.flags.reqmic = true
       onleaveListening: ->
-        config.flags.reqmic = false # (#3/5)
-        true
-      onListeningOnStandby: ->
-        config.flags.reqmic = true # (#6)
-      onleaveListeningOnStandby: ->
         config.flags.reqmic = false # (#3/5)
         true
       onAcceptingPromotion: ->
@@ -84,9 +77,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         # unsubscribeStreams (#7)
         unsubscribeAllStreams()
 
-  # some comprehending queries on the state
-  isListening = ->
-    !!fsm.current.match /^Listening/
+  # comprehending queries on the state
   isNotRegisteringNorWaiting = ->
     !fsm.current.match /(Register|Wait)ing$/
 
@@ -148,7 +139,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         if isNotRegisteringNorWaiting()
           # subscribeStream (#8)
           blackbox.subscribe users[data.user.id].stream
-      when 'Listening', 'ListeningOnStandby'
+      when 'Listening'
         if isNotRegisteringNorWaiting()
           # unsubscribeStream (#9)
           # TODO blackbox.unsubscribe users[data.user.id].stream
@@ -187,7 +178,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   acceptingPromotion = ->
     (user for id, user of users when user.state == 'AcceptingPromotion')
   participants = ->
-    (user for id, user of users when user.state?.match(/^Listening/))
+    (user for id, user of users when user.state == 'Listening')
 
   # TODO idealy this should move into callback: on/Registering$/
   # subscribe to push notifications
@@ -210,6 +201,5 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     name: config.fullname
     fsm
     users # debug
-    isListening
     countdown: config.countdown
   }

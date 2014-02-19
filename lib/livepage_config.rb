@@ -66,9 +66,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       Listening          -> Promoted          -> AcceptingPromotion
       AcceptingPromotion -> PromotionAccepted -> OnAir
       AcceptingPromotion -> PromotionDeclined -> Listening
-      OnAir              -> Demoted           -> ListeningOnStandby
-      ListeningOnStandby -> MicRequested      -> ExpectingPromotion
-      ListeningOnStandby -> Promoted          -> AcceptingPromotion
+      OnAir              -> Demoted           -> Listening
       GuestRegistering   -> Registered        -> OnAir
       HostRegistering    -> Registered        -> HostOnAir
       *                  -> TalkEnded         -> Loitering
