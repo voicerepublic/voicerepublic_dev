@@ -19,16 +19,24 @@ class ParticipationsController < ApplicationController
   # POST /participations
   # POST /participations.json
   def create
-    @participation = Participation.new
+    @participation = @venue.participations.build
     @participation.user = current_or_guest_user
-    @participation.venue = @venue
+
+    target = @venue
+
+    # if participate button on talk was clicked
+    # we would like to redirect to the same talk
+    #
+    # TODO check if we could alternatively use the stored_location
+    if request.referer =~ /\/venues\/\d+\/talks\/(\d+)\z/
+      target = [ @venue, @venue.talks.find($1) ]
+    end
 
     respond_to do |format|
       if @participation.save
-        # make_avatar_appear_live if @venue.live? # CHECK still needed?
-        format.html { redirect_to @venue } # after join redirect to venue page 
+        format.html { redirect_to target } # after join redirect to venue page 
       else
-        format.html { redirect_to @venue }
+        format.html { redirect_to target }
       end
     end
   end
@@ -46,14 +54,6 @@ class ParticipationsController < ApplicationController
   end
 
   private
-
-  def make_avatar_appear_live
-    # TODO get rid of JS eval
-    markup = render_to_string partial: 'venues/venue_show_avatar', locals: { user: current_or_guest_user }
-    markup = markup.gsub('"', "'").gsub("\n", '')
-    script = "$('.venue-participants').append(\"#{markup}\");Venue.initMote();Venue.sortParticipants();"
-    PrivatePub.publish_to @venue.back_channel, script
-  end
 
   def set_venue
     @venue = Venue.find(params[:venue_id])
