@@ -178,7 +178,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   acceptingPromotion = ->
     (user for id, user of users when user.state == 'AcceptingPromotion')
   participants = ->
-    (user for id, user of users when user.state == 'Listening')
+    (user for id, user of users when user.role == 'participant' and
+      user.state == 'Listening')
+  listeners = ->
+    (user for id, user of users when user.role == 'listener')
 
   # TODO idealy this should move into callback: on/Registering$/
   # subscribe to push notifications
