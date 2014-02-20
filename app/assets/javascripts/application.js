@@ -26,6 +26,7 @@
 //= require player.js.erb
 
 //= require components/tag_list
+//= require components/guest_list
 
 /* Alters-Success fade out after 8secs */
 (function($){
