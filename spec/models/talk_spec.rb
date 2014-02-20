@@ -94,14 +94,15 @@ describe Talk do
 
   it 'nicely postprocesses audio' do
     begin
-      talk = FactoryGirl.create(:talk)
+      talk = FactoryGirl.create(:talk, record: true)
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
       fixglob = "#{fixbase}/*.flv"
       flvs = Dir.glob(fixglob)
       target = File.dirname(talk.recording_path)
       FileUtils.mkdir_p(target)
-      FileUtils.cp(flvs, target)
+      FileUtils.cp(flvs, target, verbose: true)
+      talk.update_current_state(:postlive, true)
       # assert pre state
       result = "#{talk.recording_path}.m4a"
       expect(File.exist?(result)).to be_false
