@@ -81,31 +81,16 @@ class UsersController < ApplicationController
     authorize! :update, @user
     
     respond_to do |format|
-      logger.debug("Users#update - params[user]: #{params[:user].inspect}")
-      url = if params[:from_settings]
-              dashboard_settings_url
-            elsif params[:from_account]
-              @account = @user.account
-              user_url(:id => @user )
-            else
-              user_url(:id => @user)
-            end
       if @user.update_attributes(params[:user])
-        format.html { redirect_to  url, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
-        format.js
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        #format.json { head :no_content }
+        #format.js
       else
         logger.error("Users#update - ERROR: #{@user.errors.inspect}")
         format.html do
-            if params[:from_account]
-              render :template => 'accounts/edit', :layout => 'application'
-            elsif params[:from_settings]
-              render(:template => 'dashboard/edit_settings', :layout => 'dashboard')
-            else
-              render :action => :edit
-            end
+          render :template => 'accounts/edit'
          end
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        #format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

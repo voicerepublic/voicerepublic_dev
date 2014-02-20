@@ -3,8 +3,10 @@
   = f.input :firstname
   = f.input :lastname
   = f.input :email
+  -#= f.input :password
+  -#= f.input :password_confirmation
   = f.fields_for @user.account do |af|
-    = af.input :timezone
+    = af.input :timezone # TODO: make select box
     = af.input :website
     = render 'shared/wysihtml5_toolbar'
     = af.input :about, input_html: { 'data-wysiwyg' => true }
