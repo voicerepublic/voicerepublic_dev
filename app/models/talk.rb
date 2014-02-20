@@ -36,6 +36,7 @@ class Talk < ActiveRecord::Base
                   :description, :record, :image, :tag_list
 
   belongs_to :venue, :inverse_of => :talks
+  has_many :messages, dependent: :destroy
 
   validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
 
