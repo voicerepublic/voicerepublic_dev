@@ -50,6 +50,9 @@
     
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
+        - unless @talk.venue.users.include?(current_or_guest_user)
+          - url = [ @talk.venue, :participations ]
+          = link_to t('.participate'), url, method: 'post', class: 'button alert'
         #onair(ng-show='flags.onair') On Air
         %button.button(ng-show='showStartTalk()'
           ng-click='session.startTalk()')= t('.start_talk')
