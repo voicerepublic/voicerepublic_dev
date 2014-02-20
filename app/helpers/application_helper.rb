@@ -1,5 +1,15 @@
 module ApplicationHelper
 
+  def delete_params
+    {
+      method: :delete,
+      data: { 
+        confirm: I18n.t('.confirm_delete', default: 'Are you sure?')
+      },
+      class: 'button'
+    }
+  end
+
   def destroy_participation_link(venue)
     link_to( I18n.t('helpers.venue_actions.unjoin_venue'),
              venue_participation_path(:venue_id => @venue.id),
