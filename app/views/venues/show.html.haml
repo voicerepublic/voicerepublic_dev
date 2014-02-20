@@ -6,42 +6,68 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-.draft
-  %p= link_to t('.create_new_talk'), new_venue_talk_path(@venue)
-  %p= link_to t('.edit_venue'), [:edit, @venue]
-  %p= link_to t('.delete_venue'), @venue, method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }
-  %p= @venue.title
-  %p= @venue.teaser
-  %p TODO upload button for background image
+.row
+  .large-12.columns.text-right
+    = link_to t('.edit_venue'), [:edit, @venue], class: 'button'
+    = link_to t('.delete_venue'), @venue, method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
 
-  %h2= t('.upcoming_talks')
-  %ul
-    - unless @next_talk.nil?
-      %li(style='background-color: yellowgreen;')
-        = t('.talk_begins_in')
-        = distance_of_time_in_words_to_now(@next_talk.starts_at)
-        = link_to @next_talk.title, [@venue, @next_talk]
-    - for talk in @upcoming_talks
-      %li
-        = l(talk.starts_at, format: :designed)
-        = link_to talk.title, [@venue, talk]
+.row
+  .large-12.columns.text-center
+    = image_tag @venue.image.url(:medium), class: "venue-image"
+    %h4= @venue.user.name
+    %h2= @venue.title
+    %h3= @venue.teaser
 
-  %h2= t('.description')
-  %p= @venue.description
+.row
+  .large-12.columns
+    %dl.tabs(data-tab='true')
+      %dd.text-center.active
+        %a(href="#tab-description")= t('.description')
+      %dd.text-center
+        %a(href="#tab-upcoming-talks")= t('.upcoming_talks')
+      %dd.text-center
+        %a(href="#tab-archived-talks")= t('.archived_talks')
+      %dd.text-center
+        %a(href="#tab-comments")= t('.comments')
 
-  %h2= t('.archived_talks')
-  %ul
-    - for talk in @archived_talks
-      = link_to [@venue, talk] do
-        %li
-          %p
-            = distance_of_time_in_words(talk.starts_at, talk.ends_at)
-            (#{talk.duration} minutes)
-          %p= talk.title 
-          %p= l(talk.starts_at, format: :designed)
+.row
+  .tabs-content.large-12.columns
+    #tab-description.content.active
+      %p= @venue.description
+    #tab-upcoming-talks.content
+      %p= link_to t('.create_new_talk'), new_venue_talk_path(@venue), class: 'button'
+      %ul
+        - unless @next_talk.nil?
+          %li.panel.callout
+            %p
+              = t('.talk_begins_in')
+              = distance_of_time_in_words_to_now(@next_talk.starts_at)
+            %p= link_to @next_talk.title, [@venue, @next_talk]
+            = link_to t('.edit_talk'), [:edit, @venue, @next_talk], class: 'button'
+            = link_to t('.delete_talk'), [@venue, @next_talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+        - for talk in @upcoming_talks
+          %li.panel
+            %p= l(talk.starts_at, format: :designed)
+            %p= link_to talk.title, [@venue, talk]
+            = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
+            = link_to t('.delete_talk'), [@venue, talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+    #tab-archived-talks.content
+      %ul
+        - for talk in @archived_talks
+          = link_to [@venue, talk] do
+            %li.panel
+              %p
+                = distance_of_time_in_words(talk.starts_at, talk.ends_at)
+                (#{talk.duration} minutes)
+              %p= talk.title 
+              %p= l(talk.starts_at, format: :designed)
+              = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
+              = link_to t('.delete_talk'), [@venue, talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+    #tab-comments.content
+      TODO
 
 -# action buttons
-= render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
+-#= render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
 
 -# -if @venue.live?
 -#   -# live layout
@@ -61,25 +87,25 @@
 -# 
 -# - else
 
--# static layout
-.row-fluid
-  .span8
-    -# description
-    = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
-
-    -# forum
-    = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
-
-  .span4.left-light-border
-    -# next event
-    -# - if @venue.current_event.present?
-    -#   = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
-      %hr.venue-horiz-line
-
-    -# archive
-    = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
-    %hr.venue-horiz-line
-
-    -# participants
-    = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
+-# -# static layout
+-# .row-fluid
+-#   .span8
+-#     -# description
+-#     = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
+-# 
+-#     -# forum
+-#     = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
+-# 
+-#   .span4.left-light-border
+-#     -# next event
+-#     -# - if @venue.current_event.present?
+-#     -#   = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
+-#       %hr.venue-horiz-line
+-# 
+-#     -# archive
+-#     = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+-#     %hr.venue-horiz-line
+-# 
+-#     -# participants
+-#     = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
 
