@@ -1,12 +1,17 @@
 - content_for :title do
   = @user.name
 
+- if @user == current_or_guest_user # TODO use cancan
+  .row
+    .large-12.columns.text-right
+      -# = link_to t('.edit_user'), [:edit, @user], class: 'button'
+      = link_to t('.edit_account'), [:edit, @user, @user.account], class: 'button'
+
 .row
   .large-12.columns.text-center
     - count = @user.participations.count
     %p= t('.talk_joined', count: count, default: '%{count} Talks joined')
-    %p= image_tag 'http://lorempixel.com/100/100'
-
+    %p= image_tag @user.account.portrait.url(:medium)
 .row
   .large-12.columns
     %dl.tabs(data-tab='true')

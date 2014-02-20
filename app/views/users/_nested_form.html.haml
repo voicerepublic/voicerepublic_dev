@@ -1,3 +1,18 @@
+= simple_form_for(@user) do |f|
+  = f.error_notification
+  = f.input :firstname
+  = f.input :lastname
+  = f.input :email
+  = f.fields_for @user.account do |af|
+    = af.input :timezone
+    = af.input :website
+    = render 'shared/wysihtml5_toolbar'
+    = af.input :about, input_html: { 'data-wysiwyg' => true }
+  = f.button :submit
+
+%hr/
+%h2 Old Form  
+
 = form_for @user, :url => user_path(:id => @user, :from_account => '1'), :html => { :class => 'form-horizontal', :multipart => true } do |f|
   - @account = @user.account
   = f.fields_for :account do |account_fields|
