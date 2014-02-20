@@ -6,6 +6,11 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
   $scope.session  = session
   $scope.blackbox = blackbox
 
+  $scope.message = { content: '' }
+
+  $scope.sendMessage = ->
+    session.upstream.message $scope.message.content
+
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
 

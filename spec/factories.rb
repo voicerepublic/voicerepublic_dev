@@ -105,4 +105,10 @@ FactoryGirl.define do
     user
     talk
   end
+
+  factory :message do
+    user 
+    talk
+    content "MyText"
+  end
 end

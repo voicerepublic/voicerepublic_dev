@@ -45,6 +45,7 @@ class Talk < ActiveRecord::Base
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
+  has_many :messages, dependent: :destroy
 
   validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
 

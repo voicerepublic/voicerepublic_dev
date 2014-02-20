@@ -8,6 +8,9 @@ Livepage.factory 'upstream', (config, $http, $log) ->
     #$log.debug msg
     $http.put "/api/talk/#{config.talk_id}", { msg }
 
+  message = (content) ->
+    $http.post "/api/talk/#{config.talk_id}/messages", { content }
+
   event = (name, msg) ->
     msg ||= {}
     msg.event = name
@@ -20,6 +23,7 @@ Livepage.factory 'upstream', (config, $http, $log) ->
 
   { # expose
     put # low level
+    message
     event
     state
   }

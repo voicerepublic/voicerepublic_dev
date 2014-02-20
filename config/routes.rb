@@ -1,5 +1,6 @@
 Kluuu2::Application.routes.draw do
   
+  post 'api/talk/:id/messages' => 'api/messages#create'
   put 'api/talk/:id' => 'api/talks#update'
   get 'api/users'    => 'api/users#index'
 
