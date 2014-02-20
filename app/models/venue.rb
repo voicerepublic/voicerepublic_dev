@@ -26,12 +26,14 @@ class Venue < ActiveRecord::Base
   attr_accessible :title, :teaser, :description, :tag_list,
                   :talks_attributes
 
+  # TODO: rename to host
   belongs_to :user
 
   has_many :articles, -> { order "created_at DESC" }, :dependent => :destroy
   has_many :talks, :dependent => :destroy, :inverse_of => :venue
 
   has_many :participations, :dependent => :destroy
+  # TODO: rename to participants
   has_many :users, :through => :participations
 
   validates :title, :teaser, :description, :tag_list, :presence => true
@@ -58,6 +60,8 @@ class Venue < ActiveRecord::Base
   private
 
   def clean_taglist
+    # FIXME: WTF? this doesn't do anything, check it out
+    #   v
     self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
   end
 
