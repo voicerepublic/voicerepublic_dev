@@ -2,14 +2,20 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
+# * audio_formats [text, default="--- []\n"] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer] - TODO: document me
 # * ended_at [datetime] - TODO: document me
 # * ends_at [datetime] - TODO: document me
+# * featured_from [datetime] - TODO: document me
+# * image_uid [string] - TODO: document me
 # * record [boolean] - TODO: document me
 # * recording [string] - TODO: document me
+# * session [text] - TODO: document me
+# * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
+# * state [string] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
 # * updated_at [datetime] - last update time
@@ -25,7 +31,7 @@ class Talk < ActiveRecord::Base
     event :start_talk, timestamp: :started_at do
       transitions from: :prelive, to: :live
     end
-    event :end_talk, timestamp: :ended_at, success: :postprocess do
+    event :end_talk, timestamp: :ended_at, success: :postprocess! do
       transitions from: :live, to: :postlive
     end
   end
@@ -88,7 +94,7 @@ class Talk < ActiveRecord::Base
     Audio::Merger.run(recording_path, strategy)
   end
 
-  def transcode_audio!(strategy=nil, ext=nil)
+  def transcode_audio!(strategy=nil, extension=nil)
     strategy ||= 'Audio::TranscodeStrategy::M4a'
     strategy = strategy.constantize if strategy.is_a?(String)
     extension ||= strategy::EXTENSION
@@ -105,19 +111,12 @@ class Talk < ActiveRecord::Base
     self.ends_at = starts_at + duration.minutes
   end
 
-  def postprocess
-    base_path = Settings.rtmp.recordings_path
-    talk_path = File.join(base_path, id)
-    FileUtils.mkdir_p(talk_path)
-    files = Dir.glob(File.join(base_path, "t#{id}-*.*"))
-    files += "#{id}.journal"
-    FileUtils.mv(files, talk_path)
-    
-    StreamMerger.run(talk_path)
-
+  def postprocess!
+    merge_audio!
+    transcode_audio!
     # TODO create attribute processed_at and set
   end
 
-  handle_asynchronously :postprocess, queue: 'process_talk'
+  handle_asynchronously :postprocess!, queue: 'process_audio'
 
 end
