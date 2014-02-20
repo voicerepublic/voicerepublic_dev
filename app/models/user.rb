@@ -105,6 +105,7 @@ class User < ActiveRecord::Base
       id: id,
       name: name,
       role: role_for(talk),
+      # TODO: use user image
       image: "http://lorempixel.com/80/80/people/#{rand(9)}/",
       stream: "t#{talk.id}-u#{id}"
     }
@@ -112,8 +113,10 @@ class User < ActiveRecord::Base
 
   def role_for(talk)
     return :host if self == talk.user
-    return :guest if true == false # FIXME
-    :participant # FIXME listener
+    return :guest if talk.guests.include?(self)
+    # TODO: check resulting db queries, maybe use eager loading
+    return :participant if talk.venue.users.include?(self)
+    :listener
   end
 
   private
