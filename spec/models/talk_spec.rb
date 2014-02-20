@@ -99,6 +99,7 @@ describe Talk do
     fixglob = "#{fixbase}/*.flv"
     flvs = Dir.glob(fixglob)
     target = File.dirname(talk.recording_path)
+    FileUtils.mkdir_p(target)
     FileUtils.cp(flvs, target)
     # assert pre state
     result = "#{talk.recording_path}.m4a"
