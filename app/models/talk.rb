@@ -33,13 +33,17 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   attr_accessible :title, :teaser, :starts_at, :duration,
-                  :description, :record, :image, :tag_list
+                  :description, :record, :image, :tag_list,
+                  :guest_list
 
   belongs_to :venue, :inverse_of => :talks
+  has_many :appearances, dependent: :destroy
+  has_many :guests, through: :appearances, source: :user
 
   validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
 
   before_validation :set_ends_at
+  after_save :set_guests
 
   serialize :session
 
@@ -60,6 +64,14 @@ class Talk < ActiveRecord::Base
     where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
+  def guest_list
+    guests.pluck(:lastname).sort * ','
+  end
+
+  def guest_list=(list)
+    @guest_list = list.split(',').sort
+  end
+
   def starts_in # seconds (for prelive)
     (starts_at - Time.now).to_i
   end
@@ -78,7 +90,7 @@ class Talk < ActiveRecord::Base
 
   # TODO write this to recording when starting talk
   # TODO then use the stored value
-  # TODO maybe we should use a date base folder structure
+  # TODO maybe we should use a date based folder structure
   def recording_path
     base = Settings.rtmp.recordings_path
     path = "#{base}/#{id}"
@@ -103,6 +115,18 @@ class Talk < ActiveRecord::Base
   def set_ends_at
     return unless starts_at
     self.ends_at = starts_at + duration.minutes
+  end
+
+  def set_guests
+    return if @guest_list.nil?
+    return if @guest_list == guest_list.split(',')
+
+    appearances.clear
+    @guest_list.each do |lastname|
+      if user_id = User.find_by(lastname: lastname).id
+        appearances.create(user_id: user_id)
+      end
+    end
   end
 
   def postprocess
