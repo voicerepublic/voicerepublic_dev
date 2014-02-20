@@ -68,6 +68,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         # publishStream, showOnAir/UnMute (#1)
         blackbox.publish config.stream
         config.flags.onair = true
+        # start the talk immediately or with timeout
+        # negative numbers will timeout immediately
+        # TODO check for brwoser compatibility
+        $timeout startTalk, config.talk.starts_in * 1000
       onleaveHostOnAir: ->
         # unpublishStream, hideOnAir/UnMute (#7)
         blackbox.unpublish()

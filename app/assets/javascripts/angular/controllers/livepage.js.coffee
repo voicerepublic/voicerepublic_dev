@@ -15,10 +15,6 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
   $scope.talkIsPostlive = ->
     config.talk.state == 'postlive'
 
-  $scope.showStartTalk = ->
-    session.fsm.is('HostOnAir') and
-      config.talk.state == 'prelive'
-
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and
       config.talk.state == 'live'
