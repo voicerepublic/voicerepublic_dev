@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname
   attr_accessible :provider, :uid, :last_request_at, :available
-  attr_accessible :accept_terms_of_use, :guest
+  attr_accessible :accept_terms_of_use, :guest, :header
 
   has_many :comments, dependent: :destroy
   has_one :account, dependent: :destroy # application-account-things
@@ -46,6 +46,8 @@ class User < ActiveRecord::Base
   has_many :participating_venues, :through => :participations, :source => :venue
 
   accepts_nested_attributes_for :account
+
+  dragonfly_accessor :header
 
   after_create :add_account
 

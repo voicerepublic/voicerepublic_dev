@@ -8,6 +8,7 @@
     = af.input :website
     = render 'shared/wysihtml5_toolbar'
     = af.input :about, input_html: { 'data-wysiwyg' => true }
+  = f.input :header, as: :file
   = f.button :submit
 
 %hr/
