@@ -51,8 +51,6 @@
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
         #onair(ng-show='flags.onair') On Air
-        %button.button(ng-show='showStartTalk()'
-          ng-click='session.startTalk()')= t('.start_talk')
         %button.button(ng-show='showEndTalk()'
           ng-click='session.endTalk()')= t('.end_talk')
         %button.button(ng-show='flags.reqmic'
