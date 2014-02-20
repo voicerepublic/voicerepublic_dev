@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
   
-  layout "application", :only => [:welcome]
+  # layout "application", :only => [:welcome]
   
   # GET /users
   # GET /users.json
@@ -17,9 +17,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if @user.participating_venues.empty? && @user.venues.any?
-      redirect_to venues_user_url(@user)
-    end
+    #if @user.participating_venues.empty? && @user.venues.any?
+    #  redirect_to venues_user_url(@user)
+    #end
   end
 
   def no_kluuus
