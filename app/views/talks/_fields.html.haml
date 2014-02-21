@@ -2,6 +2,12 @@
 
 = f.text_field :title
 = f.text_field :teaser
+= f.label :tag_list, :class => 'control-label' do
+  = t('.tag_list')
+.controls
+  = f.text_field :tag_list, :class => 'tagList input-block-level'
+.help-block.help-tags
+  = t('.help_tags')
 
 %p TODO make this a datepicker:
 = f.text_field :starts_at
