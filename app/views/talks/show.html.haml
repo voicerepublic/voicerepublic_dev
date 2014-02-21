@@ -12,7 +12,11 @@
           = @talk.teaser
         %h3.talk-tags
           = @talk.tag_list
-        .talk-date-time MAY 6, 2014 | 17:00 -17.30
+        .talk-date-time
+          = l @talk.starts_at.to_date
+          = l @talk.starts_at, format: :micro
+          \-
+          = l @talk.ends_at, format: :micro
         .talk-date-time
           {{ countdown }}
         #flashContent
