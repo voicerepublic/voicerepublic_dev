@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Audio::Merger do
 
   it 'generates fake journals' do
-    path, name = 'spec/support/fixtures/talk_a', 1
-    journal_1 = Audio::Merger.fake_journal(path, name)
+    path, name = 'spec/support/fixtures/talk_a/', '1'
+    journal_1 = JournalFaker.new.fake_journal(path, name)
     journal_0 = File.read("#{path}/#{name}.journal").chomp
     expect(journal_1).to eq(journal_0)
   end
@@ -13,7 +13,7 @@ describe Audio::Merger do
     path, name = 'spec/support/fixtures/talk_a', 1
     Dir.mktmpdir do |dir|
       FileUtils.cp(Dir.glob("#{path}/*.flv"), dir)
-      Audio::Merger.generate_fake_journal(dir, name)
+      JournalFaker.run("#{dir}/#{name}")
       Audio::Merger.run("#{dir}/#{name}")
 
       size_0 = File.size("#{path}/#{name}.wav")
