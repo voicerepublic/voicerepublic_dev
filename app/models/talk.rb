@@ -24,15 +24,25 @@ class Talk < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  GRACE_PERIOD = 5.minutes
+
   state_machine do
     state :prelive # initial
     state :live
     state :postlive
-    event :start_talk, timestamp: :started_at do
+    state :processing
+    state :archived
+    event :start_talk, timestamp: :started_at, success: :after_start do
       transitions from: :prelive, to: :live
     end
-    event :end_talk, timestamp: :ended_at, success: :postprocess! do
+    event :end_talk, timestamp: :ended_at, success: :after_end do
       transitions from: :live, to: :postlive
+    end
+    event :process do
+      transitions from: :postlive, to: :processing
+    end
+    event :archive, timestamp: :processed_at do
+      transitions from: :processing, to: :archived
     end
   end
 
@@ -136,12 +146,22 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def postprocess!
-    merge_audio!
-    transcode_audio!
-    # TODO create attribute processed_at and set
+  def after_start
+    # this should silently fail if the talk has ended early
+    delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
   end
 
-  handle_asynchronously :postprocess!, queue: 'process_audio'
+  def after_end
+    PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
+    delay(queue: 'process_audio').postprocess! if record?
+  end
+
+  def postprocess!
+    return unless record? 
+    process! # transition
+    merge_audio!
+    transcode_audio!
+    archive! # transition
+  end
 
 end
