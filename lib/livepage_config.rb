@@ -42,7 +42,7 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def discussion
-    talk.messages.order('created_at ASC').map do |message|
+    talk.messages.order('created_at DESC').map do |message|
       { 
         name: message.user.name,
         image: message.user.image_file_name, # FIXME: f q url
