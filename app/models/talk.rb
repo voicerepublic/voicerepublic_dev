@@ -113,6 +113,10 @@ class Talk < ActiveRecord::Base
     path = "#{base}/#{id}"
   end
 
+  def check_journal!
+    JournalFaker.run(recording_path)
+  end
+
   def merge_audio!(strategy=nil)
     Audio::Merger.run(recording_path, strategy)
   end
@@ -159,6 +163,7 @@ class Talk < ActiveRecord::Base
   def postprocess!
     return unless record? 
     process! # transition
+    check_journal!
     merge_audio!
     transcode_audio!
     archive! # transition
