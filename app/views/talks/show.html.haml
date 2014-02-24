@@ -12,11 +12,18 @@
           = @talk.teaser
         %h3.talk-tags
           = @talk.tag_list
-        .talk-date-time MAY 6, 2014 | 17:00 -17.30
+        .talk-date-time
+          = l @talk.starts_at.to_date
+          = l @talk.starts_at, format: :micro
+          \-
+          = l @talk.ends_at, format: :micro
         .talk-date-time
           {{ countdown }}
         #flashContent
-        %h3(ng-show='talkIsPrelive()') talk is prelive
+        %h3(ng-show='talkIsPrelive()')
+          talk is prelive
+          .onHold(ng-show="countdownInSeconds < 0")
+            talk is on hold, waiting to start
         %h3(ng-show='talkIsLive()') talk is live
         %h3(ng-show='talkIsPostlive()') talk is postlive
 
@@ -34,23 +41,28 @@
             -# %li config.teaser: {{ config.teaser }}
             -# %li session.fsm.current: {{ session.fsm.current }}
             -# %li session.users: {{ session.users }}
-            %li acceptOrDecline: {{ flags.acceptOrDecline }}
-            %li onair: {{ flags.onair }}
-            %li config.talk.state: {{ config.talk.state }}
-        .host.avatar.avatar-host      
+            -# %li acceptOrDecline: {{ flags.acceptOrDecline }}
+            -# %li onair: {{ flags.onair }}
+            -# %li config.talk.state: {{ config.talk.state }}
+            %li config.user.id: {{ config.user.id }}
+            %li config.user.role: {{ config.user.role }}
+            %li session.listeners(): {{ session.listeners() }}
+            %li session.users: {{ session.users }}
+
+        .host.avatar.avatar-host
           %p.avatar-name.text-center
             {{ config.host }}
           %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
-          
+
         .guest.avatar(ng-repeat="guest in session.guests()")
           %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
             %img.avatar-img(ng-src="{{guest.image}}")
-    
+
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
-        - unless @talk.venue.users.include?(current_or_guest_user)
+        %span.participate-button(ng-show="config.user.role == 'listener'")
           - url = [ @talk.venue, :participations ]
           = link_to t('.participate'), url, method: 'post', class: 'button alert'
         #onair(ng-show='flags.onair') On Air
@@ -61,14 +73,14 @@
         %button.button(ng-show='flags.onair'
           ng-click='blackbox.mute()') Mute
         %button.button(ng-show='flags.onair'
-          ng-click='blackbox.unmute()') Unmute 
+          ng-click='blackbox.unmute()') Unmute
         %button.button(ng-show='flags.acceptOrDecline'
           ng-click='acceptPromotion()') Accept
         %button.button(ng-show='flags.acceptOrDecline'
           ng-click='declinePromotion()') Decline
         %button.button(ng-click='blackbox.setVolume(0)') Mute Streams
         %button.button(ng-click='blackbox.setVolume(1)') Unmute Streams
-    
+
     .talk-tabs-box.row
       .large-12.columns
         %dl.tabs.talk-tabs(data-tab="true")
@@ -88,9 +100,9 @@
 
   .talk-tabs-content-block
     .row
-      .tabs-content.large-12.columns     
+      .tabs-content.large-12.columns
         #talk-tab-description.content
-          = @talk.description.html_safe
+          = @talk.try(:description).try(:html_safe)
         #talk-tab-discussion.content
           .panel.callout(ng-hide="config.user.role == 'listener'")
             %input(ng-model='message.content')
@@ -119,7 +131,7 @@
             %h3
               {{ session.listeners().length }}
               = t('.just_listening_in')
-  
+
 .chat
 
 .log
@@ -127,14 +139,14 @@
 .scripts
   %script(src='/assets/livepage.js')
   = render 'config'
-        
+
 
 %p#notice= notice
 
 .draft
   = image_tag @talk.image.thumb('400x200#').url if @talk.image_stored?
   %h2 This is the common part.
-  %p= @talk.user.name  
+  %p= @talk.user.name
   %p= @talk.title
   %p= @talk.teaser
 

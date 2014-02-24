@@ -35,10 +35,15 @@ describe Api::TalksController do
     # as host sending events for other user
     it 'uses the expected method' do
       other = FactoryGirl.create(:user)
+      # since the given event will trigger a delayed job
+      # which we can prevent it from running by activating
+      # Delayed::Worker
+      Delayed::Worker.delay_jobs = true # activate
       VCR.use_cassette 'talk_update_event_wfp' do
         put :update, id: @talk.id, msg: { event: 'StartTalk' }
         assigns(:method).should eq('start_talk')
       end
+      Delayed::Worker.delay_jobs = false # deactivate
     end
 
     it 'uses the method store_state for state by default' do
