@@ -20,7 +20,10 @@
         .talk-date-time
           {{ countdown }}
         #flashContent
-        %h3(ng-show='talkIsPrelive()') talk is prelive
+        %h3(ng-show='talkIsPrelive()')
+          talk is prelive
+          .onHold(ng-show="countdownInSeconds < 0")
+            talk is on hold, waiting to start
         %h3(ng-show='talkIsLive()') talk is live
         %h3(ng-show='talkIsPostlive()') talk is postlive
 

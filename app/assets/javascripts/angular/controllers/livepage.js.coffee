@@ -44,14 +44,16 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
 
   calculateCountdown = (now) ->
     end = config.ends_at
-    return '' if now > end
     start = config.starts_at
-    return end - now if now > start
-    start - now
+    switch config.talk.state
+      when 'prelive' then start - now
+      when 'live' then end - now
+      else ''
 
   setCountdown = ->
     now = Math.round(new Date().getTime() / 1000)
     sec = calculateCountdown(now)
+    $scope.countdownInSeconds = sec
     # foundation's datepicker depends on `date.js`
     # so we'll use `date.js` here, despite `moment.js`
     # is known to be a much better alternative
