@@ -38,9 +38,10 @@
             -# %li config.teaser: {{ config.teaser }}
             -# %li session.fsm.current: {{ session.fsm.current }}
             -# %li session.users: {{ session.users }}
-            %li acceptOrDecline: {{ flags.acceptOrDecline }}
-            %li onair: {{ flags.onair }}
-            %li config.talk.state: {{ config.talk.state }}
+            -# %li acceptOrDecline: {{ flags.acceptOrDecline }}
+            -# %li onair: {{ flags.onair }}
+            -# %li config.talk.state: {{ config.talk.state }}
+            %li config.user.role: {{ config.user.role }}
         .host.avatar.avatar-host
           %p.avatar-name.text-center
             {{ config.host }}
@@ -54,7 +55,7 @@
 
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
-        - unless @talk.venue.users.include?(current_or_guest_user)
+        %span.participate-button(ng-show="config.user.role == 'listener'")
           - url = [ @talk.venue, :participations ]
           = link_to t('.participate'), url, method: 'post', class: 'button alert'
         #onair(ng-show='flags.onair') On Air

@@ -43,12 +43,12 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
           else
             reportState(to)
       onleaveWaiting: ->
-        # subscribeStreams (#2)
         subscribeAllStreams()
       onListening: ->
-        config.flags.reqmic = true
+        unless config.user.role == 'listener'
+          config.flags.reqmic = true 
       onleaveListening: ->
-        config.flags.reqmic = false # (#3/5)
+        config.flags.reqmic = false
         true
       onAcceptingPromotion: ->
         config.flags.acceptOrDecline = true
@@ -56,17 +56,14 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         config.flags.acceptOrDecline = false
         true
       onOnAir: ->
-        # publishStream, showOnAir/UnMute (#4)
         blackbox.publish config.stream
         config.flags.onair = true
       onleaveOnAir: ->
-        # unpublishStream, hideOnAir/UnMute (#6)
         blackbox.unpublish()
         config.flags.onair = false
         true
       onHostOnAir: ->
         users = config.session
-        # publishStream, showOnAir/UnMute (#1)
         blackbox.publish config.stream
         config.flags.onair = true
         # start the talk immediately or with timeout
@@ -74,12 +71,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         # TODO check for brwoser compatibility
         $timeout startTalk, config.talk.starts_in * 1000
       onleaveHostOnAir: ->
-        # unpublishStream, hideOnAir/UnMute (#7)
         blackbox.unpublish()
         config.flags.onair = false
         true
       onLoitering: ->
-        # unsubscribeStreams (#7)
         unsubscribeAllStreams()
 
   # comprehending queries on the state
@@ -95,8 +90,6 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
     data = data.data # unpack private_pub message
-    #$log.debug 'Receiving...'
-    #$log.debug data
     if data.message
       # enrich discussion with further data for display
       user = users[data.message.user_id]
@@ -110,7 +103,6 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
       else
         stateHandler method, data if data.state
         eventHandler method, data if data.event
-    #$log.debug 'trigger refresh'
     $rootScope.$apply()
 
   # the egoMsgHandlers will trigger transitions and other side
@@ -120,19 +112,16 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     $log.debug "ego: #{method}"
     switch method
       when 'Registering', 'GuestRegistering', 'HostRegistering'
-        # merge myself (#14)
         fsm.Registered()
         users[data.user.id] = data.user
       when 'Waiting' # state
         if config.talk.state == 'live'
-          # progress (#15)
           # TODO pull session info
           fsm.TalkStarted()
-      when 'Promote' # event (#12)
+      when 'Promote' # event
         fsm.Promoted()
-      when 'Demote' # event (#12)
+      when 'Demote' # event
         fsm.Demoted()
-      # else $log.info "Ignore: #{method}"
     # store the current state on the users hash
     users[data.user.id].state = fsm.current
 
@@ -142,15 +131,12 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     users[data.user.id]?.state = state
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
-        # mergeUser (#10)
         users[data.user.id] = data.user
       when 'OnAir', 'HostOnAir'
         if isNotRegisteringNorWaiting()
-          # subscribeStream (#8)
           blackbox.subscribe users[data.user.id].stream
       when 'Listening'
         if isNotRegisteringNorWaiting()
-          # unsubscribeStream (#9)
           # TODO blackbox.unsubscribe users[data.user.id].stream
           ;
 
@@ -159,13 +145,11 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     $log.debug "event: #{event}"
     switch event
       when 'StartTalk'
-        # sendStartTalk (#11)
         config.talk.state = 'live'
         unless fsm.is('HostOnAir')
-          users = data.session
+          users = data.session # TODO check if needed
           fsm.TalkStarted()
       when 'EndTalk'
-        # sendEndTalk (#13)
         fsm.TalkEnded()
 
   # some methods only available to the host
@@ -209,6 +193,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     expectingPromotion
     acceptingPromotion
     participants
+    listeners
     # -- misc
     discussion
     upstream
