@@ -44,7 +44,11 @@
             -# %li acceptOrDecline: {{ flags.acceptOrDecline }}
             -# %li onair: {{ flags.onair }}
             -# %li config.talk.state: {{ config.talk.state }}
+            %li config.user.id: {{ config.user.id }}
             %li config.user.role: {{ config.user.role }}
+            %li session.listeners(): {{ session.listeners() }}
+            %li session.users: {{ session.users }}
+
         .host.avatar.avatar-host
           %p.avatar-name.text-center
             {{ config.host }}
