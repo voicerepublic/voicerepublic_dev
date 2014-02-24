@@ -9,7 +9,7 @@
 .row
   .large-12.columns.text-right
     = link_to t('.edit_venue'), [:edit, @venue], class: 'button'
-    = link_to t('.delete_venue'), @venue, method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+    = link_to t('.delete_venue'), @venue, delete_params
 
 .row
   .large-12.columns.text-center
@@ -17,6 +17,15 @@
     %h4= @venue.user.name
     %h2= @venue.title
     %h3= @venue.teaser
+
+.row
+  .large-12.columns.text-center
+    - if @show_join
+      = link_to [@venue, :participations], method: :post, class: 'button' do
+        = t('.join_venue')
+    - if @participation
+      = link_to [@venue, @participation], delete_params do
+        = t('.leave_venue')
 
 .row
   .large-12.columns
@@ -32,10 +41,14 @@
 
 .row
   .tabs-content.large-12.columns
+
     #tab-description.content.active
       %p= @venue.description
+
     #tab-upcoming-talks.content
-      %p= link_to t('.create_new_talk'), new_venue_talk_path(@venue), class: 'button'
+      %p
+        = link_to new_venue_talk_path(@venue), class: 'button' do
+          = t('.create_new_talk')
       %ul
         - unless @next_talk.nil?
           %li.panel.callout
@@ -44,13 +57,15 @@
               = distance_of_time_in_words_to_now(@next_talk.starts_at)
             %p= link_to @next_talk.title, [@venue, @next_talk]
             = link_to t('.edit_talk'), [:edit, @venue, @next_talk], class: 'button'
-            = link_to t('.delete_talk'), [@venue, @next_talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+            = link_to t('.delete_talk'), [@venue, @next_talk], delete_params
+
         - for talk in @upcoming_talks
           %li.panel
             %p= l(talk.starts_at, format: :designed)
             %p= link_to talk.title, [@venue, talk]
             = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
-            = link_to t('.delete_talk'), [@venue, talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+            = link_to t('.delete_talk'), [@venue, talk], delete_params
+
     #tab-archived-talks.content
       %ul
         - for talk in @archived_talks
@@ -62,7 +77,8 @@
               %p= talk.title 
               %p= l(talk.starts_at, format: :designed)
               = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
-              = link_to t('.delete_talk'), [@venue, talk], method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?') }, class: 'button'
+              = link_to t('.delete_talk'), [@venue, talk], delete_params
+
     #tab-comments.content
       TODO
 

@@ -6,6 +6,11 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
   $scope.session  = session
   $scope.blackbox = blackbox
 
+  $scope.message = { content: '' }
+
+  $scope.sendMessage = ->
+    session.upstream.message $scope.message.content
+
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
 
@@ -14,10 +19,6 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
 
   $scope.talkIsPostlive = ->
     config.talk.state == 'postlive'
-
-  $scope.showStartTalk = ->
-    session.fsm.is('HostOnAir') and
-      config.talk.state == 'prelive'
 
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and

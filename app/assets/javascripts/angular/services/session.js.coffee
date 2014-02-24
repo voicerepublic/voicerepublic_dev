@@ -9,6 +9,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   blackbox.setStreamingServer config.streaming_server
 
   # initialize defaults
+  discussion = config.discussion
   users = {}
   config.flags =
     onair: false
@@ -68,6 +69,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         # publishStream, showOnAir/UnMute (#1)
         blackbox.publish config.stream
         config.flags.onair = true
+        # start the talk immediately or with timeout
+        # negative numbers will timeout immediately
+        # TODO check for brwoser compatibility
+        $timeout startTalk, config.talk.starts_in * 1000
       onleaveHostOnAir: ->
         # unpublishStream, hideOnAir/UnMute (#7)
         blackbox.unpublish()
@@ -92,15 +97,19 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     data = data.data # unpack private_pub message
     #$log.debug 'Receiving...'
     #$log.debug data
-    method = data.state || data.event
-    if method == undefined # guard
-      return $log.info 'Ignoring malformed message. ' +
-        'Neither state nor event given.'
-    if data.user?.id == config.user_id
-      egoMsgHandler method, data
-    else
-      stateHandler method, data if data.state
-      eventHandler method, data if data.event
+    if data.message
+      # enrich discussion with further data for display
+      user = users[data.message.user_id]
+      data.message.name = user.name
+      data.message.image = user.image
+      # prepend to discussion array
+      discussion.unshift data.message
+    if method = data.state || data.event
+      if data.user?.id == config.user_id
+        egoMsgHandler method, data
+      else
+        stateHandler method, data if data.state
+        eventHandler method, data if data.event
     #$log.debug 'trigger refresh'
     $rootScope.$apply()
 
@@ -178,7 +187,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
   acceptingPromotion = ->
     (user for id, user of users when user.state == 'AcceptingPromotion')
   participants = ->
-    (user for id, user of users when user.state == 'Listening')
+    (user for id, user of users when user.role == 'participant' and
+      user.state == 'Listening')
+  listeners = ->
+    (user for id, user of users when user.role == 'listener')
 
   # TODO idealy this should move into callback: on/Registering$/
   # subscribe to push notifications
@@ -198,6 +210,8 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     acceptingPromotion
     participants
     # -- misc
+    discussion
+    upstream
     name: config.fullname
     fsm
     users # debug

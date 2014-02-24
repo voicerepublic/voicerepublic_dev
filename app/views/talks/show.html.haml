@@ -50,9 +50,10 @@
     
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
+        - unless @talk.venue.users.include?(current_or_guest_user)
+          - url = [ @talk.venue, :participations ]
+          = link_to t('.participate'), url, method: 'post', class: 'button alert'
         #onair(ng-show='flags.onair') On Air
-        %button.button(ng-show='showStartTalk()'
-          ng-click='session.startTalk()')= t('.start_talk')
         %button.button(ng-show='showEndTalk()'
           ng-click='session.endTalk()')= t('.end_talk')
         %button.button(ng-show='flags.reqmic'
@@ -91,7 +92,11 @@
         #talk-tab-description.content
           = @talk.description.html_safe
         #talk-tab-discussion.content
-          %p Some discussion here
+          .panel.callout(ng-hide="config.user.role == 'listener'")
+            %input(ng-model='message.content')
+            %button(ng-click='sendMessage()')
+          .panel(ng-repeat='message in session.discussion')
+            {{ message.name }}: {{ message.content }}
         #talk-tab-participants.content.active
           .expecting_promotion(ng-show='session.expectingPromotion().length')
             %h3= t('.microphone_requests')
@@ -104,12 +109,16 @@
             .participant.avatar(ng-repeat="parti in session.acceptingPromotion()")
               %p.avatar-name.text-center {{ parti.name }}
               %img.avatar-img(ng-src="{{parti.image}}")
-          .listening(ng-show='session.participants().length')
-            %h3= t('.just_listening')
+          .participating(ng-show='session.participants().length')
+            %h3= t('.participating')
             .participant.avatar(ng-repeat="parti in session.participants()")
               %span(ng-click="session.promote(parti.id)")
                 %p.avatar-name.text-center {{ parti.name }}
                 %img.avatar-img(ng-src="{{parti.image}}")
+          .listening
+            %h3
+              {{ session.listeners().length }}
+              = t('.just_listening_in')
   
 .chat
 
