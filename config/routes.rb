@@ -67,19 +67,17 @@ Kluuu2::Application.routes.draw do
                registrations: "users/registrations"
              })
 
-  scope "(/:locale)", :locale => /en|de/ do
-    resources :users, :only => [:update, :show] do
+  resources :users, :only => [:update, :show] do
+    member do
+      get 'welcome'
+      get 'venues' # venues_user_path
+    end
+    resource :account do
       member do
-        get 'welcome'
-        get 'venues' # venues_user_path
-      end
-      resource :account do
-        member do
-          delete 'destroy_portrait'
-          get 'preferences/edit', :action => 'edit_preferences'
-          get 'preferences/show', :action => 'show_preferences'
-          get 'password/edit', :action => 'edit_password'
-        end
+        delete 'destroy_portrait'
+        get 'preferences/edit', :action => 'edit_preferences'
+        get 'preferences/show', :action => 'show_preferences'
+        get 'password/edit', :action => 'edit_password'
       end
     end
   end

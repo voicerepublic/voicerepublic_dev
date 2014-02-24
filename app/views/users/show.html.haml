@@ -1,14 +1,69 @@
 - content_for :title do
   = @user.name
 
-%section.venue-list.row-fluid
-  - if @user.participating_venues.empty?
-    .text-align-center.muted
-      %br/
-      %br/
-      = t('.guest_empty_venue', :name => @user.firstname)
-      %br/
-      %br/
-  - else
-    = render(:partial => 'venues/venue_big', :collection => @user.participating_venues, :as => :venue)
-  %section
+.header-block(style="background-image: url(#{@user.header.try(:url)})")
+
+  - if @user == current_or_guest_user # TODO use cancan
+    .row
+      .large-12.columns.text-right
+        -# = link_to t('.edit_user'), [:edit, @user], class: 'button'
+        = link_to t('.edit_account'), [:edit, @user, @user.account], class: 'button'
+  
+  .row
+    .large-12.columns.text-center
+      - count = @user.participations.count
+      %p= t('.talk_joined', count: count, default: '%{count} Talks joined')
+      %p= image_tag @user.account.portrait.url(:medium)
+      %p= @user.name
+  .row
+    .large-12.columns
+      %dl.tabs(data-tab='true')
+        %dd.text-center
+          %a(href="#tab-about-me")= t('.about_me')
+        %dd.text-center.active
+          %a(href="#tab-my-venues")= t('.my-venues')
+        %dd.text-center
+          %a(href="#tab-schedule")= t('.schedule')
+        %dd.text-center
+          %a(href="#tab-activity")= t('.activity')
+
+.row
+  .large-12.columns.tabs-content
+    #tab-about-me.content TODO
+
+    #tab-my-venues.content.active
+      - @user.venues.each do |venue|
+        .panel.text-center
+          %h2= venue.title
+          %h3= venue.teaser
+          
+          - count = venue.talks.upcoming.count
+          - cap = t('.upcoming_talks', count: count, default: '%{count} Upcoming Talks')
+          - url = venue_path(venue, anchor: 'tab-upcoming-talks')
+          = link_to cap, url, class: 'button'
+
+          - count = venue.talks.archived.count
+          - cap = t('.archived_talks', count: count, default: '%{count} Archived Talks')
+          - url = venue_path(venue, anchor: 'tab-archived-talks')
+          = link_to cap, url, class: 'button'
+
+          - count = venue.participations.count
+          - cap = t('.participants', count: count, default: '%{count} Participants')
+          - url = venue_path(venue, anchor: 'tab-participants')
+          = link_to cap, url, class: 'button'
+
+    #tab-schedule.content TODO
+
+    #tab-activity.content TODO
+
+-# %section.venue-list.row-fluid
+-#   - if @user.participating_venues.empty?
+-#     .text-align-center.muted
+-#       %br/
+-#       %br/
+-#       = t('.guest_empty_venue', :name => @user.firstname)
+-#       %br/
+-#       %br/
+-#   - else
+-#     = render(:partial => 'venues/venue_big', :collection => @user.participating_venues, :as => :venue)
+-#   %section
