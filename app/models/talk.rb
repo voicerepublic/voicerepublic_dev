@@ -89,11 +89,11 @@ class Talk < ActiveRecord::Base
     @guest_list = list.split(',').sort
   end
 
-  def starts_in # seconds (for prelive)
+  def starts_in # seconds (for prelive) # TODO check if needed?
     (starts_at - Time.now).to_i
   end
 
-  def ends_in # seconds (for live)
+  def ends_in # seconds (for live) # TODO check if needed?
     (ends_at - Time.now).to_i
   end
 
@@ -114,7 +114,7 @@ class Talk < ActiveRecord::Base
   end
 
   def audio
-    @audio ||= TalkAudio.new(self, recording_path)
+    @audio ||= TalkAudio.new(recording_path)
   end
 
   private
@@ -137,7 +137,7 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    # this should silently fail if the talk has ended early
+    # this will fail silently if the talk has ended early
     delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
   end
 
@@ -148,14 +148,14 @@ class Talk < ActiveRecord::Base
 
   def postprocess!
     return unless record? 
-    process! # transition
+    process!
     audio.merge!
-    audio.trim!
+    audio.trim! started_at, ended_at
     audio.transcode! do |ext|
       audio_formats |= [ ext ]
       save!
     end
-    archive! # transition
+    archive!
   end
 
 end
