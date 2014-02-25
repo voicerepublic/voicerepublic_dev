@@ -2,22 +2,15 @@ require 'spec_helper'
 
 describe Audio::Merger do
 
-  it 'generates fake journals' do
-    path, name = 'spec/support/fixtures/talk_a/', '1'
-    journal_1 = JournalFaker.new.fake_journal(path, name)
-    journal_0 = File.read("#{path}/#{name}.journal").chomp
-    expect(journal_1).to eq(journal_0)
-  end
-
   it 'nicely merges streams' do
-    path, name = 'spec/support/fixtures/talk_a', 1
-    Dir.mktmpdir do |dir|
-      FileUtils.cp(Dir.glob("#{path}/*.flv"), dir)
-      JournalFaker.run("#{dir}/#{name}")
-      Audio::Merger.run("#{dir}/#{name}")
+    fixture = 'spec/support/fixtures/talk_a'
+    audio_fixture(fixture, 1) do |base, dir, name|
+      Talk::Audio.new(base).journal
 
-      size_0 = File.size("#{path}/#{name}.wav")
-      size_1 = File.size("#{dir}/#{name}.wav")
+      Audio::Merger.run(base)
+
+      size_0 = File.size("#{fixture}/#{name}.wav")
+      size_1 = File.size("#{base}.wav")
       expect(size_1).to be(size_0)
 
       # FIXME this doesn't work presumably because of meta data

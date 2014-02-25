@@ -146,3 +146,16 @@ Platforms
 
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
 
+
+Audio cheat sheet
+-----------------
+
+### get duration
+
+    soxi -D file.wav
+    
+### convert wav to flv
+
+    avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
+
+
