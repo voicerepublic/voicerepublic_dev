@@ -119,6 +119,13 @@ ActiveRecord::Schema.define(version: 20140220172835) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "follows", force: true do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "messages", force: true do |t|
     t.integer  "user_id"
     t.integer  "talk_id"
@@ -173,9 +180,9 @@ ActiveRecord::Schema.define(version: 20140220172835) do
     t.string   "image_uid"
     t.text     "session"
     t.datetime "featured_from"
+    t.text     "audio_formats", default: "--- []\n"
     t.string   "state"
     t.datetime "started_at"
-    t.text     "audio_formats", default: "--- []\n"
     t.datetime "processed_at"
   end
 
