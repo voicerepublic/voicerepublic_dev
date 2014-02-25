@@ -7,14 +7,17 @@ class Audio::Trimmer < Struct.new(:base, :file_start, :talk_start, :talk_stop)
   end
 
   def run
-    Dir.chdir(path) { system(cmd) }
+    Dir.chdir(path) do
+      FileUtils.mv(output, backup)
+      system(cmd)
+    end
     result
   end
 
   private
 
   def cmd
-    "sox #{input} #{output} trim #{start} =#{stop}"
+    "sox #{backup} #{output} trim #{start} =#{stop}"
   end
   
   def path
@@ -25,12 +28,12 @@ class Audio::Trimmer < Struct.new(:base, :file_start, :talk_start, :talk_stop)
     File.basename(base)
   end
 
-  def input
-    "#{file}.wav"
+  def backup
+    "#{file}-untrimmed.wav"
   end
 
   def output
-    "#{file}.trimmed.wav"
+    "#{file}.wav"
   end
 
   def result
