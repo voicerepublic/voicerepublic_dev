@@ -1,17 +1,44 @@
 = simple_form_for(@user) do |f|
-  = f.error_notification
-  = f.input :firstname
-  = f.input :lastname
-  = f.input :email
-  -#= f.input :password
-  -#= f.input :password_confirmation
-  = f.fields_for @user.account do |af|
-    = af.input :timezone # TODO: make select box
-    = af.input :website
-    = render 'shared/wysihtml5_toolbar'
-    = af.input :about, input_html: { 'data-wysiwyg' => true }
-  = f.input :header, as: :file
-  = f.button :submit
+  .row
+    .large-12.columns
+      = f.error_notification
+  .row.collapse
+    .large-3.medium-3.columns
+      %img{src: "http://lorempixel.com/205/205"}/
+      %br/
+      %br/
+      %a.button(href="#") Select profile image
+      = f.input :header, as: :file
+    .large-5.medium-5.columns
+      = f.input :firstname, :placeholder => 'First Name'
+      = f.input :lastname, :placeholder => 'Last Name'
+      = f.input :email, :placeholder => 'Email Address'
+      -#= f.input :password
+      -#= f.input :password_confirmation
+      = f.fields_for @user.account do |af|
+        = af.input :timezone # TODO: make select box
+        = af.input :website
+      
+           
+    .large-4.medium-4.columns.text-center
+      .row
+        .small-4.columns
+          or
+        .small-8.columns
+          %button.small Connect with Facebook
+    .row.collapse
+      .large-12.columns
+        %h2 About you
+    .row.collapse
+      .large-12.columns
+        .user-textarea-box
+          = f.fields_for @user.account do |af|
+            = render 'shared/wysihtml5_toolbar'
+            = af.input :about, input_html: { 'data-wysiwyg' => true }          
+    .row.collapse
+      .large-12.columns
+        = f.button :submit 
+        %a{href: "#"} or cancel
 
 %hr/
 %h2 Old Form  
