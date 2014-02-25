@@ -13,7 +13,8 @@ module Audio
       end
 
       def exec(method, *args)
-        puts cmd = send(method, *args)
+        cmd = send(method, *args)
+        logger.info cmd unless logger.nil?
         Dir.chdir(File.dirname(base)) { %x[#{cmd}] }
       end
 

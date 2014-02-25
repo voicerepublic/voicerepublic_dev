@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Talk::Audio do
+describe TalkAudio do
 
   it 'generates fake journals' do
     audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-      audio = Talk::Audio.new(base)
+      audio = TalkAudio.new(base)
       path = audio.send(:journal_path)
       expect(File.exist?(path)).to be_false
       audio.journal
@@ -14,14 +14,14 @@ describe Talk::Audio do
   
   it 'parses journals' do
     audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-      audio = Talk::Audio.new(base)
+      audio = TalkAudio.new(base)
       expect(audio.journal).to be_a(Hash) 
     end
   end
 
   it 'merges' do
     audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-      audio = Talk::Audio.new(base)
+      audio = TalkAudio.new(base)
       result = audio.merge!
       expect(File.exist?(result)).to be_true
     end
@@ -29,7 +29,7 @@ describe Talk::Audio do
 
   it 'trims' do
     audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-      audio = Talk::Audio.new(base)
+      audio = TalkAudio.new(base)
       audio.merge!
 
       audio_start = audio.journal['record_done'].first.last.to_i
@@ -44,7 +44,7 @@ describe Talk::Audio do
 
   it 'transcodes' do
     audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-      audio = Talk::Audio.new(base)
+      audio = TalkAudio.new(base)
       audio.merge!
       result = audio.transcode!
       expect(File.exist?(result)).to be_true

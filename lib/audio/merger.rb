@@ -17,11 +17,11 @@ require File.expand_path('../merge_strategy', __FILE__)
 #   merger.run('Audio::MergeStrategy::Experimental')
 #
 module Audio
-  class Merger < Struct.new(:base)
+  class Merger < Struct.new(:base, :journal)
 
     class << self
-      def run(base, strategy=nil)
-        new(base).run(strategy)
+      def run(base, journal, strategy=nil)
+        new(base, journal).run(strategy)
       end
     end
 
@@ -39,7 +39,7 @@ module Audio
         end
       end
       strategy ||= DEFAULT_STRATEGY
-      strategy.call(base)
+      strategy.call(base, journal)
     end
 
   end

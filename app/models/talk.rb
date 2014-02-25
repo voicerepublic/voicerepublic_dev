@@ -114,7 +114,7 @@ class Talk < ActiveRecord::Base
   end
 
   def audio
-    @audio ||= Audio.new(self, recording_path)
+    @audio ||= TalkAudio.new(self, recording_path)
   end
 
   private

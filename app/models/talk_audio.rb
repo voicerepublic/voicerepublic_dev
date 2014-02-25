@@ -1,5 +1,32 @@
-class Talk::Audio < Struct.new(:base)
+# TalkAudio objects are data objects. This is where the glue goes that
+# connects the business logic of the talk model (app/models/talk) to
+# the more generic audio processing stuff (lib/audio).
+#
+class TalkAudio < Struct.new(:base)
 
+  # the content of the journal file might look like this:
+  #
+  #     publish asdf-1390839394.flv
+  #     publish asdf-1390839657.flv
+  #     publish asdf-1390898541.flv
+  #     publish asdf-1390898704.flv
+  #     record_done asdf-1390839394.flv 1390839394
+  #     record_done asdf-1390839657.flv 1390839657
+  #     record_done asdf-1390898541.flv 1390898541
+  #     record_done asdf-1390898704.flv 1390898704
+  #
+  # then the journal will look like this
+  #
+  #     {"publish"=>
+  #       [["asdf-1390839394.flv"],
+  #        ["asdf-1390839657.flv"],
+  #        ["asdf-1390898541.flv"],
+  #        ["asdf-1390898704.flv"]],
+  #       "record_done"=>
+  #         [["asdf-1390839394.flv", "1390839394"],
+  #          ["asdf-1390839657.flv", "1390839657"],
+  #          ["asdf-1390898541.flv", "1390898541"],
+  #          ["asdf-1390898704.flv", "1390898704"]]}
   def journal
     return @journal unless @journal.nil?
     check_journal!
@@ -14,19 +41,19 @@ class Talk::Audio < Struct.new(:base)
 
   def merge!(strategy=nil)
     check_journal!
-    ::Audio::Merger.run(base, strategy)
+    Audio::Merger.run(base, journal, strategy)
   end
 
   def trim!(talk_start, talk_stop)
     file_start = journal['record_done'].first.last.to_i
-    ::Audio::Trimmer.run(base, file_start, talk_start, talk_stop)
+    Audio::Trimmer.run(base, file_start, talk_start, talk_stop)
   end
 
   def transcode!(strategy=nil, extension=nil)
     strategy ||= 'Audio::TranscodeStrategy::M4a'
     strategy = strategy.constantize if strategy.is_a?(String)
     extension ||= strategy::EXTENSION
-    result = ::Audio::Transcoder.run(base, strategy)
+    result = Audio::Transcoder.run(base, strategy)
     yield extension if block_given?
     result
   end
@@ -38,6 +65,8 @@ class Talk::Audio < Struct.new(:base)
   end
 
   # contains implicit knowledge about nameing scheme of files
+  #
+  # reconstructs a missing journal on the basis of that knowledge
   def fake_journal(path, name)
     flvs = Dir.glob("#{path}/t#{name}-u*.flv").sort
     result = flvs.map do |flv|
@@ -59,7 +88,8 @@ class Talk::Audio < Struct.new(:base)
       name = File.basename(base)
       path = File.dirname(base)
       write_fake_journal!(path, name)
-      puts "Journal not found for #{base}, generated a fake journal."
+      # FIXME dependency on Rails.logger
+      Rails.logger.info "Journal not found for #{base}, reconstructed journal."
     end
   end
 
