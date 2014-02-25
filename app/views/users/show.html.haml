@@ -13,19 +13,20 @@
     .large-12.columns.text-center
       - count = @user.participations.count
       %p= t('.talk_joined', count: count, default: '%{count} Talks joined')
-      %p= image_tag @user.account.portrait.url(:medium)
+      %p= image_tag @user.account.portrait.url(:large)
       %p= @user.name
   .row
-    .large-12.columns
-      %dl.tabs(data-tab='true')
-        %dd.text-center
-          %a(href="#tab-about-me")= t('.about_me')
-        %dd.text-center.active
-          %a(href="#tab-my-venues")= t('.my-venues')
-        %dd.text-center
-          %a(href="#tab-schedule")= t('.schedule')
-        %dd.text-center
-          %a(href="#tab-activity")= t('.activity')
+    .large-12.columns.text-center
+      .tabs-box(style="display:inline-block")
+        %dl.tabs(data-tab='true')
+          %dd.text-center
+            %a(href="#tab-about-me")= t('.about_me')
+          %dd.text-center.active
+            %a(href="#tab-my-venues")= t('.my-venues')
+          %dd.text-center
+            %a(href="#tab-schedule")= t('.schedule')
+          %dd.text-center
+            %a(href="#tab-activity")= t('.activity')
 
 .row
   .large-12.columns.tabs-content

@@ -28,6 +28,7 @@
 }
 
 /* ACTIONBAR */
+
 .top-bar {
 	z-index: 1;
 	.top-bar-vr-logo{
@@ -93,7 +94,31 @@
   background-repeat: no-repeat;
   background-position: center center; 
   background-size: cover;
+  background-color: #f5f5f5;
   margin-top: -55px;
   padding-top: 55px;
   color: #fff;
+}
+
+/* USER PROFILE */
+.user-portrait-img{
+	width:215px;
+	height: 215px;
+	background-size:cover;
+	background-position: center	
+}
+
+/*.input.file{
+	display: none;
+}*/
+
+footer{
+	margin-top: 30px;
+	ul{
+		h6{
+			font-size: 0.8rem;
+			font-weight: bold;
+		}
+		font-size: 0.8rem
+	}
 }
