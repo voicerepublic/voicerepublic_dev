@@ -1,44 +1,51 @@
 = simple_form_for(@user) do |f|
-  .row
-    .large-12.columns
-      = f.error_notification
-  .row.collapse
-    .large-3.medium-3.columns
-      %img{src: "http://lorempixel.com/205/205"}/
-      %br/
-      %br/
-      %a.button(href="#") Select profile image
-      = f.input :header, as: :file
-    .large-5.medium-5.columns
-      = f.input :firstname, :placeholder => 'First Name'
-      = f.input :lastname, :placeholder => 'Last Name'
-      = f.input :email, :placeholder => 'Email Address'
-      -#= f.input :password
-      -#= f.input :password_confirmation
-      = f.fields_for @user.account do |af|
-        = af.input :timezone # TODO: make select box
-        = af.input :website
-      
-           
-    .large-4.medium-4.columns.text-center
-      .row
-        .small-4.columns
-          or
-        .small-8.columns
-          %button.small Connect with Facebook
-    .row.collapse
+  .header-block(style="background-image: url(#{@user.header.try(:url)})" data-show-upload="user_header")
+    .row
       .large-12.columns
-        %h2 About you
+        = f.error_notification
     .row.collapse
-      .large-12.columns
-        .user-textarea-box
-          = f.fields_for @user.account do |af|
-            = render 'shared/wysihtml5_toolbar'
-            = af.input :about, input_html: { 'data-wysiwyg' => true }          
-    .row.collapse
-      .large-12.columns
-        = f.button :submit 
-        %a{href: "#"} or cancel
+      .large-3.medium-3.columns
+        - portrait_url = @user.account.portrait.url(:large)
+        - portrail_url ||= "/assets/images/Cafe-Griensteidl-1896-e.jpg"
+        .user-portrait-img(style="background-image:url(#{portrait_url})" data-show-upload="user_account_portrait")
+        %br/
+        %br/
+        %button.button(type="button" data-trigger-file-input="user_account_portrait") Select profile image
+        = f.fields_for @user.account do |af|
+          = af.input :portrait, as: :file
+
+      .large-5.medium-5.columns
+        = f.input :firstname, :placeholder => 'First Name'
+        = f.input :lastname, :placeholder => 'Last Name'
+        = f.input :email, :placeholder => 'Email Address'
+        -#= f.input :password
+        -#= f.input :password_confirmation
+        = f.fields_for @user.account do |af|
+          = af.input :timezone # TODO: make select box
+          = af.input :website
+        -#= USER PROFILE HEADER (not verified by PO)
+        = f.input :header, as: :file
+        
+             
+      .large-4.medium-4.columns.text-center
+        .row
+          .small-4.columns
+            or
+          .small-8.columns
+            %button.small Connect with Facebook
+      .row.collapse
+        .large-12.columns
+          %h2 About you
+      .row.collapse
+        .large-12.columns
+          .user-textarea-box
+            = f.fields_for @user.account do |af|
+              = render 'shared/wysihtml5_toolbar'
+              = af.input :about, input_html: { 'data-wysiwyg' => true }          
+      .row.collapse
+        .large-12.columns
+          = f.button :submit 
+          %a{href: "#"} or cancel
 
 %hr/
 %h2 Old Form  
