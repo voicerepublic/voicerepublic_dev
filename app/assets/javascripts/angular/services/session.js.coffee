@@ -10,7 +10,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   # initialize defaults
   discussion = config.discussion
-  users = {}
+  users = config.session
   config.flags =
     onair: false
     reqmic: false
@@ -18,9 +18,11 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
+    $log.debug 'subscribing to all streams...'
     for id, user of users
-      if user.state in ['OnAir', 'Hosting']
+      if user.state in ['OnAir', 'HostOnAir']
         unless id is "#{config.user_id}"
+          $log.debug "subscribe to #{user.name}"
           blackbox.subscribe user.stream
 
   unsubscribeAllStreams = ->
@@ -43,6 +45,10 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
           else
             reportState(to)
       onleaveWaiting: ->
+        subscribeAllStreams()
+      onleaveHostRegistering: ->
+        subscribeAllStreams()
+      onleaveGuestRegistering: ->
         subscribeAllStreams()
       onListening: ->
         unless config.user.role == 'listener'
