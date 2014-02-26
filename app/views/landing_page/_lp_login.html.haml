@@ -1,20 +1,16 @@
+%h2 Log In
 = form_for(user, :url => session_path(:user)) do |f|
-  .control-group
-    .controls
-      = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email'), :id => 'user_login'
-  .control-group
-    .controls.right-fixed-box 
-      = f.password_field :password, :placeholder => t('.password'), :class => "lp-input-password"
-      = button_tag t('.login'), :name => "Login", :class => 'btn btn-lp-register pull-right'
 
-  .clearfix
-  .control-group
-    .controls
-      = label_tag :remember_me, :class => 'checkbox lp-remember' do
-        = check_box_tag :remember_me
-        = t('.remember') + '.'
-        = link_to t('.forgot_password'), new_password_path(:user)
+  = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email'), :id => 'user_login'
 
-.sessions-or-box
-  .sessions-or-overlap= t(".or")
+  = f.password_field :password, :placeholder => t('.password'), :class => "lp-input-password"
+  = button_tag t('.login'), :name => "Login", :class => 'btn btn-lp-register pull-right'
+
+
+  = label_tag :remember_me, :class => 'checkbox lp-remember' do
+    = check_box_tag :remember_me
+    = t('.remember') + '.'
+    = link_to t('.forgot_password'), new_password_path(:user)
+
+= t(".or")
 = render(:partial => "/devise/shared/social_network_connects")

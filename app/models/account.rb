@@ -34,7 +34,7 @@ class Account < ActiveRecord::Base
     :large => "360x360#",
     :medium => "180x180#",
     :thumb => "45x45#" 
-  }, :default_url => "/system/:style/missing.png"
+  }, :default_url => "/assets/defaults/:style/portrait.jpg"
 
   belongs_to :user
 

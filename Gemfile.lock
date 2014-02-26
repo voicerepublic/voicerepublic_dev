@@ -372,8 +372,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.2.0)
-      coffee-rails
     tzinfo (0.3.38)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
@@ -464,7 +462,6 @@ DEPENDENCIES
   thinking-sphinx (= 2.0.13)
   timecop
   transitions
-  turbolinks
   uglifier
   unicorn
   vcr (= 2.8.0)
