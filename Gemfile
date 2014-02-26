@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.2'
 
-gem 'turbolinks'
+#gem 'turbolinks'
 gem 'protected_attributes' # support legacy 'attr_accessible'
 #gem 'localeapp'
 
