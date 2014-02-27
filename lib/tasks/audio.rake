@@ -1,7 +1,7 @@
 namespace :audio do
 
   desc 'run an audio strategy'
-  task :strategy, [:strategy, :path, :name] => :environment do |t, args|
+  task :run, [:strategy, :path, :name] => :environment do |t, args|
     strategy = args[:strategy] || 'strategy_missing'
     path = args[:path] || '.'
     name = args[:name] || 'dummy'
@@ -10,6 +10,13 @@ namespace :audio do
     result = [result] unless result.is_a?(Array)
     result = result.map { |r| [ path, r ] * '/' }
     puts *result
+  end
+
+  desc 'lists all available audio strategies'
+  task strategies: :environment do
+    glob = Rails.root.join('lib/audio/strategy/*.rb')
+    files = Dir.glob(glob)
+    puts *files.map { |f| File.basename(f, '.rb') }
   end
 
   # desc 'transcode recording of given talk with given strategy'
