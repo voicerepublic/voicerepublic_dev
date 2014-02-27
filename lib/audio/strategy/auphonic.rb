@@ -10,6 +10,7 @@ module Audio
       end
 
       def run
+        # TODO: configure credentials via Settings
         preset = Auphonic::Preset.all.first
         production = preset.new_production
         production.save.upload(input).start

@@ -1,4 +1,4 @@
-# transcodes the resulting wav file to m4a 
+# transcodes the resulting wav file to m4a
 #
 module Audio
   module Strategy

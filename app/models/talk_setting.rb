@@ -1,6 +1,8 @@
 # TalkSetting objects are data objects, with some logic for reading
-# journals and coping with missing journals. 
-#
+# journals and coping with missing journals. TalkSetting is where the
+# glue goes that connects the business logic of the talk model
+# (app/models/talk) to the more generic audio processing stuff
+# (lib/audio). 
 class TalkSetting
 
   attr_accessor :path, :name, :opts, :journal
