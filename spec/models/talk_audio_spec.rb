@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TalkAudio do
 
-  it 'generates fake journals' do
+  pending 'generates fake journals' do
     audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
       audio = TalkAudio.new(base)
       path = audio.send(:journal_path)
@@ -12,7 +12,7 @@ describe TalkAudio do
     end
   end
   
-  it 'parses journals' do
+  pending 'parses journals' do
     audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
       audio = TalkAudio.new(base)
       expect(audio.journal).to be_a(Hash) 

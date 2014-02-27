@@ -2,7 +2,7 @@
 #
 module Audio
   module Strategy
-    class Precursor
+    class Precursor < Base
       
       def inputs
         journal['record_done'].map(&:first)

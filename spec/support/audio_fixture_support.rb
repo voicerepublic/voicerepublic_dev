@@ -1,8 +1,8 @@
 module AudioFixtureHelper
-  def audio_fixture(path, name)
-    Dir.mktmpdir do |dir|
-      FileUtils.cp(Dir.glob("#{path}/*.flv"), dir)
-      yield "#{dir}/#{name}", dir, name
+  def audio_fixture(path, glob='*')
+    Dir.mktmpdir do |temp|
+      FileUtils.cp(Dir.glob("#{path}/#{glob}"), temp)
+      yield temp, Dir.glob("#{temp}/#{glob}")
     end
   end
 end

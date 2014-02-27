@@ -8,35 +8,31 @@
 #
 module Audio
   module Strategy
-    class Base < Struct.new(:opts)
+    class Base < Struct.new(:setting)
 
-      include ::CmdRunner
+      extend Forwardable
+      include CmdRunner
 
       class << self
-        def call(opts)
-          path = opts[:path]
+        def call(setting)
+          path = setting.path
+          result = nil
           Dir.chdir(path) do
-            instance = new(opts)
+            instance = new(setting)
 
-            precond = inputs.inject(true) { |r, i| r && File.exist?(i) } 
-            raise "preconditions not met for #{name} in #{path}" unless precomd
+            precond = instance.inputs.inject(true) { |r, i| r && File.exist?(i) } 
+            raise "preconditions not met for #{name} in #{path}" unless precond
 
             result = instance.run
 
-            postcond = outputs.inject(true) { |r, i| r && File.exist?(i) }
+            postcond = instance.outputs.inject(true) { |r, i| r && File.exist?(i) }
             raise "potsconditions not met for #{name} in #{path}" unless postcond
           end
           result
         end
       end
 
-      def name
-        opts[:name]
-      end
-
-      def journal
-        opts[:journal]
-      end
+      def_delegators :setting, :name, :opts, :journal
 
       def input
         nil
