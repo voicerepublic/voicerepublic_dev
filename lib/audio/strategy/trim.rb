@@ -9,7 +9,7 @@ module Audio
       end
 
       def backup
-        "#{file}-untrimmed.wav"
+        "#{name}-untrimmed.wav"
       end
 
       def run

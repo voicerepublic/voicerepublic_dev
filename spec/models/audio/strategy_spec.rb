@@ -6,34 +6,44 @@ describe Audio::Strategy do
     audio_fixture('spec/support/fixtures/complex', '*.flv') do |path|
       setting = TalkSetting.new(path)
       results = Audio::Strategy::Precursor.call(setting)
-      all_exist = results.inject(true) { |r, f| r && File.exist?([path, f] * '/') }
+
+      files = results.map { |f| [ path, f ] * '/' }
+      all_exist = files.inject(true) { |r, f| r && File.exist?(f) }
       expect(all_exist).to be_true
     end
   end
 
   it 'merges' do
+    # we need the wav fragments and the flvs (to reconstruct the journal)
     audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
       setting = TalkSetting.new(path)
       result = Audio::Strategy::KluuuMerge.call(setting)
-      expect(File.exist?([path, result] * '/')).to be_true
+
+      file = [path, result] * '/'
+      expect(File.exist?(file)).to be_true
     end
   end
    
-  # it 'trims' do
-  #   audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-  #     # audio = TalkAudio.new(base)
-  #     # audio.merge!
-  #     # 
-  #     # audio_start = audio.journal['record_done'].first.last.to_i
-  #     # talk_start = audio_start + 3 # 3s later
-  #     # talk_stop = audio_start + 6 # 6s later
-  #     # result = audio.trim!(talk_start, talk_stop)
-  #     # cmd = "soxi -D #{result}"
-  #     # duration = %x[ #{cmd} ].to_f.round
-  #     # expect(duration).to eq(3)
-  #   end
-  # end
-  # 
+  it 'trims' do
+    # we need the wav and the journal
+    audio_fixture('spec/support/fixtures/complex', '1.*') do |path|
+      setting = TalkSetting.new(path, 1)
+      file_start = setting.journal['record_done'].first.last.to_i
+      setting.opts = {
+        file_start: file_start,
+        talk_start: file_start + 3, # 3s later
+        talk_stop:  file_start + 6 # 6s later             
+      }
+      result = Audio::Strategy::Trim.call(setting)
+
+      file = [path, result] * '/'
+      expect(File.exist?(file)).to be_true
+      cmd = "soxi -D #{file}"
+      duration = %x[ #{cmd} ].to_f.round
+      expect(duration).to eq(3)
+    end
+  end
+
   # it 'transcodes' do
   #   audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
   #     # audio = TalkAudio.new(base)
