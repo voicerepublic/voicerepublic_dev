@@ -1,15 +1,15 @@
 namespace :audio do
 
-  desc 'generate missing journal'
-  task :journal, [:base] => :environment do |t, args|
-    base = args[:base] || './result'
-    TalkAudio.new(base).journal
-  end
-
-  desc 'transcode all flv files to wav'
-  task :prepare, [:base] => :environment do |t, args|
-    base = args[:base] || './result'
-    TalkAudio.new(base).prepare!
+  desc 'run an audio strategy'
+  task :strategy, [:strategy, :path, :name] => :environment do |t, args|
+    strategy = args[:strategy] || 'strategy_missing'
+    path = args[:path] || '.'
+    name = args[:name] || 'dummy'
+    setting = TalkSetting.new(path, name)
+    result = Audio::StrategyRunner.new(setting).run(strategy)
+    result = [result] unless result.is_a?(Array)
+    result = result.map { |r| [ path, r ] * '/' }
+    puts *result
   end
 
   # desc 'transcode recording of given talk with given strategy'

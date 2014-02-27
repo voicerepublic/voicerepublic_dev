@@ -12,6 +12,7 @@ module Audio
         inputs.each do |file|
           transcode_flv_to_wav file.sub('.flv', '')
         end
+        outputs
       end
       
       def transcode_flv_to_wav_cmd(name)

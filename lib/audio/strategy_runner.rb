@@ -10,7 +10,7 @@ module Audio
         strategy = name.constantize
       end
       strategy.call(setting)
-    rescue Expection => e
+    rescue Exception => e
       puts "Skipping strategy #{strategy}: #{e.message}"
     end
 

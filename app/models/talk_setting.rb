@@ -3,13 +3,20 @@
 #
 class TalkSetting
 
-  attr_accessor :path, :name, :opts
+  attr_accessor :path, :name, :opts, :journal
 
-  def initialize(path, name='result', opts={})
+  # for specs its handy to assume name is 1
+  def initialize(path, name=1, opts={})
     self.path = path
     self.name = name
     self.opts = opts
+
+    # this is done on instanciation to be able to
+    # rely on `Dir.pwd`
+    self.journal = read_journal
   end
+
+  private
 
   # the content of the journal file might look like this:
   #
@@ -34,7 +41,7 @@ class TalkSetting
   #          ["asdf-1390839657.flv", "1390839657"],
   #          ["asdf-1390898541.flv", "1390898541"],
   #          ["asdf-1390898704.flv", "1390898704"]]}
-  def journal
+  def read_journal
     return @journal unless @journal.nil?
     check_journal!
     journal = File.read(journal_path)
@@ -45,8 +52,6 @@ class TalkSetting
       end
     end
   end
-
-  private
 
   def journal_path
     "#{path}/#{name}.journal"
