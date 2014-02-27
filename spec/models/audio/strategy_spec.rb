@@ -27,7 +27,7 @@ describe Audio::Strategy do
   it 'trims' do
     # we need the wav and the journal
     audio_fixture('spec/support/fixtures/complex', '1.*') do |path|
-      setting = TalkSetting.new(path, 1)
+      setting = TalkSetting.new(path)
       file_start = setting.journal['record_done'].first.last.to_i
       setting.opts = {
         file_start: file_start,
@@ -44,15 +44,16 @@ describe Audio::Strategy do
     end
   end
 
-  # it 'transcodes' do
-  #   audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-  #     # audio = TalkAudio.new(base)
-  #     # audio.merge!
-  #     # result = audio.transcode!
-  #     # expect(File.exist?(result)).to be_true
-  #   end
-  # end
-  # 
+  it 'transcodes to m4a' do
+    audio_fixture('spec/support/fixtures/complex', '1.wav') do |path|
+      setting = TalkSetting.new(path)
+      result = Audio::Strategy::M4a.call(setting)
+
+      file = [path, result] * '/'
+      expect(File.exist?(file)).to be_true
+    end
+  end
+  
   # it 'nicely merges streams' do
   #   fixture = 'spec/support/fixtures/talk_a'
   #   audio_fixture(fixture, 1) do |base, dir, name|
