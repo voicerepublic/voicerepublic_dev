@@ -6,21 +6,19 @@ describe Audio::Strategy do
     audio_fixture('spec/support/fixtures/complex', '*.flv') do |path|
       setting = TalkSetting.new(path)
       results = Audio::Strategy::Precursor.call(setting)
-      all_exist = results.inject(true) { |r, f| r && File.exist?(f) }
+      all_exist = results.inject(true) { |r, f| r && File.exist?([path, f] * '/') }
       expect(all_exist).to be_true
     end
   end
 
-  # it 'merges' do
-  #   audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
-  #     #opts = { path: }
-  #     #Audio::Strategy::KluuuMerge.call(opts)
-  #     #audio = TalkAudio.new(base)
-  #     #result = audio.merge!
-  #     #expect(File.exist?(result)).to be_true
-  #   end
-  # end
-  # 
+  it 'merges' do
+    audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
+      setting = TalkSetting.new(path)
+      result = Audio::Strategy::KluuuMerge.call(setting)
+      expect(File.exist?([path, result] * '/')).to be_true
+    end
+  end
+   
   # it 'trims' do
   #   audio_fixture('spec/support/fixtures/normalize0', 1) do |base|
   #     # audio = TalkAudio.new(base)
