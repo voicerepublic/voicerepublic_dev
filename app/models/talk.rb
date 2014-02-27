@@ -108,13 +108,13 @@ class Talk < ActiveRecord::Base
   # TODO write this to recording when starting talk
   # TODO then use the stored value
   # TODO maybe we should use a date based folder structure
-  def recording_path
-    base = Settings.rtmp.recordings_path
-    path = "#{base}/#{id}"
-  end
+  # def recording_path
+  #   base = Settings.rtmp.recordings_path
+  #   path = "#{base}/#{id}"
+  # end
 
   def audio
-    @audio ||= TalkAudio.new(recording_path)
+    @audio ||= TalkAudio.new(self)
   end
 
   private
@@ -149,12 +149,13 @@ class Talk < ActiveRecord::Base
   def postprocess!
     return unless record? 
     process!
-    audio.merge!
-    audio.trim! started_at, ended_at
-    audio.transcode! do |ext|
-      audio_formats |= [ ext ]
-      save!
-    end
+    audio.process!
+    # audio.merge!
+    # audio.trim! started_at, ended_at
+    # audio.transcode! do |ext|
+    #   audio_formats |= [ ext ]
+    #   save!
+    # end
     archive!
   end
 

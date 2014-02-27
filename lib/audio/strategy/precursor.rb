@@ -1,0 +1,28 @@
+# transcodes all flv files to wav files
+#
+module Audio
+  module Strategy
+    class Precursor
+      
+      def inputs
+        journal['record_done'].map(&:first)
+      end
+
+      def run
+        inputs.each do |file|
+          transcode_flv_to_wav file.sub('.flv', '')
+        end
+      end
+      
+      def transcode_flv_to_wav_cmd(name)
+        "avconv -v quiet -y -i #{name}.flv -vn #{name}.wav"
+      end
+
+      # will be checked as postcondition
+      def outputs
+        inputs.map { |f| f.sub('.flv', '.wav') }
+      end
+      
+    end
+  end
+end

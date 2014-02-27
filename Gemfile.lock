@@ -41,6 +41,8 @@ GEM
       activerecord (>= 3.0)
     arel (4.0.1)
     atomic (1.1.14)
+    auphonic (0.1.0)
+      faraday
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
     cancan (1.6.10)
@@ -408,6 +410,7 @@ DEPENDENCIES
   acts-as-taggable-on (= 3.0.1)
   airbrake
   annotator
+  auphonic
   cancan
   capistrano (~> 3.1.0)
   capistrano-bundler (~> 1.1.1)

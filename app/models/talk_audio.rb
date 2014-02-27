@@ -2,7 +2,28 @@
 # connects the business logic of the talk model (app/models/talk) to
 # the more generic audio processing stuff (lib/audio).
 #
-class TalkAudio < Struct.new(:base)
+# TalkAudio#process! will kick off the processing og the strategy chain.
+#
+# Example Strategy Chain
+#
+#    precursor kluuu_merge trim auphonic
+#
+# In Detail
+#
+# * Precursor
+#     transcodes all flv files to wav files
+#
+# * KluuuMerge
+#     merges all wav files in one go
+#
+# * Trim
+#     trims the resulting wav file to talk start and end
+#
+# * Auphonic
+#     runs the trimmed wav file thru auphonic and downloads output all
+#     output files defined in the preset
+#
+class TalkAudio < Struct.new(:talk)
 
   # the content of the journal file might look like this:
   #
@@ -39,29 +60,50 @@ class TalkAudio < Struct.new(:base)
     end
   end
 
-  def merge!(strategy=nil)
-    check_journal!
-    Audio::Merger.run(base, journal, strategy)
+  # TODO: move into a column of model talk, stored as yaml
+  def processing_plan
+    %w( precursor kluuu_merge trim auphonic )
   end
 
-  def trim!(talk_start, talk_stop)
-    file_start = journal['record_done'].first.last.to_i
-    Audio::Trimmer.run(base, file_start, talk_start, talk_stop)
+  def base
+    Settings.rtmp.recordings_path
   end
 
-  def transcode!(strategy=nil, extension=nil)
-    strategy ||= 'Audio::TranscodeStrategy::M4a'
-    strategy = strategy.constantize if strategy.is_a?(String)
-    extension ||= strategy::EXTENSION
-    result = Audio::Transcoder.run(base, strategy)
-    yield extension if block_given?
-    result
+  # the opts are passed to the StrategyRunner, which passes them on to
+  # the strategies; in here goes everything the strategies need to know
+  def opts
+    {
+      path:       base,
+      name:       talk.id,
+      journal:    journal,
+      file_start: journal['record_done'].first.last.to_i, # FIXME: sort to make sure
+      talk_start: talk.started_at.to_i,
+      talk_stop:  talk.ended_at.to_i
+    }
   end
 
-  private
+  def process!
+    runner = StrategyRunner.new(opts)                                 
+    processing_plan.each { |name| runner.run(name) }
+  end
 
   def journal_path
-    "#{base}.journal"
+    "#{base}/#{talk.id}.journal"
+  end
+
+  def check_journal!
+    unless File.exist?(journal_path)
+      write_fake_journal!(base, talk.id)
+      # FIXME dependency on Rails.logger
+      Rails.logger.info "Journal not found for Talk ##{talk.id}, " +
+        "reconstructed journal."
+    end
+  end
+
+  def write_fake_journal!(path, name)
+    File.open(journal_path, 'w') do |f|
+      f.puts fake_journal(path, name)
+    end
   end
 
   # contains implicit knowledge about nameing scheme of files
@@ -75,22 +117,6 @@ class TalkAudio < Struct.new(:base)
       ['record_done', basename, timestamp] * ' '
     end
     result.compact * "\n"
-  end
-
-  def write_fake_journal!(path, name)
-    File.open(journal_path, 'w') do |f|
-      f.puts fake_journal(path, name)
-    end
-  end
-
-  def check_journal!
-    unless File.exist?(journal_path)
-      name = File.basename(base)
-      path = File.dirname(base)
-      write_fake_journal!(path, name)
-      # FIXME dependency on Rails.logger
-      Rails.logger.info "Journal not found for #{base}, reconstructed journal."
-    end
   end
 
 end

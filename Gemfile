@@ -49,6 +49,7 @@ gem 'paranoia', '~> 2.0'
 gem 'unicorn'
 gem "select2-rails"
 gem "transitions", :require => ["transitions", "active_model/transitions"]
+gem 'auphonic'
 
 group :development, :test, :staging do
   # gem 'rails_view_annotator'
