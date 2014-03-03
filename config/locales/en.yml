@@ -884,3 +884,34 @@ en:
       landing_title: KluuU - Discussions
     users:
       landing_title: KluuU - Discussions
+
+  user_mailer:
+    new_talk:
+      subject: New talk
+      header: "Hello %{user_firstname}"
+      content: |
+        A new talk has been scheduled. Act now and be one of the first to participate.
+
+        Check it out
+
+          %{url}
+
+      footer: Goodbye & Goodnight
+    reminder:
+      subject: Reminder
+      header: "Hello %{user_firstname}"
+      content: |
+        Reminder content.
+      footer: Goodbye & Goodnight
+    new_article:
+      subject: New article
+      header: "Hello %{user_firstname}"
+      content: |
+        New article content.
+      footer: Goodbye & Goodnight
+    new_comment:
+      subject: New talk
+      header: "Hello %{user_firstname}"
+      content: |
+        New comment content.
+      footer: Goodbye & Goodnight
