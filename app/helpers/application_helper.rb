@@ -79,6 +79,7 @@ module ApplicationHelper
     klu.instance_of?(Kluuu) ? t('helper.application.kluuu_string') : t('helper.application.no_kluuu_string')
   end
 
+  # TODO: move into trickery
   class << self
     def determine_release
       path = Rails.env.production? ? '../repo' : '.'
