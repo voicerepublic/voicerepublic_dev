@@ -36,8 +36,8 @@ module Audio
 
       def jingles
         # FIXME: expecting rails env
-        [ Rails.root.join('app/assets/sounds/start_jingle.wav'),
-          Rails.root.join('app/assets/sounds/stop_jingle.wav') ]
+        [ Rails.root.join('app/assets/audio/start_jingle.wav'),
+          Rails.root.join('app/assets/audio/stop_jingle.wav') ]
       end
 
     end
