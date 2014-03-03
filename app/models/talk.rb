@@ -136,6 +136,7 @@ class Talk < ActiveRecord::Base
   end
 
   def notify_participants
+    return if venue.users.empty?
     venue.users.each do |participant|
       UserMailer.delay(queue: 'mail').new_talk(self, participant)
     end
