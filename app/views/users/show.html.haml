@@ -13,7 +13,7 @@
     .large-12.columns.text-center
       - count = @user.participations.count
       %p= t('.talk_joined', count: count, default: '%{count} Talks joined')
-      %p= image_tag @user.account.portrait.url(:large)
+      %p= image_tag @user.avatar.try(:url)
       %p= @user.name
   .row
     .large-12.columns.text-center

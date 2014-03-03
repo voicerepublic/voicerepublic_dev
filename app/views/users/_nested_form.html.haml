@@ -5,14 +5,13 @@
         = f.error_notification
     .row.collapse
       .large-3.medium-3.columns
-        - portrait_url = @user.account.portrait.url(:large)
-        - portrail_url ||= "/assets/images/Cafe-Griensteidl-1896-e.jpg"
-        .user-portrait-img(style="background-image:url(#{portrait_url})" data-show-upload="user_account_portrait")
+        - avatar_url = @user.avatar.try(:url)
+        - avatar_url ||= "/assets/images/Cafe-Griensteidl-1896-e.jpg"
+        .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="user_avatar")
         %br/
         %br/
-        %button.button(type="button" data-trigger-file-input="user_account_portrait") Select profile image
-        = f.fields_for @user.account do |af|
-          = af.input :portrait, as: :file
+        %button.button(type="button" data-trigger-file-input="user_avatar") Select profile image
+        = f.input :avatar, as: :file
 
       .large-5.medium-5.columns
         = f.input :firstname, :placeholder => 'First Name'
