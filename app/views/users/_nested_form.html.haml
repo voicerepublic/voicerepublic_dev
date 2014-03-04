@@ -18,11 +18,14 @@
         = f.input :firstname, :placeholder => 'First Name'
         = f.input :lastname, :placeholder => 'Last Name'
         = f.input :email, :placeholder => 'Email Address'
-        -#= f.input :password
-        -#= f.input :password_confirmation
         = f.fields_for @user.account do |af|
           = af.input :timezone # TODO: make select box
           = af.input :website
+        -# TODO: refactor into component
+        = link_to t('.set_new_password'), "javascript:$('#change-password').toggle()"
+        #change-password.panel.hide
+          = f.input :password
+          = f.input :password_confirmation
         -#= USER PROFILE HEADER (not verified by PO)
         = f.input :header, as: :file
         
