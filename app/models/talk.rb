@@ -153,21 +153,21 @@ class Talk < ActiveRecord::Base
     # this will fail silently if the talk has ended early
     delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
 
-    PrivatePub.publish '/monitoring', { event: 'StartTalk', talk: attributes }
+    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
   end
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
     delay(queue: 'process_audio').postprocess!
 
-    PrivatePub.publish '/monitoring', { event: 'EndTalk', talk: attributes }
+    PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
 
   def postprocess!
     return unless record? # TODO: move into a final state != archived
     process!
-    PrivatePub.publish public_channel, { event: 'Process' }
-    PrivatePub.publish '/monitoring', { event: 'Process', talk: attributes }
+    PrivatePub.publish_to public_channel, { event: 'Process' }
+    PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
 
     # TODO: move into a column, stored as yaml
     chain = %w( precursor kluuu_merge trim m4a mp3 ogg
@@ -184,14 +184,14 @@ class Talk < ActiveRecord::Base
     runner = Audio::StrategyRunner.new(setting)
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }
-      PrivatePub.publish '/monitoring', { event: 'Postprocessing', talk: attrs }
+      PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
       runner.run(name) 
     end
     # TODO: save transcoded audio formats
 
     archive!
-    PrivatePub.publish public_channel, { event: 'Archive', links: download_links }
-    PrivatePub.publish '/monitoring', { event: 'Archive', talk: attributes }
+    PrivatePub.publish_to public_channel, { event: 'Archive', links: download_links }
+    PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
 end
