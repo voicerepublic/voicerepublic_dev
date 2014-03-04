@@ -156,7 +156,13 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
           users = data.session # TODO check if needed
           fsm.TalkStarted()
       when 'EndTalk'
+        config.talk.state = 'postlive'
         fsm.TalkEnded()
+      when 'Process'
+        config.talk.state = 'processing'
+      when 'Archive'
+        config.talk.state = 'archived'
+        config.talk.links = data.links
 
   # some methods only available to the host
   promote = (id) ->

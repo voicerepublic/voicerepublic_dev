@@ -123,6 +123,13 @@ class Talk < ActiveRecord::Base
   #   path = "#{base}/#{id}"
   # end
 
+  def download_links
+    glob = ([Settings.rtmp.recordings_path, id] * '/') + '.*'
+    result = Dir.glob(glob) - [ glob.sub('.*', '.wav') ]
+    # FIXME path -> url
+    result.inject({}) { |r, l| r.merge File.extname(l) => l }
+  end
+
   private
 
   def set_ends_at
@@ -145,19 +152,26 @@ class Talk < ActiveRecord::Base
   def after_start
     # this will fail silently if the talk has ended early
     delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
+
+    PrivatePub.publish '/monitoring', { event: 'StartTalk', talk: attributes }
   end
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
     delay(queue: 'process_audio').postprocess!
+
+    PrivatePub.publish '/monitoring', { event: 'EndTalk', talk: attributes }
   end
 
   def postprocess!
     return unless record? # TODO: move into a final state != archived
     process!
+    PrivatePub.publish public_channel, { event: 'Process' }
+    PrivatePub.publish '/monitoring', { event: 'Process', talk: attributes }
 
     # TODO: move into a column, stored as yaml
-    chain = %w( precursor kluuu_merge trim m4a mp3 ogg cleanup )
+    chain = %w( precursor kluuu_merge trim m4a mp3 ogg
+                move_clean jinglize m4a mp3 ogg )
     base = Settings.rtmp.recordings_path
     setting = TalkSetting.new(base, id)
     # FIXME: sort to make sure
@@ -168,10 +182,16 @@ class Talk < ActiveRecord::Base
       talk_stop:  talk.ended_at.to_i
     }
     runner = Audio::StrategyRunner.new(setting)
-    chain.each { |name| runner.run(name) }
+    chain.each_with_index do |name, index|
+      attrs = { id: id, run: name, index: index, total: chain.size }
+      PrivatePub.publish '/monitoring', { event: 'Postprocessing', talk: attrs }
+      runner.run(name) 
+    end
     # TODO: save transcoded audio formats
 
     archive!
+    PrivatePub.publish public_channel, { event: 'Archive', links: download_links }
+    PrivatePub.publish '/monitoring', { event: 'Archive', talk: attributes }
   end
 
 end

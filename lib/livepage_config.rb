@@ -20,7 +20,8 @@ class LivepageConfig < Struct.new(:talk, :user)
       talk: {
         state: talk.state,
         # TODO: check for timezone issue
-        starts_in: talk.starts_at.to_i - Time.now.to_i
+        starts_in: talk.starts_at.to_i - Time.now.to_i,
+        links: talk.download_links
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,

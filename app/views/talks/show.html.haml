@@ -1,5 +1,5 @@
 .layout-talk(ng-controller='Livepage')
-  .talk-upper-block{ :style => "background-image: url(http://lorempixel.com/1200/600/people/1)"}
+  .talk-upper-block(style="background-image: url(http://lorempixel.com/1200/600/people/1)")
     %section.talk-title-box.row.text-center
       .large-12.columns
         .talk-venue-title
@@ -30,6 +30,10 @@
   .talk-live-row
     .row
       .talk-talkers-box.large-10.large-offset-1.columns
+        .download(ng-show='talkIsArchived()')
+          %ul
+            %li(ng-repeat='(ext, link) in config.talk.links')
+              %a(href='{{link}}') {{ext}}
         .debug
           %ul
             -# %li config: {{ config }}
