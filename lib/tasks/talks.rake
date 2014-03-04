@@ -1,3 +1,4 @@
+# FIXME: still expecting events
 namespace :talks do
   desc "Notify all participants of event about upcoming talk"
   task :remind => :environment do

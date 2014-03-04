@@ -70,6 +70,7 @@ class Talk < ActiveRecord::Base
   validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
 
   before_validation :set_ends_at
+  after_create :notify_participants
   after_save :set_guests
 
   serialize :session
@@ -135,6 +136,13 @@ class Talk < ActiveRecord::Base
   def set_ends_at
     return unless starts_at
     self.ends_at = starts_at + duration.minutes
+  end
+
+  def notify_participants
+    return if venue.users.empty?
+    venue.users.each do |participant|
+      UserMailer.delay(queue: 'mail').new_talk(self, participant)
+    end
   end
 
   def set_guests

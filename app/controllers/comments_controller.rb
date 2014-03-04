@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
   def send_email(comment)
     users = comment.article_venue.users - [current_or_guest_user]
     users.each do |user|
-      UserMailer.delay(queue: 'mail').new_comment_notification(comment, user)
+      UserMailer.delay(queue: 'mail').new_comment(comment, user)
     end
   end
 

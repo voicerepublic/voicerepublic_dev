@@ -70,6 +70,10 @@ class User < ActiveRecord::Base
     "#{firstname} #{lastname}"
   end
 
+  def email_with_name
+    "#{name} <#{email}>"
+  end
+
   class << self
 
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
