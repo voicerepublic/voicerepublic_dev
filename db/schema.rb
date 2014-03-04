@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220172835) do
+ActiveRecord::Schema.define(version: 20140303150910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,13 +119,6 @@ ActiveRecord::Schema.define(version: 20140220172835) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "follows", force: true do |t|
-    t.integer  "follower_id"
-    t.integer  "followed_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "messages", force: true do |t|
     t.integer  "user_id"
     t.integer  "talk_id"
@@ -180,9 +173,9 @@ ActiveRecord::Schema.define(version: 20140220172835) do
     t.string   "image_uid"
     t.text     "session"
     t.datetime "featured_from"
-    t.text     "audio_formats", default: "--- []\n"
     t.string   "state"
     t.datetime "started_at"
+    t.text     "audio_formats", default: "--- []\n"
     t.datetime "processed_at"
   end
 
@@ -212,6 +205,7 @@ ActiveRecord::Schema.define(version: 20140220172835) do
     t.datetime "image_updated_at"
     t.boolean  "guest"
     t.string   "header_uid"
+    t.string   "avatar_uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
