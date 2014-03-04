@@ -27,6 +27,15 @@ feature "User edits own profile" do
     some_image = Rails.root.join('app/assets/images/logo.png')
     page.attach_file 'user_header', some_image
     page.click_button 'Save'
+    page.should have_content('User was successfully updated.')
+  end
+
+  scenario "uploading a avatar image" do
+    pending 'activate spec when upload-avater branch is merged'
+    some_image = Rails.root.join('app/assets/images/logo.png')
+    page.attach_file 'user_avatar', some_image
+    page.click_button 'Save'
+    page.should have_content('User was successfully updated.')
   end
 end
 
