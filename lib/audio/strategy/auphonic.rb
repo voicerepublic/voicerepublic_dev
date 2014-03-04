@@ -1,4 +1,4 @@
-# runs the trimmed wav file thru auphonic and downloads output all
+# runs the trimmed wav file thru auphonic and downloads all
 # output files defined in the preset    
 #
 module Audio
