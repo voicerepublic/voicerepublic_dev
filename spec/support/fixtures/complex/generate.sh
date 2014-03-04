@@ -24,6 +24,4 @@ avconv -y -i t1-u2-$TS1.wav -acodec libspeex -ar 16k -ac 1 t1-u2-$TS1.flv
 avconv -y -i t1-u1-$TS2.wav -acodec libspeex -ar 16k -ac 1 t1-u1-$TS2.flv
 avconv -y -i t1-u2-$TS3.wav -acodec libspeex -ar 16k -ac 1 t1-u2-$TS3.flv
 
-# cleanup
-rm t1-u*.wav
 
