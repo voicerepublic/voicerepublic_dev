@@ -15,20 +15,16 @@
 //= require foundation
 //= require jquery.jplayer.min
 //= require select2
-
+//
 //= require date.js
 //= require foundation_calendar-min.js
-
+//
 //= require advanced
 //= require wysihtml5.min
 //
 //= require player.js.erb
-
-//= require components/tag_list
-//= require components/guest_list
-
-//= require components/show_upload
-//= require components/trigger_file_input
+//
+//= require_tree ./components
 
 /* Alters-Success fade out after 8secs */
 (function($){

@@ -126,6 +126,12 @@ class User < ActiveRecord::Base
     :listener
   end
 
+  # helper for console
+  def set_password!(passwd)
+    self.password = self.password_confirmation = passwd
+    save!
+  end
+
   private
 
   def add_account
