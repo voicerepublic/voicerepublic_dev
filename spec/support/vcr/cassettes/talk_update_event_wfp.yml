@@ -5,19 +5,49 @@ http_interactions:
     uri: http://localhost:9292/faye
     body:
       encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDM4MyUyRnB1Ymxp
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
 
-        YyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJG
+        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
 
-        dDM4MyUyRnB1YmxpYyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUy
+        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
 
-        MiUzQSUyMldhaXRpbmdGb3JQcm9tb3Rpb24lMjIlMkMlMjJ1c2VyJTIyJTNB
+        MlN0YXJ0VGFsayUyMiUyQyUyMnRhbGslMjIlM0ElN0IlMjJpZCUyMiUzQTEl
 
-        JTdCJTIyaWQlMjIlM0ElMjIxMDAwJTIyJTdEJTdEJTdEJTJDJTIyZXh0JTIy
+        MkMlMjJ0aXRsZSUyMiUzQSUyMk15U3RyaW5nJTIyJTJDJTIydmVudWVfaWQl
 
-        JTNBJTdCJTIycHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIl
+        MjIlM0ExJTJDJTIyc3RhcnRzX2F0JTIyJTNBJTIyMjAxNC0wMy0wNFQxNSUz
 
-        N0QlN0Q=
+        QTU2JTNBMDAuMDAwJTJCMDElM0EwMCUyMiUyQyUyMmVuZHNfYXQlMjIlM0El
+
+        MjIyMDE0LTAzLTA0VDE2JTNBNTYlM0EwMC4wMDAlMkIwMSUzQTAwJTIyJTJD
+
+        JTIyZW5kZWRfYXQlMjIlM0FudWxsJTJDJTIycmVjb3JkJTIyJTNBZmFsc2Ul
+
+        MkMlMjJyZWNvcmRpbmclMjIlM0FudWxsJTJDJTIyY3JlYXRlZF9hdCUyMiUz
+
+        QSUyMjIwMTQtMDMtMDRUMTUlM0E0NSUzQTM2LjI0NiUyQjAxJTNBMDAlMjIl
+
+        MkMlMjJ1cGRhdGVkX2F0JTIyJTNBJTIyMjAxNC0wMy0wNFQxNSUzQTQ1JTNB
+
+        MzYuMzM3JTJCMDElM0EwMCUyMiUyQyUyMnRlYXNlciUyMiUzQW51bGwlMkMl
+
+        MjJkZXNjcmlwdGlvbiUyMiUzQSUyMnRhbGsrZGVzY3JpcHRpb24lMjIlMkMl
+
+        MjJkdXJhdGlvbiUyMiUzQTYwJTJDJTIyaW1hZ2VfdWlkJTIyJTNBbnVsbCUy
+
+        QyUyMnNlc3Npb24lMjIlM0FudWxsJTJDJTIyZmVhdHVyZWRfZnJvbSUyMiUz
+
+        QW51bGwlMkMlMjJzdGF0ZSUyMiUzQSUyMmxpdmUlMjIlMkMlMjJzdGFydGVk
+
+        X2F0JTIyJTNBJTIyMjAxNC0wMy0wNFQxNSUzQTQ1JTNBMzYuMzMwJTJCMDEl
+
+        M0EwMCUyMiUyQyUyMmF1ZGlvX2Zvcm1hdHMlMjIlM0ElNUIlNUQlMkMlMjJw
+
+        cm9jZXNzZWRfYXQlMjIlM0FudWxsJTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNB
+
+        JTdCJTIycHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0Ql
+
+        N0Q=
 
 '
     headers:
@@ -37,18 +67,63 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Content-Length:
-      - '46'
+      - '45'
       Connection:
       - close
       Server:
       - thin 1.6.1 codename Death Proof
     body:
       encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii90MzgzL3B1YmxpYyIsInN1Y2Nlc3NmdWwiOnRydWV9
-
-        XQ==
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
 
 '
     http_version: 
-  recorded_at: Tue, 11 Feb 2014 13:23:59 GMT
+  recorded_at: Tue, 04 Mar 2014 14:45:36 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
+
+        MjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIyY2hhbm5lbCUyMiUzQSUyMiUyRnQx
+
+        JTJGcHVibGljJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMmV2ZW50JTIyJTNB
+
+        JTIyU3RhcnRUYWxrJTIyJTJDJTIyc2Vzc2lvbiUyMiUzQW51bGwlN0QlN0Ql
+
+        MkMlMjJleHQlMjIlM0ElN0IlMjJwcml2YXRlX3B1Yl90b2tlbiUyMiUzQSUy
+
+        MnNlY3JldCUyMiU3RCU3RA==
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '44'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJzdWNjZXNzZnVsIjp0cnVlfV0=
+
+'
+    http_version: 
+  recorded_at: Tue, 04 Mar 2014 14:45:36 GMT
 recorded_with: VCR 2.8.0
