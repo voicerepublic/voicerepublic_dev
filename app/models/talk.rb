@@ -1,4 +1,14 @@
+# Talk uses a strategy chain to process the audio.
+#
+# Example Strategy Chain
+#
+#    %w( precursor kluuu_merge trim auphonic )
+#
+# See the strategies in lib/audio/strategy for more details.
+#
+#
 # http://stackoverflow.com/questions/2529990/activerecord-date-format
+#
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
@@ -60,6 +70,7 @@ class Talk < ActiveRecord::Base
   validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
 
   before_validation :set_ends_at
+  after_create :notify_participants
   after_save :set_guests
 
   serialize :session
@@ -70,14 +81,15 @@ class Talk < ActiveRecord::Base
 
   dragonfly_accessor :image
 
+  # TODO remove and use scopes based on statemachine instead
   scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
   scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
 
-  scope :audio_format, ->(format) do
+  scope :audio_format, ->(format) do # TODO: check if needed
     where('audio_formats LIKE ?', "%#{format}%")
   end
 
-  scope :without_audio_format, ->(format) do
+  scope :without_audio_format, ->(format) do # TODO: check if needed
     where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
@@ -89,11 +101,11 @@ class Talk < ActiveRecord::Base
     @guest_list = list.split(',').sort
   end
 
-  def starts_in # seconds (for prelive)
+  def starts_in # seconds (for prelive) # TODO: check if needed
     (starts_at - Time.now).to_i
   end
 
-  def ends_in # seconds (for live)
+  def ends_in # seconds (for live) # TODO: check if needed
     (ends_at - Time.now).to_i
   end
 
@@ -105,26 +117,19 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  # TODO write this to recording when starting talk
-  # TODO then use the stored value
-  # TODO maybe we should use a date based folder structure
-  def recording_path
-    base = Settings.rtmp.recordings_path
-    path = "#{base}/#{id}"
-  end
+  # TODO: write this to recording when starting talk
+  # TODO: then use the stored value
+  # TODO: maybe we should use a date based folder structure
+  # def recording_path
+  #   base = Settings.rtmp.recordings_path
+  #   path = "#{base}/#{id}"
+  # end
 
-  def merge_audio!(strategy=nil)
-    Audio::Merger.run(recording_path, strategy)
-  end
-
-  def transcode_audio!(strategy=nil, extension=nil)
-    strategy ||= 'Audio::TranscodeStrategy::M4a'
-    strategy = strategy.constantize if strategy.is_a?(String)
-    extension ||= strategy::EXTENSION
-    result = Audio::Transcoder.run(recording_path, strategy)
-    audio_formats |= [ extension ]
-    save!
-    result
+  def download_links
+    glob = ([Settings.rtmp.recordings_path, id] * '/') + '.*'
+    result = Dir.glob(glob) - [ glob.sub('.*', '.wav') ]
+    # FIXME path -> url
+    result.inject({}) { |r, l| r.merge File.extname(l) => l }
   end
 
   private
@@ -132,6 +137,13 @@ class Talk < ActiveRecord::Base
   def set_ends_at
     return unless starts_at
     self.ends_at = starts_at + duration.minutes
+  end
+
+  def notify_participants
+    return if venue.users.empty?
+    venue.users.each do |participant|
+      UserMailer.delay(queue: 'mail').new_talk(self, participant)
+    end
   end
 
   def set_guests
@@ -147,21 +159,48 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    # this should silently fail if the talk has ended early
+    # this will fail silently if the talk has ended early
     delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
+
+    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
   end
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    delay(queue: 'process_audio').postprocess! if record?
+    delay(queue: 'process_audio').postprocess!
+
+    PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
 
   def postprocess!
-    return unless record? 
-    process! # transition
-    merge_audio!
-    transcode_audio!
-    archive! # transition
+    return unless record? # TODO: move into a final state != archived
+    process!
+    PrivatePub.publish_to public_channel, { event: 'Process' }
+    PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
+
+    # TODO: move into a column, stored as yaml
+    chain = %w( precursor kluuu_merge trim m4a mp3 ogg
+                move_clean jinglize m4a mp3 ogg )
+    base = Settings.rtmp.recordings_path
+    setting = TalkSetting.new(base, id)
+    # FIXME: sort to make sure
+    file_start = setting.journal['record_done'].first.last.to_i
+    setting.opts = {
+      file_start: file_start,
+      talk_start: talk.started_at.to_i,
+      talk_stop:  talk.ended_at.to_i
+    }
+    runner = Audio::StrategyRunner.new(setting)
+    chain.each_with_index do |name, index|
+      attrs = { id: id, run: name, index: index, total: chain.size }
+      PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
+      runner.run(name) 
+    end
+    # TODO: save transcoded audio formats
+
+    archive!
+    PrivatePub.publish_to public_channel, { event: 'Archive', links: download_links }
+    PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
 end

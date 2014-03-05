@@ -5,7 +5,6 @@ class DashboardController < ApplicationController
   
   def index
     @user = current_or_guest_user
-    redirect_to :action => 'news'
   end
 
   def venues

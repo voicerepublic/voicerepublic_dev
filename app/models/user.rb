@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname
   attr_accessible :provider, :uid, :last_request_at, :available
-  attr_accessible :accept_terms_of_use, :guest, :header
+  attr_accessible :accept_terms_of_use, :guest, :header, :avatar
 
   has_many :comments, dependent: :destroy
   has_one :account, dependent: :destroy # application-account-things
@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :account
 
   dragonfly_accessor :header
+  dragonfly_accessor :avatar
 
   after_create :add_account
 
@@ -68,6 +69,10 @@ class User < ActiveRecord::Base
 
   def name
     "#{firstname} #{lastname}"
+  end
+
+  def email_with_name
+    "#{name} <#{email}>"
   end
 
   class << self
@@ -119,6 +124,12 @@ class User < ActiveRecord::Base
     # TODO: check resulting db queries, maybe use eager loading
     return :participant if talk.venue.users.include?(self)
     :listener
+  end
+
+  # helper for console
+  def set_password!(passwd)
+    self.password = self.password_confirmation = passwd
+    save!
   end
 
   private

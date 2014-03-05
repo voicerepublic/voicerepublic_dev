@@ -19,6 +19,7 @@ gem 'coffee-rails' #, '~> 3.2.1'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier'#, '>= 1.0.3'
 
+gem 'roadie', '2.4.3'
 gem 'airbrake'
 gem 'rails_config'
 gem 'foundation-rails'
@@ -49,6 +50,7 @@ gem 'paranoia', '~> 2.0'
 gem 'unicorn'
 gem "select2-rails"
 gem "transitions", :require => ["transitions", "active_model/transitions"]
+gem 'auphonic'
 
 group :development, :test, :staging do
   # gem 'rails_view_annotator'

@@ -1,5 +1,25 @@
 class Housecleaning < ActiveRecord::Migration
+
   def change
+
+    execute "UPDATE talks SET state = 'postlive' WHERE state IS NULL;"      
+
+    execute <<-EOF
+      INSERT INTO talks (title, starts_at, duration, teaser,
+      description, record, venue_id, updated_at, created_at,
+      recording, ended_at) SELECT title, start_time, duration, title,
+      title, record, venue_id, updated_at, created_at, recording,
+      end_at FROM events;
+    EOF
+
+    execute "UPDATE talks SET ends_at = starts_at + duration * interval '1 minute';"
+
+    execute <<-EOF
+      UPDATE talks SET state = 'postlive' WHERE ends_at < NOW();
+      UPDATE talks SET state = 'prelive' WHERE starts_at > NOW();
+      UPDATE talks SET state = 'live' WHERE state IS NULL;
+    EOF
+
     drop_table :balance_accounts
     drop_table :balance_check_in_orders
     drop_table :bookmarks

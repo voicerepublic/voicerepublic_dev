@@ -61,6 +61,7 @@ To run specs Faye and a Sphinx daemon have to run.
     sudo npm install -g karma-ng-scenario
     karma start spec/javascripts/livepage.conf.js.coffee
 
+
 Compile Flash
 -------------
 
@@ -74,12 +75,26 @@ Run
 
     mxmlc lib/flash/Blackbox.as
 
-Noteworthy Rake Tasks
----------------------
 
-    rake audio:merge[talk_id,strategy_name]
-    rake audio:transcode[talk_id,strategy_name]
-    rake audio:transcode_missing[strategy_name]
+Runnning Audio Strategies with Rake
+-----------------------------------
+
+List all available strategies
+
+    rake audio:strategies
+
+The generic strategy runner takes arguments
+
+* strategy name
+* path to audio files
+* name (X in the flv files tX-u...)
+
+    rake audio:run[strategy_name,path/to/files,name]
+
+The output lists the resulting files.
+
+(Depending on your shell you might have to escape the square brackets
+with backslashes.)
 
 
 Documentation
@@ -145,4 +160,17 @@ Platforms
 ### Staging
 
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
+
+
+Audio cheat sheet
+-----------------
+
+### get duration
+
+    soxi -D file.wav
+    
+### convert wav to flv
+
+    avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
+
 
