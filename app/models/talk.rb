@@ -85,6 +85,11 @@ class Talk < ActiveRecord::Base
   scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
   scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
 
+  scope :featured, -> do
+    where("featured_from < DATE(?)", Time.now).
+      order('featured_from DESC')
+  end
+
   scope :audio_format, ->(format) do # TODO: check if needed
     where('audio_formats LIKE ?', "%#{format}%")
   end

@@ -142,4 +142,14 @@ describe Talk do
     Delayed::Worker.delay_jobs = false # deactivate
   end
 
+  it 'has a scope featured' do
+    talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago)
+    talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago)
+    talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now)
+    expect(Talk.featured).to eq([talk1, talk0])
+    Timecop.freeze(25.hours.ago) do
+      expect(Talk.featured).to eq([talk0])
+    end
+  end
+
 end
