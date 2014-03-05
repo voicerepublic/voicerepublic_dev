@@ -29,6 +29,10 @@
 
 /* ACTIONBAR */
 
+.top-bar-box{
+	margin-bottom:-55px !important
+}
+
 .top-bar {
 	z-index: 1;
 	.top-bar-vr-logo{
@@ -48,7 +52,6 @@
 	  background-repeat: no-repeat;
 	  background-position: center center; 
 	  background-size: cover;
-	  margin-top: -55px;
 	  padding-top: 85px;
 	  color: #fff;
 	}
@@ -108,9 +111,13 @@
 	background-position: center	
 }
 
-/*.input.file{
+#user_account_about{
+	height: 200px
+}
+
+.input.file{
 	display: none;
-}*/
+}
 
 footer{
 	margin-top: 30px;

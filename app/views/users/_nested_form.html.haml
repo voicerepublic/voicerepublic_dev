@@ -37,17 +37,17 @@
             or
           .small-8.columns
             %button.small Connect with Facebook
-      .row.collapse
-        .large-12.columns
-          %h2 About you
-      .row.collapse
-        .large-12.columns
-          .user-textarea-box
-            = f.fields_for @user.account do |af|
-              = render 'shared/wysihtml5_toolbar'
-              = af.input :about, input_html: { 'data-wysiwyg' => true }          
-      .row.collapse
-        .large-12.columns
-          = f.button :submit 
-          %a{href: "#"} or cancel
-
+  .row.collapse
+    .large-12.columns
+      %h2 About you
+  .row.collapse
+    .large-12.columns
+      .user-textarea-box
+        = f.fields_for @user.account do |af|
+          = render 'shared/wysihtml5_toolbar'
+          = af.input :about, input_html: { 'data-wysiwyg' => true, 'class' => "about-textarea" }          
+  .row.collapse
+    .large-12.columns
+      = f.button :submit 
+      %a{href: "#"} or
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(:id => @user)

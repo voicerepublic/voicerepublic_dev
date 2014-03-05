@@ -1,4 +1,4 @@
-.row
+.row.top-bar-box
   %nav.top-bar{"data-topbar" => ""}
     %ul.title-area
       %li.name
@@ -9,22 +9,22 @@
       = link_to root_path do
         =# image_tag "logo.png", :alt => "Voice Republic Logo" 
         VR 
-    %section.top-bar-section
 
+    %section.top-bar-section
       / Right Nav Section
       %ul.right
-        %li= current_or_guest_user.name
         %li
           = link_to '/en/venues/72/talks/9' do
             live-talk    
         %li.has-dropdown
           = link_to '#' do #TODO
-            = image_tag current_or_guest_user.account.portrait(:thumb), :alt => current_or_guest_user.name, size: '25x25'
+            = image_tag current_or_guest_user.account.portrait(:large), :alt => current_or_guest_user.name, size: '25x25'
+            = current_or_guest_user.name            
 
           %ul.dropdown
             %li
-            = link_to user_path(:id => current_or_guest_user) do
-              = t('.my_profile')
+              = link_to user_path(:id => current_or_guest_user) do
+                = t('.my_profile')
             %li
               = link_to( new_venue_path ) do
                 = t('.create_venue')
