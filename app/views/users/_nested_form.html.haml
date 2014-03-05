@@ -22,6 +22,7 @@
           = af.input :website
         %button(data-enable-fields='#change-password input'
                 data-replace-with='#change-password'
+                data-trigger-on-error='#change-password'
                 type='button')= t('.set_new_password')
         #change-password.panel.hide
           = f.input :password, disabled: true
