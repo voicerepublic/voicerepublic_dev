@@ -109,16 +109,4 @@ describe AccountsController do
     end
   end
   
-  describe "DELETE portrait" do
-    it "redirects to users account edit page" do 
-    #it "destroys the attached portrait" do
-      account = FactoryGirl.create(:account_with_portrait, :user => @user)
-      account.portrait.exists?.should be_true
-      delete :destroy_portrait, { :user_id => @user }, valid_session
-      # FIXME: this test is not working properly
-      #account.portrait.exists?.should be_false
-      response.should redirect_to(edit_user_account_path(:user_id => @user))
-    end
-  end
-
 end

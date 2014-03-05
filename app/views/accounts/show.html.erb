@@ -1,0 +1,97 @@
+<div class="page-header">
+	<h2>Account</h2>
+</div>
+
+<div class="row">
+	<div class="span6">
+		<div class="well well-small">
+			<dl class="dl-horizontal">
+
+				<dt>
+					<strong><%= t('.portrait') %></strong>
+				</dt>
+				<dd>
+					<%= image_tag  @account.portrait.url(:medium) , :class => "img-polaroid" %>
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="span6">
+		<div class="well well-small">
+			<dl class="dl-horizontal">
+				<dt>
+					<strong><%= t('.about_me') %>:</strong>
+				</dt>
+				<dd>
+					<%= @account.about %>
+				</dd>
+				<dt>
+					<strong><%= t('.timezone') %>:</strong>
+				</dt>
+				<dd>
+					<%= ActiveSupport::TimeZone::MAPPING[@account.timezone] %>
+				</dd>
+				<dt>
+					<strong><%= t('.your_time') %></strong>
+				</dt>
+				<dd>
+					<span class="label label-info"><%= l(@account.time_in_supplied_zone) %></span>
+				</dd>
+				<dt>
+					<strong><%= model_class.human_attribute_name(:language_1) %>:</strong>
+				</dt>
+				<dd>
+					<%= @account.language_name(1) %>
+				</dd>
+				<dt>
+					<strong><%= model_class.human_attribute_name(:language_2) %>:</strong>
+				</dt>
+				<dd>
+					<%= @account.language_name(2) %>
+				</dd>
+				<dt>
+					<strong><%= model_class.human_attribute_name(:language_3) %>:</strong>
+				</dt>
+				<dd>
+					<%= @account.language_name(3) %>
+				</dd>
+			</dl>
+		</div>
+	</div>
+
+</div>
+
+<div class="form-actions">
+	<%= link_to t('.back', :default => t("helpers.links.back")),
+	user_account_path(:user_id => @account.user), :class => 'btn'  %>
+	<%= link_to t('.edit', :default => t("helpers.links.edit")),
+	edit_user_account_path(:user_id => @account.user, :id => @account), :class => 'btn' %>
+</div>
+
+<div class="row">
+	<div class="span3">
+		<div class="well well-small">
+			<%= link_to t('.manage_your_follower'), user_follows_path(:user_id => @account.user), :class => "btn btn-large" %>
+		</div>
+		&nbsp;
+	</div>
+	<div class="span3">
+
+		<div class="well well-small">
+			<%= link_to t('.manage_your_bookmarks'), user_bookmarks_path(:user_id => @account.user), :class => "btn btn-large" %>
+		</div>
+
+	</div>
+	<div class="span3">
+		<div class="well well-small">
+			<%= link_to t('.manage_your_kluuus'), user_klus_path(:user_id => @account.user), :class => "btn btn-large" %>
+		</div>
+	</div>
+	
+	<div class="span3">
+		<div class="well well-small">
+			<%= link_to t('.manage_your_preferences'), preferences_show_user_account_path(:user_id => @account.user), :class => "btn btn-large" %>
+		</div>
+	</div>
+</div>
+
