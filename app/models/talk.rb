@@ -81,6 +81,7 @@ class Talk < ActiveRecord::Base
 
   dragonfly_accessor :image
 
+  # TODO remove and use scopes based on statemachine instead
   scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
   scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
 
