@@ -275,9 +275,6 @@ en:
     account_settings_created: your Settings were created
     settings_updated: settings changed
     portrait_destroyed: image removed
-  controller_bookmarks:
-    bookmark_created: bookmark set
-    bookmark_destroyed: bookmark removed
   controller_comments:
     comment_created: comment created
   controller_conversations:
@@ -667,37 +664,6 @@ en:
       contacts: Contacts
       messages: Messages
       settings: Settings
-  status_updates:
-    status_update:
-      add_comment: ! 'Comment '
-      comments: Comments
-    index:
-      all_status: All status
-      new_status_update: New status
-      guest_empty_status_update: ! '%{name} has no Status yet.'
-    show:
-      all_status: All status
-    new:
-      title: New status
-    form:
-      update_status: Update
-    no_status:
-      title: Status
-      no_status_text: Post your first Status.
-      new_status: New Status
-    with_status:
-      title: Status
-      these_are_your_status_updates: See your Status here.
-      new_status: New Status
-  bookmarks:
-    index:
-      guest_empty_bookmark: ! '%{name} has no Bookmarks yet.'
-    no_bookmarks:
-      title: Bookmarks
-      no_bookmarks_text: See here your Bookmarks.
-    with_bookmarks:
-      title: Bookmarks
-      with_bookmarks_text: See here your Bookmarks.
   venues:
     date_changed: New venue date
     edit:
