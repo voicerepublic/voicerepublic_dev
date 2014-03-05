@@ -1,6 +1,10 @@
 namespace :data do
   namespace :migrate do
 
+    task all: [:recordings_without_file_suffix,
+               :events_to_talks,
+               :talk_states]
+
     task recordings_without_file_suffix: :environment do
       Talk.all.each do |talk|
         next unless talk.recording
