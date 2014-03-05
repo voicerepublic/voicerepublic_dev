@@ -51,7 +51,7 @@ describe "Venues" do
       visit new_venue_path
       fill_in 'venue_title', with: 'schubidubi'
       fill_in 'venue_teaser', with: 'some teaser'
-      fill_in 'venue_description', with: 'some description'
+      fill_in 'venue_description', with: 'iwannabelikeyou'
       fill_in 'venue_tag_list', with: 'a,b,c'
 
       fill_in 'venue_talks_attributes_0_title', with: 'some talk title'
@@ -64,6 +64,7 @@ describe "Venues" do
       click_button 'Save'
       page.should have_selector('.venues-show')
       page.should have_content('schubidubi')
+      page.should have_content('iwannabelikeyou')
     end
   end
 
