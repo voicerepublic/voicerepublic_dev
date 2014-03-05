@@ -9,5 +9,5 @@ _host = case Rails.env
           'localhost'
         end
 
-Kluuu2::Application.config.action_mailer.default_url_options = { :host => _host }
+VoiceRepublic::Application.config.action_mailer.default_url_options = { :host => _host }
 Rails.application.routes.default_url_options[:host] = _host 
