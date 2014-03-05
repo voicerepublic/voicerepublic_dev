@@ -33,13 +33,38 @@ describe "Venues" do
     it "updates title" do
       visit edit_venue_path(id: @venue)
       page.should have_selector(".venues-edit")
-      page.fill_in 'venue_title', with: new_title = "A completely new title"
-      page.click_button 'Save'
+      fill_in 'venue_title', with: new_title = "A completely new title"
+      click_button 'Save'
       page.should have_content(new_title)
     end
   end
 
   describe "GET a new venue" do
+    it 'renders new' do
+      visit new_venue_path
+      page.should have_selector(".venues-new")
+    end
+  end
+
+  describe "POST a new venue" do
+    it 'creates a venue' do
+      visit new_venue_path
+      fill_in 'venue_title', with: 'schubidubi'
+      fill_in 'venue_teaser', with: 'some teaser'
+      fill_in 'venue_description', with: 'some description'
+      fill_in 'venue_tag_list', with: 'a,b,c'
+
+      fill_in 'venue_talks_attributes_0_title', with: 'some talk title'
+      fill_in 'venue_talks_attributes_0_teaser', with: 'some talk teaser'
+      fill_in 'venue_talks_attributes_0_starts_at', with: 1.day.from_now
+      select '60', from: 'venue_talks_attributes_0_duration'
+      fill_in 'venue_talks_attributes_0_tag_list', with: 'd,e,f'
+      fill_in 'venue_talks_attributes_0_description', with: 'some talk description'
+
+      click_button 'Save'
+      page.should have_selector('.venues-show')
+      page.should have_content('schubidubi')
+    end
   end
 
 end
