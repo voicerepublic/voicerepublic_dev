@@ -2,12 +2,8 @@ class Users::SessionsController < Devise::SessionsController
 
   include Devise::Controllers::Rememberable
 
-  skip_before_filter :require_no_authentication
-  protect_from_forgery with: :null_session
-
   # POST /resource/sign_in
   def create
-    sign_out
     # FIXME: this writes the password in plain text to the log
     logger.debug("Users::Sessions#create - overwrite devise params: #{params.inspect}")
     self.resource = warden.authenticate!(auth_options)

@@ -15,6 +15,18 @@ class ApplicationController < ActionController::Base
     true
   end
 
+  # hack to authenticate guest users as well
+  def authenticate_user!
+    user = super
+    return user if user
+    
+    id = session[:guest_user_id]
+    if id && guest = User.find(id)
+      logger.info "authenticated guest #{id}"
+      return guest
+    end
+  end
+
   def current_user
     user = super
     return user if user
@@ -58,13 +70,13 @@ class ApplicationController < ActionController::Base
   def create_guest_user
     token = SecureRandom.random_number(10000)
     name = ['guest', Time.now.to_i, token ] * '_'
-    logger.debug "\033[31mCREATE GUEST USER: #{name}"
+    logger.debug "\033[31mCREATE GUEST USER: #{name}\033[0m"
     user = User.create( email: "#{name}@example.com",
                         firstname: 'guest',
                         lastname: name,
                         guest: true )
     user.save! validate: false
-    sign_in :user, user
+    # sign_in :user, user
     user
   end
   

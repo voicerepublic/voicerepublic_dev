@@ -103,7 +103,7 @@ describe Api::TalksController do
   end
 
   it 'should authenticate user' do
-    put :update, id: 1
+    put :update, id: 'invalid_id'
     response.status.should be(302)
   end
 
