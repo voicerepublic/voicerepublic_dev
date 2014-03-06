@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 feature 'MediaTracker' do
+
+  include AudioFixtureHelper
+
   scenario 'tracks a play' do
     audio_fixture('spec/support/fixtures/complex', '1.wav') do |path|
       talk = FactoryGirl.create(:talk, recording: "#{path}/1")

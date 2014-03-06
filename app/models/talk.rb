@@ -120,6 +120,7 @@ class Talk < ActiveRecord::Base
   end
 
   def download_links
+    return {} unless recording
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     glob = "#{archive}/#{recording}.*"
     files = Dir.glob(glob)

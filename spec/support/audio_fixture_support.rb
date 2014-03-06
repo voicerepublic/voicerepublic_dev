@@ -8,5 +8,5 @@ module AudioFixtureHelper
 end
 
 RSpec.configure do |config|
-  config.include AudioFixtureHelper, type: :model, type: :feature
+  config.include AudioFixtureHelper, type: :model
 end
