@@ -9,12 +9,17 @@ rtmp:
   #record: "rtmp://localhost/record" 
   offrecord: "rtmp://kluuu.com/discussions"
   record: "rtmp://kluuu.com/recordings" 
-  worker_processes: 1
-  send_notifications: true
   log_notifications: true
-  notify_base: 'http://0.0.0.0:3000/rtmp'
+  #######################################
+  # entries used by config/rtmp.conf.erb
+  #######################################
+  send_notifications: true
+  # callback_base must be an absolute url and is used for
+  # notifications `/notify` and authentication `/auth`
+  callback_base: 'http://0.0.0.0:3000/rtmp'
   record_max_size: '100M'
   authenticate: true
+  worker_processes: 1
 errbit:
   api_key: '710bf38280e0f96f26a74682519794d5'
 localeapp:
