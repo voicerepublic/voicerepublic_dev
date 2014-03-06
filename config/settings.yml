@@ -1,8 +1,14 @@
+# this file reflects standard settings for development
+# overrides for production can be found in
+# `config/settings/production.yml`
 durations: [ 30, 45, 60, 90, 120, 240 ]
 rtmp:
-  recordings_path: 'vendor/rtmp/run/recordings'
-  archive_path: 'vendor/rtmp/run/archive'
-  base_path: 'vendor/rtmp'
+  # all paths get expanded with `Rails.root`
+  # which doesn't affect absolute paths
+  build_path:       local/rtmp
+  archive_path:     local/archive
+  archive_raw_path: local/archive_raw
+  recordings_path:  local/recordings
   #offrecord: "rtmp://172.21.21.171/offrecord"
   #record: "rtmp://172.21.21.171/record" 
   #offrecord: "rtmp://localhost/offrecord"

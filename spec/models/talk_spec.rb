@@ -142,4 +142,18 @@ describe Talk do
     Delayed::Worker.delay_jobs = false # deactivate
   end
 
+  it 'generate ephemeral paths' do
+    talk = FactoryGirl.create(:talk, recording: 'invalid_id')
+    base = Settings.rtmp.archive_path
+    FileUtils.mkdir_p(base) # (!)
+    source = "#{base}/invalid_id.wav"
+    FileUtils.touch(source)
+    loc = talk.generate_ephemeral_path! '.wav'
+    target = "public/#{loc}"
+    expect(File.exist?(target)).to be_true
+    # cleanup
+    FileUtils.rm(target)
+    FileUtils.rm(source)
+  end
+
 end

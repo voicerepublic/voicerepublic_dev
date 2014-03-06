@@ -21,6 +21,8 @@ Setup
     bundle
     rake db:setup
     rake db:migrate
+    rake rtmp:build
+    rake setup
 
 ### Thinking sphinx
 
