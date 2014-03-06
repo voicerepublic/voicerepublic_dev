@@ -1,4 +1,4 @@
-# MediaTracker intercepts incoming request tracks access and returns a
+# MediaTracker intercepts incoming requests, tracks access and returns a
 # redirect.
 #
 class MediaTracker < Struct.new(:app, :opts)
