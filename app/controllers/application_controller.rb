@@ -4,35 +4,23 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_or_guest_user
+  helper_method :current_user
 
   before_filter :set_last_request
   before_filter :set_locale
   around_filter :user_time_zone, :if => :current_user
   after_filter :set_csrf_cookie_for_ng
 
-  # if user is logged in, return current_user, else return guest_user
-  def current_or_guest_user
-    if current_user
-      if session[:guest_user_id]
-        logging_in
-        guest_user.destroy
-        session[:guest_user_id] = nil
-      end
-      current_user
-    else
-      guest_user
-    end
+  def generate_guest_user?
+    true
   end
 
-  # find guest_user object associated with the current session,
-  # creating one as needed
-  def guest_user
-    # Cache the value the first time it's gotten.
-    @cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
-  rescue ActiveRecord::RecordNotFound # if session[:guest_user_id] invalid
-     session[:guest_user_id] = nil
-     guest_user
+  def current_user
+    user = super
+    return user if user
+    return nil unless generate_guest_user?
+
+    @guest_user ||= create_guest_user
   end
 
   def user_time_zone(&block)
@@ -56,11 +44,6 @@ class ApplicationController < ActionController::Base
     session[:return_to] = request.fullpath
   end
 
-  # fix cancan's assumption that it should use current_user
-  def current_ability
-    @current_ability ||= Ability.new(current_or_guest_user)
-  end
-
   before_filter :update_sanitized_params, if: :devise_controller?
 
   def update_sanitized_params
@@ -72,21 +55,17 @@ class ApplicationController < ActionController::Base
 
   private
   
-  # called (once) when the user logs in, insert any code your application needs
-  # to hand off from guest_user to current_user.
-  def logging_in
-  end
-
   def create_guest_user
-    name = "guest_#{Time.now.to_i}#{rand(99)}"
-    u = User.create( :email => "#{name}@example.com",
-                     :available => "online",
-                     :firstname => 'guest',
-                     :lastname => name,
-                     :guest => true )
-    u.save!(:validate => false)
-    session[:guest_user_id] = u.id
-    u
+    token = SecureRandom.random_number(10000)
+    name = ['guest', Time.now.to_i, token ] * '_'
+    logger.debug "\033[31mCREATE GUEST USER: #{name}"
+    user = User.create( email: "#{name}@example.com",
+                        firstname: 'guest',
+                        lastname: name,
+                        guest: true )
+    user.save! validate: false
+    sign_in :user, user
+    user
   end
   
   # get locale from browser settings
@@ -110,8 +89,8 @@ class ApplicationController < ActionController::Base
   end
   
   def set_last_request
-    if current_or_guest_user
-      current_or_guest_user.update_attribute(:last_request_at, Time.now) if ( current_or_guest_user.last_request_at.nil? ) || ( current_or_guest_user.last_request_at < Time.now - 1.minute )
+    if current_user
+      current_user.update_attribute(:last_request_at, Time.now) if ( current_user.last_request_at.nil? ) || ( current_user.last_request_at < Time.now - 1.minute )
     end
   end
   

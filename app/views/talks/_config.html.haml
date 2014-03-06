@@ -5,5 +5,5 @@
 -# TODO remove `pretty` for production
 %script
   Livepage.factory("config", function() {
-  return #{ @talk.config_for(current_or_guest_user).html_safe };
+  return #{ @talk.config_for(current_user).html_safe };
   });

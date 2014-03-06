@@ -1,9 +1,9 @@
 <div class="user-annotation">
-	<% if current_or_guest_user && (current_or_guest_user == user) %>
+	<% if current_user && (current_user == user) %>
 		<%= t(".no_status_updates_of_you") %>
 		<br />
 		<%= t(".what_you_say") %>
-		<%= link_to new_user_status_update_path(:user_id => current_or_guest_user), :class => "btn btn-mini user-new-status" do %>
+		<%= link_to new_user_status_update_path(:user_id => current_user), :class => "btn btn-mini user-new-status" do %>
 			<i class="icon-edit"> </i> <%= t('.new_opinion') %>
 		<% end %>
 	<% else %>

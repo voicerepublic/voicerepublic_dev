@@ -24,10 +24,10 @@ class VenuesController < ApplicationController
     @archived_talks = @venue.talks.archived
 
     @participation =
-      @venue.participations.find_by(user_id: current_or_guest_user.id)
+      @venue.participations.find_by(user_id: current_user.id)
 
     @show_join = @participation.nil? &&
-      current_or_guest_user != @venue.user
+      current_user != @venue.user
 
     respond_to do |format|
       format.html # show.html.erb
@@ -62,7 +62,7 @@ class VenuesController < ApplicationController
   # POST /venues.json
   def create
     @venue = Venue.new(params[:venue])
-    @venue.user = current_or_guest_user
+    @venue.user = current_user
 
     authorize! :create, @venue
 
@@ -125,10 +125,10 @@ class VenuesController < ApplicationController
   #
   #   @venue = Venue.find(params[:venue_id])
   #
-  #   if current_or_guest_user.no_kluuus.empty?
-  #     klu = current_or_guest_user.no_kluuus.create(:title => current_or_guest_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
+  #   if current_user.no_kluuus.empty?
+  #     klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
   #   else
-  #     klu = current_or_guest_user.no_kluuus.first
+  #     klu = current_user.no_kluuus.first
   #   end
   #
   #   #klu = Klu.find(params[:klu_id])
@@ -150,7 +150,7 @@ class VenuesController < ApplicationController
   #
   # def unjoin_venue
   #   @venue = Venue.find(params[:venue_id])
-  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_or_guest_user }
+  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_user }
   #
   #   respond_to do |format|
   #     format.html { redirect_to @venue, notice: "Successfully unjoined venue" }
@@ -174,7 +174,7 @@ class VenuesController < ApplicationController
     @venue.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_path(current_or_guest_user) }
+      format.html { redirect_to user_path(current_user) }
       format.json { head :no_content }
     end
   end
