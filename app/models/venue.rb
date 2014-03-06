@@ -35,6 +35,7 @@ class Venue < ActiveRecord::Base
   has_many :participations, :dependent => :destroy
   # TODO: rename to participants
   has_many :users, :through => :participations
+  has_many :social_shares, as: :shareable
 
   validates :title, :teaser, :description, :tag_list, :presence => true
 

@@ -6,6 +6,8 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
+= render :partial => '/shared/share_social'
+
 .row
   .large-12.columns.text-right
     = link_to t('.edit_venue'), [:edit, @venue], class: 'button'
@@ -74,7 +76,7 @@
               %p
                 = distance_of_time_in_words(talk.starts_at, talk.ends_at)
                 (#{talk.duration} minutes)
-              %p= talk.title 
+              %p= talk.title
               %p= l(talk.starts_at, format: :designed)
               = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
               = link_to t('.delete_talk'), [@venue, talk], delete_params
@@ -87,12 +89,12 @@
 
 -# -if @venue.live?
 -#   -# live layout
--#     
+-#
 -#   %section.venue-live-box.clearfix
 -#     -# description
--#     = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )  
--#     = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )  
--# 
+-#     = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )
+-#     = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )
+-#
 -#   .row-fluid
 -#     .span8
 -#       -# forum (left)
@@ -100,7 +102,7 @@
 -#     .span4
 -#       -# participants (right)
 -#       = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
--# 
+-#
 -# - else
 
 -# -# static layout
@@ -108,20 +110,20 @@
 -#   .span8
 -#     -# description
 -#     = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
--# 
+-#
 -#     -# forum
 -#     = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
--# 
+-#
 -#   .span4.left-light-border
 -#     -# next event
 -#     -# - if @venue.current_event.present?
 -#     -#   = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
 -#       %hr.venue-horiz-line
--# 
+-#
 -#     -# archive
 -#     = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
 -#     %hr.venue-horiz-line
--# 
+-#
 -#     -# participants
--#     = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
+-#     = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
 

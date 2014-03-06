@@ -1,8 +1,12 @@
 VoiceRepublic::Application.routes.draw do
-  
+
   post 'api/talk/:id/messages' => 'api/messages#create'
   put 'api/talk/:id' => 'api/talks#update'
   get 'api/users'    => 'api/users#index'
+
+  namespace 'api' do
+    resources :social_shares, only: [:create]
+  end
 
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index
