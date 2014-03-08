@@ -11,31 +11,31 @@ describe SearchController do
 
   describe "on GET" do
     it "succeeds" do
-      get :show, query: 'some query'
+      get :show, page: 1, query: 'some query'
       response.should be_success
     end
 
     it "populates results" do
       venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
-      get :show, query: 'Delight'
+      get :show, page: 1, query: 'Delight'
       assigns(:results).should_not be_empty
     end
 
     it "finds users" do
       user = FactoryGirl.create(:user, firstname: 'Fear and Delight')
-      get :show, query: 'Delight'
+      get :show, page: 1, query: 'Delight'
       assigns(:results).first.searchable.should eq(user)
     end
 
     it "finds venues" do
       venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
-      get :show, query: 'Delight'
+      get :show, page: 1, query: 'Delight'
       assigns(:results).first.searchable.should eq(venue)
     end
 
     it "finds talks" do
       talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
-      get :show, query: 'Delight'
+      get :show, page: 1, query: 'Delight'
       assigns(:results).first.searchable.should eq(talk)
     end
 
@@ -43,7 +43,7 @@ describe SearchController do
       user = FactoryGirl.create(:user, firstname: 'Fear and Delight')
       venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
       talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
-      get :show, query: 'Delight'
+      get :show, page: 1, query: 'Delight'
       assigns(:results).count.should eq(3)
       searchables = assigns(:results).map(&:searchable)
       searchables.should include(user)
