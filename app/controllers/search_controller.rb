@@ -1,22 +1,14 @@
 class SearchController < ApplicationController
-
-  # TODO implement 'redirect after POST'
-  def search
-    @query = params[:query] || params[:landing_page_query]
-    @venues = Venue.search(@query)
+  
+  # POST /search
+  def create
+    redirect_to "/search/#{params[:query]}"
   end
-
-  # def match
-  #   
-  # end
-  # 
-  # def tagged_with
-  #   _klus = Klu.tagged_with(params[:tag])
-  #   logger.debug("SearchController#tagged_with - tag: #{params[:tag]} count: #{_klus.count}")
-  #   @tag = params[:tag]
-  #   @kluuus = []
-  #   @no_kluuus = []
-  #   _klus.each { |klu| klu.instance_of?(Kluuu) ? @kluuus << klu : @no_kluuus << klu }
-  # end
+  
+  # GET  /search/:query
+  def show
+    # TODO add pagination
+    @results = PgSearch.multisearch(params[:query])
+  end
   
 end

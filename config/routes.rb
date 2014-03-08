@@ -1,8 +1,25 @@
 VoiceRepublic::Application.routes.draw do
   
-  post 'api/talk/:id/messages' => 'api/messages#create'
-  put 'api/talk/:id' => 'api/talks#update'
-  get 'api/users'    => 'api/users#index'
+  post '/api/talk/:id/messages', to: 'api/messages#create'
+  put  '/api/talk/:id',          to: 'api/talks#update'
+  get  '/api/users',             to: 'api/users#index'
+
+  post '/search',        to: 'search#create'
+  get  '/search/*query', to: 'search#show'
+
+  # this looks fancy, i know, but what it basically provides
+  # is handy shortcut to link to talks without the nesting
+  # venue and then redirect to the nested path
+  #
+  # it makes the rendering of different kind of resources, like
+  # in the search results, less painful
+  nested_talk = ->(params, req) do 
+    talk = Talk.find(params[:id])
+    "/venues/#{talk.venue_id}/talks/#{talk.id}"
+  end
+  get  '/talk/:id', to: redirect(nested_talk), as: 'talk'
+
+  # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
   scope "(/:locale)", :locale => /de|en/ do
     get "dashboard", :controller => "dashboard", :action => :index
@@ -10,7 +27,6 @@ VoiceRepublic::Application.routes.draw do
     get "dashboard/venues"
     get "dashboard/settings/edit", :controller => 'dashboard', :action => :edit_settings
     get "dashboard/settings/edit_password", :controller => 'dashboard', :action => 'edit_password'
-    get "search", :controller => "search", :action => :search
     get "landing_page/index", :as => :landing_page
     # TODO remove
     get "tags/:tag", :controller => 'search', :action => 'tagged_with', :as => 'tagged_with'

@@ -51,6 +51,7 @@ gem 'unicorn'
 gem "select2-rails"
 gem "transitions", :require => ["transitions", "active_model/transitions"]
 gem 'auphonic'
+gem 'pg_search', github: 'branch14/pg_search'
 
 group :development, :test, :staging do
   # gem 'rails_view_annotator'

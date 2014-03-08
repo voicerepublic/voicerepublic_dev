@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/branch14/pg_search.git
+  revision: 819defdfc14b8ef2855c043dbd31f01c5bf49928
+  specs:
+    pg_search (0.7.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
+
+GIT
   remote: git@github.com:bmabey/database_cleaner.git
   revision: b254ce57bdeea927e514a486aedc2ac97199324b
   specs:
@@ -452,6 +461,7 @@ DEPENDENCIES
   paperclip
   paranoia (~> 2.0)
   pg
+  pg_search!
   poltergeist
   private_pub
   protected_attributes

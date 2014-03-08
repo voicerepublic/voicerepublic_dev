@@ -1,0 +1,13 @@
+.row
+  .large-12.columns(style='margin-top: 50px')
+    %h1= t('.results', count: @results.count, default: "%{count} Results")
+    %ol
+      - @results.each do |result|
+        - item = result.searchable
+        %li.panel.result(class="#{item.class.name.underscore}")
+          = link_to item do
+            - case item 
+            - when Talk, Venue
+              = item.title
+            - when User
+              = item.name
