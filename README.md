@@ -22,14 +22,6 @@ Setup
     rake db:setup
     rake db:migrate
 
-### Thinking sphinx
-
-Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
-
-    bundle exec rake thinking_sphinx:configure
-    bundle exec rake thinking_sphinx:index
-    bundle exec rake thinking_sphinx:start
-
 ### New Search
 
 Make sure `postgresql-contrib-9.1` is installed.
