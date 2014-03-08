@@ -182,14 +182,11 @@ class Talk < ActiveRecord::Base
     chain = %w( precursor kluuu_merge trim m4a mp3 ogg
                 move_clean jinglize m4a mp3 ogg )
     base = Settings.rtmp.recordings_path
-    setting = TalkSetting.new(base, id)
-    # FIXME: sort to make sure
-    file_start = setting.journal['record_done'].first.last.to_i
-    setting.opts = {
-      file_start: file_start,
-      talk_start: talk.started_at.to_i,
-      talk_stop:  talk.ended_at.to_i
+    opts = {
+      talk_start: started_at.to_i,
+      talk_stop:  ended_at.to_i
     }
+    setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }

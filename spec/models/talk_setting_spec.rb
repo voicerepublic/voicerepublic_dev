@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TalkSetting do
 
-  pending 'generates fake journals' do
+  it 'generates fake journals' do
     audio_fixture('spec/support/fixtures/normalize0', '*.flv') do |path|
       setting = TalkSetting.new(path)
       path = setting.send(:journal_path)
@@ -10,10 +10,24 @@ describe TalkSetting do
     end
   end
   
-  pending 'parses journals' do
+  it 'parses journals' do
     audio_fixture('spec/support/fixtures/normalize0', '*.flv') do |path|
-      audio = TalkSetting.new(path)
+      setting = TalkSetting.new(path)
       expect(setting.journal).to be_a(Hash) 
+    end
+  end
+
+  it 'provides a list of participating users' do
+    audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
+      setting = TalkSetting.new(path)
+      expect(setting.users).to eq(%w( 1 2 ))
+    end
+  end
+
+  it 'provides the timestamp of the first fragment' do
+    audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
+      setting = TalkSetting.new(path)
+      expect(setting.file_start).to eq(1393335342)
     end
   end
 

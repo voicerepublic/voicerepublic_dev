@@ -23,7 +23,31 @@ describe Audio::Strategy do
       expect(File.exist?(file)).to be_true
     end
   end
-   
+
+  it 'merges by user' do
+    # we need the wav fragments and the flvs (to reconstruct the journal)
+    audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
+      setting = TalkSetting.new(path)
+      results = Audio::Strategy::UserMerge.call(setting)
+
+      files = results.map { |f| [ path, f ] * '/' }
+      all_exist = files.inject(true) { |r, f| r && File.exist?(f) }
+      expect(all_exist).to be_true
+    end
+  end
+
+  it 'merges by user then whole talk' do
+    # we need the wav fragments and the flvs (to reconstruct the journal)
+    audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
+      setting = TalkSetting.new(path)
+      Audio::Strategy::UserMerge.call(setting)
+      result = Audio::Strategy::TalkMerge.call(setting)
+
+      file = [path, result] * '/'
+      expect(File.exist?(file)).to be_true
+    end
+  end
+
   it 'trims' do
     # we need the wav and the journal
     audio_fixture('spec/support/fixtures/complex', '1.*') do |path|
