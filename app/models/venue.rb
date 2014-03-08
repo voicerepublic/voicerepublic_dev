@@ -42,6 +42,8 @@ class Venue < ActiveRecord::Base
 
   accepts_nested_attributes_for :talks
 
+  serialize :options
+
   scope :of_user,  proc { |user| where(:user_id => user.id) }
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
                           order('featured_from DESC') }
