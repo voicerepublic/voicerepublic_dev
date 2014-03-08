@@ -131,7 +131,7 @@
               %span(ng-click="session.promote(parti.id)")
                 %p.avatar-name.text-center {{ parti.name }}
                 %img.avatar-img(ng-src="{{parti.image}}")
-          .listening
+          .listening(ng-show="session.listeners().length")
             %h3
               {{ session.listeners().length }}
               = t('.just_listening_in')
