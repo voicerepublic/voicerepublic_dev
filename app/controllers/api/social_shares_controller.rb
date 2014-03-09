@@ -10,7 +10,7 @@ class Api::SocialSharesController < ApplicationController
 
     respond_to do |format|
       if @social_share.save
-        format.js { render json: { message: I18n.t('.has_been_tracked') } }
+        format.js { render json: { message: I18n.t('social_share/has_been_tracked') } }
       else
         format.js { render json: { message: @social_share.errors } }
       end

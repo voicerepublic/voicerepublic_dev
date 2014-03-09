@@ -1,4 +1,4 @@
-attribute = '#social_share .share'
+attribute = '#social_share .share:not(.mail)'
 
 initialize = (element, selector) ->
   source = $(element)

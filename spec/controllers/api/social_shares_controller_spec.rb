@@ -45,7 +45,7 @@ describe Api::SocialSharesController do
       it 'returns json to verify success' do
         xhr :post, :create, social_share: { shareable_type: 'talk', shareable_id: @talk.id }
         res = JSON.parse(response.body)
-        res['message'].should == I18n.t(".has_been_tracked")
+        res['message'].should == I18n.t("social_share/has_been_tracked")
       end
 
       it 'guards against random shares' do
