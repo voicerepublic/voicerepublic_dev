@@ -6,7 +6,7 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-= render :partial => '/shared/social_share'
+= render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
 .row
   .large-12.columns.text-right

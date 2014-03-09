@@ -1,6 +1,6 @@
 class Api::SocialSharesController < ApplicationController
 
-  before_action :authenticate_user!
+  skip_before_filter :authenticate_user!
 
   def create
     @social_share            = SocialShare.new(params[:social_share])
@@ -8,13 +8,11 @@ class Api::SocialSharesController < ApplicationController
     @social_share.user_agent = request.user_agent
     @social_share.user_id    = current_or_guest_user.id
 
-
-
     respond_to do |format|
       if @social_share.save
-        format.js { render :json => @social_share }
+        format.js { render json: { message: I18n.t('.has_been_tracked') } }
       else
-        format.js { render :json => @social_share.errors }
+        format.js { render json: { message: @social_share.errors } }
       end
     end
   end
@@ -22,6 +20,7 @@ class Api::SocialSharesController < ApplicationController
   private
   def social_share_params
     params.require(:social_share).permit(:request_ip, :user_agent, :user_id,
-                                         :shareable_id, :shareable_type)
+                                         :shareable_id, :shareable_type,
+                                         :social_network)
   end
 end

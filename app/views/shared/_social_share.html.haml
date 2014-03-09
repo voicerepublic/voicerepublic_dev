@@ -1,5 +1,5 @@
 #social_share
   %div
     = t '.promote'
-  %span{class: 'facebook share'}
-  %span{class: 'twitter share'}
+  %span{class: 'facebook share', data: { shareable_id: shareable_id, shareable_type: shareable_type } }
+  %span{class: 'twitter share', data: { shareable_id: shareable_id, shareable_type: shareable_type } }

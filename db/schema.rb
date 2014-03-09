@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306132211) do
+ActiveRecord::Schema.define(version: 20140309111121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -471,6 +471,7 @@ ActiveRecord::Schema.define(version: 20140306132211) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "social_network"
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
