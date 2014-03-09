@@ -22,18 +22,18 @@ Setup
     rake db:setup
     rake db:migrate
 
-### Thinking sphinx
+### New Search
 
-Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
+Make sure `postgresql-contrib-9.1` is installed.
 
-    bundle exec rake thinking_sphinx:configure
-    bundle exec rake thinking_sphinx:index
-    bundle exec rake thinking_sphinx:start
+    zeus rake pg_search:multisearch:rebuild\[Talk\]
+    zeus rake pg_search:multisearch:rebuild\[Venue\]
+    zeus rake pg_search:multisearch:rebuild\[User\]
 
 ### nginx/rtmp server (Debian 7 & optional)
 
 Make sure `libpcre++-dev` is installed. Run `rake rtmp:build`. The
-config file is located here `config/rtmp.conf`. See
+config file is located here `config/rtmp.conf.erb`. See
 `lib/tasks/rtmp.rake` for more details.
 
 

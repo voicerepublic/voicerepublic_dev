@@ -39,6 +39,6 @@
       / Left Nav Section
       %ul.left
         %li
-          = form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'navbar-search form-search' do
-            = search_field_tag 'query', nil, :placeholder => t('.search'), :class => ""
+          = form_tag "/search", :class => 'navbar-search form-search' do
+            = search_field_tag 'query', params[:query], :placeholder => t('.search')
             =# button_tag :type => "submit", :class => "" do %i.icon-search #TODO

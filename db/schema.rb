@@ -11,10 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303150910) do
+ActiveRecord::Schema.define(version: 20140308152326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "accounts", force: true do |t|
     t.string   "timezone"
@@ -147,6 +149,16 @@ ActiveRecord::Schema.define(version: 20140303150910) do
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
   add_index "participations", ["venue_id"], name: "index_participations_on_venue_id", using: :btree
 
+  create_table "pg_search_documents", force: true do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
+
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -184,6 +196,7 @@ ActiveRecord::Schema.define(version: 20140303150910) do
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
+    t.integer  "play_count",    default: 0
   end
 
   create_table "users", force: true do |t|
