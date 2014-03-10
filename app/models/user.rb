@@ -67,6 +67,11 @@ class User < ActiveRecord::Base
   validates :slug, :presence => true
   validates_acceptance_of :accept_terms_of_use
 
+  include PgSearch
+  multisearchable against: [:firstname, :lastname]
+  pg_search_scope :search, against: [:firstname, :lastname],
+    using: { tsearch: { prefix: true } }
+
   def name
     "#{firstname} #{lastname}"
   end
