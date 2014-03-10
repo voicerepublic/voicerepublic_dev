@@ -40,8 +40,6 @@ gem 'eu_central_bank'              # financial exchange rates
 gem 'cancan'                       # authorization/privileges
 gem 'private_pub'                  # push service
 gem 'thin'                         # faster development-server
-gem 'thinking-sphinx','2.0.13'     # indexed search
-#gem 'mysql2', '0.3.13'            # stupid dependency of thinking-sphinx
 gem "dynamic_form"                 # form helper for errors
 gem 'whenever', '0.8.4'            # create cron-jobs
 gem 'haml-rails'
@@ -51,6 +49,7 @@ gem 'unicorn'
 gem "select2-rails"
 gem "transitions", :require => ["transitions", "active_model/transitions"]
 gem 'auphonic'
+gem 'pg_search', github: 'branch14/pg_search'
 
 group :development, :test, :staging do
   # gem 'rails_view_annotator'
