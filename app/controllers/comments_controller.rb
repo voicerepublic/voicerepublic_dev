@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   def create
     venue = @article.venue
     comment = @article.comments.build(params[:comment])
-    comment.user = current_or_guest_user
+    comment.user = current_user
 
     if comment.save
       send_email(comment)
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
   private
 
   def send_email(comment)
-    users = comment.article_venue.users - [current_or_guest_user]
+    users = comment.article_venue.users - [current_user]
     users.each do |user|
       UserMailer.delay(queue: 'mail').new_comment(comment, user)
     end

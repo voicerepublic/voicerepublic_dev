@@ -1,10 +1,10 @@
-class Api::MessagesController < ApplicationController
+class Api::MessagesController < Api::BaseController
 
   before_action :authenticate_user!
   before_action :set_talk
 
   def create
-    user = current_or_guest_user
+    user = current_user
 
     # TODO: move into ability class, use cancan
     # TODO: check resulting queries, maybe use eager loading
