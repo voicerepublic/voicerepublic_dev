@@ -16,7 +16,7 @@
   - user.account.languages.each do |lang|
     = lang
 
-  - if current_or_guest_user && current_or_guest_user.id != user.id
+  - if current_user && current_user.id != user.id
     %ul.unstyled.user-actions
       %li
         = link_to(new_message_path(:receiver_id => user.id), :remote => true ) do

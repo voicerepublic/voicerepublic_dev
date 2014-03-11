@@ -1,4 +1,3 @@
-# TODO setup thinking sphinx
 # TODO setup whenever
 # see https://semaphoreapp.com/blog/2013/11/26/capistrano-3-upgrade-guide.html
 

@@ -28,10 +28,6 @@ every 40.minutes, :roles => [:app] do
   rake "talks:remind"
 end
 
-every 67.minutes, :roles => [:app] do
-  rake "thinking_sphinx:reindex"
-end
-
 every 60.minutes, :roles => [:app] do
   rake "cleanup:guests"
 end

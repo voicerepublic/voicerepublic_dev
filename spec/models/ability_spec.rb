@@ -2,90 +2,74 @@ require 'spec_helper'
 
 describe Ability do
 
-  before do
-    @owner = FactoryGirl.create(:user)
-    @other = FactoryGirl.create(:user)
-  end
+  let(:owner) { FactoryGirl.create(:user) }
+  let(:other) { FactoryGirl.create(:user) }
+  let(:guest) { FactoryGirl.create(:user, guest: true) }
   
   describe User do
-
     it "allows to manage user by itself" do
-      Ability.new(@owner).can?(:manage, @owner).should be_true
+      Ability.new(owner).can?(:manage, owner).should be_true
     end
-
     it "denies to manage user by other" do
-      Ability.new(@other).can?(:manage, @owner).should be_false
+      Ability.new(other).can?(:manage, owner).should be_false
     end
-
+    it "denies to manage user for guests" do
+      Ability.new(guest).can?(:manage, guest).should be_false
+    end
   end
 
   describe Account do
-
     it "allows to manage account by owner" do
-      Ability.new(@owner).can?(:manage, @owner.account).should be_true
+      Ability.new(owner).can?(:manage, owner.account).should be_true
     end
-
     it "denies to manage account by other" do
-      Ability.new(@other).can?(:manage, @owner.account).should be_false
+      Ability.new(other).can?(:manage, owner.account).should be_false
     end
-
+    it "denies to manage account for guests" do
+      Ability.new(guest).can?(:manage, guest.account).should be_false
+    end
   end
 
   describe Venue do
-
-    before do
-      @venue = FactoryGirl.create(:venue, user: @owner)
-    end
-    
+    let(:venue) { FactoryGirl.create(:venue, user: owner) }
     it "allows to manage venues by owner" do
-      Ability.new(@owner).can?(:manage, @venue).should be_true
+      Ability.new(owner).can?(:manage, venue).should be_true
     end
-
     it "denies to manage venues by other" do
-      Ability.new(@other).can?(:manage, @venue).should be_false
+      Ability.new(other).can?(:manage, venue).should be_false
     end
-
     it "allows to create venues as registered user (nonguest)" do
-      Ability.new(@owner).can?(:create, Venue.new).should be_true
+      Ability.new(owner).can?(:create, Venue.new).should be_true
     end
-
     it "denies to create venues as guest" do
-      guest = FactoryGirl.create(:user, guest: true)
       Ability.new(guest).can?(:create, Venue.new).should be_false
     end
-
   end
 
   describe Article do
-
-    before do
-      @article = FactoryGirl.create(:article, user: @owner)
-    end
-
+    let(:article) { FactoryGirl.create(:article, user: owner) }
     it "allows to manage articles by owner" do
-      Ability.new(@owner).can?(:manage, @article).should be_true
+      Ability.new(owner).can?(:manage, article).should be_true
     end
-
     it "denies to manage articles by other" do
-      Ability.new(@other).can?(:manage, @article).should be_false
+      Ability.new(other).can?(:manage, article).should be_false
     end
-    
+    it "denies to create articles as guest" do
+      Ability.new(guest).can?(:create, Article.new).should be_false
+    end
   end
 
   describe Comment do
-
-    before do
-      @comment = FactoryGirl.create(:comment, user: @owner)
-    end
-
+    let(:comment) { FactoryGirl.create(:comment, user: owner) }
     it "allows to manage comments by owner" do
-      Ability.new(@owner).can?(:manage, @comment).should be_true
+      Ability.new(owner).can?(:manage, comment).should be_true
     end
-    
     it "denies to manage comments by other" do
-      Ability.new(@other).can?(:manage, @comment).should be_false
+      Ability.new(other).can?(:manage, comment).should be_false
     end
-  
+    it "denies to create comments as guest" do
+      Ability.new(guest).can?(:create, Comment.new).should be_false
+    end
   end
 
 end

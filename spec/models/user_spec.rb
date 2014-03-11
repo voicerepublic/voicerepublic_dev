@@ -41,4 +41,16 @@ describe User do
     end
   end
 
+  describe 'search' do
+    it 'has a scope' do
+      user0 = FactoryGirl.create(:user, firstname: 'MrBruce')
+      user1 = FactoryGirl.create(:user, lastname: 'MrBruce')
+      user2 = FactoryGirl.create(:user, firstname: 'Mr', lastname: 'Bruce')
+      results = User.search('MrBruce')
+      results.should include(user0)
+      results.should include(user1)
+      results.should_not include(user2)
+    end
+  end
+
 end
