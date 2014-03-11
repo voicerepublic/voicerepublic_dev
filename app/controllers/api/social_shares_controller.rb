@@ -1,12 +1,12 @@
 class Api::SocialSharesController < ApplicationController
 
-  skip_before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
   def create
     @social_share            = SocialShare.new(params[:social_share])
     @social_share.request_ip = request.remote_addr
     @social_share.user_agent = request.user_agent
-    @social_share.user_id    = current_or_guest_user.id
+    @social_share.user_id    = current_user.id
 
     respond_to do |format|
       if @social_share.save
@@ -19,7 +19,7 @@ class Api::SocialSharesController < ApplicationController
 
   private
   def social_share_params
-    params.require(:social_share).permit(:request_ip, :user_agent, :user_id,
+    params.require(:social_share).permit(:request_ip, :user_agent,
                                          :shareable_id, :shareable_type,
                                          :social_network)
   end

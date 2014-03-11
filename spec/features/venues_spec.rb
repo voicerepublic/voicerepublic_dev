@@ -37,13 +37,14 @@ describe "Venues" do
       page.click_button 'Save'
       page.should have_content(new_title)
     end
-    describe "Sharing" do
 
+    describe "Sharing" do
       it "can be shared via email" do
         visit venue_path(id: @venue)
         within("#social_share .mail") do
           page.should have_link("")
-          find('a')['href'].should =~ /#{ERB::Util.url_encode(I18n.t('social_share.mail_body'))}/
+          pat = /#{ERB::Util.url_encode(I18n.t('social_share.mail_body'))}/
+          find('a')['href'].should =~ pat
         end
       end
 

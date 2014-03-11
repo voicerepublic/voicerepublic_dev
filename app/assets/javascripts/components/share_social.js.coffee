@@ -29,8 +29,7 @@ initialize = (element, selector) ->
       return
     )
 
-
 $("#{attribute}").each (index, element) ->
   value = $($(element).attr(attribute))
   initialize element, value
-  console.log(element)
+

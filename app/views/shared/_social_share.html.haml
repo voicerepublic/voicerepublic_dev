@@ -11,4 +11,4 @@
     = mail_to "your@friend.com",
       raw(image_tag("social/email.png")),
       subject: t('social_share.mail_subject'),
-      body: t('social_share.mail_greeting') + nl + nl + t('social_share.mail_body') + request.original_url + nl + nl + t('social_share.mail_goodbye') + nl + current_or_guest_user.name
+      body: t('social_share.mail_greeting') + nl + nl + t('social_share.mail_body') + request.original_url + nl + nl + t('social_share.mail_goodbye') + nl + current_user.name
