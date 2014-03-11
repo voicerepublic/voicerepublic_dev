@@ -13,7 +13,7 @@ describe "Talks" do
       SocialShare.count.should eq(0)
       visit venue_talk_path 'en', @venue, @talk
       page.execute_script('$("#social_share .facebook").click()')
-      sleep 0.1
+      sleep 0.2
 
       share_window = page.driver.browser.window_handles.last
       page.within_window share_window do
