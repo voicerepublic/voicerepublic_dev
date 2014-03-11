@@ -11,27 +11,35 @@ class ApplicationController < ActionController::Base
   around_filter :user_time_zone, :if => :current_user
   after_filter :set_csrf_cookie_for_ng
 
+  # # TODO move to trickery
+  # before_filter :log_callback_chain
+  # def log_callback_chain
+  #   fmt = "  %-14s %-6s %-22s %s"
+  #   logger.debug 'Callback chain'
+  #   _process_action_callbacks.each do |cb|
+  #     logger.debug fmt % [cb.name, cb.kind, cb.klass.name, cb.filter]
+  #   end
+  # end
+
   def generate_guest_user?
     true
   end
 
   # hack to authenticate guest users as well
   def authenticate_user!
-    user = super
-    return user if user
-    
     id = session[:guest_user_id]
-    if id && guest = User.find(id)
-      logger.info "authenticated guest #{id}"
-      return guest
+    if id && @guest_user = User.find(id)
+      logger.info "\033[32mAuthenticated guest #{id}\033[0m"
+      return @guest_user
     end
+
+    super
   end
 
   def current_user
-    user = super
+    user = @guest_user || super
     return user if user
     return nil unless generate_guest_user?
-
     @guest_user ||= create_guest_user
   end
 
@@ -76,14 +84,15 @@ class ApplicationController < ActionController::Base
                         lastname: name,
                         guest: true )
     user.save! validate: false
-    # sign_in :user, user
+    session[:guest_user_id] = user.id
     user
   end
   
   # get locale from browser settings
   def extract_locale_from_accept_language_header
     begin
-      return request.env['HTTP_ACCEPT_LANGUAGE'] ? request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first : 'en'
+      accept = request.env['HTTP_ACCEPT_LANGUAGE']
+      return (accept && accept.scan(/^[a-z]{2}/).first) || 'en'
     rescue Exception => e
       logger.error("Application#extract_locale_from_accept_language - #{e.message}")
       'en'
@@ -97,12 +106,14 @@ class ApplicationController < ActionController::Base
       _locale = extract_locale_from_accept_language_header
     end
     I18n.locale = %w{de en}.include?(_locale) ? _locale : I18n.default_locale
-    logger.debug "* Locale set to '#{I18n.locale}'"
   end
   
   def set_last_request
     if current_user
-      current_user.update_attribute(:last_request_at, Time.now) if ( current_user.last_request_at.nil? ) || ( current_user.last_request_at < Time.now - 1.minute )
+      if ( current_user.last_request_at.nil? ) ||
+        ( current_user.last_request_at < Time.now - 1.minute )
+        current_user.update_attribute(:last_request_at, Time.now) 
+      end
     end
   end
   
