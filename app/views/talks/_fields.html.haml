@@ -1,22 +1,28 @@
 = f.error_messages
 
-= f.text_field :title
-= f.text_field :teaser
-= f.label :tag_list, :class => 'control-label' do
-  = t('.tag_list')
-.controls
-  = f.text_field :tag_list, :class => 'tagList input-block-level'
-.help-block.help-tags
-  = t('.help_tags')
+= f.text_field :title, placeholder: t('.title')
+= f.text_field :teaser, placeholder: t('.teaser')
+= f.text_field :tag_list, :class => 'tagList', placeholder: t('.tag_list')
 
-%p TODO make this a datepicker:
-= f.text_field :starts_at
+%br
+%br
+-#testdatepicker  
+.row
+	.large-4.medium-4.columns
+		= f.input :starts_at_date, input_html: {'data-date' => ''}
+	.large-2.medium-2.columns
+		= f.input :starts_at_time, input_html: {'data-time' => ''}
+
+		= f.object.starts_at
+
+	.large-6.medium-6.columns
 
 = f.select :duration, Settings.durations
 = f.file_field :image
 
-%p TODO guest selection
+= f.input :guest_list, input_html: { class: 'guestList' }
+
 = render 'shared/wysihtml5_toolbar'
 = f.text_area :description, 'data-wysiwyg' => true
 = f.label :record do
-  = f.check_box :record
+	= f.check_box :record

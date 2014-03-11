@@ -1,4 +1,1 @@
-.row
-  .large-12.columns
-    %h2= t('.edit_venue')
-    = render 'form'
+= render partial: 'form', locals: { form_title: t(".edit_venue") }

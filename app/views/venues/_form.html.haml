@@ -1,84 +1,42 @@
-= form_for @venue, html: { multipart: true } do |f|
+= simple_form_for @venue do |f|
+  
+  .header-block(style="background-image: url(#{@venue.image.url(:medium)})" data-show-upload="venue_image")
 
-  .row-fluid
-    .span8.venue-form-fields-left
-      .control-group
-        = f.label :title, :class => 'control-label' do
-          = t('.title')
-        .controls
-          = f.text_field :title, :class => "input-block-level"
-        .help-block
-          = t('.help_title')          
-      .control-group
-        = f.label :teaser, :class => 'control-label' do
-          = t('.teaser')
-        .controls
-          = f.text_area :teaser, :rows => 2, :class => "input-block-level"
-        .help-block
-          = t('.help_summery')          
-      .control-group
-        = f.label :description, :class => 'control-label' do
-          = t('.description')
-        .controls
-          = f.text_area :description, :rows => 4, :class => "input-block-level"
-        .help-block
-          = t('.help_description')          
-      .control-group
-        = f.label :tag_list, :class => 'control-label' do
-          = t('.tag_list')
-        .controls
-          = f.text_field :tag_list, :class => 'tagList input-block-level'
-        .help-block.help-tags
-          = t('.help_tags')
-      .control-group.venue-form-image
-        .fileupload.fileupload-new{:data => {:provides => "fileupload"}}
-          .fileupload-new.thumbnail
-            = image_tag @venue.image.url(:medium)
-          .fileupload-preview.fileupload-exists.thumbnail{:html => 'style="width: 100%;line-height: 20px;'}
-          .box
-            %span.btn.btn-file
-              %span.fileupload-new
-                = t('.select')
-              %span.fileupload-exists
-                = t('.change')
-              = f.file_field :image
+    .row
+      .large-8.medium-8.large-centered.medium-centered.columns
+        %h2= form_title
+    .row
+      .large-8.medium-8.large-centered.medium-centered.columns
+        = f.error_notification
+    .row
+      .large-8.medium-8.large-centered.medium-centered.columns
+        = f.text_field :title, placeholder: t('.title')
+        = f.text_area :teaser, :rows => 2, placeholder: t('.teaser')         
+        = f.text_area :description, :rows => 4, placeholder: t('.description')
+        = f.text_field :tag_list, :class => 'tagList', placeholder: t('.tag_list')
+        = f.file_field :image
 
-    .span4.venue-form-description
-      = image_tag "icons/venue-icon-host.png", :class => "venue-form-icon"
-      = render "venues/txt/venue_desc"
+    -# .event-box.clearfix
+    -#   - if upcoming_events.any?
+    -#     %header.event-header
+    -#       %h2= t('.your_talk')
+    -#     = f.fields_for :events, upcoming_events do |ef|
+    -#       = render 'venues/event_fields', :ef => ef
+    -# FIXME event is now called talk
 
-  -# .event-box.clearfix
-  -#   - if upcoming_events.any?
-  -#     %header.event-header
-  -#       %h2= t('.your_talk')
-  -#     = f.fields_for :events, upcoming_events do |ef|
-  -#       = render 'venues/event_fields', :ef => ef
-  -# FIXME event is now called talk
+
+  %hr
   - if @venue.new_record?
-    .event-box.clearfix
-      %header.event-header
+    .row
+      .large-10.medium-10.large-centered.medium-centered.columns
         %h2= t('.your_talk')
-      = f.fields_for :talks, @venue.talks.build do |n|
-        = render 'talks/fields', :f => n
-   
-  .pull-right.clearfix
-    = f.submit nil, :class => 'btn btn-primary'
-    = link_to t('.cancel', :default => t("helpers.links.cancel")),
-      (@venue.persisted? ? venue_path(@venue) : venues_path),
-      :class => 'btn'
+        - talk = @venue.talks.first || @venue.talks.build
+        = f.fields_for :talks, talk do |n|
+          = render 'talks/fields', :f => n
+        = f.submit nil, :class => 'button'
+        = link_to t('.cancel', :default => t("helpers.links.cancel")),
+          (@venue.persisted? ? venue_path(@venue) : venues_path)
 
-  .clearfix
-
-  -# PAST EVENTS
-
-  -#- if @venue.events.past.any?
-  -#  %header.event-header
-  -#    %h3.layout-title= t('.archive')
-  -#    %hr.venue-form-archive-box-hr
-  -#  - @venue.events.past.each do |event|
-  -#    .row-fluid
-  -#      .span12
-  -#        .venue-upcoming-event-time
-  -#          = l event.start_time, :format => :short
-  -#        %h3.venue-upcoming-event-title
-  -#          = event.title
+  .row
+    .large-12.panel.callout.radius
+      = render "venues/txt/venue_desc"

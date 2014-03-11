@@ -672,8 +672,6 @@ en:
       confirm_change_date: All participants will be notified of your changes
     venue_list: Venues
     new_venue: Create Venue
-    facebook_value_template:
-      join_the_venue: ! 'Join the venue: %{title}'
     show:
       by: by
       venue: Venue
@@ -691,7 +689,6 @@ en:
       venue: Venue
       minutes: Minutes
       ongoing_venue: Venue active
-      time_until_takeoff: ! '%{time} until start'
       venue_moderated_by: Moderated by %{name}
       leave_venue_popup: This link opens a new tab!
     venue_show_static:
@@ -724,7 +721,7 @@ en:
     venue_show_avatar:
       leave_venue_popup: This link opens a new tab!
     new:
-      create_new_venue: Create a new Venue
+      create_venue: Create Venue
       available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Venue
       create_kluuu: create a KluuU now
     new_join:
@@ -766,8 +763,9 @@ en:
       venue_is_over: past venue
     form:
       featured_from: Featured from
-      title: Title of venue
-      description: Description of venue
+      title: Title
+      teaser: Teaser
+      description: Description
       tag_list: Tags
       start_time: Select start time
       duration: Duration of your talk in minutes
@@ -777,7 +775,7 @@ en:
       timepick_help: ! 'Example: 18:15'
       settings: Settings
       record: Record this talk
-      your_talk: Your talk
+      your_talk: Create your first Talk
       event_title: Talk title
       archive: Archive
     edit_start_time:
@@ -805,6 +803,11 @@ en:
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
+  talks:
+    fields:
+      title: Title
+      teaser: Teaser
+      tag_list: Tag list
   articles:
     venue_form:
       write_an_article: write an article
