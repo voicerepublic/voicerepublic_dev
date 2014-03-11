@@ -3,6 +3,8 @@ Welcome to Kluuu
 
 ![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
+"Work is the curse of the drinking classes." -- Gentleman Rhymer
+
 ## Build status
 
 * Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de

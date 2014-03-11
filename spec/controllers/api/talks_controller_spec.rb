@@ -7,7 +7,7 @@ describe Api::TalksController do
     before do
       @current_user = FactoryGirl.create(:user)
       request.env['warden'].stub :authenticate! => @current_user
-      controller.stub :current_or_guest_user => @current_user
+      controller.stub :current_user => @current_user
       @current_user.reload
       venue = FactoryGirl.create(:venue, user: @current_user)
       @talk = FactoryGirl.create(:talk, venue: venue)
@@ -103,7 +103,7 @@ describe Api::TalksController do
   end
 
   it 'should authenticate user' do
-    put :update, id: 1
+    put :update, id: 'invalid_id'
     response.status.should be(302)
   end
 

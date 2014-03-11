@@ -1,9 +1,9 @@
-- user_participates = @venue.users.include?(current_or_guest_user)
+- user_participates = @venue.users.include?(current_user)
 
 .venue-show-description-box
 
   -#title and host
-  - tmp_class = (@venue.user != current_or_guest_user and !user_participates) ? 'button-padding-right':''
+  - tmp_class = (@venue.user != current_user and !user_participates) ? 'button-padding-right':''
   %header.well-large.venue-header-static{:class => tmp_class}
     %h2.venue-title
       = @venue.title
@@ -21,7 +21,7 @@
 
     = simple_format @venue.description
 
-    - if @venue.user != current_or_guest_user
+    - if @venue.user != current_user
     
       - if user_participates
         = link_to( t('helpers.venue_actions.unjoin_venue'), participation_path(:venue_id => @venue.id), :method => :delete, |
