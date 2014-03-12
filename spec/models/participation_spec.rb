@@ -11,8 +11,7 @@ describe Participation do
   end
 
   it 'validates uniqueness of venue in scope user' do
-    pending "@munen: shouldn't that work?"
-    p0 = FactoryGirl.build(:participation)
+    p0 = FactoryGirl.create(:participation)
     p1 = FactoryGirl.build(:participation, venue: p0.venue, user: p0.user)
     expect(p0.venue_id).to eq(p1.venue_id)
     expect(p0.user_id).to eq(p1.user_id)
