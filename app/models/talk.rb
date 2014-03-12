@@ -129,15 +129,17 @@ class Talk < ActiveRecord::Base
   end 
 
   def starts_at_time=(time)
-    t = DateTime.parse(time)
+    datetime = DateTime.parse(time)
     self.starts_at ||= DateTime.new
-    self.starts_at.change hour: t.hour, min: t.min
+    attrs = { hour: datetime.hour, min: datetime.min }
+    self.starts_at = starts_at.change(attrs)
   end
 
   def starts_at_date=(date)
-    t = DateTime.parse(date)
+    datetime = DateTime.parse(date)
     self.starts_at ||= DateTime.new
-    self.starts_at.change year: t.year, month: t.month, day: t.day
+    attrs = { year: datetime.year, month: datetime.month, day: datetime.day }
+    self.starts_at = starts_at.change(attrs)
   end 
 
   def config_for(user)
