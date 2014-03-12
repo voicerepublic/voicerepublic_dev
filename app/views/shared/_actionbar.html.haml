@@ -7,15 +7,11 @@
         %a{href: "#"} Menu
     %h1.top-bar-vr-logo.text-center
       = link_to root_path do
-        =# image_tag "logo.png", :alt => "Voice Republic Logo" 
-        VR 
+        = image_tag "logo.png", :alt => "Voice Republic Logo" 
 
     %section.top-bar-section
       / Right Nav Section
-      %ul.right
-        %li
-          = link_to '/en/venues/72/talks/9' do
-            live-talk    
+      %ul.right  
         %li.has-dropdown
           = link_to '#' do #TODO
             = image_tag current_user.account.portrait(:large), :alt => current_user.name, size: '25x25'
@@ -38,7 +34,8 @@
 
       / Left Nav Section
       %ul.left
-        %li
+        %li.top-bar-search-box
           = form_tag "/search", :class => 'navbar-search form-search' do
-            = search_field_tag 'query', params[:query], :placeholder => t('.search')
-            =# button_tag :type => "submit", :class => "" do %i.icon-search #TODO
+            = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')
+            = button_tag :type => "submit", :class => "search-lupe" do
+              %i.fi-magnifying-glass
