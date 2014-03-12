@@ -70,7 +70,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
+  validates :venue, :title, :starts_at, :ends_at, :tag_list, :duration, presence: true
 
   before_validation :set_ends_at
   after_create :notify_participants
@@ -103,7 +103,7 @@ class Talk < ActiveRecord::Base
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
-  
+
   # returns an array of json objects
   def guest_list
     guests.map(&:for_select).to_json
@@ -128,7 +128,7 @@ class Talk < ActiveRecord::Base
 
   def starts_at_date
     starts_at
-  end 
+  end
 
   def starts_at_time=(time)
     datetime = DateTime.parse(time)
@@ -142,7 +142,7 @@ class Talk < ActiveRecord::Base
     self.starts_at ||= DateTime.new
     attrs = { year: datetime.year, month: datetime.month, day: datetime.day }
     self.starts_at = starts_at.change(attrs)
-  end 
+  end
 
   def config_for(user)
     LivepageConfig.new(self, user).to_json
@@ -209,7 +209,7 @@ class Talk < ActiveRecord::Base
   private
 
   def set_ends_at
-    return unless starts_at
+    return unless starts_at && duration
     self.ends_at = starts_at + duration.minutes
   end
 
