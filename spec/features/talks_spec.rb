@@ -24,7 +24,8 @@ describe "Talks" do
     end
 
     # FIXME: this spec is failing sometimes
-    pending "does not lose tags on failed validation", js: true do
+    it "does not lose tags on failed validation", js: true do
+      pending "\u26A0   S O M E T I M E S   F A I L I N G   S P E C"
       visit edit_venue_talk_path 'en', @venue, @talk
       fill_in :talk_title, with: ""
       click_on I18n.t 'helpers.submit.submit'
