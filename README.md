@@ -3,6 +3,8 @@ Welcome to Kluuu
 
 ![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
+"Work is the curse of the drinking classes." -- Gentleman Rhymer
+
 ## Build status
 
 * Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
@@ -21,19 +23,21 @@ Setup
     bundle
     rake db:setup
     rake db:migrate
+    rake rtmp:build
+    rake setup
 
-### Thinking sphinx
+### New Search
 
-Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
+Make sure `postgresql-contrib-9.1` is installed.
 
-    bundle exec rake thinking_sphinx:configure
-    bundle exec rake thinking_sphinx:index
-    bundle exec rake thinking_sphinx:start
+    zeus rake pg_search:multisearch:rebuild\[Talk\]
+    zeus rake pg_search:multisearch:rebuild\[Venue\]
+    zeus rake pg_search:multisearch:rebuild\[User\]
 
 ### nginx/rtmp server (Debian 7 & optional)
 
 Make sure `libpcre++-dev` is installed. Run `rake rtmp:build`. The
-config file is located here `config/rtmp.conf`. See
+config file is located here `config/rtmp.conf.erb`. See
 `lib/tasks/rtmp.rake` for more details.
 
 
@@ -138,6 +142,17 @@ Platforms
 ### Staging
 
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
+
+
+
+Console Cheat Sheet
+-------------------
+
+### Feature three randomly selected talks since yesterday
+
+    Talk.order('RANDOM()').limit(3).each do |t|
+      t.update_attribute :featured_from, 1.day.ago
+    end
 
 
 Audio cheat sheet

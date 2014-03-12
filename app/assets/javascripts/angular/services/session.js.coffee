@@ -75,7 +75,8 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
         # TODO check for brwoser compatibility
-        $timeout startTalk, config.talk.starts_in * 1000
+        if config.talk.state == 'prelive'
+          $timeout startTalk, config.talk.starts_in * 1000
       onleaveHostOnAir: ->
         blackbox.unpublish()
         config.flags.onair = false

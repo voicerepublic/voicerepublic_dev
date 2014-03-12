@@ -16,24 +16,28 @@ class UserMailer < ActionMailer::Base
 
   # app/models/talk.rb:140 (delayed)
   def new_talk(talk, user)
+    return if talk.venue.options[:no_email]
     interpolate! user, talk, url: venue_talk_url(:en, talk.venue, talk)
     default_mail user.email_with_name
   end
 
   # lib/tasks/talks.rake:9
   def reminder(talk, user)
+    return if talk.venue.options[:no_email]
     interpolate! user, talk, url: venue_talk_url(:en, talk.venue, talk)
     default_mail user.email_with_name
   end
 
   # app/controllers/articles_controller.rb:120 (delayed)
   def new_article(article, user)
+    return if article.venue.options[:no_email]
     interpolate! user, article, url: venue_article_url(:en, article.venue, article)
     default_mail user.email_with_name
   end
 
   # app/controllers/comments_controller.rb:25 (delayed)
   def new_comment(comment, user)
+    return if comment.article.venue.options[:no_email]
     interpolate! user, comment
     interpolate! url: venue_article_url(:en, comment.article.venue, comment.article)
     default_mail user.email_with_name

@@ -11,10 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303150910) do
+ActiveRecord::Schema.define(version: 20140309111121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "accounts", force: true do |t|
     t.string   "timezone"
@@ -147,6 +149,29 @@ ActiveRecord::Schema.define(version: 20140303150910) do
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
   add_index "participations", ["venue_id"], name: "index_participations_on_venue_id", using: :btree
 
+  create_table "pg_search_documents", force: true do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
+
+  create_table "social_shares", force: true do |t|
+    t.integer  "shareable_id"
+    t.string   "shareable_type"
+    t.string   "request_ip"
+    t.string   "user_agent"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "social_network"
+  end
+
+  add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
+
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -184,6 +209,7 @@ ActiveRecord::Schema.define(version: 20140303150910) do
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
+    t.integer  "play_count",    default: 0
   end
 
   create_table "users", force: true do |t|
@@ -223,8 +249,8 @@ ActiveRecord::Schema.define(version: 20140303150910) do
     t.datetime "start_time"
     t.text     "description"
     t.string   "title"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "duration"
     t.text     "teaser"
     t.datetime "featured_from"
@@ -233,6 +259,7 @@ ActiveRecord::Schema.define(version: 20140303150910) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.text     "options",            default: "--- {}\n"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
