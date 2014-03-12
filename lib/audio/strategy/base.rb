@@ -34,7 +34,7 @@ module Audio
         end
       end
 
-      def_delegators :setting, :name, :opts, :journal
+      def_delegators :setting, :name, :opts, :journal, :fragments, :users, :file_start
 
       def input
         nil

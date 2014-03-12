@@ -18,6 +18,21 @@ class TalkSetting
     self.journal = read_journal
   end
 
+  def fragments(user=nil)
+    return journal['record_done'] if user.nil?
+    fragments.select { |f| f.first.include?("u#{user}-") }
+  end
+
+  def users
+    fragments.map do |path, time|
+      path.match(/t\d+-u(\d+)-/).to_a[1]
+    end.uniq.sort
+  end
+
+  def file_start(user=nil)
+    fragments(user).map { |f| f.last }.sort.first.to_i
+  end
+
   private
 
   # the content of the journal file might look like this:

@@ -9,11 +9,11 @@ module Audio
     class KluuuMerge < Base
 
       def inputs
-        journal['record_done'].map { |f| f.first.sub('.flv', '.wav') }
+        fragments.map { |f| f.first.sub('.flv', '.wav') }
       end
 
       def run
-        merge_wavs 
+        merge_wavs(fragments, output)
         output
       end
 
@@ -25,8 +25,7 @@ module Audio
       #
       #   [[filename, datetimestr], [filename, datetimestr], ...]
       #
-      def merge_wavs_cmd
-        streams = journal['record_done']
+      def merge_wavs_cmd(streams, outfile)
         # parse datetime
         streams = streams.map { |path, time| [path, parse_ts(time)] }
         # sort by datetime
@@ -38,7 +37,7 @@ module Audio
           delay = ((datetime - start_at) * 24 * 60 * 60).to_i
           sox << " \"|sox #{name.sub('.flv', '')}.wav -p pad #{delay}\""
         end
-        sox << " #{output}"
+        sox << " #{outfile}"
       end
 
       def parse_ts(str)
