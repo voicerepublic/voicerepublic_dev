@@ -66,6 +66,7 @@ class Talk < ActiveRecord::Base
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
   has_many :messages, dependent: :destroy
+  has_many :social_shares, as: :shareable
 
   validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
 
@@ -202,7 +203,7 @@ class Talk < ActiveRecord::Base
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }
       PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
-      runner.run(name) 
+      runner.run(name)
     end
     # TODO: save transcoded audio formats
 

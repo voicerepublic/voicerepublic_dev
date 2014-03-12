@@ -37,9 +37,31 @@ describe "Venues" do
       page.click_button 'Save'
       page.should have_content(new_title)
     end
-  end
 
-  describe "GET a new venue" do
+    describe "Sharing" do
+      it "can be shared via email" do
+        visit venue_path(id: @venue)
+        within("#social_share .mail") do
+          page.should have_link("")
+          pat = /#{ERB::Util.url_encode(I18n.t('social_share.mail_body'))}/
+          find('a')['href'].should =~ pat
+        end
+      end
+
+      it "can be shared to social networks and saves statistics", driver: :chrome do
+        SocialShare.count.should eq(0)
+        visit venue_path(id: @venue)
+        page.execute_script('$("#social_share .facebook").click()')
+        sleep 0.2
+
+        share_window = page.driver.browser.window_handles.last
+        page.within_window share_window do
+          current_url.should match(/facebook.com/)
+        end
+
+        SocialShare.count.should eq(1)
+      end
+    end
   end
 
 end
