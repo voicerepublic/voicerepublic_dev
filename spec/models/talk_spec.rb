@@ -172,7 +172,7 @@ describe Talk do
     talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now)
     expect(Talk.featured).to eq([talk1, talk0])
     Timecop.freeze(25.hours.ago) do
-      expect(Talk.featured).to eq([talk0])
+      expect(Talk.featured).to include(talk0)
     end
   end
 
