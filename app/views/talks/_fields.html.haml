@@ -1,24 +1,28 @@
 = f.error_messages
 
-= f.text_field :title, placeholder: t('.title')
-= f.text_field :teaser, placeholder: t('.teaser')
-= f.text_field :tag_list, :class => 'tagList', placeholder: t('.tag_list')
+.header-block(style="background-image: url(#{@venue.image.url(:medium)})" data-show-upload="talk_image")
+	
+	%h2= form_title
+	= f.text_field :title, placeholder: t('.title')
+	= f.text_field :teaser, placeholder: t('.teaser')
+	= f.text_field :tag_list, :class => 'tagList', placeholder: t('.tag_list')
 
-%br
-%br
--#testdatepicker  
-.row
-	.large-4.medium-4.columns
-		= f.input :starts_at_date, input_html: {'data-date' => ''}
-	.large-2.medium-2.columns
-		= f.input :starts_at_time, input_html: {'data-time' => ''}
+	%br
+	%br
+	-#testdatepicker  
+	.row
+		.large-4.medium-4.columns
+			= f.input :starts_at_date, input_html: {'data-date' => ''}
+		.large-2.medium-2.columns
+			= f.input :starts_at_time, input_html: {'data-time' => ''}
 
-		= f.object.starts_at
+			= f.object.starts_at
 
-	.large-6.medium-6.columns
+		.large-6.medium-6.columns
 
-= f.select :duration, Settings.durations
-= f.file_field :image
+	= f.select :duration, Settings.durations
+	= f.file_field :image
+
 
 = f.input :guest_list, input_html: { class: 'guestList' }
 

@@ -1,2 +1,1 @@
-= render 'form'
-%p= link_to t('.cancel'), @venue
+= render partial: 'form', locals: { form_title: t(".new_talk") }
