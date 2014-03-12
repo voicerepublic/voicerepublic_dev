@@ -22,7 +22,8 @@ describe Talk do
       expect(@talk).to_not be_valid
     end
     # FIXME: I have seen this spec fail in a 'sometimes fashion'
-    pending 'provides a method starts_in' do
+    it 'provides a method starts_in' do
+      pending "S O M E T I M E S   F A I L I N G   S P E C"
       expect(@talk.starts_in).to be > 0
     end
   end
@@ -95,7 +96,7 @@ describe Talk do
   # the spec works for me, on circleci it fails, since the generated talks
   # id is 5 instead of 1, this doesn't work well with the fixtures
   it 'nicely postprocesses audio' do
-    pending "/!\ works on my machine -- fails on circleci, see comments"
+    pending "WORKS ON MY MACHINE -- FAILS ON CIRCLECI"
     begin
       talk = FactoryGirl.create(:talk, record: true)
       # move fixtures in place
@@ -169,7 +170,7 @@ describe Talk do
 
   # FIXME works on my machine -- fails on circleci
   it 'does not send email with option no_emails' do
-    pending "\u026A   works on my machine -- fails on circleci"
+    pending "WORKS ON MY MACHINE -- FAILS ON CIRCLECI"
     venue = FactoryGirl.create(:venue, options: { no_emails: true })
     talk = FactoryGirl.create(:talk, venue: venue)
     expect(ActionMailer::Base.deliveries).to be_empty

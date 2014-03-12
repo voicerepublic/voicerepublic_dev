@@ -14,7 +14,7 @@ feature "User edits own profile" do
   end
 
   scenario "setting a new password" do
-    pending "\u26A0   capybara click does not work here"
+    pending "FIXME: CAPYBARA CLICK DOES NOT WORK HERE"
     #page.find('#set_new_password').click
     page.execute_script "$('#change-password').toggle()"
     page.fill_in 'user_password', with: '654321'
@@ -31,7 +31,7 @@ feature "User edits own profile" do
   end
 
   scenario "uploading a avatar image" do
-    pending '\u26A0   activate spec when upload-avater branch is merged'
+    pending 'ACTIVATE SPEC WHEN UPLOAD-AVATER BRANCH IS MERGED'
     some_image = Rails.root.join('app/assets/images/logo.png')
     page.attach_file 'user_avatar', some_image
     page.click_button 'Save'
