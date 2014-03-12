@@ -70,7 +70,8 @@ class User < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:firstname, :lastname]
   pg_search_scope :search, against: [:firstname, :lastname],
-    using: { tsearch: { prefix: true } }
+    using: { tsearch: { prefix: true } },
+    ignoring: :accents
 
   def name
     "#{firstname} #{lastname}"
@@ -113,7 +114,7 @@ class User < ActiveRecord::Base
   end
 
   def details_for(talk)
-    { 
+    {
       id: id,
       name: name,
       role: role_for(talk),

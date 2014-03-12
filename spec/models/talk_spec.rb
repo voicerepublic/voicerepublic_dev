@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe Talk do
@@ -129,7 +130,7 @@ describe Talk do
       files = files.map { |f| f.sub('.flv', '.wav') }
       FileUtils.rm(files)
       FileUtils.rm(result)
-      # %x[ aplay #{result.sub('.m4a', '.wav')} ] 
+      # %x[ aplay #{result.sub('.m4a', '.wav')} ]
       FileUtils.rm(result.sub('.m4a', '.wav'))
       FileUtils.rm("#{talk.recording_path}.journal")
     end
