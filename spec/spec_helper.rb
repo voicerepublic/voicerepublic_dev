@@ -152,6 +152,15 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  # Force asset compilation in a Rack request so it's ready for the Poltergeist
+  # request that otherwise times out.
+  config.before(:all) do
+    if self.respond_to? :visit
+      visit '/assets/application.css'
+      visit '/assets/application.js'
+    end
+  end
+
 end
 
 module FactoryGirl
