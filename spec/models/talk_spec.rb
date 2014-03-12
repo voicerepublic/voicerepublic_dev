@@ -156,4 +156,11 @@ describe Talk do
     FileUtils.rm(source)
   end
 
+  # FIXME works on my machine -- fails on circleci
+  pending 'does not send email with option no_emails' do
+    venue = FactoryGirl.create(:venue, options: { no_emails: true })
+    talk = FactoryGirl.create(:talk, venue: venue)
+    expect(ActionMailer::Base.deliveries).to be_empty
+  end
+
 end

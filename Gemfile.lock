@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/branch14/pg_search.git
+  revision: 819defdfc14b8ef2855c043dbd31f01c5bf49928
+  specs:
+    pg_search (0.7.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
+
+GIT
   remote: git@github.com:bmabey/database_cleaner.git
   revision: b254ce57bdeea927e514a486aedc2ac97199324b
   specs:
@@ -298,7 +307,6 @@ GEM
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
     ref (1.0.5)
-    riddle (1.5.10)
     roadie (2.4.3)
       actionmailer (> 3.0.0, < 5.0.0)
       css_parser (~> 1.3.4)
@@ -366,10 +374,6 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
-    thinking-sphinx (2.0.13)
-      activerecord (>= 3.0.3)
-      builder (>= 2.1.2)
-      riddle (>= 1.5.3)
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
@@ -452,6 +456,7 @@ DEPENDENCIES
   paperclip
   paranoia (~> 2.0)
   pg
+  pg_search!
   poltergeist
   private_pub
   protected_attributes
@@ -470,7 +475,6 @@ DEPENDENCIES
   sqlite3
   therubyracer
   thin
-  thinking-sphinx (= 2.0.13)
   timecop
   transitions
   uglifier

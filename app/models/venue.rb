@@ -35,6 +35,7 @@ class Venue < ActiveRecord::Base
   has_many :participations, :dependent => :destroy
   # TODO: rename to participants
   has_many :users, :through => :participations
+  has_many :social_shares, as: :shareable
 
   validates :title, :teaser, :description, :tag_list, :presence => true
 
@@ -42,20 +43,20 @@ class Venue < ActiveRecord::Base
 
   accepts_nested_attributes_for :talks
 
+  serialize :options
+
   scope :of_user,  proc { |user| where(:user_id => user.id) }
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
                           order('featured_from DESC') }
 
+  # TODO replace with dragonfly
   attr_accessible :image
   has_attached_file :image,
     :styles => { :medium => '242x145>', :thumb => "100x100>" },
     :default_url => "/images/:style/missing.png"
 
-  define_index do
-    indexes title, :as => :title, :sortable => true
-    indexes taggings.tag.name, :as => :tags
-    indexes talks.title, :as => :talks_title
-  end
+  include PgSearch
+  multisearchable against: [:tag_list, :title, :teaser, :description]
 
   private
 

@@ -3,7 +3,7 @@
 
 .header-block(style="background-image: url(#{@user.header.try(:url)})")
 
-  - if @user == current_or_guest_user # TODO use cancan
+  - if @user == current_user # TODO use cancan
     .row
       .large-12.columns.text-right
         -# = link_to t('.edit_user'), [:edit, @user], class: 'button'
@@ -52,6 +52,8 @@
           - cap = t('.participants', count: count, default: '%{count} Participants')
           - url = venue_path(venue, anchor: 'tab-participants')
           = link_to cap, url, class: 'button'
+
+          = link_to t('.edit_venue'), [:edit, venue], class: 'button'
 
     #tab-schedule.content TODO
 

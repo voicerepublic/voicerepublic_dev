@@ -1,7 +1,0 @@
-production:
-  pid_file: /home/rails/app/shared/pids/searchd.pid
-  searchd_file_path: /home/rails/app/shared/db/sphinx
-
-staging:
-  pid_file: /home/rails/app/shared/pids/searchd.pid
-  searchd_file_path: /home/rails/app/shared/db/sphinx

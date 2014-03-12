@@ -2,7 +2,7 @@
   <li class="<%= current_page?(dashboard_news_path) ? 'active' : '' %>">
     <%= link_to(t('.news', :default => "Neuigkeiten"), dashboard_news_path) %>
   </li>
-  <% unless Venue.of_user(current_or_guest_user).empty? %>
+  <% unless Venue.of_user(current_user).empty? %>
   <li class="<%= current_page?(dashboard_venues_path) ? 'active' : '' %>">
     <%= link_to(t('.venues'), dashboard_venues_path() ) %>
   </li>

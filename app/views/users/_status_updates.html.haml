@@ -19,11 +19,11 @@
           = 'post'
 
     %aside.contribution-actions
-      - if current_or_guest_user && current_or_guest_user == user   
+      - if current_user && current_user == user   
         = link_to new_user_status_update_path(:user_id => user), :class => "btn btn-mini user-new-status" do
           %i.icon-edit
           = t('.new_status_update')       
 
-      - if current_or_guest_user && current_or_guest_user == user   
+      - if current_user && current_user == user   
         = link_to user_status_update_path(:user_id => status_update.user, :id => status_update), :method => :delete, :class => "contribution-delete" do
           =t('helpers.links.destroy').downcase

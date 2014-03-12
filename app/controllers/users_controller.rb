@@ -111,7 +111,7 @@ class UsersController < ApplicationController
   end
 
   def welcome
-    #@klu = current_or_guest_user.no_kluuus.build(:tag_list => "newcomer")
-    @user = current_or_guest_user
+    #@klu = current_user.no_kluuus.build(:tag_list => "newcomer")
+    @user = current_user
   end
 end

@@ -1,5 +1,5 @@
 %section.user-klus.row-fluid
-  - if @user == current_or_guest_user
+  - if @user == current_user
     .span3
       %h3= t('.klus')
       -# = render(:partial => 'klus/user_no_kluuus') if @kluuus.empty?
