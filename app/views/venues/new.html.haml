@@ -1,1 +1,12 @@
-= render partial: 'form', locals: { form_title: t(".create_venue") }
+= simple_form_for @venue do |f|
+  = render partial: 'fields', locals: { f: f, form_title: t(".new_venue") }
+
+  %hr
+  - talk = @venue.talks.first || @venue.talks.build
+  = f.fields_for :talks, talk do |n|
+    = render partial: 'talks/fields', locals: { f: n, form_title: t('.new_talk') }
+
+  .row
+    .large-10.medium-10.large-centered.medium-centered.columns
+      = f.button :submit
+      = link_to t('.cancel'), venues_path

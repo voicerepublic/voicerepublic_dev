@@ -1,0 +1,16 @@
+.header-block(style="background-image: url(#{@venue.image.url(:medium)})"
+  data-show-upload="venue_image")
+
+  .row
+    .large-10.medium-10.large-centered.medium-centered.columns
+      %h2= form_title
+  .row
+    .large-10.medium-10.large-centered.medium-centered.columns
+      = f.error_notification
+  .row
+    .large-10.medium-10.large-centered.medium-centered.columns
+      = f.input :title, placeholder: t('.title')
+      = f.input :teaser, :rows => 2, placeholder: t('.teaser')         
+      = f.input :description, :rows => 4, placeholder: t('.description')
+      = f.input :tag_list, :class => 'tagList', placeholder: t('.tag_list')
+      = f.file_field :image # will be hidden

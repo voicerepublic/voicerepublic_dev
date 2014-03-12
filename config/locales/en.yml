@@ -644,7 +644,7 @@ en:
       venue_is_in_process: in process
       news_title: News
       venue_is_over: past venue
-    form:
+    fields:
       featured_from: Featured from
       title: Title
       teaser: Teaser
