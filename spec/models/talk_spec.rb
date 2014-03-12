@@ -43,6 +43,10 @@ describe Talk do
       talk.valid? # triggers before_validation callbacks
       expect(talk.ends_at).to eq(talk.starts_at + 45.minutes)
     end
+    it 'does not crash when required parameters are missing' do
+      talk = FactoryGirl.build(:talk, duration: nil)
+      expect { talk.save }.to_not raise_exception
+    end
   end
 
   describe 'on class level' do

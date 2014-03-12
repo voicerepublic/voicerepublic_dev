@@ -138,6 +138,11 @@ class User < ActiveRecord::Base
     save!
   end
 
+  # we'll use `text` here, which plays nice with select2
+  def for_select
+    { id: id, text: name, img: account.portrait.url(:thumb) }
+  end
+
   private
 
   def add_account

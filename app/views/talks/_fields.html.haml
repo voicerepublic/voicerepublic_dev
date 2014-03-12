@@ -9,7 +9,7 @@
 
       = f.input :title, placeholder: t('.title')
       = f.input :teaser, placeholder: t('.teaser')
-      = f.input :tag_list, :class => 'tagList', placeholder: t('.tag_list')
+      = f.input :tag_list, input_html: { class: 'tagList' }
 
   %br
   %br
