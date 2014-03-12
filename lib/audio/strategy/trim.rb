@@ -23,11 +23,11 @@ module Audio
       end
 
       def start
-        opts[:talk_start] - opts[:file_start]
+        opts[:talk_start] - file_start
       end
       
       def stop
-        opts[:talk_stop] - opts[:file_start]
+        opts[:talk_stop] - file_start
       end
       
       def outputs
