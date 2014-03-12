@@ -5,7 +5,7 @@
   -#     %i.icon-calendar
   -#     = t('.new_talk')
 
-  - if current_or_guest_user
+  - if current_user
     - if can? :manage, @venue
       = link_to t('.edit', :default => t("helpers.links.edit")), edit_venue_path(@venue), :class => 'btn btn-small'
       = link_to t('.destroy', :default => t("helpers.links.destroy")),venue_path(@venue), :method => 'delete', |

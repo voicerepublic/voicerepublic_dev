@@ -1,4 +1,4 @@
-class Api::TalksController < ApplicationController
+class Api::TalksController < Api::BaseController
 
   before_action :authenticate_user!
   before_action :set_talk
@@ -16,7 +16,7 @@ class Api::TalksController < ApplicationController
     return render text: error, status: 422 unless either
 
     # events may only be send by the host
-    gfy = event && current_or_guest_user != @talk.user
+    gfy = event && current_user != @talk.user
     return render text: 'Computer says no', status: 740 if gfy
 
     @method = either.underscore
@@ -33,7 +33,7 @@ class Api::TalksController < ApplicationController
 
   # genericly stores the state on the authenticated user
   def store_state(msg)
-    user_id = current_or_guest_user.id
+    user_id = current_user.id
     Talk.transaction do
       session = @talk.reload.session || {}
       session[user_id][:state] = msg[:state]
@@ -46,7 +46,7 @@ class Api::TalksController < ApplicationController
   # state
   #  * merges user data
   def registering(msg)
-    user = current_or_guest_user
+    user = current_user
     details = user.details_for(@talk).merge state: msg[:event]
     Talk.transaction do
       session = @talk.reload.session || {}

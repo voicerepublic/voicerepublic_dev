@@ -20,7 +20,7 @@ class ParticipationsController < ApplicationController
   # POST /participations.json
   def create
     @participation = @venue.participations.build
-    @participation.user = current_or_guest_user
+    @participation.user = current_user
 
     target = @venue
 
@@ -44,7 +44,7 @@ class ParticipationsController < ApplicationController
   # DELETE /participations/1
   # DELETE /participations/1.json
   def destroy
-    @participation = current_or_guest_user.
+    @participation = current_user.
       participations.find_by_venue_id(params[:venue_id])
     @participation.destroy
 

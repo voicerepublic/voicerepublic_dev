@@ -5,14 +5,11 @@
 /log/*.pid
 /tmp
 /config/database.yml
-/config/development.sphinx.conf
-db/sphinx
 log/localeapp.yml
 
 .DS_Store
 /start
 /coverage
-/config/test.sphinx.conf
 .bundle
 db/*.sqlite3
 db/*.sqlite3.db
