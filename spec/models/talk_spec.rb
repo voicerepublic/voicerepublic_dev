@@ -2,10 +2,19 @@ require 'spec_helper'
 
 describe Talk do
 
+  before do
+    Timecop.freeze(Time.local(2036))
+  end
+  after do
+    Timecop.return
+  end
+
   describe 'built' do
+
     before do
-      @talk = FactoryGirl.build(:talk)
+      @talk = FactoryGirl.build :talk
     end
+
     it 'has a valid factory' do
       expect(@talk).to be_valid
     end
@@ -21,9 +30,8 @@ describe Talk do
       @talk.starts_at = nil
       expect(@talk).to_not be_valid
     end
-    # FIXME: I have seen this spec fail in a 'sometimes fashion'
+
     it 'provides a method starts_in' do
-      pending "S O M E T I M E S   F A I L I N G   S P E C"
       expect(@talk.starts_in).to be > 0
     end
   end
