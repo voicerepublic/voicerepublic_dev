@@ -23,13 +23,15 @@ describe "Talks" do
     #
     it "can be shared to social networks and saves statistics", driver: :chrome, slow: true do
       SocialShare.count.should eq(0)
-      visit venue_talk_path 'en', @venue, @talk
-      page.execute_script('$("#social_share .facebook").click()')
-      sleep 0.2
+      VCR.use_cassette 'talk_dummy' do
+        visit venue_talk_path 'en', @venue, @talk
+        page.execute_script('$("#social_share .facebook").click()')
+        sleep 0.2
 
-      share_window = page.driver.browser.window_handles.last
-      page.within_window share_window do
-       current_url.should match(/facebook.com/)
+        share_window = page.driver.browser.window_handles.last
+        page.within_window share_window do
+         current_url.should match(/facebook.com/)
+        end
       end
 
       SocialShare.count.should eq(1)
@@ -39,9 +41,11 @@ describe "Talks" do
     # ANONYMOUS users.
     #
     it "does not lose tags on failed validation", js: true do
-      visit edit_venue_talk_path 'en', @venue, @talk
-      fill_in :talk_title, with: ""
-      click_on I18n.t 'helpers.submit.submit'
+      VCR.use_cassette 'talk_dummy' do
+        visit edit_venue_talk_path 'en', @venue, @talk
+        fill_in :talk_title, with: ""
+        click_on I18n.t 'helpers.submit.submit'
+      end
       page.should have_content "Please review the problems below"
       within '#s2id_talk_tag_list.tagList' do
         page.should have_content "test"
