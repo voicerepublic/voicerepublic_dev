@@ -142,6 +142,20 @@ describe Talk do
     Delayed::Worker.delay_jobs = false # deactivate
   end
 
+  it 'generate ephemeral paths' do
+    talk = FactoryGirl.create(:talk, recording: 'invalid_id')
+    base = Settings.rtmp.archive_path
+    FileUtils.mkdir_p(base) # (!)
+    source = "#{base}/invalid_id.wav"
+    FileUtils.touch(source)
+    loc = talk.generate_ephemeral_path! '.wav'
+    target = "public/#{loc}"
+    expect(File.exist?(target)).to be_true
+    # cleanup
+    FileUtils.rm(target)
+    FileUtils.rm(source)
+  end
+
   it 'has a scope featured' do
     talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago)
     talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago)
@@ -153,7 +167,8 @@ describe Talk do
   end
 
   # FIXME works on my machine -- fails on circleci
-  pending 'does not send email with option no_emails' do
+  it 'does not send email with option no_emails' do
+    pending "\u026A   works on my machine -- fails on circleci"
     venue = FactoryGirl.create(:venue, options: { no_emails: true })
     talk = FactoryGirl.create(:talk, venue: venue)
     expect(ActionMailer::Base.deliveries).to be_empty

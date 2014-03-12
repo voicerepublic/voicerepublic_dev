@@ -51,6 +51,9 @@ module VoiceRepublic
       config.middleware.use 'RtmpNotifications', opts
     end
 
+    # increases Talk#play_count and redirects to Talk#generate_ephemeral_path!
+    config.middleware.use 'MediaTracker'
+
     # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
 

@@ -36,6 +36,8 @@ class Talk < ActiveRecord::Base
 
   GRACE_PERIOD = 5.minutes
 
+  ARCHIVE_STRUCTURE = "%Y/%m/%d"
+
   state_machine do
     state :prelive # initial
     state :live
@@ -126,19 +128,58 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  # TODO: write this to recording when starting talk
-  # TODO: then use the stored value
-  # TODO: maybe we should use a date based folder structure
-  # def recording_path
-  #   base = Settings.rtmp.recordings_path
-  #   path = "#{base}/#{id}"
-  # end
-
   def download_links
-    glob = ([Settings.rtmp.recordings_path, id] * '/') + '.*'
-    result = Dir.glob(glob) - [ glob.sub('.*', '.wav') ]
-    # FIXME path -> url
-    result.inject({}) { |r, l| r.merge File.extname(l) => l }
+    return {} unless recording
+    archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+    glob = "#{archive}/#{recording}.*"
+    files = Dir.glob(glob)
+    formats = files.map { |f| f.split('.').last } - [ 'wav' ]
+    formats.inject({}) { |r, f| r.merge f => generate_ephemeral_path!(".#{f}") }
+  end
+
+  # generates an ephemeral path (which is realized as a symlink) and
+  # returns the location for redirecting to that path
+  #
+  # symlink pattern
+  #
+  #   public/audio/:year/:month/:day/:token-:id:variant
+  #
+  # target pattern (links to)
+  #
+  #   :archive/:recording:variant
+  #
+  # the interpolations are
+  #
+  #  * year, month, day - of now
+  #  * token - a long (48 byte) urlsafe random token
+  #  * id - the id of the talk
+  #  * variant - something like '.wav' or '-pj.m4a'
+  #  * archive - the base directory for the archive
+  #  * recording - the physical location stored in column `recording`
+  #
+  # if the interpolation `variant` is not given as a parameter, it
+  # defaults to '.wav'
+  #
+  def generate_ephemeral_path!(variant='.wav')
+    # determine source
+    base = Settings.rtmp.archive_path
+    path = recording + variant
+    source = File.expand_path(path, base)
+    raise "File not found: #{source}" unless File.exist?(source)
+    # determine & create target path
+    token = SecureRandom.urlsafe_base64(48)
+    loc_base = Rails.root.join 'public'
+    loc_path = Time.now.strftime("system/audio/%Y/%m/%d")
+    check = "#{loc_base}/#{loc_path}"
+    FileUtils.mkdir_p(check) unless File.exist?(check)
+    # determine and check availability of target file
+    loc_file = "#{token}-#{id}#{variant}"
+    target = "#{loc_base}/#{loc_path}/#{loc_file}"
+    raise "File already exists: #{target}" if File.exist?(target)
+    # create symlink
+    FileUtils.ln_s(source, target)
+    # return location url
+    "/#{loc_path}/#{loc_file}"
   end
 
   private
@@ -190,8 +231,8 @@ class Talk < ActiveRecord::Base
     # TODO: move into a column, stored as yaml
     chain = %w( precursor kluuu_merge trim m4a mp3 ogg
                 move_clean jinglize m4a mp3 ogg )
-    base = Settings.rtmp.recordings_path
-    setting = TalkSetting.new(base, id)
+    record = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+    setting = TalkSetting.new(record, id)
     # FIXME: sort to make sure
     file_start = setting.journal['record_done'].first.last.to_i
     setting.opts = {
@@ -205,6 +246,20 @@ class Talk < ActiveRecord::Base
       PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
       runner.run(name)
     end
+    # save recording
+    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
+    # move some files to archive_raw
+    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    target = File.dirname(File.join(archive_raw, recording))
+    FileUtils.mkdir_p(target)
+    FileUtils.mv(Dir.glob("#{record}/t#{id}-u*.*"), target)
+    FileUtils.mv(Dir.glob("#{record}/#{id}.journal"), target)
+    # move some files to archive
+    archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+    target = File.dirname(File.join(archive, recording))
+    FileUtils.mkdir_p(target)
+    FileUtils.mv(Dir.glob("#{record}/#{id}.*"), target)
+    FileUtils.mv(Dir.glob("#{record}/#{id}-*.*"), target)
     # TODO: save transcoded audio formats
 
     archive!

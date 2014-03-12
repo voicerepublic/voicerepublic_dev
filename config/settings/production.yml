@@ -1,0 +1,7 @@
+rtmp:
+  build_path:       /home/rails/rtmp
+  archive_path:     /home/rails/archive
+  archive_raw_path: /home/rails/archive_raw
+  recordings_path:  /home/rails/recordings
+  worker_processes: 2
+
