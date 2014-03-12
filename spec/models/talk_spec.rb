@@ -94,7 +94,8 @@ describe Talk do
 
   # the spec works for me, on circleci it fails, since the generated talks
   # id is 5 instead of 1, this doesn't work well with the fixtures
-  pending 'nicely postprocesses audio' do
+  it 'nicely postprocesses audio' do
+    pending "/!\ works on my machine -- fails on circleci, see comments"
     begin
       talk = FactoryGirl.create(:talk, record: true)
       # move fixtures in place
