@@ -32,4 +32,3 @@ initialize = (element, selector) ->
 $("#{attribute}").each (index, element) ->
   value = $($(element).attr(attribute))
   initialize element, value
-
