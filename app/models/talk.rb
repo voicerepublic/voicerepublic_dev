@@ -231,15 +231,12 @@ class Talk < ActiveRecord::Base
     # TODO: move into a column, stored as yaml
     chain = %w( precursor kluuu_merge trim m4a mp3 ogg
                 move_clean jinglize m4a mp3 ogg )
-    record = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    setting = TalkSetting.new(record, id)
-    # FIXME: sort to make sure
-    file_start = setting.journal['record_done'].first.last.to_i
-    setting.opts = {
-      file_start: file_start,
-      talk_start: talk.started_at.to_i,
-      talk_stop:  talk.ended_at.to_i
+    base = Settings.rtmp.recordings_path
+    opts = {
+      talk_start: started_at.to_i,
+      talk_stop:  ended_at.to_i
     }
+    setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }
@@ -252,14 +249,14 @@ class Talk < ActiveRecord::Base
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
     FileUtils.mkdir_p(target)
-    FileUtils.mv(Dir.glob("#{record}/t#{id}-u*.*"), target)
-    FileUtils.mv(Dir.glob("#{record}/#{id}.journal"), target)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
     # move some files to archive
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     target = File.dirname(File.join(archive, recording))
     FileUtils.mkdir_p(target)
-    FileUtils.mv(Dir.glob("#{record}/#{id}.*"), target)
-    FileUtils.mv(Dir.glob("#{record}/#{id}-*.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target)
     # TODO: save transcoded audio formats
 
     archive!
