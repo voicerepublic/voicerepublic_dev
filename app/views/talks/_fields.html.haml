@@ -1,22 +1,32 @@
-= f.error_messages
+.header-block(style="background-image: url(#{@venue.image.url(:medium)})"
+  data-show-upload="#talk_image,#venue_talks_attributes_0_image")
+  
+  .row
+    .medium-10.medium-centered.columns
+      %h2= form_title
 
-= f.text_field :title
-= f.text_field :teaser
-= f.label :tag_list, :class => 'control-label' do
-  = t('.tag_list')
-.controls
-  = f.text_field :tag_list, :class => 'tagList input-block-level'
-.help-block.help-tags
-  = t('.help_tags')
+      = f.error_messages
 
-%p TODO make this a datepicker:
-= f.text_field :starts_at
+      = f.input :title, placeholder: t('.title')
+      = f.input :teaser, placeholder: t('.teaser')
+      = f.input :tag_list, :class => 'tagList', placeholder: t('.tag_list')
 
-= f.select :duration, Settings.durations
-= f.file_field :image
+  %br
+  %br
+  -#testdatepicker  
+  .row
+    .medium-4.medium-offset-1.columns
+      = f.input :starts_at_date, input_html: {'data-date' => ''}
+    .medium-2.columns
+      = f.input :starts_at_time, input_html: {'data-time' => ''}
+    .medium-4.columns
+      = f.input :duration, collection: Settings.durations
+    .medium-1.columns
 
-%p TODO guest selection
-= render 'shared/wysihtml5_toolbar'
-= f.text_area :description, 'data-wysiwyg' => true
-= f.label :record do
-  = f.check_box :record
+.row
+  .medium-10.medium-centered.columns
+    = f.file_field :image
+    = f.input :guest_list, input_html: { class: 'guestList' }
+    = render 'shared/wysihtml5_toolbar'
+    = f.input :description, 'data-wysiwyg' => true
+    = f.input :record

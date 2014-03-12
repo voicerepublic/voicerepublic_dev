@@ -458,117 +458,6 @@ en:
       and_friends: and contacts
       his_follower: Followers
       people_he_follows: Following
-  klu_images:
-    describe_your_picture_in_a_few_words: Upload a photo
-  klus:
-    comment_section:
-      headline_1: Comments
-      headline_2: ! 'Blog for: %{name}'
-    facebook_value_template:
-      talk_on_kluuu_about: Talk with %{name} about '%{subject}'
-    form_welcome_new_no_kluuu:
-      continue: Continue
-    form_kluuu:
-      title: Title
-      edit: Edit
-      description: Description
-      category: Category
-      tag_list: Tag list
-      call_options: Video call options
-      available_at_times: Availabitlity
-      charge_type: Charge Type
-      charge_cents: Charge in cent
-    form_new_kluuu:
-      title: Title
-      enter_the_name_of_your_kluuu: What's your theme?
-      description: Description
-      describe_your_kluuu: You can change the description anytime.
-      image: Image
-      add_image_to_your_kluuu: Please upload a photo.
-      tag_list: ! 'Tags, 3 or more - separate by comma: recipe, cooking, organic,'
-      category: Category
-      please_use_significant_tags: Tags are key words. The more tags you use, the easier other will be able to find your KluuU.
-      available_at_times: Times available.
-      at_what_time_are_you_available: This information is optional.
-      charge_type: Charge type
-      charge_cents: Charge in cent
-      missing_balance_account_create_one_now: for payed KluuUs - settup your financial preferences first!
-      you_can_charge_for_your_kluuu: You can offer your conversations for free, charge per minute or at a fixed price.
-      you_can_charge_by_minute_or_a_fixed_price: Set a rate per minute between $ 10 Cents and $ 5 or a fixed price between $ 10 Cents and $ 50.
-      how_much_do_you_want_to_charge: ! 'Note: The first 5 minutes of all conversation are free.'
-      please_check_to_publish_your_kluuu: Markieren, um dein Kluuu zu veröffentlichen
-      later_you_can_unpublish_and_publish_any_time: Du kannst dein Kluuu jeder Zeit aktivieren und deaktivieren.
-      uses_status: Deine aktuelle Status-Message im Kluuu anzeigen
-      you_can_show_status_or_about_in_kluuu: Du kannst entweder deine Status-Nachricht oder den 'Über Dich' Text anzeigen lassen
-      create_kluuu: Create KluuU
-      cancel: Cancel
-    klu_image_fields:
-      image_browse: Image
-      image_desc_title: Description
-    kluuu_venues:
-      this_kluuu_hosts_venues: Join this KluuUs venue!
-    form_new_no_kluuu:
-      title: Title
-      category: Category
-      tag_list: ! 'Tag list (separate by comma: recipe, cooking, organic)'
-      published: Public
-      save_no_kluuu: Save Question
-      cancel: Cancel
-    form_no_kluuu:
-      title: Title
-      category: Category
-      tag_list: Tag list
-      save: Save Question
-      cancel: Cancel
-      call_options: Call options
-    kluuu_top_actions:
-      edit: Edit
-      destroy: Delete
-      add_image: Add image
-      add_bookmark: Add Bookmark
-      add_bookmark_title: Add Bookmark
-      delete_bookmark_title: Delete Bookmark
-    kluuu_user:
-      send_message: Send message
-      unfollow: Unfollow
-      follow: Follow
-      more_klus_by_this_user: More KluuUs by this person
-      available_at_times: ! 'Online:'
-      category: Category
-      tags: Tags
-      chat: Chat
-    kluuu:
-      feedbacks: ! 'Reviews:'
-      this_kluuu_is_bookmarked: ! 'Bookmarked by:'
-      people_who_wanna_know_more_about: ! '→ Matches for the KluuU:'
-    no_kluuu:
-      this_no_kluuu_is_bookmarked: ! 'Bookmarked by:'
-      people_who_know_about: → Matches for the Question
-    medium_kluuu:
-      add_bookmark: Add Bookmark
-      add_bookmark_title: Add Bookmark
-      delete_bookmark_title: Delete Bookmark
-    tiny_klu_overlay:
-      leave_venue_popup: This link opens a new tab!
-    user_about:
-      user_description: About me
-    user_status:
-      opinion: Status
-    edit:
-      edit_klu: Edit KluuU
-      edit_noklu: Edit Question
-    index:
-      kluuus_of_user: ! '%{user_name}''s KluuUs'
-      new_no_kluuu: Ask a new Question
-      new_kluuu: Create a new KluuU
-    new:
-      create_a_new_kluuu: Create a new KluuU
-    user_no_kluuus:
-      no_klu_text: Create a KluuU.
-      create_klu: Create KluuU
-    user_with_kluuu:
-      with_klu_text: See your KluuUs here.
-      create_klu: Create KluuU
   landing_page:
     news: NEWS
     index:
@@ -603,18 +492,6 @@ en:
       delete: Delete
     sent_message:
       delete: Delete
-  notifications:
-    call_rejected:
-      video_call_title: Video call
-      rejected_text: Video call wasn't answered.
-      close: Close
-    incoming_call:
-      video_call_title: Video call
-      accept_call: Accept
-      reject_call: Reject
-    video_system_error:
-      video_down_text: Sorry! The video system is temporarily out of order. We're working on it. Please try again later.
-      close: Close
   notifies:
     my_content:
       bookmarked_your: bookmarked your KluuU
@@ -689,8 +566,6 @@ en:
       confirm_change_date: All participants will be notified of your changes
     venue_list: Venues
     new_venue: Create Venue
-    facebook_value_template:
-      join_the_venue: ! 'Join the venue: %{title}'
     show:
       by: by
       venue: Venue
@@ -708,7 +583,6 @@ en:
       venue: Venue
       minutes: Minutes
       ongoing_venue: Venue active
-      time_until_takeoff: ! '%{time} until start'
       venue_moderated_by: Moderated by %{name}
       leave_venue_popup: This link opens a new tab!
     venue_show_static:
@@ -741,7 +615,7 @@ en:
     venue_show_avatar:
       leave_venue_popup: This link opens a new tab!
     new:
-      create_new_venue: Create a new Venue
+      create_venue: Create Venue
       available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Venue
       create_kluuu: create a KluuU now
     new_join:
@@ -781,10 +655,11 @@ en:
       venue_is_in_process: in process
       news_title: News
       venue_is_over: past venue
-    form:
+    fields:
       featured_from: Featured from
-      title: Title of venue
-      description: Description of venue
+      title: Title
+      teaser: Teaser
+      description: Description
       tag_list: Tags
       start_time: Select start time
       duration: Duration of your talk in minutes
@@ -794,7 +669,7 @@ en:
       timepick_help: ! 'Example: 18:15'
       settings: Settings
       record: Record this talk
-      your_talk: Your talk
+      your_talk: Create your first Talk
       event_title: Talk title
       archive: Archive
     edit_start_time:
@@ -822,6 +697,15 @@ en:
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
+  talks:
+    new:
+      new_talk: New Talk
+    edit:
+      edit_talk: Edit Talk
+    fields:
+      title: Title
+      teaser: Teaser
+      tag_list: Tag list
   articles:
     venue_form:
       write_an_article: write an article

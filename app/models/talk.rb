@@ -60,9 +60,9 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :teaser, :starts_at, :duration,
+  attr_accessible :title, :teaser, :duration,
                   :description, :record, :image, :tag_list,
-                  :guest_list
+                  :guest_list, :starts_at_date, :starts_at_time
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -119,6 +119,28 @@ class Talk < ActiveRecord::Base
   def ends_in # seconds (for live) # TODO: check if needed
     (ends_at - Time.now).to_i
   end
+
+  def starts_at_time
+    starts_at
+  end
+
+  def starts_at_date
+    starts_at
+  end 
+
+  def starts_at_time=(time)
+    datetime = DateTime.parse(time)
+    self.starts_at ||= DateTime.new
+    attrs = { hour: datetime.hour, min: datetime.min }
+    self.starts_at = starts_at.change(attrs)
+  end
+
+  def starts_at_date=(date)
+    datetime = DateTime.parse(date)
+    self.starts_at ||= DateTime.new
+    attrs = { year: datetime.year, month: datetime.month, day: datetime.day }
+    self.starts_at = starts_at.change(attrs)
+  end 
 
   def config_for(user)
     LivepageConfig.new(self, user).to_json
