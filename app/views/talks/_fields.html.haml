@@ -1,35 +1,32 @@
-.header-block(style="background-image: url(#{@venue.image.url(:medium)})" data-show-upload="talk_image")
-	
-	.row
-		.medium-10.medium-centered.columns
-			%h2= form_title
+.header-block(style="background-image: url(#{@venue.image.url(:medium)})"
+  data-show-upload="talk_image")
+  
+  .row
+    .medium-10.medium-centered.columns
+      %h2= form_title
 
-			= f.error_messages
+      = f.error_messages
 
-			= f.input :title, placeholder: t('.title')
-			= f.input :teaser, placeholder: t('.teaser')
-			= f.input :tag_list, :class => 'tagList', placeholder: t('.tag_list')
+      = f.input :title, placeholder: t('.title')
+      = f.input :teaser, placeholder: t('.teaser')
+      = f.input :tag_list, :class => 'tagList', placeholder: t('.tag_list')
 
-	%br
-	%br
-	-#testdatepicker  
-	.row
-		.medium-4.medium-offset-1.columns
-			= f.input :starts_at_date, input_html: {'data-date' => ''}
-		.medium-2.columns
-			= f.input :starts_at_time, input_html: {'data-time' => ''}
+  %br
+  %br
+  -#testdatepicker  
+  .row
+    .medium-4.medium-offset-1.columns
+      = f.input :starts_at_date, input_html: {'data-date' => ''}
+    .medium-2.columns
+      = f.input :starts_at_time, input_html: {'data-time' => ''}
+    .medium-4.columns
+      = f.input :duration, collection: Settings.durations
+    .medium-1.columns
 
-			= f.object.starts_at
-		.medium-5.columns
-			= f.select :duration, Settings.durations
-	.row
-		.medium-10.medium-centered.columns
-			= f.file_field :image
-
-
-			= f.input :guest_list, input_html: { class: 'guestList' }
-
-			= render 'shared/wysihtml5_toolbar'
-			= f.input :description, 'data-wysiwyg' => true
-			= f.check_box :record
-			= f.label :record
+.row
+  .medium-10.medium-centered.columns
+    = f.file_field :image
+    = f.input :guest_list, input_html: { class: 'guestList' }
+    = render 'shared/wysihtml5_toolbar'
+    = f.input :description, 'data-wysiwyg' => true
+    = f.input :record

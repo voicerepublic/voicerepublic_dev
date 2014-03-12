@@ -1,1 +1,7 @@
-= render partial: 'form', locals: { form_title: t(".edit_talk") }
+= simple_form_for([@venue, @talk]) do |f|
+	= render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
+
+	.row
+		.medium-10.medium-centered.columns  
+			= f.button :submit
+			= link_to t('.cancel'), [@venue, @talk]
