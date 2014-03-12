@@ -84,9 +84,7 @@ describe Talk do
       @talk = FactoryGirl.create(:talk)
     end
     it 'computes starts_in for use in prelive' do
-      Timecop.freeze do
-        expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
-      end
+      expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
     end
   end
 
@@ -95,9 +93,7 @@ describe Talk do
       date_str = '2014-03-20 11:11'
       @talk = FactoryGirl.create(:talk, starts_at: date_str)
       expect(@talk.starts_at.strftime('%Y-%m-%d %H:%M')).to eq(date_str)
-      Timecop.freeze do
-        expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
-      end
+      expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
     end
   end
 
@@ -171,9 +167,7 @@ describe Talk do
     talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago)
     talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now)
     expect(Talk.featured).to eq([talk1, talk0])
-    Timecop.freeze(25.hours.ago) do
-      expect(Talk.featured).to include([talk0])
-    end
+    expect(Talk.featured).to include(talk0)
   end
 
   it 'does not send email with option no_emails' do
