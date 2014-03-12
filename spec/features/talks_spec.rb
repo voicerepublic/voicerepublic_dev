@@ -40,7 +40,7 @@ describe "Talks" do
     # FIXME sometimes failing specs (on dev as well as circle ci) when using
     # ANONYMOUS users.
     #
-    it "does not lose tags on failed validation", js: true do
+    it "does not lose tags on failed validation", js: true, :retry => 3 do
       VCR.use_cassette 'talk_dummy' do
         visit edit_venue_talk_path 'en', @venue, @talk
         fill_in :talk_title, with: ""

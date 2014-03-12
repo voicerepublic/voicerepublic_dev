@@ -7,6 +7,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
+require 'rspec/retry'
+
 require 'capybara/rspec'
 require 'capybara/rails'
 
@@ -42,7 +44,8 @@ end
 
 # Specific for CircleCI
 if ENV['CI']
-  # nothing yet
+  # Increase log level on CircleCI to reduce IO
+  Rails.logger.level = 4
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -54,6 +57,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+
+  config.verbose_retry = true # show retry status in spec process
 
   # Use rspec tags to filter for specific specs
   # Examples
