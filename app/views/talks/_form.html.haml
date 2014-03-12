@@ -1,7 +1,8 @@
-.row
-  .large-12.columns
-    = simple_form_for([@venue, @talk]) do |f|
-      = render partial: "fields", locals: {f: f, form_title: form_title}
-      
-      = f.button :submit
-      = link_to t('.cancel'), @talk.new_record? ? @venue : [@venue, @talk]
+
+= simple_form_for([@venue, @talk]) do |f|
+	= render partial: "fields", locals: {f: f, form_title: form_title}
+
+	.row
+		.medium-10.medium-centered.columns  
+			= f.button :submit
+			= link_to t('.cancel'), @talk.new_record? ? @venue : [@venue, @talk]
