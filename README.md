@@ -23,6 +23,8 @@ Setup
     bundle
     rake db:setup
     rake db:migrate
+    rake rtmp:build
+    rake setup
 
 ### New Search
 
@@ -140,6 +142,17 @@ Platforms
 ### Staging
 
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
+
+
+
+Console Cheat Sheet
+-------------------
+
+### Feature three randomly selected talks since yesterday
+
+    Talk.order('RANDOM()').limit(3).each do |t|
+      t.update_attribute :featured_from, 1.day.ago
+    end
 
 
 Audio cheat sheet

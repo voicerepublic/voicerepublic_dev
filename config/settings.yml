@@ -1,20 +1,31 @@
+# this file reflects standard settings for development
+# overrides for production can be found in
+# `config/settings/production.yml`
 durations: [ 30, 45, 60, 90, 120, 240 ]
 rtmp:
-  recordings_path: 'vendor/rtmp/run/recordings'
-  archive_path: 'vendor/rtmp/run/archive'
-  base_path: 'vendor/rtmp'
+  # all paths get expanded with `Rails.root`
+  # which doesn't affect absolute paths
+  build_path:       local/rtmp
+  archive_path:     local/archive
+  archive_raw_path: local/archive_raw
+  recordings_path:  local/recordings
   #offrecord: "rtmp://172.21.21.171/offrecord"
   #record: "rtmp://172.21.21.171/record" 
   #offrecord: "rtmp://localhost/offrecord"
   #record: "rtmp://localhost/record" 
   offrecord: "rtmp://kluuu.com/discussions"
   record: "rtmp://kluuu.com/recordings" 
-  worker_processes: 1
-  send_notifications: true
   log_notifications: true
-  notify_base: 'http://0.0.0.0:3000/rtmp'
+  #######################################
+  # entries used by config/rtmp.conf.erb
+  #######################################
+  send_notifications: true
+  # callback_base must be an absolute url and is used for
+  # notifications `/notify` and authentication `/auth`
+  callback_base: 'http://0.0.0.0:3000/rtmp'
   record_max_size: '100M'
   authenticate: true
+  worker_processes: 1
 errbit:
   api_key: '710bf38280e0f96f26a74682519794d5'
 localeapp:

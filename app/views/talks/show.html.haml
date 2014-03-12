@@ -1,3 +1,4 @@
+= render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 .layout-talk(ng-controller='Livepage')
   .talk-upper-block(style="background-image: url(http://lorempixel.com/1200/600/people/1)")
     %section.talk-title-box.row.text-center
