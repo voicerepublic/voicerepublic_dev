@@ -1,12 +1,12 @@
-Welcome to Kluuu
-================
+Welcome to VoiceRepublic
+========================
 
 ## Build status
 
-* Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/integration)
-* Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/master)
+* Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/integration.png?circle-token=f4b46938bc8855216230b287208fcc76062cc0a6
+)](https://circleci.com/gh/munen/voicerepublic_dev/tree/integration)
+* Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=f4b46938bc8855216230b287208fcc76062cc0a6
+)](https://circleci.com/gh/munen/voicerepublic_dev/tree/master)
 
 ## Code Quality
 
