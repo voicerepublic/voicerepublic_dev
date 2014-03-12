@@ -55,6 +55,14 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
 
+  # Use rspec tags to filter for specific specs
+  # Examples
+  #   * Run all specs except for chromedriver: zeus rspec --tag ~driver:chrome spec
+  #   * Run specs with chromedriver: zeus rspec --tag @driver:chrome spec
+  # By default do not run slow specs locally, unless explicitly requested by:
+  #  zeus rspec --tag @slow:true spec
+  config.filter_run_excluding :slow => :true unless ENV['CI']
+
   config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
   config.color_enabled = true

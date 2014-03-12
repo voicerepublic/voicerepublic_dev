@@ -13,14 +13,16 @@ feature "User edits own profile" do
     page.should have_css('.edit_user')
   end
 
-  scenario "setting a new password" do
-    pending "FIXME: CAPYBARA CLICK DOES NOT WORK HERE"
-    #page.find('#set_new_password').click
-    page.execute_script "$('#change-password').toggle()"
-    page.fill_in 'user_password', with: '654321'
-    page.fill_in 'user_password_confirmation', with: '654321'
+  scenario "setting a new password", js: :true do
+    page.find("button[data-enable-fields*=change-password]").click
+    find('.user_password input').set '654321'
+    find('.user_password_confirmation input').set '654321'
+
     page.click_button 'Save'
+    page.should_not have_css('.error')
     page.should_not have_css('.edit_user')
+    page.should_not have_content(I18n.t('simple_form.error_notification.default_notification'))
+    page.should have_content(I18n.t('flash.actions.update.notice'))
   end
 
   scenario "uploading a header image" do

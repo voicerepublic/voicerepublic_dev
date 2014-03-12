@@ -15,7 +15,7 @@ describe "Talks" do
     #     ActiveRecord::RecordNotFound:
     #       ActiveRecord::RecordNotFound
     #
-    it "can be shared to social networks and saves statistics", driver: :chrome do
+    it "can be shared to social networks and saves statistics", driver: :chrome, slow: true do
       pending "S O M E T I M E S   F A I L I N G   S P E C"
       SocialShare.count.should eq(0)
       visit venue_talk_path 'en', @venue, @talk

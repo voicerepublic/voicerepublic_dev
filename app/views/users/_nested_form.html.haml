@@ -6,7 +6,6 @@
     .row.collapse
       .large-3.medium-3.columns
         - avatar_url = @user.avatar.try(:url)
-        - avatar_url ||= "/assets/images/Cafe-Griensteidl-1896-e.jpg"
         .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="user_avatar")
         %br/
         %br/
@@ -29,8 +28,8 @@
           = f.input :password_confirmation, disabled: true
         -#= USER PROFILE HEADER (not verified by PO)
         = f.input :header, as: :file
-      
-           
+
+
       .large-4.medium-4.columns.text-center
         .row
           .small-4.columns
@@ -45,9 +44,9 @@
       .user-textarea-box
         = f.fields_for @user.account do |af|
           = render 'shared/wysihtml5_toolbar'
-          = af.input :about, input_html: { 'data-wysiwyg' => true, 'class' => "about-textarea" }          
+          = af.input :about, input_html: { 'data-wysiwyg' => true, 'class' => "about-textarea" }
   .row.collapse
     .large-12.columns
-      = f.button :submit 
+      = f.button :submit
       %a{href: "#"} or
       = link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(:id => @user)

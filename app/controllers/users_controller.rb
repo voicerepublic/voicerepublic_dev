@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  
+
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
-  
+
   # layout "application", :only => [:welcome]
-  
+
   # GET /users
   # GET /users.json
   def index
@@ -32,11 +32,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     #@kluuus = @user.kluuus
   end
-  
+
   def venues
     @user = User.find(params[:id])
     @venues = Venue.of_user(@user)
-    
+
   end
 
   # GET /users/new
@@ -64,7 +64,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html do
+          redirect_to @user, flash: { notice: I18n.t("flash.actions.create.notice") }
+        end
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -79,10 +81,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @account = @user.account
     authorize! :update, @user
-    
+
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html do
+          redirect_to @user, flash: { notice: I18n.t("flash.actions.update.notice") }
+        end
         #format.json { head :no_content }
         #format.js
       else
@@ -99,9 +103,9 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    
+
     authorize! :destroy, @user
-    
+
     @user.destroy
 
     respond_to do |format|
