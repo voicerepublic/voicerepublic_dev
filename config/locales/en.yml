@@ -1,4 +1,15 @@
 en:
+  flash:
+    actions:
+      create:
+        notice: "Successfully created"
+        alert: "Cannot be created"
+      update:
+        notice: "Successfully updated"
+        alert: "Cannot be updated"
+      destroy:
+        notice: "Successfully deleted"
+        alert: "Cannot be deleted"
   social_share:
     mail_subject: "Check out this talk on voicerepublic.com"
     mail_greeting: "Hi there"
