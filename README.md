@@ -20,13 +20,6 @@ Setup
     rake db:setup
     rake db:migrate
 
-### Thinking sphinx
-
-Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
-
-    bundle exec rake thinking_sphinx:configure
-    bundle exec rake thinking_sphinx:index
-    bundle exec rake thinking_sphinx:start
 
 
 Start the whole stack
@@ -40,7 +33,7 @@ Rails, Faye (PrivatePub) & Sphinx.
 Run Specs
 ---------
 
-To run specs Faye and a Sphinx daemon have to run.
+[Specs Wiki](https://github.com/munen/voicerepublic_dev/wiki/Development#wiki-specs)
 
 
 TODO
