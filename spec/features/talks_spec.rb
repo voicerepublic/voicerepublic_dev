@@ -14,14 +14,13 @@ describe "Talks" do
       @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
     end
 
-    # FIXME sometimes failing specs (on dev as well as circle ci) when using
-    # ANONYMOUS users.
+    # FIXME sometimes failing spec
     #
     #     Failure/Error: Unable to find matching line from backtrace
     #     ActiveRecord::RecordNotFound:
     #       ActiveRecord::RecordNotFound
     #
-    it "can be shared to social networks and saves statistics", driver: :chrome, slow: true do
+    it "can be shared to social networks and saves statistics", retry: 3, driver: :chrome, slow: true do
       SocialShare.count.should eq(0)
       VCR.use_cassette 'talk_dummy' do
         visit venue_talk_path 'en', @venue, @talk
@@ -37,10 +36,8 @@ describe "Talks" do
       SocialShare.count.should eq(1)
     end
 
-    # FIXME sometimes failing specs (on dev as well as circle ci) when using
-    # ANONYMOUS users.
-    #
-    it "does not lose tags on failed validation", js: true, :retry => 3 do
+    # FIXME sometimes failing spec (BT see above)
+    it "does not lose tags on failed validation", js: true, retry: 3 do
       VCR.use_cassette 'talk_dummy' do
         visit edit_venue_talk_path 'en', @venue, @talk
         fill_in :talk_title, with: ""
