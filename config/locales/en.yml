@@ -1,4 +1,10 @@
 en:
+  social_share:
+    mail_subject: "Check out this talk on voicerepublic.com"
+    mail_greeting: "Hi there"
+    mail_goodbye: "Best regards"
+    mail_body: "Check out this talk on voicerepublic.com: "
+    has_been_tracked: "Has been tracked"
   date:
     abbr_day_names:
     - Sun
@@ -9,7 +15,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -35,7 +41,7 @@ en:
       long: ! '%B %d, %Y'
       short: ! '%b %d'
     month_names:
-    - 
+    -
     - January
     - February
     - March

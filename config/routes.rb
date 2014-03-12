@@ -4,6 +4,10 @@ VoiceRepublic::Application.routes.draw do
   put  '/api/talk/:id',          to: 'api/talks#update'
   get  '/api/users',             to: 'api/users#index'
 
+  namespace 'api' do
+    resources :social_shares, only: [:create]
+  end
+
   post '/search',              to: 'search#create'
   get  '/search/:page/*query', to: 'search#show'
 

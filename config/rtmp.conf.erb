@@ -1,11 +1,4 @@
-# /home/rails/nginx-rtmp/nginx-run/conf/nginx.conf
-#
-# config/rtmp.conf
-#
-# Docs
-# ----
-#
-# https://github.com/arut/nginx-rtmp-module/wiki/Directives
+# doc: https://github.com/arut/nginx-rtmp-module/wiki/Directives
 
 worker_processes <%= worker_processes %>;
 
@@ -21,7 +14,7 @@ rtmp {
 
         <% if authenticate %>
         # authentication (needs an absolute url)
-        on_connect <%= notify_base %>/auth;
+        on_connect <%= callback_base %>/auth;
         <% end %>
 
         application offrecord {
@@ -48,13 +41,13 @@ rtmp {
 
             <% if send_notifications %>
             # --- Notifications
-            on_play         <%= notify_base %>/notify;
-            on_publish      <%= notify_base %>/notify;
-            on_done         <%= notify_base %>/notify;
-            on_play_done    <%= notify_base %>/notify;
-            on_publish_done <%= notify_base %>/notify;
-            on_record_done  <%= notify_base %>/notify;
-            on_update       <%= notify_base %>/notify;
+            on_play         <%= callback_base %>/notify;
+            on_publish      <%= callback_base %>/notify;
+            on_done         <%= callback_base %>/notify;
+            on_play_done    <%= callback_base %>/notify;
+            on_publish_done <%= callback_base %>/notify;
+            on_record_done  <%= callback_base %>/notify;
+            on_update       <%= callback_base %>/notify;
             <% end %>
         }
     }
