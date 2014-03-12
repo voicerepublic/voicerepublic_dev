@@ -4,11 +4,14 @@
       %br/
       %br/
       %br/
-      %h1
-        Welcome to Voice Republic!
-      %br/
-      %br/
-      %br/ 
+      %h1 Welcome to Voice Republic!
+      - @talks.each do |talk|
+        .panel
+          = link_to [talk.venue, talk] do
+            %h4= talk.venue.user.name
+            %h3= talk.venue.title
+            %h2= talk.title
+            %p= talk.teaser
   .row
     .large-5.columns.panel
       = render 'lp_login', :user => @user

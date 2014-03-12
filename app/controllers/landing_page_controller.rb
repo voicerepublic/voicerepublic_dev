@@ -1,7 +1,7 @@
 class LandingPageController < ApplicationController
   
   def index
-    @venues = Venue.all
+    @talks = Talk.featured
     @user = User.new
   end
   
