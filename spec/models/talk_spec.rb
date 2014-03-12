@@ -121,7 +121,7 @@ describe Talk do
       files = files.map { |f| f.sub('.flv', '.wav') }
       FileUtils.rm(files)
       FileUtils.rm(result)
-      # %x[ aplay #{result.sub('.m4a', '.wav')} ] 
+      # %x[ aplay #{result.sub('.m4a', '.wav')} ]
       FileUtils.rm(result.sub('.m4a', '.wav'))
       FileUtils.rm("#{talk.recording_path}.journal")
     end
@@ -168,12 +168,10 @@ describe Talk do
     end
   end
 
-  # FIXME works on my machine -- fails on circleci
   it 'does not send email with option no_emails' do
-    pending "WORKS ON MY MACHINE -- FAILS ON CIRCLECI"
     venue = FactoryGirl.create(:venue, options: { no_emails: true })
     talk = FactoryGirl.create(:talk, venue: venue)
-    expect(ActionMailer::Base.deliveries).to be_empty
+    expect(ActionMailer::Base.deliveries).should be_empty
   end
 
 end
