@@ -3,6 +3,8 @@ Welcome to Kluuu
 
 ![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
+"Work is the curse of the drinking classes." -- Gentleman Rhymer
+
 ## Build status
 
 * Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
@@ -22,18 +24,18 @@ Setup
     rake db:setup
     rake db:migrate
 
-### Thinking sphinx
+### New Search
 
-Install sphinx: http://pat.github.io/thinking-sphinx/installing_sphinx.html
+Make sure `postgresql-contrib-9.1` is installed.
 
-    bundle exec rake thinking_sphinx:configure
-    bundle exec rake thinking_sphinx:index
-    bundle exec rake thinking_sphinx:start
+    zeus rake pg_search:multisearch:rebuild\[Talk\]
+    zeus rake pg_search:multisearch:rebuild\[Venue\]
+    zeus rake pg_search:multisearch:rebuild\[User\]
 
 ### nginx/rtmp server (Debian 7 & optional)
 
 Make sure `libpcre++-dev` is installed. Run `rake rtmp:build`. The
-config file is located here `config/rtmp.conf`. See
+config file is located here `config/rtmp.conf.erb`. See
 `lib/tasks/rtmp.rake` for more details.
 
 
@@ -85,10 +87,11 @@ List all available strategies
 
 The generic strategy runner takes arguments
 
-* strategy name
-* path to audio files
-* name (X in the flv files tX-u...)
+ * strategy name
+ * path to audio files
+ * name (talk_id, X in the flv files tX-u...)
 
+    
     rake audio:run[strategy_name,path/to/files,name]
 
 The output lists the resulting files.
@@ -125,29 +128,6 @@ Config entries are compiled from:
     config/environments/#{environment}.local.yml
 
 Settings defined in files that are lower in the list override settings higher.
-
-
-### Merging Streams
-
-#### Legacy code (lib/tasks/recordings.rake)
-
-Merge all available recordings by event.
-
-    rake recordings:merge
-
-#### Strategy oriented code
-
-The first argument is the ID of the talk to merge, the second is the
-merge strategy to use, which is optional. The path to work in is set
-by `Settings.rtmp.recordings_path`
-
-    rake stream:merge[1]
-    rake stream:merge[1,highly_experimental]
-
-(Depending on you shell you might need to escape the square brackets.)
-
-Note: Starting the StreamMerger via rake is only for development and
-experiments. The StreamMerger will usually run via Delayed::Job.
 
 
 Platforms

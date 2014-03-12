@@ -91,9 +91,10 @@
           %dd.text-center
             %a(href="#talk-tab-description")
               =t('.description')
-          %dd.text-center
-            %a(href="#talk-tab-discussion")
-              =t('.discussion')
+          - unless @talk.venue.options[:suppress_chat]
+            %dd.text-center
+              %a(href="#talk-tab-discussion")
+                =t('.discussion')
           %dd.active.text-center
             %a(href="#talk-tab-participants")
               Participants
@@ -107,12 +108,13 @@
       .tabs-content.large-12.columns
         #talk-tab-description.content
           = @talk.try(:description).try(:html_safe)
-        #talk-tab-discussion.content
-          .panel.callout(ng-hide="config.user.role == 'listener'")
-            %input(ng-model='message.content')
-            %button(ng-click='sendMessage()')
-          .panel(ng-repeat='message in session.discussion')
-            {{ message.name }}: {{ message.content }}
+        - unless @talk.venue.options[:suppress_chat]
+          #talk-tab-discussion.content
+            .panel.callout(ng-hide="config.user.role == 'listener'")
+              %input(ng-model='message.content')
+              %button(ng-click='sendMessage()')
+            .panel(ng-repeat='message in session.discussion')
+              {{ message.name }}: {{ message.content }}
         #talk-tab-participants.content.active
           .expecting_promotion(ng-show='session.expectingPromotion().length')
             %h3= t('.microphone_requests')

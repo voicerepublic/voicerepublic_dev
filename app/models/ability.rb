@@ -6,6 +6,8 @@ class Ability
   def initialize(user)
 
     user ||= User.new
+
+    return if user.guest?
     
     can :manage, User,    id: user.id
     can :manage, Account, user_id: user.id

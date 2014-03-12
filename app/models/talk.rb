@@ -98,6 +98,9 @@ class Talk < ActiveRecord::Base
     where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
+  include PgSearch
+  multisearchable against: [:tag_list, :title, :teaser, :description]
+  
   def guest_list
     guests.pluck(:lastname).sort * ','
   end
