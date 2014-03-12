@@ -17,8 +17,6 @@ describe TalksController do
   it 'allows for creation of a new talk' do
     expect {
       post :create, { venue_id: @venue.id, talk: valid_attributes }
-      p valid_attributes
-      p assigns(:talk).errors.to_a
     }.to change(Talk, :count).by(1)
   end
 
