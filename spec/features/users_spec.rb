@@ -32,12 +32,19 @@ feature "User edits own profile" do
     page.should have_content('User was successfully updated.')
   end
 
-  scenario "uploading a avatar image" do
-    pending 'ACTIVATE SPEC WHEN UPLOAD-AVATER BRANCH IS MERGED'
+  scenario "uploading a avatar image", js: true do
     some_image = Rails.root.join('app/assets/images/logo.png')
+    @user.reload.avatar_uid.should be_nil
+    # This is a workaround since we are using a button that will trigger a file
+    # input box while the normal <input type=file> is hidden. Therefore this is
+    # not a completely safe spec; if the button JS fails, this spec will still
+    # run.
+    page.execute_script "$('#user_avatar').parents().show()"
+    sleep 0.1
     page.attach_file 'user_avatar', some_image
     page.click_button 'Save'
-    page.should have_content('User was successfully updated.')
+    page.should have_content(I18n.t('flash.actions.update.notice'))
+    @user.reload.avatar_uid.should match(/logo/)
   end
 end
 
