@@ -104,10 +104,12 @@ class Talk < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
   
+  # returns an array of json objects
   def guest_list
-    guests.pluck(:lastname).sort * ','
+    guests.map(&:for_select).to_json
   end
 
+  # accepts a string with a comma separated list of ids
   def guest_list=(list)
     @guest_list = list.split(',').sort
   end
@@ -220,13 +222,11 @@ class Talk < ActiveRecord::Base
 
   def set_guests
     return if @guest_list.nil?
-    return if @guest_list == guest_list.split(',')
+    return if @guest_list == appearances.pluck(:user_id).sort
 
     appearances.clear
-    @guest_list.each do |lastname|
-      if user_id = User.find_by(lastname: lastname).id
-        appearances.create(user_id: user_id)
-      end
+    @guest_list.each do |id|
+      appearances.create(user_id: id)
     end
   end
 
