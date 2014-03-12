@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe "Talks" do
 
+  before do
+    @user = FactoryGirl.create(:user)
+    login_user(@user)
+  end
+
   describe "validation" do
 
     before do
@@ -9,14 +14,14 @@ describe "Talks" do
       @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
     end
 
-    # FIXME sometimes failing specs (on dev as well as circle ci)
+    # FIXME sometimes failing specs (on dev as well as circle ci) when using
+    # ANONYMOUS users.
     #
     #     Failure/Error: Unable to find matching line from backtrace
     #     ActiveRecord::RecordNotFound:
     #       ActiveRecord::RecordNotFound
     #
     it "can be shared to social networks and saves statistics", driver: :chrome, slow: true do
-      pending "S O M E T I M E S   F A I L I N G   S P E C"
       SocialShare.count.should eq(0)
       visit venue_talk_path 'en', @venue, @talk
       page.execute_script('$("#social_share .facebook").click()')
@@ -30,10 +35,10 @@ describe "Talks" do
       SocialShare.count.should eq(1)
     end
 
-    # FIXME: sometimes failing spec
+    # FIXME sometimes failing specs (on dev as well as circle ci) when using
+    # ANONYMOUS users.
     #
     it "does not lose tags on failed validation", js: true do
-      pending "S O M E T I M E S   F A I L I N G   S P E C"
       visit edit_venue_talk_path 'en', @venue, @talk
       fill_in :talk_title, with: ""
       click_on I18n.t 'helpers.submit.submit'
