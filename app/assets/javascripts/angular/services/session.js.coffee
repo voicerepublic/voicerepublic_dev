@@ -76,6 +76,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         # negative numbers will timeout immediately
         # TODO check for brwoser compatibility
         if config.talk.state == 'prelive'
+          $log.debug "schedule startTalk for in #{config.talk.starts_in}"
           $timeout startTalk, config.talk.starts_in * 1000
       onleaveHostOnAir: ->
         blackbox.unpublish()
@@ -163,6 +164,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
         config.talk.state = 'processing'
       when 'Archive'
         config.talk.state = 'archived'
+        $log.debug data.links
         config.talk.links = data.links
 
   # some methods only available to the host
@@ -172,6 +174,7 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     return fsm.Demoted() if id is config.user_id
     upstream.event 'Demote', user: { id }
   startTalk = ->
+    $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
   endTalk = ->
     upstream.event 'EndTalk'
