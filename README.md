@@ -191,8 +191,8 @@ Then reload the browsers. It will record a couple of seconds
 pretalk. You should see the file size in `vrwatch` go up. After the
 time to start is up it will switch to live mode automatically. With
 your second Browser you should hear yourself now. (Reload the host at
-least once to have multiple streams. these will show up on the console
-which runs `vrwatch`.)
+least once if you want to have multiple files. These will show up on
+the console which runs `vrwatch`.)
 
 Click `End Talk` to end the talk. On the rails console kick off post
 processing with:
@@ -217,8 +217,6 @@ Restart `vrwatch` to remove the artifacts and start over.
 
 ### Known Issues
 
-* kluuu_merge will fail if there is only one file to merge
-* jinglize doesn't change the file
 * listener doesn't get out of Registering, thus won't subscribe to the streams
 * event Archive, doen't change the view, thus links don't show up
 
