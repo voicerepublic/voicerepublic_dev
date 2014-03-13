@@ -60,9 +60,9 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :teaser, :starts_at, :duration,
+  attr_accessible :title, :teaser, :duration,
                   :description, :record, :image, :tag_list,
-                  :guest_list
+                  :guest_list, :starts_at_date, :starts_at_time
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -70,7 +70,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  validates :venue, :title, :starts_at, :ends_at, :tag_list, presence: true
+  validates :venue, :title, :starts_at, :ends_at, :tag_list, :duration, presence: true
 
   before_validation :set_ends_at
   after_create :notify_participants
@@ -103,11 +103,13 @@ class Talk < ActiveRecord::Base
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
-  
+
+  # returns an array of json objects
   def guest_list
-    guests.pluck(:lastname).sort * ','
+    guests.map(&:for_select).to_json
   end
 
+  # accepts a string with a comma separated list of ids
   def guest_list=(list)
     @guest_list = list.split(',').sort
   end
@@ -118,6 +120,28 @@ class Talk < ActiveRecord::Base
 
   def ends_in # seconds (for live) # TODO: check if needed
     (ends_at - Time.now).to_i
+  end
+
+  def starts_at_time
+    starts_at
+  end
+
+  def starts_at_date
+    starts_at
+  end
+
+  def starts_at_time=(time)
+    datetime = DateTime.parse(time)
+    self.starts_at ||= DateTime.new
+    attrs = { hour: datetime.hour, min: datetime.min }
+    self.starts_at = starts_at.change(attrs)
+  end
+
+  def starts_at_date=(date)
+    datetime = DateTime.parse(date)
+    self.starts_at ||= DateTime.new
+    attrs = { year: datetime.year, month: datetime.month, day: datetime.day }
+    self.starts_at = starts_at.change(attrs)
   end
 
   def config_for(user)
@@ -185,7 +209,7 @@ class Talk < ActiveRecord::Base
   private
 
   def set_ends_at
-    return unless starts_at
+    return unless starts_at && duration
     self.ends_at = starts_at + duration.minutes
   end
 
@@ -198,13 +222,11 @@ class Talk < ActiveRecord::Base
 
   def set_guests
     return if @guest_list.nil?
-    return if @guest_list == guest_list.split(',')
+    return if @guest_list == appearances.pluck(:user_id).sort
 
     appearances.clear
-    @guest_list.each do |lastname|
-      if user_id = User.find_by(lastname: lastname).id
-        appearances.create(user_id: user_id)
-      end
+    @guest_list.each do |id|
+      appearances.create(user_id: id)
     end
   end
 

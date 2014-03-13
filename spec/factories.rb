@@ -91,7 +91,8 @@ FactoryGirl.define do
   factory :talk do
     title "MyString"
     venue
-    starts_at 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
+    starts_at_time 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
+    starts_at_date 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
     # ends_at   2.hour.from_now
     # ended_at 90.minutes.from_now
     duration 60
