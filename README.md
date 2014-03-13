@@ -174,7 +174,7 @@ override the configuration in `config/settings.yml`.
       record: "rtmp://localhost/record"
 
 Open two browser windows (with different sessions, one should be the
-host) and direct the to show the same talk. In a terminal start
+host) and direct them to show the same talk. In a terminal start
 `vrwatch`. Attention: This will delete all previous recordings! (Never
 ever run this in production!)
 
@@ -190,7 +190,7 @@ and reset it to start soon (e.g. `20.seconds.from_now`). (Don't use
 Then reload the browsers. It will record a couple of seconds
 pretalk. You should see the file size in `vrwatch` go up. After the
 time to start is up it will switch to live mode automatically. With
-you second Browser you should hear yourself now. (Reload the host at
+your second Browser you should hear yourself now. (Reload the host at
 least once to have multiple streams. these will show up on the console
 which runs `vrwatch`.)
 
@@ -199,20 +199,19 @@ processing with:
 
     t.reload.send(:postprocess!)
 
-Views will change slightly. A journal file shows up in `vrwatch`. If 
-
-When running in console a `debugger` statement will hold before each
+Views will change slightly. A journal file shows up in `vrwatch`. When
+running in console a `debugger` statement will hold before each
 Audio::Strategy to inspect the precondition and outcome in
-`vrwatch`. Type `c` and Enter to continue to the next strategy. It
-will output the shell out commands prefixed with `CmdRunner>`, any
+`vrwatch`. Type `c` and `Enter` to continue to the next strategy. It
+will output the shell-out-commands prefixed with `CmdRunner>`, any
 errors and in red the next strategy to run.
 
-After the last strategy post precessing will move the files from
+After the last strategy post processing will move the files from
 `recordings` to `archive` resp. `archive_raw`. It'll also create
 symlinks to access these files via `public/system/audio`.
 
 At that point the history of you rails console will be dead -- no clue
-why.
+why. But you can simply quit the console and restart it to get it back.
 
 Restart `vrwatch` to remove the artifacts and start over.
 
