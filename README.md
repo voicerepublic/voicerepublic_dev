@@ -155,6 +155,68 @@ Console Cheat Sheet
     end
 
 
+Manual acceptance tests Cheat Sheet
+-----------------------------------
+
+If you don't have it already you realy should install `tree`.
+
+    % sudo apt-get install tree
+
+Start a local rtmp server.
+
+    % zeus rake rtmp:start
+
+Configure Rails to use the local rtmp server. Create a file
+`config/settings.local.yml` with the following content. This will
+override the configuration in `config/settings.yml`.
+
+    rtmp:
+      record: "rtmp://localhost/record"
+
+Open two browser windows (with different sessions, one should be the
+host) and direct the to show the same talk. In a terminal start
+`vrwatch`. Attention: This will delete all previous recordings! (Never
+ever run this in production!)
+
+    % bin/vrwatch
+
+On a rails console, pick the talk you want to work with (e.g. id 42)
+and reset it to start soon (e.g. `20.seconds.from_now`). (Don't use
+`update_attribute`, since it will not trigger the callbacks.)
+
+    t = Talk.find(42); nil
+    t.reload; t.starts_at = 20.seconds.from_now; t.state = 'prelive'; t.save
+
+Then reload the browsers. It will record a couple of seconds
+pretalk. You should see the file size in `vrwatch` go up. After the
+time to start is up it will switch to live mode automatically. With
+you second Browser you should hear yourself now. (Reload the host at
+least once to have multiple streams. these will show up on the console
+which runs `vrwatch`.)
+
+Click `End Talk` to end the talk. On the rails console kick off post
+processing with:
+
+    t.reload.send(:postprocess!)
+
+Views will change slightly. A journal file shows up in `vrwatch`. If 
+
+When running in console a `debugger` statement will hold before each
+Audio::Strategy to inspect the precondition and outcome in
+`vrwatch`. Type `c` and Enter to continue to the next strategy. It
+will output the shell out commands prefixed with `CmdRunner>`, any
+errors and in red the next strategy to run.
+
+After the last strategy post precessing will move the files from
+`recordings` to `archive` resp. `archive_raw`. It'll also create
+symlinks to access these files via `public/system/audio`.
+
+At that point the history of you rails console will be dead -- no clue
+why.
+
+Restart `vrwatch` to remove the artifacts and start over.
+
+
 Audio cheat sheet
 -----------------
 
