@@ -9,11 +9,11 @@ module Audio
 
       # finds files with result naming scheme
       def inputs
-        @inputs ||= Dir.glob("#{name}.*") 
+        @inputs ||= Dir.glob("#{name}.*") - [ "#{name}.journal" ]
       end
 
       def inputs_new_name
-        inputs.map { |r| r.sub(/\.(\w+)$/, "-#{INFIX}.\1") }
+        inputs.map { |r| r.sub(/\.(\w+)$/, "-#{INFIX}.\\1") }
       end
 
       def resulting_wav_file
@@ -21,7 +21,9 @@ module Audio
       end
 
       def run
-        FileUtils.mv(inputs, inputs_new_name)
+        inputs.each_with_index do |file, index|
+          FileUtils.mv(file, inputs_new_name[index])
+        end
         FileUtils.cp("#{name}-#{INFIX}.wav", resulting_wav_file)
         outputs
       end
