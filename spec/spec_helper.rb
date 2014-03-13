@@ -142,6 +142,9 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
+    # Disabling multi-search indexing for specs
+    # saves about 30 secs on-my-machine (TM)
+    Thread.current["PgSearch.enable_multisearch"] = false
   end
 
   config.before(:each) do
