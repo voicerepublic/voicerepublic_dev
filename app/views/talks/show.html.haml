@@ -34,7 +34,7 @@
         .download(ng-show='talkIsArchived()')
           %ul
             %li(ng-repeat='(ext, link) in config.talk.links')
-              %a(href='{{link}}') {{ext}}
+              %a.button(href='{{link}}') {{ext}}
         -# = render 'debug'
 
         .host.avatar.avatar-host
