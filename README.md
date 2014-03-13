@@ -215,6 +215,13 @@ why. But you can simply quit the console and restart it to get it back.
 
 Restart `vrwatch` to remove the artifacts and start over.
 
+### Known Issues
+
+* kluuu_merge will fail if there is only one file to merge
+* jinglize doesn't change the file
+* listener doesn't get out of Registering, thus won't subscribe to the streams
+* event Archive, doen't change the view, thus links don't show up
+
 
 Audio cheat sheet
 -----------------
