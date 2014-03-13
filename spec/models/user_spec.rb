@@ -1,7 +1,8 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe User do
-  
+
   it "has a valid factory" do
     FactoryGirl.create(:user).should be_valid
   end
@@ -50,6 +51,18 @@ describe User do
       results.should include(user0)
       results.should include(user1)
       results.should_not include(user2)
+    end
+
+    it 'ignores accents' do
+      user = FactoryGirl.create(:user, firstname: 'MrBrùce')
+
+      # searching for a user with accent works without writing it
+      results = User.search('MrBruce')
+      results.should include(user)
+
+      # searching for a user with wrong accents works
+      results = User.search('MrBrucè')
+      results.should include(user)
     end
   end
 

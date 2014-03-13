@@ -70,7 +70,8 @@ class User < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:firstname, :lastname]
   pg_search_scope :search, against: [:firstname, :lastname],
-    using: { tsearch: { prefix: true } }
+    using: { tsearch: { prefix: true } },
+    ignoring: :accents
 
   def name
     "#{firstname} #{lastname}"
@@ -113,7 +114,7 @@ class User < ActiveRecord::Base
   end
 
   def details_for(talk)
-    { 
+    {
       id: id,
       name: name,
       role: role_for(talk),
@@ -135,6 +136,11 @@ class User < ActiveRecord::Base
   def set_password!(passwd)
     self.password = self.password_confirmation = passwd
     save!
+  end
+
+  # we'll use `text` here, which plays nice with select2
+  def for_select
+    { id: id, text: name, img: account.portrait.url(:thumb) }
   end
 
   private

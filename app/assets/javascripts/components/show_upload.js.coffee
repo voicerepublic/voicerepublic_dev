@@ -1,7 +1,7 @@
 showUpload = (element) ->
   target = $(element)
 
-  source = $("##{target.attr('data-show-upload')}")
+  source = $("#{target.attr('data-show-upload')}")
   source.change ->
     reader = new FileReader()
     reader.onload = (e) ->
