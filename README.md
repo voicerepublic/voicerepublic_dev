@@ -195,16 +195,18 @@ least once if you want to have multiple files. These will show up on
 the console which runs `vrwatch`.)
 
 Click `End Talk` to end the talk. On the rails console kick off post
-processing with:
+processing (in User Acceptance Test mode) with:
 
-    t.reload.send(:postprocess!)
+    t.reload.send(:postprocess!, true)
 
 Views will change slightly. A journal file shows up in `vrwatch`. When
-running in console a `debugger` statement will hold before each
-Audio::Strategy to inspect the precondition and outcome in
+running with parameter `true` a `debugger` statement will hold before
+each Audio::Strategy to inspect the precondition and outcome in
 `vrwatch`. Type `c` and `Enter` to continue to the next strategy. It
 will output the shell-out-commands prefixed with `CmdRunner>`, any
-errors and in red the next strategy to run.
+errors and in red the next strategy to run. (At this point you can
+run the shell-out-commands under `local/recordings` to play with them
+and tweak stuff.)
 
 After the last strategy post processing will move the files from
 `recordings` to `archive` resp. `archive_raw`. It'll also create
@@ -217,8 +219,7 @@ Restart `vrwatch` to remove the artifacts and start over.
 
 ### Known Issues
 
-* listener doesn't get out of Registering, thus won't subscribe to the streams
-* event Archive, doen't change the view, thus links don't show up
+* listener doesn't get out of state Registering, thus won't subscribe to the streams
 
 
 Audio cheat sheet

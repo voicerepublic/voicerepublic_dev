@@ -244,7 +244,7 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
 
-  def postprocess!
+  def postprocess!(uat=false)
     return unless record? # TODO: move into a final state != archived
     process!
     PrivatePub.publish_to public_channel, { event: 'Process' }
@@ -263,8 +263,7 @@ class Talk < ActiveRecord::Base
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }
       PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
-      logger.debug "\033[31mNext strategy to run: #{name}\033[0m"
-      debugger if defined?(Rails::Console)
+      (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
       runner.run(name)
     end
     # save recording
