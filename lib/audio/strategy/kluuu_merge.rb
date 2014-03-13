@@ -32,10 +32,10 @@ module Audio
         streams = streams.sort_by { |_, datetime| datetime }
         # build command
         start_at = streams.first[1]
-        sox = "sox -m #{streams.first[0].sub('.flv', '')}.wav"
+        sox = "sox -V1 -m #{streams.first[0].sub('.flv', '')}.wav"
         streams[1..-1].each do |name, datetime|
           delay = ((datetime - start_at) * 24 * 60 * 60).to_i
-          sox << " \"|sox #{name.sub('.flv', '')}.wav -p pad #{delay}\""
+          sox << " \"|sox -V1 #{name.sub('.flv', '')}.wav -p pad #{delay}\""
         end
         sox << " #{outfile}"
       end

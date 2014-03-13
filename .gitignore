@@ -1,4 +1,5 @@
 /.bundle
+/.rspec
 /vendor/bundle
 
 # Ignore all logfiles and tempfiles.

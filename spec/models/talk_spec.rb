@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe Talk do
@@ -30,7 +31,14 @@ describe Talk do
       @talk.starts_at = nil
       expect(@talk).to_not be_valid
     end
-
+    it 'sets the time of starts_at via starts_at_time' do
+      @talk.starts_at_time = '12:34'
+      @talk.starts_at.strftime('%H:%M').should eq('12:34')
+    end
+    it 'sets the date of starts_at via starts_at_date' do
+      @talk.starts_at_date = '2013-12-31'
+      @talk.starts_at.strftime('%Y-%m-%d').should eq('2013-12-31')
+    end
     it 'provides a method starts_in' do
       expect(@talk.starts_in).to be > 0
     end
@@ -41,6 +49,10 @@ describe Talk do
       talk = FactoryGirl.build(:talk, duration: 45)
       talk.valid? # triggers before_validation callbacks
       expect(talk.ends_at).to eq(talk.starts_at + 45.minutes)
+    end
+    it 'does not crash when required parameters are missing' do
+      talk = FactoryGirl.build(:talk, duration: nil)
+      expect { talk.save }.to_not raise_exception
     end
   end
 

@@ -19,7 +19,7 @@ module Audio
       end
 
       def trim_cmd
-        "sox #{backup} #{input} trim #{start} =#{stop}"
+        "sox -V1 #{backup} #{input} trim #{start} =#{stop}"
       end
 
       def start
