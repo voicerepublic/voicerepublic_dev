@@ -43,22 +43,5 @@
 })(jQuery);
 
 
-$(function() {
-  // FIXME fix position of toolbar (clone or namespace it for multiple editors)
-  $('#wysihtml5-toolbar').prependTo('.control-group.talk_description .controls');
-
-  $('[data-wysiwyg=true]').each(function(index, candidate) {
-    var id = candidate.id;
-    var editor = new wysihtml5.Editor(id, {
-      toolbar:     "wysihtml5-toolbar",
-      parserRules: wysihtml5ParserRules,
-      stylesheets: ['/assets/wysihtml5.css']
-    });
-  });
-});
-
-
-
-
 
 $(function(){ $(document).foundation(); });
