@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe SearchController do
@@ -36,6 +37,18 @@ describe SearchController do
     it "finds talks" do
       talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(talk)
+    end
+
+    it "finds results when forgetting the accent" do
+      talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(talk)
+    end
+
+    it "finds results when using wrong accents" do
+      talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
+      get :show, page: 1, query: 'Dèlìght'
       assigns(:results).first.searchable.should eq(talk)
     end
 

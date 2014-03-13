@@ -65,6 +65,7 @@ group :development, :test, :staging do
   gem 'foreman',                            require: false
   gem 'pry-rails'
   gem 'rspec-rails'
+  gem 'rspec-retry'
   gem 'sqlite3'
   gem 'timecop'
   gem 'vcr',                '2.8.0',        require: false

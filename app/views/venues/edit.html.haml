@@ -1,4 +1,7 @@
-.row
-  .large-12.columns
-    %h2= t('.edit_venue')
-    = render 'form'
+= simple_form_for @venue do |f|
+  = render partial: 'fields', locals: { f: f, form_title: t(".edit_venue") }
+
+  .row
+    .large-10.medium-10.large-centered.medium-centered.columns
+      = f.button :submit
+      = link_to t('.cancel'), @venue
