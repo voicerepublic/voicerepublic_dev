@@ -1,7 +1,13 @@
 rtmp:
-  build_path:       /home/rails/rtmp
-  archive_path:     /home/rails/archive
-  archive_raw_path: /home/rails/archive_raw
-  recordings_path:  /home/rails/recordings
-  worker_processes: 2
-
+  build_path:         /home/app/shared/rtmp
+  archive_path:       /home/app/shared/archive
+  archive_raw_path:   /home/app/shared/archive_raw
+  recordings_path:    /home/app/shared/recordings
+  worker_processes:   2
+  offrecord:          'rtmp://voicerepublic-staging.sky.ungleich.ch/offrecord'
+  record:             'rtmp://voicerepublic-staging.sky.ungleich.ch/record'
+  log_notifications:  false
+  send_notifications: false
+  callback_base:      'http://0.0.0.0:3000/rtmp'
+  record_max_size:    '100M'
+  authenticate:       true

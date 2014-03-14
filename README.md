@@ -137,7 +137,7 @@ Platforms
 
 ### Production
 
- * Site: [http://kluuu.com](http://kluuu.com)
+* Site: [http://kluuu.com](http://kluuu.com)
 
 ### Staging
 
