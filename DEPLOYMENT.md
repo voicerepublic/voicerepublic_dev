@@ -94,17 +94,68 @@ Setup symlinks
          ->    /home/app/app/shared/recordings
 
 
-Requirements
-------------
+PrivatePub Config
+-----------------
 
-* postgresql-contrib-9.1
-* libpcre++-dev
-* libav-tools
-* sox
+    app@voicerepublic-staging:~$ cp app/current/config/private_pub.yml app/shared/config/private_pub.yml
+    app@voicerepublic-staging:~$ nano app/shared/config/private_pub.yml
+    app@voicerepublic-staging:~$ cat app/shared/config/private_pub.yml 
+    production:
+      server: "http://voicerepublic-staging.sky.ungleich.ch:9292/faye"
+      secret_token: "1ca35552f8b33e95302a951002a835fc39b6699ab2447f9140d36190fca0c0a7"
+      signature_expiration: 7200 # two hours
+
+
+TODO
+----
+
+### Setup Whenever in config/deploy.rb
+
+### Open Ports
+
+* 9292 (private_pub/faye) 
+* 1935 (rtmp)
+
+### Write Start/Stop Scripts
+
+for daemons started via config/monit.conf
+
+* dj ?
+* private_pub
+* rtmpd
+* localeapp
+
+### Fix Monit Config
+
+### Setup multiple DJs for separate queues
+
+#### Queue 'mail'
+
+Low prio. No hurry. Process one at a time without puting burden on the
+system.
+
+#### Queue 'trigger'
+
+High prio. Very cheap jobs, which should be handled in real time. The
+jobs in this queue are set to run at a given time.
+
+#### Queue 'process_audio'
+
+Long running io heavy jobs. Process as fast as possible. Several might
+show up at once. Process multiple in parallel?
+
+#### Setup
+
+    RAILS_ENV=production script/delayed_job --queue=mail start
+    RAILS_ENV=production script/delayed_job --queue=trigger start
+    RAILS_ENV=production script/delayed_job --queue=process_audio -n 15 start
+
 
 
 Nice to have
 ------------
+
+Debian packages
 
 * tree
 * multitail
