@@ -1,8 +1,8 @@
 rtmp:
-  build_path:         /home/app/shared/rtmp
-  archive_path:       /home/app/shared/archive
-  archive_raw_path:   /home/app/shared/archive_raw
-  recordings_path:    /home/app/shared/recordings
+  build_path:         /home/app/app/shared/rtmp
+  archive_path:       /home/app/app/shared/archive
+  archive_raw_path:   /home/app/app/shared/archive_raw
+  recordings_path:    /home/app/app/shared/recordings
   worker_processes:   2
   offrecord:          'rtmp://voicerepublic-staging.sky.ungleich.ch/offrecord'
   record:             'rtmp://voicerepublic-staging.sky.ungleich.ch/record'
@@ -11,3 +11,4 @@ rtmp:
   callback_base:      'http://0.0.0.0:3000/rtmp'
   record_max_size:    '100M'
   authenticate:       true
+

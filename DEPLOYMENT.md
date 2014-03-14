@@ -62,6 +62,38 @@ As root
     CREATE EXTENSION
 
 
+Build & start rtmpd
+-------------------
+
+    app@voicerepublic-staging:~$ current
+    app@voicerepublic-staging:~/app/current$ be rake rtmp:build
+    created directory /home/app/app/shared/rtmp
+    checking for nginx...
+    fetching newest version (nginx-1.5.11)...
+    checking for nginx-rtmp-module...
+    fetching newest version (v1.1.3)...
+    compiling (nginx-1.5.11/nginx-rtmp-module-1.1.3)...
+    
+    Good news everyone. You're all set.
+    
+      rake rtmp:(start|stop|restart)
+
+    app@voicerepublic-staging:~/app/current$ be rake rtmp:start
+    rtmpd started with pids 4199, 4200, 4201
+
+
+Setup symlinks
+--------------
+
+    app@voicerepublic-staging:~/app/current$ be rake setup
+    RECORDINGS /home/app/app/shared/recordings
+    Create /home/app/app/shared/recordings
+    RTMPBUILD  /home/app/app/shared/rtmp
+    RECTEMP    /home/app/app/shared/rtmp/run/recordings
+    symlink    /home/app/app/shared/rtmp/run/recordings
+         ->    /home/app/app/shared/recordings
+
+
 Requirements
 ------------
 
