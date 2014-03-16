@@ -54,6 +54,8 @@ gem 'pg_search', github: 'branch14/pg_search'
 group :development, :test, :staging do
   # gem 'rails_view_annotator'
   gem 'annotator'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'capistrano',         '~> 3.1.0'
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
