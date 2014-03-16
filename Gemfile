@@ -63,6 +63,7 @@ group :development, :test, :staging do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
   gem 'foreman',                            require: false
+  gem 'meta_request'
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rspec-retry'
