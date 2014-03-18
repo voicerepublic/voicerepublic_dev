@@ -57,6 +57,8 @@ module VoiceRepublic
     # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
 
+    config.assets.initialize_on_precompile = false
+    
     # still needed with rails4 ?
     config.assets.paths << "#{config.root}/app/assets/fonts"
 
