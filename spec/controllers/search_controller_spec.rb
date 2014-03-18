@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'spec_helper'
 
 describe SearchController do
@@ -10,6 +11,15 @@ describe SearchController do
   end
 
   describe "on GET" do
+
+    before do
+      Thread.current["PgSearch.enable_multisearch"] = true
+    end
+    
+    after do
+      Thread.current["PgSearch.enable_multisearch"] = false
+    end
+
     it "succeeds" do
       get :show, page: 1, query: 'some query'
       response.should be_success
@@ -36,6 +46,18 @@ describe SearchController do
     it "finds talks" do
       talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(talk)
+    end
+
+    it "finds results when forgetting the accent" do
+      talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(talk)
+    end
+
+    it "finds results when using wrong accents" do
+      talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
+      get :show, page: 1, query: 'Dèlìght'
       assigns(:results).first.searchable.should eq(talk)
     end
 

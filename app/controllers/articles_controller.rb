@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
 
   layout 'users'
-  
+
   before_filter :set_venue
   before_filter :authenticate_user!, :except => [:show, :index]
 
@@ -34,9 +34,9 @@ class ArticlesController < ApplicationController
     if params[:status_update_id]
       @status_update = StatusUpdate.find(params[:status_update_id])
     end
-    
+
     @user = current_user
-   
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @article }
@@ -54,9 +54,9 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
 
     logger.debug(@article.inspect)
-    
+
     unless @article
-      flash[:alert] = 'type can not be articled ...' 
+      flash[:alert] = 'type can not be articled ...'
       redirect_to :back and return
     end
 
@@ -75,9 +75,9 @@ class ArticlesController < ApplicationController
   # PUT /articles/1.json
   def update
     @article = Article.find(params[:id])
-    
+
     authorize! :update, @article
-    
+
     respond_to do |format|
       if @article.update_attributes(params[:article])
         format.html { redirect_to user_status_update_path(:user_id => @article.venue.user.id, :status_update_id => @article.venue ), notice: 'Article was successfully updated.' }
@@ -93,13 +93,13 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1.json
   def destroy
     @article = Article.find(params[:id])
-    
+
     authorize! :destroy, @article
-    
+
     @article.destroy
 
     respond_to do |format|
-      format.html do 
+      format.html do
         flash[:notice] = "Article destroyed"
         redirect_to :back
       end
@@ -107,9 +107,9 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  private 
-  
+
+  private
+
   def set_venue
     @venue = Venue.find(params[:venue_id])
   end

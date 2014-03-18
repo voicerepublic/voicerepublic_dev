@@ -31,7 +31,7 @@ module Audio
 
       def merge_with_jingles_cmd
         start, stop = jingles
-        "sox -m #{start} #{backup} #{stop} #{input}"
+        "sox -V1 -m #{start} #{backup} #{stop} #{input}"
       end
 
       def jingles

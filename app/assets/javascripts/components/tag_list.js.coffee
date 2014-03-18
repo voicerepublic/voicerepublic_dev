@@ -1,8 +1,10 @@
-tagList = ->
+selector = '.tagList'
+
+initialize = (node) ->
   
-  tags = $('.tagList').val().split(', ')
+  tags = $(node).val().split(', ')
   
-  $('.tagList').select2
+  $(node).select2
     width: 'element'
     multiple: true
     tokenSeparators: [",", " "]
@@ -41,7 +43,8 @@ tagList = ->
       id = Math.floor(Math.random() * 1000)
       formatted.push { id, name }
   if tags.length > 0
-    $('.tagList').select2 'data', formatted                   
+    $(node).select2 'data', formatted                   
 
 # init if present
-tagList() if $('.tagList').length
+$.each $(selector), (index, node) -> initialize(node)
+    

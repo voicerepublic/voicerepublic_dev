@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   def user_time_zone(&block)
     Time.use_zone(current_user.account.timezone, &block)
   end
-  
+
   def after_sign_in_path_for(user)
     user.update_attribute(:available, 'online') if user.available.nil?
     return_to = ( request.env['omniauth.origin'] || stored_location ||
@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   def stored_location
     session.delete(:return_to)
   end
-  
+
   def store_location
     session[:return_to] = request.fullpath
   end
@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
   def create_guest_user
     token = SecureRandom.random_number(10000)
     name = ['guest', Time.now.to_i, token ] * '_'
@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
     session[:guest_user_id] = user.id
     user
   end
-  
+
   # get locale from browser settings
   def extract_locale_from_accept_language_header
     begin
@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
       'en'
     end
   end
-  
+
   def set_locale
     if params[:locale]
       _locale = params[:locale]
@@ -109,16 +109,16 @@ class ApplicationController < ActionController::Base
     end
     I18n.locale = %w{de en}.include?(_locale) ? _locale : I18n.default_locale
   end
-  
+
   def set_last_request
     if current_user
       if ( current_user.last_request_at.nil? ) ||
         ( current_user.last_request_at < Time.now - 1.minute )
-        current_user.update_attribute(:last_request_at, Time.now) 
+        current_user.update_attribute(:last_request_at, Time.now)
       end
     end
   end
-  
+
   def default_url_options(options={})
     logger.debug "default_url_options is passed options: #{options.inspect}\n"
     { :locale => I18n.locale }

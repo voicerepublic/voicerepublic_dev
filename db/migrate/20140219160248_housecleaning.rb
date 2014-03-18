@@ -57,4 +57,11 @@ class Housecleaning < ActiveRecord::Migration
     drop_table :video_servers
     drop_table :video_session_bases
   end
+  
+  private
+
+  def drop_table(table)
+    super if ActiveRecord::Base.connection.table_exists?(table)
+  end
+
 end

@@ -9,8 +9,9 @@ set :rbenv_ruby, '1.9.3-p448'
 #set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 #set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 #set :rbenv_roles, :all # default value
+set :rbenv_ruby_version, "1.9.3-p448"
 
-set :application, 'kluuu2'
+set :application, 'voice_republic'
 set :repo_url, 'git@github.com:munen/voicerepublic_dev.git'
 
 set :ssh_options, { forward_agent: true }
@@ -19,7 +20,7 @@ set :ssh_options, { forward_agent: true }
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/home/rails/app'
+set :deploy_to, '/home/app/app'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -28,7 +29,7 @@ set :deploy_to, '/home/rails/app'
 # set :format, :pretty
 
 # Default value for :log_level is :debug
-set :log_level, :info
+#set :log_level, :info
 
 # Default value for :pty is false
 # set :pty, true

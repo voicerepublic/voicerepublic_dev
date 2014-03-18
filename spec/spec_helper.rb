@@ -7,6 +7,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
+require 'rspec/retry'
+
 require 'capybara/rspec'
 require 'capybara/rails'
 
@@ -42,7 +44,8 @@ end
 
 # Specific for CircleCI
 if ENV['CI']
-  # nothing yet
+  # Increase log level on CircleCI to reduce IO
+  Rails.logger.level = 4
 end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -54,6 +57,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
+
+  config.verbose_retry = true # show retry status in spec process
 
   # Use rspec tags to filter for specific specs
   # Examples
@@ -142,6 +147,9 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
+    # Disabling multi-search indexing for specs
+    # saves about 30 secs on-my-machine (TM)
+    Thread.current["PgSearch.enable_multisearch"] = false
   end
 
   config.before(:each) do
@@ -150,6 +158,15 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  # Force asset compilation in a Rack request so it's ready for the Poltergeist
+  # request that otherwise times out.
+  config.before(:all) do
+    if self.respond_to? :visit
+      visit '/assets/application.css'
+      visit '/assets/application.js'
+    end
   end
 
 end
