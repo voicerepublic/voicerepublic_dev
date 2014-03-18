@@ -11,8 +11,8 @@
     .large-10.medium-10.large-centered.medium-centered.columns
       = f.input :title, placeholder: t('.title')
       = f.input :teaser, :rows => 2, placeholder: t('.teaser')         
-      = f.input :description, :rows => 4, placeholder: t('.description')
-      = f.input :tag_list, html_tags: { class: "tagList" }, placeholder: t('.tag_list')
+      = f.input :description
+      = f.input :tag_list, input_html: { class: 'tagList' }, placeholder: t('.tag_list')
 
 .row
   .large-10.medium-10.large-centered.medium-centered.columns
