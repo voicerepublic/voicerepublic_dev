@@ -1,14 +1,15 @@
 - nl = CGI::escapeHTML("\n")
 #social_share
-  %div
-    = t '.promote'
   %span{class: 'facebook share', data: { shareable_id: shareable_id,
     shareable_type: shareable_type } }
+    %i.fi-social-facebook
   %span{class: 'twitter share', data: { shareable_id: shareable_id,
     shareable_type: shareable_type } }
+    %i.fi-social-twitter
   %span{class: 'mail share', data: { shareable_id: shareable_id,
    shareable_type: shareable_type } }
     = mail_to "your@friend.com",
-      raw(image_tag("social/email.png")),
-      subject: t('social_share.mail_subject'),
-      body: t('social_share.mail_greeting') + nl + nl + t('social_share.mail_body') + request.original_url + nl + nl + t('social_share.mail_goodbye') + nl + current_user.name
+        subject: t('social_share.mail_subject'),
+        body: t('social_share.mail_greeting') + nl + nl + t('social_share.mail_body') + request.original_url + nl + nl + t('social_share.mail_goodbye') + nl + current_user.name do
+      %span
+        %i.fi-mail

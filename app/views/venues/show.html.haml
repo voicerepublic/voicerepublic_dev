@@ -6,40 +6,41 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-= render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
+.header-box(style="background-image: url(#{@venue.image.url(:medium)})")
 
-.row
-  .large-12.columns.text-right
-    = link_to t('.edit_venue'), [:edit, @venue], class: 'button'
-    = link_to t('.delete_venue'), @venue, delete_params
+  = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
-.row
-  .large-12.columns.text-center
-    = image_tag @venue.image.url(:medium), class: "venue-image"
-    %h4= @venue.user.name
-    %h2= @venue.title
-    %h3= @venue.teaser
+  .row
+    .large-12.columns.text-right
+      = link_to t('.edit_venue'), [:edit, @venue], class: 'button'
+      = link_to t('.delete_venue'), @venue, delete_params
 
-.row
-  .large-12.columns.text-center
-    - if @show_join
-      = link_to [@venue, :participations], method: :post, class: 'button' do
-        = t('.join_venue')
-    - if @participation
-      = link_to [@venue, @participation], delete_params do
-        = t('.leave_venue')
+  .row
+    .large-12.columns.text-center
+      %h4= @venue.user.name
+      %h2= @venue.title
+      %h3= @venue.teaser
 
-.row
-  .large-12.columns
-    %dl.tabs(data-tab='true')
-      %dd.text-center.active
-        %a(href="#tab-description")= t('.description')
-      %dd.text-center
-        %a(href="#tab-upcoming-talks")= t('.upcoming_talks')
-      %dd.text-center
-        %a(href="#tab-archived-talks")= t('.archived_talks')
-      %dd.text-center
-        %a(href="#tab-comments")= t('.comments')
+  .row
+    .large-12.columns.text-center
+      - if @show_join
+        = link_to [@venue, :participations], method: :post, class: 'button' do
+          = t('.join_venue')
+      - if @participation
+        = link_to [@venue, @participation], delete_params do
+          = t('.leave_venue')
+
+  .row
+    .large-12.columns
+      %dl.tabs(data-tab='true')
+        %dd.text-center.active
+          %a(href="#tab-description")= t('.description')
+        %dd.text-center
+          %a(href="#tab-upcoming-talks")= t('.upcoming_talks')
+        %dd.text-center
+          %a(href="#tab-archived-talks")= t('.archived_talks')
+        %dd.text-center
+          %a(href="#tab-comments")= t('.comments')
 
 .row
   .tabs-content.large-12.columns

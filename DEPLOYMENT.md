@@ -137,6 +137,10 @@ The setup in monit looks different checkout [monit.conf](config/monit.conf)
 TODO
 ====
 
+### Setup production server
+
+### DNS configuration for production server
+
 ### Setup Whenever in config/deploy.rb
 
 ### Open Ports
