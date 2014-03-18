@@ -239,7 +239,7 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    delay(queue: 'process_audio').postprocess!
+    delay(queue: 'audio').postprocess!
 
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
