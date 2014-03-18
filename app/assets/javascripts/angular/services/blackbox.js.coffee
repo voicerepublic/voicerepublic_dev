@@ -8,7 +8,7 @@
 #
 # Besides that it relies on swfobject to load the flash component.
 # 
-Livepage.factory 'blackbox', ($log, $window, $q) ->
+blackboxFunc = ($log, $window, $q) ->
 
   # this will initialize the flash async, so we'll start with a deferred
   # which will let us return a promise, which will be fullfilled async'ly
@@ -115,3 +115,7 @@ Livepage.factory 'blackbox', ($log, $window, $q) ->
     setStreamingServer
     setVolume
   }
+
+# annotate with dependencies to inject
+blackboxFunc.$inject = ['$log', '$window', '$q']
+Livepage.factory 'blackbox', blackboxFunc

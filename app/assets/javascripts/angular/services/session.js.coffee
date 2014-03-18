@@ -1,9 +1,8 @@
 # The SessionService is the single source for insession
 # data and contains the session logic.
 #
-Livepage.factory 'session', ($log, privatePub, util, $rootScope,
-                             $timeout, upstream, config, blackbox,
-                             $interval) ->
+sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
+               config, blackbox, $interval) ->
 
   # reconfigure blackbox
   blackbox.setStreamingServer config.streaming_server
@@ -215,3 +214,9 @@ Livepage.factory 'session', ($log, privatePub, util, $rootScope,
     users # debug
     countdown: config.countdown
   }
+
+# annotate with dependencies to inject
+sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
+                       '$timeout', 'upstream', 'config', 'blackbox',
+                       '$interval']
+Livepage.factory 'session', sessionFunc

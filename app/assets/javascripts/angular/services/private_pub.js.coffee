@@ -2,7 +2,7 @@
 # set up an extension for use with PrivatePub and expose an API
 # to put calls to the client on a promise chain, to queue these until
 # the client is set up.
-Livepage.factory "privatePub", ($log, $q, config) ->
+privatePubFunc = ($log, $q, config) ->
 
   client = null
 
@@ -38,3 +38,7 @@ Livepage.factory "privatePub", ($log, $q, config) ->
   {
     subscribe
   }
+
+# annotate with dependencies to inject
+privatePubFunc.$inject = ['$log', '$q', 'config']
+Livepage.factory "privatePub", privatePubFunc
