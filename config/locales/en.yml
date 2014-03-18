@@ -532,7 +532,7 @@ en:
       messages: Messages
       profile: Profile
       see_other_venues: More Talks
-      search: Search...
+      search: Search
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:

@@ -26,7 +26,4 @@ describe TalksController do
     Talk.last.tag_list.should_not be_empty
   end
 
-  pending 'more specs'
-
-
 end

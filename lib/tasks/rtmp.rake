@@ -8,7 +8,7 @@
 namespace :rtmp do
 
   task :setup => :environment do
-    path = Rails.root.join(settings.base_path)
+    path = Rails.root.join(settings.build_path)
     unless File.exist?(path)
       FileUtils.mkdir_p(path) 
       puts "created directory #{path}"
@@ -61,7 +61,7 @@ namespace :rtmp do
   task :restart => [:stop, :start]
 
   task :clobber => :setup do
-    FileUtils.rm_rf Rails.root.join(settings.base_path)
+    FileUtils.rm_rf Rails.root.join(settings.build_path)
   end
 
   # TODO

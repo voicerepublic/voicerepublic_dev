@@ -11,6 +11,15 @@ describe SearchController do
   end
 
   describe "on GET" do
+
+    before do
+      Thread.current["PgSearch.enable_multisearch"] = true
+    end
+    
+    after do
+      Thread.current["PgSearch.enable_multisearch"] = false
+    end
+
     it "succeeds" do
       get :show, page: 1, query: 'some query'
       response.should be_success
