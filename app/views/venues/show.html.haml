@@ -6,7 +6,7 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-.header-box(style="background-image: url(#{@venue.image.url(:medium)})")
+.header-box(style="background-image: url(#{@venue.image.url(:large)})")
 
   = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
