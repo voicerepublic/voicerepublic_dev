@@ -129,9 +129,9 @@ show up at once. Process multiple in parallel?
 
     RAILS_ENV=production bin/delayed_job --queue=mail start
     RAILS_ENV=production bin/delayed_job --queue=trigger start
-    RAILS_ENV=production bin/delayed_job --queue=process_audio -n 15 start
+    RAILS_ENV=production bin/delayed_job --queue=audio -n 2 start
 
-The setup in monit looks different checkout [monit.conf](config/monit.conf)
+The setup in monit looks different, checkout [monit.conf](config/monit.conf)
 
       
 TODO
@@ -150,4 +150,4 @@ TODO
 
 ### Setup localeapp
 
-
+### Deploy 2nd app (backoffice) to same host or share db
