@@ -146,9 +146,9 @@ show up at once. Process multiple in parallel?
 
 #### Setup
 
-    RAILS_ENV=production script/delayed_job --queue=mail start
-    RAILS_ENV=production script/delayed_job --queue=trigger start
-    RAILS_ENV=production script/delayed_job --queue=process_audio -n 15 start
+    RAILS_ENV=production bin/delayed_job --queue=mail start
+    RAILS_ENV=production bin/delayed_job --queue=trigger start
+    RAILS_ENV=production bin/delayed_job --queue=process_audio -n 15 start
 
 
 
