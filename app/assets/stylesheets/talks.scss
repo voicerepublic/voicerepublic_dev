@@ -1,0 +1,33 @@
+.talks-show,
+.talks-edit,
+.talks-new{
+
+	.talk-upper-block {
+	  /*position: relative;*/
+	  background-repeat: no-repeat;
+	  background-position: center center;
+	  background-size: cover;
+	  padding-top: 85px;
+	  color: #fff;
+	}
+
+	.talk-title-box{
+	  background: rgba(0,0,0,0.3);
+	  padding:1rem 0.5rem 4rem 0.5rem;
+	  .talk-title{
+	  	color: #fff;
+	  }
+	}
+
+	h3.talk-teaser{
+		color: #fff;
+	}
+
+	.talk-talkers-box{
+	  margin-top: 20px;
+	  background: rgba(0,0,0,0.5);
+	  padding:1rem 0.5rem 4rem 0.5rem;
+	  color: #fff;
+	}
+
+}
