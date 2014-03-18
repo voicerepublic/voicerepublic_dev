@@ -109,6 +109,10 @@ PrivatePub Config
 TODO
 ----
 
+### Setup production server
+
+### DNS configuration for production server
+
 ### Setup Whenever in config/deploy.rb
 
 ### Open Ports
