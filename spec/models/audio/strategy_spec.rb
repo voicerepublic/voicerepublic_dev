@@ -14,6 +14,7 @@ describe Audio::Strategy do
   end
 
   it 'merges' do
+    pending 'sampling rate issue'
     # we need the wav fragments and the flvs (to reconstruct the journal)
     audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
       setting = TalkSetting.new(path)
