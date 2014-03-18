@@ -1,6 +1,5 @@
 # The LivepageController
-Livepage.controller 'Livepage', ($scope, $log, $interval,
-                                 config, session, blackbox) ->
+livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
 
   $scope.config   = config
   $scope.session  = session
@@ -67,5 +66,6 @@ Livepage.controller 'Livepage', ($scope, $log, $interval,
   # TODO maybe move into util
   $scope.calculateCountdown = calculateCountdown
 
-#Livepage.controller('Livepage').$inject = ['$scope', '$log',
-#  '$interval', 'config', 'session', 'blackbox']
+livepageFunc.$inject = ['$scope', '$log', '$interval', 'config', 'session', 'blackbox']
+Livepage.controller 'Livepage', livepageFunc
+
