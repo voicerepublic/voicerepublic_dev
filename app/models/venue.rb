@@ -53,7 +53,7 @@ class Venue < ActiveRecord::Base
   attr_accessible :image
   has_attached_file :image,
     :styles => { :medium => '242x145>', :thumb => "100x100>" },
-    :default_url => "/assets/images/:style/missing.jpg"
+    :default_url => "/assets/defaults/:style/missing.jpg"
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
