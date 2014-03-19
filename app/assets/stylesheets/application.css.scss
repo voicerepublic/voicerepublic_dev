@@ -12,19 +12,19 @@
  *= require_self
  */
 
- @import "grids_variables_mixins/ci_variables";
- @import "grids_variables_mixins/mixins";
- @import "grids_variables_mixins/foundation_and_overrides";
- @import "grids_variables_mixins/foundation-icons";
- @import "foundation_calendar";
- @import "select2";
- @import "social_shares";
- @import "top_actionbar";
- @import "components";
- @import "landing_page";
- @import "users";
- @import "venues";
- @import "talks";
+@import "grids_variables_mixins/ci_variables";
+@import "grids_variables_mixins/mixins";
+@import "grids_variables_mixins/foundation_and_overrides";
+@import "grids_variables_mixins/foundation-icons";
+@import "foundation_calendar";
+@import "select2";
+@import "social_shares";
+@import "top_actionbar";
+@import "components";
+@import "landing_page";
+@import "users";
+@import "venues";
+@import "talks";
 
 
 /* Testing */
@@ -47,5 +47,9 @@
 
 /* GENERAL */
 body{
-	overflow-y: scroll; /* prevents moving by to small content */
+  overflow-y: scroll; /* prevents moving by to small content */
+}
+
+.header-box {
+  padding-top: 60px;
 }

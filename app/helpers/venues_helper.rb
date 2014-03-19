@@ -1,3 +1,4 @@
+# TODO cleanup! is anything of this used?
 module VenuesHelper
   def recording_path(recording)
     "/system/recordings/#{recording}"

@@ -14,7 +14,7 @@
       = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'venue-toolbar' }
       = f.input :description, rows: 4, placeholder: t('.description'),
         input_html: { 'data-wysiwyg' => '#venue-toolbar' }
-      = f.input :tag_list, :class => 'tagList', placeholder: t('.tag_list')
+      = f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
 
 .row
   .large-10.medium-10.large-centered.medium-centered.columns
