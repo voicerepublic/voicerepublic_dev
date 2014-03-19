@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :firstname, :lastname
   attr_accessible :provider, :uid, :last_request_at, :available
   attr_accessible :accept_terms_of_use, :guest, :header, :avatar, :about
+  attr_accessible :timezone, :website
 
   has_many :comments, dependent: :destroy
   has_one :account, dependent: :destroy # application-account-things
