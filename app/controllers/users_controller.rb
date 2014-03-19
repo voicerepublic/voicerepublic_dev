@@ -91,7 +91,7 @@ class UsersController < ApplicationController
       else
         logger.error("Users#update - ERROR: #{@user.errors.inspect}")
         format.html do
-          render :template => 'accounts/edit'
+          render :edit
          end
         #format.json { render json: @user.errors, status: :unprocessable_entity }
       end

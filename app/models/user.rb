@@ -1,6 +1,8 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
+# * about [text] - TODO: document me
 # * available [string] - TODO: document me
+# * avatar_uid [string] - TODO: document me
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
@@ -8,6 +10,7 @@
 # * encrypted_password [string, default="", not null] - Devise encrypted password
 # * firstname [string] - TODO: document me
 # * guest [boolean] - TODO: document me
+# * header_uid [string] - TODO: document me
 # * image_content_type [string] - TODO: document me
 # * image_file_name [string] - TODO: document me
 # * image_file_size [integer] - TODO: document me
@@ -22,8 +25,10 @@
 # * reset_password_token [string] - Devise Recoverable module
 # * sign_in_count [integer, default=0] - Devise Trackable module
 # * slug [text] - TODO: document me
+# * timezone [string] - TODO: document me
 # * uid [string] - TODO: document me
 # * updated_at [datetime, not null] - last update time
+# * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
   extend FriendlyId
