@@ -79,7 +79,6 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    @account = @user.account
     authorize! :update, @user
 
     respond_to do |format|

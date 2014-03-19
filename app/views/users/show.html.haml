@@ -6,8 +6,7 @@
   - if @user == current_user # TODO use cancan
     .row
       .large-12.columns.text-right
-        -# = link_to t('.edit_user'), [:edit, @user], class: 'button'
-        = link_to t('.edit_account'), [:edit, @user, @user.account], class: 'button'
+        = link_to t('.edit_usert'), [:edit, @user], class: 'button'
   
   .row
     .large-12.columns.text-center

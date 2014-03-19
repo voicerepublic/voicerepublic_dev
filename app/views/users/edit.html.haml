@@ -5,7 +5,7 @@
         = f.error_notification
     .row.collapse
       .large-3.medium-3.columns
-        - avatar_url = @user.avatar.try(:url)
+        - avatar_url = @user.avatar.thumb('215x215#nw').url
         .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="user_avatar")
         %br/
         %br/

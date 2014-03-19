@@ -83,7 +83,7 @@ class Talk < ActiveRecord::Base
   delegate :user, to: :venue
 
   dragonfly_accessor :image do
-    default '/assets/images/defaults/large/portrait.jpg'
+    default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
   # TODO remove and use scopes based on statemachine instead
