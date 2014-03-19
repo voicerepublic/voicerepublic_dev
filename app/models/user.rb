@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   validates :lastname, :presence => true, :length => { :minimum => 1, :maximum => 100}
   validates :slug, :presence => true
   validates_acceptance_of :accept_terms_of_use
+  validates_associated :account
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]

@@ -39,6 +39,7 @@ class Account < ActiveRecord::Base
   belongs_to :user
 
   validates :user_id, :presence => true
+  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
 
   # https://github.com/grosser/i18n_data
   # languages: I18nData.languages(:en) # {'DE' => 'Deutschland',...}
