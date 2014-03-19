@@ -2,7 +2,7 @@ class Housecleaning < ActiveRecord::Migration
 
   def change
 
-    execute "UPDATE talks SET state = 'postlive' WHERE state IS NULL;"      
+    execute "UPDATE talks SET recording = REPLACE(recording, '.m4a', '');"
 
     execute <<-EOF
       INSERT INTO talks (title, starts_at, duration, teaser,
@@ -12,6 +12,7 @@ class Housecleaning < ActiveRecord::Migration
       end_at FROM events;
     EOF
 
+    # simulate callback
     execute "UPDATE talks SET ends_at = starts_at + duration * interval '1 minute';"
 
     execute <<-EOF

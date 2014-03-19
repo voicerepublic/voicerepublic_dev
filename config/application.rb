@@ -57,16 +57,15 @@ module VoiceRepublic
     # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
 
+    config.assets.initialize_on_precompile = false
+    
     # still needed with rails4 ?
     config.assets.paths << "#{config.root}/app/assets/fonts"
 
     config.assets.precompile += %w( *.js *.png *.jpg )
     # TODO use assets the right way and we won't need these hacks, ask phil
     config.assets.precompile += %w(
-      landing_page.css
-      venues.css
-      users.css
-      dashboard.css
+      livepage.js
     )
   end
 end

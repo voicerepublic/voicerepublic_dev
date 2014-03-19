@@ -1,6 +1,6 @@
 # see doc/messages.md for some documentation
 # 
-Livepage.factory 'upstream', (config, $http, $log) ->
+upstreamFunc = (config, $http, $log) ->
 
   put = (msg) ->
     msg ||= {}
@@ -27,3 +27,6 @@ Livepage.factory 'upstream', (config, $http, $log) ->
     event
     state
   }
+
+upstreamFunc.$inject = ['config', '$http', '$log']
+Livepage.factory 'upstream', upstreamFunc
