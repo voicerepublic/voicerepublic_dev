@@ -1,11 +1,17 @@
 = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
 %p#notice(style='display: none;')= notice
-= link_to t('.edit'), [:edit, @venue, @talk], class: 'button'
-= link_to t('.delete'), [@venue, @talk], class: 'button', method: :delete, data: { confirm: t('.confirm_delete', default: 'Are you sure?' ) }
 
 .layout-talk(ng-controller='Livepage')
   .talk-upper-block(style="background-image: url(http://lorempixel.com/1200/600/people/1)")
+    - if can? :manage, @talk
+      .row
+        .large-12.columns.text-right
+          = link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button'
+          = link_to t('.delete_talk'), [@venue, @talk], class: 'button',
+            method: :delete, data: { confirm: t('.confirm_delete',
+            default: 'Are you sure?' ) }
+ 
     %section.talk-title-box.row.text-center
       .large-12.columns
         .talk-venue-title
