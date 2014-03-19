@@ -62,12 +62,11 @@ module VoiceRepublic
     # still needed with rails4 ?
     config.assets.paths << "#{config.root}/app/assets/fonts"
 
-    # TODO deploy without and remove if everything is fine
-    # config.assets.precompile += %w( *.js *.png *.jpg )
-    # # TODO use assets the right way and we won't need these hacks, ask phil
-    # config.assets.precompile += %w(
-    #   livepage.js
-    # )
+    config.assets.precompile += %w( *.js *.png *.jpg )
+    # TODO use assets the right way and we won't need these hacks, ask phil
+    config.assets.precompile += %w(
+      livepage.js
+    )
   end
 end
 
