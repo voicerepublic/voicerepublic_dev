@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
   attr_accessible :email, :firstname, :lastname
   attr_accessible :provider, :uid, :last_request_at, :available
-  attr_accessible :accept_terms_of_use, :guest, :header, :avatar
+  attr_accessible :accept_terms_of_use, :guest, :header, :avatar, :about
 
   has_many :comments, dependent: :destroy
   has_one :account, dependent: :destroy # application-account-things

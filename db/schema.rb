@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309111121) do
+ActiveRecord::Schema.define(version: 20140319105158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,8 +204,8 @@ ActiveRecord::Schema.define(version: 20140309111121) do
     t.integer  "duration"
     t.string   "image_uid"
     t.text     "session"
-    t.datetime "featured_from"
     t.text     "audio_formats", default: "--- []\n"
+    t.datetime "featured_from"
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
@@ -239,6 +239,7 @@ ActiveRecord::Schema.define(version: 20140309111121) do
     t.boolean  "guest"
     t.string   "header_uid"
     t.string   "avatar_uid"
+    t.text     "about"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
