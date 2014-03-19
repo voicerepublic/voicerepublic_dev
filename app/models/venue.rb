@@ -50,12 +50,10 @@ class Venue < ActiveRecord::Base
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
                           order('featured_from DESC') }
 
-  # TODO replace with dragonfly
-  attr_accessible :image
-  has_attached_file :image,
-    :styles => { :medium => '242x145>', :thumb => "100x100>" },
-    :default_url => "/assets/defaults/:style/missing.jpg"
-
+  dragonfly_accessor :image do
+    default Rails.root.join('app/assets/images/defaults/venue-image.jpg')
+  end
+  
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
