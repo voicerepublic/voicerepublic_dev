@@ -36,21 +36,8 @@ blackboxFunc = ($log, $window, $q) ->
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
 
-  # in Rails provided by Venue#details_for(user)
-  # TODO this is mainly a reminiscence and can be tidied up
   flashVars =
-    # "v#{id}-e#{next_event.id}-u#{user.id}"
-    streamId: "blablub"
-    # "/story/v#{id}e#{next_event.id}"
-    channel: ""
-    # 'host' or 'participant'
-    role: 'host'
-    # PrivatePub subscriptions
-    storySubscription: null
-    backSubscription: null
-    chatSubstcription: null
-    # rtmp url
-    # streamer: "rtmp://kluuu.com/offrecord"
+    # this will later be set by `setStreamingServer`
     streamer: "rtmp://0.0.0.0/record"
     # callback after flash initialize complete
     afterInitialize: 'flashCallback',

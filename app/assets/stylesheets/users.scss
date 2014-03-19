@@ -1,0 +1,20 @@
+.users-show,
+.users-edit,
+.users-new{
+
+	.user-portrait-img{
+		width:215px;
+		height: 215px;
+		background-size:cover;
+		background-position: center
+	}
+
+	#user_account_about{
+		height: 200px
+	}
+
+	.input.file{
+		display: none;
+	}
+
+}

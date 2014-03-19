@@ -17,7 +17,7 @@
         = f.input :firstname, :placeholder => 'First Name'
         = f.input :lastname, :placeholder => 'Last Name'
         = f.input :email, :placeholder => 'Email Address'
-        = f.input :timezone # TODO: make select box
+        = f.time_zone_select :timezone
         = f.input :website
         %button(data-enable-fields='#change-password input'
                 data-replace-with='#change-password'
@@ -44,8 +44,8 @@
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = render 'shared/wysihtml5_toolbar'
-        = f.input :about, input_html: { 'data-wysiwyg' => true, 'class' => "about-textarea" }
+        = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
+        = f.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
   .row.collapse
     .large-12.columns
       = f.button :submit
