@@ -82,7 +82,9 @@ class Talk < ActiveRecord::Base
 
   delegate :user, to: :venue
 
-  dragonfly_accessor :image
+  dragonfly_accessor :image do
+    default '/assets/images/defaults/large/portrait.jpg'
+  end
 
   # TODO remove and use scopes based on statemachine instead
   scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
