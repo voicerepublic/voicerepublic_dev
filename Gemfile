@@ -31,7 +31,6 @@ gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
 gem 'will_paginate-bootstrap'      # integrate twitter-bootstrap with will_paginate
 gem 'i18n_data'                    # delivers languages as key-value hash
-gem 'paperclip'                    # used for images
 gem 'dragonfly', '1.0.3'           # used for images
 gem 'globalize3'                   # internationalization
 gem 'acts-as-taggable-on', '3.0.1' # tag-system

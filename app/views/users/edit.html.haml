@@ -5,20 +5,20 @@
         = f.error_notification
     .row.collapse
       .large-3.medium-3.columns
-        - avatar_url = @user.avatar.try(:url)
+        - avatar_url = @user.avatar.thumb('215x215#nw').url
         .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="user_avatar")
         %br/
         %br/
-        %button.button(type="button" data-trigger-file-input="user_avatar") Select profile image
+        %button.button(type="button" data-trigger-file-input="user_avatar")
+          Select profile image
         = f.input :avatar, as: :file
 
       .large-5.medium-5.columns
         = f.input :firstname, :placeholder => 'First Name'
         = f.input :lastname, :placeholder => 'Last Name'
         = f.input :email, :placeholder => 'Email Address'
-        = f.fields_for :account_attributes, @user.account do |af|
-          = af.time_zone_select :timezone
-          = af.input :website
+        = f.time_zone_select :timezone
+        = f.input :website
         %button(data-enable-fields='#change-password input'
                 data-replace-with='#change-password'
                 data-trigger-on-error='#change-password'
@@ -27,6 +27,8 @@
           = f.input :password, disabled: true
           = f.input :password_confirmation, disabled: true
         -#= USER PROFILE HEADER (not verified by PO)
+        %button.button(type="button" data-trigger-file-input="user_header")
+          Select header image
         = f.input :header, as: :file
 
 
@@ -42,9 +44,8 @@
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = f.fields_for :account_attributes, @user.account do |af|
-          = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
-          = af.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
+        = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
+        = f.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
   .row.collapse
     .large-12.columns
       = f.button :submit

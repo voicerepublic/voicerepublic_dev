@@ -10,7 +10,6 @@ class Ability
     return if user.guest?
     
     can :manage, User,    id: user.id
-    can :manage, Account, user_id: user.id
     can :manage, Venue,   user_id: user.id
     can :manage, Article, user_id: user.id
     can :manage, Comment, user_id: user.id

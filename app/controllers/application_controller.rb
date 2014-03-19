@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_time_zone(&block)
-    Time.use_zone(current_user.account.timezone, &block)
+    Time.use_zone(current_user.timezone, &block)
   end
 
   def after_sign_in_path_for(user)

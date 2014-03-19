@@ -27,6 +27,6 @@
             = image_tag 'info-link-icon.png'
             info
           %aside.venue-desc-onair
-            = image_tag( @venue.user.account.portrait.url(:large), :class => "img-polaroid")
+            = image_tag( @venue.user.avatar.url(:large), :class => "img-polaroid")
             = @venue.description
             .close-icon &times;

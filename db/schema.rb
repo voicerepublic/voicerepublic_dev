@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309111121) do
+ActiveRecord::Schema.define(version: 20140319131714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -583,6 +583,9 @@ ActiveRecord::Schema.define(version: 20140309111121) do
     t.boolean  "guest"
     t.string   "header_uid"
     t.string   "avatar_uid"
+    t.text     "about"
+    t.string   "timezone"
+    t.string   "website"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -613,6 +616,7 @@ ActiveRecord::Schema.define(version: 20140309111121) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.text     "options",            default: "--- {}\n"
+    t.string   "image_uid"
   end
 
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree

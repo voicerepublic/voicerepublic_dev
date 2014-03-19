@@ -1,7 +1,7 @@
 %article.venue-article.contribution.clearfix
   .contribution-left
     = link_to user_path(:id => article.user) do
-      = image_tag article.user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"
+      = image_tag article.user.avatar.url(:thumb), :class => "img-polaroid pull-left"
     
   .contribution-right
     = link_to user_path(:id => article.user), :class => 'contribution-username' do

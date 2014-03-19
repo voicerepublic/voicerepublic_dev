@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# encoding: utf-8
 require 'spec_helper'
 
 describe User do
@@ -14,9 +14,6 @@ describe User do
   end
   it "is invalid without lastname" do
     FactoryGirl.build(:user, lastname: nil).should_not be_valid
-  end
-  it "has a account after creation" do
-    FactoryGirl.create(:user).account.should_not be_nil
   end
 
   describe 'determines its role to a given talk' do
