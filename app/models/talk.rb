@@ -82,7 +82,9 @@ class Talk < ActiveRecord::Base
 
   delegate :user, to: :venue
 
-  dragonfly_accessor :image
+  dragonfly_accessor :image do
+    default '/assets/images/defaults/large/portrait.jpg'
+  end
 
   # TODO remove and use scopes based on statemachine instead
   scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
@@ -239,7 +241,7 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    delay(queue: 'process_audio').postprocess!
+    delay(queue: 'audio').postprocess!
 
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end

@@ -10,7 +10,7 @@
   .row
     .large-10.medium-10.large-centered.medium-centered.columns
       = f.input :title, placeholder: t('.title')
-      = f.input :teaser, rows: 2, placeholder: t('.teaser')         
+      = f.input :teaser, rows: 2, placeholder: t('.teaser')
       = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'venue-toolbar' }
       = f.input :description, rows: 4, placeholder: t('.description'),
         input_html: { 'data-wysiwyg' => '#venue-toolbar' }
