@@ -57,8 +57,12 @@ $(function() {
   });
 });
 
-
-
-
-
 $(function(){ $(document).foundation(); });
+
+
+// run `proof` on the console to get a proof background-image on body
+window.proof = function(name) {
+  if(name==undefined) name = 'default';
+  var value = 'papayaWhip url(/images/proof/'+name+'.png) no-repeat center top';
+  $('body').css({background: value});
+};
