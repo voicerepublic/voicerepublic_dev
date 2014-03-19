@@ -27,18 +27,19 @@ class Account < ActiveRecord::Base
   # FIXME: for migration of old kluuu
   attr_accessible :portrait_file_name, :portrait_content_type,
                   :portrait_file_size
-  
+
   serialize :prefs, KluuuCode::Preferences
 
   has_attached_file :portrait, :styles => {
     :large => "360x360#",
     :medium => "180x180#",
-    :thumb => "45x45#" 
+    :thumb => "45x45#"
   }, :default_url => "/assets/defaults/:style/portrait.jpg"
 
   belongs_to :user
 
-  validates :user_id, :language_1, :timezone, :presence => true
+  validates :user_id, :presence => true
+  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name)
 
   # https://github.com/grosser/i18n_data
   # languages: I18nData.languages(:en) # {'DE' => 'Deutschland',...}
@@ -58,12 +59,12 @@ class Account < ActiveRecord::Base
       nil
     end
   end
-  
+
   def languages(locale=I18n.locale)
     arr = []
     [1,2,3].each do |i|
       if self.send("language_#{i}") && self.send("language_#{i}").length > 1
-        arr.push( I18nData.languages(locale)[self.send("language_#{i}")] ) 
+        arr.push( I18nData.languages(locale)[self.send("language_#{i}")] )
       end
     end
     arr
@@ -73,23 +74,23 @@ class Account < ActiveRecord::Base
     Time.zone = self.timezone
     arg.in_time_zone
   end
-  
+
   def preferred_locale
     [1,2].each do |i|
       # TODO available translations should be configured in a central place instead
       # of clutterin them throughout the code...
       #
       if %w{ DE EN }.include?( self.send("language_#{i}") )
-        return self.send("language_#{i}").downcase 
+        return self.send("language_#{i}").downcase
       end
     end
     "en" # return english as default if user has not configured available langs
   end
-  
+
   def website_as_url
     website =~ /\Ahttps?:/ ? website : "http://#{website}"
   end
-  
+
   def website_as_name
     website =~ /\Ahttps?:/ ? website.gsub(%r/\Ahttps?:\/\//,"") : website
   end

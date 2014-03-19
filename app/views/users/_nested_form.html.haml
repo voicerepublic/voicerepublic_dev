@@ -16,8 +16,8 @@
         = f.input :firstname, :placeholder => 'First Name'
         = f.input :lastname, :placeholder => 'Last Name'
         = f.input :email, :placeholder => 'Email Address'
-        = f.fields_for @user.account do |af|
-          = af.input :timezone # TODO: make select box
+        = f.fields_for :account_attributes, @user.account do |af|
+          = af.time_zone_select :timezone
           = af.input :website
         %button(data-enable-fields='#change-password input'
                 data-replace-with='#change-password'
@@ -42,9 +42,9 @@
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = f.fields_for @user.account do |af|
-          = render 'shared/wysihtml5_toolbar'
-          = af.input :about, input_html: { 'data-wysiwyg' => true, 'class' => "about-textarea" }
+        = f.fields_for :account_attributes, @user.account do |af|
+          = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
+          = af.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
   .row.collapse
     .large-12.columns
       = f.button :submit
