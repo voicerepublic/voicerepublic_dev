@@ -53,7 +53,8 @@ describe UsersController do
         @user.account.about.should be_nil
         put :update, {
           :id => @user.to_param,
-          :user => {:account_attributes => { :about => "spec about" }}
+          :user => {:account_attributes => { :about => "spec about",
+                                             :timezone => @user.account.timezone }}
         }, valid_session
         @user.reload.account.about.should == "spec about"
       end
