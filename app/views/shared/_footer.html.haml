@@ -4,17 +4,12 @@
       %hr
       %ul.inline-list
         %li
-          %h6 Languages
-          = link_to_unless I18n.locale == :en, 'English', url_for(:controller => controller_name, :action => action_name, :locale => :en)
-          %br/
-          = link_to_unless I18n.locale == :de, 'Deutsch', url_for(:controller => controller_name, :action => action_name, :locale => :de)
-        %li
           %h6= t('.legal')
           = link_to( t('.terms_of_use'), '#')
           = link_to( t('.terms_and_conditions'), '#')
         %li
           %h6 Board of Directors
-          Kuurz & Lumpur AG
+          VoiceRepublic Media AG
           %br/
           Patrick Frank
           %br/
@@ -29,11 +24,13 @@
           Schweiz
           %br/
         %li
-          %h6 Contact
-          %a{:href => "mailto:service@kluuu.com"} service@kluuu.com
-          %br/
-          Website
-          %a{:href => "http://www.kluuu.com"} http://www.kluuu.com
+          %ul
+            %li
+              %a(href="mailto:service@voicerepublic.com") Contact
+            %li
+              %a(href='http://blog.voicerepublic.com/about') About
+            %li
+              %a(href='http://blog.voicerepublic.com/about') Blog
         %li
-          %h6 &copy; KluuU 2013
+          %h6 &copy; VoiceRepublic Media AG 2014
           .release= release

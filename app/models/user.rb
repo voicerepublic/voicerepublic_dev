@@ -1,6 +1,8 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
+# * about [text] - TODO: document me
 # * available [string] - TODO: document me
+# * avatar_uid [string] - TODO: document me
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
@@ -8,6 +10,7 @@
 # * encrypted_password [string, default="", not null] - Devise encrypted password
 # * firstname [string] - TODO: document me
 # * guest [boolean] - TODO: document me
+# * header_uid [string] - TODO: document me
 # * image_content_type [string] - TODO: document me
 # * image_file_name [string] - TODO: document me
 # * image_file_size [integer] - TODO: document me
@@ -22,35 +25,33 @@
 # * reset_password_token [string] - Devise Recoverable module
 # * sign_in_count [integer, default=0] - Devise Trackable module
 # * slug [text] - TODO: document me
+# * timezone [string] - TODO: document me
 # * uid [string] - TODO: document me
 # * updated_at [datetime, not null] - last update time
+# * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
-  MAX_IDLE = 5.minutes
-  SET_BUSY = 5.minutes
-  SET_OFFLINE = 6.minutes
-
-  attr_accessible :password, :password_confirmation, :remember_me, :account_attributes
+  attr_accessible :password, :password_confirmation, :remember_me
   attr_accessible :email, :firstname, :lastname
   attr_accessible :provider, :uid, :last_request_at, :available
-  attr_accessible :accept_terms_of_use, :guest, :header, :avatar
+  attr_accessible :accept_terms_of_use, :guest, :header, :avatar, :about
+  attr_accessible :timezone, :website
 
   has_many :comments, dependent: :destroy
-  has_one :account, dependent: :destroy # application-account-things
 
   has_many :venues # as owner
   has_many :participations
-  has_many :participating_venues, :through => :participations, :source => :venue
+  has_many :participating_venues, through: :participations, source: :venue
 
-  accepts_nested_attributes_for :account
-
-  dragonfly_accessor :header
-  dragonfly_accessor :avatar
-
-  after_create :add_account
+  dragonfly_accessor :header do
+    default Rails.root.join('app/assets/images/defaults/user-header.jpg')
+  end
+  dragonfly_accessor :avatar do
+    default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
+  end
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -61,10 +62,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
     :recoverable, :rememberable, :trackable, :validatable #, :timeoutable
 
-  validates :email, :uniqueness => true, :presence => true
-  validates :firstname, :presence => true, :length => { :minimum => 1, :maximum => 100}
-  validates :lastname, :presence => true, :length => { :minimum => 1, :maximum => 100}
-  validates :slug, :presence => true
+  validates :email, uniqueness: true, presence: true
+  validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :slug, presence: true
   validates_acceptance_of :accept_terms_of_use
 
   include PgSearch
@@ -74,7 +75,11 @@ class User < ActiveRecord::Base
     ignoring: :accents
 
   def name
-    "#{firstname} #{lastname}"
+    if guest
+      I18n.t('sign_in_or_register')
+    else
+      "#{firstname} #{lastname}"
+    end
   end
 
   def email_with_name
@@ -118,8 +123,7 @@ class User < ActiveRecord::Base
       id: id,
       name: name,
       role: role_for(talk),
-      # TODO: use user image
-      image: "http://lorempixel.com/80/80/people/#{rand(9)}/",
+      image: avatar.url,
       stream: "t#{talk.id}-u#{id}"
     }
   end
@@ -140,14 +144,7 @@ class User < ActiveRecord::Base
 
   # we'll use `text` here, which plays nice with select2
   def for_select
-    { id: id, text: name, img: account.portrait.url(:thumb) }
-  end
-
-  private
-
-  def add_account
-    Rails.logger.debug("User#add_account - locale: #{I18n.locale}")
-    self.create_account(:language_1 => I18n.locale.upcase, :timezone => "Berlin" )
+    { id: id, text: name, img: avatar.url }
   end
 
 end

@@ -31,7 +31,6 @@ gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
 gem 'will_paginate-bootstrap'      # integrate twitter-bootstrap with will_paginate
 gem 'i18n_data'                    # delivers languages as key-value hash
-gem 'paperclip'                    # used for images
 gem 'dragonfly', '1.0.3'           # used for images
 gem 'globalize3'                   # internationalization
 gem 'acts-as-taggable-on', '3.0.1' # tag-system
@@ -54,6 +53,8 @@ gem 'pg_search', github: 'branch14/pg_search'
 group :development, :test, :staging do
   # gem 'rails_view_annotator'
   gem 'annotator'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'capistrano',         '~> 3.1.0'
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
@@ -63,6 +64,7 @@ group :development, :test, :staging do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
   gem 'foreman',                            require: false
+  gem 'meta_request'
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rspec-retry'

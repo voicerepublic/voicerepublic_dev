@@ -53,7 +53,13 @@ GEM
     auphonic (0.1.0)
       faraday
     bcrypt-ruby (3.1.2)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
+    callsite (0.0.11)
     cancan (1.6.10)
     capistrano (3.1.0)
       i18n
@@ -81,11 +87,7 @@ GEM
     chronic (0.10.2)
     ci_reporter (1.9.1)
       builder (>= 2.1.2)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
     cliver (0.3.2)
-    cocaine (0.5.3)
-      climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -102,6 +104,7 @@ GEM
     css_parser (1.3.5)
       addressable
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     debugger (1.6.5)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -219,6 +222,10 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta_request (0.2.8)
+      callsite
+      rack-contrib
+      railties
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
@@ -254,11 +261,6 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
-    paperclip (3.5.2)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.3)
-      mime-types
     paranoia (2.0.1)
       activerecord (~> 4.0)
     pg (0.17.1)
@@ -281,6 +283,8 @@ GEM
     rack (1.5.2)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -422,6 +426,8 @@ DEPENDENCIES
   airbrake
   annotator
   auphonic
+  better_errors
+  binding_of_caller
   cancan
   capistrano (~> 3.1.0)
   capistrano-bundler (~> 1.1.1)
@@ -452,10 +458,10 @@ DEPENDENCIES
   jquery-rails
   launchy
   less-rails (= 2.3.2)
+  meta_request
   money-rails
   omniauth-facebook
   omniauth-google-oauth2
-  paperclip
   paranoia (~> 2.0)
   pg
   pg_search!

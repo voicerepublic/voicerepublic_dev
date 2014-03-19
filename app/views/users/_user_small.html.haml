@@ -1,4 +1,4 @@
 .user-image-box
   %span.user-image{"data-user-id" => user.id}
-    = image_tag(user.account.portrait.url(:thumb), :class => "img-circle")
+    = image_tag(user.avatar.url(:thumb), :class => "img-circle")
 = user.name

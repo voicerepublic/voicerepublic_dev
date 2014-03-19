@@ -1,16 +1,6 @@
 DEPLOYMENT NOTES
 ================
 
-Components Overview
--------------------
-
-* rails app
-* multiple djs for separate queues
-* rtmpd (nginx)
-* private_pub (faye)
-* localeapp
-
-
 Issue 'missing bundler' -- Resolved
 -----------------------------------
 
@@ -106,8 +96,46 @@ PrivatePub Config
       signature_expiration: 7200 # two hours
 
 
+Installed monit, tree & multitail
+---------------------------------
+
+    # apt-get install monit tree multitail
+
+
+Fixed Monit Setup
+-----------------
+
+* copied developer-monit from here https://github.com/munen/voicerepublic_dot_cdist/blob/master/type/__panter_monit/files/config/developer-monit
+* fixed it
+* updated https://github.com/munen/voicerepublic_dot_cdist/blob/master/type/__panter_monit/files/config/developer-monit
+* Setup multiple DJs for separate queues
+
+#### Queue 'mail'
+
+Low prio. No hurry. Process one at a time without puting burden on the
+system.
+
+#### Queue 'trigger'
+
+High prio. Very cheap jobs, which should be handled in real time. The
+jobs in this queue are set to run at a given time.
+
+#### Queue 'audio'
+
+Long running io heavy jobs. Process as fast as possible. Several might
+show up at once. Process multiple in parallel?
+
+#### Setup
+
+    RAILS_ENV=production bin/delayed_job --queue=mail start
+    RAILS_ENV=production bin/delayed_job --queue=trigger start
+    RAILS_ENV=production bin/delayed_job --queue=audio -n 2 start
+
+The setup in monit looks different, checkout [monit.conf](config/monit.conf)
+
+      
 TODO
-----
+====
 
 ### Setup production server
 
@@ -120,46 +148,6 @@ TODO
 * 9292 (private_pub/faye) 
 * 1935 (rtmp)
 
-### Write Start/Stop Scripts
+### Setup localeapp
 
-for daemons started via config/monit.conf
-
-* dj ?
-* private_pub
-* rtmpd
-* localeapp
-
-### Fix Monit Config
-
-### Setup multiple DJs for separate queues
-
-#### Queue 'mail'
-
-Low prio. No hurry. Process one at a time without puting burden on the
-system.
-
-#### Queue 'trigger'
-
-High prio. Very cheap jobs, which should be handled in real time. The
-jobs in this queue are set to run at a given time.
-
-#### Queue 'process_audio'
-
-Long running io heavy jobs. Process as fast as possible. Several might
-show up at once. Process multiple in parallel?
-
-#### Setup
-
-    RAILS_ENV=production script/delayed_job --queue=mail start
-    RAILS_ENV=production script/delayed_job --queue=trigger start
-    RAILS_ENV=production script/delayed_job --queue=process_audio -n 15 start
-
-
-
-Nice to have
-------------
-
-Debian packages
-
-* tree
-* multitail
+### Deploy 2nd app (backoffice) to same host or share db

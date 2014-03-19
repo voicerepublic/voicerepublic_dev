@@ -34,28 +34,6 @@ FactoryGirl.define do
     # end
   end
 
-  factory :account do
-    timezone { ActiveSupport::TimeZone.all[rand(ActiveSupport::TimeZone.all.length)].name }
-    language_1 "DE"
-    language_2 "EN"
-    language_3 "FR"
-    user
-
-    factory :account_with_portrait do
-      portrait { fixture_file_upload( File.join(Rails.root,'app','assets', 'images', 'rails.png')) }
-    end
-
-    factory :account_with_prefs do
-      prefs { {
-          :anonymous_calls => "1",
-          :email_concerning_me => "1",
-          :email_concerning_other => "1",
-          :inform_of_friends => "1",
-          :no_initial_help => "1"
-        } }
-    end
-  end
-
   factory :article do
     venue
     content "MyText"
@@ -71,10 +49,7 @@ FactoryGirl.define do
     secret = "mysecret"
     password secret
     password_confirmation secret
-    # trait :with_portrait do
-    #   association :account, factory: :account_with_portrait
-    # end
-    #factory :user_with_portrait, traits: [:with_portrait]
+    timezone 'Berlin'
   end
 
   factory :comment do

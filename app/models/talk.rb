@@ -12,7 +12,7 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - TODO: document me
+# * audio_formats [text, default="--- []\n"] - \n"] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer] - TODO: document me
@@ -20,6 +20,8 @@
 # * ends_at [datetime] - TODO: document me
 # * featured_from [datetime] - TODO: document me
 # * image_uid [string] - TODO: document me
+# * play_count [integer, default=0] - TODO: document me
+# * processed_at [datetime] - TODO: document me
 # * record [boolean] - TODO: document me
 # * recording [string] - TODO: document me
 # * session [text] - TODO: document me
@@ -83,7 +85,7 @@ class Talk < ActiveRecord::Base
   delegate :user, to: :venue
 
   dragonfly_accessor :image do
-    default '/assets/images/defaults/large/portrait.jpg'
+    default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
   # TODO remove and use scopes based on statemachine instead
@@ -241,7 +243,7 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    delay(queue: 'process_audio').postprocess!
+    delay(queue: 'audio').postprocess!
 
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end

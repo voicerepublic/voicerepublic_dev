@@ -8,6 +8,7 @@
 # * image_file_name [string] - Paperclip for image
 # * image_file_size [integer] - Paperclip for image
 # * image_updated_at [datetime] - Paperclip for image
+# * options [text, default="--- {}\n"] - TODO: document me
 # * start_time [datetime] - TODO: document me
 # * teaser [text] - TODO: document me
 # * title [string]
@@ -49,12 +50,10 @@ class Venue < ActiveRecord::Base
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
                           order('featured_from DESC') }
 
-  # TODO replace with dragonfly
-  attr_accessible :image
-  has_attached_file :image,
-    :styles => { :medium => '242x145>', :thumb => "100x100>" },
-    :default_url => "/assets/defaults/:style/missing.jpg"
-
+  dragonfly_accessor :image do
+    default Rails.root.join('app/assets/images/defaults/venue-image.jpg')
+  end
+  
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 

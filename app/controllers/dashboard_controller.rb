@@ -15,14 +15,6 @@ class DashboardController < ApplicationController
     end
   end
   
-  def settings
-    @account = @user.account
-  end
-  
-  def edit_settings
-    @account = @user.account
-  end
-  
   def edit_password
     @user
   end
