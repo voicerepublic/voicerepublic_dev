@@ -49,16 +49,6 @@ describe UsersController do
         put :update, {:id => @user.to_param, :user => {'these' => 'params'}}, valid_session
       end
 
-      it "updates the 'about' attribute of account" do
-        @user.account.about.should be_nil
-        put :update, {
-          :id => @user.to_param,
-          :user => {:account_attributes => { :about => "spec about",
-                                             :timezone => @user.account.timezone }}
-        }, valid_session
-        @user.reload.account.about.should == "spec about"
-      end
-
       it "assigns the requested user as @user" do
         put :update, {:id => @user.to_param, :user => valid_attributes}, valid_session
         assigns(:user).should eq(@user)
