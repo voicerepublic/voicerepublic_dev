@@ -42,10 +42,9 @@
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = f.fields_for @user.account do |af|
+        = f.fields_for :account_attributes, @user.account do |af|
           = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
-          = af.input :about, rows: 10, placeholder: t('.about'),
-            input_html: { 'data-wysiwyg' => '#about-textarea' }
+          = af.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
   .row.collapse
     .large-12.columns
       = f.button :submit
