@@ -9,7 +9,8 @@
         .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="user_avatar")
         %br/
         %br/
-        %button.button(type="button" data-trigger-file-input="user_avatar") Select profile image
+        %button.button(type="button" data-trigger-file-input="user_avatar")
+          Select profile image
         = f.input :avatar, as: :file
 
       .large-5.medium-5.columns
@@ -26,6 +27,8 @@
           = f.input :password, disabled: true
           = f.input :password_confirmation, disabled: true
         -#= USER PROFILE HEADER (not verified by PO)
+        %button.button(type="button" data-trigger-file-input="user_header")
+          Select header image
         = f.input :header, as: :file
 
 

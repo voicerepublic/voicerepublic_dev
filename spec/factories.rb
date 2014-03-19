@@ -49,6 +49,7 @@ FactoryGirl.define do
     secret = "mysecret"
     password secret
     password_confirmation secret
+    timezone 'Berlin'
   end
 
   factory :comment do
