@@ -33,9 +33,9 @@
             = link_to [@venue, @participation], delete_params do
               = t('.leave_venue')
 
-  .venue-tabs-box.row.collapse
+  .row.collapse
     .large-12.columns
-      %dl.tabs.venue-tabs(data-tab='true')
+      %dl.tabs.vr-tabs(data-tab='true')
         %dd.text-center.active
           %a(href="#tab-description")
             %i.fi-layout
@@ -63,7 +63,7 @@
       %p
         = link_to new_venue_talk_path(@venue), class: 'button' do
           = t('.create_new_talk')
-      %ul
+      %ul.list-style-type-none
         - unless @next_talk.nil?
           %li.panel.callout
             %p
@@ -81,17 +81,26 @@
             = link_to t('.delete_talk'), [@venue, talk], delete_params
 
     #tab-archived-talks.content
-      %ul
+      %ul.list-style-type-none
         - for talk in @archived_talks
-          = link_to [@venue, talk] do
-            %li.panel
-              %p
-                = distance_of_time_in_words(talk.starts_at, talk.ends_at)
-                (#{talk.duration} minutes)
-              %p= talk.title
-              %p= l(talk.starts_at, format: :designed)
-              = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
-              = link_to t('.delete_talk'), [@venue, talk], delete_params
+          %li.talk-medium-box.row.collapse
+            .large-2.columns
+              %img{src: @venue.image.url}
+            .large-10.columns
+              = link_to [@venue, talk], class: 'talk-datetime' do
+                = l(talk.starts_at, format: :designed)
+                &nbsp;|&nbsp;
+                = l(talk.ends_at, format: :designed)
+              = #distance_of_time_in_words(talk.starts_at, talk.ends_at)(#{talk.duration} minutes)
+              = link_to [@venue, talk], class: 'talk-datetime' do
+                .talk-title= talk.title
+                .talk-description= talk.description
+              .box-actions
+                = link_to [:edit, @venue, talk] do
+                  %i.fi-pencil
+                = link_to [@venue, talk], delete_params do
+                  %i.fi-x
+
 
     #tab-comments.content
       TODO

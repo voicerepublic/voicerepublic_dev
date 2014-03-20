@@ -17,14 +17,21 @@
  @import "grids_variables_mixins/foundation-icons";
  @import "foundation_calendar";
  @import "select2";
- @import "social_shares";
- @import "top_actionbar";
- @import "components";
+
+// SHARED
+ @import "shared/top_actionbar";
+ @import "shared/social_share";
+ @import "shared/header_block";
+ @import "shared/flash_messages"; 
+ @import "shared/generic_action_bar";
+ @import "shared/vr_tabs";
+ @import "shared/footer";
+
+// RAILS STRUCTURE
  @import "landing_page";
  @import "users";
  @import "venues";
  @import "talks";
-
 
 /* Testing */
 .draft {
@@ -48,4 +55,13 @@
 body{
 	overflow-y: scroll; /* prevents moving by to small content */;
 	background: #F6F4EC
+}
+
+p{
+	font-size: 0.8rem;	
+}
+
+.list-style-type-none{
+	list-style-type: none;
+	margin:0
 }

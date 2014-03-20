@@ -3,11 +3,10 @@
 .talks-new{
 
 	.talk-upper-block {
-	  /*position: relative;*/
 	  background-repeat: no-repeat;
 	  background-position: center center;
 	  background-size: cover;
-	  padding-top: 85px;
+	  padding-top: 55px;
 	  color: #fff;
 	}
 
@@ -30,4 +29,24 @@
 	  color: #fff;
 	}
 
+}
+
+// MEDIUM TALK BOX
+.talk-medium-box{
+  position: relative;
+  .box-actions{
+    position: absolute;
+    right: 0;
+    top: 0;
+    a{
+      display: block;
+      width: 28px;
+      height: 28px;
+      padding:0;
+      text-align: center;
+      background: #F6F4EC;
+      border:1px solid #999;
+      color: #000;
+    }
+  }
 }

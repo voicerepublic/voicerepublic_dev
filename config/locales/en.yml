@@ -558,6 +558,7 @@ en:
       contacts: Contacts
       messages: Messages
       settings: Settings
+
   venues:
     date_changed: New venue date
     edit:
@@ -579,6 +580,7 @@ en:
       only_attendies_can_see_group_chat: Only participants can read the group-chat
       repeating: Rhythm
       new_talk: New talk
+      edit_talk: Edit talk
     venue_show_header:
       venue: Venue
       minutes: Minutes
