@@ -1,9 +1,14 @@
-= render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
 %p#notice(style='display: none;')= notice
 
 .layout-talk(ng-controller='Livepage')
-  .talk-upper-block(style="background-image: url(http://lorempixel.com/1200/600/people/1)")
+  .talk-upper-block(style="background-image: url(#{@talk.image.url})")
+
+    .row
+      .large-12.columns.text-right
+        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+
+    
     - if can? :manage, @talk
       .row
         .large-12.columns.text-right
@@ -51,7 +56,7 @@
         .host.avatar.avatar-host
           %p.avatar-name.text-center
             {{ config.host }}
-          %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
+          %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
 
         .guest.avatar(ng-repeat="guest in session.guests()")
           %span(ng-click="session.demote(guest.id)")
