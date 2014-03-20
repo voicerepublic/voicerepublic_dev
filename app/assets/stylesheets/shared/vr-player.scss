@@ -63,7 +63,7 @@ div.jp-seek-bar {
 	cursor: pointer;
 }
 
-/* SEEKBAR FROM START TO ACTUAL TALK TIME */ 
+/* SEEKBAR FROM START TO ACTUAL TALK TIME */
 div.jp-play-bar {
 	background: linear-gradient(to right,rgba(0,0,0,0),green, green);
 	width:0px;
@@ -72,7 +72,7 @@ div.jp-play-bar {
 
 /* The seeking class is added/removed inside jPlayer */
 div.jp-seeking-bg {
-	background: url("jplayer.blue.monday.seeking.gif");
+	background: image-url("player.blue.monday.seeking.gif");
 }
 
 /* @end */
