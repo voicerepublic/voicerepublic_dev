@@ -1,12 +1,14 @@
 = simple_form_for(@user) do |f|
-  .header-block(style="background-image: url(#{@user.header.try(:url)})" data-show-upload="user_header")
+  .header-block(style="background-image: url(#{@user.header.try(:url)})"
+    data-show-upload="#user_header")
     .row
       .large-12.columns
         = f.error_notification
     .row.collapse
       .large-3.medium-3.columns
         - avatar_url = @user.avatar.thumb('215x215#nw').url
-        .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="user_avatar")
+        .user-portrait-img(style="background-image:url(#{avatar_url})"
+          data-show-upload="#user_avatar")
         %br/
         %br/
         %button.button(type="button" data-trigger-file-input="user_avatar")
