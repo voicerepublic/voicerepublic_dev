@@ -5,17 +5,19 @@ $(function () {
     player.jPlayer({
       ready: function (event) {
         $(this).jPlayer("setMedia", {
-          m4a: player.data('recording')
+          m4a: player.data('m4a')
+          mp3: player.data('mp3')
+          ogg: player.data('ogg')
         })
       },
-  
+
       volume: 1,
       cssSelectorAncestor: player.data('selector'),
       swfPath: "/flash",
-      supplied: "mp3 , ogg",
+      supplied: "m4a, mp3, ogg",
       wmode: "window",
       smoothPlayBar: true,
       keyEnabled: true
-    })    
+    })
   })
 })

@@ -1,4 +1,4 @@
-.vr-player.jp-jplayer{ :data => { :recording => recording_path(talk.recording), :selector => "#jc-#{talk.id}" } }
+.vr-player.jp-jplayer{ :data => { :mp3 => talk.download_links["mp3"], :m4a => talk.download_links["m4a"], :ogg => talk.download_links["ogg"], :selector => "#jc-#{talk.id}" } }
 
 .jp-audio{ :id => "jc-#{talk.id}" }
   .jp-type-single
