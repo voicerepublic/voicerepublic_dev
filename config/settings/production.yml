@@ -8,7 +8,7 @@ rtmp:
   record:             'rtmp://voicerepublic-staging.sky.ungleich.ch/record'
   log_notifications:  false
   send_notifications: false
-  callback_base:      'http://0.0.0.0:3000/rtmp'
+  callback_base:      'http://localhost/rtmp'
   record_max_size:    '100M'
   authenticate:       true
 
