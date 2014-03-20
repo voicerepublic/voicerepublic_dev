@@ -11,7 +11,7 @@
           = link_to t('.delete_talk'), [@venue, @talk], class: 'button',
             method: :delete, data: { confirm: t('.confirm_delete',
             default: 'Are you sure?' ) }
- 
+
     %section.talk-title-box.row.text-center
       .large-12.columns
         .talk-venue-title
@@ -38,6 +38,8 @@
             talk is on hold, waiting to start
         %h3(ng-show='talkIsLive()') talk is live
         %h3(ng-show='talkIsPostlive()') talk is postlive
+
+        = render partial: 'player', locals: { talk: @talk }
 
   .talk-live-row
     .row
