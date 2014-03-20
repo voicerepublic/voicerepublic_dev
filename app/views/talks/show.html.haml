@@ -1,9 +1,14 @@
-= render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
 %p#notice(style='display: none;')= notice
 
 .layout-talk(ng-controller='Livepage')
-  .talk-upper-block(style="background-image: url(http://lorempixel.com/1200/600/people/1)")
+  .talk-upper-block(style="background-image: url(#{@talk.image.url})")
+
+    .row
+      .large-12.columns.text-right
+        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+
+
     - if can? :manage, @talk
       .row
         .large-12.columns.text-right
@@ -53,7 +58,7 @@
         .host.avatar.avatar-host
           %p.avatar-name.text-center
             {{ config.host }}
-          %img.avatar-img(src="http://lorempixel.com/80/80/people/1/")
+          %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
 
         .guest.avatar(ng-repeat="guest in session.guests()")
           %span(ng-click="session.demote(guest.id)")
@@ -110,9 +115,10 @@
           = @talk.try(:description).try(:html_safe)
         - unless @talk.venue.options[:suppress_chat]
           #talk-tab-discussion.content
-            .panel.callout(ng-hide="config.user.role == 'listener'")
-              %input(ng-model='message.content')
-              %button(ng-click='sendMessage()')
+            .panel.callout.row(ng-hide="config.user.role == 'listener'")
+              .large-3.columns
+                = t('.you')
+              %input.large-9.columns(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
             .panel(ng-repeat='message in session.discussion')
               {{ message.name }}: {{ message.content }}
         #talk-tab-participants.content.active

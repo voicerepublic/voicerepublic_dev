@@ -16,7 +16,7 @@ module Audio
       end
       
       def transcode_flv_to_wav_cmd(name)
-        "avconv -v quiet -y -i #{name}.flv -vn #{name}.wav"
+        "avconv -v quiet -y -i #{name}.flv -vn -ar 16k #{name}.wav"
       end
 
       # will be checked as postcondition
