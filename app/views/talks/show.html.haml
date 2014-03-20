@@ -12,7 +12,7 @@
             method: :delete, data: { confirm: t('.confirm_delete',
             default: 'Are you sure?' ) }
 
-    %section.talk-title-box.row.text-center
+    %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         .talk-venue-title
           = link_to @talk.venue.title, @talk.venue
@@ -39,7 +39,7 @@
         %h3(ng-show='talkIsLive()') talk is live
         %h3(ng-show='talkIsPostlive()') talk is postlive
 
-        = render partial: 'player', locals: { talk: @talk }
+        = render partial: 'shared/player', locals: { talk: @talk }
 
   .talk-live-row
     .row

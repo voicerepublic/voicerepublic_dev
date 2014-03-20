@@ -1,5 +1,5 @@
 $(function () {
-  $(".kluuu.jp-jplayer").each(function (i, el) {
+  $(".vr-player.jp-jplayer").each(function (i, el) {
     var player = $(el)
 
     player.jPlayer({
@@ -12,7 +12,7 @@ $(function () {
       volume: 1,
       cssSelectorAncestor: player.data('selector'),
       swfPath: "/flash",
-      supplied: "m4a",
+      supplied: "mp3 , ogg",
       wmode: "window",
       smoothPlayBar: true,
       keyEnabled: true
