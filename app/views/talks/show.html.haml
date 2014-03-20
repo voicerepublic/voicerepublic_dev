@@ -114,7 +114,7 @@
         - unless @talk.venue.options[:suppress_chat]
           #talk-tab-discussion.content
             .panel.callout(ng-hide="config.user.role == 'listener'")
-              %input(ng-model='message.content')
+              %input(ng-model='message.content' ng-keyup='messageKeyup($event)')
               %button(ng-click='sendMessage()')
             .panel(ng-repeat='message in session.discussion')
               {{ message.name }}: {{ message.content }}
