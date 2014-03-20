@@ -83,23 +83,7 @@
     #tab-archived-talks.content
       %ul.list-style-type-none
         - for talk in @archived_talks
-          %li.talk-medium-box.row.collapse
-            .large-2.columns
-              %img{src: @venue.image.url}
-            .large-10.columns
-              = link_to [@venue, talk], class: 'talk-datetime' do
-                = l(talk.starts_at, format: :designed)
-                &nbsp;|&nbsp;
-                = l(talk.ends_at, format: :designed)
-              = #distance_of_time_in_words(talk.starts_at, talk.ends_at)(#{talk.duration} minutes)
-              = link_to [@venue, talk], class: 'talk-datetime' do
-                .talk-title= talk.title
-                .talk-description= talk.description
-              .box-actions
-                = link_to [:edit, @venue, talk] do
-                  %i.fi-pencil
-                = link_to [@venue, talk], delete_params do
-                  %i.fi-x
+          = render partial: '/shared/talk_medium_box', locals: { talk: talk }
 
 
     #tab-comments.content

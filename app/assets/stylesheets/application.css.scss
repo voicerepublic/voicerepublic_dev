@@ -20,12 +20,15 @@
 
 // SHARED
  @import "shared/top_actionbar";
- @import "shared/social_share";
- @import "shared/header_block";
  @import "shared/flash_messages"; 
+ @import "shared/social_share";
+ @import "shared/footer"; 
+ @import "shared/header_block";
  @import "shared/generic_action_bar";
  @import "shared/vr_tabs";
- @import "shared/footer";
+ @import "shared/talk_medium_box";
+
+
 
 // RAILS STRUCTURE
  @import "landing_page";
