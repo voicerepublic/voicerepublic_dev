@@ -25,7 +25,7 @@ class Venue < ActiveRecord::Base
   acts_as_taggable
 
   attr_accessible :title, :teaser, :description, :tag_list,
-                  :talks_attributes
+                  :talks_attributes, :image
 
   # TODO: rename to host
   belongs_to :user
