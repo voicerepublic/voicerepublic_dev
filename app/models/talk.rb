@@ -248,7 +248,7 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
 
-  def postprocess!
+  def postprocess!(uat=false)
     return unless record? # TODO: move into a final state != archived
     process!
     PrivatePub.publish_to public_channel, { event: 'Process' }
@@ -267,6 +267,7 @@ class Talk < ActiveRecord::Base
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }
       PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
+      (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
       runner.run(name)
     end
     # save recording
@@ -274,15 +275,15 @@ class Talk < ActiveRecord::Base
     # move some files to archive_raw
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
-    FileUtils.mkdir_p(target)
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
+    FileUtils.mkdir_p(target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
     # move some files to archive
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     target = File.dirname(File.join(archive, recording))
-    FileUtils.mkdir_p(target)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target)
-    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target)
+    FileUtils.mkdir_p(target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
     # TODO: save transcoded audio formats
 
     archive!

@@ -19,6 +19,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
   $scope.talkIsPostlive = ->
     config.talk.state == 'postlive'
 
+  $scope.talkIsArchived = ->
+    config.talk.state == 'archived'
+
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and
       config.talk.state == 'live'
