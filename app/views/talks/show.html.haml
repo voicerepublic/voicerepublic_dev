@@ -8,7 +8,7 @@
       .large-12.columns.text-right
         = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
-    
+
     - if can? :manage, @talk
       .row
         .large-12.columns.text-right
@@ -16,7 +16,7 @@
           = link_to t('.delete_talk'), [@venue, @talk], class: 'button',
             method: :delete, data: { confirm: t('.confirm_delete',
             default: 'Are you sure?' ) }
- 
+
     %section.talk-title-box.row.text-center
       .large-12.columns
         .talk-venue-title
@@ -113,9 +113,10 @@
           = @talk.try(:description).try(:html_safe)
         - unless @talk.venue.options[:suppress_chat]
           #talk-tab-discussion.content
-            .panel.callout(ng-hide="config.user.role == 'listener'")
-              %input(ng-model='message.content' ng-keyup='messageKeyup($event)')
-              %button(ng-click='sendMessage()')
+            .panel.callout.row(ng-hide="config.user.role == 'listener'")
+              .large-3.columns
+                = t('.you')
+              %input.large-9.columns(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
             .panel(ng-repeat='message in session.discussion')
               {{ message.name }}: {{ message.content }}
         #talk-tab-participants.content.active
