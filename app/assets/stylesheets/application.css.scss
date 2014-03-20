@@ -8,32 +8,24 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require users
  *= require_self
- *= require foundation_and_overrides
- *= require social_shares
- *= require select2
- *= require foundation_calendar
- *= require foundation-icons
  */
 
-@mixin placeholder {
-  &.placeholder { @content; }
-  &:-moz-placeholder { @content; opacity: 1}
-  &::-moz-placeholder { @content; opacity: 1}
-  &::-webkit-input-placeholder { @content; }
-}
+@import "grids_variables_mixins/ci_variables";
+@import "grids_variables_mixins/mixins";
+@import "grids_variables_mixins/foundation_and_overrides";
+@import "grids_variables_mixins/foundation-icons";
+@import "foundation_calendar";
+@import "select2";
+@import "social_shares";
+@import "top_actionbar";
+@import "components";
+@import "landing_page";
+@import "users";
+@import "venues";
+@import "talks";
 
-@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
-	@if $inset {
-		-webkit-box-shadow:inset $top $left $blur $color;
-		-moz-box-shadow:inset $top $left $blur $color;
-		box-shadow:inset $top $left $blur $color;
-	} @else {
-		-webkit-box-shadow: $top $left $blur $color;
-		-moz-box-shadow: $top $left $blur $color;
-		box-shadow: $top $left $blur $color;
-	}
-}
 
 /* Testing */
 .draft {
@@ -52,159 +44,12 @@
 .result.user { background-color: #fdd; }
 .result.venue { background-color: #dfd; }
 
+
 /* GENERAL */
 body{
-	overflow-y: scroll;
+  overflow-y: scroll; /* prevents moving by to small content */
 }
 
-/* ACTIONBAR */
-.top-bar-box{
-	margin-bottom:-55px !important;
-
-	.top-bar {
-		z-index: 1;
-	}
-
-	.top-bar-vr-logo{
-		position: absolute;
-		top:0;
-		left: 50%;
-		margin-left: -40px;
-		width:80px;
-		line-height: 1.4rem;
-	}
-
-	.top-bar-search-box{
-		position: relative;
-		width:150px;
-		&:hover,
-		&:focus{
-			background: #444;
-		}
-	}
-
-	.top-bar-search-field{
-		position: absolute !important;
-		top: 4px !important;
-		left: 0;
-		width: 150px;
-		height: 30px !important;
-		line-height: inherit !important;
-		background: #000 !important;
-		margin: 0;
-		padding: 0 5px 0 30px !important;
-		color: #fff !important;
-		border-style: none !important;
-		@include placeholder{
-			color: white;
-		}
-		&:hover,
-		&:focus{
-			background: #333 !important;
-			border-style: none !important;
-			outline-style: none !important;
-			@include box-shadow(0,0,0,#000)
-		}
-	}
-
-	.search-lupe{
-		position: absolute;
-		left: 2px;
-		top: 6px;
-		background: none;
-		font-size: 1.2rem;
-		padding: 0;
-		margin: 0;
-		display: inline;
-		&:hover,
-		&:focus{
-			background:none;
-		}
-	}
-
-}
-
-/* TALK */
-.layout-talk{
-
-	.talk-upper-block {
-	  /*position: relative;*/
-	  background-repeat: no-repeat;
-	  background-position: center center;
-	  background-size: cover;
-	  padding-top: 85px;
-	  color: #fff;
-	}
-
-	.talk-title-box{
-	  background: rgba(0,0,0,0.3);
-	  padding:1rem 0.5rem 4rem 0.5rem;
-	  .talk-title{
-	  	color: #fff;
-	  }
-	}
-
-	h3.talk-teaser{
-		color: #fff;
-	}
-
-	.talk-talkers-box{
-	  margin-top: 20px;
-	  background: rgba(0,0,0,0.5);
-	  padding:1rem 0.5rem 4rem 0.5rem;
-	  color: #fff;
-	}
-
-}
-
-/* TABS */
-.talk-tabs-content-block{
-  border-top: 2px solid;
-  background: #F9F7EF;
-  .row{
- 		background: #fff
-	}
-}
-
-.talk-tabs dd{
-  top:0;
-  width: 33.33%
-}
-
-/* VENUE, TALK */
-.header-block {
-  position: relative;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-  background-color: #f5f5f5;
-  padding-top: 55px;
-  color: #fff;
-}
-
-/* USER PROFILE */
-.user-portrait-img{
-	width:215px;
-	height: 215px;
-	background-size:cover;
-	background-position: center
-}
-
-#user_account_about{
-	height: 200px
-}
-
-.input.file{
-	display: none;
-}
-
-footer{
-	margin-top: 30px;
-	ul{
-		h6{
-			font-size: 0.8rem;
-			font-weight: bold;
-		}
-		font-size: 0.8rem
-	}
+.header-box {
+  padding-top: 60px;
 }

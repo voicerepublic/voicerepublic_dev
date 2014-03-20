@@ -14,7 +14,7 @@
       %ul.right  
         %li.has-dropdown
           = link_to '#' do #TODO
-            = image_tag current_user.account.portrait(:large), :alt => current_user.name, size: '25x25'
+            = image_tag current_user.avatar.thumb('25x25#nw').url, alt: current_user.name, size: '25x25'
             = current_user.name            
 
           %ul.dropdown

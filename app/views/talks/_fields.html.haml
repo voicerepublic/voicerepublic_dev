@@ -1,4 +1,4 @@
-.header-block(style="background-image: url(#{@venue.image.url(:medium)})"
+.header-block(style="background-image: url(#{@venue.image.url})"
   data-show-upload="#talk_image,#venue_talks_attributes_0_image")
   
   .row
@@ -25,8 +25,9 @@
 
 .row
   .medium-10.medium-centered.columns
-    = f.file_field :image
+    = f.input :image, as: :file
     = f.input :guest_list, input_html: { class: 'guestList' }
-    = render 'shared/wysihtml5_toolbar'
-    = f.input :description, 'data-wysiwyg' => true
+    = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'talk-toolbar' }
+    = f.input :description, rows: 4, placeholder: t('.description'),
+      input_html: { 'data-wysiwyg' => '#talk-toolbar' }
     = f.input :record

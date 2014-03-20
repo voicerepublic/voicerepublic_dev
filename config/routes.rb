@@ -61,7 +61,7 @@ VoiceRepublic::Application.routes.draw do
                registrations: "users/registrations"
              })
 
-  resources :users, :only => [:update, :show] do
+  resources :users, :only => [:update, :show, :edit] do
     member do
       get 'welcome'
       get 'venues' # venues_user_path

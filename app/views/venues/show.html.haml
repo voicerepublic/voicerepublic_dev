@@ -6,14 +6,15 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-.header-box(style="background-image: url(#{@venue.image.url(:large)})")
+.header-box(style="background-image: url(#{@venue.image.url})")
 
   = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
-  .row
-    .large-12.columns.text-right
-      = link_to t('.edit_venue'), [:edit, @venue], class: 'button'
-      = link_to t('.delete_venue'), @venue, delete_params
+  - if can? :manage, @venue
+    .row
+      .large-12.columns.text-right
+        = link_to t('.edit_venue'), [:edit, @venue], class: 'button'
+        = link_to t('.delete_venue'), @venue, delete_params
 
   .row
     .large-12.columns.text-center
@@ -51,7 +52,7 @@
     #tab-upcoming-talks.content
       %p
         = link_to new_venue_talk_path(@venue), class: 'button' do
-          = t('.create_new_talk')
+          = t('.new_talk')
       %ul
         - unless @next_talk.nil?
           %li.panel.callout

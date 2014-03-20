@@ -18,18 +18,6 @@ describe Ability do
     end
   end
 
-  describe Account do
-    it "allows to manage account by owner" do
-      Ability.new(owner).can?(:manage, owner.account).should be_true
-    end
-    it "denies to manage account by other" do
-      Ability.new(other).can?(:manage, owner.account).should be_false
-    end
-    it "denies to manage account for guests" do
-      Ability.new(guest).can?(:manage, guest.account).should be_false
-    end
-  end
-
   describe Venue do
     let(:venue) { FactoryGirl.create(:venue, user: owner) }
     it "allows to manage venues by owner" do
