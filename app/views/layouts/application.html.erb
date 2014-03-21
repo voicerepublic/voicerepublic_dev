@@ -21,17 +21,18 @@
 	<body class="<%= [controller_name, action_name] * '-' %>">
 		<%= render "shared/actionbar" %>
 		<%= render "shared/notice_or_error" %>
-		
+
 		<%= yield %>
-		
+
 		<%= render "shared/footer" %>
     <div id='scripts'>
-		  <%= javascript_include_tag "application" %>
+      <%= javascript_include_tag "application" %>
       <% unless Rails.env.development? %>
         <%= airbrake_javascript_notifier %>
-		    <%= render 'shared/google_analytics' %>
+        <%= render 'shared/google_analytics' %>
+        <%= render 'shared/tawk' %>
       <% end %>
-		  <%= yield :javascript %>
+      <%= yield :javascript %>
     </div>
 	</body>
 </html>
