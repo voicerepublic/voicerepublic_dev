@@ -15,7 +15,12 @@ class Message < ActiveRecord::Base
   validates :user, :talk, presence: true
 
   def as_text
-    "#{created_at} #{user.name}:\n#{content}\n"
+    attrs = {
+      user_name: user.name,
+      created_at: I18n.l(created_at, format: :timeonly),
+      content: content
+    }
+    I18n.t('messages.as_text', attrs)
   end
   
 end

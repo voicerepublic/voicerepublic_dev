@@ -212,9 +212,13 @@ class Talk < ActiveRecord::Base
 
   # the message history is available as text file to the host
   def message_history
-    attrs = { title: title, started_at: started_at, ended_at: ended_at }
-    #I18n.t('talks.message_history', attrs) + "\n\n" +
-    messages.to_sql#join(:user)#.map(&:as_text)#.join("\n"))
+    attrs = {
+      title: title,
+      started_at: I18n.l(started_at, format: :short),
+      ended_at: I18n.l(ended_at, format: :short)
+    }
+    I18n.t('talks.message_history', attrs) + "\n" +
+      messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
   private

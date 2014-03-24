@@ -10,6 +10,14 @@ class TalksController < ApplicationController
 
   # GET /talks/1
   def show
+    respond_to do |format|
+      format.html
+      format.text do
+        # TODO use cancan
+        return render text: 'Forbidden', status: 403 if current_user != @talk.user
+        render text: @talk.message_history
+      end
+    end
   end
 
   # GET /talks/new
