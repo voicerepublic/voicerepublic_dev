@@ -19,6 +19,7 @@
  @import "grids_variables_mixins/mixins";
  @import "grids_variables_mixins/foundation_and_overrides";
  @import "grids_variables_mixins/foundation-icons";
+ @import "grids_variables_mixins/eagle_webfonts";
  @import "foundation_calendar";
  @import "select2";
 
@@ -63,6 +64,10 @@
 body{
 	overflow-y: scroll; /* prevents moving by to small content */;
 	background: #F6F4EC
+}
+
+h2{
+  font-family: 'eaglebook';
 }
 
 p{
