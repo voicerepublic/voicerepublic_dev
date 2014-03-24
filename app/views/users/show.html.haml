@@ -1,31 +1,32 @@
 - content_for :title do
   = @user.name
 
-.header-block(style="background-image: url(#{@user.header.try(:url)})")
+.header-block
+  -#(style="background-image: url(#{@user.header.try(:url)})")
 
-  - if @user == current_user # TODO use cancan
-    .row
-      .large-12.columns.text-right
-        = link_to t('.edit_user'), [:edit, @user], class: 'button'
+  - if can? :manage, @user
+    .generic-action-bar.row.collapse
+      .large-12.columns
+        %ul.button-group.right
+          %li= link_to t('.edit_user'), [:edit, @user], class: 'button tiny'
   
   .row
     .large-12.columns.text-center
       - count = @user.participations.count
-      %p= t('.talk_joined', count: count, default: '%{count} Talks joined')
+      .talks-joined= t('.talk_joined', count: count, default: '%{count} Talks joined')
       %p= image_tag @user.avatar.try(:url)
-      %p= @user.name
+      %h3.user-name= @user.name
   .row
     .large-12.columns.text-center
-      .tabs-box(style="display:inline-block")
-        %dl.tabs(data-tab='true')
-          %dd.text-center
-            %a(href="#tab-about-me")= t('.about_me')
-          %dd.text-center.active
-            %a(href="#tab-my-venues")= t('.my-venues')
-          %dd.text-center
-            %a(href="#tab-schedule")= t('.schedule')
-          %dd.text-center
-            %a(href="#tab-activity")= t('.activity')
+      %dl.tabs.vr-tabs(data-tab='true')
+        %dd.text-center
+          %a(href="#tab-about-me")= t('.about_me')
+        %dd.text-center.active
+          %a(href="#tab-my-venues")= t('.my-venues')
+        %dd.text-center
+          %a(href="#tab-schedule")= t('.schedule')
+        %dd.text-center
+          %a(href="#tab-activity")= t('.activity')
 
 .row
   .large-12.columns.tabs-content
