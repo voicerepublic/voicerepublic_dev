@@ -113,7 +113,7 @@ $row-width: rem-calc(700);
 // $include-html-type-classes: $include-html-classes;
 
 // We use these to control header font styles
-// $header-font-family: $body-font-family;
+$header-font-family: 'eaglelight', sans-serif;
 // $header-font-weight: 300;
 // $header-font-style: normal;
 // $header-font-color: #222;
@@ -159,8 +159,8 @@ $row-width: rem-calc(700);
 
 // We use these to style anchors
 // $anchor-text-decoration: none;
-// $anchor-font-color: $primary-color;
-// $anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
+$anchor-font-color: black;
+$anchor-font-color-hover: $anchor-font-color;
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
@@ -1059,12 +1059,12 @@ $input-include-glowing-effect: false;
 
 // $include-html-tabs-classes: $include-html-classes;
 
-// $tabs-navigation-padding: rem-calc(16);
-// $tabs-navigation-bg-color: #efefef  ;
-// $tabs-navigation-active-bg-color: #fff;
-// $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
-// $tabs-navigation-font-color: #222;
-// $tabs-navigation-font-size: rem-calc(16);
+$tabs-navigation-padding: rem-calc(6);
+$tabs-navigation-bg-color: #F0F0F0 ;
+$tabs-navigation-active-bg-color: rgba(0,0,0,0.7);
+$tabs-navigation-hover-bg-color: $tabs-navigation-active-bg-color;
+$tabs-navigation-font-color: #000;
+$tabs-navigation-font-size: rem-calc(14);
 // $tabs-navigation-font-family: $body-font-family;
 
 // $tabs-content-margin-bottom: rem-calc(24);

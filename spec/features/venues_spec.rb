@@ -99,11 +99,11 @@ describe "Venues" do
     it 'uploads an image and displays it' do
       venue = FactoryGirl.create(:venue, user: @user)
       visit venue_path(id: venue.id)
-      find('.header-box')['style'].should include('venue-image.jpg')
+      find('.header-block')['style'].should include('venue-image.jpg')
       click_link 'Edit Venue'
       attach_file :venue_image, 'spec/support/fixtures/dummy.png'
       click_button 'Save'
-      find('.header-box')['style'].should_not include('venue-image.jpg')
+      find('.header-block')['style'].should_not include('venue-image.jpg')
     end
   end
   

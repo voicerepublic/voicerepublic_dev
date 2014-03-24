@@ -17,7 +17,7 @@
             method: :delete, data: { confirm: t('.confirm_delete',
             default: 'Are you sure?' ) }
 
-    %section.talk-title-box.row.text-center
+    %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         .talk-venue-title
           = link_to @talk.venue.title, @talk.venue
@@ -43,6 +43,8 @@
             talk is on hold, waiting to start
         %h3(ng-show='talkIsLive()') talk is live
         %h3(ng-show='talkIsPostlive()') talk is postlive
+
+        = render partial: 'shared/player', locals: { talk: @talk }
 
   .talk-live-row
     .row
@@ -88,7 +90,7 @@
         %button.button(ng-show='config.talk.state == "live"'
                        ng-click='blackbox.setVolume(1)')= t('.unmute_streams')
 
-    .talk-tabs-box.row
+    .talk-tabs-box.row.collapse
       .large-12.columns
         %dl.tabs.talk-tabs(data-tab="true")
           %dd.text-center

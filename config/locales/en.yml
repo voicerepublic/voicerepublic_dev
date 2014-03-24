@@ -558,6 +558,7 @@ en:
       contacts: Contacts
       messages: Messages
       settings: Settings
+
   venues:
     date_changed: New venue date
     edit:
@@ -572,13 +573,14 @@ en:
       start_date: Begin
       duration: Duration
       past_venue: Past Venue
-      join_venue: Participate now!
+      join_venue: SUBSCRIBE TO VENUE!
       unjoin_venue: Cancel participation
       chat_will_be_available_short_before_start: Group-chat will be available short before start
       group_chat: Group-Chat
       only_attendies_can_see_group_chat: Only participants can read the group-chat
       repeating: Rhythm
       new_talk: New talk
+      edit_talk: Edit talk
     venue_show_header:
       venue: Venue
       minutes: Minutes
@@ -751,9 +753,9 @@ en:
   hello: Hello world
   layouts:
     application:
-      landing_title: KluuU - Discussions
+      landing_title: Voice Republic - The Place To Talk
     users:
-      landing_title: KluuU - Discussions
+      landing_title: Voice Republic - The Place To Talk
 
   user_mailer:
     new_talk:

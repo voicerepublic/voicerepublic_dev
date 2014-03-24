@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<%= content_for?(:facebook_values) ? yield(:facebook_values) : '' %>
-		<title><%= content_for?(:title) ? yield(:title) : t(".landing_title", :default => "KluuU - Discussions") %> </title>
+		<title><%= content_for?(:title) ? yield(:title) : t(".landing_title", :default => "Voice Republic - The Place To Talk") %> </title>
 		<%= csrf_meta_tags %>
 		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 		<!--[if lt IE 9]>
@@ -15,23 +15,26 @@
 		<link href="images/apple-touch-icon.png" rel="apple-touch-icon">
 		<link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
 		<link href="images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+		<!-- HACK for testing -->
+		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <%= yield(:head) %>
     <%= javascript_include_tag "vendor/modernizr" %>
 	</head>
 	<body class="<%= [controller_name, action_name] * '-' %>">
 		<%= render "shared/actionbar" %>
 		<%= render "shared/notice_or_error" %>
-		
+
 		<%= yield %>
-		
+
 		<%= render "shared/footer" %>
     <div id='scripts'>
-		  <%= javascript_include_tag "application" %>
+      <%= javascript_include_tag "application" %>
       <% unless Rails.env.development? %>
         <%= airbrake_javascript_notifier %>
-		    <%= render 'shared/google_analytics' %>
+        <%= render 'shared/google_analytics' %>
+        <%= render 'shared/tawk' %>
       <% end %>
-		  <%= yield :javascript %>
+      <%= yield :javascript %>
     </div>
 	</body>
 </html>
