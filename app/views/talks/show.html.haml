@@ -90,7 +90,7 @@
         %button.button(ng-show='config.talk.state == "live"'
                        ng-click='blackbox.setVolume(1)')= t('.unmute_streams')
 
-    .talk-tabs-box.row
+    .talk-tabs-box.row.collapse
       .large-12.columns
         %dl.tabs.talk-tabs(data-tab="true")
           %dd.text-center
