@@ -210,6 +210,13 @@ class Talk < ActiveRecord::Base
     "/#{loc_path}/#{loc_file}"
   end
 
+  # the message history is available as text file to the host
+  def message_history
+    attrs = { title: title, started_at: started_at, ended_at: ended_at }
+    #I18n.t('talks.message_history', attrs) + "\n\n" +
+    messages.to_sql#join(:user)#.map(&:as_text)#.join("\n"))
+  end
+
   private
 
   def set_ends_at

@@ -14,4 +14,8 @@ class Message < ActiveRecord::Base
 
   validates :user, :talk, presence: true
 
+  def as_text
+    "#{created_at} #{user.name}:\n#{content}\n"
+  end
+  
 end
