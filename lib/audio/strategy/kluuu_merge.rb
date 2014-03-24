@@ -26,6 +26,10 @@ module Audio
       #   [[filename, datetimestr], [filename, datetimestr], ...]
       #
       def merge_wavs_cmd(streams, outfile)
+        if streams.size == 1
+          infile = streams.first.first.sub('.flv', '.wav')
+          return "cp #{infile} #{outfile}" 
+        end
         # parse datetime
         streams = streams.map { |path, time| [path, parse_ts(time)] }
         # sort by datetime

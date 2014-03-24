@@ -700,6 +700,9 @@ en:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
   talks:
+    show:
+      chat_placeholder: Type and hit enter to post a comment
+      you: You
     new:
       new_talk: New Talk
     edit:
@@ -750,9 +753,9 @@ en:
   hello: Hello world
   layouts:
     application:
-      landing_title: KluuU - Discussions
+      landing_title: Voice Republic - The Place To Talk
     users:
-      landing_title: KluuU - Discussions
+      landing_title: Voice Republic - The Place To Talk
 
   user_mailer:
     new_talk:

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+rm -rf local/recordings/*
+rm -rf local/archive/*
+rm -rf local/archive_raw/*
+rm -rf public/system/audio/*
+
+watch 'tree -s local/recordings local/archive local/archive_raw public/system/audio'

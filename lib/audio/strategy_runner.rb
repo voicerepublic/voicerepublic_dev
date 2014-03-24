@@ -11,7 +11,7 @@ module Audio
       end
       strategy.call(setting)
     rescue Exception => e
-      puts "Skipping strategy #{strategy}: #{e.message}"
+      puts "Error running strategy #{strategy}: #{e.message}"
     end
 
   end

@@ -48,7 +48,8 @@ describe "Venues" do
         end
       end
 
-      it "can be shared to social networks and saves statistics", driver: :chrome, slow: true do
+      it "can be shared to social networks and saves statistics",
+         driver: :chrome, slow: true do
         SocialShare.count.should eq(0)
         visit venue_path(id: @venue)
         page.execute_script('$("#social_share .facebook").click()')
@@ -94,4 +95,16 @@ describe "Venues" do
     end
   end
 
+  describe "PATCH an existing venue" do
+    it 'uploads an image and displays it' do
+      venue = FactoryGirl.create(:venue, user: @user)
+      visit venue_path(id: venue.id)
+      find('.header-box')['style'].should include('venue-image.jpg')
+      click_link 'Edit Venue'
+      attach_file :venue_image, 'spec/support/fixtures/dummy.png'
+      click_button 'Save'
+      find('.header-box')['style'].should_not include('venue-image.jpg')
+    end
+  end
+  
 end

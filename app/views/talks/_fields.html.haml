@@ -27,6 +27,7 @@
   .medium-10.medium-centered.columns
     = f.input :image, as: :file
     = f.input :guest_list, input_html: { class: 'guestList' }
-    = render 'shared/wysihtml5_toolbar'
-    = f.input :description, 'data-wysiwyg' => true
+    = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'talk-toolbar' }
+    = f.input :description, rows: 4, placeholder: t('.description'),
+      input_html: { 'data-wysiwyg' => '#talk-toolbar' }
     = f.input :record

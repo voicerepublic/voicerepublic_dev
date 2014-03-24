@@ -1,0 +1,26 @@
+.vr-player.jp-jplayer{ :data => { :mp3 => talk.download_links["mp3"], :m4a => talk.download_links["m4a"], :ogg => talk.download_links["ogg"], :selector => "#jc-#{talk.id}" } }
+
+.jp-audio{ :id => "jc-#{talk.id}" }
+  .jp-type-single
+    .jp-gui.jp-interface
+      %ul.jp-controls
+
+        %li
+          %a.jp-pause{:href => "javascript:;", :tabindex => "1"}
+            %i.fi-pause
+        %li
+          %a.jp-play{:href => "javascript:;", :tabindex => "1"}
+            %i.fi-play
+      .jp-progress
+        .jp-seek-bar
+          .jp-play-bar
+      .jp-volume-bar
+        .jp-volume-bar-value
+      .jp-time-holder
+        .jp-current-time.text-left
+        .jp-duration
+    .jp-no-solution
+      %span Update Required
+      To play the media you will need to either update your browser to a recent version or update your
+      = succeed "." do
+        %a{:href => "http://get.adobe.com/flashplayer/", :target => "_blank"} Flash plugin

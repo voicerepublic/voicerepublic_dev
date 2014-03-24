@@ -10,11 +10,21 @@
 
   = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
-  .generic-action-bar.row.collapse
-    .large-12.columns
-      %ul.button-group.right
-        %li= link_to t('.edit_venue'), [:edit, @venue], class: 'button tiny'
-        %li= link_to t('.delete_venue'), @venue, delete_params
+  - if can? :manage, @venue
+    .generic-action-bar.row.collapse
+      .large-12.columns
+        %ul.button-group.right
+          %li= link_to t('.edit_venue'), [:edit, @venue], class: 'button tiny'
+          %li= link_to t('.delete_venue'), @venue, delete_params
+
+  .row
+    .large-12.columns.text-center
+      - if @show_join
+        = link_to [@venue, :participations], method: :post, class: 'button' do
+          = t('.join_venue')
+      - if @participation
+        = link_to [@venue, @participation], delete_params do
+          = t('.leave_venue')
 
   .title-block.row
     .large-12.columns
@@ -87,48 +97,5 @@
 
 
     #tab-comments.content
-      = render partial: 'comment'
-
--# action buttons
--#= render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
-
--# -if @venue.live?
--#   -# live layout
--#
--#   %section.venue-live-box.clearfix
--#     -# description
--#     = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )
--#     = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )
--#
--#   .row-fluid
--#     .span8
--#       -# forum (left)
--#       = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
--#     .span4
--#       -# participants (right)
--#       = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
--#
--# - else
-
--# -# static layout
--# .row-fluid
--#   .span8
--#     -# description
--#     = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
--#
--#     -# forum
--#     = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
--#
--#   .span4.left-light-border
--#     -# next event
--#     -# - if @venue.current_event.present?
--#     -#   = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
--#       %hr.venue-horiz-line
--#
--#     -# archive
--#     = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
--#     %hr.venue-horiz-line
--#
--#     -# participants
--#     = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })
-
+      %ul.list-style-type-none
+        = render partial: 'comment'

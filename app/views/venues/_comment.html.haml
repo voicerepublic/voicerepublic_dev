@@ -1,22 +1,12 @@
-%li.talk-medium-box.row.collapse
-  .large-2.medium-2.columns
-    %img.talk-avatar{src: @venue.image.url}
-  .large-10.medium-10.columns.talk-medium-text-box
-    = link_to [@venue, talk] do
-      .talk-datetime
-        = l(talk.starts_at, format: :designed)
-        &nbsp;|&nbsp;
-        = l(talk.ends_at, format: :designed)
-        = #distance_of_time_in_words(talk.starts_at, talk.ends_at)(#{talk.duration} minutes) ?
-      .talk-title= talk.title
-      .talk-teaser
-        = link_to [@venue, talk] do
-          = talk.teaser
-        = link_to '#', class: 'read-more-link' do
-          %span
-            read more
-    .box-actions
-      = link_to [:edit, @venue, talk] do
-        %i.fi-pencil
-      = link_to [@venue, talk], delete_params do
-        %i.fi-x
+.comment-item.row.collapse
+  .large-12.columns
+    .comment-left-box.left
+      = link_to '#user' do
+        %img(src="http://lorempixel.com/40/40")
+    .comment-right-box
+      = link_to '#user', class: 'comment-author' do
+        newthinking
+      %span.comment-date
+        June 10, 2014, 12:45
+      %p.comment-text
+        Maecenas faucibus mollis interdum. Donec sed odio dui. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue.

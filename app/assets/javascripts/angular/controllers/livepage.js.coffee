@@ -9,6 +9,11 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
 
   $scope.sendMessage = ->
     session.upstream.message $scope.message.content
+    $scope.message.content = ''
+
+  $scope.messageKeyup = (e) ->
+    if e.keyIdentifier == "Enter"
+      $scope.sendMessage()
 
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
@@ -18,6 +23,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
 
   $scope.talkIsPostlive = ->
     config.talk.state == 'postlive'
+
+  $scope.talkIsArchived = ->
+    config.talk.state == 'archived'
 
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and

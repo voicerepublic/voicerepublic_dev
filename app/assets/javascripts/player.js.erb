@@ -1,21 +1,23 @@
 $(function () {
-  $(".kluuu.jp-jplayer").each(function (i, el) {
+  $(".vr-player.jp-jplayer").each(function (i, el) {
     var player = $(el)
 
     player.jPlayer({
       ready: function (event) {
         $(this).jPlayer("setMedia", {
-          m4a: player.data('recording')
+          m4a: player.data('m4a'),
+          mp3: player.data('mp3'),
+          ogg: player.data('ogg')
         })
       },
-  
+
       volume: 1,
       cssSelectorAncestor: player.data('selector'),
       swfPath: "/flash",
-      supplied: "m4a",
+      supplied: "m4a, mp3, ogg",
       wmode: "window",
       smoothPlayBar: true,
       keyEnabled: true
-    })    
+    })
   })
 })

@@ -59,14 +59,10 @@ module VoiceRepublic
 
     config.assets.initialize_on_precompile = false
     
-    # still needed with rails4 ?
+    # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
     config.assets.paths << "#{config.root}/app/assets/fonts"
-
-    config.assets.precompile += %w( *.js *.png *.jpg )
-    # TODO use assets the right way and we won't need these hacks, ask phil
-    config.assets.precompile += %w(
-      livepage.js
-    )
+    # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
+    config.assets.precompile += %w( livepage.js )
   end
 end
 

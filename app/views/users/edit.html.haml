@@ -1,12 +1,14 @@
 = simple_form_for(@user) do |f|
-  .header-block(style="background-image: url(#{@user.header.try(:url)})" data-show-upload="user_header")
+  .header-block(style="background-image: url(#{@user.header.try(:url)})"
+    data-show-upload="#user_header")
     .row
       .large-12.columns
         = f.error_notification
     .row.collapse
       .large-3.medium-3.columns
         - avatar_url = @user.avatar.thumb('215x215#nw').url
-        .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="user_avatar")
+        .user-portrait-img(style="background-image:url(#{avatar_url})"
+          data-show-upload="#user_avatar")
         %br/
         %br/
         %button.button(type="button" data-trigger-file-input="user_avatar")
@@ -17,7 +19,7 @@
         = f.input :firstname, :placeholder => 'First Name'
         = f.input :lastname, :placeholder => 'Last Name'
         = f.input :email, :placeholder => 'Email Address'
-        = f.input :timezone # TODO: make select box
+        = f.time_zone_select :timezone
         = f.input :website
         %button(data-enable-fields='#change-password input'
                 data-replace-with='#change-password'
@@ -44,8 +46,8 @@
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = render 'shared/wysihtml5_toolbar'
-        = f.input :about, input_html: { 'data-wysiwyg' => true, 'class' => "about-textarea" }
+        = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
+        = f.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
   .row.collapse
     .large-12.columns
       = f.button :submit
