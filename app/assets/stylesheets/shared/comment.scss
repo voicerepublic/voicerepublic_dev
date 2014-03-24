@@ -1,0 +1,16 @@
+.comment-item{
+  border-bottom: 1px solid #333;
+  .comment-left-box{
+    padding-top: 8px;
+  }
+  .comment-right-box{
+    padding-left: 60px;
+  }
+  .comment-author{
+    font-weight: bold;
+    font-size: 0.7rem;
+  }
+  .comment-date{
+    font-size: 0.7rem;
+  }
+}
