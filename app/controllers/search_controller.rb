@@ -1,10 +1,10 @@
 class SearchController < ApplicationController
-  
+
   PER_PAGE = 10
 
   # POST /search
   def create
-    redirect_to "/search/1/" + u(params[:query])
+    redirect_to "/search/1/" + u(params[:query] || 'VoiceRepublic')
   end
   
   # GET  /search/1/:query
