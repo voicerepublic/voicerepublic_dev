@@ -80,13 +80,13 @@ describe "Venues" do
       fill_in 'venue_description', with: 'iwannabelikeyou'
       fill_in 'venue_tag_list', with: 'a,b,c'
 
-      fill_in 'venue_talks_attributes_0_title', with: 'some talk title'
-      fill_in 'venue_talks_attributes_0_teaser', with: 'some talk teaser'
-      fill_in 'venue_talks_attributes_0_starts_at_date', with: 1.day.from_now
-      fill_in 'venue_talks_attributes_0_starts_at_time', with: 1.day.from_now
-      select '60', from: 'venue_talks_attributes_0_duration'
-      fill_in 'venue_talks_attributes_0_tag_list', with: 'd,e,f'
-      fill_in 'venue_talks_attributes_0_description', with: 'some talk description'
+      # fill_in 'venue_talks_attributes_0_title', with: 'some talk title'
+      # fill_in 'venue_talks_attributes_0_teaser', with: 'some talk teaser'
+      # fill_in 'venue_talks_attributes_0_starts_at_date', with: 1.day.from_now
+      # fill_in 'venue_talks_attributes_0_starts_at_time', with: 1.day.from_now
+      # select '60', from: 'venue_talks_attributes_0_duration'
+      # fill_in 'venue_talks_attributes_0_tag_list', with: 'd,e,f'
+      # fill_in 'venue_talks_attributes_0_description', with: 'some talk description'
 
       click_button 'Save'
       page.should have_selector('.venues-show')
