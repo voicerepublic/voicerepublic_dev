@@ -235,10 +235,11 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
+    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
+
+    return if venue.options[:no_auto_end_talk]
     # this will fail silently if the talk has ended early
     delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
-
-    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
   end
 
   def after_end
