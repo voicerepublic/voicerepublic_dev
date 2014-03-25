@@ -76,6 +76,7 @@ class Talk < ActiveRecord::Base
 
   before_validation :set_ends_at
   after_create :notify_participants
+  before_save :prepopulate_session
   after_save :set_guests
 
   serialize :session
@@ -231,6 +232,16 @@ class Talk < ActiveRecord::Base
     appearances.clear
     @guest_list.each do |id|
       appearances.create(user_id: id)
+    end
+  end
+
+  def prepopulate_session
+    return if @guest_list.nil?
+    return if @guest_list == appearances.pluck(:user_id).sort
+
+    self.session = {}
+    guests.each do |guest|
+      self.session[guest.id] = guest.details_for(self)
     end
   end
 
