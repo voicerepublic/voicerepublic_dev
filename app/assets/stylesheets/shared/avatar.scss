@@ -44,17 +44,23 @@
       @include opacity(0);
     }
 
-    &:hover,&:focus{
+/*    &:hover,&:focus{
       .mic-state-action{
         @include opacity(1);
       }
-    }
+    }*/
   }
 
   .host-actions{
     margin-top: 2px;
     background: #aaa;
     .guest-demote-link{
+      padding:5px 0;
+      color: red;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .guest-promote-link{
       padding:5px 0;
       color: red;
       font-size: 0.8rem;

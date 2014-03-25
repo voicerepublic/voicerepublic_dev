@@ -82,6 +82,8 @@
               %img.avatar-img(ng-src="{{guest.image}}")
               .avatar-name.text-center
                 {{ guest.name }}
+              .mic-state-action
+                %i.fi-microphone
             .host-actions          
               .guest-demote-link(ng-click="session.demote(guest.id)")
                 Demote
@@ -141,21 +143,28 @@
         #talk-tab-participants.content.active
           .expecting_promotion(ng-show='session.expectingPromotion().length')
             %h3= t('.microphone_requests')
-            .participant.avatar(ng-repeat="parti in session.expectingPromotion()")
-              %span(ng-click="session.promote(parti.id)")
-                %p.avatar-name.text-center {{ parti.name }}
+            .avatar(ng-repeat="parti in session.expectingPromotion()")
+              .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
+                .avatar-name.text-center {{ parti.name }}
+              .host-actions
+                .guest-promote-link.text-center(ng-click="session.promote(parti.id)")
+                  Promote
           .accepting_promotion(ng-show='session.acceptingPromotion().length')
             %h3= t('.awaiting_to_speak')
-            .participant.avatar(ng-repeat="parti in session.acceptingPromotion()")
-              %p.avatar-name.text-center {{ parti.name }}
-              %img.avatar-img(ng-src="{{parti.image}}")
+            .avatar(ng-repeat="parti in session.acceptingPromotion()")
+              .avatar-box
+                %img.avatar-img(ng-src="{{parti.image}}")
+                .avatar-name.text-center {{ parti.name }}
           .participating(ng-show='session.participants().length')
             %h3= t('.participating')
-            .participant.avatar(ng-repeat="parti in session.participants()")
-              %span(ng-click="session.promote(parti.id)")
-                %p.avatar-name.text-center {{ parti.name }}
+            .avatar(ng-repeat="parti in session.participants()")
+              .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
+                .avatar-name.text-center {{ parti.name }}
+              .host-actions
+                .guest-promote-link.text-center(ng-click="session.promote(parti.id)")
+                  Promote
           .listening(ng-show="session.listeners().length")
             %h3
               {{ session.listeners().length }}
