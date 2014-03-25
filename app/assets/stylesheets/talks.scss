@@ -2,31 +2,87 @@
 .talks-edit,
 .talks-new{
 
-	.talk-upper-block {
-	  background-repeat: no-repeat;
-	  background-position: center center;
-	  background-size: cover;
-	  padding-top: 55px;
-	  color: #fff;
-	}
 
-  .talk-title-box{
-    background: rgba(0,0,0,0.3);
-    padding:1rem 0 4rem 0rem;
-    .talk-title{
-      color: #fff;
-    }
+}
+
+
+.talks-show{
+
+  // for testing
+  .talk-state{
+    position: fixed;
+    bottom:0;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    color: #aaa;
+    padding: 5px;
+    font-size: rem-calc(12);
+    z-index: 1000;
+    border-top:1px solid #aaa;
   }
 
-  h3.talk-teaser{
+  .talk-upper-block {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    padding-top: 70px;
     color: #fff;
+  }
+
+  .talk-title-box{
+    background: rgba(0,0,0,0.5);
+    padding:1rem 0 4rem 0rem;
+    .talk-venue-title{
+      a,a:hover,a:focus{
+      font-family: 'eaglelight';
+      color: #fff;
+      letter-spacing: 1px;
+      font-size: rem-calc(13);
+      }      
+    }
+    .talk-title{
+      color: #fff;
+      font-size: rem-calc(45);
+      line-height: 1;
+      letter-spacing: 1px;
+      margin: 25px 0 -6px 0;
+    }
+    .talk-teaser{
+      color: #fff;
+      font-size: rem-calc(20);
+      line-height: 1.1;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+    .talk-date-time{
+      font-family: 'eaglelight';
+    }
   }
 
   .talk-talkers-box{
     margin-top: 20px;
     background: rgba(0,0,0,0.5);
-    padding:1rem 0.5rem 4rem 0.5rem;
+    padding:10px 0.5rem 10px 0.5rem;
     color: #fff;
+  }
+
+  .talk-live-mic-states-row{
+    background: #aaa;
+    margin-top: 20px;
+    height: 88px
+  }
+
+  .button-join-discussion{
+    width: 100%;
+    background: $brand-color-green;
+    &:hover,&:focus{
+      background: $brand-color-green;
+    }
+  }
+
+  .vr-tabs dd{
+    width:33.33%;
   }
 
 }

@@ -4,31 +4,47 @@
 .layout-talk(ng-controller='Livepage')
   .talk-upper-block(style="background-image: url(#{@talk.image.url})")
 
-    .row
-      .large-12.columns.text-right
-        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+    .talk-state.text-center
+      .span(ng-show='talkIsPrelive()')
+        talk is prelive
+        .onHold(ng-show="countdownInSeconds < 0")
+          talk is on hold, waiting to start
+      .span(ng-show='talkIsLive()') talk is live
+      .span(ng-show='talkIsPostlive()') talk is postlive 
+
+    = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
 
     - if can? :manage, @talk
-      .row
-        .large-12.columns.text-right
-          = link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button'
-          = link_to t('.delete_talk'), [@venue, @talk], class: 'button',
-            method: :delete, data: { confirm: t('.confirm_delete',
-            default: 'Are you sure?' ) }
+      .generic-action-bar.row.collapse
+        .large-12.columns
+          %ul.button-group.right
+            %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button tiny'
+            %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
+              method: :delete, data: { confirm: t('.confirm_delete',
+              default: 'Are you sure?' ) }
+            %li
+              %button.button.tiny(ng-show='config.talk.state == "live"'
+                ng-click='blackbox.setVolume(0)')= t('.mute_streams')
+            %li
+              %button.button.tiny(ng-show='config.talk.state == "live"'
+                ng-click='blackbox.setVolume(1)')= t('.unmute_streams')
+            %li
+              %button.button.tiny(ng-show='showEndTalk()'
+                ng-click='session.endTalk()')= t('.end_talk')
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         .talk-venue-title
           = link_to @talk.venue.title, @talk.venue
-        .talk-host-name
-          = @talk.user.name
+        -#.talk-host-name
+        -#  = @talk.user.name
         %h2.talk-title
           = @talk.title
         %h3.talk-teaser
           = @talk.teaser
-        %h3.talk-tags
-          = @talk.tag_list
+        -#%h3.talk-tags
+        -#  = @talk.tag_list
         .talk-date-time
           = l @talk.starts_at.to_date
           = l @talk.starts_at, format: :micro
@@ -37,44 +53,46 @@
         .talk-date-time
           {{ countdown }}
         #flashContent
-        %h3(ng-show='talkIsPrelive()')
-          talk is prelive
-          .onHold(ng-show="countdownInSeconds < 0")
-            talk is on hold, waiting to start
-        %h3(ng-show='talkIsLive()') talk is live
-        %h3(ng-show='talkIsPostlive()') talk is postlive
 
-        = render partial: 'shared/player', locals: { talk: @talk }
+        - if @talk.archived?
+          = render partial: 'shared/player', locals: { talk: @talk }
 
-  .talk-live-row
-    .row
-      .talk-talkers-box.large-10.large-offset-1.columns
-        .download(ng-show='talkIsArchived()')
-          %ul
-            %li(ng-repeat='(ext, link) in config.talk.links')
-              %a.button(href='{{link}}') {{ext}}
-        -# = render 'debug'
+    .talk-live-row
+      .row.collapse
+        .talk-talkers-box.large-12.columns.text-center
+          .download(ng-show='talkIsArchived()')
+            %ul
+              %li(ng-repeat='(ext, link) in config.talk.links')
+                %a.button(href='{{link}}') {{ext}}
+          -# = render 'debug'
 
-        .host.avatar.avatar-host
-          %p.avatar-name.text-center
-            {{ config.host }}
-          %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
+          .avatar.avatar-host
+            .avatar-box
+              %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
+              .avatar-name.text-center
+                {{ config.host }}
+              .host-banner
+                %span
+                  Host
+              .mic-state-action
+                %i.fi-microphone
 
-        .guest.avatar(ng-repeat="guest in session.guests()")
-          %span(ng-click="session.demote(guest.id)")
-            %p.avatar-name.text-center
-              {{ guest.name }}
-            %img.avatar-img(ng-src="{{guest.image}}")
+          .avatar(ng-repeat="guest in session.guests()")
+            .avatar-box
+              %img.avatar-img(ng-src="{{guest.image}}")
+              .avatar-name.text-center
+                {{ guest.name }}
+            .host-actions          
+              .guest-demote-link(ng-click="session.demote(guest.id)")
+                Demote
 
     .talk-live-mic-states-row.row
       .large-12.columns.text-center
         %span.participate-button(ng-show="config.user.role == 'listener'")
           - url = [ @talk.venue, :participations ]
-          = link_to t('.participate'), url, method: 'post', class: 'button alert'
-        #onair(ng-show='flags.onair') On Air
+          = link_to t('.participate'), url, method: 'post', class: 'button join_discussion'
+        #onair(ng-show='flags.onair') YOU ARE ON AIR!
 
-        %button.button(ng-show='showEndTalk()'
-                       ng-click='session.endTalk()')= t('.end_talk')
         %button.button(ng-show='flags.reqmic'
                        ng-click='requestMic()')= t('.request_mic')
         %button.button(ng-show='flags.onair'
@@ -85,24 +103,23 @@
                        ng-click='acceptPromotion()')= t('.accept_promotion')
         %button.button(ng-show='flags.acceptOrDecline'
                        ng-click='declinePromotion()')= t('.decline_promotion')
-        %button.button(ng-show='config.talk.state == "live"'
-                       ng-click='blackbox.setVolume(0)')= t('.mute_streams')
-        %button.button(ng-show='config.talk.state == "live"'
-                       ng-click='blackbox.setVolume(1)')= t('.unmute_streams')
 
-    .talk-tabs-box.row.collapse
+    .row.collapse
       .large-12.columns
-        %dl.tabs.talk-tabs(data-tab="true")
+        %dl.tabs.vr-tabs(data-tab="true")
           %dd.text-center
             %a(href="#talk-tab-description")
-              =t('.description')
+              %i.fi-page-csv
+              = t('.description')
           - unless @talk.venue.options[:suppress_chat]
             %dd.text-center
               %a(href="#talk-tab-discussion")
-                =t('.discussion')
+                %i.fi-list-thumbnails
+                = t('.discussion')
           %dd.active.text-center
             %a(href="#talk-tab-participants")
-              Participants
+              %i.fi-torsos-male-female
+              = t('.participants')
               %span(ng-show='session.expectingPromotion().length')
                 ({{ session.expectingPromotion().length }} MicReq.)
               %span(ng-show='session.acceptingPromotion().length')
@@ -147,5 +164,3 @@
 .scripts
   = javascript_include_tag 'livepage'
   = render 'config'
-
-
