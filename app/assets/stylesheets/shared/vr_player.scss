@@ -2,7 +2,6 @@
 
 div.jp-audio{
   line-height:1.6;
-  background-color:rgba(0,0,0,0.3);
   width:100%;
 }
 
@@ -34,7 +33,7 @@ a.jp-pause {
   width:40px;
   height:40px;
   font-size: 1.4rem;
-  color:green;
+  color:$brand-color-green;
 }
 
 /* @end */
@@ -43,7 +42,7 @@ a.jp-pause {
 
 div.jp-progress {
   overflow:hidden;
-  background-color: #ddd;
+  background-color: #000;
 }
 div.jp-progress {
   position: absolute;
@@ -65,7 +64,7 @@ div.jp-seek-bar {
 
 /* SEEKBAR FROM START TO ACTUAL TALK TIME */
 div.jp-play-bar {
-  background: linear-gradient(to right,rgba(0,0,0,0),green, green);
+  background: linear-gradient(to right,rgba(0,0,0,0),$brand-color-green, $brand-color-green);
   width:0px;
   height:100%;
 }
