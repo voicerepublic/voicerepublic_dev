@@ -73,7 +73,7 @@
   .tabs-content.large-12.columns
 
     #tab-description.content.active
-      %p= @venue.description
+      %p= @venue.description.html_safe
 
     #tab-upcoming-talks.content
       %p
