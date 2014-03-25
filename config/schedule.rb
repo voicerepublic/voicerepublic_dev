@@ -20,8 +20,8 @@
 # Learn more: http://github.com/javan/whenever
 
 # rbenv setup
-set :job_template, "bash -l -c 'export PATH=/home/rails/.rbenv/shims:$PATH && :job'"
-set :output, "/home/rails/app/shared/log/whenever-cron.log"
+set :job_template, "bash -l -c 'export PATH=/home/app/.rbenv/shims:$PATH && :job'"
+set :output, "/home/app/app/shared/log/whenever-cron.log"
 
 # Task invokation should be once in an hour
 every 40.minutes, :roles => [:app] do
