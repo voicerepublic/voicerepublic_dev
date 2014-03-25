@@ -243,9 +243,10 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    delay(queue: 'audio').postprocess!
-
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
+
+    return if venue.options[:no_auto_postprocessing]
+    delay(queue: 'audio').postprocess!
   end
 
   def postprocess!(uat=false)
