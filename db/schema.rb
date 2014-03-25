@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319131714) do
+ActiveRecord::Schema.define(version: 20140325132338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,15 @@ ActiveRecord::Schema.define(version: 20140319131714) do
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
+  create_table "settings", force: true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["key"], name: "index_settings_on_key", using: :btree
+
   create_table "social_shares", force: true do |t|
     t.integer  "shareable_id"
     t.string   "shareable_type"
@@ -195,17 +204,17 @@ ActiveRecord::Schema.define(version: 20140319131714) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "ended_at"
-    t.boolean  "record"
+    t.boolean  "record",        default: true
     t.string   "recording"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "teaser"
     t.text     "description"
-    t.integer  "duration"
+    t.integer  "duration",      default: 30
     t.string   "image_uid"
     t.text     "session"
-    t.datetime "featured_from"
     t.text     "audio_formats", default: "--- []\n"
+    t.datetime "featured_from"
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
