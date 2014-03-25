@@ -5,5 +5,11 @@
   span{
     display: block;
     font-size: 2rem;
+    a{
+    	color:white;
+    	&:hover,&:focus{
+    		color:#ddd;
+    	}
+    }
   }
 }
