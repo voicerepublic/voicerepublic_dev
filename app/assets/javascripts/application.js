@@ -25,6 +25,7 @@
 //= require wysihtml5.min
 //
 //= require player.js.erb
+//= require validate_search
 //
 //= require_tree ./components
 
