@@ -39,12 +39,9 @@ VoiceRepublic::Application.routes.draw do
   scope "(/:locale)", :locale => /de|en/ do
     get 'venues/tags' => 'venues#tags'
     resources :venues do
+      resources :comments, only: [:create]
       resources :talks
       resources :participations, :only => [:index, :create, :destroy]
-      resources :articles
-    end
-    resources :articles, only: [] do
-      resources :comments, only: [:create]
     end
   end
 

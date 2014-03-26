@@ -1,12 +1,13 @@
 .comment-item.row.collapse
   .large-12.columns
     .comment-left-box.left
-      = link_to '#user' do
-        %img(src="http://lorempixel.com/40/40")
+      = link_to comment.user do
+        = image_tag comment.user.avatar.thumb('40x40#nw').url
     .comment-right-box
-      = link_to '#user', class: 'comment-author' do
-        newthinking
+      = link_to comment.user, class: 'comment-author' do
+        = comment.user.name
       %span.comment-date
-        June 10, 2014, 12:45
+        = l(comment.created_at, format: :short)
       %p.comment-text
-        Maecenas faucibus mollis interdum. Donec sed odio dui. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue.
+        = sophisticated_format comment.content      
+

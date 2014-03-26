@@ -43,7 +43,6 @@ gem "dynamic_form"                 # form helper for errors
 gem 'whenever', '0.8.4'            # create cron-jobs
 gem 'haml-rails'
 gem 'simple_form'
-gem 'paranoia', '~> 2.0'
 gem 'unicorn'
 gem "select2-rails"
 gem "transitions", :require => ["transitions", "active_model/transitions"]
