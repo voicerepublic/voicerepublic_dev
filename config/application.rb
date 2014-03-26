@@ -15,6 +15,7 @@ module VoiceRepublic
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths += %W( #{config.root}/app/middlewares
+                                 #{config.root}/app/jobs
                                  #{config.root}/lib )
 
     config.i18n.enforce_available_locales = true
