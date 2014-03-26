@@ -1,8 +1,18 @@
-.talks-show,
 .talks-edit,
 .talks-new{
-
-
+  @include form-generic-styles();
+  
+  input[type="checkbox"]{
+    margin-right:5px !important
+  }
+  .date-time-picker-row{
+    .columns{
+      padding-right: 13px !important;
+      &:last-child{
+        padding-right: 0 !important
+      }
+    }
+  }
 }
 
 

@@ -1,6 +1,11 @@
-.venues-show,
 .venues-edit,
 .venues-new{
+
+	@include form-generic-styles();
+
+}
+
+.venues-show{
 	.title-block{
 		background: rgba(0,0,0,0.3);
 		.venue-title,.venue-teaser{
@@ -15,7 +20,6 @@
 			margin-bottom: 50px;
 		}
 	}
-
 
   .vr-tabs dd{
   	width: 25%;
