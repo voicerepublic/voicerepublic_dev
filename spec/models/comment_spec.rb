@@ -13,8 +13,8 @@ describe Comment do
       @comment.user = nil
       expect(@comment).to_not be_valid
     end
-    it 'validates presence of article' do
-      @comment.article = nil
+    it 'validates presence of commentable' do
+      @comment.commentable = nil
       expect(@comment).to_not be_valid
     end
     it 'validates presence of content' do
@@ -27,9 +27,7 @@ describe Comment do
     before do
       @comment = FactoryGirl.create(:comment)
     end
-    it 'delegates to article_venue' do
-      expect(@comment.article_venue).to eq(@comment.article.venue)
-    end
+    pending 'add some specs here'
   end
 
 end

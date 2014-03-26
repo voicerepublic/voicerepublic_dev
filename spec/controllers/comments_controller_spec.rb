@@ -13,6 +13,7 @@ describe CommentsController do
     describe 'POST create' do
       describe 'with valid attributes' do
         it 'creates a comment' do
+          pending 'FIXME phil'
           @article = FactoryGirl.create(:article)
           params = {
             article_id: @article.id,
