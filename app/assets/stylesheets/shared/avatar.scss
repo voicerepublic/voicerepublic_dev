@@ -29,7 +29,7 @@
       }
     }
 
-    .mic-state-action{
+    .mic-mute{
       color: black;
       background: #eee;;
       position: absolute;
@@ -37,6 +37,7 @@
       left: 45px;
       height: 30px;
       width: 30px;
+      cursor: pointer;
       i{
         font-size:1.5rem;
         line-height: 2rem;
@@ -44,11 +45,11 @@
       @include opacity(0);
     }
 
-/*    &:hover,&:focus{
-      .mic-state-action{
+    &:hover,&:focus{
+      .mic-mute{
         @include opacity(1);
       }
-    }*/
+    }
   }
 
   .host-actions{

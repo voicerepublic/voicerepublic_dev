@@ -74,16 +74,11 @@
               .host-banner
                 %span
                   Host
-              .mic-state-action
-                %i.fi-microphone
-
           .avatar(ng-repeat="guest in session.guests()")
             .avatar-box
               %img.avatar-img(ng-src="{{guest.image}}")
               .avatar-name.text-center
                 {{ guest.name }}
-              .mic-state-action
-                %i.fi-microphone
             .host-actions          
               .guest-demote-link(ng-click="session.demote(guest.id)")
                 Demote
@@ -146,7 +141,7 @@
             .avatar(ng-repeat="parti in session.expectingPromotion()")
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
-                .avatar-name.text-center {{ parti.name }}
+                .avatar-name.text-center {{ parti.name }}               
               .host-actions
                 .guest-promote-link.text-center(ng-click="session.promote(parti.id)")
                   Promote
