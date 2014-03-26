@@ -13,10 +13,9 @@ describe CommentsController do
     describe 'POST create' do
       describe 'with valid attributes' do
         it 'creates a comment' do
-          pending 'FIXME phil'
-          @article = FactoryGirl.create(:article)
+          venue = FactoryGirl.create(:venue)
           params = {
-            article_id: @article.id,
+            venue_id: venue.id,
             comment: FactoryGirl.attributes_for(:comment)
           }
           expect { post :create, params }.to change(Comment, :count).by(1)

@@ -23,11 +23,4 @@ describe Comment do
     end
   end
 
-  describe 'created' do
-    before do
-      @comment = FactoryGirl.create(:comment)
-    end
-    pending 'add some specs here'
-  end
-
 end
