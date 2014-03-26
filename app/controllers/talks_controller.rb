@@ -13,8 +13,7 @@ class TalksController < ApplicationController
     respond_to do |format|
       format.html
       format.text do
-        # TODO use cancan
-        return render text: 'Forbidden', status: 403 if current_user != @talk.user
+        authorize! :download_talk_messages, @talk
         render text: @talk.message_history
       end
     end

@@ -26,4 +26,19 @@ describe TalksController do
     Talk.last.tag_list.should_not be_empty
   end
 
+  describe "download message history" do
+    before do
+      @user = FactoryGirl.create(:user)
+      @venue.update_attribute :user, @user
+      @talk = FactoryGirl.create :talk, venue: @venue
+      FactoryGirl.create :message, talk: @talk
+    end
+
+    it 'authorizes downloading a talks message history' do
+      expect {
+        get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
+      }.to raise_error(CanCan::AccessDenied)
+    end
+  end
+
 end
