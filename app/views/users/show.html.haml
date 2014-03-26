@@ -1,15 +1,14 @@
 - content_for :title do
   = @user.name
 
-.header-block
-  -#(style="background-image: url(#{@user.header.try(:url)})")
+.header-block(style="background-image: url(#{@user.header.try(:url)})")
 
   - if can? :manage, @user
     .generic-action-bar.row.collapse
       .large-12.columns
         %ul.button-group.right
           %li= link_to t('.edit_user'), [:edit, @user], class: 'button tiny'
-  
+
   .row
     .large-12.columns.text-center
       - count = @user.participations.count
@@ -37,7 +36,7 @@
         .panel.text-center
           %h2= venue.title
           %h3= venue.teaser
-          
+
           - count = venue.talks.upcoming.count
           - cap = t('.upcoming_talks', count: count, default: '%{count} Upcoming Talks')
           - url = venue_path(venue, anchor: 'tab-upcoming-talks')
