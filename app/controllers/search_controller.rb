@@ -1,12 +1,12 @@
 class SearchController < ApplicationController
-  
+
   PER_PAGE = 10
 
   # POST /search
   def create
     redirect_to "/search/1/" + u(params[:query])
   end
-  
+
   # GET  /search/1/:query
   def show
     @results = PgSearch.multisearch(params[:query]).
@@ -18,5 +18,5 @@ class SearchController < ApplicationController
   def u(str)
     ERB::Util.url_encode(str)
   end
-  
+
 end
