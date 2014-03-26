@@ -133,7 +133,22 @@ show up at once. Process multiple in parallel?
 
 The setup in monit looks different, checkout [monit.conf](config/monit.conf)
 
-      
+
+Configured portfilter (Nico)
+----------------------------
+
+### Now Open
+
+* 9292 (private_pub/faye) 
+* 1935 (rtmp)
+
+
+Installed missing package
+-------------------------
+
+    # apt-get install vorbis-tools
+
+
 TODO
 ====
 
@@ -142,11 +157,6 @@ TODO
 ### DNS configuration for production server
 
 ### Setup Whenever in config/deploy.rb
-
-### Open Ports
-
-* 9292 (private_pub/faye) 
-* 1935 (rtmp)
 
 ### Setup localeapp
 
