@@ -10,11 +10,11 @@ rtmp:
   archive_raw_path: local/archive_raw
   recordings_path:  local/recordings
   #offrecord: "rtmp://172.21.21.171/offrecord"
-  #record: "rtmp://172.21.21.171/record" 
+  #record: "rtmp://172.21.21.171/record"
   #offrecord: "rtmp://localhost/offrecord"
-  #record: "rtmp://localhost/record" 
+  #record: "rtmp://localhost/record"
   offrecord: "rtmp://kluuu.com/discussions"
-  record: "rtmp://kluuu.com/recordings" 
+  record: "rtmp://kluuu.com/recordings"
   log_notifications: true
   #######################################
   # entries used by config/rtmp.conf.erb
@@ -27,7 +27,7 @@ rtmp:
   authenticate: true
   worker_processes: 1
 errbit:
-  api_key: '710bf38280e0f96f26a74682519794d5'
+  api_key: '785e40bce8a3370f0bb13635d75bdda5'
 localeapp:
   enabled: true
   api_key: '5EzAUJzfRXXHzt5xW5h6hyOIuJ4dy49d9Il3imi4JKZoXV8IlL'
