@@ -254,9 +254,7 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
 
-    # TODO: move into a column, stored as yaml
-    chain = %w( precursor kluuu_merge trim m4a mp3 ogg
-                move_clean jinglize m4a mp3 ogg )
+    chain = Setting.get('audio.process_chain').split(/\s+/)
     base = Settings.rtmp.recordings_path
     opts = {
       talk_start: started_at.to_i,
