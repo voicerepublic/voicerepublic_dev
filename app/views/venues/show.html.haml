@@ -95,7 +95,6 @@
         - for talk in @archived_talks
           = render partial: '/shared/talk_medium_box', locals: { talk: talk }
 
-
     #tab-comments.content
       %ul.list-style-type-none
-        = render partial: 'comment'
+        = render partial: 'comment', collection: @venue.comments
