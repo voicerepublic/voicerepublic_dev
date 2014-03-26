@@ -57,6 +57,12 @@ class Venue < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
+  # provides easier access to options
+  # and allows strings as keys in yaml
+  def opts
+    OpenStruct.new(options)
+  end
+  
   private
 
   def clean_taglist
