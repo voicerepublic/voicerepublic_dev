@@ -51,5 +51,15 @@ window.proof = function(name) {
   $('body').css({background: value});
 };
 
-$(function(){ $(document).foundation(); });
+$(document).foundation();
 
+// deep linking for foundation tabs
+// https://github.com/zurb/foundation/issues/3692
+if(window.location.hash) {
+  $('dl.tabs dd a').each(function(){
+    var hash = '#' + $(this).attr('href').split('#')[1];
+    if(hash == window.location.hash) {
+      $(this).click();
+    };
+  });
+}
