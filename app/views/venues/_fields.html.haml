@@ -25,5 +25,4 @@
     %br
     %label.venue-description-label(for="venue_description")
       = t('.What is the purpose of this venue?')
-    = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'venue-toolbar' }
-    = f.text_area :description, class: 'text-area', placeholder: t('.description'), 'data-wysiwyg' => '#venue-toolbar'
+    = f.input :description, :as => :ckeditor, :input_html => { class: 'text-area'}

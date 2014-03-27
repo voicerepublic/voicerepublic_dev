@@ -14,10 +14,13 @@
   font-size: x-large;
 }
 
+/* IN USE */
 .wysiwyg-font-size-large {
   font-size: large;
+  font-family: 'eaglebook';
 }
 
+/* IN USE */
 .wysiwyg-font-size-medium {
   font-size: medium;
 }

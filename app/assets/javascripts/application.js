@@ -20,7 +20,7 @@
 //= require foundation_calendar-min.js
 //
 //= require advanced
-//= require wysihtml5.min
+//= require ckeditor/init
 //
 //= require player.js.erb
 //

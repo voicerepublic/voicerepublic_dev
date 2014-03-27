@@ -26,7 +26,6 @@
 		padding-top: 100px
 	}
 
-	
 
 	.user-portrait-img{
 		width:143px;
@@ -48,6 +47,15 @@
 
 	label.text.optional{
 		display:none //TODO, is hackish
+	}
+
+	.text-area{
+		height: 450px;
+	}
+
+	.ckeditor.optional{
+		font-family: 'eaglelight';
+		font-size: rem-calc(30);
 	}
 }
 

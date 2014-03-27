@@ -30,7 +30,9 @@
 
 .row
   .large-12.columns.tabs-content
-    #tab-about-me.content TODO
+    #tab-about-me.content
+      %p
+        = @user.about.html_safe
 
     #tab-my-venues.content.active
       - @user.venues.each do |venue|

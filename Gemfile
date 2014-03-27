@@ -46,6 +46,7 @@ gem 'simple_form'
 gem 'paranoia', '~> 2.0'
 gem 'unicorn'
 gem "select2-rails"
+gem "ckeditor"
 gem "transitions", :require => ["transitions", "active_model/transitions"]
 gem 'auphonic'
 gem 'pg_search', github: 'branch14/pg_search'
