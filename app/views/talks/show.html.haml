@@ -15,6 +15,11 @@
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
 
+    -# TODO: Style me
+    .download_talk_messages
+      - if can? :download_talk_messages, @talk
+        = link_to 'Download messages', "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
+
     - if can? :manage, @talk
       .generic-action-bar.row.collapse
         .large-12.columns

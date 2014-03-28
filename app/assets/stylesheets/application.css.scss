@@ -25,9 +25,9 @@
 
 // SHARED
  @import "shared/top_actionbar";
- @import "shared/flash_messages"; 
+ @import "shared/flash_messages";
  @import "shared/social_share";
- @import "shared/footer"; 
+ @import "shared/footer";
  @import "shared/header_block";
  @import "shared/generic_action_bar";
  @import "shared/vr_tabs";
@@ -73,7 +73,7 @@ h2{
 }
 
 p{
-	font-size: 0.8rem;	
+	font-size: 0.8rem;
 }
 
 .list-style-type-none{
@@ -83,4 +83,8 @@ p{
 
 .display-none{
   display:none;
+}
+
+#query.warning {
+  background: lightcoral !important;
 }

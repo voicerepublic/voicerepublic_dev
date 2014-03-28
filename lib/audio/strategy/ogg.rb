@@ -14,8 +14,7 @@ module Audio
       end
 
       def convert_wav_to_ogg_cmd
-        # "avconv -v quiet -y -i #{input} -b:a 64k -strict experimental #{output}"
-        "avconv -v quiet -y -i #{input} #{output}"
+        "oggenc -Q -o #{output} #{input}"
       end
 
       def output

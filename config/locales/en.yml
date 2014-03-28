@@ -228,6 +228,7 @@ en:
       designed: ! '%-d%o %B %Y — %l%P'
       date_only: ! '%-d%o %B %Y'
       time_only: ! '%k:%M'
+      timeonly: ! '%H:%M:%S'
     pm: pm
   call_now: call now
   call_dispatched: call dispatched
@@ -489,6 +490,7 @@ en:
       featured_venue: KluuU recommends
       upcoming_venues: UPCOMING VENUES
   messages:
+    as_text: "%{created_at} %{user_name}: %{content}"
     received_message:
       reply: Reply
       delete: Delete
@@ -704,6 +706,12 @@ en:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
   talks:
+    message_history: |
+      VoiceRepublic Message History 
+
+        %{title}
+      
+        %{started_at} - %{ended_at}
     show:
       chat_placeholder: Type and hit enter to post a comment
       you: You

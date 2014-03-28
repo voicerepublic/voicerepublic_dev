@@ -210,6 +210,17 @@ class Talk < ActiveRecord::Base
     "/#{loc_path}/#{loc_file}"
   end
 
+  # the message history is available as text file to the host
+  def message_history
+    attrs = {
+      title: title,
+      started_at: started_at ? I18n.l(started_at, format: :short) : "",
+      ended_at: ended_at ? I18n.l(ended_at, format: :short) : ""
+    }
+    I18n.t('talks.message_history', attrs) + "\n" +
+      messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
+  end
+
   private
 
   def set_ends_at
@@ -254,9 +265,7 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
 
-    # TODO: move into a column, stored as yaml
-    chain = %w( precursor kluuu_merge trim m4a mp3 ogg
-                move_clean jinglize m4a mp3 ogg )
+    chain = Setting.get('audio.process_chain').split(/\s+/)
     base = Settings.rtmp.recordings_path
     opts = {
       talk_start: started_at.to_i,

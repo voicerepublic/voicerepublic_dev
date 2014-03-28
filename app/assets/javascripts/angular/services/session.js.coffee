@@ -142,6 +142,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
       when 'OnAir', 'HostOnAir'
         if isNotRegisteringNorWaiting()
           blackbox.subscribe users[data.user.id].stream
+      # TODO instead of this react on event Demote
       when 'Listening'
         if isNotRegisteringNorWaiting()
           # TODO blackbox.unsubscribe users[data.user.id].stream

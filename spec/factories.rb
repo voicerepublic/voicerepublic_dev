@@ -87,4 +87,10 @@ FactoryGirl.define do
     talk
     content "MyText"
   end
+
+  factory :setting do
+    key "MyString"
+    value "MyString"
+  end
+
 end
