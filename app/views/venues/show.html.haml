@@ -101,7 +101,10 @@
         - for talk in @archived_talks
           = render partial: '/shared/talk_medium_box', locals: { talk: talk }
 
-
     #tab-comments.content
+      - if can? :create, Comment
+        = simple_form_for [@venue, @venue.comments.build] do |f|
+          = f.input :content
+          = f.submit
       %ul.list-style-type-none
-        = render partial: 'comment'
+        = render partial: 'comment', collection: @venue.comments.ordered
