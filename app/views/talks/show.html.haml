@@ -65,7 +65,7 @@
             {{ config.host }}
           %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
 
-        .guest.avatar(ng-repeat="guest in session.guests()")
+        .guest.avatar(ng-repeat="guest in guests()")
           %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
