@@ -30,8 +30,7 @@ class UserMailer < ActionMailer::Base
 
   # app/controllers/comments_controller.rb:25 (delayed)
   def new_comment(comment, user)
-    return if comment.article.venue.opts.no_email
-
+    venue, url = nil, nil
     case comment.commentable
     when Venue
       venue = comment.commentable
@@ -42,7 +41,7 @@ class UserMailer < ActionMailer::Base
       url = venue_talk_url(venue_id: venue.id, id: talk.id)
     end
     interpolate! user, comment
-    interpolate! url: venue_article_url(:en, comment.article.venue, comment.article)
+    interpolate! url: url
     default_mail user.email_with_name
   end
 
