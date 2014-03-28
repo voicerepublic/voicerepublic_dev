@@ -40,7 +40,7 @@ gem 'cancan'                       # authorization/privileges
 gem 'private_pub'                  # push service
 gem 'thin'                         # faster development-server
 gem "dynamic_form"                 # form helper for errors
-gem 'whenever', '0.8.4'            # create cron-jobs
+gem 'whenever'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'paranoia', '~> 2.0'
