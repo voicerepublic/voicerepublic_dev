@@ -1,7 +1,6 @@
 = simple_form_for(@user) do |f|
-  -#.header-block(style="background-image: url(#{@user.header.try(:url)})"
-  -#  data-show-upload="#user_header")
-
+  .header-block(style="background-image: url(#{@user.header.try(:url)})"
+    data-show-upload="#user_header")
 
   .header-block
     .row
@@ -32,10 +31,9 @@
         #change-password.panel.hide
           = f.input :password, disabled: true
           = f.input :password_confirmation, disabled: true
-        -#= USER PROFILE HEADER (not verified by PO)
-        -#%button.button(type="button" data-trigger-file-input="user_header")
-        -#  Select header image
-        -#= f.input :header, as: :file
+        %button.button(type="button" data-trigger-file-input="user_header")
+          Select header image
+        = f.input :header, as: :file
 
 
       .large-4.medium-4.columns.text-center
