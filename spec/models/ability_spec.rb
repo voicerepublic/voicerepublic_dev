@@ -34,19 +34,6 @@ describe Ability do
     end
   end
 
-  describe Article do
-    let(:article) { FactoryGirl.create(:article, user: owner) }
-    it "allows to manage articles by owner" do
-      Ability.new(owner).can?(:manage, article).should be_true
-    end
-    it "denies to manage articles by other" do
-      Ability.new(other).can?(:manage, article).should be_false
-    end
-    it "denies to create articles as guest" do
-      Ability.new(guest).can?(:create, Article.new).should be_false
-    end
-  end
-
   describe Comment do
     let(:comment) { FactoryGirl.create(:comment, user: owner) }
     it "allows to manage comments by owner" do

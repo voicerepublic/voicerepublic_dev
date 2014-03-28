@@ -1,8 +1,7 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * article_id [integer, not null] - belongs to :article
-# * commentable_id [integer] - TODO: document me
-# * commentable_type [string] - TODO: document me
+# * commentable_id [integer] - belongs to :commentable
+# * commentable_type [string] - belongs to :commentable
 # * content [text] - TODO: document me
 # * created_at [datetime, not null] - creation time
 # * updated_at [datetime, not null] - last update time
@@ -11,13 +10,11 @@ class Comment < ActiveRecord::Base
 
   attr_accessible :content
   
-  belongs_to :article
+  belongs_to :commentable, polymorphic: true
   belongs_to :user
 
-  delegate :venue, to: :article, prefix: true
+  scope :ordered, ->{ order('created_at DESC') }
 
-  default_scope { order('created_at DESC') }
-
-  validates :user, :article, :content, presence: true
+  validates :user, :commentable, :content, presence: true
 
 end

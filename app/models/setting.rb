@@ -11,6 +11,13 @@
 #
 #   Settings.audio.process_chain
 #
+
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime] - creation time
+# * key [string] - TODO: document me
+# * updated_at [datetime] - last update time
+# * value [string] - TODO: document me
 class Setting < ActiveRecord::Base
 
   validates :key, :value, presence: true
