@@ -28,16 +28,19 @@ class UserMailer < ActionMailer::Base
     default_mail user.email_with_name
   end
 
-  # app/controllers/articles_controller.rb:120 (delayed)
-  def new_article(article, user)
-    return if article.venue.opts.no_email
-    interpolate! user, article, url: venue_article_url(:en, article.venue, article)
-    default_mail user.email_with_name
-  end
-
   # app/controllers/comments_controller.rb:25 (delayed)
   def new_comment(comment, user)
     return if comment.article.venue.opts.no_email
+
+    case comment.commentable
+    when Venue
+      venue = comment.commentable
+      url = venue_url(id: venue.id)
+    when Talk
+      talk = comment.commentable
+      venue = talk.venue
+      url = venue_talk_url(venue_id: venue.id, id: talk.id)
+    end
     interpolate! user, comment
     interpolate! url: venue_article_url(:en, comment.article.venue, comment.article)
     default_mail user.email_with_name
