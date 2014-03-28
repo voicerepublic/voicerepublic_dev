@@ -1,18 +1,11 @@
-.well.well-large.centered-box
-  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :class => "horizontal-form", :method => :post }) do |f|
-    = devise_error_messages!
-    %h2= t('.reset_password')
-    %hr/
-    .control-group
-      .controls
-        = label_tag "email", :class => 'control-label' do
-          = t('.your_email_address')
-          %br/
-          = f.text_field :email, :type => "email", :class => 'text_field input-block-level'
-    %div
-      = button_tag :class => 'btn btn-primary pull-right' do
+= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+  .row.collapse.top-margin-action-bar
+    .medium-10.medium-offset-1.columns
+      = devise_error_messages!
+      %h2= t('.reset_password')
+      = f.input :email, html_input: {type: 'email'}
+      = button_tag do
         = t('.send')
-    .clearfix
-  %br/
-  %hr/
-  = render "devise/shared/links"
+      %br/
+      %hr/
+      = render "devise/shared/links"
