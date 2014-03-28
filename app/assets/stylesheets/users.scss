@@ -3,11 +3,32 @@
 .users-new{
 
 	.user-portrait-img{
-		width:215px;
-		height: 215px;
+		width:200px;
+		height: 200px;
 		background-size:cover;
 		background-position: center
 	}
+
+	.talks-joined{
+		color: black;
+		margin: 15px 0 5px 0
+	}
+
+	.user-name{
+		margin:0 0 50px 0;
+	}
+}
+
+.users-edit{
+	.header-block{
+		padding-top: 100px
+	}
+
+	.user-portrait-img{
+		width:143px;
+		height: 143px;
+	}
+
 
 	#user_account_about{
 		height: 200px
@@ -17,4 +38,17 @@
 		display: none;
 	}
 
+  .wysihtml5-sandbox {
+    height: 250px !important;
+  }
+
+	label.text.optional{
+		display:none //TODO, is hackish
+	}
+}
+
+.users-show{
+	.vr-tabs dd{
+  	width: 25%;
+  }
 }

@@ -1,6 +1,8 @@
 = simple_form_for(@user) do |f|
   .header-block(style="background-image: url(#{@user.header.try(:url)})"
     data-show-upload="#user_header")
+
+  .header-block
     .row
       .large-12.columns
         = f.error_notification
@@ -11,7 +13,7 @@
           data-show-upload="#user_avatar")
         %br/
         %br/
-        %button.button(type="button" data-trigger-file-input="user_avatar")
+        %button.button(type="button" class="tiny" data-trigger-file-input="user_avatar")
           Select profile image
         = f.input :avatar, as: :file
 
@@ -24,11 +26,11 @@
         %button(data-enable-fields='#change-password input'
                 data-replace-with='#change-password'
                 data-trigger-on-error='#change-password'
-                type='button')= t('.set_new_password')
+                type='button'
+                class='tiny')= t('.set_new_password')
         #change-password.panel.hide
           = f.input :password, disabled: true
           = f.input :password_confirmation, disabled: true
-        -#= USER PROFILE HEADER (not verified by PO)
         %button.button(type="button" data-trigger-file-input="user_header")
           Select header image
         = f.input :header, as: :file
@@ -39,10 +41,10 @@
           .small-4.columns
             or
           .small-8.columns
-            %button.small Connect with Facebook
+            %button.tiny Connect with Facebook
   .row.collapse
     .large-12.columns
-      %h2 About you
+      %h3 About you
   .row.collapse
     .large-12.columns
       .user-textarea-box
@@ -50,6 +52,6 @@
         = f.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
   .row.collapse
     .large-12.columns
-      = f.button :submit
+      = f.button :submit, class: 'small'
       %a{href: "#"} or
       = link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(:id => @user)
