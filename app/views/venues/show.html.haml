@@ -103,8 +103,14 @@
 
     #tab-comments.content
       - if can? :create, Comment
-        = simple_form_for [@venue, @venue.comments.build] do |f|
-          = f.input :content
-          = f.submit
+        .comment-form.row.collapse
+          .medium-12.columns
+            .comment-left-box.left
+              =link_to '#user' do
+                = image_tag current_user.avatar.thumb('40x40#nw').url
+            .comment-right-box
+              = simple_form_for [@venue, @venue.comments.build] do |f|
+                = f.input :content
+                = f.button :submit, class: 'button tiny'
       %ul.list-style-type-none
         = render partial: 'comment', collection: @venue.comments.ordered

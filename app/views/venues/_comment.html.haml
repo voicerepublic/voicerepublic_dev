@@ -1,11 +1,3 @@
-.comment-form.row.collapse
-  .large-12.columns
-    .comment-left-box
-    =link_to '#user' do
-      %img(src="http://lorempixel.com/40/40")
-    .comment-right-box
-      %textarea(style="display:inline-block")
-
 .comment-item.row.collapse
   .large-12.columns
     .comment-left-box.left
@@ -16,6 +8,5 @@
         = comment.user.name
       %span.comment-date
         = l(comment.created_at, format: :short)
-      %p.comment-text
-        = sophisticated_format comment.content      
-
+      .comment-text
+        = sophisticated_format comment.content
