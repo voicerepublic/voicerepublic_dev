@@ -257,17 +257,19 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
+    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
+
+    return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
-
-    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
   end
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    delay(queue: 'audio').postprocess!
-
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
+
+    return if venue.opts.no_auto_postprocessing
+    delay(queue: 'audio').postprocess!
   end
 
   def postprocess!(uat=false)
