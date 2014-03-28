@@ -65,7 +65,7 @@
             {{ config.host }}
           %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
 
-        .guest.avatar(ng-repeat="guest in session.guests()")
+        .guest.avatar(ng-repeat="guest in guests()")
           %span(ng-click="session.demote(guest.id)")
             %p.avatar-name.text-center
               {{ guest.name }}
@@ -101,7 +101,7 @@
           %dd.text-center
             %a(href="#talk-tab-description")
               =t('.description')
-          - unless @talk.venue.options[:suppress_chat]
+          - unless @talk.venue.opts.suppress_chat
             %dd.text-center
               %a(href="#talk-tab-discussion")
                 =t('.discussion')
@@ -118,7 +118,7 @@
       .tabs-content.large-12.columns
         #talk-tab-description.content
           = @talk.try(:description).try(:html_safe)
-        - unless @talk.venue.options[:suppress_chat]
+        - unless @talk.venue.opts.suppress_chat
           #talk-tab-discussion.content
             .panel.callout.row(ng-hide="config.user.role == 'listener'")
               .large-3.columns

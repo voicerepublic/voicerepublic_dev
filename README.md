@@ -144,6 +144,17 @@ Platforms
 * Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
 
 
+Conference Features
+-------------------
+
+If the venue is a conference you might want to open the back office
+app and put the following in options of the venue:
+
+    no_auto_postprocessing: true
+    no_email: true
+    no_auto_end_talk: true
+    suppress_chat: true
+
 
 Console Cheat Sheet
 -------------------

@@ -76,6 +76,7 @@ class Talk < ActiveRecord::Base
 
   before_validation :set_ends_at
   after_create :notify_participants
+  before_save :prepopulate_session
   after_save :set_guests
 
   serialize :session
@@ -245,18 +246,30 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def prepopulate_session
+    return if @guest_list.nil?
+    return if @guest_list == appearances.pluck(:user_id).sort
+
+    self.session = {}
+    guests.each do |guest|
+      self.session[guest.id] = guest.details_for(self)
+    end
+  end
+
   def after_start
+    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
+
+    return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delay(queue: 'trigger', run_at: ends_at + GRACE_PERIOD).end_talk!
-
-    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
   end
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    delay(queue: 'audio').postprocess!
-
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
+
+    return if venue.opts.no_auto_postprocessing
+    delay(queue: 'audio').postprocess!
   end
 
   def postprocess!(uat=false)
