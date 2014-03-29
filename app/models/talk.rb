@@ -12,7 +12,7 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - TODO: document me
+# * audio_formats [text, default="--- []\n"] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
@@ -40,7 +40,7 @@ class Talk < ActiveRecord::Base
 
   ARCHIVE_STRUCTURE = "%Y/%m/%d"
 
-  state_machine do
+  state_machine auto_scopes: true do
     state :prelive # initial
     state :live
     state :postlive
