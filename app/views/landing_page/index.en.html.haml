@@ -1,19 +1,24 @@
-.landing-page
-  .row
-    .large-12.text-center
-      %br/
-      %br/
-      %br/
-      %h1 Welcome to Voice Republic!
-      - @talks.each do |talk|
-        .panel
-          = link_to [talk.venue, talk] do
-            %h4= talk.venue.user.name
-            %h3= talk.venue.title
-            %h2= talk.title
-            %p= talk.teaser
-  .row
-    .large-5.columns.panel
-      = render 'lp_login', :user => @user
-    .large-5.large-offset-2.columns.panel.callout
+.header-block(style="background-image:url(http://lorempixel.com/1000/1000/abstract)")
+  %br/
+  %br/
+  .row.collapse
+    .medium-7.columns
+      %h1.headline
+        = t('.headline')
+      %h2.subheadline
+        = t('.subheadline')
+
+    .medium-5.columns
+      %br
       = render 'lp_signup', :user => @user
+  %br
+
+.row.collapse
+  .medium-12.columns
+    - @talks.each do |talk|
+      .panel
+        = link_to [talk.venue, talk] do
+          %h4= talk.venue.user.name
+          %h3= talk.venue.title
+          %h2= talk.title
+          %p= talk.teaser
