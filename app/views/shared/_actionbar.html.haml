@@ -14,17 +14,17 @@
       %ul.right
         - if current_user.guest?
           %li
-            = link_to t('.sign_in'), new_user_session_path
-            = t('.or')
+            = link_to t('.login'), new_user_session_path
+          %li
             = link_to t('.sign_up'), new_user_registration_path
         - else
-          %li.has-dropdown
-            = link_to current_user do
+          %li
+            %a(href='#' data-dropdown='user-dropdown')
               = image_tag current_user.avatar.thumb('25x25#nw').url,
                 alt: current_user.name, size: '25x25'
               = current_user.name
 
-          %ul.dropdown
+          %ul#user-dropdown.f-dropdown(data-dropdown-content)
             %li
               = link_to current_user do
                 = t('.my_profile')

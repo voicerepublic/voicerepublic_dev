@@ -1,4 +1,3 @@
-
 %p#notice(style='display: none;')= notice
 
 .layout-talk(ng-controller='Livepage')
@@ -14,12 +13,10 @@
 
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
-
     -# TODO: Style me
     .download_talk_messages
       - if can? :download_talk_messages, @talk
         = link_to 'Download messages', "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
-
     - if can? :manage, @talk
       .generic-action-bar.row.collapse
         .large-12.columns
@@ -79,7 +76,7 @@
               .host-banner
                 %span
                   Host
-          .avatar(ng-repeat="guest in session.guests()")
+          .avatar(ng-repeat="guest in guests()")
             .avatar-box
               %img.avatar-img(ng-src="{{guest.image}}")
               .avatar-name.text-center
@@ -113,7 +110,7 @@
             %a(href="#talk-tab-description")
               %i.fi-page-csv
               = t('.description')
-          - unless @talk.venue.options[:suppress_chat]
+          - unless @talk.venue.opts.suppress_chat
             %dd.text-center
               %a(href="#talk-tab-discussion")
                 %i.fi-list-thumbnails
@@ -132,7 +129,7 @@
       .tabs-content.large-12.columns
         #talk-tab-description.content
           = @talk.try(:description).try(:html_safe)
-        - unless @talk.venue.options[:suppress_chat]
+        - unless @talk.venue.opts.suppress_chat
           #talk-tab-discussion.content
             .panel.callout.row(ng-hide="config.user.role == 'listener'")
               .large-3.columns

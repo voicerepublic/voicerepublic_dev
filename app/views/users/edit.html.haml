@@ -29,11 +29,9 @@
             #change-password.panel.hide
               = f.input :password, disabled: true
               = f.input :password_confirmation, disabled: true
-
             %button.button(type="button" data-trigger-file-input="user_header")
               Select header image
             = f.input :header, as: :file
-
 
           .large-4.medium-4.columns.text-center
             .row

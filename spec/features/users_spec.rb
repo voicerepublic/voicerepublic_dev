@@ -25,13 +25,12 @@ feature "User edits own profile" do
     page.should have_content(I18n.t('flash.actions.update.notice'))
   end
 
-  # Is not verified by PO
-  #scenario "uploading a header image" do
-  #  some_image = Rails.root.join('app/assets/images/logo.png')
-  #  page.attach_file 'user_header', some_image
-  #  page.click_button 'Save'
-  #  page.should have_content(I18n.t('flash.actions.update.notice'))
-  #end
+  scenario "uploading a header image" do
+    some_image = Rails.root.join('app/assets/images/logo.png')
+    page.attach_file 'user_header', some_image
+    page.click_button 'Save'
+    page.should have_content(I18n.t('flash.actions.update.notice'))
+  end
 
   scenario "uploading a avatar image", js: true do
     some_image = Rails.root.join('app/assets/images/logo.png')
@@ -70,7 +69,7 @@ feature "User can register" do
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
     page.click_button('Sign Up to KluuU!')
-    page.should have_css(".signup")
+    page.current_url.should include("sign_up")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
