@@ -2,10 +2,12 @@
 #social_share
   %span{class: 'facebook share', data: { shareable_id: shareable_id,
     shareable_type: shareable_type } }
-    %i.fi-social-facebook
+    = link_to '#' do
+      %i.fi-social-facebook
   %span{class: 'twitter share', data: { shareable_id: shareable_id,
     shareable_type: shareable_type } }
-    %i.fi-social-twitter
+    = link_to '#' do
+      %i.fi-social-twitter
   %span{class: 'mail share', data: { shareable_id: shareable_id,
    shareable_type: shareable_type } }
     = mail_to "your@friend.com",

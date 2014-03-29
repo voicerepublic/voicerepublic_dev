@@ -98,8 +98,7 @@
 
     #tab-archived-talks.content
       %ul.list-style-type-none
-        - for talk in @archived_talks
-          = render partial: '/shared/talk_medium_box', locals: { talk: talk }
+        = render partial: 'shared/talk_medium_box', collection: @archived_talks
 
     #tab-comments.content
       - if can? :create, Comment

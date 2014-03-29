@@ -1,9 +1,9 @@
+#https://github.com/xing/wysihtml5/wiki/Configuration
+
 attribute = 'data-wysiwyg'
 
 initialize = (node, selector) ->
 
-  # HACK: fix position of toolbar
-  $(node).before($(selector))
 
   editor = new wysihtml5.Editor node.id,
     toolbar:     $(selector).attr('id')

@@ -1,47 +1,44 @@
 = simple_form_for(@user) do |f|
   .header-block(style="background-image: url(#{@user.header.try(:url)})"
     data-show-upload="#user_header")
-
-  .header-block
-    .row
+    .form-top-box.row
       .large-12.columns
         = f.error_notification
-    .row.collapse
-      .large-3.medium-3.columns
-        - avatar_url = @user.avatar.thumb('215x215#nw').url
-        .user-portrait-img(style="background-image:url(#{avatar_url})"
-          data-show-upload="#user_avatar")
-        %br/
-        %br/
-        %button.button(type="button" class="tiny" data-trigger-file-input="user_avatar")
-          Select profile image
-        = f.input :avatar, as: :file
+        .row.collapse
+          .large-3.medium-3.columns
+            - avatar_url = @user.avatar.thumb('215x215#nw').url
+            .user-portrait-img(style="background-image:url(#{avatar_url})"
+              data-show-upload="#user_avatar")
+            %br/
+            %br/
+            %button.button(type="button" class="tiny" data-trigger-file-input="user_avatar")
+              Select profile image
+            = f.input :avatar, as: :file
 
-      .large-5.medium-5.columns
-        = f.input :firstname, :placeholder => 'First Name'
-        = f.input :lastname, :placeholder => 'Last Name'
-        = f.input :email, :placeholder => 'Email Address'
-        = f.time_zone_select :timezone
-        = f.input :website
-        %button(data-enable-fields='#change-password input'
-                data-replace-with='#change-password'
-                data-trigger-on-error='#change-password'
-                type='button'
-                class='tiny')= t('.set_new_password')
-        #change-password.panel.hide
-          = f.input :password, disabled: true
-          = f.input :password_confirmation, disabled: true
-        %button.button(type="button" data-trigger-file-input="user_header")
-          Select header image
-        = f.input :header, as: :file
+          .large-5.medium-5.columns
+            = f.input :firstname, :placeholder => 'First Name'
+            = f.input :lastname, :placeholder => 'Last Name'
+            = f.input :email, :placeholder => 'Email Address'
+            = f.time_zone_select :timezone
+            = f.input :website
+            %button(data-enable-fields='#change-password input'
+                    data-replace-with='#change-password'
+                    data-trigger-on-error='#change-password'
+                    type='button'
+                    class='tiny')= t('.set_new_password')
+            #change-password.panel.hide
+              = f.input :password, disabled: true
+              = f.input :password_confirmation, disabled: true
+            %button.button(type="button" data-trigger-file-input="user_header")
+              Select header image
+            = f.input :header, as: :file
 
-
-      .large-4.medium-4.columns.text-center
-        .row
-          .small-4.columns
-            or
-          .small-8.columns
-            %button.tiny Connect with Facebook
+          .large-4.medium-4.columns.text-center
+            .row
+              .small-4.columns
+                or
+              .small-8.columns
+                %button.tiny Connect with Facebook
   .row.collapse
     .large-12.columns
       %h3 About you
@@ -49,8 +46,9 @@
     .large-12.columns
       .user-textarea-box
         = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
-        = f.input :about, input_html: { 'data-wysiwyg' => '#about-textarea' }
-  .row.collapse
+        = f.input :about, input_html: { 'data-wysiwyg' => '#about-textarea', class: 'display-none' }
+        
+  .form-save-row.row.collapse
     .large-12.columns
       = f.button :submit, class: 'small'
       %a{href: "#"} or

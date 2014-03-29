@@ -1,9 +1,40 @@
+@mixin form-generic-styles {
+  label{
+    font-size: 1rem;
+    font-family: 'eaglebook'
+  }
+
+  .form-top-box{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-top:30px;
+    padding-bottom:30px;
+    background: rgba(0,0,0,0.6);
+    label{
+      color:white;
+    }
+    .form-title{
+      color: $form-title-color;
+    }
+  }
+
+  .text-area{
+    height:300px;
+  }
+
+  .form-save-row{
+    margin-top: 20px
+  }
+}
+
+
 @mixin placeholder {
   &.placeholder { @content; }
   &:-moz-placeholder { @content; opacity: 1}
   &::-moz-placeholder { @content; opacity: 1}
   &::-webkit-input-placeholder { @content; }
 }
+
 
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
 	@if $inset {
@@ -15,4 +46,25 @@
 		-moz-box-shadow: $top $left $blur $color;
 		box-shadow: $top $left $blur $color;
 	}
+}
+
+
+@mixin rotate( $degrees ) {
+  -webkit-transform: rotate(#{$degrees}deg);
+  -moz-transform: rotate(#{$degrees}deg);
+  -ms-transform: rotate(#{$degrees}deg);
+  -o-transform: rotate(#{$degrees}deg);
+  transform: rotate(#{$degrees}deg);
+
+  filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
+  zoom: 1;
+ }
+
+
+ @mixin opacity($value){
+  $IEValue: $value*100;
+  opacity: $value;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
+  filter: alpha(opacity=$IEValue);
 }

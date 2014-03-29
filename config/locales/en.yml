@@ -226,6 +226,8 @@ en:
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
       designed: ! '%-d%o %B %Y — %l%P'
+      date_only: ! '%-d%o %B %Y'
+      time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
   call_now: call now
@@ -559,6 +561,8 @@ en:
       contacts: Contacts
       messages: Messages
       settings: Settings
+    talk_medium_box:
+      date_start_end: '%{date} | %{start_time} – %{end_time}'
 
   venues:
     date_changed: New venue date
