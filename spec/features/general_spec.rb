@@ -5,7 +5,7 @@ feature "Search validation" do
     visit root_path
   end
 
-  scenario "it should set an error on empty search input", driver: :chrome do
+  scenario "it should set an error on empty search input", driver: :chrome, slow: true do
     page.fill_in 'query', with: ''
     find("#query").native.send_keys(:return)
     page.should have_css('.warning')

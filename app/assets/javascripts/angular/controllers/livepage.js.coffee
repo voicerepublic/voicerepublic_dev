@@ -7,6 +7,13 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
 
   $scope.message = { content: '' }
 
+  $scope.guests = ->
+    switch config.talk.state
+      when 'live'
+        session.guests()
+      else
+        (user for id, user of session.users when user.role == 'guest')
+
   $scope.sendMessage = ->
     session.upstream.message $scope.message.content
     $scope.message.content = ''

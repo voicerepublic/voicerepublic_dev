@@ -33,7 +33,7 @@
           / %h4= @venue.user.name
           %h2.venue-title= @venue.title
           %h3.venue-teaser= @venue.teaser
-          
+
       .row
         .large-12.columns.text-center
           - if @show_join
@@ -48,7 +48,7 @@
             %br/
             = link_to new_venue_talk_path(@venue), class: 'button' do
               = t('.create_a_talk_now')
-          
+
   .row.collapse
     .large-12.columns
       %dl.tabs.vr-tabs(data-tab='true')
@@ -100,7 +100,16 @@
       %ul.list-style-type-none
         = render partial: 'shared/talk_medium_box', collection: @archived_talks
 
-
     #tab-comments.content
+      - if can? :create, Comment
+        .comment-form.row.collapse
+          .medium-12.columns
+            .comment-left-box.left
+              =link_to '#user' do
+                = image_tag current_user.avatar.thumb('40x40#nw').url
+            .comment-right-box
+              = simple_form_for [@venue, @venue.comments.build] do |f|
+                = f.input :content
+                = f.button :submit, class: 'button tiny'
       %ul.list-style-type-none
-        = render partial: 'comment'
+        = render partial: 'comment', collection: @venue.comments.ordered

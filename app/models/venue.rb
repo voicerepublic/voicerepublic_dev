@@ -7,6 +7,7 @@
 # * image_content_type [string] - Paperclip for image
 # * image_file_name [string] - Paperclip for image
 # * image_file_size [integer] - Paperclip for image
+# * image_uid [string] - TODO: document me
 # * image_updated_at [datetime] - Paperclip for image
 # * options [text, default="--- {}\n"] - TODO: document me
 # * start_time [datetime] - TODO: document me
@@ -30,15 +31,15 @@ class Venue < ActiveRecord::Base
   # TODO: rename to host
   belongs_to :user
 
-  has_many :articles, -> { order "created_at DESC" }, :dependent => :destroy
-  has_many :talks, :dependent => :destroy, :inverse_of => :venue
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :talks, dependent: :destroy, inverse_of: :venue
 
-  has_many :participations, :dependent => :destroy
+  has_many :participations, dependent: :destroy
   # TODO: rename to participants
-  has_many :users, :through => :participations
+  has_many :users, through: :participations
   has_many :social_shares, as: :shareable
 
-  validates :title, :teaser, :description, :tag_list, :presence => true
+  validates :title, :teaser, :description, :tag_list, presence: true
 
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
@@ -46,7 +47,7 @@ class Venue < ActiveRecord::Base
 
   serialize :options
 
-  scope :of_user,  proc { |user| where(:user_id => user.id) }
+  scope :of_user,  proc { |user| where(user_id: user.id) } # TODO check if needed
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
                           order('featured_from DESC') }
 
@@ -57,6 +58,12 @@ class Venue < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
+  # provides easier access to options
+  # and allows strings as keys in yaml
+  def opts
+    OpenStruct.new(options)
+  end
+  
   private
 
   def clean_taglist

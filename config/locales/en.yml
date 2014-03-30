@@ -532,11 +532,13 @@ en:
       no_results_sentence: Oops, no results.
   shared:
     actionbar:
-      notifications: News
-      messages: Messages
-      profile: Profile
-      see_other_venues: More Talks
+      login: Login
+      sign_up: Sign Up
       search: Search
+      my_profile: Profile
+      create_venue: Create Venue
+      settings: Settings
+      logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:

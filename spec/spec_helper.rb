@@ -67,6 +67,7 @@ RSpec.configure do |config|
   # By default do not run slow specs locally, unless explicitly requested by:
   #  zeus rspec --tag @slow:true spec
   config.filter_run_excluding :slow => :true unless ENV['CI']
+  config.filter_run_excluding :driver => :chrome unless ENV['CI']
 
   config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
