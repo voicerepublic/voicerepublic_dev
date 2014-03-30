@@ -1,7 +1,7 @@
 .header-block(style="background-image:url(http://lorempixel.com/1000/1000/abstract)")
   %br/
   %br/
-  .row.collapse
+  .row.collapse-large-only
     .medium-7.columns
       %h1.headline
         = t('.headline')
@@ -13,7 +13,7 @@
       = render 'lp_signup', :user => @user
   %br
 
-.row.collapse
+.row
   .medium-12.columns
     - @talks.each do |talk|
       .panel

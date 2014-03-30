@@ -68,6 +68,15 @@ body{
 	background: #F6F4EC
 }
 
+
+
+@media only screen and (min-width: rem-calc(730)){
+  .collapse-large-only > .columns{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 h2,h1{
   font-family: 'eaglebook';
 }
