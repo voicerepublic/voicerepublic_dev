@@ -7,8 +7,9 @@
   .talk-upper-block(style="background-image: url(#{@talk.image.url})")
 
     .talk-state.text-center
-      .span(ng-show='talkIsPrelive()') talk is prelive
-      .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
+      .span(ng-show='talkIsPrelive()')
+        talk is prelive
+        .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive 
 
