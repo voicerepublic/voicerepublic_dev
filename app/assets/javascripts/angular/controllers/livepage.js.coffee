@@ -1,11 +1,29 @@
 # The LivepageController
 livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
 
-  $scope.config   = config
-  $scope.session  = session
-  $scope.blackbox = blackbox
+  sendMessage = ->
+    session.upstream.message $scope.message.content
+    $scope.message.content = ''
+
+  # $scope.config   = config
+  # $scope.session  = session
+  # $scope.blackbox = blackbox
 
   $scope.message = { content: '' }
+
+  $scope.endTalk = session.endTalk
+  $scope.expectingPromotion = session.expectingPromotion
+  $scope.acceptingPromotion = session.acceptingPromotion
+  $scope.promote = session.promote
+  $scope.demote = session.demote
+  $scope.participants = session.participants
+  $scope.listeners = session.listeners
+  $scope.mediaLinks = config.talk.links
+
+  $scope.setVolume = blackbox.setVolume
+
+  $scope.userIsAListener = ->
+    config.user.role == 'listener'
 
   $scope.guests = ->
     switch config.talk.state
@@ -14,13 +32,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
       else
         (user for id, user of session.users when user.role == 'guest')
 
-  $scope.sendMessage = ->
-    session.upstream.message $scope.message.content
-    $scope.message.content = ''
-
   $scope.messageKeyup = (e) ->
-    if e.keyIdentifier == "Enter"
-      $scope.sendMessage()
+    sendMessage() if e.keyIdentifier == "Enter"
 
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'

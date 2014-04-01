@@ -19,6 +19,7 @@
  @import "grids_variables_mixins/foundation_and_overrides";
  @import "grids_variables_mixins/foundation-icons";
  @import "grids_variables_mixins/eagle_webfonts";
+ @import "main";
  @import "foundation_calendar";
  @import "select2";
 /* @import "icomoon-free/style";*/
@@ -42,62 +43,3 @@
  @import "users";
  @import "venues";
  @import "talks";
-
-/* Testing */
-.draft {
-  margin-top: 80px;
-  background-color: hotpink;
-  border: 3px solid greenyellow;
-  padding: 5px 10px;
-  border-radius: 15px;
-}
-
-.debug {
-  background-color: brown;
-}
-
-.result.talk { background-color: #ddf; }
-.result.user { background-color: #fdd; }
-.result.venue { background-color: #dfd; }
-
-
-/* GENERAL */
-body{
-	overflow-y: scroll; /* prevents moving by to small content */;
-/*	background: #F6F4EC;*/
-  /*background: url(/assets/bg_2.png) center top no-repeat*/
-}
-
-
-
-@media only screen and (min-width: rem-calc(730)){
-  .collapse-large-only > .columns{
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-h1,h2,h3{
-  font-family: 'eaglebook';
-}
-
-p{
-	font-size: 0.8rem;
-}
-
-.list-style-type-none{
-	list-style-type: none;
-	margin:0
-}
-
-.display-none{
-  display:none;
-}
-
-#query.warning {
-  background: lightcoral !important;
-}
-
-.top-margin-action-bar{
-  margin-top: 100px
-}
