@@ -13,7 +13,7 @@ class TalksController < ApplicationController
     respond_to do |format|
       format.html
       format.text do
-        authorize! :download_talk_messages, @talk
+        authorize! :manage, @talk
         render text: @talk.message_history
       end
     end
