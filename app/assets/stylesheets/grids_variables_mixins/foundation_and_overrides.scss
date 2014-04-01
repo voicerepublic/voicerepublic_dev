@@ -116,7 +116,7 @@ $row-width: rem-calc(700);
 $header-font-family: 'eaglelight', sans-serif;
 // $header-font-weight: 300;
 // $header-font-style: normal;
-// $header-font-color: #222;
+$header-font-color: #fff;
 $header-line-height: 1.1;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
@@ -124,8 +124,8 @@ $header-line-height: 1.1;
 
 // We use these to control header font sizes
 // $h1-font-size: rem-calc(44);
-// $h2-font-size: rem-calc(37);
-// $h3-font-size: rem-calc(27);
+$h2-font-size: rem-calc(30);
+$h3-font-size: rem-calc(18);
 // $h4-font-size: rem-calc(23);
 // $h5-font-size: rem-calc(18);
 // $h6-font-size: 1rem;
@@ -1059,13 +1059,13 @@ $input-include-glowing-effect: false;
 
 // $include-html-tabs-classes: $include-html-classes;
 
-$tabs-navigation-padding: rem-calc(6);
+// $tabs-navigation-padding: rem-calc(5);
 $tabs-navigation-bg-color: #F0F0F0 ;
 $tabs-navigation-active-bg-color: rgba(0,0,0,0.7);
 $tabs-navigation-hover-bg-color: $tabs-navigation-active-bg-color;
 $tabs-navigation-font-color: #000;
-$tabs-navigation-font-size: rem-calc(14);
-// $tabs-navigation-font-family: $body-font-family;
+$tabs-navigation-font-size: rem-calc(15);
+$tabs-navigation-font-family: 'eaglelight', sans-serif;
 
 // $tabs-content-margin-bottom: rem-calc(24);
 // $tabs-content-padding: $column-gutter/2;

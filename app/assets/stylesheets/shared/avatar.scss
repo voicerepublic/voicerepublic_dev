@@ -1,13 +1,13 @@
 .avatar{
   display: inline-block;
-  margin: 10px 3px;
   vertical-align: top; 
 
   .avatar-box{    
     position:relative;
     background: #aaa;
-    padding: 10px 10px 3px 10px;
     font-size: 0.8rem;
+    border-radius: 50%;
+    overflow:hidden;
     .avatar-name{
       padding:5px 0;
       color: black
