@@ -21,15 +21,6 @@ describe UsersController do
     {}
   end
 
-  describe "GET venues" do
-    it "assigns users venues as @venues" do
-      _venue = FactoryGirl.create(:venue)
-
-      get :venues, {:id => _venue.user.to_param}, valid_session
-      assigns(:venues).should include(_venue)
-    end
-  end
-
   describe "GET show" do
     it "assigns the requested user as @user" do
       user = User.create! valid_attributes
