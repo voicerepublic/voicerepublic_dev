@@ -11,7 +11,6 @@
  * appear at the top of the compiled file, but it's generally better
  * to create a new file per style scope.
  *
- *= require users
  *= require_self
  */
 
@@ -22,6 +21,7 @@
  @import "grids_variables_mixins/eagle_webfonts";
  @import "foundation_calendar";
  @import "select2";
+/* @import "icomoon-free/style";*/
 
 // SHARED
  @import "shared/top_actionbar";
@@ -32,11 +32,10 @@
  @import "shared/generic_action_bar";
  @import "shared/vr_tabs";
  @import "shared/talk_medium_box";
+ @import "shared/venue_medium_box";
  @import "shared/comment";
  @import "shared/vr_player";
  @import "shared/avatar";
-
-
 
 // RAILS STRUCTURE
  @import "landing_page";
@@ -65,10 +64,20 @@
 /* GENERAL */
 body{
 	overflow-y: scroll; /* prevents moving by to small content */;
-	background: #F6F4EC
+/*	background: #F6F4EC;*/
+  /*background: url(/assets/bg_2.png) center top no-repeat*/
 }
 
-h2{
+
+
+@media only screen and (min-width: rem-calc(730)){
+  .collapse-large-only > .columns{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+h1,h2,h3{
   font-family: 'eaglebook';
 }
 

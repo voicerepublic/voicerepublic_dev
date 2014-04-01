@@ -9,13 +9,12 @@
 log/localeapp.yml
 
 .DS_Store
-/start
-/coverage
 .bundle
 db/*.sqlite3
 db/*.sqlite3.db
 log/*.log
 tmp/**/*
+!tmp/cache
 
 config/database.yml
 db/*.sqlite3-journal
@@ -26,11 +25,8 @@ private/
 .DS_Store
 webrat*html
 mkmf.log
-public/javascripts/all.js
-public/stylesheets/all.css
 public/uploads/
 .yardoc
-.idea
 .sass-cache
 
 config/settings.local.yml

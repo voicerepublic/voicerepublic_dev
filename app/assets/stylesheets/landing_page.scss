@@ -1,5 +1,18 @@
 .landing_page-index{
-	.lp-first-row{
-		padding-top: $top-bar-padding
+	.headline,.subheadline{
+		color: white
+	}
+	.subheadline{
+		font-size: rem-calc(20);
+	}
+	.button-signup{
+		width: 100%;
+	}
+
+	.signup-facebook{
+		color: white;
+		&:hover, &:focus{
+			color:white
+		}
 	}
 }
