@@ -1,6 +1,6 @@
 namespace :db do
   namespace :sync do
-    task :production do
+    task :live do
       dump = "pgdump_production_2_#{ `hostname`.chomp }.sql"
 
       script = <<-SCRIPT
