@@ -94,7 +94,7 @@
         %span.participate-button(ng-show="userIsAListener()")
           - url = [ @talk.venue, :participations ]
           = link_to t('.participate'), url, method: 'post', class: 'button-vr button-header'
-        #onair(ng-show='flags.onair') YOU ARE ON AIR!
+        #onair(ng-show='flags.onair')= t('.you_are_on_air')
 
         %button.button(ng-show='flags.reqmic'
                        ng-click='requestMic()')= t('.request_mic')
@@ -145,7 +145,7 @@
             .panel.callout.row(ng-hide="userIsAListener()")
               .large-3.columns= t('.you')
               %input.large-9.columns(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-            .panel(ng-repeat='message in session.discussion')
+            .panel(ng-repeat='message in discussion')
               {{ message.name }}: {{ message.content }}
 
         #talk-tab-participants.content.active

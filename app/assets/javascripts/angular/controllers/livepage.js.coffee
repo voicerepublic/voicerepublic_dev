@@ -19,6 +19,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
   $scope.participants = session.participants
   $scope.listeners = session.listeners
   $scope.mediaLinks = config.talk.links
+  $scope.discussion = session.discussion
 
   $scope.setVolume = blackbox.setVolume
 
