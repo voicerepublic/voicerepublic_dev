@@ -14,7 +14,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'kluuu.com', user: 'rails', roles: %w{web app db}
+server 'voicerepublic-production.sky.ungleich.ch', user: 'app', roles: %w{web app db}
 set :branch, 'master'
 
 # you can set custom ssh options
