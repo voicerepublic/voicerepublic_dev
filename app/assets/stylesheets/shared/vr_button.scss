@@ -1,0 +1,7 @@
+.button-vr{
+	@include button(rem-calc(12),$vr-button-bg);
+	border-color: $vr-button-font-color;
+	padding: rem-calc(12) 0 rem-calc(11);
+	min-width: 352px;
+	color: $brand-color-green;
+}

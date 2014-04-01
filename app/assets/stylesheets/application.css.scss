@@ -36,6 +36,7 @@
  @import "shared/comment";
  @import "shared/vr_player";
  @import "shared/avatar";
+ @import "shared/vr_button";
 
 // RAILS STRUCTURE
  @import "landing_page";
@@ -65,7 +66,7 @@
 body{
 	overflow-y: scroll; /* prevents moving by to small content */;
 /*	background: #F6F4EC;*/
-  background: url(/assets/bg_venue.png) center top no-repeat
+  /*background: url(/assets/bg_venue.png) center top no-repeat*/
 }
 
 

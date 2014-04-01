@@ -17,11 +17,14 @@
 			font-size: rem-calc(46);
 		}
 		.venue-teaser{
-			font-size: 1rem;
+			font-family: 'eaglelight';
+			font-size: rem-calc(18);
 			margin-bottom: 50px;
 		}
 	}
-
+	.button-header{
+		margin-bottom: 16px;
+	}
   .vr-tabs dd{
   	width: 25%;
   }

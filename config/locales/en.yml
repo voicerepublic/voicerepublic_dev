@@ -702,6 +702,8 @@ en:
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
+  talks_medium_box:
+    read_more: ...read more
   talks:
     message_history: |
       VoiceRepublic Message History 
