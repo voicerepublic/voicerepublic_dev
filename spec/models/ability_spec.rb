@@ -27,10 +27,10 @@ describe Ability do
       Ability.new(other).can?(:manage, venue).should be_false
     end
     it "allows to create venues as registered user (nonguest)" do
-      Ability.new(owner).can?(:create, Venue.new).should be_true
+      Ability.new(owner).can?(:create, Venue).should be_true
     end
     it "denies to create venues as guest" do
-      Ability.new(guest).can?(:create, Venue.new).should be_false
+      Ability.new(guest).can?(:create, Venue).should be_false
     end
   end
 
