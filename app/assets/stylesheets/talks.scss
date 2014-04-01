@@ -32,18 +32,12 @@
     border-top:1px solid #aaa;
   }
 
-  .talk-upper-block {
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    padding-top: 70px;
-    color: #fff;
-  }
-
   .talk-title-box{
     background: rgba(0,0,0,0.5);
-    padding:1rem 0 4rem 0rem;
+    margin-top: 12px;
+    padding:16px 0 2px 0;
     .talk-venue-title{
+      display: inline-block;
       a,a:hover,a:focus{
       font-family: 'eaglelight';
       color: #fff;
@@ -53,35 +47,92 @@
     }
     .talk-title{
       color: #fff;
-      font-size: rem-calc(45);
+      font-size: rem-calc(39);
       line-height: 1;
-      letter-spacing: 1px;
-      margin: 25px 0 -6px 0;
+      margin: 31px 0 5px 0;
     }
     .talk-teaser{
       color: #fff;
+      font-family: 'eaglelight';
       font-size: rem-calc(20);
-      line-height: 1.1;
-      letter-spacing: 1px;
+      line-height: 1;
       margin: 0;
     }
     .talk-date-time{
+      margin: rem-calc(29) 0 0 0;
       font-family: 'eaglelight';
     }
   }
 
-  .talk-talkers-box{
-    margin-top: 20px;
+  .talk-timeline-box{
+    margin-top: 15px;
     background: rgba(0,0,0,0.5);
-    padding:10px 0.5rem 10px 0.5rem;
+    font-family: 'eaglebook';
+    font-size: rem-calc(15);
+    padding: 0 0 9px 0;
+    .talk-timeline{
+      background: rgba(0,0,0,0.8);
+      width: 100%;
+      height: 10px;
+      margin:0 0 14px;
+      .talk-timeline-progress{
+        background: $brand-color-red;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .talk-state-info{
+      position: relative;
+      width: 100%;
+      .talk-timecounter{
+        position: absolute;
+        right: 4px;
+        top: 0;
+        font-size: rem-calc(12);
+      }
+      .talk-state-bullet{
+        display: inline-block;
+        height: 10px;
+        width: 10px;
+        margin-right: 5px;
+        background: $brand-color-red;
+        border-radius: 50%;
+      }
+      .record-text{
+       color: $brand-color-red;
+      }
+    }
+  }
+
+  .talk-talkers-box{
+    background: rgba(0,0,0,0.85);
+    padding:rem-calc(21) rem-calc(8);
     color: #fff;
   }
 
   .talk-live-mic-states-row{
-    background: #aaa;
+    position: relative;
     margin-top: 20px;
     height: 88px;
     padding: 10px;
+    .flash-box{
+      height:0;
+      transition: height .4s, padding .4s;
+      &.flash-box-open{
+        height: 170px;
+        padding: 15px 0;
+      }
+    }
+
+    .button-audio-settings{
+      position: absolute;
+      right: 4px;
+      top: rem-calc(10);
+      font-family: 'eaglebook';
+      font-size: rem-calc(14);
+      cursor: pointer;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
+    }
   }
 
   .button-join-discussion{

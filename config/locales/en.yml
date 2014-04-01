@@ -531,6 +531,7 @@ en:
       sign_up: Sign Up
       search: Search
       my_profile: Profile
+      my_next_talks: My next Talks
       create_venue: Create Venue
       settings: Settings
       logout: Log Out
@@ -561,6 +562,7 @@ en:
       settings: Settings
     talk_medium_box:
       date_start_end: '%{date} | %{start_time} – %{end_time}'
+      read_more: ...read more
 
   venues:
     date_changed: New venue date
@@ -702,8 +704,6 @@ en:
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
-  talks_medium_box:
-    read_more: ...read more
   talks:
     message_history: |
       VoiceRepublic Message History 
@@ -714,6 +714,10 @@ en:
     show:
       chat_placeholder: Type and hit enter to post a comment
       you: You
+      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      ends_in: ENDS IN
+      state_text: THIS TALK IS LIVE
+      record_text: AND BEING RECORDED
     new:
       new_talk: New Talk
     edit:

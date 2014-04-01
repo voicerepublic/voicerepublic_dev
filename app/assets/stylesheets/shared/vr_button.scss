@@ -1,7 +1,16 @@
 .button-vr{
-	@include button(rem-calc(12),$vr-button-bg);
-	border-color: $vr-button-font-color;
+	@include button(rem-calc(12),#000);
+	border-color: $brand-color-green;
 	padding: rem-calc(12) 0 rem-calc(11);
 	min-width: 352px;
 	color: $brand-color-green;
+}
+
+.button-margin-bottom{
+	margin-bottom: 10px;
+}
+
+.button-live{
+	border-color: $brand-color-red;
+	color: $brand-color-red;
 }
