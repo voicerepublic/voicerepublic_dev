@@ -4,7 +4,7 @@ require 'spec_helper'
 # :feature, background is an alias for before, scenario for it, and
 # given/given! aliases for let/let!, respectively.
 #
-describe "Venues" do
+describe "Venues", js: true do
 
   before do
     @user = FactoryGirl.create(:user)
@@ -101,7 +101,7 @@ describe "Venues" do
       visit venue_path(id: venue.id)
       find('.header-block')['style'].should include('venue-image.jpg')
       click_link 'Edit Venue'
-      attach_file :venue_image, 'spec/support/fixtures/dummy.png'
+      page.attach_file("button[data-trigger-file-input=venue_image]", 'spec/support/fixtures/dummy.png')
       click_button 'Save'
       find('.header-block')['style'].should_not include('venue-image.jpg')
     end
