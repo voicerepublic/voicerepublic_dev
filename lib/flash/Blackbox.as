@@ -24,7 +24,7 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.1';
+    internal var version: String = '2.1a';
     internal var mic: Microphone;
     internal var streamer: String;
 		internal var publishNetConnection: NetConnection;
@@ -184,7 +184,7 @@
     }
  
     internal function receiveStream(nc: NetConnection, stream: String): void {
-      if (streamMap.hasOwnKey(stream)) return;
+      //if (streamMap.hasOwnKey(stream)) return;
 
       var ns: NetStream = new NetStream(nc);
       ns.receiveVideo(false);
