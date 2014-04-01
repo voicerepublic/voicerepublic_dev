@@ -14,9 +14,7 @@
       .talk-teaser
         = link_to [@venue, talk] do
           = talk.teaser
-        = link_to '#', class: 'read-more-link' do
-          %span
-            read more
+          = t('.read more')
     - if can? :manage, talk
       .box-actions
         = link_to [:edit, @venue, talk] do
