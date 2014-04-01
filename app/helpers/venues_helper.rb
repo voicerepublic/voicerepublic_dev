@@ -1,3 +1,4 @@
+# TODO cleanup! is anything of this used?
 module VenuesHelper
   def recording_path(recording)
     "/system/recordings/#{recording}"
@@ -12,6 +13,6 @@ module VenuesHelper
   #TODO replace with cancan
   def can_comment_venue?(venue)
     return false unless user_signed_in?
-    venue.user_attends?(current_or_guest_user)
+    venue.users.include?(current_user)
   end
 end

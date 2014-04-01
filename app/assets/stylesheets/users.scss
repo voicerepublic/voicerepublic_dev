@@ -1,0 +1,77 @@
+.users-show,
+.users-edit,
+.users-new{
+	/*@include form-generic-styles(); TODO */
+
+	.user-portrait-img{
+		width:200px;
+		height: 200px;
+		background-size:cover;
+		background-position: center
+	}
+
+	.talks-joined{
+		color: black;
+		margin: 15px 0 5px 0
+	}
+
+	.user-name{
+		margin:0 0 50px 0;
+	}
+}
+
+.users-edit,
+.users-new{
+	.header-block{
+		padding-top: 100px
+	}
+
+	
+
+	.user-portrait-img{
+		width:143px;
+		height: 143px;
+	}
+
+
+	#user_account_about{
+		height: 200px
+	}
+
+	.input.file{
+		display: none;
+	}
+
+  .wysihtml5-sandbox {
+    height: 250px !important;
+  }
+
+	label.text.optional{
+		display:none //TODO, is hackish
+	}
+}
+
+.users-show{
+/*	opacity: 0.6;*/
+
+	background: #FEF1DE;
+	.header-box{
+		background: $header-box-bg;
+	}
+	.avatar{
+		margin: 58px 0 6px 0;
+	}
+	.user-name{
+		margin-bottom: 69px
+	}
+	.vr-tabs dd{
+  	width: 33.33%;
+  }
+  #tab-about-me{
+  	background: rgba(0,0,0,0.8);
+  	padding: rem-calc(15) !important;
+  	p{
+  	  color: white
+  	}
+  }
+}

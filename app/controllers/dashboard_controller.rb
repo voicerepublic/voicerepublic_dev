@@ -4,8 +4,7 @@ class DashboardController < ApplicationController
   before_filter :set_user
   
   def index
-    @user = current_or_guest_user
-    redirect_to :action => 'news'
+    @user = current_user
   end
 
   def venues
@@ -16,14 +15,6 @@ class DashboardController < ApplicationController
     end
   end
   
-  def settings
-    @account = @user.account
-  end
-  
-  def edit_settings
-    @account = @user.account
-  end
-  
   def edit_password
     @user
   end
@@ -31,7 +22,7 @@ class DashboardController < ApplicationController
   private
 
   def set_user
-    @user = current_or_guest_user
+    @user = current_user
   end
 
 end

@@ -1,8 +1,0 @@
-<%= form_tag "/" + I18n.locale.to_s + "/search", :method => 'get', :class => 'search-form' do %>
-	<input class="search-query" name="query" type="text" value="<%= query %>" >
-	<button class="btn" type="submit">
-		<i class="icon-search"> </i> <%= t('.search',:default => 'Go!') %>
-	</button>
-<% end %>
-
-

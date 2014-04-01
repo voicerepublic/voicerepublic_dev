@@ -3,4 +3,13 @@ require "faye"
 
 Faye::WebSocket.load_adapter('thin')
 
-run Faye::RackAdapter.new(:mount => '/faye', :timeout => 25)
+faye = Faye::RackAdapter.new(:mount => '/faye', :timeout => 25)
+
+faye.bind(:publish) do |client_id, channel, data|
+  puts "publish #{client_id} #{channel} #{data.inspect}"
+end
+faye.bind(:subscribe) do |client_id, channel|
+  puts "subscribe #{client_id} #{channel}"
+end
+
+run faye

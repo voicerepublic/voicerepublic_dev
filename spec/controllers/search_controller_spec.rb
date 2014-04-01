@@ -1,49 +1,77 @@
+# encoding: UTF-8
 require 'spec_helper'
-require 'thinking_sphinx/test'
-require 'database_cleaner'
-#require 'support/sphinx_environment'
-
 
 describe SearchController do
 
-    before(:all)  do
-      self.use_transactional_fixtures = false
-      DatabaseCleaner.strategy = :truncation#, {:only => tables}
-      ThinkingSphinx::Test.create_indexes_folder
-      ThinkingSphinx::Test.start
+  describe "on POST" do
+    it "redirects" do
+      post :create, query: 'some query'
+      response.should be_redirect
     end
+  end
 
-    before(:each) do
-      DatabaseCleaner.start
+  describe "on GET" do
+
+    before do
+      Thread.current["PgSearch.enable_multisearch"] = true
     end
     
-    after(:all) do
-      DatabaseCleaner.clean
-      ThinkingSphinx::Test.stop
-      DatabaseCleaner.strategy = :transaction
-      self.use_transactional_fixtures = true
+    after do
+      Thread.current["PgSearch.enable_multisearch"] = false
     end
 
-    describe "GET 'search?query=foo'" do
-      it "returns http success" do
-        get :search , { :query => "foo" }
-        response.should be_success
-      end
-
-      # it "assigns the search results as @klus - but during test a searchd has to run... so if running specs with guard this error is okay"  do
-      # klu = FactoryGirl.create(:published_kluuu, title: "ein testtitel")
-      #   ThinkingSphinx::Test.index
-      #   get :search , { :query => "testtitel" }
-      #   assigns(:klus).kind_of?(Array).should be_true
-      #   assigns(:klus).should eq([klu])
-      # end
+    it "succeeds" do
+      get :show, page: 1, query: 'some query'
+      response.should be_success
     end
 
-    describe "GET 'match'" do
-      pending "returns http success" do
-        get 'match'
-        response.should be_success
-      end
+    it "populates results" do
+      venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).should_not be_empty
     end
+
+    it "finds users" do
+      user = FactoryGirl.create(:user, firstname: 'Fear and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(user)
+    end
+
+    it "finds venues" do
+      venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(venue)
+    end
+
+    it "finds talks" do
+      talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(talk)
+    end
+
+    it "finds results when forgetting the accent" do
+      talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).first.searchable.should eq(talk)
+    end
+
+    it "finds results when using wrong accents" do
+      talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
+      get :show, page: 1, query: 'Dèlìght'
+      assigns(:results).first.searchable.should eq(talk)
+    end
+
+    it "finds multiple models at once" do
+      user = FactoryGirl.create(:user, firstname: 'Fear and Delight')
+      venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+      talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
+      get :show, page: 1, query: 'Delight'
+      assigns(:results).count.should eq(3)
+      searchables = assigns(:results).map(&:searchable)
+      searchables.should include(user)
+      searchables.should include(venue)
+      searchables.should include(talk)
+    end
+  end
 
 end

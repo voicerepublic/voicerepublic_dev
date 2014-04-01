@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  
+
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
-  
-  layout "application", :only => [:welcome]
-  
+
+  # layout "application", :only => [:welcome]
+
   # GET /users
   # GET /users.json
   def index
@@ -17,9 +17,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if @user.participating_venues.empty? && @user.venues.any?
-      redirect_to venues_user_url(@user)
-    end
+    #if @user.participating_venues.empty? && @user.venues.any?
+    #  redirect_to venues_user_url(@user)
+    #end
   end
 
   def no_kluuus
@@ -32,11 +32,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     #@kluuus = @user.kluuus
   end
-  
+
   def venues
     @user = User.find(params[:id])
     @venues = Venue.of_user(@user)
-    
+
   end
 
   # GET /users/new
@@ -64,7 +64,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html do
+          redirect_to @user, flash: { notice: I18n.t("flash.actions.create.notice") }
+        end
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -77,35 +79,21 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    @account = @user.account
     authorize! :update, @user
-    
+
     respond_to do |format|
-      logger.debug("Users#update - params[user]: #{params[:user].inspect}")
-      url = if params[:from_settings]
-              dashboard_settings_url
-            elsif params[:from_account]
-              @account = @user.account
-              user_url(:id => @user )
-            else
-              user_url(:id => @user)
-            end
       if @user.update_attributes(params[:user])
-        format.html { redirect_to  url, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
-        format.js
+        format.html do
+          redirect_to @user, flash: { notice: I18n.t("flash.actions.update.notice") }
+        end
+        #format.json { head :no_content }
+        #format.js
       else
         logger.error("Users#update - ERROR: #{@user.errors.inspect}")
         format.html do
-            if params[:from_account]
-              render :template => 'accounts/edit', :layout => 'application'
-            elsif params[:from_settings]
-              render(:template => 'dashboard/edit_settings', :layout => 'dashboard')
-            else
-              render :action => :edit
-            end
+          render :edit
          end
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        #format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -114,9 +102,9 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
-    
+
     authorize! :destroy, @user
-    
+
     @user.destroy
 
     respond_to do |format|
@@ -126,7 +114,7 @@ class UsersController < ApplicationController
   end
 
   def welcome
-    #@klu = current_or_guest_user.no_kluuus.build(:tag_list => "newcomer")
-    @user = current_or_guest_user
+    #@klu = current_user.no_kluuus.build(:tag_list => "newcomer")
+    @user = current_user
   end
 end

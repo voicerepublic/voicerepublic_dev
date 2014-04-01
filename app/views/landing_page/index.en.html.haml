@@ -1,15 +1,26 @@
-.landing-page
-  .lp-bg
-    = image_tag "Bilder_KluuU_Studio/#{rand(7)}.jpg"
-  .row-fluid
-    .span8
-      %img{:src => "https://www.evernote.com/shard/s19/sh/5aa15f31-6cf0-480b-9c96-2a125de60e24/cae2ab251d72bfd1cabe3d8e4655bc6d/deep/0/kluuu_will_be_vr.png"}
-    .span4
-      .well.well-large.lp-login
-        = render 'lp_login', :user => @user
-  .row-fluid
-    .span8.lp-left-bottom.featured-box
-      = render(:partial => "lp_venues")
-    .span4
-      .well.well-large.lp-signup
-        = render 'lp_signup', :user => @user
+.header-block(style="background-image:url(http://lorempixel.com/1000/1000/abstract)")
+  %br/
+  %br/
+  .row.collapse-large-only
+    .medium-7.columns
+      %h1.headline
+        = t('.headline')
+      %h2.subheadline
+        = t('.subheadline')
+
+    .medium-5.columns
+      %br
+      = render 'lp_signup', :user => @user
+      %br
+      = render 'lp_login', user: @user
+  %br
+
+.row
+  .medium-12.columns
+    - @talks.each do |talk|
+      .panel
+        = link_to [talk.venue, talk] do
+          %h4= talk.venue.user.name
+          %h3= talk.venue.title
+          %h2= talk.title
+          %p= talk.teaser

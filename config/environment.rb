@@ -4,6 +4,6 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 
 
-Kluuu2::Application.initialize!
-Kluuu2::VERSION = "2.1"
+VoiceRepublic::Application.initialize!
+VoiceRepublic::VERSION = "2.1"
 

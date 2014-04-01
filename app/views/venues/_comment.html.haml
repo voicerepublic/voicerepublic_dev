@@ -1,0 +1,12 @@
+.comment-item.row.collapse
+  .large-12.columns
+    .comment-left-box.left
+      = link_to comment.user do
+        = image_tag comment.user.avatar.thumb('40x40#nw').url
+    .comment-right-box
+      = link_to comment.user, class: 'comment-author' do
+        = comment.user.name
+      %span.comment-date
+        = l(comment.created_at, format: :short)
+      .comment-text
+        = sophisticated_format comment.content

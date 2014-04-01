@@ -1,3 +1,18 @@
+GIT
+  remote: git://github.com/branch14/pg_search.git
+  revision: 819defdfc14b8ef2855c043dbd31f01c5bf49928
+  specs:
+    pg_search (0.7.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
+
+GIT
+  remote: git@github.com:bmabey/database_cleaner.git
+  revision: b254ce57bdeea927e514a486aedc2ac97199324b
+  specs:
+    database_cleaner (1.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -34,11 +49,17 @@ GEM
     annotator (0.0.10)
       activerecord (>= 3.0)
     arel (4.0.1)
-    atomic (1.1.14)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
+    atomic (1.1.16)
+    auphonic (0.1.0)
+      faraday
     bcrypt-ruby (3.1.2)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
+    callsite (0.0.11)
     cancan (1.6.10)
     capistrano (3.1.0)
       i18n
@@ -50,8 +71,8 @@ GEM
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-rbenv (2.0.1)
-      capistrano (~> 3.0)
+    capistrano-rbenv (2.0.2)
+      capistrano (~> 3.1)
       sshkit (~> 1.3)
     capybara (2.2.1)
       mime-types (>= 1.16)
@@ -61,13 +82,12 @@ GEM
       xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    childprocess (0.4.2)
+      ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     ci_reporter (1.9.1)
       builder (>= 2.1.2)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.3)
-      climate_control (>= 0.0.3, < 1.0)
+    cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -79,14 +99,23 @@ GEM
     columnize (0.3.6)
     commonjs (0.2.7)
     cookiejar (0.3.0)
+    crack (0.4.1)
+      safe_yaml (~> 0.9.0)
+    css_parser (1.3.5)
+      addressable
     daemons (1.1.9)
-    database_cleaner (1.2.0)
+    debug_inspector (0.0.2)
     debugger (1.6.5)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.3.1)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.3.1)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -97,6 +126,9 @@ GEM
     disable_assets_logger (1.0.0)
     docile (1.1.2)
     dotenv (0.9.0)
+    dragonfly (1.0.3)
+      multi_json (~> 1.0)
+      rack
     dynamic_form (1.1.4)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
@@ -137,9 +169,11 @@ GEM
       dotenv (>= 0.7)
       thor (>= 0.13.6)
     formatador (0.2.4)
+    foundation-rails (5.1.1.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
     friendly_id (5.0.2)
       activerecord (~> 4.0.0)
-    gli (2.9.0)
     globalize3 (0.1.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -165,6 +199,9 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.9)
     i18n_data (0.4.0)
+    icomoon-rails (0.1.0)
+      railties (>= 3.1.1)
+      sass-rails (>= 3.1.1)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -184,17 +221,14 @@ GEM
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    localeapp (0.6.14)
-      gli
-      i18n
-      json
-      rack
-      rest-client
-      ya2yaml
     lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    meta_request (0.2.8)
+      callsite
+      rack-contrib
+      railties
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
@@ -205,11 +239,11 @@ GEM
       activesupport (>= 3.0)
       money (~> 6.0.0)
       railties (>= 3.0)
-    multi_json (1.8.4)
+    multi_json (1.9.2)
     multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.7.0)
+    net-ssh (2.8.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth2 (0.8.1)
@@ -230,14 +264,12 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
-    paperclip (3.5.2)
-      activemodel (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.3)
-      mime-types
-    paranoia (2.0.1)
-      activerecord (~> 4.0)
     pg (0.17.1)
+    poltergeist (1.5.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     polyglot (0.3.3)
     private_pub (1.0.3)
       faye
@@ -250,6 +282,10 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.5.2)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -276,9 +312,11 @@ GEM
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
     ref (1.0.5)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
-    riddle (1.5.10)
+    roadie (2.4.3)
+      actionmailer (> 3.0.0, < 5.0.0)
+      css_parser (~> 1.3.4)
+      nokogiri (> 1.5.0)
+      sprockets
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -295,13 +333,22 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    sass (3.2.13)
+    rspec-retry (0.2.1)
+      rspec
+    rubyzip (1.1.0)
+    safe_yaml (0.9.7)
+    sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
     select2-rails (3.5.2)
       thor (~> 0.14)
+    selenium-webdriver (2.39.0)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0.4)
     simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
@@ -325,8 +372,8 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh
       term-ansicolor
-    term-ansicolor (1.2.2)
-      tins (~> 0.8)
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -334,27 +381,18 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
-    thinking-sphinx (2.0.13)
-      activerecord (>= 3.0.3)
-      builder (>= 2.1.2)
-      riddle (>= 1.5.3)
     thor (0.18.1)
-    thread_safe (0.1.3)
-      atomic
+    thread_safe (0.3.1)
+      atomic (>= 1.1.7, < 2)
     tilt (1.4.1)
+    timecop (0.5.9.2)
     timers (1.1.0)
-    tins (0.13.1)
+    tins (1.0.0)
+    transitions (0.1.12)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.2.0)
-      coffee-rails
-    twitter-bootstrap-rails (2.2.8)
-      actionpack (>= 3.1)
-      execjs
-      rails (>= 3.1)
-      railties (>= 3.1)
-    tzinfo (0.3.38)
+    tzinfo (0.3.39)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -362,10 +400,15 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vcr (2.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    webmock (1.15.2)
+      addressable (>= 2.2.7)
+      crack (>= 0.3.2)
+    websocket (1.0.7)
     websocket-driver (0.3.2)
-    whenever (0.8.4)
+    whenever (0.9.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
     will_paginate (3.0.5)
@@ -373,7 +416,6 @@ GEM
       will_paginate (>= 3.0.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    ya2yaml (0.31)
     zeus (0.13.3)
       method_source (>= 0.6.7)
 
@@ -384,59 +426,72 @@ DEPENDENCIES
   acts-as-taggable-on (= 3.0.1)
   airbrake
   annotator
-  awesome_nested_set
+  auphonic
+  better_errors
+  binding_of_caller
   cancan
   capistrano (~> 3.1.0)
   capistrano-bundler (~> 1.1.1)
   capistrano-rails (~> 1.1.1)
-  capistrano-rbenv (~> 2.0.1)
+  capistrano-rbenv (~> 2.0)
   capybara
   ci_reporter
   coffee-rails
-  database_cleaner
+  daemons
+  database_cleaner!
   debugger
+  delayed_job
+  delayed_job_active_record
   devise
   disable_assets_logger
+  dragonfly (= 1.0.3)
   dynamic_form
   eu_central_bank
   factory_girl_rails (~> 4.0)
   faker
   foreman
+  foundation-rails
   friendly_id
   globalize3
   guard-rspec
   haml-rails
   i18n_data
+  icomoon-rails
   jquery-rails
   launchy
   less-rails (= 2.3.2)
-  localeapp
+  meta_request
   money-rails
   omniauth-facebook
   omniauth-google-oauth2
-  paperclip
-  paranoia (~> 2.0)
   pg
+  pg_search!
+  poltergeist
   private_pub
   protected_attributes
   pry-rails
+  rack-cache
   rails (= 4.0.2)
   rails-i18n
   rails_config
+  roadie (= 2.4.3)
   rspec-rails
+  rspec-retry
   sass-rails
   select2-rails
+  selenium-webdriver
   simple_form
   simplecov
   sqlite3
   therubyracer
   thin
-  thinking-sphinx (= 2.0.13)
-  turbolinks
-  twitter-bootstrap-rails
+  timecop
+  transitions
   uglifier
   unicorn
-  whenever (= 0.8.4)
+  vcr (= 2.8.0)
+  webmock (~> 1.15.0)
+  whenever
   will_paginate
   will_paginate-bootstrap
   zeus

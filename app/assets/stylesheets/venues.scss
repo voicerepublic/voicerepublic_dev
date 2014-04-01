@@ -1,0 +1,27 @@
+.venues-edit,
+.venues-new{
+
+	@include form-generic-styles();
+
+}
+
+.venues-show{
+	.title-block{
+		background: rgba(0,0,0,0.8);
+		.venue-title,.venue-teaser{
+			color: white;
+		}
+		.venue-title{
+			line-height: 2rem;
+			margin: 3.5rem 0;
+		}
+		.venue-teaser{
+			font-size: 1rem;
+			margin-bottom: 50px;
+		}
+	}
+
+  .vr-tabs dd{
+  	width: 25%;
+  }
+}

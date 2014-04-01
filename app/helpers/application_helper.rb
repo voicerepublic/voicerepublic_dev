@@ -1,4 +1,24 @@
 module ApplicationHelper
+
+  def delete_params
+    {
+      method: :delete,
+      data: { 
+        confirm: I18n.t('.confirm_delete', default: 'Are you sure?')
+      },
+      class: 'button tiny'
+    }
+  end
+
+  def destroy_participation_link(venue)
+    link_to( I18n.t('helpers.venue_actions.unjoin_venue'),
+             venue_participation_path(:venue_id => @venue.id),
+             :method => :delete,
+             :data => {
+               :confirm => I18n.t('helpers.venue_actions.confirm_unjoin_venue')
+             },
+             :class => "btn btn-small" )
+  end
   
   # limit number of words beeing displayed.
   #
@@ -23,7 +43,7 @@ module ApplicationHelper
   #     src="//www.youtube.com/embed/F0G0YNHINwY"></iframe>
   #
   def youtubify(txt)
-    template = "\n\n<iframe width='307' height='188' " +
+    template = "\n\n<iframe width='640' height='480' " +
       "src='//www.youtube.com/embed/%s' " +
       "frameborder='0' allowfullscreen></iframe>"
 
@@ -42,6 +62,7 @@ module ApplicationHelper
   end
 
   # simple_format, but with simple links target blanks preserved
+  # TODO replace with somethink like https://github.com/jch/html-pipeline
   def sophisticated_format(txt)
     simple_format(youtubify(simple_links(sanitize(txt))), {}, :sanitize => false)
   end
@@ -59,6 +80,7 @@ module ApplicationHelper
     klu.instance_of?(Kluuu) ? t('helper.application.kluuu_string') : t('helper.application.no_kluuu_string')
   end
 
+  # TODO: move into trickery
   class << self
     def determine_release
       path = Rails.env.production? ? '../repo' : '.'

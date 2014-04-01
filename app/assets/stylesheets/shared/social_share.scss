@@ -1,0 +1,15 @@
+#social_share {
+  position: absolute;
+  right: 20px;
+  top: 70px;
+  span{
+    display: block;
+    font-size: 2rem;
+    a{
+    	color:white;
+    	&:hover,&:focus{
+    		color:#ddd;
+    	}
+    }
+  }
+}

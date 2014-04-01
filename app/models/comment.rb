@@ -1,19 +1,20 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * commentable_id [integer] - belongs to :commentable
+# * commentable_type [string] - belongs to :commentable
+# * content [text] - TODO: document me
+# * created_at [datetime, not null] - creation time
+# * updated_at [datetime, not null] - last update time
+# * user_id [integer, not null] - belongs to :user
 class Comment < ActiveRecord::Base
 
   attr_accessible :content
   
-  # FIXME this is a security hack
-  attr_accessible :user_id, :article_id
-
-  belongs_to :article
+  belongs_to :commentable, polymorphic: true
   belongs_to :user
 
-  delegate :venue, to: :article, prefix: true
+  scope :ordered, ->{ order('created_at DESC') }
 
-  default_scope { order('created_at DESC') }
-
-  validates :user, presence: true
-  validates :article, presence: true
-  validates :content, presence: true
+  validates :user, :commentable, :content, presence: true
 
 end

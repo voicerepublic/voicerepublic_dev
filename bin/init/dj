@@ -1,0 +1,45 @@
+#!/bin/bash
+# Thu Mar 18 11:54:42 CEST 2014
+# Phil Hofmann
+# Switzerland, Zurich, RocketPark, VoiceRepublic
+
+__pwd="$(pwd -P)"
+__mydir="${0%/*}"
+__abs_mydir="$(cd "$__mydir" && pwd -P)"
+__myname=${0##*/}
+__abs_myname="$__abs_mydir/$__myname"
+
+. ~/bin/rbenv_init
+
+export RAILS_ENV=production
+
+bundle='/home/app/.rbenv/shims/bundle'
+pidfile="/home/app/app/shared/tmp/pids/delayed_job.$2-$3.pid"
+cmd="${bundle} exec bin/delayed_job --queue=$2 -i $2-$3 start"
+
+# Rails is always located below ~/app/current
+cd ~/app/current
+
+case $1 in
+    start)
+	pwd
+	echo ${cmd}
+        ${cmd}
+	cat ${pidfile}
+	echo
+    ;;
+    stop)
+        kill `cat ${pidfile}`
+    ;;
+    restart)
+        "$0" stop
+        "$0" start
+    ;;
+    *)
+        cat << eof
+$0:
+    start <queue> <id>:          start and daemonize
+    stop <queue> <id>:           stop existing processes
+    restart <queue> <id>:        stop and start
+eof
+esac

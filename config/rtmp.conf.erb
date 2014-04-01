@@ -1,0 +1,86 @@
+# doc: https://github.com/arut/nginx-rtmp-module/wiki/Directives
+
+worker_processes <%= worker_processes %>;
+
+error_log logs/error.log debug;
+
+events {
+    worker_connections 1024;
+}
+
+rtmp {
+    server {
+        listen 1935;
+
+        <% if authenticate %>
+        # authentication (needs an absolute url)
+        on_connect <%= callback_base %>/auth;
+        <% end %>
+
+        application offrecord {
+            live on;
+        }
+
+        application record {
+            live on;
+
+            record audio;
+            record_path recordings; # TODO set via settings
+            record_unique on;
+            record_max_size <%= record_max_size %>;
+            record_lock on;   
+
+            # --- Exec
+            # # live transcode to wave file while recording
+            # # (connection needs to be permitted by rack middleware)
+            # exec /usr/bin/avconv -i rtmp://localhost/recordings/$name \
+            #        -b:a 64k recordings/$name.live.wav;
+            # # after record done transcode to wav
+            # exec_record_done /usr/bin/avconv -i $path -b:a 64k \
+            #                    recordings/$basename.wav; 
+
+            <% if send_notifications %>
+            # --- Notifications
+            on_play         <%= callback_base %>/notify;
+            on_publish      <%= callback_base %>/notify;
+            on_done         <%= callback_base %>/notify;
+            on_play_done    <%= callback_base %>/notify;
+            on_publish_done <%= callback_base %>/notify;
+            on_record_done  <%= callback_base %>/notify;
+            on_update       <%= callback_base %>/notify;
+            <% end %>
+        }
+    }
+}
+
+http {
+    server {
+        # TODO only allow localhost
+        listen 8080;
+
+        location /stat {
+            rtmp_stat all;
+            rtmp_stat_stylesheet stat.xsl;
+        }
+
+        location /stat.xsl {
+            root /home/rails/nginx-rtmp/nginx-rtmp-module/;
+        }
+
+        location /index.html { root /home/rails/nginx-rtmp/nginx-run/html/kluuu/; }
+        location /swfobject.js { root /home/rails/nginx-rtmp/nginx-run/html/kluuu/; }
+        location /Room.swf { root /home/rails/nginx-rtmp/nginx-run/html/kluuu/; }
+
+        location /control {
+            rtmp_control all;
+        }
+
+        # # dummy auth
+        # location /rtmp/auth {
+        #     if ($arg_flashver != "LNX 11,2,202,310") {
+        #       rewrite ^.*$ fallback? permanent;
+        #     }
+        #     return 200;
+        # }
+    }
+}

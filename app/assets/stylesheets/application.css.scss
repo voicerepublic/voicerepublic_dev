@@ -1,0 +1,45 @@
+/*
+ * This is a manifest file that'll be compiled into application.css,
+ * which will include all the files listed below.
+ *
+ * Any CSS and SCSS file within this directory,
+ * lib/assets/stylesheets, vendor/assets/stylesheets, or
+ * vendor/assets/stylesheets of plugins, if any, can be referenced
+ * here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll
+ * appear at the top of the compiled file, but it's generally better
+ * to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+ @import "grids_variables_mixins/ci_variables";
+ @import "grids_variables_mixins/mixins";
+ @import "grids_variables_mixins/foundation_and_overrides";
+ @import "grids_variables_mixins/foundation-icons";
+ @import "grids_variables_mixins/eagle_webfonts";
+ @import "main";
+ @import "foundation_calendar";
+ @import "select2";
+/* @import "icomoon-free/style";*/
+
+// SHARED
+ @import "shared/top_actionbar";
+ @import "shared/flash_messages";
+ @import "shared/social_share";
+ @import "shared/footer";
+ @import "shared/header_block";
+ @import "shared/generic_action_bar";
+ @import "shared/vr_tabs";
+ @import "shared/talk_medium_box";
+ @import "shared/venue_medium_box";
+ @import "shared/comment";
+ @import "shared/vr_player";
+ @import "shared/avatar";
+
+// RAILS STRUCTURE
+ @import "landing_page";
+ @import "users";
+ @import "venues";
+ @import "talks";

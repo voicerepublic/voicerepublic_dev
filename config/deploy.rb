@@ -1,13 +1,14 @@
-# TODO setup thinking sphinx
-# TODO setup whenever
-# see https://semaphoreapp.com/blog/2013/11/26/capistrano-3-upgrade-guide.html
-
 # config valid only for Capistrano 3.1
 lock '3.1.0'
 
-set :rbenv_ruby, "1.9.3-p448"
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '1.9.3-p448' # i think this option is obsolete
+#set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+#set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+#set :rbenv_roles, :all # default value
+set :rbenv_ruby_version, "1.9.3-p448"
 
-set :application, 'kluuu2'
+set :application, 'voice_republic'
 set :repo_url, 'git@github.com:munen/voicerepublic_dev.git'
 
 set :ssh_options, { forward_agent: true }
@@ -16,7 +17,7 @@ set :ssh_options, { forward_agent: true }
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/home/rails/app'
+set :deploy_to, '/home/app/app'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -54,6 +55,12 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
       execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
+      # Kill all delayed jobs and leave the respawning to monit.
+      execute "pkill -f delayed_job"
+      # Will deliberately keep private_pub and rtmpd running
+      # since we'll almost never have to change their code base
+      # resp. config. If a restart is nescesarry use the web
+      # interface of monit to restart those processes.
     end
   end
 

@@ -1,0 +1,29 @@
+.header-block(style="background-image: url(#{@venue.image.url})"
+  data-show-upload="#venue_image")
+  .form-top-box.row.collapse
+    .medium-10.medium-offset-1.columns
+      .row
+        .medium-12.columns
+          %h2.form-title= form_title
+      .row
+        .medium-12.columns
+          = f.error_notification
+      .row
+        .medium-12.columns
+          = f.input :title, placeholder: t('.title')
+          %br
+          = f.input :teaser, rows: 2, placeholder: t('.teaser')
+          %button.button(type="button" class="tiny" data-trigger-file-input="talk_image")
+            Select profile image  
+          = f.file_field :image, class: 'display-none'
+%br
+%br
+.row
+  .medium-12.columns
+    = f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
+    %br
+    %br
+    %label.venue-description-label(for="venue_description")
+      = t('.What is the purpose of this venue?')
+    = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'venue-toolbar' }
+    = f.text_area :description, class: 'text-area', placeholder: t('.description'), 'data-wysiwyg' => '#venue-toolbar'

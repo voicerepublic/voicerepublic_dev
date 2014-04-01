@@ -1,0 +1,66 @@
+.top-bar-box{
+	margin-bottom:-55px !important;
+	max-width: rem-calc(700);
+
+	.top-bar {
+		z-index: 1;
+	}
+
+	.top-bar-vr-logo{
+		position: absolute;
+		top:0;
+		left: 50%;
+		margin-left: -40px;
+		width:80px;
+		line-height: 1.4rem;
+	}
+
+	.top-bar-search-box{
+		position: relative;
+		width:150px;
+		&:hover,
+		&:focus{
+			background: #444;
+		}
+	}
+
+	.top-bar-search-field{
+		position: absolute !important;
+		top: 4px !important;
+		left: 0;
+		width: 150px;
+		height: 30px !important;
+		line-height: inherit !important;
+		background: #000 !important;
+		margin: 0;
+		padding: 0 5px 0 30px !important;
+		color: #fff !important;
+		border-style: none !important;
+		@include placeholder{
+			color: white;
+		}
+		&:hover,
+		&:focus{
+			background: #333 !important;
+			border-style: none !important;
+			outline-style: none !important;
+			@include box-shadow(0,0,0,#000)
+		}
+	}
+
+	.search-lupe{
+		position: absolute;
+		left: 2px;
+		top: 6px;
+		background: none;
+		font-size: 1.2rem;
+		padding: 0;
+		margin: 0;
+		display: inline;
+		&:hover,
+		&:focus{
+			background:none;
+		}
+	}
+
+}

@@ -1,7 +1,7 @@
 .contribution.contribution-comments.clearfix
   .contribution-left
     = link_to user_path(:id => comment.user) do
-      = image_tag comment.user.account.portrait.url(:thumb), :class => "img-polaroid pull-left"
+      = image_tag comment.user.avatar.url(:thumb), :class => "img-polaroid pull-left"
     
   .contribution-right
     = link_to user_path(:id => comment.user), :class => 'contribution-username' do

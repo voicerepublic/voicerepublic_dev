@@ -1,8 +1,10 @@
 class Users::SessionsController < Devise::SessionsController 
-    include Devise::Controllers::Rememberable
+
+  include Devise::Controllers::Rememberable
 
   # POST /resource/sign_in
   def create
+    # FIXME: this writes the password in plain text to the log
     logger.debug("Users::Sessions#create - overwrite devise params: #{params.inspect}")
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_navigational_format?

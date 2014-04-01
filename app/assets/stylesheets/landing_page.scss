@@ -1,0 +1,18 @@
+.landing_page-index{
+	.headline,.subheadline{
+		color: white
+	}
+	.subheadline{
+		font-size: rem-calc(20);
+	}
+	.button-signup{
+		width: 100%;
+	}
+
+	.signup-facebook{
+		color: white;
+		&:hover, &:focus{
+			color:white
+		}
+	}
+}

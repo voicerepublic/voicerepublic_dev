@@ -1,13 +1,40 @@
+# this file reflects standard settings for development
+# overrides for production can be found in
+# `config/settings/production.yml`
+durations: [ 30, 45, 60, 90, 120, 240 ]
+audio:
+  process_chain: precursor kluuu_merge trim m4a mp3 ogg move_clean jinglize m4a mp3 ogg
 rtmp:
-  discussions: "rtmp://kluuu.com/discussions"
-  recordings: "rtmp://kluuu.com/recordings"
+  # all paths get expanded with `Rails.root`
+  # which doesn't affect absolute paths
+  build_path:       local/rtmp
+  archive_path:     local/archive
+  archive_raw_path: local/archive_raw
+  recordings_path:  local/recordings
+  #offrecord: "rtmp://172.21.21.171/offrecord"
+  #record: "rtmp://172.21.21.171/record"
+  #offrecord: "rtmp://localhost/offrecord"
+  #record: "rtmp://localhost/record"
+  offrecord: "rtmp://kluuu.com/discussions"
+  record: "rtmp://kluuu.com/recordings"
+  log_notifications: true
+  #######################################
+  # entries used by config/rtmp.conf.erb
+  #######################################
+  send_notifications: true
+  # callback_base must be an absolute url and is used for
+  # notifications `/notify` and authentication `/auth`
+  callback_base: 'http://0.0.0.0:3000/rtmp'
+  record_max_size: '100M'
+  authenticate: true
+  worker_processes: 1
 errbit:
-  api_key: '710bf38280e0f96f26a74682519794d5'
+  api_key: '785e40bce8a3370f0bb13635d75bdda5'
 localeapp:
   enabled: true
   api_key: '5EzAUJzfRXXHzt5xW5h6hyOIuJ4dy49d9Il3imi4JKZoXV8IlL'
 devise:
-  from_address: "noreply@kluuu.com"
+  from_address: "service@voicerepublic.com"
   secret_key: '077e0e804b07d4284d6960b23579ca07b7a83bdf65f5c1a21d8d256e3d0ddfaec82bc294bf91e44bb0cc604757141f6b175d7290469fb881e4d347082f7e6481'
   omniauth:
     facebook:
@@ -20,4 +47,5 @@ devise:
       - 'Qa1tDkIJNp7jwGeSSF7mUG6R'
       - access_type: "offline"
         approval_prompt: ""
-
+rspec:
+  gc_cycle: 20

@@ -6,16 +6,16 @@ class Ability
   def initialize(user)
 
     user ||= User.new
-    
+
+    return false if user.guest?
+
     can :manage, User,    id: user.id
-    can :manage, Account, user_id: user.id
     can :manage, Venue,   user_id: user.id
-    can :manage, Article, user_id: user.id
     can :manage, Comment, user_id: user.id
-    
-    can :create, Venue do |venue|
-      !user.guest?
+
+    can :manage, Talk do |talk|
+      talk.venue.user_id == user.id
     end
-    
+
   end
 end

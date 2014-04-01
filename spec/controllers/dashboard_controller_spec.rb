@@ -6,13 +6,13 @@ describe DashboardController do
     #DatabaseCleaner.clean
     @user = FactoryGirl.create(:user)
     request.env['warden'].stub :authenticate! => @user
-    controller.stub :current_or_guest_user => @user
+    controller.stub :current_user => @user
   end
 
   describe "GET 'index'" do
     it "returns http success" do
       get 'index'
-      response.should be_redirect
+      response.should be_success
     end
   end
   

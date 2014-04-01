@@ -3,13 +3,12 @@ class VenuesController < ApplicationController
   before_filter :store_location
   #before_filter :remember_location, :only => [:join_venue]
   before_filter :authenticate_user!, :except => [:index, :show, :tags]
-  
+  before_filter :set_venue, only: [:show, :edit, :update, :destroy]
+
   # GET /venues
   # GET /venues.json
   def index
-    # FIXME these are horrible hacks!
-    @venues      = Event.joins(:venue).not_past.upcoming_first.map(&:venue).uniq
-    @past_venues = Event.joins(:venue).past.most_recent_first.limit(15).map(&:venue).select(&:past?).uniq
+    @venues = Venue.order('updated_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,7 +19,15 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
-    @venue = Venue.find(params[:id])
+    @upcoming_talks = @venue.talks.upcoming
+    @next_talk      = @upcoming_talks.shift
+    @archived_talks = @venue.talks.archived
+
+    @participation =
+      @venue.participations.find_by(user_id: current_user.id)
+
+    @show_join = @participation.nil? &&
+      current_user != @venue.user
 
     respond_to do |format|
       format.html # show.html.erb
@@ -31,9 +38,7 @@ class VenuesController < ApplicationController
   # GET /venues/new
   # GET /venues/new.json
   def new
-
     @venue = Venue.new
-    @venue.events.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,7 +48,6 @@ class VenuesController < ApplicationController
 
   # GET /venues/1/edit
   def edit
-    @venue = Venue.find(params[:id])
     if params[:renew]
       @renew = true
     end
@@ -58,15 +62,15 @@ class VenuesController < ApplicationController
   # POST /venues.json
   def create
     @venue = Venue.new(params[:venue])
-    @venue.user = current_or_guest_user
-    
+    @venue.user = current_user
+
     authorize! :create, @venue
 
     respond_to do |format|
       if @venue.save
-        format.html do 
+        format.html do
           logger.debug("Venues#cretae  - redirecting to venue")
-          redirect_to @venue, notice: 'Venue was successfully created.' 
+          redirect_to @venue, notice: 'Venue was successfully created.'
          end
         format.json { render json: @venue, status: :created, location: @venue }
       else
@@ -80,9 +84,8 @@ class VenuesController < ApplicationController
   # PUT /venues/1
   # PUT /venues/1.json
   def update
-    @venue = Venue.find(params[:id])
     authorize! :update, @venue
-    
+
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
         format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
@@ -117,23 +120,23 @@ class VenuesController < ApplicationController
   # # POST /venues/1/join_venue/5
   # #
   # def join_venue
-  #   
+  #
   #   logger.debug("Venues#join_venue - at start of function ####################### ")
-  #   
+  #
   #   @venue = Venue.find(params[:venue_id])
-  #   
-  #   if current_or_guest_user.no_kluuus.empty?
-  #     klu = current_or_guest_user.no_kluuus.create(:title => current_or_guest_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
+  #
+  #   if current_user.no_kluuus.empty?
+  #     klu = current_user.no_kluuus.create(:title => current_user.name, :published => true, :tag_list => "kluser", :category => Category.first)
   #   else
-  #     klu = current_or_guest_user.no_kluuus.first
+  #     klu = current_user.no_kluuus.first
   #   end
-  #   
+  #
   #   #klu = Klu.find(params[:klu_id])
-  #   
+  #
   #   venue_klu = VenueKlu.new(:venue => @venue, :klu => klu )
-  #   
+  #
   #   authorize! :create, venue_klu
-  #   
+  #
   #   respond_to do |format|
   #     if venue_klu.save
   #       format.html { redirect_to @venue, notice: "Successfully joined venue" }
@@ -144,21 +147,21 @@ class VenuesController < ApplicationController
   #     end
   #   end
   # end
-  # 
+  #
   # def unjoin_venue
   #   @venue = Venue.find(params[:venue_id])
-  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_or_guest_user }
-  #   
+  #   @venue.venue_klus.collect { |vk| vk.destroy if vk.klu.user == current_user }
+  #
   #   respond_to do |format|
   #     format.html { redirect_to @venue, notice: "Successfully unjoined venue" }
   #     #format.js {}
   #   end
   # end
-  
+
   def new_join
     @venue = Venue.find(params[:venue_id])
     respond_to do |format|
-      format.html 
+      format.html
       format.js
     end
   end
@@ -166,14 +169,12 @@ class VenuesController < ApplicationController
   # DELETE /venues/1
   # DELETE /venues/1.json
   def destroy
-    @venue = Venue.find(params[:id])
-    
     authorize! :destroy, @venue
-    
+
     @venue.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_path(current_or_guest_user) }
+      format.html { redirect_to user_path(current_user) }
       format.json { head :no_content }
     end
   end
@@ -185,11 +186,15 @@ class VenuesController < ApplicationController
   end
 
   private
-  
+
   def remember_location
-    logger.debug("Venues#remember_location - storing location: #{venue_url(:id => params[:venue_id])}")
+    logger.debug("Venues#remember_location - storing location: " +
+                 "#{venue_url(:id => params[:venue_id])}")
     session[:venue_path] = venue_url(:id => params[:venue_id])
   end
-  
-  
+
+  def set_venue
+    @venue = Venue.find(params[:id])
+  end
+
 end

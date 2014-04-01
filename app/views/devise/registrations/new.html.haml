@@ -1,45 +1,22 @@
-.well.well-large.centered-box.signup
-  .page-header
-    %h2= t(".registration_title")
-    = render(:partial => 'devise/shared/social_network_connects')
-    .sessions-or-box
-      %hr/
-      .sessions-or-overlap= t(".registration_or")
-    = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-      = devise_error_messages!
-      .control-group
-        = f.label :firstname, :class => 'control-label' do
-          = t('.firstname')
-        .controls
-          = f.text_field :firstname, :class => 'input-block-level'
-      .control-group
-        = f.label :lastname, :class => 'control-label' do
-          = t('.lastname')
-        .controls
-          = f.text_field :lastname, :class => 'input-block-level'
-      .control-group
-        = f.label :email, :class => 'control-label' do
-          Email
-        .controls
-          = f.text_field :email, :type => "email", :class => 'input-block-level'
-      .control-group
-        = f.label :password, :class => 'control-label' do
-          = t('.password')
-        .controls
-          = f.password_field :password, :class => 'input-block-level'
-      .control-group
-        = f.label :password_confirmation, :class => 'control-label' do
-          = t('.password_confirmation')
-        .controls
-          = f.password_field :password_confirmation, :class => 'input-block-level'
-      .control-group
-        .controls
-          .checkbox
-            = f.check_box :accept_terms_of_use
-            = link_to( t('.agree_agb_and_tou'), txt_tou_path)
-      .control-group.signup-button
-        .controls
-          = button_tag t('.registration_title'), :name => "signup_button", :class => 'btn btn-primary pull-right'
+= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+
+  .row.top-margin-action-bar
+    .medium-10.medium-offset-1.columns
+      %h2= t(".registration_title")
+      .row.collapse
+        .medium-6.columns
+          = devise_error_messages!
+          = f.input :firstname
+          = f.input :lastname
+          = f.input :email, html_input: {type: 'email'}
+          = f.input :password, html_input: {type: 'password'}
+          = f.input :password_confirmation, html_input: {type: 'password'}
+          = f.check_box :accept_terms_of_use
+          = link_to( t('.agree_agb_and_tou'), '#')
+          = f.button :submit, t('.registration_title')
+        .medium-6.columns.text-center
+          = t(".registration_or")
+          = render(:partial => 'devise/shared/social_network_connects')
       .clearfix
       %hr/
       = render(:partial => "/devise/shared/links")

@@ -1,4 +1,7 @@
-.well.venue-form
-  .row-fluid
-    %h2.span12= t('.edit_venue')
-    = render 'form', :upcoming_events => @venue.events.not_past
+= simple_form_for @venue do |f|
+  = render partial: 'fields', locals: { f: f, form_title: t(".edit_venue") }
+
+  .form-save-row.row
+    .medium-12.columns
+      = f.button :submit
+      = link_to t('.cancel'), @venue

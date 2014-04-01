@@ -1,0 +1,40 @@
+.header-block(style="background-image: url(#{@venue.image.url})"
+  data-show-upload="#talk_image,#venue_talks_attributes_0_image")
+  
+  .form-top-box.row
+    .medium-10.medium-offset-1.columns
+      %h2.form-title= form_title
+
+      = f.error_messages
+
+      = f.input :title, placeholder: t('.title')
+      = f.input :teaser, placeholder: t('.teaser')
+      = f.input :tag_list, input_html: { class: 'tagList' }
+
+      %br
+      %br
+      -#testdatepicker  
+      .date-time-picker-row.row.collapse
+        .medium-5.columns
+          = f.input :starts_at_date, input_html: {'data-date' => ''}
+        .medium-4.columns
+          = f.input :starts_at_time, input_html: {'data-time' => ''}
+        .medium-3.columns
+          = f.input :duration, collection: Settings.durations
+      .row.collapse
+        .medium-12.columns
+          %button.button(type="button" class="tiny" data-trigger-file-input="talk_image")
+            Select profile image  
+          = f.file_field :image, as: :file, class: 'display-none'    
+
+.row
+  .medium-12.columns
+    %br
+    = f.input :guest_list, input_html: { class: 'guestList' }
+    %br
+    %br
+    %label(for="venue_description")
+      = t('.Tell your audience a little more')
+    = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'talk-toolbar' }
+    = f.text_area :description, class: 'text-area', 'data-wysiwyg' => '#talk-toolbar'
+    = f.input :record

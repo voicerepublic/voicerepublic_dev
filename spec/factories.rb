@@ -5,60 +5,11 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
 
-  # basic models
-
-  factory :event do
-    start_time 1.week.ago
-    duration   90
-    #association :venue
-    venue
-    title      "Spec event title"
-  end
-
   factory :venue do
     tag_list    'some, tags'
-    summary     Faker::Lorem.paragraph
+    teaser      Faker::Lorem.paragraph
     description Faker::Lorem.paragraphs(2).join("\n")
     title       Faker::Lorem.sentence
-    user
-
-    factory :venue_with_events do
-      ignore do
-        events_count 3
-      end
-      after(:build) do |venue, evaluator|
-        evaluator.events_count.times do |i|
-          venue.events << FactoryGirl.create(:event)
-        end
-      end
-    end
-  end
-
-  factory :account do
-    timezone { ActiveSupport::TimeZone.all[rand(ActiveSupport::TimeZone.all.length)].name }
-    language_1 "DE"
-    language_2 "EN"
-    language_3 "FR"
-    user
-
-    factory :account_with_portrait do
-      portrait { fixture_file_upload( File.join(Rails.root,'app','assets', 'images', 'rails.png')) }
-    end
-
-    factory :account_with_prefs do
-      prefs { {
-          :anonymous_calls => "1",
-          :email_concerning_me => "1",
-          :email_concerning_other => "1",
-          :inform_of_friends => "1",
-          :no_initial_help => "1"
-        } }
-    end
-  end
-
-  factory :article do
-    venue
-    content "MyText"
     user
   end
 
@@ -71,21 +22,45 @@ FactoryGirl.define do
     secret = "mysecret"
     password secret
     password_confirmation secret
-    # trait :with_portrait do
-    #   association :account, factory: :account_with_portrait
-    # end
-    #factory :user_with_portrait, traits: [:with_portrait]
+    timezone 'Berlin'
   end
 
   factory :comment do
     content { Faker::Lorem.paragraph }
-    article
     user
+    association :commentable, factory: :venue
   end
 
   factory :participation do
-    venue nil
-    user nil
+    venue
+    user
+  end
+
+  factory :talk do
+    title "MyString"
+    venue
+    starts_at_time 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
+    starts_at_date 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
+    duration 60
+    record false
+    tag_list 'lorem, ipsum, dolor'
+    description 'talk description'
+  end
+
+  factory :appearance do
+    user
+    talk
+  end
+
+  factory :message do
+    user
+    talk
+    content "MyText"
+  end
+
+  factory :setting do
+    key "MyString"
+    value "MyString"
   end
 
 end

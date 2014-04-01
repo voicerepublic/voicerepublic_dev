@@ -1,14 +1,48 @@
 - content_for :title do
   = @user.name
 
-%section.venue-list.row-fluid
-  - if @user.participating_venues.empty?
-    .text-align-center.muted
-      %br/
-      %br/
-      = t('.guest_empty_venue', :name => @user.firstname)
-      %br/
-      %br/
-  - else
-    = render(:partial => 'venues/venue_big', :collection => @user.participating_venues, :as => :venue)
-  %section
+.header-block(style="background-image: url(#{@user.header.try(:url)})")
+
+  - if can? :manage, @user
+    .generic-action-bar.row.collapse
+      .large-12.columns
+        %ul.button-group.right
+          %li= link_to t('.edit_user'), [:edit, @user], class: 'button tiny'
+
+  .header-box.row
+    .large-12.columns.text-center
+      - count = @user.participations.count
+      -# .talks-joined= t('.talk_joined', count: count, default: '%{count} Talks joined')
+      .avatar
+        .avatar-box
+          = image_tag @user.avatar.thumb('113x113#nw').url
+      %h2.user-name= @user.name
+  .row.collapse-large-only
+    .large-12.columns.text-center
+      %dl.tabs.vr-tabs(data-tab='true')
+        %dd.text-center
+          %a(href="#tab-about-me")
+            %i.fi-page
+            = t('.about_me')
+        %dd.text-center.active
+          %a(href="#tab-my-venues")
+            %i.fi-megaphone
+            = t('.my-venues')
+        %dd.text-center
+          %a(href="#tab-schedule")
+            %i.fi-calendar
+            = t('.schedule')
+        -#%dd.text-center
+        -#  %a(href="#tab-activity")= t('.activity')
+
+.row.collapse-large-only
+  .large-12.columns.tabs-content
+    #tab-about-me.content
+      = raw @user.about
+
+    #tab-my-venues.content.active
+      = render partial: 'shared/venue_medium_box', collection: @user.venues
+
+    #tab-schedule.content TODO
+
+    #tab-activity.content TODO

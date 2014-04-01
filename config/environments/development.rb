@@ -1,4 +1,4 @@
-Kluuu2::Application.configure do
+VoiceRepublic::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.eager_load = false
@@ -17,7 +17,8 @@ Kluuu2::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :file
+  ActionMailer::Base.file_settings = { :location => Rails.root.join('tmp/mail') }
   #config.action_mailer.smtp_settings = {
   #                                        :address              => "smtp.gmail.com",
   #                                        :port                 => 587,
@@ -26,7 +27,7 @@ Kluuu2::Application.configure do
   #                                        :password             => '<password>',
   #                                        :authentication       => 'plain',
   #                                        :enable_starttls_auto => true  }
-  # 
+  #
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

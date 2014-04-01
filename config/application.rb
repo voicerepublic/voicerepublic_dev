@@ -2,15 +2,20 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+require File.expand_path('../../lib/core_ext', __FILE__)
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-module Kluuu2
+module VoiceRepublic
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    config.autoload_paths += %W( #{config.root}/app/middlewares
+                                 #{config.root}/lib )
 
     config.i18n.enforce_available_locales = true
 
@@ -37,20 +42,27 @@ module Kluuu2
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
+    # authenticate access to rtmp against rack middleware
+    config.middleware.use 'RtmpAuth'
+
+    # has to be wrapped in `config.before_initialize` in order to use Settings
+    config.before_initialize do
+      opts = { :log => Settings.rtmp.log_notifications? }
+      config.middleware.use 'RtmpNotifications', opts
+    end
+
+    # increases Talk#play_count and redirects to Talk#generate_ephemeral_path!
+    config.middleware.use 'MediaTracker'
+
     # attribute_protected/attr_accessible lock down
     config.active_record.whitelist_attributes = true
 
-    # still needed with rails4 ?
-    config.assets.paths << "#{Rails.root}/app/assets/fonts"
-
-    config.assets.precompile += %w( *.js *.png *.jpg )
-    # TODO use assets the right way and we won't need these hacks, ask phil
-    config.assets.precompile += %w(
-      landing_page.css
-      venues.css
-      users.css
-      dashboard.css
-    )
+    config.assets.initialize_on_precompile = false
+    
+    # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
+    config.assets.paths << "#{config.root}/app/assets/fonts"
+    # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
+    config.assets.precompile += %w( livepage.js )
   end
 end
 

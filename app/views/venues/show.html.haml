@@ -1,8 +1,3 @@
-- if @venue.reload_time
-  - content_for :head do
-    -# force reload at @venue.reload_time
-    %meta(http-equiv="refresh" content="#{@venue.reload_time}")/
-
 - content_for :title do
   = t('.venue')
   \&middot;
@@ -11,45 +6,110 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
--# action buttons
-= render(:partial => 'venue_show_actions', :locals => { :venue => @venue } )
+.header-block(style="background-image: url(#{@venue.image.url})")
 
--if @venue.live?
-  -# live layout
-    
-  %section.venue-live-box.clearfix
-    -# description
-    = render(:partial => 'venue_show_static_live', :locals => { :venue => @venue } )  
-    = render(:partial => 'venue_show_live', :locals => { :venue => @venue } )  
+  = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
-  .row-fluid
-    .span8
-      -# forum (left)
-      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
-    .span4
-      -# participants (right)
-      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
+  - if can? :manage, @venue
+    .generic-action-bar.row.collapse
+      .large-12.columns
+        %ul.button-group.right
+          %li= link_to t('.edit_venue'), [:edit, @venue], class: 'button tiny'
+          %li= link_to t('.delete_venue'), @venue, delete_params
 
-- else
-  -# static layout
-  .row-fluid
-    .span8
-      -# description
-      = render(:partial => 'venue_show_static', :locals => { :venue => @venue } )
+  .row
+    .large-12.columns.text-center
+      - if @show_join
+        = link_to [@venue, :participations], method: :post, class: 'button' do
+          = t('.join_venue')
+      - if @participation
+        = link_to [@venue, @participation], delete_params do
+          = t('.leave_venue')
 
-      -# forum
-      = render(:partial => 'venue_show_forum', :locals => { :venue => @venue } )
+  .title-block.row
+    .large-12.columns
+      .row
+        .large-12.columns.text-center
+          / %h4= @venue.user.name
+          %h2.venue-title= @venue.title
+          %h3.venue-teaser= @venue.teaser
 
-    .span4.left-light-border
-      -# next event
-      - if @venue.current_event.present?
-        = render(:partial => 'venue_show_upcoming_event', :locals => { :venue => @venue } )
-        %hr.venue-horiz-line
+      .row
+        .large-12.columns.text-center
+          - if @show_join
+            = link_to [@venue, :participations], method: :post, class: 'button' do
+              = t('.join_venue')
+          - if @participation
+            = link_to [@venue, @participation], delete_params do
+              = t('.leave_venue')
+          - if can?(:manage, @venue) && @venue.talks.empty?
+            = t('.this_venue_has_no_talks')
+            %br/
+            %br/
+            = link_to new_venue_talk_path(@venue), class: 'button' do
+              = t('.create_a_talk_now')
 
-      -# archive
-      = render(:partial => 'venue_show_archive', :locals => { :venue => @venue } )
-      %hr.venue-horiz-line
+  .row.collapse
+    .large-12.columns
+      %dl.tabs.vr-tabs(data-tab='true')
+        %dd.text-center.active
+          %a(href="#tab-description")
+            %i.fi-layout
+            = t('.description')
+        %dd.text-center
+          %a(href="#tab-upcoming-talks")
+            %i.fi-microphone
+            = t('.upcoming_talks')
+        %dd.text-center
+          %a(href="#tab-archived-talks")
+            %i.fi-play
+            = t('.archived_talks')
+        %dd.text-center
+          %a(href="#tab-comments")
+            %i.fi-comments
+            = t('.comments')
 
-      -# participants
-      = render(:partial => 'venue_show_participants', :locals => { :venue => @venue })      
+.row.collapse
+  .tabs-content.large-12.columns
 
+    #tab-description.content.active
+      %p= @venue.description.html_safe
+
+    #tab-upcoming-talks.content
+      %p
+        = link_to new_venue_talk_path(@venue), class: 'button' do
+          = t('.create_new_talk')
+      %ul.list-style-type-none
+        - unless @next_talk.nil?
+          %li.panel.callout
+            %p
+              = t('.talk_begins_in')
+              = distance_of_time_in_words_to_now(@next_talk.starts_at)
+            %p= link_to @next_talk.title, [@venue, @next_talk]
+            = link_to t('.edit_talk'), [:edit, @venue, @next_talk], class: 'button'
+            = link_to t('.delete_talk'), [@venue, @next_talk], delete_params
+
+        - for talk in @upcoming_talks
+          %li.panel
+            %p= l(talk.starts_at, format: :designed)
+            %p= link_to talk.title, [@venue, talk]
+            = link_to t('.edit_talk'), [:edit, @venue, talk], class: 'button'
+            = link_to t('.delete_talk'), [@venue, talk], delete_params
+
+    #tab-archived-talks.content
+      %ul.list-style-type-none
+        = render partial: 'shared/talk_medium_box', collection: @archived_talks
+
+    #tab-comments.content
+      - if can? :create, Comment
+        .comment-form.row.collapse
+          .medium-12.columns
+            .comment-left-box.left
+              =link_to '#user' do
+                = image_tag current_user.avatar.thumb('40x40#nw').url
+            .comment-right-box
+              = simple_form_for [@venue, @venue.comments.build] do |f|
+                = f.input :content
+                = f.button :submit, class: 'button tiny'
+      %ul.list-style-type-none
+        = render partial: 'comment', collection: @venue.comments.ordered
