@@ -13,27 +13,23 @@
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive 
 
-    = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
-
-    -# TODO: Style me
-    .download_talk_messages
-      - if can? :download_talk_messages, @talk
-        = link_to t('.download_messages'),
-          "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
-    - if can? :manage, @talk
-      .generic-action-bar.row.collapse
-        .large-12.columns
-          %ul.button-group.right
+    = render partial: '/shared/social_share', locals: 
+      { shareable_id: @talk.id, shareable_type: 'talk' }
+    
+    .generic-action-bar.row.collapse
+      .large-12.columns
+        %ul.button-group.right
+          %li(ng-show='talkIsLive()')
+            %button.button.tiny(ng-click='setVolume(0)')= t('.mute_streams')
+          %li(ng-show='talkIsLive()')
+            %button.button.tiny(ng-click='setVolume(1)')= t('.unmute_streams')
+          - if can? :manage, @talk
+            %li= link_to t('.download_messages'),
+              "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button tiny'
             %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button tiny'
             %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
               method: :delete, data: { confirm: t('.confirm_delete',
               default: 'Are you sure?' ) }
-            %li(ng-show='talkIsLive()')
-              %button.button.tiny(ng-click='blackbox.setVolume(0)')
-                = t('.mute_streams')
-            %li(ng-show='talkIsLive()')
-              %button.button.tiny(ng-click='blackbox.setVolume(1)')
-                = t('.unmute_streams')
             %li(ng-show='showEndTalk()')
               %button.button.tiny(ng-click='endTalk()')
                 = t('.end_talk')
@@ -129,14 +125,15 @@
       .tabs-content.large-12.columns
         #talk-tab-description.content
           = @talk.try(:description).try(:html_safe)
+
         - unless @talk.venue.opts.suppress_chat
           #talk-tab-discussion.content
             .panel.callout.row(ng-hide="userIsAListener()")
-              .large-3.columns
-                = t('.you')
+              .large-3.columns= t('.you')
               %input.large-9.columns(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
             .panel(ng-repeat='message in session.discussion')
               {{ message.name }}: {{ message.content }}
+
         #talk-tab-participants.content.active
           .expecting_promotion(ng-show='expectingPromotion().length')
             %h3= t('.microphone_requests')
