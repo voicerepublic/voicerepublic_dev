@@ -9,7 +9,7 @@
         %ul.button-group.right
           %li= link_to t('.edit_user'), [:edit, @user], class: 'button tiny'
 
-  .row
+  .header-box.row
     .large-12.columns.text-center
       - count = @user.participations.count
       -# .talks-joined= t('.talk_joined', count: count, default: '%{count} Talks joined')
