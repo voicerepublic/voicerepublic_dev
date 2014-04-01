@@ -17,22 +17,13 @@
           %li= link_to t('.edit_venue'), [:edit, @venue], class: 'button tiny'
           %li= link_to t('.delete_venue'), @venue, delete_params
 
-  .row
-    .large-12.columns.text-center
-      - if @show_join
-        = link_to [@venue, :participations], method: :post, class: 'button' do
-          = t('.join_venue')
-      - if @participation
-        = link_to [@venue, @participation], delete_params do
-          = t('.leave_venue')
-
   .title-block.row
     .large-12.columns
       .row
         .large-12.columns.text-center
           / %h4= @venue.user.name
           %h2.venue-title= @venue.title
-          %h3.venue-teaser= @venue.teaser
+          %h3.venue-teaser= raw @venue.teaser
 
       .row
         .large-12.columns.text-center
