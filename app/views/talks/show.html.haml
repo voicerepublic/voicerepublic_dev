@@ -106,8 +106,19 @@
                        ng-click='acceptPromotion()')= t('.accept_promotion')
         %button.button(ng-show='flags.acceptOrDecline'
                        ng-click='declinePromotion()')= t('.decline_promotion')
-        .flash-box
+        
+        .flash-box.flash-box-open
+          -#TODO Audio Settings Story
+          .audio-settings-left-box.text-left
+            .flash-manual-title
+              = t('.flash_manual_title')
+            %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
           #flashContent
+          .audio-settings-right-box.text-left
+            = link_to 'http://blog.voicerepublic.com', target: 'blank' do
+              %p
+                %i.fi-lightbulb
+                =t('.audio_settings_help_text')
 
         .button-audio-settings(data-show-audio-settings=".flash-box")
           %i.fi-microphone

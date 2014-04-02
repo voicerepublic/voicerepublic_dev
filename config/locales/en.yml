@@ -718,6 +718,9 @@ en:
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
+      flash_manual_title: Check Audio Settings
+      audio_settings_flash_manual: '1. Right-click on the white box %{delimiter}2. Choose Settings %{delimiter}3. Allow microphone'
+      audio_settings_help_text: Need help?
     new:
       new_talk: New Talk
     edit:
