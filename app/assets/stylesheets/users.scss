@@ -26,7 +26,6 @@
 		padding-top: 100px
 	}
 
-
 	.user-portrait-img{
 		width:143px;
 		height: 143px;
@@ -60,7 +59,26 @@
 }
 
 .users-show{
+/*	opacity: 0.6;*/
+
+	background: #FEF1DE;
+	.header-box{
+		background: $header-box-bg;
+	}
+	.avatar{
+		margin: 58px 0 6px 0;
+	}
+	.user-name{
+		margin-bottom: 69px
+	}
 	.vr-tabs dd{
-  	width: 50%;
+  	width: 33.33%;
+  }
+  #tab-about-me{
+  	background: rgba(0,0,0,0.8);
+  	padding: rem-calc(15) !important;
+  	p{
+  	  color: white
+  	}
   }
 }

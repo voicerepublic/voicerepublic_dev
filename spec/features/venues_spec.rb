@@ -49,7 +49,7 @@ describe "Venues" do
       end
 
       it "can be shared to social networks and saves statistics",
-         driver: :chrome, slow: true do
+        driver: :chrome, slow: true do
         SocialShare.count.should eq(0)
         visit venue_path(id: @venue)
         page.execute_script('$("#social_share .facebook").click()')
@@ -61,7 +61,7 @@ describe "Venues" do
         end
 
         SocialShare.count.should eq(1)
-      end
+        end
     end
   end
 
@@ -106,5 +106,16 @@ describe "Venues" do
       find('.header-block')['style'].should_not include('venue-image.jpg')
     end
   end
-  
+
+  describe "Comments" do
+    it 'has an active comments tab after writing a comment', driver: :chrome do
+      venue = FactoryGirl.create(:venue, user: @user)
+      visit venue_path(id: venue.id)
+      find(".fi-comments").click
+      fill_in 'comment_content', with: 'spec comment'
+      click_button 'Save'
+      find("#tab-comments.active").should_not be_nil
+    end
+  end
 end
+

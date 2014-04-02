@@ -4,7 +4,6 @@ gem 'rails', '4.0.2'
 
 #gem 'turbolinks'
 gem 'protected_attributes' # support legacy 'attr_accessible'
-#gem 'localeapp'
 
 gem 'rails-i18n'
 gem 'pg'
@@ -23,6 +22,7 @@ gem 'roadie', '2.4.3'
 gem 'airbrake'
 gem 'rails_config'
 gem 'foundation-rails'
+gem 'icomoon-rails'
 gem 'jquery-rails'
 gem 'devise'
 gem 'omniauth-facebook'
@@ -50,7 +50,7 @@ gem "transitions", :require => ["transitions", "active_model/transitions"]
 gem 'auphonic'
 gem 'pg_search', github: 'branch14/pg_search'
 
-group :development, :test, :staging do
+group :development, :test do
   # gem 'rails_view_annotator'
   gem 'annotator'
   gem 'better_errors'
@@ -88,4 +88,5 @@ end
 
 group :production do
   gem 'rack-cache', require: 'rack/cache'
+  gem 'localeapp'
 end

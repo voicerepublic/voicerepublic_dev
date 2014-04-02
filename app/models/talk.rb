@@ -157,6 +157,8 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
+  # DO NOT USE THIS, it will undermine tracking of playcounts
+  # use `media_links` instead
   def download_links
     return {} unless recording
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
@@ -166,6 +168,10 @@ class Talk < ActiveRecord::Base
     formats.inject({}) { |r, f| r.merge f => generate_ephemeral_path!(".#{f}") }
   end
 
+  def media_links(formats=%w(mp3 m4a ogg))
+    formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}-clean.#{f}" }
+  end
+  
   # generates an ephemeral path (which is realized as a symlink) and
   # returns the location for redirecting to that path
   #
@@ -309,7 +315,7 @@ class Talk < ActiveRecord::Base
     # TODO: save transcoded audio formats
 
     archive!
-    PrivatePub.publish_to public_channel, { event: 'Archive', links: download_links }
+    PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 

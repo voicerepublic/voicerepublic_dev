@@ -1,168 +1,166 @@
 %p#notice(style='display: none;')= notice
 
-.layout-talk(ng-controller='Livepage')
+.row(style='padding: 200px' ng-hide='true')
+  .large-12.text-center= t('.initializing')
+
+.layout-talk(ng-controller='Livepage' ng-cloak)
   .talk-upper-block(style="background-image: url(#{@talk.image.url})")
 
     .talk-state.text-center
       .span(ng-show='talkIsPrelive()')
         talk is prelive
-        .onHold(ng-show="countdownInSeconds < 0")
-          talk is on hold, waiting to start
+        .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive 
 
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
-
-    -# TODO: Style me
-    .download_talk_messages
-      - if can? :download_talk_messages, @talk
-        = link_to 'Download messages', "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
-    - if can? :manage, @talk
-      .generic-action-bar.row.collapse
-        .large-12.columns
-          %ul.button-group.right
+ 
+    .generic-action-bar.row.collapse
+      .large-12.columns
+        %ul.button-group.right
+          %li(ng-show='talkIsLive()')
+            %button.button.tiny(ng-click='setVolume(0)')= t('.mute_streams')
+          %li(ng-show='talkIsLive()')
+            %button.button.tiny(ng-click='setVolume(1)')= t('.unmute_streams')
+          - if can? :manage, @talk
+            %li= link_to t('.download_messages'),
+              "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button tiny'
             %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button tiny'
             %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
               method: :delete, data: { confirm: t('.confirm_delete',
               default: 'Are you sure?' ) }
-            %li
-              %button.button.tiny(ng-show='config.talk.state == "live"'
-                ng-click='blackbox.setVolume(0)')= t('.mute_streams')
-            %li
-              %button.button.tiny(ng-show='config.talk.state == "live"'
-                ng-click='blackbox.setVolume(1)')= t('.unmute_streams')
-            %li
-              %button.button.tiny(ng-show='showEndTalk()'
-                ng-click='session.endTalk()')= t('.end_talk')
+            %li(ng-show='showEndTalk()')
+              %button.button.tiny(ng-click='endTalk()')
+                = t('.end_talk')
 
-    %section.talk-title-box.row.collapse.text-center
-      .large-12.columns
-        .talk-venue-title
-          = link_to @talk.venue.title, @talk.venue
-        -#.talk-host-name
-        -#  = @talk.user.name
-        %h2.talk-title
-          = @talk.title
-        %h3.talk-teaser
-          = @talk.teaser
-        -#%h3.talk-tags
-        -#  = @talk.tag_list
-        .talk-date-time
-          = l @talk.starts_at.to_date
-          = l @talk.starts_at, format: :micro
-          \-
-          = l @talk.ends_at, format: :micro
-        .talk-date-time
-          {{ countdown }}
-        #flashContent
+  %section.talk-title-box.row.collapse.text-center
+    .large-12.columns
+      .talk-venue-title
+        = link_to @talk.venue.title, @talk.venue
+      -#.talk-host-name
+      -#  = @talk.user.name
+      %h2.talk-title
+        = @talk.title
+      %h3.talk-teaser
+        = @talk.teaser
+      -#%h3.talk-tags
+      -#  = @talk.tag_list
+      .talk-date-time
+        = l @talk.starts_at.to_date
+        = l @talk.starts_at, format: :micro
+        \-
+        = l @talk.ends_at, format: :micro
+      .talk-date-time {{ countdown }}
+      #flashContent
 
-        - if @talk.archived?
-          = render partial: 'shared/player', locals: { talk: @talk }
-
-    .talk-live-row
-      .row.collapse
-        .talk-talkers-box.large-12.columns.text-center
-          .download(ng-show='talkIsArchived()')
-            %ul
-              %li(ng-repeat='(ext, link) in config.talk.links')
-                %a.button(href='{{link}}') {{ext}}
-          -# = render 'debug'
-
-          .avatar.avatar-host
-            .avatar-box
-              %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
-              .avatar-name.text-center
-                {{ config.host }}
-              .host-banner
-                %span
-                  Host
-          .avatar(ng-repeat="guest in guests()")
-            .avatar-box
-              %img.avatar-img(ng-src="{{guest.image}}")
-              .avatar-name.text-center
-                {{ guest.name }}
-            .host-actions          
-              .guest-demote-link(ng-click="session.demote(guest.id)")
-                Demote
-
-    .talk-live-mic-states-row.row
-      .large-12.columns.text-center
-        %span.participate-button(ng-show="config.user.role == 'listener'")
-          - url = [ @talk.venue, :participations ]
-          = link_to t('.participate'), url, method: 'post', class: 'button join_discussion'
-        #onair(ng-show='flags.onair') YOU ARE ON AIR!
-
-        %button.button(ng-show='flags.reqmic'
-                       ng-click='requestMic()')= t('.request_mic')
-        %button.button(ng-show='flags.onair'
-                       ng-click='blackbox.mute()')= t('.mute_mic')
-        %button.button(ng-show='flags.onair'
-                       ng-click='blackbox.unmute()')= t('.unmute_mic')
-        %button.button(ng-show='flags.acceptOrDecline'
-                       ng-click='acceptPromotion()')= t('.accept_promotion')
-        %button.button(ng-show='flags.acceptOrDecline'
-                       ng-click='declinePromotion()')= t('.decline_promotion')
-
+      -# TODO: better integrate player with angularjs
+      - if @talk.archived?
+        = render partial: 'shared/player', locals: { talk: @talk }
+      - else
+        %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
+          
+  .talk-live-row
     .row.collapse
-      .large-12.columns
-        %dl.tabs.vr-tabs(data-tab="true")
-          %dd.text-center
-            %a(href="#talk-tab-description")
-              %i.fi-page-csv
-              = t('.description')
-          - unless @talk.venue.opts.suppress_chat
-            %dd.text-center
-              %a(href="#talk-tab-discussion")
-                %i.fi-list-thumbnails
-                = t('.discussion')
-          %dd.active.text-center
-            %a(href="#talk-tab-participants")
-              %i.fi-torsos-male-female
-              = t('.participants')
-              %span(ng-show='session.expectingPromotion().length')
-                ({{ session.expectingPromotion().length }} MicReq.)
-              %span(ng-show='session.acceptingPromotion().length')
-                ({{ session.acceptingPromotion().length }} Await.)
+      .talk-talkers-box.large-12.columns.text-center
+        .download(ng-show='talkIsArchived()')
+          %ul
+            %li(ng-repeat='(ext, link) in mediaLinks')
+              %a.button(href='{{link}}') {{ext}}
+        .avatar.avatar-host
+          .avatar-box
+            %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
+            .avatar-name.text-center
+              {{ config.host }}
+            .host-banner
+              %span
+                Host
+        .avatar(ng-repeat="guest in guests()")
+          .avatar-box
+            %img.avatar-img(ng-src="{{guest.image}}")
+            .avatar-name.text-center
+              {{ guest.name }}
+          .host-actions          
+            .guest-demote-link(ng-click="demote(guest.id)")
+              Demote
 
+  .talk-live-mic-states-row.row
+    .large-12.columns.text-center
+      %span.participate-button(ng-show="userIsAListener()")
+        - url = [ @talk.venue, :participations ]
+        = link_to t('.participate'), url, method: 'post', class: 'button join_discussion'
+      #onair(ng-show='flags.onair')= t('.you_are_on_air')
+
+      %button.button(ng-show='flags.reqmic'
+                     ng-click='requestMic()')= t('.request_mic')
+      %button.button(ng-show='flags.onair'
+                     ng-click='mute()')= t('.mute_mic')
+      %button.button(ng-show='flags.onair'
+                     ng-click='unmute()')= t('.unmute_mic')
+      %button.button(ng-show='flags.acceptOrDecline'
+                     ng-click='acceptPromotion()')= t('.accept_promotion')
+      %button.button(ng-show='flags.acceptOrDecline'
+                     ng-click='declinePromotion()')= t('.decline_promotion')
+
+  .row.collapse
+    .large-12.columns
+      %dl.tabs.vr-tabs(data-tab="true")
+        %dd.text-center
+          %a(href="#talk-tab-description")
+            %i.fi-page-csv
+            = t('.description')
+        - unless @talk.venue.opts.suppress_chat
+          %dd.text-center
+            %a(href="#talk-tab-discussion")
+              %i.fi-list-thumbnails
+              = t('.discussion')
+        %dd.active.text-center
+          %a(href="#talk-tab-participants")
+            %i.fi-torsos-male-female
+            = t('.participants')
+            %span(ng-show='expectingPromotion().length')
+              ({{ expectingPromotion().length }} #{t('.miqrec')})
+            %span(ng-show='acceptingPromotion().length')
+              ({{ acceptingPromotion().length }} #{t('.awaiting')})
   .talk-tabs-content-block
     .row
       .tabs-content.large-12.columns
         #talk-tab-description.content
           = @talk.try(:description).try(:html_safe)
+
         - unless @talk.venue.opts.suppress_chat
           #talk-tab-discussion.content
-            .panel.callout.row(ng-hide="config.user.role == 'listener'")
-              .large-3.columns
-                = t('.you')
+            .panel.callout.row(ng-hide="userIsAListener()")
+              .large-3.columns= t('.you')
               %input.large-9.columns(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-            .panel(ng-repeat='message in session.discussion')
+            .panel(ng-repeat='message in discussion')
               {{ message.name }}: {{ message.content }}
+
         #talk-tab-participants.content.active
-          .expecting_promotion(ng-show='session.expectingPromotion().length')
+          .expecting_promotion(ng-show='expectingPromotion().length')
             %h3= t('.microphone_requests')
-            .avatar(ng-repeat="parti in session.expectingPromotion()")
+            .avatar(ng-repeat="parti in expectingPromotion()")
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}               
               .host-actions
-                .guest-promote-link.text-center(ng-click="session.promote(parti.id)")
+                .guest-promote-link.text-center(ng-click="promote(parti.id)")
                   Promote
-          .accepting_promotion(ng-show='session.acceptingPromotion().length')
+          .accepting_promotion(ng-show='acceptingPromotion().length')
             %h3= t('.awaiting_to_speak')
-            .avatar(ng-repeat="parti in session.acceptingPromotion()")
+            .avatar(ng-repeat="parti in acceptingPromotion()")
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}
-          .participating(ng-show='session.participants().length')
+          .participating(ng-show='participants().length')
             %h3= t('.participating')
-            .avatar(ng-repeat="parti in session.participants()")
+            .avatar(ng-repeat="parti in participants()")
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}
               .host-actions
-                .guest-promote-link.text-center(ng-click="session.promote(parti.id)")
+                .guest-promote-link.text-center(ng-click="promote(parti.id)")
                   Promote
-          .listening(ng-show="session.listeners().length")
+          .listening(ng-show="listeners().length")
             %h3
               {{ session.listeners().length }}
               = t('.just_listening_in')
