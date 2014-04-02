@@ -77,16 +77,10 @@ describe "Venues", js: true do
       visit new_venue_path
       fill_in 'venue_title', with: 'schubidubi'
       fill_in 'venue_teaser', with: 'some teaser'
-      fill_in 'venue_description', with: 'iwannabelikeyou'
+      # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
       fill_in 'venue_tag_list', with: 'a,b,c'
-
-      # fill_in 'venue_talks_attributes_0_title', with: 'some talk title'
-      # fill_in 'venue_talks_attributes_0_teaser', with: 'some talk teaser'
-      # fill_in 'venue_talks_attributes_0_starts_at_date', with: 1.day.from_now
-      # fill_in 'venue_talks_attributes_0_starts_at_time', with: 1.day.from_now
-      # select '60', from: 'venue_talks_attributes_0_duration'
-      # fill_in 'venue_talks_attributes_0_tag_list', with: 'd,e,f'
-      # fill_in 'venue_talks_attributes_0_description', with: 'some talk description'
 
       click_button 'Save'
       page.should have_selector('.venues-show')
@@ -96,12 +90,16 @@ describe "Venues", js: true do
   end
 
   describe "PATCH an existing venue" do
-    it 'uploads an image and displays it' do
+    it 'uploads an image and displays it', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit venue_path(id: venue.id)
       find('.header-block')['style'].should include('venue-image.jpg')
       click_link 'Edit Venue'
-      page.attach_file("button[data-trigger-file-input=venue_image]", 'spec/support/fixtures/dummy.png')
+      # NOTE: This is not a perfect test, because it's exposing the real input
+      # field while the app itself uses a Foundation button. Couldn't get it to
+      # work using the button, though.
+      page.execute_script('$("input#venue_image").show()')
+      attach_file :venue_image, Rails.root.join('spec/support/fixtures/dummy.png')
       click_button 'Save'
       find('.header-block')['style'].should_not include('venue-image.jpg')
     end
