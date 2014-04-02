@@ -22,6 +22,9 @@ CKEDITOR.editorConfig = function( config ) {
 	config.language = 'en';
 	config.height = '300px';
 
+	// Remove html statusbar
+	removePlugins: 'elementspath' 
+	
 };
 
 (function() {

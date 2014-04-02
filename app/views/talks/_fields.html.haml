@@ -35,6 +35,6 @@
     %br
     %label(for="venue_description")
       = t('.Tell your audience a little more')
-    = f.input :description, :as => :ckeditor, :input_html => { class: 'text-area'}
+    = f.input :description, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }
     %br
     = f.input :record
