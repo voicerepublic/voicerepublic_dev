@@ -1,5 +1,5 @@
-Welcome to Kluuu
-================
+Welcome to VoiceRepublic
+========================
 
 ![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
@@ -7,10 +7,10 @@ Welcome to Kluuu
 
 ## Build status
 
-* Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/integration)
-* Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/master)
+* Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/integration.png?circle-token=f4b46938bc8855216230b287208fcc76062cc0a6
+)](https://circleci.com/gh/munen/voicerepublic_dev/tree/integration)
+* Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=f4b46938bc8855216230b287208fcc76062cc0a6
+)](https://circleci.com/gh/munen/voicerepublic_dev/tree/master)
 
 ## Code Quality
 
@@ -30,16 +30,6 @@ Setup
 
 Make sure `postgresql-contrib-9.1` is installed.
 
-    zeus rake pg_search:multisearch:rebuild\[Talk\]
-    zeus rake pg_search:multisearch:rebuild\[Venue\]
-    zeus rake pg_search:multisearch:rebuild\[User\]
-
-### nginx/rtmp server (Debian 7 & optional)
-
-Make sure `libpcre++-dev` is installed. Run `rake rtmp:build`. The
-config file is located here `config/rtmp.conf.erb`. See
-`lib/tasks/rtmp.rake` for more details.
-
 
 
 Start the whole stack
@@ -53,53 +43,61 @@ Rails, Faye (PrivatePub) & Sphinx.
 Run Specs
 ---------
 
-Install phantomjs (globaly)
-
-    sudo npm install -g phantomjs
-
-To run specs Faye and a Sphinx daemon have to run.
-
-### Run Jasmine specs for Angular with Karma
-
-    sudo npm install -g karma
-    sudo npm install -g karma-ng-scenario
-    karma start spec/javascripts/livepage.conf.js.coffee
-
-
-Compile Flash
--------------
-
-Install Flex
-
-    http://www.adobe.com/devnet/flex/flex-sdk-download.html
-
-Make `bin` available in your PATH.
+[Specs Wiki](https://github.com/munen/voicerepublic_dev/wiki/Development#wiki-specs)
 
 Run
 
     mxmlc lib/flash/Blackbox.as
 
 
-Runnning Audio Strategies with Rake
------------------------------------
+TODO
+----
 
-List all available strategies
+ * "noreply@kluuu.com" is a bad idea.
+ * get rid of config/environments/staging.rb staging is not an environment
+   (to have a different log level on staging put this info into settings)
+ * app/views/layouts/application loads stylesheets based on controller
+   this undermines the asset pipeline, get rid of it
+ * fix authentication/authorization participation
+ * clean up rake tasks in lib/tasks
+ * write a cleanup db migration
+ * cleanup assets
+ * cleanup images !
+ * use request log analyzer
+ * log which views/partials are actually used
+ * https://github.com/ryanb/cancan#4-lock-it-down
+ * cleanup routes
+ * get rid of 'bookmarks' remeniscence
+ * get rid of 'status_update' remeniscence
+ * rename app from Kluuu2 to VoiceRepublic
+ * get rid of locale specific views
+
+    % find ./ -name \*.en.html.erb
+    ./app/views/inline_help/_dashboard_finances_charged.en.html.erb
+    ./app/views/inline_help/_dashboard_finances_checkout.en.html.erb
+    ./app/views/inline_help/_dashboard_bookmarks_info.en.html.erb
+    ./app/views/inline_help/_dashboard_contacts_customer_service.en.html.erb
+    ./app/views/inline_help/_dashboard_matches_finances.en.html.erb
+    ./app/views/inline_help/_dashboard_messages.en.html.erb
+    ./app/views/inline_help/_dashboard_news_info.en.html.erb
+    ./app/views/inline_help/_dashboard_matches_first_kluuu.en.html.erb
+    ./app/views/inline_help/_dashboard_finances_info.en.html.erb
+    ./app/views/inline_help/_dashboard_matches_matches.en.html.erb
+    ./app/views/inline_help/_dashboard_contacts_interesting_people.en.html.erb
+    ./app/views/txt/agb.en.html.erb
+    ./app/views/txt/tou.en.html.erb
+    ./app/views/venues/_venue_video.en.html.erb
+    % find ./ -name \*.en.html.haml
+    ./app/views/landing_page/index.en.html.haml
+    ./app/views/venues/txt/_venue_desc.en.html.haml
 
     rake audio:strategies
 
-The generic strategy runner takes arguments
+FIXES (maybe outdated)
+----------------------
 
- * strategy name
- * path to audio files
- * name (talk_id, X in the flv files tX-u...)
-
-    
-    rake audio:run[strategy_name,path/to/files,name]
-
-The output lists the resulting files.
-
-(Depending on your shell you might have to escape the square brackets
-with backslashes.)
+ * Venue.update_all('user_id = 1', :user_id => nil)
+ * Venue.all.each { |v| v.events.create(:start_time => 1.day.from_now, :duration => 90) if v.events.empty? }
 
 
 Documentation
@@ -137,11 +135,11 @@ Platforms
 
 ### Production
 
-* Site: [http://kluuu.com](http://kluuu.com)
+* Site: [http://voicerepublic.com](http://voicerepublic.com)
 
 ### Staging
 
-* Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
+* Site: [staging.voicerepublic.com](staging.voicerepublic.com)
 
 
 Conference Features
@@ -239,7 +237,7 @@ Audio cheat sheet
 ### get duration
 
     soxi -D file.wav
-    
+
 ### convert wav to flv
 
     avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv

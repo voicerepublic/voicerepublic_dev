@@ -39,3 +39,9 @@ p{
 .top-margin-action-bar{
   margin-top: 100px
 }
+
+/* hack for firefox to show flash */
+object#Blackbox {
+    width: 215px;
+    height: 140px;
+}
