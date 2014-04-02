@@ -5,9 +5,10 @@
       .row
         .medium-12.columns
           %h2.form-title= form_title
-      .row
-        .medium-12.columns
-          = f.error_notification
+      -#
+        .row
+          .medium-12.columns
+            = f.error_notification
       .row
         .medium-12.columns
           = f.input :title, placeholder: t('.title')

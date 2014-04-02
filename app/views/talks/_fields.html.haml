@@ -5,7 +5,7 @@
     .medium-10.medium-offset-1.columns
       %h2.form-title= form_title
 
-      = f.error_messages
+      -#= f.error_messages
 
       = f.input :title, placeholder: t('.title')
       = f.input :teaser, placeholder: t('.teaser')

@@ -1,6 +1,6 @@
 .talks-edit,
+.talks-update,
 .talks-new{
-  @include form-generic-styles();
   
   input[type="checkbox"]{
     margin-right:5px !important
