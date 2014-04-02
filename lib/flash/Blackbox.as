@@ -24,15 +24,14 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.1a';
+    internal var version: String = '2.1b';
     internal var mic: Microphone;
+    internal var netStreams: Array = new Array();
     internal var streamer: String;
 		internal var publishNetConnection: NetConnection;
     internal var logMethod: String;
     internal var feedbackMethod: String;
     internal var volume: Number = 1;
-    internal var streamMap:Object = new Object();
-    internal var outStream:NetStream;
     // internal var myCircle:Shape = new Shape();
 
     // constructor
@@ -119,12 +118,10 @@
     }
 
     internal function updateStreamsVolume(vol:Number): void {
-      var count:Number = 0;
-      for each (var stream:NetStream in streamMap) {
-        setStreamVolume(stream, vol);
-        count++;
+      for each (var ns:NetStream in netStreams) {
+        setStreamVolume(ns, vol);
       }
-      log("Set volume of "+count+" streams to "+vol+".")
+      log("Set volume of "+netStreams.length+" streams to "+vol+".")
     }
 
     internal function setVolume(vol:Number): void {
@@ -178,19 +175,18 @@
       mic.gain = 50;
       mic.setUseEchoSuppression(true);
 
-      outStream = new NetStream(nc);
-      outStream.attachAudio(mic);
-      outStream.publish(stream, "live");
+      var ns: NetStream = new NetStream(nc);
+      ns.attachAudio(mic);
+      ns.publish(stream, "live");
+      netStreams.push(ns);
     }
  
     internal function receiveStream(nc: NetConnection, stream: String): void {
-      //if (streamMap.hasOwnKey(stream)) return;
-
       var ns: NetStream = new NetStream(nc);
       ns.receiveVideo(false);
       setStreamVolume(ns, volume);
       ns.play(stream);
-      streamMap[stream] = ns;
+      netStreams.push(ns);
     }
  
     internal function netStatusHandler(func: Function,
