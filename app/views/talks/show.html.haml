@@ -21,10 +21,13 @@
           - if can? :manage, @talk
             %li= link_to t('.download_messages'),
               "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button tiny'
-            %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button tiny'
-            %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
-              method: :delete, data: { confirm: t('.confirm_delete',
-              default: 'Are you sure?' ) }
+            - if !@talk.live?
+              %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button tiny'
+
+            / %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
+            /   method: :delete, data: { confirm: t('.confirm_delete',
+            /   default: 'Are you sure?' ) }
+
             %li(ng-show='showEndTalk()')
               %button.button.tiny(ng-click='endTalk()')
                 = t('.end_talk')
@@ -83,11 +86,12 @@
           .host-actions          
             .guest-demote-link(ng-click="demote(guest.id)")
               Demote
-      .mute-stream-box
+
+      .mute-stream-box(ng-show='talkIsLive()')
         .mute-title= 'Talk:'
-        .mute-stream(ng-show='talkIsLive()')
+        .mute-stream
           %span(ng-click='setVolume(0)')= t('.mute_streams')
-        .unmute-stream(ng-show='talkIsLive()')
+        .unmute-stream
           %span(ng-click='setVolume(1)')= t('.unmute_streams')
 
     .talk-live-mic-states-row.row.collapse-large-only

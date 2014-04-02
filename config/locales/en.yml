@@ -570,6 +570,7 @@ en:
       edit_venue: Edit Venue
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
+      delete_venue: Delete venue
     venue_list: Venues
     new_venue: Create Venue
     show:
@@ -727,6 +728,7 @@ en:
       new_talk: New Talk
     edit:
       edit_talk: Edit Talk
+      delete_talk: Delete talk
     fields:
       title: Title
       teaser: Teaser
