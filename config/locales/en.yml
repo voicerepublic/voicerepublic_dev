@@ -531,6 +531,7 @@ en:
       sign_up: Sign Up
       search: Search
       my_profile: Profile
+      my_next_talks: My next Talks
       create_venue: Create Venue
       settings: Settings
       logout: Log Out
@@ -561,6 +562,7 @@ en:
       settings: Settings
     talk_medium_box:
       date_start_end: '%{date} | %{start_time} – %{end_time}'
+      read_more: ...read more
 
   venues:
     date_changed: New venue date
@@ -568,6 +570,7 @@ en:
       edit_venue: Edit Venue
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
+      delete_venue: Delete venue
     venue_list: Venues
     new_venue: Create Venue
     show:
@@ -702,8 +705,6 @@ en:
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
-  talks_medium_box:
-    read_more: ...read more
   talks:
     message_history: |
       VoiceRepublic Message History 
@@ -714,10 +715,20 @@ en:
     show:
       chat_placeholder: Type and hit enter to post a comment
       you: You
+      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      ends_in: ENDS IN
+      state_text: THIS TALK IS LIVE
+      record_text: AND BEING RECORDED
+      flash_manual_title: Check Audio Settings
+      audio_settings_flash_manual: '1. Right-click on the white box %{delimiter}2. Choose Settings %{delimiter}3. Allow microphone'
+      audio_settings_help_text: Need help?
+      mute_streams: mute
+      unmute_streams: unmute
     new:
       new_talk: New Talk
     edit:
       edit_talk: Edit Talk
+      delete_talk: Delete talk
     fields:
       title: Title
       teaser: Teaser
