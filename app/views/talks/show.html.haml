@@ -72,16 +72,15 @@
             .avatar-name.text-center
               {{ config.host }}
             .host-banner
-              %span
-                Host
+              %span= t('.host')
         .avatar(ng-repeat="guest in guests()")
           .avatar-box
             %img.avatar-img(ng-src="{{guest.image}}")
             .avatar-name.text-center
               {{ guest.name }}
-          .host-actions          
+          .host-actions(ng-show='userIsTheHost()')
             .guest-demote-link(ng-click="demote(guest.id)")
-              Demote
+              = t('.demote')
 
   .talk-live-mic-states-row.row
     .large-12.columns.text-center
@@ -142,9 +141,9 @@
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}               
-              .host-actions
+              .host-actions(ng-show='userIsTheHost()')
                 .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                  Promote
+                  = t('.promote')
           .accepting_promotion(ng-show='acceptingPromotion().length')
             %h3= t('.awaiting_to_speak')
             .avatar(ng-repeat="parti in acceptingPromotion()")
@@ -157,9 +156,9 @@
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}
-              .host-actions
+              .host-actions(ng-show='userIsTheHost()')
                 .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                  Promote
+                  = t('.promote')
           .listening(ng-show="listeners().length")
             %h3
               {{ session.listeners().length }}

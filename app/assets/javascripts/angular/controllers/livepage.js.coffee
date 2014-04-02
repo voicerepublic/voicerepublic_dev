@@ -25,6 +25,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
   $scope.mute = blackbox.mute
   $scope.unmute = blackbox.unmute
 
+  $scope.userIsTheHost = ->
+    config.user.role == 'host'
+
   $scope.userIsAListener = ->
     config.user.role == 'listener'
 
