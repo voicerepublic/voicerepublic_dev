@@ -29,10 +29,14 @@
                 = link_to current_user do
                   = t('.my_profile', default: 'My Profile')
               %li
+                - url = '#TODO'
+                = link_to url do
+                  = t('.my_next_talks')
+              %li
                 = link_to new_venue_path do
                   = t('.create_venue')
               %li
-                = link_to dashboard_settings_edit_path do
+                = link_to [:edit, current_user] do
                   = t('.settings')
               %li
                 = link_to(destroy_user_session_path, method: :delete) do
