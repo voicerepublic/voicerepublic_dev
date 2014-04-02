@@ -105,9 +105,23 @@
   }
 
   .talk-talkers-box{
+    position: relative;
     background: rgba(0,0,0,0.85);
     padding:rem-calc(21) rem-calc(8);
     color: #fff;
+    .mute-stream-box{
+      position: absolute;
+      right: 6px;
+      bottom: 4px;
+      > div{
+        display: inline-block;
+        font-size: rem-calc(14);
+        font-family: 'eaglebook';
+        span{
+          color: $brand-color-green;
+        }
+      }
+    }
   }
 
   .talk-live-mic-states-row{
@@ -149,7 +163,7 @@
 
     .button-audio-settings{
       position: absolute;
-      right: 4px;
+      right: 6px;
       top: rem-calc(10);
       font-family: 'eaglebook';
       font-size: rem-calc(14);

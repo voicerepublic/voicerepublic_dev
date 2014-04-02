@@ -18,10 +18,6 @@
     .generic-action-bar.row.collapse
       .large-12.columns
         %ul.button-group.right
-          %li(ng-show='talkIsLive()')
-            %button.button.tiny(ng-click='setVolume(0)')= t('.mute_streams')
-          %li(ng-show='talkIsLive()')
-            %button.button.tiny(ng-click='setVolume(1)')= t('.unmute_streams')
           - if can? :manage, @talk
             %li= link_to t('.download_messages'),
               "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button tiny'
@@ -65,29 +61,34 @@
             %span.right-text-space= t('.ends_in')
             {{ countdown }} MIN
 
-    .talk-live-row
-      .row.collapse
-        .talk-talkers-box.large-12.columns.text-center
-          .download(ng-show='talkIsArchived()')
-            %ul
-              %li(ng-repeat='(ext, link) in mediaLinks')
-                %a.button(href='{{link}}') {{ext}}
-          .avatar.avatar-host
-            .avatar-box
-              %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
-              .avatar-name.text-center
-                {{ config.host }}
-              .host-banner
-                %span
-                  Host
-          .avatar(ng-repeat="guest in guests()")
-            .avatar-box
-              %img.avatar-img(ng-src="{{guest.image}}")
-              .avatar-name.text-center
-                {{ guest.name }}
-            .host-actions          
-              .guest-demote-link(ng-click="demote(guest.id)")
-                Demote
+    .talk-talkers-box.row
+      .large-12.columns.text-center
+        .download(ng-show='talkIsArchived()')
+          %ul
+            %li(ng-repeat='(ext, link) in mediaLinks')
+              %a.button(href='{{link}}') {{ext}}
+        .avatar.avatar-host
+          .avatar-box
+            %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
+            .avatar-name.text-center
+              {{ config.host }}
+            .host-banner
+              %span
+                Host
+        .avatar(ng-repeat="guest in guests()")
+          .avatar-box
+            %img.avatar-img(ng-src="{{guest.image}}")
+            .avatar-name.text-center
+              {{ guest.name }}
+          .host-actions          
+            .guest-demote-link(ng-click="demote(guest.id)")
+              Demote
+      .mute-stream-box
+        .mute-title= 'Talk:'
+        .mute-stream(ng-show='talkIsLive()')
+          %span(ng-click='setVolume(0)')= t('.mute_streams')
+        .unmute-stream(ng-show='talkIsLive()')
+          %span(ng-click='setVolume(1)')= t('.unmute_streams')
 
     .talk-live-mic-states-row.row.collapse-large-only
       .large-12.columns.text-center
