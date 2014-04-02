@@ -51,8 +51,11 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        %div(ng-show='talkIsArchived()')
+        -# TODO: better integrate player with angularjs
+        - if @talk.archived?
           = render partial: 'shared/player', locals: { talk: @talk }
+        - else
+          %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
         .talk-timeline
           .talk-timeline-progress
         .talk-state-info
@@ -86,7 +89,6 @@
           .host-actions          
             .guest-demote-link(ng-click="demote(guest.id)")
               Demote
-
       .mute-stream-box(ng-show='talkIsLive()')
         .mute-title= 'Talk:'
         .mute-stream
@@ -104,9 +106,9 @@
         %button.button(ng-show='flags.reqmic'
                        ng-click='requestMic()')= t('.request_mic')
         %button.button(ng-show='flags.onair'
-                       ng-click='blackbox.mute()')= t('.mute_mic')
+                       ng-click='mute()')= t('.mute_mic')
         %button.button(ng-show='flags.onair'
-                       ng-click='blackbox.unmute()')= t('.unmute_mic')
+                       ng-click='unmute()')= t('.unmute_mic')
         %button.button(ng-show='flags.acceptOrDecline'
                        ng-click='acceptPromotion()')= t('.accept_promotion')
         %button.button(ng-show='flags.acceptOrDecline'

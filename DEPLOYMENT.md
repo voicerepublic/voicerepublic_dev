@@ -145,6 +145,14 @@ show up at once. Process multiple in parallel?
 The setup in monit looks different, checkout [monit.conf](config/monit.conf)
 
 
+Changed NGINX Config to allow bigger uploads
+--------------------------------------------
+
+Added this line to `/etc/nginx/sites-enabled/default`
+
+    client_max_body_size 20m;
+
+
 Configured portfilter (Nico)
 ----------------------------
 
