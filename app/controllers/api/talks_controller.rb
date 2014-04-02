@@ -33,16 +33,16 @@ class Api::TalksController < Api::BaseController
 
   # genericly stores the state on the authenticated user
   def store_state(msg)
-    user_id = current_user.id
+    user = current_user
     Talk.transaction do
       session = @talk.reload.session || {}
       # take defensive action: in rare cases, e.g. for talks
       # migrated from kluuu, we have to make sure this won't fail
-      session[user_id] ||= user.details_for(@talk)
-      session[user_id][:state] = msg[:state]
+      session[user.id] ||= user.details_for(@talk)
+      session[user.id][:state] = msg[:state]
       @talk.update_attribute :session, session
     end
-    msg[:user] = { id: user_id }
+    msg[:user] = { id: user.id }
     msg
   end
 
