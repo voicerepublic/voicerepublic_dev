@@ -175,6 +175,12 @@
     }
   }
 
+  .download{
+    margin-bottom: 15px;
+    ul{
+      display: inline-block !important
+    }
+  }
   .button-join-discussion{
     width: 100%;
     background: $brand-color-green;

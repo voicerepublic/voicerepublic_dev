@@ -70,10 +70,6 @@
 
     .talk-talkers-box.row
       .large-12.columns.text-center
-        .download(ng-show='talkIsArchived()')
-          %ul
-            %li(ng-repeat='(ext, link) in mediaLinks')
-              %a.button(href='{{link}}') {{ext}}
         .avatar.avatar-host
           .avatar-box
             %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
@@ -131,6 +127,12 @@
         .button-audio-settings(data-show-audio-settings=".flash-box")
           %i.fi-microphone
           = t(".audio_settings")
+
+    .download.row(ng-show='talkIsArchived()')
+      .large-12.columns.text-center
+        %ul.button-group
+          %li(ng-repeat='(ext, link) in mediaLinks')
+            %a.button(href='{{link}}') {{ext}}
 
     .row.collapse-large-only
       .large-12.columns
