@@ -11,7 +11,6 @@ window.Livepage = angular.module 'Livepage', []
 # exceptions
 exceptionFunc = ($log) ->
   (exception, cause) ->
-    debugger
     exception.message += " (caused by \"" + cause + "\")"
     throw exception
 
