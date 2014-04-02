@@ -54,7 +54,7 @@
       #flashContent
 
       -# TODO: better integrate player with angularjs
-      - @talk.archived?
+      - if @talk.archived?
         = render partial: 'shared/player', locals: { talk: @talk }
       - else
         %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
