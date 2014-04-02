@@ -14,7 +14,6 @@
       .span(ng-show='talkIsPostlive()') talk is postlive 
 
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
-      
  
     .generic-action-bar.row.collapse
       .large-12.columns
@@ -54,9 +53,12 @@
       .talk-date-time {{ countdown }}
       #flashContent
 
-      %div(ng-show='talkIsArchived()')
+      -# TODO: better integrate player with angularjs
+      - @talk.archived?
         = render partial: 'shared/player', locals: { talk: @talk }
-
+      - else
+        %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
+          
   .talk-live-row
     .row.collapse
       .talk-talkers-box.large-12.columns.text-center
