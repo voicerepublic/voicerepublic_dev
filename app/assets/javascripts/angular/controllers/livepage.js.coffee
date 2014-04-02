@@ -80,16 +80,21 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
       when 'live' then end - now
       else ''
 
+  toHHMMSS = (str) ->
+    sec_num = parseInt(str, 10)
+    hours   = Math.floor(sec_num / 3600)
+    minutes = Math.floor((sec_num - (hours * 3600)) / 60)
+    seconds = sec_num - (hours * 3600) - (minutes * 60)
+    hours   = "0"+hours   if hours   < 10
+    minutes = "0"+minutes if minutes < 10
+    seconds = "0"+seconds if seconds < 10
+    hours+':'+minutes+':'+seconds
+
   setCountdown = ->
     now = Math.round(new Date().getTime() / 1000)
     sec = calculateCountdown(now)
     $scope.countdownInSeconds = sec
-    # foundation's datepicker depends on `date.js`
-    # so we'll use `date.js` here, despite `moment.js`
-    # is known to be a much better alternative
-    date = (new Date).clearTime().addSeconds(sec)
-    formatted = date.toString('H:mm:ss')
-    $scope.countdown = formatted
+    $scope.countdown = toHHMMSS(sec)
 
   $interval setCountdown, 1000
   
