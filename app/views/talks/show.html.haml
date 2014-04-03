@@ -58,7 +58,7 @@
           %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
-            .talk-timeline-progress
+            .talk-timeline-progress(style='width: {{talkProgress}}%')
           .talk-state-info
             .talk-state-bullet
             = t('.state_text')

@@ -72,6 +72,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   #   * until the end of the talk during the talk
   #   * an empty string after the talk
   $scope.countdown = 'computing...'
+  $scope.talkProgress = 0
 
   calculateCountdown = (now) ->
     end = config.ends_at
@@ -86,6 +87,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     sec = calculateCountdown(now)
     $scope.countdownInSeconds = sec
     $scope.countdown = util.toHHMMSS(sec)
+    $scope.talkProgress = 100 - (100 / config.talk.duration) * sec
 
   $interval setCountdown, 1000
   
