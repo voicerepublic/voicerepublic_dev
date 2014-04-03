@@ -42,5 +42,5 @@
   .medium-12.columns
     %ul.large-block-grid-5.medium-block-grid-4.small-block-grid-3
       - names = ["Philipp Hofmann","Alain Lafon","Martin Meyer","Patrick Frank","Ole Kretschmann","Reka Ragough","Hansi Hinterseer","Jérôme Sprenger Sèvegrand"]
-      - names.each do |n,index|
+      - names.each_with_index do |n,index|
         = render partial: "member_box", locals: {index: index, name: n}
