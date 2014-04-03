@@ -21,10 +21,7 @@
 //= require date.js
 //= require foundation_calendar-min.js
 //
-//= require advanced
-
 //= require ckeditor/init
-
 //
 //= require player.js.erb
 //= require validate_search
