@@ -38,7 +38,8 @@ class LivepageConfig < Struct.new(:talk, :user)
       role: user_details[:role], # TODO: remove in favor of user.role
       stream: "t#{talk.id}-u#{user.id}",
       streaming_server: Settings.rtmp.record,
-      discussion: discussion
+      discussion: discussion,
+      guests: talk.guests.map { |g| g.details_for(talk) }
     }
   end
 

@@ -29,11 +29,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
     config.user.role == 'listener'
 
   $scope.guests = ->
-    switch config.talk.state
-      when 'live'
-        session.guests()
-      else
-        (user for id, user of session.users when user.role == 'guest')
+    return session.guests() if config.talk.state == 'live'
+    config.guests
 
   $scope.messageKeyup = (e) ->
     sendMessage() if e.keyIdentifier == "Enter"
