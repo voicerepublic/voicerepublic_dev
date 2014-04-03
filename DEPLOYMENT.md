@@ -148,6 +148,12 @@ Installed missing package
     # apt-get install vorbis-tools
 
 
+Backend
+-------
+
+Should be deployed the same as the normal app, but using the user `backend`.
+
+
 TODO
 ====
 
