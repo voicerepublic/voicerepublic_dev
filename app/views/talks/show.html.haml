@@ -82,7 +82,7 @@
             %img.avatar-img(ng-src="{{guest.image}}")
             .avatar-name.text-center
               {{ guest.name }}
-          .host-actions(ng-show='userIsTheHost()')
+          .host-actions(ng-show='showHostActions()')
             .guest-demote-link(ng-click="demote(guest.id)")
               = t('.demote')
       .mute-stream-box(ng-show='talkIsLive()')
@@ -175,7 +175,7 @@
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}               
-              .host-actions(ng-show='userIsTheHost()')
+              .host-actions(ng-show='showHostActions()')
                 .guest-promote-link.text-center(ng-click="promote(parti.id)")
                   = t('.promote')
           .accepting_promotion(ng-show='acceptingPromotion().length')
@@ -190,7 +190,7 @@
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}
-              .host-actions(ng-show='userIsTheHost()')
+              .host-actions(ng-show='showHostActions()')
                 .guest-promote-link.text-center(ng-click="promote(parti.id)")
                   = t('.promote')
           .listening(ng-show="listeners().length")
