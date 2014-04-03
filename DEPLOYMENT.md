@@ -132,6 +132,8 @@ Added this line to `/etc/nginx/sites-enabled/default`
 
     client_max_body_size 20m;
 
+(this has been ported to cdist as of 2014-04-03)
+
 
 Configured portfilter (Nico)
 ----------------------------
@@ -141,6 +143,7 @@ Configured portfilter (Nico)
 * 9292 (private_pub/faye)
 * 1935 (rtmp)
 
+(in cdist)
 
 Installed missing package
 -------------------------
