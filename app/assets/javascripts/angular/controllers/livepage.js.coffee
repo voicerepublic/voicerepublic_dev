@@ -87,7 +87,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     sec = calculateCountdown(now)
     $scope.countdownInSeconds = sec
     $scope.countdown = util.toHHMMSS(sec)
-    $scope.talkProgress = 100 - (100 / config.talk.duration) * sec
+    percent = Math.max(100, 100 - (100 / config.talk.duration) * sec)
+    $scope.talkProgress = percent
 
   $interval setCountdown, 1000
   
