@@ -9,13 +9,36 @@ describe "Talks" do
 
   describe "Talk#new" do
 
-    it 'creates a new talk' do
+    it 'creates a new talk', driver: :chrome do
+      venue = FactoryGirl.create(:venue, user: @user)
+      visit new_venue_talk_path('en', venue)
+
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
       # fill in tags
-      fill_in 's2id_talk_tag_list', with: 'a,b,c,'
+      fill_in 's2id_autogen2', with: 'a,b,c,'
+      fill_in 'talk_starts_at_date', with: '2014-04-29'
+      fill_in 'talk_starts_at_time', with: '05:12'
+
+      click_button 'Save'
+      page.should have_selector('.talks-show')
+      page.should have_content('spec talk title')
+    end
+
+    it 'shows validation errors', driver: :chrome do
+      venue = FactoryGirl.create(:venue, user: @user)
+      visit new_venue_talk_path('en', venue)
+
+      fill_in 'talk_starts_at_date', with: ''
+      fill_in 'talk_starts_at_time', with: ''
+
+      click_button 'Save'
+      page.should have_content(I18n.t(:invalid_date))
+      page.should have_content(I18n.t(:invalid_time))
 
     end
+
+
 
   end
 

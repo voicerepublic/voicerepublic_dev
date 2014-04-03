@@ -17,7 +17,7 @@ describe TalksController do
   describe "Talk#new" do
     it 'does not crash with too few inputs' do
       expect {
-        post :create, { venue_id: @venue.id, talk: {} }
+        post :create, { venue_id: @venue.id, talk: { title: "", starts_at_date: "" } }
       }.to_not raise_error
 
     end
