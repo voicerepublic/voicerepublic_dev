@@ -33,7 +33,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     config.guests
 
   $scope.messageKeyup = (e) ->
-    sendMessage() if e.keyIdentifier == "Enter"
+    sendMessage() if e.which == 13 # Enter
 
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
