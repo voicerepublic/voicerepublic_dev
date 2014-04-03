@@ -58,7 +58,7 @@
           %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
-            .talk-timeline-progress
+            .talk-timeline-progress(style='width: {{talkProgress}}%')
           .talk-state-info
             .talk-state-bullet
             = t('.state_text')
@@ -76,16 +76,15 @@
             .avatar-name.text-center
               {{ config.host }}
             .host-banner
-              %span
-                Host
+              %span= t('.host')
         .avatar(ng-repeat="guest in guests()")
           .avatar-box
             %img.avatar-img(ng-src="{{guest.image}}")
             .avatar-name.text-center
               {{ guest.name }}
-          .host-actions          
+          .host-actions(ng-show='showHostActions()')
             .guest-demote-link(ng-click="demote(guest.id)")
-              Demote
+              = t('.demote')
       .mute-stream-box(ng-show='talkIsLive()')
         .mute-title= 'Talk:'
         .mute-stream
@@ -176,9 +175,9 @@
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}               
-              .host-actions
+              .host-actions(ng-show='showHostActions()')
                 .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                  Promote
+                  = t('.promote')
           .accepting_promotion(ng-show='acceptingPromotion().length')
             %h3= t('.awaiting_to_speak')
             .avatar(ng-repeat="parti in acceptingPromotion()")
@@ -191,9 +190,9 @@
               .avatar-box
                 %img.avatar-img(ng-src="{{parti.image}}")
                 .avatar-name.text-center {{ parti.name }}
-              .host-actions
+              .host-actions(ng-show='showHostActions()')
                 .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                  Promote
+                  = t('.promote')
           .listening(ng-show="listeners().length")
             %h3
               {{ session.listeners().length }}

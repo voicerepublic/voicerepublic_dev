@@ -18,14 +18,15 @@
 //= require jquery.jplayer.min
 //= require select2
 //
-//= require date.js
-//= require foundation_calendar-min.js
-//
-//= require advanced
-//= require wysihtml5.min
+//= require ckeditor-jquery
+//= require ckeditor/init
+//= require ckeditor/config
 //
 //= require player.js.erb
 //= require validate_search
+//= require jquery.ui.datepicker
+//= require jquery.ui.slider
+//= require jquery-ui-timepicker-addon
 //
 //= require_tree ./components
 

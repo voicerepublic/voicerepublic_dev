@@ -1,5 +1,5 @@
 # The LivepageController
-livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
+livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
 
   sendMessage = ->
     session.upstream.message $scope.message.content
@@ -25,18 +25,19 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
   $scope.mute = blackbox.mute
   $scope.unmute = blackbox.unmute
 
+  $scope.showHostActions = ->
+    config.user.role == 'host' and
+      config.talk.state == 'live'
+
   $scope.userIsAListener = ->
     config.user.role == 'listener'
 
   $scope.guests = ->
-    switch config.talk.state
-      when 'live'
-        session.guests()
-      else
-        (user for id, user of session.users when user.role == 'guest')
+    return session.guests() if config.talk.state == 'live'
+    config.guests
 
   $scope.messageKeyup = (e) ->
-    sendMessage() if e.keyIdentifier == "Enter"
+    sendMessage() if e.which == 13 # Enter
 
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
@@ -71,6 +72,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
   #   * until the end of the talk during the talk
   #   * an empty string after the talk
   $scope.countdown = 'computing...'
+  $scope.talkProgress = 0
 
   calculateCountdown = (now) ->
     end = config.ends_at
@@ -84,12 +86,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
     now = Math.round(new Date().getTime() / 1000)
     sec = calculateCountdown(now)
     $scope.countdownInSeconds = sec
-    # foundation's datepicker depends on `date.js`
-    # so we'll use `date.js` here, despite `moment.js`
-    # is known to be a much better alternative
-    date = (new Date).clearTime().addSeconds(sec)
-    formatted = date.toString('H:mm:ss')
-    $scope.countdown = formatted
+    $scope.countdown = util.toHHMMSS(sec)
+    percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
+    $scope.talkProgress = percent
 
   $interval setCountdown, 1000
   
@@ -97,6 +96,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
   # TODO maybe move into util
   $scope.calculateCountdown = calculateCountdown
 
-livepageFunc.$inject = ['$scope', '$log', '$interval', 'config', 'session', 'blackbox']
+livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
+  'session', 'blackbox', 'util']
 Livepage.controller 'Livepage', livepageFunc
 
