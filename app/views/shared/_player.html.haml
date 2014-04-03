@@ -1,15 +1,8 @@
-.vr-player.jp-jplayer{ data: talk.media_links, selector: "#jc-#{talk.id}" } }
+.vr-player.jp-jplayer{ data: talk.media_links, data: { selector: "#jc-#{talk.id}" } }
 
 .jp-audio{ id: "jc-#{talk.id}" }
   .jp-type-single
     .jp-gui.jp-interface
-      %ul.jp-controls
-        %li
-          %a.jp-pause{ href: "javascript:;", tabindex: "1" }
-            %i.fi-pause
-        %li
-          %a.jp-play{ href: "javascript:;", tabindex: "1" }
-            %i.fi-play
       .jp-progress
         .jp-seek-bar
           .jp-play-bar
@@ -18,6 +11,13 @@
       .jp-time-holder
         .jp-current-time.text-left
         .jp-duration
+      %ul.jp-controls
+        %li
+          %a.jp-pause{ href: "javascript:;", tabindex: "1" }
+            %i.fi-pause
+        %li
+          %a.jp-play{ href: "javascript:;", tabindex: "1" }
+            %i.fi-play
     .jp-no-solution
       %span Update Required
       To play the media you will need to either update your browser to

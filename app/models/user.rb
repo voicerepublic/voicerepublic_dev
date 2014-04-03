@@ -41,9 +41,10 @@ class User < ActiveRecord::Base
   attr_accessible :timezone, :website
 
   has_many :comments, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   has_many :venues # as owner
-  has_many :participations
+  has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
 
   dragonfly_accessor :header do

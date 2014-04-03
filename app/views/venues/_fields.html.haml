@@ -13,8 +13,8 @@
           = f.input :title, placeholder: t('.title')
           %br
           = f.input :teaser, rows: 2, placeholder: t('.teaser')
-          %button.button(type="button" class="tiny" data-trigger-file-input="talk_image")
-            Select profile image  
+          %button.button(type="button" class="tiny" data-trigger-file-input="venue_image")
+            = t('.select_profile_image', default: 'Select profile image')
           = f.file_field :image, class: 'display-none'
 %br
 %br
@@ -25,5 +25,4 @@
     %br
     %label.venue-description-label(for="venue_description")
       = t('.What is the purpose of this venue?')
-    = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'venue-toolbar' }
-    = f.text_area :description, class: 'text-area', placeholder: t('.description'), 'data-wysiwyg' => '#venue-toolbar'
+    = f.input :description, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }
