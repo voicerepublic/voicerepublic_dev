@@ -110,7 +110,8 @@
         %button.button(ng-show='flags.acceptOrDecline'
                        ng-click='declinePromotion()')= t('.decline_promotion')
         
-        .flash-box(ng-class="{'flash-box-open': showSettings}")
+        .flash-box.flash-box-open
+          -#TODO Audio Settings Story
           .audio-settings-left-box.text-left
             .flash-manual-title
               = t('.flash_manual_title')
@@ -122,7 +123,7 @@
                 %i.fi-lightbulb
                 =t('.audio_settings_help_text')
 
-        .button-audio-settings(ng-click='showSettings=!showSettings')
+        .button-audio-settings(data-show-audio-settings=".flash-box")
           %i.fi-microphone
           = t(".audio_settings")
 
@@ -135,7 +136,7 @@
     .row.collapse-large-only
       .large-12.columns
         %dl.tabs.vr-tabs(data-tab="true")
-          %dd.text-center
+          %dd.active.text-center
             %a(href="#talk-tab-description")
               %i.fi-page-csv
               = t('.description')
@@ -144,7 +145,7 @@
               %a(href="#talk-tab-discussion")
                 %i.fi-list-thumbnails
                 = t('.discussion')
-          %dd.active.text-center
+          %dd.text-center
             %a(href="#talk-tab-participants")
               %i.fi-torsos-male-female
               = t('.participants')
@@ -156,7 +157,7 @@
   .talk-tabs-content-block
     .row
       .tabs-content.large-12.columns
-        #talk-tab-description.content
+        #talk-tab-description.content.active
           = @talk.try(:description).try(:html_safe)
 
         - unless @talk.venue.opts.suppress_chat
@@ -167,7 +168,7 @@
             .panel(ng-repeat='message in discussion')
               {{ message.name }}: {{ message.content }}
 
-        #talk-tab-participants.content.active
+        #talk-tab-participants.content
           .expecting_promotion(ng-show='expectingPromotion().length')
             %h3= t('.microphone_requests')
             .avatar(ng-repeat="parti in expectingPromotion()")
