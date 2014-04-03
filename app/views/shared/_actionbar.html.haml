@@ -20,8 +20,7 @@
         - else
           %li.has-dropdown
             %a(href='#')
-              = image_tag current_user.avatar.thumb('25x25#nw').url,
-                alt: current_user.name, size: '25x25'
+              -#= render partial: "shared/avatar", locals: {user: current_user, img_size: 25}
               = current_user.name
 
             %ul.dropdown

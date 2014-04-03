@@ -4,10 +4,12 @@
 
   .avatar-box{    
     position:relative;
-    background: #aaa;
+    display: block;
     font-size: 0.8rem;
-    border-radius: 50%;
     overflow:hidden;
+    .avatar-bg{
+      fill: white;
+    }
     .avatar-name{
       padding:5px 0;
       color: black
