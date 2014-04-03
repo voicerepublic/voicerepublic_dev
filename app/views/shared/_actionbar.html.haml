@@ -20,17 +20,13 @@
         - else
           %li.has-dropdown
             %a(href='#')
-              -#= render partial: "shared/avatar", locals: {user: current_user, img_size: 25}
+              -#= render partial: "shared/avatar", locals: { user: @user, img_size: 25 }
               = current_user.name
 
             %ul.dropdown
               %li
                 = link_to current_user do
                   = t('.my_profile', default: 'My Profile')
-              %li
-                - url = '#TODO'
-                = link_to url do
-                  = t('.my_next_talks')
               %li
                 = link_to new_venue_path do
                   = t('.create_venue')
