@@ -18,6 +18,7 @@
 //= require jquery.jplayer.min
 //= require select2
 //
+//= require ckeditor/override
 //= require ckeditor/init
 //
 //= require player.js.erb
