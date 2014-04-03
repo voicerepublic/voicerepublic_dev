@@ -2,10 +2,10 @@
 
   .row.top-margin-action-bar
     .medium-10.medium-offset-1.columns
-      %h2= t(".registration_title")
+      -#%h2.registrations-title= t(".registration_title")
       .row.collapse
         .medium-6.columns
-          = devise_error_messages!
+          -#= devise_error_messages!
           = f.input :firstname
           = f.input :lastname
           = f.input :email, html_input: {type: 'email'}
