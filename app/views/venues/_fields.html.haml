@@ -15,7 +15,7 @@
           %br
           = f.input :teaser, rows: 2, placeholder: t('.teaser')
           %button.button(type="button" class="tiny" data-trigger-file-input="venue_image")
-            Select profile image  
+            = t('.select_profile_image', default: 'Select profile image')
           = f.file_field :image, class: 'display-none'
 %br
 %br
@@ -26,4 +26,4 @@
     %br
     %label.venue-description-label(for="venue_description")
       = t('.What is the purpose of this venue?')
-    = f.input :description, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }
+    = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }

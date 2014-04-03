@@ -2,7 +2,7 @@
 # data and contains the session logic.
 #
 sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
-               config, blackbox, $interval) ->
+               config, blackbox) ->
 
   # reconfigure blackbox
   blackbox.setStreamingServer config.streaming_server
@@ -75,8 +75,13 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         # negative numbers will timeout immediately
         # TODO check for brwoser compatibility
         if config.talk.state == 'prelive'
-          $log.debug "schedule startTalk for in #{config.talk.starts_in}"
-          $timeout startTalk, config.talk.starts_in * 1000
+          $log.debug "schedule startTalk for in " +
+            util.toHHMMSS(config.talk.starts_in)
+          millisecs = config.talk.starts_in * 1000
+          # skip timeout if longer than 24.8 days
+          # see http://stackoverflow.com/questions/3468607
+          return if millisecs > 2147483647
+          $timeout startTalk, millisecs
       onleaveHostOnAir: ->
         blackbox.unpublish()
         config.flags.onair = false
@@ -202,7 +207,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # -- events
     promote
     demote
-    startTalk
     endTalk
     # --- groups
     guests
@@ -215,12 +219,11 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     upstream
     name: config.fullname
     fsm
-    users # debug
-    countdown: config.countdown
+    # -- debug
+    users
   }
 
 # annotate with dependencies to inject
 sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
-                       '$timeout', 'upstream', 'config', 'blackbox',
-                       '$interval']
+                       '$timeout', 'upstream', 'config', 'blackbox']
 Livepage.factory 'session', sessionFunc

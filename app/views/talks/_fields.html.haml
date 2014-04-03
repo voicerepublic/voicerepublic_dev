@@ -1,6 +1,6 @@
 .header-block(style="background-image: url(#{@venue.image.url})"
   data-show-upload="#talk_image,#venue_talks_attributes_0_image")
-  
+
   .form-top-box.row
     .medium-10.medium-offset-1.columns
       %h2.form-title= form_title
@@ -13,19 +13,19 @@
 
       %br
       %br
-      -#testdatepicker  
+      -#testdatepicker
       .date-time-picker-row.row.collapse
         .medium-5.columns
-          = f.input :starts_at_date, input_html: {'data-date' => ''}
+          = f.input :starts_at_date, input_html: {'data-picker' => 'date'}
         .medium-4.columns
-          = f.input :starts_at_time, input_html: {'data-time' => ''}
+          = f.input :starts_at_time, input_html: {'data-picker' => 'time'}
         .medium-3.columns
           = f.input :duration, collection: Settings.durations
       .row.collapse
         .medium-12.columns
           %button.button(type="button" class="tiny" data-trigger-file-input="talk_image")
-            Select profile image  
-          = f.file_field :image, as: :file, class: 'display-none'    
+            Select profile image
+          = f.file_field :image, as: :file, class: 'display-none'
 
 .row
   .medium-12.columns
@@ -35,6 +35,7 @@
     %br
     %label(for="venue_description")
       = t('.Tell your audience a little more')
-    = f.input :description, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }
+    = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
     %br
     = f.input :record
+
