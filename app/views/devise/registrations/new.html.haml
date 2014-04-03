@@ -8,9 +8,9 @@
           -#= devise_error_messages!
           = f.input :firstname
           = f.input :lastname
-          = f.input :email, html_input: {type: 'email'}
-          = f.input :password, html_input: {type: 'password'}
-          = f.input :password_confirmation, html_input: {type: 'password'}
+          = f.input :email
+          = f.input :password
+          = f.input :password_confirmation
           = f.check_box :accept_terms_of_use
           = link_to( t('.agree_agb_and_tou'), '#')
           = f.button :submit, t('.registration_title')
