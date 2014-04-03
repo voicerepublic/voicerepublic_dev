@@ -73,14 +73,15 @@ describe "Venues", js: true do
   end
 
   describe "POST a new venue" do
-    it 'creates a venue' do
+    it 'creates a venue', driver: :chrome do
       visit new_venue_path
       fill_in 'venue_title', with: 'schubidubi'
       fill_in 'venue_teaser', with: 'some teaser'
       # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
       # the text with Capybara. jQuery to the rescue.
       page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
-      fill_in 'venue_tag_list', with: 'a,b,c'
+      # fill in tags
+      fill_in 's2id_autogen1', with: 'a,b,c,'
 
       click_button 'Save'
       page.should have_selector('.venues-show')
