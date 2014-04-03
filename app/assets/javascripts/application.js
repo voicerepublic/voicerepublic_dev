@@ -18,8 +18,7 @@
 //= require jquery.jplayer.min
 //= require select2
 //
-//= require advanced
-//= require wysihtml5.min
+//= require ckeditor/init
 //
 //= require player.js.erb
 //= require validate_search

@@ -35,6 +35,7 @@
     %br
     %label(for="venue_description")
       = t('.Tell your audience a little more')
-    = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'talk-toolbar' }
-    = f.text_area :description, class: 'text-area', 'data-wysiwyg' => '#talk-toolbar'
+    = f.input :description, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }
+    %br
     = f.input :record
+

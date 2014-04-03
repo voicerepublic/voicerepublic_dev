@@ -1,6 +1,6 @@
 - user_participates = venue.users.include?(current_user)
 - participating = (venue.user != current_user and !user_participates) ? ' unjoined':''
-%article{:class => "venue-big block" + participating} 
+%article{:class => "venue-big block" + participating}
   -#overall link to venue
   = link_to raw('&nbsp;'), venue_path(venue), :class => "venue-big-bg-link"
 
@@ -9,7 +9,7 @@
     %h3.venue-big-title= link_to venue.title, venue_path(venue)
     -#host link
     %aside.venue-big-host-link
-      = link_to user_path(venue.user) do    
+      = link_to user_path(venue.user) do
         = t('.by') + ' '
         = venue.user.name
 
@@ -27,7 +27,7 @@
     .span3.venue-big-left
       -#venue image
       = link_to venue_path(venue) do
-        = image_tag venue.image.url(:medium), :class => "venue-big-image"
+        = image_tag venue.image.url, :class => "venue-big-image"
 
     .span9.venue-big-right
       -#venue summery

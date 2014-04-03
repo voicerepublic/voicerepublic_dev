@@ -47,6 +47,15 @@
 	label.text.optional{
 		display:none //TODO, is hackish
 	}
+
+	.text-area{
+		height: 450px;
+	}
+
+	.ckeditor.optional{
+		font-family: 'eaglelight';
+		font-size: rem-calc(30);
+	}
 }
 
 .users-show{

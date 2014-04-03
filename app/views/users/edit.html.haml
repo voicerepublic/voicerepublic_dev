@@ -31,7 +31,7 @@
               = f.input :password_confirmation, disabled: true
             %button.button(type="button" data-trigger-file-input="user_header")
               Select header image
-            = f.input :header, as: :file
+            = f.input :header, as: :file, class: 'display-none'
 
           .large-4.medium-4.columns.text-center
             .row
@@ -39,15 +39,12 @@
                 or
               .small-8.columns
                 %button.tiny Connect with Facebook
-  .row.collapse
-    .large-12.columns
-      %h3 About you
+  %br
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = render partial: 'shared/wysihtml5_toolbar', locals: { id: 'about-textarea' }
-        = f.input :about, input_html: { 'data-wysiwyg' => '#about-textarea', class: 'display-none' }
-        
+        = f.input :about, :as => :ckeditor, :input_html => { class: 'text-area'}
+  %br    
   .form-save-row.row.collapse
     .large-12.columns
       = f.button :submit, class: 'small'
