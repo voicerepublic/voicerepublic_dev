@@ -1,10 +1,13 @@
 // MEDIUM TALK BOX
 .venue-medium-box{
+  .venue-text-bg{
+    background-position: center center;
+    background-size: 42%;
+    background-repeat: no-repeat;
+  }
   .venue-text-box{
     padding: 19px 0 11px 0;
     background-color: $venue-medium-box-background-color;
-    background-size: 50%;
-    background-position: center center;
     .venue-title{
       font-size: rem-calc(20);
       line-height: 1rem;

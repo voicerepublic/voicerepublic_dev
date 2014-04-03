@@ -2,11 +2,12 @@
 
 .venue-medium-box.row.text-center
   .medium-12.columns
-    .venue-text-box
-      - url = venue_path(venue, anchor: 'tab-upcoming-talks')
-      = link_to url do
-        %h2.venue-title= venue.title
-        %p.venue-teaser= venue.teaser
+    .venue-text-bg(style="background-image: url(#{venue.image.try(:url)})")
+      .venue-text-box
+        - url = venue_path(venue, anchor: 'tab-upcoming-talks')
+        = link_to url do
+          %h2.venue-title= venue.title
+          %p.venue-teaser= venue.teaser
     .action-box
       - count = venue.talks.upcoming.count
       - cap = t('.upcoming_talks', count: count, default: '%{count} Upcoming Talks')

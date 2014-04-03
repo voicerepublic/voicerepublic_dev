@@ -15,4 +15,25 @@
 			color:white
 		}
 	}
+
+	.about-summery{
+		margin-top: rem-calc(50);
+		margin-bottom: rem-calc(50);
+		img{
+			width:100%;
+		}
+	}
+
+	.member-block{
+		.member-name{
+			margin-top: 10px;
+			font-family: 'eaglelight';
+			font-size: rem-calc(15);
+		}
+		.member-job{
+			color: #555;
+			font-family: 'eaglelight';
+			font-size: rem-calc(14)
+		}
+	}
 }

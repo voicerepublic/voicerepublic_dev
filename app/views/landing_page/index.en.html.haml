@@ -15,12 +15,32 @@
       = render 'lp_login', user: @user
   %br
 
-.row
+-#TODO
+.live-talks.row
   .medium-12.columns
     - @talks.each do |talk|
-      .panel
-        = link_to [talk.venue, talk] do
-          %h4= talk.venue.user.name
-          %h3= talk.venue.title
-          %h2= talk.title
-          %p= talk.teaser
+      = render partial: "shared/talk_medium-box"
+
+
+.featured-talks.row
+  .medium-12.columns
+    - @talks.each do |talk|
+      = render partial: "shared/talk_medium-box"
+
+.about-summery.row
+  .medium-4.columns.text-center
+    = image_tag 'http://lorempixel.com/120/120/nightlife'
+    Maecenas sed diam eget risus varius blandit sit amet non magna.
+  .medium-4.columns.text-center
+    = image_tag 'http://lorempixel.com/120/120/nightlife'
+    Nullam id dolor id nibh ultricies vehicula ut id elit.
+  .medium-4.columns.text-center
+    = image_tag 'http://lorempixel.com/120/120/nightlife'
+    Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+.member-block.row
+  .medium-12.columns
+    %ul.large-block-grid-5.medium-block-grid-4.small-block-grid-3
+      - names = ["Philipp Hofmann","Alain Lafon","Martin Meyer","Patrick Frank","Ole Kretschmann","Reka Ragough","Hansi Hinterseer","Jérôme Sprenger Sèvegrand"]
+      - names.each do |n,index|
+        = render partial: "member_box", locals: {index: index, name: n}
