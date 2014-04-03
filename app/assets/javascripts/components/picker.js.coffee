@@ -1,3 +1,5 @@
+# https://github.com/trentrichardson/jQuery-Timepicker-Addon
+
 attribute = 'data-picker'
 
 initialize = (element, scope) ->
