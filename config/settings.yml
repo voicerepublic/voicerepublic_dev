@@ -29,7 +29,7 @@ rtmp:
   authenticate: true
   worker_processes: 1
 errbit:
-  api_key: 'f323662fe23a0fca908908f521f46e00'
+  api_key: 'this will be set on the stages in app/shared/config/settings.local.yml'
 localeapp:
   enabled: true
   api_key: '5EzAUJzfRXXHzt5xW5h6hyOIuJ4dy49d9Il3imi4JKZoXV8IlL'
