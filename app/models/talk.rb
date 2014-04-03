@@ -74,6 +74,14 @@ class Talk < ActiveRecord::Base
 
   validates :venue, :title, :starts_at, :ends_at, :tag_list, :duration, presence: true
 
+  #TODO: starts_at_date, starts_at_time validation
+  validate :validate_starts_at_date
+
+  def validate_starts_at_date
+    debugger
+    errors.add(:starts_at_date, 'Fill in a valid Date') if ((DateTime.parse(starts_at_date) rescue ArgumentError) == ArgumentError)
+  end
+
   before_validation :set_ends_at
   after_create :notify_participants
   after_save :set_guests
@@ -170,7 +178,7 @@ class Talk < ActiveRecord::Base
   def media_links(formats=%w(mp3 m4a ogg))
     formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}-clean.#{f}" }
   end
-  
+
   # generates an ephemeral path (which is realized as a symlink) and
   # returns the location for redirecting to that path
   #

@@ -7,6 +7,18 @@ describe "Talks" do
     login_user(@user)
   end
 
+  describe "Talk#new" do
+
+    it 'creates a new talk' do
+      fill_in :talk_title, with: 'spec talk title'
+      fill_in :talk_teaser, with: 'spec talk teaser'
+      # fill in tags
+      fill_in 's2id_talk_tag_list', with: 'a,b,c,'
+
+    end
+
+  end
+
   describe "validation" do
 
     before do

@@ -14,16 +14,24 @@ describe TalksController do
     end
   end
 
-  it 'allows for creation of a new talk' do
-    expect {
-      post :create, { venue_id: @venue.id, talk: valid_attributes }
-    }.to change(Talk, :count).by(1)
-  end
+  describe "Talk#new" do
+    it 'does not crash with too few inputs' do
+      expect {
+        post :create, { venue_id: @venue.id, talk: {} }
+      }.to_not raise_error
 
-  it 'talk has attached tags after creation' do
-    Talk.count.should be(0)
-    post :create, { venue_id: @venue.id, talk: valid_attributes }
-    Talk.last.tag_list.should_not be_empty
+    end
+    it 'allows for creation of a new talk' do
+      expect {
+        post :create, { venue_id: @venue.id, talk: valid_attributes }
+      }.to change(Talk, :count).by(1)
+    end
+
+    it 'talk has attached tags after creation' do
+      Talk.count.should be(0)
+      post :create, { venue_id: @venue.id, talk: valid_attributes }
+      Talk.last.tag_list.should_not be_empty
+    end
   end
 
   describe "download message history" do
