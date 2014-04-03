@@ -16,9 +16,9 @@
       -#testdatepicker  
       .date-time-picker-row.row.collapse
         .medium-5.columns
-          = f.input :starts_at_date, input_html: {'data-date' => ''}
+          = f.input :starts_at_date, input_html: {'data-picker' => 'date'}
         .medium-4.columns
-          = f.input :starts_at_time, input_html: {'data-time' => ''}
+          = f.input :starts_at_time, input_html: {'data-picker' => 'time'}
         .medium-3.columns
           = f.input :duration, collection: Settings.durations
       .row.collapse
@@ -38,3 +38,4 @@
     = f.input :description, :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }
     %br
     = f.input :record
+

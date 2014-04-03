@@ -128,11 +128,11 @@ class Talk < ActiveRecord::Base
   end
 
   def starts_at_time
-    starts_at
+    starts_at && starts_at.strftime('%H:%M')
   end
 
   def starts_at_date
-    starts_at
+    starts_at && starts_at.strftime('%Y-%m-%d')
   end
 
   def starts_at_time=(time)
