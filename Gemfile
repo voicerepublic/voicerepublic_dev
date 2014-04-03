@@ -45,7 +45,7 @@ gem 'haml-rails'
 gem 'simple_form'
 gem 'unicorn'
 gem "select2-rails"
-gem "ckeditor"
+gem 'ckeditor_rails'
 gem "transitions", :require => ["transitions", "active_model/transitions"]
 gem 'auphonic'
 gem 'pg_search', github: 'branch14/pg_search'
