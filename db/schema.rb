@@ -199,8 +199,8 @@ ActiveRecord::Schema.define(version: 20140326125740) do
     t.integer  "duration",      default: 30
     t.string   "image_uid"
     t.text     "session"
-    t.datetime "featured_from"
     t.text     "audio_formats", default: "--- []\n"
+    t.datetime "featured_from"
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"

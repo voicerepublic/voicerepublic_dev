@@ -32,7 +32,7 @@ set :log_level, :info
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{ config/database.yml }
+set :linked_files, %w{ config/database.yml config/private_pub.yml config/settings.local.yml }
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache
@@ -56,7 +56,7 @@ namespace :deploy do
       # execute :touch, release_path.join('tmp/restart.txt')
       execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
       # Kill all delayed jobs and leave the respawning to monit.
-      execute "pkill -f delayed_job"
+      execute "pkill -f delayed_job; true"
       # Will deliberately keep private_pub and rtmpd running
       # since we'll almost never have to change their code base
       # resp. config. If a restart is nescesarry use the web

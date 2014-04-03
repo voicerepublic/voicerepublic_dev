@@ -48,6 +48,8 @@ blackboxFunc = ($log, $window, $q) ->
   attributes = { id: "Blackbox", name: "Blackbox" }
   version = "10.3.181.22"
 
+  subscriptions = []
+
   $log.debug 'Initializing BlackboxService...'
   margin = 0
 
@@ -68,6 +70,11 @@ blackboxFunc = ($log, $window, $q) ->
   subscribe = (name) ->
     if name == undefined
       return alert "VollpfostenError: Subscribing to no one?" 
+    if name in subscriptions
+      $log.debug "already subscribed to #{name}"
+      return
+    subscriptions.push name
+    $log.debug "subscriptions: " + subscriptions.join(', ')
     deferred.promise.then (api) ->
       api.subscribe name
 

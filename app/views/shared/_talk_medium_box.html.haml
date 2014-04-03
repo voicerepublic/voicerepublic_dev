@@ -2,7 +2,7 @@
 
 %li.talk-medium-box.row.collapse
   .large-2.medium-2.columns
-    %img.talk-avatar{src: @venue.image.url}
+    %img.talk-avatar{src: talk.image.thumb('108x61#nw').url}
   .large-10.medium-10.columns.talk-medium-text-box
     = link_to [@venue, talk] do
       .talk-datetime
@@ -14,9 +14,7 @@
       .talk-teaser
         = link_to [@venue, talk] do
           = talk.teaser
-        = link_to '#', class: 'read-more-link' do
-          %span
-            read more
+          = t('.read more')
     - if can? :manage, talk
       .box-actions
         = link_to [:edit, @venue, talk] do

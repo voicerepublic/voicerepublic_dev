@@ -119,30 +119,18 @@ Fixed Monit Setup
 * copied developer-monit from here https://github.com/munen/voicerepublic_dot_cdist/blob/master/type/__panter_monit/files/config/developer-monit
 * fixed it
 * updated https://github.com/munen/voicerepublic_dot_cdist/blob/master/type/__panter_monit/files/config/developer-monit
-* Setup multiple DJs for separate queues
+* put the above file into `/etc/monit/conf.d/developer-monit`
+* enabled web interface in `/etc/monit/monitrc`
 
-#### Queue 'mail'
+For the applications monit setup, checkout [monit.conf](config/monit.conf)
 
-Low prio. No hurry. Process one at a time without puting burden on the
-system.
 
-#### Queue 'trigger'
+Changed NGINX Config to allow bigger uploads
+--------------------------------------------
 
-High prio. Very cheap jobs, which should be handled in real time. The
-jobs in this queue are set to run at a given time.
+Added this line to `/etc/nginx/sites-enabled/default`
 
-#### Queue 'audio'
-
-Long running io heavy jobs. Process as fast as possible. Several might
-show up at once. Process multiple in parallel?
-
-#### Setup
-
-    RAILS_ENV=production bin/delayed_job --queue=mail start
-    RAILS_ENV=production bin/delayed_job --queue=trigger start
-    RAILS_ENV=production bin/delayed_job --queue=audio -n 2 start
-
-The setup in monit looks different, checkout [monit.conf](config/monit.conf)
+    client_max_body_size 20m;
 
 
 Configured portfilter (Nico)

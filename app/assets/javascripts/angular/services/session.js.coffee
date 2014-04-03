@@ -2,7 +2,7 @@
 # data and contains the session logic.
 #
 sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
-               config, blackbox, $interval) ->
+               config, blackbox) ->
 
   # reconfigure blackbox
   blackbox.setStreamingServer config.streaming_server
@@ -14,6 +14,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     onair: false
     reqmic: false
     acceptOrDecline: false
+    settings: false
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -32,6 +33,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     upstream.state state
 
   # definition of the state machine, incl. callbacks
+  # https://github.com/jakesgordon/javascript-state-machine/blob/master/README.md
   fsm = StateMachine.create
     initial: config.initial_state
     events: config.statemachine
@@ -47,19 +49,25 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         subscribeAllStreams()
       onleaveHostRegistering: ->
         subscribeAllStreams()
+        config.flags.settings = true
       onleaveGuestRegistering: ->
         subscribeAllStreams()
+        config.flags.settings = true
       onListening: ->
         unless config.user.role == 'listener'
           config.flags.reqmic = true 
       onleaveListening: ->
         config.flags.reqmic = false
         true
+      onbeforeMicRequested: ->
+        config.flags.settings = true
       onAcceptingPromotion: ->
         config.flags.acceptOrDecline = true
       onleaveAcceptingPromotion: ->
         config.flags.acceptOrDecline = false
         true
+      onbeforePromotionAccepted: ->
+        config.flags.settings = true
       onOnAir: ->
         blackbox.publish config.stream
         config.flags.onair = true
@@ -75,13 +83,19 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         # negative numbers will timeout immediately
         # TODO check for brwoser compatibility
         if config.talk.state == 'prelive'
-          $log.debug "schedule startTalk for in #{config.talk.starts_in}"
-          $timeout startTalk, config.talk.starts_in * 1000
+          $log.debug "schedule startTalk for in " +
+            util.toHHMMSS(config.talk.starts_in)
+          millisecs = config.talk.starts_in * 1000
+          # skip timeout if longer than 24.8 days
+          # see http://stackoverflow.com/questions/3468607
+          return if millisecs > 2147483647
+          $timeout startTalk, millisecs
       onleaveHostOnAir: ->
         blackbox.unpublish()
         config.flags.onair = false
         true
       onLoitering: ->
+        config.flags.settings = false
         unsubscribeAllStreams()
 
   # comprehending queries on the state
@@ -202,7 +216,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # -- events
     promote
     demote
-    startTalk
     endTalk
     # --- groups
     guests
@@ -215,12 +228,11 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     upstream
     name: config.fullname
     fsm
-    users # debug
-    countdown: config.countdown
+    # -- debug
+    users
   }
 
 # annotate with dependencies to inject
 sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
-                       '$timeout', 'upstream', 'config', 'blackbox',
-                       '$interval']
+                       '$timeout', 'upstream', 'config', 'blackbox']
 Livepage.factory 'session', sessionFunc
