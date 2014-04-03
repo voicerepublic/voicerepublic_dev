@@ -1,5 +1,5 @@
 # The LivepageController
-livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
+livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
 
   sendMessage = ->
     session.upstream.message $scope.message.content
@@ -80,21 +80,11 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
       when 'live' then end - now
       else ''
 
-  toHHMMSS = (str) ->
-    sec_num = parseInt(str, 10)
-    hours   = Math.floor(sec_num / 3600)
-    minutes = Math.floor((sec_num - (hours * 3600)) / 60)
-    seconds = sec_num - (hours * 3600) - (minutes * 60)
-    hours   = "0"+hours   if hours   < 10
-    minutes = "0"+minutes if minutes < 10
-    seconds = "0"+seconds if seconds < 10
-    hours+':'+minutes+':'+seconds
-
   setCountdown = ->
     now = Math.round(new Date().getTime() / 1000)
     sec = calculateCountdown(now)
     $scope.countdownInSeconds = sec
-    $scope.countdown = toHHMMSS(sec)
+    $scope.countdown = util.toHHMMSS(sec)
 
   $interval setCountdown, 1000
   
@@ -102,6 +92,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox) ->
   # TODO maybe move into util
   $scope.calculateCountdown = calculateCountdown
 
-livepageFunc.$inject = ['$scope', '$log', '$interval', 'config', 'session', 'blackbox']
+livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
+  'session', 'blackbox', 'util']
 Livepage.controller 'Livepage', livepageFunc
 
