@@ -19,7 +19,7 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
-    @upcoming_talks = @venue.talks.upcoming
+    @upcoming_talks = @venue.talks.prelive
     @next_talk      = @upcoming_talks.shift
     @archived_talks = @venue.talks.archived
 

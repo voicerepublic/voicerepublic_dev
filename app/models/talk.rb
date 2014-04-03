@@ -88,10 +88,6 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
-  # TODO remove and use scopes based on statemachine instead
-  scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
-  scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
-
   scope :featured, -> do
     where("featured_from < DATE(?)", Time.now).
       order('featured_from DESC')
