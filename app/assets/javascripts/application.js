@@ -18,7 +18,9 @@
 //= require jquery.jplayer.min
 //= require select2
 //
+//= require ckeditor-jquery
 //= require ckeditor/init
+//= require ckeditor/config
 //
 //= require player.js.erb
 //= require validate_search

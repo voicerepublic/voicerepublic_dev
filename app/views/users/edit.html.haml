@@ -43,8 +43,8 @@
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = f.input :about, :as => :ckeditor, :input_html => { class: 'text-area'}
-  %br    
+        = f.text_area :about, :class => 'ckeditor', input_html: { class: 'text-area'}
+  %br
   .form-save-row.row.collapse
     .large-12.columns
       = f.button :submit, class: 'small'
