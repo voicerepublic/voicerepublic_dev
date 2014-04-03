@@ -14,6 +14,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     onair: false
     reqmic: false
     acceptOrDecline: false
+    settings: false
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -32,6 +33,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     upstream.state state
 
   # definition of the state machine, incl. callbacks
+  # https://github.com/jakesgordon/javascript-state-machine/blob/master/README.md
   fsm = StateMachine.create
     initial: config.initial_state
     events: config.statemachine
@@ -47,19 +49,25 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         subscribeAllStreams()
       onleaveHostRegistering: ->
         subscribeAllStreams()
+        config.flags.settings = true
       onleaveGuestRegistering: ->
         subscribeAllStreams()
+        config.flags.settings = true
       onListening: ->
         unless config.user.role == 'listener'
           config.flags.reqmic = true 
       onleaveListening: ->
         config.flags.reqmic = false
         true
+      onbeforeMicRequested: ->
+        config.flags.settings = true
       onAcceptingPromotion: ->
         config.flags.acceptOrDecline = true
       onleaveAcceptingPromotion: ->
         config.flags.acceptOrDecline = false
         true
+      onbeforePromotionAccepted: ->
+        config.flags.settings = true
       onOnAir: ->
         blackbox.publish config.stream
         config.flags.onair = true
@@ -87,6 +95,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.flags.onair = false
         true
       onLoitering: ->
+        config.flags.settings = false
         unsubscribeAllStreams()
 
   # comprehending queries on the state
