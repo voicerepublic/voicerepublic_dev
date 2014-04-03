@@ -91,4 +91,20 @@ VoiceRepublic::Application.configure do
 
   # http://markevans.github.io/dragonfly/rails/
   config.action_dispatch.rack_cache = true
+
+
+  # Optionally disable Javascript/CSS compression
+  class NoCompression
+    def compress(string)
+      # do nothing
+      string
+    end
+  end
+
+  if Settings.no_js_compress
+    config.assets.compress = true
+    config.assets.js_compressor = NoCompression.new
+    #config.assets.css_compressor = NoCompression.new
+  end
+
 end

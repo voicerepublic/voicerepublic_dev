@@ -5,9 +5,10 @@
 body{
 	overflow-y: scroll; /* prevents moving by to small content */;
 /*	background: #F6F4EC;*/
-  /*background: url(/assets/bg_2.png) center top no-repeat*/
+  /*background: url(/assets/bg_talk.png) center top no-repeat*/
 }
 
+// FOR LARGE COLLAPSE AND MOBILE PADDING
 @media only screen and (min-width: rem-calc(730)){
   .collapse-large-only > .columns{
     padding-left: 0;
@@ -21,6 +22,17 @@ h1,h2,h3{
 
 p{
 	font-size: 0.8rem;
+}
+
+i{
+  position:relative;
+  margin-right: 4px;
+  font-size: rem-calc(20);
+  vertical-align: middle
+}
+
+.right-text-space{
+  margin-right: 3px;
 }
 
 .list-style-type-none{
