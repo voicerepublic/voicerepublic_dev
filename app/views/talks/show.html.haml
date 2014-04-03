@@ -110,8 +110,7 @@
         %button.button(ng-show='flags.acceptOrDecline'
                        ng-click='declinePromotion()')= t('.decline_promotion')
         
-        .flash-box.flash-box-open
-          -#TODO Audio Settings Story
+        .flash-box(ng-class="{'flash-box-open': showSettings}")
           .audio-settings-left-box.text-left
             .flash-manual-title
               = t('.flash_manual_title')
@@ -123,7 +122,7 @@
                 %i.fi-lightbulb
                 =t('.audio_settings_help_text')
 
-        .button-audio-settings(data-show-audio-settings=".flash-box")
+        .button-audio-settings(ng-click='showSettings=!showSettings')
           %i.fi-microphone
           = t(".audio_settings")
 
