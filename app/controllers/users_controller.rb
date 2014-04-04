@@ -22,23 +22,6 @@ class UsersController < ApplicationController
     #end
   end
 
-  def no_kluuus
-    @user = User.find(params[:id])
-    #@kluuus = @user.no_kluuus
-    render :template =>  'users/kluuus'
-  end
-
-  def kluuus
-    @user = User.find(params[:id])
-    #@kluuus = @user.kluuus
-  end
-
-  def venues
-    @user = User.find(params[:id])
-    @venues = Venue.of_user(@user)
-
-  end
-
   # GET /users/new
   # GET /users/new.json
   def new
@@ -113,8 +96,4 @@ class UsersController < ApplicationController
     end
   end
 
-  def welcome
-    #@klu = current_user.no_kluuus.build(:tag_list => "newcomer")
-    @user = current_user
-  end
 end

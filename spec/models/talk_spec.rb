@@ -59,16 +59,6 @@ describe Talk do
   end
 
   describe 'on class level' do
-    it 'provides a scope upcoming' do
-      expected, unexpected = [], []
-      expected << FactoryGirl.create(:talk, starts_at: 1.day.from_now)
-      expected << FactoryGirl.create(:talk, starts_at: 1.hour.from_now)
-      expected << FactoryGirl.create(:talk, starts_at: 1.minute.from_now)
-      expected << FactoryGirl.create(:talk, starts_at: 1.minute.ago)
-      unexpected << FactoryGirl.create(:talk, starts_at: 1.day.ago)
-      expect(Talk.upcoming).to eq(expected)
-    end
-
     it 'provides a scope audio_format(format)' do
       t1 = FactoryGirl.create :talk
       t2 = FactoryGirl.create :talk
