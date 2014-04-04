@@ -18,6 +18,6 @@
     - if can? :manage, talk
       .box-actions
         = link_to [:edit, @venue, talk] do
-          %i.fi-pencil
+          %span.icon-pencil
         = link_to [@venue, talk], delete_params do
-          %i.fi-x
+          %span.icon-x
