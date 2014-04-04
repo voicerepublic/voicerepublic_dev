@@ -72,14 +72,15 @@
       .large-12.columns.text-center
         .avatar.avatar-host
           .avatar-box
-            %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
+            = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 100}
             .avatar-name.text-center
               {{ config.host }}
             .host-banner
               %span= t('.host')
         .avatar(ng-repeat="guest in guests()")
           .avatar-box
-            %img.avatar-img(ng-src="{{guest.image}}")
+            = render partial: "shared/avatar_image", locals: {user: nil, img_size: 100}
+            -# http://stackoverflow.com/questions/15895483/angular-ng-href-and-svg-xlink
             .avatar-name.text-center
               {{ guest.name }}
           .host-actions(ng-show='showHostActions()')
