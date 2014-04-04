@@ -72,13 +72,6 @@
           = t('.create_new_talk')
       %ul.list-style-type-none
         - unless @next_talk.nil?
-          / %li.panel.callout
-          /   %p
-          /     = t('.talk_begins_in')
-          /     = distance_of_time_in_words_to_now(@next_talk.starts_at)
-          /   %p= link_to @next_talk.title, [@venue, @next_talk]
-          /   = link_to t('.edit_talk'), [:edit, @venue, @next_talk], class: 'button'
-          /   = link_to t('.delete_talk'), [@venue, @next_talk], delete_params
           = render partial: 'shared/talk_medium_box', locals: { talk_medium_box: @next_talk }
 
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
@@ -93,7 +86,10 @@
           .medium-12.columns
             .comment-left-box.left
               =link_to '#user' do
-                = image_tag current_user.avatar.thumb('40x40#nw').url
+                .avatar
+                  - img_size = 40
+                  .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
+                    = render partial: "shared/avatar_image", locals: { user: current_user, img_size: img_size }
             .comment-right-box
               = simple_form_for [@venue, @venue.comments.build] do |f|
                 = f.input :content
