@@ -22,16 +22,17 @@
       %dl.tabs.vr-tabs(data-tab='true')
         %dd.text-center
           %a(href="#tab-about-me")
-            %i.fi-page
+            %span.icon-description
             = t('.about_me')
         %dd.text-center.active
           %a(href="#tab-my-venues")
-            %i.fi-megaphone
+            %span.icon-guide
             = t('.my-venues')
-        %dd.text-center
-          %a(href="#tab-schedule")
-            %i.fi-calendar
-            = t('.schedule')
+        -#
+        -#%dd.text-center
+        -#  %a(href="#tab-schedule")
+        -#    %i.fi-calendar
+        -#    = t('.schedule')
         -#%dd.text-center
         -#  %a(href="#tab-activity")= t('.activity')
 
