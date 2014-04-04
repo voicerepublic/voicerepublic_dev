@@ -1,0 +1,12 @@
+- mask_num = rand(1000000)
+- img_path = "#{img_size}x#{img_size}#nw"
+.avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
+  .svgMask
+    %svg{baseprofile: "full", height: "100%", version: "1.2", width: "100%"}
+      %defs
+        %mask{id: "mask-out-#{mask_num}", maskcontentunits: "userSpaceOnUse", maskunits: "userSpaceOnUse", transform: "scale(1)"}
+          %image{height: "100%", width: "100%", "xlink:href" => "/assets/mask_octagon.png"}
+        %mask{id: "mask-in-#{mask_num}", maskcontentunits: "userSpaceOnUse", maskunits: "userSpaceOnUse", transform: "scale(1)"}
+          %image{height: "92%", width: "92%", x: "4%", "xlink:href" => "/assets/mask_octagon.png", y: "4%"}
+      %rect.avatar-bg{height: "100%", mask: "url(#mask-out-#{mask_num})", width: "100%", x: "0", y: "0"}
+      %image{height: "100%", mask: "url(#mask-in-#{mask_num})", width: "100%", x: "0", "xlink:href" => user.avatar.thumb(img_path).url, y: "0"}

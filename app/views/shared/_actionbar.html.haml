@@ -20,7 +20,8 @@
         - else
           %li.has-dropdown
             %a(href='#')
-              -#= render partial: "shared/avatar", locals: { user: @user, img_size: 25 }
+              .avatar
+                = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 25 }
               = current_user.name
 
             %ul.dropdown
