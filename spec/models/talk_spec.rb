@@ -27,34 +27,18 @@ describe Talk do
       @talk.title = nil
       expect(@talk).to_not be_valid
     end
-    it 'validates presence of starts_at' do
-      @talk.starts_at = nil
+    it 'validates presence of starts_at_date' do
+      @talk.starts_at_date = nil
       expect(@talk).to_not be_valid
     end
-    it 'sets the time of starts_at via starts_at_time' do
-      @talk.starts_at_time = '12:34'
-      @talk.starts_at.strftime('%H:%M').should eq('12:34')
-    end
-    it 'sets the date of starts_at via starts_at_date' do
-      @talk.starts_at_date = '2013-12-31'
-      @talk.starts_at.strftime('%Y-%m-%d').should eq('2013-12-31')
+    it 'validates presence of starts_at_time' do
+      @talk.starts_at_time = nil
+      expect(@talk).to_not be_valid
     end
     # FIXME
     it 'provides a method starts_in' do
       pending "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
       expect(@talk.starts_in).to be > 0
-    end
-  end
-
-  describe 'built relying on callbacks' do
-    it 'sets ends_at based on starts_at and duration' do
-      talk = FactoryGirl.build(:talk, duration: 45)
-      talk.valid? # triggers before_validation callbacks
-      expect(talk.ends_at).to eq(talk.starts_at + 45.minutes)
-    end
-    it 'does not crash when required parameters are missing' do
-      talk = FactoryGirl.build(:talk, duration: nil)
-      expect { talk.save }.to_not raise_exception
     end
   end
 
@@ -87,16 +71,17 @@ describe Talk do
     before do
       @talk = FactoryGirl.create(:talk)
     end
-    it 'computes starts_in for use in prelive' do
-      expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
+    it 'sets the time of starts_at via starts_at_time' do
+      @talk.starts_at_time = '12:34'
+      @talk.save
+      @talk.starts_at.utc.strftime('%H:%M').should eq('12:34')
     end
-  end
-
-  describe 'customized' do
+    it 'sets the date of starts_at via starts_at_date' do
+      @talk.starts_at_date = '2013-12-31'
+      @talk.save
+      @talk.starts_at.strftime('%Y-%m-%d').should eq('2013-12-31')
+    end
     it 'computes starts_in for use in prelive' do
-      date_str = '2014-03-20 11:11'
-      @talk = FactoryGirl.create(:talk, starts_at: date_str)
-      expect(@talk.starts_at.strftime('%Y-%m-%d %H:%M')).to eq(date_str)
       expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
     end
   end
