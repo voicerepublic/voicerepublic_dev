@@ -5,10 +5,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     session.upstream.message $scope.message.content
     $scope.message.content = ''
 
-  # $scope.config   = config
-  # $scope.session  = session
-  # $scope.blackbox = blackbox
-
   $scope.message = { content: '' }
 
   $scope.endTalk = session.endTalk
@@ -20,6 +16,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.listeners = session.listeners
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion
+  $scope.showSettings = config.flags.settings
 
   $scope.setVolume = blackbox.setVolume
   $scope.mute = blackbox.mute
@@ -87,7 +84,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     sec = calculateCountdown(now)
     $scope.countdownInSeconds = sec
     $scope.countdown = util.toHHMMSS(sec)
-    $scope.talkProgress = 100 - (100 / config.talk.duration) * sec
+    percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
+    $scope.talkProgress = percent
 
   $interval setCountdown, 1000
   

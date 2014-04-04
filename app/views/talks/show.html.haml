@@ -136,7 +136,7 @@
     .row.collapse-large-only
       .large-12.columns
         %dl.tabs.vr-tabs(data-tab="true")
-          %dd.text-center
+          %dd.active.text-center
             %a(href="#talk-tab-description")
               %i.fi-page-csv
               = t('.description')
@@ -145,7 +145,7 @@
               %a(href="#talk-tab-discussion")
                 %i.fi-list-thumbnails
                 = t('.discussion')
-          %dd.active.text-center
+          %dd.text-center
             %a(href="#talk-tab-participants")
               %i.fi-torsos-male-female
               = t('.participants')
@@ -157,7 +157,7 @@
   .talk-tabs-content-block
     .row
       .tabs-content.large-12.columns
-        #talk-tab-description.content
+        #talk-tab-description.content.active
           = @talk.try(:description).try(:html_safe)
 
         - unless @talk.venue.opts.suppress_chat
@@ -168,7 +168,7 @@
             .panel(ng-repeat='message in discussion')
               {{ message.name }}: {{ message.content }}
 
-        #talk-tab-participants.content.active
+        #talk-tab-participants.content
           .expecting_promotion(ng-show='expectingPromotion().length')
             %h3= t('.microphone_requests')
             .avatar(ng-repeat="parti in expectingPromotion()")

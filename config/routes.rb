@@ -25,30 +25,15 @@ VoiceRepublic::Application.routes.draw do
 
   # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
-  scope "(/:locale)", :locale => /de|en/ do
-    get "dashboard", :controller => "dashboard", :action => :index
-    get "dashboard/settings"
-    get "dashboard/venues"
-    get "dashboard/settings/edit", :controller => 'dashboard', :action => :edit_settings
-    get "dashboard/settings/edit_password", :controller => 'dashboard', :action => 'edit_password'
-    get "landing_page/index", :as => :landing_page
-    # TODO remove
-    get "tags/:tag", :controller => 'search', :action => 'tagged_with', :as => 'tagged_with'
+  get 'venues/tags' => 'venues#tags'
+  resources :venues do
+    resources :comments, only: [:create]
+    resources :talks
+    resources :participations, only: [:index, :create, :destroy]
   end
 
-  scope "(/:locale)", :locale => /de|en/ do
-    get 'venues/tags' => 'venues#tags'
-    resources :venues do
-      resources :comments, only: [:create]
-      resources :talks
-      resources :participations, :only => [:index, :create, :destroy]
-    end
-  end
-
-  scope "(/:locale)", :locale => /de|en/ do
-    devise_scope :user do
-      delete "/users/sign_out" => "devise/sessions#destroy"
-    end
+  devise_scope :user do
+    delete "/users/sign_out" => "devise/sessions#destroy"
   end
 
   devise_for(:users,
@@ -58,22 +43,11 @@ VoiceRepublic::Application.routes.draw do
                registrations: "users/registrations"
              })
 
-  resources :users, :only => [:update, :show, :edit] do
-    member do
-      get 'welcome'
-      get 'venues' # venues_user_path
-    end
-    resource :account do
-      member do
-        get 'preferences/edit', :action => 'edit_preferences'
-        get 'preferences/show', :action => 'show_preferences'
-        get 'password/edit', :action => 'edit_password'
-      end
-    end
-  end
+  resources :users, only: [:update, :show, :edit]
 
-  resource :embed_talk, :only => :show
+  resource :embed_talk, only: :show
 
+  get "landing_page/index", as: :landing_page
   root :to => "landing_page#index"
 
   # match ':controller(/:action(/:id))(.:format)'
