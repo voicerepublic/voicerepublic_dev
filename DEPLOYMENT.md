@@ -119,30 +119,10 @@ Fixed Monit Setup
 * copied developer-monit from here https://github.com/munen/voicerepublic_dot_cdist/blob/master/type/__panter_monit/files/config/developer-monit
 * fixed it
 * updated https://github.com/munen/voicerepublic_dot_cdist/blob/master/type/__panter_monit/files/config/developer-monit
-* Setup multiple DJs for separate queues
+* put the above file into `/etc/monit/conf.d/developer-monit`
+* enabled web interface in `/etc/monit/monitrc`
 
-#### Queue 'mail'
-
-Low prio. No hurry. Process one at a time without puting burden on the
-system.
-
-#### Queue 'trigger'
-
-High prio. Very cheap jobs, which should be handled in real time. The
-jobs in this queue are set to run at a given time.
-
-#### Queue 'audio'
-
-Long running io heavy jobs. Process as fast as possible. Several might
-show up at once. Process multiple in parallel?
-
-#### Setup
-
-    RAILS_ENV=production bin/delayed_job --queue=mail start
-    RAILS_ENV=production bin/delayed_job --queue=trigger start
-    RAILS_ENV=production bin/delayed_job --queue=audio -n 2 start
-
-The setup in monit looks different, checkout [monit.conf](config/monit.conf)
+For the applications monit setup, checkout [monit.conf](config/monit.conf)
 
 
 Changed NGINX Config to allow bigger uploads
@@ -151,6 +131,8 @@ Changed NGINX Config to allow bigger uploads
 Added this line to `/etc/nginx/sites-enabled/default`
 
     client_max_body_size 20m;
+
+(this has been ported to cdist as of 2014-04-03)
 
 
 Configured portfilter (Nico)
@@ -161,11 +143,18 @@ Configured portfilter (Nico)
 * 9292 (private_pub/faye)
 * 1935 (rtmp)
 
+(in cdist)
 
 Installed missing package
 -------------------------
 
     # apt-get install vorbis-tools
+
+
+Backend
+-------
+
+Should be deployed the same as the normal app, but using the user `backend`.
 
 
 TODO

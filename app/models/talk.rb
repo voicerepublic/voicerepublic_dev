@@ -88,10 +88,6 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
-  # TODO remove and use scopes based on statemachine instead
-  scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
-  scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
-
   scope :featured, -> do
     where("featured_from < DATE(?)", Time.now).
       order('featured_from DESC')
@@ -167,8 +163,8 @@ class Talk < ActiveRecord::Base
     formats.inject({}) { |r, f| r.merge f => generate_ephemeral_path!(".#{f}") }
   end
 
-  def media_links(formats=%w(mp3 m4a ogg))
-    formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}-clean.#{f}" }
+  def media_links(variant='', formats=%w(mp3 m4a ogg))
+    formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}#{variant}.#{f}" }
   end
   
   # generates an ephemeral path (which is realized as a symlink) and
