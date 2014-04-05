@@ -248,6 +248,8 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
+    Delayed::Job.enqueue Postprocess.new(id), queue: 'audio'
+
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
 
     return if venue.opts.no_auto_postprocessing
