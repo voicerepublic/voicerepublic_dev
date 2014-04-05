@@ -107,4 +107,6 @@ VoiceRepublic::Application.configure do
     #config.assets.css_compressor = NoCompression.new
   end
 
+  config.middleware.use 'Raindrops::Middleware' unless Settings.no_raindrops
+  
 end

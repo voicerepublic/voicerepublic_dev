@@ -202,9 +202,6 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.9)
     i18n_data (0.4.0)
-    icomoon-rails (0.1.0)
-      railties (>= 3.1.1)
-      sass-rails (>= 3.1.1)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -472,7 +469,6 @@ DEPENDENCIES
   guard-rspec
   haml-rails
   i18n_data
-  icomoon-rails
   jquery-rails
   jquery-ui-rails
   launchy

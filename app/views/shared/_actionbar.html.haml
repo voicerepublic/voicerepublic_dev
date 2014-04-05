@@ -10,7 +10,7 @@
         = image_tag "logo.png", :alt => "Voice Republic"
 
     %section.top-bar-section
-      / Right Nav Section
+      -# Right Nav Section
       %ul.right
         - if current_user.guest?
           %li
@@ -39,10 +39,10 @@
                   %i.icon-off
                   = t('.logout')
 
-      / Left Nav Section
+      -# Left Nav Section
       %ul.left
         %li.top-bar-search-box
           = form_tag "/search", :class => 'navbar-search form-search' do
             = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
             = button_tag :type => "submit", :class => "search-lupe" do
-              %i.fi-magnifying-glass
+              %span.icon-magnifying-glass

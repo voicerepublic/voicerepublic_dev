@@ -1,4 +1,4 @@
-= simple_form_for([@venue, @talk]) do |f|
+= simple_form_for([@venue, @talk], input_html: { class: 'vr-form'}) do |f|
 	= render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
 
 	.form-save-row.row.collapsed

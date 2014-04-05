@@ -139,16 +139,16 @@
         %dl.tabs.vr-tabs(data-tab="true")
           %dd.active.text-center
             %a(href="#talk-tab-description")
-              %i.fi-page-csv
+              %span.icon-description
               = t('.description')
           - unless @talk.venue.opts.suppress_chat
             %dd.text-center
               %a(href="#talk-tab-discussion")
-                %i.fi-list-thumbnails
+                %span.icon-bubble-multi
                 = t('.discussion')
           %dd.text-center
             %a(href="#talk-tab-participants")
-              %i.fi-torsos-male-female
+              %span.icon-people
               = t('.participants')
               %span(ng-show='expectingPromotion().length')
                 ({{ expectingPromotion().length }} #{t('.miqrec')})
