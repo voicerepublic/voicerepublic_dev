@@ -65,8 +65,11 @@
 	.header-box{
 		background: $header-box-bg;
 	}
-	.avatar{
-		margin: 58px 0 6px 0;
+
+	.header-box{
+		.avatar{
+			margin: 58px 0 6px 0;
+		}
 	}
 	.user-name{
 		margin-bottom: 69px
