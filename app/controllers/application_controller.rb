@@ -7,7 +7,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_filter :set_last_request
+  before_filter :check_browser
   #before_filter :set_locale
+
   around_filter :user_time_zone, :if => :current_user
   after_filter :set_csrf_cookie_for_ng
 
@@ -76,6 +78,23 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def check_browser
+    supported = {
+      chrome: 30,
+      safari: 7,
+      ie: 10,
+      firefox: 25
+    }
+    cur_browser = {
+      name: browser.meta.first.to_sym,
+      version: browser.version.to_i
+    }
+
+    unless cur_browser[:version] >= supported[cur_browser[:name]]
+      redirect_to "/upgrade"
+    end
+  end
 
   def create_guest_user
     token = SecureRandom.random_number(10000)
