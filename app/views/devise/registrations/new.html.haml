@@ -2,15 +2,15 @@
 
   .row.top-margin-action-bar
     .medium-10.medium-offset-1.columns
-      %h2= t(".registration_title")
+      -#%h2.registrations-title= t(".registration_title")
       .row.collapse
         .medium-6.columns
-          = devise_error_messages!
+          -#= devise_error_messages!
           = f.input :firstname
           = f.input :lastname
-          = f.input :email, html_input: {type: 'email'}
-          = f.input :password, html_input: {type: 'password'}
-          = f.input :password_confirmation, html_input: {type: 'password'}
+          = f.input :email
+          = f.input :password
+          = f.input :password_confirmation
           = f.check_box :accept_terms_of_use
           = link_to( t('.agree_agb_and_tou'), '#')
           = f.button :submit, t('.registration_title')
