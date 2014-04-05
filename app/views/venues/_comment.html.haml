@@ -2,7 +2,10 @@
   .large-12.columns
     .comment-left-box.left
       = link_to comment.user do
-        = image_tag comment.user.avatar.thumb('40x40#nw').url
+        .avatar
+          - img_size = 40
+          .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
+            = render partial: "shared/avatar_image", locals: { user: current_user, img_size: img_size }
     .comment-right-box
       = link_to comment.user, class: 'comment-author' do
         = comment.user.name
