@@ -12,6 +12,10 @@ feature "Search validation" do
 
     page.fill_in 'query', with: 'search key'
     page.should_not have_css('.warning')
+
+    page.fill_in 'query', with: ''
+    find(".icon-magnifying-glass").click
+    page.should have_css('.warning')
   end
 
 end

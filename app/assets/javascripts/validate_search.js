@@ -10,8 +10,8 @@ $(function() {
   $('#query').on('blur keypress', function() {
     $(this).removeClass('warning');
   });
-  $('#query').on('keypress submit', function(e) {
-    if (e.which == 13) {
+  $('#query').add(".navbar-search").on('keypress submit', function(e) {
+    if ((e.type == "submit") || (e.which == 13)) {
       validate_search_input(e);
     }
   });
