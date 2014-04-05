@@ -1,9 +1,22 @@
 footer{
 	margin-top: 30px;
-	ul{
+	.footer-list{
 		h6{
-			font-size: 0.8rem;
+			color: lighten($color-black-title, 40%);
+			font-size: rem-calc(10);
+			margin:0;
+			line-height: 1.4
 		}
-		font-size: 0.8rem
+		> li{
+			display: inline-block;
+			margin: 0 10px;
+			padding: 0;
+			text-align: left;
+			vertical-align: top;
+		}
+		> li,a{
+			font-size: rem-calc(10);
+			color: lighten(black, 50%)
+		}
 	}
 }

@@ -1,11 +1,11 @@
 %footer
   .row.collapse
-    .large-12
-      %hr
-      %ul.inline-list
+    .large-12.text-center
+      %ul.footer-list.list-style-type-none
         %li
           %h6= t('.legal')
           = link_to( t('.terms_of_use'), '#')
+          %br/
           = link_to( t('.terms_and_conditions'), '#')
         %li
           %h6 Board of Directors
@@ -24,13 +24,12 @@
           Schweiz
           %br/
         %li
-          %ul.list-style-type-none
-            %li
-              %a(href="mailto:service@voicerepublic.com") Contact
-            %li
-              %a(href='http://blog.voicerepublic.com/about') About
-            %li
-              %a(href='http://blog.voicerepublic.com/about') Blog
+          %h6 Contact
+          %a(href="mailto:service@voicerepublic.com") Contact
+          %br/
+          %a(href='http://blog.voicerepublic.com/about') About
+          %br/
+          %a(href='http://blog.voicerepublic.com/about') Blog
         %li
           %h6 &copy; VoiceRepublic Media AG 2014
           .release= release
