@@ -12,7 +12,7 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - TODO: document me
+# * audio_formats [text, default="--- []\n"] - \n"] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
@@ -27,6 +27,8 @@
 # * session [text] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
+# * starts_at_date [string] - TODO: document me
+# * starts_at_time [string] - TODO: document me
 # * state [string] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
@@ -72,14 +74,12 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  validates :venue, :title, :starts_at, :ends_at, :tag_list, :duration, presence: true
+  validates :venue, :title, :tag_list, :duration, presence: true
+  validates :starts_at_date, format: { with: /\d{4}-\d\d-\d\d/ }
+  validates :starts_at_time, format: { with: /\d\d:\d\d/ }
 
-  #FIXME: When starts_at_date or starts_at_time are set incorrectly, both
-  # fields will show validation errors, now. starts_at and ends_at times are
-  # calculated, this needs to be refactored.
-  validate :validate_starts_at_date
-
-  before_validation :set_ends_at
+  before_save :set_starts_at
+  before_save :set_ends_at
   after_create :notify_participants
   after_save :set_guests
 
@@ -125,34 +125,6 @@ class Talk < ActiveRecord::Base
 
   def ends_in # seconds (for live) # TODO: check if needed
     (ends_at - Time.now).to_i
-  end
-
-  def starts_at_time
-    starts_at && starts_at.strftime('%H:%M')
-  end
-
-  def starts_at_date
-    starts_at && starts_at.strftime('%Y-%m-%d')
-  end
-
-  def starts_at_time=(time)
-    begin
-      datetime = DateTime.parse(time)
-      self.starts_at ||= DateTime.new
-      attrs = { hour: datetime.hour, min: datetime.min }
-      self.starts_at = starts_at.change(attrs)
-    rescue ArgumentError
-    end
-  end
-
-  def starts_at_date=(date)
-    begin
-      datetime = DateTime.parse(date)
-      self.starts_at ||= DateTime.new
-      attrs = { year: datetime.year, month: datetime.month, day: datetime.day }
-      self.starts_at = starts_at.change(attrs)
-    rescue ArgumentError
-    end
   end
 
   def config_for(user)
@@ -236,11 +208,11 @@ class Talk < ActiveRecord::Base
 
   private
 
-  def validate_starts_at_date
-    if starts_at.nil?
-      errors.add :starts_at_date, I18n.t(:invalid_date)
-      errors.add :starts_at_time, I18n.t(:invalid_time)
-    end
+  # assemble starts_at from starts_at_date and starts_at_time
+  def set_starts_at
+    date = DateTime.parse(starts_at_date)
+    time = DateTime.parse(starts_at_time)
+    self.starts_at = date.change hour: time.hour, min: time.min
   end
 
   def set_ends_at
