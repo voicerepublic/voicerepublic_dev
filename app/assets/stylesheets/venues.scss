@@ -1,7 +1,7 @@
-.venues-edit,
-.venues-new{
-
-	@include form-generic-styles();
+.venues-new,
+.venues-create,
+.venues-update,
+.venues-edit{
 	.link-delete{
 		float:right
 	}
@@ -27,7 +27,10 @@
 	.button-header{
 		margin-bottom: 16px;
 	}
-  .vr-tabs dd{
-  	width: 25%;
+  .vr-tabs{
+  	dd{
+  		width: 25%;
+  	}
   }
+
 }

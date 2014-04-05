@@ -1,5 +1,5 @@
 VoiceRepublic::Application.routes.draw do
-  
+
   post '/api/talk/:id/messages', to: 'api/messages#create'
   put  '/api/talk/:id',          to: 'api/talks#update'
   get  '/api/users',             to: 'api/users#index'
@@ -17,7 +17,7 @@ VoiceRepublic::Application.routes.draw do
   #
   # it makes the rendering of different kind of resources, like
   # in the search results, less painful
-  nested_talk = ->(params, req) do 
+  nested_talk = ->(params, req) do
     talk = Talk.find(params[:id])
     "/venues/#{talk.venue_id}/talks/#{talk.id}"
   end
@@ -51,5 +51,9 @@ VoiceRepublic::Application.routes.draw do
   root :to => "landing_page#index"
 
   # match ':controller(/:action(/:id))(.:format)'
+
+  # Match exceptions
+  # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
+  match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/}, via: :all
 
 end

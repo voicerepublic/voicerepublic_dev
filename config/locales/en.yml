@@ -16,6 +16,8 @@ en:
     mail_goodbye: "Best regards"
     mail_body: "Check out this talk on voicerepublic.com: "
     has_been_tracked: "Has been tracked"
+  social_network_connects:
+    with: with
   date:
     abbr_day_names:
     - Sun
@@ -281,6 +283,8 @@ en:
       edit_account: Edit profil
     edit:
       edit_your_profile: Edit profil
+      select_profile_image: Select profile image
+      select_header_image: Select header image
     kluuus:
       klus: KluuUs
       guest_empty_klu: ! '%{name} has no KluuU yet.'

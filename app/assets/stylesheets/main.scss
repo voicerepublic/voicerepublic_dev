@@ -24,11 +24,11 @@ p{
 	font-size: 0.8rem;
 }
 
-i{
+span[class^="icon-"]{
   position:relative;
   margin-right: 4px;
-  font-size: rem-calc(20);
-  vertical-align: middle
+  font-size: rem-calc(16);
+  top: 3px;
 }
 
 .right-text-space{

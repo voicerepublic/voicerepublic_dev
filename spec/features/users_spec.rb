@@ -86,7 +86,9 @@ feature "User can register" do
     page.fill_in('user_lastname', :with => "Beam")
     page.click_button('Sign Up to Voice Republic')
     page.click_button('Sign Up')
-    page.should have_content("Email can't")
+    within(".input.email.error") do
+      page.should have_content("can't be blank")
+    end
   end
 end
 

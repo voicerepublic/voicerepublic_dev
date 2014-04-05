@@ -2,19 +2,18 @@
 
   .row.top-margin-action-bar
     .medium-10.medium-offset-1.columns
-      %h2= t(".login_title")
+      -#%h2= t(".login_title")
       .row.collapse
         .medium-6.columns
           = devise_error_messages!
-          = f.input :email, html_input: {type: 'email'}
-          = f.input :password, html_input: {type: 'password'}
+          = f.input :email
+          = f.input :password
           - if devise_mapping.rememberable?
             = label_tag :remember_me, :class => 'checkbox' do
               = check_box_tag :remember_me
               = t('.remember')
           = button_tag t('.login_title'), :name => "Login"
         .medium-6.columns.text-center
-          %br
           = t(".login_or")
           = render(:partial => "/devise/shared/social_network_connects")
 
