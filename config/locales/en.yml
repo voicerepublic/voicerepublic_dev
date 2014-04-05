@@ -719,11 +719,12 @@ en:
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
-      flash_manual_title: Check Audio Settings
-      audio_settings_flash_manual: '1. Right-click on the white box %{delimiter}2. Choose Settings %{delimiter}3. Allow microphone'
-      audio_settings_help_text: Need help?
+      flash_manual_title: YOU HAVE REQUESTED THE MICROPHONE - YOU NEED TO CHECK YOUR CONFIGURATION FIRST
+      audio_settings_flash_manual: <span class="desc-bold">1. CLICK ALLOW</span> to activate your microphone<br /><span class="desc-bold">2. CLICK OK</span>
+      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
+      lets_go: OK - LET'S GO
     new:
       new_talk: New Talk
     edit:

@@ -127,49 +127,156 @@
     }
   }
 
-  .talk-live-mic-states-row{
+  .talk-visitors-action-box{
+    margin-top: 37px
+  }
+
+  .talk-host-and-participants-action-box{
     position: relative;
-    margin-top: 20px;
+    background: black;
+    margin-top: 37px;
     height: 88px;
     padding-top: 10px ;
     padding-bottom: 10px;
+
+    .talkers-action-box{
+      .mic-sign-box{
+        display: inline-block;
+        position: absolute;
+        top: -45px;
+        margin-left: -35px;
+        left: 50%;
+        width: 78px;
+        .icon-octa-full{
+          position: absolute;
+          top: 0;
+          left:0;
+          font-size: rem-calc(70);
+          color: black;
+ /*         text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;*/
+        }
+        .icon-octagon{
+          position: absolute;
+          top: 0;
+          left:0;
+          font-size: rem-calc(70);
+          color: $brand-color-red;
+        }
+        .icon-mic{
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          color: $brand-color-red;
+          font-size: rem-calc(30);
+        }
+        .yellow{
+          color: $brand-color-yellow;
+        }
+      }
+      .button-box{
+        height: 35px;
+        > div{ 
+          position: absolute;
+          left: 50%;
+          top: -7px;
+          margin-left: 39px;
+          font-family: 'eaglebook';
+          font-size: 12px;
+
+        }
+      }
+      .tmp-mute-box{
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        font-size: rem-calc(11);
+        font-family: 'eaglelight';
+        > span{
+          cursor: pointer;
+        }
+      }
+    }
+
+    .chat-input-box{
+      .input-box{
+        position: relative;
+      }
+      .icon-bubble-multi{
+        position: absolute;
+        left: 7px;
+        top:3px;
+        color: $brand-color-red;
+      }
+      input{
+        width: 100%;
+        background: $brand-color-creme;
+        border: none;
+        height: 23px;
+        font-size: rem-calc(11);
+        color: rgba(0,0,0,0.7);
+        padding:0px 10px 0 29px;
+        &:focus{
+          border: none;
+          outline: none;
+        }
+      }
+    }
     .flash-box{
       height:0;
+      margin-top: 25px;
       margin-bottom: 15px;
-      background: rgba(250, 250, 250, 0.7);
+      background: #000;
       overflow: hidden;
       transition: height .4s, padding .4s;
-      .audio-settings-right-box, .audio-settings-left-box{
-        width: 210px;
-        height: 140px;
+      .manual-box{
         display: inline-block;
         vertical-align: top;
-        padding-top: 30px;
-      }
-      .audio-settings-right-box{
-        padding: 40px 0 0 70px;
-        font-family: 'eaglebook';
-        a{
-          color: #fff;
-        }
+        color:white;
+        margin-left: 15px;
+        width: 300px;
       }
       .flash-manual-title{
         font-family: 'eaglebook';
         margin-bottom: 3px;
+        color: $brand-color-yellow;
+        font-size: rem-calc(12);
+        line-height: 1.1
       }
 
       &.flash-box-open{
         height: 170px;
         padding: 15px 0;
       }
+      .button-vr{
+        border-color: $brand-color-yellow;
+        color: $brand-color-yellow;
+        font-size: rem-calc(12);
+        padding: 8px 0;
+        min-width: 126px;
+        margin-bottom: 5px;
+      }
+      .flash-content{
+        margin-bottom: 10px;
+      }
+      .desc-bold{
+        color: $brand-color-yellow;
+        font-family: 'eaglebook';
+        font-size: rem-calc(12)
+      }
+      a{
+        color: $brand-color-yellow;
+        &:hover,&:focus{
+          color: $brand-color-yellow;
+        }
+      }
     }
 
     .button-audio-settings{
       position: absolute;
       right: 6px;
-      top: rem-calc(10);
+      top: 0;
       font-family: 'eaglebook';
-      font-size: rem-calc(14);
+      font-size: rem-calc(12);
       cursor: pointer;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
     }
@@ -191,6 +298,38 @@
 
   .vr-tabs dd{
     width:33.33%;
+  }
+
+  #talk-tab-discussion{
+    background: $brand-color-creme;
+    .chat-message{
+      max-width:100%;
+      position: relative;
+      padding-top: 12px;
+      padding-bottom:11px;
+      &:nth-child(2n){
+        background: $brand-color-cremelight;
+      }
+      .message-name{
+        float:left;
+        width: 101px;
+        font-size: rem-calc(12);
+        font-family: 'eaglebook';
+        color: rgba(0,0,0, 0.6);
+      }
+      .message-content{
+        padding-right: 101px;
+        font-size: rem-calc(11);
+        color: rgba(0,0,0, 0.6);
+      }
+      .message-time{
+        position: absolute;
+        right: 0.9375rem;
+        top: 3px;
+        font-size: rem-calc(8);
+        color: rgba(0,0,0, 0.5);
+      }
+    }
   }
 
 }
