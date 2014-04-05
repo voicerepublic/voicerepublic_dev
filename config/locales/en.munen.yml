@@ -1,3 +1,11 @@
 en:
   invalid_date: "Invalid time or date"
   invalid_time: "Invalid time or date"
+  exceptions:
+    403_header: "Forbidden"
+    403_body: "You are not authorized to perform that action."
+    404_header: "This is not the web page you were looking for"
+    500_header: "Looks like something went wrong!"
+    500_body: "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
+    exception: "Exception"
+    exception_for_vr_users: "Since you have an email adress [user]@voicrepublic.com, I'm showing you the exception message for debugging purposes. Regular users will not see this exception."

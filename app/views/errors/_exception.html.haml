@@ -1,0 +1,9 @@
+- if @exception and (current_user.email =~ /@voicerepublic.com/)
+  .row
+    .large-12.columns.panel.callout.radius
+      %h1= t('exceptions.exception')
+      %p= t('exceptions.exception_for_vr_users')
+
+      %p.alert-box.warning
+        = @exception.message
+
