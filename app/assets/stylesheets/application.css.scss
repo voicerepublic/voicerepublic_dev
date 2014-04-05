@@ -11,70 +11,38 @@
  * appear at the top of the compiled file, but it's generally better
  * to create a new file per style scope.
  *
- *= require users
  *= require_self
  */
 
  @import "grids_variables_mixins/ci_variables";
  @import "grids_variables_mixins/mixins";
  @import "grids_variables_mixins/foundation_and_overrides";
- @import "grids_variables_mixins/foundation-icons";
+/* @import "grids_variables_mixins/foundation-icons";*/
+ @import "grids_variables_mixins/vr_icons";
  @import "grids_variables_mixins/eagle_webfonts";
- @import "foundation_calendar";
+ @import "main";
+ @import 'jquery.ui.datepicker';
+ @import 'jquery.ui.slider';
+ @import 'jquery-ui-timepicker-addon';
  @import "select2";
 
 // SHARED
  @import "shared/top_actionbar";
- @import "shared/flash_messages"; 
+ @import "shared/flash_messages";
  @import "shared/social_share";
- @import "shared/footer"; 
+ @import "shared/footer";
  @import "shared/header_block";
  @import "shared/generic_action_bar";
  @import "shared/vr_tabs";
  @import "shared/talk_medium_box";
+ @import "shared/venue_medium_box";
  @import "shared/comment";
-
-
+ @import "shared/vr_player";
+ @import "shared/avatar";
+ @import "shared/vr_button";
 
 // RAILS STRUCTURE
  @import "landing_page";
  @import "users";
  @import "venues";
  @import "talks";
-
-/* Testing */
-.draft {
-  margin-top: 80px;
-  background-color: hotpink;
-  border: 3px solid greenyellow;
-  padding: 5px 10px;
-  border-radius: 15px;
-}
-
-.debug {
-  background-color: brown;
-}
-
-.result.talk { background-color: #ddf; }
-.result.user { background-color: #fdd; }
-.result.venue { background-color: #dfd; }
-
-
-/* GENERAL */
-body{
-	overflow-y: scroll; /* prevents moving by to small content */;
-	background: #F6F4EC
-}
-
-h2{
-  font-family: 'eaglebook';
-}
-
-p{
-	font-size: 0.8rem;	
-}
-
-.list-style-type-none{
-	list-style-type: none;
-	margin:0
-}

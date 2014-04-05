@@ -1,23 +1,36 @@
-.venues-show,
 .venues-edit,
 .venues-new{
+
+	@include form-generic-styles();
+	.link-delete{
+		float:right
+	}
+}
+
+.venues-show{
+	/*opacity: 0.6;*/
 	.title-block{
-		background: rgba(0,0,0,0.3);
+		background: rgba(0,0,0,0.8);
 		.venue-title,.venue-teaser{
 			color: white;
 		}
 		.venue-title{
-			line-height: 2rem;
-			margin: 3.5rem 0;
+			margin: rem-calc(52) 0 rem-calc(39);
+			font-size: rem-calc(46);
 		}
 		.venue-teaser{
-			font-size: 1rem;
+			font-family: 'eaglelight';
+			font-size: rem-calc(18);
 			margin-bottom: 50px;
 		}
 	}
-
-
-  .vr-tabs dd{
-  	width: 25%;
+	.button-header{
+		margin-bottom: 16px;
+	}
+  .vr-tabs{
+  	dd{
+  		width: 25%;
+  	}
   }
+
 }

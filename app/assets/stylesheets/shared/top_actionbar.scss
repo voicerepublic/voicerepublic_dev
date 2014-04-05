@@ -1,9 +1,14 @@
 .top-bar-box{
 	margin-bottom:-55px !important;
+	max-width: rem-calc(700);
 
 	.top-bar {
 		z-index: 1;
 	}
+
+  .avatar{
+  	margin-top: 8px;
+  }
 
 	.top-bar-vr-logo{
 		position: absolute;

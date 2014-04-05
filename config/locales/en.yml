@@ -226,6 +226,9 @@ en:
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
       designed: ! '%-d%o %B %Y — %l%P'
+      date_only: ! '%-d%o %B %Y'
+      time_only: ! '%k:%M'
+      timeonly: ! '%H:%M:%S'
     pm: pm
   call_now: call now
   call_dispatched: call dispatched
@@ -462,12 +465,7 @@ en:
     news: NEWS
     index:
       headline: Debate is so much better than denial.
-      is: is...
-      illu_1: Your Blog...
-      illu_2: with Venue...
-      illu_2_subtitle: (Chatroom)
-      illu_3: and 1:1 Video
-      enter_search_term: Enter search term
+      subheadline: Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.
     lp_login:
       email: E-mail
       password: Password
@@ -482,11 +480,12 @@ en:
       lastname: Lastname
       email: E-mail
       password: Password
-      register: Sign Up to KluuU!
+      register: Sign Up to Voice Republic
     lp_venues:
       featured_venue: KluuU recommends
       upcoming_venues: UPCOMING VENUES
   messages:
+    as_text: "%{created_at} %{user_name}: %{content}"
     received_message:
       reply: Reply
       delete: Delete
@@ -528,11 +527,14 @@ en:
       no_results_sentence: Oops, no results.
   shared:
     actionbar:
-      notifications: News
-      messages: Messages
-      profile: Profile
-      see_other_venues: More Talks
+      login: Login
+      sign_up: Sign Up
       search: Search
+      my_profile: Profile
+      my_next_talks: My next Talks
+      create_venue: Create Venue
+      settings: Settings
+      logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
@@ -558,6 +560,9 @@ en:
       contacts: Contacts
       messages: Messages
       settings: Settings
+    talk_medium_box:
+      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      read_more: ...read more
 
   venues:
     date_changed: New venue date
@@ -565,6 +570,7 @@ en:
       edit_venue: Edit Venue
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
+      delete_venue: Delete venue
     venue_list: Venues
     new_venue: Create Venue
     show:
@@ -700,13 +706,29 @@ en:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Venue
   talks:
+    message_history: |
+      VoiceRepublic Message History 
+
+        %{title}
+      
+        %{started_at} - %{ended_at}
     show:
       chat_placeholder: Type and hit enter to post a comment
       you: You
+      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      ends_in: ENDS IN
+      state_text: THIS TALK IS LIVE
+      record_text: AND BEING RECORDED
+      flash_manual_title: Check Audio Settings
+      audio_settings_flash_manual: '1. Right-click on the white box %{delimiter}2. Choose Settings %{delimiter}3. Allow microphone'
+      audio_settings_help_text: Need help?
+      mute_streams: mute
+      unmute_streams: unmute
     new:
       new_talk: New Talk
     edit:
       edit_talk: Edit Talk
+      delete_talk: Delete talk
     fields:
       title: Title
       teaser: Teaser

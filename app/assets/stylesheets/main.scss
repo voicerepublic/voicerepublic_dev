@@ -1,0 +1,59 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+body{
+	overflow-y: scroll; /* prevents moving by to small content */;
+/*	background: #F6F4EC;*/
+/*  background: url(/assets/bg_talk.png) center top no-repeat*/
+}
+
+// FOR LARGE COLLAPSE AND MOBILE PADDING
+@media only screen and (min-width: rem-calc(730)){
+  .collapse-large-only > .columns{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+h1,h2,h3{
+  font-family: 'eaglebook';
+}
+
+p{
+	font-size: 0.8rem;
+}
+
+span[class^="icon-"]{
+  position:relative;
+  margin-right: 4px;
+  font-size: rem-calc(16);
+  top: 3px;
+}
+
+.right-text-space{
+  margin-right: 3px;
+}
+
+.list-style-type-none{
+	list-style-type: none;
+	margin:0
+}
+
+.display-none{
+  display:none;
+}
+
+#query.warning {
+  background: lightcoral !important;
+}
+
+.top-margin-action-bar{
+  margin-top: 100px
+}
+
+/* hack for firefox to show flash */
+object#Blackbox {
+    width: 215px;
+    height: 140px;
+}

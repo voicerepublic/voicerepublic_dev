@@ -1,0 +1,31 @@
+// MEDIUM TALK BOX
+.venue-medium-box{
+  .venue-text-box{
+    padding: 19px 0 11px 0;
+    background-color: $venue-medium-box-background-color;
+    background-size: 50%;
+    background-position: center center;
+    .venue-title{
+      font-size: rem-calc(20);
+      line-height: 1rem;
+      margin-bottom:10px;
+    }
+    .venue-teaser{
+      line-height: 1rem;
+    }
+    p{
+      color: white
+    }
+  }
+
+  .action-box{
+    .button-venue-box{
+      display:inline-block;
+      @include button(rem-calc(13), #000);
+      color: $brand_color_creme;
+      font-family: 'eaglebook';
+      font-size: rem-calc(13)
+    }
+  }
+}
+

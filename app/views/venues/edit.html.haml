@@ -1,7 +1,8 @@
 = simple_form_for @venue do |f|
   = render partial: 'fields', locals: { f: f, form_title: t(".edit_venue") }
 
-  .row
-    .large-10.medium-10.large-centered.medium-centered.columns
+  .form-save-row.row
+    .medium-12.columns
       = f.button :submit
       = link_to t('.cancel'), @venue
+      = link_to t('.delete_venue'), @venue, delete_params

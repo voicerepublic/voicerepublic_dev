@@ -55,7 +55,6 @@ rtmp {
 
 http {
     server {
-        # TODO only allow localhost
         listen 8080;
 
         location /stat {
@@ -64,12 +63,8 @@ http {
         }
 
         location /stat.xsl {
-            root /home/rails/nginx-rtmp/nginx-rtmp-module/;
+            root ../;
         }
-
-        location /index.html { root /home/rails/nginx-rtmp/nginx-run/html/kluuu/; }
-        location /swfobject.js { root /home/rails/nginx-rtmp/nginx-run/html/kluuu/; }
-        location /Room.swf { root /home/rails/nginx-rtmp/nginx-run/html/kluuu/; }
 
         location /control {
             rtmp_control all;

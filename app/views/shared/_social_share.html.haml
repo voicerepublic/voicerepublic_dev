@@ -2,14 +2,19 @@
 #social_share
   %span{class: 'facebook share', data: { shareable_id: shareable_id,
     shareable_type: shareable_type } }
-    %i.fi-social-facebook
+    = link_to '#' do
+      %span.icon-octagon
+      %span.icon-fb
   %span{class: 'twitter share', data: { shareable_id: shareable_id,
     shareable_type: shareable_type } }
-    %i.fi-social-twitter
+    = link_to '#' do
+      %span.icon-octagon
+      %span.icon-tw
   %span{class: 'mail share', data: { shareable_id: shareable_id,
    shareable_type: shareable_type } }
     = mail_to "your@friend.com",
         subject: t('social_share.mail_subject'),
         body: t('social_share.mail_greeting') + nl + nl + t('social_share.mail_body') + request.original_url + nl + nl + t('social_share.mail_goodbye') + nl + current_user.name do
       %span
-        %i.fi-mail
+        %span.icon-octagon
+        %span.icon-mail

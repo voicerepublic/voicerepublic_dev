@@ -1,29 +1,22 @@
-.well.well-large.login.centered-box
-  %h2= t(".login_title")
-  = render(:partial => "/devise/shared/social_network_connects")
-  .sessions-or-box
-    %hr/
-    .sessions-or-overlap= t(".login_or")
-  = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-    = devise_error_messages!
-    .control-group
-      = f.label :email, :class => 'control-label' do
-        Email
-      .controls
-        = f.text_field :email,:type => "email", :class => 'input-block-level'
-    .control-group
-      = f.label :password, :class => 'control-label' do
-        = t('.password')
-      .controls
-        = f.password_field :password, :class => 'input-block-level'
-    - if devise_mapping.rememberable?
-      .control-group
-        .controls
-          = label_tag :remember_me, :class => 'checkbox' do
-            = check_box_tag :remember_me
-            = t('.remember')
-    %div
-      = button_tag t('.login_title'), :name => "Login", :class => 'btn btn-primary pull-right'
-  .clearfix
-  %hr/
-  = render(:partial => "/devise/shared/links")
+= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+
+  .row.top-margin-action-bar
+    .medium-10.medium-offset-1.columns
+      %h2= t(".login_title")
+      .row.collapse
+        .medium-6.columns
+          = devise_error_messages!
+          = f.input :email, html_input: {type: 'email'}
+          = f.input :password, html_input: {type: 'password'}
+          - if devise_mapping.rememberable?
+            = label_tag :remember_me, :class => 'checkbox' do
+              = check_box_tag :remember_me
+              = t('.remember')
+          = button_tag t('.login_title'), :name => "Login"
+        .medium-6.columns.text-center
+          %br
+          = t(".login_or")
+          = render(:partial => "/devise/shared/social_network_connects")
+
+      %hr/
+      = render(:partial => "/devise/shared/links")

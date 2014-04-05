@@ -5,11 +5,16 @@
     color:#fff;
   }
   a{ 
-    letter-spacing: 1px;
+    padding: 5px 0 3px;
     &:hover,
     &:focus{
       background: rgba(0,0,0,0.7);
       color:#fff;
     }
+    height: 33px;
   }
+}
+
+.tabs-content > .content{
+  padding: rem-calc(10) 0 !important;
 }

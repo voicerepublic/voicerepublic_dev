@@ -24,7 +24,7 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.1';
+    internal var version: String = '2.1b';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;

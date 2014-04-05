@@ -21,7 +21,8 @@ class LivepageConfig < Struct.new(:talk, :user)
         state: talk.state,
         # TODO: check for timezone issue
         starts_in: talk.starts_at.to_i - Time.now.to_i,
-        links: talk.download_links
+        links: talk.media_links,
+        duration: talk.duration.minutes
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
@@ -38,7 +39,8 @@ class LivepageConfig < Struct.new(:talk, :user)
       role: user_details[:role], # TODO: remove in favor of user.role
       stream: "t#{talk.id}-u#{user.id}",
       streaming_server: Settings.rtmp.record,
-      discussion: discussion
+      discussion: discussion,
+      guests: talk.guests.map { |g| g.details_for(talk) }
     }
   end
 

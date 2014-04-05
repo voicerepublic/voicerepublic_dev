@@ -1,32 +1,198 @@
-.talks-show,
 .talks-edit,
 .talks-new{
+  @include form-generic-styles();
+  
+  input[type="checkbox"]{
+    margin-right:5px !important
+  }
+  .date-time-picker-row{
+    .columns{
+      padding-right: 13px !important;
+      &:last-child{
+        padding-right: 0 !important
+      }
+    }
+  }
+  .link-delete{
+    float:right
+  }
+}
 
-	.talk-upper-block {
-	  background-repeat: no-repeat;
-	  background-position: center center;
-	  background-size: cover;
-	  padding-top: 55px;
-	  color: #fff;
-	}
+
+.talks-show{
+
+  // for testing
+  .talk-state{
+    position: fixed;
+    bottom:0;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    color: #aaa;
+    padding: 5px;
+    font-size: rem-calc(12);
+    z-index: 1000;
+    border-top:1px solid #aaa;
+  }
 
   .talk-title-box{
-    background: rgba(0,0,0,0.3);
-    padding:1rem 0 4rem 0rem;
+    background: rgba(0,0,0,0.5);
+    margin-top: 12px;
+    padding:16px 0 2px 0;
+    .talk-venue-title{
+      display: inline-block;
+      a,a:hover,a:focus{
+      font-family: 'eaglelight';
+      color: #fff;
+      letter-spacing: 1px;
+      font-size: rem-calc(13);
+      }      
+    }
     .talk-title{
       color: #fff;
+      font-size: rem-calc(39);
+      line-height: 1;
+      margin: 31px 0 5px 0;
+    }
+    .talk-teaser{
+      color: #fff;
+      font-family: 'eaglelight';
+      font-size: rem-calc(20);
+      line-height: 1;
+      margin: 0;
+    }
+    .talk-date-time{
+      margin: rem-calc(29) 0 0 0;
+      font-family: 'eaglelight';
     }
   }
 
-  h3.talk-teaser{
-    color: #fff;
+  .talk-timeline-box{
+    margin-top: 15px;
+    background: rgba(0,0,0,0.5);
+    font-family: 'eaglebook';
+    font-size: rem-calc(15);
+    padding: 0 0 9px 0;
+    .talk-timeline{
+      background: rgba(0,0,0,0.8);
+      width: 100%;
+      height: 10px;
+      margin:0 0 14px;
+      .talk-timeline-progress{
+        background: $brand-color-red;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .talk-state-info{
+      position: relative;
+      width: 100%;
+      .talk-timecounter{
+        position: absolute;
+        right: 4px;
+        top: 0;
+        font-size: rem-calc(12);
+      }
+      .talk-state-bullet{
+        display: inline-block;
+        height: 10px;
+        width: 10px;
+        margin-right: 5px;
+        background: $brand-color-red;
+        border-radius: 50%;
+      }
+      .record-text{
+       color: $brand-color-red;
+      }
+    }
   }
 
   .talk-talkers-box{
-    margin-top: 20px;
-    background: rgba(0,0,0,0.5);
-    padding:1rem 0.5rem 4rem 0.5rem;
+    position: relative;
+    background: rgba(0,0,0,0.85);
+    padding:rem-calc(21) rem-calc(8);
     color: #fff;
+    .mute-stream-box{
+      position: absolute;
+      right: 6px;
+      bottom: 4px;
+      > div{
+        display: inline-block;
+        font-size: rem-calc(14);
+        font-family: 'eaglebook';
+        span{
+          color: $brand-color-green;
+        }
+      }
+    }
+  }
+
+  .talk-live-mic-states-row{
+    position: relative;
+    margin-top: 20px;
+    height: 88px;
+    padding-top: 10px ;
+    padding-bottom: 10px;
+    .flash-box{
+      height:0;
+      margin-bottom: 15px;
+      background: rgba(250, 250, 250, 0.7);
+      overflow: hidden;
+      transition: height .4s, padding .4s;
+      .audio-settings-right-box, .audio-settings-left-box{
+        width: 210px;
+        height: 140px;
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 30px;
+      }
+      .audio-settings-right-box{
+        padding: 40px 0 0 70px;
+        font-family: 'eaglebook';
+        a{
+          color: #fff;
+        }
+      }
+      .flash-manual-title{
+        font-family: 'eaglebook';
+        margin-bottom: 3px;
+      }
+
+      &.flash-box-open{
+        height: 170px;
+        padding: 15px 0;
+      }
+    }
+
+    .button-audio-settings{
+      position: absolute;
+      right: 6px;
+      top: rem-calc(10);
+      font-family: 'eaglebook';
+      font-size: rem-calc(14);
+      cursor: pointer;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
+    }
+  }
+
+  .download{
+    margin-bottom: 15px;
+    ul{
+      display: inline-block !important
+    }
+  }
+  .button-join-discussion{
+    width: 100%;
+    background: $brand-color-green;
+    &:hover,&:focus{
+      background: $brand-color-green;
+    }
+  }
+
+  .vr-tabs dd{
+    width:33.33%;
   }
 
 }
+
+

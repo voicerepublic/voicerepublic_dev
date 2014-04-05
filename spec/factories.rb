@@ -5,38 +5,11 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
 
-  # basic models
-
-  # factory :event do
-  #   start_time 1.week.ago
-  #   duration   90
-  #   #association :venue
-  #   venue
-  #   title      "Spec event title"
-  # end
-
   factory :venue do
     tag_list    'some, tags'
     teaser      Faker::Lorem.paragraph
     description Faker::Lorem.paragraphs(2).join("\n")
     title       Faker::Lorem.sentence
-    user
-
-    # factory :venue_with_events do
-    #   ignore do
-    #     events_count 3
-    #   end
-    #   after(:build) do |venue, evaluator|
-    #     evaluator.events_count.times do |i|
-    #       venue.events << FactoryGirl.create(:event)
-    #     end
-    #   end
-    # end
-  end
-
-  factory :article do
-    venue
-    content "MyText"
     user
   end
 
@@ -54,8 +27,8 @@ FactoryGirl.define do
 
   factory :comment do
     content { Faker::Lorem.paragraph }
-    article
     user
+    association :commentable, factory: :venue
   end
 
   factory :participation do
@@ -68,11 +41,8 @@ FactoryGirl.define do
     venue
     starts_at_time 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
     starts_at_date 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
-    # ends_at   2.hour.from_now
-    # ended_at 90.minutes.from_now
     duration 60
     record false
-    # recording "MyString"
     tag_list 'lorem, ipsum, dolor'
     description 'talk description'
   end
@@ -87,4 +57,10 @@ FactoryGirl.define do
     talk
     content "MyText"
   end
+
+  factory :setting do
+    key "MyString"
+    value "MyString"
+  end
+
 end

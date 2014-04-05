@@ -1,0 +1,76 @@
+.avatar{
+  display: inline-block;
+  vertical-align: top; 
+
+  .avatar-image{    
+    position:relative;
+    display: block;
+    overflow:hidden;
+    .avatar-bg{
+      fill: white;
+    }
+  }
+
+  .avatar-name{
+    padding:5px 0;
+    color: black;
+    font-family: 'eaglebook';
+    font-size: rem-calc(14);
+  }
+
+  .host-banner{
+    width: 50px;
+    height: 50px;
+    position:absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    span{
+      @include rotate(-45);
+      display: block;
+      margin: 10px 0 0 -14px;
+      background: $brand-color-green;
+      font-family: 'eaglebook'
+    }
+  }
+
+  .mic-mute{
+    color: black;
+    background: #eee;;
+    position: absolute;
+    top: 80px;
+    left: 45px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    i{
+      font-size:1.5rem;
+      line-height: 2rem;
+    }
+    @include opacity(0);
+  }
+
+  &:hover,&:focus{
+    .mic-mute{
+      @include opacity(1);
+    }
+  }
+
+  .host-actions{
+    margin-top: 2px;
+    background: #aaa;
+    .guest-demote-link{
+      padding:5px 0;
+      color: red;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .guest-promote-link{
+      padding:5px 0;
+      color: red;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  }
+
+}

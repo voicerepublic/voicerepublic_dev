@@ -7,20 +7,15 @@ class Ability
 
     user ||= User.new
 
-    return if user.guest?
-    
+    return false if user.guest?
+
     can :manage, User,    id: user.id
     can :manage, Venue,   user_id: user.id
-    can :manage, Article, user_id: user.id
     can :manage, Comment, user_id: user.id
 
     can :manage, Talk do |talk|
       talk.venue.user_id == user.id
     end
-    
-    can :create, Venue do |venue|
-      !user.guest?
-    end
-    
+
   end
 end

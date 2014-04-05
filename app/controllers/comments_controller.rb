@@ -1,16 +1,19 @@
 class CommentsController < ApplicationController
 
   before_filter :authenticate_user!
-  before_filter :set_article
 
+  # TODO make ready for comments on talks
   def create
-    venue = @article.venue
-    comment = @article.comments.build(params[:comment])
+    authorize! :create, Comment
+
+    venue = Venue.find(params[:venue_id])
+    comment = venue.comments.build(params[:comment])
     comment.user = current_user
 
     if comment.save
-      send_email(comment)
-      redirect_to venue, notice: 'Comment was created.'
+      send_email(comment, venue.users)
+      redirect_to url_for(action: :show, controller: :venues, id: venue.id, anchor: "tab-comments"),
+        notice: I18n.t('comments.comment_created')
     else
       errors = comment.errors.full_messages.join(', ')
       redirect_to venue, alert: errors
@@ -19,15 +22,11 @@ class CommentsController < ApplicationController
 
   private
 
-  def send_email(comment)
-    users = comment.article_venue.users - [current_user]
+  # TODO do not create a job for every user (use custom job in app/jobs)
+  def send_email(comment, users)
     users.each do |user|
       UserMailer.delay(queue: 'mail').new_comment(comment, user)
     end
-  end
-
-  def set_article
-    @article = Article.find(params[:article_id])
   end
 
 end

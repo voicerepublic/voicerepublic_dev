@@ -1,12 +1,15 @@
 .comment-item.row.collapse
   .large-12.columns
     .comment-left-box.left
-      = link_to '#user' do
-        %img(src="http://lorempixel.com/40/40")
+      = link_to comment.user do
+        .avatar
+          - img_size = 40
+          .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
+            = render partial: "shared/avatar_image", locals: { user: current_user, img_size: img_size }
     .comment-right-box
-      = link_to '#user', class: 'comment-author' do
-        newthinking
+      = link_to comment.user, class: 'comment-author' do
+        = comment.user.name
       %span.comment-date
-        June 10, 2014, 12:45
-      %p.comment-text
-        Maecenas faucibus mollis interdum. Donec sed odio dui. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue.
+        = l(comment.created_at, format: :short)
+      .comment-text
+        = sophisticated_format comment.content

@@ -10,6 +10,13 @@ class TalksController < ApplicationController
 
   # GET /talks/1
   def show
+    respond_to do |format|
+      format.html
+      format.text do
+        authorize! :manage, @talk
+        render text: @talk.message_history
+      end
+    end
   end
 
   # GET /talks/new

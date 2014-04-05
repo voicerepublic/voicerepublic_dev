@@ -51,7 +51,7 @@ $row-width: rem-calc(700);
 // $default-float: left;
 
 // We use these as default colors throughout
-// $primary-color: #008CBA;
+$primary-color: $brand-color-green;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -116,16 +116,16 @@ $row-width: rem-calc(700);
 $header-font-family: 'eaglelight', sans-serif;
 // $header-font-weight: 300;
 // $header-font-style: normal;
-// $header-font-color: #222;
-// $header-line-height: 1.4;
+$header-font-color: #fff;
+$header-line-height: 1.1;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
 // $header-text-rendering: optimizeLegibility;
 
 // We use these to control header font sizes
 // $h1-font-size: rem-calc(44);
-// $h2-font-size: rem-calc(37);
-// $h3-font-size: rem-calc(27);
+$h2-font-size: rem-calc(30);
+$h3-font-size: rem-calc(18);
 // $h4-font-size: rem-calc(23);
 // $h5-font-size: rem-calc(18);
 // $h6-font-size: 1rem;
@@ -314,17 +314,17 @@ $anchor-font-color-hover: $anchor-font-color;
 // We use these to build padding for buttons.
 // $button-tny: rem-calc(10);
 // $button-sml: rem-calc(14);
-// $button-med: rem-calc(16);
+$button-med: rem-calc(11);
 // $button-lrg: rem-calc(18);
 
 // We use this to control the display property.
 // $button-display: inline-block;
-// $button-margin-bottom: rem-calc(20);
+$button-margin-bottom: rem-calc(0);
 
 // We use these to control button text styles.
-// $button-font-family: $body-font-family;
-// $button-font-color: #fff;
-// $button-font-color-alt: #333;
+$button-font-family: 'eaglebook';
+$button-font-color: #fff;
+$button-font-color-alt: $brand-color-green;
 // $button-font-tny: rem-calc(11);
 // $button-font-sml: rem-calc(13);
 // $button-font-med: rem-calc(16);
@@ -336,8 +336,8 @@ $anchor-font-color-hover: $anchor-font-color;
 // $button-function-factor: 5%;
 
 // We use these to control button border styles.
-// $button-border-width: 1px;
-// $button-border-style: solid;
+$button-border-width: 2px;
+$button-border-style: solid;
 
 // We use this to set the default radius used throughout the core.
 // $button-radius: $global-radius;
@@ -1059,13 +1059,13 @@ $input-include-glowing-effect: false;
 
 // $include-html-tabs-classes: $include-html-classes;
 
-$tabs-navigation-padding: rem-calc(6);
+// $tabs-navigation-padding: rem-calc(5);
 $tabs-navigation-bg-color: #F0F0F0 ;
 $tabs-navigation-active-bg-color: rgba(0,0,0,0.7);
 $tabs-navigation-hover-bg-color: $tabs-navigation-active-bg-color;
 $tabs-navigation-font-color: #000;
-$tabs-navigation-font-size: rem-calc(14);
-// $tabs-navigation-font-family: $body-font-family;
+$tabs-navigation-font-size: rem-calc(15);
+$tabs-navigation-font-family: 'eaglelight', sans-serif;
 
 // $tabs-content-margin-bottom: rem-calc(24);
 // $tabs-content-padding: $column-gutter/2;

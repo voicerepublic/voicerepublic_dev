@@ -2,8 +2,27 @@
   position: absolute;
   right: 20px;
   top: 70px;
-  span{
+  .share{
     display: block;
-    font-size: 2rem;
+    height: 23px;
+    width: 23px;
+    a{
+      position:relative;
+    	color:white;
+    	&:hover,&:focus{
+    		color:#ddd;
+    	}
+      span[class^="icon-"]{
+        font-size: rem-calc(10);
+        position:absolute;
+        top: 5px;
+        left: 5px;
+      }
+      span.icon-octagon{
+        font-size: rem-calc(21);
+        top: 0;
+        left: 0;
+      }
+    }
   }
 }

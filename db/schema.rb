@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319131714) do
+ActiveRecord::Schema.define(version: 20140404163241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,25 +78,11 @@ ActiveRecord::Schema.define(version: 20140319131714) do
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
-  create_table "articles", force: true do |t|
-    t.integer  "venue_id"
-    t.text     "content"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-  end
-
-  add_index "articles", ["deleted_at"], name: "index_articles_on_deleted_at", using: :btree
-  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
-  add_index "articles", ["venue_id"], name: "index_articles_on_venue_id", using: :btree
-
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.integer  "article_id",       null: false
     t.integer  "commentable_id"
     t.string   "commentable_type"
   end
@@ -159,6 +145,15 @@ ActiveRecord::Schema.define(version: 20140319131714) do
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
+  create_table "settings", force: true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["key"], name: "index_settings_on_key", using: :btree
+
   create_table "social_shares", force: true do |t|
     t.integer  "shareable_id"
     t.string   "shareable_type"
@@ -195,21 +190,23 @@ ActiveRecord::Schema.define(version: 20140319131714) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "ended_at"
-    t.boolean  "record"
+    t.boolean  "record",         default: true
     t.string   "recording"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "teaser"
     t.text     "description"
-    t.integer  "duration"
+    t.integer  "duration",       default: 30
     t.string   "image_uid"
     t.text     "session"
+    t.text     "audio_formats",  default: "--- []\n"
     t.datetime "featured_from"
-    t.text     "audio_formats", default: "--- []\n"
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
-    t.integer  "play_count",    default: 0
+    t.integer  "play_count",     default: 0
+    t.string   "starts_at_date"
+    t.string   "starts_at_time"
   end
 
   create_table "users", force: true do |t|

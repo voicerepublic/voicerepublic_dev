@@ -1,0 +1,9 @@
+<%
+  base_path = ''
+  if ENV['PROJECT'] =~ /editor/i
+    base_path << "/#{Rails.root.basename.to_s}/"
+  end
+  base_path << Rails.application.config.assets.prefix
+  base_path << '/ckeditor/'
+%>
+var CKEDITOR_BASEPATH = '<%= base_path %>';

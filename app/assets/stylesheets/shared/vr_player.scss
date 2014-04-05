@@ -1,0 +1,131 @@
+// VOICE REPUBLIC JPLAYER
+
+div.jp-audio{
+  line-height:1.6;
+  width:100%;
+}
+
+div.jp-interface {
+  position: relative;
+  width:100%;
+  height:47px;
+}
+
+/* @group CONTROLS */
+
+ul.jp-controls {
+  list-style-type:none;
+  padding: 0;
+  overflow:hidden;
+}
+
+ul.jp-controls li {
+  display:inline-block;
+}
+
+ul.jp-controls a {
+  margin:11px 0 0 0;
+  display:block;
+  overflow:hidden;
+}
+a.jp-play,
+a.jp-pause {
+  width:40px;
+  height:40px;
+  i{
+    font-size: rem-calc(24);
+  }
+  color:$brand-color-green;
+}
+
+/* @end */
+
+/* @group progress bar */
+
+div.jp-progress {
+  overflow:hidden;
+  background-color: darken($brand-color-green,45%);
+}
+div.jp-progress {
+  position: absolute;
+  top:0px;
+  height:11px;
+}
+div.jp-progress {
+  left:0;
+  width:100%;
+}
+
+/* BACKGROUND SEEKBAR */
+div.jp-seek-bar {
+  background: #000;
+  width:0px;
+  height:100%;
+  cursor: pointer;
+}
+
+/* SEEKBAR FROM START TO ACTUAL TALK TIME */
+div.jp-play-bar {
+  background: linear-gradient(to right,rgba(0,0,0,0),$brand-color-green, $brand-color-green);
+  width:0px;
+  height:100%;
+}
+
+/* The seeking class is added/removed inside jPlayer */
+div.jp-seeking-bg {
+  background: url("assets/player.blue.monday.seeking.gif");
+}
+
+/* @end */
+
+
+
+/* @group current time and duration */
+
+div.jp-time-holder {
+  position:absolute;
+  top:20px;
+  left:0px;
+  width:100%;
+}
+
+div.jp-current-time,
+div.jp-duration {
+  width:60px;
+  font-family: 'eaglebook';
+  font-size:rem-calc(12);
+  margin-left: 5px;
+
+}
+div.jp-current-time {
+  float: left;
+  display:inline;
+}
+div.jp-duration {
+  float: right;
+  display:inline;
+  margin-right: 5px;
+  text-align: right;
+}
+
+/* @end */
+
+.jp-no-solution {
+  padding:5px;
+  font-size:.8em;
+  background-color:#eee;
+  border:2px solid #009be3;
+  color:#000;
+  display:none;
+}
+
+.jp-no-solution a {
+  color:#000;
+}
+
+.jp-no-solution span {
+  font-size:1em;
+  display:block;
+  text-align:center;
+  font-weight:bold;
+}

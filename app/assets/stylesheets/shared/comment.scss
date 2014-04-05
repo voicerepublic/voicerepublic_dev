@@ -1,5 +1,5 @@
 .comment-item{
-  border-bottom: 1px solid #333;
+  border-bottom: 0px solid #333;
   .comment-left-box{
     padding-top: 8px;
   }
@@ -12,5 +12,28 @@
   }
   .comment-date{
     font-size: 0.7rem;
+  }
+}
+
+.comment-form{
+  position: relative;
+  z-index: 2;
+  height: 110px;
+  label{
+    display: none
+  }
+  .comment-right-box{
+    position: absolute;
+    left: 60px;
+    top: 0;
+    right: 0;
+    #comment_content{
+      height: 100px;
+    }
+    .button{
+      position: absolute;
+      right: 18px;
+      bottom: 28px;
+    }
   }
 }

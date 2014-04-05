@@ -1,41 +1,48 @@
 .row.top-bar-box
-  %nav.top-bar{"data-topbar" => ""}
+  %nav.top-bar(data-topbar)
     %ul.title-area
       %li.name
-        &nbsp;      
+        &nbsp;
       %li.toggle-topbar.menu-icon
         %a{href: "#"} Menu
     %h1.top-bar-vr-logo.text-center
       = link_to root_path do
-        = image_tag "logo.png", :alt => "Voice Republic" 
+        = image_tag "logo.png", :alt => "Voice Republic"
 
     %section.top-bar-section
       / Right Nav Section
-      %ul.right  
-        %li.has-dropdown
-          = link_to '#' do #TODO
-            = image_tag current_user.avatar.thumb('25x25#nw').url, alt: current_user.name, size: '25x25'
-            = current_user.name            
+      %ul.right
+        - if current_user.guest?
+          %li
+            = link_to t('.login'), new_user_session_path
+          %li
+            = link_to t('.sign_up'), new_user_registration_path
+        - else
+          %li.has-dropdown
+            %a(href='#')
+              .avatar
+                = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 25 }
+              = current_user.name
 
-          %ul.dropdown
-            %li
-              = link_to user_path(:id => current_user) do
-                = t('.my_profile')
-            %li
-              = link_to( new_venue_path ) do
-                = t('.create_venue')
-            %li
-              = link_to dashboard_settings_edit_path do
-                = t('.settings')
-            %li
-              = link_to(destroy_user_session_path, :method => :delete) do
-                %i.icon-off
-                = t('.logout') 
+            %ul.dropdown
+              %li
+                = link_to current_user do
+                  = t('.my_profile', default: 'My Profile')
+              %li
+                = link_to new_venue_path do
+                  = t('.create_venue')
+              %li
+                = link_to [:edit, current_user] do
+                  = t('.settings')
+              %li
+                = link_to(destroy_user_session_path, method: :delete) do
+                  %i.icon-off
+                  = t('.logout')
 
       / Left Nav Section
       %ul.left
         %li.top-bar-search-box
           = form_tag "/search", :class => 'navbar-search form-search' do
-            = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')
+            = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
             = button_tag :type => "submit", :class => "search-lupe" do
-              %i.fi-magnifying-glass
+              %span.icon-magnifying-glass

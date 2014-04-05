@@ -27,23 +27,10 @@ describe Ability do
       Ability.new(other).can?(:manage, venue).should be_false
     end
     it "allows to create venues as registered user (nonguest)" do
-      Ability.new(owner).can?(:create, Venue.new).should be_true
+      Ability.new(owner).can?(:create, Venue).should be_true
     end
     it "denies to create venues as guest" do
-      Ability.new(guest).can?(:create, Venue.new).should be_false
-    end
-  end
-
-  describe Article do
-    let(:article) { FactoryGirl.create(:article, user: owner) }
-    it "allows to manage articles by owner" do
-      Ability.new(owner).can?(:manage, article).should be_true
-    end
-    it "denies to manage articles by other" do
-      Ability.new(other).can?(:manage, article).should be_false
-    end
-    it "denies to create articles as guest" do
-      Ability.new(guest).can?(:create, Article.new).should be_false
+      Ability.new(guest).can?(:create, Venue).should be_false
     end
   end
 
