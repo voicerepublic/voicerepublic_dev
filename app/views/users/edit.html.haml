@@ -3,7 +3,7 @@
     data-show-upload="#user_header")
     .form-top-box.row
       .large-12.columns
-        = f.error_notification
+        -#= f.error_notification
         .row.collapse
           .large-3.medium-3.columns
             - avatar_url = @user.avatar.thumb('215x215#nw').url
@@ -12,8 +12,13 @@
             %br/
             %br/
             %button.button(type="button" class="tiny" data-trigger-file-input="user_avatar")
-              Select profile image
+              = t('.select_profile_image')
             = f.input :avatar, as: :file
+            %br/
+            %br/
+            %button.button(type="button" class="tiny" data-trigger-file-input="user_header")
+              = t('.select_header_image')
+            = f.input :header, as: :file, class: 'display-none'
 
           .large-5.medium-5.columns
             = f.input :firstname, :placeholder => 'First Name'
@@ -29,9 +34,6 @@
             #change-password.panel.hide
               = f.input :password, disabled: true
               = f.input :password_confirmation, disabled: true
-            %button.button(type="button" data-trigger-file-input="user_header")
-              Select header image
-            = f.input :header, as: :file, class: 'display-none'
 
           .large-4.medium-4.columns.text-center
             .row

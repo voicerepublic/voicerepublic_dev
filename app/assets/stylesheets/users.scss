@@ -1,7 +1,6 @@
 .users-show,
 .users-edit,
 .users-new{
-	/*@include form-generic-styles(); TODO */
 
 	.user-portrait-img{
 		width:200px;
@@ -20,11 +19,10 @@
 	}
 }
 
+.users-new,
+.users-create,
 .users-edit,
-.users-new{
-	.header-block{
-		padding-top: 100px
-	}
+.users-update{
 
 	.user-portrait-img{
 		width:143px;
