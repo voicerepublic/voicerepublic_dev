@@ -87,6 +87,8 @@ class ApplicationController < ActionController::Base
 
     # This will not catch all kinds of browsers (Android, iOS). This is by
     # design.
+    return unless Settings.supported_browsers.entries.map(&:first).include? cur_browser[:name]
+
     unless cur_browser[:version] >= Settings.supported_browsers[cur_browser[:name]]
       redirect_to "/upgrade_browser"
     end
