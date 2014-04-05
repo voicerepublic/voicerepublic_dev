@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "vr-icons";
-  src:url("vr-icons.eot");
-  src:url("vr-icons.eot?#iefix") format("embedded-opentype"),
-    url("vr-icons.woff") format("woff"),
-    url("vr-icons.ttf") format("truetype"),
-    url("vr-icons.svg#vr-icons") format("svg");
+  src:font-url("vr-icons.eot");
+  src:font-url("vr-icons.eot?#iefix") format("embedded-opentype"),
+    font-url("vr-icons.woff") format("woff"),
+    font-url("vr-icons.ttf") format("truetype"),
+    font-url("vr-icons.svg#vr-icons") format("svg");
   font-weight: normal;
   font-style: normal;
 

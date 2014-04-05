@@ -173,7 +173,6 @@ describe VenuesController do
   describe "DELETE destroy" do
     it "destroys the requested venue" do
       venue = FactoryGirl.create(:venue, user: @user)
-      # debugger
       expect {
         delete :destroy, {:id => venue.to_param}, valid_session
       }.to change(Venue, :count).by(-1)

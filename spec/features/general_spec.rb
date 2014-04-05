@@ -13,6 +13,10 @@ feature "General feature specs" do
 
       page.fill_in 'query', with: 'search key'
       page.should_not have_css('.warning')
+
+      page.fill_in 'query', with: ''
+      find(".icon-magnifying-glass").click
+      page.should have_css('.warning')
     end
   end
 
@@ -72,6 +76,5 @@ feature "General feature specs" do
     current_path.should_not == root_path
     page.should have_content("You are using an outdated browser")
   end
-
 
 end
