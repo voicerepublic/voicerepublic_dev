@@ -1,0 +1,33 @@
+.new_talk,
+.edit_talk,
+.new_venue,
+.edit_venue,
+.new_user,
+.edit_user{
+  label{
+    font-size: 1rem;
+    font-family: 'eaglebook'
+  }
+
+  .form-top-box{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-top:30px;
+    padding-bottom:30px;
+    background: rgba(0,0,0,0.6);
+    label{
+      color:white;
+    }
+    .form-title{
+      color: $form-title-color;
+    }
+  }
+
+  .text-area{
+    height:300px;
+  }
+
+  .form-save-row{
+    margin-top: 20px
+  }
+}

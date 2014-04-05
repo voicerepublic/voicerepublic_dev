@@ -1,7 +1,7 @@
-.venues-edit,
-.venues-new{
-
-	@include form-generic-styles();
+.venues-new,
+.venues-create,
+.venues-update,
+.venues-edit{
 	.link-delete{
 		float:right
 	}

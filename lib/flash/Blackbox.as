@@ -94,9 +94,9 @@
 			                       ExternalInterface.call(feedbackMethod, value);
                              //log(value.toString());
                              // myCircle.width = value;
-                             // while(event.data.bytesAvailable)     { 
-                             //   var sample:Number = event.data.readFloat(); 
-                             // } 
+                             // while(event.data.bytesAvailable)     {
+                             //   var sample:Number = event.data.readFloat();
+                             // }
                            });
       log('Initiation complete.');
     }
@@ -170,6 +170,11 @@
       mic.setSilenceLevel(0, 2000);
       mic.enhancedOptions = options;
       mic.codec = SoundCodec.SPEEX;
+
+      // http://www.gbaptista.com/docs/as3/flash/media/Microphone.html#encodeQuality
+      // encodeQuality 7 == 23.8 kbit/s
+      //  * upload of 1mb takes 5.6min
+      //  * streaming one hour produces 10.7mb raw data
       mic.encodeQuality = 7;
       mic.framesPerPacket = 1;
       mic.gain = 50;
@@ -180,7 +185,7 @@
       ns.publish(stream, "live");
       netStreams.push(ns);
     }
- 
+
     internal function receiveStream(nc: NetConnection, stream: String): void {
       var ns: NetStream = new NetStream(nc);
       ns.receiveVideo(false);
@@ -188,7 +193,7 @@
       ns.play(stream);
       netStreams.push(ns);
     }
- 
+
     internal function netStatusHandler(func: Function,
                               nc: NetConnection,
                               stream: String): Function {
