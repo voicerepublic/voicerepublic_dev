@@ -1,4 +1,16 @@
 en:
+  errors:
+    outdated_browser:
+      header: "You are using an outdated browser"
+      body: |
+        <p>You are using an old version of %{name} whis is %{version}.</p>
+        <p>For the best experience with modern webapps, please upgrade your browser to the newest version or download one of the browsers below:</p>
+        <ul>
+          <li><a href="https://www.google.com/intl/en/chrome/browser/">Download Chrome 33+</a></li>
+          <li><a href="http://www.mozilla.org/en-US/firefox/new/">Download Firefox 28+</a></li>
+          <li>Safari 7 (If you are on OSX < 10.9, you need to upgrade to get a newer version of Safari. It's easier to use Chrome or Firefox.)</li>
+          <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
+        </ul>
   invalid_date: "Invalid time or date"
   invalid_time: "Invalid time or date"
   exceptions:

@@ -80,19 +80,15 @@ class ApplicationController < ActionController::Base
   private
 
   def check_browser
-    supported = {
-      chrome: 30,
-      safari: 7,
-      ie: 10,
-      firefox: 25
-    }
     cur_browser = {
       name: browser.meta.first.to_sym,
       version: browser.version.to_i
     }
 
-    unless cur_browser[:version] >= supported[cur_browser[:name]]
-      redirect_to "/upgrade"
+    # This will not catch all kinds of browsers (Android, iOS). This is by
+    # design.
+    unless cur_browser[:version] >= Settings.supported_browsers[cur_browser[:name]]
+      redirect_to "/upgrade_browser"
     end
   end
 
