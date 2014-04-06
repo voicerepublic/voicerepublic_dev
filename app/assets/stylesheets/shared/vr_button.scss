@@ -4,10 +4,14 @@
 	padding: rem-calc(12) 0 rem-calc(11);
 	min-width: 352px;
 	color: $brand-color-green;
-}
-
-.button-margin-bottom{
-	margin-bottom: 10px;
+	&.button-full-size{
+		width: 100%;
+	}
+	@include transition(all, 0.1s, ease-in-out);
+	&:hover, &:focus{
+		background: lighten(#000, 10%);
+		color: $brand-color-green;
+	}
 }
 
 .button-live{

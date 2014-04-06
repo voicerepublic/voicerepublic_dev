@@ -38,44 +38,44 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-vr-logo:before {
+.icon-octagon:before {
   content: "a";
 }
-.icon-description:before {
+.icon-vr-logo:before {
   content: "b";
 }
 .icon-bubble-multi:before {
   content: "c";
 }
 .icon-calendar:before {
+  content: "d";
+}
+.icon-bubble:before {
   content: "e";
 }
-.icon-bubble-single:before {
-  content: "g";
-}
 .icon-mic:before {
-  content: "h";
-}
-.icon-tw:before {
-  content: "i";
-}
-.icon-guide:before {
-  content: "j";
-}
-.icon-people:before {
-  content: "k";
-}
-.icon-octagon:before {
-  content: "l";
-}
-.icon-icon-google:before {
-  content: "m";
-}
-.icon-fb:before {
   content: "f";
 }
+.icon-tw:before {
+  content: "g";
+}
+.icon-guide:before {
+  content: "h";
+}
+.icon-people:before {
+  content: "i";
+}
+.icon-description:before {
+  content: "j";
+}
+.icon-google:before {
+  content: "k";
+}
+.icon-fb:before {
+  content: "l";
+}
 .icon-pause:before {
-  content: "d";
+  content: "m";
 }
 .icon-play:before {
   content: "n";
@@ -92,6 +92,6 @@
 .icon-play-octa:before {
   content: "r";
 }
-.icon-magnifying-glass:before {
+.icon-octa-full:before {
   content: "s";
 }
