@@ -11,7 +11,7 @@ describe "Talks" do
 
     it 'creates a new talk', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
-      visit new_venue_talk_path('en', venue)
+      visit new_venue_talk_path(venue)
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
@@ -27,7 +27,7 @@ describe "Talks" do
 
     it 'shows validation errors', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
-      visit new_venue_talk_path('en', venue)
+      visit new_venue_talk_path(venue)
 
       fill_in 'talk_starts_at_date', with: ''
       fill_in 'talk_starts_at_time', with: ''

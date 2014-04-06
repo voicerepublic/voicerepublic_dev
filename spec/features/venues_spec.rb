@@ -110,7 +110,7 @@ describe "Venues", js: true do
     it 'has an active comments tab after writing a comment', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit venue_path(id: venue.id)
-      find(".fi-comments").click
+      find("span.icon-bubble-multi").click
       fill_in 'comment_content', with: 'spec comment'
       click_button 'Save'
       find("#tab-comments.active").should_not be_nil
