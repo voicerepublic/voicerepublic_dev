@@ -49,3 +49,9 @@ devise:
         approval_prompt: ""
 rspec:
   gc_cycle: 20
+# This list needs to be updated constantly
+supported_browsers:
+  chrome: 30
+  safari: 7
+  ie: 10
+  firefox: 25

@@ -75,8 +75,10 @@ class Talk < ActiveRecord::Base
   has_many :social_shares, as: :shareable
 
   validates :venue, :title, :tag_list, :duration, presence: true
-  validates :starts_at_date, format: { with: /\d{4}-\d\d-\d\d/ }
-  validates :starts_at_time, format: { with: /\d\d:\d\d/ }
+  validates :starts_at_date, format: { with: /\d{4}-\d\d-\d\d/,
+    message: I18n.t(:invalid_date) }
+  validates :starts_at_time, format: { with: /\d\d:\d\d/,
+    message: I18n.t(:invalid_time) }
 
   before_save :set_starts_at
   before_save :set_ends_at

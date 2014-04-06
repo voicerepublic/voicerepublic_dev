@@ -56,4 +56,6 @@ VoiceRepublic::Application.routes.draw do
   # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
   match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/}, via: :all
 
+  get '/upgrade_browser', to: 'errors#upgrade_browser'
+
 end
