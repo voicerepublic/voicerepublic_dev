@@ -1,8 +1,9 @@
 validate_search_input = function(e) {
-  if( !$(e.target).val() ) {
-    $(e.target).addClass('warning');
-    e.preventDefault()
-      return false;
+  var search_input = $('#query');
+  if( !search_input.val() ) {
+    $(search_input).addClass('warning');
+    e.preventDefault();
+    return false;
   }
 }
 

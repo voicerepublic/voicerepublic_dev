@@ -3,8 +3,13 @@ require 'spec_helper'
 feature "General feature specs" do
 
   describe "Search validation" do
-    background do
+    before do
       visit root_path
+      Thread.current["PgSearch.enable_multisearch"] = true
+    end
+
+    after do
+      Thread.current["PgSearch.enable_multisearch"] = false
     end
     scenario "it should set an error on empty search input", driver: :chrome, slow: true do
       page.fill_in 'query', with: ''
@@ -18,7 +23,15 @@ feature "General feature specs" do
       find(".icon-magnifying-glass").click
       page.should have_css('.warning')
     end
+
+    scenario "it searches", driver: :chrome do
+      FactoryGirl.create :talk, title: "test title talk"
+      page.fill_in 'query', with: 'test talk'
+      find(".icon-magnifying-glass").click
+      page.should have_content "test title talk"
+    end
   end
+
 
   # user agents taken from: http://www.useragentstring.com/
   describe "Browser detection" do
