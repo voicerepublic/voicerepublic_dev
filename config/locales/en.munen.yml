@@ -11,8 +11,8 @@ en:
           <li>Safari 7 (If you are on OSX < 10.9, you need to upgrade to get a newer version of Safari. It's easier to use Chrome or Firefox.)</li>
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
-  invalid_date: "Invalid time or date"
-  invalid_time: "Invalid time or date"
+  invalid_date: "Invalid date"
+  invalid_time: "Invalid time"
   exceptions:
     403_header: "Forbidden"
     403_body: "You are not authorized to perform that action."
