@@ -731,6 +731,8 @@ en:
       lets_go: OK - LET'S GO
       countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
       minutes: 'MINUTES'
+      request_mic: GET THE MIC
+      promote: GIVE THE MIC
     new:
       new_talk: New Talk
     edit:
