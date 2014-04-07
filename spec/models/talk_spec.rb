@@ -40,6 +40,16 @@ describe Talk do
       pending "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
       expect(@talk.starts_in).to be > 0
     end
+    # FIXME Hello future self, this will fail when run during daylight
+    # saving time. Sophia suggested to test with a time zone that
+    # doesn't have daylight saving time
+    it 'assembles starts_at correctly when saved' do
+      expect(Time.zone.name).to eq('Berlin')
+      @talk.starts_at_date = '1942-05-22' # local
+      @talk.starts_at_time = '12:42' # local
+      @talk.save!
+      expect(@talk.starts_at.utc.strftime('%H:%M')).to eq('10:42')
+    end
   end
 
   describe 'on class level' do
@@ -74,7 +84,7 @@ describe Talk do
     it 'sets the time of starts_at via starts_at_time' do
       @talk.starts_at_time = '12:34'
       @talk.save
-      @talk.starts_at.utc.strftime('%H:%M').should eq('12:34')
+      @talk.starts_at.strftime('%H:%M').should eq('12:34')
     end
     it 'sets the date of starts_at via starts_at_date' do
       @talk.starts_at_date = '2013-12-31'

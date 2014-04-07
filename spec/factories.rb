@@ -39,8 +39,8 @@ FactoryGirl.define do
   factory :talk do
     title "MyString"
     venue
-    starts_at_time 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
-    starts_at_date 1.hour.from_now.strftime('%Y-%m-%d %H:%M')
+    starts_at_time 1.hour.from_now.strftime('%H:%M')
+    starts_at_date 1.hour.from_now.strftime('%Y-%m-%d')
     duration 60
     record false
     tag_list 'lorem, ipsum, dolor'
