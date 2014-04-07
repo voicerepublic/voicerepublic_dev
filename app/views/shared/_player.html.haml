@@ -1,5 +1,6 @@
 -# variant -clean means without jingles
-.vr-player.jp-jplayer{ data: talk.media_links('-clean'), data: { selector: "#jc-#{talk.id}" } }
+- media_links = talk.media_links('-clean')
+.vr-player.jp-jplayer{ data: { selector: "#jc-#{talk.id}", mp3: media_links["mp3"], m4a: media_links["m4a"], ogg: media_links["ogg"] } }
 
 .jp-audio{ id: "jc-#{talk.id}" }
   .jp-type-single
