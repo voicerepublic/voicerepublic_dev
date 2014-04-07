@@ -49,6 +49,15 @@
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
 
+    .talk-countdown.row(ng-show='talkIsPrelive()')
+      .medium-12.columns.text-center
+        .cd-text
+          = raw t('.countdown_text')
+        .cd-watch
+          {{ countdown }}
+        .cd-minutes
+          = t('.minutes') 
+
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
         -# TODO: better integrate player with angularjs
@@ -72,14 +81,12 @@
       .large-12.columns.text-center
         .avatar.avatar-host
           .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 100}
+            = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
             .avatar-name.text-center
               {{ config.host }}
-            .host-banner
-              %span= t('.host')
         .avatar(ng-repeat="guest in guests()")
           .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: nil, img_size: 100}
+            = render partial: "shared/avatar_image", locals: {user: nil, img_size: 62}
             -# http://stackoverflow.com/questions/15895483/angular-ng-href-and-svg-xlink
             .avatar-name.text-center
               {{ guest.name }}

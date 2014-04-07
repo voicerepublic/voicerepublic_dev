@@ -729,6 +729,8 @@ en:
       mute_streams: mute
       unmute_streams: unmute
       lets_go: OK - LET'S GO
+      countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
+      minutes: 'MINUTES'
     new:
       new_talk: New Talk
     edit:
