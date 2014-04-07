@@ -68,34 +68,18 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.declinePromotion = ->
     session.fsm.PromotionDeclined()
 
-  # the countdown is the number of seconds
-  #   * until the start of the talk before the talk
-  #   * until the end of the talk during the talk
-  #   * an empty string after the talk
+  $scope.countdownInSeconds = config.talk.remaining_seconds 
   $scope.countdown = 'computing...'
   $scope.talkProgress = 0
 
-  calculateCountdown = (now) ->
-    end = config.ends_at
-    start = config.starts_at
-    switch config.talk.state
-      when 'prelive' then start - now
-      when 'live' then end - now
-      else ''
-
-  setCountdown = ->
-    now = Math.round(new Date().getTime() / 1000)
-    sec = calculateCountdown(now)
+  updateCountdown = ->
+    sec = $scope.countdownInSeconds - 1
     $scope.countdownInSeconds = sec
     $scope.countdown = util.toHHMMSS(sec)
     percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
     $scope.talkProgress = percent
 
-  $interval setCountdown, 1000
-
-  # expose to test
-  # TODO maybe move into util
-  $scope.calculateCountdown = calculateCountdown
+  $interval updateCountdown, 1000
 
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
   'session', 'blackbox', 'util']
