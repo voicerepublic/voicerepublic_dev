@@ -78,11 +78,7 @@ class User < ActiveRecord::Base
     ignoring: :accents
 
   def name
-    if guest
-      I18n.t('sign_in_or_register')
-    else
-      "#{firstname} #{lastname}"
-    end
+    "#{firstname} #{lastname}"
   end
 
   def email_with_name
