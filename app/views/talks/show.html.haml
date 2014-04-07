@@ -19,10 +19,11 @@
       .large-12.columns
         %ul.button-group.right
           - if can? :manage, @talk
-            %li= link_to t('.download_messages'),
-              "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button tiny'
+            -#
+              %li= link_to t('.download_messages'),
+                "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button-standard'
             - if !@talk.live?
-              %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button tiny'
+              %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button-standard'
 
             / %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
             /   method: :delete, data: { confirm: t('.confirm_delete',
@@ -34,6 +35,8 @@
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
+        .type-name
+          Talk
         .talk-venue-title
           = link_to @talk.venue.title, @talk.venue
         -#.talk-host-name
@@ -184,7 +187,9 @@
   .talk-tabs-content-block
     .tabs-content
       #talk-tab-description.content.active
-        = @talk.try(:description).try(:html_safe)
+        .row
+          .large-12.columns
+            = @talk.try(:description).try(:html_safe)
 
       - unless @talk.venue.opts.suppress_chat
         #talk-tab-discussion.content

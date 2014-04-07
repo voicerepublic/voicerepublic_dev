@@ -9,38 +9,27 @@
             - avatar_url = @user.avatar.thumb('215x215#nw').url
             .user-portrait-img(style="background-image:url(#{avatar_url})"
               data-show-upload="#user_avatar")
-            %br/
-            %br/
-            %button.button(type="button" class="tiny" data-trigger-file-input="user_avatar")
+            %button.button-standard.button-profile-img(type="button" data-trigger-file-input="user_avatar")
               = t('.select_profile_image')
             = f.input :avatar, as: :file
-            %br/
-            %br/
-            %button.button(type="button" class="tiny" data-trigger-file-input="user_header")
+            %button.button-standard(type="button" data-trigger-file-input="user_header")
               = t('.select_header_image')
             = f.input :header, as: :file, class: 'display-none'
 
-          .large-5.medium-5.columns
+          .large-9.medium-9.columns
             = f.input :firstname, :placeholder => 'First Name'
             = f.input :lastname, :placeholder => 'Last Name'
             = f.input :email, :placeholder => 'Email Address'
             = f.time_zone_select :timezone
             = f.input :website
-            %button(data-enable-fields='#change-password input'
+            %button.button-standard(data-enable-fields='#change-password input'
                     data-replace-with='#change-password'
                     data-trigger-on-error='#change-password'
-                    type='button'
-                    class='tiny')= t('.set_new_password')
+                    type='button')= t('.set_new_password')
             #change-password.panel.hide
               = f.input :password, disabled: true
               = f.input :password_confirmation, disabled: true
 
-          .large-4.medium-4.columns.text-center
-            .row
-              .small-4.columns
-                or
-              .small-8.columns
-                %button.tiny Connect with Facebook
   %br
   .row.collapse
     .large-12.columns
@@ -49,6 +38,6 @@
   %br
   .form-save-row.row.collapse
     .large-12.columns
-      = f.button :submit, class: 'small'
+      = f.button :submit, class: 'button-vr'
       %a{href: "#"} or
       = link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(:id => @user)

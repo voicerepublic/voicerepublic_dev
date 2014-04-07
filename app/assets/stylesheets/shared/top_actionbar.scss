@@ -6,8 +6,21 @@
 		z-index: 1;
 	}
 
+	.user-link{
+		font-family:'eaglebook';
+		font-size: rem-calc(12);
+	}
+
+	.user-link-dropdown{
+		a{
+			font-family:'eaglebook';
+			font-size: rem-calc(12px)
+		}
+	}
+
   .avatar{
-  	margin-top: 8px;
+  	margin-top: 7px;
+  	margin-right: 4px;
   	.avatar-image{
   		display: block
   	}
@@ -20,6 +33,12 @@
 		margin-left: -40px;
 		width:80px;
 		line-height: 1.4rem;
+		.icon-vr-logo{
+			position: relative;
+			color: white;
+			top: -6px;
+			font-size: rem-calc(46);
+		}
 	}
 
 	.top-bar-search-box{
@@ -42,20 +61,26 @@
 		margin: 0;
 		padding: 0 5px 0 30px !important;
 		color: #fff !important;
+		font-family: 'eaglebook';
+		font-size: rem-calc(12);
 		border-style: none !important;
 		@include placeholder{
-			color: white;
+			color: #ddd;
 		}
 		&:hover,
 		&:focus{
 			background: #333 !important;
 			border-style: none !important;
 			outline-style: none !important;
-			@include box-shadow(0,0,0,#000)
+			@include box-shadow(0,0,0,#000);
+			color: #fff
 		}
 	}
 
 	.search-lupe{
+		.icon-magnifying-glass{
+			color: #ddd
+		}
 		position: absolute;
 		left: 2px;
 		top: 6px;
@@ -67,6 +92,9 @@
 		&:hover,
 		&:focus{
 			background:none;
+			.icon-magnifying-glass{
+				color: #fff
+			}
 		}
 	}
 

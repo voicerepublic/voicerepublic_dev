@@ -6,7 +6,7 @@
   -# = f.fields_for :talks, talk do |n|
   -#   = render partial: 'talks/fields', locals: { f: n, form_title: t('.new_talk') }
 
-  .row
-    .large-10.medium-10.large-centered.medium-centered.columns
-      = f.button :submit
+  .form-save-row.row
+    .large-12.columns
+      = f.button :submit, class: 'button-vr'
       = link_to t('.cancel'), venues_path

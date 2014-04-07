@@ -14,13 +14,15 @@
     .generic-action-bar.row.collapse
       .large-12.columns
         %ul.button-group.right
-          %li= link_to t('.edit_venue'), [:edit, @venue], class: 'button tiny'
+          %li= link_to t('.edit_venue'), [:edit, @venue], class: 'button-standard'
 
   .title-block.row
     .large-12.columns
       .row
         .large-12.columns.text-center
-          %h4= link_to @venue.user.name, @venue.user
+          .type-name
+            Series
+          %h4.venue-user= link_to @venue.user.name, @venue.user
           %h2.venue-title= @venue.title
           .venue-teaser= raw @venue.teaser
 
@@ -92,6 +94,6 @@
             .comment-right-box
               = simple_form_for [@venue, @venue.comments.build] do |f|
                 = f.input :content
-                = f.button :submit, class: 'button tiny'
+                = f.button :submit, class: 'button-standard', value: t('.post')
       %ul.list-style-type-none
         = render partial: 'comment', collection: @venue.comments.ordered

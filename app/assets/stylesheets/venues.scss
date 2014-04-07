@@ -10,10 +10,27 @@
 .venues-show{
 	/*opacity: 0.6;*/
 	.title-block{
+		position: relative;
 		background: rgba(0,0,0,0.8);
-		.venue-title,.venue-teaser{
+		.venue-title,.venue-teaser,type-name{
 			color: white;
 		}
+		.type-name{
+			position:absolute;
+			left: 12px;
+			top: 10px;
+			font-family: 'eaglebook';
+			font-size: rem-calc(14)
+		}
+    .venue-user{
+      display: inline-block;
+      a,a:hover,a:focus{
+      font-family: 'eaglelight';
+      color: #fff;
+      letter-spacing: 1px;
+      font-size: rem-calc(13);
+      }      
+    }
 		.venue-title{
 			margin: rem-calc(52) 0 rem-calc(39);
 			font-size: rem-calc(46);
