@@ -8,7 +8,7 @@
 
     .talk-state.text-center
       .span(ng-show='talkIsPrelive()')
-        talk is prelive
+        = t('.talk_is_prelive')
         .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
