@@ -134,11 +134,14 @@
                 %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
                 %span.icon-bubble-multi
 
-          .button-audio-settings(data-show-audio-settings=".flash-box")
-            %span.icon-mic
-            = t(".audio_settings")
+          -# FIXME quick and dirty: do not show audio settings
+          - if @talk.state=~/^(pre|)live$/
+            .button-audio-settings(data-show-audio-settings=".flash-box")
+              %span.icon-mic
+              = t(".audio_settings")
 
-          .flash-box.flash-box-open.row
+          -# FIXME quick and dirty: do not show audio settings
+          .flash-box.row{ class: @talk.state=~/^(pre|)live$/ ? 'flash-box-open' : '' }
             .large-12.columns.text-left
               #flashContent
               .manual-box
