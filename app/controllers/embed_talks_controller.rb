@@ -3,7 +3,10 @@ class EmbedTalksController < ApplicationController
 
   def show
     @talk = Talk.find params[:id]
-    render layout: 'embed_talk'
+
+    respond_to do |format|
+      format.html { render layout: 'embed_talk' }
+    end
   end
 
   private
