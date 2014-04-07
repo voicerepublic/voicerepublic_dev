@@ -84,7 +84,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.flags.onair = true
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
-        # TODO check for brwoser compatibility
+        # TODO check for browser compatibility
         if config.talk.state == 'prelive'
           $log.debug "schedule startTalk for in " +
             util.toHHMMSS(config.talk.starts_in)
@@ -171,6 +171,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     switch event
       when 'StartTalk'
         config.talk.state = 'live'
+        # TODO countdown.init config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
           fsm.TalkStarted()

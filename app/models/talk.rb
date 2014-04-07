@@ -121,12 +121,20 @@ class Talk < ActiveRecord::Base
     @guest_list = list.split(',').sort
   end
 
-  def starts_in # seconds (for prelive) # TODO: check if needed
-    (starts_at - Time.now).to_i
+  def remaining_seconds
+    return starts_in if prelive?
+    return ends_in if live?
+    0
   end
 
-  def ends_in # seconds (for live) # TODO: check if needed
-    (ends_at - Time.now).to_i
+  def starts_in # remaining seconds in state prelive
+    starts_at.to_i - Time.now.to_i
+  end
+
+  def ends_in # remaining seconds in state live
+    tstart = started_at || starts_at
+    tend = tstart.to_i + duration.minutes
+    tend - Time.now.to_i
   end
 
   def config_for(user)

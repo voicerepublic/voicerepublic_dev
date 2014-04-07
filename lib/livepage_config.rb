@@ -19,8 +19,9 @@ class LivepageConfig < Struct.new(:talk, :user)
       session: talk.session || {},
       talk: {
         state: talk.state,
-        # TODO: check for timezone issue
-        starts_in: talk.starts_at.to_i - Time.now.to_i,
+        remaining_seconds: talk.remaining_seconds,
+        starts_in: talk.starts_in,
+        ends_in: talk.ends_in,
         links: talk.media_links,
         duration: talk.duration.minutes
       },
