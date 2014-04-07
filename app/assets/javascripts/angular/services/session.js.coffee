@@ -37,6 +37,9 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   fsm = StateMachine.create
     initial: config.initial_state
     events: config.statemachine
+    error: (eventName, from, to, args, errorCode, errorMessage) ->
+      $log.debug [eventName, from, to, args, errorCode]
+      $log.debug errorMessage
     callbacks:
       onenterstate: (event, from, to) ->
         switch to
