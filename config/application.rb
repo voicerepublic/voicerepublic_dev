@@ -63,7 +63,7 @@ module VoiceRepublic
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
     config.assets.paths << "#{config.root}/app/assets/fonts"
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( livepage.js )
+    config.assets.precompile += %w( livepage.js embed_talk.js )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the
