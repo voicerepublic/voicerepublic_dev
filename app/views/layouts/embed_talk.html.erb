@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag "embed_talk", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "embed_talk", media: "all" %>
     <link href="/images/favicon.ico" rel="shortcut icon">
     <link href="images/apple-touch-icon.png" rel="apple-touch-icon">
     <link href="images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
@@ -16,7 +16,7 @@
     </div>
     <div id='scripts'>
       <%= airbrake_javascript_notifier %>
-      <%= javascript_include_tag "embed_talk", "data-turbolinks-track" => true %>
+      <%= javascript_include_tag "embed_talk" %>
       <%= render(:partial => 'shared/google_analytics') %>
     </div>
   </body>
