@@ -3,8 +3,7 @@
 .venue-medium-box.row.text-center
   .medium-12.columns
     .venue-text-box
-      - url = venue_path(venue, anchor: 'tab-upcoming-talks')
-      = link_to url do
+      = link_to @venue do
         %h2.venue-title= venue.title
         %p.venue-teaser= venue.teaser
     .action-box
