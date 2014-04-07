@@ -1,4 +1,7 @@
 en:
+  talks:
+    show:
+      embed_player: "Embed player on your website"
   errors:
     outdated_browser:
       header: "You are using an outdated browser"

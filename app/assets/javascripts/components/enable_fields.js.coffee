@@ -6,6 +6,6 @@ enableFields = (element, selector) ->
   source.click (e) ->
     target.removeAttr 'disabled'
 
-$("*[#{attribute}]").each (index, element) -> 
+$("*[#{attribute}]").each (index, element) ->
   value = $($(element).attr(attribute))
   enableFields element, value

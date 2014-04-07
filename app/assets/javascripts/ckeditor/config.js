@@ -8,6 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
   { name: 'basicstyles', groups: [ 'basicstyles' ] },
   { name: 'styles' , groups: [ 'Format' ] },
   { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+  { name: 'links', groups : [ 'Link','Unlink' ] },
 
 
   ];
