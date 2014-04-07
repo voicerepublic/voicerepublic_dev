@@ -1,5 +1,13 @@
 - mask_num = rand(1000000)
-- img_path = user.nil? ? "{{guest.image}}" : user.avatar.thumb("#{img_size}x#{img_size}#nw").url
+
+- case user
+- when 'guest'
+  - img_path = "{{guest.image}}"
+- when 'parti'
+  - img_path = "{{parti.image}}"
+-	else
+  - img_path = user.avatar.thumb("#{img_size}x#{img_size}#nw").url
+-# img_path = user == 'guest' ? "{{guest.image}}" : user.avatar.thumb("#{img_size}x#{img_size}#nw").url
 
 .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
   %svg{baseprofile: "full", height: "100%", version: "1.2", width: "100%"}

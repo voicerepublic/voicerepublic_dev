@@ -86,8 +86,7 @@
               {{ config.host }}
         .avatar(ng-repeat="guest in guests()")
           .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: nil, img_size: 62}
-            -# http://stackoverflow.com/questions/15895483/angular-ng-href-and-svg-xlink
+            = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
             .avatar-name.text-center
               {{ guest.name }}
           .host-actions(ng-show='showHostActions()')
@@ -197,34 +196,39 @@
                   17:18:42
 
       #talk-tab-participants.content
-        .expecting_promotion(ng-show='expectingPromotion().length')
-          %h3= t('.microphone_requests')
-          .avatar(ng-repeat="parti in expectingPromotion()")
-            .avatar-box
-              %img.avatar-img(ng-src="{{parti.image}}")
-              .avatar-name.text-center {{ parti.name }}               
-            .host-actions(ng-show='showHostActions()')
-              .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                = t('.promote')
-        .accepting_promotion(ng-show='acceptingPromotion().length')
-          %h3= t('.awaiting_to_speak')
-          .avatar(ng-repeat="parti in acceptingPromotion()")
-            .avatar-box
-              %img.avatar-img(ng-src="{{parti.image}}")
-              .avatar-name.text-center {{ parti.name }}
-        .participating(ng-show='participants().length')
-          %h3= t('.participating')
-          .avatar(ng-repeat="parti in participants()")
-            .avatar-box
-              %img.avatar-img(ng-src="{{parti.image}}")
-              .avatar-name.text-center {{ parti.name }}
-            .host-actions(ng-show='showHostActions()')
-              .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                = t('.promote')
-        .listening(ng-show="listeners().length")
-          %h3
-            {{ session.listeners().length }}
-            = t('.just_listening_in')
+        .row.participants-box
+          .large-12.columns
+            .expecting_promotion(ng-show='expectingPromotion().length')
+              %h3= t('.microphone_requests')
+              %ul.medium-block-grid-6.small-block-grid-3
+                %li.avatar.text-center(ng-repeat="parti in expectingPromotion()")
+                  .avatar-box
+                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52}
+                    .avatar-name.text-center {{ parti.name }}               
+                  .host-actions(ng-show='showHostActions()')
+                    .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                      = t('.promote')
+            .accepting_promotion(ng-show='acceptingPromotion().length')
+              %h3= t('.awaiting_to_speak')
+              %ul.medium-block-grid-6.small-block-grid-3
+                %li.avatar.text-center(ng-repeat="parti in acceptingPromotion()")
+                  .avatar-box
+                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52} 
+                    .avatar-name.text-center {{ parti.name }}
+            .participating(ng-show='participants().length')
+              %h3= t('.participating')
+              %ul.medium-block-grid-6.small-block-grid-3
+                %li.avatar.text-center(ng-repeat="parti in participants()")
+                  .avatar-box
+                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52} 
+                    .avatar-name.text-center {{ parti.name }}
+                  .host-actions(ng-show='showHostActions()')
+                    .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                      = t('.promote')
+            .listening(ng-show="listeners().length")
+              %h3
+                {{ session.listeners().length }}
+                = t('.just_listening_in')
 
 .scripts
   = javascript_include_tag 'livepage'

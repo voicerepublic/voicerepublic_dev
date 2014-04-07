@@ -191,20 +191,19 @@
           left:0;
           font-size: rem-calc(70);
           color: black;
- /*         text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;*/
         }
         .icon-octagon{
           position: absolute;
           top: 0;
           left:0;
           font-size: rem-calc(70);
-          color: $brand-color-red;
+          color: $brand-color-green;
         }
         .icon-mic{
           position: absolute;
           top: 20px;
           left: 20px;
-          color: $brand-color-red;
+          color: $brand-color-green;
           font-size: rem-calc(30);
         }
         .yellow{
@@ -220,7 +219,11 @@
           margin-left: 39px;
           font-family: 'eaglebook';
           font-size: 12px;
-
+          color: $brand-color-green;
+          cursor: pointer;
+          &#onair{
+            cursor: default;
+          }
         }
       }
       .tmp-mute-box{
@@ -243,7 +246,7 @@
         position: absolute;
         left: 7px;
         top:3px;
-        color: $brand-color-red;
+        color: $brand-color-green;
       }
       input{
         width: 100%;
@@ -366,6 +369,31 @@
         top: 3px;
         font-size: rem-calc(8);
         color: rgba(0,0,0, 0.5);
+      }
+    }
+  }
+  #talk-tab-participants{
+    padding-top: 0 !important;
+    .participants-box{
+      padding-bottom: 20px;
+      background: rgba(0,0,0,0.8);
+      h3{
+        font-size: rem-calc(13);
+        color: $brand-color-creme;
+        margin-top: 24px;
+      }
+      .avatar-name{
+        margin-top: -10px;
+      }
+      .expecting_promotion{
+        .avatar-bg{
+          fill: $brand-color-yellow;
+        }
+      }
+      .accepting_promotion{
+        .avatar-bg{
+          fill: $brand-color-yellow;
+        }
       }
     }
   }
