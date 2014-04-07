@@ -14,24 +14,26 @@
       - count = @user.participations.count
       -# .talks-joined= t('.talk_joined', count: count, default: '%{count} Talks joined')
       .avatar
-        .avatar-box
-          = image_tag @user.avatar.thumb('113x113#nw').url
+        - img_size = 120
+        .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
+          = render partial: "shared/avatar_image", locals: { user: @user, img_size: 120 }
       %h2.user-name= @user.name
   .row.collapse-large-only
     .large-12.columns.text-center
       %dl.tabs.vr-tabs(data-tab='true')
         %dd.text-center
           %a(href="#tab-about-me")
-            %i.fi-page
+            %span.icon-description
             = t('.about_me')
         %dd.text-center.active
           %a(href="#tab-my-venues")
-            %i.fi-megaphone
+            %span.icon-guide
             = t('.my-venues')
-        %dd.text-center
-          %a(href="#tab-schedule")
-            %i.fi-calendar
-            = t('.schedule')
+        -#
+        -#%dd.text-center
+        -#  %a(href="#tab-schedule")
+        -#    %i.fi-calendar
+        -#    = t('.schedule')
         -#%dd.text-center
         -#  %a(href="#tab-activity")= t('.activity')
 

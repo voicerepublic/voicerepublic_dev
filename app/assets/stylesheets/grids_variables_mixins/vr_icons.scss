@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "vr-icons";
+  src:font-url("vr-icons.eot");
+  src:font-url("vr-icons.eot?#iefix") format("embedded-opentype"),
+    font-url("vr-icons.woff") format("woff"),
+    font-url("vr-icons.ttf") format("truetype"),
+    font-url("vr-icons.svg#vr-icons") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "vr-icons" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "vr-icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-octagon:before {
+  content: "a";
+}
+.icon-vr-logo:before {
+  content: "b";
+}
+.icon-bubble-multi:before {
+  content: "c";
+}
+.icon-calendar:before {
+  content: "d";
+}
+.icon-bubble:before {
+  content: "e";
+}
+.icon-mic:before {
+  content: "f";
+}
+.icon-tw:before {
+  content: "g";
+}
+.icon-guide:before {
+  content: "h";
+}
+.icon-people:before {
+  content: "i";
+}
+.icon-description:before {
+  content: "j";
+}
+.icon-google:before {
+  content: "k";
+}
+.icon-fb:before {
+  content: "l";
+}
+.icon-pause:before {
+  content: "m";
+}
+.icon-play:before {
+  content: "n";
+}
+.icon-mail:before {
+  content: "o";
+}
+.icon-pencil:before {
+  content: "p";
+}
+.icon-x:before {
+  content: "q";
+}
+.icon-play-octa:before {
+  content: "r";
+}
+.icon-octa-full:before {
+  content: "s";
+}
+.icon-magnifying-glass:before {
+  content: "t";
+}

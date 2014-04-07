@@ -5,10 +5,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     session.upstream.message $scope.message.content
     $scope.message.content = ''
 
-  # $scope.config   = config
-  # $scope.session  = session
-  # $scope.blackbox = blackbox
-
   $scope.message = { content: '' }
 
   $scope.endTalk = session.endTalk
@@ -20,6 +16,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.listeners = session.listeners
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion
+  $scope.showSettings = config.flags.settings
 
   $scope.setVolume = blackbox.setVolume
   $scope.mute = blackbox.mute
@@ -37,6 +34,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     config.guests
 
   $scope.messageKeyup = (e) ->
+    # TODO: This is not Angular code and maybe not the best way to go
+    unless $("a[href=#talk-tab-discussion]").parent().hasClass('active')
+      console.log("clicked")
+      $("a[href=#talk-tab-discussion] .icon-bubble-multi").click()
     sendMessage() if e.which == 13 # Enter
 
   $scope.talkIsPrelive = ->
@@ -66,7 +67,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
 
   $scope.declinePromotion = ->
     session.fsm.PromotionDeclined()
-                        
+
   # the countdown is the number of seconds
   #   * until the start of the talk before the talk
   #   * until the end of the talk during the talk
@@ -91,7 +92,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
     $scope.talkProgress = percent
 
   $interval setCountdown, 1000
-  
+
   # expose to test
   # TODO maybe move into util
   $scope.calculateCountdown = calculateCountdown

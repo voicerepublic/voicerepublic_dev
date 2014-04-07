@@ -72,14 +72,15 @@
       .large-12.columns.text-center
         .avatar.avatar-host
           .avatar-box
-            %img.avatar-img{src: @talk.venue.user.avatar.thumb('100x100#nw').url}
+            = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 100}
             .avatar-name.text-center
               {{ config.host }}
             .host-banner
               %span= t('.host')
         .avatar(ng-repeat="guest in guests()")
           .avatar-box
-            %img.avatar-img(ng-src="{{guest.image}}")
+            = render partial: "shared/avatar_image", locals: {user: nil, img_size: 100}
+            -# http://stackoverflow.com/questions/15895483/angular-ng-href-and-svg-xlink
             .avatar-name.text-center
               {{ guest.name }}
           .host-actions(ng-show='showHostActions()')
@@ -92,40 +93,57 @@
         .unmute-stream
           %span(ng-click='setVolume(1)')= t('.unmute_streams')
 
-    .talk-live-mic-states-row.row.collapse-large-only
-      .large-12.columns.text-center
-        %span.participate-button(ng-show="userIsAListener()")
+    .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
+      .large-12.columns
+        .participate-button-box
           - url = [ @talk.venue, :participations ]
-          = link_to t('.participate'), url, method: 'post', class: 'button-vr button-header'
-        #onair(ng-show='flags.onair')= t('.you_are_on_air')
+          = link_to t('.participate'), url, method: 'post', class: 'button-vr button-full-size'
 
-        %button.button(ng-show='flags.reqmic'
-                       ng-click='requestMic()')= t('.request_mic')
-        %button.button(ng-show='flags.onair'
-                       ng-click='mute()')= t('.mute_mic')
-        %button.button(ng-show='flags.onair'
-                       ng-click='unmute()')= t('.unmute_mic')
-        %button.button(ng-show='flags.acceptOrDecline'
-                       ng-click='acceptPromotion()')= t('.accept_promotion')
-        %button.button(ng-show='flags.acceptOrDecline'
-                       ng-click='declinePromotion()')= t('.decline_promotion')
-        
-        .flash-box.flash-box-open
-          -#TODO Audio Settings Story
-          .audio-settings-left-box.text-left
-            .flash-manual-title
-              = t('.flash_manual_title')
-            %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-          #flashContent
-          .audio-settings-right-box.text-left
-            = link_to 'http://blog.voicerepublic.com', target: 'blank' do
-              %p
-                %i.fi-lightbulb
-                =t('.audio_settings_help_text')
+    .talk-host-and-participants-action-box.row
+      .large-12.columns.text-center
+        .talkers-action-box
+          .mic-sign-box
+            %span.icon-octa-full
+            %span.icon-octagon
+            %span.icon-mic
+          .button-box
+            .button-reqmic(ng-show='flags.reqmic'
+                          ng-click='requestMic()')= t('.request_mic')
+            .button-accept(ng-show='flags.acceptOrDecline'
+                          ng-click='acceptPromotion()')= t('.accept_promotion')
+            .button-decline(ng-show='flags.acceptOrDecline'
+                          ng-click='declinePromotion()')= t('.decline_promotion')
+            #onair(ng-show='flags.onair')= t('.you_are_on_air')
 
-        .button-audio-settings(data-show-audio-settings=".flash-box")
-          %i.fi-microphone
-          = t(".audio_settings")
+          .tmp-mute-box.text-left
+            %span.button-mute(ng-show='flags.onair'
+                          ng-click='mute()')= t('.mute_mic')
+            %span.button-unmute(ng-show='flags.onair'
+                          ng-click='unmute()')= t('.unmute_mic')           
+
+        .chat-flash-box       
+          .chat-input-box.row(ng-hide="userIsAListener()")
+            .large-12.columns
+              .input-box
+                %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+                %span.icon-bubble-multi
+
+          .button-audio-settings(data-show-audio-settings=".flash-box")
+            %span.icon-mic
+            = t(".audio_settings")
+
+          .flash-box.flash-box-open.row
+            .large-12.columns.text-left
+              #flashContent
+              .manual-box
+                .flash-manual-title
+                  = t('.flash_manual_title')
+                %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
+                %button.button-vr
+                  = t('.lets_go')
+                = link_to 'http://blog.voicerepublic.com', target: 'blank' do
+                  %p.flash-content
+                    = raw t('.audio_settings_help_text')
 
     .download.row(ng-show='talkIsArchived()')
       .large-12.columns.text-center
@@ -138,16 +156,16 @@
         %dl.tabs.vr-tabs(data-tab="true")
           %dd.active.text-center
             %a(href="#talk-tab-description")
-              %i.fi-page-csv
+              %span.icon-description
               = t('.description')
           - unless @talk.venue.opts.suppress_chat
             %dd.text-center
               %a(href="#talk-tab-discussion")
-                %i.fi-list-thumbnails
+                %span.icon-bubble-multi
                 = t('.discussion')
           %dd.text-center
             %a(href="#talk-tab-participants")
-              %i.fi-torsos-male-female
+              %span.icon-people
               = t('.participants')
               %span(ng-show='expectingPromotion().length')
                 ({{ expectingPromotion().length }} #{t('.miqrec')})
@@ -155,48 +173,51 @@
                 ({{ acceptingPromotion().length }} #{t('.awaiting')})
 
   .talk-tabs-content-block
-    .row
-      .tabs-content.large-12.columns
-        #talk-tab-description.content.active
-          = @talk.try(:description).try(:html_safe)
+    .tabs-content
+      #talk-tab-description.content.active
+        = @talk.try(:description).try(:html_safe)
 
-        - unless @talk.venue.opts.suppress_chat
-          #talk-tab-discussion.content
-            .panel.callout.row(ng-hide="userIsAListener()")
-              .large-3.columns= t('.you')
-              %input.large-9.columns(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-            .panel(ng-repeat='message in discussion')
-              {{ message.name }}: {{ message.content }}
+      - unless @talk.venue.opts.suppress_chat
+        #talk-tab-discussion.content
+          .chat-message(ng-repeat='message in discussion')
+            .row
+              .large-12.columns
+                .message-name
+                  {{ message.name }}
+                .message-content
+                  {{ message.content }}
+                .message-time
+                  17:18:42
 
-        #talk-tab-participants.content
-          .expecting_promotion(ng-show='expectingPromotion().length')
-            %h3= t('.microphone_requests')
-            .avatar(ng-repeat="parti in expectingPromotion()")
-              .avatar-box
-                %img.avatar-img(ng-src="{{parti.image}}")
-                .avatar-name.text-center {{ parti.name }}               
-              .host-actions(ng-show='showHostActions()')
-                .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                  = t('.promote')
-          .accepting_promotion(ng-show='acceptingPromotion().length')
-            %h3= t('.awaiting_to_speak')
-            .avatar(ng-repeat="parti in acceptingPromotion()")
-              .avatar-box
-                %img.avatar-img(ng-src="{{parti.image}}")
-                .avatar-name.text-center {{ parti.name }}
-          .participating(ng-show='participants().length')
-            %h3= t('.participating')
-            .avatar(ng-repeat="parti in participants()")
-              .avatar-box
-                %img.avatar-img(ng-src="{{parti.image}}")
-                .avatar-name.text-center {{ parti.name }}
-              .host-actions(ng-show='showHostActions()')
-                .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                  = t('.promote')
-          .listening(ng-show="listeners().length")
-            %h3
-              {{ session.listeners().length }}
-              = t('.just_listening_in')
+      #talk-tab-participants.content
+        .expecting_promotion(ng-show='expectingPromotion().length')
+          %h3= t('.microphone_requests')
+          .avatar(ng-repeat="parti in expectingPromotion()")
+            .avatar-box
+              %img.avatar-img(ng-src="{{parti.image}}")
+              .avatar-name.text-center {{ parti.name }}               
+            .host-actions(ng-show='showHostActions()')
+              .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                = t('.promote')
+        .accepting_promotion(ng-show='acceptingPromotion().length')
+          %h3= t('.awaiting_to_speak')
+          .avatar(ng-repeat="parti in acceptingPromotion()")
+            .avatar-box
+              %img.avatar-img(ng-src="{{parti.image}}")
+              .avatar-name.text-center {{ parti.name }}
+        .participating(ng-show='participants().length')
+          %h3= t('.participating')
+          .avatar(ng-repeat="parti in participants()")
+            .avatar-box
+              %img.avatar-img(ng-src="{{parti.image}}")
+              .avatar-name.text-center {{ parti.name }}
+            .host-actions(ng-show='showHostActions()')
+              .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                = t('.promote')
+        .listening(ng-show="listeners().length")
+          %h3
+            {{ session.listeners().length }}
+            = t('.just_listening_in')
 
 .scripts
   = javascript_include_tag 'livepage'

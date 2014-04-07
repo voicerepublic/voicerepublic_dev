@@ -1,4 +1,5 @@
-.vr-player.jp-jplayer{ data: talk.media_links, data: { selector: "#jc-#{talk.id}" } }
+-# variant -clean means without jingles
+.vr-player.jp-jplayer{ data: talk.media_links('-clean'), data: { selector: "#jc-#{talk.id}" } }
 
 .jp-audio{ id: "jc-#{talk.id}" }
   .jp-type-single
@@ -14,10 +15,10 @@
       %ul.jp-controls
         %li
           %a.jp-pause{ href: "javascript:;", tabindex: "1" }
-            %i.fi-pause
+            %span.icon-pause
         %li
           %a.jp-play{ href: "javascript:;", tabindex: "1" }
-            %i.fi-play
+            %span.icon-play
     .jp-no-solution
       %span Update Required
       To play the media you will need to either update your browser to

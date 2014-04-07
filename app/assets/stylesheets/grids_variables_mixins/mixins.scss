@@ -1,33 +1,3 @@
-@mixin form-generic-styles {
-  label{
-    font-size: 1rem;
-    font-family: 'eaglebook'
-  }
-
-  .form-top-box{
-    margin-top: 40px;
-    margin-bottom: 40px;
-    padding-top:30px;
-    padding-bottom:30px;
-    background: rgba(0,0,0,0.6);
-    label{
-      color:white;
-    }
-    .form-title{
-      color: $form-title-color;
-    }
-  }
-
-  .text-area{
-    height:300px;
-  }
-
-  .form-save-row{
-    margin-top: 20px
-  }
-}
-
-
 @mixin placeholder {
   &.placeholder { @content; }
   &:-moz-placeholder { @content; opacity: 1}
@@ -62,9 +32,18 @@
  }
 
 
- @mixin opacity($value){
+@mixin opacity($value){
   $IEValue: $value*100;
   opacity: $value;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
   filter: alpha(opacity=$IEValue);
+}
+
+
+@mixin transition($transition-property, $transition-time, $method) {
+  -webkit-transition: $transition-property $transition-time $method;
+  -moz-transition: $transition-property $transition-time $method;
+  -ms-transition: $transition-property $transition-time $method;
+  -o-transition: $transition-property $transition-time $method;
+  transition: $transition-property $transition-time $method;
 }

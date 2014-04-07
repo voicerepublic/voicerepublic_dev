@@ -12,7 +12,7 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - TODO: document me
+# * audio_formats [text, default="--- []\n"] - \n"] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
@@ -27,6 +27,8 @@
 # * session [text] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
+# * starts_at_date [string] - TODO: document me
+# * starts_at_time [string] - TODO: document me
 # * state [string] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
@@ -63,8 +65,8 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   attr_accessible :title, :teaser, :duration,
-                  :description, :record, :image, :tag_list,
-                  :guest_list, :starts_at_date, :starts_at_time
+    :description, :record, :image, :tag_list,
+    :guest_list, :starts_at_date, :starts_at_time
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -72,9 +74,14 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  validates :venue, :title, :starts_at, :ends_at, :tag_list, :duration, presence: true
+  validates :venue, :title, :tag_list, :duration, presence: true
+  validates :starts_at_date, format: { with: /\d{4}-\d\d-\d\d/,
+    message: I18n.t(:invalid_date) }
+  validates :starts_at_time, format: { with: /\d\d:\d\d/,
+    message: I18n.t(:invalid_time) }
 
-  before_validation :set_ends_at
+  before_save :set_starts_at
+  before_save :set_ends_at
   after_create :notify_participants
   after_save :set_guests
 
@@ -87,10 +94,6 @@ class Talk < ActiveRecord::Base
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
-
-  # TODO remove and use scopes based on statemachine instead
-  scope :upcoming, -> { where("ends_at > DATE(?)", Time.now) }
-  scope :archived, -> { where("ends_at < DATE(?)", Time.now) }
 
   scope :featured, -> do
     where("featured_from < DATE(?)", Time.now).
@@ -126,28 +129,6 @@ class Talk < ActiveRecord::Base
     (ends_at - Time.now).to_i
   end
 
-  def starts_at_time
-    starts_at && starts_at.strftime('%H:%M')
-  end
-
-  def starts_at_date
-    starts_at && starts_at.strftime('%Y-%m-%d')
-  end
-
-  def starts_at_time=(time)
-    datetime = DateTime.parse(time)
-    self.starts_at ||= DateTime.new
-    attrs = { hour: datetime.hour, min: datetime.min }
-    self.starts_at = starts_at.change(attrs)
-  end
-
-  def starts_at_date=(date)
-    datetime = DateTime.parse(date)
-    self.starts_at ||= DateTime.new
-    attrs = { year: datetime.year, month: datetime.month, day: datetime.day }
-    self.starts_at = starts_at.change(attrs)
-  end
-
   def config_for(user)
     LivepageConfig.new(self, user).to_json
   end
@@ -167,10 +148,10 @@ class Talk < ActiveRecord::Base
     formats.inject({}) { |r, f| r.merge f => generate_ephemeral_path!(".#{f}") }
   end
 
-  def media_links(formats=%w(mp3 m4a ogg))
-    formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}-clean.#{f}" }
+  def media_links(variant='', formats=%w(mp3 m4a ogg))
+    formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}#{variant}.#{f}" }
   end
-  
+
   # generates an ephemeral path (which is realized as a symlink) and
   # returns the location for redirecting to that path
   #
@@ -229,6 +210,13 @@ class Talk < ActiveRecord::Base
 
   private
 
+  # assemble starts_at from starts_at_date and starts_at_time
+  def set_starts_at
+    date = DateTime.parse(starts_at_date)
+    time = DateTime.parse(starts_at_time)
+    self.starts_at = date.change hour: time.hour, min: time.min
+  end
+
   def set_ends_at
     return unless starts_at && duration
     self.ends_at = starts_at + duration.minutes
@@ -262,6 +250,8 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
+    Delayed::Job.enqueue Postprocess.new(id), queue: 'audio'
+
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
 
     return if venue.opts.no_auto_postprocessing

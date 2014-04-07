@@ -5,7 +5,7 @@
 body{
 	overflow-y: scroll; /* prevents moving by to small content */;
 /*	background: #F6F4EC;*/
-  /*background: url(/assets/bg_talk.png) center top no-repeat*/
+/*  background: url(/assets/bg_talk.png) center top no-repeat*/
 }
 
 // FOR LARGE COLLAPSE AND MOBILE PADDING
@@ -24,11 +24,11 @@ p{
 	font-size: 0.8rem;
 }
 
-i{
+span[class^="icon-"]{
   position:relative;
   margin-right: 4px;
-  font-size: rem-calc(20);
-  vertical-align: middle
+  font-size: rem-calc(16);
+  top: 3px;
 }
 
 .right-text-space{

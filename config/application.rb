@@ -15,6 +15,7 @@ module VoiceRepublic
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths += %W( #{config.root}/app/middlewares
+                                 #{config.root}/app/jobs
                                  #{config.root}/lib )
 
     config.i18n.enforce_available_locales = true
@@ -58,11 +59,17 @@ module VoiceRepublic
     config.active_record.whitelist_attributes = true
 
     config.assets.initialize_on_precompile = false
-    
+
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
     config.assets.paths << "#{config.root}/app/assets/fonts"
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
     config.assets.precompile += %w( livepage.js )
+
+    # Handling exceptions dynamically using middleware.
+    # Here a rack middleware app could be configured, instead we are using the
+    # Rails app itself
+    # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
+    config.exceptions_app = self.routes
   end
 end
 

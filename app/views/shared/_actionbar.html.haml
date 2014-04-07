@@ -10,7 +10,7 @@
         = image_tag "logo.png", :alt => "Voice Republic"
 
     %section.top-bar-section
-      / Right Nav Section
+      -# Right Nav Section
       %ul.right
         - if current_user.guest?
           %li
@@ -20,18 +20,14 @@
         - else
           %li.has-dropdown
             %a(href='#')
-              = image_tag current_user.avatar.thumb('25x25#nw').url,
-                alt: current_user.name, size: '25x25'
+              .avatar
+                = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 25 }
               = current_user.name
 
             %ul.dropdown
               %li
                 = link_to current_user do
                   = t('.my_profile', default: 'My Profile')
-              %li
-                - url = '#TODO'
-                = link_to url do
-                  = t('.my_next_talks')
               %li
                 = link_to new_venue_path do
                   = t('.create_venue')
@@ -43,10 +39,10 @@
                   %i.icon-off
                   = t('.logout')
 
-      / Left Nav Section
+      -# Left Nav Section
       %ul.left
         %li.top-bar-search-box
           = form_tag "/search", :class => 'navbar-search form-search' do
             = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
             = button_tag :type => "submit", :class => "search-lupe" do
-              %i.fi-magnifying-glass
+              %span.icon-magnifying-glass

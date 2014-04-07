@@ -9,7 +9,7 @@
           %h2.venue-title= venue.title
           %p.venue-teaser= venue.teaser
     .action-box
-      - count = venue.talks.upcoming.count
+      - count = venue.talks.prelive.count
       - cap = t('.upcoming_talks', count: count, default: '%{count} Upcoming Talks')
       - url = venue_path(venue, anchor: 'tab-upcoming-talks')
       = link_to cap, url, class: 'button-venue-box'
