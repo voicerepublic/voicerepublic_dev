@@ -16,7 +16,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       host: talk.user.name,
       title: talk.title,
       teaser: talk.teaser,
-      session: talk.session,
+      session: talk.session || {},
       talk: {
         state: talk.state,
         # TODO: check for timezone issue
