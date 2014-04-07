@@ -20,7 +20,7 @@
     .large-12.columns
       .row
         .large-12.columns.text-center
-          / %h4= @venue.user.name
+          %h4= link_to @venue.user.name, @venue.user
           %h2.venue-title= @venue.title
           .venue-teaser= raw @venue.teaser
 
