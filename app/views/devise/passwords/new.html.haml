@@ -2,10 +2,10 @@
   .row.collapse.top-margin-action-bar
     .medium-10.medium-offset-1.columns
       = devise_error_messages!
-      %h2= t('.reset_password')
+      -# %h2= t('.reset_password')
       = f.input :email, html_input: {type: 'email'}
-      = button_tag do
-        = t('.send')
+      = button_tag, :class => 'button-vr' do
+        = t('.reset_password')
       %br/
       %hr/
       = render "devise/shared/links"

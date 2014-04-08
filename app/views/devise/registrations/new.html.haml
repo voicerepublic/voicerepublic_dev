@@ -1,22 +1,21 @@
 = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
 
   .row.top-margin-action-bar
-    .medium-10.medium-offset-1.columns
-      -#%h2.registrations-title= t(".registration_title")
-      .row.collapse
-        .medium-6.columns
-          -#= devise_error_messages!
-          = f.input :firstname
-          = f.input :lastname
-          = f.input :email
-          = f.input :password
-          = f.input :password_confirmation
-          = f.check_box :accept_terms_of_use
-          = link_to( t('.agree_agb_and_tou'), '#')
-          = f.button :submit, t('.registration_title')
+    .medium-10.medium-centered.columns
+      -#= devise_error_messages!
+      = f.input :firstname
+      = f.input :lastname
+      = f.input :email
+      = f.input :password
+      = f.input :password_confirmation
+      = f.check_box :accept_terms_of_use
+      = link_to( t('.agree_agb_and_tou'), '#')
+      %br/
+      = f.button :submit, t('.registration_title'), class: 'button-vr'
+      -#
         .medium-6.columns.text-center
           = t(".registration_or")
-          = render(:partial => 'devise/shared/social_network_connects')
+        =   render(:partial => 'devise/shared/social_network_connects')
       .clearfix
       %hr/
       = render(:partial => "/devise/shared/links")
