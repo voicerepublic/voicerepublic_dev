@@ -35,8 +35,7 @@
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
-        .type-name
-          Talk
+        .type-name= t('.talk;)
         .talk-venue-title
           = link_to @talk.venue.title, @talk.venue
         -#.talk-host-name

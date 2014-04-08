@@ -20,8 +20,7 @@
     .large-12.columns
       .row
         .large-12.columns.text-center
-          .type-name
-            Series
+          .type-name= t('.series')
           %h4.venue-user= link_to @venue.user.name, @venue.user
           %h2.venue-title= @venue.title
           .venue-teaser= raw @venue.teaser
