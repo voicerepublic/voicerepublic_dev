@@ -14,9 +14,9 @@
       %ul.right
         - if current_user.guest?
           %li
-            = link_to t('.login'), new_user_session_path
+            = link_to t('.login'), new_user_session_path, class: "logged-out-link"
           %li
-            = link_to t('.sign_up'), new_user_registration_path
+            = link_to t('.sign_up'), new_user_registration_path, class: "logged-out-link"
         - else
           %li.has-dropdown
             %a.user-link(href='#')

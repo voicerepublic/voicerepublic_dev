@@ -1095,9 +1095,9 @@ $tabs-navigation-font-family: 'eaglelight', sans-serif;
 
 // $include-html-tooltip-classes: $include-html-classes;
 
-// $has-tip-border-bottom: dotted 1px #ccc;
-// $has-tip-font-weight: bold;
-// $has-tip-font-color: #333;
+$has-tip-border-bottom: dotted 0px #ccc;
+$has-tip-font-weight: normal;
+$has-tip-font-color: #000;
 // $has-tip-border-bottom-hover: dotted 1px scale-color($primary-color, $lightness: -55%);
 // $has-tip-font-color-hover: $primary-color;
 // $has-tip-cursor-type: help;

@@ -5,6 +5,7 @@ feature "User edits own profile" do
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
     visit root_path
+    page.find("a[data-link*=login]").click
     page.fill_in 'user_login', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.click_button 'Log In'
@@ -68,7 +69,7 @@ feature "User can register" do
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
-    page.click_button('Sign Up to Voice Republic')
+    page.click_button('Sign Up')
     page.current_url.should include("sign_up")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
@@ -84,7 +85,7 @@ feature "User can register" do
     visit root_path()
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
-    page.click_button('Sign Up to Voice Republic')
+    page.click_button('Sign Up')
     page.click_button('Sign Up')
     within(".input.email.error") do
       page.should have_content("can't be blank")
