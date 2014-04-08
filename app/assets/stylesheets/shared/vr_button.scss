@@ -1,9 +1,9 @@
 .button-vr{
 	@include button(rem-calc(15),#000);
 	border-color: $brand-color-green;
-	padding: rem-calc(12) 0 rem-calc(11);
-	min-width: 352px;
+	padding: rem-calc(12) rem-calc(20) rem-calc(11) rem-calc(20);
 	color: $brand-color-green;
+	font-family: 'eaglebook';
 	&.button-full-size{
 		width: 100%;
 	}
@@ -27,4 +27,14 @@
 	margin-top: 10px;
 	font-family: 'eaglebook';
 	font-size: rem-calc(14)
+}
+
+.button-standard{
+	@include button(rem-calc(11),#ddd);
+	padding-right: 20px;
+	padding-left: 20px;
+	border:none;
+	color: #333;
+	font-size: rem-calc(11);
+	margin-bottom: 2px;
 }

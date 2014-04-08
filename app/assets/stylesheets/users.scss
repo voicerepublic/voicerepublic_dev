@@ -29,7 +29,10 @@
 		height: 143px;
 	}
 
-
+	.button-profile-img{
+		margin-top: 36px;
+		margin-bottom: 15px;
+	}
 	#user_account_about{
 		height: 200px
 	}
@@ -37,10 +40,6 @@
 	.input.file{
 		display: none;
 	}
-
-  .wysihtml5-sandbox {
-    height: 250px !important;
-  }
 
 	label.text.optional{
 		display:none //TODO, is hackish

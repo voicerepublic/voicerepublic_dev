@@ -3,6 +3,6 @@
 
 	.form-save-row.row.collapsed
 		.medium-12.columns  
-			= f.button :submit
+			= f.button :submit, class: 'button-vr'
 			= link_to t('.cancel'), [@venue, @talk]
 			= link_to t('.delete_talk'), [@venue, @talk], delete_params

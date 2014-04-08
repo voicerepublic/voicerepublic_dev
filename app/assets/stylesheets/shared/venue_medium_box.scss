@@ -1,8 +1,9 @@
 // MEDIUM TALK BOX
 .venue-medium-box{
+  margin-bottom: 10px !important;
   .venue-text-bg{
+    background-size: 50%;
     background-position: center center;
-    background-size: 42%;
     background-repeat: no-repeat;
   }
   .venue-text-box{
@@ -24,10 +25,18 @@
   .action-box{
     .button-venue-box{
       display:inline-block;
-      @include button(rem-calc(13), #000);
+      @include button(rem-calc(6), #000);
       color: $brand_color_creme;
       font-family: 'eaglebook';
-      font-size: rem-calc(13)
+      font-size: rem-calc(13);
+      &:hover,&:focus{
+        color: $brand_color_creme;
+        background: #333;
+      }
+      &:nth-child(2){
+        position: relative;
+        left: -4px
+      }
     }
   }
 }

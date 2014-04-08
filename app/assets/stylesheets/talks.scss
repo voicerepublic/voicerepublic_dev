@@ -36,10 +36,21 @@
     border-top:1px solid #aaa;
   }
 
+  .generic-action-bar{
+    margin-bottom: -11px
+  }
   .talk-title-box{
+    position: relative;
     background: rgba(0,0,0,0.5);
     margin-top: 12px;
     padding:16px 0 2px 0;
+    .type-name{
+      position:absolute;
+      left: 12px;
+      top: 0px;
+      font-family: 'eaglebook';
+      font-size: rem-calc(14)
+    }
     .talk-venue-title{
       display: inline-block;
       a,a:hover,a:focus{
@@ -339,6 +350,17 @@
 
   .vr-tabs dd{
     width:33.33%;
+  }
+
+  #talk-tab-description{
+    padding-top:0 !important;
+    .row{
+      padding-top: 12px;
+      background: rgba(0,0,0,0.8);
+      p{
+        color: white
+      }
+    }
   }
 
   #talk-tab-discussion{

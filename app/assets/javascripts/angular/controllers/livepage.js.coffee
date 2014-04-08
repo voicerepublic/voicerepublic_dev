@@ -12,11 +12,14 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.acceptingPromotion = session.acceptingPromotion
   $scope.promote = session.promote
   $scope.demote = session.demote
-  $scope.participants = session.participants
   $scope.listeners = session.listeners
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion
   $scope.showSettings = config.flags.settings
+
+  $scope.participants = () ->
+    return session.participants if config.talk.state == 'live'
+    config.participants
 
   $scope.setVolume = blackbox.setVolume
   $scope.mute = blackbox.mute

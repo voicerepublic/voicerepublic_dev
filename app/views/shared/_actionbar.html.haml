@@ -7,7 +7,7 @@
         %a{href: "#"} Menu
     %h1.top-bar-vr-logo.text-center
       = link_to root_path do
-        = image_tag "logo.png", :alt => "Voice Republic"
+        %span.icon-vr-logo
 
     %section.top-bar-section
       -# Right Nav Section
@@ -19,12 +19,12 @@
             = link_to t('.sign_up'), new_user_registration_path
         - else
           %li.has-dropdown
-            %a(href='#')
+            %a.user-link(href='#')
               .avatar
                 = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 25 }
               = current_user.name
 
-            %ul.dropdown
+            %ul.user-link-dropdown.dropdown
               %li
                 = link_to current_user do
                   = t('.my_profile', default: 'My Profile')

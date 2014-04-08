@@ -283,17 +283,13 @@ en:
       edit_account: Edit profil
     edit:
       edit_your_profile: Edit profil
-      select_profile_image: Select profile image
-      select_header_image: Select header image
-    kluuus:
-      klus: KluuUs
-      guest_empty_klu: ! '%{name} has no KluuU yet.'
+      select_profile_image: Profile image
+      select_header_image: Background image
     venues:
       venues: Venues
       guest_empty_venue: ! '%{name} has no venues yet.'
     show:
-      klus: KluuUs
-      guest_empty_venue: ! '%{name} has not yet participated a venue yet.'
+      edit_user: Edit Profile
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -567,6 +563,9 @@ en:
     talk_medium_box:
       date_start_end: '%{date} | %{start_time} – %{end_time}'
       read_more: ...read more
+    venue_medium_box:
+      upcoming_talks: '%{count} Upcoming Talks'
+      archived_talks: '%{count} Archived Talks'
 
   venues:
     date_changed: New venue date
@@ -591,6 +590,7 @@ en:
       repeating: Rhythm
       new_talk: New talk
       edit_talk: Edit talk
+      post: Post
     venue_show_header:
       venue: Venue
       minutes: Minutes
@@ -684,6 +684,7 @@ en:
       your_talk: Create your first Talk
       event_title: Talk title
       archive: Archive
+      select_image: 'Select background image'
     edit_start_time:
       new_talk: New talk
     change_time_form:
@@ -738,6 +739,7 @@ en:
     edit:
       edit_talk: Edit Talk
       delete_talk: Delete talk
+      select_image: Background image
     fields:
       title: Title
       teaser: Teaser

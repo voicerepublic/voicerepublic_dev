@@ -3,6 +3,10 @@
   position: relative;
   background: #F0F0F0;
   border: 1px solid #D4D4D2;
+  @include transition(background, 0.15s, ease-in-out);
+  &:hover, &:focus{
+    background: $brand-color-green;
+  }
   padding: 7px 10px;
   margin:0 31px 4px 0 !important;
 
