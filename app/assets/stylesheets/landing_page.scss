@@ -2,11 +2,16 @@
 
 	.top-bar{
 		.top-bar-section{
-			.right{
+			.logged-out-link{
 				height: 0 !important;
 				overflow: hidden
 			}
 		}
+	}
+
+	.title-row{
+		position:relative;
+		z-index: -1;
 	}
 
 	.lp-top-row{
@@ -116,7 +121,6 @@
 
 	.authentication-box{
 		position: absolute;
-		z-index: 10;
 		top: 0;
 		right: -104px;
 		width: 281px;
