@@ -464,8 +464,12 @@ en:
   landing_page:
     news: NEWS
     index:
-      headline: VOICE REPUBLIC IS THE PLATFORM FOR DISCUSSIONS
-      subheadline: "Talks, interviews, readings, conversations, debates, disputes,seminars, discussions: Voice Republic is home to the spoken word in its many forms.<br />Yout have the floor!"
+      headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
+      subheadline: "Talks, interviews, readings, conversations, debates, disputes,seminars, discussions:"
+      subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />Yout have the floor!"
+      login: Login
+      signup: Sign Up
+      search: Search
     lp_login:
       email: E-mail
       password: Password
@@ -474,13 +478,12 @@ en:
       forgot_password: Forgot password?
       or: or log in
     lp_signup:
-      new_to_kluuu: <strong>New to KluuU?</strong> Sign Up!
       or: or sign up
       firstname: Firstname
       lastname: Lastname
       email: E-mail
       password: Password
-      register: Sign Up to Voice Republic
+      register: Sign Up
     lp_venues:
       featured_venue: KluuU recommends
       upcoming_venues: UPCOMING VENUES
