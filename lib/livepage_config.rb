@@ -41,7 +41,8 @@ class LivepageConfig < Struct.new(:talk, :user)
       stream: "t#{talk.id}-u#{user.id}",
       streaming_server: Settings.rtmp.record,
       discussion: discussion,
-      guests: talk.guests.map { |g| g.details_for(talk) }
+      guests: talk.guests.map { |g| g.details_for(talk) },
+      participants: talk.venue.users.map { |g| g.details_for(talk) }
     }
   end
 
