@@ -1,5 +1,5 @@
 .button-vr{
-	@include button(rem-calc(12),#000);
+	@include button(rem-calc(15),#000);
 	border-color: $brand-color-green;
 	padding: rem-calc(12) rem-calc(20) rem-calc(11) rem-calc(20);
 	color: $brand-color-green;

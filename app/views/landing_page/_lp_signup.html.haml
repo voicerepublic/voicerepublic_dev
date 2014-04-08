@@ -1,14 +1,6 @@
 = form_for(user, :url => new_user_registration_path, :method => :get) do |f|
 
-  .row
-    .medium-12.columns
-
-      = f.text_field :firstname, :placeholder => t('.firstname')
-      = f.text_field :lastname, :placeholder => t('.lastname')
-      = f.text_field :email, :type => "email", :placeholder => t('.email')
-      = button_tag t('.register'), :name => "signup_button", :class => 'button-signup small'
-
-  .row
-    .medium-12.columns.right
-      = t(".or")
-      = render(:partial => "/devise/shared/social_network_connects")
+  = f.text_field :firstname, :placeholder => t('.firstname')
+  = f.text_field :lastname, :placeholder => t('.lastname')
+  = f.text_field :email, :type => "email", :placeholder => t('.email')
+  = button_tag t('.register'), :name => "signup_button", :class => 'button-vr'

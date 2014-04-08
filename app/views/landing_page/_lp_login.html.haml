@@ -1,16 +1,14 @@
-%h2 Log In
 = form_for(user, :url => session_path(:user)) do |f|
 
   = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email'), :id => 'user_login'
 
   = f.password_field :password, :placeholder => t('.password'), :class => "lp-input-password"
-  = button_tag t('.login'), :name => "Login", :class => 'btn btn-lp-register pull-right'
 
-
-  = label_tag :remember_me, :class => 'checkbox lp-remember' do
+  = label_tag :remember_me, :class => 'lp-remember' do
     = check_box_tag :remember_me
     = t('.remember') + '.'
-  = link_to t('.forgot_password'), new_password_path(:user)
 
-= t(".or")
-= render(:partial => "/devise/shared/social_network_connects")
+  = button_tag t('.login'), :name => "Login", :class => 'button-vr'
+
+  .forgot-password
+    = link_to t('.forgot_password'), new_password_path(:user)
