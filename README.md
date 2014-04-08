@@ -243,3 +243,18 @@ Audio cheat sheet
     avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
 
 
+Troubleshooting Process/Monit
+-----------------------------
+
+### Start processes manually
+
+    $ current
+    $ be bin/init/private_pub start
+    ...
+    $ be bin/init/localeapp start
+    ...
+
+### Restart Monit to make it reinitialize the flags
+
+    # /etc/init.d/monit restart
+    ...

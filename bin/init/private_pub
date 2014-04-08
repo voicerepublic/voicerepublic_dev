@@ -23,7 +23,8 @@ case $1 in
     start)
 	pwd
 	echo ${private_pub}
-        ${private_pub}
+  ${private_pub}
+  sleep 2
 	cat ${pidfile}
 	echo
     ;;
