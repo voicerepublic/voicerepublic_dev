@@ -258,7 +258,7 @@ en:
       no_status_updates_here: This user has not posted a status.
     password_form:
       new_password: New password
-      rewrite_new_password: Password confirmation
+      rewrite_new_password: Password confirmhttp://localhost:3000/embed_talk?id=51ation
       update_password: Save password
     status_updates:
       opinion: Status
@@ -465,8 +465,11 @@ en:
     news: NEWS
     index:
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
-      subheadline: "Talks, interviews, readings, conversations, debates, disputes,seminars, discussions:"
-      subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />Yout have the floor!"
+      subheadline: "Talks, interviews, readings, conversations, debates, disputes, seminars, discussions:"
+      subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
+      text_illu_1: All of sudden it's easy to create your own audio livestreams–with as many stations as you want, from any number of places you choose.
+      text_illu_2: As the organizer of your talks, you can involve your listeners any time, letting discussions–and discussion culture–grow like they do in real life.
+      text_illu_3: Record and broadcast your live talks. Easily archive your recording so others can find and listen to it later. Embed your talk in other Websites or make it available as a podcast.
       login: Login
       signup: Sign Up
       search: Search

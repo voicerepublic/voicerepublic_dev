@@ -257,7 +257,10 @@
 	}
 
 	.member-block{
-		margin-top: 106px;
+		h3{
+			font-size: rem-calc(32)
+		}
+		margin-top: 130px;
 		.avatar-bg{
 			fill: $brand-color-red;
 		}
@@ -268,8 +271,7 @@
 		h4{
 			font-family: 'eaglebook';
 			color: $brand-color-blue;
-			margin-bottom: 25px;
-			font-size: rem-calc(16)		
+			margin-bottom: 25px;		
 		}
 		.member-name{
 			margin-top: 10px;
