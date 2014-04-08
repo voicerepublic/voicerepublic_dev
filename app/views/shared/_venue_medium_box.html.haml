@@ -18,7 +18,8 @@
       - cap = t('.archived_talks', count: count, default: '%{count} Archived Talks')
       - url = venue_path(venue, anchor: 'tab-archived-talks')
       = link_to url, class: 'button-venue-box' do
-        %span.icon-play-octa= cap
+        %span.icon-play-octa
+        = cap
       -#
         - count = venue.participations.count
         - cap = t('.participants', count: count, default: '%{count} Participants')
