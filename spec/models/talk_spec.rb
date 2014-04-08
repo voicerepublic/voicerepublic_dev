@@ -169,9 +169,9 @@ describe Talk do
   end
 
   it 'has a scope featured' do
-    talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago)
-    talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago)
-    talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now)
+    talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
+    talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
+    talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
     expect(Talk.featured).to eq([talk1, talk0])
     expect(Talk.featured).to include(talk0)
   end

@@ -96,7 +96,8 @@ class Talk < ActiveRecord::Base
   end
 
   scope :featured, -> do
-    prelive.merge(live).where("featured_from < ?", Time.now).
+    where("featured_from < ?", Time.zone.now).
+      where(state: [:prelive, :live]).
       order('featured_from DESC')
   end
 
