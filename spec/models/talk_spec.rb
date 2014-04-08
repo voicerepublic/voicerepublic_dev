@@ -40,6 +40,12 @@ describe Talk do
       pending "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
       expect(@talk.starts_in).to be > 0
     end
+    it 'should store what is written to processed_at' do
+      @talk.processed_at = time = Time.zone.now
+      @talk.save!
+      @talk.reload
+      expect(@talk.processed_at).to eq(time)
+    end
     # FIXME Hello future self, this will fail when run during daylight
     # saving time. Sophia suggested to test with a time zone that
     # doesn't have daylight saving time
@@ -48,7 +54,7 @@ describe Talk do
       @talk.starts_at_date = '1942-05-22' # local
       @talk.starts_at_time = '12:42' # local
       @talk.save!
-      expect(@talk.starts_at.utc.strftime('%H:%M')).to eq('10:42')
+      expect(@talk.reload.starts_at.utc.strftime('%H:%M')).to eq('10:42')
     end
   end
 
