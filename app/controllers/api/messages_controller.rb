@@ -22,12 +22,7 @@ class Api::MessagesController < Api::BaseController
     # It will not always correspond to the time.zone of the user reading the
     # messsage. This needs a better solution.
     params[:message].merge! created_at: I18n.l(message.created_at, format: :short)
-    begin
-      publish message: params[:message].to_hash
-    rescue Exception => e
-      debugger
-      pp e
-    end
+    publish message: params[:message].to_hash
     head :ok
   end
 
