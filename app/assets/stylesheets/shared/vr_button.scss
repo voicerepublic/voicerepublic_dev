@@ -38,3 +38,13 @@
 	font-size: rem-calc(11);
 	margin-bottom: 2px;
 }
+
+.button-standard-small{
+	@include button(rem-calc(3),#ddd);
+	padding-right: 10px;
+	padding-left: 10px;
+	border:none;
+	color: #333;
+	font-size: rem-calc(11);
+	margin-bottom: 2px;
+}

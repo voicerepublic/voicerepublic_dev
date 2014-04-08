@@ -66,10 +66,16 @@
         - if @talk.archived?
           = render partial: 'shared/player', locals: { talk: @talk }
           .embed_player
-            %span.label(data-enable-fields=true)= t('.embed_player')
-            .share_iframe.hide
-              %textarea
-                <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
+            %span.label.button-standard-small(data-toggle-stuff="#share_iframe")= t('.embed_player')
+          .download(ng-show='talkIsArchived()')
+            %span.download-title
+              = t('.download_as')
+            %ul.button-group
+              %li(ng-repeat='(ext, link) in mediaLinks')
+                %a.button-standard-small(href='{{link}}') {{ext}}
+          #share_iframe.hide
+            %textarea
+              <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
 
         - else
           %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
@@ -116,7 +122,8 @@
     .talk-host-and-participants-action-box.row
       .large-12.columns.text-center
         .talkers-action-box
-          .mic-sign-box
+          -# FIXME quick and dirty: do not show mic
+          .mic-sign-box{ class: @talk.state=~/^(pre|)live$/ ? '' : 'display-none'}
             %span.icon-octa-full
             %span.icon-octagon
             %span.icon-mic
@@ -161,12 +168,6 @@
                 = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
                   %p.flash-content
                     = raw t('.audio_settings_help_text')
-
-    .download.row(ng-show='talkIsArchived()')
-      .large-12.columns.text-center
-        %ul.button-group
-          %li(ng-repeat='(ext, link) in mediaLinks')
-            %a.button(href='{{link}}') {{ext}}
 
     .row.collapse-large-only
       .large-12.columns

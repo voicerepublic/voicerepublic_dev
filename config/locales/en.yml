@@ -737,6 +737,7 @@ en:
       minutes: 'MINUTES'
       request_mic: GET THE MIC
       promote: GIVE THE MIC
+      embed_player: Embed Player
     new:
       new_talk: New Talk
     edit:

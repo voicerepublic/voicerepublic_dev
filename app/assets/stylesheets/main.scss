@@ -41,7 +41,7 @@ span[class^="icon-"]{
 }
 
 .display-none{
-  display:none;
+  display:none !important;
 }
 
 #query.warning {

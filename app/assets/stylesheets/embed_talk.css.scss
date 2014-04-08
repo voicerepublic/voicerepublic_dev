@@ -1,2 +1,15 @@
 @import "grids_variables_mixins/ci_variables";
 @import "shared/vr_player";
+
+.jp-controls{
+	text-align: center;
+	position: relative;
+	li{
+		.jp-play:before{
+			content:'play';
+		}
+		.jp-pause:before{
+			content:'pause'
+		}
+	}
+}
