@@ -8,7 +8,6 @@ describe "Talks" do
   end
 
   describe "Talk#new" do
-
     it 'creates a new talk', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
@@ -35,20 +34,38 @@ describe "Talks" do
       click_button 'Save'
       page.should have_content(I18n.t(:invalid_date))
       page.should have_content(I18n.t(:invalid_time))
+    end
+  end
+
+  describe "Talk#show" do
+    describe "Chat", driver: :chrome do
+      it "it works" do
+        pending "Close to working, see comments"
+        VCR.use_cassette 'talk_with_chat' do
+          @venue = FactoryGirl.create :venue
+          @talk = FactoryGirl.create :talk, venue: @venue
+          visit venue_talk_path @venue, @talk
+          find(".participate-button-box a").click
+          find(".chat-input-box input").set("my message")
+          find(".chat-input-box input").native.send_keys(:return)
+          # This spec works until here. The message is never being shown in
+          # testing mode, though. Faye published it, however. And of course it
+          # works in development.
+          within "#talk-tab-discussion" do
+            page.should have_content "my message"
+          end
+        end
+      end
 
     end
-
-
 
   end
 
   describe "validation" do
-
     before do
       @venue = FactoryGirl.create :venue
       @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
     end
-
     # FIXME sometimes failing spec
     #
     #     Failure/Error: Unable to find matching line from backtrace
@@ -65,7 +82,7 @@ describe "Talks" do
 
         share_window = page.driver.browser.window_handles.last
         page.within_window share_window do
-         current_url.should match(/facebook.com/)
+          current_url.should match(/facebook.com/)
         end
       end
 

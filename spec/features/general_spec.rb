@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "General feature specs" do
 
-  describe "Search validation" do
+  describe "Search validation", js: true do
     before do
       visit root_path
       Thread.current["PgSearch.enable_multisearch"] = true
@@ -11,7 +11,7 @@ feature "General feature specs" do
     after do
       Thread.current["PgSearch.enable_multisearch"] = false
     end
-    scenario "it should set an error on empty search input", driver: :chrome, slow: true do
+    scenario "it should set an error on empty search input", driver: :chrome do
       page.fill_in 'query', with: ''
       find("#query").native.send_keys(:return)
       page.should have_css('.warning')
@@ -24,10 +24,17 @@ feature "General feature specs" do
       page.should have_css('.warning')
     end
 
-    scenario "it searches", driver: :chrome do
+    scenario "it searches with magnifying glass" do
       FactoryGirl.create :talk, title: "test title talk"
       page.fill_in 'query', with: 'test talk'
       find(".icon-magnifying-glass").click
+      page.should have_content "test title talk"
+    end
+
+    scenario "it searches when hitting enter", driver: :chrome  do
+      FactoryGirl.create :talk, title: "test title talk"
+      page.fill_in 'query', with: 'test talk'
+      find("#query").native.send_keys(:return)
       page.should have_content "test title talk"
     end
   end
