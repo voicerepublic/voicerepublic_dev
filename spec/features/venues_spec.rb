@@ -112,7 +112,7 @@ describe "Venues", js: true do
       visit venue_path(id: venue.id)
       find("span.icon-bubble-multi").click
       fill_in 'comment_content', with: 'spec comment'
-      click_button 'Save'
+      click_button 'Post'
       find("#tab-comments.active").should_not be_nil
     end
   end
