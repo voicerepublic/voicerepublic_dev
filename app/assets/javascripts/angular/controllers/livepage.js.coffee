@@ -71,7 +71,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.declinePromotion = ->
     session.fsm.PromotionDeclined()
 
-  $scope.countdownInSeconds = config.talk.remaining_seconds 
+  $scope.countdownInSeconds = config.talk.remaining_seconds
   $scope.countdown = 'computing...'
   $scope.talkProgress = 0
 

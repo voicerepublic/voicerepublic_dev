@@ -12,21 +12,22 @@
           = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')
           = button_tag :type => "submit", :class => "search-lupe" do
             %span.icon-magnifying-glass
-    .authentication-box.text-center
-      %dl.tabs(data-tab="true")
-        %dd
-          = link_to '#login', 'data-link' => 'login' do
-            = t('.login')
-        %span.link-delimiter
-          &#47;
-        %dd.active
-          = link_to '#signup', 'data-link' => 'signup' do
-            = t('.signup')
-      .tabs-content.text-left
-        .content#login
-          = render 'lp_login', user: @user
-        .content.active#signup
-          = render 'lp_signup', :user => @user
+    - if !current_user || current_user.guest
+      .authentication-box.text-center
+        %dl.tabs(data-tab="true")
+          %dd
+            = link_to '#login', 'data-link' => 'login' do
+              = t('.login')
+          %span.link-delimiter
+            &#47;
+          %dd.active
+            = link_to '#signup', 'data-link' => 'signup' do
+              = t('.signup')
+        .tabs-content.text-left
+          .content#login
+            = render 'lp_login', user: @user
+          .content.active#signup
+            = render 'lp_signup', :user => @user
 
 .title-row.row.collapse-large-only
   .medium-12.columns.text-center
@@ -56,19 +57,21 @@
     %p
       Record and broadcast your live talks. Easily edit your recording and archive it so others can find and listen to it later. Embed your talk in other Websites or make it available as a podcast.
 
-.live-talks.row
-  .medium-12.columns
-    .talks-box-title
-      %h4 NOW LIVE
-      %ul.list-style-type-none
-        = render partial: "shared/talk_medium_box", collection: @talks_live
+- unless @talks_live.empty?
+  .live-talks.row
+    .medium-12.columns
+      .talks-box-title
+        %h4 NOW LIVE
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", collection: @talks_live
 
-.featured-talks.row
-  .medium-12.columns
-    .talks-box-title
-      %h4 FEATURED
-      %ul.list-style-type-none
-        = render partial: "shared/talk_medium_box", collection: @talks
+- unless @talks_featured.empty?
+  .featured-talks.row
+    .medium-12.columns
+      .talks-box-title
+        %h4 FEATURED
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", collection: @talks_featured
 
 .bg-blue.bg-manifest
 .manifest.row
@@ -87,31 +90,20 @@
     %h4 4.Voice Republic is founded on respect
     %p Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.
     %h5 5. For a decentralization of the Internet
-    %p For security reasons, the Voice Republic servers that save personal data are all located in Germany and Switzerland, no exceptions. And it will stay that way.
+    %p For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.
     %h5 6. We don't do business with your data
     %p Voice Republic has a business model. Your data is not part of it.
     %h5 7. Voice Republic can forget
     %p When you delete your accout, your data is deleted with it. Voice Republic does not want a total archive. According to Nietzsche, "Forgetting belongs to all action"
 
-.member-block.row
-  .small-10.small-centered.columns.text-center
-    %h4 TEAM
-    %ul.large-block-grid-3.medium-block-grid-3.small-block-grid-3
-      %li
-        .avatar(ng-repeat="guest in guests()")
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
-            .avatar-name.text-center
-              = current_user.name
-      %li
-        .avatar(ng-repeat="guest in guests()")
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
-            .avatar-name.text-center
-              = current_user.name
-      %li
-        .avatar(ng-repeat="guest in guests()")
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
-            .avatar-name.text-center
-              = current_user.name
+-# TODO: Martin: Please integrate the team with static assets
+-#.member-block.row
+-#  .small-10.small-centered.columns.text-center
+-#    %h4 TEAM
+-#    %ul.large-block-grid-3.medium-block-grid-3.small-block-grid-3
+-#      %li
+-#        .avatar
+-#          .avatar-box
+-#            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
+-#            .avatar-name.text-center
+-#              = current_user.name
