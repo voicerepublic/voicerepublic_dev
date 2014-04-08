@@ -3,7 +3,7 @@ rtmp:
   archive_path:       /home/app/app/shared/archive
   archive_raw_path:   /home/app/app/shared/archive_raw
   recordings_path:    /home/app/app/shared/recordings
-  worker_processes:   2
+  worker_processes:   1
   offrecord:          'rtmp://voicerepublic-staging.sky.ungleich.ch/offrecord'
   record:             'rtmp://voicerepublic-staging.sky.ungleich.ch/record'
   log_notifications:  false
