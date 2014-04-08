@@ -38,7 +38,7 @@ $row-width: rem-calc(700);
 // We use these to control various global styles
 // $body-bg: #fff;
 // $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
@@ -322,9 +322,9 @@ $button-med: rem-calc(11);
 $button-margin-bottom: rem-calc(0);
 
 // We use these to control button text styles.
-$button-font-family: 'eaglebook';
-$button-font-color: #fff;
-$button-font-color-alt: $brand-color-green;
+$button-font-family: $body-font-family;
+$button-font-color: #333;
+$button-font-color-alt: #000;
 // $button-font-tny: rem-calc(11);
 // $button-font-sml: rem-calc(13);
 // $button-font-med: rem-calc(16);

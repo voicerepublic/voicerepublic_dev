@@ -23,8 +23,8 @@
           = f.input :duration, collection: Settings.durations
       .row.collapse
         .medium-12.columns
-          %button.button(type="button" class="tiny" data-trigger-file-input="talk_image")
-            Select profile image
+          %button.button-standard(type="button" data-trigger-file-input="talk_image")
+            = t('.select_image')
           = f.file_field :image, as: :file, class: 'display-none'
 
 .row
