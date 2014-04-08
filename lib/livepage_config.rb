@@ -1,5 +1,5 @@
 class LivepageConfig < Struct.new(:talk, :user)
-  
+
   def to_json
     return JSON.pretty_generate(to_hash) if Rails.env.development?
     to_hash.to_json
@@ -48,10 +48,11 @@ class LivepageConfig < Struct.new(:talk, :user)
 
   def discussion
     talk.messages.order('created_at DESC').map do |message|
-      { 
+      {
         name: message.user.name,
         image: message.user.image_file_name, # FIXME: f q url
-        content: message.content
+        content: message.content,
+        created_at: I18n.l(message.created_at, format: :short)
       }
     end
   end
@@ -91,7 +92,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       *                  -> TalkEnded         -> Loitering
     EOF
   end
-  
+
   def statemachine
     statemachine_spec.split("\n").map do |transition|
       from, name, to = transition.split('->').map(&:strip)

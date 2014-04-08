@@ -39,7 +39,13 @@ describe "Talks" do
 
   describe "Talk#show" do
     describe "Chat", driver: :chrome do
-      it "it works" do
+      before do
+        Timecop.travel(Time.local(2008, 9, 1, 10, 5, 0))
+      end
+      after do
+        Timecop.return
+      end
+      it "it works live" do
         pending "Close to working, see comments"
         VCR.use_cassette 'talk_with_chat' do
           @venue = FactoryGirl.create :venue
@@ -53,6 +59,22 @@ describe "Talks" do
           # works in development.
           within "#talk-tab-discussion" do
             page.should have_content "my message"
+          end
+        end
+      end
+      it "it works with reload" do
+        VCR.use_cassette 'talk_with_chat' do
+          @venue = FactoryGirl.create :venue
+          @talk = FactoryGirl.create :talk, venue: @venue
+          visit venue_talk_path @venue, @talk
+          find(".participate-button-box a").click
+          find(".chat-input-box input").set("my message")
+          find(".chat-input-box input").native.send_keys(:return)
+          visit(current_path)
+          page.execute_script('$("a[href=#talk-tab-discussion]").click()')
+          within "#talk-tab-discussion" do
+            page.should have_content "my message"
+            page.should have_content "01 Sep 10:05"
           end
         end
       end
