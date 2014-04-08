@@ -9,7 +9,6 @@ $(function () {
           ogg: player.data('ogg')
         })
       },
-
       volume: 1,
       cssSelectorAncestor: player.data('selector'),
       swfPath: "/flash",
@@ -19,4 +18,16 @@ $(function () {
       keyEnabled: true
     })
   })
+})
+
+// TODO: Use Angular instead of jQuery
+$(document).ready(function() {
+  $("body").on("click", ".embed_player span", function() {
+    share_iframe = $(this).parent().find(".share_iframe")
+    if (share_iframe.hasClass("hide")) {
+      share_iframe.slideDown("slow").removeClass("hide");
+    } else {
+      share_iframe.slideUp("slow").addClass("hide");
+    }
+  });
 })

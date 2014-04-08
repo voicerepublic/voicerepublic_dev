@@ -8,10 +8,10 @@
 
     .talk-state.text-center
       .span(ng-show='talkIsPrelive()')
-        talk is prelive
+        = t('.talk_is_prelive')
         .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
-      .span(ng-show='talkIsPostlive()') talk is postlive 
+      .span(ng-show='talkIsPostlive()') talk is postlive
 
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
@@ -58,13 +58,19 @@
         .cd-watch
           {{ countdown }}
         .cd-minutes
-          = t('.minutes') 
+          = t('.minutes')
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
         -# TODO: better integrate player with angularjs
         - if @talk.archived?
           = render partial: 'shared/player', locals: { talk: @talk }
+          .embed_player
+            %span.label(data-enable-fields=true)= t('.embed_player')
+            .share_iframe.hide
+              %textarea
+                <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
+
         - else
           %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
         .talk-live-timeline(ng-show='talkIsLive()')
@@ -127,9 +133,9 @@
             %span.button-mute(ng-show='flags.onair'
                           ng-click='mute()')= t('.mute_mic')
             %span.button-unmute(ng-show='flags.onair'
-                          ng-click='unmute()')= t('.unmute_mic')           
+                          ng-click='unmute()')= t('.unmute_mic')
 
-        .chat-flash-box       
+        .chat-flash-box
           .chat-input-box.row(ng-hide="userIsAListener()")
             .large-12.columns
               .input-box
@@ -211,7 +217,7 @@
                 %li.avatar.text-center(ng-repeat="parti in expectingPromotion()")
                   .avatar-box
                     = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52}
-                    .avatar-name.text-center {{ parti.name }}               
+                    .avatar-name.text-center {{ parti.name }}
                   .host-actions(ng-show='showHostActions()')
                     .guest-promote-link.text-center(ng-click="promote(parti.id)")
                       = t('.promote')
@@ -220,14 +226,14 @@
               %ul.medium-block-grid-6.small-block-grid-3
                 %li.avatar.text-center(ng-repeat="parti in acceptingPromotion()")
                   .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52} 
+                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52}
                     .avatar-name.text-center {{ parti.name }}
             .participating(ng-show='participants().length')
               %h3= t('.participating')
               %ul.medium-block-grid-6.small-block-grid-3
                 %li.avatar.text-center(ng-repeat="parti in participants()")
                   .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52} 
+                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52}
                     .avatar-name.text-center {{ parti.name }}
                   .host-actions(ng-show='showHostActions()')
                     .guest-promote-link.text-center(ng-click="promote(parti.id)")
