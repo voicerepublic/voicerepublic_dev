@@ -22,7 +22,7 @@
 //= require ckeditor/init
 //= require ckeditor/config
 //
-//= require player.js.erb
+//= require player.js
 //= require validate_search
 //= require jquery.ui.datepicker
 //= require jquery.ui.slider

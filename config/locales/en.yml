@@ -468,8 +468,8 @@ en:
   landing_page:
     news: NEWS
     index:
-      headline: Debate is so much better than denial.
-      subheadline: Vestibulum id ligula porta felis euismod semper. Sed posuere consectetur est at lobortis.
+      headline: VOICE REPUBLIC IS THE PLATFORM FOR DISCUSSIONS
+      subheadline: "Talks, interviews, readings, conversations, debates, disputes,seminars, discussions: Voice Republic is home to the spoken word in its many forms.<br />Yout have the floor!"
     lp_login:
       email: E-mail
       password: Password
@@ -729,6 +729,10 @@ en:
       mute_streams: mute
       unmute_streams: unmute
       lets_go: OK - LET'S GO
+      countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
+      minutes: 'MINUTES'
+      request_mic: GET THE MIC
+      promote: GIVE THE MIC
     new:
       new_talk: New Talk
     edit:

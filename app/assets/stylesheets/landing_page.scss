@@ -1,18 +1,34 @@
 .landing_page-index{
-	.headline,.subheadline{
-		color: white
+	.headline{
+		color: #000;
+		font-size: rem-calc(30)
 	}
 	.subheadline{
 		font-size: rem-calc(20);
+		color: $brand-color-yellow;
 	}
 	.button-signup{
 		width: 100%;
 	}
 
-	.signup-facebook{
-		color: white;
-		&:hover, &:focus{
-			color:white
+	.authentication-box{
+		.lp-signup-box,
+		.lp-login-box{
+			position: absolute;
+			top:0;
+			left:0;
+		}
+		.lp-login-box{
+			display: none;
+		}
+		padding:5px 19px;
+		background: rgba(0,0,0,0.5);
+		input[type=text],
+		input[type=email]{
+			background: black;
+			color: white;
+			border: none;
+			/*font-family: 'eaglebook';*/
 		}
 	}
 

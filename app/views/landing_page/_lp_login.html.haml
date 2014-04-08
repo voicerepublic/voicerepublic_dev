@@ -1,4 +1,3 @@
-%h2 Log In
 = form_for(user, :url => session_path(:user)) do |f|
 
   = f.text_field :email,:type => "email", :class => 'input-block-level', :placeholder => t('.email'), :id => 'user_login'
@@ -11,6 +10,3 @@
     = check_box_tag :remember_me
     = t('.remember') + '.'
   = link_to t('.forgot_password'), new_password_path(:user)
-
-= t(".or")
-= render(:partial => "/devise/shared/social_network_connects")

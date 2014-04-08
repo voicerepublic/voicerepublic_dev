@@ -2,12 +2,10 @@
 
 .venue-medium-box.row.text-center
   .medium-12.columns
-    .venue-text-bg(style="background-image: url(#{venue.image.try(:url)})")
-      .venue-text-box
-        - url = venue_path(venue, anchor: 'tab-upcoming-talks')
-        = link_to url do
-          %h2.venue-title= venue.title
-          %p.venue-teaser= venue.teaser
+    .venue-text-box
+      = link_to venue do
+        %h2.venue-title= venue.title
+        %p.venue-teaser= venue.teaser
     .action-box
       - count = venue.talks.prelive.count
       - cap = t('.upcoming_talks', count: count, default: '%{count} Upcoming Talks')
@@ -18,7 +16,7 @@
       - cap = t('.archived_talks', count: count, default: '%{count} Archived Talks')
       - url = venue_path(venue, anchor: 'tab-archived-talks')
       = link_to cap, url, class: 'button-venue-box'
-      
+
       -#
         - count = venue.participations.count
         - cap = t('.participants', count: count, default: '%{count} Participants')

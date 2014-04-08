@@ -68,6 +68,27 @@
     }
   }
 
+  .talk-countdown{
+    margin-top: 20px;
+    background: rgba(0,0,0,0.5);
+    padding: 40px 0;
+    .cd-text,.cd-minutes{
+      display: inline-block;
+      font-family: 'eaglebook';
+      font-size: rem-calc(14);
+      .red{
+        color: $brand-color-red;
+      }
+    }
+    .cd-watch{
+      display: inline-block;
+      position: relative;
+      font-family: 'eaglelight';
+      font-size: rem-calc(40);
+      margin: 0 rem-calc(13);
+    }
+  }
+
   .talk-timeline-box{
     margin-top: 15px;
     background: rgba(0,0,0,0.5);
@@ -110,9 +131,25 @@
 
   .talk-talkers-box{
     position: relative;
-    background: rgba(0,0,0,0.85);
-    padding:rem-calc(21) rem-calc(8);
+    background: black;
+    padding:rem-calc(8) rem-calc(8);
     color: #fff;
+    .avatar{
+      .avatar-box{
+        width: 140px;
+      }
+      .avatar-name{
+        color: white
+      }
+      .avatar-image{
+        display: inline-block;
+      }
+      &.avatar-host{
+        .avatar-bg{
+          fill: $brand-color-red;
+        }
+      }
+    }
     .mute-stream-box{
       position: absolute;
       right: 6px;
@@ -135,7 +172,7 @@
   .talk-host-and-participants-action-box{
     position: relative;
     background: black;
-    margin-top: 37px;
+    margin-top: 40px;
     height: 88px;
     padding-top: 10px ;
     padding-bottom: 10px;
@@ -154,20 +191,19 @@
           left:0;
           font-size: rem-calc(70);
           color: black;
- /*         text-shadow: 1px 4px 6px #def, 0 0 0 #000, 1px 4px 6px #def;*/
         }
         .icon-octagon{
           position: absolute;
           top: 0;
           left:0;
           font-size: rem-calc(70);
-          color: $brand-color-red;
+          color: $brand-color-green;
         }
         .icon-mic{
           position: absolute;
           top: 20px;
           left: 20px;
-          color: $brand-color-red;
+          color: $brand-color-green;
           font-size: rem-calc(30);
         }
         .yellow{
@@ -183,7 +219,11 @@
           margin-left: 39px;
           font-family: 'eaglebook';
           font-size: 12px;
-
+          color: $brand-color-green;
+          cursor: pointer;
+          &#onair{
+            cursor: default;
+          }
         }
       }
       .tmp-mute-box{
@@ -206,7 +246,7 @@
         position: absolute;
         left: 7px;
         top:3px;
-        color: $brand-color-red;
+        color: $brand-color-green;
       }
       input{
         width: 100%;
@@ -329,6 +369,31 @@
         top: 3px;
         font-size: rem-calc(8);
         color: rgba(0,0,0, 0.5);
+      }
+    }
+  }
+  #talk-tab-participants{
+    padding-top: 0 !important;
+    .participants-box{
+      padding-bottom: 20px;
+      background: rgba(0,0,0,0.8);
+      h3{
+        font-size: rem-calc(13);
+        color: $brand-color-creme;
+        margin-top: 24px;
+      }
+      .avatar-name{
+        margin-top: -10px;
+      }
+      .expecting_promotion{
+        .avatar-bg{
+          fill: $brand-color-yellow;
+        }
+      }
+      .accepting_promotion{
+        .avatar-bg{
+          fill: $brand-color-yellow;
+        }
       }
     }
   }

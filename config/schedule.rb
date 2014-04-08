@@ -32,3 +32,6 @@ every 60.minutes, :roles => [:app] do
   rake "cleanup:guests"
 end
 
+every 60.minutes, :roles => [:app] do
+  rake "cleanup:fix_abandoned_talk_state"
+end

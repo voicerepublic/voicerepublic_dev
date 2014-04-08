@@ -25,6 +25,7 @@ module VoiceRepublic
     # Run "rake -D time" for a list of tasks for finding time zone
     # names. Default is UTC.
     config.time_zone = 'Berlin'
+    config.active_record.default_timezone = 'Berlin'
 
     # The default locale is :en and all translations from
     # config/locales/*.rb,yml are auto loaded.
@@ -63,7 +64,9 @@ module VoiceRepublic
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
     config.assets.paths << "#{config.root}/app/assets/fonts"
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( livepage.js )
+    config.assets.precompile += %w( livepage.js embed_talk.js )
+
+    config.assets.precompile += %w( embed_talk.css )
 
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the

@@ -1,26 +1,22 @@
-.header-block(style="background-image:url(http://lorempixel.com/1000/1000/abstract)")
-  %br/
-  %br/
-  .row.collapse-large-only
-    .medium-7.columns
-      %h1.headline
-        = t('.headline')
-      %h2.subheadline
-        = t('.subheadline')
+.row.collapse-large-only
+  .medium-7.columns
+    %h1.headline
+      = t('.headline')
+    %h2.subheadline
+      = t('.subheadline')
 
-    .medium-5.columns
-      %br
-      = render 'lp_signup', :user => @user
-      %br
-      = render 'lp_login', user: @user
-  %br
+  .medium-5.columns
+    .authentication-box
+      .lp-signup-box
+        = render 'lp_signup', :user => @user
+      .lp-login-box
+        = render 'lp_login', user: @user
 
 -#TODO
 .live-talks.row
   .medium-12.columns
     - @talks.each do |talk|
       = render partial: "shared/talk_medium-box"
-
 
 .featured-talks.row
   .medium-12.columns

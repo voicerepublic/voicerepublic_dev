@@ -27,8 +27,8 @@
 # * session [text] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
-# * starts_at_date [string] - TODO: document me
-# * starts_at_time [string] - TODO: document me
+# * starts_at_date [string] - local date
+# * starts_at_time [string] - local time
 # * state [string] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
@@ -75,9 +75,9 @@ class Talk < ActiveRecord::Base
   has_many :social_shares, as: :shareable
 
   validates :venue, :title, :tag_list, :duration, presence: true
-  validates :starts_at_date, format: { with: /\d{4}-\d\d-\d\d/,
+  validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
     message: I18n.t(:invalid_date) }
-  validates :starts_at_time, format: { with: /\d\d:\d\d/,
+  validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
     message: I18n.t(:invalid_time) }
 
   before_save :set_starts_at
@@ -121,12 +121,20 @@ class Talk < ActiveRecord::Base
     @guest_list = list.split(',').sort
   end
 
-  def starts_in # seconds (for prelive) # TODO: check if needed
-    (starts_at - Time.now).to_i
+  def remaining_seconds
+    return starts_in if prelive?
+    return ends_in if live?
+    0
   end
 
-  def ends_in # seconds (for live) # TODO: check if needed
-    (ends_at - Time.now).to_i
+  def starts_in # remaining seconds in state prelive
+    starts_at.to_i - Time.now.to_i
+  end
+
+  def ends_in # remaining seconds in state live
+    tstart = started_at || starts_at
+    tend = tstart.to_i + duration.minutes
+    tend - Time.now.to_i
   end
 
   def config_for(user)
@@ -210,15 +218,16 @@ class Talk < ActiveRecord::Base
 
   private
 
-  # assemble starts_at from starts_at_date and starts_at_time
+  # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
+  #
+  # Since the validity of `starts_at_date` and `starts_at_time` is ensured
+  # with regexes we are allowed to be optimistic about parsing here.
   def set_starts_at
-    date = DateTime.parse(starts_at_date)
-    time = DateTime.parse(starts_at_time)
-    self.starts_at = date.change hour: time.hour, min: time.min
+    self.starts_at = Time.zone.parse([starts_at_date, starts_at_time] * ' ')
   end
 
   def set_ends_at
-    return unless starts_at && duration
+    return unless starts_at && duration # TODO check if needed
     self.ends_at = starts_at + duration.minutes
   end
 
