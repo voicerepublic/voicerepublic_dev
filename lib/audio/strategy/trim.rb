@@ -19,7 +19,9 @@ module Audio
       end
 
       def trim_cmd
-        "sox -V1 #{backup} #{input} trim #{start} =#{stop}"
+        return "sox -V1 #{backup} #{input} trim #{start} =#{stop}" if start > 0
+
+        "cp #{backup} #{input}" # no trim required
       end
 
       def start
