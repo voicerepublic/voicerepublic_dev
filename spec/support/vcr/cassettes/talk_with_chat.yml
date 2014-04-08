@@ -1,0 +1,162 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
+
+        MjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIyY2hhbm5lbCUyMiUzQSUyMiUyRnQx
+
+        JTJGcHVibGljJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMm1lc3NhZ2UlMjIl
+
+        M0ElN0IlMjJjb250ZW50JTIyJTNBJTIybXkrbWVzc2FnZSUyMiUyQyUyMnVz
+
+        ZXJfaWQlMjIlM0ExJTJDJTIyY3JlYXRlZF9hdCUyMiUzQSUyMjA4K0Fwcisx
+
+        NiUzQTMyJTIyJTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIycHJpdmF0
+
+        ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '44'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJzdWNjZXNzZnVsIjp0cnVlfV0=
+
+'
+    http_version: 
+  recorded_at: Tue, 08 Apr 2014 14:32:48 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
+
+        MjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIyY2hhbm5lbCUyMiUzQSUyMiUyRnQx
+
+        JTJGcHVibGljJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnN0YXRlJTIyJTNB
+
+        JTIyUmVnaXN0ZXJpbmclMjIlMkMlMjJ1c2VyJTIyJTNBJTdCJTIyaWQlMjIl
+
+        M0ExJTJDJTIybmFtZSUyMiUzQSUyMktyeXN0YWwrR3V0a293c2tpJTIyJTJD
+
+        JTIycm9sZSUyMiUzQSUyMnBhcnRpY2lwYW50JTIyJTJDJTIyaW1hZ2UlMjIl
+
+        M0ElMjIlMkZtZWRpYSUyRlcxc2labVlpTENJdmFHOXRaUzl0ZFc1bGJpOXpj
+
+        bU12ZG05cFkyVnlaWEIxWW14cFl5OWhjSEF2WVhOelpYUnpMMmx0WVdkbGN5
+
+        OWtaV1poZFd4MGN5OTFjMlZ5TFdGMllYUmhjaTVxY0djaVhTeGJJbkFpTENK
+
+        MGFIVnRZaUlzSWpFd01IZ3hNREFqYm5jaVhWMCUyRnVzZXItYXZhdGFyLmpw
+
+        ZyUzRnNoYSUzRDQwMzUwZDgyJTIyJTJDJTIyc3RyZWFtJTIyJTNBJTIydDEt
+
+        dTElMjIlMkMlMjJzdGF0ZSUyMiUzQW51bGwlN0QlN0QlN0QlMkMlMjJleHQl
+
+        MjIlM0ElN0IlMjJwcml2YXRlX3B1Yl90b2tlbiUyMiUzQSUyMnNlY3JldCUy
+
+        MiU3RCU3RA==
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '44'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJzdWNjZXNzZnVsIjp0cnVlfV0=
+
+'
+    http_version: 
+  recorded_at: Tue, 08 Apr 2014 14:32:49 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
+
+        MjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIyY2hhbm5lbCUyMiUzQSUyMiUyRnQx
+
+        JTJGcHVibGljJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnN0YXRlJTIyJTNB
+
+        JTIyV2FpdGluZyUyMiUyQyUyMnVzZXIlMjIlM0ElN0IlMjJpZCUyMiUzQTEl
+
+        N0QlN0QlN0QlMkMlMjJleHQlMjIlM0ElN0IlMjJwcml2YXRlX3B1Yl90b2tl
+
+        biUyMiUzQSUyMnNlY3JldCUyMiU3RCU3RA==
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '44'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJzdWNjZXNzZnVsIjp0cnVlfV0=
+
+'
+    http_version: 
+  recorded_at: Tue, 08 Apr 2014 14:32:49 GMT
+recorded_with: VCR 2.8.0

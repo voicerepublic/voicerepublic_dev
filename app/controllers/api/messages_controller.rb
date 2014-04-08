@@ -18,7 +18,16 @@ class Api::MessagesController < Api::BaseController
     message.save!
 
     params[:message].merge! user_id: user.id
-    publish message: params[:message].to_hash
+    # TODO: This will localise the message for the user sending the message.
+    # It will not always correspond to the time.zone of the user reading the
+    # messsage. This needs a better solution.
+    params[:message].merge! created_at: I18n.l(message.created_at, format: :short)
+    begin
+      publish message: params[:message].to_hash
+    rescue Exception => e
+      debugger
+      pp e
+    end
     head :ok
   end
 
