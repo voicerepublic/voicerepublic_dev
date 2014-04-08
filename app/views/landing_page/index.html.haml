@@ -1,3 +1,11 @@
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
 .row.collapse-large-only
   .medium-7.columns
     %h1.headline
@@ -6,7 +14,11 @@
       = t('.subheadline')
 
   .medium-5.columns
-    .authentication-box
+    .authentication-box.text-center
+      .link-box
+        = link_to t('.login)', '#', 'data-link' => 'login'
+        /
+        = link_to t('.signup'), '#', 'data-link' => 'signup'
       .lp-signup-box
         = render 'lp_signup', :user => @user
       .lp-login-box

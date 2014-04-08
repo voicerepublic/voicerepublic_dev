@@ -12,17 +12,26 @@
 	}
 
 	.authentication-box{
+		position: relative;
+		padding:5px 19px;
+		background: rgba(0,0,0,0.5);
+		.link-box{
+			display: none;
+			padding: 4px;
+			a{
+				color: $brand-color-red;
+				&:hover,&:focus{
+					color: $brand-color-red;
+				}
+			}
+		}
 		.lp-signup-box,
 		.lp-login-box{
-			position: absolute;
-			top:0;
-			left:0;
+
 		}
 		.lp-login-box{
 			display: none;
 		}
-		padding:5px 19px;
-		background: rgba(0,0,0,0.5);
 		input[type=text],
 		input[type=email]{
 			background: black;
