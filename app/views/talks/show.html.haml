@@ -74,7 +74,7 @@
             %ul.button-group
               %li(ng-repeat='(ext, link) in mediaLinks')
                 %a.button-standard-small(href='{{link}}') {{ext}}
-          #share_iframe.hide
+          #share_iframe.hide-stuff
             %textarea
               <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
 

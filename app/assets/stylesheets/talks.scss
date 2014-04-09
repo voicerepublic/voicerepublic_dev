@@ -124,6 +124,13 @@
         padding: 3px 10px
       }
     }
+    #share_iframe{
+      @include transition(height,0.4s,ease-in-out);
+      textarea{
+        margin-bottom:0;
+      }
+      overflow:hidden
+    }
     .talk-timeline{
       background: rgba(0,0,0,0.8);
       width: 100%;
