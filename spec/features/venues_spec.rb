@@ -99,7 +99,7 @@ describe "Venues", js: true do
       # NOTE: This is not a perfect test, because it's exposing the real input
       # field while the app itself uses a Foundation button. Couldn't get it to
       # work using the button, though.
-      page.execute_script('$("input#venue_image").show()')
+      page.execute_script('$("input#venue_image").show().removeClass("display-none")')
       attach_file :venue_image, Rails.root.join('spec/support/fixtures/dummy.png')
       click_button 'Save'
       find('.header-block')['style'].should_not include('venue-image.jpg')
