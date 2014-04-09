@@ -21,6 +21,7 @@ class ParticipationsController < ApplicationController
   def create
     # TODO: Is this the correct way to go?
     # FIXME: There's no authorization in this controller
+    # TODO: I18n!
     if current_user.guest?
       return redirect_to new_user_registration_path,
         :notice => "You need to sign up to participate in a Series"
