@@ -3,7 +3,7 @@
 %li.talk-medium-box.row.collapse
   .large-2.medium-2.columns
     %img.talk-avatar{src: talk.image.thumb('108x61#nw').url}
-  .large-10.medium-10.columns.talk-medium-text-box
+  .large-10.medium-10.columns.talk-medium-text-box.text-left
     = link_to [talk.venue, talk] do
       .talk-datetime
         = t('.date_start_end', date: l(talk.starts_at, format: :date_only),

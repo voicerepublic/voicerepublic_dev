@@ -96,7 +96,9 @@
       position: relative;
       font-family: 'eaglelight';
       font-size: rem-calc(40);
-      margin: 0 rem-calc(13);
+      margin: 0 rem-calc(13) 0 rem-calc(10);
+      width: 168px;
+      text-align: left;
     }
   }
 
@@ -167,6 +169,9 @@
       }
     }
     .mute-stream-box{
+      //tmp hide
+      height:0;
+      overflow:hidden;
       position: absolute;
       right: 6px;
       bottom: 4px;
@@ -244,6 +249,9 @@
       }
       .tmp-mute-box{
         position: absolute;
+        //tmp hide
+        height:0;
+        overflow: hidden;
         top: 5px;
         left: 10px;
         font-size: rem-calc(11);
