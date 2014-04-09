@@ -56,6 +56,12 @@ span[class^="icon-"]{
   margin-bottom: 10px !important
 }
 
+// FOR JS TOGGLE STUFF
+.hide-stuff{
+  height:0 !important;
+  padding:0 !important;
+}
+
 /* hack for firefox to show flash */
 object#Blackbox {
     width: 215px;

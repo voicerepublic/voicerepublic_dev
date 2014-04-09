@@ -51,6 +51,17 @@
       font-family: 'eaglebook';
       font-size: rem-calc(14)
     }
+    .talk-host-name{
+      margin-top:-1px;
+      a{
+        font-family: 'eaglelight';
+        font-size: rem-calc(12);
+        color: $brand-color-red;
+        &:hover,&:focus{
+          color: $brand-color-red;
+        }
+      }
+    }
     .talk-venue-title{
       display: inline-block;
       a,a:hover,a:focus{
@@ -240,10 +251,16 @@
           margin-left: 39px;
           font-family: 'eaglebook';
           font-size: 12px;
-          color: $brand-color-green;
+          color: $brand-color-yellow;
           cursor: pointer;
           &#onair{
             cursor: default;
+          }
+          .button-decline{
+            top: 23px;
+          }
+          #onair{
+            color: $brand-color-red;
           }
         }
       }
@@ -287,12 +304,14 @@
       }
     }
     .flash-box{
-      height:0;
+      height:170px;
+      padding: 15px 0;
       margin-top: 25px;
       margin-bottom: 15px;
       background: #000;
       overflow: hidden;
-      transition: height .4s, padding .4s;
+      @include transition(height, .4s, ease-in-out);
+      @include transition(padding, .4s, ease-in-out);           
       .manual-box{
         display: inline-block;
         vertical-align: top;
@@ -308,10 +327,10 @@
         line-height: 1.1
       }
 
-      &.flash-box-open{
+/*      &.flash-box-open{
         height: 170px;
-        padding: 15px 0;
-      }
+        
+      }*/
       .button-vr{
         border-color: $brand-color-yellow;
         color: $brand-color-yellow;

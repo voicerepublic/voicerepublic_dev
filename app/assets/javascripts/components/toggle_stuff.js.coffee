@@ -4,7 +4,7 @@ enableFields = (element, selector) ->
   source = $(element)
   target = $(selector)
   source.click (e) ->
-    target.toggleClass 'hide'
+    target.toggleClass 'hide-stuff'
 
 $("*[#{attribute}]").each (index, element) ->
   value = $($(element).attr(attribute))
