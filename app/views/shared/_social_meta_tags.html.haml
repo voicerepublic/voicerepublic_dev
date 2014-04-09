@@ -1,0 +1,25 @@
+- description = description || ""
+- title = title || ""
+- image = image || ""
+
+-# Google
+- keywords = keywords || ""
+- author = author || ""
+%meta{content: "#{description}", name: "description"}/
+%meta{content: "#{keywords}", name: "keywords"}/
+%meta{content: "#{author}", name: "author"}/
+%meta{content: "", name: "copyright"}/
+%meta{content: "voicerepublic.com", name: "application-name"}/
+
+-# Facebook
+%meta{content: "#{title}", property: "og:title"}/
+%meta{content: "", property: "og:type"}/
+%meta{content: "#{image}", property: "og:image"}/
+%meta{content: "#{request.url}", property: "og:url"}/
+%meta{content: "#{description}", property: "og:description"}/
+
+-# Twitter
+%meta{content: "summary", name: "twitter:card"}/
+%meta{content: "#{title}", name: "twitter:title"}/
+%meta{content: "#{description}", name: "twitter:description"}/
+%meta{content: "#{image}", name: "twitter:image"}/

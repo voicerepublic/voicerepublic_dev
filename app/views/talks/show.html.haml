@@ -1,3 +1,4 @@
+= render partial: 'shared/social_meta_tags', locals: { description: @talk.description, title: @talk.title, image: @talk.image_url, keywords: @talk.tag_list, author: @talk.venue.user.name }
 %p#notice(style='display: none;')= notice
 
 .row(style='padding: 200px' ng-hide='true')
