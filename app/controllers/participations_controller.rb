@@ -6,9 +6,9 @@ class ParticipationsController < ApplicationController
   # nested under venues
   before_filter :set_venue
 
-  # This is somewhat f*ckd! Devise might redirect here if a currently
-  # not signed in user clicks on a participate now button. For now
-  # we'll simpy redirect to the venue.
+  # FIXME: This is somewhat f*ckd! Devise might redirect here if a currently
+  # not signed in user clicks on a participate now button. For now we'll simpy
+  # redirect to the venue.
   #
   # GET /participations
   # GET /participations.json
@@ -37,7 +37,7 @@ class ParticipationsController < ApplicationController
 
     respond_to do |format|
       if @participation.save
-        format.html { redirect_to target } # after join redirect to venue page 
+        format.html { redirect_to target } # after join redirect to venue page
       else
         format.html { redirect_to target }
       end

@@ -43,15 +43,6 @@ describe TalksController do
     end
 
     it 'downloads a talks message history' do
-      pending <<-MOANING.strip
-        I debugged this quite some time, and I cannot figure out
-        what is wrong. When I use FactoryGirl to create message, it
-        has created_at set. But when calling the controller from
-        within the spec it doesn't, although the message is
-        persisted? Maybe its a naming collision with the internals
-        of FactoryGirl, `message` is propably generic enough, who
-        knows.
-      MOANING
       current_user = @user
       request.env['warden'].stub :authenticate! => current_user
       controller.stub current_user: current_user

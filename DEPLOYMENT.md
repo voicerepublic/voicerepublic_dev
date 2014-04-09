@@ -157,6 +157,17 @@ Backend
 Should be deployed the same as the normal app, but using the user `backend`.
 
 
+Munin Plugins
+-------------
+
+As root
+
+    apt-get install libxml-xpath-perl
+    cd /etc/munin/plugins    
+    ln -s /home/app/app/current/bin/munin/rtmp
+    ln -s /home/app/app/current/bin/munin/raindrops
+
+
 TODO
 ====
 

@@ -17,8 +17,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.discussion = session.discussion
   $scope.showSettings = config.flags.settings
 
-  $scope.participants = () ->
-    return session.participants if config.talk.state == 'live'
+  $scope.participants = ->
+    return session.participants() if config.talk.state == 'live'
     config.participants
 
   $scope.setVolume = blackbox.setVolume
@@ -71,7 +71,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.declinePromotion = ->
     session.fsm.PromotionDeclined()
 
-  $scope.countdownInSeconds = config.talk.remaining_seconds 
+  $scope.countdownInSeconds = config.talk.remaining_seconds
   $scope.countdown = 'computing...'
   $scope.talkProgress = 0
 

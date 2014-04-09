@@ -20,7 +20,7 @@
             = f.input :firstname, :placeholder => 'First Name'
             = f.input :lastname, :placeholder => 'Last Name'
             = f.input :email, :placeholder => 'Email Address'
-            = f.time_zone_select :timezone
+            = f.time_zone_select :timezone, ActiveSupport::TimeZone.all.select { |tz| tz =~ /Berlin|Bern/ }
             = f.input :website
             %button.button-standard(data-enable-fields='#change-password input'
                     data-replace-with='#change-password'

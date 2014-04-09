@@ -97,7 +97,7 @@
           .avatar-box
             = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
             .avatar-name.text-center
-              {{ config.host }}
+              = @talk.venue.user.name
         .avatar(ng-repeat="guest in guests()")
           .avatar-box
             = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
@@ -207,7 +207,7 @@
                 .message-content
                   {{ message.content }}
                 .message-time
-                  17:18:42
+                  {{ message.created_at }}
 
       #talk-tab-participants.content
         .row.participants-box

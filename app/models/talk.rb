@@ -96,9 +96,12 @@ class Talk < ActiveRecord::Base
   end
 
   scope :featured, -> do
-    where("featured_from < DATE(?)", Time.now).
+    where("featured_from < ?", Time.zone.now).
+      where(state: [:prelive, :live]).
       order('featured_from DESC')
   end
+
+  scope :ordered, -> { order('starts_at ASC') }
 
   scope :audio_format, ->(format) do # TODO: check if needed
     where('audio_formats LIKE ?', "%#{format}%")
