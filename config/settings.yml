@@ -55,3 +55,4 @@ supported_browsers:
   safari: 7
   ie: 10
   firefox: 24
+mail_domain: 'localhost'
