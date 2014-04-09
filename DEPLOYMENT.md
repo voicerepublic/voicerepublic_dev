@@ -167,7 +167,11 @@ As root
     ln -s /home/app/app/current/bin/munin/rtmp
     ln -s /home/app/app/current/bin/munin/raindrops
 
-
+    ln -s /usr/share/munin/plugins/port_ port_1935
+    ln -s /usr/share/munin/plugins/port_ port_9292
+    ln -s /usr/share/munin/plugins/postgres_querylength_  postgres_querylength_ALL
+    ln -s /usr/share/munin/plugins/postgres_xlog
+    
 TODO
 ====
 
