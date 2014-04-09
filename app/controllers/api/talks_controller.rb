@@ -113,8 +113,9 @@ class Api::TalksController < Api::BaseController
   # unauthenticated), was issued with a redirect to /sign_in which yielded all
   # kinds of problems.
   def authenticate_user!
-    unless current_user.guest.nil?
-      session[:guest_user_id] = User.where(guest: true).last.id
+    unless session[:guest_user_id] or session[:user_id]# or current_user or @guest_user
+      @guest_user = User.where(guest: true).last
+      session[:guest_user_id] = @guest_user.id
     end
     super
   end
