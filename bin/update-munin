@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# this script is entirely for convenience!
+
+echo Upload to machines
+scp -q bin/munin/* vrs:app/current/bin/munin/
+scp -q bin/munin/* vrl:app/current/bin/munin/
+echo
+
+echo Running on staging
+echo
+
+echo '-> rtmp'
+echo
+ssh root@vrs munin-run rtmp
+echo
+
+echo '-> raindrops'
+echo
+ssh root@vrs munin-run raindrops
+echo
+
+echo '-> Reminder: Restart munin-node to pick up new plugins'
+echo
+echo     ssh root@vrs /etc/init.d/munin-node restart
+echo     ssh root@vrl /etc/init.d/munin-node restart
+echo
