@@ -41,17 +41,17 @@
 
 .bg-blue
 .about-summary.row
-  .medium-4.columns.text-center
+  .small-4.columns.text-center
     = image_tag '/images/illu1.jpg'
     %h4 STREAMING
     %p
       = t('.text_illu_1')
-  .medium-4.columns.text-center
+  .small-4.columns.text-center
     = image_tag '/images/illu2.jpg'
     %h4 INTERACTION
     %p
       = t('.text_illu_2')
-  .medium-4.columns.text-center
+  .small-4.columns.text-center
     = image_tag '/images/illu3.jpg'
     %h4 AUDIO ARCHIVE
     %p
@@ -94,39 +94,35 @@
     %h5 7. Voice Republic can forget
     %p When you delete your accout, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"
 
-<<<<<<< HEAD
+
 .member-block.row
   .small-10.small-centered.columns.text-center
     %h4 TEAM
     %ul.large-block-grid-3.medium-block-grid-3.small-block-grid-3
-      %li
-        .avatar
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
-            .avatar-name.text-center
-              = current_user.name
-      %li
-        .avatar
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
-            .avatar-name.text-center
-              = current_user.name
-      %li
-        .avatar
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
-            .avatar-name.text-center
-              = current_user.name
-=======
--# TODO: Martin: Please integrate the team with static assets
--#.member-block.row
--#  .small-10.small-centered.columns.text-center
--#    %h4 TEAM
--#    %ul.large-block-grid-3.medium-block-grid-3.small-block-grid-3
--#      %li
--#        .avatar
--#          .avatar-box
--#            = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 79}
--#            .avatar-name.text-center
--#              = current_user.name
->>>>>>> integration
+      - team_path = '/images/team/'
+      - format = '.jpg'
+      - team = []
+      - team << ['Patrick Frank','patrick_frank','patrick-frank','Prime Minister']
+      - team << ['Ole Kretschmann','ole_kretschmann','ole-kretschmann','Prime Minister']
+      - team << ['Tobias Von Glenck','tobias_von_glenck','tobias-von-glenck','Secretary of State']
+      - team << ['Munen Alain Lafon','alain_lafon','munen-alain-lafon','Chief Technology Officer']
+      - team << ['Phil Hofmann','phil_hofmann','phil-hofmann','Chief Technology Officer']
+      - team << ['Martin Meyer','martin_meyer','martin-meyer','Ministry of Research & Development']
+      - team << ['Réka Balogh','reka_balogh','reka-balogh-6b0961a9-bb0d-4789-8ce3-405c486f54e9','Ministry of Community']
+      - team << ['Jérome Sprenger Sèvegrand','jerome_sprenger','jerome-sprenger','Ministry of Design']
+      - team << ['Rafael Schmidt','rafael_schmidt','rafael-schmidt','Ministry of Design']
+      -# team << ['Michael Zimmermann','michael_zimmermann','michael-zimmermann']
+      - team << ['VIER FÜR TEXAS','4ft','vier-fuer-texas']
+
+      - team.each do |member|
+
+        - img_path = team_path + member[1] + format
+
+        %li
+          = link_to '/users/' + member[2] do
+            .avatar
+              .avatar-box
+                = render partial: "shared/avatar_image", locals: {user: 'static', img_path: img_path, img_size: 79}
+                .avatar-name.text-center
+                  = member[0]
+

@@ -5,6 +5,8 @@
   - img_path = "{{guest.image}}"
 - when 'parti'
   - img_path = "{{parti.image}}"
+- when 'static'
+  - img_path = img_path
 -	else
   - img_path = user.avatar.thumb("#{img_size}x#{img_size}#nw").url
 -# img_path = user == 'guest' ? "{{guest.image}}" : user.avatar.thumb("#{img_size}x#{img_size}#nw").url

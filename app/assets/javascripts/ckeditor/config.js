@@ -17,7 +17,7 @@ CKEDITOR.editorConfig = function( config ) {
 
   // Remove some buttons, provided by the standard plugins, which we don't
   // need to have in the Standard(s) toolbar.
-  config.removeButtons = 'Strike,Underline,Subscript,Superscript,Cut,Copy,Paste,Undo,Redo,Font,Blockquote,FontSize,Styles';
+  config.removeButtons = 'Strike,Underline,Subscript,Superscript,Cut,Copy,Paste,Undo,Redo,Font,Blockquote,FontSize,Styles,Anchor';
 
   // Language
   config.language = 'en';
