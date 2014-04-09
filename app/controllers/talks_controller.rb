@@ -2,6 +2,7 @@ class TalksController < ApplicationController
 
   before_action :set_venue
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /talks
   def index
