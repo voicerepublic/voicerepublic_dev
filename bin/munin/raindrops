@@ -5,9 +5,9 @@ case $1 in
         echo 'graph_title Raindrops'
         echo 'graph_vlabel Dispatchers/Clients'
         curl -s -k https://localhost/_raindrops | \
-          sed 'y/.\/ /__-/' | sed 's/\(.*\):-.*/\1.label \1/'
+          sed 'y/.\/ /__-/' | sed 's/\(.*\):-.*/\1.label \1/' | grep -v writing
     ;;
     *)
         curl -s -k https://localhost/_raindrops | \
-          sed 'y/.\/ /__-/' | sed 's/:-/.value /'
+          sed 'y/.\/ /__-/' | sed 's/:-/.value /' | grep -v writing
 esac
