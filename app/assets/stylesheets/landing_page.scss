@@ -121,8 +121,8 @@
 
 	.authentication-box{
 		position: absolute;
-		top: 0;
-		right: -104px;
+		top: 77px;
+		right: -160px;
 		width: 281px;
 		padding:14px 19px 0 19px;
 		background: rgba(0,0,0,0.6);
@@ -271,21 +271,25 @@
 		.avatar-name{
 			color: $brand-color-blue;
 			padding:0;
+			font-size: rem-calc(16);
+			line-height: 1;
+			span{
+				border-bottom: 4px solid $brand-color-blue;
+				&.snd-line{
+					display: inline-block;
+					padding-top: 5px
+				}
+			}
 		}
 		h4{
 			font-family: 'eaglebook';
 			color: $brand-color-blue;
 			margin-bottom: 25px;		
 		}
-		.member-name{
-			margin-top: 10px;
+		.member-function{
+			color: $brand-color-red;
 			font-family: 'eaglelight';
-			font-size: rem-calc(15);
-		}
-		.member-job{
-			color: #555;
-			font-family: 'eaglelight';
-			font-size: rem-calc(14)
+			font-size: rem-calc(11)
 		}
 	}
 

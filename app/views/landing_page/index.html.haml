@@ -1,9 +1,3 @@
-%br/
-%br/
-%br/
-%br/
-%br/
-
 .row.lp-top-row
   .large-12.columns
     -#
@@ -102,17 +96,17 @@
       - team_path = '/images/team/'
       - format = '.jpg'
       - team = []
-      - team << ['Patrick Frank','patrick_frank','patrick-frank','Prime Minister']
-      - team << ['Ole Kretschmann','ole_kretschmann','ole-kretschmann','Prime Minister']
-      - team << ['Tobias Von Glenck','tobias_von_glenck','tobias-von-glenck','Secretary of State']
-      - team << ['Munen Alain Lafon','alain_lafon','munen-alain-lafon','Chief Technology Officer']
-      - team << ['Phil Hofmann','phil_hofmann','phil-hofmann','Chief Technology Officer']
-      - team << ['Martin Meyer','martin_meyer','martin-meyer','Ministry of Research & Development']
-      - team << ['Réka Balogh','reka_balogh','reka-balogh-6b0961a9-bb0d-4789-8ce3-405c486f54e9','Ministry of Community']
-      - team << ['Jérome Sprenger Sèvegrand','jerome_sprenger','jerome-sprenger','Ministry of Design']
-      - team << ['Rafael Schmidt','rafael_schmidt','rafael-schmidt','Ministry of Design']
+      - team << ['<span>Patrick </span><span>Frank</span>','patrick_frank','patrick-frank','Prime Minister']
+      - team << ['<span>Ole </span><span>Kretschmann</span>','ole_kretschmann','ole-kretschmann','Prime Minister']
+      - team << ['<span>Tobias </span><span>Von </span><span>Glenck</span>','tobias_von_glenck','tobias-von-glenck','Secretary of State']
+      - team << ['<span>Munen </span><span>Alain </span><span>Lafon</span>','alain_lafon','munen-alain-lafon','Chief Technology Officer']
+      - team << ['<span>Phil </span><span>Hofmann</span>','phil_hofmann','phil-hofmann','Chief Technology Officer']
+      - team << ['<span>Martin </span><span>Meyer</span>','martin_meyer','martin-meyer','Ministry of Research & Development']
+      - team << ['<span>Réka </span><span>Balogh</span>','reka_balogh','reka-balogh-6b0961a9-bb0d-4789-8ce3-405c486f54e9','Ministry of Community']
+      - team << ['<span>Jérome </span><span>Sprenger </span><span class="snd-line">Sèvegrand</span>','jerome_sprenger','jerome-sprenger','Ministry of Design']
+      - team << ['<span>Rafael </span><span>Schmidt</span>','rafael_schmidt','rafael-schmidt','Ministry of Design']
       -# team << ['Michael Zimmermann','michael_zimmermann','michael-zimmermann']
-      - team << ['VIER FÜR TEXAS','4ft','vier-fuer-texas']
+      - team << ['<span>VIER FÜR TEXAS</span>','4ft','vier-fuer-texas','Ministry of Communication']
 
       - team.each do |member|
 
@@ -123,6 +117,8 @@
             .avatar
               .avatar-box
                 = render partial: "shared/avatar_image", locals: {user: 'static', img_path: img_path, img_size: 79}
+                .member-function
+                  = member[3]
                 .avatar-name.text-center
-                  = member[0]
+                  = raw member[0]
 
