@@ -95,28 +95,28 @@ class Api::TalksController < Api::BaseController
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
   end
 
-  #  _____                 _                 _    _
-  # |__  / ___  _ __    __| |  _ __    __ _ | |_ | |_  ___  _ __  _ __
-  #   / / / _ \| '_ \  / _` | | '_ \  / _` || __|| __|/ _ \| '__|| '_ \
-  #  / /_|  __/| | | || (_| | | |_) || (_| || |_ | |_|  __/| |   | | | |
-  # /____|\___||_| |_| \__,_| | .__/  \__,_| \__| \__|\___||_|   |_| |_|
-  #                           |_|
-  # This code uses the well known Zend pattern. It's robust and well proven in
-  # the industry.
-  # FIXME: This is a dirty hack, Swiss post style. Reason:
-  # When loading a live talk page, a request to "TalksController#show as HTML"
-  # is being made. There, authentication worked and a guest user was
-  # acknowledged. Then a second request was made to
-  # "Api::TalksController#update as HTML", there the guest_user_id was not in
-  # the session anymore (the ajax put request sends a cookie, though).
-  # Therefore, in here a 401 (Unauthorized? Do not understand why not
-  # unauthenticated), was issued with a redirect to /sign_in which yielded all
-  # kinds of problems.
-  def authenticate_user!
-    unless session[:guest_user_id] or session[:user_id]# or current_user or @guest_user
-      @guest_user = User.where(guest: true).last
-      session[:guest_user_id] = @guest_user.id
-    end
-    super
-  end
+#  #  _____                 _                 _    _
+#  # |__  / ___  _ __    __| |  _ __    __ _ | |_ | |_  ___  _ __  _ __
+#  #   / / / _ \| '_ \  / _` | | '_ \  / _` || __|| __|/ _ \| '__|| '_ \
+#  #  / /_|  __/| | | || (_| | | |_) || (_| || |_ | |_|  __/| |   | | | |
+#  # /____|\___||_| |_| \__,_| | .__/  \__,_| \__| \__|\___||_|   |_| |_|
+#  #                           |_|
+#  # This code uses the well known Zend pattern. It's robust and well proven in
+#  # the industry.
+#  # FIXME: This is a dirty hack, Swiss post style. Reason:
+#  # When loading a live talk page, a request to "TalksController#show as HTML"
+#  # is being made. There, authentication worked and a guest user was
+#  # acknowledged. Then a second request was made to
+#  # "Api::TalksController#update as HTML", there the guest_user_id was not in
+#  # the session anymore (the ajax put request sends a cookie, though).
+#  # Therefore, in here a 401 (Unauthorized? Do not understand why not
+#  # unauthenticated), was issued with a redirect to /sign_in which yielded all
+#  # kinds of problems.
+#  def authenticate_user!
+#    unless session[:guest_user_id] or session[:user_id]# or current_user or @guest_user
+#      @guest_user = User.where(guest: true).last
+#      session[:guest_user_id] = @guest_user.id
+#    end
+#    super
+#  end
 end

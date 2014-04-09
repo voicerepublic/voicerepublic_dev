@@ -39,13 +39,13 @@ class ApplicationController < ActionController::Base
       logger.info "\033[32mAuthenticated guest #{id}\033[0m"
       return @guest_user
     end
-    session[:guest_user_id] = nil
+    #session[:guest_user_id] = nil
     super
   end
 
   def current_user
     return @guest_user if @guest_user
-    session[:guest_user_id] = nil
+    #session[:guest_user_id] = nil
     user = super
     return user if user
     return nil unless generate_guest_user?
