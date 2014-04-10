@@ -45,9 +45,11 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return @guest_user if @guest_user
-    #session[:guest_user_id] = nil
-    user = super
-    return user if user
+
+    if user = super
+      session[:guest_user_id] = nil
+      return user
+    end
     return nil unless generate_guest_user?
     @guest_user ||= create_guest_user
   end
