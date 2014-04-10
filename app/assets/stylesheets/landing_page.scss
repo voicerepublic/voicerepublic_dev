@@ -9,9 +9,24 @@
 		}
 	}
 
+	.bg-creme,
+	.bg-blue{
+		background-color: $brand-color-creme;
+		background-image: image-url('bg_blue.svg');
+		background-repeat: no-repeat;
+		background-position: center bottom;
+		background-size: cover;
+	}
+
+	.bg-blue{
+		background-color: $brand-color-blue;
+		background-image: image-url('bg_creme.svg');
+	}
+
 	.title-row{
 		position:relative;
 		z-index: -1;
+		padding-bottom: 40px;
 	}
 
 	.lp-top-row{
@@ -74,14 +89,6 @@
 				}
 			}
 		}	
-	}
-
-	.bg-blue{
-		width: 100%;
-		height: 500px;
-		background: url(/images/bg_blue.svg) no-repeat center top;
-		margin-bottom: -387px;
-		margin-top: -50px;
 	}
 
 	.lp-logo{
@@ -203,7 +210,8 @@
 	}
 
 	.about-summary{
-		margin-bottom: 40px;
+		padding-top: 31px;
+		padding-bottom: 50px;
 		h4{
 			font-family: 'eaglebook';
 			font-size: rem-calc(16);
@@ -220,25 +228,27 @@
 		}
 	}
 
-	.live-talks,
-	.featured-talks{
+	.talks{
+		padding-bottom: 50px;
 		h4{
 			font-family: 'eaglebook';
 			color: $brand-color-red;
 		}
-	}
-	.featured-talks{
-		margin-top: 20px;
-		margin-bottom: 20px;
+		.featured-talks{
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
 	}
 
-	.bg-manifest{
+/*	.bg-manifest{
 		height: 900px;
 		margin-bottom: -800px;
 		background: url(/images/bg_blue.svg) no-repeat center top, url(/images/bg_blue.svg) no-repeat center 300px, url(/images/bg_blue.svg) no-repeat center 460px
-	}
+	}*/
 
 	.manifest{
+		padding-top: 3px;
+		padding-bottom: 80px;
 		.icon-vr-logo{
 			font-size: 80px;
 			color: $brand-color-red;
