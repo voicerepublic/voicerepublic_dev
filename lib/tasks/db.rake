@@ -54,6 +54,7 @@ namespace :db do
       system 'psql', 'vr_development', '-c', query
     end
 
+    # TODO is this deprecated by `cleanup:check_validity`?
     desc 'Validates all records in the database'
     task :validate => :environment do
       puts 'Validate database (this will take some time)...'
