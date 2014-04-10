@@ -290,6 +290,7 @@ en:
       guest_empty_venue: ! '%{name} has no series yet.'
     show:
       edit_user: Edit Profile
+      my-venues: My Series
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -590,6 +591,8 @@ en:
       past_venue: Past Series
       join_venue: SUBSCRIBE TO Series!
       unjoin_venue: Cancel participation
+      this_venue_has_no_talks: This Series has no Talks
+      edit_venue: Edit Series
       chat_will_be_available_short_before_start: Group-chat will be available short before start
       group_chat: Group-Chat
       only_attendies_can_see_group_chat: Only participants can read the group-chat
@@ -633,6 +636,7 @@ en:
     venue_show_avatar:
       leave_venue_popup: This link opens a new tab!
     new:
+      new_venue: Create Series
       create_venue: Create Series
       available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Series
       create_kluuu: create a KluuU now
@@ -674,6 +678,7 @@ en:
       news_title: News
       venue_is_over: past Series
     fields:
+      venue_purpose: What is the purpose of this Series?
       featured_from: Featured from
       title: Title
       teaser: Teaser
@@ -750,6 +755,7 @@ en:
       delete_talk: Delete talk
       select_image: Background image
     fields:
+      talks_description: Tell your audience a little more
       title: Title
       teaser: Teaser
       tag_list: Tag list
