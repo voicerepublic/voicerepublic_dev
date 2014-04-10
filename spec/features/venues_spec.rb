@@ -135,7 +135,7 @@ describe "Venues", js: true do
         venue = FactoryGirl.create(:venue, user: @user)
         visit venue_path(id: venue.id)
         find('.header-block')['style'].should include('venue-image.jpg')
-        click_link 'Edit Venue'
+        click_link 'Edit Series'
         # NOTE: This is not a perfect test, because it's exposing the real input
         # field while the app itself uses a Foundation button. Couldn't get it to
         # work using the button, though.
