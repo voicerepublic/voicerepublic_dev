@@ -263,12 +263,12 @@
           &#onair{
             cursor: default;
           }
-          .button-decline{
+          &.button-decline{
             top: 23px;
           }
-          .button-accept {
-            padding-top: 20px;
-          }
+          //.button-accept {
+          //  padding-top: 20px;
+          //}
           #onair{
             color: $brand-color-red;
           }
