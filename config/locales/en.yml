@@ -165,7 +165,7 @@ en:
     venue_actions:
       participate_button: Participate
       unjoin_venue: Cancel participation
-      confirm_unjoin_venue: Really want to unjoin this venue?
+      confirm_unjoin_venue: Really want to unjoin this series?
     confirms:
       are_you_sure: Are you sure?
   number:
@@ -266,10 +266,10 @@ en:
       comment: comment
       new_status_update: New status
     user_content_nav:
-      venues_title: Venues
+      venues_title: Series
       venues_participant: Participant
       venues_host: Host
-      venue_new: Create Venue
+      venue_new: Create Series
     user_information:
       unfollow: Unfollow
       follow: Follow
@@ -286,8 +286,8 @@ en:
       select_profile_image: Profile image
       select_header_image: Background image
     venues:
-      venues: Venues
-      guest_empty_venue: ! '%{name} has no venues yet.'
+      venues: Series
+      guest_empty_venue: ! '%{name} has no series yet.'
     show:
       edit_user: Edit Profile
   controller_accounts:
@@ -316,9 +316,9 @@ en:
   model_notification_follower_action:
     friend_took_action: Activity by %{friend} on KluuU
   model_notification_new_bookmark:
-    your_klu_got_bookmarked: ! '%{bookmarker} bookmarked your Venue ''%{klu_title}'''
+    your_klu_got_bookmarked: ! '%{bookmarker} bookmarked your Series ''%{klu_title}'''
   model_notification_new_comment:
-    you_got_a_new_comment_by: ! '%{commenter} commented on your Venue.'
+    you_got_a_new_comment_by: ! '%{commenter} commented on your Series.'
   model_notification_new_follower:
     you_got_a_new_follower: ! '%{name} now follows you.'
   model_notification_new_kluuu:
@@ -330,12 +330,12 @@ en:
   model_notification_new_status:
     friend_created_new_status: ! '%{name} posted a new status.'
   model_notification_new_venue_participant:
-    new_participant: ! '%{name} joined venue %{title}!'
+    new_participant: ! '%{name} joined Series %{title}!'
   model_notification_venue_info:
-    venue_starts_soon: Venue %{title} takes place %{time}
-    new_venue: New venue %{title}
+    venue_starts_soon: Series %{title} takes place %{time}
+    new_venue: New Series %{title}
   model_notification_new_venue:
-    friend_created_new_venue: ! 'Your friend created a new venue: %{name}'
+    friend_created_new_venue: ! 'Your friend created a new Series: %{name}'
   video_system:
     rooms:
       default_welcome_msg: Welcome to the KluuU Video Chat
@@ -391,7 +391,7 @@ en:
     group_form:
       your_message: Write here...
       submit: Post
-      join_this_venue_to_chat: You need to join this venue to write here
+      join_this_venue_to_chat: You need to join this Series to write here
     show:
       text_chat: Chat
   comments:
@@ -430,7 +430,7 @@ en:
       matching_something: ! 'Matches KluuU / Question '
       view: View
       we_could_not_find_matches_for_you: ! 'Sorry, no matches yet. Tip: Ad more ''tags'' to your KluuU / Question to get results.'
-      all_venues: Venues
+      all_venues: Series
     news:
       news: News
     settings:
@@ -443,7 +443,7 @@ en:
       hide_initial_help: Die initialen Hilfe-Texte verstecken
       edit_preferences: Einstellungen editieren
     venues:
-      my_venues: My venues
+      my_venues: My Series
   devise:
     passwords:
       edit:
@@ -488,8 +488,8 @@ en:
       password: Password
       register: Sign Up
     lp_venues:
-      featured_venue: KluuU recommends
-      upcoming_venues: UPCOMING VENUES
+      featured_venue: Voice Republic recommends
+      upcoming_venues: UPCOMING SERIES
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"
     received_message:
@@ -509,11 +509,11 @@ en:
       an_anonymous_person: an anonymous call
       tried_to_call_your_klu: attempted to reach KluuU
       tried_to_call_your_noklu: attempted to reach Question
-      joined_venue: joined the venue %{title}
+      joined_venue: joined the Series %{title}
     new_content:
       created_new_status_update: changed their status
       created_new: crated a new
-      new_venue_create: A new venue was set up
+      new_venue_create: A new Series was set up
   search:
     tagged_with:
       taggings_with: KluuUs and questions tagged with %{tag}
@@ -538,7 +538,7 @@ en:
       search: Search
       my_profile: Profile
       my_next_talks: My next Talks
-      create_venue: Create Venue
+      create_venue: Create Series
       settings: Settings
       logout: Log Out
     check_flash:
@@ -559,10 +559,10 @@ en:
     user_dropdown_list:
       logout: Log Out
     venues:
-      venues: Venues
+      venues: Series
     profile_dropdown_list:
       my_profile: My profile
-      create_venue: Create venue
+      create_venue: Create Series
       contacts: Contacts
       messages: Messages
       settings: Settings
@@ -574,21 +574,21 @@ en:
       archived_talks: '%{count} Archived Talks'
 
   venues:
-    date_changed: New venue date
+    date_changed: New Series date
     edit:
-      edit_venue: Edit Venue
+      edit_venue: Edit Series
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
-      delete_venue: Delete venue
-    venue_list: Venues
-    new_venue: Create Venue
+      delete_venue: Delete Series
+    venue_list: Series
+    new_venue: Create Series
     show:
       by: by
-      venue: Venue
+      venue: Series
       start_date: Begin
       duration: Duration
-      past_venue: Past Venue
-      join_venue: SUBSCRIBE TO VENUE!
+      past_venue: Past Series
+      join_venue: SUBSCRIBE TO Series!
       unjoin_venue: Cancel participation
       chat_will_be_available_short_before_start: Group-chat will be available short before start
       group_chat: Group-Chat
@@ -598,9 +598,9 @@ en:
       edit_talk: Edit talk
       post: Post
     venue_show_header:
-      venue: Venue
+      venue: Series
       minutes: Minutes
-      ongoing_venue: Venue active
+      ongoing_venue: Series active
       venue_moderated_by: Moderated by %{name}
       leave_venue_popup: This link opens a new tab!
     venue_show_static:
@@ -608,8 +608,8 @@ en:
     venue_show_static_live:
       by: by
     venue_show_chat:
-      what_is_a_venue: Tell me about venues
-      see_other_venues: All Venues
+      what_is_a_venue: Tell me about Series
+      see_other_venues: All Series
     venue_show_upcoming_event:
       upcoming_event: UPCOMING TALK
     venue_show_forum:
@@ -626,40 +626,40 @@ en:
       participants: GUESTS
     venue_show_actions:
       unjoin_venue: Unjoin
-      confirm_unjoin_venue: Really want to unjoin this venue?
+      confirm_unjoin_venue: Really want to unjoin this Series?
     venue_show_archive:
       past_talks: ARCHIVE
       delete_this_recording: Delete this recording
     venue_show_avatar:
       leave_venue_popup: This link opens a new tab!
     new:
-      create_venue: Create Venue
-      available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Venue
+      create_venue: Create Series
+      available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Series
       create_kluuu: create a KluuU now
     new_join:
-      participate_in_venue: Participate at venue
+      participate_in_venue: Participate at Series
       no_klus_available_to_join_venue: You need to create a Question to participate - create one!
-      click_on_your_klu_to_participate_in_venue: Selected question will participate at the venue
-      confirm_join: Would you like to participate with '%{klu_name}' at the venue '%{title}'?
+      click_on_your_klu_to_participate_in_venue: Selected question will participate at the Series
+      confirm_join: Would you like to participate with '%{klu_name}' at the Series '%{title}'?
       so_easy: Its easy
       back: Back
     index:
-      venues: Venues
-      upcoming_venues: UPCOMING VENUES
-      past_venues: PAST VENUES
-      what_is_a_venue: Tell me about venues
-      show_only_upcoming_venues: Upcoming venues
-      show_all_venues: All venues
+      venues: Series
+      upcoming_venues: UPCOMING SERIES
+      past_venues: PAST SERIES
+      what_is_a_venue: Tell me about Series
+      show_only_upcoming_venues: Upcoming Series
+      show_all_venues: All Series
     venue_compact:
-      go_venue_page: Proceed to venue-page
+      go_venue_page: Proceed to Series-page
       host: Host
     venue_comment:
       delete_comment: destroy
     venue_big:
       by: by
       host: Host
-      venue_title: Venue
-      go_venue_page: Proceed to venue-page
+      venue_title: Series
+      go_venue_page: Proceed to Series-page
       join_venue: Participate now!
     end_talk_link:
       end_this_talk: Click here to end this talk.
@@ -667,12 +667,12 @@ en:
     landing_page_venue:
       discuss_in_virtual_cafe: Discuss live in our virtual Café.
       learn_more: Learn more...
-      venue_title: Venues
-      upcoming_venue: Upcoming venue
-      venue_list: All venues
+      venue_title: Series
+      upcoming_venue: Upcoming Series
+      venue_list: All Series
       venue_is_in_process: in process
       news_title: News
-      venue_is_over: past venue
+      venue_is_over: past Series
     fields:
       featured_from: Featured from
       title: Title
@@ -711,11 +711,11 @@ en:
       your_host_message: Write here your chat infos...
       submit: Post
     with_venues:
-      these_are_your_venues: See your Venues here.
-      create_venue: Create Venue
+      these_are_your_venues: See your Series here.
+      create_venue: Create Series
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
-      create_venue: Create Venue
+      create_venue: Create Series
   talks:
     message_history: |
       VoiceRepublic Message History
