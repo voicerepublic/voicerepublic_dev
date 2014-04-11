@@ -10,10 +10,11 @@
           = check_box_tag :remember_me
           = t('.remember')
       = button_tag t('.login_title'), :name => "Login", class: "button-vr"
-    -#
-      .medium-6.columns.text-center
-        = t(".login_or")
-        = render(:partial => "/devise/shared/social_network_connects")
+
+
+    %hr/
+    .medium-10.medium-offset-1.columns.left
+      = render :partial => "/devise/shared/social_network_connects", :locals => { action: 'login' }
 
       %hr/
       = render(:partial => "/devise/shared/links")
