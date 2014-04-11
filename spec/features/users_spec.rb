@@ -96,14 +96,11 @@ feature "User can register" do
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
     page.click_button('Sign Up')
-    # FIXME
-    page.should_not have_css("#error_explanation")
-    #page.should have_css(".user-container")
-    #page.should have_css(".venue-new")
+    current_url.should include(user_path(User.last))
   end
 
-  scenario "User misses email during registration" do
-    visit root_path()
+  scenario "Validations" do
+    visit root_path
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.click_button I18n.t '.landing_page.lp_signup.register'
@@ -111,6 +108,7 @@ feature "User can register" do
     within(".input.email.error") do
       page.should have_content("can't be blank")
     end
+    page.should have_content I18n.t('devise.registrations.new.accept_terms_of_use')
   end
 end
 
