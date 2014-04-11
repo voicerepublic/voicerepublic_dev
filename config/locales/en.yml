@@ -448,6 +448,9 @@ en:
     venues:
       my_venues: My Series
   devise:
+    registrations:
+      new:
+        accept_terms_of_use: "Please accept the terms of use"
     passwords:
       edit:
         welcome_text: Welcome to the new KluuU!
@@ -548,8 +551,9 @@ en:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
       legal: Legal
-      terms_of_use: Terms Of Use
-      terms_and_conditions: Terms and Conditions
+      terms_of_use: Terms of use
+      privacy_statement: Privacy statement
+      ip_infringement: Ip infringement notice
     navbar:
       more_talks: More talks
       sign_up: Sign Up
