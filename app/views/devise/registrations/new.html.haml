@@ -12,6 +12,8 @@
       = link_to( t('.agree_agb_and_tou'), '#')
       %br/
       = f.button :submit, t('.registration_title'), class: 'button-vr'
+      %hr/
+      = render partial: 'devise/shared/social_network_connects', locals: { action: 'register' }
       -#
         .medium-6.columns.text-center
           = t(".registration_or")

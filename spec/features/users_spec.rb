@@ -64,6 +64,27 @@ feature "User visits another user" do
 end
 
 feature "User can register" do
+  describe "Facebook" do
+    scenario 'user registers with facebook' do
+      User.count.should eq(0)
+      mock_oauth :facebook
+      visit root_path
+      find(".active .button-vr.facebook").click
+      page.should have_content "Successfully authenticated from Facebook account"
+      User.where(guest: nil).count.should eq(1)
+    end
+
+    scenario 'user logs in with facebook' do
+      FactoryGirl.create :user, uid: '123123123', provider: 'facebook', email: 'foo@example.com'
+      User.where(guest: nil).count.should eq(1)
+      mock_oauth :facebook
+      visit root_path
+      find(".active .button-vr.facebook").click
+      page.should have_content "Successfully authenticated from Facebook account"
+      # User count did not increase => logged in with the same account
+      User.where(guest: nil).count.should eq(1)
+    end
+  end
   scenario "user supplies correct values" do
     visit root_path()
     page.fill_in('user_firstname', :with => "Jim")

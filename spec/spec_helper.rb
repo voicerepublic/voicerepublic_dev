@@ -170,6 +170,8 @@ RSpec.configure do |config|
     end
   end
 
+  config.include Support::Integration
+
 end
 
 module FactoryGirl

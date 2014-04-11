@@ -16,8 +16,10 @@ en:
     mail_goodbye: "Best regards"
     mail_body: "Check out this talk on voicerepublic.com: "
     has_been_tracked: "Has been tracked"
-  social_network_connects:
-    with: with
+  social_connect:
+    facebook:
+      register: REGISTER WITH FACEBOOK
+      login: LOGIN WITH FACEBOOK
   date:
     abbr_day_names:
     - Sun
@@ -487,7 +489,7 @@ en:
       lastname: Lastname
       email: E-mail
       password: Password
-      register: Sign Up
+      register: REGISTER
     lp_venues:
       featured_venue: Voice Republic recommends
       upcoming_venues: UPCOMING SERIES
