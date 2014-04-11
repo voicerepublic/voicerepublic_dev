@@ -1,6 +1,13 @@
 .landing_page-index{
 
   .top-bar{
+    content: none !important;
+    height: 0px !important;
+
+    .icon-vr-logo {
+      display: none;
+    }
+
     .top-bar-section{
       .logged-out-link{
         height: 0 !important;
@@ -121,7 +128,7 @@
 
   .authentication-box{
     position: absolute;
-    top: 77px;
+    top: -40px;
     right: -160px;
     width: 281px;
     padding:14px 19px 0 19px;
