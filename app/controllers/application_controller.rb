@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
   around_filter :user_time_zone, :if => :current_user
   after_filter :set_csrf_cookie_for_ng
 
+  # TODO: We do we not have this in the app, yet?
+  #rescue_from CanCan::AccessDenied do |exception|
+  #  redirect_to root_url, :alert => exception.message
+  #end
+
   # # TODO move to trickery
   # before_filter :log_callback_chain
   # def log_callback_chain
@@ -34,15 +39,17 @@ class ApplicationController < ActionController::Base
       logger.info "\033[32mAuthenticated guest #{id}\033[0m"
       return @guest_user
     end
-    session[:guest_user_id] = nil
+    #session[:guest_user_id] = nil
     super
   end
 
   def current_user
     return @guest_user if @guest_user
-    session[:guest_user_id] = nil
-    user = super
-    return user if user
+
+    if user = super
+      session[:guest_user_id] = nil
+      return user
+    end
     return nil unless generate_guest_user?
     @guest_user ||= create_guest_user
   end

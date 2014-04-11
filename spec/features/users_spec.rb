@@ -64,12 +64,33 @@ feature "User visits another user" do
 end
 
 feature "User can register" do
+  describe "Facebook" do
+    scenario 'user registers with facebook' do
+      User.count.should eq(0)
+      mock_oauth :facebook
+      visit root_path
+      find(".active .button-vr.facebook").click
+      page.should have_content "Successfully authenticated from Facebook account"
+      User.where(guest: nil).count.should eq(1)
+    end
+
+    scenario 'user logs in with facebook' do
+      FactoryGirl.create :user, uid: '123123123', provider: 'facebook', email: 'foo@example.com'
+      User.where(guest: nil).count.should eq(1)
+      mock_oauth :facebook
+      visit root_path
+      find(".active .button-vr.facebook").click
+      page.should have_content "Successfully authenticated from Facebook account"
+      # User count did not increase => logged in with the same account
+      User.where(guest: nil).count.should eq(1)
+    end
+  end
   scenario "user supplies correct values" do
     visit root_path()
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
-    page.click_button('Sign Up')
+    page.click_button I18n.t '.landing_page.lp_signup.register'
     page.current_url.should include("sign_up")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
@@ -85,7 +106,7 @@ feature "User can register" do
     visit root_path()
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
-    page.click_button('Sign Up')
+    page.click_button I18n.t '.landing_page.lp_signup.register'
     page.click_button('Sign Up')
     within(".input.email.error") do
       page.should have_content("can't be blank")

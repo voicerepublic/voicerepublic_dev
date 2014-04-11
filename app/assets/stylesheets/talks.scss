@@ -2,7 +2,7 @@
 .talks-create,
 .talks-edit,
 .talks-update{
-  
+
   input[type="checkbox"]{
     margin-right:5px !important
   }
@@ -69,7 +69,7 @@
       color: #fff;
       letter-spacing: 1px;
       font-size: rem-calc(13);
-      }      
+      }
     }
     .talk-title{
       color: #fff;
@@ -251,7 +251,7 @@
       }
       .button-box{
         height: 35px;
-        > div{ 
+        > div{
           position: absolute;
           left: 50%;
           top: -7px;
@@ -263,7 +263,7 @@
           &#onair{
             cursor: default;
           }
-          .button-decline{
+          &.button-decline{
             top: 23px;
           }
           #onair{
@@ -318,7 +318,7 @@
       background: #000;
       overflow: hidden;
       @include transition(height, .4s, ease-in-out);
-      @include transition(padding, .4s, ease-in-out);           
+      @include transition(padding, .4s, ease-in-out);
       .manual-box{
         display: inline-block;
         vertical-align: top;
@@ -336,7 +336,7 @@
 
 /*      &.flash-box-open{
         height: 170px;
-        
+
       }*/
       .button-vr{
         border-color: $brand-color-yellow;
