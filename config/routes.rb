@@ -45,7 +45,7 @@ VoiceRepublic::Application.routes.draw do
 
   resources :users, only: [:update, :show, :edit]
 
-  resource :embed_talk, only: :show
+  resource :embed_talk, only: [ :show, :create ]
 
   get "landing_page/index", as: :landing_page
   root :to => "landing_page#index"
