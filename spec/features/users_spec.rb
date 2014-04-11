@@ -90,7 +90,7 @@ feature "User can register" do
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
-    page.click_button('Sign Up')
+    page.click_button I18n.t '.landing_page.lp_signup.register'
     page.current_url.should include("sign_up")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
@@ -106,7 +106,7 @@ feature "User can register" do
     visit root_path()
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
-    page.click_button('Sign Up')
+    page.click_button I18n.t '.landing_page.lp_signup.register'
     page.click_button('Sign Up')
     within(".input.email.error") do
       page.should have_content("can't be blank")
