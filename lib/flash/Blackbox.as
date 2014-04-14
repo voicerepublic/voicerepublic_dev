@@ -24,12 +24,13 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.1b';
+    internal var version: String = '2.2';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
 		internal var publishNetConnection: NetConnection;
     internal var logMethod: String;
+    internal var errorMethod: String;
     internal var feedbackMethod: String;
     internal var volume: Number = 1;
     // internal var myCircle:Shape = new Shape();
@@ -61,6 +62,7 @@
 			ExternalInterface.addCallback("setStreamingServer", setStreamingServer);
 			ExternalInterface.addCallback("setVolume", setVolume);
 
+      errorMethod = root.loaderInfo.parameters['errorMethod'] || "console.log";
       logMethod = root.loaderInfo.parameters['logMethod'] || "console.log";
       feedbackMethod = root.loaderInfo.parameters['feedbackMethod'] || "console.log";
 			var callback: String =
@@ -203,6 +205,7 @@
           log("Connected to " + stream);
         } else {
           log("Error: " + event.info.code);
+          ExternalInterface.call(errorMethod, event);
         }
       }
     }

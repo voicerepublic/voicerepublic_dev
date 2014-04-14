@@ -33,6 +33,9 @@ blackboxFunc = ($log, $window, $q) ->
   $window.flashLog = (msg) ->
     $log.debug msg
 
+  $window.flashError = (msg) ->
+    $log.error msg
+
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
 
@@ -40,8 +43,9 @@ blackboxFunc = ($log, $window, $q) ->
     # this will later be set by `setStreamingServer`
     streamer: "rtmp://0.0.0.0/record"
     # callback after flash initialize complete
-    afterInitialize: 'flashCallback',
-    logMethod: 'flashLog',
+    afterInitialize: 'flashCallback'
+    logMethod: 'flashLog'
+    errorMethod: 'flashError'
     feedbackMethod: 'flashFeedback'
       
   params = {}
