@@ -192,8 +192,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     return fsm.Demoted() if id is config.user_id
     upstream.event 'Demote', user: { id }
   startTalk = ->
+    return unless config.talk.state == 'prelive'
     $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
+    config.talk.remaining_seconds = config.talk.duration
   endTalk = ->
     upstream.event 'EndTalk'
 
