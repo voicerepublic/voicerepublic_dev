@@ -1,3 +1,6 @@
+- content_for :title do
+  = t('.title', title: @venue.title)
+
 = simple_form_for @venue do |f|
   = render partial: 'fields', locals: { f: f, form_title: t(".edit_venue") }
 
