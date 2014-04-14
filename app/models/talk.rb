@@ -292,7 +292,7 @@ class Talk < ActiveRecord::Base
     end
     # save recording
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-    # delete some files (mainly wave files, we'll, keep only flv
+    # delete some files (mainly wave files, we'll keep only flv
     # and compressed files)
     FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav")
     FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav")
