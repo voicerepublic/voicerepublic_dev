@@ -1,3 +1,6 @@
+- content_for :title do
+  = t('.title', username: @user.name)
+
 = simple_form_for(@user) do |f|
   .header-block(style="background-image: url(#{@user.header.try(:url)})"
     data-show-upload="#user_header")
