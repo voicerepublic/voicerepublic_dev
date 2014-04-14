@@ -16,8 +16,10 @@ en:
     mail_goodbye: "Best regards"
     mail_body: "Check out this talk on voicerepublic.com: "
     has_been_tracked: "Has been tracked"
-  social_network_connects:
-    with: with
+  social_connect:
+    facebook:
+      register: REGISTER WITH FACEBOOK
+      login: LOGIN WITH FACEBOOK
   date:
     abbr_day_names:
     - Sun
@@ -446,6 +448,9 @@ en:
     venues:
       my_venues: My Series
   devise:
+    registrations:
+      new:
+        accept_terms_of_use: "Please accept the terms of use"
     passwords:
       edit:
         welcome_text: Welcome to the new KluuU!
@@ -487,7 +492,7 @@ en:
       lastname: Lastname
       email: E-mail
       password: Password
-      register: Sign Up
+      register: REGISTER
     lp_venues:
       featured_venue: Voice Republic recommends
       upcoming_venues: UPCOMING SERIES
@@ -546,8 +551,9 @@ en:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
       legal: Legal
-      terms_of_use: Terms Of Use
-      terms_and_conditions: Terms and Conditions
+      terms_of_use: Terms of use
+      privacy_statement: Privacy statement
+      ip_infringement: Ip infringement notice
     navbar:
       more_talks: More talks
       sign_up: Sign Up

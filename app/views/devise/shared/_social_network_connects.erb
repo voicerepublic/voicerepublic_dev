@@ -1,4 +1,3 @@
-<%= link_to omniauth_authorize_path(:user, 'facebook'), :class => "signup-facebook" do %>
-  <%= image_tag "connects/lp-fb-icon.png" %> 
-  <%= t('.with') %> facebook
+<%= link_to omniauth_authorize_path(:user, 'facebook'), :class => "facebook button-vr" do %>
+  <%= t("social_connect.facebook.#{action}") %>
 <% end %>

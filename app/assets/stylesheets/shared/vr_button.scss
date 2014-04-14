@@ -1,50 +1,56 @@
 .button-vr{
-	@include button(rem-calc(15),#000);
-	border-color: $brand-color-green;
-	padding: rem-calc(12) rem-calc(20) rem-calc(11) rem-calc(20);
-	color: $brand-color-green;
-	font-family: 'eaglebook';
-	&.button-full-size{
-		width: 100%;
-	}
-	@include transition(all, 0.1s, ease-in-out);
-	&:hover, &:focus{
-		background: lighten(#000, 10%);
-		color: $brand-color-green;
-	}
+  @include button(rem-calc(15),#000);
+  border-color: $brand-color-green;
+  padding: rem-calc(12) rem-calc(20) rem-calc(11) rem-calc(20);
+  color: $brand-color-green;
+  font-family: 'eaglebook';
+  &.button-full-size{
+    width: 100%;
+  }
+  @include transition(all, 0.1s, ease-in-out);
+  &:hover, &:focus{
+    background: lighten(#000, 10%);
+    color: $brand-color-green;
+  }
+  &.facebook {
+    background-color: #3B5999;
+    border: none;
+    color: white;
+  }
+
 }
 
 .button-live{
-	border-color: $brand-color-red;
-	color: $brand-color-red;
+  border-color: $brand-color-red;
+  color: $brand-color-red;
 }
 
 .link-delete{
-	color: $brand-color-green;
-	&:hover,&:focus{
-		color: darken($brand-color-green, 5%);
-	}
-	margin-top: 10px;
-	font-family: 'eaglebook';
-	font-size: rem-calc(14)
+  color: $brand-color-green;
+  &:hover,&:focus{
+    color: darken($brand-color-green, 5%);
+  }
+  margin-top: 10px;
+  font-family: 'eaglebook';
+  font-size: rem-calc(14)
 }
 
 .button-standard{
-	@include button(rem-calc(11),#ddd);
-	padding-right: 20px;
-	padding-left: 20px;
-	border:none;
-	color: #333;
-	font-size: rem-calc(11);
-	margin-bottom: 2px;
+  @include button(rem-calc(11),#ddd);
+  padding-right: 20px;
+  padding-left: 20px;
+  border:none;
+  color: #333;
+  font-size: rem-calc(11);
+  margin-bottom: 2px;
 }
 
 .button-standard-small{
-	@include button(rem-calc(3),#ddd);
-	padding-right: 10px;
-	padding-left: 10px;
-	border:none;
-	color: #333;
-	font-size: rem-calc(11);
-	margin-bottom: 2px;
+  @include button(rem-calc(3),#ddd);
+  padding-right: 10px;
+  padding-left: 10px;
+  border:none;
+  color: #333;
+  font-size: rem-calc(11);
+  margin-bottom: 2px;
 }
