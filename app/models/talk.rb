@@ -74,7 +74,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  validates :venue, :title, :tag_list, :duration, presence: true
+  validates :venue, :title, :tag_list, :duration, :description, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
     message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
