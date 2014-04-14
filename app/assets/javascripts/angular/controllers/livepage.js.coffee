@@ -76,6 +76,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
 
   updateCountdown = ->
     sec = config.talk.remaining_seconds - 1
+    sec = Math.max sec, 0
     config.talk.remaining_seconds = sec
     $scope.countdown = util.toHHMMSS(sec)
     percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
