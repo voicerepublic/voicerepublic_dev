@@ -22,29 +22,29 @@
     .large-12.columns.text-center
       %dl.tabs.vr-tabs(data-tab='true')
         %dd.text-center.active
-          %a(href="#tab-about-me")
+          %a(href="#about-me")
             %span.icon-description
             = t('.about_me')
         %dd.text-center
-          %a(href="#tab-my-venues")
+          %a(href="#my-venues")
             %span.icon-guide
             = t('.my-venues')
         -#
         -#%dd.text-center
-        -#  %a(href="#tab-schedule")
+        -#  %a(href="#schedule")
         -#    %i.fi-calendar
         -#    = t('.schedule')
         -#%dd.text-center
-        -#  %a(href="#tab-activity")= t('.activity')
+        -#  %a(href="#activity")= t('.activity')
 
 .row.collapse-large-only
   .large-12.columns.tabs-content
-    #tab-about-me.content.active
+    #about-me.content.active
       = raw @user.about
 
-    #tab-my-venues.content
+    #my-venues.content
       = render partial: 'shared/venue_medium_box', collection: @user.venues
 
-    #tab-schedule.content TODO
+    #schedule.content TODO
 
-    #tab-activity.content TODO
+    #activity.content TODO
