@@ -63,6 +63,21 @@ feature "User visits another user" do
 
 end
 
+feature "Password" do
+  describe "Reset" do
+    scenario "User email is validated" do
+      visit root_path
+      within ".authentication-box" do
+        click_on "Login"
+        click_on "Forgot password?"
+      end
+      fill_in :user_email, with: 'not an email'
+      click_on "Reset password"
+      page.should have_content "not found"
+    end
+  end
+end
+
 feature "User can register" do
   describe "Facebook" do
     scenario 'user registers with facebook' do
@@ -110,41 +125,4 @@ feature "User can register" do
     end
     page.should have_content I18n.t('devise.registrations.new.accept_terms_of_use')
   end
-end
-
-feature "User gets notifications via push" do
-
-  before :each do
-    @user = FactoryGirl.create(:user)
-    #_klus = FactoryGirl.create(:published_no_kluuu, :user => @user)
-  end
-
-
-  # scenario "User sees number of notifications in actionbar - with css-id 'alerts-count-'" do
-  #   login_user(@user)
-  #   visit dashboard_path()
-  #   page.should have_xpath("//*[@id='alerts-count-#{@user.id}']")
-  # end
-  #
-  # scenario "User with alert-notifications has a dropdown-list with latest notifications" do
-  #   login_user(@user)
-  #   FactoryGirl.create_list(:notification_new_comment, 2, :user => @user)
-  #   visit dashboard_path()
-  #   page.should have_xpath("//*[@id='actionbar-notifications-#{@user.id}']")
-  #   page.should have_xpath("//*[@id='actionbar-notifications-#{@user.id}']/li")
-  # end
-
-end
-
-feature "there is a link to participation venues, host venues and create-venue-link'" do
-
-  # FIXME
-  scenario "there is a link to users venues visible on his profile" do
-    include Rails.application.routes.url_helpers
-    venue = FactoryGirl.create(:venue)
-    visit user_path(:id => venue.user.id)
-    #page.should have_link('Participants')
-    #page.should have_link('Host')
-  end
-
 end
