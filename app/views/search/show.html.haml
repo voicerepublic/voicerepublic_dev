@@ -1,14 +1,76 @@
-.row
-  .large-12.columns(style='margin-top: 50px')
-    %h1= t('.results', count: @results.count, default: "%{count} Results")
-    %ol
-      - @results.each do |result|
-        - item = result.searchable
-        %li.panel.result(class="#{item.class.name.underscore}")
-          = link_to item do
-            - case item 
-            - when Talk, Venue
-              = item.title
-            - when User
-              = item.name
+.row.collapse.top-margin-action-bar
+  .large-12.columns
+    %h2
+      = raw t('.results', count: @results.count, default: "%{count} Results")
+      = '"' + @query + '#'
+
+    %h3= t('.best_result')
+    - case @best_hit
+    - when Talk
+      -#%h3= t('.talk')
+      %ul.list-style-type-none
+        = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @best_hit }
+    - when Venue
+      -#%h3= t('.series')
+      %ul.list-style-type-none
+        = render partial: "shared/venue_medium_box", locals: { venue_medium_box: @best_hit }
+    - when User
+      -#%h3= t('.user')
+      %ul.list-style-type-none
+        %li
+          = link_to user_path(@best_hit) do
+            .avatar
+              .avatar-box
+                = render partial: "shared/avatar_image",  locals: {user: @best_hit, img_size: 62}
+                .avatar-name.text-center
+                  = @best_hit.name            
+
+    %br/
+    %hr/
+    %br/
+
+    - if @talks.any?
+      %h3= t('.talks')
+      %ul.list-style-type-none
+        = render partial: "shared/talk_medium_box", collection: @talks
+    - if @venues.any?
+      %h3= t('.venues')
+      %ul.list-style-type-none
+        = render partial: "shared/venue_medium_box", collection: @venues
+    - if @users.any?
+      %h3= t('.users')
+      %ul.medium-block-grid-6.small-block-grid-3
+        - @users.each do |u|
+          %li
+            = link_to user_path(u) do
+              .avatar
+                .avatar-box
+                  = render partial: "shared/avatar_image",  locals: {user: u, img_size: 62}
+                  .avatar-name.text-center
+                    = u.name
+
     = will_paginate @results
+
+%br/
+.row.collapse
+  .large-12.columns
+    %hr/
+%br/
+
+.talks-search
+  - unless @talks_live.empty?
+    .live-talks.row.collapse
+      .medium-12.columns
+        .talks-box-title
+          %h3= t('.now_live')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_live
+
+  - unless @talks_featured.empty?
+    %br
+    .featured-talks.row.collapse
+      .medium-12.columns
+        .talks-box-title
+          %h3= t('.featured')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_featured

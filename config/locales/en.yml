@@ -539,22 +539,15 @@ en:
       created_new: crated a new
       new_venue_create: A new Series was set up
   search:
-    tagged_with:
-      taggings_with: KluuUs and questions tagged with %{tag}
-      no_kluuus_tagged_with: No results for tag %{tag} found.
-      no_kluuu: Questions
-      title_other_tags: Trends
-    form:
-      search: Search!
-    search:
-      searchresults: Search result
-      search_results: Search result
-      publish_search_as_kluuu: Post this search term
-      persist_search: ! 'Tip:'
-      text: Create a question and use our matching system!
-      sign_up: Sign up
-      user: User
-      no_results_sentence: Oops, no results.
+    show:
+      results: "#{COUNT} RESULTS FOR "
+      best_result: TOP RESULT
+      talks: TALKS
+      venues: SERIES
+      users: USERS
+      now_live: NOW LIVE
+      featured: FEATURED
+
   shared:
     actionbar:
       login: Login
