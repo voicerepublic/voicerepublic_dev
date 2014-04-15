@@ -88,33 +88,18 @@ class User < ActiveRecord::Base
   class << self
 
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
-      user = User.where(:provider => auth.provider, :uid => auth.uid).first
+      user = User.where(:provider => auth[:provider], :uid => auth[:uid]).first
       unless user
-        user = User.create( lastname: auth.extra.raw_info.last_name,
-                            firstname: auth.extra.raw_info.first_name,
-                            provider: auth.provider,
-                            uid: auth.uid,
-                            email: auth.info.email,
+        user = User.create( lastname: auth[:extra][:raw_info][:last_name],
+                            firstname: auth[:extra][:raw_info][:first_name],
+                            provider: auth[:provider],
+                            website: auth[:info][:urls][:Facebook],
+                            uid: auth[:uid],
+                            email: auth[:info][:email],
                             password: Devise.friendly_token[0,20] )
       end
       user
     end
-
-    def find_for_google_oauth2(auth, signed_in_resource=nil)
-      data = auth.info
-      user = User.where(:provider => auth.provider, :uid => auth.uid).first
-
-      unless user
-        user = User.create( lastname: data["last_name"],
-                            firstname: data["first_name"],
-                            email: data["email"],
-                            provider: auth.provider,
-                            uid: auth.uid,
-                            password: Devise.friendly_token[0,20] )
-      end
-      user
-    end
-
   end
 
   def details_for(talk)

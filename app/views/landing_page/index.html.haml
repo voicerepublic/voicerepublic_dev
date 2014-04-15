@@ -58,13 +58,29 @@
           %ul.list-style-type-none
             = render partial: "shared/talk_medium_box", collection: @talks_live
 
-  - unless @talks_featured.empty?
-    .featured-talks.row
-      .medium-12.columns
-        .talks-box-title
-          %h4= t('.featured')
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_featured
+- unless @talks_featured.empty?
+  .featured-talks.row
+    .medium-12.columns
+      .talks-box-title
+        %h4= t('.featured')
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", collection: @talks_featured
+
+- unless @talks_popular.empty?
+  .featured-talks.row
+    .medium-12.columns
+      .talks-box-title
+        %h4= t('.popular')
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", collection: @talks_popular
+
+- unless @talks_archived.empty?
+  .featured-talks.row
+    .medium-12.columns
+      .talks-box-title
+        %h4= t('.recently_archived')
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", collection: @talks_archived
 
 .manifest.bg-blue
   .row
@@ -86,7 +102,7 @@
       - team << ['<span>Phil </span><span>Hofmann</span>','phil_hofmann','phil-hofmann','Chief Technology Officer']
       - team << ['<span>Martin </span><span>Meyer</span>','martin_meyer','martin-meyer','Ministry of Research & Development']
       - team << ['<span>Réka </span><span>Balogh</span>','reka_balogh','reka-balogh-6b0961a9-bb0d-4789-8ce3-405c486f54e9','Ministry of Community']
-      - team << ['<span>Jérome </span><span>Sprenger </span><span class="snd-line">Sèvegrand</span>','jerome_sprenger','jerome-sprenger','Ministry of Design']
+      -# team << ['<span>Jérome </span><span>Sprenger </span><span class="snd-line">Sèvegrand</span>','jerome_sprenger','jerome-sprenger','Ministry of Design']
       -# team << ['<span>Rafael </span><span>Schmidt</span>','rafael_schmidt','rafael-schmidt','Ministry of Design']
       -# team << ['Michael Zimmermann','michael_zimmermann','michael-zimmermann']
       - team << ['<span>VIER FÜR TEXAS</span>','4ft','vier-fuer-texas','Ministry of Communication']

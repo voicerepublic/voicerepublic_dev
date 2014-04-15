@@ -10,7 +10,8 @@ class SearchController < ApplicationController
   # GET  /search/1/:query
   def show
     @query = params[:query]
-    @results = PgSearch.multisearch(params[:query]).
+
+    @results = PgSearch.multisearch(@query).
       paginate(page: params[:page], per_page: PER_PAGE)
     @best_hit = @results.shift.searchable if params[:page] == '1'
     @talks = @results.select { |s| s.searchable.is_a?(Talk) }.map(&:searchable)

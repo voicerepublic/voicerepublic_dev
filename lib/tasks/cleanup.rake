@@ -17,6 +17,8 @@ namespace :cleanup do
     end
   end
 
+  # TODO this should be more generic and move into `trickery`
+  # TODO does this deprecate `db:data:validate`?
   desc 'Check validity of talks, series and user profiles'
   task :check_validity => :environment do
 

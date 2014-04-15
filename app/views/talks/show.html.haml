@@ -1,3 +1,6 @@
+- content_for :title do
+  = t('.title', title: @talk.title)
+
 %p#notice(style='display: none;')= notice
 
 .row(style='padding: 200px' ng-hide='true')

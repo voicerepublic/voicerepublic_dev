@@ -5,8 +5,9 @@
       %ul.inline-list
         %li
           %h6= t('.legal')
-          = link_to( t('.terms_of_use'), '#')
-          = link_to( t('.terms_and_conditions'), '#')
+          = link_to t('.terms_of_use'), "http://blog.voicerepublic.com/legal/terms-of-use/"
+          = link_to t('.privacy_statement'), "http://blog.voicerepublic.com/legal/privacy-statement/"
+          = link_to t('.ip_infringement'), "http://blog.voicerepublic.com/legal/ip-infringement-notice/"
         %li
           %h6 Board of Directors
           VoiceRepublic Media AG
@@ -24,7 +25,7 @@
           Schweiz
           %br/
         %li
-          %h6 Links 
+          %h6 Links
           %ul.list-style-type-none
             %li
               %a(href="mailto:service@voicerepublic.com") Contact

@@ -12,3 +12,6 @@
 
   .forgot-password
     = link_to t('.forgot_password'), new_password_path(:user)
+
+%hr/
+= render partial: 'devise/shared/social_network_connects', locals: { action: 'login' }
