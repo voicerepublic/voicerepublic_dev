@@ -66,14 +66,30 @@ end
 feature "Password" do
   describe "Reset" do
     scenario "User email is validated" do
-      visit root_path
-      within ".authentication-box" do
-        click_on "Login"
-        click_on "Forgot password?"
-      end
+      click_forgot_password
       fill_in :user_email, with: 'not an email'
       click_on "Reset password"
       page.should have_content "not found"
+    end
+
+    scenario "sends email and validates new password" do
+      user = FactoryGirl.create(:user)
+      click_forgot_password
+      fill_in :user_email, with: user.email
+      click_on "Reset password"
+      current_path.should eq('/users/sign_in')
+      page.should have_content("You will receive an email with instructions about how to reset your password in a few minutes.")
+      last_email.to.should include(user.email)
+      token = extract_token_from_email(:reset_password) # Here I call the MailHelper form above
+      visit edit_user_password_url(reset_password_token: token)
+      fill_in "user_password", :with => "foobar"
+      fill_in "user_password_confirmation", :with => "foobar1"
+      click_on "Save"
+      page.should have_content "Password confirmation doesn't match Password"
+      fill_in "user_password", :with => "foobar"
+      fill_in "user_password_confirmation", :with => "foobar"
+      click_on "Save"
+      page.should have_content "Your password was changed successfully. You are now signed in."
     end
   end
 end
@@ -101,7 +117,7 @@ feature "User can register" do
     end
   end
   scenario "user supplies correct values" do
-    visit root_path()
+    visit root_path
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
@@ -124,5 +140,15 @@ feature "User can register" do
       page.should have_content("can't be blank")
     end
     page.should have_content I18n.t('devise.registrations.new.accept_terms_of_use')
+  end
+
+end
+
+private
+def click_forgot_password
+  visit root_path
+  within ".authentication-box" do
+    click_on "Login"
+    click_on "Forgot password?"
   end
 end
