@@ -196,13 +196,13 @@
 
   .talk-tabs-content-block
     .tabs-content
-      #talk-tab-description.content.active
+      #talk-tab-description.content
         .row
           .large-12.columns
             = @talk.try(:description).try(:html_safe)
 
       - unless @talk.venue.opts.suppress_chat
-        #talk-tab-discussion.content
+        #talk-tab-discussion.content.active
           .chat-message(ng-repeat='message in discussion')
             .row
               .large-12.columns
