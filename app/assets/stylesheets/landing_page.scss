@@ -1,12 +1,56 @@
 .landing_page-index{
 
-  // ACTION BAR
-/*  .top-bar-section{
-    .logged-out-link{
-      height: 0 !important;
-      overflow: hidden
+  // VISITOR SEARCH BOX
+  .visitor-search-box{
+    .top-bar-search-field{
+      position: absolute !important;
+      top: 4px !important;
+      left: 0;
+      width: 150px;
+      height: 30px !important;
+      line-height:  inherit !important;
+      background: transparent !important;
+      margin: 0;
+      padding: 0 5px 0 30px !important;
+      color: #222 !important;
+      font-family: 'eaglelight';
+      font-size: rem-calc(16);
+      border-style: none !important;
+      @include placeholder{
+        color: #222;
+      }
+      &:hover,
+      &:focus{
+        background: lighten($brand-color-creme,3%) !important;
+        border-style: none !important;
+        outline-style: none !important;
+        @include box-shadow(0,0,0,#000);
+        color: #000;        
+      }
     }
-  }*/
+
+    .search-lupe{
+      .icon-magnifying-glass{
+        color: #333;
+        font-size: rem-calc(20);
+      }
+      position: absolute;
+      left: 2px;
+      top: 6px;
+      background: none;
+      font-size: 1.2rem;
+      padding: 0;
+      margin: 0;
+      display: inline;
+      &:hover,
+      &:focus{
+        background:none;
+        .icon-magnifying-glass{
+          color: inherit
+        }
+      }
+    }
+  }
 
 
   // BACKGROUNDS
@@ -64,90 +108,6 @@
 
   .button-signup{
     width: 100%;
-  }
-
-  // AUTHENTICATION BOX
-  .authentication-box{
-    position: absolute;
-    top: -40px;
-    right: -160px;
-    width: 281px;
-    padding:14px 19px 0 19px;
-    background: rgba(0,0,0,0.6);
-    dl{
-      display:inline-block;
-      padding: 0px 0 13px 0;
-      dd a,.link-delimiter{
-        color: $brand-color-red;
-        font-family: 'eaglebook';
-        font-size: rem-calc(13);
-      }
-      dd{
-        display: inline-block;
-        float: none;
-        a{
-          padding:0;
-          background: transparent;
-        }
-        &.active{
-          a{
-            background: transparent;
-            text-decoration: underline;
-          }
-        }
-      }
-      .link-delimiter{
-        padding:0 3px;
-      }
-      a{
-        &:hover,&:focus{
-          color: $brand-color-red;
-        }
-      }
-    }
-    .tabs-content{
-      .content{
-        padding: 0 !important;
-      }
-    }
-    .lp-signup-box,
-    .lp-login-box{
-
-    }
-    .lp-login-box{
-      display: none;
-    }
-    input[type=text],
-    input[type=email],
-    input[type=password]{
-      background: black;
-      color: white;
-      border: none;
-      height: 31px;
-      padding-left: 10px;
-    }
-    .button-vr{
-      width: 100%;
-    }
-    .lp-remember{
-      color: white;
-      font-family: 'eaglelight';
-      font-size: rem-calc(14);
-      &:hover,&:focus{
-        color: white;
-      }
-    }
-    .forgot-password{
-      margin-top: 10px;
-      a{
-        color: white;
-        font-family: 'eaglelight';
-        font-size: rem-calc(14);
-        &:hover,&:focus{
-          color: white;
-        }
-      }
-    }
   }
 
   // ILLUS WITH TEXT
@@ -236,6 +196,90 @@
       color: $brand-color-red;
       font-family: 'eaglelight';
       font-size: rem-calc(11)
+    }
+  }
+
+  // AUTHENTICATION BOX
+  .authentication-box{
+    position: absolute;
+    top: 0px;
+    right: -160px;
+    width: 281px;
+    padding:14px 19px 0 19px;
+    background: rgba(0,0,0,0.6);
+    dl{
+      display:inline-block;
+      padding: 0px 0 13px 0;
+      dd a,.link-delimiter{
+        color: $brand-color-red;
+        font-family: 'eaglebook';
+        font-size: rem-calc(13);
+      }
+      dd{
+        display: inline-block;
+        float: none;
+        a{
+          padding:0;
+          background: transparent;
+        }
+        &.active{
+          a{
+            background: transparent;
+            text-decoration: underline;
+          }
+        }
+      }
+      .link-delimiter{
+        padding:0 3px;
+      }
+      a{
+        &:hover,&:focus{
+          color: $brand-color-red;
+        }
+      }
+    }
+    .tabs-content{
+      .content{
+        padding: 0 !important;
+      }
+    }
+    .lp-signup-box,
+    .lp-login-box{
+
+    }
+    .lp-login-box{
+      display: none;
+    }
+    input[type=text],
+    input[type=email],
+    input[type=password]{
+      background: black;
+      color: white;
+      border: none;
+      height: 31px;
+      padding-left: 10px;
+    }
+    .button-vr{
+      width: 100%;
+    }
+    .lp-remember{
+      color: white;
+      font-family: 'eaglelight';
+      font-size: rem-calc(14);
+      &:hover,&:focus{
+        color: white;
+      }
+    }
+    .forgot-password{
+      margin-top: 10px;
+      a{
+        color: white;
+        font-family: 'eaglelight';
+        font-size: rem-calc(14);
+        &:hover,&:focus{
+          color: white;
+        }
+      }
     }
   }
 
