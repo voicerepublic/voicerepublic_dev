@@ -1,256 +1,72 @@
 .landing_page-index{
 
-  .bg-creme,
-  .bg-blue{
-    background-color: $brand-color-creme;
-    background-image: image-url('bg_blue.svg');
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    background-size: cover;
-  }
-
-  .bg-blue{
-    background-color: $brand-color-blue;
-    background-image: image-url('bg_creme.svg');
-  }
-
-  .title-row{
-    position:relative;
-    z-index: -1;
-    padding-bottom: 40px;
-  }
-
-  .top-bar{
-    content: none !important;
-    height: 0px !important;
-
-    .icon-vr-logo {
-      display: none;
+  // ACTION BAR
+/*  .top-bar-section{
+    .logged-out-link{
+      height: 0 !important;
+      overflow: hidden
     }
+  }*/
 
-    .top-bar-section{
-      .logged-out-link{
-        height: 0 !important;
-        overflow: hidden
-      }
-    }
-  }
 
-  .title-row{
-    position:relative;
-    z-index: -1;
-  }
-
-  .lp-top-row{
-    position: relative;
-    height: 30px;
-    .lp-bar-search-box{
-      position: relative;
-      z-index: 10;
-      width:150px;
-      &:hover,
-      &:focus{
-        background: #444;
-      }
-    }
-
-<<<<<<< HEAD
-	.lp-logo{
-		font-size: rem-calc(280);
-		color: $brand-color-red;
-		line-height: 0.5;
-		margin:16px 0 0 0;
-		display: block;
+  // BACKGROUNDS
+	.bg-creme,
+	.bg-blue{
+		background-color: $brand-color-creme;
+		background-image: image-url('bg_blue.svg');
+		background-repeat: no-repeat;
+		background-position: center bottom;
+		background-size: cover;
 	}
-=======
-    .top-bar-search-field{
-      position: absolute !important;
-      top: 4px !important;
-      left: 0;
-      width: 150px;
-      height: 30px !important;
-      line-height: inherit !important;
-      background: $brand-color-creme !important;
-      margin: 0;
-      padding: 0 5px 0 30px !important;
-      color: #fff !important;
+
+	.bg-blue{
+		background-color: $brand-color-blue;
+		background-image: image-url('bg_creme.svg');
+	}
+
+  // TITLE ROW
+  .title-row{
+    padding-bottom: 40px;
+    position:relative;
+    z-index: -1;
+
+  	.lp-logo{
+  		font-size: rem-calc(280);
+  		color: $brand-color-red;
+  		line-height: 0.5;
+  		margin:16px 0 0 0;
+  		display: block;
+  	}
+
+    .headline{
+      color: #000;
+      font-size: rem-calc(30);
+      span{
+        border-bottom: 6px solid #000;
+        display: inline-block;
+        line-height: 0.9;
+        margin-bottom: 3px;
+      }
+    }
+    .subheadline{
+      margin-top: 20px;
+      font-size: rem-calc(19);
+      color: $brand-color-blue;
+      font-family: 'eaglelight';
+    }
+    .subheadline-2{
+      font-size: rem-calc(20);
       font-family: 'eaglebook';
-      font-size: rem-calc(12);
-      border-style: none !important;
-      @include placeholder{
-        color: #ddd;
-      }
-      &:hover,
-      &:focus{
-        background: #333 !important;
-        border-style: none !important;
-        outline-style: none !important;
-        @include box-shadow(0,0,0,#000);
-        color: #fff
-      }
+      color: #000;
+      line-height: 1.6;
     }
-
-    .search-lupe{
-      .icon-magnifying-glass{
-        color: #ddd
-      }
-      position: absolute;
-      left: 2px;
-      top: 6px;
-      background: none;
-      font-size: 1.2rem;
-      padding: 0;
-      margin: 0;
-      display: inline;
-      &:hover,
-      &:focus{
-        background:none;
-        .icon-magnifying-glass{
-          color: #fff
-        }
-      }
-    }
-  }
->>>>>>> integration
-
-  .bg-blue{
-    width: 100%;
-    height: 500px;
-    background: url(/images/bg_blue.svg) no-repeat center top;
-    margin-bottom: -387px;
-    margin-top: -50px;
-  }
-
-  .lp-logo{
-    font-size: rem-calc(280);
-    color: $brand-color-red;
-    line-height: 0.5;
-    margin:16px 0 0 0;
-    display: block;
-  }
-
-  .headline{
-    color: #000;
-    font-size: rem-calc(30);
-    span{
-      border-bottom: 6px solid #000;
-      display: inline-block;
-      line-height: 0.9;
-      margin-bottom: 3px;
-    }
-  }
-  .subheadline{
-    margin-top: 20px;
-    font-size: rem-calc(19);
-    color: $brand-color-blue;
-    font-family: 'eaglelight';
-  }
-  .subheadline-2{
-    font-size: rem-calc(20);
-    font-family: 'eaglebook';
-    color: #000;
-    line-height: 1.6;
   }
 
   .button-signup{
     width: 100%;
   }
 
-<<<<<<< HEAD
-	.about-summary{
-		padding-top: 31px;
-		padding-bottom: 50px;
-		h4{
-			font-family: 'eaglebook';
-			font-size: rem-calc(16);
-			color: $brand-color-yellow;
-			border-bottom: 5px solid $brand-color-yellow;
-			display: inline-block;
-			margin:9px 0 10px 0;
-		}
-		p{
-			color: white;
-			font-size: rem-calc(15);
-			font-family: 'eaglelight';
-			line-height: 1.15;
-		}
-	}
-
-	.talks{
-		padding-bottom: 50px;
-		h4{
-			font-family: 'eaglebook';
-			color: $brand-color-red;
-		}
-		.featured-talks{
-			margin-top: 20px;
-			margin-bottom: 20px;
-		}
-	}
-
-/*	.bg-manifest{
-		height: 900px;
-		margin-bottom: -800px;
-		background: url(/images/bg_blue.svg) no-repeat center top, url(/images/bg_blue.svg) no-repeat center 300px, url(/images/bg_blue.svg) no-repeat center 460px
-	}*/
-
-	.manifest{
-		padding-top: 3px;
-		padding-bottom: 80px;
-		.icon-vr-logo{
-			font-size: 80px;
-			color: $brand-color-red;
-		}
-		h4{
-			font-family: 'eaglebook';
-			color: white;
-			font-size: rem-calc(16);
-		}
-		h5{
-			font-family: 'eaglebook';
-			font-size: rem-calc(16);
-		}
-		p{
-			color: white;
-			font-size: rem-calc(16);
-			font-family: 'eaglelight';
-			line-height: 1.15;
-		}
-	}
-
-	.member-block{
-		h3{
-			font-size: rem-calc(32)
-		}
-		margin-top: 30px;
-		.avatar-bg{
-			fill: $brand-color-red;
-		}
-		.avatar-name{
-			color: $brand-color-blue;
-			padding:0;
-			font-size: rem-calc(16);
-			line-height: 1;
-			span{
-				border-bottom: 4px solid $brand-color-blue;
-				&.snd-line{
-					display: inline-block;
-					padding-top: 5px
-				}
-			}
-		}
-		h4{
-			font-family: 'eaglebook';
-			color: $brand-color-blue;
-			margin-bottom: 25px;		
-		}
-		.member-function{
-			color: $brand-color-red;
-			font-family: 'eaglelight';
-			font-size: rem-calc(11)
-		}
-	}
-=======
+  // AUTHENTICATION BOX
   .authentication-box{
     position: absolute;
     top: -40px;
@@ -334,8 +150,10 @@
     }
   }
 
+  // ILLUS WITH TEXT
   .about-summary{
-    margin-bottom: 40px;
+    padding-top: 34px;
+    padding-bottom: 50px;
     h4{
       font-family: 'eaglebook';
       font-size: rem-calc(16);
@@ -352,26 +170,20 @@
     }
   }
 
-  .live-talks,
-  .featured-talks{
+  // TALKS
+  .talks{
+    padding-bottom: 70px;
     h4{
       font-family: 'eaglebook';
-      color: $brand-color-red;
+      color: red;
+      font-size: rem-calc(16);
     }
   }
-  .featured-talks{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
 
-  .bg-manifest{
-    height: 900px;
-    margin-bottom: -800px;
-    background: url(/images/bg_blue.svg) no-repeat center top, url(/images/bg_blue.svg) no-repeat center 300px, url(/images/bg_blue.svg) no-repeat center 460px
-  }
->>>>>>> integration
-
+  // MANIFEST
   .manifest{
+    padding-top: 5px;
+    padding-bottom: 60px;
     .icon-vr-logo{
       font-size: 80px;
       color: $brand-color-red;
@@ -393,11 +205,12 @@
     }
   }
 
+  // TEAM
   .member-block{
+    padding-top: 30px;
     h3{
       font-size: rem-calc(32)
     }
-    margin-top: 130px;
     .avatar-bg{
       fill: $brand-color-red;
     }
@@ -426,6 +239,7 @@
     }
   }
 
+  // FOOTER
   .footer{
     margin-top: 100px;
   }

@@ -58,29 +58,29 @@
           %ul.list-style-type-none
             = render partial: "shared/talk_medium_box", collection: @talks_live
 
-- unless @talks_featured.empty?
-  .featured-talks.row
-    .medium-12.columns
-      .talks-box-title
-        %h4= t('.featured')
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", collection: @talks_featured
+  - unless @talks_featured.empty?
+    .featured-talks.row
+      .medium-12.columns
+        .talks-box-title
+          %h4= t('.featured')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_featured
 
-- unless @talks_popular.empty?
-  .featured-talks.row
-    .medium-12.columns
-      .talks-box-title
-        %h4= t('.popular')
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", collection: @talks_popular
+  - unless @talks_popular.empty?
+    .featured-talks.row
+      .medium-12.columns
+        .talks-box-title
+          %h4= t('.popular')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_popular
 
-- unless @talks_archived.empty?
-  .featured-talks.row
-    .medium-12.columns
-      .talks-box-title
-        %h4= t('.recently_archived')
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", collection: @talks_archived
+  - unless @talks_archived.empty?
+    .featured-talks.row
+      .medium-12.columns
+        .talks-box-title
+          %h4= t('.recently_archived')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_archived
 
 .manifest.bg-blue
   .row
@@ -120,4 +120,3 @@
                   = member[3]
                 .avatar-name.text-center
                   = member[0].html_safe
-
