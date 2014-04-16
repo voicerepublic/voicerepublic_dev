@@ -1,4 +1,4 @@
-- if current_user && current_user.guest
+- if current_user && current_user.guest && current_page?(root_path)
   .row.collapse
     .large-12.columns
       .visitor-search-box

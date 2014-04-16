@@ -133,10 +133,13 @@
   // TALKS
   .talks{
     padding-bottom: 70px;
+    .row{
+      margin-bottom: 30px;
+    }
     h4{
       font-family: 'eaglebook';
       color: red;
-      font-size: rem-calc(16);
+      font-size: rem-calc(23);
     }
   }
 
@@ -151,7 +154,7 @@
     h4{
       font-family: 'eaglebook';
       color: white;
-      font-size: rem-calc(16);
+      font-size: rem-calc(23);
     }
     h5{
       font-family: 'eaglebook';
@@ -169,7 +172,7 @@
   .member-block{
     padding-top: 30px;
     h3{
-      font-size: rem-calc(32)
+      font-size: rem-calc(23)
     }
     .avatar-bg{
       fill: $brand-color-red;
