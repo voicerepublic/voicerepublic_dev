@@ -239,6 +239,7 @@
       }
     }
     .tabs-content{
+      margin-bottom: 14px;
       .content{
         padding: 0 !important;
       }
@@ -258,10 +259,19 @@
       border: none;
       height: 31px;
       padding-left: 10px;
+      margin-bottom: rem-calc(10);
+      @include placeholder{
+        color: white;
+      }
     }
     .button-vr{
       width: 100%;
     }
+
+    hr{
+      margin: rem-calc(10) 0;
+    }
+
     .lp-remember{
       color: white;
       font-family: 'eaglelight';
