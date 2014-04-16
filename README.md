@@ -1,20 +1,25 @@
-Welcome to Kluuu
-================
+Welcome to VoiceRepublic
+========================
 
 ![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
 "Work is the curse of the drinking classes." -- Gentleman Rhymer
 
-## Build status
+### Build status
 
 * Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
 )](https://circleci.com/gh/munen/KluuU/tree/integration)
 * Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
 )](https://circleci.com/gh/munen/KluuU/tree/master)
 
-## Code Quality
+### Code Quality
 
 * Develop: [![Code Climate](https://codeclimate.com/repos/52d695526956802e2600897b/badges/d72650afa4aea3392af9/gpa.png)](https://codeclimate.com/repos/52d695526956802e2600897b/feed)
+
+### Platforms
+
+* Live: [http://voicerepublic.com](http://voicerepublic.com)
+* Staging: [http://staging.voicerepublic.com](http://staging.voicerepublic.com)
 
 
 Setup
@@ -41,23 +46,17 @@ config file is located here `config/rtmp.conf.erb`. See
 `lib/tasks/rtmp.rake` for more details.
 
 
-
-Start the whole stack
----------------------
-
-Rails, Faye (PrivatePub) & Sphinx.
-
-    foreman start
-
-
 Run Specs
 ---------
+
+Run Rspec with Zeus
+
+    zeus start
+    zeus rspec spec
 
 Install phantomjs (globaly)
 
     sudo npm install -g phantomjs
-
-To run specs Faye and a Sphinx daemon have to run.
 
 ### Run Jasmine specs for Angular with Karma
 
@@ -92,7 +91,6 @@ The generic strategy runner takes arguments
  * strategy name
  * path to audio files
  * name (talk_id, X in the flv files tX-u...)
-
     
     rake audio:run[strategy_name,path/to/files,name]
 
@@ -107,7 +105,6 @@ Documentation
 
 For general platform and development documentation please refer to the
 [GitHub wiki pages](https://github.com/munen/voicerepublic_dev/wiki).
-
 
 ### Build diagrams
 
@@ -132,24 +129,13 @@ Config entries are compiled from:
 Settings defined in files that are lower in the list override settings higher.
 
 
-Platforms
----------
-
-### Production
-
-* Site: [http://kluuu.com](http://kluuu.com)
-
-### Staging
-
-* Site: [kluuu-staging.panter.ch](kluuu-staging.panter.ch)
-
-
 Conference Features
 -------------------
 
 If the venue is a conference you might want to open the back office
 app and put the following in options of the venue:
 
+    ---
     no_auto_postprocessing: true
     no_email: true
     no_auto_end_talk: true
@@ -228,10 +214,6 @@ why. But you can simply quit the console and restart it to get it back.
 
 Restart `vrwatch` to remove the artifacts and start over.
 
-### Known Issues
-
-* listener doesn't get out of state Registering, thus won't subscribe to the streams
-
 
 Audio cheat sheet
 -----------------
@@ -244,4 +226,31 @@ Audio cheat sheet
 
     avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
 
+### convert x.wav to x.ogg
 
+    oggenc x.wav
+
+### convert x.wav to x.mp3
+
+    avconv -y -i x.wav x.mp3
+
+### convert x.wav to x.m4a
+
+    avconv -y -i x.wav -b:a 64k -strict experimental x.m4a
+
+
+Troubleshooting Process/Monit
+-----------------------------
+
+### Start processes manually
+
+    $ current
+    $ be bin/init/private_pub start
+    ...
+    $ be bin/init/localeapp start
+    ...
+
+### Restart Monit to make it reinitialize the flags
+
+    # /etc/init.d/monit restart
+    ...
