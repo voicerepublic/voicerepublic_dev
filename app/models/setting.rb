@@ -21,6 +21,8 @@
 class Setting < ActiveRecord::Base
 
   validates :key, :value, presence: true
+
+  attr_accessible :key, :value
   
   class << self
     def get(key)
@@ -28,6 +30,10 @@ class Setting < ActiveRecord::Base
       find_by(key: key).try(:value) ||
         # fallback Settings class provided by rails_config
         key.split('.').inject(Settings) { |r, k| r.send(k) }
+    end
+
+    def set(key, value)
+      create key: key, value: value
     end
   end
   
