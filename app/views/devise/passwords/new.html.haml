@@ -1,10 +1,8 @@
 = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
   .row.collapse.top-margin-action-bar
     .medium-10.medium-offset-1.columns
-      = devise_error_messages!
-      -# %h2= t('.reset_password')
       = f.input :email, html_input: {type: 'email'}
-      = button_tag, :class => 'button-vr' do
+      = button_tag :class => 'button-vr' do
         = t('.reset_password')
       %br/
       %hr/

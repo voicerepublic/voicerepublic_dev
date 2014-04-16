@@ -262,16 +262,15 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    Delayed::Job.enqueue Postprocess.new(id), queue: 'audio'
-
+    unless venue.opts.no_auto_postprocessing
+      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio') 
+    end
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
-
-    return if venue.opts.no_auto_postprocessing
-    delay(queue: 'audio').postprocess!
   end
 
   def postprocess!(uat=false)
     return unless record? # TODO: move into a final state != archived
+    return if archived?
     process!
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
