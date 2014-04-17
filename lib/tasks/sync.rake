@@ -47,7 +47,6 @@ namespace :sync do
         venue.description = 'tbd.' # FIXME
         venue.tag_list = rp14_tags
         venue.user = rp14_user
-        # puts venue.attributes.to_yaml
         metric = venue.persisted? ? :venues_updated : :venues_created
         report[metric] += 1 if venue.save!
 
@@ -65,15 +64,11 @@ namespace :sync do
         talk.starts_at_date = [y, m, d] * '-'
         talk.starts_at_time = item.start
         talk.duration = item.duration.match(/\d+/).to_a.first
-        # puts talk.attributes.to_yaml
         metric = talk.persisted? ? :talks_updated : :talks_created
         report[metric] += 1 if talk.save!
-        # TODO check times
-        end_time = talk.ends_at.strftime('%H:%M')
-        if end_time != item.end
+        if talk.ends_at.strftime('%H:%M') != item.end
           warnings << '% 4s: Bogus times: %s %s' % [nid, item.datetime, item.duration]
         end
-        # puts "updated: #{item.datetime} #{item.title} (#{item.speaker_names * ', '})"
         print '.'
       rescue Exception => e
         errors << '% 4s: %s' % [nid, e.message.tr("\n", ';')]
@@ -96,6 +91,7 @@ namespace :sync do
     puts "ERRORS (#{errors.size})"
     puts
     puts *errors
+    puts
 
   end
 
