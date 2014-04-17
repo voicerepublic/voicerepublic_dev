@@ -176,12 +176,12 @@
     .row.collapse-large-only
       .large-12.columns
         %dl.tabs.vr-tabs(data-tab="true")
-          %dd.active.text-center
+          %dd.text-center
             %a(href="#talk-tab-description")
               %span.icon-description
               = t('.description')
           - unless @talk.venue.opts.suppress_chat
-            %dd.text-center
+            %dd.text-center.active
               %a(href="#talk-tab-discussion")
                 %span.icon-bubble-multi
                 = t('.discussion')
