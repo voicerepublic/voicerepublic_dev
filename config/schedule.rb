@@ -39,3 +39,7 @@ end
 every 60.minutes, :roles => [:app] do
   rake "cleanup:check_validity"
 end
+
+every 2.hours, rolse: [:app] do
+  rake 'sync:rp14'
+end

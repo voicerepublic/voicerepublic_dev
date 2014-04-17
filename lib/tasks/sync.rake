@@ -53,6 +53,7 @@ namespace :sync do
         # update talk
         talk_uri = "rp://2014/session/#{nid}"
         talk = Talk.find_or_initialize_by(uri: talk_uri)
+        next unless talk.prelive?
         talk.venue = venue
         talk.title = item.title.strip
         talk.teaser = item.description_short.strip.truncate(255)
