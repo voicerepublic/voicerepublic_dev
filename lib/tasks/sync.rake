@@ -9,6 +9,9 @@ namespace :sync do
     # TODO: hardcode the user for re:publica
     rp14_user = User.first
     rp14_tags = 're:publica'
+    text_limit = 8191 # general limit for text fields
+    text_limit = 2300 # limit for full text search
+
     warnings, errors = [], []
     report = Hash.new { |h, k| h[k] = 0 }
 
@@ -59,7 +62,8 @@ namespace :sync do
         talk.teaser = item.description_short.strip.truncate(255)
         talk.description = ([ item.speaker_names.map(&:strip) * ', ',
                               item.category.strip,
-                              item.description.strip ] * '<br><br>' ).truncate(8191)
+                              item.description.strip ] * '<br><br>' ).
+                           truncate(text_limit)
         talk.tag_list = rp14_tags
         talk.starts_at_date = [y, m, d] * '-'
         talk.starts_at_time = item.start
