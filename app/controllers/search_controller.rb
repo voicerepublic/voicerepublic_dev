@@ -9,7 +9,8 @@ class SearchController < ApplicationController
 
   # GET  /search/1/:query
   def show
-    @results = PgSearch.multisearch(params[:query]).
+    @query = params[:query]
+    @results = PgSearch.multisearch(@query).
       paginate(page: params[:page], per_page: PER_PAGE)
   end
 

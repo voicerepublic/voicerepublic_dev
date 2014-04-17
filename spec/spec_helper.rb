@@ -103,9 +103,8 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
 
   config.include Devise::TestHelpers, :type => :controller
-  #config.include Devise::TestHelpers, :type => :feature
   config.include ValidUserRequestHelper, :type => :feature
-  #config.include ValidUserRequestHelper, :type => :controller
+  config.include MailHelpers, :type => :feature
 
   # Disable GC and Start Stats
   # disable GC by default

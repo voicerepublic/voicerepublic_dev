@@ -1,5 +1,5 @@
 - content_for :title do
-  = @user.name
+  = t('.title', username: @user.name)
 
 .header-block(style="background-image: url(#{@user.header.try(:url)})")
 

@@ -1,7 +1,5 @@
 - content_for :title do
-  = t('.venue')
-  \&middot;
-  = @venue.title
+  = t('.title', title: @venue.title)
 
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )

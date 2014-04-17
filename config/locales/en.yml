@@ -284,6 +284,7 @@ en:
       opinion: Status
       edit_account: Edit profil
     edit:
+      title: "VR Edit User %{username}"
       edit_your_profile: Edit profil
       select_profile_image: Profile image
       select_header_image: Background image
@@ -291,6 +292,7 @@ en:
       venues: Series
       guest_empty_venue: ! '%{name} has no series yet.'
     show:
+      title: "VR User %{username}"
       edit_user: Edit Profile
       my-venues: My Series
   controller_accounts:
@@ -521,6 +523,8 @@ en:
       created_new: crated a new
       new_venue_create: A new Series was set up
   search:
+    show:
+      title: "VR Results for '%{query}'"
     tagged_with:
       taggings_with: KluuUs and questions tagged with %{tag}
       no_kluuus_tagged_with: No results for tag %{tag} found.
@@ -583,6 +587,7 @@ en:
   venues:
     date_changed: New Series date
     edit:
+      title: "VR Edit Series %{title}"
       edit_venue: Edit Series
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
@@ -590,8 +595,8 @@ en:
     venue_list: Series
     new_venue: Create Series
     show:
+      title: "VR Series %{title}"
       by: by
-      venue: Series
       start_date: Begin
       duration: Duration
       past_venue: Past Series
@@ -642,6 +647,7 @@ en:
     venue_show_avatar:
       leave_venue_popup: This link opens a new tab!
     new:
+      title: "VR New Series"
       new_venue: Create Series
       create_venue: Create Series
       available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Series
@@ -735,6 +741,8 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      title: "VR Talk %{title}"
+      discussion: Chat
       embed_player: "Embed player on your website"
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Type and hit enter to post a comment
@@ -755,8 +763,10 @@ en:
       promote: GIVE THE MIC
       embed_player: Embed Player
     new:
+      title: "VR New Talk"  
       new_talk: New Talk
     edit:
+      title: "VR Edit Talk %{title}"  
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
