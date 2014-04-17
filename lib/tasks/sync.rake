@@ -6,6 +6,7 @@ namespace :sync do
 
   task :rp14 do
 
+    # TODO: hardcode the user for re:publica
     rp14_user = User.first
     rp14_tags = 're:publica'
     warnings, errors = [], []
