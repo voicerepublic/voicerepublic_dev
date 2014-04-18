@@ -1,3 +1,12 @@
+// talks#index
+.explore-talks {
+  margin-top: 100px;
+  h1 {
+    @extend .talks-title;
+    margin-bottom: 20px;
+  }
+}
+
 .talks-new,
 .talks-create,
 .talks-edit,
@@ -6,11 +15,11 @@
   input[type="checkbox"]{
     margin-right:5px !important
   }
-  .date-time-picker-row{
+  .date-time-icker-row{
     .columns{
       padding-right: 13px !important;
       &:last-child{
-        padding-right: 0 !important
+        ng-right: 0 !important
       }
     }
   }

@@ -1,0 +1,17 @@
+// explore-link on all pages
+.explore {
+  transform:rotate(-90deg);
+  -ms-transform:rotate(-90deg); /* IE 9 */
+  -webkit-transform:rotate(-90deg); /* Opera, Chrome, and Safari */
+  position: absolute;
+  left: 20px;
+  top: 70px;
+  font-size: 2em;
+  z-index: 1;
+  a {
+    color: white;
+    &:hover,&:focus {
+    		color:#ddd;
+    }
+  }
+}

@@ -1,12 +1,12 @@
 class TalksController < ApplicationController
 
-  before_action :set_venue
+  before_action :set_venue, except: [:index]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
   # GET /talks
   def index
-    @talks = Talk.all
+    @talks = Talk.all.paginate(page: params[:page], per_page: 25)
   end
 
   # GET /talks/1

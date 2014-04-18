@@ -31,6 +31,8 @@ VoiceRepublic::Application.routes.draw do
     resources :talks
     resources :participations, only: [:index, :create, :destroy]
   end
+  
+  resources :talks, only: [:index]
 
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"
