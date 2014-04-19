@@ -30,8 +30,10 @@ Setup
 -----
 
     bundle
-    rake db:setup
-    rake db:migrate
+    cp config/database.yml.sqlite3 \
+       config/database.yml             # use an appropriate db config
+    rake db:setup                      # this requires an internet connection
+    rake db:migrate                    # dito
     rake rtmp:build
     rake setup
 
