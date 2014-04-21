@@ -25,6 +25,7 @@
 
       .row
         .large-12.columns.text-center
+          = link_to 'rss', venue_talks_url(@venue, format: :rss), class: 'button-vr button-header'
           - if @show_join
             = link_to [@venue, :participations], method: :post, class: 'button-vr button-header' do
               = t('.join_venue')

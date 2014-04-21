@@ -6,7 +6,7 @@ class TalksController < ApplicationController
 
   # GET /talks
   def index
-    @talks = Talk.all
+    @talks = @venue.talks 
   end
 
   # GET /talks/1
