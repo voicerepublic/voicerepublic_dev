@@ -7,7 +7,11 @@ class TalksController < ApplicationController
 
   # GET /talks
   def index
-    @talks = @venue.talks 
+    if @venue
+      @talks = @venue.talks 
+    else
+      @talks = Talks.all.paginate(page: params[:page], per_page: 25)
+    end
   end
 
   # GET /talks/1
