@@ -1,13 +1,13 @@
 - content_for :title do
-  = 'Explore Talks'
+  =t(:explore_talks)
 
 - unless @talks.empty?
   .explore-talks.row
     .large-12.columns
       .talks-box-title
-        %h1 TalkExplorer
+        %h1=t('shared.explore.explore_talks')
         %ul.list-style-type-none
-          =  render collection: @talks, partial: 'shared/talk_medium_box' 
-      = will_paginate @talks        
+          =  render collection: @talks, partial: 'shared/talk_medium_box'
+      = will_paginate @talks
 
 
