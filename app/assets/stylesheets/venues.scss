@@ -49,5 +49,16 @@
   		width: 25%;
   	}
   }
-
+  #tab-description{
+  	h3{
+  		color: $color-black-title;
+  	}
+  	a{
+  		text-decoration: underline;
+  		&:focus,&:hover{
+  			text-decoration: underline;
+  			color:lighten(black,20%);
+  		}
+  	}
+  }
 }
