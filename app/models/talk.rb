@@ -60,9 +60,6 @@ class Talk < ActiveRecord::Base
     event :archive, timestamp: :processed_at do
       transitions from: :processing, to: :archived
     end
-    event :event_reprocess do # TODO resolve naming collision event/method
-      transitions from: :archived, to: :processing
-    end
   end
 
   acts_as_taggable
@@ -272,6 +269,7 @@ class Talk < ActiveRecord::Base
   end
 
   def postprocess!(uat=false)
+    raise 'fail: postprocessing a talk with override' if recording_override?
     # TODO: move into a final state != archived (over/past/gone/myth)
     return unless record? 
     return if archived? # silently guard against double processing
@@ -284,7 +282,7 @@ class Talk < ActiveRecord::Base
   # TODO this will leave orphaned versions of previous processings on disk
   def reprocess!(uat=false)
     raise 'fail: reprocessing a talk without recording' unless record?
-    event_reprocess! # TODO resolve naming collision event/method
+    raise 'fail: reprocessing a talk with override' if recording_override?
 
     # move files back into position for processing
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
@@ -295,9 +293,35 @@ class Talk < ActiveRecord::Base
 
     chain = Setting.get('audio.reprocess_chain').split(/\s+/)
     run_chain! chain, uat
-    archive!
   end
 
+  # TODO this will leave orphaned versions of previous processings on disk
+  def process_override!(uat=false)
+    Dir.mktmpdir do |path|
+      Dir.chdir(path) do 
+        # download
+        tmp = "t#{id}"
+        %x[ curl #{recording_override} > #{tmp} ]
+        # convert to ogg
+        %x[ avconv -i #{tmp} #{tmp}.wav; oggenc #{tmp}.wav ]
+        # move ogg to archive
+        ogg = tmp + '.ogg'
+        path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"
+        target = File.join(Settings.rtmp.archive_path, path)
+        FileUtils.mkdir_p(File.dirname(target), verbose: true)
+        FileUtils.mv(ogg, target, verbose: true)
+        # store reference
+        update_attribute :recording_override, path
+        # move wav to `recordings`
+        wav = tmp + '.wav'
+        target = File.join(Settings.rtmp.recordings_path, "#{id}.wav")
+        FileUtils.mv(wav, target, verbose: true)
+      end
+    end # unlinks tmp dir
+    chain = Setting.get('audio.process_override_chain').split(/\s+/)
+    run_chain! chain
+  end
+  
   def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
@@ -315,9 +339,6 @@ class Talk < ActiveRecord::Base
       (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
       runner.run(name)
     end
-    # save recording
-    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-
     # move some files to archive_raw
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
@@ -330,6 +351,9 @@ class Talk < ActiveRecord::Base
     FileUtils.mkdir_p(target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
+    # save recording
+    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
+
     # TODO: save transcoded audio formats
 
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
