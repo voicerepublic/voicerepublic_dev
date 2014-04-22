@@ -1,12 +1,3 @@
-// talks#index
-.explore-talks {
-  margin-top: 100px;
-  h1 {
-    @extend .talks-title;
-    margin-bottom: 20px;
-  }
-}
-
 .talks-new,
 .talks-create,
 .talks-edit,
@@ -482,7 +473,41 @@
       }
     }
   }
-
 }
 
-
+// EXPLORE TALKS
+.talks-index,
+.talks-recent,
+.talks-featured,
+.talks-popular{
+  h2 {
+    color: $brand-color-blue;
+    font-size: rem-calc(14);
+    font-family: 'eaglelight';
+    margin-bottom: 40px;
+  }
+  h3{
+    color: $brand-color-red;
+    display: inline;
+  }
+  .talk-medium-box{
+    margin-right:0 !important;
+    .box-actions{
+      display: none !important;
+    }
+  }
+  .title-box{
+    position: relative;
+    margin-bottom: 10px;
+    .see-all-link{
+      position: absolute;
+      right: 0;
+      bottom: 2px;
+    }
+  }
+  .see-all-link{
+    font-size: rem-calc(11);
+    display: inline-block;
+    color: $brand-color-blue;
+  }
+}
