@@ -9,6 +9,13 @@ namespace :sync do
     # TODO: hardcode the user for re:publica
     rp14_user = User.first
     rp14_tags = 're:publica'
+    rp14_opts = {
+      no_auto_postprocessing: true,
+      no_auto_end_talk: true,
+      no_email: true,
+      suppress_chat: true
+    }
+
     text_limit = 8191 # general limit for text fields
     text_limit = 2300 # limit for full text search
 
@@ -50,6 +57,7 @@ namespace :sync do
         venue.description = 'tbd.' # FIXME
         venue.tag_list = rp14_tags
         venue.user = rp14_user
+        venue.options = rp14_opts
         metric = venue.persisted? ? :venues_updated : :venues_created
         report[metric] += 1 if venue.save!
 
