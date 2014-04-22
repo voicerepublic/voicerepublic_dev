@@ -60,6 +60,9 @@ class Talk < ActiveRecord::Base
     event :archive, timestamp: :processed_at do
       transitions from: :processing, to: :archived
     end
+    event :event_reprocess do # TODO resolve naming collision event/method
+      transitions from: :archived, to: :processing
+    end
   end
 
   acts_as_taggable
@@ -269,13 +272,36 @@ class Talk < ActiveRecord::Base
   end
 
   def postprocess!(uat=false)
-    return unless record? # TODO: move into a final state != archived
-    return if archived?
+    # TODO: move into a final state != archived (over/past/gone/myth)
+    return unless record? 
+    return if archived? # silently guard against double processing
     process!
+    chain = Setting.get('audio.process_chain').split(/\s+/)
+    run_chain! chain, uat
+    archive!
+  end
+
+  # TODO this will leave orphaned versions of previous processings on disk
+  def reprocess!(uat=false)
+    raise 'fail: reprocessing a talk without recording' unless record?
+    event_reprocess! # TODO resolve naming collision event/method
+
+    # move files back into position for processing
+    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    base = File.dirname(File.join(archive_raw, recording))
+    target = Settings.rtmp.recordings_path
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
+
+    chain = Setting.get('audio.reprocess_chain').split(/\s+/)
+    run_chain! chain, uat
+    archive!
+  end
+
+  def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
 
-    chain = Setting.get('audio.process_chain').split(/\s+/)
     base = Settings.rtmp.recordings_path
     opts = {
       talk_start: started_at.to_i,
@@ -285,12 +311,13 @@ class Talk < ActiveRecord::Base
     runner = Audio::StrategyRunner.new(setting)
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }
-      PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
+      PrivatePub.publish_to '/monitoring', { event: 'Processing', talk: attrs }
       (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
       runner.run(name)
     end
     # save recording
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
+
     # move some files to archive_raw
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
@@ -305,9 +332,8 @@ class Talk < ActiveRecord::Base
     FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
     # TODO: save transcoded audio formats
 
-    archive!
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
-
+  
 end
