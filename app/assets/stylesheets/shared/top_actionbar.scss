@@ -97,5 +97,13 @@
 			}
 		}
 	}
+	.explore-link {
+	  a {
+	    color: white;
+	    &:hover,&:focus {
+	    	color:#ddd;
+	    }
+	  }
+	}
 
 }

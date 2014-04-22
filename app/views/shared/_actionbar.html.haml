@@ -46,3 +46,5 @@
             = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
             = button_tag :type => "submit", :class => "search-lupe" do
               %span.icon-magnifying-glass
+        %li.explore-link
+          = link_to t('.explore'), talks_path
