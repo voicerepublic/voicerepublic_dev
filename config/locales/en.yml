@@ -549,7 +549,7 @@ en:
       new_venue_create: A new Series was set up
   search:
     show:
-      results: "#{COUNT} RESULTS FOR "
+      results: "%{results_count} RESULT(S) FOR "
       best_result: TOP RESULT
       talks: TALKS
       venues: SERIES
@@ -558,7 +558,7 @@ en:
       featured: FEATURED
       popular: POPULAR
       recently_archived: RECENTLY ARCHIVED
-      no_results_sentence: Oops, no results.
+      no_results: Sorry, no results.
   shared:
     actionbar:
       login: Login
@@ -781,10 +781,10 @@ en:
       promote: GIVE THE MIC
       embed_player: Embed Player
     new:
-      title: "VR New Talk"  
+      title: "VR New Talk"
       new_talk: New Talk
     edit:
-      title: "VR Edit Talk %{title}"  
+      title: "VR Edit Talk %{title}"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
