@@ -15,10 +15,10 @@ describe TalksController do
   end
 
   describe 'Talk#index' do
-    it 'assigns all talks as @talks' do
-      talk = FactoryGirl.create(:talk)
+    it 'assigns recent talks as @talks_recent' do
+      talk = FactoryGirl.create(:talk, state: :archived)
       get :index, {}
-      assigns(:talks).should eq([talk])
+      assigns(:talks_recent).should eq([talk])
     end
   end
 
