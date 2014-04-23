@@ -64,7 +64,7 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :teaser, :duration,
+  attr_accessible :title, :teaser, :duration, :uri,
     :description, :record, :image, :tag_list,
     :guest_list, :starts_at_date, :starts_at_time
 
