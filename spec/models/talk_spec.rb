@@ -152,39 +152,31 @@ describe Talk do
 
   describe 'nicely processes audio' do
 
-    # the spec works for me, on circleci it fails, since the generated talks
-    # id is 5 instead of 1, this doesn't work well with the fixtures
     it 'in state postlive' do
-      pending 'does not work currently, because it uses legacy talk attributes'
-      pending "WORKS ON MY MACHINE -- FAILS ON CIRCLECI" if ENV["CI"]
-      begin
-        talk = FactoryGirl.create(:talk, record: true)
-        # move fixtures in place
-        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-        fixglob = "#{fixbase}/*.flv"
-        flvs = Dir.glob(fixglob)
-        target = File.dirname(talk.recording_path)
-        FileUtils.mkdir_p(target)
-        FileUtils.cp(flvs, target, verbose: true)
-        talk.update_current_state(:postlive, true)
-        # assert pre state
-        result = "#{talk.recording_path}.m4a"
-        expect(File.exist?(result)).to be_false
-        # process
+      talk = FactoryGirl.create(:talk, record: true)
+
+      # move fixtures in place
+      fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+      fixglob = "#{fixbase}/*.flv"
+      fixflvs = Dir.glob(fixglob)
+      target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+      flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+      fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+
+      # prepare talk
+      t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+      talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+      talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+      talk.update_current_state :postlive, true
+
+      # run
+      VCR.use_cassette 'talk_postprocess' do
         talk.send :postprocess!
-        # assert post state
-        expect(File.exist?(result)).to be_true
-      ensure
-        # cleanup
-        files = flvs.map { |f| f.sub(fixbase, target) }
-        FileUtils.rm(files)
-        files = files.map { |f| f.sub('.flv', '.wav') }
-        FileUtils.rm(files)
-        FileUtils.rm(result)
-        # %x[ aplay #{result.sub('.m4a', '.wav')} ]
-        FileUtils.rm(result.sub('.m4a', '.wav'))
-        FileUtils.rm("#{talk.recording_path}.journal")
       end
+
+      # assert
+      result = File.join(Settings.rtmp.archive_path, talk.recording + '.m4a')
+      expect(File.exist?(result)).to be_true
     end
 
     it 'in state archived' do
@@ -196,7 +188,7 @@ describe Talk do
     end
 
   end
-  
+
   describe 'nicely handles callbacks' do
 
     it 'running after_start' do
@@ -208,5 +200,5 @@ describe Talk do
     end
 
   end
-  
+
 end

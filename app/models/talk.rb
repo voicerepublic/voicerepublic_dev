@@ -339,6 +339,8 @@ class Talk < ActiveRecord::Base
       (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
       runner.run(name)
     end
+    # save recording
+    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
     # move some files to archive_raw
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
@@ -351,8 +353,6 @@ class Talk < ActiveRecord::Base
     FileUtils.mkdir_p(target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
-    # save recording
-    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
 
     # TODO: save transcoded audio formats
 
