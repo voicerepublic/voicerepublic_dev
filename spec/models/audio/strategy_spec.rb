@@ -51,7 +51,7 @@ describe Audio::Strategy do
 
   it 'trims' do
     # we need the wav and the journal
-    audio_fixture('spec/support/fixtures/complex', '1.*') do |path|
+    audio_fixture('spec/support/fixtures/complex', '*') do |path|
       setting = TalkSetting.new(path)
       file_start = setting.journal['record_done'].first.last.to_i
       setting.opts = {
