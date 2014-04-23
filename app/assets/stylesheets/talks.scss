@@ -500,8 +500,6 @@
     position: relative;
     margin-bottom: 10px;
     .see-all-link{
-      position: absolute;
-      right: 0;
       bottom: 2px;
     }
   }
@@ -509,5 +507,8 @@
     font-size: rem-calc(11);
     display: inline-block;
     color: $brand-color-blue;
+    position: absolute;
+    right: 0;
+    bottom: -10px;
   }
 }

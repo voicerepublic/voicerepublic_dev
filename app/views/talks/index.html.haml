@@ -16,7 +16,9 @@
   .row.collapse-large-only
     .small-12.columns.text-center
       .title-box
-        %h3= t('.now_live')
+        = link_to live_talks_url do
+          %h3= t('.now_live')
+          %span.see-all-link= t('.see_all')  
       %ul.list-style-type-none
         = render collection: @talks_live, partial: 'shared/talk_medium_box'
   %br/
@@ -24,24 +26,27 @@
   .row.collapse-large-only.text-center
     .small-4.columns
       .title-box
-        %h3= t('.featured')
-        = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'     
+        = link_to featured_talks_url do
+          %h3= t('.featured')
+          %span.see-all-link= t('.see_all')   
       %ul.list-style-type-none
         = render collection: @talks_featured, partial: 'shared/talk_medium_box'
       = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
 
     .small-4.columns
       .title-box
-        %h3=t('.popular')
-        = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
+        = link_to popular_talks_url do
+          %h3= t('.popular')
+          %span.see-all-link= t('.see_all')
       %ul.list-style-type-none
         = render collection: @talks_popular, partial: 'shared/talk_medium_box'
       = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
 
     .small-4.columns
       .title-box
-        %h3=t('.recent')
-        = link_to t('.see_all'), recent_talks_url, class: 'see-all-link'
+        = link_to recent_talks_url do
+          %h3=t('.recent')
+          %span.see-all-link= t('.see_all')     
       %ul.list-style-type-none
         = render collection: @talks_recent, partial: 'shared/talk_medium_box'
       = link_to t('.see_all'), recent_talks_url, class: 'see-all-link'
