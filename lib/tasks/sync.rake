@@ -4,7 +4,7 @@ require 'action_view/helpers'
 
 namespace :sync do
 
-  task :rp14 do
+  task rp14: :environment do
 
     raise 'No republica_user_id' unless Settings.republica_user_id
     rp14_user = User.find Settings.republica_user_id
