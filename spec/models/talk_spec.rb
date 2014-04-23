@@ -150,6 +150,7 @@ describe Talk do
     ActionMailer::Base.deliveries.should be_empty
   end
 
+  # TODO resolve code duplication in this section
   describe 'nicely processes audio' do
 
     it 'in state postlive' do
