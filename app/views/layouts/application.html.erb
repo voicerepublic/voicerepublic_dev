@@ -27,7 +27,7 @@
     <%= render "shared/footer" %>
     <div id='scripts'>
       <%= javascript_include_tag "application" %>
-      <% unless Rails.env.development? %>
+      <% if Rails.env.production? %>
         <%= airbrake_javascript_notifier %>
         <%= render 'shared/google_analytics' %>
         <%= render 'shared/tawk' %>

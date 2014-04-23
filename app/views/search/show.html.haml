@@ -1,3 +1,6 @@
+- content_for :title do
+  = t('.title', query: @query)
+
 .row
   .large-12.columns(style='margin-top: 50px')
     %h1= t('.results', count: @results.count, default: "%{count} Results")

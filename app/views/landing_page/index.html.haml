@@ -67,6 +67,22 @@
         %ul.list-style-type-none
           = render partial: "shared/talk_medium_box", collection: @talks_featured
 
+- unless @talks_popular.empty?
+  .featured-talks.row
+    .medium-12.columns
+      .talks-box-title
+        %h4 POPULAR
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", collection: @talks_popular
+
+- unless @talks_archived.empty?
+  .featured-talks.row
+    .medium-12.columns
+      .talks-box-title
+        %h4 RECENTLY ARCHIVED
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", collection: @talks_archived
+
 .bg-blue.bg-manifest
 .manifest.row
   .large-12.columns.text-center
