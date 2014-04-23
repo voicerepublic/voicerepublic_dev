@@ -1,6 +1,10 @@
 .landing_page-index{
 
   .visitor-top-bar{
+    z-index: 2;
+  }
+
+  .visitor-top-box{
     position: absolute;
     top:0;
     left:0;

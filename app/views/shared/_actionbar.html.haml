@@ -1,7 +1,7 @@
 - if current_user && current_user.guest && current_page?(root_path)
-  .row.collapse
+  .visitor-top-bar.row.collapse
     .large-12.columns
-      .visitor-top-bar
+      .visitor-top-box
         .visitor-search-box
           = form_tag "/search", :class => 'navbar-search form-search' do
             = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
