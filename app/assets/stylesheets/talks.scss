@@ -43,11 +43,28 @@
     position: relative;
     background: rgba(0,0,0,0.5);
     margin-top: 12px;
-    padding:16px 0 2px 0;
+    padding:0px 0 2px 0;
+    .breadcrumbs-box{
+      padding:3px 10px;
+      background: rgba(0,0,0,0.7);
+      color:white;
+      font-family: 'eaglelight';
+      a{
+        font-size: rem-calc(16);
+        color: inherit;
+        font-family: inherit;
+        &:hover,&:focus{
+          color: darken(white,5%);
+        }
+      }
+      .bc-delimiter{
+        position: relative;
+        font-size: rem-calc(18);
+        display: inline-block;
+      }
+    }
     .type-name{
-      position:absolute;
-      left: 12px;
-      top: 0px;
+      margin: 8px 10px;
       font-family: 'eaglebook';
       font-size: rem-calc(14)
     }
@@ -163,11 +180,21 @@
        color: $brand-color-red;
       }
     }
+    .mute-stream-box{
+      position: absolute;
+      left: 12px;
+      bottom: 1px;
+      span{
+        font-size: rem-calc(16);
+        color: $brand-color-red;
+        cursor: pointer;
+      }
+    }
   }
 
   .talk-talkers-box{
     position: relative;
-    background: black;
+    background: rgba(0,0,0,0.8);
     padding:rem-calc(8) rem-calc(8);
     color: #fff;
     .avatar{
@@ -183,22 +210,6 @@
       &.avatar-host{
         .avatar-bg{
           fill: $brand-color-red;
-        }
-      }
-    }
-    .mute-stream-box{
-      //tmp hide
-      height:0;
-      overflow:hidden;
-      position: absolute;
-      right: 6px;
-      bottom: 4px;
-      > div{
-        display: inline-block;
-        font-size: rem-calc(14);
-        font-family: 'eaglebook';
-        span{
-          color: $brand-color-green;
         }
       }
     }

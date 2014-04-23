@@ -38,12 +38,12 @@
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
-        .type-name= t('.talk')
-        .talk-host-name
-          = link_to user_path(@talk.user) do
-            = @talk.user.name
-        .talk-venue-title
+        .breadcrumbs-box.text-left
+          = link_to @talk.user.name, user_path(@talk.user)
+          .bc-delimiter >
           = link_to @talk.venue.title, @talk.venue
+          .bc-delimiter >
+        .type-name.text-left= t('.talk')
         %h2.talk-title
           = @talk.title
         .talk-teaser
@@ -94,6 +94,9 @@
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
               {{ countdown }} MIN
+        .mute-stream-box(ng-show='talkIsLive()')
+          %span.icon-volume-mute(ng-click='setVolume(0)')
+          %span.icon-volume-mute2(ng-click='setVolume(1)')
 
     .talk-talkers-box.row
       .large-12.columns.text-center
@@ -110,12 +113,6 @@
           .host-actions(ng-show='showHostActions()')
             .guest-demote-link(ng-click="demote(guest.id)")
               = t('.demote')
-      .mute-stream-box(ng-show='talkIsLive()')
-        .mute-title= 'Talk:'
-        .mute-stream
-          %span(ng-click='setVolume(0)')= t('.mute_streams')
-        .unmute-stream
-          %span(ng-click='setVolume(1)')= t('.unmute_streams')
 
     .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
       .large-12.columns
