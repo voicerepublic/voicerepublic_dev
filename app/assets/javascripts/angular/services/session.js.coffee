@@ -58,7 +58,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.flags.settings = true
       onListening: ->
         unless config.user.role == 'listener'
-          config.flags.reqmic = true 
+          config.flags.reqmic = true
       onleaveListening: ->
         config.flags.reqmic = false
         true
@@ -173,9 +173,13 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
       when 'Demote' # make it snappy!
         users[data.user.id]?.state = 'Listening'
         users[data.user.id]?.offline = true
+      when 'Reload'
+        # this is only used in user acceptance testing
+        # but could also be used for live upgrades
+        window.location.reload()
       when 'StartTalk'
         config.talk.state = 'live'
-        # TODO countdown.init config.talk.duration
+        config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
           fsm.TalkStarted()
@@ -188,6 +192,8 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.state = 'archived'
         $log.debug data.links
         config.talk.links = data.links
+        # FIXME this is not very nice
+        window.location.reload()
 
   # some methods only available to the host
   promote = (id) ->
@@ -196,6 +202,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     return fsm.Demoted() if id is config.user_id
     upstream.event 'Demote', user: { id }
   startTalk = ->
+    return unless config.talk.state == 'prelive'
     $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
   endTalk = ->
@@ -220,7 +227,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
   # exposed objects
-  { 
+  {
     # -- events
     promote
     demote

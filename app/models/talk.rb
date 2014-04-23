@@ -74,7 +74,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  validates :venue, :title, :tag_list, :duration, presence: true
+  validates :venue, :title, :tag_list, :duration, :description, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
     message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
@@ -219,6 +219,14 @@ class Talk < ActiveRecord::Base
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
+  # this is only for user acceptance testing!
+  def make_it_start_soon!(delta=1.minute)
+    self.starts_at_time = delta.from_now.strftime('%H:%M')
+    self.state = :prelive
+    self.save!
+    PrivatePub.publish_to public_channel, event: 'Reload'
+  end
+  
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -263,7 +271,7 @@ class Talk < ActiveRecord::Base
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
     unless venue.opts.no_auto_postprocessing
-      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio') 
+      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio')
     end
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
@@ -291,13 +299,18 @@ class Talk < ActiveRecord::Base
     end
     # save recording
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-    # move some files to archive_raw
+    # delete some files (mainly wave files, we'll keep only flv
+    # and compressed files)
+    FileUtils.rm Dir.glob("#{base}/t#{id}-u*.wav")
+    FileUtils.rm Dir.glob("#{base}/#{id}-*.wav")
+    FileUtils.rm Dir.glob("#{base}/#{id}.wav")
+    # move some files to archive_raw (journal and flv files)
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
     FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
-    # move some files to archive
+    # move some files to archive (all other files)
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     target = File.dirname(File.join(archive, recording))
     FileUtils.mkdir_p(target, verbose: true)
