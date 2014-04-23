@@ -263,7 +263,7 @@ class Talk < ActiveRecord::Base
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
     unless venue.opts.no_auto_postprocessing
-      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio') 
+      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio')
     end
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
@@ -293,9 +293,9 @@ class Talk < ActiveRecord::Base
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
     # delete some files (mainly wave files, we'll keep only flv
     # and compressed files)
-    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav")
-    FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav")
-    FileUtils.rm(Dir.glob("#{base}/#{id}.wav")
+    FileUtils.rm Dir.glob("#{base}/t#{id}-u*.wav")
+    FileUtils.rm Dir.glob("#{base}/#{id}-*.wav")
+    FileUtils.rm Dir.glob("#{base}/#{id}.wav")
     # move some files to archive_raw (journal and flv files)
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
