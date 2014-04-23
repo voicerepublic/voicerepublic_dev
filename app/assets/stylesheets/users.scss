@@ -77,8 +77,16 @@
   #tab-about-me{
   	background: rgba(0,0,0,0.8);
   	padding: rem-calc(15) !important;
-  	p{
-  	  color: white
+  	a{
+  		color:white;
+  		text-decoration: underline;
+  		&:focus,&:hover{
+  			color:darken(white,8%);
+  			text-decoration: underline;
+  		}
+  	}
+  	li,p{
+  		color:white;
   	}
   }
 }
