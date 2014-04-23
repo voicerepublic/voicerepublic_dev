@@ -291,13 +291,18 @@ class Talk < ActiveRecord::Base
     end
     # save recording
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-    # move some files to archive_raw
+    # delete some files (mainly wave files, we'll keep only flv
+    # and compressed files)
+    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav")
+    FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav")
+    FileUtils.rm(Dir.glob("#{base}/#{id}.wav")
+    # move some files to archive_raw (journal and flv files)
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
     FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
-    # move some files to archive
+    # move some files to archive (all other files)
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     target = File.dirname(File.join(archive, recording))
     FileUtils.mkdir_p(target, verbose: true)
