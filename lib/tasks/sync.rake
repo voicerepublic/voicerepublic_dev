@@ -32,15 +32,15 @@ namespace :sync do
     data = JSON.load(json)
     items = data['items'].map { |i| OpenStruct.new(i) }
     puts "Found #{items.size} items."
-    
+
     items.each do |item|
       begin
         # sanity checks
         nid = item.nid
         raise 'No nid' if nid.blank?
-        room = item.room.strip
-        if room.blank?
-          warnings << '% 4s: Room missing, item skipped.' % nid
+        category = item.category.strip
+        if category.blank?
+          warnings << '% 4s: Category missing, item skipped.' % nid
           next
         end
         _, d, m, y = item.datetime.match(datetime_regex).to_a
@@ -50,9 +50,9 @@ namespace :sync do
         end
 
         # update venue
-        venue_uri = "rp://2014/room/#{item.room.strip.tr(' ', '-')}"
+        venue_uri = "rp://2014/category/#{category.tr(' ', '-')}"
         venue = Venue.find_or_initialize_by(uri: venue_uri)
-        venue.title = "#{item.event_title.strip} - #{room}"
+        venue.title = "#{item.event_title.strip} - #{category}"
         venue.teaser = item.event_description.strip
         venue.description = 'tbd.' # FIXME
         venue.tag_list = rp14_tags
@@ -69,7 +69,7 @@ namespace :sync do
         talk.title = item.title.strip
         talk.teaser = item.description_short.strip.truncate(255)
         talk.description = ([ item.speaker_names.map(&:strip) * ', ',
-                              item.category.strip,
+                              'Room: ' + item.room.strip,
                               item.description.strip ] * '<br><br>' ).
                            truncate(text_limit)
         talk.tag_list = rp14_tags
