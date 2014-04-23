@@ -1,53 +1,62 @@
 .landing_page-index{
 
-  // VISITOR SEARCH BOX
-  .visitor-search-box{
-    .top-bar-search-field{
-      position: absolute !important;
-      top: 4px !important;
-      left: 0;
-      width: 150px;
-      height: 30px !important;
-      line-height:  inherit !important;
-      background: transparent !important;
-      margin: 0;
-      padding: 0 5px 0 30px !important;
-      color: #222 !important;
-      font-family: 'eaglelight';
-      font-size: rem-calc(16);
-      border-style: none !important;
-      @include placeholder{
-        color: #222;
-      }
-      &:hover,
-      &:focus{
-        background: lighten($brand-color-creme,3%) !important;
+  .visitor-top-bar{
+    position: absolute;
+    top:0;
+    left:0;
+    .visitor-search-box{
+      display: inline-block;
+      .top-bar-search-field{
+        width: 100px;
+        background: transparent !important;
+        padding-left:30px !important;
+        padding-right:0px !important;
+        color: #222 !important;
+        font-family: 'eaglelight';
+        font-size: rem-calc(16);
         border-style: none !important;
-        outline-style: none !important;
-        @include box-shadow(0,0,0,#000);
-        color: #000;        
+        @include placeholder{
+          color: #222;
+        }
+        &:hover,
+        &:focus{
+          width: 150px;
+          background: lighten($brand-color-creme,3%) !important;
+          border-style: none !important;
+          outline-style: none !important;
+          @include box-shadow(0,0,0,#000);
+          color: #000;        
+        }
+      }
+
+      .search-lupe{
+        .icon-magnifying-glass{
+          color: #333;
+          font-size: rem-calc(20);
+        }
+        position: absolute;
+        left: 2px;
+        top: 6px;
+        background: none;
+        font-size: 1.2rem;
+        padding: 0;
+        margin: 0;
+        display: inline;
+        &:hover,
+        &:focus{
+          background:none;
+          .icon-magnifying-glass{
+            color: inherit
+          }
+        }
       }
     }
 
-    .search-lupe{
-      .icon-magnifying-glass{
-        color: #333;
-        font-size: rem-calc(20);
-      }
-      position: absolute;
-      left: 2px;
-      top: 6px;
-      background: none;
-      font-size: 1.2rem;
-      padding: 0;
-      margin: 0;
-      display: inline;
-      &:hover,
-      &:focus{
-        background:none;
-        .icon-magnifying-glass{
-          color: inherit
-        }
+    .visitor-explore-link{
+      display: inline-block;
+      a{
+        font-family: 'eaglelight';
+        color: #222;
       }
     }
   }
@@ -293,6 +302,15 @@
           color: white;
         }
       }
+    }
+  }
+
+  .small-authentication-links{
+    margin-top:10px;
+    a{
+      font-family: 'eaglelight';
+      color: #222;
+      margin-left: 14px;
     }
   }
 
