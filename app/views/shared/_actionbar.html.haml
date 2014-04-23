@@ -1,50 +1,63 @@
-.row.top-bar-box
-  %nav.top-bar(data-topbar)
-    %ul.title-area
-      %li.name
-        &nbsp;
-      %li.toggle-topbar.menu-icon
-        %a{href: "#"} Menu
-    %h1.top-bar-vr-logo.text-center
-      = link_to root_path do
-        %span.icon-vr-logo
+- if current_user && current_user.guest && current_page?(root_path)
+  .row.collapse
+    .large-12.columns
+      .visitor-search-box
+        = form_tag "/search", :class => 'navbar-search form-search' do
+          = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
+          = button_tag :type => "submit", :class => "search-lupe" do
+            %span.icon-magnifying-glass
 
-    %section.top-bar-section
-      -# Right Nav Section
-      %ul.right
-        - if current_user.guest?
-          %li
-            = link_to t('.login'), new_user_session_path, class: "logged-out-link"
-          %li
-            = link_to t('.sign_up'), new_user_registration_path, class: "logged-out-link"
-        - else
-          %li.has-dropdown
-            %a.user-link(href='#')
-              .avatar
-                = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 25 }
-              = current_user.name
+- else
 
-            %ul.user-link-dropdown.dropdown
-              %li
-                = link_to current_user do
-                  = t('.my_profile', default: 'My Profile')
-              %li
-                = link_to new_venue_path do
-                  = t('.create_venue')
-              %li
-                = link_to [:edit, current_user] do
-                  = t('.settings')
-              %li
-                = link_to(destroy_user_session_path, method: :delete) do
-                  %i.icon-off
-                  = t('.logout')
+  .row.top-bar-box
+    %nav.top-bar(data-topbar)
+      %ul.title-area
+        %li.name
+          &nbsp;
+        %li.toggle-topbar.menu-icon
+          %a{href: "#"} Menu
+      %h1.top-bar-vr-logo.text-center
+        = link_to root_path do
+          %span.icon-vr-logo
 
-      -# Left Nav Section
-      %ul.left
-        %li.top-bar-search-box
-          = form_tag "/search", :class => 'navbar-search form-search' do
-            = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
-            = button_tag :type => "submit", :class => "search-lupe" do
-              %span.icon-magnifying-glass
-        %li.explore-link
-          = link_to t('.explore'), talks_path
+
+      %section.top-bar-section
+        -# Right Nav Section
+        %ul.right
+          - if current_user.guest?
+            %li
+              = link_to t('.login'), new_user_session_path, class: "logged-out-link"
+            %li
+              = link_to t('.sign_up'), new_user_registration_path, class: "logged-out-link"
+          - else
+            %li.has-dropdown
+              %a.user-link(href='#')
+                .avatar
+                  = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 25 }
+                = current_user.name
+
+              %ul.user-link-dropdown.dropdown
+                %li
+                  = link_to current_user do
+                    = t('.my_profile', default: 'My Profile')
+                %li
+                  = link_to new_venue_path do
+                    = t('.create_venue')
+                %li
+                  = link_to [:edit, current_user] do
+                    = t('.settings')
+                %li
+                  = link_to(destroy_user_session_path, method: :delete) do
+                    %i.icon-off
+                    = t('.logout')
+
+        -# Left Nav Section
+        %ul.left
+          %li.top-bar-search-box
+            = form_tag "/search", :class => 'navbar-search form-search' do
+              = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')
+              = button_tag :type => "submit", :class => "search-lupe" do
+                %span.icon-magnifying-glass
+          %li.explore-link
+            = link_to t('.explore'), talks_path
+

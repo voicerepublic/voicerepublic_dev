@@ -23,91 +23,74 @@
           .content.active#signup
             = render 'lp_signup', :user => @user
 
-.title-row.row.collapse-large-only
-  .medium-12.columns.text-center
-    %span.lp-logo.icon-vr-logo
-    %h1.headline
-      = raw t('.headline')
-    %h2.subheadline
-      = raw t('.subheadline')
-    %h3.subheadline-2
-      = raw t('.subheadline_2')
+.title-row.bg-creme
+  .row.collapse-large-only
+    .medium-12.columns.text-center
+      %span.lp-logo.icon-vr-logo
+      %h1.headline
+        = t('.headline').html_safe
+      %h2.subheadline
+        = t('.subheadline').html_safe
+      %h3.subheadline-2
+        = t('.subheadline_2').html_safe
 
-.bg-blue
-.about-summary.row
-  .small-4.columns.text-center
-    = image_tag '/images/illu1.jpg'
-    %h4 STREAMING
-    %p
-      = t('.text_illu_1')
-  .small-4.columns.text-center
-    = image_tag '/images/illu2.jpg'
-    %h4 INTERACTION
-    %p
-      = t('.text_illu_2')
-  .small-4.columns.text-center
-    = image_tag '/images/illu3.jpg'
-    %h4 AUDIO ARCHIVE
-    %p
-      = t('.text_illu_3')
+.about-summary.bg-blue
+  .row
+    .small-4.columns.text-center
+      = image_tag '/images/illu1.jpg'
+      %h4= t('.title_illu_1')
+      %p= t('.text_illu_1')
+    .small-4.columns.text-center
+      = image_tag '/images/illu2.jpg'
+      %h4= t('.title_illu_2')
+      %p= t('.text_illu_2')
+    .small-4.columns.text-center
+      = image_tag '/images/illu3.jpg'
+      %h4= t('.title_illu_3')
+      %p= t('.text_illu_3')
 
-- unless @talks_live.empty?
-  .live-talks.row
-    .medium-12.columns
-      .talks-box-title
-        %h4 NOW LIVE
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", collection: @talks_live
+.talks.bg-creme
+  - unless @talks_live.empty?
+    .live-talks.row
+      .medium-12.columns
+        .talks-box-title
+          %h4= t('.now_live')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_live
 
-- unless @talks_featured.empty?
-  .featured-talks.row
-    .medium-12.columns
-      .talks-box-title
-        %h4 FEATURED
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", collection: @talks_featured
+  - unless @talks_featured.empty?
+    .featured-talks.row
+      .medium-12.columns
+        .talks-box-title
+          %h4= t('.featured')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_featured
 
-- unless @talks_popular.empty?
-  .featured-talks.row
-    .medium-12.columns
-      .talks-box-title
-        %h4 POPULAR
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", collection: @talks_popular
+  - unless @talks_popular.empty?
+    .featured-talks.row
+      .medium-12.columns
+        .talks-box-title
+          %h4= t('.popular')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_popular
 
-- unless @talks_recent.empty?
-  .featured-talks.row
-    .medium-12.columns
-      .talks-box-title
-        %h4 RECENTLY ARCHIVED
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", collection: @talks_recent
+  - unless @talks_archived.empty?
+    .featured-talks.row
+      .medium-12.columns
+        .talks-box-title
+          %h4= t('.recently_archived')
+          %ul.list-style-type-none
+            = render partial: "shared/talk_medium_box", collection: @talks_archived
 
-.bg-blue.bg-manifest
-.manifest.row
-  .large-12.columns.text-center
-    %span.icon-vr-logo
-    %h4 THE VOICE REPUBLIC MANIFESTO
-    %br/
-    %h5 1. Democracy lives on discussion and free speech
-    %p At Voice Republic, you can share and form your opinions.
-    %h5 2. Voice Republic lets speaker and listener meet at eye level
-    %p Every listener can be a speaker, and vice versa.
-    %h5 3. For more analog within the digital
-    %p Voice Republic lets discussions grow just like they do in the real world. You can express yourself in as much detail as you like, giving space to the subjects that interest you.
-    %h4 4. Voice Republic is founded on respect
-    %p Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.
-    %h5 5. For a decentralization of the Internet
-    %p For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.
-    %h5 6. We don't do business with your data
-    %p Voice Republic has a business model. Your data is not part of it. Coming soon.
-    %h5 7. Voice Republic can forget
-    %p When you delete your accout, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"
-
+.manifest.bg-blue
+  .row
+    .large-12.columns.text-center
+      %span.icon-vr-logo
+      = t('.manifest').html_safe
 
 .member-block.row
   .small-10.small-centered.columns.text-center
-    %h4 TEAM
+    %h4= t('.team')
     %ul.large-block-grid-3.medium-block-grid-3.small-block-grid-3
       - team_path = '/images/team/'
       - format = '.jpg'
@@ -136,5 +119,4 @@
                 .member-function
                   = member[3]
                 .avatar-name.text-center
-                  = raw member[0]
-
+                  = member[0].html_safe

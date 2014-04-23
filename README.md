@@ -22,6 +22,10 @@ Welcome to VoiceRepublic
 * Staging: [http://staging.voicerepublic.com](http://staging.voicerepublic.com)
 
 
+Depencies
+---------
+VR is being developped on Ruby 1.9.3
+
 Setup
 -----
 
