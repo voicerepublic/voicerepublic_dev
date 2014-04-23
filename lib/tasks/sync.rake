@@ -6,8 +6,8 @@ namespace :sync do
 
   task :rp14 do
 
-    # TODO: hardcode the user for re:publica
-    rp14_user = User.first
+    raise 'No republica_user_id' unless Settings.republica_user_id
+    rp14_user = User.find Settings.republica_user_id
     rp14_tags = 're:publica'
     rp14_opts = {
       no_auto_postprocessing: true,
