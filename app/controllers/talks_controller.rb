@@ -2,7 +2,6 @@ class TalksController < ApplicationController
 
   before_action :set_venue
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
-  before_action :set_feed_type, only: [:index]
   before_filter :authenticate_user!
 
   # GET /talks
@@ -70,14 +69,6 @@ class TalksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_talk
     @talk = Talk.find(params[:id])
-  end
-
-  def set_feed_type
-    if request.format == 'application/rss+xml'
-      if params[:audio_format] && %w{m4a mp3 ogg}.include?(params[:audio_format])
-        @audio_format = params[:audio_format]
-      end
-    end
   end
 
   # Only allow a trusted parameter "white list" through.

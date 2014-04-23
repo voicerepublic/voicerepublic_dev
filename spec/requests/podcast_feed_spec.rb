@@ -3,7 +3,10 @@ require 'spec_helper'
 describe 'podcast feed' do
   before do
     @venue = FactoryGirl.create(:venue)
-    @talks = FactoryGirl.create_list(:talk, 2, state: :archived, venue: @venue)
+    @talks = FactoryGirl.create_list(:talk, 2, 
+                                     state: :archived,
+                                     processed_at: Date.today,
+                                     venue: @venue)
   end
 
   describe 'feed' do
@@ -14,24 +17,9 @@ describe 'podcast feed' do
   end
 
   describe 'audio format' do
-    it 'default ogg' do
+    it 'default mp3' do
       get venue_talks_path(@venue, format: :rss)
-      expect(response.body).to include("voicerepublic.com/vrmedia/#{@talks.first.id}.ogg")
-    end
-
-    it 'format mp3' do
-      get venue_talks_path(@venue, format: :rss, audio_format: 'mp3')
-      expect(response.body).to include("voicerepublic.com/vrmedia/#{@talks.first.id}.mp3")
-    end
-    
-    it 'format m4a' do
-      get venue_talks_path(@venue, format: :rss, audio_format: 'm4a')
-      expect(response.body).to include("voicerepublic.com/vrmedia/#{@talks.first.id}.m4a")
-    end
-    
-    it 'format ogg' do
-      get venue_talks_path(@venue, format: :rss, audio_format: 'ogg')
-      expect(response.body).to include("voicerepublic.com/vrmedia/#{@talks.first.id}.ogg")
+      expect(response.body).to include("example.com/vrmedia/#{@talks.first.id}.mp3")
     end
 
   end
@@ -39,13 +27,13 @@ describe 'podcast feed' do
   describe 'contains' do
     it 'only :archived' do
       talk = FactoryGirl.create(:talk, venue: @venue)
-      get venue_talks_path(@venue, format: :rss, audio_format: 'ogg')
-      expect(response.body).to_not include("#{talk.id}.ogg")
+      get venue_talks_path(@venue, format: :rss)
+      expect(response.body).to_not include("#{talk.id}.mp3")
     end
 
     it 'venue image' do
       get venue_talks_path(@venue, format: :rss)
-      expect(response.body).to include(@venue.image.url)
+      expect(response.body).to include(@venue.image.path.split('/')[-1])
     end
     
   end
