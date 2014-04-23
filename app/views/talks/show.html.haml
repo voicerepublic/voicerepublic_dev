@@ -175,8 +175,12 @@
 
     .row.collapse-large-only
       .large-12.columns
+        -# TODO: The current active tab is being decided upon in Ruby. This is a
+        -# hacky and redundant implementation (decision was made whilst swarming).
+        -# The active tab should be different in various states, however.
+        -# https://www.pivotaltracker.com/story/show/70019652
         %dl.tabs.vr-tabs(data-tab="true")
-          %dd.text-center
+          %dd.text-center{class: ("active" if @talk.venue.opts.suppress_chat)}
             %a(href="#description")
               %span.icon-description
               = t('.description')
@@ -196,7 +200,11 @@
 
   .talk-tabs-content-block
     .tabs-content
-      #description.content
+      -# TODO: The current active tab is being decided upon in Ruby. This is a
+      -# hacky and redundant implementation (decision was made whilst swarming).
+      -# The active tab should be different in various states, however.
+      -# https://www.pivotaltracker.com/story/show/70019652
+      #description.content{class: ("active" if @talk.venue.opts.suppress_chat)}
         .row
           .large-12.columns
             = @talk.try(:description).try(:html_safe)
