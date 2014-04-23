@@ -38,9 +38,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
 
   $scope.messageKeyup = (e) ->
     # TODO: This is not Angular code and maybe not the best way to go
-    unless $("a[href=#talk-tab-discussion]").parent().hasClass('active')
+    unless $("a[href=#discussion]").parent().hasClass('active')
       console.log("clicked")
-      $("a[href=#talk-tab-discussion] .icon-bubble-multi").click()
+      $("a[href=#discussion] .icon-bubble-multi").click()
     sendMessage() if e.which == 13 # Enter
 
   $scope.talkIsPrelive = ->
