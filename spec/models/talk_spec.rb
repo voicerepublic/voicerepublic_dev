@@ -195,8 +195,6 @@ describe Talk do
       talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
       talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
       talk.update_current_state :postlive, true
-
-      # run
       VCR.use_cassette 'talk_postprocess' do
         talk.send :postprocess!
       end
@@ -213,7 +211,37 @@ describe Talk do
     end
 
     it 'in state archived with override' do
-      pending 'Please write a spec, pretty please!'
+      talk = FactoryGirl.create(:talk, record: true)
+
+      # move fixtures in place
+      fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+      fixglob = "#{fixbase}/*.flv"
+      fixflvs = Dir.glob(fixglob)
+      target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+      flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+      fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+
+      # prepare talk
+      t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+      talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+      talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+      talk.update_current_state :postlive, true
+      VCR.use_cassette 'talk_postprocess' do
+        talk.send :postprocess!
+      end
+      result = File.join(Settings.rtmp.archive_path, talk.recording + '.m4a')
+      ctime = File.ctime(result)
+      override = File.expand_path('spec/support/fixtures/sonar.ogg', Rails.root)
+      talk.update_attribute :recording_override, override
+      
+      # no we are in state `archived`, so we can do a `process_override`
+      VCR.use_cassette 'talk_reprocess' do
+        talk.send :process_override!
+      end
+
+      # assert
+      expect(File.ctime(result)).not_to eq(ctime)
+      expect(talk.recording_override).not_to eq(override)
     end
 
   end

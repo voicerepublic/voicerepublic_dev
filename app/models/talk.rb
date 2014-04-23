@@ -297,36 +297,40 @@ class Talk < ActiveRecord::Base
 
   # TODO this will leave orphaned versions of previous processings on disk
   def process_override!(uat=false)
+    # prepare override
     Dir.mktmpdir do |path|
       Dir.chdir(path) do 
         # download
         tmp = "t#{id}"
-        %x[ curl #{recording_override} > #{tmp} ]
+        File.open(tmp, 'w') { |f| f.print open(recording_override).read }
         # convert to ogg
-        %x[ avconv -i #{tmp} #{tmp}.wav; oggenc #{tmp}.wav ]
+        %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
         # move ogg to archive
         ogg = tmp + '.ogg'
         path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"
-        target = File.join(Settings.rtmp.archive_path, path)
+        base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+        target = File.join(base, path)
         FileUtils.mkdir_p(File.dirname(target))
         FileUtils.mv(ogg, target)
         # store reference
         update_attribute :recording_override, path
         # move wav to `recordings`
         wav = tmp + '.wav'
-        target = File.join(Settings.rtmp.recordings_path, "#{id}.wav")
+        base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+        target = File.join(base, "#{id}.wav")
         FileUtils.mv(wav, target)
       end
     end # unlinks tmp dir
+    
     chain = Setting.get('audio.process_override_chain').split(/\s+/)
-    run_chain! chain
+    run_chain! chain, uat
   end
   
   def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
 
-    base = Settings.rtmp.recordings_path
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     opts = {
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i
