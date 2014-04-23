@@ -288,8 +288,8 @@ class Talk < ActiveRecord::Base
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     base = File.dirname(File.join(archive_raw, recording))
     target = Settings.rtmp.recordings_path
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
 
     chain = Setting.get('audio.reprocess_chain').split(/\s+/)
     run_chain! chain, uat
@@ -308,14 +308,14 @@ class Talk < ActiveRecord::Base
         ogg = tmp + '.ogg'
         path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"
         target = File.join(Settings.rtmp.archive_path, path)
-        FileUtils.mkdir_p(File.dirname(target), verbose: true)
-        FileUtils.mv(ogg, target, verbose: true)
+        FileUtils.mkdir_p(File.dirname(target))
+        FileUtils.mv(ogg, target)
         # store reference
         update_attribute :recording_override, path
         # move wav to `recordings`
         wav = tmp + '.wav'
         target = File.join(Settings.rtmp.recordings_path, "#{id}.wav")
-        FileUtils.mv(wav, target, verbose: true)
+        FileUtils.mv(wav, target)
       end
     end # unlinks tmp dir
     chain = Setting.get('audio.process_override_chain').split(/\s+/)
@@ -344,15 +344,15 @@ class Talk < ActiveRecord::Base
     # move some files to archive_raw
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
-    FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
+    FileUtils.mkdir_p(target)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
     # move some files to archive
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     target = File.dirname(File.join(archive, recording))
-    FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
+    FileUtils.mkdir_p(target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target)
 
     # TODO: save transcoded audio formats
 
