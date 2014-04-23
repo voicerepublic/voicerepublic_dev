@@ -14,7 +14,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     onair: false
     reqmic: false
     acceptOrDecline: false
-    settings: false
+    settings: true
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -58,7 +58,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.flags.settings = true
       onListening: ->
         unless config.user.role == 'listener'
-          config.flags.reqmic = true 
+          config.flags.reqmic = true
       onleaveListening: ->
         config.flags.reqmic = false
         true
@@ -216,7 +216,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
 
   # exposed objects
-  { 
+  {
     # -- events
     promote
     demote
