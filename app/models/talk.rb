@@ -219,6 +219,14 @@ class Talk < ActiveRecord::Base
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
+  # this is only for user acceptance testing!
+  def make_it_start_soon!(delta=1.minute)
+    self.starts_at_time = delta.from_now.strftime('%H:%M')
+    self.state = :prelive
+    self.save!
+    PrivatePub.publish_to public_channel, event: 'Reload'
+  end
+  
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.

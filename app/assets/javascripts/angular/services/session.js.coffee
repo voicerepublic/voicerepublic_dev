@@ -169,9 +169,13 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   eventHandler = (event, data) ->
     $log.debug "event: #{event}"
     switch event
+      when 'Reload'
+        # this is only used in user acceptance testing
+        # but could also be used for live upgrades
+        window.location.reload()
       when 'StartTalk'
         config.talk.state = 'live'
-        # TODO countdown.init config.talk.duration
+        config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
           fsm.TalkStarted()
@@ -184,6 +188,8 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.state = 'archived'
         $log.debug data.links
         config.talk.links = data.links
+        # FIXME this is not very nice
+        window.location.reload()
 
   # some methods only available to the host
   promote = (id) ->
@@ -195,7 +201,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     return unless config.talk.state == 'prelive'
     $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
-    config.talk.remaining_seconds = config.talk.duration
   endTalk = ->
     upstream.event 'EndTalk'
 

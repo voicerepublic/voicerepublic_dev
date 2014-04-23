@@ -190,18 +190,17 @@ ever run this in production!)
     % bin/vrwatch
 
 On a rails console, pick the talk you want to work with (e.g. id 42)
-and reset it to start soon (e.g. `20.seconds.from_now`). (Don't use
-`update_attribute`, since it will not trigger the callbacks.)
+and reset it to start soon, there is a nifty helper for that.
 
     t = Talk.find(42); nil
-    t.reload; t.starts_at = 20.seconds.from_now; t.state = 'prelive'; t.save
+    t.reload.make_it_start_soon!
 
-Then reload the browsers. It will record a couple of seconds
-pretalk. You should see the file size in `vrwatch` go up. After the
-time to start is up it will switch to live mode automatically. With
-your second Browser you should hear yourself now. (Reload the host at
-least once if you want to have multiple files. These will show up on
-the console which runs `vrwatch`.)
+This will also trigger a reload of the browsers. It will record a
+couple of seconds pretalk. You should see the file size in `vrwatch`
+go up. After the time to start is up it will switch to live mode
+automatically. With your second Browser you should hear yourself
+now. (Reload the host at least once if you want to have multiple
+files. These will show up on the console which runs `vrwatch`.)
 
 Click `End Talk` to end the talk. On the rails console kick off post
 processing (in User Acceptance Test mode) with:
