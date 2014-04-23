@@ -57,8 +57,9 @@ describe "Talks" do
           # This spec works until here. The message is never being shown in
           # testing mode, though. Faye published it, however. And of course it
           # works in development.
-          within "#talk-tab-discussion" do
+          within "#discussion" do
             page.should have_content "my message"
+            find(".chat-message").should be_visible
           end
         end
       end
