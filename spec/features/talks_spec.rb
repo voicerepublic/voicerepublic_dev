@@ -71,8 +71,8 @@ describe "Talks" do
           find(".chat-input-box input").set("my message")
           find(".chat-input-box input").native.send_keys(:return)
           visit(current_path)
-          page.execute_script('$("a[href=#talk-tab-discussion]").click()')
-          within "#talk-tab-discussion" do
+          page.execute_script('$("a[href=#discussion]").click()')
+          within "#discussion" do
             page.should have_content "my message"
             page.should have_content "01 Sep 10:05"
           end
