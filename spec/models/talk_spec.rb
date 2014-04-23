@@ -11,7 +11,6 @@ describe Talk do
   end
 
   describe 'built' do
-
     before do
       @talk = FactoryGirl.build :talk
     end
@@ -34,11 +33,6 @@ describe Talk do
     it 'validates presence of starts_at_time' do
       @talk.starts_at_time = nil
       expect(@talk).to_not be_valid
-    end
-    # FIXME
-    it 'provides a method starts_in' do
-      pending "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
-      expect(@talk.starts_in).to be > 0
     end
     it 'should store what is written to processed_at' do
       @talk.processed_at = time = Time.zone.now
@@ -81,6 +75,14 @@ describe Talk do
       t2.save
       Talk.without_audio_format('mp3').count.should be(1)
     end
+
+    it 'has a scope featured' do
+      talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
+      talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
+      talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
+      expect(Talk.featured).to eq([talk1, talk0])
+      expect(Talk.featured).to include(talk0)
+    end
   end
 
   describe 'created' do
@@ -102,41 +104,6 @@ describe Talk do
     end
   end
 
-  # the spec works for me, on circleci it fails, since the generated talks
-  # id is 5 instead of 1, this doesn't work well with the fixtures
-  it 'nicely postprocesses audio' do
-    pending 'does not work currently, because it uses legacy talk attributes'
-    pending "WORKS ON MY MACHINE -- FAILS ON CIRCLECI" if ENV["CI"]
-    begin
-      talk = FactoryGirl.create(:talk, record: true)
-      # move fixtures in place
-      fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-      fixglob = "#{fixbase}/*.flv"
-      flvs = Dir.glob(fixglob)
-      target = File.dirname(talk.recording_path)
-      FileUtils.mkdir_p(target)
-      FileUtils.cp(flvs, target, verbose: true)
-      talk.update_current_state(:postlive, true)
-      # assert pre state
-      result = "#{talk.recording_path}.m4a"
-      expect(File.exist?(result)).to be_false
-      # process
-      talk.send :postprocess!
-      # assert post state
-      expect(File.exist?(result)).to be_true
-    ensure
-      # cleanup
-      files = flvs.map { |f| f.sub(fixbase, target) }
-      FileUtils.rm(files)
-      files = files.map { |f| f.sub('.flv', '.wav') }
-      FileUtils.rm(files)
-      FileUtils.rm(result)
-      # %x[ aplay #{result.sub('.m4a', '.wav')} ]
-      FileUtils.rm(result.sub('.m4a', '.wav'))
-      FileUtils.rm("#{talk.recording_path}.journal")
-    end
-  end
-
   it 'nicely follows the life cycle' do
     Delayed::Worker.delay_jobs = true # activate
     VCR.use_cassette 'talk_dummy' do
@@ -154,6 +121,14 @@ describe Talk do
     Delayed::Worker.delay_jobs = false # deactivate
   end
 
+  # NOTE: times set in a factory are not affected by `Timecop.freeze`
+  # in a before block
+  it 'provides a method starts_in' do
+    attrs = { starts_at_date: 1.hour.from_now.strftime('%Y-%m-%d') }
+    talk = FactoryGirl.create(:talk, attrs)
+    expect(talk.starts_in).to be > 0
+  end
+
   it 'generate ephemeral paths' do
     talk = FactoryGirl.create(:talk, recording: 'invalid_id')
     base = Settings.rtmp.archive_path
@@ -168,14 +143,6 @@ describe Talk do
     FileUtils.rm(source)
   end
 
-  it 'has a scope featured' do
-    talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
-    talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
-    talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
-    expect(Talk.featured).to eq([talk1, talk0])
-    expect(Talk.featured).to include(talk0)
-  end
-
   it 'does not send email with option no_emails' do
     ActionMailer::Base.deliveries = []
     venue = FactoryGirl.create(:venue, options: { no_email: true })
@@ -183,4 +150,63 @@ describe Talk do
     ActionMailer::Base.deliveries.should be_empty
   end
 
+  describe 'nicely processes audio' do
+
+    # the spec works for me, on circleci it fails, since the generated talks
+    # id is 5 instead of 1, this doesn't work well with the fixtures
+    it 'in state postlive' do
+      pending 'does not work currently, because it uses legacy talk attributes'
+      pending "WORKS ON MY MACHINE -- FAILS ON CIRCLECI" if ENV["CI"]
+      begin
+        talk = FactoryGirl.create(:talk, record: true)
+        # move fixtures in place
+        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+        fixglob = "#{fixbase}/*.flv"
+        flvs = Dir.glob(fixglob)
+        target = File.dirname(talk.recording_path)
+        FileUtils.mkdir_p(target)
+        FileUtils.cp(flvs, target, verbose: true)
+        talk.update_current_state(:postlive, true)
+        # assert pre state
+        result = "#{talk.recording_path}.m4a"
+        expect(File.exist?(result)).to be_false
+        # process
+        talk.send :postprocess!
+        # assert post state
+        expect(File.exist?(result)).to be_true
+      ensure
+        # cleanup
+        files = flvs.map { |f| f.sub(fixbase, target) }
+        FileUtils.rm(files)
+        files = files.map { |f| f.sub('.flv', '.wav') }
+        FileUtils.rm(files)
+        FileUtils.rm(result)
+        # %x[ aplay #{result.sub('.m4a', '.wav')} ]
+        FileUtils.rm(result.sub('.m4a', '.wav'))
+        FileUtils.rm("#{talk.recording_path}.journal")
+      end
+    end
+
+    it 'in state archived' do
+      pending 'Please write a spec, pretty please!'
+    end
+
+    it 'in state archived with override' do
+      pending 'Please write a spec, pretty please!'
+    end
+
+  end
+  
+  describe 'nicely handles callbacks' do
+
+    it 'running after_start' do
+      pending 'Please write a spec, pretty please!'
+    end
+
+    it 'running after_end' do
+      pending 'Please write a spec, pretty please!'
+    end
+
+  end
+  
 end
