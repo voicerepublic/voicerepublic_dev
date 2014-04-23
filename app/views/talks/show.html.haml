@@ -18,26 +18,22 @@
 
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
-    .generic-action-bar.row.collapse
-      .large-12.columns
-        %ul.button-group.right
-          - if can? :manage, @talk
-            -#
-              %li= link_to t('.download_messages'),
-                "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button-standard'
-            - if !@talk.live?
-              %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button-standard'
-
-            / %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
-            /   method: :delete, data: { confirm: t('.confirm_delete',
-            /   default: 'Are you sure?' ) }
-
-            %li(ng-show='showEndTalk()')
-              %button.button.tiny(ng-click='endTalk()')
-                = t('.end_talk')
-
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
+        - if can? :manage, @talk  
+          .generic-actions-box      
+            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+              %span.icon-cog
+            %ul#action-links-list.list-style-type-none.hide-stuff
+              - if !@talk.live?
+                %li= link_to t('.edit_talk'), [:edit, @venue, @talk]
+              -#
+                %li= link_to t('.download_messages'),
+                  "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
+
+              %li.end-talk-link(ng-show='showEndTalk()')
+                %button.button.tiny(ng-click='endTalk()')
+                  = t('.end_talk')
         .breadcrumbs-box.text-left
           = link_to @talk.user.name, user_path(@talk.user)
           .bc-delimiter >
