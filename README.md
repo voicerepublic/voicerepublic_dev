@@ -22,9 +22,32 @@ Welcome to VoiceRepublic
 * Staging: [http://staging.voicerepublic.com](http://staging.voicerepublic.com)
 
 
-Depencies
----------
-VR is being developped on Ruby 1.9.3
+Dependencies
+------------
+
+### Ruby
+
+VR is being developed on Ruby 1.9.3. See (.ruby-version)[.ruby-version].
+
+The use of (rbenv)[/sstephenson/rbenv] instead of RVM is highly recommended.
+
+### Install rbenv on zsh
+
+    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+    echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+    . ~/.zshrc
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+    rbenv install `cat .ruby-version`
+
+### Debian Packages
+
+* postgresql-contrib-9.1
+* libpcre++-dev
+* libav-tools
+* sox
+* vorbis-tools
+
 
 Setup
 -----
@@ -76,7 +99,7 @@ Install Flex
 
     http://www.adobe.com/devnet/flex/flex-sdk-download.html
 
-Make `bin` available in your PATH.
+Unpack and make `bin` available in your PATH.
 
 Run
 
@@ -100,8 +123,8 @@ The generic strategy runner takes arguments
 
 The output lists the resulting files.
 
-(Depending on your shell you might have to escape the square brackets
-with backslashes.)
+(Depending on your shell, e.g. for zsh, you might have to escape the
+square brackets with backslashes.)
 
 
 Documentation
@@ -179,7 +202,7 @@ host) and direct them to show the same talk. In a terminal start
 `vrwatch`. Attention: This will delete all previous recordings! (Never
 ever run this in production!)
 
-    % bin/vrwatch
+    % bin/vr_delete_and_watch
 
 On a rails console, pick the talk you want to work with (e.g. id 42)
 and reset it to start soon (e.g. `20.seconds.from_now`). (Don't use
@@ -189,25 +212,26 @@ and reset it to start soon (e.g. `20.seconds.from_now`). (Don't use
     t.reload; t.starts_at = 20.seconds.from_now; t.state = 'prelive'; t.save
 
 Then reload the browsers. It will record a couple of seconds
-pretalk. You should see the file size in `vrwatch` go up. After the
-time to start is up it will switch to live mode automatically. With
-your second Browser you should hear yourself now. (Reload the host at
-least once if you want to have multiple files. These will show up on
-the console which runs `vrwatch`.)
+pretalk. You should see the file size in 'watch' console go up. After
+the time to start is up it will switch to live mode
+automatically. With your second browser you should hear yourself
+now. If you don't have a headset plugged in this will very likely
+create a feedback loop. (Reload the host at least once if you want to
+have multiple files. These will show up on the 'watch' console.)
 
 Click `End Talk` to end the talk. On the rails console kick off post
 processing (in User Acceptance Test mode) with:
 
     t.reload.send(:postprocess!, true)
 
-Views will change slightly. A journal file shows up in `vrwatch`. When
-running with parameter `true` a `debugger` statement will hold before
-each Audio::Strategy to inspect the precondition and outcome in
-`vrwatch`. Type `c` and `Enter` to continue to the next strategy. It
-will output the shell-out-commands prefixed with `CmdRunner>`, any
-errors and in red the next strategy to run. (At this point you can
-run the shell-out-commands under `local/recordings` to play with them
-and tweak stuff.)
+Views will change. A journal file shows up in the 'watch'
+console. When running with parameter `true` a `debugger` statement
+will hold before each Audio::Strategy to inspect the precondition and
+outcome in `vrwatch`. Type `c` and `Enter` to continue to the next
+strategy. It will output the shell-out-commands prefixed with
+`CmdRunner>`, any errors and in red the next strategy to run. (At this
+point you can run the shell-out-commands under `local/recordings` to
+play with them and tweak stuff.)
 
 After the last strategy post processing will move the files from
 `recordings` to `archive` resp. `archive_raw`. It'll also create
