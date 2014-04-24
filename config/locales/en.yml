@@ -353,17 +353,6 @@ en:
     application:
       kluuu_string: KluuU
       no_kluuu_string: Question
-  shared:
-    actionbar:
-      login: Log In
-      sign_up: Sign Up
-      search: Search
-      explore: Explore
-      my_profile: Profile
-      my_next_talks: My next Talks
-      create_venue: Create Series
-      settings: Settings
-      logout: Log Out
   mailers:
     your_friend_took_action: Activities of your friends on KluuU
     activity_around_you: Activities concerning your account on KluuU
@@ -540,9 +529,10 @@ en:
       no_results: Sorry, no results.
   shared:
     actionbar:
-      login: Login
+      login: Log In
       sign_up: Sign Up
       search: Search
+      explore: Explore
       my_profile: Profile
       my_next_talks: My next Talks
       create_venue: Create Series
