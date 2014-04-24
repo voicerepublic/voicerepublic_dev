@@ -8,6 +8,13 @@ describe "Talks" do
   end
 
   describe "Talk#new" do
+    it 'has default time and date', js: true do
+      venue = FactoryGirl.create(:venue, user: @user)
+      visit new_venue_talk_path(venue)
+      # Time is being written in the frontend. Cannot use Timecop to mock that.
+      find('#talk_starts_at_date').value.should eq(Date.today.strftime "%Y-%m-%d")
+      find('#talk_starts_at_time').value.should eq(Time.now.strftime "%H:%M")
+    end
     it 'creates a new talk', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
