@@ -1,7 +1,10 @@
 require 'spec_helper'
 
-feature "User edits own profile" do
+feature "User edits own profile", js: true do
   background do
+    # The LP is responsive. These specs are written against the desktop
+    # version.
+    page.driver.resize(1440, 1080)
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
     visit root_path
@@ -14,7 +17,7 @@ feature "User edits own profile" do
     page.should have_css('.edit_user')
   end
 
-  scenario "setting a new password", js: :true do
+  scenario "setting a new password" do
     page.find("button[data-enable-fields*=change-password]").click
     find('.user_password input').set '654321'
     find('.user_password_confirmation input').set '654321'
@@ -33,7 +36,7 @@ feature "User edits own profile" do
     page.should have_content(I18n.t('flash.actions.update.notice'))
   end
 
-  scenario "uploading a avatar image", js: true do
+  scenario "uploading a avatar image" do
     some_image = Rails.root.join('app/assets/images/logo.png')
     @user.reload.avatar_uid.should be_nil
     # This is a workaround since we are using a button that will trigger a file
@@ -83,8 +86,8 @@ feature "Password" do
       token = extract_token_from_email(:reset_password) # Here I call the MailHelper form above
       visit edit_user_password_url(reset_password_token: token)
       fill_in "user_password", :with => "foobar"
-      fill_in "user_password_confirmation", :with => "foobar1"
       click_on "Save"
+      fill_in "user_password_confirmation", :with => "foobar1"
       page.should have_content "Password confirmation doesn't match Password"
       fill_in "user_password", :with => "foobar"
       fill_in "user_password_confirmation", :with => "foobar"
