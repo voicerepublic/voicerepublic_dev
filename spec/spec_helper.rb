@@ -17,9 +17,14 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, options = {
     # js errors would otherwise get elevated into an exception
     :js_errors => false,
-    :port => 44678
+    :port => 44678,
+    # Parts of the app is responsive. Specs are written against the desktop
+    # version unless otherwise configured by overwriting using:
+    #   page.driver.resize(height, width)
+    :window_size => [ 1440, 1080 ]
   })
 end
+
 
 Capybara.register_driver :firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
