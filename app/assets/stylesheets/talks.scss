@@ -6,11 +6,11 @@
   input[type="checkbox"]{
     margin-right:5px !important
   }
-  .date-time-picker-row{
+  .date-time-icker-row{
     .columns{
       padding-right: 13px !important;
       &:last-child{
-        padding-right: 0 !important
+        ng-right: 0 !important
       }
     }
   }
@@ -473,7 +473,42 @@
       }
     }
   }
-
 }
 
-
+// EXPLORE TALKS
+.talks-index,
+.talks-recent,
+.talks-featured,
+.talks-popular{
+  h2 {
+    color: $brand-color-blue;
+    font-size: rem-calc(14);
+    font-family: 'eaglelight';
+    margin-bottom: 40px;
+  }
+  h3{
+    color: $brand-color-red;
+    display: inline;
+  }
+  .talk-medium-box{
+    margin-right:0 !important;
+    .box-actions{
+      display: none !important;
+    }
+  }
+  .title-box{
+    position: relative;
+    margin-bottom: 10px;
+    .see-all-link{
+      bottom: 2px;
+    }
+  }
+  .see-all-link{
+    font-size: rem-calc(11);
+    display: inline-block;
+    color: $brand-color-blue;
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+  }
+}

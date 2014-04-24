@@ -153,7 +153,7 @@ describe "Venues", js: true do
         find("span.icon-bubble-multi").click
         fill_in 'comment_content', with: 'spec comment'
         click_button 'Post'
-        find("#tab-comments.active").should_not be_nil
+        find("#comments.active").should_not be_nil
       end
     end
 
