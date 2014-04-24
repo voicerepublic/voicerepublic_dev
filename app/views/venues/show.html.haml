@@ -41,27 +41,30 @@
   .row.collapse
     .large-12.columns
       %dl.tabs.vr-tabs(data-tab='true')
+        %dd.text-center.active
+          %a(href="#description")
+            %span.icon-description
+            = t('.description')
         %dd.text-center
-          %a(href="#tab-upcoming-talks")
+          %a(href="#upcoming-talks")
             %span.icon-mic
             = t('.upcoming_talks')
         %dd.text-center
-          %a(href="#tab-archived-talks")
+          %a(href="#archived-talks")
             %span.icon-play-octa
             = t('.archived_talks')
         %dd.text-center
-          %a(href="#tab-comments")
+          %a(href="#comments")
             %span.icon-bubble-multi
             = t('.comments')
-        %dd.text-center.active
-          %a(href="#tab-description")
-            %span.icon-description
-            = t('.description')
 
 .row.collapse
   .tabs-content.large-12.columns
 
-    #tab-upcoming-talks.content.text-center
+    #description.content.active
+      %p= @venue.description.html_safe
+
+    #upcoming-talks.content.text-center
       - if can?(:manage, @venue)
         = link_to new_venue_talk_path(@venue), class: 'button-vr button-margin-bottom' do
           = t('.create_new_talk')
@@ -71,11 +74,11 @@
 
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
 
-    #tab-archived-talks.content
+    #archived-talks.content
       %ul.list-style-type-none
         = render partial: 'shared/talk_medium_box', collection: @archived_talks
 
-    #tab-comments.content
+    #comments.content
       - if can? :create, Comment
         .comment-form.row.collapse
           .medium-12.columns
@@ -91,6 +94,3 @@
                 = f.button :submit, class: 'button-standard-small', value: t('.post')
       %ul.list-style-type-none
         = render partial: 'comment', collection: @venue.comments.ordered
-
-    #tab-description.content.active
-      %p= @venue.description.html_safe

@@ -1,8 +1,6 @@
 -# Since angular's dependency injection decides in what order to
 -# resolve dependencies this can totally go into the html page
 -# rendered by rails.
--#
--# TODO remove `pretty` for production
 %script
   Livepage.factory("config", function() {
   return #{ @talk.config_for(current_user).html_safe };

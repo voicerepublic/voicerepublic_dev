@@ -40,32 +40,40 @@ describe "Talks" do
         page.should have_content('Explore')
       end
 
-      it 'displays 25 talks a time on recent' do
+      it 'has "more" and displays 25 talks a time on recent' do
         FactoryGirl.create_list(:talk, 26, state: :archived)
         visit talks_path
-
         within(".recent-box") do
           click_on "more..."
-          current_path.should =~ /talks\/recent/
-          page.should have_selector('.talk-medium-text-box', count: 25)
-          page.should have_selector('.pagination')
-          within(".pagination") do
-            page.should have_link('2')
-            page.should_not have_link('3')
-          end
         end
-        
+        current_path.should =~ /talks\/recent/
+        page.should have_selector('.talk-medium-text-box', count: 25)
+        page.should have_selector('.pagination')
+        within(".pagination") do
+          page.should have_link('2')
+          page.should_not have_link('3')
+        end
       end
     end
   end
 
   describe "Talk#new" do
+    it 'has default time and date', js: true do
+      venue = FactoryGirl.create(:venue, user: @user)
+      visit new_venue_talk_path(venue)
+      # Time is being written in the frontend. Cannot use Timecop to mock that.
+      find('#talk_starts_at_date').value.should eq(Date.today.strftime "%Y-%m-%d")
+      find('#talk_starts_at_time').value.should eq(Time.now.strftime "%H:%M")
+    end
     it 'creates a new talk', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
+      # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
       # fill in tags
       fill_in 's2id_autogen2', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'
@@ -123,8 +131,8 @@ describe "Talks" do
           find(".chat-input-box input").set("my message")
           find(".chat-input-box input").native.send_keys(:return)
           visit(current_path)
-          page.execute_script('$("a[href=#talk-tab-discussion]").click()')
-          within "#talk-tab-discussion" do
+          page.execute_script('$("a[href=#discussion]").click()')
+          within "#discussion" do
             page.should have_content "my message"
             page.should have_content "01 Sep 10:05"
           end

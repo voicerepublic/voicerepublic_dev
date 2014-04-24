@@ -170,16 +170,16 @@
       .large-12.columns
         %dl.tabs.vr-tabs(data-tab="true")
           %dd.text-center
-            %a(href="#talk-tab-description")
+            %a(href="#description")
               %span.icon-description
               = t('.description')
           - unless @talk.venue.opts.suppress_chat
             %dd.text-center.active
-              %a(href="#talk-tab-discussion")
+              %a(href="#discussion")
                 %span.icon-bubble-multi
                 = t('.discussion')
           %dd.text-center
-            %a(href="#talk-tab-participants")
+            %a(href="#participants")
               %span.icon-people
               = t('.participants')
               %span(ng-show='expectingPromotion().length')
@@ -189,13 +189,13 @@
 
   .talk-tabs-content-block
     .tabs-content
-      #talk-tab-description.content
+      #description.content
         .row
           .large-12.columns
             = @talk.try(:description).try(:html_safe)
 
       - unless @talk.venue.opts.suppress_chat
-        #talk-tab-discussion.content.active
+        #discussion.content.active
           .chat-message(ng-repeat='message in discussion')
             .row
               .large-12.columns
@@ -206,7 +206,7 @@
                 .message-time
                   {{ message.created_at }}
 
-      #talk-tab-participants.content
+      #participants.content
         .row.participants-box
           .large-12.columns
             .expecting_promotion(ng-show='expectingPromotion().length')
