@@ -528,7 +528,7 @@ en:
       new_venue_create: A new Series was set up
   search:
     show:
-      results: "#{COUNT} RESULTS FOR "
+      results: "%{results_count} RESULT(S) FOR "
       best_result: TOP RESULT
       talks: TALKS
       venues: SERIES
@@ -537,7 +537,17 @@ en:
       featured: FEATURED
       popular: POPULAR
       recently_archived: RECENTLY ARCHIVED
-      no_results_sentence: Oops, no results.
+      no_results: Sorry, no results.
+  shared:
+    actionbar:
+      login: Login
+      sign_up: Sign Up
+      search: Search
+      my_profile: Profile
+      my_next_talks: My next Talks
+      create_venue: Create Series
+      settings: Settings
+      logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
