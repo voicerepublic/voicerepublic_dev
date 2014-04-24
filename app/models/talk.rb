@@ -101,6 +101,10 @@ class Talk < ActiveRecord::Base
       order('featured_from DESC')
   end
 
+  scope :popular, -> { archived.order('play_count DESC') }
+
+  scope :recent, -> { archived.order('ended_at DESC') }
+
   scope :ordered, -> { order('starts_at ASC') }
 
   scope :audio_format, ->(format) do # TODO: check if needed
