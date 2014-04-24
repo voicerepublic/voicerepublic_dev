@@ -7,33 +7,53 @@ class TalkSetting
 
   attr_accessor :path, :name, :opts, :journal
 
-  # for specs its handy to assume name is 1
+  # for specs its handy to assume name is 1 and opts are empty
   def initialize(path, name=1, opts={})
     self.path = path
     self.name = name
     self.opts = opts
 
-    # this is done on instanciation to be able to
-    # rely on `Dir.pwd`
+    # this is done on instanciation to be able to rely on `Dir.pwd`
     self.journal = read_journal
   end
 
+  # fragments reduced to the ones that touch the live phase
   def fragments(user=nil)
+    all_fragments(user).select do |frag|
+      duration = duration_of_flv(frag.first)
+      file_end = frag.last.to_i + duration
+      # fall back to 0 as start, which is fine for specs
+      file_end > (opts[:talk_start] || 0)
+    end
+  end
+
+  # all, all, all fragments! that's not even one less than all!
+  def all_fragments(user=nil)
     return journal['record_done'] if user.nil?
     fragments.select { |f| f.first.include?("u#{user}-") }
   end
 
+  # all user ids during live phase
   def users
     fragments.map do |path, time|
       path.match(/t\d+-u(\d+)-/).to_a[1]
     end.uniq.sort
   end
 
+  # start of the first file that touches the live phase
   def file_start(user=nil)
     fragments(user).map { |f| f.last }.sort.first.to_i
   end
 
   private
+
+  # uses avconv to determine duration of flv file in seconds
+  def duration_of_flv(path)
+    cmd = "avconv -i #{path} 2>&1 | grep Duration"
+    output = %x[#{cmd}]
+    _, h, m, s = output.match(/(\d+):(\d\d):(\d\d)/).to_a.map(&:to_i)
+    s + 60 * (m + 60 * h)
+  end
 
   # the content of the journal file might look like this:
   #
@@ -84,12 +104,10 @@ class TalkSetting
   end
 
   def write_fake_journal!
-    File.open(journal_path, 'w') do |f|
-      f.puts fake_journal
-    end
+    File.open(journal_path, 'w') { |f| f.puts fake_journal }
   end
 
-  # contains implicit knowledge about nameing scheme of files
+  # contains implicit knowledge about naming scheme of files
   #
   # reconstructs a missing journal on the basis of that knowledge
   def fake_journal

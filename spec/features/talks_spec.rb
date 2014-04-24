@@ -66,6 +66,9 @@ describe "Talks" do
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
+      # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
       # fill in tags
       fill_in 's2id_autogen2', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'
@@ -123,8 +126,8 @@ describe "Talks" do
           find(".chat-input-box input").set("my message")
           find(".chat-input-box input").native.send_keys(:return)
           visit(current_path)
-          page.execute_script('$("a[href=#talk-tab-discussion]").click()')
-          within "#talk-tab-discussion" do
+          page.execute_script('$("a[href=#discussion]").click()')
+          within "#discussion" do
             page.should have_content "my message"
             page.should have_content "01 Sep 10:05"
           end

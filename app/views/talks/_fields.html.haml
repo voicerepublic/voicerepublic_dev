@@ -36,6 +36,9 @@
     %label(for="venue_description")
       = t('.talks_description')
     = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
+    - messages = f.object.errors.get(:description)
+    - unless messages.empty?
+      %small.error= messages * ', '
     %br
     = f.input :record
 
