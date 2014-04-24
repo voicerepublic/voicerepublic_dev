@@ -20,14 +20,14 @@ feature "General feature specs" do
       page.should_not have_css('.warning')
 
       page.fill_in 'query', with: ''
-      find(".icon-magnifying-glass").trigger('click')
+      find(".icon-magnifying-glass").click
       page.should have_css('.warning')
     end
 
     scenario "it searches with magnifying glass" do
       FactoryGirl.create :talk, title: "test title talk"
       page.fill_in 'query', with: 'test talk'
-      find(".icon-magnifying-glass").trigger('click')
+      find(".icon-magnifying-glass").click
       page.should have_content "test title talk"
     end
 
