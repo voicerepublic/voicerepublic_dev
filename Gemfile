@@ -89,5 +89,4 @@ end
 
 group :production do
   gem 'rack-cache', require: 'rack/cache'
-  gem 'localeapp'
 end
