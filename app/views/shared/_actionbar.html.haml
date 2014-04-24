@@ -1,11 +1,14 @@
-- if current_user && current_user.guest
-  .row.collapse
+- if current_user && current_user.guest && current_page?(root_path)
+  .visitor-top-bar.row.collapse
     .large-12.columns
-      .visitor-search-box
-        = form_tag "/search", :class => 'navbar-search form-search' do
-          = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
-          = button_tag :type => "submit", :class => "search-lupe" do
-            %span.icon-magnifying-glass
+      .visitor-top-box
+        .visitor-search-box
+          = form_tag "/search", :class => 'navbar-search form-search' do
+            = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
+            = button_tag :type => "submit", :class => "search-lupe" do
+              %span.icon-magnifying-glass
+        .visitor-explore-link
+          = link_to t('.explore'), talks_path
 
 - else
 
@@ -19,6 +22,7 @@
       %h1.top-bar-vr-logo.text-center
         = link_to root_path do
           %span.icon-vr-logo
+
 
       %section.top-bar-section
         -# Right Nav Section
@@ -54,6 +58,9 @@
         %ul.left
           %li.top-bar-search-box
             = form_tag "/search", :class => 'navbar-search form-search' do
-              = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
+              = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')
               = button_tag :type => "submit", :class => "search-lupe" do
                 %span.icon-magnifying-glass
+          %li.explore-link
+            = link_to t('.explore'), talks_path
+

@@ -353,41 +353,20 @@ en:
     application:
       kluuu_string: KluuU
       no_kluuu_string: Question
+  shared:
+    actionbar:
+      login: Log In
+      sign_up: Sign Up
+      search: Search
+      explore: Explore
+      my_profile: Profile
+      my_next_talks: My next Talks
+      create_venue: Create Series
+      settings: Settings
+      logout: Log Out
   mailers:
     your_friend_took_action: Activities of your friends on KluuU
     activity_around_you: Activities concerning your account on KluuU
-  accounts:
-    form_preferences:
-      get_notifications_contacts_activities: Get notifications about your friends activities.
-      emails_about_contact_activities: ! 'if there are news about my friends e.g.: new status.'
-      emails_about_me: if there are news concerning me. E.g. when someone tried to call me while I was offline.
-      dont_show_initial_help: Don't show help text.
-      save_preferences: Save settings
-      on_site_help: Help text on / off
-      call_settings: Call settings
-      allow_anonymous_calls: Allow video calls from anonymous caller.
-    form:
-      delete_portrait: Delete profilephoto
-    edit:
-      edit_profile: Edit profile
-  balance:
-    accounts:
-      new:
-        desired_currency: Choose your currency.
-        initialize_your_account: Please activate your financial account.
-        configure_your_financial_account: Configure your financial account.
-      show:
-        check_some_money_in: Buy credit
-        soon_more: soon more...
-        currency: Currency
-        prepaid: Prepaid
-        revenue: Revenue
-      check_in_orders:
-        new:
-          check_in_money: Buy credit
-        paypal:
-          check_in_prepaid_amount: Buy credit
-          cancel_check_in_order: Cancel purchase
   chats:
     form:
       your_message: message
@@ -497,7 +476,7 @@ en:
         <p>Every listener can be a speaker, and vice versa.</p>
         <h5>3. For more analog within the digital</h5>
         <p>Voice Republic lets discussions grow just like they do in the real world. You can express yourself in as much detail as you like, giving space to the subjects that interest you.</p>
-        <h4>4. Voice Republic is founded on respect</h4>
+        <h5>4. Voice Republic is founded on respect</h4>
         <p>Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.</p>
         <h5>5. For a decentralization of the Internet</h5>
         <p>For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.</p>
@@ -629,6 +608,7 @@ en:
       new_talk: New talk
       edit_talk: Edit talk
       post: Post
+      write_a_comment: Write a comment
     venue_show_header:
       venue: Series
       minutes: Minutes
@@ -793,6 +773,13 @@ en:
       title: Title
       teaser: Teaser
       tag_list: Tag list
+    index:
+      explore_talks: VOICE REPUBLIC / TALKS
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recent: RECENT
+      see_all: more...
   articles:
     venue_form:
       write_an_article: write an article
@@ -835,9 +822,9 @@ en:
   hello: Hello world
   layouts:
     application:
-      landing_title: Voice Republic - The Place To Talk
+      landing_title: The Place To Talk
     users:
-      landing_title: Voice Republic - The Place To Talk
+      landing_title: The Place To Talk
 
   user_mailer:
     new_talk:

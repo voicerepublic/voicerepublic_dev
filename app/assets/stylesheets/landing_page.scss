@@ -1,53 +1,66 @@
 .landing_page-index{
 
-  // VISITOR SEARCH BOX
-  .visitor-search-box{
-    .top-bar-search-field{
-      position: absolute !important;
-      top: 4px !important;
-      left: 0;
-      width: 150px;
-      height: 30px !important;
-      line-height:  inherit !important;
-      background: transparent !important;
-      margin: 0;
-      padding: 0 5px 0 30px !important;
-      color: #222 !important;
-      font-family: 'eaglelight';
-      font-size: rem-calc(16);
-      border-style: none !important;
-      @include placeholder{
-        color: #222;
-      }
-      &:hover,
-      &:focus{
-        background: lighten($brand-color-creme,3%) !important;
+  .visitor-top-bar{
+    z-index: 2;
+  }
+
+  .visitor-top-box{
+    position: absolute;
+    top:0;
+    left:0;
+    .visitor-search-box{
+      display: inline-block;
+      .top-bar-search-field{
+        width: 100px;
+        background: transparent !important;
+        padding-left:30px !important;
+        padding-right:0px !important;
+        color: #222 !important;
+        font-family: 'eaglelight';
+        font-size: rem-calc(16);
         border-style: none !important;
-        outline-style: none !important;
-        @include box-shadow(0,0,0,#000);
-        color: #000;        
+        @include placeholder{
+          color: #222;
+        }
+        &:hover,
+        &:focus{
+          width: 150px;
+          background: lighten($brand-color-creme,3%) !important;
+          border-style: none !important;
+          outline-style: none !important;
+          @include box-shadow(0,0,0,#000);
+          color: #000;        
+        }
+      }
+
+      .search-lupe{
+        .icon-magnifying-glass{
+          color: #333;
+          font-size: rem-calc(20);
+        }
+        position: absolute;
+        left: 2px;
+        top: 6px;
+        background: none;
+        font-size: 1.2rem;
+        padding: 0;
+        margin: 0;
+        display: inline;
+        &:hover,
+        &:focus{
+          background:none;
+          .icon-magnifying-glass{
+            color: inherit
+          }
+        }
       }
     }
 
-    .search-lupe{
-      .icon-magnifying-glass{
-        color: #333;
-        font-size: rem-calc(20);
-      }
-      position: absolute;
-      left: 2px;
-      top: 6px;
-      background: none;
-      font-size: 1.2rem;
-      padding: 0;
-      margin: 0;
-      display: inline;
-      &:hover,
-      &:focus{
-        background:none;
-        .icon-magnifying-glass{
-          color: inherit
-        }
+    .visitor-explore-link{
+      display: inline-block;
+      a{
+        font-family: 'eaglelight';
+        color: #222;
       }
     }
   }
@@ -133,10 +146,13 @@
   // TALKS
   .talks{
     padding-bottom: 70px;
+    .row{
+      margin-bottom: 30px;
+    }
     h4{
       font-family: 'eaglebook';
       color: red;
-      font-size: rem-calc(16);
+      font-size: rem-calc(23);
     }
   }
 
@@ -151,7 +167,7 @@
     h4{
       font-family: 'eaglebook';
       color: white;
-      font-size: rem-calc(16);
+      font-size: rem-calc(23);
     }
     h5{
       font-family: 'eaglebook';
@@ -169,7 +185,7 @@
   .member-block{
     padding-top: 30px;
     h3{
-      font-size: rem-calc(32)
+      font-size: rem-calc(23)
     }
     .avatar-bg{
       fill: $brand-color-red;
@@ -239,6 +255,7 @@
       }
     }
     .tabs-content{
+      margin-bottom: 14px;
       .content{
         padding: 0 !important;
       }
@@ -258,10 +275,19 @@
       border: none;
       height: 31px;
       padding-left: 10px;
+      margin-bottom: rem-calc(10);
+      @include placeholder{
+        color: white;
+      }
     }
     .button-vr{
       width: 100%;
     }
+
+    hr{
+      margin: rem-calc(10) 0;
+    }
+
     .lp-remember{
       color: white;
       font-family: 'eaglelight';
@@ -280,6 +306,15 @@
           color: white;
         }
       }
+    }
+  }
+
+  .small-authentication-links{
+    margin-top:10px;
+    a{
+      font-family: 'eaglelight';
+      color: #222;
+      margin-left: 14px;
     }
   }
 

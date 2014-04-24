@@ -1,4 +1,4 @@
-.row.lp-top-row
+.row.lp-top-row(style="z-index:2")
   .large-12.columns
     -#
       .lp-search-box
@@ -7,7 +7,7 @@
           = button_tag :type => "submit", :class => "search-lupe" do
             %span.icon-magnifying-glass
     - if !current_user || current_user.guest
-      .authentication-box.text-center
+      .authentication-box.text-center.hide-for-medium-down
         %dl.tabs(data-tab="true")
           %dd
             = link_to '#login', 'data-link' => 'login' do
@@ -22,6 +22,9 @@
             = render 'lp_login', user: @user
           .content.active#signup
             = render 'lp_signup', :user => @user
+      .small-authentication-links.right.show-for-medium-down
+        = link_to t('.log_in'), new_user_session_path
+        = link_to t('.sign_up'), new_user_registration_path
 
 .title-row.bg-creme
   .row.collapse-large-only
@@ -74,13 +77,13 @@
           %ul.list-style-type-none
             = render partial: "shared/talk_medium_box", collection: @talks_popular
 
-  - unless @talks_archived.empty?
+  - unless @talks_recent.empty?
     .featured-talks.row
       .medium-12.columns
         .talks-box-title
           %h4= t('.recently_archived')
           %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_archived
+            = render partial: "shared/talk_medium_box", collection: @talks_recent
 
 .manifest.bg-blue
   .row
