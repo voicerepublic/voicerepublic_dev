@@ -40,21 +40,19 @@ describe "Talks" do
         page.should have_content('Explore')
       end
 
-      it 'displays 25 talks a time on recent' do
+      it 'has "more" and displays 25 talks a time on recent' do
         FactoryGirl.create_list(:talk, 26, state: :archived)
         visit talks_path
-
         within(".recent-box") do
           click_on "more..."
-          current_path.should =~ /talks\/recent/
-          page.should have_selector('.talk-medium-text-box', count: 25)
-          page.should have_selector('.pagination')
-          within(".pagination") do
-            page.should have_link('2')
-            page.should_not have_link('3')
-          end
         end
-        
+        current_path.should =~ /talks\/recent/
+        page.should have_selector('.talk-medium-text-box', count: 25)
+        page.should have_selector('.pagination')
+        within(".pagination") do
+          page.should have_link('2')
+          page.should_not have_link('3')
+        end
       end
     end
   end
