@@ -14,6 +14,9 @@ describe "Talks" do
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
+      # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
       # fill in tags
       fill_in 's2id_autogen2', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'
