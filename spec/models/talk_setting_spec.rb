@@ -19,15 +19,19 @@ describe TalkSetting do
 
   it 'provides a list of participating users' do
     audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
-      setting = TalkSetting.new(path)
-      expect(setting.users).to eq(%w( 1 2 ))
+      Dir.chdir(path) do
+        setting = TalkSetting.new(path)
+        expect(setting.users).to eq(%w( 1 2 ))
+      end
     end
   end
 
   it 'provides the timestamp of the first fragment' do
     audio_fixture('spec/support/fixtures/complex', 't1-u*') do |path|
-      setting = TalkSetting.new(path)
-      expect(setting.file_start).to eq(1393335342)
+      Dir.chdir(path) do
+        setting = TalkSetting.new(path)
+        expect(setting.file_start).to eq(1393335342)
+      end
     end
   end
 

@@ -64,7 +64,7 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :teaser, :duration,
+  attr_accessible :title, :teaser, :duration, :uri,
     :description, :record, :image, :tag_list,
     :guest_list, :starts_at_date, :starts_at_time
 
@@ -100,6 +100,10 @@ class Talk < ActiveRecord::Base
       where(state: [:prelive, :live]).
       order('featured_from DESC')
   end
+
+  scope :popular, -> { archived.order('play_count DESC') }
+
+  scope :recent, -> { archived.order('ended_at DESC') }
 
   scope :ordered, -> { order('starts_at ASC') }
 
@@ -219,6 +223,14 @@ class Talk < ActiveRecord::Base
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
+  # this is only for user acceptance testing!
+  def make_it_start_soon!(delta=1.minute)
+    self.starts_at_time = delta.from_now.strftime('%H:%M')
+    self.state = :prelive
+    self.save!
+    PrivatePub.publish_to public_channel, event: 'Reload'
+  end
+  
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
