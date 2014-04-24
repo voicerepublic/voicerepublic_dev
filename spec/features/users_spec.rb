@@ -31,6 +31,7 @@ feature "User edits own profile", js: true do
 
   scenario "uploading a header image" do
     some_image = Rails.root.join('app/assets/images/logo.png')
+    make_upload_field_visible('user_header')
     page.attach_file 'user_header', some_image
     page.click_button 'Save'
     page.should have_content(I18n.t('flash.actions.update.notice'))
@@ -39,12 +40,7 @@ feature "User edits own profile", js: true do
   scenario "uploading a avatar image" do
     some_image = Rails.root.join('app/assets/images/logo.png')
     @user.reload.avatar_uid.should be_nil
-    # This is a workaround since we are using a button that will trigger a file
-    # input box while the normal <input type=file> is hidden. Therefore this is
-    # not a completely safe spec; if the button JS fails, this spec will still
-    # run.
-    page.execute_script "$('#user_avatar').parents().show()"
-    sleep 0.1
+    make_upload_field_visible('user_avatar')
     page.attach_file 'user_avatar', some_image
     page.click_button 'Save'
     page.should have_content(I18n.t('flash.actions.update.notice'))
@@ -154,4 +150,13 @@ def click_forgot_password
     click_on "Login"
     click_on "Forgot password?"
   end
+end
+
+# This is a workaround since we are using a button that will trigger a file
+# input box while the normal <input type=file> is hidden. Therefore this is
+# not a completely safe spec; if the button JS fails, this spec will still
+# run.
+def make_upload_field_visible(element)
+  page.execute_script "$('##{element}').parents().show()"
+  sleep 0.1
 end
