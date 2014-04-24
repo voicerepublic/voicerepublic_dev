@@ -7,7 +7,64 @@ describe "Talks" do
     login_user(@user)
   end
 
+  describe "Exploring Talks" do
+
+    before do
+      @talk = FactoryGirl.create(:talk)
+    end
+
+    describe "as user on all pages" do
+      it 'shows explore in talk_path' do
+        visit talk_path(@talk)
+        page.should have_selector('.explore-link')
+        page.should have_content('Explore')
+      end
+
+      it 'shows explore in venue_talk_path' do
+        visit venue_talk_path(@talk.venue, @talk)
+        page.should have_selector('.explore-link')
+        page.should have_content('Explore')
+      end
+
+      it 'shows explore in user_path' do
+        visit user_path(@user)
+        page.should have_selector('.explore-link')
+        page.should have_content('Explore')
+      end
+    end
+
+    describe "visiting talks#index" do
+      it 'displays talks overview' do
+        visit talks_path
+        page.should have_selector('.see-all-link')
+        page.should have_content('Explore')
+      end
+
+      it 'has "more" and displays 25 talks a time on recent' do
+        FactoryGirl.create_list(:talk, 26, state: :archived)
+        visit talks_path
+        within(".recent-box") do
+          click_on "more..."
+        end
+        current_path.should =~ /talks\/recent/
+        page.should have_selector('.talk-medium-text-box', count: 25)
+        page.should have_selector('.pagination')
+        within(".pagination") do
+          page.should have_link('2')
+          page.should_not have_link('3')
+        end
+      end
+    end
+  end
+
   describe "Talk#new" do
+    it 'has default time and date', js: true do
+      venue = FactoryGirl.create(:venue, user: @user)
+      visit new_venue_talk_path(venue)
+      # Time is being written in the frontend. Cannot use Timecop to mock that.
+      find('#talk_starts_at_date').value.should eq(Date.today.strftime "%Y-%m-%d")
+      find('#talk_starts_at_time').value.should eq(Time.now.strftime "%H:%M")
+    end
     it 'creates a new talk', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)

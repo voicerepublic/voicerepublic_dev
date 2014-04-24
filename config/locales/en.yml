@@ -353,41 +353,20 @@ en:
     application:
       kluuu_string: KluuU
       no_kluuu_string: Question
+  shared:
+    actionbar:
+      login: Log In
+      sign_up: Sign Up
+      search: Search
+      explore: Explore
+      my_profile: Profile
+      my_next_talks: My next Talks
+      create_venue: Create Series
+      settings: Settings
+      logout: Log Out
   mailers:
     your_friend_took_action: Activities of your friends on KluuU
     activity_around_you: Activities concerning your account on KluuU
-  accounts:
-    form_preferences:
-      get_notifications_contacts_activities: Get notifications about your friends activities.
-      emails_about_contact_activities: ! 'if there are news about my friends e.g.: new status.'
-      emails_about_me: if there are news concerning me. E.g. when someone tried to call me while I was offline.
-      dont_show_initial_help: Don't show help text.
-      save_preferences: Save settings
-      on_site_help: Help text on / off
-      call_settings: Call settings
-      allow_anonymous_calls: Allow video calls from anonymous caller.
-    form:
-      delete_portrait: Delete profilephoto
-    edit:
-      edit_profile: Edit profile
-  balance:
-    accounts:
-      new:
-        desired_currency: Choose your currency.
-        initialize_your_account: Please activate your financial account.
-        configure_your_financial_account: Configure your financial account.
-      show:
-        check_some_money_in: Buy credit
-        soon_more: soon more...
-        currency: Currency
-        prepaid: Prepaid
-        revenue: Revenue
-      check_in_orders:
-        new:
-          check_in_money: Buy credit
-        paypal:
-          check_in_prepaid_amount: Buy credit
-          cancel_check_in_order: Cancel purchase
   chats:
     form:
       your_message: message
@@ -475,12 +454,37 @@ en:
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
       subheadline: "Talks, interviews, readings, conversations, debates, disputes, seminars, discussions:"
       subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
+      title_illu_1: STREAMING
       text_illu_1: All of sudden it's easy to create your own audio livestreams–with as many stations as you want, from any number of places you choose.
+      title_illu_2: INTERACTION
       text_illu_2: As the organizer of your talks, you can involve your listeners any time, letting discussions–and discussion culture–grow like they do in real life.
+      title_illu_3: AUDIO ARCHIVE
       text_illu_3: Record and broadcast your live talks. Easily archive your recording so others can find and listen to it later. Embed your talk in other Websites or make it available as a podcast.
       login: Login
       signup: Sign Up
       search: Search
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recently_archived: RECENTLY ARCHIVED
+      manifest: |
+        <h4>THE VOICE REPUBLIC MANIFESTO</h4>
+        <br />
+        <h5>1. Democracy lives on discussion and free speech</h5>
+        <p>At Voice Republic, you can share and form your opinions.</p>
+        <h5>2. Voice Republic lets speaker and listener meet at eye level</h5>
+        <p>Every listener can be a speaker, and vice versa.</p>
+        <h5>3. For more analog within the digital</h5>
+        <p>Voice Republic lets discussions grow just like they do in the real world. You can express yourself in as much detail as you like, giving space to the subjects that interest you.</p>
+        <h5>4. Voice Republic is founded on respect</h4>
+        <p>Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.</p>
+        <h5>5. For a decentralization of the Internet</h5>
+        <p>For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.</p>
+        <h5>6. We don't do business with your data</h5>
+        <p>Voice Republic has a business model. Your data is not part of it. Coming soon.</p>
+        <h5>7. Voice Republic can forget</h5>
+        <p>When you delete your accout, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
+      team: TEAM
     lp_login:
       email: E-mail
       password: Password
@@ -524,33 +528,16 @@ en:
       new_venue_create: A new Series was set up
   search:
     show:
-      title: "VR Results for '%{query}'"
-    tagged_with:
-      taggings_with: KluuUs and questions tagged with %{tag}
-      no_kluuus_tagged_with: No results for tag %{tag} found.
-      no_kluuu: Questions
-      title_other_tags: Trends
-    form:
-      search: Search!
-    search:
-      searchresults: Search result
-      search_results: Search result
-      publish_search_as_kluuu: Post this search term
-      persist_search: ! 'Tip:'
-      text: Create a question and use our matching system!
-      sign_up: Sign up
-      user: User
+      results: "#{COUNT} RESULTS FOR "
+      best_result: TOP RESULT
+      talks: TALKS
+      venues: SERIES
+      users: USERS
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recently_archived: RECENTLY ARCHIVED
       no_results_sentence: Oops, no results.
-  shared:
-    actionbar:
-      login: Login
-      sign_up: Sign Up
-      search: Search
-      my_profile: Profile
-      my_next_talks: My next Talks
-      create_venue: Create Series
-      settings: Settings
-      logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
@@ -611,6 +598,7 @@ en:
       new_talk: New talk
       edit_talk: Edit talk
       post: Post
+      write_a_comment: Write a comment
     venue_show_header:
       venue: Series
       minutes: Minutes
@@ -763,10 +751,10 @@ en:
       promote: GIVE THE MIC
       embed_player: Embed Player
     new:
-      title: "VR New Talk"  
+      title: "VR New Talk"
       new_talk: New Talk
     edit:
-      title: "VR Edit Talk %{title}"  
+      title: "VR Edit Talk %{title}"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
@@ -775,6 +763,13 @@ en:
       title: Title
       teaser: Teaser
       tag_list: Tag list
+    index:
+      explore_talks: VOICE REPUBLIC / TALKS
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recent: RECENT
+      see_all: more...
   articles:
     venue_form:
       write_an_article: write an article
@@ -817,9 +812,9 @@ en:
   hello: Hello world
   layouts:
     application:
-      landing_title: Voice Republic - The Place To Talk
+      landing_title: The Place To Talk
     users:
-      landing_title: Voice Republic - The Place To Talk
+      landing_title: The Place To Talk
 
   user_mailer:
     new_talk:
