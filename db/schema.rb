@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140404163241) do
+ActiveRecord::Schema.define(version: 20140417071336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,7 +207,10 @@ ActiveRecord::Schema.define(version: 20140404163241) do
     t.integer  "play_count",     default: 0
     t.string   "starts_at_date"
     t.string   "starts_at_time"
+    t.string   "uri"
   end
+
+  add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -261,8 +264,10 @@ ActiveRecord::Schema.define(version: 20140404163241) do
     t.datetime "image_updated_at"
     t.text     "options",            default: "--- {}\n"
     t.string   "image_uid"
+    t.string   "uri"
   end
 
+  add_index "venues", ["uri"], name: "index_venues_on_uri", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
 end
