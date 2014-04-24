@@ -205,16 +205,15 @@ ever run this in production!)
     % bin/vr_delete_and_watch
 
 On a rails console, pick the talk you want to work with (e.g. id 42)
-and reset it to start soon (e.g. `20.seconds.from_now`). (Don't use
-`update_attribute`, since it will not trigger the callbacks.)
+and reset it to start soon, there is a nifty helper for that.
 
     t = Talk.find(42); nil
-    t.reload; t.starts_at = 20.seconds.from_now; t.state = 'prelive'; t.save
+    t.reload.make_it_start_soon!
 
-Then reload the browsers. It will record a couple of seconds
-pretalk. You should see the file size in 'watch' console go up. After
-the time to start is up it will switch to live mode
-automatically. With your second browser you should hear yourself
+This will also trigger a reload of the browsers. It will record a
+couple of seconds pretalk. You should see the file size in 'watch'
+console go up. After the time to start is up it will switch to live
+mode automatically. With your second browser you should hear yourself
 now. If you don't have a headset plugged in this will very likely
 create a feedback loop. (Reload the host at least once if you want to
 have multiple files. These will show up on the 'watch' console.)
