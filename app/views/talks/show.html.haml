@@ -147,11 +147,12 @@
                           ng-click='unmute()')= t('.unmute_mic')
 
         .chat-flash-box
-          .chat-input-box.row(ng-hide="userIsAListener()")
-            .large-12.columns
-              .input-box
-                %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-                %span.icon-bubble-multi
+          - unless @talk.venue.opts.suppress_chat
+            .chat-input-box.row(ng-hide="userIsAListener()")
+              .large-12.columns
+                .input-box
+                  %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+                  %span.icon-bubble-multi
 
           -# FIXME quick and dirty: do not show audio settings
           - if @talk.state=~/^(pre|)live$/

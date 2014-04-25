@@ -1,0 +1,4 @@
+rtmp:
+  archive_path:     tmp/spec/archive
+  archive_raw_path: tmp/spec/archive_raw
+  recordings_path:  tmp/spec/recordings
