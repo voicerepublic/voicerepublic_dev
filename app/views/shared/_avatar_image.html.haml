@@ -2,14 +2,17 @@
 
 - case user
 - when 'guest'
-  - img_path = "{{guest.image}}"
+  - img_path = "/images/empty.png"
+  - img_path_ng = "{{guest.image}}"
 - when 'parti'
-  - img_path = "{{parti.image}}"
+  - img_path = "/images/empty.png"
+  - img_path_ng = "{{parti.image}}"
 - when 'static'
   - img_path = img_path
+  - img_path_ng = img_path
 -	else
   - img_path = user.avatar.thumb("#{img_size}x#{img_size}#nw").url
--# img_path = user == 'guest' ? "{{guest.image}}" : user.avatar.thumb("#{img_size}x#{img_size}#nw").url
+  - img_path_ng = user.avatar.thumb("#{img_size}x#{img_size}#nw").url
 
 .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
   %svg{baseprofile: "full", height: "100%", version: "1.2", width: "100%"}
@@ -19,4 +22,4 @@
       %mask{id: "mask-in-#{mask_num}", maskcontentunits: "userSpaceOnUse", maskunits: "userSpaceOnUse", transform: "scale(1)"}
         %image{height: "92%", width: "92%", x: "4%", "xlink:href" => "/images/mask_octagon.png", y: "4%"}
     %rect.avatar-bg{height: "100%", mask: "url(#mask-out-#{mask_num})", width: "100%", x: "0", y: "0"}
-    %image{height: "100%", mask: "url(#mask-in-#{mask_num})", width: "100%", x: "0", "xlink:href" => '/images/empty.png', 'ng-xlink-href' => img_path, y: "0"}
+    %image{height: "100%", mask: "url(#mask-in-#{mask_num})", width: "100%", x: "0", "xlink:href" => img_path, 'ng-xlink-href' => img_path_ng, y: "0"}
