@@ -2,9 +2,6 @@ require 'spec_helper'
 
 feature "User edits own profile", js: true do
   background do
-    # The LP is responsive. These specs are written against the desktop
-    # version.
-    page.driver.resize(1440, 1080)
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
     visit root_path
