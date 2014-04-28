@@ -230,7 +230,7 @@ class Talk < ActiveRecord::Base
     self.save!
     PrivatePub.publish_to public_channel, event: 'Reload'
   end
-  
+
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -283,7 +283,7 @@ class Talk < ActiveRecord::Base
   def postprocess!(uat=false)
     raise 'fail: postprocessing a talk with override' if recording_override?
     # TODO: move into a final state != archived (over/past/gone/myth)
-    return unless record? 
+    return unless record?
     return if archived? # silently guard against double processing
     process!
     chain = Setting.get('audio.process_chain').split(/\s+/)
@@ -311,10 +311,10 @@ class Talk < ActiveRecord::Base
   def process_override!(uat=false)
     # prepare override
     Dir.mktmpdir do |path|
-      Dir.chdir(path) do 
+      Dir.chdir(path) do
         # download
         tmp = "t#{id}"
-        File.open(tmp, 'w') { |f| f.print open(recording_override).read }
+        `wget -q "#{recording_override}" -O "#{path}/#{tmp}"`
         # convert to ogg
         %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
         # move ogg to archive
@@ -333,11 +333,11 @@ class Talk < ActiveRecord::Base
         FileUtils.mv(wav, target)
       end
     end # unlinks tmp dir
-    
+
     chain = Setting.get('audio.process_override_chain').split(/\s+/)
     run_chain! chain, uat
   end
-  
+
   def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
@@ -380,5 +380,5 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
-  
+
 end
