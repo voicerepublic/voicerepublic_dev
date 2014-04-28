@@ -148,17 +148,6 @@
         display:inline-block;
       }
     }
-    .big-player-control-box{
-      position: absolute;
-      bottom:50px;
-      left: 39px;
-      .icon-play-octa,
-      .icon-pause-octa{
-        font-size: rem-calc(68);
-        color: $brand-color-green;
-        text-shadow: 0 0 2px rgba(0,0,0,0.2);
-      }
-    }
   }
 
   #modal-download{
@@ -464,7 +453,7 @@
     width:33.33%;
   }
 
-  #talk-tab-description{
+  .description-content{
     padding-top:0 !important;
     .row{
       padding-top: 12px;
@@ -475,7 +464,7 @@
     }
   }
 
-  #talk-tab-discussion{
+  .discussion-content{
     background: $brand-color-creme;
     .chat-message{
       max-width:100%;
@@ -506,7 +495,7 @@
       }
     }
   }
-  #talk-tab-participants{
+  .participants-content{
     padding-top: 0 !important;
     .participants-box{
       padding-bottom: 20px;

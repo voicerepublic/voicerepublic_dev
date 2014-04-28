@@ -117,8 +117,9 @@ describe "Talks" do
           # This spec works until here. The message is never being shown in
           # testing mode, though. Faye published it, however. And of course it
           # works in development.
-          within "#talk-tab-discussion" do
+          within "#discussion" do
             page.should have_content "my message"
+            find(".chat-message").should be_visible
           end
         end
       end
@@ -138,9 +139,31 @@ describe "Talks" do
           end
         end
       end
-
     end
+  end
 
+  describe "Active tab", js: true do
+    it 'has no tab and contents in chat' do
+      @venue = FactoryGirl.create :venue
+      @venue.options[:suppress_chat] = true
+      @venue.save!
+      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+      visit venue_talk_path @venue, @talk
+      page.evaluate_script(
+        '$("a[href=#discussion]").parent().hasClass("active")
+      ').should_not be(true)
+      within ".tabs.vr-tabs" do
+        page.should_not have_css(".discussion")
+      end
+    end
+    it 'shows chat active by default' do
+      @venue = FactoryGirl.create :venue
+      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+      visit venue_talk_path @venue, @talk
+      page.evaluate_script(
+        '$("a[href=#discussion]").parent().hasClass("active")'
+      ).should be(true)
+    end
   end
 
   describe "validation" do

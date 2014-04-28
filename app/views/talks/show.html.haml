@@ -68,10 +68,6 @@
                 %li(ng-repeat='(ext, link) in mediaLinks')
                   %a.button-standard(href='{{link}}') {{ext}}
               %a.close-reveal-modal= raw '&#215;'
-          .big-player-control-box
-            = link_to '#', class: "big-player-play" do
-              %span.icon-play-octa
-              %span.icon-pause-octa.hide 
           -# PLAYER
           = render partial: 'shared/player', locals: { talk: @talk }
 
@@ -158,19 +154,19 @@
 
           -# FIXME quick and dirty: do not show audio settings
           - if @talk.state=~/^(pre|)live$/
-            .button-audio-settings(data-toggle-stuff=".flash-box")
+            .button-audio-settings(ng-click='showSettings=!showSettings')
               %span.icon-mic
               = t(".audio_settings")
 
           -# FIXME quick and dirty: do not show audio settings
-          .flash-box.row{ class: @talk.state=~/^(pre|)live$/ ? '' : 'hide-stuff' }
+          .flash-box.row(ng-class="{'hide-stuff': !showSettings}")
             .large-12.columns.text-left
               #flashContent
               .manual-box
                 .flash-manual-title
                   = t('.flash_manual_title')
                 %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-                %button.button-vr(data-toggle-stuff=".flash-box")
+                %button.button-vr(ng-click='showSettings=!showSettings')
                   = t('.lets_go')
                 = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
                   %p.flash-content
@@ -178,8 +174,12 @@
 
     .row.collapse-large-only
       .large-12.columns
+        -# TODO: The current active tab is being decided upon in Ruby. This is a
+        -# hacky and redundant implementation (decision was made whilst swarming).
+        -# The active tab should be different in various states, however.
+        -# https://www.pivotaltracker.com/story/show/70019652
         %dl.tabs.vr-tabs(data-tab="true")
-          %dd.text-center
+          %dd.text-center{class: ("active" if @talk.venue.opts.suppress_chat)}
             %a(href="#description")
               %span.icon-description
               = t('.description')
@@ -199,13 +199,17 @@
 
   .talk-tabs-content-block
     .tabs-content
-      #description.content
+      -# TODO: The current active tab is being decided upon in Ruby. This is a
+      -# hacky and redundant implementation (decision was made whilst swarming).
+      -# The active tab should be different in various states, however.
+      -# https://www.pivotaltracker.com/story/show/70019652
+      #description.description-content.content{class: ("active" if @talk.venue.opts.suppress_chat)}
         .row
           .large-12.columns
             = @talk.try(:description).try(:html_safe)
 
       - unless @talk.venue.opts.suppress_chat
-        #discussion.content.active
+        #discussion.discussion-content.content.active
           .chat-message(ng-repeat='message in discussion')
             .row
               .large-12.columns
@@ -216,7 +220,7 @@
                 .message-time
                   {{ message.created_at }}
 
-      #participants.content
+      #participants.participants-content.content
         .row.participants-box
           .large-12.columns
             .expecting_promotion(ng-show='expectingPromotion().length')

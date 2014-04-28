@@ -13,7 +13,8 @@ div.jp-interface {
 
 /* @group CONTROLS */
 
-ul.jp-controls {
+ul.jp-controls,
+ul.outside-controls {
   list-style-type:none;
   padding: 0;
   overflow:hidden;
@@ -37,6 +38,30 @@ a.jp-pause {
     text-shadow: 0 0 2px rgba(0,0,0,0.2);
   }
   color:$brand-color-green;
+}
+
+ul.outside-controls{
+  position: absolute;
+  top: -94px;
+  left: 29px;
+  margin:0;
+  span{
+    padding-left: 10px;
+    font-size: rem-calc(68);
+    transition: text-shadow 0.25s;
+    -moz-transition: text-shadow 0.25s;
+    -webkit-transition: text-shadow 0.25s;
+    -ms-transition: text-shadow 0.25s;
+    &:hover,&:focus{
+      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  ul.outside-controls{
+    display: none;
+  }
 }
 
 /* @end */
