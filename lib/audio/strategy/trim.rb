@@ -21,7 +21,8 @@ module Audio
       def trim_cmd
         return "sox -V1 #{backup} #{input} trim #{start} =#{stop}" if start > 0
 
-        "cp #{backup} #{input}" # no trim required
+        logfile.puts '# no trim required, resort to simple copy'
+        "cp #{backup} #{input}"
       end
 
       def start

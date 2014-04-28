@@ -364,11 +364,13 @@ class Talk < ActiveRecord::Base
     setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
     FileUtils.fileutils_output = logfile
-    chain.each_with_index do |name, index|
-      attrs = { id: id, run: name, index: index, total: chain.size }
-      PrivatePub.publish_to '/monitoring', { event: 'Processing', talk: attrs }
-      (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
-      runner.run(name)
+    FileUtils.chdir(setting.path, verbose: true) do
+      chain.each_with_index do |name, index|
+        attrs = { id: id, run: name, index: index, total: chain.size }
+        PrivatePub.publish_to '/monitoring', { event: 'Processing', talk: attrs }
+        (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
+        runner.run(name)
+      end
     end
     # save recording
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
