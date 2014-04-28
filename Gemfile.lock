@@ -127,7 +127,6 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     disable_assets_logger (1.0.0)
-    docile (1.1.2)
     dotenv (0.9.0)
     dragonfly (1.0.3)
       multi_json (~> 1.0)
@@ -354,11 +353,10 @@ GEM
     simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
-    simplecov (0.8.2)
-      docile (~> 1.1.0)
-      multi_json
-      simplecov-html (~> 0.8.0)
-    simplecov-html (0.8.0)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     slop (3.4.7)
     sprockets (2.10.1)
       hike (~> 1.2)
@@ -485,7 +483,7 @@ DEPENDENCIES
   select2-rails
   selenium-webdriver
   simple_form
-  simplecov
+  simplecov (~> 0.7.1)
   sqlite3
   therubyracer
   thin

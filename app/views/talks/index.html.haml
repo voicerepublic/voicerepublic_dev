@@ -13,16 +13,17 @@
   .row.top-margin-action-bar
     .small-12.columns.text-center
       %h2= t('.explore_talks')
-  .row.collapse-large-only
-    .small-12.columns.text-center
-      .title-box
-        = link_to live_talks_url do
-          %h3= t('.now_live')
-          %span.see-all-link= t('.see_all')
-      %ul.list-style-type-none
-        = render collection: @talks_live, partial: 'shared/talk_medium_box'
-  %br/
-  %br/
+  - unless @talks_live.empty?
+    .row.collapse-large-only
+      .small-12.columns.text-center
+        .title-box
+          = link_to live_talks_url do
+            %h3= t('.now_live')
+            %span.see-all-link= t('.see_all')
+        %ul.list-style-type-none
+          = render collection: @talks_live, partial: 'shared/talk_medium_box'
+    %br/
+    %br/
   .row.collapse-large-only.text-center
     - unless @talks_featured.empty?
       .featured-box.small-4.columns

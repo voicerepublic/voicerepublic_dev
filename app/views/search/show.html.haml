@@ -4,29 +4,32 @@
 .row.collapse.top-margin-action-bar
   .large-12.columns
     %h2
-      = raw t('.results', count: @results.count, default: "%{count} Results")
-      = '"' + @query + '#'
+      = raw t('.results', results_count: @results.count, default: "%{count} Results")
+      = '"' + @query + '"'
 
-    %h3= t('.best_result')
-    - case @best_hit
-    - when Talk
-      -#%h3= t('.talk')
-      %ul.list-style-type-none
-        = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @best_hit }
-    - when Venue
-      -#%h3= t('.series')
-      %ul.list-style-type-none
-        = render partial: "shared/venue_medium_box", locals: { venue_medium_box: @best_hit }
-    - when User
-      -#%h3= t('.user')
-      %ul.list-style-type-none
-        %li
-          = link_to user_path(@best_hit) do
-            .avatar
-              .avatar-box
-                = render partial: "shared/avatar_image",  locals: {user: @best_hit, img_size: 62}
-                .avatar-name.text-center
-                  = @best_hit.name            
+    - if @best_hit.nil?
+      %h2= t('.no_results')
+    - else
+      %h3= t('.best_result')
+      - case @best_hit
+      - when Talk
+        -#%h3= t('.talk')
+        %ul.list-style-type-none
+          = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @best_hit }
+      - when Venue
+        -#%h3= t('.series')
+        %ul.list-style-type-none
+          = render partial: "shared/venue_medium_box", locals: { venue_medium_box: @best_hit }
+      - when User
+        -#%h3= t('.user')
+        %ul.list-style-type-none
+          %li
+            = link_to user_path(@best_hit) do
+              .avatar
+                .avatar-box
+                  = render partial: "shared/avatar_image",  locals: {user: @best_hit, img_size: 62}
+                  .avatar-name.text-center
+                    = @best_hit.name
 
     %br/
     %hr/
