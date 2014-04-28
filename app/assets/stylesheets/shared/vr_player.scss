@@ -18,6 +18,8 @@ ul.outside-controls {
   list-style-type:none;
   padding: 0;
   overflow:hidden;
+  text-align:center;
+  position:relative
 }
 
 ul.jp-controls li {
@@ -34,7 +36,7 @@ a.jp-pause {
   width:40px;
   height:25px;
   span{
-    font-size: rem-calc(16);
+    font-size: 16px;
     text-shadow: 0 0 2px rgba(0,0,0,0.2);
   }
   color:$brand-color-green;
@@ -47,7 +49,8 @@ ul.outside-controls{
   margin:0;
   span{
     padding-left: 10px;
-    font-size: rem-calc(68);
+    padding-right: 10px;
+    font-size: 68px;
     transition: text-shadow 0.25s;
     -moz-transition: text-shadow 0.25s;
     -webkit-transition: text-shadow 0.25s;
@@ -115,8 +118,9 @@ div.jp-current-time,
 div.jp-duration {
   width:60px;
   font-family: 'eaglelight';
-  font-size:rem-calc(12);
+  font-size:12px;
   margin-left: 10px;
+  color: white;
 
 }
 div.jp-current-time {
