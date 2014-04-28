@@ -13,7 +13,12 @@ class SearchController < ApplicationController
 
     @results = PgSearch.multisearch(@query).
       paginate(page: params[:page], per_page: PER_PAGE)
-    @best_hit = @results.shift.searchable if params[:page] == '1'
+
+    unless @results.empty?
+      @best_hit = @results.shift.searchable if params[:page] == '1'
+    else
+      @best_hit = nil
+    end
     @talks = @results.select { |s| s.searchable.is_a?(Talk) }.map(&:searchable)
     @venues = @results.select { |s| s.searchable.is_a?(Venue) }.map(&:searchable)
     @users = @results.select { |s| s.searchable.is_a?(User) }.map(&:searchable)

@@ -5,9 +5,9 @@ namespace :db do
 
       script = <<-SCRIPT
         rake db:drop db:create
-        ssh rails@kluuu.com "pg_dump rails_production > #{ dump } && gzip #{ dump }"
-        scp rails@kluuu.com:#{ dump }.gz .
-        ssh rails@kluuu.com "rm #{ dump }.gz"
+        ssh app@voicerepublic.com "pg_dump rails_production > #{ dump } && gzip #{ dump }"
+        scp app@voicerepublic.com:#{ dump }.gz .
+        ssh app@voicerepublic.com "rm #{ dump }.gz"
         gunzip #{ dump }.gz
         psql #{Rails.configuration.database_configuration[Rails.env]["database"]} < #{ dump }
         rm #{ dump }*
@@ -22,11 +22,11 @@ namespace :db do
 
       script = <<-SCRIPT
         rake db:drop db:create
-        ssh rails@kluuu.com "pg_dump rails_staging > #{ dump } && gzip #{ dump }"
-        scp rails@kluuu.com:#{ dump }.gz .
-        ssh rails@kluuu.com "rm #{ dump }.gz"
+        ssh app@staging.voicerepublic.com "pg_dump rails_production > #{ dump } && gzip #{ dump }"
+        scp app@staging.voicerepublic.com:#{ dump }.gz .
+        ssh app@staging.voicerepublic.com "rm #{ dump }.gz"
         gunzip #{ dump }.gz
-        psql vr_dev < #{ dump }
+        psql #{Rails.configuration.database_configuration[Rails.env]["database"]} < #{ dump }
         rm #{ dump }*
       SCRIPT
 

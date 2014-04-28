@@ -230,7 +230,7 @@ class Talk < ActiveRecord::Base
     self.save!
     PrivatePub.publish_to public_channel, event: 'Reload'
   end
-  
+
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -281,14 +281,68 @@ class Talk < ActiveRecord::Base
   end
 
   def postprocess!(uat=false)
-    return unless record? # TODO: move into a final state != archived
-    return if archived?
+    raise 'fail: postprocessing a talk with override' if recording_override?
+    # TODO: move into a final state != archived (over/past/gone/myth)
+    return unless record?
+    return if archived? # silently guard against double processing
     process!
+    chain = Setting.get('audio.process_chain').split(/\s+/)
+    run_chain! chain, uat
+    archive!
+  end
+
+  # TODO this will leave orphaned versions of previous processings on disk
+  def reprocess!(uat=false)
+    raise 'fail: reprocessing a talk without recording' unless record?
+    raise 'fail: reprocessing a talk with override' if recording_override?
+
+    # move files back into position for processing
+    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    base = File.dirname(File.join(archive_raw, recording))
+    target = Settings.rtmp.recordings_path
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
+
+    chain = Setting.get('audio.reprocess_chain').split(/\s+/)
+    run_chain! chain, uat
+  end
+
+  # TODO this will leave orphaned versions of previous processings on disk
+  def process_override!(uat=false)
+    # prepare override
+    Dir.mktmpdir do |path|
+      Dir.chdir(path) do
+        # download
+        tmp = "t#{id}"
+        `wget -q "#{recording_override}" -O "#{path}/#{tmp}"`
+        # convert to ogg
+        %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
+        # move ogg to archive
+        ogg = tmp + '.ogg'
+        path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"
+        base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+        target = File.join(base, path)
+        FileUtils.mkdir_p(File.dirname(target))
+        FileUtils.mv(ogg, target)
+        # store reference
+        update_attribute :recording_override, path
+        # move wav to `recordings`
+        wav = tmp + '.wav'
+        base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+        target = File.join(base, "#{id}.wav")
+        FileUtils.mv(wav, target)
+      end
+    end # unlinks tmp dir
+
+    chain = Setting.get('audio.process_override_chain').split(/\s+/)
+    run_chain! chain, uat
+  end
+
+  def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
 
-    chain = Setting.get('audio.process_chain').split(/\s+/)
-    base = Settings.rtmp.recordings_path
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     opts = {
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i
@@ -297,7 +351,7 @@ class Talk < ActiveRecord::Base
     runner = Audio::StrategyRunner.new(setting)
     chain.each_with_index do |name, index|
       attrs = { id: id, run: name, index: index, total: chain.size }
-      PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
+      PrivatePub.publish_to '/monitoring', { event: 'Processing', talk: attrs }
       (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
       runner.run(name)
     end
@@ -311,18 +365,18 @@ class Talk < ActiveRecord::Base
     # move some files to archive_raw (journal and flv files)
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
-    FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
+    FileUtils.mkdir_p(target)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
     # move some files to archive (all other files)
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     target = File.dirname(File.join(archive, recording))
-    FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
+    FileUtils.mkdir_p(target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target)
+    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target)
+
     # TODO: save transcoded audio formats
 
-    archive!
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
