@@ -205,13 +205,13 @@
       -# hacky and redundant implementation (decision was made whilst swarming).
       -# The active tab should be different in various states, however.
       -# https://www.pivotaltracker.com/story/show/70019652
-      #description.content{class: ("active" if @talk.venue.opts.suppress_chat)}
+      #description.description-content.content{class: ("active" if @talk.venue.opts.suppress_chat)}
         .row
           .large-12.columns
             = @talk.try(:description).try(:html_safe)
 
       - unless @talk.venue.opts.suppress_chat
-        #discussion.content.active
+        #discussion.discussion-content.content.active
           .chat-message(ng-repeat='message in discussion')
             .row
               .large-12.columns
@@ -222,7 +222,7 @@
                 .message-time
                   {{ message.created_at }}
 
-      #participants.content
+      #participants.participants-content.content
         .row.participants-box
           .large-12.columns
             .expecting_promotion(ng-show='expectingPromotion().length')
