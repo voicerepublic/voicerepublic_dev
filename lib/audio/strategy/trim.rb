@@ -13,7 +13,7 @@ module Audio
       end
 
       def run
-        FileUtils.mv(input, backup)
+        FileUtils.mv(input, backup, verbose: true)
         trim
         input
       end

@@ -17,8 +17,9 @@ module Audio
         def call(setting)
           path = setting.path
           result = nil
-          Dir.chdir(path) do
-            instance = new(setting)
+          instance = new(setting)
+          instance.logfile.puts "# run #{self.name}"
+          FileUtils.chdir(path, verbose: true) do
 
             precond = instance.inputs.inject(true) { |r, i| r && File.exist?(i) } 
             raise "preconditions not met for #{name} " + 
@@ -57,6 +58,10 @@ module Audio
         [ output ].compact
       end
 
+      def logfile
+        opts[:logfile]
+      end
+      
     end
   end
 end

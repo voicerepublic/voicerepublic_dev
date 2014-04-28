@@ -19,8 +19,7 @@ module CmdRunner
   
   def run_cmd(method, *args)
     cmd = send(method, *args)
-    # FIXME dependency on Rails.logger
-    Rails.logger.info "CmdRunner> #{cmd}"
+    logfile.puts cmd unless logfile.nil?
     %x[#{cmd}]
   end
   
