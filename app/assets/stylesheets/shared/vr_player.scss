@@ -8,7 +8,7 @@ div.jp-audio{
 div.jp-interface {
   position: relative;
   width:100%;
-  height:47px;
+  height:44px;
 }
 
 /* @group CONTROLS */
@@ -24,16 +24,17 @@ ul.jp-controls li {
 }
 
 ul.jp-controls a {
-  margin:11px 0 0 0;
+  margin:5px 0 0 0;
   display:block;
   overflow:hidden;
 }
 a.jp-play,
 a.jp-pause {
   width:40px;
-  height:40px;
-  i{
-    font-size: rem-calc(24);
+  height:25px;
+  span{
+    font-size: rem-calc(16);
+    text-shadow: 0 0 2px rgba(0,0,0,0.2);
   }
   color:$brand-color-green;
 }
@@ -43,15 +44,11 @@ a.jp-pause {
 /* @group progress bar */
 
 div.jp-progress {
+  position: absolute;
+  top:30px;
+  height:16px;
   overflow:hidden;
   background-color: darken($brand-color-green,45%);
-}
-div.jp-progress {
-  position: absolute;
-  top:0px;
-  height:11px;
-}
-div.jp-progress {
   left:0;
   width:100%;
 }
@@ -84,7 +81,7 @@ div.jp-seeking-bg {
 
 div.jp-time-holder {
   position:absolute;
-  top:20px;
+  top:10px;
   left:0px;
   width:100%;
 }
@@ -92,9 +89,9 @@ div.jp-time-holder {
 div.jp-current-time,
 div.jp-duration {
   width:60px;
-  font-family: 'eaglebook';
+  font-family: 'eaglelight';
   font-size:rem-calc(12);
-  margin-left: 5px;
+  margin-left: 10px;
 
 }
 div.jp-current-time {
@@ -104,7 +101,7 @@ div.jp-current-time {
 div.jp-duration {
   float: right;
   display:inline;
-  margin-right: 5px;
+  margin-right: 10px;
   text-align: right;
 }
 

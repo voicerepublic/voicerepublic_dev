@@ -44,12 +44,36 @@
           = @talk.title
         .talk-teaser
           = @talk.teaser
-        -#%h3.talk-tags
-        -#  = @talk.tag_list
         .talk-date-time
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
+
+        -# TODO: better integrate player with angularjs
+        - if @talk.archived?
+          .talk-archived-actions-box
+            .embed-link-box
+              = link_to t('.embed'),'#', class: 'button-standard-small', 'data-reveal-id' => "modal-embed"
+            #modal-embed.reveal-modal.text-center(data-reveal)
+              %h3.color-black= t('.embed_this_talk')
+              %textarea
+                <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
+              %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
+              %a.close-reveal-modal= raw '&#215;'
+            .download-link-box(ng-show='talkIsArchived()')
+              = link_to t('.download'), '#', class: 'button-standard-small', 'data-reveal-id' => "modal-download"
+            #modal-download.reveal-modal.text-center(data-reveal)
+              %h3.color-black= t('.download_talk')
+              %ul.button-group.text-center
+                %li(ng-repeat='(ext, link) in mediaLinks')
+                  %a.button-standard(href='{{link}}') {{ext}}
+              %a.close-reveal-modal= raw '&#215;'
+          .big-player-control-box
+            = link_to '#', class: "big-player-play" do
+              %span.icon-play-octa
+              %span.icon-pause-octa.hide 
+          -# PLAYER
+          = render partial: 'shared/player', locals: { talk: @talk }
 
     .talk-countdown.row(ng-show='talkIsPrelive()')
       .medium-12.columns.text-center
@@ -62,23 +86,8 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        -# TODO: better integrate player with angularjs
-        - if @talk.archived?
-          = render partial: 'shared/player', locals: { talk: @talk }
-          .embed_player
-            %span.label.button-standard-small(data-toggle-stuff="#share_iframe")= t('.embed_player')
-          .download(ng-show='talkIsArchived()')
-            %span.download-title
-              = t('.download_as')
-            %ul.button-group
-              %li(ng-repeat='(ext, link) in mediaLinks')
-                %a.button-standard-small(href='{{link}}') {{ext}}
-          #share_iframe.hide-stuff
-            %textarea
-              <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
-
-        - else
-          %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
+        - unless @talk.archived?
+          .reload-message(ng-show='talkIsArchived()')= t('.please_reload_this_page')
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
