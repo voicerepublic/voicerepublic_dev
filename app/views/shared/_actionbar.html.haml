@@ -1,14 +1,19 @@
 - if current_user && current_user.guest && current_page?(root_path)
   .visitor-top-bar.row.collapse
     .large-12.columns
-      .visitor-top-box
-        .visitor-search-box
-          = form_tag "/search", :class => 'navbar-search form-search' do
-            = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
-            = button_tag :type => "submit", :class => "search-lupe" do
-              %span.icon-magnifying-glass
-        .visitor-explore-link
-          = link_to t('.explore'), talks_path
+      .left
+        .visitor-top-box
+          .visitor-search-box
+            = form_tag "/search", :class => 'navbar-search form-search' do
+              = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true
+              = button_tag :type => "submit", :class => "search-lupe" do
+                %span.icon-magnifying-glass
+          .visitor-explore-link
+            = link_to t('.explore'), talks_path
+      .right
+        .small-authentication-links.right.show-for-medium-down
+          = link_to t('.log_in'), new_user_session_path
+          = link_to t('.sign_up'), new_user_registration_path
 
 - else
 
