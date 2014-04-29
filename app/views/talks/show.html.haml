@@ -30,7 +30,7 @@
 
               %li(ng-show='showEndTalk()')
                 %a(href="#" ng-click='endTalk()')= t('.end_talk')
-                
+
               -#
                 %li= link_to t('.download_messages'),
                   "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
@@ -83,7 +83,8 @@
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
         - unless @talk.archived?
-          .reload-message(ng-show='talkIsArchived()')= t('.please_reload_this_page')
+          .reload-message(ng-show='talkIsArchived()')
+            = link_to t('.please_reload_this_page'), @talk
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
