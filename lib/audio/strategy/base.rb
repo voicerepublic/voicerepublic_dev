@@ -15,21 +15,20 @@ module Audio
 
       class << self
         def call(setting)
-          path = setting.path
           result = nil
-          Dir.chdir(path) do
-            instance = new(setting)
+          instance = new(setting)
+          instance.logfile.puts "# run #{self.name}"
 
-            precond = instance.inputs.inject(true) { |r, i| r && File.exist?(i) } 
-            raise "preconditions not met for #{name} " + 
-              "in #{path}: #{instance.inputs  * ', '}" unless precond
+          precond = instance.inputs.inject(true) { |r, i| r && File.exist?(i) } 
+          raise "preconditions not met for #{name} " + 
+                "in #{path}: #{instance.inputs  * ', '}" unless precond
 
-            result = instance.run
+          result = instance.run
 
-            postcond = instance.outputs.inject(true) { |r, i| r && File.exist?(i) }
-            raise "postconditions not met for #{name} " +
-              "in #{path}: #{instance.outputs * ', '}" unless postcond
-          end
+          postcond = instance.outputs.inject(true) { |r, i| r && File.exist?(i) }
+          raise "postconditions not met for #{name} " +
+                "in #{path}: #{instance.outputs * ', '}" unless postcond
+
           result
         end
       end
@@ -57,6 +56,10 @@ module Audio
         [ output ].compact
       end
 
+      def logfile
+        opts[:logfile]
+      end
+      
     end
   end
 end
