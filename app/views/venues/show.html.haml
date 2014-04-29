@@ -58,13 +58,13 @@
             %span.icon-bubble-multi
             = t('.comments')
 
-.row.collapse
+.row.collapse-large-only
   .tabs-content.large-12.columns
 
-    #description.content.active
+    #description.description-content.content.active
       %p= @venue.description.html_safe
 
-    #upcoming-talks.content.text-center
+    #upcoming-talks.upcoming-talks-content.content.text-center
       - if can?(:manage, @venue)
         = link_to new_venue_talk_path(@venue), class: 'button-vr button-margin-bottom' do
           = t('.create_new_talk')
@@ -74,11 +74,11 @@
 
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
 
-    #archived-talks.content
+    #archived-talks.archived-talks-content.content
       %ul.list-style-type-none
         = render partial: 'shared/talk_medium_box', collection: @archived_talks
 
-    #comments.content
+    #comments.comments-content.content
       - if can? :create, Comment
         .comment-form.row.collapse
           .medium-12.columns

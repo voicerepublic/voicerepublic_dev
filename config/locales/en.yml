@@ -294,7 +294,8 @@ en:
     show:
       title: "VR User %{username}"
       edit_user: Edit Profile
-      my-venues: My Series
+      about: About
+      venues: Series
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -599,6 +600,10 @@ en:
       edit_talk: Edit talk
       post: Post
       write_a_comment: Write a comment
+      description: Description
+      upcoming_talks: Upcoming Talks
+      archived_talks: Archived Talks
+      comments: Comments
     venue_show_header:
       venue: Series
       minutes: Minutes
@@ -730,7 +735,6 @@ en:
         %{started_at} - %{ended_at}
     show:
       title: "VR Talk %{title}"
-      discussion: Chat
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Type and hit enter to post a comment
       you: You
@@ -749,6 +753,9 @@ en:
       request_mic: GET THE MIC
       promote: GIVE THE MIC
       embed_player: Embed Player
+      discussion: Chat
+      description: Description
+      participants: Participants
     new:
       title: "VR New Talk"
       new_talk: New Talk

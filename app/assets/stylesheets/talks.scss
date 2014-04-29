@@ -406,7 +406,7 @@
     width:33.33%;
   }
 
-  #talk-tab-description{
+  .description-content{
     padding-top:0 !important;
     .row{
       padding-top: 12px;
@@ -417,7 +417,7 @@
     }
   }
 
-  #talk-tab-discussion{
+  .discussion-content{
     background: $brand-color-creme;
     .chat-message{
       max-width:100%;
@@ -448,7 +448,7 @@
       }
     }
   }
-  #talk-tab-participants{
+  .participants-content{
     padding-top: 0 !important;
     .participants-box{
       padding-bottom: 20px;
