@@ -299,7 +299,7 @@ class Talk < ActiveRecord::Base
     return unless record?
     return if archived? # silently guard against double processing
 
-    logfile.puts "# postprocess (#{Time.now})"
+    logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
 
     process!
     chain = venue.opts.process_chain
@@ -314,7 +314,7 @@ class Talk < ActiveRecord::Base
     raise 'fail: reprocessing a talk without recording' unless record?
     raise 'fail: reprocessing a talk with override' if recording_override?
 
-    logfile.puts "# reprocess (#{Time.now})"
+    logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"
 
     # move files back into position for processing
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
@@ -336,7 +336,7 @@ class Talk < ActiveRecord::Base
   # FIXME cleanup the wget/cp spec mess with
   # http://stackoverflow.com/questions/2263540
   def process_override!(uat=false)
-    logfile.puts "# override (#{Time.now})"
+    logfile.puts "\n\n# --- override (#{Time.now}) ---"
 
     # prepare override
     Dir.mktmpdir do |path|
@@ -435,6 +435,8 @@ class Talk < ActiveRecord::Base
     path = File.join(base, Time.now.strftime(ARCHIVE_STRUCTURE))
     FileUtils.mkdir_p(path)
     @logfile = File.open(File.join(path, "#{id}.log"), 'a')
+    @logfile.sync = true
+    @logfile
   end
 
 end
