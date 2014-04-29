@@ -299,7 +299,9 @@ class Talk < ActiveRecord::Base
     return unless record?
     return if archived? # silently guard against double processing
     process!
-    chain = Setting.get('audio.process_chain').split(/\s+/)
+    chain = venue.opts.process_chain
+    chain ||= Setting.get('audio.process_chain')
+    chain = chain.split(/\s+/)
     run_chain! chain, uat
     archive!
   end
@@ -316,18 +318,29 @@ class Talk < ActiveRecord::Base
     FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
     FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
 
-    chain = Setting.get('audio.reprocess_chain').split(/\s+/)
+    chain = venue.opts.process_chain
+    chain ||= Setting.get('audio.process_chain')
+    chain = chain.split(/\s+/)
     run_chain! chain, uat
   end
 
   # TODO this will leave orphaned versions of previous processings on disk
+  #
+  # FIXME cleanup the wget/cp spec mess with
+  # http://stackoverflow.com/questions/2263540
   def process_override!(uat=false)
     # prepare override
     Dir.mktmpdir do |path|
       Dir.chdir(path) do
         # download
         tmp = "t#{id}"
-        `wget -q "#{recording_override}" -O "#{path}/#{tmp}"`
+        if recording_override =~ /^https?:\/\//
+          # use wget for real urls
+          %x[ wget -q "#{recording_override}" -O "#{tmp}" ]
+        else
+          # cp local files
+          FileUtils.cp(recording_override, tmp)
+        end
         # convert to ogg
         %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
         # move ogg to archive
@@ -347,7 +360,9 @@ class Talk < ActiveRecord::Base
       end
     end # unlinks tmp dir
 
-    chain = Setting.get('audio.process_override_chain').split(/\s+/)
+    chain = venue.opts.override_chain
+    chain ||= Setting.get('audio.override_chain')
+    chain = chain.split(/\s+/)
     run_chain! chain, uat
   end
 

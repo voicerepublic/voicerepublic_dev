@@ -100,9 +100,11 @@ http_interactions:
 
         MkMlMjJ1cmklMjIlM0FudWxsJTJDJTIycmVjb3JkaW5nX292ZXJyaWRlJTIy
 
-        JTNBbnVsbCU3RCU3RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUyMnByaXZhdGVf
+        JTNBJTIyMjAzNiUyRjAxJTJGMDElMkZvdmVycmlkZS0xLm9nZyUyMiU3RCU3
 
-        cHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdEJTdE
+        RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUyMnByaXZhdGVfcHViX3Rva2VuJTIy
+
+        JTNBJTIyc2VjcmV0JTIyJTdEJTdE
 
 '
     headers:
@@ -147,9 +149,156 @@ http_interactions:
 
         MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
 
-        JTJDJTIycnVuJTIyJTNBJTIycHJlY3Vyc29yJTIyJTJDJTIyaW5kZXglMjIl
+        JTJDJTIycnVuJTIyJTNBJTIybTRhJTIyJTJDJTIyaW5kZXglMjIlM0EwJTJD
 
-        M0EwJTJDJTIydG90YWwlMjIlM0ExMSU3RCU3RCU3RCUyQyUyMmV4dCUyMiUz
+        JTIydG90YWwlMjIlM0E4JTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIy
+
+        cHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '45'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
+
+'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
+
+        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
+
+        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
+
+        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
+
+        JTJDJTIycnVuJTIyJTNBJTIybXAzJTIyJTJDJTIyaW5kZXglMjIlM0ExJTJD
+
+        JTIydG90YWwlMjIlM0E4JTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIy
+
+        cHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '45'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
+
+'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
+
+        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
+
+        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
+
+        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
+
+        JTJDJTIycnVuJTIyJTNBJTIyb2dnJTIyJTJDJTIyaW5kZXglMjIlM0EyJTJD
+
+        JTIydG90YWwlMjIlM0E4JTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIy
+
+        cHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '45'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
+
+'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
+
+        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
+
+        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
+
+        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
+
+        JTJDJTIycnVuJTIyJTNBJTIybW92ZV9jbGVhbiUyMiUyQyUyMmluZGV4JTIy
+
+        JTNBMyUyQyUyMnRvdGFsJTIyJTNBOCU3RCU3RCU3RCUyQyUyMmV4dCUyMiUz
 
         QSU3QiUyMnByaXZhdGVfcHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdE
 
@@ -198,360 +347,13 @@ http_interactions:
 
         MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
 
-        JTJDJTIycnVuJTIyJTNBJTIya2x1dXVfbWVyZ2UlMjIlMkMlMjJpbmRleCUy
-
-        MiUzQTElMkMlMjJ0b3RhbCUyMiUzQTExJTdEJTdEJTdEJTJDJTIyZXh0JTIy
-
-        JTNBJTdCJTIycHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIl
-
-        N0QlN0Q=
-
-'
-    headers:
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '45'
-      Connection:
-      - close
-      Server:
-      - thin 1.6.1 codename Death Proof
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
-
-'
-    http_version: 
-  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9292/faye
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
-
-        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
-
-        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
-
-        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
-
-        JTJDJTIycnVuJTIyJTNBJTIydHJpbSUyMiUyQyUyMmluZGV4JTIyJTNBMiUy
-
-        QyUyMnRvdGFsJTIyJTNBMTElN0QlN0QlN0QlMkMlMjJleHQlMjIlM0ElN0Il
-
-        MjJwcml2YXRlX3B1Yl90b2tlbiUyMiUzQSUyMnNlY3JldCUyMiU3RCU3RA==
-
-'
-    headers:
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '45'
-      Connection:
-      - close
-      Server:
-      - thin 1.6.1 codename Death Proof
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
-
-'
-    http_version: 
-  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9292/faye
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
-
-        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
-
-        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
-
-        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
-
-        JTJDJTIycnVuJTIyJTNBJTIybTRhJTIyJTJDJTIyaW5kZXglMjIlM0EzJTJD
-
-        JTIydG90YWwlMjIlM0ExMSU3RCU3RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUy
-
-        MnByaXZhdGVfcHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdEJTdE
-
-'
-    headers:
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '45'
-      Connection:
-      - close
-      Server:
-      - thin 1.6.1 codename Death Proof
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
-
-'
-    http_version: 
-  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9292/faye
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
-
-        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
-
-        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
-
-        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
-
-        JTJDJTIycnVuJTIyJTNBJTIybXAzJTIyJTJDJTIyaW5kZXglMjIlM0E0JTJD
-
-        JTIydG90YWwlMjIlM0ExMSU3RCU3RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUy
-
-        MnByaXZhdGVfcHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdEJTdE
-
-'
-    headers:
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '45'
-      Connection:
-      - close
-      Server:
-      - thin 1.6.1 codename Death Proof
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
-
-'
-    http_version: 
-  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9292/faye
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
-
-        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
-
-        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
-
-        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
-
-        JTJDJTIycnVuJTIyJTNBJTIyb2dnJTIyJTJDJTIyaW5kZXglMjIlM0E1JTJD
-
-        JTIydG90YWwlMjIlM0ExMSU3RCU3RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUy
-
-        MnByaXZhdGVfcHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdEJTdE
-
-'
-    headers:
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '45'
-      Connection:
-      - close
-      Server:
-      - thin 1.6.1 codename Death Proof
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
-
-'
-    http_version: 
-  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9292/faye
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
-
-        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
-
-        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
-
-        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
-
-        JTJDJTIycnVuJTIyJTNBJTIybW92ZV9jbGVhbiUyMiUyQyUyMmluZGV4JTIy
-
-        JTNBNiUyQyUyMnRvdGFsJTIyJTNBMTElN0QlN0QlN0QlMkMlMjJleHQlMjIl
-
-        M0ElN0IlMjJwcml2YXRlX3B1Yl90b2tlbiUyMiUzQSUyMnNlY3JldCUyMiU3
-
-        RCU3RA==
-
-'
-    headers:
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '45'
-      Connection:
-      - close
-      Server:
-      - thin 1.6.1 codename Death Proof
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
-
-'
-    http_version: 
-  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9292/faye
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
-
-        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
-
-        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
-
-        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
-
         JTJDJTIycnVuJTIyJTNBJTIyamluZ2xpemUlMjIlMkMlMjJpbmRleCUyMiUz
 
-        QTclMkMlMjJ0b3RhbCUyMiUzQTExJTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNB
+        QTQlMkMlMjJ0b3RhbCUyMiUzQTglN0QlN0QlN0QlMkMlMjJleHQlMjIlM0El
 
-        JTdCJTIycHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0Ql
+        N0IlMjJwcml2YXRlX3B1Yl90b2tlbiUyMiUzQSUyMnNlY3JldCUyMiU3RCU3
 
-        N0Q=
-
-'
-    headers:
-      Accept:
-      - ! '*/*'
-      User-Agent:
-      - Ruby
-      Content-Type:
-      - application/x-www-form-urlencoded
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=utf-8
-      Cache-Control:
-      - no-cache, no-store
-      Content-Length:
-      - '45'
-      Connection:
-      - close
-      Server:
-      - thin 1.6.1 codename Death Proof
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
-
-'
-    http_version: 
-  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9292/faye
-    body:
-      encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
-
-        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
-
-        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
-
-        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
-
-        JTJDJTIycnVuJTIyJTNBJTIybTRhJTIyJTJDJTIyaW5kZXglMjIlM0E4JTJD
-
-        JTIydG90YWwlMjIlM0ExMSU3RCU3RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUy
-
-        MnByaXZhdGVfcHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdEJTdE
+        RA==
 
 '
     headers:
@@ -596,11 +398,11 @@ http_interactions:
 
         MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
 
-        JTJDJTIycnVuJTIyJTNBJTIybXAzJTIyJTJDJTIyaW5kZXglMjIlM0E5JTJD
+        JTJDJTIycnVuJTIyJTNBJTIybTRhJTIyJTJDJTIyaW5kZXglMjIlM0E1JTJD
 
-        JTIydG90YWwlMjIlM0ExMSU3RCU3RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUy
+        JTIydG90YWwlMjIlM0E4JTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIy
 
-        MnByaXZhdGVfcHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdEJTdE
+        cHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
 
 '
     headers:
@@ -645,11 +447,60 @@ http_interactions:
 
         MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
 
-        JTJDJTIycnVuJTIyJTNBJTIyb2dnJTIyJTJDJTIyaW5kZXglMjIlM0ExMCUy
+        JTJDJTIycnVuJTIyJTNBJTIybXAzJTIyJTJDJTIyaW5kZXglMjIlM0E2JTJD
 
-        QyUyMnRvdGFsJTIyJTNBMTElN0QlN0QlN0QlMkMlMjJleHQlMjIlM0ElN0Il
+        JTIydG90YWwlMjIlM0E4JTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIy
 
-        MjJwcml2YXRlX3B1Yl90b2tlbiUyMiUzQSUyMnNlY3JldCUyMiU3RCU3RA==
+        cHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      Content-Length:
+      - '45'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'W3siY2hhbm5lbCI6Ii9tb25pdG9yaW5nIiwic3VjY2Vzc2Z1bCI6dHJ1ZX1d
+
+'
+    http_version: 
+  recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9uaXRvcmluZyUy
+
+        MiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGbW9u
+
+        aXRvcmluZyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJldmVudCUyMiUzQSUy
+
+        MlByb2Nlc3NpbmclMjIlMkMlMjJ0YWxrJTIyJTNBJTdCJTIyaWQlMjIlM0Ex
+
+        JTJDJTIycnVuJTIyJTNBJTIyb2dnJTIyJTJDJTIyaW5kZXglMjIlM0E3JTJD
+
+        JTIydG90YWwlMjIlM0E4JTdEJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIy
+
+        cHJpdmF0ZV9wdWJfdG9rZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
 
 '
     headers:
@@ -787,9 +638,11 @@ http_interactions:
 
         MkMlMjJ1cmklMjIlM0FudWxsJTJDJTIycmVjb3JkaW5nX292ZXJyaWRlJTIy
 
-        JTNBbnVsbCU3RCU3RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUyMnByaXZhdGVf
+        JTNBJTIyMjAzNiUyRjAxJTJGMDElMkZvdmVycmlkZS0xLm9nZyUyMiU3RCU3
 
-        cHViX3Rva2VuJTIyJTNBJTIyc2VjcmV0JTIyJTdEJTdE
+        RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUyMnByaXZhdGVfcHViX3Rva2VuJTIy
+
+        JTNBJTIyc2VjcmV0JTIyJTdEJTdE
 
 '
     headers:
