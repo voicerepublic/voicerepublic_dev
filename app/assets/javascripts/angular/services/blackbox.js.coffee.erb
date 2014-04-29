@@ -53,9 +53,13 @@ blackboxFunc = ($log, $window, $q) ->
   $log.debug 'Initializing BlackboxService...'
   margin = 0
 
+  callback = (obj) ->
+    return $log.debug "Embed SWF on ##{obj.id}" if obj.success
+    $log.error "Error embedding SWF on ##{obj.id}"
+
   swfobject.embedSWF "<%= asset_path 'Blackbox.swf' %>", "flashContent",
     215 + margin, 140 + margin,
-    version, null, flashVars, params, attributes
+    version, null, flashVars, params, attributes, callback
 
   # public methods which exposed
   publish = (name) ->

@@ -242,30 +242,6 @@ why. But you can simply quit the console and restart it to get it back.
 Restart `vrwatch` to remove the artifacts and start over.
 
 
-Audio cheat sheet
------------------
-
-### get duration
-
-    soxi -D file.wav
-    
-### convert wav to flv
-
-    avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
-
-### convert x.wav to x.ogg
-
-    oggenc x.wav
-
-### convert x.wav to x.mp3
-
-    avconv -y -i x.wav x.mp3
-
-### convert x.wav to x.m4a
-
-    avconv -y -i x.wav -b:a 64k -strict experimental x.m4a
-
-
 Troubleshooting Process/Monit
 -----------------------------
 
@@ -281,3 +257,36 @@ Troubleshooting Process/Monit
 
     # /etc/init.d/monit restart
     ...
+
+
+Audio cheat sheet
+-----------------
+
+### For experimenting you might want to...
+
+    sudo apt-get install libsox-fmt-mp3
+
+### get duration
+
+    soxi -D file.wav
+
+### convert wav to flv
+
+    avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
+
+### Make the best out of files which have silence at the beginning
+
+    sox --norm 90.mp3 90.wav
+    sox 90.wav 90-vad.wav vad
+
+### convert x.wav to x.ogg
+
+    oggenc x.wav
+
+### convert x.wav to x.mp3
+
+    avconv -y -i x.wav x.mp3
+
+### convert x.wav to x.m4a
+
+    avconv -y -i x.wav -b:a 64k -strict experimental x.m4a

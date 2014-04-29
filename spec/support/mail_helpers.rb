@@ -1,7 +1,7 @@
 module MailHelpers
 
   def last_email
-    ActionMailer::Base.deliveries[0]
+    ActionMailer::Base.deliveries.last
   end
 
   # Usage: extract_token_from_email(:reset_password)

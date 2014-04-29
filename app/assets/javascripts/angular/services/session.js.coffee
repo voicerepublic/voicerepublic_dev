@@ -14,7 +14,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     onair: false
     reqmic: false
     acceptOrDecline: false
-    settings: true
+    settings: false
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -192,8 +192,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.state = 'archived'
         $log.debug data.links
         config.talk.links = data.links
-        # FIXME this is not very nice
-        window.location.reload()
 
   # some methods only available to the host
   promote = (id) ->
