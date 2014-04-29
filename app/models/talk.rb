@@ -298,6 +298,9 @@ class Talk < ActiveRecord::Base
     # TODO: move into a final state != archived (over/past/gone/myth)
     return unless record?
     return if archived? # silently guard against double processing
+
+    logfile.puts "# postprocess (#{Time.now})"
+
     process!
     chain = venue.opts.process_chain
     chain ||= Setting.get('audio.process_chain')
@@ -311,12 +314,16 @@ class Talk < ActiveRecord::Base
     raise 'fail: reprocessing a talk without recording' unless record?
     raise 'fail: reprocessing a talk with override' if recording_override?
 
+    logfile.puts "# reprocess (#{Time.now})"
+
     # move files back into position for processing
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     base = File.dirname(File.join(archive_raw, recording))
     target = Settings.rtmp.recordings_path
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
+    FileUtils.fileutils_output = logfile
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
+    FileUtils.fileutils_output = $stderr
 
     chain = venue.opts.process_chain
     chain ||= Setting.get('audio.process_chain')
@@ -329,9 +336,12 @@ class Talk < ActiveRecord::Base
   # FIXME cleanup the wget/cp spec mess with
   # http://stackoverflow.com/questions/2263540
   def process_override!(uat=false)
+    logfile.puts "# override (#{Time.now})"
+
     # prepare override
     Dir.mktmpdir do |path|
-      Dir.chdir(path) do
+      FileUtils.fileutils_output = logfile
+      FileUtils.chdir(path, verbose: true) do
         # download
         tmp = "t#{id}"
         if recording_override =~ /^https?:\/\//
@@ -339,7 +349,7 @@ class Talk < ActiveRecord::Base
           %x[ wget -q "#{recording_override}" -O "#{tmp}" ]
         else
           # cp local files
-          FileUtils.cp(recording_override, tmp)
+          FileUtils.cp(recording_override, tmp, verbose: true)
         end
         # convert to ogg
         %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
@@ -348,16 +358,17 @@ class Talk < ActiveRecord::Base
         path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"
         base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
         target = File.join(base, path)
-        FileUtils.mkdir_p(File.dirname(target))
-        FileUtils.mv(ogg, target)
+        FileUtils.mkdir_p(File.dirname(target), verbose: true)
+        FileUtils.mv(ogg, target, verbose: true)
         # store reference
         update_attribute :recording_override, path
         # move wav to `recordings`
         wav = tmp + '.wav'
         base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
         target = File.join(base, "#{id}.wav")
-        FileUtils.mv(wav, target)
+        FileUtils.mv(wav, target, verbose: true)
       end
+      FileUtils.fileutils_output = $stderr
     end # unlinks tmp dir
 
     chain = venue.opts.override_chain
@@ -410,9 +421,7 @@ class Talk < ActiveRecord::Base
     FileUtils.mkdir_p(target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
-    logfile.close
     FileUtils.fileutils_output = $stderr
-    FileUtils.mv(Dir.glob("#{base}/#{id}.log"), target)
 
     # TODO: save transcoded audio formats
 
@@ -420,17 +429,12 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
-  # TODO caching would be nice here and would work for production,
-  # but not for test.
   def logfile
-    # return @logfile unless @logfile.nil?
+    return @logfile unless @logfile.nil?
     base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    path = File.join(base, (recording || '')+ '.log')
-    unless File.exist?(path)
-      base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-      path = File.join(base, id.to_s + '.log')
-    end
-    @logfile = File.open(path, 'a')
+    path = File.join(base, Time.now.strftime(ARCHIVE_STRUCTURE))
+    FileUtils.mkdir_p(path)
+    @logfile = File.open(File.join(path, "#{id}.log"), 'a')
   end
 
 end
