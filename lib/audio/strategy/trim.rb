@@ -12,8 +12,12 @@ module Audio
         "#{name}-untrimmed.wav"
       end
 
+      def make_backup_cmd
+        "mv #{input} #{backup}"
+      end
+      
       def run
-        FileUtils.mv(input, backup, verbose: true)
+        make_backup
         trim
         input
       end
