@@ -3,16 +3,15 @@
 
 .header-block(style="background-image: url(#{@user.header.try(:url)})")
 
-  - if can? :manage, @user
-    .generic-action-bar.row.collapse
-      .large-12.columns
-        %ul.button-group.right
-          %li= link_to t('.edit_user'), [:edit, @user], class: 'button-standard'
-
   .header-box.row
     .large-12.columns.text-center
-      - count = @user.participations.count
-      -# .talks-joined= t('.talk_joined', count: count, default: '%{count} Talks joined')
+      - if can? :manage, @user
+        .generic-actions-box
+          = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+            %span.icon-cog
+          %ul#action-links-list.list-style-type-none.hide-stuff
+            %li= link_to t('.edit_user'), [:edit, @user]
+              
       .avatar
         - img_size = 120
         .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
