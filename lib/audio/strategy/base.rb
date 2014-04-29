@@ -16,6 +16,7 @@ module Audio
       class << self
         def call(setting)
           result = nil
+          path = setting.path
           instance = new(setting)
           instance.logfile.puts "# run #{self.name}"
 
@@ -57,7 +58,7 @@ module Audio
       end
 
       def logfile
-        opts[:logfile]
+        opts[:logfile] || File.open('/dev/null', 'a')
       end
       
     end

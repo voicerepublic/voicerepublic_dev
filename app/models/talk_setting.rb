@@ -30,7 +30,7 @@ class TalkSetting
   # all, all, all fragments! that's not even one less than all!
   def all_fragments(user=nil)
     return journal['record_done'] if user.nil?
-    fragments.select { |f| f.first.include?("u#{user}-") }
+    fragments.select { |f| f.first.include?("-u#{user}-") }
   end
 
   # all user ids during live phase

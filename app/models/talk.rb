@@ -420,8 +420,10 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
+  # TODO caching would be nice here and would work for production,
+  # but not for test.
   def logfile
-    return @logfile unless @logfile.nil?
+    # return @logfile unless @logfile.nil?
     base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     path = File.join(base, (recording || '')+ '.log')
     unless File.exist?(path)
