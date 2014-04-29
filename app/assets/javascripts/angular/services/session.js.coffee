@@ -14,7 +14,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     onair: false
     reqmic: false
     acceptOrDecline: false
-    settings: true
+    settings: false
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
