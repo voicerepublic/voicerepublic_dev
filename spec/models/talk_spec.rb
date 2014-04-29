@@ -232,11 +232,12 @@ describe Talk do
       end
       result = File.join(Settings.rtmp.archive_path, talk.recording + '.m4a')
       ctime = File.ctime(result)
-      override = File.expand_path('spec/support/fixtures/sonar.ogg', Rails.root)
+      # FIXME this will be pulled by wget, which is not mocked with vcr!
+      override = 'https://staging.voicerepublic.com/sonar.ogg'
       talk.update_attribute :recording_override, override
       
       # no we are in state `archived`, so we can do a `process_override`
-      VCR.use_cassette 'talk_reprocess' do
+      VCR.use_cassette 'talk_override' do
         talk.send :process_override!
       end
 

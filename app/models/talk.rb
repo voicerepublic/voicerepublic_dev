@@ -318,7 +318,7 @@ class Talk < ActiveRecord::Base
       Dir.chdir(path) do
         # download
         tmp = "t#{id}"
-        `wget -q "#{recording_override}" -O "#{path}/#{tmp}"`
+        %x[ wget -q "#{recording_override}" -O "#{tmp}" ]
         # convert to ogg
         %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
         # move ogg to archive
