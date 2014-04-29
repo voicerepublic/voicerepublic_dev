@@ -312,13 +312,22 @@ class Talk < ActiveRecord::Base
   end
 
   # TODO this will leave orphaned versions of previous processings on disk
+  #
+  # FIXME cleanup the wget/cp spec mess with
+  # http://stackoverflow.com/questions/2263540
   def process_override!(uat=false)
     # prepare override
     Dir.mktmpdir do |path|
       Dir.chdir(path) do
         # download
         tmp = "t#{id}"
-        %x[ wget -q "#{recording_override}" -O "#{tmp}" ]
+        if recording_override =~ /^https?:\/\//
+          # use wget for real urls
+          %x[ wget -q "#{recording_override}" -O "#{tmp}" ]
+        else
+          # cp local files
+          FileUtils.cp(recording_override, tmp)
+        end
         # convert to ogg
         %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
         # move ogg to archive
