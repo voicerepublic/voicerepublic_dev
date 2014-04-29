@@ -781,41 +781,6 @@ en:
     venue_form:
       write_an_article: write an article
       save_article: Post
-  video_sessions:
-    anonymous_sign_up:
-      video_call_title: Video call
-      guest_to_charge_text: Please sign in to call this KluuU.
-      close: Close
-      sign_up: Sign up
-    calling:
-      video_call_title: Video Call
-      in_process: In progess...
-      cancel_call: Cancel
-    new_form:
-      dispatching_call: Connecting to...
-      start_video_call: Video Call
-    new:
-      video_call_title: Video Call
-      not_logged_in_text: Your are not signed in. Continue?
-      log_in: Sign in
-    no_account:
-      video_call_title: Video Call
-      not_enough_money_text: You don't have sufficient credits. Do you like to buy credit now?
-      close: Close
-      create_account: Configure your financial account
-    no_funds:
-      video_call_title: Video Call
-      not_enough_money_text: You don't have a sufficient credit. Do you like to buy credit now?
-      close: Close
-      check_in_money: Buy credit
-    user_unavailable:
-      video_call_title: Video Call
-      unavailable_text: The User is currently offline. Write a message.
-      close: Close
-      send_message: Message
-    video_system_error:
-      video_down_text: Sorry! The video system is temporarily out of order. We're working on it. Please try again later.
-      close: Close
   hello: Hello world
   layouts:
     application:
@@ -840,12 +805,6 @@ en:
       header: "Hello %{user_firstname}"
       content: |
         Reminder content.
-      footer: Goodbye & Goodnight
-    new_article:
-      subject: New article
-      header: "Hello %{user_firstname}"
-      content: |
-        New article content.
       footer: Goodbye & Goodnight
     new_comment:
       subject: New talk
