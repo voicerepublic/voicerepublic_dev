@@ -82,7 +82,8 @@
               <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
 
         - else
-          %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
+          %div(ng-show='talkIsArchived()')
+            = link_to t('.please_reload_this_page'), @talk
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
