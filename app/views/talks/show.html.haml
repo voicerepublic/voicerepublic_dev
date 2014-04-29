@@ -27,13 +27,13 @@
             %ul#action-links-list.list-style-type-none.hide-stuff
               - if !@talk.live?
                 %li= link_to t('.edit_talk'), [:edit, @venue, @talk]
+
+              %li(ng-show='showEndTalk()')
+                %a(href="#" ng-click='endTalk()')= t('.end_talk')
+                
               -#
                 %li= link_to t('.download_messages'),
                   "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
-
-              %li.end-talk-link(ng-show='showEndTalk()')
-                %button.button.tiny(ng-click='endTalk()')
-                  = t('.end_talk')
         .breadcrumbs-box.text-left
           = link_to @talk.user.name, user_path(@talk.user)
           .bc-delimiter >
@@ -117,9 +117,9 @@
 
     .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
       .large-12.columns
-        .participate-button-box
+        .participate-button-box.text-center
           - url = [ @talk.venue, :participations ]
-          = link_to t('.participate'), url, method: 'post', class: 'button-vr button-full-size'
+          = link_to t('.participate'), url, method: 'post', class: 'button-vr'
 
     .talk-host-and-participants-action-box.row
       .large-12.columns.text-center
