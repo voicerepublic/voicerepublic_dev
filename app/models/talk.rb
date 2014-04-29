@@ -286,7 +286,9 @@ class Talk < ActiveRecord::Base
     return unless record?
     return if archived? # silently guard against double processing
     process!
-    chain = Setting.get('audio.process_chain').split(/\s+/)
+    chain = venue.opts.process_chain
+    chain ||= Setting.get('audio.process_chain')
+    chain = chain.split(/\s+/)
     run_chain! chain, uat
     archive!
   end
@@ -303,7 +305,9 @@ class Talk < ActiveRecord::Base
     FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target)
     FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target)
 
-    chain = Setting.get('audio.reprocess_chain').split(/\s+/)
+    chain = venue.opts.process_chain
+    chain ||= Setting.get('audio.process_chain')
+    chain = chain.split(/\s+/)
     run_chain! chain, uat
   end
 
@@ -334,7 +338,9 @@ class Talk < ActiveRecord::Base
       end
     end # unlinks tmp dir
 
-    chain = Setting.get('audio.process_override_chain').split(/\s+/)
+    chain = venue.opts.override_chain
+    chain ||= Setting.get('audio.override_chain')
+    chain = chain.split(/\s+/)
     run_chain! chain, uat
   end
 

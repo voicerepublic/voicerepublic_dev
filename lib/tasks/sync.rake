@@ -13,7 +13,11 @@ namespace :sync do
       no_auto_postprocessing: true,
       no_auto_end_talk: true,
       no_email: true,
-      suppress_chat: true
+      suppress_chat: true,
+      process_chain:
+        'precursor kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
+      override_chain:
+        'm4a mp3 ogg move_clean rp14 m4a mp3 ogg'
     }
 
     text_limit = 8191 # general limit for text fields
