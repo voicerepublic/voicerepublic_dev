@@ -157,19 +157,19 @@
 
           -# FIXME quick and dirty: do not show audio settings
           - if @talk.state=~/^(pre|)live$/
-            .button-audio-settings(ng-click='showSettings=!showSettings')
+            .button-audio-settings(ng-click='toggleShowSettings()')
               %span.icon-mic
               = t(".audio_settings")
 
           -# FIXME quick and dirty: do not show audio settings
-          .flash-box.row(ng-class="{'hide-stuff': !showSettings}")
+          .flash-box.row(ng-class="{'hide-stuff': !showSettings()}")
             .large-12.columns.text-left
               #flashContent
               .manual-box
                 .flash-manual-title
                   = t('.flash_manual_title')
                 %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-                %button.button-vr(ng-click='showSettings=!showSettings')
+                %button.button-vr(ng-click='toggleShowSettings()')
                   = t('.lets_go')
                 = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
                   %p.flash-content

@@ -15,7 +15,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.listeners = session.listeners
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion
-  $scope.showSettings = config.flags.settings
+
+  $scope.toggleShowSettings = ->
+    config.flags.settings = !config.flags.settings
+
+  $scope.showSettings = ->
+    config.flags.settings
 
   $scope.participants = ->
     return session.participants() if config.talk.state == 'live'
