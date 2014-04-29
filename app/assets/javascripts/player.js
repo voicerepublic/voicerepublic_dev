@@ -16,9 +16,6 @@ $(function () {
       wmode: "window",
       smoothPlayBar: true,
       keyEnabled: true
-    })
-    $("body").on("click", ".big-player-play", function(){
-      player.jPlayer("play");
-    });     
+    })     
   })
 })
