@@ -33,7 +33,7 @@ module Audio
       end
 
       def unify_cmd(file)
-        "sox -r 44.1k -c 2 #{file} unified.wav; mv unified.wav #{file}"
+        "sox #{file} -c 2 unified.wav rate -L 44.1k; mv unified.wav #{file}"
       end
       
       def merge_with_jingles_cmd

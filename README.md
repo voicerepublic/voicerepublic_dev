@@ -291,6 +291,6 @@ Audio cheat sheet
 
     avconv -y -i x.wav -b:a 64k -strict experimental x.m4a
 
-### sample wav down to 16k and 1 channel
+### resample wav to 44.1k and 2 channels
 
-    sox testfoo.wav --rate 16k --channel 1 testfoo2.wav
+    sox -c 2 vrs.wav lib/audio/files/vr_stop.wav rate -L 44.1k
