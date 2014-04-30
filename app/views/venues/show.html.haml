@@ -8,14 +8,15 @@
 
   = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
-  - if can? :manage, @venue
-    .generic-action-bar.row.collapse
-      .large-12.columns
-        %ul.button-group.right
-          %li= link_to t('.edit_venue'), [:edit, @venue], class: 'button-standard'
-
   .title-block.row
     .large-12.columns
+      - if can? :manage, @venue
+        .generic-actions-box
+          = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+            %span.icon-cog
+          %ul#action-links-list.list-style-type-none.hide-stuff
+            %li= link_to t('.edit_venue'), [:edit, @venue]
+
       .row
         .large-12.columns.text-center
           .type-name= t('.series')
