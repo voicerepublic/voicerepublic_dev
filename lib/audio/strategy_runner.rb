@@ -11,7 +11,7 @@ module Audio
       end
       strategy.call(setting)
     rescue Exception => e
-      puts "Error running strategy #{strategy}: #{e.message}"
+      setting.opts[:logfile].puts "# Error running strategy #{strategy}: #{e.message}"
       false
     end
 

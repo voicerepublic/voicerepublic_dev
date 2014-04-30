@@ -15,7 +15,7 @@ namespace :sync do
       no_email: true,
       suppress_chat: true,
       process_chain:
-        'precursor kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
+        'precursor normalize kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
       override_chain:
         'm4a mp3 ogg move_clean rp14 m4a mp3 ogg'
     }

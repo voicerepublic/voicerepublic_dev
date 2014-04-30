@@ -6,7 +6,10 @@ namespace :audio do
     path = args[:path] || '.'
     name = args[:name] || 'dummy'
     setting = TalkSetting.new(path, name)
-    result = Audio::StrategyRunner.new(setting).run(strategy)
+    result = nil
+    Dir.chdir(setting.path) do
+      result = Audio::StrategyRunner.new(setting).run(strategy)
+    end
     result = [result] unless result.is_a?(Array)
     result = result.map { |r| [ path, r ] * '/' }
     puts *result
