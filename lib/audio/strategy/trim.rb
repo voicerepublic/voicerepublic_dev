@@ -22,6 +22,7 @@ module Audio
         input
       end
 
+      # FIXME only triming the end does not work
       def trim_cmd
         return "sox -V1 #{backup} #{input} trim #{start} =#{stop}" if start > 0
 
