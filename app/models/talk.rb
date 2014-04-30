@@ -102,9 +102,13 @@ class Talk < ActiveRecord::Base
   end
 
   scope :popular, -> { archived.order('play_count DESC') }
-  scope :recent,  -> { archived.order('ended_at DESC') }
   scope :ordered, -> { order('starts_at ASC') }
 
+  scope :recent, -> do
+    archived.order('ended_at DESC').
+      where('featured_from IS NOT NULL')
+  end
+  
   scope :audio_format, ->(format) do # TODO: check if needed
     where('audio_formats LIKE ?', "%#{format}%")
   end
