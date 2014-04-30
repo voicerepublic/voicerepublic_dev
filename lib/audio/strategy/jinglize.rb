@@ -1,6 +1,6 @@
 # Merges the resulting wav with the start and stop jingle.
 #
-# The jingle files have to have a sample rate of 44k and 2 channels!
+# The jingle files have to have a sample rate of 44.1k and 2 channels!
 #
 # Prior to this strategy use MoveClean.
 #
