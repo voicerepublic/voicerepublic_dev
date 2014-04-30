@@ -290,3 +290,7 @@ Audio cheat sheet
 ### convert x.wav to x.m4a
 
     avconv -y -i x.wav -b:a 64k -strict experimental x.m4a
+
+### sample wav down to 16k and 1 channel
+
+    sox testfoo.wav --rate 16k --channel 1 testfoo2.wav
