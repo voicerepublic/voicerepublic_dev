@@ -16,8 +16,6 @@
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
 
-    = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
-
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         - if can? :manage, @talk
@@ -35,11 +33,16 @@
                 %li= link_to t('.download_messages'),
                   "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
         .breadcrumbs-box.text-left
-          = link_to @talk.user.name, user_path(@talk.user)
+          = link_to user_path(@talk.user) do
+            %span.icon-person
+            = @talk.user.name
           .bc-delimiter >
-          = link_to @talk.venue.title, @talk.venue
+          = link_to @talk.venue do
+            %span.infinity-sign= raw '&#8734;'
+            = @talk.venue.title
           .bc-delimiter >
           .type-name= t('.talk')
+        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
         .talk-teaser

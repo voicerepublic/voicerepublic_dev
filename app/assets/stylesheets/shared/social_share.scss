@@ -1,7 +1,7 @@
 #social_share {
   position: absolute;
   right: 20px;
-  top: 70px;
+  top: 42px;
   .share{
     display: block;
     height: 23px;
@@ -10,12 +10,12 @@
       position:relative;
     	color:white;
     	&:hover,&:focus{
-    		color:#ddd;
+    		color:$brand-color-green;
     	}
       span[class^="icon-"]{
         font-size: rem-calc(10);
         position:absolute;
-        top: 5px;
+        top: 6px;
         left: 5px;
       }
       span.icon-octagon{

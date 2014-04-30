@@ -39,7 +39,7 @@
   .generic-actions-box{
     position: absolute;
     right: -89px;
-    top: 21px;
+    top: 27px;
     .action-toggle{
       height: 38px;
       width: 38px;
@@ -86,14 +86,27 @@
     padding:0px 0 2px 0;
     .breadcrumbs-box{
       position: relative;
-      padding:3px 10px;
-      background: rgba(0,0,0,0.7);
+      padding:6px 13px;
+      background: rgba(0,0,0,0.6);
       color:white;
       font-family: 'eaglelight';
       a{
         font-size: rem-calc(14);
         color: inherit;
         font-family: inherit;
+        .icon-person{
+          font-size: rem-calc(12);
+          vertical-align: middle;
+          position: relative;
+          top: 2px;
+        }
+        .infinity-sign{
+          font-size: rem-calc(24);
+          line-height:12px;
+          vertical-align: middle;
+          position: relative;
+          top: 0px;
+        }
         &:hover,&:focus{
           color: darken(white,5%);
         }
@@ -116,9 +129,9 @@
       color: #fff;
       font-size: rem-calc(39);
       line-height: 1;
-      margin: 11px 0 5px 0;
+      margin: 20px 0 3px 0;
       padding: 0 47px;
-      text-shadow:0 0 2px rgba(0,0,0,0.2);
+      text-shadow:0 0 7px rgba(0,0,0,0.4);
     }
     .talk-teaser{
       color: #fff;
@@ -126,7 +139,7 @@
       font-size: rem-calc(20);
       line-height: 1;
       margin: 0;
-      text-shadow:0 0 2px rgba(0,0,0,0.2);
+      text-shadow:0 0 2px rgba(0,0,0,0.5);
     }
 
     @media screen and (min-width: 700px) {
@@ -136,8 +149,9 @@
     }
 
     .talk-date-time{
-      margin: rem-calc(12) 0 0 0;
+      margin: rem-calc(10) 0 0 0;
       font-family: 'eaglelight';
+      font-size: rem-calc(14);
     }
     .talk-archived-actions-box{
       position: absolute;
