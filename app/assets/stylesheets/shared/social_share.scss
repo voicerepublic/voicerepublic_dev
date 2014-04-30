@@ -1,7 +1,7 @@
 #social_share {
   position: absolute;
   right: 20px;
-  top: 42px;
+  top: 54px;
   .share{
     display: block;
     height: 23px;
@@ -17,6 +17,7 @@
         position:absolute;
         top: 6px;
         left: 5px;
+        text-shadow: 0 0 1px rgba(0,0,0,0.5);
       }
       span.icon-octagon{
         font-size: rem-calc(21);

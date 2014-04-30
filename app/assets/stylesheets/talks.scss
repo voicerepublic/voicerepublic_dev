@@ -87,7 +87,7 @@
     .breadcrumbs-box{
       position: relative;
       padding:6px 13px;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.3);
       color:white;
       font-family: 'eaglelight';
       a{
@@ -108,7 +108,9 @@
           top: 0px;
         }
         &:hover,&:focus{
-          color: darken(white,5%);
+          .link-text{
+            text-decoration: underline;
+          }
         }
       }
       .bc-delimiter{
@@ -117,21 +119,23 @@
         display: inline-block;
         margin:0 3px;
       }
-      .type-name{
+      .flyer-link-box{
         position: absolute;
-        bottom:-26px;
-        left:10px;
-        font-family: 'eaglebook';
-        font-size: rem-calc(14)
+        right: 10px;
+        top:3px;
+        a{
+          font-family: 'eaglebook';
+          font-size: rem-calc(11);
+        }
       }
     }
     .talk-title{
       color: #fff;
       font-size: rem-calc(39);
       line-height: 1;
-      margin: 20px 0 3px 0;
-      padding: 0 47px;
-      text-shadow:0 0 7px rgba(0,0,0,0.4);
+      margin: 22px 0 3px 0;
+      padding: 0 37px;
+      text-shadow:0 0 2px rgba(0,0,0,0.5);
     }
     .talk-teaser{
       color: #fff;
@@ -140,9 +144,11 @@
       line-height: 1;
       margin: 0;
       text-shadow:0 0 2px rgba(0,0,0,0.5);
+      padding: 0 37px;
     }
 
     @media screen and (min-width: 700px) {
+      .talk-title,
       .talk-teaser {
         padding: 0 120px;
       }
@@ -153,13 +159,42 @@
       font-family: 'eaglelight';
       font-size: rem-calc(14);
     }
+
+    .jp-audio{
+      height: 46px;
+    }
+
     .talk-archived-actions-box{
-      position: absolute;
-      right: 10px;
-      bottom: 40px;
-      .embed-link-box,
-      .download-link-box{
-        display:inline-block;
+      padding:4px 2px 2px 0;
+      a{
+        color: white;
+        display: inline-block;
+        margin:0 3px;
+      }
+      .download-link{
+        position: relative;
+        top: -1px;
+      }
+      .embed-link{
+        position: relative;
+        top: 2px;
+        font-size: rem-calc(17px);
+        font-family: 'eaglebook';
+      }
+    }
+    .play-count{
+      padding:4px 0 0 7px;
+      color: $brand-color-green;
+      font-family: 'eaglelight';
+      font-size: rem-calc(14);
+      a{
+        cursor: default;
+        text-shadow: 0 0 1px rgba(0,0,0,0.5);
+      }
+      .icon-play{
+        position: relative;
+        top: 0;
+        font-size: rem-calc(10)
       }
     }
   }

@@ -76,7 +76,7 @@ div.jp-progress {
   top:30px;
   height:16px;
   overflow:hidden;
-  background-color: darken($brand-color-green,45%);
+  background-color: rgba(0,0,0,0.5);
   left:0;
   width:100%;
 }
@@ -98,7 +98,7 @@ div.jp-play-bar {
 
 /* The seeking class is added/removed inside jPlayer */
 div.jp-seeking-bg {
-  background: url("assets/player.blue.monday.seeking.gif");
+  background: url("/images/loading.gif");
 }
 
 /* @end */
@@ -117,10 +117,10 @@ div.jp-time-holder {
 div.jp-current-time,
 div.jp-duration {
   width:60px;
-  font-family: 'eaglelight';
-  font-size:12px;
+  font-family: 'eaglebook';
+  font-size:11px;
   margin-left: 10px;
-  color: white;
+  color: $brand-color-green;
 
 }
 div.jp-current-time {
