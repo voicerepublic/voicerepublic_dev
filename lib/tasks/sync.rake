@@ -73,11 +73,10 @@ namespace :sync do
         talk.venue = venue
         talk.title = item.title.strip.truncate(string_limit)
         talk.teaser = item.description_short.strip.truncate(string_limit)
-        talk.description = 'tbd.' # FIXME
-        # talk.description = ([ item.speaker_names.map(&:strip) * ', ',
-        #                       'Room: ' + item.room.strip,
-        #                       item.description.strip ] * '<br><br>' ).
-        #                    truncate(text_limit)
+        talk.description = ([ item.speaker_names.map(&:strip) * ', ',
+                              'Room: ' + item.room.strip,
+                              item.description.strip ] * '<br><br>' ).
+                           truncate(text_limit)
         talk.tag_list = rp14_tags
         talk.starts_at_date = [y, m, d] * '-'
         talk.starts_at_time = item.start
