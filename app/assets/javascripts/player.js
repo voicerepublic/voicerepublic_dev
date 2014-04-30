@@ -16,6 +16,6 @@ $(function () {
       wmode: "window",
       smoothPlayBar: true,
       keyEnabled: true
-    })
+    })     
   })
 })

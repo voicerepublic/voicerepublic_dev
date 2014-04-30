@@ -1,15 +1,27 @@
 @import "grids_variables_mixins/ci_variables";
+@import "grids_variables_mixins/vr_icons";
+@import "grids_variables_mixins/eagle_webfonts";
 @import "shared/vr_player";
 
-.jp-controls{
+body,html{
+	margin:0;
+	padding:0;
+}
+
+.embedded-player{
+	background: rgba(0,0,0,0.6);
+	min-height:100px;
+	padding-top: 30px
+}
+
+h1{
+	font-family: 'eaglebook';
+	font-weight: normal;
 	text-align: center;
-	position: relative;
-	li{
-		.jp-play:before{
-			content:'play';
-		}
-		.jp-pause:before{
-			content:'pause'
-		}
-	}
+	color:white;
+	margin:0px 0 60px 0;
+}
+
+a{
+	text-decoration: none
 }
