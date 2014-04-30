@@ -110,6 +110,16 @@ namespace :sync do
     puts *errors
     puts
 
+    talks =  Talk.order('starts_at ASC').where("uri LIKE 'rp://2014/%'")
+    
+    puts "LINEUP (#{talks.count})"
+    puts
+    talks.each do |t|
+      puts [ t.uri, "https://voicerepublic.com/talk/#{t.id}",
+             t.title.inspect, t.starts_at ] * ','
+    end
+    puts
+    
   end
 
 end
