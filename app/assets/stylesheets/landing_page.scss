@@ -12,7 +12,7 @@
       display: inline-block;
       .top-bar-search-field{
         display:inline-block;
-        width: 100px;
+        width: 110px;
         background: transparent !important;
         padding-left:30px !important;
         padding-right:0px !important;
@@ -71,15 +71,15 @@
 	.bg-creme,
 	.bg-blue{
 		background-color: $brand-color-creme;
-		background-image: image-url('bg_blue.svg');
+		background-image: image-url('bg_blue.png');
 		background-repeat: no-repeat;
 		background-position: center bottom;
-		background-size: cover;
+		background-size: 100%;
 	}
 
 	.bg-blue{
 		background-color: $brand-color-blue;
-		background-image: image-url('bg_creme.svg');
+		background-image: image-url('bg_creme.png');
 	}
 
   // TITLE ROW
