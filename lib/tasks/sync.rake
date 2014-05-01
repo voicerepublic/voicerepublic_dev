@@ -15,14 +15,15 @@ namespace :sync do
       no_email: true,
       suppress_chat: true,
       process_chain:
-        'precursor kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
+        'precursor normalize kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
       override_chain:
         'm4a mp3 ogg move_clean rp14 m4a mp3 ogg'
     }
 
     text_limit = 8191 # general limit for text fields
     text_limit = 2300 # limit for full text search
-
+    string_limit = 140
+    
     warnings, errors = [], []
     report = Hash.new { |h, k| h[k] = 0 }
 
@@ -57,7 +58,7 @@ namespace :sync do
         venue_uri = "rp://2014/category/#{category.tr(' ', '-')}"
         venue = Venue.find_or_initialize_by(uri: venue_uri)
         venue.title = "#{item.event_title.strip} - #{category}"
-        venue.teaser = item.event_description.strip
+        venue.teaser = item.event_description.strip.truncate(string_limit)
         venue.description = 'tbd.' # FIXME
         venue.tag_list = rp14_tags
         venue.user = rp14_user
@@ -70,8 +71,8 @@ namespace :sync do
         talk = Talk.find_or_initialize_by(uri: talk_uri)
         next unless talk.prelive?
         talk.venue = venue
-        talk.title = item.title.strip
-        talk.teaser = item.description_short.strip.truncate(255)
+        talk.title = item.title.strip.truncate(string_limit)
+        talk.teaser = item.description_short.strip.truncate(string_limit)
         talk.description = ([ item.speaker_names.map(&:strip) * ', ',
                               'Room: ' + item.room.strip,
                               item.description.strip ] * '<br><br>' ).
@@ -109,6 +110,16 @@ namespace :sync do
     puts *errors
     puts
 
+    talks =  Talk.order('starts_at ASC').where("uri LIKE 'rp://2014/%'")
+    
+    puts "LINEUP (#{talks.count})"
+    puts
+    talks.each do |t|
+      puts [ t.uri, "https://voicerepublic.com/talk/#{t.id}",
+             t.title.inspect, t.starts_at ] * ','
+    end
+    puts
+    
   end
 
 end

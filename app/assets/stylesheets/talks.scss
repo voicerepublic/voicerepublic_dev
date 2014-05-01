@@ -76,7 +76,7 @@
           background: black;
         }
       }
-    } 
+    }
   }
 
   .talk-title-box{
@@ -259,7 +259,7 @@
           height: 100%;
         }
       }
-    }    
+    }
     .talk-state-info{
       position: relative;
       width: 100%;
@@ -507,8 +507,13 @@
     .row{
       padding-top: 12px;
       background: rgba(0,0,0,0.8);
-      p{
-        color: white
+      color: white;
+      a {
+        text-decoration: underline;
+        color: inherit;
+      }
+      p {
+        color: inherit;
       }
     }
   }
