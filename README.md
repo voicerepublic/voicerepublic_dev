@@ -76,7 +76,7 @@ Make `bin` available in your PATH.
 
 Run
 
-    mxmlc lib/flash/Blackbox.as
+    zeus rake build:flash
 
 
 Runnning Audio Strategies with Rake
