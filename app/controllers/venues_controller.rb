@@ -20,8 +20,7 @@ class VenuesController < ApplicationController
   # GET /venues/1.json
   def show
     @upcoming_talks = @venue.talks.where(state: [:prelive, :live]).ordered
-    @next_talk      = @upcoming_talks.shift
-    @archived_talks = @venue.talks.archived
+    @archived_talks = @venue.talks.archived.ordered
 
     @participation =
       @venue.participations.find_by(user_id: current_user.id)
