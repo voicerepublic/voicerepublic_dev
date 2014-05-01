@@ -103,7 +103,7 @@ Unpack and make `bin` available in your PATH.
 
 Run
 
-    mxmlc lib/flash/Blackbox.as
+    zeus rake build:flash
 
 
 Runnning Audio Strategies with Rake
@@ -177,6 +177,10 @@ Console Cheat Sheet
     Talk.order('RANDOM()').limit(3).each do |t|
       t.update_attribute :featured_from, 1.day.ago
     end
+
+### Reload browser session of all attendenees of talk 737
+
+    PrivatePub.publish_to '/t737/public', event: 'Reload'
 
 
 Manual acceptance tests Cheat Sheet

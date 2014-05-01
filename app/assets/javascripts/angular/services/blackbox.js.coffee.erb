@@ -33,6 +33,21 @@ blackboxFunc = ($log, $window, $q) ->
   $window.flashLog = (msg) ->
     $log.debug msg
 
+  $window.flashErrorHandler = (code, stream) ->
+    # switch code
+    #   when 'NetConnection.Connect.Failed'
+    #     if pubStream == stream
+    #       $log.info "TODO #{code} #{stream}"
+    #   when 'NetConnection.Connect.Closed'
+    #     if pubStream == stream
+    #       publish stream
+    #   when 'NetConnection.Connect.NetworkChange'
+    #     $log.info "TODO #{code} #{stream}"
+
+    # throwing will track errors in errbit
+    status = code
+    throw "Flash Error: #{code} on stream #{stream}"
+
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
 
@@ -40,8 +55,9 @@ blackboxFunc = ($log, $window, $q) ->
     # this will later be set by `setStreamingServer`
     streamer: "rtmp://0.0.0.0/record"
     # callback after flash initialize complete
-    afterInitialize: 'flashCallback',
-    logMethod: 'flashLog',
+    afterInitialize: 'flashCallback'
+    logMethod: 'flashLog'
+    errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
       
   params = {}
@@ -57,12 +73,16 @@ blackboxFunc = ($log, $window, $q) ->
     return $log.debug "Embed SWF on ##{obj.id}" if obj.success
     $log.error "Error embedding SWF on ##{obj.id}"
 
-  swfobject.embedSWF "<%= asset_path 'Blackbox.swf' %>", "flashContent",
+  swfobject.embedSWF "<%= asset_path 'Blackbox3.swf' %>", "flashContent",
     215 + margin, 140 + margin,
     version, null, flashVars, params, attributes, callback
 
+  pubStream = null
+  status = 'ok'
+
   # public methods which exposed
   publish = (name) ->
+    pubStream = name
     deferred.promise.then (api) ->
       api.publish name
 
@@ -112,6 +132,7 @@ blackboxFunc = ($log, $window, $q) ->
     unmute
     setStreamingServer
     setVolume
+    status
   }
 
 # annotate with dependencies to inject

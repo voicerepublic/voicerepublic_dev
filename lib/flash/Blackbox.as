@@ -24,12 +24,13 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.1b';
+    internal var version: String = '2.2';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
 		internal var publishNetConnection: NetConnection;
     internal var logMethod: String;
+    internal var errorMethod: String;
     internal var feedbackMethod: String;
     internal var volume: Number = 1;
     // internal var myCircle:Shape = new Shape();
@@ -61,6 +62,7 @@
 			ExternalInterface.addCallback("setStreamingServer", setStreamingServer);
 			ExternalInterface.addCallback("setVolume", setVolume);
 
+      errorMethod = root.loaderInfo.parameters['errorMethod'] || "console.log";
       logMethod = root.loaderInfo.parameters['logMethod'] || "console.log";
       feedbackMethod = root.loaderInfo.parameters['feedbackMethod'] || "console.log";
 			var callback: String =
@@ -198,10 +200,12 @@
                               nc: NetConnection,
                               stream: String): Function {
       return function(event: NetStatusEvent): void {
+        // see http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/events/NetStatusEvent.html#info
         if (event.info.code == "NetConnection.Connect.Success") {
           func(nc, stream);
           log("Connected to " + stream);
         } else {
+          ExternalInterface.call(errorMethod, event.info.code, stream);
           log("Error: " + event.info.code);
         }
       }

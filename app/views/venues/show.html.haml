@@ -51,11 +51,11 @@
         %dd.text-center
           %a(href="#upcoming-talks")
             %span.icon-mic
-            = t('.upcoming_talks')
+            = t('.upcoming_talks', count: @upcoming_talks.count)
         %dd.text-center
           %a(href="#archived-talks")
             %span.icon-play-octa
-            = t('.archived_talks')
+            = t('.archived_talks', count: @archived_talks.count)
         %dd.text-center
           %a(href="#comments")
             %span.icon-bubble-multi
@@ -72,9 +72,6 @@
         = link_to new_venue_talk_path(@venue), class: 'button-vr button-margin-bottom' do
           = t('.create_new_talk')
       %ul.list-style-type-none
-        - unless @next_talk.nil?
-          = render partial: 'shared/talk_medium_box', locals: { talk_medium_box: @next_talk }
-
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
 
     #archived-talks.archived-talks-content.content
