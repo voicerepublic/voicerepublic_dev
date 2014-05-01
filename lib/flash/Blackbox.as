@@ -200,12 +200,13 @@
                               nc: NetConnection,
                               stream: String): Function {
       return function(event: NetStatusEvent): void {
+        // see http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/events/NetStatusEvent.html#info
         if (event.info.code == "NetConnection.Connect.Success") {
           func(nc, stream);
           log("Connected to " + stream);
         } else {
+          ExternalInterface.call(errorMethod, event.info.code, stream);
           log("Error: " + event.info.code);
-          ExternalInterface.call(errorMethod, event);
         }
       }
     }

@@ -33,8 +33,16 @@ blackboxFunc = ($log, $window, $q) ->
   $window.flashLog = (msg) ->
     $log.debug msg
 
-  $window.flashError = (msg) ->
-    $log.error msg
+  $window.flashErrorHandler = (code, stream) ->
+    switch code
+      when 'NetConnection.Connect.Failed'
+        if pubStream == stream
+          $log.info "TODO #{code} #{stream}"
+      when 'NetConnection.Connect.Closed'
+        $log.info "TODO #{code} #{stream}"
+      else
+        # throwing will track errors in errbit
+        throw "Flash Error: #{code}"
 
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
@@ -45,7 +53,7 @@ blackboxFunc = ($log, $window, $q) ->
     # callback after flash initialize complete
     afterInitialize: 'flashCallback'
     logMethod: 'flashLog'
-    errorMethod: 'flashError'
+    errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
       
   params = {}
@@ -57,12 +65,15 @@ blackboxFunc = ($log, $window, $q) ->
   $log.debug 'Initializing BlackboxService...'
   margin = 0
 
-  swfobject.embedSWF "<%= asset_path 'Blackbox1.swf' %>", "flashContent",
+  swfobject.embedSWF "<%= asset_path 'Blackbox3.swf' %>", "flashContent",
     215 + margin, 140 + margin,
     version, null, flashVars, params, attributes
 
+  pubStream = null
+
   # public methods which exposed
   publish = (name) ->
+    pubStream = name
     deferred.promise.then (api) ->
       api.publish name
 
