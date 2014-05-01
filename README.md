@@ -178,6 +178,10 @@ Console Cheat Sheet
       t.update_attribute :featured_from, 1.day.ago
     end
 
+### Reload browser session of all attendenees of talk 737
+
+    PrivatePub.publish_to '/t737/public', event: 'Reload'
+
 
 Manual acceptance tests Cheat Sheet
 -----------------------------------
