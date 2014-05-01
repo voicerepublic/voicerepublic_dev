@@ -58,9 +58,9 @@ namespace :sync do
         venue_uri = "rp://2014/category/#{category.tr(' ', '-')}"
         venue = Venue.find_or_initialize_by(uri: venue_uri)
         venue.title = "#{item.event_title.strip} - #{category}"
-        venue.teaser = item.event_description.strip.truncate(string_limit)
-        venue.description = 'tbd.' # FIXME
-        venue.tag_list = rp14_tags
+        venue.teaser ||= item.event_description.strip.truncate(string_limit)
+        venue.description ||= 'tbd.' # FIXME
+        venue.tag_list ||= rp14_tags
         venue.user = rp14_user
         venue.options = rp14_opts
         metric = venue.persisted? ? :venues_updated : :venues_created
@@ -77,7 +77,7 @@ namespace :sync do
                               'Room: ' + item.room.strip,
                               item.description.strip ] * '<br><br>' ).
                            truncate(text_limit)
-        talk.tag_list = rp14_tags
+        talk.tag_list ||= rp14_tags
         talk.starts_at_date = [y, m, d] * '-'
         talk.starts_at_time = item.start
         talk.duration = item.duration.match(/\d+/).to_a.first
