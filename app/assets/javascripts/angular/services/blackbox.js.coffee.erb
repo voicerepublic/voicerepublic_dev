@@ -34,15 +34,16 @@ blackboxFunc = ($log, $window, $q) ->
     $log.debug msg
 
   $window.flashErrorHandler = (code, stream) ->
-    switch code
-      # when 'NetConnection.Connect.Failed'
-      #   if pubStream == stream
-      #     $log.info "TODO #{code} #{stream}"
-      # when 'NetConnection.Connect.Closed'
-      #   if pubStream == stream
-      #     publish stream
-      # when 'NetConnection.Connect.NetworkChange'
-      #   $log.info "TODO #{code} #{stream}"
+    # switch code
+    #   when 'NetConnection.Connect.Failed'
+    #     if pubStream == stream
+    #       $log.info "TODO #{code} #{stream}"
+    #   when 'NetConnection.Connect.Closed'
+    #     if pubStream == stream
+    #       publish stream
+    #   when 'NetConnection.Connect.NetworkChange'
+    #     $log.info "TODO #{code} #{stream}"
+
     # throwing will track errors in errbit
     status = code
     throw "Flash Error: #{code} on stream #{stream}"
