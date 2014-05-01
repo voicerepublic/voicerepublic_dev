@@ -518,6 +518,7 @@ en:
       new_venue_create: A new Series was set up
   search:
     show:
+      title: 'Results for "%{query}"'
       results: "%{results_count} RESULT(S) FOR "
       best_result: TOP RESULT
       talks: TALKS
@@ -542,10 +543,17 @@ en:
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
-      legal: Legal
-      terms_of_use: Terms of use
-      privacy_statement: Privacy statement
-      ip_infringement: Ip infringement notice
+      about: About
+      company: Company
+      manifest: Manifest
+      terms: Terms
+      pricing: Pricing
+      blog: Blog
+      faq: FAQ
+      press_kit: Press Kit
+      contact: Contact
+      fb: Voice Republic on facebook
+      tw: Voice Republic on twitter
     navbar:
       more_talks: More talks
       sign_up: Sign Up
@@ -760,11 +768,12 @@ en:
       description: Description
       participants: Participants
       plays: '%{count} plays'
+      edit_talk: Edit Talk
     new:
-      title: "VR New Talk"
+      title: "New Talk"
       new_talk: New Talk
     edit:
-      title: "VR Edit Talk %{title}"
+      title: "Edit Talk %{title}"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
