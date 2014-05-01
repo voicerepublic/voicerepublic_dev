@@ -35,14 +35,17 @@ blackboxFunc = ($log, $window, $q) ->
 
   $window.flashErrorHandler = (code, stream) ->
     switch code
-      when 'NetConnection.Connect.Failed'
-        if pubStream == stream
-          $log.info "TODO #{code} #{stream}"
-      when 'NetConnection.Connect.Closed'
-        $log.info "TODO #{code} #{stream}"
-      else
-        # throwing will track errors in errbit
-        throw "Flash Error: #{code}"
+      # when 'NetConnection.Connect.Failed'
+      #   if pubStream == stream
+      #     $log.info "TODO #{code} #{stream}"
+      # when 'NetConnection.Connect.Closed'
+      #   if pubStream == stream
+      #     publish stream
+      # when 'NetConnection.Connect.NetworkChange'
+      #   $log.info "TODO #{code} #{stream}"
+    # throwing will track errors in errbit
+    status = code
+    throw "Flash Error: #{code} on stream #{stream}"
 
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
@@ -74,6 +77,7 @@ blackboxFunc = ($log, $window, $q) ->
     version, null, flashVars, params, attributes, callback
 
   pubStream = null
+  status = 'ok'
 
   # public methods which exposed
   publish = (name) ->
@@ -127,6 +131,7 @@ blackboxFunc = ($log, $window, $q) ->
     unmute
     setStreamingServer
     setVolume
+    status
   }
 
 # annotate with dependencies to inject
