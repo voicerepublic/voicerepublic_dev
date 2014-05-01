@@ -100,13 +100,6 @@
           position: relative;
           top: 2px;
         }
-        .infinity-sign{
-          font-size: rem-calc(24);
-          line-height:12px;
-          vertical-align: middle;
-          position: relative;
-          top: 0px;
-        }
         &:hover,&:focus{
           .link-text{
             text-decoration: underline;
@@ -170,6 +163,9 @@
         color: white;
         display: inline-block;
         margin:0 3px;
+        &:hover,&:focus{
+          color: $brand-color-green;
+        }
       }
       .download-link{
         position: relative;
@@ -190,6 +186,9 @@
       a{
         cursor: default;
         text-shadow: 0 0 1px rgba(0,0,0,0.5);
+        &:hover,&:focus{
+          color: white;
+        }
       }
       .icon-play{
         position: relative;
@@ -506,14 +505,17 @@
     padding-top:0 !important;
     .row{
       padding-top: 12px;
+      padding-bottom: 12px;
       background: rgba(0,0,0,0.8);
       color: white;
+      font-size: rem-calc(13);
+      line-height: 20px;
       a {
         text-decoration: underline;
         color: inherit;
       }
-      p {
-        color: inherit;
+      li,p{
+        color:inherit;
       }
     }
   }
