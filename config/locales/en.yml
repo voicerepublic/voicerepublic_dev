@@ -734,7 +734,7 @@ en:
 
         %{started_at} - %{ended_at}
     show:
-      title: "VR Talk %{title}"
+      title: "%{title}"
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Type and hit enter to post a comment
       you: You
@@ -752,10 +752,14 @@ en:
       minutes: 'MINUTES'
       request_mic: GET THE MIC
       promote: GIVE THE MIC
+      send_card: Send Card
+      download_flyer: Download
       embed_player: Embed Player
+      download_talk: Download Talk
       discussion: Chat
       description: Description
       participants: Participants
+      plays: '%{count} plays'
     new:
       title: "VR New Talk"
       new_talk: New Talk

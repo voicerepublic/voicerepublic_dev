@@ -7,7 +7,7 @@
     .large-12.columns.text-center
       - if can? :manage, @user
         .generic-actions-box
-          = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+          = link_to "#", class: "action-toggle", title: 'Show Options', "data-toggle-stuff" => "#action-links-list" do
             %span.icon-cog
           %ul#action-links-list.list-style-type-none.hide-stuff
             %li= link_to t('.edit_user'), [:edit, @user]

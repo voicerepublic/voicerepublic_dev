@@ -9,7 +9,8 @@ feature "User edits own profile", js: true do
     page.fill_in 'user_login', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.click_button 'Log In'
-    page.should have_content('Edit Profile')
+    page.should have_css('.action-toggle')
+    page.click_link 'Show Options'
     page.click_link 'Edit Profile'
     page.should have_css('.edit_user')
   end
