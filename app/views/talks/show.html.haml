@@ -63,12 +63,11 @@
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
-
-        -# PLAYER
-        = render partial: 'shared/player', locals: { talk: @talk }
         
         -# TODO: better integrate player with angularjs
         - if @talk.archived?
+          -# PLAYER
+          = render partial: 'shared/player', locals: { talk: @talk }
           .talk-archived-actions-box.row.collapse
             .small-12.columns
               .download-link-box.right(ng-show='talkIsArchived()')
