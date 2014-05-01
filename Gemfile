@@ -84,10 +84,9 @@ group :test do
   gem 'launchy'
   gem 'poltergeist'
   gem 'selenium-webdriver'
-  gem 'simplecov'
+  gem 'simplecov', '~> 0.7.1'
 end
 
 group :production do
   gem 'rack-cache', require: 'rack/cache'
-  gem 'localeapp'
 end

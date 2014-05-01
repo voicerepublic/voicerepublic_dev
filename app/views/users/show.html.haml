@@ -3,16 +3,15 @@
 
 .header-block(style="background-image: url(#{@user.header.try(:url)})")
 
-  - if can? :manage, @user
-    .generic-action-bar.row.collapse
-      .large-12.columns
-        %ul.button-group.right
-          %li= link_to t('.edit_user'), [:edit, @user], class: 'button-standard'
-
   .header-box.row
     .large-12.columns.text-center
-      - count = @user.participations.count
-      -# .talks-joined= t('.talk_joined', count: count, default: '%{count} Talks joined')
+      - if can? :manage, @user
+        .generic-actions-box
+          = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+            %span.icon-cog
+          %ul#action-links-list.list-style-type-none.hide-stuff
+            %li= link_to t('.edit_user'), [:edit, @user]
+              
       .avatar
         - img_size = 120
         .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
@@ -22,29 +21,29 @@
     .large-12.columns.text-center
       %dl.tabs.vr-tabs(data-tab='true')
         %dd.text-center.active
-          %a(href="#tab-about-me")
+          %a(href="#about")
             %span.icon-description
-            = t('.about_me')
+            = t('.about')
         %dd.text-center
-          %a(href="#tab-my-venues")
+          %a(href="#venues")
             %span.icon-guide
-            = t('.my-venues')
+            = t('.venues')
         -#
         -#%dd.text-center
-        -#  %a(href="#tab-schedule")
+        -#  %a(href="#schedule")
         -#    %i.fi-calendar
         -#    = t('.schedule')
         -#%dd.text-center
-        -#  %a(href="#tab-activity")= t('.activity')
+        -#  %a(href="#activity")= t('.activity')
 
 .row.collapse-large-only
   .large-12.columns.tabs-content
-    #tab-about-me.content.active
+    #about.about-content.content.active
       = raw @user.about
 
-    #tab-my-venues.content
+    #venues.venues-content.content
       = render partial: 'shared/venue_medium_box', collection: @user.venues
 
-    #tab-schedule.content TODO
+    #schedule.content TODO
 
-    #tab-activity.content TODO
+    #activity.content TODO

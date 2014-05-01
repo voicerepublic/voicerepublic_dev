@@ -1,12 +1,38 @@
 class TalksController < ApplicationController
 
-  before_action :set_venue
+  before_action :set_venue, except: [:index, :popular, :live, :recent, :featured]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /talks
+  # GET /talks/popular
+  def featured
+    @talks = Talk.prelive.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/popular
+  def popular
+    @talks = Talk.popular.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/live
+  def live
+    @talks = Talk.live.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/archived
+  def recent
+    @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
+    render :index
+  end  
+
   def index
-    @talks = Talk.all
+    @talks_live     = Talk.live.limit(5)
+    @talks_featured = Talk.featured.limit(5)
+    @talks_recent   = Talk.recent.limit(5)
+    @talks_popular  = Talk.popular.limit(5)
   end
 
   # GET /talks/1

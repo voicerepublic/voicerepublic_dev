@@ -1,3 +1,4 @@
-%h1= @talk.title
-.embedded_player
-  = render partial: 'shared/player', locals: { talk: @talk }
+.embedded-player
+
+	%h1= @talk.title
+	= render partial: 'shared/player', locals: { talk: @talk }

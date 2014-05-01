@@ -20,8 +20,16 @@ h1,h2,h3{
   font-family: 'eaglebook';
 }
 
-p{
+.color-black{
+  color: $color-black-title;
+}
+
+p,li{
 	font-size: 0.8rem;
+}
+
+textarea{
+  resize: none;
 }
 
 span[class^="icon-"]{
@@ -60,6 +68,7 @@ span[class^="icon-"]{
 .hide-stuff{
   height:0 !important;
   padding:0 !important;
+  overflow: hidden;
 }
 
 /* hack for firefox to show flash */

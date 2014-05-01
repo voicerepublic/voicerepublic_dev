@@ -14,6 +14,14 @@ describe TalksController do
     end
   end
 
+  describe 'Talk#index' do
+    it 'assigns recent talks as @talks_recent' do
+      talk = FactoryGirl.create(:talk, state: :archived)
+      get :index, {}
+      assigns(:talks_recent).should eq([talk])
+    end
+  end
+
   describe "Talk#new" do
     it 'does not crash with too few inputs' do
       expect {
