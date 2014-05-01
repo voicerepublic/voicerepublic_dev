@@ -102,9 +102,13 @@ class Talk < ActiveRecord::Base
   end
 
   scope :popular, -> { archived.order('play_count DESC') }
-  scope :recent,  -> { archived.order('ended_at DESC') }
   scope :ordered, -> { order('starts_at ASC') }
 
+  scope :recent, -> do
+    archived.order('ended_at DESC').
+      where('featured_from IS NOT NULL')
+  end
+  
   scope :audio_format, ->(format) do # TODO: check if needed
     where('audio_formats LIKE ?', "%#{format}%")
   end
@@ -344,15 +348,17 @@ class Talk < ActiveRecord::Base
       FileUtils.chdir(path, verbose: true) do
         # download
         tmp = "t#{id}"
-        if recording_override =~ /^https?:\/\//
-          # use wget for real urls
-          %x[ wget -q "#{recording_override}" -O "#{tmp}" ]
-        else
-          # cp local files
-          FileUtils.cp(recording_override, tmp, verbose: true)
-        end
+        url = recording_override
+        # cp local files
+        cmd = "cp #{url} #{tmp}"
+        # use wget for real urls
+        cmd = "wget -q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        logfile.puts cmd
+        %x[ #{cmd} ]
         # convert to ogg
-        %x[ avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav ]
+        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav"
+        logfile.puts cmd
+        %x[ #{cmd} ]
         # move ogg to archive
         ogg = tmp + '.ogg'
         path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"

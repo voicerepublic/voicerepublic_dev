@@ -15,7 +15,7 @@ namespace :sync do
       no_email: true,
       suppress_chat: true,
       process_chain:
-        'precursor kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
+        'precursor normalize kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
       override_chain:
         'm4a mp3 ogg move_clean rp14 m4a mp3 ogg'
     }
@@ -58,9 +58,9 @@ namespace :sync do
         venue_uri = "rp://2014/category/#{category.tr(' ', '-')}"
         venue = Venue.find_or_initialize_by(uri: venue_uri)
         venue.title = "#{item.event_title.strip} - #{category}"
-        venue.teaser = item.event_description.strip.truncate(string_limit)
-        venue.description = 'tbd.' # FIXME
-        venue.tag_list = rp14_tags
+        venue.teaser ||= item.event_description.strip.truncate(string_limit)
+        venue.description ||= 'tbd.' # FIXME
+        venue.tag_list ||= rp14_tags
         venue.user = rp14_user
         venue.options = rp14_opts
         metric = venue.persisted? ? :venues_updated : :venues_created
@@ -73,12 +73,11 @@ namespace :sync do
         talk.venue = venue
         talk.title = item.title.strip.truncate(string_limit)
         talk.teaser = item.description_short.strip.truncate(string_limit)
-        talk.description = 'tbd.' # FIXME
-        # talk.description = ([ item.speaker_names.map(&:strip) * ', ',
-        #                       'Room: ' + item.room.strip,
-        #                       item.description.strip ] * '<br><br>' ).
-        #                    truncate(text_limit)
-        talk.tag_list = rp14_tags
+        talk.description = ([ item.speaker_names.map(&:strip) * ', ',
+                              'Room: ' + item.room.strip,
+                              item.description.strip ] * '<br><br>' ).
+                           truncate(text_limit)
+        talk.tag_list ||= rp14_tags
         talk.starts_at_date = [y, m, d] * '-'
         talk.starts_at_time = item.start
         talk.duration = item.duration.match(/\d+/).to_a.first
@@ -111,6 +110,16 @@ namespace :sync do
     puts *errors
     puts
 
+    talks =  Talk.order('starts_at ASC').where("uri LIKE 'rp://2014/%'")
+    
+    puts "LINEUP (#{talks.count})"
+    puts
+    talks.each do |t|
+      puts [ t.uri, "https://voicerepublic.com/talk/#{t.id}",
+             t.title.inspect, t.starts_at ] * ','
+    end
+    puts
+    
   end
 
 end
