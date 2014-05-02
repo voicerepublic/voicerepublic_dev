@@ -1,5 +1,5 @@
 # The LivepageController
-livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
+livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $window) ->
 
   sendMessage = ->
     session.upstream.message $scope.message.content
@@ -21,6 +21,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
 
   $scope.showSettings = ->
     config.flags.settings
+
+  $scope.reconnecting = ->
+    blackbox.info.lastEvent == 'reconnecting'
 
   $scope.participants = ->
     return session.participants() if config.talk.state == 'live'
@@ -44,7 +47,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.messageKeyup = (e) ->
     # TODO: This is not Angular code and maybe not the best way to go
     unless $("a[href=#discussion]").parent().hasClass('active')
-      console.log("clicked")
       $("a[href=#discussion] .icon-bubble-multi").click()
     sendMessage() if e.which == 13 # Enter
 
@@ -90,6 +92,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $interval updateCountdown, 1000
 
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
-  'session', 'blackbox', 'util']
+  'session', 'blackbox', 'util', '$window']
 Livepage.controller 'Livepage', livepageFunc
 

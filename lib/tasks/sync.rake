@@ -8,14 +8,23 @@ namespace :sync do
 
     raise 'No republica_user_id' unless Settings.republica_user_id
     rp14_user = User.find Settings.republica_user_id
-    rp14_tags = 're:publica'
+    rp14_tags = {
+      'Culture'               => 'republica, Culture, Kultur',
+      'Politics & Society'    => 'republica, Politics, Politik, Society, Gesellschaft',
+      'Media'                 => 'republica, Media, Medien',
+      'Research & Education'  => 'republica, Research, Forschung, Education, Bildung',
+      'Business & Innovation' => 'republica, Business, Innovation, Wirtschaft',
+      'Science & Technology'  => 'republica, Science, Wissenschaft, Technology, Technologie',
+      're:publica'            => 'republica, Conference, Konferenz'
+    }
+
     rp14_opts = {
       no_auto_postprocessing: true,
       no_auto_end_talk: true,
       no_email: true,
       suppress_chat: true,
       process_chain:
-        'precursor kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
+        'precursor normalize kluuu_merge trim m4a mp3 ogg move_clean rp14 m4a mp3 ogg',
       override_chain:
         'm4a mp3 ogg move_clean rp14 m4a mp3 ogg'
     }
@@ -60,7 +69,7 @@ namespace :sync do
         venue.title = "#{item.event_title.strip} - #{category}"
         venue.teaser ||= item.event_description.strip.truncate(string_limit)
         venue.description ||= 'tbd.' # FIXME
-        venue.tag_list ||= rp14_tags
+        venue.tag_list = rp14_tags[category]
         venue.user = rp14_user
         venue.options = rp14_opts
         metric = venue.persisted? ? :venues_updated : :venues_created
@@ -77,7 +86,7 @@ namespace :sync do
                               'Room: ' + item.room.strip,
                               item.description.strip ] * '<br><br>' ).
                            truncate(text_limit)
-        talk.tag_list ||= rp14_tags
+        talk.tag_list = rp14_tags[category]
         talk.starts_at_date = [y, m, d] * '-'
         talk.starts_at_time = item.start
         talk.duration = item.duration.match(/\d+/).to_a.first
@@ -121,5 +130,4 @@ namespace :sync do
     puts
 
   end
-
 end

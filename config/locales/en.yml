@@ -601,8 +601,8 @@ en:
       post: Post
       write_a_comment: Write a comment
       description: Description
-      upcoming_talks: Upcoming Talks
-      archived_talks: Archived Talks
+      upcoming_talks: '%{count} Upcoming Talks'
+      archived_talks: '%{count} Archived Talks'
       comments: Comments
     venue_show_header:
       venue: Series

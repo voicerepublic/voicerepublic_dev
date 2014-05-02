@@ -24,14 +24,14 @@ class TalksController < ApplicationController
 
   # GET /talks/archived
   def recent
-    @talks = Talk.archived.paginate(page: params[:page], per_page: 25)
+    @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
     render :index
   end  
 
   def index
     @talks_live     = Talk.live.limit(5)
     @talks_featured = Talk.featured.limit(5)
-    @talks_recent   = Talk.archived.limit(5)
+    @talks_recent   = Talk.recent.limit(5)
     @talks_popular  = Talk.popular.limit(5)
   end
 
