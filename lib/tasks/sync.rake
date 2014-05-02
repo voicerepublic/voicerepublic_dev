@@ -23,7 +23,7 @@ namespace :sync do
     text_limit = 8191 # general limit for text fields
     text_limit = 2300 # limit for full text search
     string_limit = 140
-    
+
     warnings, errors = [], []
     report = Hash.new { |h, k| h[k] = 0 }
 
@@ -111,15 +111,15 @@ namespace :sync do
     puts
 
     talks =  Talk.order('starts_at ASC').where("uri LIKE 'rp://2014/%'")
-    
+
     puts "LINEUP (#{talks.count})"
     puts
     talks.each do |t|
       puts [ t.uri, "https://voicerepublic.com/talk/#{t.id}",
-             t.title.inspect, t.starts_at ] * ','
+             t.description[/Room: (.*)<br><br>/, 1], t.title.inspect, t.starts_at ] * ','
     end
     puts
-    
+
   end
 
 end
