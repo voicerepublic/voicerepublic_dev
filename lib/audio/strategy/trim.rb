@@ -23,18 +23,16 @@ module Audio
       end
 
       def trim_cmd
-        return "sox -V1 #{backup} #{input} trim #{start} =#{stop}" if start > 0
-
-        logfile.puts '# no trim required, resort to simple copy'
-        "cp #{backup} #{input}"
+        "sox -V1 #{backup} #{input} trim #{start} #{duration}"
       end
 
+      # start may never return a negative value
       def start
-        opts[:talk_start] - file_start
+        [ opts[:talk_start] - file_start, 0 ].max
       end
       
-      def stop
-        opts[:talk_stop] - file_start
+      def duration
+        opts[:talk_stop] - opts[:talk_start]
       end
       
       def outputs

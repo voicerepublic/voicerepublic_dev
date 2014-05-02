@@ -1,3 +1,5 @@
+- content_for :head do
+  = render 'shared/social_meta_tags'
 - content_for :title do
   = t('.title', title: @talk.title)
 
@@ -15,7 +17,7 @@
         .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
-
+        
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
     %section.talk-title-box.row.collapse.text-center
@@ -82,6 +84,7 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        .reconnecting-message(ng-show='reconnecting()')= t('.reconnecting')
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
