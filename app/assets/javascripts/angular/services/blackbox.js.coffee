@@ -33,20 +33,36 @@ blackboxFunc = ($log, $window, $q, config) ->
   $window.flashLog = (msg) ->
     $log.debug msg
 
+  # determine if it is a good state to reconnect
+  reconnect = ->
+    config.talk.state == 'live' or
+      config.talk.state == 'prelive'
+
   $window.flashErrorHandler = (code, stream) ->
-    # switch code
-    #   when 'NetConnection.Connect.Failed'
-    #     if pubStream == stream
-    #       $log.info "TODO #{code} #{stream}"
-    #   when 'NetConnection.Connect.Closed'
-    #     if pubStream == stream
-    #       publish stream
-    #   when 'NetConnection.Connect.NetworkChange'
-    #     $log.info "TODO #{code} #{stream}"
+    if reconnect()
+      switch code
+        when 'NetConnection.Connect.Closed'
+          # check if the closed stream was the published stream
+          if pubStream == stream
+            publish stream
+          else
+            # remove stream from list of subscribed streams
+            subscriptions = subscriptions.filter (s) -> s isnt stream
+            subscribe stream
+        when 'NetConnection.Connect.Failed'
+          if pubStream == stream
+            publish stream
+          else
+            # remove stream from list of subscribed streams
+            subscriptions = subscriptions.filter (s) -> s isnt stream
+            subscribe stream
+        # when 'NetConnection.Connect.NetworkChange'
+        #   $log.info "TODO #{code} #{stream}"
 
     # throwing will track errors in errbit
     status = code
-    throw "Flash Error: #{code} on stream #{stream}"
+    state = config.talk.state
+    throw "Flash Error: #{code} on stream #{stream} in state #{state}"
 
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
