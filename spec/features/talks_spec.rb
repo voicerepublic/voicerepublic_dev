@@ -41,13 +41,13 @@ describe "Talks" do
       end
 
       it 'has "more" and displays 25 talks a time on recent' do
-        FactoryGirl.create_list(:talk, 26, state: :archived)
+        FactoryGirl.create_list(:talk, 26, state: :archived, featured_from: Date.today)
         visit talks_path
         within(".recent-box") do
           click_on "more..."
         end
         current_path.should =~ /talks\/recent/
-        page.should have_selector('.talk-medium-text-box', count: 25)
+          page.should have_selector('.talk-medium-text-box', count: 25)
         page.should have_selector('.pagination')
         within(".pagination") do
           page.should have_link('2')
@@ -58,7 +58,8 @@ describe "Talks" do
   end
 
   describe "Talk#new" do
-    it 'has default time and date', js: true do
+    it 'has default time and date' do
+      pending 'this feature has been disabled for the moment'
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
       # Time is being written in the frontend. Cannot use Timecop to mock that.
@@ -144,25 +145,29 @@ describe "Talks" do
 
   describe "Active tab", js: true do
     it 'has no tab and contents in chat' do
-      @venue = FactoryGirl.create :venue
-      @venue.options[:suppress_chat] = true
-      @venue.save!
-      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
-      visit venue_talk_path @venue, @talk
-      page.evaluate_script(
-        '$("a[href=#discussion]").parent().hasClass("active")
-      ').should_not be(true)
-      within ".tabs.vr-tabs" do
-        page.should_not have_css(".discussion")
+      VCR.use_cassette 'talk_with_chat' do
+        @venue = FactoryGirl.create :venue
+        @venue.options[:suppress_chat] = true
+        @venue.save!
+        @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+        visit venue_talk_path @venue, @talk
+        page.evaluate_script(
+          '$("a[href=#discussion]").parent().hasClass("active")
+          ').should_not be(true)
+          within ".tabs.vr-tabs" do
+            page.should_not have_css(".discussion")
+          end
       end
     end
     it 'shows chat active by default' do
-      @venue = FactoryGirl.create :venue
-      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
-      visit venue_talk_path @venue, @talk
-      page.evaluate_script(
-        '$("a[href=#discussion]").parent().hasClass("active")'
-      ).should be(true)
+      VCR.use_cassette 'talk_with_chat' do
+        @venue = FactoryGirl.create :venue
+        @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+        visit venue_talk_path @venue, @talk
+        page.evaluate_script(
+          '$("a[href=#discussion]").parent().hasClass("active")'
+        ).should be(true)
+      end
     end
   end
 
@@ -216,7 +221,7 @@ describe "Talks" do
     end
 
     # FIXME sometimes failing spec (BT see above)
-    it "does not lose tags on failed validation", js: true, retry: 3 do
+    it "does not lose tags on failed validation", js: true do
       pending "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
       VCR.use_cassette 'talk_dummy' do
         visit edit_venue_talk_path 'en', @venue, @talk
