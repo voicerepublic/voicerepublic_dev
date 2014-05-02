@@ -1,4 +1,4 @@
-- description = @talk.description
+- description = @talk.description.empty? ? @talk.teaser : strip_tags(@talk.description)
 - title = @talk.title
 - image = @talk.image ? "https://#{request.host}#{@talk.image.url}" : ""
 - keywords = @talk.try(:tag_list)
@@ -30,3 +30,6 @@
 %meta{content: "#{title}", name: "twitter:title"}/
 %meta{content: "#{description}", name: "twitter:description"}/
 %meta{content: "#{image}", name: "twitter:image"}/
+%meta{content: "@_VoiceRepublic", name: "twitter:site"}/
+-# TODO: Add twitter user name when we have it
+-#%meta{content: "#{_user_url}", name: "twitter:creator"}/
