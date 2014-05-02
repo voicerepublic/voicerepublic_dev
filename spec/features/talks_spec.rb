@@ -78,12 +78,10 @@ describe "Talks" do
           end
         end
       end
-
     end
-
   end
 
-  describe "validation" do
+  describe "Social Sharing" do
     before do
       @venue = FactoryGirl.create :venue
       @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
@@ -94,7 +92,7 @@ describe "Talks" do
     #     ActiveRecord::RecordNotFound:
     #       ActiveRecord::RecordNotFound
     #
-    it "can be shared to social networks and saves statistics", retry: 3, driver: :chrome, slow: true do
+    it "can be shared to social networks and saves statistics", driver: :chrome do
       pending "T H I S   S P E C   F A I L S   O N   C I"
       SocialShare.count.should eq(0)
       VCR.use_cassette 'talk_dummy' do
@@ -109,6 +107,27 @@ describe "Talks" do
       end
 
       SocialShare.count.should eq(1)
+    end
+
+    it 'has meta tags for google/fb/twitter' do
+      visit venue_talk_path @venue, @talk
+      # as of Capybara 2.0, <head> attributes cannot be found. resorting to
+      # using a manual matcher.
+      # google
+      source = Nokogiri::HTML(page.source)
+      expect(source.xpath("//meta[@name='description']")).not_to(be_empty)
+      # fb
+      expect(source.xpath("//meta[@property='og:title']")).not_to(be_empty)
+      expect(source.xpath("//meta[@content='#{@talk.user.name}']")).not_to(be_empty)
+      # twitter
+      expect(source.xpath("//meta[@property='og:url']")).not_to(be_empty)
+    end
+  end
+
+  describe "validation" do
+    before do
+      @venue = FactoryGirl.create :venue
+      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
     end
 
     # FIXME sometimes failing spec (BT see above)

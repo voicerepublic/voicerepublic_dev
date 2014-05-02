@@ -1,19 +1,26 @@
-- description = description || ""
-- title = title || ""
-- image = image || ""
-
+- description = @talk.description
+- title = @talk.title
+- image = @talk.image ? "https://#{request.host}#{@talk.image.url}" : ""
+- keywords = @talk.try(:tag_list)
+- author = @talk.venue.user.name
+- _user_url = user_url(@talk.user)
+- _venue_url = venue_url(@talk.venue)
 -# Google
-- keywords = keywords || ""
-- author = author || ""
 %meta{content: "#{description}", name: "description"}/
 %meta{content: "#{keywords}", name: "keywords"}/
 %meta{content: "#{author}", name: "author"}/
-%meta{content: "", name: "copyright"}/
+-# TODO: Add copyright as soon as we have any
+-#%meta{content: "", name: "copyright"}/
 %meta{content: "voicerepublic.com", name: "application-name"}/
 
 -# Facebook
 %meta{content: "#{title}", property: "og:title"}/
-%meta{content: "", property: "og:type"}/
+%meta{content: "music.song", property: "og:type"}/
+%meta{content: "#{_user_url}", property: "music:musician"}/
+%meta{content: "#{_venue_url}", property: "music:album"}/
+%meta{content: "#{talk_url(@talk)}", property: "music:album:track"}/
+%meta{content: @talk.duration*60, property: "music:duration"}/
+
 %meta{content: "#{image}", property: "og:image"}/
 %meta{content: "#{request.url}", property: "og:url"}/
 %meta{content: "#{description}", property: "og:description"}/
