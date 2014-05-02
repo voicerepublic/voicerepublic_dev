@@ -17,7 +17,7 @@
         .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
-
+        
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
     %section.talk-title-box.row.collapse.text-center
