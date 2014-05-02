@@ -84,6 +84,7 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        .reconnecting-message(ng-show='reconnecting()')= t('.reconnecting')
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk

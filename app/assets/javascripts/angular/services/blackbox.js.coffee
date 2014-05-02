@@ -40,6 +40,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
 
   subscriptions = []
   pubStream = null
+  info = { lastEvent: 'none' }
 
   reconnect = (stream) ->
     # check if the closed stream was the published stream
@@ -51,6 +52,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
       subscribe stream
 
   $window.flashErrorHandler = (code, stream) ->
+    info.lastEvent = code
     state = config.talk.state
     $log.info "Flash: #{code} on stream #{stream} in state #{state} at #{new Date}"
 
@@ -59,6 +61,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
         when 'NetConnection.Connect.Closed'
           reconnect stream
         when 'NetConnection.Connect.Failed'
+          info.lastEvent = 'reconnecting'
           $timeout (-> reconnect(stream)), 1000
         # when 'NetConnection.Connect.NetworkChange'
         #   $log.info "TODO #{code} #{stream}"
@@ -142,6 +145,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     unmute
     setStreamingServer
     setVolume
+    info
   }
 
 # annotate with dependencies to inject
