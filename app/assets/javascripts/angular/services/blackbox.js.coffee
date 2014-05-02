@@ -39,6 +39,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
       config.talk.state == 'prelive'
 
   subscriptions = []
+  pubStream = null
 
   reconnect = (stream) ->
     # check if the closed stream was the published stream
@@ -88,9 +89,6 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
   swfobject.embedSWF config.blackbox_path, "flashContent",
     215 + margin, 140 + margin,
     version, null, flashVars, params, attributes, callback
-
-  pubStream = null
-  status = 'ok'
 
   # public methods which exposed
   publish = (name) ->
@@ -144,7 +142,6 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     unmute
     setStreamingServer
     setVolume
-    status
   }
 
 # annotate with dependencies to inject
