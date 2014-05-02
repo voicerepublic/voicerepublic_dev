@@ -8,7 +8,7 @@
 #
 # Besides that it relies on swfobject to load the flash component.
 # 
-blackboxFunc = ($log, $window, $q, config) ->
+blackboxFunc = ($log, $window, $q, config, $timeout) ->
 
   # this will initialize the flash async, so we'll start with a deferred
   # which will let us return a promise, which will be fullfilled async'ly
@@ -34,35 +34,32 @@ blackboxFunc = ($log, $window, $q, config) ->
     $log.debug msg
 
   # determine if it is a good state to reconnect
-  reconnect = ->
+  reconnectMode = ->
     config.talk.state == 'live' or
       config.talk.state == 'prelive'
 
+  reconnect = (stream) ->
+    $log.info "reconnect to #{stream}"
+    # check if the closed stream was the published stream
+    if pubStream == stream
+      publish stream
+    else
+      # remove stream from list of subscribed streams
+      subscriptions = subscriptions.filter (s) -> s isnt stream
+      subscribe stream
+
   $window.flashErrorHandler = (code, stream) ->
-    if reconnect()
+    state = config.talk.state
+    $log.info "Flash: #{code} on stream #{stream} in state #{state}"
+
+    if reconnectMode()
       switch code
         when 'NetConnection.Connect.Closed'
-          # check if the closed stream was the published stream
-          if pubStream == stream
-            publish stream
-          else
-            # remove stream from list of subscribed streams
-            subscriptions = subscriptions.filter (s) -> s isnt stream
-            subscribe stream
+          reconnect stream
         when 'NetConnection.Connect.Failed'
-          if pubStream == stream
-            publish stream
-          else
-            # remove stream from list of subscribed streams
-            subscriptions = subscriptions.filter (s) -> s isnt stream
-            subscribe stream
+          $timeout (-> reconnect(stream)), 1000
         # when 'NetConnection.Connect.NetworkChange'
         #   $log.info "TODO #{code} #{stream}"
-
-    # throwing will track errors in errbit
-    status = code
-    state = config.talk.state
-    throw "Flash Error: #{code} on stream #{stream} in state #{state}"
 
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
@@ -152,5 +149,5 @@ blackboxFunc = ($log, $window, $q, config) ->
   }
 
 # annotate with dependencies to inject
-blackboxFunc.$inject = ['$log', '$window', '$q', 'config']
+blackboxFunc.$inject = ['$log', '$window', '$q', 'config', '$timeout']
 Livepage.factory 'blackbox', blackboxFunc
