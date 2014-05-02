@@ -32,12 +32,12 @@ namespace :build do
     %x[ git add #{tfile} ]
     
     # view
-    print 'update view...'
-    vpath = %w(app assets javascripts angular services blackbox.js.coffee.erb)
-    vfile = Rails.root.join(File.join(vpath))
-    view = File.read(vfile)
-    view.sub! /Blackbox.*\.swf/, "Blackbox#{revision}.swf"
-    File.open(vfile, 'w') { |f| f.print(view) }
+    print 'update code...'
+    kpath = %w(lib livepage_config.rb)
+    kfile = Rails.root.join(File.join(kpath))
+    code = File.read(kfile)
+    code.sub! /Blackbox.*\.swf/, "Blackbox#{revision}.swf"
+    File.open(kfile, 'w') { |f| f.print(code) }
     puts 'done.'
     puts
   end

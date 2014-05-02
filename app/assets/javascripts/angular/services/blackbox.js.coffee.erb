@@ -8,7 +8,7 @@
 #
 # Besides that it relies on swfobject to load the flash component.
 # 
-blackboxFunc = ($log, $window, $q) ->
+blackboxFunc = ($log, $window, $q, config) ->
 
   # this will initialize the flash async, so we'll start with a deferred
   # which will let us return a promise, which will be fullfilled async'ly
@@ -73,7 +73,7 @@ blackboxFunc = ($log, $window, $q) ->
     return $log.debug "Embed SWF on ##{obj.id}" if obj.success
     $log.error "Error embedding SWF on ##{obj.id}"
 
-  swfobject.embedSWF "<%= asset_path 'Blackbox3.swf' %>", "flashContent",
+  swfobject.embedSWF config.blackbox_path, "flashContent",
     215 + margin, 140 + margin,
     version, null, flashVars, params, attributes, callback
 
@@ -136,5 +136,5 @@ blackboxFunc = ($log, $window, $q) ->
   }
 
 # annotate with dependencies to inject
-blackboxFunc.$inject = ['$log', '$window', '$q']
+blackboxFunc.$inject = ['$log', '$window', '$q', 'config']
 Livepage.factory 'blackbox', blackboxFunc

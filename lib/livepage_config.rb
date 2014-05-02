@@ -1,5 +1,7 @@
 class LivepageConfig < Struct.new(:talk, :user)
 
+  include ActionView::Helpers::AssetUrlHelper
+  
   def to_json
     return JSON.pretty_generate(to_hash) if Rails.env.development?
     to_hash.to_json
@@ -42,7 +44,8 @@ class LivepageConfig < Struct.new(:talk, :user)
       streaming_server: Settings.rtmp.record,
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
-      participants: talk.venue.users.map { |g| g.details_for(talk) }
+      participants: talk.venue.users.map { |g| g.details_for(talk) },
+      blackbox_path: asset_path('Blackbox3.swf')
     }
   end
 
