@@ -1,6 +1,6 @@
 class LivepageConfig < Struct.new(:talk, :user)
 
-  include ActionView::Helpers::AssetUrlHelper
+  #include ActionView::Helpers::AssetUrlHelper
   
   def to_json
     return JSON.pretty_generate(to_hash) if Rails.env.development?
@@ -45,10 +45,16 @@ class LivepageConfig < Struct.new(:talk, :user)
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
       participants: talk.venue.users.map { |g| g.details_for(talk) },
-      blackbox_path: asset_path('Blackbox3.swf')
+      blackbox_path: blackbox_path
     }
   end
 
+  def blackbox_path
+    glob = Rails.root.join(File.join(%w(app assets flash Blackbox*.swf)))
+    file = File.basename(Dir.glob(glob).first)
+    ActionController::Base.helpers.asset_path(file)
+  end
+  
   def discussion
     talk.messages.order('created_at DESC').map do |message|
       {

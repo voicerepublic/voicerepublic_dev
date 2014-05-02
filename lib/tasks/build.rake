@@ -30,15 +30,6 @@ namespace :build do
     tfile = Rails.root.join(File.join(tpath))
     FileUtils.mv(sfile, tfile)
     %x[ git add #{tfile} ]
-    
-    # view
-    print 'update code...'
-    kpath = %w(lib livepage_config.rb)
-    kfile = Rails.root.join(File.join(kpath))
-    code = File.read(kfile)
-    code.sub! /Blackbox.*\.swf/, "Blackbox#{revision}.swf"
-    File.open(kfile, 'w') { |f| f.print(code) }
-    puts 'done.'
     puts
   end
 end
