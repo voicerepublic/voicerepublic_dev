@@ -38,8 +38,9 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     config.talk.state == 'live' or
       config.talk.state == 'prelive'
 
+  subscriptions = []
+
   reconnect = (stream) ->
-    $log.info "reconnect to #{stream}"
     # check if the closed stream was the published stream
     if pubStream == stream
       publish stream
@@ -50,7 +51,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
 
   $window.flashErrorHandler = (code, stream) ->
     state = config.talk.state
-    $log.info "Flash: #{code} on stream #{stream} in state #{state}"
+    $log.info "Flash: #{code} on stream #{stream} in state #{state} at #{new Date}"
 
     if reconnectMode()
       switch code
@@ -76,8 +77,6 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
   params = {}
   attributes = { id: "Blackbox", name: "Blackbox" }
   version = "10.3.181.22"
-
-  subscriptions = []
 
   $log.debug 'Initializing BlackboxService...'
   margin = 0
