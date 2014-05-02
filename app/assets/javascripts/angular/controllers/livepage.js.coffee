@@ -15,7 +15,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.listeners = session.listeners
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion
-  $scope.showSettings = config.flags.settings
+
+  $scope.toggleShowSettings = ->
+    config.flags.settings = !config.flags.settings
+
+  $scope.showSettings = ->
+    config.flags.settings
 
   $scope.participants = ->
     return session.participants() if config.talk.state == 'live'
@@ -38,9 +43,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
 
   $scope.messageKeyup = (e) ->
     # TODO: This is not Angular code and maybe not the best way to go
-    unless $("a[href=#talk-tab-discussion]").parent().hasClass('active')
+    unless $("a[href=#discussion]").parent().hasClass('active')
       console.log("clicked")
-      $("a[href=#talk-tab-discussion] .icon-bubble-multi").click()
+      $("a[href=#discussion] .icon-bubble-multi").click()
     sendMessage() if e.which == 13 # Enter
 
   $scope.talkIsPrelive = ->
@@ -71,13 +76,13 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util) ->
   $scope.declinePromotion = ->
     session.fsm.PromotionDeclined()
 
-  $scope.countdownInSeconds = config.talk.remaining_seconds
   $scope.countdown = 'computing...'
   $scope.talkProgress = 0
 
   updateCountdown = ->
-    sec = $scope.countdownInSeconds - 1
-    $scope.countdownInSeconds = sec
+    sec = config.talk.remaining_seconds - 1
+    sec = Math.max sec, 0
+    config.talk.remaining_seconds = sec
     $scope.countdown = util.toHHMMSS(sec)
     percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
     $scope.talkProgress = percent

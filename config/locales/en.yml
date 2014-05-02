@@ -16,8 +16,10 @@ en:
     mail_goodbye: "Best regards"
     mail_body: "Check out this talk on voicerepublic.com: "
     has_been_tracked: "Has been tracked"
-  social_network_connects:
-    with: with
+  social_connect:
+    facebook:
+      register: REGISTER WITH FACEBOOK
+      login: LOGIN WITH FACEBOOK
   date:
     abbr_day_names:
     - Sun
@@ -165,7 +167,7 @@ en:
     venue_actions:
       participate_button: Participate
       unjoin_venue: Cancel participation
-      confirm_unjoin_venue: Really want to unjoin this venue?
+      confirm_unjoin_venue: Really want to unjoin this series?
     confirms:
       are_you_sure: Are you sure?
   number:
@@ -258,7 +260,7 @@ en:
       no_status_updates_here: This user has not posted a status.
     password_form:
       new_password: New password
-      rewrite_new_password: Password confirmation
+      rewrite_new_password: Password confirmhttp://localhost:3000/embed_talk?id=51ation
       update_password: Save password
     status_updates:
       opinion: Status
@@ -266,10 +268,10 @@ en:
       comment: comment
       new_status_update: New status
     user_content_nav:
-      venues_title: Venues
+      venues_title: Series
       venues_participant: Participant
       venues_host: Host
-      venue_new: Create Venue
+      venue_new: Create Series
     user_information:
       unfollow: Unfollow
       follow: Follow
@@ -282,14 +284,18 @@ en:
       opinion: Status
       edit_account: Edit profil
     edit:
+      title: "VR Edit User %{username}"
       edit_your_profile: Edit profil
       select_profile_image: Profile image
       select_header_image: Background image
     venues:
-      venues: Venues
-      guest_empty_venue: ! '%{name} has no venues yet.'
+      venues: Series
+      guest_empty_venue: ! '%{name} has no series yet.'
     show:
+      title: "VR User %{username}"
       edit_user: Edit Profile
+      about: About
+      venues: Series
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -316,9 +322,9 @@ en:
   model_notification_follower_action:
     friend_took_action: Activity by %{friend} on KluuU
   model_notification_new_bookmark:
-    your_klu_got_bookmarked: ! '%{bookmarker} bookmarked your Venue ''%{klu_title}'''
+    your_klu_got_bookmarked: ! '%{bookmarker} bookmarked your Series ''%{klu_title}'''
   model_notification_new_comment:
-    you_got_a_new_comment_by: ! '%{commenter} commented on your Venue.'
+    you_got_a_new_comment_by: ! '%{commenter} commented on your Series.'
   model_notification_new_follower:
     you_got_a_new_follower: ! '%{name} now follows you.'
   model_notification_new_kluuu:
@@ -330,12 +336,12 @@ en:
   model_notification_new_status:
     friend_created_new_status: ! '%{name} posted a new status.'
   model_notification_new_venue_participant:
-    new_participant: ! '%{name} joined venue %{title}!'
+    new_participant: ! '%{name} joined Series %{title}!'
   model_notification_venue_info:
-    venue_starts_soon: Venue %{title} takes place %{time}
-    new_venue: New venue %{title}
+    venue_starts_soon: Series %{title} takes place %{time}
+    new_venue: New Series %{title}
   model_notification_new_venue:
-    friend_created_new_venue: ! 'Your friend created a new venue: %{name}'
+    friend_created_new_venue: ! 'Your friend created a new Series: %{name}'
   video_system:
     rooms:
       default_welcome_msg: Welcome to the KluuU Video Chat
@@ -351,38 +357,6 @@ en:
   mailers:
     your_friend_took_action: Activities of your friends on KluuU
     activity_around_you: Activities concerning your account on KluuU
-  accounts:
-    form_preferences:
-      get_notifications_contacts_activities: Get notifications about your friends activities.
-      emails_about_contact_activities: ! 'if there are news about my friends e.g.: new status.'
-      emails_about_me: if there are news concerning me. E.g. when someone tried to call me while I was offline.
-      dont_show_initial_help: Don't show help text.
-      save_preferences: Save settings
-      on_site_help: Help text on / off
-      call_settings: Call settings
-      allow_anonymous_calls: Allow video calls from anonymous caller.
-    form:
-      delete_portrait: Delete profilephoto
-    edit:
-      edit_profile: Edit profile
-  balance:
-    accounts:
-      new:
-        desired_currency: Choose your currency.
-        initialize_your_account: Please activate your financial account.
-        configure_your_financial_account: Configure your financial account.
-      show:
-        check_some_money_in: Buy credit
-        soon_more: soon more...
-        currency: Currency
-        prepaid: Prepaid
-        revenue: Revenue
-      check_in_orders:
-        new:
-          check_in_money: Buy credit
-        paypal:
-          check_in_prepaid_amount: Buy credit
-          cancel_check_in_order: Cancel purchase
   chats:
     form:
       your_message: message
@@ -391,7 +365,7 @@ en:
     group_form:
       your_message: Write here...
       submit: Post
-      join_this_venue_to_chat: You need to join this venue to write here
+      join_this_venue_to_chat: You need to join this Series to write here
     show:
       text_chat: Chat
   comments:
@@ -430,7 +404,7 @@ en:
       matching_something: ! 'Matches KluuU / Question '
       view: View
       we_could_not_find_matches_for_you: ! 'Sorry, no matches yet. Tip: Ad more ''tags'' to your KluuU / Question to get results.'
-      all_venues: Venues
+      all_venues: Series
     news:
       news: News
     settings:
@@ -443,8 +417,11 @@ en:
       hide_initial_help: Die initialen Hilfe-Texte verstecken
       edit_preferences: Einstellungen editieren
     venues:
-      my_venues: My venues
+      my_venues: My Series
   devise:
+    registrations:
+      new:
+        accept_terms_of_use: "Please accept the terms of use"
     passwords:
       edit:
         welcome_text: Welcome to the new KluuU!
@@ -465,11 +442,39 @@ en:
     news: NEWS
     index:
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
-      subheadline: "Talks, interviews, readings, conversations, debates, disputes,seminars, discussions:"
-      subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />Yout have the floor!"
+      subheadline: "Talks, interviews, readings, conversations, debates, disputes, seminars, discussions:"
+      subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
+      title_illu_1: STREAMING
+      text_illu_1: All of sudden it's easy to create your own audio livestreams–with as many stations as you want, from any number of places you choose.
+      title_illu_2: INTERACTION
+      text_illu_2: As the organizer of your talks, you can involve your listeners any time, letting discussions–and discussion culture–grow like they do in real life.
+      title_illu_3: AUDIO ARCHIVE
+      text_illu_3: Record and broadcast your live talks. Easily archive your recording so others can find and listen to it later. Embed your talk in other Websites or make it available as a podcast.
       login: Login
       signup: Sign Up
       search: Search
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recently_archived: RECENTLY ARCHIVED
+      manifest: |
+        <h4>THE VOICE REPUBLIC MANIFESTO</h4>
+        <br />
+        <h5>1. Democracy lives on discussion and free speech</h5>
+        <p>At Voice Republic, you can share and form your opinions.</p>
+        <h5>2. Voice Republic lets speaker and listener meet at eye level</h5>
+        <p>Every listener can be a speaker, and vice versa.</p>
+        <h5>3. For more analog within the digital</h5>
+        <p>Voice Republic lets discussions grow just like they do in the real world. You can express yourself in as much detail as you like, giving space to the subjects that interest you.</p>
+        <h5>4. Voice Republic is founded on respect</h4>
+        <p>Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.</p>
+        <h5>5. For a decentralization of the Internet</h5>
+        <p>For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.</p>
+        <h5>6. We don't do business with your data</h5>
+        <p>Voice Republic has a business model. Your data is not part of it. Coming soon.</p>
+        <h5>7. Voice Republic can forget</h5>
+        <p>When you delete your accout, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
+      team: TEAM
     lp_login:
       email: E-mail
       password: Password
@@ -483,10 +488,10 @@ en:
       lastname: Lastname
       email: E-mail
       password: Password
-      register: Sign Up
+      register: REGISTER
     lp_venues:
-      featured_venue: KluuU recommends
-      upcoming_venues: UPCOMING VENUES
+      featured_venue: Voice Republic recommends
+      upcoming_venues: UPCOMING SERIES
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"
     received_message:
@@ -506,44 +511,41 @@ en:
       an_anonymous_person: an anonymous call
       tried_to_call_your_klu: attempted to reach KluuU
       tried_to_call_your_noklu: attempted to reach Question
-      joined_venue: joined the venue %{title}
+      joined_venue: joined the Series %{title}
     new_content:
       created_new_status_update: changed their status
       created_new: crated a new
-      new_venue_create: A new venue was set up
+      new_venue_create: A new Series was set up
   search:
-    tagged_with:
-      taggings_with: KluuUs and questions tagged with %{tag}
-      no_kluuus_tagged_with: No results for tag %{tag} found.
-      no_kluuu: Questions
-      title_other_tags: Trends
-    form:
-      search: Search!
-    search:
-      searchresults: Search result
-      search_results: Search result
-      publish_search_as_kluuu: Post this search term
-      persist_search: ! 'Tip:'
-      text: Create a question and use our matching system!
-      sign_up: Sign up
-      user: User
-      no_results_sentence: Oops, no results.
+    show:
+      results: "%{results_count} RESULT(S) FOR "
+      best_result: TOP RESULT
+      talks: TALKS
+      venues: SERIES
+      users: USERS
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recently_archived: RECENTLY ARCHIVED
+      no_results: Sorry, no results.
   shared:
     actionbar:
-      login: Login
+      login: Log In
       sign_up: Sign Up
       search: Search
+      explore: Explore
       my_profile: Profile
       my_next_talks: My next Talks
-      create_venue: Create Venue
+      create_venue: Create Series
       settings: Settings
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
       legal: Legal
-      terms_of_use: Terms Of Use
-      terms_and_conditions: Terms and Conditions
+      terms_of_use: Terms of use
+      privacy_statement: Privacy statement
+      ip_infringement: Ip infringement notice
     navbar:
       more_talks: More talks
       sign_up: Sign Up
@@ -556,10 +558,10 @@ en:
     user_dropdown_list:
       logout: Log Out
     venues:
-      venues: Venues
+      venues: Series
     profile_dropdown_list:
       my_profile: My profile
-      create_venue: Create venue
+      create_venue: Create Series
       contacts: Contacts
       messages: Messages
       settings: Settings
@@ -571,22 +573,25 @@ en:
       archived_talks: '%{count} Archived Talks'
 
   venues:
-    date_changed: New venue date
+    date_changed: New Series date
     edit:
-      edit_venue: Edit Venue
+      title: "VR Edit Series %{title}"
+      edit_venue: Edit Series
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
-      delete_venue: Delete venue
-    venue_list: Venues
-    new_venue: Create Venue
+      delete_venue: Delete Series
+    venue_list: Series
+    new_venue: Create Series
     show:
+      title: "VR Series %{title}"
       by: by
-      venue: Venue
       start_date: Begin
       duration: Duration
-      past_venue: Past Venue
-      join_venue: SUBSCRIBE TO VENUE!
+      past_venue: Past Series
+      join_venue: SUBSCRIBE TO Series!
       unjoin_venue: Cancel participation
+      this_venue_has_no_talks: This Series has no Talks
+      edit_venue: Edit Series
       chat_will_be_available_short_before_start: Group-chat will be available short before start
       group_chat: Group-Chat
       only_attendies_can_see_group_chat: Only participants can read the group-chat
@@ -594,10 +599,15 @@ en:
       new_talk: New talk
       edit_talk: Edit talk
       post: Post
+      write_a_comment: Write a comment
+      description: Description
+      upcoming_talks: '%{count} Upcoming Talks'
+      archived_talks: '%{count} Archived Talks'
+      comments: Comments
     venue_show_header:
-      venue: Venue
+      venue: Series
       minutes: Minutes
-      ongoing_venue: Venue active
+      ongoing_venue: Series active
       venue_moderated_by: Moderated by %{name}
       leave_venue_popup: This link opens a new tab!
     venue_show_static:
@@ -605,8 +615,8 @@ en:
     venue_show_static_live:
       by: by
     venue_show_chat:
-      what_is_a_venue: Tell me about venues
-      see_other_venues: All Venues
+      what_is_a_venue: Tell me about Series
+      see_other_venues: All Series
     venue_show_upcoming_event:
       upcoming_event: UPCOMING TALK
     venue_show_forum:
@@ -623,40 +633,42 @@ en:
       participants: GUESTS
     venue_show_actions:
       unjoin_venue: Unjoin
-      confirm_unjoin_venue: Really want to unjoin this venue?
+      confirm_unjoin_venue: Really want to unjoin this Series?
     venue_show_archive:
       past_talks: ARCHIVE
       delete_this_recording: Delete this recording
     venue_show_avatar:
       leave_venue_popup: This link opens a new tab!
     new:
-      create_venue: Create Venue
-      available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Venue
+      title: "VR New Series"
+      new_venue: Create Series
+      create_venue: Create Series
+      available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Series
       create_kluuu: create a KluuU now
     new_join:
-      participate_in_venue: Participate at venue
+      participate_in_venue: Participate at Series
       no_klus_available_to_join_venue: You need to create a Question to participate - create one!
-      click_on_your_klu_to_participate_in_venue: Selected question will participate at the venue
-      confirm_join: Would you like to participate with '%{klu_name}' at the venue '%{title}'?
+      click_on_your_klu_to_participate_in_venue: Selected question will participate at the Series
+      confirm_join: Would you like to participate with '%{klu_name}' at the Series '%{title}'?
       so_easy: Its easy
       back: Back
     index:
-      venues: Venues
-      upcoming_venues: UPCOMING VENUES
-      past_venues: PAST VENUES
-      what_is_a_venue: Tell me about venues
-      show_only_upcoming_venues: Upcoming venues
-      show_all_venues: All venues
+      venues: Series
+      upcoming_venues: UPCOMING SERIES
+      past_venues: PAST SERIES
+      what_is_a_venue: Tell me about Series
+      show_only_upcoming_venues: Upcoming Series
+      show_all_venues: All Series
     venue_compact:
-      go_venue_page: Proceed to venue-page
+      go_venue_page: Proceed to Series-page
       host: Host
     venue_comment:
       delete_comment: destroy
     venue_big:
       by: by
       host: Host
-      venue_title: Venue
-      go_venue_page: Proceed to venue-page
+      venue_title: Series
+      go_venue_page: Proceed to Series-page
       join_venue: Participate now!
     end_talk_link:
       end_this_talk: Click here to end this talk.
@@ -664,13 +676,14 @@ en:
     landing_page_venue:
       discuss_in_virtual_cafe: Discuss live in our virtual Café.
       learn_more: Learn more...
-      venue_title: Venues
-      upcoming_venue: Upcoming venue
-      venue_list: All venues
+      venue_title: Series
+      upcoming_venue: Upcoming Series
+      venue_list: All Series
       venue_is_in_process: in process
       news_title: News
-      venue_is_over: past venue
+      venue_is_over: past Series
     fields:
+      venue_purpose: What is the purpose of this Series?
       featured_from: Featured from
       title: Title
       teaser: Teaser
@@ -708,19 +721,21 @@ en:
       your_host_message: Write here your chat infos...
       submit: Post
     with_venues:
-      these_are_your_venues: See your Venues here.
-      create_venue: Create Venue
+      these_are_your_venues: See your Series here.
+      create_venue: Create Series
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
-      create_venue: Create Venue
+      create_venue: Create Series
   talks:
     message_history: |
-      VoiceRepublic Message History 
+      VoiceRepublic Message History
 
         %{title}
-      
+
         %{started_at} - %{ended_at}
     show:
+      title: "VR Talk %{title}"
+      talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Type and hit enter to post a comment
       you: You
       date_start_end: '%{date} | %{start_time} – %{end_time}'
@@ -737,61 +752,40 @@ en:
       minutes: 'MINUTES'
       request_mic: GET THE MIC
       promote: GIVE THE MIC
+      embed_player: Embed Player
+      discussion: Chat
+      description: Description
+      participants: Participants
     new:
+      title: "VR New Talk"
       new_talk: New Talk
     edit:
+      title: "VR Edit Talk %{title}"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
     fields:
+      talks_description: Tell your audience a little more
       title: Title
       teaser: Teaser
       tag_list: Tag list
+    index:
+      explore_talks: VOICE REPUBLIC / TALKS
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recent: RECENT
+      see_all: more...
   articles:
     venue_form:
       write_an_article: write an article
       save_article: Post
-  video_sessions:
-    anonymous_sign_up:
-      video_call_title: Video call
-      guest_to_charge_text: Please sign in to call this KluuU.
-      close: Close
-      sign_up: Sign up
-    calling:
-      video_call_title: Video Call
-      in_process: In progess...
-      cancel_call: Cancel
-    new_form:
-      dispatching_call: Connecting to...
-      start_video_call: Video Call
-    new:
-      video_call_title: Video Call
-      not_logged_in_text: Your are not signed in. Continue?
-      log_in: Sign in
-    no_account:
-      video_call_title: Video Call
-      not_enough_money_text: You don't have sufficient credits. Do you like to buy credit now?
-      close: Close
-      create_account: Configure your financial account
-    no_funds:
-      video_call_title: Video Call
-      not_enough_money_text: You don't have a sufficient credit. Do you like to buy credit now?
-      close: Close
-      check_in_money: Buy credit
-    user_unavailable:
-      video_call_title: Video Call
-      unavailable_text: The User is currently offline. Write a message.
-      close: Close
-      send_message: Message
-    video_system_error:
-      video_down_text: Sorry! The video system is temporarily out of order. We're working on it. Please try again later.
-      close: Close
   hello: Hello world
   layouts:
     application:
-      landing_title: Voice Republic - The Place To Talk
+      landing_title: The Place To Talk
     users:
-      landing_title: Voice Republic - The Place To Talk
+      landing_title: The Place To Talk
 
   user_mailer:
     new_talk:
@@ -811,12 +805,6 @@ en:
       content: |
         Reminder content.
       footer: Goodbye & Goodnight
-    new_article:
-      subject: New article
-      header: "Hello %{user_firstname}"
-      content: |
-        New article content.
-      footer: Goodbye & Goodnight
     new_comment:
       subject: New talk
       header: "Hello %{user_firstname}"
@@ -824,3 +812,25 @@ en:
         New comment content.
       footer: Goodbye & Goodnight
   sign_in_or_register: Sign In or Register
+  invalid_date: "Invalid date"
+  invalid_time: "Invalid time"
+  exceptions:
+    403_header: "Forbidden"
+    403_body: "You are not authorized to perform that action."
+    404_header: "This is not the web page you were looking for"
+    500_header: "Looks like something went wrong!"
+    500_body: "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
+    exception: "Exception"
+    exception_for_vr_users: "Since you have an email adress [user]@voicrepublic.com, I'm showing you the exception message for debugging purposes. Regular users will not see this exception."
+  errors:
+    outdated_browser:
+      header: "You are using an outdated browser"
+      body: |
+        <p>You are using an old version of %{name} whis is %{version}.</p>
+        <p>For the best experience with modern webapps, please upgrade your browser to the newest version or download one of the browsers below:</p>
+        <ul>
+          <li><a href="https://www.google.com/intl/en/chrome/browser/">Download Chrome 33+</a></li>
+          <li><a href="http://www.mozilla.org/en-US/firefox/new/">Download Firefox 28+</a></li>
+          <li>Safari 7 (If you are on OSX < 10.9, you need to upgrade to get a newer version of Safari. It's easier to use Chrome or Firefox.)</li>
+          <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
+        </ul>

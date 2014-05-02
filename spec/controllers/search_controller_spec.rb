@@ -15,7 +15,7 @@ describe SearchController do
     before do
       Thread.current["PgSearch.enable_multisearch"] = true
     end
-    
+
     after do
       Thread.current["PgSearch.enable_multisearch"] = false
     end

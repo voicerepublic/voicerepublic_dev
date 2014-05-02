@@ -16,4 +16,41 @@ namespace :cleanup do
       t.save!
     end
   end
+
+  # TODO this should be more generic and move into `trickery`
+  # TODO does this deprecate `db:data:validate`?
+  desc 'Check validity of talks, series and user profiles'
+  task :check_validity => :environment do
+
+    class InvalidModelException < Exception
+      def initialize(msg)
+        @msg = msg
+      end
+    end
+
+    errors_count = 0
+    error_ids = {
+      talks: [],
+      series: [],
+      users: [],
+    }
+    ressources = [ [Talk, :talks], [Venue, :series], [User, :users]]
+
+    ressources.each do |model, key|
+      model.all.each do |m|
+        unless m.valid?
+          error_ids[key] << [ "#{m.id.to_i}", m.errors.full_messages ]
+          errors_count += 1
+        end
+      end
+    end
+
+    if errors_count > 0
+      puts error_ids
+      msg = { invalid_models: error_ids, errors_count: errors_count }
+      Rails.logger.warn "====\nInvalid models: #{errors_count}."
+      Rails.logger.warn msg.to_s + "\n===="
+      raise InvalidModelException.new msg
+    end
+  end
 end

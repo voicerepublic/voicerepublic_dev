@@ -1,12 +1,12 @@
 = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
   .row.collapse.top-margin-action-bar
     .medium-10.medium-offset-1.columns
-      %h2= t('.change_password')
+      -# %h2= t('.change_password')
       = devise_error_messages!
       = f.hidden_field :reset_password_token
       = f.input :password, label: t('.new_password')
       = f.input :password_confirmation, label: t('.confirm_new_password')
-      = f.submit t('helpers.links.save'), :class => "button"
+      = f.submit t('helpers.links.save'), :class => "button-vr"
       .clearfix
       %hr/
       = render "devise/shared/links"

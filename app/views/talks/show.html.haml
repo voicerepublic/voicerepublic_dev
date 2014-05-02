@@ -1,5 +1,8 @@
 - content_for :head do
   = render 'shared/social_meta_tags'
+- content_for :title do
+  = t('.title', title: @talk.title)
+
 %p#notice(style='display: none;')= notice
 
 .row(style='padding: 200px' ng-hide='true')
@@ -17,41 +20,58 @@
 
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
-    .generic-action-bar.row.collapse
-      .large-12.columns
-        %ul.button-group.right
-          - if can? :manage, @talk
-            -#
-              %li= link_to t('.download_messages'),
-                "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text", class: 'button-standard'
-            - if !@talk.live?
-              %li= link_to t('.edit_talk'), [:edit, @venue, @talk], class: 'button-standard'
-
-            / %li= link_to t('.delete_talk'), [@venue, @talk], class: 'button tiny',
-            /   method: :delete, data: { confirm: t('.confirm_delete',
-            /   default: 'Are you sure?' ) }
-
-            %li(ng-show='showEndTalk()')
-              %button.button.tiny(ng-click='endTalk()')
-                = t('.end_talk')
-
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
-        .type-name= t('.talk')
-        .talk-venue-title
+        - if can? :manage, @talk
+          .generic-actions-box
+            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+              %span.icon-cog
+            %ul#action-links-list.list-style-type-none.hide-stuff
+              - if !@talk.live?
+                %li= link_to t('.edit_talk'), [:edit, @venue, @talk]
+
+              %li(ng-show='showEndTalk()')
+                %a(href="#" ng-click='endTalk()')= t('.end_talk')
+
+              -#
+                %li= link_to t('.download_messages'),
+                  "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
+        .breadcrumbs-box.text-left
+          = link_to @talk.user.name, user_path(@talk.user)
+          .bc-delimiter >
           = link_to @talk.venue.title, @talk.venue
-        -#.talk-host-name
-        -#  = @talk.user.name
+          .bc-delimiter >
+          .type-name= t('.talk')
         %h2.talk-title
           = @talk.title
         .talk-teaser
           = @talk.teaser
-        -#%h3.talk-tags
-        -#  = @talk.tag_list
         .talk-date-time
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
+
+        -# TODO: better integrate player with angularjs
+        - if @talk.archived?
+          .talk-archived-actions-box
+            .embed-link-box
+              = link_to t('.embed'),'#', class: 'button-standard-small', 'data-reveal-id' => "modal-embed"
+            #modal-embed.reveal-modal.text-center(data-reveal)
+              %h3.color-black= t('.embed_this_talk')
+              %textarea
+                <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
+              %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
+              %a.close-reveal-modal= raw '&#215;'
+            .download-link-box(ng-show='talkIsArchived()')
+              = link_to t('.download'), '#', class: 'button-standard-small', 'data-reveal-id' => "modal-download"
+            #modal-download.reveal-modal.text-center(data-reveal)
+              %h3.color-black= t('.download_talk')
+              %ul.button-group.text-center
+                %li(ng-repeat='(ext, link) in mediaLinks')
+                  %a.button-standard(href='{{link}}') {{ext}}
+              %a.close-reveal-modal= raw '&#215;'
+          -# PLAYER
+          = render partial: 'shared/player', locals: { talk: @talk }
 
     .talk-countdown.row(ng-show='talkIsPrelive()')
       .medium-12.columns.text-center
@@ -64,17 +84,9 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        -# TODO: better integrate player with angularjs
-        - if @talk.archived?
-          = render partial: 'shared/player', locals: { talk: @talk }
-          .embed_player
-            %span.label(data-enable-fields=true)= t('.embed_player')
-            .share_iframe.hide
-              %textarea
-                <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
-
-        - else
-          %div(ng-show='talkIsArchived()')= t('.please_reload_this_page')
+        - unless @talk.archived?
+          .reload-message(ng-show='talkIsArchived()')
+            = link_to t('.please_reload_this_page'), @talk
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
@@ -86,6 +98,9 @@
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
               {{ countdown }} MIN
+        .mute-stream-box(ng-show='talkIsLive()')
+          %span.icon-volume-mute(ng-click='setVolume(0)')
+          %span.icon-volume-mute2(ng-click='setVolume(1)')
 
     .talk-talkers-box.row
       .large-12.columns.text-center
@@ -102,23 +117,18 @@
           .host-actions(ng-show='showHostActions()')
             .guest-demote-link(ng-click="demote(guest.id)")
               = t('.demote')
-      .mute-stream-box(ng-show='talkIsLive()')
-        .mute-title= 'Talk:'
-        .mute-stream
-          %span(ng-click='setVolume(0)')= t('.mute_streams')
-        .unmute-stream
-          %span(ng-click='setVolume(1)')= t('.unmute_streams')
 
     .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
       .large-12.columns
-        .participate-button-box
+        .participate-button-box.text-center
           - url = [ @talk.venue, :participations ]
-          = link_to t('.participate'), url, method: 'post', class: 'button-vr button-full-size'
+          = link_to t('.participate'), url, method: 'post', class: 'button-vr'
 
     .talk-host-and-participants-action-box.row
       .large-12.columns.text-center
         .talkers-action-box
-          .mic-sign-box
+          -# FIXME quick and dirty: do not show mic
+          .mic-sign-box{ class: @talk.state=~/^(pre|)live$/ ? '' : 'display-none'}
             %span.icon-octa-full
             %span.icon-octagon
             %span.icon-mic
@@ -138,52 +148,51 @@
                           ng-click='unmute()')= t('.unmute_mic')
 
         .chat-flash-box
-          .chat-input-box.row(ng-hide="userIsAListener()")
-            .large-12.columns
-              .input-box
-                %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-                %span.icon-bubble-multi
+          - unless @talk.venue.opts.suppress_chat
+            .chat-input-box.row(ng-hide="userIsAListener()")
+              .large-12.columns
+                .input-box
+                  %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+                  %span.icon-bubble-multi
 
           -# FIXME quick and dirty: do not show audio settings
           - if @talk.state=~/^(pre|)live$/
-            .button-audio-settings(data-show-audio-settings=".flash-box")
+            .button-audio-settings(ng-click='toggleShowSettings()')
               %span.icon-mic
               = t(".audio_settings")
 
           -# FIXME quick and dirty: do not show audio settings
-          .flash-box.row{ class: @talk.state=~/^(pre|)live$/ ? 'flash-box-open' : '' }
+          .flash-box.row(ng-class="{'hide-stuff': !showSettings()}")
             .large-12.columns.text-left
               #flashContent
               .manual-box
                 .flash-manual-title
                   = t('.flash_manual_title')
                 %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-                %button.button-vr
+                %button.button-vr(ng-click='toggleShowSettings()')
                   = t('.lets_go')
                 = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
                   %p.flash-content
                     = raw t('.audio_settings_help_text')
 
-    .download.row(ng-show='talkIsArchived()')
-      .large-12.columns.text-center
-        %ul.button-group
-          %li(ng-repeat='(ext, link) in mediaLinks')
-            %a.button(href='{{link}}') {{ext}}
-
     .row.collapse-large-only
       .large-12.columns
+        -# TODO: The current active tab is being decided upon in Ruby. This is a
+        -# hacky and redundant implementation (decision was made whilst swarming).
+        -# The active tab should be different in various states, however.
+        -# https://www.pivotaltracker.com/story/show/70019652
         %dl.tabs.vr-tabs(data-tab="true")
-          %dd.active.text-center
-            %a(href="#talk-tab-description")
+          %dd.text-center{class: ("active" if @talk.venue.opts.suppress_chat)}
+            %a(href="#description")
               %span.icon-description
               = t('.description')
           - unless @talk.venue.opts.suppress_chat
-            %dd.text-center
-              %a(href="#talk-tab-discussion")
+            %dd.text-center.active
+              %a(href="#discussion")
                 %span.icon-bubble-multi
                 = t('.discussion')
           %dd.text-center
-            %a(href="#talk-tab-participants")
+            %a(href="#participants")
               %span.icon-people
               = t('.participants')
               %span(ng-show='expectingPromotion().length')
@@ -193,13 +202,17 @@
 
   .talk-tabs-content-block
     .tabs-content
-      #talk-tab-description.content.active
+      -# TODO: The current active tab is being decided upon in Ruby. This is a
+      -# hacky and redundant implementation (decision was made whilst swarming).
+      -# The active tab should be different in various states, however.
+      -# https://www.pivotaltracker.com/story/show/70019652
+      #description.description-content.content{class: ("active" if @talk.venue.opts.suppress_chat)}
         .row
           .large-12.columns
             = @talk.try(:description).try(:html_safe)
 
       - unless @talk.venue.opts.suppress_chat
-        #talk-tab-discussion.content
+        #discussion.discussion-content.content.active
           .chat-message(ng-repeat='message in discussion')
             .row
               .large-12.columns
@@ -210,7 +223,7 @@
                 .message-time
                   {{ message.created_at }}
 
-      #talk-tab-participants.content
+      #participants.participants-content.content
         .row.participants-box
           .large-12.columns
             .expecting_promotion(ng-show='expectingPromotion().length')

@@ -2,15 +2,15 @@
 .talks-create,
 .talks-edit,
 .talks-update{
-  
+
   input[type="checkbox"]{
     margin-right:5px !important
   }
-  .date-time-picker-row{
+  .date-time-icker-row{
     .columns{
       padding-right: 13px !important;
       &:last-child{
-        padding-right: 0 !important
+        ng-right: 0 !important
       }
     }
   }
@@ -36,35 +36,89 @@
     border-top:1px solid #aaa;
   }
 
-  .generic-action-bar{
-    margin-bottom: -11px
+  .generic-actions-box{
+    position: absolute;
+    right: -89px;
+    top: 21px;
+    .action-toggle{
+      height: 38px;
+      width: 38px;
+      position: relative;
+      display: block;
+      margin-bottom: 3px
+    }
+    .icon-cog{
+      color: $brand-color-red;
+      font-size: rem-calc(18);
+      height:100%;
+      width: 100%;
+      padding: 11px 10px 7px 10px;
+      display: block;
+      background: black;
+    }
+    #action-links-list{
+      height:100px;
+      /*width:80px;*/
+      overflow: hidden;
+      &.hide{
+        height:0;
+      }
+      li{
+        display: block;
+        margin-top: 2px;
+        a{
+          color: $brand-color-red;
+          font-size: rem-calc(16);
+          font-family: 'eaglebook';
+          height: 38px;
+          padding: 7px 10px;
+          display: block;
+          background: black;
+        }
+      }
+    }
   }
+
   .talk-title-box{
     position: relative;
     background: rgba(0,0,0,0.5);
-    margin-top: 12px;
-    padding:16px 0 2px 0;
-    .type-name{
-      position:absolute;
-      left: 12px;
-      top: 0px;
-      font-family: 'eaglebook';
-      font-size: rem-calc(14)
-    }
-    .talk-venue-title{
-      display: inline-block;
-      a,a:hover,a:focus{
+    margin-top: 15px;
+    padding:0px 0 2px 0;
+    .breadcrumbs-box{
+      position: relative;
+      padding:3px 10px;
+      background: rgba(0,0,0,0.7);
+      color:white;
       font-family: 'eaglelight';
-      color: #fff;
-      letter-spacing: 1px;
-      font-size: rem-calc(13);
-      }      
+      a{
+        font-size: rem-calc(14);
+        color: inherit;
+        font-family: inherit;
+        &:hover,&:focus{
+          color: darken(white,5%);
+        }
+      }
+      .bc-delimiter{
+        position: relative;
+        font-size: rem-calc(18);
+        display: inline-block;
+        margin:0 3px;
+      }
+      .type-name{
+        position: absolute;
+        bottom:-26px;
+        left:10px;
+        font-family: 'eaglebook';
+        font-size: rem-calc(14)
+      }
     }
     .talk-title{
       color: #fff;
       font-size: rem-calc(39);
       line-height: 1;
-      margin: 31px 0 5px 0;
+      margin: 11px 0 5px 0;
+      padding: 0 47px;
+      text-shadow:0 0 2px rgba(0,0,0,0.2);
     }
     .talk-teaser{
       color: #fff;
@@ -72,11 +126,40 @@
       font-size: rem-calc(20);
       line-height: 1;
       margin: 0;
+      text-shadow:0 0 2px rgba(0,0,0,0.2);
     }
+
+    @media screen and (min-width: 700px) {
+      .talk-teaser {
+        padding: 0 120px;
+      }
+    }
+
     .talk-date-time{
-      margin: rem-calc(29) 0 0 0;
+      margin: rem-calc(12) 0 0 0;
       font-family: 'eaglelight';
     }
+    .talk-archived-actions-box{
+      position: absolute;
+      right: 10px;
+      bottom: 40px;
+      .embed-link-box,
+      .download-link-box{
+        display:inline-block;
+      }
+    }
+  }
+
+  #modal-download{
+    ul{
+      display: inline-block;
+    }
+  }
+
+  .embed-help-text{
+    font-family: 'eaglelight';
+    font-size: rem-calc(15);
+    color: $brand-color-red;
   }
 
   .talk-countdown{
@@ -96,25 +179,36 @@
       position: relative;
       font-family: 'eaglelight';
       font-size: rem-calc(40);
-      margin: 0 rem-calc(13);
+      margin: 0 rem-calc(13) 0 rem-calc(10);
+      width: 168px;
+      text-align: left;
     }
   }
 
   .talk-timeline-box{
     margin-top: 15px;
-    background: rgba(0,0,0,0.5);
     font-family: 'eaglebook';
     font-size: rem-calc(15);
-    padding: 0 0 9px 0;
-    .talk-timeline{
-      background: rgba(0,0,0,0.8);
-      width: 100%;
-      height: 10px;
-      margin:0 0 14px;
-      .talk-timeline-progress{
-        background: $brand-color-red;
+    .reload-message{
+      background:rgba(86,178,167,0.7);
+      color: white;
+      font-family: 'eaglebook';
+      font-size:rem-calc(26);
+      padding: rem-calc(12) 10px rem-calc(10) 10px;
+    }
+    .talk-live-timeline{
+      background: rgba(0,0,0,0.5);
+      padding: 0 0 9px 0;
+      .talk-timeline{
+        background: rgba(0,0,0,0.8);
         width: 100%;
-        height: 100%;
+        height: 10px;
+        margin:0 0 14px;
+        .talk-timeline-progress{
+          background: $brand-color-red;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
     .talk-state-info{
@@ -138,12 +232,22 @@
        color: $brand-color-red;
       }
     }
+    .mute-stream-box{
+      position: absolute;
+      left: 12px;
+      bottom: 1px;
+      span{
+        font-size: rem-calc(16);
+        color: $brand-color-red;
+        cursor: pointer;
+      }
+    }
   }
 
   .talk-talkers-box{
     position: relative;
-    background: black;
-    padding:rem-calc(8) rem-calc(8);
+    background: rgba(0,0,0,0.85);
+    padding:rem-calc(23) rem-calc(23);
     color: #fff;
     .avatar{
       .avatar-box{
@@ -158,19 +262,6 @@
       &.avatar-host{
         .avatar-bg{
           fill: $brand-color-red;
-        }
-      }
-    }
-    .mute-stream-box{
-      position: absolute;
-      right: 6px;
-      bottom: 4px;
-      > div{
-        display: inline-block;
-        font-size: rem-calc(14);
-        font-family: 'eaglebook';
-        span{
-          color: $brand-color-green;
         }
       }
     }
@@ -223,22 +314,31 @@
       }
       .button-box{
         height: 35px;
-        > div{ 
+        > div{
           position: absolute;
           left: 50%;
           top: -7px;
           margin-left: 39px;
           font-family: 'eaglebook';
           font-size: 12px;
-          color: $brand-color-green;
+          color: $brand-color-yellow;
           cursor: pointer;
           &#onair{
             cursor: default;
+          }
+          &.button-decline{
+            top: 23px;
+          }
+          #onair{
+            color: $brand-color-red;
           }
         }
       }
       .tmp-mute-box{
         position: absolute;
+        //tmp hide
+        height:0;
+        overflow: hidden;
         top: 5px;
         left: 10px;
         font-size: rem-calc(11);
@@ -274,12 +374,14 @@
       }
     }
     .flash-box{
-      height:0;
+      height:170px;
+      padding: 15px 0;
       margin-top: 25px;
       margin-bottom: 15px;
       background: #000;
       overflow: hidden;
-      transition: height .4s, padding .4s;
+      @include transition(height, .4s, ease-in-out);
+      @include transition(padding, .4s, ease-in-out);
       .manual-box{
         display: inline-block;
         vertical-align: top;
@@ -295,10 +397,10 @@
         line-height: 1.1
       }
 
-      &.flash-box-open{
+/*      &.flash-box-open{
         height: 170px;
-        padding: 15px 0;
-      }
+
+      }*/
       .button-vr{
         border-color: $brand-color-yellow;
         color: $brand-color-yellow;
@@ -334,8 +436,7 @@
     }
   }
 
-  .download{
-    margin-bottom: 15px;
+  .modal-download{
     ul{
       display: inline-block !important
     }
@@ -352,18 +453,23 @@
     width:33.33%;
   }
 
-  #talk-tab-description{
+  .description-content{
     padding-top:0 !important;
     .row{
       padding-top: 12px;
       background: rgba(0,0,0,0.8);
-      p{
-        color: white
+      color: white;
+      a {
+        text-decoration: underline;
+        color: inherit;
+      }
+      p {
+        color: inherit;
       }
     }
   }
 
-  #talk-tab-discussion{
+  .discussion-content{
     background: $brand-color-creme;
     .chat-message{
       max-width:100%;
@@ -394,7 +500,7 @@
       }
     }
   }
-  #talk-tab-participants{
+  .participants-content{
     padding-top: 0 !important;
     .participants-box{
       padding-bottom: 20px;
@@ -419,7 +525,42 @@
       }
     }
   }
-
 }
 
-
+// EXPLORE TALKS
+.talks-index,
+.talks-recent,
+.talks-featured,
+.talks-popular{
+  h2 {
+    color: $brand-color-blue;
+    font-size: rem-calc(14);
+    font-family: 'eaglelight';
+    margin-bottom: 40px;
+  }
+  h3{
+    color: $brand-color-red;
+    display: inline;
+  }
+  .talk-medium-box{
+    margin-right:0 !important;
+    .box-actions{
+      display: none !important;
+    }
+  }
+  .title-box{
+    position: relative;
+    margin-bottom: 10px;
+    .see-all-link{
+      bottom: 2px;
+    }
+  }
+  .see-all-link{
+    font-size: rem-calc(11);
+    display: inline-block;
+    color: $brand-color-blue;
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+  }
+}

@@ -17,14 +17,14 @@ class UserMailer < ActionMailer::Base
   # app/models/talk.rb:140 (delayed)
   def new_talk(talk, user)
     return if talk.venue.opts.no_email
-    interpolate! user, talk, url: venue_talk_url(:en, talk.venue, talk)
+    interpolate! user, talk, url: venue_talk_url(talk.venue, talk)
     default_mail user.email_with_name
   end
 
   # lib/tasks/talks.rake:9
   def reminder(talk, user)
     return if talk.venue.opts.no_email
-    interpolate! user, talk, url: venue_talk_url(:en, talk.venue, talk)
+    interpolate! user, talk, url: venue_talk_url(talk.venue, talk)
     default_mail user.email_with_name
   end
 

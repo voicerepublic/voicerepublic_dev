@@ -13,12 +13,19 @@ class ParticipationsController < ApplicationController
   # GET /participations
   # GET /participations.json
   def index
-    redirect_to venue_path(:id => params[:participation][:venue_id])
+    redirect_to venue_path(:id => params[:venue_id])
   end
 
   # POST /participations
   # POST /participations.json
   def create
+    # TODO: Is this the correct way to go?
+    # FIXME: There's no authorization in this controller
+    # TODO: I18n!
+    if current_user.guest?
+      return redirect_to new_user_registration_path,
+        :notice => "You need to sign up to participate in a Series"
+    end
     @participation = @venue.participations.build
     @participation.user = current_user
 

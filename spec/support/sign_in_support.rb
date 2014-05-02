@@ -9,4 +9,5 @@ module ValidUserRequestHelper
     page.fill_in('user_password', :with => user.password)
     page.click_button('Log In')
   end
+
 end

@@ -25,5 +25,8 @@
     %br
     %br
     %label.venue-description-label(for="venue_description")
-      = t('.What is the purpose of this venue?')
+      = t('.venue_purpose')
     = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
+    - messages = @venue.errors.get(:description)
+    - unless messages.empty?
+      %small.error= messages * ', ' 

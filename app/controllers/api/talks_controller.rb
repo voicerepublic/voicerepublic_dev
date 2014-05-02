@@ -3,6 +3,7 @@ class Api::TalksController < Api::BaseController
   before_action :authenticate_user!
   before_action :set_talk
 
+
   # single point of entry for updates during live talks
   #
   # delegate to a sepcific message handler or complain

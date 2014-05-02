@@ -64,9 +64,9 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :teaser, :duration,
-    :description, :record, :image, :tag_list,
-    :guest_list, :starts_at_date, :starts_at_time
+  attr_accessible :title, :teaser, :duration, :uri,
+                  :description, :record, :image, :tag_list,
+                  :guest_list, :starts_at_date, :starts_at_time
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -74,11 +74,11 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  validates :venue, :title, :tag_list, :duration, presence: true
+  validates :venue, :title, :tag_list, :duration, :description, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
-    message: I18n.t(:invalid_date) }
+                                       message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
-    message: I18n.t(:invalid_time) }
+                                       message: I18n.t(:invalid_time) }
 
   before_save :set_starts_at
   before_save :set_ends_at
@@ -101,8 +101,14 @@ class Talk < ActiveRecord::Base
       order('featured_from DESC')
   end
 
+  scope :popular, -> { archived.order('play_count DESC') }
   scope :ordered, -> { order('starts_at ASC') }
 
+  scope :recent, -> do
+    archived.order('ended_at DESC').
+      where('featured_from IS NOT NULL')
+  end
+  
   scope :audio_format, ->(format) do # TODO: check if needed
     where('audio_formats LIKE ?', "%#{format}%")
   end
@@ -219,6 +225,29 @@ class Talk < ActiveRecord::Base
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
+  # this is only for user acceptance testing!
+  def make_it_start_soon!(delta=1.minute)
+    self.reload
+    self.starts_at_time = delta.from_now.strftime('%H:%M')
+    self.state = :prelive
+    self.save!
+    PrivatePub.publish_to public_channel, event: 'Reload'
+    self
+  end
+
+  def reset_to_postlive!
+    self.reload
+    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    base = File.dirname(File.join(archive_raw, recording))
+    target = Settings.rtmp.recordings_path
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target)
+    self.recording = nil
+    self.state = :postlive
+    self.save!
+    self.reload
+    self
+  end
+
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -262,53 +291,158 @@ class Talk < ActiveRecord::Base
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
-    Delayed::Job.enqueue Postprocess.new(id), queue: 'audio'
-
+    unless venue.opts.no_auto_postprocessing
+      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio')
+    end
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
-
-    return if venue.opts.no_auto_postprocessing
-    delay(queue: 'audio').postprocess!
   end
 
   def postprocess!(uat=false)
-    return unless record? # TODO: move into a final state != archived
+    raise 'fail: postprocessing a talk with override' if recording_override?
+    # TODO: move into a final state != archived (over/past/gone/myth)
+    return unless record?
+    return if archived? # silently guard against double processing
+
+    logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
+
     process!
+    chain = venue.opts.process_chain
+    chain ||= Setting.get('audio.process_chain')
+    chain = chain.split(/\s+/)
+    run_chain! chain, uat
+    archive!
+  end
+
+  # TODO this will leave orphaned versions of previous processings on disk
+  def reprocess!(uat=false)
+    raise 'fail: reprocessing a talk without recording' unless record?
+    raise 'fail: reprocessing a talk with override' if recording_override?
+
+    logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"
+
+    # move files back into position for processing
+    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    base = File.dirname(File.join(archive_raw, recording))
+    target = Settings.rtmp.recordings_path
+    FileUtils.fileutils_output = logfile
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
+    FileUtils.fileutils_output = $stderr
+
+    chain = venue.opts.process_chain
+    chain ||= Setting.get('audio.process_chain')
+    chain = chain.split(/\s+/)
+    run_chain! chain, uat
+  end
+
+  # TODO this will leave orphaned versions of previous processings on disk
+  #
+  # FIXME cleanup the wget/cp spec mess with
+  # http://stackoverflow.com/questions/2263540
+  def process_override!(uat=false)
+    logfile.puts "\n\n# --- override (#{Time.now}) ---"
+
+    # prepare override
+    Dir.mktmpdir do |path|
+      FileUtils.fileutils_output = logfile
+      FileUtils.chdir(path, verbose: true) do
+        # download
+        tmp = "t#{id}"
+        url = recording_override
+        # cp local files
+        cmd = "cp #{url} #{tmp}"
+        # use wget for real urls
+        cmd = "wget -q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        logfile.puts cmd
+        %x[ #{cmd} ]
+        # convert to ogg
+        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav"
+        logfile.puts cmd
+        %x[ #{cmd} ]
+        # move ogg to archive
+        ogg = tmp + '.ogg'
+        path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"
+        base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+        target = File.join(base, path)
+        FileUtils.mkdir_p(File.dirname(target), verbose: true)
+        FileUtils.mv(ogg, target, verbose: true)
+        # store reference
+        update_attribute :recording_override, path
+        # move wav to `recordings`
+        wav = tmp + '.wav'
+        base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+        target = File.join(base, "#{id}.wav")
+        FileUtils.mv(wav, target, verbose: true)
+      end
+      FileUtils.fileutils_output = $stderr
+    end # unlinks tmp dir
+
+    chain = venue.opts.override_chain
+    chain ||= Setting.get('audio.override_chain')
+    chain = chain.split(/\s+/)
+    run_chain! chain, uat
+  end
+
+  def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
 
-    chain = Setting.get('audio.process_chain').split(/\s+/)
-    base = Settings.rtmp.recordings_path
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     opts = {
       talk_start: started_at.to_i,
-      talk_stop:  ended_at.to_i
+      talk_stop:  ended_at.to_i,
+      logfile: logfile
     }
     setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
-    chain.each_with_index do |name, index|
-      attrs = { id: id, run: name, index: index, total: chain.size }
-      PrivatePub.publish_to '/monitoring', { event: 'Postprocessing', talk: attrs }
-      (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
-      runner.run(name)
+    FileUtils.fileutils_output = logfile
+    FileUtils.chdir(setting.path, verbose: true) do
+      chain.each_with_index do |name, index|
+        attrs = { id: id, run: name, index: index, total: chain.size }
+        PrivatePub.publish_to '/monitoring', { event: 'Processing', talk: attrs }
+        (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
+        runner.run(name)
+      end
     end
     # save recording
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-    # move some files to archive_raw
+    logfile.puts "# set `recording` to '#{recording}'"
+    # delete some files (mainly wave files, we'll keep only flv
+    # and compressed files)
+    logfile.puts '# delete wav files'
+    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav"), verbose: true)
+    FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav"), verbose: true)
+    FileUtils.rm(Dir.glob("#{base}/#{id}.wav"), verbose: true)
+    # move some files to archive_raw (journal and flv files)
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     target = File.dirname(File.join(archive_raw, recording))
+    logfile.puts "# move files to #{target}"
     FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
+    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
-    # move some files to archive
+    # move some files to archive (all other files)
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     target = File.dirname(File.join(archive, recording))
+    logfile.puts "# move files to #{target}"
     FileUtils.mkdir_p(target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
+    FileUtils.fileutils_output = $stderr
+
     # TODO: save transcoded audio formats
 
-    archive!
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
+  end
+
+  def logfile
+    return @logfile unless @logfile.nil?
+    base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+    path = File.join(base, Time.now.strftime(ARCHIVE_STRUCTURE))
+    FileUtils.mkdir_p(path)
+    @logfile = File.open(File.join(path, "#{id}.log"), 'a')
+    @logfile.sync = true
+    @logfile
   end
 
 end

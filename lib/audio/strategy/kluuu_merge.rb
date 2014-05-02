@@ -26,6 +26,7 @@ module Audio
       #   [[filename, datetimestr], [filename, datetimestr], ...]
       #
       def merge_wavs_cmd(streams, outfile)
+        raise 'no streams?' if streams.empty?
         if streams.size == 1
           infile = streams.first.first.sub('.flv', '.wav')
           return "cp #{infile} #{outfile}" 
