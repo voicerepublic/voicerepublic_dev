@@ -17,11 +17,16 @@
         .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
-        
+
     = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
+        - if @talk.related_talk
+          #related_talk
+            %h3= t('.related_talk')
+            .large-4.columns
+              = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk }
         - if can? :manage, @talk
           .generic-actions-box
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
