@@ -1,23 +1,22 @@
 - talk = talk_medium_box
 
-%li.talk-medium-box.row.collapse
-  .large-2.medium-2.columns
-    %img.talk-avatar{src: talk.image.thumb('108x61#nw').url}
-  .large-10.medium-10.columns.talk-medium-text-box.text-left
+%li.talk-medium-box.box-grey
+  .left-box
+    = link_to user_path(talk.user) do
+      %img.talk-avatar{src: talk.image.thumb('181x131#nw').url}
+  .right-box.text-left
+    .breadcrumbs-box
+      = link_to user_path(talk.user) do
+        %span.icon-person
+        %span.link-text= talk.user.name
+      = link_to talk.venue do
+        %span.icon-ellipsis
+        %span.link-text= talk.venue.title
     = link_to [talk.venue, talk] do
-      .talk-datetime
-        = t('.date_start_end', date: l(talk.starts_at, format: :date_only),
+      .datetime
+        = raw t('.date_start_end', date: l(talk.starts_at, format: :date_only_short),
           start_time: l(talk.starts_at, format: :time_only),
           end_time: l(talk.ends_at, format: :time_only))
-        = #distance_of_time_in_words(talk.starts_at, talk.ends_at)(#{talk.duration} minutes) ?
-      .talk-title= talk.title
-      .talk-teaser
-        = link_to [talk.venue, talk] do
-          = talk.teaser
-          = t('.read more')
-    - if can? :manage, talk
-      .box-actions
-        = link_to [:edit, talk.venue, talk] do
-          %span.icon-pencil
-        = link_to [talk.venue, talk], delete_params do
-          %span.icon-x
+      .title= talk.title.upcase
+      .teaser
+        = talk.teaser

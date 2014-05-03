@@ -231,6 +231,7 @@ en:
       micro: ! '%l:%M %P'
       designed: ! '%-d%o %B %Y — %l%P'
       date_only: ! '%-d%o %B %Y'
+      date_only_short: ! '%-d%o %b %Y'
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
@@ -456,7 +457,8 @@ en:
       now_live: NOW LIVE
       featured: FEATURED
       popular: POPULAR
-      recently_archived: RECENTLY ARCHIVED
+      recent: RECENT
+      see_all: MORE
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
         <br />
@@ -574,8 +576,10 @@ en:
       messages: Messages
       settings: Settings
     talk_medium_box:
-      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
       read_more: ...read more
+    talk_small_box:
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
     venue_medium_box:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
@@ -783,12 +787,13 @@ en:
       teaser: Teaser
       tag_list: Tag list
     index:
-      explore_talks: VOICE REPUBLIC / TALKS
+      talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
+      live: NOW LIVE
       featured: FEATURED
       popular: POPULAR
       recent: RECENT
-      see_all: more...
+      see_all: MORE
   articles:
     venue_form:
       write_an_article: write an article
