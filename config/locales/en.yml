@@ -800,13 +800,9 @@ en:
     venue_form:
       write_an_article: write an article
       save_article: Post
-  hello: Hello world
   layouts:
     application:
-      landing_title: The Place To Talk
-    users:
-      landing_title: The Place To Talk
-
+      landing_title: VoiceRepublic - The Place To Talk
   user_mailer:
     new_talk:
       subject: New talk
