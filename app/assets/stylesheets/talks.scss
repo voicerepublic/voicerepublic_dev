@@ -21,9 +21,12 @@
 
 
 .talks-show{
-  #related_talk {
-    position: absolute;
-    left: -220px;
+  .related_talk {
+    li {
+      background-color: transparent;
+      list-style-type: none;
+      border: none;
+    }
   }
 
   // for testing
