@@ -61,9 +61,9 @@
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
-            = image_tag '/images/flyer_placeholder.png'
+            = image_tag @talk.flyer_path
             %p
-              = link_to '/images/flyer_placeholder.png', 'download' => 'true' do
+              = link_to @talk.flyer_path, 'download' => 'true' do
                 %span.icon-download-2
                 = t('.download_flyer')
 
