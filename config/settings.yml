@@ -43,3 +43,6 @@ supported_browsers:
   ie: 10
   firefox: 24
 mail_domain: 'localhost'
+flyer:
+  location: /system/flyer
+  path: public/system/flyer

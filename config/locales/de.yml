@@ -1,0 +1,4 @@
+de:
+  time:
+    formats:
+      flyer: ! 'dem %d.%m.%Y, um %H.%M Uhr'

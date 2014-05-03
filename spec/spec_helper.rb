@@ -187,7 +187,10 @@ RSpec.configure do |config|
   audio_paths = audio_paths.map { |path| File.expand_path(path, Rails.root) }
   config.before(:suite) { FileUtils.mkdir_p(audio_paths) }
   config.after(:suite) { FileUtils.rm_rf(audio_paths) }
-  
+
+  # do not create a flyer on Talk#save during spec runs
+  config.before(:each) { allow_any_instance_of(Talk).to receive(:generate_flyer).and_return(true) }
+
 end
 
 module FactoryGirl

@@ -87,6 +87,7 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   after_create :notify_participants
   after_save :set_guests
+  after_save :generate_flyer
 
   serialize :session
 
@@ -226,6 +227,23 @@ class Talk < ActiveRecord::Base
     }
     I18n.t('talks.message_history', attrs) + "\n" +
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
+  end
+
+  # returns either the web path (default)
+  #
+  #     e.g. /system/flyer/42.png
+  #
+  # or, if `fs` is true, the absolute file system path
+  #
+  #     e.g. /home/app/app/shared/public/system/flyer/42.png
+  #
+  def flyer_path(fs=false)
+    name = "#{id}.png" # TODO use friendly id
+    return Settings.flyer.location + '/' + name unless fs
+
+    path = File.expand_path(Settings.flyer.path, Rails.root)
+    FileUtils.mkdir_p(path)
+    File.join(path, name)
   end
 
   # this is only for user acceptance testing!
@@ -457,6 +475,29 @@ class Talk < ActiveRecord::Base
     @logfile = File.open(File.join(path, "#{id}.log"), 'a')
     @logfile.sync = true
     @logfile
+  end
+
+  # Generates a svg flyer and converts it to png via Inkscape.
+  #
+  # This can be run in bulk to regenerate all flyers:
+  #
+  #     FileUtils.rm(Dir.glob('app/shared/public/system/flyer/*.png'))
+  #     Talk.find_each { |t| t.send(:generate_flyer) }
+  #
+  def generate_flyer
+    svg_data = render_anywhere 'talks/flyer.svg', talk: self
+    svg_file = Tempfile.new('svg')
+    svg_file.write svg_data
+    svg_file.close
+    %x[ inkscape -f #{svg_file.path} -e #{flyer_path(true)} ]
+    svg_file.unlink
+  end
+
+  # TODO this should move into trickery
+  def render_anywhere(partial, assigns = {})
+    view = ActionView::Base.new(ActionController::Base.view_paths, assigns)
+    view.extend ApplicationHelper
+    view.render partial: partial
   end
 
 end
