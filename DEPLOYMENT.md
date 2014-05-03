@@ -150,6 +150,14 @@ Installed missing package
 
     # apt-get install vorbis-tools
 
+Installed fonts
+---------------
+
+  * Install otf fonts in app user home directory
+
+    ➜  ~  ls .fonts
+    Eagle-Book.otf  Eagle-Light.otf
+
 
 Backend
 -------
@@ -163,7 +171,7 @@ Munin Plugins
 As root
 
     apt-get install libxml-xpath-perl
-    cd /etc/munin/plugins    
+    cd /etc/munin/plugins
     ln -s /home/app/app/current/bin/munin/rtmp
     ln -s /home/app/app/current/bin/munin/raindrops
 
@@ -171,7 +179,7 @@ As root
     ln -s /usr/share/munin/plugins/port_ port_9292
     ln -s /usr/share/munin/plugins/postgres_querylength_  postgres_querylength_ALL
     ln -s /usr/share/munin/plugins/postgres_xlog
-    
+
 TODO
 ====
 

@@ -1,6 +1,6 @@
 - description = @talk.description.empty? ? @talk.teaser : strip_tags(@talk.description)
 - title = @talk.title
-- image = @talk.image ? "https://#{request.host}#{@talk.image.url}" : ""
+- image = "https://#{request.host}#{@talk.flyer_path}"
 - keywords = @talk.try(:tag_list)
 - author = @talk.venue.user.name
 - _user_url = user_url(@talk.user)
