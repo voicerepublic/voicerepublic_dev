@@ -131,4 +131,8 @@ class User < ActiveRecord::Base
     { id: id, text: name, img: avatar.thumb('50x50#nw').url }
   end
 
+  def insider?
+    email =~ /@voicerepublic.com^/
+  end
+  
 end

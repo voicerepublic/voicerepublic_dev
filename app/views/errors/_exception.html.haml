@@ -1,4 +1,4 @@
-- if @exception and (current_user.email =~ /@voicerepublic.com/)
+- if @exception and current_user.insider?
   .row
     .large-12.columns.panel.callout.radius
       %h1= t('exceptions.exception')
