@@ -50,7 +50,7 @@
             = render collection: @talks_popular, partial: 'shared/talk_small_box', :locals => { color: 'box-grey' }
           = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
 
-        %li
+        %li.recent
           .title-box
             = link_to recent_talks_url do
               %h3=t('.recent')
