@@ -583,16 +583,25 @@
 .talks-index,
 .talks-recent,
 .talks-featured,
-.talks-popular{
+.talks-popular,
+.talks-live{
   h2 {
     color: $brand-color-blue;
-    font-size: rem-calc(14);
-    font-family: 'eaglelight';
+    font-size: rem-calc(40);
+    font-family: 'eaglebook';
     margin-bottom: 40px;
   }
+  .bg-blue{
+    h2{
+      margin: 55px 0;
+      color: $brand-color-yellow;
+    }
+  }
   h3{
-    color: $brand-color-red;
-    display: inline;
+    font-size: rem-calc(19);
+    padding:19px 0 11px;
+    width: 100%;
+    background: $brand-color-red;
   }
   .talk-medium-box{
     margin-right:0 !important;
@@ -603,16 +612,33 @@
   .title-box{
     position: relative;
     margin-bottom: 10px;
-    .see-all-link{
-      bottom: 2px;
-    }
   }
   .see-all-link{
-    font-size: rem-calc(11);
+    font-size: rem-calc(16);
+    font-family: 'eaglebook';
     display: inline-block;
-    color: $brand-color-blue;
-    position: absolute;
-    right: 0;
-    bottom: -10px;
+    color: white;
+    background: $brand-color-blue;
+    padding: 6px 0 4px;
+    width: 100%;
+  }
+}
+
+.talks-index{
+  .explore-top-bg{
+    height: 150px;
+  }
+  [class*="block-grid-"]{
+    margin-left: -5px;
+    margin-right: -5px;
+    > li{
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  h3{
+    font-size: rem-calc(19);
+    padding:19px 0 11px;
+    width: 100%;
   }
 }

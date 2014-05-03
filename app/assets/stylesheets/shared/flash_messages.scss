@@ -1,13 +1,21 @@
 .flash_messages{
   position: absolute;
-  top:2px;
-  right: 2px;
-  background: #F9EDBE;
-  color: black;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding: 2px 4px;
-  border: 1px solid #F0C36D;
+  z-index:10000;
+  top:30px;
+  right: 50%;
+  margin-right: -200px;
+  width: 400px;
+  text-align: center;
+  > div{
+    background: #F9EDBE;
+    color: black;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 3px 6px;
+    border: 1px solid #F0C36D;
+    display: inline-block;
+    border-radius: 2px;
+  }
   .close,
   .close:hover,
   .close:focus{

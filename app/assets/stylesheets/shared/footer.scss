@@ -7,9 +7,22 @@ footer{
 			color: #000;
 		}
 		li{
+			min-width: 80px;
+			vertical-align: top;
 			display: inline-block;
 			text-align: left;
+			font-size: rem-calc(12);
+			color: rgba(0,0,0,0.5);
+			a{
+				color: inherit;
+				display: inline-block;
+				font-family: 'eaglebook';
+			}
 		}
-		font-size: rem-calc(10);
+	}
+	.vr-copyright{
+		font-size: rem-calc(12);
+		color: rgba(0,0,0,0.3);
+		font-family: 'eaglelight'
 	}
 }

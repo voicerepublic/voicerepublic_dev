@@ -43,11 +43,11 @@ describe "Talks" do
       it 'has "more" and displays 25 talks a time on recent' do
         FactoryGirl.create_list(:talk, 26, state: :archived, featured_from: Date.today)
         visit talks_path
-        within(".recent-box") do
-          click_on "more..."
+        within(".recent") do
+          click_on "MORE"
         end
         current_path.should =~ /talks\/recent/
-          page.should have_selector('.talk-medium-text-box', count: 25)
+        page.should have_selector('.talk-medium-box', count: 25)
         page.should have_selector('.pagination')
         within(".pagination") do
           page.should have_link('2')

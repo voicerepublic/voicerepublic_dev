@@ -43,38 +43,47 @@
       %h4= t('.title_illu_3')
       %p= t('.text_illu_3')
 
-.talks.bg-creme
+
+.talks.bg-creme.collapse
   - unless @talks_live.empty?
-    .live-talks.row
-      .medium-12.columns
-        .talks-box-title
-          %h4= t('.now_live')
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_live
+    %br/
+    %br/
+    .row.collapse-large-only
+      .small-12.columns.text-center
+        .title-box
+          = link_to live_talks_url do
+            %h3= t('.now_live')
+        %ul.list-style-type-none
+          = render collection: @talks_live, partial: 'shared/talk_medium_box'
+        = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
 
-  - unless @talks_featured.empty?
-    .featured-talks.row
-      .medium-12.columns
-        .talks-box-title
-          %h4= t('.featured')
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_featured
+  .row.collapse-large-only
+    .large-12.columns
+      %ul.medium-block-grid-3.small-block-grid-1.text-center
+        - unless @talks_featured.empty?
+          %li
+            .title-box
+              = link_to featured_talks_url do
+                %h3= t('.featured')
+            %ul.list-style-type-none
+              = render collection: @talks_featured, partial: 'shared/talk_small_box', :locals => { color: 'box-transparent' }
+            = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
 
-  - unless @talks_popular.empty?
-    .featured-talks.row
-      .medium-12.columns
-        .talks-box-title
-          %h4= t('.popular')
+        %li
+          .title-box
+            = link_to popular_talks_url do
+              %h3= t('.popular')
           %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_popular
+            = render collection: @talks_popular, partial: 'shared/talk_small_box', :locals => { color: 'box-grey' }
+          = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
 
-  - unless @talks_recent.empty?
-    .featured-talks.row
-      .medium-12.columns
-        .talks-box-title
-          %h4= t('.recently_archived')
+        %li
+          .title-box
+            = link_to recent_talks_url do
+              %h3=t('.recent')
           %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_recent
+            = render collection: @talks_recent, partial: 'shared/talk_small_box', :locals => { color: 'box-black' }
+          = link_to t('.see_all'), recent_talks_url, class: 'see-all-link'
 
 .manifest.bg-blue
   .row
