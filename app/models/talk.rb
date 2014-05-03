@@ -74,6 +74,9 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
+  has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
+  belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
+
   validates :venue, :title, :tag_list, :duration, :description, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
@@ -108,7 +111,7 @@ class Talk < ActiveRecord::Base
     archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
   end
-  
+
   scope :audio_format, ->(format) do # TODO: check if needed
     where('audio_formats LIKE ?', "%#{format}%")
   end
@@ -246,6 +249,17 @@ class Talk < ActiveRecord::Base
     self.save!
     self.reload
     self
+  end
+
+  # returns the next talk (coming up next) talk in the series
+  def next_talk
+    begin
+      talks = venue.talks.order(:starts_at)
+      talk_index = talks.find_index(self)
+      return talks[talk_index+1]
+    rescue
+      nil
+    end
   end
 
   private

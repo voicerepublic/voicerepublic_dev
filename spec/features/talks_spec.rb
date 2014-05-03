@@ -214,6 +214,28 @@ describe "Talks" do
     end
   end
 
+  describe 'related talk' do
+    before do
+      @talk = FactoryGirl.create(:talk)
+    end
+    it 'shows when set' do
+      FactoryGirl.create(:talk, featured_talk: @talk)
+      visit talk_path(@talk)
+      page.should have_content(I18n.t('talks.show.related_talk'))
+    end
+
+    it 'does not show when not set' do
+      visit talk_path(@talk)
+      page.should_not have_content(I18n.t('talk.show.related_talk'))
+    end
+
+    it 'shows the next coming up talk if there is one' do
+      @talk.venue.talks << FactoryGirl.create(:talk)
+      visit talk_path(@talk)
+      page.should have_content(I18n.t('talks.show.next_talk'))
+    end
+  end
+
   describe "validation" do
     before do
       @venue = FactoryGirl.create :venue

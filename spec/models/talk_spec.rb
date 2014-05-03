@@ -52,6 +52,37 @@ describe Talk do
     end
   end
 
+  describe 'related talk' do
+    it 'has a related talk' do
+      featured_talk = FactoryGirl.create :talk
+      related_talk = FactoryGirl.create :talk
+
+      featured_talk.related_talk = related_talk
+      featured_talk.save
+
+      related_talk.reload.featured_talk.should eq(featured_talk)
+    end
+    context 'next talk' do
+      before do
+        @talk = FactoryGirl.create :talk
+      end
+      it 'returns nil when there is no next talk' do
+        @talk.venue.talks.count.should eq(1)
+        @talk.next_talk.should be_nil
+      end
+
+      it 'returns the next talk' do
+        @talk.venue.talks << FactoryGirl.create(:talk, title: 'first')
+        @talk.venue.talks << FactoryGirl.create(:talk, title: 'second')
+        @talk.venue.talks << FactoryGirl.create(:talk, title: 'third')
+
+        @talk.next_talk.title.should                     == 'first'
+        @talk.next_talk.next_talk.title.should           == 'second'
+        @talk.next_talk.next_talk.next_talk.title.should == 'third'
+      end
+    end
+  end
+
   describe 'on class level' do
     it 'provides a scope audio_format(format)' do
       t1 = FactoryGirl.create :talk
@@ -237,7 +268,7 @@ describe Talk do
       override = 'https://www.dropbox.com/s/z5sur3qt65xybav/testfoo.wav'
       override = File.expand_path('spec/support/fixtures/sonar.ogg', Rails.root)
       talk.update_attribute :recording_override, override
-      
+
       # no we are in state `archived`, so we can do a `process_override`
       VCR.use_cassette 'talk_override' do
         talk.send :process_override!
