@@ -150,9 +150,11 @@ Installed missing package
 
     # apt-get install vorbis-tools
 
-Installed fonts
----------------
 
+Create flyer
+------------
+
+  * aptitude install inkscape
   * Install otf fonts in app user home directory
 
     ➜  ~  ls .fonts
