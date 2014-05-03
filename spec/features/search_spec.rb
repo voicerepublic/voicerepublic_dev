@@ -45,14 +45,14 @@ feature "Search", js: true do
       FactoryGirl.create :talk, title: "test title talk"
       page.fill_in 'query', with: 'test talk'
       find(".icon-magnifying-glass").click
-      page.should have_content "test title talk"
+      page.should have_content "TEST TITLE TALK"
     end
 
     scenario "it searches when hitting enter", driver: :chrome  do
       FactoryGirl.create :talk, title: "test title talk"
       page.fill_in 'query', with: 'test talk'
       find("#query").native.send_keys(:return)
-      page.should have_content "test title talk"
+      page.should have_content "TEST TITLE TALK"
     end
   end
 end

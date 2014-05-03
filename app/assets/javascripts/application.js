@@ -30,10 +30,10 @@
 //
 //= require_tree ./components
 
-/* Alters-Success fade out after 8secs */
+/* Alters-Success fade out after 5secs */
 (function($){
   function hideAlerts() {
-    var alerts = $('#flash_messages .alert.alert-success');
+    var alerts = $('#flash_messages');
     setTimeout(function(){
       alerts.fadeOut('slow', function(){
         alerts.remove();

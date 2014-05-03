@@ -16,8 +16,9 @@ background: $brand-color-creme;
   }
 }
 
-h1,h2,h3{
+h1,h2,h3,h4{
   font-family: 'eaglebook';
+  font-weight: normal;
 }
 
 .color-black{
@@ -50,6 +51,21 @@ span[class^="icon-"]{
 
 .display-none{
   display:none !important;
+}
+
+// BACKGROUNDS
+.bg-creme,
+.bg-blue{
+  background-color: $brand-color-creme;
+  background-image: image-url('bg_blue.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: 100%;
+}
+
+.bg-blue{
+  background-color: $brand-color-blue;
+  background-image: image-url('bg_creme.png');
 }
 
 #query.warning {

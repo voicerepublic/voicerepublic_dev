@@ -16,7 +16,7 @@ describe TalksController do
 
   describe 'Talk#index' do
     it 'assigns recent talks as @talks_recent' do
-      talk = FactoryGirl.create(:talk, state: :archived)
+      talk = FactoryGirl.create(:talk, state: :archived, featured_from: Date.today)
       get :index, {}
       assigns(:talks_recent).should eq([talk])
     end

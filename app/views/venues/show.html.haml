@@ -19,7 +19,8 @@
 
       .row
         .large-12.columns.text-center
-          .type-name= t('.series')
+          .type-name
+            %span.icon-ellipsis
           %h4.venue-user= link_to @venue.user.name, @venue.user
           %h2.venue-title= @venue.title
           .venue-teaser= raw @venue.teaser
@@ -38,6 +39,7 @@
             %br/
             = link_to new_venue_talk_path(@venue), class: 'button-vr button-header' do
               = t('.create_a_talk_now')
+      %br/
 
   .row.collapse
     .large-12.columns

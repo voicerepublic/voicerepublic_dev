@@ -1,55 +1,122 @@
-// MEDIUM TALK BOX
 .talk-medium-box{
+  height: 131px;
   position: relative;
-  background: #F0F0F0;
-  border: 1px solid #D4D4D2;
+  overflow: hidden;
+
   @include transition(background, 0.15s, ease-in-out);
   &:hover, &:focus{
     background: $brand-color-green;
   }
-  padding: 7px 10px;
-  margin:0 31px 4px 0 !important;
-
-  .talk-medium-text-box{
-    padding-left: 12px !important;
-    .talk-datetime{
-      font-size: 0.7rem;
-    }
-    .talk-title{
-      font-weight: bold;
-      line-height: 1rem;
-      margin-bottom:3px;
-    }
-    .talk-teaser{
-    	 line-height: 1rem;
-      a{ 
-        font-size: 0.75rem;
+  margin-bottom: 18px;
+  &.box-grey{
+    background: #666059;
+    .right-box{
+      padding-right: 11px;
+      padding-top: 6px;
+      .breadcrumbs-box a{
+        color: $brand-color-yellow;
+        background: #292624;
+        height: 23px;
+        padding: 3px 6px;
+        margin-right: 2px;
       }
-      .read-more-link{
-        text-decoration: underline;
-        text-weight: bold;
+      .datetime{
+        background: transparent;
+      }
+      .title{
+        color: $brand-color-yellow;
+      }
+      .teaser{
+        color: white;
       }
     }
   }
-  .box-actions{
+  .left-box{
     position: absolute;
-    right: -42px;
-    top: -8px;
-    a{
-      display: block;
-      width: 30px;
-      height: 30px;
-      padding:0;
-      text-align: center;
-      background: #F0F0F0;
-      border:1px solid #D4D4D2;
-      color: #000;
-      .icon-x{
-        padding:2px 0 0 2px;
-        font-size:1rem;
-        display:inline-block;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 181px;
+  }
+  .right-box{
+    padding-left: 193px;
+    position: relative;
+    .breadcrumbs-box{
+      a{
+        font-family: 'eaglelight';
+        font-size: rem-calc(13);
+        line-height: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 23px;
+        padding: 3px 6px;
+        display: inline-block;
+        span[class^="icon-"]{
+          font-size: rem-calc(11);
+          vertical-align: middle;
+          position: relative;
+          top: 1px;
+          margin-right: 1px;
+          line-height: 20.8px;
+        }
       }
-      margin:0 0 1px 0
+    }
+    .top-image{
+      height: 52px;
+      width: 100%;
+      background-position: center center;
+      background-size: 100%;
+      margin-bottom: 2px;
+    }
+
+    .datetime{
+      font-family: 'eaglelight';
+      font-size: rem-calc(13);
+      color: white;
+      background: black;
+      line-height: 1;
+      display: inline;
+      padding: 1px 3px 0;
+      .time{
+        font-family: 'eaglebook';
+        font-size: rem-calc(13);
+      }
+    }
+    .title{
+      line-height: 1rem;
+      font-family: 'eaglebook';
+      font-size: rem-calc(19);
+      margin: 0 0 0 0;
+      line-height: 1.15;
+      color: $color-black-title;
+    }
+    .teaser{
+      font-size: rem-calc(13);
+      font-family: 'eaglelight';
+      line-height: 1.1;
+      display: inline-block;
+      overflow: hidden;
+      .points{
+        position: absolute;
+        bottom: 2px;
+        right:0;
+        width:15px;
+        text-align: right;
+        @include linear-gradient(rgba(254,241,222,0), $brand-color-creme, $brand-color-creme, $brand-color-creme);
+      }
     }
   }
+  &:after{
+    content: '';
+    height:17px;
+    width: 100%;
+    margin-left: 181px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    @include vertical-gradient(rgba(102, 96, 89, 0), #666059);
+  }
+
 }
