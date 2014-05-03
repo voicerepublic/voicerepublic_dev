@@ -30,15 +30,6 @@ namespace :build do
     tfile = Rails.root.join(File.join(tpath))
     FileUtils.mv(sfile, tfile)
     %x[ git add #{tfile} ]
-    
-    # view
-    print 'update view...'
-    vpath = %w(app assets javascripts angular services blackbox.js.coffee.erb)
-    vfile = Rails.root.join(File.join(vpath))
-    view = File.read(vfile)
-    view.sub! /Blackbox.*\.swf/, "Blackbox#{revision}.swf"
-    File.open(vfile, 'w') { |f| f.print(view) }
-    puts 'done.'
     puts
   end
 end

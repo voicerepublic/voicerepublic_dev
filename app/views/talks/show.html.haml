@@ -1,3 +1,5 @@
+- content_for :head do
+  = render 'shared/social_meta_tags'
 - content_for :title do
   = t('.title', title: @talk.title)
 
@@ -63,7 +65,7 @@
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
-        
+
         -# TODO: better integrate player with angularjs
         - if @talk.archived?
           -# PLAYER
@@ -91,7 +93,7 @@
                 %a.close-reveal-modal= raw '&#215;'
 
               .play-count.left
-                = link_to '#', title: t('.plays', count: @talk.play_count) do                  
+                = link_to '#', title: t('.plays', count: @talk.play_count) do
                   %span.icon-play
                   = @talk.play_count
 
@@ -107,6 +109,7 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        .reconnecting-message(ng-show='reconnecting()')= t('.reconnecting')
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
