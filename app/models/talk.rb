@@ -74,8 +74,8 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
 
-  has_one :related_talk, class_name: "Talk", foreign_key: :related_talk_id
-  belongs_to :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
+  has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
+  belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
   validates :venue, :title, :tag_list, :duration, :description, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
