@@ -62,6 +62,25 @@ describe Talk do
 
       related_talk.reload.featured_talk.should eq(featured_talk)
     end
+    context 'next talk' do
+      before do
+        @talk = FactoryGirl.create :talk
+      end
+      it 'returns nil when there is no next talk' do
+        @talk.venue.talks.count.should eq(1)
+        @talk.next_talk.should be_nil
+      end
+
+      it 'returns the next talk' do
+        @talk.venue.talks << FactoryGirl.create(:talk, title: 'first')
+        @talk.venue.talks << FactoryGirl.create(:talk, title: 'second')
+        @talk.venue.talks << FactoryGirl.create(:talk, title: 'third')
+
+        @talk.next_talk.title.should                     == 'first'
+        @talk.next_talk.next_talk.title.should           == 'second'
+        @talk.next_talk.next_talk.next_talk.title.should == 'third'
+      end
+    end
   end
 
   describe 'on class level' do

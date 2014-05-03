@@ -751,6 +751,7 @@ en:
       chat_placeholder: Type and hit enter to post a comment
       you: You
       related_talk: Related Talk
+      next_talk: Coming up next in this series
       date_start_end: '%{date} | %{start_time} – %{end_time}'
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE

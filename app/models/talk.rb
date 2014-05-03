@@ -251,6 +251,17 @@ class Talk < ActiveRecord::Base
     self
   end
 
+  # returns the next talk (coming up next) talk in the series
+  def next_talk
+    begin
+      talks = venue.talks.order(:starts_at)
+      talk_index = talks.find_index(self)
+      return talks[talk_index+1]
+    rescue
+      nil
+    end
+  end
+
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
