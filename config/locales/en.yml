@@ -231,6 +231,7 @@ en:
       micro: ! '%l:%M %P'
       designed: ! '%-d%o %B %Y — %l%P'
       date_only: ! '%-d%o %B %Y'
+      date_only_short: ! '%-d%o %b %Y'
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
@@ -456,7 +457,8 @@ en:
       now_live: NOW LIVE
       featured: FEATURED
       popular: POPULAR
-      recently_archived: RECENTLY ARCHIVED
+      recent: RECENT
+      see_all: MORE
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
         <br />
@@ -518,6 +520,7 @@ en:
       new_venue_create: A new Series was set up
   search:
     show:
+      title: 'Results for "%{query}"'
       results: "%{results_count} RESULT(S) FOR "
       best_result: TOP RESULT
       talks: TALKS
@@ -542,10 +545,17 @@ en:
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
-      legal: Legal
-      terms_of_use: Terms of use
-      privacy_statement: Privacy statement
-      ip_infringement: Ip infringement notice
+      about: About
+      company: Company
+      manifest: Manifest
+      terms: Terms
+      pricing: Pricing
+      blog: Blog
+      faq: FAQ
+      press_kit: Press Kit
+      contact: Contact
+      fb: Voice Republic on facebook
+      tw: Voice Republic on twitter
     navbar:
       more_talks: More talks
       sign_up: Sign Up
@@ -566,8 +576,10 @@ en:
       messages: Messages
       settings: Settings
     talk_medium_box:
-      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
       read_more: ...read more
+    talk_small_box:
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
     venue_medium_box:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
@@ -734,10 +746,12 @@ en:
 
         %{started_at} - %{ended_at}
     show:
-      title: "VR Talk %{title}"
+      title: "%{title}"
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Type and hit enter to post a comment
       you: You
+      related_talk: Related Talk
+      next_talk: Coming up next in this series
       date_start_end: '%{date} | %{start_time} – %{end_time}'
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
@@ -752,15 +766,20 @@ en:
       minutes: 'MINUTES'
       request_mic: GET THE MIC
       promote: GIVE THE MIC
+      send_card: Send Card
+      download_flyer: Download
       embed_player: Embed Player
+      download_talk: Download Talk
       discussion: Chat
       description: Description
       participants: Participants
+      plays: '%{count} plays'
+      edit_talk: Edit Talk
     new:
-      title: "VR New Talk"
+      title: "New Talk"
       new_talk: New Talk
     edit:
-      title: "VR Edit Talk %{title}"
+      title: "Edit Talk %{title}"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
@@ -770,12 +789,13 @@ en:
       teaser: Teaser
       tag_list: Tag list
     index:
-      explore_talks: VOICE REPUBLIC / TALKS
+      talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
+      live: NOW LIVE
       featured: FEATURED
       popular: POPULAR
       recent: RECENT
-      see_all: more...
+      see_all: MORE
   articles:
     venue_form:
       write_an_article: write an article

@@ -17,9 +17,19 @@
         .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
-        
-    = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
 
+    - if @talk.related_talk
+      %section.talk-title-box.row.collapse.text-center.related_talk
+        .breadcrumbs-box.text-left
+          = link_to t('.related_talk'), @talk.related_talk
+          .large-12.columns
+            = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.related_talk }
+    - elsif @talk.next_talk
+      %section.talk-title-box.row.collapse.text-center.related_talk
+        .breadcrumbs-box.text-left
+          = link_to t('.next_talk'), @talk.next_talk
+          .large-12.columns
+            = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.next_talk }
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         - if can? :manage, @talk
@@ -37,11 +47,28 @@
                 %li= link_to t('.download_messages'),
                   "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
         .breadcrumbs-box.text-left
-          = link_to @talk.user.name, user_path(@talk.user)
+          = link_to user_path(@talk.user) do
+            %span.icon-person
+            %span.link-text= @talk.user.name
           .bc-delimiter >
-          = link_to @talk.venue.title, @talk.venue
+          = link_to @talk.venue do
+            %span.icon-ellipsis
+            %span.link-text= @talk.venue.title
           .bc-delimiter >
-          .type-name= t('.talk')
+
+          .flyer-link-box
+            = link_to '#', 'data-reveal-id' => "modal-flyer" do
+              %span.icon-flyer
+              %span.link-text= t('.send_card')
+          #modal-flyer.reveal-modal.text-center(data-reveal)
+            = image_tag '/images/flyer_placeholder.png'
+            %p
+              = link_to '/images/flyer_placeholder.png', 'download' => 'true' do
+                %span.icon-download-2
+                = t('.download_flyer')
+
+
+        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
         .talk-teaser
@@ -53,25 +80,35 @@
 
         -# TODO: better integrate player with angularjs
         - if @talk.archived?
-          .talk-archived-actions-box
-            .embed-link-box
-              = link_to t('.embed'),'#', class: 'button-standard-small', 'data-reveal-id' => "modal-embed"
-            #modal-embed.reveal-modal.text-center(data-reveal)
-              %h3.color-black= t('.embed_this_talk')
-              %textarea
-                <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
-              %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
-              %a.close-reveal-modal= raw '&#215;'
-            .download-link-box(ng-show='talkIsArchived()')
-              = link_to t('.download'), '#', class: 'button-standard-small', 'data-reveal-id' => "modal-download"
-            #modal-download.reveal-modal.text-center(data-reveal)
-              %h3.color-black= t('.download_talk')
-              %ul.button-group.text-center
-                %li(ng-repeat='(ext, link) in mediaLinks')
-                  %a.button-standard(href='{{link}}') {{ext}}
-              %a.close-reveal-modal= raw '&#215;'
           -# PLAYER
           = render partial: 'shared/player', locals: { talk: @talk }
+          .talk-archived-actions-box.row.collapse
+            .small-12.columns
+              .download-link-box.right(ng-show='talkIsArchived()')
+                = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download" do
+                  %span.icon-download-2
+              #modal-download.reveal-modal.text-center(data-reveal)
+                %h3.color-black= t('.download_talk')
+                %ul.button-group.text-center
+                  %li(ng-repeat='(ext, link) in mediaLinks')
+                    %a.button-standard(href='{{link}}' download) {{ext}}
+                %a.close-reveal-modal= raw '&#215;'
+
+              .embed-link-box.right
+                = link_to '#', class: 'embed-link', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
+                  = raw '&lt;&#47;&gt;'
+              #modal-embed.reveal-modal.text-center(data-reveal)
+                %h3.color-black= t('.embed_this_talk')
+                %textarea
+                  <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
+                %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
+                %a.close-reveal-modal= raw '&#215;'
+
+              .play-count.left
+                = link_to '#', title: t('.plays', count: @talk.play_count) do
+                  %span.icon-play
+                  = @talk.play_count
+
 
     .talk-countdown.row(ng-show='talkIsPrelive()')
       .medium-12.columns.text-center
