@@ -214,8 +214,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   acceptingPromotion = ->
     (user for id, user of users when user.state == 'AcceptingPromotion')
   participants = ->
-    (user for id, user of users when user.role == 'participant' and
-      user.state == 'Listening')
+    (user for id, user of users when user.state == 'Listening')
   listeners = ->
     (user for id, user of users when user.role == 'listener')
 
