@@ -19,16 +19,18 @@
       .span(ng-show='talkIsPostlive()') talk is postlive
 
     - if @talk.related_talk
-      %section.talk-title-box.row.collapse.text-center.related_talk
-        .breadcrumbs-box.text-left
-          = link_to t('.related_talk'), @talk.related_talk
-          .large-12.columns
+      %section.talk-title-box.row.collapse.text-center.related-talk
+        .large-12.columns
+          .breadcrumbs-box.text-left
+            = link_to t('.related_talk'), @talk.related_talk
+          %ul.list-style-type-none
             = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.related_talk }
     - elsif @talk.next_talk
-      %section.talk-title-box.row.collapse.text-center.related_talk
-        .breadcrumbs-box.text-left
-          = link_to t('.next_talk'), @talk.next_talk
-          .large-12.columns
+      %section.talk-title-box.row.collapse.text-center.related-talk
+        .large-12.columns
+          .breadcrumbs-box.text-left
+            = link_to t('.next_talk'), @talk.next_talk
+          %ul.list-style-type-none
             = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.next_talk }
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns

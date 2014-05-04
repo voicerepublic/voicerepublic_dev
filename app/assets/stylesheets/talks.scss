@@ -21,11 +21,10 @@
 
 
 .talks-show{
-  .related_talk {
-    li {
-      background-color: transparent;
-      list-style-type: none;
-      border: none;
+  .related-talk {
+    padding-bottom: 0 !important;
+    .talk-medium-box{
+      margin-bottom: 0;
     }
   }
 
