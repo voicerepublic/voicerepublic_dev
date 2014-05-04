@@ -225,6 +225,8 @@ en:
   time:
     am: am
     formats:
+      flyer_datetime: ! '%b %-d%o %Y, at %H.%M'
+      flyer_day: ! 'Talk on %A'
       default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'

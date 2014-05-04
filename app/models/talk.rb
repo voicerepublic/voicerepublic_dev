@@ -501,8 +501,8 @@ class Talk < ActiveRecord::Base
     {
       host:     user.name,
       title:    title,
-      day:      I18n.l(@talk.starts_at, format: :flyer_day),
-      datetime: I18n.l(@talk.starts_at, format: :flyer_datetime)
+      day:      I18n.l(starts_at, format: :flyer_day),
+      datetime: I18n.l(starts_at, format: :flyer_datetime)
     }
   end
 
