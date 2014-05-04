@@ -138,7 +138,7 @@
               {{ countdown }} MIN
         .mute-stream-box(ng-show='talkIsLive()')
           %span.icon-volume-mute(ng-click='setVolume(0)')
-          %span.icon-volume-mute2(ng-click='setVolume(1)')
+          %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
 
     .talk-talkers-box.row
       .large-12.columns.text-center

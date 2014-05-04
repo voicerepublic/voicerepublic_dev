@@ -7,7 +7,7 @@
 #  * $q      - angular's promise/deferred implementation
 #
 # Besides that it relies on swfobject to load the flash component.
-# 
+#
 blackboxFunc = ($log, $window, $q, config, $timeout) ->
 
   # this will initialize the flash async, so we'll start with a deferred
@@ -29,7 +29,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
       $log.debug 'BlackboxService initialized.'
     catch error
       $log.error error
-  
+
   $window.flashLog = (msg) ->
     $log.debug msg
 
@@ -77,7 +77,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     logMethod: 'flashLog'
     errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
-      
+
   params = {}
   attributes = { id: "Blackbox", name: "Blackbox" }
   version = "10.3.181.22"
@@ -107,7 +107,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
 
   subscribe = (name) ->
     if name == undefined
-      return alert "VollpfostenError: Subscribing to no one?" 
+      return alert "VollpfostenError: Subscribing to no one?"
     if name in subscriptions
       $log.debug "already subscribed to #{name}"
       return
@@ -123,7 +123,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
   mute = ->
     deferred.promise.then (api) ->
       api.muteMic()
-  
+
   unmute = ->
     deferred.promise.then (api) ->
       api.unmuteMic()
@@ -133,9 +133,13 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
       api.setStreamingServer(url)
 
   setVolume = (vol) ->
+    # FIXME: This is jQuery. Rewrite with Angular.
+    $(".icon-volume-mute").toggle()
+    $(".icon-volume-mute2").toggle()
+
     deferred.promise.then (api) ->
       api.setVolume(vol)
-      
+
   # expose public methods
   {
     publish
