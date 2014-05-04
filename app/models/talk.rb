@@ -485,7 +485,11 @@ class Talk < ActiveRecord::Base
   #     Talk.find_each { |t| t.send(:generate_flyer) }
   #
   def generate_flyer
-    svg_data = render_anywhere 'talks/flyer.svg', talk: self
+    svg_path = File.expand_path(File.join(%w(doc design flyer.svg)), Rails.root)
+    svg_data = File.read(svg_path)
+    flyer_interpolations.each do |key, value|
+      svg_data.sub! "[-#{key}-]", value
+    end
     svg_file = Tempfile.new('svg')
     svg_file.write svg_data
     svg_file.close
@@ -493,11 +497,13 @@ class Talk < ActiveRecord::Base
     svg_file.unlink
   end
 
-  # TODO this should move into trickery
-  def render_anywhere(partial, assigns = {})
-    view = ActionView::Base.new(ActionController::Base.view_paths, assigns)
-    view.extend ApplicationHelper
-    view.render partial: partial
+  def flyer_interpolations
+    {
+      host:     user.name,
+      title:    title,
+      day:      I18n.l(@talk.starts_at, format: :flyer_day),
+      datetime: I18n.l(@talk.starts_at, format: :flyer_datetime)
+    }
   end
 
 end
