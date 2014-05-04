@@ -86,8 +86,10 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
+
+  # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
-  after_save :generate_flyer
+  after_save :generate_flyer, if: ->(t) { t.starts_at_changed? || t.title_changed? }
 
   serialize :session
 
