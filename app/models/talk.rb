@@ -488,7 +488,7 @@ class Talk < ActiveRecord::Base
     svg_path = File.expand_path(File.join(%w(doc design flyer.svg)), Rails.root)
     svg_data = File.read(svg_path)
     flyer_interpolations.each do |key, value|
-      svg_data.sub! "[-#{key}-]", value
+      svg_data.sub! "[-#{key}-]", Nokogiri::HTML.fragment(value).to_s
     end
     svg_file = Tempfile.new('svg')
     svg_file.write svg_data
