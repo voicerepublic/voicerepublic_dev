@@ -100,6 +100,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
       api.publish name
 
   unpublish = ->
+    pubStream = null
     deferred.promise.then (api) ->
       $log.debug 'unpublishing...'
       api.unpublish()
