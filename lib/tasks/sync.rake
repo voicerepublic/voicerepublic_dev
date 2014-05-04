@@ -66,7 +66,7 @@ namespace :sync do
         # update venue
         venue_uri = "rp://2014/category/#{category.tr(' ', '-')}"
         venue = Venue.find_or_initialize_by(uri: venue_uri)
-        venue.title = "#{item.event_title.strip} - #{category}"
+        venue.title = category
         venue.teaser ||= item.event_description.strip.truncate(string_limit)
         venue.description ||= 'tbd.' # FIXME
         venue.tag_list = rp14_tags[category]
