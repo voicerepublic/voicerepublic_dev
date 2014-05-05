@@ -4,6 +4,9 @@
   .left-box
     = link_to [talk.venue, talk] do
       %img.talk-avatar{src: talk.image.thumb('181x131#nw').url}
+      - if talk.archived?
+        %span.icon-octa-full      
+        %span.icon-play-octa
   .right-box.text-left
     = link_to '&nbsp;', [talk.venue, talk], class: 'full-size-link'
     .breadcrumbs-box

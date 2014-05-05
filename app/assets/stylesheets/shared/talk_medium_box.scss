@@ -6,6 +6,12 @@
   @include transition(background, 0.15s, ease-in-out);
   &:hover, &:focus{
     background: $brand-color-green;
+    .left-box a{
+      .icon-play-octa,
+      .icon-octa-full{
+        @include opacity(1);
+      }
+    }
   }
   margin-bottom: 18px;
   .left-box{
@@ -14,6 +20,20 @@
     left: 0;
     top: 0;
     width: 181px;
+    .icon-play-octa,
+    .icon-octa-full{
+      position: absolute;
+      top: 33px;
+      left: 65px;
+      font-size: rem-calc(50);
+      color: white;
+      @include transition(all, 0.15s, ease-in-out);
+      text-shadow: 0 0 5px rgba(0,0,0,0.2);
+      @include opacity(0.7);
+    }
+    .icon-octa-full{
+      color: rgba(0,0,0,0.5);
+    }
   }
   .right-box{
     padding-left: 193px;
