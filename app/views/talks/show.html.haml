@@ -39,9 +39,8 @@
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
-              - if !@talk.live?
-                %li= link_to t('.edit_talk'), [:edit, @venue, @talk]
-
+              %li(ng-hide='talkIsLive()')
+                = link_to t('.edit_talk'), [:edit, @venue, @talk]
               %li(ng-show='showEndTalk()')
                 %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
