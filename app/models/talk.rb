@@ -258,6 +258,7 @@ class Talk < ActiveRecord::Base
     self
   end
 
+  # this is only for user acceptance testing!
   def reset_to_postlive!
     self.reload
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
@@ -280,6 +281,27 @@ class Talk < ActiveRecord::Base
     rescue
       nil
     end
+  end
+
+  def effective_duration # in seconds
+    ended_at - started_at
+  end
+
+  def disk_usage # in bytes
+    all_files.inject(0) do |result, file|
+      result + File.size(file)
+    end
+  end
+
+  def all_files
+    path0 = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    rec0  = File.dirname(recording)
+    glob0 = File.join(path0, rec0, "t#{id}-u*.flv")
+
+    path1 = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+    glob1 = File.join(path1, "#{recording}*.*")
+
+    Dir.glob(glob0) + Dir.glob(glob1)
   end
 
   private
