@@ -11,13 +11,3 @@ configFunc = ($logProvider) ->
 
 configFunc.$inject = ['$logProvider']
 window.Livepage.config configFunc
-
-# Override Angular exception handler to receive a backtrace in Angular
-# exceptions
-exceptionFunc = ($log) ->
-  (exception, cause) ->
-    exception.message += " (caused by \"" + cause + "\")"
-    throw exception
-
-exceptionFunc.$inject = ['$log']
-window.Livepage.factory "$exceptionHandler", exceptionFunc

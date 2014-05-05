@@ -38,8 +38,7 @@ namespace :sync do
 
     datetime_regex = /(\d\d)\.(\d\d)\.(\d\d\d\d)/
 
-    url = 'https://re-publica.de/event/1/sessions/json'
-    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+    url = 'http://re-publica.de/event/1/sessions/json'
     print 'Fetching data...'
     json = open(url).read
     puts 'done.'
