@@ -21,11 +21,26 @@
 
 
 .talks-show{
-  .related_talk {
-    li {
-      background-color: transparent;
-      list-style-type: none;
-      border: none;
+  .related-talk {
+    background: rgba(0,0,0,0.5);
+    margin-top: 15px;
+    .related-title-box{
+      position: relative;
+      padding:6px 13px;
+      background: rgba(0,0,0,0.3);
+      color:white;
+      font-family: 'eaglelight';
+      a{
+        font-size: rem-calc(14);
+        color: inherit;
+        font-family: inherit;
+        &:hover,&:focus{
+          text-decoration: underline;
+        }
+      }
+    }
+    .talk-medium-box{
+      margin-bottom: 0;
     }
   }
 
@@ -106,6 +121,7 @@
           vertical-align: middle;
           position: relative;
           top: 2px;
+          line-height: 1;
         }
         &:hover,&:focus{
           .link-text{
@@ -122,7 +138,7 @@
       .flyer-link-box{
         position: absolute;
         right: 10px;
-        top:3px;
+        top:4px;
         a{
           font-family: 'eaglebook';
           font-size: rem-calc(11);
