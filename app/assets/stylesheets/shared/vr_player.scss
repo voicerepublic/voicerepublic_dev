@@ -70,7 +70,7 @@ ul.outside-controls{
       color: rgba(0,0,0,0.5);
     }
   }
-  &:hover,&:focus{
+  &:hover{
     .jp-play,
     .jp-pause{
       .icon-octa-full{
@@ -82,7 +82,20 @@ ul.outside-controls{
         color: white;
       }
     }
-  }  
+  }
+  &:active{
+    .jp-play,
+    .jp-pause{
+      .icon-octa-full{
+        color: darken($brand-color-green,20%);    
+        text-shadow: 0 0 20px rgba(0,0,0,0.6);
+      }
+      .icon-play-octa,
+      .icon-pause-octa{
+        color: white;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 700px) {
