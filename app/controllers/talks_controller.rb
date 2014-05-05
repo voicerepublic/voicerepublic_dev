@@ -26,7 +26,7 @@ class TalksController < ApplicationController
   def recent
     @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
     render :index
-  end  
+  end
 
   def index
     @talks_live     = Talk.live.limit(5)
@@ -61,6 +61,8 @@ class TalksController < ApplicationController
     @talk = Talk.new(talk_params)
     @talk.venue = @venue
 
+    authorize! :create, @talk
+
     if @talk.save
       redirect_to [@venue, @talk], notice: 'Talk was successfully created.'
     else
@@ -70,6 +72,7 @@ class TalksController < ApplicationController
 
   # PATCH/PUT /talks/1
   def update
+    authorize! :update, @talk
     if @talk.update(talk_params)
       redirect_to [@venue, @talk], notice: 'Talk was successfully updated.'
     else
@@ -79,6 +82,8 @@ class TalksController < ApplicationController
 
   # DELETE /talks/1
   def destroy
+    authorize! :destroy, @talk
+
     @talk.destroy
     redirect_to @venue, notice: 'Talk was successfully destroyed.'
   end
