@@ -22,16 +22,18 @@
     .row.alert-box.alert.round(ng-show='hasNoFlash() && talkIsLive()')
       #flash_error= t('require_flash')
     - if @talk.related_talk
-      %section.talk-title-box.row.collapse.text-center.related_talk
-        .breadcrumbs-box.text-left
-          = link_to t('.related_talk'), @talk.related_talk
-          .large-12.columns
+      %section.row.collapse.text-center.related-talk
+        .large-12.columns
+          .related-title-box.text-left
+            = link_to t('.related_talk'), @talk.related_talk
+          %ul.list-style-type-none
             = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.related_talk }
     - elsif @talk.next_talk
-      %section.talk-title-box.row.collapse.text-center.related_talk
-        .breadcrumbs-box.text-left
-          = link_to t('.next_talk'), @talk.next_talk
-          .large-12.columns
+      %section.row.collapse.text-center.related-talk
+        .large-12.columns
+          .related-title-box.text-left
+            = link_to t('.next_talk'), @talk.next_talk
+          %ul.list-style-type-none
             = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.next_talk }
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
@@ -40,9 +42,8 @@
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
-              - if !@talk.live?
-                %li= link_to t('.edit_talk'), [:edit, @venue, @talk]
-
+              %li(ng-hide='talkIsLive()')
+                = link_to t('.edit_talk'), [:edit, @venue, @talk]
               %li(ng-show='showEndTalk()')
                 %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
@@ -103,7 +104,7 @@
               #modal-embed.reveal-modal.text-center(data-reveal)
                 %h3.color-black= t('.embed_this_talk')
                 %textarea
-                  <iframe width="560" height="315" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" allowfullscreen></iframe>
+                  <iframe width="445" height="220" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" scrolling="no" allowfullscreen></iframe>
                 %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
                 %a.close-reveal-modal= raw '&#215;'
 

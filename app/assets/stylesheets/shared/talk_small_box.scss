@@ -4,9 +4,9 @@
   overflow: hidden;
 
   @include transition(background, 0.15s, ease-in-out);
-/*  &:hover, &:focus{
-    background: $brand-color-green;
-  }*/
+  &:hover, &:focus{
+    background: darken($brand-color-creme, 3%);
+  }
   border-bottom: 4px solid $color-black-title;
   margin-bottom: 18px;
   .breadcrumbs-box{
@@ -28,6 +28,11 @@
         top: 1px;
         margin-right: 1px;
         line-height: 20.8px;
+      }
+      &:hover, &:focus{
+        .link-text{
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -66,15 +71,21 @@
     line-height: 1.1;
     display: inline-block;
     overflow: hidden;
-    .points{
-      position: absolute;
-      bottom: 2px;
-      right:0;
-      width:15px;
-      text-align: right;
-      @include linear-gradient(rgba(254,241,222,0), $brand-color-creme, $brand-color-creme, $brand-color-creme);
-    }
   }
+  &.box-transparent{
+    &:after{
+      content: '';
+      height:17px;
+      width: 100%;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left:0;
+      @include vertical-gradient(rgba(254,241,222, 0), #feeed7);
+    } 
+  }
+
+  // GREY BOX
   &.box-grey{
     border-bottom: none;
     .breadcrumbs-box{
@@ -92,6 +103,7 @@
       margin-top: 5px;
       background: #666059;
       padding: 4px 6px;
+      @include transition(background, 0.15s, ease-in-out);
       .datetime{
         background: transparent;
       }
@@ -100,7 +112,6 @@
       }
       .teaser{
         color: white;
-        background: #666059;
       }
     }
     &:after{
@@ -113,14 +124,25 @@
       left:0;
       @include vertical-gradient(rgba(102, 96, 89, 0), #666059);
     }
+    &:hover, &:focus{
+      .breadcrumbs-box a,
+      .text-box{
+        background: darken(#666059, 5%);
+      }
+    }
   }
+
+  // BLACK BOX
   &.box-black{
     border-bottom: none;
     background: black;
+    &:hover, &:focus{
+      background: lighten(black, 15%);
+    }
     .breadcrumbs-box{
       a{
         color: white;
-        background: black;
+        background: transparent;
         height: 23px;
         padding: 3px 6px;
         border-bottom: none;
@@ -133,7 +155,6 @@
     .text-box{
       height: 110px;
       margin-top: 0px;
-      background: black;
       padding: 3px 6px;
       .datetime{
         background: black;
@@ -145,7 +166,6 @@
       }
       .teaser{
         color: white;
-        background: black;
       }
     }
     &:after{
@@ -158,17 +178,5 @@
       left:0;
       @include vertical-gradient(rgba(0,0,0, 0), black);
     }
-  }
-  &.box-transparent{
-    &:after{
-      content: '';
-      height:17px;
-      width: 100%;
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left:0;
-      @include vertical-gradient(rgba(254,241,222, 0), #feeed7);
-    }    
   }
 }
