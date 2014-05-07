@@ -3,6 +3,7 @@
 - content_for :title do
   = t('.title', title: @talk.title)
 
+
 %p#notice(style='display: none;')= notice
 
 .row(style='padding: 200px' ng-hide='true')
@@ -18,6 +19,8 @@
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
 
+    .row.alert-box.alert.round(ng-show='hasNoFlash() && talkIsLive()')
+      #flash_error= t('require_flash')
     - if @talk.related_talk
       %section.row.collapse.text-center.related-talk
         .large-12.columns
