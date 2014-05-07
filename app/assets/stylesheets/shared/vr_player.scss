@@ -47,16 +47,53 @@ ul.outside-controls{
   top: -94px;
   left: 29px;
   margin:0;
-  span{
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: 68px;
-    transition: text-shadow 0.25s;
-    -moz-transition: text-shadow 0.25s;
-    -webkit-transition: text-shadow 0.25s;
-    -ms-transition: text-shadow 0.25s;
-    &:hover,&:focus{
-      text-shadow: 0 0 10px rgba(0,0,0,0.6);
+  .jp-play,
+  .jp-pause{
+    height: 80px;
+    width: 80px;
+    display: block;
+    .icon-octa-full,
+    .icon-play-octa,
+    .icon-pause-octa{
+      position: absolute;
+      left:0;
+      top:0;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 68px;
+      transition: all 0.15;
+      -moz-transition: all 0.15;
+      -webkit-transition: all 0.15;
+      -ms-transition: all 0.15;
+    }
+    .icon-octa-full{
+      color: rgba(0,0,0,0.5);
+    }
+  }
+  &:hover{
+    .jp-play,
+    .jp-pause{
+      .icon-octa-full{
+        color: $brand-color-green;    
+        text-shadow: 0 0 10px rgba(0,0,0,0.6);
+      }
+      .icon-play-octa,
+      .icon-pause-octa{
+        color: white;
+      }
+    }
+  }
+  &:active{
+    .jp-play,
+    .jp-pause{
+      .icon-octa-full{
+        color: darken($brand-color-green,20%);    
+        text-shadow: 0 0 20px rgba(0,0,0,0.6);
+      }
+      .icon-play-octa,
+      .icon-pause-octa{
+        color: white;
+      }
     }
   }
 }
@@ -83,9 +120,9 @@ div.jp-progress {
 
 /* BACKGROUND SEEKBAR */
 div.jp-seek-bar {
-  background: #000;
   width:0px;
   height:100%;
+  background: rgba(0,0,0,0.5);
   cursor: pointer;
 }
 
