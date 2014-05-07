@@ -67,11 +67,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
       config.talk.state == 'live'
 
   $scope.hasNoFlash = ->
-    if swfobject.getFlashPlayerVersion().major < 11
-      true
-    else
-      false
-
+    swfobject.getFlashPlayerVersion().major < 11
 
   # show/hide-flags
   $scope.flags = config.flags
