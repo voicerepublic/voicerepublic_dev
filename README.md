@@ -306,3 +306,8 @@ Audio cheat sheet
 ### resample wav to 44.1k and 2 channels
 
     sox -c 2 vrs.wav lib/audio/files/vr_stop.wav rate -L 44.1k
+
+### collect stream info of multiple flv files
+
+    find ./ -name \*.flv -exec avconv -i {} \; 2>&1 | grep Stream
+
