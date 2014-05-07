@@ -83,9 +83,9 @@ div.jp-progress {
 
 /* BACKGROUND SEEKBAR */
 div.jp-seek-bar {
-  background: #000;
   width:0px;
   height:100%;
+  background: rgba(0,0,0,0.5);
   cursor: pointer;
 }
 
