@@ -19,10 +19,8 @@
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
 
-    -# FIXME: This check needs to be in angular
-    - if @talk.live?
-      .row.alert-box.alert.round
-        #flash_error= t('require_flash')
+    .row.alert-box.alert.round(ng-show='hasNoFlash() && talkIsLive()')
+      #flash_error= t('require_flash')
     - if @talk.related_talk
       %section.talk-title-box.row.collapse.text-center.related_talk
         .breadcrumbs-box.text-left

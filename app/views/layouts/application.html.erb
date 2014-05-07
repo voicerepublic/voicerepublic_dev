@@ -19,9 +19,6 @@
     <%= javascript_include_tag "vendor/modernizr" %>
   </head>
   <body class="<%= [controller_name, action_name] * '-' %>">
-    <div id="flashcontent">
-      <%= t('require_flash') %>
-      </div>
     <%= render "shared/actionbar" %>
     <%= render "shared/notice_or_error" %>
 
