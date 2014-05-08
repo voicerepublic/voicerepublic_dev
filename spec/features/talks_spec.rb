@@ -7,10 +7,25 @@ describe "Talks" do
     login_user(@user)
   end
 
+
   describe "Exploring Talks" do
 
     before do
       @talk = FactoryGirl.create(:talk)
+    end
+
+    describe 'flash dependency' do
+      it "live talk requires flash", js: true do
+        @talk.update_attribute :state, :live
+        visit talk_path(@talk)
+        page.should have_content(I18n.t(:require_flash))
+      end
+
+      it 'archived talk requires no flash', js: true do
+        @talk.update_attribute :state, :archive
+        visit talk_path(@talk)
+        page.should_not have_content(I18n.t(:require_flash))
+      end
     end
 
     describe "as user on all pages" do

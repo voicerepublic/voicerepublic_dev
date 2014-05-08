@@ -66,6 +66,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     session.fsm.is('HostOnAir') and
       config.talk.state == 'live'
 
+  $scope.hasFlash = ->
+    swfobject.getFlashPlayerVersion().major > 0
+
   # show/hide-flags
   $scope.flags = config.flags
 
