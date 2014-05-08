@@ -61,6 +61,8 @@ class RtmpNotifications
     return send(call, params) if respond_to?(call)
 
     logger.info(params.inspect) if opts[:log]
+    PrivatePub.publish_to '/notifications', params
+
     [ 200, {}, [] ] # all good
   end
 
