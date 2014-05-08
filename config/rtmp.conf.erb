@@ -41,10 +41,10 @@ rtmp {
 
             <% if send_notifications %>
             # --- Notifications
-            on_play         <%= callback_base %>/notify;
+            #on_play         <%= callback_base %>/notify;
             on_publish      <%= callback_base %>/notify;
-            on_done         <%= callback_base %>/notify;
-            on_play_done    <%= callback_base %>/notify;
+            #on_done         <%= callback_base %>/notify;
+            #on_play_done    <%= callback_base %>/notify;
             on_publish_done <%= callback_base %>/notify;
             on_record_done  <%= callback_base %>/notify;
             on_update       <%= callback_base %>/notify;

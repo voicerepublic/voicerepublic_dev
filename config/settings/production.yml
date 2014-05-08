@@ -7,7 +7,7 @@ rtmp:
   offrecord:          'rtmp://voicerepublic-staging.sky.ungleich.ch/offrecord'
   record:             'rtmp://voicerepublic-staging.sky.ungleich.ch/record'
   log_notifications:  false
-  send_notifications: false
+  send_notifications: true
   callback_base:      'http://localhost/rtmp'
   record_max_size:    '100M'
   authenticate:       true
