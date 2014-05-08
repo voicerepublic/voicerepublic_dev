@@ -19,7 +19,7 @@
       .span(ng-show='talkIsLive()') talk is live
       .span(ng-show='talkIsPostlive()') talk is postlive
 
-    .row.alert-box.alert.round(ng-show='hasNoFlash() && talkIsLive()')
+    .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
       #flash_error= t('require_flash')
     - if @talk.related_talk
       %section.row.collapse.text-center.related-talk
