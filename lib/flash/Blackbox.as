@@ -1,7 +1,10 @@
 ﻿package {
 
   import flash.events.Event;
+  import flash.events.AsyncErrorEvent;
+  import flash.events.IOErrorEvent;
   import flash.events.NetStatusEvent;
+  import flash.events.SecurityErrorEvent;
   import flash.net.NetConnection;
   import flash.net.NetStream;
   import flash.media.Microphone;
@@ -24,12 +27,13 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.1b';
+    internal var version: String = '2.2';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
 		internal var publishNetConnection: NetConnection;
     internal var logMethod: String;
+    internal var errorMethod: String;
     internal var feedbackMethod: String;
     internal var volume: Number = 1;
     // internal var myCircle:Shape = new Shape();
@@ -61,6 +65,7 @@
 			ExternalInterface.addCallback("setStreamingServer", setStreamingServer);
 			ExternalInterface.addCallback("setVolume", setVolume);
 
+      errorMethod = root.loaderInfo.parameters['errorMethod'] || "console.log";
       logMethod = root.loaderInfo.parameters['logMethod'] || "console.log";
       feedbackMethod = root.loaderInfo.parameters['feedbackMethod'] || "console.log";
 			var callback: String =
@@ -141,6 +146,14 @@
                                             netStatusHandler(sendStream,
                                                              publishNetConnection,
                                                              stream));
+      // audit
+      publishNetConnection.addEventListener(AsyncErrorEvent.ASYNC_ERROR,
+                                            asyncErrorHandler);
+      publishNetConnection.addEventListener(IOErrorEvent.IO_ERROR,
+                                            ioErrorHandler);
+      publishNetConnection.addEventListener(SecurityErrorEvent.SECURITY_ERROR,
+                                            securityErrorHandler);
+      // end audit
       publishNetConnection.connect(streamer);
     }
 
@@ -156,6 +169,14 @@
       var nc: NetConnection = new NetConnection();
       nc.addEventListener(NetStatusEvent.NET_STATUS,
                           netStatusHandler(receiveStream, nc, stream));
+      // audit
+      nc.addEventListener(AsyncErrorEvent.ASYNC_ERROR,
+                          asyncErrorHandler);
+      nc.addEventListener(IOErrorEvent.IO_ERROR,
+                          ioErrorHandler);
+      nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR,
+                          securityErrorHandler);
+      // end audit
       nc.connect(streamer);
     }
 
@@ -198,15 +219,28 @@
                               nc: NetConnection,
                               stream: String): Function {
       return function(event: NetStatusEvent): void {
+        // see http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/events/NetStatusEvent.html#info
         if (event.info.code == "NetConnection.Connect.Success") {
           func(nc, stream);
-          log("Connected to " + stream);
-        } else {
-          log("Error: " + event.info.code);
         }
+        ExternalInterface.call(errorMethod, event.info.code, stream);
       }
     }
 
+    // audit
+    internal function asyncErrorHandler(event: AsyncErrorEvent): void {
+      log("AsyncErrorEvent: " + event.error);
+    }
+
+    internal function ioErrorHandler(event: IOErrorEvent): void {
+      log("IOErrorEvent: " + event.text);
+    }
+
+    internal function securityErrorHandler(event: SecurityErrorEvent): void {
+      log("SecurityErrorEvent: " + event.text);
+    }
+    // end audit
+    
     internal function log(msg: String): void {
       ExternalInterface.call(logMethod, "[Blackbox]: " + msg);
     }

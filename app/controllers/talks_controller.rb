@@ -1,15 +1,41 @@
 class TalksController < ApplicationController
 
-  before_action :set_venue
+  before_action :set_venue, except: [:index, :popular, :live, :recent, :featured]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /talks
+  # GET /talks/popular
+  def featured
+    @talks = Talk.prelive.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/popular
+  def popular
+    @talks = Talk.popular.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/live
+  def live
+    @talks = Talk.live.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/archived
+  def recent
+    @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
   def index
     if @venue
       @talks = @venue.talks 
     else
-      @talks = Talks.all.paginate(page: params[:page], per_page: 25)
+      @talks_live     = Talk.live.limit(5)
+      @talks_featured = Talk.featured.limit(5)
+      @talks_recent   = Talk.recent.limit(5)
+      @talks_popular  = Talk.popular.limit(5)
     end
   end
 
@@ -21,6 +47,7 @@ class TalksController < ApplicationController
         authorize! :manage, @talk
         render text: @talk.message_history
       end
+      format.png { send_file @talk.flyer_path(true) }
     end
   end
 
@@ -38,6 +65,8 @@ class TalksController < ApplicationController
     @talk = Talk.new(talk_params)
     @talk.venue = @venue
 
+    authorize! :create, @talk
+
     if @talk.save
       redirect_to [@venue, @talk], notice: 'Talk was successfully created.'
     else
@@ -47,6 +76,7 @@ class TalksController < ApplicationController
 
   # PATCH/PUT /talks/1
   def update
+    authorize! :update, @talk
     if @talk.update(talk_params)
       redirect_to [@venue, @talk], notice: 'Talk was successfully updated.'
     else
@@ -56,6 +86,8 @@ class TalksController < ApplicationController
 
   # DELETE /talks/1
   def destroy
+    authorize! :destroy, @talk
+
     @talk.destroy
     redirect_to @venue, notice: 'Talk was successfully destroyed.'
   end

@@ -35,7 +35,9 @@
  @import "shared/generic_action_bar";
  @import "shared/vr_tabs";
  @import "shared/talk_medium_box";
+ @import "shared/talk_small_box"; 
  @import "shared/venue_medium_box";
+ @import "shared/user_medium_box";
  @import "shared/comment";
  @import "shared/vr_player";
  @import "shared/avatar";
@@ -48,3 +50,4 @@
  @import "users";
  @import "venues";
  @import "talks";
+ @import "search";

@@ -10,6 +10,9 @@ en:
       destroy:
         notice: "Successfully deleted"
         alert: "Cannot be deleted"
+  require_flash: |
+    To listen to the live stream, you need a device that runs Flash. Every other part of this application is Flash free. Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.
+    In the future, there will be a version of Voice Republic that does not rely on Flash anymore.
   social_share:
     mail_subject: "Check out this talk on voicerepublic.com"
     mail_greeting: "Hi there"
@@ -225,12 +228,15 @@ en:
   time:
     am: am
     formats:
+      flyer_datetime: ! '%b %-d%o %Y, at %H.%M'
+      flyer_day: ! 'Talk on %A'
       default: ! '%a, %d %b %Y %H:%M:%S %z'
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
       designed: ! '%-d%o %B %Y — %l%P'
       date_only: ! '%-d%o %B %Y'
+      date_only_short: ! '%-d%o %b %Y'
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
@@ -294,7 +300,8 @@ en:
     show:
       title: "VR User %{username}"
       edit_user: Edit Profile
-      my-venues: My Series
+      about: About
+      venues: Series
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -356,38 +363,6 @@ en:
   mailers:
     your_friend_took_action: Activities of your friends on KluuU
     activity_around_you: Activities concerning your account on KluuU
-  accounts:
-    form_preferences:
-      get_notifications_contacts_activities: Get notifications about your friends activities.
-      emails_about_contact_activities: ! 'if there are news about my friends e.g.: new status.'
-      emails_about_me: if there are news concerning me. E.g. when someone tried to call me while I was offline.
-      dont_show_initial_help: Don't show help text.
-      save_preferences: Save settings
-      on_site_help: Help text on / off
-      call_settings: Call settings
-      allow_anonymous_calls: Allow video calls from anonymous caller.
-    form:
-      delete_portrait: Delete profilephoto
-    edit:
-      edit_profile: Edit profile
-  balance:
-    accounts:
-      new:
-        desired_currency: Choose your currency.
-        initialize_your_account: Please activate your financial account.
-        configure_your_financial_account: Configure your financial account.
-      show:
-        check_some_money_in: Buy credit
-        soon_more: soon more...
-        currency: Currency
-        prepaid: Prepaid
-        revenue: Revenue
-      check_in_orders:
-        new:
-          check_in_money: Buy credit
-        paypal:
-          check_in_prepaid_amount: Buy credit
-          cancel_check_in_order: Cancel purchase
   chats:
     form:
       your_message: message
@@ -473,14 +448,40 @@ en:
     news: NEWS
     index:
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
-      subheadline: "Talks, interviews, readings, conversations, debates, disputes, seminars, discussions:"
+      subheadline: "Talks, interviews, readings, conversations, debates, discussions:"
       subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
+      title_illu_1: STREAMING
       text_illu_1: All of sudden it's easy to create your own audio livestreams–with as many stations as you want, from any number of places you choose.
+      title_illu_2: INTERACTION
       text_illu_2: As the organizer of your talks, you can involve your listeners any time, letting discussions–and discussion culture–grow like they do in real life.
+      title_illu_3: AUDIO ARCHIVE
       text_illu_3: Record and broadcast your live talks. Easily archive your recording so others can find and listen to it later. Embed your talk in other Websites or make it available as a podcast.
       login: Login
       signup: Sign Up
       search: Search
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recent: RECENT
+      see_all: MORE
+      manifest: |
+        <h4>THE VOICE REPUBLIC MANIFESTO</h4>
+        <br />
+        <h5>1. Democracy lives on discussion and free speech</h5>
+        <p>At Voice Republic, you can share and form your opinions.</p>
+        <h5>2. Voice Republic lets speaker and listener meet at eye level</h5>
+        <p>Every listener can be a speaker, and vice versa.</p>
+        <h5>3. For more analog within the digital</h5>
+        <p>Voice Republic lets discussions grow just like they do in the real world. You can express yourself in as much detail as you like, giving space to the subjects that interest you.</p>
+        <h5>4. Voice Republic is founded on respect</h4>
+        <p>Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.</p>
+        <h5>5. For a decentralization of the Internet</h5>
+        <p>For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.</p>
+        <h5>6. We don't do business with your data</h5>
+        <p>Voice Republic has a business model. Your data is not part of it. Coming soon.</p>
+        <h5>7. Voice Republic can forget</h5>
+        <p>When you delete your accout, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
+      team: TEAM
     lp_login:
       email: E-mail
       password: Password
@@ -524,28 +525,23 @@ en:
       new_venue_create: A new Series was set up
   search:
     show:
-      title: "VR Results for '%{query}'"
-    tagged_with:
-      taggings_with: KluuUs and questions tagged with %{tag}
-      no_kluuus_tagged_with: No results for tag %{tag} found.
-      no_kluuu: Questions
-      title_other_tags: Trends
-    form:
-      search: Search!
-    search:
-      searchresults: Search result
-      search_results: Search result
-      publish_search_as_kluuu: Post this search term
-      persist_search: ! 'Tip:'
-      text: Create a question and use our matching system!
-      sign_up: Sign up
-      user: User
-      no_results_sentence: Oops, no results.
+      title: 'Results for "%{query}"'
+      results: "%{results_count} RESULT(S) FOR "
+      best_result: TOP RESULT
+      talks: TALKS
+      venues: SERIES
+      users: USERS
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recently_archived: RECENTLY ARCHIVED
+      no_results: Sorry, no results.
   shared:
     actionbar:
-      login: Login
+      login: Log In
       sign_up: Sign Up
       search: Search
+      explore: Explore
       my_profile: Profile
       my_next_talks: My next Talks
       create_venue: Create Series
@@ -554,10 +550,17 @@ en:
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
-      legal: Legal
-      terms_of_use: Terms of use
-      privacy_statement: Privacy statement
-      ip_infringement: Ip infringement notice
+      about: About
+      company: Company
+      manifest: Manifest
+      terms: Terms
+      pricing: Pricing
+      blog: Blog
+      faq: FAQ
+      press_kit: Press Kit
+      contact: Contact
+      fb: Voice Republic on facebook
+      tw: Voice Republic on twitter
     navbar:
       more_talks: More talks
       sign_up: Sign Up
@@ -578,8 +581,10 @@ en:
       messages: Messages
       settings: Settings
     talk_medium_box:
-      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
       read_more: ...read more
+    talk_small_box:
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
     venue_medium_box:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
@@ -611,6 +616,11 @@ en:
       new_talk: New talk
       edit_talk: Edit talk
       post: Post
+      write_a_comment: Write a comment
+      description: Description
+      upcoming_talks: '%{count} Upcoming Talks'
+      archived_talks: '%{count} Archived Talks'
+      comments: Comments
     venue_show_header:
       venue: Series
       minutes: Minutes
@@ -742,31 +752,38 @@ en:
         %{started_at} - %{ended_at}
     show:
       title: "VR Talk %{title}"
-      discussion: Chat
-      embed_player: "Embed player on your website"
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Type and hit enter to post a comment
       you: You
+      related_talk: Related Talk
+      next_talk: Coming up next in this series
       date_start_end: '%{date} | %{start_time} – %{end_time}'
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
       flash_manual_title: YOU HAVE REQUESTED THE MICROPHONE - YOU NEED TO CHECK YOUR CONFIGURATION FIRST
-      audio_settings_flash_manual: <span class="desc-bold">1. CLICK ALLOW</span> to activate your microphone<br /><span class="desc-bold">2. CLICK OK</span>
+      audio_settings_flash_manual: <span class="desc-bold">CLICK ALLOW IN THE BOX TO THE LEFT</span> to activate your microphone<br />
       audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
-      lets_go: OK - LET'S GO
       countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
       minutes: 'MINUTES'
       request_mic: GET THE MIC
       promote: GIVE THE MIC
+      send_card: Send Card
+      download_flyer: Download
       embed_player: Embed Player
+      download_talk: Download Talk
+      discussion: Chat
+      description: Description
+      participants: Participants
+      plays: '%{count} plays'
+      edit_talk: Edit Talk
     new:
-      title: "VR New Talk"  
+      title: "VR New Talk"
       new_talk: New Talk
     edit:
-      title: "VR Edit Talk %{title}"  
+      title: "VR Edit Talk %{title}"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
@@ -775,52 +792,21 @@ en:
       title: Title
       teaser: Teaser
       tag_list: Tag list
+    index:
+      talks_on_voice_republic: TALKS ON VOICE REPUBLIC
+      now_live: NOW LIVE
+      live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recent: RECENT
+      see_all: MORE
   articles:
     venue_form:
       write_an_article: write an article
       save_article: Post
-  video_sessions:
-    anonymous_sign_up:
-      video_call_title: Video call
-      guest_to_charge_text: Please sign in to call this KluuU.
-      close: Close
-      sign_up: Sign up
-    calling:
-      video_call_title: Video Call
-      in_process: In progess...
-      cancel_call: Cancel
-    new_form:
-      dispatching_call: Connecting to...
-      start_video_call: Video Call
-    new:
-      video_call_title: Video Call
-      not_logged_in_text: Your are not signed in. Continue?
-      log_in: Sign in
-    no_account:
-      video_call_title: Video Call
-      not_enough_money_text: You don't have sufficient credits. Do you like to buy credit now?
-      close: Close
-      create_account: Configure your financial account
-    no_funds:
-      video_call_title: Video Call
-      not_enough_money_text: You don't have a sufficient credit. Do you like to buy credit now?
-      close: Close
-      check_in_money: Buy credit
-    user_unavailable:
-      video_call_title: Video Call
-      unavailable_text: The User is currently offline. Write a message.
-      close: Close
-      send_message: Message
-    video_system_error:
-      video_down_text: Sorry! The video system is temporarily out of order. We're working on it. Please try again later.
-      close: Close
-  hello: Hello world
   layouts:
     application:
-      landing_title: Voice Republic - The Place To Talk
-    users:
-      landing_title: Voice Republic - The Place To Talk
-
+      landing_title: VoiceRepublic - The Place To Talk
   user_mailer:
     new_talk:
       subject: New talk
@@ -838,12 +824,6 @@ en:
       header: "Hello %{user_firstname}"
       content: |
         Reminder content.
-      footer: Goodbye & Goodnight
-    new_article:
-      subject: New article
-      header: "Hello %{user_firstname}"
-      content: |
-        New article content.
       footer: Goodbye & Goodnight
     new_comment:
       subject: New talk
@@ -867,7 +847,7 @@ en:
       header: "You are using an outdated browser"
       body: |
         <p>You are using an old version of %{name} whis is %{version}.</p>
-        <p>For the best experience with modern webapps, please upgrade your browser to the newest version or download one of the browsers below:</p>
+        <p>Unfortunately, at this stage, we do not have the manpower to support every browser. We rather strive to to build the most awesome user experience using modern browsers. For a good experience with Voice Republic, please upgrade to the newest version or download one of the browsers below:</p>
         <ul>
           <li><a href="https://www.google.com/intl/en/chrome/browser/">Download Chrome 33+</a></li>
           <li><a href="http://www.mozilla.org/en-US/firefox/new/">Download Firefox 28+</a></li>

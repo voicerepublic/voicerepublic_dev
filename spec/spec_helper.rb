@@ -17,9 +17,14 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, options = {
     # js errors would otherwise get elevated into an exception
     :js_errors => false,
-    :port => 44678
+    :port => 44678,
+    # Parts of the app is responsive. Specs are written against the desktop
+    # version unless otherwise configured by overwriting using:
+    #   page.driver.resize(height, width)
+    :window_size => [ 1440, 1080 ]
   })
 end
+
 
 Capybara.register_driver :firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
@@ -170,6 +175,21 @@ RSpec.configure do |config|
   end
 
   config.include Support::Integration
+
+  # setup/teardown tmp paths for audio files
+  #
+  #audio_paths = Settings.audio.paths.to_hash.values
+  audio_paths = [
+    Settings.rtmp.archive_path,
+    Settings.rtmp.archive_raw_path,
+    Settings.rtmp.recordings_path
+  ]
+  audio_paths = audio_paths.map { |path| File.expand_path(path, Rails.root) }
+  config.before(:suite) { FileUtils.mkdir_p(audio_paths) }
+  config.after(:suite) { FileUtils.rm_rf(audio_paths) }
+
+  # do not create a flyer on Talk#save during spec runs
+  config.before(:each) { allow_any_instance_of(Talk).to receive(:generate_flyer).and_return(true) }
 
 end
 

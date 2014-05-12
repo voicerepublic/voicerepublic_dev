@@ -58,7 +58,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.flags.settings = true
       onListening: ->
         unless config.user.role == 'listener'
-          config.flags.reqmic = true 
+          config.flags.reqmic = true
       onleaveListening: ->
         config.flags.reqmic = false
         true
@@ -149,10 +149,11 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # store the current state on the users hash
     users[data.user.id].state = fsm.current
 
-  # the stateHandler handles the state notification of other users
+  # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
     $log.debug "user #{data.user.id}: #{state}"
     users[data.user.id]?.state = state
+    users[data.user.id]?.offline = false
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
         users[data.user.id] = data.user
@@ -169,9 +170,16 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   eventHandler = (event, data) ->
     $log.debug "event: #{event}"
     switch event
+      when 'Demote' # make it snappy!
+        users[data.user.id]?.state = 'Listening'
+        users[data.user.id]?.offline = true
+      when 'Reload'
+        # this is only used in user acceptance testing
+        # but could also be used for live upgrades
+        window.location.reload()
       when 'StartTalk'
         config.talk.state = 'live'
-        # TODO countdown.init config.talk.duration
+        config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
           fsm.TalkStarted()
@@ -192,6 +200,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     return fsm.Demoted() if id is config.user_id
     upstream.event 'Demote', user: { id }
   startTalk = ->
+    return unless config.talk.state == 'prelive'
     $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
   endTalk = ->
@@ -205,18 +214,17 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   acceptingPromotion = ->
     (user for id, user of users when user.state == 'AcceptingPromotion')
   participants = ->
-    (user for id, user of users when user.role == 'participant' and
-      user.state == 'Listening')
+    (user for id, user of users when user.state == 'Listening')
   listeners = ->
     (user for id, user of users when user.role == 'listener')
 
   # TODO idealy this should move into callback: on/Registering$/
   # subscribe to push notifications
   privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
-  # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
+  # privatePub.subscribe "/#{config.namespace}/u#{config.user.id}", pushMsgHandler
 
   # exposed objects
-  { 
+  {
     # -- events
     promote
     demote
