@@ -19,18 +19,22 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
-    @upcoming_talks = @venue.talks.where(state: [:prelive, :live]).ordered
-    @archived_talks = @venue.talks.archived.ordered
-
-    @participation =
-      @venue.participations.find_by(user_id: current_user.id)
-
-    @show_join = @participation.nil? &&
-      current_user != @venue.user
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html do
+        @upcoming_talks = @venue.talks.where(state: [:prelive, :live]).ordered
+        @archived_talks = @venue.talks.archived.ordered
+        
+        @participation =
+          @venue.participations.find_by(user_id: current_user.id)
+        
+        @show_join = @participation.nil? &&
+                     current_user != @venue.user
+      end
       format.json { render json: @venue }
+      format.rss do
+        talks = @venue.talks.archived.ordered
+        @podcast = OpenStruct.new(talks: talks)
+      end
     end
   end
 

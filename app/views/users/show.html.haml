@@ -1,5 +1,5 @@
 - content_for :head do
-  = rss_link_tag t('.feed_title', uersname: @user.name)
+  = rss_link_tag t('.feed_title', username: @user.name)
 
 - content_for :title do
   = t('.title', username: @user.name)
