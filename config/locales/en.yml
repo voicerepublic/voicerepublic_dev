@@ -298,6 +298,7 @@ en:
       venues: Series
       guest_empty_venue: ! '%{name} has no series yet.'
     show:
+      feed_title: "VR - %{username}"
       title: "VR User %{username}"
       edit_user: Edit Profile
       about: About
@@ -447,6 +448,7 @@ en:
   landing_page:
     news: NEWS
     index:
+      feed_title: 'All of VoiceRepublic'
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
       subheadline: "Talks, interviews, readings, conversations, debates, discussions:"
       subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
@@ -600,6 +602,7 @@ en:
     venue_list: Series
     new_venue: Create Series
     show:
+      feed_title: "VR - %{title}"
       title: "VR Series %{title}"
       by: by
       start_date: Begin

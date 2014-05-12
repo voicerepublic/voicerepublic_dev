@@ -1,3 +1,6 @@
+- content_for :head do
+  = rss_link_tag t('.feed_title')
+
 .row.lp-top-row(style="z-index:2")
   .large-12.columns
     - if !current_user || current_user.guest

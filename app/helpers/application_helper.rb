@@ -1,5 +1,12 @@
 module ApplicationHelper
 
+  def rss_link_tag(title)
+    tag :link, rel: "alternate",
+        type: "application/rss+xml",
+        title: title,
+        href: url_for(format: 'rss')
+  end
+  
   def delete_params
     {
       method: :delete,
