@@ -59,7 +59,7 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.itunes :subtitle, talk.teaser
         xml.itunes :summary, talk.description
         xml.itunes :author, talk.venue.user.name
-        xml.itunes :duration, talk.duration
+        xml.itunes :duration, vrmedia_duration(talk)
         xml.itunes :explicit, 'no'
         xml.itunes :image, href: talk.image.thumb('1400x1400#').url
         xml.pubDate talk.processed_at.to_s(:rfc822)

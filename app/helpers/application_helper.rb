@@ -1,14 +1,24 @@
 module ApplicationHelper
 
-  def vrmedia_size(talk, fmt='mp3')
-    path = Settings.rtmp.archive_path + '/' + talk.recording + '.' + fmt
-    File.size(path)
+  def vrmedia_duration(talk, fmt='mp3')
+    path = vrmedia_path(talk, fmt)
+    cmd = "avconv -i #{path} 2>&1 | grep Duration"
+    output = %x[ #{cmd} ]
+    output.match(/\d+:\d\d:\d\d/)
+  end
+
+  def vrmedia_path(talk, fmt='mp3') # private
+    Settings.rtmp.archive_path + '/' + talk.recording + '.' + fmt
   end
   
+  def vrmedia_size(talk, fmt='mp3')
+    File.size(vrmedia_path(talk, fmt))
+  end
+
   def vrmedia_url(talk, fmt='mp3')
     root_url + 'vrmedia/' + talk.id.to_s + '.' + fmt
   end
-  
+
   def rss_link_tag(title)
     tag :link, rel: "alternate",
         type: "application/rss+xml",
