@@ -7,7 +7,12 @@
 #
 # All channel level data is passed via the `podcast` object.
 #
-# Some best practices adopted from these well established podcasts:
+# Some best practices adopted from here
+#
+#  * http://www.rssboard.org/rss-profile
+#  * https://github.com/gpodder/podcast-feed-best-practice/blob/master/podcast-feed-best-practice.md
+#
+# and these well established podcasts:
 #
 #  * http://feeds.twit.tv/twit.xml
 #  * http://feed.nashownotes.com/rss.xml
@@ -30,6 +35,7 @@ xml.instruct!
 xml.rss namespaces.merge(version: '2.0') do
   xml.channel do
 
+    # title
     xml.title { xml.cdata! @podcast.title }
     xml.dc(:title) { xml.cdata! @podcast.title }
     
@@ -45,9 +51,11 @@ xml.rss namespaces.merge(version: '2.0') do
       end
       xml.link @podcast.image_link
     end
-    #xml.tag! 'atom:link', rel: 'self', 
-    #                      type: 'application/rss+xml', 
-    #                      href: venue_talks_url(@venue, format: :rss)
+
+    # http://validator.w3.org/feed/docs/warning/MissingAtomSelfLink.html
+    xml.tag! 'atom:link', rel: 'self',
+             type: 'application/rss+xml', 
+             href: request.url
 
     xml.itunes :image, href: @podcast.image_url
     xml.itunes :category, text: @podcast.category
@@ -56,19 +64,29 @@ xml.rss namespaces.merge(version: '2.0') do
       xml.cdata! @podcast.description
     end
     xml.itunes :explicit, 'no'
-    #xml.itunes :owner do 
-    #  xml.itunes :email, @venue.user.email
-    #end
+
+    # author
     xml.itunes :author, @podcast.author
     xml.dc :creator, @podcast.author
     
+    xml.itunes :owner do 
+      xml.itunes :name, 'VoiceRepublic Service'
+      xml.itunes :email, 'service@voicerepublic.com'
+    end
+
     talks = @podcast.talks || []
     talks.each do |talk|
+      next unless size = vrmedia_size(talk)
+
       xml.item do
+
         xml.title h talk.title
-        xml.description h talk.description
+
+        # description
+        xml.description talk.description_as_plaintext
+        xml.itunes :summary, talk.description_as_plaintext
+
         xml.itunes :subtitle, talk.teaser
-        xml.itunes :summary, talk.description
         xml.itunes :author, talk.venue.user.name
         xml.itunes :duration, vrmedia_duration(talk)
         xml.itunes :explicit, 'no'
@@ -78,7 +96,7 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.guid venue_talk_url(talk.venue, talk), isPermaLink: true
         xml.enclosure url: vrmedia_url(talk),
                       type: "audio/mpeg",
-                      length: vrmedia_size(talk)
+                      length: size
       end
     end
   end

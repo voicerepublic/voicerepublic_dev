@@ -1,5 +1,5 @@
 # TODO
-@podcast.category =    'TODO no category, yet'
+@podcast.category =    'Society & Culture'
 
 # translations
 @podcast.title =       t('.podcast.title', username: @user.name)
@@ -7,7 +7,7 @@
 @podcast.subtitle =    t('.podcast.subtitle')
 
 # misc
-@podcast.description = @user.about
+@podcast.description = @user.about_as_plaintext
 @podcast.author =      @user.name
 
 # urls

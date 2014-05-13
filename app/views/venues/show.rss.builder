@@ -1,12 +1,12 @@
 # TODO
-@podcast.category =    'TODO no category, yet'
+@podcast.category =    'Society & Culture'
 
 # translations
 @podcast.title =       t('.podcast.title', title: @venue.title)
 @podcast.image_title = t('.podcast.title', title: @venue.title)
 
 # misc
-@podcast.description = @venue.description
+@podcast.description = @venue.description_as_plaintext
 @podcast.author =      @venue.user.name
 @podcast.subtitle =    @venue.teaser
 

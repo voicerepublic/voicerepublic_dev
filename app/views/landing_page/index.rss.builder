@@ -1,5 +1,5 @@
 # TODO
-@podcast.category =    'TODO no category, yet'
+@podcast.category =    'Society & Culture'
 
 # translations
 @podcast.title =       t('.podcast.title')

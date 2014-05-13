@@ -454,6 +454,7 @@ en:
       podcast:
         title: Featured talks of VoiceRepublic
         author: The users of VoiceRepublic
+        subtitle: Voice Republic is home to the spoken word in its many forms. 
         description: |
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of VoiceRepublic

@@ -85,6 +85,10 @@ class User < ActiveRecord::Base
     "#{name} <#{email}>"
   end
 
+  def about_as_plaintext
+    Nokogiri::HTML(about).text
+  end
+
   class << self
 
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
