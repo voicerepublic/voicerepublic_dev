@@ -8,7 +8,6 @@
 # All data is passed via the `podcast` object.
 #
 # FIXME: itunes category hardcoded - where to get ahold of it?
-# FIXME: file length should be computed
 # FIXME: xml.lang is hardcoded
 #
 namespaces = {
@@ -62,13 +61,13 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.itunes :author, talk.venue.user.name
         xml.itunes :duration, talk.duration
         xml.itunes :explicit, 'no'
-        xml.itunes :image, href: talk.image.url
+        xml.itunes :image, href: talk.image.thumb('1400x1400#').url
         xml.pubDate talk.processed_at.to_s(:rfc822)
         xml.link venue_talk_url(talk.venue, talk)
         xml.guid venue_talk_url(talk.venue, talk)
-        xml.enclosure url: talk_url(talk),
+        xml.enclosure url: vrmedia_url(talk),
                       type: "audio/mpeg",
-                      length: 0
+                      length: vrmedia_size(talk)
       end
     end
   end

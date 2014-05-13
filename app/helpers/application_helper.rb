@@ -1,12 +1,22 @@
 module ApplicationHelper
 
+  def vrmedia_size(talk, fmt='mp3')
+    path = Settings.rtmp.archive_path + '/' + talk.recording + '.' + fmt
+    File.size(path)
+  end
+  
+  def vrmedia_url(talk, fmt='mp3')
+    root_url + 'vrmedia/' + talk.id.to_s + '.' + fmt
+  end
+  
   def rss_link_tag(title)
     tag :link, rel: "alternate",
         type: "application/rss+xml",
         title: title,
         href: url_for(format: 'rss')
   end
-  
+
+  # abstract delete params, valid for all resources
   def delete_params
     {
       method: :delete,
@@ -27,7 +37,7 @@ module ApplicationHelper
              :class => "btn btn-small" )
   end
   
-  # limit number of words beeing displayed.
+  # limit number of words being displayed.
   #
   def limit_words(txt, num)
     arr = ( txt ? txt.split(" ") : [] )
