@@ -76,8 +76,9 @@ xml.rss namespaces.merge(version: '2.0') do
 
     talks = @podcast.talks || []
     talks.each do |talk|
-      next unless size = vrmedia_size(talk)
-
+      size = vrmedia_size(talk)
+      next unless size > 0
+      
       xml.item do
 
         xml.title h talk.title

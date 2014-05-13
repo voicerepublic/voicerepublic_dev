@@ -56,7 +56,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
+      execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper reload"
       # Kill all delayed jobs and leave the respawning to monit.
       execute "pkill -f delayed_job; true"
       # Will deliberately keep private_pub and rtmpd running
