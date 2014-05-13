@@ -1,11 +1,17 @@
-# This is the general remplate for podcast feeds. It is being used in
+# This is the general template for podcast feeds. It is being used in
 # several contexts:
 #
 #  * app/views/landing_page/index.rss.builder
 #  * app/views/users/show.rss.builder
 #  * app/views/venues/show.rss.builder
 #
-# All data is passed via the `podcast` object.
+# All channel level data is passed via the `podcast` object.
+#
+# Some best practices adopted from these well established podcasts:
+#
+#  * http://feeds.twit.tv/twit.xml
+#  * http://feed.nashownotes.com/rss.xml
+#
 #
 # FIXME: itunes category hardcoded - where to get ahold of it?
 # FIXME: xml.lang is hardcoded
@@ -15,15 +21,18 @@ namespaces = {
   'xmlns:media'           => "http://search.yahoo.com/mrss/",
   'xmlns:itunes'          => "http://www.itunes.com/dtds/podcast-1.0.dtd",
   'xmlns:creativeCommons' => "http://backend.userland.com/creativeCommonsRssModule",
-  'xmlns:sy'              => "http://purl.org/rss/1.0/modules/syndication/"
+  'xmlns:sy'              => "http://purl.org/rss/1.0/modules/syndication/",
+  # see http://web.resource.org/rss/1.0/modules/dc/
+  'xmlns:dc'              => "http://purl.org/dc/elements/1.1/"
 }
 
 xml.instruct!
 xml.rss namespaces.merge(version: '2.0') do
   xml.channel do
-    xml.title do
-      xml.cdata! @podcast.title
-    end
+
+    xml.title { xml.cdata! @podcast.title }
+    xml.dc(:title) { xml.cdata! @podcast.title }
+    
     xml.description do
       xml.cdata! @podcast.description
     end
@@ -41,7 +50,6 @@ xml.rss namespaces.merge(version: '2.0') do
     #                      href: venue_talks_url(@venue, format: :rss)
 
     xml.itunes :image, href: @podcast.image_url
-    xml.itunes :author, @podcast.author
     xml.itunes :category, text: @podcast.category
     xml.itunes :subtitle, @podcast.subtitle
     xml.itunes :summary do
@@ -51,6 +59,9 @@ xml.rss namespaces.merge(version: '2.0') do
     #xml.itunes :owner do 
     #  xml.itunes :email, @venue.user.email
     #end
+    xml.itunes :author, @podcast.author
+    xml.dc :creator, @podcast.author
+    
     talks = @podcast.talks || []
     talks.each do |talk|
       xml.item do
@@ -64,7 +75,7 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.itunes :image, href: talk.image.thumb('1400x1400#').url
         xml.pubDate talk.processed_at.to_s(:rfc822)
         xml.link venue_talk_url(talk.venue, talk)
-        xml.guid venue_talk_url(talk.venue, talk)
+        xml.guid venue_talk_url(talk.venue, talk), isPermaLink: true
         xml.enclosure url: vrmedia_url(talk),
                       type: "audio/mpeg",
                       length: vrmedia_size(talk)
