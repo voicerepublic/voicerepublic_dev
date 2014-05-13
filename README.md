@@ -156,6 +156,16 @@ Config entries are compiled from:
 Settings defined in files that are lower in the list override settings higher.
 
 
+Deploy
+------
+
+    cap staging deploy
+
+Deploy a specific branch to staging, e.g.
+
+    REVISION=feature/65463494/subscribe_podcast cap staging deploy
+
+
 Conference Features
 -------------------
 
