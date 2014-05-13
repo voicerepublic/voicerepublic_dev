@@ -20,6 +20,9 @@
         .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
           = render partial: "shared/avatar_image", locals: { user: @user, img_size: 120 }
       %h2.user-name= @user.name
+      = link_to t('.subscribe_to_podcast'), user_url(@user, format: :rss), class: 'button-vr button-header'
+      %br/
+      %br/
   .row.collapse-large-only
     .large-12.columns.text-center
       %dl.tabs.vr-tabs(data-tab='true')
