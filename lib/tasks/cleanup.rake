@@ -53,4 +53,10 @@ namespace :cleanup do
       raise InvalidModelException.new msg
     end
   end
+
+  task fix_blank_descriptions: :environment do
+    Talk.where(description: '').each do |talk|
+      talk.update_attribute :description, '<i>blank description</i>'
+    end
+  end
 end
