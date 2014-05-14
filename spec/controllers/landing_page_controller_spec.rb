@@ -7,6 +7,11 @@ describe LandingPageController do
       get 'index'
       response.should be_success
     end
-  end
 
+    it "returns http success with format rss" do
+      get 'index', format: 'rss'
+      response.should be_success
+    end
+  end
+  
 end

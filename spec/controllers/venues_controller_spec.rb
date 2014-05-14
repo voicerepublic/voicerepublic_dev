@@ -45,10 +45,14 @@ describe VenuesController do
   end
 
   describe "GET show" do
+    let(:venue) { FactoryGirl.create(:venue) }
     it "assigns the requested venue as @venue when logged in" do
-      venue = FactoryGirl.create(:venue)
       get :show, {:id => venue.to_param}
       assigns(:venue).should eq(venue)
+    end
+    it "returns http success with format rss" do
+      get :show, id: venue.to_param, format: 'rss'
+      response.should be_success
     end
   end
 
