@@ -298,6 +298,10 @@ en:
       venues: Series
       guest_empty_venue: ! '%{name} has no series yet.'
     show:
+      podcast:
+        title: "VR: %{username}"
+        subtitle: "Podcast provided by VoiceRepublic"
+      feed_title: "VR - %{username}"
       title: "VR User %{username}"
       edit_user: Edit Profile
       about: About
@@ -447,6 +451,13 @@ en:
   landing_page:
     news: NEWS
     index:
+      podcast:
+        title: Featured talks of VoiceRepublic
+        author: The users of VoiceRepublic
+        subtitle: Voice Republic is home to the spoken word in its many forms. 
+        description: |
+          The feed features talks which have been archived on %{url}.
+      feed_title: Featured talks of VoiceRepublic
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
       subheadline: "Talks, interviews, readings, conversations, debates, discussions:"
       subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
@@ -600,6 +611,10 @@ en:
     venue_list: Series
     new_venue: Create Series
     show:
+      podcast:
+        title: "VR: %{title}"
+        subtitle: "Podcast provided by VoiceRepublic"
+      feed_title: "VR - %{title}"
       title: "VR Series %{title}"
       by: by
       start_date: Begin
@@ -854,3 +869,4 @@ en:
           <li>Safari 7 (If you are on OSX < 10.9, you need to upgrade to get a newer version of Safari. It's easier to use Chrome or Firefox.)</li>
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
+    

@@ -64,6 +64,10 @@ class Venue < ActiveRecord::Base
     OpenStruct.new(options)
   end
   
+  def description_as_plaintext
+    Nokogiri::HTML(description).text
+  end
+
   private
 
   def clean_taglist

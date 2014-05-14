@@ -17,9 +17,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #if @user.participating_venues.empty? && @user.venues.any?
-    #  redirect_to venues_user_url(@user)
-    #end
+    respond_to do |format|
+      format.html
+      format.rss do
+        talks = Talk.joins(:venue).archived.where('venues.user_id' => @user.id).ordered
+        @podcast = OpenStruct.new(talks: talks)
+      end
+    end
   end
 
   # GET /users/new
