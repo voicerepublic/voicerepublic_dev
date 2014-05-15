@@ -363,9 +363,20 @@ Run
 
 As you would normally deploy.
 
-Test the system thourougly before proceeding! 
+The config files `app/shared/config/settings.local.yml` are already
+prepared for staging and live.
 
-### Step 4: Run Rake Task 2/2
+Test the system thourougly before proceeding!
+
+You will no be able to test postprocessing since, the audio djs are still disabled.
+
+### Step 4: Start Audio DJs
+
+Reenable monitoring for audio djs in monit and start.
+
+Test the system thourougly before proceeding!
+
+### Step 5: Run Rake Task 2/2
 
 Will take care of
 
@@ -382,6 +393,4 @@ Run
 
     rake cleanup:move_to_s3_step2
 
-### Step 5: Start Audio DJs
-
-Reenable monitoring for audio djs in monit and start.
+Champagne!
