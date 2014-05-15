@@ -1,24 +1,6 @@
 module ApplicationHelper
 
-  def vrmedia_duration(talk, fmt='mp3')
-    path = vrmedia_path(talk, fmt)
-    return unless File.exist?(path)
-    cmd = "avconv -i #{path} 2>&1 | grep Duration"
-    output = %x[ #{cmd} ]
-    output.match(/\d+:\d\d:\d\d/)
-  end
-
-  def vrmedia_path(talk, fmt='mp3') # private
-    Settings.rtmp.archive_path + '/' + talk.recording + '.' + fmt
-  end
-  
-  def vrmedia_size(talk, fmt='mp3')
-    path = vrmedia_path(talk, fmt)
-    File.exist?(path) ? File.size(path) : 0
-  end
-
   def vrmedia_url(talk, fmt='mp3')
-    return unless File.exist?(vrmedia_path(talk, fmt))
     root_url + 'vrmedia/' + talk.id.to_s + '.' + fmt
   end
 
