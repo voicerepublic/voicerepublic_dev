@@ -46,3 +46,16 @@ mail_domain: 'localhost'
 flyer:
   location: /system/flyer
   path: public/system/flyer
+fog:
+  storage:
+    provider: Local
+    local_root: public/system/cloud
+    endpoint: http://localhost:3000/system/cloud
+    # provider: AWS
+    # aws_access_key_id: AKIAIGKSA6ESEFZV4DQA
+    # aws_secret_access_key: 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
+storage:
+  media: vr-media
+  import: vr-import
+paths:
+  log: local/log  
