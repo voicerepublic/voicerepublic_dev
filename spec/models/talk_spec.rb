@@ -161,20 +161,9 @@ describe Talk do
   end
 
   it 'generate ephemeral paths' do
-    pending "NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG"
-    talk = FactoryGirl.create(:talk, recording: 'invalid_id')
-    p base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-    FileUtils.mkdir_p(base) # (!)
-    source = "#{base}/invalid_id.wav"
-    FileUtils.touch(source)
-    p loc = talk.generate_ephemeral_path!('.wav')
-    #target = "public/#{loc}"
-    #expect(File.exist?(target)).to be_true
-    base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-    p target = File.join(base, Settings.storage.media, talk.uri, "#{talk.id}.wav")
-    # cleanup
-    FileUtils.rm(target)
-    FileUtils.rm(source)
+    talk = FactoryGirl.create(:talk)
+    url = talk.generate_ephemeral_path!
+    expect(url).to match(/^http.*\.mp3$/)
   end
 
   it 'does not send email with option no_emails' do
@@ -188,7 +177,6 @@ describe Talk do
   describe 'nicely processes audio' do
 
     it 'in state postlive' do
-      pending "NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG"
       talk = FactoryGirl.create(:talk, record: true)
 
       # move fixtures in place
@@ -211,12 +199,13 @@ describe Talk do
       end
 
       # assert
-      result = File.join(Settings.rtmp.archive_path, talk.recording + '.m4a')
+      base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+      result = File.join(base, Settings.storage.media,
+                         talk.uri, talk.id.to_s + '.m4a')
       expect(File.exist?(result)).to be_true
     end
 
     it 'in state archived' do
-      pending "NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG"
       talk = FactoryGirl.create(:talk, record: true)
 
       # move fixtures in place
@@ -235,7 +224,9 @@ describe Talk do
       VCR.use_cassette 'talk_postprocess' do
         talk.send :postprocess!
       end
-      result = File.join(Settings.rtmp.archive_path, talk.recording + '.m4a')
+      base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+      result = File.join(base, Settings.storage.media,
+                         talk.uri, talk.id.to_s + '.m4a')
       ctime = File.ctime(result)
 
       # no we are in state `archived`, so we can do a `reprocess`
@@ -248,7 +239,6 @@ describe Talk do
     end
 
     it 'in state archived with override' do
-      pending "NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG"
       talk = FactoryGirl.create(:talk, record: true)
 
       # move fixtures in place
@@ -267,7 +257,9 @@ describe Talk do
       VCR.use_cassette 'talk_postprocess' do
         talk.send :postprocess!
       end
-      result = File.join(Settings.rtmp.archive_path, talk.recording + '.m4a')
+      base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+      result = File.join(base, Settings.storage.media,
+                         talk.uri, talk.id.to_s + '.m4a')
       ctime = File.ctime(result)
       # all of these should work, but for speed we only resort to the local file
       override = 'https://staging.voicerepublic.com/sonar.ogg'
