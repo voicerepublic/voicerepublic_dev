@@ -11,8 +11,5 @@ rtmp:
   callback_base:      'http://localhost/rtmp'
   record_max_size:    '100M'
   authenticate:       true
-fog:
-  storage:
-    provider: AWS
-    aws_access_key_id: AKIAIGKSA6ESEFZV4DQA
-    aws_secret_access_key: 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
+paths:
+  log: /home/app/app/shared/process_log
