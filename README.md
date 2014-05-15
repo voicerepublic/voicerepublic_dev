@@ -321,3 +321,67 @@ Audio cheat sheet
 
     find ./ -name \*.flv -exec avconv -i {} \; 2>&1 | grep Stream
 
+
+Transition to S3
+----------------
+
+The transition to s3 is a little more complicated than a regular
+deploy. Changes at several locations have to be in sync, these
+locations are:
+
+ * code base
+ * database
+ * filesystem
+ * s3
+
+Through temporary redundancies we'll have a working app at all times,
+apart from audio processing, which we'll shut down during the upgrade
+to make sure no new, untracked files are created while upgrading.
+
+### Step 1: Shut down Audio DJs
+
+Disable monitoring for audio djs in monit and stop.
+
+### Step 2: Run Rake Task 1/2
+
+Since this has to happen before the deploy, I suggest to scp the rake
+file over to the server.
+
+    scp lib/tasks/cleanup.rake vrs:app/current/lib/tasks
+
+Will take care of
+
+ * db: update talks#uri
+ * fs: move processing log files to new location
+ * fs: upload all audio files to s3 (this might take a while)
+
+Run
+
+    rake cleanup:move_to_s3_step1
+
+### Step 3: Deploy Migrations & Code Changes
+
+As you would normally deploy.
+
+Test the system thourougly before proceeding! 
+
+### Step 4: Run Rake Task 2/2
+
+Will take care of
+
+ * fs: remove ephemeral symlinks
+ * fs: delete archive and archive_raw
+
+This is a good time to run a local backup of all audio files (although
+this might take a while)
+
+    scp -r vrs:app/shared/archive .
+    scp -r vrs:app/shared/archive_raw .
+
+Run
+
+    rake cleanup:move_to_s3_step2
+
+### Step 5: Start Audio DJs
+
+Reenable monitoring for audio djs in monit and start.
