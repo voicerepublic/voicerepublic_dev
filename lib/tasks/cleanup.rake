@@ -93,7 +93,7 @@ namespace :cleanup do
       result.merge transitions
     end
 
-    mv_script = File.open('~/move_script.sh', 'w')
+    mv_script = File.open(File.expand_path('move_script.sh', ENV['HOME']), 'w')
     mv_script.puts "mkdir -p /home/app/uploaded_to_s3"
     
     count = files.keys.size
