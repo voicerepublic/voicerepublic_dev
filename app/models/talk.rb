@@ -501,18 +501,19 @@ class Talk < ActiveRecord::Base
     return all_files.each { |file| cache_storage_metadata(file) } if file.nil?
 
     key = "#{uri}/#{File.basename(file)}"
-    dur = Avconv.duration(file)
-    h, m, s = dur.split(':').map(&:to_i)
-    seconds = (h * 60 + m) * 60 + s
     storage ||= {}
     storage[key] = {
       key:      key,
       ext:      File.extname(file),
       size:     File.size(file),
-      duration: dur,
-      seconds:  seconds,
+      duration: Avconv.duration(file),
       start:    Avconv.start(file)
     }
+    # add duration in seconds
+    if dur = storage[key][:duration]
+      h, m, s = dur.split(':').map(&:to_i)
+      storage[key][:seconds] = (h * 60 + m) * 60 + s
+    end
   end
   
   def media_storage
