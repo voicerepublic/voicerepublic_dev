@@ -148,7 +148,7 @@ Configured portfilter (Nico)
 Installed missing package
 -------------------------
 
-    # apt-get install vorbis-tools
+    # apt-get install vorbis-tools lame
 
 Installed package
 -----------------
