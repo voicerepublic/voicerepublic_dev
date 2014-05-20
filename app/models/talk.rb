@@ -498,11 +498,11 @@ class Talk < ActiveRecord::Base
 
   # collect information about what's stored via fog
   def cache_storage_metadata(file=nil)
-    return all_files.each { |file| cache_storage_metadata(file) } if file.nil?
+    return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
 
     key = "#{uri}/#{File.basename(file)}"
-    storage ||= {}
-    storage[key] = {
+    self.storage ||= {}
+    self.storage[key] = {
       key:      key,
       ext:      File.extname(file),
       size:     File.size(file),
@@ -512,8 +512,9 @@ class Talk < ActiveRecord::Base
     # add duration in seconds
     if dur = storage[key][:duration]
       h, m, s = dur.split(':').map(&:to_i)
-      storage[key][:seconds] = (h * 60 + m) * 60 + s
+      self.storage[key][:seconds] = (h * 60 + m) * 60 + s
     end
+    storage
   end
   
   def media_storage
