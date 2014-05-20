@@ -87,13 +87,22 @@ namespace :cleanup do
       result.merge transitions
     end
 
+    mv_script = File.open('~/move_script.sh', 'w')
+    mv_script.puts "mkdir -p /home/app/uploaded_to_s3"
+    
     count = files.keys.size
     counter = 0
     files.each do |file, key|
-      counter += 1
-      handle = File.open(file)
-      puts "uploading #{counter}/#{count} #{file} to #{key}"
-      dir.files.create key: key, body: handle
+      begin
+        counter += 1
+        handle = File.open(file)
+        puts "uploading #{counter}/#{count} #{file} to #{key}"
+        mv_script.puts "cp -l -v --parents #{file} /home/app/uploaded_to_s3; rm #{file}"
+        dir.files.create key: key, body: handle
+      rescue Exception => e
+        puts "Error uploading #{file} to #{key}"
+        puts e
+      end
     end
   end
   
