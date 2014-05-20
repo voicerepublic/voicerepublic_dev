@@ -1,4 +1,5 @@
 namespace :cleanup do
+
   desc 'Delete guest users that are no longer active'
   task :guests => :environment do
     User.where('firstname like ?', '%guest%').
@@ -58,55 +59,6 @@ namespace :cleanup do
     Talk.where(description: '').each do |talk|
       talk.update_attribute :description, '<i>blank description</i>'
     end
-  end
-
-  # TODO this task is to be removed after transition to s3
-  task move_to_s3_step1: :environment do
-    # fix uris
-    update = "uri = concat('lt14-', substring(uri from '[^/]+$'))"
-    Talk.update_all(update, "uri LIKE 'lt://2014/%'")
-    update = "uri = concat('rp14-', substring(uri from '[^/]+$'))"
-    Talk.update_all(update, "uri LIKE 'rp://2014/%'")
-    update = "uri = concat('vr-', id)"
-    Talk.update_all(update, "uri IS NULL")
-
-    # move log files
-    log_path = File.expand_path(Settings.paths.log, Rails.root)
-    FileUtils.mkdir_p(log_path, verbose: true)
-    archive_path = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    logs = Dir.glob(File.join(archive_path, '*', '*', '*', '*.log'))
-    FileUtils.mv(logs, log_path, verbose: true)
-
-    # upload everything to s3
-    dir = Storage.directories.get(Settings.storage.media)
-
-    files = Talk.archived.inject({}) do |result, talk|
-      result.merge talk.all_files.inject({}) do |files, file|
-        files.merge file => talk.uri + '/' + File.basename(file)
-      end
-    end
-
-    count = files.keys.size
-    counter = 0
-    files.each do |file, key|
-      counter =+ 1
-      handle = File.open(file)
-      puts "uploading #{counter}/#{count} #{file} to #{key}"
-      dir.files.create key: key, body: handle
-    end
-  end
-  
-  # TODO this task is to be removed after transition to s3
-  task move_to_s3_step2: :environment do
-    # delete symlinks
-    path = File.expand_path('public/system/audio', Rails.root)
-    FileUtils.rm_rf(path, verbose: true)
-
-    # delete archive and archive_raw
-    path = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    FileUtils.rm_rf(path, verbose: true)
-    path = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    FileUtils.rm_rf(path, verbose: true)
   end
   
 end
