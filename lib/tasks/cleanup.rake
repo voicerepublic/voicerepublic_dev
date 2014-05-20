@@ -77,6 +77,12 @@ namespace :cleanup do
     logs = Dir.glob(File.join(archive_path, '*', '*', '*', '*.log'))
     FileUtils.mv(logs, log_path, verbose: true)
 
+    # set storage metadata before uploading
+    Talk.archived.each do |talk|
+      talk.send(:cache_storage_metadata)
+      talk.save!
+    end
+    
     # upload everything to s3
     dir = Storage.directories.create(key: Settings.storage.media)
 
@@ -104,6 +110,8 @@ namespace :cleanup do
         puts e
       end
     end
+
+    puts 'test everything, than run ~/move_script.sh'
   end
   
   # TODO this task is to be removed after transition to s3
