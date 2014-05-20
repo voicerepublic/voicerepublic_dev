@@ -280,6 +280,13 @@ Disk Space Requirements
     mean = ratios.inject { |r, s| r + s } / qs.size.to_f
     mean / 1024.0
 
+Backup
+------
+
+On VRBackup (Synology DiskStation)
+
+    rsync -avz --progress app@voicerepublic.com:app backup
+
 
 Audio cheat sheet
 -----------------

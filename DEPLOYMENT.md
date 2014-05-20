@@ -150,6 +150,11 @@ Installed missing package
 
     # apt-get install vorbis-tools
 
+Installed package
+-----------------
+
+    s3cmd
+
 
 Create flyer
 ------------
