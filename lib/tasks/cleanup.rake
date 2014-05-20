@@ -59,4 +59,72 @@ namespace :cleanup do
       talk.update_attribute :description, '<i>blank description</i>'
     end
   end
+
+  # TODO this task is to be removed after transition to s3
+  task move_to_s3_step1: :environment do
+    # fix uris
+    update = "uri = concat('lt14-', substring(uri from '[^/]+$'))"
+    Talk.update_all(update, "uri LIKE 'lt://2014/%'")
+    update = "uri = concat('rp14-', substring(uri from '[^/]+$'))"
+    Talk.update_all(update, "uri LIKE 'rp://2014/%'")
+    update = "uri = concat('vr-', id)"
+    Talk.update_all(update, "uri IS NULL")
+
+    # move log files
+    log_path = File.expand_path(Settings.paths.log, Rails.root)
+    FileUtils.mkdir_p(log_path, verbose: true)
+    archive_path = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+    logs = Dir.glob(File.join(archive_path, '*', '*', '*', '*.log'))
+    FileUtils.mv(logs, log_path, verbose: true)
+
+    # set storage metadata before uploading
+    Talk.archived.each do |talk|
+      talk.send(:cache_storage_metadata)
+      talk.save!
+    end
+    
+    # upload everything to s3
+    dir = Storage.directories.create(key: Settings.storage.media)
+
+    files = Talk.archived.inject({}) do |result, talk|
+      transitions = talk.all_files.inject({}) do |files, file|
+        files.merge file => (talk.uri + '/' + File.basename(file))
+      end
+      result.merge transitions
+    end
+
+    mv_script = File.open(File.expand_path('move_script.sh', ENV['HOME']), 'w')
+    mv_script.puts "mkdir -p /home/app/uploaded_to_s3"
+    
+    count = files.keys.size
+    counter = 0
+    files.each do |file, key|
+      begin
+        counter += 1
+        handle = File.open(file)
+        puts "uploading #{counter}/#{count} #{file} to #{key}"
+        mv_script.puts "cp -l -v --parents #{file} /home/app/uploaded_to_s3; rm #{file}"
+        dir.files.create key: key, body: handle
+      rescue Exception => e
+        puts "Error uploading #{file} to #{key}"
+        puts e
+      end
+    end
+
+    puts 'test everything, than run ~/move_script.sh'
+  end
+  
+  # TODO this task is to be removed after transition to s3
+  task move_to_s3_step2: :environment do
+    # delete symlinks
+    path = File.expand_path('public/system/audio', Rails.root)
+    FileUtils.rm_rf(path, verbose: true)
+
+    # delete archive and archive_raw
+    path = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+    FileUtils.rm_rf(path, verbose: true)
+    path = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    FileUtils.rm_rf(path, verbose: true)
+  end
+  
 end

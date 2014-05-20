@@ -92,7 +92,7 @@ class Talk < ActiveRecord::Base
   after_save :generate_flyer, if: ->(t) { t.starts_at_changed? || t.title_changed? }
 
   serialize :session
-
+  serialize :storage
   serialize :audio_formats, Array
 
   delegate :user, to: :venue
@@ -487,6 +487,7 @@ class Talk < ActiveRecord::Base
     FileUtils.mkdir_p(target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
+
     FileUtils.fileutils_output = $stderr
 
     # TODO: save transcoded audio formats
@@ -495,10 +496,35 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
+  # collect information about what's stored via fog
+  def cache_storage_metadata(file=nil)
+    return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
+
+    key = "#{uri}/#{File.basename(file)}"
+    self.storage ||= {}
+    self.storage[key] = {
+      key:      key,
+      ext:      File.extname(file),
+      size:     File.size(file),
+      duration: Avconv.duration(file),
+      start:    Avconv.start(file)
+    }
+    # add duration in seconds
+    if dur = storage[key][:duration]
+      h, m, s = dur.split(':').map(&:to_i)
+      self.storage[key][:seconds] = (h * 60 + m) * 60 + s
+    end
+    storage
+  end
+  
+  def media_storage
+    @media_storage ||=
+      Storage.directories.new(key: Settings.storage.media, prefix: uri)
+  end
+  
   def logfile
     return @logfile unless @logfile.nil?
-    base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    path = File.join(base, Time.now.strftime(ARCHIVE_STRUCTURE))
+    path = File.expand_path(Settings.paths.log, Rails.root)
     FileUtils.mkdir_p(path)
     @logfile = File.open(File.join(path, "#{id}.log"), 'a')
     @logfile.sync = true

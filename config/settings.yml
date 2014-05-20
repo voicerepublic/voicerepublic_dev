@@ -46,3 +46,8 @@ mail_domain: 'localhost'
 flyer:
   location: /system/flyer
   path: public/system/flyer
+storage:
+  media: vr-dev-media
+  import: vr-dev-import
+paths:
+  log: local/log  
