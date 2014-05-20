@@ -86,13 +86,14 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
+  after_create :set_uri!, unless: :uri?
 
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer, if: ->(t) { t.starts_at_changed? || t.title_changed? }
 
   serialize :session
-
+  serialize :storage
   serialize :audio_formats, Array
 
   delegate :user, to: :venue
@@ -167,6 +168,7 @@ class Talk < ActiveRecord::Base
   # DO NOT USE THIS, it will undermine tracking of playcounts
   # use `media_links` instead
   def download_links
+    raise 'this method has been deprecated, plz fix your code'
     return {} unless recording
     archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
     glob = "#{archive}/#{recording}.*"
@@ -179,49 +181,14 @@ class Talk < ActiveRecord::Base
     formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}#{variant}.#{f}" }
   end
 
-  # generates an ephemeral path (which is realized as a symlink) and
-  # returns the location for redirecting to that path
+  # generates an ephemeral path and returns the location for
+  # redirecting to that path
   #
-  # symlink pattern
-  #
-  #   public/audio/:year/:month/:day/:token-:id:variant
-  #
-  # target pattern (links to)
-  #
-  #   :archive/:recording:variant
-  #
-  # the interpolations are
-  #
-  #  * year, month, day - of now
-  #  * token - a long (48 byte) urlsafe random token
-  #  * id - the id of the talk
-  #  * variant - something like '.wav' or '-pj.m4a'
-  #  * archive - the base directory for the archive
-  #  * recording - the physical location stored in column `recording`
-  #
-  # if the interpolation `variant` is not given as a parameter, it
-  # defaults to '.wav'
-  #
-  def generate_ephemeral_path!(variant='.wav')
-    # determine source
-    base = Settings.rtmp.archive_path
-    path = recording + variant
-    source = File.expand_path(path, base)
-    raise "File not found: #{source}" unless File.exist?(source)
-    # determine & create target path
-    token = SecureRandom.urlsafe_base64(48)
-    loc_base = Rails.root.join 'public'
-    loc_path = Time.now.strftime("system/audio/%Y/%m/%d")
-    check = "#{loc_base}/#{loc_path}"
-    FileUtils.mkdir_p(check) unless File.exist?(check)
-    # determine and check availability of target file
-    loc_file = "#{token}-#{id}#{variant}"
-    target = "#{loc_base}/#{loc_path}/#{loc_file}"
-    raise "File already exists: #{target}" if File.exist?(target)
-    # create symlink
-    FileUtils.ln_s(source, target)
-    # return location url
-    "/#{loc_path}/#{loc_file}"
+  # TODO check speed (it will make an API call to S3)
+  def generate_ephemeral_path!(variant='.mp3')
+    filename = "#{uri}/#{id}#{variant}"
+    head = media_storage.files.new(key: filename)
+    head.url(7.days.from_now)
   end
 
   # the message history is available as text file to the host
@@ -266,7 +233,7 @@ class Talk < ActiveRecord::Base
   def reset_to_postlive!
     self.reload
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    base = File.dirname(File.join(archive_raw, recording))
+    base = File.dirname(File.join(archive_raw, recording.to_s))
     target = Settings.rtmp.recordings_path
     FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target)
     self.recording = nil
@@ -291,12 +258,14 @@ class Talk < ActiveRecord::Base
     ended_at - started_at
   end
 
+  # TODO to be removed, after transition to s3
   def disk_usage # in bytes
     all_files.inject(0) do |result, file|
       result + File.size(file)
     end
   end
 
+  # TODO to be removed, after transition to s3
   def all_files
     path0 = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     rec0  = File.dirname(recording)
@@ -308,6 +277,10 @@ class Talk < ActiveRecord::Base
     Dir.glob(glob0) + Dir.glob(glob1)
   end
 
+  def podcast_file
+    storage["#{uri}/#{id}.mp3"]
+  end
+  
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -381,13 +354,13 @@ class Talk < ActiveRecord::Base
     logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"
 
     # move files back into position for processing
-    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    base = File.dirname(File.join(archive_raw, recording))
-    target = Settings.rtmp.recordings_path
-    FileUtils.fileutils_output = logfile
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.*"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
-    FileUtils.fileutils_output = $stderr
+    target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+    media_storage.files.each do |file|
+      next unless file.key =~ /\.(flv|journal)$/
+      path = File.join(target, File.basename(file.key))
+      logfile.puts "# download #{file.key} to #{path}"
+      File.open(path, 'w') { |f| f.write(file.body) }
+    end
 
     chain = venue.opts.process_chain
     chain ||= Setting.get('audio.process_chain')
@@ -419,14 +392,14 @@ class Talk < ActiveRecord::Base
         cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav"
         logfile.puts cmd
         %x[ #{cmd} ]
-        # move ogg to archive
+        # upload ogg to s3
         ogg = tmp + '.ogg'
-        path = Time.now.strftime(ARCHIVE_STRUCTURE) + "/override-#{id}.ogg"
-        base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-        target = File.join(base, path)
-        FileUtils.mkdir_p(File.dirname(target), verbose: true)
-        FileUtils.mv(ogg, target, verbose: true)
+        key = uri + "/override-#{id}.ogg"
+        handle = File.open(ogg)
+        logfile.puts "# upload #{ogg} to #{key}"
+        media_storage.files.create key: key, body: handle
         # store reference
+        path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, path
         # move wav to `recordings`
         wav = tmp + '.wav'
@@ -467,38 +440,51 @@ class Talk < ActiveRecord::Base
     # save recording
     update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
     logfile.puts "# set `recording` to '#{recording}'"
+
     # delete some files (mainly wave files, we'll keep only flv
     # and compressed files)
     logfile.puts '# delete wav files'
     FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav"), verbose: true)
     FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav"), verbose: true)
     FileUtils.rm(Dir.glob("#{base}/#{id}.wav"), verbose: true)
-    # move some files to archive_raw (journal and flv files)
-    archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    target = File.dirname(File.join(archive_raw, recording))
-    logfile.puts "# move files to #{target}"
-    FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/t#{id}-u*.flv"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.journal"), target, verbose: true)
-    # move some files to archive (all other files)
-    archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    target = File.dirname(File.join(archive, recording))
-    logfile.puts "# move files to #{target}"
-    FileUtils.mkdir_p(target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
-    FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
-    FileUtils.fileutils_output = $stderr
 
+    storage = {}
+    # move everything to fog storage
+    files = ( Dir.glob("#{base}/t#{id}-u*.flv") +
+              Dir.glob("#{base}/#{id}.journal") +
+              Dir.glob("#{base}/#{id}.*") +
+              Dir.glob("#{base}/#{id}-*.*") ).uniq
+    files.each do |file|
+      key = "#{uri}/#{File.basename(file)}"
+      # collect information about what's stored via fog
+      storage[key] = {
+        size:     File.size(file),
+        duration: Avconv.duration(file),
+        start:    Avconv.start(file)
+      }
+      handle = File.open(file)
+      logfile.puts "# upload #{file} to #{key}"
+      media_storage.files.create key: key, body: handle
+      FileUtils.rm(file, verbose: true)
+    end
+
+    FileUtils.fileutils_output = $stderr
     # TODO: save transcoded audio formats
 
+    update_attribute :storage, storage
+    
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
+  def media_storage
+    @media_storage ||=
+      Storage.directories.new(key: Settings.storage.media, prefix: uri)
+  end
+  
   def logfile
     return @logfile unless @logfile.nil?
-    base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    path = File.join(base, Time.now.strftime(ARCHIVE_STRUCTURE))
+    path = File.expand_path(Settings.paths.log, Rails.root)
     FileUtils.mkdir_p(path)
     @logfile = File.open(File.join(path, "#{id}.log"), 'a')
     @logfile.sync = true
@@ -534,4 +520,9 @@ class Talk < ActiveRecord::Base
     }
   end
 
+  def set_uri!
+    self.uri = "vr-#{id}"
+    save!
+  end
+  
 end

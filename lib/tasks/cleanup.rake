@@ -1,4 +1,5 @@
 namespace :cleanup do
+
   desc 'Delete guest users that are no longer active'
   task :guests => :environment do
     User.where('firstname like ?', '%guest%').
@@ -59,4 +60,5 @@ namespace :cleanup do
       talk.update_attribute :description, '<i>blank description</i>'
     end
   end
+  
 end

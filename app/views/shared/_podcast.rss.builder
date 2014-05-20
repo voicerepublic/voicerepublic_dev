@@ -76,11 +76,10 @@ xml.rss namespaces.merge(version: '2.0') do
 
     talks = @podcast.talks || []
     talks.each do |talk|
-      size = vrmedia_size(talk)
-      next unless size > 0
+      # skip talks where media is missing for whatever reason
+      next unless talk.podcast_file
       
       xml.item do
-
         xml.title h talk.title
 
         # description
@@ -89,7 +88,7 @@ xml.rss namespaces.merge(version: '2.0') do
 
         xml.itunes :subtitle, talk.teaser
         xml.itunes :author, talk.venue.user.name
-        xml.itunes :duration, vrmedia_duration(talk)
+        xml.itunes :duration, talk.podcast_file[:duration]
         xml.itunes :explicit, 'no'
         xml.itunes :image, href: talk.image.thumb('1400x1400#').url
         xml.pubDate talk.processed_at.to_s(:rfc822)
@@ -97,7 +96,7 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.guid venue_talk_url(talk.venue, talk), isPermaLink: true
         xml.enclosure url: vrmedia_url(talk),
                       type: "audio/mpeg",
-                      length: size
+                      length: talk.podcast_file[:size]
       end
     end
   end
