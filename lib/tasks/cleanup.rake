@@ -90,7 +90,7 @@ namespace :cleanup do
     count = files.keys.size
     counter = 0
     files.each do |file, key|
-      counter =+ 1
+      counter += 1
       handle = File.open(file)
       puts "uploading #{counter}/#{count} #{file} to #{key}"
       dir.files.create key: key, body: handle
