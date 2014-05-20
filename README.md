@@ -345,11 +345,11 @@ Through temporary redundancies we'll have a working app at all times,
 apart from audio processing, which we'll shut down during the upgrade
 to make sure no new, untracked files are created while upgrading.
 
-### Step 1
+### Step 1: Getting Ready
 
 Disable monitoring for audio djs in monit and stop.
 
-### Step 2
+### Step 2: Integrate Fog & Upload Files to S3
 
  1. Merge PR #179
  2. Deploy
@@ -366,7 +366,7 @@ Will take care of
 The config files `app/shared/config/settings.local.yml` are already
 prepared for staging and live.
 
-### Step 3
+### Step 3: Main Code Change & Cleanup Disk
 
  1. Merge PR #180
  2. Deploy
@@ -379,6 +379,10 @@ Will take care of
 
  * fs: remove ephemeral symlinks
  * fs: delete archive and archive_raw
+
+### Step 4: Remove transitional code
+
+ 1. Merge PR #181
 
 Champagne!
 
