@@ -50,6 +50,7 @@ gem 'auphonic'
 gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
+gem 'fog'
 
 group :development, :test do
   # gem 'rails_view_annotator'

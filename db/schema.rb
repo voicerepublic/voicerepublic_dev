@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502224826) do
+ActiveRecord::Schema.define(version: 20140514113714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,8 +199,8 @@ ActiveRecord::Schema.define(version: 20140502224826) do
     t.integer  "duration",           default: 30
     t.string   "image_uid"
     t.text     "session"
-    t.datetime "featured_from"
     t.text     "audio_formats",      default: "--- []\n"
+    t.datetime "featured_from"
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 20140502224826) do
     t.string   "uri"
     t.string   "recording_override"
     t.integer  "related_talk_id"
+    t.text     "storage"
   end
 
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
