@@ -101,7 +101,9 @@ namespace :cleanup do
     
     count = files.keys.size
     counter = 0
-    files.each do |file, key|
+    paths = files.keys.sort
+    paths.each do |file|
+      key = files[file]
       begin
         counter += 1
         handle = File.open(file)
