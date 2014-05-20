@@ -815,6 +815,11 @@ en:
       popular: POPULAR
       recent: RECENT
       see_all: MORE
+
+  embed_talks:
+    show:
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+
   articles:
     venue_form:
       write_an_article: write an article
