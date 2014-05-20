@@ -448,22 +448,16 @@ class Talk < ActiveRecord::Base
     FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav"), verbose: true)
     FileUtils.rm(Dir.glob("#{base}/#{id}.wav"), verbose: true)
 
-    storage = {}
     # move everything to fog storage
     files = ( Dir.glob("#{base}/t#{id}-u*.flv") +
               Dir.glob("#{base}/#{id}.journal") +
               Dir.glob("#{base}/#{id}.*") +
               Dir.glob("#{base}/#{id}-*.*") ).uniq
     files.each do |file|
+      cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
-      # collect information about what's stored via fog
-      storage[key] = {
-        size:     File.size(file),
-        duration: Avconv.duration(file),
-        start:    Avconv.start(file)
-      }
       handle = File.open(file)
-      logfile.puts "# upload #{file} to #{key}"
+      logfile.puts "s3cmd put #{file} s3://#{Settings.storage.media}/#{key}"
       media_storage.files.create key: key, body: handle
       FileUtils.rm(file, verbose: true)
     end
@@ -477,6 +471,27 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
+  # collect information about what's stored via fog
+  def cache_storage_metadata(file=nil)
+    return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
+
+    key = "#{uri}/#{File.basename(file)}"
+    self.storage ||= {}
+    self.storage[key] = {
+      key:      key,
+      ext:      File.extname(file),
+      size:     File.size(file),
+      duration: Avconv.duration(file),
+      start:    Avconv.start(file)
+    }
+    # add duration in seconds
+    if dur = storage[key][:duration]
+      h, m, s = dur.split(':').map(&:to_i)
+      self.storage[key][:seconds] = (h * 60 + m) * 60 + s
+    end
+    storage
+  end
+  
   def media_storage
     @media_storage ||=
       Storage.directories.new(key: Settings.storage.media, prefix: uri)

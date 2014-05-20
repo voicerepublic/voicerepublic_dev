@@ -77,23 +77,41 @@ namespace :cleanup do
     logs = Dir.glob(File.join(archive_path, '*', '*', '*', '*.log'))
     FileUtils.mv(logs, log_path, verbose: true)
 
+    # set storage metadata before uploading
+    Talk.archived.each do |talk|
+      talk.send(:cache_storage_metadata)
+      talk.save!
+    end
+    
     # upload everything to s3
-    dir = Storage.directories.get(Settings.storage.media)
+    dir = Storage.directories.create(key: Settings.storage.media)
 
     files = Talk.archived.inject({}) do |result, talk|
-      result.merge talk.all_files.inject({}) do |files, file|
-        files.merge file => talk.uri + '/' + File.basename(file)
+      transitions = talk.all_files.inject({}) do |files, file|
+        files.merge file => (talk.uri + '/' + File.basename(file))
       end
+      result.merge transitions
     end
 
+    mv_script = File.open(File.expand_path('move_script.sh', ENV['HOME']), 'w')
+    mv_script.puts "mkdir -p /home/app/uploaded_to_s3"
+    
     count = files.keys.size
     counter = 0
     files.each do |file, key|
-      counter =+ 1
-      handle = File.open(file)
-      puts "uploading #{counter}/#{count} #{file} to #{key}"
-      dir.files.create key: key, body: handle
+      begin
+        counter += 1
+        handle = File.open(file)
+        puts "uploading #{counter}/#{count} #{file} to #{key}"
+        mv_script.puts "cp -l -v --parents #{file} /home/app/uploaded_to_s3; rm #{file}"
+        dir.files.create key: key, body: handle
+      rescue Exception => e
+        puts "Error uploading #{file} to #{key}"
+        puts e
+      end
     end
+
+    puts 'test everything, than run ~/move_script.sh'
   end
   
   # TODO this task is to be removed after transition to s3
