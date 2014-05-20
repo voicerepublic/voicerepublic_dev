@@ -497,8 +497,7 @@ class Talk < ActiveRecord::Base
 
   def logfile
     return @logfile unless @logfile.nil?
-    base = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    path = File.join(base, Time.now.strftime(ARCHIVE_STRUCTURE))
+    path = File.expand_path(Settings.paths.log, Rails.root)
     FileUtils.mkdir_p(path)
     @logfile = File.open(File.join(path, "#{id}.log"), 'a')
     @logfile.sync = true
