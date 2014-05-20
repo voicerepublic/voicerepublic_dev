@@ -92,7 +92,7 @@ class Talk < ActiveRecord::Base
   after_save :generate_flyer, if: ->(t) { t.starts_at_changed? || t.title_changed? }
 
   serialize :session
-
+  serialize :storage
   serialize :audio_formats, Array
 
   delegate :user, to: :venue
