@@ -487,6 +487,7 @@ class Talk < ActiveRecord::Base
     FileUtils.mkdir_p(target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}.*"), target, verbose: true)
     FileUtils.mv(Dir.glob("#{base}/#{id}-*.*"), target, verbose: true)
+
     FileUtils.fileutils_output = $stderr
 
     # TODO: save transcoded audio formats
@@ -495,6 +496,30 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
 
+  # collect information about what's stored via fog
+  def cache_storage_metadata(file=nil)
+    return all_files.each { |file| cache_storage_metadata(file) } if file.nil?
+
+    key = "#{uri}/#{File.basename(file)}"
+    dur = Avconv.duration(file)
+    h, m, s = dur.split(':').map(&:to_i)
+    seconds = (h * 60 + m) * 60 + s
+    storage ||= {}
+    storage[key] = {
+      key:      key,
+      ext:      File.extname(file),
+      size:     File.size(file),
+      duration: dur,
+      seconds:  seconds,
+      start:    Avconv.start(file)
+    }
+  end
+  
+  def media_storage
+    @media_storage ||=
+      Storage.directories.new(key: Settings.storage.media, prefix: uri)
+  end
+  
   def logfile
     return @logfile unless @logfile.nil?
     path = File.expand_path(Settings.paths.log, Rails.root)
