@@ -77,11 +77,12 @@ namespace :cleanup do
     logs = Dir.glob(File.join(archive_path, '*', '*', '*', '*.log'))
     FileUtils.mv(logs, log_path, verbose: true)
 
-    # set storage metadata before uploading
-    Talk.archived.each do |talk|
-      talk.send(:cache_storage_metadata)
-      talk.save!
-    end
+    # save some time
+    # # set storage metadata before uploading
+    # Talk.archived.each do |talk|
+    #   talk.send(:cache_storage_metadata)
+    #   talk.save!
+    # end
     
     # upload everything to s3
     dir = Storage.directories.create(key: Settings.storage.media)
@@ -93,6 +94,8 @@ namespace :cleanup do
       result.merge transitions
     end
 
+    present = dir.files.inject({}) { |result, file| result.merge file.key => file }
+    
     mv_script = File.open(File.expand_path('move_script.sh', ENV['HOME']), 'w')
     mv_script.puts "mkdir -p /home/app/uploaded_to_s3"
     
@@ -104,7 +107,12 @@ namespace :cleanup do
         handle = File.open(file)
         puts "uploading #{counter}/#{count} #{file} to #{key}"
         mv_script.puts "cp -l -v --parents #{file} /home/app/uploaded_to_s3; rm #{file}"
-        dir.files.create key: key, body: handle
+        pres = present[key]
+        unless pres && File.size(file) == pres.content_length
+          dir.files.create key: key, body: handle
+        else
+          puts 'skip already uploaded file'
+        end
       rescue Exception => e
         puts "Error uploading #{file} to #{key}"
         puts e

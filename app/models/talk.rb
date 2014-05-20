@@ -298,14 +298,18 @@ class Talk < ActiveRecord::Base
   end
 
   def all_files
-    path0 = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    rec0  = File.dirname(recording)
-    glob0 = File.join(path0, rec0, "t#{id}-u*.flv")
+    return [] if recording.blank?
 
-    path1 = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    glob1 = File.join(path1, "#{recording}*.*")
+    path0  = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
+    rec0   = File.dirname(recording)
+    glob0  = File.join(path0, rec0, "t#{id}-u*.flv")
+    files0 = Dir.glob(glob0)
+    
+    path1  = File.expand_path(Settings.rtmp.archive_path, Rails.root)
+    glob1  = File.join(path1, "#{recording}*.*")
+    files1 = Dir.glob(glob1).grep(/#{recording}[^\d]*\./)
 
-    Dir.glob(glob0) + Dir.glob(glob1)
+    files0 + files1
   end
 
   private
