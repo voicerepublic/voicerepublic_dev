@@ -29,10 +29,14 @@ class TalksController < ApplicationController
   end
 
   def index
-    @talks_live     = Talk.live.limit(5)
-    @talks_featured = Talk.featured.limit(5)
-    @talks_recent   = Talk.recent.limit(5)
-    @talks_popular  = Talk.popular.limit(5)
+    if @venue
+      @talks = @venue.talks 
+    else
+      @talks_live     = Talk.live.limit(5)
+      @talks_featured = Talk.featured.limit(5)
+      @talks_recent   = Talk.recent.limit(5)
+      @talks_popular  = Talk.popular.limit(5)
+    end
   end
 
   # GET /talks/1

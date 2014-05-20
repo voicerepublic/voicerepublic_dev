@@ -126,6 +126,10 @@ class Talk < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
+  def description_as_plaintext
+    Nokogiri::HTML(description).text
+  end
+  
   # returns an array of json objects
   def guest_list
     guests.map(&:for_select).to_json

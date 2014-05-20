@@ -22,10 +22,14 @@ describe UsersController do
   end
 
   describe "GET show" do
+    let(:user) { FactoryGirl.create(:user) }
     it "assigns the requested user as @user" do
-      user = User.create! valid_attributes
       get :show, {:id => user.to_param}, valid_session
       assigns(:user).should eq(user)
+    end
+    it "returns http success with format rss" do
+      get :show, id: user.to_param, format: 'rss'
+      response.should be_success
     end
   end
 

@@ -156,6 +156,16 @@ Config entries are compiled from:
 Settings defined in files that are lower in the list override settings higher.
 
 
+Deploy
+------
+
+    cap staging deploy
+
+Deploy a specific branch to staging, e.g.
+
+    REVISION=feature/65463494/subscribe_podcast cap staging deploy
+
+
 Conference Features
 -------------------
 
@@ -269,6 +279,13 @@ Disk Space Requirements
     ratios = Talk.archived.map { |t| t.disk_usage / t.duration.to_f }
     mean = ratios.inject { |r, s| r + s } / qs.size.to_f
     mean / 1024.0
+
+Backup
+------
+
+On VRBackup (Synology DiskStation)
+
+    rsync -avz --progress app@voicerepublic.com:app backup
 
 
 Audio cheat sheet
