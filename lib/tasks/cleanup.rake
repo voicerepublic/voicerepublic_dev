@@ -78,7 +78,7 @@ namespace :cleanup do
     FileUtils.mv(logs, log_path, verbose: true)
 
     # upload everything to s3
-    dir = Storage.directories.get(Settings.storage.media)
+    dir = Storage.directories.create(Settings.storage.media)
 
     files = Talk.archived.inject({}) do |result, talk|
       result.merge talk.all_files.inject({}) do |files, file|
