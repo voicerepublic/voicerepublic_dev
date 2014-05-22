@@ -32,8 +32,12 @@ module Audio
         [ input, backup ]
       end
 
+      def tmpfile
+        "#{name}-unified.wav"
+      end
+      
       def unify_cmd(file)
-        "sox #{file} -c 2 unified.wav rate -L 44.1k; mv unified.wav #{file}"
+        "sox #{file} -c 2 #{tmpfile} rate -L 44.1k; mv #{tmpfile} #{file}"
       end
       
       def merge_with_jingles_cmd
