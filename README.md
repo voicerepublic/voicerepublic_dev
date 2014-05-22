@@ -399,3 +399,37 @@ Talk.where('recording_override IS NOT NULL').each do |talk|
   talk.update_column :recording_override, override
 end; nil
 
+Upload Overrides to s3
+----------------------
+
+Dir.glob('/home/app/app/shared/archive/*/*/*/override-*.ogg').each do |path|
+  puts path
+  id = path.match(/override-(\d+).ogg$/).to_a[1]
+  talk = Talk.find(id)
+  ms = talk.send(:media_storage)
+  key = talk.uri+'/'+File.basename(path)
+  handle = File.open(path)
+  ms.files.create(key: key, body: handle)
+end
+
+
+
+Rerun all processings
+---------------------
+
+Talk.archived.order('play_count DESC').each do |talk|
+  method = talk.recording_override.blank? ? :reprocess! : :process_override!
+  talk.send method
+end
+
+
+Try on Staging
+--------------
+
+### Re-Process-Override
+
+    Talk.find(2243).send(:process_override!)
+
+### Re-Process
+
+    Talk.find(2318).send(:reprocess!)
