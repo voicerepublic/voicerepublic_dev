@@ -390,39 +390,39 @@ Champagne!
 Fix recording_override
 ----------------------
 
-bucket = Settings.storage.media
-Talk.where('recording_override IS NOT NULL').each do |talk|
-  next if talk.recording_override.blank?
-  basename = File.basename(talk.recording_override)
-  override = "s3://#{bucket}/#{talk.uri}/#{basename}"
-  puts "#{talk.recording_override} -> #{override}"
-  talk.update_column :recording_override, override
-end; nil
+    bucket = Settings.storage.media
+    Talk.where('recording_override IS NOT NULL').each do |talk|
+      next if talk.recording_override.blank?
+      basename = File.basename(talk.recording_override)
+      override = "s3://#{bucket}/#{talk.uri}/#{basename}"
+      puts "#{talk.recording_override} -> #{override}"
+      talk.update_column :recording_override, override
+    end; nil
 
 Upload Overrides to s3
 ----------------------
 
-Dir.glob('/home/app/app/shared/archive/*/*/*/override-*.ogg').each do |path|
-  puts path
-  id = path.match(/override-(\d+).ogg$/).to_a[1]
-  talk = Talk.find(id)
-  ms = talk.send(:media_storage)
-  key = talk.uri+'/'+File.basename(path)
-  handle = File.open(path)
-  ms.files.create(key: key, body: handle)
-end
+    Dir.glob('/home/app/app/shared/archive/*/*/*/override-*.ogg').each do |path|
+      puts path
+      id = path.match(/override-(\d+).ogg$/).to_a[1]
+      talk = Talk.find(id)
+      ms = talk.send(:media_storage)
+      key = talk.uri+'/'+File.basename(path)
+      handle = File.open(path)
+      ms.files.create(key: key, body: handle)
+    end
 
+Enqueue all archived talks for processing
+-----------------------------------------
 
-
-Rerun all processings
----------------------
-
-Talk.archived.order('play_count DESC').each do |talk|
-  puts talk.id
-  method = talk.recording_override.blank? ? :reprocess! : :process_override!
-  talk.send method
-end
-
+    Talk.archived.order('play_count DESC').each do |talk|
+      puts talk.id
+      if talk.recording_override.blank?
+        Delayed::Job.enqueue(Reprocess.new(id), queue: 'prio')
+      else
+        Delayed::Job.enqueue(ProcessOverride.new(id), queue: 'prio')
+      end
+    end
 
 Try on Staging
 --------------
