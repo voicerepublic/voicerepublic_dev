@@ -345,16 +345,17 @@ Through temporary redundancies we'll have a working app at all times,
 apart from audio processing, which we'll shut down during the upgrade
 to make sure no new, untracked files are created while upgrading.
 
-### Step 1: Shut down Audio DJs
+### Step 1: Getting Ready
 
 Disable monitoring for audio djs in monit and stop.
 
-### Step 2: Run Rake Task 1/2
+### Step 2: Integrate Fog & Upload Files to S3
 
-Since this has to happen before the deploy, I suggest to scp the rake
-file over to the server.
-
-    scp lib/tasks/cleanup.rake vrs:app/current/lib/tasks
+ 1. Merge PR #179
+ 2. Deploy
+ 3. Run rake
+ 
+    (cd app/current; bundle exec rake cleanup:move_to_s3_step1 --trace)
 
 Will take care of
 
@@ -362,33 +363,27 @@ Will take care of
  * fs: move processing log files to new location
  * fs: upload all audio files to s3 (this might take a while)
 
-Run
+The config files `app/shared/config/settings.local.yml` are already
+prepared for staging and live.
 
-    rake cleanup:move_to_s3_step1
+### Step 3: Main Code Change & Cleanup Disk
 
-### Step 3: Deploy Migrations & Code Changes
-
-As you would normally deploy.
-
-Test the system thourougly before proceeding! 
-
-### Step 4: Run Rake Task 2/2
+ 1. Merge PR #180
+ 2. Deploy
+ 3. Test system thouroughly
+ 4. Run rake
+ 
+    (cd app/current; bundle exec rake cleanup:move_to_s3_step2 --trace)
 
 Will take care of
 
  * fs: remove ephemeral symlinks
  * fs: delete archive and archive_raw
 
-This is a good time to run a local backup of all audio files (although
-this might take a while)
+### Step 4: Remove transitional code
 
-    scp -r vrs:app/shared/archive .
-    scp -r vrs:app/shared/archive_raw .
+ 1. Merge PR #181
 
-Run
+Champagne!
 
-    rake cleanup:move_to_s3_step2
 
-### Step 5: Start Audio DJs
-
-Reenable monitoring for audio djs in monit and start.
