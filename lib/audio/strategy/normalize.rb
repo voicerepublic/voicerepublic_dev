@@ -17,10 +17,14 @@ module Audio
         inputs
       end
 
+      def tmpfile
+        "#{name}-normalized.wav"
+      end
+      
       def normalize_wavs_cmd(files)
         raise 'no streams?' if files.empty?
         files.map do |file|
-          "sox --norm #{file} norm.wav; mv norm.wav #{file}"
+          "sox --norm #{file} #{tmpfile}; mv #{tmpfile} #{file}"
         end.join("\n")
       end
 
