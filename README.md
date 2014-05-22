@@ -387,3 +387,15 @@ Will take care of
 Champagne!
 
 
+Fix recording_override
+----------------------
+
+bucket = Settings.storage.media
+Talk.where('recording_override IS NOT NULL').each do |talk|
+  next if talk.recording_override.blank?
+  basename = File.basename(talk.recording_override)
+  override = "s3://#{bucket}/#{talk.uri}/#{basename}"
+  puts "#{talk.recording_override} -> #{override}"
+  talk.update_column :recording_override, override
+end; nil
+

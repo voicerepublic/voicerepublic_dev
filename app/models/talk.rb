@@ -386,6 +386,13 @@ class Talk < ActiveRecord::Base
         cmd = "cp #{url} #{tmp}"
         # use wget for real urls
         cmd = "wget -q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        # fetch files from s3
+        if url =~ /^s3:\/\//
+          cmd = "## s3cmd get #{url} #{tmp} # (ruby code)"
+          key = url.sub("s3://#{media_storage.key}/", '')
+          file = media_storage.files.new(key: key)
+          File.open(tmp, 'w') { |f| f.write(file.body) }
+        end
         logfile.puts cmd
         %x[ #{cmd} ]
         # convert to ogg
