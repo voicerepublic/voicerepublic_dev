@@ -429,7 +429,8 @@ class Talk < ActiveRecord::Base
   def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
-
+    t0 = Time.now
+    
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     opts = {
       talk_start: started_at.to_i,
@@ -476,7 +477,9 @@ class Talk < ActiveRecord::Base
     # TODO: save transcoded audio formats
 
     update_attribute :storage, storage
-    
+
+    dt = Time.now - t0
+    logfile.puts "## Elapsed time: %s:%02d:%02d" % [dt / 3600, dt % 3600 / 60, dt % 60]
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end

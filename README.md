@@ -418,6 +418,7 @@ Rerun all processings
 ---------------------
 
 Talk.archived.order('play_count DESC').each do |talk|
+  puts talk.id
   method = talk.recording_override.blank? ? :reprocess! : :process_override!
   talk.send method
 end
