@@ -418,9 +418,9 @@ Enqueue all archived talks for processing
     Talk.archived.order('play_count DESC').each do |talk|
       puts talk.id
       if talk.recording_override.blank?
-        Delayed::Job.enqueue(Reprocess.new(id), queue: 'prio')
+        Delayed::Job.enqueue(Reprocess.new(talk.id), queue: 'prio')
       else
-        Delayed::Job.enqueue(ProcessOverride.new(id), queue: 'prio')
+        Delayed::Job.enqueue(ProcessOverride.new(talk.id), queue: 'prio')
       end
     end
 
