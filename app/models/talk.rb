@@ -559,5 +559,12 @@ class Talk < ActiveRecord::Base
     self.uri = "vr-#{id}"
     save!
   end
-  
+
+  # generically propagate all state changes to faye
+  #
+  # TODO cleanup publish statement scatter all over the code above
+  def event_fired(*args)
+    PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+  end
+
 end
