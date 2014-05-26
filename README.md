@@ -331,3 +331,17 @@ Console Cheat Sheet
         Delayed::Job.enqueue(ProcessOverride.new(talk.id), queue: 'prio')
       end
     end
+
+### Fix empty storage
+
+    Talk.where(storage: nil).each { |t| t.update_attribute :storage, {} }
+
+
+Debug S3 transition
+-------------------
+
+### Case 982: FLV files missing
+
+    ll app/shared/archive_raw/2014/*/*/t982*.flv
+
+
