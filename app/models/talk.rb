@@ -562,7 +562,7 @@ class Talk < ActiveRecord::Base
 
   # generically propagate all state changes to faye
   #
-  # TODO cleanup publish statement scatter all over the code above
+  # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
     PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
   end
