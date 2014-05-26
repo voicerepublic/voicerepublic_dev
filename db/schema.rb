@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140514113714) do
+ActiveRecord::Schema.define(version: 20140526132745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,7 +210,7 @@ ActiveRecord::Schema.define(version: 20140514113714) do
     t.string   "uri"
     t.string   "recording_override"
     t.integer  "related_talk_id"
-    t.text     "storage"
+    t.text     "storage",            default: "--- {}\n"
   end
 
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
