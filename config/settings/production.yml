@@ -11,4 +11,5 @@ rtmp:
   callback_base:      'http://localhost/rtmp'
   record_max_size:    '100M'
   authenticate:       true
-
+paths:
+  log: /home/app/app/shared/process_log

@@ -328,3 +328,109 @@ Audio cheat sheet
 
     find ./ -name \*.flv -exec avconv -i {} \; 2>&1 | grep Stream
 
+
+Transition to S3
+----------------
+
+The transition to s3 is a little more complicated than a regular
+deploy. Changes at several locations have to be in sync, these
+locations are:
+
+ * code base
+ * database
+ * filesystem
+ * s3
+
+Through temporary redundancies we'll have a working app at all times,
+apart from audio processing, which we'll shut down during the upgrade
+to make sure no new, untracked files are created while upgrading.
+
+### Step 1: Getting Ready
+
+Disable monitoring for audio djs in monit and stop.
+
+### Step 2: Integrate Fog & Upload Files to S3
+
+ 1. Merge PR #179
+ 2. Deploy
+ 3. Run rake
+ 
+    (cd app/current; bundle exec rake cleanup:move_to_s3_step1 --trace)
+
+Will take care of
+
+ * db: update talks#uri
+ * fs: move processing log files to new location
+ * fs: upload all audio files to s3 (this might take a while)
+
+The config files `app/shared/config/settings.local.yml` are already
+prepared for staging and live.
+
+### Step 3: Main Code Change & Cleanup Disk
+
+ 1. Merge PR #180
+ 2. Deploy
+ 3. Test system thouroughly
+ 4. Run rake
+ 
+    (cd app/current; bundle exec rake cleanup:move_to_s3_step2 --trace)
+
+Will take care of
+
+ * fs: remove ephemeral symlinks
+ * fs: delete archive and archive_raw
+
+### Step 4: Remove transitional code
+
+ 1. Merge PR #181
+
+Champagne!
+
+
+Fix recording_override
+----------------------
+
+    bucket = Settings.storage.media
+    Talk.where('recording_override IS NOT NULL').each do |talk|
+      next if talk.recording_override.blank?
+      basename = File.basename(talk.recording_override)
+      override = "s3://#{bucket}/#{talk.uri}/#{basename}"
+      puts "#{talk.recording_override} -> #{override}"
+      talk.update_column :recording_override, override
+    end; nil
+
+Upload Overrides to s3
+----------------------
+
+    Dir.glob('/home/app/app/shared/archive/*/*/*/override-*.ogg').each do |path|
+      puts path
+      id = path.match(/override-(\d+).ogg$/).to_a[1]
+      talk = Talk.find(id)
+      ms = talk.send(:media_storage)
+      key = talk.uri+'/'+File.basename(path)
+      handle = File.open(path)
+      ms.files.create(key: key, body: handle)
+    end
+
+Enqueue all archived talks for processing
+-----------------------------------------
+
+    Talk.archived.order('play_count DESC').each do |talk|
+      puts talk.id
+      if talk.recording_override.blank?
+        Delayed::Job.enqueue(Reprocess.new(talk.id), queue: 'prio')
+      else
+        Delayed::Job.enqueue(ProcessOverride.new(talk.id), queue: 'prio')
+      end
+    end
+
+Try on Staging
+--------------
+
+### Re-Process-Override
+
+    Talk.find(2243).send(:process_override!)
+
+### Re-Process
+
+    Talk.find(2318).send(:reprocess!)
