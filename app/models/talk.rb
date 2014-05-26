@@ -399,18 +399,19 @@ class Talk < ActiveRecord::Base
         logfile.puts cmd
         %x[ #{cmd} ]
         # convert to ogg
-        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav"
+        ogg = "override-#{id}.ogg"
+        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q -o #{ogg} #{tmp}.wav"
         logfile.puts cmd
         %x[ #{cmd} ]
         # upload ogg to s3
-        ogg = tmp + '.ogg'
-        key = uri + "/override-#{id}.ogg"
+        key = uri + "/" + ogg
         handle = File.open(ogg)
         logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
         media_storage.files.create key: key, body: handle
         # store reference
         path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, path
+        cache_storage_metadata(ogg) and save!
         # move wav to `recordings`
         wav = tmp + '.wav'
         base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -476,7 +477,7 @@ class Talk < ActiveRecord::Base
     FileUtils.fileutils_output = $stderr
     # TODO: save transcoded audio formats
 
-    update_attribute :storage, storage
+    save! # save `storage` field
 
     dt = Time.now.to_i - t0
     logfile.puts "## Elapsed time: %s:%02d:%02d" % [dt / 3600, dt % 3600 / 60, dt % 60]
