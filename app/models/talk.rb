@@ -319,7 +319,14 @@ class Talk < ActiveRecord::Base
     return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
-    delay(queue: 'trigger', run_at: delta).end_talk!
+    delay(queue: 'trigger', run_at: delta).fire_end_talk
+  end
+
+  # fails silently of talk is past state live otherwise fires event
+  # end_talk
+  def fire_end_talk
+    return if archived? or processing?
+    end_talk!
   end
 
   def after_end
