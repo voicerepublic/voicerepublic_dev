@@ -1,6 +1,6 @@
-class EndTalk < Struct.new(:talk_id)
+class EndTalk < MonitoredJob
   def perform
-    talk = Talk.find(talk_id)
+    talk = Talk.find(opts[:id])
     # fail silently if talk is past state live
     return if talk.archived? or talk.processing?
     # otherwise fires event end_talk     
