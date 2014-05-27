@@ -323,13 +323,13 @@ class Talk < ActiveRecord::Base
     return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
-    Delayed::Job.enqueue(EndTalk.new(id), queue: 'trigger', run_at: delta)
+    Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)
   end
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
     unless venue.opts.no_auto_postprocessing
-      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio')
+      Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
     end
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
