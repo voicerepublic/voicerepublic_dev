@@ -20,6 +20,7 @@ privatePubFunc = ($log, $q, config) ->
   $log.debug 'Loading Faye client...'
   # TODO get rid of dependency on jquery, for testability
   $.getScript config.fayeClientUrl, (x) ->
+    config.flags.connecting = false
     $log.debug 'Faye client loaded. Instanciating Faye client...'
     client = new Faye.Client(config.fayeUrl)
     client.addExtension(fayeExtension)
