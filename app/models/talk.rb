@@ -319,7 +319,7 @@ class Talk < ActiveRecord::Base
     return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
-    delay(queue: 'trigger', run_at: delta).end_talk!
+    Delayed::Job.enqueue(EndTalk.new(id), queue: 'trigger', run_at: delta)
   end
 
   def after_end
@@ -355,11 +355,13 @@ class Talk < ActiveRecord::Base
 
     # move files back into position for processing
     target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+    # TODO optimize only pick the files referenced in `storage`
     media_storage.files.each do |file|
+      next unless file.key =~ /^#{uri}\//
       next unless file.key =~ /\.(flv|journal)$/
       path = File.join(target, File.basename(file.key))
-      logfile.puts "# download #{file.key} to #{path}"
-      File.open(path, 'w') { |f| f.write(file.body) }
+      logfile.puts "#R# s3cmd get s3://#{media_storage.key}/#{file.key} #{path}"
+      File.open(path, 'wb') { |f| f.write(file.body) }
     end
 
     chain = venue.opts.process_chain
@@ -373,6 +375,7 @@ class Talk < ActiveRecord::Base
   # FIXME cleanup the wget/cp spec mess with
   # http://stackoverflow.com/questions/2263540
   def process_override!(uat=false)
+    raise 'recording_override not set' if recording_override.blank?
     logfile.puts "\n\n# --- override (#{Time.now}) ---"
 
     # prepare override
@@ -386,6 +389,13 @@ class Talk < ActiveRecord::Base
         cmd = "cp #{url} #{tmp}"
         # use wget for real urls
         cmd = "wget -q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        # fetch files from s3
+        if url =~ /^s3:\/\//
+          cmd = "#R# s3cmd get #{url} #{tmp} # (ruby code)"
+          key = url.sub("s3://#{media_storage.key}/", '')
+          file = media_storage.files.get(key)
+          File.open(tmp, 'wb') { |f| f.write(file.body) }
+        end
         logfile.puts cmd
         %x[ #{cmd} ]
         # convert to ogg
@@ -396,7 +406,7 @@ class Talk < ActiveRecord::Base
         ogg = tmp + '.ogg'
         key = uri + "/override-#{id}.ogg"
         handle = File.open(ogg)
-        logfile.puts "# upload #{ogg} to #{key}"
+        logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
         media_storage.files.create key: key, body: handle
         # store reference
         path = "s3://#{media_storage.key}/#{key}"
@@ -419,7 +429,8 @@ class Talk < ActiveRecord::Base
   def run_chain!(chain, uat=false)
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
-
+    t0 = Time.now.to_i
+    
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     opts = {
       talk_start: started_at.to_i,
@@ -457,7 +468,7 @@ class Talk < ActiveRecord::Base
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
       handle = File.open(file)
-      logfile.puts "s3cmd put #{file} s3://#{Settings.storage.media}/#{key}"
+      logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
       media_storage.files.create key: key, body: handle
       FileUtils.rm(file, verbose: true)
     end
@@ -466,7 +477,9 @@ class Talk < ActiveRecord::Base
     # TODO: save transcoded audio formats
 
     update_attribute :storage, storage
-    
+
+    dt = Time.now.to_i - t0
+    logfile.puts "## Elapsed time: %s:%02d:%02d" % [dt / 3600, dt % 3600 / 60, dt % 60]
     PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
     PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
   end
@@ -539,5 +552,12 @@ class Talk < ActiveRecord::Base
     self.uri = "vr-#{id}"
     save!
   end
-  
+
+  # generically propagate all state changes to faye
+  #
+  # TODO cleanup publish statements scattered all over the code above
+  def event_fired(*args)
+    PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+  end
+
 end
