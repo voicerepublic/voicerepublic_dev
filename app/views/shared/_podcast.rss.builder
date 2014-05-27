@@ -43,7 +43,8 @@ xml.rss namespaces.merge(version: '2.0') do
       xml.cdata! @podcast.description
     end
     xml.link @podcast.url
-    xml.language 'DE'
+    # TODO check if comma separated list is ok here
+    xml.language @podcast.talks.map(&:language).uniq * ', '
     xml.image do
       xml.url @podcast.image_url
       xml.title do
