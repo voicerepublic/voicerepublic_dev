@@ -323,7 +323,7 @@ class Talk < ActiveRecord::Base
     return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
-    delay(queue: 'trigger', run_at: delta).end_talk!
+    Delayed::Job.enqueue(EndTalk.new(id), queue: 'trigger', run_at: delta)
   end
 
   def after_end
@@ -556,5 +556,12 @@ class Talk < ActiveRecord::Base
     self.uri = "vr-#{id}"
     save!
   end
-  
+
+  # generically propagate all state changes to faye
+  #
+  # TODO cleanup publish statements scattered all over the code above
+  def event_fired(*args)
+    PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+  end
+
 end

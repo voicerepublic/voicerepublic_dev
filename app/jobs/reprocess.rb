@@ -1,5 +1,5 @@
-class Reprocess < Struct.new(:talk_id)
+class Reprocess < MonitoredJob
   def perform
-    Talk.find(talk_id).send(:reprocess!)
+    Talk.find(opts[:id]).send(:reprocess!)
   end
 end

@@ -1,5 +1,5 @@
-class ProcessOverride < Struct.new(:talk_id)
+class ProcessOverride < MonitoredJob
   def perform
-    Talk.find(talk_id).send(:process_override!)
+    Talk.find(opts[:id]).send(:process_override!)
   end
 end

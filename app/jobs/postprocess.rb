@@ -1,5 +1,5 @@
-class Postprocess < Struct.new(:talk_id)
+class Postprocess < MonitoredJob
   def perform
-    Talk.find(talk_id).send(:postprocess!)
+    Talk.find(opts[:id]).send(:postprocess!)
   end
 end
