@@ -38,6 +38,8 @@ class Talk < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
+  
   GRACE_PERIOD = 5.minutes
 
   ARCHIVE_STRUCTURE = "%Y/%m/%d"
@@ -66,7 +68,8 @@ class Talk < ActiveRecord::Base
 
   attr_accessible :title, :teaser, :duration, :uri,
                   :description, :record, :image, :tag_list,
-                  :guest_list, :starts_at_date, :starts_at_time
+                  :guest_list, :starts_at_date, :starts_at_time,
+                  :language
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -77,7 +80,8 @@ class Talk < ActiveRecord::Base
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
-  validates :venue, :title, :tag_list, :duration, :description, presence: true
+  validates :venue, :title, :tag_list, :duration, :description,
+            :language, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
