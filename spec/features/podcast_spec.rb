@@ -7,7 +7,6 @@ feature 'Podcast' do
   feature 'for root on landing_page#index' do
 
     scenario 'link to rss in head' do
-      pending 'TEMPORARILY DEACTIVATED'
       visit root_path
       links = Nokogiri::HTML(source).xpath(rss)
       expect(links).to_not be_empty
@@ -25,7 +24,6 @@ feature 'Podcast' do
     let(:user) { FactoryGirl.create(:user) }
 
     scenario 'link to rss in head' do
-      pending 'TEMPORARILY DEACTIVATED'
       visit user_path(user)
       links = Nokogiri::HTML(source).xpath(rss)
       expect(links).to_not be_empty
@@ -44,7 +42,6 @@ feature 'Podcast' do
     let(:venue) { FactoryGirl.create(:venue) }
     
     scenario 'venues#show' do
-      pending 'TEMPORARILY DEACTIVATED'
       visit venue_path(venue)
       links = Nokogiri::HTML(source).xpath(rss)
       expect(links).to_not be_empty
