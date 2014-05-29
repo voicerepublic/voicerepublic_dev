@@ -17,19 +17,26 @@ class UserMailer < ActionMailer::Base
   # app/models/talk.rb:140 (delayed)
   def new_talk(talk, user)
     return if talk.venue.opts.no_email
-    interpolate! user, talk, url: venue_talk_url(talk.venue, talk)
+    attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer_path[1..-1])) if talk.flyer_path
+    flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
+    interpolate! user, talk, url: venue_talk_url(talk.venue, talk), flyer: flyer,
+      name: [talk.venue.title, talk.title].join(' - ')
     default_mail user.email_with_name
   end
 
   # lib/tasks/talks.rake:9
   def reminder(talk, user)
     return if talk.venue.opts.no_email
-    interpolate! user, talk, url: venue_talk_url(talk.venue, talk)
+    attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer_path[1..-1])) if talk.flyer_path
+    flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
+    interpolate! user, talk, url: venue_talk_url(talk.venue, talk), flyer: flyer,
+      name: [talk.venue.title, talk.title].join(' - ')
     default_mail user.email_with_name
   end
 
   # app/controllers/comments_controller.rb:25 (delayed)
   def new_comment(comment, user)
+    # FIXME: This needs to be rewritten since Comments have been rewritten
     venue, url = nil, nil
     case comment.commentable
     when Venue
@@ -51,6 +58,7 @@ class UserMailer < ActionMailer::Base
   def default_mail(to)
     @header  = translate('.header')
     @content = translate('.content')
+    @content_plain = translate('.content_plain')
     @footer  = translate('.footer')
     mail to: to, template_name: 'default'
   end
