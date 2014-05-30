@@ -398,6 +398,8 @@ class Talk < ActiveRecord::Base
         end
         logfile.puts cmd
         %x[ #{cmd} ]
+        # guard against 0-byte overrides
+        raise 'Abort process override, override has 0 bytes.' if File.size(tmp) == 0
         # convert to ogg
         ogg = "override-#{id}.ogg"
         cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q -o #{ogg} #{tmp}.wav"
