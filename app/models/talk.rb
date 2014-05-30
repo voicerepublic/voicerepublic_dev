@@ -130,7 +130,7 @@ class Talk < ActiveRecord::Base
   def description_as_plaintext
     Nokogiri::HTML(description).text
   end
-  
+
   # returns an array of json objects
   def guest_list
     guests.map(&:for_select).to_json
@@ -262,7 +262,7 @@ class Talk < ActiveRecord::Base
   def podcast_file
     storage["#{uri}/#{id}.mp3"]
   end
-  
+
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -377,21 +377,22 @@ class Talk < ActiveRecord::Base
         end
         logfile.puts cmd
         %x[ #{cmd} ]
-        # guard against empty override file
-        raise 'override empty' unless File.size(tmp) > 0
+        # guard against 0-byte overrides
+        raise 'Abort process override, override has 0 bytes.' if File.size(tmp) == 0
         # convert to ogg
-        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav"
+        ogg = "override-#{id}.ogg"
+        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q -o #{ogg} #{tmp}.wav"
         logfile.puts cmd
         %x[ #{cmd} ]
         # upload ogg to s3
-        ogg = tmp + '.ogg'
-        key = uri + "/override-#{id}.ogg"
+        key = uri + "/" + ogg
         handle = File.open(ogg)
         logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
         media_storage.files.create key: key, body: handle
         # store reference
         path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, path
+        cache_storage_metadata(ogg) and save!
         # move wav to `recordings`
         wav = tmp + '.wav'
         base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -411,7 +412,7 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
     t0 = Time.now.to_i
-    
+
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     opts = {
       talk_start: started_at.to_i,
@@ -457,7 +458,7 @@ class Talk < ActiveRecord::Base
     FileUtils.fileutils_output = $stderr
     # TODO: save transcoded audio formats
 
-    update_attribute :storage, storage
+    save! # save `storage` field
 
     dt = Time.now.to_i - t0
     logfile.puts "## Elapsed time: %s:%02d:%02d" % [dt / 3600, dt % 3600 / 60, dt % 60]
@@ -485,12 +486,12 @@ class Talk < ActiveRecord::Base
     end
     storage
   end
-  
+
   def media_storage
     @media_storage ||=
       Storage.directories.new(key: Settings.storage.media, prefix: uri)
   end
-  
+
   def logfile
     return @logfile unless @logfile.nil?
     path = File.expand_path(Settings.paths.log, Rails.root)
