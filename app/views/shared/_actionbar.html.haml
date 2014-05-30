@@ -26,8 +26,7 @@
           %a{href: "#"} Menu
       %h1.top-bar-vr-logo.text-center
         = link_to root_path do
-          %span.icon-vr-logo
-
+          %span.icon-vr-logo(ng-class="{'brand-red': talkIsLive()}")
 
       %section.top-bar-section
         -# Right Nav Section
