@@ -30,9 +30,7 @@
 
       .row
         .large-12.columns.text-center
-          -# TODO decide if this link will remain
-          - protocol = browser.mac? ? 'itpc' : 'feed'
-          = link_to t('.subscribe_to_podcast'), venue_url(@venue, format: :rss, protocol: protocol), class: 'button-vr button-header'
+          = link_to_podcast(@venue)
           - if @show_join
             = link_to [@venue, :participations], method: :post, class: 'button-vr button-header' do
               = t('.join_venue')
@@ -40,6 +38,8 @@
             = link_to [@venue, @participation], delete_params do
               = t('.leave_venue')
           - if can?(:manage, @venue) && @venue.talks.empty?
+            %br/
+            %br/
             = t('.this_venue_has_no_talks')
             %br/
             %br/
