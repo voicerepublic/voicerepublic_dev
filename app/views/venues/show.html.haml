@@ -1,5 +1,5 @@
--#- content_for :head do
--#  = rss_link_tag t('.feed_title', title: @venue.title)
+- content_for :head do
+  = rss_link_tag t('.feed_title', title: @venue.title)
 
 - content_for :title do
   = t('.title', title: @venue.title)
@@ -31,7 +31,7 @@
       .row
         .large-12.columns.text-center
           -# TODO decide if this link will remain
-          -#= link_to t('.subscribe_to_podcast'), venue_url(@venue, format: :rss), class: 'button-vr button-header'
+          = link_to t('.subscribe_to_podcast'), venue_url(@venue, format: :rss), class: 'button-vr button-header'
           - if @show_join
             = link_to [@venue, :participations], method: :post, class: 'button-vr button-header' do
               = t('.join_venue')
