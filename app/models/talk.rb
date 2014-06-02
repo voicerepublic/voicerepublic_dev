@@ -12,27 +12,33 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - \n"] - TODO: document me
+# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
 # * ended_at [datetime] - TODO: document me
 # * ends_at [datetime] - TODO: document me
 # * featured_from [datetime] - TODO: document me
+# * grade [string] - TODO: document me
 # * image_uid [string] - TODO: document me
+# * language [string, default="en"] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
 # * record [boolean, default=true] - TODO: document me
 # * recording [string] - TODO: document me
+# * recording_override [string] - TODO: document me
+# * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
 # * starts_at_date [string] - local date
 # * starts_at_time [string] - local time
 # * state [string] - TODO: document me
+# * storage [text, default="--- {}\n"] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
 # * updated_at [datetime] - last update time
+# * uri [string] - TODO: document me
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
