@@ -179,8 +179,8 @@ app and put the following in options of the venue:
     suppress_chat: true
 
 
-Console Cheat Sheet
--------------------
+Rails Console Cheat Sheet
+-------------------------
 
 ### Feature three randomly selected talks since yesterday
 
@@ -191,6 +191,20 @@ Console Cheat Sheet
 ### Reload browser session of all attendenees of talk 737
 
     PrivatePub.publish_to '/t737/public', event: 'Reload'
+
+
+Javascript Console Cheat Sheet
+------------------------------
+
+### Listen into a prestream
+
+As any user you can currently hack the prestream by looking up the
+publisher's user id and subscribe the prestream manually. E.g.
+
+    Blackbox.subscribe('t1054-u701956')
+
+Note: As soon as the stream goes live, your client will subscribe a
+2nd time and you will here an echo.
 
 
 Manual acceptance tests Cheat Sheet
