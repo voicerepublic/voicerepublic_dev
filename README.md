@@ -166,20 +166,7 @@ Deploy a specific branch to staging, e.g.
     REVISION=feature/65463494/subscribe_podcast cap staging deploy
 
 
-Conference Features
--------------------
-
-If the venue is a conference you might want to open the back office
-app and put the following in options of the venue:
-
-    ---
-    no_auto_postprocessing: true
-    no_email: true
-    no_auto_end_talk: true
-    suppress_chat: true
-
-
-Manual acceptance tests Cheat Sheet
+HOWTO Manual Acceptance Tests (UAT)
 -----------------------------------
 
 If you don't have it already you realy should install `tree`.
@@ -259,15 +246,7 @@ Troubleshooting Process/Monit
     ...
 
 
-Disk Space Requirements
------------------------
-
-    ratios = Talk.archived.map { |t| t.disk_usage / t.duration.to_f }
-    mean = ratios.inject { |r, s| r + s } / qs.size.to_f
-    mean / 1024.0
-
-
-Audio cheat sheet
+Audio Cheat Sheet
 -----------------
 
 ### For experimenting you might want to...
@@ -308,6 +287,20 @@ Audio cheat sheet
     find ./ -name \*.flv -exec avconv -i {} \; 2>&1 | grep Stream
 
 
+Javascript Console Cheat Sheet
+------------------------------
+
+### Listen into a prestream
+
+As any user you can currently hack the prestream by looking up the
+publisher's user id and subscribe the prestream manually. E.g.
+
+    Blackbox.subscribe('t1054-u701956')
+
+Note: As soon as the stream goes live, your client will subscribe a
+2nd time and you will here an echo.
+
+
 Console Cheat Sheet
 -------------------
 
@@ -332,6 +325,3 @@ Console Cheat Sheet
       end
     end
 
-### Fix empty storage
-
-    Talk.where(storage: nil).each { |t| t.update_attribute :storage, {} }
