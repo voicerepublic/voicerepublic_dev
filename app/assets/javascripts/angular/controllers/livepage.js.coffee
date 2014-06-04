@@ -22,8 +22,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.showSettings = ->
     config.flags.settings
 
-  $scope.reconnecting = ->
-    blackbox.info.lastEvent == 'reconnecting'
+  $scope.trouble = ->
+    return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
+    return 'trouble connecting' if config.flags.connecting
+    false
 
   $scope.participants = ->
     return session.participants() if config.talk.state == 'live'

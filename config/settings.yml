@@ -50,4 +50,5 @@ storage:
   media: vr-dev-media
   import: vr-dev-import
 paths:
-  log: local/log  
+  log: local/log
+root_url: 'http://localhost:3000'

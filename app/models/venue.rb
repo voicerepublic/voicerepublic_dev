@@ -14,6 +14,7 @@
 # * teaser [text] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
+# * uri [string] - TODO: document me
 # * user_id [integer] - belongs to :user
 class Venue < ActiveRecord::Base
 

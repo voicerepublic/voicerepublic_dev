@@ -12,27 +12,33 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - \n"] - TODO: document me
+# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
 # * ended_at [datetime] - TODO: document me
 # * ends_at [datetime] - TODO: document me
 # * featured_from [datetime] - TODO: document me
+# * grade [string] - TODO: document me
 # * image_uid [string] - TODO: document me
+# * language [string, default="en"] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
 # * record [boolean, default=true] - TODO: document me
 # * recording [string] - TODO: document me
+# * recording_override [string] - TODO: document me
+# * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
 # * starts_at_date [string] - local date
 # * starts_at_time [string] - local time
 # * state [string] - TODO: document me
+# * storage [text, default="--- {}\n"] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
 # * updated_at [datetime] - last update time
+# * uri [string] - TODO: document me
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
@@ -130,7 +136,7 @@ class Talk < ActiveRecord::Base
   def description_as_plaintext
     Nokogiri::HTML(description).text
   end
-  
+
   # returns an array of json objects
   def guest_list
     guests.map(&:for_select).to_json
@@ -231,6 +237,7 @@ class Talk < ActiveRecord::Base
 
   # this is only for user acceptance testing!
   def reset_to_postlive!
+    raise 'reset_to_postlive! has to be fixed to work with s3'
     self.reload
     archive_raw = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
     base = File.dirname(File.join(archive_raw, recording.to_s))
@@ -258,33 +265,10 @@ class Talk < ActiveRecord::Base
     ended_at - started_at
   end
 
-  # TODO to be removed, after transition to s3
-  def disk_usage # in bytes
-    all_files.inject(0) do |result, file|
-      result + File.size(file)
-    end
-  end
-
-  # TODO to be removed, after transition to s3
-  def all_files
-    return [] if recording.blank?
-
-    path0  = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    rec0   = File.dirname(recording)
-    glob0  = File.join(path0, rec0, "t#{id}-u*.flv")
-    files0 = Dir.glob(glob0)
-    
-    path1  = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    glob1  = File.join(path1, "#{recording}*.*")
-    files1 = Dir.glob(glob1).grep(/#{recording}[^\d]*\./)
-
-    files0 + files1
-  end
-
   def podcast_file
     storage["#{uri}/#{id}.mp3"]
   end
-  
+
   private
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -323,13 +307,13 @@ class Talk < ActiveRecord::Base
     return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
-    delay(queue: 'trigger', run_at: delta).end_talk!
+    Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)
   end
 
   def after_end
     PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
     unless venue.opts.no_auto_postprocessing
-      Delayed::Job.enqueue(Postprocess.new(id), queue: 'audio')
+      Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
     end
     PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
   end
@@ -350,7 +334,6 @@ class Talk < ActiveRecord::Base
     archive!
   end
 
-  # TODO this will leave orphaned versions of previous processings on disk
   def reprocess!(uat=false)
     raise 'fail: reprocessing a talk without recording' unless record?
     raise 'fail: reprocessing a talk with override' if recording_override?
@@ -374,8 +357,6 @@ class Talk < ActiveRecord::Base
     run_chain! chain, uat
   end
 
-  # TODO this will leave orphaned versions of previous processings on disk
-  #
   # FIXME cleanup the wget/cp spec mess with
   # http://stackoverflow.com/questions/2263540
   def process_override!(uat=false)
@@ -402,19 +383,22 @@ class Talk < ActiveRecord::Base
         end
         logfile.puts cmd
         %x[ #{cmd} ]
+        # guard against 0-byte overrides
+        raise 'Abort process override, override has 0 bytes.' if File.size(tmp) == 0
         # convert to ogg
-        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q #{tmp}.wav"
+        ogg = "override-#{id}.ogg"
+        cmd = "avconv -v quiet -i #{tmp} #{tmp}.wav; oggenc -Q -o #{ogg} #{tmp}.wav"
         logfile.puts cmd
         %x[ #{cmd} ]
         # upload ogg to s3
-        ogg = tmp + '.ogg'
-        key = uri + "/override-#{id}.ogg"
+        key = uri + "/" + ogg
         handle = File.open(ogg)
         logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
         media_storage.files.create key: key, body: handle
         # store reference
         path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, path
+        cache_storage_metadata(ogg) and save!
         # move wav to `recordings`
         wav = tmp + '.wav'
         base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -434,7 +418,7 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to public_channel, { event: 'Process' }
     PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
     t0 = Time.now.to_i
-    
+
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     opts = {
       talk_start: started_at.to_i,
@@ -480,7 +464,7 @@ class Talk < ActiveRecord::Base
     FileUtils.fileutils_output = $stderr
     # TODO: save transcoded audio formats
 
-    update_attribute :storage, storage
+    save! # save `storage` field
 
     dt = Time.now.to_i - t0
     logfile.puts "## Elapsed time: %s:%02d:%02d" % [dt / 3600, dt % 3600 / 60, dt % 60]
@@ -508,12 +492,12 @@ class Talk < ActiveRecord::Base
     end
     storage
   end
-  
+
   def media_storage
     @media_storage ||=
       Storage.directories.new(key: Settings.storage.media, prefix: uri)
   end
-  
+
   def logfile
     return @logfile unless @logfile.nil?
     path = File.expand_path(Settings.paths.log, Rails.root)
@@ -556,5 +540,12 @@ class Talk < ActiveRecord::Base
     self.uri = "vr-#{id}"
     save!
   end
-  
+
+  # generically propagate all state changes to faye
+  #
+  # TODO cleanup publish statements scattered all over the code above
+  def event_fired(*args)
+    PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+  end
+
 end

@@ -166,34 +166,7 @@ Deploy a specific branch to staging, e.g.
     REVISION=feature/65463494/subscribe_podcast cap staging deploy
 
 
-Conference Features
--------------------
-
-If the venue is a conference you might want to open the back office
-app and put the following in options of the venue:
-
-    ---
-    no_auto_postprocessing: true
-    no_email: true
-    no_auto_end_talk: true
-    suppress_chat: true
-
-
-Console Cheat Sheet
--------------------
-
-### Feature three randomly selected talks since yesterday
-
-    Talk.order('RANDOM()').limit(3).each do |t|
-      t.update_attribute :featured_from, 1.day.ago
-    end
-
-### Reload browser session of all attendenees of talk 737
-
-    PrivatePub.publish_to '/t737/public', event: 'Reload'
-
-
-Manual acceptance tests Cheat Sheet
+HOWTO Manual Acceptance Tests (UAT)
 -----------------------------------
 
 If you don't have it already you realy should install `tree`.
@@ -273,22 +246,7 @@ Troubleshooting Process/Monit
     ...
 
 
-Disk Space Requirements
------------------------
-
-    ratios = Talk.archived.map { |t| t.disk_usage / t.duration.to_f }
-    mean = ratios.inject { |r, s| r + s } / qs.size.to_f
-    mean / 1024.0
-
-Backup
-------
-
-On VRBackup (Synology DiskStation)
-
-    rsync -avz --progress app@voicerepublic.com:app backup
-
-
-Audio cheat sheet
+Audio Cheat Sheet
 -----------------
 
 ### For experimenting you might want to...
@@ -329,91 +287,34 @@ Audio cheat sheet
     find ./ -name \*.flv -exec avconv -i {} \; 2>&1 | grep Stream
 
 
-Transition to S3
-----------------
+Javascript Console Cheat Sheet
+------------------------------
 
-The transition to s3 is a little more complicated than a regular
-deploy. Changes at several locations have to be in sync, these
-locations are:
+### Listen into a prestream
 
- * code base
- * database
- * filesystem
- * s3
+As any user you can currently hack the prestream by looking up the
+publisher's user id and subscribe the prestream manually. E.g.
 
-Through temporary redundancies we'll have a working app at all times,
-apart from audio processing, which we'll shut down during the upgrade
-to make sure no new, untracked files are created while upgrading.
+    Blackbox.subscribe('t1054-u701956')
 
-### Step 1: Getting Ready
-
-Disable monitoring for audio djs in monit and stop.
-
-### Step 2: Integrate Fog & Upload Files to S3
-
- 1. Merge PR #179
- 2. Deploy
- 3. Run rake
- 
-    (cd app/current; bundle exec rake cleanup:move_to_s3_step1 --trace)
-
-Will take care of
-
- * db: update talks#uri
- * fs: move processing log files to new location
- * fs: upload all audio files to s3 (this might take a while)
-
-The config files `app/shared/config/settings.local.yml` are already
-prepared for staging and live.
-
-### Step 3: Main Code Change & Cleanup Disk
-
- 1. Merge PR #180
- 2. Deploy
- 3. Test system thouroughly
- 4. Run rake
- 
-    (cd app/current; bundle exec rake cleanup:move_to_s3_step2 --trace)
-
-Will take care of
-
- * fs: remove ephemeral symlinks
- * fs: delete archive and archive_raw
-
-### Step 4: Remove transitional code
-
- 1. Merge PR #181
-
-Champagne!
+Note: As soon as the stream goes live, your client will subscribe a
+2nd time and you will here an echo.
 
 
-Fix recording_override
-----------------------
+Console Cheat Sheet
+-------------------
 
-    bucket = Settings.storage.media
-    Talk.where('recording_override IS NOT NULL').each do |talk|
-      next if talk.recording_override.blank?
-      basename = File.basename(talk.recording_override)
-      override = "s3://#{bucket}/#{talk.uri}/#{basename}"
-      puts "#{talk.recording_override} -> #{override}"
-      talk.update_column :recording_override, override
-    end; nil
+### Feature three randomly selected talks since yesterday
 
-Upload Overrides to s3
-----------------------
-
-    Dir.glob('/home/app/app/shared/archive/*/*/*/override-*.ogg').each do |path|
-      puts path
-      id = path.match(/override-(\d+).ogg$/).to_a[1]
-      talk = Talk.find(id)
-      ms = talk.send(:media_storage)
-      key = talk.uri+'/'+File.basename(path)
-      handle = File.open(path)
-      ms.files.create(key: key, body: handle)
+    Talk.order('RANDOM()').limit(3).each do |t|
+      t.update_attribute :featured_from, 1.day.ago
     end
 
-Enqueue all archived talks for processing
------------------------------------------
+### Reload browser session of all attendenees of talk 737
+
+    PrivatePub.publish_to '/t737/public', event: 'Reload'
+
+### Enqueue all archived talks for processing
 
     Talk.archived.order('play_count DESC').each do |talk|
       puts talk.id
@@ -424,13 +325,3 @@ Enqueue all archived talks for processing
       end
     end
 
-Try on Staging
---------------
-
-### Re-Process-Override
-
-    Talk.find(2243).send(:process_override!)
-
-### Re-Process
-
-    Talk.find(2318).send(:reprocess!)
