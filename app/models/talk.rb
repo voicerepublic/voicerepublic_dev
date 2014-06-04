@@ -65,6 +65,11 @@ class Talk < ActiveRecord::Base
     end
     event :archive, timestamp: :processed_at do
       transitions from: :processing, to: :archived
+      # in rare case we might to override a talk
+      # which has never been postprocessed
+      transitions from: :postlive, to: :archived
+      # or which has never even happended
+      transitions from: :prelive, to: :archived
     end
   end
 
@@ -412,6 +417,8 @@ class Talk < ActiveRecord::Base
     chain ||= Setting.get('audio.override_chain')
     chain = chain.split(/\s+/)
     run_chain! chain, uat
+
+    archive! unless archived?
   end
 
   def run_chain!(chain, uat=false)
