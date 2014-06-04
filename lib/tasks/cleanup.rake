@@ -59,4 +59,4 @@ namespace :cleanup do
       talk.update_attribute :description, '<i>blank description</i>'
     end
   end
-
+end
