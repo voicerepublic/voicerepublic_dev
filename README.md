@@ -325,3 +325,6 @@ Console Cheat Sheet
       end
     end
 
+### Manually asses talks
+
+    puts *Talk.where("uri like 'lt%'").order(:id).map { |t| '% 4s % 5s % 5s %s' % [t.id, t.storage.values.select { |f| f[:ext]=='.flv' }.inject(0) {|r,s| r + s[:seconds].to_i }, t.recording_override?, t.teaser ] }
