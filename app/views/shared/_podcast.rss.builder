@@ -38,7 +38,7 @@ xml.rss namespaces.merge(version: '2.0') do
     # title
     xml.title { xml.cdata! @podcast.title }
     xml.dc(:title) { xml.cdata! @podcast.title }
-    
+
     xml.description do
       xml.cdata! @podcast.description
     end
@@ -54,7 +54,7 @@ xml.rss namespaces.merge(version: '2.0') do
 
     # http://validator.w3.org/feed/docs/warning/MissingAtomSelfLink.html
     xml.tag! 'atom:link', rel: 'self',
-             type: 'application/rss+xml', 
+             type: 'application/rss+xml',
              href: request.url
 
     xml.itunes :image, href: @podcast.image_url
@@ -68,8 +68,8 @@ xml.rss namespaces.merge(version: '2.0') do
     # author
     xml.itunes :author, @podcast.author
     xml.dc :creator, @podcast.author
-    
-    xml.itunes :owner do 
+
+    xml.itunes :owner do
       xml.itunes :name, 'VoiceRepublic Service'
       xml.itunes :email, 'service@voicerepublic.com'
     end
@@ -78,7 +78,7 @@ xml.rss namespaces.merge(version: '2.0') do
     talks.each do |talk|
       # skip talks where media is missing for whatever reason
       next unless talk.podcast_file
-      
+
       xml.item do
         xml.title h talk.title
 
@@ -91,7 +91,7 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.itunes :duration, talk.podcast_file[:duration]
         xml.itunes :explicit, 'no'
         xml.itunes :image, href: talk.image.thumb('1400x1400#').url
-        xml.pubDate talk.processed_at.to_s(:rfc822)
+        xml.pubDate talk.processed_at.try(:to_s, :rfc822)
         xml.link venue_talk_url(talk.venue, talk)
         xml.guid venue_talk_url(talk.venue, talk), isPermaLink: true
         xml.enclosure url: vrmedia_url(talk),

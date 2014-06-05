@@ -26,11 +26,11 @@
   .row.collapse-large-only
     .large-12.columns.text-center
       %dl.tabs.vr-tabs(data-tab='true')
-        %dd.text-center.active
+        %dd.text-center
           %a(href="#about")
             %span.icon-description
             = t('.about')
-        %dd.text-center
+        %dd.text-center.active
           %a(href="#venues")
             %span.icon-guide
             = t('.venues')
@@ -44,10 +44,10 @@
 
 .row.collapse-large-only
   .large-12.columns.tabs-content
-    #about.about-content.content.active
+    #about.about-content.content
       = raw @user.about
 
-    #venues.venues-content.content
+    #venues.venues-content.content.active
       = render partial: 'shared/venue_medium_box', collection: @user.venues
 
     #schedule.content TODO

@@ -59,18 +59,4 @@ namespace :cleanup do
       talk.update_attribute :description, '<i>blank description</i>'
     end
   end
-
-  # TODO this task is to be removed after transition to s3
-  task move_to_s3_step2: :environment do
-    # delete symlinks
-    path = File.expand_path('public/system/audio', Rails.root)
-    FileUtils.rm_rf(path, verbose: true)
-
-    # delete archive and archive_raw
-    path = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    FileUtils.rm_rf(path, verbose: true)
-    path = File.expand_path(Settings.rtmp.archive_raw_path, Rails.root)
-    FileUtils.rm_rf(path, verbose: true)
-  end
-  
 end
