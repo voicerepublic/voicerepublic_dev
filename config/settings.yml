@@ -26,7 +26,8 @@ rtmp:
   # callback_base must be an absolute url and is used for
   # notifications `/notify` and authentication `/auth`
   callback_base: 'http://0.0.0.0:3000/rtmp'
-  record_max_size: '100M'
+  record_max_size: 100M
+  record_interval: 5m
   authenticate: true
   worker_processes: 1
 errbit:
