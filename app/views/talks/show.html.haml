@@ -1,3 +1,5 @@
+-# find states under angular/controllers/livepage.js.coffee
+
 - content_for :head do
   = render 'shared/social_meta_tags'
 - content_for :title do
@@ -11,14 +13,6 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak)
   .header-block(style="background-image: url(#{@talk.image.url})")
-
-    .talk-state.text-center
-      .span(ng-show='talkIsPrelive()')
-        = t('.talk_is_prelive')
-        .onHold(ng-show="countdownInSeconds < 0") talk is on hold, waiting to start
-      .span(ng-show='talkIsLive()') talk is live
-      .span(ng-show='talkIsPostlive()') talk is postlive
-
     .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
       #flash_error= t('require_flash')
     - if @talk.related_talk
@@ -112,7 +106,26 @@
                 = link_to '#', title: t('.plays', count: @talk.play_count) do
                   %span.icon-play
                   = @talk.play_count
+      - if current_user.guest?
+        .vr-banner
+          = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+            %h3
+              WHAT IS VOICE REPUBLIC?
+            %p
+              Voice Republic is a tool for the creation and distribution of audio content on the Internet.
+              %br
+              Users are invited not just to listen to talks and debates, but also to talk to each other and get involved.
+              %br
+              We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
+              %span
+                More...
+          %a.close-x(data-toggle-stuff=".vr-banner")
+            = raw '&times;'
 
+        #vr-banner-modal.reveal-modal(data-reveal)
+          = image_tag 'vr_infografic.jpg'
+          = link_to '#', class: "close-reveal-modal" do 
+            &#215;
 
     .talk-countdown.row(ng-show='talkIsPrelive()')
       .medium-12.columns.text-center
