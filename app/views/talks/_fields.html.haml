@@ -7,6 +7,10 @@
 
       -#= f.error_messages
 
+      - opts = {}
+      - # TODO some fields are protected after state prelive, add this to cancan
+      - opts[:disabled] = true unless f.object.prelive?
+
       = f.input :title, placeholder: t('.title')
       = f.input :teaser, placeholder: t('.teaser')
       = f.input :tag_list, input_html: { class: 'tagList' }
@@ -16,11 +20,11 @@
       -#testdatepicker
       .date-time-picker-row.row.collapse
         .medium-5.columns
-          = f.input :starts_at_date, input_html: {'data-picker' => 'date'}
+          = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
         .medium-4.columns
-          = f.input :starts_at_time, input_html: {'data-picker' => 'time'}
+          = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
         .medium-3.columns
-          = f.input :duration, collection: Settings.durations
+          = f.input :duration, opts.merge(collection: Settings.durations)
       .row.collapse
         .medium-12.columns
           %button.button-standard(type="button" data-trigger-file-input="talk_image")
@@ -30,7 +34,7 @@
 .row
   .medium-12.columns
     %br
-    = f.input :guest_list, input_html: { class: 'guestList' }
+    = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
     %br
     %br
     %label(for="venue_description")
