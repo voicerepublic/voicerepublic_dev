@@ -14,7 +14,13 @@ namespace :cleanup do
         'Content-Type' => content_type,
         'x-amz-metadata-directive' => 'REPLACE'
       }
-      Rails.logger.info "Updated content-type on file: '#{f.key}'" if f.copy(f.directory.key, f.key, options)
+      begin
+        f.copy(f.directory.key, f.key, options)
+        Rails.logger.info "Updated content-type on file: '#{f.key}'"
+      rescue Exception => e
+        Rails.logger.error "Could not update content-type on file: '#{f.key}'"
+        Rails.logger.error "Error: '#{e.message}'"
+      end
     end
   end
 
