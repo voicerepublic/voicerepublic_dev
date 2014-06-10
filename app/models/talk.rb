@@ -46,6 +46,9 @@ class Talk < ActiveRecord::Base
 
   GRACE_PERIOD = 5.minutes
 
+  # colors according to ci style guide
+  COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
+
   ARCHIVE_STRUCTURE = "%Y/%m/%d"
 
   state_machine auto_scopes: true do
@@ -536,6 +539,7 @@ class Talk < ActiveRecord::Base
 
   def flyer_interpolations
     {
+      color:    COLORS[rand(COLORS.size)],
       host:     user.name,
       title:    title,
       day:      I18n.l(starts_at, format: :flyer_day),
