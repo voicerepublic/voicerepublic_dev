@@ -107,7 +107,7 @@
                   %span.icon-play
                   = @talk.play_count
       - if current_user.guest?
-        .vr-banner
+        .vr-banner.hide-for-small
           = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
             %h3
               WHAT IS VOICE REPUBLIC?
