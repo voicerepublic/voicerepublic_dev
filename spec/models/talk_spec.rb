@@ -127,13 +127,14 @@ describe Talk do
 
     pending 'saves the Content-Type' do
       talk = FactoryGirl.create(:talk)
-      talk.send(:media_storage).files.last.attributes["Content-Type"].should_not == 'audio/m4a'
+      # Guard against potentially valid fixtures
+      talk.send(:media_storage).files.get('1.m4a').content_type.should_not == 'audio/m4a'
 
       m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
-
       talk.send(:upload_file, '1.m4a', m4a_file)
-      file = talk.reload.send(:media_storage).files.get('1.m4a')
-      file.attributes["Content-Type"].should == 'audio/m4a'
+
+      media_storage = Storage.directories.new(key: Settings.storage.media, prefix: talk.uri)
+      media_storage.files.get('1.m4a').content_type.should == 'audio/m4a'
     end
 
   end

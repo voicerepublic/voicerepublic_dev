@@ -280,7 +280,11 @@ class Talk < ActiveRecord::Base
   # Upload file to S3
   def upload_file(key, file)
     handle = File.open(file)
-    media_storage.files.create key: key, body: handle, 'Content-Type' => content_type_for(key)
+    file = media_storage.files.create key: key, body: handle, content_type: content_type_for(key)
+    #file.copy(file.directory.key, file.key, {
+    #  'Content-Type' => content_type_for(file.key),
+    #  'x-amz-metadata-directive' => 'REPLACE'
+    #})
   end
 
   # Lookup table for Content-Type (required for S3)
