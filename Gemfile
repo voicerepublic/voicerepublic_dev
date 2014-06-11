@@ -18,7 +18,6 @@ gem 'coffee-rails' #, '~> 3.2.1'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier'#, '>= 1.0.3'
 
-gem 'roadie', '2.4.3'
 gem 'airbrake'
 gem 'rails_config'
 gem 'foundation-rails'
@@ -28,13 +27,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
-gem 'will_paginate-bootstrap'      # integrate twitter-bootstrap with will_paginate
-gem 'i18n_data'                    # delivers languages as key-value hash
 gem 'dragonfly', '1.0.3'           # used for images
-gem 'globalize3'                   # internationalization
 gem 'acts-as-taggable-on', '3.0.1' # tag-system
-gem 'money-rails'                  # integrates some helper methods and AR-instance-functions...
-gem 'eu_central_bank'              # financial exchange rates
 gem 'cancan'                       # authorization/privileges
 gem 'private_pub'                  # push service
 gem 'thin'                         # faster development-server
