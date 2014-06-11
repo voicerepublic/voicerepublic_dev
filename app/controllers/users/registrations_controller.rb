@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+
   def new
-    resource = build_resource(params[:user])
+    resource = build_resource(user_params)
     respond_with resource
   end
 
@@ -8,4 +9,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @guest_user = session[:guest_user_id] = nil
     super
   end
+
+  private
+  
+  def user_params
+    params.require(:user).permit(:firstname, :lastname, :email)
+  end
+
 end
