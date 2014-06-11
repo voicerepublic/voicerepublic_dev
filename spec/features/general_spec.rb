@@ -2,8 +2,6 @@ require 'spec_helper'
 
 feature "General feature specs" do
 
-
-
   # user agents taken from: http://www.useragentstring.com/
   describe "Browser detection" do
     describe "supported browsers" do

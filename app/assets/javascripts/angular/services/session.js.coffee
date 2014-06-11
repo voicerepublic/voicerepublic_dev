@@ -15,6 +15,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     reqmic: false
     acceptOrDecline: false
     settings: false
+    connecting: true
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -81,6 +82,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
       onHostOnAir: ->
         users = config.session
         blackbox.publish config.stream
+        blackbox.subscribe config.stream if config.loopback
         config.flags.onair = true
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
