@@ -142,6 +142,8 @@
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
+          .processing-message(ng-show='talkIsProcessing()')
+            = t('.talk_is_processing')
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')

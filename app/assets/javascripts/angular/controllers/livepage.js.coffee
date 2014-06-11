@@ -61,6 +61,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.talkIsPostlive = ->
     config.talk.state == 'postlive'
 
+  $scope.talkIsProcessing = ->
+    config.talk.state == 'processing'
+
   $scope.talkIsArchived = ->
     config.talk.state == 'archived'
 
