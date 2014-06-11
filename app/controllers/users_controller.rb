@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
 
+  PERMITTED_ATTRS = [ :firstname,
+                      :lastname,
+                      :accept_terms_of_use,
+                      :email,
+                      :password,
+                      :password_confirmation ]
+  
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 
   # layout "application", :only => [:welcome]
@@ -47,7 +54,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
@@ -69,7 +76,7 @@ class UsersController < ApplicationController
     authorize! :update, @user
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(user_params)
         format.html do
           redirect_to @user, flash: { notice: I18n.t("flash.actions.update.notice") }
         end
@@ -100,4 +107,10 @@ class UsersController < ApplicationController
     end
   end
 
+  private
+
+  def user_params
+    params.require(:user).permit(PERMITTED_ATTRS)
+  end
+  
 end
