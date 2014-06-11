@@ -44,22 +44,61 @@ Data Import & Sync
 Technical Requirements
 ----------------------
 
-# Setup
+### Setup
 
-* A work space with a chair and a table with at least 80cm space for audio streaming equipment.
+* A work space with a chair and a table with at least 80cm space for
+  audio streaming equipment.
+
 * Powerplug and Ethernet connector close by.
 
 ### Network
 
 * Each audio stream may require up to 30 KB/s bandwidth.
-* A stable Internet connection (via Ethernet) is key. Wifi has proven not to be reliable enough to garantee a stable streaming signal.
-* Ports 443 (https), 9292 (https) and 1935 (rtmp) need to be open for incoming as well as outgoing traffic.
+
+* A stable Internet connection (via Ethernet) is key. Wifi has proven
+  not to be reliable enough to garantee a stable streaming signal.
+
+* Ports 443 (https), 9292 (https) and 1935 (rtmp) need to be open for
+  incoming as well as outgoing traffic.
 
 ### Audio Signal
 
-* XLR coming from the press split. Audio Jack has proven to deliver signals which are easily affected by disturbing signals.
+* XLR coming from the press split. Audio Jack has proven to deliver
+  signals which are easily affected by disturbing signals.
 
 ### Contact
 
-* Contact information (name, cell, email) of the person responsible for audio setup.
-* Contact information (name, cell, email) of the person responsible for network setup.
+* Contact information (name, cell, email) of the person responsible
+  for audio setup.
+
+* Contact information (name, cell, email) of the person responsible
+  for network setup.
+
+
+VoiceRepublic Conference Features
+---------------------------------
+
+These options can be set per venue/series. The options have to be set
+by a VR Backoffice Operator.
+
+*TODO describe these features*
+
+### Recommended Options
+
+#### No Auto End Talk (no_auto_end_talk)
+
+Talks on VR are ended automatically as soon as the sceduled time is
+up. Keeping the scedule on conferences is tough. With this option set,
+talks will not be ended automatically. For the talk to become
+available in the archive, a stage operator will have to end the talk
+manually.
+
+#### No Email (no_email)
+
+#### Loopback (loopback)
+    
+### Not Recommended Options
+
+#### No Auto Processing (no_auto_postprocessing)
+
+#### Suppress Chat (suppress_chat)
