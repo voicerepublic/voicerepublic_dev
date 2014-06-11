@@ -13,6 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
   
   def user_params
+    return {} unless params[:user] # for redirect on subscribe
     params.require(:user).permit(:firstname, :lastname, :email)
   end
 
