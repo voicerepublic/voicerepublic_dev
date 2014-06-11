@@ -1,5 +1,5 @@
--#- content_for :head do
--#  = rss_link_tag t('.feed_title', username: @user.name)
+- content_for :head do
+  = rss_link_tag t('.feed_title', username: @user.name)
 
 - content_for :title do
   = t('.title', username: @user.name)
@@ -14,23 +14,23 @@
             %span.icon-cog
           %ul#action-links-list.list-style-type-none.hide-stuff
             %li= link_to t('.edit_user'), [:edit, @user]
-              
+
       .avatar
         - img_size = 120
         .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
           = render partial: "shared/avatar_image", locals: { user: @user, img_size: 120 }
       %h2.user-name= @user.name
-      -#= link_to t('.subscribe_to_podcast'), user_url(@user, format: :rss), class: 'button-vr button-header'
+      = link_to_podcast(@user)
       %br/
       %br/
   .row.collapse-large-only
     .large-12.columns.text-center
       %dl.tabs.vr-tabs(data-tab='true')
-        %dd.text-center.active
+        %dd.text-center
           %a(href="#about")
             %span.icon-description
             = t('.about')
-        %dd.text-center
+        %dd.text-center.active
           %a(href="#venues")
             %span.icon-guide
             = t('.venues')
@@ -44,10 +44,10 @@
 
 .row.collapse-large-only
   .large-12.columns.tabs-content
-    #about.about-content.content.active
+    #about.about-content.content
       = raw @user.about
 
-    #venues.venues-content.content
+    #venues.venues-content.content.active
       = render partial: 'shared/venue_medium_box', collection: @user.venues
 
     #schedule.content TODO
