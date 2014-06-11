@@ -75,10 +75,6 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  attr_accessible :title, :teaser, :duration, :uri,
-                  :description, :record, :image, :tag_list,
-                  :guest_list, :starts_at_date, :starts_at_time
-
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user

@@ -51,9 +51,6 @@ class VenuesController < ApplicationController
 
   # GET /venues/1/edit
   def edit
-    if params[:renew]
-      @renew = true
-    end
     authorize! :edit, @venue
     respond_to do |format|
       format.html {}
@@ -64,7 +61,7 @@ class VenuesController < ApplicationController
   # POST /venues
   # POST /venues.json
   def create
-    @venue = Venue.new(params[:venue])
+    @venue = Venue.new(venue_params)
     @venue.user = current_user
 
     authorize! :create, @venue
@@ -90,7 +87,7 @@ class VenuesController < ApplicationController
     authorize! :update, @venue
 
     respond_to do |format|
-      if @venue.update_attributes(params[:venue])
+      if @venue.update_attributes(venue_params)
         format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
         format.json { head :no_content }
       else
@@ -113,11 +110,11 @@ class VenuesController < ApplicationController
     end
   end
 
-  def tags # TODO: check if needed
-    scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])
-    tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
-    render json: { tags: tags, total: scope.count }
-  end
+  # def tags # TODO: check if needed
+  #   scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])
+  #   tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
+  #   render json: { tags: tags, total: scope.count }
+  # end
 
   private
 
@@ -129,6 +126,12 @@ class VenuesController < ApplicationController
 
   def set_venue
     @venue = Venue.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def venue_params
+    params.require(:venue).permit(:title, :teaser, :description,
+                                  :image, :tag_list)
   end
 
 end
