@@ -4,6 +4,8 @@ class UsersController < ApplicationController
                       :lastname,
                       :accept_terms_of_use,
                       :email,
+                      :avatar,
+                      :header,
                       :password,
                       :password_confirmation ]
   
