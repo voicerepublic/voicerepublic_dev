@@ -75,31 +75,7 @@
 #    
 class Assimilate < Struct.new(:opts)
   def perform
- 
-    url = opts['repository']['url']
-    ref = opts['ref']
-
-    # do the ci magic
-    path = File.join(ENV['HOME'], 'ci')
-    FileUtils.mkdir_p(path) unless File.exist?(path)
-    Dir.chdir(path)
-
-    if File.directory?('repo')
-      Dir.chdir('repo')
-      %x[ git pull ]
-    else
-      %x[ git clone #{url} repo ]
-      Dir.chdir('repo')
-    end
-
-    # TODO steal some tricks from mina deployment
-    # https://github.com/mina-deploy/mina/tree/master/lib/mina
-
-    output = ''
-    output += %x[ git checkout #{ref} ]
-    output += %x[ bundle ]
-    output += %x[ rspec spec ]
-    
+    Assimilator.run(opts)
   end
 end
 
