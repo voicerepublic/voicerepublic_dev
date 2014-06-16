@@ -115,16 +115,6 @@ describe Talk do
       expect(Talk.featured).to include(talk0)
     end
 
-    it 'calculates the Content-Type' do
-      talk = FactoryGirl.build(:talk)
-      filename = talk.send(:media_storage).files.last.key
-
-      # FIXME: this is dirty. i'm too lazy looking up how to properly mock a
-      # file and use the current defaults.
-      filename.should =~ /ogg$/
-      talk.send(:content_type_for, filename).should == 'audio/ogg'
-    end
-
     describe 'saves the Content-Type' do
       before { @talk = FactoryGirl.create(:talk) }
       it 'works for m4a' do
