@@ -2,7 +2,7 @@
 #
 # Runnning the Asimilator in CLI
 #
-#     bundle exec run lib/assimilator.rb <url> <ref> <pusher>
+#     bundle exec run lib/assimilator.rb <repo> <ref> <pusher>
 #
 # Example params:
 #
