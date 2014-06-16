@@ -237,6 +237,11 @@ GEM
     less-rails (2.3.2)
       actionpack (>= 3.1)
       less (~> 2.3.1)
+    letter_opener (1.2.0)
+      launchy (~> 2.2)
+    letter_opener_web (1.2.0)
+      letter_opener (~> 1.0)
+      rails (>= 3.2)
     libv8 (3.16.14.3)
     listen (2.4.0)
       celluloid (>= 0.15.2)
@@ -483,6 +488,8 @@ DEPENDENCIES
   jquery-ui-rails
   launchy
   less-rails (= 2.3.2)
+  letter_opener
+  letter_opener_web (~> 1.2.0)
   meta_request
   money-rails
   omniauth-facebook
