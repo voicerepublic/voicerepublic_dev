@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'open-uri'
 require 'ostruct'
 require 'active_support/core_ext'
