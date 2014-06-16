@@ -6,7 +6,7 @@ namespace :cleanup do
   end
 
   desc 'Regenerate all flyers'
-  task :guests => :environment do
+  task :regenerate_flyers => :environment do
     Talk.all.each { |t| t.send(:generate_flyer) }
   end
 
