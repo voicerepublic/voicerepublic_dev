@@ -1,31 +1,40 @@
 require 'open-uri'
 require 'ostruct'
 require 'active_support/core_ext'
+require 'private_pub'
+require 'daemons'
 
 class RtmpWatcher
 
-  class << self
-    def run
-      new.run
+  URL = 'http://localhost:8080/stat'
+  DELAY = 4
+  
+  def run
+    loop do
+      glance
+      sleep DELAY
     end
   end
 
-  def run
-    url = 'http://localhost:8080/stat'
-    xml = open(url).read
+  def glance
+    xml = open(URL).read
     hash = Hash.from_xml(xml)
     data = deep_ostruct(hash)
     
     data.rtmp.server.application.each do |app|
       if app.live.nclients.to_i > 0
         app.live.stream.each do |stream|
-          puts [stream.name, stream.nclients, stream.bw_in, app.name] * ' '
+          payload = {
+            nclients: stream.nclients,
+            bw_in: stream.bw_in,
+            app_name: app.name
+          }
+          publish "/stat/#{stream.name}", payload
         end
       end
     end
-    
   end
-
+  
   private
 
   def deep_ostruct(opts)
@@ -42,7 +51,21 @@ class RtmpWatcher
       end
     end
   end
-  
+
+  def publish(channel, payload)
+    PrivatePub.publish_to channel, payload
+  end
+
 end
 
-RtmpWatcher.run if __FILE__ == $0
+
+if __FILE__ == $0
+  # configure private pub
+  path = File.expand_path("../../config/private_pub.yml", __FILE__)
+  PrivatePub.load_config(path, ENV['RAILS_ENV'] || 'development')
+
+  # daemonize
+  Daemons.run_proc(File.basename(__FILE__)) do
+    RtmpWatcher.new.run
+  end
+end
