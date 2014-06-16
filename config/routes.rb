@@ -31,12 +31,12 @@ VoiceRepublic::Application.routes.draw do
     resources :talks
     resources :participations, only: [:index, :create, :destroy]
   end
-  
+
   resources :talks, only: [:index] do
     collection do
       get :live
       get :popular
-      get :featured   
+      get :featured
       get :recent
     end
   end
@@ -67,4 +67,7 @@ VoiceRepublic::Application.routes.draw do
 
   get '/upgrade_browser', to: 'errors#upgrade_browser'
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
