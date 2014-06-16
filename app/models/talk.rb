@@ -279,6 +279,7 @@ class Talk < ActiveRecord::Base
 
   # Upload file to S3
   def upload_file(key, file)
+    return unless key and file
     handle = File.open(file)
     file = media_storage.files.create key: key, body: handle
   end
