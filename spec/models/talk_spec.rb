@@ -125,16 +125,29 @@ describe Talk do
       talk.send(:content_type_for, filename).should == 'audio/ogg'
     end
 
-    pending 'saves the Content-Type' do
-      talk = FactoryGirl.create(:talk)
-      # Guard against potentially valid fixtures
-      talk.send(:media_storage).files.get('1.m4a').content_type.should_not == 'audio/m4a'
+    describe 'saves the Content-Type' do
+      before { @talk = FactoryGirl.create(:talk) }
+      it 'works for m4a' do
+        m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
+        @talk.send(:upload_file, '1.m4a', m4a_file)
 
-      m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
-      talk.send(:upload_file, '1.m4a', m4a_file)
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.m4a').content_type.should == 'audio/mp4'
+      end
+      it 'works for mp3' do
+        mp3_file = File.expand_path("spec/support/fixtures/transcode0/1.mp3", Rails.root)
+        @talk.send(:upload_file, '1.mp3', mp3_file)
 
-      media_storage = Storage.directories.new(key: Settings.storage.media, prefix: talk.uri)
-      media_storage.files.get('1.m4a').content_type.should == 'audio/m4a'
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.mp3').content_type.should == 'audio/mpeg'
+      end
+      it 'works for ogg' do
+        ogg_file = File.expand_path("spec/support/fixtures/transcode0/1.ogg", Rails.root)
+        @talk.send(:upload_file, '1.ogg', ogg_file)
+
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.ogg').content_type.should == 'audio/ogg'
+      end
     end
 
   end
