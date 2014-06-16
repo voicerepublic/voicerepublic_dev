@@ -23,18 +23,20 @@ class RtmpWatcher
     hash = Hash.from_xml(xml)
     data = deep_ostruct(hash)
     
+    payload = {}
     data.rtmp.server.application.each do |app|
       if app.live.nclients.to_i > 0
         app.live.stream.each do |stream|
-          payload = {
-            nclients: stream.nclients,
-            bw_in: stream.bw_in,
-            app_name: app.name
-          }
-          publish "/stat/#{stream.name}", payload
+          publish "/stat/#{stream.name}",
+                  payload[stream.name] = {
+                    nclients: stream.nclients,
+                    bw_in: stream.bw_in,
+                    app_name: app.name
+                  }
         end
       end
     end
+    publish "/stat", payload
   end
   
   private
