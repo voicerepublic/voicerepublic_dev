@@ -121,33 +121,8 @@ describe Talk do
 
       # FIXME: this is dirty. i'm too lazy looking up how to properly mock a
       # file and use the current defaults.
-      filename.should =~ /ogg$/
-      talk.send(:content_type_for, filename).should == 'audio/ogg'
-    end
-
-    describe 'saves the Content-Type' do
-      before { @talk = FactoryGirl.create(:talk) }
-      it 'works for m4a' do
-        m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
-        @talk.send(:upload_file, '1.m4a', m4a_file)
-
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
-        media_storage.files.get('1.m4a').content_type.should == 'audio/mp4'
-      end
-      it 'works for mp3' do
-        mp3_file = File.expand_path("spec/support/fixtures/transcode0/1.mp3", Rails.root)
-        @talk.send(:upload_file, '1.mp3', mp3_file)
-
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
-        media_storage.files.get('1.mp3').content_type.should == 'audio/mpeg'
-      end
-      it 'works for ogg' do
-        ogg_file = File.expand_path("spec/support/fixtures/transcode0/1.ogg", Rails.root)
-        @talk.send(:upload_file, '1.ogg', ogg_file)
-
-        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
-        media_storage.files.get('1.ogg').content_type.should == 'audio/ogg'
-      end
+      filename.should =~ /mp3/
+      talk.send(:content_type_for, filename).should == 'audio/mpeg'
     end
 
   end

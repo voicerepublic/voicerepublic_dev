@@ -280,7 +280,22 @@ class Talk < ActiveRecord::Base
   # Upload file to S3
   def upload_file(key, file)
     handle = File.open(file)
-    file = media_storage.files.create key: key, body: handle
+    file = media_storage.files.create key: key, body: handle, content_type: content_type_for(key)
+  end
+
+  # Lookup table for Content-Type (required for S3)
+  def content_type_for(file)
+    file_suffix = file.split(".").last.downcase
+    return unless ['m4a', 'mp3', 'ogg', 'flv'].include? file_suffix
+
+    content_type = case file_suffix
+      when "m4a" then "audio/mp4"
+      when "mp3" then "audio/mpeg"
+      when "ogg" then "audio/ogg"
+      when "flv" then "video/x-flv"
+      else ""
+      end
+    content_type
   end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
