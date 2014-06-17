@@ -31,7 +31,8 @@ class RtmpWatcher
                   payload[stream.name] = {
                     nclients: stream.nclients,
                     bw_in: stream.bw_in,
-                    app_name: app.name
+                    app_name: app.name,
+                    codec: stream.meta.audio.codec
                   }
         end
       end
