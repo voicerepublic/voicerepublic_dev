@@ -37,7 +37,7 @@ class RtmpWatcher
         end
       end
     end
-    publish "/stat", payload
+    publish "/stat", payload unless payload.empty?
   end
   
   private
