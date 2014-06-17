@@ -72,7 +72,7 @@ if __FILE__ == $0
   PrivatePub.load_config(path, ENV['RAILS_ENV'] || 'development')
 
   # daemonize
-  piddir = File.join(base, 'tmp', 'pids'
+  piddir = File.join(base, 'tmp', 'pids')
   Daemons.run_proc(File.basename(__FILE__), dir: piddir) do
     RtmpWatcher.new.run
   end

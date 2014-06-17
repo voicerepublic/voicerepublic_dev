@@ -15,7 +15,7 @@ export RAILS_ENV=production
 
 bundle='/home/app/.rbenv/shims/bundle'
 # TODO move the pidfile to a save place which persists during deployment
-pidfile="/home/app/app/current/lib/rtmp_watcher.rb.pid"
+pidfile="/home/app/app/shared/tmp/pids/rtmp_watcher.rb.pid"
 cmd="${bundle} exec lib/rtmp_watcher.rb"
 
 # Rails is always located below ~/app/current
@@ -26,8 +26,8 @@ case $1 in
         pwd
         echo ${cmd} start
         ${cmd} start
-	      cat ${pidfile}
-	      echo
+	      #cat ${pidfile}
+	      #echo
     ;;
     stop)
         # kill `cat ${pidfile}`
