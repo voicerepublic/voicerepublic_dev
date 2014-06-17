@@ -288,11 +288,16 @@ class Talk < ActiveRecord::Base
 
   private
 
-  # Upload file to S3
+  # upload file to storage
   def upload_file(key, file)
     return unless key and file
     handle = File.open(file)
-    file = media_storage.files.create key: key, body: handle
+    ext = key.split('.').last
+    # Explicity set content type via Mime::Type, otherwise
+    # Fog will use MIME::Types to determine the content type
+    # and MIME::Types is a horrible, horrible beast.
+    ctype = Mime::Type.lookup_by_extension(ext)
+    media_storage.files.create key: key, body: handle, content_type: ctype
   end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.

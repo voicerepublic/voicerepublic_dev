@@ -118,6 +118,7 @@ describe Talk do
     describe 'saves the Content-Type' do
       before { @talk = FactoryGirl.create(:talk) }
       it 'works for m4a' do
+        pending 'find a way to spec the mime type hack "m4a -> audio/mp4"'
         m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
         @talk.send(:upload_file, '1.m4a', m4a_file)
 
