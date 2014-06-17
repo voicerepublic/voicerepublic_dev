@@ -1,3 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'logger'
+
 # The Assimilator runs specs and reports the outcome.
 #
 # Runnning the Asimilator in CLI
@@ -12,7 +16,7 @@
 #
 # For an example of an `opts` hash see `app/jobs/assimilate.rb`.
 #
-class Assimilator < Struct(:repo, :ref, :pusher)
+class Assimilator < Struct.new(:repo, :ref, :pusher)
 
   class << self
     def run(opts)
@@ -34,7 +38,7 @@ class Assimilator < Struct(:repo, :ref, :pusher)
   private
   
   def logger
-    logpath = Rails.root.join('log', 'ci.log')
+    logpath = File.expand_path('../../log/ci.log', __FILE__)
     logfile = File.open(logpath, 'a')
     logfile.sync = true
     Logger.new(logfile)
@@ -42,4 +46,4 @@ class Assimilator < Struct(:repo, :ref, :pusher)
   
 end
 
-Assimilator.new(ARGV).run if __FILE__ == $0
+Assimilator.new(*ARGV).run if __FILE__ == $0
