@@ -42,6 +42,10 @@ class Venue < ActiveRecord::Base
 
   validates :title, :teaser, :description, :tag_list, presence: true
 
+  validates :title, length: { maximum: Settings.limit.string }
+  validates :teaser, length: { maximum: Settings.limit.string }
+  validates :description, length: { maximum: Settings.limit.text }
+  
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :talks
