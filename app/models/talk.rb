@@ -285,7 +285,20 @@ class Talk < ActiveRecord::Base
     storage["#{uri}/#{id}.mp3"]
   end
 
+
   private
+
+  # upload file to storage
+  def upload_file(key, file)
+    return unless key and file
+    handle = File.open(file)
+    ext = key.split('.').last
+    # Explicity set content type via Mime::Type, otherwise
+    # Fog will use MIME::Types to determine the content type
+    # and MIME::Types is a horrible, horrible beast.
+    ctype = Mime::Type.lookup_by_extension(ext)
+    media_storage.files.create key: key, body: handle, content_type: ctype
+  end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
   #
@@ -408,9 +421,8 @@ class Talk < ActiveRecord::Base
         %x[ #{cmd} ]
         # upload ogg to s3
         key = uri + "/" + ogg
-        handle = File.open(ogg)
         logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
-        media_storage.files.create key: key, body: handle
+        upload_file(key, file)
         # store reference
         path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, path
@@ -473,9 +485,8 @@ class Talk < ActiveRecord::Base
     files.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
-      handle = File.open(file)
       logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
-      media_storage.files.create key: key, body: handle
+      upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
 
