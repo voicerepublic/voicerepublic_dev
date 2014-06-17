@@ -92,3 +92,11 @@
 	}
 
 }
+
+@-moz-document url-prefix() {
+	.top-bar-box{
+		.top-bar-search-field{
+			padding-top: 7px;
+		}
+	}
+}
