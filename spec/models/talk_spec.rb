@@ -317,4 +317,26 @@ describe Talk do
 
   end
 
+  describe 'with indexing' do
+    before do
+      Thread.current["PgSearch.enable_multisearch"] = true
+      @talk = FactoryGirl.create :talk
+    end
+
+    after do
+      Thread.current["PgSearch.enable_multisearch"] = false
+    end
+
+    it 'properly limits fields' do
+      # if the cumulated lengths of all indexed fields is to long
+      # this will raise an error
+      expect do
+        @talk.title       = '-' * Settings.limit.string
+        @talk.teaser      = '-' * Settings.limit.string
+        @talk.description = '-' * Settings.limit.text
+        @talk.save!
+      end.to_not raise_error
+    end
+  end
+  
 end

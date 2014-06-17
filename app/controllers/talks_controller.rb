@@ -6,7 +6,7 @@ class TalksController < ApplicationController
 
   # GET /talks/popular
   def featured
-    @talks = Talk.prelive.paginate(page: params[:page], per_page: 25)
+    @talks = Talk.prelive.featured.paginate(page: params[:page], per_page: 25)
     render :index
   end
 
@@ -108,7 +108,7 @@ class TalksController < ApplicationController
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time, :duration,
                                  :description, :record, :image,
-                                 :tag_list, :guest_list)
+                                 :tag_list, :guest_list, :language)
   end
 
 end

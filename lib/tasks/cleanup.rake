@@ -30,6 +30,11 @@ namespace :cleanup do
       where('last_request_at < ?', 4.hours.ago).destroy_all
   end
 
+  desc 'Regenerate all flyers'
+  task :regenerate_flyers => :environment do
+    Talk.all.each { |t| t.send(:generate_flyer) }
+  end
+
   # When a talk has been created, but the host never shows, the talk will never
   # proceed to further states. For the time being, this is corrected here.
   # TODO: Maybe it's better to implement an additional state machine state
