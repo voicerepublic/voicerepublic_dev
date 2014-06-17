@@ -47,6 +47,7 @@ FactoryGirl.define do
     record false
     tag_list 'lorem, ipsum, dolor'
     description 'talk description'
+    language 'en'
   end
 
   factory :appearance do
