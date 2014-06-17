@@ -126,6 +126,34 @@ The output lists the resulting files.
 (Depending on your shell, e.g. for zsh, you might have to escape the
 square brackets with backslashes.)
 
+### Analyzing FLV Data with Rake
+
+#### Parameters
+
+* path
+* started_at
+* ended_at
+
+#### Run
+
+    rake audio:analyze\[/home/phil/audio/vr-1104,1401736803,1401740512\]
+
+#### Legend
+
+* filename
+* user_id (deduced from filename)
+* duration in seconds (as of avconv)
+* file size in bytes
+* flag
+* file start timestamp (deduced from filename)
+* file end timestamp (start + duration)
+
+#### Flags
+
+* `-` marks a file of size 0
+* `X` marks a corrupt file (size > 0, but duration cannot be determined)
+* `*` marks files which touch the live section of the talk
+
 
 Documentation
 -------------
