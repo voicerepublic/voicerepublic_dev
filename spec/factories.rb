@@ -7,7 +7,7 @@ FactoryGirl.define do
 
   factory :venue do
     tag_list    'some, tags'
-    teaser      Faker::Lorem.paragraph
+    teaser      'Some teaser not longer than 140 chars'
     description Faker::Lorem.paragraphs(2).join("\n")
     title       Faker::Lorem.sentence
     user

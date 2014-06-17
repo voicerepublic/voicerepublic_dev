@@ -101,6 +101,10 @@ class Talk < ActiveRecord::Base
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
                                        message: I18n.t(:invalid_time) }
 
+  validates :title, length: { maximum: Settings.limit.string }
+  validates :teaser, length: { maximum: Settings.limit.string }
+  validates :description, length: { maximum: Settings.limit.text }
+  
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
