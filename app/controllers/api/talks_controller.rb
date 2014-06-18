@@ -26,6 +26,13 @@ class Api::TalksController < Api::BaseController
     # TODO check for security issue (whitelist methods)
     msg = send @method, msg if respond_to? @method
 
+    # this is critical, so raise an error if it fails
+    if state && state != @talk.reload.session[current_user.id][:state]
+      raise "Critical: Failed to set state #{state} " +
+            "for user #{current_user.id} " +
+            "on talk #{@talk.id}"
+    end
+
     publish msg.to_hash
     head :ok
   end
