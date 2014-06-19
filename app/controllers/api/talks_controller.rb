@@ -30,7 +30,8 @@ class Api::TalksController < Api::BaseController
     if validate_state(state)
       raise "Critical: Failed to set state #{state} " +
             "for user #{current_user.id} " +
-            "on talk #{@talk.id}"
+            "on talk #{@talk.id} " +
+            "with method #{@method}"
     end
 
     publish msg.to_hash
