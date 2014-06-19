@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
   end
 
   def insider?
-    email =~ /@voicerepublic.com^/
+    !!(email =~ /@voicerepublic.com$/)
   end
   
 end
