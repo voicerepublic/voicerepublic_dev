@@ -600,6 +600,56 @@
       }
     }
   }
+  .vr-banner{
+    position: absolute;
+    padding: 16px 19px 20px 19px;
+    width: 210px;
+    right: -220px;
+    top: 0;
+    background: $brand-color-red;
+    @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
+    @include transition(all, 0.1s, ease-in-out);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
+    &:hover{
+      @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4),-1px -1px 2px rgba(0,0,0,0.4);
+    }
+    a{
+      text-align: left;
+      h3{
+        display: inline-block;
+        border-bottom: 2px solid white;
+        color: white;
+        font-size: rem-calc(13);
+      }
+      p{
+        line-height: 1.4;
+        color:white;
+        margin-bottom: 0;
+        font-size: rem-calc(12);
+      }
+      span{
+        text-decoration:underline;
+      }
+    }
+    .close-x{
+      position: absolute;
+      top: 2px;
+      right: 6px;
+      color: white
+    }
+  }
+  
+  #vr-banner-modal{
+    padding: 0;
+    img{
+      width: 100%;
+    }
+    .close-reveal-modal{
+      color: white;
+    }
+  }
+
 }
 
 // EXPLORE TALKS
