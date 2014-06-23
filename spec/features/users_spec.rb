@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# it renders specs
 describe 'UsersController' do
   describe 'renders' do
     describe 'without user' do

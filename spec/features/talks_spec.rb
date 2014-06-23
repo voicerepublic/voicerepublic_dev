@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# it renders specs
 describe 'TalksController' do
   describe 'renders' do
     describe 'without talk' do

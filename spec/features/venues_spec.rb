@@ -1,11 +1,7 @@
 require 'spec_helper'
 
-# feature is in fact just an alias for describe ..., :type =>
-# :feature, background is an alias for before, scenario for it, and
-# given/given! aliases for let/let!, respectively.
-#
-describe "Venues", js: true do
-
+# it renders specs
+describe 'VenuesController' do
   describe 'it renders' do
     describe 'without venue' do
       it 'index on GET /venues' do # index
@@ -33,6 +29,13 @@ describe "Venues", js: true do
       end
     end
   end
+end
+
+# feature is in fact just an alias for describe ..., :type =>
+# :feature, background is an alias for before, scenario for it, and
+# given/given! aliases for let/let!, respectively.
+#
+describe "Venues", js: true do
 
   describe "As guest" do
     describe "Participate" do
