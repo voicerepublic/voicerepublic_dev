@@ -8,6 +8,22 @@ describe 'TalksController' do
         visit '/talks'
         page.should have_selector(".talks-index")
       end
+      it 'index on GET /talks/featured' do # featured
+        visit '/talks/featured'
+        page.should have_selector(".talks-featured")
+      end
+      it 'index on GET /talks/popular' do # popular
+        visit '/talks/popular'
+        page.should have_selector(".talks-popular")
+      end
+      it 'index on GET /talks/live' do # live
+        visit '/talks/live'
+        page.should have_selector(".talks-live")
+      end
+      it 'index on GET /talks/recent' do # recent
+        visit '/talks/recent'
+        page.should have_selector(".talks-recent")
+      end
       it 'new on GET /talks/new' do # new
         expect { visit '/talks/new' }.to raise_error(ActionController::RoutingError)
       end
