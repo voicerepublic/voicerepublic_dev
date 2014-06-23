@@ -25,14 +25,15 @@ class LivepageConfig < Struct.new(:talk, :user)
         starts_in: talk.starts_in,
         ends_in: talk.ends_in,
         links: talk.media_links,
-        duration: talk.duration.minutes
+        duration: talk.duration.minutes,
+        channel: talk.public_channel
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
       fayeUrl: PrivatePub.config[:server],
-      subscription: subscription,
+      subscriptions: subscriptions,
       # streams
       namespace: "t#{talk.id}",
       # misc
@@ -80,8 +81,13 @@ class LivepageConfig < Struct.new(:talk, :user)
     end
   end
 
-  def subscription
-    PrivatePub.subscription channel: talk.public_channel
+  def subscriptions
+    channels = [ talk.public_channel, 
+                 user_details[:channel] ]
+
+    channels.inject({}) do |r, c|
+      r.merge c => PrivatePub.subscription(channel: c)
+    end
   end
 
   def statemachine_spec

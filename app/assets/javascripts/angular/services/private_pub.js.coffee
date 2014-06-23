@@ -12,9 +12,12 @@ privatePubFunc = ($log, $q, config) ->
   fayeExtension =
     outgoing: (message, callback) ->
       if message.channel == "/meta/subscribe"
+        channel = message.subscription
+        subscription = config.subscriptions[channel]
+        $log.error "no subscription for #{channel}" unless subscription?
         message.ext ||= {}
-        message.ext.private_pub_signature = config.subscription.signature
-        message.ext.private_pub_timestamp = config.subscription.timestamp
+        message.ext.private_pub_signature = subscription.signature
+        message.ext.private_pub_timestamp = subscription.timestamp
       callback message
 
   $log.debug 'Loading Faye client...'

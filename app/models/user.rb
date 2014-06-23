@@ -112,7 +112,8 @@ class User < ActiveRecord::Base
       name: name,
       role: role_for(talk),
       image: avatar.thumb('100x100#nw').url,
-      stream: "t#{talk.id}-u#{id}"
+      stream: "t#{talk.id}-u#{id}",
+      channel: "/t#{talk.id}/u#{id}"
     }
   end
 
