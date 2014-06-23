@@ -27,7 +27,7 @@ class Api::TalksController < Api::BaseController
     msg = send @method, msg if respond_to? @method
 
     # this is critical, so raise an error if it fails
-    if validate_state(state)
+    unless validate_state(state)
       raise "Critical: Failed to set state #{state} " +
             "for user #{current_user.id} " +
             "on talk #{@talk.id} " +
@@ -57,9 +57,14 @@ class Api::TalksController < Api::BaseController
 
   # state
   #  * merges user data
+  #
+  # E.g.
+  #
+  #     {"state"=>"Registering"}
+  #
   def registering(msg)
     user = current_user
-    details = user.details_for(@talk).merge state: msg[:event]
+    details = user.details_for(@talk).merge state: msg[:state]
     Talk.transaction do
       session = @talk.reload.session || {}
       session[user.id] = details
@@ -104,7 +109,8 @@ class Api::TalksController < Api::BaseController
   end
 
   def validate_state(state)
-    state && state != @talk.reload.session[current_user.id][:state]
+    return true if state.blank?
+    state == @talk.reload.session[current_user.id][:state]
   end
 
 end
