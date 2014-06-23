@@ -1,8 +1,38 @@
 namespace :cleanup do
+  desc 'Correctly set content-type for M4A files in S3'
+  task :set_content_type => :environment do
+    directory = Storage.directories.get(Settings.storage.media)
+
+    directory.files.each do |f|
+      content_type = case f.key.split(".").last.downcase
+        when "m4a" then "audio/mp4"
+        when "mp3" then "audio/mpeg"
+        when "ogg" then "audio/ogg"
+        else next
+        end
+      options = {
+        'Content-Type' => content_type,
+        'x-amz-metadata-directive' => 'REPLACE'
+      }
+      begin
+        f.copy(f.directory.key, f.key, options)
+        Rails.logger.info "Updated content-type on file: '#{f.key}'"
+      rescue Exception => e
+        Rails.logger.error "Could not update content-type on file: '#{f.key}'"
+        Rails.logger.error "Error: '#{e.message}'"
+      end
+    end
+  end
+
   desc 'Delete guest users that are no longer active'
   task :guests => :environment do
     User.where('firstname like ?', '%guest%').
       where('last_request_at < ?', 4.hours.ago).destroy_all
+  end
+
+  desc 'Regenerate all flyers'
+  task :regenerate_flyers => :environment do
+    Talk.all.each { |t| t.send(:generate_flyer) }
   end
 
   # When a talk has been created, but the host never shows, the talk will never

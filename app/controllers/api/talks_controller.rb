@@ -26,6 +26,14 @@ class Api::TalksController < Api::BaseController
     # TODO check for security issue (whitelist methods)
     msg = send @method, msg if respond_to? @method
 
+    # this is critical, so raise an error if it fails
+    if validate_state(state)
+      raise "Critical: Failed to set state #{state} " +
+            "for user #{current_user.id} " +
+            "on talk #{@talk.id} " +
+            "with method #{@method}"
+    end
+
     publish msg.to_hash
     head :ok
   end
@@ -93,6 +101,10 @@ class Api::TalksController < Api::BaseController
   # protect_from_forgery for angular ajax requests (overwrite CSRF check)
   def verified_request?
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
+  end
+
+  def validate_state(state)
+    state && state != @talk.reload.session[current_user.id][:state]
   end
 
 end

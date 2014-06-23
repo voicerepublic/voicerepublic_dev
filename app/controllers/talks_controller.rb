@@ -114,7 +114,7 @@ class TalksController < ApplicationController
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time, :duration,
                                  :description, :record, :image,
-                                 :tag_list, :guest_list)
+                                 :tag_list, :guest_list, :language)
   end
 
 end

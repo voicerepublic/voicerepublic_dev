@@ -87,7 +87,6 @@ describe "Talks" do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
 
-      fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
       # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
       # the text with Capybara. jQuery to the rescue.
@@ -97,6 +96,7 @@ describe "Talks" do
       fill_in 'talk_starts_at_date', with: '2014-04-29'
       fill_in 'talk_starts_at_time', with: '05:12'
 
+      fill_in :talk_title, with: 'spec talk title'
       click_button 'Save'
       page.should have_selector('.talks-show')
       page.should have_content('spec talk title')

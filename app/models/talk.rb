@@ -44,7 +44,12 @@ class Talk < ActiveRecord::Base
 
   include ActiveModel::Transitions
 
+  LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
+  
   GRACE_PERIOD = 5.minutes
+
+  # colors according to ci style guide
+  COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
   ARCHIVE_STRUCTURE = "%Y/%m/%d"
 
@@ -77,7 +82,8 @@ class Talk < ActiveRecord::Base
 
   attr_accessible :title, :teaser, :duration, :uri,
                   :description, :record, :image, :tag_list,
-                  :guest_list, :starts_at_date, :starts_at_time
+                  :guest_list, :starts_at_date, :starts_at_time,
+                  :language
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -88,12 +94,17 @@ class Talk < ActiveRecord::Base
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
-  validates :venue, :title, :tag_list, :duration, :description, presence: true
+  validates :venue, :title, :tag_list, :duration, :description,
+            :language, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
                                        message: I18n.t(:invalid_time) }
 
+  validates :title, length: { maximum: Settings.limit.string }
+  validates :teaser, length: { maximum: Settings.limit.string }
+  validates :description, length: { maximum: Settings.limit.text }
+  
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -274,7 +285,20 @@ class Talk < ActiveRecord::Base
     storage["#{uri}/#{id}.mp3"]
   end
 
+
   private
+
+  # upload file to storage
+  def upload_file(key, file)
+    return unless key and file
+    handle = File.open(file)
+    ext = key.split('.').last
+    # Explicity set content type via Mime::Type, otherwise
+    # Fog will use MIME::Types to determine the content type
+    # and MIME::Types is a horrible, horrible beast.
+    ctype = Mime::Type.lookup_by_extension(ext)
+    media_storage.files.create key: key, body: handle, content_type: ctype
+  end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
   #
@@ -397,9 +421,8 @@ class Talk < ActiveRecord::Base
         %x[ #{cmd} ]
         # upload ogg to s3
         key = uri + "/" + ogg
-        handle = File.open(ogg)
         logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
-        media_storage.files.create key: key, body: handle
+        upload_file(key, file)
         # store reference
         path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, path
@@ -462,9 +485,8 @@ class Talk < ActiveRecord::Base
     files.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
-      handle = File.open(file)
       logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
-      media_storage.files.create key: key, body: handle
+      upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
 
@@ -536,6 +558,7 @@ class Talk < ActiveRecord::Base
 
   def flyer_interpolations
     {
+      color:    COLORS[rand(COLORS.size)],
       host:     user.name,
       title:    title,
       day:      I18n.l(starts_at, format: :flyer_day),
