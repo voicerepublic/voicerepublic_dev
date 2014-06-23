@@ -1,7 +1,37 @@
 require 'spec_helper'
 
-describe "Talks" do
+describe 'TalksController' do
+  describe 'renders' do
+    describe 'without talk' do
+      it 'index on GET /talks' do # index
+        visit '/talks'
+        page.should have_selector(".talks-index")
+      end
+      it 'new on GET /talks/new' do # new
+        expect { visit '/talks/new' }.to raise_error(ActionController::RoutingError)
+      end
+    end
+    describe 'with talk' do
+      before do
+        @talk = FactoryGirl.create(:talk)
+      end
+      it "show on GET /talks/:id" do # show
+        pending
+        visit talk_path(@talk)
+        page.should have_selector(".talks-show")
+      end
+      it "edit on GET /talks/:id/edit" do # edit
+        pending
+        login_talk @talk
+        visit edit_talk_path(@talk)
+        page.should have_selector(".talks-edit")
+      end
+    end
+  end
+end
 
+describe "Talks" do
+  
   before do
     @user = FactoryGirl.create(:user)
     login_user(@user)

@@ -1,5 +1,33 @@
 require 'spec_helper'
 
+describe 'UsersController' do
+  describe 'renders' do
+    describe 'without user' do
+      it 'index on GET /users' do # index
+        expect { visit '/users' }.to raise_error(ActionController::RoutingError)
+      end
+      it 'new on GET /users/new' do # new
+        pending "Shouldn't this raise a routing error?"
+        expect { visit '/users/new' }.to raise_error(ActionController::RoutingError)
+      end
+    end
+    describe 'with user' do
+      before do
+        @user = FactoryGirl.create(:user)
+      end
+      it "show on GET /users/:id" do # show
+        visit user_path(@user)
+        page.should have_selector(".users-show")
+      end
+      it "edit on GET /users/:id/edit" do # edit
+        login_user @user
+        visit edit_user_path(@user)
+        page.should have_selector(".users-edit")
+      end
+    end
+  end
+end
+
 feature "Anonymous users", js: true do
   scenario "will be authenticated as guest user" do
     User.count.should eq(0)
