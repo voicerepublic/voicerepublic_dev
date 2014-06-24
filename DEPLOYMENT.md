@@ -54,6 +54,7 @@ Issue 'PG::InsufficientPrivilege' -- Resolved
 As root
 
     [13:59:18] voicerepublic-staging:~# su - postgres
+    [13:59:18] voicerepublic-staging:~$ psql rails_production
     psql (9.1.11)
     Type "help" for help.
 
