@@ -69,6 +69,7 @@ class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
       Dir.chdir('repo')
     else
       Dir.chdir('repo')
+      execute "rm -f db/schema.rb"
       execute "git checkout master; git pull"
     end
     # git checkout <sha>
@@ -92,7 +93,7 @@ test:
     # rspec spec
     status('pending', "running specs...")
     # TODO make configurable
-    execute "bundle exec rspec spec --fail-fast", false
+    execute "RAILS_ENV=test bundle exec rspec spec --fail-fast", false
     # report
     status($?.exitstatus > 0 ? 'failure' : 'success')
   end
