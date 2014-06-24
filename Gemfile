@@ -76,7 +76,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara'#, '2.0.1'
+  gem 'capybara', '2.2.1'
   gem 'ci_reporter'
   gem 'database_cleaner', git: 'git@github.com:bmabey/database_cleaner.git'
   gem 'guard-rspec'

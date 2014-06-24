@@ -436,7 +436,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.1.1)
   capistrano-rails (~> 1.1.1)
   capistrano-rbenv (~> 2.0)
-  capybara
+  capybara (= 2.2.1)
   ci_reporter
   ckeditor_rails
   coffee-rails

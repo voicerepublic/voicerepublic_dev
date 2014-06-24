@@ -16,6 +16,10 @@ describe 'TalksController' do
         visit '/talks/popular'
         page.should have_selector(".talks-popular")
       end
+      it 'index on GET /talks/upcoming' do # upcoming
+        visit '/talks/upcoming'
+        page.should have_selector(".talks-upcoming")
+      end
       it 'index on GET /talks/live' do # live
         visit '/talks/live'
         page.should have_selector(".talks-live")
@@ -48,7 +52,7 @@ describe 'TalksController' do
 end
 
 describe "Talks" do
-  
+
   before do
     @user = FactoryGirl.create(:user)
     login_user(@user)
@@ -134,16 +138,16 @@ describe "Talks" do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
 
+      fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
-      # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
       # the text with Capybara. jQuery to the rescue.
       page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
       # fill in tags
-      fill_in 's2id_autogen2', with: 'a,b,c,'
+      fill_in 's2id_autogen3', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'
       fill_in 'talk_starts_at_time', with: '05:12'
 
-      fill_in :talk_title, with: 'spec talk title'
       click_button 'Save'
       page.should have_selector('.talks-show')
       page.should have_content('spec talk title')
