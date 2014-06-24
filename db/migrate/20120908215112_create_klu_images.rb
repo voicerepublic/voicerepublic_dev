@@ -3,7 +3,7 @@ class CreateKluImages < ActiveRecord::Migration
     create_table :klu_images do |t|
       t.text :description
       t.integer :klu_id
-      t.attachment :image
+      #t.attachment :image
       t.timestamps
     end
   end
