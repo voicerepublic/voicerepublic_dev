@@ -56,7 +56,7 @@ class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
     
     puts Dir.pwd
     # TODO make configurable
-    path = '/home/app/shared/ci'
+    path = '/home/app/app/shared/ci'
     # TODO remove hack
     path = '/tmp/ci' if %x[hostname].chomp == 'fatou'
     path = File.expand_path(path, Dir.pwd) 
