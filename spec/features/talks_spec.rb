@@ -16,6 +16,10 @@ describe 'TalksController' do
         visit '/talks/popular'
         page.should have_selector(".talks-popular")
       end
+      it 'index on GET /talks/upcoming' do # upcoming
+        visit '/talks/upcoming'
+        page.should have_selector(".talks-upcoming")
+      end
       it 'index on GET /talks/live' do # live
         visit '/talks/live'
         page.should have_selector(".talks-live")

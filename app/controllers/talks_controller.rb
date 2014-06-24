@@ -1,6 +1,7 @@
 class TalksController < ApplicationController
 
-  before_action :set_venue, except: [:index, :popular, :live, :recent, :featured]
+  before_action :set_venue, except: [:index, :popular, :live, :recent,
+    :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
@@ -36,7 +37,7 @@ class TalksController < ApplicationController
 
   def index
     if @venue
-      @talks = @venue.talks 
+      @talks = @venue.talks
     else
       @talks_live     = Talk.live.limit(5)
       @talks_featured = Talk.featured.limit(5)
