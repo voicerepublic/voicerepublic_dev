@@ -220,10 +220,13 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   listeners = ->
     (user for id, user of users when user.role == 'listener')
 
+  replHandler = (msg) ->
+    eval msg.data.exec if msg.data.exec?
+
   # TODO idealy this should move into callback: on/Registering$/
   # subscribe to push notifications
-  privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
-  # privatePub.subscribe "/#{config.namespace}/u#{config.user.id}", pushMsgHandler
+  privatePub.subscribe config.talk.channel, pushMsgHandler
+  privatePub.subscribe config.user.channel, replHandler
 
   # exposed objects
   {

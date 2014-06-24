@@ -329,8 +329,8 @@ Note: As soon as the stream goes live, your client will subscribe a
 2nd time and you will here an echo.
 
 
-Console Cheat Sheet
--------------------
+Rails Console Cheat Sheet
+-------------------------
 
 ### Feature three randomly selected talks since yesterday
 
@@ -356,3 +356,19 @@ Console Cheat Sheet
 ### Manually asses talks
 
     puts *Talk.where("uri like 'lt%'").order(:id).map { |t| '% 4s % 5s % 5s %s' % [t.id, t.storage.values.select { |f| f[:ext]=='.flv' }.inject(0) {|r,s| r + s[:seconds].to_i }, t.recording_override?, t.teaser ] }
+
+### RE(P)L into remote brwoser session
+
+Value of `exec` has to be native JavaScript and will be evaluated in
+the scope of instance of Angular's `session` service.
+
+At this point the P in REPL is still missing.
+
+#### Log on error to the console
+
+    PrivatePub.publish_to '/t981/u1', { exec: '$log.error("hello")' }
+
+#### Force a reload of the page
+
+    PrivatePub.publish_to '/t981/u1', { exec: 'window.location.reload()' }
+
