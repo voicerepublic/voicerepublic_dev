@@ -19,7 +19,7 @@ require 'json'
 #
 # Example invocation:
 #
-#     https://github.com/munen/voicerepublic_dev refs/heads/feature/73378326/insider-log 2f00d0a2539fd04194ef0a6944166fe15e1299f6 phil@branch14.org
+#     ./lib/assimilator.rb https://github.com/munen/voicerepublic_dev refs/heads/feature/73378326/insider-log 2f00d0a2539fd04194ef0a6944166fe15e1299f6 phil@branch14.org
 #
 # For an example of an `opts` hash see `app/jobs/assimilate.rb`.
 #
