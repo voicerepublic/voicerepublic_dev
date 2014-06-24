@@ -4,9 +4,15 @@ class TalksController < ApplicationController
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /talks/popular
+  # GET /talks/featured
   def featured
     @talks = Talk.prelive.featured.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/upcoming
+  def upcoming
+    @talks = Talk.prelive.ordered.paginate(page: params[:page], per_page: 25)
     render :index
   end
 
@@ -22,7 +28,7 @@ class TalksController < ApplicationController
     render :index
   end
 
-  # GET /talks/archived
+  # GET /talks/recent
   def recent
     @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
     render :index
