@@ -58,6 +58,65 @@ describe "Talks" do
     login_user(@user)
   end
 
+  describe "Live talk" do
+    before do
+      Timecop.travel(Time.local(2008, 9, 1, 10, 5, 0))
+      #module PrivatePub
+      #  def subscription(options = {})
+      #    debugger
+      #    true
+      #    super
+      #  end
+      #end
+      #PrivatePub.reset_config
+      #time = Time.now
+      #Time.stub!(:now).and_return(time)
+      PrivatePub.config[:signature_expiration] = 9999999999999999999999
+      #@faye = PrivatePub::FayeExtension.new
+      #@message = {"channel" => "/meta/subscribe", "ext" => {}}
+      #["/t1/public", "/t1/u1"].each do |channel|
+      #  sub = PrivatePub.subscription(:channel => channel)
+      #  @message["subscription"] = sub[:channel]
+      #  @message["ext"]["private_pub_signature"] = sub[:signature]
+      #  @message["ext"]["private_pub_timestamp"] = sub[:timestamp]
+      #end
+    end
+    after do
+      Timecop.return
+    end
+
+    describe "Visitor" do
+      it "sets correct state for visitor/listener", js: :true do
+        @talk = FactoryGirl.create(:talk)
+        @talk.update_attribute :state, :live
+        VCR.use_cassette 'talk_guest_live' do
+          visit talk_path(@talk)
+          retry_with_delay do
+            @talk.reload.session[@user.id][:state].should == "Listening"
+          end
+        end
+      end
+    end
+
+    describe "Host" do
+      it "sets correct state for host", js: true do
+        @talk = FactoryGirl.create(:talk)
+        venue = @talk.venue
+        venue.user = @user
+        venue.save!
+
+        @talk.update_attribute :state, :live
+        #VCR.use_cassette 'talk_host_live' do
+          visit talk_path(@talk)
+          retry_with_delay do
+            @talk.reload.session[@user.id][:state].should == "HostOnAir"
+          end
+        #end
+      end
+    end
+
+  end
+
 
   describe "Exploring Talks" do
 
@@ -324,6 +383,21 @@ describe "Talks" do
         page.should have_content "foo"
         page.should have_content "bar"
       end
+    end
+  end
+
+  private
+
+  def retry_with_delay(&block)
+    max_tries = 25
+    attempts = 0
+    begin
+      attempts += 1
+      return block.call(attempts)
+    rescue Exception => exception
+      raise exception if attempts >= max_tries
+      sleep 0.2
+      retry
     end
   end
 end
