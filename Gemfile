@@ -69,6 +69,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'sqlite3'
+  # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
+  #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
   gem 'timecop'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
