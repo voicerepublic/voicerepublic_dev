@@ -204,7 +204,7 @@ describe Talk do
   describe 'nicely processes audio' do
 
     it 'in state postlive' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -233,7 +233,7 @@ describe Talk do
     end
 
     it 'in state archived' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -266,7 +266,7 @@ describe Talk do
     end
 
     it 'in state archived with override' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)

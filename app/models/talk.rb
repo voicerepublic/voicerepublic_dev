@@ -12,7 +12,8 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - TODO: document me
+# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - \n"] - TODO: document me
+# * collect [boolean, default=true] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
@@ -24,7 +25,6 @@
 # * language [string, default="en"] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
-# * record [boolean, default=true] - TODO: document me
 # * recording [string] - TODO: document me
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
@@ -81,7 +81,7 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   attr_accessible :title, :teaser, :duration, :uri,
-                  :description, :record, :image, :tag_list,
+                  :description, :collect, :image, :tag_list,
                   :guest_list, :starts_at_date, :starts_at_time,
                   :language
 
@@ -350,7 +350,7 @@ class Talk < ActiveRecord::Base
   def postprocess!(uat=false)
     raise 'fail: postprocessing a talk with override' if recording_override?
     # TODO: move into a final state != archived (over/past/gone/myth)
-    return unless record?
+    return unless collect?
     return if archived? # silently guard against double processing
 
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
@@ -364,7 +364,7 @@ class Talk < ActiveRecord::Base
   end
 
   def reprocess!(uat=false)
-    raise 'fail: reprocessing a talk without recording' unless record?
+    raise 'fail: reprocessing a talk without recording' unless collect?
     raise 'fail: reprocessing a talk with override' if recording_override?
 
     logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"

@@ -114,7 +114,7 @@ class TalksController < ApplicationController
   def talk_params
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time, :duration,
-                                 :description, :record, :image,
+                                 :description, :collect, :image,
                                  :tag_list, :guest_list, :language)
   end
 
