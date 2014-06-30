@@ -54,7 +54,7 @@ class TalksController < ApplicationController
         authorize! :manage, @talk
         render text: @talk.message_history
       end
-      format.png { send_file @talk.flyer_path(true) }
+      format.png { send_file @talk.flyer.path(true) }
     end
   end
 
