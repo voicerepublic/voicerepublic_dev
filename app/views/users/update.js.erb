@@ -1,3 +1,0 @@
-$("#user-availability").removeClass().addClass('<%= escape_javascript("label label-" + css_class_for_available(@user.available))%>');
-$("#user-availability").html('<%= @user.available.capitalize %>');
-$(".actionbar-online-status").attr('title','<%= @user.available.capitalize %>');

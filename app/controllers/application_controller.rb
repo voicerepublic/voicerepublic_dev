@@ -59,7 +59,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    user.update_attribute(:available, 'online') if user.available.nil?
     return_to = ( request.env['omniauth.origin'] || stored_location ||
                   stored_location_for(user) || session[:venue_path] ||
                   user_path(user) )
