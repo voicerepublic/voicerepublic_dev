@@ -2,16 +2,9 @@
 # * id [integer, primary, not null] - primary key
 # * created_at [datetime, not null] - creation time
 # * description [text] - TODO: document me
-# * duration [integer] - TODO: document me
-# * featured_from [datetime] - TODO: document me
-# * image_content_type [string] - Paperclip for image
-# * image_file_name [string] - Paperclip for image
-# * image_file_size [integer] - Paperclip for image
 # * image_uid [string] - TODO: document me
-# * image_updated_at [datetime] - Paperclip for image
 # * options [text, default="--- {}\n"] - TODO: document me
-# * start_time [datetime] - TODO: document me
-# * teaser [text] - TODO: document me
+# * teaser [string] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
 # * uri [string] - TODO: document me
