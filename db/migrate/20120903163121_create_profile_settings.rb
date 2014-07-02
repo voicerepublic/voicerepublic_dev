@@ -11,6 +11,6 @@ class CreateProfileSettings < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_attachment :profile_settings, :portrait
+    #add_attachment :profile_settings, :portrait
   end
 end

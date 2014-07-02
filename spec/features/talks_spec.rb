@@ -1,5 +1,56 @@
 require 'spec_helper'
 
+# it renders specs
+describe 'TalksController' do
+  describe 'renders' do
+    describe 'without talk' do
+      it 'index on GET /talks' do # index
+        visit '/talks'
+        page.should have_selector(".talks-index")
+      end
+      it 'index on GET /talks/featured' do # featured
+        visit '/talks/featured'
+        page.should have_selector(".talks-featured")
+      end
+      it 'index on GET /talks/popular' do # popular
+        visit '/talks/popular'
+        page.should have_selector(".talks-popular")
+      end
+      it 'index on GET /talks/upcoming' do # upcoming
+        visit '/talks/upcoming'
+        page.should have_selector(".talks-upcoming")
+      end
+      it 'index on GET /talks/live' do # live
+        visit '/talks/live'
+        page.should have_selector(".talks-live")
+      end
+      it 'index on GET /talks/recent' do # recent
+        visit '/talks/recent'
+        page.should have_selector(".talks-recent")
+      end
+      it 'new on GET /talks/new' do # new
+        expect { visit '/talks/new' }.to raise_error(ActionController::RoutingError)
+      end
+    end
+    describe 'with talk' do
+      before do
+        @talk = FactoryGirl.create(:talk)
+      end
+      it "show on GET /talks/:id" do # show
+        pending
+        visit talk_path(@talk)
+        page.should have_selector(".talks-show")
+      end
+      it "edit on GET /talks/:id/edit" do # edit
+        pending
+        login_talk @talk
+        visit edit_talk_path(@talk)
+        page.should have_selector(".talks-edit")
+      end
+    end
+  end
+end
+
 describe "Talks" do
 
   before do
@@ -89,11 +140,11 @@ describe "Talks" do
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
-      # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
       # the text with Capybara. jQuery to the rescue.
       page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
       # fill in tags
-      fill_in 's2id_autogen2', with: 'a,b,c,'
+      fill_in 's2id_autogen3', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'
       fill_in 'talk_starts_at_time', with: '05:12'
 

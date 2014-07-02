@@ -110,20 +110,15 @@
         .vr-banner.hide-for-small
           = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
             %h3
-              WHAT IS VOICE REPUBLIC?
+              = t('.banner_title')
             %p
-              Voice Republic is a tool for the creation and distribution of audio content on the Internet.
-              %br
-              Users are invited not just to listen to talks and debates, but also to talk to each other and get involved.
-              %br
-              We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
-              %span
-                More...
+              = raw t('.banner_text')
+
           %a.close-x(data-toggle-stuff=".vr-banner")
             = raw '&times;'
 
         #vr-banner-modal.reveal-modal(data-reveal)
-          = image_tag 'vr_infografic.jpg'
+          = image_tag 'vr_infografic.png'
           = link_to '#', class: "close-reveal-modal" do 
             &#215;
 
@@ -150,7 +145,7 @@
           .talk-state-info
             .talk-state-bullet
             = t('.state_text')
-            - if @talk.record?
+            - if @talk.collect?
               %span.record-text= t('.record_text')
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
@@ -314,5 +309,8 @@
                 = t('.just_listening_in')
 
 .scripts
+  :javascript
+    window.debug = #{!Settings.disable_js_debugging};
+    window.insider = #{current_user.insider?};
   = javascript_include_tag 'livepage'
   = render 'config'

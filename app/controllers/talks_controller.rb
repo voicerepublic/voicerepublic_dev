@@ -1,12 +1,19 @@
 class TalksController < ApplicationController
 
-  before_action :set_venue, except: [:index, :popular, :live, :recent, :featured]
+  before_action :set_venue, except: [:index, :popular, :live, :recent,
+    :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /talks/popular
+  # GET /talks/featured
   def featured
-    @talks = Talk.prelive.paginate(page: params[:page], per_page: 25)
+    @talks = Talk.prelive.featured.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/upcoming
+  def upcoming
+    @talks = Talk.prelive.ordered.paginate(page: params[:page], per_page: 25)
     render :index
   end
 
@@ -22,7 +29,7 @@ class TalksController < ApplicationController
     render :index
   end
 
-  # GET /talks/archived
+  # GET /talks/recent
   def recent
     @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
     render :index
@@ -30,7 +37,7 @@ class TalksController < ApplicationController
 
   def index
     if @venue
-      @talks = @venue.talks 
+      @talks = @venue.talks
     else
       @talks_live     = Talk.live.limit(5)
       @talks_featured = Talk.featured.limit(5)
@@ -107,8 +114,8 @@ class TalksController < ApplicationController
   def talk_params
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time, :duration,
-                                 :description, :record, :image,
-                                 :tag_list, :guest_list)
+                                 :description, :collect, :image,
+                                 :tag_list, :guest_list, :language)
   end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527072135) do
+ActiveRecord::Schema.define(version: 20140630132953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 20140527072135) do
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "ended_at"
-    t.boolean  "record",             default: true
+    t.boolean  "collect",            default: true
     t.string   "recording"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -199,8 +199,8 @@ ActiveRecord::Schema.define(version: 20140527072135) do
     t.integer  "duration",           default: 30
     t.string   "image_uid"
     t.text     "session"
-    t.datetime "featured_from"
     t.text     "audio_formats",      default: "--- []\n"
+    t.datetime "featured_from"
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 20140527072135) do
     t.integer  "related_talk_id"
     t.text     "storage",            default: "--- {}\n"
     t.string   "grade"
+    t.string   "language",           default: "en"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree

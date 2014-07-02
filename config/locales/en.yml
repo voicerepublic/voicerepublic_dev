@@ -454,7 +454,7 @@ en:
       podcast:
         title: Featured talks of VoiceRepublic
         author: The users of VoiceRepublic
-        subtitle: Voice Republic is home to the spoken word in its many forms. 
+        subtitle: Voice Republic is home to the spoken word in its many forms.
         description: |
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of VoiceRepublic
@@ -794,6 +794,14 @@ en:
       participants: Participants
       plays: '%{count} plays'
       edit_talk: Edit Talk
+      banner_title: WHAT IS VOICE REPUBLIC?
+      banner_text: |
+        Voice Republic is a tool for the creation and distribution of audio content on the Internet.
+        <br />
+        Users are invited not just to listen to talks and debates, but also to talk to each other and get involved.
+        <br />
+        We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
+        <span>More...</span>
     new:
       title: "VR New Talk"
       new_talk: New Talk
@@ -834,22 +842,48 @@ en:
       content: |
         A new talk has been scheduled. Act now and be one of the first to participate.
 
-        Check it out
+        Check it out:
 
-          %{url}
+          <a href="%{url}">%{name}</a>
+
+          <center>%{flyer}</center>
+      content_plain: |
+        A new talk has been scheduled. Act now and be one of the first to participate.
+
+        Check it out:
+
+          %{name}: %{url}
 
       footer: Goodbye & Goodnight
     reminder:
-      subject: Reminder
+      subject: Reminder for a live talk
       header: "Hello %{user_firstname}"
       content: |
-        Reminder content.
+        The following live talk is waiting for you today on Voice Republic.
+
+        Check it out:
+
+          <a href="%{url}">%{name}</a>
+
+          <center>%{flyer}</center>
+      content_plain: |
+        The following live talk is waiting for you today on Voice Republic.
+
+        Check it out:
+
+          %{name}: %{url}
+
       footer: Goodbye & Goodnight
     new_comment:
-      subject: New talk
+      subject: New comment
       header: "Hello %{user_firstname}"
+      # FIXME: Sending this mail does not make a lot of sense right now.
       content: |
-        New comment content.
+        A new comment has been written. Check it out:
+          <a href="%{url}">%{url}</a>
+      content_plain: |
+        A new comment has been written. Check it out:
+          %{url}
       footer: Goodbye & Goodnight
   sign_in_or_register: Sign In or Register
   invalid_date: "Invalid date"
@@ -874,4 +908,4 @@ en:
           <li>Safari 7 (If you are on OSX < 10.9, you need to upgrade to get a newer version of Safari. It's easier to use Chrome or Firefox.)</li>
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
-    
+

@@ -1,5 +1,36 @@
 require 'spec_helper'
 
+# it renders specs
+describe 'VenuesController' do
+  describe 'it renders' do
+    describe 'without venue' do
+      it 'index on GET /venues' do # index
+        visit venues_path
+        page.should have_selector(".venues-index")
+      end
+      it 'new on GET /venues/new' do # new
+        visit new_venue_path
+        page.should have_selector(".venues-new")
+      end
+    end
+    describe 'with venue' do
+      before do
+        @user = FactoryGirl.create(:user)
+        @venue = FactoryGirl.create(:venue, user: @user)
+      end
+      it "show on GET /venues/:id" do # show
+        visit venue_path(id: @venue)
+        page.should have_selector(".venues-show")
+      end
+      it "edit on GET /venues/:id/edit" do # edit
+        login_user(@user)
+        visit edit_venue_path(id: @venue)
+        page.should have_selector(".venues-edit")
+      end
+    end
+  end
+end
+
 # feature is in fact just an alias for describe ..., :type =>
 # :feature, background is an alias for before, scenario for it, and
 # given/given! aliases for let/let!, respectively.
@@ -51,24 +82,9 @@ describe "Venues", js: true do
       end
     end
 
-    describe "GET venues" do
-      it "renders index" do
-        visit venues_path
-        page.should have_selector(".venues-index")
-      end
-    end
-
     describe "GET a specific venue" do
       before do
         @venue = FactoryGirl.create(:venue, user: @user)
-      end
-      it "renders show" do
-        visit venue_path(id: @venue)
-        page.should have_selector(".venues-show")
-      end
-      it "renders edit" do
-        visit edit_venue_path(id: @venue)
-        page.should have_selector(".venues-edit")
       end
       it "updates title" do
         visit edit_venue_path(id: @venue)
@@ -105,19 +121,12 @@ describe "Venues", js: true do
       end
     end
 
-    describe "GET a new venue" do
-      it 'renders new' do
-        visit new_venue_path
-        page.should have_selector(".venues-new")
-      end
-    end
-
     describe "POST a new venue" do
       it 'creates a venue', driver: :chrome do
         visit new_venue_path
         fill_in 'venue_title', with: 'schubidubi'
         fill_in 'venue_teaser', with: 'some teaser'
-        # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+        # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
         # the text with Capybara. jQuery to the rescue.
         page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
         # fill in tags

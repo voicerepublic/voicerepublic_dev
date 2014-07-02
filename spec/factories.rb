@@ -7,7 +7,7 @@ FactoryGirl.define do
 
   factory :venue do
     tag_list    'some, tags'
-    teaser      Faker::Lorem.paragraph
+    teaser      'Some teaser not longer than 140 chars'
     description Faker::Lorem.paragraphs(2).join("\n")
     title       Faker::Lorem.sentence
     user
@@ -44,9 +44,10 @@ FactoryGirl.define do
     starts_at_time 1.hour.from_now.strftime('%H:%M')
     starts_at_date 1.hour.from_now.strftime('%Y-%m-%d')
     duration 60
-    record false
+    collect false
     tag_list 'lorem, ipsum, dolor'
     description 'talk description'
+    language 'en'
   end
 
   factory :appearance do
