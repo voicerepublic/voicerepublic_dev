@@ -42,6 +42,9 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   include ActiveModel::Transitions
 
   LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
@@ -578,4 +581,8 @@ class Talk < ActiveRecord::Base
     PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
   end
 
+  def slug_candidates
+    [ :title, [:id, :title] ]
+  end
+  
 end
