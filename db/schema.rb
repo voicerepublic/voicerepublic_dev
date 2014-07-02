@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702100451) do
+ActiveRecord::Schema.define(version: 20140702131058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,9 +187,11 @@ ActiveRecord::Schema.define(version: 20140702100451) do
     t.text     "storage",            default: "--- {}\n"
     t.string   "grade"
     t.string   "language",           default: "en"
+    t.string   "slug"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
+  add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
 
   create_table "users", force: true do |t|
@@ -233,8 +235,10 @@ ActiveRecord::Schema.define(version: 20140702100451) do
     t.text     "options",     default: "--- {}\n"
     t.string   "image_uid"
     t.string   "uri"
+    t.string   "slug"
   end
 
+  add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree
   add_index "venues", ["uri"], name: "index_venues_on_uri", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
