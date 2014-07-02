@@ -12,7 +12,6 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - \n"] - TODO: document me
 # * collect [boolean, default=true] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
@@ -25,7 +24,6 @@
 # * language [string, default="en"] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
-# * recording [string] - TODO: document me
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
@@ -50,8 +48,6 @@ class Talk < ActiveRecord::Base
 
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
-
-  ARCHIVE_STRUCTURE = "%Y/%m/%d"
 
   state_machine auto_scopes: true do
     state :prelive # initial
@@ -116,7 +112,6 @@ class Talk < ActiveRecord::Base
 
   serialize :session
   serialize :storage
-  serialize :audio_formats, Array
 
   delegate :user, to: :venue
 
@@ -136,14 +131,6 @@ class Talk < ActiveRecord::Base
   scope :recent, -> do
     archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
-  end
-
-  scope :audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats LIKE ?', "%#{format}%")
-  end
-
-  scope :without_audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
   include PgSearch
@@ -466,9 +453,6 @@ class Talk < ActiveRecord::Base
         runner.run(name)
       end
     end
-    # save recording
-    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-    logfile.puts "# set `recording` to '#{recording}'"
 
     # delete some files (mainly wave files, we'll keep only flv
     # and compressed files)
