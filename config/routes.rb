@@ -55,8 +55,11 @@ VoiceRepublic::Application.routes.draw do
 
   resources :users, only: [:update, :show, :edit]
 
+  # old school
   resource :embed_talk, only: :show
-
+  # new school
+  get 'embed/:id', to: 'embed_talks#show', as: 'embed'
+  
   get "landing_page/index", as: :landing_page
   root :to => "landing_page#index"
 

@@ -95,7 +95,7 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.itunes :image, href: talk.image.thumb('1400x1400#').url
         xml.pubDate talk.processed_at.try(:to_s, :rfc822)
         xml.link venue_talk_url(talk.venue, talk), rel: 'direct'
-        xml.link embed_talk_url(id: talk), rel: 'embed'
+        xml.link embed_url(talk), rel: 'embed'
         xml.guid venue_talk_url(talk.venue, talk), isPermaLink: true
         xml.enclosure url: vrmedia_url(talk),
                       type: "audio/mpeg",
