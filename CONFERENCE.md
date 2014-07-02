@@ -102,3 +102,45 @@ manually.
 #### No Auto Processing (no_auto_postprocessing)
 
 #### Suppress Chat (suppress_chat)
+
+
+VR Conference Paper Form
+------------------------
+
+### General Information
+
+* User ID (all Series/Talks will belong to on user)
+* Sync frequency
+
+### Defaults
+
+* Price per Series
+* Date of Completion
+* Language
+
+### Columns for List of Series and Talks
+
+* Name
+* Max. length
+* synced/not editable (source?)
+* not synced/editable (initial?)
+
+### List of Fields in Series
+
+* URI
+* Title
+* Teaser
+* Description
+* Tag list
+
+### List of Fields in Talks
+
+* URI
+* Series
+* Title
+* Teaser
+* Description
+* Starts At
+* Duration
+* Language
+
