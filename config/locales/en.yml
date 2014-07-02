@@ -572,6 +572,7 @@ en:
       contact: Contact
       fb: Voice Republic on facebook
       tw: Voice Republic on twitter
+      team: Team
     navbar:
       more_talks: More talks
       sign_up: Sign Up
@@ -785,15 +786,33 @@ en:
       minutes: 'MINUTES'
       request_mic: GET THE MIC
       promote: GIVE THE MIC
+      demote: Demote
+      accept_promotion: Accept promotion
+      decline_promotion: Decline promotion
+      you_are_on_air: You are ON AIR
+      mute_mic: Mute
+      unmute_mic: Unmute
+      audio_settings: Audio settings
+      participate: Participate
+      miqrec: Mic Requests
+      awaiting: Awaiting
+      microphone_requests: Microphone requests
+      awaiting_to_speak: Awaiting to speak
+      participating: Participating
+      just_listening_in: Just listening in
       send_card: Send Card
       download_flyer: Download
       embed_player: Embed Player
       download_talk: Download Talk
+      initializing: Initializing 
+      talk_is_processing: Talk is processing
+      please_reload_this_page: Please reload this page
       discussion: Chat
       description: Description
       participants: Participants
       plays: '%{count} plays'
       edit_talk: Edit Talk
+      end_talk: End Talk
       banner_title: WHAT IS VOICE REPUBLIC?
       banner_text: |
         Voice Republic is a tool for the creation and distribution of audio content on the Internet.
@@ -810,6 +829,7 @@ en:
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
+      record: Record
     fields:
       talks_description: Tell your audience a little more
       title: Title
