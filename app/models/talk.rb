@@ -112,7 +112,6 @@ class Talk < ActiveRecord::Base
 
   serialize :session
   serialize :storage
-  serialize :audio_formats, Array
 
   delegate :user, to: :venue
 
@@ -132,14 +131,6 @@ class Talk < ActiveRecord::Base
   scope :recent, -> do
     archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
-  end
-
-  scope :audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats LIKE ?', "%#{format}%")
-  end
-
-  scope :without_audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
   include PgSearch
