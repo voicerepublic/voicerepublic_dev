@@ -11,29 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630132953) do
+ActiveRecord::Schema.define(version: 20140702100451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
-
-  create_table "accounts", force: true do |t|
-    t.string   "timezone"
-    t.string   "language_1"
-    t.string   "language_2"
-    t.string   "language_3"
-    t.integer  "user_id"
-    t.text     "about"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "portrait_file_name"
-    t.string   "portrait_content_type"
-    t.integer  "portrait_file_size"
-    t.datetime "portrait_updated_at"
-    t.text     "prefs"
-    t.string   "website"
-  end
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -78,6 +61,14 @@ ActiveRecord::Schema.define(version: 20140630132953) do
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
+  create_table "bookmarks", force: true do |t|
+    t.integer  "kluuu_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
@@ -106,13 +97,6 @@ ActiveRecord::Schema.define(version: 20140630132953) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
-
-  create_table "follows", force: true do |t|
-    t.integer  "follower_id"
-    t.integer  "followed_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
 
   create_table "messages", force: true do |t|
     t.integer  "user_id"
@@ -145,6 +129,10 @@ ActiveRecord::Schema.define(version: 20140630132953) do
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
+  create_table "roles", force: true do |t|
+    t.string "name"
+  end
+
   create_table "settings", force: true do |t|
     t.string   "key"
     t.string   "value"
@@ -166,6 +154,13 @@ ActiveRecord::Schema.define(version: 20140630132953) do
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
+
+  create_table "status_updates", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -191,7 +186,6 @@ ActiveRecord::Schema.define(version: 20140630132953) do
     t.datetime "ends_at"
     t.datetime "ended_at"
     t.boolean  "collect",            default: true
-    t.string   "recording"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "teaser"
@@ -199,7 +193,6 @@ ActiveRecord::Schema.define(version: 20140630132953) do
     t.integer  "duration",           default: 30
     t.string   "image_uid"
     t.text     "session"
-    t.text     "audio_formats",      default: "--- []\n"
     t.datetime "featured_from"
     t.string   "state"
     t.datetime "started_at"
@@ -217,6 +210,11 @@ ActiveRecord::Schema.define(version: 20140630132953) do
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
+
+  create_table "user_roles", force: true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -237,11 +235,6 @@ ActiveRecord::Schema.define(version: 20140630132953) do
     t.string   "uid"
     t.text     "slug"
     t.datetime "last_request_at"
-    t.string   "available"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
     t.boolean  "guest"
     t.string   "header_uid"
     t.string   "avatar_uid"
@@ -255,20 +248,13 @@ ActiveRecord::Schema.define(version: 20140630132953) do
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
   create_table "venues", force: true do |t|
-    t.datetime "start_time"
     t.text     "description"
     t.string   "title"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.integer  "duration"
-    t.text     "teaser"
-    t.datetime "featured_from"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "teaser"
     t.integer  "user_id"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.text     "options",            default: "--- {}\n"
+    t.text     "options",     default: "--- {}\n"
     t.string   "image_uid"
     t.string   "uri"
   end
