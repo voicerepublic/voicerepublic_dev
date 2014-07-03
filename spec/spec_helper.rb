@@ -191,7 +191,9 @@ RSpec.configure do |config|
   config.after(:suite) { FileUtils.rm_rf(audio_paths) }
 
   # do not create a flyer on Talk#save during spec runs
-  config.before(:each) { allow_any_instance_of(Talk).to receive(:generate_flyer).and_return(true) }
+  config.before(:each) do
+    allow_any_instance_of(Talk).to receive(:flyer).and_return(true)
+  end
 
 end
 
