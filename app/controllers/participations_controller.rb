@@ -35,10 +35,7 @@ class ParticipationsController < ApplicationController
     # redirect to the same talk
     #
     # TODO check if we could alternatively use the stored_location
-    #
-    # FIXME this is bristol, since it will break id something is added
-    # to the url, e.g. a locale variable
-    if request.referer =~ /\/venues\/\d+\/talks\/(\d+)\z/
+    if request.referer =~ /\/venues\/.+\/talks\/(.+)\z/
       target = [ @venue, @venue.talks.find($1) ]
     end
 

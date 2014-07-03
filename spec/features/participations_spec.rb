@@ -13,6 +13,11 @@ describe "Participations" do
         click_on "Participate"
       }.to change(Participation, :count).by(1)
     end
+    it "redirects to Talk" do
+      visit talk_path(@talk)
+      click_on "Participate"
+      current_path.should == venue_talk_path(@talk.venue, @talk)
+    end
     it "creates a participation from Series" do
       expect {
         visit venue_path(@talk.venue)
