@@ -4,20 +4,16 @@ describe Flyer do
 
   describe 'built' do
     before do
-      talk_stub = OpenStruct.new
-      talk_stub.id = 42
-      talk_stub.title = 'In allen Gassen'
-      talk_stub.starts_at = Time.now
-      talk_stub.user = OpenStruct.new
-      talk_stub.user.name = 'Hans Dampf'
+      talk = FactoryGirl.build_stubbed :talk,
+        starts_at: Time.now
 
-      @flyer = Flyer.new(talk_stub)
+      @flyer = Flyer.new(talk)
     end
     after do
       # cleanup
       @flyer.disintegrate!
     end
-    
+
     it 'generates a file' do
       expect(@flyer).not_to exist
       @flyer.generate!
@@ -48,5 +44,5 @@ describe Flyer do
       expect(ident).to include('PNG')
     end
   end
-    
+
 end
