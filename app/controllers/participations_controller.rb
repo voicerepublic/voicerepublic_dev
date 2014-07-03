@@ -54,8 +54,7 @@ class ParticipationsController < ApplicationController
   # DELETE /participations/1
   # DELETE /participations/1.json
   def destroy
-    @participation = current_user.
-      participations.find_by_venue_id(params[:venue_id])
+    @participation = Participation.find(params[:id])
     @participation.destroy
 
     respond_to do |format|
