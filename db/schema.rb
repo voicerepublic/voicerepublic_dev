@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 20140702100451) do
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
+  create_table "bookmarks", force: true do |t|
+    t.integer  "kluuu_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
@@ -121,6 +129,10 @@ ActiveRecord::Schema.define(version: 20140702100451) do
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
+  create_table "roles", force: true do |t|
+    t.string "name"
+  end
+
   create_table "settings", force: true do |t|
     t.string   "key"
     t.string   "value"
@@ -142,6 +154,13 @@ ActiveRecord::Schema.define(version: 20140702100451) do
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
+
+  create_table "status_updates", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -191,6 +210,11 @@ ActiveRecord::Schema.define(version: 20140702100451) do
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
+
+  create_table "user_roles", force: true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "firstname"
