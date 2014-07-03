@@ -526,5 +526,5 @@ class Talk < ActiveRecord::Base
   def slug_candidates
     [ :title, [:id, :title] ]
   end
-  
+
 end
