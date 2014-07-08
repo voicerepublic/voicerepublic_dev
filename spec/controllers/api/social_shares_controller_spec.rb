@@ -4,8 +4,7 @@ describe Api::SocialSharesController do
 
   describe 'anonymous' do
     it 'does not return with unauthorized' do
-      venue = FactoryGirl.create(:venue, user: @current_user)
-      @talk = FactoryGirl.create(:talk, venue: venue)
+      @talk = FactoryGirl.create(:talk)
       xhr :post, :create, id: @talk.id
       response.status.should_not be(401)
       response.status.should be(200)
