@@ -421,30 +421,6 @@
       }
     }
 
-    .chat-input-box{
-      .input-box{
-        position: relative;
-      }
-      .icon-bubble-multi{
-        position: absolute;
-        left: 7px;
-        top:3px;
-        color: $brand-color-green;
-      }
-      input{
-        width: 100%;
-        background: $brand-color-creme;
-        border: none;
-        height: 23px;
-        font-size: rem-calc(11);
-        color: rgba(0,0,0,0.7);
-        padding:0px 10px 0 29px;
-        &:focus{
-          border: none;
-          outline: none;
-        }
-      }
-    }
     .flash-box{
       height:170px;
       padding: 15px 0;
@@ -545,6 +521,30 @@
   }
 
   .discussion-content{
+    .chat-input-box{
+      .input-box{
+        position: relative;
+      }
+      .icon-bubble-multi{
+        position: absolute;
+        left: 7px;
+        top:3px;
+        color: $brand-color-green;
+      }
+      input{
+        width: 100%;
+        background: $brand-color-creme;
+        border: none;
+        height: 23px;
+        font-size: rem-calc(11);
+        color: rgba(0,0,0,0.7);
+        padding:0px 10px 0 29px;
+        &:focus{
+          border: none;
+          outline: none;
+        }
+      }
+    }
     background: $brand-color-creme;
     .chat-message{
       max-width:100%;
