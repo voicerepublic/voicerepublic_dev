@@ -766,9 +766,9 @@ en:
 
         %{started_at} - %{ended_at}
     show:
-      title: "VR Talk %{title}"
+      title: "%{title} - Voice Republic"
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
-      chat_placeholder: Type and hit enter to post a comment
+      chat_placeholder: Share your thoughts
       you: You
       related_talk: Related Talk
       next_talk: Coming up next in this series
@@ -783,14 +783,13 @@ en:
       unmute_streams: unmute
       countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
       minutes: 'MINUTES'
-      request_mic: GET THE MIC
-      promote: GIVE THE MIC
+      request_mic: REQUEST MIC
       send_card: Send Card
       download_flyer: Download
       embed_player: Embed Player
       download_talk: Download Talk
-      discussion: Chat
-      description: Description
+      discussion: DISCUSSION
+      description: ABOUT
       participants: Participants
       plays: '%{count} plays'
       edit_talk: Edit Talk
@@ -802,6 +801,12 @@ en:
         <br />
         We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
         <span>More...</span>
+      mic_requests: STAGE REQUESTS
+      give_the_mic: GIVE THE MIC
+      stage_invitations: STAGE INVITATIONS
+      listeners: LISTENERS
+      invite_to_stage: INVITE TO STAGE      
+      anonymous_listener: ANONYMOUS LISTENER
     new:
       title: "VR New Talk"
       new_talk: New Talk

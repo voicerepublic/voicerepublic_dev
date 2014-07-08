@@ -497,109 +497,256 @@
     }
   }
 
-  .vr-tabs dd{
-    width:33.33%;
-  }
-
-  .description-content{
-    padding-top:0 !important;
-    .row{
-      padding-top: 12px;
-      padding-bottom: 12px;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      font-size: rem-calc(13);
-      line-height: 20px;
-      a {
-        text-decoration: underline;
-        color: inherit;
-      }
-      li,p{
-        color:inherit;
-      }
+  /* DESCRIPTION */
+  .description-block{
+    h3{
+      color: rgba(0,0,0,0.5);
+      font-size: rem-calc(11);
+    }
+    padding-top: 30px;
+    padding-bottom: 12px;
+    font-size: rem-calc(13);
+    line-height: 20px;
+    color: rgba(0,0,0,0.8);
+    a {
+      text-decoration: underline;
+      color: inherit;
+    }
+    li,p{
+      color:inherit;
+      font-size:inherit;
+      line-height: inherit;
     }
   }
 
-  .discussion-content{
-    .chat-input-box{
-      .input-box{
-        position: relative;
-      }
-      .icon-bubble-multi{
-        position: absolute;
-        left: 7px;
-        top:3px;
-        color: $brand-color-green;
-      }
-      input{
-        width: 100%;
-        background: $brand-color-creme;
-        border: none;
-        height: 23px;
-        font-size: rem-calc(11);
-        color: rgba(0,0,0,0.7);
-        padding:0px 10px 0 29px;
-        &:focus{
-          border: none;
-          outline: none;
-        }
-      }
-    }
-    background: $brand-color-creme;
-    .chat-message{
-      max-width:100%;
+  .participants-and-discussion{
+    position: relative;
+    padding:20px 0 0 220px;    
+    
+    .discussion-block{
       position: relative;
-      padding-top: 12px;
-      padding-bottom:11px;
-      &:nth-child(2n){
-        background: $brand-color-cremelight;
-      }
-      .message-name{
-        float:left;
-        width: 101px;
-        font-size: rem-calc(12);
-        font-family: 'eaglebook';
-        color: rgba(0,0,0, 0.6);
-      }
-      .message-content{
-        padding-right: 101px;
-        font-size: rem-calc(11);
-        color: rgba(0,0,0, 0.6);
-      }
-      .message-time{
-        position: absolute;
-        right: 0.9375rem;
-        top: 3px;
-        font-size: rem-calc(8);
-        color: rgba(0,0,0, 0.5);
-      }
-    }
-  }
-  .participants-content{
-    padding-top: 0 !important;
-    .participants-box{
-      padding-bottom: 20px;
-      background: rgba(0,0,0,0.8);
+      background:white;
+      padding: 20px;
+      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
+
       h3{
-        font-size: rem-calc(13);
-        color: $brand-color-creme;
-        margin-top: 24px;
+        margin-top: 0;
+        color: rgba(0,0,0,0.5);
+        font-size: rem-calc(11)
       }
-      .avatar-name{
-        margin-top: -10px;
-      }
-      .expecting_promotion{
-        .avatar-bg{
-          fill: $brand-color-yellow;
+      .chat-input-box{
+        position: relative;
+        padding-left: 53px;
+        margin-bottom: 10px;
+        .avatar{
+          position: absolute;
+          left:0;
+        }
+        input{
+          margin-top: 5px;
+          width: 100%;
+          background: white;
+          height: 33px;
+          border: 2px solid #ddd;
+          border-radius: 2px;
+          font-size: rem-calc(13);
+          color: rgba(0,0,0,0.7);
+          padding:0px 10px 0 10px;
+          &:focus,&:hover{
+            border: 2px solid #ccc;
+            outline: none;
+          }
         }
       }
-      .accepting_promotion{
-        .avatar-bg{
-          fill: $brand-color-yellow;
+
+      .message-box{
+        .chat-message{
+          max-width:100%;
+          position: relative;
+          padding: 12px 0 11px 50px;
+          .avatar{
+            position: absolute;
+            left:0;
+          }
+          .message-content{
+            display:inline-block;
+            .message-name{
+              font-size: rem-calc(14);
+              font-family: 'eaglebook';
+              color: rgba(0,0,0, 0.6);
+              margin-right: 3px;
+            }
+            .message-time{
+              font-size: rem-calc(10);
+              color: rgba(0,0,0, 0.2);
+            }          
+            .message-text{
+              font-size: rem-calc(14);
+              color: rgba(0,0,0, 0.6);
+              margin-top: 8px;
+            }
+          }
         }
       }
     }
+    
+    /* DISCUSSION - CHAT */
+    .participants-box{
+      position: absolute;
+      left:0;
+      top:20px;
+      width: 200px;      
+      padding: 0 12px 11px 12px;
+      background: white;
+      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
+
+      .state-counter-box{
+        position: absolute;
+        top:-17px;
+        right:-17px;
+        .icon-octagon,.icon-octa-full{
+          position: absolute;
+          top:0;
+          right:0;
+          font-size:rem-calc(34px);
+          color: black;
+        }
+        
+        .number{
+          position: absolute;
+          top:8px;
+          width: 100%;
+          color: black;
+          font-family: 'eaglebook';
+          font-size: rem-calc(20);
+        }
+        .exp-counter{
+          position: relative;
+          float:right;
+          width: 34px;
+          height:34px;          
+          .icon-octa-full{
+            color: $brand-color-yellow;
+          }
+        }
+        .acc-counter{
+          position: relative;
+          float:right;
+          width: 34px;
+          height:34px;          
+          .icon-octa-full{
+            color: $brand-color-yellow;
+          }
+        }        
+      }
+
+      h3{
+        font-size: rem-calc(12);
+        color: rgba(0,0,0,0.2);
+        margin-top: 16px;
+      }
+      .avatar{
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        .avatar-box{
+          position: relative;
+          height: 100%;
+          margin-bottom: 5px;
+          .avatar-image{
+            position: absolute;
+            left:0;
+            top:0;
+          }
+          .avatar-name{
+            padding:0 0 0 44px;
+            color: rgba(0,0,0,0.5);
+            width: 100%;
+            height: 40px;
+            font-size: rem-calc(12);     
+            table,tr,td{
+              padding:0;
+              spacing:0;
+              width: 100%;
+              height: 100%;
+              border:none;
+              margin:0;
+              padding:0;
+              color:inherit;
+              font-size: inherit;
+            }
+            td{
+              vertical-align: center;
+            }
+          }
+        }
+      }
+
+      .expecting-promotion{
+        .avatar{
+          .avatar-bg{
+            fill: $brand-color-yellow;
+          }
+        }
+        .host-actions{
+          .give-mic-link{
+            background: $interaction-green;
+            @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+            border: 2px solid white;
+            padding:3px 0px 2px 0px;
+            margin-bottom: 5px;
+            color: white;
+            font-size: rem-calc(10px);
+            cursor: pointer;
+            display: inline-block;
+            width: 175px;
+            border-radius:2px;
+            @include transition(all,0.05s,ease-in-out);
+            &:hover{
+              background: darken($interaction-green,5%);
+            }             
+          }
+        }
+      }
+      .accepting-promotion{
+        .avatar-bg{
+          fill: $brand-color-green;
+        }
+      }      
+      .participating{
+        .host-actions{
+          position: absolute;
+          top:0;
+          left:0;
+          width:100%;
+          height: 100%;            
+          .guest-promote-link{
+            position: absolute;
+            top:6px;
+            left:17px;
+            background: $brand-color-green;
+            @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+            border: 2px solid white;
+            padding:3px 0px 2px 0px;
+            color: white;
+            font-size: rem-calc(10px);
+            cursor: pointer;
+            display: inline-block;
+            width: 140px;
+            border-radius:2px;
+            @include opacity(0);
+            @include transition(opacity,0.05s,ease-in-out);
+          }
+          &:hover{
+            .guest-promote-link{
+              @include opacity(1);
+            }
+          } 
+        }   
+      } 
+    }
   }
+
   .vr-banner{
     position: absolute;
     padding: 16px 19px 20px 19px;
