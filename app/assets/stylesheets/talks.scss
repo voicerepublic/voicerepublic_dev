@@ -261,7 +261,11 @@
     font-family: 'eaglebook';
     font-size: rem-calc(15);
     .trouble-message,
-    .reload-message{
+    .reload-message,
+    .processing-message,
+    .trouble-message a,
+    .reload-message a,
+    .processing-message a{
       background:rgba(86,178,167,0.7);
       color: white;
       font-family: 'eaglebook';
