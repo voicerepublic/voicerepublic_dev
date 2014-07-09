@@ -343,15 +343,98 @@
     margin-top: 37px
   }
 
-  .talk-host-and-participants-action-box{
+  .talk-participant-actions-box{
     position: relative;
-    background: black;
-    margin-top: 40px;
-    height: 88px;
-    padding-top: 10px ;
-    padding-bottom: 10px;
+    margin-top: 30px;
+
+
+    .avatar{
+      position: absolute;
+      left: -25px;
+      top: -9px;
+    }
+    .mic-sign-box{
+      position: absolute;
+      right: -25px;
+      top: -9px;
+      .icon-octa-full{
+        position: absolute;
+        top: 0;
+        right:0;
+        font-size: rem-calc(50);
+        color: #333;
+      }
+      .icon-octagon{
+        position: absolute;
+        top: 0;
+        right:0;
+        font-size: rem-calc(50);
+        color: white;
+      }
+      .icon-mic{
+        position: absolute;
+        top: 13px;
+        right: 13px;
+        color: white;
+        font-size: rem-calc(24);
+      }
+      .yellow{
+        color: $brand-color-yellow;
+      }      
+    }
+
+    .arrow{
+      display: inline-block;
+      position: relative;
+      margin-top: 14px;
+      width: 220px;
+      height:4px;
+      background: white;
+      &:after{ 
+        left: 100%;
+        top: 50%; 
+        border: solid transparent; 
+        content: " "; 
+        height: 0; 
+        width: 0; 
+        position: absolute; 
+        pointer-events: none; 
+        border-left-color: $brand-color-creme;
+        border-width: 8px; 
+        margin-top: -8px;
+      } 
+    }
+
+    .button-action{
+      font-family: 'eaglebook';
+      font-size: rem-calc(12);
+      line-height: 1.6;
+      width: 160px;
+      position: absolute;
+      top:5px;
+      left: 50%;
+      margin-left: -80px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .request-mic-box{
+      display: inline-block;
+      position: relative;
+      width: 325px;
+      height: 32px;
+      background: rgba(0,0,0,0.6);
+      .button-action{
+        background: $interaction-green;
+        color: white;
+        border: 1px solid #ddd;
+        border-bottom-color: #aaa;
+        @include box-shadow(0,0,12px,rgba(0,0,0,1));
+      }
+    }
 
     .talkers-action-box{
+      display: none;      
       .mic-sign-box{
         display: inline-block;
         position: absolute;
@@ -600,7 +683,7 @@
       background: white;
       @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
 
-      .state-counter-box{
+      .promotion-counter-box{
         position: absolute;
         top:-17px;
         right:-17px;
@@ -635,7 +718,7 @@
           width: 34px;
           height:34px;          
           .icon-octa-full{
-            color: $brand-color-yellow;
+            color: $brand-color-green;
           }
         }        
       }

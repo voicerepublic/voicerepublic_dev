@@ -174,9 +174,40 @@
           - url = [ @talk.venue, :participations ]
           = link_to t('.participate'), url, method: 'post', class: 'button-vr'
 
-    .talk-host-and-participants-action-box.row
+    .talk-participant-actions-box.row
       .large-12.columns.text-center
+        .request-mic-box(ng-show='flags.reqmic')
+          .avatar
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
+          .mic-sign-box
+            %span.icon-octa-full
+            %span.icon-octagon
+            %span.icon-mic
+          .arrow
+            .arrow-head
+          .button-action(ng-click='requestMic()')
+            = t('.request_mic')
+
+        .acc-dec-box(ng-show='flags.acceptOrDecline')
+          .avatar
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
+          .mic-sign-box
+            %span.icon-octa-full
+            %span.icon-octagon
+            %span.icon-mic
+          .arrow
+            .arrow-head
+          .invitation-text
+            = t('.talk_invitation')
+          .button-action(ng-click='acceptPromotion()')
+            = t('.accept_promotion')
+          .decline-link(ng-click='declinePromotion()')
+            = t('.decline_promotion')              
+
         .talkers-action-box
+
           -# FIXME quick and dirty: do not show mic
           .mic-sign-box{ class: @talk.state=~/^(pre|)live$/ ? '' : 'display-none'}
             %span.icon-octa-full
@@ -197,24 +228,23 @@
             %span.button-unmute(ng-show='flags.onair'
                           ng-click='unmute()')= t('.unmute_mic')
 
-        .chat-flash-box
-          -# FIXME quick and dirty: do not show audio settings
-          - if @talk.state=~/^(pre|)live$/
-            .button-audio-settings(ng-click='toggleShowSettings()')
-              %span.icon-mic
-              = t(".audio_settings")
+        -# FIXME quick and dirty: do not show audio settings
+        - if @talk.state=~/^(pre|)live$/
+          .button-audio-settings(ng-click='toggleShowSettings()')
+            %span.icon-mic
+            = t(".audio_settings")
 
-          -# FIXME quick and dirty: do not show audio settings
-          .flash-box.row(ng-class="{'hide-stuff': !showSettings()}")
-            .large-12.columns.text-left
-              #flashContent
-              .manual-box
-                .flash-manual-title
-                  = t('.flash_manual_title')
-                %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-                = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
-                  %p.flash-content
-                    = raw t('.audio_settings_help_text')
+        -# FIXME quick and dirty: do not show audio settings
+        .flash-box.row(ng-class="{'hide-stuff': !showSettings()}")
+          .large-12.columns.text-left
+            #flashContent
+            .manual-box
+              .flash-manual-title
+                = t('.flash_manual_title')
+              %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
+              = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
+                %p.flash-content
+                  = raw t('.audio_settings_help_text')
 
   .row.collapse-large-only
     .large-12.columns
@@ -257,7 +287,11 @@
           -# LISTENERS, MIC REQUESTS, INVITES
           #participants.participants-box
 
-            .state-counter-box
+            -# TODO Only show if whole box is empty
+              %h3= t('.listeners')
+              %p= t('.empty_text')
+
+            .promotion-counter-box
               .exp-counter(ng-show='expectingPromotion().length' title="#{t('.mic_requests')}")
                 .icon-octa-full
                 .icon-octagon

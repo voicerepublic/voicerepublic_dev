@@ -629,7 +629,6 @@ en:
       only_attendies_can_see_group_chat: Only participants can read the group-chat
       repeating: Rhythm
       new_talk: New talk
-      edit_talk: Edit talk
       post: Post
       write_a_comment: Write a comment
       description: Description
@@ -766,6 +765,7 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      edit_talk: Edit talk
       title: "%{title} - Voice Republic"
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Share your thoughts
@@ -784,6 +784,9 @@ en:
       countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
       minutes: 'MINUTES'
       request_mic: REQUEST MIC
+      talk_invitation: TALK INVITATION!
+      accept_promotion: ACCEPT
+      decline_promotion: DECLINE
       send_card: Send Card
       download_flyer: Download
       embed_player: Embed Player
@@ -801,6 +804,7 @@ en:
         <br />
         We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
         <span>More...</span>
+      empty_text: The listener's space is empty, login to join!
       mic_requests: STAGE REQUESTS
       give_the_mic: GIVE THE MIC
       stage_invitations: STAGE INVITATIONS
