@@ -198,8 +198,6 @@
             %span.icon-octa-full
             %span.icon-octagon
             %span.icon-mic
-          .arrow
-            .arrow-head
           .invitation-text
             = t('.talk_invitation')
           .button-action(ng-click='acceptPromotion()')
@@ -251,23 +249,24 @@
     .large-12.columns
 
       -# DESCRIPTION
-      #description.description-block(ng-hide="true")
+      #description.description-block(ng-class="{'state-live': talkIsLive()}")
         %h3= t('.description')
         = @talk.try(:description).try(:html_safe)
 
-      .participants-and-discussion
+      .participants-and-discussion(ng-class="{'state-live': talkIsLive()}")
         -# This is a superior box, TODO: participants are only shown when talk is live
 
         -# DISCUSSION
         - unless @talk.venue.opts.suppress_chat
           #discussion.discussion-block
-            %h3(ng-hide='talkIsLive()')
+            %h3.title-discussion
               =t('.discussion')
-            .chat-input-box(ng-hide="userIsAListener()")
+            .chat-input-box
               .avatar
                 .avatar-box
                   = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 40}
-              %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+              %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+              = link_to t('.participate'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
 
             .message-box
               .chat-message(ng-repeat='message in discussion')
@@ -286,11 +285,7 @@
 
         - unless @talk.venue.opts.suppress_chat
           -# LISTENERS, MIC REQUESTS, INVITES
-          #participants.participants-box
-
-            -# TODO Only show if whole box is empty
-              %h3= t('.listeners')
-              %p= t('.empty_text')
+          #participants.participants-box(ng-class="{'state-live': talkIsLive()}")
 
             .promotion-counter-box
               .exp-counter(ng-show='expectingPromotion().length' title="#{t('.mic_requests')}")
@@ -304,52 +299,57 @@
                 .number.text-center
                   {{ acceptingPromotion().length }}
 
-            .expecting-promotion(ng-show='expectingPromotion().length')
-              %h3= t('.mic_requests')
-              %ul.list-style-type-none
-                %li.avatar(ng-repeat="parti in expectingPromotion()")
-                  .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
-                    .avatar-name
-                      %table
-                        %tr
-                          %td
-                            {{ parti.name }}                                           
-                  .host-actions(ng-show='showHostActions()')
-                    .give-mic-link.text-center(ng-click="promote(parti.id)")
-                      = t('.give_the_mic')
+            .participants-content
+              .empty-box(ng-class="{'state-hidden': expectingPromotion().length || acceptingPromotion().length || participants().length}")
+                %h3= t('.listeners')
+                %p= t('.empty_text')
 
-            .accepting-promotion(ng-show='acceptingPromotion().length')
-              %h3= t('.stage_invitations')
-              %ul.list-style-type-none
-                %li.avatar(ng-repeat="parti in acceptingPromotion()")
-                  .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
-                    .avatar-name
-                      %table
-                        %tr
-                          %td
-                            {{ parti.name }}                 
+              .expecting-promotion(ng-show='expectingPromotion().length')
+                %h3= t('.mic_requests')
+                %ul.list-style-type-none
+                  %li.avatar(ng-repeat="parti in expectingPromotion()")
+                    .avatar-box
+                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      .avatar-name
+                        %table
+                          %tr
+                            %td
+                              {{ parti.name }}                                           
+                    .host-actions(ng-show='showHostActions()')
+                      .give-mic-link.text-center(ng-click="promote(parti.id)")
+                        = t('.give_the_mic')
 
-            .participating(ng-show='participants().length')
-              %h3= t('.listeners')
-              %ul.list-style-type-none
-                %li.avatar(ng-repeat="parti in participants()")
-                  .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
-                    .avatar-name
-                      %table
-                        %tr
-                          %td
-                            {{ parti.name }}
-                  .host-actions(ng-show='showHostActions()')
-                    .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                      = t('.invite_to_stage')
+              .accepting-promotion(ng-show='acceptingPromotion().length')
+                %h3= t('.stage_invitations')
+                %ul.list-style-type-none
+                  %li.avatar(ng-repeat="parti in acceptingPromotion()")
+                    .avatar-box
+                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      .avatar-name
+                        %table
+                          %tr
+                            %td
+                              {{ parti.name }}                 
 
-            .listening(ng-show="listeners().length")
-              %h3
-                {{ listeners().length }}
-                = t('.anonymous_listener')
+              .participating(ng-show='participants().length')
+                %h3= t('.listeners')
+                %ul.list-style-type-none
+                  %li.avatar(ng-repeat="parti in participants()")
+                    .avatar-box
+                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      .avatar-name
+                        %table
+                          %tr
+                            %td
+                              {{ parti.name }}
+                    .host-actions(ng-show='showHostActions()')
+                      .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                        = t('.invite_to_stage')
+
+              .listening(ng-show="listeners().length")
+                %h3
+                  {{ listeners().length }}
+                  = t('.anonymous_listener')
 
 .scripts
   :javascript

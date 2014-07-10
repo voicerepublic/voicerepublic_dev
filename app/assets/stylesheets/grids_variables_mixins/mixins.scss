@@ -41,12 +41,12 @@
   filter: alpha(opacity=$IEValue);
 }
 
-@mixin transition($transition-property, $transition-time, $method) {
-  -webkit-transition: $transition-property $transition-time $method;
-  -moz-transition: $transition-property $transition-time $method;
-  -ms-transition: $transition-property $transition-time $method;
-  -o-transition: $transition-property $transition-time $method;
-  transition: $transition-property $transition-time $method;
+@mixin transition($transition-arguments) {
+  -webkit-transition: #{$transition-arguments};
+  -moz-transition: #{$transition-arguments};
+  -ms-transition: #{$transition-arguments};
+  -o-transition: #{$transition-arguments};
+  transition: #{$transition-arguments};
 }
 
 

@@ -3,7 +3,7 @@
   position: relative;
   overflow: hidden;
 
-  @include transition(background, 0.15s, ease-in-out);
+  @include transition(background 0.15s ease-in-out);
   &:hover, &:focus{
     background: darken($brand-color-creme, 3%);
   }
@@ -103,7 +103,7 @@
       margin-top: 5px;
       background: #666059;
       padding: 4px 6px;
-      @include transition(background, 0.15s, ease-in-out);
+      @include transition(background 0.15s ease-in-out);
       .datetime{
         background: transparent;
       }

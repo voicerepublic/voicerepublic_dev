@@ -415,8 +415,6 @@
       line-height: 1.6;
       width: 160px;
       position: absolute;
-      top:5px;
-      left: 50%;
       margin-left: -80px;
       border-radius: 3px;
       cursor: pointer;
@@ -429,11 +427,47 @@
       height: 32px;
       background: rgba(0,0,0,0.6);
       .button-action{
+        top:5px;
+        left: 50%;   
         background: $interaction-green;
         color: white;
         border: 1px solid #ddd;
         border-bottom-color: #aaa;
         @include box-shadow(0,0,12px,rgba(0,0,0,1));
+      }
+    }
+
+    .acc-dec-box{
+      display: inline-block;
+      position: relative;
+      width: 325px;
+      height: 32px;
+      background: rgba(0,0,0,0.6);
+      padding-top: 6px;
+      .avatar-bg{
+        fill:$brand-color-green;
+      }
+      .invitation-text{
+        font-family: 'eaglebook';
+        font-size: rem-calc(15);
+        display: inline-block;
+      }
+      .button-action{
+        position: relative;
+        display: inline-block;
+        width: 76px;
+        margin-left: 0;
+        background: $interaction-green;
+        color: white;
+        border: 1px solid #ddd;
+        border-bottom-color: #aaa;
+        @include box-shadow(0,0,12px,rgba(0,0,0,1));
+        font-size: rem-calc(14);
+        line-height: 1.4;
+      }
+      .decline-link{
+        display: inline-block;
+        font-size: rem-calc(9);
       }
     }
 
@@ -515,8 +549,8 @@
       margin-bottom: 15px;
       background: #000;
       overflow: hidden;
-      @include transition(height, .4s, ease-in-out);
-      @include transition(padding, .4s, ease-in-out);
+      @include transition(height .4s ease-in-out);
+      @include transition(padding .4s ease-in-out);
       .manual-box{
         display: inline-block;
         vertical-align: top;
@@ -586,16 +620,23 @@
 
   /* DESCRIPTION */
   .description-block{
-    h3{
-      color: rgba(0,0,0,0.5);
-      font-size: rem-calc(11);
-    }
+    @include transition(all 0.4s ease-in-out 0s);
+    overflow: hidden;
     padding-top: 30px;
-    padding-bottom: 12px;
+    padding-bottom: 12px;    
+    &.state-live{
+      height:0;
+      padding-top:0;
+      padding-bottom:0;
+    }    
     font-size: rem-calc(13);
     line-height: 20px;
     color: rgba(0,0,0,0.8);
-    a {
+    h3{
+      color: rgba(0,0,0,0.5);
+      font-size: rem-calc(11);
+    }    
+    a{
       text-decoration: underline;
       color: inherit;
     }
@@ -608,8 +649,14 @@
 
   .participants-and-discussion{
     position: relative;
-    padding:20px 0 0 220px;    
+    padding:20px 0 0 0;
+    @include transition(padding 0.8s linear 0.8s);
+    &.state-live{
+      padding-left: 220px;
+      @include transition(padding 0.8s linear 0s);
+    }  
     
+    /* DISCUSSION - CHAT */
     .discussion-block{
       position: relative;
       background:white;
@@ -629,7 +676,7 @@
           position: absolute;
           left:0;
         }
-        input{
+        input,.chat-fake-link{
           margin-top: 5px;
           width: 100%;
           background: white;
@@ -643,6 +690,12 @@
             border: 2px solid #ccc;
             outline: none;
           }
+        }
+        .chat-fake-link{
+          display: inline-block;
+          color: #aaa;
+          padding-top: 8px;
+          cursor: text;
         }
       }
 
@@ -677,15 +730,13 @@
       }
     }
     
-    /* DISCUSSION - CHAT */
+    /* PARTICIPANTS */
     .participants-box{
       position: absolute;
       left:0;
-      top:20px;
-      width: 200px;      
-      padding: 0 12px 11px 12px;
+      top:20px;      
       background: white;
-      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
+      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));     
 
       .promotion-counter-box{
         position: absolute;
@@ -727,110 +778,139 @@
         }        
       }
 
-      h3{
-        font-size: rem-calc(12);
-        color: rgba(0,0,0,0.2);
-        margin-top: 16px;
-      }
-      .avatar{
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-        .avatar-box{
-          position: relative;
-          height: 100%;
-          margin-bottom: 5px;
-          .avatar-image{
-            position: absolute;
-            left:0;
-            top:0;
-          }
-          .avatar-name{
-            padding:0 0 0 44px;
-            color: rgba(0,0,0,0.5);
-            width: 100%;
-            height: 40px;
-            font-size: rem-calc(12);     
-            table,tr,td{
-              padding:0;
-              spacing:0;
-              width: 100%;
-              height: 100%;
-              border:none;
-              margin:0;
-              padding:0;
-              color:inherit;
-              font-size: inherit;
-            }
-            td{
-              vertical-align: center;
-            }
-          }
+      /* state transition */
+      width:0;
+      padding:0;
+      @include transition("padding 0.8s linear 0.8s, width 0.8s linear 0.8s");
+      &.state-live{
+        @include transition("width 0.8s linear 0s, padding 0.8s linear 0s");
+        @include opacity(1);
+        width: 200px;
+        padding: 0 12px 11px 12px;
+        .participants-content{
+          @include opacity(1);
+          @include transition(opacity 0.8s linear 0.8s);          
         }
-      }
-
-      .expecting-promotion{
-        .avatar{
-          .avatar-bg{
-            fill: $brand-color-yellow;
-          }
-        }
-        .host-actions{
-          .give-mic-link{
-            background: $interaction-green;
-            @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
-            border: 2px solid white;
-            padding:3px 0px 2px 0px;
-            margin-bottom: 5px;
-            color: white;
-            font-size: rem-calc(10px);
-            cursor: pointer;
-            display: inline-block;
-            width: 175px;
-            border-radius:2px;
-            @include transition(all,0.05s,ease-in-out);
-            &:hover{
-              background: darken($interaction-green,5%);
-            }             
-          }
-        }
-      }
-      .accepting-promotion{
-        .avatar-bg{
-          fill: $brand-color-green;
-        }
-      }      
-      .participating{
-        .host-actions{
-          position: absolute;
-          top:0;
-          left:0;
-          width:100%;
-          height: 100%;            
-          .guest-promote-link{
-            position: absolute;
-            top:6px;
-            left:17px;
-            background: $brand-color-green;
-            @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
-            border: 2px solid white;
-            padding:3px 0px 2px 0px;
-            color: white;
-            font-size: rem-calc(10px);
-            cursor: pointer;
-            display: inline-block;
-            width: 140px;
-            border-radius:2px;
-            @include opacity(0);
-            @include transition(opacity,0.05s,ease-in-out);
-          }
-          &:hover{
-            .guest-promote-link{
-              @include opacity(1);
-            }
-          } 
-        }   
       } 
+
+      .participants-content{
+        @include opacity(0);
+        @include transition(opacity 0.8s linear 0s);
+        overflow: hidden;
+        width: 176px;
+        h3{
+          font-size: rem-calc(12);
+          color: rgba(0,0,0,0.2);
+          margin-top: 16px;
+        }
+        .avatar{
+          width: 100%;
+          position: relative;
+          overflow: hidden;
+          .avatar-box{
+            position: relative;
+            height: 100%;
+            margin-bottom: 5px;
+            .avatar-image{
+              position: absolute;
+              left:0;
+              top:0;
+            }
+            .avatar-name{
+              padding:0 0 0 44px;
+              color: rgba(0,0,0,0.5);
+              width: 100%;
+              height: 40px;
+              font-size: rem-calc(12);     
+              table,tr,td{
+                padding:0;
+                spacing:0;
+                width: 100%;
+                height: 100%;
+                border:none;
+                margin:0;
+                padding:0;
+                color:inherit;
+                font-size: inherit;
+              }
+              td{
+                vertical-align: center;
+              }
+            }
+          }
+        }
+
+        .empty-box{
+          height:80px;
+          overflow: hidden;
+          @include transition(all 0.1s linear);
+          &.state-hidden{
+            height:0px;
+          }
+        }
+        .expecting-promotion{
+          .avatar{
+            .avatar-bg{
+              fill: $brand-color-yellow;
+            }
+          }
+          .host-actions{
+            .give-mic-link{
+              background: $interaction-green;
+              @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+              border: 2px solid white;
+              padding:3px 0px 2px 0px;
+              margin-bottom: 5px;
+              color: white;
+              font-size: rem-calc(10px);
+              cursor: pointer;
+              display: inline-block;
+              width: 175px;
+              border-radius:2px;
+              @include transition(all 0.05s ease-in-out);
+              &:hover{
+                background: darken($interaction-green,5%);
+              }             
+            }
+          }
+        }
+        .accepting-promotion{
+          .avatar-bg{
+            fill: $brand-color-green;
+          }
+        }      
+        .participating{
+          .host-actions{
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;            
+            .guest-promote-link{
+              position: absolute;
+              top:6px;
+              left:17px;
+              background: $brand-color-green;
+              @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+              border: 2px solid white;
+              padding:3px 0px 2px 0px;
+              color: white;
+              font-size: rem-calc(10px);
+              cursor: pointer;
+              display: inline-block;
+              width: 140px;
+              border-radius:2px;
+              @include opacity(0);
+              @include transition(opacity 0.05s ease-in-out);
+            }
+            &:hover{
+              .guest-promote-link{
+                @include opacity(1);
+              }
+            } 
+          }   
+        } 
+      }
     }
   }
 
@@ -842,7 +922,7 @@
     top: 0;
     background: $brand-color-red;
     @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
-    @include transition(all, 0.1s, ease-in-out);
+    @include transition(all 0.1s ease-in-out);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
     &:hover{
       @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));

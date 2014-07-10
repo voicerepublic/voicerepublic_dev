@@ -15,7 +15,7 @@ body,html{
   background: black;
   position: relative;
 
-/*  @include transition(background, 0.15s, ease-in-out);
+/*  @include transition(background 0.15s ease-in-out);
   &:hover, &:focus{
     background: darken($brand-color-creme, 3%);
   }*/
