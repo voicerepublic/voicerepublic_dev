@@ -250,8 +250,13 @@
 
       -# DESCRIPTION
       #description.description-block(ng-class="{'state-live': talkIsLive()}")
-        %h3= t('.description')
-        = @talk.try(:description).try(:html_safe)
+        %input#more-hidden-checkbox(type="checkbox")
+        .description-content
+          -#%h3= t('.description')
+          = @talk.try(:description).try(:html_safe)
+          %label.more-link(for="more-hidden-checkbox")
+            %span=t('.more')
+            %span=t('.less')
 
       .participants-and-discussion(ng-class="{'state-live': talkIsLive()}")
         -# This is a superior box, TODO: participants are only shown when talk is live

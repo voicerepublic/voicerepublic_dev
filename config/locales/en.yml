@@ -807,6 +807,8 @@ en:
       download_talk: Download Talk
       discussion: DISCUSSION
       description: ABOUT
+      more: Show more
+      less: Show less
       initializing: Initializing 
       talk_is_processing: Talk is processing
       please_reload_this_page: Please reload this page
