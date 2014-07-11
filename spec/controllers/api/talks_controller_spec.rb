@@ -64,10 +64,11 @@ describe Api::TalksController do
     it 'should receive store_state' do
       @talk.update_attribute :session, { @current_user.id => {} }
       message = { state: 'WaitingForPromotion' }
-      controller.should_receive(:store_state).and_return(message)
+      #controller.should_receive(:store_state)#.and_return(message)
       VCR.use_cassette 'talk_update_state_wfp' do
         put :update, id: @talk.id, msg: message
       end
+      @talk.reload.session[@current_user.id][:state].should eq(message[:state])
     end
 
     it 'returns on store_state' do

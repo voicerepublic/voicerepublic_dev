@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+# it-renders-specs
+describe 'SearchController' do
+  it 'it renders show on GET /search/:page/*query' do # show
+    visit '/search/1/asdf'
+    page.should have_selector('.search-show')
+  end
+end
+
 feature "Search", js: true do
   before do
     visit root_path

@@ -38,6 +38,7 @@ VoiceRepublic::Application.routes.draw do
       get :popular
       get :featured
       get :recent
+      get :upcoming
     end
   end
 
