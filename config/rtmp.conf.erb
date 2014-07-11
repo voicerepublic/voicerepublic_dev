@@ -29,8 +29,7 @@ rtmp {
             record_unique on;
             record_max_size <%= record_max_size %>;
             #record_lock on;
-            record_interval <%= record_interval %>;
-            
+
             # --- Exec
             # # live transcode to wave file while recording
             # # (connection needs to be permitted by rack middleware)
@@ -38,7 +37,7 @@ rtmp {
             #        -b:a 64k recordings/$name.live.wav;
             # # after record done transcode to wav
             # exec_record_done /usr/bin/avconv -i $path -b:a 64k \
-            #                    recordings/$basename.wav; 
+            #                    recordings/$basename.wav;
 
             <% if send_notifications %>
             # --- Notifications
