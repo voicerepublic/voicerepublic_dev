@@ -114,6 +114,33 @@ describe Talk do
       expect(Talk.featured).to eq([talk1, talk0])
       expect(Talk.featured).to include(talk0)
     end
+
+    describe 'saves the Content-Type' do
+      before { @talk = FactoryGirl.create(:talk) }
+      it 'works for m4a' do
+        pending 'find a way to spec the mime type hack "m4a -> audio/mp4"'
+        m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
+        @talk.send(:upload_file, '1.m4a', m4a_file)
+
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.m4a').content_type.should == 'audio/mp4'
+      end
+      it 'works for mp3' do
+        mp3_file = File.expand_path("spec/support/fixtures/transcode0/1.mp3", Rails.root)
+        @talk.send(:upload_file, '1.mp3', mp3_file)
+
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.mp3').content_type.should == 'audio/mpeg'
+      end
+      it 'works for ogg' do
+        ogg_file = File.expand_path("spec/support/fixtures/transcode0/1.ogg", Rails.root)
+        @talk.send(:upload_file, '1.ogg', ogg_file)
+
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.ogg').content_type.should == 'audio/ogg'
+      end
+    end
+
   end
 
   describe 'created' do
@@ -291,4 +318,26 @@ describe Talk do
 
   end
 
+  describe 'with indexing' do
+    before do
+      Thread.current["PgSearch.enable_multisearch"] = true
+      @talk = FactoryGirl.create :talk
+    end
+
+    after do
+      Thread.current["PgSearch.enable_multisearch"] = false
+    end
+
+    it 'properly limits fields' do
+      # if the cumulated lengths of all indexed fields is to long
+      # this will raise an error
+      expect do
+        @talk.title       = '-' * Settings.limit.string
+        @talk.teaser      = '-' * Settings.limit.string
+        @talk.description = '-' * Settings.limit.text
+        @talk.save!
+      end.to_not raise_error
+    end
+  end
+  
 end

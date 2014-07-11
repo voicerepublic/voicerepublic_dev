@@ -43,7 +43,11 @@ xml.rss namespaces.merge(version: '2.0') do
       xml.cdata! @podcast.description
     end
     xml.link @podcast.url
-    xml.language 'DE'
+    # TODO check if comma separated list is ok here
+    langs = @podcast.talks.map(&:language).compact
+    langs = %w(en) if langs.empty?
+    main_lang = langs.inject(Hash.new { |h, k| h[k] = 0 }) { |h, l| h[l]+=1; h }.to_a.sort_by { |e| e.last }.last.first
+    xml.language main_lang 
     xml.image do
       xml.url @podcast.image_url
       xml.title do

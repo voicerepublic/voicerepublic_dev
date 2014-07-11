@@ -1,5 +1,17 @@
 require 'spec_helper'
 
+feature "Anonymous users", js: true do
+  scenario "will be authenticated as guest user" do
+    User.count.should eq(0)
+    visit root_path
+    User.count.should eq(1)
+    # user names are generated with uuids to minimize collisions (chance is1 in
+    # 17 billion)
+    User.last.name.should =~ /.*-.*-.*-.*-.*/
+    User.last.email.should =~ /.*-.*-.*-.*-.*@example.com/
+  end
+end
+
 feature "User edits own profile", js: true do
   background do
     @user = FactoryGirl.create(:user, password: '123456',
