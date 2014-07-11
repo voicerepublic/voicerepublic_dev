@@ -39,8 +39,12 @@ privatePubFunc = ($log, $q, config) ->
     # queue the call onto the promise chain
     promise = promise.then success
 
+  callback = (func) ->
+    promise = promise.then func
+
   {
     subscribe
+    callback
   }
 
 # annotate with dependencies to inject

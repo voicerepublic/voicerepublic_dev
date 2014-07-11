@@ -29,9 +29,13 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   unsubscribeAllStreams = ->
     # TODO blackbox.unsubscribeAll()
 
+  subscriptionDone = false
+
   reportState = (state) ->
-    # $log.info "reporting new state: #{state}"
-    upstream.state state
+    return upstream.state(state) if subscriptionDone
+    # defer if subscriptions aren't done yet
+    #$log.debug "Not ready to report state '#{state}', waiting for subscriptions"
+    $timeout (-> reportState(state)), 250
 
   # definition of the state machine, incl. callbacks
   # https://github.com/jakesgordon/javascript-state-machine/blob/master/README.md
@@ -43,12 +47,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
       $log.debug errorMessage
     callbacks:
       onenterstate: (event, from, to) ->
-        switch to
-          when 'Registering', 'GuestRegistering', 'HostRegistering'
-            # FIXME the timeout is a hack! better: wait until subscribed
-            $timeout (-> reportState(to)), 2000
-          else
-            reportState(to)
+        reportState(to)
       onleaveWaiting: ->
         subscribeAllStreams()
       onleaveHostRegistering: ->
@@ -223,10 +222,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   replHandler = (msg) ->
     eval msg.data.exec if msg.data.exec?
 
-  # TODO idealy this should move into callback: on/Registering$/
   # subscribe to push notifications
   privatePub.subscribe config.talk.channel, pushMsgHandler
   privatePub.subscribe config.user.channel, replHandler
+  privatePub.callback -> subscriptionDone = true
 
   # exposed objects
   {

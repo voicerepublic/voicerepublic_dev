@@ -71,6 +71,8 @@ RSpec.configure do |config|
   #   * Run specs with chromedriver: zeus rspec --tag @driver:chrome spec
   # By default do not run slow specs locally, unless explicitly requested by:
   #  zeus rspec --tag @slow:true spec
+  # resp.
+  #  zeus rspec --tag @gdriver:chrome spec
   config.filter_run_excluding :slow => :true unless ENV['CI']
   config.filter_run_excluding :driver => :chrome unless ENV['CI']
 
