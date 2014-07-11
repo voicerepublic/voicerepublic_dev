@@ -37,7 +37,7 @@ class RtmpWatcher
         end
       end
     end
-    publish "/stat", payload
+    publish "/stat", payload unless payload.empty?
   end
   
   private
@@ -65,12 +65,15 @@ end
 
 
 if __FILE__ == $0
+  base = File.expand_path("../..", __FILE__)
+
   # configure private pub
-  path = File.expand_path("../../config/private_pub.yml", __FILE__)
+  path = File.join(base, 'config', 'private_pub.yml')
   PrivatePub.load_config(path, ENV['RAILS_ENV'] || 'development')
 
   # daemonize
-  Daemons.run_proc(File.basename(__FILE__)) do
+  piddir = File.join(base, 'tmp', 'pids')
+  Daemons.run_proc(File.basename(__FILE__), dir: piddir) do
     RtmpWatcher.new.run
   end
 end

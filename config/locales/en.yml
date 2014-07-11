@@ -794,6 +794,14 @@ en:
       participants: Participants
       plays: '%{count} plays'
       edit_talk: Edit Talk
+      banner_title: WHAT IS VOICE REPUBLIC?
+      banner_text: |
+        Voice Republic is a tool for the creation and distribution of audio content on the Internet.
+        <br />
+        Users are invited not just to listen to talks and debates, but also to talk to each other and get involved.
+        <br />
+        We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
+        <span>More...</span>
     new:
       title: "VR New Talk"
       new_talk: New Talk

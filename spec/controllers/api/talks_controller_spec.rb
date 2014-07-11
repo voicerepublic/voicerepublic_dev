@@ -30,6 +30,13 @@ describe Api::TalksController do
         response.status.should be(422)
       end
 
+      it 'raises error when state cannot be set' do
+        Api::TalksController.any_instance.stub(:validate_state).and_raise
+        expect {
+          put :update, id: @talk.id, msg: { state: 'WaitingForPromotion' }
+        }.to raise_error
+      end
+
     end
 
     # as host sending events for other user
