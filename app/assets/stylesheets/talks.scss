@@ -21,28 +21,6 @@
 
 
 .talks-show{
-  .related-talk {
-    background: rgba(0,0,0,0.5);
-    margin-top: 15px;
-    .related-title-box{
-      position: relative;
-      padding:6px 13px;
-      background: rgba(0,0,0,0.3);
-      color:white;
-      font-family: 'eaglelight';
-      a{
-        font-size: rem-calc(14);
-        color: inherit;
-        font-family: inherit;
-        &:hover,&:focus{
-          text-decoration: underline;
-        }
-      }
-    }
-    .talk-medium-box{
-      margin-bottom: 0;
-    }
-  }
 
   // for testing
   .talk-state{
@@ -233,29 +211,6 @@
     color: $brand-color-red;
   }
 
-  .talk-countdown{
-    margin-top: 20px;
-    background: rgba(0,0,0,0.5);
-    padding: 40px 0;
-    .cd-text,.cd-minutes{
-      display: inline-block;
-      font-family: 'eaglebook';
-      font-size: rem-calc(14);
-      .red{
-        color: $brand-color-red;
-      }
-    }
-    .cd-watch{
-      display: inline-block;
-      position: relative;
-      font-family: 'eaglelight';
-      font-size: rem-calc(40);
-      margin: 0 rem-calc(13) 0 rem-calc(10);
-      width: 168px;
-      text-align: left;
-    }
-  }
-
   .talk-timeline-box{
     margin-top: 15px;
     font-family: 'eaglebook';
@@ -271,6 +226,14 @@
       font-family: 'eaglebook';
       font-size:rem-calc(26);
       padding: rem-calc(12) 10px rem-calc(10) 10px;
+    }
+    .talk-countdown{
+      background: rgba(0,0,0,0.6);
+      padding: 16px 0 7px 0;
+      border-top:2px solid white;
+      .red{
+        color:$brand-color-red;
+      }   
     }
     .talk-live-timeline{
       background: rgba(0,0,0,0.5);
@@ -322,9 +285,18 @@
 
   .talk-talkers-box{
     position: relative;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     padding:rem-calc(23) rem-calc(23);
     color: #fff;
+    .stage-title{
+      position: absolute;
+      left:0;
+      top:13px;
+      font-family: 'eaglebook';
+      font-size: rem-calc(60);
+      color: #2f2f2f;
+      text-shadow:1px 1px 3px rgba(0,0,0,0.5),-1px -1px 3px rgba(0,0,0,0.5);
+    }
     .avatar{
       .avatar-box{
         width: 140px;
@@ -717,15 +689,24 @@
     &.state-live{
       padding-left: 220px;
       @include transition(padding 0.8s linear 0.8s);
+      .title-discussion{
+        height:0 !important;
+      }
     }  
     
     /* DISCUSSION - CHAT */
     .discussion-block{
       position: relative;
       background:white;
-      padding: 20px;
+      padding: 16px 20px;
       @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
-
+      .title-discussion{
+        @include transition(height 0.4s linear 0.8s);
+        margin:0;
+        padding:0;
+        height: 20px;
+        overflow: hidden;
+      }
       h3{
         margin-top: 0;
         color: rgba(0,0,0,0.5);
@@ -978,53 +959,91 @@
     }
   }
 
-  .vr-banner{
+  .sidebar-right{
     position: absolute;
-    padding: 16px 19px 20px 19px;
-    width: 210px;
     right: -220px;
     top: 0;
-    background: $brand-color-red;
-    @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
-    @include transition(all 0.1s ease-in-out);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
-    &:hover{
-      @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.4),-1px -1px 2px rgba(0,0,0,0.4);
-    }
-    a{
-      text-align: left;
-      h3{
-        display: inline-block;
-        border-bottom: 2px solid white;
-        color: white;
-        font-size: rem-calc(13);
-      }
-      p{
-        line-height: 1.4;
-        color:white;
-        margin-bottom: 0;
-        font-size: rem-calc(12);
-      }
-      span{
-        text-decoration:underline;
-      }
-    }
-    .close-x{
+    width: 210px;    
+    .related-talk {
+      background: rgba(0,0,0,0.5);
       position: absolute;
-      top: 2px;
-      right: 6px;
-      color: white
+      .related-title-box{
+        position: relative;
+        padding:6px 13px;
+        background: rgba(0,0,0,0.3);
+        color:white;
+        font-family: 'eaglelight';
+        a{
+          font-size: rem-calc(14);
+          color: inherit;
+          font-family: inherit;
+          &:hover,&:focus{
+            text-decoration: underline;
+          }
+        }
+      }
+      .box-transparent{
+        background: $brand-color-creme;
+        height:auto;
+        max-height:172px;
+        margin-bottom: 0;
+        border-bottom: none;
+        .breadcrumbs-box{
+          display: none;
+        }
+        .text-box{
+          padding:2px 7px;
+        }
+      }
     }
-  }
-  
-  #vr-banner-modal{
-    padding: 0;
-    img{
+
+    .vr-banner{
+      position: relative;
       width: 100%;
+      padding: 16px 19px 20px 19px;
+      margin-bottom: 15px;
+      background: $brand-color-red;
+      @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
+      @include transition(all 0.1s ease-in-out);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
+      &:hover{
+        @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.4),-1px -1px 2px rgba(0,0,0,0.4);
+      }
+      a{
+        text-align: left;
+        h3{
+          display: inline-block;
+          border-bottom: 2px solid white;
+          color: white;
+          font-size: rem-calc(13);
+        }
+        p{
+          line-height: 1.4;
+          color:white;
+          margin-bottom: 0;
+          font-size: rem-calc(12);
+        }
+        span{
+          text-decoration:underline;
+        }
+      }
+      .close-x{
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        color: white
+      }
     }
-    .close-reveal-modal{
-      color: white;
+    
+    #vr-banner-modal{
+      padding: 0;
+      img{
+        width: 100%;
+      }
+      .close-reveal-modal{
+        color: white;
+      }
     }
   }
 

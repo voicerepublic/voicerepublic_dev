@@ -782,8 +782,10 @@ en:
       audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
-      countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
+      countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
+      stage: STAGE
+      padding: 0 0 9px 0;
       request_mic: REQUEST MIC
       talk_invitation: TALK INVITATION!
       accept_promotion: ACCEPT

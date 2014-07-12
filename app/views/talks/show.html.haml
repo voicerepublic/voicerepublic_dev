@@ -15,20 +15,6 @@
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
       #flash_error= t('require_flash')
-    - if @talk.related_talk
-      %section.row.collapse.text-center.related-talk
-        .large-12.columns
-          .related-title-box.text-left
-            = link_to t('.related_talk'), @talk.related_talk
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.related_talk }
-    - elsif @talk.next_talk
-      %section.row.collapse.text-center.related-talk
-        .large-12.columns
-          .related-title-box.text-left
-            = link_to t('.next_talk'), @talk.next_talk
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.next_talk }
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         - if can? :manage, @talk
@@ -106,29 +92,37 @@
                 = link_to '#', title: t('.plays', count: @talk.play_count) do
                   %span.icon-play
                   = @talk.play_count
-      - if current_user.guest?
-        .vr-banner.hide-for-small
-          = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
-            %h3
-              = t('.banner_title')
-            %p
-              = raw t('.banner_text')
-          %a.close-x(data-toggle-stuff=".vr-banner")
-            = raw '&times;'
 
-        #vr-banner-modal.reveal-modal(data-reveal)
-          = image_tag 'vr_infografic.png'
-          = link_to '#', class: "close-reveal-modal" do 
-            &#215;
+      .sidebar-right
+        - if current_user.guest?
+          .vr-banner.hide-for-small
+            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+              %h3
+                = t('.banner_title')
+              %p
+                = raw t('.banner_text')
+            %a.close-x(data-toggle-stuff=".vr-banner")
+              = raw '&times;'
 
-    .talk-countdown.row(ng-show='talkIsPrelive()')
-      .medium-12.columns.text-center
-        .cd-text
-          = raw t('.countdown_text')
-        .cd-watch
-          {{ countdown }}
-        .cd-minutes
-          = t('.minutes')
+          #vr-banner-modal.reveal-modal(data-reveal)
+            = image_tag 'vr_infografic.png'
+            = link_to '#', class: "close-reveal-modal" do 
+              &#215;
+
+        - if @talk.related_talk
+          %section.row.collapse.text-center.related-talk
+            .large-12.columns
+              .related-title-box.text-left
+                = link_to t('.related_talk'), @talk.related_talk
+              %ul.list-style-type-none
+                = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.related_talk, color: 'box-transparent' }
+        - elsif @talk.next_talk
+          %section.row.collapse.text-center.related-talk
+            .large-12.columns
+              .related-title-box.text-left
+                = link_to t('.next_talk'), @talk.next_talk
+              %ul.list-style-type-none
+                = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
@@ -138,6 +132,10 @@
             = link_to t('.please_reload_this_page'), @talk
           .processing-message(ng-show='talkIsProcessing()')
             = t('.talk_is_processing')
+        .talk-countdown.text-center(ng-show='talkIsPrelive()')
+          = raw t('.countdown_text')
+          {{ countdown }}
+          = t('.minutes')            
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
@@ -155,6 +153,8 @@
 
     .talk-talkers-box.row
       .large-12.columns.text-center
+        .stage-title
+          =t('.stage')
         .avatar.avatar-host
           .avatar-box
             = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
