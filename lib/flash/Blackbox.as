@@ -188,10 +188,17 @@
       options.nonLinearProcessing = true;
 
       mic = Microphone.getEnhancedMicrophone();
-      mic.setSilenceLevel(0, 2000);
+      // 0, 0 for continous stream
+      //mic.setSilenceLevel(0, 2000);
+      mic.setSilenceLevel(0, 0);
       mic.enhancedOptions = options;
+      // SPEEX setzt frame rate selbst, vielleicht windows auf nellymoser zwingen
+      // bei nellymoser kann man die rate setzten
       mic.codec = SoundCodec.SPEEX;
 
+      // Alternativ einen zweiten und dritte Stream senden
+      // byteArray sind Wave Daten
+      
       // http://www.gbaptista.com/docs/as3/flash/media/Microphone.html#encodeQuality
       // encodeQuality 7 == 23.8 kbit/s
       //  * upload of 1mb takes 5.6min

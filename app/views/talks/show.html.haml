@@ -113,7 +113,6 @@
               = t('.banner_title')
             %p
               = raw t('.banner_text')
-
           %a.close-x(data-toggle-stuff=".vr-banner")
             = raw '&times;'
 
@@ -137,6 +136,8 @@
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
+          .processing-message(ng-show='talkIsProcessing()')
+            = t('.talk_is_processing')
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
