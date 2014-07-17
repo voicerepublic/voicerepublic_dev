@@ -60,40 +60,25 @@ describe "Talks" do
 
   describe "Live talk" do
     before do
-      Timecop.travel(Time.local(2008, 9, 1, 10, 5, 0))
-      #module PrivatePub
-      #  def subscription(options = {})
-      #    debugger
-      #    true
-      #    super
-      #  end
-      #end
-      #PrivatePub.reset_config
-      #time = Time.now
-      #Time.stub!(:now).and_return(time)
-      PrivatePub.config[:signature_expiration] = 9999999999999999999999
-      #@faye = PrivatePub::FayeExtension.new
-      #@message = {"channel" => "/meta/subscribe", "ext" => {}}
-      #["/t1/public", "/t1/u1"].each do |channel|
-      #  sub = PrivatePub.subscription(:channel => channel)
-      #  @message["subscription"] = sub[:channel]
-      #  @message["ext"]["private_pub_signature"] = sub[:signature]
-      #  @message["ext"]["private_pub_timestamp"] = sub[:timestamp]
-      #end
+      # !! BEWARE !!
+      # These specs are the mother of all tightly coupled specs. I gave up on
+      # trying to create specs that are properly mocked for live talks, but
+      # within reason.
+      `netcat localhost 9292 -w 1 -q 0 </dev/null`
+      next if $?.exitstatus != 0
+      WebMock.disable!
     end
     after do
-      Timecop.return
+      WebMock.enable!
     end
 
     describe "Visitor" do
       it "sets correct state for visitor/listener", js: :true do
         @talk = FactoryGirl.create(:talk)
         @talk.update_attribute :state, :live
-        VCR.use_cassette 'talk_guest_live' do
-          visit talk_path(@talk)
-          retry_with_delay do
-            @talk.reload.session[@user.id][:state].should == "Listening"
-          end
+        visit talk_path(@talk)
+        retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "Listening"
         end
       end
     end
@@ -106,12 +91,10 @@ describe "Talks" do
         venue.save!
 
         @talk.update_attribute :state, :live
-        #VCR.use_cassette 'talk_host_live' do
-          visit talk_path(@talk)
-          retry_with_delay do
-            @talk.reload.session[@user.id][:state].should == "HostOnAir"
-          end
-        #end
+        visit talk_path(@talk)
+        retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "HostOnAir"
+        end
       end
     end
 
