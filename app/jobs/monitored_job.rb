@@ -45,7 +45,7 @@ class MonitoredJob < Struct.new(:opts)
 
   def slack(message)
     url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
-          "?token=VtybT1KujQ6EKstsIEjfZ4AX"
+          "?token=#{Settings.slack_token}"
     payload = {
       channel: '#voicerepublic_tech',
       username: 'dj',
@@ -55,5 +55,5 @@ class MonitoredJob < Struct.new(:opts)
     cmd = "curl -X POST --data-urlencode 'payload=#{JSON.unparse(payload)}' '#{url}'"
     %x[ #{cmd} ]
   end
-  
+
 end

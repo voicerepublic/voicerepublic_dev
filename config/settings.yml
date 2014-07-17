@@ -56,3 +56,4 @@ root_url: 'http://localhost:3000'
 limit:
   text: 2300
   string: 140
+slack_token: VtybT1KujQ6EKstsIEjfZ4AX
