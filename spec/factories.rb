@@ -17,7 +17,6 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
-    available "online"
     last_request_at {Time.now}
     secret = "mysecret"
     password secret
@@ -44,7 +43,7 @@ FactoryGirl.define do
     starts_at_time 1.hour.from_now.strftime('%H:%M')
     starts_at_date 1.hour.from_now.strftime('%Y-%m-%d')
     duration 60
-    record false
+    collect false
     tag_list 'lorem, ipsum, dolor'
     description 'talk description'
     language 'en'

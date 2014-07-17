@@ -23,6 +23,8 @@ require 'json'
 #
 # For an example of an `opts` hash see `app/jobs/assimilate.rb`.
 #
+# See end of file for documentation on setup.
+#
 class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
 
   STATES = %w( pending success error failure )
@@ -49,12 +51,14 @@ class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
     
     logger.info("#{pusher} pushed #{ref} to #{repo}")
 
-    # TODO 
+    # TODO also set a status when scheduling dj
     status('pending', "preparing to run specs...")
     
     puts Dir.pwd
     # TODO make configurable
-    path = '/tmp/ci'
+    path = '/home/app/app/shared/ci'
+    # TODO remove hack
+    path = '/tmp/ci' if %x[hostname].chomp == 'fatou'
     path = File.expand_path(path, Dir.pwd) 
     FileUtils.mkdir_p(path, verbose: true) unless File.exist?(path)
     puts "cd #{path}"
@@ -65,6 +69,7 @@ class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
       Dir.chdir('repo')
     else
       Dir.chdir('repo')
+      execute "rm -f db/schema.rb"
       execute "git checkout master; git pull"
     end
     # git checkout <sha>
@@ -72,19 +77,23 @@ class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
     # bundle
     execute "bundle"
     # setup
+    # TODO make configurable
+    dbname = 'rails_test'
+    # TODO remove hack
+    dbname = 'vr_ci' if %x[hostname].chomp == 'fatou'
     File.open('config/database.yml', 'w') do |f|
       f.puts <<-EOF
 test:
   adapter: postgresql
   encoding: unicode
-  database: vr_ci
+  database: #{dbname}
       EOF
     end
     execute 'bundle exec rake db:migrate RAILS_ENV=test'
     # rspec spec
-    # TODO make configurable
     status('pending', "running specs...")
-    execute "bundle exec rspec spec --fail-fast", false
+    # TODO make configurable
+    execute "RAILS_ENV=test bundle exec rspec spec --fail-fast", false
     # report
     status($?.exitstatus > 0 ? 'failure' : 'success')
   end
@@ -98,9 +107,9 @@ test:
   
   def status(state, descr='')
     raise "invalid state: #{state}" unless STATES.include?(state)
+    logger.info("status: #{state} (#{descr})")
     auth = "#{token}:x-oauth-basic"
     url = "https://api.github.com/repos/munen/voicerepublic_dev/statuses/#{sha}"
-    # payload = "{\"state\":\"#{state}\",\"description\":\"#{msg}\"}"
     payload = {
       state: state,
       description: descr,
@@ -124,17 +133,29 @@ test:
   end
   
   def logger
+    return @logger unless @logger.nil?
     logpath = File.expand_path('../../log/ci.log', __FILE__)
     logfile = File.open(logpath, 'a')
     logfile.sync = true
-    Logger.new(logfile)
+    @logger = Logger.new(logfile)
   end
   
 end
 
 Assimilator.new(*ARGV).run if __FILE__ == $0
 
-# TODO document setup
-# TODO - create db
-# TODO - add pgsearch modules to db
-    
+# TODO improve setup documentation
+#
+# As root
+#
+#     [13:59:18] voicerepublic-staging:~# su - postgres
+#     [13:59:18] voicerepublic-staging:~$ createdb rails_test
+#     [13:59:18] voicerepublic-staging:~$ psql rails_test
+#     psql (9.1.11)
+#     Type "help" for help.
+#
+#     rails_production=# CREATE EXTENSION pg_trgm;
+#     CREATE EXTENSION
+#     rails_production=# CREATE EXTENSION unaccent;
+#     CREATE EXTENSION
+              

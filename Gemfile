@@ -69,6 +69,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'sqlite3'
+  # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
+  #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
   gem 'timecop'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
@@ -78,7 +80,8 @@ end
 group :test do
   gem 'capybara', '2.2.1'
   gem 'ci_reporter'
-  gem 'database_cleaner', git: 'git@github.com:bmabey/database_cleaner.git'
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
+
   gem 'guard-rspec'
   gem 'launchy'
   gem 'poltergeist'

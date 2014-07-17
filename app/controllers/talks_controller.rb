@@ -54,7 +54,7 @@ class TalksController < ApplicationController
         authorize! :manage, @talk
         render text: @talk.message_history
       end
-      format.png { send_file @talk.flyer_path(true) }
+      format.png { send_file @talk.flyer.path(true) }
     end
   end
 
@@ -114,7 +114,7 @@ class TalksController < ApplicationController
   def talk_params
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time, :duration,
-                                 :description, :record, :image,
+                                 :description, :collect, :image,
                                  :tag_list, :guest_list, :language)
   end
 

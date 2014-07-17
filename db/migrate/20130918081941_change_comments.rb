@@ -1,7 +1,7 @@
 class ChangeComments < ActiveRecord::Migration
   def up
     # TODO another really bad one
-    Comment.delete_all
+    # Comment.delete_all
 
     change_table(:comments) do |t|
       t.remove :commentable_id

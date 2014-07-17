@@ -58,6 +58,7 @@ feature "User edits own profile", js: true do
 
   scenario "setting a new password" do
     page.find("button[data-enable-fields*=change-password]").click
+    sleep 0.1
     find('.user_password input').set '654321'
     find('.user_password_confirmation input').set '654321'
 
