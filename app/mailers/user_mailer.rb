@@ -17,7 +17,7 @@ class UserMailer < ActionMailer::Base
   # app/models/talk.rb:140 (delayed)
   def new_talk(talk, user)
     return if talk.venue.opts.no_email
-    attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer_path[1..-1])) if talk.flyer_path
+    attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
     flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
     interpolate! user, talk, url: venue_talk_url(talk.venue, talk), flyer: flyer,
       name: [talk.venue.title, talk.title].join(' - ')
@@ -27,7 +27,7 @@ class UserMailer < ActionMailer::Base
   # lib/tasks/talks.rake:9
   def reminder(talk, user)
     return if talk.venue.opts.no_email
-    attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer_path[1..-1])) if talk.flyer_path
+    attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
     flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
     interpolate! user, talk, url: venue_talk_url(talk.venue, talk), flyer: flyer,
       name: [talk.venue.title, talk.title].join(' - ')
