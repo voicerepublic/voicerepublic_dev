@@ -65,7 +65,7 @@ describe "Talks" do
       # trying to create specs that are properly mocked for live talks, but
       # within reason.
       `netcat localhost 9292 -w 1 -q 0 </dev/null`
-      next if $?.exitstatus != 0
+      pending if $?.exitstatus != 0
       WebMock.disable!
     end
     after do
