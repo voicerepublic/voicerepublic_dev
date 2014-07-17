@@ -40,10 +40,13 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   include ActiveModel::Transitions
 
   LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
-  
+
   GRACE_PERIOD = 5.minutes
 
   # colors according to ci style guide
@@ -100,7 +103,7 @@ class Talk < ActiveRecord::Base
   validates :title, length: { maximum: Settings.limit.string }
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
-  
+
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -108,7 +111,8 @@ class Talk < ActiveRecord::Base
 
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
-  after_save :generate_flyer, if: ->(t) { t.starts_at_changed? || t.title_changed? }
+  after_save -> { flyer.generate! },
+             if: ->(t) { t.starts_at_changed? || t.title_changed? }
 
   serialize :session
   serialize :storage
@@ -211,21 +215,8 @@ class Talk < ActiveRecord::Base
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
-  # returns either the web path (default)
-  #
-  #     e.g. /system/flyer/42.png
-  #
-  # or, if `fs` is true, the absolute file system path
-  #
-  #     e.g. /home/app/app/shared/public/system/flyer/42.png
-  #
-  def flyer_path(fs=false)
-    name = "#{id}.png" # TODO use friendly id
-    return Settings.flyer.location + '/' + name unless fs
-
-    path = File.expand_path(Settings.flyer.path, Rails.root)
-    FileUtils.mkdir_p(path)
-    File.join(path, name)
+  def flyer
+    @flyer ||= Flyer.new(self)
   end
 
   # this is only for user acceptance testing!
@@ -520,36 +511,6 @@ class Talk < ActiveRecord::Base
     @logfile
   end
 
-  # Generates a svg flyer and converts it to png via Inkscape.
-  #
-  # This can be run in bulk to regenerate all flyers:
-  #
-  #     FileUtils.rm(Dir.glob('app/shared/public/system/flyer/*.png'))
-  #     Talk.find_each { |t| t.send(:generate_flyer) }
-  #
-  def generate_flyer
-    svg_path = File.expand_path(File.join(%w(doc design flyer.svg)), Rails.root)
-    svg_data = File.read(svg_path)
-    flyer_interpolations.each do |key, value|
-      svg_data.sub! "[-#{key}-]", Nokogiri::HTML.fragment(value).to_s
-    end
-    svg_file = Tempfile.new('svg')
-    svg_file.write svg_data
-    svg_file.close
-    %x[ inkscape -f #{svg_file.path} -e #{flyer_path(true)} ]
-    svg_file.unlink
-  end
-
-  def flyer_interpolations
-    {
-      color:    COLORS[rand(COLORS.size)],
-      host:     user.name,
-      title:    title,
-      day:      I18n.l(starts_at, format: :flyer_day),
-      datetime: I18n.l(starts_at, format: :flyer_datetime)
-    }
-  end
-
   def set_uri!
     self.uri = "vr-#{id}"
     save!
@@ -560,6 +521,10 @@ class Talk < ActiveRecord::Base
   # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
     PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+  end
+
+  def slug_candidates
+    [ :title, [:id, :title] ]
   end
 
 end

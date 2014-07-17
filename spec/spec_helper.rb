@@ -191,7 +191,9 @@ RSpec.configure do |config|
   config.after(:suite) { FileUtils.rm_rf(audio_paths) }
 
   # do not create a flyer on Talk#save during spec runs
-  config.before(:each) { allow_any_instance_of(Talk).to receive(:generate_flyer).and_return(true) }
+  config.before(:each) do
+    allow_any_instance_of(Flyer).to receive(:generate!).and_return(true)
+  end
 
 end
 
@@ -214,15 +216,15 @@ end
 
 RSpec::SOMETIMES = <<-EOF
 
- _____ _    ___ _     ___ _   _  ____ 
+ _____ _    ___ _     ___ _   _  ____
 |  ___/ \\  |_ _| |   |_ _| \\ | |/ ___|
-| |_ / _ \\  | || |    | ||  \\| | |  _ 
+| |_ / _ \\  | || |    | ||  \\| | |  _
 |  _/ ___ \\ | || |___ | || |\\  | |_| |
 |_|/_/   \\_\\___|_____|___|_| \\_|\\____|
-                                      
- ____   ___  __  __ _____ _____ ___ __  __ _____ ____  
-/ ___| / _ \\|  \\/  | ____|_   _|_ _|  \\/  | ____/ ___| 
-\\___ \\| | | | |\\/| |  _|   | |  | || |\\/| |  _| \\___ \\ 
+
+ ____   ___  __  __ _____ _____ ___ __  __ _____ ____
+/ ___| / _ \\|  \\/  | ____|_   _|_ _|  \\/  | ____/ ___|
+\\___ \\| | | | |\\/| |  _|   | |  | || |\\/| |  _| \\___ \\
  ___) | |_| | |  | | |___  | |  | || |  | | |___ ___) |
-|____/ \\___/|_|  |_|_____| |_| |___|_|  |_|_____|____/ 
+|____/ \\___/|_|  |_|_____| |_| |___|_|  |_|_____|____/
 EOF

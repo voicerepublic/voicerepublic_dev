@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/bmabey/database_cleaner.git
+  revision: 8d7f72ffc99befd5ce67d333a99e0cf054c24f81
+  specs:
+    database_cleaner (1.3.0)
+
+GIT
   remote: git://github.com/branch14/pg_search.git
   revision: 819defdfc14b8ef2855c043dbd31f01c5bf49928
   specs:
@@ -6,12 +12,6 @@ GIT
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
-
-GIT
-  remote: git@github.com:bmabey/database_cleaner.git
-  revision: b254ce57bdeea927e514a486aedc2ac97199324b
-  specs:
-    database_cleaner (1.2.0)
 
 GEM
   remote: https://rubygems.org/

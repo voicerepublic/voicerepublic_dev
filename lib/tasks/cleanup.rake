@@ -32,7 +32,11 @@ namespace :cleanup do
 
   desc 'Regenerate all flyers'
   task :regenerate_flyers => :environment do
-    Talk.all.each { |t| t.send(:generate_flyer) }
+    count = Talk.count
+    Talk.find_each do |t|
+      puts "Generate flyer for Talk #{t.id}/#{count}: #{t.title}"
+      t.flyer.generate!
+    end
   end
 
   # When a talk has been created, but the host never shows, the talk will never

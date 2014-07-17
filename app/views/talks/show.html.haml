@@ -59,9 +59,9 @@
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
-            = image_tag @talk.flyer_path
+            = image_tag @talk.flyer.path
             %p
-              = link_to @talk.flyer_path, 'download' => 'true' do
+              = link_to @talk.flyer.path, 'download' => 'true' do
                 %span.icon-download-2
                 = t('.download_flyer')
 
@@ -113,7 +113,6 @@
               = t('.banner_title')
             %p
               = raw t('.banner_text')
-
           %a.close-x(data-toggle-stuff=".vr-banner")
             = raw '&times;'
 
@@ -137,6 +136,8 @@
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
+          .processing-message(ng-show='talkIsProcessing()')
+            = t('.talk_is_processing')
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')

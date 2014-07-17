@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702100451) do
+ActiveRecord::Schema.define(version: 20140702134835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,14 @@ ActiveRecord::Schema.define(version: 20140702100451) do
 
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
+
+  create_table "bookmarks", force: true do |t|
+    t.integer  "kluuu_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -121,6 +129,10 @@ ActiveRecord::Schema.define(version: 20140702100451) do
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
+  create_table "roles", force: true do |t|
+    t.string "name"
+  end
+
   create_table "settings", force: true do |t|
     t.string   "key"
     t.string   "value"
@@ -142,6 +154,13 @@ ActiveRecord::Schema.define(version: 20140702100451) do
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
+
+  create_table "status_updates", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -175,6 +194,7 @@ ActiveRecord::Schema.define(version: 20140702100451) do
     t.string   "image_uid"
     t.text     "session"
     t.datetime "featured_from"
+    t.text     "audio_formats",      default: "--- []\n"
     t.string   "state"
     t.datetime "started_at"
     t.datetime "processed_at"
@@ -187,10 +207,17 @@ ActiveRecord::Schema.define(version: 20140702100451) do
     t.text     "storage",            default: "--- {}\n"
     t.string   "grade"
     t.string   "language",           default: "en"
+    t.string   "slug"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
+  add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
+
+  create_table "user_roles", force: true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -233,8 +260,10 @@ ActiveRecord::Schema.define(version: 20140702100451) do
     t.text     "options",     default: "--- {}\n"
     t.string   "image_uid"
     t.string   "uri"
+    t.string   "slug"
   end
 
+  add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree
   add_index "venues", ["uri"], name: "index_venues_on_uri", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
