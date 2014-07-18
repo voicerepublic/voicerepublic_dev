@@ -35,7 +35,7 @@ class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
       ref    = opts['ref']
       sha    = opts['after']
       pusher = opts['pusher']['email']
-      
+
       new(repo, ref, sha, pusher).run
     end
   end
@@ -48,18 +48,18 @@ class Assimilator < Struct.new(:repo, :ref, :sha, :pusher)
 
     gitrepo = repo.sub 'https://github.com/', 'git@github.com:'
     gitref = ref.sub 'refs/heads/', ''
-    
+
     logger.info("#{pusher} pushed #{ref} to #{repo}")
 
     # TODO also set a status when scheduling dj
     status('pending', "preparing to run specs...")
-    
+
     puts Dir.pwd
     # TODO make configurable
     path = '/home/app/app/shared/ci'
     # TODO remove hack
     path = '/tmp/ci' if %x[hostname].chomp == 'fatou'
-    path = File.expand_path(path, Dir.pwd) 
+    path = File.expand_path(path, Dir.pwd)
     FileUtils.mkdir_p(path, verbose: true) unless File.exist?(path)
     puts "cd #{path}"
     Dir.chdir(path)
@@ -104,7 +104,7 @@ test:
   def token
     '9be52839439e988795337962ef388b9e61194fcd'
   end
-  
+
   def status(state, descr='')
     raise "invalid state: #{state}" unless STATES.include?(state)
     logger.info("status: #{state} (#{descr})")
@@ -118,20 +118,20 @@ test:
     curl = "curl -s -u #{auth} -d '#{JSON.unparse(payload)}' #{url} > /dev/null"
     system curl
   end
-  
+
   def execute(cmd, safe=true)
     puts "$ #{cmd}"
     system cmd
     rv = $?.exitstatus
     die "exited with #{rv}" if safe && rv > 0
   end
-  
+
   def die(msg)
     status('error', msg)
     puts "Abort: #{msg}"
     exit 1
   end
-  
+
   def logger
     return @logger unless @logger.nil?
     logpath = File.expand_path('../../log/ci.log', __FILE__)
@@ -139,7 +139,7 @@ test:
     logfile.sync = true
     @logger = Logger.new(logfile)
   end
-  
+
 end
 
 Assimilator.new(*ARGV).run if __FILE__ == $0
@@ -154,8 +154,8 @@ Assimilator.new(*ARGV).run if __FILE__ == $0
 #     psql (9.1.11)
 #     Type "help" for help.
 #
-#     rails_production=# CREATE EXTENSION pg_trgm;
+#     rails_test=# CREATE EXTENSION pg_trgm;
 #     CREATE EXTENSION
-#     rails_production=# CREATE EXTENSION unaccent;
+#     rails_test=# CREATE EXTENSION unaccent;
 #     CREATE EXTENSION
-              
+
