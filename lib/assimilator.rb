@@ -89,6 +89,10 @@ test:
   database: #{dbname}
       EOF
     end
+
+    execute 'Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &'
+    execute 'export DISPLAY=:1'
+
     execute 'bundle exec rake db:migrate RAILS_ENV=test'
     # rspec spec
     status('pending', "running specs...")
@@ -96,9 +100,19 @@ test:
     execute "RAILS_ENV=test bundle exec rspec spec --fail-fast", false
     # report
     status($?.exitstatus > 0 ? 'failure' : 'success')
+
   end
 
   private
+
+  def cleanup_processes
+    # just to be sure
+    execute "killall Xvfb"
+
+    # these two stick around sometimes
+    execute "killall phantomjs"
+    execute "killall chromedriver"
+  end
 
   # TODO make configurable, use this to set your token
   def token

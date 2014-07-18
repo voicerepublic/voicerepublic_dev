@@ -233,7 +233,9 @@ https://github.com/munen/voicerepublic_dot_cdist/pull/7
 
 1. Install chromedriver binary to /usr/local/bin
 
-1. Install the iceweasel debian package.
+1. (Install the iceweasel debian package.)
+   We currently do not use Firefox in any request spec. So this step can be
+   left out.
 
 1. Install xauth debian package to be able to ssh -X into the machine and do
    some manual debugging.
