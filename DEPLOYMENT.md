@@ -188,6 +188,23 @@ As root
     ln -s /usr/share/munin/plugins/postgres_querylength_  postgres_querylength_ALL
     ln -s /usr/share/munin/plugins/postgres_xlog
 
+
+CI
+--
+
+For CI we need phantomjs. On wheezy there is no package for that yet. However,
+there are precompiled binaries here: http://phantomjs.org/download.html
+
+It was downloaded and installed into
+/usr/local/bin/phantomjs-1.9.7-linux-x86_64/bin/
+
+In sid, there is a package, already. When upgrading to sid, we should install
+via package management.
+
+phantomjs executable made available to path as described here:
+https://github.com/munen/voicerepublic_dot_cdist/pull/7
+
+
 TODO
 ====
 
