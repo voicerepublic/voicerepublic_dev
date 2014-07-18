@@ -90,28 +90,32 @@ test:
       EOF
     end
 
-    execute 'Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &'
-    execute 'export DISPLAY=:1'
+    cleanup_processes
+    # start xserver for selenium
+    `Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &`
 
     execute 'bundle exec rake db:migrate RAILS_ENV=test'
     # rspec spec
     status('pending', "running specs...")
     # TODO make configurable
-    execute "RAILS_ENV=test bundle exec rspec spec --fail-fast", false
+    execute "bundle exec rspec spec --fail-fast",
+      false,
+      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }
+
     # report
     status($?.exitstatus > 0 ? 'failure' : 'success')
 
+    cleanup_processes
   end
 
   private
 
+  # these processes stick around if not explicitly killed
   def cleanup_processes
-    # just to be sure
-    execute "killall Xvfb"
+    `killall -9 Xvfb > /dev/null 2>&1`
 
-    # these two stick around sometimes
-    execute "killall phantomjs"
-    execute "killall chromedriver"
+    `killall phantomjs > /dev/null 2>&1`
+    `killall chromedriver > /dev/null 2>&1`
   end
 
   # TODO make configurable, use this to set your token
@@ -133,9 +137,9 @@ test:
     system curl
   end
 
-  def execute(cmd, safe=true)
+  def execute(cmd, safe=true, env_vars={})
     puts "$ #{cmd}"
-    system cmd
+    system env_vars, cmd
     rv = $?.exitstatus
     die "exited with #{rv}" if safe && rv > 0
   end
@@ -143,6 +147,7 @@ test:
   def die(msg)
     status('error', msg)
     puts "Abort: #{msg}"
+    cleanup_processes
     exit 1
   end
 
