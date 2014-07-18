@@ -58,14 +58,14 @@ describe "Talks" do
     login_user(@user)
   end
 
-  describe "Live talk" do
+  describe "Live talk", js: :true do
     before do
       # !! BEWARE !!
       # These specs are the mother of all tightly coupled specs. I gave up on
       # trying to create specs that are properly mocked for live talks, but
       # within reason.
       `netcat localhost 9292 -w 1 -q 0 </dev/null`
-      pending if $?.exitstatus != 0
+      pending 'Needs PrivatePub to run' if $?.exitstatus != 0
       WebMock.disable!
     end
     after do
@@ -73,10 +73,33 @@ describe "Talks" do
     end
 
     describe "Visitor" do
-      it "sets correct state for visitor/listener", js: :true do
+      it 'shows a countdown' do
+        @talk = FactoryGirl.create(:talk,
+                                   starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
+                                   starts_at_date: Date.today)
+        visit talk_path(@talk)
+        page.save_screenshot 'foo.png'
+        page.should have_content "THIS TALK IS LIVE IN"
+        page.should have_content "computing"
+        retry_with_delay do
+          page.should have_content /00:04:\d{2}/
+        end
+        Timecop.travel(2.minutes.from_now)
+        visit talk_path(@talk)
+        retry_with_delay do
+          page.should have_content /00:02:\d{2}/
+        end
+        Timecop.return
+      end
+
+
+      it "sets correct state for visitor/listener" do
         @talk = FactoryGirl.create(:talk)
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
+        retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "Registering"
+        end
         retry_with_delay do
           @talk.reload.session[@user.id][:state].should == "Listening"
         end
@@ -84,7 +107,7 @@ describe "Talks" do
     end
 
     describe "Host" do
-      it "sets correct state for host", js: true do
+      it "sets correct state for host" do
         @talk = FactoryGirl.create(:talk)
         venue = @talk.venue
         venue.user = @user
@@ -93,8 +116,30 @@ describe "Talks" do
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
         retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "HostRegistering"
+        end
+        retry_with_delay do
           @talk.reload.session[@user.id][:state].should == "HostOnAir"
         end
+      end
+
+      it "goes live on it's own", driver: :chrome do
+        @talk = FactoryGirl.create(:talk,
+                                   starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
+                                   starts_at_date: Date.today,
+                                   duration: 30)
+        venue = @talk.venue
+        venue.user = @user
+        venue.save!
+
+        Timecop.travel(5.minutes.from_now)
+        visit talk_path(@talk)
+        retry_with_delay do
+          within '.talk-state-info' do
+            page.should have_content I18n.t('.talks.show.state_text')
+          end
+        end
+        Timecop.return
       end
     end
 
@@ -367,21 +412,6 @@ describe "Talks" do
         page.should have_content "foo"
         page.should have_content "bar"
       end
-    end
-  end
-
-  private
-
-  def retry_with_delay(&block)
-    max_tries = 25
-    attempts = 0
-    begin
-      attempts += 1
-      return block.call(attempts)
-    rescue Exception => exception
-      raise exception if attempts >= max_tries
-      sleep 0.2
-      retry
     end
   end
 end
