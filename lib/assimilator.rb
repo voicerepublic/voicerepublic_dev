@@ -3,6 +3,7 @@
 require 'logger'
 require 'fileutils'
 require 'json'
+require './lib/email.rb'
 
 # The Assimilator runs specs and reports the outcome.
 #
@@ -94,12 +95,12 @@ test:
     # start xserver for selenium
     `Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &`
 
-    execute 'bundle exec rake db:migrate RAILS_ENV=test'
+    execute 'bundle exec rake db:migrate',
+      { 'RAILS_ENV' => 'test' }
     # rspec spec
     status('pending', "running specs...")
     # TODO make configurable
     execute "bundle exec rspec spec --fail-fast",
-      false,
       { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }
 
     # report
@@ -137,11 +138,17 @@ test:
     system curl
   end
 
-  def execute(cmd, safe=true, env_vars={})
+  def execute(cmd, env_vars={}, safe=true)
     puts "$ #{cmd}"
-    system env_vars, cmd
+    env_vars.each { |k, v| ENV[k] = v }
+    res = %x[#{cmd} 2>&1]
+    puts res
     rv = $?.exitstatus
-    die "exited with #{rv}" if safe && rv > 0
+
+    if safe && rv > 0
+      Email.send pusher, body: res
+      die "exited with #{rv}"
+    end
   end
 
   def die(msg)
