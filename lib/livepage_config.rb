@@ -30,6 +30,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
+      waitingForStart: talk.venue.opts.start_button,
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
       fayeUrl: PrivatePub.config[:server],

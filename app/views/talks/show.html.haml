@@ -36,6 +36,9 @@
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
+              - if @talk.venue.opts.start_button
+                %li(ng-show='talkIsLive()')
+                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
               %li(ng-hide='talkIsLive()')
                 = link_to t('.edit_talk'), [:edit, @venue, @talk]
               %li(ng-show='showEndTalk()')
@@ -132,6 +135,9 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        - if @talk.venue.opts.start_button
+          .situation(ng-show='talkIsLive() and waitingForStart()')
+            = t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
