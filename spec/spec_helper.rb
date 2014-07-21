@@ -17,7 +17,6 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, options = {
     # js errors would otherwise get elevated into an exception
     :js_errors => false,
-    :port => 44678,
     # Parts of the app is responsive. Specs are written against the desktop
     # version unless otherwise configured by overwriting using:
     #   page.driver.resize(height, width)
@@ -166,6 +165,24 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  # NOTE: In the end I did not need this, but it might prove useful some other
+  # time. Therefore, I'm leaving it. If anyone has another opinion, go ahead
+  # and delete it - once committed, it'll be in git, anyway(;
+  #config.around(:each) do |example|
+  #  sleep_time = 1
+  #  begin
+  #    example.run
+  #    # example is just a Proc, @example is the current RSpec::Core::Example
+  #    e = @example.instance_variable_get('@exception') # usually nil
+  #    if (e.is_a?(Errno::EADDRINUSE) && (sleep_time += 1) < 7)
+  #      @example.instance_variable_set('@exception', nil)
+  #      sleep sleep_time
+  #      redo
+  #    end
+  #  end until true
+  #end
+
 
   # Force asset compilation in a Rack request so it's ready for the Poltergeist
   # request that otherwise times out.
