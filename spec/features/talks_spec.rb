@@ -74,6 +74,7 @@ describe "Talks" do
 
     describe "Visitor" do
       it 'shows a countdown' do
+        pending RSpec::RACECOND
         @talk = FactoryGirl.create(:talk,
                                    starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
                                    starts_at_date: Date.today)
@@ -94,6 +95,7 @@ describe "Talks" do
 
 
       it "sets correct state for visitor/listener" do
+        pending RSpec::RACECOND
         @talk = FactoryGirl.create(:talk)
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
@@ -108,6 +110,7 @@ describe "Talks" do
 
     describe "Host" do
       it "sets correct state for host" do
+        pending RSpec::RACECOND
         @talk = FactoryGirl.create(:talk)
         venue = @talk.venue
         venue.user = @user
