@@ -1,5 +1,5 @@
 # TODO read disallowed useragent/path combinations from robots.txt
-# and check all, rename this class to ForceRobots and publish
+# and check all, rename this class to EnforceRobotsTxt and publish
 #
 # There 704 (Goto Fail) error code was taken from
 #
