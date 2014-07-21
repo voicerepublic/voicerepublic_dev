@@ -79,7 +79,6 @@ describe "Talks" do
                                    starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
                                    starts_at_date: Date.today)
         visit talk_path(@talk)
-        page.save_screenshot 'foo.png'
         page.should have_content "THIS TALK IS LIVE IN"
         page.should have_content "computing"
         retry_with_delay do
