@@ -46,6 +46,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
       participants: talk.venue.users.map { |g| g.details_for(talk) },
+      blackbox: Settings.blackbox,
       loopback: talk.venue.opts.loopback,
       blackbox_path: blackbox_path
     }

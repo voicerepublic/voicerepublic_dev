@@ -69,7 +69,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
 
-  flashVars =
+  flashVars = $.extend config.flash,
     # this will later be set by `setStreamingServer`
     streamer: "rtmp://0.0.0.0/record"
     # callback after flash initialize complete
