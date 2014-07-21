@@ -135,9 +135,8 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        - if @talk.venue.opts.start_button
-          .situation(ng-show='talkIsLive() and waitingForStart()')
-            = t('.waiting_for_start')
+        .situation(ng-show='talkIsLive() and waitingForStart()')
+          = t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
