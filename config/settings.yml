@@ -56,4 +56,11 @@ root_url: 'http://localhost:3000'
 limit:
   text: 2300
   string: 140
-slack_token: VtybT1KujQ6EKstsIEjfZ4AX
+slack:
+  token: VtybT1KujQ6EKstsIEjfZ4AX
+  icon:
+    default: ':no_entry_sign:'
+    audio:   ':headphones:'
+    email:   ':e-mail:'
+    trigger: ':hand:'
+    ci:      ':package:'
