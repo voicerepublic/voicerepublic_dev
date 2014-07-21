@@ -3,7 +3,7 @@
 require 'logger'
 require 'fileutils'
 require 'json'
-require './lib/email.rb'
+require File.expand_path('../email', __FILE__)
 
 # The Assimilator runs specs and reports the outcome.
 #
