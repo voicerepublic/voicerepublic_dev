@@ -52,7 +52,7 @@ class MonitoredJob < Struct.new(:opts)
       text: message,
       icon_emoji: ':vr:'
     }
-    cmd = "curl -X POST --data-urlencode 'payload=#{JSON.unparse(payload)}' '#{url}'"
+    cmd = "curl -X POST --data-urlencode 'payload=#{JSON.unparse(payload)}' '#{url}' 2>&1"
     %x[ #{cmd} ]
   end
 
