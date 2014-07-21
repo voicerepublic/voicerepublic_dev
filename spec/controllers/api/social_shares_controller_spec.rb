@@ -4,8 +4,14 @@ describe Api::SocialSharesController do
 
   describe 'anonymous' do
     it 'does not return with unauthorized' do
+<<<<<<< HEAD
       @talk = FactoryGirl.create(:talk)
       xhr :post, :create, id: @talk.id
+=======
+      venue = FactoryGirl.create(:venue, user: @current_user)
+      @talk = FactoryGirl.create(:talk, venue: venue)
+      xhr :post, :create, id: @talk.id, social_share: { asdf: 'asdf' }
+>>>>>>> feature/66935580/finally-strong-parameters
       response.status.should_not be(401)
       response.status.should be(200)
     end
@@ -31,7 +37,8 @@ describe Api::SocialSharesController do
       it 'tracks what was shared' do
         expect {
           xhr :post, :create, social_share: { shareable_type: 'talk',
-            shareable_id: @talk.id, social_network: 'facebook' }
+                                              shareable_id: @talk.id,
+                                              social_network: 'facebook' }
         }.to change(SocialShare, :count).by(1)
 
         share = SocialShare.last
@@ -42,7 +49,8 @@ describe Api::SocialSharesController do
       end
 
       it 'returns json to verify success' do
-        xhr :post, :create, social_share: { shareable_type: 'talk', shareable_id: @talk.id }
+        xhr :post, :create, social_share: { shareable_type: 'talk',
+                                            shareable_id: @talk.id }
         res = JSON.parse(response.body)
         res['message'].should == I18n.t("social_share/has_been_tracked")
       end
