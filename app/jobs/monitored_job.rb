@@ -61,7 +61,7 @@ class MonitoredJob < Struct.new(:opts)
     return unless Settings.slack.dj
     url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
           "?token=#{Settings.slack.token}"
-    message = "#{Settings.slack.tag} message" if Settings.slack.tag
+    message = "#{Settings.slack.tag} #{message}" if Settings.slack.tag
     payload = {
       channel: '#voicerepublic_tech',
       username: 'dj',
