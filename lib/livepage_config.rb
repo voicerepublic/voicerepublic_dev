@@ -1,7 +1,7 @@
 class LivepageConfig < Struct.new(:talk, :user)
 
   #include ActionView::Helpers::AssetUrlHelper
-  
+
   def to_json
     return JSON.pretty_generate(to_hash) if Rails.env.development?
     to_hash.to_json
@@ -46,6 +46,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
       participants: talk.venue.users.map { |g| g.details_for(talk) },
+      blackbox: Settings.blackbox,
       loopback: talk.venue.opts.loopback,
       blackbox_path: blackbox_path
     }
@@ -56,12 +57,12 @@ class LivepageConfig < Struct.new(:talk, :user)
     file = File.basename(Dir.glob(glob).first)
     ActionController::Base.helpers.asset_path(file)
   end
-  
+
   def discussion
     talk.messages.order('created_at DESC').map do |message|
       {
         name: message.user.name,
-        image: message.user.image_file_name, # FIXME: f q url
+        image: message.user.avatar.url,
         content: message.content,
         created_at: I18n.l(message.created_at, format: :short)
       }
@@ -73,7 +74,7 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def initial_state(role)
-    return 'Loitering' unless talk.prelive? or talk.live?
+    return 'Loitering' unless talk.prelive? or talk.halflive? or talk.live?
     case role
     when :host then 'HostRegistering'
     when :guest then 'GuestRegistering'
@@ -82,7 +83,7 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def subscriptions
-    channels = [ talk.public_channel, 
+    channels = [ talk.public_channel,
                  user_details[:channel] ]
 
     channels.inject({}) do |r, c|

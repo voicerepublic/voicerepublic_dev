@@ -13,7 +13,7 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak)
   .header-block(style="background-image: url(#{@talk.image.url})")
-    .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
+    .row.alert-box.alert.round(ng-show='showFlashError()')
       #flash_error= t('require_flash')
     - if @talk.related_talk
       %section.row.collapse.text-center.related-talk
@@ -36,7 +36,10 @@
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
-              %li(ng-hide='talkIsLive()')
+              - if @talk.venue.opts.start_button
+                %li(ng-show='showStartButton()')
+                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
+              %li(ng-hide='talkIsHalflive() || talkIsLive()')
                 = link_to t('.edit_talk'), [:edit, @venue, @talk]
               %li(ng-show='showEndTalk()')
                 %a(href="#" ng-click='endTalk()')= t('.end_talk')
@@ -59,9 +62,9 @@
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
-            = image_tag @talk.flyer_path
+            = image_tag @talk.flyer.path
             %p
-              = link_to @talk.flyer_path, 'download' => 'true' do
+              = link_to @talk.flyer.path, 'download' => 'true' do
                 %span.icon-download-2
                 = t('.download_flyer')
 
@@ -82,7 +85,7 @@
           = render partial: 'shared/player', locals: { talk: @talk }
           .talk-archived-actions-box.row.collapse
             .small-12.columns
-              .download-link-box.right(ng-show='talkIsArchived()')
+              .download-link-box.right(ng-show='showDownloadButton()')
                 = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download" do
                   %span.icon-download-2
               #modal-download.reveal-modal.text-center(data-reveal)
@@ -98,7 +101,7 @@
               #modal-embed.reveal-modal.text-center(data-reveal)
                 %h3.color-black= t('.embed_this_talk')
                 %textarea
-                  <iframe width="445" height="220" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                  <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
                 %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
                 %a.close-reveal-modal= raw '&#215;'
 
@@ -113,7 +116,6 @@
               = t('.banner_title')
             %p
               = raw t('.banner_text')
-
           %a.close-x(data-toggle-stuff=".vr-banner")
             = raw '&times;'
 
@@ -122,7 +124,7 @@
           = link_to '#', class: "close-reveal-modal" do 
             &#215;
 
-    .talk-countdown.row(ng-show='talkIsPrelive()')
+    .talk-countdown.row(ng-show='showCountdown()')
       .medium-12.columns.text-center
         .cd-text
           = raw t('.countdown_text')
@@ -133,11 +135,14 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        .situation(ng-show='showSituation()')= t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
-        .talk-live-timeline(ng-show='talkIsLive()')
+          .processing-message(ng-show='talkIsProcessing()')
+            = t('.talk_is_processing')
+        .talk-live-timeline(ng-show='talkIsHalflive() || talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
           .talk-state-info
@@ -148,7 +153,7 @@
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
               {{ countdown }} MIN
-        .mute-stream-box(ng-show='talkIsLive()')
+        .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
           %span.icon-volume-mute(ng-click='setVolume(0)')
           %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
 

@@ -1,5 +1,7 @@
-# See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
-#
-# To ban all spiders from the entire site uncomment the next two lines:
-# User-agent: *
-# Disallow: /
+# See http://www.robotstxt.org for documentation on how to use the robots.txt file
+
+User-agent: EasouSpider
+Disallow: /
+
+User-agent: Mozilla 5.0 (EasouSpider)
+Disallow: /

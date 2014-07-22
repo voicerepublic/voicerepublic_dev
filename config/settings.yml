@@ -27,7 +27,8 @@ rtmp:
   # notifications `/notify` and authentication `/auth`
   callback_base: 'http://0.0.0.0:3000/rtmp'
   record_max_size: 100M
-  record_interval: 5m
+  #record_interval: 5m
+  record_interval: false
   authenticate: true
   worker_processes: 1
 errbit:
@@ -53,6 +54,20 @@ storage:
 paths:
   log: local/log
 root_url: 'http://localhost:3000'
+blackbox:
+  # http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00001260.html
+  silence_level: 0
+  silence_timeout: 2000
 limit:
   text: 2300
   string: 140
+slack:
+  token: VtybT1KujQ6EKstsIEjfZ4AX
+  icon:
+    default: ':no_entry_sign:'
+    audio:   ':headphones:'
+    email:   ':e-mail:'
+    trigger: ':hand:'
+    ci:      ':package:'
+googleanalytics:
+  token: UA-46754662-1
