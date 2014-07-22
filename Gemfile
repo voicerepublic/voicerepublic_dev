@@ -76,6 +76,7 @@ group :development, :test do
   gem 'webmock',            '~> 1.15.0',    require: false
   gem 'zeus'
 
+  # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
   gem 'rspec-core' # needed when running specs on ci
 end
 
