@@ -71,8 +71,15 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     session.fsm.is('HostOnAir') and
       config.talk.state == 'live'
 
+  # Speex codec was introduced in Flash version 10. Before, there was only
+  # Nellymoser. Flash 10 has been released 2008 already, Flash 11 was released
+  # 2011. Flash 11.2 is the latest version to be supported on Linux.
+  # Debian Wheezy ships Flash version 11.2 already. We should not support
+  # Media Platforms older than Debian Stable and we should not require
+  # a version that is not accessible on Linux.
   $scope.hasFlash = ->
-    swfobject.getFlashPlayerVersion().major > 0
+    v = swfobject.getFlashPlayerVersion()
+    (v.major > 11) || ((v.major == 11) && (v.minor == 2))
 
   # show/hide-flags
   $scope.flags = config.flags
