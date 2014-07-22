@@ -51,6 +51,18 @@ set :rails_env, 'production'
 
 namespace :deploy do
 
+  after :started do
+    who = %x[whoami;hostname].split.join('@')
+    slack "#{who} STARTED a deployment of "+
+          "#{fetch(:application)} to #{fetch(:stage)}"
+  end
+
+  after :finished do
+    who = %x[whoami;hostname].split.join('@')
+    slack "#{who} FINISHED a deployment of "+
+          "#{fetch(:application)} to #{fetch(:stage)}"
+  end
+  
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -73,8 +85,22 @@ namespace :deploy do
       # Here we can do anything such as:
       # within release_path do
       #   execute :rake, 'cache:clear'
-      # end
-    end
+      # end 
+   end
   end
 
+end
+
+def slack(message)
+  url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
+        "?token=VtybT1KujQ6EKstsIEjfZ4AX"
+  payload = {
+    channel: '#voicerepublic_tech',
+    username: 'capistrano',
+    text: message,
+    icon_emoji: ':floppy_disk:'
+  }
+  json = JSON.unparse(payload)
+  cmd = "curl -X POST --data-urlencode 'payload=#{json}' '#{url}' 2>&1"
+  %x[ #{cmd} ]
 end
