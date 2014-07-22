@@ -152,6 +152,7 @@ test:
     puts "$ #{cmd}"
     env_vars.each { |k, v| ENV[k] = v }
     puts res = %x[#{cmd} 2>&1]
+    logger.info "$ #{cmd}\n" + res
     res
   end
 
