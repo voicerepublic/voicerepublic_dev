@@ -49,19 +49,21 @@ set :linked_dirs, %w{ log tmp/pids public/system }
 
 set :rails_env, 'production'
 
+set :me, %x[whoami;hostname].split.join('@')
+
 namespace :deploy do
 
-  after :started do
-    who = %x[whoami;hostname].split.join('@')
-    slack "#{who} STARTED a deployment of "+
-          "#{fetch(:application)} to #{fetch(:stage)}"
+  task :slack_started do
+    slack "#{fetch(:me)} STARTED a deployment of "+
+          "#{fetch(:application)} (#{fetch(:branch)}) to #{fetch(:stage)}"
   end
+  after :started, :slack_started
 
-  after :finished do
-    who = %x[whoami;hostname].split.join('@')
-    slack "#{who} FINISHED a deployment of "+
-          "#{fetch(:application)} to #{fetch(:stage)}"
+  task :slack_finished do
+    slack "#{fetch(:me)} FINISHED a deployment of "+
+          "#{fetch(:application)} (#{fetch(:branch)}) to #{fetch(:stage)}"
   end
+  after :finished, :slack_finished
   
   desc 'Restart application'
   task :restart do
@@ -90,6 +92,8 @@ namespace :deploy do
   end
 
 end
+
+require 'json'
 
 def slack(message)
   url = "https://voicerepublic.slack.com/services/hooks/incoming-webhook"+
