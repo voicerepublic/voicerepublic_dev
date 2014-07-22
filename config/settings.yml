@@ -69,3 +69,5 @@ slack:
     email:   ':e-mail:'
     trigger: ':hand:'
     ci:      ':package:'
+googleanalytics:
+  token: UA-46754662-1
