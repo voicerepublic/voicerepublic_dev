@@ -56,6 +56,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
 
+  $scope.talkIsHalflive = ->
+    config.talk.state == 'halflive'
+
   $scope.talkIsLive = ->
     config.talk.state == 'live'
 
