@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-
 require 'logger'
 require 'fileutils'
 require 'json'
@@ -94,18 +93,26 @@ test:
 
     cleanup_processes
     # start xserver for selenium
-    `Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &`
+    execute 'Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &'
 
     execute 'bundle exec rake db:migrate',
       { 'RAILS_ENV' => 'test' }
     # rspec spec
     status('pending', "running specs...")
     # TODO make configurable
-    execute "bundle exec rspec spec --fail-fast",
-      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false
+    output = execute("bundle exec rspec spec --fail-fast",
+      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)
     
     # report
-    status($?.exitstatus > 0 ? 'failure' : 'success')
+    if $?.exitstatus > 0
+      reason = 'no reason given'
+      #pattern = /fill in pattern here/
+      #reason = output.match(pattern).to_a.pop
+      status 'failure', reason
+      Email.send pusher, body: output
+    else
+      status 'success'
+    end
 
     cleanup_processes
   end
@@ -114,10 +121,9 @@ test:
 
   # these processes stick around if not explicitly killed
   def cleanup_processes
-    `killall -9 Xvfb > /dev/null 2>&1`
-
-    `killall phantomjs > /dev/null 2>&1`
-    `killall chromedriver > /dev/null 2>&1`
+    execute 'killall -9 Xvfb'
+    execute 'killall phantomjs'
+    execute 'killall chromedriver'
   end
 
   # TODO make configurable, use this to set your token
@@ -142,14 +148,8 @@ test:
   def execute(cmd, env_vars={}, safe=true)
     puts "$ #{cmd}"
     env_vars.each { |k, v| ENV[k] = v }
-    res = %x[#{cmd} 2>&1]
-    puts res
-    rv = $?.exitstatus
-
-    if safe && rv > 0
-      Email.send pusher, body: res
-      die "exited with #{rv}"
-    end
+    puts res = %x[#{cmd} 2>&1]
+    res
   end
 
   def die(msg)

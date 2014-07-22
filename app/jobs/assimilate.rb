@@ -73,7 +73,7 @@
 #      name: branch14
 #      email: phil@branch14.org
 #    
-class Assimilate < Struct.new(:opts)
+class Assimilate < MonitoredJob
   def perform
     Assimilator.run(opts)
   end
