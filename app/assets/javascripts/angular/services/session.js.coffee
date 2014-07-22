@@ -237,6 +237,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     promote
     demote
     endTalk
+    trackStartedAt
     # --- groups
     guests
     expectingPromotion

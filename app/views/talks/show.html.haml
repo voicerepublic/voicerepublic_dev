@@ -135,7 +135,7 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        .situation(ng-show='talkIsLive() and waitingForStart()')
+        .situation(ng-show='talkIsLive() && waitingForStart()')
           = t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
