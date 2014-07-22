@@ -59,7 +59,7 @@ VoiceRepublic::Application.routes.draw do
   resource :embed_talk, only: :show
   # new school
   get 'embed/:id', to: 'embed_talks#show', as: 'embed'
-  
+
   get "landing_page/index", as: :landing_page
   root :to => "landing_page#index"
 
@@ -73,5 +73,10 @@ VoiceRepublic::Application.routes.draw do
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
+  if Rails.env.development? || ENV['CI']
+    get '/jasmine/*file',        to: 'jasmine#show', format: false
+    get '/jasmine',              to: 'jasmine#show'
   end
 end
