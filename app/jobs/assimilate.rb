@@ -82,7 +82,10 @@ class Assimilate < MonitoredJob
     pusher = opts['pusher']['email']
     cmd = [ File.expand_path('../../../lib/assimilator.rb', __FILE__),
             repo, ref, sha, pusher ] * ' '
-    %x[#{cmd}]
+
+    Bundler.with_clean_env do
+      `#{cmd}`
+    end
   end
 end
 
