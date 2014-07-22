@@ -179,7 +179,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         # but could also be used for live upgrades
         window.location.reload()
       when 'StartTalk'
-        config.talk.state = 'live'
+        config.talk.state = data.state
         config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
@@ -201,7 +201,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     return fsm.Demoted() if id is config.user_id
     upstream.event 'Demote', user: { id }
   startTalk = ->
-    return unless config.talk.state == 'prelive'
+    return unless config.talk.state in ['prelive', 'halflive']
     $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
   endTalk = ->
@@ -232,6 +232,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # -- events
     promote
     demote
+    startTalk
     endTalk
     # --- groups
     guests

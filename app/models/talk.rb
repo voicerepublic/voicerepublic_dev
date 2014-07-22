@@ -52,14 +52,20 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
+  # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :prelive # initial
+    state :halflive
     state :live
     state :postlive
     state :processing
     state :archived
     event :start_talk, timestamp: :started_at, success: :after_start do
-      transitions from: :prelive, to: :live
+      # standard path (if `start_button` is not set)
+      transitions from: :prelive, to: :live, guard: ->(t){ !t.venue.opts.start_button }
+      # alternative path (if `start_button` is set)
+      transitions from: :prelive, to: :halflive
+      transitions from: :halflive, to: :live
     end
     event :end_talk, timestamp: :ended_at, success: :after_end do
       transitions from: :live, to: :postlive

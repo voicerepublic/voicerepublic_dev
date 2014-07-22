@@ -83,6 +83,7 @@ class Api::TalksController < Api::BaseController
   def start_talk(msg)
     @talk.start_talk!
     msg[:session] = @talk.session
+    msg[:state] = @talk.current_state
     msg
   end
 

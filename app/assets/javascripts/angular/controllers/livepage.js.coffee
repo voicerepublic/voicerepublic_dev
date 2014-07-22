@@ -7,6 +7,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.message = { content: '' }
 
+  $scope.startTalk = session.startTalk
   $scope.endTalk = session.endTalk
   $scope.expectingPromotion = session.expectingPromotion
   $scope.acceptingPromotion = session.acceptingPromotion
