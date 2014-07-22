@@ -1,6 +1,38 @@
 # The LivepageController
 livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $window) ->
 
+  # private
+
+  hasFlash = ->
+    swfobject.getFlashPlayerVersion().major > 0
+
+  # public
+
+  $scope.showFlashError = ->
+    !hasFlash() and (config.talk.state in ['halflive', 'live'])
+
+  $scope.showStartButton = ->
+    config.talk.state == 'halflive'
+
+  $scope.showEndTalk = ->
+    session.fsm.is('HostOnAir') and config.talk.state == 'live'
+
+  $scope.showDownloadButton = ->
+    config.talk.state == 'archived'
+
+  $scope.showCountdown = ->
+    config.talk.state == 'prelive'
+
+  $scope.showSituation = ->
+    config.talk.state == 'halflive'
+
+  $scope.trouble = ->
+    return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
+    return 'trouble connecting' if config.flags.connecting
+    false
+
+  # unconsolidated
+
   sendMessage = ->
     session.upstream.message $scope.message.content
     $scope.message.content = ''
@@ -22,11 +54,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.showSettings = ->
     config.flags.settings
-
-  $scope.trouble = ->
-    return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
-    return 'trouble connecting' if config.flags.connecting
-    false
 
   $scope.participants = ->
     return session.participants() if config.talk.state == 'live'
@@ -70,13 +97,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.talkIsArchived = ->
     config.talk.state == 'archived'
-
-  $scope.showEndTalk = ->
-    session.fsm.is('HostOnAir') and
-      config.talk.state == 'live'
-
-  $scope.hasFlash = ->
-    swfobject.getFlashPlayerVersion().major > 0
 
   # show/hide-flags
   $scope.flags = config.flags
