@@ -101,6 +101,10 @@ test:
     status('pending', "running specs...")
 
     execute 'pwd'
+    execute 'echo $RAILS_ENV'
+    ENV['RAILS_ENV'] = 'test'
+    execute 'echo $RAILS_ENV'
+    
     # TODO make configurable
     output = execute("bundle exec rspec spec --fail-fast",
       { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)
