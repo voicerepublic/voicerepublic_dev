@@ -101,8 +101,8 @@ test:
     status('pending', "running specs...")
     # TODO make configurable
     execute "bundle exec rspec spec --fail-fast",
-      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }
-
+      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false
+    
     # report
     status($?.exitstatus > 0 ? 'failure' : 'success')
 
