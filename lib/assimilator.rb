@@ -110,7 +110,7 @@ test:
       #pattern = /fill in pattern here/
       #reason = output.match(pattern).to_a.pop
       status 'failure', reason
-      logger.error "Specs failed with:\n" + build_cmd
+      logger.error "Specs failed with:\n" + build_cmd + "\n" + output
       Email.send pusher, body: output
     else
       status 'success'
