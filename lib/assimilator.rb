@@ -99,6 +99,8 @@ test:
       { 'RAILS_ENV' => 'test' }
     # rspec spec
     status('pending', "running specs...")
+
+    execute 'pwd'
     # TODO make configurable
     output = execute("bundle exec rspec spec --fail-fast",
       { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)

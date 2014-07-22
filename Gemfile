@@ -75,6 +75,8 @@ group :development, :test do
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
   gem 'zeus'
+
+  gem 'rspec-core' # needed when running specs on ci
 end
 
 group :test do

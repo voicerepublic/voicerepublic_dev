@@ -476,6 +476,7 @@ DEPENDENCIES
   rails (= 4.0.2)
   rails-i18n
   rails_config
+  rspec-core
   rspec-rails
   rspec-retry
   sass-rails
