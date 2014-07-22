@@ -153,7 +153,9 @@ test:
 
   def die(msg)
     status('error', msg)
-    puts "Abort: #{msg}"
+    puts errormsg = "Abort: #{msg}"
+    cmd = ['./lib/assimilator.rb', repo, ref, sha, pusher] * ' '
+    logger.error errormsg + "\n" + cmd
     cleanup_processes
     exit 1
   end
