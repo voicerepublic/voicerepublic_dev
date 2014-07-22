@@ -83,9 +83,9 @@ class Assimilate < MonitoredJob
     cmd = [ File.expand_path('../../../lib/assimilator.rb', __FILE__),
             repo, ref, sha, pusher ] * ' '
 
-    Bundler.with_clean_env do
-      `#{cmd}`
-    end
+    #Bundler.with_clean_env do
+    `#{cmd}`
+    #end
   end
 end
 

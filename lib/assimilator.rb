@@ -95,7 +95,7 @@ test:
     # start xserver for selenium
     execute 'Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &'
 
-    execute 'bundle exec rake db:migrate',
+    execute 'rake db:migrate',
       { 'RAILS_ENV' => 'test' }
     # rspec spec
     status('pending', "running specs...")
@@ -106,7 +106,7 @@ test:
     execute 'echo $RAILS_ENV'
     
     # TODO make configurable
-    output = execute("bundle exec rspec spec --fail-fast",
+    output = execute("rspec spec --fail-fast",
       { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)
     
     # report
