@@ -184,6 +184,8 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
           fsm.TalkStarted()
+      when 'TrackStartedAt'
+        config.waitingForStart = false
       when 'EndTalk'
         config.talk.state = 'postlive'
         fsm.TalkEnded()
@@ -206,6 +208,8 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     upstream.event 'StartTalk'
   endTalk = ->
     upstream.event 'EndTalk'
+  trackStartedAt = ->
+    upstream.event 'TrackStartedAt'
 
   # separate the audience into four groups
   guests = ->
@@ -233,6 +237,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     promote
     demote
     endTalk
+    trackStartedAt
     # --- groups
     guests
     expectingPromotion

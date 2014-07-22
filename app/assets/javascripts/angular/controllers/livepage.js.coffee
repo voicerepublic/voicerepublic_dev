@@ -8,6 +8,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.message = { content: '' }
 
   $scope.endTalk = session.endTalk
+  $scope.startTalk = session.trackStartedAt
   $scope.expectingPromotion = session.expectingPromotion
   $scope.acceptingPromotion = session.acceptingPromotion
   $scope.promote = session.promote
@@ -66,6 +67,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.talkIsArchived = ->
     config.talk.state == 'archived'
+
+  $scope.waitingForStart = ->
+    config.waitingForStart
 
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and

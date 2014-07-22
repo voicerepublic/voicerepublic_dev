@@ -93,7 +93,13 @@ class Api::TalksController < Api::BaseController
     msg
   end
 
+  def track_started_at(msg)
+    @talk.update_attribute :started_at, Time.now
+    msg
+  end
 
+  private
+  
   def set_talk
     @talk = Talk.find(params[:id])
   end
