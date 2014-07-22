@@ -12,7 +12,7 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - TODO: document me
+# * collect [boolean, default=true] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
@@ -24,8 +24,6 @@
 # * language [string, default="en"] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
-# * record [boolean, default=true] - TODO: document me
-# * recording [string] - TODO: document me
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
@@ -42,11 +40,17 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   include ActiveModel::Transitions
+
+  LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
 
   GRACE_PERIOD = 5.minutes
 
-  ARCHIVE_STRUCTURE = "%Y/%m/%d"
+  # colors according to ci style guide
+  COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
   state_machine auto_scopes: true do
     state :prelive # initial
@@ -84,11 +88,16 @@ class Talk < ActiveRecord::Base
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
-  validates :venue, :title, :tag_list, :duration, :description, presence: true
+  validates :venue, :title, :tag_list, :duration, :description,
+            :language, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
                                        message: I18n.t(:invalid_time) }
+
+  validates :title, length: { maximum: Settings.limit.string }
+  validates :teaser, length: { maximum: Settings.limit.string }
+  validates :description, length: { maximum: Settings.limit.text }
 
   before_save :set_starts_at
   before_save :set_ends_at
@@ -97,11 +106,11 @@ class Talk < ActiveRecord::Base
 
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
-  after_save :generate_flyer, if: ->(t) { t.starts_at_changed? || t.title_changed? }
+  after_save -> { flyer.generate! },
+             if: ->(t) { t.starts_at_changed? || t.title_changed? }
 
   serialize :session
   serialize :storage
-  serialize :audio_formats, Array
 
   delegate :user, to: :venue
 
@@ -121,14 +130,6 @@ class Talk < ActiveRecord::Base
   scope :recent, -> do
     archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
-  end
-
-  scope :audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats LIKE ?', "%#{format}%")
-  end
-
-  scope :without_audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
   include PgSearch
@@ -209,21 +210,8 @@ class Talk < ActiveRecord::Base
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
-  # returns either the web path (default)
-  #
-  #     e.g. /system/flyer/42.png
-  #
-  # or, if `fs` is true, the absolute file system path
-  #
-  #     e.g. /home/app/app/shared/public/system/flyer/42.png
-  #
-  def flyer_path(fs=false)
-    name = "#{id}.png" # TODO use friendly id
-    return Settings.flyer.location + '/' + name unless fs
-
-    path = File.expand_path(Settings.flyer.path, Rails.root)
-    FileUtils.mkdir_p(path)
-    File.join(path, name)
+  def flyer
+    @flyer ||= Flyer.new(self)
   end
 
   # this is only for user acceptance testing!
@@ -270,7 +258,20 @@ class Talk < ActiveRecord::Base
     storage["#{uri}/#{id}.mp3"]
   end
 
+
   private
+
+  # upload file to storage
+  def upload_file(key, file)
+    return unless key and file
+    handle = File.open(file)
+    ext = key.split('.').last
+    # Explicity set content type via Mime::Type, otherwise
+    # Fog will use MIME::Types to determine the content type
+    # and MIME::Types is a horrible, horrible beast.
+    ctype = Mime::Type.lookup_by_extension(ext)
+    media_storage.files.create key: key, body: handle, content_type: ctype
+  end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
   #
@@ -322,7 +323,7 @@ class Talk < ActiveRecord::Base
   def postprocess!(uat=false)
     raise 'fail: postprocessing a talk with override' if recording_override?
     # TODO: move into a final state != archived (over/past/gone/myth)
-    return unless record?
+    return unless collect?
     return if archived? # silently guard against double processing
 
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
@@ -336,7 +337,7 @@ class Talk < ActiveRecord::Base
   end
 
   def reprocess!(uat=false)
-    raise 'fail: reprocessing a talk without recording' unless record?
+    raise 'fail: reprocessing a talk without recording' unless collect?
     raise 'fail: reprocessing a talk with override' if recording_override?
 
     logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"
@@ -393,9 +394,8 @@ class Talk < ActiveRecord::Base
         %x[ #{cmd} ]
         # upload ogg to s3
         key = uri + "/" + ogg
-        handle = File.open(ogg)
         logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
-        media_storage.files.create key: key, body: handle
+        upload_file(key, file)
         # store reference
         path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, path
@@ -439,9 +439,6 @@ class Talk < ActiveRecord::Base
         runner.run(name)
       end
     end
-    # save recording
-    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-    logfile.puts "# set `recording` to '#{recording}'"
 
     # delete some files (mainly wave files, we'll keep only flv
     # and compressed files)
@@ -458,9 +455,8 @@ class Talk < ActiveRecord::Base
     files.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
-      handle = File.open(file)
       logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
-      media_storage.files.create key: key, body: handle
+      upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
 
@@ -510,35 +506,6 @@ class Talk < ActiveRecord::Base
     @logfile
   end
 
-  # Generates a svg flyer and converts it to png via Inkscape.
-  #
-  # This can be run in bulk to regenerate all flyers:
-  #
-  #     FileUtils.rm(Dir.glob('app/shared/public/system/flyer/*.png'))
-  #     Talk.find_each { |t| t.send(:generate_flyer) }
-  #
-  def generate_flyer
-    svg_path = File.expand_path(File.join(%w(doc design flyer.svg)), Rails.root)
-    svg_data = File.read(svg_path)
-    flyer_interpolations.each do |key, value|
-      svg_data.sub! "[-#{key}-]", Nokogiri::HTML.fragment(value).to_s
-    end
-    svg_file = Tempfile.new('svg')
-    svg_file.write svg_data
-    svg_file.close
-    %x[ inkscape -f #{svg_file.path} -e #{flyer_path(true)} ]
-    svg_file.unlink
-  end
-
-  def flyer_interpolations
-    {
-      host:     user.name,
-      title:    title,
-      day:      I18n.l(starts_at, format: :flyer_day),
-      datetime: I18n.l(starts_at, format: :flyer_datetime)
-    }
-  end
-
   def set_uri!
     self.uri = "vr-#{id}"
     save!
@@ -549,6 +516,10 @@ class Talk < ActiveRecord::Base
   # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
     PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+  end
+
+  def slug_candidates
+    [ :title, [:id, :title] ]
   end
 
 end

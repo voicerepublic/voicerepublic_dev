@@ -1,5 +1,46 @@
 require 'spec_helper'
 
+# it renders specs
+describe 'UsersController' do
+  describe 'renders' do
+    describe 'without user' do
+      it 'index on GET /users' do # index
+        expect { visit '/users' }.to raise_error(ActionController::RoutingError)
+      end
+      it 'new on GET /users/new' do # new
+        pending "Shouldn't this raise a routing error?"
+        expect { visit '/users/new' }.to raise_error(ActionController::RoutingError)
+      end
+    end
+    describe 'with user' do
+      before do
+        @user = FactoryGirl.create(:user)
+      end
+      it "show on GET /users/:id" do # show
+        visit user_path(@user)
+        page.should have_selector(".users-show")
+      end
+      it "edit on GET /users/:id/edit" do # edit
+        login_user @user
+        visit edit_user_path(@user)
+        page.should have_selector(".users-edit")
+      end
+    end
+  end
+end
+
+feature "Anonymous users", js: true do
+  scenario "will be authenticated as guest user" do
+    User.count.should eq(0)
+    visit root_path
+    User.count.should eq(1)
+    # user names are generated with uuids to minimize collisions (chance is1 in
+    # 17 billion)
+    User.last.name.should =~ /.*-.*-.*-.*-.*/
+    User.last.email.should =~ /.*-.*-.*-.*-.*@example.com/
+  end
+end
+
 feature "User edits own profile", js: true do
   background do
     @user = FactoryGirl.create(:user, password: '123456',
@@ -17,6 +58,7 @@ feature "User edits own profile", js: true do
 
   scenario "setting a new password" do
     page.find("button[data-enable-fields*=change-password]").click
+    sleep 0.1
     find('.user_password input').set '654321'
     find('.user_password_confirmation input').set '654321'
 

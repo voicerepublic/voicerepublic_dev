@@ -1,10 +1,150 @@
 require 'spec_helper'
 
+# it renders specs
+describe 'TalksController' do
+  describe 'renders' do
+    describe 'without talk' do
+      it 'index on GET /talks' do # index
+        visit '/talks'
+        page.should have_selector(".talks-index")
+      end
+      it 'index on GET /talks/featured' do # featured
+        visit '/talks/featured'
+        page.should have_selector(".talks-featured")
+      end
+      it 'index on GET /talks/popular' do # popular
+        visit '/talks/popular'
+        page.should have_selector(".talks-popular")
+      end
+      it 'index on GET /talks/upcoming' do # upcoming
+        visit '/talks/upcoming'
+        page.should have_selector(".talks-upcoming")
+      end
+      it 'index on GET /talks/live' do # live
+        visit '/talks/live'
+        page.should have_selector(".talks-live")
+      end
+      it 'index on GET /talks/recent' do # recent
+        visit '/talks/recent'
+        page.should have_selector(".talks-recent")
+      end
+      it 'new on GET /talks/new' do # new
+        expect { visit '/talks/new' }.to raise_error(ActionController::RoutingError)
+      end
+    end
+    describe 'with talk' do
+      before do
+        @talk = FactoryGirl.create(:talk)
+      end
+      it "show on GET /talks/:id" do # show
+        pending
+        visit talk_path(@talk)
+        page.should have_selector(".talks-show")
+      end
+      it "edit on GET /talks/:id/edit" do # edit
+        pending
+        login_talk @talk
+        visit edit_talk_path(@talk)
+        page.should have_selector(".talks-edit")
+      end
+    end
+  end
+end
+
 describe "Talks" do
 
   before do
     @user = FactoryGirl.create(:user)
     login_user(@user)
+  end
+
+  describe "Live talk", js: :true do
+    before do
+      # !! BEWARE !!
+      # These specs are the mother of all tightly coupled specs. I gave up on
+      # trying to create specs that are properly mocked for live talks, but
+      # within reason.
+      `netcat localhost 9292 -w 1 -q 0 </dev/null`
+      pending 'Needs PrivatePub to run' if $?.exitstatus != 0
+      WebMock.disable!
+    end
+    after do
+      WebMock.enable!
+    end
+
+    describe "Visitor" do
+      it 'shows a countdown' do
+        pending RSpec::RACECOND
+        @talk = FactoryGirl.create(:talk,
+                                   starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
+                                   starts_at_date: Date.today)
+        visit talk_path(@talk)
+        page.should have_content "THIS TALK IS LIVE IN"
+        page.should have_content "computing"
+        retry_with_delay do
+          page.should have_content /00:04:\d{2}/
+        end
+        Timecop.travel(2.minutes.from_now)
+        visit talk_path(@talk)
+        retry_with_delay do
+          page.should have_content /00:02:\d{2}/
+        end
+        Timecop.return
+      end
+
+
+      it "sets correct state for visitor/listener" do
+        pending RSpec::RACECOND
+        @talk = FactoryGirl.create(:talk)
+        @talk.update_attribute :state, :live
+        visit talk_path(@talk)
+        retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "Registering"
+        end
+        retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "Listening"
+        end
+      end
+    end
+
+    describe "Host" do
+      it "sets correct state for host" do
+        pending RSpec::RACECOND
+        @talk = FactoryGirl.create(:talk)
+        venue = @talk.venue
+        venue.user = @user
+        venue.save!
+
+        @talk.update_attribute :state, :live
+        visit talk_path(@talk)
+        retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "HostRegistering"
+        end
+        retry_with_delay do
+          @talk.reload.session[@user.id][:state].should == "HostOnAir"
+        end
+      end
+
+      it "goes live on it's own", driver: :chrome do
+        @talk = FactoryGirl.create(:talk,
+                                   starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
+                                   starts_at_date: Date.today,
+                                   duration: 30)
+        venue = @talk.venue
+        venue.user = @user
+        venue.save!
+
+        Timecop.travel(5.minutes.from_now)
+        visit talk_path(@talk)
+        retry_with_delay do
+          within '.talk-state-info' do
+            page.should have_content I18n.t('.talks.show.state_text')
+          end
+        end
+        Timecop.return
+      end
+    end
+
   end
 
 
@@ -16,14 +156,12 @@ describe "Talks" do
 
     describe 'flash dependency' do
       it "live talk requires flash", js: true do
-        pending "really weird ActionController::RoutingError 1/4"
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
         page.should have_content(I18n.t(:require_flash))
       end
 
       it 'archived talk requires no flash', js: true do
-        pending "really weird ActionController::RoutingError 2/4"
         @talk.update_attribute :state, :archive
         visit talk_path(@talk)
         page.should_not have_content(I18n.t(:require_flash))
@@ -89,11 +227,11 @@ describe "Talks" do
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
-      # NOTE: Since the WYSIWYG editor is creating an ifrage, we cannot fill in
+      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
       # the text with Capybara. jQuery to the rescue.
       page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
       # fill in tags
-      fill_in 's2id_autogen2', with: 'a,b,c,'
+      fill_in 's2id_autogen3', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'
       fill_in 'talk_starts_at_time', with: '05:12'
 
@@ -147,6 +285,7 @@ describe "Talks" do
           @talk = FactoryGirl.create :talk, venue: @venue
           visit venue_talk_path @venue, @talk
           find(".participate-button-box a").click
+          visit venue_talk_path @venue, @talk
           find(".chat-input-box input").set("my message")
           find(".chat-input-box input").native.send_keys(:return)
           visit(current_path)

@@ -84,29 +84,6 @@ describe Talk do
   end
 
   describe 'on class level' do
-    it 'provides a scope audio_format(format)' do
-      t1 = FactoryGirl.create :talk
-      t2 = FactoryGirl.create :talk
-
-      t1.audio_formats << 'mp3'
-      t1.save
-      Talk.audio_format('mp4').count.should be(0)
-      Talk.audio_format('mp3').count.should be(1)
-      t2.audio_formats << 'mp3'
-      t2.save
-      Talk.audio_format('mp3').count.should be(2)
-    end
-
-    it 'provides a scope without_audio_format(format)' do
-      t1 = FactoryGirl.create :talk
-      t2 = FactoryGirl.create :talk
-
-      Talk.without_audio_format('mp4').count.should be(2)
-      t2.audio_formats << 'mp3'
-      t2.save
-      Talk.without_audio_format('mp3').count.should be(1)
-    end
-
     it 'has a scope featured' do
       talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
       talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
@@ -114,6 +91,33 @@ describe Talk do
       expect(Talk.featured).to eq([talk1, talk0])
       expect(Talk.featured).to include(talk0)
     end
+
+    describe 'saves the Content-Type' do
+      before { @talk = FactoryGirl.create(:talk) }
+      it 'works for m4a' do
+        pending 'find a way to spec the mime type hack "m4a -> audio/mp4"'
+        m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
+        @talk.send(:upload_file, '1.m4a', m4a_file)
+
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.m4a').content_type.should == 'audio/mp4'
+      end
+      it 'works for mp3' do
+        mp3_file = File.expand_path("spec/support/fixtures/transcode0/1.mp3", Rails.root)
+        @talk.send(:upload_file, '1.mp3', mp3_file)
+
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.mp3').content_type.should == 'audio/mpeg'
+      end
+      it 'works for ogg' do
+        ogg_file = File.expand_path("spec/support/fixtures/transcode0/1.ogg", Rails.root)
+        @talk.send(:upload_file, '1.ogg', ogg_file)
+
+        media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
+        media_storage.files.get('1.ogg').content_type.should == 'audio/ogg'
+      end
+    end
+
   end
 
   describe 'created' do
@@ -177,7 +181,7 @@ describe Talk do
   describe 'nicely processes audio' do
 
     it 'in state postlive' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -206,7 +210,7 @@ describe Talk do
     end
 
     it 'in state archived' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -239,7 +243,7 @@ describe Talk do
     end
 
     it 'in state archived with override' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -291,4 +295,26 @@ describe Talk do
 
   end
 
+  describe 'with indexing' do
+    before do
+      Thread.current["PgSearch.enable_multisearch"] = true
+      @talk = FactoryGirl.create :talk
+    end
+
+    after do
+      Thread.current["PgSearch.enable_multisearch"] = false
+    end
+
+    it 'properly limits fields' do
+      # if the cumulated lengths of all indexed fields is to long
+      # this will raise an error
+      expect do
+        @talk.title       = '-' * Settings.limit.string
+        @talk.teaser      = '-' * Settings.limit.string
+        @talk.description = '-' * Settings.limit.text
+        @talk.save!
+      end.to_not raise_error
+    end
+  end
+  
 end

@@ -59,7 +59,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    user.update_attribute(:available, 'online') if user.available.nil?
     return_to = ( request.env['omniauth.origin'] || stored_location ||
                   stored_location_for(user) || session[:venue_path] ||
                   user_path(user) )
@@ -102,8 +101,8 @@ class ApplicationController < ActionController::Base
   end
 
   def create_guest_user
-    token = SecureRandom.random_number(10000)
-    name = ['guest', Time.now.to_i, token ] * '_'
+    token = SecureRandom.uuid
+    name = ['guest', token ] * '_'
     logger.debug "\033[31mCREATE GUEST USER: #{name}\033[0m"
     user = User.create( email: "#{name}@example.com",
                         firstname: 'guest',

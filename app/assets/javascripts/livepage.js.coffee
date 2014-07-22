@@ -7,8 +7,11 @@
 window.Livepage = angular.module 'Livepage', []
 
 configFunc = ($logProvider) ->
-  $logProvider.debugEnabled <%= !Settings.disable_js_debugging %>
+  $logProvider.debugEnabled window.debug or window.insider
 
 configFunc.$inject = ['$logProvider']
 window.Livepage.config configFunc
+
+
+
 

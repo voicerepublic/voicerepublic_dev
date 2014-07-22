@@ -17,7 +17,6 @@ Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, options = {
     # js errors would otherwise get elevated into an exception
     :js_errors => false,
-    :port => 44678,
     # Parts of the app is responsive. Specs are written against the desktop
     # version unless otherwise configured by overwriting using:
     #   page.driver.resize(height, width)
@@ -71,6 +70,8 @@ RSpec.configure do |config|
   #   * Run specs with chromedriver: zeus rspec --tag @driver:chrome spec
   # By default do not run slow specs locally, unless explicitly requested by:
   #  zeus rspec --tag @slow:true spec
+  # resp.
+  #  zeus rspec --tag @gdriver:chrome spec
   config.filter_run_excluding :slow => :true unless ENV['CI']
   config.filter_run_excluding :driver => :chrome unless ENV['CI']
 
@@ -165,6 +166,24 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  # NOTE: In the end I did not need this, but it might prove useful some other
+  # time. Therefore, I'm leaving it. If anyone has another opinion, go ahead
+  # and delete it - once committed, it'll be in git, anyway(;
+  #config.around(:each) do |example|
+  #  sleep_time = 1
+  #  begin
+  #    example.run
+  #    # example is just a Proc, @example is the current RSpec::Core::Example
+  #    e = @example.instance_variable_get('@exception') # usually nil
+  #    if (e.is_a?(Errno::EADDRINUSE) && (sleep_time += 1) < 7)
+  #      @example.instance_variable_set('@exception', nil)
+  #      sleep sleep_time
+  #      redo
+  #    end
+  #  end until true
+  #end
+
+
   # Force asset compilation in a Rack request so it's ready for the Poltergeist
   # request that otherwise times out.
   config.before(:all) do
@@ -189,7 +208,9 @@ RSpec.configure do |config|
   config.after(:suite) { FileUtils.rm_rf(audio_paths) }
 
   # do not create a flyer on Talk#save during spec runs
-  config.before(:each) { allow_any_instance_of(Talk).to receive(:generate_flyer).and_return(true) }
+  config.before(:each) do
+    allow_any_instance_of(Flyer).to receive(:generate!).and_return(true)
+  end
 
 end
 
@@ -209,3 +230,27 @@ end
 # Timecop::SafeModeException will be raised to tell the user they are
 # not being safe.
 # Timecop.safe_mode = true
+
+RSpec::SOMETIMES = <<-EOF
+
+ _____ _    ___ _     ___ _   _  ____
+|  ___/ \\  |_ _| |   |_ _| \\ | |/ ___|
+| |_ / _ \\  | || |    | ||  \\| | |  _
+|  _/ ___ \\ | || |___ | || |\\  | |_| |
+|_|/_/   \\_\\___|_____|___|_| \\_|\\____|
+
+ ____   ___  __  __ _____ _____ ___ __  __ _____ ____
+/ ___| / _ \\|  \\/  | ____|_   _|_ _|  \\/  | ____/ ___|
+\\___ \\| | | | |\\/| |  _|   | |  | || |\\/| |  _| \\___ \\
+ ___) | |_| | |  | | |___  | |  | || |  | | |___ ___) |
+|____/ \\___/|_|  |_|_____| |_| |___|_|  |_|_____|____/
+EOF
+
+RSpec::RACECOND = <<-EOF
+This spec fails because of a classic *drums*
+                                          _ _ _   _             
+ _ __ __ _  ___ ___    ___ ___  _ __   __| (_) |_(_) ___  _ __  
+| '__/ _` |/ __/ _ \\  / __/ _ \\| '_ \\ / _` | | __| |/ _ \\| '_ \\ 
+| | | (_| | (_|  __/ | (_| (_) | | | | (_| | | |_| | (_) | | | |
+|_|  \\__,_|\\___\\___|  \\___\\___/|_| |_|\\__,_|_|\\__|_|\\___/|_| |_|
+EOF
