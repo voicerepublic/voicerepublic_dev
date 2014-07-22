@@ -110,6 +110,7 @@ test:
       #pattern = /fill in pattern here/
       #reason = output.match(pattern).to_a.pop
       status 'failure', reason
+      logger.error "Specs failed with:\n" + build_cmd
       Email.send pusher, body: output
     else
       status 'success'
@@ -153,11 +154,14 @@ test:
     res
   end
 
+  def build_cmd
+    ['./lib/assimilator.rb', repo, ref, sha, pusher] * ' '
+  end
+  
   def die(msg)
     status('error', msg)
     puts errormsg = "Abort: #{msg}"
-    cmd = ['./lib/assimilator.rb', repo, ref, sha, pusher] * ' '
-    logger.error errormsg + "\n" + cmd
+    logger.error errormsg + "\n" + build_cmd
     cleanup_processes
     exit 1
   end
