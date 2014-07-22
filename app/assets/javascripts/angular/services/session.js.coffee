@@ -179,7 +179,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         # but could also be used for live upgrades
         window.location.reload()
       when 'StartTalk'
-        config.talk.state = data.state
+        config.talk.state = data.talk_state
         config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed

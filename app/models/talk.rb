@@ -228,6 +228,7 @@ class Talk < ActiveRecord::Base
   # this is only for user acceptance testing!
   def make_it_start_soon!(delta=1.minute)
     self.reload
+    self.starts_at_date = Time.now.strftime('%Y-%m-%d')
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
