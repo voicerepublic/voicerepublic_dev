@@ -44,6 +44,9 @@ module VoiceRepublic
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
+    # block certain (hardcoded) user agents (obnoxious spiders, like easou)
+    config.middleware.use 'Blocker'
+
     # authenticate access to rtmp against rack middleware
     config.middleware.use 'RtmpAuth'
 
