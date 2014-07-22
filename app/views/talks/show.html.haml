@@ -13,7 +13,7 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak)
   .header-block(style="background-image: url(#{@talk.image.url})")
-    .row.alert-box.alert.round(ng-show='!hasFlash() && (talkIsHalflive() || talkIsLive())')
+    .row.alert-box.alert.round(ng-show='showFlashError()')
       #flash_error= t('require_flash')
     - if @talk.related_talk
       %section.row.collapse.text-center.related-talk
@@ -37,7 +37,7 @@
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
               - if @talk.venue.opts.start_button
-                %li(ng-show='talkIsHalflive()')
+                %li(ng-show='showStartButton()')
                   %a(href="#" ng-click='startTalk()')= t('.start_talk')
               %li(ng-hide='talkIsHalflive() || talkIsLive()')
                 = link_to t('.edit_talk'), [:edit, @venue, @talk]
@@ -85,7 +85,7 @@
           = render partial: 'shared/player', locals: { talk: @talk }
           .talk-archived-actions-box.row.collapse
             .small-12.columns
-              .download-link-box.right(ng-show='talkIsArchived()')
+              .download-link-box.right(ng-show='showDownloadButton()')
                 = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download" do
                   %span.icon-download-2
               #modal-download.reveal-modal.text-center(data-reveal)
@@ -124,7 +124,7 @@
           = link_to '#', class: "close-reveal-modal" do 
             &#215;
 
-    .talk-countdown.row(ng-show='talkIsPrelive()')
+    .talk-countdown.row(ng-show='showCountdown()')
       .medium-12.columns.text-center
         .cd-text
           = raw t('.countdown_text')
@@ -135,8 +135,7 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        .situation(ng-show='talkIsHalflive()')
-          = t('.waiting_for_start')
+        .situation(ng-show='showSituation()')= t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
