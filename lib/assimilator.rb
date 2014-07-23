@@ -97,14 +97,17 @@ test:
 
     execute 'bundle exec rake db:migrate',
       { 'RAILS_ENV' => 'test' }
+
+    # explicitly set home, to work in Bundler.with_clean_env
+    home = '/home/app'
+    home = '/home/phil' if %x[hostname].chomp == 'fatou'
+    ENV['HOME'] = home
+
     # rspec spec
     status('pending', "running specs...")
 
-    execute 'pwd'
-    execute 'echo $RAILS_ENV'
     ENV['RAILS_ENV'] = 'test'
-    execute 'echo $RAILS_ENV'
-    
+
     # TODO make configurable
     output = execute("bundle exec rspec spec --fail-fast",
       { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)
