@@ -101,8 +101,8 @@ test:
     status('pending', "running specs...")
     # TODO make configurable
     execute "bundle exec rspec spec --fail-fast",
-      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }
-
+      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false
+    
     # report
     status($?.exitstatus > 0 ? 'failure' : 'success')
 
@@ -153,7 +153,9 @@ test:
 
   def die(msg)
     status('error', msg)
-    puts "Abort: #{msg}"
+    puts errormsg = "Abort: #{msg}"
+    cmd = ['./lib/assimilator.rb', repo, ref, sha, pusher] * ' '
+    logger.error errormsg + "\n" + cmd
     cleanup_processes
     exit 1
   end
