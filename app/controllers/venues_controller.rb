@@ -23,10 +23,10 @@ class VenuesController < ApplicationController
       format.html do
         @upcoming_talks = @venue.talks.where(state: [:prelive, :live]).ordered
         @archived_talks = @venue.talks.archived.ordered
-        
+
         @participation =
           @venue.participations.find_by(user_id: current_user.id)
-        
+
         @show_join = @participation.nil? &&
                      current_user != @venue.user
       end
@@ -110,11 +110,11 @@ class VenuesController < ApplicationController
     end
   end
 
-  # def tags # TODO: check if needed
-  #   scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])
-  #   tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
-  #   render json: { tags: tags, total: scope.count }
-  # end
+  def tags
+    scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])
+    tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
+    render json: { tags: tags, total: scope.count }
+  end
 
   private
 
