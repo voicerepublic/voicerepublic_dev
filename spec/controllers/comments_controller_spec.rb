@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe CommentsController do
-
+  
   describe 'with user logged in' do
-
+  
     before do
       @user = FactoryGirl.create(:user)
       request.env['warden'].stub :authenticate! => @user
-      controller.stub :current_user => @user
+      controller.stub :current_user => @user 
     end
 
     describe 'POST create' do
