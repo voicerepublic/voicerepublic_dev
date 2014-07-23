@@ -930,3 +930,9 @@ en:
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
 
+  reminders:
+    create:
+      success: Reminder was successfully created.
+      failure: Reminder could not be created.
+    destroy:
+      success: Reminder was successfully destroyed.

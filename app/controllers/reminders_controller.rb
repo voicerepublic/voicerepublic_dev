@@ -1,4 +1,3 @@
-# TODO use i18n for flash messages
 # TODO use cancan for authorization
 class RemindersController < ApplicationController
 
@@ -20,9 +19,9 @@ class RemindersController < ApplicationController
     @reminder.rememberable = rememberable
 
     if @reminder.save
-      redirect_to rememberable, notice: 'Reminder was successfully created.'
+      redirect_to rememberable, notice: I18n.t('reminders.create.success')
     else
-      redirect_to rememberable, error: 'Reminder could not be created.'
+      redirect_to rememberable, error: I18n.t('reminders.create.failure')
     end
   end
 
@@ -31,7 +30,7 @@ class RemindersController < ApplicationController
     @reminder = Reminder.find(params[:id])
     @reminder.destroy
     redirect_to current_user, anchor: 'reminders',
-                notice: 'Reminder was successfully destroyed.'
+                notice: I18n.t('reminders.destroy.success')
   end
 
 end
