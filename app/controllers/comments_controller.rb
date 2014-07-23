@@ -7,7 +7,8 @@ class CommentsController < ApplicationController
     authorize! :create, Comment
 
     venue = Venue.find(params[:venue_id])
-    comment = venue.comments.build(comment_params)
+    comment = venue.comments.build
+    comment.content = comment_params["content"]
     comment.user = current_user
 
     if comment.save
@@ -32,5 +33,5 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:content)
   end
-  
+
 end
