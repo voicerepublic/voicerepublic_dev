@@ -32,7 +32,9 @@ class EnforceRobotsTxt < Struct.new(:app, :opts)
   private
   
   def robots_txt
-    @robots_txt ||= File.read(opts[:source]).split.inject([]) do |result, line|
+    return @robots_txt unless @robots_txt.nil?
+    lines = File.read(opts[:source]).split("\n")
+    @robots_txt = lines.inject([]) do |result, line|
       case line
       when /User-agent:\s*(.+)\s*$/ then result << [$1, []]
       when /Disallow:\s*(.+)\s*$/ then result.last.last << $1
