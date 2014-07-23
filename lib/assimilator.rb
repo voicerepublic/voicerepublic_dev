@@ -104,6 +104,9 @@ test:
     home = '/home/phil' if %x[hostname].chomp == 'fatou'
     ENV['HOME'] = home
 
+    # set PATH
+    ENV['PATH'] = [ENV['PATH'], "#{home}/bin"].compact * ':'
+    
     # rspec spec
     status('pending', "running specs...")
 

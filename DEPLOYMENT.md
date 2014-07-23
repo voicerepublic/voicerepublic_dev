@@ -190,7 +190,7 @@ As root
 
 
 CI
---
+==
 
 ## PhantomJS
 
@@ -206,6 +206,9 @@ via package management.
 phantomjs executable made available to path as described here:
 https://github.com/munen/voicerepublic_dot_cdist/pull/7
 
+and
+
+    cd bin; ln -s /usr/local/bin/phantomjs-1.9.7-linux-x86_64/bin/phantomjs
 
 ## Chromium
 
