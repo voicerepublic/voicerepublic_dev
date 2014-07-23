@@ -112,11 +112,12 @@ test:
     # report
     if $?.exitstatus > 0
       reason = 'no reason given'
-      #pattern = /fill in pattern here/
-      #reason = output.match(pattern).to_a.pop
+      pattern = /^rspec \.\/(.*)$/
+      md = output.match(pattern)
+      reason = md.to_a.pop if md
       status 'failure', reason
       logger.error "Specs failed with:\n" + build_cmd + "\n" + output
-      Email.send pusher, body: output
+      Email.send pusher, body: output, subject: "Failure: #{reason}"
     else
       status 'success'
     end
