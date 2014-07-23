@@ -5,6 +5,7 @@ require 'fileutils'
 require 'json'
 require File.expand_path('../email', __FILE__)
 
+
 # The Assimilator runs specs and reports the outcome.
 #
 # Runnning the Asimilator in CLI
