@@ -46,6 +46,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
       participants: talk.venue.users.map { |g| g.details_for(talk) },
+      blackbox: Settings.blackbox,
       loopback: talk.venue.opts.loopback,
       blackbox_path: blackbox_path
     }
@@ -73,7 +74,7 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def initial_state(role)
-    return 'Loitering' unless talk.prelive? or talk.live?
+    return 'Loitering' unless talk.prelive? or talk.halflive? or talk.live?
     case role
     when :host then 'HostRegistering'
     when :guest then 'GuestRegistering'
