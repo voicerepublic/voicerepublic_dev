@@ -4,7 +4,7 @@
 #
 # Options
 # * channels - array of channels
-# * ttl - number of seconds, defaults to 10800 (3 hours)
+# * ttl - number of seconds, defaults to 14400 (4 hours)
 #
 class FayeTtl < Struct.new(:opts)
 
