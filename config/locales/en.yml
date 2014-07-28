@@ -771,8 +771,8 @@ en:
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Share your thoughts
       you: You
-      related_talk: Related Talk
-      next_talk: Coming up next in this series
+      related_talk: RELATED TALK
+      next_talk: COMING UP NEXT IN THIS SERIES
       date_start_end: '%{date} | %{start_time} – %{end_time}'
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
@@ -805,8 +805,6 @@ en:
       just_listening_in: Just listening in
       send_card: Send Card
       download_flyer: Download
-      embed_player: Embed Player
-      download_talk: Download Talk
       discussion: DISCUSSION
       description: ABOUT
       more: Show more
@@ -816,6 +814,10 @@ en:
       please_reload_this_page: Please reload this page
       participants: Participants
       plays: '%{count} plays'
+      subscribe_to_podcast: Podcast
+      embed: Embed
+      embed_player: Embed Player
+      more_talks_title: MORE FROM THIS USER
       edit_talk: Edit Talk
       end_talk: End Talk
       banner_title: WHAT IS VOICE REPUBLIC?
@@ -833,6 +835,8 @@ en:
       listeners: LISTENERS
       invite_to_stage: INVITE TO STAGE      
       anonymous_listener: ANONYMOUS LISTENER
+      more_talks: MORE TALKS OF THIS USER
+
     new:
       title: "VR New Talk"
       new_talk: New Talk

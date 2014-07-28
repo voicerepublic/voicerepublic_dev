@@ -68,30 +68,22 @@
           = render partial: 'shared/player', locals: { talk: @talk }
           .talk-archived-actions-box.row.collapse
             .small-12.columns
-              .download-link-box.right(ng-show='talkIsArchived()')
-                = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download" do
-                  %span.icon-download-2
-              #modal-download.reveal-modal.text-center(data-reveal)
-                %h3.color-black= t('.download_talk')
-                %ul.button-group.text-center
-                  %li(ng-repeat='(ext, link) in mediaLinks')
-                    %a.button-standard(href='{{link}}' download) {{ext}}
-                %a.close-reveal-modal= raw '&#215;'
-
-              .embed-link-box.right
-                = link_to '#', class: 'embed-link', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
-                  = raw '&lt;&#47;&gt;'
-              #modal-embed.reveal-modal.text-center(data-reveal)
-                %h3.color-black= t('.embed_this_talk')
-                %textarea
-                  <iframe width="445" height="220" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-                %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
-                %a.close-reveal-modal= raw '&#215;'
+              .right
+                = link_to_podcast(@venue)          
+                = link_to '#', class: 'button-embed', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
+                  = succeed t('.embed') do
+                    %span.icon-code
+                #modal-embed.reveal-modal.text-center(data-reveal)
+                  %h3.color-black= t('.embed_this_talk')
+                  %textarea
+                    <iframe width="445" height="220" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                  %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
+                  %a.close-reveal-modal= raw '&#215;'
 
               .play-count.left
-                = link_to '#', title: t('.plays', count: @talk.play_count) do
-                  %span.icon-play
-                  = @talk.play_count
+                = t('.plays', count: @talk.play_count)
+
+
 
       .sidebar-right
         - if current_user.guest?
@@ -151,7 +143,7 @@
           %span.icon-volume-mute(ng-click='setVolume(0)')
           %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
 
-    .talk-talkers-box.row
+    .talk-talkers-box.row(ng-class="{'state-off': talkIsArchived() || talkIsPostlive() || talkIsProcessing()}")
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
@@ -168,12 +160,21 @@
           .host-actions(ng-show='showHostActions()')
             .guest-demote-link(ng-click="demote(guest.id)")
               = t('.demote')
-
-    .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
+    
+    .talk-more-talks-box.row.collapse-large-only
       .large-12.columns
-        .participate-button-box.text-center
-          - url = [ @talk.venue, :participations ]
-          = link_to t('.participate'), url, method: 'post', class: 'button-vr'
+        .more-talks-title-box.text-left
+          = link_to t('.more_talks'), @talk.venue
+        %ul.user-talks-slider.list-style-type-none
+          = render partial: 'shared/talk_small_box', collection: @archived_talks, locals: { color: 'box-transparent'}
+
+
+    -#
+      .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
+        .large-12.columns
+          .participate-button-box.text-center
+            - url = [ @talk.venue, :participations ]
+            = link_to t('.participate'), url, method: 'post', class: 'button-vr'
 
     .talk-participant-actions-box.row
       .large-12.columns.text-center
@@ -271,7 +272,8 @@
                 .avatar-box
                   = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 40}
               %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-              = link_to t('.participate'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
+              - url = [ @talk.venue, :participations ]
+              = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
 
             .message-box
               .chat-message(ng-repeat='message in discussion')

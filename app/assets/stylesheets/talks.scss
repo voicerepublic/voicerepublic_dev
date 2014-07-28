@@ -159,29 +159,42 @@
     }
 
     .talk-archived-actions-box{
-      padding:4px 2px 2px 0;
-      a{
-        color: white;
-        display: inline-block;
-        margin:0 3px;
-        &:hover,&:focus{
-          color: $brand-color-green;
+      padding:4px 3px 2px 12px;
+      .button-embed,
+      .button-podcast{
+        display: inline-block;        
+        position: relative;
+        font-size: rem-calc(11px);
+        border: 1px solid white;
+        padding: 0px 6px 3px 6px;
+        background: $brand-color-green;
+        color:white;
+        border-radius: 3px;
+        @include box-shadow(0, 0, 3px, rgba(0,0,0,0.5));
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05), -1px -1px 1px rgba(0, 0, 0, 0.05);
+        .icon-code{
+          font-size:rem-calc(14);
+          line-height: 1
+        }
+        .icon-podcast{
+          font-size: rem-calc(10);
+          top:2px;
+        }
+        &:hover{
+          color:white;
+          background: darken($brand-color-green, 10%);
+        }
+        &:active{
+          background: darken($brand-color-green, 20%);
         }
       }
-      .download-link{
-        position: relative;
-        top: -1px;
-      }
-      .embed-link{
-        position: relative;
-        top: 2px;
-        font-size: rem-calc(17px);
-        font-family: 'eaglebook';
-      }
+      .button-podcast{
+        padding-top:4px;
+      }      
     }
     .play-count{
-      padding:4px 0 0 7px;
-      color: $brand-color-green;
+      padding:6px 0 0 0;
+      color: white;
       font-family: 'eaglelight';
       font-size: rem-calc(14);
       a{
@@ -288,6 +301,9 @@
     background: rgba(0,0,0,0.9);
     padding:rem-calc(23) rem-calc(23);
     color: #fff;
+    &.state-off{
+      display: none;
+    }
     .stage-title{
       position: absolute;
       left:0;
@@ -311,6 +327,65 @@
         .avatar-bg{
           fill: $brand-color-red;
         }
+      }
+    }
+  }
+
+  .talk-more-talks-box{
+    margin-bottom: 40px;
+    .more-talks-title-box{
+      position: relative;
+      padding:6px 0 6px 12px;
+      background: rgba(0,0,0,0.5);
+      color:white;
+      text-shadow:1px 1px 3px rgba(0,0,0,0.5),-1px -1px 3px rgba(0,0,0,0.5);
+      font-family: 'eaglelight'; 
+      a{
+        font-size: rem-calc(12);
+        color: inherit;
+        font-family: inherit;
+        &:hover,&:focus{
+          text-decoration: underline;
+        }
+      }
+    }
+    .user-talks-slider{
+      background: $brand-color-creme;
+      padding:10px 6px 0px 6px;
+      margin-bottom: 0;
+      .slick-dots{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        bottom: -36px;
+        li{
+          button{
+            height:10px;
+            width:10px;
+            background: #999;
+            border: 1px solid $brand-color-creme;
+            border-radius: 50%;
+            &:before{
+              content: '';
+            }
+          }
+          &.slick-active{
+            button{
+                background: $brand-color-creme;
+                border: 1px solid $brand-color-creme;
+            }
+          }
+        }
+      }
+    }
+    .talk-small-box{
+      .breadcrumbs-box{
+        display: none;
+      }
+      margin-bottom: 0;
+      border:none;
+      .talk-small-padding{
+        padding:0 5px;
       }
     }
   }
@@ -965,16 +1040,17 @@
     top: 0;
     width: 210px;    
     .related-talk {
+      width: 100%;
       background: rgba(0,0,0,0.5);
       position: absolute;
       .related-title-box{
         position: relative;
-        padding:6px 13px;
+        padding:6px 0 6px 8px;
         background: rgba(0,0,0,0.3);
         color:white;
         font-family: 'eaglelight';
         a{
-          font-size: rem-calc(14);
+          font-size: rem-calc(12);
           color: inherit;
           font-family: inherit;
           &:hover,&:focus{

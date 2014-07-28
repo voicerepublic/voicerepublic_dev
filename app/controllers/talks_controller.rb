@@ -49,6 +49,7 @@ class TalksController < ApplicationController
   # GET /talks/1
   def show
     respond_to do |format|
+      @archived_talks = Talk.joins(:venue).archived.where('venues.user_id' => @talk.user.id).ordered
       format.html
       format.text do
         authorize! :manage, @talk

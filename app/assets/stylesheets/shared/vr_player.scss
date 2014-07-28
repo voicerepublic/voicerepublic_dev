@@ -67,19 +67,19 @@ ul.outside-controls{
       -ms-transition: all 0.15;
     }
     .icon-octa-full{
-      color: rgba(0,0,0,0.5);
+      color: $brand-color-green;
+    }
+    .icon-play-octa,
+    .icon-pause-octa{
+      color: white;
     }
   }
   &:hover{
     .jp-play,
     .jp-pause{
       .icon-octa-full{
-        color: $brand-color-green;    
-        text-shadow: 0 0 10px rgba(0,0,0,0.6);
-      }
-      .icon-play-octa,
-      .icon-pause-octa{
-        color: white;
+        color: darken($brand-color-green, 10%);
+        text-shadow: 0 0 20px rgba(0,0,0,0.6);
       }
     }
   }
@@ -114,6 +114,7 @@ div.jp-progress {
   height:16px;
   overflow:hidden;
   background-color: rgba(0,0,0,0.5);
+  border-top: 1px solid $brand-color-green;
   left:0;
   width:100%;
 }
@@ -157,7 +158,7 @@ div.jp-duration {
   font-family: 'eaglebook';
   font-size:11px;
   margin-left: 10px;
-  color: $brand-color-green;
+  color: white;
 
 }
 div.jp-current-time {
