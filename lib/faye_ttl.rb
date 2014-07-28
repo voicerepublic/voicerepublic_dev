@@ -46,7 +46,7 @@ class FayeTtl < Struct.new(:opts)
   private
 
   def ttl
-    @ttl ||= opts[:ttl] || 10800
+    @ttl ||= opts[:ttl] || 14400
   end
 
   def channels
