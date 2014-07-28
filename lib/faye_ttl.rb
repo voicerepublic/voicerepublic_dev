@@ -31,7 +31,7 @@ class FayeTtl < Struct.new(:opts)
         messages = history[subscription]
         unless messages.empty?
           messages = messages.delete_if { |m| (Time.now - m.last) > ttl } 
-          message['ext'] = { 'data' => { 'cached' => messages } }
+          message['ext'] = { 'cached' => messages }
           history[subscription] = messages
         end
       end
