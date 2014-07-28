@@ -17,7 +17,8 @@ class FayeTtl < Struct.new(:opts)
   def incoming(message, callback)
     channel = message['channel']
     if channel.start_with?(*channels)
-      history[channel] << [message['data'], Time.now]
+      message['data']['timestamp'] = Time.now
+      history[channel] << message['data']
     end
 
     callback.call(message)
@@ -30,9 +31,11 @@ class FayeTtl < Struct.new(:opts)
       if subscription.start_with?(*channels)
         messages = history[subscription]
         unless messages.empty?
-          messages = messages.delete_if { |m| (Time.now - m.last) > ttl } 
+          messages = messages.delete_if do |m|
+            (Time.now - m['timestamp']) > ttl
+          end
           message['ext'] = { 'cached' => messages }
-          history[subscription] = messages
+          self.history[subscription] = messages
         end
       end
     end
