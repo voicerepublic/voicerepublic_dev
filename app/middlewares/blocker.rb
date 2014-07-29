@@ -8,7 +8,8 @@
 class Blocker < Struct.new(:app, :opts)
 
   def call(env)
-    return app.call(env) unless env['HTTP_USER_AGENT'].match(/EasouSpider/)
+    return app.call(env) unless env['HTTP_USER_AGENT'] and
+      env['HTTP_USER_AGENT'].match(/EasouSpider/)
     
     [ 704, {"Content-Type" => "text/html"},
       [ "<h1>704 Goto Fail</h1>",

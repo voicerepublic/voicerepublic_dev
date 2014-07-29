@@ -29,12 +29,6 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
-  attr_accessible :password, :password_confirmation, :remember_me
-  attr_accessible :email, :firstname, :lastname
-  attr_accessible :provider, :uid, :last_request_at
-  attr_accessible :accept_terms_of_use, :guest, :header, :avatar, :about
-  attr_accessible :timezone, :website
-
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
