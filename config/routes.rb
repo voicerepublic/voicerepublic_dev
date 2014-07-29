@@ -40,8 +40,11 @@ VoiceRepublic::Application.routes.draw do
       get :recent
       get :upcoming
     end
+    resources :reminders, only: [:create]
   end
 
+  resources :reminders, only: [:destroy]
+  
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"
   end
