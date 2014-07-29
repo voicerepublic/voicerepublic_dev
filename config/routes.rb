@@ -77,6 +77,6 @@ VoiceRepublic::Application.routes.draw do
 
   if Rails.env.development? || ENV['CI']
     get '/jasmine/*file',        to: 'jasmine#show', format: false
-    get '/jasmine',              to: 'jasmine#show'
+    get '/jasmine',              to: 'jasmine#index'
   end
 end
