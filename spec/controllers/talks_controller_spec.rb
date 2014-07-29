@@ -23,23 +23,49 @@ describe TalksController do
   end
 
   describe 'Talk#show' do
-    describe 'assigns talks to @talks_more' do
+    describe 'assigns talks to @related_talks' do
+      before do
+        @other_venue_same_user = FactoryGirl.create :venue,
+          user: @user
+        @talk_other_venue = FactoryGirl.create :talk,
+          venue_id: @other_venue_same_user.id,
+          state: :archived,
+          featured_from: Date.today
+        other_venue_other_user = FactoryGirl.create :venue,
+          user: @user_2
+        @talk_other_user = FactoryGirl.create :talk,
+          venue_id: other_venue_other_user.id,
+          state: :archived,
+          featured_from: Date.today,
+          play_count: 25
+      end
       # first choice
       it 'assigns archived talks of series when available' do
-        archived_talk = FactoryGirl.create :talk,
+        talk_same_venue = FactoryGirl.create :talk,
           venue_id: @venue.id,
           state: :archived,
           featured_from: Date.today
+
         get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
-        assigns(:talks_more).should include(archived_talk)
+        assigns(:related_talks).should_not include(@talk)
+        assigns(:related_talks).should include(talk_same_venue)
+        assigns(:related_talks).should_not include(@talk_other_venue)
+        assigns(:related_talks).should_not include(@talk_other_user)
       end
 
       # second choice
       it 'assigns archived talks of same user' do
+        get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
+        assigns(:related_talks).should include(@talk_other_venue)
+        assigns(:related_talks).should_not include(@talk_other_user)
       end
 
       # third choice
       it 'assigns popular talks of any user' do
+        @talk_other_venue.destroy
+        get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
+        assigns(:related_talks).should_not include(@talk_other_venue)
+        assigns(:related_talks).should include(@talk_other_user)
       end
     end
   end
