@@ -13,7 +13,7 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak)
   .header-block(style="background-image: url(#{@talk.image.url})")
-    .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
+    .row.alert-box.alert.round(ng-show='showFlashError()')
       #flash_error= t('require_flash')
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
@@ -22,7 +22,10 @@
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
-              %li(ng-hide='talkIsLive()')
+              - if @talk.venue.opts.start_button
+                %li(ng-show='showStartButton()')
+                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
+              %li(ng-hide='talkIsHalflive() || talkIsLive()')
                 = link_to t('.edit_talk'), [:edit, @venue, @talk]
               %li(ng-show='showEndTalk()')
                 %a(href="#" ng-click='endTalk()')= t('.end_talk')
@@ -76,14 +79,12 @@
                 #modal-embed.reveal-modal.text-center(data-reveal)
                   %h3.color-black= t('.embed_this_talk')
                   %textarea
-                    <iframe width="445" height="220" src="//#{request.host}/embed_talk?id=#{@talk.id}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                  <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
                   %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
                   %a.close-reveal-modal= raw '&#215;'
 
               .play-count.left
                 = t('.plays', count: @talk.play_count)
-
-
 
       .sidebar-right
         - if current_user.guest?
@@ -118,17 +119,21 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+
+        .situation(ng-show='showSituation()')= t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
           .processing-message(ng-show='talkIsProcessing()')
             = t('.talk_is_processing')
-        .talk-countdown.text-center(ng-show='talkIsPrelive()')
+
+        .talk-countdown.text-center(ng-show='showCountdown()')
           = raw t('.countdown_text')
           {{ countdown }}
-          = t('.minutes')            
-        .talk-live-timeline(ng-show='talkIsLive()')
+          = t('.minutes')
+
+        .talk-live-timeline(ng-show='talkIsHalflive() || talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
           .talk-state-info
@@ -139,7 +144,8 @@
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
               {{ countdown }} MIN
-        .mute-stream-box(ng-show='talkIsLive()')
+
+        .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
           %span.icon-volume-mute(ng-click='setVolume(0)')
           %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
 
@@ -147,29 +153,31 @@
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
-        .avatar.avatar-host
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
-            .avatar-name.text-center
-              = @talk.venue.user.name
-        .avatar(ng-repeat="guest in guests()")
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
-            .avatar-name.text-center
-              {{ guest.name }}
-          .host-actions(ng-show='showHostActions()')
-            .guest-demote-link(ng-click="demote(guest.id)")
-              = t('.demote')
-    
-    .talk-more-talks-box.row.collapse-large-only
+        - unless @talk.speakers.blank?
+          %p.speakers= @talk.speakers
+        - else
+          .avatar.avatar-host
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
+              .avatar-name.text-center
+                = @talk.venue.user.name
+          .avatar(ng-repeat="guest in guests()")
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
+              .avatar-name.text-center
+                {{ guest.name }}
+            .host-actions(ng-show='showHostActions()')
+              .guest-demote-link(ng-click="demote(guest.id)")
+                = t('.demote')
+  
+    .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
       .large-12.columns
         .more-talks-title-box.text-left
           = link_to t('.more_talks'), @talk.venue
         %ul.user-talks-slider.list-style-type-none
           = render partial: 'shared/talk_small_box', collection: @archived_talks, locals: { color: 'box-transparent'}
 
-
-    -#
+    -# NOT USED ANYMORE
       .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
         .large-12.columns
           .participate-button-box.text-center
