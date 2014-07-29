@@ -69,4 +69,8 @@ FactoryGirl.define do
     f.sequence(:name) { |n| "tag_#{n}" }
   end
 
+  factory :reminder do
+    user
+    rememberable nil
+  end
 end

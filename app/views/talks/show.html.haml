@@ -182,6 +182,13 @@
           - url = [ @talk.venue, :participations ]
           = link_to t('.participate'), url, method: 'post', class: 'button-vr'
 
+    - unless current_user.remembers?(@talk)
+      .row
+        .large-12.columns
+          .remember-button-box.text-center
+            - url = [ @talk, :reminders ]
+            = link_to t('.remember'), url, method: 'post', class: 'button-vr'
+          
     .talk-host-and-participants-action-box.row
       .large-12.columns.text-center
         .talkers-action-box
