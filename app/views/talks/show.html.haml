@@ -161,7 +161,7 @@
             .guest-demote-link(ng-click="demote(guest.id)")
               = t('.demote')
     
-    .talk-more-talks-box.row.collapse-large-only
+    .talk-more-talks-box.row.collapse-large-only(ng-class="{'state-off': talkIsPreLive() || talkIslive()}")
       .large-12.columns
         .more-talks-title-box.text-left
           = link_to t('.more_talks'), @talk.venue
@@ -169,7 +169,7 @@
           = render partial: 'shared/talk_small_box', collection: @archived_talks, locals: { color: 'box-transparent'}
 
 
-    -#
+    -# NOT USED ANYMORE
       .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
         .large-12.columns
           .participate-button-box.text-center
