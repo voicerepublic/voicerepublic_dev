@@ -159,26 +159,36 @@
 
     .talk-talkers-box.row
       .large-12.columns.text-center
-        .avatar.avatar-host
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
-            .avatar-name.text-center
-              = @talk.venue.user.name
-        .avatar(ng-repeat="guest in guests()")
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
-            .avatar-name.text-center
-              {{ guest.name }}
-          .host-actions(ng-show='showHostActions()')
-            .guest-demote-link(ng-click="demote(guest.id)")
-              = t('.demote')
-
+        - unless @talk.speakers.blank?
+          %p.speakers= @talk.speakers
+        - else
+          .avatar.avatar-host
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
+              .avatar-name.text-center
+                = @talk.venue.user.name
+          .avatar(ng-repeat="guest in guests()")
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
+              .avatar-name.text-center
+                {{ guest.name }}
+            .host-actions(ng-show='showHostActions()')
+              .guest-demote-link(ng-click="demote(guest.id)")
+                = t('.demote')
+  
     .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
       .large-12.columns
         .participate-button-box.text-center
           - url = [ @talk.venue, :participations ]
           = link_to t('.participate'), url, method: 'post', class: 'button-vr'
 
+    - unless current_user.remembers?(@talk)
+      .row
+        .large-12.columns
+          .remember-button-box.text-center
+            - url = [ @talk, :reminders ]
+            = link_to t('.remember'), url, method: 'post', class: 'button-vr'
+          
     .talk-host-and-participants-action-box.row
       .large-12.columns.text-center
         .talkers-action-box

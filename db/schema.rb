@@ -11,10 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702134835) do
+ActiveRecord::Schema.define(version: 20140721092301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -62,8 +64,8 @@ ActiveRecord::Schema.define(version: 20140702134835) do
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "commentable_id"
     t.string   "commentable_type"
   end
@@ -102,8 +104,8 @@ ActiveRecord::Schema.define(version: 20140702134835) do
   create_table "participations", force: true do |t|
     t.integer  "venue_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
@@ -118,6 +120,17 @@ ActiveRecord::Schema.define(version: 20140702134835) do
   end
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
+
+  create_table "reminders", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "rememberable_id"
+    t.string   "rememberable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
+  add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "key"
@@ -186,6 +199,8 @@ ActiveRecord::Schema.define(version: 20140702134835) do
     t.string   "grade"
     t.string   "language",           default: "en"
     t.string   "slug"
+    t.string   "format"
+    t.string   "speakers"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
@@ -195,8 +210,8 @@ ActiveRecord::Schema.define(version: 20140702134835) do
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -226,8 +241,8 @@ ActiveRecord::Schema.define(version: 20140702134835) do
   create_table "venues", force: true do |t|
     t.text     "description"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "teaser"
     t.integer  "user_id"
     t.text     "options",     default: "--- {}\n"

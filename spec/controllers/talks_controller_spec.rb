@@ -87,6 +87,12 @@ describe TalksController do
       post :create, { venue_id: @venue.id, talk: valid_attributes }
       Talk.all[2].tag_list.should_not be_empty
     end
+
+    it 'talk has attached format after creation' do
+      Talk.count.should be(2) # @talk & @talk_2
+      post :create, { venue_id: @venue.id, talk: valid_attributes.merge(format: "foo_conf") }
+      Talk.all[2].format.should == "foo_conf"
+    end
   end
 
   describe "download message history" do

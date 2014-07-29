@@ -65,4 +65,8 @@ FactoryGirl.define do
     value "MyString"
   end
 
+  factory :reminder do
+    user
+    rememberable nil
+  end
 end

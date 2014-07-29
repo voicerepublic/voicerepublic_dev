@@ -34,6 +34,10 @@
           %a(href="#venues")
             %span.icon-guide
             = t('.venues')
+        %dd.text-center
+          %a(href="#reminders")
+            %span.icon-reminders
+            = t('.reminders')
         -#
         -#%dd.text-center
         -#  %a(href="#schedule")
@@ -50,6 +54,13 @@
     #venues.venues-content.content.active
       = render partial: 'shared/venue_medium_box', collection: @user.venues
 
+    #reminders.reminders-content.content
+      - if @user.reminders.empty?
+        = t('.no-reminders')
+      - else
+        %ul
+          = render partial: 'shared/reminder', collection: @user.reminders
+    
     #schedule.content TODO
 
     #activity.content TODO
