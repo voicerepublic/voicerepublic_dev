@@ -31,6 +31,7 @@ class FayeTtl < Struct.new(:opts)
       if subscription.start_with?(*channels)
         messages = history[subscription]
         unless messages.empty?
+          # TODO move this into the incoming message handler
           messages = messages.delete_if do |m|
             (Time.now.to_i - m['timestamp']) > ttl
           end
