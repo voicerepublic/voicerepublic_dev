@@ -22,11 +22,25 @@ describe TalksController do
     end
   end
 
-  describe 'Talk#index' do
-    it 'assigns recent talks as @talks_recent' do
-      talk = FactoryGirl.create(:talk, state: :archived, featured_from: Date.today)
-      get :index, {}
-      assigns(:talks_recent).should eq([talk])
+  describe 'Talk#show' do
+    describe 'assigns talks to @talks_more' do
+      # first choice
+      it 'assigns archived talks of series when available' do
+        archived_talk = FactoryGirl.create :talk,
+          venue_id: @venue.id,
+          state: :archived,
+          featured_from: Date.today
+        get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
+        assigns(:talks_more).should include(archived_talk)
+      end
+
+      # second choice
+      it 'assigns archived talks of same user' do
+      end
+
+      # third choice
+      it 'assigns popular talks of any user' do
+      end
     end
   end
 
