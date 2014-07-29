@@ -22,8 +22,6 @@ class Setting < ActiveRecord::Base
 
   validates :key, :value, presence: true
 
-  attr_accessible :key, :value
-  
   class << self
     def get(key)
       # try to find an entry in the db

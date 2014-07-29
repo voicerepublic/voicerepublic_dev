@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Flyer do
+  before do
+    allow_any_instance_of(Flyer).to receive(:generate!).and_call_original
+  end
 
   describe 'built' do
     before do

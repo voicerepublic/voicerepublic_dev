@@ -768,6 +768,7 @@ en:
     show:
       edit_talk: Edit talk
       title: "%{title} - Voice Republic"
+      waiting_for_start: The talk has not been started.
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
       chat_placeholder: Share your thoughts
       you: You
@@ -851,6 +852,15 @@ en:
       title: Title
       teaser: Teaser
       tag_list: Tag list
+      formats:
+        - Conference
+        - Reading
+        - Lecture
+        - Meeting
+        - Discussion
+        - Podcast
+        - Concert
+        - Other
     index:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
@@ -945,3 +955,8 @@ en:
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
 
+  simple_form:
+    hints:
+      talk:
+        language: Please select the main language of your talk.
+        format: Please provide the format purely for informational purposes.

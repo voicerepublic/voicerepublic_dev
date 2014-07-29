@@ -54,6 +54,20 @@ feature 'Podcast' do
 
   end
 
+  feature 'for all podcasts' do
+    scenario 'there is a embed link in item' do
+      # prepare
+      talk = FactoryGirl.create(:talk, state: 'archived', featured_from: 1.day.ago)
+      # fake the presence of a suitable file for podcasting
+      talk.storage["#{talk.uri}/#{talk.id}.mp3"] = {}
+      talk.save
+      
+      # visit
+      visit root_path(format: 'rss')
+      expect(page).to have_xpath("//link[@rel='embed']")
+    end
+  end
+  
   feature "different OSs see different protocol URLs" do
 
     let(:venue) { FactoryGirl.create(:venue) }
