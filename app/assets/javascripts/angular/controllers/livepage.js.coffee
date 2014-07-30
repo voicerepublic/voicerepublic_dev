@@ -31,6 +31,22 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     return 'trouble connecting' if config.flags.connecting
     false
 
+  $scope.showParticipantActionsBox = ->
+    config.talk.state in ['prelive','halflive','live']
+
+  $scope.showPreliveMessage = ->
+    (session.fsm.is('HostOnAir') or session.fsm.is('OnAir')) and
+      config.talk.state == 'prelive'
+
+  $scope.showOnAir = ->
+    config.flags.onair and config.talk.state in ['live','halflive']
+
+  $scope.showAcceptOrDecline = ->
+    flags.acceptOrDecline
+
+  $scope.showAwaitingMic = ->
+    true
+
   # unconsolidated
 
   sendMessage = ->

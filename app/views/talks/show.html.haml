@@ -149,7 +149,7 @@
           %span.icon-volume-mute(ng-click='setVolume(0)')
           %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
 
-    .talk-talkers-box.row(ng-class="{'state-off': talkIsArchived() || talkIsPostlive() || talkIsProcessing()}")
+    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
@@ -170,71 +170,62 @@
               .guest-demote-link(ng-click="demote(guest.id)")
                 = t('.demote')
   
-    .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
+    .talk-more-talks-box.row.collapse-large-only(ng-hide="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
       .large-12.columns
         .more-talks-title-box.text-left
           = link_to t('.more_talks'), @talk.venue
         %ul.user-talks-slider.list-style-type-none
           = render partial: 'shared/talk_small_box', collection: @archived_talks, locals: { color: 'box-transparent'}
 
-    -# NOT USED ANYMORE
-      .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
-        .large-12.columns
-          .participate-button-box.text-center
-            - url = [ @talk.venue, :participations ]
-            = link_to t('.participate'), url, method: 'post', class: 'button-vr'
-
-    .talk-participant-actions-box.row
+    .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
-        .request-mic-box(ng-show='flags.reqmic')
+        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline()}")
           .avatar
             .avatar-box
               = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
           .mic-sign-box
             %span.icon-octa-full
             %span.icon-octagon
-            %span.icon-mic
-          .arrow
-            .arrow-head
-          .button-action(ng-click='requestMic()')
-            = t('.request_mic')
+            %span.icon-mic     
 
-        .acc-dec-box(ng-show='flags.acceptOrDecline')
-          .avatar
-            .avatar-box
-              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
-          .mic-sign-box
-            %span.icon-octa-full
-            %span.icon-octagon
-            %span.icon-mic
-          .invitation-text
-            = t('.talk_invitation')
-          .button-action(ng-click='acceptPromotion()')
-            = t('.accept_promotion')
-          .decline-link(ng-click='declinePromotion()')
-            = t('.decline_promotion')              
+          .request-mic-box(ng-show='flags.reqmic')
+            .arrow
+              .arrow-head
+            .button-action(ng-click='requestMic()')
+              = t('.request_mic')
+          -# FAKE LINK
+          .request-mic-box(ng-show='userIsAListener()')
+            .arrow
+              .arrow-head
+            - url = [ @talk.venue, :participations ]
+            = link_to url, class: "button-action", method: 'post' do
+              = t('.request_mic')
 
-        .talkers-action-box
+          .awaiting-mic-box(ng-show='showAwaitingMic()')
+            .arrow
+              .arrow-head
+            .button-action
+              = t('.awaiting_mic_request')
 
-          -# FIXME quick and dirty: do not show mic
-          .mic-sign-box{ class: @talk.state=~/^(pre|)live$/ ? '' : 'display-none'}
-            %span.icon-octa-full
-            %span.icon-octagon
-            %span.icon-mic
-          .button-box
-            .button-reqmic(ng-show='flags.reqmic'
-                          ng-click='requestMic()')= t('.request_mic')
-            .button-accept(ng-show='flags.acceptOrDecline'
-                          ng-click='acceptPromotion()')= t('.accept_promotion')
-            .button-decline(ng-show='flags.acceptOrDecline'
-                          ng-click='declinePromotion()')= t('.decline_promotion')
-            #onair(ng-show='flags.onair')= t('.you_are_on_air')
+          .acc-dec-box(ng-show='showAcceptOrDecline')
+            .invitation-text
+              = t('.talk_invitation')
+            .button-action(ng-click='acceptPromotion()')
+              = t('.accept_promotion')
+            .decline-link(ng-click='declinePromotion()')
+              = t('.decline_promotion')    
 
-          .tmp-mute-box.text-left
-            %span.button-mute(ng-show='flags.onair'
-                          ng-click='mute()')= t('.mute_mic')
-            %span.button-unmute(ng-show='flags.onair'
-                          ng-click='unmute()')= t('.unmute_mic')
+          .onair-box(ng-show='showOnAir()')
+            .onair-text
+              = t('.you_are_on_air')
+            .mute-box(ng-show='showOnAir()')
+              %span.button-mute(ng-show='flags.onair'
+                            ng-click='mute()')= t('.mute_mic')
+              %span.button-unmute(ng-show='flags.onair'
+                            ng-click='unmute()')= t('.unmute_mic')
+
+          .prelive-message(ng-show='showPreliveMessage()')
+            Hallo {{ config.talk.state }}
 
         -# FIXME quick and dirty: do not show audio settings
         - if @talk.state=~/^(pre|)live$/
