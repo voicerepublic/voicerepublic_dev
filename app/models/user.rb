@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
   has_many :venues # as owner
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
-
+  has_many :reminders, dependent: :destroy
+  
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
   end
@@ -127,6 +128,11 @@ class User < ActiveRecord::Base
 
   def insider?
     !!(email =~ /@voicerepublic.com$/)
+  end
+
+  def remembers?(model)
+    reminders.exists?( rememberable_id: model.id,
+                       rememberable_type: model.class.name )
   end
   
 end
