@@ -42,10 +42,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     config.flags.onair and config.talk.state in ['live','halflive']
 
   $scope.showAcceptOrDecline = ->
-    flags.acceptOrDecline
+    session.fsm.is("AcceptingPromotion")
 
   $scope.showAwaitingMic = ->
-    true
+    session.fsm.is("ExpectingPromotion")
 
   # unconsolidated
 
