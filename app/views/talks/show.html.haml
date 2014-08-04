@@ -179,7 +179,7 @@
 
     .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
-        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline()}")
+        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic()}")
           .avatar
             .avatar-box
               = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
@@ -207,7 +207,7 @@
             .button-action
               = t('.awaiting_mic_request')
 
-          .acc-dec-box(ng-show='showAcceptOrDecline')
+          .acc-dec-box(ng-show='showAcceptOrDecline()')
             .invitation-text
               = t('.talk_invitation')
             .button-action(ng-click='acceptPromotion()')
@@ -225,7 +225,7 @@
                             ng-click='unmute()')= t('.unmute_mic')
 
           .prelive-message(ng-show='showPreliveMessage()')
-            Hallo {{ config.talk.state }}
+            {{ config.talk.state }}
 
         -# FIXME quick and dirty: do not show audio settings
         - if @talk.state=~/^(pre|)live$/

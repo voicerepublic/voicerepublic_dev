@@ -391,6 +391,7 @@
   .talk-participant-actions-box{
     position: relative;
     margin-top: 30px;
+    margin-bottom: 30px;
 
     .background-box{
       display: inline-block;
@@ -483,14 +484,28 @@
           @include box-shadow(0,0,12px,rgba(0,0,0,1));
         }
       }
+
+      /* AWAITING MIC */
       .awaiting-mic-box{
+        position: relative;
         .button-action{
           left: 50%;   
-          background: $brand-color-yellow;
-          color: black;
-          border: 1px solid #ddd;
-          border-bottom-color: #aaa;
+          background: url(/images/awaiting-loading.gif);
+          color: rgba(0,0,0,0.8);
+          text-shadow: 1px 1px 2px rgba(255,255,255,0.3), -1px -1px 2px rgba(255,255,255,0.3);
+          border: 1px solid #000;
+          border-bottom-color: #666;
           @include box-shadow(0,0,12px,rgba(0,0,0,0));
+          cursor: default;
+        }
+        .arrow{
+          @include rotate(180);
+        }
+      }
+
+      &.state-awaiting_mic{
+        .avatar-bg{
+          fill: $brand-color-yellow;
         }
       }
 
@@ -515,7 +530,7 @@
         .button-action{
           position: relative;
           display: inline-block;
-          width: 76px;
+          width: 66px;
           margin-left: 0;
           background: $interaction-green;
           color: white;
@@ -529,9 +544,11 @@
         }
         .decline-link{
           display: inline-block;
-          font-size: rem-calc(9);
+          font-size: rem-calc(8);
         }
       }
+
+
 
       /* ON AIR */
       &.state-onair{
