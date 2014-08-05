@@ -64,7 +64,7 @@ $opacity-not-active: .25;
     }
 
     .slick-loading & {
-        background: #fff slick-image-url("ajax-loader.gif") center center no-repeat;
+        background: #fff slick-image-url("/images/ajax-loader.gif") center center no-repeat;
     }
 
     &.dragging {

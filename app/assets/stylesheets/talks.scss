@@ -586,15 +586,55 @@
 
     }
 
+    .button-audio-settings{
+      position: absolute;
+      right: 6px;
+      top: -6px;
+      font-family: 'eaglebook';
+      font-size: rem-calc(12);
+      cursor: pointer;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
+      .icon-equalizer{
+        display: block;
+        margin-bottom: 3px;
+        font-size: rem-calc(20);
+      }
+    }
+  }
+
+  .flash-block{
+    position: fixed;
+    z-index: 999;
+    left:0;
+    top:0;
+    @include opacity(0);
+    @include transition('opacity 0.1s linear, height 0s linear 0.1s, width 0s linear 0.1s');          
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    &.state-on{
+      @include opacity(1);
+      @include transition(opacity 0.15s linear);      
+      height: 100%;
+      width: 100%;        
+    }
+    .flash-block-bg{
+      position: absolute;
+      left:0;
+      top:0;
+      background: rgba(255,255,255,0.9);
+      height: 100%;
+      width: 100%;
+    }      
     .flash-box{
-      height:170px;
+      position: relative;      
+      top: 50%;
+      margin-top: -85px;      
+      min-height:170px;
       padding: 15px 0;
-      margin-top: 25px;
-      margin-bottom: 15px;
       background: #000;
       overflow: hidden;
-      @include transition(height .4s ease-in-out);
-      @include transition(padding .4s ease-in-out);
+      @include transition('height .4s ease-in-out, padding .4s ease-in-out');
       .manual-box{
         display: inline-block;
         vertical-align: top;
@@ -610,10 +650,6 @@
         line-height: 1.1
       }
 
-/*      &.flash-box-open{
-        height: 170px;
-
-      }*/
       .button-vr{
         border-color: $brand-color-yellow;
         color: $brand-color-yellow;
@@ -636,16 +672,13 @@
           color: $brand-color-yellow;
         }
       }
-    }
-
-    .button-audio-settings{
-      position: absolute;
-      right: 6px;
-      top: 0;
-      font-family: 'eaglebook';
-      font-size: rem-calc(12);
-      cursor: pointer;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
+      .close-x{
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        font-size: rem-calc(14);
+        cursor: pointer;
+      }
     }
   }
 
@@ -757,6 +790,7 @@
   .participants-and-discussion{
     position: relative;
     padding:20px 0 0 0;
+    min-height: 400px;
     @include transition(padding 0.8s linear 1.6s);
     &.state-live{
       padding-left: 220px;
@@ -852,7 +886,7 @@
       left:0;
       top:20px;      
       background: white;
-      overflow: hidden;
+      /*overflow: hidden;*/
       @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));     
 
       .promotion-counter-box{

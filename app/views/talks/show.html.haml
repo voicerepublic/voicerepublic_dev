@@ -230,20 +230,24 @@
         -# FIXME quick and dirty: do not show audio settings
         - if @talk.state=~/^(pre|)live$/
           .button-audio-settings(ng-click='toggleShowSettings()')
-            %span.icon-mic
+            %span.icon-equalizer
             = t(".audio_settings")
 
-        -# FIXME quick and dirty: do not show audio settings
-        .flash-box.row(ng-class="{'hide-stuff': !showSettings()}")
-          .large-12.columns.text-left
-            #flashContent
-            .manual-box
-              .flash-manual-title
-                = t('.flash_manual_title')
-              %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-              = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
-                %p.flash-content
-                  = raw t('.audio_settings_help_text')
+    -# FIXME quick and dirty: do not show audio settings
+    .flash-block(ng-class="{'state-on': showSettings()}")
+      .flash-block-bg(ng-click='toggleShowSettings()')
+      .flash-box.row
+        .large-12.columns.text-left
+          #flashContent
+          .manual-box
+            .flash-manual-title
+              = t('.flash_manual_title')
+            %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
+            = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
+              %p.flash-content
+                = raw t('.audio_settings_help_text')
+        .close-x(ng-click='toggleShowSettings()')
+          &times;
 
   .row.collapse-large-only
     .large-12.columns
@@ -288,9 +292,8 @@
                   .message-text
                     {{ message.content }}
 
-
+        -# PARTICIPANTS: LISTENERS, MIC REQUESTS, INVITES
         - unless @talk.venue.opts.suppress_chat
-          -# LISTENERS, MIC REQUESTS, INVITES
           #participants.participants-box(ng-class="{'state-live': talkIsLive()}")
 
             .promotion-counter-box
@@ -355,7 +358,7 @@
               .listening(ng-show="listeners().length")
                 %h3
                   {{ listeners().length }}
-                  = t('.anonymous_listener')
+                  = t('.anonymous_listener')                
 
 .scripts
   :javascript
