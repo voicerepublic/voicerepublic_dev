@@ -1,8 +1,7 @@
-%li
-  - target = reminder.rememberable
-  - case target
-  - when Talk
-    = render partial: 'shared/talk_medium_box', locals: { talk: target }
-  - else
-    - raise "Hey, you need to implement display of #{target.class.name}"
-  = link_to t('.delete_reminder'), reminder, method: 'delete'
+- target = reminder.rememberable
+- case target
+- when Talk
+  = render partial: 'shared/talk_medium_box', locals: { talk: target, reminder: reminder }
+- else
+  - raise "Hey, you need to implement display of #{target.class.name}"
+

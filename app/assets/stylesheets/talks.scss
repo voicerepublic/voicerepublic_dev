@@ -113,13 +113,21 @@
         display: inline-block;
         margin:0 3px;
       }
-      .flyer-link-box{
+      .links-box{
         position: absolute;
         right: 10px;
         top:4px;
         a{
           font-family: 'eaglebook';
           font-size: rem-calc(11);
+          margin-left: 10px;
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.5);
+        }
+        .link-remember{
+          .icon-plus{
+            font-size: 15px;
+            margin-right: 3px;
+          } 
         }
       }
     }
@@ -426,12 +434,16 @@
           font-size: rem-calc(50);
           color: white;
         }
-        .icon-mic{
+        .icon-unmute,
+        .icon-mute{
           position: absolute;
           top: 13px;
           right: 13px;
           color: white;
           font-size: rem-calc(24);
+        }
+        .icon-mute{
+          @include opacity(0);
         }
         .yellow{
           color: $brand-color-yellow;
@@ -553,21 +565,37 @@
       /* ON AIR */
       &.state-onair{
         width:180px;
+        border: 2px solid $brand-color-red;
         background: $brand-color-red;
-        padding-right: 20px;
+        padding-right: 20px; 
         .avatar{
           @include opacity(0);
         }
         .mic-sign-box{
           .icon-octagon,
-          .icon-mic{
+          .icon-unmute{
             color:$brand-color-red;
           }
+        }
+        &:hover{                 
+          border: 2px solid $brand-color-green;
+          @include transition(all 0.05s linear 0);          
+          background: white;
+          .mic-sign-box{
+            .icon-octagon,
+            .icon-mute{
+              @include opacity(1);
+              color:$brand-color-green;
+            }
+            .icon-unmute{
+              @include opacity(0)
+            }
+          }     
         }
       }
       .onair-box{
         width: 100%;
-        padding-top: 6px;
+        padding-top: 4px;
         .avatar{
           display: none;
         }
@@ -580,7 +608,13 @@
           display: inline-block;
         }
         .mute-box{
-          display: none;
+          position: absolute;
+          top:0;
+          left: 0;
+          width: 100%;
+          font-family: 'eaglebook';
+          color: $brand-color-green;
+          padding-top: 5px;
         }
       }
 

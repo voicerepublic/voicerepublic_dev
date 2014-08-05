@@ -300,12 +300,13 @@ en:
     show:
       podcast:
         title: "VR: %{username}"
-        subtitle: "Podcast provided by VoiceRepublic"
+        subtitle: "Podcast provided by Voice Republic"
       feed_title: "VR - %{username}"
-      title: "VR User %{username}"
+      title: "%{username} - Voice Republic"
       edit_user: Edit Profile
       about: About
       venues: Series
+      reminders: Reminders
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -452,12 +453,12 @@ en:
     news: NEWS
     index:
       podcast:
-        title: Featured talks of VoiceRepublic
-        author: The users of VoiceRepublic
+        title: Featured talks of Voice Republic
+        author: The users of Voice Republic
         subtitle: Voice Republic is home to the spoken word in its many forms.
         description: |
           The feed features talks which have been archived on %{url}.
-      feed_title: Featured talks of VoiceRepublic
+      feed_title: Featured talks of Voice Republic
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
       subheadline: "Talks, interviews, readings, conversations, debates, discussions:"
       subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
@@ -595,6 +596,7 @@ en:
     talk_medium_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
       read_more: ...read more
+      delete_reminder: Delete reminder      
     talk_small_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
     venue_medium_box:
@@ -614,9 +616,9 @@ en:
     show:
       podcast:
         title: "VR: %{title}"
-        subtitle: "Podcast provided by VoiceRepublic"
+        subtitle: "Podcast provided by Voice Republic"
       feed_title: "VR - %{title}"
-      title: "VR Series %{title}"
+      title: "%{title} - Voice Republic"
       by: by
       start_date: Begin
       duration: Duration
@@ -760,7 +762,7 @@ en:
       create_venue: Create Series
   talks:
     message_history: |
-      VoiceRepublic Message History
+      Voice Republic Message History
 
         %{title}
 
@@ -795,8 +797,8 @@ en:
       promote: GIVE THE MIC
       demote: Demote
       you_are_on_air: YOU ARE ON AIR!
-      mute_mic: Mute
-      unmute_mic: Unmute
+      mute_mic: MUTE MIC
+      unmute_mic: UNMUTE MIC
       audio_settings: Audio settings
       participate: Participate
       miqrec: Mic Requests
@@ -805,6 +807,7 @@ en:
       awaiting_to_speak: Awaiting to speak
       participating: Participating
       just_listening_in: Just listening in
+      remember: Remember
       send_card: Send Card
       download_flyer: Download
       discussion: DISCUSSION
@@ -881,7 +884,7 @@ en:
       save_article: Post
   layouts:
     application:
-      landing_title: VoiceRepublic - The Place To Talk
+      landing_title: Voice Republic - The Place To Talk
   user_mailer:
     new_talk:
       subject: New talk

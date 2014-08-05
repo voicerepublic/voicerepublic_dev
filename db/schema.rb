@@ -121,6 +121,17 @@ ActiveRecord::Schema.define(version: 20140721092301) do
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
+  create_table "reminders", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "rememberable_id"
+    t.string   "rememberable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
+  add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
+
   create_table "settings", force: true do |t|
     t.string   "key"
     t.string   "value"
