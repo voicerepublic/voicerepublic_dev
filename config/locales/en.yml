@@ -961,3 +961,9 @@ en:
       talk:
         language: Please select the main language of your talk.
         format: Please provide the format purely for informational purposes.
+  reminders:
+    create:
+      success: Reminder was successfully created.
+      failure: Reminder could not be created.
+    destroy:
+      success: Reminder was successfully destroyed.
