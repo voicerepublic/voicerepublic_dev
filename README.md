@@ -22,9 +22,32 @@ Welcome to VoiceRepublic
 * Staging: [http://staging.voicerepublic.com](http://staging.voicerepublic.com)
 
 
-Depencies
----------
-VR is being developped on Ruby 1.9.3
+Dependencies
+------------
+
+### Ruby
+
+VR is being developed on Ruby 1.9.3. See (.ruby-version)[.ruby-version].
+
+The use of (rbenv)[/sstephenson/rbenv] instead of RVM is highly recommended.
+
+### Install rbenv on zsh
+
+    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+    echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+    . ~/.zshrc
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+    rbenv install `cat .ruby-version`
+
+### Debian Packages
+
+* postgresql-contrib-9.1
+* libpcre++-dev
+* libav-tools
+* sox
+* vorbis-tools
+
 
 Setup
 -----
@@ -78,11 +101,11 @@ Install Flex
 
     http://www.adobe.com/devnet/flex/flex-sdk-download.html
 
-Make `bin` available in your PATH.
+Unpack and make `bin` available in your PATH.
 
 Run
 
-    mxmlc lib/flash/Blackbox.as
+    zeus rake build:flash
 
 
 Runnning Audio Strategies with Rake
@@ -102,8 +125,36 @@ The generic strategy runner takes arguments
 
 The output lists the resulting files.
 
-(Depending on your shell you might have to escape the square brackets
-with backslashes.)
+(Depending on your shell, e.g. for zsh, you might have to escape the
+square brackets with backslashes.)
+
+### Analyzing FLV Data with Rake
+
+#### Parameters
+
+* path
+* started_at
+* ended_at
+
+#### Run
+
+    rake audio:analyze\[/home/phil/audio/vr-1104,1401736803,1401740512\]
+
+#### Legend
+
+* filename
+* user_id (deduced from filename)
+* duration in seconds (as of avconv)
+* file size in bytes
+* flag
+* file start timestamp (deduced from filename)
+* file end timestamp (start + duration)
+
+#### Flags
+
+* `-` marks a file of size 0
+* `X` marks a corrupt file (size > 0, but duration cannot be determined)
+* `*` marks files which touch the live section of the talk
 
 
 Documentation
@@ -135,30 +186,17 @@ Config entries are compiled from:
 Settings defined in files that are lower in the list override settings higher.
 
 
-Conference Features
--------------------
+Deploy
+------
 
-If the venue is a conference you might want to open the back office
-app and put the following in options of the venue:
+    cap staging deploy
 
-    ---
-    no_auto_postprocessing: true
-    no_email: true
-    no_auto_end_talk: true
-    suppress_chat: true
+Deploy a specific branch to staging, e.g.
+
+    REVISION=feature/65463494/subscribe_podcast cap staging deploy
 
 
-Console Cheat Sheet
--------------------
-
-### Feature three randomly selected talks since yesterday
-
-    Talk.order('RANDOM()').limit(3).each do |t|
-      t.update_attribute :featured_from, 1.day.ago
-    end
-
-
-Manual acceptance tests Cheat Sheet
+HOWTO Manual Acceptance Tests (UAT)
 -----------------------------------
 
 If you don't have it already you realy should install `tree`.
@@ -181,35 +219,35 @@ host) and direct them to show the same talk. In a terminal start
 `vrwatch`. Attention: This will delete all previous recordings! (Never
 ever run this in production!)
 
-    % bin/vrwatch
+    % bin/vr_delete_and_watch
 
 On a rails console, pick the talk you want to work with (e.g. id 42)
-and reset it to start soon (e.g. `20.seconds.from_now`). (Don't use
-`update_attribute`, since it will not trigger the callbacks.)
+and reset it to start soon, there is a nifty helper for that.
 
     t = Talk.find(42); nil
-    t.reload; t.starts_at = 20.seconds.from_now; t.state = 'prelive'; t.save
+    t.reload.make_it_start_soon!
 
-Then reload the browsers. It will record a couple of seconds
-pretalk. You should see the file size in `vrwatch` go up. After the
-time to start is up it will switch to live mode automatically. With
-your second Browser you should hear yourself now. (Reload the host at
-least once if you want to have multiple files. These will show up on
-the console which runs `vrwatch`.)
+This will also trigger a reload of the browsers. It will record a
+couple of seconds pretalk. You should see the file size in 'watch'
+console go up. After the time to start is up it will switch to live
+mode automatically. With your second browser you should hear yourself
+now. If you don't have a headset plugged in this will very likely
+create a feedback loop. (Reload the host at least once if you want to
+have multiple files. These will show up on the 'watch' console.)
 
 Click `End Talk` to end the talk. On the rails console kick off post
 processing (in User Acceptance Test mode) with:
 
     t.reload.send(:postprocess!, true)
 
-Views will change slightly. A journal file shows up in `vrwatch`. When
-running with parameter `true` a `debugger` statement will hold before
-each Audio::Strategy to inspect the precondition and outcome in
-`vrwatch`. Type `c` and `Enter` to continue to the next strategy. It
-will output the shell-out-commands prefixed with `CmdRunner>`, any
-errors and in red the next strategy to run. (At this point you can
-run the shell-out-commands under `local/recordings` to play with them
-and tweak stuff.)
+Views will change. A journal file shows up in the 'watch'
+console. When running with parameter `true` a `debugger` statement
+will hold before each Audio::Strategy to inspect the precondition and
+outcome in `vrwatch`. Type `c` and `Enter` to continue to the next
+strategy. It will output the shell-out-commands prefixed with
+`CmdRunner>`, any errors and in red the next strategy to run. (At this
+point you can run the shell-out-commands under `local/recordings` to
+play with them and tweak stuff.)
 
 After the last strategy post processing will move the files from
 `recordings` to `archive` resp. `archive_raw`. It'll also create
@@ -219,30 +257,6 @@ At that point the history of you rails console will be dead -- no clue
 why. But you can simply quit the console and restart it to get it back.
 
 Restart `vrwatch` to remove the artifacts and start over.
-
-
-Audio cheat sheet
------------------
-
-### get duration
-
-    soxi -D file.wav
-    
-### convert wav to flv
-
-    avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
-
-### convert x.wav to x.ogg
-
-    oggenc x.wav
-
-### convert x.wav to x.mp3
-
-    avconv -y -i x.wav x.mp3
-
-### convert x.wav to x.m4a
-
-    avconv -y -i x.wav -b:a 64k -strict experimental x.m4a
 
 
 Troubleshooting Process/Monit
@@ -260,3 +274,103 @@ Troubleshooting Process/Monit
 
     # /etc/init.d/monit restart
     ...
+
+
+Audio Cheat Sheet
+-----------------
+
+### For experimenting you might want to...
+
+    sudo apt-get install libsox-fmt-mp3
+
+### get duration
+
+    soxi -D file.wav
+
+### convert wav to flv
+
+    avconv -y -i file.wav -acodec libspeex -ar 16k -ac 1 file.flv
+
+### Make the best out of files which have silence at the beginning
+
+    sox --norm 90.mp3 90.wav
+    sox 90.wav 90-vad.wav vad
+
+### convert x.wav to x.ogg
+
+    oggenc x.wav
+
+### convert x.wav to x.mp3
+
+    avconv -y -i x.wav x.mp3
+
+### convert x.wav to x.m4a
+
+    avconv -y -i x.wav -b:a 64k -strict experimental x.m4a
+
+### resample wav to 44.1k and 2 channels
+
+    sox -c 2 vrs.wav lib/audio/files/vr_stop.wav rate -L 44.1k
+
+### collect stream info of multiple flv files
+
+    find ./ -name \*.flv -exec avconv -i {} \; 2>&1 | grep Stream
+
+
+Javascript Console Cheat Sheet
+------------------------------
+
+### Listen into a prestream
+
+As any user you can currently hack the prestream by looking up the
+publisher's user id and subscribe the prestream manually. E.g.
+
+    Blackbox.subscribe('t1054-u701956')
+
+Note: As soon as the stream goes live, your client will subscribe a
+2nd time and you will here an echo.
+
+
+Rails Console Cheat Sheet
+-------------------------
+
+### Feature three randomly selected talks since yesterday
+
+    Talk.order('RANDOM()').limit(3).each do |t|
+      t.update_attribute :featured_from, 1.day.ago
+    end
+
+### Reload browser session of all attendenees of talk 737
+
+    PrivatePub.publish_to '/t737/public', event: 'Reload'
+
+### Enqueue all archived talks for processing
+
+    Talk.archived.order('play_count DESC').each do |talk|
+      puts talk.id
+      if talk.recording_override.blank?
+        Delayed::Job.enqueue(Reprocess.new(talk.id), queue: 'prio')
+      else
+        Delayed::Job.enqueue(ProcessOverride.new(talk.id), queue: 'prio')
+      end
+    end
+
+### Manually asses talks
+
+    puts *Talk.where("uri like 'lt%'").order(:id).map { |t| '% 4s % 5s % 5s %s' % [t.id, t.storage.values.select { |f| f[:ext]=='.flv' }.inject(0) {|r,s| r + s[:seconds].to_i }, t.recording_override?, t.teaser ] }
+
+### RE(P)L into remote brwoser session
+
+Value of `exec` has to be native JavaScript and will be evaluated in
+the scope of instance of Angular's `session` service.
+
+At this point the P in REPL is still missing.
+
+#### Log on error to the console
+
+    PrivatePub.publish_to '/t981/u1', { exec: '$log.error("hello")' }
+
+#### Force a reload of the page
+
+    PrivatePub.publish_to '/t981/u1', { exec: 'window.location.reload()' }
+

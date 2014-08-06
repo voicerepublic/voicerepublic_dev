@@ -31,6 +31,10 @@ describe VenuesController do
     FactoryGirl.attributes_for(:venue)
   end
 
+  def invalid_attributes
+    { asdf: 'asdf' }
+  end
+  
   def valid_session
     {}
   end
@@ -45,10 +49,14 @@ describe VenuesController do
   end
 
   describe "GET show" do
+    let(:venue) { FactoryGirl.create(:venue) }
     it "assigns the requested venue as @venue when logged in" do
-      venue = FactoryGirl.create(:venue)
       get :show, {:id => venue.to_param}
       assigns(:venue).should eq(venue)
+    end
+    it "returns http success with format rss" do
+      get :show, id: venue.to_param, format: 'rss'
+      response.should be_success
     end
   end
 
@@ -98,12 +106,12 @@ describe VenuesController do
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved venue as @venue" do
-        post :create, {:venue => { }}, valid_session
+        post :create, {venue: invalid_attributes}, valid_session
         assigns(:venue).should be_a_new(Venue)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:venue => { }}, valid_session
+        post :create, {venue: invalid_attributes}, valid_session
         response.should render_template("new")
       end
 
@@ -119,14 +127,9 @@ describe VenuesController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested venue" do
-        venue = FactoryGirl.create(:venue, :user => @user)
-        _time = Time.now
-        # Assuming there are no other venues in the database, this
-        # specifies that the Venue created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Venue.any_instance.should_receive(:update_attributes).with({ "start_time" => _time.to_s })
-        put :update, {:id => venue.to_param, :venue => { "start_time" => _time.to_s }}, valid_session
+        venue = FactoryGirl.create(:venue, user: @user)
+        put :update, {id: venue.to_param, venue: { title: 'blablub' }}, valid_session
+        expect(venue.reload.title).to eq('blablub')
       end
 
       it "assigns the requested venue as @venue" do
@@ -147,7 +150,7 @@ describe VenuesController do
         venue = FactoryGirl.create(:venue, :user => @user)
         # Trigger the behavior that occurs when invalid params are submitted
         Venue.any_instance.stub(:save).and_return(false)
-        put :update, {:id => venue.to_param, :venue => { }}, valid_session
+        put :update, {:id => venue.to_param, venue: invalid_attributes}, valid_session
         assigns(:venue).should eq(venue)
       end
 
@@ -155,7 +158,7 @@ describe VenuesController do
         venue = FactoryGirl.create(:venue, :user => @user)
         # Trigger the behavior that occurs when invalid params are submitted
         Venue.any_instance.stub(:save).and_return(false)
-        put :update, {:id => venue.to_param, :venue => { }}, valid_session
+        put :update, {:id => venue.to_param, venue: invalid_attributes}, valid_session
         response.should render_template("edit")
       end
     end
@@ -164,7 +167,7 @@ describe VenuesController do
       it "raises permission denied" do
         venue = FactoryGirl.create(:venue)
         expect {
-          put :update, {:id => venue.to_param, :venue => { }}, valid_session
+          put :update, {:id => venue.to_param, venue: invalid_attributes}, valid_session
         }.to raise_error # CanCan::AccessDenied
       end
     end

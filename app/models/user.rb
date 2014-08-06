@@ -1,7 +1,6 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
 # * about [text] - TODO: document me
-# * available [string] - TODO: document me
 # * avatar_uid [string] - TODO: document me
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
@@ -11,22 +10,18 @@
 # * firstname [string] - TODO: document me
 # * guest [boolean] - TODO: document me
 # * header_uid [string] - TODO: document me
-# * image_content_type [string] - TODO: document me
-# * image_file_name [string] - TODO: document me
-# * image_file_size [integer] - TODO: document me
-# * image_updated_at [datetime] - TODO: document me
 # * last_request_at [datetime] - TODO: document me
 # * last_sign_in_at [datetime] - Devise Trackable module
 # * last_sign_in_ip [string] - Devise Trackable module
 # * lastname [string] - TODO: document me
-# * provider [string] - TODO: document me
+# * provider [string] - used by oauth2
 # * remember_created_at [datetime] - Devise Rememberable module
 # * reset_password_sent_at [datetime] - Devise Recoverable module
 # * reset_password_token [string] - Devise Recoverable module
 # * sign_in_count [integer, default=0] - Devise Trackable module
 # * slug [text] - TODO: document me
 # * timezone [string] - TODO: document me
-# * uid [string] - TODO: document me
+# * uid [string] - used by oauth2
 # * updated_at [datetime, not null] - last update time
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
@@ -34,19 +29,14 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
-  attr_accessible :password, :password_confirmation, :remember_me
-  attr_accessible :email, :firstname, :lastname
-  attr_accessible :provider, :uid, :last_request_at, :available
-  attr_accessible :accept_terms_of_use, :guest, :header, :avatar, :about
-  attr_accessible :timezone, :website
-
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
   has_many :venues # as owner
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
-
+  has_many :reminders, dependent: :destroy
+  
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
   end
@@ -85,6 +75,10 @@ class User < ActiveRecord::Base
     "#{name} <#{email}>"
   end
 
+  def about_as_plaintext
+    Nokogiri::HTML(about).text
+  end
+
   class << self
 
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -108,7 +102,8 @@ class User < ActiveRecord::Base
       name: name,
       role: role_for(talk),
       image: avatar.thumb('100x100#nw').url,
-      stream: "t#{talk.id}-u#{id}"
+      stream: "t#{talk.id}-u#{id}",
+      channel: "/t#{talk.id}/u#{id}"
     }
   end
 
@@ -131,4 +126,13 @@ class User < ActiveRecord::Base
     { id: id, text: name, img: avatar.thumb('50x50#nw').url }
   end
 
+  def insider?
+    !!(email =~ /@voicerepublic.com$/)
+  end
+
+  def remembers?(model)
+    reminders.exists?( rememberable_id: model.id,
+                       rememberable_type: model.class.name )
+  end
+  
 end

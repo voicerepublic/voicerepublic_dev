@@ -15,6 +15,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     reqmic: false
     acceptOrDecline: false
     settings: false
+    connecting: true
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -28,9 +29,13 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   unsubscribeAllStreams = ->
     # TODO blackbox.unsubscribeAll()
 
+  subscriptionDone = false
+
   reportState = (state) ->
-    # $log.info "reporting new state: #{state}"
-    upstream.state state
+    return upstream.state(state) if subscriptionDone
+    # defer if subscriptions aren't done yet
+    #$log.debug "Not ready to report state '#{state}', waiting for subscriptions"
+    $timeout (-> reportState(state)), 250
 
   # definition of the state machine, incl. callbacks
   # https://github.com/jakesgordon/javascript-state-machine/blob/master/README.md
@@ -42,12 +47,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
       $log.debug errorMessage
     callbacks:
       onenterstate: (event, from, to) ->
-        switch to
-          when 'Registering', 'GuestRegistering', 'HostRegistering'
-            # FIXME the timeout is a hack! better: wait until subscribed
-            $timeout (-> reportState(to)), 2000
-          else
-            reportState(to)
+        reportState(to)
       onleaveWaiting: ->
         subscribeAllStreams()
       onleaveHostRegistering: ->
@@ -58,7 +58,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.flags.settings = true
       onListening: ->
         unless config.user.role == 'listener'
-          config.flags.reqmic = true 
+          config.flags.reqmic = true
       onleaveListening: ->
         config.flags.reqmic = false
         true
@@ -81,6 +81,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
       onHostOnAir: ->
         users = config.session
         blackbox.publish config.stream
+        blackbox.subscribe config.stream if config.loopback
         config.flags.onair = true
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
@@ -149,10 +150,11 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # store the current state on the users hash
     users[data.user.id].state = fsm.current
 
-  # the stateHandler handles the state notification of other users
+  # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
     $log.debug "user #{data.user.id}: #{state}"
     users[data.user.id]?.state = state
+    users[data.user.id]?.offline = false
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
         users[data.user.id] = data.user
@@ -169,9 +171,16 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   eventHandler = (event, data) ->
     $log.debug "event: #{event}"
     switch event
+      when 'Demote' # make it snappy!
+        users[data.user.id]?.state = 'Listening'
+        users[data.user.id]?.offline = true
+      when 'Reload'
+        # this is only used in user acceptance testing
+        # but could also be used for live upgrades
+        window.location.reload()
       when 'StartTalk'
-        config.talk.state = 'live'
-        # TODO countdown.init config.talk.duration
+        config.talk.state = data.talk_state
+        config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
           fsm.TalkStarted()
@@ -192,6 +201,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     return fsm.Demoted() if id is config.user_id
     upstream.event 'Demote', user: { id }
   startTalk = ->
+    return unless config.talk.state in ['prelive', 'halflive']
     $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
   endTalk = ->
@@ -205,21 +215,24 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   acceptingPromotion = ->
     (user for id, user of users when user.state == 'AcceptingPromotion')
   participants = ->
-    (user for id, user of users when user.role == 'participant' and
-      user.state == 'Listening')
+    (user for id, user of users when user.state == 'Listening' and user.role != 'listener')
   listeners = ->
     (user for id, user of users when user.role == 'listener')
 
-  # TODO idealy this should move into callback: on/Registering$/
+  replHandler = (msg) ->
+    eval msg.data.exec if msg.data.exec?
+
   # subscribe to push notifications
-  privatePub.subscribe "/#{config.namespace}/public", pushMsgHandler
-  # privatePub.subscribe "/#{config.namespace}/private/#{name}", dataHandler
+  privatePub.subscribe config.talk.channel, pushMsgHandler
+  privatePub.subscribe config.user.channel, replHandler
+  privatePub.callback -> subscriptionDone = true
 
   # exposed objects
-  { 
+  {
     # -- events
     promote
     demote
+    startTalk
     endTalk
     # --- groups
     guests

@@ -1,0 +1,10 @@
+rtmp:
+  archive_path:     tmp/spec/archive
+  archive_raw_path: tmp/spec/archive_raw
+  recordings_path:  tmp/spec/recordings
+fog:
+  storage:
+    provider: Local
+    local_root: tmp/spec/cloud
+    endpoint: http://localhost:3000/system/cloud
+      

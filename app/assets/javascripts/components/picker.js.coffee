@@ -1,5 +1,11 @@
-# https://github.com/trentrichardson/jQuery-Timepicker-Addon
-
+# jQuery-UI Datepicker
+#
+#     http://api.jqueryui.com/datepicker/
+#
+# jQuery-UI Timepicker Addon (3rd party)
+# 
+#     https://github.com/trentrichardson/jQuery-Timepicker-Addon
+#
 attribute = 'data-picker'
 
 initialize = (element, scope) ->

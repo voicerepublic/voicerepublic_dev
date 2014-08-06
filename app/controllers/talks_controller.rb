@@ -1,12 +1,49 @@
 class TalksController < ApplicationController
 
-  before_action :set_venue
+  before_action :set_venue, except: [:index, :popular, :live, :recent,
+    :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /talks
+  # GET /talks/featured
+  def featured
+    @talks = Talk.prelive.featured.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/upcoming
+  def upcoming
+    @talks = Talk.prelive.ordered.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/popular
+  def popular
+    @talks = Talk.popular.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/live
+  def live
+    @talks = Talk.live.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
+  # GET /talks/recent
+  def recent
+    @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
+    render :index
+  end
+
   def index
-    @talks = Talk.all
+    if @venue
+      @talks = @venue.talks
+    else
+      @talks_live     = Talk.live.limit(5)
+      @talks_featured = Talk.featured.limit(5)
+      @talks_recent   = Talk.recent.limit(5)
+      @talks_popular  = Talk.popular.limit(5)
+    end
   end
 
   # GET /talks/1
@@ -17,6 +54,7 @@ class TalksController < ApplicationController
         authorize! :manage, @talk
         render text: @talk.message_history
       end
+      format.png { send_file @talk.flyer.path(true) }
     end
   end
 
@@ -34,6 +72,8 @@ class TalksController < ApplicationController
     @talk = Talk.new(talk_params)
     @talk.venue = @venue
 
+    authorize! :create, @talk
+
     if @talk.save
       redirect_to [@venue, @talk], notice: 'Talk was successfully created.'
     else
@@ -43,6 +83,7 @@ class TalksController < ApplicationController
 
   # PATCH/PUT /talks/1
   def update
+    authorize! :update, @talk
     if @talk.update(talk_params)
       redirect_to [@venue, @talk], notice: 'Talk was successfully updated.'
     else
@@ -52,6 +93,8 @@ class TalksController < ApplicationController
 
   # DELETE /talks/1
   def destroy
+    authorize! :destroy, @talk
+
     @talk.destroy
     redirect_to @venue, notice: 'Talk was successfully destroyed.'
   end
@@ -71,8 +114,9 @@ class TalksController < ApplicationController
   def talk_params
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time, :duration,
-                                 :description, :record, :image,
-                                 :tag_list, :guest_list)
+                                 :description, :collect, :image,
+                                 :tag_list, :guest_list, :language,
+                                 :format)
   end
 
 end

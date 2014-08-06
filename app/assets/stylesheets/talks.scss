@@ -6,11 +6,11 @@
   input[type="checkbox"]{
     margin-right:5px !important
   }
-  .date-time-picker-row{
+  .date-time-icker-row{
     .columns{
       padding-right: 13px !important;
       &:last-child{
-        padding-right: 0 !important
+        ng-right: 0 !important
       }
     }
   }
@@ -21,6 +21,28 @@
 
 
 .talks-show{
+  .related-talk {
+    background: rgba(0,0,0,0.5);
+    margin-top: 15px;
+    .related-title-box{
+      position: relative;
+      padding:6px 13px;
+      background: rgba(0,0,0,0.3);
+      color:white;
+      font-family: 'eaglelight';
+      a{
+        font-size: rem-calc(14);
+        color: inherit;
+        font-family: inherit;
+        &:hover,&:focus{
+          text-decoration: underline;
+        }
+      }
+    }
+    .talk-medium-box{
+      margin-bottom: 0;
+    }
+  }
 
   // for testing
   .talk-state{
@@ -36,46 +58,100 @@
     border-top:1px solid #aaa;
   }
 
-  .generic-action-bar{
-    margin-bottom: -11px
-  }
-  .talk-title-box{
-    position: relative;
-    background: rgba(0,0,0,0.5);
-    margin-top: 12px;
-    padding:16px 0 2px 0;
-    .type-name{
-      position:absolute;
-      left: 12px;
-      top: 0px;
-      font-family: 'eaglebook';
-      font-size: rem-calc(14)
+  .generic-actions-box{
+    position: absolute;
+    right: -89px;
+    top: 27px;
+    .action-toggle{
+      height: 38px;
+      width: 38px;
+      position: relative;
+      display: block;
+      margin-bottom: 3px
     }
-    .talk-host-name{
-      margin-top:-1px;
-      a{
-        font-family: 'eaglelight';
-        font-size: rem-calc(12);
-        color: $brand-color-red;
-        &:hover,&:focus{
+    .icon-cog{
+      color: $brand-color-red;
+      font-size: rem-calc(18);
+      height:100%;
+      width: 100%;
+      padding: 11px 10px 7px 10px;
+      display: block;
+      background: black;
+    }
+    #action-links-list{
+      height:100px;
+      /*width:80px;*/
+      overflow: hidden;
+      &.hide{
+        height:0;
+      }
+      li{
+        display: block;
+        margin-top: 2px;
+        a{
           color: $brand-color-red;
+          font-size: rem-calc(16);
+          font-family: 'eaglebook';
+          height: 38px;
+          padding: 7px 10px;
+          display: block;
+          background: black;
         }
       }
     }
-    .talk-venue-title{
-      display: inline-block;
-      a,a:hover,a:focus{
+  }
+
+  .talk-title-box{
+    position: relative;
+    background: rgba(0,0,0,0.5);
+    margin-top: 15px;
+    padding:0px 0 2px 0;
+    .breadcrumbs-box{
+      position: relative;
+      padding:6px 13px;
+      background: rgba(0,0,0,0.3);
+      color:white;
       font-family: 'eaglelight';
-      color: #fff;
-      letter-spacing: 1px;
-      font-size: rem-calc(13);
+      a{
+        font-size: rem-calc(14);
+        color: inherit;
+        font-family: inherit;
+        .icon-person{
+          font-size: rem-calc(12);
+          vertical-align: middle;
+          position: relative;
+          top: 2px;
+          line-height: 1;
+        }
+        &:hover,&:focus{
+          .link-text{
+            text-decoration: underline;
+          }
+        }
+      }
+      .bc-delimiter{
+        position: relative;
+        font-size: rem-calc(18);
+        display: inline-block;
+        margin:0 3px;
+      }
+      .flyer-link-box{
+        position: absolute;
+        right: 10px;
+        top:4px;
+        a{
+          font-family: 'eaglebook';
+          font-size: rem-calc(11);
+        }
       }
     }
     .talk-title{
       color: #fff;
       font-size: rem-calc(39);
       line-height: 1;
-      margin: 31px 0 5px 0;
+      margin: 22px 0 3px 0;
+      padding: 0 37px;
+      text-shadow:0 0 2px rgba(0,0,0,0.5);
     }
     .talk-teaser{
       color: #fff;
@@ -83,11 +159,78 @@
       font-size: rem-calc(20);
       line-height: 1;
       margin: 0;
+      text-shadow:0 0 2px rgba(0,0,0,0.5);
+      padding: 0 37px;
     }
+
+    @media screen and (min-width: 700px) {
+      .talk-title,
+      .talk-teaser {
+        padding: 0 120px;
+      }
+    }
+
     .talk-date-time{
-      margin: rem-calc(29) 0 0 0;
+      margin: rem-calc(10) 0 0 0;
       font-family: 'eaglelight';
+      font-size: rem-calc(14);
     }
+
+    .jp-audio{
+      height: 46px;
+    }
+
+    .talk-archived-actions-box{
+      padding:4px 2px 2px 0;
+      a{
+        color: white;
+        display: inline-block;
+        margin:0 3px;
+        &:hover,&:focus{
+          color: $brand-color-green;
+        }
+      }
+      .download-link{
+        position: relative;
+        top: -1px;
+      }
+      .embed-link{
+        position: relative;
+        top: 2px;
+        font-size: rem-calc(17px);
+        font-family: 'eaglebook';
+      }
+    }
+    .play-count{
+      padding:4px 0 0 7px;
+      color: $brand-color-green;
+      font-family: 'eaglelight';
+      font-size: rem-calc(14);
+      a{
+        cursor: default;
+        text-shadow: 0 0 1px rgba(0,0,0,0.5);
+        &:hover,&:focus{
+          color: white;
+        }
+      }
+      .icon-play{
+        position: relative;
+        top: 0;
+        font-size: rem-calc(10)
+      }
+    }
+  }
+
+  #modal-download{
+    ul{
+      display: inline-block;
+    }
+  }
+
+  .embed-help-text{
+    font-family: 'eaglelight';
+    font-size: rem-calc(15);
+    color: $brand-color-red;
   }
 
   .talk-countdown{
@@ -115,31 +258,34 @@
 
   .talk-timeline-box{
     margin-top: 15px;
-    background: rgba(0,0,0,0.5);
     font-family: 'eaglebook';
     font-size: rem-calc(15);
-    padding: 0 0 9px 0;
-    .embed_player{
-      .button-standard{
-        padding: 3px 10px
-      }
+    .situation,
+    .trouble-message,
+    .reload-message,
+    .processing-message,
+    .trouble-message a,
+    .reload-message a,
+    .processing-message a{
+      background:rgba(86,178,167,0.7);
+      color: white;
+      font-family: 'eaglebook';
+      font-size:rem-calc(26);
+      padding: rem-calc(12) 10px rem-calc(10) 10px;
     }
-    #share_iframe{
-      @include transition(height,0.4s,ease-in-out);
-      textarea{
-        margin-bottom:0;
-      }
-      overflow:hidden
-    }
-    .talk-timeline{
-      background: rgba(0,0,0,0.8);
-      width: 100%;
-      height: 10px;
-      margin:0 0 14px;
-      .talk-timeline-progress{
-        background: $brand-color-red;
+    .talk-live-timeline{
+      background: rgba(0,0,0,0.5);
+      padding: 0 0 9px 0;
+      .talk-timeline{
+        background: rgba(0,0,0,0.8);
         width: 100%;
-        height: 100%;
+        height: 10px;
+        margin:0 0 14px;
+        .talk-timeline-progress{
+          background: $brand-color-red;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
     .talk-state-info{
@@ -163,12 +309,22 @@
        color: $brand-color-red;
       }
     }
+    .mute-stream-box{
+      position: absolute;
+      left: 12px;
+      bottom: 1px;
+      span{
+        font-size: rem-calc(16);
+        color: $brand-color-red;
+        cursor: pointer;
+      }
+    }
   }
 
   .talk-talkers-box{
     position: relative;
-    background: black;
-    padding:rem-calc(8) rem-calc(8);
+    background: rgba(0,0,0,0.85);
+    padding:rem-calc(23) rem-calc(23);
     color: #fff;
     .avatar{
       .avatar-box{
@@ -183,22 +339,6 @@
       &.avatar-host{
         .avatar-bg{
           fill: $brand-color-red;
-        }
-      }
-    }
-    .mute-stream-box{
-      //tmp hide
-      height:0;
-      overflow:hidden;
-      position: absolute;
-      right: 6px;
-      bottom: 4px;
-      > div{
-        display: inline-block;
-        font-size: rem-calc(14);
-        font-family: 'eaglebook';
-        span{
-          color: $brand-color-green;
         }
       }
     }
@@ -373,23 +513,7 @@
     }
   }
 
-  .embed_player{
-    display: inline-block;
-  }
-  .download{
-    display: inline-block;
-    margin-top: -3px;
-    margin-left: 40px;
-    vertical-align: top;
-    .download-title{
-      vertical-align: top;
-      display: inline-block;
-      margin-top: 7px;
-      margin-right: 6px;
-      font-size: rem-calc(14);
-      font-family: 'eaglelight';
-      line-height: 1;
-    }
+  .modal-download{
     ul{
       display: inline-block !important
     }
@@ -406,18 +530,26 @@
     width:33.33%;
   }
 
-  #talk-tab-description{
+  .description-content{
     padding-top:0 !important;
     .row{
       padding-top: 12px;
+      padding-bottom: 12px;
       background: rgba(0,0,0,0.8);
-      p{
-        color: white
+      color: white;
+      font-size: rem-calc(13);
+      line-height: 20px;
+      a {
+        text-decoration: underline;
+        color: inherit;
+      }
+      li,p{
+        color:inherit;
       }
     }
   }
 
-  #talk-tab-discussion{
+  .discussion-content{
     background: $brand-color-creme;
     .chat-message{
       max-width:100%;
@@ -448,7 +580,7 @@
       }
     }
   }
-  #talk-tab-participants{
+  .participants-content{
     padding-top: 0 !important;
     .participants-box{
       padding-bottom: 20px;
@@ -473,7 +605,118 @@
       }
     }
   }
+  .vr-banner{
+    position: absolute;
+    padding: 16px 19px 20px 19px;
+    width: 210px;
+    right: -220px;
+    top: 0;
+    background: $brand-color-red;
+    @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
+    @include transition(all, 0.1s, ease-in-out);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
+    &:hover{
+      @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4),-1px -1px 2px rgba(0,0,0,0.4);
+    }
+    a{
+      text-align: left;
+      h3{
+        display: inline-block;
+        border-bottom: 2px solid white;
+        color: white;
+        font-size: rem-calc(13);
+      }
+      p{
+        line-height: 1.4;
+        color:white;
+        margin-bottom: 0;
+        font-size: rem-calc(12);
+      }
+      span{
+        text-decoration:underline;
+      }
+    }
+    .close-x{
+      position: absolute;
+      top: 2px;
+      right: 6px;
+      color: white
+    }
+  }
+  
+  #vr-banner-modal{
+    padding: 0;
+    img{
+      width: 100%;
+    }
+    .close-reveal-modal{
+      color: white;
+    }
+  }
 
 }
 
+// EXPLORE TALKS
+.talks-index,
+.talks-recent,
+.talks-featured,
+.talks-popular,
+.talks-live{
+  h2 {
+    color: $brand-color-blue;
+    font-size: rem-calc(40);
+    font-family: 'eaglebook';
+    margin-bottom: 40px;
+  }
+  .bg-blue{
+    h2{
+      margin: 55px 0;
+      color: $brand-color-yellow;
+    }
+  }
+  h3{
+    font-size: rem-calc(19);
+    padding:19px 0 11px;
+    width: 100%;
+    background: $brand-color-red;
+  }
+  .talk-medium-box{
+    margin-right:0 !important;
+    .box-actions{
+      display: none !important;
+    }
+  }
+  .title-box{
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .see-all-link{
+    font-size: rem-calc(16);
+    font-family: 'eaglebook';
+    display: inline-block;
+    color: white;
+    background: $brand-color-blue;
+    padding: 6px 0 4px;
+    width: 100%;
+  }
+}
 
+.talks-index{
+  .explore-top-bg{
+    height: 150px;
+  }
+  [class*="block-grid-"]{
+    margin-left: -5px;
+    margin-right: -5px;
+    > li{
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  h3{
+    font-size: rem-calc(19);
+    padding:19px 0 11px;
+    width: 100%;
+  }
+}

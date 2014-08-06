@@ -3,7 +3,7 @@
 	max-width: rem-calc(700);
 
 	.top-bar {
-		z-index: 1;
+		z-index: 2;
 	}
 
 	.user-link{
@@ -32,7 +32,8 @@
 		left: 50%;
 		margin-left: -40px;
 		width:80px;
-		line-height: 1.4rem;
+		height: 36px;
+		overflow: hidden;
 		.icon-vr-logo{
 			position: relative;
 			color: white;
@@ -43,23 +44,15 @@
 
 	.top-bar-search-box{
 		position: relative;
-		width:150px;
-		&:hover,
-		&:focus{
-			background: #444;
-		}
 	}
 
 	.top-bar-search-field{
-		position: absolute !important;
-		top: 4px !important;
-		left: 0;
-		width: 150px;
-		height: 30px !important;
-		line-height: inherit !important;
+		width: 100px;
+		&:focus{
+			width:150px;
+		}
 		background: #000 !important;
-		margin: 0;
-		padding: 0 5px 0 30px !important;
+		padding-left: 30px !important;
 		color: #fff !important;
 		font-family: 'eaglebook';
 		font-size: rem-calc(12);

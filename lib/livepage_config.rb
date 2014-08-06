@@ -1,5 +1,7 @@
 class LivepageConfig < Struct.new(:talk, :user)
 
+  #include ActionView::Helpers::AssetUrlHelper
+
   def to_json
     return JSON.pretty_generate(to_hash) if Rails.env.development?
     to_hash.to_json
@@ -23,14 +25,15 @@ class LivepageConfig < Struct.new(:talk, :user)
         starts_in: talk.starts_in,
         ends_in: talk.ends_in,
         links: talk.media_links,
-        duration: talk.duration.minutes
+        duration: talk.duration.minutes,
+        channel: talk.public_channel
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
       # faye
       fayeClientUrl: PrivatePub.config[:server] + '/client.js',
       fayeUrl: PrivatePub.config[:server],
-      subscription: subscription,
+      subscriptions: subscriptions,
       # streams
       namespace: "t#{talk.id}",
       # misc
@@ -42,15 +45,24 @@ class LivepageConfig < Struct.new(:talk, :user)
       streaming_server: Settings.rtmp.record,
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
-      participants: talk.venue.users.map { |g| g.details_for(talk) }
+      participants: talk.venue.users.map { |g| g.details_for(talk) },
+      blackbox: Settings.blackbox,
+      loopback: talk.venue.opts.loopback,
+      blackbox_path: blackbox_path
     }
+  end
+
+  def blackbox_path
+    glob = Rails.root.join(File.join(%w(app assets flash Blackbox*.swf)))
+    file = File.basename(Dir.glob(glob).first)
+    ActionController::Base.helpers.asset_path(file)
   end
 
   def discussion
     talk.messages.order('created_at DESC').map do |message|
       {
         name: message.user.name,
-        image: message.user.image_file_name, # FIXME: f q url
+        image: message.user.avatar.url,
         content: message.content,
         created_at: I18n.l(message.created_at, format: :short)
       }
@@ -62,7 +74,7 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def initial_state(role)
-    return 'Loitering' unless talk.prelive? or talk.live?
+    return 'Loitering' unless talk.prelive? or talk.halflive? or talk.live?
     case role
     when :host then 'HostRegistering'
     when :guest then 'GuestRegistering'
@@ -70,8 +82,13 @@ class LivepageConfig < Struct.new(:talk, :user)
     end
   end
 
-  def subscription
-    PrivatePub.subscription channel: talk.public_channel
+  def subscriptions
+    channels = [ talk.public_channel,
+                 user_details[:channel] ]
+
+    channels.inject({}) do |r, c|
+      r.merge c => PrivatePub.subscription(channel: c)
+    end
   end
 
   def statemachine_spec

@@ -2,43 +2,15 @@ require 'spec_helper'
 
 feature "General feature specs" do
 
-  describe "Search validation", js: true do
-    before do
+  describe "Block various spider bots" do
+    # This is done in app/middlewares/blocker.rb
+    it 'blocks EasouSpider' do
+      user_agent = "Mozilla 5.0 (EasouSpider)"
+      page.driver.browser.header('User-Agent', user_agent)
       visit root_path
-      Thread.current["PgSearch.enable_multisearch"] = true
-    end
-
-    after do
-      Thread.current["PgSearch.enable_multisearch"] = false
-    end
-    scenario "it should set an error on empty search input", driver: :chrome do
-      page.fill_in 'query', with: ''
-      find("#query").native.send_keys(:return)
-      page.should have_css('.warning')
-
-      page.fill_in 'query', with: 'search key'
-      page.should_not have_css('.warning')
-
-      page.fill_in 'query', with: ''
-      find(".icon-magnifying-glass").click
-      page.should have_css('.warning')
-    end
-
-    scenario "it searches with magnifying glass" do
-      FactoryGirl.create :talk, title: "test title talk"
-      page.fill_in 'query', with: 'test talk'
-      find(".icon-magnifying-glass").click
-      page.should have_content "test title talk"
-    end
-
-    scenario "it searches when hitting enter", driver: :chrome  do
-      FactoryGirl.create :talk, title: "test title talk"
-      page.fill_in 'query', with: 'test talk'
-      find("#query").native.send_keys(:return)
-      page.should have_content "test title talk"
+      page.status_code.should == 704
     end
   end
-
 
   # user agents taken from: http://www.useragentstring.com/
   describe "Browser detection" do

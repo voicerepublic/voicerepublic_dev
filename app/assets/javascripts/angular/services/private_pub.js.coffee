@@ -12,14 +12,18 @@ privatePubFunc = ($log, $q, config) ->
   fayeExtension =
     outgoing: (message, callback) ->
       if message.channel == "/meta/subscribe"
+        channel = message.subscription
+        subscription = config.subscriptions[channel]
+        $log.error "no subscription for #{channel}" unless subscription?
         message.ext ||= {}
-        message.ext.private_pub_signature = config.subscription.signature
-        message.ext.private_pub_timestamp = config.subscription.timestamp
+        message.ext.private_pub_signature = subscription.signature
+        message.ext.private_pub_timestamp = subscription.timestamp
       callback message
 
   $log.debug 'Loading Faye client...'
   # TODO get rid of dependency on jquery, for testability
   $.getScript config.fayeClientUrl, (x) ->
+    config.flags.connecting = false
     $log.debug 'Faye client loaded. Instanciating Faye client...'
     client = new Faye.Client(config.fayeUrl)
     client.addExtension(fayeExtension)
@@ -35,8 +39,12 @@ privatePubFunc = ($log, $q, config) ->
     # queue the call onto the promise chain
     promise = promise.then success
 
+  callback = (func) ->
+    promise = promise.then func
+
   {
     subscribe
+    callback
   }
 
 # annotate with dependencies to inject

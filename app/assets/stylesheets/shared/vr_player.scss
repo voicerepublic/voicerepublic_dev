@@ -8,15 +8,18 @@ div.jp-audio{
 div.jp-interface {
   position: relative;
   width:100%;
-  height:47px;
+  height:44px;
 }
 
 /* @group CONTROLS */
 
-ul.jp-controls {
+ul.jp-controls,
+ul.outside-controls {
   list-style-type:none;
   padding: 0;
   overflow:hidden;
+  text-align:center;
+  position:relative
 }
 
 ul.jp-controls li {
@@ -24,18 +27,81 @@ ul.jp-controls li {
 }
 
 ul.jp-controls a {
-  margin:11px 0 0 0;
+  margin:5px 0 0 0;
   display:block;
   overflow:hidden;
 }
 a.jp-play,
 a.jp-pause {
   width:40px;
-  height:40px;
-  i{
-    font-size: rem-calc(24);
+  height:25px;
+  span{
+    font-size: 16px;
+    text-shadow: 0 0 2px rgba(0,0,0,0.2);
   }
   color:$brand-color-green;
+}
+
+ul.outside-controls{
+  position: absolute;
+  top: -94px;
+  left: 29px;
+  margin:0;
+  .jp-play,
+  .jp-pause{
+    height: 80px;
+    width: 80px;
+    display: block;
+    .icon-octa-full,
+    .icon-play-octa,
+    .icon-pause-octa{
+      position: absolute;
+      left:0;
+      top:0;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 68px;
+      transition: all 0.15;
+      -moz-transition: all 0.15;
+      -webkit-transition: all 0.15;
+      -ms-transition: all 0.15;
+    }
+    .icon-octa-full{
+      color: rgba(0,0,0,0.5);
+    }
+  }
+  &:hover{
+    .jp-play,
+    .jp-pause{
+      .icon-octa-full{
+        color: $brand-color-green;    
+        text-shadow: 0 0 10px rgba(0,0,0,0.6);
+      }
+      .icon-play-octa,
+      .icon-pause-octa{
+        color: white;
+      }
+    }
+  }
+  &:active{
+    .jp-play,
+    .jp-pause{
+      .icon-octa-full{
+        color: darken($brand-color-green,20%);    
+        text-shadow: 0 0 20px rgba(0,0,0,0.6);
+      }
+      .icon-play-octa,
+      .icon-pause-octa{
+        color: white;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  ul.outside-controls{
+    display: none;
+  }
 }
 
 /* @end */
@@ -43,24 +109,20 @@ a.jp-pause {
 /* @group progress bar */
 
 div.jp-progress {
-  overflow:hidden;
-  background-color: darken($brand-color-green,45%);
-}
-div.jp-progress {
   position: absolute;
-  top:0px;
-  height:11px;
-}
-div.jp-progress {
+  top:30px;
+  height:16px;
+  overflow:hidden;
+  background-color: rgba(0,0,0,0.5);
   left:0;
   width:100%;
 }
 
 /* BACKGROUND SEEKBAR */
 div.jp-seek-bar {
-  background: #000;
   width:0px;
   height:100%;
+  background: rgba(0,0,0,0.5);
   cursor: pointer;
 }
 
@@ -73,7 +135,7 @@ div.jp-play-bar {
 
 /* The seeking class is added/removed inside jPlayer */
 div.jp-seeking-bg {
-  background: url("assets/player.blue.monday.seeking.gif");
+  background: url("/images/loading.gif");
 }
 
 /* @end */
@@ -84,7 +146,7 @@ div.jp-seeking-bg {
 
 div.jp-time-holder {
   position:absolute;
-  top:20px;
+  top:10px;
   left:0px;
   width:100%;
 }
@@ -93,8 +155,9 @@ div.jp-current-time,
 div.jp-duration {
   width:60px;
   font-family: 'eaglebook';
-  font-size:rem-calc(12);
-  margin-left: 5px;
+  font-size:11px;
+  margin-left: 10px;
+  color: $brand-color-green;
 
 }
 div.jp-current-time {
@@ -104,7 +167,7 @@ div.jp-current-time {
 div.jp-duration {
   float: right;
   display:inline;
-  margin-right: 5px;
+  margin-right: 10px;
   text-align: right;
 }
 

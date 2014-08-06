@@ -13,13 +13,22 @@
       .jp-time-holder
         .jp-current-time.text-left
         .jp-duration
-      %ul.jp-controls
+      %ul.jp-controls.hide-for-medium-up
         %li
           %a.jp-pause{ href: "javascript:;", tabindex: "1" }
             %span.icon-pause
         %li
           %a.jp-play{ href: "javascript:;", tabindex: "1" }
             %span.icon-play
+      %ul.outside-controls
+        %li
+          %a.jp-pause{ href: "javascript:;" }
+            %span.icon-octa-full
+            %span.icon-pause-octa
+        %li
+          %a.jp-play{ href: "javascript:;" }
+            %span.icon-octa-full
+            %span.icon-play-octa
     .jp-no-solution
       %span Update Required
       To play the media you will need to either update your browser to

@@ -35,10 +35,11 @@
 @mixin opacity($value){
   $IEValue: $value*100;
   opacity: $value;
+  -webkit-opacity: $value;
+  -moz-opacity: $value;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
   filter: alpha(opacity=$IEValue);
 }
-
 
 @mixin transition($transition-property, $transition-time, $method) {
   -webkit-transition: $transition-property $transition-time $method;
@@ -46,4 +47,41 @@
   -ms-transition: $transition-property $transition-time $method;
   -o-transition: $transition-property $transition-time $method;
   transition: $transition-property $transition-time $method;
+}
+
+
+@mixin linear-gradient($leftColor, $midleftColor, $midrightColor, $rightColor) {
+  background: -moz-linear-gradient(left,  $leftColor 0%, $midleftColor 26%, $midrightColor 50%, $rightColor 100%); /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,$leftColor), color-stop(26%,$midleftColor), color-stop(50%,$midrightColor), color-stop(100%,$rightColor)); /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(left,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(left,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(left,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* IE10+ */
+
+  background: linear-gradient(to right,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#1e5799',GradientType=1 ); /* IE6-9 */
+
+}
+
+@mixin vertical-gradient($from, $to) {
+/* fallback/image non-cover color */
+background-color: $from;
+ 
+/* Firefox 3.6+ */
+background-image: -moz-linear-gradient($from, $to);
+
+background-image: linear-gradient(to bottom, $from, $to);
+ 
+/* Safari 4+, Chrome 1+ */
+background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
+ 
+/* Safari 5.1+, Chrome 10+ */
+background-image: -webkit-linear-gradient($from, $to);
+ 
+/* Opera 11.10+ */
+background-image: -o-linear-gradient($from, $to);
 }

@@ -7,12 +7,12 @@ class CommentsController < ApplicationController
     authorize! :create, Comment
 
     venue = Venue.find(params[:venue_id])
-    comment = venue.comments.build(params[:comment])
+    comment = venue.comments.build(comment_params)
     comment.user = current_user
 
     if comment.save
       send_email(comment, venue.users)
-      redirect_to url_for(action: :show, controller: :venues, id: venue.id, anchor: "tab-comments"),
+      redirect_to url_for(action: :show, controller: :venues, id: venue.id, anchor: "comments"),
         notice: I18n.t('comments.comment_created')
     else
       errors = comment.errors.full_messages.join(', ')
@@ -29,4 +29,8 @@ class CommentsController < ApplicationController
     end
   end
 
+  def comment_params
+    params.require(:comment).permit(:content)
+  end
+  
 end

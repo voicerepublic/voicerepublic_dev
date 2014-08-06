@@ -15,7 +15,7 @@ describe SearchController do
     before do
       Thread.current["PgSearch.enable_multisearch"] = true
     end
-    
+
     after do
       Thread.current["PgSearch.enable_multisearch"] = false
     end
@@ -56,8 +56,8 @@ describe SearchController do
     end
 
     it "finds results when using wrong accents" do
-      talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
-      get :show, page: 1, query: 'Dèlìght'
+      talk = FactoryGirl.create(:talk, title: 'tálk with âccèntś')
+      get :show, page: 1, query: 'áccéntš'
       assigns(:results).first.searchable.should eq(talk)
     end
 

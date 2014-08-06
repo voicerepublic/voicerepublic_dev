@@ -6,13 +6,12 @@
 
 window.Livepage = angular.module 'Livepage', []
 
+configFunc = ($logProvider) ->
+  $logProvider.debugEnabled window.debug or window.insider
 
-# Override Angular exception handler to receive a backtrace in Angular
-# exceptions
-exceptionFunc = ($log) ->
-  (exception, cause) ->
-    exception.message += " (caused by \"" + cause + "\")"
-    throw exception
+configFunc.$inject = ['$logProvider']
+window.Livepage.config configFunc
 
-exceptionFunc.$inject = ['$log']
-window.Livepage.factory "$exceptionHandler", exceptionFunc
+
+
+

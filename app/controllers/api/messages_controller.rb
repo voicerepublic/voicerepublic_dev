@@ -13,7 +13,7 @@ class Api::MessagesController < Api::BaseController
     good = good || @talk.venue.users.include?(user)
     return render text: 'Computer says no', status: 740 unless good
 
-    message = @talk.messages.build(params[:message])
+    message = @talk.messages.build(message_params)
     message.user = user
     message.save!
 
@@ -43,4 +43,8 @@ class Api::MessagesController < Api::BaseController
     super || form_authenticity_token == request.headers['X-XSRF-TOKEN']
   end
 
+  def message_params
+    params.require(:message).permit(:content)
+  end
+  
 end

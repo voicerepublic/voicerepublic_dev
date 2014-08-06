@@ -1,6 +1,47 @@
 require 'spec_helper'
 
-feature "User edits own profile" do
+# it renders specs
+describe 'UsersController' do
+  describe 'renders' do
+    describe 'without user' do
+      it 'index on GET /users' do # index
+        expect { visit '/users' }.to raise_error(ActionController::RoutingError)
+      end
+      it 'new on GET /users/new' do # new
+        pending "Shouldn't this raise a routing error?"
+        expect { visit '/users/new' }.to raise_error(ActionController::RoutingError)
+      end
+    end
+    describe 'with user' do
+      before do
+        @user = FactoryGirl.create(:user)
+      end
+      it "show on GET /users/:id" do # show
+        visit user_path(@user)
+        page.should have_selector(".users-show")
+      end
+      it "edit on GET /users/:id/edit" do # edit
+        login_user @user
+        visit edit_user_path(@user)
+        page.should have_selector(".users-edit")
+      end
+    end
+  end
+end
+
+feature "Anonymous users", js: true do
+  scenario "will be authenticated as guest user" do
+    User.count.should eq(0)
+    visit root_path
+    User.count.should eq(1)
+    # user names are generated with uuids to minimize collisions (chance is1 in
+    # 17 billion)
+    User.last.name.should =~ /.*-.*-.*-.*-.*/
+    User.last.email.should =~ /.*-.*-.*-.*-.*@example.com/
+  end
+end
+
+feature "User edits own profile", js: true do
   background do
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
@@ -9,13 +50,15 @@ feature "User edits own profile" do
     page.fill_in 'user_login', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.click_button 'Log In'
+    page.find("a[data-toggle-stuff='#action-links-list']").click
     page.should have_content('Edit Profile')
     page.click_link 'Edit Profile'
     page.should have_css('.edit_user')
   end
 
-  scenario "setting a new password", js: :true do
+  scenario "setting a new password" do
     page.find("button[data-enable-fields*=change-password]").click
+    sleep 0.1
     find('.user_password input').set '654321'
     find('.user_password_confirmation input').set '654321'
 
@@ -28,20 +71,16 @@ feature "User edits own profile" do
 
   scenario "uploading a header image" do
     some_image = Rails.root.join('app/assets/images/logo.png')
+    make_upload_field_visible('user_header')
     page.attach_file 'user_header', some_image
     page.click_button 'Save'
     page.should have_content(I18n.t('flash.actions.update.notice'))
   end
 
-  scenario "uploading a avatar image", js: true do
+  scenario "uploading a avatar image" do
     some_image = Rails.root.join('app/assets/images/logo.png')
     @user.reload.avatar_uid.should be_nil
-    # This is a workaround since we are using a button that will trigger a file
-    # input box while the normal <input type=file> is hidden. Therefore this is
-    # not a completely safe spec; if the button JS fails, this spec will still
-    # run.
-    page.execute_script "$('#user_avatar').parents().show()"
-    sleep 0.1
+    make_upload_field_visible('user_avatar')
     page.attach_file 'user_avatar', some_image
     page.click_button 'Save'
     page.should have_content(I18n.t('flash.actions.update.notice'))
@@ -83,8 +122,8 @@ feature "Password" do
       token = extract_token_from_email(:reset_password) # Here I call the MailHelper form above
       visit edit_user_password_url(reset_password_token: token)
       fill_in "user_password", :with => "foobar"
-      fill_in "user_password_confirmation", :with => "foobar1"
       click_on "Save"
+      fill_in "user_password_confirmation", :with => "foobar1"
       page.should have_content "Password confirmation doesn't match Password"
       fill_in "user_password", :with => "foobar"
       fill_in "user_password_confirmation", :with => "foobar"
@@ -151,4 +190,13 @@ def click_forgot_password
     click_on "Login"
     click_on "Forgot password?"
   end
+end
+
+# This is a workaround since we are using a button that will trigger a file
+# input box while the normal <input type=file> is hidden. Therefore this is
+# not a completely safe spec; if the button JS fails, this spec will still
+# run.
+def make_upload_field_visible(element)
+  page.execute_script "$('##{element}').parents().show()"
+  sleep 0.1
 end

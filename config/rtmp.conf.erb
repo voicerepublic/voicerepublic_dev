@@ -30,6 +30,10 @@ rtmp {
             record_max_size <%= record_max_size %>;
             #record_lock on;
 
+            <% if record_interval %>
+            record_interval <%= record_interval %>;
+            <% end %>
+            
             # --- Exec
             # # live transcode to wave file while recording
             # # (connection needs to be permitted by rack middleware)
@@ -41,10 +45,10 @@ rtmp {
 
             <% if send_notifications %>
             # --- Notifications
-            on_play         <%= callback_base %>/notify;
+            #on_play         <%= callback_base %>/notify;
             on_publish      <%= callback_base %>/notify;
-            on_done         <%= callback_base %>/notify;
-            on_play_done    <%= callback_base %>/notify;
+            #on_done         <%= callback_base %>/notify;
+            #on_play_done    <%= callback_base %>/notify;
             on_publish_done <%= callback_base %>/notify;
             on_record_done  <%= callback_base %>/notify;
             on_update       <%= callback_base %>/notify;

@@ -2,37 +2,39 @@
   .row.collapse
     .large-12.text-center
       %hr
-      %ul.inline-list
+      %ul.list-style-type-none
         %li
-          %h6= t('.legal')
-          = link_to t('.terms_of_use'), "http://blog.voicerepublic.com/legal/terms-of-use/"
-          = link_to t('.privacy_statement'), "http://blog.voicerepublic.com/legal/privacy-statement/"
-          = link_to t('.ip_infringement'), "http://blog.voicerepublic.com/legal/ip-infringement-notice/"
+          = link_to t('.about'), "http://blog.voicerepublic.com/about", target: '_blank'
+          %br/
+          = link_to t('.company'),"http://blog.voicerepublic.com/about", target: '_blank'
+          %br/
+          = link_to t('.team'), "http://blog.voicerepublic.com/about", target: '_blank'
+
         %li
-          %h6 Board of Directors
-          VoiceRepublic Media AG
+          = link_to t('.blog'), "http://blog.voicerepublic.com", target: '_blank'
           %br/
-          Patrick Frank
+          = link_to t('.press_kit'), 'http://blog.voicerepublic.com/about/press-kit/', target: '_blank'
           %br/
-          Ole Kretschmann
-          %br/
+          = link_to t('.faq'), "http://blog.voicerepublic.com/audio-faq", target: '_blank'
+
         %li
-          %h6 Address
-          Langstraße 10
+          = link_to t('.manifest'), "http://blog.voicerepublic.com/about/manifest", target: '_blank'
           %br/
-          8004 Zürich
+          = link_to t('.terms'),"http://blog.voicerepublic.com/legal/terms-of-use/", target: '_blank'
           %br/
-          Schweiz
-          %br/
+          = link_to t('.pricing'),"http://blog.voicerepublic.com/about/pricing", target: '_blank'
+
         %li
-          %h6 Links
-          %ul.list-style-type-none
-            %li
-              %a(href="mailto:service@voicerepublic.com") Contact
-            %li
-              %a(href='http://blog.voicerepublic.com/about') About
-            %li
-              %a(href='http://blog.voicerepublic.com/about') Blog
+          = link_to t('.contact'), "mailto:service@voicerepublic.com", target: '_blank'
+          %br/
+          = link_to "http://facebook.com/voicerepublic", title: t('.fb'), target: '_blank' do
+            %span.icon-fb
+          = link_to "http://twitter.com/_voicerepublic", title: t('.tw'), target: '_blank' do
+            %span.icon-tw
+
+
         %li
-          %h6 &copy; VoiceRepublic Media AG 2014
-          .release= release
+          %span.vr-copyright &copy; VoiceRepublic Media AG 2014
+          -#.release= release
+      %br/
+      %br/
