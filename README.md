@@ -73,6 +73,23 @@ config file is located here `config/rtmp.conf.erb`. See
 `lib/tasks/rtmp.rake` for more details.
 
 
+Run App
+-------
+
+### voicerepublic_dev
+
+* `zeus start`
+* `zeus server`
+* `rackup -E production private_pub.ru`
+* `zeus rake rtmp:start`
+* `bundle exec lib/rtmp_watcher.rb run`
+
+### voicerepublic_backoffice
+
+* `zeus start`
+* `zeus server -p 3001`
+
+
 Run Specs
 ---------
 
