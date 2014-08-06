@@ -7,6 +7,7 @@ VoiceRepublic::Application.routes.draw do
   namespace 'api' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
+    resources :talks, only: [:index]
   end
 
   post '/search',              to: 'search#create'
