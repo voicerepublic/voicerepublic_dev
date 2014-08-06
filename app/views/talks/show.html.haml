@@ -107,21 +107,20 @@
             = image_tag 'vr_infografic.png'
             = link_to '#', class: "close-reveal-modal" do 
               &#215;
-
-        - if @talk.related_talk
-          %section.row.collapse.text-center.related-talk
-            .large-12.columns
-              .related-title-box.text-left
-                = link_to t('.related_talk'), @talk.related_talk
-              %ul.list-style-type-none
-                = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.related_talk, color: 'box-transparent' }
-        - elsif @talk.next_talk
-          %section.row.collapse.text-center.related-talk
-            .large-12.columns
-              .related-title-box.text-left
-                = link_to t('.next_talk'), @talk.next_talk
-              %ul.list-style-type-none
-                = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
+          - if @talk.related_talk
+            %section.row.collapse.text-center.related-talk
+              .large-12.columns
+                .related-title-box.text-left
+                  = link_to t('.related_talk'), @talk.related_talk
+                %ul.list-style-type-none
+                  = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.related_talk, color: 'box-transparent' }
+          - elsif @talk.next_talk
+            %section.row.collapse.text-center.related-talk
+              .large-12.columns
+                .related-title-box.text-left
+                  = link_to t('.next_talk'), @talk.next_talk
+                %ul.list-style-type-none
+                  = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
@@ -173,8 +172,8 @@
               .avatar-name.text-center
                 {{ guest.name }}
             .host-actions(ng-show='showHostActions()')
-              .guest-demote-link(ng-click="demote(guest.id)")
-                = t('.demote')
+              %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(guest.id)")
+                = raw t('.demote')
   
     .talk-more-talks-box.row.collapse-large-only(ng-hide="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
       .large-12.columns

@@ -795,7 +795,8 @@ en:
       accept_promotion: ACCEPT
       decline_promotion: DECLINE
       promote: GIVE THE MIC
-      demote: Demote
+      demote: "&times;"
+      dismiss: Dismiss from stage
       you_are_on_air: YOU ARE ON AIR!
       mute_mic: MUTE MIC
       unmute_mic: MIC MUTED

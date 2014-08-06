@@ -296,7 +296,7 @@
     .mute-stream-box{
       position: absolute;
       left: 12px;
-      bottom: 1px;
+      bottom: 9px;
       span{
         font-size: rem-calc(16);
         color: $brand-color-red;
@@ -334,7 +334,17 @@
           fill: $brand-color-red;
         }
       }
-    }
+      .host-actions{
+        position: absolute;
+        top: -8px;
+        right: 28px;
+        font-size: 18px;
+        a{
+          cursor: pointer;
+          color: white;
+        }
+      }
+    }    
   }
 
   .talk-more-talks-box{
@@ -419,7 +429,7 @@
       .mic-sign-box{
         position: absolute;
         right: -25px;
-        top: -12px;
+        top: -14px;
         .icon-octa-full{
           position: absolute;
           top: 0;
@@ -560,9 +570,42 @@
         }
       }
 
-
-
       /* ON AIR */
+      &.state-onair{
+        width:180px;
+        border: 2px solid $brand-color-red;
+        background: $brand-color-red;
+        padding-right: 20px; 
+        .avatar{
+          @include opacity(0);
+        }
+        .mic-sign-box{
+          .icon-octagon,
+          .icon-unmute{
+            color:$brand-color-red;
+          }
+        }
+        &:hover,
+        &.state-muted-mic{
+          border: 2px solid $brand-color-green;
+          @include transition(all 0.05s linear 0);          
+          background: white;
+          .mic-sign-box{
+            .icon-octagon,
+            .icon-mute{
+              @include opacity(1);
+              color:$brand-color-green;
+            }
+            .icon-unmute{
+              @include opacity(0)
+            }
+          }
+          .mute-box{
+            @include opacity(1);
+          }
+        }
+      }
+      
       .onair-box{
         width: 100%;
         padding-top: 4px;
@@ -1050,40 +1093,6 @@
 
   /* TALK LIVE CHANGES */
   .state-talk-live{
-    .background-box{
-      width:180px;
-      border: 2px solid $brand-color-red;
-      background: $brand-color-red;
-      padding-right: 20px; 
-      .avatar{
-        @include opacity(0);
-      }
-      .mic-sign-box{
-        .icon-octagon,
-        .icon-unmute{
-          color:$brand-color-red;
-        }
-      }
-      &:hover,
-      &.state-muted-mic{
-        border: 2px solid $brand-color-green;
-        @include transition(all 0.05s linear 0);          
-        background: white;
-        .mic-sign-box{
-          .icon-octagon,
-          .icon-mute{
-            @include opacity(1);
-            color:$brand-color-green;
-          }
-          .icon-unmute{
-            @include opacity(0)
-          }
-        }
-        .mute-box{
-          @include opacity(1);
-        }
-      }
-    }
     .description-content{
       max-height:0;
       padding:0;
