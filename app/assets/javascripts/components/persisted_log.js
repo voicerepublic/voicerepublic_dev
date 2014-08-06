@@ -17,7 +17,7 @@ console.log = function(_super, _storage, _bubble) {
 }(console.log, sessionStorage, true);
 
 // TODO while this is as generic as it gets, for vr we need it to
-// bubble only if in development oder the logged in user is an
+// bubble only if in development or the logged in user is an
 // insider, otherwise it should not bubble. And we only really need
 // this on the live page, so we might need to move the code to a less
 // generic location, i.e. the initialization process of the angular
