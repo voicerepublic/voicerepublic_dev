@@ -2,7 +2,7 @@
 - title = @talk.title
 - image = "https://#{request.host}#{@talk.flyer.path}"
 - keywords = @talk.try(:tag_list)
-- author = @talk.venue.user.name
+- author = @talk.speakers || @talk.venue.user.name
 - _user_url = user_url(@talk.user)
 - _venue_url = venue_url(@talk.venue)
 -# Google

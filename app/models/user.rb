@@ -29,19 +29,14 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
-  attr_accessible :password, :password_confirmation, :remember_me
-  attr_accessible :email, :firstname, :lastname
-  attr_accessible :provider, :uid, :last_request_at
-  attr_accessible :accept_terms_of_use, :guest, :header, :avatar, :about
-  attr_accessible :timezone, :website
-
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
   has_many :venues # as owner
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
-
+  has_many :reminders, dependent: :destroy
+  
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
   end
@@ -133,6 +128,11 @@ class User < ActiveRecord::Base
 
   def insider?
     !!(email =~ /@voicerepublic.com$/)
+  end
+
+  def remembers?(model)
+    reminders.exists?( rememberable_id: model.id,
+                       rememberable_type: model.class.name )
   end
   
 end

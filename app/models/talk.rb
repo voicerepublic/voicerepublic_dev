@@ -52,14 +52,20 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
+  # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :prelive # initial
+    state :halflive
     state :live
     state :postlive
     state :processing
     state :archived
     event :start_talk, timestamp: :started_at, success: :after_start do
-      transitions from: :prelive, to: :live
+      # standard path (if `start_button` is not set)
+      transitions from: :prelive, to: :live, guard: ->(t){ !t.venue.opts.start_button }
+      # alternative path (if `start_button` is set)
+      transitions from: :prelive, to: :halflive
+      transitions from: :halflive, to: :live
     end
     event :end_talk, timestamp: :ended_at, success: :after_end do
       transitions from: :live, to: :postlive
@@ -78,11 +84,6 @@ class Talk < ActiveRecord::Base
   end
 
   acts_as_taggable
-
-  attr_accessible :title, :teaser, :duration, :uri,
-                  :description, :collect, :image, :tag_list,
-                  :guest_list, :starts_at_date, :starts_at_time,
-                  :language
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -222,6 +223,7 @@ class Talk < ActiveRecord::Base
   # this is only for user acceptance testing!
   def make_it_start_soon!(delta=1.minute)
     self.reload
+    self.starts_at_date = Time.now.strftime('%Y-%m-%d')
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!

@@ -36,7 +36,10 @@
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
-              %li(ng-hide='talkIsLive()')
+              - if @talk.venue.opts.start_button
+                %li(ng-show='showStartButton()')
+                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
+              %li(ng-hide='talkIsHalflive() || talkIsLive()')
                 = link_to t('.edit_talk'), [:edit, @venue, @talk]
               %li(ng-show='showEndTalk()')
                 %a(href="#" ng-click='endTalk()')= t('.end_talk')
@@ -82,7 +85,7 @@
           = render partial: 'shared/player', locals: { talk: @talk }
           .talk-archived-actions-box.row.collapse
             .small-12.columns
-              .download-link-box.right(ng-show='talkIsArchived()')
+              .download-link-box.right(ng-show='showDownloadButton()')
                 = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download" do
                   %span.icon-download-2
               #modal-download.reveal-modal.text-center(data-reveal)
@@ -121,7 +124,7 @@
           = link_to '#', class: "close-reveal-modal" do
             &#215;
 
-    .talk-countdown.row(ng-show='talkIsPrelive()')
+    .talk-countdown.row(ng-show='showCountdown()')
       .medium-12.columns.text-center
         .cd-text
           = raw t('.countdown_text')
@@ -132,13 +135,14 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        .situation(ng-show='showSituation()')= t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
           .processing-message(ng-show='talkIsProcessing()')
             = t('.talk_is_processing')
-        .talk-live-timeline(ng-show='talkIsLive()')
+        .talk-live-timeline(ng-show='talkIsHalflive() || talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
           .talk-state-info
@@ -149,32 +153,42 @@
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
               {{ countdown }} MIN
-        .mute-stream-box(ng-show='talkIsLive()')
+        .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
           %span.icon-volume-mute(ng-click='setVolume(0)')
           %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
 
     .talk-talkers-box.row
       .large-12.columns.text-center
-        .avatar.avatar-host
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
-            .avatar-name.text-center
-              = @talk.venue.user.name
-        .avatar(ng-repeat="guest in guests()")
-          .avatar-box
-            = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
-            .avatar-name.text-center
-              {{ guest.name }}
-          .host-actions(ng-show='showHostActions()')
-            .guest-demote-link(ng-click="demote(guest.id)")
-              = t('.demote')
-
+        - unless @talk.speakers.blank?
+          %p.speakers= @talk.speakers
+        - else
+          .avatar.avatar-host
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
+              .avatar-name.text-center
+                = @talk.venue.user.name
+          .avatar(ng-repeat="guest in guests()")
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
+              .avatar-name.text-center
+                {{ guest.name }}
+            .host-actions(ng-show='showHostActions()')
+              .guest-demote-link(ng-click="demote(guest.id)")
+                = t('.demote')
+  
     .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
       .large-12.columns
         .participate-button-box.text-center
           - url = [ @talk.venue, :participations ]
           = link_to t('.participate'), url, method: 'post', class: 'button-vr'
 
+    - unless current_user.remembers?(@talk)
+      .row
+        .large-12.columns
+          .remember-button-box.text-center
+            - url = [ @talk, :reminders ]
+            = link_to t('.remember'), url, method: 'post', class: 'button-vr'
+          
     .talk-host-and-participants-action-box.row
       .large-12.columns.text-center
         .talkers-action-box

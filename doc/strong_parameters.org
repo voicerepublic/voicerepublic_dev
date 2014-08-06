@@ -1,0 +1,20 @@
+| Controller           | Model       | Permitted Params                                                                                          |
+|----------------------+-------------+-----------------------------------------------------------------------------------------------------------|
+| Api::Messages        | Message     | content                                                                                                   |
+| Api::SocialShares    | SocialShare | shareable_id, shareable_type, social_network                                                              |
+| Api::Talks           | -           | -                                                                                                         |
+| Api::Users           | -           | -                                                                                                         |
+|----------------------+-------------+-----------------------------------------------------------------------------------------------------------|
+| Comments             | Comment     | content                                                                                                   |
+| EmbedTalks           | -           | -                                                                                                         |
+| Errors               | -           | -                                                                                                         |
+| LandingPage          | -           | -                                                                                                         |
+| Participations       | -           | -                                                                                                         |
+| Search               | n/a         | query                                                                                                     |
+| Talks                | Talk        | title, teaser, description, starts_at_time, starts_at_date, duration, record, image, tag_list, guest_list |
+| Users                | User        | firstname, lastname, accept_terms_of_use, email, avatar, header, password, password_confirmation          |
+| Venues               | Venue       | title, teaser, description, image, tag_list                                                               |
+|----------------------+-------------+-----------------------------------------------------------------------------------------------------------|
+| Users::Registrations | User        | :firstname, :lastname, :email                                                                             |
+| Users::Sessions      | -           | -                                                                                                         |
+

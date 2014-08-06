@@ -44,6 +44,9 @@ module VoiceRepublic
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
+    config.middleware.use 'EnforceRobotsTxt',
+                          source: Rails.root.join('public/robots.txt')
+
     # authenticate access to rtmp against rack middleware
     config.middleware.use 'RtmpAuth'
 
