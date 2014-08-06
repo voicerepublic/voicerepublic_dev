@@ -6,7 +6,7 @@ describe Api::TagsController do
     it 'returns tags' do
       10.times { FactoryGirl.create :tag }
       FactoryGirl.create :tag, name: "maunzbraunz"
-      get :tags, q: 'maunz'
+      get :index, q: 'maunz'
       response.status.should be(200)
       res = JSON.parse(response.body)
 
