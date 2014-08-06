@@ -151,8 +151,10 @@
               {{ countdown }} MIN
 
         .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
-          %span.icon-volume-mute(ng-click='setVolume(0)')
-          %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
+          %a(href="#" title="#{t('.mute_streams')}" ng-click='setVolume(0)')
+            %span.icon-volume-mute
+          %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
+            %span.icon-volume-mute2.hide
 
     .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
       .large-12.columns.text-center
