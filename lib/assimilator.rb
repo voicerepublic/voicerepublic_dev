@@ -5,6 +5,7 @@ require 'fileutils'
 require 'json'
 require File.expand_path('../email', __FILE__)
 
+
 # The Assimilator runs specs and reports the outcome.
 #
 # Runnning the Asimilator in CLI
@@ -93,18 +94,40 @@ test:
 
     cleanup_processes
     # start xserver for selenium
-    `Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &`
+    execute 'Xvfb :1 -screen 0 1440x1080x24+32 > /dev/null 2>&1 &'
 
     execute 'bundle exec rake db:migrate',
       { 'RAILS_ENV' => 'test' }
+
+    # explicitly set home, to work in Bundler.with_clean_env
+    home = '/home/app'
+    home = '/home/phil' if %x[hostname].chomp == 'fatou'
+    ENV['HOME'] = home
+
+    # set PATH
+    ENV['PATH'] = [ENV['PATH'], "#{home}/bin"].compact * ':'
+    
     # rspec spec
     status('pending', "running specs...")
+
+    ENV['RAILS_ENV'] = 'test'
+
     # TODO make configurable
-    execute "bundle exec rspec spec --fail-fast",
-      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false
+    output = execute("bundle exec rspec spec --fail-fast",
+      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)
     
     # report
-    status($?.exitstatus > 0 ? 'failure' : 'success')
+    if $?.exitstatus > 0
+      reason = 'no reason given'
+      pattern = /^rspec \.\/(.*)$/
+      md = output.match(pattern)
+      reason = md.to_a.pop if md
+      status 'failure', reason
+      logger.error "Specs failed with:\n" + build_cmd + "\n" + output
+      Email.send pusher, body: output, subject: "Failure: #{reason}"
+    else
+      status 'success'
+    end
 
     cleanup_processes
   end
@@ -113,10 +136,9 @@ test:
 
   # these processes stick around if not explicitly killed
   def cleanup_processes
-    `killall -9 Xvfb > /dev/null 2>&1`
-
-    `killall phantomjs > /dev/null 2>&1`
-    `killall chromedriver > /dev/null 2>&1`
+    execute 'killall -9 Xvfb'
+    execute 'killall phantomjs'
+    execute 'killall chromedriver'
   end
 
   # TODO make configurable, use this to set your token
@@ -141,21 +163,19 @@ test:
   def execute(cmd, env_vars={}, safe=true)
     puts "$ #{cmd}"
     env_vars.each { |k, v| ENV[k] = v }
-    res = %x[#{cmd} 2>&1]
-    puts res
-    rv = $?.exitstatus
-
-    if safe && rv > 0
-      Email.send pusher, body: res
-      die "exited with #{rv}"
-    end
+    puts res = %x[#{cmd} 2>&1]
+    logger.info "$ #{cmd}\n" + res
+    res
   end
 
+  def build_cmd
+    ['./lib/assimilator.rb', repo, ref, sha, pusher] * ' '
+  end
+  
   def die(msg)
     status('error', msg)
     puts errormsg = "Abort: #{msg}"
-    cmd = ['./lib/assimilator.rb', repo, ref, sha, pusher] * ' '
-    logger.error errormsg + "\n" + cmd
+    logger.error errormsg + "\n" + build_cmd
     cleanup_processes
     exit 1
   end
