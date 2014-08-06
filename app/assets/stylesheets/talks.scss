@@ -563,36 +563,6 @@
 
 
       /* ON AIR */
-      &.state-onair{
-        width:180px;
-        border: 2px solid $brand-color-red;
-        background: $brand-color-red;
-        padding-right: 20px; 
-        .avatar{
-          @include opacity(0);
-        }
-        .mic-sign-box{
-          .icon-octagon,
-          .icon-unmute{
-            color:$brand-color-red;
-          }
-        }
-        &:hover{                 
-          border: 2px solid $brand-color-green;
-          @include transition(all 0.05s linear 0);          
-          background: white;
-          .mic-sign-box{
-            .icon-octagon,
-            .icon-mute{
-              @include opacity(1);
-              color:$brand-color-green;
-            }
-            .icon-unmute{
-              @include opacity(0)
-            }
-          }     
-        }
-      }
       .onair-box{
         width: 100%;
         padding-top: 4px;
@@ -609,12 +579,16 @@
         }
         .mute-box{
           position: absolute;
-          top:0;
+          @include opacity(0);
+          width: 200px;
+          height: 50px;          
+          top:-12px;
           left: 0;
-          width: 100%;
           font-family: 'eaglebook';
           color: $brand-color-green;
-          padding-top: 5px;
+          padding-top: 17px;
+          padding-right: 46px;
+          cursor: pointer;
         }
       }
 
@@ -733,14 +707,6 @@
   .description-block{
     position: relative;
     overflow: hidden;
-    &.state-live{
-      .description-content{
-        max-height:0;
-        padding:0;
-        opacity: 0;
-        @include transition('opacity 0.4s linear, max-height 0.4s ease 0.4s, padding 0.4s ease 0.4s');
-      }
-    }
     .description-content{
       @include transition('max-height 0.4s linear, padding 0.4s ease, opacity 0.4s ease 0.4s');
       opacity: 1;
@@ -825,14 +791,7 @@
     position: relative;
     padding:20px 0 0 0;
     min-height: 400px;
-    @include transition(padding 0.8s linear 1.6s);
-    &.state-live{
-      padding-left: 220px;
-      @include transition(padding 0.8s linear 0.8s);
-      .title-discussion{
-        height:0 !important;
-      }
-    }  
+    @include transition(padding 0.8s linear 1.6s);  
     
     /* DISCUSSION - CHAT */
     .discussion-block{
@@ -967,16 +926,6 @@
       width:0;
       padding:0;
       @include transition("padding 0.8s linear 1.6s, width 0.8s linear 1.6s");
-      &.state-live{
-        @include transition("width 0.8s linear 0.8s, padding 0.8s linear 0.8s");
-        @include opacity(1);
-        width: 200px;
-        padding: 0 12px 11px 12px;
-        .participants-content{
-          @include opacity(1);
-          @include transition(opacity 0.8s linear 1.6s);          
-        }
-      } 
 
       .participants-content{
         @include opacity(0);
@@ -1099,6 +1048,68 @@
     }
   }
 
+  /* TALK LIVE CHANGES */
+  .state-talk-live{
+    .background-box{
+      width:180px;
+      border: 2px solid $brand-color-red;
+      background: $brand-color-red;
+      padding-right: 20px; 
+      .avatar{
+        @include opacity(0);
+      }
+      .mic-sign-box{
+        .icon-octagon,
+        .icon-unmute{
+          color:$brand-color-red;
+        }
+      }
+      &:hover,
+      &.state-muted-mic{
+        border: 2px solid $brand-color-green;
+        @include transition(all 0.05s linear 0);          
+        background: white;
+        .mic-sign-box{
+          .icon-octagon,
+          .icon-mute{
+            @include opacity(1);
+            color:$brand-color-green;
+          }
+          .icon-unmute{
+            @include opacity(0)
+          }
+        }
+        .mute-box{
+          @include opacity(1);
+        }
+      }
+    }
+    .description-content{
+      max-height:0;
+      padding:0;
+      opacity: 0;
+      @include transition('opacity 0.4s linear, max-height 0.4s ease 0.4s, padding 0.4s ease 0.4s');
+    }
+    .participants-and-discussion{
+      padding-left: 220px;
+      @include transition(padding 0.8s linear 0.8s);
+      .title-discussion{
+        height:0 !important;
+      }
+    }
+    .participants-box{
+      @include transition("width 0.8s linear 0.8s, padding 0.8s linear 0.8s");
+      @include opacity(1);
+      width: 200px;
+      padding: 0 12px 11px 12px;
+      .participants-content{
+        @include opacity(1);
+        @include transition(opacity 0.8s linear 1.6s);          
+      }
+    }     
+  }
+
+  /* SIDEBAR */
   .sidebar-right{
     position: absolute;
     right: -220px;

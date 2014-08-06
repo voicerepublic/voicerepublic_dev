@@ -11,7 +11,7 @@
 .row(style='padding: 200px' ng-hide='true')
   .large-12.text-center= t('.initializing')
 
-.layout-talk(ng-controller='Livepage' ng-cloak)
+.layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.round(ng-show='showFlashError()')
       #flash_error= t('require_flash')
@@ -185,15 +185,15 @@
           
     .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
-        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic()}")
+        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState}")
           .avatar
             .avatar-box
               = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
           .mic-sign-box
-            %span.icon-octa-full
-            %span.icon-octagon
-            %span.icon-unmute
-            %span.icon-mute    
+            %span.icon-octa-full(ng-click="muteState ? mute() : unmute()")
+            %span.icon-octagon(ng-click="muteState ? mute() : unmute()")
+            %span.icon-unmute(ng-click="{unmute() : !muteState}")
+            %span.icon-mute(ng-click="{mute() : muteState}")
 
           .request-mic-box(ng-show='flags.reqmic')
             .arrow
@@ -225,11 +225,9 @@
           .onair-box(ng-show='showOnAir()')
             .onair-text
               = t('.you_are_on_air')
-            .mute-box(ng-show='showOnAir()')
-              %span.button-mute(ng-show='flags.onair'
-                            ng-click='mute()')= t('.mute_mic')
-              %span.button-unmute(ng-show='flags.onair'
-                            ng-click='unmute()')= t('.unmute_mic')
+            .mute-box(ng-click='toggleMicMute()')
+              %span.button-mute(ng-hide='muteState')= t('.mute_mic')
+              %span.button-unmute(ng-show='muteState')= t('.unmute_mic')
 
           .prelive-message(ng-show='showPreliveMessage()')
             {{ config.talk.state }}
@@ -260,7 +258,7 @@
     .large-12.columns
 
       -# DESCRIPTION
-      #description.description-block(ng-class="{'state-live': talkIsLive()}")
+      #description.description-block
         %input#more-hidden-checkbox(type="checkbox")
         .description-content
           -#%h3= t('.description')
@@ -269,8 +267,7 @@
             %span=t('.more')
             %span=t('.less')
 
-      .participants-and-discussion(ng-class="{'state-live': talkIsLive()}")
-        -# This is a superior box, TODO: participants are only shown when talk is live
+      .participants-and-discussion
 
         -# DISCUSSION
         - unless @talk.venue.opts.suppress_chat
@@ -301,7 +298,7 @@
 
         -# PARTICIPANTS: LISTENERS, MIC REQUESTS, INVITES
         - unless @talk.venue.opts.suppress_chat
-          #participants.participants-box(ng-class="{'state-live': talkIsLive()}")
+          #participants.participants-box
 
             .promotion-counter-box
               .exp-counter(ng-show='expectingPromotion().length' title="#{t('.mic_requests')}")

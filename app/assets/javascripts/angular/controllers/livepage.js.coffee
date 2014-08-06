@@ -41,11 +41,21 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.showOnAir = ->
     config.flags.onair and config.talk.state in ['live','halflive']
 
+  $scope.muteState = false
+  $scope.toggleMicMute = ->
+    $scope.muteState = !$scope.muteState
+    if $scope.muteState
+      blackbox.mute()
+    else
+      blackbox.unmute()
+
+
   $scope.showAcceptOrDecline = ->
     session.fsm.is("AcceptingPromotion")
 
   $scope.showAwaitingMic = ->
     session.fsm.is("ExpectingPromotion")
+
 
   # unconsolidated
 
@@ -76,8 +86,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     config.participants
 
   $scope.setVolume = blackbox.setVolume
-  $scope.mute = blackbox.mute
-  $scope.unmute = blackbox.unmute
 
   $scope.showHostActions = ->
     config.user.role == 'host' and
