@@ -191,10 +191,10 @@
             .avatar-box
               = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
           .mic-sign-box
-            %span.icon-octa-full(ng-click="muteState ? mute() : unmute()")
-            %span.icon-octagon(ng-click="muteState ? mute() : unmute()")
-            %span.icon-unmute(ng-click="{unmute() : !muteState}")
-            %span.icon-mute(ng-click="{mute() : muteState}")
+            %span.icon-octa-full
+            %span.icon-octagon
+            %span.icon-unmute
+            %span.icon-mute
 
           .request-mic-box(ng-show='flags.reqmic')
             .arrow
