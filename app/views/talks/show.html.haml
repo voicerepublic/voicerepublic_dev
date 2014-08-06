@@ -13,8 +13,8 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak)
   .header-block(style="background-image: url(#{@talk.image.url})")
-    .row.alert-box.alert.round(ng-show='showFlashError()')
-      #flash_error= t('require_flash')
+    .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
+      #flash_error= raw t('require_flash')
     - if @talk.related_talk
       %section.row.collapse.text-center.related-talk
         .large-12.columns
@@ -121,7 +121,7 @@
 
         #vr-banner-modal.reveal-modal(data-reveal)
           = image_tag 'vr_infografic.png'
-          = link_to '#', class: "close-reveal-modal" do 
+          = link_to '#', class: "close-reveal-modal" do
             &#215;
 
     .talk-countdown.row(ng-show='showCountdown()')

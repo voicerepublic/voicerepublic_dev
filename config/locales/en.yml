@@ -11,8 +11,11 @@ en:
         notice: "Successfully deleted"
         alert: "Cannot be deleted"
   require_flash: |
-    To listen to the live stream, you need a device that runs Flash. Every other part of this application is Flash free. Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.
-    In the future, there will be a version of Voice Republic that does not rely on Flash anymore.
+    <center>To listen to the live stream, you need a device that runs Flash Version 11 or never. Every other part of this application is Flash free.</center>
+    <br/>
+    <center>Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.</center>
+    <br/>
+    <center><a target="_blank" href="http://get.adobe.com/flashplayer/">Download Flash</a></center>
   social_share:
     mail_subject: "Check out this talk on voicerepublic.com"
     mail_greeting: "Hi there"
