@@ -1,4 +1,4 @@
-class VenuesController < ApplicationController
+class VenuesController < BaseController
 
   before_filter :store_location
   #before_filter :remember_location, :only => [:join_venue]

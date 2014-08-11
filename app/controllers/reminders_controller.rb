@@ -1,5 +1,5 @@
 # TODO use cancan for authorization
-class RemindersController < ApplicationController
+class RemindersController < BaseController
 
   before_action :authenticate_user!
 
