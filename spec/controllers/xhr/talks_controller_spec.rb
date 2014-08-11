@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::TalksController do
+describe Xhr::TalksController do
 
   describe 'logged in' do
 
@@ -31,7 +31,7 @@ describe Api::TalksController do
       end
 
       it 'raises error when state cannot be set' do
-        Api::TalksController.any_instance.stub(:validate_state).and_raise
+        Xhr::TalksController.any_instance.stub(:validate_state).and_raise
         expect {
           put :update, id: @talk.id, msg: { state: 'WaitingForPromotion' }
         }.to raise_error

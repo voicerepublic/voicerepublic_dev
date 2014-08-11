@@ -1,4 +1,4 @@
-class Api::TalksController < Api::BaseController
+class Xhr::TalksController < Xhr::BaseController
 
   before_action :authenticate_user!
   before_action :set_talk

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::TagsController do
+describe Xhr::TagsController do
 
   describe 'anonymous' do
     it 'returns tags' do
