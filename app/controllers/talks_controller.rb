@@ -1,5 +1,7 @@
 class TalksController < BaseController
 
+  include OnTheFlyGuestUser
+
   before_action :set_venue, except: [:index, :popular, :live, :recent,
     :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]

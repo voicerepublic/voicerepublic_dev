@@ -1,4 +1,4 @@
-class Xhr::SocialSharesController < ApplicationController
+class Xhr::SocialSharesController < Xhr::BaseController
 
   include OnTheFlyGuestUser
   

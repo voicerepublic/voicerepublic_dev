@@ -1,5 +1,5 @@
 module OnTheFlyGuestUser
-  
+
   # hack to authenticate guest users as well
   def authenticate_user!
     id = session[:guest_user_id]
@@ -18,6 +18,7 @@ module OnTheFlyGuestUser
       session[:guest_user_id] = nil
       return user
     end
+    return nil unless generate_guest_user?
     @guest_user ||= create_guest_user
   end
 
@@ -36,4 +37,9 @@ module OnTheFlyGuestUser
     user
   end
 
+  def generate_guest_user?
+    true
+  end
+  
 end
+
