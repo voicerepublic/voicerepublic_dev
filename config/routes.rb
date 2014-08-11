@@ -7,9 +7,12 @@ VoiceRepublic::Application.routes.draw do
   namespace 'xhr' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
-    resources :talks, only: [:index]
   end
 
+  namespace 'api' do
+    resources :talks, only: [:index]
+  end
+  
   post '/search',              to: 'search#create'
   get  '/search/:page/*query', to: 'search#show'
 
