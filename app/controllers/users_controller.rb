@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < BaseController
 
   PERMITTED_ATTRS = [ :firstname,
                       :lastname,

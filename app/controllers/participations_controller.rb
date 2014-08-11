@@ -1,4 +1,4 @@
-class ParticipationsController < ApplicationController
+class ParticipationsController < BaseController
 
   before_filter :store_location
   before_filter :authenticate_user!

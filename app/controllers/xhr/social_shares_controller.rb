@@ -1,5 +1,7 @@
-class Api::SocialSharesController < ApplicationController
+class Xhr::SocialSharesController < ApplicationController
 
+  include OnTheFlyGuestUser
+  
   before_filter :authenticate_user!
 
   def create

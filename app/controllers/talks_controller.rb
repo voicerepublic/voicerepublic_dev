@@ -1,4 +1,4 @@
-class TalksController < ApplicationController
+class TalksController < BaseController
 
   before_action :set_venue, except: [:index, :popular, :live, :recent,
     :featured, :upcoming]

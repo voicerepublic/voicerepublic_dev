@@ -1,4 +1,4 @@
-class Api::TalksController < Api::BaseController
+class Xhr::TalksController < Xhr::BaseController
 
   JSON_CONFIG = { except: [:session, :storage] }
 

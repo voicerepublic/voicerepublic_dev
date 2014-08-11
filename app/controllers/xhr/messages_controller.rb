@@ -1,4 +1,4 @@
-class Api::MessagesController < Api::BaseController
+class Xhr::MessagesController < Xhr::BaseController
 
   before_action :authenticate_user!
   before_action :set_talk
@@ -32,7 +32,7 @@ class Api::MessagesController < Api::BaseController
     @talk = Talk.find(params[:id])
   end
 
-  # TODO: refactor code duplication here and in Api::TalksController
+  # TODO: refactor code duplication here and in Xhr::TalksController
   def publish(message)
     logger.debug "publish to #{@talk.public_channel} #{message.inspect}"
     PrivatePub.publish_to @talk.public_channel, message
