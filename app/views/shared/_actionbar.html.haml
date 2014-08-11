@@ -1,4 +1,4 @@
-- if current_user && current_user.guest && current_page?(root_path)
+- if current_page?(root_path) && (!current_user || current_user.guest)
   .visitor-top-bar.row.collapse
     .large-12.columns
       .left
