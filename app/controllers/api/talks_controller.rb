@@ -4,12 +4,21 @@ class Api::TalksController < Api::BaseController
 
   before_action :authenticate_user!
 
+  # TODO security: check for sql injection
   def index
     @talks = Talk.all
+
+    # paging
     @talks = @talks.limit(params[:limit]) if params[:limit]
     @talks = @talks.offset(params[:offset]) if params[:offset]
-    @talks = @talks.order(params[:order]) if params[:order]
 
+    # sort order
+    if order = params[:order]
+      order = "#{order} DESC" if params[:reverse]
+      @talks = @talks.order(order)
+    end
+
+    # filter
     @talks = @talks.where.not(featured_from: nil) if params[:featured_from]
     @talks = @talks.where(state: params[:state]) if params[:state]
 
