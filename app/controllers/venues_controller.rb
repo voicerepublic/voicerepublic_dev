@@ -25,7 +25,7 @@ class VenuesController < BaseController
         @archived_talks = @venue.talks.archived.ordered
 
         @participation =
-          @venue.participations.find_by(user_id: current_user.id)
+          @venue.participations.find_by(user_id: current_user.id) if current_user
 
         @show_join = @participation.nil? &&
                      current_user != @venue.user

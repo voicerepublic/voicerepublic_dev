@@ -1,7 +1,7 @@
 - mask_num = rand(1000000)
 
 - case user
-- when 'guest'
+- when 'guest', nil
   - img_path = "/images/empty.png"
   - img_path_ng = "{{guest.image}}"
 - when 'parti'
@@ -10,7 +10,7 @@
 - when 'static'
   - img_path = img_path
   - img_path_ng = img_path
--  else
+- else
   - img_path = user.avatar.thumb("#{img_size}x#{img_size}#nw").url
   - img_path_ng = user.avatar.thumb("#{img_size}x#{img_size}#nw").url
 
