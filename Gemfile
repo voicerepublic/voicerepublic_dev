@@ -22,6 +22,7 @@ gem 'rails_config'
 gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'devise'
+gem 'simple_token_authentication' # for devise >3.1.0.rc2
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'friendly_id'                  # make urls more friendly

@@ -354,6 +354,10 @@ GEM
     simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
+    simple_token_authentication (1.5.0)
+      actionmailer (>= 3.2.6, < 5)
+      activerecord (>= 3.2.6, < 5)
+      devise (~> 3.2.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -480,6 +484,7 @@ DEPENDENCIES
   select2-rails
   selenium-webdriver
   simple_form
+  simple_token_authentication
   simplecov (~> 0.7.1)
   sqlite3
   therubyracer
