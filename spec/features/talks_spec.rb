@@ -284,7 +284,6 @@ describe "Talks" do
           @venue = FactoryGirl.create :venue
           @talk = FactoryGirl.create :talk, venue: @venue
           visit venue_talk_path @venue, @talk
-          find(".participate-button-box a").click
           visit venue_talk_path @venue, @talk
           find(".chat-input-box input").set("my message")
           find(".chat-input-box input").native.send_keys(:return)
