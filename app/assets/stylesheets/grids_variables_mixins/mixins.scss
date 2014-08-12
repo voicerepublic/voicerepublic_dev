@@ -5,7 +5,6 @@
   &::-webkit-input-placeholder { @content; }
 }
 
-
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
 	@if $inset {
 		-webkit-box-shadow:inset $top $left $blur $color;
@@ -18,7 +17,6 @@
 	}
 }
 
-
 @mixin rotate( $degrees ) {
   -webkit-transform: rotate(#{$degrees}deg);
   -moz-transform: rotate(#{$degrees}deg);
@@ -29,8 +27,7 @@
   filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)});
   -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})";
   zoom: 1;
- }
-
+}
 
 @mixin opacity($value){
   $IEValue: $value*100;
@@ -49,39 +46,38 @@
   transition: #{$transition-arguments};
 }
 
-
 @mixin linear-gradient($leftColor, $midleftColor, $midrightColor, $rightColor) {
   background: -moz-linear-gradient(left,  $leftColor 0%, $midleftColor 26%, $midrightColor 50%, $rightColor 100%); /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,$leftColor), color-stop(26%,$midleftColor), color-stop(50%,$midrightColor), color-stop(100%,$rightColor)); /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(left,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(left,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* Opera 11.10+ */
-
   background: -ms-linear-gradient(left,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* IE10+ */
-
   background: linear-gradient(to right,  $leftColor 0%,$midleftColor 26%,$midrightColor 50%,$rightColor 100%); /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='$from',GradientType=1 ); /* IE6-9 */
-
 }
 
 @mixin vertical-gradient($from, $to) {
-background: $from; /* Old browsers */
+  background: $from; /* Old browsers */
+  background: -moz-linear-gradient(top,  $from 0%, $to 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  $from 0%,$to 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  $from 0%,$to 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  $from 0%,$to 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  $from 0%,$to 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$from', endColorstr='$to',GradientType=0 ); /* IE6-9 */
+}
 
-background: -moz-linear-gradient(top,  $from 0%, $to 100%); /* FF3.6+ */
-
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$from), color-stop(100%,$to)); /* Chrome,Safari4+ */
-
-background: -webkit-linear-gradient(top,  $from 0%,$to 100%); /* Chrome10+,Safari5.1+ */
-
-background: -o-linear-gradient(top,  $from 0%,$to 100%); /* Opera 11.10+ */
-
-background: -ms-linear-gradient(top,  $from 0%,$to 100%); /* IE10+ */
-
-background: linear-gradient(to bottom,  $from 0%,$to 100%); /* W3C */
-
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$from', endColorstr='$to',GradientType=0 ); /* IE6-9 */
-
+@mixin responsive($media) {
+  @if $media == small {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+  @else if $media == tablet {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-medium - 1) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (min-width: $break-medium + 1) { @content; }
+  }  
+  @else if $media == wide {
+    @media only screen and (min-width: $break-wide) { @content; }
+  }
 }

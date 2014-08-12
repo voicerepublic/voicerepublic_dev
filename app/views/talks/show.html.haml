@@ -13,8 +13,9 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
   .header-block(style="background-image: url(#{@talk.image.url})")
-    .row.alert-box.alert.round(ng-show='showFlashError()')
-      #flash_error= t('require_flash')
+    .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
+      #flash_error= raw t('require_flash')
+
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         - if can? :manage, @talk
@@ -64,14 +65,15 @@
         = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
-        .talk-teaser
+        .talk-teaser(ng-show='showTalkTeaser()')
           = @talk.teaser
         .talk-date-time
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
 
-        -# TODO: better integrate player with angularjs
+
+        -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
           -# PLAYER
           = render partial: 'shared/player', locals: { talk: @talk }
@@ -92,6 +94,22 @@
               .play-count.left
                 = t('.plays', count: @talk.play_count)
 
+      %a.info-link(ng-show="showInfoLink()" href="#" title="#{t('.show_all_information')}" data-reveal-id="modal-info")
+        %span.icon-info
+
+      #modal-info.reveal-modal(data-reveal="true")
+        %h2.talk-title
+          = @talk.title
+        .talk-teaser
+          = @talk.teaser
+        .talk-date-time
+          = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
+          start_time: l(@talk.starts_at, format: :time_only),
+          end_time: l(@talk.ends_at, format: :time_only))
+        .talk-info-text
+          = @talk.try(:description).try(:html_safe)
+        %a.close-reveal-modal= raw '&#215;'
+
       .sidebar-right
         - if current_user.guest?
           .vr-banner.hide-for-small
@@ -107,6 +125,7 @@
             = image_tag 'vr_infografic.png'
             = link_to '#', class: "close-reveal-modal" do 
               &#215;
+
           - if @talk.related_talk
             %section.row.collapse.text-center.related-talk
               .large-12.columns
@@ -186,7 +205,7 @@
           
     .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
-        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState}")
+        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState, 'state-prelive' : showPrelive()}")
           .avatar
             .avatar-box
               = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
@@ -221,7 +240,15 @@
             .button-action(ng-click='acceptPromotion()')
               = t('.accept_promotion')
             .decline-link(ng-click='declinePromotion()')
-              = t('.decline_promotion')    
+              = t('.decline_promotion')
+
+          .prelive-box(ng-show='showPrelive()')
+            .prelive-text
+              = t('.prelive_text')
+              %a.tooltip-simple(href="#")
+                %span.icon-info
+                %span.tooltip-overlay
+                  = t('.prelive_tooltip')
 
           .onair-box(ng-show='showOnAir()')
             .onair-text
@@ -229,9 +256,6 @@
             .mute-box(ng-click='toggleMicMute()')
               %span.button-mute(ng-hide='muteState')= t('.mute_mic')
               %span.button-unmute(ng-show='muteState')= t('.unmute_mic')
-
-          .prelive-message(ng-show='showPreliveMessage()')
-            {{ config.talk.state }}
 
         -# FIXME quick and dirty: do not show audio settings
         - if @talk.state=~/^(pre|)live$/
@@ -260,13 +284,13 @@
 
       -# DESCRIPTION
       #description.description-block
-        %input#more-hidden-checkbox(type="checkbox")
-        .description-content
+        .description-content(ng-class="{'collapse': descriptionCollapsed()}")
           -#%h3= t('.description')
-          = @talk.try(:description).try(:html_safe)
-          %label.more-link(for="more-hidden-checkbox")
-            %span=t('.more')
-            %span=t('.less')
+          .description-innerheight
+            = @talk.try(:description).try(:html_safe)
+          %span.more-link(ng-show="descriptionCollapsable()" ng-click="toggleDescription()")
+            %span(ng-show="descriptionCollapsed()")= t('.more')
+            %span(ng-hide="descriptionCollapsed()")= t('.less')
 
       .participants-and-discussion
 

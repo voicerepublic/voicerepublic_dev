@@ -65,6 +65,10 @@ FactoryGirl.define do
     value "MyString"
   end
 
+  factory :tag, :class => ActsAsTaggableOn::Tag do |f|
+    f.sequence(:name) { |n| "tag_#{n}" }
+  end
+
   factory :reminder do
     user
     rememberable nil

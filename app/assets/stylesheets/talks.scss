@@ -84,6 +84,7 @@
     background: rgba(0,0,0,0.5);
     margin-top: 15px;
     padding:0px 0 2px 0;
+    min-height: 140px;
     .breadcrumbs-box{
       position: relative;
       padding:6px 13px;
@@ -159,7 +160,22 @@
     .talk-date-time{
       margin: rem-calc(10) 0 0 0;
       font-family: 'eaglelight';
-      font-size: rem-calc(14);
+      font-size: rem-calc(16);
+      position: relative;
+    }
+
+    .info-link{
+      position: absolute;
+      bottom:0px;
+      right: 4px;
+      color: #ddd;
+      .icon-info{
+        font-size:rem-calc(25);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2), -1px -1px 2px rgba(0,0,0,0.2);
+      }
+      &:hover{
+        color: $brand-color-green;
+      }
     }
 
     .jp-audio{
@@ -225,6 +241,35 @@
       display: inline-block;
     }
   }
+
+  #modal-info{
+    background: black;
+    color: white;
+    @include responsive(desktop){
+      width: 700px;
+      margin-left: -350px;
+    }
+    .talk-title{
+      color:white;
+      margin-bottom: 0;
+    }
+    .talk-teaser{
+      font-family: 'eaglelight';
+      font-size: rem-calc(19);
+      color: white;
+    }
+    .talk-date-time{
+      font-family: 'eaglelight';      
+      font-size: rem-calc(14);      
+    }    
+    .talk-info-text{
+      margin-top: 20px;
+      color:white;
+    }
+    .close-reveal-modal{
+      color:white;
+    }
+  }  
 
   .embed-help-text{
     font-family: 'eaglelight';
@@ -570,6 +615,22 @@
         }
       }
 
+      &.state-prelive{
+        width:260px;
+        border: 2px solid $brand-color-green;
+        background: $brand-color-green;
+        padding-right: 20px; 
+        .avatar{
+          @include opacity(0);
+        }
+        .mic-sign-box{
+          .icon-octagon,
+          .icon-unmute{
+            color:$brand-color-green;
+          }
+        }        
+      }
+
       /* ON AIR */
       &.state-onair{
         width:180px;
@@ -612,9 +673,7 @@
         .avatar{
           display: none;
         }
-        .avatar-bg{
-          fill:$brand-color-green;
-        }
+
         .onair-text{
           font-family: 'eaglebook';
           font-size: rem-calc(15);
@@ -635,6 +694,19 @@
         }
       }
 
+      .prelive-box{
+        width: 100%;
+        padding-top: 0px;
+        .avatar{
+          display: none;
+        }        
+        .prelive-text{
+          font-family: 'eaglebook';
+          font-size: rem-calc(12);
+          display: inline-block;
+          color: white;
+        }
+      }
     }
 
     .button-audio-settings{
@@ -755,8 +827,10 @@
       opacity: 1;
       padding-top: 30px;
       padding-bottom: 15px;
-      max-height:180px;
       overflow: hidden;
+      &.collapse{
+        max-height: 180px;
+      }
       .more-link{
         position: absolute;
         display: block;
@@ -773,9 +847,6 @@
           font-weight: bold;
           font-size: rem-calc(11);
           color: rgba(0,0,0,0.5);
-          &:nth-child(2){
-            display:none;
-          }
         }
 
         &:before{
@@ -1094,7 +1165,7 @@
   /* TALK LIVE CHANGES */
   .state-talk-live{
     .description-content{
-      max-height:0;
+      max-height:0 !important;
       padding:0;
       opacity: 0;
       @include transition('opacity 0.4s linear, max-height 0.4s ease 0.4s, padding 0.4s ease 0.4s');
@@ -1115,7 +1186,7 @@
         @include opacity(1);
         @include transition(opacity 0.8s linear 1.6s);          
       }
-    }     
+    }
   }
 
   /* SIDEBAR */
