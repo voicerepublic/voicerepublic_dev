@@ -7,7 +7,8 @@ class UsersController < ApplicationController
                       :avatar,
                       :header,
                       :password,
-                      :password_confirmation ]
+                      :password_confirmation,
+                      :conference ]
   
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 

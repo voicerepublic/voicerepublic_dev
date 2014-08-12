@@ -947,6 +947,9 @@ en:
       talk:
         language: Please select the main language of your talk.
         format: Please provide the format purely for informational purposes.
+    labels:
+      user:
+        conference: I will be streaming a conference.
   reminders:
     create:
       success: Reminder was successfully created.
