@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe RemindersController do
 
+  before do
+    @user = FactoryGirl.create(:user)
+    request.env['warden'].stub :authenticate! => @user
+    controller.stub current_user: @user
+  end
+  
   describe "POST create" do
     describe "with valid params" do
 
