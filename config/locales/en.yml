@@ -947,9 +947,13 @@ en:
       talk:
         language: Please select the main language of your talk.
         format: Please provide the format purely for informational purposes.
+      user:
+        accept_terms_of_use: |
+          Read the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>    
     labels:
       user:
         conference: I will be streaming a conference.
+        accept_terms_of_use: I accept the Terms of Use
   reminders:
     create:
       success: Reminder was successfully created.
