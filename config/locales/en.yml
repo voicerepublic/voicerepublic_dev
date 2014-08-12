@@ -706,7 +706,7 @@ en:
       go_venue_page: Proceed to Series-page
       join_venue: Participate now!
     end_talk_link:
-      end_this_talk: Click here to end this talk.
+      end_this_talk: Click here to stop this talk.
       talk_ended: Der Talk wurde beendet.
     landing_page_venue:
       discuss_in_virtual_cafe: Discuss live in our virtual Café.
@@ -829,7 +829,7 @@ en:
       embed_player: Embed Player
       more_talks_title: MORE FROM THIS USER
       edit_talk: Edit Talk
-      end_talk: End Talk
+      end_talk: Stop Talk
       banner_title: WHAT IS VOICE REPUBLIC?
       banner_text: |
         Voice Republic is a tool for the creation and distribution of audio content on the Internet.
