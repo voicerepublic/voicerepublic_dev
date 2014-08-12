@@ -58,7 +58,7 @@
           .bc-delimiter >
 
           .flyer-link-box
-            = link_to '#', 'data-reveal-id' => "modal-flyer" do
+            = link_to '#', 'data-reveal-id' => "modal-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
@@ -69,7 +69,7 @@
                 = t('.download_flyer')
 
 
-        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+        = render partial: 'shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
         .talk-teaser
@@ -86,7 +86,7 @@
           .talk-archived-actions-box.row.collapse
             .small-12.columns
               .download-link-box.right(ng-show='showDownloadButton()')
-                = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download" do
+                = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download", 'data-ga-event' => "click talk download talk:#{@talk.id}" do
                   %span.icon-download-2
               #modal-download.reveal-modal.text-center(data-reveal)
                 %h3.color-black= t('.download_talk')
@@ -96,7 +96,7 @@
                 %a.close-reveal-modal= raw '&#215;'
 
               .embed-link-box.right
-                = link_to '#', class: 'embed-link', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
+                = link_to '#', class: 'embed-link', title: t('.embed_player'), 'data-reveal-id' => "modal-embed", 'data-ga-event' => "click talk embed talk:#{@talk.id}" do
                   = raw '&lt;&#47;&gt;'
               #modal-embed.reveal-modal.text-center(data-reveal)
                 %h3.color-black= t('.embed_this_talk')
