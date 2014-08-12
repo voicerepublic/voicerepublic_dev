@@ -40,7 +40,10 @@ attribute = 'data-ga-event'
 initialize = (element, value) ->
   [event, args...] = value.split(' ')
   $(element).bind event, ->
-    _gaq.push ['_trackEvent'].concat(args)
+    if _gaq?
+      _gaq.push ['_trackEvent'].concat(args)
+    else
+      console.log "GAEvent: #{args.join(' ')}"
 
 $("*[#{attribute}]").each (index, element) -> 
   value = $(element).attr(attribute)
