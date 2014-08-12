@@ -32,8 +32,10 @@ end
 feature "Anonymous users", js: true do
   scenario "will be authenticated as guest user" do
     User.count.should eq(0)
-    visit root_path
-    User.count.should eq(1)
+    talk = FactoryGirl.create(:talk)
+    visit talk_path(talk)
+    # one for the talks and one for the logged in user
+    User.count.should eq(2)
     # user names are generated with uuids to minimize collisions (chance is1 in
     # 17 billion)
     User.last.name.should =~ /.*-.*-.*-.*-.*/
