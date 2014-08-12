@@ -172,7 +172,6 @@ en:
       confirm: Are you sure to delete?
     venue_actions:
       participate_button: Participate
-      unjoin_venue: Cancel participation
       confirm_unjoin_venue: Really want to unjoin this series?
     confirms:
       are_you_sure: Are you sure?
@@ -627,7 +626,7 @@ en:
       duration: Duration
       past_venue: Past Series
       join_venue: SUBSCRIBE TO Series!
-      unjoin_venue: Cancel participation
+      leave_venue: Unsubscribe from Series
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit Series
       chat_will_be_available_short_before_start: Group-chat will be available short before start
@@ -669,7 +668,6 @@ en:
       host: HOST
       participants: GUESTS
     venue_show_actions:
-      unjoin_venue: Unjoin
       confirm_unjoin_venue: Really want to unjoin this Series?
     venue_show_archive:
       past_talks: ARCHIVE
