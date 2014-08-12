@@ -355,6 +355,7 @@
     background: rgba(0,0,0,0.9);
     padding:rem-calc(23) rem-calc(23);
     color: #fff;
+    min-height: 120px;
     .stage-title{
       position: absolute;
       left:0;
@@ -364,6 +365,17 @@
       color: #2f2f2f;
       text-shadow:1px 1px 3px rgba(0,0,0,0.5),-1px -1px 3px rgba(0,0,0,0.5);
     }
+    .speakers-box{
+      display: inline-block;
+      h3{
+        font-family: 'eaglelight';
+        font-size: rem-calc(14);
+      }
+      p{
+        font-family: 'eaglebook';
+        font-size: rem-calc(14);
+      }
+    }    
     .avatar{
       .avatar-box{
         width: 140px;

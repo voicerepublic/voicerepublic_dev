@@ -180,7 +180,9 @@
         .stage-title
           =t('.stage')
         - unless @talk.speakers.blank?
-          %p.speakers= @talk.speakers
+          .speakers-box
+            %h3= t('.speakers')
+            %p= @talk.speakers
         - else
           .avatar.avatar-host
             .avatar-box

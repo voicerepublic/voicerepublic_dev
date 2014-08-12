@@ -379,7 +379,6 @@ describe "Talks" do
     it 'shows when set' do
       FactoryGirl.create(:talk, featured_talk: @talk)
       visit talk_path(@talk)
-      save_and_open_page
       page.should have_content(I18n.t('talks.show.related_talk'))
     end
 

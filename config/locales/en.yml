@@ -791,6 +791,7 @@ en:
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
       stage: STAGE
+      speakers: SPEAKERS
       padding: 0 0 9px 0;
       request_mic: REQUEST MIC
       awaiting_mic_request: AWAITING MIC REQUEST
