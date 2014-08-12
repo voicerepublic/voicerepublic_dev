@@ -17,7 +17,7 @@
 //= require foundation
 //= require jquery.jplayer.min
 //= require select2
-//= require slick.min
+//= require slick
 //
 //= require ckeditor-jquery
 //= require ckeditor/init

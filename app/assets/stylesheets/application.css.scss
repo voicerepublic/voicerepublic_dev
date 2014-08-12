@@ -12,6 +12,7 @@
  * to create a new file per style scope.
  *
  *= require_self
+ *= require slick
  */
 
  @import "grids_variables_mixins/ci_variables";
@@ -25,8 +26,6 @@
  @import 'jquery.ui.slider';
  @import 'jquery-ui-timepicker-addon';
  @import "select2";
- @import "slick";
-
 // SHARED
  @import "shared/top_actionbar";
  @import "shared/flash_messages";
@@ -36,7 +35,7 @@
  @import "shared/generic_action_bar";
  @import "shared/vr_tabs";
  @import "shared/talk_medium_box";
- @import "shared/talk_small_box"; 
+ @import "shared/talk_small_box";
  @import "shared/venue_medium_box";
  @import "shared/user_medium_box";
  @import "shared/comment";
