@@ -8,7 +8,7 @@
       = f.input :conference
       = f.input :password
       = f.input :password_confirmation
-      = f.input :accept_terms_of_use, as: :boolean
+      = f.input :accept_terms_of_use, as: :boolean, label: t('simple_form.labels.user.accept_terms_of_use').html_safe
 
       %br/
       = f.button :submit, t('.registration_title'), class: 'button-vr'
