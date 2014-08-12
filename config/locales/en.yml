@@ -599,7 +599,7 @@ en:
     talk_medium_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
       read_more: ...read more
-      delete_reminder: Delete reminder      
+      delete_reminder: Delete reminder
     talk_small_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
     venue_medium_box:
@@ -771,7 +771,6 @@ en:
 
         %{started_at} - %{ended_at}
     show:
-      edit_talk: Edit talk
       title: "%{title} - Voice Republic"
       waiting_for_start: The talk has not been started.
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
@@ -822,7 +821,7 @@ en:
       description: ABOUT
       more: Show more
       less: Show less
-      initializing: Initializing 
+      initializing: Initializing
       talk_is_processing: Talk is processing
       please_reload_this_page: Please reload this page
       participants: Participants
@@ -846,7 +845,7 @@ en:
       give_the_mic: GIVE THE MIC
       stage_invitations: STAGE INVITATIONS
       listeners: LISTENERS
-      invite_to_stage: INVITE TO STAGE      
+      invite_to_stage: INVITE TO STAGE
       anonymous_listener: ANONYMOUS LISTENER
       more_talks: RECOMMENDED TALKS
 
