@@ -40,8 +40,11 @@ VoiceRepublic::Application.routes.draw do
       get :recent
       get :upcoming
     end
+    resources :reminders, only: [:create]
   end
 
+  resources :reminders, only: [:destroy]
+  
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"
   end
@@ -55,8 +58,11 @@ VoiceRepublic::Application.routes.draw do
 
   resources :users, only: [:update, :show, :edit]
 
+  # old school
   resource :embed_talk, only: :show
-
+  # new school
+  get 'embed/:id', to: 'embed_talks#show', as: 'embed'
+  
   get "landing_page/index", as: :landing_page
   root :to => "landing_page#index"
 

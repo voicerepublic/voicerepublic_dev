@@ -188,6 +188,59 @@ As root
     ln -s /usr/share/munin/plugins/postgres_querylength_  postgres_querylength_ALL
     ln -s /usr/share/munin/plugins/postgres_xlog
 
+
+CI
+--
+
+## PhantomJS
+
+For CI we need phantomjs. On wheezy there is no package for that yet. However,
+there are precompiled binaries here: http://phantomjs.org/download.html
+
+It was downloaded and installed into
+/usr/local/bin/phantomjs-1.9.7-linux-x86_64/bin/
+
+In sid, there is a package, already. When upgrading to sid, we should install
+via package management.
+
+phantomjs executable made available to path as described here:
+https://github.com/munen/voicerepublic_dot_cdist/pull/7
+
+
+## Chromium
+
+1. Install the chromium debian package.
+
+    [15:33:18] voicerepublic-staging:~# aptitude install chromium
+    The following NEW packages will be installed:
+      chromium chromium-inspector{a} libdrm-intel1{a} libdrm-nouveau1a{a} libdrm-radeon1{a} libdrm2{a}
+      libfile-basedir-perl{a} libfile-desktopentry-perl{a} libfile-mimeinfo-perl{a} libfontenc1{a}
+      libgl1-mesa-dri{a} libgl1-mesa-glx{a} libglapi-mesa{a} libgnome-keyring-common{a}
+      libgnome-keyring0{a} libnet-dbus-perl{a} libnspr4{a} libnss3{a} libpciaccess0{a} libspeechd2{a}
+      libtie-ixhash-perl{a} libx11-protocol-perl{a} libxcb-glx0{a} libxcb-shape0{a} libxml-twig-perl{a}
+      libxmuu1{a} libxss1{a} libxv1{a} libxxf86dga1{a} libxxf86vm1{a} x11-utils{a} x11-xserver-utils{a}
+      xdg-utils{a}
+
+1. Install xvfb (X Virtual Framebuffer)
+
+   With this, we can run Firefox and Chromium headlessly:
+
+     Xvfb :1 -screen 0 1024x768x24+32
+
+    The following extra packages will be installed:
+      libaudit0 libxfont1 libxkbfile1 x11-xkb-utils xfonts-base xfonts-encodings xfonts-utils xkb-data
+      xserver-common
+
+1. Install chromedriver binary to /usr/local/bin
+
+1. (Install the iceweasel debian package.)
+   We currently do not use Firefox in any request spec. So this step can be
+   left out.
+
+1. Install xauth debian package to be able to ssh -X into the machine and do
+   some manual debugging.
+
+
 TODO
 ====
 

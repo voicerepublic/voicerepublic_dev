@@ -2,22 +2,18 @@
 # * id [integer, primary, not null] - primary key
 # * created_at [datetime, not null] - creation time
 # * description [text] - TODO: document me
-# * duration [integer] - TODO: document me
-# * featured_from [datetime] - TODO: document me
-# * image_content_type [string] - Paperclip for image
-# * image_file_name [string] - Paperclip for image
-# * image_file_size [integer] - Paperclip for image
 # * image_uid [string] - TODO: document me
-# * image_updated_at [datetime] - Paperclip for image
 # * options [text, default="--- {}\n"] - TODO: document me
-# * start_time [datetime] - TODO: document me
-# * teaser [text] - TODO: document me
+# * teaser [string] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
 # * uri [string] - TODO: document me
 # * user_id [integer] - belongs to :user
 class Venue < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+  
   STREAMER_CONFIG         = Settings.rtmp
   # RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
   RECORDINGS_PATH         = Settings.rtmp.recordings_path
@@ -25,9 +21,6 @@ class Venue < ActiveRecord::Base
   RECORDINGS_ARCHIVE_PATH = Settings.rtmp.archive_path
 
   acts_as_taggable
-
-  attr_accessible :title, :teaser, :description, :tag_list,
-                  :talks_attributes, :image, :uri
 
   # TODO: rename to host
   belongs_to :user
@@ -81,4 +74,8 @@ class Venue < ActiveRecord::Base
     self_tag_list = tag_list.map { |t| t.tr_s(' ', '_').gsub('#', '') }
   end
 
+  def slug_candidates
+    [ :title, [:id, :title] ]
+  end
+  
 end

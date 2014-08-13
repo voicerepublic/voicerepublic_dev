@@ -16,13 +16,13 @@
 
   import flash.external.ExternalInterface;
 
-  import flash.display.Shape;
+  //import flash.display.Shape;
   import flash.events.SampleDataEvent;
   // import flash.events.ActivityEvent;
   // import flash.events.StatusEvent;
   //import fl.transitions.Tween;
   //import fl.transitions.easing.*;
-  import spark.effects.Scale;
+  //import spark.effects.Scale;
 
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
@@ -36,6 +36,8 @@
     internal var errorMethod: String;
     internal var feedbackMethod: String;
     internal var volume: Number = 1;
+    internal var silenceLevel: Number;
+    internal var silenceTimeout: Number;
     // internal var myCircle:Shape = new Shape();
 
     // constructor
@@ -65,9 +67,12 @@
 			ExternalInterface.addCallback("setStreamingServer", setStreamingServer);
 			ExternalInterface.addCallback("setVolume", setVolume);
 
-      errorMethod = root.loaderInfo.parameters['errorMethod'] || "console.log";
-      logMethod = root.loaderInfo.parameters['logMethod'] || "console.log";
+      errorMethod    = root.loaderInfo.parameters['errorMethod'] || "console.log";
+      logMethod      = root.loaderInfo.parameters['logMethod'] || "console.log";
       feedbackMethod = root.loaderInfo.parameters['feedbackMethod'] || "console.log";
+      silenceLevel   = root.loaderInfo.parameters['silence_level'];
+      silenceTimeout = root.loaderInfo.parameters['silence_timeout'];
+
 			var callback: String =
           root.loaderInfo.parameters['afterInitialize'] || "flashInitialized";
 
@@ -181,30 +186,42 @@
     }
 
     internal function sendStream(nc: NetConnection, stream: String): void {
-      var options:MicrophoneEnhancedOptions = new MicrophoneEnhancedOptions();
-      options.mode = MicrophoneEnhancedMode.FULL_DUPLEX;
-      options.autoGain = false;
-      options.echoPath = 128;
-      options.nonLinearProcessing = true;
-
-      mic = Microphone.getEnhancedMicrophone();
-      mic.setSilenceLevel(0, 2000);
-      mic.enhancedOptions = options;
-      mic.codec = SoundCodec.SPEEX;
-
-      // http://www.gbaptista.com/docs/as3/flash/media/Microphone.html#encodeQuality
-      // encodeQuality 7 == 23.8 kbit/s
-      //  * upload of 1mb takes 5.6min
-      //  * streaming one hour produces 10.7mb raw data
-      mic.encodeQuality = 7;
-      mic.framesPerPacket = 1;
-      mic.gain = 50;
-      mic.setUseEchoSuppression(true);
-
-      var ns: NetStream = new NetStream(nc);
-      ns.attachAudio(mic);
-      ns.publish(stream, "live");
-      netStreams.push(ns);
+      try {
+        var options:MicrophoneEnhancedOptions = new MicrophoneEnhancedOptions();
+        options.mode = MicrophoneEnhancedMode.FULL_DUPLEX;
+        options.autoGain = false;
+        options.echoPath = 128;
+        options.nonLinearProcessing = true;
+  
+        mic = Microphone.getEnhancedMicrophone();
+        // 0, 0 for continous stream
+        //mic.setSilenceLevel(0, 2000);
+        mic.setSilenceLevel(silenceLevel, silenceTimeout);
+        mic.enhancedOptions = options;
+        // SPEEX setzt frame rate selbst, vielleicht windows auf nellymoser zwingen
+        // bei nellymoser kann man die rate setzten
+        mic.codec = SoundCodec.SPEEX;
+  
+        // Alternativ einen zweiten und dritte Stream senden
+        // byteArray sind Wave Daten
+        
+        // http://www.gbaptista.com/docs/as3/flash/media/Microphone.html#encodeQuality
+        // encodeQuality 7 == 23.8 kbit/s
+        //  * upload of 1mb takes 5.6min
+        //  * streaming one hour produces 10.7mb raw data
+        mic.encodeQuality = 7;
+        mic.framesPerPacket = 1;
+        mic.gain = 50;
+        mic.setUseEchoSuppression(true);
+  
+        var ns: NetStream = new NetStream(nc);
+        ns.attachAudio(mic);
+        ns.publish(stream, "live");
+        netStreams.push(ns);
+      }
+      catch(e:Error) {
+        log(e.toString());
+      }
     }
 
     internal function receiveStream(nc: NetConnection, stream: String): void {

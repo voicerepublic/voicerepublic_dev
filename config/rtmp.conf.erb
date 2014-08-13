@@ -30,6 +30,10 @@ rtmp {
             record_max_size <%= record_max_size %>;
             #record_lock on;
 
+            <% if record_interval %>
+            record_interval <%= record_interval %>;
+            <% end %>
+
             # --- Exec
             # # live transcode to wave file while recording
             # # (connection needs to be permitted by rack middleware)

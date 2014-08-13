@@ -1,4 +1,5 @@
 class ErrorsController < ApplicationController
+
   skip_before_filter :check_browser
 
   # Handling exceptions dynamically using middleware.
@@ -16,4 +17,5 @@ class ErrorsController < ApplicationController
   # Dedicated landing page for outdated browsers
   def upgrade_browser
   end
+
 end

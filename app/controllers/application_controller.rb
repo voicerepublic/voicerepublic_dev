@@ -59,7 +59,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(user)
-    user.update_attribute(:available, 'online') if user.available.nil?
     return_to = ( request.env['omniauth.origin'] || stored_location ||
                   stored_location_for(user) || session[:venue_path] ||
                   user_path(user) )
@@ -77,10 +76,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :update_sanitized_params, if: :devise_controller?
 
+  # strong parameters for devise
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:firstname, :lastname, :accept_terms_of_use,
-               :email, :password, :password_confirmation)
+      u.permit(UsersController::PERMITTED_ATTRS)
     end
   end
 

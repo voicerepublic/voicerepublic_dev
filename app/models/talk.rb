@@ -12,7 +12,7 @@
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * audio_formats [text, default="--- []\n"] - \n"] - \n"] - TODO: document me
+# * collect [boolean, default=true] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
@@ -24,8 +24,6 @@
 # * language [string, default="en"] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
-# * record [boolean, default=true] - TODO: document me
-# * recording [string] - TODO: document me
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
@@ -42,25 +40,32 @@
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   include ActiveModel::Transitions
 
   LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
-  
+
   GRACE_PERIOD = 5.minutes
 
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
-  ARCHIVE_STRUCTURE = "%Y/%m/%d"
-
+  # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :prelive # initial
+    state :halflive
     state :live
     state :postlive
     state :processing
     state :archived
     event :start_talk, timestamp: :started_at, success: :after_start do
-      transitions from: :prelive, to: :live
+      # standard path (if `start_button` is not set)
+      transitions from: :prelive, to: :live, guard: ->(t){ !t.venue.opts.start_button }
+      # alternative path (if `start_button` is set)
+      transitions from: :prelive, to: :halflive
+      transitions from: :halflive, to: :live
     end
     event :end_talk, timestamp: :ended_at, success: :after_end do
       transitions from: :live, to: :postlive
@@ -79,11 +84,6 @@ class Talk < ActiveRecord::Base
   end
 
   acts_as_taggable
-
-  attr_accessible :title, :teaser, :duration, :uri,
-                  :description, :record, :image, :tag_list,
-                  :guest_list, :starts_at_date, :starts_at_time,
-                  :language
 
   belongs_to :venue, :inverse_of => :talks
   has_many :appearances, dependent: :destroy
@@ -104,7 +104,7 @@ class Talk < ActiveRecord::Base
   validates :title, length: { maximum: Settings.limit.string }
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
-  
+
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -112,11 +112,11 @@ class Talk < ActiveRecord::Base
 
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
-  after_save :generate_flyer, if: ->(t) { t.starts_at_changed? || t.title_changed? }
+  after_save -> { flyer.generate! },
+             if: ->(t) { t.starts_at_changed? || t.title_changed? }
 
   serialize :session
   serialize :storage
-  serialize :audio_formats, Array
 
   delegate :user, to: :venue
 
@@ -136,14 +136,6 @@ class Talk < ActiveRecord::Base
   scope :recent, -> do
     archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
-  end
-
-  scope :audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats LIKE ?', "%#{format}%")
-  end
-
-  scope :without_audio_format, ->(format) do # TODO: check if needed
-    where('audio_formats NOT LIKE ?', "%#{format}%")
   end
 
   include PgSearch
@@ -224,26 +216,14 @@ class Talk < ActiveRecord::Base
       messages.order('created_at ASC').joins(:user).map(&:as_text).join("\n\n")
   end
 
-  # returns either the web path (default)
-  #
-  #     e.g. /system/flyer/42.png
-  #
-  # or, if `fs` is true, the absolute file system path
-  #
-  #     e.g. /home/app/app/shared/public/system/flyer/42.png
-  #
-  def flyer_path(fs=false)
-    name = "#{id}.png" # TODO use friendly id
-    return Settings.flyer.location + '/' + name unless fs
-
-    path = File.expand_path(Settings.flyer.path, Rails.root)
-    FileUtils.mkdir_p(path)
-    File.join(path, name)
+  def flyer
+    @flyer ||= Flyer.new(self)
   end
 
   # this is only for user acceptance testing!
   def make_it_start_soon!(delta=1.minute)
     self.reload
+    self.starts_at_date = Time.now.strftime('%Y-%m-%d')
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
@@ -350,7 +330,7 @@ class Talk < ActiveRecord::Base
   def postprocess!(uat=false)
     raise 'fail: postprocessing a talk with override' if recording_override?
     # TODO: move into a final state != archived (over/past/gone/myth)
-    return unless record?
+    return unless collect?
     return if archived? # silently guard against double processing
 
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
@@ -364,7 +344,7 @@ class Talk < ActiveRecord::Base
   end
 
   def reprocess!(uat=false)
-    raise 'fail: reprocessing a talk without recording' unless record?
+    raise 'fail: reprocessing a talk without recording' unless collect?
     raise 'fail: reprocessing a talk with override' if recording_override?
 
     logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"
@@ -466,9 +446,6 @@ class Talk < ActiveRecord::Base
         runner.run(name)
       end
     end
-    # save recording
-    update_attribute :recording, Time.now.strftime(ARCHIVE_STRUCTURE) + "/#{id}"
-    logfile.puts "# set `recording` to '#{recording}'"
 
     # delete some files (mainly wave files, we'll keep only flv
     # and compressed files)
@@ -536,36 +513,6 @@ class Talk < ActiveRecord::Base
     @logfile
   end
 
-  # Generates a svg flyer and converts it to png via Inkscape.
-  #
-  # This can be run in bulk to regenerate all flyers:
-  #
-  #     FileUtils.rm(Dir.glob('app/shared/public/system/flyer/*.png'))
-  #     Talk.find_each { |t| t.send(:generate_flyer) }
-  #
-  def generate_flyer
-    svg_path = File.expand_path(File.join(%w(doc design flyer.svg)), Rails.root)
-    svg_data = File.read(svg_path)
-    flyer_interpolations.each do |key, value|
-      svg_data.sub! "[-#{key}-]", Nokogiri::HTML.fragment(value).to_s
-    end
-    svg_file = Tempfile.new('svg')
-    svg_file.write svg_data
-    svg_file.close
-    %x[ inkscape -f #{svg_file.path} -e #{flyer_path(true)} ]
-    svg_file.unlink
-  end
-
-  def flyer_interpolations
-    {
-      color:    COLORS[rand(COLORS.size)],
-      host:     user.name,
-      title:    title,
-      day:      I18n.l(starts_at, format: :flyer_day),
-      datetime: I18n.l(starts_at, format: :flyer_datetime)
-    }
-  end
-
   def set_uri!
     self.uri = "vr-#{id}"
     save!
@@ -576,6 +523,10 @@ class Talk < ActiveRecord::Base
   # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
     PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+  end
+
+  def slug_candidates
+    [ :title, [:id, :title] ]
   end
 
 end

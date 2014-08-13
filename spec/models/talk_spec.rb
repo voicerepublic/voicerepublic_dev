@@ -84,29 +84,6 @@ describe Talk do
   end
 
   describe 'on class level' do
-    it 'provides a scope audio_format(format)' do
-      t1 = FactoryGirl.create :talk
-      t2 = FactoryGirl.create :talk
-
-      t1.audio_formats << 'mp3'
-      t1.save
-      Talk.audio_format('mp4').count.should be(0)
-      Talk.audio_format('mp3').count.should be(1)
-      t2.audio_formats << 'mp3'
-      t2.save
-      Talk.audio_format('mp3').count.should be(2)
-    end
-
-    it 'provides a scope without_audio_format(format)' do
-      t1 = FactoryGirl.create :talk
-      t2 = FactoryGirl.create :talk
-
-      Talk.without_audio_format('mp4').count.should be(2)
-      t2.audio_formats << 'mp3'
-      t2.save
-      Talk.without_audio_format('mp3').count.should be(1)
-    end
-
     it 'has a scope featured' do
       talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
       talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
@@ -204,7 +181,7 @@ describe Talk do
   describe 'nicely processes audio' do
 
     it 'in state postlive' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -233,7 +210,7 @@ describe Talk do
     end
 
     it 'in state archived' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -266,7 +243,7 @@ describe Talk do
     end
 
     it 'in state archived with override' do
-      talk = FactoryGirl.create(:talk, record: true)
+      talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
