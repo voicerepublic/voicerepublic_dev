@@ -6,7 +6,7 @@
     = link_to [talk.venue, talk] do
       %img.talk-avatar{src: talk.image.thumb('181x131#nw').url}
       - if talk.archived?
-        %span.icon-octa-full      
+        %span.icon-octa-full
         %span.icon-play-octa
   .right-box.text-left
     = link_to '&nbsp;', [talk.venue, talk], class: 'full-size-link'
@@ -27,6 +27,6 @@
       .teaser
         = talk.teaser
 
-  - if reminder
+  - if reminder and can?(:destroy, reminder)
     .actions
       = link_to '&times;'.html_safe, reminder, method: 'delete', title: t('.delete_reminder'), class: 'delete-reminder'
