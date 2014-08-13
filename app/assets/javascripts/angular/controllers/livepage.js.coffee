@@ -20,6 +20,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.showDownloadButton = ->
     config.talk.state == 'archived'
 
+  $scope.showInfoLink = ->
+    config.talk.state in ['halflive','live']
+
+  $scope.showTalkTeaser = ->
+    config.talk.state in ['prelive','postlive','processing','archived']
+
   $scope.showCountdown = ->
     config.talk.state == 'prelive'
 
@@ -30,6 +36,43 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
     return 'trouble connecting' if config.flags.connecting
     false
+
+  $scope.showParticipantActionsBox = ->
+    config.talk.state in ['prelive','halflive','live']
+
+  $scope.showPrelive = ->
+    (session.fsm.is('HostOnAir') or session.fsm.is('OnAir')) and
+      config.talk.state == 'prelive'
+
+  $scope.showOnAir = ->
+    config.flags.onair and config.talk.state in ['live','halflive']
+
+  $scope.muteState = false
+  $scope.toggleMicMute = ->
+    $scope.muteState = !$scope.muteState
+    if $scope.muteState
+      blackbox.mute()
+    else
+      blackbox.unmute()
+
+
+  $scope.showAcceptOrDecline = ->
+    session.fsm.is("AcceptingPromotion")
+
+  $scope.showAwaitingMic = ->
+    session.fsm.is("ExpectingPromotion")
+
+  descriptionCollapsed = true
+
+  $scope.descriptionCollapsable = ->
+    $(".talks-show .description-innerheight").outerHeight() > 180
+
+  $scope.descriptionCollapsed = ->
+    $scope.descriptionCollapsable() && descriptionCollapsed
+
+  $scope.toggleDescription = ->
+    descriptionCollapsed = !descriptionCollapsed
+
 
   # unconsolidated
 
@@ -60,8 +103,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     config.participants
 
   $scope.setVolume = blackbox.setVolume
-  $scope.mute = blackbox.mute
-  $scope.unmute = blackbox.unmute
 
   $scope.showHostActions = ->
     config.user.role == 'host' and
@@ -97,6 +138,20 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.talkIsArchived = ->
     config.talk.state == 'archived'
+
+  $scope.showEndTalk = ->
+    session.fsm.is('HostOnAir') and
+      config.talk.state == 'live'
+
+  # Speex codec was introduced in Flash version 10. Before, there was only
+  # Nellymoser. Flash 10 has been released 2008 already, Flash 11 was released
+  # 2011. Flash 11.2 is the latest version to be supported on Linux.
+  # Debian Wheezy ships Flash version 11.2 already. We should not support
+  # Media Platforms older than Debian Stable and we should not require
+  # a version that is not accessible on Linux.
+  $scope.hasFlash = ->
+    v = swfobject.getFlashPlayerVersion()
+    (v.major > 11) || ((v.major == 11) && (v.minor == 2))
 
   # show/hide-flags
   $scope.flags = config.flags

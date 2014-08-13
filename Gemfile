@@ -44,6 +44,7 @@ gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
 gem 'fog'
+gem 'slick_rails'
 
 group :development, :test do
   # TODO: Upgrading to Rails 4.1 introduces it's own mail preview mechanism:
@@ -74,6 +75,9 @@ group :development, :test do
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
   gem 'zeus'
+
+  # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
+  gem 'rspec-core' # needed when running specs on ci
 end
 
 group :test do

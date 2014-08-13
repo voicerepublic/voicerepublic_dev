@@ -8,9 +8,12 @@ class Api::MessagesController < Api::BaseController
 
     # TODO: move into ability class, use cancan
     # TODO: check resulting queries, maybe use eager loading
+    # TODO: These checks could be simplified to !user.guest?
+    #       Not correcting this now, since it is not yet decided how we will
+    #       proceed with chatting ability.
     good = @talk.venue.user == user
     good = good || @talk.guests.include?(user)
-    good = good || @talk.venue.users.include?(user)
+    good = good || !user.guest?
     return render text: 'Computer says no', status: 740 unless good
 
     message = @talk.messages.build(message_params)
@@ -46,5 +49,5 @@ class Api::MessagesController < Api::BaseController
   def message_params
     params.require(:message).permit(:content)
   end
-  
+
 end

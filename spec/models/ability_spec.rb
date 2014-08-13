@@ -5,7 +5,7 @@ describe Ability do
   let(:owner) { FactoryGirl.create(:user) }
   let(:other) { FactoryGirl.create(:user) }
   let(:guest) { FactoryGirl.create(:user, guest: true) }
-  
+
   describe User do
     it "allows to manage user by itself" do
       Ability.new(owner).can?(:manage, owner).should be_true

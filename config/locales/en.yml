@@ -11,8 +11,11 @@ en:
         notice: "Successfully deleted"
         alert: "Cannot be deleted"
   require_flash: |
-    To listen to the live stream, you need a device that runs Flash. Every other part of this application is Flash free. Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.
-    In the future, there will be a version of Voice Republic that does not rely on Flash anymore.
+    <center>To listen to the live stream, you need a device that runs Flash Version 11 or never. Every other part of this application is Flash free.</center>
+    <br/>
+    <center>Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.</center>
+    <br/>
+    <center><a target="_blank" href="http://get.adobe.com/flashplayer/">Download Flash</a></center>
   social_share:
     mail_subject: "Check out this talk on voicerepublic.com"
     mail_greeting: "Hi there"
@@ -169,7 +172,6 @@ en:
       confirm: Are you sure to delete?
     venue_actions:
       participate_button: Participate
-      unjoin_venue: Cancel participation
       confirm_unjoin_venue: Really want to unjoin this series?
     confirms:
       are_you_sure: Are you sure?
@@ -300,12 +302,13 @@ en:
     show:
       podcast:
         title: "VR: %{username}"
-        subtitle: "Podcast provided by VoiceRepublic"
+        subtitle: "Podcast provided by Voice Republic"
       feed_title: "VR - %{username}"
-      title: "VR User %{username}"
+      title: "%{username} - Voice Republic"
       edit_user: Edit Profile
       about: About
       venues: Series
+      reminders: Reminders
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -452,12 +455,12 @@ en:
     news: NEWS
     index:
       podcast:
-        title: Featured talks of VoiceRepublic
-        author: The users of VoiceRepublic
+        title: Featured talks of Voice Republic
+        author: The users of Voice Republic
         subtitle: Voice Republic is home to the spoken word in its many forms.
         description: |
           The feed features talks which have been archived on %{url}.
-      feed_title: Featured talks of VoiceRepublic
+      feed_title: Featured talks of Voice Republic
       headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
       subheadline: "Talks, interviews, readings, conversations, debates, discussions:"
       subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
@@ -595,6 +598,7 @@ en:
     talk_medium_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
       read_more: ...read more
+      delete_reminder: Delete reminder
     talk_small_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
     venue_medium_box:
@@ -614,15 +618,15 @@ en:
     show:
       podcast:
         title: "VR: %{title}"
-        subtitle: "Podcast provided by VoiceRepublic"
+        subtitle: "Podcast provided by Voice Republic"
       feed_title: "VR - %{title}"
-      title: "VR Series %{title}"
+      title: "%{title} - Voice Republic"
       by: by
       start_date: Begin
       duration: Duration
       past_venue: Past Series
       join_venue: SUBSCRIBE TO Series!
-      unjoin_venue: Cancel participation
+      leave_venue: Unsubscribe from Series
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit Series
       chat_will_be_available_short_before_start: Group-chat will be available short before start
@@ -630,7 +634,6 @@ en:
       only_attendies_can_see_group_chat: Only participants can read the group-chat
       repeating: Rhythm
       new_talk: New talk
-      edit_talk: Edit talk
       post: Post
       write_a_comment: Write a comment
       description: Description
@@ -665,7 +668,6 @@ en:
       host: HOST
       participants: GUESTS
     venue_show_actions:
-      unjoin_venue: Unjoin
       confirm_unjoin_venue: Really want to unjoin this Series?
     venue_show_archive:
       past_talks: ARCHIVE
@@ -704,7 +706,7 @@ en:
       go_venue_page: Proceed to Series-page
       join_venue: Participate now!
     end_talk_link:
-      end_this_talk: Click here to end this talk.
+      end_this_talk: Click here to stop this talk.
       talk_ended: Der Talk wurde beendet.
     landing_page_venue:
       discuss_in_virtual_cafe: Discuss live in our virtual Café.
@@ -761,19 +763,19 @@ en:
       create_venue: Create Series
   talks:
     message_history: |
-      VoiceRepublic Message History
+      Voice Republic Message History
 
         %{title}
 
         %{started_at} - %{ended_at}
     show:
+      title: "%{title} - Voice Republic"
       waiting_for_start: The talk has not been started.
-      title: "VR Talk %{title}"
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
-      chat_placeholder: Type and hit enter to post a comment
+      chat_placeholder: Share your thoughts
       you: You
-      related_talk: Related Talk
-      next_talk: Coming up next in this series
+      related_talk: RELATED TALK
+      next_talk: COMING UP NEXT IN THIS SERIES
       date_start_end: '%{date} | %{start_time} – %{end_time}'
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
@@ -783,16 +785,24 @@ en:
       audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
-      countdown_text: THIS TALK IS <span class="red">LIVE IN</span>
+      countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
-      request_mic: GET THE MIC
+      stage: STAGE
+      speakers: SPEAKERS
+      padding: 0 0 9px 0;
+      request_mic: REQUEST MIC
+      awaiting_mic_request: AWAITING MIC REQUEST
+      talk_invitation: TALK INVITATION!
+      accept_promotion: ACCEPT
+      decline_promotion: DECLINE
       promote: GIVE THE MIC
-      demote: Demote
-      accept_promotion: Accept promotion
-      decline_promotion: Decline promotion
-      you_are_on_air: You are ON AIR
-      mute_mic: Mute
-      unmute_mic: Unmute
+      demote: "&times;"
+      dismiss: Dismiss from stage
+      prelive_text: YOU ARE ON PRIVATE PRESTREAM
+      prelive_tooltip: Only the host and invited guests can hear each other
+      you_are_on_air: YOU ARE ON AIR!
+      mute_mic: MUTE MIC
+      unmute_mic: MIC MUTED
       audio_settings: Audio settings
       participate: Participate
       miqrec: Mic Requests
@@ -801,19 +811,25 @@ en:
       awaiting_to_speak: Awaiting to speak
       participating: Participating
       just_listening_in: Just listening in
+      remember: Remember
       send_card: Send Card
       download_flyer: Download
-      embed_player: Embed Player
-      download_talk: Download Talk
+      show_all_information: Show all information
+      discussion: DISCUSSION
+      description: ABOUT
+      more: Show more
+      less: Show less
       initializing: Initializing
       talk_is_processing: Talk is processing
       please_reload_this_page: Please reload this page
-      discussion: Chat
-      description: Description
       participants: Participants
       plays: '%{count} plays'
+      subscribe_to_podcast: Podcast
+      embed: Embed
+      embed_player: Embed Player
+      more_talks_title: MORE FROM THIS USER
       edit_talk: Edit Talk
-      end_talk: End Talk
+      end_talk: Stop Talk
       banner_title: WHAT IS VOICE REPUBLIC?
       banner_text: |
         Voice Republic is a tool for the creation and distribution of audio content on the Internet.
@@ -822,6 +838,15 @@ en:
         <br />
         We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
         <span>More...</span>
+      empty_text: The listener's space is empty, login to join!
+      mic_requests: STAGE REQUESTS
+      give_the_mic: GIVE THE MIC
+      stage_invitations: STAGE INVITATIONS
+      listeners: LISTENERS
+      invite_to_stage: INVITE TO STAGE
+      anonymous_listener: ANONYMOUS LISTENER
+      more_talks: RECOMMENDED TALKS
+
     new:
       title: "VR New Talk"
       new_talk: New Talk
@@ -836,15 +861,6 @@ en:
       title: Title
       teaser: Teaser
       tag_list: Tag list
-      formats:
-        - Conference
-        - Reading
-        - Lecture
-        - Meeting
-        - Discussion
-        - Podcast
-        - Concert
-        - Other
     index:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
@@ -864,7 +880,7 @@ en:
       save_article: Post
   layouts:
     application:
-      landing_title: VoiceRepublic - The Place To Talk
+      landing_title: Voice Republic - The Place To Talk
   user_mailer:
     new_talk:
       subject: New talk
@@ -943,7 +959,12 @@ en:
     hints:
       talk:
         language: Please select the main language of your talk.
-        format: Please provide the format purely for informational purposes.
+        format: Please provide the format purely for informational purposes.  
+    labels:
+      user:
+        conference: I will be streaming a conference.
+        accept_terms_of_use: |
+          I accept the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>.
   reminders:
     create:
       success: Reminder was successfully created.

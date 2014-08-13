@@ -1,16 +1,15 @@
 selector = '.tagList'
 
 initialize = (node) ->
-  
+
   tags = $(node).val().split(', ')
-  
+
   $(node).select2
     width: 'element'
     multiple: true
     tokenSeparators: [",", " "]
     ajax:
-      # TODO refactor into api/tags
-      url: "/venues/tags.json"
+      url: "/api/tags"
       data: (term, page) ->
         q = term
         limit = 10
@@ -35,7 +34,7 @@ initialize = (node) ->
       markup.join ''
     formatSelection: (data, container, escapeMarkup) ->
       if data then escapeMarkup(data.name) else undefined
-  
+
   # workaround to populate select2 with existing data
   formatted = []
   $.each tags, (i, name) ->
@@ -43,8 +42,8 @@ initialize = (node) ->
       id = Math.floor(Math.random() * 1000)
       formatted.push { id, name }
   if tags.length > 0
-    $(node).select2 'data', formatted                   
+    $(node).select2 'data', formatted
 
 # init if present
 $.each $(selector), (index, node) -> initialize(node)
-    
+

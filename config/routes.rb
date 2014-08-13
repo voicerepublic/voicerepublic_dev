@@ -6,6 +6,7 @@ VoiceRepublic::Application.routes.draw do
 
   namespace 'api' do
     resources :social_shares, only: [:create]
+    resources :tags, only: [:index]
   end
 
   post '/search',              to: 'search#create'
@@ -25,7 +26,6 @@ VoiceRepublic::Application.routes.draw do
 
   # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
-  get 'venues/tags' => 'venues#tags'
   resources :venues do
     resources :comments, only: [:create]
     resources :talks
@@ -62,7 +62,7 @@ VoiceRepublic::Application.routes.draw do
   resource :embed_talk, only: :show
   # new school
   get 'embed/:id', to: 'embed_talks#show', as: 'embed'
-  
+
   get "landing_page/index", as: :landing_page
   root :to => "landing_page#index"
 

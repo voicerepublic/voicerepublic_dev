@@ -195,8 +195,8 @@
   
         mic = Microphone.getEnhancedMicrophone();
         // 0, 0 for continous stream
-        //mic.setSilenceLevel(0, 2000);
-        mic.setSilenceLevel(silenceLevel, silenceTimeout);
+        mic.setSilenceLevel(0, 2000);
+        //mic.setSilenceLevel(silenceLevel, silenceTimeout);
         mic.enhancedOptions = options;
         // SPEEX setzt frame rate selbst, vielleicht windows auf nellymoser zwingen
         // bei nellymoser kann man die rate setzten

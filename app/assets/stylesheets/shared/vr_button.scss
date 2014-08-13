@@ -7,7 +7,7 @@
   &.button-full-size{
     width: 100%;
   }
-  @include transition(all, 0.1s, ease-in-out);
+  @include transition(all 0.1s ease-in-out);
   &:hover, &:focus{
     background: lighten(#000, 10%);
     color: $brand-color-green;
@@ -18,6 +18,8 @@
     color: white;
     font-size: rem-calc(14)
   }
+
+  a { color: $brand-color-green; }
 
 }
 

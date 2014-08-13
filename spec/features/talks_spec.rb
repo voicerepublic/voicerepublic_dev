@@ -284,7 +284,6 @@ describe "Talks" do
           @venue = FactoryGirl.create :venue
           @talk = FactoryGirl.create :talk, venue: @venue
           visit venue_talk_path @venue, @talk
-          find(".participate-button-box a").click
           visit venue_talk_path @venue, @talk
           find(".chat-input-box input").set("my message")
           find(".chat-input-box input").native.send_keys(:return)
@@ -379,12 +378,14 @@ describe "Talks" do
     it 'shows when set' do
       FactoryGirl.create(:talk, featured_talk: @talk)
       visit talk_path(@talk)
+      page.should have_css('.related-talk')
       page.should have_content(I18n.t('talks.show.related_talk'))
     end
 
     it 'does not show when not set' do
       visit talk_path(@talk)
-      page.should_not have_content(I18n.t('talk.show.related_talk'))
+      page.should_not have_css('.related-talk')
+      page.should_not have_content(I18n.t('talks.show.related_talk'))
     end
 
     it 'shows the next coming up talk if there is one' do
