@@ -861,15 +861,6 @@ en:
       title: Title
       teaser: Teaser
       tag_list: Tag list
-      formats:
-        - Conference
-        - Reading
-        - Lecture
-        - Meeting
-        - Discussion
-        - Podcast
-        - Concert
-        - Other
     index:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
