@@ -1,4 +1,5 @@
 - talk ||= talk_medium_box
+- reminder = reminder
 
 %li.talk-medium-box.box-grey
   .left-box
@@ -25,3 +26,7 @@
       .title= talk.title.upcase
       .teaser
         = talk.teaser
+
+  - if reminder
+    .actions
+      = link_to '&times;'.html_safe, reminder, method: 'delete', title: t('.delete_reminder'), class: 'delete-reminder'
