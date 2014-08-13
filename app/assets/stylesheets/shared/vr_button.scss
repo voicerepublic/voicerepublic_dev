@@ -1,3 +1,33 @@
+.button-embed,
+.button-podcast{
+  display: inline-block;
+  position: relative;
+  font-size: rem-calc(11px);
+  border: 1px solid white;
+  padding: 0px 6px 3px 6px;
+  background: $brand-color-green;
+  color:white;
+  border-radius: 3px;
+  @include box-shadow(0, 0, 3px, rgba(0,0,0,0.5));
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05), -1px -1px 1px rgba(0, 0, 0, 0.05);
+  .icon-code{
+    font-size:rem-calc(14);
+    line-height: 1
+  }
+  .icon-podcast{
+    font-size: rem-calc(10);
+    top:2px;
+  }
+  &:hover{
+    color:white;
+    background: darken($brand-color-green, 10%);
+  }
+  &:active{
+    background: darken($brand-color-green, 20%);
+  }
+}
+
+
 .button-vr{
   @include button(rem-calc(15),#000);
   border-color: $brand-color-green;
