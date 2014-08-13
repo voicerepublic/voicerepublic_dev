@@ -22,11 +22,51 @@ describe TalksController do
     end
   end
 
-  describe 'Talk#index' do
-    it 'assigns recent talks as @talks_recent' do
-      talk = FactoryGirl.create(:talk, state: :archived, featured_from: Date.today)
-      get :index, {}
-      assigns(:talks_recent).should eq([talk])
+  describe 'Talk#show' do
+    describe 'assigns talks to @related_talks' do
+      before do
+        @other_venue_same_user = FactoryGirl.create :venue,
+          user: @user
+        @talk_other_venue = FactoryGirl.create :talk,
+          venue_id: @other_venue_same_user.id,
+          state: :archived,
+          featured_from: Date.today
+        other_venue_other_user = FactoryGirl.create :venue,
+          user: @user_2
+        @talk_other_user = FactoryGirl.create :talk,
+          venue_id: other_venue_other_user.id,
+          state: :archived,
+          featured_from: Date.today,
+          play_count: 25
+      end
+      # first choice
+      it 'assigns archived talks of series when available' do
+        talk_same_venue = FactoryGirl.create :talk,
+          venue_id: @venue.id,
+          state: :archived,
+          featured_from: Date.today
+
+        get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
+        assigns(:related_talks).should_not include(@talk)
+        assigns(:related_talks).should include(talk_same_venue)
+        assigns(:related_talks).should_not include(@talk_other_venue)
+        assigns(:related_talks).should_not include(@talk_other_user)
+      end
+
+      # second choice
+      it 'assigns archived talks of same user' do
+        get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
+        assigns(:related_talks).should include(@talk_other_venue)
+        assigns(:related_talks).should_not include(@talk_other_user)
+      end
+
+      # third choice
+      it 'assigns popular talks of any user' do
+        @talk_other_venue.destroy
+        get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
+        assigns(:related_talks).should_not include(@talk_other_venue)
+        assigns(:related_talks).should include(@talk_other_user)
+      end
     end
   end
 
@@ -86,12 +126,6 @@ describe TalksController do
       Talk.count.should be(2) # @talk & @talk_2
       post :create, { venue_id: @venue.id, talk: valid_attributes }
       Talk.all[2].tag_list.should_not be_empty
-    end
-
-    it 'talk has attached format after creation' do
-      Talk.count.should be(2) # @talk & @talk_2
-      post :create, { venue_id: @venue.id, talk: valid_attributes.merge(format: "foo_conf") }
-      Talk.all[2].format.should == "foo_conf"
     end
   end
 

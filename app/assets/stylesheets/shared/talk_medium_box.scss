@@ -3,7 +3,7 @@
   position: relative;
   overflow: hidden;
 
-  @include transition(background, 0.15s, ease-in-out);
+  @include transition(background 0.15s ease-in-out);
   &:hover, &:focus{
     background: $brand-color-green;
     .left-box a{
@@ -27,7 +27,7 @@
       left: 65px;
       font-size: rem-calc(50);
       color: white;
-      @include transition(all, 0.15s, ease-in-out);
+      @include transition(all 0.15s ease-in-out);
       text-shadow: 0 0 5px rgba(0,0,0,0.2);
       @include opacity(0.7);
     }
@@ -37,7 +37,7 @@
   }
   .right-box{
     padding-left: 193px;
-    height: 100%;
+    height: 100%;   
     .breadcrumbs-box{
       position: relative;
       z-index: 1;
@@ -165,5 +165,15 @@
     height: 100%;
     z-index: 1;
   }
-
+  .actions{
+    position: absolute;
+    top:6px;
+    right:4px;
+    z-index: 2;
+    .delete-reminder{
+      color: white;
+      font-size: rem-calc(20);
+      line-height: 1
+    }
+  } 
 }

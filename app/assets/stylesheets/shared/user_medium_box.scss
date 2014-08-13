@@ -9,7 +9,7 @@
   position: relative;
   background: #F0F0F0;
   border: 1px solid #D4D4D2;
-  @include transition(background, 0.15s, ease-in-out);
+  @include transition(background 0.15s ease-in-out);
   &:hover, &:focus{
     background: $brand-color-green;
   }

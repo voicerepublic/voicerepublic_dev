@@ -7,16 +7,13 @@ describe "Participations" do
       @user = FactoryGirl.create(:user)
       login_user @user
     end
-    it "creates a participation from Talk" do
+    # TODO: Participation used to be explicit. We need to rewrite it to be
+    # implicit. When done, we should re-activate this spec.
+    pending "creates a participation from Talk" do
       expect {
         visit talk_path(@talk)
         click_on "Participate"
       }.to change(Participation, :count).by(1)
-    end
-    it "redirects to Talk" do
-      visit talk_path(@talk)
-      click_on "Participate"
-      current_path.should == venue_talk_path(@talk.venue, @talk)
     end
     it "creates a participation from Series" do
       expect {

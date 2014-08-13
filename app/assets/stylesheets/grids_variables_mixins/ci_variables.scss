@@ -4,6 +4,7 @@ $brand-color-cremelight: lighten($brand-color-creme, 3.4%);
 $brand-color-red: #F82847;
 $brand-color-yellow: #FFEB3E;
 $brand-color-blue: #2C46B0;
+$interaction-green: #017D03;
 
 $color-black-title: lighten(#000, 10%);
 $header-box-bg: rgba(0,0,0,0.5);
@@ -17,3 +18,8 @@ $text-title-font-size: rem-calc(16);
 // VENUE
 $venue-medium-box-background-color: rgba(0,0,0,0.8);
 $venue-medium-actions-color: $brand-color-creme;
+
+// RESPONSIVE BREAKPOINTS
+$break-small: 320px;
+$break-medium: 700px;
+$break-wide: 1160px;
