@@ -16,9 +16,24 @@
     .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
       #flash_error= raw t('require_flash')
 
-
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
+        - if can? :manage, @talk
+          .generic-actions-box
+            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+              %span.icon-cog
+            %ul#action-links-list.list-style-type-none.hide-stuff
+              - if @talk.venue.opts.start_button
+                %li(ng-show='showStartButton()')
+                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
+              %li(ng-hide='talkIsHalflive() || talkIsLive()')
+                = link_to t('.edit_talk'), [:edit, @venue, @talk]
+              %li(ng-show='showEndTalk()')
+                %a(href="#" ng-click='endTalk()')= t('.end_talk')
+
+              -#
+                %li= link_to t('.download_messages'),
+                  "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
         .breadcrumbs-box.text-left
           = link_to user_path(@talk.user) do
             %span.icon-person
@@ -78,17 +93,6 @@
 
               .play-count.left
                 = t('.plays', count: @talk.play_count)
-
-      -# START / END / EDIT Buttons
-      %section.row.collapse.text-center
-        - if can? :manage, @talk
-          - if !@talk.venue.opts.start_button
-            %button.button-vr(ng-show='showStartButton()')
-              %a(href="#" ng-click='startTalk()')= t('.start_talk')
-          %button.button-vr(ng-hide='talkIsHalflive() || talkIsLive()')
-            = link_to(t('.edit_talk'), [:edit, @venue, @talk])
-          %button.button-vr(ng-show='showEndTalk()')
-            %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
       %a.info-link(ng-show="showInfoLink()" href="#" title="#{t('.show_all_information')}" data-reveal-id="modal-info")
         %span.icon-info

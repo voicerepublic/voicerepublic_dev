@@ -40,6 +40,13 @@
     position: absolute;
     right: -89px;
     top: 27px;
+    .action-toggle{
+      height: 38px;
+      width: 38px;
+      position: relative;
+      display: block;
+      margin-bottom: 3px
+    }
     .icon-cog{
       color: $brand-color-red;
       font-size: rem-calc(18);
