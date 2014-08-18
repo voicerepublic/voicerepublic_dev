@@ -15,34 +15,24 @@ module ApplicationHelper
   def delete_params
     {
       method: :delete,
-      data: { 
+      data: {
         confirm: I18n.t('.confirm_delete', default: 'Are you sure?')
       },
       class: 'link-delete'
     }
   end
 
-  def destroy_participation_link(venue)
-    link_to( I18n.t('helpers.venue_actions.unjoin_venue'),
-             venue_participation_path(:venue_id => @venue.id),
-             :method => :delete,
-             :data => {
-               :confirm => I18n.t('helpers.venue_actions.confirm_unjoin_venue')
-             },
-             :class => "btn btn-small" )
-  end
-  
   # limit number of words being displayed.
   #
   def limit_words(txt, num)
     arr = ( txt ? txt.split(" ") : [] )
     arr.length > num-1 ? arr[0..num-1].join(" ").concat(" ...") : txt
   end
-  
+
   def simple_links(txt)
     txt.gsub(/(https?:\/\/\S*)/, "<a href='\\1' target='_blank'>\\1</a>")
   end
-  
+
   # adds iframes for typical youtube links
   #
   # e.g.
@@ -87,7 +77,7 @@ module ApplicationHelper
     gi = KluuuCode::GitInfo.new(Rails.root)
     gi.latest
   end
-  
+
   def klu_type_string(klu)
     klu.instance_of?(Kluuu) ? t('helper.application.kluuu_string') : t('helper.application.no_kluuu_string')
   end
@@ -103,11 +93,11 @@ module ApplicationHelper
       "#{tag} p#{patchlevel}"
     end
   end
-  
+
   def release
     RELEASE
   end
-  
+
 end
 
 # determine release once when module is loaded

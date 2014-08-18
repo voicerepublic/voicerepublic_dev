@@ -20,6 +20,7 @@ tmp/**/*
 config/database.yml
 db/*.sqlite3-journal
 *.swp
+*.swo
 nbproject
 public/system/
 private/

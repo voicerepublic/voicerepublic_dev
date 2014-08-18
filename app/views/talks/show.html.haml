@@ -11,24 +11,11 @@
 .row(style='padding: 200px' ng-hide='true')
   .large-12.text-center= t('.initializing')
 
-.layout-talk(ng-controller='Livepage' ng-cloak)
+.layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
       #flash_error= raw t('require_flash')
-    - if @talk.related_talk
-      %section.row.collapse.text-center.related-talk
-        .large-12.columns
-          .related-title-box.text-left
-            = link_to t('.related_talk'), @talk.related_talk
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.related_talk }
-    - elsif @talk.next_talk
-      %section.row.collapse.text-center.related-talk
-        .large-12.columns
-          .related-title-box.text-left
-            = link_to t('.next_talk'), @talk.next_talk
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @talk.next_talk }
+
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
         - if can? :manage, @talk
@@ -57,8 +44,14 @@
             %span.link-text= @talk.venue.title
           .bc-delimiter >
 
-          .flyer-link-box
-            = link_to '#', 'data-reveal-id' => "modal-flyer" do
+          .links-box
+            - unless current_user.remembers?(@talk)
+              - url = [ @talk, :reminders ]
+              = link_to url, method: 'post', class: "link-remember" do
+                %span.icon-plus
+                %span.link-text= t('.remember')
+
+            = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer" do
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
@@ -72,69 +65,85 @@
         = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
-        .talk-teaser
+        .talk-teaser(ng-show='showTalkTeaser()')
           = @talk.teaser
         .talk-date-time
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
 
-        -# TODO: better integrate player with angularjs
+
+        -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
           -# PLAYER
           = render partial: 'shared/player', locals: { talk: @talk }
           .talk-archived-actions-box.row.collapse
             .small-12.columns
-              .download-link-box.right(ng-show='showDownloadButton()')
-                = link_to '#', title: t('.download_talk'), class: 'download-link', 'data-reveal-id' => "modal-download" do
-                  %span.icon-download-2
-              #modal-download.reveal-modal.text-center(data-reveal)
-                %h3.color-black= t('.download_talk')
-                %ul.button-group.text-center
-                  %li(ng-repeat='(ext, link) in mediaLinks')
-                    %a.button-standard(href='{{link}}' download) {{ext}}
-                %a.close-reveal-modal= raw '&#215;'
-
-              .embed-link-box.right
-                = link_to '#', class: 'embed-link', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
-                  = raw '&lt;&#47;&gt;'
-              #modal-embed.reveal-modal.text-center(data-reveal)
-                %h3.color-black= t('.embed_this_talk')
-                %textarea
-                  <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-                %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
-                %a.close-reveal-modal= raw '&#215;'
+              .right
+                = link_to_podcast(@venue)
+                = link_to '#', class: 'button-embed', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
+                  = succeed t('.embed') do
+                    %span.icon-code
+                #modal-embed.reveal-modal.text-center(data-reveal)
+                  %h3.color-black= t('.embed_this_talk')
+                  %textarea
+                    <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                  %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
+                  %a.close-reveal-modal= raw '&#215;'
 
               .play-count.left
-                = link_to '#', title: t('.plays', count: @talk.play_count) do
-                  %span.icon-play
-                  = @talk.play_count
-      - if current_user.guest?
-        .vr-banner.hide-for-small
-          = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
-            %h3
-              = t('.banner_title')
-            %p
-              = raw t('.banner_text')
-          %a.close-x(data-toggle-stuff=".vr-banner")
-            = raw '&times;'
+                = t('.plays', count: @talk.play_count)
 
-        #vr-banner-modal.reveal-modal(data-reveal)
-          = image_tag 'vr_infografic.png'
-          = link_to '#', class: "close-reveal-modal" do
-            &#215;
+      %a.info-link(ng-show="showInfoLink()" href="#" title="#{t('.show_all_information')}" data-reveal-id="modal-info")
+        %span.icon-info
 
-    .talk-countdown.row(ng-show='showCountdown()')
-      .medium-12.columns.text-center
-        .cd-text
-          = raw t('.countdown_text')
-        .cd-watch
-          {{ countdown }}
-        .cd-minutes
-          = t('.minutes')
+      #modal-info.reveal-modal(data-reveal="true")
+        %h2.talk-title
+          = @talk.title
+        .talk-teaser
+          = @talk.teaser
+        .talk-date-time
+          = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
+          start_time: l(@talk.starts_at, format: :time_only),
+          end_time: l(@talk.ends_at, format: :time_only))
+        .talk-info-text
+          = @talk.try(:description).try(:html_safe)
+        %a.close-reveal-modal= raw '&#215;'
+
+      .sidebar-right
+        - if current_user.guest?
+          .vr-banner.hide-for-small
+            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+              %h3
+                = t('.banner_title')
+              %p
+                = raw t('.banner_text')
+            %a.close-x(data-toggle-stuff=".vr-banner")
+              = raw '&times;'
+
+          #vr-banner-modal.reveal-modal(data-reveal)
+            = image_tag 'vr_infografic.png'
+            = link_to '#', class: "close-reveal-modal" do
+              &#215;
+
+        - if @talk.related_talk
+          %section.row.collapse.text-center.related-talk
+            .large-12.columns
+              .related-title-box.text-left
+                = link_to t('.related_talk'), @talk.related_talk
+              %ul.list-style-type-none
+                = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.related_talk, color: 'box-transparent' }
+        - elsif @talk.next_talk
+          %section.row.collapse.text-center.related-talk
+            .large-12.columns
+              .related-title-box.text-left
+                = link_to t('.next_talk'), @talk.next_talk
+              %ul.list-style-type-none
+                = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+
         .situation(ng-show='showSituation()')= t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
@@ -142,6 +151,12 @@
             = link_to t('.please_reload_this_page'), @talk
           .processing-message(ng-show='talkIsProcessing()')
             = t('.talk_is_processing')
+
+        .talk-countdown.text-center(ng-show='showCountdown()')
+          = raw t('.countdown_text')
+          {{ countdown }}
+          = t('.minutes')
+
         .talk-live-timeline(ng-show='talkIsHalflive() || talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
@@ -153,14 +168,21 @@
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
               {{ countdown }} MIN
-        .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
-          %span.icon-volume-mute(ng-click='setVolume(0)')
-          %span.icon-volume-mute2.hide(ng-click='setVolume(1)')
 
-    .talk-talkers-box.row
+        .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
+          %a(href="#" title="#{t('.mute_streams')}" ng-click='setVolume(0)')
+            %span.icon-volume-mute
+          %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
+            %span.icon-volume-mute2.hide
+
+    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
       .large-12.columns.text-center
+        .stage-title
+          =t('.stage')
         - unless @talk.speakers.blank?
-          %p.speakers= @talk.speakers
+          .speakers-box
+            %h3= t('.speakers')
+            %p= @talk.speakers
         - else
           .avatar.avatar-host
             .avatar-box
@@ -173,153 +195,201 @@
               .avatar-name.text-center
                 {{ guest.name }}
             .host-actions(ng-show='showHostActions()')
-              .guest-demote-link(ng-click="demote(guest.id)")
-                = t('.demote')
-  
-    .talk-visitors-action-box.row.collapse-large-only(ng-show="userIsAListener()")
-      .large-12.columns
-        .participate-button-box.text-center
-          - url = [ @talk.venue, :participations ]
-          = link_to t('.participate'), url, method: 'post', class: 'button-vr'
+              %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(guest.id)")
+                = raw t('.demote')
 
-    - unless current_user.remembers?(@talk)
-      .row
-        .large-12.columns
-          .remember-button-box.text-center
-            - url = [ @talk, :reminders ]
-            = link_to t('.remember'), url, method: 'post', class: 'button-vr'
-          
-    .talk-host-and-participants-action-box.row
+    .talk-more-talks-box.row.collapse-large-only(ng-hide="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
+      .large-12.columns
+        .more-talks-title-box.text-left
+          = link_to t('.more_talks'), @talk.venue
+        %ul.user-talks-slider.list-style-type-none
+          = render partial: 'shared/talk_small_box', collection: @related_talks, locals: { color: 'box-transparent'}
+
+    .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
-        .talkers-action-box
-          -# FIXME quick and dirty: do not show mic
-          .mic-sign-box{ class: @talk.state=~/^(pre|)live$/ ? '' : 'display-none'}
+        .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState, 'state-prelive' : showPrelive()}")
+          .avatar
+            .avatar-box
+              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
+          .mic-sign-box
             %span.icon-octa-full
             %span.icon-octagon
-            %span.icon-mic
-          .button-box
-            .button-reqmic(ng-show='flags.reqmic'
-                          ng-click='requestMic()')= t('.request_mic')
-            .button-accept(ng-show='flags.acceptOrDecline'
-                          ng-click='acceptPromotion()')= t('.accept_promotion')
-            .button-decline(ng-show='flags.acceptOrDecline'
-                          ng-click='declinePromotion()')= t('.decline_promotion')
-            #onair(ng-show='flags.onair')= t('.you_are_on_air')
+            %span.icon-unmute
+            %span.icon-mute
 
-          .tmp-mute-box.text-left
-            %span.button-mute(ng-show='flags.onair'
-                          ng-click='mute()')= t('.mute_mic')
-            %span.button-unmute(ng-show='flags.onair'
-                          ng-click='unmute()')= t('.unmute_mic')
+          .request-mic-box(ng-show='flags.reqmic')
+            .arrow
+              .arrow-head
+            .button-action(ng-click='requestMic()')
+              = t('.request_mic')
+          -# FAKE LINK
+          .request-mic-box(ng-show='userIsAListener()')
+            .arrow
+              .arrow-head
+            - url = [ @talk.venue, :participations ]
+            = link_to url, class: "button-action", method: 'post' do
+              = t('.request_mic')
 
-        .chat-flash-box
-          - unless @talk.venue.opts.suppress_chat
-            .chat-input-box.row(ng-hide="userIsAListener()")
-              .large-12.columns
-                .input-box
-                  %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-                  %span.icon-bubble-multi
+          .awaiting-mic-box(ng-show='showAwaitingMic()')
+            .arrow
+              .arrow-head
+            .button-action
+              = t('.awaiting_mic_request')
 
-          -# FIXME quick and dirty: do not show audio settings
-          - if @talk.state=~/^(pre|)live$/
-            .button-audio-settings(ng-click='toggleShowSettings()')
-              %span.icon-mic
-              = t(".audio_settings")
+          .acc-dec-box(ng-show='showAcceptOrDecline()')
+            .invitation-text
+              = t('.talk_invitation')
+            .button-action(ng-click='acceptPromotion()')
+              = t('.accept_promotion')
+            .decline-link(ng-click='declinePromotion()')
+              = t('.decline_promotion')
 
-          -# FIXME quick and dirty: do not show audio settings
-          .flash-box.row(ng-class="{'hide-stuff': !showSettings()}")
-            .large-12.columns.text-left
-              #flashContent
-              .manual-box
-                .flash-manual-title
-                  = t('.flash_manual_title')
-                %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-                = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
-                  %p.flash-content
-                    = raw t('.audio_settings_help_text')
+          .prelive-box(ng-show='showPrelive()')
+            .prelive-text
+              = t('.prelive_text')
+              %a.tooltip-simple(href="#")
+                %span.icon-info
+                %span.tooltip-overlay
+                  = t('.prelive_tooltip')
 
-    .row.collapse-large-only
-      .large-12.columns
-        -# TODO: The current active tab is being decided upon in Ruby. This is a
-        -# hacky and redundant implementation (decision was made whilst swarming).
-        -# The active tab should be different in various states, however.
-        -# https://www.pivotaltracker.com/story/show/70019652
-        %dl.tabs.vr-tabs(data-tab="true")
-          %dd.text-center{class: ("active" if @talk.venue.opts.suppress_chat)}
-            %a(href="#description")
-              %span.icon-description
-              = t('.description')
-          - unless @talk.venue.opts.suppress_chat
-            %dd.text-center.active
-              %a(href="#discussion")
-                %span.icon-bubble-multi
-                = t('.discussion')
-          %dd.text-center
-            %a(href="#participants")
-              %span.icon-people
-              = t('.participants')
-              %span(ng-show='expectingPromotion().length')
-                ({{ expectingPromotion().length }} #{t('.miqrec')})
-              %span(ng-show='acceptingPromotion().length')
-                ({{ acceptingPromotion().length }} #{t('.awaiting')})
+          .onair-box(ng-show='showOnAir()')
+            .onair-text
+              = t('.you_are_on_air')
+            .mute-box(ng-click='toggleMicMute()')
+              %span.button-mute(ng-hide='muteState')= t('.mute_mic')
+              %span.button-unmute(ng-show='muteState')= t('.unmute_mic')
 
-  .talk-tabs-content-block
-    .tabs-content
-      -# TODO: The current active tab is being decided upon in Ruby. This is a
-      -# hacky and redundant implementation (decision was made whilst swarming).
-      -# The active tab should be different in various states, however.
-      -# https://www.pivotaltracker.com/story/show/70019652
-      #description.description-content.content{class: ("active" if @talk.venue.opts.suppress_chat)}
-        .row
-          .large-12.columns
+        -# FIXME quick and dirty: do not show audio settings
+        - if @talk.state=~/^(pre|)live$/
+          .button-audio-settings(ng-click='toggleShowSettings()')
+            %span.icon-equalizer
+            = t(".audio_settings")
+
+    -# FIXME quick and dirty: do not show audio settings
+    .flash-block(ng-class="{'state-on': showSettings()}")
+      .flash-block-bg(ng-click='toggleShowSettings()')
+      .flash-box.row
+        .large-12.columns.text-left
+          #flashContent
+          .manual-box
+            .flash-manual-title
+              = t('.flash_manual_title')
+            %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
+            = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
+              %p.flash-content
+                = raw t('.audio_settings_help_text')
+        .close-x(ng-click='toggleShowSettings()')
+          &times;
+
+  .row.collapse-large-only
+    .large-12.columns
+
+      -# DESCRIPTION
+      #description.description-block
+        .description-content(ng-class="{'collapse': descriptionCollapsed()}")
+          -#%h3= t('.description')
+          .description-innerheight
             = @talk.try(:description).try(:html_safe)
+          %span.more-link(ng-show="descriptionCollapsable()" ng-click="toggleDescription()")
+            %span(ng-show="descriptionCollapsed()")= t('.more')
+            %span(ng-hide="descriptionCollapsed()")= t('.less')
 
-      - unless @talk.venue.opts.suppress_chat
-        #discussion.discussion-content.content.active
-          .chat-message(ng-repeat='message in discussion')
-            .row
-              .large-12.columns
-                .message-name
-                  {{ message.name }}
+      .participants-and-discussion
+
+        -# DISCUSSION
+        - unless @talk.venue.opts.suppress_chat
+          #discussion.discussion-block
+            %h3.title-discussion
+              =t('.discussion')
+            .chat-input-box
+              .avatar
+                .avatar-box
+                  = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 40}
+              %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+              - url = [ @talk.venue, :participations ]
+              = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
+
+            .message-box
+              .chat-message(ng-repeat='message in discussion')
+                .avatar
+                  .avatar-box
+                    -# TODO: avatar path?
+                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_path: '{{ message.image }}', img_size: 38}
                 .message-content
-                  {{ message.content }}
-                .message-time
-                  {{ message.created_at }}
+                  %span.message-name
+                    {{ message.name }}
+                  %span.message-time
+                    {{ message.created_at }}
+                  .message-text
+                    {{ message.content }}
 
-      #participants.participants-content.content
-        .row.participants-box
-          .large-12.columns
-            .expecting_promotion(ng-show='expectingPromotion().length')
-              %h3= t('.microphone_requests')
-              %ul.medium-block-grid-6.small-block-grid-3
-                %li.avatar.text-center(ng-repeat="parti in expectingPromotion()")
-                  .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52}
-                    .avatar-name.text-center {{ parti.name }}
-                  .host-actions(ng-show='showHostActions()')
-                    .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                      = t('.promote')
-            .accepting_promotion(ng-show='acceptingPromotion().length')
-              %h3= t('.awaiting_to_speak')
-              %ul.medium-block-grid-6.small-block-grid-3
-                %li.avatar.text-center(ng-repeat="parti in acceptingPromotion()")
-                  .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52}
-                    .avatar-name.text-center {{ parti.name }}
-            .participating(ng-show='participants().length')
-              %h3= t('.participating')
-              %ul.medium-block-grid-6.small-block-grid-3
-                %li.avatar.text-center(ng-repeat="parti in participants()")
-                  .avatar-box
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 52}
-                    .avatar-name.text-center {{ parti.name }}
-                  .host-actions(ng-show='showHostActions()')
-                    .guest-promote-link.text-center(ng-click="promote(parti.id)")
-                      = t('.promote')
-            .listening(ng-show="listeners().length")
-              %h3
-                {{ listeners().length }}
-                = t('.just_listening_in')
+        -# PARTICIPANTS: LISTENERS, MIC REQUESTS, INVITES
+        - unless @talk.venue.opts.suppress_chat
+          #participants.participants-box
+
+            .promotion-counter-box
+              .exp-counter(ng-show='expectingPromotion().length' title="#{t('.mic_requests')}")
+                .icon-octa-full
+                .icon-octagon
+                .number.text-center
+                  {{ expectingPromotion().length }}
+              .acc-counter(ng-show='acceptingPromotion().length' title="#{t('.stage_invitations')}")
+                .icon-octa-full
+                .icon-octagon
+                .number.text-center
+                  {{ acceptingPromotion().length }}
+
+            .participants-content
+              .empty-box(ng-class="{'state-hidden': expectingPromotion().length || acceptingPromotion().length || participants().length}")
+                %h3= t('.listeners')
+                %p= t('.empty_text')
+
+              .expecting-promotion(ng-show='expectingPromotion().length')
+                %h3= t('.mic_requests')
+                %ul.list-style-type-none
+                  %li.avatar(ng-repeat="parti in expectingPromotion()")
+                    .avatar-box
+                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      .avatar-name
+                        %table
+                          %tr
+                            %td
+                              {{ parti.name }}
+                    .host-actions(ng-show='showHostActions()')
+                      .give-mic-link.text-center(ng-click="promote(parti.id)")
+                        = t('.give_the_mic')
+
+              .accepting-promotion(ng-show='acceptingPromotion().length')
+                %h3= t('.stage_invitations')
+                %ul.list-style-type-none
+                  %li.avatar(ng-repeat="parti in acceptingPromotion()")
+                    .avatar-box
+                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      .avatar-name
+                        %table
+                          %tr
+                            %td
+                              {{ parti.name }}
+
+              .participating(ng-show='participants().length')
+                %h3= t('.listeners')
+                %ul.list-style-type-none
+                  %li.avatar(ng-repeat="parti in participants()")
+                    .avatar-box
+                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      .avatar-name
+                        %table
+                          %tr
+                            %td
+                              {{ parti.name }}
+                    .host-actions(ng-show='showHostActions()')
+                      .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                        = t('.invite_to_stage')
+
+              .listening(ng-show="listeners().length")
+                %h3
+                  {{ listeners().length }}
+                  = t('.anonymous_listener')
 
 .scripts
   :javascript

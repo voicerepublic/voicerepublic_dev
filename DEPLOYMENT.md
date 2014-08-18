@@ -196,12 +196,12 @@ As root
     cd /etc/munin/plugins
     ln -s /home/app/app/current/bin/munin/rtmp
     ln -s /home/app/app/current/bin/munin/raindrops
+    ln -s /home/app/app/current/bin/munin/du_ du_home_app_shared_recordings
 
     ln -s /usr/share/munin/plugins/port_ port_1935
     ln -s /usr/share/munin/plugins/port_ port_9292
     ln -s /usr/share/munin/plugins/postgres_querylength_  postgres_querylength_ALL
     ln -s /usr/share/munin/plugins/postgres_xlog
-
 
 CI
 ==

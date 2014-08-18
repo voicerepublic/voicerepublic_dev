@@ -14,3 +14,14 @@
     color: white
   }
 }
+
+.registrations-new{
+  .user_accept_terms_of_use{
+    a{
+      color: $brand-color-green;
+      &:hover{
+        text-decoration: underline
+      }
+    }
+  }
+}
