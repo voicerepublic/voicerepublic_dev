@@ -6,6 +6,9 @@ class UsersController < ApplicationController
                       :email,
                       :avatar,
                       :header,
+                      :timezone,
+                      :website,
+                      :about,
                       :password,
                       :password_confirmation,
                       :conference ]
