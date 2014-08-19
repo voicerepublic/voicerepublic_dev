@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
   end
 
+  acts_as_token_authenticatable
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
