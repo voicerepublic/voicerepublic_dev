@@ -15,13 +15,17 @@ module PodcastHelper
     # linux
     protocol = browser.linux? ? 'http' : protocol
 
-    link_to content_tag('span', '', class: 'icon-podcast') + t('.subscribe_to_podcast'),
-      url_for(controller: entity.class.to_s.pluralize.downcase,
-              action: 'show',
-              format: :rss,
-              only_path: false,
-              protocol: protocol),
-      class: 'button-podcast'
+    url = url_for controller: entity.class.model_name.plural,
+                  action: 'show',
+                  id: entity.to_param,
+                  format: :rss,
+                  only_path: false,
+                  protocol: protocol
+
+    link_to url, class: 'button-podcast' do
+      content_tag('span', '', class: 'icon-podcast') +
+        t('.subscribe_to_podcast')
+    end
 
   end
 
