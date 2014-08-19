@@ -637,9 +637,18 @@ en:
       post: Post
       write_a_comment: Write a comment
       description: Description
-      upcoming_talks: '%{count} Upcoming Talks'
-      archived_talks: '%{count} Archived Talks'
-      comments: Comments
+      upcoming_talks:
+        zero: No Upcoming Talks
+        one: 1 Upcoming Talk
+        other: '%{count} Upcoming Talks'
+      archived_talks:
+        zero: No Archived Talks
+        one: 1 Archived Talk
+        other: '%{count} Archived Talks'
+      comments:
+        zero: No Comments
+        one: 1 Comment
+        other: '%{count} Comments'
     venue_show_header:
       venue: Series
       minutes: Minutes

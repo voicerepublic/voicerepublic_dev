@@ -65,7 +65,7 @@
         %dd.text-center
           %a(href="#comments")
             %span.icon-bubble-multi
-            = t('.comments')
+            = t('.comments', count: @venue.comments.count)
 
 .row.collapse-large-only
   .tabs-content.large-12.columns

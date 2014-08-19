@@ -7,7 +7,7 @@ initialize = (node) ->
     multiple: true
     tokenSeparators: [",", " "]
     ajax:
-      url: "/api/users"
+      url: "/xhr/users"
       data: (q, page) ->
         limit = 10
         { q, page, limit }

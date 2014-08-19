@@ -1,4 +1,4 @@
-class LandingPageController < ApplicationController
+class LandingPageController < BaseController
 
   def index
     respond_to do |format|

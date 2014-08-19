@@ -11,7 +11,7 @@ initialize = (element, selector) ->
       data unless data is "share"
     social_network = social_network[0]
 
-    $.post("/api/social_shares",
+    $.post("/xhr/social_shares",
       social_share:
         shareable_id: $(element).attr("data-shareable-id")
         shareable_type: $(element).attr("data-shareable-type")
