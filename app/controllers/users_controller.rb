@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < BaseController
 
   PERMITTED_ATTRS = [ :firstname,
                       :lastname,
@@ -6,6 +6,9 @@ class UsersController < ApplicationController
                       :email,
                       :avatar,
                       :header,
+                      :timezone,
+                      :website,
+                      :about,
                       :password,
                       :password_confirmation,
                       :conference ]

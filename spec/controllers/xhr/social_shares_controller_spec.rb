@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::SocialSharesController do
+describe Xhr::SocialSharesController do
 
   describe 'anonymous' do
     it 'does not return with unauthorized' do

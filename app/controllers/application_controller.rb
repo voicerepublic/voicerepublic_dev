@@ -28,32 +28,6 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
-  def generate_guest_user?
-    true
-  end
-
-  # hack to authenticate guest users as well
-  def authenticate_user!
-    id = session[:guest_user_id]
-    if id && @guest_user = User.find(id)
-      logger.info "\033[32mAuthenticated guest #{id}\033[0m"
-      return @guest_user
-    end
-    #session[:guest_user_id] = nil
-    super
-  end
-
-  def current_user
-    return @guest_user if @guest_user
-
-    if user = super
-      session[:guest_user_id] = nil
-      return user
-    end
-    return nil unless generate_guest_user?
-    @guest_user ||= create_guest_user
-  end
-
   def user_time_zone(&block)
     Time.use_zone(current_user.timezone, &block)
   end
@@ -98,19 +72,6 @@ class ApplicationController < ActionController::Base
     unless cur_browser[:version] >= Settings.supported_browsers[cur_browser[:name]]
       redirect_to "/upgrade_browser"
     end
-  end
-
-  def create_guest_user
-    token = SecureRandom.uuid
-    name = ['guest', token ] * '_'
-    logger.debug "\033[31mCREATE GUEST USER: #{name}\033[0m"
-    user = User.create( email: "#{name}@example.com",
-                        firstname: 'guest',
-                        lastname: name,
-                        guest: true )
-    user.save! validate: false
-    session[:guest_user_id] = user.id
-    user
   end
 
   # get locale from browser settings

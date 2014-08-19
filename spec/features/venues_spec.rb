@@ -9,6 +9,7 @@ describe 'VenuesController' do
         page.should have_selector(".venues-index")
       end
       it 'new on GET /venues/new' do # new
+        login_user FactoryGirl.create(:user)
         visit new_venue_path
         page.should have_selector(".venues-new")
       end
@@ -19,6 +20,7 @@ describe 'VenuesController' do
         @venue = FactoryGirl.create(:venue, user: @user)
       end
       it "show on GET /venues/:id" do # show
+        login_user @user
         visit venue_path(id: @venue)
         page.should have_selector(".venues-show")
       end
@@ -37,31 +39,32 @@ end
 #
 describe "Venues", js: true do
 
-  describe "As guest" do
-    describe "Participate" do
-      it 'requires guests to sign up before registering' do
-        user = FactoryGirl.create(:user)
-        venue = FactoryGirl.create(:venue, user: user)
-        Participation.count.should eq(0)
-        visit venue_path(venue)
-        # Click "Subscribe" button
-        find("a[data-method=post]").click
-        current_url.should =~ /#{new_user_registration_path}/
-        page.fill_in('user_firstname', :with => "Jim")
-        page.fill_in('user_lastname', :with => "Beam")
-        page.fill_in('user_email', :with => "jim@beam.com")
-        page.fill_in('user_password', :with => "foobar")
-        page.fill_in('user_password_confirmation', :with => "foobar")
-        page.check('user_accept_terms_of_use')
-        page.click_button('Sign Up')
-        current_url.should =~ /#{venue_path(venue)}/
-        # After successfull registration, try again
-        find("a[data-method=post]").click
-        current_url.should =~ /#{venue_path(venue)}/
-        Participation.count.should eq(1)
-      end
-    end
-  end
+  ## this will be obsolete soon!
+  # describe "As guest" do
+  #   describe "Participate" do
+  #     it 'requires guests to sign up before registering' do
+  #       user = FactoryGirl.create(:user)
+  #       venue = FactoryGirl.create(:venue, user: user)
+  #       Participation.count.should eq(0)
+  #       visit venue_path(venue)
+  #       # Click "Subscribe" button
+  #       find("a[data-method=post]").click
+  #       current_url.should =~ /#{new_user_registration_path}/
+  #       page.fill_in('user_firstname', :with => "Jim")
+  #       page.fill_in('user_lastname', :with => "Beam")
+  #       page.fill_in('user_email', :with => "jim@beam.com")
+  #       page.fill_in('user_password', :with => "foobar")
+  #       page.fill_in('user_password_confirmation', :with => "foobar")
+  #       page.check('user_accept_terms_of_use')
+  #       page.click_button('Sign Up')
+  #       current_url.should =~ /#{venue_path(venue)}/
+  #       # After successfull registration, try again
+  #       find("a[data-method=post]").click
+  #       current_url.should =~ /#{venue_path(venue)}/
+  #       Participation.count.should eq(1)
+  #     end
+  #   end
+  # end
 
   describe "As registered user" do
     before do

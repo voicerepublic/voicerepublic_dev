@@ -80,7 +80,7 @@
           .talk-archived-actions-box.row.collapse
             .small-12.columns
               .right
-                = link_to_podcast(@venue)
+                = link_to_podcast(@talk.venue)
                 = link_to '#', class: 'button-embed', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
                   = succeed t('.embed') do
                     %span.icon-code
