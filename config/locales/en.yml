@@ -604,7 +604,6 @@ en:
     venue_medium_box:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
-      comments: '%{count} Comments'
 
   venues:
     date_changed: New Series date
@@ -640,7 +639,7 @@ en:
       description: Description
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
-      comments: Comments
+      comments: '%{count} Comments'
     venue_show_header:
       venue: Series
       minutes: Minutes
