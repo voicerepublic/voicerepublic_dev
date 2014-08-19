@@ -33,7 +33,7 @@ describe I18n do
     files.each do |file|
       File.read(file).split("\n").each do |line|
         case line
-        when /^\s+\w+:\s*(.+)\s*$/ 
+        when /^\s+\w+:\s*(.+)\s*$/
           value = YAML.load($1)
           # and check if these exist in the translations
           unless translations.include?(value)
@@ -49,5 +49,5 @@ describe I18n do
       raise 'Errors in translations, see list above'
     end
   end
-      
+
 end

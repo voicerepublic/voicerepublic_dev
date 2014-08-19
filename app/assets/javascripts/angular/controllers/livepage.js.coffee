@@ -20,6 +20,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.showDownloadButton = ->
     config.talk.state == 'archived'
 
+  $scope.showInfoLink = ->
+    config.talk.state in ['halflive','live']
+
+  $scope.showTalkTeaser = ->
+    config.talk.state in ['prelive','postlive','processing','archived']
+
   $scope.showCountdown = ->
     config.talk.state == 'prelive'
 
@@ -30,6 +36,43 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
     return 'trouble connecting' if config.flags.connecting
     false
+
+  $scope.showParticipantActionsBox = ->
+    config.talk.state in ['prelive','halflive','live']
+
+  $scope.showPrelive = ->
+    (session.fsm.is('HostOnAir') or session.fsm.is('OnAir')) and
+      config.talk.state == 'prelive'
+
+  $scope.showOnAir = ->
+    config.flags.onair and config.talk.state in ['live','halflive']
+
+  $scope.muteState = false
+  $scope.toggleMicMute = ->
+    $scope.muteState = !$scope.muteState
+    if $scope.muteState
+      blackbox.mute()
+    else
+      blackbox.unmute()
+
+
+  $scope.showAcceptOrDecline = ->
+    session.fsm.is("AcceptingPromotion")
+
+  $scope.showAwaitingMic = ->
+    session.fsm.is("ExpectingPromotion")
+
+  descriptionCollapsed = true
+
+  $scope.descriptionCollapsable = ->
+    $(".talks-show .description-innerheight").outerHeight() > 180
+
+  $scope.descriptionCollapsed = ->
+    $scope.descriptionCollapsable() && descriptionCollapsed
+
+  $scope.toggleDescription = ->
+    descriptionCollapsed = !descriptionCollapsed
+
 
   # unconsolidated
 
@@ -60,8 +103,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     config.participants
 
   $scope.setVolume = blackbox.setVolume
-  $scope.mute = blackbox.mute
-  $scope.unmute = blackbox.unmute
 
   $scope.showHostActions = ->
     config.user.role == 'host' and

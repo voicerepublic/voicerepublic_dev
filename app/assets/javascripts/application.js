@@ -17,6 +17,7 @@
 //= require foundation
 //= require jquery.jplayer.min
 //= require select2
+//= require slick
 //
 //= require ckeditor-jquery
 //= require ckeditor/init
@@ -27,6 +28,8 @@
 //= require jquery.ui.datepicker
 //= require jquery.ui.slider
 //= require jquery-ui-timepicker-addon
+//= require slider.js
+//
 //
 //= require_tree ./components
 

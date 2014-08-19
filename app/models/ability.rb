@@ -12,6 +12,8 @@ class Ability
     can :manage, User,    id: user.id
     can :manage, Venue,   user_id: user.id
     can :manage, Comment, user_id: user.id
+    can :create, Reminder unless user.guest?
+    can :manage, Reminder, user_id: user.id
 
     can :manage, Talk do |talk|
       talk.venue.user_id == user.id

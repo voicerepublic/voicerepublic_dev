@@ -1,4 +1,3 @@
-# TODO use cancan for authorization
 class RemindersController < BaseController
 
   before_action :authenticate_user!
@@ -11,11 +10,12 @@ class RemindersController < BaseController
   # POST /reminders
   def create
     @reminder = Reminder.new
+    authorize! :create, @reminder
     @reminder.user = current_user
 
     rememberable ||= Talk.find(params[:talk_id])
     rememberable ||= Venue.find(params[:venue_id])
-    raise "Cannot find Rememberable with #{params.inspect}" if rememberable.nil? 
+    raise "Cannot find Rememberable with #{params.inspect}" if rememberable.nil?
     @reminder.rememberable = rememberable
 
     if @reminder.save
@@ -28,6 +28,7 @@ class RemindersController < BaseController
   # DELETE /reminders/1
   def destroy
     @reminder = Reminder.find(params[:id])
+    authorize! :destroy, @reminder
     @reminder.destroy
     redirect_to current_user, anchor: 'reminders',
                 notice: I18n.t('reminders.destroy.success')

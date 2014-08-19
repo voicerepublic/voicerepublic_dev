@@ -1,6 +1,7 @@
 .users-show,
 .users-edit,
 .users-new{
+	.button-podcast { padding: 5px 8px; }
 
 	.user-portrait-img{
 		width:200px;
@@ -106,7 +107,7 @@
 	          background: black;
 	        }
 	      }
-	    } 
+	    }
 	  }
 
 		.avatar{
@@ -117,7 +118,7 @@
 		margin-bottom: 69px
 	}
 	.vr-tabs dd{
-  	width: 50%;
+  	width: 33.33%;
   }
   .about-content{
   	background: rgba(0,0,0,0.8);

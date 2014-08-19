@@ -51,6 +51,7 @@ class TalksController < BaseController
   # GET /talks/1
   def show
     respond_to do |format|
+      @related_talks = @talk.related_talks
       format.html
       format.text do
         authorize! :manage, @talk
