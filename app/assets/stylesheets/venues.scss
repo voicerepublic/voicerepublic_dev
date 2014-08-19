@@ -8,6 +8,7 @@
 }
 
 .venues-show{
+	.button-podcast { padding: 5px 8px; }
 	/*opacity: 0.6;*/
 	.title-block{
 		position: relative;
@@ -72,7 +73,7 @@
 	      color: #fff;
 	      letter-spacing: 1px;
 	      font-size: rem-calc(13);
-      }      
+      }
     }
 		.venue-title{
 			margin: rem-calc(52) 0 rem-calc(39);

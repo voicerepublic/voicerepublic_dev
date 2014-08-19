@@ -266,6 +266,20 @@ class Talk < ActiveRecord::Base
   end
 
 
+  def related_talks
+    talks = venue.talks.where.not(id: id).ordered.limit(9)
+    if talks.empty?
+      talks = Talk.joins(:venue).
+        where(venues: { user_id: venue.user_id }).
+        where.not(id: id).ordered.limit(9)
+    end
+    if talks.empty?
+      talks = Talk.popular.
+        where.not(id: id).ordered.limit(9)
+    end
+    talks
+  end
+
   private
 
   # upload file to storage

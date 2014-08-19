@@ -180,7 +180,7 @@ feature "User can register" do
     within(".input.email.error") do
       page.should have_content("can't be blank")
     end
-    page.should have_content I18n.t('devise.registrations.new.accept_terms_of_use')
+    page.should have_content "I accept the Terms of Use"
   end
 
 end

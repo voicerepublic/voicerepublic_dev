@@ -21,28 +21,6 @@
 
 
 .talks-show{
-  .related-talk {
-    background: rgba(0,0,0,0.5);
-    margin-top: 15px;
-    .related-title-box{
-      position: relative;
-      padding:6px 13px;
-      background: rgba(0,0,0,0.3);
-      color:white;
-      font-family: 'eaglelight';
-      a{
-        font-size: rem-calc(14);
-        color: inherit;
-        font-family: inherit;
-        &:hover,&:focus{
-          text-decoration: underline;
-        }
-      }
-    }
-    .talk-medium-box{
-      margin-bottom: 0;
-    }
-  }
 
   // for testing
   .talk-state{
@@ -106,6 +84,7 @@
     background: rgba(0,0,0,0.5);
     margin-top: 15px;
     padding:0px 0 2px 0;
+    min-height: 140px;
     .breadcrumbs-box{
       position: relative;
       padding:6px 13px;
@@ -135,13 +114,21 @@
         display: inline-block;
         margin:0 3px;
       }
-      .flyer-link-box{
+      .links-box{
         position: absolute;
         right: 10px;
         top:4px;
         a{
           font-family: 'eaglebook';
           font-size: rem-calc(11);
+          margin-left: 10px;
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.5);
+        }
+        .link-remember{
+          .icon-plus{
+            font-size: 15px;
+            margin-right: 3px;
+          }
         }
       }
     }
@@ -173,7 +160,22 @@
     .talk-date-time{
       margin: rem-calc(10) 0 0 0;
       font-family: 'eaglelight';
-      font-size: rem-calc(14);
+      font-size: rem-calc(16);
+      position: relative;
+    }
+
+    .info-link{
+      position: absolute;
+      bottom:0px;
+      right: 4px;
+      color: #ddd;
+      .icon-info{
+        font-size:rem-calc(25);
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2), -1px -1px 2px rgba(0,0,0,0.2);
+      }
+      &:hover{
+        color: $brand-color-green;
+      }
     }
 
     .jp-audio{
@@ -181,29 +183,14 @@
     }
 
     .talk-archived-actions-box{
-      padding:4px 2px 2px 0;
-      a{
-        color: white;
-        display: inline-block;
-        margin:0 3px;
-        &:hover,&:focus{
-          color: $brand-color-green;
-        }
-      }
-      .download-link{
-        position: relative;
-        top: -1px;
-      }
-      .embed-link{
-        position: relative;
-        top: 2px;
-        font-size: rem-calc(17px);
-        font-family: 'eaglebook';
+      padding:4px 3px 2px 12px;
+      .button-podcast{
+        padding-top:4px;
       }
     }
     .play-count{
-      padding:4px 0 0 7px;
-      color: $brand-color-green;
+      padding:6px 0 0 0;
+      color: white;
       font-family: 'eaglelight';
       font-size: rem-calc(14);
       a{
@@ -227,33 +214,39 @@
     }
   }
 
+  #modal-info{
+    background: black;
+    color: white;
+    @include responsive(desktop){
+      width: 700px;
+      margin-left: -350px;
+    }
+    .talk-title{
+      color:white;
+      margin-bottom: 0;
+    }
+    .talk-teaser{
+      font-family: 'eaglelight';
+      font-size: rem-calc(19);
+      color: white;
+    }
+    .talk-date-time{
+      font-family: 'eaglelight';
+      font-size: rem-calc(14);
+    }
+    .talk-info-text{
+      margin-top: 20px;
+      color:white;
+    }
+    .close-reveal-modal{
+      color:white;
+    }
+  }
+
   .embed-help-text{
     font-family: 'eaglelight';
     font-size: rem-calc(15);
     color: $brand-color-red;
-  }
-
-  .talk-countdown{
-    margin-top: 20px;
-    background: rgba(0,0,0,0.5);
-    padding: 40px 0;
-    .cd-text,.cd-minutes{
-      display: inline-block;
-      font-family: 'eaglebook';
-      font-size: rem-calc(14);
-      .red{
-        color: $brand-color-red;
-      }
-    }
-    .cd-watch{
-      display: inline-block;
-      position: relative;
-      font-family: 'eaglelight';
-      font-size: rem-calc(40);
-      margin: 0 rem-calc(13) 0 rem-calc(10);
-      width: 168px;
-      text-align: left;
-    }
   }
 
   .talk-timeline-box{
@@ -272,6 +265,14 @@
       font-family: 'eaglebook';
       font-size:rem-calc(26);
       padding: rem-calc(12) 10px rem-calc(10) 10px;
+    }
+    .talk-countdown{
+      background: rgba(0,0,0,0.6);
+      padding: 16px 0 7px 0;
+      border-top:2px solid white;
+      .red{
+        color:$brand-color-red;
+      }
     }
     .talk-live-timeline{
       background: rgba(0,0,0,0.5);
@@ -312,7 +313,7 @@
     .mute-stream-box{
       position: absolute;
       left: 12px;
-      bottom: 1px;
+      bottom: 9px;
       span{
         font-size: rem-calc(16);
         color: $brand-color-red;
@@ -323,9 +324,30 @@
 
   .talk-talkers-box{
     position: relative;
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     padding:rem-calc(23) rem-calc(23);
     color: #fff;
+    min-height: 120px;
+    .stage-title{
+      position: absolute;
+      left:0;
+      top:13px;
+      font-family: 'eaglebook';
+      font-size: rem-calc(60);
+      color: #2f2f2f;
+      text-shadow:1px 1px 3px rgba(0,0,0,0.5),-1px -1px 3px rgba(0,0,0,0.5);
+    }
+    .speakers-box{
+      display: inline-block;
+      h3{
+        font-family: 'eaglelight';
+        font-size: rem-calc(14);
+      }
+      p{
+        font-family: 'eaglebook';
+        font-size: rem-calc(14);
+      }
+    }
     .avatar{
       .avatar-box{
         width: 140px;
@@ -341,124 +363,385 @@
           fill: $brand-color-red;
         }
       }
+      .host-actions{
+        position: absolute;
+        top: -8px;
+        right: 28px;
+        font-size: 18px;
+        a{
+          cursor: pointer;
+          color: white;
+        }
+      }
     }
   }
 
-  .talk-visitors-action-box{
-    margin-top: 37px
+  .talk-more-talks-box{
+    margin-bottom: 40px;
+    .more-talks-title-box{
+      position: relative;
+      padding:6px 0 6px 12px;
+      background: rgba(0,0,0,0.5);
+      color:white;
+      text-shadow:1px 1px 3px rgba(0,0,0,0.5),-1px -1px 3px rgba(0,0,0,0.5);
+      font-family: 'eaglelight';
+      a{
+        font-size: rem-calc(12);
+        color: inherit;
+        font-family: inherit;
+        &:hover,&:focus{
+          text-decoration: underline;
+        }
+      }
+    }
+    .user-talks-slider{
+      background: $brand-color-creme;
+      padding:10px 6px 0px 6px;
+      margin-bottom: 0;
+      .slick-dots{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        bottom: -36px;
+        li{
+          button{
+            height:10px;
+            width:10px;
+            background: #999;
+            border: 1px solid $brand-color-creme;
+            border-radius: 50%;
+            &:before{
+              content: '';
+            }
+          }
+          &.slick-active{
+            button{
+                background: $brand-color-creme;
+                border: 1px solid $brand-color-creme;
+            }
+          }
+        }
+      }
+    }
+    .talk-small-box{
+      .breadcrumbs-box{
+        display: none;
+      }
+      margin-bottom: 0;
+      border:none;
+      .talk-small-padding{
+        padding:0 5px;
+      }
+    }
   }
 
-  .talk-host-and-participants-action-box{
+  .talk-participant-actions-box{
     position: relative;
-    background: black;
-    margin-top: 40px;
-    height: 88px;
-    padding-top: 10px ;
-    padding-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 
-    .talkers-action-box{
-      .mic-sign-box{
-        display: inline-block;
+    .background-box{
+      display: inline-block;
+      position: relative;
+      width: 325px;
+      height: 26px;
+      background: rgba(0,0,0,0.6);
+      @include transition('width 0.5s linear 0, background 0.5s linear 0');
+      @include box-shadow (0, 0, 5px, rgba(0,0,0,0.2));
+      border-radius: 5px;
+
+      .avatar{
         position: absolute;
-        top: -45px;
-        margin-left: -35px;
-        left: 50%;
-        width: 78px;
+        left: -25px;
+        top: -12px;
+      }
+      .mic-sign-box{
+        position: absolute;
+        right: -25px;
+        top: -14px;
         .icon-octa-full{
           position: absolute;
           top: 0;
-          left:0;
-          font-size: rem-calc(70);
-          color: black;
+          right:0;
+          font-size: rem-calc(50);
+          color: #333;
         }
         .icon-octagon{
           position: absolute;
           top: 0;
-          left:0;
-          font-size: rem-calc(70);
-          color: $brand-color-green;
+          right:0;
+          font-size: rem-calc(50);
+          color: white;
         }
-        .icon-mic{
+        .icon-unmute,
+        .icon-mute{
           position: absolute;
-          top: 20px;
-          left: 20px;
-          color: $brand-color-green;
-          font-size: rem-calc(30);
+          top: 13px;
+          right: 13px;
+          color: white;
+          font-size: rem-calc(24);
+        }
+        .icon-mute{
+          @include opacity(0);
         }
         .yellow{
           color: $brand-color-yellow;
         }
       }
-      .button-box{
-        height: 35px;
-        > div{
+
+      .arrow{
+        display: inline-block;
+        position: relative;
+        margin-top: 11px;
+        width: 220px;
+        height:4px;
+        background: white;
+        &:after{
+          left: 100%;
+          top: 50%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
           position: absolute;
+          pointer-events: none;
+          border-left-color: $brand-color-creme;
+          border-width: 8px;
+          margin-top: -8px;
+        }
+      }
+
+      .button-action{
+        font-family: 'eaglebook';
+        font-size: rem-calc(12);
+        line-height: 1;
+        padding:5px 0 1px 0;
+        width: 160px;
+        position: absolute;
+        margin-left: -80px;
+        border-radius: 3px;
+        cursor: pointer;
+        top:3px;
+      }
+
+      /* REQUEST MIC */
+      .request-mic-box{
+        .button-action{
           left: 50%;
-          top: -7px;
-          margin-left: 39px;
+          background: $interaction-green;
+          color: white;
+          border: 1px solid #ddd;
+          border-bottom-color: #aaa;
+          @include box-shadow(0,0,12px,rgba(0,0,0,1));
+        }
+      }
+
+      /* AWAITING MIC */
+      .awaiting-mic-box{
+        position: relative;
+        .button-action{
+          left: 50%;
+          background: url(/images/awaiting-loading.gif);
+          color: rgba(0,0,0,0.8);
+          text-shadow: 1px 1px 2px rgba(255,255,255,0.3), -1px -1px 2px rgba(255,255,255,0.3);
+          border: 1px solid #000;
+          border-bottom-color: #666;
+          @include box-shadow(0,0,12px,rgba(0,0,0,0));
+          cursor: default;
+        }
+        .arrow{
+          @include rotate(180);
+        }
+      }
+
+      &.state-awaiting_mic{
+        .avatar-bg{
+          fill: $brand-color-yellow;
+        }
+      }
+
+      /* ACCEPT DECLINE INVITATION */
+      &.state-acc_dec{
+        .avatar-bg{
+          fill: $brand-color-green;
+        }
+      }
+      .acc-dec-box{
+        padding-top: 4px;
+        .avatar-bg{
+          fill:$brand-color-green;
+        }
+        .invitation-text{
           font-family: 'eaglebook';
-          font-size: 12px;
-          color: $brand-color-yellow;
-          cursor: pointer;
-          &#onair{
-            cursor: default;
-          }
-          &.button-decline{
-            top: 23px;
-          }
-          #onair{
-            color: $brand-color-red;
+          font-size: rem-calc(16);
+          display: inline-block;
+          position: relative;
+          top:1px;
+        }
+        .button-action{
+          position: relative;
+          display: inline-block;
+          width: 66px;
+          margin-left: 0;
+          background: $interaction-green;
+          color: white;
+          border: 1px solid #ddd;
+          border-bottom-color: #aaa;
+          @include box-shadow(0,0,12px,rgba(0,0,0,1));
+          font-size: rem-calc(13);
+          line-height: 1;
+          padding:2px 0 0 0;
+          top:0;
+        }
+        .decline-link{
+          display: inline-block;
+          font-size: rem-calc(8);
+        }
+      }
+
+      &.state-prelive{
+        width:260px;
+        border: 2px solid $brand-color-green;
+        background: $brand-color-green;
+        padding-right: 20px;
+        .avatar{
+          @include opacity(0);
+        }
+        .mic-sign-box{
+          .icon-octagon,
+          .icon-unmute{
+            color:$brand-color-green;
           }
         }
       }
-      .tmp-mute-box{
-        position: absolute;
-        //tmp hide
-        height:0;
-        overflow: hidden;
-        top: 5px;
-        left: 10px;
-        font-size: rem-calc(11);
-        font-family: 'eaglelight';
-        > span{
+
+      /* ON AIR */
+      &.state-onair{
+        width:180px;
+        border: 2px solid $brand-color-red;
+        background: $brand-color-red;
+        padding-right: 20px;
+        .avatar{
+          @include opacity(0);
+        }
+        .mic-sign-box{
+          .icon-octagon,
+          .icon-unmute{
+            color:$brand-color-red;
+          }
+        }
+        &:hover,
+        &.state-muted-mic{
+          border: 2px solid $brand-color-green;
+          @include transition(all 0.05s linear 0);
+          background: white;
+          .mic-sign-box{
+            .icon-octagon,
+            .icon-mute{
+              @include opacity(1);
+              color:$brand-color-green;
+            }
+            .icon-unmute{
+              @include opacity(0)
+            }
+          }
+          .mute-box{
+            @include opacity(1);
+          }
+        }
+      }
+
+      .onair-box{
+        width: 100%;
+        padding-top: 4px;
+        .avatar{
+          display: none;
+        }
+
+        .onair-text{
+          font-family: 'eaglebook';
+          font-size: rem-calc(15);
+          display: inline-block;
+        }
+        .mute-box{
+          position: absolute;
+          @include opacity(0);
+          width: 200px;
+          height: 50px;
+          top:-12px;
+          left: 0;
+          font-family: 'eaglebook';
+          color: $brand-color-green;
+          padding-top: 17px;
+          padding-right: 46px;
           cursor: pointer;
+        }
+      }
+
+      .prelive-box{
+        width: 100%;
+        padding-top: 0px;
+        .avatar{
+          display: none;
+        }
+        .prelive-text{
+          font-family: 'eaglebook';
+          font-size: rem-calc(12);
+          display: inline-block;
+          color: white;
         }
       }
     }
 
-    .chat-input-box{
-      .input-box{
-        position: relative;
-      }
-      .icon-bubble-multi{
-        position: absolute;
-        left: 7px;
-        top:3px;
-        color: $brand-color-green;
-      }
-      input{
-        width: 100%;
-        background: $brand-color-creme;
-        border: none;
-        height: 23px;
-        font-size: rem-calc(11);
-        color: rgba(0,0,0,0.7);
-        padding:0px 10px 0 29px;
-        &:focus{
-          border: none;
-          outline: none;
-        }
+    .button-audio-settings{
+      position: absolute;
+      right: 6px;
+      top: -6px;
+      font-family: 'eaglebook';
+      font-size: rem-calc(12);
+      cursor: pointer;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
+      .icon-equalizer{
+        display: block;
+        margin-bottom: 3px;
+        font-size: rem-calc(20);
       }
     }
+  }
+
+  .flash-block{
+    position: fixed;
+    z-index: 999;
+    left:0;
+    top:0;
+    @include opacity(0);
+    @include transition('opacity 0.1s linear, height 0s linear 0.1s, width 0s linear 0.1s');
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    &.state-on{
+      @include opacity(1);
+      @include transition(opacity 0.15s linear);
+      height: 100%;
+      width: 100%;
+    }
+    .flash-block-bg{
+      position: absolute;
+      left:0;
+      top:0;
+      background: rgba(255,255,255,0.9);
+      height: 100%;
+      width: 100%;
+    }
     .flash-box{
-      height:170px;
+      position: relative;
+      top: 50%;
+      margin-top: -85px;
+      min-height:170px;
       padding: 15px 0;
-      margin-top: 25px;
-      margin-bottom: 15px;
       background: #000;
       overflow: hidden;
-      @include transition(height, .4s, ease-in-out);
-      @include transition(padding, .4s, ease-in-out);
+      @include transition('height .4s ease-in-out, padding .4s ease-in-out');
       .manual-box{
         display: inline-block;
         vertical-align: top;
@@ -474,10 +757,6 @@
         line-height: 1.1
       }
 
-/*      &.flash-box-open{
-        height: 170px;
-
-      }*/
       .button-vr{
         border-color: $brand-color-yellow;
         color: $brand-color-yellow;
@@ -500,16 +779,13 @@
           color: $brand-color-yellow;
         }
       }
-    }
-
-    .button-audio-settings{
-      position: absolute;
-      right: 6px;
-      top: 0;
-      font-family: 'eaglebook';
-      font-size: rem-calc(12);
-      cursor: pointer;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
+      .close-x{
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        font-size: rem-calc(14);
+        cursor: pointer;
+      }
     }
   }
 
@@ -526,132 +802,465 @@
     }
   }
 
-  .vr-tabs dd{
-    width:33.33%;
-  }
-
-  .description-content{
-    padding-top:0 !important;
-    .row{
-      padding-top: 12px;
-      padding-bottom: 12px;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      font-size: rem-calc(13);
-      line-height: 20px;
-      a {
-        text-decoration: underline;
-        color: inherit;
+  /* DESCRIPTION */
+  .description-block{
+    position: relative;
+    overflow: hidden;
+    .description-content{
+      @include transition('max-height 0.4s linear, padding 0.4s ease, opacity 0.4s ease 0.4s');
+      opacity: 1;
+      padding-top: 30px;
+      padding-bottom: 15px;
+      overflow: hidden;
+      &.collapse{
+        max-height: 180px;
       }
-      li,p{
-        color:inherit;
-      }
-    }
-  }
-
-  .discussion-content{
-    background: $brand-color-creme;
-    .chat-message{
-      max-width:100%;
-      position: relative;
-      padding-top: 12px;
-      padding-bottom:11px;
-      &:nth-child(2n){
-        background: $brand-color-cremelight;
-      }
-      .message-name{
-        float:left;
-        width: 101px;
-        font-size: rem-calc(12);
-        font-family: 'eaglebook';
-        color: rgba(0,0,0, 0.6);
-      }
-      .message-content{
-        padding-right: 101px;
-        font-size: rem-calc(11);
-        color: rgba(0,0,0, 0.6);
-      }
-      .message-time{
+      .more-link{
         position: absolute;
-        right: 0.9375rem;
-        top: 3px;
-        font-size: rem-calc(8);
-        color: rgba(0,0,0, 0.5);
-      }
-    }
-  }
-  .participants-content{
-    padding-top: 0 !important;
-    .participants-box{
-      padding-bottom: 20px;
-      background: rgba(0,0,0,0.8);
-      h3{
-        font-size: rem-calc(13);
-        color: $brand-color-creme;
-        margin-top: 24px;
-      }
-      .avatar-name{
-        margin-top: -10px;
-      }
-      .expecting_promotion{
-        .avatar-bg{
-          fill: $brand-color-yellow;
+        display: block;
+        bottom: 0px;
+        height:26px;
+        width: 100%;
+        text-align: center;
+        background:$brand-color-creme;
+        span{
+          padding:3px 10px;
+          background:$brand-color-creme;
+          z-index: 2;
+          position: relative;
+          font-weight: bold;
+          font-size: rem-calc(11);
+          color: rgba(0,0,0,0.5);
+        }
+
+        &:before{
+          content: '';
+          @include vertical-gradient(rgba(254,241,222, 0),$brand-color-creme);
+          position: absolute;
+          top:-10px;
+          left:0;
+          height:10px;
+          width: 100%;
+        }
+        &:after{
+          position: absolute;
+          content: '';
+          top:11px;
+          left:15%;
+          width: 70%;
+          height: 1px;
+          background: rgba(0,0,0,0.2);
         }
       }
-      .accepting_promotion{
-        .avatar-bg{
-          fill: $brand-color-yellow;
+    }
+    #more-hidden-checkbox{
+      display: none;
+      &:checked + .description-content{
+        max-height: none;
+        .more-link{
+          span:first-child{
+            display: none;
+          }
+          span:nth-child(2){
+            display: inline-block;
+          }
         }
       }
     }
-  }
-  .vr-banner{
-    position: absolute;
-    padding: 16px 19px 20px 19px;
-    width: 210px;
-    right: -220px;
-    top: 0;
-    background: $brand-color-red;
-    @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
-    @include transition(all, 0.1s, ease-in-out);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
-    &:hover{
-      @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.4),-1px -1px 2px rgba(0,0,0,0.4);
+    font-size: rem-calc(13);
+    line-height: 20px;
+    color: rgba(0,0,0,0.8);
+    h3{
+      color: rgba(0,0,0,0.7);
+      font-size: rem-calc(18);
     }
     a{
-      text-align: left;
-      h3{
-        display: inline-block;
-        border-bottom: 2px solid white;
-        color: white;
-        font-size: rem-calc(13);
-      }
-      p{
-        line-height: 1.4;
-        color:white;
-        margin-bottom: 0;
-        font-size: rem-calc(12);
-      }
-      span{
-        text-decoration:underline;
-      }
+      text-decoration: underline;
+      color: inherit;
     }
-    .close-x{
-      position: absolute;
-      top: 2px;
-      right: 6px;
-      color: white
+    li,p{
+      color:inherit;
+      font-size:inherit;
+      line-height: inherit;
     }
   }
-  
-  #vr-banner-modal{
-    padding: 0;
-    img{
-      width: 100%;
+
+  .participants-and-discussion{
+    position: relative;
+    padding:20px 0 0 0;
+    min-height: 400px;
+    @include transition(padding 0.8s linear 1.6s);
+
+    /* DISCUSSION - CHAT */
+    .discussion-block{
+      position: relative;
+      background:white;
+      padding: 16px 20px;
+      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
+      .title-discussion{
+        @include transition(height 0.4s linear 0.8s);
+        margin:0;
+        padding:0;
+        height: 20px;
+        overflow: hidden;
+      }
+      h3{
+        margin-top: 0;
+        color: rgba(0,0,0,0.5);
+        font-size: rem-calc(11)
+      }
+      .chat-input-box{
+        position: relative;
+        padding-left: 53px;
+        margin-bottom: 10px;
+        .avatar{
+          position: absolute;
+          left:0;
+        }
+        input,.chat-fake-link{
+          margin-top: 5px;
+          width: 100%;
+          background: white;
+          height: 33px;
+          border: 2px solid #ddd;
+          border-radius: 2px;
+          font-size: rem-calc(13);
+          color: rgba(0,0,0,0.7);
+          padding:0px 10px 0 10px;
+          &:focus,&:hover{
+            border: 2px solid #ccc;
+            outline: none;
+          }
+        }
+        .chat-fake-link{
+          display: inline-block;
+          color: #aaa;
+          padding-top: 8px;
+          cursor: text;
+        }
+      }
+
+      .message-box{
+        .chat-message{
+          max-width:100%;
+          position: relative;
+          padding: 12px 0 11px 50px;
+          .avatar{
+            position: absolute;
+            left:0;
+          }
+          .message-content{
+            display:inline-block;
+            .message-name{
+              font-size: rem-calc(14);
+              font-family: 'eaglebook';
+              color: rgba(0,0,0, 0.6);
+              margin-right: 3px;
+            }
+            .message-time{
+              font-size: rem-calc(10);
+              color: rgba(0,0,0, 0.2);
+            }
+            .message-text{
+              font-size: rem-calc(14);
+              color: rgba(0,0,0, 0.6);
+              margin-top: 8px;
+            }
+          }
+        }
+      }
     }
-    .close-reveal-modal{
-      color: white;
+
+    /* PARTICIPANTS */
+    .participants-box{
+      position: absolute;
+      left:0;
+      top:20px;
+      background: white;
+      /*overflow: hidden;*/
+      @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
+
+      .promotion-counter-box{
+        position: absolute;
+        top:-17px;
+        right:-17px;
+        .icon-octagon,.icon-octa-full{
+          position: absolute;
+          top:0;
+          right:0;
+          font-size:rem-calc(34px);
+          color: black;
+        }
+
+        .number{
+          position: absolute;
+          top:8px;
+          width: 100%;
+          color: black;
+          font-family: 'eaglebook';
+          font-size: rem-calc(20);
+        }
+        .exp-counter{
+          position: relative;
+          float:right;
+          width: 34px;
+          height:34px;
+          .icon-octa-full{
+            color: $brand-color-yellow;
+          }
+        }
+        .acc-counter{
+          position: relative;
+          float:right;
+          width: 34px;
+          height:34px;
+          .icon-octa-full{
+            color: $brand-color-green;
+          }
+        }
+      }
+
+      /* state transition */
+      width:0;
+      padding:0;
+      @include transition("padding 0.8s linear 1.6s, width 0.8s linear 1.6s");
+
+      .participants-content{
+        @include opacity(0);
+        @include transition(opacity 0.8s linear 0.8s);
+        overflow: hidden;
+        width: 176px;
+        h3{
+          font-size: rem-calc(12);
+          color: rgba(0,0,0,0.2);
+          margin-top: 16px;
+        }
+        .avatar{
+          width: 100%;
+          position: relative;
+          overflow: hidden;
+          .avatar-box{
+            position: relative;
+            height: 100%;
+            margin-bottom: 5px;
+            .avatar-image{
+              position: absolute;
+              left:0;
+              top:0;
+            }
+            .avatar-name{
+              padding:0 0 0 44px;
+              color: rgba(0,0,0,0.5);
+              width: 100%;
+              height: 40px;
+              font-size: rem-calc(12);
+              table,tr,td{
+                padding:0;
+                spacing:0;
+                width: 100%;
+                height: 100%;
+                border:none;
+                margin:0;
+                padding:0;
+                color:inherit;
+                font-size: inherit;
+              }
+              td{
+                vertical-align: center;
+              }
+            }
+          }
+        }
+
+        .empty-box{
+          height:80px;
+          overflow: hidden;
+          @include transition(all 0.1s linear);
+          &.state-hidden{
+            height:0px;
+          }
+        }
+        .expecting-promotion{
+          .avatar{
+            .avatar-bg{
+              fill: $brand-color-yellow;
+            }
+          }
+          .host-actions{
+            .give-mic-link{
+              background: $interaction-green;
+              @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+              border: 2px solid white;
+              padding:3px 0px 2px 0px;
+              margin-bottom: 5px;
+              color: white;
+              font-size: rem-calc(10px);
+              cursor: pointer;
+              display: inline-block;
+              width: 175px;
+              border-radius:2px;
+              @include transition(all 0.05s linear);
+              &:hover{
+                background: darken($interaction-green,5%);
+              }
+            }
+          }
+        }
+        .accepting-promotion{
+          .avatar-bg{
+            fill: $brand-color-green;
+          }
+        }
+        .participating{
+          .host-actions{
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height: 100%;
+            .guest-promote-link{
+              position: absolute;
+              top:6px;
+              left:17px;
+              background: $brand-color-green;
+              @include box-shadow(0,0,10px,rgba(0,0,0,0.15));
+              border: 2px solid white;
+              padding:3px 0px 2px 0px;
+              color: white;
+              font-size: rem-calc(10px);
+              cursor: pointer;
+              display: inline-block;
+              width: 140px;
+              border-radius:2px;
+              @include opacity(0);
+              @include transition(opacity 0.05s linear);
+            }
+            &:hover{
+              .guest-promote-link{
+                @include opacity(1);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* TALK LIVE CHANGES */
+  .state-talk-live{
+    .description-content{
+      max-height:0 !important;
+      padding:0;
+      opacity: 0;
+      @include transition('opacity 0.4s linear, max-height 0.4s ease 0.4s, padding 0.4s ease 0.4s');
+    }
+    .participants-and-discussion{
+      padding-left: 220px;
+      @include transition(padding 0.8s linear 0.8s);
+      .title-discussion{
+        height:0 !important;
+      }
+    }
+    .participants-box{
+      @include transition("width 0.8s linear 0.8s, padding 0.8s linear 0.8s");
+      @include opacity(1);
+      width: 200px;
+      padding: 0 12px 11px 12px;
+      .participants-content{
+        @include opacity(1);
+        @include transition(opacity 0.8s linear 1.6s);
+      }
+    }
+  }
+
+  /* SIDEBAR */
+  .sidebar-right{
+    position: absolute;
+    right: -220px;
+    top: 0;
+    width: 210px;
+    .related-talk {
+      top: 231px;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      position: absolute;
+      .related-title-box{
+        position: relative;
+        padding:6px 0 6px 8px;
+        background: rgba(0,0,0,0.3);
+        color:white;
+        font-family: 'eaglelight';
+        a{
+          font-size: rem-calc(12);
+          color: inherit;
+          font-family: inherit;
+          &:hover,&:focus{
+            text-decoration: underline;
+          }
+        }
+      }
+      .box-transparent{
+        background: $brand-color-creme;
+        height:auto;
+        max-height:172px;
+        margin-bottom: 0;
+        border-bottom: none;
+        .breadcrumbs-box{
+          display: none;
+        }
+        .text-box{
+          padding:2px 7px;
+        }
+      }
+    }
+
+    .vr-banner{
+      position: relative;
+      width: 100%;
+      padding: 16px 19px 20px 19px;
+      margin-bottom: 15px;
+      background: $brand-color-red;
+      @include box-shadow(2px, 2px, 2px, rgba(0,0,0,0.2));
+      @include transition(all 0.1s ease-in-out);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,0.2);
+      &:hover{
+        @include box-shadow(2px, 2px, 16px, rgba(0,0,0,0.8));
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.4),-1px -1px 2px rgba(0,0,0,0.4);
+      }
+      a{
+        text-align: left;
+        h3{
+          display: inline-block;
+          border-bottom: 2px solid white;
+          color: white;
+          font-size: rem-calc(13);
+        }
+        p{
+          line-height: 1.4;
+          color:white;
+          margin-bottom: 0;
+          font-size: rem-calc(12);
+        }
+        span{
+          text-decoration:underline;
+        }
+      }
+      .close-x{
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        color: white
+      }
+    }
+
+    #vr-banner-modal{
+      padding: 0;
+      img{
+        width: 100%;
+      }
+      .close-reveal-modal{
+        color: white;
+      }
     }
   }
 

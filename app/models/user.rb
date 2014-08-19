@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
-  
+
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
   end
@@ -113,7 +113,9 @@ class User < ActiveRecord::Base
     return :host if self == talk.user
     return :guest if talk.guests.include?(self)
     # TODO: check resulting db queries, maybe use eager loading
-    return :participant if talk.venue.users.include?(self)
+    # TODO: Returning :participant is a temporary implementation. It is not yet
+    # dediced how to proceed since we removed the explicit participantion.
+    return :participant unless guest?
     :listener
   end
 
@@ -136,5 +138,5 @@ class User < ActiveRecord::Base
     reminders.exists?( rememberable_id: model.id,
                        rememberable_type: model.class.name )
   end
-  
+
 end

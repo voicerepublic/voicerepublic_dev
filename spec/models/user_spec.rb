@@ -33,9 +33,14 @@ describe User do
       FactoryGirl.create(:participation, user: user, venue: talk.venue)
       expect(user.role_for(talk)).to be(:participant)
     end
-    it 'detects being a listener' do
+    it 'shows all logged in users to be participant' do
+      # TODO
+      # This is due to the fact that we used to have explicit participations on
+      # venues through talks. This has been removed, but it is not yet decided
+      # on how to continue. For the time being, all logged in users are
+      # participants.
       talk = FactoryGirl.create(:talk)
-      expect(user.role_for(talk)).to be(:listener)
+      expect(user.role_for(talk)).to be(:participant)
     end
   end
 

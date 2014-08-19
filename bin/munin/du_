@@ -1,0 +1,35 @@
+#!/bin/bash
+
+BASE=`basename $0`
+NAME=${BASE#du}
+DIR=${NAME//_/\/}
+
+if [ "$1" = "autoconf" ]; then
+    if [ -d $DIR ]; then
+        echo "yes"
+        exit 0
+    else
+        echo "no (check your path)"
+        exit 1
+    fi
+fi
+
+if [ "$1" = "config" ]; then
+    echo "graph_title Dirk Usage: $DIR"
+    echo "graph_vlabel size MB"
+    echo "graph_category disk"
+    echo "graph_info Size of $DIR"
+    echo "du$NAME.label size"
+    echo "du$NAME.min 0"
+    echo "du$NAME.info Shows `du -sm` for specified directory"
+    exit 0
+fi
+
+echo -n "du$NAME.value "
+if [ -d $DIR ]; then
+    du -sm $DIR | cut -f1
+    exit 0
+else
+    echo "U"
+    exit 1
+fi
