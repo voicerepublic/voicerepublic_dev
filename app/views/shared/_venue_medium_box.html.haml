@@ -12,10 +12,10 @@
       - url = venue_path(venue, anchor: 'upcoming-talks')
       = link_to url, class: 'button-venue-box' do
         %span.icon-mic
-        = raw t('.upcoming_talks', count: count)
+        = raw t('venues.show.upcoming_talks', count: count)
 
       - count = venue.talks.archived.count
-      - cap = t('.archived_talks', count: count, default: '%{count} Archived Talks')
+      - cap = t('venues.show.archived_talks', count: count)
       - url = venue_path(venue, anchor: 'archived-talks')
       = link_to url, class: 'button-venue-box' do
         %span.icon-play-octa

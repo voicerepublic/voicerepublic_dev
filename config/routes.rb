@@ -9,8 +9,10 @@ VoiceRepublic::Application.routes.draw do
     resources :tags, only: [:index]
   end
 
-  namespace 'api' do
-    resources :talks, only: [:index]
+  if Settings.api.try(:enabled)
+    namespace 'api' do
+      resources :talks, only: [:index]
+    end
   end
   
   post '/search',              to: 'search#create'
