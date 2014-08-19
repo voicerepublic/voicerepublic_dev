@@ -1,4 +1,4 @@
-class Api::TagsController < Api::BaseController
+class Xhr::TagsController < Xhr::BaseController
 
   def index
     scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])

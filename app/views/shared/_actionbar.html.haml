@@ -1,4 +1,4 @@
-- if current_user && current_user.guest && current_page?(root_path)
+- if current_page?(root_path) && (!current_user || current_user.guest)
   .visitor-top-bar.row.collapse
     .large-12.columns
       .left
@@ -32,7 +32,7 @@
       %section.top-bar-section
         -# Right Nav Section
         %ul.right
-          - if current_user.guest?
+          - if !current_user || current_user.guest?
             %li
               = link_to t('.login'), new_user_session_path, class: "logged-out-link"
             %li
