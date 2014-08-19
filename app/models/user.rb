@@ -26,6 +26,8 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  PRIOTZ = Regexp.new(Settings.priority_timezones)
+  
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 

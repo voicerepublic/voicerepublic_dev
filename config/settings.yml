@@ -2,6 +2,7 @@
 # overrides for production can be found in
 # `config/settings/production.yml`
 durations: [ 30, 45, 60, 90, 120, 240 ]
+priority_timezones: Berlin|Bern
 audio:
   process_chain: precursor kluuu_merge trim m4a mp3 ogg move_clean jinglize m4a mp3 ogg
   override_chain: m4a mp3 ogg move_clean jinglize m4a mp3 ogg
