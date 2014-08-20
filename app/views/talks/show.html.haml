@@ -110,9 +110,9 @@
           = @talk.try(:description).try(:html_safe)
         %a.close-reveal-modal= raw '&#215;'
 
-      .sidebar-right
+      .sidebar-right.hide-for-small
         - if current_user.guest?
-          .vr-banner.hide-for-small
+          .vr-banner
             = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
               %h3
                 = t('.banner_title')
@@ -304,7 +304,7 @@
             .chat-input-box
               .avatar
                 .avatar-box
-                  = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, size: 40}
+                  = render partial: "shared/avatar_image", locals: {user: current_user, size: 40}
               %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
               - url = [ @talk.venue, :participations ]
               = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'

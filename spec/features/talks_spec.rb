@@ -158,13 +158,13 @@ describe "Talks" do
       it "live talk requires flash", js: true do
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
-        page.should have_content(I18n.t(:require_flash))
+        page.should have_css('#flash_error')
       end
 
       it 'archived talk requires no flash', js: true do
         @talk.update_attribute :state, :archive
         visit talk_path(@talk)
-        page.should_not have_content(I18n.t(:require_flash))
+        page.should_not have_css('#flash_error')
       end
     end
 

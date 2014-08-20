@@ -85,12 +85,13 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  belongs_to :venue, :inverse_of => :talks
+  belongs_to :venue, inverse_of: :talks
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
-
+  has_many :reminders, as: :rememberable, dependent: :destroy
+  
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 

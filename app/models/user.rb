@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
 
   # make `url_for` available in `details_for`
   include Rails.application.routes.url_helpers
+
+  PRIOTZ = Regexp.new(Settings.priority_timezones)
   
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
@@ -46,6 +48,8 @@ class User < ActiveRecord::Base
   dragonfly_accessor :avatar do
     default Rails.root.join('app/assets/images/defaults/user-avatar.jpg')
   end
+
+  acts_as_token_authenticatable
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

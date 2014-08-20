@@ -20,10 +20,10 @@
             = f.input :header, as: :file, class: 'display-none'
 
           .large-9.medium-9.columns
-            = f.input :firstname, :placeholder => 'First Name'
-            = f.input :lastname, :placeholder => 'Last Name'
-            = f.input :email, :placeholder => 'Email Address'
-            = f.time_zone_select :timezone, ActiveSupport::TimeZone.all.select { |tz| tz =~ /Berlin|Bern/ }
+            = f.input :firstname, placeholder: 'First Name'
+            = f.input :lastname, placeholder: 'Last Name'
+            = f.input :email, placeholder: 'Email Address'
+            = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
             = f.input :website
             %button.button-standard(data-enable-fields='#change-password input'
                     data-replace-with='#change-password'
@@ -37,10 +37,10 @@
   .row.collapse
     .large-12.columns
       .user-textarea-box
-        = f.text_area :about, :class => 'ckeditor', input_html: { class: 'text-area'}
+        = f.text_area :about, class: 'ckeditor', input_html: { class: 'text-area'}
   %br
   .form-save-row.row.collapse
     .large-12.columns
       = f.button :submit, class: 'button-vr'
       %a{href: "#"} or
-      = link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(:id => @user)
+      = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user)

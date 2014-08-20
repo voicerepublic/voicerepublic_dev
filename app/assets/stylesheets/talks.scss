@@ -19,7 +19,6 @@
   }
 }
 
-
 .talks-show{
 
   // for testing
@@ -977,7 +976,7 @@
       left:0;
       top:20px;
       background: white;
-      /*overflow: hidden;*/
+      overflow: hidden;
       @include box-shadow(0px, 0px, 10px, rgba(0,0,0,0.05));
 
       .promotion-counter-box{
@@ -1166,6 +1165,7 @@
       @include opacity(1);
       width: 200px;
       padding: 0 12px 11px 12px;
+      overflow: visible;
       .participants-content{
         @include opacity(1);
         @include transition(opacity 0.8s linear 1.6s);
@@ -1179,11 +1179,9 @@
     right: -220px;
     top: 0;
     width: 210px;
-    .related-talk {
-      top: 231px;
+    .related-talk{
       width: 100%;
       background: rgba(0,0,0,0.5);
-      position: absolute;
       .related-title-box{
         position: relative;
         padding:6px 0 6px 8px;

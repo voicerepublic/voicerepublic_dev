@@ -9,7 +9,7 @@ initialize = (node) ->
     multiple: true
     tokenSeparators: [",", " "]
     ajax:
-      url: "/api/tags"
+      url: "/xhr/tags"
       data: (term, page) ->
         q = term
         limit = 10

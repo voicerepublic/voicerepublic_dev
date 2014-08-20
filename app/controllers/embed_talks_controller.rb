@@ -1,4 +1,4 @@
-class EmbedTalksController < ApplicationController
+class EmbedTalksController < BaseController
 
   after_action :allow_iframe, only: :show
 
