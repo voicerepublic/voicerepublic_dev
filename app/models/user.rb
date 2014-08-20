@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
 
   after_save -> { venues.collect { |v|
     v.talks.collect { |t|
-      t.flyer.generate!
+      t.flyer.delay(queue: 'audio').generate!
     } } },
    if: ->(u) {
       u.venues.count > 0 &&
