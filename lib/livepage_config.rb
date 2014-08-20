@@ -48,6 +48,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       participants: talk.venue.users.map { |g| g.details_for(talk) },
       blackbox: Settings.blackbox,
       loopback: talk.venue.opts.loopback,
+      safetynet_warning: I18n.t('safetynet_warning'),
       blackbox_path: blackbox_path
     }
   end
