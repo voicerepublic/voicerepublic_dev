@@ -16,9 +16,7 @@
             %li= link_to t('.edit_user'), [:edit, @user]
 
       .avatar
-        - img_size = 120
-        .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
-          = render partial: "shared/avatar_image", locals: { user: @user, img_size: 120 }
+        = render partial: "shared/avatar_image", locals: { user: @user, img_size: 120 }
       %h2.user-name= @user.name
       = link_to_podcast(@user)
       %br/
