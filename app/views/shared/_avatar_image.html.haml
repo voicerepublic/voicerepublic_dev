@@ -1,9 +1,16 @@
 - mask_num = rand(1000000)
 
+-# default
 - img_path ||= "/images/empty.png"
 
+-# if user given
 - user ||= nil
 - img_path = user.avatar.thumb("#{size}x#{size}#nw").url if user
+
+-# hack for chat
+- context ||= nil
+- ng_img = 'user.image'
+- ng_img = 'message.image' if context == 'chat'
 
 .avatar-image{style: "width:#{size}px;height:#{size}px"}
   %svg{baseprofile: "full", height: "100%", version: "1.2", width: "100%"}
@@ -13,4 +20,4 @@
       %mask{id: "mask-in-#{mask_num}", maskcontentunits: "userSpaceOnUse", maskunits: "userSpaceOnUse", transform: "scale(1)"}
         %image{height: "90%", width: "90%", x: "5%", "xlink:href" => "/images/mask_octagon.png", y: "5%"}
     %rect.avatar-bg{height: "100%", mask: "url(#mask-out-#{mask_num})", width: "100%", x: "0", y: "0"}
-    %image{height: "100%", mask: "url(#mask-in-#{mask_num})", width: "100%", x: "0", "xlink:href" => img_path, 'ng-xlink-href' => '{{user.image}}', y: "0"}
+    %image{height: "100%", mask: "url(#mask-in-#{mask_num})", width: "100%", x: "0", "xlink:href" => img_path, 'ng-xlink-href' => "{{#{ng_img}}}", y: "0"}

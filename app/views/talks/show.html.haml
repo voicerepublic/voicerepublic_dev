@@ -304,7 +304,7 @@
             .chat-input-box
               .avatar
                 .avatar-box
-                  = render partial: "shared/avatar_image", locals: {user: current_user, size: 40}
+                  = render partial: "shared/avatar", locals: {user: current_user, size: 40}
               %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
               - url = [ @talk.venue, :participations ]
               = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
@@ -314,7 +314,7 @@
                 .avatar
                   .avatar-box
                     -# TODO: avatar path?
-                    = render partial: "shared/avatar_image", locals: { img_path: '{{ message.image }}', size: 38}
+                    = render partial: "shared/avatar_image", locals: { context: 'chat', size: 38 }
                 .message-content
                   %span.message-name
                     {{ message.name }}
@@ -349,7 +349,7 @@
                 %ul.list-style-type-none
                   %li.avatar(ng-repeat="user in expectingPromotion()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: { size: 38}
+                      = render partial: "shared/avatar_image", locals: { size: 38 }
                       .avatar-name
                         %table
                           %tr
@@ -376,7 +376,7 @@
                 %ul.list-style-type-none
                   %li.avatar(ng-repeat="user in participants()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: { size: 38}
+                      = render partial: "shared/avatar", locals: { size: 38}
                       .avatar-name
                         %table
                           %tr
