@@ -18,22 +18,7 @@
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
-        - if can? :manage, @talk
-          .generic-actions-box
-            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
-              %span.icon-cog
-            %ul#action-links-list.list-style-type-none.hide-stuff
-              - if @talk.venue.opts.start_button
-                %li(ng-show='showStartButton()')
-                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
-              %li(ng-hide='talkIsHalflive() || talkIsLive()')
-                = link_to t('.edit_talk'), [:edit, @venue, @talk]
-              %li(ng-show='showEndTalk()')
-                %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
-              -#
-                %li= link_to t('.download_messages'),
-                  "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
         .breadcrumbs-box.text-left
           = link_to user_path(@talk.user) do
             %span.icon-person
@@ -111,6 +96,18 @@
         %a.close-reveal-modal= raw '&#215;'
 
       .sidebar-right.hide-for-small
+        - if can? :manage, @talk
+          .generic-actions-box
+            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+              %span.icon-cog
+            %ul#action-links-list.list-style-type-none.hide-stuff
+              - if @talk.venue.opts.start_button
+                %li(ng-show='showStartButton()')
+                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
+              %li(ng-hide='talkIsHalflive() || talkIsLive()')
+                = link_to t('.edit_talk'), [:edit, @venue, @talk]
+              %li(ng-show='showEndTalk()')
+                %a(href="#" ng-click='endTalk()')= t('.end_talk')      
         - if current_user.guest?
           .vr-banner
             = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
