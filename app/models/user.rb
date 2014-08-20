@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
       channel: "/t#{talk.id}/u#{id}",
       link: url_for(controller: 'users',
                     action: 'show',
-                    id: id,
+                    id: to_param,
                     only_path: true)
     }
   end

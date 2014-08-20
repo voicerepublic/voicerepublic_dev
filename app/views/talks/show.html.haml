@@ -313,8 +313,7 @@
               .chat-message(ng-repeat='message in discussion')
                 .avatar
                   .avatar-box
-                    -# TODO: avatar path?
-                    = render partial: "shared/avatar_image", locals: { context: 'chat', size: 38 }
+                    = render partial: "shared/avatar", locals: { size: 38 }
                 .message-content
                   %span.message-name
                     {{ message.name }}

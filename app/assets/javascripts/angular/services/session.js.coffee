@@ -118,8 +118,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     if data.message
       # enrich discussion with further data for display
       user = users[data.message.user_id]
-      data.message.name = user.name
-      data.message.image = user.image
+      data.message.user = user
       # prepend to discussion array
       discussion.unshift data.message
     if method = data.state || data.event
