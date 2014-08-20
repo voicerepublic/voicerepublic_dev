@@ -189,13 +189,13 @@
               = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
               .avatar-name.text-center
                 = @talk.venue.user.name
-          .avatar(ng-repeat="guest in guests()")
+          .avatar(ng-repeat="user in guests()")
             .avatar-box
-              = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
+              = render partial: "shared/avatar_image", locals: { img_size: 62}
               .avatar-name.text-center
-                {{ guest.name }}
+                {{ user.name }}
             .host-actions(ng-show='showHostActions()')
-              %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(guest.id)")
+              %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
 
     .talk-more-talks-box.row.collapse-large-only(ng-hide="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
@@ -314,7 +314,7 @@
                 .avatar
                   .avatar-box
                     -# TODO: avatar path?
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_path: '{{ message.image }}', img_size: 38}
+                    = render partial: "shared/avatar_image", locals: { img_path: '{{ message.image }}', img_size: 38}
                 .message-content
                   %span.message-name
                     {{ message.name }}
@@ -347,43 +347,43 @@
               .expecting-promotion(ng-show='expectingPromotion().length')
                 %h3= t('.mic_requests')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="parti in expectingPromotion()")
+                  %li.avatar(ng-repeat="user in expectingPromotion()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      = render partial: "shared/avatar_image", locals: { img_size: 38}
                       .avatar-name
                         %table
                           %tr
                             %td
-                              {{ parti.name }}
+                              {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
-                      .give-mic-link.text-center(ng-click="promote(parti.id)")
+                      .give-mic-link.text-center(ng-click="promote(user.id)")
                         = t('.give_the_mic')
 
               .accepting-promotion(ng-show='acceptingPromotion().length')
                 %h3= t('.stage_invitations')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="parti in acceptingPromotion()")
+                  %li.avatar(ng-repeat="user in acceptingPromotion()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      = render partial: "shared/avatar_image", locals: { img_size: 38}
                       .avatar-name
                         %table
                           %tr
                             %td
-                              {{ parti.name }}
+                              {{ user.name }}
 
               .participating(ng-show='participants().length')
                 %h3= t('.listeners')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="parti in participants()")
+                  %li.avatar(ng-repeat="user in participants()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      = render partial: "shared/avatar_image", locals: { img_size: 38}
                       .avatar-name
                         %table
                           %tr
                             %td
-                              {{ parti.name }}
+                              {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
-                      .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                      .guest-promote-link.text-center(ng-click="promote(user.id)")
                         = t('.invite_to_stage')
 
               .listening(ng-show="listeners().length")
