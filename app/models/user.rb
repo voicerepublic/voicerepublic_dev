@@ -26,6 +26,9 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  # make `url_for` available in `details_for`
+  include Rails.application.routes.url_helpers
+  
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
@@ -103,7 +106,8 @@ class User < ActiveRecord::Base
       role: role_for(talk),
       image: avatar.thumb('100x100#nw').url,
       stream: "t#{talk.id}-u#{id}",
-      channel: "/t#{talk.id}/u#{id}"
+      channel: "/t#{talk.id}/u#{id}",
+      link: url_for(self)
     }
   end
 
