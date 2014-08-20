@@ -12,7 +12,7 @@ class Flyer < Struct.new(:talk)
   def disintegrate!
     File.unlink(path(true)) if exist?
   end
-  
+
   # returns either the web path (default)
   #
   #     e.g. /system/flyer/42.png
@@ -49,17 +49,17 @@ class Flyer < Struct.new(:talk)
     interpolations.each do |key, value|
       svg_data.sub! "[-#{key}-]", Nokogiri::HTML.fragment(value).to_s
     end
-    
+
     file = Tempfile.new('svg')
     file.write svg_data
     file.close
     file
   end
-  
+
   def svg_template
     File.expand_path(File.join(%w(doc design flyer.svg)), Rails.root)
   end
-  
+
   def interpolations
     {
       color:    COLORS[rand(COLORS.size)],
