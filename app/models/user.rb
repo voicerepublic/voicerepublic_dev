@@ -27,7 +27,7 @@
 class User < ActiveRecord::Base
 
   PRIOTZ = Regexp.new(Settings.priority_timezones)
-  
+
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
@@ -70,6 +70,15 @@ class User < ActiveRecord::Base
   pg_search_scope :search, against: [:firstname, :lastname],
     using: { tsearch: { prefix: true } },
     ignoring: :accents
+
+  after_save -> { venues.collect { |v|
+    v.talks.collect { |t|
+      t.flyer.delay(queue: 'audio').generate!
+    } } },
+   if: ->(u) {
+      u.venues.count > 0 &&
+      (u.firstname_changed? || u.lastname_changed?)
+    }
 
   def name
     "#{firstname} #{lastname}"
