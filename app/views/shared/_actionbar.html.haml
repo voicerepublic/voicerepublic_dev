@@ -41,7 +41,7 @@
             %li.has-dropdown
               %a.user-link(href='#')
                 .avatar
-                  = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 25 }
+                  = render partial: "shared/avatar_image", locals: { user: current_user, size: 25 }
                 = current_user.name
 
               %ul.user-link-dropdown.dropdown

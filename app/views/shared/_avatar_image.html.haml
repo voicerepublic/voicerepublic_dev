@@ -4,9 +4,9 @@
 - img_path ||= "/images/empty.png"
 
 - user ||= nil
-- img_path = user.avatar.thumb("#{img_size}x#{img_size}#nw").url if user
+- img_path = user.avatar.thumb("#{size}x#{size}#nw").url if user
 
-.avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
+.avatar-image{style: "width:#{size}px;height:#{size}px"}
   %svg{baseprofile: "full", height: "100%", version: "1.2", width: "100%"}
     %defs
       %mask{id: "mask-out-#{mask_num}", maskcontentunits: "userSpaceOnUse", maskunits: "userSpaceOnUse", transform: "scale(1)"}
