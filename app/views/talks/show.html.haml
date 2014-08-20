@@ -175,7 +175,7 @@
           %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
             %span.icon-volume-mute2.hide
 
-    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
+    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
@@ -198,7 +198,7 @@
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(guest.id)")
                 = raw t('.demote')
 
-    .talk-more-talks-box.row.collapse-large-only(ng-hide="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
+    .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
       .large-12.columns
         .more-talks-title-box.text-left
           = link_to t('.more_talks'), @talk.venue
