@@ -111,7 +111,10 @@ class User < ActiveRecord::Base
       image: avatar.thumb('100x100#nw').url,
       stream: "t#{talk.id}-u#{id}",
       channel: "/t#{talk.id}/u#{id}",
-      link: url_for(self)
+      link: url_for(controller: 'users',
+                    action: 'show',
+                    id: id,
+                    only_path: true)
     }
   end
 
