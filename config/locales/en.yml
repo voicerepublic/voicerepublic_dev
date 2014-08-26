@@ -314,8 +314,6 @@ en:
     account_settings_created: your Settings were created
     settings_updated: settings changed
     portrait_destroyed: image removed
-  controller_comments:
-    comment_created: comment created
   controller_conversations:
     conversation_destroyed: thread removed
   controller_dashboard:
@@ -382,6 +380,7 @@ en:
     show:
       text_chat: Chat
   comments:
+    comment_created: Posted a comment
     form:
       write_a_comment: write a comment
       save_comment: Post
@@ -968,7 +967,7 @@ en:
     hints:
       talk:
         language: Please select the main language of your talk.
-        format: Please provide the format purely for informational purposes.  
+        format: Please provide the format purely for informational purposes.
     labels:
       user:
         conference: I will be streaming a conference.
