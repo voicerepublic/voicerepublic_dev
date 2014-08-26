@@ -360,7 +360,8 @@
                         %table
                           %tr
                             %td
-                              {{ user.name }}
+                              %a(href="{{ user.link }}")
+                                {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
                       .give-mic-link.text-center(ng-click="promote(user.id)")
                         = t('.give_the_mic')
@@ -375,7 +376,8 @@
                         %table
                           %tr
                             %td
-                              {{ user.name }}
+                              %a(href="{{ user.link }}")
+                                {{ user.name }}
 
               .participating(ng-show='participants().length')
                 %h3= t('.listeners')
@@ -387,7 +389,8 @@
                         %table
                           %tr
                             %td
-                              {{ user.name }}
+                              %a(href="{{ user.link }}")
+                                {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
                       .guest-promote-link.text-center(ng-click="promote(user.id)")
                         = t('.invite_to_stage')

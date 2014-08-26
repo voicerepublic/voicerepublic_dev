@@ -1071,6 +1071,11 @@
               }
               td{
                 vertical-align: center;
+                a{
+                  font-size: inherit;
+                  color: inherit;
+                  font-family: inherit;
+                }
               }
             }
           }
