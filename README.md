@@ -391,3 +391,6 @@ At this point the P in REPL is still missing.
 
     PrivatePub.publish_to '/t981/u1', { exec: 'window.location.reload()' }
 
+### Delete all guest users
+
+    User.where(guest: true).destroy_all

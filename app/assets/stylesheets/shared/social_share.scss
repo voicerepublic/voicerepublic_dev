@@ -8,10 +8,10 @@
     width: 23px;
     a{
       position:relative;
-    	color:white;
-    	&:hover,&:focus{
-    		color:$brand-color-green;
-    	}
+      color:white;
+      &:hover,&:focus{
+        color:$brand-color-green;
+      }
       span[class^="icon-"]{
         font-size: rem-calc(10);
         position:absolute;

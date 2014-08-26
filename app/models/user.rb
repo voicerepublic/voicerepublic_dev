@@ -26,8 +26,11 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  # make `url_for` available in `details_for`
+  include Rails.application.routes.url_helpers
+
   PRIOTZ = Regexp.new(Settings.priority_timezones)
-  
+
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
@@ -71,6 +74,15 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
+  after_save -> { venues.collect { |v|
+    v.talks.collect { |t|
+      t.flyer.delay(queue: 'audio').generate!
+    } } },
+   if: ->(u) {
+      u.venues.count > 0 &&
+      (u.firstname_changed? || u.lastname_changed?)
+    }
+
   def name
     "#{firstname} #{lastname}"
   end
@@ -107,7 +119,11 @@ class User < ActiveRecord::Base
       role: role_for(talk),
       image: avatar.thumb('100x100#nw').url,
       stream: "t#{talk.id}-u#{id}",
-      channel: "/t#{talk.id}/u#{id}"
+      channel: "/t#{talk.id}/u#{id}",
+      link: url_for(controller: 'users',
+                    action: 'show',
+                    id: to_param,
+                    only_path: true)
     }
   end
 
