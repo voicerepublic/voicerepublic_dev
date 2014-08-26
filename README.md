@@ -43,7 +43,7 @@ RVM is highly recommended.
     rbenv install `cat .ruby-version`
 
 rbenv will install shim executables that understand rbenv settings. However
-you will face the problem, that your shell remenbers the location of
+you will face the problem, that your shell remembers the location of
 executables you have allready used. So before you use an executable
 that should be aware of rbenv you'll either need to launch a new shell
 or delete your shell's idea of where the executable is with:
@@ -68,6 +68,8 @@ Now start a new shell or issue
 * libav-tools
 * sox
 * vorbis-tools
+* libreadline-dev
+* libpq-dev
 
 
 Setup
