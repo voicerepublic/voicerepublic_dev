@@ -33,6 +33,20 @@ The use of [rbenv](https://github.com/sstephenson/rbenv)
 and [ruby-build](https://github.com/sstephenson/ruby-build) instead of
 RVM is highly recommended.
 
+### Debian Packages
+
+* postgresql-contrib-9.1
+* libpcre++-dev
+* libav-tools
+* sox
+* vorbis-tools
+* libreadline-dev
+* libpq-dev
+
+make sure you install those before you proceed to the next point, since some
+(-dev) packages are needed in the following steps.
+
+
 ### Install rbenv on zsh
 
     git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -60,16 +74,6 @@ Now install bundler and capistrano versions for the chosen ruby version:
 Now start a new shell or issue
 
     hash -r bundle
-
-### Debian Packages
-
-* postgresql-contrib-9.1
-* libpcre++-dev
-* libav-tools
-* sox
-* vorbis-tools
-* libreadline-dev
-* libpq-dev
 
 
 Setup
