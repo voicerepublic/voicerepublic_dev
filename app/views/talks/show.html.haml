@@ -188,12 +188,13 @@
             .avatar-box
               = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
               .avatar-name.text-center
-                = @talk.venue.user.name
+                = link_to @talk.venue.user.name, user_path(@talk.venue.user)
           .avatar(ng-repeat="user in guests()")
             .avatar-box
               = render partial: "shared/avatar", locals: { size: 62 }
               .avatar-name.text-center
-                {{ user.name }}
+                %a(href="{{user.link}}")
+                  {{ user.name }}
             .host-actions(ng-show='showHostActions()')
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
@@ -301,13 +302,19 @@
           #discussion.discussion-block
             %h3.title-discussion
               =t('.discussion')
-            .chat-input-box
+
+            .chat-input-box(ng-hide='userIsAListener()')
               .avatar
                 .avatar-box
                   = render partial: "shared/avatar", locals: { user: current_user, size: 40 }
-              %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+              %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+
+            .chat-input-box(ng-show='userIsAListener()')
+              .avatar
+                .avatar-box
+                  = render partial: "shared/avatar_image", locals: { user: current_user, size: 40 }
               - url = [ @talk.venue, :participations ]
-              = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
+              = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'              
 
             .message-box
               .chat-message(ng-repeat='message in discussion')

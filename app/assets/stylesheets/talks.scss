@@ -352,7 +352,12 @@
         width: 140px;
       }
       .avatar-name{
-        color: white
+        color: white;
+        a{
+          color:inherit;
+          font-family: inherit;
+          font-size: inherit;
+        }        
       }
       .avatar-image{
         display: inline-block;
