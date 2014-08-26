@@ -107,21 +107,7 @@
               %li(ng-hide='talkIsHalflive() || talkIsLive()')
                 = link_to t('.edit_talk'), [:edit, @venue, @talk]
               %li(ng-show='showEndTalk()')
-                %a(href="#" ng-click='endTalk()')= t('.end_talk')      
-        - if current_user.guest?
-          .vr-banner
-            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
-              %h3
-                = t('.banner_title')
-              %p
-                = raw t('.banner_text')
-            %a.close-x(data-toggle-stuff=".vr-banner")
-              = raw '&times;'
-
-          #vr-banner-modal.reveal-modal(data-reveal)
-            = image_tag 'vr_infografic.png'
-            = link_to '#', class: "close-reveal-modal" do
-              &#215;
+                %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
@@ -137,6 +123,21 @@
                 = link_to t('.next_talk'), @talk.next_talk
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
+                               
+        - if current_user.guest?
+          .vr-banner
+            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+              %h3
+                = t('.banner_title')
+              %p
+                = raw t('.banner_text')
+            %a.close-x(data-toggle-stuff=".vr-banner")
+              = raw '&times;'
+
+          #vr-banner-modal.reveal-modal(data-reveal)
+            = image_tag 'vr_infografic.png'
+            = link_to '#', class: "close-reveal-modal" do
+              &#215;
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
