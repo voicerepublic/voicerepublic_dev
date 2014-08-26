@@ -27,9 +27,11 @@ Dependencies
 
 ### Ruby
 
-VR is being developed on Ruby 2.1.2. See (.ruby-version)[.ruby-version].
+VR is being developed on Ruby 2.1.2. See [.ruby-version](.ruby-version).
 
-The use of (rbenv)[/sstephenson/rbenv] instead of RVM is highly recommended.
+The use of [rbenv](https://github.com/sstephenson/rbenv)
+and [ruby-build](https://github.com/sstephenson/ruby-build) instead of
+RVM is highly recommended.
 
 ### Install rbenv on zsh
 
