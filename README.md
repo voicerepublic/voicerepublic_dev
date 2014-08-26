@@ -42,6 +42,25 @@ RVM is highly recommended.
     git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
     rbenv install `cat .ruby-version`
 
+rbenv will install shim executables that understand rbenv settings. However
+you will face the problem, that your shell remenbers the location of
+executables you have allready used. So before you use an executable
+that should be aware of rbenv you'll either need to launch a new shell
+or delete your shell's idea of where the executable is with:
+
+    hash -r some_executable
+
+This is namely the case with `bundle` and `cap`.
+
+Now install bundler and capistrano versions for the chosen ruby version:
+
+    gem install bundler
+    gem install capistrano
+
+Now start a new shell or issue
+
+    hash -r bundle
+
 ### Debian Packages
 
 * postgresql-contrib-9.1
