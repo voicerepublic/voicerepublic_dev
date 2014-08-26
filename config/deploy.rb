@@ -2,11 +2,10 @@
 lock '3.1.0'
 
 set :rbenv_type, :user # or :system, depends on your rbenv setup
-set :rbenv_ruby, '1.9.3-p448' # i think this option is obsolete
-#set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-#set :rbenv_map_bins, %w{rake gem bundle ruby rails}
-#set :rbenv_roles, :all # default value
-set :rbenv_ruby_version, "1.9.3-p448"
+set :rbenv_ruby, '2.1.2'
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all # default value
 
 set :application, 'voice_republic'
 set :repo_url, 'git@github.com:munen/voicerepublic_dev.git'
@@ -32,7 +31,7 @@ set :deploy_to, '/home/app/app'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{ config/database.yml 
+set :linked_files, %w{ config/database.yml
                        config/private_pub.yml
                        config/settings.local.yml }
 
@@ -64,7 +63,7 @@ namespace :deploy do
           "#{fetch(:application)} (#{fetch(:branch)}) to #{fetch(:stage)}"
   end
   after :finished, :slack_finished
-  
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -87,7 +86,7 @@ namespace :deploy do
       # Here we can do anything such as:
       # within release_path do
       #   execute :rake, 'cache:clear'
-      # end 
+      # end
    end
   end
 
