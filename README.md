@@ -99,6 +99,17 @@ and in a different window:
     zeus rake pg_search:multisearch:rebuild\[Venue\]
     zeus rake pg_search:multisearch:rebuild\[User\]
 
+### Create Postgres Extensions
+
+    # su - postgres
+    $ psql vr_development
+    vr_development=# CREATE EXTENSION pg_trgm;
+    CREATE EXTENSION
+    vr_development=# CREATE EXTENSION unaccent;
+    CREATE EXTENSION
+
+Repeat for vr_test
+
 ### nginx/rtmp server (Debian 7 & optional)
 
 Make sure `libpcre++-dev` is installed. Run `rake rtmp:build`. The
