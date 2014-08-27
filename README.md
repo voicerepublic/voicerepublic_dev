@@ -248,6 +248,13 @@ Settings defined in files that are lower in the list override settings higher.
 Deploy
 ------
 
+Deploying requires the presence of the ssh agent (because credentials will be
+forwarded to the target machine). So make sure, you have done a:
+
+    ssh-add
+
+before you continue with:
+
     cap staging deploy
 
 Deploy a specific branch to staging, e.g.
