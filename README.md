@@ -91,6 +91,10 @@ Setup
 
 Make sure `postgresql-contrib-9.1` is installed.
 
+    zeus start
+
+and in a different window:
+
     zeus rake pg_search:multisearch:rebuild\[Talk\]
     zeus rake pg_search:multisearch:rebuild\[Venue\]
     zeus rake pg_search:multisearch:rebuild\[User\]
