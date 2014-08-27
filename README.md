@@ -80,12 +80,23 @@ Setup
 -----
 
     bundle
-    cp config/database.yml.sqlite3 \
+    cp config/database.yml.example \
        config/database.yml             # use an appropriate db config
-    rake db:setup                      # this requires an internet connection
-    rake db:migrate                    # dito
+    rake db:setup                      # this requires an internet connection, also
+                                       # [also see note below]
+    rake db:migrate                    # also requires an internet connection
     rake rtmp:build
     rake setup
+
+Above the step `rake db:setup` probably fails, if the connecting user in database.yml
+doesn't have 'superuser' rights when connecting to the psql server. So you might want
+to replace that step by:
+
+    $ sudo su
+    # su - postgres
+    $ psql
+    postgres=# create database vr_development owner your_db_user;
+
 
 ### New Search
 
