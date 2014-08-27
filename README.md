@@ -137,14 +137,14 @@ Run App
 Run Specs
 ---------
 
+Install phantomjs (globaly)
+
+    sudo npm install -g phantomjs
+
 Run Rspec with Zeus
 
     zeus start
     zeus rspec spec
-
-Install phantomjs (globaly)
-
-    sudo npm install -g phantomjs
 
 ### Run Jasmine specs for Angular with Karma
 
