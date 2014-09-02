@@ -1,12 +1,13 @@
 -# variant -clean means without jingles
 - media_links = talk.media_links('-clean')
+- galabel = "talk:#{talk.id}"
 .vr-player.jp-jplayer{ data: { selector: "#jc-#{talk.id}", mp3: media_links["mp3"], m4a: media_links["m4a"], ogg: media_links["ogg"] } }
 
 .jp-audio{ id: "jc-#{talk.id}" }
   .jp-type-single
     .jp-gui.jp-interface
       .jp-progress
-        .jp-seek-bar
+        .jp-seek-bar(data-ga-event="click player seek #{galabel}")
           .jp-play-bar
       .jp-volume-bar
         .jp-volume-bar-value
@@ -22,11 +23,11 @@
             %span.icon-play
       %ul.outside-controls
         %li
-          %a.jp-pause{ href: "javascript:;" }
+          %a.jp-pause(href="javascript:;" data-ga-event="click player pause #{galabel}")
             %span.icon-octa-full
             %span.icon-pause-octa
         %li
-          %a.jp-play{ href: "javascript:;" }
+          %a.jp-play(href="javascript:;" data-ga-event="click player play #{galabel}")
             %span.icon-octa-full
             %span.icon-play-octa
     .jp-no-solution
@@ -34,5 +35,5 @@
       To play the media you will need to either update your browser to
       a recent version or update your
       = succeed "." do
-        %a{ href: "http://get.adobe.com/flashplayer/", target: "_blank" }
+        %a(href="http://get.adobe.com/flashplayer/" target="_blank" data-ga-event="click player getflash #{galabel}")
           Flash plugin

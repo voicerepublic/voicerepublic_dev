@@ -102,9 +102,24 @@ to replace that step by:
 
 Make sure `postgresql-contrib-9.1` is installed.
 
+    zeus start
+
+and in a different window:
+
     zeus rake pg_search:multisearch:rebuild\[Talk\]
     zeus rake pg_search:multisearch:rebuild\[Venue\]
     zeus rake pg_search:multisearch:rebuild\[User\]
+
+### Create Postgres Extensions
+
+    # su - postgres
+    $ psql vr_development
+    vr_development=# CREATE EXTENSION pg_trgm;
+    CREATE EXTENSION
+    vr_development=# CREATE EXTENSION unaccent;
+    CREATE EXTENSION
+
+Repeat for vr_test
 
 ### nginx/rtmp server (Debian 7 & optional)
 
@@ -133,14 +148,14 @@ Run App
 Run Specs
 ---------
 
+Install phantomjs (globaly)
+
+    sudo npm install -g phantomjs
+
 Run Rspec with Zeus
 
     zeus start
     zeus rspec spec
-
-Install phantomjs (globaly)
-
-    sudo npm install -g phantomjs
 
 ### Run Jasmine specs for Angular with Karma
 
