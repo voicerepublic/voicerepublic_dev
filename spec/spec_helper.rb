@@ -213,8 +213,8 @@ RSpec.configure do |config|
     allow_any_instance_of(Flyer).to receive(:path).
       and_return('/system/flyer/flyer_fixture.png')
     allow_any_instance_of(Flyer).to receive(:path).
-      with(:true).
-      and_return(File.join(Settings.flyer.path, Rails.root), 'flyer_fixture.png')
+      with(true).
+      and_return(File.join(Rails.root, Settings.flyer.path), 'flyer_fixture.png')
   end
 
 end
