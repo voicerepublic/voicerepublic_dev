@@ -4,6 +4,7 @@ describe Flyer do
 
   before do
     allow_any_instance_of(Flyer).to receive(:generate!).and_call_original
+    allow_any_instance_of(Flyer).to receive(:path).and_call_original
   end
 
   describe 'regeneration' do
