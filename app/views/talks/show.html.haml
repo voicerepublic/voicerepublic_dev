@@ -51,7 +51,7 @@
                 %span.icon-plus
                 %span.link-text= t('.remember')
 
-            = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer" do
+            = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
@@ -62,7 +62,7 @@
                 = t('.download_flyer')
 
 
-        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+        = render partial: 'shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
         .talk-teaser(ng-show='showTalkTeaser()')
@@ -81,7 +81,11 @@
             .small-12.columns
               .right
                 = link_to_podcast(@talk.venue)
-                = link_to '#', class: 'button-embed', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
+                = link_to '#',
+                  class: 'button-embed',
+                  title: t('.embed_player'),
+                  'data-reveal-id' => "modal-embed",
+                  'data-ga-event' => "click talk embed talk:#{@talk.id}" do
                   = succeed t('.embed') do
                     %span.icon-code
                 #modal-embed.reveal-modal.text-center(data-reveal)
