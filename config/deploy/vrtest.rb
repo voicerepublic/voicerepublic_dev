@@ -1,3 +1,7 @@
+# Vrtest is inteded to be a "throw away" virtual machine for 
+# installation testing. Of course it can also be used for
+# other things.
+  
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
