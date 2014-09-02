@@ -210,6 +210,7 @@ RSpec.configure do |config|
   # do not create a flyer on Talk#save during spec runs
   config.before(:each) do
     allow_any_instance_of(Flyer).to receive(:generate!).and_return(true)
+    allow_any_instance_of(Flyer).to receive(:name).and_return('flyer_fixture')
   end
 
 end
@@ -248,9 +249,9 @@ EOF
 
 RSpec::RACECOND = <<-EOF
 This spec fails because of a classic *drums*
-                                          _ _ _   _             
- _ __ __ _  ___ ___    ___ ___  _ __   __| (_) |_(_) ___  _ __  
-| '__/ _` |/ __/ _ \\  / __/ _ \\| '_ \\ / _` | | __| |/ _ \\| '_ \\ 
+                                          _ _ _   _
+ _ __ __ _  ___ ___    ___ ___  _ __   __| (_) |_(_) ___  _ __
+| '__/ _` |/ __/ _ \\  / __/ _ \\| '_ \\ / _` | | __| |/ _ \\| '_ \\
 | | | (_| | (_|  __/ | (_| (_) | | | | (_| | | |_| | (_) | | | |
 |_|  \\__,_|\\___\\___|  \\___\\___/|_| |_|\\__,_|_|\\__|_|\\___/|_| |_|
 EOF
