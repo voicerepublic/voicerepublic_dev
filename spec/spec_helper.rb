@@ -210,7 +210,11 @@ RSpec.configure do |config|
   # do not create a flyer on Talk#save during spec runs
   config.before(:each) do
     allow_any_instance_of(Flyer).to receive(:generate!).and_return(true)
-    allow_any_instance_of(Flyer).to receive(:name).and_return('flyer_fixture')
+    allow_any_instance_of(Flyer).to receive(:path).
+      and_return('/system/flyer/flyer_fixture.png')
+    allow_any_instance_of(Flyer).to receive(:path).
+      with(:true).
+      and_return(File.join(Settings.flyer.path, Rails.root), 'flyer_fixture.png')
   end
 
 end
