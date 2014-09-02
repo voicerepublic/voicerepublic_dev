@@ -19,9 +19,8 @@ namespace :sync do
     warnings, errors = [], []
     report = Hash.new { |h, k| h[k] = 0 }
 
-    url = args[:rss_feed]
     print 'Fetching data...'
-    xml = open(url).read
+    xml = open(args[:rss_feed]).read
     puts 'done.'
     doc = Nokogiri::Slop(xml)
 
@@ -37,8 +36,10 @@ namespace :sync do
         venue.title = title
         venue.teaser = event.send('itunes:subtitle').text.strip.truncate(string_limit)
         venue.description = event.send('itunes:summary').text.strip.truncate(text_limit)
-        # TODO event.send("itunes:keywords")
-        venue.tag_list = 'tbd'
+        # Downcasing is necessary, because BTR does not differenciate between
+        # 'foo' and 'Foo'. ActsAsTaggableOn does, however.
+        venue.tag_list = event.send("itunes:keywords").text.split(",").map(&:downcase).uniq
+        venue.tag_list = "default" if venue.tag_list.empty?
         venue.user = user
         metric = venue.persisted? ? :venues_updated : :venues_created
         report[metric] += 1 if venue.save!
@@ -78,6 +79,32 @@ namespace :sync do
       end
     end
 
+    # START Cleanup:
+    #  * Talks of Series with only one talk will be aggregated into a Series
+    #    "misc"
+    #  NOTE: Yes, it's ugly to first create and destroy stuff.
+    venues = user.venues.collect { |v| v if v.talks.length == 1 }.compact
+
+    puts
+    puts "Found #{venues.length} venues with only one talk!"
+    return unless venues.length
+
+    venue_misc = Venue.find_or_initialize_by title: "Misc",
+      description: "There can be only one",
+      teaser: "Misc",
+      user: user
+    venue_misc.tag_list = "general"
+    venue_misc.save!
+
+    venues.each do |v|
+      talk = v.talks.first
+      talk.venue = venue_misc
+      talk.save!
+      v.reload.destroy!
+    end
+    puts "Moved talks into venue: #{venue_misc.id}"
+    # END Cleanup
+
     puts
     puts
     puts "REPORT"
@@ -96,39 +123,20 @@ namespace :sync do
     puts *errors
     puts
 
-    talks =  Talk.order('starts_at ASC').where("uri LIKE 'btr://#{user.slug}/%'")
+    #talks =  Talk.order('starts_at ASC').where("uri LIKE 'btr://#{user.slug}/%'")
 
-    puts "LINEUP (#{talks.count})"
-    puts
-    talks.each do |t|
-      puts [ t.uri.sub('btr://#{user.slug}/', ''),
-             "https://voicerepublic.com/talk/#{t.id}",
-             t.venue.title,
-             t.title.inspect,
-             t.starts_at ] * ','
-    end
-    puts
+    #puts "LINEUP (#{talks.count})"
+    #puts
+    #talks.each do |t|
+    #  puts [ t.uri.sub('btr://#{user.slug}/', ''),
+    #         "https://voicerepublic.com/talk/#{t.id}",
+    #         t.venue.title,
+    #         t.title.inspect,
+    #         t.starts_at ] * ','
+    #end
+    #puts
 
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   task lt14: :environment do
     raise 'No linuxtag_user_id' unless Settings.linuxtag_user_id
