@@ -595,6 +595,10 @@
         .decline-link{
           display: inline-block;
           font-size: rem-calc(8);
+          cursor: pointer;
+          &:hover,&:focus{
+            text-decoration: underline;
+          }
         }
       }
 

@@ -5,7 +5,7 @@
     = link_to user_path(user) do  
       .avatar
         .avatar-box
-          = render partial: "shared/avatar_image",  locals: {user: user, img_size: 62}
+          = render partial: "shared/avatar_image",  locals: {user: user, size: 62}
           .avatar-name.text-center
             = user.name
   .large-10.medium-10.columns.about-box.text-left

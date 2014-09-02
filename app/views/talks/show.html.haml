@@ -51,7 +51,7 @@
                 %span.icon-plus
                 %span.link-text= t('.remember')
 
-            = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer" do
+            = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
@@ -62,7 +62,7 @@
                 = t('.download_flyer')
 
 
-        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+        = render partial: 'shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
         .talk-teaser(ng-show='showTalkTeaser()')
@@ -81,7 +81,11 @@
             .small-12.columns
               .right
                 = link_to_podcast(@talk.venue)
-                = link_to '#', class: 'button-embed', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
+                = link_to '#',
+                  class: 'button-embed',
+                  title: t('.embed_player'),
+                  'data-reveal-id' => "modal-embed",
+                  'data-ga-event' => "click talk embed talk:#{@talk.id}" do
                   = succeed t('.embed') do
                     %span.icon-code
                 #modal-embed.reveal-modal.text-center(data-reveal)
@@ -175,7 +179,7 @@
           %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
             %span.icon-volume-mute2.hide
 
-    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
+    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
@@ -186,19 +190,19 @@
         - else
           .avatar.avatar-host
             .avatar-box
-              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 62}
+              = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
               .avatar-name.text-center
                 = @talk.venue.user.name
-          .avatar(ng-repeat="guest in guests()")
+          .avatar(ng-repeat="user in guests()")
             .avatar-box
-              = render partial: "shared/avatar_image", locals: {user: 'guest', img_size: 62}
+              = render partial: "shared/avatar", locals: { size: 62 }
               .avatar-name.text-center
-                {{ guest.name }}
+                {{ user.name }}
             .host-actions(ng-show='showHostActions()')
-              %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(guest.id)")
+              %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
 
-    .talk-more-talks-box.row.collapse-large-only(ng-hide="talkIsPrelive() || talkIsHalflive() || talkIsLive()")
+    .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
       .large-12.columns
         .more-talks-title-box.text-left
           = link_to t('.more_talks'), @talk.venue
@@ -210,7 +214,7 @@
         .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState, 'state-prelive' : showPrelive()}")
           .avatar
             .avatar-box
-              = render partial: "shared/avatar_image", locals: {user: @talk.venue.user, img_size: 50}
+              = render partial: "shared/avatar_image", locals: { user: current_user, size: 50 }
           .mic-sign-box
             %span.icon-octa-full
             %span.icon-octagon
@@ -304,7 +308,7 @@
             .chat-input-box
               .avatar
                 .avatar-box
-                  = render partial: "shared/avatar_image", locals: {user: current_user, img_size: 40}
+                  = render partial: "shared/avatar", locals: { user: current_user, size: 40 }
               %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
               - url = [ @talk.venue, :participations ]
               = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
@@ -313,8 +317,7 @@
               .chat-message(ng-repeat='message in discussion')
                 .avatar
                   .avatar-box
-                    -# TODO: avatar path?
-                    = render partial: "shared/avatar_image", locals: {user: 'parti', img_path: '{{ message.image }}', img_size: 38}
+                    = render partial: "shared/avatar", locals: { size: 38 }
                 .message-content
                   %span.message-name
                     {{ message.name }}
@@ -347,43 +350,43 @@
               .expecting-promotion(ng-show='expectingPromotion().length')
                 %h3= t('.mic_requests')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="parti in expectingPromotion()")
+                  %li.avatar(ng-repeat="user in expectingPromotion()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      = render partial: "shared/avatar", locals: { size: 38 }
                       .avatar-name
                         %table
                           %tr
                             %td
-                              {{ parti.name }}
+                              {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
-                      .give-mic-link.text-center(ng-click="promote(parti.id)")
+                      .give-mic-link.text-center(ng-click="promote(user.id)")
                         = t('.give_the_mic')
 
               .accepting-promotion(ng-show='acceptingPromotion().length')
                 %h3= t('.stage_invitations')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="parti in acceptingPromotion()")
+                  %li.avatar(ng-repeat="user in acceptingPromotion()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      = render partial: "shared/avatar", locals: { size: 38}
                       .avatar-name
                         %table
                           %tr
                             %td
-                              {{ parti.name }}
+                              {{ user.name }}
 
               .participating(ng-show='participants().length')
                 %h3= t('.listeners')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="parti in participants()")
+                  %li.avatar(ng-repeat="user in participants()")
                     .avatar-box
-                      = render partial: "shared/avatar_image", locals: {user: 'parti', img_size: 38}
+                      = render partial: "shared/avatar", locals: { size: 38}
                       .avatar-name
                         %table
                           %tr
                             %td
-                              {{ parti.name }}
+                              {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
-                      .guest-promote-link.text-center(ng-click="promote(parti.id)")
+                      .guest-promote-link.text-center(ng-click="promote(user.id)")
                         = t('.invite_to_stage')
 
               .listening(ng-show="listeners().length")

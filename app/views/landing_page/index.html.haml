@@ -121,7 +121,7 @@
           = link_to '/users/' + member[2] do
             .avatar
               .avatar-box
-                = render partial: "shared/avatar_image", locals: {user: 'static', img_path: img_path, img_size: 79}
+                = render partial: "shared/avatar_image", locals: { img_path: img_path, size: 79}
                 .member-function
                   = member[3]
                 .avatar-name.text-center
