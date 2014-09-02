@@ -4,13 +4,13 @@ require 'action_view/helpers'
 
 namespace :sync do
 
-  task back2us: :environment do
+  task :btr_user, [:user_id, :rss_feed] => :environment  do |t, args|
     # TODO
-    #  * Read UserID and RSS Feed from commandline
     #  * Import Tags
-    #  * Some more todo statements in the code below
-    raise 'No back2us_user_id' unless Settings.back2us_user_id
-    back2us_user = User.find Settings.back2us_user_id
+    raise 'Usage: rake "sync:btr_user[8188, http://www.blogtalkradio.com/back2us.rss]"' unless (args[:user_id] and args[:rss_feed])
+
+    user = User.find args[:user_id]
+    raise "Cannot find btr_user with VR ID: #{args[:user_id]}" unless user
 
     text_limit = 8191 # general limit for text fields
     text_limit = 2300 # limit for full text search
@@ -19,7 +19,7 @@ namespace :sync do
     warnings, errors = [], []
     report = Hash.new { |h, k| h[k] = 0 }
 
-    url = "http://www.blogtalkradio.com/back2us.rss"
+    url = args[:rss_feed]
     print 'Fetching data...'
     xml = open(url).read
     puts 'done.'
@@ -28,25 +28,23 @@ namespace :sync do
     doc.rss.channel.item.each do |event|
 
       begin
-        back2us_id = event.guid.text.hash
+        btr_id = event.guid.text.hash
 
         # update venue
-        # TODO: Use user name
         title = event.title.text.strip.truncate(string_limit)
-        venue_uri = "btr://2014/back2us/#{title}"
+        venue_uri = "btr://#{user.slug}/#{title}"
         venue = Venue.find_or_initialize_by(uri: venue_uri)
         venue.title = title
         venue.teaser = event.send('itunes:subtitle').text.strip.truncate(string_limit)
         venue.description = event.send('itunes:summary').text.strip.truncate(text_limit)
         # TODO event.send("itunes:keywords")
         venue.tag_list = 'tbd'
-        venue.user = back2us_user
+        venue.user = user
         metric = venue.persisted? ? :venues_updated : :venues_created
         report[metric] += 1 if venue.save!
 
         # update talk
-        # TODO: Use user name
-        talk_uri = "btr://2014/back2us/#{back2us_id}"
+        talk_uri = "btr://#{user.slug}/#{btr_id}"
         talk = Talk.find_or_initialize_by(uri: talk_uri)
         talk.venue = venue
         talk.title = venue.title
@@ -76,7 +74,7 @@ namespace :sync do
         print '.'
 
       rescue Exception => e
-        errors << '% 4s: %s' % [back2us_id, e.message.tr("\n", ';')]
+        errors << '% 4s: %s' % [btr_id, e.message.tr("\n", ';')]
       end
     end
 
@@ -98,13 +96,12 @@ namespace :sync do
     puts *errors
     puts
 
-    # TODO: Use generic URI
-    talks =  Talk.order('starts_at ASC').where("uri LIKE 'btr://2014/back2us/%'")
+    talks =  Talk.order('starts_at ASC').where("uri LIKE 'btr://#{user.slug}/%'")
 
     puts "LINEUP (#{talks.count})"
     puts
     talks.each do |t|
-      puts [ t.uri.sub('btr://2014/back2us/', ''),
+      puts [ t.uri.sub('btr://#{user.slug}/', ''),
              "https://voicerepublic.com/talk/#{t.id}",
              t.venue.title,
              t.title.inspect,
