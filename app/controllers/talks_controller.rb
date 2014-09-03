@@ -119,7 +119,7 @@ class TalksController < BaseController
                                  :starts_at_time, :duration,
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
-                                 :format)
+                                 :format, :audio_upload)
   end
 
 end

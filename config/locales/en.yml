@@ -865,6 +865,7 @@ en:
       select_image: Background image
       record: Record
     fields:
+      audio_upload: "Import your audio file"
       talks_description: Tell your audience a little more
       title: Title
       teaser: Teaser

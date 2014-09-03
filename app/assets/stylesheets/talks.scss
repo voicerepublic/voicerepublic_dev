@@ -2,6 +2,11 @@
 .talks-create,
 .talks-edit,
 .talks-update{
+  .progress .meter {
+    width: 11%;
+    font-size: 12pt;
+    font-weight: bold;
+  }
 
   input[type="checkbox"]{
     margin-right:5px !important
@@ -1178,7 +1183,7 @@
           }
         }
       }
-    }    
+    }
     .related-talk{
       width: 100%;
       background: rgba(0,0,0,0.5);
