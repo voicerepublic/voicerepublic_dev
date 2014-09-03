@@ -6,5 +6,8 @@ development:
   host: localhost
 
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: vr_test
+  username: your_username
+  host: localhost

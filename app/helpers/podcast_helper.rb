@@ -22,7 +22,7 @@ module PodcastHelper
                   only_path: false,
                   protocol: protocol
 
-    link_to url, class: 'button-podcast' do
+    link_to url, class: 'button-podcast', 'data-ga-event' => "click talk podcast talk:#{entity.id}" do
       content_tag('span', '', class: 'icon-podcast') +
         t('.subscribe_to_podcast')
     end

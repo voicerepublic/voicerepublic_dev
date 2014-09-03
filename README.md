@@ -33,6 +33,20 @@ The use of [rbenv](https://github.com/sstephenson/rbenv)
 and [ruby-build](https://github.com/sstephenson/ruby-build) instead of
 RVM is highly recommended.
 
+### Debian Packages
+
+* postgresql-contrib-9.1
+* libpcre++-dev
+* libav-tools
+* sox
+* vorbis-tools
+* libreadline-dev
+* libpq-dev
+
+make sure you install those before you proceed to the next point, since some
+(-dev) packages are needed in the following steps.
+
+
 ### Install rbenv on zsh
 
     git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
@@ -43,7 +57,7 @@ RVM is highly recommended.
     rbenv install `cat .ruby-version`
 
 rbenv will install shim executables that understand rbenv settings. However
-you will face the problem, that your shell remenbers the location of
+you will face the problem, that your shell remembers the location of
 executables you have allready used. So before you use an executable
 that should be aware of rbenv you'll either need to launch a new shell
 or delete your shell's idea of where the executable is with:
@@ -61,33 +75,51 @@ Now start a new shell or issue
 
     hash -r bundle
 
-### Debian Packages
-
-* postgresql-contrib-9.1
-* libpcre++-dev
-* libav-tools
-* sox
-* vorbis-tools
-
 
 Setup
 -----
 
     bundle
-    cp config/database.yml.sqlite3 \
+    cp config/database.yml.example \
        config/database.yml             # use an appropriate db config
-    rake db:setup                      # this requires an internet connection
-    rake db:migrate                    # dito
+    rake db:setup                      # this requires an internet connection, also
+                                       # [also see note below]
+    rake db:migrate                    # also requires an internet connection
     rake rtmp:build
     rake setup
+
+Above the step `rake db:setup` probably fails, if the connecting user in database.yml
+doesn't have 'superuser' rights when connecting to the psql server. So you might want
+to replace that step by:
+
+    $ sudo su
+    # su - postgres
+    $ psql
+    postgres=# create database vr_development owner your_db_user;
+
 
 ### New Search
 
 Make sure `postgresql-contrib-9.1` is installed.
 
+    zeus start
+
+and in a different window:
+
     zeus rake pg_search:multisearch:rebuild\[Talk\]
     zeus rake pg_search:multisearch:rebuild\[Venue\]
     zeus rake pg_search:multisearch:rebuild\[User\]
+
+### Create Postgres Extensions
+
+    # su - postgres
+    $ psql vr_development
+    vr_development=# CREATE EXTENSION pg_trgm;
+    CREATE EXTENSION
+    vr_development=# CREATE EXTENSION unaccent;
+    CREATE EXTENSION
+
+Repeat for vr_test
 
 ### nginx/rtmp server (Debian 7 & optional)
 
@@ -116,14 +148,14 @@ Run App
 Run Specs
 ---------
 
+Install phantomjs (globaly)
+
+    sudo npm install -g phantomjs
+
 Run Rspec with Zeus
 
     zeus start
     zeus rspec spec
-
-Install phantomjs (globaly)
-
-    sudo npm install -g phantomjs
 
 ### Run Jasmine specs for Angular with Karma
 
@@ -226,6 +258,13 @@ Settings defined in files that are lower in the list override settings higher.
 
 Deploy
 ------
+
+Deploying requires the presence of the ssh agent (because credentials will be
+forwarded to the target machine). So make sure, you have done a:
+
+    ssh-add
+
+before you continue with:
 
     cap staging deploy
 
