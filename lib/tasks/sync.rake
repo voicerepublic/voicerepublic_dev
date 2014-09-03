@@ -5,8 +5,6 @@ require 'action_view/helpers'
 namespace :sync do
 
   task :btr_user, [:user_id, :rss_feed] => :environment  do |t, args|
-    # TODO
-    #  * Import Tags
     raise 'Usage: rake "sync:btr_user[8188, http://www.blogtalkradio.com/back2us.rss]"' unless (args[:user_id] and args[:rss_feed])
 
     user = User.find args[:user_id]
@@ -45,7 +43,7 @@ namespace :sync do
         report[metric] += 1 if venue.save!
 
         # update talk
-        talk_uri = "btr://#{user.slug}/#{btr_id}"
+        talk_uri = "btr-#{btr_id}"
         talk = Talk.find_or_initialize_by(uri: talk_uri)
         talk.venue = venue
         talk.title = venue.title
