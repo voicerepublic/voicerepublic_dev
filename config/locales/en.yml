@@ -308,7 +308,8 @@ en:
       edit_user: Edit Profile
       about: About
       venues: Series
-      reminders: Reminders
+      reminders: Listen later
+      no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -819,7 +820,7 @@ en:
       awaiting_to_speak: Awaiting to speak
       participating: Participating
       just_listening_in: Just listening in
-      remember: Remember
+      remember: Listen later
       send_card: Send Card
       download_flyer: Download
       show_all_information: Show all information
@@ -854,6 +855,10 @@ en:
       invite_to_stage: INVITE TO STAGE
       anonymous_listener: ANONYMOUS LISTENER
       more_talks: RECOMMENDED TALKS
+      login: Login
+      signup: Sign up
+      redirect_text: |
+        Please sign up or login to use this feature.
 
     new:
       title: "VR New Talk"

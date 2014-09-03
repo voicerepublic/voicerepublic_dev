@@ -46,10 +46,15 @@
 
           .links-box
             - unless current_user.remembers?(@talk)
-              - url = [ @talk, :reminders ]
-              = link_to url, method: 'post', class: "link-remember" do
-                %span.icon-plus
-                %span.link-text= t('.remember')
+              - if (!current_user || current_user.guest)
+                %a(class="link-remember" data-reveal-id="modal-login-signup" ng-show='userIsAListener()')
+                  %span.icon-plus
+                  %span.link-text= t('.remember')                  
+              - else
+                - url = [ @talk, :reminders ]
+                = link_to url, method: 'post', class: "link-remember" do
+                  %span.icon-plus
+                  %span.link-text= t('.remember')                 
 
             = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer" do
               %span.icon-flyer
@@ -226,9 +231,15 @@
           .request-mic-box(ng-show='userIsAListener()')
             .arrow
               .arrow-head
-            - url = [ @talk.venue, :participations ]
-            = link_to url, class: "button-action", method: 'post' do
-              = t('.request_mic')
+            %a(class="button-action" data-reveal-id="modal-login-signup")
+              = t('.request_mic') 
+            #modal-login-signup.reveal-modal.text-left(data-reveal)
+              %p.redirect-text
+                = t('.redirect_text')
+              = link_to t('.login'), new_user_session_path, class: 'overlay-button left'
+              = link_to t('.signup'), new_user_registration_path, class: 'overlay-button right'
+              %a.close-reveal-modal= raw '&#215;'
+            
 
           .awaiting-mic-box(ng-show='showAwaitingMic()')
             .arrow
@@ -306,8 +317,8 @@
                 .avatar-box
                   = render partial: "shared/avatar", locals: { user: current_user, size: 40 }
               %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-              - url = [ @talk.venue, :participations ]
-              = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
+              %a(class="chat-fake-link" ng-show="userIsAListener()" data-reveal-id="modal-login-signup")
+                = t('.chat_placeholder')
 
             .message-box
               .chat-message(ng-repeat='message in discussion')
