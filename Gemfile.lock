@@ -46,6 +46,8 @@ GEM
     airbrake (3.1.15)
       builder
       multi_json
+    angular-file-upload-rails (1.6.1.2)
+      railties (>= 3.1)
     annotator (0.0.10)
       activerecord (>= 3.0)
     arel (4.0.1)
@@ -427,6 +429,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (= 3.0.1)
   airbrake
+  angular-file-upload-rails (~> 1.6.1.1)
   annotator
   auphonic
   better_errors

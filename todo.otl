@@ -1,0 +1,25 @@
+Upload file
+	Evaluate Uploaders
+		HTML5
+		Flash
+	Include Uploader into Talk#edit
+	Evaluate whether we need a new state
+		Will talks have an attachment?
+		Set guards in places
+			postprocess!
+			reprocess!
+			?
+
+
+	Increase Nginx limit
+		If HTML5 Uploader, make sure Base64 Limit works
+
+	Send mail to user
+		When done
+		On Error
+			to user
+			to service@
+				they could help and import as override
+
+	Todo
+		Remove 'jpeg' validation

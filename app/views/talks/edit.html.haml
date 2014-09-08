@@ -1,11 +1,15 @@
+= javascript_include_tag 'angular_upload'
+
 - content_for :title do
   = t('.title', title: @talk.title)
 
-= simple_form_for([@venue, @talk], input_html: { class: 'vr-form'}) do |f|
-  = render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
+%div{"ng-app" => "Upload"}
+  %div{"ng-controller" => "UploadCtrl"}
+    = simple_form_for([@venue, @talk], input_html: { class: 'vr-form'}) do |f|
+      = render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
 
-  .form-save-row.row.collapsed
-    .medium-12.columns  
-      = f.button :submit, class: 'button-vr'
-      = link_to t('.cancel'), [@venue, @talk]
-      = link_to t('.delete_talk'), [@venue, @talk], delete_params
+      .form-save-row.row.collapsed
+        .medium-12.columns
+          = f.button :submit, class: 'button-vr'
+          = link_to t('.cancel'), [@venue, @talk]
+          = link_to t('.delete_talk'), [@venue, @talk], delete_params

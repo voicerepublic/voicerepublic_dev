@@ -7,6 +7,7 @@ VoiceRepublic::Application.routes.draw do
   namespace 'xhr' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
+    resources :upload_talks, only: [:create]
   end
 
   if Settings.api.try(:enabled)
@@ -14,7 +15,7 @@ VoiceRepublic::Application.routes.draw do
       resources :talks, only: [:index]
     end
   end
-  
+
   post '/search',              to: 'search#create'
   get  '/search/:page/*query', to: 'search#show'
 
@@ -50,7 +51,7 @@ VoiceRepublic::Application.routes.draw do
   end
 
   resources :reminders, only: [:destroy]
-  
+
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"
   end

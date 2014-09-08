@@ -39,6 +39,17 @@
         %span.meter
           0%
 
+      -# BEGIN: AngularJS File upload
+      %input{"ng-model" => "myModelObj", :type => "text"}/
+      -# Single file upload
+      -# %input{"ng-file-select" => "onFileSelect($files)", :type => "file"}/
+      %input{:accept => "image/*", :multiple => "multiple", "ng-file-select" => "onFileSelect($files)", :type => "file"}/
+      .button{"data-multiple" => "true", "ng-file-select" => "onFileSelect($files)"}
+      %div{"ng-file-drag-over-class" => "optional-css-class-name-or-function", "ng-file-drop" => "onFileSelect($files)", "ng-show" => "dropSupported"} drop files here
+      %div{"ng-file-drop-available" => "dropSupported=true", "ng-show" => "!dropSupported"} HTML5 Drop File is not supported!
+      %button{"ng-click" => "upload.abort()"} Cancel Upload
+      -# END: AngularJS File upload
+
 .row
   .medium-12.columns
     %br
@@ -53,4 +64,7 @@
       %small.error= messages * ', '
     %br
     = f.input :collect, label: t('.record')
+
+:javascript
+  window.talk_uuid = "#{SecureRandom.uuid}";
 
