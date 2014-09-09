@@ -7,7 +7,7 @@ VoiceRepublic::Application.routes.draw do
   namespace 'xhr' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
-    resources :upload_talks, only: [:create]
+    resources :upload_talks, only: [:create, :index]
   end
 
   if Settings.api.try(:enabled)

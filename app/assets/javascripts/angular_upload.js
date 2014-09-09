@@ -27,9 +27,9 @@ var UploadCtrl = [ '$scope', '$upload', function($scope, $upload) {
     for (var i = 0; i < $files.length; i++) {
       var file = $files[i];
       $scope.upload = $upload.upload({
-        url: '/xhr/upload_talks',
-        //method: 'POST' or 'PUT',
-        //headers: {'header-key': 'header-value'},
+        url: '/upload',
+        method: 'POST',
+        headers: {'X-FILE': window.talk_uuid},
         //withCredentials: true,
         data: {'talk[title]': "yes", 'talk[uuid]': window.talk_uuid },
         file: file, // or list of files ($files) for html5 only
