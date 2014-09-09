@@ -73,7 +73,7 @@ class MonitoredJob < Struct.new(:opts)
   end
 
   def slack
-    @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag}", 'dj',
+    @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag || 'default'}", 'dj',
                          Settings.slack.icon[:default])
   end
 
