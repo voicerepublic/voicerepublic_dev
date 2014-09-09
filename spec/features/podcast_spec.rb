@@ -61,13 +61,32 @@ feature 'Podcast' do
       # fake the presence of a suitable file for podcasting
       talk.storage["#{talk.uri}/#{talk.id}.mp3"] = {}
       talk.save
-      
+
       # visit
       visit root_path(format: 'rss')
       expect(page).to have_xpath("//link[@rel='embed']")
     end
+
+    describe 'iTunes podcast' do
+      scenario "default image should be in colorspace RGB" do
+        talk = FactoryGirl.create(:talk, state: 'archived', featured_from: 1.day.ago)
+        talk.image.identify('-verbose').should_not include("sRGB")
+      end
+
+      scenario "uploaded image should be converted to colorspace RGB" do
+        # make sure the upload file is in sRGB
+        fixture = Dragonfly.app.fetch_file(Rails.root.join("spec/support/fixtures/podcast_placeholder_sRGB.jpg"))
+        fixture.identify('-verbose').should include("sRGB")
+
+        talk = FactoryGirl.create(:talk, state: 'archived', featured_from: 1.day.ago)
+        talk.image = fixture
+        talk.save
+        # make sure the saved file is NOT in sRGB
+        talk.reload.image.identify('-verbose').should_not include("sRGB")
+      end
+    end
   end
-  
+
   feature "different OSs see different protocol URLs" do
 
     let(:venue) { FactoryGirl.create(:venue) }

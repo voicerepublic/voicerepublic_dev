@@ -91,7 +91,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
   has_many :reminders, as: :rememberable, dependent: :destroy
-  
+
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
@@ -123,7 +123,9 @@ class Talk < ActiveRecord::Base
 
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
+    after_assign { |i| self.image = i.convert("-colorspace RGB") }
   end
+
 
   scope :featured, -> do
     where("featured_from < ?", Time.zone.now).
