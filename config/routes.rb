@@ -83,4 +83,9 @@ VoiceRepublic::Application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  if Rails.env.development? || ENV['CI']
+    get '/jasmine/*file',        to: 'jasmine#show', format: false
+    get '/jasmine',              to: 'jasmine#index'
+  end
 end
