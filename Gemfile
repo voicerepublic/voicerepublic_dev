@@ -39,7 +39,7 @@ gem 'simple_form'
 gem 'unicorn'
 gem "select2-rails"
 gem 'ckeditor_rails'
-gem "transitions", :require => ["transitions", "active_model/transitions"]
+gem "transitions", require: ["transitions", "active_model/transitions"], github: 'troessner/transitions'
 gem 'auphonic'
 gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
