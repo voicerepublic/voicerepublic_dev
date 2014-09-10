@@ -689,56 +689,105 @@
       position: absolute;
       left:0;
       top:0;
-      background: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.6);
       height: 100%;
       width: 100%;
     }
-    .flash-box{
+    .flash-content{
       position: relative;
       top: 50%;
-      margin-top: -85px;
-      min-height:170px;
+      left: 50%;
+      width: 700px;
+      margin-top: -310px;      
+      margin-left: -350px;
       padding: 15px 0;
-      background: #000;
-      overflow: hidden;
-      @include transition('height .4s ease-in-out, padding .4s ease-in-out');
-      .manual-box{
-        display: inline-block;
-        vertical-align: top;
-        color:white;
-        margin-left: 15px;
-        width: 300px;
-      }
-      .flash-manual-title{
-        font-family: 'eaglebook';
-        margin-bottom: 3px;
-        color: $brand-color-yellow;
-        font-size: rem-calc(12);
-        line-height: 1.1
-      }
-
-      .button-vr{
-        border-color: $brand-color-yellow;
-        color: $brand-color-yellow;
-        font-size: rem-calc(12);
-        padding: 8px 0;
-        min-width: 126px;
-        margin-bottom: 5px;
-      }
-      .flash-content{
-        margin-bottom: 10px;
-      }
-      .desc-bold{
-        color: $brand-color-yellow;
-        font-family: 'eaglebook';
-        font-size: rem-calc(12)
-      }
-      a{
-        color: $brand-color-yellow;
-        &:hover,&:focus{
-          color: $brand-color-yellow;
+      background: $brand-color-creme;
+      @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));      
+      color: #333;
+      .row{
+        width: 100%;
+        p{
+          font-family: 'eaglelight'
+        }
+      }      
+      .desc-box{
+        color: inherit;
+        h3{
+          color: inherit;
+          margin-bottom: 0;
+        }
+        p{
+          font-family: 'eaglebook';
+          margin-bottom: 14px;
         }
       }
+      .attention-box{
+        color: $brand-color-red;
+        background: white;
+        border: 1px solid $brand-color-red;
+        padding: 12px;
+        display: inline-block;
+        .attention-title{
+          vertical-align: top;
+          margin: 3px 9px 0 0;
+          display: inherit;
+          font-family: 'eaglebook';
+          font-size: rem-calc(16);
+        }
+        .attention-text{
+          display: inherit;
+          font-family: 'eaglelight';
+          font-size: rem-calc(14);
+          margin-bottom: 0;
+        }
+      } 
+      .flash-box{
+        .flash-content-box{
+          margin: 10px 0;
+          background: url(/images/flashbox_arrows.png) no-repeat;
+          background-position: center;
+          width: 100%;
+          text-align: center;
+          /* hack for firefox to show flash */
+          object#Blackbox {
+              width: 215px;
+              height: 140px;
+              @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+          }          
+        }
+      }
+      .manual-box{
+        background: rgba(255,255,255,0.5);
+        color:white;
+        @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.1), inset);
+        .flash-howto-title{
+          font-family: 'eaglebook';
+          margin: 12px 0;
+          color: rgba(0,0,0,0.5);
+          font-size: rem-calc(14);
+          line-height: 1.1
+        }
+        li{
+          padding: 0;
+        }
+        p{
+          padding-top: 6px;
+          font-family: 'eaglebook';
+          font-size: rem-calc(12);
+          color: $interaction-green ;
+          margin-bottom: 4px
+        }
+      }
+      .link-tutorial{
+        p{
+          font-family: 'eaglelight';
+          margin: 15px 0 0 0;
+          .desc-bold{
+            font-family: 'eaglebook';
+            color: rgba(0,0,0,0.6);
+          }
+        }
+      }      
       .close-x{
         position: absolute;
         right: 8px;

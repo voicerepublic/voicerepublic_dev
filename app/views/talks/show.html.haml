@@ -188,7 +188,7 @@
         - else
           .avatar.avatar-host
             .avatar-box
-              = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
+              / = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
               .avatar-name.text-center
                 = @talk.venue.user.name
           .avatar(ng-repeat="user in guests()")
@@ -261,27 +261,46 @@
               %span.button-mute(ng-hide='muteState')= t('.mute_mic')
               %span.button-unmute(ng-show='muteState')= t('.unmute_mic')
 
-        -# FIXME quick and dirty: do not show audio settings
-        - if @talk.state=~/^(pre|)live$/
-          .button-audio-settings(ng-click='toggleShowSettings()')
-            %span.icon-equalizer
-            = t(".audio_settings")
+        .button-audio-settings(ng-click='toggleShowSettings()')
+          %span.icon-equalizer
+          = t(".audio_settings")
 
-    -# FIXME quick and dirty: do not show audio settings
     .flash-block(ng-class="{'state-on': showSettings()}")
       .flash-block-bg(ng-click='toggleShowSettings()')
-      .flash-box.row
-        .large-12.columns.text-left
-          #flashContent
-          .manual-box
-            .flash-manual-title
-              = t('.flash_manual_title')
-            %p= raw t('.audio_settings_flash_manual', delimiter: '<br />')
-            = link_to 'http://blog.voicerepublic.com/audio-faq/', target: 'blank' do
-              %p.flash-content
-                = raw t('.audio_settings_help_text')
-        .close-x(ng-click='toggleShowSettings()')
-          &times;
+      .flash-content.text-center
+        .desc-box.row
+          .large-12.columns
+            %h3= t('.activate_your_microphone')
+            %p= t('.info_text')
+
+        .row
+          .small-10.small-centered.columns.text-center
+            .attention-box
+              .attention-title.text-right= t('.attention')
+              %p.attention-text.text-left= raw t('.attention_text')
+        .flash-box.row
+          .large-12.columns
+            .flash-content-box
+              #flashContent
+        .manual-box.row
+          .large-12.columns
+            %h3.flash-howto-title= t('.how_to_title')
+            %ul.medium-block-grid-3
+              %li
+                %img(src="/images/flashbox_allow_access.jpg" alt="allow access")
+                %p= t('.click_allow')
+              %li
+                %img(src="/images/flashbox_mic_tab.jpg" alt="allow access")
+                %p= t('.choose_mic_tab')
+              %li
+                %img(src="/images/flashbox_mic_input.jpg" alt="allow access")
+                %p= t('.choose_mic_input')
+
+        = link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
+          %p
+            = raw t('.audio_settings_help_text')
+          .close-x(ng-click='toggleShowSettings()')
+            &times;
 
   .row.collapse-large-only
     .large-12.columns

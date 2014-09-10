@@ -788,9 +788,6 @@ en:
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
-      flash_manual_title: YOU HAVE REQUESTED THE MICROPHONE - YOU NEED TO CHECK YOUR CONFIGURATION FIRST
-      audio_settings_flash_manual: <span class="desc-bold">CLICK ALLOW IN THE BOX TO THE LEFT</span> to activate your microphone<br />
-      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
@@ -825,6 +822,22 @@ en:
       show_all_information: Show all information
       discussion: DISCUSSION
       description: ABOUT
+
+      # MIC ACTIVATION
+      activate_your_microphone: ACTIVATE YOUR MICROPHONE
+      info_text: Please allow Voice Republic to access your microphone.
+      attention: ACHTUNG!
+      attention_text: | 
+        Wenn das Feld weiss ist: <br />
+        1. Mit der rechten Maustaste in das weisse Feld klicken (PC) <br />
+        1. Mit gedrückter ctrl-Taste ins weisse Feld klicken (MAC) <br />
+        2. Settings auswählen
+
+      how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
+      click_allow: CLICK ALLOW
+      choose_mic_tab: CHOOSE MIC TAB
+      choose_mic_input: CHOOSE MIC INPUT
+      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       more: Show more
       less: Show less
       initializing: Initializing
