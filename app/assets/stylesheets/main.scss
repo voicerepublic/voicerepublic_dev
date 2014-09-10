@@ -87,9 +87,3 @@ span[class^="icon-"]{
   overflow: hidden;
   margin:0 !important;
 }
-
-/* hack for firefox to show flash */
-object#Blackbox {
-    width: 215px;
-    height: 140px;
-}
