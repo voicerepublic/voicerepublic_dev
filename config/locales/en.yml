@@ -866,6 +866,8 @@ en:
       record: Record
     fields:
       audio_upload: "Import your audio file"
+      drop_files_here: "Drop files here"
+      drop_file_not_supported: "HTML5 Drop File is not supported!"
       talks_description: Tell your audience a little more
       title: Title
       teaser: Teaser

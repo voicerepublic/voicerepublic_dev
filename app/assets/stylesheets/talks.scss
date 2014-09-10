@@ -3,9 +3,20 @@
 .talks-edit,
 .talks-update{
   .progress .meter {
-    width: 11%;
+    width: 0%;
     font-size: 12pt;
     font-weight: bold;
+  }
+
+  div[ng-show="dropSupported"] {
+    width: 200px;
+    height: 50px;
+    background: lightgrey;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 16px;
+    color: black;
+    margin-bottom: 20px;
   }
 
   input[type="checkbox"]{

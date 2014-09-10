@@ -33,21 +33,26 @@
           %button.button-standard(type="button" data-trigger-file-input="talk_image")
             = t('.select_image')
           = f.file_field :image, as: :file, class: 'display-none'
-      %br
-      = f.input :audio_upload, as: :file, label: t('.audio_upload')
-      .progress
-        %span.meter
-          0%
+
 
       -# BEGIN: AngularJS File upload
       %input{"ng-model" => "myModelObj", :type => "text"}/
       -# Single file upload
-      -# %input{"ng-file-select" => "onFileSelect($files)", :type => "file"}/
-      %input{:accept => "image/*", :multiple => "multiple", "ng-file-select" => "onFileSelect($files)", :type => "file"}/
-      .button{"data-multiple" => "true", "ng-file-select" => "onFileSelect($files)"}
-      %div{"ng-file-drag-over-class" => "optional-css-class-name-or-function", "ng-file-drop" => "onFileSelect($files)", "ng-show" => "dropSupported"} drop files here
-      %div{"ng-file-drop-available" => "dropSupported=true", "ng-show" => "!dropSupported"} HTML5 Drop File is not supported!
-      %button{"ng-click" => "upload.abort()"} Cancel Upload
+      %label{:class => "file optional"}
+        = t('.audio_upload')
+      %input{:accept => "audio/*", "ng-file-select" => "onFileSelect($files)", :type => "file"}/
+      -# Multiple file upload
+      -#%input{:accept => "image/*", :multiple => "multiple", "ng-file-select" => "onFileSelect($files)", :type => "file"}/
+      -#.button{"data-multiple" => "true", "ng-file-select" => "onFileSelect($files)"}
+      %div{"ng-file-drag-over-class" => "optional-css-class-name-or-function", "ng-file-drop" => "onFileSelect($files)", "ng-show" => "dropSupported"}
+        = t('.drop_files_here')
+      %div{"ng-file-drop-available" => "dropSupported=true", "ng-show" => "!dropSupported"}
+        = t('.drop_file_not_supported')
+      .progress
+        %span.meter
+          0%
+      -# Currently this would submit the form. Further investigation would be required.
+      -#%button{"ng-click" => "upload.abort()"} Cancel Upload
       -# END: AngularJS File upload
 
 .row

@@ -125,11 +125,6 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
-  # For the user
-  dragonfly_accessor :audio_upload
-  validates_property :format, of: :audio_upload, in: ['mp3', 'ogg', 'm4a', 'jpeg', 'jpg']
-  validates_size_of :audio_upload, maximum: 350.megabytes
-
   scope :featured, -> do
     where("featured_from < ?", Time.zone.now).
       where(state: [:prelive, :live]).

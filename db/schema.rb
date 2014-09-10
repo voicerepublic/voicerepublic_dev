@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 20140903134339) do
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
+  create_table "bookmarks", force: true do |t|
+    t.integer  "kluuu_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
@@ -132,6 +140,10 @@ ActiveRecord::Schema.define(version: 20140903134339) do
   add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
 
+  create_table "roles", force: true do |t|
+    t.string "name"
+  end
+
   create_table "settings", force: true do |t|
     t.string   "key"
     t.string   "value"
@@ -153,6 +165,13 @@ ActiveRecord::Schema.define(version: 20140903134339) do
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
+
+  create_table "status_updates", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -209,6 +228,11 @@ ActiveRecord::Schema.define(version: 20140903134339) do
   add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
 
+  create_table "user_roles", force: true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
@@ -228,6 +252,10 @@ ActiveRecord::Schema.define(version: 20140903134339) do
     t.string   "uid"
     t.text     "slug"
     t.datetime "last_request_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.boolean  "guest"
     t.string   "header_uid"
     t.string   "avatar_uid"

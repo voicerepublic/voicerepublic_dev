@@ -3,14 +3,17 @@
 - content_for :title do
   = t('.title')
 
+-# TODO:
+-#     [] There's no progress, yet
+-# 1.  [] Create UUID in View
+-# 1b. []  Upload file directly to S3
+-# 1c. [] On submit, validate form to have Upload % == 0 or % == 100
+-# 1d. [] Submit form with UUID and save in Rails model
+-# 2.  [] On after_save, co-relate UUIDs and start override
+-# 2b. [] When override is done, write to user that her talk is processed
+-# 3.  [] Get rid of old UUID uploads (because forms have never submitted)
 
--# 1. Create UUID in View
--# 1b. Upload file directly to S3
--# 1c. On submit, validate form to have Upload % == 0 or % == 100
--# 1d. Submit form with UUID
--# 2. On after_save, co-relate UUIDs or get rid of old UUIDs (because forms have never submitted)
-
-= simple_form_for([@venue, @talk],
+= simple_form_for([@venue, @talk], url: nil,
   html: {'ng-submit' => 'saveTalk()',
     'ng-controller' => 'UploadCtrl' }) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
