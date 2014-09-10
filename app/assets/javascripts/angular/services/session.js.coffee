@@ -64,6 +64,9 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         true
       onbeforeMicRequested: ->
         config.flags.settings = true
+      onbeforeCanceledMicRequest: ->
+        config.flags.settings = false
+        true
       onAcceptingPromotion: ->
         config.flags.acceptOrDecline = true
       onleaveAcceptingPromotion: ->
