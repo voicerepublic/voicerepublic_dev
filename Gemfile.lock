@@ -54,6 +54,11 @@ GEM
     atomic (1.1.16)
     auphonic (0.1.0)
       faraday
+    aws-sdk (1.52.0)
+      aws-sdk-v1 (= 1.52.0)
+    aws-sdk-v1 (1.52.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
     bcrypt-ruby (3.1.2)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -432,6 +437,7 @@ DEPENDENCIES
   angular-file-upload-rails (~> 1.6.1.1)
   annotator
   auphonic
+  aws-sdk
   better_errors
   binding_of_caller
   browser

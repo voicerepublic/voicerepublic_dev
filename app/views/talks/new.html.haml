@@ -5,10 +5,10 @@
 
 
 -# 1. Create UUID in View
--# 1b. Upload file with UUID
+-# 1b. Upload file directly to S3
 -# 1c. On submit, validate form to have Upload % == 0 or % == 100
 -# 1d. Submit form with UUID
--# 2. In DJ, co-relate UUIDs or get rid of old UUIDs (because forms have never submitted)
+-# 2. On after_save, co-relate UUIDs or get rid of old UUIDs (because forms have never submitted)
 
 %div{"ng-app" => "Upload"}
   = simple_form_for([@venue, @talk],

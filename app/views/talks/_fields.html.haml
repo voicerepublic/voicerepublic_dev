@@ -65,6 +65,7 @@
     %br
     = f.input :collect, label: t('.record')
 
+
 :javascript
   window.talk_uuid = "#{SecureRandom.uuid}";
-
+  window.talk_upload_url = "#{@presigned_s3_post_url}"

@@ -29,6 +29,7 @@ gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
 gem 'dragonfly', '1.0.3'           # used for images
 gem 'angular-file-upload-rails', '~> 1.6.1.1'
+gem 'aws-sdk'
 gem 'acts-as-taggable-on', '3.0.1' # tag-system
 gem 'cancan'                       # authorization/privileges
 gem 'private_pub'                  # push service

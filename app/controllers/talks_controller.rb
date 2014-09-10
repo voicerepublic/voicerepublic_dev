@@ -5,6 +5,7 @@ class TalksController < BaseController
   before_action :set_venue, except: [:index, :popular, :live, :recent,
     :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
+  before_action :set_prisigned_post_url, only: [:edit, :new, :create]
   before_filter :authenticate_user!
 
   # GET /talks/featured
@@ -120,6 +121,12 @@ class TalksController < BaseController
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
                                  :format, :audio_upload)
+  end
+
+  def set_prisigned_post_url
+    @presigned_s3_post_url = S3_TALK_UPLOAD_BUCKET.presigned_post(key: "#{SecureRandom.uuid}",
+                                              success_action_status: 201,
+                                              acl: :public_read).url
   end
 
 end
