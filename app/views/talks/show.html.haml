@@ -235,7 +235,8 @@
           .awaiting-mic-box(ng-show='showAwaitingMic()')
             .arrow
               .arrow-head
-            .button-action
+            -# TODO martin: on hover 'CANCEL MIC REQUEST' + cursor
+            .button-action(ng-click='cancelMicRequest()')
               = t('.awaiting_mic_request')
 
           .acc-dec-box(ng-show='showAcceptOrDecline()')
