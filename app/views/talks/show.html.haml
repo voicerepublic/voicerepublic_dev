@@ -236,8 +236,10 @@
             .arrow
               .arrow-head
             -# TODO martin: on hover 'CANCEL MIC REQUEST' + cursor
-            .button-action(ng-click='cancelMicRequest()')
+            .button-action
               = t('.awaiting_mic_request')
+              .cancel-link(ng-click='cancelMicRequest()')
+                = t('.cancel')
 
           .acc-dec-box(ng-show='showAcceptOrDecline()')
             .invitation-text
