@@ -264,4 +264,4 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 # annotate with dependencies to inject
 sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
                        '$timeout', 'upstream', 'config', 'blackbox']
-Livepage.factory 'session', sessionFunc
+window.Sencha.factory 'session', sessionFunc

@@ -127,7 +127,7 @@
                 = link_to t('.next_talk'), @talk.next_talk
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
-                               
+
         - if current_user.guest?
           .vr-banner
             = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
@@ -396,5 +396,5 @@
   :javascript
     window.debug = #{!Settings.disable_js_debugging};
     window.insider = #{current_user.insider?};
-  = javascript_include_tag 'livepage'
+  = javascript_include_tag 'sencha'
   = render 'config'

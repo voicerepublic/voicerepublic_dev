@@ -1,4 +1,5 @@
-var UploadCtrl = [ '$scope', '$upload', function($scope, $upload) {
+
+uploadFunc = function($scope, $upload) {
   $scope.saveTalk = function(e) {
     window.alert("foo");
     console.log("triggers the saveTalk() function!");
@@ -67,4 +68,8 @@ var UploadCtrl = [ '$scope', '$upload', function($scope, $upload) {
 
     }
   };
-}];
+}
+
+uploadFunc.$inject = ['$scope', '$upload'];
+
+window.Sencha.controller('UploadCtrl', uploadFunc);
