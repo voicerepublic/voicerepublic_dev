@@ -10,14 +10,13 @@
 -# 1d. Submit form with UUID
 -# 2. On after_save, co-relate UUIDs or get rid of old UUIDs (because forms have never submitted)
 
-%div{"ng-app" => "Upload"}
-  = simple_form_for([@venue, @talk],
-    html: {'ng-submit' => 'saveTalk()',
-      'ng-controller' => 'UploadCtrl' }) do |f|
-    = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
+= simple_form_for([@venue, @talk],
+  html: {'ng-submit' => 'saveTalk()',
+    'ng-controller' => 'UploadCtrl' }) do |f|
+  = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
 
-    .form-save-row.row
-      .medium-12.columns
-        = f.button :submit, class: 'button-vr', button_html: { 'ng-disabled' => 'talkForm.$invalid' }
-        = link_to t('.cancel'), @venue
+  .form-save-row.row
+    .medium-12.columns
+      = f.button :submit, class: 'button-vr', button_html: { 'ng-disabled' => 'talkForm.$invalid' }
+      = link_to t('.cancel'), @venue
 

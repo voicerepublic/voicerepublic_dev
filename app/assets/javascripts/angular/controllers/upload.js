@@ -1,17 +1,3 @@
-//= require angular
-//= require angular-file-upload
-
-//inject angular file upload directives and service.
-uploadApp = angular.module('Upload', ['angularFileUpload']);
-
-// Use Rails CSRF Protection
-uploadApp.config(function($httpProvider) {
-  var authToken;
-  authToken = $("meta[name=\"csrf-token\"]").attr("content");
-  return $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken;
-});
-
-
 var UploadCtrl = [ '$scope', '$upload', function($scope, $upload) {
   $scope.saveTalk = function(e) {
     window.alert("foo");
