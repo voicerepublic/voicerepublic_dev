@@ -826,12 +826,12 @@ en:
       # MIC ACTIVATION
       activate_your_microphone: ACTIVATE YOUR MICROPHONE
       info_text: Please allow Voice Republic to access your microphone.
-      attention: ACHTUNG!
-      attention_text: | 
-        Wenn das Feld weiss ist: <br />
-        1. Mit der rechten Maustaste in das weisse Feld klicken (PC) <br />
-        1. Mit gedrückter ctrl-Taste ins weisse Feld klicken (MAC) <br />
-        2. Settings auswählen
+      attention: ATTENTION!
+      attention_text: |
+        If the box underneath is white: <br />
+        1. PC: Right-click into the white box <br />
+        1. MAC: Press 'control' + and click into the white box <br />
+        2. Select Settings
 
       how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
       click_allow: CLICK ALLOW
