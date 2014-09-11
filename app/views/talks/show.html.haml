@@ -18,22 +18,7 @@
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
-        - if can? :manage, @talk
-          .generic-actions-box
-            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
-              %span.icon-cog
-            %ul#action-links-list.list-style-type-none.hide-stuff
-              - if @talk.venue.opts.start_button
-                %li(ng-show='showStartButton()')
-                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
-              %li(ng-hide='talkIsHalflive() || talkIsLive()')
-                = link_to t('.edit_talk'), [:edit, @venue, @talk]
-              %li(ng-show='showEndTalk()')
-                %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
-              -#
-                %li= link_to t('.download_messages'),
-                  "/venues/#{@talk.venue.id}/talks/#{@talk.id}.text"
         .breadcrumbs-box.text-left
           = link_to user_path(@talk.user) do
             %span.icon-person
@@ -51,7 +36,7 @@
                 %span.icon-plus
                 %span.link-text= t('.remember')
 
-            = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer" do
+            = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
               %span.link-text= t('.send_card')
           #modal-flyer.reveal-modal.text-center(data-reveal)
@@ -62,7 +47,7 @@
                 = t('.download_flyer')
 
 
-        = render partial: '/shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+        = render partial: 'shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
         %h2.talk-title
           = @talk.title
         .talk-teaser(ng-show='showTalkTeaser()')
@@ -81,7 +66,11 @@
             .small-12.columns
               .right
                 = link_to_podcast(@talk.venue)
-                = link_to '#', class: 'button-embed', title: t('.embed_player'), 'data-reveal-id' => "modal-embed" do
+                = link_to '#',
+                  class: 'button-embed',
+                  title: t('.embed_player'),
+                  'data-reveal-id' => "modal-embed",
+                  'data-ga-event' => "click talk embed talk:#{@talk.id}" do
                   = succeed t('.embed') do
                     %span.icon-code
                 #modal-embed.reveal-modal.text-center(data-reveal)
@@ -111,20 +100,18 @@
         %a.close-reveal-modal= raw '&#215;'
 
       .sidebar-right.hide-for-small
-        - if current_user.guest?
-          .vr-banner
-            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
-              %h3
-                = t('.banner_title')
-              %p
-                = raw t('.banner_text')
-            %a.close-x(data-toggle-stuff=".vr-banner")
-              = raw '&times;'
-
-          #vr-banner-modal.reveal-modal(data-reveal)
-            = image_tag 'vr_infografic.png'
-            = link_to '#', class: "close-reveal-modal" do
-              &#215;
+        - if can? :manage, @talk
+          .generic-actions-box
+            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
+              %span.icon-cog
+            %ul#action-links-list.list-style-type-none.hide-stuff
+              - if @talk.venue.opts.start_button
+                %li(ng-show='showStartButton()')
+                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
+              %li(ng-hide='talkIsHalflive() || talkIsLive()')
+                = link_to t('.edit_talk'), [:edit, @venue, @talk]
+              %li(ng-show='showEndTalk()')
+                %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
@@ -140,6 +127,21 @@
                 = link_to t('.next_talk'), @talk.next_talk
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
+                               
+        - if current_user.guest?
+          .vr-banner
+            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+              %h3
+                = t('.banner_title')
+              %p
+                = raw t('.banner_text')
+            %a.close-x(data-toggle-stuff=".vr-banner")
+              = raw '&times;'
+
+          #vr-banner-modal.reveal-modal(data-reveal)
+            = image_tag 'vr_infografic.png'
+            = link_to '#', class: "close-reveal-modal" do
+              &#215;
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
