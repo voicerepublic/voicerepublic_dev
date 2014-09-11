@@ -308,7 +308,8 @@ en:
       edit_user: Edit Profile
       about: About
       venues: Series
-      reminders: Reminders
+      reminders: Listen later
+      no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -788,9 +789,6 @@ en:
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
-      flash_manual_title: YOU HAVE REQUESTED THE MICROPHONE - YOU NEED TO CHECK YOUR CONFIGURATION FIRST
-      audio_settings_flash_manual: <span class="desc-bold">CLICK ALLOW IN THE BOX TO THE LEFT</span> to activate your microphone<br />
-      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
@@ -819,12 +817,28 @@ en:
       awaiting_to_speak: Awaiting to speak
       participating: Participating
       just_listening_in: Just listening in
-      remember: Remember
+      remember: Listen later
       send_card: Send Card
       download_flyer: Download
       show_all_information: Show all information
       discussion: DISCUSSION
       description: ABOUT
+
+      # MIC ACTIVATION
+      activate_your_microphone: ACTIVATE YOUR MICROPHONE
+      info_text: Please allow Voice Republic to access your microphone.
+      attention: ATTENTION!
+      attention_text: |
+        If the box underneath is white: <br />
+        1. PC: Right-click into the white box <br />
+        1. MAC: Press 'control' + and click into the white box <br />
+        2. Select Settings
+
+      how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
+      click_allow: CLICK ALLOW
+      choose_mic_tab: CHOOSE MIC TAB
+      choose_mic_input: CHOOSE MIC INPUT
+      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       more: Show more
       less: Show less
       initializing: Initializing
@@ -854,6 +868,10 @@ en:
       invite_to_stage: INVITE TO STAGE
       anonymous_listener: ANONYMOUS LISTENER
       more_talks: RECOMMENDED TALKS
+      login: Login
+      signup: Sign up
+      redirect_text: |
+        Please sign up or login to use this feature.
 
     new:
       title: "VR New Talk"
