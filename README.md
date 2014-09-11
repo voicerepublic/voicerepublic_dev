@@ -33,6 +33,13 @@ The use of [rbenv](https://github.com/sstephenson/rbenv)
 and [ruby-build](https://github.com/sstephenson/ruby-build) instead of
 RVM is highly recommended.
 
+#### Upgrade with rbenv
+
+    (cd ~/.rbenv && git pull)
+    (cd ~/.rbenv/plugins/ruby-build && git pull)
+    rbenv install 2.1.2
+    gem install bundler
+
 ### Debian Packages
 
 * postgresql-contrib-9.1
