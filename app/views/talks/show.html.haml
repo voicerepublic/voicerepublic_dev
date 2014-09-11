@@ -31,10 +31,15 @@
 
           .links-box
             - unless current_user.remembers?(@talk)
-              - url = [ @talk, :reminders ]
-              = link_to url, method: 'post', class: "link-remember" do
-                %span.icon-plus
-                %span.link-text= t('.remember')
+              - if (!current_user || current_user.guest)
+                %a(class="link-remember" data-reveal-id="modal-login-signup" ng-show='userIsAListener()')
+                  %span.icon-plus
+                  %span.link-text= t('.remember')
+              - else
+                - url = [ @talk, :reminders ]
+                = link_to url, method: 'post', class: "link-remember" do
+                  %span.icon-plus
+                  %span.link-text= t('.remember')
 
             = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
@@ -127,7 +132,7 @@
                 = link_to t('.next_talk'), @talk.next_talk
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
-                               
+
         - if current_user.guest?
           .vr-banner
             = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
@@ -190,12 +195,13 @@
             .avatar-box
               / = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
               .avatar-name.text-center
-                = @talk.venue.user.name
+                = link_to @talk.venue.user.name, user_path(@talk.venue.user)
           .avatar(ng-repeat="user in guests()")
             .avatar-box
               = render partial: "shared/avatar", locals: { size: 62 }
               .avatar-name.text-center
-                {{ user.name }}
+                %a(href="{{user.link}}")
+                  {{ user.name }}
             .host-actions(ng-show='showHostActions()')
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
@@ -228,9 +234,15 @@
           .request-mic-box(ng-show='userIsAListener()')
             .arrow
               .arrow-head
-            - url = [ @talk.venue, :participations ]
-            = link_to url, class: "button-action", method: 'post' do
+            %a(class="button-action" data-reveal-id="modal-login-signup")
               = t('.request_mic')
+            #modal-login-signup.reveal-modal.text-left(data-reveal)
+              %p.redirect-text
+                = t('.redirect_text')
+              = link_to t('.login'), new_user_session_path, class: 'overlay-button left'
+              = link_to t('.signup'), new_user_registration_path, class: 'overlay-button right'
+              %a.close-reveal-modal= raw '&#215;'
+
 
           .awaiting-mic-box(ng-show='showAwaitingMic()')
             .arrow
@@ -322,13 +334,19 @@
           #discussion.discussion-block
             %h3.title-discussion
               =t('.discussion')
-            .chat-input-box
+
+            .chat-input-box(ng-hide='userIsAListener()')
               .avatar
                 .avatar-box
                   = render partial: "shared/avatar", locals: { user: current_user, size: 40 }
-              %input(ng-hide="userIsAListener()" ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
-              - url = [ @talk.venue, :participations ]
-              = link_to t('.chat_placeholder'), url, method: 'post', 'ng-show' => 'userIsAListener()', class: 'chat-fake-link'
+              %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+
+            .chat-input-box(ng-show='userIsAListener()')
+              .avatar
+                .avatar-box
+                  = render partial: "shared/avatar_image", locals: { user: current_user, size: 40 }
+              %a(class="chat-fake-link" ng-show="userIsAListener()" data-reveal-id="modal-login-signup")
+                = t('.chat_placeholder')
 
             .message-box
               .chat-message(ng-repeat='message in discussion')
@@ -374,7 +392,8 @@
                         %table
                           %tr
                             %td
-                              {{ user.name }}
+                              %a(href="{{ user.link }}")
+                                {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
                       .give-mic-link.text-center(ng-click="promote(user.id)")
                         = t('.give_the_mic')
@@ -389,7 +408,8 @@
                         %table
                           %tr
                             %td
-                              {{ user.name }}
+                              %a(href="{{ user.link }}")
+                                {{ user.name }}
 
               .participating(ng-show='participants().length')
                 %h3= t('.listeners')
@@ -401,7 +421,8 @@
                         %table
                           %tr
                             %td
-                              {{ user.name }}
+                              %a(href="{{ user.link }}")
+                                {{ user.name }}
                     .host-actions(ng-show='showHostActions()')
                       .guest-promote-link.text-center(ng-click="promote(user.id)")
                         = t('.invite_to_stage')

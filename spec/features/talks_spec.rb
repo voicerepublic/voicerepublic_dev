@@ -51,7 +51,42 @@ describe 'TalksController' do
   end
 end
 
-describe "Talks" do
+describe "Talks as anonymous user" do
+  describe 'redirect to login/sign up', js: true do
+    pending 'redirects to talk after login' do
+      talk = FactoryGirl.create(:talk)
+      user = FactoryGirl.create(:user, email: 'foo@bar.com')
+      user.set_password! "123123"
+
+      talk.update_attribute :state, :live
+      visit talk_path(talk)
+      find(".request-mic-box a").click
+      within(".reveal-modal") do
+        page.should have_content("Please sign up or login to use this feature")
+        click_on "Login"
+      end
+      fill_in "user_email", with: "foo@bar.com"
+      fill_in "user_password", with: "123123"
+      find("button[name=Login]").click
+
+      current_path.should =~ /#{talk_path(talk)}/
+    end
+    it 'asks users to login on request mic and redirects to talk after login' do
+      talk = FactoryGirl.create(:talk)
+      user = FactoryGirl.create(:user, email: 'foo@bar.com')
+      user.set_password! "123123"
+
+      talk.update_attribute :state, :live
+      visit talk_path(talk)
+      find(".request-mic-box a").click
+      within(".reveal-modal") do
+        page.should have_content("Please sign up or login to use this feature")
+        click_on "Login"
+      end
+    end
+  end
+end
+describe "Talks as logged in user" do
 
   before do
     @user = FactoryGirl.create(:user)
