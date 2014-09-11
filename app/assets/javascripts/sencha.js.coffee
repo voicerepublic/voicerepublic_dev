@@ -18,7 +18,7 @@ window.Sencha.config configFunc
 # Alternative solution is to overwrite verified_request? in the controller that
 # is to be accessed (like in xhr/talks_controller)
 
-#window.Sencha.config ($httpProvider) ->
-#  authToken = undefined
-#  authToken = $("meta[name=\"csrf-token\"]").attr("content")
-#  $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
+window.Sencha.config ($httpProvider) ->
+  authToken = undefined
+  authToken = $("meta[name=\"csrf-token\"]").attr("content")
+  $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken

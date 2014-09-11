@@ -1,7 +1,6 @@
 
 uploadFunc = function($scope, $upload) {
   $scope.saveTalk = function(e) {
-    window.alert("foo");
     console.log("triggers the saveTalk() function!");
     // TODO: do not submit form through regular means
     return false;
@@ -34,6 +33,19 @@ uploadFunc = function($scope, $upload) {
         console.log("All done!");
         $('.progress .meter').width('100%');
         $('.progress .meter').html("100%");
+
+        // Set the talk UUID, so that the backend knows to expect a talk that
+        // has an override set.
+        $("#talk_user_override_uuid").attr("value", window.talk_uuid);
+        // OPTION for auto save
+        // Problems: For one, when validation fails, the UUID is gone!
+        // TODO: I18n
+        //var res = window.confirm("Upload complete. Save the talk as is?");
+        //if(res) {
+        //  // TODO: This is not the Angular way. Plus, it's brittle and coupled
+        //  // against .form-save-row to be available!
+        //  $(".form-save-row input").click();
+        //}
       });
       //.error(...)
       //.then(success, error, progress);

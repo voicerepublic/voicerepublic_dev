@@ -120,13 +120,15 @@ class TalksController < BaseController
                                  :starts_at_time, :duration,
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
-                                 :format, :audio_upload)
+                                 :format, :audio_upload, :user_override_uuid)
   end
 
   def set_prisigned_post_url
-    @presigned_s3_post_url = S3_TALK_UPLOAD_BUCKET.presigned_post(key: "#{SecureRandom.uuid}",
+    upload_bucket = AWS::S3.new.buckets[Settings.talk_upload_bucket]
+
+    @presigned_s3_post_url = upload_bucket.presigned_post(key: "#{SecureRandom.uuid}",
                                               success_action_status: 201,
-                                              acl: :public_read).url
+                                              acl: :bucket_owner_full_control).url
   end
 
 end
