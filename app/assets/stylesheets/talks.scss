@@ -513,7 +513,7 @@
           color: white;
           border: 1px solid #ddd;
           border-bottom-color: #aaa;
-          @include box-shadow(0,0,12px,rgba(0,0,0,1));
+          @include box-shadow(0,0,12px,rgba(0,0,0,1));         
         }
       }
 
@@ -529,6 +529,20 @@
           border-bottom-color: #666;
           @include box-shadow(0,0,12px,rgba(0,0,0,0));
           cursor: default;
+          .cancel-link{
+            position: absolute;
+            left: 50%;
+            margin-left: -50px;
+            width: 100px;
+            bottom:-15px;
+            font-family: 'eaglelight';
+            font-size: rem-calc(10);
+            cursor: pointer;
+            color: white;
+            &:hover{
+              text-decoration:underline;
+            }
+          }           
         }
         .arrow{
           @include rotate(180);

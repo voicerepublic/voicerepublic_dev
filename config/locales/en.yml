@@ -798,6 +798,7 @@ en:
       padding: 0 0 9px 0;
       request_mic: REQUEST MIC
       awaiting_mic_request: AWAITING MIC REQUEST
+      cancel: CANCEL
       talk_invitation: TALK INVITATION!
       accept_promotion: ACCEPT
       decline_promotion: DECLINE

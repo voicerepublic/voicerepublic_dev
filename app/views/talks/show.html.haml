@@ -249,6 +249,8 @@
               .arrow-head
             .button-action
               = t('.awaiting_mic_request')
+              .cancel-link(ng-click='cancelMicRequest()')
+                = t('.cancel')
 
           .acc-dec-box(ng-show='showAcceptOrDecline()')
             .invitation-text

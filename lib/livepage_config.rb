@@ -97,19 +97,20 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine_spec
     # events in 'Simple Past', states in 'Present Progressive'
     #
-    # from-state         -> transition        -> to-state
+    # from-state         -> transition         -> to-state
     <<-EOF
-      Registering        -> Registered        -> Waiting
-      Waiting            -> TalkStarted       -> Listening
-      Listening          -> MicRequested      -> ExpectingPromotion
-      ExpectingPromotion -> Promoted          -> OnAir
-      Listening          -> Promoted          -> AcceptingPromotion
-      AcceptingPromotion -> PromotionAccepted -> OnAir
-      AcceptingPromotion -> PromotionDeclined -> Listening
-      OnAir              -> Demoted           -> Listening
-      GuestRegistering   -> Registered        -> OnAir
-      HostRegistering    -> Registered        -> HostOnAir
-      *                  -> TalkEnded         -> Loitering
+      Registering        -> Registered         -> Waiting
+      Waiting            -> TalkStarted        -> Listening
+      Listening          -> MicRequested       -> ExpectingPromotion
+      ExpectingPromotion -> Promoted           -> OnAir
+      ExpectingPromotion -> MicRequestCanceled -> Listening
+      Listening          -> Promoted           -> AcceptingPromotion
+      AcceptingPromotion -> PromotionAccepted  -> OnAir
+      AcceptingPromotion -> PromotionDeclined  -> Listening
+      OnAir              -> Demoted            -> Listening
+      GuestRegistering   -> Registered         -> OnAir
+      HostRegistering    -> Registered         -> HostOnAir
+      *                  -> TalkEnded          -> Loitering
     EOF
   end
 
