@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if ! tmux -V; then
+  echo "Oh well, you need to install 'tmux' first I'm afraid"
+  exit 1
+fi
+if [ ! -f Gemfile ]; then
+  echo "Sorry, you need to run this from the root rails application directory"
+  exit 1
+fi
+
+tmux new-session -d -s vr_daemons
+
+tmux new-window   -t vr_daemons       'zeus start'
+echo "starting zeus...please be a bit patient"; sleep 5
+tmux split-window -t vr_daemons       'zeus server'
+# we need all these "even-vertical" layout commands below, otherwise tmux is
+# unable to split the current window, because it is too small
+tmux select-layout even-vertical      
+tmux split-window -t vr_daemons       'rackup -E production private_pub.ru'
+tmux select-layout even-vertical      
+
+# The following command would nginx in the background and terminates
+# returning something like:
+#    rtmpd started with pids 20065, 20066
+nginx_pid=$( zeus rake rtmp:start | sed -r 's/.*pids ([0-9]*).*/\1/' )
+
+tmux split-window -t vr_daemons       'bundle exec lib/rtmp_watcher.rb run'
+tmux select-layout even-vertical      
+tmux split-window -t vr_daemons \
+  'sh -c "echo Hi, you are inside tmux. Change panes with CTRL-b arrow"; sleep 99999999'
+tmux select-layout even-vertical
+
+tmux -2 attach-session -t vr_daemons
+kill $nginx_pid
