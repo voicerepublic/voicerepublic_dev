@@ -28,7 +28,7 @@ nginx_pid=$( zeus rake rtmp:start | sed -r 's/.*pids ([0-9]*).*/\1/' )
 tmux split-window -t vr_daemons       'bundle exec lib/rtmp_watcher.rb run'
 tmux select-layout even-vertical      
 tmux split-window -t vr_daemons \
-  'sh -c "echo Hi, you are inside tmux. Change panes with CTRL-b arrow"; sleep 99999999'
+  'sh -c "echo Hi, you are inside tmux. Change panes with CTRL-b arrow. Create new panes with CTRL-b \\\". Relayout with CTRL-b Alt-2"; sleep 99999999'
 tmux select-layout even-vertical
 
 tmux -2 attach-session -t vr_daemons
