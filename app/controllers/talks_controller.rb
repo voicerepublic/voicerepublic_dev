@@ -119,10 +119,6 @@ class TalksController < BaseController
     end
   end
 
-  def set_venue
-    @venue = Venue.find(params[:venue_id])
-  end
-
   # Use callbacks to share common setup or constraints between actions.
   def set_talk
     @talk = Talk.find(params[:id])
