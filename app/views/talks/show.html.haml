@@ -106,13 +106,7 @@
 
       .sidebar-right.hide-for-small
         - if can? :manage, @talk
-          .generic-actions-box
-            = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
-              %span.icon-cog
-            %ul#action-links-list.list-style-type-none.hide-stuff
-
-              %li(ng-hide='talkIsHalflive() || talkIsLive()')
-                = link_to t('.edit_talk'), [:edit, @venue, @talk]
+          = link_to t('.edit_talk'),[:edit, @venue, @talk], 'ng-hide' => 'talkIsHalflive() || talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
@@ -204,12 +198,17 @@
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
       -# START BUTTON
-      .start-overlay
-        .row.text-center(g-show='showStartButton()')
+      .start-overlay(ng-show='showStartButton()')
+        .row.text-center
           .left-text.small-4.columns= t('.start_text_top')
           .button-column.small-4.columns
             %a.button-start(href="#" ng-click='startTalk()')= t('.start')
           .right-text.small-4.columns= t('.start_text_bottom').html_safe
+      
+      .start-overlay(ng-show='showUnstartedMessage()')
+        .row.text-center
+          .unstarted-message
+            = t('.unstarted_message')
 
     .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
       .large-12.columns
@@ -286,40 +285,40 @@
 
     .flash-block(ng-class="{'state-on': showSettings()}")
       .flash-block-bg(ng-click='toggleShowSettings()')
-      .flash-content.text-center
-        .desc-box.row
-          .large-12.columns
-            %h3= t('.activate_your_microphone')
-            %p= t('.info_text')
+    .flash-content.text-center(ng-class="{'state-on': showSettings()}")
+      .desc-box.row
+        .large-12.columns
+          %h3= t('.activate_your_microphone')
+          %p= t('.info_text')
 
-        .row
-          .small-10.small-centered.columns.text-center
-            .attention-box
-              .attention-title.text-right= t('.attention')
-              %p.attention-text.text-left= raw t('.attention_text')
-        .flash-box.row
-          .large-12.columns
-            .flash-content-box
-              #flashContent
-        .manual-box.row
-          .large-12.columns
-            %h3.flash-howto-title= t('.how_to_title')
-            %ul.medium-block-grid-3
-              %li
-                %img(src="/images/flashbox_allow_access.jpg" alt="allow access")
-                %p= t('.click_allow')
-              %li
-                %img(src="/images/flashbox_mic_tab.jpg" alt="allow access")
-                %p= t('.choose_mic_tab')
-              %li
-                %img(src="/images/flashbox_mic_input.jpg" alt="allow access")
-                %p= t('.choose_mic_input')
+      .row
+        .small-10.small-centered.columns.text-center
+          .attention-box
+            .attention-title.text-right= t('.attention')
+            %p.attention-text.text-left= raw t('.attention_text')
+      .flash-box.row
+        .large-12.columns
+          .flash-content-box
+            #flashContent
+      .manual-box.row
+        .large-12.columns
+          %h3.flash-howto-title= t('.how_to_title')
+          %ul.medium-block-grid-3
+            %li
+              %img(src="/images/flashbox_allow_access.jpg" alt="allow access")
+              %p= t('.click_allow')
+            %li
+              %img(src="/images/flashbox_mic_tab.jpg" alt="allow access")
+              %p= t('.choose_mic_tab')
+            %li
+              %img(src="/images/flashbox_mic_input.jpg" alt="allow access")
+              %p= t('.choose_mic_input')
 
         = link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
           %p
             = raw t('.audio_settings_help_text')
-          .close-x(ng-click='toggleShowSettings()')
-            &times;
+        .close-x(ng-click='toggleShowSettings()')
+          &times;
 
   .row.collapse-large-only
     .large-12.columns

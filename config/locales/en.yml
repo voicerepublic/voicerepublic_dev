@@ -854,7 +854,8 @@ en:
       edit_talk: EDIT TALK
       start_text_top: Click START when the speaker begins.
       start: START
-      start_text_bottom: <strong>Info:</strong> This sets the start point of the recording.
+      start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
+      unstarted_message: THE SPEAKER HAS NOT STARTED YET
       audio_settings: Audio settings
       end_talk: END TALK
       banner_title: WHAT IS VOICE REPUBLIC?

@@ -12,7 +12,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     !hasFlash() and (config.talk.state in ['halflive', 'live'])
 
   $scope.showStartButton = ->
-    config.talk.state == 'halflive'
+    session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
+
+  $scope.showUnstartetMessage = ->
+    !session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
 
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and config.talk.state == 'live'
