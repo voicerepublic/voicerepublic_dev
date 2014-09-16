@@ -60,7 +60,7 @@
 
     #reminders.reminders-content.content
       - if @user.reminders.empty?
-        = t('.no-reminders')
+        %p= t('.no_reminders', username: @user.name)
       - else
         %ul
           = render partial: 'shared/reminder', collection: @user.reminders
