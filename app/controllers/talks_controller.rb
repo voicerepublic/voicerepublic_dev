@@ -2,7 +2,7 @@ class TalksController < BaseController
 
   include OnTheFlyGuestUser
 
-  before_action :set_venue, except: [:index, :popular, :live, :recent,
+  before_action :set_venue_and_user, except: [:index, :popular, :live, :recent,
     :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
@@ -103,6 +103,21 @@ class TalksController < BaseController
   end
 
   private
+
+  def set_venue_and_user
+    # when entering the controller, either
+    # venue- or user_id have to be set
+    #
+    if params[:user_id].nil?
+      @venue = Venue.find(params[:venue_id])
+      @user = @venue.user
+      @came_in_via = :venue
+    else
+      @user = User.find(params[:user_id])
+      @venue = @user.venues.default
+      @came_in_via = :user
+    end
+  end
 
   def set_venue
     @venue = Venue.find(params[:venue_id])

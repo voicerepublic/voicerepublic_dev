@@ -64,6 +64,10 @@ VoiceRepublic::Application.routes.draw do
 
   resources :users, only: [:update, :show, :edit]
 
+  resources :users do
+    resources :talks, only: [:new]
+  end
+
   # old school
   resource :embed_talk, only: :show
   # new school
