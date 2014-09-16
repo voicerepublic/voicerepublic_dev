@@ -1,4 +1,4 @@
-class Api::MessagesController < Api::BaseController
+class Xhr::MessagesController < Xhr::BaseController
 
   before_action :authenticate_user!
   before_action :set_talk
@@ -8,9 +8,12 @@ class Api::MessagesController < Api::BaseController
 
     # TODO: move into ability class, use cancan
     # TODO: check resulting queries, maybe use eager loading
+    # TODO: These checks could be simplified to !user.guest?
+    #       Not correcting this now, since it is not yet decided how we will
+    #       proceed with chatting ability.
     good = @talk.venue.user == user
     good = good || @talk.guests.include?(user)
-    good = good || @talk.venue.users.include?(user)
+    good = good || !user.guest?
     return render text: 'Computer says no', status: 740 unless good
 
     message = @talk.messages.build(message_params)
@@ -32,7 +35,7 @@ class Api::MessagesController < Api::BaseController
     @talk = Talk.find(params[:id])
   end
 
-  # TODO: refactor code duplication here and in Api::TalksController
+  # TODO: refactor code duplication here and in Xhr::TalksController
   def publish(message)
     logger.debug "publish to #{@talk.public_channel} #{message.inspect}"
     PrivatePub.publish_to @talk.public_channel, message
@@ -46,5 +49,5 @@ class Api::MessagesController < Api::BaseController
   def message_params
     params.require(:message).permit(:content)
   end
-  
+
 end

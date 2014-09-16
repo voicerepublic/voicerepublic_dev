@@ -1,4 +1,4 @@
-class Api::UsersController < Api::BaseController
+class Xhr::UsersController < Xhr::BaseController
   
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
   

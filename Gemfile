@@ -22,6 +22,7 @@ gem 'rails_config'
 gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'devise'
+gem 'simple_token_authentication' # for devise >3.1.0.rc2
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'friendly_id'                  # make urls more friendly
@@ -44,6 +45,7 @@ gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
 gem 'fog'
+gem 'slick_rails'
 
 group :development, :test do
   # TODO: Upgrading to Rails 4.1 introduces it's own mail preview mechanism:
@@ -58,7 +60,7 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
   gem 'capistrano-rbenv', '~> 2.0'
-  gem 'debugger'
+  gem 'byebug'
   gem 'disable_assets_logger'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
@@ -67,13 +69,15 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rspec-retry'
-  gem 'sqlite3'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
   gem 'timecop'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
   gem 'zeus'
+
+  # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
+  gem 'rspec-core' # needed when running specs on ci
 end
 
 group :test do

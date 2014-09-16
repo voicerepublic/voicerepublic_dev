@@ -73,9 +73,19 @@
 #      name: branch14
 #      email: phil@branch14.org
 #    
-class Assimilate < Struct.new(:opts)
+class Assimilate < MonitoredJob
   def perform
-    Assimilator.run(opts)
+    # Assimilator.run(opts)
+    repo   = opts['repository']['url']
+    ref    = opts['ref']
+    sha    = opts['after']
+    pusher = opts['pusher']['email']
+    cmd = [ File.expand_path('../../../lib/assimilator.rb', __FILE__),
+            repo, ref, sha, pusher ] * ' '
+
+    Bundler.with_clean_env do
+      `#{cmd}`
+    end
   end
 end
 

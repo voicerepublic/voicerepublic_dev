@@ -2,106 +2,107 @@
 .venues-create,
 .venues-update,
 .venues-edit{
-	.link-delete{
-		float:right
-	}
+  .link-delete{
+    float:right
+  }
 }
 
 .venues-show{
-	/*opacity: 0.6;*/
-	.title-block{
-		position: relative;
-		background: rgba(0,0,0,0.8);
-		.generic-actions-box{
-	    position: absolute;
-	    right: -143px;
-	    top: -3px;
-	    width: 140px;
-	    .action-toggle{
-	      height: 38px;
-	      width: 38px;
-	      position: relative;
-	      display: block;
-	      margin-bottom: 3px
-	    }
-	    .icon-cog{
-	      color: $brand-color-red;
-	      font-size: rem-calc(18);
-	      height:100%;
-	      width: 100%;
-	      padding: 11px 10px 7px 10px;
-	      display: block;
-	      background: black;
-	    }
-	    #action-links-list{
-	      height:100px;
-	      /*width:80px;*/
-	      overflow: hidden;
-	      &.hide{
-	        height:0;
-	      }
-	      li{
-	        display: block;
-	        margin-top: 2px;
-	        a{
-	          color: $brand-color-red;
-	          font-size: rem-calc(16);
-	          font-family: 'eaglebook';
-	          height: 38px;
-	          padding: 7px 10px;
-	          display: block;
-	          background: black;
-	        }
-	      }
-	    }
-	  }
-		.venue-title,.venue-teaser,type-name{
-			color: white;
-		}
-		.type-name{
-			position:absolute;
-			left: 12px;
-			top: 7px;
-			font-family: 'eaglebook';
-			font-size: rem-calc(14)
-		}
+  .button-podcast { padding: 5px 8px; }
+  /*opacity: 0.6;*/
+  .title-block{
+    position: relative;
+    background: rgba(0,0,0,0.8);
+    .generic-actions-box{
+      position: absolute;
+      right: -143px;
+      top: -3px;
+      width: 140px;
+      .action-toggle{
+        height: 38px;
+        width: 38px;
+        position: relative;
+        display: block;
+        margin-bottom: 3px
+      }
+      .icon-cog{
+        color: $brand-color-red;
+        font-size: rem-calc(18);
+        height:100%;
+        width: 100%;
+        padding: 11px 10px 7px 10px;
+        display: block;
+        background: black;
+      }
+      #action-links-list{
+        height:100px;
+        /*width:80px;*/
+        overflow: hidden;
+        &.hide{
+          height:0;
+        }
+        li{
+          display: block;
+          margin-top: 2px;
+          a{
+            color: $brand-color-red;
+            font-size: rem-calc(16);
+            font-family: 'eaglebook';
+            height: 38px;
+            padding: 7px 10px;
+            display: block;
+            background: black;
+          }
+        }
+      }
+    }
+    .venue-title,.venue-teaser,type-name{
+      color: white;
+    }
+    .type-name{
+      position:absolute;
+      left: 12px;
+      top: 7px;
+      font-family: 'eaglebook';
+      font-size: rem-calc(14)
+    }
     .venue-user{
       display: inline-block;
       a,a:hover,a:focus{
-	      font-family: 'eaglelight';
-	      color: #fff;
-	      letter-spacing: 1px;
-	      font-size: rem-calc(13);
-      }      
+        font-family: 'eaglelight';
+        color: #fff;
+        letter-spacing: 1px;
+        font-size: rem-calc(13);
+      }
     }
-		.venue-title{
-			margin: rem-calc(52) 0 rem-calc(39);
-			font-size: rem-calc(46);
-		}
-		.venue-teaser{
-			font-family: 'eaglelight';
-			font-size: rem-calc(18);
-			margin-bottom: 50px;
-		}
-	}
-	.vr-button{
-		margin-bottom: 16px;
-	}
+    .venue-title{
+      margin: rem-calc(52) 0 rem-calc(39);
+      font-size: rem-calc(46);
+    }
+    .venue-teaser{
+      font-family: 'eaglelight';
+      font-size: rem-calc(18);
+      margin-bottom: 50px;
+    }
+  }
+  .vr-button{
+    margin-bottom: 16px;
+  }
   .vr-tabs{
-  	dd{
-  		width: 25%;
-  	}
+    dd{
+      width: 25%;
+    }
   }
   .description-content{
-  	h3{
-  		color: $color-black-title;
-  	}
-  	a{
-  		text-decoration: underline;
-  		&:focus,&:hover{
-  			text-decoration: underline;
-  			color:lighten(black,20%);
-  		}
-  	}
+    h3{
+      color: $color-black-title;
+    }
+    a{
+      text-decoration: underline;
+      &:focus,&:hover{
+        text-decoration: underline;
+        color:lighten(black,20%);
+      }
+    }
   }
 }

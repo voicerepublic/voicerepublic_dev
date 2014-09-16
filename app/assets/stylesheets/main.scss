@@ -3,7 +3,7 @@
 }
 
 body{
-	overflow-y: scroll; /* prevents moving by to small content */;
+  overflow-y: scroll; /* prevents moving by to small content */;
 background: $brand-color-creme;
 /*  background: url(/assets/bg_talk.png) center top no-repeat*/
 }
@@ -26,7 +26,7 @@ h1,h2,h3,h4{
 }
 
 p,li{
-	font-size: 0.8rem;
+  font-size: 0.8rem;
 }
 
 textarea{
@@ -45,8 +45,8 @@ span[class^="icon-"]{
 }
 
 .list-style-type-none{
-	list-style-type: none;
-	margin:0
+  list-style-type: none;
+  margin:0
 }
 
 .display-none{
@@ -85,10 +85,5 @@ span[class^="icon-"]{
   height:0 !important;
   padding:0 !important;
   overflow: hidden;
-}
-
-/* hack for firefox to show flash */
-object#Blackbox {
-    width: 215px;
-    height: 140px;
+  margin:0 !important;
 }

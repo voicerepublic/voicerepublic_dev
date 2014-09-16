@@ -51,7 +51,42 @@ describe 'TalksController' do
   end
 end
 
-describe "Talks" do
+describe "Talks as anonymous user" do
+  describe 'redirect to login/sign up', js: true do
+    pending 'redirects to talk after login' do
+      talk = FactoryGirl.create(:talk)
+      user = FactoryGirl.create(:user, email: 'foo@bar.com')
+      user.set_password! "123123"
+
+      talk.update_attribute :state, :live
+      visit talk_path(talk)
+      find(".request-mic-box a").click
+      within(".reveal-modal") do
+        page.should have_content("Please sign up or login to use this feature")
+        click_on "Login"
+      end
+      fill_in "user_email", with: "foo@bar.com"
+      fill_in "user_password", with: "123123"
+      find("button[name=Login]").click
+
+      current_path.should =~ /#{talk_path(talk)}/
+    end
+    it 'asks users to login on request mic and redirects to talk after login' do
+      talk = FactoryGirl.create(:talk)
+      user = FactoryGirl.create(:user, email: 'foo@bar.com')
+      user.set_password! "123123"
+
+      talk.update_attribute :state, :live
+      visit talk_path(talk)
+      find(".request-mic-box a").click
+      within(".reveal-modal") do
+        page.should have_content("Please sign up or login to use this feature")
+        click_on "Login"
+      end
+    end
+  end
+end
+describe "Talks as logged in user" do
 
   before do
     @user = FactoryGirl.create(:user)
@@ -158,13 +193,13 @@ describe "Talks" do
       it "live talk requires flash", js: true do
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
-        page.should have_content(I18n.t(:require_flash))
+        page.should have_css('#flash_error')
       end
 
       it 'archived talk requires no flash', js: true do
         @talk.update_attribute :state, :archive
         visit talk_path(@talk)
-        page.should_not have_content(I18n.t(:require_flash))
+        page.should_not have_css('#flash_error')
       end
     end
 
@@ -284,7 +319,6 @@ describe "Talks" do
           @venue = FactoryGirl.create :venue
           @talk = FactoryGirl.create :talk, venue: @venue
           visit venue_talk_path @venue, @talk
-          find(".participate-button-box a").click
           visit venue_talk_path @venue, @talk
           find(".chat-input-box input").set("my message")
           find(".chat-input-box input").native.send_keys(:return)
@@ -379,12 +413,14 @@ describe "Talks" do
     it 'shows when set' do
       FactoryGirl.create(:talk, featured_talk: @talk)
       visit talk_path(@talk)
+      page.should have_css('.related-talk')
       page.should have_content(I18n.t('talks.show.related_talk'))
     end
 
     it 'does not show when not set' do
       visit talk_path(@talk)
-      page.should_not have_content(I18n.t('talk.show.related_talk'))
+      page.should_not have_css('.related-talk')
+      page.should_not have_content(I18n.t('talks.show.related_talk'))
     end
 
     it 'shows the next coming up talk if there is one' do

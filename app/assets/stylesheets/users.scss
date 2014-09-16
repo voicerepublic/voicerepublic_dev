@@ -1,22 +1,23 @@
 .users-show,
 .users-edit,
 .users-new{
+  .button-podcast { padding: 5px 8px; }
 
-	.user-portrait-img{
-		width:200px;
-		height: 200px;
-		background-size:cover;
-		background-position: center
-	}
+  .user-portrait-img{
+    width:200px;
+    height: 200px;
+    background-size:cover;
+    background-position: center
+  }
 
-	.talks-joined{
-		color: black;
-		margin: 15px 0 5px 0
-	}
+  .talks-joined{
+    color: black;
+    margin: 15px 0 5px 0
+  }
 
-	.user-name{
-		margin:0 0 50px 0;
-	}
+  .user-name{
+    margin:0 0 50px 0;
+  }
 }
 
 .users-new,
@@ -24,114 +25,114 @@
 .users-edit,
 .users-update{
 
-	.user-portrait-img{
-		width:143px;
-		height: 143px;
-	}
+  .user-portrait-img{
+    width:143px;
+    height: 143px;
+  }
 
-	.button-profile-img{
-		margin-top: 36px;
-		margin-bottom: 15px;
-	}
-	#user_account_about{
-		height: 200px
-	}
+  .button-profile-img{
+    margin-top: 36px;
+    margin-bottom: 15px;
+  }
+  #user_account_about{
+    height: 200px
+  }
 
-	.input.file{
-		display: none;
-	}
+  .input.file{
+    display: none;
+  }
 
-	label.text.optional{
-		display:none //TODO, is hackish
-	}
+  label.text.optional{
+    display:none //TODO, is hackish
+  }
 
-	.text-area{
-		height: 450px;
-	}
+  .text-area{
+    height: 450px;
+  }
 
-	.ckeditor.optional{
-		font-family: 'eaglelight';
-		font-size: rem-calc(30);
-	}
+  .ckeditor.optional{
+    font-family: 'eaglelight';
+    font-size: rem-calc(30);
+  }
 }
 
 .users-show{
-/*	opacity: 0.6;*/
+/*  opacity: 0.6;*/
 
-	background: #FEF1DE;
-	.header-box{
-		background: $header-box-bg;
-	}
+  background: #FEF1DE;
+  .header-box{
+    background: $header-box-bg;
+  }
 
-	.header-box{
-		position:relative;
-	  .generic-actions-box{
-	    position: absolute;
-	    right: -143px;
-	    top: -3px;
-	    width: 140px;
-	    .action-toggle{
-	      height: 38px;
-	      width: 38px;
-	      position: relative;
-	      display: block;
-	      margin-bottom: 3px
-	    }
-	    .icon-cog{
-	      color: $brand-color-red;
-	      font-size: rem-calc(18);
-	      height:100%;
-	      width: 100%;
-	      padding: 11px 10px 7px 10px;
-	      display: block;
-	      background: black;
-	    }
-	    #action-links-list{
-	      height:100px;
-	      /*width:80px;*/
-	      overflow: hidden;
-	      &.hide{
-	        height:0;
-	      }
-	      li{
-	        display: block;
-	        margin-top: 2px;
-	        a{
-	          color: $brand-color-red;
-	          font-size: rem-calc(16);
-	          font-family: 'eaglebook';
-	          height: 38px;
-	          padding: 7px 10px;
-	          display: block;
-	          background: black;
-	        }
-	      }
-	    } 
-	  }
+  .header-box{
+    position:relative;
+    .generic-actions-box{
+      position: absolute;
+      right: -143px;
+      top: -3px;
+      width: 140px;
+      .action-toggle{
+        height: 38px;
+        width: 38px;
+        position: relative;
+        display: block;
+        margin-bottom: 3px
+      }
+      .icon-cog{
+        color: $brand-color-red;
+        font-size: rem-calc(18);
+        height:100%;
+        width: 100%;
+        padding: 11px 10px 7px 10px;
+        display: block;
+        background: black;
+      }
+      #action-links-list{
+        height:100px;
+        /*width:80px;*/
+        overflow: hidden;
+        &.hide{
+          height:0;
+        }
+        li{
+          display: block;
+          margin-top: 2px;
+          a{
+            color: $brand-color-red;
+            font-size: rem-calc(16);
+            font-family: 'eaglebook';
+            height: 38px;
+            padding: 7px 10px;
+            display: block;
+            background: black;
+          }
+        }
+      }
+    }
 
-		.avatar{
-			margin: 58px 0 6px 0;
-		}
-	}
-	.user-name{
-		margin-bottom: 69px
-	}
-	.vr-tabs dd{
-  	width: 50%;
+    .avatar{
+      margin: 58px 0 6px 0;
+    }
+  }
+  .user-name{
+    margin-bottom: 69px
+  }
+  .vr-tabs dd{
+    width: 33.33%;
   }
   .about-content{
-  	background: rgba(0,0,0,0.8);
-  	padding: rem-calc(15) !important;
-  	a{
-  		color:white;
-  		text-decoration: underline;
-  		&:focus,&:hover{
-  			color:darken(white,8%);
-  			text-decoration: underline;
-  		}
-  	}
-  	li,p{
-  		color:white;
-  	}
+    background: rgba(0,0,0,0.8);
+    padding: rem-calc(15) !important;
+    a{
+      color:white;
+      text-decoration: underline;
+      &:focus,&:hover{
+        color:darken(white,8%);
+        text-decoration: underline;
+      }
+    }
+    li,p{
+      color:white;
+    }
   }
 }

@@ -1,28 +1,23 @@
-= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+= simple_form_for( resource,
+                   as: resource_name,
+                   url: registration_path(resource_name) ) do |f|
 
   .row.top-margin-action-bar
     .medium-10.medium-centered.columns
       = f.input :firstname
       = f.input :lastname
       = f.input :email
+      = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
+      = f.input :conference
       = f.input :password
       = f.input :password_confirmation
-
-      = f.check_box :accept_terms_of_use
-      = link_to( t('.agree_agb_and_tou'), 'http://blog.voicerepublic.com/legal/terms-of-use/', target: "_blank" )
-      - if devise_error_messages! =~ /terms of use/
-        %small{:class=>"error"}
-          = t('.accept_terms_of_use')
-
-
+      = f.input :accept_terms_of_use, as: :boolean,
+                label: t('simple_form.labels.user.accept_terms_of_use').html_safe
       %br/
       = f.button :submit, t('.registration_title'), class: 'button-vr'
       %hr/
-      = render partial: 'devise/shared/social_network_connects', locals: { action: 'register' }
-      -#
-        .medium-6.columns.text-center
-          = t(".registration_or")
-        =   render(:partial => 'devise/shared/social_network_connects')
+      = render partial: 'devise/shared/social_network_connects',
+               locals: { action: 'register' }
       .clearfix
       %hr/
       = render(:partial => "/devise/shared/links")

@@ -173,6 +173,20 @@ Backend
 Should be deployed the same as the normal app, but using the user `backend`.
 
 
+Image Upload Directory Permissions
+----------------------------------
+
+Both the normal `app` and `backend` currently share uploaded images under
+`/home/app/app/shared/public/system/dragonfly/` that directory needs to be
+set up correctly:
+
+    drwxrwsr-x 3 app imageupload  4096 Apr  7 09:41 dragonfly
+
+According to Munen the plan is move uploaded images off to S3, after which
+this becomes moot. In that case please delete the respective code in cdist:
+https://github.com/munen/voicerepublic_dot_cdist/commit/b821a7d447782f87af2885cd78ab7408ab2375d4
+
+
 Munin Plugins
 -------------
 
@@ -182,15 +196,15 @@ As root
     cd /etc/munin/plugins
     ln -s /home/app/app/current/bin/munin/rtmp
     ln -s /home/app/app/current/bin/munin/raindrops
+    ln -s /home/app/app/current/bin/munin/du_ du_home_app_shared_recordings
 
     ln -s /usr/share/munin/plugins/port_ port_1935
     ln -s /usr/share/munin/plugins/port_ port_9292
     ln -s /usr/share/munin/plugins/postgres_querylength_  postgres_querylength_ALL
     ln -s /usr/share/munin/plugins/postgres_xlog
 
-
 CI
---
+==
 
 ## PhantomJS
 
@@ -206,6 +220,9 @@ via package management.
 phantomjs executable made available to path as described here:
 https://github.com/munen/voicerepublic_dot_cdist/pull/7
 
+and
+
+    cd bin; ln -s /usr/local/bin/phantomjs-1.9.7-linux-x86_64/bin/phantomjs
 
 ## Chromium
 

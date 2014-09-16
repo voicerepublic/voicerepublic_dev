@@ -1,4 +1,4 @@
-class VenuesController < ApplicationController
+class VenuesController < BaseController
 
   before_filter :store_location
   #before_filter :remember_location, :only => [:join_venue]
@@ -25,7 +25,7 @@ class VenuesController < ApplicationController
         @archived_talks = @venue.talks.archived.ordered
 
         @participation =
-          @venue.participations.find_by(user_id: current_user.id)
+          @venue.participations.find_by(user_id: current_user.id) if current_user
 
         @show_join = @participation.nil? &&
                      current_user != @venue.user
@@ -108,12 +108,6 @@ class VenuesController < ApplicationController
       format.html { redirect_to user_path(current_user) }
       format.json { head :no_content }
     end
-  end
-
-  def tags
-    scope = ActsAsTaggableOn::Tag.where(["name ILIKE ?", "%#{params[:q]}%"])
-    tags = scope.paginate(:page => params[:page], :per_page => params[:limit] || 10)
-    render json: { tags: tags, total: scope.count }
   end
 
   private

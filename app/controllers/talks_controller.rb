@@ -1,4 +1,6 @@
-class TalksController < ApplicationController
+class TalksController < BaseController
+
+  include OnTheFlyGuestUser
 
   before_action :set_venue, except: [:index, :popular, :live, :recent,
     :featured, :upcoming]
@@ -49,6 +51,7 @@ class TalksController < ApplicationController
   # GET /talks/1
   def show
     respond_to do |format|
+      @related_talks = @talk.related_talks
       format.html
       format.text do
         authorize! :manage, @talk
