@@ -140,11 +140,8 @@ Run App
 
 ### voicerepublic_dev
 
-* `zeus start`
-* `zeus server`
-* `rackup -E production private_pub.ru`
-* `zeus rake rtmp:start`
-* `bundle exec lib/rtmp_watcher.rb run`
+* sudo apt-get install tmux
+* bin/start_everything_in_tmux
 
 ### voicerepublic_backoffice
 
