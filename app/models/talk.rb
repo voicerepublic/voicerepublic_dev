@@ -481,7 +481,7 @@ class Talk < ActiveRecord::Base
     end
 
     # write info file (based on `storage`) and upload
-    File.open("#{base}/#{id}.info") { |f| f.puts(processing_info) }
+    File.open("#{base}/#{id}.info", 'w') { |f| f.puts(processing_info) }
     upload_file("#{uri}/processing.info", "#{base}/#{id}.info")
 
     FileUtils.fileutils_output = $stderr
