@@ -276,6 +276,21 @@
         cursor: pointer;
       }
     }
+
+    .button-end-talk{
+      display: block;
+      position: absolute;
+      top: 0;
+      right: -120px;
+      width: 110px;
+      height: 38px;      
+      color: $brand-color-red;
+      font-size: rem-calc(16);
+      font-family: 'eaglebook';
+      padding: 7px 10px;
+      background: black;
+      line-height: 1.5; 
+    }
   }
 
   .talk-talkers-box{
@@ -330,6 +345,54 @@
         }
       }
     }
+    .start-overlay{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #444;
+      .row{
+        margin:0;
+      }
+      .left-text{
+        font-family: 'eaglebook';
+        color:black;
+        display: inline-block;
+        padding-top: 47px;
+      }
+      .button-column{
+        padding-top: 28px;
+        .button-start{
+          display: inline-block;
+          font-family: 'eaglebook';
+          font-size: rem-calc(50);
+          background: $interaction-green;
+          color: white;
+          line-height: 1;
+          padding: 13px 20px 7px 20px;
+          border-radius: 12px;
+          @include box-shadow(0, 0, 10px, rgba(0,0,0,0.5));
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
+          &:hover{
+            @include box-shadow(0, 0, 10px, rgba(0,0,0,0.8));
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
+          }
+        }
+      }
+      .right-text{
+        padding-top: 39px;
+        display: inline-block;
+        color: black;
+        strong{
+          font-family: 'eaglebook';
+          font-weight: normal;
+          display: block;
+        }
+        font-family: 'eaglelight';
+      }
+    }    
   }
 
   .talk-more-talks-box{

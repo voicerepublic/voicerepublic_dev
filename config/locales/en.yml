@@ -836,8 +836,12 @@ en:
       embed: Embed
       embed_player: Embed Player
       more_talks_title: MORE FROM THIS USER
-      edit_talk: Edit Talk
-      end_talk: Stop Talk
+      edit_talk: EDIT TALK
+      start_text_top: Click START when the speaker begins.
+      start: START
+      start_text_bottom: <strong>Info:</strong> This sets the start point of the recording.
+      audio_settings: Audio settings
+      end_talk: END TALK
       banner_title: WHAT IS VOICE REPUBLIC?
       banner_text: |
         Voice Republic is a tool for the creation and distribution of audio content on the Internet.

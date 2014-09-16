@@ -105,13 +105,9 @@
             = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
               %span.icon-cog
             %ul#action-links-list.list-style-type-none.hide-stuff
-              - if @talk.venue.opts.start_button
-                %li(ng-show='showStartButton()')
-                  %a(href="#" ng-click='startTalk()')= t('.start_talk')
+
               %li(ng-hide='talkIsHalflive() || talkIsLive()')
                 = link_to t('.edit_talk'), [:edit, @venue, @talk]
-              %li(ng-show='showEndTalk()')
-                %a(href="#" ng-click='endTalk()')= t('.end_talk')
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
@@ -177,6 +173,8 @@
           %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
             %span.icon-volume-mute2.hide
 
+        %a(href="#" ng-show='showEndTalk()' ng-click='endTalk()' class="button-vr button-live button-end-talk text-center")= t('.end_talk')            
+
     .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
       .large-12.columns.text-center
         .stage-title
@@ -199,6 +197,13 @@
             .host-actions(ng-show='showHostActions()')
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
+      -# START BUTTON
+      .start-overlay
+        .row.text-center(g-show='showStartButton()')
+          .left-text.small-4.columns= t('.start_text_top')
+          .button-column.small-4.columns
+            %a.button-start(href="#" ng-click='startTalk()')= t('.start')
+          .right-text.small-4.columns= t('.start_text_bottom').html_safe
 
     .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
       .large-12.columns
