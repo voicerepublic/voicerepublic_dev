@@ -27,7 +27,7 @@
             = link_to user_path(@best_hit) do
               .avatar
                 .avatar-box
-                  = render partial: "shared/avatar_image",  locals: {user: @best_hit, img_size: 62}
+                  = render partial: "shared/avatar_image",  locals: {user: @best_hit, size: 62}
                   .avatar-name.text-center
                     = @best_hit.name
 
@@ -51,7 +51,7 @@
             = link_to user_path(u) do
               .avatar
                 .avatar-box
-                  = render partial: "shared/avatar_image",  locals: {user: u, img_size: 62}
+                  = render partial: "shared/avatar_image",  locals: {user: u, size: 62}
                   .avatar-name.text-center
                     = u.name
 

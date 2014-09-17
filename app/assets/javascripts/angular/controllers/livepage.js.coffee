@@ -167,6 +167,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # trigger
   $scope.requestMic = -> session.fsm.MicRequested()
+  $scope.cancelMicRequest = -> session.fsm.MicRequestCanceled()
 
   $scope.acceptPromotion = ->
     session.fsm.PromotionAccepted()

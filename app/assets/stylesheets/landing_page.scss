@@ -30,7 +30,7 @@
           border-style: none !important;
           outline-style: none !important;
           @include box-shadow(0,0,0,#000);
-          color: #000;        
+          color: #000;
         }
       }
 
@@ -72,13 +72,13 @@
     position:relative;
     z-index: -1;
 
-  	.lp-logo{
-  		font-size: rem-calc(280);
-  		color: $brand-color-red;
-  		line-height: 0.5;
-  		margin:16px 0 0 0;
-  		display: block;
-  	}
+    .lp-logo{
+      font-size: rem-calc(280);
+      color: $brand-color-red;
+      line-height: 0.5;
+      margin:16px 0 0 0;
+      display: block;
+    }
 
     .headline{
       color: #000;
@@ -146,7 +146,7 @@
       font-size: rem-calc(19);
       padding:19px 0 11px;
       width: 100%;
-      background: $brand-color-red;      
+      background: $brand-color-red;
     }
     .see-all-link{
       font-size: rem-calc(16);

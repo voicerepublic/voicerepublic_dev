@@ -26,8 +26,11 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  # this makes `url_for` available for use in `details_for`
+  include Rails.application.routes.url_helpers
+
   PRIOTZ = Regexp.new(Settings.priority_timezones)
-  
+
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
@@ -35,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :messages, dependent: :destroy
 
   has_many :venues # as owner
+  has_many :talks, through: :venues
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
@@ -65,6 +69,8 @@ class User < ActiveRecord::Base
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name),
     allow_nil: true
 
+  after_save :generate_flyers!, if: :generate_flyers?
+
   include PgSearch
   multisearchable against: [:firstname, :lastname]
   pg_search_scope :search, against: [:firstname, :lastname],
@@ -84,7 +90,6 @@ class User < ActiveRecord::Base
   end
 
   class << self
-
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
       user = User.where(:provider => auth[:provider], :uid => auth[:uid]).first
       unless user
@@ -107,7 +112,11 @@ class User < ActiveRecord::Base
       role: role_for(talk),
       image: avatar.thumb('100x100#nw').url,
       stream: "t#{talk.id}-u#{id}",
-      channel: "/t#{talk.id}/u#{id}"
+      channel: "/t#{talk.id}/u#{id}",
+      link: url_for(controller: 'users',
+                    action: 'show',
+                    id: to_param,
+                    only_path: true)
     }
   end
 
@@ -139,6 +148,17 @@ class User < ActiveRecord::Base
   def remembers?(model)
     reminders.exists?( rememberable_id: model.id,
                        rememberable_type: model.class.name )
+  end
+
+  def generate_flyers?
+    firstname_changed? or lastname_changed?
+  end
+
+  def generate_flyers!
+    venues.reload
+    talks.reload.each do |talk|
+      Delayed::Job.enqueue GenerateFlyer.new(id: talk.id), queue: 'audio'
+    end
   end
 
 end

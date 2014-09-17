@@ -48,6 +48,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       participants: talk.venue.users.map { |g| g.details_for(talk) },
       blackbox: Settings.blackbox,
       loopback: talk.venue.opts.loopback,
+      safetynet_warning: I18n.t('safetynet_warning'),
       blackbox_path: blackbox_path
     }
   end
@@ -59,10 +60,12 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def discussion
+    # TODO this might benefit from eager loading
     talk.messages.order('created_at DESC').map do |message|
       {
-        name: message.user.name,
-        image: message.user.avatar.url,
+        # TODO this could use some optimization, by looking up user in
+        # angular instead of passing lots of redundant data
+        user: message.user.details_for(talk),
         content: message.content,
         created_at: I18n.l(message.created_at, format: :short)
       }
@@ -94,19 +97,20 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine_spec
     # events in 'Simple Past', states in 'Present Progressive'
     #
-    # from-state         -> transition        -> to-state
+    # from-state         -> transition         -> to-state
     <<-EOF
-      Registering        -> Registered        -> Waiting
-      Waiting            -> TalkStarted       -> Listening
-      Listening          -> MicRequested      -> ExpectingPromotion
-      ExpectingPromotion -> Promoted          -> OnAir
-      Listening          -> Promoted          -> AcceptingPromotion
-      AcceptingPromotion -> PromotionAccepted -> OnAir
-      AcceptingPromotion -> PromotionDeclined -> Listening
-      OnAir              -> Demoted           -> Listening
-      GuestRegistering   -> Registered        -> OnAir
-      HostRegistering    -> Registered        -> HostOnAir
-      *                  -> TalkEnded         -> Loitering
+      Registering        -> Registered         -> Waiting
+      Waiting            -> TalkStarted        -> Listening
+      Listening          -> MicRequested       -> ExpectingPromotion
+      ExpectingPromotion -> Promoted           -> OnAir
+      ExpectingPromotion -> MicRequestCanceled -> Listening
+      Listening          -> Promoted           -> AcceptingPromotion
+      AcceptingPromotion -> PromotionAccepted  -> OnAir
+      AcceptingPromotion -> PromotionDeclined  -> Listening
+      OnAir              -> Demoted            -> Listening
+      GuestRegistering   -> Registered         -> OnAir
+      HostRegistering    -> Registered         -> HostOnAir
+      *                  -> TalkEnded          -> Loitering
     EOF
   end
 

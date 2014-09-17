@@ -64,6 +64,9 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         true
       onbeforeMicRequested: ->
         config.flags.settings = true
+      onbeforeMicRequestCanceled: ->
+        config.flags.settings = false
+        true
       onAcceptingPromotion: ->
         config.flags.acceptOrDecline = true
       onleaveAcceptingPromotion: ->
@@ -72,13 +75,16 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
       onbeforePromotionAccepted: ->
         config.flags.settings = true
       onOnAir: ->
+        activateSafetynet() if config.talk.state in ['live', 'halflive']
         blackbox.publish config.stream
         config.flags.onair = true
       onleaveOnAir: ->
+        deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
         true
       onHostOnAir: ->
+        activateSafetynet() if config.talk.state in ['live', 'halflive']
         users = config.session
         blackbox.publish config.stream
         blackbox.subscribe config.stream if config.loopback
@@ -95,12 +101,21 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
           return if millisecs > 2147483647
           $timeout startTalk, millisecs
       onleaveHostOnAir: ->
+        deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
         true
       onLoitering: ->
         config.flags.settings = false
         unsubscribeAllStreams()
+
+  # TODO resolve dependency on `window` by using `$window`
+  activateSafetynet = ->
+    $(window).bind 'beforeunload', ->
+      config.safetynet_warning
+
+  deactivateSafetynet = ->
+    $(window).unbind 'beforeunload'
 
   # comprehending queries on the state
   isNotRegisteringNorWaiting = ->
@@ -118,8 +133,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     if data.message
       # enrich discussion with further data for display
       user = users[data.message.user_id]
-      data.message.name = user.name
-      data.message.image = user.image
+      data.message.user = user
       # prepend to discussion array
       discussion.unshift data.message
     if method = data.state || data.event
@@ -179,6 +193,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         # but could also be used for live upgrades
         window.location.reload()
       when 'StartTalk'
+        activateSafetynet() if fsm.current.match /OnAir$/
         config.talk.state = data.talk_state
         config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')

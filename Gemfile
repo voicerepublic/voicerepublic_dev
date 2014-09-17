@@ -60,7 +60,7 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
   gem 'capistrano-rbenv', '~> 2.0'
-  gem 'debugger'
+  gem 'byebug'
   gem 'disable_assets_logger'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'faker'
@@ -69,7 +69,6 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'rspec-retry'
-  gem 'sqlite3'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
   gem 'timecop'

@@ -1,15 +1,45 @@
 require 'spec_helper'
 
 describe Flyer do
+
   before do
+    # unmocks the mocks in spec_helper
     allow_any_instance_of(Flyer).to receive(:generate!).and_call_original
+    allow_any_instance_of(Flyer).to receive(:path).and_call_original
   end
 
-  describe 'built' do
+  describe 'regeneration' do
     before do
-      talk = FactoryGirl.build_stubbed :talk,
-        starts_at: Time.now
+      talk = FactoryGirl.create :talk, starts_at: Time.now
+      @flyer = talk.flyer
+    end
+    after do
+      # cleanup
+      @flyer.disintegrate!
+    end
+    describe 'scope user' do
+      it 'regenerates the flyer when updating the users name' do
+        mtime_before = File.mtime(@flyer.path(fs=true))
+        VCR.use_cassette 'flyer_generate_after_user_changed' do
+          user = @flyer.talk.venue.user.update_attribute :firstname, 'foo'
+        end
+        expect(File.mtime(@flyer.path(fs=true))).to be > mtime_before
+      end
+    end
 
+    describe 'scope talk' do
+      it 'regenerates the flyer when updating the talks title' do
+        mtime_before = File.mtime(@flyer.path(fs=true))
+        @flyer.talk.update_attribute :title, 'foo'
+        expect(File.mtime(@flyer.path(fs=true))).to be > mtime_before
+      end
+    end
+
+  end
+
+  describe 'building in general' do
+    before do
+      talk = FactoryGirl.build_stubbed :talk, starts_at: Time.now
       @flyer = Flyer.new(talk)
     end
     after do
