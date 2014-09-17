@@ -141,7 +141,6 @@
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
 
-        .situation(ng-show='showSituation()')= t('.waiting_for_start')
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
@@ -197,7 +196,8 @@
             .host-actions(ng-show='showHostActions()')
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
-      -# START BUTTON
+      
+      -# START BUTTON FOR HOST
       .start-overlay(ng-show='showStartButton()')
         .row.text-center
           .left-text.small-4.columns= t('.start_text_top')
@@ -205,6 +205,7 @@
             %a.button-start(href="#" ng-click='startTalk()')= t('.start')
           .right-text.small-4.columns= t('.start_text_bottom').html_safe
       
+      -# MESSAGE FOR LISTENER
       .start-overlay(ng-show='showUnstartedMessage()')
         .row.text-center
           .unstarted-message
@@ -314,11 +315,11 @@
               %img(src="/images/flashbox_mic_input.jpg" alt="allow access")
               %p= t('.choose_mic_input')
 
-        = link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
-          %p
-            = raw t('.audio_settings_help_text')
-        .close-x(ng-click='toggleShowSettings()')
-          &times;
+      = link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
+        %p
+          = raw t('.audio_settings_help_text')
+      .close-x(ng-click='toggleShowSettings()')
+        &times;
 
   .row.collapse-large-only
     .large-12.columns

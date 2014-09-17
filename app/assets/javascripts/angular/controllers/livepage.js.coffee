@@ -14,7 +14,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.showStartButton = ->
     session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
 
-  $scope.showUnstartetMessage = ->
+  $scope.showUnstartedMessage = ->
     !session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
 
   $scope.showEndTalk = ->
@@ -31,9 +31,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.showCountdown = ->
     config.talk.state == 'prelive'
-
-  $scope.showSituation = ->
-    config.talk.state == 'halflive'
 
   $scope.trouble = ->
     return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
