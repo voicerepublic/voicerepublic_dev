@@ -179,7 +179,7 @@
           =t('.stage')
         - unless @talk.speakers.blank?
           .speakers-box
-            %h3= t('.speakers')
+            %h3= t('.speakers', count: @talk.speakers.split(',').size)
             %p= @talk.speakers
         - else
           .avatar.avatar-host
