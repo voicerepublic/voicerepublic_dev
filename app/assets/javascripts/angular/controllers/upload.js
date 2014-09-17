@@ -1,5 +1,6 @@
 
 uploadFunc = function($scope, $upload) {
+
   $scope.saveTalk = function(e) {
     console.log("triggers the saveTalk() function!");
     // TODO: do not submit form through regular means
@@ -46,11 +47,13 @@ uploadFunc = function($scope, $upload) {
         //  // against .form-save-row to be available!
         //  $(".form-save-row input").click();
         //}
-      });
+      })
       //.error(...)
       //.then(success, error, progress);
       // access or attach event listeners to the underlying XMLHttpRequest.
-      //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+      .xhr(function(xhr){xhr.upload.addEventListener('load', function(e) {
+        console.log('progress!') }
+      )});
 
 
 

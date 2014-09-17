@@ -870,6 +870,7 @@ en:
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       talks_description: Tell your audience a little more
       title: Title
+      required: required
       teaser: Teaser
       tag_list: Tag list
     index:

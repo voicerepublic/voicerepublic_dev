@@ -11,8 +11,11 @@
       - # TODO some fields are protected after state prelive, add this to cancan
       - opts[:disabled] = true unless f.object.prelive?
 
-      = f.input :title, placeholder: t('.title')
+      = f.input :title, placeholder: t('.required'),
+        input_html: { 'ng-model' => "talk.title", 'ng-required' => 'true' }
       = f.input :teaser, placeholder: t('.teaser')
+      -# tag_list cannot be protected by angular, because ng-require will
+      -# destroy the autocomplete tagging field
       = f.input :tag_list, input_html: { class: 'tagList' }
       = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
         input_html: { class: 'languageSelect' },
@@ -23,9 +26,11 @@
       -#testdatepicker
       .date-time-picker-row.row.collapse
         .medium-5.columns
-          = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
+          -# NOTE: Datepicker and Timepicker fields cannot be protected by
+          -# Angular, because NG will kill the jQuery UI elements
+          = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date', 'required' => 'true' }, placeholder: t('.required'))
         .medium-4.columns
-          = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
+          = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time', 'required' => 'true'}, placeholder: t('.required'))
         .medium-3.columns
           = f.input :duration, opts.merge(collection: Settings.durations)
       .row.collapse
@@ -64,7 +69,7 @@
     %br
     %label(for="venue_description")
       = t('.talks_description')
-    = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
+    = f.text_area :description, required: true, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
     - messages = f.object.errors.get(:description)
     - unless messages.empty?
       %small.error= messages * ', '

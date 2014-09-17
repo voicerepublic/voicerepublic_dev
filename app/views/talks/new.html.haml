@@ -19,11 +19,13 @@
 
 = simple_form_for([@venue, @talk], url: nil,
   html: {'ng-submit' => 'saveTalk()',
-    'ng-controller' => 'UploadCtrl' }) do |f|
+    'ng-controller' => 'UploadCtrl',
+    name: "talkForm",
+    novalidate: false}) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
 
   .form-save-row.row
     .medium-12.columns
-      = f.button :submit, class: 'button-vr'
+      = f.button :submit, class: 'button-vr', 'ng-disabled' => '!talkForm.$valid'
       = link_to t('.cancel'), @venue
 
