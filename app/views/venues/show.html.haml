@@ -91,7 +91,7 @@
             .comment-left-box.left
               =link_to '#user' do
                 .avatar
-                  = render partial: "shared/avatar_image", locals: { user: current_user, img_size: 40 }
+                  = render partial: "shared/avatar_image", locals: { user: current_user, size: 40 }
             .comment-right-box
               = simple_form_for [@venue, @venue.comments.build] do |f|
                 = f.input :content, placeholder: t('.write_a_comment')

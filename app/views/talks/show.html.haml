@@ -193,7 +193,7 @@
         - else
           .avatar.avatar-host
             .avatar-box
-              / = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
+              = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
               .avatar-name.text-center
                 = link_to @talk.venue.user.name, user_path(@talk.venue.user)
           .avatar(ng-repeat="user in guests()")
