@@ -8,7 +8,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   blackbox.setStreamingServer config.streaming_server
 
   # initialize defaults
-  config.feedback = { data: { bw_in: 'unknown' } }
   discussion = config.discussion
   users = config.session
   config.flags =
@@ -17,6 +16,8 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     acceptOrDecline: false
     settings: false
     connecting: true
+  # TODO martin: adjust default here
+  config.feedback = { data: { bw_in: 0 } }
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -242,7 +243,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # TODO martin: add computation here, then remove log message
     $log.debug JSON.stringify(msg.data)
     config.feedback.data = msg.data
-    #$rootScope.$apply()
 
   # subscribe to push notifications
   privatePub.subscribe config.talk.channel, pushMsgHandler

@@ -42,7 +42,6 @@ class LivepageConfig < Struct.new(:talk, :user)
       handle: "u#{user.id}",
       role: user_details[:role], # TODO: remove in favor of user.role
       stream: stream,
-      bandwith: 0,
       streaming_server: Settings.rtmp.record,
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
