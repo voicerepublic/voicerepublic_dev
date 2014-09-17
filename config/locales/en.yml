@@ -619,6 +619,11 @@ en:
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
+      subscribe_to_podcast: Subscribe to podcast
+      redirect_text: |
+        Please sign up or login to use this feature.
+      login: Login
+      signup: Sign up
       feed_title: "VR - %{title}"
       title: "%{title} - Voice Republic"
       by: by
