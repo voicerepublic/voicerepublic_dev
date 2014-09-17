@@ -613,9 +613,12 @@ en:
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
       delete_venue: Delete Series
+    facebook_value_template:
+      join_the_venue: Join the Series
     venue_list: Series
     new_venue: Create Series
     show:
+      subscribe_to_podcast: Subscribe to podcast
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
@@ -626,6 +629,7 @@ en:
       duration: Duration
       past_venue: Past Series
       join_venue: SUBSCRIBE TO Series!
+      create_new_talk: Create Talk
       leave_venue: Unsubscribe from Series
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit Series

@@ -193,7 +193,7 @@
         - else
           .avatar.avatar-host
             .avatar-box
-              / = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
+              = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
               .avatar-name.text-center
                 = link_to @talk.venue.user.name, user_path(@talk.venue.user)
           .avatar(ng-repeat="user in guests()")
@@ -373,14 +373,14 @@
                 .icon-octagon
                 .number.text-center
                   {{ expectingPromotion().length }}
-              .acc-counter(ng-show='acceptingPromotion().length' title="#{t('.stage_invitations')}")
+              .acc-counter(ng-show='acceptingPromotion.length' title="#{t('.stage_invitations')}")
                 .icon-octa-full
                 .icon-octagon
                 .number.text-center
-                  {{ acceptingPromotion().length }}
+                  {{ acceptingPromotion.length }}
 
             .participants-content
-              .empty-box(ng-class="{'state-hidden': expectingPromotion().length || acceptingPromotion().length || participants().length}")
+              .empty-box(ng-class="{'state-hidden': expectingPromotion.length || acceptingPromotion.length || participants.length}")
                 %h3= t('.listeners')
                 %p= t('.empty_text')
 
@@ -400,10 +400,10 @@
                       .give-mic-link.text-center(ng-click="promote(user.id)")
                         = t('.give_the_mic')
 
-              .accepting-promotion(ng-show='acceptingPromotion().length')
+              .accepting-promotion(ng-show='acceptingPromotion.length')
                 %h3= t('.stage_invitations')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="user in acceptingPromotion()")
+                  %li.avatar(ng-repeat="user in acceptingPromotion")
                     .avatar-box
                       = render partial: "shared/avatar", locals: { size: 38}
                       .avatar-name
@@ -413,10 +413,10 @@
                               %a(href="{{ user.link }}")
                                 {{ user.name }}
 
-              .participating(ng-show='participants().length')
+              .participating(ng-show='participants.length')
                 %h3= t('.listeners')
                 %ul.list-style-type-none
-                  %li.avatar(ng-repeat="user in participants()")
+                  %li.avatar(ng-repeat="user in participants")
                     .avatar-box
                       = render partial: "shared/avatar", locals: { size: 38}
                       .avatar-name
