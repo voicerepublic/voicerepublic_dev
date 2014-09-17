@@ -1,6 +1,6 @@
 #= require swfobject
 #= require angular
-#= require angular-file-upload
+#= require angularjs-file-upload
 #= require state-machine.min
 #= require_self
 #= require_tree ./angular

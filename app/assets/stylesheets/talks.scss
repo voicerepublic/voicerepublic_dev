@@ -8,7 +8,18 @@
     font-weight: bold;
   }
 
-  div[ng-show="dropSupported"] {
+  .highlight-supported-files {
+    background-color: crimson;
+    transition: background-color 1000ms linear;
+    -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    color: black;
+    font-weight: bold;
+  }
+
+  div[nv-file-over] {
     width: 200px;
     height: 50px;
     background: lightgrey;
@@ -16,7 +27,7 @@
     font-weight: bold;
     padding-top: 16px;
     color: black;
-    margin-bottom: 20px;
+    margin: 20px 0px 20px 0px;
   }
 
   input[type="checkbox"]{

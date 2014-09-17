@@ -40,26 +40,27 @@
           = f.file_field :image, as: :file, class: 'display-none'
 
 
-      -# BEGIN: AngularJS File upload
-      = f.input :user_override_uuid, as: :hidden
-      %input{"ng-model" => "myModelObj", :type => "text"}/
-      -# Single file upload
-      %label{:class => "file optional"}
-        = t('.audio_upload')
-      %input{:accept => "audio/*", "ng-file-select" => "onFileSelect($files)", :type => "file"}/
-      -# Multiple file upload
-      -#%input{:accept => "image/*", :multiple => "multiple", "ng-file-select" => "onFileSelect($files)", :type => "file"}/
-      -#.button{"data-multiple" => "true", "ng-file-select" => "onFileSelect($files)"}
-      %div{"ng-file-drag-over-class" => "optional-css-class-name-or-function", "ng-file-drop" => "onFileSelect($files)", "ng-show" => "dropSupported"}
-        = t('.drop_files_here')
-      %div{"ng-file-drop-available" => "dropSupported=true", "ng-show" => "!dropSupported"}
+      -# BEGIN Angular File Upload
+      %div{"ng-show" => "!uploader.isHTML5"}
         = t('.drop_file_not_supported')
-      .progress
-        %span.meter
-          0%
-      -# Currently this would submit the form. Further investigation would be required.
-      -#%button{"ng-click" => "upload.abort()"} Cancel Upload
-      -# END: AngularJS File upload
+      %div{"ng-show" => "uploader.isHTML5"}
+        %div
+          %h2= t('.audio_upload')
+          %div{'ng-class' => "{'highlight-supported-files': addingFailed}"}
+            = t('.supported_filetypes')
+        .well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
+          = t('.drop_files_here')
+      %input{:multiple => "single", "nv-file-select" => "", :type => "file", :uploader => "uploader"}/
+      %ul
+        -# The queue for us is only '1', but iteration is still needed, since
+        -# it's a multi file uploader
+        %li{"ng-repeat" => "item in uploader.queue"}
+          .progress
+            %span.meter{"ng-style" => "{ 'width': item.progress + '%' }"}
+          %div
+            %button{"ng-click" => "item.cancel()", "ng-disabled" => "!item.isUploading"}= t('.cancel')
+            %button{"ng-click" => "item.remove()", "ng-disabled" => "!item.isUploading"}= t('.remove')
+      -# END Angular File Upload
 
 .row
   .medium-12.columns

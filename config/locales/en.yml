@@ -867,6 +867,10 @@ en:
     fields:
       audio_upload: "Import your audio file"
       drop_files_here: "Drop files here"
+      upload: Upload
+      cancel: Cancel
+      remove: Remove
+      supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       talks_description: Tell your audience a little more
       title: Title

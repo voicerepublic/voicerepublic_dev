@@ -4,8 +4,7 @@
   = t('.title', title: @talk.title)
 
 = simple_form_for([@venue, @talk], url: nil,
-  html: {'ng-submit' => 'saveTalk()',
-    'ng-controller' => 'UploadCtrl' },
+  html: { 'ng-controller' => 'UploadCtrl' },
     input_html: { class: 'vr-form'}) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
 
