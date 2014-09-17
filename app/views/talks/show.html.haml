@@ -213,6 +213,7 @@
         %ul.user-talks-slider.list-style-type-none
           = render partial: 'shared/talk_small_box', collection: @related_talks, locals: { color: 'box-transparent'}
 
+    .bandwidth.brand-new-feature {{feedback.data.bw_in}} B/s
     .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
         .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState, 'state-prelive' : showPrelive()}")

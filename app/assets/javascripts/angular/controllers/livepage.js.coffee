@@ -55,6 +55,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     else
       blackbox.unmute()
 
+  $scope.feedback = config.feedback
 
   $scope.showAcceptOrDecline = ->
     session.fsm.is("AcceptingPromotion")
@@ -182,4 +183,3 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
   'session', 'blackbox', 'util', '$window']
 Livepage.controller 'Livepage', livepageFunc
-
