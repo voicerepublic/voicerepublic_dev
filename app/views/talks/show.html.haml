@@ -223,7 +223,7 @@
             = t('.bandwidth_tooltip').html_safe
           .upstream-box.left(ng-class="feedback.data.class")
             %h3= t('.you_are_streaming_with')
-            %span.icon-upload
+            %span.icon-upload(ng-init="feedback.data.kb = 0")
             {{feedback.data.kb}} KB/s 
         
         .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState, 'state-prelive' : showPrelive()}")
@@ -288,7 +288,8 @@
 
         .button-audio-settings(ng-click='toggleShowSettings()')
           %span.icon-equalizer
-          = t(".audio_settings")
+          %br
+          %span.audio-settings-text= t(".audio_settings")
 
     .flash-block(ng-class="{'state-on': showSettings()}")
       .flash-block-bg(ng-click='toggleShowSettings()')

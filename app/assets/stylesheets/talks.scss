@@ -732,15 +732,25 @@
     .button-audio-settings{
       position: absolute;
       right: 6px;
-      top: -6px;
+      top: -11px;
       font-family: 'eaglebook';
       font-size: rem-calc(12);
       cursor: pointer;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
       .icon-equalizer{
-        display: block;
+        display: inline-block;
         margin-bottom: 3px;
         font-size: rem-calc(20);
+        background: rgba(0,0,0,0.5);
+        padding: 5px  5px 0 5px;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 3px;
+      }
+      .audio-settings-text{
+        background: rgba(0,0,0,0.5);
+        display: inline-block;
+        padding: 5px;
+        border-radius: 8px
       }
     }
   }
@@ -1463,6 +1473,9 @@
   width: 300px;
   margin-left: -150px;
   p{
-
+    .audio-settings-link{
+      color: $brand-color-green;
+      cursor: pointer;
+    }
   }
 }

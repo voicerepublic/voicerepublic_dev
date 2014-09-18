@@ -806,11 +806,11 @@ en:
       demote: "&times;"
       dismiss: Dismiss from stage
       bandwidth_tooltip: |
-        <p>While you are speaking, the number should be above 16KB/s.<br />
+        <p><strong>While you are speaking</strong>, the number should be above 16KB/s.<br />
         Should the number be smaller over time, the stream could be interrupted.<br /><br />
 
         <strong>HELP:</strong><br />
-        - Check <span class="bandwidth-modal-link" ng-click='toggleShowSettings()'>Audio Settings</span><br />
+        - Check <span class="audio-settings-link" ng-click='toggleShowSettings()'>Audio Settings</span><br />
         - Check your internet connection<br />
         (Connection problems can interrupt the stream!)</p>
 
