@@ -4,6 +4,14 @@ require 'spec_helper'
 describe 'TalksController' do
   describe 'renders' do
     describe 'without talk' do
+      # the following will be required for the pending specs
+      #     'should fail on new on GET /users/*/talks/new'
+      #     'should fail on new on GET /venues/*/talks/new'
+      #
+      # before(:all) do
+      #   @user  = FactoryGirl.create(:user)
+      #   @venue = FactoryGirl.create(:venue, user: @user)
+      # end
       it 'index on GET /talks' do # index
         visit '/talks'
         page.should have_selector(".talks-index")
@@ -30,6 +38,14 @@ describe 'TalksController' do
       end
       it 'should fail on new on GET /talks/new' do # new
         expect { visit '/talks/new' }.to raise_error(ActionController::RoutingError)
+      end
+      it 'should fail on new on GET /users/*/talks/new' do # new
+        pending "Not implemented yet - see #79110826"
+        expect { visit "/users/#{@user.id}/talks/new" }.to raise_error(ActionController::RoutingError)
+      end
+      it 'should fail on new on GET /venues/*/talks/new' do # new
+        pending "Not implemented yet - see #79110826"
+        expect { visit "/venues/#{@venue.id}/talks/new" }.to raise_error(ActionController::RoutingError)
       end
     end
     describe 'with talk' do
