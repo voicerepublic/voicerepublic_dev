@@ -421,6 +421,43 @@
     margin-top: 30px;
     margin-bottom: 30px;
 
+    .bandwidth-box{
+      position: absolute;
+      top: -12px;
+      left:0;
+      display: block;
+      padding: 4px 7px 5px 5px;
+      background: rgba(255,255,255,0.85);      
+      .info{
+        display: inline-block;
+        color: black;
+        .icon-info{
+          font-size: 33px;
+        }
+      }
+      .upstream-box{
+        display: inline-block;
+        font-size: rem-calc(15);
+        font-family: 'eaglebook';
+        @include transition(color 1s);
+        h3{
+          font-size: rem-calc(12);
+          color: black;
+          margin-bottom: 0;
+        }
+        .icon-upload{
+          font-size: rem-calc(20);
+        }
+        &.good{
+          color: $interaction-green;
+        }
+        &.bad{
+          color: $brand-color-red;
+          @include transition(color 4s);
+        }
+      }
+    }
+
     .background-box{
       display: inline-block;
       position: relative;
@@ -1419,5 +1456,13 @@
     font-size: rem-calc(19);
     padding:19px 0 11px;
     width: 100%;
+  }
+}
+
+#modal-bandwidth{
+  width: 300px;
+  margin-left: -150px;
+  p{
+
   }
 }

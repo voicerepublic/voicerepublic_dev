@@ -37,6 +37,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     return 'trouble connecting' if config.flags.connecting
     false
 
+  $scope.showBandwidth = ->
+    session.fsm.is("HostOnAir") and config.talk.state in ['prelive','halflive','live']
+
   $scope.showParticipantActionsBox = ->
     config.talk.state in ['prelive','halflive','live']
 

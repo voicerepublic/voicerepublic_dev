@@ -243,6 +243,8 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # TODO martin: add computation here, then remove log message
     $log.debug JSON.stringify(msg.data)
     config.feedback.data = msg.data
+    config.feedback.data.kb = Math.round(msg.data.bw_in / 1000)
+    config.feedback.data.class = if msg.data.kb > 16 then 'good' else 'bad'
 
   # subscribe to push notifications
   privatePub.subscribe config.talk.channel, pushMsgHandler

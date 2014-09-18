@@ -805,6 +805,16 @@ en:
       promote: GIVE THE MIC
       demote: "&times;"
       dismiss: Dismiss from stage
+      bandwidth_tooltip: |
+        <p>While you are speaking, the number should be above 16KB/s.<br />
+        Should the number be smaller over time, the stream could be interrupted.<br /><br />
+
+        <strong>HELP:</strong><br />
+        - Check <span class="bandwidth-modal-link" ng-click='toggleShowSettings()'>Audio Settings</span><br />
+        - Check your internet connection<br />
+        (Connection problems can interrupt the stream!)</p>
+
+      you_are_streaming_with: "You are streaming with:"
       prelive_text: YOU ARE ON PRIVATE PRESTREAM
       prelive_tooltip: Only the host and invited guests can hear each other
       you_are_on_air: YOU ARE ON AIR!
