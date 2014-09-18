@@ -240,7 +240,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     eval msg.data.exec if msg.data.exec?
 
   statHandler = (msg) ->
-    # TODO martin: add computation here, then remove log message
     $log.debug JSON.stringify(msg.data)
     config.feedback.data = msg.data
     config.feedback.data.kb = if msg.data.bw_in >= 0 then Math.round(msg.data.bw_in / 1000) else 0
