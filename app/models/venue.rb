@@ -45,7 +45,6 @@ class Venue < ActiveRecord::Base
 
   serialize :options
 
-  scope :default,  find_by(default: true)
   scope :of_user,  proc { |user| where(user_id: user.id) } # TODO check if needed
   scope :featured, proc { where('featured_from <= ?', Time.now.in_time_zone).
                           order('featured_from DESC') }

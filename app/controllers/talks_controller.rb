@@ -75,9 +75,18 @@ class TalksController < BaseController
     @talk = Talk.new(talk_params)
     @talk.venue = @venue
 
+    # TODO: transaction
+
+    if @venue.id.nil?
+      @venue.save
+      @user.default_venue = @venue
+      @user.save
+    end
+
     authorize! :create, @talk
 
     if @talk.save
+
       redirect_to [@venue, @talk], notice: 'Talk was successfully created.'
     else
       render action: 'new'
@@ -108,13 +117,13 @@ class TalksController < BaseController
     # when entering the controller, either
     # venue- or user_id have to be set
     #
-    if params[:user_id].nil?
+    if params[:user_id].nil?     # venue_id is set
       @venue = Venue.find(params[:venue_id])
       @user = @venue.user
       @came_in_via = :venue
-    else
+    else                         # user_id is set
       @user = User.find(params[:user_id])
-      @venue = @user.venues.default
+      @venue = default_venue( @user )
       @came_in_via = :user
     end
   end
@@ -133,4 +142,17 @@ class TalksController < BaseController
                                  :format)
   end
 
+  # TODO: move into model
+  def default_venue( user )
+    return (
+      if ! user.default_venue.nil?
+        user.default_venue
+      else
+        Venue.new( title:       "My Talks",
+                   teaser:      "various talks",
+                   description: "Various talks, that don't belong to any particular series",
+                   tag_list:    "default")
+      end
+    )
+  end
 end

@@ -1,10 +1,20 @@
 - content_for :title do
   = t('.title')
 
-= simple_form_for([@venue, @talk]) do |f|
-  = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
+- if @came_in_via == :venue
+  = simple_form_for([@venue, @talk]) do |f|
+    = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
+  
+    .form-save-row.row
+      .medium-12.columns  
+        = f.button :submit, class: 'button-vr'
+        = link_to t('.cancel'), @venue
 
-  .form-save-row.row
-    .medium-12.columns  
-      = f.button :submit, class: 'button-vr'
-      = link_to t('.cancel'), ( @came_in_via == :venue ? @venue : user_path(@user) )
+- else # @came_in_via == :user
+  = simple_form_for([@user, @talk]) do |f|
+    = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
+  
+    .form-save-row.row
+      .medium-12.columns  
+        = f.button :submit, class: 'button-vr'
+        = link_to t('.cancel'), user_path(@user)

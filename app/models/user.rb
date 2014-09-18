@@ -5,6 +5,7 @@
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
+# * default_venue [integer, default=0] - Which on is the default venue of this user? Can be empty == null.
 # * email [string, default="", not null]
 # * encrypted_password [string, default="", not null] - Devise encrypted password
 # * firstname [string] - TODO: document me
@@ -42,6 +43,9 @@ class User < ActiveRecord::Base
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
+
+  belongs_to :default_venue, class_name: Venue
+  accepts_nested_attributes_for :default_venue
 
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')

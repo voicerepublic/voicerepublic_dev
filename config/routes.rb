@@ -62,10 +62,8 @@ VoiceRepublic::Application.routes.draw do
                registrations: "users/registrations"
              })
 
-  resources :users, only: [:update, :show, :edit]
-
-  resources :users do
-    resources :talks, only: [:new]
+  resources :users, only: [:update, :show, :edit]  do
+    resources :talks, only: [:new, :create, :index]
   end
 
   # old school
