@@ -23,7 +23,8 @@
       %br/
       %br/
   - if can? :manage, @user
-    = link_to new_user_talk_path(@user), class: 'button-vr button-header' do
+    -# create-talk class is user to find the element in tests
+    = link_to new_user_talk_path(@user), class: 'button-vr button-header create-talk' do
       %span.icon-description
         = t('.create_a_talk_now')
   .row.collapse-large-only
