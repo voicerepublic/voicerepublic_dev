@@ -12,7 +12,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     !hasFlash() and (config.talk.state in ['halflive', 'live'])
 
   $scope.showStartButton = ->
-    config.talk.state == 'halflive'
+    session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
+
+  $scope.showUnstartedMessage = ->
+    !session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
 
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and config.talk.state == 'live'
@@ -28,9 +31,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.showCountdown = ->
     config.talk.state == 'prelive'
-
-  $scope.showSituation = ->
-    config.talk.state == 'halflive'
 
   $scope.trouble = ->
     return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
@@ -88,11 +88,20 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.startTalk = session.startTalk
   $scope.endTalk = session.endTalk
+
+  # returns list of users expecting promotion
   $scope.expectingPromotion = session.expectingPromotion
+
+  # returns list of users accepting promotion
   $scope.acceptingPromotion = session.acceptingPromotion
+
+  # takes user id
   $scope.promote = session.promote
   $scope.demote = session.demote
+
+  # returns list of (anonymous) users listening
   $scope.listeners = session.listeners
+  
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion
 

@@ -164,12 +164,6 @@
     }
   }
 
-  #modal-download{
-    ul{
-      display: inline-block;
-    }
-  }
-
   #modal-info{
     background: black;
     color: white;
@@ -296,6 +290,21 @@
         cursor: pointer;
       }
     }
+
+    .button-end-talk{
+      display: block;
+      position: absolute;
+      top: 0;
+      right: -120px;
+      width: 110px;
+      height: 38px;      
+      color: $brand-color-red;
+      font-size: rem-calc(16);
+      font-family: 'eaglebook';
+      padding: 7px 10px;
+      background: black;
+      line-height: 1.5; 
+    }
   }
 
   .talk-talkers-box{
@@ -355,6 +364,60 @@
         }
       }
     }
+    .start-overlay{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #444;
+      .row{
+        margin:0;
+      }
+      .left-text{
+        font-family: 'eaglebook';
+        color:black;
+        display: inline-block;
+        padding-top: 47px;
+      }
+      .button-column{
+        padding-top: 28px;
+        .button-start{
+          display: inline-block;
+          font-family: 'eaglebook';
+          font-size: rem-calc(50);
+          background: $interaction-green;
+          color: white;
+          line-height: 1;
+          padding: 13px 20px 7px 20px;
+          border-radius: 12px;
+          @include box-shadow(0, 0, 10px, rgba(0,0,0,0.5));
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
+          &:hover{
+            @include box-shadow(0, 0, 10px, rgba(0,0,0,0.8));
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
+          }
+        }
+      }
+      .right-text{
+        padding-top: 39px;
+        display: inline-block;
+        color: black;
+        strong{
+          font-family: 'eaglebook';
+          font-weight: normal;
+          display: block;
+        }
+        font-family: 'eaglelight';
+      }
+      .unstarted-message{
+        font-family: 'eaglebook';
+        color: black;
+        padding-top: 47px;
+        font-size: rem-calc(30);
+      }
+    }    
   }
 
   .talk-more-talks-box{
@@ -757,7 +820,7 @@
 
   .flash-block{
     position: fixed;
-    z-index: 999;
+    z-index: 998;
     left:0;
     top:0;
     @include opacity(0);
@@ -779,116 +842,122 @@
       height: 100%;
       width: 100%;
     }
-    .flash-content{
-      position: relative;
-      top: 50%;
-      left: 50%;
-      width: 700px;
-      margin-top: -310px;      
-      margin-left: -350px;
-      padding: 15px 0;
-      background: $brand-color-creme;
-      @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));      
-      color: #333;
-      .row{
-        width: 100%;
-        p{
-          font-family: 'eaglelight'
-        }
-      }      
-      .desc-box{
-        color: inherit;
-        h3{
-          color: inherit;
-          margin-bottom: 0;
-        }
-        p{
-          font-family: 'eaglebook';
-          margin-bottom: 14px;
-        }
-      }
-      .attention-box{
-        color: $brand-color-red;
-        background: white;
-        border: 1px solid $brand-color-red;
-        padding: 12px;
-        display: inline-block;
-        .attention-title{
-          vertical-align: top;
-          margin: 3px 9px 0 0;
-          display: inherit;
-          font-family: 'eaglebook';
-          font-size: rem-calc(16);
-        }
-        .attention-text{
-          display: inherit;
-          font-family: 'eaglelight';
-          font-size: rem-calc(14);
-          margin-bottom: 0;
-        }
-      } 
-      .flash-box{
-        .flash-content-box{
-          margin: 10px 0;
-          background: url(/images/flashbox_arrows.png) no-repeat;
-          background-position: center;
-          width: 100%;
-          text-align: center;
-          /* hack for firefox to show flash */
-          object#Blackbox {
-              width: 215px;
-              height: 140px;
-              @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
-          }          
-        }
-      }
-      .manual-box{
-        background: rgba(255,255,255,0.5);
-        color:white;
-        @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.1), inset);
-        .flash-howto-title{
-          font-family: 'eaglebook';
-          margin: 12px 0;
-          color: rgba(0,0,0,0.5);
-          font-size: rem-calc(14);
-          line-height: 1.1
-        }
-        li{
-          padding: 0;
-        }
-        p{
-          padding-top: 6px;
-          font-family: 'eaglebook';
-          font-size: rem-calc(12);
-          color: $interaction-green ;
-          margin-bottom: 4px
-        }
-      }
-      .link-tutorial{
-        p{
-          font-family: 'eaglelight';
-          margin: 15px 0 0 0;
-          .desc-bold{
-            font-family: 'eaglebook';
-            color: rgba(0,0,0,0.6);
-          }
-        }
-      }      
-      .close-x{
-        position: absolute;
-        right: 8px;
-        top: 8px;
-        font-size: rem-calc(14);
-        cursor: pointer;
-      }
-    }
   }
 
-  .modal-download{
-    ul{
-      display: inline-block !important
+  .flash-content{
+    position: absolute;
+    z-index: 999;
+    top: 71px;
+    left: 50%;
+    margin-left: -350px;
+    padding: 15px 0;
+    background: $brand-color-creme;
+    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));      
+    color: #333;
+    height: 0;
+    width: 0;
+    overflow: hidden;    
+    &.state-on{
+      @include opacity(1);
+      @include transition(opacity 0.15s linear);
+      height: auto;
+      width: 700px;
+    }    
+    .row{
+      width: 100%;
+      p{
+        font-family: 'eaglelight'
+      }
+    }      
+    .desc-box{
+      color: inherit;
+      h3{
+        color: inherit;
+        margin-bottom: 0;
+      }
+      p{
+        font-family: 'eaglebook';
+        margin-bottom: 14px;
+      }
     }
-  }
+    .attention-box{
+      color: $brand-color-red;
+      background: white;
+      border: 1px solid $brand-color-red;
+      padding: 12px;
+      display: inline-block;
+      .attention-title{
+        vertical-align: top;
+        margin: 3px 9px 0 0;
+        display: inherit;
+        font-family: 'eaglebook';
+        font-size: rem-calc(16);
+      }
+      .attention-text{
+        display: inherit;
+        font-family: 'eaglelight';
+        font-size: rem-calc(14);
+        margin-bottom: 0;
+      }
+    } 
+    .flash-box{
+      .flash-content-box{
+        margin: 10px 0;
+        background: url(/images/flashbox_arrows.png) no-repeat;
+        background-position: center;
+        width: 100%;
+        text-align: center;
+        /* hack for firefox to show flash */
+        object#Blackbox {
+            width: 215px;
+            height: 140px;
+            @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+        }          
+      }
+    }
+    .manual-box{
+      background: rgba(255,255,255,0.5);
+      color:white;
+      @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.1), inset);
+      .flash-howto-title{
+        font-family: 'eaglebook';
+        margin: 12px 0;
+        color: rgba(0,0,0,0.5);
+        font-size: rem-calc(14);
+        line-height: 1.1
+      }
+      li{
+        padding: 0;
+      }
+      p{
+        padding-top: 6px;
+        font-family: 'eaglebook';
+        font-size: rem-calc(12);
+        color: $interaction-green ;
+        margin-bottom: 4px
+      }
+    }
+    .link-tutorial{
+      p{
+        font-family: 'eaglelight';
+        margin: 15px 0 0 0;
+        .desc-bold{
+          font-family: 'eaglebook';
+          color: rgba(0,0,0,0.6);
+        }
+      }
+    }      
+    .close-x{
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      font-size: rem-calc(14);
+      cursor: pointer;
+      color: black;
+    }
+
+  }  
+
   .button-join-discussion{
     width: 100%;
     background: $brand-color-green;
@@ -1280,45 +1349,10 @@
     right: -220px;
     top: 0;
     width: 210px;
-    .generic-actions-box{
-      margin-top: 30px;
-      margin-bottom: 20px;
-      .action-toggle{
-        height: 38px;
-        width: 38px;
-        position: relative;
-        display: block;
-        margin-bottom: 3px
-      }
-      .icon-cog{
-        color: $brand-color-red;
-        font-size: rem-calc(18);
-        height:100%;
-        width: 100%;
-        padding: 11px 10px 7px 10px;
-        display: block;
-        background: black;
-      }
-      #action-links-list{
-        overflow: hidden;
-        &.hide{
-          height:0;
-        }
-        li{
-          display: block;
-          margin-top: 2px;
-          a{
-            color: $brand-color-red;
-            font-size: rem-calc(16);
-            font-family: 'eaglebook';
-            height: 38px;
-            padding: 7px 10px;
-            display: block;
-            background: black;
-          }
-        }
-      }
-    }    
+    text-align: left;
+    .button-edit-talk{
+      margin: 32px 0 15px 0;
+    }
     .related-talk{
       width: 100%;
       background: rgba(0,0,0,0.5);

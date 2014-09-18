@@ -613,9 +613,12 @@ en:
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
       delete_venue: Delete Series
+    facebook_value_template:
+      join_the_venue: Join the Series
     venue_list: Series
     new_venue: Create Series
     show:
+      subscribe_to_podcast: Subscribe to podcast
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
@@ -626,6 +629,7 @@ en:
       duration: Duration
       past_venue: Past Series
       join_venue: SUBSCRIBE TO Series!
+      create_new_talk: Create Talk
       leave_venue: Unsubscribe from Series
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit Series
@@ -794,7 +798,9 @@ en:
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
       stage: STAGE
-      speakers: SPEAKERS
+      speakers:
+        one: SPEAKER
+        other: SPEAKERS
       padding: 0 0 9px 0;
       request_mic: REQUEST MIC
       awaiting_mic_request: AWAITING MIC REQUEST
@@ -861,8 +867,13 @@ en:
       embed: Embed
       embed_player: Embed Player
       more_talks_title: MORE FROM THIS USER
-      edit_talk: Edit Talk
-      end_talk: Stop Talk
+      edit_talk: EDIT TALK
+      start_text_top: Click START when the speaker begins.
+      start: START
+      start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
+      unstarted_message: THE SPEAKER HAS NOT STARTED YET
+      audio_settings: Audio settings
+      end_talk: END TALK
       banner_title: WHAT IS VOICE REPUBLIC?
       banner_text: |
         Voice Republic is a tool for the creation and distribution of audio content on the Internet.
