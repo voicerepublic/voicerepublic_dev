@@ -909,9 +909,13 @@
         text-align: center;
         /* hack for firefox to show flash */
         object#Blackbox {
-            width: 215px;
-            height: 140px;
-            @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+          width: 215px;
+          height: 140px;
+          @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+          border: 3px solid green;
+          @include box-sizing(padding-box);
+          height: 146px;
+          width: 221px;            
         }          
       }
     }
