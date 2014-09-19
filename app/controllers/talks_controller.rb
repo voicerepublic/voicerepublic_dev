@@ -73,15 +73,17 @@ class TalksController < BaseController
   # POST /talks
   def create
     @talk = Talk.new(talk_params)
-    @talk.venue = @venue
 
     # TODO: transaction
 
     if @venue.id.nil?
+      @venue.user = @user
       @venue.save
       @user.default_venue = @venue
       @user.save
     end
+
+    @talk.venue = @venue
 
     authorize! :create, @talk
 
