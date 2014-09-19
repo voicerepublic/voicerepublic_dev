@@ -309,7 +309,7 @@ describe "Talks as logged in user" do
       click_button 'Save'
       page.should have_selector('.talks-show')
       page.should have_content('spec talk title')
-      @user.reload
+      @user.reload # @user.default_venue should have been modified by now...
       @user.default_venue.should_not be_nil
     end
 
