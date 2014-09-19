@@ -272,7 +272,8 @@ describe "Talks as logged in user" do
       find('#talk_starts_at_date').value.should eq(Date.today.strftime "%Y-%m-%d")
       find('#talk_starts_at_time').value.should eq(Time.now.strftime "%H:%M")
     end
-    it 'creates a new talk', driver: :chrome do
+
+    it 'can create a new talk in a venue', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
 
@@ -289,6 +290,27 @@ describe "Talks as logged in user" do
       click_button 'Save'
       page.should have_selector('.talks-show')
       page.should have_content('spec talk title')
+    end
+
+    it 'can create a new talk in the default venue', driver: :chrome do
+      @user.default_venue.should be_nil
+      visit new_user_talk_path(@user)
+
+      fill_in :talk_title, with: 'spec talk title'
+      fill_in :talk_teaser, with: 'spec talk teaser'
+      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
+      # fill in tags
+      fill_in 's2id_autogen3', with: 'a,b,c,'
+      fill_in 'talk_starts_at_date', with: '2014-04-29'
+      fill_in 'talk_starts_at_time', with: '05:12'
+
+      click_button 'Save'
+      page.should have_selector('.talks-show')
+      page.should have_content('spec talk title')
+      @user.reload
+      @user.default_venue.should_not be_nil
     end
 
     it 'shows validation errors', driver: :chrome do
