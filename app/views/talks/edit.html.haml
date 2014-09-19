@@ -4,12 +4,14 @@
   = t('.title', title: @talk.title)
 
 = simple_form_for([@venue, @talk], url: nil,
-  html: { 'ng-controller' => 'UploadCtrl' },
+  html: { 'ng-controller' => 'UploadCtrl',
+          name: 'talkForm',
+          novalidate: false},
     input_html: { class: 'vr-form'}) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
 
   .form-save-row.row.collapsed
     .medium-12.columns
-      = f.button :submit, class: 'button-vr'
-      = link_to t('.cancel'), [@venue, @talk]
       = link_to t('.delete_talk'), [@venue, @talk], delete_params
+      = f.button :submit, class: 'button-vr', 'ng-disabled' => '!talkForm.$valid'
+      = link_to t('.cancel'), [@venue, @talk]
