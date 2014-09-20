@@ -108,6 +108,8 @@ class Talk < ActiveRecord::Base
 
   before_save :set_starts_at
   before_save :set_ends_at
+  before_save  -> { self.state = :postlive },
+               if: ->(t) { t.user_override_uuid_changed? }
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
 

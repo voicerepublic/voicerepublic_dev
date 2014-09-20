@@ -10,6 +10,23 @@ describe Talk do
     Timecop.return
   end
 
+  describe 'user uploads a talk' do
+    it 'saves into other state than "postlive" with no user upload' do
+      talk = FactoryGirl.create :talk
+      talk.state.should_not == :postlive
+    end
+
+    it 'saves into state "postlive" with user upload' do
+      talk = FactoryGirl.build :talk
+      # do not test override feature
+      allow(talk).to receive(:user_override!).and_return(true)
+      talk.state.should_not == :postlive
+      talk.user_override_uuid = '038ee6b8-0557-4172-8ad6-2548dccd4793'
+      talk.save
+      talk.state.should == :postlive
+    end
+  end
+
   describe 'built' do
     before do
       @talk = FactoryGirl.build :talk
@@ -316,5 +333,5 @@ describe Talk do
       end.to_not raise_error
     end
   end
-  
+
 end
