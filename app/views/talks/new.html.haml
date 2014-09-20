@@ -11,18 +11,8 @@
 
 
 -# TODO:
--#     [] When in Talk#edit, activate Angular Safetynet
--#     [x] EDIT form needs to be like new form
--#     [x] Until there's progress, show an infinite progress (back and forth)
--#     [x] Get Angular Upload File in newest version
 -#     [] Create s3 buckets for development and live. set cors, permissions and acl statements.
--#     [x] Create HIDDEN REQUIRED field as long as the upload is running
--#     [x] Create Required fields. Or better use Angular models.
--# 1.  [x] Create UUID in View
--# 1b. [x]  Upload file directly to S3
--# 1c. [x] On submit, validate form to have Upload % == 0 or % == 100
--# 1d. [x] Submit form with UUID and save in Rails model
--# 2.  [x] On after_save, co-relate UUIDs and start override
+-#     [] Set talk state to 'postlive' when UUID is set
 
 = simple_form_for([@venue, @talk], url: nil,
   html: { 'ng-controller' => 'UploadCtrl',
@@ -32,6 +22,6 @@
 
   .form-save-row.row
     .medium-12.columns
-      = f.button :submit, class: 'button-vr', 'ng-disabled' => '!talkForm.$valid'
+      = f.button :submit, class: 'button-vr', 'ng-disabled' => '!talkForm.$valid', 'ng-click' => 'deactivateSafetynet()'
       = link_to t('.cancel'), @venue
 

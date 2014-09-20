@@ -35,7 +35,6 @@ uploadFunc = ($scope, $log, FileUploader) ->
     $log.error "Uploading failed: " + JSON.stringify(response)
 
   uploader.onCompleteAll = ->
-
     # Set the talk UUID, so that the backend knows to expect a talk that has
     # an override set.
     $("#talk_user_override_uuid").attr "value", window.talk_uuid
@@ -48,6 +47,8 @@ uploadFunc = ($scope, $log, FileUploader) ->
 
   deactivateSafetynet = ->
     $(window).unbind 'beforeunload'
+
+  $scope.deactivateSafetynet = deactivateSafetyne
 
   enabeleRecordField = ->
     $('.talk_collect').show()
