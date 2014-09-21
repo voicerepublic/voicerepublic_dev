@@ -108,8 +108,6 @@ class Talk < ActiveRecord::Base
 
   before_save :set_starts_at
   before_save :set_ends_at
-  before_save  -> { self.state = :postlive },
-               if: ->(t) { t.user_override_uuid_changed? }
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
 
@@ -117,8 +115,26 @@ class Talk < ActiveRecord::Base
   after_save :set_guests
   after_save -> { flyer.generate! },
              if: ->(t) { t.starts_at_changed? || t.title_changed? }
+
+  # Begin 'user audio upload'
   after_save -> { delay(queue: 'audio').user_override! },
-             if: ->(t) { t.user_override_uuid_changed? }
+             if: ->(t) { t.user_override_uuid_changed? and
+                           !t.user_override_uuid.to_s.empty? }
+  before_save  -> { self.state = :postlive },
+               if: ->(t) { t.user_override_uuid_changed? and
+                           !t.user_override_uuid.to_s.empty? }
+  validates_each :starts_at_date, :starts_at_time do |record, attr, value|
+    # guard against submissions where no upload occured or no starts_at
+    # attributes have been given
+    unless record.user_override_uuid.to_s.empty? or
+      record.starts_at_time.to_s.empty? or
+      record.starts_at_date.to_s.empty?
+      if Time.zone.parse([record.starts_at_date, record.starts_at_time] * ' ') > DateTime.now
+        record.errors.add attr, 'needs to be in the past'
+      end
+    end
+  end
+  # End 'user audio upload'
 
   serialize :session
   serialize :storage

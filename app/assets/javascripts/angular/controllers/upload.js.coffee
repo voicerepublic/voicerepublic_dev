@@ -48,7 +48,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
   deactivateSafetynet = ->
     $(window).unbind 'beforeunload'
 
-  $scope.deactivateSafetynet = deactivateSafetyne
+  $scope.deactivateSafetynet = deactivateSafetynet
 
   enabeleRecordField = ->
     $('.talk_collect').show()

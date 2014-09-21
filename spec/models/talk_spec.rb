@@ -11,20 +11,47 @@ describe Talk do
   end
 
   describe 'user uploads a talk' do
-    it 'saves into other state than "postlive" with no user upload' do
-      talk = FactoryGirl.create :talk
-      talk.state.should_not == :postlive
+    describe 'with user upload' do
+      it 'allows only a time of the past' do
+        expect {
+          FactoryGirl.create :talk,
+            starts_at_date: Time.now.strftime('2037-01-01'),
+            user_override_uuid: '038ee6b8-0557-4172-8ad6-2548dccd4793'
+        }.to raise_error(ActiveRecord::RecordInvalid)
+
+        talk = FactoryGirl.build :talk,
+          starts_at_date: Time.now.strftime('2037-01-01'),
+          user_override_uuid: '038ee6b8-0557-4172-8ad6-2548dccd4793'
+
+        talk.valid?
+        talk.errors[:starts_at_date].should include("needs to be in the past")
+        talk.errors[:starts_at_time].should include("needs to be in the past")
+      end
+
+      it 'saves into state "postlive"' do
+        talk = FactoryGirl.build :talk
+        # do not test override feature
+        allow(talk).to receive(:user_override!).and_return(true)
+        talk.state.should_not == :postlive
+        talk.user_override_uuid = '038ee6b8-0557-4172-8ad6-2548dccd4793'
+        talk.save
+        talk.state.should == :postlive
+      end
     end
 
-    it 'saves into state "postlive" with user upload' do
-      talk = FactoryGirl.build :talk
-      # do not test override feature
-      allow(talk).to receive(:user_override!).and_return(true)
-      talk.state.should_not == :postlive
-      talk.user_override_uuid = '038ee6b8-0557-4172-8ad6-2548dccd4793'
-      talk.save
-      talk.state.should == :postlive
+    describe 'guard: with no user upload' do
+      it 'also allows a time of the future' do
+        expect {
+          FactoryGirl.create :talk,
+          starts_at_date: Time.now.strftime('2037-01-01')
+        }.to change{Talk.count}.from(0).to(1)
+      end
+      it 'saves into other state than "postlive"' do
+        talk = FactoryGirl.create :talk
+        talk.state.should_not == :postlive
+      end
     end
+
   end
 
   describe 'built' do
