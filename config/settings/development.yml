@@ -8,5 +8,4 @@ fog:
     # provider: AWS
     aws_access_key_id: AKIAIGKSA6ESEFZV4DQA
     aws_secret_access_key: 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
-talk_upload_bucket: tmp-talk-uploads
-#talk_upload_bucket: vr-talk-uploads-development
+talk_upload_bucket: vr-audio-uploads-dev

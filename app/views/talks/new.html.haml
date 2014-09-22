@@ -3,17 +3,6 @@
 - content_for :title do
   = t('.title')
 
--#  QUESTIONS
--#     [] When override is done, write to user that her talk is processed
--#        Hypothesis: Do we need it atm? In the talk 'processing' is shown anyway.
--#     [] Get rid of old UUID uploads (because forms have never submitted)
--#        Hypothesis: It's good to keep the files for the moment in case stuff goes wrong
-
-
--# TODO:
--#     [] Create s3 buckets for development and live. set cors, permissions and acl statements.
--#     [] Set talk state to 'postlive' when UUID is set
-
 = simple_form_for([@venue, @talk], url: nil,
   html: { 'ng-controller' => 'UploadCtrl',
     name: "talkForm",
