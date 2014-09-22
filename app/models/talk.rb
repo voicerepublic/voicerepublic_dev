@@ -27,6 +27,9 @@
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
+# * slides_uid [string] - TODO: document me
+# * slug [string] - TODO: document me
+# * speakers [string] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
 # * starts_at_date [string] - local date
