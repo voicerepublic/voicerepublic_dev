@@ -572,6 +572,11 @@ class Talk < ActiveRecord::Base
     flyer.generate!
   end
 
+  def keep_config
+    cut = edit_config.last.map { |c| [c['start'], c['end']] }.flatten
+    keep = [0] + cut.map { |c| "=#{c}" } + [-0]
+  end
+
   def processing_info
     fragments, first, last = [], nil, nil
     storage.each do |key, frag|
@@ -583,8 +588,9 @@ class Talk < ActiveRecord::Base
       first = starts if first.nil? or starts < first
       last = ends if last.nil? or ends > last
     end
-    override = nil
-    override = "OVERRIDE=#{File.basename(recording_override)}" if recording_override?
+    override = recording_override? ? File.basename(recording_override) : nil
+    cut_conf = edit_config.blank? ? nil : edit_config.last
+    keep_conf = edit_config.blank? ? nil : keep_config
     <<-EOS.strip_heredoc
       STARTED=#{started_at.to_i}
       ENDED=#{ended_at.to_i}
@@ -593,7 +599,9 @@ class Talk < ActiveRecord::Base
       LAST=#{last}
       TRIM_START=#{first-started_at.to_i}
       TRIM_END=#{ended_at.to_i-last}
-      #{override}
+      CUT_CONFIG=#{cut_conf}
+      KEEP_CONFIG=#{keep_conf}
+      OVERRIDE=#{override}
     EOS
   end
 
