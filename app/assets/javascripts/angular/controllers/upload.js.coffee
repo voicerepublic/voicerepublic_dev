@@ -1,7 +1,10 @@
 # Using angularjs file upload, look it up here:
 #   https://github.com/nervgh/angular-file-upload
 uploadFunc = ($scope, $log, FileUploader) ->
+  # Initialize scope variables
   $scope.addingFailed = false
+  $scope.audioUploadFailed = false
+
   uploader = $scope.uploader = new FileUploader
     url: window.talk_upload_url
     method: "POST"
@@ -31,8 +34,8 @@ uploadFunc = ($scope, $log, FileUploader) ->
     disableRecordField()
 
   uploader.onErrorItem = (fileItem, response, status, headers) ->
-    # TODO: Show Error
     $log.error "Uploading failed: " + JSON.stringify(response)
+    $scope.audioUploadFailed = true
 
   uploader.onCompleteAll = ->
     # Set the talk UUID, so that the backend knows to expect a talk that has

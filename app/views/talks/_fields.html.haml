@@ -53,6 +53,8 @@
             %span.meter{"ng-style" => "{ 'width': item.progress + '%' }"}
           %div
             %button{"ng-click" => "item.remove()", "ng-disabled" => "!item.isUploading"}= t('.remove')
+      #audio_upload_error{"ng-show" => "audioUploadFailed"}
+        = t('.upload_failed')
       -# END Angular File Upload
 
 .row

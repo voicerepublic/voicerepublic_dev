@@ -870,6 +870,7 @@ en:
       upload: Upload
       cancel: Cancel
       remove: Remove
+      upload_failed: Audio upload failed. Please try reloading the page and try again.
       supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.

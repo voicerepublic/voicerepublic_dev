@@ -8,7 +8,7 @@
     font-weight: bold;
   }
 
-  .highlight-supported-files {
+  .highlight-supported-files, #audio_upload_error {
     background-color: crimson;
     transition: background-color 1000ms linear;
     -webkit-transition: background-color 1000ms linear;
