@@ -451,6 +451,7 @@ class Talk < ActiveRecord::Base
       talk_stop:  ended_at.to_i,
       logfile: logfile
     }
+    opts[:cut_conf] = edit_config.last unless edit_config.blank?
     setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
     FileUtils.fileutils_output = logfile
