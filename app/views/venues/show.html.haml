@@ -42,11 +42,17 @@
         = t('.create_new_talk')
       = link_to new_venue_talk_path(@venue) do
         %span.icon-upload
-        = t('.upload_talk')      
+        = t('.upload_talk')
     - else
       = link_to_podcast(@venue)
         = t('.subscribe_to_podcast')
-      -#TODO mail participate button if logged in sonst modal
+      - if current_user
+        - if @show_join
+          = link_to [@venue, :participations], method: :post do
+            = t('.get_news')
+        - if @participation
+          = link_to [@venue, @participation], delete_params do
+            = t('.disable_news')
 
 .description-box.row
   .large-12.columns

@@ -618,20 +618,20 @@ en:
     venue_list: Series
     new_venue: Create Series
     show:
+      create_new_talk: Create Talk    
       upload_talk: Upload Talk
-      subscribe_to_podcast: Subscribe to podcast
-      podcast:
-        title: "VR: %{title}"
-        subtitle: "Podcast provided by Voice Republic"
-      feed_title: "VR - %{title}"
       title: "%{title} - Voice Republic"
       by: by
       start_date: Begin
       duration: Duration
       past_venue: Past Series
-      join_venue: SUBSCRIBE TO Series!
-      create_new_talk: Create Talk
-      leave_venue: Unsubscribe from Series
+      subscribe_to_podcast: Subscribe to podcast
+      podcast:
+        title: "VR: %{title}"
+        subtitle: "Podcast provided by Voice Republic"
+      feed_title: "VR - %{title}"      
+      get_news: Get news
+      disable_news: Cancel news      
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit Series
       chat_will_be_available_short_before_start: Group-chat will be available short before start
