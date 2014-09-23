@@ -14,7 +14,7 @@ VoiceRepublic::Application.routes.draw do
       resources :talks, only: [:index]
     end
   end
-  
+
   post '/search',              to: 'search#create'
   get  '/search/:page/*query', to: 'search#show'
 
@@ -26,15 +26,17 @@ VoiceRepublic::Application.routes.draw do
   # in the search results, less painful
   nested_talk = ->(params, req) do
     talk = Talk.find(params[:id])
-    "/venues/#{talk.venue_id}/talks/#{talk.id}"
+    "/talks/#{talk.id}"
   end
-  get  '/talk/:id', to: redirect(nested_talk), as: 'talk'
+  get  '/talk/:id', to: redirect(nested_talk)
+  get  '/venues/:venue_id/talks/:id', to: redirect(nested_talk), as: :venue_talk
 
   # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
+  resources :talks
+
   resources :venues do
     resources :comments, only: [:create]
-    resources :talks
     resources :participations, only: [:index, :create, :destroy]
   end
 
@@ -50,7 +52,7 @@ VoiceRepublic::Application.routes.draw do
   end
 
   resources :reminders, only: [:destroy]
-  
+
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"
   end
