@@ -292,9 +292,10 @@ describe "Talks as logged in user" do
       page.should have_content('spec talk title')
     end
 
-    it 'can create a new talk in the default venue', driver: :chrome do
+    it 'can create a new talk in the not yet existing default venue', driver: :chrome do
       @user.default_venue.should be_nil
       visit new_user_talk_path(@user)
+      page.should have_selector('.venueSelect')
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
@@ -311,6 +312,31 @@ describe "Talks as logged in user" do
       page.should have_content('spec talk title')
       @user.reload # @user.default_venue should have been modified by now...
       @user.default_venue.should_not be_nil
+    end
+
+    it 'can create a new talk in the existing default venue', driver: :chrome do
+      # prepare default venue
+      @venue = FactoryGirl.create(:venue, user: @user, title: "My Talks")
+      @user.default_venue = @venue
+      @user.save
+
+      visit new_user_talk_path(@user)
+
+      fill_in :talk_title, with: 'spec talk title'
+      fill_in :talk_teaser, with: 'spec talk teaser'
+      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
+      # fill in tags
+      fill_in 's2id_autogen3', with: 'a,b,c,'
+      fill_in 'talk_starts_at_date', with: '2014-04-29'
+      fill_in 'talk_starts_at_time', with: '05:12'
+
+      click_button 'Save'
+      page.should have_content('spec talk title')
+      @user.reload
+      # there should still only be the previously created default venue
+      @user.venues.count.should be(1)
     end
 
     it 'shows validation errors', driver: :chrome do
