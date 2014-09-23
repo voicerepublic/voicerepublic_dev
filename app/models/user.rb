@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  has_many :venues
+  has_many :venues # as owner
   has_many :talks, through: :venues
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
