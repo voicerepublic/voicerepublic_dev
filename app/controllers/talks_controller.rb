@@ -63,7 +63,7 @@ class TalksController < BaseController
 
   # GET /talks/new
   def new
-    @talk = Talk.new
+    @talk = Talk.new( venue: @venue )
   end
 
   # GET /talks/1/edit
@@ -75,12 +75,10 @@ class TalksController < BaseController
     @talk = Talk.new(talk_params)
 
     # TODO: transaction
-
-    if @venue.id.nil?
+    if @venue.new_record?    # it's a new default_venue
       @venue.user = @user
       @venue.save
-      @user.default_venue = @venue
-      @user.save
+      @user.save             # because its default_venue has been set
     end
 
     @talk.venue = @venue
@@ -88,7 +86,6 @@ class TalksController < BaseController
     authorize! :create, @talk
 
     if @talk.save
-
       redirect_to [@venue, @talk], notice: 'Talk was successfully created.'
     else
       render action: 'new'
@@ -115,18 +112,24 @@ class TalksController < BaseController
 
   private
 
+  # We enter the Talks controller via one of the following routes:
+  # * users/id/talk/...
+  # * venues/id/talk/...
+  # and thus either venue- or user_id have to be set
   def set_venue_and_user
-    # when entering the controller, either
-    # venue- or user_id have to be set
-    #
-    if params[:user_id].nil?     # venue_id is set
+    # TODO: throw exception, if both ids are unknown <- create test for this
+    if params[:user_id].nil?      # venue_id is set
       @venue = Venue.find(params[:venue_id])
       @user = @venue.user
+      set_default_venue(@user)
       @came_in_via = :venue
-    else                         # user_id is set
+    elsif params[:venue_id].nil?  # user_id is set, no venue is set
       @user = User.find(params[:user_id])
-      @venue = default_venue( @user )
+      set_default_venue(@user)
+      @venue = @user.default_venue
       @came_in_via = :user
+    else
+      raise Exception, "Entered Talks controller via an unknown path"
     end
   end
 
@@ -144,17 +147,13 @@ class TalksController < BaseController
                                  :format)
   end
 
-  # TODO: move into model
-  def default_venue( user )
-    return (
-      if ! user.default_venue.nil?
-        user.default_venue
-      else
-        Venue.new( title:       "My Talks",
-                   teaser:      "various talks",
-                   description: "Various talks, that don't belong to any particular series",
-                   tag_list:    "default")
-      end
+  def set_default_venue( user )
+    user.default_venue ||= Venue.new(
+      title:       "My Talks",
+      teaser:      "various talks",
+      description: "Various talks, that don't belong to any particular series",
+      tag_list:    "default"
     )
+    user.venues.build( user.default_venue.attributes ) # don't save into venues yet!
   end
 end
