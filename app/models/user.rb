@@ -37,11 +37,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  has_many :venues, conditions: ->(user) do
-    # this excludes the `default_venue` from `venues`
-    return '1=1' if user.default_venue_id.nil?
-    ["venues.id!=?", user.default_venue_id]
-  end
+  has_many :venues
   has_many :talks, through: :venues
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
@@ -85,6 +81,10 @@ class User < ActiveRecord::Base
 
   # this method overwrites the method provided by `belongs_to
   # :default_venue`, which will be called via `super`
+  #
+  # this somewhat magically provides a way to successively create
+  # missing default_venues, and could be replaced with a more straight
+  # forward way!
   def default_venue
     return super unless super.nil?
 
@@ -174,6 +174,10 @@ class User < ActiveRecord::Base
     talks.reload.each do |talk|
       Delayed::Job.enqueue GenerateFlyer.new(id: talk.id), queue: 'audio'
     end
+  end
+
+  def venues_without_default
+    venues - [ default_venue ]
   end
 
 end
