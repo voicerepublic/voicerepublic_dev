@@ -4,7 +4,11 @@
 durations: [ 30, 45, 60, 90, 120, 240 ]
 priority_timezones: Berlin|Bern
 audio:
-  process_chain: precursor kluuu_merge trim m4a mp3 ogg move_clean jinglize m4a mp3 ogg
+  # process_chain: precursor kluuu_merge trim m4a mp3 ogg move_clean jinglize m4a mp3 ogg
+  process_chain: precursor kluuu_merge trim cut m4a mp3 ogg move_clean jinglize m4a mp3 ogg
+  # process_chain: precursor normalize kluuu_merge trim cut m4a mp3 ogg move_clean jinglize m4a mp3 ogg
+  # process_chain: precursor user_merge normalize_users talk_merge trim cut m4a mp3 ogg move_clean jinglize m4a mp3 ogg
+  # process_chain: precursor normalize user_merge normalize_users talk_merge trim cut m4a mp3 ogg move_clean jinglize m4a mp3 ogg
   override_chain: m4a mp3 ogg move_clean jinglize m4a mp3 ogg
 rtmp:
   # all paths get expanded with `Rails.root`
@@ -72,3 +76,10 @@ slack:
     ci:      ':package:'
 googleanalytics:
   token: UA-46754662-1
+default_venue_defaults:
+  en:
+    title: My Talks
+    teaser: Various talks
+    description: |
+      Various talks, that don't belong to any particular series
+    tag_list: default

@@ -447,7 +447,7 @@ the scope of instance of Angular's `session` service.
 
 At this point the P in REPL is still missing.
 
-#### Log on error to the console
+#### Log an error to the console
 
     PrivatePub.publish_to '/t981/u1', { exec: '$log.error("hello")' }
 

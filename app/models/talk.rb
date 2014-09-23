@@ -27,6 +27,9 @@
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
+# * slides_uid [string] - TODO: document me
+# * slug [string] - TODO: document me
+# * speakers [string] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
 # * starts_at_date [string] - local date
@@ -95,7 +98,7 @@ class Talk < ActiveRecord::Base
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
-  validates :venue, :title, :tag_list, :duration, :description,
+  validates :title, :tag_list, :duration, :description,
             :language, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
@@ -106,6 +109,14 @@ class Talk < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
+  validates :new_venue_title, presence: true, if: ->(t) { t.venue_id.nil? }
+
+  # for temp usage during creation, we need this to hand the user
+  # trough to build a default_venue
+  attr_accessor :venue_user
+  attr_accessor :new_venue_title
+
+  before_save :create_and_set_venue, if: :new_venue_title
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -281,6 +292,10 @@ class Talk < ActiveRecord::Base
 
   private
 
+  def create_and_set_venue
+    self.venue = venue_user.venues.create title: new_venue_title
+  end
+
   # upload file to storage
   def upload_file(key, file)
     return unless key and file
@@ -448,6 +463,7 @@ class Talk < ActiveRecord::Base
       talk_stop:  ended_at.to_i,
       logfile: logfile
     }
+    opts[:cut_conf] = edit_config.last unless edit_config.blank?
     setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
     FileUtils.fileutils_output = logfile
@@ -480,8 +496,11 @@ class Talk < ActiveRecord::Base
       FileUtils.rm(file, verbose: true)
     end
 
+    # write info file (based on `storage`) and upload
+    File.open("#{base}/#{id}.info", 'w') { |f| f.puts(processing_info) }
+    upload_file("#{uri}/processing.info", "#{base}/#{id}.info")
+
     FileUtils.fileutils_output = $stderr
-    # TODO: save transcoded audio formats
 
     save! # save `storage` field
 
@@ -495,19 +514,22 @@ class Talk < ActiveRecord::Base
   def cache_storage_metadata(file=nil)
     return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
 
-    key = "#{uri}/#{File.basename(file)}"
+    basename = File.basename(file)
+    key = "#{uri}/#{basename}"
     self.storage ||= {}
     self.storage[key] = {
       key:      key,
+      basename: basename,
       ext:      File.extname(file),
       size:     File.size(file),
-      duration: Avconv.duration(file),
-      start:    Avconv.start(file)
+      duration: duration = Avconv.duration(file),
+      start:    starts = Avconv.start(file).to_i
     }
     # add duration in seconds
-    if dur = storage[key][:duration]
-      h, m, s = dur.split(':').map(&:to_i)
-      self.storage[key][:seconds] = (h * 60 + m) * 60 + s
+    if duration
+      h, m, s = duration.split(':').map(&:to_i)
+      self.storage[key][:seconds] = seconds = (h * 60 + m) * 60 + s
+      self.storage[key][:ends] = starts + seconds
     end
     storage
   end
@@ -542,9 +564,6 @@ class Talk < ActiveRecord::Base
     [ :title, [:id, :title] ]
   end
 
-  ############################################################
-  # from here, shared code with backoffice app
-
   def generate_flyer?
     starts_at_changed? or title_changed?
   end
@@ -557,9 +576,42 @@ class Talk < ActiveRecord::Base
     # But it is purposely not, since it's only one flyer at a time and
     # we want to have it available as soon as the user accesses `talks#show`.
     #
-    # The BackOffice in the other hand facilitates mass imports, which
+    # The BackOffice on the other hand facilitates mass imports, which
     # can be processed faster when deferring generating the flyer.
     flyer.generate!
+  end
+
+  def keep_config
+    cut = edit_config.last.map { |c| [c['start'], c['end']] }.flatten
+    keep = [0] + cut.map { |c| "=#{c}" } + [-0]
+  end
+
+  def processing_info
+    fragments, first, last = [], nil, nil
+    storage.each do |key, frag|
+      next unless frag[:ext] == '.flv'
+      starts = frag[:start].to_i
+      ends = starts + frag[:seconds]
+      next unless ends > started_at.to_i and starts < ended_at.to_i
+      fragments << File.basename(key)
+      first = starts if first.nil? or starts < first
+      last = ends if last.nil? or ends > last
+    end
+    override = recording_override? ? File.basename(recording_override) : nil
+    cut_conf = edit_config.blank? ? nil : edit_config.last
+    keep_conf = edit_config.blank? ? nil : keep_config
+    <<-EOS.strip_heredoc
+      STARTED=#{started_at.to_i}
+      ENDED=#{ended_at.to_i}
+      FRAGMENTS=#{fragments.join(' ')}
+      FIRST=#{first}
+      LAST=#{last}
+      TRIM_START=#{first-started_at.to_i}
+      TRIM_END=#{ended_at.to_i-last}
+      CUT_CONFIG=#{cut_conf}
+      KEEP_CONFIG=#{keep_conf}
+      OVERRIDE=#{override}
+    EOS
   end
 
 end

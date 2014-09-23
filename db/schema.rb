@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812100435) do
+ActiveRecord::Schema.define(version: 20140923092213) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,8 @@ ActiveRecord::Schema.define(version: 20140812100435) do
     t.string   "language",           default: "en"
     t.string   "slug"
     t.string   "speakers"
+    t.string   "slides_uid"
+    t.text     "edit_config"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
@@ -231,8 +233,9 @@ ActiveRecord::Schema.define(version: 20140812100435) do
     t.text     "about"
     t.string   "timezone"
     t.string   "website"
-    t.boolean  "conference"
     t.string   "authentication_token"
+    t.boolean  "conference"
+    t.integer  "default_venue_id"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

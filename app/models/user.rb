@@ -1,7 +1,9 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
 # * about [text] - TODO: document me
+# * authentication_token [string] - Devise Token authenticable module
 # * avatar_uid [string] - TODO: document me
+# * conference [boolean] - TODO: document me
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
@@ -37,11 +39,13 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  has_many :venues # as owner
+  has_many :venues
   has_many :talks, through: :venues
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
+
+  belongs_to :default_venue, class_name: 'Venue'
 
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
@@ -76,6 +80,19 @@ class User < ActiveRecord::Base
   pg_search_scope :search, against: [:firstname, :lastname],
     using: { tsearch: { prefix: true } },
     ignoring: :accents
+
+  # this method overwrites the method provided by `belongs_to
+  # :default_venue`, which will be called via `super`
+  #
+  # this somewhat magically provides a way to successively create
+  # missing default_venues, and could be replaced with a more straight
+  # forward way!
+  def default_venue
+    return super unless super.nil?
+
+    attrs = Settings.default_venue_defaults[I18n.locale].to_hash
+    create_default_venue(attrs.merge(user: self)).tap { save }
+  end
 
   def name
     "#{firstname} #{lastname}"
@@ -159,6 +176,10 @@ class User < ActiveRecord::Base
     talks.reload.each do |talk|
       Delayed::Job.enqueue GenerateFlyer.new(id: talk.id), queue: 'audio'
     end
+  end
+
+  def venues_without_default
+    venues - [ default_venue ]
   end
 
 end
