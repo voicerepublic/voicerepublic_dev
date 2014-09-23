@@ -2,8 +2,6 @@ class TalksController < BaseController
 
   include OnTheFlyGuestUser
 
-  before_action :set_venue, except: [:index, :popular, :live, :recent,
-    :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
@@ -38,14 +36,10 @@ class TalksController < BaseController
   end
 
   def index
-    if @venue
-      @talks = @venue.talks
-    else
-      @talks_live     = Talk.live.limit(5)
-      @talks_featured = Talk.featured.limit(5)
-      @talks_recent   = Talk.recent.limit(5)
-      @talks_popular  = Talk.popular.limit(5)
-    end
+    @talks_live     = Talk.live.limit(5)
+    @talks_featured = Talk.featured.limit(5)
+    @talks_recent   = Talk.recent.limit(5)
+    @talks_popular  = Talk.popular.limit(5)
   end
 
   # GET /talks/1
@@ -73,12 +67,12 @@ class TalksController < BaseController
   # POST /talks
   def create
     @talk = Talk.new(talk_params)
-    @talk.venue = @venue
+    @talk.venue_user = current_user
 
     authorize! :create, @talk
 
     if @talk.save
-      redirect_to [@venue, @talk], notice: 'Talk was successfully created.'
+      redirect_to @talk, notice: 'Talk was successfully created.'
     else
       render action: 'new'
     end
@@ -88,7 +82,7 @@ class TalksController < BaseController
   def update
     authorize! :update, @talk
     if @talk.update(talk_params)
-      redirect_to [@venue, @talk], notice: 'Talk was successfully updated.'
+      redirect_to @talk, notice: 'Talk was successfully updated.'
     else
       render action: 'edit'
     end
@@ -99,14 +93,10 @@ class TalksController < BaseController
     authorize! :destroy, @talk
 
     @talk.destroy
-    redirect_to @venue, notice: 'Talk was successfully destroyed.'
+    redirect_to current_user, notice: 'Talk was successfully destroyed.'
   end
 
   private
-
-  def set_venue
-    @venue = Venue.find(params[:venue_id])
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_talk

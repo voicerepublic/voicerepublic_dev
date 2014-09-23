@@ -109,6 +109,11 @@ class Talk < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
+  # for temp usage during creation, we need this to hand the user
+  # trough to build a default_venue
+  attr_accessor :venue_user
+
+  before_validation :set_default_venue
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -283,6 +288,11 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def set_default_venue
+    return unless venue.nil?
+    self.venue = venue_user.default_venue
+  end
 
   # upload file to storage
   def upload_file(key, file)

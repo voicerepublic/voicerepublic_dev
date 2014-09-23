@@ -18,10 +18,6 @@ describe Talk do
     it 'has a valid factory' do
       expect(@talk).to be_valid
     end
-    it 'validates presence of venue' do
-      @talk.venue = nil
-      expect(@talk).to_not be_valid
-    end
     it 'validates presence of title' do
       @talk.title = nil
       expect(@talk).to_not be_valid
@@ -33,6 +29,11 @@ describe Talk do
     it 'validates presence of starts_at_time' do
       @talk.starts_at_time = nil
       expect(@talk).to_not be_valid
+    end
+    it "assignes the default venue when non is given" do
+      @talk.venue = nil
+      @talk.venue_user = FactoryGirl.create(:user)
+      expect(@talk).to be_valid
     end
     it 'should store what is written to processed_at' do
       @talk.processed_at = time = Time.zone.now
@@ -316,5 +317,5 @@ describe Talk do
       end.to_not raise_error
     end
   end
-  
+
 end

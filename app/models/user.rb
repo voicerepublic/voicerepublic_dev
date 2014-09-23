@@ -39,11 +39,17 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  has_many :venues # as owner
+  has_many :venues, conditions: ->(user) do
+    # this excludes the `default_venue` from `venues`
+    return '1=1' if user.default_venue_id.nil?
+    ["venues.id!=?", user.default_venue_id]
+  end
   has_many :talks, through: :venues
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
+
+  belongs_to :default_venue, class_name: 'Venue'
 
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
@@ -78,6 +84,15 @@ class User < ActiveRecord::Base
   pg_search_scope :search, against: [:firstname, :lastname],
     using: { tsearch: { prefix: true } },
     ignoring: :accents
+
+  # this method overwrites the method provided by `belongs_to
+  # :default_venue`, which will be called via `super`
+  def default_venue
+    return super unless super.nil?
+
+    attrs = Settings.default_venue_defaults[I18n.locale].to_hash
+    create_default_venue(attrs.merge(user: self)).tap { save }
+  end
 
   def name
     "#{firstname} #{lastname}"
