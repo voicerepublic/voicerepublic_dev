@@ -34,13 +34,16 @@ describe Talk do
       @talk.venue = nil
       expect(@talk).to_not be_valid
     end
-    it "creates a venue on the fly if new_venue_title is set" do
+    it "is valid when venue_id is not set but new_venue_title is set" do
       @talk.venue = nil
       @talk.new_venue_title = "Some title"
       @talk.venue_user = FactoryGirl.create(:user)
       expect(@talk).to be_valid
-      @talk.save
-      expect(@talk.reload.venue).to_not be_nil
+    end
+    it "creates a venue on the fly if new_venue_title is set" do
+      @talk.new_venue_title = "Some title"
+      @talk.save!
+      expect(@talk.venue.title).to eq("Some title")
     end
     it 'should store what is written to processed_at' do
       @talk.processed_at = time = Time.zone.now
