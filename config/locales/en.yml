@@ -618,6 +618,7 @@ en:
     venue_list: Series
     new_venue: Create Series
     show:
+      upload_talk: Upload Talk
       subscribe_to_podcast: Subscribe to podcast
       podcast:
         title: "VR: %{title}"
@@ -641,6 +642,10 @@ en:
       post: Post
       write_a_comment: Write a comment
       description: Description
+      live_talks:
+        zero: No Live Talks
+        one: 1 Live Talk
+        other: '%{count} Live Talks'
       upcoming_talks:
         zero: No Upcoming Talks
         one: 1 Upcoming Talk

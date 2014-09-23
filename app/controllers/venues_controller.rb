@@ -23,6 +23,7 @@ class VenuesController < BaseController
       format.html do
         @upcoming_talks = @venue.talks.where(state: [:prelive, :live]).ordered
         @archived_talks = @venue.talks.archived.ordered
+        @live_talks = @venue.talks.where(state: [:live]).ordered
 
         @participation =
           @venue.participations.find_by(user_id: current_user.id) if current_user
