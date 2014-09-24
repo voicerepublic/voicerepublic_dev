@@ -4,55 +4,79 @@
 - content_for :title do
   = t('.title', username: @user.name)
 
-.header-block(style="background-image: url(#{@user.header.try(:url)})")
-
-  .header-box.row
-    .large-12.columns.text-center
-      - if can? :manage, @user
-        .generic-actions-box
-          = link_to "#", class: "action-toggle", title: 'Show Options', "data-toggle-stuff" => "#action-links-list" do
-            %span.icon-cog
-          %ul#action-links-list.list-style-type-none.hide-stuff
-            %li= link_to t('.edit_user'), [:edit, @user]
-
+.header-box.row
+  .large-12.columns.text-center
+    .avatar-box
       .avatar
         = render partial: "shared/avatar_image", locals: { user: @user, size: 120 }
-
-      %h2.user-name= @user.name
-      = link_to_podcast(@user)
-      %br/
-      %br/
-  .row.collapse-large-only
-    .large-12.columns.text-center
-      %dl.tabs.vr-tabs(data-tab='true')
-        %dd.text-center
-          %a(href="#about")
-            %span.icon-description
-            = t('.about')
-        %dd.text-center.active
-          %a(href="#venues")
-            %span.icon-guide
-            = t('.venues')
-        %dd.text-center
-          %a(href="#reminders")
-            %span.icon-plus
-            = t('.reminders')
-
-.row.collapse-large-only
-  .large-12.columns.tabs-content
-    #about.about-content.content
-      = raw @user.about
-
-    #venues.venues-content.content.active
-      = render partial: 'shared/venue_medium_box', collection: @user.venues
-
-    #reminders.reminders-content.content
-      - if @user.reminders.empty?
-        %p= t('.no_reminders', username: @user.name)
+        %h2.user-name= @user.name
+    .info-links-box
+      %ul.anker-links.small-block-grid-3
+        %li Talks
+        %li Series
+        %li Listen later
+      - if can? :manage, @user
+        %ul.action-links.small-block-grid-2
+          -# TODO correct link
+          %li
+            =link_to '#' do
+            %span.icon-mic
+            = t('.create_new_talk')
+          -# TODO correct link
+          %li
+            =link_to '#' do
+            %span.icon-download
+            = t('.upload_talk')
       - else
-        %ul
-          = render partial: 'shared/reminder', collection: @user.reminders
+        %ul.action-links.small-block-grid-1
+          %li= link_to_podcast(@user)
     
-    #schedule.content TODO
+    - if can? :manage, @user
+      = link_to t('.edit_user'), [:edit, @user], class: 'link-edit'
 
-    #activity.content TODO
+- unless @live_talks.empty?
+  .live-talks-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.live_talks', count: @live_talks.count)
+      %ul.medium-block-grid-3.small-block-grid-1
+        = render partial: 'shared/talk_medium_box', collection: @upcoming_talks      
+
+- unless @upcoming_talks.empty?
+  .upcoming-talks-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.upcoming_talks', count: @upcoming_talks.count)
+      %ul.medium-block-grid-3.small-block-grid-1
+        -# TODO show only the first 3
+        = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
+      -# TODO open all
+      = link_to t('.more'), '#', class: 'link-more'
+
+- unless @archived_talks.empty?
+  .archived-talks-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.archived_talks', count: @archived_talks.count)
+      %ul.medium-block-grid-3.small-block-grid-1
+        -# TODO show only the first 3
+        = render partial: 'shared/talk_small_box', collection: @archived_talks
+      -# TODO open all
+      = link_to t('.more'), '#', class: 'link-more'
+
+- unless @user.reminders.empty?
+  .user-series-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.listen_later', count: @user.reminders.count)
+      %ul.medium-block-grid-3.small-block-grid-1
+        = render partial: 'shared/reminder', collection: @user.reminders
+
+- unless @user.venues.empty?
+  .user-series-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.venues', count: @user.venues.count)
+      %ul.medium-block-grid-2
+        = render partial: 'shared/venue_medium_box', collection: @user.venues
+
+.description-box.row.collapse-large-only
+  .large-12.columns
+    .align-box
+      %h3= t('.description')
+      = @user.about.html_safe

@@ -1,24 +1,30 @@
-.users-show,
-.users-edit,
-.users-new{
-  .button-podcast { padding: 5px 8px; }
+.users-show{
+  .header-box{
+    .avatar-box{
 
-  .user-portrait-img{
-    width:200px;
-    height: 200px;
-    background-size:cover;
-    background-position: center
+    }
+    .info-links-box{
+      .action-links{
+
+      }
+    }
+    .link-edit{
+
+    }
   }
 
-  .talks-joined{
-    color: black;
-    margin: 15px 0 5px 0
+  .live-talks-box,
+  .upcoming-talks-box,
+  .archived-talks-box,
+  .listen-later-box{
+
   }
 
-  .user-name{
-    margin:0 0 50px 0;
+  .description-box{
+    
   }
 }
+
 
 .users-new,
 .users-create,
