@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812100435) do
+ActiveRecord::Schema.define(version: 20140910143945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20140812100435) do
     t.string   "language",           default: "en"
     t.string   "slug"
     t.string   "speakers"
+    t.string   "user_override_uuid"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
