@@ -7,82 +7,88 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-  = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
+= render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
 .user-box.row
   .large-12.columns
-    %h4.venue-user= link_to @venue.user.name, @venue.user
-    = link_to t('.back_to_profile'), @venue.user
+    = link_to @venue.user do
+      = render partial: "shared/avatar_image", locals: { user: @venue.user, size: 50 }
+      %h4.venue-user= @venue.user.name
+    = link_to t('.back_to_profile'), @venue.user, class: "back-profile-link"
 
-.title-box.row
+.title-box.row.collapse-large-only
   .large-12.columns
     %h2.venue-title.left= @venue.title
     - if can? :manage, @venue
       = link_to t('.edit_venue'), [:edit, @venue], class: "title-edit"
 
-.image-box.row
+.image-box.row.collapse-large-only
   .large-12.columns
-    .image-container(style="background-image: url(#{@venue.image.url})")
+    = image_tag @venue.image.thumb("700x361#nw").url, class: 'image'
 
-.action-box.row
-  .anker-links.large-6.columns
+.action-box.row.collapse-large-only
+  .anker-links.large-6.medium-6.columns
     - unless @venue.talks.empty?
-      - unless @upcoming_talks.empty?
-      = link_to '#upcoming-talks' do
-        = t('.upcoming_talks', count: @upcoming_talks.count)
-      .icon-mic        
-      - unless @archived_talks.empty?
-        = link_to '#archived-talks' do
-          = t('.archived_talks', count: @archived_talks.count)
+      .black-background-box
+        - unless @upcoming_talks.empty?
+          = link_to '#upcoming-talks' do
+            = t('.upcoming_talks', count: @upcoming_talks.count)
+        %span.icon-mic        
+        - unless @archived_talks.empty?
+          = link_to '#archived-talks' do
+            = t('.archived_talks', count: @archived_talks.count)
 
-  .action-links.large-6.columns
-    - if can? :manage, @venue
-      = link_to new_venue_talk_path(@venue) do
-        %span.icon-mic
-        = t('.create_new_talk')
-      = link_to new_venue_talk_path(@venue) do
-        %span.icon-upload
-        = t('.upload_talk')
-    - else
-      = link_to_podcast(@venue)
-        = t('.subscribe_to_podcast')
-      - if current_user
-        - if @show_join
-          = link_to [@venue, :participations], method: :post do
-            = t('.get_news')
-        - if @participation
-          = link_to [@venue, @participation], delete_params do
-            = t('.disable_news')
+  .action-links.large-6.medium-6.columns
+    .align-box
+      - if can? :manage, @venue
+        = link_to new_venue_talk_path(@venue) do
+          %span.icon-mic
+          = t('.create_new_talk')
+        = link_to new_venue_talk_path(@venue) do
+          %span.icon-download
+          = t('.upload_talk')
+      - else
+        = link_to_podcast(@venue) do
+          = t('.subscribe_to_podcast')
+        - if current_user
+          - if @show_join
+            = link_to [@venue, :participations], method: :post do
+              = t('.get_news')
+          - if @participation
+            = link_to [@venue, @participation], delete_params do
+              = t('.disable_news')
 
-.description-box.row
+.description-box.row.collapse-large-only
   .large-12.columns
-    %p= @venue.description.html_safe
-    - if can? :manage, @venue
-      = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"
+    .align-box
+      %h3= t('.description')
+      %p= @venue.description.html_safe
+      - if can? :manage, @venue
+        = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"
 
 - unless @live_talks.empty?
-  .live-talks-box.row
+  .live-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.live_talks', count: @live_talks.count)
       %ul.list-style-type-none
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks      
 
 - unless @upcoming_talks.empty?
-  .upcoming-talks-box.row
+  .upcoming-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.upcoming_talks', count: @upcoming_talks.count)
       %ul.list-style-type-none
-      -# TODO show only the first 3
+        -# TODO show only the first 3
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
       -# TODO open all
-      = link_to t('.more'), '#'
+      = link_to t('.more'), '#', class: 'link-more'
 
 - unless @archived_talks.empty?
-  .upcoming-talks-box.row
+  .archived-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.archived_talks', count: @archived_talks.count)
       %ul.list-style-type-none
-      -# TODO show only the first 3
+        -# TODO show only the first 3
         = render partial: 'shared/talk_medium_box', collection: @archived_talks
       -# TODO open all
-      = link_to t('.more'), '#'
+      = link_to t('.more'), '#', class: 'link-more'
