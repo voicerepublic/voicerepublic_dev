@@ -3,9 +3,7 @@
     .comment-left-box.left
       = link_to comment.user do
         .avatar
-          - img_size = 40
-          .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
-            = render partial: "shared/avatar_image", locals: { user: comment.user, img_size: img_size }
+          = render partial: "shared/avatar_image", locals: { user: comment.user, size: 40 }
     .comment-right-box
       = link_to comment.user, class: 'comment-author' do
         = comment.user.name

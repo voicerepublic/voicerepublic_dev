@@ -1,19 +1,23 @@
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+= simple_form_for( resource,
+                   as: resource_name,
+                   url: registration_path(resource_name) ) do |f|
 
   .row.top-margin-action-bar
     .medium-10.medium-centered.columns
       = f.input :firstname
       = f.input :lastname
       = f.input :email
+      = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
       = f.input :conference
       = f.input :password
       = f.input :password_confirmation
-      = f.input :accept_terms_of_use, as: :boolean, label: t('simple_form.labels.user.accept_terms_of_use').html_safe
-
+      = f.input :accept_terms_of_use, as: :boolean,
+                label: t('simple_form.labels.user.accept_terms_of_use').html_safe
       %br/
       = f.button :submit, t('.registration_title'), class: 'button-vr'
       %hr/
-      = render partial: 'devise/shared/social_network_connects', locals: { action: 'register' }
+      = render partial: 'devise/shared/social_network_connects',
+               locals: { action: 'register' }
       .clearfix
       %hr/
       = render(:partial => "/devise/shared/links")

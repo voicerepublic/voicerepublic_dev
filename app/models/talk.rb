@@ -85,11 +85,12 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  belongs_to :venue, :inverse_of => :talks
+  belongs_to :venue, inverse_of: :talks
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
+  has_many :reminders, as: :rememberable, dependent: :destroy
 
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
@@ -109,11 +110,9 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
-
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
-  after_save -> { flyer.generate! },
-             if: ->(t) { t.starts_at_changed? || t.title_changed? }
+  after_save :generate_flyer!, if: :generate_flyer?
 
   serialize :session
   serialize :storage
@@ -541,6 +540,26 @@ class Talk < ActiveRecord::Base
 
   def slug_candidates
     [ :title, [:id, :title] ]
+  end
+
+  ############################################################
+  # from here, shared code with backoffice app
+
+  def generate_flyer?
+    starts_at_changed? or title_changed?
+  end
+
+  def generate_flyer!
+    # NOTE: I'm glad you asked. Yes, this could be delayed with
+    #
+    #     Delayed::Job.enqueue GenerateFlyer.new(id: id), queue: 'audio'
+    #
+    # But it is purposely not, since it's only one flyer at a time and
+    # we want to have it available as soon as the user accesses `talks#show`.
+    #
+    # The BackOffice in the other hand facilitates mass imports, which
+    # can be processed faster when deferring generating the flyer.
+    flyer.generate!
   end
 
 end

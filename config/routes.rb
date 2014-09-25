@@ -1,14 +1,20 @@
 VoiceRepublic::Application.routes.draw do
 
-  post '/api/talk/:id/messages', to: 'api/messages#create'
-  put  '/api/talk/:id',          to: 'api/talks#update'
-  get  '/api/users',             to: 'api/users#index'
+  post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
+  put  '/xhr/talk/:id',          to: 'xhr/talks#update'
+  get  '/xhr/users',             to: 'xhr/users#index'
 
-  namespace 'api' do
+  namespace 'xhr' do
     resources :social_shares, only: [:create]
     resources :tags, only: [:index]
   end
 
+  if Settings.api.try(:enabled)
+    namespace 'api' do
+      resources :talks, only: [:index]
+    end
+  end
+  
   post '/search',              to: 'search#create'
   get  '/search/:page/*query', to: 'search#show'
 

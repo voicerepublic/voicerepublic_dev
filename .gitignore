@@ -22,6 +22,7 @@ db/*.sqlite3-journal
 *.swp
 *.swo
 nbproject
+!public/system/flyer/flyer_fixture.png
 public/system/
 private/
 .DS_Store
@@ -37,3 +38,4 @@ config/environments/*.local.yml
 
 /log/localeapp.yml
 local/
+.*.swo

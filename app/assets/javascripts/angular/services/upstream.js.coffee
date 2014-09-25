@@ -6,10 +6,10 @@ upstreamFunc = (config, $http, $log) ->
     msg ||= {}
     #$log.debug 'Sending...'
     #$log.debug msg
-    $http.put "/api/talk/#{config.talk_id}", { msg }
+    $http.put "/xhr/talk/#{config.talk_id}", { msg }
 
   message = (content) ->
-    $http.post "/api/talk/#{config.talk_id}/messages", { content }
+    $http.post "/xhr/talk/#{config.talk_id}/messages", { content }
 
   event = (name, msg) ->
     msg ||= {}

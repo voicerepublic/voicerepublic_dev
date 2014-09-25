@@ -65,7 +65,7 @@
         %dd.text-center
           %a(href="#comments")
             %span.icon-bubble-multi
-            = t('.comments')
+            = t('.comments', count: @venue.comments.count)
 
 .row.collapse-large-only
   .tabs-content.large-12.columns
@@ -91,9 +91,7 @@
             .comment-left-box.left
               =link_to '#user' do
                 .avatar
-                  - img_size = 40
-                  .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
-                    = render partial: "shared/avatar_image", locals: { user: current_user, img_size: img_size }
+                  = render partial: "shared/avatar_image", locals: { user: current_user, size: 40 }
             .comment-right-box
               = simple_form_for [@venue, @venue.comments.build] do |f|
                 = f.input :content, placeholder: t('.write_a_comment')

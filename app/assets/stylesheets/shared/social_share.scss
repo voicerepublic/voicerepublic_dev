@@ -1,6 +1,6 @@
 #social_share {
   position: absolute;
-  right: 20px;
+  right: 8px;
   top: 39px;
   .share{
     display: block;
@@ -8,10 +8,11 @@
     width: 23px;
     a{
       position:relative;
-    	color:white;
-    	&:hover,&:focus{
-    		color:$brand-color-green;
-    	}
+      color:white;
+      display: block;
+      &:hover,&:focus{
+        color:$brand-color-green;
+      }
       span[class^="icon-"]{
         font-size: rem-calc(10);
         position:absolute;

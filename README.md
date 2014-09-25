@@ -27,9 +27,32 @@ Dependencies
 
 ### Ruby
 
-VR is being developed on Ruby 1.9.3. See (.ruby-version)[.ruby-version].
+VR is being developed on Ruby 2.1.2. See [.ruby-version](.ruby-version).
 
-The use of (rbenv)[/sstephenson/rbenv] instead of RVM is highly recommended.
+The use of [rbenv](https://github.com/sstephenson/rbenv)
+and [ruby-build](https://github.com/sstephenson/ruby-build) instead of
+RVM is highly recommended.
+
+#### Upgrade with rbenv
+
+    (cd ~/.rbenv && git pull)
+    (cd ~/.rbenv/plugins/ruby-build && git pull)
+    rbenv install 2.1.2
+    gem install bundler
+
+### Debian Packages
+
+* postgresql-contrib-9.1
+* libpcre++-dev
+* libav-tools
+* sox
+* vorbis-tools
+* libreadline-dev
+* libpq-dev
+
+make sure you install those before you proceed to the next point, since some
+(-dev) packages are needed in the following steps.
+
 
 ### Install rbenv on zsh
 
@@ -40,31 +63,70 @@ The use of (rbenv)[/sstephenson/rbenv] instead of RVM is highly recommended.
     git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
     rbenv install `cat .ruby-version`
 
-### Debian Packages
+rbenv will install shim executables that understand rbenv settings. However
+you will face the problem, that your shell remembers the location of
+executables you have allready used. So before you use an executable
+that should be aware of rbenv you'll either need to launch a new shell
+or delete your shell's idea of where the executable is with:
 
-* postgresql-contrib-9.1
-* libpcre++-dev
-* libav-tools
-* sox
-* vorbis-tools
+    hash -r some_executable
+
+This is namely the case with `bundle` and `cap`.
+
+Now install bundler and capistrano versions for the chosen ruby version:
+
+    gem install bundler
+    gem install capistrano
+
+Now start a new shell or issue
+
+    hash -r bundle
 
 
 Setup
 -----
 
     bundle
-    rake db:setup
-    rake db:migrate
+    cp config/database.yml.example \
+       config/database.yml             # use an appropriate db config
+    rake db:setup                      # this requires an internet connection, also
+                                       # [also see note below]
+    rake db:migrate                    # also requires an internet connection
     rake rtmp:build
     rake setup
+
+Above the step `rake db:setup` probably fails, if the connecting user in database.yml
+doesn't have 'superuser' rights when connecting to the psql server. So you might want
+to replace that step by:
+
+    $ sudo su
+    # su - postgres
+    $ psql
+    postgres=# create database vr_development owner your_db_user;
+
 
 ### New Search
 
 Make sure `postgresql-contrib-9.1` is installed.
 
+    zeus start
+
+and in a different window:
+
     zeus rake pg_search:multisearch:rebuild\[Talk\]
     zeus rake pg_search:multisearch:rebuild\[Venue\]
     zeus rake pg_search:multisearch:rebuild\[User\]
+
+### Create Postgres Extensions
+
+    # su - postgres
+    $ psql vr_development
+    vr_development=# CREATE EXTENSION pg_trgm;
+    CREATE EXTENSION
+    vr_development=# CREATE EXTENSION unaccent;
+    CREATE EXTENSION
+
+Repeat for vr_test
 
 ### nginx/rtmp server (Debian 7 & optional)
 
@@ -78,11 +140,8 @@ Run App
 
 ### voicerepublic_dev
 
-* `zeus start`
-* `zeus server`
-* `rackup -E production private_pub.ru`
-* `zeus rake rtmp:start`
-* `bundle exec lib/rtmp_watcher.rb run`
+* sudo apt-get install tmux
+* bin/start_everything_in_tmux
 
 ### voicerepublic_backoffice
 
@@ -93,14 +152,14 @@ Run App
 Run Specs
 ---------
 
+Install phantomjs (globaly)
+
+    sudo npm install -g phantomjs
+
 Run Rspec with Zeus
 
     zeus start
     zeus rspec spec
-
-Install phantomjs (globaly)
-
-    sudo npm install -g phantomjs
 
 ### Run Jasmine specs for Angular with Karma
 
@@ -203,6 +262,13 @@ Settings defined in files that are lower in the list override settings higher.
 
 Deploy
 ------
+
+Deploying requires the presence of the ssh agent (because credentials will be
+forwarded to the target machine). So make sure, you have done a:
+
+    ssh-add
+
+before you continue with:
 
     cap staging deploy
 
@@ -389,3 +455,6 @@ At this point the P in REPL is still missing.
 
     PrivatePub.publish_to '/t981/u1', { exec: 'window.location.reload()' }
 
+### Delete all guest users
+
+    User.where(guest: true).destroy_all

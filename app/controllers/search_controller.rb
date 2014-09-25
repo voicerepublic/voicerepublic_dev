@@ -1,4 +1,4 @@
-class SearchController < ApplicationController
+class SearchController < BaseController
 
   PER_PAGE = 10
 

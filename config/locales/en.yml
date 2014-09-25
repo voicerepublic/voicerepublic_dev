@@ -308,14 +308,13 @@ en:
       edit_user: Edit Profile
       about: About
       venues: Series
-      reminders: Reminders
+      reminders: Listen later
+      no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
     settings_updated: settings changed
     portrait_destroyed: image removed
-  controller_comments:
-    comment_created: comment created
   controller_conversations:
     conversation_destroyed: thread removed
   controller_dashboard:
@@ -382,6 +381,7 @@ en:
     show:
       text_chat: Chat
   comments:
+    comment_created: Posted a comment
     form:
       write_a_comment: write a comment
       save_comment: Post
@@ -613,9 +613,12 @@ en:
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
       delete_venue: Delete Series
+    facebook_value_template:
+      join_the_venue: Join the Series
     venue_list: Series
     new_venue: Create Series
     show:
+      subscribe_to_podcast: Subscribe to podcast
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
@@ -626,6 +629,7 @@ en:
       duration: Duration
       past_venue: Past Series
       join_venue: SUBSCRIBE TO Series!
+      create_new_talk: Create Talk
       leave_venue: Unsubscribe from Series
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit Series
@@ -637,9 +641,18 @@ en:
       post: Post
       write_a_comment: Write a comment
       description: Description
-      upcoming_talks: '%{count} Upcoming Talks'
-      archived_talks: '%{count} Archived Talks'
-      comments: Comments
+      upcoming_talks:
+        zero: No Upcoming Talks
+        one: 1 Upcoming Talk
+        other: '%{count} Upcoming Talks'
+      archived_talks:
+        zero: No Archived Talks
+        one: 1 Archived Talk
+        other: '%{count} Archived Talks'
+      comments:
+        zero: No Comments
+        one: 1 Comment
+        other: '%{count} Comments'
     venue_show_header:
       venue: Series
       minutes: Minutes
@@ -780,18 +793,18 @@ en:
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
-      flash_manual_title: YOU HAVE REQUESTED THE MICROPHONE - YOU NEED TO CHECK YOUR CONFIGURATION FIRST
-      audio_settings_flash_manual: <span class="desc-bold">CLICK ALLOW IN THE BOX TO THE LEFT</span> to activate your microphone<br />
-      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
       stage: STAGE
-      speakers: SPEAKERS
+      speakers:
+        one: SPEAKER
+        other: SPEAKERS
       padding: 0 0 9px 0;
       request_mic: REQUEST MIC
       awaiting_mic_request: AWAITING MIC REQUEST
+      cancel: CANCEL
       talk_invitation: TALK INVITATION!
       accept_promotion: ACCEPT
       decline_promotion: DECLINE
@@ -811,12 +824,28 @@ en:
       awaiting_to_speak: Awaiting to speak
       participating: Participating
       just_listening_in: Just listening in
-      remember: Remember
+      remember: Listen later
       send_card: Send Card
       download_flyer: Download
       show_all_information: Show all information
       discussion: DISCUSSION
       description: ABOUT
+
+      # MIC ACTIVATION
+      activate_your_microphone: ACTIVATE YOUR MICROPHONE
+      info_text: Please allow Voice Republic to access your microphone.
+      attention: ATTENTION!
+      attention_text: |
+        If the box underneath is white: <br />
+        1. PC: Right-click into the white box <br />
+        1. MAC: Press 'control' + and click into the white box <br />
+        2. Select Settings
+
+      how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
+      click_allow: CLICK ALLOW
+      choose_mic_tab: CHOOSE MIC TAB
+      choose_mic_input: CHOOSE MIC INPUT
+      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       more: Show more
       less: Show less
       initializing: Initializing
@@ -828,8 +857,13 @@ en:
       embed: Embed
       embed_player: Embed Player
       more_talks_title: MORE FROM THIS USER
-      edit_talk: Edit Talk
-      end_talk: Stop Talk
+      edit_talk: EDIT TALK
+      start_text_top: Click START when the speaker begins.
+      start: START
+      start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
+      unstarted_message: THE SPEAKER HAS NOT STARTED YET
+      audio_settings: Audio settings
+      end_talk: END TALK
       banner_title: WHAT IS VOICE REPUBLIC?
       banner_text: |
         Voice Republic is a tool for the creation and distribution of audio content on the Internet.
@@ -846,6 +880,10 @@ en:
       invite_to_stage: INVITE TO STAGE
       anonymous_listener: ANONYMOUS LISTENER
       more_talks: RECOMMENDED TALKS
+      login: Login
+      signup: Sign up
+      redirect_text: |
+        Please sign up or login to use this feature.
 
     new:
       title: "VR New Talk"
@@ -959,7 +997,7 @@ en:
     hints:
       talk:
         language: Please select the main language of your talk.
-        format: Please provide the format purely for informational purposes.  
+        format: Please provide the format purely for informational purposes.
     labels:
       user:
         conference: I will be streaming a conference.
@@ -971,3 +1009,7 @@ en:
       failure: Reminder could not be created.
     destroy:
       success: Reminder was successfully destroyed.
+  safetynet_warning: |
+    Careful Citizen of Voice Republic,
+
+    when leaving the talk page, you will no longer be able to stream your microphone.
