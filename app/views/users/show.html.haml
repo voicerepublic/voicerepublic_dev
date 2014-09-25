@@ -10,7 +10,15 @@
       .avatar-box
         .avatar
           = render partial: "shared/avatar_image", locals: { user: @user, size: 185 }
-          %h2.user-name= @user.name
+          %h2.user-name
+            - titleArray = @user.name.split(' ')
+            - titleArray.each_with_index do |word,index|
+              - if  index == 0
+                %span>
+                  = word
+              - else
+                %span>
+                  = raw '&nbsp;' + word
 
       .info-links-box>
         .info-box
@@ -40,8 +48,8 @@
                   %span.icon-download
                   = t('.upload_talk')
           - else
-            %ul.action-links
-              %li= link_to_podcast(@user)
+            %ul.action-links.list-style-type-none
+              %li.visitor-view= link_to_podcast(@user)
     
   - if can? :manage, @user
     = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'

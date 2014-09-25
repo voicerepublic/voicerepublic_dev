@@ -312,8 +312,10 @@ en:
       venues:
         one: 1 Series
         other: '%{count} Series'
+      listen_later: Listen later
       create_new_talk: Create new Talk
       upload_talk: Upload Talk
+      subscribe_to_podcast: Subscribe to podcast
       edit_user: Edit Profile
       about: About
       reminders: Listen later

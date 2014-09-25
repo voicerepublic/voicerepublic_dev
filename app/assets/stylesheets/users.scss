@@ -27,9 +27,11 @@
           }
           .user-name{
             font-size: rem-calc(26);
-            line-height: 1.2;
-            border-bottom: 3px solid white;
+            line-height: 1.4;
             display: inline-block;
+            span{
+              border-bottom: 3px solid white;
+            }
           }
         }
       }
@@ -67,6 +69,9 @@
               vertical-align: top;
               display: inline-block;
               width: 50%;          
+              &.visitor-view{
+                width: 100%;
+              }
               padding:0 0.9% 0 0.9%;
               a{
                 display: inline-block;
@@ -86,6 +91,15 @@
                   top: -6px;
                   font-size: rem-calc(24);
                   margin-right: 0
+                }
+                &.button-podcast{
+                  border-radius: 0;
+                  padding: 14px 0 0 0;
+                  span{
+                    font-size: rem-calc(15);
+                    margin-right: 4px;
+                    top: -1px;
+                  }                                 
                 }
               }
             }
@@ -114,6 +128,11 @@
       margin-top: -5px
     }
   }
+  .user-series-box{
+    h3{
+      margin-bottom: 30px
+    }
+  }
 
   .description-box{
     border-top: 3px solid $color-black-title;
@@ -124,10 +143,13 @@
         color: $color-black-title;
         font-size: rem-calc(19);
       }
+      font-family: 'eaglelight';
+      font-size: rem-calc(15);
+      line-height: 1.2;          
       p{
-        font-family: 'eaglelight';
-        font-size: rem-calc(15);
-        line-height: 1.2;      
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
         a{
           text-decoration: underline;
           &:focus,&:hover{

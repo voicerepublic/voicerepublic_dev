@@ -87,3 +87,9 @@ span[class^="icon-"]{
   overflow: hidden;
   margin:0 !important;
 }
+
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+}
