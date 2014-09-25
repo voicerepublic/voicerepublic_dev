@@ -95,7 +95,7 @@ class Talk < ActiveRecord::Base
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
-  validates :venue, :title, :tag_list, :duration, :description,
+  validates :title, :tag_list, :duration, :description,
             :language, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
@@ -106,6 +106,14 @@ class Talk < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
+  validates :new_venue_title, presence: true, if: ->(t) { t.venue_id.nil? }
+
+  # for temp usage during creation, we need this to hand the user
+  # trough to build a default_venue
+  attr_accessor :venue_user
+  attr_accessor :new_venue_title
+
+  before_save :create_and_set_venue, if: :new_venue_title
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -300,6 +308,10 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def create_and_set_venue
+    self.venue = venue_user.venues.create title: new_venue_title
+  end
 
   # upload file to storage
   def upload_file(key, file)
@@ -598,9 +610,6 @@ class Talk < ActiveRecord::Base
     s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
     logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
   end
-
-  ############################################################
-  # from here, shared code with backoffice app
 
   def generate_flyer?
     starts_at_changed? or title_changed?

@@ -14,6 +14,12 @@
       = f.input :title, placeholder: t('.title')
       = f.input :teaser, placeholder: t('.teaser')
       = f.input :tag_list, input_html: { class: 'tagList' }
+
+      = f.association :venue, collection: current_user.venues,
+        include_blank: t('.create_new_series'),
+        input_html: { 'data-on-blank-show' => '#wrapper_new_venue_title' }
+      = f.input :new_venue_title, wrapper_html: { id: 'wrapper_new_venue_title' }
+
       = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
         input_html: { class: 'languageSelect' },
         group_method: :last, label_method: :last, value_method: :first
@@ -71,7 +77,6 @@
       %small.error= messages * ', '
     %br
     = f.input :collect, label: t('.record')
-
 
 :javascript
   window.unprocessed_upload = #{t('.unprocessed_upload').inspect};

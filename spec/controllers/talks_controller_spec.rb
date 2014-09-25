@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# TODO cleanup, remove `venue_id: @venue.id`
 describe TalksController do
 
   before do
@@ -124,8 +125,9 @@ describe TalksController do
         }.to change(Talk, :count).by(1)
       end
       it 'does not allow for creation of a new talk' do
+        attrs = FactoryGirl.attributes_for(:talk, venue_id: @venue_2.id)
         expect {
-          post :create, { venue_id: @venue_2.id, talk: valid_attributes }
+          post :create, { talk: attrs }
         }.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -133,6 +135,8 @@ describe TalksController do
     it 'talk has attached tags after creation' do
       Talk.count.should be(2) # @talk & @talk_2
       post :create, { venue_id: @venue.id, talk: valid_attributes }
+      assigns(:talk).venue_id.should_not be_nil
+      assigns(:talk).errors.to_a.should eq([])
       Talk.all[2].tag_list.should_not be_empty
     end
   end

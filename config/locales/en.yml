@@ -929,6 +929,7 @@ en:
       required: required
       teaser: Teaser
       tag_list: Tag list
+      create_new_series: Create New Series...
     index:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
@@ -1029,6 +1030,9 @@ en:
         language: Please select the main language of your talk.
         format: Please provide the format purely for informational purposes.
     labels:
+      talk:
+        venue: Series
+        new_venue_title: New Series Title
       user:
         conference: I will be streaming a conference.
         accept_terms_of_use: |

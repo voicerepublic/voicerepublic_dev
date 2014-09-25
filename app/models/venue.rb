@@ -13,7 +13,7 @@ class Venue < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
-  
+
   STREAMER_CONFIG         = Settings.rtmp
   # RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
   RECORDINGS_PATH         = Settings.rtmp.recordings_path
@@ -33,12 +33,15 @@ class Venue < ActiveRecord::Base
   has_many :users, through: :participations
   has_many :social_shares, as: :shareable, dependent: :destroy
 
+  has_one :default_user, foreign_key: :default_venue_id,
+          class_name: 'User', dependent: :nullify
+
   validates :title, :teaser, :description, :tag_list, presence: true
 
   validates :title, length: { maximum: Settings.limit.string }
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
-  
+
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :talks
@@ -52,7 +55,7 @@ class Venue < ActiveRecord::Base
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/venue-image.jpg')
   end
-  
+
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
@@ -61,7 +64,7 @@ class Venue < ActiveRecord::Base
   def opts
     OpenStruct.new(options)
   end
-  
+
   def description_as_plaintext
     Nokogiri::HTML(description).text
   end
@@ -77,5 +80,5 @@ class Venue < ActiveRecord::Base
   def slug_candidates
     [ :title, [:id, :title] ]
   end
-  
+
 end

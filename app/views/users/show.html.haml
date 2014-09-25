@@ -44,7 +44,7 @@
       = raw @user.about
 
     #venues.venues-content.content.active
-      = render partial: 'shared/venue_medium_box', collection: @user.venues
+      = render partial: 'shared/venue_medium_box', collection: @user.venues_without_default
 
     #reminders.reminders-content.content
       - if @user.reminders.empty?
