@@ -193,26 +193,6 @@
     }
   }
 
-  #modal-login-signup{
-    background: black;
-    color: white;
-    width: 384px;
-    margin-left: -192px;
-    .redirect-text{
-      font-family: 'eaglebook';
-      font-size: rem-calc(18px);
-    }
-    .overlay-button{
-      background: #ccc;
-      color: black;
-      font-family: 'eaglebook';
-      padding: 10px 15px;
-      width: 120px;
-      text-align: center;
-      display: block;
-    }
-  }
-
   .embed-help-text{
     font-family: 'eaglelight';
     font-size: rem-calc(15);
@@ -483,6 +463,43 @@
     position: relative;
     margin-top: 30px;
     margin-bottom: 30px;
+
+    .bandwidth-box{
+      position: absolute;
+      top: -12px;
+      left:0;
+      display: block;
+      padding: 4px 7px 5px 5px;
+      background: rgba(255,255,255,0.85);      
+      .info{
+        display: inline-block;
+        color: black;
+        .icon-info{
+          font-size: 33px;
+        }
+      }
+      .upstream-box{
+        display: inline-block;
+        font-size: rem-calc(15);
+        font-family: 'eaglebook';
+        @include transition(color 1s);
+        h3{
+          font-size: rem-calc(12);
+          color: black;
+          margin-bottom: 0;
+        }
+        .icon-upload{
+          font-size: rem-calc(20);
+        }
+        &.good{
+          color: $interaction-green;
+        }
+        &.bad{
+          color: $brand-color-red;
+          @include transition(color 4s);
+        }
+      }
+    }
 
     .background-box{
       display: inline-block;
@@ -758,15 +775,25 @@
     .button-audio-settings{
       position: absolute;
       right: 6px;
-      top: -6px;
+      top: -11px;
       font-family: 'eaglebook';
       font-size: rem-calc(12);
       cursor: pointer;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
       .icon-equalizer{
-        display: block;
+        display: inline-block;
         margin-bottom: 3px;
         font-size: rem-calc(20);
+        background: rgba(0,0,0,0.5);
+        padding: 5px  5px 0 5px;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 3px;
+      }
+      .audio-settings-text{
+        background: rgba(0,0,0,0.5);
+        display: inline-block;
+        padding: 5px;
+        border-radius: 8px
       }
     }
   }
@@ -862,9 +889,13 @@
         text-align: center;
         /* hack for firefox to show flash */
         object#Blackbox {
-            width: 215px;
-            height: 140px;
-            @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+          width: 215px;
+          height: 140px;
+          @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+          border: 3px solid green;
+          @include box-sizing(padding-box);
+          height: 146px;
+          width: 221px;            
         }          
       }
     }
@@ -1453,5 +1484,16 @@
     font-size: rem-calc(19);
     padding:19px 0 11px;
     width: 100%;
+  }
+}
+
+#modal-bandwidth{
+  width: 300px;
+  margin-left: -150px;
+  p{
+    .audio-settings-link{
+      color: $brand-color-green;
+      cursor: pointer;
+    }
   }
 }

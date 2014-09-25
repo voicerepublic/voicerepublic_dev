@@ -4,6 +4,9 @@ require 'action_view/helpers'
 
 namespace :sync do
 
+  # TODO: BTR talks can be only 8kbit/s. The current avconv implementation
+  # sometimes will not transcode these files.
+  # https://www.pivotaltracker.com/story/show/79026058
   task :btr_user, [:user_id, :rss_feed] => :environment  do |t, args|
     raise 'Usage: rake "sync:btr_user[8188, http://www.blogtalkradio.com/back2us.rss]"' unless (args[:user_id] and args[:rss_feed])
 

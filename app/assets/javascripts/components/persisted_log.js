@@ -1,7 +1,18 @@
+// if `window.console.off` is set, all calls to `console.log` will be
+// swallowed. To activate the console run `window.console.off = false`
+
 // use an immediate function to wrap `console.log` in another function
 // which is assigned to `console.log` overwriting the original, which
 // is captured within the closure of the wrapping function as `_super`
-console.log = function(_super, _storage, _bubble) {
+console.log = function(_super) {
+  return function() {
+    if(window.console.off) return;
+    _super.apply(this, arguments);
+  };
+}(console.log);
+
+// use the same move to store messages in some storage
+console.log = function(_super, _storage) {
   var slice = Array.prototype.slice,
       store = function(str) {
         var log = JSON.parse(_storage.getItem('log'));
@@ -12,13 +23,6 @@ console.log = function(_super, _storage, _bubble) {
   return function() {
     var args = slice.apply(arguments);
     store(JSON.stringify(args));
-    if(_bubble) _super.apply(this, args);
+    _super.apply(this, args);
   };
-}(console.log, sessionStorage, true);
-
-// TODO while this is as generic as it gets, for vr we need it to
-// bubble only if in development or the logged in user is an
-// insider, otherwise it should not bubble. And we only really need
-// this on the live page, so we might need to move the code to a less
-// generic location, i.e. the initialization process of the angular
-// app. Leaving it here for now for review. It shouldn't hurt.
+}(console.log, sessionStorage);
