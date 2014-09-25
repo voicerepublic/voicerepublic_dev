@@ -17,6 +17,7 @@
       width: 100%;
       .avatar-box{
         width: 40%;
+        @media #{$small-only} {width: 100%;}
         display: inline-block;
         vertical-align: top;
         .avatar{
@@ -37,6 +38,7 @@
       }
       .info-links-box{
         width: 60%;
+        @media #{$small-only} {width: 100%;}
         display: inline-block;
         vertical-align: top;
         .info-box{
