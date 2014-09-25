@@ -240,7 +240,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 
   statHandler = (msg) ->
     config.feedback.data = msg.data
-    config.feedback.data.kb = if msg.data.bw_in >= 0 then Math.round(msg.data.bw_in / 1000) else 0
+    config.feedback.data.kb = if msg.data.bw_in >= 0 then Math.round(msg.data.bw_in / 1024) else 0
     config.feedback.data.class = if msg.data.kb > 16 then 'good' else 'bad'
 
   # subscribe to push notifications
