@@ -70,7 +70,7 @@
           .talk-archived-actions-box.row.collapse
             .small-12.columns
               .right
-                = link_to_podcast(@talk.venue)
+                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@talk.venue) }
                 = link_to '#',
                   class: 'button-embed',
                   title: t('.embed_player'),
@@ -171,7 +171,7 @@
           %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
             %span.icon-volume-mute2.hide
 
-        %a(href="#" ng-show='showEndTalk()' ng-click='endTalk()' class="button-vr button-live button-end-talk text-center")= t('.end_talk')            
+        %a(href="#" ng-show='showEndTalk()' ng-click='endTalk()' class="button-vr button-live button-end-talk text-center")= t('.end_talk')
 
     .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
       .large-12.columns.text-center
@@ -196,7 +196,7 @@
             .host-actions(ng-show='showHostActions()')
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
                 = raw t('.demote')
-      
+
       -# START BUTTON FOR HOST
       .start-overlay(ng-show='showStartButton()')
         .row.text-center
@@ -204,7 +204,7 @@
           .button-column.small-4.columns
             %a.button-start(href="#" ng-click='startTalk()')= t('.start')
           .right-text.small-4.columns= t('.start_text_bottom').html_safe
-      
+
       -# MESSAGE FOR LISTENER
       .start-overlay(ng-show='showUnstartedMessage()')
         .row.text-center
@@ -220,7 +220,7 @@
 
     .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
-        
+
         %a.bandwidth-box.clearfix(href="#" data-reveal-id="modal-bandwidth" ng-show='showBandwidth()')
           .info.left
             %span.icon-info
@@ -229,8 +229,8 @@
           .upstream-box.left(ng-class="feedback.data.class")
             %h3= t('.you_are_streaming_with')
             %span.icon-upload(ng-init="feedback.data.kb = 0")
-            {{feedback.data.kb}} KB/s 
-        
+            {{feedback.data.kb}} KB/s
+
         .background-box(ng-class="{'state-onair' : showOnAir(),'state-acc_dec' : showAcceptOrDecline(),'state-awaiting_mic' : showAwaitingMic(), 'state-muted-mic': muteState, 'state-prelive' : showPrelive()}")
           .avatar
             .avatar-box
