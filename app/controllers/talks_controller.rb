@@ -57,7 +57,7 @@ class TalksController < BaseController
 
   # GET /talks/new
   def new
-    @talk = Talk.new
+    @talk = Talk.new(talk_params)
   end
 
   # GET /talks/1/edit
