@@ -16,9 +16,8 @@
             %li= link_to t('.edit_user'), [:edit, @user]
 
       .avatar
-        - img_size = 120
-        .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
-          = render partial: "shared/avatar_image", locals: { user: @user, size: 120 }
+        = render partial: "shared/avatar_image", locals: { user: @user, size: 120 }
+
       %h2.user-name= @user.name
       = link_to_podcast(@user)
       %br/
@@ -38,13 +37,6 @@
           %a(href="#reminders")
             %span.icon-plus
             = t('.reminders')
-        -#
-        -#%dd.text-center
-        -#  %a(href="#schedule")
-        -#    %i.fi-calendar
-        -#    = t('.schedule')
-        -#%dd.text-center
-        -#  %a(href="#activity")= t('.activity')
 
 .row.collapse-large-only
   .large-12.columns.tabs-content
@@ -56,7 +48,7 @@
 
     #reminders.reminders-content.content
       - if @user.reminders.empty?
-        = t('.no-reminders')
+        %p= t('.no_reminders', username: @user.name)
       - else
         %ul
           = render partial: 'shared/reminder', collection: @user.reminders

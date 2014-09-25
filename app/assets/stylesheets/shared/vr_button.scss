@@ -38,7 +38,7 @@
     width: 100%;
   }
   @include transition(all 0.1s ease-in-out);
-  &:hover, &:focus{
+  &:hover, &:focus, &:active{
     background: lighten(#000, 10%);
     color: $brand-color-green;
   }
@@ -54,6 +54,9 @@
 .button-live{
   border-color: $brand-color-red;
   color: $brand-color-red;
+  &:hover, &:focus, &:active{
+    color: $brand-color-red;
+  }
 }
 
 .link-delete{

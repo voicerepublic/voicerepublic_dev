@@ -38,4 +38,14 @@ namespace :fix do
       reminder.destroy if reminder.rememberable.nil?
     end
   end
+
+  desc 'generate tokens for users'
+  task user_tokens: :environment do
+    User.find_each(conditions: { authentication_token: nil }) do |user|
+      unless user.save
+        puts "INVALID USER #{user.id}"
+        puts '  ' + user.errors.to_a * "\n  "
+      end
+    end
+  end
 end
