@@ -19,7 +19,7 @@
         = render partial: "shared/avatar_image", locals: { user: @user, size: 120 }
 
       %h2.user-name= @user.name
-      = link_to_podcast(@user)
+      = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@user) }
       %br/
       %br/
   .row.collapse-large-only

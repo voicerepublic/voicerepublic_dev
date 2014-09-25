@@ -11,7 +11,8 @@ initialize = (node, selector) ->
     else
       target.hide()
 
-  $(selector).hide()
+  console.log $(node).val()
+  target.hide() unless $(node).val() in [undefined, '']
 
 $("*[#{attribute}]").each (index, element) ->
   value = $(element).attr(attribute)
