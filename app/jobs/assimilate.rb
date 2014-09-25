@@ -74,12 +74,8 @@
 #      email: phil@branch14.org
 #    
 class Assimilate < MonitoredJob
+
   def perform
-    # Assimilator.run(opts)
-    repo   = opts['repository']['url']
-    ref    = opts['ref']
-    sha    = opts['after']
-    pusher = opts['pusher']['email']
     cmd = [ File.expand_path('../../../lib/assimilator.rb', __FILE__),
             repo, ref, sha, pusher ] * ' '
 
@@ -87,5 +83,22 @@ class Assimilate < MonitoredJob
       `#{cmd}`
     end
   end
+
+  def before_message(job)
+    branch = ref.sub('refs/heads/', '')
+    url = [ repo, 'tree', branch ] * '/'
+
+    "run ci for <#{url}|#{branch}> pushed by #{pusher_name} in repo #{repo}"
+  end
+
+  private
+
+  def repo; opts['repository']['url']; end
+  def ref; opts['ref']; end
+  def sha; opts['after']; end
+  def pusher; opts['pusher']['email']; end
+
+  def pusher_name; opts['pusher']['name']; end
+
 end
 
