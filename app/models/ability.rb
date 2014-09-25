@@ -16,7 +16,7 @@ class Ability
     can :manage, Reminder, user_id: user.id
 
     can :manage, Talk do |talk|
-      talk.venue.nil? or
+      talk.venue.nil? or # TODO check if needed
         talk.venue.user_id == user.id
     end
 

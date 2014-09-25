@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# TODO cleanup, remove `venue_id: @venue.id`
 describe TalksController do
 
   before do
@@ -116,8 +117,9 @@ describe TalksController do
         }.to change(Talk, :count).by(1)
       end
       it 'does not allow for creation of a new talk' do
+        attrs = FactoryGirl.attributes_for(:talk, venue_id: @venue_2.id)
         expect {
-          post :create, { venue_id: @venue_2.id, talk: valid_attributes }
+          post :create, { talk: attrs }
         }.to raise_error(CanCan::AccessDenied)
       end
     end
