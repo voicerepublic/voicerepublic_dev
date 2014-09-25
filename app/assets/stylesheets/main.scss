@@ -87,3 +87,14 @@ span[class^="icon-"]{
   overflow: hidden;
   margin:0 !important;
 }
+
+.brand-new-feature {
+    background-color: magenta;
+    color: black;
+    top: 20px;
+    left: 20px;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 3px double green;
+}
