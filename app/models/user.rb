@@ -72,6 +72,7 @@ class User < ActiveRecord::Base
     allow_nil: true
 
   after_save :generate_flyers!, if: :generate_flyers?
+  after_create :create_and_set_default_venue!
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -79,17 +80,10 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
-  # this method overwrites the method provided by `belongs_to
-  # :default_venue`, which will be called via `super`
-  #
-  # this somewhat magically provides a way to successively create
-  # missing default_venues, and could be replaced with a more straight
-  # forward way!
-  def default_venue
-    return super unless super.nil?
-
+  def create_and_set_default_venue!
     attrs = Settings.default_venue_defaults[I18n.locale].to_hash
-    create_default_venue(attrs.merge(user: self)).tap { save }
+    create_default_venue(attrs.merge(user: self))
+    save
   end
 
   def name
@@ -169,6 +163,7 @@ class User < ActiveRecord::Base
     firstname_changed? or lastname_changed?
   end
 
+  # TODO check if `talks.reload` can be replaced with `talks(true)`
   def generate_flyers!
     venues.reload
     talks.reload.each do |talk|
@@ -176,6 +171,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  # TODO rewrite this as `has_many :venues_without_default, conditions: ...`
   def venues_without_default
     venues - [ default_venue ]
   end

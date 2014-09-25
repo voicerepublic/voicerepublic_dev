@@ -1,7 +1,7 @@
 # the idead behind fix:all is that this can be run after each
 # deploy. the key to success is idempotency.
 namespace :fix do
-  task all: [:language, :storage, :slugs, :reminder]
+  task all: [:language, :storage, :slugs, :reminder, :default_venues]
 
   desc 'prepopulate talk#language with "en"'
   task language: :environment do
@@ -38,4 +38,17 @@ namespace :fix do
       reminder.destroy if reminder.rememberable.nil?
     end
   end
+
+  desc 'create missing default_venues'
+  task default_venues: :environment do
+    conds = { default_venue_id: nil, guest: nil }
+    total = User.where(conds).count
+    counter = 0
+    User.find_each(conditions: conds, batch_size: 100) do |user|
+      counter += 1
+      puts "Create default venue for user #{counter}/#{total} #{user.name}"
+      user.create_and_set_default_venue!
+    end
+  end
+
 end
