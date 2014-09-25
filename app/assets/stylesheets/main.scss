@@ -93,3 +93,23 @@ span[class^="icon-"]{
   overflow: hidden;
   text-overflow: ellipsis;  
 }
+
+#modal-login-signup{
+  background: black;
+  color: white;
+  width: 384px;
+  margin-left: -192px;
+  .redirect-text{
+    font-family: 'eaglebook';
+    font-size: rem-calc(18px);
+  }
+  .overlay-button{
+    background: #ccc;
+    color: black;
+    font-family: 'eaglebook';
+    padding: 10px 15px;
+    width: 120px;
+    text-align: center;
+    display: block;
+  }
+}
