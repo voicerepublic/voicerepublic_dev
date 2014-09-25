@@ -16,7 +16,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     acceptOrDecline: false
     settings: false
     connecting: true
-  # TODO martin: adjust default here
   config.feedback = { data: { bw_in: 0 } }
 
   # some utility functions for the statemachine's callbacks
