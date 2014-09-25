@@ -43,7 +43,7 @@
             = t('.this_venue_has_no_talks')
             %br/
             %br/
-            = link_to new_venue_talk_path(@venue), class: 'button-vr button-header' do
+            = link_to new_talk_path(@venue), class: 'button-vr button-header' do
               = t('.create_a_talk_now')
       %br/
 
@@ -75,7 +75,7 @@
 
     #upcoming-talks.upcoming-talks-content.content.text-center
       - if can?(:manage, @venue)
-        = link_to new_venue_talk_path(@venue), class: 'button-vr button-margin-bottom' do
+        = link_to new_talk_path(@venue), class: 'button-vr button-margin-bottom' do
           = t('.create_new_talk')
       %ul.list-style-type-none
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
