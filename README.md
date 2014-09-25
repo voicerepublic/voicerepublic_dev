@@ -33,6 +33,13 @@ The use of [rbenv](https://github.com/sstephenson/rbenv)
 and [ruby-build](https://github.com/sstephenson/ruby-build) instead of
 RVM is highly recommended.
 
+#### Upgrade with rbenv
+
+    (cd ~/.rbenv && git pull)
+    (cd ~/.rbenv/plugins/ruby-build && git pull)
+    rbenv install 2.1.2
+    gem install bundler
+
 ### Debian Packages
 
 * postgresql-contrib-9.1
@@ -133,11 +140,8 @@ Run App
 
 ### voicerepublic_dev
 
-* `zeus start`
-* `zeus server`
-* `rackup -E production private_pub.ru`
-* `zeus rake rtmp:start`
-* `bundle exec lib/rtmp_watcher.rb run`
+* sudo apt-get install tmux
+* bin/start_everything_in_tmux
 
 ### voicerepublic_backoffice
 
@@ -443,7 +447,7 @@ the scope of instance of Angular's `session` service.
 
 At this point the P in REPL is still missing.
 
-#### Log on error to the console
+#### Log an error to the console
 
     PrivatePub.publish_to '/t981/u1', { exec: '$log.error("hello")' }
 

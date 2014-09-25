@@ -41,7 +41,7 @@ class LivepageConfig < Struct.new(:talk, :user)
       user_id: user.id,
       handle: "u#{user.id}",
       role: user_details[:role], # TODO: remove in favor of user.role
-      stream: "t#{talk.id}-u#{user.id}",
+      stream: stream,
       streaming_server: Settings.rtmp.record,
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
@@ -51,6 +51,10 @@ class LivepageConfig < Struct.new(:talk, :user)
       safetynet_warning: I18n.t('safetynet_warning'),
       blackbox_path: blackbox_path
     }
+  end
+
+  def stream
+    "t#{talk.id}-u#{user.id}"
   end
 
   def blackbox_path
@@ -87,7 +91,8 @@ class LivepageConfig < Struct.new(:talk, :user)
 
   def subscriptions
     channels = [ talk.public_channel,
-                 user_details[:channel] ]
+                 user_details[:channel],
+                 "/stat/#{stream}" ]
 
     channels.inject({}) do |r, c|
       r.merge c => PrivatePub.subscription(channel: c)
@@ -97,19 +102,20 @@ class LivepageConfig < Struct.new(:talk, :user)
   def statemachine_spec
     # events in 'Simple Past', states in 'Present Progressive'
     #
-    # from-state         -> transition        -> to-state
+    # from-state         -> transition         -> to-state
     <<-EOF
-      Registering        -> Registered        -> Waiting
-      Waiting            -> TalkStarted       -> Listening
-      Listening          -> MicRequested      -> ExpectingPromotion
-      ExpectingPromotion -> Promoted          -> OnAir
-      Listening          -> Promoted          -> AcceptingPromotion
-      AcceptingPromotion -> PromotionAccepted -> OnAir
-      AcceptingPromotion -> PromotionDeclined -> Listening
-      OnAir              -> Demoted           -> Listening
-      GuestRegistering   -> Registered        -> OnAir
-      HostRegistering    -> Registered        -> HostOnAir
-      *                  -> TalkEnded         -> Loitering
+      Registering        -> Registered         -> Waiting
+      Waiting            -> TalkStarted        -> Listening
+      Listening          -> MicRequested       -> ExpectingPromotion
+      ExpectingPromotion -> Promoted           -> OnAir
+      ExpectingPromotion -> MicRequestCanceled -> Listening
+      Listening          -> Promoted           -> AcceptingPromotion
+      AcceptingPromotion -> PromotionAccepted  -> OnAir
+      AcceptingPromotion -> PromotionDeclined  -> Listening
+      OnAir              -> Demoted            -> Listening
+      GuestRegistering   -> Registered         -> OnAir
+      HostRegistering    -> Registered         -> HostOnAir
+      *                  -> TalkEnded          -> Loitering
     EOF
   end
 

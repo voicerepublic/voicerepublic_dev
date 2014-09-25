@@ -110,11 +110,9 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
-
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
-  after_save -> { flyer.generate! },
-             if: ->(t) { t.starts_at_changed? || t.title_changed? }
+  after_save :generate_flyer!, if: :generate_flyer?
 
   # Begin 'user audio upload'
   after_save -> { delay(queue: 'audio').user_override! },
@@ -502,8 +500,11 @@ class Talk < ActiveRecord::Base
       FileUtils.rm(file, verbose: true)
     end
 
+    # write info file (based on `storage`) and upload
+    File.open("#{base}/#{id}.info", 'w') { |f| f.puts(processing_info) }
+    upload_file("#{uri}/processing.info", "#{base}/#{id}.info")
+
     FileUtils.fileutils_output = $stderr
-    # TODO: save transcoded audio formats
 
     save! # save `storage` field
 
@@ -517,19 +518,22 @@ class Talk < ActiveRecord::Base
   def cache_storage_metadata(file=nil)
     return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
 
-    key = "#{uri}/#{File.basename(file)}"
+    basename = File.basename(file)
+    key = "#{uri}/#{basename}"
     self.storage ||= {}
     self.storage[key] = {
       key:      key,
+      basename: basename,
       ext:      File.extname(file),
       size:     File.size(file),
-      duration: Avconv.duration(file),
-      start:    Avconv.start(file)
+      duration: duration = Avconv.duration(file),
+      start:    starts = Avconv.start(file).to_i
     }
     # add duration in seconds
-    if dur = storage[key][:duration]
-      h, m, s = dur.split(':').map(&:to_i)
-      self.storage[key][:seconds] = (h * 60 + m) * 60 + s
+    if duration
+      h, m, s = duration.split(':').map(&:to_i)
+      self.storage[key][:seconds] = seconds = (h * 60 + m) * 60 + s
+      self.storage[key][:ends] = starts + seconds
     end
     storage
   end
@@ -554,10 +558,14 @@ class Talk < ActiveRecord::Base
   end
 
   # generically propagate all state changes to faye
-  #
   # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
     PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
+
+    @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag}", 'transitions',
+                         Settings.slack.icon[:transitions])
+    current_state, new_state, event = args
+    @slack.send "#{event} #{id}: #{current_state} -> #{new_state}"
   end
 
   def slug_candidates
@@ -589,6 +597,51 @@ class Talk < ActiveRecord::Base
     s3_client = AWS::S3::Client.new
     s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
     logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
+  end
+
+  ############################################################
+  # from here, shared code with backoffice app
+
+  def generate_flyer?
+    starts_at_changed? or title_changed?
+  end
+
+  def generate_flyer!
+    # NOTE: I'm glad you asked. Yes, this could be delayed with
+    #
+    #     Delayed::Job.enqueue GenerateFlyer.new(id: id), queue: 'audio'
+    #
+    # But it is purposely not, since it's only one flyer at a time and
+    # we want to have it available as soon as the user accesses `talks#show`.
+    #
+    # The BackOffice on the other hand facilitates mass imports, which
+    # can be processed faster when deferring generating the flyer.
+    flyer.generate!
+  end
+
+  def processing_info
+    fragments, first, last = [], nil, nil
+    storage.each do |key, frag|
+      next unless frag[:ext] == '.flv'
+      starts = frag[:start].to_i
+      ends = starts + frag[:seconds]
+      next unless ends > started_at.to_i and starts < ended_at.to_i
+      fragments << File.basename(key)
+      first = starts if first.nil? or starts < first
+      last = ends if last.nil? or ends > last
+    end
+    override = nil
+    override = "OVERRIDE=#{File.basename(recording_override)}" if recording_override?
+    <<-EOS.strip_heredoc
+      STARTED=#{started_at.to_i}
+      ENDED=#{ended_at.to_i}
+      FRAGMENTS=#{fragments.join(' ')}
+      FIRST=#{first}
+      LAST=#{last}
+      TRIM_START=#{first-started_at.to_i}
+      TRIM_END=#{ended_at.to_i-last}
+      #{override}
+    EOS
   end
 
 end

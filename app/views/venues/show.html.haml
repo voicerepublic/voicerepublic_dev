@@ -30,7 +30,7 @@
 
       .row
         .large-12.columns.text-center
-          = link_to_podcast(@venue)
+          = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }
           - if @show_join
             = link_to [@venue, :participations], method: :post, class: 'button-vr button-header' do
               = t('.join_venue')
@@ -91,9 +91,7 @@
             .comment-left-box.left
               =link_to '#user' do
                 .avatar
-                  - img_size = 40
-                  .avatar-image{style: "width:#{img_size}px;height:#{img_size}px"}
-                    = render partial: "shared/avatar_image", locals: { user: current_user, size: img_size }
+                  = render partial: "shared/avatar_image", locals: { user: current_user, size: 40 }
             .comment-right-box
               = simple_form_for [@venue, @venue.comments.build] do |f|
                 = f.input :content, placeholder: t('.write_a_comment')

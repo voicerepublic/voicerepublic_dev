@@ -191,12 +191,6 @@
     }
   }
 
-  #modal-download{
-    ul{
-      display: inline-block;
-    }
-  }
-
   #modal-info{
     background: black;
     color: white;
@@ -303,6 +297,21 @@
         cursor: pointer;
       }
     }
+
+    .button-end-talk{
+      display: block;
+      position: absolute;
+      top: 0;
+      right: -120px;
+      width: 110px;
+      height: 38px;
+      color: $brand-color-red;
+      font-size: rem-calc(16);
+      font-family: 'eaglebook';
+      padding: 7px 10px;
+      background: black;
+      line-height: 1.5;
+    }
   }
 
   .talk-talkers-box{
@@ -336,7 +345,12 @@
         width: 140px;
       }
       .avatar-name{
-        color: white
+        color: white;
+        a{
+          color:inherit;
+          font-family: inherit;
+          font-size: inherit;
+        }
       }
       .avatar-image{
         display: inline-block;
@@ -355,6 +369,60 @@
           cursor: pointer;
           color: white;
         }
+      }
+    }
+    .start-overlay{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #444;
+      .row{
+        margin:0;
+      }
+      .left-text{
+        font-family: 'eaglebook';
+        color:black;
+        display: inline-block;
+        padding-top: 47px;
+      }
+      .button-column{
+        padding-top: 28px;
+        .button-start{
+          display: inline-block;
+          font-family: 'eaglebook';
+          font-size: rem-calc(50);
+          background: $interaction-green;
+          color: white;
+          line-height: 1;
+          padding: 13px 20px 7px 20px;
+          border-radius: 12px;
+          @include box-shadow(0, 0, 10px, rgba(0,0,0,0.5));
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
+          &:hover{
+            @include box-shadow(0, 0, 10px, rgba(0,0,0,0.8));
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px 1px -2px rgba(0,0,0,0.5);
+          }
+        }
+      }
+      .right-text{
+        padding-top: 39px;
+        display: inline-block;
+        color: black;
+        strong{
+          font-family: 'eaglebook';
+          font-weight: normal;
+          display: block;
+        }
+        font-family: 'eaglelight';
+      }
+      .unstarted-message{
+        font-family: 'eaglebook';
+        color: black;
+        padding-top: 47px;
+        font-size: rem-calc(30);
       }
     }
   }
@@ -422,6 +490,43 @@
     position: relative;
     margin-top: 30px;
     margin-bottom: 30px;
+
+    .bandwidth-box{
+      position: absolute;
+      top: -12px;
+      left:0;
+      display: block;
+      padding: 4px 7px 5px 5px;
+      background: rgba(255,255,255,0.85);
+      .info{
+        display: inline-block;
+        color: black;
+        .icon-info{
+          font-size: 33px;
+        }
+      }
+      .upstream-box{
+        display: inline-block;
+        font-size: rem-calc(15);
+        font-family: 'eaglebook';
+        @include transition(color 1s);
+        h3{
+          font-size: rem-calc(12);
+          color: black;
+          margin-bottom: 0;
+        }
+        .icon-upload{
+          font-size: rem-calc(20);
+        }
+        &.good{
+          color: $interaction-green;
+        }
+        &.bad{
+          color: $brand-color-red;
+          @include transition(color 4s);
+        }
+      }
+    }
 
     .background-box{
       display: inline-block;
@@ -531,6 +636,20 @@
           border-bottom-color: #666;
           @include box-shadow(0,0,12px,rgba(0,0,0,0));
           cursor: default;
+          .cancel-link{
+            position: absolute;
+            left: 50%;
+            margin-left: -50px;
+            width: 100px;
+            bottom:-15px;
+            font-family: 'eaglelight';
+            font-size: rem-calc(10);
+            cursor: pointer;
+            color: white;
+            &:hover{
+              text-decoration:underline;
+            }
+          }
         }
         .arrow{
           @include rotate(180);
@@ -683,22 +802,32 @@
     .button-audio-settings{
       position: absolute;
       right: 6px;
-      top: -6px;
+      top: -11px;
       font-family: 'eaglebook';
       font-size: rem-calc(12);
       cursor: pointer;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
       .icon-equalizer{
-        display: block;
+        display: inline-block;
         margin-bottom: 3px;
         font-size: rem-calc(20);
+        background: rgba(0,0,0,0.5);
+        padding: 5px  5px 0 5px;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 3px;
+      }
+      .audio-settings-text{
+        background: rgba(0,0,0,0.5);
+        display: inline-block;
+        padding: 5px;
+        border-radius: 8px
       }
     }
   }
 
   .flash-block{
     position: fixed;
-    z-index: 999;
+    z-index: 998;
     left:0;
     top:0;
     @include opacity(0);
@@ -716,71 +845,130 @@
       position: absolute;
       left:0;
       top:0;
-      background: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.6);
       height: 100%;
       width: 100%;
     }
-    .flash-box{
-      position: relative;
-      top: 50%;
-      margin-top: -85px;
-      min-height:170px;
-      padding: 15px 0;
-      background: #000;
-      overflow: hidden;
-      @include transition('height .4s ease-in-out, padding .4s ease-in-out');
-      .manual-box{
-        display: inline-block;
-        vertical-align: top;
-        color:white;
-        margin-left: 15px;
-        width: 300px;
-      }
-      .flash-manual-title{
-        font-family: 'eaglebook';
-        margin-bottom: 3px;
-        color: $brand-color-yellow;
-        font-size: rem-calc(12);
-        line-height: 1.1
-      }
+  }
 
-      .button-vr{
-        border-color: $brand-color-yellow;
-        color: $brand-color-yellow;
-        font-size: rem-calc(12);
-        padding: 8px 0;
-        min-width: 126px;
-        margin-bottom: 5px;
+  .flash-content{
+    position: absolute;
+    z-index: 999;
+    top: 71px;
+    left: 50%;
+    margin-left: -350px;
+    padding: 15px 0;
+    background: $brand-color-creme;
+    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));
+    color: #333;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    &.state-on{
+      @include opacity(1);
+      @include transition(opacity 0.15s linear);
+      height: auto;
+      width: 700px;
+    }
+    .row{
+      width: 100%;
+      p{
+        font-family: 'eaglelight'
       }
-      .flash-content{
-        margin-bottom: 10px;
+    }
+    .desc-box{
+      color: inherit;
+      h3{
+        color: inherit;
+        margin-bottom: 0;
       }
-      .desc-bold{
-        color: $brand-color-yellow;
+      p{
         font-family: 'eaglebook';
-        font-size: rem-calc(12)
+        margin-bottom: 14px;
       }
-      a{
-        color: $brand-color-yellow;
-        &:hover,&:focus{
-          color: $brand-color-yellow;
+    }
+    .attention-box{
+      color: $brand-color-red;
+      background: white;
+      border: 1px solid $brand-color-red;
+      padding: 12px;
+      display: inline-block;
+      .attention-title{
+        vertical-align: top;
+        margin: 3px 9px 0 0;
+        display: inherit;
+        font-family: 'eaglebook';
+        font-size: rem-calc(16);
+      }
+      .attention-text{
+        display: inherit;
+        font-family: 'eaglelight';
+        font-size: rem-calc(14);
+        margin-bottom: 0;
+      }
+    }
+    .flash-box{
+      .flash-content-box{
+        margin: 10px 0;
+        background: url(/images/flashbox_arrows.png) no-repeat;
+        background-position: center;
+        width: 100%;
+        text-align: center;
+        /* hack for firefox to show flash */
+        object#Blackbox {
+          width: 215px;
+          height: 140px;
+          @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+          border: 3px solid green;
+          @include box-sizing(padding-box);
+          height: 146px;
+          width: 221px;
         }
       }
-      .close-x{
-        position: absolute;
-        right: 8px;
-        top: 8px;
+    }
+    .manual-box{
+      background: rgba(255,255,255,0.5);
+      color:white;
+      @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.1), inset);
+      .flash-howto-title{
+        font-family: 'eaglebook';
+        margin: 12px 0;
+        color: rgba(0,0,0,0.5);
         font-size: rem-calc(14);
-        cursor: pointer;
+        line-height: 1.1
+      }
+      li{
+        padding: 0;
+      }
+      p{
+        padding-top: 6px;
+        font-family: 'eaglebook';
+        font-size: rem-calc(12);
+        color: $interaction-green ;
+        margin-bottom: 4px
       }
     }
+    .link-tutorial{
+      p{
+        font-family: 'eaglelight';
+        margin: 15px 0 0 0;
+        .desc-bold{
+          font-family: 'eaglebook';
+          color: rgba(0,0,0,0.6);
+        }
+      }
+    }
+    .close-x{
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      font-size: rem-calc(14);
+      cursor: pointer;
+      color: black;
+    }
+
   }
 
-  .modal-download{
-    ul{
-      display: inline-block !important
-    }
-  }
   .button-join-discussion{
     width: 100%;
     background: $brand-color-green;
@@ -1054,6 +1242,11 @@
               }
               td{
                 vertical-align: center;
+                a{
+                  font-size: inherit;
+                  color: inherit;
+                  font-family: inherit;
+                }
               }
             }
           }
@@ -1167,44 +1360,9 @@
     right: -220px;
     top: 0;
     width: 210px;
-    .generic-actions-box{
-      margin-top: 30px;
-      margin-bottom: 20px;
-      .action-toggle{
-        height: 38px;
-        width: 38px;
-        position: relative;
-        display: block;
-        margin-bottom: 3px
-      }
-      .icon-cog{
-        color: $brand-color-red;
-        font-size: rem-calc(18);
-        height:100%;
-        width: 100%;
-        padding: 11px 10px 7px 10px;
-        display: block;
-        background: black;
-      }
-      #action-links-list{
-        overflow: hidden;
-        &.hide{
-          height:0;
-        }
-        li{
-          display: block;
-          margin-top: 2px;
-          a{
-            color: $brand-color-red;
-            font-size: rem-calc(16);
-            font-family: 'eaglebook';
-            height: 38px;
-            padding: 7px 10px;
-            display: block;
-            background: black;
-          }
-        }
-      }
+    text-align: left;
+    .button-edit-talk{
+      margin: 32px 0 15px 0;
     }
     .related-talk{
       width: 100%;
@@ -1353,5 +1511,16 @@
     font-size: rem-calc(19);
     padding:19px 0 11px;
     width: 100%;
+  }
+}
+
+#modal-bandwidth{
+  width: 300px;
+  margin-left: -150px;
+  p{
+    .audio-settings-link{
+      color: $brand-color-green;
+      cursor: pointer;
+    }
   }
 }

@@ -13,6 +13,12 @@ GIT
       activesupport (>= 3.1)
       arel
 
+GIT
+  remote: git://github.com/troessner/transitions.git
+  revision: eeb39628df090d7e93b2aa85343662094fdb3c14
+  specs:
+    transitions (0.1.12)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -396,7 +402,6 @@ GEM
     timecop (0.5.9.2)
     timers (1.1.0)
     tins (1.0.0)
-    transitions (0.1.12)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -495,7 +500,7 @@ DEPENDENCIES
   therubyracer
   thin
   timecop
-  transitions
+  transitions!
   uglifier
   unicorn
   vcr (= 2.8.0)

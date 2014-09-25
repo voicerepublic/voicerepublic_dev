@@ -74,6 +74,6 @@
 
 
 :javascript
+  window.unprocessed_upload = #{t('.unprocessed_upload').inspect};
   window.talk_uuid = "#{SecureRandom.uuid}";
-  window.talk_upload_url = "#{@presigned_s3_post_url}"
-  window.unprocessed_upload = "#{I18n.t('.unprocessed_upload')}"
+  window.talk_upload_url = "#{@presigned_s3_post_url}";

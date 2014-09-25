@@ -36,6 +36,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
   uploader.onErrorItem = (fileItem, response, status, headers) ->
     $log.error "Uploading failed: " + JSON.stringify(response)
     $scope.audioUploadFailed = true
+    deactivateSafetynet()
 
   uploader.onCompleteAll = ->
     # Set the talk UUID, so that the backend knows to expect a talk that has

@@ -11,7 +11,7 @@ en:
         notice: "Successfully deleted"
         alert: "Cannot be deleted"
   require_flash: |
-    <center>To listen to the live stream, you need a device that runs Flash Version 11 or never. Every other part of this application is Flash free.</center>
+    <center>To either listen to a live talk or stream yourself, you need a device that runs Flash Version 11 or never. Every other part of this application is Flash free.</center>
     <br/>
     <center>Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.</center>
     <br/>
@@ -308,7 +308,8 @@ en:
       edit_user: Edit Profile
       about: About
       venues: Series
-      reminders: Reminders
+      reminders: Listen later
+      no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -550,6 +551,9 @@ en:
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
+    hide_for_anon:
+      redirect_text: |
+        Please sign up or login to use this feature.
     actionbar:
       login: Log In
       sign_up: Sign Up
@@ -612,12 +616,20 @@ en:
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
       delete_venue: Delete Series
+    facebook_value_template:
+      join_the_venue: Join the Series
     venue_list: Series
     new_venue: Create Series
     show:
+      subscribe_to_podcast: Subscribe to podcast
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
+      subscribe_to_podcast: Subscribe to podcast
+      redirect_text: |
+        Please sign up or login to use this feature.
+      login: Login
+      signup: Sign up
       feed_title: "VR - %{title}"
       title: "%{title} - Voice Republic"
       by: by
@@ -625,6 +637,7 @@ en:
       duration: Duration
       past_venue: Past Series
       join_venue: SUBSCRIBE TO Series!
+      create_new_talk: Create Talk
       leave_venue: Unsubscribe from Series
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit Series
@@ -788,24 +801,34 @@ en:
       ends_in: ENDS IN
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
-      flash_manual_title: YOU HAVE REQUESTED THE MICROPHONE - YOU NEED TO CHECK YOUR CONFIGURATION FIRST
-      audio_settings_flash_manual: <span class="desc-bold">CLICK ALLOW IN THE BOX TO THE LEFT</span> to activate your microphone<br />
-      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       mute_streams: mute
       unmute_streams: unmute
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
       stage: STAGE
-      speakers: SPEAKERS
+      speakers:
+        one: SPEAKER
+        other: SPEAKERS
       padding: 0 0 9px 0;
       request_mic: REQUEST MIC
       awaiting_mic_request: AWAITING MIC REQUEST
+      cancel: CANCEL
       talk_invitation: TALK INVITATION!
       accept_promotion: ACCEPT
       decline_promotion: DECLINE
       promote: GIVE THE MIC
       demote: "&times;"
       dismiss: Dismiss from stage
+      bandwidth_tooltip: |
+        <p><strong>While you are speaking</strong>, the number should be above 16KB/s.<br />
+        Should the number be smaller over time, the stream could be interrupted.<br /><br />
+
+        <strong>HELP:</strong><br />
+        - Check <span class="audio-settings-link" ng-click='toggleShowSettings()'>Audio Settings</span><br />
+        - Check your internet connection<br />
+        (Connection problems can interrupt the stream!)</p>
+
+      you_are_streaming_with: "You are streaming with:"
       prelive_text: YOU ARE ON PRIVATE PRESTREAM
       prelive_tooltip: Only the host and invited guests can hear each other
       you_are_on_air: YOU ARE ON AIR!
@@ -819,12 +842,28 @@ en:
       awaiting_to_speak: Awaiting to speak
       participating: Participating
       just_listening_in: Just listening in
-      remember: Remember
+      remember: Listen later
       send_card: Send Card
       download_flyer: Download
       show_all_information: Show all information
       discussion: DISCUSSION
       description: ABOUT
+
+      # MIC ACTIVATION
+      activate_your_microphone: ACTIVATE YOUR MICROPHONE
+      info_text: Please allow Voice Republic to access your microphone.
+      attention: ATTENTION!
+      attention_text: |
+        If the box underneath is white: <br />
+        1. PC: Right-click into the white box <br />
+        1. MAC: Press 'control' + and click into the white box <br />
+        2. Select Settings
+
+      how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
+      click_allow: CLICK ALLOW
+      choose_mic_tab: CHOOSE MIC TAB
+      choose_mic_input: CHOOSE MIC INPUT
+      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       more: Show more
       less: Show less
       initializing: Initializing
@@ -836,8 +875,13 @@ en:
       embed: Embed
       embed_player: Embed Player
       more_talks_title: MORE FROM THIS USER
-      edit_talk: Edit Talk
-      end_talk: Stop Talk
+      edit_talk: EDIT TALK
+      start_text_top: Click START when the speaker begins.
+      start: START
+      start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
+      unstarted_message: THE SPEAKER HAS NOT STARTED YET
+      audio_settings: Audio settings
+      end_talk: END TALK
       banner_title: WHAT IS VOICE REPUBLIC?
       banner_text: |
         Voice Republic is a tool for the creation and distribution of audio content on the Internet.
@@ -854,6 +898,10 @@ en:
       invite_to_stage: INVITE TO STAGE
       anonymous_listener: ANONYMOUS LISTENER
       more_talks: RECOMMENDED TALKS
+      login: Login
+      signup: Sign up
+      redirect_text: |
+        Please sign up or login to use this feature.
 
     new:
       title: "VR New Talk"
