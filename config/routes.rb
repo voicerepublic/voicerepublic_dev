@@ -14,7 +14,7 @@ VoiceRepublic::Application.routes.draw do
       resources :talks, only: [:index]
     end
   end
-  
+
   post '/search',              to: 'search#create'
   get  '/search/:page/*query', to: 'search#show'
 
@@ -50,7 +50,7 @@ VoiceRepublic::Application.routes.draw do
   end
 
   resources :reminders, only: [:destroy]
-  
+
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"
   end

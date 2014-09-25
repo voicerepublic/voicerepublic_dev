@@ -52,10 +52,10 @@ GEM
     airbrake (3.1.15)
       builder
       multi_json
+    angularjs-file-upload-rails (1.1.0)
     annotator (0.0.10)
       activerecord (>= 3.0)
     arel (4.0.1)
-    atomic (1.1.16)
     auphonic (0.1.0)
       faraday
     bcrypt-ruby (3.1.2)
@@ -213,7 +213,7 @@ GEM
     hike (1.2.3)
     http_parser.rb (0.6.0)
     httpauth (0.2.0)
-    i18n (0.6.9)
+    i18n (0.6.11)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -252,7 +252,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
-    multi_json (1.9.2)
+    multi_json (1.10.1)
     multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
@@ -318,7 +318,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.12.0)
-    rake (10.1.1)
+    rake (10.3.2)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.3)
       ffi (>= 0.5.0)
@@ -391,9 +391,8 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
-    thor (0.18.1)
-    thread_safe (0.3.1)
-      atomic (>= 1.1.7, < 2)
+    thor (0.19.1)
+    thread_safe (0.3.4)
     tilt (1.4.1)
     timecop (0.5.9.2)
     timers (1.1.0)
@@ -401,7 +400,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    tzinfo (0.3.39)
+    tzinfo (0.3.41)
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -432,6 +431,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (= 3.0.1)
   airbrake
+  angularjs-file-upload-rails (~> 1.1.0)
   annotator
   auphonic
   better_errors

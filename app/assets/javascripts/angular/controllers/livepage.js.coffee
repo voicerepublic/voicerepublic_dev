@@ -101,7 +101,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # returns list of (anonymous) users listening
   $scope.listeners = session.listeners
-  
+
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion
 
@@ -194,4 +194,4 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
   'session', 'blackbox', 'util', '$window']
-Livepage.controller 'Livepage', livepageFunc
+window.Sencha.controller 'Livepage', livepageFunc

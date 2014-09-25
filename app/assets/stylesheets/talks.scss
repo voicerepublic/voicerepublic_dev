@@ -2,6 +2,33 @@
 .talks-create,
 .talks-edit,
 .talks-update{
+  .progress .meter {
+    width: 0%;
+    font-size: 12pt;
+    font-weight: bold;
+  }
+
+  .highlight-supported-files, #audio_upload_error {
+    background-color: crimson;
+    transition: background-color 1000ms linear;
+    -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    color: black;
+    font-weight: bold;
+  }
+
+  div[nv-file-over] {
+    width: 200px;
+    height: 50px;
+    background: lightgrey;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 16px;
+    color: black;
+    margin: 20px 0px 20px 0px;
+  }
 
   input[type="checkbox"]{
     margin-right:5px !important
@@ -277,13 +304,13 @@
       top: 0;
       right: -120px;
       width: 110px;
-      height: 38px;      
+      height: 38px;
       color: $brand-color-red;
       font-size: rem-calc(16);
       font-family: 'eaglebook';
       padding: 7px 10px;
       background: black;
-      line-height: 1.5; 
+      line-height: 1.5;
     }
   }
 
@@ -323,7 +350,7 @@
           color:inherit;
           font-family: inherit;
           font-size: inherit;
-        }        
+        }
       }
       .avatar-image{
         display: inline-block;
@@ -397,7 +424,7 @@
         padding-top: 47px;
         font-size: rem-calc(30);
       }
-    }    
+    }
   }
 
   .talk-more-talks-box{
@@ -470,7 +497,7 @@
       left:0;
       display: block;
       padding: 4px 7px 5px 5px;
-      background: rgba(255,255,255,0.85);      
+      background: rgba(255,255,255,0.85);
       .info{
         display: inline-block;
         color: black;
@@ -593,7 +620,7 @@
           color: white;
           border: 1px solid #ddd;
           border-bottom-color: #aaa;
-          @include box-shadow(0,0,12px,rgba(0,0,0,1));         
+          @include box-shadow(0,0,12px,rgba(0,0,0,1));
         }
       }
 
@@ -622,7 +649,7 @@
             &:hover{
               text-decoration:underline;
             }
-          }           
+          }
         }
         .arrow{
           @include rotate(180);
@@ -832,23 +859,23 @@
     margin-left: -350px;
     padding: 15px 0;
     background: $brand-color-creme;
-    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));      
+    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));
     color: #333;
     height: 0;
     width: 0;
-    overflow: hidden;    
+    overflow: hidden;
     &.state-on{
       @include opacity(1);
       @include transition(opacity 0.15s linear);
       height: auto;
       width: 700px;
-    }    
+    }
     .row{
       width: 100%;
       p{
         font-family: 'eaglelight'
       }
-    }      
+    }
     .desc-box{
       color: inherit;
       h3{
@@ -879,7 +906,7 @@
         font-size: rem-calc(14);
         margin-bottom: 0;
       }
-    } 
+    }
     .flash-box{
       .flash-content-box{
         margin: 10px 0;
@@ -895,8 +922,8 @@
           border: 3px solid green;
           @include box-sizing(padding-box);
           height: 146px;
-          width: 221px;            
-        }          
+          width: 221px;
+        }
       }
     }
     .manual-box{
@@ -930,7 +957,7 @@
           color: rgba(0,0,0,0.6);
         }
       }
-    }      
+    }
     .close-x{
       position: absolute;
       right: 8px;
@@ -940,7 +967,7 @@
       color: black;
     }
 
-  }  
+  }
 
   .button-join-discussion{
     width: 100%;

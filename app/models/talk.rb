@@ -114,6 +114,26 @@ class Talk < ActiveRecord::Base
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
 
+  # Begin 'user audio upload'
+  after_save -> { delay(queue: 'audio').user_override! },
+             if: ->(t) { t.user_override_uuid_changed? and
+                           !t.user_override_uuid.to_s.empty? }
+  before_save  -> { self.state = :postlive },
+               if: ->(t) { t.user_override_uuid_changed? and
+                           !t.user_override_uuid.to_s.empty? }
+  validates_each :starts_at_date, :starts_at_time do |record, attr, value|
+    # guard against submissions where no upload occured or no starts_at
+    # attributes have been given
+    unless record.user_override_uuid.to_s.empty? or
+      record.starts_at_time.to_s.empty? or
+      record.starts_at_date.to_s.empty?
+      if Time.zone.parse([record.starts_at_date, record.starts_at_time] * ' ') > DateTime.now
+        record.errors.add attr, 'needs to be in the past'
+      end
+    end
+  end
+  # End 'user audio upload'
+
   serialize :session
   serialize :storage
 
@@ -550,6 +570,33 @@ class Talk < ActiveRecord::Base
 
   def slug_candidates
     [ :title, [:id, :title] ]
+  end
+
+  # Gets triggered when a user has uploaded an override file
+  def user_override!
+    logger.info "Talk #{id} override: Starting user_override! with uuid: #{user_override_uuid}"
+    # Request public URL from S3
+    s3 = AWS::S3.new
+    bucket = s3.buckets[Settings.talk_upload_bucket]
+    # TODO: Check if there is a more efficient way of accessing the required
+    # object
+    obj = bucket.as_tree.children.select(&:leaf?).collect(&:object).collect do |o|
+      o if o.key == user_override_uuid
+    end.compact.first
+
+    # Save public URL in override field
+    update_attribute :recording_override, obj.public_url.to_s
+    logger.info "Talk #{id} override: Retrieved S3 public URL: #{recording_override}"
+
+    # user_override! is already running delayed, so no need to delay
+    # process_override! itself. Also allows to delete the user audio override
+    # directly after process_override! is complete.
+    logger.info "Talk #{id} override: Starting process_override!"
+    process_override!
+
+    s3_client = AWS::S3::Client.new
+    s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
+    logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
   end
 
   ############################################################

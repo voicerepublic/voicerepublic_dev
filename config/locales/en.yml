@@ -913,8 +913,20 @@ en:
       select_image: Background image
       record: Record
     fields:
+      audio_upload: "Import your audio file"
+      drop_files_here: "Drop files here"
+      upload: Upload
+      cancel: Cancel
+      remove: Remove
+      upload_failed: Audio upload failed. Please try reloading the page and try again.
+      supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+      unprocessed_upload: |
+        Please click 'Save' to start processing your uploaded audio file.
+        Your upload will be lost unless you press 'Save'.
+      drop_file_not_supported: "HTML5 Drop File is not supported!"
       talks_description: Tell your audience a little more
       title: Title
+      required: required
       teaser: Teaser
       tag_list: Tag list
     index:
