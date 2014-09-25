@@ -4,35 +4,47 @@
 - content_for :title do
   = t('.title', username: @user.name)
 
-.header-box.row
-  .large-12.columns.text-center
-    .avatar-box
-      .avatar
-        = render partial: "shared/avatar_image", locals: { user: @user, size: 120 }
-        %h2.user-name= @user.name
-    .info-links-box
-      %ul.anker-links.small-block-grid-3
-        %li Talks
-        %li Series
-        %li Listen later
-      - if can? :manage, @user
-        %ul.action-links.small-block-grid-2
-          -# TODO correct link
-          %li
-            =link_to '#' do
-            %span.icon-mic
-            = t('.create_new_talk')
-          -# TODO correct link
-          %li
-            =link_to '#' do
-            %span.icon-download
-            = t('.upload_talk')
-      - else
-        %ul.action-links.small-block-grid-1
-          %li= link_to_podcast(@user)
+.header-box.row.collapse
+  .large-12.columns
+    .align-box
+      .avatar-box
+        .avatar
+          = render partial: "shared/avatar_image", locals: { user: @user, size: 185 }
+          %h2.user-name= @user.name
+
+      .info-links-box>
+        .info-box
+          Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Sed posuere consectetur est at lobortis.        
+        .links-box
+          %ul.anker-links.list-style-type-none>
+            -# TODO talk counter
+            %li
+              .text= t('.talks', count: 1)          
+            %li>
+              = link_to "#series" do
+                = t('.venues', count: @user.venues.count)
+            %li
+              = link_to '#listen-later' do
+                = @user.reminders.count
+                = t('.listen_later')
+          - if can? :manage, @user
+            %ul.action-links
+              -# TODO correct link
+              %li
+                =link_to '#' do
+                  %span.icon-mic
+                  = t('.create_new_talk')
+              -# TODO correct link
+              %li>
+                =link_to '#' do
+                  %span.icon-download
+                  = t('.upload_talk')
+          - else
+            %ul.action-links
+              %li= link_to_podcast(@user)
     
-    - if can? :manage, @user
-      = link_to t('.edit_user'), [:edit, @user], class: 'link-edit'
+  - if can? :manage, @user
+    = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'
 
 - unless @live_talks.empty?
   .live-talks-box.row.collapse-large-only
@@ -62,14 +74,14 @@
       = link_to t('.more'), '#', class: 'link-more'
 
 - unless @user.reminders.empty?
-  .user-series-box.row.collapse-large-only
+  #listen-later.user-listenlater-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.listen_later', count: @user.reminders.count)
       %ul.medium-block-grid-3.small-block-grid-1
         = render partial: 'shared/reminder', collection: @user.reminders
 
 - unless @user.venues.empty?
-  .user-series-box.row.collapse-large-only
+  #series.user-series-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.venues', count: @user.venues.count)
       %ul.medium-block-grid-2
@@ -79,4 +91,4 @@
   .large-12.columns
     .align-box
       %h3= t('.description')
-      = @user.about.html_safe
+      = raw @user.about

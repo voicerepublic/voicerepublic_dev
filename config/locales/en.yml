@@ -305,9 +305,17 @@ en:
         subtitle: "Podcast provided by Voice Republic"
       feed_title: "VR - %{username}"
       title: "%{username} - Voice Republic"
+      edit_profile: Edit Profile
+      talks:
+        one: 1 Talk
+        other: '%{count} Talks'
+      venues:
+        one: 1 Series
+        other: '%{count} Series'
+      create_new_talk: Create new Talk
+      upload_talk: Upload Talk
       edit_user: Edit Profile
       about: About
-      venues: Series
       reminders: Listen later
       no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
   controller_accounts:

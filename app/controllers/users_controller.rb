@@ -31,7 +31,11 @@ class UsersController < BaseController
   def show
     @user = User.find(params[:id])
     respond_to do |format|
-      format.html
+      format.html do
+        @upcoming_talks = ''
+        @archived_talks = ''
+        @live_talks = ''
+      end
       format.rss do
         talks = Talk.joins(:venue).archived.where('venues.user_id' => @user.id).ordered
         @podcast = OpenStruct.new(talks: talks)
