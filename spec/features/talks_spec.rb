@@ -29,7 +29,8 @@ describe 'TalksController' do
         page.should have_selector(".talks-recent")
       end
       it 'new on GET /talks/new' do # new
-        expect { visit '/talks/new' }.to raise_error(ActionController::RoutingError)
+        visit '/talks/new'
+        page.should have_selector(".talks-new")
       end
     end
     describe 'with talk' do
