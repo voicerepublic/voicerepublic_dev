@@ -2,7 +2,7 @@ class TalksController < BaseController
 
   include OnTheFlyGuestUser
 
-  before_action :set_venue, except: [:index, :popular, :live, :recent,
+  before_action :set_venue_and_user, except: [:index, :popular, :live, :recent,
     :featured, :upcoming]
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
@@ -63,7 +63,7 @@ class TalksController < BaseController
 
   # GET /talks/new
   def new
-    @talk = Talk.new
+    @talk = Talk.new( venue: @venue )
   end
 
   # GET /talks/1/edit
@@ -73,6 +73,14 @@ class TalksController < BaseController
   # POST /talks
   def create
     @talk = Talk.new(talk_params)
+
+    # TODO: transaction
+    if @venue.new_record?    # it's a new default_venue
+      @venue.user = @user
+      @venue.save
+      @user.save             # because its default_venue has been set
+    end
+
     @talk.venue = @venue
 
     authorize! :create, @talk
@@ -104,8 +112,25 @@ class TalksController < BaseController
 
   private
 
-  def set_venue
-    @venue = Venue.find(params[:venue_id])
+  # We enter the Talks controller via one of the following routes:
+  # * users/id/talk/...
+  # * venues/id/talk/...
+  # and thus either venue- or user_id have to be set
+  def set_venue_and_user
+    # TODO: throw exception, if both ids are unknown <- create test for this
+    if params[:user_id].nil?      # venue_id is set
+      @venue = Venue.find(params[:venue_id])
+      @user = @venue.user
+      set_default_venue(@user)
+      @came_in_via = :venue
+    elsif params[:venue_id].nil?  # user_id is set, no venue is set
+      @user = User.find(params[:user_id])
+      set_default_venue(@user)
+      @venue = @user.default_venue
+      @came_in_via = :user
+    else
+      raise Exception, "Entered Talks controller via an unknown path"
+    end
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -122,4 +147,13 @@ class TalksController < BaseController
                                  :format)
   end
 
+  def set_default_venue( user )
+    user.default_venue ||= Venue.new(
+      title:       "My Talks",
+      teaser:      "various talks",
+      description: "Various talks, that don't belong to any particular series",
+      tag_list:    "default"
+    )
+    user.venues.build( user.default_venue.attributes ) # don't save into venues yet!
+  end
 end

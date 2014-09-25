@@ -22,6 +22,11 @@
       = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@user) }
       %br/
       %br/
+  - if can? :manage, @user
+    -# create-talk class is user to find the element in tests
+    = link_to new_user_talk_path(@user), class: 'button-vr button-header create-talk' do
+      %span.icon-description
+        = t('.create_a_talk_now')
   .row.collapse-large-only
     .large-12.columns.text-center
       %dl.tabs.vr-tabs(data-tab='true')

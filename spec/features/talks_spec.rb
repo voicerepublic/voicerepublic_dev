@@ -4,6 +4,14 @@ require 'spec_helper'
 describe 'TalksController' do
   describe 'renders' do
     describe 'without talk' do
+      # the following will be required for the pending specs
+      #     'should fail on new on GET /users/*/talks/new'
+      #     'should fail on new on GET /venues/*/talks/new'
+      #
+      # before(:all) do
+      #   @user  = FactoryGirl.create(:user)
+      #   @venue = FactoryGirl.create(:venue, user: @user)
+      # end
       it 'index on GET /talks' do # index
         visit '/talks'
         page.should have_selector(".talks-index")
@@ -28,8 +36,16 @@ describe 'TalksController' do
         visit '/talks/recent'
         page.should have_selector(".talks-recent")
       end
-      it 'new on GET /talks/new' do # new
+      it 'should fail on new on GET /talks/new' do # new
         expect { visit '/talks/new' }.to raise_error(ActionController::RoutingError)
+      end
+      it 'should fail on new on GET /users/*/talks/new' do # new
+        pending "Not implemented yet - see #79110826"
+        expect { visit "/users/#{@user.id}/talks/new" }.to raise_error(ActionController::RoutingError)
+      end
+      it 'should fail on new on GET /venues/*/talks/new' do # new
+        pending "Not implemented yet - see #79110826"
+        expect { visit "/venues/#{@venue.id}/talks/new" }.to raise_error(ActionController::RoutingError)
       end
     end
     describe 'with talk' do
@@ -256,7 +272,8 @@ describe "Talks as logged in user" do
       find('#talk_starts_at_date').value.should eq(Date.today.strftime "%Y-%m-%d")
       find('#talk_starts_at_time').value.should eq(Time.now.strftime "%H:%M")
     end
-    it 'creates a new talk', driver: :chrome do
+
+    it 'can create a new talk in a venue', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_venue_talk_path(venue)
 
@@ -273,6 +290,53 @@ describe "Talks as logged in user" do
       click_button 'Save'
       page.should have_selector('.talks-show')
       page.should have_content('spec talk title')
+    end
+
+    it 'can create a new talk in the not yet existing default venue', driver: :chrome do
+      @user.default_venue.should be_nil
+      visit new_user_talk_path(@user)
+      page.should have_selector('.venueSelect')
+
+      fill_in :talk_title, with: 'spec talk title'
+      fill_in :talk_teaser, with: 'spec talk teaser'
+      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
+      # fill in tags
+      fill_in 's2id_autogen3', with: 'a,b,c,'
+      fill_in 'talk_starts_at_date', with: '2014-04-29'
+      fill_in 'talk_starts_at_time', with: '05:12'
+
+      click_button 'Save'
+      page.should have_selector('.talks-show')
+      page.should have_content('spec talk title')
+      @user.reload # @user.default_venue should have been modified by now...
+      @user.default_venue.should_not be_nil
+    end
+
+    it 'can create a new talk in the existing default venue', driver: :chrome do
+      # prepare default venue
+      @venue = FactoryGirl.create(:venue, user: @user, title: "My Talks")
+      @user.default_venue = @venue
+      @user.save
+
+      visit new_user_talk_path(@user)
+
+      fill_in :talk_title, with: 'spec talk title'
+      fill_in :talk_teaser, with: 'spec talk teaser'
+      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
+      # the text with Capybara. jQuery to the rescue.
+      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
+      # fill in tags
+      fill_in 's2id_autogen3', with: 'a,b,c,'
+      fill_in 'talk_starts_at_date', with: '2014-04-29'
+      fill_in 'talk_starts_at_time', with: '05:12'
+
+      click_button 'Save'
+      page.should have_content('spec talk title')
+      @user.reload
+      # there should still only be the previously created default venue
+      @user.venues.count.should be(1)
     end
 
     it 'shows validation errors', driver: :chrome do

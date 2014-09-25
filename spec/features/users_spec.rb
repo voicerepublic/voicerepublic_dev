@@ -43,6 +43,31 @@ feature "Anonymous users", js: true do
   end
 end
 
+feature "Ability to create talks", js: true do
+  background do
+    @user1 = FactoryGirl.create(:user, password: '123456',
+                                password_confirmation: '123456')
+    @user2 = FactoryGirl.create(:user)
+  end
+
+  scenario "Anonymous user visits a user page" do
+    visit user_path(@user1)
+    page.should_not have_selector(".create-talk")
+  end
+
+  scenario "User logs in" do
+    visit root_path
+    page.find("a[data-link*=login]").click
+    page.fill_in 'user_login', with: @user1.email
+    page.fill_in 'user_password', with: '123456'
+    page.click_button 'Log In'
+    visit user_path(@user1)
+    page.should have_selector(".create-talk")
+    visit user_path(@user2)
+    page.should_not have_selector(".create-talk")
+  end
+end
+
 feature "User edits own profile", js: true do
   background do
     @user = FactoryGirl.create(:user, password: '123456',
