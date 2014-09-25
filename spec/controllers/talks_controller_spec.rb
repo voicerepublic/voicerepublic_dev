@@ -125,6 +125,8 @@ describe TalksController do
     it 'talk has attached tags after creation' do
       Talk.count.should be(2) # @talk & @talk_2
       post :create, { venue_id: @venue.id, talk: valid_attributes }
+      assigns(:talk).venue_id.should_not be_nil
+      assigns(:talk).errors.to_a.should eq([])
       Talk.all[2].tag_list.should_not be_empty
     end
   end

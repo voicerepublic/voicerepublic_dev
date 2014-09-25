@@ -109,7 +109,7 @@ class TalksController < BaseController
                                  :starts_at_time, :duration,
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
-                                 :format, :new_venue_title)
+                                 :format, :new_venue_title, :venue_id)
   end
 
 end
