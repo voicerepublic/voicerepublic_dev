@@ -33,14 +33,7 @@ VoiceRepublic::Application.routes.draw do
 
   # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
-  resources :talks
-
-  resources :venues do
-    resources :comments, only: [:create]
-    resources :participations, only: [:index, :create, :destroy]
-  end
-
-  resources :talks, only: [:index] do
+  resources :talks do
     collection do
       get :live
       get :popular
@@ -49,6 +42,11 @@ VoiceRepublic::Application.routes.draw do
       get :upcoming
     end
     resources :reminders, only: [:create]
+  end
+
+  resources :venues do
+    resources :comments, only: [:create]
+    resources :participations, only: [:index, :create, :destroy]
   end
 
   resources :reminders, only: [:destroy]

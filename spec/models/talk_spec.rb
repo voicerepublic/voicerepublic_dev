@@ -191,7 +191,7 @@ describe Talk do
   # TODO resolve code duplication in this section
   describe 'nicely processes audio' do
 
-    it 'in state postlive' do
+    it 'in state postlive', slow: true do
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -220,7 +220,7 @@ describe Talk do
       expect(File.exist?(result)).to be_true
     end
 
-    it 'in state archived' do
+    it 'in state archived', slow: true do
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -253,7 +253,7 @@ describe Talk do
       expect(File.ctime(result)).not_to eq(ctime)
     end
 
-    it 'in state archived with override' do
+    it 'in state archived with override', slow: true do
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
