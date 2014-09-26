@@ -34,7 +34,7 @@ describe VenuesController do
   def invalid_attributes
     { asdf: 'asdf' }
   end
-  
+
   def valid_session
     {}
   end
@@ -44,7 +44,7 @@ describe VenuesController do
       venue = FactoryGirl.create(:venue)
       #FactoryGirl.create(:event, venue: venue, start_time: 1.day.from_now)
       get :index, {}, valid_session
-      assigns(:venues).should eq([venue])
+      assigns(:venues).should =~ Venue.all
     end
   end
 
