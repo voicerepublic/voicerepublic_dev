@@ -332,6 +332,10 @@ en:
         zero: No Archived Talks
         one: 1 Archived Talk
         other: '%{count} Archived Talks'      
+      listen_later:
+        zero: ""
+        one: 1 Listen later
+        other: '%{count} Listen later'              
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created

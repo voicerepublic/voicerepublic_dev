@@ -33,8 +33,7 @@
                 = t('.venues', count: @user.venues.count)
             %li
               = link_to '#listen-later' do
-                = @user.reminders.count
-                = t('.listen_later')
+                = t('.listen_later', count: @user.reminders.count)
           - if can? :manage, @user
             %ul.action-links
               -# TODO correct link
@@ -85,7 +84,7 @@
       = link_to t('.more'), '#', class: 'link-more'
 
 - unless @user.reminders.empty?
-  #listen-later.user-listenlater-box.row.collapse-large-only
+  #listen-later.listen-later-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.listen_later', count: @user.reminders.count)
       %ul(class="#{talks_grid(@user.reminders)}")
