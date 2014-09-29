@@ -41,10 +41,11 @@
   .action-links.large-6.medium-6.columns
     .align-box
       - if can? :manage, @venue
-        = link_to new_venue_talk_path(@venue) do
+
+        = link_to new_talk_path(talk: { venue_id: @venue.id }) do
           %span.icon-mic
           = t('.create_new_talk')
-        = link_to new_venue_talk_path(@venue) do
+        = link_to new_talk_path(talk: { venue_id: @venue.id }) do
           %span.icon-download
           = t('.upload_talk')
       - else
@@ -75,7 +76,6 @@
   .upcoming-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-
       %ul.list-style-type-none
         -# TODO show only the first 3
         = render partial: 'shared/talk_medium_box', collection: @upcoming_talks

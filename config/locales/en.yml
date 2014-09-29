@@ -634,7 +634,6 @@ en:
       back_to_profile: back to Profile
       create_new_talk: Create new Talk    
       upload_talk: Upload Talk
-      title: "%{title} - Voice Republic"
       by: by
       start_date: Begin
       duration: Duration
