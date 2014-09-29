@@ -67,7 +67,7 @@ module VoiceRepublic
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
     config.assets.paths << "#{config.root}/app/assets/fonts"
     # config.assets.precompile += %w( *.js *.png *.jpg *.eot *.woff *.ttf *.svg )
-    config.assets.precompile += %w( livepage.js embed_talk.js )
+    config.assets.precompile += %w( sencha.js embed_talk.js )
 
     config.assets.precompile += %w( embed_talk.css )
 
@@ -78,4 +78,3 @@ module VoiceRepublic
     config.exceptions_app = self.routes
   end
 end
-

@@ -48,8 +48,8 @@
           %h2= t('.audio_upload')
           %div{'ng-class' => "{'highlight-supported-files': addingFailed}"}
             = t('.supported_filetypes')
-        .well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
-          = t('.drop_files_here')
+        -# .well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
+        -#   = t('.drop_files_here')
       %input{:multiple => "single", "nv-file-select" => "", :type => "file", :uploader => "uploader"}/
       %ul
         -# The queue for us is only '1', but iteration is still needed, since

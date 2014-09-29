@@ -113,7 +113,7 @@ class Talk < ActiveRecord::Base
   attr_accessor :venue_user
   attr_accessor :new_venue_title
 
-  before_save :create_and_set_venue, if: :new_venue_title
+  before_save :create_and_set_venue, if: ->(t) { !t.new_venue_title.blank? }
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
