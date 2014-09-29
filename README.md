@@ -165,6 +165,7 @@ Run Rspec with Zeus
 
     sudo npm install -g karma
     sudo npm install -g karma-ng-scenario
+    sudo npm install -g coffee-script --save-dev
     karma start spec/javascripts/livepage.conf.js.coffee
 
 
