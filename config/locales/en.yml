@@ -551,6 +551,9 @@ en:
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
+    hide_for_anon:
+      redirect_text: |
+        Please sign up or login to use this feature.
     actionbar:
       login: Log In
       sign_up: Sign Up
@@ -618,9 +621,22 @@ en:
     venue_list: Series
     new_venue: Create Series
     show:
+<<<<<<< HEAD
       back_to_profile: back to Profile
       create_new_talk: Create new Talk    
       upload_talk: Upload Talk
+=======
+      subscribe_to_podcast: Subscribe to podcast
+      podcast:
+        title: "VR: %{title}"
+        subtitle: "Podcast provided by Voice Republic"
+      subscribe_to_podcast: Subscribe to podcast
+      redirect_text: |
+        Please sign up or login to use this feature.
+      login: Login
+      signup: Sign up
+      feed_title: "VR - %{title}"
+>>>>>>> integration
       title: "%{title} - Voice Republic"
       by: by
       start_date: Begin
@@ -784,6 +800,16 @@ en:
       promote: GIVE THE MIC
       demote: "&times;"
       dismiss: Dismiss from stage
+      bandwidth_tooltip: |
+        <p><strong>While you are speaking</strong>, the number should be above 16KB/s.<br />
+        Should the number be smaller over time, the stream could be interrupted.<br /><br />
+
+        <strong>HELP:</strong><br />
+        - Check <span class="audio-settings-link" ng-click='toggleShowSettings()'>Audio Settings</span><br />
+        - Check your internet connection<br />
+        (Connection problems can interrupt the stream!)</p>
+
+      you_are_streaming_with: "You are streaming with:"
       prelive_text: YOU ARE ON PRIVATE PRESTREAM
       prelive_tooltip: Only the host and invited guests can hear each other
       you_are_on_air: YOU ARE ON AIR!
@@ -868,10 +894,23 @@ en:
       select_image: Background image
       record: Record
     fields:
+      audio_upload: "Import your audio file"
+      drop_files_here: "Drop files here"
+      upload: Upload
+      cancel: Cancel
+      remove: Remove
+      upload_failed: Audio upload failed. Please try reloading the page and try again.
+      supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+      unprocessed_upload: |
+        Please click 'Save' to start processing your uploaded audio file.
+        Your upload will be lost unless you press 'Save'.
+      drop_file_not_supported: "HTML5 Drop File is not supported!"
       talks_description: Tell your audience a little more
       title: Title
+      required: required
       teaser: Teaser
       tag_list: Tag list
+      create_new_series: Create New Series...
     index:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
@@ -972,6 +1011,9 @@ en:
         language: Please select the main language of your talk.
         format: Please provide the format purely for informational purposes.
     labels:
+      talk:
+        venue: Series
+        new_venue_title: New Series Title
       user:
         conference: I will be streaming a conference.
         accept_terms_of_use: |

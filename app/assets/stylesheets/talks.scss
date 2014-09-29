@@ -2,6 +2,33 @@
 .talks-create,
 .talks-edit,
 .talks-update{
+  .progress .meter {
+    width: 0%;
+    font-size: 12pt;
+    font-weight: bold;
+  }
+
+  .highlight-supported-files, #audio_upload_error {
+    background-color: crimson;
+    transition: background-color 1000ms linear;
+    -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    color: black;
+    font-weight: bold;
+  }
+
+  div[nv-file-over] {
+    width: 200px;
+    height: 50px;
+    background: lightgrey;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 16px;
+    color: black;
+    margin: 20px 0px 20px 0px;
+  }
 
   input[type="checkbox"]{
     margin-right:5px !important
@@ -193,26 +220,6 @@
     }
   }
 
-  #modal-login-signup{
-    background: black;
-    color: white;
-    width: 384px;
-    margin-left: -192px;
-    .redirect-text{
-      font-family: 'eaglebook';
-      font-size: rem-calc(18px);
-    }
-    .overlay-button{
-      background: #ccc;
-      color: black;
-      font-family: 'eaglebook';
-      padding: 10px 15px;
-      width: 120px;
-      text-align: center;
-      display: block;
-    }
-  }
-
   .embed-help-text{
     font-family: 'eaglelight';
     font-size: rem-calc(15);
@@ -297,13 +304,13 @@
       top: 0;
       right: -120px;
       width: 110px;
-      height: 38px;      
+      height: 38px;
       color: $brand-color-red;
       font-size: rem-calc(16);
       font-family: 'eaglebook';
       padding: 7px 10px;
       background: black;
-      line-height: 1.5; 
+      line-height: 1.5;
     }
   }
 
@@ -343,7 +350,7 @@
           color:inherit;
           font-family: inherit;
           font-size: inherit;
-        }        
+        }
       }
       .avatar-image{
         display: inline-block;
@@ -417,7 +424,7 @@
         padding-top: 47px;
         font-size: rem-calc(30);
       }
-    }    
+    }
   }
 
   .talk-more-talks-box{
@@ -483,6 +490,43 @@
     position: relative;
     margin-top: 30px;
     margin-bottom: 30px;
+
+    .bandwidth-box{
+      position: absolute;
+      top: -12px;
+      left:0;
+      display: block;
+      padding: 4px 7px 5px 5px;
+      background: rgba(255,255,255,0.85);
+      .info{
+        display: inline-block;
+        color: black;
+        .icon-info{
+          font-size: 33px;
+        }
+      }
+      .upstream-box{
+        display: inline-block;
+        font-size: rem-calc(15);
+        font-family: 'eaglebook';
+        @include transition(color 1s);
+        h3{
+          font-size: rem-calc(12);
+          color: black;
+          margin-bottom: 0;
+        }
+        .icon-upload{
+          font-size: rem-calc(20);
+        }
+        &.good{
+          color: $interaction-green;
+        }
+        &.bad{
+          color: $brand-color-red;
+          @include transition(color 4s);
+        }
+      }
+    }
 
     .background-box{
       display: inline-block;
@@ -576,7 +620,7 @@
           color: white;
           border: 1px solid #ddd;
           border-bottom-color: #aaa;
-          @include box-shadow(0,0,12px,rgba(0,0,0,1));         
+          @include box-shadow(0,0,12px,rgba(0,0,0,1));
         }
       }
 
@@ -605,7 +649,7 @@
             &:hover{
               text-decoration:underline;
             }
-          }           
+          }
         }
         .arrow{
           @include rotate(180);
@@ -758,15 +802,25 @@
     .button-audio-settings{
       position: absolute;
       right: 6px;
-      top: -6px;
+      top: -11px;
       font-family: 'eaglebook';
       font-size: rem-calc(12);
       cursor: pointer;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
       .icon-equalizer{
-        display: block;
+        display: inline-block;
         margin-bottom: 3px;
         font-size: rem-calc(20);
+        background: rgba(0,0,0,0.5);
+        padding: 5px  5px 0 5px;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 3px;
+      }
+      .audio-settings-text{
+        background: rgba(0,0,0,0.5);
+        display: inline-block;
+        padding: 5px;
+        border-radius: 8px
       }
     }
   }
@@ -805,23 +859,23 @@
     margin-left: -350px;
     padding: 15px 0;
     background: $brand-color-creme;
-    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));      
+    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));
     color: #333;
     height: 0;
     width: 0;
-    overflow: hidden;    
+    overflow: hidden;
     &.state-on{
       @include opacity(1);
       @include transition(opacity 0.15s linear);
       height: auto;
       width: 700px;
-    }    
+    }
     .row{
       width: 100%;
       p{
         font-family: 'eaglelight'
       }
-    }      
+    }
     .desc-box{
       color: inherit;
       h3{
@@ -852,7 +906,7 @@
         font-size: rem-calc(14);
         margin-bottom: 0;
       }
-    } 
+    }
     .flash-box{
       .flash-content-box{
         margin: 10px 0;
@@ -862,10 +916,14 @@
         text-align: center;
         /* hack for firefox to show flash */
         object#Blackbox {
-            width: 215px;
-            height: 140px;
-            @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
-        }          
+          width: 215px;
+          height: 140px;
+          @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
+          border: 3px solid green;
+          @include box-sizing(padding-box);
+          height: 146px;
+          width: 221px;
+        }
       }
     }
     .manual-box{
@@ -899,7 +957,7 @@
           color: rgba(0,0,0,0.6);
         }
       }
-    }      
+    }
     .close-x{
       position: absolute;
       right: 8px;
@@ -909,7 +967,7 @@
       color: black;
     }
 
-  }  
+  }
 
   .button-join-discussion{
     width: 100%;
@@ -1453,5 +1511,16 @@
     font-size: rem-calc(19);
     padding:19px 0 11px;
     width: 100%;
+  }
+}
+
+#modal-bandwidth{
+  width: 300px;
+  margin-left: -150px;
+  p{
+    .audio-settings-link{
+      color: $brand-color-green;
+      cursor: pointer;
+    }
   }
 }

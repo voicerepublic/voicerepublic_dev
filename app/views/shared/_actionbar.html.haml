@@ -49,8 +49,8 @@
                   = link_to current_user do
                     = t('.my_profile', default: 'My Profile')
                 %li
-                  = link_to new_venue_path do
-                    = t('.create_venue')
+                  = link_to new_talk_path do
+                    = t('.create_talk')
                 %li
                   = link_to [:edit, current_user] do
                     = t('.settings')
@@ -68,4 +68,3 @@
                 %span.icon-magnifying-glass
           %li.explore-link
             = link_to t('.explore'), talks_path
-

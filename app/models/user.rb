@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
 
+  belongs_to :default_venue, class_name: 'Venue'
+
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
   end
@@ -70,12 +72,19 @@ class User < ActiveRecord::Base
     allow_nil: true
 
   after_save :generate_flyers!, if: :generate_flyers?
+  after_create :create_and_set_default_venue!
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
   pg_search_scope :search, against: [:firstname, :lastname],
     using: { tsearch: { prefix: true } },
     ignoring: :accents
+
+  def create_and_set_default_venue!
+    attrs = Settings.default_venue_defaults[I18n.locale].to_hash
+    create_default_venue(attrs.merge(user: self))
+    save
+  end
 
   def name
     "#{firstname} #{lastname}"
@@ -154,11 +163,17 @@ class User < ActiveRecord::Base
     firstname_changed? or lastname_changed?
   end
 
+  # TODO check if `talks.reload` can be replaced with `talks(true)`
   def generate_flyers!
     venues.reload
     talks.reload.each do |talk|
       Delayed::Job.enqueue GenerateFlyer.new(id: talk.id), queue: 'audio'
     end
+  end
+
+  # TODO rewrite this as `has_many :venues_without_default, conditions: ...`
+  def venues_without_default
+    venues - [ default_venue ]
   end
 
 end

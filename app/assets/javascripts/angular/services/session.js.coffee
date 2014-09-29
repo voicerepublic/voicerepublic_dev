@@ -16,6 +16,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     acceptOrDecline: false
     settings: false
     connecting: true
+  config.feedback = { data: { bw_in: 0 } }
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -237,9 +238,15 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   replHandler = (msg) ->
     eval msg.data.exec if msg.data.exec?
 
+  statHandler = (msg) ->
+    config.feedback.data = msg.data
+    config.feedback.data.kb = if msg.data.bw_in >= 0 then Math.round(msg.data.bw_in / 1024) else 0
+    config.feedback.data.class = if msg.data.kb > 16 then 'good' else 'bad'
+
   # subscribe to push notifications
   privatePub.subscribe config.talk.channel, pushMsgHandler
   privatePub.subscribe config.user.channel, replHandler
+  privatePub.subscribe "/stat/#{config.stream}", statHandler
   privatePub.callback -> subscriptionDone = true
 
   # exposed objects
@@ -267,4 +274,4 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 # annotate with dependencies to inject
 sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
                        '$timeout', 'upstream', 'config', 'blackbox']
-Livepage.factory 'session', sessionFunc
+window.Sencha.factory 'session', sessionFunc

@@ -1,5 +1,5 @@
 # see doc/messages.md for some documentation
-# 
+#
 upstreamFunc = (config, $http, $log) ->
 
   put = (msg) ->
@@ -29,4 +29,4 @@ upstreamFunc = (config, $http, $log) ->
   }
 
 upstreamFunc.$inject = ['config', '$http', '$log']
-Livepage.factory 'upstream', upstreamFunc
+window.Sencha.factory 'upstream', upstreamFunc
