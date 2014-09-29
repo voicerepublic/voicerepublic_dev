@@ -564,6 +564,7 @@ en:
     hide_for_anon:
       redirect_text: |
         Please sign up or login to use this feature.
+      subscribe_to_podcast: Podcast
     actionbar:
       login: Log In
       sign_up: Sign Up
@@ -634,11 +635,10 @@ en:
       back_to_profile: back to Profile
       create_new_talk: Create new Talk    
       upload_talk: Upload Talk
-      subscribe_to_podcast: Subscribe to podcast
+      subscribe_to_podcast: Podcast
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
-      subscribe_to_podcast: Subscribe to podcast
       feed_title: "VR - %{title}"
       redirect_text: |
         Please sign up or login to use this feature.
@@ -649,8 +649,8 @@ en:
       start_date: Begin
       duration: Duration
       past_venue: Past Series     
-      get_news: Get news
-      disable_news: Cancel news      
+      subscribe_to_series: Subscribe to Series
+      unsubscribe_to_series: Unsubscribe
       this_venue_has_no_talks: This Series has no Talks
       edit_venue: Edit
       chat_will_be_available_short_before_start: Group-chat will be available short before start
