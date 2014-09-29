@@ -1,7 +1,7 @@
 - target = reminder.rememberable
 - case target
 - when Talk
-  = render partial: 'shared/talk_medium_box', locals: { talk: target, reminder: reminder }
+  = render partial: 'shared/talk_medium_box', locals: { talk: target, reminder: reminder, color: 'box-slim' }
 - when nil
   / "Oh mein gott", sagte gott und verpuffte in einem Logikwoelkchen.
 - else

@@ -33,7 +33,7 @@ class UsersController < BaseController
     respond_to do |format|
       format.html do
         @upcoming_talks = ''
-        @archived_talks = ''
+        @archived_talks = Talk.joins(:venue).archived.where('venues.user_id' => @user.id).ordered
         @live_talks = ''
       end
       format.rss do

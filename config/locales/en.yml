@@ -315,11 +315,23 @@ en:
       listen_later: Listen later
       create_new_talk: Create new Talk
       upload_talk: Upload Talk
-      subscribe_to_podcast: Subscribe to podcast
       edit_user: Edit Profile
       about: About
       reminders: Listen later
       no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
+      upcoming_talks: Upcoming Talks
+      live_talks:
+        zero: No Live Talks
+        one: 1 Live Talk
+        other: '%{count} Live Talks'
+      upcoming_talks:
+        zero: No Upcoming Talks
+        one: 1 Upcoming Talk
+        other: '%{count} Upcoming Talks'
+      archived_talks:
+        zero: No Archived Talks
+        one: 1 Archived Talk
+        other: '%{count} Archived Talks'      
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -673,10 +685,6 @@ en:
         zero: No Archived Talks
         one: 1 Archived Talk
         other: '%{count} Archived Talks'
-      comments:
-        zero: No Comments
-        one: 1 Comment
-        other: '%{count} Comments'
       more: More...
     new:
       title: "New Series - Voice Republic"

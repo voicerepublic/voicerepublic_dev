@@ -99,7 +99,7 @@
       bottom: 0;
       left:0;
       @include vertical-gradient(rgba(254,241,222, 0), #feeed7);
-    } 
+    }
   }
 
   // GREY BOX
@@ -239,6 +239,9 @@
     &:hover, &:focus{
       .talk-small-padding{
         background: lighten(black, 15%);
+        .text-box:after{
+          @include vertical-gradient(rgba(38,38,38, 0), rgba(38,38,38, 1));          
+        }
       }
     }    
   }  
