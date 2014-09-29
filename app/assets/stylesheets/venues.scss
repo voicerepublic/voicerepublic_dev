@@ -117,6 +117,16 @@
             font-size: rem-calc(24);
             margin-right: 0
           }
+          &.button-podcast{
+            border-radius: 0;
+            padding: 14px 0 0 0;
+            @include box-shadow(0,0,0,rgba(0,0,0,0));
+            span{
+              font-size: rem-calc(15);
+              margin-right: 4px;
+              top: -1px;
+            }                                 
+          }          
         }
       }
     }
@@ -155,7 +165,7 @@
 
   .live-talks-box,
   .upcoming-talks-box,
-  .archived-talks.box{
+  .archived-talks-box{
     border-top: 3px solid $color-black-title;
     padding-top: 14px;
     h3{

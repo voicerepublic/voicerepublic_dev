@@ -29,7 +29,7 @@ class VenuesController < BaseController
           @venue.participations.find_by(user_id: current_user.id) if current_user
 
         @show_join = @participation.nil? &&
-                     current_user != @venue.user
+                     current_user != @venue.user && current_user
       end
       format.json { render json: @venue }
       format.rss do

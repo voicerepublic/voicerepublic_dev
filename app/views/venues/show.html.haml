@@ -48,13 +48,16 @@
           %span.icon-download
           = t('.upload_talk')
       - else
-        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }      
+        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }  
         - if @show_join
           = link_to [@venue, :participations], method: :post do
-            = t('.get_news')
+            = t('.subscribe_to_series')
+        - elsif !current_user
+          %a(href="#" data-reveal-id="modal-login-signup")
+            = t('.subscribe_to_series')
         - if @participation
           = link_to [@venue, @participation], delete_params do
-            = t('.disable_news')
+            = t('.unsubscribe_to_series')
 
 .description-box.row.collapse-large-only
   .large-12.columns
@@ -68,16 +71,16 @@
   .live-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.live_talks', count: @live_talks.count)
-      %ul.list-style-type-none
-        = render partial: 'shared/talk_medium_box', collection: @upcoming_talks      
+      %ul(class="#{talks_grid(@archived_talks)}")
+        = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks      
 
 - unless @upcoming_talks.empty?
   .upcoming-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-      %ul.list-style-type-none
+      %ul(class="#{talks_grid(@archived_talks)}")
         -# TODO show only the first 3
-        = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
+        = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks
       -# TODO open all
       = link_to t('.more'), '#', class: 'link-more'
 
@@ -85,8 +88,8 @@
   .archived-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.archived_talks', count: @archived_talks.count)
-      %ul.list-style-type-none
+      %ul(class="#{talks_grid(@archived_talks)}")
         -# TODO show only the first 3
-        = render partial: 'shared/talk_medium_box', collection: @archived_talks
+        = render partial: talks_partial(@archived_talks), :locals => { color: 'box-slim' }, collection: @archived_talks
       -# TODO open all
       = link_to t('.more'), '#', class: 'link-more'
