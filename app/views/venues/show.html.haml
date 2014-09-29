@@ -41,7 +41,6 @@
   .action-links.large-6.medium-6.columns
     .align-box
       - if can? :manage, @venue
-
         = link_to new_talk_path(talk: { venue_id: @venue.id }) do
           %span.icon-mic
           = t('.create_new_talk')

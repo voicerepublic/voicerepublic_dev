@@ -634,15 +634,21 @@ en:
       back_to_profile: back to Profile
       create_new_talk: Create new Talk    
       upload_talk: Upload Talk
-      by: by
-      start_date: Begin
-      duration: Duration
-      past_venue: Past Series
       subscribe_to_podcast: Subscribe to podcast
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
-      feed_title: "VR - %{title}"      
+      subscribe_to_podcast: Subscribe to podcast
+      feed_title: "VR - %{title}"
+      redirect_text: |
+        Please sign up or login to use this feature.
+      login: Login
+      signup: Sign up
+      title: "%{title} - Voice Republic"
+      by: by
+      start_date: Begin
+      duration: Duration
+      past_venue: Past Series     
       get_news: Get news
       disable_news: Cancel news      
       this_venue_has_no_talks: This Series has no Talks
