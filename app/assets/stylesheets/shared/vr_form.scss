@@ -4,30 +4,33 @@
 .edit_venue,
 .new_user,
 .edit_user{
-  label{
-    font-size: 1rem;
-    font-family: 'eaglebook'
-  }
-
   .form-top-box{
     margin-top: 40px;
     margin-bottom: 40px;
-    padding-top:30px;
-    padding-bottom:30px;
-    background: rgba(0,0,0,0.6);
+    padding:15px 16px 30px 16px;
+    background: rgba(0,0,0,0.20);
+    h2{
+      position: relative;
+      left: -12px;
+      line-height: 1;
+      margin: 19px 0 19px 0;
+      display: inline-block;
+      color: $color-black-title;
+      font-size: rem-calc(24);
+      border-bottom: 3px solid $color-black-title;
+    }
     label{
-      color:white;
+      font-size: 1rem;
+      font-family: 'eaglelight';
+      color: $color-black-title;
     }
-    .form-title{
-      color: $form-title-color;
+
+    .text-area{
+      height:300px;
     }
-  }
 
-  .text-area{
-    height:300px;
-  }
-
-  .form-save-row{
-    margin-top: 20px
-  }
+    .form-save-row{
+      margin-top: 20px
+    }
+  }  
 }

@@ -638,6 +638,9 @@ en:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
 
+
+
+# VENUE ---------------------------------------------------------------------------------
   venues:
     date_changed: New Series date
     edit:
@@ -781,6 +784,9 @@ en:
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Series
+
+
+# TALKS ---------------------------------------------------------------------------------
   talks:
     message_history: |
       Voice Republic Message History
@@ -903,16 +909,15 @@ en:
         Please sign up or login to use this feature.
 
     new:
-      title: "VR New Talk"
-      new_talk: New Talk
+      title: "New Talk - Voice Republic"
+      new_talk: Create Talk
     edit:
-      title: "VR Edit Talk %{title}"
+      title: "Edit Talk %{title} - Voice Republic"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
-      record: Record
     fields:
-      audio_upload: "Import your audio file"
+      audio_upload: "Upload your audio file"
       drop_files_here: "Drop files here"
       upload: Upload
       cancel: Cancel
@@ -923,6 +928,13 @@ en:
         Please click 'Save' to start processing your uploaded audio file.
         Your upload will be lost unless you press 'Save'.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
+      schedule_the_live_broadcast: Schedule the live broadcast
+      record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
+      add_to_series: Add to Series
+      invite_guests: Invite guests
+      illustrate_and_describe: Illustrate and describe
+      import_your_audio_file: Import audio file
+      select_image: Select image
       talks_description: Tell your audience a little more
       title: Title
       required: required
@@ -938,6 +950,8 @@ en:
       recent: RECENT
       see_all: MORE
 
+
+# EMBED TALKS ---------------------------------------------------------------------------------
   embed_talks:
     show:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
@@ -1026,7 +1040,7 @@ en:
   simple_form:
     hints:
       talk:
-        language: Please select the main language of your talk.
+        language: ""
         format: Please provide the format purely for informational purposes.
     labels:
       talk:
