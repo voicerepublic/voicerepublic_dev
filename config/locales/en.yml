@@ -319,11 +319,11 @@ en:
       about: About
       reminders: Listen later
       no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
-      upcoming_talks: Upcoming Talks
       live_talks:
         zero: No Live Talks
-        one: 1 Live Talk
-        other: '%{count} Live Talks'
+        one: 1 LIVE TALK
+        other: '%{count} LIVE TALKS'
+      on_air: ON AIR
       upcoming_talks:
         zero: No Upcoming Talks
         one: 1 Upcoming Talk
@@ -631,6 +631,9 @@ en:
       delete_reminder: Delete reminder
     talk_small_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+    talk_live_box:
+      tune_in: TUNE IN
+      speakers: TALKGUESTS
     venue_medium_box:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
@@ -679,8 +682,9 @@ en:
       description: Description
       live_talks:
         zero: No Live Talks
-        one: 1 Live Talk
-        other: '%{count} Live Talks'
+        one: 1 LIVE TALK
+        other: '%{count} LIVE TALKS'
+      on_air: ON AIR
       upcoming_talks:
         zero: No Upcoming Talks
         one: 1 Upcoming Talk

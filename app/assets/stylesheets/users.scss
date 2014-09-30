@@ -136,6 +136,17 @@
       margin-bottom: 30px
     }
   }
+  .live-talks-box{
+    border-color: $brand-color-red;
+    h3{
+      color: $brand-color-red;
+    }
+    .onair{
+      color: $brand-color-red;
+      font-family: 'eaglebook';
+      font-size: rem-calc(19);
+    }
+  }
 
   .description-box{
     border-top: 3px solid $color-black-title;
