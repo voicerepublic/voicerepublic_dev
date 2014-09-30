@@ -190,13 +190,14 @@
 .users-update{
 
   .user-portrait-img{
+    position: relative;
+    top: 6px;
     width:143px;
     height: 143px;
   }
 
   .button-profile-img{
-    margin-top: 36px;
-    margin-bottom: 15px;
+    margin: 20px 0 15px 0
   }
   #user_account_about{
     height: 200px

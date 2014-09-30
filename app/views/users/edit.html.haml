@@ -2,45 +2,40 @@
   = t('.title', username: @user.name)
 
 = simple_form_for(@user) do |f|
-  .header-block(style="background-image: url(#{@user.header.try(:url)})"
-    data-show-upload="#user_header")
-    .form-top-box.row
-      .large-12.columns
-        -#= f.error_notification
-        .row.collapse
-          .large-3.medium-3.columns
-            - avatar_url = @user.avatar.thumb('215x215#nw').url
-            .user-portrait-img(style="background-image:url(#{avatar_url})"
-              data-show-upload="#user_avatar")
-            %button.button-standard.button-profile-img(type="button" data-trigger-file-input="user_avatar")
-              = t('.select_profile_image')
-            = f.input :avatar, as: :file
-            %button.button-standard(type="button" data-trigger-file-input="user_header")
-              = t('.select_header_image')
-            = f.input :header, as: :file, class: 'display-none'
-
-          .large-9.medium-9.columns
-            = f.input :firstname, placeholder: 'First Name'
-            = f.input :lastname, placeholder: 'Last Name'
-            = f.input :email, placeholder: 'Email Address'
-            = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
-            = f.input :website
-            %button.button-standard(data-enable-fields='#change-password input'
-                    data-replace-with='#change-password'
-                    data-trigger-on-error='#change-password'
-                    type='button')= t('.set_new_password')
-            #change-password.panel.hide
-              = f.input :password, disabled: true
-              = f.input :password_confirmation, disabled: true
-
-  %br
-  .row.collapse
+  .form-top-box.row
     .large-12.columns
-      .user-textarea-box
-        = f.text_area :about, class: 'ckeditor', input_html: { class: 'text-area'}
-  %br
-  .form-save-row.row.collapse
+      -#= f.error_notification
+      .row.collapse
+        .large-3.medium-3.columns
+          - avatar_url = @user.avatar.thumb('143x143#nw').url
+          .user-portrait-img(style="background-image:url(#{avatar_url})"
+            data-show-upload="#user_avatar")
+          %button.button-standard.button-profile-img(type="button" data-trigger-file-input="user_avatar")
+            = t('.select_profile_image')
+          = f.input :avatar, as: :file
+
+        .large-9.medium-9.columns
+          = f.input :firstname, placeholder: 'First Name'
+          = f.input :lastname, placeholder: 'Last Name'
+          = f.input :email, placeholder: 'Email Address'
+          = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
+          = f.input :website
+          %button.button-standard(data-enable-fields='#change-password input'
+                  data-replace-with='#change-password'
+                  data-trigger-on-error='#change-password'
+                  type='button')= t('.set_new_password')
+          #change-password.panel.hide
+            = f.input :password, disabled: true
+            = f.input :password_confirmation, disabled: true
+      %br
+      %br
+      .row
+        .large-12.columns
+          .user-textarea-box
+
+            = f.text_area :about, class: 'ckeditor', input_html: { class: 'text-area'}
+
+  .form-save-row.row
     .large-12.columns
-      = f.button :submit, class: 'button-vr'
-      %a{href: "#"} or
-      = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user)
+      = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button-cancel right'    
+      = f.button :submit, class: 'button-save right'

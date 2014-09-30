@@ -100,7 +100,7 @@
     color: white;
     background: lighten($color-black-title, 15%);
   }
-  &:focus{
+  &:focus,&:active{
     color: #C9C9C9;
     background: grey;
     outline: none;

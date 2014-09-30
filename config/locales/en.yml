@@ -247,6 +247,10 @@ en:
   will_paginate:
     next_label: ! '>>'
     previous_label: <<
+
+
+
+# USERS -------------------------------------------------------------    
   users:
     welcome:
       welcome_user: Welcome to KluuU
@@ -292,13 +296,15 @@ en:
       opinion: Status
       edit_account: Edit profil
     edit:
-      title: "VR Edit User %{username}"
+      title: "%{username} edit profile - Voice Republic"
       edit_your_profile: Edit profil
       select_profile_image: Profile image
       select_header_image: Background image
     venues:
       venues: Series
       guest_empty_venue: ! '%{name} has no series yet.'
+
+    # SHOW  
     show:
       podcast:
         title: "VR: %{username}"
@@ -335,7 +341,12 @@ en:
       listen_later:
         zero: ""
         one: 1 Listen later
-        other: '%{count} Listen later'              
+        other: '%{count} Listen later'  
+
+
+
+
+
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
