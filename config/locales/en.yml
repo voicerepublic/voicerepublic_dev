@@ -655,7 +655,7 @@ en:
   venues:
     date_changed: New Series date
     edit:
-      title: "VR Edit Series %{title}"
+      title: "%{title} edit Series - Voice Republic"
       edit_venue: Edit Series
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes

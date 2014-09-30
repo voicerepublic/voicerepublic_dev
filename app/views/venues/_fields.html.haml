@@ -1,32 +1,27 @@
-.header-block(style="background-image: url(#{@venue.image.url})"
-  data-show-upload="#venue_image")
-  .form-top-box.row.collapse
-    .medium-10.medium-offset-1.columns
-      .row
-        .medium-12.columns
-          %h2.form-title= form_title
-      -#
-        .row
-          .medium-12.columns
-            = f.error_notification
-      .row
-        .medium-12.columns
-          = f.input :title, placeholder: t('.title')
-          %br
-          = f.input :teaser, rows: 2, placeholder: t('.teaser')
+.form-top-box.row
+  .medium-12.columns
+
+    .title-box
+      %h2.form-title= form_title
+
+    .row
+      .medium-12.columns
+        .image-box(style="background-image: url(#{@venue.image.url})" data-show-upload="#venue_image")
           %button.button-standard(type="button" data-trigger-file-input="venue_image")
             = t('.select_image')
           = f.file_field :image, class: 'display-none'
-%br
-%br
-.row
-  .medium-12.columns
-    = f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
-    %br
-    %br
-    %label.venue-description-label(for="venue_description")
-      = t('.venue_purpose')
-    = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
-    - messages = @venue.errors.get(:description)
-    - unless messages.empty?
-      %small.error= messages * ', ' 
+
+        = f.input :title, placeholder: t('.title')
+        = f.input :teaser, rows: 2, placeholder: t('.teaser')
+
+    .row
+      .medium-12.columns
+        = f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
+        %br
+        %br
+        %label.venue-description-label(for="venue_description")
+          = t('.venue_purpose')
+        = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
+        - messages = @venue.errors.get(:description)
+        - unless messages.empty?
+          %small.error= messages * ', ' 
