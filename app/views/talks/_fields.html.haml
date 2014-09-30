@@ -1,6 +1,7 @@
 .form-top-box.row
   .medium-12.columns
-    %h2.form-title= form_title
+    .title-box
+      %h2.form-title= form_title
 
     -#= f.error_messages
 
@@ -18,7 +19,8 @@
           group_method: :last, label_method: :last, value_method: :first        
         = f.input :tag_list, input_html: { class: 'tagList' }
 
-    %h2.form-title= t('.schedule_the_live_broadcast')
+    .title-box
+      %h2.form-title= t('.schedule_the_live_broadcast')
     .date-time-picker-row.row
       .medium-3.columns
         = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
@@ -37,7 +39,8 @@
           = t('.drop_file_not_supported')
         %div{"ng-show" => "uploader.isHTML5"}
           %div
-            %h2.form-title= t('.audio_upload')
+            .title-box
+              %h2.form-title= t('.audio_upload')
             %div{'ng-class' => "{'highlight-supported-files': addingFailed}"}
               = t('.supported_filetypes')
           -# .well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
@@ -56,7 +59,9 @@
         -# END Angular File Upload
 
 
-    %h2.form-title= t('.add_to_series')
+    .title-box.clearfix
+      %h2.form-title.left= t('.add_to_series')
+      .help-text.left= t('.series_help_text')
     .row
       .medium-12.columns
         = f.association :venue, collection: current_user.venues,
@@ -64,12 +69,16 @@
           input_html: { 'data-on-blank-show' => '#wrapper_new_venue_title' }
         = f.input :new_venue_title, wrapper_html: { id: 'wrapper_new_venue_title' }
 
-    %h2.form-title= t('.invite_guests')
+    .title-box.clearfix
+      %h2.form-title.left= t('.invite_guests')
+      .help-text.left= t('.invite_guests_text')
     .row
       .medium-12.columns    
         = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
 
-    %h2.form-title= t('.illustrate_and_describe')
+    .title-box.clearfix
+      %h2.form-title.left= t('.illustrate_and_describe')
+      .help-text.left= t('.ill_and_desc_text')
     .row
       .medium-3.columns
         .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#venue_talks_attributes_0_image")

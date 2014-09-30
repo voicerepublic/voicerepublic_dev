@@ -6,20 +6,29 @@
 .edit_user{
   .form-top-box{
     margin-top: 40px;
-    padding:15px 16px 0px 16px;
+    padding:15px 10px 0px 10px;
     background: rgba(0,0,0,0.20);
-    h2{
-      position: relative;
-      left: -12px;
-      line-height: 1;
-      margin: 19px 0 19px 0;
-      display: inline-block;
-      color: $color-black-title;
-      font-size: rem-calc(24);
-      border-bottom: 3px solid $color-black-title;
+    .title-box{
+      margin: 20px 0 14px 0;
+      h2{
+        position: relative;
+        left: -9px;
+        line-height: 1;
+        display: inline-block;
+        color: $color-black-title;
+        font-size: rem-calc(19);
+        border-bottom: 3px solid $color-black-title;
+        margin: 0;
+      }
+      .help-text{
+        font-family: 'eaglelight';
+        font-size: rem-calc(14);
+        line-height:1;
+        margin-top: 7px;
+      }
     }
     label{
-      font-size: 1rem;
+      font-size: rem-calc(14);
       font-family: 'eaglelight';
       color: $color-black-title;
     }

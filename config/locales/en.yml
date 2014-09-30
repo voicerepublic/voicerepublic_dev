@@ -931,8 +931,12 @@ en:
       schedule_the_live_broadcast: Schedule the live broadcast
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
       add_to_series: Add to Series
+      series_help_text: Series are comparable to playlist, they allow you to group your talks by theme
       invite_guests: Invite guests
+      invite_guests_text: Your guests will be informed per mail and automatically added to the stage
       illustrate_and_describe: Illustrate and describe
+      ill_and_desc_text: Choose a background image and tell your audience a little more...
+      image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
       import_your_audio_file: Import audio file
       select_image: Select image
       talks_description: Tell your audience a little more
