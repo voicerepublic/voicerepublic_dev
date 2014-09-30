@@ -6,8 +6,7 @@
 .edit_user{
   .form-top-box{
     margin-top: 40px;
-    margin-bottom: 40px;
-    padding:15px 16px 30px 16px;
+    padding:15px 16px 0px 16px;
     background: rgba(0,0,0,0.20);
     h2{
       position: relative;
@@ -28,9 +27,9 @@
     .text-area{
       height:300px;
     }
-
-    .form-save-row{
-      margin-top: 20px
-    }
+  }  
+  .form-save-row{
+    padding:35px 16px 27px 16px;
+    background: rgba(0,0,0,0.20);
   }  
 }

@@ -11,6 +11,6 @@
 
   .form-save-row.row
     .medium-12.columns
-      = f.button :submit, class: 'button-vr', 'ng-disabled' => '!talkForm.$valid', 'ng-click' => 'deactivateSafetynet()'
-      = link_to t('.cancel'), @venue
+      = link_to t('helpers.links.cancel'), @venue, class: 'button-cancel right'    
+      = f.button :submit, class: 'button-save right', 'ng-disabled' => '!talkForm.$valid', 'ng-click' => 'deactivateSafetynet()'
 

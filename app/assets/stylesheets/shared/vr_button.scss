@@ -87,3 +87,28 @@
   font-size: rem-calc(11);
   margin-bottom: 2px;
 }
+
+.button-save{
+  @include button(rem-calc(3),$color-black-title);
+  font-family: 'eaglebook';
+  font-size: rem-calc(23);
+  padding: 6px 21px 4px 21px;
+  line-height: 1;
+  border:none;
+  color: white;
+  &:hover{
+    color: white;
+    background: lighten($color-black-title, 15%);
+  }
+  &:focus{
+    color: #C9C9C9;
+    background: grey;
+    outline: none;
+  }  
+}
+
+.button-cancel{
+  font-family: 'eaglebook';
+  font-size: rem-calc(23);
+  padding: 7px 0 0 10px;
+}

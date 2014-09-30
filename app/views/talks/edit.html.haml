@@ -13,5 +13,5 @@
   .form-save-row.row.collapsed
     .medium-12.columns
       = link_to t('.delete_talk'), [@venue, @talk], delete_params
-      = f.button :submit, class: 'button-vr', 'ng-disabled' => '!talkForm.$valid'
-      = link_to t('.cancel'), [@venue, @talk]
+      = link_to t('helpers.links.cancel'), [@venue, @talk], class: 'button-save right'      
+      = f.button :submit, class: 'button-save right', 'ng-disabled' => '!talkForm.$valid'
