@@ -96,7 +96,7 @@ class Talk < ActiveRecord::Base
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
   validates :title, :tag_list, :duration, :description,
-            :language, presence: true
+            :language, :venue, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
@@ -109,11 +109,11 @@ class Talk < ActiveRecord::Base
   validates :new_venue_title, presence: true, if: ->(t) { t.venue_id.nil? }
 
   # for temp usage during creation, we need this to hand the user
-  # trough to build a default_venue
+  # trough to associate with a default_venue or create a new one
   attr_accessor :venue_user
   attr_accessor :new_venue_title
 
-  before_save :create_and_set_venue, if: ->(t) { !t.new_venue_title.blank? }
+  before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -308,6 +308,10 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def create_and_set_venue?
+    venue.nil? and new_venue_title.present?
+  end
 
   def create_and_set_venue
     self.venue = venue_user.venues.create title: new_venue_title

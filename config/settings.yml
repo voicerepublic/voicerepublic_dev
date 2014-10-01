@@ -82,3 +82,8 @@ default_venue_defaults:
     description: |
       Various talks, that don't belong to any particular series
     tag_list: default
+venue_default_attributes:
+  en:
+    teaser: Add your teaser here.
+    description: Add your description here.
+    tag_list: untagged

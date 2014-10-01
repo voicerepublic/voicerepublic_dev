@@ -6,9 +6,10 @@ include ActionDispatch::TestProcess
 FactoryGirl.define do
 
   factory :venue do
-    tag_list    'some, tags'
-    teaser      'Some teaser not longer than 140 chars'
-    description Faker::Lorem.paragraphs(2).join("\n")
+    # provided by defaults via localized `Settings.venue.default_attributes`
+    # tag_list    'some, tags'
+    # teaser      'Some teaser not longer than 140 chars'
+    # description Faker::Lorem.paragraphs(2).join("\n")
     title       Faker::Lorem.sentence
     user
   end
