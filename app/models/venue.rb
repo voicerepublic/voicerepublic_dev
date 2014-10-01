@@ -42,6 +42,7 @@ class Venue < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
+  before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :talks
@@ -70,6 +71,11 @@ class Venue < ActiveRecord::Base
   end
 
   private
+
+  def set_defaults
+    attrs = Settings.venue_default_attributes[I18n.locale]
+    attrs.each { |key, value| self.send("#{key}=", value) }
+  end
 
   def clean_taglist
     # FIXME: WTF? this doesn't do anything, check it out
