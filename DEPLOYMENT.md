@@ -257,7 +257,13 @@ and
 1. Install xauth debian package to be able to ssh -X into the machine and do
    some manual debugging.
 
+   
+## Fix ci migrations on staging
 
+    (cd app/shared/ci && bundle && bin/rake db:migrate RAILS_ENV=test)
+
+
+   
 TODO
 ====
 
