@@ -98,8 +98,8 @@ class Talk < ActiveRecord::Base
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
-  validates :venue, :title, :tag_list, :duration, :description,
-            :language, presence: true
+  validates :title, :tag_list, :duration, :description,
+            :language, :venue, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
@@ -109,6 +109,14 @@ class Talk < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
+  validates :new_venue_title, presence: true, if: ->(t) { t.venue_id.nil? }
+
+  # for temp usage during creation, we need this to hand the user
+  # trough to associate with a default_venue or create a new one
+  attr_accessor :venue_user
+  attr_accessor :new_venue_title
+
+  before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -116,6 +124,26 @@ class Talk < ActiveRecord::Base
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
+
+  # Begin 'user audio upload'
+  after_save -> { delay(queue: 'audio').user_override! },
+             if: ->(t) { t.user_override_uuid_changed? and
+                           !t.user_override_uuid.to_s.empty? }
+  before_save  -> { self.state = :postlive },
+               if: ->(t) { t.user_override_uuid_changed? and
+                           !t.user_override_uuid.to_s.empty? }
+  validates_each :starts_at_date, :starts_at_time do |record, attr, value|
+    # guard against submissions where no upload occured or no starts_at
+    # attributes have been given
+    unless record.user_override_uuid.to_s.empty? or
+      record.starts_at_time.to_s.empty? or
+      record.starts_at_date.to_s.empty?
+      if Time.zone.parse([record.starts_at_date, record.starts_at_time] * ' ') > DateTime.now
+        record.errors.add attr, 'needs to be in the past'
+      end
+    end
+  end
+  # End 'user audio upload'
 
   serialize :session
   serialize :storage
@@ -283,6 +311,14 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def create_and_set_venue?
+    venue.nil? and new_venue_title.present?
+  end
+
+  def create_and_set_venue
+    self.venue = venue_user.venues.create title: new_venue_title
+  end
 
   # upload file to storage
   def upload_file(key, file)
@@ -556,8 +592,32 @@ class Talk < ActiveRecord::Base
     [ :title, [:id, :title] ]
   end
 
-  ############################################################
-  # from here, shared code with backoffice app
+  # Gets triggered when a user has uploaded an override file
+  def user_override!
+    logger.info "Talk #{id} override: Starting user_override! with uuid: #{user_override_uuid}"
+    # Request public URL from S3
+    s3 = AWS::S3.new
+    bucket = s3.buckets[Settings.talk_upload_bucket]
+    # TODO: Check if there is a more efficient way of accessing the required
+    # object
+    obj = bucket.as_tree.children.select(&:leaf?).collect(&:object).collect do |o|
+      o if o.key == user_override_uuid
+    end.compact.first
+
+    # Save public URL in override field
+    update_attribute :recording_override, obj.public_url.to_s
+    logger.info "Talk #{id} override: Retrieved S3 public URL: #{recording_override}"
+
+    # user_override! is already running delayed, so no need to delay
+    # process_override! itself. Also allows to delete the user audio override
+    # directly after process_override! is complete.
+    logger.info "Talk #{id} override: Starting process_override!"
+    process_override!
+
+    s3_client = AWS::S3::Client.new
+    s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
+    logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
+  end
 
   def generate_flyer?
     starts_at_changed? or title_changed?

@@ -165,6 +165,7 @@ Run Rspec with Zeus
 
     sudo npm install -g karma
     sudo npm install -g karma-ng-scenario
+    sudo npm install -g coffee-script --save-dev
     karma start spec/javascripts/livepage.conf.js.coffee
 
 
@@ -194,7 +195,7 @@ The generic strategy runner takes arguments
  * strategy name
  * path to audio files
  * name (talk_id, X in the flv files tX-u...)
-    
+
     rake audio:run[strategy_name,path/to/files,name]
 
 The output lists the resulting files.
@@ -396,6 +397,31 @@ Audio Cheat Sheet
 ### collect stream info of multiple flv files
 
     find ./ -name \*.flv -exec avconv -i {} \; 2>&1 | grep Stream
+
+### List all codec of avconv
+
+    avconv -codecs
+
+#### Here are the relevant parts
+
+    avconv version 0.8.13-6:0.8.13-1, Copyright (c) 2000-2014 the Libav developers
+      built on Jun 28 2014 17:50:37 with gcc 4.7.2
+    Codecs:
+     D..... = Decoding supported
+     .E.... = Encoding supported
+     ..V... = Video codec
+     ..A... = Audio codec
+     ..S... = Subtitle codec
+     ...S.. = Supports draw_horiz_band
+     ....D. = Supports direct rendering method 1
+     .....T = Supports weird frame truncation
+     ------
+     DEA D  libspeex        libspeex Speex
+     DEA D  nellymoser      Nellymoser Asao
+
+### Get medadata of audio file
+
+    mediainfo -f <file>
 
 
 Javascript Console Cheat Sheet

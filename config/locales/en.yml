@@ -913,10 +913,23 @@ en:
       select_image: Background image
       record: Record
     fields:
+      audio_upload: "Import your audio file"
+      drop_files_here: "Drop files here"
+      upload: Upload
+      cancel: Cancel
+      remove: Remove
+      upload_failed: Audio upload failed. Please try reloading the page and try again.
+      supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+      unprocessed_upload: |
+        Please click 'Save' to start processing your uploaded audio file.
+        Your upload will be lost unless you press 'Save'.
+      drop_file_not_supported: "HTML5 Drop File is not supported!"
       talks_description: Tell your audience a little more
       title: Title
+      required: required
       teaser: Teaser
       tag_list: Tag list
+      create_new_series: Create New Series...
     index:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
@@ -1017,6 +1030,9 @@ en:
         language: Please select the main language of your talk.
         format: Please provide the format purely for informational purposes.
     labels:
+      talk:
+        venue: Series
+        new_venue_title: New Series Title
       user:
         conference: I will be streaming a conference.
         accept_terms_of_use: |

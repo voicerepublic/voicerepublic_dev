@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+# TODO cleanup, remove `venue_id: @venue.id`
 describe TalksController do
 
   before do
@@ -19,6 +20,14 @@ describe TalksController do
   let(:valid_attributes) do
     FactoryGirl.attributes_for(:talk) do |hash|
       hash[:venue_id] = @venue.id
+    end
+  end
+
+  describe 'Talk#upload' do
+    it 'creates a pre-signed S3 URL that will be used in Angular File Upload' do
+      get :new, { :venue_id => @venue.id }
+      assigns(:presigned_s3_post_url).should_not be_nil
+      assigns(:presigned_s3_post_url).to_s.should =~ /http.*s3.*/
     end
   end
 
@@ -102,12 +111,11 @@ describe TalksController do
   end
 
 
-  describe "Talk#new" do
+  describe "Talk#create" do
     it 'does not crash with too few inputs' do
       expect {
         post :create, { venue_id: @venue.id, talk: { title: "", starts_at_date: "" } }
       }.to_not raise_error
-
     end
     describe "Authorization" do
       it 'allows for creation of a new talk' do
@@ -116,8 +124,9 @@ describe TalksController do
         }.to change(Talk, :count).by(1)
       end
       it 'does not allow for creation of a new talk' do
+        attrs = FactoryGirl.attributes_for(:talk, venue_id: @venue_2.id)
         expect {
-          post :create, { venue_id: @venue_2.id, talk: valid_attributes }
+          post :create, { talk: attrs }
         }.to raise_error(CanCan::AccessDenied)
       end
     end
@@ -125,7 +134,22 @@ describe TalksController do
     it 'talk has attached tags after creation' do
       Talk.count.should be(2) # @talk & @talk_2
       post :create, { venue_id: @venue.id, talk: valid_attributes }
+      assigns(:talk).venue_id.should_not be_nil
+      assigns(:talk).errors.to_a.should eq([])
       Talk.all[2].tag_list.should_not be_empty
+    end
+
+    it 'creates a new venue on the fly' do
+      attrs = FactoryGirl.attributes_for(:talk, venue_id: nil,
+                                         new_venue_title: 'Some title')
+      expect {
+        post :create, talk: attrs
+      }.to_not raise_error
+
+      talk = assigns(:talk)
+      expect(talk).to be_persisted
+      expect(talk.venue).not_to be_nil
+      expect(talk.venue).to be_persisted
     end
   end
 

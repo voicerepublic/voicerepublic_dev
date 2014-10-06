@@ -1,5 +1,5 @@
 # The UtilService is just a container for utility functions.
-Livepage.factory "util", ->
+window.Sencha.factory "util", ->
 
   toHHMMSS = (str) ->
     sec_num = parseInt(str, 10)

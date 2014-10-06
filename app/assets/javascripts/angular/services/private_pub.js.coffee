@@ -49,4 +49,4 @@ privatePubFunc = ($log, $q, config) ->
 
 # annotate with dependencies to inject
 privatePubFunc.$inject = ['$log', '$q', 'config']
-Livepage.factory "privatePub", privatePubFunc
+window.Sencha.factory "privatePub", privatePubFunc

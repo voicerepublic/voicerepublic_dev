@@ -455,5 +455,5 @@
   :javascript
     window.insider = #{current_user.insider?};
     window.console.off = #{Settings.disable_js_debugging && !current_user.insider?};
-  = javascript_include_tag 'livepage'
+  = javascript_include_tag 'sencha'
   = render 'config'
