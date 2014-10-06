@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe Audio::Strategy do
 
+  it 'does not blow up when config for cut is omitted' do
+    audio_fixture('spec/support/fixtures/talk_a', '1.wav') do |path|
+      setting = TalkSetting.new(path)
+      Audio::Strategy::Cut.call(setting)
+
+      # NOTE: if this fails, you might need to install 'libsox-fmt-mp3'
+      precut  = %x[ soxi -D 1-precut.mp3 ].to_i
+      postcut = %x[ soxi -D 1.wav ].to_i
+      expect(precut).to eq postcut
+    end
+  end
+
   it 'nicely cuts by edit_config' do
     audio_fixture('spec/support/fixtures/talk_a', '1.wav') do |path|
       # setup
