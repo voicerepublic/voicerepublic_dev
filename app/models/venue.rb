@@ -74,7 +74,9 @@ class Venue < ActiveRecord::Base
 
   def set_defaults
     attrs = Settings.venue_default_attributes[I18n.locale]
-    attrs.each { |key, value| self.send("#{key}=", value) }
+    attrs.each do |key, value|
+      self.send("#{key}=", value) if send(key).blank?
+    end
   end
 
   def clean_taglist
