@@ -46,7 +46,7 @@
         .button-progress-box
           %button.button-select-file.button-standard(type="button" data-trigger-file-input="audio-file-input" ng-hide="uploader.queue.length")
             = t('.choose_file')
-          %button.fake-button-uploading(type="button" ng-show="uploader.queue.length")
+          %button.fake-button-uploading.button-standard(type="button" ng-show="uploader.queue.length")
             = t('.uploading')
           %input#audio-file-input{:multiple => "single", "nv-file-select" => "", :type => "file", :uploader => "uploader"}/
           %ul.progress-list.list-style-type-none

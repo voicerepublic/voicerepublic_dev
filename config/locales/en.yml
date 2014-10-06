@@ -928,8 +928,10 @@ en:
       delete_talk: Delete talk
       select_image: Background image
     fields:
+      initializing: Installing uploader...
       audio_upload: "Upload your audio file"
       choose_file: Choose file
+      uploading: Uploading...
       drop_files_here: "Drop files here"
       upload: Upload
       cancel: "&times;"
