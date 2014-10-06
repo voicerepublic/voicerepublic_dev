@@ -25,9 +25,9 @@ module Audio
       end
 
       def timecodes
-        return [0, -0] if cut_conf.nil?
+        return [0, -0] if cut_conf.blank?
         cut = cut_conf.map { |c| [c['start'], c['end']] }.flatten
-        [0] + cut.map { |c| "=#{c}" } + [-0]
+        ["0"] + cut.map { |c| "=#{c}" } + ["-0"]
       end
 
       def cut_cmd
@@ -36,7 +36,7 @@ module Audio
 
       def run
         convert_wav_to_mp3
-        cut unless cut_conf.blank?
+        cut
         input
       end
 

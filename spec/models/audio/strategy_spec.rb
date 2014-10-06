@@ -2,6 +2,29 @@ require 'spec_helper'
 
 describe Audio::Strategy do
 
+  it 'nicely cuts by edit_config' do
+    audio_fixture('spec/support/fixtures/talk_a', '1.wav') do |path|
+      # setup
+      opts = { cut_conf: [ { 'start' => 1, 'end' => 2 },
+                           { 'start' => 3, 'end' => 4 } ] }
+      setting = TalkSetting.new(path, 1, opts)
+
+      # run strategy
+      Audio::Strategy::Cut.call(setting)
+
+      # by size
+      precut  = File.size('1-precut.mp3')
+      postcut = File.size('1.wav')
+      expect(precut).to be < postcut
+
+      # by duration
+      # NOTE: if this fails, you might need to install 'libsox-fmt-mp3'
+      precut  = %x[ soxi -D 1-precut.mp3 ]
+      postcut = %x[ soxi -D 1.wav ]
+      expect(precut).to be > postcut
+    end
+  end
+
   it 'prepares (running the precursor)' do
     audio_fixture('spec/support/fixtures/complex', '*.flv') do |path|
       setting = TalkSetting.new(path)
@@ -57,7 +80,7 @@ describe Audio::Strategy do
       setting.opts = {
         file_start: file_start,
         talk_start: file_start + 3, # 3s later
-        talk_stop:  file_start + 6 # 6s later             
+        talk_stop:  file_start + 6 # 6s later
       }
       result = Audio::Strategy::Trim.call(setting)
 
@@ -78,42 +101,42 @@ describe Audio::Strategy do
       expect(File.exist?(file)).to be_true
     end
   end
-  
+
   # it 'nicely merges streams' do
   #   fixture = 'spec/support/fixtures/talk_a'
   #   audio_fixture(fixture, 1) do |base, dir, name|
   #     # j = TalkAudio.new(base).journal
   #     # Audio::Merger.run(base, j)
-  #     # 
+  #     #
   #     # size_0 = File.size("#{fixture}/#{name}.wav")
   #     # size_1 = File.size("#{base}.wav")
   #     # expect(size_1).to be(size_0)
-  #     # 
+  #     #
   #     # # FIXME this doesn't work presumably because of meta data
   #     # #md5_0 = Digest::MD5.file("#{path}/#{name}.wav").hexdigest
   #     # #md5_1 = Digest::MD5.file("#{dir}/#{name}.wav").hexdigest
   #     # #expect(md5_1).to eq(md5_0)
   #   end
   # end
-  # 
+  #
   # it 'merges streams synchronously' do
   #   fixture = 'spec/support/fixtures/complex'
   #   audio_fixture(fixture, 't1-u*.flv') do |path|
   #     s = TalkSetting.new(path)
   #     Audio::Strategy::Precursor.call(s)
   #     p1 = Audio::Strategy::KluuuMerge.call(s)
-  #     
+  #
   #     p0 = "#{fixture}/1.wav"
   #     #c0 = open(p0, "rb") {|io| io.read }
   #     #c1 = open(p1, "rb") {|io| io.read }
-  # 
+  #
   #     #%x[ aplay #{p0} ]
   #     #%x[ aplay #{path}/#{p1} ]
-  #     
+  #
   #     # expect(c1).to eq(c0)
   #   end
   # end
-  # 
+  #
   # it 'nicly transcodes wav files' do
   #   # path, name = 'spec/support/fixtures/transcode0', 1
   #   # Dir.mktmpdir do |dir|
