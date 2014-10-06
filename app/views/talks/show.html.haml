@@ -399,6 +399,7 @@
             .participants-content
               .empty-box(ng-class="{'state-hidden': expectingPromotion.length || acceptingPromotion.length || participants.length}")
                 %h3= t('.listeners')
+                {{ config.user.role }}
                 %p= t('.empty_text')
 
               .expecting-promotion(ng-show='expectingPromotion().length')
@@ -432,6 +433,7 @@
 
               .participating(ng-show='participants.length')
                 %h3= t('.listeners')
+                {{ config.user.role }}
                 %ul.list-style-type-none
                   %li.avatar(ng-repeat="user in participants")
                     .avatar-box
@@ -454,6 +456,6 @@
 .scripts
   :javascript
     window.insider = #{current_user.insider?};
-    window.console.off = #{Settings.disable_js_debugging && !current_user.insider?};
+    window.console.off = #{!!(Settings.disable_js_debugging && !current_user.insider?)};
   = javascript_include_tag 'sencha'
   = render 'config'
