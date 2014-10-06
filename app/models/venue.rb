@@ -4,6 +4,7 @@
 # * description [text] - TODO: document me
 # * image_uid [string] - TODO: document me
 # * options [text, default="--- {}\n"] - TODO: document me
+# * slug [string] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
