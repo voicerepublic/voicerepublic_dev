@@ -253,14 +253,14 @@ describe "Talks as logged in user" do
     it 'has default time and date' do
       pending 'this feature has been disabled for the moment'
       venue = FactoryGirl.create(:venue, user: @user)
-      visit new_venue_talk_path(venue)
+      visit new_talk_path
       # Time is being written in the frontend. Cannot use Timecop to mock that.
       find('#talk_starts_at_date').value.should eq(Date.today.strftime "%Y-%m-%d")
       find('#talk_starts_at_time').value.should eq(Time.now.strftime "%H:%M")
     end
     it 'creates a new talk', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
-      visit new_venue_talk_path(venue)
+      visit new_talk_path
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
@@ -279,7 +279,7 @@ describe "Talks as logged in user" do
 
     it 'shows validation errors', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
-      visit new_venue_talk_path(venue)
+      visit new_talk_path
 
       fill_in 'talk_starts_at_date', with: ''
       fill_in 'talk_starts_at_time', with: ''
