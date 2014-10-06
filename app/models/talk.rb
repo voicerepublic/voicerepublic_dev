@@ -487,7 +487,7 @@ class Talk < ActiveRecord::Base
       talk_stop:  ended_at.to_i,
       logfile: logfile
     }
-    opts[:cut_conf] = edit_config.last unless edit_config.blank?
+    opts[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
     FileUtils.fileutils_output = logfile
@@ -653,7 +653,7 @@ class Talk < ActiveRecord::Base
       last = ends if last.nil? or ends > last
     end
     override = recording_override? ? File.basename(recording_override) : nil
-    cut_conf = edit_config.blank? ? nil : edit_config.last
+    cut_conf = edit_config.blank? ? nil : edit_config.last['cutConfig']
     keep_conf = edit_config.blank? ? nil : keep_config
     <<-EOS.strip_heredoc
       STARTED=#{started_at.to_i}
