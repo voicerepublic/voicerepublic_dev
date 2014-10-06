@@ -20,14 +20,12 @@ uploadFunc = ($scope, $log, FileUploader) ->
 
   uploader.onCancelItem = (item, response, status, headers) ->
     deactivateSafetynet()
-    enabeleRecordField()
+    enableRecordField()
 
   uploader.onWhenAddingFileFailed = (item, filter, options) -> #{File|FileLikeObject}
     $scope.addingFailed = true
 
   uploader.onAfterAddingFile = (fileItem) ->
-    # TODO: Add uuid to hidden field
-    # TODO: Lock form to not be via Angular Safetynet
     $scope.addingFailed = false
     $scope.talkForm.$valid = false
     activateSafetynet()
@@ -54,7 +52,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
 
   $scope.deactivateSafetynet = deactivateSafetynet
 
-  enabeleRecordField = ->
+  enableRecordField = ->
     $('.talk_collect').show()
 
   disableRecordField = ->

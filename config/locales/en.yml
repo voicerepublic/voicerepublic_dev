@@ -250,7 +250,7 @@ en:
 
 
 
-# USERS -------------------------------------------------------------    
+# USERS -------------------------------------------------------------
   users:
     welcome:
       welcome_user: Welcome to KluuU
@@ -304,7 +304,7 @@ en:
       venues: Series
       guest_empty_venue: ! '%{name} has no series yet.'
 
-    # SHOW  
+    # SHOW
     show:
       podcast:
         title: "VR: %{username}"
@@ -337,11 +337,11 @@ en:
       archived_talks:
         zero: No Archived Talks
         one: 1 Archived Talk
-        other: '%{count} Archived Talks'      
+        other: '%{count} Archived Talks'
       listen_later:
         zero: ""
         one: 1 Listen later
-        other: '%{count} Listen later'  
+        other: '%{count} Listen later'
 
 
 
@@ -666,7 +666,7 @@ en:
     new_venue: Create Series
     show:
       back_to_profile: back to Profile
-      create_new_talk: Create new Talk    
+      create_new_talk: Create new Talk
       upload_talk: Upload Talk
       subscribe_to_podcast: Podcast
       podcast:
@@ -681,7 +681,7 @@ en:
       by: by
       start_date: Begin
       duration: Duration
-      past_venue: Past Series     
+      past_venue: Past Series
       subscribe_to_series: Subscribe to Series
       unsubscribe_to_series: Unsubscribe
       this_venue_has_no_talks: This Series has no Talks
@@ -769,7 +769,7 @@ en:
       your_talk: Create your first Talk
       event_title: Talk title
       archive: Archive
-      select_image: 'Select background image'
+      select_image: 'Select image'
     edit_start_time:
       new_talk: New talk
     change_time_form:
@@ -929,9 +929,10 @@ en:
       select_image: Background image
     fields:
       audio_upload: "Upload your audio file"
+      choose_file: Choose file
       drop_files_here: "Drop files here"
       upload: Upload
-      cancel: Cancel
+      cancel: "&times;"
       remove: Remove
       upload_failed: Audio upload failed. Please try reloading the page and try again.
       supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
@@ -940,11 +941,12 @@ en:
         Your upload will be lost unless you press 'Save'.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       schedule_the_live_broadcast: Schedule the live broadcast
+      upload_help_text: Choose your recording file and fill out the form during upload.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
       add_to_series: Add to Series
-      series_help_text: Series are comparable to playlist, they allow you to group your talks by theme
+      series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.
       invite_guests: Invite guests
-      invite_guests_text: Your guests will be informed per mail and automatically added to the stage
+      invite_guests_text: Your guests will be informed per mail and automatically added to the stage.
       illustrate_and_describe: Illustrate and describe
       ill_and_desc_text: Choose a background image and tell your audience a little more...
       image_text: Please choose an image with a minimum resolution of 1200 x 1200 px

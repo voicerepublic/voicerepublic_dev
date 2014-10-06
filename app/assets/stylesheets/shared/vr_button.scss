@@ -60,7 +60,8 @@
 }
 
 .link-delete{
-  color: $brand-color-green;
+  margin-top: 19px;
+  color: $color-black-title;
   &:hover,&:focus{
     color: darken($brand-color-green, 5%);
   }

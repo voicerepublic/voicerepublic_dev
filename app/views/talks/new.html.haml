@@ -5,8 +5,8 @@
 
 = simple_form_for([@venue, @talk], url: nil,
   html: { 'ng-controller' => 'UploadCtrl',
-    name: "talkForm",
-    novalidate: false}) do |f|
+    			name: "talkForm",
+    			novalidate: false}) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
 
   .form-save-row.row

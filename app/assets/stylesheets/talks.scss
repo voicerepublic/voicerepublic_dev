@@ -2,23 +2,6 @@
 .talks-create,
 .talks-edit,
 .talks-update{
-  .progress .meter {
-    width: 0%;
-    font-size: 12pt;
-    font-weight: bold;
-  }
-
-  .highlight-supported-files, #audio_upload_error {
-    background-color: crimson;
-    transition: background-color 1000ms linear;
-    -webkit-transition: background-color 1000ms linear;
-    -moz-transition: background-color 1000ms linear;
-    -o-transition: background-color 1000ms linear;
-    -ms-transition: background-color 1000ms linear;
-    color: black;
-    font-weight: bold;
-  }
-
   .form-top-box{
     padding-top:0;
   }
@@ -30,9 +13,12 @@
         margin-bottom: 0;
       }
     }
+    #talk_teaser{
+      min-height: 71px;
+    }
     .talk_language{
-      height: 61px;
-    }  
+      height: 58px;
+    }
   }
 
   .image-box{
@@ -59,10 +45,10 @@
       margin: 15px 0 0 0;
       padding-left: 34px;
       position: relative;
-      line-height: 1.2;  
+      line-height: 1.2;
       .red{
         color: $brand-color-red;
-      }  
+      }
       input[type="checkbox"]{
         position: absolute;
         left: 4px;
@@ -71,10 +57,94 @@
         -ms-transform: scale(1.5); /* IE */
         -moz-transform: scale(1.5); /* FF */
         -webkit-transform: scale(1.5); /* Safari and Chrome */
-        -o-transform: scale(2); /* Opera */    
+        -o-transform: scale(2); /* Opera */
       }
     }
   }
+  .upload-init{
+    height: 64px;
+  }
+  .upload-full{
+    .progress .meter {
+      width: 0%;
+      font-size: 12pt;
+      font-weight: bold;
+    }
+
+    #audio-file-input{
+      height:0;
+      overflow: hidden;
+      left:-9999px;
+      width: 0;
+      position: absolute;
+    }
+    .button-progress-box{
+      position: relative;
+      padding:0 0 0 150px;
+      width: 100%;
+      height: 50px;
+      .button-select-file,
+      .fake-button-uploading{
+        position: absolute;
+        left: 0;
+        top: 2px;
+        width: 140px;
+      }
+      .progress-list{
+        position: relative;
+        .file-name-cancel-box{
+          height: 19px;
+          .file-name,
+          .button-cancel-upload{
+            font-size: 10px;
+            color: rgba(0,0,0,0.6);
+            display: inline-block;
+            cursor: pointer;
+          }
+          .button-cancel-upload{
+            width: 13px;
+            height: 13px;
+            background: rgba(0, 0, 0, 0.34);
+            color: white;
+            padding: 0px 0 0 1px;
+            line-height: 1;
+            font-size: 13px;
+            margin-left: 3px;
+            &:hover{
+              background: white;
+              color: rgba(0,0,0,0.34);
+            }
+          }
+        }
+        .progress-bar-box{
+          padding: 0;
+          height: 17px;
+          width: 100%;
+          position: relative;
+          span.meter{
+            background: $brand-color-green;
+            display: block;
+            height: 100%;
+          }
+        }
+      }
+    }
+    .file-types{
+      font-family: 'eaglelight';
+      font-size: rem-calc(14);
+    }
+    .highlight-supported-files, #audio_upload_error {
+      background-color: crimson;
+      transition: background-color 1000ms linear;
+      -webkit-transition: background-color 1000ms linear;
+      -moz-transition: background-color 1000ms linear;
+      -o-transition: background-color 1000ms linear;
+      -ms-transition: background-color 1000ms linear;
+      color: black;
+      font-weight: bold;
+    }
+  }
+
   .date-time-icker-row{
     .columns{
       padding-right: 13px !important;
@@ -84,7 +154,7 @@
     }
   }
   .link-delete{
-    float:right
+    float:left
   }
 }
 

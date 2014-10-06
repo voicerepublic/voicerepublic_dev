@@ -32,7 +32,7 @@ class UsersController < BaseController
     @user = User.find(params[:id])
     respond_to do |format|
       format.html do
-        @upcoming_talks = ''
+        @upcoming_talks = Talk.joins(:venue).prelive.where('venues.user_id' => @user.id).ordered
         @archived_talks = Talk.joins(:venue).archived.where('venues.user_id' => @user.id).ordered
         @live_talks = Talk.joins(:venue).live.where('venues.user_id' => @user.id).ordered
       end
