@@ -36,7 +36,7 @@ module Audio
 
       def run
         convert_wav_to_mp3
-        cut
+        cut unless cut_conf.blank?
         input
       end
 
