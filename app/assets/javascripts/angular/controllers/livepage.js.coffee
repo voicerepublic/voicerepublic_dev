@@ -8,10 +8,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # public
 
-  # HACK
-  $scope.config = config
-  $scope.session = session
-
   $scope.showFlashError = ->
     !hasFlash() and (config.talk.state in ['halflive', 'live'])
 
