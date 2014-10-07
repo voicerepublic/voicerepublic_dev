@@ -5,6 +5,9 @@ require 'fileutils'
 require 'json'
 require File.expand_path('../email', __FILE__)
 
+# http://stackoverflow.com/questions/3192128
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
 
 # The Assimilator runs specs and reports the outcome.
 #
@@ -106,7 +109,7 @@ test:
 
     # set PATH
     ENV['PATH'] = [ENV['PATH'], "#{home}/bin"].compact * ':'
-    
+
     # rspec spec
     status('pending', "running specs...")
 
@@ -115,7 +118,7 @@ test:
     # TODO make configurable
     output = execute("bundle exec rspec spec --fail-fast",
       { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)
-    
+
     # report
     if $?.exitstatus > 0
       reason = 'no reason given'
@@ -171,7 +174,7 @@ test:
   def build_cmd
     ['./lib/assimilator.rb', repo, ref, sha, pusher] * ' '
   end
-  
+
   def die(msg)
     status('error', msg)
     puts errormsg = "Abort: #{msg}"
@@ -206,4 +209,3 @@ Assimilator.new(*ARGV).run if __FILE__ == $0
 #     CREATE EXTENSION
 #     rails_test=# CREATE EXTENSION unaccent;
 #     CREATE EXTENSION
-
