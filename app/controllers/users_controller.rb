@@ -35,6 +35,7 @@ class UsersController < BaseController
         @upcoming_talks = @user.talks.prelive.ordered
         @archived_talks = @user.talks.archived.order('updated_at DESC')
         @live_talks = @user.talks.live_and_halflive.ordered
+        @talks_total = @user.talks.where.not(state: 'postlive').count
       end
       format.rss do
         talks = @user.talks.archived.order('updated_at DESC')

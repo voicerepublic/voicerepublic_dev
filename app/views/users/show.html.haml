@@ -19,7 +19,7 @@
           %ul.anker-links.list-style-type-none>
             -# TODO talk counter
             %li
-              .text= t('.talks', count: 1)
+              .text= t('.talks', count: @talks_total)
             %li>
               = link_to "#series" do
                 = t('.venues', count: @user.venues_without_default.count)
