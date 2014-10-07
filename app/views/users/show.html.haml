@@ -4,55 +4,93 @@
 - content_for :title do
   = t('.title', username: @user.name)
 
-.header-block(style="background-image: url(#{@user.header.try(:url)})")
+.header-box.row.collapse
+  .large-12.columns
+    .align-box
+      .avatar-box
+        .avatar
+          = render partial: "shared/avatar_image", locals: { user: @user, size: 185 }
+          %h2.user-name=spanify(@user.name)
 
-  .header-box.row
-    .large-12.columns.text-center
-      - if can? :manage, @user
-        .generic-actions-box
-          = link_to "#", class: "action-toggle", title: 'Show Options', "data-toggle-stuff" => "#action-links-list" do
-            %span.icon-cog
-          %ul#action-links-list.list-style-type-none.hide-stuff
-            %li= link_to t('.edit_user'), [:edit, @user]
+      .info-links-box>
+        .info-box
+          Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Sed posuere consectetur est at lobortis.
+        .links-box
+          %ul.anker-links.list-style-type-none>
+            -# TODO talk counter
+            %li
+              .text= t('.talks', count: 1)
+            %li>
+              = link_to "#series" do
+                = t('.venues', count: @user.venues.count)
+            %li
+              = link_to '#listen-later' do
+                = t('.listen_later', count: @user.reminders.count)
+          - if can? :manage, @user
+            %ul.action-links
+              -# TODO correct link
+              %li
+                =link_to new_talk_path do
+                  %span.icon-mic
+                  = t('.create_new_talk')
+              -# TODO correct link
+              %li>
+                =link_to new_talk_path do
+                  %span.icon-download
+                  = t('.upload_talk')
+          - else
+            %ul.action-links.list-style-type-none
+              %li.visitor-view
+                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@user) }
 
-      .avatar
-        = render partial: "shared/avatar_image", locals: { user: @user, size: 120 }
+  - if can? :manage, @user
+    = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'
 
-      %h2.user-name= @user.name
-      = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@user) }
-      %br/
-      %br/
-  .row.collapse-large-only
-    .large-12.columns.text-center
-      %dl.tabs.vr-tabs(data-tab='true')
-        %dd.text-center
-          %a(href="#about")
-            %span.icon-description
-            = t('.about')
-        %dd.text-center.active
-          %a(href="#venues")
-            %span.icon-guide
-            = t('.venues')
-        %dd.text-center
-          %a(href="#reminders")
-            %span.icon-plus
-            = t('.reminders')
+- unless @live_talks.empty?
+  .live-talks-box.row.collapse-large-only
+    .large-12.columns
+      %header.title-header.clearfix
+        %h3.left= t('.live_talks', count: @live_talks.count)
+        .onair.right= t('.on_air')
+      %ul(class="#{talks_grid(@live_talks)}")
+        = render partial: 'shared/talk_live_box', collection: @live_talks
 
-.row.collapse-large-only
-  .large-12.columns.tabs-content
-    #about.about-content.content
+- unless @upcoming_talks.empty?
+  .upcoming-talks-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.upcoming_talks', count: @upcoming_talks.count)
+      -# TODO show only the first 3
+      %ul(class="#{talks_grid(@upcoming_talks)}")
+        = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks
+      -# TODO open all
+      -#= link_to t('.more'), '#', class: 'link-more'
+
+- unless @archived_talks.empty?
+  .archived-talks-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.archived_talks', count: @archived_talks.count)
+      -# TODO show only the first 3
+      %ul(class="#{talks_grid(@archived_talks)}")
+        = render partial: talks_partial(@archived_talks), :locals => { color: 'box-slim' }, collection: @archived_talks
+      -# TODO open all
+      -#= link_to t('.more'), '#', class: 'link-more'
+
+- unless @user.reminders.empty?
+  #listen-later.listen-later-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.listen_later', count: @user.reminders.count)
+      %ul(class="#{talks_grid(@user.reminders)}")
+        = render partial: 'shared/reminder', collection: @user.reminders
+
+- unless @user.venues.empty?
+  #series.user-series-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.venues', count: @user.venues.count)
+      %ul.medium-block-grid-2
+        = render partial: 'shared/venue_medium_box', collection: @user.venues_without_default
+
+.description-box.row.collapse-large-only
+  .large-12.columns
+    .align-box
+      %h3= t('.about')
       = raw @user.about
-
-    #venues.venues-content.content.active
-      = render partial: 'shared/venue_medium_box', collection: @user.venues_without_default
-
-    #reminders.reminders-content.content
-      - if @user.reminders.empty?
-        %p= t('.no_reminders', username: @user.name)
-      - else
-        %ul
-          = render partial: 'shared/reminder', collection: @user.reminders
-
-    #schedule.content TODO
-
-    #activity.content TODO

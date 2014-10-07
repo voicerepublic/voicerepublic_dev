@@ -305,11 +305,37 @@ en:
         subtitle: "Podcast provided by Voice Republic"
       feed_title: "VR - %{username}"
       title: "%{username} - Voice Republic"
+      edit_profile: Edit Profile
+      talks:
+        one: 1 Talk
+        other: '%{count} Talks'
+      venues:
+        one: 1 Series
+        other: '%{count} Series'
+      listen_later: Listen later
+      create_new_talk: Create new Talk
+      upload_talk: Upload Talk
       edit_user: Edit Profile
       about: About
-      venues: Series
       reminders: Listen later
       no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
+      live_talks:
+        zero: No Live Talks
+        one: 1 LIVE TALK
+        other: '%{count} LIVE TALKS'
+      on_air: ON AIR
+      upcoming_talks:
+        zero: No Upcoming Talks
+        one: 1 Upcoming Talk
+        other: '%{count} Upcoming Talks'
+      archived_talks:
+        zero: No Archived Talks
+        one: 1 Archived Talk
+        other: '%{count} Archived Talks'      
+      listen_later:
+        zero: ""
+        one: 1 Listen later
+        other: '%{count} Listen later'              
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -554,6 +580,7 @@ en:
     hide_for_anon:
       redirect_text: |
         Please sign up or login to use this feature.
+      subscribe_to_podcast: Podcast
     actionbar:
       login: Log In
       sign_up: Sign Up
@@ -604,6 +631,9 @@ en:
       delete_reminder: Delete reminder
     talk_small_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+    talk_live_box:
+      tune_in: TUNE IN
+      speakers: TALKGUESTS
     venue_medium_box:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
@@ -621,26 +651,27 @@ en:
     venue_list: Series
     new_venue: Create Series
     show:
-      subscribe_to_podcast: Subscribe to podcast
+      back_to_profile: back to Profile
+      create_new_talk: Create new Talk    
+      upload_talk: Upload Talk
+      subscribe_to_podcast: Podcast
       podcast:
         title: "VR: %{title}"
         subtitle: "Podcast provided by Voice Republic"
-      subscribe_to_podcast: Subscribe to podcast
+      feed_title: "VR - %{title}"
       redirect_text: |
         Please sign up or login to use this feature.
       login: Login
       signup: Sign up
-      feed_title: "VR - %{title}"
       title: "%{title} - Voice Republic"
       by: by
       start_date: Begin
       duration: Duration
-      past_venue: Past Series
-      join_venue: SUBSCRIBE TO Series!
-      create_new_talk: Create Talk
-      leave_venue: Unsubscribe from Series
+      past_venue: Past Series     
+      subscribe_to_series: Subscribe to Series
+      unsubscribe_to_series: Unsubscribe
       this_venue_has_no_talks: This Series has no Talks
-      edit_venue: Edit Series
+      edit_venue: Edit
       chat_will_be_available_short_before_start: Group-chat will be available short before start
       group_chat: Group-Chat
       only_attendies_can_see_group_chat: Only participants can read the group-chat
@@ -649,6 +680,11 @@ en:
       post: Post
       write_a_comment: Write a comment
       description: Description
+      live_talks:
+        zero: No Live Talks
+        one: 1 LIVE TALK
+        other: '%{count} LIVE TALKS'
+      on_air: ON AIR
       upcoming_talks:
         zero: No Upcoming Talks
         one: 1 Upcoming Talk
@@ -657,46 +693,9 @@ en:
         zero: No Archived Talks
         one: 1 Archived Talk
         other: '%{count} Archived Talks'
-      comments:
-        zero: No Comments
-        one: 1 Comment
-        other: '%{count} Comments'
-    venue_show_header:
-      venue: Series
-      minutes: Minutes
-      ongoing_venue: Series active
-      venue_moderated_by: Moderated by %{name}
-      leave_venue_popup: This link opens a new tab!
-    venue_show_static:
-      by: by
-    venue_show_static_live:
-      by: by
-    venue_show_chat:
-      what_is_a_venue: Tell me about Series
-      see_other_venues: All Series
-    venue_show_upcoming_event:
-      upcoming_event: UPCOMING TALK
-    venue_show_forum:
-      comments: Comments
-      articles: DISCUSSION
-    venue_show_participants:
-      leave_venue_popup: This link opens a new tab!
-      participants: PARTICIPANTS
-      be_the_first_to_participate: Be the first to participate!
-    venue_article:
-      reply: Reply
-    venue_show_talking_users:
-      host: HOST
-      participants: GUESTS
-    venue_show_actions:
-      confirm_unjoin_venue: Really want to unjoin this Series?
-    venue_show_archive:
-      past_talks: ARCHIVE
-      delete_this_recording: Delete this recording
-    venue_show_avatar:
-      leave_venue_popup: This link opens a new tab!
+      more: More...
     new:
-      title: "VR New Series"
+      title: "New Series - Voice Republic"
       new_venue: Create Series
       create_venue: Create Series
       available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Series
