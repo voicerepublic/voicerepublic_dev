@@ -2,8 +2,20 @@
 .venues-create,
 .venues-update,
 .venues-edit{
+  .image-box{
+    position: relative;
+    width: 100%;
+    padding-bottom: 65.5%;
+    background-size: cover;
+    margin-bottom: 10px;
+    .button-standard{
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+    }
+  }  
   .link-delete{
-    float:right
+    float:left
   }
 }
 

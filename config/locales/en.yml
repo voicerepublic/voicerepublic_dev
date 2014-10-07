@@ -247,6 +247,10 @@ en:
   will_paginate:
     next_label: ! '>>'
     previous_label: <<
+
+
+
+# USERS -------------------------------------------------------------
   users:
     welcome:
       welcome_user: Welcome to KluuU
@@ -292,13 +296,15 @@ en:
       opinion: Status
       edit_account: Edit profil
     edit:
-      title: "VR Edit User %{username}"
+      title: "%{username} edit profile - Voice Republic"
       edit_your_profile: Edit profil
       select_profile_image: Profile image
       select_header_image: Background image
     venues:
       venues: Series
       guest_empty_venue: ! '%{name} has no series yet.'
+
+    # SHOW
     show:
       podcast:
         title: "VR: %{username}"
@@ -331,11 +337,16 @@ en:
       archived_talks:
         zero: No Archived Talks
         one: 1 Archived Talk
-        other: '%{count} Archived Talks'      
+        other: '%{count} Archived Talks'
       listen_later:
         zero: ""
         one: 1 Listen later
-        other: '%{count} Listen later'              
+        other: '%{count} Listen later'
+
+
+
+
+
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -638,10 +649,13 @@ en:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
 
+
+
+# VENUE ---------------------------------------------------------------------------------
   venues:
     date_changed: New Series date
     edit:
-      title: "VR Edit Series %{title}"
+      title: "%{title} edit Series - Voice Republic"
       edit_venue: Edit Series
       venue_renew_title: New talk
       confirm_change_date: All participants will be notified of your changes
@@ -652,7 +666,7 @@ en:
     new_venue: Create Series
     show:
       back_to_profile: back to Profile
-      create_new_talk: Create new Talk    
+      create_new_talk: Create new Talk
       upload_talk: Upload Talk
       subscribe_to_podcast: Podcast
       podcast:
@@ -667,7 +681,7 @@ en:
       by: by
       start_date: Begin
       duration: Duration
-      past_venue: Past Series     
+      past_venue: Past Series
       subscribe_to_series: Subscribe to Series
       unsubscribe_to_series: Unsubscribe
       this_venue_has_no_talks: This Series has no Talks
@@ -755,7 +769,7 @@ en:
       your_talk: Create your first Talk
       event_title: Talk title
       archive: Archive
-      select_image: 'Select background image'
+      select_image: 'Select image'
     edit_start_time:
       new_talk: New talk
     change_time_form:
@@ -781,6 +795,9 @@ en:
     no_venues:
       create_venue_for_your_kluuu: Create your own chat room for your KluuU.
       create_venue: Create Series
+
+
+# TALKS ---------------------------------------------------------------------------------
   talks:
     message_history: |
       Voice Republic Message History
@@ -903,19 +920,21 @@ en:
         Please sign up or login to use this feature.
 
     new:
-      title: "VR New Talk"
-      new_talk: New Talk
+      title: "New Talk - Voice Republic"
+      new_talk: Create Talk
     edit:
-      title: "VR Edit Talk %{title}"
+      title: "Edit Talk %{title} - Voice Republic"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
-      record: Record
     fields:
-      audio_upload: "Import your audio file"
+      initializing: Installing uploader...
+      audio_upload: "Upload your audio file"
+      choose_file: Choose file
+      uploading: Uploading...
       drop_files_here: "Drop files here"
       upload: Upload
-      cancel: Cancel
+      cancel: "&times;"
       remove: Remove
       upload_failed: Audio upload failed. Please try reloading the page and try again.
       supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
@@ -923,6 +942,18 @@ en:
         Please click 'Save' to start processing your uploaded audio file.
         Your upload will be lost unless you press 'Save'.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
+      schedule_the_live_broadcast: Schedule the live broadcast
+      upload_help_text: Choose your recording file and fill out the form during upload.
+      record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
+      add_to_series: Add to Series
+      series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.
+      invite_guests: Invite guests
+      invite_guests_text: Your guests will be informed per mail and automatically added to the stage.
+      illustrate_and_describe: Illustrate and describe
+      ill_and_desc_text: Choose a background image and tell your audience a little more...
+      image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
+      import_your_audio_file: Import audio file
+      select_image: Select image
       talks_description: Tell your audience a little more
       title: Title
       required: required
@@ -938,6 +969,8 @@ en:
       recent: RECENT
       see_all: MORE
 
+
+# EMBED TALKS ---------------------------------------------------------------------------------
   embed_talks:
     show:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
@@ -1026,7 +1059,7 @@ en:
   simple_form:
     hints:
       talk:
-        language: Please select the main language of your talk.
+        language: ""
         format: Please provide the format purely for informational purposes.
     labels:
       talk:

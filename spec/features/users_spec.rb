@@ -69,14 +69,6 @@ feature "User edits own profile", js: true do
     page.should have_content(I18n.t('flash.actions.update.notice'))
   end
 
-  scenario "uploading a header image" do
-    some_image = Rails.root.join('app/assets/images/logo.png')
-    make_upload_field_visible('user_header')
-    page.attach_file 'user_header', some_image
-    page.click_button 'Save'
-    page.should have_content(I18n.t('flash.actions.update.notice'))
-  end
-
   scenario "uploading a avatar image" do
     some_image = Rails.root.join('app/assets/images/logo.png')
     @user.reload.avatar_uid.should be_nil
