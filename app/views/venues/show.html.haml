@@ -7,7 +7,7 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-= render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
+= render partial: 'shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
 .user-box.row
   .large-12.columns
@@ -33,7 +33,7 @@
         - unless @upcoming_talks.empty?
           = link_to '#upcoming-talks' do
             = t('.upcoming_talks', count: @upcoming_talks.count)
-        %span.icon-mic        
+        %span.icon-mic
         - unless @archived_talks.empty?
           = link_to '#archived-talks' do
             = t('.archived_talks', count: @archived_talks.count)
@@ -48,7 +48,7 @@
           %span.icon-download
           = t('.upload_talk')
       - else
-        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }  
+        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }
         - if @show_join
           = link_to [@venue, :participations], method: :post do
             = t('.subscribe_to_series')
@@ -59,14 +59,6 @@
           = link_to [@venue, @participation], delete_params do
             = t('.unsubscribe_to_series')
 
-.description-box.row.collapse-large-only
-  .large-12.columns
-    .align-box
-      %h3= t('.description')
-      = @venue.description.html_safe
-      - if can? :manage, @venue
-        = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"
-
 - unless @live_talks.empty?
   .live-talks-box.row.collapse-large-only
     .large-12.columns
@@ -74,7 +66,7 @@
         %h3.left= t('.live_talks', count: @live_talks.count)
         .onair.right= t('.on_air')
       %ul(class="#{talks_grid(@live_talks)}")
-        = render partial: 'shared/talk_live_box', collection: @live_talks      
+        = render partial: 'shared/talk_live_box', collection: @live_talks
 
 - unless @upcoming_talks.empty?
   .upcoming-talks-box.row.collapse-large-only
@@ -95,3 +87,11 @@
         = render partial: talks_partial(@archived_talks), :locals => { color: 'box-slim' }, collection: @archived_talks
       -# TODO open all
       -#= link_to t('.more'), '#', class: 'link-more'
+
+.description-box.row.collapse-large-only
+  .large-12.columns
+    .align-box
+      %h3= t('.description')
+      = @venue.description.html_safe
+      - if can? :manage, @venue
+        = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"
