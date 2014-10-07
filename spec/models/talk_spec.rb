@@ -85,6 +85,7 @@ describe Talk do
       expect(@talk).to be_valid
     end
     it "creates a venue on the fly if new_venue_title is set" do
+      @talk.venue_id = nil
       @talk.new_venue_title = "Some title"
       @talk.venue_user = FactoryGirl.create(:user)
       @talk.save!
