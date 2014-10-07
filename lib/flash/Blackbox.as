@@ -13,12 +13,16 @@
   import flash.media.SoundCodec;
   import flash.media.SoundTransform;
   import flash.display.MovieClip;
+  import flash.display.BitmapData;
   import flash.external.ExternalInterface;
   import flash.events.SampleDataEvent;
   import flash.events.ActivityEvent;
   import flash.events.StatusEvent;
   import flash.events.UncaughtErrorEvent;
   import flash.events.ErrorEvent;
+  import flash.system.Security;
+  import flash.system.SecurityPanel;
+  import flash.utils.*;
 
   //import flash.display.Shape;
   //import fl.transitions.Tween;
@@ -39,6 +43,7 @@
     internal var volume: Number = 1;
     internal var silenceLevel: Number;
     internal var silenceTimeout: Number;
+    internal var settingsClosed: String;
     // internal var myCircle:Shape = new Shape();
 
     // constructor
@@ -77,6 +82,7 @@
       feedbackMethod = root.loaderInfo.parameters['feedbackMethod'] || "console.log";
       silenceLevel   = root.loaderInfo.parameters['silence_level'];
       silenceTimeout = root.loaderInfo.parameters['silence_timeout'];
+      settingsClosed = root.loaderInfo.parameters['settings_closed'];
 
 			var callback: String =
           root.loaderInfo.parameters['afterInitialize'] || "flashInitialized";
@@ -93,25 +99,59 @@
     internal function micCheck(): void {
       log('Initiate mic check...');
       mic = Microphone.getEnhancedMicrophone();
-      mic.setLoopBack(true);
-      mic.setUseEchoSuppression(true);
+      mic.setSilenceLevel(0, 2000);
 
-      mic.addEventListener(ActivityEvent.ACTIVITY,
-                           function(event:ActivityEvent): void {
-                             log('ActivityEvent: ' + event);
-                           });
+      // * [ActivityEvent type="activity" bubbles=false
+      //   cancelable=false eventPhase=2 activating=true]
+      // * [ActivityEvent type="activity" bubbles=false
+      //   cancelable=false eventPhase=2 activating=false]
+      // log('Add ActivityEventListener.');
+      // mic.addEventListener(ActivityEvent.ACTIVITY,
+      //                      function(event:ActivityEvent): void {
+      //                        log('ActivityEvent: ' + event.activating);
+      //                      });
+
+      // * [StatusEvent type="status" bubbles=false cancelable=false
+      //   eventPhase=2 code="Microphone.Unmuted" level="status"]
+      // * [StatusEvent type="status" bubbles=false cancelable=false
+      //   eventPhase=2 code="Microphone.Muted" level="status"]
+      log('Add StatusEventListener.');
       mic.addEventListener(StatusEvent.STATUS,
                            function(event:StatusEvent): void {
-                             log('StatusEvent: ' + event);
+                             mic.setLoopBack(false);
+                             log('StatusEvent: ' + event.code);
+                             switch(event.code) {
+                             case 'Microphone.Unmuted':
+                               log('Permission has been granted.');
+                               Security.showSettings(SecurityPanel.MICROPHONE);
+                               checkSettings(function():void {
+                                 ExternalInterface.call(settingsClosed);
+                               });
+                               break;
+                             case 'Microphone.Muted':
+                               log('Permission has been declined.');
+                               break;
+                             default:
+                               log('Something else happened');
+                             }
                            });
-      mic.addEventListener(SampleDataEvent.SAMPLE_DATA,
-                           function(event:SampleDataEvent): void {
-                             // var value:Number = mic.activityLevel;
-			                       // ExternalInterface.call(feedbackMethod, value);
-                             log('SampleDataEvent: ' + event);
-                           });
+
+      // * [SampleDataEvent type="sampleData" bubbles=false
+      //   cancelable=false eventPhase=2 position=88320 data=...]
+      // log('Add SampleDataEventListener.');
+      // mic.addEventListener(SampleDataEvent.SAMPLE_DATA,
+      //                      function(event:SampleDataEvent): void {
+      //                        // var value:Number = mic.activityLevel;
+			//                        // ExternalInterface.call(feedbackMethod, value);
+      //                        log('SampleDataEvent: ' + event.toString());
+      //                      });
+
+      mic.setLoopBack(true);
+      //mic.setUseEchoSuppression(true);
       log('Awaiting mic check event...');
     }
+
+
 
     internal function muteMic(): void {
       log("Mute mic by setting gain to 0.")
@@ -278,6 +318,44 @@
 
     internal function log(msg: String): void {
       ExternalInterface.call(logMethod, "[Blackbox]: " + msg);
+    }
+
+    // https://code.google.com/p/wami-recorder/source/browse/src/edu/mit/csail/wami/client/FlashSettings.as
+    private static var MAX_CHECKS:uint = 28800; // * 1/4sec = 2h
+    private var checkSettingsIntervalID:int = 0;
+    private var showedPanel:Boolean = false;
+    private var checkAttempts:int = 0;
+
+    internal function checkSettings(success:Function):void {
+      clearInterval(checkSettingsIntervalID);
+      if (!showingPanel()) {
+        success();
+        // log("we're good.");
+        return;
+      }
+      // log('panel open, check attempts: '+ checkAttempts);
+      checkAttempts++;
+      if (checkAttempts > MAX_CHECKS) {
+        log('giving up.');
+        return;
+      }
+      checkSettingsIntervalID = setInterval(checkSettings, 250, success);
+    }
+
+    // Try to capture the stage: triggers a Security error when
+    // the settings dialog box is open. Unfortunately, this is how
+    // we have to poll the settings dialogue to know when it closes.
+    private function showingPanel():Boolean {
+      var showing:Boolean = false;
+      var dummy:BitmapData = new BitmapData(1,1);
+      try { dummy.draw(this.stage); }
+      catch (error:Error) {
+        log("Still not closed, could not capture the stage: " + this.stage);
+        showing = true;
+      }
+      dummy.dispose();
+      dummy = null;
+      return showing;
     }
 
     // http://stackoverflow.com/questions/101532
