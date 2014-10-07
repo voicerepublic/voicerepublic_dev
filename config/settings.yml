@@ -82,3 +82,11 @@ default_venue_defaults:
     description: |
       Various talks, that don't belong to any particular series
     tag_list: default
+# S3 upload bucket for talks. For S3 uploads we are using CORS.
+# Therefore, we have three S3 buckets - each for a specific FQDN:
+# 
+# * localhost:3000             -> vr-audio-uploads-dev
+# * staging.voicerepublic.com  -> vr-audio-uploads-staging
+# * voicerepublic.com          -> vr-audio-uploads-live
+#
+talk_upload_bucket: vr-audio-uploads-dev
