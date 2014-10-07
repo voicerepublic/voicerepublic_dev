@@ -1065,6 +1065,8 @@ en:
       talk:
         venue: Series
         new_venue_title: New Series Title
+        starts_at_date: Date
+        starts_at_time: Time
       user:
         conference: I will be streaming a conference.
         accept_terms_of_use: |

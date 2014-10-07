@@ -17,9 +17,8 @@
           Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Sed posuere consectetur est at lobortis.
         .links-box
           %ul.anker-links.list-style-type-none>
-            -# TODO talk counter
             %li
-              .text= t('.talks', count: 1)
+              .text= t('.talks', count: @talks_total)
             %li>
               = link_to "#series" do
                 = t('.venues', count: @user.venues_without_default.count)
