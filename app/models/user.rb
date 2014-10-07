@@ -1,10 +1,13 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
 # * about [text] - TODO: document me
+# * authentication_token [string] - Devise Token authenticable module
 # * avatar_uid [string] - TODO: document me
+# * conference [boolean] - TODO: document me
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
+# * default_venue_id [integer] - belongs to :default_venue
 # * email [string, default="", not null]
 # * encrypted_password [string, default="", not null] - Devise encrypted password
 # * firstname [string] - TODO: document me
@@ -20,6 +23,7 @@
 # * reset_password_token [string] - Devise Recoverable module
 # * sign_in_count [integer, default=0] - Devise Trackable module
 # * slug [text] - TODO: document me
+# * summary [string] - TODO: document me
 # * timezone [string] - TODO: document me
 # * uid [string] - used by oauth2
 # * updated_at [datetime, not null] - last update time
