@@ -551,6 +551,24 @@ en:
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
+    how_to_use_vr:
+      col1_title: Create Talk
+      col1_text: |
+        announce it with ease
+        Create a talk in minutes
+        Announce talks with your personalized flyer on Facebook, Twitter or by email
+      col2_title: Stream Audio
+      col2_text: |
+        get on air in seconds
+        Connect a microphone or any other audio input
+        Start streaming
+        Share the microphone with listeners - open the debate
+      col3_title: Archive on the flyer
+      col3_text: |
+        after live comes archive
+        Your live stream will be recorded automatically and instantly available on your profile
+        Embed recorded talks on your site
+        Download as a podcast.
     hide_for_anon:
       redirect_text: |
         Please sign up or login to use this feature.
