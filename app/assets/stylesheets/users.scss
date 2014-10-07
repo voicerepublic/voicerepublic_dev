@@ -11,7 +11,7 @@
       font-family: 'eaglebook';
       font-size: rem-calc(13);
       color: white;
-    }    
+    }
     .align-box{
       position: relative;
       width: 100%;
@@ -46,10 +46,10 @@
           font-size: 19px;
           color: rgba(255, 255, 255, 0.56);
           line-height: 1.2;
-          margin-bottom: 10px;       
+          margin-bottom: 10px;
         }
         .links-box{
-          padding: 9px 14px 8px 14px;          
+          padding: 9px 14px 8px 14px;
           background: black;
           .anker-links{
             margin:0 -0.9% 0 -0.9%;
@@ -70,7 +70,7 @@
             li{
               vertical-align: top;
               display: inline-block;
-              width: 50%;          
+              width: 50%;
               &.visitor-view{
                 width: 100%;
               }
@@ -101,14 +101,14 @@
                     font-size: rem-calc(15);
                     margin-right: 4px;
                     top: -1px;
-                  }                                 
+                  }
                 }
               }
             }
           }
         }
       }
-    }   
+    }
   }
 
   .live-talks-box,
@@ -120,9 +120,9 @@
     border-top: 3px solid $color-black-title;
     padding-top: 14px;
     h3{
-      color: $color-black-title;  
+      color: $color-black-title;
       font-size: rem-calc(19);
-      margin-bottom: 16px;   
+      margin-bottom: 16px;
     }
     .link-more{
       float:right;
@@ -150,7 +150,7 @@
 
   .description-box{
     border-top: 3px solid $color-black-title;
-    padding: 14px 0;    
+    padding: 14px 0;
     .align-box{
       position: relative;
       h3{
@@ -159,7 +159,7 @@
       }
       font-family: 'eaglelight';
       font-size: rem-calc(15);
-      line-height: 1.2;          
+      line-height: 1.2;
       p{
         font-family: inherit;
         font-size: inherit;
@@ -170,7 +170,7 @@
             text-decoration: underline;
             color:lighten(black,20%);
           }
-        }        
+        }
       }
       .desc-edit{
         position: absolute;
@@ -178,8 +178,8 @@
         right: 0;
         font-family: 'eaglebook';
         font-size: rem-calc(19);
-      }   
-    }   
+      }
+    }
   }
 }
 

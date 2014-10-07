@@ -1,7 +1,9 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
 # * about [text] - TODO: document me
+# * authentication_token [string] - Devise Token authenticable module
 # * avatar_uid [string] - TODO: document me
+# * conference [boolean] - TODO: document me
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module

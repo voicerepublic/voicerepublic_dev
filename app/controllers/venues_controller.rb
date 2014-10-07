@@ -21,15 +21,18 @@ class VenuesController < BaseController
   def show
     respond_to do |format|
       format.html do
-        @upcoming_talks = @venue.talks.where(state: [:prelive, :live]).ordered
+        @upcoming_talks = @venue.talks.prelive.ordered
         @archived_talks = @venue.talks.archived.ordered
-        @live_talks = @venue.talks.where(state: [:live]).ordered
+        @live_talks = @venue.talks.live_and_halflive.ordered
 
-        @participation =
-          @venue.participations.find_by(user_id: current_user.id) if current_user
+        if current_user
+          @participation =
+            @venue.participations.find_by(user_id: current_user.id)
 
-        @show_join = @participation.nil? &&
-                     current_user != @venue.user && current_user
+          @show_join = @participation.nil? &&
+                       current_user != @venue.user
+        end
+
       end
       format.json { render json: @venue }
       format.rss do

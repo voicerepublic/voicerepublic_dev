@@ -13,13 +13,14 @@
   import flash.media.SoundCodec;
   import flash.media.SoundTransform;
   import flash.display.MovieClip;
-
   import flash.external.ExternalInterface;
+  import flash.events.SampleDataEvent;
+  import flash.events.ActivityEvent;
+  import flash.events.StatusEvent;
+  import flash.events.UncaughtErrorEvent;
+  import flash.events.ErrorEvent;
 
   //import flash.display.Shape;
-  import flash.events.SampleDataEvent;
-  // import flash.events.ActivityEvent;
-  // import flash.events.StatusEvent;
   //import fl.transitions.Tween;
   //import fl.transitions.easing.*;
   //import spark.effects.Scale;
@@ -27,7 +28,7 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.2';
+    internal var version: String = '2.3';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
@@ -42,6 +43,10 @@
 
     // constructor
     public function Blackbox() {
+
+      loaderInfo.uncaughtErrorEvents.addEventListener(
+        UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+
       // // init graphics
       // var width:int = stage.stageWidth;
       // var height:int = stage.stageHeight;
@@ -88,27 +93,24 @@
     internal function micCheck(): void {
       log('Initiate mic check...');
       mic = Microphone.getEnhancedMicrophone();
-      // mic.addEventListener(ActivityEvent.ACTIVITY,
-      //                      function(event:ActivityEvent): void {
-      //                        log('ActivityEvent: ' + event);
-      //                      });
-      // mic.addEventListener(StatusEvent.STATUS,
-      //                      function(event:StatusEvent): void {
-      //                        log('StatusEvent: ' + event);
-      //                      });
       mic.setLoopBack(true);
       mic.setUseEchoSuppression(true);
+
+      mic.addEventListener(ActivityEvent.ACTIVITY,
+                           function(event:ActivityEvent): void {
+                             log('ActivityEvent: ' + event);
+                           });
+      mic.addEventListener(StatusEvent.STATUS,
+                           function(event:StatusEvent): void {
+                             log('StatusEvent: ' + event);
+                           });
       mic.addEventListener(SampleDataEvent.SAMPLE_DATA,
                            function(event:SampleDataEvent): void {
-                             var value:Number = mic.activityLevel;
-			                       ExternalInterface.call(feedbackMethod, value);
-                             //log(value.toString());
-                             // myCircle.width = value;
-                             // while(event.data.bytesAvailable)     {
-                             //   var sample:Number = event.data.readFloat();
-                             // }
+                             // var value:Number = mic.activityLevel;
+			                       // ExternalInterface.call(feedbackMethod, value);
+                             log('SampleDataEvent: ' + event);
                            });
-      log('Initiation complete.');
+      log('Awaiting mic check event...');
     }
 
     internal function muteMic(): void {
@@ -192,7 +194,7 @@
         options.autoGain = false;
         options.echoPath = 128;
         options.nonLinearProcessing = true;
-  
+
         mic = Microphone.getEnhancedMicrophone();
         // 0, 0 for continous stream
         mic.setSilenceLevel(0, 2000);
@@ -201,19 +203,35 @@
         // SPEEX setzt frame rate selbst, vielleicht windows auf nellymoser zwingen
         // bei nellymoser kann man die rate setzten
         mic.codec = SoundCodec.SPEEX;
-  
+
         // Alternativ einen zweiten und dritte Stream senden
         // byteArray sind Wave Daten
-        
-        // http://www.gbaptista.com/docs/as3/flash/media/Microphone.html#encodeQuality
+
+        // http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/media/Microphone.html#encodeQuality
         // encodeQuality 7 == 23.8 kbit/s
         //  * upload of 1mb takes 5.6min
         //  * streaming one hour produces 10.7mb raw data
-        mic.encodeQuality = 7;
+        /*
+          | Quality | kb/s | min2up 1MB | MB/h raw data |
+          |---------+------+------------+---------------|
+          |       0 | 3.95 |  34.565401 |     1.7358398 |
+          |       1 | 5.75 |  23.744928 |     2.5268555 |
+          |       2 | 7.75 |  17.617204 |     3.4057617 |
+          |       3 | 9.80 |  13.931973 |     4.3066406 |
+          |       4 | 12.8 |  10.666667 |         5.625 |
+          |       5 | 16.8 |  8.1269841 |     7.3828125 |
+          |       6 | 20.6 |  6.6278317 |     9.0527344 |
+          |       7 | 23.8 |  5.7366947 |     10.458984 |
+          |       8 | 27.8 |  4.9112710 |     12.216797 |
+          |       9 | 34.2 |  3.9922027 |     15.029297 |
+          |      10 | 42.2 |  3.2353870 |     18.544922 |
+          #+TBLFM: $3=(1024*8)/$2/60::$4=60*60*$2/(1024*8)
+        */
+        mic.encodeQuality = 10;
         mic.framesPerPacket = 1;
         mic.gain = 50;
         mic.setUseEchoSuppression(true);
-  
+
         var ns: NetStream = new NetStream(nc);
         ns.attachAudio(mic);
         ns.publish(stream, "live");
@@ -257,9 +275,26 @@
       log("SecurityErrorEvent: " + event.text);
     }
     // end audit
-    
+
     internal function log(msg: String): void {
       ExternalInterface.call(logMethod, "[Blackbox]: " + msg);
     }
+
+    // http://stackoverflow.com/questions/101532
+    internal function uncaughtErrorHandler(event:UncaughtErrorEvent):void {
+      if (event.error is Error) {
+        var error:Error = event.error as Error;
+        // do something with the error
+        log("Uncaught Error: " + error);
+      } else if (event.error is ErrorEvent) {
+        var errorEvent:ErrorEvent = event.error as ErrorEvent;
+        // do something with the error
+        log("Uncaught ErrorEvent: " + errorEvent);
+      } else {
+        // a non-Error, non-ErrorEvent type was thrown and uncaught
+        log("Uncaught Something: " + event);
+      }
+    }
+
   }
 }
