@@ -2,6 +2,7 @@
 
   .visitor-top-bar{
     z-index: 2;
+    position: relative;
   }
 
   .visitor-top-box{
@@ -70,7 +71,6 @@
   .title-row{
     padding-bottom: 40px;
     position:relative;
-    z-index: -1;
 
     .lp-logo{
       font-size: rem-calc(280);

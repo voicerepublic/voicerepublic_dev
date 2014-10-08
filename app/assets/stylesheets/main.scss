@@ -88,10 +88,15 @@ span[class^="icon-"]{
   margin:0 !important;
 }
 
+.slide-down-close{
+  height: 0;
+  overflow: hidden;
+}
+
 .ellipsis{
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;  
+  text-overflow: ellipsis;
 }
 
 #modal-login-signup{

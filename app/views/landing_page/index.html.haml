@@ -1,25 +1,6 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
-.row.lp-top-row(style="z-index:2")
-  .large-12.columns
-    - if !current_user || current_user.guest
-      .authentication-box.text-center.hide-for-medium-down
-        %dl.tabs(data-tab="true")
-          %dd
-            = link_to '#login', 'data-link' => 'login' do
-              = t('.login')
-          %span.link-delimiter
-            &#47;
-          %dd.active
-            = link_to '#signup', 'data-link' => 'signup' do
-              = t('.signup')
-        .tabs-content.text-left
-          .content#login
-            = render 'lp_login', user: @user
-          .content.active#signup
-            = render 'lp_signup', :user => @user
-
 .title-row.bg-creme
   .row.collapse-large-only
     .medium-12.columns.text-center
@@ -28,8 +9,8 @@
         = t('.headline').html_safe
       %h2.subheadline
         = t('.subheadline').html_safe
-      %button
-        = t('.how_to_use_voice_republic')
+      %button.how-to-button(data-slide-down=".how-to-use-vr-dropdown")
+        = t('.how_to_use_vr')
       %h3.subheadline-2
         = t('.subheadline_2').html_safe
 

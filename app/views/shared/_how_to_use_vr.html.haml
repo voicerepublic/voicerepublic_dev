@@ -1,12 +1,14 @@
-.how-to-use-vr-dropdown
-  .row
-    .small-4.columns
-      %h3=t('.col1_title')
-      %p=t('.col1_text')
-    .small-4.columns
-      %h3=t('.col2_title')
-      %p=t('.col2_text')
-    .small-4.columns
-      %h3=t('.col3_title')
-      %p=t('.col3_text')
-  .close-x= raw '&times;';
+.how-to-use-vr-dropdown.slide-down-close
+  .slide-down-content
+    .row
+      .small-4.columns
+        %h3=t('.col1_title')
+        %p=t('.col1_text')
+      .small-4.columns
+        %h3=t('.col2_title')
+        %p=t('.col2_text')
+      .small-4.columns
+        %h3=t('.col3_title')
+        %p=t('.col3_text')
+  .close-x(data-slide-down=".how-to-use-vr-dropdown")
+    = raw '&times;';
