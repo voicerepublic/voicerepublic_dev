@@ -40,7 +40,7 @@
         width: 60%;
         @media #{$small-only} {width: 100%;}
         display: inline-block;
-        vertical-align: top;
+        vertical-align: bottom;
         .info-box{
           font-family: 'eaglelight';
           font-size: 19px;
@@ -210,14 +210,13 @@
     display: none;
   }
 
-  label.text.optional{
-    display:none //TODO, is hackish
-  }
-
   .text-area{
     height: 450px;
   }
 
+  #user_summary{
+    height: 128px
+  }
   .ckeditor.optional{
     font-family: 'eaglelight';
     font-size: rem-calc(30);
