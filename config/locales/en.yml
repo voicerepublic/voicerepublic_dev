@@ -495,9 +495,9 @@ en:
         description: |
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of Voice Republic
-      headline: "<span>HOME TO THE SPOKEN WORD</span>"
+      headline: "<span>Home to the spoken word</span>"
       subheadline: "Reach a community of thousands of listeners around the world."
-      how_to_use_vr: How to use Voice Republic
+      how_to_use_vr: How to use VR
 
       intro_text: Ideas thrive on discussion – we`ve made it simple to stream, ​​​record and archive audio for conferences, broadcasts, venues ​​​and for you!
       title_illu_1: LISTEN
@@ -509,12 +509,16 @@ en:
       login: Login
       signup: Sign Up
       search: Search
-      now_live: NOW LIVE
-      upcoming_title: Join us live for these upcoming discussions
-      featured: FEATURED
-      popular: POPULAR
+      live_title: Now Live
+      live_subtitle: Tune in!
+      upcoming_title: Coming up live
+      upcoming_subtitle: Listen and take apart
+      archive_title: Archive
+      archive_subtitle: Browse the archive
       recent: RECENT
-      see_all: MORE
+      see_all: more...
+
+      partners_title: Conferences currently using VR
 
 
 

@@ -8,65 +8,107 @@
       %span.lp-logo.icon-vr-logo
       %h1.headline
         = t('.headline').html_safe
-      %button.how-to-button(data-slide-down=".how-to-use-vr-dropdown")
+      %br
+      %button.button-how-to(data-slide-down=".how-to-use-vr-dropdown" data-slide-down-scroll="true" data-slide-down-action="open")
         = t('.how_to_use_vr')
+      %br
       %h2.subheadline
         = t('.subheadline').html_safe
 
 .about-summary
-  .row
+  .row.collapse-large-only
     .small-12.columns
       %h3= t('.intro_text')
-  .row
-    .small-4.columns.text-center
-      .summary-box
-        = image_tag '/images/illu1.jpg'
-        %h4= t('.title_illu_1')
-        %p.text-left= t('.text_illu_1')
-    .small-4.columns.text-center
-      .summary-box
-        = image_tag '/images/illu2.jpg'
-        %h4= t('.title_illu_2')
-        %p.text-left= t('.text_illu_2')
-    .small-4.columns.text-center
-      .summary-box
-        = image_tag '/images/illu3.jpg'
-        %h4= t('.title_illu_3')
-        %p.text-left= t('.text_illu_3')
-%br/
-%br/
+      %ul.summary-small-block-grid
+        %li.text-center
+          .summary-box
+            %h4= t('.title_illu_1')
+            %p= t('.text_illu_1')
+            %span.icon-play-octa
+        %li.text-center
+          .summary-box
+            %h4= t('.title_illu_2')
+            %p= t('.text_illu_2')
+            %span.icon-mic
+        %li.text-center
+          .summary-box
+            %h4= t('.title_illu_3')
+            %p= t('.text_illu_3')
+            %span.icon-tw
 
-.upcoming.row.collapse-large-only
-  .large-12.columns
-    - unless @talks_featured.empty?
-      .title-box
-        = link_to featured_talks_url do
-          %h3= t('.upcoming_title')
-      %ul.list-style-type-none
-        = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
-      = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
 
-.archive.row.collapse-large-only
-  .large-12.columns
-    .title-box
-      = link_to popular_talks_url do
-        %h3= t('.popular')
-    %ul.list-style-type-none
-      = render collection: @talks_popular, partial: 'shared/talk_small_box', :locals => { color: 'box-grey' }
-    = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
+- unless @talks_live.empty?
+  .live
+    .row.collapse-large-only
+      .large-12.columns
+        - unless @talks_live.empty?
+          .title-box
+            = link_to live_talks_url do
+              %h3.title-live= t('.live_title')
+              %h4= t('.live_subtitle')
+          %ul.list-style-type-none
+            = render collection: @talks_live, partial: 'shared/talk_live_box'
+          = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
+- unless @talks_featured.empty?
+  .upcoming
+    .row.collapse-large-only
+      .large-12.columns
+        - unless @talks_featured.empty?
+          .title-box
+            = link_to featured_talks_url do
+              %h3= t('.upcoming_title')
+              %h4= t('.upcoming_subtitle')
+          %ul.list-style-type-none
+            = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
+          = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
 
-    .title-box
-      = link_to recent_talks_url do
-        %h3=t('.recent')
-    %ul.list-style-type-none
-      = render collection: @talks_recent, partial: 'shared/talk_small_box', :locals => { color: 'box-black' }
-    = link_to t('.see_all'), recent_talks_url, class: 'see-all-link'
+- unless @talks_popular.empty?
+  .archive
+    .row.collapse-large-only
+      .large-12.columns
+        .title-box
+          = link_to popular_talks_url do
+            %h3= t('.archive_title')
+            %h4= t('.archive_subtitle')
+        %ul.list-style-type-none.clearfix
+          = render collection: @talks_popular, partial: 'shared/talk_small_box', :locals => { color: 'box-grey' }
+        = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
+
+        .title-box
+          = link_to recent_talks_url do
+            %h3=t('.recent')
+        %ul.list-style-type-none
+          = render collection: @talks_recent, partial: 'shared/talk_small_box', :locals => { color: 'box-black' }
+        = link_to t('.see_all'), recent_talks_url, class: 'see-all-link'
 
 .testimonial
 
 .conference-ad
 
 .partners
+  .row.collapse-large-only
+    .small-12.columns
+      .title-box
+        %h3= t('.partners_title')
+      %ul.logos-block-grid
+        %li
+          =link_to 'https://voicerepublic.com/users/webinale-conference' do
+            =image_tag '/images/webinale.jpg'
+        %li
+          =link_to 'https://voicerepublic.com/users/a-maze' do
+            =image_tag '/images/amaze.jpg'
+        %li
+          =link_to 'https://voicerepublic.com/users/internationale-ferienkurse' do
+            =image_tag '/images/ferienkurse.jpg'
+        %li
+          =link_to 'https://voicerepublic.com/users/re-publica' do
+            =image_tag '/images/republica.jpg'
+        %li
+          =link_to 'https://voicerepublic.com/users/internet-of-things-conference' do
+            =image_tag '/images/i_of_things.jpg'
+        %li
+          =link_to 'https://voicerepublic.com/users/dmy-berlin' do
+            =image_tag '/images/dmi.jpg'
 
 
 
