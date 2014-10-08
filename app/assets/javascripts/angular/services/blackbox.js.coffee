@@ -69,6 +69,9 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
   $window.flashFeedback = (value) ->
     $log.debug "Feedback: #{value}"
 
+  $window.settingsClosed = ->
+    config.flags.settings = false
+
   flashVars = $.extend config.blackbox,
     # this will later be set by `setStreamingServer`
     streamer: "rtmp://0.0.0.0/record"
@@ -77,6 +80,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     logMethod: 'flashLog'
     errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
+    settings_closed: 'settingsClosed'
 
   params = {}
   attributes = { id: "Blackbox", name: "Blackbox" }
@@ -116,7 +120,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     deferred.promise.then (api) ->
       api.subscribe name
 
-  soundcheck = ->
+  micCheck = ->
     deferred.promise.then (api) ->
       api.micCheck()
 
@@ -145,7 +149,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     publish
     unpublish
     subscribe
-    soundcheck
+    micCheck
     mute
     unmute
     setStreamingServer

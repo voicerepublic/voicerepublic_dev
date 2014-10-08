@@ -111,12 +111,11 @@ describe TalksController do
   end
 
 
-  describe "Talk#new" do
+  describe "Talk#create" do
     it 'does not crash with too few inputs' do
       expect {
         post :create, { venue_id: @venue.id, talk: { title: "", starts_at_date: "" } }
       }.to_not raise_error
-
     end
     describe "Authorization" do
       it 'allows for creation of a new talk' do
@@ -138,6 +137,19 @@ describe TalksController do
       assigns(:talk).venue_id.should_not be_nil
       assigns(:talk).errors.to_a.should eq([])
       Talk.all[2].tag_list.should_not be_empty
+    end
+
+    it 'creates a new venue on the fly' do
+      attrs = FactoryGirl.attributes_for(:talk, venue_id: nil,
+                                         new_venue_title: 'Some title')
+      expect {
+        post :create, talk: attrs
+      }.to_not raise_error
+
+      talk = assigns(:talk)
+      expect(talk).to be_persisted
+      expect(talk.venue).not_to be_nil
+      expect(talk.venue).to be_persisted
     end
   end
 

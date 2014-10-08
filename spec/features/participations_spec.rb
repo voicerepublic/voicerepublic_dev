@@ -18,14 +18,14 @@ describe "Participations" do
     it "creates a participation from Series" do
       expect {
         visit venue_path(@talk.venue)
-        click_on "SUBSCRIBE TO Series!"
+        click_on "Subscribe to Series"
       }.to change(Participation, :count).by(1)
     end
     it "deletes a participation from Series" do
       FactoryGirl.create(:participation, venue: @talk.venue, user: @user)
       expect {
         visit venue_path(@talk.venue)
-        click_on "Unsubscribe from Series"
+        click_on "Unsubscribe"
       }.to change(Participation, :count).by(-1)
       current_path.should == venue_path(@talk.venue)
     end

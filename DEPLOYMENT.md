@@ -258,6 +258,15 @@ and
    some manual debugging.
 
 
+## Fix ci migrations on staging
+
+    (cd app/shared/ci && bundle && bin/rake db:migrate RAILS_ENV=test)
+
+## Additional dependencies
+
+    apt-get install libsox-fmt-mp3
+
+
 TODO
 ====
 

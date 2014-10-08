@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20141007120945) do
     t.string   "slug"
     t.string   "speakers"
     t.string   "user_override_uuid"
+    t.text     "edit_config"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree

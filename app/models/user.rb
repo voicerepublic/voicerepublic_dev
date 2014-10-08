@@ -155,7 +155,7 @@ class User < ActiveRecord::Base
   end
 
   def insider?
-    !!(email =~ /@voicerepublic.com$/)
+    !!(email =~ /@(voicerepublic|example)\.com$/)
   end
 
   def remembers?(model)
