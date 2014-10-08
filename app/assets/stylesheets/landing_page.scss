@@ -2,15 +2,34 @@
 
   .visitor-top-bar{
     z-index: 2;
-    position: relative;
-  }
-
-  .visitor-top-box{
     position: absolute;
-    top:0;
-    left:0;
-    .visitor-search-box{
+    width: 100%;
+    height: 0;
+    padding: 29px 22px;
+
+    .action-bar-logo{
+      position: relative;
+      top: -4px;
       display: inline-block;
+      h1{
+        vertical-align: top;
+        color: black;
+        font-size: rem-calc(20);
+        .icon-vr-logo{
+          font-size: rem-calc(40);
+          line-height: 1;
+          top: -12px;
+          vertical-align: top;
+        }
+      }
+    }
+
+    .visitor-search-box{
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      top:-9px;
+      margin-left: 15px;
       .top-bar-search-field{
         display:inline-block;
         width: 110px;
@@ -21,6 +40,7 @@
         font-family: 'eaglelight';
         font-size: rem-calc(16);
         border-style: none !important;
+        margin-bottom: 0;
         @include placeholder{
           color: #222;
         }
@@ -60,6 +80,7 @@
 
     .visitor-explore-link{
       display: inline-block;
+      vertical-align: top;
       a{
         font-family: 'eaglelight';
         color: #222;
@@ -69,9 +90,18 @@
 
   // TITLE ROW
   .title-row{
+    position: relative;
     padding-bottom: 40px;
     position:relative;
-
+    background-size: cover;
+    .bg{
+      position: absolute;
+      top:0;
+      height: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(254, 241, 222,0.9)
+    }
     .lp-logo{
       font-size: rem-calc(280);
       color: $brand-color-red;
@@ -112,19 +142,27 @@
   .about-summary{
     padding-top: 34px;
     padding-bottom: 50px;
-    h4{
-      font-family: 'eaglebook';
-      font-size: rem-calc(16);
-      color: $brand-color-yellow;
-      border-bottom: 5px solid $brand-color-yellow;
-      display: inline-block;
-      margin:9px 0 10px 0;
+    h3{
+      font-size: 'eaglebook';
+      color: $color-black-title;
     }
-    p{
-      color: white;
-      font-size: rem-calc(15);
-      font-family: 'eaglelight';
-      line-height: 1.15;
+    .summary-box{
+      background: rgba(255,255,255,0.8);
+      padding: 10px;
+      h4{
+        font-family: 'eaglebook';
+        font-size: rem-calc(16);
+        color: $brand-color-yellow;
+        border-bottom: 5px solid $brand-color-yellow;
+        display: inline-block;
+        margin:9px 0 10px 0;
+      }
+      p{
+        color: black;
+        font-size: rem-calc(15);
+        font-family: 'eaglelight';
+        line-height: 1.15;
+      }
     }
   }
 
@@ -313,7 +351,6 @@
   }
 
   .small-authentication-links{
-    margin-top:10px;
     a{
       font-family: 'eaglelight';
       color: #222;

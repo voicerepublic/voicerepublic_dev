@@ -481,13 +481,10 @@ en:
       new:
         reset_password: Reset password
         your_email_address: Your email address
-  follows:
-    follower:
-      follow_back: Follow back
-    index:
-      and_friends: and contacts
-      his_follower: Followers
-      people_he_follows: Following
+
+
+
+# LANDING PAGE -----------------------------------------------------------------------------------------------
   landing_page:
     news: NEWS
     index:
@@ -498,24 +495,31 @@ en:
         description: |
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of Voice Republic
-      headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
-      subheadline: "Talks, interviews, readings, conversations, debates, discussions:"
-      subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
+      headline: "<span>HOME TO THE SPOKEN WORD</span>"
+      subheadline: "Reach a community of thousands of listeners around the world."
       how_to_use_vr: How to use Voice Republic
-      title_illu_1: STREAMING
-      text_illu_1: All of sudden it's easy to create your own audio livestreams–with as many stations as you want, from any number of places you choose.
-      title_illu_2: INTERACTION
-      text_illu_2: As the organizer of your talks, you can involve your listeners any time, letting discussions–and discussion culture–grow like they do in real life.
-      title_illu_3: AUDIO ARCHIVE
-      text_illu_3: Record and broadcast your live talks. Easily archive your recording so others can find and listen to it later. Embed your talk in other Websites or make it available as a podcast.
+
+      intro_text: Ideas thrive on discussion – we`ve made it simple to stream, ​​​record and archive audio for conferences, broadcasts, venues ​​​and for you!
+      title_illu_1: LISTEN
+      text_illu_1: Listen to live and archived talks from leading thinkers and cutting edge conferences. Dive in to 1023 great talks on Art, Culture, Politics, Tech, Design
+      title_illu_2: CREATE
+      text_illu_2: With VR it is easy to stream and archive your own talks, debates and podcasts. Reach a worldwide audience of listeners adn stream from any location.
+      title_illu_3: SHARE
+      text_illu_3: Share your talk with one simple link and quickly embed to your site. Share the microphone with listeners – open the debate. Share and playlist your favorite talks from the archive.
       login: Login
       signup: Sign Up
       search: Search
       now_live: NOW LIVE
+      upcoming_title: Join us live for these upcoming discussions
       featured: FEATURED
       popular: POPULAR
       recent: RECENT
       see_all: MORE
+
+
+
+
+
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
         <br />
@@ -534,23 +538,11 @@ en:
         <h5>7. Voice Republic can forget</h5>
         <p>When you delete your account, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
       team: TEAM
-    lp_login:
-      email: E-mail
-      password: Password
-      login: Log In
-      remember: Remember me
-      forgot_password: Forgot password?
-      or: or log in
-    lp_signup:
-      or: or sign up
-      firstname: Firstname
-      lastname: Lastname
-      email: E-mail
-      password: Password
-      register: REGISTER
+
     lp_venues:
       featured_venue: Voice Republic recommends
       upcoming_venues: UPCOMING SERIES
+
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"
     received_message:
