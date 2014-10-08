@@ -8,6 +8,7 @@ class UsersController < BaseController
                       :header,
                       :timezone,
                       :website,
+                      :summary,
                       :about,
                       :password,
                       :password_confirmation,
