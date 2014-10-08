@@ -88,6 +88,12 @@ span[class^="icon-"]{
   margin:0 !important;
 }
 
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+}
+
 #modal-login-signup{
   background: black;
   color: white;

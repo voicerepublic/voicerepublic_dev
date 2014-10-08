@@ -27,6 +27,9 @@
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
+# * slides_uid [string] - TODO: document me
+# * slug [string] - TODO: document me
+# * speakers [string] - TODO: document me
 # * started_at [datetime] - TODO: document me
 # * starts_at [datetime] - TODO: document me
 # * starts_at_date [string] - local date
@@ -96,7 +99,7 @@ class Talk < ActiveRecord::Base
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
   validates :title, :tag_list, :duration, :description,
-            :language, presence: true
+            :language, :venue, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
@@ -109,11 +112,11 @@ class Talk < ActiveRecord::Base
   validates :new_venue_title, presence: true, if: ->(t) { t.venue_id.nil? }
 
   # for temp usage during creation, we need this to hand the user
-  # trough to build a default_venue
+  # trough to associate with a default_venue or create a new one
   attr_accessor :venue_user
   attr_accessor :new_venue_title
 
-  before_save :create_and_set_venue, if: ->(t) { !t.new_venue_title.blank? }
+  before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
   after_create :notify_participants
@@ -159,6 +162,7 @@ class Talk < ActiveRecord::Base
 
   scope :popular, -> { archived.order('play_count DESC') }
   scope :ordered, -> { order('starts_at ASC') }
+  scope :live_and_halflive, -> { where(state: [:live, :halflive]) }
 
   scope :recent, -> do
     archived.order('ended_at DESC').
@@ -308,6 +312,10 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def create_and_set_venue?
+    venue.nil? and new_venue_title.present?
+  end
 
   def create_and_set_venue
     self.venue = venue_user.venues.create title: new_venue_title
@@ -480,6 +488,7 @@ class Talk < ActiveRecord::Base
       talk_stop:  ended_at.to_i,
       logfile: logfile
     }
+    opts[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     setting = TalkSetting.new(base, id, opts)
     runner = Audio::StrategyRunner.new(setting)
     FileUtils.fileutils_output = logfile
@@ -588,6 +597,7 @@ class Talk < ActiveRecord::Base
   def user_override!
     logger.info "Talk #{id} override: Starting user_override! with uuid: #{user_override_uuid}"
     # Request public URL from S3
+    # TODO error: uninitialized constant Talk::AWS
     s3 = AWS::S3.new
     bucket = s3.buckets[Settings.talk_upload_bucket]
     # TODO: Check if there is a more efficient way of accessing the required
@@ -606,6 +616,7 @@ class Talk < ActiveRecord::Base
     logger.info "Talk #{id} override: Starting process_override!"
     process_override!
 
+    # TODO error: uninitialized constant Talk::AWS
     s3_client = AWS::S3::Client.new
     s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
     logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
@@ -628,6 +639,11 @@ class Talk < ActiveRecord::Base
     flyer.generate!
   end
 
+  def keep_config
+    cut = edit_config.last.map { |c| [c['start'], c['end']] }.flatten
+    keep = [0] + cut.map { |c| "=#{c}" } + [-0]
+  end
+
   def processing_info
     fragments, first, last = [], nil, nil
     storage.each do |key, frag|
@@ -639,8 +655,9 @@ class Talk < ActiveRecord::Base
       first = starts if first.nil? or starts < first
       last = ends if last.nil? or ends > last
     end
-    override = nil
-    override = "OVERRIDE=#{File.basename(recording_override)}" if recording_override?
+    override = recording_override? ? File.basename(recording_override) : nil
+    cut_conf = edit_config.blank? ? nil : edit_config.last['cutConfig']
+    keep_conf = edit_config.blank? ? nil : keep_config
     <<-EOS.strip_heredoc
       STARTED=#{started_at.to_i}
       ENDED=#{ended_at.to_i}
@@ -649,7 +666,9 @@ class Talk < ActiveRecord::Base
       LAST=#{last}
       TRIM_START=#{first-started_at.to_i}
       TRIM_END=#{ended_at.to_i-last}
-      #{override}
+      CUT_CONFIG=#{cut_conf}
+      KEEP_CONFIG=#{keep_conf}
+      OVERRIDE=#{override}
     EOS
   end
 

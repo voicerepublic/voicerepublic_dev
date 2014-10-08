@@ -1,7 +1,22 @@
 # the idead behind fix:all is that this can be run after each
 # deploy. the key to success is idempotency.
 namespace :fix do
-  task all: [:language, :storage, :slugs, :reminder, :default_venues]
+  task all: [:talks, :language, :storage, :slugs, :reminder, :default_venues]
+
+  desc 'make all talks valid'
+  task talks: :environment do
+    Talk.find_each do |t|
+      unless t.valid?
+        if t.venue_id.nil?
+          t.destroy
+        else
+          t.tag_list = 'no_tag' if t.tag_list.blank?
+          t.description = 'No description.' if t.description.blank?
+          t.save!
+        end
+      end
+    end
+  end
 
   desc 'prepopulate talk#language with "en"'
   task language: :environment do

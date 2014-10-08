@@ -65,6 +65,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         true
       onbeforeMicRequested: ->
         config.flags.settings = true
+        blackbox.micCheck()
       onbeforeMicRequestCanceled: ->
         config.flags.settings = false
         true

@@ -52,10 +52,8 @@ feature "User edits own profile", js: true do
     page.fill_in 'user_login', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.click_button 'Log In'
-    page.find("a[data-toggle-stuff='#action-links-list']").click
-    page.should have_content('Edit Profile')
     page.click_link 'Edit Profile'
-    page.should have_css('.edit_user')
+    page.should have_css('#user_firstname')
   end
 
   scenario "setting a new password" do
@@ -68,14 +66,6 @@ feature "User edits own profile", js: true do
     page.should_not have_css('.error')
     page.should_not have_css('.edit_user')
     page.should_not have_content(I18n.t('simple_form.error_notification.default_notification'))
-    page.should have_content(I18n.t('flash.actions.update.notice'))
-  end
-
-  scenario "uploading a header image" do
-    some_image = Rails.root.join('app/assets/images/logo.png')
-    make_upload_field_visible('user_header')
-    page.attach_file 'user_header', some_image
-    page.click_button 'Save'
     page.should have_content(I18n.t('flash.actions.update.notice'))
   end
 

@@ -4,6 +4,7 @@
 # * description [text] - TODO: document me
 # * image_uid [string] - TODO: document me
 # * options [text, default="--- {}\n"] - TODO: document me
+# * slug [string] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
 # * updated_at [datetime, not null] - last update time
@@ -42,6 +43,7 @@ class Venue < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
+  before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
   accepts_nested_attributes_for :talks
@@ -70,6 +72,13 @@ class Venue < ActiveRecord::Base
   end
 
   private
+
+  def set_defaults
+    attrs = Settings.venue_default_attributes[I18n.locale]
+    attrs.each do |key, value|
+      self.send("#{key}=", value) if send(key).blank?
+    end
+  end
 
   def clean_taglist
     # FIXME: WTF? this doesn't do anything, check it out

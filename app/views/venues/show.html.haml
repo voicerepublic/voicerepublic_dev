@@ -7,96 +7,91 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-.header-block(style="background-image: url(#{@venue.image.url})")
+= render partial: 'shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
-  = render partial: '/shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
+.user-box.row
+  .large-12.columns
+    = link_to @venue.user do
+      = render partial: "shared/avatar_image", locals: { user: @venue.user, size: 50 }
+      %h4.venue-user= @venue.user.name
+    = link_to t('.back_to_profile'), @venue.user, class: "back-profile-link"
 
-  .title-block.row
-    .large-12.columns
-      - if can? :manage, @venue
-        .generic-actions-box
-          = link_to "#", class: "action-toggle", "data-toggle-stuff" => "#action-links-list" do
-            %span.icon-cog
-          %ul#action-links-list.list-style-type-none.hide-stuff
-            %li= link_to t('.edit_venue'), [:edit, @venue]
+.title-box.row.collapse-large-only
+  .large-12.columns
+    %h2.venue-title.left= @venue.title
+    - if can? :manage, @venue
+      = link_to t('.edit_venue'), [:edit, @venue], class: "title-edit"
 
-      .row
-        .large-12.columns.text-center
-          .type-name
-            %span.icon-ellipsis
-          %h4.venue-user= link_to @venue.user.name, @venue.user
-          %h2.venue-title= @venue.title
-          .venue-teaser= raw @venue.teaser
+.image-box.row.collapse-large-only
+  .large-12.columns
+    = image_tag @venue.image.thumb("700x361#nw").url, class: 'image'
 
-      .row
-        .large-12.columns.text-center
-          = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }
-          - if @show_join
-            = link_to [@venue, :participations], method: :post, class: 'button-vr button-header' do
-              = t('.join_venue')
-          - if @participation
-            = link_to [@venue, @participation], delete_params do
-              = t('.leave_venue')
-          - if can?(:manage, @venue) && @venue.talks.empty?
-            %br/
-            %br/
-            = t('.this_venue_has_no_talks')
-            %br/
-            %br/
-            = link_to new_talk_path(talk: { venue_id: @venue.id }),
-              class: 'button-vr button-header' do
-              = t('.create_a_talk_now')
-      %br/
-
-  .row.collapse
-    .large-12.columns
-      %dl.tabs.vr-tabs(data-tab='true')
-        %dd.text-center.active
-          %a(href="#description")
-            %span.icon-description
-            = t('.description')
-        %dd.text-center
-          %a(href="#upcoming-talks")
-            %span.icon-mic
+.action-box.row.collapse-large-only
+  .anker-links.large-6.medium-6.columns
+    - unless @venue.talks.empty?
+      .black-background-box
+        - unless @upcoming_talks.empty?
+          = link_to '#upcoming-talks' do
             = t('.upcoming_talks', count: @upcoming_talks.count)
-        %dd.text-center
-          %a(href="#archived-talks")
-            %span.icon-play-octa
+        %span.icon-mic
+        - unless @archived_talks.empty?
+          = link_to '#archived-talks' do
             = t('.archived_talks', count: @archived_talks.count)
-        %dd.text-center
-          %a(href="#comments")
-            %span.icon-bubble-multi
-            = t('.comments', count: @venue.comments.count)
 
-.row.collapse-large-only
-  .tabs-content.large-12.columns
-
-    #description.description-content.content.active
-      %p= @venue.description.html_safe
-
-    #upcoming-talks.upcoming-talks-content.content.text-center
-      - if can?(:manage, @venue)
-        = link_to new_talk_path(talk: { venue_id: @venue.id }),
-          class: 'button-vr button-margin-bottom' do
+  .action-links.large-6.medium-6.columns
+    .align-box
+      - if can? :manage, @venue
+        = link_to new_talk_path(talk: { venue_id: @venue.id }) do
+          %span.icon-mic
           = t('.create_new_talk')
-      %ul.list-style-type-none
-        = render partial: 'shared/talk_medium_box', collection: @upcoming_talks
+        = link_to new_talk_path(talk: { venue_id: @venue.id }) do
+          %span.icon-download
+          = t('.upload_talk')
+      - else
+        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }
+        - if @show_join
+          = link_to [@venue, :participations], method: :post do
+            = t('.subscribe_to_series')
+        - elsif !current_user
+          %a(href="#" data-reveal-id="modal-login-signup")
+            = t('.subscribe_to_series')
+        - if @participation
+          = link_to [@venue, @participation], delete_params do
+            = t('.unsubscribe_to_series')
 
-    #archived-talks.archived-talks-content.content
-      %ul.list-style-type-none
-        = render partial: 'shared/talk_medium_box', collection: @archived_talks
+- unless @live_talks.empty?
+  .live-talks-box.row.collapse-large-only
+    .large-12.columns
+      %header.title-header.clearfix
+        %h3.left= t('.live_talks', count: @live_talks.count)
+        .onair.right= t('.on_air')
+      %ul(class="#{talks_grid(@live_talks)}")
+        = render partial: 'shared/talk_live_box', collection: @live_talks
 
-    #comments.comments-content.content
-      - if can? :create, Comment
-        .comment-form.row.collapse
-          .medium-12.columns
-            .comment-left-box.left
-              =link_to '#user' do
-                .avatar
-                  = render partial: "shared/avatar_image", locals: { user: current_user, size: 40 }
-            .comment-right-box
-              = simple_form_for [@venue, @venue.comments.build] do |f|
-                = f.input :content, placeholder: t('.write_a_comment')
-                = f.button :submit, class: 'button-standard-small', value: t('.post')
-      %ul.list-style-type-none
-        = render partial: 'comment', collection: @venue.comments.ordered
+- unless @upcoming_talks.empty?
+  .upcoming-talks-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.upcoming_talks', count: @upcoming_talks.count)
+      %ul(class="#{talks_grid(@archived_talks)}")
+        -# TODO show only the first 3
+        = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks
+      -# TODO open all
+      -#= link_to t('.more'), '#', class: 'link-more'
+
+- unless @archived_talks.empty?
+  .archived-talks-box.row.collapse-large-only
+    .large-12.columns
+      %h3= t('.archived_talks', count: @archived_talks.count)
+      %ul(class="#{talks_grid(@archived_talks)}")
+        -# TODO show only the first 3
+        = render partial: talks_partial(@archived_talks), :locals => { color: 'box-slim' }, collection: @archived_talks
+      -# TODO open all
+      -#= link_to t('.more'), '#', class: 'link-more'
+
+.description-box.row.collapse-large-only
+  .large-12.columns
+    .align-box
+      %h3= t('.description')
+      = @venue.description.html_safe
+      - if can? :manage, @venue
+        = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"

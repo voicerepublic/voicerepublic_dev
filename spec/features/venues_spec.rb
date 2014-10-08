@@ -148,29 +148,30 @@ describe "Venues", js: true do
       it 'uploads an image and displays it', driver: :chrome do
         venue = FactoryGirl.create(:venue, user: @user)
         visit venue_path(id: venue.id)
-        find('.header-block')['style'].should include('venue-image.jpg')
-        page.find("a[data-toggle-stuff='#action-links-list']").click
-        click_link 'Edit Series'
+        save_and_open_page
+        find('.image')['src'].should include('venue-image.jpg')
+        find('.title-edit').click
         # NOTE: This is not a perfect test, because it's exposing the real input
         # field while the app itself uses a Foundation button. Couldn't get it to
         # work using the button, though.
         page.execute_script('$("input#venue_image").show().removeClass("display-none")')
         attach_file :venue_image, Rails.root.join('spec/support/fixtures/dummy.png')
         click_button 'Save'
-        find('.header-block')['style'].should_not include('venue-image.jpg')
+        find('.image')['src'].should_not include('venue-image.jpg')
       end
     end
 
-    describe "Comments" do
-      it 'has an active comments tab after writing a comment', driver: :chrome do
-        venue = FactoryGirl.create(:venue, user: @user)
-        visit venue_path(id: venue.id)
-        find("span.icon-bubble-multi").click
-        fill_in 'comment_content', with: 'spec comment'
-        click_button 'Post'
-        find("#comments.active").should_not be_nil
-      end
-    end
+    # TEMPORARELY THERE ARE NO COMMENTS
+    # describe "Comments" do
+    #   it 'has an active comments tab after writing a comment', driver: :chrome do
+    #     venue = FactoryGirl.create(:venue, user: @user)
+    #     visit venue_path(id: venue.id)
+    #     find("span.icon-bubble-multi").click
+    #     fill_in 'comment_content', with: 'spec comment'
+    #     click_button 'Post'
+    #     find("#comments.active").should_not be_nil
+    #   end
+    # end
 
   end
 

@@ -12,7 +12,7 @@ class UsersController < BaseController
                       :password,
                       :password_confirmation,
                       :conference ]
-  
+
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 
   # layout "application", :only => [:welcome]
@@ -31,9 +31,14 @@ class UsersController < BaseController
   def show
     @user = User.find(params[:id])
     respond_to do |format|
-      format.html
+      format.html do
+        @upcoming_talks = @user.talks.prelive.ordered
+        @archived_talks = @user.talks.archived.order('updated_at DESC')
+        @live_talks = @user.talks.live_and_halflive.ordered
+        @talks_total = @user.talks.where.not(state: 'postlive').count
+      end
       format.rss do
-        talks = Talk.joins(:venue).archived.where('venues.user_id' => @user.id).ordered
+        talks = @user.talks.archived.order('updated_at DESC')
         @podcast = OpenStruct.new(talks: talks)
       end
     end
@@ -118,5 +123,5 @@ class UsersController < BaseController
   def user_params
     params.require(:user).permit(PERMITTED_ATTRS)
   end
-  
+
 end

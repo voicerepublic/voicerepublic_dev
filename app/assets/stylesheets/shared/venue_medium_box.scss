@@ -1,44 +1,62 @@
-// MEDIUM TALK BOX
 .venue-medium-box{
-  margin-bottom: 10px !important;
-  .venue-text-bg{
-    background-size: 50%;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-  .venue-text-box{
-    padding: 19px 0 11px 0;
-    background-color: $venue-medium-box-background-color;
+  .link-venue{
+    display: block;
     .venue-title{
-      font-size: rem-calc(20);
-      line-height: 1rem;
-      margin-bottom:10px;
-      color: #fff;
+      font-size: rem-calc(30);
+      line-height: 0.9;
+      margin-bottom:5px;
+      color: $color-black-title;
+      @extend .ellipsis;
     }
     .venue-teaser{
-      line-height: 1rem;
-    }
-    p{
-      color: white
+      font-family: 'eaglelight';
+      font-size: rem-calc(18);
+      color: $color-black-title;
+      line-height: 1.1;
+      height: 40px;
+      overflow: hidden;
+      margin-bottom: 3px;
     }
   }
 
   .action-box{
-    .button-venue-box{
-      display:inline-block;
-      @include button(rem-calc(6), #000);
-      color: $brand_color_creme;
-      font-family: 'eaglebook';
-      font-size: rem-calc(13);
-      &:hover,&:focus{
-        color: $brand_color_creme;
-        background: #333;
+    li{
+      padding-bottom: 0;
+    }
+    .black-background-box{
+      display: inline-block;
+      background: black;
+      padding: 0 12px;
+      height: 40px;
+      width: 100%;
+      img{
+        width: 100%;
       }
-      &:nth-child(2){
-        position: relative;
-        left: -4px
+      a{
+        display: inline-block;
+        height: 40px;
+        vertical-align: top;
+        color: white;
+        text-align: center;
+        font-family: 'eaglebook';
+        font-size: rem-calc(15);
+        padding: 14px 0 0 0;
+        line-height: 1;
+        &:first-child{
+          margin-right: 7px;
+        }
+        &:nth-child{
+          margin-left: 7px;
+        }
+      }
+      .icon-mic{
+        display: inline-block;
+        color: white;
+        margin: 5px 0;
+        font-size: rem-calc(24);
+        height: 40px;
+        line-height: 1;
       }
     }
   }
 }
-
