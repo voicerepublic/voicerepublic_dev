@@ -106,19 +106,22 @@
       height: 0;
       width: 100%;
       height: 100%;
-      background: rgba(254, 241, 222,0.9)
+      background: rgba(254, 241, 222,0.5)
     }
     .lp-logo{
       font-size: rem-calc(290);
-      color: $brand-color-blue;
+      color: $brand-color-red;
       line-height: 0.5;
       margin:54px 0 0 0;
       display: block;
     }
 
     .headline{
+      position: relative;
+      top: -30px;
       color: $color-black-title;
       font-size: rem-calc(26);
+      margin-bottom: 24px;
       span{
         /*border-bottom: 6px solid #000;*/
         display: inline-block;
@@ -127,14 +130,15 @@
       }
     }
     .subheadline{
-      margin-top: 20px;
-      font-size: rem-calc(22);
-      color: $brand-color-blue;
-      font-family: 'eaglelight';
+      position: relative;
+      margin-top: 35px;
+      font-size: rem-calc(38);
+      color: rgba(0,0,0,0.5);
+      font-family: 'eaglebook';
     }
 
     .button-how-to{
-      @include button(rem-calc(3),$brand-color-blue);
+      @include button(rem-calc(3),rgba(0,0,0,0.5));
       font-family: 'eaglelight';
       padding: 18px 34px;
       font-size: rem-calc(19);
