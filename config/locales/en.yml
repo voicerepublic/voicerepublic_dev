@@ -586,9 +586,9 @@ en:
       no_results: Sorry, no results.
   shared:
     how_to_use_vr:
-      col1_title: Create Talk
-      col2_title: Stream Audio
-      col3_title: Archive on the flyer
+      col1_title: 1. Create Talk
+      col2_title: 2. Stream Audio
+      col3_title: 3. Archive on the fly
       create_talk: Create Talk
       check_pricing: Check our pricing
 
