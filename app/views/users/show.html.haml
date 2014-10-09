@@ -79,15 +79,16 @@
       %ul(class="#{talks_grid(@user.reminders)}")
         = render partial: 'shared/reminder', collection: @user.reminders
 
-- unless @user.venues.empty?
+- unless @user.venues_without_default.empty?
   #series.user-series-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.venues', count: @user.venues_without_default.count)
       %ul.medium-block-grid-2
         = render partial: 'shared/venue_medium_box', collection: @user.venues_without_default
 
-.description-box.row.collapse-large-only
-  .large-12.columns
-    .align-box
-      %h3= t('.about')
-      = raw @user.about
+- unless @user.about.blank?
+  .description-box.row.collapse-large-only
+    .large-12.columns
+      .align-box
+        %h3= t('.about')
+        = raw @user.about
