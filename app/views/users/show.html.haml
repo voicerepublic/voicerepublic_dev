@@ -14,7 +14,10 @@
 
       .info-links-box>
         .info-box
-          = @user.summary
+          - if @user.summary.blank? and can? :manage, @user
+            = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+          - else
+            = @user.summary
         .links-box
           %ul.anker-links.list-style-type-none>
             %li
@@ -92,3 +95,5 @@
       .align-box
         %h3= t('.about')
         = raw @user.about
+
+= render partial: "welcome", :locals => { user: @user}

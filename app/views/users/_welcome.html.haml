@@ -1,0 +1,30 @@
+.welcome-block
+	.row.collapse-large-only
+		.small-12.columns
+			%h3= t('.welcome') + ' ' + user.name + '!'
+			%h4= t('.subtitle')
+			.row.content-box
+				.small-4.columns
+					=link_to [:edit, @user] do
+						=image_tag '/images/welcome/profile.png'
+				.small-8.columns
+					= t('.profile_text').html_safe
+			.row.content-box
+				.small-8.columns
+					= t('.talk_text').html_safe
+				.small-4.columns
+					=link_to new_talk_path do
+						=image_tag '/images/welcome/talk.png'
+			.row.content-box
+				.small-4.columns
+					=link_to talks_path do
+						=image_tag '/images/welcome/explore.png'
+				.small-8.columns
+					= t('.explore_text').html_safe
+			.row.content-box
+				.small-12.columns
+					= t('.listenlater_text').html_safe
+					-#=image_tag '/images/welcome/listen_later.png'
+
+
+
