@@ -96,4 +96,5 @@
         %h3= t('.about')
         = raw @user.about
 
-= render partial: "welcome", :locals => { user: @user}
+- if can? :manage, @user
+  = render partial: "welcome", :locals => { user: @user}
