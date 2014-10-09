@@ -10,10 +10,20 @@
     h3{
       color: white;
     }
-    p{
+    ul{
+      color: white;
+      font-size: rem-calc(14);
+      li{
+        font-family: 'eaglelight';
+        color: white;
+      }
+    }
+    .button-how-to{
       font-family: 'eaglelight';
       color: white;
-      margin: 0
+      padding: 10px 20px;
+      background: $brand-color-blue;
+      font-size: rem-calc(14);
     }
   }
   .close-x{

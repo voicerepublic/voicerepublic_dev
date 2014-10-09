@@ -8,13 +8,20 @@
     padding: 29px 22px;
 
     .action-bar-logo{
+      @media #{$small-only} {
+        display: none;
+      }
       position: relative;
       top: -6px;
       display: inline-block;
+      margin-right: 15px;
       h1{
-        vertical-align: top;
         color: black;
-        font-size: rem-calc(20);
+        .brand{
+          font-size: rem-calc(20);
+          vertical-align: top;
+        }
+
         .icon-vr-logo{
           font-size: rem-calc(40);
           line-height: 1;
@@ -29,7 +36,6 @@
       display: inline-block;
       vertical-align: top;
       top:-10px;
-      margin-left: 15px;
       .top-bar-search-field{
         display:inline-block;
         width: 110px;
@@ -195,6 +201,9 @@
             line-height: 1.3;
             min-height: 140px;
           }
+          .button-pricing{
+            color: $brand-color-blue;
+          }
           .icon-mic,
           .icon-tw,
           .icon-play-octa{
@@ -212,6 +221,9 @@
   .archive{
     &.archive{
       background: rgba(255, 255, 255, 0.46);
+      .talk-small-box.box-grey .breadcrumbs-box a{
+        margin-bottom: 0;
+      }
     }
     &.live{
      background: rgba(255, 255, 255, 0.7);
@@ -245,7 +257,22 @@
     }
   }
 
+  .ad{
+    padding: 42px 0;
+    color: white;
+    background: rgba(31, 31, 31, 0.92);;
+    h3{
+      color: inherit;
+      font-size: rem-calc(20);
+    }
+    .button-adv{
+      color: inherit;
+      font-size: rem-calc(16);
+    }
+  }
+
   .partners{
+    padding: 42px 0;
     .logos-block-grid{
       @include block-grid(
         $per-row: 3,
@@ -273,6 +300,7 @@
       }
     }
   }
+
 
   // MANIFEST
   .manifest{

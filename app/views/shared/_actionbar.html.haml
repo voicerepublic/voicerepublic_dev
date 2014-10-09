@@ -4,7 +4,7 @@
       .action-bar-logo
         %h1
           %span.icon-vr-logo
-          Voice Republic
+          %span.brand Voice Republic
       .visitor-search-box
         = form_tag "/search", :class => 'navbar-search form-search' do
           = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')#, :required => true

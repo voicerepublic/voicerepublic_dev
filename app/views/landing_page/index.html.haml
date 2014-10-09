@@ -28,7 +28,9 @@
         %li.text-center
           .summary-box
             %h4= t('.title_illu_2')
-            %p= t('.text_illu_2')
+            %p
+              =t('.text_illu_2')
+              =link_to t('.check_pricing'), 'http://blog.voicerepublic.com/about/pricing/', class: 'button-pricing', target: '_blank'
             %span.icon-mic
         %li.text-center
           .summary-box
@@ -49,6 +51,7 @@
           %ul.list-style-type-none
             = render collection: @talks_live, partial: 'shared/talk_live_box'
           = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
+
 - unless @talks_featured.empty?
   .upcoming
     .row.collapse-large-only
@@ -71,19 +74,15 @@
             %h3= t('.archive_title')
             %h4= t('.archive_subtitle')
         %ul.list-style-type-none.clearfix
-          = render collection: @talks_popular, partial: 'shared/talk_small_box', :locals => { color: 'box-grey' }
+          = render collection: @talks_popular, partial: 'shared/talk_medium_box', :locals => { color: 'box-grey' }
         = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
-
-        .title-box
-          = link_to recent_talks_url do
-            %h3=t('.recent')
-        %ul.list-style-type-none
-          = render collection: @talks_recent, partial: 'shared/talk_small_box', :locals => { color: 'box-black' }
-        = link_to t('.see_all'), recent_talks_url, class: 'see-all-link'
 
 .testimonial
 
-.conference-ad
+.ad.text-center
+  %h3= t('.ad_title')
+  =link_to t('.pricing'), "http://blog.voicerepublic.com/about/pricing/", target: "_blank", class: 'button-adv'
+
 
 .partners
   .row.collapse-large-only
@@ -93,22 +92,22 @@
       %ul.logos-block-grid
         %li
           =link_to 'https://voicerepublic.com/users/webinale-conference' do
-            =image_tag '/images/webinale.jpg'
+            =image_tag '/images/logos/webinale.jpg'
         %li
           =link_to 'https://voicerepublic.com/users/a-maze' do
-            =image_tag '/images/amaze.jpg'
+            =image_tag '/images/logos/a_maze_berlin.jpg'
         %li
           =link_to 'https://voicerepublic.com/users/internationale-ferienkurse' do
-            =image_tag '/images/ferienkurse.jpg'
+            =image_tag '/images/logos/ferienkurse.jpg'
         %li
           =link_to 'https://voicerepublic.com/users/re-publica' do
-            =image_tag '/images/republica.jpg'
+            =image_tag '/images/logos/republica.jpg'
         %li
           =link_to 'https://voicerepublic.com/users/internet-of-things-conference' do
-            =image_tag '/images/i_of_things.jpg'
+            =image_tag '/images/logos/i_of_things.jpg'
         %li
           =link_to 'https://voicerepublic.com/users/dmy-berlin' do
-            =image_tag '/images/dmi.jpg'
+            =image_tag '/images/logos/dmi.jpg'
 
 
 
