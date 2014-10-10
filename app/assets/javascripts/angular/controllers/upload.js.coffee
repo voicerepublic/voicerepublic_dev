@@ -16,7 +16,8 @@ uploadFunc = ($scope, $log, FileUploader) ->
     name: "fileFilter"
     fn: (item, options) -> #{File|FileLikeObject}
       type = "|" + item.type.slice(item.type.lastIndexOf("/") + 1) + "|"
-      "|ogg|wav|mp3|m4a|".indexOf(type) isnt -1
+      console.log(item.type)
+      "|ogg|wav|mp3|m4a|mpeg|".indexOf(type) isnt -1
 
   uploader.onCancelItem = (item, response, status, headers) ->
     deactivateSafetynet()
