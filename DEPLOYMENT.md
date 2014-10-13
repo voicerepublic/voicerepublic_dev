@@ -167,10 +167,14 @@ Create flyer
     Eagle-Book.otf  Eagle-Light.otf
 
 
-Backend
--------
+BackOffice (aka. Backend)
+-------------------------
 
 Should be deployed the same as the normal app, but using the user `backend`.
+
+Additionally I had to install `patch` (since nokogiri sometimes relies on it during install)
+
+    apt-get install patch
 
 
 Image Upload Directory Permissions
