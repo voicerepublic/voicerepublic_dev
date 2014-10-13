@@ -597,7 +597,6 @@ class Talk < ActiveRecord::Base
   def user_override!
     logger.info "Talk #{id} override: Starting user_override! with uuid: #{user_override_uuid}"
     # Request public URL from S3
-    # TODO error: uninitialized constant Talk::AWS
     s3 = AWS::S3.new
     bucket = s3.buckets[Settings.talk_upload_bucket]
     # TODO: Check if there is a more efficient way of accessing the required
@@ -616,10 +615,10 @@ class Talk < ActiveRecord::Base
     logger.info "Talk #{id} override: Starting process_override!"
     process_override!
 
-    # TODO error: uninitialized constant Talk::AWS
-    s3_client = AWS::S3::Client.new
-    s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
-    logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
+    # TODO: Delete the object only when process_override! was successfull
+    # s3_client = AWS::S3::Client.new
+    # s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
+    # logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
   end
 
   def generate_flyer?
