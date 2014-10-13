@@ -655,17 +655,19 @@ class Talk < ActiveRecord::Base
       first = starts if first.nil? or starts < first
       last = ends if last.nil? or ends > last
     end
-    override = recording_override? ? File.basename(recording_override) : nil
-    cut_conf = edit_config.blank? ? nil : edit_config.last['cutConfig']
-    keep_conf = edit_config.blank? ? nil : keep_config
+    override   = recording_override? ? File.basename(recording_override) : nil
+    cut_conf   = edit_config.blank? ? nil : edit_config.last['cutConfig']
+    keep_conf  = edit_config.blank? ? nil : keep_config
+    trim_start = first-started_at.to_i if first
+    trim_end   = ended_at.to_i-last if last
     <<-EOS.strip_heredoc
       STARTED=#{started_at.to_i}
       ENDED=#{ended_at.to_i}
       FRAGMENTS=#{fragments.join(' ')}
       FIRST=#{first}
       LAST=#{last}
-      TRIM_START=#{first-started_at.to_i}
-      TRIM_END=#{ended_at.to_i-last}
+      TRIM_START=#{trim_start}
+      TRIM_END=#{trim_end}
       CUT_CONFIG=#{cut_conf}
       KEEP_CONFIG=#{keep_conf}
       OVERRIDE=#{override}
