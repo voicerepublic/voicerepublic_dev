@@ -40,6 +40,7 @@
 # * title [string]
 # * updated_at [datetime] - last update time
 # * uri [string] - TODO: document me
+# * user_override_uuid [string] - TODO: document me
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
@@ -597,7 +598,6 @@ class Talk < ActiveRecord::Base
   def user_override!
     logger.info "Talk #{id} override: Starting user_override! with uuid: #{user_override_uuid}"
     # Request public URL from S3
-    # TODO error: uninitialized constant Talk::AWS
     s3 = AWS::S3.new
     bucket = s3.buckets[Settings.talk_upload_bucket]
     # TODO: Check if there is a more efficient way of accessing the required
@@ -616,10 +616,10 @@ class Talk < ActiveRecord::Base
     logger.info "Talk #{id} override: Starting process_override!"
     process_override!
 
-    # TODO error: uninitialized constant Talk::AWS
-    s3_client = AWS::S3::Client.new
-    s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
-    logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
+    # TODO: Delete the object only when process_override! was successfull
+    # s3_client = AWS::S3::Client.new
+    # s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
+    # logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
   end
 
   def generate_flyer?
@@ -655,17 +655,19 @@ class Talk < ActiveRecord::Base
       first = starts if first.nil? or starts < first
       last = ends if last.nil? or ends > last
     end
-    override = recording_override? ? File.basename(recording_override) : nil
-    cut_conf = edit_config.blank? ? nil : edit_config.last['cutConfig']
-    keep_conf = edit_config.blank? ? nil : keep_config
+    override   = recording_override? ? File.basename(recording_override) : nil
+    cut_conf   = edit_config.blank? ? nil : edit_config.last['cutConfig']
+    keep_conf  = edit_config.blank? ? nil : keep_config
+    trim_start = first-started_at.to_i if first
+    trim_end   = ended_at.to_i-last if last
     <<-EOS.strip_heredoc
       STARTED=#{started_at.to_i}
       ENDED=#{ended_at.to_i}
       FRAGMENTS=#{fragments.join(' ')}
       FIRST=#{first}
       LAST=#{last}
-      TRIM_START=#{first-started_at.to_i}
-      TRIM_END=#{ended_at.to_i-last}
+      TRIM_START=#{trim_start}
+      TRIM_END=#{trim_end}
       CUT_CONFIG=#{cut_conf}
       KEEP_CONFIG=#{keep_conf}
       OVERRIDE=#{override}

@@ -48,14 +48,14 @@
             = t('.choose_file')
           %button.fake-button-uploading.button-standard(type="button" ng-show="uploader.queue.length")
             = t('.uploading')
-          %input#audio-file-input{:multiple => "single", "nv-file-select" => "", :type => "file", :uploader => "uploader"}/
+          %input#audio-file-input{"nv-file-select" => "", :type => "file", :uploader => "uploader"}/
           %ul.progress-list.list-style-type-none
             -# The queue for us is only '1', but iteration is still needed, since
             -# it's a multi file uploader
             %li{"ng-repeat" => "item in uploader.queue"}
               .file-name-cancel-box.clearfix
                 .file-name
-                  filename_irgend.mp3
+                  {{ item.file.name }}
                 .button-cancel-upload{"ng-click" => "item.remove()", "ng-hide" => "!item.isUploading", "href" => "#"}= raw t('.cancel')
               .progress-bar-box
                 %span.meter{"ng-style" => "{ 'width': item.progress + '%' }"}
