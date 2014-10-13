@@ -2,27 +2,17 @@ attribute = 'data-slide-down'
 scroll = 'data-slide-down-scroll'
 action = 'data-slide-down-action'
 
-enableFields = (element, selector, scrollTo, actionF, targetState, targetStateOld) ->
+enableFields = (element, selector, scrollTo, actionF) ->
   source = $(element)
   target = $(selector)
 
   source.click (e) ->
-    targetStateOld = if target.hasClass 'slide-down-close' then false else true
-    # alert actionF.text
-    # unless actionF.length
-    #   targetState = !targetStateOld
-    #   alert targetState
-    # else if actionF == 'open'
-    #   targetState = true
-    # else if actionF == 'close'
-    #   targetState = false
+    targetStateOld = !target.hasClass 'slide-down-close'
 
     if targetStateOld
       closeContent target
     else
       openContent target, scrollTo
-
-
 
   openContent = (target,scrollTo) ->
     height = target.find('.slide-down-content').outerHeight()
