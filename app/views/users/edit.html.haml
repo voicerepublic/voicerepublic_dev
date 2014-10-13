@@ -4,7 +4,6 @@
 = simple_form_for(@user) do |f|
   .form-top-box.row
     .large-12.columns
-      -#= f.error_notification
       .row.collapse
         .large-3.medium-3.columns
           - avatar_url = @user.avatar.thumb('143x143#nw').url
@@ -14,11 +13,26 @@
           = f.input :avatar, as: :file
 
         .large-9.medium-9.columns
+          .user-summary
+            = f.label :summary do
+              = t('.short_description')
+            = f.text_area :summary
+      %br
+      .row
+        .large-6.columns
           = f.input :firstname, placeholder: 'First Name'
+        .large-6.columns
           = f.input :lastname, placeholder: 'Last Name'
+      .row
+        .large-12.columns
           = f.input :email, placeholder: 'Email Address'
+      .row
+        .large-6.columns
           = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
+        .large-6.columns
           = f.input :website
+      .row
+        .large-12.columns
           %button.button-standard(data-enable-fields='#change-password input'
                   data-replace-with='#change-password'
                   data-trigger-on-error='#change-password'
@@ -27,14 +41,13 @@
             = f.input :password, disabled: true
             = f.input :password_confirmation, disabled: true
       %br
-      %br
       .row
         .large-12.columns
           .user-textarea-box
-
+            = f.label :about
             = f.text_area :about, class: 'ckeditor', input_html: { class: 'text-area'}
 
   .form-save-row.row
     .large-12.columns
-      = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button-cancel right'    
+      = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button-cancel right'
       = f.button :submit, class: 'button-save right'

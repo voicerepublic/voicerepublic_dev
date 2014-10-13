@@ -40,6 +40,7 @@
 # * title [string]
 # * updated_at [datetime] - last update time
 # * uri [string] - TODO: document me
+# * user_override_uuid [string] - TODO: document me
 # * venue_id [integer] - belongs to :venue
 class Talk < ActiveRecord::Base
 
