@@ -177,10 +177,8 @@ end
 private
 def click_forgot_password
   visit root_path
-  within ".authentication-box" do
-    click_on "Login"
-    click_on "Forgot password?"
-  end
+  page.click_link('Sign Up')
+  click_on "Forgot password?"
 end
 
 # This is a workaround since we are using a button that will trigger a file
