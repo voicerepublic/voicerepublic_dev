@@ -131,7 +131,8 @@ feature "User can register" do
       User.count.should eq(0)
       mock_oauth :facebook
       visit root_path
-      find(".active .button-vr.facebook").click
+      page.click_link 'Sign Up'
+      page.click_link 'REGISTER WITH FACEBOOK'
       page.should have_content "Successfully authenticated from Facebook account"
       User.where(guest: nil).count.should eq(1)
     end
@@ -141,7 +142,8 @@ feature "User can register" do
       User.where(guest: nil).count.should eq(1)
       mock_oauth :facebook
       visit root_path
-      find(".active .button-vr.facebook").click
+      page.click_link 'Sign Up'
+      page.click_link 'REGISTER WITH FACEBOOK'
       page.should have_content "Successfully authenticated from Facebook account"
       # User count did not increase => logged in with the same account
       User.where(guest: nil).count.should eq(1)
