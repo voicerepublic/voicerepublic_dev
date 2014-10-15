@@ -4,6 +4,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
   # Initialize scope variables
   $scope.addingFailed = false
   $scope.audioUploadFailed = false
+  $scope.state = 'ready'
 
   uploader = $scope.uploader = new FileUploader
     url: window.talk_upload_url
@@ -31,6 +32,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
     $scope.talkForm.$valid = false
     activateSafetynet()
     disableRecordField()
+    $scope.state = 'uploading'
 
   uploader.onErrorItem = (fileItem, response, status, headers) ->
     $log.error "Uploading failed: " + JSON.stringify(response)
@@ -40,6 +42,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
   uploader.onCompleteAll = ->
     # Set the talk UUID, so that the backend knows to expect a talk that has
     # an override set.
+    $scope.state = 'finished'
     $("#talk_user_override_uuid").attr "value", window.talk_uuid
     $scope.talkForm.$valid = true
 
