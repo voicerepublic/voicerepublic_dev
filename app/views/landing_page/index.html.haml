@@ -15,29 +15,7 @@
   %h2.subheadline.text-center
     = t('.subheadline').html_safe
 
-.about-summary
-  .row.collapse-large-only
-    .small-12.columns
-      %h3= t('.intro_text')
-      %ul.summary-small-block-grid
-        %li.text-center
-          .summary-box
-            %h4= t('.title_illu_1')
-            %p= t('.text_illu_1')
-            %span.icon-play-octa
-        %li.text-center
-          .summary-box
-            %h4= t('.title_illu_2')
-            %p
-              =t('.text_illu_2')
-              =link_to t('.check_pricing'), 'http://blog.voicerepublic.com/about/pricing/', class: 'button-pricing', target: '_blank'
-            %span.icon-mic
-        %li.text-center
-          .summary-box
-            %h4= t('.title_illu_3')
-            %p= t('.text_illu_3')
-            %span.icon-tw
-
+= render 'summary'
 
 - unless @talks_live.empty?
   .live
