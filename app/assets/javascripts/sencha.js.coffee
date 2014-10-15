@@ -8,8 +8,10 @@
 # inject angular file upload directives and service.
 window.Sencha = angular.module 'Sencha', ['angularFileUpload']
 
-configFunc = ($logProvider) ->
-  $logProvider.debugEnabled window.debug or window.insider
+configFunc = ($logProvider, $http) ->
+  # see app/assets/javascripts/components/persisted_log.js
+  # for modifications to `console.log`
+  $logProvider.debugEnabled true
 
 configFunc.$inject = ['$logProvider']
 window.Sencha.config configFunc
