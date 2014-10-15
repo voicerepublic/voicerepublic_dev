@@ -481,13 +481,10 @@ en:
       new:
         reset_password: Reset password
         your_email_address: Your email address
-  follows:
-    follower:
-      follow_back: Follow back
-    index:
-      and_friends: and contacts
-      his_follower: Followers
-      people_he_follows: Following
+
+
+
+# LANDING PAGE -----------------------------------------------------------------------------------------------
   landing_page:
     news: NEWS
     index:
@@ -498,23 +495,26 @@ en:
         description: |
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of Voice Republic
-      headline: "<span>VOICE REPUBLIC IS THE</span><br /><span>PLATFORM FOR</span><br /><span>DISCUSSIONS</span>"
-      subheadline: "Talks, interviews, readings, conversations, debates, discussions:"
-      subheadline_2: "Voice Republic is home to the spoken word in its many forms.<br />You have the floor!"
-      title_illu_1: STREAMING
-      text_illu_1: All of sudden it's easy to create your own audio livestreams–with as many stations as you want, from any number of places you choose.
-      title_illu_2: INTERACTION
-      text_illu_2: As the organizer of your talks, you can involve your listeners any time, letting discussions–and discussion culture–grow like they do in real life.
-      title_illu_3: AUDIO ARCHIVE
-      text_illu_3: Record and broadcast your live talks. Easily archive your recording so others can find and listen to it later. Embed your talk in other Websites or make it available as a podcast.
+      headline: "<span>Home to the spoken word</span>"
+      subheadline: "Reach a community of thousands of listeners around the world."
+      how_to_use_vr: How to use VR
       login: Login
       signup: Sign Up
       search: Search
-      now_live: NOW LIVE
-      featured: FEATURED
-      popular: POPULAR
+      live_title: Now Live
+      live_subtitle: Tune in!
+      upcoming_title: Coming up live
+      upcoming_subtitle: Listen and take apart
+      archive_title: Archive
+      archive_subtitle: Browse the archive
       recent: RECENT
-      see_all: MORE
+      see_all: more...
+
+      partners_title: Conferences currently using Voice Republic
+
+      ad_title: NEED HELP STREAMING YOUR NEXT CONFERENCE OR EVENT?
+      pricing: CLICK HERE TO SEE OUR PRICING.
+
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
         <br />
@@ -533,23 +533,11 @@ en:
         <h5>7. Voice Republic can forget</h5>
         <p>When you delete your account, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
       team: TEAM
-    lp_login:
-      email: E-mail
-      password: Password
-      login: Log In
-      remember: Remember me
-      forgot_password: Forgot password?
-      or: or log in
-    lp_signup:
-      or: or sign up
-      firstname: Firstname
-      lastname: Lastname
-      email: E-mail
-      password: Password
-      register: REGISTER
+
     lp_venues:
       featured_venue: Voice Republic recommends
       upcoming_venues: UPCOMING SERIES
+
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"
     received_message:
@@ -588,6 +576,13 @@ en:
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
+    how_to_use_vr:
+      col1_title: 1. Create Talk
+      col2_title: 2. Stream Audio
+      col3_title: 3. Archive on the fly
+      create_talk: Create Talk
+      check_pricing: Check our pricing
+
     hide_for_anon:
       redirect_text: |
         Please sign up or login to use this feature.
@@ -967,7 +962,7 @@ en:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC
       now_live: NOW LIVE
       live: NOW LIVE
-      featured: FEATURED
+      featured: COMING UP
       popular: POPULAR
       recent: RECENT
       see_all: MORE
