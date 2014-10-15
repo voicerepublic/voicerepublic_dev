@@ -17,8 +17,10 @@ window.Sencha.config configFunc
 # Use Rails CSRF Protection
 # Alternative solution is to overwrite verified_request? in the controller that
 # is to be accessed (like in xhr/talks_controller)
-
-window.Sencha.config ($httpProvider) ->
+configFunc = ($httpProvider) ->
   authToken = undefined
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
+
+configFunc.$inject = ['$httpProvider']
+window.Sencha.config configFunc
