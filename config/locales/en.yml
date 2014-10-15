@@ -946,6 +946,7 @@ en:
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       schedule_the_live_broadcast: Schedule the live broadcast
       upload_help_text: Choose your recording file and fill out the form during upload.
+      upload_done: A file has already been uploaded.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
       add_to_series: Add to Series
       series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.
