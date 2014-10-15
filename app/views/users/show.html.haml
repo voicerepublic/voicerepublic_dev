@@ -72,12 +72,12 @@
       -# TODO open all
       -#= link_to t('.more'), '#', class: 'link-more'
 
-- unless @user.reminders.empty?
+- if talks = @user.reminders.talks.map(&:rememberable)
   #listen-later.listen-later-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.listen_later', count: @user.reminders.count)
-      %ul(class="#{talks_grid(@user.reminders)}")
-        = render partial: 'shared/reminder', collection: @user.reminders
+      %h3= t('.listen_later', count: talks.count)
+      %ul(class="#{talks_grid(talks)}")
+        = render partial: talks_partial(talks), locals: { color: 'box-slim' }, collection: talks
 
 - unless @user.venues.empty?
   #series.user-series-box.row.collapse-large-only
