@@ -8,21 +8,18 @@
 # inject angular file upload directives and service.
 window.Sencha = angular.module 'Sencha', ['angularFileUpload']
 
-configFunc = ($logProvider, $http) ->
+configFunc = ($logProvider, $httpProvider) ->
+
   # see app/assets/javascripts/components/persisted_log.js
   # for modifications to `console.log`
   $logProvider.debugEnabled true
 
-configFunc.$inject = ['$logProvider']
-window.Sencha.config configFunc
-
-# Use Rails CSRF Protection
-# Alternative solution is to overwrite verified_request? in the controller that
-# is to be accessed (like in xhr/talks_controller)
-configFunc = ($httpProvider) ->
+  # Use Rails CSRF Protection
+  # Alternative solution is to overwrite verified_request? in the controller that
+  # is to be accessed (like in xhr/talks_controller)
   authToken = undefined
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
 
-configFunc.$inject = ['$httpProvider']
+configFunc.$inject = ['$logProvider', '$httpProvider']
 window.Sencha.config configFunc
