@@ -320,6 +320,7 @@ class Talk < ActiveRecord::Base
   end
 
   def create_and_set_venue
+    raise 'no venue_user set while it should be' if venue_user.nil?
     self.venue = venue_user.venues.create title: new_venue_title
   end
 
