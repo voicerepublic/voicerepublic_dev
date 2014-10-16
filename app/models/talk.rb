@@ -16,6 +16,7 @@
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
+# * edit_config [text] - TODO: document me
 # * ended_at [datetime] - TODO: document me
 # * ends_at [datetime] - TODO: document me
 # * featured_from [datetime] - TODO: document me
