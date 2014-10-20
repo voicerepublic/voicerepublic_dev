@@ -26,7 +26,7 @@ class TalksController < BaseController
 
   # GET /talks/live
   def live
-    @talks = Talk.live.paginate(page: params[:page], per_page: 25)
+    @talks = Talk.live_and_halflive.paginate(page: params[:page], per_page: 25)
     render :index
   end
 
