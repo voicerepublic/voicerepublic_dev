@@ -84,7 +84,7 @@ namespace :cleanup do
       msg = { invalid_models: error_ids, errors_count: errors_count }
       Rails.logger.warn "====\nInvalid models: #{errors_count}."
       Rails.logger.warn msg.to_s + "\n===="
-      raise InvalidModelException.new msg
+      raise InvalidModelException, msg
     end
   end
 
