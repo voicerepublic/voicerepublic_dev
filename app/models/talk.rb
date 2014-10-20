@@ -59,12 +59,19 @@ class Talk < ActiveRecord::Base
 
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
-    state :prelive # initial
+    state :created # initial
+    state :pending
+    state :prelive
     state :halflive
     state :live
     state :postlive
     state :processing
     state :archived
+    event :prepare do
+      # if user_override_uuid is set we transcend to pending
+      transitions from: :created, to: :pending, guard: :user_override_uuid?
+      transitions from: :created, to: :prelive
+    end
     event :start_talk, timestamp: :started_at, success: :after_start do
       # standard path (if `start_button` is not set)
       transitions from: :prelive, to: :live, guard: ->(t){ !t.venue.opts.start_button }
@@ -80,11 +87,13 @@ class Talk < ActiveRecord::Base
     end
     event :archive, timestamp: :processed_at do
       transitions from: :processing, to: :archived
+      # or by user upload
+      transitions from: :pending, to: :archived
       # in rare case we might to override a talk
       # which has never been postprocessed
       transitions from: :postlive, to: :archived
       # or which has never even happended
-      transitions from: :prelive, to: :archived
+      transitions from: :prepare, to: :archived
     end
   end
 
@@ -121,6 +130,7 @@ class Talk < ActiveRecord::Base
   before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
+  before_create :prepare
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   # TODO: important, these will be triggered after each PUT, optimize
@@ -584,11 +594,14 @@ class Talk < ActiveRecord::Base
   # generically propagate all state changes to faye
   # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
+    current_state, new_state, event = args
+    # omit event prepare from being propagated
+    return if event == :prepare
+
     PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
 
     @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag}", 'transitions',
                          Settings.slack.icon[:transitions])
-    current_state, new_state, event = args
     @slack.send "#{event} #{id}: #{current_state} -> #{new_state}"
   end
 

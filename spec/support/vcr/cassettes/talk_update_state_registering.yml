@@ -5,28 +5,28 @@ http_interactions:
     uri: http://localhost:9292/faye
     body:
       encoding: US-ASCII
-      base64_string: ! 'bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDI3OSUyRnB1Ymxp
-
-        YyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJG
-
-        dDI3OSUyRnB1YmxpYyUyMiUyQyUyMmRhdGElMjIlM0ElN0IlMjJpZCUyMiUz
-
-        QTc2NSUyQyUyMm5hbWUlMjIlM0ElMjJNYWdnaWUrQmFycm93cyUyMiUyQyUy
-
-        MnJvbGUlMjIlM0ElMjJwYXJ0aWNpcGFudCUyMiUyQyUyMmltYWdlJTIyJTNB
-
-        JTIyaHR0cCUzQSUyRiUyRmxvcmVtcGl4ZWwuY29tJTJGODAlMkY4MCUyRnBl
-
-        b3BsZSUyRjMlMkYlMjIlMkMlMjJzdGF0ZSUyMiUzQSUyMlJlZ2lzdGVyaW5n
-
-        JTIyJTdEJTdEJTJDJTIyZXh0JTIyJTNBJTdCJTIycHJpdmF0ZV9wdWJfdG9r
-
-        ZW4lMjIlM0ElMjJzZWNyZXQlMjIlN0QlN0Q=
-
-'
+      base64_string: |
+        bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
+        MjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIyY2hhbm5lbCUyMiUzQSUyMiUyRnQx
+        JTJGcHVibGljJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMnN0YXRlJTIyJTNB
+        JTIyUmVnaXN0ZXJpbmclMjIlMkMlMjJ1c2VyJTIyJTNBJTdCJTIyaWQlMjIl
+        M0ExJTJDJTIybmFtZSUyMiUzQSUyMkthZWxhK0JpbnMlMjIlMkMlMjJyb2xl
+        JTIyJTNBJTIyaG9zdCUyMiUyQyUyMmltYWdlJTIyJTNBJTIyaHR0cCUzQSUy
+        RiUyRmxvY2FsaG9zdCUzQTMwMDAlMkZtZWRpYSUyRlcxc2labVlpTENJdmFH
+        OXRaUzl3YUdsc0wzTnlZeTkyY2k5a1pYWXZZWEJ3TDJGemMyVjBjeTlwYldG
+        blpYTXZaR1ZtWVhWc2RITXZkWE5sY2kxaGRtRjBZWEl1YW5CbklsMHNXeUp3
+        SWl3aWRHaDFiV0lpTENJeE1EQjRNVEF3STI1M0lsMWQlMkZ1c2VyLWF2YXRh
+        ci5qcGclM0ZzaGElM0RmMWUyYTZjMCUyMiUyQyUyMnN0cmVhbSUyMiUzQSUy
+        MnQxLXUxJTIyJTJDJTIyY2hhbm5lbCUyMiUzQSUyMiUyRnQxJTJGdTElMjIl
+        MkMlMjJsaW5rJTIyJTNBJTIyJTJGdXNlcnMlMkZrYWVsYS1iaW5zJTIyJTJD
+        JTIyc3RhdGUlMjIlM0ElMjJSZWdpc3RlcmluZyUyMiU3RCU3RCU3RCUyQyUy
+        MmV4dCUyMiUzQSU3QiUyMnByaXZhdGVfcHViX3Rva2VuJTIyJTNBJTIyc2Vj
+        cmV0JTIyJTdEJTdE
     headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
-      - ! '*/*'
+      - "*/*"
       User-Agent:
       - Ruby
       Content-Type:
@@ -41,18 +41,15 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Content-Length:
-      - '46'
+      - '44'
       Connection:
       - close
       Server:
       - thin 1.6.1 codename Death Proof
     body:
-      encoding: US-ASCII
-      base64_string: ! 'W3siY2hhbm5lbCI6Ii90Mjc5L3B1YmxpYyIsInN1Y2Nlc3NmdWwiOnRydWV9
-
-        XQ==
-
-'
+      encoding: UTF-8
+      base64_string: |
+        W3siY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJzdWNjZXNzZnVsIjp0cnVlfV0=
     http_version: 
-  recorded_at: Tue, 11 Feb 2014 12:48:11 GMT
+  recorded_at: Thu, 16 Oct 2014 14:37:04 GMT
 recorded_with: VCR 2.8.0
