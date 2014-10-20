@@ -19,7 +19,6 @@ FactoryGirl.define do
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
     last_request_at {Time.now}
-    summary 'Some summary'
     secret = "mysecret"
     password secret
     password_confirmation secret
