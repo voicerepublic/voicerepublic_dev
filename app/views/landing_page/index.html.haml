@@ -59,7 +59,8 @@
 
 .ad.text-center
   %h3= t('.ad_title')
-  =link_to t('.pricing'), "http://blog.voicerepublic.com/about/pricing/", target: "_blank", class: 'button-adv'
+  = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
+  .pricing= link_to t('.pricing'), "http://blog.voicerepublic.com/about/pricing/", target: "_blank", class: 'button-adv'
 
 
 .partners

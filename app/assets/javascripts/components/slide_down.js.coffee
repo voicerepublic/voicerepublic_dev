@@ -15,6 +15,9 @@ enableFields = (element, selector, scrollTo, actionF) ->
       openContent target, scrollTo
 
   openContent = (target,scrollTo) ->
+    # this violates the rules of clearly defined components
+    # since it assumes the existence of an element with
+    # class 'slide-down-content' which it depends on
     height = target.find('.slide-down-content').outerHeight()
     target.removeClass 'slide-down-close'
     target.height height

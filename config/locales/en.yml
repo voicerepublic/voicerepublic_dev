@@ -513,7 +513,8 @@ en:
       partners_title: Conferences currently using Voice Republic
 
       ad_title: NEED HELP STREAMING YOUR NEXT CONFERENCE OR EVENT?
-      pricing: CLICK HERE TO SEE OUR PRICING.
+      get_in_touch: GET IN TOUCH
+      pricing: SEE OUR PRICING
 
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
@@ -577,9 +578,6 @@ en:
       no_results: Sorry, no results.
   shared:
     how_to_use_vr:
-      col1_title: 1. Create Talk
-      col2_title: 2. Stream Audio
-      col3_title: 3. Archive on the fly
       create_talk: Create Talk
       check_pricing: Check our pricing
 
