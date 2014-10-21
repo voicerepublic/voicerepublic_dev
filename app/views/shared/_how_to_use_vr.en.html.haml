@@ -8,6 +8,8 @@
       .small-4.columns
         %span.icon-play-octa
 
+    -# TODO refactor this section out into a language specific partial
+    -# everything alse is properly localized
     .row
       .small-4.columns
         %h3 1. Create Talk
@@ -38,6 +40,8 @@
 
     .row.buttons.last
       .small-4.columns
+        -# TODO this is bad practice: `new_talk_path` should automatically
+        -# redirect to `new_user_session_path` for anonymous users
         - link = current_user ? new_talk_path : new_user_session_path
         = link_to t('.create_talk'), link, class: 'button-how-to'
       .small-4.columns
