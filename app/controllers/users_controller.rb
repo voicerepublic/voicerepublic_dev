@@ -34,7 +34,7 @@ class UsersController < BaseController
     respond_to do |format|
       format.html do
         @upcoming_talks = @user.talks.prelive.ordered
-        @archived_talks = @user.talks.archived.order('updated_at DESC')
+        @archived_talks = @user.talks.archived.ordered
         @live_talks = @user.talks.live_and_halflive.ordered
         @talks_total = @user.talks.where.not(state: 'postlive').count
       end

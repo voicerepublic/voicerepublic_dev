@@ -10,4 +10,6 @@ class Reminder < ActiveRecord::Base
   belongs_to :rememberable, polymorphic: true
 
   validates :user, presence: true
+
+  scope :talks, -> { where(rememberable_type: 'Talk') }
 end

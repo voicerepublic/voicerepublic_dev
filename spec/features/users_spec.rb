@@ -48,8 +48,8 @@ feature "User edits own profile", js: true do
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
     visit root_path
-    page.find("a[data-link*=login]").click
-    page.fill_in 'user_login', with: @user.email
+    page.click_link('Log In')
+    page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.click_button 'Log In'
     page.click_link 'Edit Profile'
@@ -131,7 +131,8 @@ feature "User can register" do
       User.count.should eq(0)
       mock_oauth :facebook
       visit root_path
-      find(".active .button-vr.facebook").click
+      page.click_link 'Sign Up'
+      page.click_link 'REGISTER WITH FACEBOOK'
       page.should have_content "Successfully authenticated from Facebook account"
       User.where(guest: nil).count.should eq(1)
     end
@@ -141,7 +142,8 @@ feature "User can register" do
       User.where(guest: nil).count.should eq(1)
       mock_oauth :facebook
       visit root_path
-      find(".active .button-vr.facebook").click
+      page.click_link 'Sign Up'
+      page.click_link 'REGISTER WITH FACEBOOK'
       page.should have_content "Successfully authenticated from Facebook account"
       # User count did not increase => logged in with the same account
       User.where(guest: nil).count.should eq(1)
@@ -149,11 +151,10 @@ feature "User can register" do
   end
   scenario "user supplies correct values" do
     visit root_path
+    page.click_link('Sign Up')
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
     page.fill_in('user_email', :with => "jim@beam.com")
-    page.click_button I18n.t '.landing_page.lp_signup.register'
-    page.current_url.should include("sign_up")
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
@@ -163,9 +164,9 @@ feature "User can register" do
 
   scenario "Validations" do
     visit root_path
+    page.click_link('Sign Up')
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
-    page.click_button I18n.t '.landing_page.lp_signup.register'
     page.click_button('Sign Up')
     within(".input.email.error") do
       page.should have_content("can't be blank")
@@ -178,10 +179,8 @@ end
 private
 def click_forgot_password
   visit root_path
-  within ".authentication-box" do
-    click_on "Login"
-    click_on "Forgot password?"
-  end
+  page.click_link('Sign Up')
+  click_on "Forgot password?"
 end
 
 # This is a workaround since we are using a button that will trigger a file

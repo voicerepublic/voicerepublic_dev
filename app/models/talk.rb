@@ -16,6 +16,7 @@
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
+# * edit_config [text] - TODO: document me
 # * ended_at [datetime] - TODO: document me
 # * ends_at [datetime] - TODO: document me
 # * featured_from [datetime] - TODO: document me
@@ -319,6 +320,7 @@ class Talk < ActiveRecord::Base
   end
 
   def create_and_set_venue
+    raise 'no venue_user set while it should be' if venue_user.nil?
     self.venue = venue_user.venues.create title: new_venue_title
   end
 
