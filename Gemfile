@@ -42,7 +42,7 @@ gem 'unicorn'
 gem "select2-rails"
 gem 'ckeditor_rails'
 gem "transitions", require: ["transitions", "active_model/transitions"], github: 'troessner/transitions'
-gem 'fidelity', github: 'munen/fidelity'
+gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
 gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
