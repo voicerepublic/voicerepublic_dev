@@ -10,7 +10,7 @@ class RtmpWatcher
 
   URL = 'http://localhost:8080/stat'
   DELAY = 4
-  
+
   def run
     loop do
       glance
@@ -46,9 +46,10 @@ class RtmpWatcher
     end
     publish "/stat", payload unless payload.empty?
   end
-  
+
   private
 
+  # TODO move into trickery
   def deep_ostruct(opts)
     OpenStruct.new.tap do |o|
       opts.each do |key, value|
