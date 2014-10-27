@@ -48,7 +48,7 @@ class AudioProcessor < Fidelity::ChainRunner
   end
 
   # publicly announce a state change
-  def announce
+  def announce(payload)
     PrivatePub.publish_to(talk.public_channel, payload)
   end
 

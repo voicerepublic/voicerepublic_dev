@@ -523,13 +523,17 @@ class Talk < ActiveRecord::Base
       id: id,
       chain: chain,
       talk_start: started_at.to_i,
-      talk_stop:  ended_at.to_i
+      talk_stop:  ended_at.to_i,
+      # FIXME this is hardcoded
+      jingle_in: Rails.root.join('lib/audio/vr_start.wav'),
+      jingle_out: Rails.root.join('lib/audio/vr_stop.wav')
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
   end
 
   def update_metadatafile!(chain=nil)
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     name = "metadata-#{id}.yml"
     path, key = "#{base}/#{name}", "#{uri}/#{name}"
     File.open(path, 'w') { |f| f.puts(metadata(chain).to_yaml) }
