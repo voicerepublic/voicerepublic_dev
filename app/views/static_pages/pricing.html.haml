@@ -1,0 +1,51 @@
+.row.pricing-header-box
+	.small-12.columns
+		%h2.left= t('.pricing')
+		=link_to, :back, class: 'right'
+.row.free-pro-accounts-box
+	.free-account-box.small-6.columns
+		%h3= t('.free_account')
+		%p= t('.free_feature_list')
+		%button.button-pricing-white=t('.free')
+	.pro-account-box.small-6.columns
+		.corner-pricing=t('.pro_corner_pricing')
+		%h3= t('.pro_account')
+		%p= t('.pro_feature_list')
+		%button.button-pricing-red=t('.free')
+
+.row.questions-feedback-box
+	.small-12.columns
+		=t('.questions_contact')
+		=link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com'
+
+.row.conference-box
+	.bg-black
+	.small-12.columns
+		.corner-pricing=t('.conf_corner_pricing')
+		%h3=t('.conf_on_vr')
+		.subtitle=t('.reach_audience')
+		%p=t('.conf_text')
+		%ul.conf-feature-list.list-style-type-none
+			%li
+				%span.icon-podcast=t('.conference_to_podcast_button')
+			%li
+				%span.icon-podcast=t('.talk_data_handling')
+			%li
+				%span.icon-podcast=t('.social_media_support')
+			%li
+				%span.icon-podcast=t('.multi_stage_streaming')
+			%li
+				%span.icon-podcast=t('.feature_on_vr_front_page')
+			%li
+				%span.icon-podcast=t('.unlimited_listening')
+			%li
+				%span.icon-podcast=t('.announce_each_talk_with_its_own_flyer')
+			%li
+				%span.icon-podcast=t('.live_support')
+		%button.button-pricing-red=t('.tell_us_about_your_conference')
+.row.audio-power-box
+	.small-12.columns
+		.audio-power-text
+			=t('.audio_power_text')
+			=link_to t('.learn_more'),'irgend'
+		%span.icon-vr

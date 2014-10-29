@@ -1,0 +1,97 @@
+.static_pages-pricing{
+  .button-pricing-white{
+    background: white;
+    color: $brand-color-red;
+    border: 2px solid $brand-color-red;
+  }
+  .button-pricing-red{
+    background: $brand-color-red;
+    color: $brand-color-red;
+  }
+  .pricing-header-box{
+    border-bottom: 2px solid $color-black-title;
+    margin-bottom: 49px;
+    h2{
+      font-size: rem-calc(29);
+      color: $color-black-title;
+    }
+  }
+  .free-pro-accounts-box{
+    text-align: center;
+    h3{
+      font-size: rem-calc(12);
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
+    p{
+      margin-top: 33px;
+      font-family: 'eaglelight';
+    }
+    .pro-account-box{
+      position: relative;
+      .corner-pricing{
+        position: absolute;
+        top:20px;
+        left:-10px;
+        @include transform('rotate 20deg');
+        height: 40px;
+        width: 100px;
+      }
+    }
+  }
+  .questions-feedback-box{
+    font-family: 'eaglelight';
+    font-size: rem-calc(16);
+    a{
+      color: $brand-color-red;
+    }
+  }
+  .conference-box{
+    background: url(/assets/landing_page/1.jpg) no-repeat;
+    background-size: cover;
+    .bg-black{
+      position: absolute;
+      top:0;
+      left:0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+    }
+    h2{
+      font-size: rem-calc(20);
+      color: white;
+      line-height: 1.2;
+    }
+    .subtitle{
+      font-size: rem-calc(20);
+      color: $brand-color-red;
+      line-height: 1.2;
+      margin-bottom: 37px
+    }
+    p{
+      font-family: 'eaglelight';
+      color: white;
+      text-shadow: 1px 1px 2px rgba(0,0,0,1),-1px -1px 2px rgba(0,0,0,1);
+    }
+  }
+  .conf-feature-list{
+    li{
+      display: block;
+      padding: 8px 0px;
+      span[class^="icon-"]{
+        margin:0 50px 0 31px;
+      }
+    }
+  }
+  .audio-power-box{
+    position: absolute;
+    .audio-power-text{
+      padding-right: 55px;
+    }
+    .icon-vr{
+      font-size: rem-calc(30);
+      color: rgba(0,0,0,0.5);
+      position: absolute;
+      right: 20px;
+    }
+  }
+}
