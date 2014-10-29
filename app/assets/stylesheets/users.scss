@@ -205,9 +205,16 @@
     }
     .content-box{
       background: rgba(255, 255, 255, 0.5);
+      @include transition('background 0.2s');
+      &:hover{
+        background: rgba(255,255,255,0.7);
+      }
       padding: 29px 20px;
       font-family: 'eaglelight';
       border-bottom: 1px solid rgba(0,0,0,0.1);
+      &:last-of-type{
+        border: none;
+      }
       font-size: rem-calc(15);
       line-height: 1.3;
       h5{
@@ -218,11 +225,13 @@
         font-size: inherit;
         line-height: 1.3;
       }
-      img{
-        @include box-shadow(0,0,5px,rgba(0,0,0,0.1));
-        @include transition('box-shadow 0.2s');
-        &:hover,&:active,&:focus{
-          @include box-shadow(0,0,10px,rgba(0,0,0,0.4));
+      a{
+        img{
+          @include box-shadow(0,0,5px,rgba(0,0,0,0.1));
+          @include transition('box-shadow 0.2s');
+          &:hover,&:active,&:focus{
+            @include box-shadow(0,0,10px,rgba(0,0,0,0.2));
+          }
         }
       }
     }
