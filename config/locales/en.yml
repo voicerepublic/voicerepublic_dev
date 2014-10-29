@@ -534,12 +534,17 @@ en:
         <h5>7. Voice Republic can forget</h5>
         <p>When you delete your account, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
       team: TEAM
+    lp_venues:
+      featured_venue: Voice Republic recommends
+      upcoming_venues: UPCOMING SERIES
 
+# STATIC PAGES ------------------------------------------------------------------
   static_pages:
     pricing:
       pricing: Pricing
+      back: Back
       free_account: FREE ACCOUNT
-      free_account_feature_list: |
+      free_feature_list: |
         Live audio streaming<br />
         Record and Upload 4 hours<br />
         Unlimited listening<br />
@@ -548,7 +553,7 @@ en:
         Podcast Button<br />
         Content becomes part of the<br />
         creative Commons<br />
-        Online Support<br />
+        Online Support<br /><br />
       free: Free!
       pro_corner_pricing: |
         <strong>€ 110</strong> / Year<br />
@@ -556,30 +561,30 @@ en:
       pro_account: PRO ACCOUNT
       pro_feature_list: |
         Live audio streaming<br />
-        Record and Upload 12 hours<span class="icon-pro"></span><br />
+        Record and Upload 12 hours<span class="pro">* PRO</span><br />
         Unlimited listening<br />
         Flyer<br />
         Embeddable Player<br />
         Podcast Button<br />
-        Content is under your copyright<span class="icon-pro"></span><br />
+        Content is under your copyright<span class="pro">* PRO</span><br />
         Online Support<br />
-        Upload a Jingle<span class="icon-pro"></span><br />
-        On demand charge for talks<span class="icon-pro"></span><br />
+        Upload a Jingle<span class="pro">* PRO</span><br />
+        On demand charge for talks<span class="pro">* PRO</span><br />
       go_pro: go PRO
       questions_or_feedback: Questions or feedback?
-      get_in_touch: Get in touch
+      get_in_touch: Get in touch!
       conf_corner_pricing: |
-        <strong>€ 110</strong> / Year<br />
-        or <strong>€ 10</strong> / Month
+        Starts at<br />
+        <strong>€ 250</strong>
       conf_on_vr: Conferences on Voice Republic
       reach_audience: Reach a larger audience
       conf_text: |
-        "Voice Republic provides a way to live stream audio from your conference with little effort and great results.<br /><br />
+        Voice Republic provides a way to live stream audio from your conference with little effort and great results.<br /><br />
         Stream multiple talks at the same time. They are automatically recorded and instantly available.
         on the conference profile. Alternatively, you can upload recordings from the event.<br /><br />
         Share the talks with a single click, embed to a website and enable downloads.<br /><br />
         Need a helping hand? We’ll help you get going and support you throughout the event.<br /><br />
-        A conference profile comes with lots of great features\:"
+        A conference profile comes with lots of great features:
       conference_to_podcast_button: Conference to Podcast Button *
       talk_data_handling: Talk-Data Handling *
       social_media_support: Social Media Support *
@@ -591,10 +596,7 @@ en:
       tell_us_about_your_conference: Tell us about your conference
       audio_power_text: We believe in the power of audio.
       learn_more: Learn More...
-
-    lp_venues:
-      featured_venue: Voice Republic recommends
-      upcoming_venues: UPCOMING SERIES
+      partners_title: Conferences currently using VR
 
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"

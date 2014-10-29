@@ -294,9 +294,6 @@
         display: inline-block;
         font-family: 'eaglebook';
         color: $brand-color-blue;
-        &.title-live{
-          color: $brand-color-red
-        }
         font-size: rem-calc(21);
         margin-right: 5px;
       }
