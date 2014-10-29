@@ -47,6 +47,7 @@ gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
 gem 'fog'
+gem 'aws-sdk'
 gem 'slick_rails'
 
 group :development, :test do

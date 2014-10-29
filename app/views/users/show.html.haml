@@ -36,7 +36,7 @@
                   = t('.create_new_talk')
               %li>
                 =link_to new_talk_path do
-                  %span.icon-download
+                  %span.icon-upload-cloud
                   = t('.upload_talk')
           - else
             %ul.action-links.list-style-type-none
@@ -75,19 +75,22 @@
       -# TODO open all
       -#= link_to t('.more'), '#', class: 'link-more'
 
-- unless @user.reminders.empty?
+- if talks = @user.reminders.talks.map(&:rememberable)
   #listen-later.listen-later-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.listen_later', count: @user.reminders.count)
-      %ul(class="#{talks_grid(@user.reminders)}")
-        = render partial: 'shared/reminder', collection: @user.reminders
+      %h3= t('.listen_later', count: talks.count)
+      %ul(class="#{talks_grid(talks)}")
+        = render partial: talks_partial(talks), locals: { color: 'box-slim' }, collection: talks
+
 
 - unless @user.venues_without_default.empty?
+  -# TODO if venues = @user.venues_without_default
+
   #series.user-series-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.venues', count: @user.venues_without_default.count)
+      %h3= t('.venues', count: venues.count)
       %ul.medium-block-grid-2
-        = render partial: 'shared/venue_medium_box', collection: @user.venues_without_default
+        = render partial: 'shared/venue_medium_box', collection: venues
 
 - unless @user.about.blank?
   .description-box.row.collapse-large-only

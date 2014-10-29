@@ -517,15 +517,6 @@ en:
       headline: "<span>Home to the spoken word</span>"
       subheadline: "Reach a community of thousands of listeners around the world."
       how_to_use_vr: How to use VR
-
-      intro_text: Ideas thrive on discussion – we`ve made it simple to stream, ​​​record and archive audio for conferences, broadcasts, venues ​​​and for you!
-      title_illu_1: LISTEN
-      text_illu_1: Listen to live and archived talks from leading thinkers and cutting edge conferences. Dive in to 1023 great talks on Art, Culture, Politics, Tech, Design
-      title_illu_2: CREATE
-      text_illu_2: With VR it is easy to stream and archive your own talks, debates and podcasts. Reach a worldwide audience of listeners and stream from any location.
-      check_pricing: Pricing
-      title_illu_3: SHARE
-      text_illu_3: Share your talk with one simple link and quickly embed to your site. Share the microphone with listeners – open the debate. Share and playlist your favorite talks from the archive.
       login: Login
       signup: Sign Up
       search: Search
@@ -541,7 +532,8 @@ en:
       partners_title: Conferences currently using Voice Republic
 
       ad_title: NEED HELP STREAMING YOUR NEXT CONFERENCE OR EVENT?
-      pricing: CLICK HERE TO SEE OUR PRICING.
+      get_in_touch: GET IN TOUCH
+      pricing: SEE OUR PRICING
 
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
@@ -605,9 +597,6 @@ en:
       no_results: Sorry, no results.
   shared:
     how_to_use_vr:
-      col1_title: 1. Create Talk
-      col2_title: 2. Stream Audio
-      col3_title: 3. Archive on the fly
       create_talk: Create Talk
       check_pricing: Check our pricing
 
@@ -961,12 +950,15 @@ en:
       remove: Remove
       upload_failed: Audio upload failed. Please try reloading the page and try again.
       supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+      set_date_and_time_to_past_when_uploading: |
+        When uploading a file, please set a past date and time above.
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.
         Your upload will be lost unless you press 'Save'.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       schedule_the_live_broadcast: Schedule the live broadcast
       upload_help_text: Choose your recording file and fill out the form during upload.
+      upload_done: A file has already been uploaded.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
       add_to_series: Add to Series
       series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.

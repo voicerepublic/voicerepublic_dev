@@ -1,7 +1,15 @@
 # the idead behind fix:all is that this can be run after each
 # deploy. the key to success is idempotency.
+#
 namespace :fix do
-  task all: [:talks, :language, :storage, :slugs, :reminder, :default_venues]
+  task all: %w( talks
+                language
+                storage
+                slugs
+                reminder
+                default_venues
+                user
+                user_summary ).map(&:to_sym)
 
   desc 'make all talks valid'
   task talks: :environment do
@@ -76,4 +84,32 @@ namespace :fix do
     end
   end
 
+  desc 'fix invalid users'
+  task user: :environment do
+    User.find_each(conditions: 'firstname IS NULL OR lastname IS NULL') do |user|
+      puts "fixing user #{user.id}"
+      user.firstname ||= 'noname'
+      user.lastname ||= 'noname'
+      user.slug = nil if user.slug.empty?
+      user.save!
+    end
+  end
+
+  desc 'populate users summary'
+  task user_summary: :environment do
+    User.find_each(conditions: { summary: nil }) do |user|
+      puts "setting summary for user #{user.name}"
+      text = user.about_as_plaintext
+      text = ActionController::Base.helpers.truncate(text, length: 140)
+      user.summary = text
+      user.save!
+    end
+  end
+
+  desc 'set a dummy of talk#description is blank'
+  task talk_descriptions: :environment do
+    Talk.where(description: '').each do |talk|
+      talk.update_attribute :description, '<i>blank description</i>'
+    end
+  end
 end

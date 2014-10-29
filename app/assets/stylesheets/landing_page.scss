@@ -271,9 +271,12 @@
       color: inherit;
       font-size: rem-calc(20);
     }
-    .button-adv{
-      color: inherit;
-      font-size: rem-calc(16);
+    .pricing {
+        margin-top: 15px;
+        .button-adv{
+            color: inherit;
+            font-size: rem-calc(16);
+        }
     }
   }
 

@@ -4,6 +4,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
   # Initialize scope variables
   $scope.addingFailed = false
   $scope.audioUploadFailed = false
+  $scope.state = 'ready'
 
   uploader = $scope.uploader = new FileUploader
     url: window.talk_upload_url
@@ -16,7 +17,8 @@ uploadFunc = ($scope, $log, FileUploader) ->
     name: "fileFilter"
     fn: (item, options) -> #{File|FileLikeObject}
       type = "|" + item.type.slice(item.type.lastIndexOf("/") + 1) + "|"
-      "|ogg|wav|mp3|m4a|".indexOf(type) isnt -1
+      console.log(item.type)
+      "|ogg|x-ogg|wav|x-wav|wave|x-pn-wav|m4a|x-m4a|mp3|x-mp3|mpeg3|x-mpeg3|mpg|x-mpegaudio|mpeg|".indexOf(type) isnt -1
 
   uploader.onCancelItem = (item, response, status, headers) ->
     deactivateSafetynet()
@@ -30,6 +32,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
     $scope.talkForm.$valid = false
     activateSafetynet()
     disableRecordField()
+    $scope.state = 'uploading'
 
   uploader.onErrorItem = (fileItem, response, status, headers) ->
     $log.error "Uploading failed: " + JSON.stringify(response)
@@ -39,6 +42,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
   uploader.onCompleteAll = ->
     # Set the talk UUID, so that the backend knows to expect a talk that has
     # an override set.
+    $scope.state = 'finished'
     $("#talk_user_override_uuid").attr "value", window.talk_uuid
     $scope.talkForm.$valid = true
 

@@ -84,6 +84,7 @@
       width: 100%;
       height: 50px;
       .button-select-file,
+      .fake-button-finished,
       .fake-button-uploading{
         position: absolute;
         left: 0;
@@ -129,6 +130,7 @@
         }
       }
     }
+    .date-time-past-hint,
     .file-types{
       font-family: 'eaglelight';
       font-size: rem-calc(14);

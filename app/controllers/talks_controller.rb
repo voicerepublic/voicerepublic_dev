@@ -26,7 +26,7 @@ class TalksController < BaseController
 
   # GET /talks/live
   def live
-    @talks = Talk.live.paginate(page: params[:page], per_page: 25)
+    @talks = Talk.live_and_halflive.paginate(page: params[:page], per_page: 25)
     render :index
   end
 
@@ -83,6 +83,10 @@ class TalksController < BaseController
 
   # PATCH/PUT /talks/1
   def update
+    # set venue_user to be able to create series on the fly while
+    # updating talks
+    @talk.venue_user = current_user
+
     authorize! :update, @talk
     if @talk.update(talk_params)
       redirect_to @talk, notice: 'Talk was successfully updated.'

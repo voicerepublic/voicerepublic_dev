@@ -1,7 +1,7 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
-.title-row(style="background-image: url(/images/landing_page/#{rand(7)}.jpg)")
+.title-row(style="background-image: url(/images/landing_page/#{rand(5)}.jpg)")
   .bg
   .row.collapse-large-only
     .medium-12.columns.text-center
@@ -15,29 +15,7 @@
   %h2.subheadline.text-center
     = t('.subheadline').html_safe
 
-.about-summary
-  .row.collapse-large-only
-    .small-12.columns
-      %h3= t('.intro_text')
-      %ul.summary-small-block-grid
-        %li.text-center
-          .summary-box
-            %h4= t('.title_illu_1')
-            %p= t('.text_illu_1')
-            %span.icon-play-octa
-        %li.text-center
-          .summary-box
-            %h4= t('.title_illu_2')
-            %p
-              =t('.text_illu_2')
-              =link_to t('.check_pricing'), 'http://blog.voicerepublic.com/about/pricing/', class: 'button-pricing', target: '_blank'
-            %span.icon-mic
-        %li.text-center
-          .summary-box
-            %h4= t('.title_illu_3')
-            %p= t('.text_illu_3')
-            %span.icon-tw
-
+= render 'summary'
 
 - unless @talks_live.empty?
   .live
@@ -81,7 +59,8 @@
 
 .ad.text-center
   %h3= t('.ad_title')
-  =link_to t('.pricing'), "http://blog.voicerepublic.com/about/pricing/", target: "_blank", class: 'button-adv'
+  = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
+  .pricing= link_to t('.pricing'), "http://blog.voicerepublic.com/about/pricing/", target: "_blank", class: 'button-adv'
 
 
 .partners
