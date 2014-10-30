@@ -546,13 +546,43 @@ en:
       free_account: FREE ACCOUNT
       free_feature_list: |
         Live audio streaming<br />
-        Record and Upload 4 hours<br />
+        Record and Upload 4 hours
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Record your live stream or upload audio.<br />
+              (Mp3, M4a, Ogg, Wav)
+            </span>
+          </div>
+        <br />
         Unlimited listening<br />
-        Flyer<br />
-        Embeddable Player<br />
-        Podcast Button<br />
+        Flyer
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Announce talks with a personalized flyer.
+            </span>
+          </div>
+        <br />
+        Embeddable Player
+         <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Embed player on any blog or site.
+            </span>
+          </div>
+        <br />
+        Podcast Button
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Download audio and listen to it offline.
+            </span>
+          </div>
+        <br />
         Content becomes part of the<br />
-        creative Commons<br />
+        <a href="http://en.wikipedia.org/wiki/Creative_Commons" target="_blank">creative Commons</a>
+        <br />
         Online Support<br /><br />
       free: Free!
       pro_corner_pricing: |
@@ -561,11 +591,39 @@ en:
       pro_account: PRO ACCOUNT
       pro_feature_list: |
         Live audio streaming<br />
-        Record and Upload 12 hours<span class="pro">* PRO</span><br />
+        Record and Upload 12 hours
+          <div class="tooltip-simple">
+            <span class="pro">* PRO</span>
+            <span class="tooltip-overlay">
+              Do you need more storage? Buy an extra 10 hours of streaming and upload time - € 80.
+            </span>
+          </div>
+        <br />
         Unlimited listening<br />
-        Flyer<br />
-        Embeddable Player<br />
-        Podcast Button<br />
+        Flyer
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Announce talks with a personalized flyer.
+            </span>
+          </div>
+        <br />
+        Embeddable Player
+         <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Embed player on any blog or site.
+            </span>
+          </div>
+        <br />
+        Podcast Button
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Download audio and listen to it offline.
+            </span>
+          </div>
+        <br />
         Content is under your copyright<span class="pro">* PRO</span><br />
         Online Support<br />
         Upload a Jingle<span class="pro">* PRO</span><br />
@@ -585,9 +643,30 @@ en:
         Share the talks with a single click, embed to a website and enable downloads.<br /><br />
         Need a helping hand? We’ll help you get going and support you throughout the event.<br /><br />
         A conference profile comes with lots of great features:
-      conference_to_podcast_button: Conference to Podcast Button *
-      talk_data_handling: Talk-Data Handling *
-      social_media_support: Social Media Support *
+      conference_to_podcast_button: |
+        Conference to Podcast Button
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Download any or all of the conference talks with one click.
+            </span>
+          </div>
+      talk_data_handling: |
+        Talk-Data Handling
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              We'll help you set up talks
+            </span>
+          </div>
+      social_media_support: |
+        Social Media Support
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              We'll help you promote the conference.
+            </span>
+          </div>
       multi_stage_streaming: Multi-Stage Streaming
       feature_on_vr_front_page: Feature On VR Front Page
       unlimited_listening: Unlimited Listening

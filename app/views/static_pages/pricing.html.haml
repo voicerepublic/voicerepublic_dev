@@ -4,12 +4,13 @@
 .row.free-pro-accounts-box
 	.free-account-box.small-6.columns
 		%h3= t('.free_account')
-		%p= t('.free_feature_list').html_safe
-		%button.button-pricing-white= t('.free')
+		.free-list= t('.free_feature_list').html_safe
+		=link_to t('.free'), new_user_registration_path, class: "button-pricing-white"
 	.pro-account-box.small-6.columns
-		.corner-pricing= t('.pro_corner_pricing').html_safe
+		.corner-pricing-box
+			.corner-pricing= t('.pro_corner_pricing').html_safe
 		%h3= t('.pro_account')
-		%p= t('.pro_feature_list').html_safe
+		.pro-list= t('.pro_feature_list').html_safe
 		%button.button-pricing-red= t('.go_pro')
 
 .row.questions-feedback-box
@@ -27,29 +28,29 @@
 		%ul.conf-feature-list.list-style-type-none
 			%li
 				%span.icon-podcast
-				= t('.conference_to_podcast_button')
+				= t('.conference_to_podcast_button').html_safe
 			%li
 				%span.icon-folder-open
-				= t('.talk_data_handling')
+				= t('.talk_data_handling').html_safe
 			%li
 				%span.icon-twitter-square
-				= t('.social_media_support')
+				= t('.social_media_support').html_safe
 			%li
 				%span.icon-mic
-				= t('.multi_stage_streaming')
+				= t('.multi_stage_streaming').html_safe
 			%li
 				%span.icon-laptop
-				= t('.feature_on_vr_front_page')
+				= t('.feature_on_vr_front_page').html_safe
 			%li
 				%span.icon-heart-empty
-				= t('.unlimited_listening')
+				= t('.unlimited_listening').html_safe
 			%li
 				%span.icon-lightbulb
-				= t('.announce_each_talk_with_its_own_flyer')
+				= t('.announce_each_talk_with_its_own_flyer').html_safe
 			%li
 				%span.icon-chat-bubble
 				= t('.live_support')
-		%button.button-pricing-red= t('.tell_us_about_your_conference')
+		%button.button-pricing-red= t('.tell_us_about_your_conference').html_safe
 
 .row.audio-power-box
 	.small-12.columns

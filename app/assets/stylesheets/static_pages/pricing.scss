@@ -1,6 +1,6 @@
 .static_pages-pricing{
   .button-pricing-white{
-    background: white;
+    background: transparent;
     color: $brand-color-red;
     border: 2px solid $brand-color-red;
     width: 153px;
@@ -29,38 +29,61 @@
       line-height: 1.5;
       padding: 30px 36px 0 36px;
     }
-    p{
+    .free-list,.pro-list{
       margin-top: 30px;
+      margin-bottom: 30px;
       font-family: 'eaglelight';
       font-size: rem-calc(15);
       line-height: 1.2;
-      .icon-pro:after;
+      position: relative;
+    }
+    .tooltip-simple{
+      color:rgba(0,0,0,0.5);
+      .icon-information-circle{
+        font-size: rem-calc(13);
+        top:2px;
+        margin-left:3px;
+      }
+      .tooltip-overlay{
+        top: 26px;
+        left: -96px;
+      }
+    }
+    a:not(.tooltip-simple){
+      text-decoration: underline;
     }
     .pro-account-box{
       position: relative;
       border: 2px solid $brand-color-red;
-      overflow: hidden;
       padding-bottom: 10px;
       h3{
         padding-top: 28px;
       }
-      .corner-pricing{
-        position: absolute;
-        top:13px;
-        left:-58px;
-        background: $brand-color-red;
-        text-align: center;
+      .corner-pricing-box{
         width: 200px;
-        padding: 7px 0 4px;
-        color: white;
-        text-shadow: 0 0 2px rgba(0,0,0,0.5);
-        @include rotate(-38);
-        font-family: 'eaglelight';
-        font-size: rem-calc(13);
-        strong{
-          font-family: 'eaglebook';
-          font-size: rem-calc(15);
-          font-weight: normal;
+        height: 200px;
+        position: absolute;
+        top:0;
+        left:0;
+        overflow: hidden;
+        .corner-pricing{
+          position: absolute;
+          top:13px;
+          left:-58px;
+          background: $brand-color-red;
+          text-align: center;
+          width: 200px;
+          padding: 7px 0 4px;
+          color: white;
+          text-shadow: 0 0 2px rgba(0,0,0,0.5);
+          @include rotate(-38);
+          font-family: 'eaglelight';
+          font-size: rem-calc(13);
+          strong{
+            font-family: 'eaglebook';
+            font-size: rem-calc(15);
+            font-weight: normal;
+          }
         }
       }
       .pro{
@@ -145,14 +168,23 @@
         color: white;
         font-family: 'eaglelight';
         font-size: rem-calc(15);
-        span[class^="icon-"]{
+        span[class^="icon-"]:not(.icon-information-circle){
           margin:0 50px 0 31px !important;
           font-size: rem-calc(20);
+          position: relative;
+          top: 4px;
           &.icon-podcast{
             font-size: rem-calc(16);
           }
-          position: relative;
-          top: 4px;
+        }
+        .tooltip-simple{
+          .icon-information-circle{
+            margin-left: 2px;
+          }
+          .tooltip-overlay{
+            top: 34px;
+            left: -92px;
+          }
         }
       }
     }
