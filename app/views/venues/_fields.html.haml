@@ -16,12 +16,12 @@
 
     .row
       .medium-12.columns
-        = f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
-        %br
-        %br
+        -#= f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
+        -#%br
+        -#%br
         %label.venue-description-label(for="venue_description")
           = t('.venue_purpose')
         = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
         - messages = @venue.errors.get(:description)
         - unless messages.empty?
-          %small.error= messages * ', ' 
+          %small.error= messages * ', '
