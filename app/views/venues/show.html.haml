@@ -7,14 +7,12 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-= render partial: 'shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
-
 .user-box.row
   .large-12.columns
     = link_to @venue.user do
       = render partial: "shared/avatar_image", locals: { user: @venue.user, size: 50 }
       %h4.venue-user= @venue.user.name
-    = link_to t('.back_to_profile'), @venue.user, class: "back-profile-link"
+    = render partial: 'shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
 .title-box.row.collapse-large-only
   .large-12.columns
