@@ -11,7 +11,7 @@
 			.corner-pricing= t('.pro_corner_pricing').html_safe
 		%h3= t('.pro_account')
 		.pro-list= t('.pro_feature_list').html_safe
-		%button.button-pricing-red= t('.go_pro')
+		=link_to t('.go_pro'), 'mailto:service@voicerepublic.com?subject=Voice Republic Pro Account', class: 'button-pricing-red'
 
 .row.questions-feedback-box
 	.small-12.columns
@@ -50,13 +50,13 @@
 			%li
 				%span.icon-chat-bubble
 				= t('.live_support')
-		%button.button-pricing-red= t('.tell_us_about_your_conference').html_safe
+		=link_to t('.tell_us_about_your_conference').html_safe, 'mailto:service@voicerepublic.com?subject=Conferences on Voice Republic', class: 'button-pricing-red'
 
 .row.audio-power-box
 	.small-12.columns
 		.audio-power-text
 			= t('.audio_power_text')
-			=link_to t('.learn_more'),'irgend'
+			=link_to t('.learn_more'), "http://blog.voicerepublic.com/what-is-voice-republic/", target: '_blank'
 		%span.icon-vr-logo.show-for-medium-up
 
 .partners

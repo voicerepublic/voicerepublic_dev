@@ -4,11 +4,22 @@
     color: $brand-color-red;
     border: 2px solid $brand-color-red;
     width: 153px;
+    display: inline-block;
+    height: 40px;
+    padding: 12px 0;
+    text-align: center;
+    text-decoration: none !important;
   }
   .button-pricing-red{
     background: $brand-color-red;
     color: white;
     width: 153px;
+    width: 153px;
+    display: inline-block;
+    height: 40px;
+    padding: 12px 0;
+    text-align: center;
+    text-decoration: none !important;
   }
 
   .pricing-header-box{
