@@ -43,10 +43,11 @@
     .free-list,.pro-list{
       margin-top: 30px;
       margin-bottom: 30px;
-      font-family: 'eaglelight';
+      font-family: $font-text;
       font-size: rem-calc(15);
-      line-height: 1.2;
+      line-height: 1.5;
       position: relative;
+      text-shadow: 0 1px 0 white;
     }
     .tooltip-simple{
       color:rgba(0,0,0,0.5);
@@ -86,9 +87,9 @@
           width: 200px;
           padding: 7px 0 4px;
           color: white;
-          text-shadow: 0 0 2px rgba(0,0,0,0.5);
+          text-shadow: 0 0 2px rgba(0,0,0,0.2);
           @include rotate(-38);
-          font-family: 'eaglelight';
+          font-family: $font-text;
           font-size: rem-calc(13);
           strong{
             font-family: 'eaglebook';
@@ -108,7 +109,7 @@
     }
   }
   .questions-feedback-box{
-    font-family: 'eaglelight';
+    font-family: $font-text;
     font-size: rem-calc(19);
     text-align: center;
     padding: 59px 0;
@@ -139,9 +140,9 @@
       width: 400px;
       padding: 17px 0 18px;
       color: white;
-      text-shadow: 0 0 2px rgba(0,0,0,0.5);
+      text-shadow: 0 0 2px rgba(0,0,0,0.2);
       @include rotate(38);
-      font-family: 'eaglelight';
+      font-family: $font-text;
       font-size: rem-calc(17);
       strong{
         font-family: 'eaglebook';
@@ -164,11 +165,11 @@
       margin-bottom: 41px
     }
     p{
-      font-family: 'eaglelight';
+      font-family: $font-text;
       font-size: rem-calc(15);
-      line-height: 1.2;
+      line-height: 1.5;
       color: white;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.5),-1px -1px 2px rgba(0,0,0,1);
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2),-1px -1px 2px rgba(0,0,0,1);
       margin-bottom: 9px;
     }
     .conf-feature-list{
@@ -177,7 +178,7 @@
         display: block;
         padding: 3px 0px;
         color: white;
-        font-family: 'eaglelight';
+        font-family: $font-text;
         font-size: rem-calc(15);
         span[class^="icon-"]:not(.icon-information-circle){
           margin:0 50px 0 31px !important;
@@ -211,7 +212,7 @@
     border-top: 2px solid $color-black-title;
     border-bottom: 2px solid $color-black-title;
     .audio-power-text{
-      font-family: 'eaglelight';
+      font-family: $font-text;
       color: rgba(0,0,0,0.5);
       font-size: rem-calc(17);
       a{
@@ -247,7 +248,7 @@
       margin-bottom: 12px;
       h3{
         text-align: center;
-        font-family: 'eaglelight';
+        font-family: $font-text;
         color: $brand-color-red;
         font-size: rem-calc(19);
         margin-bottom: 20px
