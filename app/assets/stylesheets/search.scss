@@ -1,7 +1,7 @@
 .search-show{
   h2,h3{
     color: $brand-color-red;
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     font-size: rem-calc(20);
   }
   h3{

@@ -21,7 +21,7 @@
         margin: 0;
       }
       .help-text{
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         font-size: rem-calc(14);
         line-height:1;
         margin-top: 4px;
@@ -29,16 +29,16 @@
     }
     label{
       font-size: rem-calc(14);
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       color: $color-black-title;
     }
 
     .text-area{
       height:300px;
     }
-  }  
+  }
   .form-save-row{
     padding:35px 16px 27px 16px;
     background: rgba(0,0,0,0.20);
-  }  
+  }
 }

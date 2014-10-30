@@ -8,7 +8,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(13);
       color: white;
     }
@@ -42,7 +42,7 @@
         display: inline-block;
         vertical-align: bottom;
         .info-box{
-          font-family: 'eaglelight';
+          font-family: $brand-font-light;
           font-size: 19px;
           color: rgba(255, 255, 255, 0.56);
           line-height: 1.2;
@@ -60,7 +60,7 @@
               padding:0 0.9% 0 0.9%;
               a,.text{
                 color: white;
-                font-family: 'eaglebook';
+                font-family: $brand-font-bold;
                 font-size: rem-calc(15);
               }
             }
@@ -83,7 +83,7 @@
                 color: white;
                 border: 1px solid white;
                 text-align: center;
-                font-family: 'eaglebook';
+                font-family: $brand-font-bold;
                 font-size: rem-calc(15);
                 padding: 14px 0 0 0;
                 line-height: 1;
@@ -127,7 +127,7 @@
     .link-more{
       float:right;
       font-size: rem-calc(19);
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       margin-top: -5px
     }
   }
@@ -143,7 +143,7 @@
     }
     .onair{
       color: $brand-color-red;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(19);
     }
   }
@@ -157,7 +157,7 @@
         color: $color-black-title;
         font-size: rem-calc(19);
       }
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(15);
       line-height: 1.2;
       p{
@@ -176,7 +176,7 @@
         position: absolute;
         top: 1px;
         right: 0;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         font-size: rem-calc(19);
       }
     }
@@ -218,7 +218,7 @@
     height: 128px
   }
   .ckeditor.optional{
-    font-family: 'eaglelight';
+    font-family: $brand-font-light;
     font-size: rem-calc(30);
   }
 }

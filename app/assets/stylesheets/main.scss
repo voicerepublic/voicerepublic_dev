@@ -17,7 +17,7 @@ background: $brand-color-creme;
 }
 
 h1,h2,h3,h4{
-  font-family: 'eaglebook';
+  font-family: $brand-font-bold;
   font-weight: normal;
 }
 
@@ -105,13 +105,13 @@ span[class^="icon-"]{
   width: 384px;
   margin-left: -192px;
   .redirect-text{
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     font-size: rem-calc(18px);
   }
   .overlay-button{
     background: #ccc;
     color: black;
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     padding: 10px 15px;
     width: 120px;
     text-align: center;

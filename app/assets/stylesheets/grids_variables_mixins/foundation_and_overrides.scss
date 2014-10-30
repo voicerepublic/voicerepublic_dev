@@ -113,7 +113,7 @@ $primary-color: $brand-color-green;
 // $include-html-type-classes: $include-html-classes;
 
 // We use these to control header font styles
-$header-font-family: 'eaglelight', sans-serif;
+$header-font-family: $brand-font-light, sans-serif;
 // $header-font-weight: 300;
 // $header-font-style: normal;
 $header-font-color: #fff;
@@ -1065,7 +1065,7 @@ $tabs-navigation-active-bg-color: rgba(0,0,0,0.7);
 $tabs-navigation-hover-bg-color: $tabs-navigation-active-bg-color;
 $tabs-navigation-font-color: #000;
 $tabs-navigation-font-size: rem-calc(15);
-$tabs-navigation-font-family: 'eaglelight', sans-serif;
+$tabs-navigation-font-family: $brand-font-light, sans-serif;
 
 // $tabs-content-margin-bottom: rem-calc(24);
 // $tabs-content-padding: $column-gutter/2;
@@ -1154,7 +1154,7 @@ $topbar-link-font-size: rem-calc(12);
 // $topbar-link-bg-hover: #272727  ;
 // $topbar-link-bg-active: $primary-color;
 // $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
-$topbar-link-font-family: 'eaglebook';
+$topbar-link-font-family: $brand-font-bold;
 
 $topbar-button-font-size: rem-calc(12);
 

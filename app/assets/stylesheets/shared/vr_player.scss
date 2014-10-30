@@ -87,7 +87,7 @@ ul.outside-controls{
     .jp-play,
     .jp-pause{
       .icon-octa-full{
-        color: darken($brand-color-green,20%);    
+        color: darken($brand-color-green,20%);
         text-shadow: 0 0 20px rgba(0,0,0,0.6);
       }
       .icon-play-octa,
@@ -155,7 +155,7 @@ div.jp-time-holder {
 div.jp-current-time,
 div.jp-duration {
   width:60px;
-  font-family: 'eaglebook';
+  font-family: $brand-font-bold;
   font-size:11px;
   margin-left: 10px;
   color: white;

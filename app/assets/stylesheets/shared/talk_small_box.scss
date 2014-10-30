@@ -28,7 +28,7 @@
   margin-bottom: 18px;
   .breadcrumbs-box{
     a{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(13);
       width:46%;
       overflow: hidden;
@@ -62,7 +62,7 @@
   }
 
   .datetime{
-    font-family: 'eaglelight';
+    font-family: $brand-font-light;
     font-size: rem-calc(13);
     color: white;
     background: black;
@@ -70,13 +70,13 @@
     display: inline;
     padding: 1px 3px 0;
     .time{
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(13);
     }
   }
   .title{
     line-height: 1rem;
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     font-size: rem-calc(15);
     margin: 0 0 -1px 0;
     line-height: 1.15;
@@ -84,7 +84,7 @@
   }
   .teaser{
     font-size: rem-calc(13);
-    font-family: 'eaglelight';
+    font-family: $brand-font-light;
     line-height: 1.1;
     display: inline-block;
     overflow: hidden;
@@ -233,16 +233,16 @@
           bottom: 0;
           left:0;
           @include vertical-gradient(rgba(0,0,0, 0), black);
-        }         
-      }     
+        }
+      }
     }
     &:hover, &:focus{
       .talk-small-padding{
         background: lighten(black, 15%);
         .text-box:after{
-          @include vertical-gradient(rgba(38,38,38, 0), rgba(38,38,38, 1));          
+          @include vertical-gradient(rgba(38,38,38, 0), rgba(38,38,38, 1));
         }
       }
-    }    
-  }  
+    }
+  }
 }

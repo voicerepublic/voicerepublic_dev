@@ -8,7 +8,7 @@
   background: #3D5A9A;
   padding: 6px 10px 7px 5px;
   color: white;
-  font-family: 'eaglebook';
+  font-family: $brand-font-bold;
   font-size: rem-calc(14);
   &:hover,&:focus{
     color: white

@@ -16,13 +16,13 @@ footer{
       a{
         color: inherit;
         display: inline-block;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
       }
     }
   }
   .vr-copyright{
     font-size: rem-calc(12);
     color: rgba(0,0,0,0.3);
-    font-family: 'eaglelight'
+    font-family: $brand-font-light;
   }
 }
