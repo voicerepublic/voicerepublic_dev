@@ -83,8 +83,7 @@
         = render partial: talks_partial(talks), locals: { color: 'box-slim' }, collection: talks
 
 
-- unless @user.venues_without_default.empty?
-  -# TODO if venues = @user.venues_without_default
+- if venues = @user.venues_without_default
 
   #series.user-series-box.row.collapse-large-only
     .large-12.columns
