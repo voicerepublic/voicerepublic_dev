@@ -19,11 +19,11 @@
 				%br/
 				.teaser
 					= @talk.teaser
-  
+
 	.player
 		= render partial: 'shared/player', locals: { talk: @talk }
-
-	= link_to [@talk.venue, @talk], target: 'blank', class: 'vr-logo' do
-		%span.icon-vr-logo
-		%br/
-		VOICE REPUBLIC
+	.icon-box
+		= link_to [@talk.venue, @talk], target: 'blank', class: 'vr-logo' do
+			%span.icon-vr-logo
+			%br/
+			VOICE REPUBLIC
