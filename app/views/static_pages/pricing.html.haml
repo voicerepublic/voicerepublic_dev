@@ -5,13 +5,13 @@
 	.free-account-box.small-6.columns
 		%h3= t('.free_account')
 		.free-list= t('.free_feature_list').html_safe
-		=link_to t('.free'), new_user_registration_path, class: "button-pricing-white"
+		=link_to t('.free'), new_user_registration_path, 'data-ga-event' => "click pricing free", class: "button-pricing-white"
 	.pro-account-box.small-6.columns
 		.corner-pricing-box
 			.corner-pricing= t('.pro_corner_pricing').html_safe
 		%h3= t('.pro_account')
 		.pro-list= t('.pro_feature_list').html_safe
-		=link_to t('.go_pro'), 'mailto:service@voicerepublic.com?subject=Voice Republic Pro Account', class: 'button-pricing-red'
+		=link_to t('.go_pro'), 'mailto:service@voicerepublic.com?subject=Voice Republic Pro Account', 'data-ga-event' => "click pricing pro", class: 'button-pricing-red'
 
 .row.questions-feedback-box
 	.small-12.columns
@@ -50,7 +50,7 @@
 			%li
 				%span.icon-chat-bubble
 				= t('.live_support')
-		=link_to t('.tell_us_about_your_conference').html_safe, 'mailto:service@voicerepublic.com?subject=Conferences on Voice Republic', class: 'button-pricing-red'
+		=link_to t('.tell_us_about_your_conference').html_safe, 'mailto:service@voicerepublic.com?subject=Conferences on Voice Republic', 'data-ga-event' => "click pricing conference", class: 'button-pricing-red'
 
 .row.audio-power-box
 	.small-12.columns
