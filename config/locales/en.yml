@@ -550,7 +550,7 @@ en:
           <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Record your live stream or upload audio.<br />
+              Record your live stream or upload audio<br />
               (Mp3, M4a, Ogg, Wav)
             </span>
           </div>
@@ -560,7 +560,7 @@ en:
           <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Announce talks with a personalized flyer.
+              Announce talks with a personalized flyer
             </span>
           </div>
         <br />
@@ -568,7 +568,7 @@ en:
          <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Embed player on any blog or site.
+              Embed player on any blog or site
             </span>
           </div>
         <br />
@@ -576,7 +576,7 @@ en:
           <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Download audio and listen to it offline.
+              Download audio and listen to it offline
             </span>
           </div>
         <br />
@@ -595,7 +595,7 @@ en:
           <div class="tooltip-simple">
             <span class="pro">* PRO</span>
             <span class="tooltip-overlay">
-              Do you need more storage? Buy an extra 10 hours of streaming and upload time - € 80.
+              Do you need more storage? Buy an extra 10 hours of streaming and upload time - € 80
             </span>
           </div>
         <br />
@@ -604,7 +604,7 @@ en:
           <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Announce talks with a personalized flyer.
+              Announce talks with a personalized flyer
             </span>
           </div>
         <br />
@@ -612,7 +612,7 @@ en:
          <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Embed player on any blog or site.
+              Embed player on any blog or site
             </span>
           </div>
         <br />
@@ -620,7 +620,7 @@ en:
           <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Download audio and listen to it offline.
+              Download audio and listen to it offline
             </span>
           </div>
         <br />
@@ -638,8 +638,7 @@ en:
       reach_audience: Reach a larger audience
       conf_text: |
         Voice Republic provides a way to live stream audio from your conference with little effort and great results.<br /><br />
-        Stream multiple talks at the same time. They are automatically recorded and instantly available.
-        on the conference profile. Alternatively, you can upload recordings from the event.<br /><br />
+        Stream multiple talks at the same time. They are automatically recorded and instantly available on the conference profile. Alternatively, you can upload recordings from the event.<br /><br />
         Share the talks with a single click, embed to a website and enable downloads.<br /><br />
         Need a helping hand? We’ll help you get going and support you throughout the event.<br /><br />
         A conference profile comes with lots of great features:
@@ -648,7 +647,7 @@ en:
           <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              Download any or all of the conference talks with one click.
+              Download any or all of the conference talks with one click
             </span>
           </div>
       talk_data_handling: |
@@ -664,7 +663,7 @@ en:
           <div class="tooltip-simple">
             <span class="icon-information-circle"></span>
             <span class="tooltip-overlay">
-              We'll help you promote the conference.
+              We'll help you promote the conference
             </span>
           </div>
       multi_stage_streaming: Multi-Stage Streaming
