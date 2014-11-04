@@ -45,7 +45,7 @@
         - link = current_user ? new_talk_path : new_user_session_path
         = link_to t('.create_talk'), link, class: 'button-how-to'
       .small-4.columns
-        = link_to t('.check_pricing'), 'http://blog.voicerepublic.com/about/pricing/', class: 'button-how-to', target: '_blank'
+        = link_to t('.check_pricing'), static_pages_pricing_path, class: 'button-how-to'
       .small-4.columns
         = link_to t('.browse_archive'), :talks, class: 'button-how-to'
 

@@ -1,0 +1,37 @@
+.welcome-block
+	.row.collapse-large-only
+		.small-12.columns
+			- if @user.sign_in_count > 1
+				%h3= t('.welcome_back') + ' ' + user.firstname + '!'
+			- else
+				%h3= t('.welcome') + ' ' + user.firstname + '!'
+				%h4= t('.subtitle')
+			- if user.about.blank? and user.summary.blank?
+				.row.content-box
+					.small-4.columns
+						=link_to [:edit, @user] do
+							=image_tag '/images/welcome/profile.png'
+					.small-8.columns
+						=link_to [:edit, @user] do
+							= t('.profile_text').html_safe
+			- if @upcoming_talks.empty? and @archived_talks.empty?
+				.row.content-box
+					.small-8.columns
+						=link_to new_talk_path do
+							= t('.talk_text').html_safe
+					.small-4.columns
+						=link_to new_talk_path do
+							=image_tag '/images/welcome/talk.png'
+			.row.content-box
+				.small-4.columns
+					=link_to talks_path do
+						=image_tag '/images/welcome/explore.png'
+				.small-8.columns
+					=link_to talks_path do
+						= t('.explore_text').html_safe
+			- if user.reminders.empty?
+				.row.content-box
+					.small-8.columns
+						= t('.listenlater_text').html_safe
+					.small-4.columns
+						=image_tag '/images/welcome/listen_later.png'
