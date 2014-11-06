@@ -1,14 +1,4 @@
-# Talk uses a strategy chain to process the audio.
-#
-# Example Strategy Chain
-#
-#    %w( precursor kluuu_merge trim auphonic )
-#
-# See the strategies in lib/audio/strategy for more details.
-#
-#
 # http://stackoverflow.com/questions/2529990/activerecord-date-format
-#
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
@@ -70,6 +60,7 @@ class Talk < ActiveRecord::Base
     event :prepare do
       # if user_override_uuid is set we transcend to pending
       transitions from: :created, to: :pending, guard: :user_override_uuid?
+      # otherwise it will go its usual way via prelive
       transitions from: :created, to: :prelive
     end
     event :start_talk, timestamp: :started_at, success: :after_start do
@@ -92,8 +83,8 @@ class Talk < ActiveRecord::Base
       # in rare case we might to override a talk
       # which has never been postprocessed
       transitions from: :postlive, to: :archived
-      # or which has never even happended
-      transitions from: :prepare, to: :archived
+      # or which was supposed to but has never even happended
+      transitions from: :prelive, to: :archived
     end
   end
 
