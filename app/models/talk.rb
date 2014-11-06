@@ -676,4 +676,9 @@ class Talk < ActiveRecord::Base
     EOS
   end
 
+  def compute_rank
+    hours = (Time.now - archived_at) / 360
+    (play_count - 1) / (hours + 2) ^ 1.8
+  end
+
 end
