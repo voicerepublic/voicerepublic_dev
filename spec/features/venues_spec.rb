@@ -148,7 +148,6 @@ describe "Venues", js: true do
       it 'uploads an image and displays it', driver: :chrome do
         venue = FactoryGirl.create(:venue, user: @user)
         visit venue_path(id: venue.id)
-        save_and_open_page
         find('.image')['src'].should include('venue-image.jpg')
         find('.title-edit').click
         # NOTE: This is not a perfect test, because it's exposing the real input
