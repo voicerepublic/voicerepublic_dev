@@ -121,7 +121,7 @@ class Talk < ActiveRecord::Base
   before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
-  before_create :prepare
+  before_create :prepare, if: :can_prepare?
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   # TODO: important, these will be triggered after each PUT, optimize
