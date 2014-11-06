@@ -89,5 +89,5 @@
 .description-box.row.collapse-large-only
   .large-12.columns
     .align-box
-      %h3= t('.about') + ' ' + @user.name
+      %h3= t('.about') + ' ' + @user.try(:name)
       = raw @user.about
