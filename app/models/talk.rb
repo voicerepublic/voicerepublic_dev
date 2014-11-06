@@ -584,12 +584,7 @@ class Talk < ActiveRecord::Base
   # generically propagate all state changes to faye
   # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
-    PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
-
-    @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag}", 'transitions',
-                         Settings.slack.icon[:transitions])
-    current_state, new_state, event = args
-    @slack.send "#{event} #{id}: #{current_state} -> #{new_state}"
+    MessageCenter.talk_event(self, *args)
   end
 
   def slug_candidates
