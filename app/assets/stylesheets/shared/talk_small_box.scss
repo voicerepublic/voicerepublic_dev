@@ -265,7 +265,9 @@
         }
         .title{
           color: $color-black-title;
-          font-size: rem-calc(17);
+          font-size: rem-calc(24);
+          line-height: 1;
+          margin-top: 2px;
         }
         .teaser{
           color: $color-black-title;
@@ -284,6 +286,7 @@
       }
     }
     .tune-in{
+      display: block;
       position: absolute;
       bottom:0;
       height: 46px;
