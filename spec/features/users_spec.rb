@@ -126,6 +126,29 @@ feature "Password" do
 end
 
 feature "User can register" do
+  describe "Welcome page on UserProfile" do
+    before do
+      @user = FactoryGirl.create(:user)
+    end
+    describe "New User" do
+      scenario "Sees a welcome page" do
+        login_user(@user)
+        page.should have_content("Welcome")
+        page.should have_content("Thank you for signing up")
+        page.should have_content("Create your first Talk")
+      end
+    end
+    describe "User already has talks" do
+      scenario "Does not see a welcome page" do
+        t = FactoryGirl.create :talk
+        t.venue.update_attribute :user, @user
+        login_user(@user)
+        page.should_not have_content("Welcome")
+        page.should_not have_content("Thank you for signing up")
+        page.should_not have_content("Create your first Talk")
+      end
+    end
+  end
   describe "Facebook" do
     scenario 'user registers with facebook' do
       User.count.should eq(0)
