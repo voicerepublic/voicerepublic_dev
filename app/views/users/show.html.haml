@@ -50,7 +50,7 @@
         %h3.left= t('.live_talks', count: @live_talks.count)
         .onair.right= t('.on_air')
       %ul(class="#{talks_grid(@live_talks)}")
-        = render partial: 'shared/talk_live_box', collection: @live_talks
+        = render partial: talkslive_partial(@live_talks), :locals => { color: 'box-live' }, collection: @live_talks
 
 - unless @upcoming_talks.empty?
   .upcoming-talks-box.row.collapse-large-only
