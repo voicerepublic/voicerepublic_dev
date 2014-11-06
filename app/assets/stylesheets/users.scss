@@ -21,6 +21,7 @@
         display: inline-block;
         vertical-align: top;
         .avatar{
+          max-width: 185px;
           text-align: center;
           .avatar-image{
             display: block;
@@ -29,10 +30,8 @@
           .user-name{
             font-size: rem-calc(26);
             line-height: 1.4;
-            display: inline-block;
-            span{
-              border-bottom: 3px solid white;
-            }
+            display: inline;
+            border-bottom: 3px solid white;
           }
         }
       }
