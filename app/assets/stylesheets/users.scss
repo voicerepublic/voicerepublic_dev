@@ -50,7 +50,7 @@
             padding: 10px 15px;
             background: rgba(255,255,255,0.5);
             color: white;
-            font-family: 'eaglelight';
+            font-family: $brand-font-light;
             margin-bottom: 46px;
             display: block;
             text-align: center;
@@ -199,7 +199,7 @@
     h4{
       color: #1a1a1a;
       font-size: rem-calc(15);
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       margin: 0 0 22px 0;
     }
     .content-box{
@@ -209,7 +209,7 @@
         background: rgba(255,255,255,0.7);
       }
       padding: 29px 20px;
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       border-bottom: 1px solid rgba(0,0,0,0.1);
       &:last-of-type{
         border: none;
@@ -217,7 +217,7 @@
       font-size: rem-calc(15);
       line-height: 1.3;
       h5{
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         color: $color-black-title;
       }
       li{
