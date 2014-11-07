@@ -58,6 +58,9 @@ storage:
   import: vr-dev-import
 paths:
   log: local/log
+  jingles:
+    in: lib/audio/vr_start.wav
+    out: lib/audio/vr_stop.wav
 root_url: 'http://localhost:3000'
 blackbox:
   # http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00001260.html

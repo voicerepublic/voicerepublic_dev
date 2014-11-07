@@ -524,9 +524,8 @@ class Talk < ActiveRecord::Base
       chain: chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      # FIXME this is hardcoded
-      jingle_in: Rails.root.join('lib/audio/vr_start.wav').to_s,
-      jingle_out: Rails.root.join('lib/audio/vr_stop.wav').to_s
+      jingle_in: File.expand_path(Settings.paths.jingles.in, Rails.root),
+      jingle_out: File.expand_path(Settings.paths.jingles.out, Rails.root)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
