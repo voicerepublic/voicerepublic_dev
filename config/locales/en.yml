@@ -328,6 +328,7 @@ en:
         title: "VR: %{username}"
         subtitle: "Podcast provided by Voice Republic"
       feed_title: "VR - %{username}"
+      listen_later_feed_title: "VR - Listen Later by %{username}"
       title: "%{username} - Voice Republic"
       edit_profile: Edit Profile
       talks:
@@ -1229,6 +1230,11 @@ en:
       failure: Reminder could not be created.
     destroy:
       success: Reminder was successfully destroyed.
+    index:
+      podcast:
+        title: VR - Listen Later by %{username}
+        subtitle: |
+          A collection of talks on Voice Republic carefully selected by %{username}
   safetynet_warning: |
     Careful Citizen of Voice Republic,
 
