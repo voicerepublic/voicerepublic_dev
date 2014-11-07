@@ -11,4 +11,12 @@ namespace :talks do
       end
     end
   end
+
+  desc "Update or create manifest for all talks (caution: this might take a while)"
+  task manifests: :environment do
+    Talk.all.each do |t|
+      t.send(:update_manifest_file!)
+    end
+  end
+
 end

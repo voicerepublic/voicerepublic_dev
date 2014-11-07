@@ -480,7 +480,7 @@ class Talk < ActiveRecord::Base
   end
 
   def run_chain!(chain, uat=false)
-    path = update_metadatafile!(chain)
+    path = update_manifest_file!(chain)
     worker = AudioProcessor.new(path) # lib/audio_processor.rb
     worker.talk = self
     # not obvious: the worker will call `upload!` and `cleanup!` from
@@ -517,7 +517,7 @@ class Talk < ActiveRecord::Base
     save! # save `storage` field
   end
 
-  def metadata(chain=nil)
+  def manifest(chain=nil)
     chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
       id: id,
@@ -531,11 +531,11 @@ class Talk < ActiveRecord::Base
     data
   end
 
-  def update_metadatafile!(chain=nil)
+  def update_manifest_file!(chain=nil)
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    name = "metadata-#{id}.yml"
+    name = "manifest-#{id}.yml"
     path, key = "#{base}/#{name}", "#{uri}/#{name}"
-    File.open(path, 'w') { |f| f.puts(metadata(chain).to_yaml) }
+    File.open(path, 'w') { |f| f.puts(manifest(chain).to_yaml) }
     upload_file(key, path)
     path
   end
