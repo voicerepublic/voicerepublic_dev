@@ -791,6 +791,7 @@ en:
       delete_reminder: Delete reminder
     talk_small_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+      tune_in: TUNE IN
     talk_live_box:
       tune_in: TUNE IN
       speakers: TALKGUESTS
