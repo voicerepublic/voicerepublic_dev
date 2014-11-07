@@ -26,7 +26,7 @@
             = link_to live_talks_url do
               %h3.title-live= t('.live_title')
               %h4= t('.live_subtitle')
-          %ul(class="#{talks_grid(@talks_live)}")
+          %ul(class="#{talkslive_grid(@talks_live)}")
             = render partial: talkslive_partial(@talks_live), :locals => { color: 'box-live' }, collection: @talks_live
           = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
 

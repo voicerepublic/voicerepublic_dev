@@ -232,7 +232,12 @@
       }
     }
     &.live{
-     background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.7);
+      .talk-small-box.box-live{
+        .breadcrumbs-box{
+          display: block
+        }
+      }
     }
     padding: 42px 0;
     .title-box{

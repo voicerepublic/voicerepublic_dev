@@ -21,10 +21,14 @@ module VenuesHelper
   end
 
   def talkslive_partial(collection)
-    collection.count > 1 ? 'shared/talk_small_box' : 'shared/talk_live_box'
+    collection.count > 2 ? 'shared/talk_small_box' : 'shared/talk_live_box'
   end
 
   def talks_grid(collection)
     collection.count > 1 ? 'talks-small-block-grid' : 'list-style-type-none'
+  end
+
+  def talkslive_grid(collection)
+    collection.count > 2 ? 'talks-small-block-grid' : 'list-style-type-none'
   end
 end
