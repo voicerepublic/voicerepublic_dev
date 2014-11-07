@@ -100,6 +100,7 @@
     padding-bottom: 40px;
     position:relative;
     background-size: cover;
+    background-position: center;
     .bg{
       position: absolute;
       top:0;
@@ -118,6 +119,7 @@
     }
 
     .headline{
+      vertical-align: top;
       position: relative;
       top: -30px;
       color: $color-black-title;
@@ -294,9 +296,6 @@
         display: inline-block;
         font-family: $brand-font-bold;
         color: $brand-color-blue;
-        &.title-live{
-          color: $brand-color-red
-        }
         font-size: rem-calc(21);
         margin-right: 5px;
       }

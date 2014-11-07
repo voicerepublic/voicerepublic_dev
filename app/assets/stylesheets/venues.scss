@@ -37,12 +37,39 @@
       font-family: $brand-font-bold;
       margin: 15px 0 0 5px;
     }
-    .back-profile-link{
-      display: inline-block;
-      float: right;
-      margin-top: 16px;
-      font-family: $brand-font-bold;
-      font-size: rem-calc(15);
+    #social_share {
+      position: absolute;
+      right: 2px;
+      top: 10px;
+      .share{
+        display: inline-block;
+        height: 23px;
+        width: 23px;
+        a{
+          position:relative;
+          color:black;
+          display: block;
+          &:hover,&:focus{
+            color:rgba(0,0,0,0.5);
+          }
+          span[class^="icon-"]{
+            font-size: rem-calc(18);
+            &.icon-fb{
+              font-size: rem-calc(16);
+            }
+            position:absolute;
+            top: 7px;
+            left: 6px;
+            text-shadow: 0 0 1px rgba(0,0,0,0.5);
+          }
+          span.icon-octagon{
+            font-size: rem-calc(25);
+            top: 0;
+            left: 0;
+            display: none;
+          }
+        }
+      }
     }
   }
 

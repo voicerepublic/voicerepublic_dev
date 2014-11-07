@@ -134,8 +134,6 @@ describe "Venues", js: true do
         # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
         # the text with Capybara. jQuery to the rescue.
         page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
-        # fill in tags
-        fill_in 's2id_autogen1', with: 'a,b,c,'
 
         click_button 'Save'
         page.should have_selector('.venues-show')

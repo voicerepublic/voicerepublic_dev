@@ -10,11 +10,14 @@
       .avatar-box
         .avatar
           = render partial: "shared/avatar_image", locals: { user: @user, size: 185 }
-          %h2.user-name=spanify(@user.name)
+          %h2.user-name=@user.name
 
       .info-links-box>
         .info-box
-          = @user.summary
+          - if @user.summary.blank? and can? :manage, @user
+            = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+          - else
+            = @user.summary
         .links-box
           %ul.anker-links.list-style-type-none>
             %li
@@ -79,15 +82,21 @@
       %ul(class="#{talks_grid(talks)}")
         = render partial: talks_partial(talks), locals: { color: 'box-slim' }, collection: talks
 
+
 - if venues = @user.venues_without_default
+
   #series.user-series-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.venues', count: venues.count)
       %ul.medium-block-grid-2
         = render partial: 'shared/venue_medium_box', collection: venues
 
-.description-box.row.collapse-large-only
-  .large-12.columns
-    .align-box
-      %h3= t('.about')
-      = raw @user.about
+- unless @user.about.blank?
+  .description-box.row.collapse-large-only
+    .large-12.columns
+      .align-box
+        %h3= t('.about') + ' ' + @user.try(:name)
+        = raw @user.about
+
+- if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
+  = render partial: "welcome", :locals => { user: @user}
