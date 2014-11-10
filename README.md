@@ -169,6 +169,14 @@ Run Rspec with Zeus
     karma start spec/javascripts/livepage.conf.js.coffee
 
 
+CI
+--
+
+Monitor CI
+
+    multitail app/current/log/ci.log app/shared/ci/repo/log/test.log
+
+
 Compile Flash
 -------------
 
