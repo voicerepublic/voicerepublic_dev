@@ -108,7 +108,9 @@ test:
     ENV['HOME'] = home
 
     # set PATH
-    ENV['PATH'] = [ENV['PATH'], "#{home}/bin"].compact * ':'
+    ENV['PATH'] = [ ENV['PATH'],
+                    "#{home}/bin",
+                    '/usr/local/bin' ].compact * ':'
 
     # rspec spec
     status('pending', "running specs...")
