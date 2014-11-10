@@ -118,7 +118,9 @@ test:
     ENV['RAILS_ENV'] = 'test'
 
     # TODO make configurable
-    output = execute("bundle exec rspec spec --fail-fast",
+    #spec_cmd = "bundle exec rspec spec --fail-fast"
+    spec_cmd = "bundle exec rspec spec"
+    output = execute(spec_cmd,
                      { 'RAILS_ENV' => 'test',
                        'DISPLAY' => ':1',
                        'CI' => 'assimilator' }, false)
