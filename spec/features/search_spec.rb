@@ -37,6 +37,7 @@ feature "Search", js: true do
 
   describe "Search validation" do
     scenario "it should set an error on empty search input", driver: :chrome do
+      pending 'omitted from CI' if ENV['CI']
       page.fill_in 'query', with: ''
       find("#query").native.send_keys(:return)
       page.should have_css('.warning')
@@ -57,6 +58,7 @@ feature "Search", js: true do
     end
 
     scenario "it searches when hitting enter", driver: :chrome  do
+      pending 'omitted from CI' if ENV['CI']
       FactoryGirl.create :talk, title: "test title talk"
       page.fill_in 'query', with: 'test talk'
       find("#query").native.send_keys(:return)
