@@ -119,7 +119,7 @@ test:
     output = execute("bundle exec rspec spec --fail-fast",
                      { 'RAILS_ENV' => 'test',
                        'DISPLAY' => ':1',
-                       'CI=assimilator' }, false)
+                       'CI' => 'assimilator' }, false)
 
     # report
     if $?.exitstatus > 0
