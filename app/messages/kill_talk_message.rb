@@ -3,7 +3,7 @@
 class KillTalkMessage < BaseMessage
 
   def slack_message(talk)
-    _talk = slack_link(talks.title url_for(talk), talk.title)
+    _talk = slack_link(talk.title, url_for(talk))
     "killed talk (#{talk.id}) #{_talk}"
   end
 

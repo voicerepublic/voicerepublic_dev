@@ -36,7 +36,7 @@ class BaseMessage
   end
 
   def distribute(*args)
-    raise "`#{class.name}#distribute` not yet implemented"
+    raise "`#{self.class.name}#distribute` not yet implemented"
   end
 
   def condition
