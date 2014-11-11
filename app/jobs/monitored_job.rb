@@ -1,8 +1,6 @@
 # expects `model`, `id`, and `method` passed in as options
 #
-# Will publish ALL events via PrivatePub.
-#
-# Will notify slack if the subclass defines these methods:
+# Will pass a message if the subclass defines these methods:
 #
 #  * enqueue_message
 #  * before_message
