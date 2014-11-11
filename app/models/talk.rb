@@ -260,7 +260,7 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
-    PrivatePub.publish_to public_channel, event: 'Reload'
+    LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
 
@@ -367,7 +367,7 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
+    MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
     return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
@@ -376,11 +376,11 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
-    PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
+    LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     unless venue.opts.no_auto_postprocessing
       Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
     end
-    PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
+    MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
   def postprocess!(uat=false)
@@ -481,8 +481,8 @@ class Talk < ActiveRecord::Base
   end
 
   def run_chain!(chain, uat=false)
-    PrivatePub.publish_to public_channel, { event: 'Process' }
-    PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
+    LiveServerMessage.call public_channel, { event: 'Process' }
+    MonitoringMessage.call(event: 'Process', talk: attributes)
     t0 = Time.now.to_i
 
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -498,7 +498,7 @@ class Talk < ActiveRecord::Base
     FileUtils.chdir(setting.path, verbose: true) do
       chain.each_with_index do |name, index|
         attrs = { id: id, run: name, index: index, total: chain.size }
-        PrivatePub.publish_to '/monitoring', { event: 'Processing', talk: attrs }
+        MonitoringMessage.call(event: 'Processing', talk: attrs)
         (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
         runner.run(name)
       end
@@ -534,8 +534,8 @@ class Talk < ActiveRecord::Base
 
     dt = Time.now.to_i - t0
     logfile.puts "## Elapsed time: %s:%02d:%02d" % [dt / 3600, dt % 3600 / 60, dt % 60]
-    PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
-    PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
+    LiveServerMessage.call public_channel, { event: 'Archive', links: media_links }
+    MonitoringMessage.call(event: 'Archive', talk: attributes)
   end
 
   # collect information about what's stored via fog
@@ -582,9 +582,8 @@ class Talk < ActiveRecord::Base
   end
 
   # generically propagate all state changes to faye
-  # TODO cleanup publish statements scattered all over the code above
   def event_fired(*args)
-    MessageCenter.talk_event(self, *args)
+    TalkEventMessage.call(self, *args)
   end
 
   def slug_candidates
