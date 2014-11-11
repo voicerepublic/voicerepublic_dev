@@ -20,61 +20,33 @@ class MonitoredJob < Struct.new(:opts)
 
   # hooks
   def enqueue(job)
-    publish job: job, signal: 'enqueue'
-
-    if respond_to?(:enqueue_message) && msg = send(:enqueue_message, job)
-      slack.send msg, icon: Settings.slack.icon[job.queue], user:"dj-#{job.queue}"
-    end
+    msg = respond_to?(:enqueue_message) ? send(:enqueue_message, job) : nil
+    GenericDjMessage.call(job, 'enqueue', opts, msg)
   end
 
   def before(job)
-    publish job: job, signal: 'before'
-
-    if respond_to?(:before_message) && msg = send(:before_message, job)
-      slack.send msg, icon: Settings.slack.icon[job.queue], user:"dj-#{job.queue}"
-    end
+    msg = respond_to?(:before_message) ? send(:before_message, job) : nil
+    GenericDjMessage.call(job, 'before', opts, msg)
   end
 
   def after(job)
-    publish job: job, signal: 'after'
-
-    if respond_to?(:after_message) && msg = send(:after_message, job)
-      slack.send msg, icon: Settings.slack.icon[job.queue], user:"dj-#{job.queue}"
-    end
+    msg = respond_to?(:after_message) ? send(:after_message, job) : nil
+    GenericDjMessage.call(job, 'after', opts, msg)
   end
 
   def success(job)
-    publish job: job, signal: 'success'
-
-    if  respond_to?(:success_message) && msg = send(:success_message, job)
-      slack.send msg, icon: Settings.slack.icon[job.queue], user:"dj-#{job.queue}"
-    end
+    msg = respond_to?(:success_message) ? send(:success_message, job) : nil
+    GenericDjMessage.call(job, 'success', opts, msg)
   end
 
   def error(job, exception)
-    publish job: job, signal: 'error', exception: exception
-
-    if respond_to?(:error_message) && msg = send(:error_message, job, exception)
-      slack.send msg, icon: Settings.slack.icon[job.queue], user:"dj-#{job.queue}"
-    end
+    msg = respond_to?(:error_message) ? send(:error_message, job, exception) : nil
+    GenericDjMessage.call(job, 'error', opts, msg)
   end
 
   def failure(job)
-    publish job: job, signal: 'failure'
-
-    if respond_to?(:failure_message) && msg = send(:failure_message, job)
-      slack.send msg, icon: Settings.slack.icon[job.queue], user: "dj-#{job.queue}"
-    end
-  end
-
-  # internal
-  def publish(event)
-    PrivatePub.publish_to '/dj', { opts: opts, event: event }
-  end
-
-  def slack
-    @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag || 'default'}", 'dj',
-                         Settings.slack.icon[:default])
+    msg = respond_to?(:failure_message) ? send(:failure_message, job) : nil
+    GenericDjMessage.call(job, 'failure', opts, msg)
   end
 
 end
