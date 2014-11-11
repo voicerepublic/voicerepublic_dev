@@ -1,4 +1,4 @@
-# goes to faye (in all envs)
+# MANDATORY: goes to faye (in all envs)
 #
 class LiveServerMessage < BaseMessage
 

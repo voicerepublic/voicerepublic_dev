@@ -1,4 +1,4 @@
-# goes to faye and slack (in production)
+# OPTIONAL: goes to faye and slack (in production)
 #
 class TalkEventMessage < BaseMessage
 

@@ -1,4 +1,4 @@
-# goes to faye (in all environments)
+# MANDATORY: goes to faye (in all environments)
 #
 class LiveClientMessage < BaseMessage
 

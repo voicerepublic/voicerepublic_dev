@@ -1,4 +1,4 @@
-# goes to faye (in dev & production)
+# OPTIONAL: goes to faye (in dev & production)
 #
 class MonitoringMessage < BaseMessage
 

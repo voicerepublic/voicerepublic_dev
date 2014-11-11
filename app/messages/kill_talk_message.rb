@@ -1,4 +1,4 @@
-# goes to slack (in production)
+# OPTIONAL: goes to slack (in production)
 #
 class KillTalkMessage < BaseMessage
 
