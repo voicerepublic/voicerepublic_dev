@@ -1,3 +1,6 @@
+# BaseMessage
+# ===========
+#
 # BaseMessage is the superclass for all Messages defined in the folder
 # `app/messages` which is the central location for all message related
 # code.
@@ -6,11 +9,18 @@
 # Message's responsibility is to distribute these message into
 # its outlets. BaseMessage provides common code for this task.
 #
-# Sidenote on Environments
 #
-# General messages should be swallowed if we are in an environment
-# other than 'production'. (Nobody cares about messages from 'dev'
-# machines and specs do less rely on VCR.)
+# Sidenote on Environments
+# ------------------------
+#
+# There two types of messages:
+#
+# * mandatory (technically required)
+# * optional (fyi only)
+#
+# General optional messages should be swallowed if we are in an
+# environment other than 'production'. (Nobody cares about those
+# messages from 'dev' machines and specs do less rely on VCR.)
 #
 class BaseMessage
 
