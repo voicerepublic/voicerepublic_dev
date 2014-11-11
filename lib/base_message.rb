@@ -31,7 +31,7 @@ class BaseMessage
 
   class << self
     def call(*args)
-      instance.distribute(*args) if condition
+      instance.distribute(*args) if instance.condition
     end
   end
 
