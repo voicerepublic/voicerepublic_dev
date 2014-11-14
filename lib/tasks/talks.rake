@@ -15,6 +15,7 @@ namespace :talks do
   desc "Update or create manifest for all talks (caution: this might take a while)"
   task manifests: :environment do
     Talk.all.each do |t|
+      puts "Update manifest file for talk (#{t.id}) #{t.title}"
       t.send(:update_manifest_file!)
     end
   end

@@ -398,6 +398,12 @@ Note: As soon as the stream goes live, your client will subscribe a
 Rails Console Cheat Sheet
 -------------------------
 
+### Debug Postprocessing
+
+    id = 3322
+    Talk.find(id).update_attribute(:state, 'postlive')
+    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
+
 ### Feature three randomly selected talks since yesterday
 
     Talk.order('RANDOM()').limit(3).each do |t|
