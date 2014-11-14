@@ -21,10 +21,13 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: 070e8d820a07f2dab7145921425959e20cebf5aa
+  revision: 927d785e3c0ec65b93d52a633d497b7cafd3b5dd
   specs:
-    fidelity (0.0.1)
+    fidelity (0.0.2)
       auphonic
+      fileutils_logger
+      open4
+      term-ansicolor
 
 GEM
   remote: https://rubygems.org/
@@ -165,8 +168,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
-    faraday (0.8.9)
-      multipart-post (~> 1.2.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     faye (1.0.1)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
@@ -179,6 +182,7 @@ GEM
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.3.1)
     ffi (1.9.3)
+    fileutils_logger (0.0.1)
     fog (1.22.0)
       fog-brightbox
       fog-core (~> 1.21, >= 1.21.1)
@@ -265,7 +269,7 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.10.1)
-    multipart-post (1.2.0)
+    multipart-post (2.0.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
@@ -288,6 +292,7 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    open4 (1.3.4)
     orm_adapter (0.5.0)
     pg (0.17.1)
     poltergeist (1.5.0)
