@@ -481,6 +481,7 @@ class Talk < ActiveRecord::Base
 
   def run_chain!(chain, uat=false)
     path = update_manifest_file!(chain)
+    Rails.logger.info "manifest: #{path}"
     worker = AudioProcessor.new(path) # lib/audio_processor.rb
     worker.talk = self
     # not obvious: the worker will call `upload!` and `cleanup!` from
