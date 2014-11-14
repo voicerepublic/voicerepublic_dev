@@ -188,6 +188,20 @@ Run Audio Strategies
 
 See [fidelity](/munen/fidelity) for details.
 
+### Example
+
+Pull complete audio data for a given talk from s3
+
+    s3cmd sync s3://vr-live-media/vr-1799 .
+
+Sometimes it is a good idea to delete the journal
+
+    rm vr-1799/1799.jounral
+
+Run fidelity on it
+
+    fidelity run vr-1799/manifest-1799.yml
+
 
 Documentation
 -------------
