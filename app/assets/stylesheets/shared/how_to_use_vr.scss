@@ -21,12 +21,12 @@
       color: white;
       font-size: rem-calc(14);
       li{
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         color: white;
       }
     }
     .button-how-to{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       color: white;
       padding: 10px 20px;
       background: rgba(0,0,0,0.5);

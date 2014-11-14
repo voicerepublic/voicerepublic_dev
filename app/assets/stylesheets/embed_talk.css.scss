@@ -1,6 +1,5 @@
 @import "grids_variables_mixins/ci_variables";
 @import "grids_variables_mixins/vr_icons";
-@import "grids_variables_mixins/eagle_webfonts";
 @import "grids_variables_mixins/mixins";
 @import "shared/vr_player";
 
@@ -39,7 +38,7 @@ body,html{
           background: rgba(0,0,0,0.6);
           padding: 2px 6px 1px;
           width: 104px;
-          font-family: 'eaglelight';
+          font-family: $brand-font-light;
           font-size: 13px;
           line-height: 1;
           overflow: hidden;
@@ -67,7 +66,7 @@ body,html{
         .title{
           line-height: 1;
           display: inline-block;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: 24px;
           font-weight: normal;
           margin: 0 0 -1px 0;
@@ -75,7 +74,7 @@ body,html{
           color: white;
         }
         .datetime{
-          font-family: 'eaglelight';
+          font-family: $brand-font-light;
           font-size: 13px;
           color: white;
           background: rgba(0,0,0,0.5);
@@ -119,7 +118,7 @@ body,html{
       top: 29px;
       padding-left: 56px;
       .jp-current-time{
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         font-size: 22px;
       }
       .jp-duration{
@@ -143,7 +142,7 @@ body,html{
     position: absolute;
     bottom: 5px;
     right: 8px;
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     font-size: 10px;
     text-align: center;
     color: white;
