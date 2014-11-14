@@ -19,6 +19,13 @@ GIT
   specs:
     transitions (0.1.12)
 
+GIT
+  remote: git@github.com:munen/fidelity.git
+  revision: 070e8d820a07f2dab7145921425959e20cebf5aa
+  specs:
+    fidelity (0.0.1)
+      auphonic
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -438,7 +445,6 @@ DEPENDENCIES
   airbrake
   angularjs-file-upload-rails (~> 1.1.0)
   annotator
-  auphonic
   aws-sdk
   better_errors
   binding_of_caller
@@ -463,6 +469,7 @@ DEPENDENCIES
   dynamic_form
   factory_girl_rails (~> 4.0)
   faker
+  fidelity!
   fog
   foreman
   foundation-rails
