@@ -24,10 +24,12 @@
   import flash.system.SecurityPanel;
   import flash.utils.*;
 
-  //import flash.display.Shape;
-  //import fl.transitions.Tween;
-  //import fl.transitions.easing.*;
-  //import spark.effects.Scale;
+  import flash.text.TextField;
+  import flash.text.TextFormat;
+
+  import flash.display.Graphics;
+  import flash.display.Shape;
+  import flash.display.GradientType;
 
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
@@ -44,27 +46,18 @@
     internal var silenceLevel: Number;
     internal var silenceTimeout: Number;
     internal var settingsClosed: String;
-    // internal var myCircle:Shape = new Shape();
+    internal var traceFormat:TextFormat;
+    internal var traceField:TextField;
+    internal var bar:Shape;
 
     // constructor
     public function Blackbox() {
 
+      setupRectangularShape();
+      setupTextField();
+
       loaderInfo.uncaughtErrorEvents.addEventListener(
         UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
-
-      // // init graphics
-      // var width:int = stage.stageWidth;
-      // var height:int = stage.stageHeight;
-      // myCircle.graphics.beginFill(0x00CCFF);
-      // // myCircle.graphics.lineStyle(20, 0xCCCC99);
-      // myCircle.graphics.drawCircle(width/2, height/2, 100);
-      // myCircle.graphics.endFill();
-      // addChild(myCircle);
-
-      //var myTween:Tween=new Tween(myCircle,"x",Regular.easeOut,80,470,4,true);
-      //var myScale:Scale=new Scale(this);
-      //myScale.scaleXBy = 2;
-      //myScale.play();
 
       streamer = root.loaderInfo.parameters['streamer'];
 
@@ -89,6 +82,42 @@
 
       log('Instanciation of version '+version+' complete, calling ' + callback);
       ExternalInterface.call(callback);
+    }
+
+    internal function setupRectangularShape():void {
+      var child:Shape = new Shape();
+      child.graphics.lineStyle(1, 0x000000);
+      child.graphics.drawRect(0, 30, stage.stageWidth, 30);
+      addChild(child);
+      bar = child;
+    }
+
+    internal function updateBar(value:int):void {
+      bar.graphics.beginFill(0xffffff);
+      bar.graphics.drawRect(0, 30, stage.stageWidth, 30);
+      bar.graphics.endFill();
+      bar.graphics.beginGradientFill(GradientType.LINEAR,
+                                     [0x00ff00, 0xff0000],
+                                     [1,1],
+                                     [127,255]);
+      bar.graphics.drawRect(0, 30, (stage.stageWidth / 100) * value, 30);
+      bar.graphics.endFill();
+    }
+
+    internal function setupTextField():void {
+      traceFormat = new TextFormat();
+      traceFormat.bold = true;
+      traceFormat.font = "_sans";
+      traceFormat.size = 32;
+      traceFormat.align = "left";
+      traceFormat.color = 0x333333;
+      traceField = new TextField();
+      traceField.defaultTextFormat = traceFormat;
+      traceField.selectable = false;
+      traceField.mouseEnabled = false;
+      traceField.width = stage.stageWidth;
+      traceField.height = stage.stageHeight;
+      addChild(traceField);
     }
 
     internal function setStreamingServer(url: String): void {
@@ -138,20 +167,25 @@
 
       // * [SampleDataEvent type="sampleData" bubbles=false
       //   cancelable=false eventPhase=2 position=88320 data=...]
-      // log('Add SampleDataEventListener.');
-      // mic.addEventListener(SampleDataEvent.SAMPLE_DATA,
-      //                      function(event:SampleDataEvent): void {
-      //                        // var value:Number = mic.activityLevel;
-      //                        // ExternalInterface.call(feedbackMethod, value);
-      //                        log('SampleDataEvent: ' + event.toString());
-      //                      });
+      mic.addEventListener(SampleDataEvent.SAMPLE_DATA, onMicData);
 
       mic.setLoopBack(true);
       //mic.setUseEchoSuppression(true);
       log('Awaiting mic check event...');
     }
 
-
+    internal function onMicData(e:SampleDataEvent):void {
+      traceField.text = "\n\n";
+      traceField.appendText("Activity Level: " +
+                            e.target.activityLevel + "\n");
+      traceField.appendText("Codec: " + e.target.codec + "\n");
+      traceField.appendText("Gain: " + e.target.gain + "\n");
+      //updateBar(e.target.activityLevel);
+      // traceField.appendText("bytesAvailable: " +
+      //                       e.data.bytesAvailable + "\n");
+      // traceField.appendText("length: " + e.data.length + "\n");
+      // traceField.appendText("position: " + e.data.position + "\n");
+    }
 
     internal function muteMic(): void {
       log("Mute mic by setting gain to 0.")
@@ -271,6 +305,8 @@
         mic.framesPerPacket = 1;
         mic.gain = 50;
         mic.setUseEchoSuppression(true);
+
+        mic.addEventListener(SampleDataEvent.SAMPLE_DATA, onMicData);
 
         var ns: NetStream = new NetStream(nc);
         ns.attachAudio(mic);
