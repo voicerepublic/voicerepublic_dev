@@ -183,53 +183,10 @@ Run
     zeus rake build:flash
 
 
-Runnning Audio Strategies with Rake
------------------------------------
+Run Audio Strategies
+--------------------
 
-List all available strategies
-
-    rake audio:strategies
-
-The generic strategy runner takes arguments
-
- * strategy name
- * path to audio files
- * name (talk_id, X in the flv files tX-u...)
-
-    rake audio:run[strategy_name,path/to/files,name]
-
-The output lists the resulting files.
-
-(Depending on your shell, e.g. for zsh, you might have to escape the
-square brackets with backslashes.)
-
-### Analyzing FLV Data with Rake
-
-#### Parameters
-
-* path
-* started_at
-* ended_at
-
-#### Run
-
-    rake audio:analyze\[/home/phil/audio/vr-1104,1401736803,1401740512\]
-
-#### Legend
-
-* filename
-* user_id (deduced from filename)
-* duration in seconds (as of avconv)
-* file size in bytes
-* flag
-* file start timestamp (deduced from filename)
-* file end timestamp (start + duration)
-
-#### Flags
-
-* `-` marks a file of size 0
-* `X` marks a corrupt file (size > 0, but duration cannot be determined)
-* `*` marks files which touch the live section of the talk
+See [fidelity](/munen/fidelity) for details.
 
 
 Documentation
@@ -440,6 +397,12 @@ Note: As soon as the stream goes live, your client will subscribe a
 
 Rails Console Cheat Sheet
 -------------------------
+
+### Debug Postprocessing
+
+    id = 3322
+    Talk.find(id).update_attribute(:state, 'postlive')
+    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
 
 ### Feature three randomly selected talks since yesterday
 
