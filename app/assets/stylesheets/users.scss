@@ -262,7 +262,7 @@
   }
 
   .input.file{
-    display: none;
+    @extend .soft-hide;
   }
 
   .text-area{
