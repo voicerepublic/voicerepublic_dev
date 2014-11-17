@@ -10,11 +10,14 @@
       .avatar-box
         .avatar
           = render partial: "shared/avatar_image", locals: { user: @user, size: 185 }
-          %h2.user-name=spanify(@user.name)
+          %h2.user-name=@user.name
 
       .info-links-box>
         .info-box
-          = @user.summary
+          - if @user.summary.blank? and can? :manage, @user
+            = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+          - else
+            = @user.summary
         .links-box
           %ul.anker-links.list-style-type-none>
             %li
@@ -49,8 +52,8 @@
       %header.title-header.clearfix
         %h3.left= t('.live_talks', count: @live_talks.count)
         .onair.right= t('.on_air')
-      %ul(class="#{talks_grid(@live_talks)}")
-        = render partial: 'shared/talk_live_box', collection: @live_talks
+      %ul(class="#{talkslive_grid(@live_talks)}")
+        = render partial: talkslive_partial(@live_talks), :locals => { color: 'box-live' }, collection: @live_talks
 
 - unless @upcoming_talks.empty?
   .upcoming-talks-box.row.collapse-large-only
@@ -86,8 +89,12 @@
       %ul.medium-block-grid-2
         = render partial: 'shared/venue_medium_box', collection: @venues
 
-.description-box.row.collapse-large-only
-  .large-12.columns
-    .align-box
-      %h3= t('.about')
-      = raw @user.about
+- unless @user.about.blank?
+  .description-box.row.collapse-large-only
+    .large-12.columns
+      .align-box
+        %h3= t('.about') + ' ' + @user.try(:name)
+        = raw @user.about
+
+- if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
+  = render partial: "welcome", :locals => { user: @user }

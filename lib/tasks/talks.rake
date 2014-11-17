@@ -11,4 +11,14 @@ namespace :talks do
       end
     end
   end
+
+  desc "Update or create manifest for all talks (caution: this might take a while)"
+  task manifests: :environment do
+    total = Talk.archived.count
+    Talk.archived.each_with_index do |t, i|
+      puts "#{i}/#{total} Update manifest file for talk (#{t.id}) #{t.title}"
+      t.send(:update_manifest_file!)
+    end
+  end
+
 end

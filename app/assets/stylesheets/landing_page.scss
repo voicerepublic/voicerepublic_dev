@@ -12,7 +12,7 @@
         display: none;
       }
       position: relative;
-      top: -6px;
+      top: -8px;
       display: inline-block;
       margin-right: 15px;
       h1{
@@ -25,7 +25,7 @@
         .icon-vr-logo{
           font-size: rem-calc(40);
           line-height: 1;
-          top: -12px;
+          top: -10px;
           vertical-align: top;
         }
       }
@@ -35,7 +35,7 @@
       position: relative;
       display: inline-block;
       vertical-align: top;
-      top:-10px;
+      top:-11px;
       .top-bar-search-field{
         display:inline-block;
         width: 110px;
@@ -43,7 +43,7 @@
         padding-left:30px !important;
         padding-right:0px !important;
         color: #222 !important;
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         font-size: rem-calc(16);
         border-style: none !important;
         margin-bottom: 0;
@@ -88,7 +88,7 @@
       display: inline-block;
       vertical-align: top;
       a{
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         color: #222;
       }
     }
@@ -119,6 +119,7 @@
     }
 
     .headline{
+      vertical-align: top;
       position: relative;
       top: -30px;
       color: $color-black-title;
@@ -136,12 +137,12 @@
       margin-top: 35px;
       font-size: rem-calc(38);
       color: rgba(0,0,0,0.5);
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
     }
 
     .button-how-to{
       @include button(rem-calc(3),rgba(0,0,0,0.5));
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       padding: 18px 34px;
       font-size: rem-calc(19);
       line-height: 1;
@@ -160,7 +161,7 @@
 
     .subheadline-2{
       font-size: rem-calc(24);
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       color: #000;
       line-height: 1.6;
     }
@@ -176,7 +177,7 @@
     padding-top: 34px;
     padding-bottom: 50px;
     h3{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       color: $brand-color-blue;
       margin-bottom: 26px;
       font-size: rem-calc(20);
@@ -193,7 +194,7 @@
           padding: 20px 13px;
           height: 100%;
           h4{
-            font-family: 'eaglebook';
+            font-family: $brand-font-bold;
             font-size: rem-calc(19);
             color: $color-black-title;
             /*border-bottom: 5px solid $brand-color-yellow;*/
@@ -203,7 +204,7 @@
           p{
             color: black;
             font-size: rem-calc(15);
-            font-family: 'eaglelight';
+            font-family: $brand-font-light;
             line-height: 1.3;
             min-height: 140px;
           }
@@ -232,14 +233,19 @@
       }
     }
     &.live{
-     background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.7);
+      .talk-small-box.box-live{
+        .breadcrumbs-box{
+          display: block
+        }
+      }
     }
     padding: 42px 0;
     .title-box{
       margin-bottom: 12px;
       h3{
         display: inline-block;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         color: $brand-color-blue;
         &.title-live{
           color: $brand-color-red
@@ -249,7 +255,7 @@
       }
       h4{
         display: inline-block;
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         color: $color-black-title;
         font-size: rem-calc(17);
       }
@@ -257,7 +263,7 @@
     .see-all-link{
       float:right;
       font-size: rem-calc(16);
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       color: $color-black-title;
       padding: 6px 0 4px;
     }
@@ -293,14 +299,14 @@
       margin-bottom: 12px;
       h3{
         display: inline-block;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         color: $brand-color-blue;
         font-size: rem-calc(21);
         margin-right: 5px;
       }
       h4{
         display: inline-block;
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         color: $color-black-title;
         font-size: rem-calc(17);
       }
@@ -317,18 +323,18 @@
       color: $brand-color-red;
     }
     h4{
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       color: white;
       font-size: rem-calc(23);
     }
     h5{
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(16);
     }
     p{
       color: white;
       font-size: rem-calc(16);
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       line-height: 1.15;
     }
   }
@@ -356,13 +362,13 @@
       }
     }
     h4{
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       color: $brand-color-blue;
       margin-bottom: 25px;
     }
     .member-function{
       color: $brand-color-red;
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(11)
     }
   }
@@ -380,7 +386,7 @@
       padding: 0px 0 13px 0;
       dd a,.link-delimiter{
         color: $brand-color-red;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         font-size: rem-calc(13);
       }
       dd{
@@ -442,7 +448,7 @@
 
     .lp-remember{
       color: white;
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(14);
       &:hover,&:focus{
         color: white;
@@ -452,7 +458,7 @@
       margin-top: 10px;
       a{
         color: white;
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         font-size: rem-calc(14);
         &:hover,&:focus{
           color: white;
@@ -463,7 +469,7 @@
 
   .small-authentication-links{
     a{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       color: #222;
       margin-left: 14px;
     }
