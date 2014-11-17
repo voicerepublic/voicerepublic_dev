@@ -53,6 +53,11 @@ span[class^="icon-"]{
   display:none !important;
 }
 
+.soft-hide{
+  position: absolute;
+  left: -9999px;
+}
+
 // BACKGROUNDS
 .bg-creme,
 .bg-blue{
