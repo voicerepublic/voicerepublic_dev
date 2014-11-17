@@ -3,107 +3,45 @@
                 horizontalAlign="left"
                 creationComplete="initApp();">
 
-  <fx:Script>
-    <![CDATA[
-      import mx.collections.ArrayCollection;
-      import mx.events.DropdownEvent;
-      import flash.media.Microphone;
-      import flash.media.MicrophoneEnhancedOptions;
-      import mx.events.SliderEvent;
-      import flash.events.MouseEvent;
-      import flash.events.SampleDataEvent;
-      import flash.events.ActivityEvent;
-
-      [Bindable]
-      public var devices:ArrayCollection = new ArrayCollection([]);
-      [Bindable]
-      public var mic:Microphone = Microphone.getEnhancedMicrophone();
-      [Bindable]
-      public var opts:MicrophoneEnhancedOptions = new MicrophoneEnhancedOptions();
-      [Bindable]
-      public var gain:int = mic.gain;
-      [Bindable]
-      public var activity:int = 0;
-      [Bindable]
-      public var autoGain:Boolean = opts.autoGain;
-
-      public function initApp():void {
-        refreshDeviceList();
-        mic.addEventListener(SampleDataEvent.SAMPLE_DATA, onMicData);
-        opts.autoGain = true;
-        mic.enhancedOptions = opts;
-        mic.setLoopBack(true);
-      }
-
-      private function changeDeviceHandler(e:DropdownEvent):void {
-        //var index =
-        //mic = Microphone.getEnhancedMicrophone(index);
-      }
-
-      private function refreshDeviceList():void {
-        devices = new ArrayCollection(Microphone.names);
-      }
-
-      private function gainHandler(e:SliderEvent):void {
-        gain = e.value;
-        mic.gain = gain;
-      }
-
-      private function autoGainHandler(e:MouseEvent):void {
-        opts.autoGain = e.target.selected;
-        mic.enhancedOptions = opts;
-     }
-
-      private function loopBackHandler(e:MouseEvent):void {
-        mic.setLoopBack(e.target.selected);
-      }
-
-      private function onMicData(e:SampleDataEvent):void {
-        activity = e.target.activityLevel;
-        bar.setProgress(e.target.activityLevel, 100);
-        gain = mic.gain;
-      }
-
-    ]]>
-  </fx:Script>
+  <fx:Style source="BlackboxUI.css" />
+  <fx:Script source="BlackboxUI.as" />
 
   <mx:Button click="{refreshDeviceList();}"
              label="Refresh Device List" />
 
-  <!--<mx:Label text="Input Device" />-->
-
   <mx:ComboBox dataProvider="{devices}"
                close="changeDeviceHandler(event);"/>
-
-  <mx:Label text="Gain: {gain}" />
-
-  <mx:HSlider maximum="100"
-              showDataTip="true"
-              dataTipPlacement="top"
-              tickColor="black"
-              snapInterval="1"
-              tickInterval="10"
-              labels="['0','100']"
-              allowTrackClick="true"
-              liveDragging="true"
-              value="{gain}"
-              change="gainHandler(event);" />
-
-  <mx:CheckBox label="Auto Gain"
-               selected="{autoGain}"
-               click="autoGainHandler(event);"/>
-
-  <mx:CheckBox label="Auto Gain (direct)"
-               selected="{mic.enhancedOptions.autoGain}" />
-
-  <mx:CheckBox label="Loopback"
-               selected="true"
-               click="loopBackHandler(event);"/>
 
   <mx:ProgressBar id="bar"
                   label=""
                   minimum="0"
                   maximum="100"
                   mode="manual" />
+
+  <mx:HBox paddingTop="10" paddingBottom="10"
+           paddingLeft="10" paddingRight="10">
+    <mx:HSlider maximum="100"
+                tickColor="black"
+                snapInterval="1"
+                tickInterval="10"
+                allowTrackClick="true"
+                liveDragging="true"
+                value="{gain}"
+                change="gainHandler(event);" />
+    <mx:Label text="{gain}" />
+  </mx:HBox>
+
+  <!--
+  <mx:CheckBox label="Auto Gain"
+               selected="{autoGain}"
+               click="autoGainHandler(event);"/>
+
+  <mx:CheckBox label="Auto Gain (direct)"
+               selected="{mic.enhancedOptions.autoGain}" />
+  -->
+
+  <mx:CheckBox label="Loopback"
+               selected="true"
+               click="loopBackHandler(event);"/>
 
 </mx:Application>

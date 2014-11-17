@@ -1,0 +1,15 @@
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+mx|Application {
+    layout: absolute;
+    paddingBottom: 0;
+    paddingTop: 0;
+    paddingLeft: 0;
+    paddingRight: 0;
+    horizontalGap: 1;
+    verticalGap: 1;
+}
+
+global {
+    font-size: 10px;
+}
