@@ -138,29 +138,38 @@ body,html{
     }
 
   }
-  .vr-logo{
+  .icon-box{
     position: absolute;
-    bottom: 5px;
+    bottom: 1px;
     right: 8px;
     font-family: $brand-font-bold;
     font-size: 10px;
     text-align: center;
-    color: white;
-    text-decoration:none;
-    span{
-      font-size: 44px;
+    overflow: hidden;
+    height:58px;
+    .vr-logo{
+      font-family: 'eaglebook';
+      font-size: 10px;
       color: white;
-      line-height: 0;
+      text-decoration:none;
+      display: block;
       position: relative;
-      bottom: -2px;
+      top: -5px;
+      span{
+        font-size: 44px;
+        color: white;
+        line-height: 0;
+        position: relative;
+        bottom: -2px;
+        &:hover, &:active{
+          color: $brand-color-red;
+        }
+      }
       &:hover, &:active{
         color: $brand-color-red;
-      }
-    }
-    &:hover, &:active{
-      color: $brand-color-red;
-      span{
-        color: $brand-color-red;
+        span{
+          color: $brand-color-red;
+        }
       }
     }
   }
