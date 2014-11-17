@@ -34,7 +34,7 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.3';
+    internal var version: String = '2.4';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
@@ -303,10 +303,42 @@
         */
         mic.encodeQuality = 10;
         mic.framesPerPacket = 1;
-        mic.gain = 50;
         mic.setUseEchoSuppression(true);
 
         mic.addEventListener(SampleDataEvent.SAMPLE_DATA, onMicData);
+
+        // The amount by which the microphone boosts the signal. Valid
+        // values are 0 to 100. The default value is 50.
+        mic.gain = 50;
+
+        // Maximum attenuation of the noise in dB (negative number) used
+        // for Speex encoder. If enabled, noise suppression is applied to
+        // sound captured from Microphone before Speex compression. Set
+        // to 0 to disable noise suppression. Noise suppression is
+        // enabled by default with maximum attenuation of -30 dB. Ignored
+        // when Nellymoser codec is selected.
+        mic.noiseSuppressionLevel = 0;
+
+        // The rate is a Nellymoser setting.
+        //
+        // The rate at which the microphone is capturing sound, in
+        // kHz. Acceptable values are 5, 8, 11, 22, and 44. The default
+        // value is 8 kHz if your sound capture device supports this
+        // value. Otherwise, the default value is the next available
+        // capture level above 8 kHz that your sound capture device
+        // supports, usually 11 kHz.
+        //
+        // Note: The actual rate differs slightly from the rate value,
+        // as noted in the following table:
+        //
+        // | rate | frquency  |
+        // |------+-----------|
+        // |   44 | 44,100 Hz |
+        // |   22 | 22,050 Hz |
+        // |   11 | 11,025 Hz |
+        // |    8 | 8,000 Hz  |
+        // |    5 | 5,512 Hz  |
+        //mic.rate = 22;
 
         var ns: NetStream = new NetStream(nc);
         ns.attachAudio(mic);
