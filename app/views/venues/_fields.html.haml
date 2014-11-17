@@ -9,19 +9,19 @@
         .image-box(style="background-image: url(#{@venue.image.url})" data-show-upload="#venue_image")
           %button.button-standard(type="button" data-trigger-file-input="venue_image")
             = t('.select_image')
-          = f.file_field :image, class: 'display-none'
+          = f.file_field :image, class: 'soft-hide'
 
         = f.input :title, placeholder: t('.title')
         = f.input :teaser, rows: 2, placeholder: t('.teaser')
 
     .row
       .medium-12.columns
-        = f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
-        %br
-        %br
+        -#= f.input :tag_list, input_html: { class: "tagList" }, placeholder: t('.tag_list')
+        -#%br
+        -#%br
         %label.venue-description-label(for="venue_description")
           = t('.venue_purpose')
         = f.text_area :description, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
         - messages = @venue.errors.get(:description)
         - unless messages.empty?
-          %small.error= messages * ', ' 
+          %small.error= messages * ', '

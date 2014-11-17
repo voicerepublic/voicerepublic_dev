@@ -13,7 +13,7 @@
       bottom: 2px;
       right: 2px;
     }
-  }  
+  }
   .link-delete{
     float:left
   }
@@ -34,15 +34,42 @@
       display: inline-block;
       font-size: rem-calc(19);
       color: $color-black-title;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       margin: 15px 0 0 5px;
     }
-    .back-profile-link{
-      display: inline-block;
-      float: right;
-      margin-top: 16px;
-      font-family: 'eaglebook';
-      font-size: rem-calc(15);
+    #social_share {
+      position: absolute;
+      right: 2px;
+      top: 10px;
+      .share{
+        display: inline-block;
+        height: 23px;
+        width: 23px;
+        a{
+          position:relative;
+          color:black;
+          display: block;
+          &:hover,&:focus{
+            color:rgba(0,0,0,0.5);
+          }
+          span[class^="icon-"]{
+            font-size: rem-calc(18);
+            &.icon-fb{
+              font-size: rem-calc(16);
+            }
+            position:absolute;
+            top: 7px;
+            left: 6px;
+            text-shadow: 0 0 1px rgba(0,0,0,0.5);
+          }
+          span.icon-octagon{
+            font-size: rem-calc(25);
+            top: 0;
+            left: 0;
+            display: none;
+          }
+        }
+      }
     }
   }
 
@@ -56,7 +83,7 @@
     .title-edit{
       float:right;
       margin-top: 14px;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(19);
     }
   }
@@ -81,7 +108,7 @@
           vertical-align: top;
           color: white;
           text-align: center;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(15);
           padding: 14px 0 0 0;
           line-height: 1;
@@ -115,7 +142,7 @@
           color: $color-black-title;
           border: 1px solid $color-black-title;
           text-align: center;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(15);
           padding: 14px 0 0 0;
           line-height: 1;
@@ -137,8 +164,8 @@
               font-size: rem-calc(15);
               margin-right: 4px;
               top: -1px;
-            }                                 
-          }          
+            }
+          }
         }
       }
     }
@@ -146,33 +173,36 @@
 
   .description-box{
     border-top: 3px solid $color-black-title;
-    padding: 14px 0;    
+    padding: 14px 0;
     .align-box{
       position: relative;
       h3{
         color: $color-black-title;
         font-size: rem-calc(19);
       }
-      p{
-        font-family: 'eaglelight';
-        font-size: rem-calc(15);
-        line-height: 1.2;      
-        a{
+      font-family: $brand-font-light;
+      font-size: rem-calc(15);
+      line-height: 1.2;
+      a{
+        text-decoration: underline;
+        &:focus,&:hover{
           text-decoration: underline;
-          &:focus,&:hover{
-            text-decoration: underline;
-            color:lighten(black,20%);
-          }
-        }        
+          color:lighten(black,20%);
+        }
+      }
+      p{
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
       }
       .desc-edit{
         position: absolute;
         top: 1px;
         right: 0;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         font-size: rem-calc(19);
-      }   
-    } 
+      }
+    }
   }
 
   .live-talks-box,
@@ -181,14 +211,14 @@
     border-top: 3px solid $color-black-title;
     padding-top: 14px;
     h3{
-      color: $color-black-title;  
+      color: $color-black-title;
       font-size: rem-calc(19);
-      margin-bottom: 16px; 
+      margin-bottom: 16px;
     }
     .link-more{
       float:right;
       font-size: rem-calc(19);
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       margin-top: -5px
     }
   }
@@ -199,8 +229,8 @@
     }
     .onair{
       color: $brand-color-red;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(19);
     }
-  }  
+  }
 }

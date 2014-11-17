@@ -253,9 +253,27 @@ en:
 # USERS -------------------------------------------------------------
   users:
     welcome:
-      welcome_user: Welcome to KluuU
-      no_klu_title: What interests you?
-      no_klu_text: Choose an interest, and KluuU turns it into a<br>'Question'. This gets matched to similar KluuUs so you can find some answers. Try it out! Fun guaranteed.
+      welcome: Welcome
+      subtitle: Thank you for signing up. You are now part of a global community of listeners and speakers.
+      welcome_back: Welcome back
+      profile_text: |
+        <h5>With your brand new profile, you can now</h5>
+        <ul class="desc">
+          <li>create a public playlist of your favorite talks</li>
+          <li>download talks as podcasts</li>
+          <li>comment on talks  </li>
+          <li>and stream your own talk</li>
+        </ul>
+      talk_text: |
+        <h5>Create your first Talk</h5>
+        ‘Talks’ are at the heart of Voice Republic.<br>
+        We’ve made it easy to bring your talks to the web, whether it’s a debate at your town hall, your weekly podcast or a reading at your local café.  You can live stream or upload recordings from your computer.
+      explore_text: |
+        <h5>EXPLORE the ARCHIVE</h5>
+        Wherever your interests lie, you can find talks from speakers around the world on Art, Culture, Politics, Tech and more. Start here
+      listenlater_text: |
+        <h5>Listen Later</h5>
+        Collect your favorite talks as a public playlist and listen to them at anytime.
     basic_form:
       edit_your_email: Change email address
       save_email: Save email address
@@ -324,6 +342,7 @@ en:
       edit_user: Edit Profile
       about: About
       reminders: Listen later
+      summary_help_text: Change your profile short description!
       no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
       live_talks:
         zero: No Live Talks
@@ -339,7 +358,7 @@ en:
         one: 1 Archived Talk
         other: '%{count} Archived Talks'
       listen_later:
-        zero: ""
+        zero: Listen Later
         one: 1 Listen later
         other: '%{count} Listen later'
 
@@ -534,10 +553,147 @@ en:
         <h5>7. Voice Republic can forget</h5>
         <p>When you delete your account, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
       team: TEAM
-
     lp_venues:
       featured_venue: Voice Republic recommends
       upcoming_venues: UPCOMING SERIES
+
+# STATIC PAGES ------------------------------------------------------------------
+  static_pages:
+    pricing:
+      pricing: Pricing
+      back: Back
+      free_account: FREE ACCOUNT
+      free_feature_list: |
+        Live audio streaming<br />
+        Record and Upload 4 hours
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Record your live stream or upload audio<br />
+              (Mp3, M4a, Ogg, Wav)
+            </span>
+          </div>
+        <br />
+        Unlimited listening<br />
+        Flyer
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Announce talks with a personalized flyer
+            </span>
+          </div>
+        <br />
+        Embeddable Player
+         <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Embed player on any blog or site
+            </span>
+          </div>
+        <br />
+        Podcast Button
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Download audio and listen to it offline
+            </span>
+          </div>
+        <br />
+        Content becomes part of the<br />
+        <a href="http://en.wikipedia.org/wiki/Creative_Commons" target="_blank">creative Commons</a>
+        <br />
+        Online Support<br /><br />
+      free: Free!
+      pro_corner_pricing: |
+        <strong>€ 110</strong> / Year<br />
+        or <strong>€ 10</strong> / Month
+      pro_account: PRO ACCOUNT
+      pro_feature_list: |
+        Live audio streaming<br />
+        Record and Upload 12 hours
+          <div class="tooltip-simple">
+            <span class="pro">* PRO</span>
+            <span class="tooltip-overlay">
+              Do you need more storage? Buy an extra 10 hours of streaming and upload time - € 80
+            </span>
+          </div>
+        <br />
+        Unlimited listening<br />
+        Flyer
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Announce talks with a personalized flyer
+            </span>
+          </div>
+        <br />
+        Embeddable Player
+         <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Embed player on any blog or site
+            </span>
+          </div>
+        <br />
+        Podcast Button
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Download audio and listen to it offline
+            </span>
+          </div>
+        <br />
+        Content is under your copyright<span class="pro">* PRO</span><br />
+        Online Support<br />
+        Upload a Jingle<span class="pro">* PRO</span><br />
+        On demand charge for talks<span class="pro">* PRO</span><br />
+      go_pro: go PRO
+      questions_or_feedback: Questions or feedback?
+      get_in_touch: Get in touch!
+      conf_corner_pricing: |
+        Starts at<br />
+        <strong>€ 250</strong>
+      conf_on_vr: Conferences on Voice Republic
+      reach_audience: Reach a larger audience
+      conf_text: |
+        Voice Republic provides a way to live stream audio from your conference with little effort and great results.<br /><br />
+        Stream multiple talks at the same time. They are automatically recorded and instantly available on the conference profile. Alternatively, you can upload recordings from the event.<br /><br />
+        Share the talks with a single click, embed to a website and enable downloads.<br /><br />
+        Need a helping hand? We’ll help you get going and support you throughout the event.<br /><br />
+        A conference profile comes with lots of great features:
+      conference_to_podcast_button: |
+        Conference to Podcast Button
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              Download any or all of the conference talks with one click
+            </span>
+          </div>
+      talk_data_handling: |
+        Talk-Data Handling
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              We'll help you set up talks
+            </span>
+          </div>
+      social_media_support: |
+        Social Media Support
+          <div class="tooltip-simple">
+            <span class="icon-information-circle"></span>
+            <span class="tooltip-overlay">
+              We'll help you promote the conference
+            </span>
+          </div>
+      multi_stage_streaming: Multi-Stage Streaming
+      feature_on_vr_front_page: Feature On VR Front Page
+      unlimited_listening: Unlimited Listening
+      announce_each_talk_with_its_own_flyer: Announce Each Talk With It's Own Flyer
+      live_support: Live Support
+      tell_us_about_your_conference: Tell us about your conference
+      audio_power_text: We believe in the power of audio.
+      learn_more: Learn More...
+      partners_title: Conferences currently using VR
 
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"
@@ -635,6 +791,7 @@ en:
       delete_reminder: Delete reminder
     talk_small_box:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+      tune_in: TUNE IN
     talk_live_box:
       tune_in: TUNE IN
       speakers: TALKGUESTS
@@ -913,7 +1070,7 @@ en:
         Please sign up or login to use this feature.
 
     new:
-      title: "New Talk - Voice Republic"
+      title: "Create Talk - Voice Republic"
       new_talk: Create Talk
     edit:
       title: "Edit Talk %{title} - Voice Republic"

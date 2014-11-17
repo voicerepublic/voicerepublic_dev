@@ -36,7 +36,7 @@
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
-		internal var publishNetConnection: NetConnection;
+    internal var publishNetConnection: NetConnection;
     internal var logMethod: String;
     internal var errorMethod: String;
     internal var feedbackMethod: String;
@@ -70,12 +70,12 @@
 
       ExternalInterface.addCallback("micCheck", micCheck);
       ExternalInterface.addCallback("publish", publishStream);
-			ExternalInterface.addCallback("unpublish", unpublishStream);
+      ExternalInterface.addCallback("unpublish", unpublishStream);
       ExternalInterface.addCallback("subscribe", subscribeStream);
-			ExternalInterface.addCallback("muteMic", muteMic);
-			ExternalInterface.addCallback("unmuteMic", unmuteMic);
-			ExternalInterface.addCallback("setStreamingServer", setStreamingServer);
-			ExternalInterface.addCallback("setVolume", setVolume);
+      ExternalInterface.addCallback("muteMic", muteMic);
+      ExternalInterface.addCallback("unmuteMic", unmuteMic);
+      ExternalInterface.addCallback("setStreamingServer", setStreamingServer);
+      ExternalInterface.addCallback("setVolume", setVolume);
 
       errorMethod    = root.loaderInfo.parameters['errorMethod'] || "console.log";
       logMethod      = root.loaderInfo.parameters['logMethod'] || "console.log";
@@ -84,11 +84,11 @@
       silenceTimeout = root.loaderInfo.parameters['silence_timeout'];
       settingsClosed = root.loaderInfo.parameters['settings_closed'];
 
-			var callback: String =
+      var callback: String =
           root.loaderInfo.parameters['afterInitialize'] || "flashInitialized";
 
       log('Instanciation of version '+version+' complete, calling ' + callback);
-			ExternalInterface.call(callback);
+      ExternalInterface.call(callback);
     }
 
     internal function setStreamingServer(url: String): void {
@@ -142,7 +142,7 @@
       // mic.addEventListener(SampleDataEvent.SAMPLE_DATA,
       //                      function(event:SampleDataEvent): void {
       //                        // var value:Number = mic.activityLevel;
-			//                        // ExternalInterface.call(feedbackMethod, value);
+      //                        // ExternalInterface.call(feedbackMethod, value);
       //                        log('SampleDataEvent: ' + event.toString());
       //                      });
 
@@ -155,13 +155,13 @@
 
     internal function muteMic(): void {
       log("Mute mic by setting gain to 0.")
-			mic.gain = 0;
-		}
+      mic.gain = 0;
+    }
 
     internal function unmuteMic(): void {
       log("Unmute mic by setting gain to 50.")
-			mic.gain = 50;
-		}
+      mic.gain = 50;
+    }
 
     internal function setStreamVolume(ns:NetStream, vol:Number): void {
       var st:SoundTransform = ns.soundTransform;
@@ -206,10 +206,10 @@
 
     internal function unpublishStream(): void {
       log("Unpublishing mic.");
-			if (publishNetConnection != null) {
-				publishNetConnection.close();
-			}
-		}
+      if (publishNetConnection != null) {
+        publishNetConnection.close();
+      }
+    }
 
     internal function subscribeStream(stream: String): void {
       log("Subcribe to stream: " + stream);
@@ -291,16 +291,16 @@
     }
 
     internal function netStatusHandler(func: Function,
-                              nc: NetConnection,
-                              stream: String): Function {
-      return function(event: NetStatusEvent): void {
-        // see http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/events/NetStatusEvent.html#info
-        if (event.info.code == "NetConnection.Connect.Success") {
-          func(nc, stream);
-        }
-        ExternalInterface.call(errorMethod, event.info.code, stream);
-      }
-    }
+                                       nc: NetConnection,
+                                       stream: String): Function {
+                                         return function(event: NetStatusEvent): void {
+                                           // see http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/events/NetStatusEvent.html#info
+                                           if (event.info.code == "NetConnection.Connect.Success") {
+                                             func(nc, stream);
+                                           }
+                                           ExternalInterface.call(errorMethod, event.info.code, stream);
+                                         }
+                                       }
 
     // audit
     internal function asyncErrorHandler(event: AsyncErrorEvent): void {

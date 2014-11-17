@@ -1,0 +1,85 @@
+.row.pricing-header-box.collapse-large-only
+	.small-12.columns
+		%h2.left= t('.pricing')
+.row.free-pro-accounts-box
+	.free-account-box.small-6.columns
+		%h3= t('.free_account')
+		.free-list= t('.free_feature_list').html_safe
+		=link_to t('.free'), new_user_registration_path, 'data-ga-event' => "click pricing free", class: "button-pricing-white"
+	.pro-account-box.small-6.columns
+		.corner-pricing-box
+			.corner-pricing= t('.pro_corner_pricing').html_safe
+		%h3= t('.pro_account')
+		.pro-list= t('.pro_feature_list').html_safe
+		=link_to t('.go_pro'), 'mailto:service@voicerepublic.com?subject=Voice Republic Pro Account', 'data-ga-event' => "click pricing pro", class: 'button-pricing-red'
+
+.row.questions-feedback-box
+	.small-12.columns
+		= (t('.questions_or_feedback') + '&nbsp').html_safe
+		=link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com'
+
+.row.conference-box
+	.bg-black
+	.small-12.columns
+		.corner-pricing= t('.conf_corner_pricing').html_safe
+		%h3= t('.conf_on_vr')
+		.subtitle= t('.reach_audience')
+		%p= t('.conf_text').html_safe
+		%ul.conf-feature-list.list-style-type-none
+			%li
+				%span.icon-podcast
+				= t('.conference_to_podcast_button').html_safe
+			%li
+				%span.icon-folder-open
+				= t('.talk_data_handling').html_safe
+			%li
+				%span.icon-twitter-square
+				= t('.social_media_support').html_safe
+			%li
+				%span.icon-mic
+				= t('.multi_stage_streaming').html_safe
+			%li
+				%span.icon-laptop
+				= t('.feature_on_vr_front_page').html_safe
+			%li
+				%span.icon-heart-empty
+				= t('.unlimited_listening').html_safe
+			%li
+				%span.icon-lightbulb
+				= t('.announce_each_talk_with_its_own_flyer').html_safe
+			%li
+				%span.icon-chat-bubble
+				= t('.live_support')
+		=link_to t('.tell_us_about_your_conference').html_safe, 'mailto:service@voicerepublic.com?subject=Conferences on Voice Republic', 'data-ga-event' => "click pricing conference", class: 'button-pricing-red'
+
+.row.audio-power-box
+	.small-12.columns
+		.audio-power-text
+			= t('.audio_power_text')
+			=link_to t('.learn_more'), "http://blog.voicerepublic.com/what-is-voice-republic/", target: '_blank'
+		%span.icon-vr-logo.show-for-medium-up
+
+.partners
+	.row.collapse-large-only
+		.small-12.columns
+			.title-box
+				%h3= t('.partners_title')
+			%ul.logos-block-grid
+				%li
+					=link_to 'https://voicerepublic.com/users/webinale-conference' do
+						=image_tag '/images/logos/webinale.jpg'
+				%li
+					=link_to 'https://voicerepublic.com/users/a-maze' do
+						=image_tag '/images/logos/a_maze_berlin.jpg'
+				%li
+					=link_to 'https://voicerepublic.com/users/internationale-ferienkurse' do
+						=image_tag '/images/logos/ferienkurse.jpg'
+				%li
+					=link_to 'https://voicerepublic.com/users/re-publica' do
+						=image_tag '/images/logos/republica.jpg'
+				%li
+					=link_to 'https://voicerepublic.com/users/internet-of-things-conference' do
+						=image_tag '/images/logos/i_of_things.jpg'
+				%li
+					=link_to 'https://voicerepublic.com/users/dmy-berlin' do
+						=image_tag '/images/logos/dmi.jpg'
