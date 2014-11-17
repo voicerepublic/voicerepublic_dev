@@ -17,7 +17,7 @@ namespace :build do
     puts
     puts "    REVISION #{revision}"
     puts
-    
+
     # cleanup privous versions
     cpath = %w(app assets flash Blackbox*.swf)
     cglob = Rails.root.join(File.join(cpath))

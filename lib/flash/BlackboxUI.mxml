@@ -1,0 +1,47 @@
+<mx:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+                xmlns:mx="library://ns.adobe.com/flex/mx"
+                horizontalAlign="left"
+                creationComplete="initApp();">
+
+  <fx:Style source="BlackboxUI.css" />
+  <fx:Script source="BlackboxUI.as" />
+
+  <mx:Button click="{refreshDeviceList();}"
+             label="Refresh Device List" />
+
+  <mx:ComboBox dataProvider="{devices}"
+               close="changeDeviceHandler(event);"/>
+
+  <mx:ProgressBar id="bar"
+                  label=""
+                  minimum="0"
+                  maximum="100"
+                  mode="manual" />
+
+  <mx:HBox paddingTop="10" paddingBottom="10"
+           paddingLeft="10" paddingRight="10">
+    <mx:HSlider maximum="100"
+                tickColor="black"
+                snapInterval="1"
+                tickInterval="10"
+                allowTrackClick="true"
+                liveDragging="true"
+                value="{gain}"
+                change="gainHandler(event);" />
+    <mx:Label text="{gain}" />
+  </mx:HBox>
+
+  <!--
+  <mx:CheckBox label="Auto Gain"
+               selected="{autoGain}"
+               click="autoGainHandler(event);"/>
+
+  <mx:CheckBox label="Auto Gain (direct)"
+               selected="{mic.enhancedOptions.autoGain}" />
+  -->
+
+  <mx:CheckBox label="Loopback"
+               selected="true"
+               click="loopBackHandler(event);"/>
+
+</mx:Application>
