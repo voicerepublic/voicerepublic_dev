@@ -49,6 +49,7 @@
     internal var traceFormat:TextFormat;
     internal var traceField:TextField;
     internal var bar:Shape;
+    internal var shadowGain:Number;
 
     // constructor
     public function Blackbox() {
@@ -188,13 +189,14 @@
     }
 
     internal function muteMic(): void {
-      log("Mute mic by setting gain to 0.")
+      shadowGain = mic.gain;
       mic.gain = 0;
+      log("Mute mic by setting gain to 0; shadowGain set.")
     }
 
     internal function unmuteMic(): void {
-      log("Unmute mic by setting gain to 50.")
-      mic.gain = 50;
+      mic.gain = shadowGain;
+      log("Unmute mic by setting gain to shadowGain.")
     }
 
     internal function setStreamVolume(ns:NetStream, vol:Number): void {
@@ -309,7 +311,7 @@
 
         // The amount by which the microphone boosts the signal. Valid
         // values are 0 to 100. The default value is 50.
-        mic.gain = 50;
+        //mic.gain = 50;
 
         // Maximum attenuation of the noise in dB (negative number) used
         // for Speex encoder. If enabled, noise suppression is applied to
