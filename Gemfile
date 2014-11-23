@@ -93,6 +93,7 @@ group :test do
   gem 'launchy'
   gem 'poltergeist'
   gem 'selenium-webdriver'
+  gem 'rspec_junit_formatter', github: 'sj26/rspec_junit_formatter' if ENV['CI']
   gem 'simplecov', '~> 0.7.1'
 end
 
