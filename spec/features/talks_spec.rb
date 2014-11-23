@@ -328,7 +328,7 @@ describe "Talks as logged in user" do
           page.execute_script('$("a[href=#discussion]").click()')
           within "#discussion" do
             page.should have_content "my message"
-            page.should have_content "01 Sep 10:05"
+            page.should have_content "01 Sep #{Time.zone.now.hour}:05"
           end
         end
       end
