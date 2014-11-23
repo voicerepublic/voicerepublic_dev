@@ -144,7 +144,7 @@ describe Talk do
     it 'has a scope featured' do
       talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
       talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
-      talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
+      FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
       expect(Talk.featured).to eq([talk1, talk0])
       expect(Talk.featured).to include(talk0)
     end
@@ -230,14 +230,14 @@ describe Talk do
   it 'does not send email with option no_emails' do
     ActionMailer::Base.deliveries = []
     venue = FactoryGirl.create(:venue, options: { no_email: true })
-    talk = FactoryGirl.create(:talk, venue: venue)
+    FactoryGirl.create(:talk, venue: venue)
     ActionMailer::Base.deliveries.should be_empty
   end
 
   # TODO resolve code duplication in this section
   describe 'nicely processes audio' do
 
-    it 'in state postlive', slow: true do
+    it 'in state postlive', slow: true, not_on_circle_ci: true do
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -266,7 +266,7 @@ describe Talk do
       expect(File.exist?(result)).to be_true
     end
 
-    it 'in state archived', slow: true do
+    it 'in state archived', slow: true, not_on_circle_ci: true do
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -299,7 +299,7 @@ describe Talk do
       expect(File.ctime(result)).not_to eq(ctime)
     end
 
-    it 'in state archived with override', slow: true do
+    it 'in state archived with override', slow: true, not_on_circle_ci: true do
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
