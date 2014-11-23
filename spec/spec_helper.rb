@@ -77,6 +77,10 @@ RSpec.configure do |config|
 
   config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
+  # There are specs that cannot run on CircleCI, because they do not have the
+  # tools (eg. audio transcoding)
+  config.filter_run_excluding not_on_circle_ci: true if ENV['CI']
+
   config.color_enabled = true
 
   # ## Mock Framework
