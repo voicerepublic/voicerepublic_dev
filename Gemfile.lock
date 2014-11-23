@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/sj26/rspec_junit_formatter.git
+  revision: 850d57cc5bd4f88dd1d4ffb245d57f222cd9e04f
+  specs:
+    rspec_junit_formatter (0.2.0)
+      builder (< 4)
+      rspec (>= 2, < 4)
+      rspec-core (!= 2.12.0)
+
+GIT
   remote: git://github.com/bmabey/database_cleaner.git
   revision: 8d7f72ffc99befd5ce67d333a99e0cf054c24f81
   specs:
@@ -502,6 +511,7 @@ DEPENDENCIES
   rspec-core
   rspec-rails
   rspec-retry
+  rspec_junit_formatter!
   sass-rails
   select2-rails
   selenium-webdriver

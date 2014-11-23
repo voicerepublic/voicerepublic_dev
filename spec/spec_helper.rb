@@ -84,7 +84,7 @@ RSpec.configure do |config|
 
   # The standard formatter is progress, meaning less verbose output on errors
   # like timeouts. Show everything when running in CI.
-  config.formatter = :rspec_junit_formatter if ENV['CI']
+  config.formatter = 'RspecJunitFormatter' if ENV['CI']
 
   config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
