@@ -64,6 +64,7 @@ RSpec.configure do |config|
 
   config.verbose_retry = true # show retry status in spec process
 
+
   # Use rspec tags to filter for specific specs
   # Examples
   #   * Run all specs except for chromedriver: zeus rspec --tag ~driver:chrome spec
@@ -72,14 +73,21 @@ RSpec.configure do |config|
   #  zeus rspec --tag @slow:true spec
   # resp.
   #  zeus rspec --tag @gdriver:chrome spec
+
+  # CI specific configuration
   config.filter_run_excluding :slow => :true unless ENV['CI']
   config.filter_run_excluding :driver => :chrome unless ENV['CI']
-
-  config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
   # There are specs that cannot run on CircleCI, because they do not have the
   # tools (eg. audio transcoding)
   config.filter_run_excluding not_on_circle_ci: true if ENV['CI']
+
+  # The standard formatter is progress, meaning less verbose output on errors
+  # like timeouts. Show everything when running in CI.
+  config.formatter = :documentation if ENV['CI']
+
+  config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
+
 
   config.color_enabled = true
 
