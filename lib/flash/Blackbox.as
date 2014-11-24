@@ -24,17 +24,19 @@
   import flash.system.SecurityPanel;
   import flash.utils.*;
 
+  import mx.containers.VBox;
+  import mx.controls.ProgressBar;
+  import mx.controls.HSlider;
+  import mx.controls.CheckBox;
   import flash.text.TextField;
   import flash.text.TextFormat;
-
-  import flash.display.Graphics;
-  import flash.display.Shape;
-  import flash.display.GradientType;
+  import flash.events.MouseEvent;
+  import mx.events.SliderEvent;
 
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.4';
+    internal var version: String = '2.5';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
@@ -48,16 +50,21 @@
     internal var settingsClosed: String;
     internal var traceFormat:TextFormat;
     internal var traceField:TextField;
-    internal var bar:Shape;
+    internal var shadowGain:Number;
+
+    //internal var activityMeter:ProgressBar;
+    //internal var gainSlider:HSlider;
+    //internal var checkEnhancedMic:CheckBox;
 
     // constructor
     public function Blackbox() {
+      log('Instanciating Blackbox...');
 
-      setupRectangularShape();
-      setupTextField();
-
+      // catch all uncaught exceptions
       loaderInfo.uncaughtErrorEvents.addEventListener(
         UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorHandler);
+
+      setupWidgets();
 
       streamer = root.loaderInfo.parameters['streamer'];
 
@@ -84,40 +91,49 @@
       ExternalInterface.call(callback);
     }
 
-    internal function setupRectangularShape():void {
-      var child:Shape = new Shape();
-      child.graphics.lineStyle(1, 0x000000);
-      child.graphics.drawRect(0, 30, stage.stageWidth, 30);
-      addChild(child);
-      bar = child;
+    internal function setupWidgets():void {
+      // // TODO initialize widgets
+      // activityMeter = new ProgressBar();
+      // gainSlider = new HSlider();
+      // checkEnhancedMic = new CheckBox();
+      //
+      // // add event listeners
+      // gainSlider.addEventListener(SliderEvent.CHANGE, adjustGain);
+      // checkEnhancedMic.addEventListener(MouseEvent.CLICK, toggleEnhancedMic);
+      //
+      // var vbox:VBox = new VBox();
+      // vbox.addChild(activityMeter);
+      // vbox.addChild(gainSlider);
+      // vbox.addChild(checkEnhancedMic);
+      //
+      // // setup text field
+      // traceFormat = new TextFormat();
+      // traceFormat.bold = true;
+      // traceFormat.font = "_sans";
+      // traceFormat.size = 32;
+      // traceFormat.align = "left";
+      // traceFormat.color = 0x333333;
+      // traceField = new TextField();
+      // traceField.defaultTextFormat = traceFormat;
+      // traceField.selectable = false;
+      // traceField.mouseEnabled = false;
+      // traceField.width = stage.stageWidth;
+      // traceField.height = stage.stageHeight;
+      // vbox.addChild(traceField);
+      //
+      // addChild(vbox);
     }
 
-    internal function updateBar(value:int):void {
-      bar.graphics.beginFill(0xffffff);
-      bar.graphics.drawRect(0, 30, stage.stageWidth, 30);
-      bar.graphics.endFill();
-      bar.graphics.beginGradientFill(GradientType.LINEAR,
-                                     [0x00ff00, 0xff0000],
-                                     [1,1],
-                                     [127,255]);
-      bar.graphics.drawRect(0, 30, (stage.stageWidth / 100) * value, 30);
-      bar.graphics.endFill();
+    internal function adjustGain(e:SliderEvent):void {
+      mic.gain = e.value;
     }
 
-    internal function setupTextField():void {
-      traceFormat = new TextFormat();
-      traceFormat.bold = true;
-      traceFormat.font = "_sans";
-      traceFormat.size = 32;
-      traceFormat.align = "left";
-      traceFormat.color = 0x333333;
-      traceField = new TextField();
-      traceField.defaultTextFormat = traceFormat;
-      traceField.selectable = false;
-      traceField.mouseEnabled = false;
-      traceField.width = stage.stageWidth;
-      traceField.height = stage.stageHeight;
-      addChild(traceField);
+    internal function toggleEnhancedMic(e:MouseEvent):void {
+      setupMic(e.target.selected);
+    }
+
+    internal function setupMic(enhanced:Boolean):void {
+      // TODO
     }
 
     internal function setStreamingServer(url: String): void {
@@ -175,26 +191,23 @@
     }
 
     internal function onMicData(e:SampleDataEvent):void {
-      traceField.text = "\n\n";
-      traceField.appendText("Activity Level: " +
-                            e.target.activityLevel + "\n");
-      traceField.appendText("Codec: " + e.target.codec + "\n");
-      traceField.appendText("Gain: " + e.target.gain + "\n");
-      //updateBar(e.target.activityLevel);
-      // traceField.appendText("bytesAvailable: " +
-      //                       e.data.bytesAvailable + "\n");
-      // traceField.appendText("length: " + e.data.length + "\n");
-      // traceField.appendText("position: " + e.data.position + "\n");
+      // traceField.text = "\n\n";
+      // traceField.appendText("Activity Level: " +
+      //                       e.target.activityLevel + "\n");
+      // traceField.appendText("Codec: " + e.target.codec + "\n");
+      // traceField.appendText("Gain: " + e.target.gain + "\n");
+      // activityMeter.setProgress(e.target.activityLevel, 100);
     }
 
     internal function muteMic(): void {
-      log("Mute mic by setting gain to 0.")
+      shadowGain = mic.gain;
       mic.gain = 0;
+      log("Mute mic by setting gain to 0; shadowGain set.")
     }
 
     internal function unmuteMic(): void {
-      log("Unmute mic by setting gain to 50.")
-      mic.gain = 50;
+      mic.gain = shadowGain;
+      log("Unmute mic by setting gain to shadowGain.")
     }
 
     internal function setStreamVolume(ns:NetStream, vol:Number): void {
@@ -309,7 +322,7 @@
 
         // The amount by which the microphone boosts the signal. Valid
         // values are 0 to 100. The default value is 50.
-        mic.gain = 50;
+        //mic.gain = 50;
 
         // Maximum attenuation of the noise in dB (negative number) used
         // for Speex encoder. If enabled, noise suppression is applied to
