@@ -24,14 +24,14 @@
   import flash.system.SecurityPanel;
   import flash.utils.*;
 
-  import flash.display.VBox;
-  import flash.display.ProgressBar;
-  import flash.display.HSlider;
-  import flash.display.CheckBox;
+  import mx.containers.VBox;
+  import mx.controls.ProgressBar;
+  import mx.controls.HSlider;
+  import mx.controls.CheckBox;
   import flash.text.TextField;
   import flash.text.TextFormat;
   import flash.events.MouseEvent;
-  import flash.events.SliderEvent;
+  import mx.events.SliderEvent;
 
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
@@ -52,12 +52,13 @@
     internal var traceField:TextField;
     internal var shadowGain:Number;
 
-    internal var activityMeter:ProgressBar;
-    internal var gainSlider:HSlider;
-    internal var checkEnhancedMic:CheckBox;
+    //internal var activityMeter:ProgressBar;
+    //internal var gainSlider:HSlider;
+    //internal var checkEnhancedMic:CheckBox;
 
     // constructor
     public function Blackbox() {
+      log('Instanciating Blackbox...');
 
       // catch all uncaught exceptions
       loaderInfo.uncaughtErrorEvents.addEventListener(
@@ -91,36 +92,36 @@
     }
 
     internal function setupWidgets():void {
-      // TODO initialize widgets
-      activityMeter = new ProgressBar();
-      gainSlider = new HSlider();
-      checkEnhancedMic = new CheckBox();
-
-      // add event listeners
-      gainSlider.addEventListener(SliderEvent.CHANGE, adjustGain);
-      checkEnhancedMic.addEventListener(MouseEvent.CLICK, toggleEnhancedMic);
-
-      vbox = new VBox()
-      vbox.addChild(activityMeter);
-      vbox.addChild(gainSlider);
-      vbox.addChild(checkEnhancedMic);
-
-      // setup text field
-      traceFormat = new TextFormat();
-      traceFormat.bold = true;
-      traceFormat.font = "_sans";
-      traceFormat.size = 32;
-      traceFormat.align = "left";
-      traceFormat.color = 0x333333;
-      traceField = new TextField();
-      traceField.defaultTextFormat = traceFormat;
-      traceField.selectable = false;
-      traceField.mouseEnabled = false;
-      traceField.width = stage.stageWidth;
-      traceField.height = stage.stageHeight;
-      vbox.addChild(traceField);
-
-      addChild(vbox);
+      // // TODO initialize widgets
+      // activityMeter = new ProgressBar();
+      // gainSlider = new HSlider();
+      // checkEnhancedMic = new CheckBox();
+      //
+      // // add event listeners
+      // gainSlider.addEventListener(SliderEvent.CHANGE, adjustGain);
+      // checkEnhancedMic.addEventListener(MouseEvent.CLICK, toggleEnhancedMic);
+      //
+      // var vbox:VBox = new VBox();
+      // vbox.addChild(activityMeter);
+      // vbox.addChild(gainSlider);
+      // vbox.addChild(checkEnhancedMic);
+      //
+      // // setup text field
+      // traceFormat = new TextFormat();
+      // traceFormat.bold = true;
+      // traceFormat.font = "_sans";
+      // traceFormat.size = 32;
+      // traceFormat.align = "left";
+      // traceFormat.color = 0x333333;
+      // traceField = new TextField();
+      // traceField.defaultTextFormat = traceFormat;
+      // traceField.selectable = false;
+      // traceField.mouseEnabled = false;
+      // traceField.width = stage.stageWidth;
+      // traceField.height = stage.stageHeight;
+      // vbox.addChild(traceField);
+      //
+      // addChild(vbox);
     }
 
     internal function adjustGain(e:SliderEvent):void {
@@ -190,12 +191,12 @@
     }
 
     internal function onMicData(e:SampleDataEvent):void {
-      traceField.text = "\n\n";
-      traceField.appendText("Activity Level: " +
-                            e.target.activityLevel + "\n");
-      traceField.appendText("Codec: " + e.target.codec + "\n");
-      traceField.appendText("Gain: " + e.target.gain + "\n");
-      activityMeter.setProgress(e.target.activityLevel, 100);
+      // traceField.text = "\n\n";
+      // traceField.appendText("Activity Level: " +
+      //                       e.target.activityLevel + "\n");
+      // traceField.appendText("Codec: " + e.target.codec + "\n");
+      // traceField.appendText("Gain: " + e.target.gain + "\n");
+      // activityMeter.setProgress(e.target.activityLevel, 100);
     }
 
     internal function muteMic(): void {
