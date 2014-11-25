@@ -2,7 +2,7 @@ namespace :build do
   task flash: :environment do
     # actionscript
     puts 'compiling actionscript...'
-    apath = %w(lib flash Blackbox.as)
+    apath = %w(lib flash BlackboxUI.mxml)
     afile = Rails.root.join(File.join(apath))
     cmd = "mxmlc #{afile}"
     %x[ #{cmd} ]
@@ -24,7 +24,7 @@ namespace :build do
     FileUtils.rm(Dir.glob(cglob))
 
     # swf -> target
-    spath = %W(lib flash Blackbox.swf)
+    spath = %W(lib flash BlackboxUI.swf)
     sfile = Rails.root.join(File.join(spath))
     tpath = %W(app assets flash Blackbox#{revision}.swf)
     tfile = Rails.root.join(File.join(tpath))

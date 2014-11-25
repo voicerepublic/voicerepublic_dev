@@ -34,7 +34,7 @@
   // [Frame(factoryClass='mx.preloaders.DownloadProgressBar')]
 
   public class Blackbox extends MovieClip {
-    internal var version: String = '2.4';
+    internal var version: String = '2.5';
     internal var mic: Microphone;
     internal var netStreams: Array = new Array();
     internal var streamer: String;
@@ -50,6 +50,10 @@
     internal var traceField:TextField;
     internal var bar:Shape;
     internal var shadowGain:Number;
+
+    //internal var activityMeter:ProgressBar;
+    //internal var gainSlider:HSlider;
+    //internal var checkEnhancedMic:CheckBox;
 
     // constructor
     public function Blackbox() {

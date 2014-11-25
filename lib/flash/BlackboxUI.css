@@ -2,10 +2,10 @@
 
 mx|Application {
     layout: absolute;
-    paddingBottom: 0;
-    paddingTop: 0;
-    paddingLeft: 0;
-    paddingRight: 0;
+    paddingBottom: 5;
+    paddingTop: 5;
+    paddingLeft: 5;
+    paddingRight: 5;
     horizontalGap: 1;
     verticalGap: 1;
 }

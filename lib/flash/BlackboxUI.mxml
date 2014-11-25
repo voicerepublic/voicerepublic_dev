@@ -6,11 +6,14 @@
   <fx:Style source="BlackboxUI.css" />
   <fx:Script source="BlackboxUI.as" />
 
+
+  <!--
   <mx:Button click="{refreshDeviceList();}"
              label="Refresh Device List" />
 
   <mx:ComboBox dataProvider="{devices}"
                close="changeDeviceHandler(event);"/>
+  -->
 
   <mx:ProgressBar id="bar"
                   label=""
@@ -20,7 +23,9 @@
 
   <mx:HBox paddingTop="10" paddingBottom="10"
            paddingLeft="10" paddingRight="10">
-    <mx:HSlider maximum="100"
+    <mx:HSlider id='volume'
+                maximum="100"
+                enabled='false'
                 tickColor="black"
                 snapInterval="1"
                 tickInterval="10"
@@ -40,8 +45,18 @@
                selected="{mic.enhancedOptions.autoGain}" />
   -->
 
-  <mx:CheckBox label="Loopback"
+  <mx:CheckBox id='enhancedMicrophone'
+               enabled='false'
+               label="Enhanced Microphone"
                selected="true"
-               click="loopBackHandler(event);"/>
+               click="setupMic();"/>
+  <mx:CheckBox label="Local Loopback (Quality Issues!)"
+               selected="false"
+               click="localLoopbackHandler(event);"/>
+  <mx:CheckBox id='monitor'
+               enabled='false'
+               label="Server Loopback (Monitor Stream)"
+               selected="false"
+               click="monitorHandler(event);"/>
 
 </mx:Application>
