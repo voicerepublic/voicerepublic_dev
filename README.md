@@ -196,7 +196,7 @@ Pull complete audio data for a given talk from s3
 
 Sometimes it is a good idea to delete the journal
 
-    rm vr-1799/1799.jounral
+    rm vr-1799/1799.journal
 
 Run fidelity on it
 
