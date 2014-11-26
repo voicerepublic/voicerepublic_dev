@@ -186,7 +186,7 @@ Run
 Run Audio Strategies
 --------------------
 
-See [fidelity](/munen/fidelity) for details.
+See [fidelity](https://github.com/munen/fidelity) for details.
 
 ### Example
 
