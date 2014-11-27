@@ -33,7 +33,7 @@
   border-color: $brand-color-green;
   padding: rem-calc(12) rem-calc(20) rem-calc(11) rem-calc(20);
   color: $brand-color-green;
-  font-family: 'eaglebook';
+  font-family: $brand-font-bold;
   &.button-full-size{
     width: 100%;
   }
@@ -65,7 +65,7 @@
   &:hover,&:focus{
     color: darken($brand-color-green, 5%);
   }
-  font-family: 'eaglebook';
+  font-family: $brand-font-bold;
   font-size: rem-calc(14)
 }
 
@@ -91,7 +91,7 @@
 
 .button-save{
   @include button(rem-calc(3),$color-black-title);
-  font-family: 'eaglebook';
+  font-family: $brand-font-bold;
   font-size: rem-calc(23);
   padding: 6px 21px 4px 21px;
   line-height: 1;
@@ -109,7 +109,7 @@
 }
 
 .button-cancel{
-  font-family: 'eaglebook';
+  font-family: $brand-font-bold;
   font-size: rem-calc(23);
   padding: 7px 0 0 10px;
 }

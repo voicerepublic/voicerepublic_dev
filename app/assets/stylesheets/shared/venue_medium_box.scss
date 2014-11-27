@@ -9,7 +9,7 @@
       @extend .ellipsis;
     }
     .venue-teaser{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(18);
       color: $color-black-title;
       line-height: 1.1;
@@ -38,7 +38,7 @@
         vertical-align: top;
         color: white;
         text-align: center;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         font-size: rem-calc(15);
         padding: 14px 0 0 0;
         line-height: 1;

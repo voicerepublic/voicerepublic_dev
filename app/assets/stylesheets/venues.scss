@@ -34,7 +34,7 @@
       display: inline-block;
       font-size: rem-calc(19);
       color: $color-black-title;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       margin: 15px 0 0 5px;
     }
     #social_share {
@@ -83,7 +83,7 @@
     .title-edit{
       float:right;
       margin-top: 14px;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(19);
     }
   }
@@ -108,7 +108,7 @@
           vertical-align: top;
           color: white;
           text-align: center;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(15);
           padding: 14px 0 0 0;
           line-height: 1;
@@ -142,7 +142,7 @@
           color: $color-black-title;
           border: 1px solid $color-black-title;
           text-align: center;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(15);
           padding: 14px 0 0 0;
           line-height: 1;
@@ -180,23 +180,26 @@
         color: $color-black-title;
         font-size: rem-calc(19);
       }
-      p{
-        font-family: 'eaglelight';
-        font-size: rem-calc(15);
-        line-height: 1.2;
-        a{
+      font-family: $brand-font-light;
+      font-size: rem-calc(15);
+      line-height: 1.2;
+      a{
+        text-decoration: underline;
+        &:focus,&:hover{
           text-decoration: underline;
-          &:focus,&:hover{
-            text-decoration: underline;
-            color:lighten(black,20%);
-          }
+          color:lighten(black,20%);
         }
+      }
+      p{
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
       }
       .desc-edit{
         position: absolute;
         top: 1px;
         right: 0;
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         font-size: rem-calc(19);
       }
     }
@@ -215,7 +218,7 @@
     .link-more{
       float:right;
       font-size: rem-calc(19);
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       margin-top: -5px
     }
   }
@@ -226,7 +229,7 @@
     }
     .onair{
       color: $brand-color-red;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(19);
     }
   }

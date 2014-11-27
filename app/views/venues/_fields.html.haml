@@ -9,7 +9,7 @@
         .image-box(style="background-image: url(#{@venue.image.url})" data-show-upload="#venue_image")
           %button.button-standard(type="button" data-trigger-file-input="venue_image")
             = t('.select_image')
-          = f.file_field :image, class: 'display-none'
+          = f.file_field :image, class: 'soft-hide'
 
         = f.input :title, placeholder: t('.title')
         = f.input :teaser, rows: 2, placeholder: t('.teaser')

@@ -7,13 +7,13 @@
   }
 
   .user-link{
-    font-family:'eaglebook';
+    font-family:$brand-font-bold;
     font-size: rem-calc(12);
   }
 
   .user-link-dropdown{
     a{
-      font-family:'eaglebook';
+      font-family:$brand-font-bold;
       font-size: rem-calc(12px)
     }
   }
@@ -54,7 +54,7 @@
     background: #000 !important;
     padding-left: 30px !important;
     color: #fff !important;
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     font-size: rem-calc(12);
     border-style: none !important;
     @include placeholder{

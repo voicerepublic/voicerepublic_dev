@@ -56,9 +56,8 @@ describe User do
     end
 
     it 'ignores accents' do
-     if ENV['CI']
-        pending 'unaccent works different in postgres 9.1.12(server) and 9.1.13(development)'
-     end
+      # unaccent works different in postgres 9.1.12(server) and 9.1.13(development)
+      pending 'omit on ci' if ENV['CI']
 
       user = FactoryGirl.create(:user, firstname: 'MrBrùce')
 

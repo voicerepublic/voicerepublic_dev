@@ -53,8 +53,8 @@
       %header.title-header.clearfix
         %h3.left= t('.live_talks', count: @live_talks.count)
         .onair.right= t('.on_air')
-      %ul(class="#{talks_grid(@live_talks)}")
-        = render partial: 'shared/talk_live_box', collection: @live_talks
+      %ul(class="#{talkslive_grid(@live_talks)}")
+        = render partial: talkslive_partial(@live_talks), :locals => { color: 'box-live' }, collection: @live_talks
 
 - unless @upcoming_talks.empty?
   .upcoming-talks-box.row.collapse-large-only
@@ -76,21 +76,19 @@
       -# TODO open all
       -#= link_to t('.more'), '#', class: 'link-more'
 
-- if talks = @user.reminders.talks.map(&:rememberable)
+- unless @remembered_talks.empty?
   #listen-later.listen-later-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.listen_later', count: talks.count)
-      %ul(class="#{talks_grid(talks)}")
-        = render partial: talks_partial(talks), locals: { color: 'box-slim' }, collection: talks
+      %h3= t('.listen_later', count: @remembered_talks.count)
+      %ul(class="#{talks_grid(@remembered_talks)}")
+        = render partial: talks_partial(@remembered_talks), locals: { color: 'box-slim' }, collection: @remembered_talks
 
-
-- if venues = @user.venues_without_default
-
+- unless @venues.empty?
   #series.user-series-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.venues', count: venues.count)
+      %h3= t('.venues', count: @venues.count)
       %ul.medium-block-grid-2
-        = render partial: 'shared/venue_medium_box', collection: venues
+        = render partial: 'shared/venue_medium_box', collection: @venues
 
 - unless @user.about.blank?
   .description-box.row.collapse-large-only
@@ -100,4 +98,4 @@
         = raw @user.about
 
 - if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
-  = render partial: "welcome", :locals => { user: @user}
+  = render partial: "welcome", :locals => { user: @user }

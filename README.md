@@ -183,53 +183,24 @@ Run
     zeus rake build:flash
 
 
-Runnning Audio Strategies with Rake
------------------------------------
+Run Audio Strategies
+--------------------
 
-List all available strategies
+See [fidelity](https://github.com/munen/fidelity) for details.
 
-    rake audio:strategies
+### Example
 
-The generic strategy runner takes arguments
+Pull complete audio data for a given talk from s3
 
- * strategy name
- * path to audio files
- * name (talk_id, X in the flv files tX-u...)
+    s3cmd sync s3://vr-live-media/vr-1799 .
 
-    rake audio:run[strategy_name,path/to/files,name]
+Sometimes it is a good idea to delete the journal
 
-The output lists the resulting files.
+    rm vr-1799/1799.journal
 
-(Depending on your shell, e.g. for zsh, you might have to escape the
-square brackets with backslashes.)
+Run fidelity on it
 
-### Analyzing FLV Data with Rake
-
-#### Parameters
-
-* path
-* started_at
-* ended_at
-
-#### Run
-
-    rake audio:analyze\[/home/phil/audio/vr-1104,1401736803,1401740512\]
-
-#### Legend
-
-* filename
-* user_id (deduced from filename)
-* duration in seconds (as of avconv)
-* file size in bytes
-* flag
-* file start timestamp (deduced from filename)
-* file end timestamp (start + duration)
-
-#### Flags
-
-* `-` marks a file of size 0
-* `X` marks a corrupt file (size > 0, but duration cannot be determined)
-* `*` marks files which touch the live section of the talk
+    fidelity run vr-1799/manifest-1799.yml
 
 
 Documentation
@@ -440,6 +411,12 @@ Note: As soon as the stream goes live, your client will subscribe a
 
 Rails Console Cheat Sheet
 -------------------------
+
+### Debug Postprocessing
+
+    id = 3322
+    Talk.find(id).update_attribute(:state, 'postlive')
+    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
 
 ### Feature three randomly selected talks since yesterday
 
