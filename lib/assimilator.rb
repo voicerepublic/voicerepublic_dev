@@ -108,7 +108,9 @@ test:
     ENV['HOME'] = home
 
     # set PATH
-    ENV['PATH'] = [ENV['PATH'], "#{home}/bin"].compact * ':'
+    ENV['PATH'] = [ ENV['PATH'],
+                    "#{home}/bin",
+                    '/usr/local/bin' ].compact * ':'
 
     # rspec spec
     status('pending', "running specs...")
@@ -116,8 +118,12 @@ test:
     ENV['RAILS_ENV'] = 'test'
 
     # TODO make configurable
-    output = execute("bundle exec rspec spec --fail-fast",
-      { 'RAILS_ENV' => 'test', 'DISPLAY' => ':1' }, false)
+    #spec_cmd = "bundle exec rspec spec --fail-fast"
+    spec_cmd = "bundle exec rspec spec"
+    output = execute(spec_cmd,
+                     { 'RAILS_ENV' => 'test',
+                       'DISPLAY' => ':1',
+                       'CI' => 'assimilator' }, false)
 
     # report
     if $?.exitstatus > 0
