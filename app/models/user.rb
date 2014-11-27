@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true, presence: true
   validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :summary, length: { maximum: 255 }
   validates :slug, presence: true
   validates_acceptance_of :accept_terms_of_use
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name),

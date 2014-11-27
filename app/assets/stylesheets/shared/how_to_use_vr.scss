@@ -4,22 +4,29 @@
   height:0;
   overflow: hidden;
   @include transition(height 0.5s);
-  .row{
+  .slide-down-content {
     padding-top: 30px;
     padding-bottom: 30px;
+  }
+  .row{
+    padding-top: 10px;
+    padding-bottom: 10px;
     h3{
       color: white;
+    }
+    h4 {
+      font-size: rem-calc(14);
     }
     ul{
       color: white;
       font-size: rem-calc(14);
       li{
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         color: white;
       }
     }
     .button-how-to{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       color: white;
       padding: 10px 20px;
       background: rgba(0,0,0,0.5);
@@ -33,5 +40,19 @@
     font-size: rem-calc(20);
     color: white;
     cursor: pointer;
+  }
+  .buttons {
+    .columns {
+      text-align: center;
+    }
+  }
+  .icons {
+    .columns {
+      text-align: center;
+    }
+    span {
+      font-size: 400%;
+      color: white;
+    }
   }
 }

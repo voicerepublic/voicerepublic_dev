@@ -1,9 +1,9 @@
 .avatar{
   position:relative;
   display: inline-block;
-  vertical-align: top; 
+  vertical-align: top;
 
-  .avatar-image{    
+  .avatar-image{
     position:relative;
     display: inline-block;
     overflow:hidden;
@@ -15,7 +15,7 @@
   .avatar-name{
     padding:2px 0;
     color: white;
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     font-size: rem-calc(12);
   }
 

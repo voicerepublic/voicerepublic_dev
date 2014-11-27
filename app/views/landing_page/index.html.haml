@@ -1,7 +1,7 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
-.title-row(style="background-image: url(/images/landing_page/#{rand(7)}.jpg)")
+.title-row(style="background-image: url(/images/landing_page/#{rand(5)}.jpg)")
   .bg
   .row.collapse-large-only
     .medium-12.columns.text-center
@@ -26,8 +26,8 @@
             = link_to live_talks_url do
               %h3.title-live= t('.live_title')
               %h4= t('.live_subtitle')
-          %ul.list-style-type-none
-            = render collection: @talks_live, partial: 'shared/talk_live_box'
+          %ul(class="#{talkslive_grid(@talks_live)}")
+            = render partial: talkslive_partial(@talks_live), :locals => { color: 'box-live' }, collection: @talks_live
           = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
 
 - unless @talks_featured.empty?
@@ -59,7 +59,8 @@
 
 .ad.text-center
   %h3= t('.ad_title')
-  =link_to t('.pricing'), "http://blog.voicerepublic.com/about/pricing/", target: "_blank", class: 'button-adv'
+  = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
+  .pricing= link_to t('.pricing'), static_pages_pricing_path, class: 'button-adv'
 
 
 .partners

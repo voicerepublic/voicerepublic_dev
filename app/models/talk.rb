@@ -299,7 +299,6 @@ class Talk < ActiveRecord::Base
     storage["#{uri}/#{id}.mp3"]
   end
 
-
   def related_talks
     talks = venue.talks.where.not(id: id).ordered.limit(9)
     if talks.empty?
@@ -482,37 +481,29 @@ class Talk < ActiveRecord::Base
   end
 
   def run_chain!(chain, uat=false)
-    PrivatePub.publish_to public_channel, { event: 'Process' }
-    PrivatePub.publish_to '/monitoring', { event: 'Process', talk: attributes }
-    t0 = Time.now.to_i
+    path = update_manifest_file!(chain)
+    Rails.logger.info "manifest: #{path}"
+    worker = AudioProcessor.new(path) # lib/audio_processor.rb
+    worker.talk = self
+    # not obvious: the worker will call `upload!` and `cleanup!` from
+    # its `after_chain` callback
+    # TODO make it work for a custom logfile
+    worker.run(Rails.logger)
+  end
 
+  # delete some files (mainly wave files, we'll keep only flv
+  # and compressed files)
+  def cleanup!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    opts = {
-      talk_start: started_at.to_i,
-      talk_stop:  ended_at.to_i,
-      logfile: logfile
-    }
-    opts[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
-    setting = TalkSetting.new(base, id, opts)
-    runner = Audio::StrategyRunner.new(setting)
-    FileUtils.fileutils_output = logfile
-    FileUtils.chdir(setting.path, verbose: true) do
-      chain.each_with_index do |name, index|
-        attrs = { id: id, run: name, index: index, total: chain.size }
-        PrivatePub.publish_to '/monitoring', { event: 'Processing', talk: attrs }
-        (logger.debug "Next strategy: \033[31m#{name}\033[0m"; debugger) if uat
-        runner.run(name)
-      end
-    end
-
-    # delete some files (mainly wave files, we'll keep only flv
-    # and compressed files)
-    logfile.puts '# delete wav files'
+    # TODO logfile.puts '# delete wav files'
     FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav"), verbose: true)
     FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav"), verbose: true)
     FileUtils.rm(Dir.glob("#{base}/#{id}.wav"), verbose: true)
+  end
 
-    # move everything to fog storage
+  # move everything to fog storage
+  def upload!
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     files = ( Dir.glob("#{base}/t#{id}-u*.flv") +
               Dir.glob("#{base}/#{id}.journal") +
               Dir.glob("#{base}/#{id}.*") +
@@ -520,23 +511,35 @@ class Talk < ActiveRecord::Base
     files.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
-      logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
+      # TODO logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
       upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
 
-    # write info file (based on `storage`) and upload
-    File.open("#{base}/#{id}.info", 'w') { |f| f.puts(processing_info) }
-    upload_file("#{uri}/processing.info", "#{base}/#{id}.info")
-
-    FileUtils.fileutils_output = $stderr
-
     save! # save `storage` field
+  end
 
-    dt = Time.now.to_i - t0
-    logfile.puts "## Elapsed time: %s:%02d:%02d" % [dt / 3600, dt % 3600 / 60, dt % 60]
-    PrivatePub.publish_to public_channel, { event: 'Archive', links: media_links }
-    PrivatePub.publish_to '/monitoring', { event: 'Archive', talk: attributes }
+  def manifest(chain=nil)
+    chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
+    data = {
+      id: id,
+      chain: chain,
+      talk_start: started_at.to_i,
+      talk_stop:  ended_at.to_i,
+      jingle_in: File.expand_path(Settings.paths.jingles.in, Rails.root),
+      jingle_out: File.expand_path(Settings.paths.jingles.out, Rails.root)
+    }
+    data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
+    data
+  end
+
+  def update_manifest_file!(chain=nil)
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+    name = "manifest-#{id}.yml"
+    path, key = "#{base}/#{name}", "#{uri}/#{name}"
+    File.open(path, 'w') { |f| f.puts(manifest(chain).to_yaml) }
+    upload_file(key, path)
+    path
   end
 
   # collect information about what's stored via fog
@@ -643,41 +646,6 @@ class Talk < ActiveRecord::Base
     # The BackOffice on the other hand facilitates mass imports, which
     # can be processed faster when deferring generating the flyer.
     flyer.generate!
-  end
-
-  def keep_config
-    cut = edit_config.last.map { |c| [c['start'], c['end']] }.flatten
-    keep = [0] + cut.map { |c| "=#{c}" } + [-0]
-  end
-
-  def processing_info
-    fragments, first, last = [], nil, nil
-    storage.each do |key, frag|
-      next unless frag[:ext] == '.flv'
-      starts = frag[:start].to_i
-      ends = starts + frag[:seconds]
-      next unless ends > started_at.to_i and starts < ended_at.to_i
-      fragments << File.basename(key)
-      first = starts if first.nil? or starts < first
-      last = ends if last.nil? or ends > last
-    end
-    override   = recording_override? ? File.basename(recording_override) : nil
-    cut_conf   = edit_config.blank? ? nil : edit_config.last['cutConfig']
-    keep_conf  = edit_config.blank? ? nil : keep_config
-    trim_start = first-started_at.to_i if first
-    trim_end   = ended_at.to_i-last if last
-    <<-EOS.strip_heredoc
-      STARTED=#{started_at.to_i}
-      ENDED=#{ended_at.to_i}
-      FRAGMENTS=#{fragments.join(' ')}
-      FIRST=#{first}
-      LAST=#{last}
-      TRIM_START=#{trim_start}
-      TRIM_END=#{trim_end}
-      CUT_CONFIG=#{cut_conf}
-      KEEP_CONFIG=#{keep_conf}
-      OVERRIDE=#{override}
-    EOS
   end
 
 end
