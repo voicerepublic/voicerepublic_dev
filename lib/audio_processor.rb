@@ -45,10 +45,6 @@ class AudioProcessor < Fidelity::ChainRunner
                            talk: talk.attributes,
                            elapsed: delta_t2)
 
-    # TODO move this into fidelity, as cleanup strategy
-    # this will be pretty quick
-    talk.send(:cleanup!)
-
     delta_t0 = Time.now.to_i - @t0
     LiveServerMessage.call(talk.public_channel, { event: 'Archive',
                                                   links: talk.media_links })

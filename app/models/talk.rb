@@ -490,17 +490,6 @@ class Talk < ActiveRecord::Base
     worker.run(Rails.logger)
   end
 
-  # TODO move this inot a fidelity cleanup strategy
-  # delete some files (mainly wave files, we'll keep only flv
-  # and compressed files)
-  def cleanup!
-    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    # TODO logfile.puts '# delete wav files'
-    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav"), verbose: true)
-    FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav"), verbose: true)
-    FileUtils.rm(Dir.glob("#{base}/#{id}.wav"), verbose: true)
-  end
-
   # move everything to fog storage
   def upload!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -511,7 +500,6 @@ class Talk < ActiveRecord::Base
     files.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
-      # TODO logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
       upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
