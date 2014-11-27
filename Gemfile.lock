@@ -21,12 +21,12 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: 7b499432f06759afff7063fb5134a244315a1117
+  revision: 29373ebea81ef441f304965ed36664df5716df00
   specs:
     fidelity (0.0.2)
       auphonic
       fileutils_logger
-      open4
+      systemu
       term-ansicolor
 
 GEM
@@ -292,7 +292,6 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    open4 (1.3.4)
     orm_adapter (0.5.0)
     pg (0.17.1)
     poltergeist (1.5.0)
@@ -399,6 +398,7 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh
       term-ansicolor
+    systemu (2.6.4)
     term-ansicolor (1.3.0)
       tins (~> 1.0)
     therubyracer (0.12.0)
