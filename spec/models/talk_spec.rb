@@ -238,6 +238,7 @@ describe Talk do
   describe 'nicely processes audio' do
 
     it 'in state postlive', slow: true do
+      pending 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -265,6 +266,7 @@ describe Talk do
     end
 
     it 'in state archived', slow: true do
+      pending 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -294,6 +296,7 @@ describe Talk do
     end
 
     it 'in state archived with override', slow: true do
+      pending 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
