@@ -1,5 +1,6 @@
 - content_for :head do
   = rss_link_tag t('.feed_title', username: @user.name)
+  = rss_link_tag t('.listen_later_feed_title', username: @user.name), user_reminders_path(@user, format: 'rss')
 
 - content_for :title do
   = t('.title', username: @user.name)

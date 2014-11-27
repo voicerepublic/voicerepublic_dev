@@ -169,6 +169,14 @@ Run Rspec with Zeus
     karma start spec/javascripts/livepage.conf.js.coffee
 
 
+CI
+--
+
+Monitor CI
+
+    multitail app/current/log/ci.log app/shared/ci/repo/log/test.log
+
+
 Compile Flash
 -------------
 
@@ -186,7 +194,7 @@ Run
 Run Audio Strategies
 --------------------
 
-See [fidelity](/munen/fidelity) for details.
+See [fidelity](https://github.com/munen/fidelity) for details.
 
 ### Example
 
@@ -196,7 +204,7 @@ Pull complete audio data for a given talk from s3
 
 Sometimes it is a good idea to delete the journal
 
-    rm vr-1799/1799.jounral
+    rm vr-1799/1799.journal
 
 Run fidelity on it
 
