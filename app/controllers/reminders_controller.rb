@@ -2,12 +2,15 @@ class RemindersController < BaseController
 
   before_action :authenticate_user!
 
-  # GET /reminders
+  # GET /users/:user_id/reminders
   def index
-    @reminders = current_user.reminders
+    @user = User.find(params[:user_id])
+    talks = @user.reminders.talks.map(&:rememberable)
+    @podcast = OpenStruct.new(talks: talks)
   end
 
-  # POST /reminders
+  # POST /talks/:talk_id/reminders
+  # POST /talks/:venue_id/reminders
   def create
     @reminder = Reminder.new
     authorize! :create, @reminder

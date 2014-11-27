@@ -4,7 +4,7 @@ class Xhr::TalksController < Xhr::BaseController
   def generate_guest_user?
     false
   end
-  
+
   before_action :authenticate_user!
   before_action :set_talk
 
@@ -106,7 +106,7 @@ class Xhr::TalksController < Xhr::BaseController
 
   def publish(message)
     logger.debug "publish to #{@talk.public_channel} #{message.inspect}"
-    PrivatePub.publish_to @talk.public_channel, message
+    LiveClientMessage.call(@talk.public_channel, message)
   end
 
   # protect_from_forgery for angular ajax requests (overwrite CSRF check)

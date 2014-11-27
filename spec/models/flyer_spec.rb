@@ -20,9 +20,7 @@ describe Flyer do
     describe 'scope user' do
       it 'regenerates the flyer when updating the users name' do
         mtime_before = File.mtime(@flyer.path(fs=true))
-        VCR.use_cassette 'flyer_generate_after_user_changed' do
-          user = @flyer.talk.venue.user.update_attribute :firstname, 'foo'
-        end
+        user = @flyer.talk.venue.user.update_attribute :firstname, 'foo'
         expect(File.mtime(@flyer.path(fs=true))).to be > mtime_before
       end
     end
