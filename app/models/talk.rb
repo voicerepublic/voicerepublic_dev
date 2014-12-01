@@ -163,7 +163,7 @@ class Talk < ActiveRecord::Base
       order('featured_from DESC')
   end
 
-  scope :popular, -> { archived.order('play_count DESC') }
+  scope :popular, -> { archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :live_and_halflive, -> { where(state: [:live, :halflive]) }
 
@@ -314,10 +314,12 @@ class Talk < ActiveRecord::Base
   end
 
   def set_popularity
-    age_in_hours = (Time.now - archived_at) / 360
-    rank = ( ( play_count - 1 ) ** 0.8 /
-             ( age_in_hours + 2 ) ** 1.8 ) * ( penalty || 1 )
-    self.popularity_rank = rank
+    age_in_hours = ( ( Time.now - processed_at ) / 3600 ).to_i
+
+    rank = ( ( ( play_count - 1 ) ** 0.8 ).real /
+             ( age_in_hours + 2 ) ** 1.8 ) * penalty
+
+    self.popularity = rank
   end
 
   private

@@ -2,7 +2,7 @@ namespace :talks do
 
   desc "Save all archived talks to update popularity"
   task popularity: :environment do
-    Talk.archive.find_each do |talk|
+    Talk.archived.find_each do |talk|
       talk.save! # tiggers: `before_save :set_popularity`
     end
   end
