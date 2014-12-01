@@ -1,5 +1,6 @@
 # the idead behind fix:all is that this can be run after each
 # deploy. the key to success is idempotency.
+#
 namespace :fix do
   task all: %w( talks
                 language
@@ -102,6 +103,13 @@ namespace :fix do
       text = ActionController::Base.helpers.truncate(text, length: 140)
       user.summary = text
       user.save!
+    end
+  end
+
+  desc 'set a dummy of talk#description is blank'
+  task talk_descriptions: :environment do
+    Talk.where(description: '').each do |talk|
+      talk.update_attribute :description, '<i>blank description</i>'
     end
   end
 

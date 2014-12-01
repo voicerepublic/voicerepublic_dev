@@ -200,9 +200,8 @@ ActiveRecord::Schema.define(version: 20141007120945) do
     t.string   "language",           default: "en"
     t.string   "slug"
     t.string   "speakers"
-    t.string   "slides_uid"
-    t.text     "edit_config"
     t.string   "user_override_uuid"
+    t.text     "edit_config"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
@@ -234,8 +233,8 @@ ActiveRecord::Schema.define(version: 20141007120945) do
     t.text     "about"
     t.string   "timezone"
     t.string   "website"
-    t.string   "authentication_token"
     t.boolean  "conference"
+    t.string   "authentication_token"
     t.integer  "default_venue_id"
     t.string   "summary"
   end

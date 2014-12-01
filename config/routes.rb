@@ -1,5 +1,7 @@
 VoiceRepublic::Application.routes.draw do
 
+  get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
+
   post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
   put  '/xhr/talk/:id',          to: 'xhr/talks#update'
   get  '/xhr/users',             to: 'xhr/users#index'
@@ -62,7 +64,9 @@ VoiceRepublic::Application.routes.draw do
                registrations: "users/registrations"
              })
 
-  resources :users, only: [:update, :show, :edit]
+  resources :users, only: [:update, :show, :edit] do
+    resources :reminders, only: [:index]
+  end
 
   # old school
   resource :embed_talk, only: :show

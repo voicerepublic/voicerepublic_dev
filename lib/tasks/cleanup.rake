@@ -51,46 +51,28 @@ namespace :cleanup do
     end
   end
 
-  # TODO this should be more generic and move into `trickery`
-  # TODO does this deprecate `db:data:validate`?
+  # TODO this should move into `trickery`
   desc 'Check validity of talks, series and user profiles'
-  task :check_validity => :environment do
+  task check_validity: :environment do
+    class InvalidModelsException < Exception; end
+    errors = Hash.new { |h, k| h[k] = {} }
 
-    class InvalidModelException < Exception
-      def initialize(msg)
-        @msg = msg
-      end
-    end
-
-    errors_count = 0
-    error_ids = {
-      talks: [],
-      series: [],
-      users: [],
-    }
-    ressources = [ [Talk, :talks], [Venue, :series], [User, :users]]
-
-    ressources.each do |model, key|
-      model.all.each do |m|
-        unless m.valid?
-          error_ids[key] << [ "#{m.id.to_i}", m.errors.full_messages ]
-          errors_count += 1
+    Rails.application.eager_load!
+    ActiveRecord::Base.descendants.each do |klass|
+      plural = klass.model_name.plural
+      puts "CHECKING #{klass.count} #{plural}"
+      klass.find_each do |model|
+        if model.valid?
+          print '.'
+        else
+          print 'I'
+          errors[plural][model.id] = model.errors.full_messages
         end
       end
+      puts
     end
 
-    if errors_count > 0
-      puts error_ids
-      msg = { invalid_models: error_ids, errors_count: errors_count }
-      Rails.logger.warn "====\nInvalid models: #{errors_count}."
-      Rails.logger.warn msg.to_s + "\n===="
-      raise InvalidModelException.new msg
-    end
+    raise(InvalidModelsException, errors.to_yaml) if errors.present?
   end
 
-  task fix_blank_descriptions: :environment do
-    Talk.where(description: '').each do |talk|
-      talk.update_attribute :description, '<i>blank description</i>'
-    end
-  end
 end
