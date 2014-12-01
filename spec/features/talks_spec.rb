@@ -233,7 +233,7 @@ describe "Talks as logged in user" do
       end
 
       it 'has "more" and displays 25 talks a time on recent' do
-        FactoryGirl.create_list(:talk, 26, state: :archived, featured_from: Date.today)
+        FactoryGirl.create_list(:talk, 26, :archived, :featured)
         visit talks_path
         within(".recent") do
           click_on "MORE"
