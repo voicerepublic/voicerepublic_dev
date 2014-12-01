@@ -4,11 +4,12 @@ module ApplicationHelper
     root_url + 'vrmedia/' + talk.id.to_s + '.' + fmt
   end
 
-  def rss_link_tag(title)
+  def rss_link_tag(title, url=nil)
+    url ||= url_for(format: 'rss')
     tag :link, rel: "alternate",
         type: "application/rss+xml",
         title: title,
-        href: url_for(format: 'rss')
+        href: url
   end
 
   # abstract delete params, valid for all resources

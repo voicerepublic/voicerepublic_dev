@@ -11,5 +11,6 @@ class Reminder < ActiveRecord::Base
 
   validates :user, presence: true
 
+  # TODO http://stackoverflow.com/questions/26380084
   scope :talks, -> { where(rememberable_type: 'Talk') }
 end

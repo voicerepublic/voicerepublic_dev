@@ -89,7 +89,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         activateSafetynet() if config.talk.state in ['live', 'halflive']
         users = config.session
         blackbox.publish config.stream
-        blackbox.subscribe config.stream if config.loopback
         config.flags.onair = true
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
@@ -98,6 +97,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
           $log.debug "schedule startTalk for in " +
             util.toHHMMSS(config.talk.starts_in)
           millisecs = config.talk.starts_in * 1000
+          millisecs = 0 if config.talk.starts_in < 0
           # skip timeout if longer than 24.8 days
           # see http://stackoverflow.com/questions/3468607
           return if millisecs > 2147483647

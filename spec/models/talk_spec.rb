@@ -238,6 +238,7 @@ describe Talk do
   describe 'nicely processes audio' do
 
     it 'in state postlive', slow: true do
+      pending 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -255,9 +256,7 @@ describe Talk do
       talk.update_current_state :postlive, true
 
       # run
-      VCR.use_cassette 'talk_postprocess' do
-        talk.send :postprocess!
-      end
+      talk.send :postprocess!
 
       # assert
       base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
@@ -267,6 +266,7 @@ describe Talk do
     end
 
     it 'in state archived', slow: true do
+      pending 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -282,24 +282,21 @@ describe Talk do
       talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
       talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
       talk.update_current_state :postlive, true
-      VCR.use_cassette 'talk_postprocess' do
-        talk.send :postprocess!
-      end
+      talk.send :postprocess!
       base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
       result = File.join(base, Settings.storage.media,
                          talk.uri, talk.id.to_s + '.m4a')
       ctime = File.ctime(result)
 
       # no we are in state `archived`, so we can do a `reprocess`
-      VCR.use_cassette 'talk_reprocess' do
-        talk.send :reprocess!
-      end
+      talk.send :reprocess!
 
       # assert
       expect(File.ctime(result)).not_to eq(ctime)
     end
 
     it 'in state archived with override', slow: true do
+      pending 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -315,9 +312,7 @@ describe Talk do
       talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
       talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
       talk.update_current_state :postlive, true
-      VCR.use_cassette 'talk_postprocess' do
-        talk.send :postprocess!
-      end
+      talk.send :postprocess!
       base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
       result = File.join(base, Settings.storage.media,
                          talk.uri, talk.id.to_s + '.m4a')
@@ -329,9 +324,7 @@ describe Talk do
       talk.update_attribute :recording_override, override
 
       # no we are in state `archived`, so we can do a `process_override`
-      VCR.use_cassette 'talk_override' do
-        talk.send :process_override!
-      end
+      talk.send :process_override!
 
       # assert
       expect(File.ctime(result)).not_to eq(ctime)

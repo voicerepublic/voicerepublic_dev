@@ -134,7 +134,7 @@ RSpec.configure do |config|
   example_counter = 0
   config.after(:each) do
     if example_counter % every_nths == 0
-      print 'G'
+      #print 'G'
       GC.enable
       GC.start
       GC.disable
