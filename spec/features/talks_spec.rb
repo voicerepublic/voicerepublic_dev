@@ -300,36 +300,32 @@ describe "Talks as logged in user" do
       end
       it "it works live" do
         pending "Close to working, see comments"
-        VCR.use_cassette 'talk_with_chat' do
-          @venue = FactoryGirl.create :venue
-          @talk = FactoryGirl.create :talk, venue: @venue
-          visit venue_talk_path @venue, @talk
-          find(".participate-button-box a").click
-          find(".chat-input-box input").set("my message")
-          find(".chat-input-box input").native.send_keys(:return)
-          # This spec works until here. The message is never being shown in
-          # testing mode, though. Faye published it, however. And of course it
-          # works in development.
-          within "#discussion" do
-            page.should have_content "my message"
-            find(".chat-message").should be_visible
-          end
+        @venue = FactoryGirl.create :venue
+        @talk = FactoryGirl.create :talk, venue: @venue
+        visit venue_talk_path @venue, @talk
+        find(".participate-button-box a").click
+        find(".chat-input-box input").set("my message")
+        find(".chat-input-box input").native.send_keys(:return)
+        # This spec works until here. The message is never being shown in
+        # testing mode, though. Faye published it, however. And of course it
+        # works in development.
+        within "#discussion" do
+          page.should have_content "my message"
+          find(".chat-message").should be_visible
         end
       end
       it "it works with reload" do
-        VCR.use_cassette 'talk_with_chat' do
-          @venue = FactoryGirl.create :venue
-          @talk = FactoryGirl.create :talk, venue: @venue
-          visit venue_talk_path @venue, @talk
-          visit venue_talk_path @venue, @talk
-          find(".chat-input-box input").set("my message")
-          find(".chat-input-box input").native.send_keys(:return)
-          visit(current_path)
-          page.execute_script('$("a[href=#discussion]").click()')
-          within "#discussion" do
-            page.should have_content "my message"
-            page.should have_content "01 Sep 10:05"
-          end
+        @venue = FactoryGirl.create :venue
+        @talk = FactoryGirl.create :talk, venue: @venue
+        visit venue_talk_path @venue, @talk
+        visit venue_talk_path @venue, @talk
+        find(".chat-input-box input").set("my message")
+        find(".chat-input-box input").native.send_keys(:return)
+        visit(current_path)
+        page.execute_script('$("a[href=#discussion]").click()')
+        within "#discussion" do
+          page.should have_content "my message"
+          page.should have_content "01 Sep 10:05"
         end
       end
     end
@@ -338,30 +334,26 @@ describe "Talks as logged in user" do
   describe "Active tab", js: true do
     it 'has no tab and contents in chat' do
       pending "really weird ActionController::RoutingError 3/4"
-      VCR.use_cassette 'talk_with_chat' do
-        @venue = FactoryGirl.create :venue
-        @venue.options[:suppress_chat] = true
-        @venue.save!
-        @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
-        visit venue_talk_path @venue, @talk
-        page.evaluate_script(
-          '$("a[href=#discussion]").parent().hasClass("active")
+      @venue = FactoryGirl.create :venue
+      @venue.options[:suppress_chat] = true
+      @venue.save!
+      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+      visit venue_talk_path @venue, @talk
+      page.evaluate_script(
+        '$("a[href=#discussion]").parent().hasClass("active")
           ').should_not be(true)
-          within ".tabs.vr-tabs" do
-            page.should_not have_css(".discussion")
-          end
+      within ".tabs.vr-tabs" do
+        page.should_not have_css(".discussion")
       end
     end
     it 'shows chat active by default' do
       pending "really weird ActionController::RoutingError 4/4"
-      VCR.use_cassette 'talk_with_chat' do
-        @venue = FactoryGirl.create :venue
-        @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
-        visit venue_talk_path @venue, @talk
-        page.evaluate_script(
-          '$("a[href=#discussion]").parent().hasClass("active")'
-        ).should be(true)
-      end
+      @venue = FactoryGirl.create :venue
+      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+      visit venue_talk_path @venue, @talk
+      page.evaluate_script(
+        '$("a[href=#discussion]").parent().hasClass("active")'
+      ).should be(true)
     end
   end
 
@@ -379,15 +371,13 @@ describe "Talks as logged in user" do
     it "can be shared to social networks and saves statistics", driver: :chrome do
       pending "T H I S   S P E C   F A I L S   O N   C I"
       SocialShare.count.should eq(0)
-      VCR.use_cassette 'talk_dummy' do
-        visit venue_talk_path 'en', @venue, @talk
-        page.execute_script('$("#social_share .facebook").click()')
-        sleep 0.2
+      visit venue_talk_path 'en', @venue, @talk
+      page.execute_script('$("#social_share .facebook").click()')
+      sleep 0.2
 
-        share_window = page.driver.browser.window_handles.last
-        page.within_window share_window do
-          current_url.should match(/facebook.com/)
-        end
+      share_window = page.driver.browser.window_handles.last
+      page.within_window share_window do
+        current_url.should match(/facebook.com/)
       end
 
       SocialShare.count.should eq(1)
@@ -441,11 +431,9 @@ describe "Talks as logged in user" do
     # FIXME sometimes failing spec (BT see above)
     it "does not lose tags on failed validation", js: true do
       pending "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
-      VCR.use_cassette 'talk_dummy' do
-        visit edit_venue_talk_path 'en', @venue, @talk
-        fill_in :talk_title, with: ""
-        click_on I18n.t 'helpers.submit.submit'
-      end
+      visit edit_venue_talk_path 'en', @venue, @talk
+      fill_in :talk_title, with: ""
+      click_on I18n.t 'helpers.submit.submit'
       page.should have_content "Please review the problems below"
       within '#s2id_talk_tag_list.tagList' do
         page.should have_content "test"

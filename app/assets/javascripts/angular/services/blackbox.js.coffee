@@ -80,10 +80,13 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     logMethod: 'flashLog'
     errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
-    settings_closed: 'settingsClosed'
+    settingsClosed: 'settingsClosed'
 
   params = {}
-  attributes = { id: "Blackbox", name: "Blackbox" }
+  attributes =
+    id: "Blackbox"
+    name: "Blackbox"
+    allowScriptAccess: 'sameDomain'
   version = "10.3.181.22"
 
   $log.debug 'Initializing BlackboxService...'

@@ -89,7 +89,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         activateSafetynet() if config.talk.state in ['live', 'halflive']
         users = config.session
         blackbox.publish config.stream
-        blackbox.subscribe config.stream if config.loopback
         config.flags.onair = true
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
