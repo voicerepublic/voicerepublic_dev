@@ -149,23 +149,39 @@ Run App
 * `zeus server -p 3001`
 
 
-Run Specs
----------
+Specs
+-----
+
+### Setup
 
 Install phantomjs (globaly)
 
     sudo npm install -g phantomjs
 
-Run Rspec with Zeus
-
-    zeus start
-    zeus rspec spec
-
-### Run Jasmine specs for Angular with Karma
+Install karma & coffee-script
 
     sudo npm install -g karma
     sudo npm install -g karma-ng-scenario
-    sudo npm install -g coffee-script --save-dev
+    sudo npm install -g coffee-script
+
+### Run
+
+Run Rspec (with Zeus running)
+
+    zeus rspec spec
+
+(This omit tests tagged as slow or to run in chrome.)
+
+Run specs tagged to run in chrome
+
+    zeus rspec --tag @driver:chrome spec
+
+Run specs tagged as slow
+
+    zeus rspec --tag @slow spec
+
+Run Jasmine specs for Angular with Karma
+
     karma start spec/javascripts/livepage.conf.js.coffee
 
 
