@@ -118,3 +118,14 @@ span[class^="icon-"]{
     display: block;
   }
 }
+
+.error{
+  label{
+    color: $color-black-title;
+  }
+  small.error{
+    background: rgba(0,0,0,0.8);
+    padding:4px 8px;
+    font-size: rem-calc(11);
+  }
+}

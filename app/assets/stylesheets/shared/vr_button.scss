@@ -27,30 +27,6 @@
   }
 }
 
-
-.button-vr{
-  @include button(rem-calc(15),#000);
-  border-color: $brand-color-green;
-  padding: rem-calc(12) rem-calc(20) rem-calc(11) rem-calc(20);
-  color: $brand-color-green;
-  font-family: 'eaglebook';
-  &.button-full-size{
-    width: 100%;
-  }
-  @include transition(all 0.1s ease-in-out);
-  &:hover, &:focus, &:active{
-    background: lighten(#000, 10%);
-    color: $brand-color-green;
-  }
-  &.facebook {
-    background-color: #3B5999;
-    border: none;
-    color: white;
-    font-size: rem-calc(14)
-  }
-
-}
-
 .button-live{
   border-color: $brand-color-red;
   color: $brand-color-red;
@@ -89,7 +65,7 @@
   margin-bottom: 2px;
 }
 
-.button-save{
+.button-save,.button-vr{
   @include button(rem-calc(3),$color-black-title);
   font-family: 'eaglebook';
   font-size: rem-calc(23);
@@ -102,9 +78,16 @@
     background: lighten($color-black-title, 15%);
   }
   &:focus,&:active{
-    color: #C9C9C9;
-    background: grey;
+    color: #C9C9C9 !important;
+    background: grey !important;
     outline: none;
+  }
+  &.facebook{
+    background-color:#3B5999 !important;
+    border:none;
+    color:white;
+    font-size:0.875rem;
+    padding-bottom: 6px
   }
 }
 

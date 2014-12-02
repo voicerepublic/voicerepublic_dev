@@ -1,23 +1,34 @@
 = simple_form_for( resource,
                    as: resource_name,
                    url: registration_path(resource_name) ) do |f|
-
-  .row.top-margin-action-bar
-    .medium-10.medium-centered.columns
-      = f.input :firstname
-      = f.input :lastname
-      = f.input :email
-      = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
-      = f.input :conference
-      = f.input :password
-      = f.input :password_confirmation
-      = f.input :accept_terms_of_use, as: :boolean,
-                label: t('simple_form.labels.user.accept_terms_of_use').html_safe
-      %br/
-      = f.button :submit, t('.registration_title'), class: 'button-vr'
-      %hr/
-      = render partial: 'devise/shared/social_network_connects',
-               locals: { action: 'register' }
-      .clearfix
-      %hr/
-      = render(:partial => "/devise/shared/links")
+  .input-block
+    .form-content-block.row
+      .medium-10.medium-centered.columns
+        .title-block
+          %h2= t('.sign_up')
+        = f.input :firstname
+        = f.input :lastname
+        = f.input :email
+        = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
+        -#= f.input :conference
+        =label_tag :conference, :class => 'checkbox' do
+          =check_box_tag :conference
+          =t('simple_form.labels.user.conference').html_safe
+        = f.input :password
+        = f.input :password_confirmation
+        -#= f.input :accept_terms_of_use, as: :boolean,
+        -#          label: t('simple_form.labels.user.accept_terms_of_use').html_safe
+        =label_tag :accept_terms_of_use, :class => 'checkbox' do
+          =check_box_tag :accept_terms_of_use
+          =t('simple_form.labels.user.accept_terms_of_use').html_safe
+        %br/
+        = f.button :submit, t('.continue').html_safe, class: 'button-vr'
+        %hr/
+        = render partial: 'devise/shared/social_network_connects',
+                 locals: { action: 'register' }
+        .clearfix
+        %hr/
+        .links-box
+          = render(:partial => "/devise/shared/links")
+        %br/
+        %br/
