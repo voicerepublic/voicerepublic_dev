@@ -111,6 +111,8 @@ describe "Venues", js: true do
 
         it "can be shared to social networks and saves statistics",
           driver: :chrome, slow: true do
+          pending 'omit on ci' if ENV['CI']
+
           SocialShare.count.should eq(0)
           visit venue_path(id: @venue)
           page.execute_script('$("#social_share .facebook").click()')
@@ -173,4 +175,3 @@ describe "Venues", js: true do
   end
 
 end
-
