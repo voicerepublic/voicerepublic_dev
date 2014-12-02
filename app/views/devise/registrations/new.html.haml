@@ -10,17 +10,22 @@
         = f.input :lastname
         = f.input :email
         = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
+        -# OLD
         -#= f.input :conference
+        -# NEW
         =label_tag :conference, :class => 'checkbox' do
           =check_box_tag :conference
           =t('simple_form.labels.user.conference').html_safe
         = f.input :password
         = f.input :password_confirmation
-        -#= f.input :accept_terms_of_use, as: :boolean,
-        -#          label: t('simple_form.labels.user.accept_terms_of_use').html_safe
-        =label_tag :accept_terms_of_use, :class => 'checkbox' do
-          =check_box_tag :accept_terms_of_use
-          =t('simple_form.labels.user.accept_terms_of_use').html_safe
+        -# OLD
+        = f.input :accept_terms_of_use, as: :boolean,
+                  label: t('simple_form.labels.user.accept_terms_of_use').html_safe
+        -# NEW TODO: Form
+        -#
+          =label_tag :accept_terms_of_use, :class => 'checkbox' do
+            =check_box_tag :accept_terms_of_use
+            =t('simple_form.labels.user.accept_terms_of_use').html_safe
         %br/
         = f.button :submit, t('.continue').html_safe, class: 'button-vr'
         %hr/
