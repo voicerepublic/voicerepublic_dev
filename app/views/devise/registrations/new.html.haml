@@ -6,28 +6,27 @@
       .medium-10.medium-centered.columns
         .title-block
           %h2= t('.sign_up')
-        = f.input :firstname
-        = f.input :lastname
+        .row
+          .medium-6.columns
+            = f.input :firstname
+          .medium-6.columns
+            = f.input :lastname
         = f.input :email
-        = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
-        -# OLD
-        -#= f.input :conference
-        -# NEW
-        =label_tag :conference, :class => 'checkbox' do
-          =check_box_tag :conference
-          =t('simple_form.labels.user.conference').html_safe
-        = f.input :password
-        = f.input :password_confirmation
-        -# OLD
-        = f.input :accept_terms_of_use, as: :boolean,
+        .row
+          .medium-6.columns
+            = f.input :password
+          .medium-6.columns
+            = f.input :password_confirmation
+        .row
+          .medium-6.columns
+            = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
+          .medium-6.columns
+            = f.input :conference, as: :boolean, boolean_style: :inline, label: t('simple_form.labels.user.conference').html_safe
+        = f.input :accept_terms_of_use, as: :boolean, boolean_style: :inline,
                   label: t('simple_form.labels.user.accept_terms_of_use').html_safe
-        -# NEW TODO: Form
-        -#
-          =label_tag :accept_terms_of_use, :class => 'checkbox' do
-            =check_box_tag :accept_terms_of_use
-            =t('simple_form.labels.user.accept_terms_of_use').html_safe
-        %br/
         = f.button :submit, t('.continue').html_safe, class: 'button-vr'
+        %br/
+        %br/
         %hr/
         = render partial: 'devise/shared/social_network_connects',
                  locals: { action: 'register' }

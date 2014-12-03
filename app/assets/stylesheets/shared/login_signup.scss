@@ -31,11 +31,22 @@
         }
       }
     }
-    .checkbox{
+    .boolean{/* CHECKBOX */
       a{
         color: $brand-color-red;
         &:hover{
           text-decoration: underline
+        }
+      }
+      &.user_conference{
+        input[type=checkbox]{
+          position: absolute;
+          top:24px;
+        }
+        label{
+          padding-left: 15px;
+          margin-top: 21px;
+          line-height:1.2;
         }
       }
     }

@@ -10,9 +10,8 @@
         = f.input :email
         = f.input :password
         - if devise_mapping.rememberable?
-          = label_tag :remember_me, :class => 'checkbox' do
-            = check_box_tag :remember_me
-            = t('.remember')
+          = f.input :remember_me, as: :boolean, boolean_style: :inline
+
         = button_tag t('.continue').html_safe, :name => "Login", class: "button-vr"
 
         %br/
