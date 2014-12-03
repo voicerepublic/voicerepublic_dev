@@ -334,10 +334,17 @@
     }
   }
 
-  .embed-help-text{
-    font-family: $brand-font-light;
-    font-size: rem-calc(15);
-    color: $brand-color-red;
+  #modal-embed{
+    background: black;
+    @include responsive(desktop){
+      width: 700px;
+      margin-left: -350px;
+    }
+    .embed-help-text{
+      font-family: $brand-font-light;
+      font-size: rem-calc(15);
+      color: white;
+    }
   }
 
   .talk-timeline-box{
