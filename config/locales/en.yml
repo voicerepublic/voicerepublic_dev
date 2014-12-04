@@ -1021,10 +1021,10 @@ en:
       info_text: Please allow Voice Republic to access your microphone.
       attention: ATTENTION!
       attention_text: |
-        If the box underneath is white: <br />
-        1. PC: Right-click into the white box <br />
-        1. MAC: Press 'control' + and click into the white box <br />
-        2. Select Settings
+        While selecting the input source, the sound<br />
+        quality of your stream is limited. Please close<br />
+        the flash settings after selecting your input<br />
+        source.
 
       how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
       click_allow: CLICK ALLOW
