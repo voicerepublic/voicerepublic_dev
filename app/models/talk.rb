@@ -261,7 +261,7 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
-    PrivatePub.publish_to public_channel, event: 'Reload'
+    LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
 
@@ -367,7 +367,7 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    PrivatePub.publish_to '/monitoring', { event: 'StartTalk', talk: attributes }
+    MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
     return if venue.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
@@ -376,11 +376,11 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
-    PrivatePub.publish_to public_channel, { event: 'EndTalk', origin: 'server' }
+    LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     unless venue.opts.no_auto_postprocessing
       Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
     end
-    PrivatePub.publish_to '/monitoring', { event: 'EndTalk', talk: attributes }
+    MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
   def postprocess!(uat=false)
@@ -491,16 +491,6 @@ class Talk < ActiveRecord::Base
     worker.run(Rails.logger)
   end
 
-  # delete some files (mainly wave files, we'll keep only flv
-  # and compressed files)
-  def cleanup!
-    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    # TODO logfile.puts '# delete wav files'
-    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.wav"), verbose: true)
-    FileUtils.rm(Dir.glob("#{base}/#{id}-*.wav"), verbose: true)
-    FileUtils.rm(Dir.glob("#{base}/#{id}.wav"), verbose: true)
-  end
-
   # move everything to fog storage
   def upload!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
@@ -511,7 +501,6 @@ class Talk < ActiveRecord::Base
     files.each do |file|
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
-      # TODO logfile.puts "#R# s3cmd put #{file} s3://#{media_storage.key}/#{key}"
       upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
@@ -585,18 +574,9 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # generically propagate all state changes to faye
-  # TODO cleanup publish statements scattered all over the code above
+  # generically propagate all state changes
   def event_fired(*args)
-    current_state, new_state, event = args
-    # omit event prepare from being propagated
-    return if event == :prepare
-
-    PrivatePub.publish_to '/event/talk', { talk: attributes, args: args }
-
-    @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag}", 'transitions',
-                         Settings.slack.icon[:transitions])
-    @slack.send "#{event} #{id}: #{current_state} -> #{new_state}"
+    TalkEventMessage.call(self, *args)
   end
 
   def slug_candidates
