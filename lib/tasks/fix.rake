@@ -24,6 +24,11 @@ namespace :fix do
         end
       end
     end
+
+    Talk.archived.where(processed_at: nil).each do |talk|
+      talk.update_attribute :processed_at, talk.ends_at
+      puts "Talk #{talk.id} set processed_at to ends_at (#{talk.ends_at})"
+    end
   end
 
   desc 'prepopulate talk#language with "en"'
