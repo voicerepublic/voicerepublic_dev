@@ -18,7 +18,7 @@ class TalkEventMessage < BaseMessage
   end
 
   def distribute(talk, *args)
-    event = args.last
+    current_state, new_state, event = args
 
     faye.publish_to '/event/talk', { talk: talk.attributes, args: args }
 
