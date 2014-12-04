@@ -1,0 +1,22 @@
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark">
+
+  <fx:Metadata>
+    [HostComponent("spark.components.Application")]
+  </fx:Metadata>
+
+  <s:states>
+    <s:State name="normal" />
+    <s:State name="disabled" />
+  </s:states>
+
+  <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
+    <s:fill>
+      <s:SolidColor alpha="0" />
+    </s:fill>
+  </s:Rect>
+
+  <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0"
+           minWidth="0" minHeight="0" />
+
+</s:Skin>

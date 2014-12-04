@@ -7,8 +7,10 @@ namespace :build do
     cmd = "mxmlc #{afile}"
     %x[ #{cmd} ]
 
+    exit if $?.exitstatus > 0
+
     # revision
-    puts 'set revision...'
+    puts 'compiled successfully, set revision...'
     rpath = %w(lib flash VERSION)
     rfile = Rails.root.join(File.join(rpath))
     revision = File.exist?(rfile) ? File.read(rfile).to_i : 0
