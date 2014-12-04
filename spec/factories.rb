@@ -48,6 +48,19 @@ FactoryGirl.define do
     tag_list 'lorem, ipsum, dolor'
     description 'talk description'
     language 'en'
+
+    trait :archived do
+      state 'archived'
+      processed_at { 2.hours.ago }
+    end
+
+    trait :featured do
+      featured_from { 1.day.ago }
+    end
+
+    trait :popular do
+      play_count 25
+    end
   end
 
   factory :appearance do

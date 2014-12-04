@@ -121,6 +121,7 @@ class Talk < ActiveRecord::Base
   before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
+  before_save :set_popularity, if: :archived?
   before_create :prepare, if: :can_prepare?
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
@@ -163,7 +164,7 @@ class Talk < ActiveRecord::Base
       order('featured_from DESC')
   end
 
-  scope :popular, -> { archived.order('play_count DESC') }
+  scope :popular, -> { archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :live_and_halflive, -> { where(state: [:live, :halflive]) }
 
@@ -311,6 +312,15 @@ class Talk < ActiveRecord::Base
         where.not(id: id).ordered.limit(9)
     end
     talks
+  end
+
+  def set_popularity
+    age_in_hours = ( ( Time.now - processed_at ) / 3600 ).to_i
+
+    rank = ( ( ( play_count - 1 ) ** 0.8 ).real /
+             ( age_in_hours + 2 ) ** 1.8 ) * penalty
+
+    self.popularity = rank
   end
 
   private
