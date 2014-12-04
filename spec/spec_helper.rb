@@ -7,6 +7,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
+require 'rspec_junit_formatter' if ENV['CI']
+
 require 'rspec/retry'
 
 require 'capybara/rspec'
@@ -23,7 +25,6 @@ Capybara.register_driver :poltergeist do |app|
     :window_size => [ 1440, 1080 ]
   })
 end
-
 
 Capybara.register_driver :firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
