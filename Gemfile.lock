@@ -14,12 +14,6 @@ GIT
       arel
 
 GIT
-  remote: git://github.com/troessner/transitions.git
-  revision: eeb39628df090d7e93b2aa85343662094fdb3c14
-  specs:
-    transitions (0.1.12)
-
-GIT
   remote: git@github.com:munen/fidelity.git
   revision: 85600be2318f5dd43b14882b7766df49880845c1
   specs:
@@ -28,6 +22,12 @@ GIT
       fileutils_logger
       open4
       term-ansicolor
+
+GIT
+  remote: git://github.com/troessner/transitions.git
+  revision: eeb39628df090d7e93b2aa85343662094fdb3c14
+  specs:
+    transitions (0.1.12)
 
 GEM
   remote: https://rubygems.org/
