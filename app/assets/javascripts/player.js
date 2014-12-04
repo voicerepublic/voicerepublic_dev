@@ -13,7 +13,7 @@ $(function () {
       },
       volume: 1,
       cssSelectorAncestor: player.data('selector'),
-      swfPath: "<%= asset_path('Jplayer.swf') %>",
+      swfPath: '/flash/Jplayer.swf',
       supplied: "m4a, mp3, ogg",
       wmode: "window",
       smoothPlayBar: true,

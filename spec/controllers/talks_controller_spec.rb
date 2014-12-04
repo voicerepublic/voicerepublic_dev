@@ -34,26 +34,17 @@ describe TalksController do
   describe 'Talk#show' do
     describe 'assigns talks to @related_talks' do
       before do
-        @other_venue_same_user = FactoryGirl.create :venue,
-          user: @user
-        @talk_other_venue = FactoryGirl.create :talk,
-          venue_id: @other_venue_same_user.id,
-          state: :archived,
-          featured_from: Date.today
-        other_venue_other_user = FactoryGirl.create :venue,
-          user: @user_2
-        @talk_other_user = FactoryGirl.create :talk,
-          venue_id: other_venue_other_user.id,
-          state: :archived,
-          featured_from: Date.today,
-          play_count: 25
+        @other_venue_same_user = FactoryGirl.create :venue, user: @user
+        @talk_other_venue = FactoryGirl.create :talk, :archived, :featured,
+          venue_id: @other_venue_same_user.id
+        other_venue_other_user = FactoryGirl.create :venue, user: @user_2
+        @talk_other_user = FactoryGirl.create :talk, :archived, :featured, :popular,
+          venue_id: other_venue_other_user.id
       end
       # first choice
       it 'assigns archived talks of series when available' do
-        talk_same_venue = FactoryGirl.create :talk,
-          venue_id: @venue.id,
-          state: :archived,
-          featured_from: Date.today
+        talk_same_venue = FactoryGirl.create :talk, :archived, :featured,
+          venue_id: @venue.id
 
         get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
         assigns(:related_talks).should_not include(@talk)

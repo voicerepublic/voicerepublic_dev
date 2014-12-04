@@ -55,6 +55,7 @@ group :development, :test do
   # TODO: Upgrading to Rails 4.1 introduces it's own mail preview mechanism:
   #       http://edgeguides.rubyonrails.org/4_1_release_notes.html#action-mailer-previews
   gem 'letter_opener'
+  gem 'rspec_junit_formatter', github: 'sj26/rspec_junit_formatter' if ENV['CI']
   gem 'letter_opener_web', '~> 1.2.0'
   # gem 'rails_view_annotator'
   gem 'annotator'
