@@ -8,10 +8,8 @@ feature 'Podcast' do
   feature 'for root on landing_page#index' do
 
     scenario 'properly encodeds html entities' do
-      talk = FactoryGirl.create( :talk,
-                                 featured_from: 2.days.ago,
-                                 title: 'Hello Wörld.',
-                                 state: 'archived' )
+      talk = FactoryGirl.create( :talk, :archived, :featured,
+                                 title: 'Hello Wörld.' )
       Talk.recent.should eq [talk]
 
       talk.storage = { "#{talk.uri}/#{talk.id}.mp3" =>
@@ -74,7 +72,7 @@ feature 'Podcast' do
   feature 'for all podcasts' do
     scenario 'there is a embed link in item' do
       # prepare
-      talk = FactoryGirl.create(:talk, state: 'archived', featured_from: 1.day.ago)
+      talk = FactoryGirl.create(:talk, :archived, :featured)
       # fake the presence of a suitable file for podcasting
       talk.storage["#{talk.uri}/#{talk.id}.mp3"] = {}
       talk.save

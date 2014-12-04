@@ -1,4 +1,12 @@
 namespace :talks do
+
+  desc "Save all archived talks to update popularity"
+  task popularity: :environment do
+    Talk.archived.find_each do |talk|
+      talk.save! # tiggers: `before_save :set_popularity`
+    end
+  end
+
   desc "Notify all participants of event about upcoming talk"
   task remind: :environment do
     Talk.prelive.find_each do |talk|
