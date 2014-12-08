@@ -14,6 +14,21 @@ GIT
       arel
 
 GIT
+  remote: git://github.com/sj26/rspec_junit_formatter.git
+  revision: 850d57cc5bd4f88dd1d4ffb245d57f222cd9e04f
+  specs:
+    rspec_junit_formatter (0.2.0)
+      builder (< 4)
+      rspec (>= 2, < 4)
+      rspec-core (!= 2.12.0)
+
+GIT
+  remote: git://github.com/troessner/transitions.git
+  revision: eeb39628df090d7e93b2aa85343662094fdb3c14
+  specs:
+    transitions (0.1.12)
+
+GIT
   remote: git@github.com:munen/fidelity.git
   revision: 29373ebea81ef441f304965ed36664df5716df00
   specs:
@@ -22,12 +37,6 @@ GIT
       fileutils_logger
       systemu
       term-ansicolor
-
-GIT
-  remote: git://github.com/troessner/transitions.git
-  revision: eeb39628df090d7e93b2aa85343662094fdb3c14
-  specs:
-    transitions (0.1.12)
 
 GEM
   remote: https://rubygems.org/
@@ -502,6 +511,7 @@ DEPENDENCIES
   rspec-core
   rspec-rails
   rspec-retry
+  rspec_junit_formatter!
   sass-rails
   select2-rails
   selenium-webdriver
