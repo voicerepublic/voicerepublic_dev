@@ -200,9 +200,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.string   "language",           default: "en"
     t.string   "slug"
     t.string   "speakers"
-    t.string   "slides_uid"
-    t.text     "edit_config"
     t.string   "user_override_uuid"
+    t.text     "edit_config"
     t.float    "popularity",         default: 1.0
     t.float    "penalty",            default: 1.0
   end
@@ -237,8 +236,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.text     "about"
     t.string   "timezone"
     t.string   "website"
-    t.string   "authentication_token"
     t.boolean  "conference"
+    t.string   "authentication_token"
     t.integer  "default_venue_id"
     t.string   "summary"
   end
