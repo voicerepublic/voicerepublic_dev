@@ -18,6 +18,7 @@ private var publishNetStream:NetStream;
 private var monitorNetConnection:NetConnection = null;
 
 private var jsImports:Object = {
+  closeMethod:     'console.log',
   errorMethod:     'console.log',
   logMethod:       'console.log',
   feedbackMethod:  'console.log',
@@ -167,6 +168,14 @@ private function onMicData(e:SampleDataEvent):void {
   bar.setProgress(e.target.activityLevel, 100);
 }
 // --- public handlers
+
+private function clickSelectInputSource():void {
+  Security.showSettings(SecurityPanel.MICROPHONE);
+}
+
+private function clickClose():void {
+  ExternalInterface.call(jsImports.closeMethod);
+}
 
 private function gainHandler(e:SliderEvent):void {
   gain = e.value;

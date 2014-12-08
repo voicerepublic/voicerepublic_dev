@@ -298,7 +298,6 @@
           %span.audio-settings-text= t(".audio_settings")
 
     .flash-block(ng-class="{'state-on': showSettings()}")
-      .flash-block-bg(ng-click='toggleShowSettings()')
     .flash-content.text-center(ng-class="{'state-on': showSettings()}")
       .desc-box.row
         .large-12.columns
@@ -314,25 +313,25 @@
         .large-12.columns
           .flash-content-box
             #flashContent
-      .manual-box.row
-        .large-12.columns
-          %h3.flash-howto-title= t('.how_to_title')
-          %ul.medium-block-grid-3
-            %li
-              %img(src="/images/flashbox_allow_access.jpg" alt="allow access")
-              %p= t('.click_allow')
-            %li
-              %img(src="/images/flashbox_mic_tab.jpg" alt="allow access")
-              %p= t('.choose_mic_tab')
-            %li
-              %img(src="/images/flashbox_mic_input.jpg" alt="allow access")
-              %p= t('.choose_mic_input')
+      -# TODO: Include tutorial for new flash box
+      -#.manual-box.row
+      -#  .large-12.columns
+      -#    %h3.flash-howto-title= t('.how_to_title')
+      -#    %ul.medium-block-grid-3
+      -#      %li
+      -#        %img(src="/images/flashbox_allow_access.jpg" alt="allow access")
+      -#        %p= t('.click_allow')
+      -#      %li
+      -#        %img(src="/images/flashbox_mic_tab.jpg" alt="allow access")
+      -#        %p= t('.choose_mic_tab')
+      -#      %li
+      -#        %img(src="/images/flashbox_mic_input.jpg" alt="allow access")
+      -#        %p= t('.choose_mic_input')
 
-      = link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
-        %p
-          = raw t('.audio_settings_help_text')
-      .close-x(ng-click='toggleShowSettings()')
-        &times;
+      -# TODO: Rewrite audio-faq and publish the link again
+      -#= link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
+      -#  %p
+      -#    = raw t('.audio_settings_help_text')
 
   .row.collapse-large-only
     .large-12.columns

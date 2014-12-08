@@ -1,14 +1,4 @@
-# Talk uses a strategy chain to process the audio.
-#
-# Example Strategy Chain
-#
-#    %w( precursor kluuu_merge trim auphonic )
-#
-# See the strategies in lib/audio/strategy for more details.
-#
-#
 # http://stackoverflow.com/questions/2529990/activerecord-date-format
-#
 #
 # Attributes:
 # * id [integer, primary, not null] - primary key
@@ -59,12 +49,20 @@ class Talk < ActiveRecord::Base
 
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
-    state :prelive # initial
+    state :created # initial
+    state :pending
+    state :prelive
     state :halflive
     state :live
     state :postlive
     state :processing
     state :archived
+    event :prepare do
+      # if user_override_uuid is set we transcend to pending
+      transitions from: :created, to: :pending, guard: :user_override_uuid?
+      # otherwise it will go its usual way via prelive
+      transitions from: :created, to: :prelive
+    end
     event :start_talk, timestamp: :started_at, success: :after_start do
       # standard path (if `start_button` is not set)
       transitions from: :prelive, to: :live, guard: ->(t){ !t.venue.opts.start_button }
@@ -80,10 +78,12 @@ class Talk < ActiveRecord::Base
     end
     event :archive, timestamp: :processed_at do
       transitions from: :processing, to: :archived
+      # or by user upload
+      transitions from: :pending, to: :archived
       # in rare case we might to override a talk
       # which has never been postprocessed
       transitions from: :postlive, to: :archived
-      # or which has never even happended
+      # or which was supposed to but has never even happended
       transitions from: :prelive, to: :archived
     end
   end
@@ -121,6 +121,8 @@ class Talk < ActiveRecord::Base
   before_validation :create_and_set_venue, if: :create_and_set_venue?
   before_save :set_starts_at
   before_save :set_ends_at
+  before_save :set_popularity, if: :archived?
+  before_create :prepare, if: :can_prepare?
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   # TODO: important, these will be triggered after each PUT, optimize
@@ -162,7 +164,7 @@ class Talk < ActiveRecord::Base
       order('featured_from DESC')
   end
 
-  scope :popular, -> { archived.order('play_count DESC') }
+  scope :popular, -> { archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :live_and_halflive, -> { where(state: [:live, :halflive]) }
 
@@ -310,6 +312,15 @@ class Talk < ActiveRecord::Base
         where.not(id: id).ordered.limit(9)
     end
     talks
+  end
+
+  def set_popularity
+    age_in_hours = ( ( Time.now - processed_at ) / 3600 ).to_i
+
+    rank = ( ( ( play_count - 1 ) ** 0.8 ).real /
+             ( age_in_hours + 2 ) ** 1.8 ) * penalty
+
+    self.popularity = rank
   end
 
   private
@@ -573,7 +584,7 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # generically propagate all state changes to faye
+  # generically propagate all state changes
   def event_fired(*args)
     TalkEventMessage.call(self, *args)
   end

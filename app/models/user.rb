@@ -38,16 +38,18 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
+  # TODO discuss if destroing these makes sense
+  # we might end up with half of a dialog.
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  has_many :venues # as owner
+  has_many :venues, dependent: :destroy # as owner
   has_many :talks, through: :venues
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
 
-  belongs_to :default_venue, class_name: 'Venue'
+  belongs_to :default_venue, class_name: 'Venue', dependent: :destroy
 
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')

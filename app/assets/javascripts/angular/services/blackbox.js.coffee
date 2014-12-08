@@ -81,8 +81,10 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
     settingsClosed: 'settingsClosed'
+    closeMethod: 'settingsClosed' # FIXME misnomer
 
-  params = {}
+  params =
+    wmode: 'transparent'
   attributes =
     id: "Blackbox"
     name: "Blackbox"
@@ -90,14 +92,13 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
   version = "10.3.181.22"
 
   $log.debug 'Initializing BlackboxService...'
-  margin = 0
 
   callback = (obj) ->
     return $log.debug "Embed SWF on ##{obj.id}" if obj.success
     $log.error "Error embedding SWF on ##{obj.id}"
 
   swfobject.embedSWF config.blackbox_path, "flashContent",
-    215 + margin, 140 + margin,
+    '100%', '100%',
     version, null, flashVars, params, attributes, callback
 
   # public methods which exposed

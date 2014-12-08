@@ -6,8 +6,8 @@
     -#= f.error_messages
 
     - opts = {}
-    - # TODO some fields are protected after state prelive, add this to cancan
-    - opts[:disabled] = true unless f.object.prelive?
+    -# TODO some fields are protected after state prelive, add this to cancan
+    - opts[:disabled] = true unless f.object.created?
 
     .row.title-teaser-box
       .medium-7.columns
@@ -31,14 +31,15 @@
       .medium-4.columns.record-checkbox
         = f.input :collect, label: t('.record').html_safe
 
-
-    .title-box.clearfix
-      %h2.form-title.left= t('.audio_upload')
-      - if f.object.user_override_uuid.nil?
-        .help-text.left= t('.upload_help_text')
-      - else
+    -# if new record and upload has already finished
+    - if f.object.new_record? and f.object.user_override_uuid?
+      .title-box.clearfix
+        %h2.form-title.left= t('.audio_upload')
         .help-text.left= t('.upload_done')
-    - if f.object.user_override_uuid.nil?
+    - else
+      .title-box.clearfix
+        %h2.form-title.left= t('.audio_upload')
+        .help-text.left= t('.upload_help_text')
       .row.upload-init(ng-hide='true')
         .large-12= t('.initializing')
       .row.upload-full(ng-cloak)

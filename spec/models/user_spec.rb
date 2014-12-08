@@ -71,4 +71,23 @@ describe User do
     end
   end
 
+  describe 'destory dependers' do
+    it 'destroys venues' do
+      user = FactoryGirl.create(:user)
+      user.venues = FactoryGirl.create_list(:venue, 3)
+      user.save
+
+      user.destroy
+      user.venues.each do |venue|
+        expect(venue).to be_destroyed
+      end
+    end
+
+    it 'destroys the default venue' do
+      user = FactoryGirl.create(:user)
+      user.destroy
+      expect(user.default_venue).to be_destroyed
+    end
+  end
+
 end
