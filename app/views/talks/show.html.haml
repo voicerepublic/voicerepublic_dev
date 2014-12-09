@@ -300,7 +300,6 @@
       .flash-box
         .flash-border
           %h3.flash-title= t('.audio_settings_title')
-          %p(ng-show='flags.blackboxReady')= t('.mic_level')
           .loading-audio-setup(ng-hide='flags.blackboxReady')
             %span.icon-mic
             = t('.setting_up_audio')
