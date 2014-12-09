@@ -17,7 +17,7 @@
     <mx:VBox horizontalCenter="0" verticalCenter="0">
 
       <mx:ProgressBar id="bar"
-                      label=""
+                      label="Input Level"
                       minimum="0"
                       maximum="100"
                       mode="manual" />
@@ -47,7 +47,7 @@
                    click="setupMic();"/>
       <mx:CheckBox id='monitor'
                    enabled='false'
-                   label="Server Loopback (Monitor Stream)"
+                   label="Monitor Stream"
                    selected="false"
                    click="monitorHandler(event);"/>
     </mx:VBox>

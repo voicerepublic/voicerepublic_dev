@@ -68,7 +68,8 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
         #   $log.info "TODO #{code} #{stream}"
 
   $window.flashFeedback = (value) ->
-    $log.debug "Feedback: #{value}"
+    #$log.debug "Feedback: #{value}"
+    ((x)->)(value) # noop
 
   $window.settingsClosed = ->
     config.flags.settings = false
