@@ -296,36 +296,16 @@
           %br
           %span.audio-settings-text= t(".audio_settings")
 
-    .flash-block(ng-class="{'state-on': showSettings()}")
     .flash-content.text-center(ng-class="{'state-on': showSettings()}")
-      .desc-box.row
-        .large-12.columns
-          %h3= t('.activate_your_microphone')
-          %p= t('.info_text')
-
-      .row
-        .small-10.small-centered.columns.text-center
-          .attention-box
-            .attention-title.text-right= t('.attention')
-            %p.attention-text.text-left= raw t('.attention_text')
-      .flash-box.row
-        .large-12.columns
-          .flash-content-box
-            #flashContent
-      -# TODO: Include tutorial for new flash box
-      -#.manual-box.row
-      -#  .large-12.columns
-      -#    %h3.flash-howto-title= t('.how_to_title')
-      -#    %ul.medium-block-grid-3
-      -#      %li
-      -#        %img(src="/images/flashbox_allow_access.jpg" alt="allow access")
-      -#        %p= t('.click_allow')
-      -#      %li
-      -#        %img(src="/images/flashbox_mic_tab.jpg" alt="allow access")
-      -#        %p= t('.choose_mic_tab')
-      -#      %li
-      -#        %img(src="/images/flashbox_mic_input.jpg" alt="allow access")
-      -#        %p= t('.choose_mic_input')
+      .flash-box
+        .flash-border
+          %h3.flash-title= t('.audio_settings_title')
+          .loading-audio-setup(ng-hide='flags.blackboxReady')
+            %span.icon-mic
+            = t('.setting_up_audio')
+        #flashContent
+        %a(ng-show='flags.blackboxReady' href="http://blog.voicerepublic.com/audio-faq/" class="need-help" target="blank")
+          =t('.need_help')
 
       -# TODO: Rewrite audio-faq and publish the link again
       -#= link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
