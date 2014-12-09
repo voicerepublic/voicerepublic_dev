@@ -1017,7 +1017,10 @@ en:
       description: ABOUT
 
       # MIC ACTIVATION
-      activate_your_microphone: ACTIVATE YOUR MICROPHONE
+      audio_settings_title: Audio Settings
+      mic_level: Input level
+      setting_up_audio: loading...
+      need_help: Need help?
       info_text: Please allow Voice Republic to access your microphone.
       attention: ATTENTION!
       attention_text: |
