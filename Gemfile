@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.9'
 
 #gem 'turbolinks'
 
@@ -19,7 +19,7 @@ gem 'uglifier'#, '>= 1.0.3'
 
 gem 'airbrake'
 gem 'rails_config'
-gem 'foundation-rails'
+gem 'foundation-rails', '5.1.1.0'
 gem 'jquery-rails'
 gem 'devise'
 gem 'simple_token_authentication' # for devise >3.1.0.rc2
@@ -52,6 +52,7 @@ gem 'aws-sdk'
 gem 'slick_rails'
 
 group :development, :test do
+  gem 'bundler-audit'
   # TODO: Upgrading to Rails 4.1 introduces it's own mail preview mechanism:
   #       http://edgeguides.rubyonrails.org/4_1_release_notes.html#action-mailer-previews
   gem 'letter_opener'

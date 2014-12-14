@@ -61,11 +61,19 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   add_index "appearances", ["talk_id"], name: "index_appearances_on_talk_id", using: :btree
   add_index "appearances", ["user_id"], name: "index_appearances_on_user_id", using: :btree
 
+  create_table "bookmarks", force: true do |t|
+    t.integer  "kluuu_id"
+    t.integer  "user_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "commentable_id"
     t.string   "commentable_type"
   end
@@ -104,8 +112,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   create_table "participations", force: true do |t|
     t.integer  "venue_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
@@ -132,6 +140,10 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
 
+  create_table "roles", force: true do |t|
+    t.string "name"
+  end
+
   create_table "settings", force: true do |t|
     t.string   "key"
     t.string   "value"
@@ -154,6 +166,13 @@ ActiveRecord::Schema.define(version: 20141201135807) do
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
 
+  create_table "status_updates", force: true do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -164,12 +183,13 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
     t.string "name"
   end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "talks", force: true do |t|
     t.string   "title"
@@ -211,11 +231,16 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
 
+  create_table "user_roles", force: true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -230,6 +255,10 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.string   "uid"
     t.text     "slug"
     t.datetime "last_request_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
     t.boolean  "guest"
     t.string   "header_uid"
     t.string   "avatar_uid"
@@ -250,8 +279,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   create_table "venues", force: true do |t|
     t.text     "description"
     t.string   "title"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "teaser"
     t.integer  "user_id"
     t.text     "options",     default: "--- {}\n"
