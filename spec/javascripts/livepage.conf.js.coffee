@@ -11,7 +11,8 @@ module.exports = (config) ->
       'vendor/assets/javascripts/state-machine.min.js',
       'vendor/assets/javascripts/angular.js',
       'spec/javascripts/support/angular-mocks.js',
-      'app/assets/javascripts/livepage.js.coffee',
+      'spec/javascripts/support/angular-file-upload.js',
+      'app/assets/javascripts/sencha.js.coffee',
       'app/assets/javascripts/angular/**/*',
       'spec/javascripts/config_mock.js',
       'spec/javascripts/*_spec.js.coffee'
