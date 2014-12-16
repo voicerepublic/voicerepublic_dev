@@ -36,6 +36,7 @@
       .title-box.clearfix
         %h2.form-title.left= t('.audio_upload')
         .help-text.left= t('.upload_done')
+        = f.input :user_override_uuid, as: :hidden
     - else
       .title-box.clearfix
         %h2.form-title.left= t('.audio_upload')
