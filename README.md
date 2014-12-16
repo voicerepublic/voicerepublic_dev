@@ -452,6 +452,10 @@ Rails Console Cheat Sheet
 
     PrivatePub.publish_to '/t737/public', event: 'Reload'
 
+### Send Message as JavaScript Popup
+
+    PrivatePub.publish_to '/t1857/u1462094', { exec: 'alert("Hallo, hab gerade reingehoert, ich erklaere dir gerne wie du die Soundqualitaet merklich verbessern kannst. Meld dich dazu mal ueber unser Feeback Tool unten rechts. Gruss phil")' }
+
 ### Enqueue all archived talks for processing
 
     Talk.archived.order('play_count DESC').each do |talk|
