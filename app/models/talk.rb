@@ -308,8 +308,7 @@ class Talk < ActiveRecord::Base
         where.not(id: id).ordered.limit(9)
     end
     if talks.empty?
-      talks = Talk.popular.
-        where.not(id: id).ordered.limit(9)
+      talks = Talk.popular.where.not(id: id).limit(9)
     end
     talks
   end
