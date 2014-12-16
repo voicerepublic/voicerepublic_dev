@@ -1,62 +1,55 @@
-<mx:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
-                xmlns:mx="library://ns.adobe.com/flex/mx"
-                horizontalAlign="left"
-                creationComplete="initApp();">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:mx="library://ns.adobe.com/flex/mx"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               creationComplete="initApp();"
+               skinClass="BlackboxUISkin">
 
-  <fx:Style source="BlackboxUI.css" />
   <fx:Script source="BlackboxUI.as" />
 
+  <mx:LinkButton label="×"
+                 click="clickClose();"
+                 top="10"
+                 right="10"
+                 fontWeight="bold"
+                 fontSize="16" />
 
-  <!--
-  <mx:Button click="{refreshDeviceList();}"
-             label="Refresh Device List" />
+  <mx:Canvas width="100%" height="100%">
+    <mx:VBox horizontalCenter="0" verticalCenter="0">
 
-  <mx:ComboBox dataProvider="{devices}"
-               close="changeDeviceHandler(event);"/>
-  -->
+      <mx:ProgressBar id="bar"
+                      label="Input Level"
+                      minimum="0"
+                      maximum="100"
+                      mode="manual" />
 
-  <mx:ProgressBar id="bar"
-                  label=""
-                  minimum="0"
-                  maximum="100"
-                  mode="manual" />
+      <mx:Button label="Select Input Source"
+                 click="clickSelectInputSource();" />
 
-  <mx:HBox paddingTop="10" paddingBottom="10"
-           paddingLeft="10" paddingRight="10">
-    <mx:HSlider id='volume'
-                maximum="100"
-                enabled='false'
-                tickColor="black"
-                snapInterval="1"
-                tickInterval="10"
-                allowTrackClick="true"
-                liveDragging="true"
-                value="{gain}"
-                change="gainHandler(event);" />
-    <mx:Label text="{gain}" />
-  </mx:HBox>
+      <mx:HBox paddingTop="0" paddingBottom="0"
+               paddingLeft="5" paddingRight="5">
+        <mx:HSlider id='volume'
+                    maximum="100"
+                    enabled='false'
+                    tickColor="black"
+                    snapInterval="1"
+                    tickInterval="10"
+                    allowTrackClick="true"
+                    liveDragging="true"
+                    value="{gain}"
+                    change="gainHandler(event);" />
+        <mx:Label text="{gain}" />
+      </mx:HBox>
 
-  <!--
-  <mx:CheckBox label="Auto Gain"
-               selected="{autoGain}"
-               click="autoGainHandler(event);"/>
-
-  <mx:CheckBox label="Auto Gain (direct)"
-               selected="{mic.enhancedOptions.autoGain}" />
-  -->
-
-  <mx:CheckBox id='enhancedMicrophone'
-               enabled='false'
-               label="Enhanced Microphone"
-               selected="true"
-               click="setupMic();"/>
-  <mx:CheckBox label="Local Loopback (Quality Issues!)"
-               selected="false"
-               click="localLoopbackHandler(event);"/>
-  <mx:CheckBox id='monitor'
-               enabled='false'
-               label="Server Loopback (Monitor Stream)"
-               selected="false"
-               click="monitorHandler(event);"/>
-
-</mx:Application>
+      <mx:CheckBox id='enhancedMicrophone'
+                   enabled='false'
+                   label="Enhanced Microphone"
+                   selected="true"
+                   click="setupMic();"/>
+      <mx:CheckBox id='monitor'
+                   enabled='false'
+                   label="Monitor Stream"
+                   selected="false"
+                   click="monitorHandler(event);"/>
+    </mx:VBox>
+  </mx:Canvas>
+</s:Application>

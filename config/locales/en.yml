@@ -1017,14 +1017,17 @@ en:
       description: ABOUT
 
       # MIC ACTIVATION
-      activate_your_microphone: ACTIVATE YOUR MICROPHONE
+      audio_settings_title: Audio Settings
+      mic_level: Input level
+      setting_up_audio: loading...
+      need_help: Need help?
       info_text: Please allow Voice Republic to access your microphone.
       attention: ATTENTION!
       attention_text: |
-        If the box underneath is white: <br />
-        1. PC: Right-click into the white box <br />
-        1. MAC: Press 'control' + and click into the white box <br />
-        2. Select Settings
+        While selecting the input source, the sound<br />
+        quality of your stream is limited. Please close<br />
+        the flash settings after selecting your input<br />
+        source.
 
       how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
       click_allow: CLICK ALLOW

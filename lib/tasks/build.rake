@@ -7,8 +7,10 @@ namespace :build do
     cmd = "mxmlc #{afile}"
     %x[ #{cmd} ]
 
+    exit if $?.exitstatus > 0
+
     # revision
-    puts 'set revision...'
+    puts 'compiled successfully, set revision...'
     rpath = %w(lib flash VERSION)
     rfile = Rails.root.join(File.join(rpath))
     revision = File.exist?(rfile) ? File.read(rfile).to_i : 0
@@ -19,14 +21,14 @@ namespace :build do
     puts
 
     # cleanup privous versions
-    cpath = %w(app assets flash Blackbox*.swf)
+    cpath = %w(public flash Blackbox*.swf)
     cglob = Rails.root.join(File.join(cpath))
     FileUtils.rm(Dir.glob(cglob))
 
     # swf -> target
     spath = %W(lib flash BlackboxUI.swf)
     sfile = Rails.root.join(File.join(spath))
-    tpath = %W(app assets flash Blackbox#{revision}.swf)
+    tpath = %W(public flash Blackbox#{revision}.swf)
     tfile = Rails.root.join(File.join(tpath))
     FileUtils.mv(sfile, tfile)
     %x[ git add #{tfile} ]

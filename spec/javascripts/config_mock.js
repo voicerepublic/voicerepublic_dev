@@ -1,5 +1,12 @@
-Livepage.factory("config", function() {
+Sencha.factory("config", function() {
   return {
+    talk: {
+        channel: 'asdf'
+    },
+    user: {
+        channel: 'fdsa'
+    },
+    starts_at: 1234567,
     "talk_id": 42,
     "host": "kluuu master",
     "title": "Great Talk on Ecoprimitivism",
