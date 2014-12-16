@@ -20,6 +20,11 @@ namespace :fix do
         else
           t.tag_list = 'no_tag' if t.tag_list.blank?
           t.description = 'No description.' if t.description.blank?
+
+          # h = ActionController::Base.helpers
+          # text = h.truncate(t.description, length: Settings.limit.text)
+          t.description = t.description[0, Settings.limit.text]
+
           t.save!
         end
       end
