@@ -4,7 +4,7 @@
   "repository": "https://github.com/munen/voicerepublic_dev",
   "scripts": {
     "pretest": "npm install",
-    "test": "node node_modules/karma/bin/karma start conf/karma.conf.js",
+    "test": "node node_modules/karma/bin/karma start conf/karma.conf.js.coffee",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "npm update webdriver-manager",
     "preprotractor": "npm run update-webdriver",
