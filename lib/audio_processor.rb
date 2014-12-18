@@ -23,6 +23,7 @@ class AudioProcessor < Fidelity::ChainRunner
     attrs = { id: talk.id, run: name,
               index: index, total: chain.size }
     MonitoringMessage.call(event: 'StartProcessing', talk: attrs)
+    ProgressMessage.call(talk.public_channel, event: 'StartProcessing', talk: attrs)
     @t1 = Time.now.to_i
   end
 
@@ -32,6 +33,7 @@ class AudioProcessor < Fidelity::ChainRunner
               index: index, total: chain.size,
               elapsed: delta_t1 }
     MonitoringMessage.call(event: 'FinishProcessing', talk: attrs)
+    ProgressMessage.call(talk.public_channel, event: 'FinishProcessing', talk: attrs)
   end
 
   def after_chain

@@ -8,6 +8,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # public
 
+  $scope.progress = ->
+    config.progress
+
   $scope.showFlashError = ->
     !hasFlash() and (config.talk.state in ['halflive', 'live'])
 

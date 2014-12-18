@@ -146,7 +146,10 @@
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
           .processing-message(ng-show='talkIsProcessing()')
-            = t('.talk_is_processing')
+            %span(ng-repeat='i in progress().range'
+                  ng-class="{'progress-finished':i<=progress().index}")
+              &middot;
+            %p= t('.talk_is_processing')
 
         .talk-countdown.text-center(ng-show='showCountdown()')
           = raw t('.countdown_text')
