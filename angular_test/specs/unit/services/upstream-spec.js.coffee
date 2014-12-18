@@ -87,7 +87,7 @@ describe 'upstream-spec', ->
 
 		it 'check the upstream state functionality', ->
 			name = 'ListeningButReady'
-			msg = 
+			msg =
 				text: 'foo'
 				event: 'listening'
 
@@ -97,7 +97,7 @@ describe 'upstream-spec', ->
 
 			expect(msg.state).toMatch name
 
-		it 'check the upstream event functionality for an undefined msg', ->
+		it 'check the upstream state functionality for an undefined msg', ->
 			name = 'ListeningButReady'
 			msg = undefined
 
