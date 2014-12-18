@@ -214,7 +214,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.links = data.links
       when "StartProcessing"
         config.progress = data.talk
-        config.progress.range = (i for i in [1..data.talk.total])
+        config.progress.range = (i for i in [0..data.talk.total-1])
 
 
   # some methods only available to the host
