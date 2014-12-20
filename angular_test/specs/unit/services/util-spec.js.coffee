@@ -8,6 +8,7 @@ describe 'util-spec', ->
 
     it 'check the existence of toHHMMSS function', window.inject (util) ->
       expect(util.toHHMMSS).toBeDefined()
+      expect(util.toHHMMSS).toEqual jasmine.any Function
 
     it 'tests the common functionality of toHHMMSS', window.inject (util) ->
       timeString = 22 + ':' + 22 + ':' + 22
@@ -21,6 +22,7 @@ describe 'util-spec', ->
 
     it 'check the existence of the merge function', window.inject (util) ->
       expect(util.merge).toBeDefined()
+      expect(util.merge).toEqual jasmine.any Function
 
     it 'check the common functionality of the merge function for arrays', window.inject (util) ->
       target = ['foo', 'bar']

@@ -21,6 +21,13 @@ describe 'upstream-spec', ->
 		it 'upstream and mock-config should be defined', ->
 			expect(config).toBeDefined()
 			expect(upstream).toBeDefined()
+			expect(config).toEqual jasmine.any Object
+			expect(upstream).toEqual jasmine.any Object
+
+			expect(upstream.put).toEqual jasmine.any Function
+			expect(upstream.message).toEqual jasmine.any Function
+			expect(upstream.event).toEqual jasmine.any Function
+			expect(upstream.state).toEqual jasmine.any Function
 
 		it 'check the upstream put functionality', ->
 			msg = 
@@ -67,13 +74,17 @@ describe 'upstream-spec', ->
 			name = 'starting'
 			msg = 
 				text: 'Starting Talk'
-				state: 'half-live'
+				state: 'halflive'
 
 			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg }).respond 304, ''
+			#spyOn(upstream, 'put').and.callThrough()
+			
 			upstream.event name, msg
+			
 			$httpBackend.flush()
 
-			expect(msg.event).toMatch name
+			#expect(upstream.put).toHaveBeenCalledWith jasmine.any(Object)
+			expect(msg.event).toEqual name
 
 		it 'check the upstream event functionality for an undefined msg', ->
 			name = 'starting'
@@ -91,10 +102,14 @@ describe 'upstream-spec', ->
 				text: 'foo'
 				event: 'listening'
 
-			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg }).respond 304, ''
+			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg }).respond 304, ''	
+			#spyOn(upstream, 'put').and.callThrough()
+			
 			upstream.state name, msg
+
 			$httpBackend.flush()
 
+			#expect(upstream.put).toHaveBeenCalledWith jasmine.any(Object)
 			expect(msg.state).toMatch name
 
 		it 'check the upstream state functionality for an undefined msg', ->

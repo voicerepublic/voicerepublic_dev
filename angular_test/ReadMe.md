@@ -10,10 +10,10 @@ The results are shown in the terminal/console.
 ###Debug: 
 `npm test` will open a dedicated chrome tab instance, in which karma loads/injects all relevant js files.
 In the right header section of the tab you will see a button called 'Debug'. After you click on that button a 
-new Tab will be opened. Now press 'Ctrl + Shift + j' an there you go... 
+new Tab will be opened. Now press 'Ctrl + Shift + j' and there you go... 
 
 
-#End 2 End Testing (Protractor)
+#End 2 End Testing
 To run the end-2-end tests you use [Protractor](https://github.com/angular/protractor).
 
 
