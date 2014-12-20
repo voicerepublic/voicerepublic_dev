@@ -83,6 +83,9 @@ Sencha.factory("config", function() {
       }
     ],
     "stream": "t42-u341471",
-    "streaming_server": "rtmp://kluuu.com/recordings"
+    "streaming_server": "rtmp://kluuu.com/recordings",
+    flags: {
+      "blackboxReady": false
+    }
   };
 });
