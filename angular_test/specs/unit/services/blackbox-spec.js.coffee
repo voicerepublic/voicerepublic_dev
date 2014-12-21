@@ -26,7 +26,12 @@ describe 'blackbox-spec', ->
 		expect($log.debug.logs).toContain ['Initializing BlackboxService...']
 		expect($log.error.logs[0][0]).toMatch /Error embedding SWF on #/
 
-	describe 'Under test: flash methods', ->
+	it 'check initial state of info', ->
+		expect(blackbox.info).toBeDefined()
+		expect(blackbox.info).toEqual jasmine.any Object 
+		expect(blackbox.info.lastEvent).toEqual 'none'
+
+	describe 'Under test: flash methods bound to $window', ->
 
 		it 'check the flashCallback functionality', ->
 			expect($window.flashCallback).toBeDefined()
@@ -112,6 +117,111 @@ describe 'blackbox-spec', ->
 			$window.settingsClosed()
 
 			expect(config.flags.settings).toBeFalsy()
+
+	describe 'Under async test: public methods of blackbox service', ->
+
+		it 'check the publish functionality', (done) ->
+			name = 'foo'
+
+			expect(blackbox.publish).toBeDefined()
+			expect(blackbox.publish).toEqual jasmine.any Function
+
+			blackbox.publish name
+
+			done()
+
+			###
+			setTimeout ( -> 
+				window.dump $log.debug.logs
+				done()), 3000
+			###
+
+			#cannot access the deferred object to test async'ly
+
+		it 'check the unpublish functionality', (done) ->
+			expect(blackbox.unpublish).toBeDefined()
+			expect(blackbox.unpublish).toEqual jasmine.any Function
+			
+			#$window.flashCallback()
+			blackbox.unpublish()
+			done()
+			
+			###
+			Somehow the promise wont get fulfilled from api
+
+			setTimeout ( -> 
+				expect($log.debug.logs).toContain ['unpublishing...']
+				done()), 1000
+			###
+
+		it 'check the subscribe functionality', (done) ->
+			name = 'foo'
+
+			expect(blackbox.subscribe).toBeDefined()
+			expect(blackbox.subscribe).toEqual jasmine.any Function
+
+			blackbox.subscribe name
+
+			expect($log.debug.logs).toContain ["subscriptions: #{name}"]
+
+			done()
+
+		it 'check the subscribe functionality for an already subscribed name', (done)->
+			name = 'foo'
+
+			blackbox.subscribe name
+			blackbox.subscribe name
+
+			expect($log.debug.logs).toContain ["already subscribed to #{name}"] 
+
+			done()
+
+		it 'check the micCheck functionality', ->
+			expect(blackbox.micCheck).toBeDefined()
+			expect(blackbox.micCheck).toEqual jasmine.any Function
+
+			# no access to test api 
+
+		it 'check the mute functionality', ->
+			expect(blackbox.mute).toBeDefined()
+			expect(blackbox.mute).toEqual jasmine.any Function
+
+			# no access to test api 
+
+		it 'check the unmute functionality', ->
+			expect(blackbox.unmute).toBeDefined()
+			expect(blackbox.unmute).toEqual jasmine.any Function
+
+			# no access to test api 
+
+		it 'check the setStreamingServer functionality', ->
+			expect(blackbox.setStreamingServer).toBeDefined()
+			expect(blackbox.setStreamingServer).toEqual jasmine.any Function
+
+			# no access to test api 
+
+		it 'check the setVolume functionality', ->
+			expect(blackbox.setVolume).toBeDefined()
+			expect(blackbox.setVolume).toEqual jasmine.any Function
+
+			expect($).toBeDefined()
+
+			#jQ = $(".icon-volume-mute")
+
+			#spyOn jQ, 'toggle'
+
+			blackbox.setVolume 42
+
+			#expect(jQ.toggle).toHaveBeenCalled() 
+
+			# no access to test api 
+		
+
+
+		  
+		  
+		  
+	  
 		  
 		  
 		  
