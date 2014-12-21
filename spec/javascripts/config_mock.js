@@ -1,7 +1,8 @@
 Sencha.factory("config", function() {
   return {
     talk: {
-        channel: 'asdf'
+        channel: 'asdf',
+        state: 'live'
     },
     user: {
         channel: 'fdsa'
@@ -85,7 +86,8 @@ Sencha.factory("config", function() {
     "stream": "t42-u341471",
     "streaming_server": "rtmp://kluuu.com/recordings",
     flags: {
-      "blackboxReady": false
+      "blackboxReady": false,
+      "settings": true
     }
   };
 });
