@@ -31,7 +31,7 @@ describe 'blackbox-spec', ->
 		expect(blackbox.info).toEqual jasmine.any Object 
 		expect(blackbox.info.lastEvent).toEqual 'none'
 
-	describe 'Under test: flash methods bound to $window', ->
+	describe '- Under test: flash methods bound to $window -', ->
 
 		it 'check the flashCallback functionality', ->
 			expect($window.flashCallback).toBeDefined()
@@ -118,7 +118,7 @@ describe 'blackbox-spec', ->
 
 			expect(config.flags.settings).toBeFalsy()
 
-	describe 'Under async test: public methods of blackbox service', ->
+	describe '- Under async test: public methods of blackbox service -', ->
 
 		it 'check the publish functionality', (done) ->
 			name = 'foo'

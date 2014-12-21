@@ -14,7 +14,7 @@ module.exports = (config) ->
     preprocessors: "**/*.coffee": ["coffee"]
     files: [
       'spec/javascripts/support/jquery.js',
-      'spec/javascripts/support/private_pub.js',
+      #'spec/javascripts/support/private_pub.js',
       'vendor/assets/javascripts/swfobject.js',
       'vendor/assets/javascripts/state-machine.min.js',
       'vendor/assets/javascripts/angular.js',

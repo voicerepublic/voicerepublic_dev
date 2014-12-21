@@ -21,7 +21,7 @@ describe 'private_pub-spec', ->
 	it 'check debug log', ->
 		expect($log.debug.logs).toContain ['Loading Faye client...']
 
-	describe 'Under test: callback', ->
+	describe '- Under test: callback -', ->
 		callback = undefined
 
 		beforeEach ->
@@ -31,7 +31,7 @@ describe 'private_pub-spec', ->
 			expect(callback).toBeDefined()
 			expect(callback).toEqual jasmine.any Function
 
-	describe 'Under test: subscribe', ->
+	describe '- Under test: subscribe -', ->
 		subscribe = undefined
 
 		beforeEach ->
