@@ -1,13 +1,15 @@
 Sencha.factory("config", function() {
   return {
-    talk: {
-        channel: 'asdf',
-        state: 'prelive'
+    "talk": {
+        "channel": 'asdf',
+        "state": 'prelive',
+        "starts_in": 1337
     },
-    user: {
-        channel: 'fdsa'
+    "user": {
+        "channel": 'fdsa',
+        "role": 'participant'
     },
-    starts_at: 1234567,
+    "starts_at": 1234567,
     "talk_id": 42,
     "host": "kluuu master",
     "title": "Great Talk on Ecoprimitivism",
@@ -126,9 +128,9 @@ Sencha.factory("config", function() {
     ],
     "stream": "t42-u341471",
     "streaming_server": "rtmp://kluuu.com/recordings",
-    flags: {
-      settings: true,
-      blackboxReady: false
+    "flags": {
+      "settings": true,
+      "blackboxReady": false
     }
   };
 });
