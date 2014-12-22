@@ -6,7 +6,7 @@ class MonitoringMessage < BaseMessage
     faye.publish_to('/monitoring', message)
   end
 
-  def conditions
+  def condition
     !Rails.env.test?
   end
 

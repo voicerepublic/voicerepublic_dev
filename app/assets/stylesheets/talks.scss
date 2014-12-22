@@ -356,6 +356,15 @@
       font-family: $brand-font-bold;
       font-size:rem-calc(26);
       padding: rem-calc(12) 10px rem-calc(10) 10px;
+      span {
+          color: rgba(56, 148, 137, 1);
+          &.progress-finished {
+              color: white;
+          }
+      }
+      p {
+          margin-bottom: 0;
+      }
     }
     .talk-countdown{
       background: rgba(0,0,0,0.6);

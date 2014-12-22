@@ -18,6 +18,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     connecting: true
     blackboxReady: false
   config.feedback = { data: { bw_in: 0 } }
+  config.progress = {}
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -211,6 +212,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.state = 'archived'
         $log.debug data.links
         config.talk.links = data.links
+      when "StartProcessing"
+        config.progress = data.talk
+        config.progress.range = (i for i in [0..data.talk.total-1])
+
 
   # some methods only available to the host
   promote = (id) ->

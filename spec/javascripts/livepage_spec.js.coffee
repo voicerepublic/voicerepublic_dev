@@ -19,3 +19,9 @@ describe 'Sencha App', ->
   describe 'Util Service', ->
     it 'should have utils', inject (util) ->
       expect(util).toBeDefined()
+
+    it 'should provide a function toHHMMSS', inject (util) ->
+      expect(util.toHHMMSS).toBeDefined()
+      expect(util.toHHMMSS).toEqual(jasmine.any(Function))
+
+      expect(util.toHHMMSS('123')).toEqual('00:02:03')
