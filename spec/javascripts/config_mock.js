@@ -3,7 +3,8 @@ Sencha.factory("config", function() {
     "talk": {
         "channel": 'asdf',
         "state": 'prelive',
-        "starts_in": 1337
+        "starts_in": 1337,
+        "links": 'http://wikipedia.org/1337'
     },
     "user": {
         "channel": 'fdsa',

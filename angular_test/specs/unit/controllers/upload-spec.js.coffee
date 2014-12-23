@@ -6,7 +6,6 @@ describe 'upload-spec', ->
 	$controller = undefined
 	$log = undefined
 	FileUploader = undefined
-	element = undefined
 	# save repetitions
 	$scope = undefined
 	UploadCtrl = undefined
