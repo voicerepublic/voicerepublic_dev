@@ -22,6 +22,6 @@ module.exports = (config) ->
       'spec/javascripts/support/angular-file-upload.js',
       'app/assets/javascripts/sencha.js.coffee',
       'spec/javascripts/config_mock.js',
-      'app/assets/javascripts/angular/**/*',
+      'angular/*/*.coffee',
       'angular_test/specs/unit/*/*.coffee'
     ]
