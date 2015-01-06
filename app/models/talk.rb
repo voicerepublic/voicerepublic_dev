@@ -327,6 +327,7 @@ class Talk < ActiveRecord::Base
 
   def set_penalty!(penalty)
     self.penalty = penalty
+    set_popularity
     save!
   end
 
