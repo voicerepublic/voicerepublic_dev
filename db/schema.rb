@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201135807) do
+ActiveRecord::Schema.define(version: 20150106083936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,8 +200,9 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.string   "language",           default: "en"
     t.string   "slug"
     t.string   "speakers"
-    t.string   "user_override_uuid"
+    t.string   "slides_uid"
     t.text     "edit_config"
+    t.string   "user_override_uuid"
     t.float    "popularity",         default: 1.0
     t.float    "penalty",            default: 1.0
   end
@@ -214,10 +215,10 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "email",                  default: "",  null: false
+    t.string   "encrypted_password",     default: "",  null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -236,10 +237,11 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.text     "about"
     t.string   "timezone"
     t.string   "website"
-    t.boolean  "conference"
     t.string   "authentication_token"
+    t.boolean  "conference"
     t.integer  "default_venue_id"
     t.string   "summary"
+    t.float    "penalty",                default: 1.0
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
@@ -258,6 +260,7 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.string   "image_uid"
     t.string   "uri"
     t.string   "slug"
+    t.float    "penalty",     default: 1.0
   end
 
   add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree

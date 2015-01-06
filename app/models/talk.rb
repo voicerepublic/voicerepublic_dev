@@ -13,7 +13,9 @@
 # * grade [string] - TODO: document me
 # * image_uid [string] - TODO: document me
 # * language [string, default="en"] - TODO: document me
+# * penalty [float, default=1.0] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
+# * popularity [float, default=1.0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
@@ -123,6 +125,7 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
   before_create :prepare, if: :can_prepare?
+  before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   # TODO: important, these will be triggered after each PUT, optimize
@@ -320,6 +323,11 @@ class Talk < ActiveRecord::Base
              ( age_in_hours + 2 ) ** 1.8 ) * penalty
 
     self.popularity = rank
+  end
+
+  def set_penalty!(penalty)
+    self.penalty = penalty
+    save!
   end
 
   private
@@ -635,6 +643,10 @@ class Talk < ActiveRecord::Base
     # The BackOffice on the other hand facilitates mass imports, which
     # can be processed faster when deferring generating the flyer.
     flyer.generate!
+  end
+
+  def inherit_penalty
+    self.penalty = venue.penalty
   end
 
 end
