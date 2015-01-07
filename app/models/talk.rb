@@ -317,6 +317,8 @@ class Talk < ActiveRecord::Base
   end
 
   def set_popularity
+    raise "processed_at not set for talk #{id}" if processed_at.nil?
+
     age_in_hours = ( ( Time.now - processed_at ) / 3600 ).to_i
 
     rank = ( ( ( play_count - 1 ) ** 0.8 ).real /

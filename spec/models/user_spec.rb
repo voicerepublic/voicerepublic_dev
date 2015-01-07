@@ -113,7 +113,7 @@ describe User do
     it 'set penalty deeply with set_penalty' do
       user = FactoryGirl.create(:user)
       venue = FactoryGirl.create(:venue, user: user)
-      talk = FactoryGirl.create(:talk, venue: venue)
+      talk = FactoryGirl.create(:talk, :archived, venue: venue)
 
       # pick up the extra venue
       user.reload

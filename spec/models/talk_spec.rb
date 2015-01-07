@@ -383,7 +383,7 @@ describe Talk do
     end
 
     it 'set penalty with set_penalty' do
-      talk = FactoryGirl.create(:talk)
+      talk = FactoryGirl.create(:talk, :archived)
       talk.set_penalty!(0.5)
       expect(talk.penalty).to eq(0.5)
     end
