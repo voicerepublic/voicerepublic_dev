@@ -107,11 +107,21 @@ namespace :fix do
 
   desc 'populate users summary'
   task user_summary: :environment do
+    h = ActionController::Base.helpers
     User.find_each(conditions: { summary: nil }) do |user|
       puts "setting summary for user #{user.name}"
       text = user.about_as_plaintext
-      text = ActionController::Base.helpers.truncate(text, length: 140)
+      text = h.truncate(text, length: Settings.limit.string)
       user.summary = text
+      user.save!
+    end
+
+    # shorten to long fields
+    query = 'length(summary) > %s OR length(about) > %s' %
+            [ Settings.limit.string, Settings.limit.text ]
+    User.find_each(query) do |user|
+      user.summary = h.truncate(user.summary, length: Settings.limit.string)
+      user.about = h.truncate(user.about, length: Settings.limit.text)
       user.save!
     end
   end
