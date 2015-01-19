@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
     allow_nil: true
 
   after_save :generate_flyers!, if: :generate_flyers?
-  after_create :create_and_set_default_venue!
+  after_create :create_and_set_default_venue!, unless: :guest?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
