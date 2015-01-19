@@ -247,7 +247,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 
   statHandler = (msg) ->
     # propagate codec transitions to google analytics
-    if config.feedback.data?.codec != msg.data.codec
+    if window._gaq? and config.feedback.data?.codec != msg.data.codec
       transition = "#{config.feedback.data?.codec} -> #{msg.data.codec}"
       # FIXME this uses `window` and thus is not testable easily
       window._gaq.push ['_trackEvent', 'streaming', 'codec', transition]
