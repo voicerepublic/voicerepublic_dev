@@ -33,16 +33,27 @@ class UsersController < BaseController
     @user = User.find(params[:id])
     respond_to do |format|
       format.html do
-        @upcoming_talks = @user.talks.prelive.ordered
-        @archived_talks = @user.talks.archived.ordered
-        @live_talks = @user.talks.live_and_halflive.ordered
-        @talks_total = @user.talks.where.not(state: 'postlive').count
-        @remembered_talks = @user.reminders.talks.map(&:rememberable)
-        @venues = @user.venues_without_default
+        @talks_total      = @user.talks.where.not(state: 'postlive').count
+
+        @live_talks       = @user.talks.live_and_halflive.ordered
+        @upcoming_talks   = @user.talks.prelive.ordered
+        @archived_talks   = @user.talks.archived.ordered
+        @remembered_talks = Talk.remembered_by(@user).ordered
+
+        @venues           = @user.venues_without_default
       end
       format.rss do
         talks = @user.talks.archived.order('updated_at DESC')
         @podcast = OpenStruct.new(talks: talks)
+      end
+      format.js do
+        @talks =
+          case params[:more]
+          when 'live'      then @user.talks.live_and_halflive.ordered.offset(3)
+          when 'upcoming'  then @user.talks.prelive.ordered.offset(3)
+          when 'archived'  then @user.talks.archived.ordered.offset(3)
+          when 'reminders' then Talk.remembered_by(@user).ordered.offset(3)
+          end
       end
     end
   end

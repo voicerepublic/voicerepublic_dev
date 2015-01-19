@@ -173,6 +173,10 @@ class Talk < ActiveRecord::Base
       where('featured_from IS NOT NULL')
   end
 
+  scope :remembered_by, -> (user) do
+    joins(:reminders).where('reminders.user_id = ?', user.id)
+  end
+
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
