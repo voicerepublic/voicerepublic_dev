@@ -489,22 +489,36 @@ class Talk < ActiveRecord::Base
     archive! unless archived?
   end
 
+  # not obvious: the worker will call `upload_results!`
+  # from its `after_chain` callback and `upload_flvs!`
+  # from its `before_chain` callback.
   def run_chain!(chain, uat=false)
     path = update_manifest_file!(chain)
     Rails.logger.info "manifest: #{path}"
-    worker = AudioProcessor.new(path) # lib/audio_processor.rb
+    worker = AudioProcessor.new(path) # see lib/audio_processor.rb
     worker.talk = self
-    # not obvious: the worker will call `upload!` and `cleanup!` from
-    # its `after_chain` callback
     # TODO make it work for a custom logfile
     worker.run(Rails.logger)
   end
 
-  # move everything to fog storage
-  def upload!
+  # move flvs to fog storage
+  def upload_flvs!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    files = ( Dir.glob("#{base}/t#{id}-u*.flv") +
-              Dir.glob("#{base}/#{id}.journal") +
+    files = Dir.glob("#{base}/t#{id}-u*.flv")
+    files.each do |file|
+      cache_storage_metadata(file)
+      key = "#{uri}/#{File.basename(file)}"
+      upload_file(key, file)
+      # do not remove these files, we still need them for processing
+    end
+
+    save! # save `storage` field
+  end
+
+  # move results to fog storage
+  def upload_results!
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+    files = ( Dir.glob("#{base}/#{id}.journal") +
               Dir.glob("#{base}/#{id}.*") +
               Dir.glob("#{base}/#{id}-*.*") ).uniq
     files.each do |file|
@@ -513,6 +527,9 @@ class Talk < ActiveRecord::Base
       upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
+
+    # also remove flvs, these have been uploaded before
+    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.flv"))
 
     save! # save `storage` field
   end
