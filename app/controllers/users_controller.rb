@@ -30,7 +30,7 @@ class UsersController < BaseController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user ||= User.find(params[:id])
     respond_to do |format|
       format.html do
         @upcoming_talks = @user.talks.prelive.ordered
@@ -45,6 +45,12 @@ class UsersController < BaseController
         @podcast = OpenStruct.new(talks: talks)
       end
     end
+  end
+
+  def onboard
+    @user = current_user
+    show
+    render :show
   end
 
   # GET /users/new
