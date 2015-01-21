@@ -5,15 +5,6 @@ GIT
     database_cleaner (1.3.0)
 
 GIT
-  remote: git://github.com/sj26/rspec_junit_formatter.git
-  revision: 850d57cc5bd4f88dd1d4ffb245d57f222cd9e04f
-  specs:
-    rspec_junit_formatter (0.2.0)
-      builder (< 4)
-      rspec (>= 2, < 4)
-      rspec-core (!= 2.12.0)
-
-GIT
   remote: git://github.com/branch14/pg_search.git
   revision: 819defdfc14b8ef2855c043dbd31f01c5bf49928
   specs:
@@ -23,20 +14,29 @@ GIT
       arel
 
 GIT
-  remote: git@github.com:munen/fidelity.git
-  revision: 29373ebea81ef441f304965ed36664df5716df00
+  remote: git://github.com/sj26/rspec_junit_formatter.git
+  revision: 850d57cc5bd4f88dd1d4ffb245d57f222cd9e04f
   specs:
-    fidelity (0.0.2)
-      auphonic
-      fileutils_logger
-      systemu
-      term-ansicolor
+    rspec_junit_formatter (0.2.0)
+      builder (< 4)
+      rspec (>= 2, < 4)
+      rspec-core (!= 2.12.0)
 
 GIT
   remote: git://github.com/troessner/transitions.git
   revision: eeb39628df090d7e93b2aa85343662094fdb3c14
   specs:
     transitions (0.1.12)
+
+GIT
+  remote: git@github.com:munen/fidelity.git
+  revision: fdf48b1df2a3a604d4771c7e8a41191332bdec00
+  specs:
+    fidelity (0.0.2)
+      auphonic
+      fileutils_logger
+      systemu
+      term-ansicolor
 
 GEM
   remote: https://rubygems.org/
@@ -177,7 +177,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
-    faraday (0.9.0)
+    faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faye (1.0.1)
       cookiejar (>= 0.3.0)
