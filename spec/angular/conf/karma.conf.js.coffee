@@ -1,7 +1,7 @@
 module.exports = (config) ->
   config.set
     browsers: ['Chrome']
-    basePath: '../../'
+    basePath: '../../../'
     frameworks: ['jasmine']
     autoWatch: true
     plugins: ['karma-chrome-launcher', 'karma-jasmine', 'karma-coffee-preprocessor']
@@ -23,5 +23,5 @@ module.exports = (config) ->
       'app/assets/javascripts/sencha.js.coffee',
       'spec/javascripts/config_mock.js',
       'angular/*/*.coffee',
-      'angular_test/specs/unit/*/*.coffee'
+      'spec/angular/specs/unit/*/*.coffee'
     ]
