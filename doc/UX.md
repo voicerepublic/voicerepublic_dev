@@ -15,7 +15,7 @@ Cross Cutting Concerns
 * Haml/Scss
 * Rails Asset Pipeline
 * Images via Dragonfly
-
+* Cross Browser Testing
 
 Sitemap
 -------
