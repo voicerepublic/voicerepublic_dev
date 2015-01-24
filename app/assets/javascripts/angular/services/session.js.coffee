@@ -18,7 +18,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     connecting: true
     blackboxReady: false
   config.feedback = { data: { bw_in: 0 } }
-  config.progress = {}
+  config.progress = { index: 0, total: 1 }
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
