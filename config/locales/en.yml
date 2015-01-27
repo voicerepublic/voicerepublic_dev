@@ -972,6 +972,7 @@ en:
       unmute_streams: unmute
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
+      days: 'DAYS'
       stage: STAGE
       speakers:
         one: SPEAKER
