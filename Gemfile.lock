@@ -29,6 +29,12 @@ GIT
     transitions (0.1.12)
 
 GIT
+  remote: git://github.com/troessner/transitions.git
+  revision: eeb39628df090d7e93b2aa85343662094fdb3c14
+  specs:
+    transitions (0.1.12)
+
+GIT
   remote: git@github.com:munen/fidelity.git
   revision: 29373ebea81ef441f304965ed36664df5716df00
   specs:
