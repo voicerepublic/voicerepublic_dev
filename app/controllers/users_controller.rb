@@ -39,6 +39,9 @@ class UsersController < BaseController
         @talks_total = @user.talks.where.not(state: 'postlive').count
         @remembered_talks = @user.reminders.talks.map(&:rememberable)
         @venues = @user.venues_without_default
+
+        @show_listen_later = @remembered_talks.present?
+        @show_listen_later = true if @user == current_user
       end
       format.rss do
         talks = @user.talks.archived.order('updated_at DESC')

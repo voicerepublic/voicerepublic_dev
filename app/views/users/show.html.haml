@@ -76,7 +76,7 @@
       -# TODO open all
       -#= link_to t('.more'), '#', class: 'link-more'
 
-- unless @remembered_talks.empty?
+- if @show_listen_later
   #listen-later.listen-later-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.listen_later', count: @remembered_talks.count)
