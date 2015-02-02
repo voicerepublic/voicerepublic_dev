@@ -29,6 +29,7 @@ class UsersController < BaseController
     end
   end
 
+  # TODO rename @talks_total to @total_talks
   def show
     @user = User.find(params[:id])
     respond_to do |format|
@@ -39,6 +40,7 @@ class UsersController < BaseController
         @talks_total = @user.talks.where.not(state: 'postlive').count
         @remembered_talks = @user.reminders.talks.map(&:rememberable)
         @venues = @user.venues_without_default
+        @total_plays = @user.talks.sum(:play_count)
       end
       format.rss do
         talks = @user.talks.archived.order('updated_at DESC')

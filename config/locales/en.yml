@@ -332,9 +332,15 @@ en:
       title: "%{username} - Voice Republic"
       edit_profile: Edit Profile
       talks:
+        zero: No Talks
         one: 1 Talk
         other: '%{count} Talks'
+      plays:
+        zero: No Plays
+        one: 1 Play
+        other: '%{count} Plays'
       venues:
+        zero: No Series
         one: 1 Series
         other: '%{count} Series'
       listen_later: Listen later
