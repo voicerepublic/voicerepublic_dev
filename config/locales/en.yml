@@ -364,9 +364,6 @@ en:
         other: '%{count} Listen later'
 
 
-
-
-
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -859,6 +856,10 @@ en:
         one: 1 Archived Talk
         other: '%{count} Archived Talks'
       more: More...
+      plays:
+        zero: No Plays
+        one: 1 Play
+        other: '%{count} Plays'
     new:
       title: "New Series - Voice Republic"
       new_venue: Create Series
