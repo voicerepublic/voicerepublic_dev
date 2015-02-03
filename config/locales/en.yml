@@ -1235,7 +1235,7 @@ en:
         starts_at_date: Date
         starts_at_time: Time
       user:
-        conference: I will be streaming a <a href="/pricing#conference-pricing" target="_blank">conference</a>.
+        conference: I will be streaming a conference.
         accept_terms_of_use: |
           I accept the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>.
   reminders:
