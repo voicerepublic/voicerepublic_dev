@@ -3,7 +3,7 @@
 
 # translations
 @podcast.title =       t('.podcast.title', username: @user.name)
-@podcast.description = @user.about || ''
+@podcast.description = @user.about
 @podcast.image_title = t('.podcast.title', username: @user.name)
 @podcast.author =      @user.name
 @podcast.subtitle =    t('.podcast.subtitle', username: @user.name)

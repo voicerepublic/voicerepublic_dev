@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201135807) do
+ActiveRecord::Schema.define(version: 20150203151804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "commentable_id"
     t.string   "commentable_type"
   end
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   create_table "participations", force: true do |t|
     t.integer  "venue_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
@@ -214,8 +214,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -233,11 +233,11 @@ ActiveRecord::Schema.define(version: 20141201135807) do
     t.boolean  "guest"
     t.string   "header_uid"
     t.string   "avatar_uid"
-    t.text     "about"
+    t.text     "about",                  default: ""
     t.string   "timezone"
     t.string   "website"
-    t.boolean  "conference"
     t.string   "authentication_token"
+    t.boolean  "conference"
     t.integer  "default_venue_id"
     t.string   "summary"
   end
@@ -250,8 +250,8 @@ ActiveRecord::Schema.define(version: 20141201135807) do
   create_table "venues", force: true do |t|
     t.text     "description"
     t.string   "title"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "teaser"
     t.integer  "user_id"
     t.text     "options",     default: "--- {}\n"
