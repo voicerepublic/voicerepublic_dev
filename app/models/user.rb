@@ -181,7 +181,7 @@ class User < ActiveRecord::Base
 
   # TODO rewrite this as `has_many :venues_without_default, conditions: ...`
   def venues_without_default
-    venues - [ default_venue ]
+    venues.where.not(id: default_venue_id)
   end
 
   def set_penalty!(penalty, deep=true)
