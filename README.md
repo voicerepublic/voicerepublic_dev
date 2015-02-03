@@ -489,3 +489,15 @@ At this point the P in REPL is still missing.
 ### Delete all guest users
 
     User.where(guest: true).destroy_all
+
+
+Shell Cheat Sheet
+-----------------
+
+    ls -la ~/app/shared/log/ | grep -v .gz
+
+    tail -f ~/app/shared/log/unicorn.stderr.log
+
+    nano ~/.unicorn-config
+
+    unicorn_wrapper restart
