@@ -1,5 +1,8 @@
 VoiceRepublic::Application.routes.draw do
 
+  resources :schedules, only: [ :new, :create ]
+  resources :uploads, only: [ :new, :create ]
+
   get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
 
   post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
