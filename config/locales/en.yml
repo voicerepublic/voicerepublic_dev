@@ -1038,7 +1038,7 @@ en:
       less: Show less
       initializing: Initializing
       talk_is_processing: Talk is processing
-      please_reload_this_page: Please reload this page
+      please_reload_this_page: Click to reload this page
       participants: Participants
       plays: '%{count} plays'
       subscribe_to_podcast: Podcast

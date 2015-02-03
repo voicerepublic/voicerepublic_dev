@@ -9,7 +9,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   # public
 
   $scope.progress = ->
-    config.progress
+    percentage = 100 / config.progress.total * config.progress.index + 1
+    "width: #{percentage}%"
 
   $scope.showFlashError = ->
     !hasFlash() and (config.talk.state in ['halflive', 'live'])
