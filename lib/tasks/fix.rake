@@ -97,24 +97,61 @@ namespace :fix do
 
   desc 'fix invalid users'
   task user: :environment do
-    User.find_each(conditions: 'firstname IS NULL OR lastname IS NULL') do |user|
-      puts "fixing user #{user.id}"
-      user.firstname ||= 'noname'
-      user.lastname ||= 'noname'
-      user.slug = nil if user.slug.empty?
-      user.save!
-    end
-  end
+    h = ActionController::Base.helpers
+    users = []
 
-  desc 'populate users summary'
-  task user_summary: :environment do
-    User.find_each(conditions: { summary: nil }) do |user|
-      puts "setting summary for user #{user.name}"
-      text = user.about_as_plaintext
-      text = ActionController::Base.helpers.truncate(text, length: 140)
-      user.summary = text
+    conditions = [
+      { summary: nil },
+      "length(about) > #{Settings.limit.text}",
+      "length(summary) > #{Settings.limit.string}",
+      { firstname: nil },
+      { lastname: nil }
+    ]
+
+    users = conditions.map { |cond|
+      User.where(cond)
+    }.flatten
+
+    users.each do |user|
+      unless user.firstname
+        puts "setting firstname for user #{user.id}"
+        user.firstname ||= 'noname'
+      end
+
+      unless user.lastname
+        puts "setting lastname for user #{user.id}"
+        user.lastname ||= 'noname'
+      end
+
+      if user.slug.empty?
+        puts "re-setting slug for user #{user.id}"
+        user.slug = nil
+      end
+
+      unless user.summary
+        puts "setting summary for user #{user.id}"
+        text = user.about_as_plaintext
+        text = h.truncate(text, length: Settings.limit.string)
+        user.summary = text
+      end
+
+      if user.summary.length >= Settings.limit.string
+        user.summary = h.truncate(user.summary, length: Settings.limit.string)
+        puts "shortening user summary for user #{user.id}"
+      end
+
+      if user.about.length >= Settings.limit.text
+        puts "before: length is according to puts: #{user.about.length}"
+        puts "before: \n: #{user.about}"
+        user.about = h.truncate(user.about, length: Settings.limit.text)
+        puts "after: length is according to puts: #{user.about.length}"
+        puts "after: \n: #{user.about}"
+        puts "shortening user about for user #{user.id}"
+      end
+
       user.save!
     end
+
   end
 
   desc 'set a dummy of talk#description is blank'
