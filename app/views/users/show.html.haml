@@ -24,6 +24,8 @@
             %li
               .text= t('.talks', count: @talks_total)
             %li>
+              .text= t('.plays', count: @total_plays)
+            %li>
               = link_to "#series" do
                 = t('.venues', count: @user.venues_without_default.count)
             %li

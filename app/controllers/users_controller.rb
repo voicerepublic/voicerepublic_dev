@@ -29,11 +29,13 @@ class UsersController < BaseController
     end
   end
 
+  # TODO rename @talks_total to @total_talks
   def show
     @user ||= User.find(params[:id])
     respond_to do |format|
       format.html do
         @talks_total      = @user.talks.where.not(state: 'postlive').count
+        @total_plays      = @user.talks.sum(:play_count)
 
         @live_talks       = @user.talks.live_and_halflive.ordered
         @upcoming_talks   = @user.talks.prelive.ordered
