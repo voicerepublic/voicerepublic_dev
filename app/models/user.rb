@@ -17,6 +17,7 @@
 # * last_sign_in_at [datetime] - Devise Trackable module
 # * last_sign_in_ip [string] - Devise Trackable module
 # * lastname [string] - TODO: document me
+# * penalty [float, default=1.0] - TODO: document me
 # * provider [string] - used by oauth2
 # * remember_created_at [datetime] - Devise Rememberable module
 # * reset_password_sent_at [datetime] - Devise Recoverable module
@@ -181,6 +182,13 @@ class User < ActiveRecord::Base
   # TODO rewrite this as `has_many :venues_without_default, conditions: ...`
   def venues_without_default
     venues - [ default_venue ]
+  end
+
+  def set_penalty!(penalty, deep=true)
+    self.penalty = penalty
+    save!
+    return unless deep
+    venues.each { |venue| venue.set_penalty!(penalty) }
   end
 
 end

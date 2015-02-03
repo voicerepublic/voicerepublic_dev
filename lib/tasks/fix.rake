@@ -103,6 +103,9 @@ namespace :fix do
       user.slug = nil if user.slug.empty?
       user.save!
     end
+    User.where(about: nil).each do |u|
+      u.update_attribute :about, ""
+    end
   end
 
   desc 'populate users summary'

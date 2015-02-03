@@ -4,6 +4,7 @@
 # * description [text] - TODO: document me
 # * image_uid [string] - TODO: document me
 # * options [text, default="--- {}\n"] - TODO: document me
+# * penalty [float, default=1.0] - TODO: document me
 # * slug [string] - TODO: document me
 # * teaser [string] - TODO: document me
 # * title [string]
@@ -43,6 +44,7 @@ class Venue < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
+  before_create :inherit_penalty
   before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
@@ -71,6 +73,13 @@ class Venue < ActiveRecord::Base
     Nokogiri::HTML(description).text
   end
 
+  def set_penalty!(penalty, deep=true)
+    self.penalty = penalty
+    save!
+    return unless deep
+    talks.each { |t| t.set_penalty!(penalty) }
+  end
+
   private
 
   def set_defaults
@@ -88,6 +97,10 @@ class Venue < ActiveRecord::Base
 
   def slug_candidates
     [ :title, [:id, :title] ]
+  end
+
+  def inherit_penalty
+    self.penalty = user.penalty
   end
 
 end

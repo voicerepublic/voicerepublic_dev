@@ -367,4 +367,27 @@ describe Talk do
     end
   end
 
+  describe 'penalty' do
+
+    it 'has a default penalty of 1' do
+      talk = FactoryGirl.create(:talk)
+      expect(talk.penalty).to eq(1)
+    end
+
+    it 'inherits its penalty from its venue' do
+      venue = FactoryGirl.create(:venue)
+      venue.penalty = 0.5
+      venue.save!
+      talk = FactoryGirl.create(:talk, venue: venue)
+      expect(talk.penalty).to eq(0.5)
+    end
+
+    it 'set penalty with set_penalty' do
+      talk = FactoryGirl.create(:talk, :archived)
+      talk.set_penalty!(0.5)
+      expect(talk.penalty).to eq(0.5)
+    end
+
+  end
+
 end
