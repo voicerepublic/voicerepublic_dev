@@ -90,6 +90,18 @@ describe User do
     end
   end
 
+  describe 'default venue' do
+    it 'creates' do
+      user = FactoryGirl.create(:user)
+      expect(user.default_venue).not_to be_nil
+    end
+
+    it 'does not create for guests' do
+      user = FactoryGirl.create(:user, guest: true)
+      expect(user.default_venue).to be_nil
+    end
+  end
+
   describe 'penalty' do
 
     it 'has a default penalty of 1' do
