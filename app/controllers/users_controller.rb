@@ -34,15 +34,18 @@ class UsersController < BaseController
     @user ||= User.find(params[:id])
     respond_to do |format|
       format.html do
-        @talks_total      = @user.talks.where.not(state: 'postlive').count
-        @total_plays      = @user.talks.sum(:play_count)
+        @talks_total       = @user.talks.where.not(state: 'postlive').count
+        @total_plays       = @user.talks.sum(:play_count)
 
-        @live_talks       = @user.talks.live_and_halflive.ordered
-        @upcoming_talks   = @user.talks.prelive.ordered
-        @archived_talks   = @user.talks.archived.ordered
-        @remembered_talks = Talk.remembered_by(@user).ordered
+        @live_talks        = @user.talks.live_and_halflive.ordered
+        @upcoming_talks    = @user.talks.prelive.ordered
+        @archived_talks    = @user.talks.archived.ordered
+        @remembered_talks  = Talk.remembered_by(@user).ordered
 
-        @venues           = @user.venues_without_default
+        @venues            = @user.venues_without_default
+
+        @show_listen_later = @remembered_talks.present?
+        @show_listen_later = true if @user == current_user
       end
       format.rss do
         talks = @user.talks.archived.order('updated_at DESC')
