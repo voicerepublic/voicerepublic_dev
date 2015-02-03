@@ -68,6 +68,8 @@ VoiceRepublic::Application.routes.draw do
     resources :reminders, only: [:index]
   end
 
+  get '/onboard', to: 'users#onboard'
+
   # old school
   resource :embed_talk, only: :show
   # new school

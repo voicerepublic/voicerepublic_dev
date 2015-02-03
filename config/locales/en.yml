@@ -332,9 +332,15 @@ en:
       title: "%{username} - Voice Republic"
       edit_profile: Edit Profile
       talks:
+        zero: No Talks
         one: 1 Talk
         other: '%{count} Talks'
+      plays:
+        zero: No Plays
+        one: 1 Play
+        other: '%{count} Plays'
       venues:
+        zero: No Series
         one: 1 Series
         other: '%{count} Series'
       listen_later: Listen later
@@ -362,9 +368,6 @@ en:
         zero: Listen Later
         one: 1 Listen later
         other: '%{count} Listen later'
-
-
-
 
 
   controller_accounts:
@@ -859,6 +862,10 @@ en:
         one: 1 Archived Talk
         other: '%{count} Archived Talks'
       more: More...
+      plays:
+        zero: No Plays
+        one: 1 Play
+        other: '%{count} Plays'
     new:
       title: "New Series - Voice Republic"
       new_venue: Create Series
@@ -972,6 +979,7 @@ en:
       unmute_streams: unmute
       countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
       minutes: 'MINUTES'
+      days: 'DAYS'
       stage: STAGE
       speakers:
         one: SPEAKER
@@ -1038,7 +1046,7 @@ en:
       less: Show less
       initializing: Initializing
       talk_is_processing: Talk is processing
-      please_reload_this_page: Please reload this page
+      please_reload_this_page: Click to reload this page
       participants: Participants
       plays: '%{count} plays'
       subscribe_to_podcast: Podcast

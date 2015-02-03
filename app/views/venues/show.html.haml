@@ -26,6 +26,7 @@
 
 .action-box.row.collapse-large-only
   .anker-links.large-6.medium-6.columns
+    -# TODO check the intelligibility of the following 3 unlesses
     - unless @venue.talks.empty?
       .black-background-box
         - unless @upcoming_talks.empty?
@@ -35,6 +36,7 @@
         - unless @archived_talks.empty?
           = link_to '#archived-talks' do
             = t('.archived_talks', count: @archived_talks.count)
+        %a= t('.plays', count: @total_plays)
 
   .action-links.large-6.medium-6.columns
     .align-box
