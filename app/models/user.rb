@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
     allow_nil: true
 
   after_save :generate_flyers!, if: :generate_flyers?
-  after_create :create_and_set_default_venue!
+  after_create :create_and_set_default_venue!, unless: :guest?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -181,7 +181,7 @@ class User < ActiveRecord::Base
 
   # TODO rewrite this as `has_many :venues_without_default, conditions: ...`
   def venues_without_default
-    venues - [ default_venue ]
+    venues.where.not(id: default_venue_id)
   end
 
   def set_penalty!(penalty, deep=true)
