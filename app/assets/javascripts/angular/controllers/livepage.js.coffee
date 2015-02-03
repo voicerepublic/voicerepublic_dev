@@ -8,6 +8,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # public
 
+  $scope.progress = ->
+    percentage = 100 / config.progress.total * config.progress.index + 1
+    "width: #{percentage}%"
+
   $scope.showFlashError = ->
     !hasFlash() and (config.talk.state in ['halflive', 'live'])
 
@@ -186,7 +190,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     sec = config.talk.remaining_seconds - 1
     sec = Math.max sec, 0
     config.talk.remaining_seconds = sec
-    $scope.countdown = util.toHHMMSS(sec)
+    $scope.countdown = "#{util.toHHMMSS(sec)} #{config.t.minutes}"
+    days = sec / (60*60*24)
+    $scope.countdown = "#{Math.floor(days)} #{config.t.days}" if days > 2
     percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
     $scope.talkProgress = percent
 

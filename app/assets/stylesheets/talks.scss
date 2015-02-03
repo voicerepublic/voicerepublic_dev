@@ -354,16 +354,34 @@
     .situation,
     .trouble-message,
     .reload-message,
-    .processing-message,
-    .trouble-message a,
-    .reload-message a,
-    .processing-message a{
+    .processing-message {
       background:rgba(86,178,167,0.7);
-      color: white;
       font-family: $brand-font-bold;
       font-size:rem-calc(26);
-      padding: rem-calc(12) 10px rem-calc(10) 10px;
+      height:3em;
+      a {
+          position: absolute;
+          color: white;
+          line-height: 3em;
+          left: 0;
+          right: 0;
+      }
     }
+    .processing-message {
+        background:rgba(0,0,0,.2);
+    }
+    .progress {
+        background-color: rgba(0,0,0,0);
+        border:0;
+        padding:0;
+        margin-bottom:0;
+        height:100%;
+    }
+    .meter {
+        background-color:rgba(86,178,167,0.7);
+        transition:width 0.5s ease;
+    }
+
     .talk-countdown{
       background: rgba(0,0,0,0.6);
       padding: 16px 0 7px 0;
@@ -947,145 +965,94 @@
     }
   }
 
-  .flash-block{
-    position: fixed;
-    z-index: 998;
-    left:0;
-    top:0;
-    @include opacity(0);
-    @include transition('opacity 0.1s linear, height 0s linear 0.1s, width 0s linear 0.1s');
-    height: 0;
-    width: 0;
-    overflow: hidden;
-    &.state-on{
-      @include opacity(1);
-      @include transition(opacity 0.15s linear);
-      height: 100%;
-      width: 100%;
-    }
-    .flash-block-bg{
-      position: absolute;
-      left:0;
-      top:0;
-      background: rgba(0,0,0,0.6);
-      height: 100%;
-      width: 100%;
-    }
-  }
-
   .flash-content{
-    position: absolute;
+    position: fixed;
     z-index: 999;
-    top: 71px;
-    left: 50%;
-    margin-left: -350px;
-    padding: 15px 0;
-    background: $brand-color-creme;
-    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
     color: #333;
     height: 0;
     width: 0;
     overflow: hidden;
+    @include opacity(0);
+    @include transition('opacity 0.2s');
     &.state-on{
-      @include opacity(1);
-      @include transition(opacity 0.15s linear);
-      height: auto;
-      width: 700px;
-    }
-    .row{
+      height: 100%;
       width: 100%;
-      p{
-        font-family: $brand-font-light
-      }
-    }
-    .desc-box{
-      color: inherit;
-      h3{
-        color: inherit;
-        margin-bottom: 0;
-      }
-      p{
-        font-family: $brand-font-bold;
-        margin-bottom: 14px;
-      }
-    }
-    .attention-box{
-      color: $brand-color-red;
-      background: white;
-      border: 1px solid $brand-color-red;
-      padding: 12px;
-      display: inline-block;
-      .attention-title{
-        vertical-align: top;
-        margin: 3px 9px 0 0;
-        display: inherit;
-        font-family: $brand-font-bold;
-        font-size: rem-calc(16);
-      }
-      .attention-text{
-        display: inherit;
-        font-family: $brand-font-light;
-        font-size: rem-calc(14);
-        margin-bottom: 0;
-      }
+      @include opacity(1);
     }
     .flash-box{
-      .flash-content-box{
-        margin: 10px 0;
-        background-position: center;
-        width: 100%;
-        text-align: center;
-        /* hack for firefox to show flash */
-        object#Blackbox {
-          @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
-          border: 3px solid green;
-          @include box-sizing(padding-box);
-          height: 346px;
-          width: 421px;
-        }
-      }
-    }
-    .manual-box{
-      background: rgba(255,255,255,0.5);
-      color:white;
-      @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.1), inset);
-      .flash-howto-title{
-        font-family: $brand-font-bold;
-        margin: 12px 0;
-        color: rgba(0,0,0,0.5);
-        font-size: rem-calc(14);
-        line-height: 1.1
-      }
-      li{
-        padding: 0;
-      }
-      p{
-        padding-top: 6px;
-        font-family: $brand-font-bold;
-        font-size: rem-calc(12);
-        color: $interaction-green ;
-        margin-bottom: 4px
-      }
-    }
-    .link-tutorial{
-      p{
-        font-family: $brand-font-light;
-        margin: 15px 0 0 0;
-        .desc-bold{
-          font-family: $brand-font-bold;
-          color: rgba(0,0,0,0.6);
-        }
-      }
-    }
-    .close-x{
       position: absolute;
-      right: 8px;
-      top: 8px;
-      font-size: rem-calc(14);
-      cursor: pointer;
-      color: black;
+      top: 50%;
+      left: 50%;
+      margin: -145px 0 0 -145px;
+      height: 275px;
+      width: 275px;
+      background: #c5c5c5;
+      border: 2px solid #494949;
+      overflow: hidden;
+      border-radius: 2%;
+      .flash-border{
+        border-radius: 1%;
+        position: absolute;
+        top: 2%;
+        left: 2%;
+        width: 96%;
+        height: 96%;
+        background: #f0f0f0;
+        border: 1px solid #535353;
+        padding:19px 27px;
+        .flash-title{
+          color:lighten($color-black-title, 10%);
+          font-size: rem-calc(25)
+        }
+        p{
+          margin-top: 27px;
+          text-align: left;
+          font-family: Verdana sans-serif;
+          font-size: rem-calc(15)
+        }
+        .loading-audio-setup{
+          position: absolute;
+          display: inline-block;
+          left: 0px;
+          top: 0px;
+          height: 100%;
+          width: 100%;
+          font-family: "Eagle Light",sans-serif;
+          background: url('/images/audio-loader.gif') no-repeat scroll 0% -14% transparent;
+          font-size: rem-calc(21);
+          letter-spacing: 1px;
+          line-height: 1.2;
+          color: black;
+          .icon-mic{
+            display: block;
+            font-size: rem-calc(35);
+            margin: 96px 0px 0px;
+          }
+        }
+      }
     }
-
+    object#Blackbox {
+      position: absolute;
+      left:0;
+      top:0px;
+      height: 106%;
+      width: 100%;
+      @include box-sizing(padding-box);
+    }
+    .need-help{
+      position: absolute;
+      bottom: 27px;
+      left: 34px;
+      font-family: Eagle Light;
+      color: lighten($color-black-title,10%);
+      font-size: rem-calc(14);
+      &:hover{
+        border-bottom: 1px solid $color-black-title;
+      }
+    }
   }
 
   .button-join-discussion{

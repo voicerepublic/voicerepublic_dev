@@ -166,6 +166,7 @@ private function securityErrorHandler(event:SecurityErrorEvent):void {
 
 private function onMicData(e:SampleDataEvent):void {
   bar.setProgress(e.target.activityLevel, 100);
+  debouncedFeedback(e.target.activityLevel);
 }
 // --- public handlers
 
@@ -335,7 +336,11 @@ private function netStatusHandler(f:Function, nc:NetConnection, s:String):Functi
   }
 }
 
-
+// TODO use this to debounce feedback
+// https://github.com/amacdougall/underscore.as/blob/master/src/com/alanmacdougall/underscore/_.as#L633-L658
+private function debouncedFeedback(x:Number):void {
+  ExternalInterface.call(jsImports.feedbackMethod, x);
+}
 
 // // https://code.google.com/p/wami-recorder/source/browse/src/edu/mit/csail/wami/client/FlashSettings.as
 // private static var MAX_CHECKS:uint = 28800; // * 1/4sec = 2h

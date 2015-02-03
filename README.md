@@ -452,6 +452,10 @@ Rails Console Cheat Sheet
 
     PrivatePub.publish_to '/t737/public', event: 'Reload'
 
+### Send Message as JavaScript Popup
+
+    PrivatePub.publish_to '/t1857/u1462094', { exec: 'alert("Hallo, hab gerade reingehoert, ich erklaere dir gerne wie du die Soundqualitaet merklich verbessern kannst. Meld dich dazu mal ueber unser Feeback Tool unten rechts. Gruss phil")' }
+
 ### Enqueue all archived talks for processing
 
     Talk.archived.order('play_count DESC').each do |talk|
@@ -485,3 +489,15 @@ At this point the P in REPL is still missing.
 ### Delete all guest users
 
     User.where(guest: true).destroy_all
+
+
+Shell Cheat Sheet
+-----------------
+
+    ls -la ~/app/shared/log/ | grep -v .gz
+
+    tail -f ~/app/shared/log/unicorn.stderr.log
+
+    nano ~/.unicorn-config
+
+    unicorn_wrapper restart

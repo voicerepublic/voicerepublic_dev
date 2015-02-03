@@ -182,7 +182,7 @@ feature "User can register" do
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
     page.find('.button-signup').click
-    current_url.should include(user_path(User.last))
+    current_url.should include('/onboard')
   end
 
   scenario "Validations" do
