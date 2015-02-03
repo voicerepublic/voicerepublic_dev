@@ -102,4 +102,45 @@ describe User do
     end
   end
 
+  describe 'penalty' do
+
+    it 'has a default penalty of 1' do
+      user = FactoryGirl.create(:user)
+      expect(user.penalty).to eq(1)
+    end
+
+    it 'set penalty with set_penalty' do
+      user = FactoryGirl.create(:user)
+      user.set_penalty!(0.5)
+      expect(user.penalty).to eq(0.5)
+    end
+
+    it 'bequeaths its penalty to newly created venues' do
+      user = FactoryGirl.create(:user)
+      user.set_penalty!(0.5)
+      venue = FactoryGirl.create(:venue, user: user)
+      expect(venue.penalty).to eq(0.5)
+    end
+
+    it 'set penalty deeply with set_penalty' do
+      user = FactoryGirl.create(:user)
+      venue = FactoryGirl.create(:venue, user: user)
+      talk = FactoryGirl.create(:talk, :archived, venue: venue)
+
+      # pick up the extra venue
+      user.reload
+
+      user.set_penalty!(0.5)
+
+      # pick up changed penalties
+      venue.reload
+      talk.reload
+
+      expect(user.penalty).to eq(0.5)
+      expect(venue.penalty).to eq(0.5)
+      expect(talk.penalty).to eq(0.5)
+    end
+
+  end
+
 end

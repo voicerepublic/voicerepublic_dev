@@ -1,3 +1,4 @@
+# activates `select2` on dropdowns with class `languageSelect`
 selector = '.languageSelect'
 
 initialize = (node) ->
@@ -7,4 +8,3 @@ initialize = (node) ->
 
 # init if present
 $.each $(selector), (index, node) -> initialize(node)
-    
