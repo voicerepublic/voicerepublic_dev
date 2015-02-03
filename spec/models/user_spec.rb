@@ -96,7 +96,7 @@ describe User do
       expect(user.default_venue).not_to be_nil
     end
 
-    it 'does not create afor guests' do
+    it 'does not create for guests' do
       user = FactoryGirl.create(:user, guest: true)
       expect(user.default_venue).to be_nil
     end
