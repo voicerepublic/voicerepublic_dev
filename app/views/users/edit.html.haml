@@ -16,7 +16,7 @@
           .user-summary
             = f.label :summary do
               = t('.short_description')
-            = f.text_area :summary
+            = f.input :summary, as: :text
       %br
       .row
         .large-6.columns
@@ -46,6 +46,9 @@
           .user-textarea-box
             = f.label :about
             = f.text_area :about, class: 'ckeditor', input_html: { class: 'text-area'}
+            - messages = @user.errors.get(:about)
+            - unless messages.empty?
+              %small.error= messages * ', '
 
   .form-save-row.row
     .large-12.columns
