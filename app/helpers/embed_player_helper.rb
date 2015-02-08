@@ -14,12 +14,19 @@ module EmbedPlayerHelper
     host        = Settings.root_url + "/"
     base_url    = "flash/flv_player/player_flv_maxi.swf?config="
     config_path = "#{Settings.root_url}/flash/flv_player/flv_config.txt"
-    top1        = background_picture(talk) + "|10|10"
+    background  = if talk.archived?
+                    "&top1=#{CGI.escape(background_picture(talk))}" + "|10|10" +
+                    "&autoplay=1" +
+                    "&autoload=1"
+                  else
+                    '&title=' + I18n.t('flash_player.not_archived_yet')
+                  end
+
 
     audio_file  = Settings.root_url + talk.media_links['m4a']
 
     url = host + base_url + CGI.escape(config_path) +
-      "&" + "top1=#{CGI.escape(top1)}" +
+      background +
       "&" + "flv=#{CGI.escape(audio_file)}"
 
     url.html_safe
