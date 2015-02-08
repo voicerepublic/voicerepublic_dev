@@ -14,16 +14,20 @@
 %meta{content: "voicerepublic.com", name: "application-name"}/
 
 -# Facebook
+%meta{content: "1452390208332135", property: "fb:app_id"}/
+%meta{content: "VoiceRepublic", property: "og:site_name"}/
 %meta{content: "#{title}", property: "og:title"}/
-%meta{content: "music.song", property: "og:type"}/
-%meta{content: "#{_user_url}", property: "music:musician"}/
-%meta{content: "#{_venue_url}", property: "music:album"}/
-%meta{content: "#{talk_url(@talk)}", property: "music:album:track"}/
-%meta{content: @talk.duration*60, property: "music:duration"}/
 
 %meta{content: "#{image}", property: "og:image"}/
-%meta{content: "#{request.url}", property: "og:url"}/
+%meta{content: "#{talk_url{@talk}}", property: "og:url"}/
 %meta{content: "#{description}", property: "og:description"}/
+
+%meta{content: "video", property: "og:type"}/
+%meta{content: flash_player_url(@talk), property: "og:video:url"}/
+%meta{content: flash_player_url(@talk), property: "og:video:secure_url"}/
+%meta{content: "application/x-shockwave-flash", property: "og:video:type"}/
+%meta{content: "485", property: "og:video:width"}/
+%meta{content: "184", property: "og:video:height"}/
 
 -# Twitter
 %meta{content: "photo", name: "twitter:card"}/
@@ -34,5 +38,12 @@
 %meta{content: "372", name: "twitter:image:width"}/
 %meta{content: "524", name: "twitter:image:height"}/
 
--# TODO: Add twitter user name when we have it
+// TODO: Add twitter user name when we have it
 -#%meta{content: "#{_user_url}", name: "twitter:creator"}/
+
+// In case switching to og:type music.song will make sense in the future
+-#%meta{content: "#{_user_url}", property: "music:musician"}/
+-#%meta{content: "#{_venue_url}", property: "music:album:url"}/
+-#%meta{content: "#{@talk.venue.talks.pluck(:id).index(@talk.id)}", property: "music:album:track"}/
+-#%meta{content: "#{talk_url(@talk)}", property: "music:album:track"}/
+-#%meta{content: @talk.duration*60, property: "music:duration"}/

@@ -1,6 +1,6 @@
 .embedded-player
 
-  .content-box(style="background-image: url(#{@talk.image.thumb('445x144#nw').url})")
+  .content-box(style="background-image: url(#{background_picture(@talk)})")
     .content-text
       .breadcrumbs-box.clearfix
         = link_to @talk.user, target: 'blank', class: 'left' do

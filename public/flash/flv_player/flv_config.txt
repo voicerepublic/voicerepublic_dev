@@ -1,0 +1,14 @@
+height=184
+width=465
+playercolor=56B2A7
+bgcolor1=56B2A7
+bgcolor2=56B2A7
+buttoncolor=dddddd
+buttonovercolor=f9bf37
+slidercolor1=dddddd
+slidercolor2=cccccc
+sliderovercolor=f9bf37
+loadingcolor=ffff00
+showstop=1
+showvolume=1
+showtime=1
