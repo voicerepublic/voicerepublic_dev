@@ -13,7 +13,9 @@
 # * grade [string] - TODO: document me
 # * image_uid [string] - TODO: document me
 # * language [string, default="en"] - TODO: document me
+# * penalty [float, default=1.0] - TODO: document me
 # * play_count [integer, default=0] - TODO: document me
+# * popularity [float, default=1.0] - TODO: document me
 # * processed_at [datetime] - TODO: document me
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
@@ -123,6 +125,7 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
   before_create :prepare, if: :can_prepare?
+  before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   # TODO: important, these will be triggered after each PUT, optimize
@@ -171,6 +174,10 @@ class Talk < ActiveRecord::Base
   scope :recent, -> do
     archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
+  end
+
+  scope :remembered_by, -> (user) do
+    joins(:reminders).where('reminders.user_id = ?', user.id)
   end
 
   include PgSearch
@@ -308,19 +315,26 @@ class Talk < ActiveRecord::Base
         where.not(id: id).ordered.limit(9)
     end
     if talks.empty?
-      talks = Talk.popular.
-        where.not(id: id).ordered.limit(9)
+      talks = Talk.popular.where.not(id: id).limit(9)
     end
     talks
   end
 
   def set_popularity
+    raise "processed_at not set for talk #{id}" if processed_at.nil?
+
     age_in_hours = ( ( Time.now - processed_at ) / 3600 ).to_i
 
     rank = ( ( ( play_count - 1 ) ** 0.8 ).real /
              ( age_in_hours + 2 ) ** 1.8 ) * penalty
 
     self.popularity = rank
+  end
+
+  def set_penalty!(penalty)
+    self.penalty = penalty
+    set_popularity
+    save!
   end
 
   private
@@ -490,22 +504,36 @@ class Talk < ActiveRecord::Base
     archive! unless archived?
   end
 
+  # not obvious: the worker will call `upload_results!`
+  # from its `after_chain` callback and `upload_flvs!`
+  # from its `before_chain` callback.
   def run_chain!(chain, uat=false)
     path = update_manifest_file!(chain)
     Rails.logger.info "manifest: #{path}"
-    worker = AudioProcessor.new(path) # lib/audio_processor.rb
+    worker = AudioProcessor.new(path) # see lib/audio_processor.rb
     worker.talk = self
-    # not obvious: the worker will call `upload!` and `cleanup!` from
-    # its `after_chain` callback
     # TODO make it work for a custom logfile
     worker.run(Rails.logger)
   end
 
-  # move everything to fog storage
-  def upload!
+  # move flvs to fog storage
+  def upload_flvs!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    files = ( Dir.glob("#{base}/t#{id}-u*.flv") +
-              Dir.glob("#{base}/#{id}.journal") +
+    files = Dir.glob("#{base}/t#{id}-u*.flv")
+    files.each do |file|
+      cache_storage_metadata(file)
+      key = "#{uri}/#{File.basename(file)}"
+      upload_file(key, file)
+      # do not remove these files, we still need them for processing
+    end
+
+    save! # save `storage` field
+  end
+
+  # move results to fog storage
+  def upload_results!
+    base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+    files = ( Dir.glob("#{base}/#{id}.journal") +
               Dir.glob("#{base}/#{id}.*") +
               Dir.glob("#{base}/#{id}-*.*") ).uniq
     files.each do |file|
@@ -514,6 +542,9 @@ class Talk < ActiveRecord::Base
       upload_file(key, file)
       FileUtils.rm(file, verbose: true)
     end
+
+    # also remove flvs, these have been uploaded before
+    FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.flv"))
 
     save! # save `storage` field
   end
@@ -636,6 +667,10 @@ class Talk < ActiveRecord::Base
     # The BackOffice on the other hand facilitates mass imports, which
     # can be processed faster when deferring generating the flyer.
     flyer.generate!
+  end
+
+  def inherit_penalty
+    self.penalty = venue.penalty
   end
 
 end

@@ -1,6 +1,6 @@
 class RemindersController < BaseController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
   # GET /users/:user_id/reminders
   def index

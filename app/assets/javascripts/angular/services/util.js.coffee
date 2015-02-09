@@ -1,6 +1,6 @@
 # The UtilService is just a container for utility functions.
 window.Sencha.factory "util", ->
-
+  
   toHHMMSS = (str) ->
     sec_num = parseInt(str, 10)
     hours   = Math.floor(sec_num / 3600)
