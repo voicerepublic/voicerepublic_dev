@@ -34,8 +34,9 @@
             = t('.upcoming_talks', count: @upcoming_talks.count)
         %span.icon-mic
         - unless @archived_talks.empty?
-          = link_to '#archived-talks' do
-            = t('.archived_talks', count: @archived_talks.count)
+          = succeed '<a>, </a>'.html_safe do # horrible hack!
+            = link_to '#archived-talks' do
+              = t('.archived_talks', count: @archived_talks.count)
         %a= t('.plays', count: @total_plays)
 
   .action-links.large-6.medium-6.columns
