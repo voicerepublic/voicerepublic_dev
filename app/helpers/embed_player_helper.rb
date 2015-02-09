@@ -17,7 +17,8 @@ module EmbedPlayerHelper
     background  = if talk.archived?
                     "&top1=#{CGI.escape(background_picture(talk))}" + "|10|10" +
                     "&autoplay=1" +
-                    "&autoload=1"
+                    "&buffer=10" +
+                    "&showplayer=always"
                   else
                     '&title=' + I18n.t('flash_player.not_archived_yet')
                   end
