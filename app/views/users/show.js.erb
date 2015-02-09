@@ -1,11 +1,8 @@
 <%
-  partial = talks_partial(@talks)
+  partial = 'shared/talk_small_box'
   color = 'box-slim'
 
-  if params[:more] == 'live'
-    partial = talkslive_partial(@talks)
-    color = 'box-live'
-  end
+  color = 'box-live' if params[:more] == 'live'
 %>
 
 $("#more-<%= params[:more] %>").remove();
