@@ -1,0 +1,10 @@
+<%
+  partial = 'shared/talk_small_box'
+  color = 'box-slim'
+
+  color = 'box-live' if params[:more] == 'live'
+%>
+
+$("#more-<%= params[:more] %>").remove();
+
+$("#<%= params[:more] %>").append("<%= j render(partial: partial, locals: { color: color }, collection: @talks) %>");

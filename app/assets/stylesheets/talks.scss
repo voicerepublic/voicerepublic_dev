@@ -348,25 +348,34 @@
     .situation,
     .trouble-message,
     .reload-message,
-    .processing-message,
-    .trouble-message a,
-    .reload-message a,
-    .processing-message a{
+    .processing-message {
       background:rgba(86,178,167,0.7);
-      color: white;
       font-family: $brand-font-bold;
       font-size:rem-calc(26);
-      padding: rem-calc(12) 10px rem-calc(10) 10px;
-      span {
-          color: rgba(56, 148, 137, 1);
-          &.progress-finished {
-              color: white;
-          }
-      }
-      p {
-          margin-bottom: 0;
+      height:3em;
+      a {
+          position: absolute;
+          color: white;
+          line-height: 3em;
+          left: 0;
+          right: 0;
       }
     }
+    .processing-message {
+        background:rgba(0,0,0,.2);
+    }
+    .progress {
+        background-color: rgba(0,0,0,0);
+        border:0;
+        padding:0;
+        margin-bottom:0;
+        height:100%;
+    }
+    .meter {
+        background-color:rgba(86,178,167,0.7);
+        transition:width 0.5s ease;
+    }
+
     .talk-countdown{
       background: rgba(0,0,0,0.6);
       padding: 16px 0 7px 0;

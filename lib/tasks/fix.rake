@@ -8,6 +8,7 @@ namespace :fix do
                 slugs
                 reminder
                 default_venues
+                orphaned_venues
                 user
                 user_summary ).map(&:to_sym)
 
@@ -103,6 +104,9 @@ namespace :fix do
       user.slug = nil if user.slug.empty?
       user.save!
     end
+    User.where(about: nil).each do |u|
+      u.update_attribute :about, ""
+    end
   end
 
   desc 'populate users summary'
@@ -121,6 +125,13 @@ namespace :fix do
     Talk.where(description: '').each do |talk|
       talk.update_attribute :description, '<i>blank description</i>'
     end
+  end
+
+  desc 'destroy orphaned venues'
+  task orphaned_venues: :environment do
+    orphans = Venue.where('user_id NOT IN (?)', User.pluck(:id))
+    puts "Destroying #{orphans.count} orphanened venues." if orphans.count
+    orphans.destroy_all
   end
 
 end

@@ -2,10 +2,10 @@
 
 %li.talk-live-box
   .left-box
-    = link_to [talk.venue, talk] do
+    = link_to talk do
       %img.talk-avatar{src: talk.image.thumb('339x222#nw').url}
   .right-box.text-left
-    = link_to [talk.venue, talk], class: 'text-link' do
+    = link_to talk, class: 'text-link' do
       %h4.title= talk.title.upcase
       %button.tune-in(type="button")
         = t('.tune_in')

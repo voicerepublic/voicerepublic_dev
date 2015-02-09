@@ -17,6 +17,16 @@ class AudioProcessor < Fidelity::ChainRunner
     LiveServerMessage.call talk.public_channel, { event: 'Process' }
     MonitoringMessage.call(event: 'Process', talk: talk.attributes)
     @t0 = Time.now.to_i
+
+    # uploading might take a while, so we'll take the time
+    t2 = Time.now.to_i
+    MonitoringMessage.call(event: 'StartUpload',
+                           talk: talk.attributes)
+    talk.send(:upload_flvs!)
+    delta_t2 = Time.now.to_i - t2
+    MonitoringMessage.call(event: 'FinishUpload',
+                           talk: talk.attributes,
+                           elapsed: delta_t2)
   end
 
   def before_strategy(index, name)
@@ -41,7 +51,7 @@ class AudioProcessor < Fidelity::ChainRunner
     t2 = Time.now.to_i
     MonitoringMessage.call(event: 'StartUpload',
                            talk: talk.attributes)
-    talk.send(:upload!)
+    talk.send(:upload_results!)
     delta_t2 = Time.now.to_i - t2
     MonitoringMessage.call(event: 'FinishUpload',
                            talk: talk.attributes,

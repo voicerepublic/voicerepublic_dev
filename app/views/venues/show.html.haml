@@ -26,6 +26,7 @@
 
 .action-box.row.collapse-large-only
   .anker-links.large-6.medium-6.columns
+    -# TODO check the intelligibility of the following 3 unlesses
     - unless @venue.talks.empty?
       .black-background-box
         - unless @upcoming_talks.empty?
@@ -33,8 +34,10 @@
             = t('.upcoming_talks', count: @upcoming_talks.count)
         %span.icon-mic
         - unless @archived_talks.empty?
-          = link_to '#archived-talks' do
-            = t('.archived_talks', count: @archived_talks.count)
+          = succeed '<a>, </a>'.html_safe do # horrible hack!
+            = link_to '#archived-talks' do
+              = t('.archived_talks', count: @archived_talks.count)
+        %a= t('.plays', count: @total_plays)
 
   .action-links.large-6.medium-6.columns
     .align-box
@@ -90,6 +93,6 @@
   .large-12.columns
     .align-box
       %h3= t('.description')
-      = @venue.description.html_safe
+      = @venue.description.try(:html_safe)
       - if can? :manage, @venue
         = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"

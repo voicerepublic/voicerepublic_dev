@@ -33,6 +33,7 @@ class VenuesController < BaseController
                        current_user != @venue.user
         end
 
+        @total_plays = @venue.talks.sum(:play_count)
       end
       format.json { render json: @venue }
       format.rss do
