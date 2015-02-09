@@ -28,7 +28,7 @@ VoiceRepublic::Application.routes.draw do
   # in the search results, less painful
   nested_talk = ->(params, req) do
     talk = Talk.find(params[:id])
-    "/talks/#{talk.id}"
+    "/talks/#{talk.to_param}"
   end
   get  '/talk/:id', to: redirect(nested_talk)
   get  '/venues/:venue_id/talks/:id', to: redirect(nested_talk), as: :venue_talk
@@ -64,7 +64,11 @@ VoiceRepublic::Application.routes.draw do
                registrations: "users/registrations"
              })
 
-  resources :users, only: [:update, :show, :edit]
+  resources :users, only: [:update, :show, :edit] do
+    resources :reminders, only: [:index]
+  end
+
+  get '/onboard', to: 'users#onboard'
 
   # old school
   resource :embed_talk, only: :show

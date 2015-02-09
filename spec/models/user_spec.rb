@@ -56,9 +56,8 @@ describe User do
     end
 
     it 'ignores accents' do
-     if ENV['CI']
-        pending 'unaccent works different in postgres 9.1.12(server) and 9.1.13(development)'
-     end
+      # unaccent works different in postgres 9.1.12(server) and 9.1.13(development)
+      pending 'omit on ci' if ENV['CI']
 
       user = FactoryGirl.create(:user, firstname: 'MrBrùce')
 
@@ -70,6 +69,78 @@ describe User do
       results = User.search('MrBrucè')
       results.should include(user)
     end
+  end
+
+  describe 'destory dependers' do
+    it 'destroys venues' do
+      user = FactoryGirl.create(:user)
+      user.venues = FactoryGirl.create_list(:venue, 3)
+      user.save
+
+      user.destroy
+      user.venues.each do |venue|
+        expect(venue).to be_destroyed
+      end
+    end
+
+    it 'destroys the default venue' do
+      user = FactoryGirl.create(:user)
+      user.destroy
+      expect(user.default_venue).to be_destroyed
+    end
+  end
+
+  describe 'default venue' do
+    it 'creates' do
+      user = FactoryGirl.create(:user)
+      expect(user.default_venue).not_to be_nil
+    end
+
+    it 'does not create for guests' do
+      user = FactoryGirl.create(:user, guest: true)
+      expect(user.default_venue).to be_nil
+    end
+  end
+
+  describe 'penalty' do
+
+    it 'has a default penalty of 1' do
+      user = FactoryGirl.create(:user)
+      expect(user.penalty).to eq(1)
+    end
+
+    it 'set penalty with set_penalty' do
+      user = FactoryGirl.create(:user)
+      user.set_penalty!(0.5)
+      expect(user.penalty).to eq(0.5)
+    end
+
+    it 'bequeaths its penalty to newly created venues' do
+      user = FactoryGirl.create(:user)
+      user.set_penalty!(0.5)
+      venue = FactoryGirl.create(:venue, user: user)
+      expect(venue.penalty).to eq(0.5)
+    end
+
+    it 'set penalty deeply with set_penalty' do
+      user = FactoryGirl.create(:user)
+      venue = FactoryGirl.create(:venue, user: user)
+      talk = FactoryGirl.create(:talk, :archived, venue: venue)
+
+      # pick up the extra venue
+      user.reload
+
+      user.set_penalty!(0.5)
+
+      # pick up changed penalties
+      venue.reload
+      talk.reload
+
+      expect(user.penalty).to eq(0.5)
+      expect(venue.penalty).to eq(0.5)
+      expect(talk.penalty).to eq(0.5)
+    end
+
   end
 
 end

@@ -1,5 +1,6 @@
 - content_for :head do
   = rss_link_tag t('.feed_title', username: @user.name)
+  = rss_link_tag t('.listen_later_feed_title', username: @user.name), user_reminders_path(@user, format: 'rss')
 
 - content_for :title do
   = t('.title', username: @user.name)
@@ -10,15 +11,20 @@
       .avatar-box
         .avatar
           = render partial: "shared/avatar_image", locals: { user: @user, size: 185 }
-          %h2.user-name=spanify(@user.name)
+          %h2.user-name=@user.name
 
       .info-links-box>
         .info-box
-          = @user.summary
+          - if @user.summary.blank? and can? :manage, @user
+            = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+          - else
+            = @user.summary
         .links-box
           %ul.anker-links.list-style-type-none>
             %li
               .text= t('.talks', count: @talks_total)
+            %li>
+              .text= t('.plays', count: @total_plays)
             %li>
               = link_to "#series" do
                 = t('.venues', count: @user.venues_without_default.count)
@@ -49,45 +55,51 @@
       %header.title-header.clearfix
         %h3.left= t('.live_talks', count: @live_talks.count)
         .onair.right= t('.on_air')
-      %ul(class="#{talks_grid(@live_talks)}")
-        = render partial: 'shared/talk_live_box', collection: @live_talks
+      %ul#live(class="#{talkslive_grid(@live_talks)}")
+        = render partial: talkslive_partial(@live_talks), locals: { color: 'box-live' }, collection: @live_talks.limit(3)
+      - if @live_talks.count > 3
+        = link_to t('.more'), url_for(more: 'live'), class: 'link-more', remote: true, id: 'more-live'
 
 - unless @upcoming_talks.empty?
   .upcoming-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-      -# TODO show only the first 3
-      %ul(class="#{talks_grid(@upcoming_talks)}")
-        = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks
-      -# TODO open all
-      -#= link_to t('.more'), '#', class: 'link-more'
+      %ul#upcoming(class="#{talks_grid(@upcoming_talks)}")
+        = render partial: talks_partial(@upcoming_talks), locals: { color: 'box-slim' }, collection: @upcoming_talks.limit(3)
+      - if @upcoming_talks.count > 3
+        = link_to t('.more'), url_for(more: 'upcoming'), class: 'link-more', remote: true, id: 'more-upcoming'
 
 - unless @archived_talks.empty?
   .archived-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.archived_talks', count: @archived_talks.count)
-      -# TODO show only the first 3
-      %ul(class="#{talks_grid(@archived_talks)}")
-        = render partial: talks_partial(@archived_talks), :locals => { color: 'box-slim' }, collection: @archived_talks
-      -# TODO open all
-      -#= link_to t('.more'), '#', class: 'link-more'
+      %ul#archived(class="#{talks_grid(@archived_talks)}")
+        = render partial: talks_partial(@archived_talks), locals: { color: 'box-slim' }, collection: @archived_talks.limit(3)
+      - if @archived_talks.count > 3
+        = link_to t('.more'), url_for(more: 'archived'), class: 'link-more', remote: true, id: 'more-archived'
 
-- if talks = @user.reminders.talks.map(&:rememberable)
+- if @show_listen_later
   #listen-later.listen-later-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.listen_later', count: talks.count)
-      %ul(class="#{talks_grid(talks)}")
-        = render partial: talks_partial(talks), locals: { color: 'box-slim' }, collection: talks
+      %h3= t('.listen_later', count: @remembered_talks.count)
+      %ul#reminders(class="#{talks_grid(@remembered_talks)}")
+        = render partial: talks_partial(@remembered_talks), locals: { color: 'box-slim' }, collection: @remembered_talks.limit(3)
+      - if @remembered_talks.count > 3
+        = link_to t('.more'), url_for(more: 'reminders'), class: 'link-more', remote: true, id: 'more-reminders'
 
-- if venues = @user.venues_without_default
+- unless @venues.empty?
   #series.user-series-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.venues', count: venues.count)
+      %h3= t('.venues', count: @venues.count)
       %ul.medium-block-grid-2
-        = render partial: 'shared/venue_medium_box', collection: venues
+        = render partial: 'shared/venue_medium_box', collection: @venues
 
-.description-box.row.collapse-large-only
-  .large-12.columns
-    .align-box
-      %h3= t('.about')
-      = raw @user.about
+- unless @user.about.blank?
+  .description-box.row.collapse-large-only
+    .large-12.columns
+      .align-box
+        %h3= t('.about') + ' ' + @user.try(:name)
+        = raw @user.about
+
+- if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
+  = render partial: "welcome", :locals => { user: @user }

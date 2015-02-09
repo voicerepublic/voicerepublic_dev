@@ -149,24 +149,48 @@ Run App
 * `zeus server -p 3001`
 
 
-Run Specs
----------
+Specs
+-----
+
+### Setup
 
 Install phantomjs (globaly)
 
     sudo npm install -g phantomjs
 
-Run Rspec with Zeus
-
-    zeus start
-    zeus rspec spec
-
-### Run Jasmine specs for Angular with Karma
+Install karma & coffee-script
 
     sudo npm install -g karma
     sudo npm install -g karma-ng-scenario
-    sudo npm install -g coffee-script --save-dev
+    sudo npm install -g coffee-script
+
+### Run
+
+Run Rspec (with Zeus running)
+
+    zeus rspec spec
+
+(This omit tests tagged as slow or to run in chrome.)
+
+Run specs tagged to run in chrome
+
+    zeus rspec --tag @driver:chrome spec
+
+Run specs tagged as slow
+
+    zeus rspec --tag @slow spec
+
+Run Jasmine specs for Angular with Karma
+
     karma start spec/javascripts/livepage.conf.js.coffee
+
+
+CI
+--
+
+Monitor CI
+
+    multitail app/current/log/ci.log app/shared/ci/repo/log/test.log
 
 
 Compile Flash
@@ -183,53 +207,24 @@ Run
     zeus rake build:flash
 
 
-Runnning Audio Strategies with Rake
------------------------------------
+Run Audio Strategies
+--------------------
 
-List all available strategies
+See [fidelity](https://github.com/munen/fidelity) for details.
 
-    rake audio:strategies
+### Example
 
-The generic strategy runner takes arguments
+Pull complete audio data for a given talk from s3
 
- * strategy name
- * path to audio files
- * name (talk_id, X in the flv files tX-u...)
+    s3cmd sync s3://vr-live-media/vr-1799 .
 
-    rake audio:run[strategy_name,path/to/files,name]
+Sometimes it is a good idea to delete the journal
 
-The output lists the resulting files.
+    rm vr-1799/1799.journal
 
-(Depending on your shell, e.g. for zsh, you might have to escape the
-square brackets with backslashes.)
+Run fidelity on it
 
-### Analyzing FLV Data with Rake
-
-#### Parameters
-
-* path
-* started_at
-* ended_at
-
-#### Run
-
-    rake audio:analyze\[/home/phil/audio/vr-1104,1401736803,1401740512\]
-
-#### Legend
-
-* filename
-* user_id (deduced from filename)
-* duration in seconds (as of avconv)
-* file size in bytes
-* flag
-* file start timestamp (deduced from filename)
-* file end timestamp (start + duration)
-
-#### Flags
-
-* `-` marks a file of size 0
-* `X` marks a corrupt file (size > 0, but duration cannot be determined)
-* `*` marks files which touch the live section of the talk
+    fidelity run vr-1799/manifest-1799.yml
 
 
 Documentation
@@ -441,6 +436,12 @@ Note: As soon as the stream goes live, your client will subscribe a
 Rails Console Cheat Sheet
 -------------------------
 
+### Debug Postprocessing
+
+    id = 3322
+    Talk.find(id).update_attribute(:state, 'postlive')
+    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
+
 ### Feature three randomly selected talks since yesterday
 
     Talk.order('RANDOM()').limit(3).each do |t|
@@ -450,6 +451,10 @@ Rails Console Cheat Sheet
 ### Reload browser session of all attendenees of talk 737
 
     PrivatePub.publish_to '/t737/public', event: 'Reload'
+
+### Send Message as JavaScript Popup
+
+    PrivatePub.publish_to '/t1857/u1462094', { exec: 'alert("Hallo, hab gerade reingehoert, ich erklaere dir gerne wie du die Soundqualitaet merklich verbessern kannst. Meld dich dazu mal ueber unser Feeback Tool unten rechts. Gruss phil")' }
 
 ### Enqueue all archived talks for processing
 
@@ -484,3 +489,62 @@ At this point the P in REPL is still missing.
 ### Delete all guest users
 
     User.where(guest: true).destroy_all
+
+
+Embed player to Facebook
+------------------------
+
+FB uses the OpenGraph Protocol to assess how to embed content to the FB
+timeline. The protocol is described here:
+
+    http://ogp.me
+
+What metadata will actually be read and whether it is valid metadata concerning
+FB can be checked out here:
+
+    https://developers.facebook.com/tools/debug/og/object/
+
+FB seems to be able to embed content that has the mime-type (or OpenGraph
+protocol og:video:type) 'text/html'. However, during my research I have only
+seen this in action for Youtube and Soundcloud. Interestingly enough,
+Soundcloud supplies a flash player using OGP, but FB renders a HTML5 player. On
+StackOverflow I have found comments from FB devs that FB actively works to
+include other big players content - the rest of us has to do it ourselves.
+
+Point being is that embedding our HTML5 player turned out to not be possible.
+FB would stop at complaining in the Object Debugger about Unsafe Content being
+injected and that a safe_url should be specified. From the documentation, this
+message should indicate that a HTTPS URl should be used. This hasn't helped.
+From not being able to find any other embedded HTML5 content that is not
+Youtube or Soundcloud, I come to the conclusion that the Flash API is the only
+valid option to currently embed rich content to a FB timeline. This is what is
+currently implemented.
+
+On iOS the player will not run directly, but a click on the 'play' button will
+result in opening the actual VR page. This is the same workflow that Soundcloud
+uses.
+
+A screenshot walkthrough of sharing to FB is provided here:
+
+    https://www.evernote.com/l/ABNyS_B91y9DSKdaiFLS2qcWtrNZaxlCdbQ
+
+Note: embedding HTML5 to FB can be done in so called "Apps". These are hosted
+in the 'app.facebook.com/name_of_app' namespace. There, it is easily possible to
+show our embedded player. However, these apps are intended for different
+purposes - for example games can be played. These would profit from a strong FB
+integration (i.e. these games can create 'objects', count them, make relations
+between other objects and people on FB and then post this information on a
+timeline ['Alice has thrown 22 sheep on Bob']). Unfortunately, this is something
+different than embedding foreign rich content onto a FB timeline, however.
+
+
+Shell Cheat Sheet
+-----------------
+
+    ls -la ~/app/shared/log/ | grep -v .gz
+
+    tail -f ~/app/shared/log/unicorn.stderr.log
+
+    nano ~/.unicorn-config
+
+    unicorn_wrapper restart

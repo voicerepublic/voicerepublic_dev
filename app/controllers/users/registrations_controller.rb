@@ -11,10 +11,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-  
+
   def user_params
     return {} unless params[:user] # for redirect on subscribe
     params.require(:user).permit(:firstname, :lastname, :email)
+  end
+
+  def after_sign_up_path_for(resource)
+    '/onboard'
   end
 
 end

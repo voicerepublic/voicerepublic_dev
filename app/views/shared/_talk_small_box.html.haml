@@ -3,13 +3,13 @@
 %li.talk-small-box.text-left(class="#{color}")
   .talk-small-padding
     .breadcrumbs-box.clearfix
-      = link_to user_path(talk.user), class: 'left' do
+      = link_to talk.user, class: 'left' do
         %span.icon-person
         %span.link-text= talk.user.name
       = link_to talk.venue, class: 'right' do
         %span.icon-ellipsis
         %span.link-text= talk.venue.title
-    = link_to [talk.venue, talk] do
+    = link_to talk do
       .top-image(style="background-image: url(#{talk.image.thumb('400x200#nw').url})")
       .text-box
         .datetime
@@ -19,3 +19,5 @@
         %h4.title= talk.title.upcase
         .teaser
           = talk.teaser
+      .tune-in.hide
+        = t('.tune_in')

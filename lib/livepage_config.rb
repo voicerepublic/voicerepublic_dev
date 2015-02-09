@@ -49,7 +49,11 @@ class LivepageConfig < Struct.new(:talk, :user)
       blackbox: Settings.blackbox,
       loopback: talk.venue.opts.loopback,
       safetynet_warning: I18n.t('safetynet_warning'),
-      blackbox_path: blackbox_path
+      blackbox_path: blackbox_path,
+      t: {
+        minutes: I18n.t('talks.show.minutes'),
+        days: I18n.t('talks.show.days')
+      }
     }
   end
 
@@ -58,9 +62,8 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def blackbox_path
-    glob = Rails.root.join(File.join(%w(app assets flash Blackbox*.swf)))
-    file = File.basename(Dir.glob(glob).first)
-    ActionController::Base.helpers.asset_path(file)
+    glob = Rails.root.join(File.join(%w(public flash Blackbox*.swf)))
+    "/flash/" + File.basename(Dir.glob(glob).first)
   end
 
   def discussion

@@ -17,6 +17,7 @@
 # * last_sign_in_at [datetime] - Devise Trackable module
 # * last_sign_in_ip [string] - Devise Trackable module
 # * lastname [string] - TODO: document me
+# * penalty [float, default=1.0] - TODO: document me
 # * provider [string] - used by oauth2
 # * remember_created_at [datetime] - Devise Rememberable module
 # * reset_password_sent_at [datetime] - Devise Recoverable module
@@ -38,16 +39,18 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
+  # TODO discuss if destroing these makes sense
+  # we might end up with half of a dialog.
   has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  has_many :venues # as owner
+  has_many :venues, dependent: :destroy # as owner
   has_many :talks, through: :venues
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
 
-  belongs_to :default_venue, class_name: 'Venue'
+  belongs_to :default_venue, class_name: 'Venue', dependent: :destroy
 
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
@@ -77,7 +80,7 @@ class User < ActiveRecord::Base
     allow_nil: true
 
   after_save :generate_flyers!, if: :generate_flyers?
-  after_create :create_and_set_default_venue!
+  after_create :create_and_set_default_venue!, unless: :guest?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -178,7 +181,14 @@ class User < ActiveRecord::Base
 
   # TODO rewrite this as `has_many :venues_without_default, conditions: ...`
   def venues_without_default
-    venues - [ default_venue ]
+    venues.where.not(id: default_venue_id)
+  end
+
+  def set_penalty!(penalty, deep=true)
+    self.penalty = penalty
+    save!
+    return unless deep
+    venues.each { |venue| venue.set_penalty!(penalty) }
   end
 
 end

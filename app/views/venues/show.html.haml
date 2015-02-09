@@ -7,14 +7,12 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
 
-= render partial: 'shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
-
 .user-box.row
   .large-12.columns
     = link_to @venue.user do
       = render partial: "shared/avatar_image", locals: { user: @venue.user, size: 50 }
       %h4.venue-user= @venue.user.name
-    = link_to t('.back_to_profile'), @venue.user, class: "back-profile-link"
+    = render partial: 'shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
 
 .title-box.row.collapse-large-only
   .large-12.columns
@@ -28,6 +26,7 @@
 
 .action-box.row.collapse-large-only
   .anker-links.large-6.medium-6.columns
+    -# TODO check the intelligibility of the following 3 unlesses
     - unless @venue.talks.empty?
       .black-background-box
         - unless @upcoming_talks.empty?
@@ -35,8 +34,10 @@
             = t('.upcoming_talks', count: @upcoming_talks.count)
         %span.icon-mic
         - unless @archived_talks.empty?
-          = link_to '#archived-talks' do
-            = t('.archived_talks', count: @archived_talks.count)
+          = succeed '<a>, </a>'.html_safe do # horrible hack!
+            = link_to '#archived-talks' do
+              = t('.archived_talks', count: @archived_talks.count)
+        %a= t('.plays', count: @total_plays)
 
   .action-links.large-6.medium-6.columns
     .align-box
@@ -65,8 +66,8 @@
       %header.title-header.clearfix
         %h3.left= t('.live_talks', count: @live_talks.count)
         .onair.right= t('.on_air')
-      %ul(class="#{talks_grid(@live_talks)}")
-        = render partial: 'shared/talk_live_box', collection: @live_talks
+      %ul(class="#{talkslive_grid(@live_talks)}")
+        = render partial: talkslive_partial(@live_talks), :locals => { color: 'box-live' }, collection: @live_talks
 
 - unless @upcoming_talks.empty?
   .upcoming-talks-box.row.collapse-large-only
@@ -92,6 +93,6 @@
   .large-12.columns
     .align-box
       %h3= t('.description')
-      = @venue.description.html_safe
+      = @venue.description.try(:html_safe)
       - if can? :manage, @venue
         = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"

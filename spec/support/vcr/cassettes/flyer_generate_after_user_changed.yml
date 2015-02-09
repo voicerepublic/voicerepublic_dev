@@ -49,7 +49,7 @@ http_interactions:
       base64_string: |
         W3siY2hhbm5lbCI6Ii9kaiIsInN1Y2Nlc3NmdWwiOnRydWV9XQ==
     http_version: 
-  recorded_at: Thu, 25 Sep 2014 13:41:35 GMT
+  recorded_at: Thu, 16 Oct 2014 14:36:56 GMT
 - request:
     method: post
     uri: http://localhost:9292/faye
@@ -99,7 +99,7 @@ http_interactions:
       base64_string: |
         W3siY2hhbm5lbCI6Ii9kaiIsInN1Y2Nlc3NmdWwiOnRydWV9XQ==
     http_version: 
-  recorded_at: Thu, 25 Sep 2014 13:41:36 GMT
+  recorded_at: Thu, 16 Oct 2014 14:36:57 GMT
 - request:
     method: post
     uri: http://localhost:9292/faye
@@ -149,5 +149,5 @@ http_interactions:
       base64_string: |
         W3siY2hhbm5lbCI6Ii9kaiIsInN1Y2Nlc3NmdWwiOnRydWV9XQ==
     http_version: 
-  recorded_at: Thu, 25 Sep 2014 13:41:36 GMT
+  recorded_at: Thu, 16 Oct 2014 14:36:57 GMT
 recorded_with: VCR 2.8.0

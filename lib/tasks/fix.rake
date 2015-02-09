@@ -8,6 +8,7 @@ namespace :fix do
                 slugs
                 reminder
                 default_venues
+                orphaned_venues
                 user
                 user_summary ).map(&:to_sym)
 
@@ -20,9 +21,19 @@ namespace :fix do
         else
           t.tag_list = 'no_tag' if t.tag_list.blank?
           t.description = 'No description.' if t.description.blank?
+
+          # h = ActionController::Base.helpers
+          # text = h.truncate(t.description, length: Settings.limit.text)
+          t.description = t.description[0, Settings.limit.text]
+
           t.save!
         end
       end
+    end
+
+    Talk.archived.where(processed_at: nil).each do |talk|
+      talk.update_attribute :processed_at, talk.ends_at
+      puts "Talk #{talk.id} set processed_at to ends_at (#{talk.ends_at})"
     end
   end
 
@@ -93,6 +104,9 @@ namespace :fix do
       user.slug = nil if user.slug.empty?
       user.save!
     end
+    User.where(about: nil).each do |u|
+      u.update_attribute :about, ""
+    end
   end
 
   desc 'populate users summary'
@@ -112,4 +126,12 @@ namespace :fix do
       talk.update_attribute :description, '<i>blank description</i>'
     end
   end
+
+  desc 'destroy orphaned venues'
+  task orphaned_venues: :environment do
+    orphans = Venue.where('user_id NOT IN (?)', User.pluck(:id))
+    puts "Destroying #{orphans.count} orphanened venues." if orphans.count
+    orphans.destroy_all
+  end
+
 end

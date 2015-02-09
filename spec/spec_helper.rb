@@ -7,6 +7,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
+require 'rspec_junit_formatter' if ENV['CI']
+
 require 'rspec/retry'
 
 require 'capybara/rspec'
@@ -23,7 +25,6 @@ Capybara.register_driver :poltergeist do |app|
     :window_size => [ 1440, 1080 ]
   })
 end
-
 
 Capybara.register_driver :firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
@@ -74,6 +75,14 @@ RSpec.configure do |config|
   #  zeus rspec --tag @gdriver:chrome spec
   config.filter_run_excluding :slow => :true unless ENV['CI']
   config.filter_run_excluding :driver => :chrome unless ENV['CI']
+
+  # There are specs that cannot run on CircleCI, because they do not have the
+  # tools (eg. audio transcoding)
+  config.filter_run_excluding not_on_circle_ci: true if ENV['CI']
+
+  # The standard formatter is progress, meaning less verbose output on errors
+  # like timeouts. Show everything when running in CI.
+  config.formatter = 'RspecJunitFormatter' if ENV['CI']
 
   config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
@@ -134,7 +143,7 @@ RSpec.configure do |config|
   example_counter = 0
   config.after(:each) do
     if example_counter % every_nths == 0
-      print 'G'
+      #print 'G'
       GC.enable
       GC.start
       GC.disable

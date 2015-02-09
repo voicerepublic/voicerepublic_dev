@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 
 feature 'Podcast' do
@@ -5,6 +6,20 @@ feature 'Podcast' do
   let(:rss) { '//link[@rel="alternate"][@type="application/rss+xml"]' }
 
   feature 'for root on landing_page#index' do
+
+    scenario 'properly encodeds html entities' do
+      talk = FactoryGirl.create( :talk, :archived, :featured,
+                                 title: 'Hello Wörld.' )
+      Talk.recent.should eq [talk]
+
+      talk.storage = { "#{talk.uri}/#{talk.id}.mp3" =>
+                         { duration: '1', size: '2' } }
+      talk.save
+
+      visit root_path(format: 'rss')
+      page.should have_xpath('//rss')
+      page.body.should include(talk.title)
+    end
 
     scenario 'link to rss in head' do
       visit root_path
@@ -57,7 +72,7 @@ feature 'Podcast' do
   feature 'for all podcasts' do
     scenario 'there is a embed link in item' do
       # prepare
-      talk = FactoryGirl.create(:talk, state: 'archived', featured_from: 1.day.ago)
+      talk = FactoryGirl.create(:talk, :archived, :featured)
       # fake the presence of a suitable file for podcasting
       talk.storage["#{talk.uri}/#{talk.id}.mp3"] = {}
       talk.save

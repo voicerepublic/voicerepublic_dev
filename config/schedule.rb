@@ -40,7 +40,10 @@ every 60.minutes, :roles => [:app] do
   rake "cleanup:check_validity"
 end
 
+every 3.hours, roles: [:app] do
+  rake 'talks:popularity'
+end
+
 #every 1.hour, roles: [:app] do
 #  rake 'sync:rp14'
 #end
-

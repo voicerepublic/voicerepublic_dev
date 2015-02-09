@@ -132,7 +132,7 @@
     }
     .date-time-past-hint,
     .file-types{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(14);
     }
     .highlight-supported-files, #audio_upload_error {
@@ -187,7 +187,7 @@
       padding:6px 13px;
       background: rgba(0,0,0,0.3);
       color:white;
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       a{
         font-size: rem-calc(14);
         color: inherit;
@@ -216,7 +216,7 @@
         right: 10px;
         top:4px;
         a{
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(11);
           margin-left: 10px;
           text-shadow: 1px 1px 2px rgba(0,0,0,0.5), -1px -1px 2px rgba(0,0,0,0.5);
@@ -239,7 +239,7 @@
     }
     .talk-teaser{
       color: #fff;
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(20);
       line-height: 1;
       margin: 0;
@@ -256,7 +256,7 @@
 
     .talk-date-time{
       margin: rem-calc(10) 0 0 0;
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(16);
       position: relative;
     }
@@ -288,7 +288,7 @@
     .play-count{
       padding:6px 0 0 0;
       color: white;
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(14);
       a{
         cursor: default;
@@ -317,12 +317,12 @@
       margin-bottom: 0;
     }
     .talk-teaser{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(19);
       color: white;
     }
     .talk-date-time{
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       font-size: rem-calc(14);
     }
     .talk-info-text{
@@ -335,28 +335,46 @@
   }
 
   .embed-help-text{
-    font-family: 'eaglelight';
+    font-family: $brand-font-light;
     font-size: rem-calc(15);
     color: $brand-color-red;
   }
 
   .talk-timeline-box{
     margin-top: 15px;
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     font-size: rem-calc(15);
     .situation,
     .trouble-message,
     .reload-message,
-    .processing-message,
-    .trouble-message a,
-    .reload-message a,
-    .processing-message a{
+    .processing-message {
       background:rgba(86,178,167,0.7);
-      color: white;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size:rem-calc(26);
-      padding: rem-calc(12) 10px rem-calc(10) 10px;
+      height:3em;
+      a {
+          position: absolute;
+          color: white;
+          line-height: 3em;
+          left: 0;
+          right: 0;
+      }
     }
+    .processing-message {
+        background:rgba(0,0,0,.2);
+    }
+    .progress {
+        background-color: rgba(0,0,0,0);
+        border:0;
+        padding:0;
+        margin-bottom:0;
+        height:100%;
+    }
+    .meter {
+        background-color:rgba(86,178,167,0.7);
+        transition:width 0.5s ease;
+    }
+
     .talk-countdown{
       background: rgba(0,0,0,0.6);
       padding: 16px 0 7px 0;
@@ -421,7 +439,7 @@
       height: 38px;
       color: $brand-color-red;
       font-size: rem-calc(16);
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       padding: 7px 10px;
       background: black;
       line-height: 1.5;
@@ -438,19 +456,20 @@
       position: absolute;
       left:0;
       top:13px;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(60);
       color: #2f2f2f;
       text-shadow:1px 1px 3px rgba(0,0,0,0.5),-1px -1px 3px rgba(0,0,0,0.5);
     }
     .speakers-box{
+      position: relative;
       display: inline-block;
       h3{
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         font-size: rem-calc(14);
       }
       p{
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         font-size: rem-calc(14);
       }
     }
@@ -497,7 +516,7 @@
         margin:0;
       }
       .left-text{
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         color:black;
         display: inline-block;
         padding-top: 47px;
@@ -506,7 +525,7 @@
         padding-top: 28px;
         .button-start{
           display: inline-block;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(50);
           background: $interaction-green;
           color: white;
@@ -526,14 +545,14 @@
         display: inline-block;
         color: black;
         strong{
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-weight: normal;
           display: block;
         }
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
       }
       .unstarted-message{
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         color: black;
         padding-top: 47px;
         font-size: rem-calc(30);
@@ -549,7 +568,7 @@
       background: rgba(0,0,0,0.5);
       color:white;
       text-shadow:1px 1px 3px rgba(0,0,0,0.5),-1px -1px 3px rgba(0,0,0,0.5);
-      font-family: 'eaglelight';
+      font-family: $brand-font-light;
       a{
         font-size: rem-calc(12);
         color: inherit;
@@ -622,7 +641,7 @@
       .upstream-box{
         display: inline-block;
         font-size: rem-calc(15);
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         @include transition(color 1s);
         h3{
           font-size: rem-calc(12);
@@ -714,7 +733,7 @@
       }
 
       .button-action{
-        font-family: 'eaglebook';
+        font-family: $brand-font-bold;
         font-size: rem-calc(12);
         line-height: 1;
         padding:5px 0 1px 0;
@@ -756,7 +775,7 @@
             margin-left: -50px;
             width: 100px;
             bottom:-15px;
-            font-family: 'eaglelight';
+            font-family: $brand-font-light;
             font-size: rem-calc(10);
             cursor: pointer;
             color: white;
@@ -788,7 +807,7 @@
           fill:$brand-color-green;
         }
         .invitation-text{
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(16);
           display: inline-block;
           position: relative;
@@ -879,7 +898,7 @@
         }
 
         .onair-text{
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(15);
           display: inline-block;
         }
@@ -890,7 +909,7 @@
           height: 50px;
           top:-12px;
           left: 0;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           color: $brand-color-green;
           padding-top: 17px;
           padding-right: 46px;
@@ -905,7 +924,7 @@
           display: none;
         }
         .prelive-text{
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(12);
           display: inline-block;
           color: white;
@@ -917,7 +936,7 @@
       position: absolute;
       right: 6px;
       top: -11px;
-      font-family: 'eaglebook';
+      font-family: $brand-font-bold;
       font-size: rem-calc(12);
       cursor: pointer;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3), -1px -1px 1px rgba(0,0,0,0.3);
@@ -939,148 +958,94 @@
     }
   }
 
-  .flash-block{
-    position: fixed;
-    z-index: 998;
-    left:0;
-    top:0;
-    @include opacity(0);
-    @include transition('opacity 0.1s linear, height 0s linear 0.1s, width 0s linear 0.1s');
-    height: 0;
-    width: 0;
-    overflow: hidden;
-    &.state-on{
-      @include opacity(1);
-      @include transition(opacity 0.15s linear);
-      height: 100%;
-      width: 100%;
-    }
-    .flash-block-bg{
-      position: absolute;
-      left:0;
-      top:0;
-      background: rgba(0,0,0,0.6);
-      height: 100%;
-      width: 100%;
-    }
-  }
-
   .flash-content{
-    position: absolute;
+    position: fixed;
     z-index: 999;
-    top: 71px;
-    left: 50%;
-    margin-left: -350px;
-    padding: 15px 0;
-    background: $brand-color-creme;
-    @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.5));
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
     color: #333;
     height: 0;
     width: 0;
     overflow: hidden;
+    @include opacity(0);
+    @include transition('opacity 0.2s');
     &.state-on{
-      @include opacity(1);
-      @include transition(opacity 0.15s linear);
-      height: auto;
-      width: 700px;
-    }
-    .row{
+      height: 100%;
       width: 100%;
-      p{
-        font-family: 'eaglelight'
-      }
-    }
-    .desc-box{
-      color: inherit;
-      h3{
-        color: inherit;
-        margin-bottom: 0;
-      }
-      p{
-        font-family: 'eaglebook';
-        margin-bottom: 14px;
-      }
-    }
-    .attention-box{
-      color: $brand-color-red;
-      background: white;
-      border: 1px solid $brand-color-red;
-      padding: 12px;
-      display: inline-block;
-      .attention-title{
-        vertical-align: top;
-        margin: 3px 9px 0 0;
-        display: inherit;
-        font-family: 'eaglebook';
-        font-size: rem-calc(16);
-      }
-      .attention-text{
-        display: inherit;
-        font-family: 'eaglelight';
-        font-size: rem-calc(14);
-        margin-bottom: 0;
-      }
+      @include opacity(1);
     }
     .flash-box{
-      .flash-content-box{
-        margin: 10px 0;
-        background: url(/images/flashbox_arrows.png) no-repeat;
-        background-position: center;
-        width: 100%;
-        text-align: center;
-        /* hack for firefox to show flash */
-        object#Blackbox {
-          width: 215px;
-          height: 140px;
-          @include box-shadow(0,0,20px,rgba(0,0,0,0.3));
-          border: 3px solid green;
-          @include box-sizing(padding-box);
-          height: 146px;
-          width: 221px;
-        }
-      }
-    }
-    .manual-box{
-      background: rgba(255,255,255,0.5);
-      color:white;
-      @include box-shadow(0, 0, 10px, rgba(0, 0, 0, 0.1), inset);
-      .flash-howto-title{
-        font-family: 'eaglebook';
-        margin: 12px 0;
-        color: rgba(0,0,0,0.5);
-        font-size: rem-calc(14);
-        line-height: 1.1
-      }
-      li{
-        padding: 0;
-      }
-      p{
-        padding-top: 6px;
-        font-family: 'eaglebook';
-        font-size: rem-calc(12);
-        color: $interaction-green ;
-        margin-bottom: 4px
-      }
-    }
-    .link-tutorial{
-      p{
-        font-family: 'eaglelight';
-        margin: 15px 0 0 0;
-        .desc-bold{
-          font-family: 'eaglebook';
-          color: rgba(0,0,0,0.6);
-        }
-      }
-    }
-    .close-x{
       position: absolute;
-      right: 8px;
-      top: 8px;
-      font-size: rem-calc(14);
-      cursor: pointer;
-      color: black;
+      top: 50%;
+      left: 50%;
+      margin: -145px 0 0 -145px;
+      height: 275px;
+      width: 275px;
+      background: #c5c5c5;
+      border: 2px solid #494949;
+      overflow: hidden;
+      border-radius: 2%;
+      .flash-border{
+        border-radius: 1%;
+        position: absolute;
+        top: 2%;
+        left: 2%;
+        width: 96%;
+        height: 96%;
+        background: #f0f0f0;
+        border: 1px solid #535353;
+        padding:19px 27px;
+        .flash-title{
+          color:lighten($color-black-title, 10%);
+          font-size: rem-calc(25)
+        }
+        p{
+          margin-top: 27px;
+          text-align: left;
+          font-family: Verdana sans-serif;
+          font-size: rem-calc(15)
+        }
+        .loading-audio-setup{
+          position: absolute;
+          display: inline-block;
+          left: 0px;
+          top: 0px;
+          height: 100%;
+          width: 100%;
+          font-family: "Eagle Light",sans-serif;
+          background: url('/images/audio-loader.gif') no-repeat scroll 0% -14% transparent;
+          font-size: rem-calc(21);
+          letter-spacing: 1px;
+          line-height: 1.2;
+          color: black;
+          .icon-mic{
+            display: block;
+            font-size: rem-calc(35);
+            margin: 96px 0px 0px;
+          }
+        }
+      }
     }
-
+    object#Blackbox {
+      position: absolute;
+      left:0;
+      top:0px;
+      height: 106%;
+      width: 100%;
+      @include box-sizing(padding-box);
+    }
+    .need-help{
+      position: absolute;
+      bottom: 27px;
+      left: 34px;
+      font-family: Eagle Light;
+      color: lighten($color-black-title,10%);
+      font-size: rem-calc(14);
+      &:hover{
+        border-bottom: 1px solid $color-black-title;
+      }
+    }
   }
 
   .button-join-discussion{
@@ -1242,7 +1207,7 @@
             display:inline-block;
             .message-name{
               font-size: rem-calc(14);
-              font-family: 'eaglebook';
+              font-family: $brand-font-bold;
               color: rgba(0,0,0, 0.6);
               margin-right: 3px;
             }
@@ -1286,7 +1251,7 @@
           top:8px;
           width: 100%;
           color: black;
-          font-family: 'eaglebook';
+          font-family: $brand-font-bold;
           font-size: rem-calc(20);
         }
         .exp-counter{
@@ -1487,7 +1452,7 @@
         padding:6px 0 6px 8px;
         background: rgba(0,0,0,0.3);
         color:white;
-        font-family: 'eaglelight';
+        font-family: $brand-font-light;
         a{
           font-size: rem-calc(12);
           color: inherit;
@@ -1573,7 +1538,7 @@
   h2 {
     color: $brand-color-blue;
     font-size: rem-calc(40);
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     margin-bottom: 40px;
   }
   .bg-blue{
@@ -1600,7 +1565,7 @@
   }
   .see-all-link{
     font-size: rem-calc(16);
-    font-family: 'eaglebook';
+    font-family: $brand-font-bold;
     display: inline-block;
     color: white;
     background: $brand-color-blue;

@@ -16,7 +16,9 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     acceptOrDecline: false
     settings: false
     connecting: true
+    blackboxReady: false
   config.feedback = { data: { bw_in: 0 } }
+  config.progress = { index: 0, total: 1 }
 
   # some utility functions for the statemachine's callbacks
   subscribeAllStreams = ->
@@ -89,7 +91,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         activateSafetynet() if config.talk.state in ['live', 'halflive']
         users = config.session
         blackbox.publish config.stream
-        blackbox.subscribe config.stream if config.loopback
         config.flags.onair = true
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
@@ -98,6 +99,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
           $log.debug "schedule startTalk for in " +
             util.toHHMMSS(config.talk.starts_in)
           millisecs = config.talk.starts_in * 1000
+          millisecs = 0 if config.talk.starts_in < 0
           # skip timeout if longer than 24.8 days
           # see http://stackoverflow.com/questions/3468607
           return if millisecs > 2147483647
@@ -210,6 +212,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.state = 'archived'
         $log.debug data.links
         config.talk.links = data.links
+      when "StartProcessing"
+        config.progress = data.talk
+        config.progress.range = (i for i in [0..data.talk.total-1])
+
 
   # some methods only available to the host
   promote = (id) ->
@@ -240,6 +246,14 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     eval msg.data.exec if msg.data.exec?
 
   statHandler = (msg) ->
+    # propagate codec transitions to google analytics
+    pusher = $log.debug
+    # FIXME this uses `window` and thus is not testable easily
+    puhser = window._gaq.push if window._gaq?
+    if config.feedback.data?.codec != msg.data.codec
+      transition = "#{config.feedback.data?.codec} -> #{msg.data.codec}"
+      pusher ['_trackEvent', 'streaming', 'codec', transition]
+
     config.feedback.data = msg.data
     config.feedback.data.kb = if msg.data.bw_in >= 0 then Math.round(msg.data.bw_in / 1024) else 0
     config.feedback.data.class = if msg.data.kb > 16 then 'good' else 'bad'
