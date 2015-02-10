@@ -17,6 +17,7 @@ Cross Cutting Concerns
 * Images via Dragonfly
 * Cross Browser Testing
 
+
 Sitemap
 -------
 
@@ -61,3 +62,15 @@ MM Specialties
 * some JS components?
 * Integration JPlayer
 * SlickJS
+
+
+Future Features
+---------------
+
+* Chapter Marks in Audio Timeline
+
+
+Far Future Features
+-------------------
+
+* Soundcloud like commenting

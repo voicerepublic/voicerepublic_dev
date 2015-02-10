@@ -1254,3 +1254,6 @@ en:
 
   # this makes all translations from `talks` also available to `uploads`
   uploads: *TALKS
+
+  flash_player:
+    not_archived_yet: "This talk is not archived, yet"
