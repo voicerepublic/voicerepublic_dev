@@ -333,7 +333,7 @@ class Talk < ActiveRecord::Base
 
   def set_penalty!(penalty)
     self.penalty = penalty
-    set_popularity
+    set_popularity if archived?
     save!
   end
 

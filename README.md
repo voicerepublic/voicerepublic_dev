@@ -436,6 +436,16 @@ Note: As soon as the stream goes live, your client will subscribe a
 Rails Console Cheat Sheet
 -------------------------
 
+### Set a penalty on a user
+
+     User.find_by(slug: 'back2us-radio').set_penalty!(0.5)
+
+### List popular with position, rank, penalty, id, and title
+
+    Talk.popular.limit(15).each_with_index do |t, i|
+      puts [i+1, t.popularity, t.penalty, t.id, t.title]*"\t"
+    end; nil
+
 ### Debug Postprocessing
 
     id = 3322
