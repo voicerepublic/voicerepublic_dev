@@ -54,6 +54,8 @@
           -# END Angular File Upload
 
 
+    .title-box.clearfix
+      %h2.form-title= t('.describe_your_content')
     .row.title-teaser-box
       .medium-7.columns
         = f.input :title, placeholder: t('.title')
@@ -65,11 +67,11 @@
         = f.input :tag_list, input_html: { class: 'tagList' }
 
     .title-box.clearfix
-      %h2.form-title= t('.schedule_the_live_broadcast')
+      %h2.form-title= t('.put_a_date_to_it')
     .date-time-picker-row.row
-      .medium-3.columns
+      .medium-6.columns
         = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
-      .medium-3.columns
+      .medium-6.columns
         = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
 
     .title-box.clearfix

@@ -956,7 +956,7 @@ en:
 
 
 # TALKS ---------------------------------------------------------------------------------
-  talks:
+  talks: &TALKS
     message_history: |
       Voice Republic Message History
 
@@ -1113,7 +1113,7 @@ en:
       add_to_series: Add to Series
       series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.
       invite_guests: Invite guests
-      invite_guests_text: Your guests will be informed per mail and automatically added to the stage.
+      invite_guests_text: Your guests will be automatically added to the stage.
       illustrate_and_describe: Illustrate and describe
       ill_and_desc_text: Choose a background image and tell your audience a little more...
       image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
@@ -1251,3 +1251,6 @@ en:
     Careful Citizen of Voice Republic,
 
     when leaving the talk page, you will no longer be able to stream your microphone.
+
+  # this makes all translations from `talks` also available to `uploads`
+  uploads: *TALKS

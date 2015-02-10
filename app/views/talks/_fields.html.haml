@@ -22,61 +22,12 @@
     .title-box.clearfix
       %h2.form-title= t('.schedule_the_live_broadcast')
     .date-time-picker-row.row
-      .medium-3.columns
+      .medium-4.columns
         = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
-      .medium-3.columns
+      .medium-4.columns
         = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'})
-      .medium-2.columns
+      .medium-4.columns
         = f.input :duration, opts.merge(collection: Settings.durations)
-      .medium-4.columns.record-checkbox
-        = f.input :collect, label: t('.record').html_safe
-
-    -# if new record and upload has already finished
-    - if f.object.new_record? and f.object.user_override_uuid?
-      .title-box.clearfix
-        %h2.form-title.left= t('.audio_upload')
-        .help-text.left= t('.upload_done')
-        = f.input :user_override_uuid, as: :hidden
-    - else
-      .title-box.clearfix
-        %h2.form-title.left= t('.audio_upload')
-        .help-text.left= t('.upload_help_text')
-      .row.upload-init(ng-hide='true')
-        .large-12= t('.initializing')
-      .row.upload-full(ng-cloak)
-        .medium-12.columns
-          -# BEGIN Angular File Upload
-          = f.input :user_override_uuid, as: :hidden
-          %div{"ng-show" => "!uploader.isHTML5"}
-            = t('.drop_file_not_supported')
-          .button-progress-box
-            %button.button-select-file.button-standard(type="button" data-trigger-file-input="audio-file-input" ng-show="state == 'ready'")
-              = t('.choose_file')
-            %button.fake-button-uploading.button-standard(type="button" ng-show="state == 'uploading'")
-              = t('.uploading')
-            %button.fake-button-finished.button-standard(type="button" ng-show="state == 'finished'")
-              = t('.finished')
-            %input#audio-file-input{"nv-file-select" => "", :type => "file", :uploader => "uploader"}/
-            %ul.progress-list.list-style-type-none
-              -# The queue for us is only '1', but iteration is still needed, since
-              -# it's a multi file uploader
-              %li{"ng-repeat" => "item in uploader.queue"}
-                .file-name-cancel-box.clearfix
-                  .file-name
-                    {{ item.file.name }}
-                  .button-cancel-upload{"ng-click" => "item.remove()", "ng-hide" => "!item.isUploading", "href" => "#"}= raw t('.cancel')
-                .progress-bar-box
-                  %span.meter{"ng-style" => "{ 'width': item.progress + '%' }"}
-          %div{"ng-show" => "uploader.isHTML5"}
-            .file-types{'ng-class' => "{'highlight-supported-files': addingFailed}"}
-              = t('.supported_filetypes')
-            .date-time-past-hint= t('.set_date_and_time_to_past_when_uploading')
-            -#.well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
-              -#= t('.drop_files_here')
-          #audio_upload_error{"ng-show" => "audioUploadFailed"}
-            = t('.upload_failed')
-          -# END Angular File Upload
-
 
     .title-box.clearfix
       %h2.form-title.left= t('.add_to_series')
@@ -88,13 +39,6 @@
           input_html: { 'data-on-blank-show' => '#wrapper_new_venue_title' }
       .medium-6.columns
         = f.input :new_venue_title, wrapper_html: { id: 'wrapper_new_venue_title' }
-
-    .title-box.clearfix
-      %h2.form-title.left= t('.invite_guests')
-      .help-text.left= t('.invite_guests_text')
-    .row
-      .medium-12.columns
-        = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
 
     .title-box.clearfix
       %h2.form-title.left= t('.illustrate_and_describe')
@@ -116,8 +60,9 @@
         - unless messages.empty?
           %small.error= messages * ', '
 
-
-:javascript
-  window.unprocessed_upload = #{t('.unprocessed_upload').inspect};
-  window.talk_uuid = "#{SecureRandom.uuid}";
-  window.talk_upload_url = "#{@presigned_s3_post_url}";
+    .title-box.clearfix
+      %h2.form-title.left= t('.invite_guests')
+      .help-text.left= t('.invite_guests_text')
+    .row
+      .medium-12.columns
+        = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
