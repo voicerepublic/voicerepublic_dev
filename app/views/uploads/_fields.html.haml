@@ -46,7 +46,6 @@
           %div{"ng-show" => "uploader.isHTML5"}
             .file-types{'ng-class' => "{'highlight-supported-files': addingFailed}"}
               = t('.supported_filetypes')
-            .date-time-past-hint= t('.set_date_and_time_to_past_when_uploading')
             -#.well.my-drop-zone{"nv-file-over" => "", :uploader => "uploader"}
               -#= t('.drop_files_here')
           #audio_upload_error{"ng-show" => "audioUploadFailed"}
