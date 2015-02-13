@@ -4,11 +4,10 @@
   = t('.title')
 
 - opts = { 'ng-controller' => 'UploadCtrl', name: "talkForm", novalidate: false}
-= simple_form_for([@venue, @talk], url: nil, html: opts) do |f|
-  = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
+= simple_form_for(@talk, url: uploads_path, html: opts) do |f|
+  = render partial: "fields", locals: { f: f }
 
   .form-save-row.row
     .medium-12.columns
       = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right'
       = f.button :submit, class: 'button-save right', 'ng-disabled' => '!talkForm.$valid', 'ng-click' => 'deactivateSafetynet()'
-

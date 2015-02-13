@@ -1,10 +1,8 @@
-= javascript_include_tag 'sencha'
-
 - content_for :title do
   = t('.title')
 
 = simple_form_for([@venue, @talk]) do |f|
-  = render partial: "fields", locals: { f: f, form_title: t('.new_talk') }
+  = render partial: "fields", locals: { f: f, form_title: t('.schedule_a_talk') }
 
   .form-save-row.row
     .medium-12.columns
