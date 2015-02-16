@@ -94,8 +94,3 @@ venue_default_attributes:
     teaser: Add your teaser here.
     description: Add your description here.
     tag_list: untagged
-
-# we need this in `development` and `test`
-aws:
-  aws_access_key_id: AKIAIGKSA6ESEFZV4DQA
-  aws_secret_access_key: 3ODDCm1Q0n0AT9IFWhFEq7zjZ4hle+rxTzD15uFU

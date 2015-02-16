@@ -29,7 +29,6 @@ gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
 gem 'dragonfly', '1.0.3'           # used for images
 gem 'angularjs-file-upload-rails', '~> 1.1.0'
-#gem 'aws-sdk'
 gem 'acts-as-taggable-on', '3.0.1' # tag-system
 gem 'cancan'                       # authorization/privileges
 gem 'private_pub'                  # push service
@@ -48,7 +47,6 @@ gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
 gem 'fog'
-gem 'aws-sdk'
 gem 'slick_rails'
 
 group :development, :test do
