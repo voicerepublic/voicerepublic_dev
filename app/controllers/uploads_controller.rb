@@ -40,7 +40,7 @@ class UploadsController < BaseController
   # In S3, permissions are set for everyone to upload. It's better to create
   # a real presigned URL. Either use 'fog', or the 'aws-sdk' gem.
   def set_presigned_post_url
-    @presigned_s3_post_url = "https://#{Settings.talk_upload_bucket}.s3.amazonaws.com"
+    @presigned_s3_post_url = "https://#{Settings.storage.uploads}.s3.amazonaws.com"
 
     # upload_bucket = AWS::S3.new.buckets[Settings.talk_upload_bucket]
     #

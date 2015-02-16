@@ -49,9 +49,16 @@ mail_domain: 'localhost'
 flyer:
   location: /system/flyer
   path: public/system/flyer
+# S3 upload bucket for talks. For S3 uploads we are using CORS.
+# Therefore, we have three S3 buckets - each for a specific FQDN:
+#
+# * localhost:3000             -> vr-audio-uploads-dev
+# * staging.voicerepublic.com  -> vr-audio-uploads-staging
+# * voicerepublic.com          -> vr-audio-uploads-live
 storage:
   media: vr-dev-media
   import: vr-dev-import
+  uploads: vr-audio-uploads-dev
 paths:
   log: local/log
   jingles:
@@ -82,14 +89,6 @@ default_venue_defaults:
     description: |
       Various talks, that don't belong to any particular series
     tag_list: default
-# S3 upload bucket for talks. For S3 uploads we are using CORS.
-# Therefore, we have three S3 buckets - each for a specific FQDN:
-#
-# * localhost:3000             -> vr-audio-uploads-dev
-# * staging.voicerepublic.com  -> vr-audio-uploads-staging
-# * voicerepublic.com          -> vr-audio-uploads-live
-#
-talk_upload_bucket: vr-audio-uploads-dev
 venue_default_attributes:
   en:
     teaser: Add your teaser here.
