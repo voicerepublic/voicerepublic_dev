@@ -61,16 +61,10 @@ class User < ActiveRecord::Base
 
   acts_as_token_authenticatable
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  # see config/initializers/warden.rb for overwritten
-  # callbacks in case of authentication or logout
-  # to set the default online/offline/busy - state of user
   devise :database_authenticatable, :registerable, :omniauthable,
-    :recoverable, :rememberable, :trackable, :validatable #, :timeoutable
+    :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  validates :email, uniqueness: true, presence: true
+  validates :email, uniqueness: true
   validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :summary, length: { maximum: 255 }

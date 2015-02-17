@@ -23,6 +23,12 @@ FactoryGirl.define do
     password secret
     password_confirmation secret
     timezone 'Berlin'
+
+    trait :confirmed do
+      after(:create) do |user, evaluator|
+        user.confirm!
+      end
+    end
   end
 
   factory :comment do

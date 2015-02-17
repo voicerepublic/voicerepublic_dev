@@ -4,7 +4,7 @@ require 'spec_helper'
 describe User do
 
   it "has a valid factory" do
-    FactoryGirl.create(:user).should be_valid
+    FactoryGirl.create(:user, :confirmed).should be_valid
   end
   it "is invalid without an email" do
     FactoryGirl.build(:user, email: nil).should_not be_valid
@@ -14,6 +14,13 @@ describe User do
   end
   it "is invalid without lastname" do
     FactoryGirl.build(:user, lastname: nil).should_not be_valid
+  end
+
+  it 'should be confirmable' do
+    user = FactoryGirl.create(:user)
+    expect(user).to_not be_confirmed
+    user.confirm!
+    expect(user).to be_confirmed
   end
 
   describe 'determines its role to a given talk' do

@@ -737,6 +737,10 @@ en:
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
+    unconfirmed:
+      notice: |
+        You haven't confirmed your email address, yet. Please check
+        your emails and follow the link we sent you.
     how_to_use_vr:
       create_talk: Create Talk
       check_pricing: Check our pricing
