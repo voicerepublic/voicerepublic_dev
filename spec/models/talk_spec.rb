@@ -228,8 +228,9 @@ describe Talk do
   end
 
   it 'does not send email with option no_emails' do
+    user = FactoryGirl.create(:user)
     ActionMailer::Base.deliveries = []
-    venue = FactoryGirl.create(:venue, options: { no_email: true })
+    venue = FactoryGirl.create(:venue, user: user, options: { no_email: true })
     talk = FactoryGirl.create(:talk, venue: venue)
     ActionMailer::Base.deliveries.should be_empty
   end
