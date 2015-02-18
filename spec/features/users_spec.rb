@@ -160,6 +160,7 @@ feature "User can register" do
       User.where(guest: nil).count.should eq(1)
     end
 
+    # FIXME: page has content "Email is in use"
     scenario 'user logs in with facebook' do
       FactoryGirl.create :user, uid: '123123123', provider: 'facebook', email: 'foo@example.com'
       User.where(guest: nil).count.should eq(1)
