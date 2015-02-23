@@ -11,11 +11,15 @@ en:
         notice: "Successfully deleted"
         alert: "Cannot be deleted"
   require_flash: |
-    <center>To either listen to a live talk or stream yourself, you need a device that runs Flash Version 11 or newer. Every other part of this application is Flash free.</center>
-    <br/>
-    <center>Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.</center>
-    <br/>
-    <center><a target="_blank" href="http://get.adobe.com/flashplayer/">Download Flash</a></center>
+    To either listen to a live talk or stream yourself, you need a
+    device that runs Flash Version 11 or newer.<br/>
+
+    <a target="_blank"
+    href="http://get.adobe.com/flashplayer/">Download Flash</a><br/>
+
+    You can listen to this talk, as soon as it has been archived, with
+    your iPhone, Android, or other non-Flash device.
+
   social_share:
     mail_subject: "Check out this talk on voicerepublic.com"
     mail_greeting: "Hi there"
@@ -964,6 +968,7 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      noflash_close_popup: close
       title: "%{title} - Voice Republic"
       waiting_for_start: The talk has not been started.
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
