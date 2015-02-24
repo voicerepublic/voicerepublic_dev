@@ -7,7 +7,7 @@ module ValidUserRequestHelper
     visit new_user_session_path()
     page.fill_in('user_email', :with => user.email)
     page.fill_in('user_password', :with => user.password)
-    page.click_button('Log In')
+    page.find('.button-login').click
   end
 
 end

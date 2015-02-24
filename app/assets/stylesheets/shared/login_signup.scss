@@ -1,8 +1,58 @@
+.sessions-new,
+.registrations-new,
 .registrations-create{
-  .registrations-title{
-    color: #000;
+  .input-block{
+    margin-top: 110px;
+    .title-block{
+      /*border-bottom: 1px solid $color-black-title;*/
+      margin-bottom: 20px;
+      h2{
+        font-size: rem-calc(33);
+        color: $color-black-title;
+      }
+    }
+    .form-content-block{
+      max-width: 500px;
+      border: 1px solid rgba(0,0,0,0.5);
+      padding-top:30px;
+      label{
+        font-family:$brand-font-light;
+        font-size: rem-calc(16);
+      }
+      .button-vr{
+        background:$brand-color-red;
+      }
+      .links-box a{
+        font-family: $brand-font-light;
+        font-size: rem-calc(16);
+        color: $brand-color-red;
+        &:hover{
+          text-decoration: underline
+        }
+      }
+    }
+    .boolean{/* CHECKBOX */
+      a{
+        color: $brand-color-red;
+        &:hover{
+          text-decoration: underline
+        }
+      }
+      &.user_conference{
+        input[type=checkbox]{
+          position: absolute;
+          top:24px;
+        }
+        label{
+          padding-left: 15px;
+          margin-top: 21px;
+          line-height:1.2;
+        }
+      }
+    }
   }
 }
+
 
 .signup-facebook{
   background: #3D5A9A;
@@ -12,16 +62,5 @@
   font-size: rem-calc(14);
   &:hover,&:focus{
     color: white
-  }
-}
-
-.registrations-new{
-  .user_accept_terms_of_use{
-    a{
-      color: $brand-color-green;
-      &:hover{
-        text-decoration: underline
-      }
-    }
   }
 }

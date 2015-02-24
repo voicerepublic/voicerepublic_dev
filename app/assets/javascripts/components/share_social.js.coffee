@@ -1,6 +1,8 @@
 attribute = '#social_share .share'
 
 initialize = (element, selector) ->
+  console.log "initialize: #{attribute} (#{selector})"
+
   source = $(element)
   target = $(selector)
 
@@ -31,6 +33,7 @@ initialize = (element, selector) ->
       return
     )
 
+# initializer
 $("#{attribute}").each (index, element) ->
   value = $($(element).attr(attribute))
   initialize element, value
