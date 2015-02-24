@@ -158,9 +158,9 @@ feature "User can register" do
       page.click_link 'REGISTER WITH FACEBOOK'
       page.should have_content "Successfully authenticated from Facebook account"
       User.where(guest: nil).count.should eq(1)
+      User.last.email.should_not be_nil
     end
 
-    # FIXME: page has content "Email is in use"
     scenario 'user logs in with facebook' do
       FactoryGirl.create :user, uid: '123123123', provider: 'facebook', email: 'foo@example.com'
       User.where(guest: nil).count.should eq(1)

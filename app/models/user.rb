@@ -104,15 +104,17 @@ class User < ActiveRecord::Base
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
       user = User.where(:provider => auth[:provider], :uid => auth[:uid]).first
       unless user
-        user = User.create( lastname: auth[:extra][:raw_info][:last_name],
+        user = User.new( lastname: auth[:extra][:raw_info][:last_name],
                             firstname: auth[:extra][:raw_info][:first_name],
                             provider: auth[:provider],
                             website: auth[:info][:urls][:Facebook],
                             uid: auth[:uid],
                             email: auth[:info][:email],
                             password: Devise.friendly_token[0,20] )
+        user.confirm!
       end
-      user
+
+      user.reload
     end
   end
 
@@ -186,8 +188,9 @@ class User < ActiveRecord::Base
   end
 
   protected
-  def confirmation_required?
-    provider == 'facebook'
+
+  def reconfirmation_required?
+    provider != 'facebook' && super
   end
 
 end
