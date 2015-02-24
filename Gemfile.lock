@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: 29373ebea81ef441f304965ed36664df5716df00
+  revision: fdf48b1df2a3a604d4771c7e8a41191332bdec00
   specs:
     fidelity (0.0.2)
       auphonic
@@ -172,7 +172,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.2.0)
       i18n (~> 0.5)
-    faraday (0.9.0)
+    faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faye (1.0.1)
       cookiejar (>= 0.3.0)
