@@ -38,6 +38,8 @@
 attribute = 'data-ga-event'
 
 initialize = (element, value) ->
+  console.log "initialize: #{attribute} (#{value})"
+
   [event, args...] = value.split(' ')
   $(element).bind event, ->
     if _gaq?
@@ -45,6 +47,7 @@ initialize = (element, value) ->
     else
       console.log "GAEvent: #{args.join(' ')}"
 
+# initializer
 $("*[#{attribute}]").each (index, element) ->
   value = $(element).attr(attribute)
   initialize element, value
