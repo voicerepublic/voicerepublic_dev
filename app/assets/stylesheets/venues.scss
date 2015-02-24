@@ -15,11 +15,14 @@
     }
   }
   .link-delete{
-    float:left
+    float:left;
   }
 }
 
 .venues-show{
+  .link-delete{
+    margin-top: 0;
+  }
   .user-box{
     position: relative;
     margin-top: 70px;

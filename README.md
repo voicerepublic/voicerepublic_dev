@@ -436,6 +436,16 @@ Note: As soon as the stream goes live, your client will subscribe a
 Rails Console Cheat Sheet
 -------------------------
 
+### Set a penalty on a user
+
+     User.find_by(slug: 'back2us-radio').set_penalty!(0.5)
+
+### List popular with position, rank, penalty, id, and title
+
+    Talk.popular.limit(15).each_with_index do |t, i|
+      puts [i+1, t.popularity, t.penalty, t.id, t.title]*"\t"
+    end; nil
+
 ### Debug Postprocessing
 
     id = 3322
@@ -489,6 +499,53 @@ At this point the P in REPL is still missing.
 ### Delete all guest users
 
     User.where(guest: true).destroy_all
+
+
+Embed player to Facebook
+------------------------
+
+FB uses the OpenGraph Protocol to assess how to embed content to the FB
+timeline. The protocol is described here:
+
+    http://ogp.me
+
+What metadata will actually be read and whether it is valid metadata concerning
+FB can be checked out here:
+
+    https://developers.facebook.com/tools/debug/og/object/
+
+FB seems to be able to embed content that has the mime-type (or OpenGraph
+protocol og:video:type) 'text/html'. However, during my research I have only
+seen this in action for Youtube and Soundcloud. Interestingly enough,
+Soundcloud supplies a flash player using OGP, but FB renders a HTML5 player. On
+StackOverflow I have found comments from FB devs that FB actively works to
+include other big players content - the rest of us has to do it ourselves.
+
+Point being is that embedding our HTML5 player turned out to not be possible.
+FB would stop at complaining in the Object Debugger about Unsafe Content being
+injected and that a safe_url should be specified. From the documentation, this
+message should indicate that a HTTPS URl should be used. This hasn't helped.
+From not being able to find any other embedded HTML5 content that is not
+Youtube or Soundcloud, I come to the conclusion that the Flash API is the only
+valid option to currently embed rich content to a FB timeline. This is what is
+currently implemented.
+
+On iOS the player will not run directly, but a click on the 'play' button will
+result in opening the actual VR page. This is the same workflow that Soundcloud
+uses.
+
+A screenshot walkthrough of sharing to FB is provided here:
+
+    https://www.evernote.com/l/ABNyS_B91y9DSKdaiFLS2qcWtrNZaxlCdbQ
+
+Note: embedding HTML5 to FB can be done in so called "Apps". These are hosted
+in the 'app.facebook.com/name_of_app' namespace. There, it is easily possible to
+show our embedded player. However, these apps are intended for different
+purposes - for example games can be played. These would profit from a strong FB
+integration (i.e. these games can create 'objects', count them, make relations
+between other objects and people on FB and then post this information on a
+timeline ['Alice has thrown 22 sheep on Bob']). Unfortunately, this is something
+different than embedding foreign rich content onto a FB timeline, however.
 
 
 Shell Cheat Sheet
