@@ -185,4 +185,9 @@ class User < ActiveRecord::Base
     venues.each { |venue| venue.set_penalty!(penalty) }
   end
 
+  protected
+  def confirmation_required?
+    false if provider == 'facebook'
+  end
+
 end
