@@ -1,11 +1,13 @@
+# TODO describe
+#
 attribute = 'data-trigger-on-error'
 
 initialize = (element, selector) ->
-  source = $(element)
-  target = $(selector)
-  if $('.error', target).length
-    source.click()
+  console.log "initialize: #{attribute} (#{selector})"
 
-$("*[#{attribute}]").each (index, element) -> 
+  $(element).click() if $('.error', $(selector)).length
+
+# initializer
+$("*[#{attribute}]").each (index, element) ->
   value = $(element).attr(attribute)
   initialize element, value

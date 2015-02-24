@@ -960,7 +960,7 @@ en:
 
 
 # TALKS ---------------------------------------------------------------------------------
-  talks:
+  talks: &TALKS
     message_history: |
       Voice Republic Message History
 
@@ -1055,6 +1055,8 @@ en:
       plays: '%{count} plays'
       subscribe_to_podcast: Podcast
       embed: Embed
+      embed_this_talk: Embed this Talk
+      copy_text: Copy this code and paste into your website
       embed_player: Embed Player
       more_talks_title: MORE FROM THIS USER
       edit_talk: EDIT TALK
@@ -1104,8 +1106,6 @@ en:
       remove: Remove
       upload_failed: Audio upload failed. Please try reloading the page and try again.
       supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
-      set_date_and_time_to_past_when_uploading: |
-        When uploading a file, please set a past date and time above.
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.
         Your upload will be lost unless you press 'Save'.
@@ -1117,7 +1117,7 @@ en:
       add_to_series: Add to Series
       series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.
       invite_guests: Invite guests
-      invite_guests_text: Your guests will be informed per mail and automatically added to the stage.
+      invite_guests_text: Your guests will be automatically added to the stage.
       illustrate_and_describe: Illustrate and describe
       ill_and_desc_text: Choose a background image and tell your audience a little more...
       image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
@@ -1255,5 +1255,10 @@ en:
     Careful Citizen of Voice Republic,
 
     when leaving the talk page, you will no longer be able to stream your microphone.
+
+  # this makes all translations from `talks` also available to `uploads`
+  uploads:
+    <<: *TALKS
+
   flash_player:
     not_archived_yet: "This talk is not archived, yet"

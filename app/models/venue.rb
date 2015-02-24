@@ -45,6 +45,7 @@ class Venue < ActiveRecord::Base
   validates :description, length: { maximum: Settings.limit.text }
 
   before_create :inherit_penalty
+  before_create :set_default_options
   before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
 
@@ -101,6 +102,11 @@ class Venue < ActiveRecord::Base
 
   def inherit_penalty
     self.penalty = user.penalty
+  end
+
+  def set_default_options
+    self.options = { no_auto_end_talk: true,
+                     start_button: true }
   end
 
 end

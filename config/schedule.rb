@@ -44,6 +44,10 @@ every 3.hours, roles: [:app] do
   rake 'talks:popularity'
 end
 
+every 24.hours, at: '2:00 am', roles: [:app] do
+  runner "Metric.snapshot!"
+end
+
 #every 1.hour, roles: [:app] do
 #  rake 'sync:rp14'
 #end
