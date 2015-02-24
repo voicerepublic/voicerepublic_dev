@@ -203,7 +203,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
-          # only trenscend from state `Waiting` if talk is live
+          # only transcend from state `Waiting` if talk is live
           fsm.TalkStarted() if config.talk.state == 'live'
       when 'EndTalk'
         config.talk.state = 'postlive'
