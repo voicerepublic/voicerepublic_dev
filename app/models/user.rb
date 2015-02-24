@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
 
   protected
   def confirmation_required?
-    false if provider == 'facebook'
+    provider == 'facebook'
   end
 
 end
