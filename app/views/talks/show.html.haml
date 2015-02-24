@@ -13,6 +13,8 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
   .header-block(style="background-image: url(#{@talk.image.url})")
+    .row.alert-box.alert(ng-show='!hasFlash() && talkIsLive()')
+      #flash_error= raw t('require_flash_for_listening')
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
@@ -301,7 +303,7 @@
           %h3.flash-title= t('.audio_settings_title')
           .alert-box.alert(ng-show='!hasFlash()')
             #flash_error
-              = raw t('require_flash')
+              = raw t('require_flash_for_streaming')
               %br/
               %a(href='javascript:closePopup()')= t('.noflash_close_popup')
           .loading-audio-setup(ng-hide='!hasFlash() || flags.blackboxReady')
