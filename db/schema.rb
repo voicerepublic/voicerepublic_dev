@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20150219152328) do
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id",          null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "commentable_id"
     t.string   "commentable_type"
   end
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 20150219152328) do
   create_table "participations", force: true do |t|
     t.integer  "venue_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
@@ -211,8 +211,9 @@ ActiveRecord::Schema.define(version: 20150219152328) do
     t.string   "language",           default: "en"
     t.string   "slug"
     t.string   "speakers"
-    t.string   "user_override_uuid"
+    t.string   "slides_uid"
     t.text     "edit_config"
+    t.string   "user_override_uuid"
     t.float    "popularity",         default: 1.0
     t.float    "penalty",            default: 1.0
   end
@@ -225,8 +226,8 @@ ActiveRecord::Schema.define(version: 20150219152328) do
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "email",                  default: "",  null: false
     t.string   "encrypted_password",     default: "",  null: false
     t.string   "reset_password_token"
@@ -252,9 +253,14 @@ ActiveRecord::Schema.define(version: 20150219152328) do
     t.integer  "default_venue_id"
     t.string   "summary"
     t.float    "penalty",                default: 1.0
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
@@ -262,8 +268,8 @@ ActiveRecord::Schema.define(version: 20150219152328) do
   create_table "venues", force: true do |t|
     t.text     "description"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "teaser"
     t.integer  "user_id"
     t.text     "options",     default: "--- {}\n"

@@ -61,16 +61,10 @@ class User < ActiveRecord::Base
 
   acts_as_token_authenticatable
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  # see config/initializers/warden.rb for overwritten
-  # callbacks in case of authentication or logout
-  # to set the default online/offline/busy - state of user
   devise :database_authenticatable, :registerable, :omniauthable,
-    :recoverable, :rememberable, :trackable, :validatable #, :timeoutable
+    :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  validates :email, uniqueness: true, presence: true
+  validates :email, uniqueness: true
   validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :summary, length: { maximum: 255 }
@@ -110,15 +104,17 @@ class User < ActiveRecord::Base
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
       user = User.where(:provider => auth[:provider], :uid => auth[:uid]).first
       unless user
-        user = User.create( lastname: auth[:extra][:raw_info][:last_name],
+        user = User.new( lastname: auth[:extra][:raw_info][:last_name],
                             firstname: auth[:extra][:raw_info][:first_name],
                             provider: auth[:provider],
                             website: auth[:info][:urls][:Facebook],
                             uid: auth[:uid],
                             email: auth[:info][:email],
                             password: Devise.friendly_token[0,20] )
+        user.confirm!
       end
-      user
+
+      user.reload
     end
   end
 
@@ -189,6 +185,12 @@ class User < ActiveRecord::Base
     save!
     return unless deep
     venues.each { |venue| venue.set_penalty!(penalty) }
+  end
+
+  protected
+
+  def reconfirmation_required?
+    provider != 'facebook' && super
   end
 
 end
