@@ -107,7 +107,7 @@
 
       .sidebar-right.hide-for-small
         - if can? :manage, @talk
-          = link_to t('.edit_talk'),[:edit, @venue, @talk], 'ng-hide' => 'talkIsHalflive() || talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
+          = link_to t('.edit_talk'),[:edit, @talk], 'ng-hide' => 'talkIsHalflive() || talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
