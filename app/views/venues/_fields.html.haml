@@ -7,7 +7,7 @@
     .row
       .medium-12.columns
         .image-box(style="background-image: url(#{@venue.image.url})" data-show-upload="#venue_image")
-          %button.button-standard(type="button" data-trigger-file-input="venue_image")
+          %button.button-standard(type="button" data-trigger-file-input="#venue_image")
             = t('.select_image')
           = f.file_field :image, class: 'soft-hide'
 
