@@ -1,7 +1,7 @@
 - content_for :title do
   = t('.title')
 
-= simple_form_for([@venue, @talk]) do |f|
+= simple_form_for(@talk) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.schedule_a_talk') }
 
   .form-save-row.row
