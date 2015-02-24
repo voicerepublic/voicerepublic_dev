@@ -9,6 +9,7 @@ namespace :fix do
                 reminder
                 default_venues
                 orphaned_venues
+                tag_taggings_count
                 user
                 user_summary ).map(&:to_sym)
 
@@ -143,6 +144,14 @@ namespace :fix do
     if docs.count
       puts "Deleting #{docs.count} orphaned search docs."
       PgSearch::Document.delete_all([cond, ids])
+    end
+  end
+
+  desc 'set all counter caches on tags'
+  task tag_taggings_count: :environment do
+    puts "Reset counters of #{ActsAsTaggableOn::Tag.count} tags."
+    ActsAsTaggableOn::Tag.find_each do |tag|
+      ActsAsTaggableOn::Tag.reset_counters tag.id, :taggings
     end
   end
 

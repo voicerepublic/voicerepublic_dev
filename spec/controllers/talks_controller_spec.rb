@@ -23,14 +23,6 @@ describe TalksController do
     end
   end
 
-  describe 'Talk#upload' do
-    it 'creates a pre-signed S3 URL that will be used in Angular File Upload' do
-      get :new, { :venue_id => @venue.id }
-      assigns(:presigned_s3_post_url).should_not be_nil
-      assigns(:presigned_s3_post_url).to_s.should =~ /http.*s3.*/
-    end
-  end
-
   describe 'Talk#show' do
     describe 'assigns talks to @related_talks' do
       before do
