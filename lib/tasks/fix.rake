@@ -129,9 +129,21 @@ namespace :fix do
 
   desc 'destroy orphaned venues'
   task orphaned_venues: :environment do
-    orphans = Venue.where('user_id NOT IN (?)', User.pluck(:id))
-    puts "Destroying #{orphans.count} orphanened venues." if orphans.count
-    orphans.destroy_all
+    cond = 'user_id NOT IN (?)'
+    ids = User.pluck(:id)
+    orphans = Venue.where(cond, ids)
+    if orphans.count
+      puts "Deleting #{orphans.count} orphaned venues."
+      Venue.delete_all([cond, ids])
+    end
+
+    cond = "searchable_type = 'Venue' AND searchable_id NOT IN (?)"
+    ids = Venue.pluck(:id)
+    docs = PgSearch::Document.where(cond, ids)
+    if docs.count
+      puts "Deleting #{docs.count} orphaned search docs."
+      PgSearch::Document.delete_all([cond, ids])
+    end
   end
 
 end
