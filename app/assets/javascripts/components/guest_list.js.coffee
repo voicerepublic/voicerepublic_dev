@@ -1,6 +1,10 @@
+# initializes the guest list(s) with select2
+#
 selector = '.guestList'
 
 initialize = (node) ->
+  console.log "initialize: #{selector}"
+
   guests = JSON.parse($(node).val())
   $(node).select2
     width: 'element'
@@ -24,7 +28,7 @@ initialize = (node) ->
     # formats the entries
     formatSelection: (obj, container) ->
       "<img src='#{obj.img}'><br/> #{obj.text}"
-  
+
   # workaround to populate select2 with existing data
   if guests.length > 0
     $(node).select2 'data', guests
