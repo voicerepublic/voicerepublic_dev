@@ -79,10 +79,11 @@
                   = succeed t('.embed') do
                     %span.icon-code
                 #modal-embed.reveal-modal.text-center(data-reveal)
-                  %h3.color-black= t('.embed_this_talk')
+                  %h3= t('.embed_this_talk')
+                  %br/
                   %textarea
                     <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-                  %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
+                  %span.embed-help-text= t('.copy_text')
                   %a.close-reveal-modal= raw '&#215;'
 
               .play-count.left

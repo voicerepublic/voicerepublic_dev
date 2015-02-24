@@ -136,9 +136,7 @@ class Talk < ActiveRecord::Base
   after_save -> { delay(queue: 'audio').user_override! },
              if: ->(t) { t.user_override_uuid_changed? and
                            !t.user_override_uuid.to_s.empty? }
-  before_save  -> { self.state = :postlive },
-               if: ->(t) { t.user_override_uuid_changed? and
-                           !t.user_override_uuid.to_s.empty? }
+
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
     # attributes have been given
@@ -333,7 +331,7 @@ class Talk < ActiveRecord::Base
 
   def set_penalty!(penalty)
     self.penalty = penalty
-    set_popularity
+    set_popularity if archived?
     save!
   end
 
@@ -624,32 +622,25 @@ class Talk < ActiveRecord::Base
     [ :title, [:id, :title] ]
   end
 
-  # Gets triggered when a user has uploaded an override file
+  # gets triggered when a user has uploaded an override file
   def user_override!
-    logger.info "Talk #{id} override: Starting user_override! with uuid: #{user_override_uuid}"
-    # Request public URL from S3
-    s3 = AWS::S3.new
-    bucket = s3.buckets[Settings.talk_upload_bucket]
-    # TODO: Check if there is a more efficient way of accessing the required
-    # object
-    obj = bucket.as_tree.children.select(&:leaf?).collect(&:object).collect do |o|
-      o if o.key == user_override_uuid
-    end.compact.first
+    logger.info "Talk.find(#{id}).user_override! (with uuid #{user_override_uuid})"
 
-    # Save public URL in override field
-    update_attribute :recording_override, obj.public_url.to_s
-    logger.info "Talk #{id} override: Retrieved S3 public URL: #{recording_override}"
+    # with the current policy there is not need to talk to aws
+    url = 'https://s3.amazonaws.com/%s/%s' %
+          [ Settings.storage.uploads, user_override_uuid ]
 
-    # user_override! is already running delayed, so no need to delay
-    # process_override! itself. Also allows to delete the user audio override
-    # directly after process_override! is complete.
-    logger.info "Talk #{id} override: Starting process_override!"
+    logger.info "URL: #{url}"
+
+    # TODO use a more secure variant with fog
+    # uploads = Storage.directories.get(Settings.storage.uploads)
+    # upload = uploads.files.get(user_override_uuid)
+    # url = upload.public_url.to_s
+
+    update_attribute :recording_override, url
     process_override!
 
     # TODO: Delete the object only when process_override! was successfull
-    # s3_client = AWS::S3::Client.new
-    # s3_client.delete_object(bucket_name: Settings.talk_upload_bucket, key: user_override_uuid)
-    # logger.info "Talk #{id} override: Deleted key '#{user_override_uuid}' from bucket '#{Settings.talk_upload_bucket}'"
   end
 
   def generate_flyer?

@@ -28,14 +28,14 @@ describe Talk do
         talk.errors[:starts_at_time].should include("needs to be in the past")
       end
 
-      it 'saves into state "postlive"' do
+      it 'uploads go directly into state "pending"' do
         talk = FactoryGirl.build :talk
         # do not test override feature
         allow(talk).to receive(:user_override!).and_return(true)
-        talk.state.should_not == :postlive
+        expect(talk).not_to be_pending
         talk.user_override_uuid = '038ee6b8-0557-4172-8ad6-2548dccd4793'
         talk.save
-        talk.state.should == :postlive
+        expect(talk).to be_pending
       end
     end
 

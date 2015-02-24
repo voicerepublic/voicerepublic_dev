@@ -27,10 +27,11 @@ en:
       signed_in: 'You are signed in.'
       signed_out: 'You are logged out.'
       new:
-        login_title: 'Log In'
+        login: 'Log In'
         login_or: 'or'
-        password: 'Password'        
+        password: 'Password'
         remember: 'Remember me'
+        continue: 'Continue &nbsp;&rArr;'
         text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp;<strong>teach</strong>,&nbsp;advice<br>play music<br>entertain,&nbsp; motivate,&nbsp; <strong>help</strong><br>directly via live<br><strong>video chat</strong>.'
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
@@ -51,20 +52,21 @@ en:
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
       new:
-        registration_title: 'Sign Up'
+        sign_up: 'Sign Up'
         registration_or: 'or'
         firstname: 'First name'
         lastname: 'Last name'
         password: 'Password'
         password_confirmation: 'Password confirmation'
+        continue: 'Continue &nbsp;&rArr;'
         text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp; <strong>teach</strong>,&nbsp; advice<br>play music<br>entertain,&nbsp; motivate,&nbsp; <strong>help</strong><br>directly via live<br><strong>video chat</strong>.'
     shared:
       links:
         login: 'Log In'
         signup: 'Sign Up'
-        forgot_password: 'Forgot password?'       
+        forgot_password: 'Forgot password?'
       social_network_connects:
-        with: 'with'         
+        with: 'with'
     unlocks:
       send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
       unlocked: 'Your account has been unlocked successfully. Please sign in to continue.'

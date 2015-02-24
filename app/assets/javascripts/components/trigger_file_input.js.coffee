@@ -1,8 +1,13 @@
-triggerFileInput = (element) ->
-	source = $(element)
-	target = $("##{source.attr('data-trigger-file-input')}")
-	source.click -> 
-  	target.click()
+# when clicking on the given element, trigger a click on the file
+# upload selection button
+#
+attribute = 'data-trigger-file-input'
 
-$('*[data-trigger-file-input]').each (index,element) -> 
-  triggerFileInput(element)
+initialize = (element, selector) ->
+  console.log "initialize: #{attribute} (#{selector})"
+  $(element).click -> $(selector).click()
+
+# initializer
+$("*[#{attribute}]").each (index, element) ->
+  value = $(element).attr(attribute)
+  initialize element, value

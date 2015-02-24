@@ -9,6 +9,8 @@
 attribute = 'data-picker'
 
 initialize = (element, scope) ->
+  console.log "initialize: #{attribute} (#{scope})"
+
   target = $(element)
 
   if scope == 'date'
@@ -21,6 +23,7 @@ initialize = (element, scope) ->
       hourGrid: 3
       minuteGrid: 10
 
+# initializer
 $("*[#{attribute}]").each (index, element) ->
   value = $(element).attr(attribute)
   initialize element, value
