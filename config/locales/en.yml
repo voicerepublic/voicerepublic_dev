@@ -1051,6 +1051,8 @@ en:
       plays: '%{count} plays'
       subscribe_to_podcast: Podcast
       embed: Embed
+      embed_this_talk: Embed this Talk
+      copy_text: Copy this code and paste into your website
       embed_player: Embed Player
       more_talks_title: MORE FROM THIS USER
       edit_talk: EDIT TALK

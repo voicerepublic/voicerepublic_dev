@@ -1,13 +1,18 @@
-# I admit this is not the best name.
+# when clicked hide the element and show the element identified by
+# selector instead
+#
 attribute = 'data-replace-with'
 
 initialize = (element, selector) ->
+  console.log "initialize: #{attribute} (#{selector})"
+
   source = $(element)
-  target = $(selector)
+
   source.click (e) ->
-    target.show()
+    $(selector).show()
     source.hide()
 
-$("*[#{attribute}]").each (index, element) -> 
+# initializer
+$("*[#{attribute}]").each (index, element) ->
   value = $($(element).attr(attribute))
   initialize element, value

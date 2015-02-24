@@ -8,7 +8,7 @@
         .large-3.medium-3.columns
           - avatar_url = @user.avatar.thumb('143x143#nw').url
           .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="#user_avatar")
-          %button.button-standard.button-profile-img(type="button" data-trigger-file-input="user_avatar")
+          %button.button-standard.button-profile-img(type="button" data-trigger-file-input="#user_avatar")
             = t('.select_profile_image')
           = f.input :avatar, as: :file
 

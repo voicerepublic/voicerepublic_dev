@@ -47,7 +47,7 @@
       .medium-3.columns
         .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#venue_talks_attributes_0_image")
       .medium-9.columns
-        %button.button-standard(type="button" data-trigger-file-input="talk_image")
+        %button.button-standard(type="button" data-trigger-file-input="#talk_image")
           = t('.select_image')
         = f.file_field :image, as: :file, class: 'soft-hide'
 
