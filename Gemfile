@@ -46,7 +46,7 @@ gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
 gem 'pg_search', github: 'branch14/pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
-gem 'fog'
+gem 'fog-aws'
 gem 'slick_rails'
 
 group :development, :test do
@@ -81,6 +81,8 @@ group :development, :test do
 
   # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
   gem 'rspec-core' # needed when running specs on ci
+
+  gem 'fog-local'
 end
 
 group :test do
