@@ -248,6 +248,10 @@ en:
     next_label: ! '>>'
     previous_label: <<
 
+
+
+
+
   controller_accounts:
     no_settings_made_yet: Your Settings are not finished yet
     account_settings_created: your Settings were created
@@ -382,6 +386,113 @@ en:
       new:
         reset_password: Reset password
         your_email_address: Your email address
+  messages:
+    as_text: "%{created_at} %{user_name}: %{content}"
+    received_message:
+      reply: Reply
+      delete: Delete
+    sent_message:
+      delete: Delete
+  notifies:
+    my_content:
+      bookmarked_your: bookmarked your KluuU
+      commented_your_status: commented on your status
+      follows_you_now: is following you
+      unfollow: Unfollow
+      follow_back: Follow
+      rated_your: Rated your KluuU
+      wrote_you_a_message: Send you a Message
+      an_anonymous_person: an anonymous call
+      tried_to_call_your_klu: attempted to reach KluuU
+      tried_to_call_your_noklu: attempted to reach Question
+      joined_venue: joined the Series %{title}
+    new_content:
+      created_new_status_update: changed their status
+      created_new: crated a new
+      new_venue_create: A new Series was set up
+  search:
+    show:
+      title: 'Results for "%{query}"'
+      results: "%{results_count} RESULT(S) FOR "
+      best_result: TOP RESULT
+      talks: TALKS
+      venues: SERIES
+      users: USERS
+      now_live: NOW LIVE
+      featured: FEATURED
+      popular: POPULAR
+      recently_archived: RECENTLY ARCHIVED
+      no_results: Sorry, no results.
+  shared:
+    unconfirmed:
+      notice: |
+        You haven't confirmed your email address, yet. Please check
+        your emails and follow the link we sent you.
+    how_to_use_vr:
+      create_talk: Create Talk
+      check_pricing: Check our pricing
+
+    hide_for_anon:
+      redirect_text: |
+        Please sign up or login to use this feature.
+      subscribe_to_podcast: Podcast
+    actionbar:
+      login: Log In
+      sign_up: Sign Up
+      search: Search
+      explore: Explore
+      my_profile: Profile
+      my_next_talks: My next Talks
+      create_venue: Create Series
+      settings: Settings
+      logout: Log Out
+    check_flash:
+      no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
+    footer:
+      about: About
+      company: Company
+      manifest: Manifest
+      terms: Terms
+      pricing: Pricing
+      blog: Blog
+      faq: FAQ
+      press_kit: Press Kit
+      contact: Contact
+      fb: Voice Republic on facebook
+      tw: Voice Republic on twitter
+      team: Team
+    navbar:
+      more_talks: More talks
+      sign_up: Sign Up
+      sign_in: Log In
+      search: Search...
+    notice_or_error:
+      success: Successful
+      warning: Warning
+      error: Error
+    user_dropdown_list:
+      logout: Log Out
+    venues:
+      venues: Series
+    profile_dropdown_list:
+      my_profile: My profile
+      create_venue: Create Series
+      contacts: Contacts
+      messages: Messages
+      settings: Settings
+    talk_medium_box:
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+      read_more: ...read more
+      delete_reminder: Delete reminder
+    talk_small_box:
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+      tune_in: TUNE IN
+    talk_live_box:
+      tune_in: TUNE IN
+      speakers: TALKGUESTS
+    venue_medium_box:
+      upcoming_talks: '%{count} Upcoming Talks'
+      archived_talks: '%{count} Archived Talks'
 
   articles:
     venue_form:
