@@ -413,7 +413,10 @@ en:
   search:
     show:
       title: 'Results for "%{query}"'
-      results: "%{results_count} RESULT(S) FOR "
+      results:
+        zero: 'SORRY, NO RESULTS FOR "%{query}"'
+        one: '%{count} RESULT FOR "%{query}"'
+        other: '%{count} RESULTS FOR "%{query}"'
       best_result: TOP RESULT
       talks: TALKS
       venues: SERIES
