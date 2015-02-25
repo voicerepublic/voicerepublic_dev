@@ -51,7 +51,7 @@ feature "User edits own profile", js: true do
     page.click_link('Log In')
     page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
-    page.click_button 'Log In'
+    page.find('.button-login').click
     page.click_link 'Edit Profile'
     page.should have_css('#user_firstname')
   end
@@ -158,6 +158,7 @@ feature "User can register" do
       page.click_link 'REGISTER WITH FACEBOOK'
       page.should have_content "Successfully authenticated from Facebook account"
       User.where(guest: nil).count.should eq(1)
+      User.last.email.should_not be_nil
     end
 
     scenario 'user logs in with facebook' do
@@ -181,7 +182,7 @@ feature "User can register" do
     page.fill_in('user_password', :with => "foobar")
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
-    page.click_button('Sign Up')
+    page.find('.button-signup').click
     current_url.should include('/onboard')
   end
 
@@ -190,7 +191,7 @@ feature "User can register" do
     page.click_link('Sign Up')
     page.fill_in('user_firstname', :with => "Jim")
     page.fill_in('user_lastname', :with => "Beam")
-    page.click_button('Sign Up')
+    page.find('.button-signup').click
     within(".input.email.error") do
       page.should have_content("can't be blank")
     end

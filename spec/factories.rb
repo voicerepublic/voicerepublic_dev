@@ -1,4 +1,6 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
+
+# TODO remove faker, it slows things down, while not having any benefits!
 require 'faker'
 
 include ActionDispatch::TestProcess
@@ -14,7 +16,16 @@ FactoryGirl.define do
     user
   end
 
+  # the default user is a confirmed user, if you need an unconfirmed
+  # user use the trait `unconfirmed`, as in...
+  #
+  #   FactoryGirl.create(:user, :unconfirmed)
+  #
   factory :user do
+    ignore do
+      unconfirmed false
+    end
+
     email { Faker::Internet.email }
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
@@ -23,6 +34,14 @@ FactoryGirl.define do
     password secret
     password_confirmation secret
     timezone 'Berlin'
+
+    trait :unconfirmed do
+      unconfirmed true
+    end
+
+    after(:create) do |user, evaluator|
+      user.confirm! unless evaluator.unconfirmed
+    end
   end
 
   factory :comment do

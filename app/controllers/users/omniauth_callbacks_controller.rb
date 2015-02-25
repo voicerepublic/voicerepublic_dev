@@ -8,11 +8,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)
 
     unless @user.valid?
-      logger.warn("OmniAuthCallbacks#facebook - user invalid: @user.inspect")
+      logger.warn("OmniAuthCallbacks#facebook - user invalid: #{@user.errors.inspect}")
       flash[:error] = @user.errors.full_message(:email, "is in use")
       redirect_to new_user_registration_url and return
     end
-    
+
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
       remember_me(@user)

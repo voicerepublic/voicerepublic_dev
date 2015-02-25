@@ -52,7 +52,10 @@
                     = t('.my_profile', default: 'My Profile')
                 %li
                   = link_to new_talk_path do
-                    = t('.create_talk')
+                    = t('.schedule_talk')
+                %li
+                  = link_to new_upload_path do
+                    = t('.upload_talk')
                 %li
                   = link_to [:edit, current_user] do
                     = t('.settings')

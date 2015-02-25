@@ -44,6 +44,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   # https://github.com/jakesgordon/javascript-state-machine/blob/master/README.md
   fsm = StateMachine.create
     initial: config.initial_state
+    # events, resp. transitions are defined in lib/livepage_config.rb
     events: config.statemachine
     error: (eventName, from, to, args, errorCode, errorMessage) ->
       $log.debug [eventName, from, to, args, errorCode]
@@ -202,7 +203,8 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
           users = data.session # TODO check if needed
-          fsm.TalkStarted()
+          # only transcend from state `Waiting` if talk is live
+          fsm.TalkStarted() if config.talk.state == 'live'
       when 'EndTalk'
         config.talk.state = 'postlive'
         fsm.TalkEnded()
@@ -249,7 +251,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # propagate codec transitions to google analytics
     pusher = $log.debug
     # FIXME this uses `window` and thus is not testable easily
-    puhser = window._gaq.push if window._gaq?
+    pusher = window._gaq.push if window._gaq?
     if config.feedback.data?.codec != msg.data.codec
       transition = "#{config.feedback.data?.codec} -> #{msg.data.codec}"
       pusher ['_trackEvent', 'streaming', 'codec', transition]

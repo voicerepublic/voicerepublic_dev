@@ -131,3 +131,34 @@ span[class^="icon-"]{
 .centered {
     text-align: center;
 }
+
+.notice {
+  position: absolute;
+  z-index:10000;
+  top:30px;
+  right: 50%;
+  margin-right: -200px;
+  width: 400px;
+  text-align: center;
+  > div{
+    background: #F9EDBE;
+    color: black;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 3px 6px;
+    border: 1px solid #F0C36D;
+    display: inline-block;
+    border-radius: 2px;
+  }
+}
+
+.error{
+  label{
+    color: $color-black-title;
+  }
+  small.error{
+    background: rgba(0,0,0,0.8);
+    padding:4px 8px;
+    font-size: rem-calc(11);
+  }
+}
