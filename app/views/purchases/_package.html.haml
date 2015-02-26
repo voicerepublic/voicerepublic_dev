@@ -1,0 +1,10 @@
+- qty, amount = make_deal(quantity)
+- price = number_to_currency(amount/100.0, unit: Purchase::CURRENCY)
+
+.row(style='margin-top: 50px')
+  .medium-2.columns
+    %h2(style='color: black')= name
+  .medium-6.columns
+    = t('.purchase_x_at_a_price_of_y', x: qty, y: price)
+  .medium-4.columns
+    = link_to paypal_button, express_new_purchase_path(quantity: qty), class: 'right'

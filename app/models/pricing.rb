@@ -2,20 +2,26 @@ module Pricing
 
   include Gnuplot
 
-  def make_price(quantity)
-    return  10 * 10 if quantity <= 10
-    return  25 *  9 if quantity <= 25
-    return  50 *  8 if quantity <= 50
-    return 100 *  6 if quantity <= 100
-    quantity * 6
+  # returns quantity and price in cents
+  def make_deal(qty)
+    qty = qty.to_i
 
-    # return quantity * 6 if quantity <= 250
-    # 250 * 6 + (quantity - 250) * 4
+    qty =  10 if qty <= 10
+    qty =  25 if qty > 10 and qty <= 25
+    qty =  50 if qty > 25 and qty <= 50
+    qty = 100 if qty > 50 and qty <= 100
+
+    price =  10 * 1000 if qty == 10
+    price =  25 *  900 if qty == 25
+    price =  50 *  800 if qty == 50
+    price = qty *  700 if qty >= 100
+
+    [qty, price]
   end
 
   def plot_pricing!(max=150)
     Tempfile.open('pricing', '/tmp') do |f|
-      (1..max).each { |q| f.puts [q, make_price(q)]*" " }
+      (1..max).each { |q| f.puts [q, make_deal(q)[1]/100]*" " }
       f.close
       gnuplot(f.path, 'doc/pricing.svg')
     end

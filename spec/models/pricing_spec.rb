@@ -7,7 +7,7 @@ describe Pricing do
   it 'has continuity' do
     prev_price = 0
     (1..1000).each do |qty|
-      price = object.make_price(qty)
+      price = object.make_deal(qty)[1]
       expect(price).to be >= prev_price
       prev_price = price
     end
