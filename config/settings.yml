@@ -94,3 +94,13 @@ venue_default_attributes:
     teaser: Add your teaser here.
     description: Add your description here.
     tag_list: untagged
+
+# this needs to be overridden by `app/shared/config/settings.local.yml`
+activemerchant:
+  billing_mode: test
+  gateway: paypal_express
+# sandbox account
+paypal:
+  login: billing-facilitator_api1.voicerepublic.com
+  password: DN49HF4NJFV2VXCY
+  signature: A.s24tjnJ2mWWFD4MAbxh6.qj5MbA1fFTAbSjKBXjRPo5omKdKMEMQgY
