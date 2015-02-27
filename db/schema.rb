@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226131709) do
+ActiveRecord::Schema.define(version: 20150227191728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20150226131709) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "details"
+    t.integer  "owner_id"
   end
 
   create_table "reminders", force: true do |t|
@@ -235,6 +236,20 @@ ActiveRecord::Schema.define(version: 20150226131709) do
   add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
 
+  create_table "transactions", force: true do |t|
+    t.string   "type"
+    t.string   "state"
+    t.text     "details"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.datetime "failed_at"
+    t.datetime "processed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["source_id", "source_type"], name: "index_transactions_on_source_id_and_source_type", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "firstname"
     t.string   "lastname"
@@ -269,6 +284,7 @@ ActiveRecord::Schema.define(version: 20150226131709) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "credits",                default: 0
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

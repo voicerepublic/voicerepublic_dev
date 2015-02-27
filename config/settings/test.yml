@@ -9,3 +9,7 @@ fog:
     endpoint: http://localhost:3000/system/cloud
 api:
   enabled: true
+
+activemerchant:
+  billing_mode: test
+  gateway: bogus
