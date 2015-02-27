@@ -46,6 +46,10 @@ module ActiveMerchant #:nodoc:
         REDIRECT_URL
       end
 
+      def details_for token
+        "hello"
+      end
+
     end
   end
 end
