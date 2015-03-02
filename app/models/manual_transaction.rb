@@ -9,15 +9,14 @@
 # * state [string] - TODO: document me
 # * type [string] - TODO: document me
 # * updated_at [datetime] - last update time
-class WelcomeTransaction < Transaction
-
-  QUANTITY = Settings.welcome_credits
+class ManualTransaction < Transaction
 
   def process!
     start!
-    source.with_lock do
-      source.credits += QUANTITY
-      source.save!
+    user = User.find(details[:user_id])
+    user.with_lock do
+      user.credits += details[:quantity].to_i
+      user.save!
     end
     close!
   rescue Exception => e
