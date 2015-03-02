@@ -1087,6 +1087,7 @@ en:
       edit_talk: EDIT TALK
       start_text_top: Click START when the speaker begins.
       start: START
+      flash_not_available_button: N/A
       start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
       unstarted_message: THE SPEAKER HAS NOT STARTED YET
       audio_settings: Audio settings

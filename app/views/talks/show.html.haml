@@ -204,7 +204,13 @@
         .row.text-center
           .left-text.small-4.columns= t('.start_text_top')
           .button-column.small-4.columns
-            %a.button-start(href="#" ng-click='startTalk()')= t('.start')
+            %a(ng-show='hasFlash()')
+              .button-start(href="#" ng-click='startTalk()')
+                = t('.start')
+            %a(ng-show='!hasFlash()')
+              .button-start
+                = t('.flash_not_available_button')
+
           .right-text.small-4.columns= t('.start_text_bottom').html_safe
 
       -# MESSAGE FOR LISTENER
