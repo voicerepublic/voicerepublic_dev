@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
 
   after_save :generate_flyers!, if: :generate_flyers?
   after_create :create_and_set_default_venue!, unless: :guest?
+  after_create :create_and_process_welcome_transaction!, unless: :guest?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -191,6 +192,12 @@ class User < ActiveRecord::Base
     save!
     return unless deep
     venues.each { |venue| venue.set_penalty!(penalty) }
+  end
+
+  private
+
+  def create_and_process_welcome_transaction!
+    WelcomeTransaction.create(source: self).process!
   end
 
   protected

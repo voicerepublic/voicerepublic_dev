@@ -94,6 +94,7 @@ venue_default_attributes:
     teaser: Add your teaser here.
     description: Add your description here.
     tag_list: untagged
+welcome_credits: 3
 
 # this needs to be overridden by `app/shared/config/settings.local.yml`
 activemerchant:
