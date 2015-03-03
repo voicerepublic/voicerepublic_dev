@@ -24,6 +24,7 @@
   <body class="<%= [controller_name, action_name] * '-' %>">
     <%= render "shared/how_to_use_vr" %>
     <%= render "shared/actionbar" %>
+    <%= render "shared/unconfirmed" if @current_user && !@current_user.confirmed? %>
     <%= render "shared/notice_or_error" %>
 
     <%= yield %>

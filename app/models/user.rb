@@ -61,16 +61,10 @@ class User < ActiveRecord::Base
 
   acts_as_token_authenticatable
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  # see config/initializers/warden.rb for overwritten
-  # callbacks in case of authentication or logout
-  # to set the default online/offline/busy - state of user
   devise :database_authenticatable, :registerable, :omniauthable,
-    :recoverable, :rememberable, :trackable, :validatable #, :timeoutable
+    :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  validates :email, uniqueness: true, presence: true
+  validates :email, uniqueness: true
   validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :summary, length: { maximum: 255 }
@@ -79,8 +73,11 @@ class User < ActiveRecord::Base
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name),
     allow_nil: true
 
+  # WARNING: Do not use after_save hooks in the 'user' model that will save the
+  # model. The reason is that the Devise confirmable_token might be reset
+  # mid-transaction.
   after_save :generate_flyers!, if: :generate_flyers?
-  after_create :create_and_set_default_venue!, unless: :guest?
+  before_create :build_and_set_default_venue!, unless: :guest?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -88,10 +85,9 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
-  def create_and_set_default_venue!
+  def build_and_set_default_venue!
     attrs = Settings.default_venue_defaults[I18n.locale].to_hash
-    create_default_venue(attrs.merge(user: self))
-    save
+    build_default_venue(attrs.merge(user: self))
   end
 
   def name
@@ -110,15 +106,17 @@ class User < ActiveRecord::Base
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
       user = User.where(:provider => auth[:provider], :uid => auth[:uid]).first
       unless user
-        user = User.create( lastname: auth[:extra][:raw_info][:last_name],
+        user = User.new( lastname: auth[:extra][:raw_info][:last_name],
                             firstname: auth[:extra][:raw_info][:first_name],
                             provider: auth[:provider],
                             website: auth[:info][:urls][:Facebook],
                             uid: auth[:uid],
                             email: auth[:info][:email],
                             password: Devise.friendly_token[0,20] )
+        user.confirm!
       end
-      user
+
+      user.reload
     end
   end
 
@@ -189,6 +187,12 @@ class User < ActiveRecord::Base
     save!
     return unless deep
     venues.each { |venue| venue.set_penalty!(penalty) }
+  end
+
+  protected
+
+  def reconfirmation_required?
+    provider != 'facebook' && super
   end
 
 end

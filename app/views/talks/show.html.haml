@@ -13,8 +13,8 @@
 
 .layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
   .header-block(style="background-image: url(#{@talk.image.url})")
-    .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
-      #flash_error= raw t('require_flash')
+    .row.alert-box.alert.rounded.centered(ng-show='!hasFlash() && talkIsLive()')
+      #flash_error_for_listener= raw t('require_flash_for_listening')
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
@@ -79,10 +79,11 @@
                   = succeed t('.embed') do
                     %span.icon-code
                 #modal-embed.reveal-modal.text-center(data-reveal)
-                  %h3.color-black= t('.embed_this_talk')
+                  %h3= t('.embed_this_talk')
+                  %br/
                   %textarea
                     <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-                  %span.embed-help-text= t('.copy_this_code_and_paste_into_your_website')
+                  %span.embed-help-text= t('.copy_text')
                   %a.close-reveal-modal= raw '&#215;'
 
               .play-count.left
@@ -106,7 +107,7 @@
 
       .sidebar-right.hide-for-small
         - if can? :manage, @talk
-          = link_to t('.edit_talk'),[:edit, @venue, @talk], 'ng-hide' => 'talkIsHalflive() || talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
+          = link_to t('.edit_talk'),[:edit, @talk], 'ng-hide' => 'talkIsHalflive() || talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
@@ -203,7 +204,13 @@
         .row.text-center
           .left-text.small-4.columns= t('.start_text_top')
           .button-column.small-4.columns
-            %a.button-start(href="#" ng-click='startTalk()')= t('.start')
+            %a(ng-show='hasFlash()')
+              .button-start(href="#" ng-click='startTalk()')
+                = t('.start')
+            %a(ng-show='!hasFlash()')
+              .button-start
+                = t('.flash_not_available_button')
+
           .right-text.small-4.columns= t('.start_text_bottom').html_safe
 
       -# MESSAGE FOR LISTENER
@@ -301,7 +308,13 @@
       .flash-box
         .flash-border
           %h3.flash-title= t('.audio_settings_title')
-          .loading-audio-setup(ng-hide='flags.blackboxReady')
+          .alert-box.alert.rounded(ng-show='!hasFlash()')
+            #flash_error_for_publisher
+              = raw t('require_flash_for_streaming')
+              %br/
+              %br/
+              %a(href='javascript:closePopup()')= t('.noflash_close_popup')
+          .loading-audio-setup(ng-hide='!hasFlash() || flags.blackboxReady')
             %span.icon-mic
             = t('.setting_up_audio')
         #flashContent

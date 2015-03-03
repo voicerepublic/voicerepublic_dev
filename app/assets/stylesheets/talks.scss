@@ -1,3 +1,5 @@
+.uploads-new,
+.uploads-create,
 .talks-new,
 .talks-create,
 .talks-edit,
@@ -334,10 +336,17 @@
     }
   }
 
-  .embed-help-text{
-    font-family: $brand-font-light;
-    font-size: rem-calc(15);
-    color: $brand-color-red;
+  #modal-embed{
+    background: black;
+    @include responsive(desktop){
+      width: 700px;
+      margin-left: -350px;
+    }
+    .embed-help-text{
+      font-family: $brand-font-light;
+      font-size: rem-calc(15);
+      color: white;
+    }
   }
 
   .talk-timeline-box{
@@ -1441,7 +1450,14 @@
     width: 210px;
     text-align: left;
     .button-edit-talk{
-      margin: 32px 0 15px 0;
+      margin: 0 0 15px 0;
+      width: 110px;
+      color: $brand-color-red;
+      font-size: rem-calc(16);
+      font-family: $brand-font-bold;
+      padding: 7px 10px;
+      background: black;
+      line-height: 1.5;
     }
     .related-talk{
       width: 100%;

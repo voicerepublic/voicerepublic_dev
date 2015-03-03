@@ -45,7 +45,7 @@
         = link_to new_talk_path(talk: { venue_id: @venue.id }) do
           %span.icon-mic
           = t('.create_new_talk')
-        = link_to new_talk_path(talk: { venue_id: @venue.id }) do
+        = link_to new_upload_path(talk: { venue_id: @venue.id }) do
           %span.icon-upload-cloud
           = t('.upload_talk')
       - else

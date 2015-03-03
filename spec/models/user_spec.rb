@@ -16,6 +16,13 @@ describe User do
     FactoryGirl.build(:user, lastname: nil).should_not be_valid
   end
 
+  it 'should be confirmable' do
+    user = FactoryGirl.create(:user, :unconfirmed)
+    expect(user).to_not be_confirmed
+    user.confirm!
+    expect(user).to be_confirmed
+  end
+
   describe 'determines its role to a given talk' do
     let(:user) { FactoryGirl.create(:user) }
     it 'detects being a host' do

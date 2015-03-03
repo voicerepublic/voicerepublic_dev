@@ -1,0 +1,18 @@
+en:
+  simple_form:
+    hints:
+      talk:
+        language: ""
+        format: Please provide the format purely for informational purposes.
+    labels:
+      talk:
+        venue: Series
+        new_venue_title: New Series Title
+        starts_at_date: Date
+        starts_at_time: Time
+        teaser: Short description
+        tag_list: Tags
+      user:
+        conference: I will be streaming a conference.
+        accept_terms_of_use: |
+          I accept the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>.

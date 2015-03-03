@@ -1,6 +1,7 @@
 selector = '.tagList'
 
 initialize = (node) ->
+  console.log "initialize: #{selector}"
 
   tags = $(node).val().split(', ')
 
@@ -46,4 +47,3 @@ initialize = (node) ->
 
 # init if present
 $.each $(selector), (index, node) -> initialize(node)
-

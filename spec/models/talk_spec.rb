@@ -28,14 +28,14 @@ describe Talk do
         talk.errors[:starts_at_time].should include("needs to be in the past")
       end
 
-      it 'saves into state "postlive"' do
+      it 'uploads go directly into state "pending"' do
         talk = FactoryGirl.build :talk
         # do not test override feature
         allow(talk).to receive(:user_override!).and_return(true)
-        talk.state.should_not == :postlive
+        expect(talk).not_to be_pending
         talk.user_override_uuid = '038ee6b8-0557-4172-8ad6-2548dccd4793'
         talk.save
-        talk.state.should == :postlive
+        expect(talk).to be_pending
       end
     end
 
@@ -202,6 +202,8 @@ describe Talk do
       talk = FactoryGirl.create(:talk)
       expect(talk.current_state).to be(:prelive)
       talk.start_talk!
+      expect(talk.current_state).to be(:halflive)
+      talk.start_talk!
       expect(talk.current_state).to be(:live)
       talk.end_talk!
       expect(talk.current_state).to be(:postlive)
@@ -228,8 +230,9 @@ describe Talk do
   end
 
   it 'does not send email with option no_emails' do
+    user = FactoryGirl.create(:user)
     ActionMailer::Base.deliveries = []
-    venue = FactoryGirl.create(:venue, options: { no_email: true })
+    venue = FactoryGirl.create(:venue, user: user, options: { no_email: true })
     talk = FactoryGirl.create(:talk, venue: venue)
     ActionMailer::Base.deliveries.should be_empty
   end

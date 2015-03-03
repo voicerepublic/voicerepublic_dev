@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203151804) do
+ActiveRecord::Schema.define(version: 20150219152328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,12 @@ ActiveRecord::Schema.define(version: 20150203151804) do
   add_index "messages", ["talk_id"], name: "index_messages_on_talk_id", using: :btree
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
+  create_table "metrics", force: true do |t|
+    t.string   "key"
+    t.float    "value"
+    t.datetime "created_at"
+  end
+
   create_table "participations", force: true do |t|
     t.integer  "venue_id"
     t.integer  "user_id"
@@ -164,12 +170,17 @@ ActiveRecord::Schema.define(version: 20150203151804) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
 
   create_table "tags", force: true do |t|
-    t.string "name"
+    t.string  "name"
+    t.boolean "category",       default: false
+    t.integer "taggings_count", default: 0
   end
+
+  add_index "tags", ["category"], name: "index_tags_on_category", using: :btree
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["taggings_count"], name: "index_tags_on_taggings_count", using: :btree
 
   create_table "talks", force: true do |t|
     t.string   "title"
@@ -242,9 +253,14 @@ ActiveRecord::Schema.define(version: 20150203151804) do
     t.integer  "default_venue_id"
     t.string   "summary"
     t.float    "penalty",                default: 1.0
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
