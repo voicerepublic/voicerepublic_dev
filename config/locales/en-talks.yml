@@ -128,14 +128,16 @@ en:
 
     new:
       title: "Create Talk - Voice Republic"
-      new_talk: Create Talk
+      schedule_a_talk: Schedule A Live Talk
     edit:
       title: "Edit Talk %{title} - Voice Republic"
       edit_talk: Edit Talk
       delete_talk: Delete talk
       select_image: Background image
     fields:
-      initializing: Installing uploader...
+      upload_a_recording: Upload A Recording
+      describe_your_talk: Describe Your Talk
+      initializing: Initializing Uploader...
       audio_upload: "Upload your audio file"
       choose_file: Choose file
       uploading: Uploading...
@@ -149,24 +151,23 @@ en:
         Please click 'Save' to start processing your uploaded audio file.
         Your upload will be lost unless you press 'Save'.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
-      schedule_the_live_broadcast: Schedule the live broadcast
+      choose_date_and_time: 'Choose Date & Time'
       upload_help_text: Choose your recording file and fill out the form during upload.
       upload_done: A file has already been uploaded.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
       add_to_series: Add to Series
-      series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.
+      series_help_text: Series are like playlist, they allow you to group your talks by theme.
       invite_guests: Invite guests
       invite_guests_text: Your guests will be automatically added to the stage.
-      illustrate_and_describe: General Information
+      illustrate_and_describe: Image and Description
       ill_and_desc_text: Choose a background image and tell your audience a little more...
       image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
       import_your_audio_file: Import audio file
       select_image: Select image
-      talks_description: Tell your audience a little more
       title: Title
       required: required
-      teaser: Teaser
-      tag_list: Tag list
+      teaser: Short description
+      tag_list: Tags
       create_new_series: Create New Series...
     index:
       talks_on_voice_republic: TALKS ON VOICE REPUBLIC

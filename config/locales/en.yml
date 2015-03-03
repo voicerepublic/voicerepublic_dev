@@ -448,21 +448,6 @@ en:
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
 
-  simple_form:
-    hints:
-      talk:
-        language: ""
-        format: Please provide the format purely for informational purposes.
-    labels:
-      talk:
-        venue: Series
-        new_venue_title: New Series Title
-        starts_at_date: Date
-        starts_at_time: Time
-      user:
-        conference: I will be streaming a conference.
-        accept_terms_of_use: |
-          I accept the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>.
   reminders:
     create:
       success: Reminder was successfully created.

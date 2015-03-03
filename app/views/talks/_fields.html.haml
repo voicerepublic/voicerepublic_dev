@@ -20,7 +20,7 @@
         = f.input :tag_list, input_html: { class: 'tagList' }
 
     .title-box.clearfix
-      %h2.form-title= t('.schedule_the_live_broadcast')
+      %h2.form-title= t('.choose_date_and_time')
     .date-time-picker-row.row
       .medium-4.columns
         = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
@@ -54,11 +54,10 @@
     .row
       .medium-12.columns
         %label(for="venue_description")
-          = t('.talks_description')
-        = f.text_area :description, required: true, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
-        - messages = f.object.errors.get(:description)
-        - unless messages.empty?
-          %small.error= messages * ', '
+          = f.text_area :description, required: true, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
+          - messages = f.object.errors.get(:description)
+          - unless messages.empty?
+            %small.error= messages * ', '
 
     .title-box.clearfix
       %h2.form-title.left= t('.invite_guests')
