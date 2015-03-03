@@ -124,6 +124,14 @@ span[class^="icon-"]{
   }
 }
 
+.rounded {
+    border-radius: 5px;
+}
+
+.centered {
+    text-align: center;
+}
+
 .notice {
   position: absolute;
   z-index:10000;
