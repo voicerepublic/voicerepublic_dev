@@ -48,6 +48,7 @@ gem 'jquery-ui-rails'
 gem 'browser'
 gem 'fog'
 gem 'slick_rails'
+gem 'mailgun_rails'
 
 group :development, :test do
   # TODO: Upgrading to Rails 4.1 introduces it's own mail preview mechanism:
