@@ -2,6 +2,7 @@
   .medium-12.columns
     %h2(style='color: black')= t('.our_packages')
 
+= render partial: 'package', locals: { name: 'S',   quantity:   5 }
 = render partial: 'package', locals: { name: 'M',   quantity:  10 }
 = render partial: 'package', locals: { name: 'L',   quantity:  25 }
 = render partial: 'package', locals: { name: 'XL',  quantity:  50 }
