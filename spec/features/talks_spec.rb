@@ -197,13 +197,13 @@ describe "Talks as logged in user" do
       it "live talk requires flash", js: true do
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
-        page.should have_css('#flash_error')
+        page.should have_css('#flash_error_for_listener')
       end
 
       it 'archived talk requires no flash', js: true do
         @talk.update_attribute :state, :archive
         visit talk_path(@talk)
-        page.should_not have_css('#flash_error')
+        page.should_not have_css('#flash_error_for_listener')
       end
     end
 
