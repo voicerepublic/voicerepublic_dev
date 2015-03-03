@@ -7,6 +7,8 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      noflash_close_popup: Close
+      flash_not_available_button: N/A
       title: "%{title} - Voice Republic"
       waiting_for_start: The talk has not been started.
       talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
