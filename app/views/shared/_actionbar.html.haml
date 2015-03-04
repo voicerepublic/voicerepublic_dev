@@ -47,18 +47,10 @@
                 = current_user.name
 
               %ul.user-link-dropdown.dropdown
-                %li
-                  = link_to current_user do
-                    = t('.my_profile', default: 'My Profile')
-                %li
-                  = link_to new_talk_path do
-                    = t('.schedule_talk')
-                %li
-                  = link_to new_upload_path do
-                    = t('.upload_talk')
-                %li
-                  = link_to [:edit, current_user] do
-                    = t('.settings')
+                %li= link_to t('.my_profile'), current_user
+                %li= link_to t('.test_talk'), test_talk_path
+                %li= link_to t('.schedule_talk'), new_talk_path
+                %li= link_to t('.upload_talk'), new_upload_path
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
                     %i.icon-off

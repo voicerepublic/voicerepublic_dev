@@ -319,9 +319,9 @@ en:
       search: Search
       explore: Explore
       my_profile: Profile
-      my_next_talks: My next Talks
-      create_venue: Create Series
-      settings: Settings
+      schedule_talk: Schedule A Live Talk
+      upload_talk: Upload A Recording
+      test_talk: Test Hosting A Talk
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
