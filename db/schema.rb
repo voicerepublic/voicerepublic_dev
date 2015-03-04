@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219152328) do
+ActiveRecord::Schema.define(version: 20150304091011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,19 @@ ActiveRecord::Schema.define(version: 20150219152328) do
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
+  create_table "purchases", force: true do |t|
+    t.integer  "quantity",         default: 1
+    t.integer  "amount"
+    t.datetime "purchased_at"
+    t.string   "ip"
+    t.string   "express_token"
+    t.string   "express_payer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "details"
+    t.integer  "owner_id"
+  end
+
   create_table "reminders", force: true do |t|
     t.integer  "user_id"
     t.integer  "rememberable_id"
@@ -216,12 +229,27 @@ ActiveRecord::Schema.define(version: 20150219152328) do
     t.string   "user_override_uuid"
     t.float    "popularity",         default: 1.0
     t.float    "penalty",            default: 1.0
+    t.boolean  "dryrun",             default: false
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
   add_index "talks", ["popularity"], name: "index_talks_on_popularity", using: :btree
   add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
+
+  create_table "transactions", force: true do |t|
+    t.string   "type"
+    t.string   "state"
+    t.text     "details"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.datetime "failed_at"
+    t.datetime "processed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["source_id", "source_type"], name: "index_transactions_on_source_id_and_source_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -257,11 +285,14 @@ ActiveRecord::Schema.define(version: 20150219152328) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.integer  "credits",                default: 0
+    t.integer  "purchases_count",        default: 0
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["purchases_count"], name: "index_users_on_purchases_count", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
