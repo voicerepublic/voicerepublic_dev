@@ -1,0 +1,9 @@
+.row(style='margin-top: 100px')
+  .large-12.columns
+    %h2= t('.headline')
+    %p= t('.explanation')
+
+    - if current_user.try(:insider?)
+      %hr
+      %h3= t('.gory_details')
+      %pre= @purchase.to_yaml
