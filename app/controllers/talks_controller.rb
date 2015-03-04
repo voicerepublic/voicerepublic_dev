@@ -116,7 +116,7 @@ class TalksController < BaseController
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
                                  :format, :new_venue_title, :venue_id,
-                                 :user_override_uuid)
+                                 :user_override_uuid, :dryrun)
   end
 
 end
