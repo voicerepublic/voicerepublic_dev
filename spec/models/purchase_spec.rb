@@ -6,8 +6,8 @@ describe Purchase do
     expect(Purchase.new(express_token: 'ASDF').details).to be_present
   end
 
-  it 'calculates the amount when setting the quantity' do
-    expect(Purchase.new(quantity: 1).amount).to be_present
+  it 'calculates the total when setting the product' do
+    expect(Purchase.new(product: 'B5').total).to be_present
   end
 
   it 'works with parallel transactions' do

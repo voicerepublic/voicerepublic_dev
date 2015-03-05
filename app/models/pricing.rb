@@ -16,9 +16,8 @@ module Pricing
     'NP25' => [ 'NP25',  25, 1200,  30000]
   }
 
-  include Gnuplot
-
-  extend self
+  # include Gnuplot
+  # extend self
 
   # FIXME
   # def plot_pricing!(max=150)
