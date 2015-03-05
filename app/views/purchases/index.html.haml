@@ -1,9 +1,11 @@
 .row(style='margin-top: 100px')
   .medium-12.columns
-    %h2(style='color: black')= t('.our_packages')
+    %h2(style='color: black')= t('.our_packages_for_businesses')
 
-= render partial: 'package', locals: { name: 'S',   quantity:   5 }
-= render partial: 'package', locals: { name: 'M',   quantity:  10 }
-= render partial: 'package', locals: { name: 'L',   quantity:  25 }
-= render partial: 'package', locals: { name: 'XL',  quantity:  50 }
-= render partial: 'package', locals: { name: 'XXL', quantity: 100 }
+= render partial: 'package', collection: Pricing::BUSINESS
+
+.row(style='margin-top: 100px')
+  .medium-12.columns
+    %h2(style='color: black')= t('.our_packages_for_nonprofit')
+
+= render partial: 'package', collection: Pricing::NONPROFIT

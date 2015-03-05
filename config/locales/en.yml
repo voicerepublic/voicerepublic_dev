@@ -471,7 +471,10 @@ en:
     index:
       our_packages: Our Packages
     new:
+      payment_authorized: |
+        Your payment has been authorized successfully.
       you_are_buying_x_for_the_price_of_y: |
-        You are about to buy %{x} Talk Credits for the price of %{y}
+        Please confirm to buy %{x} VR Talk Credits for the price of %{y}
+      complete_purchase: Complete Your Purchase
     package:
       purchase_x_at_a_price_of_y: Purchase %{x} Talks at a Price of %{y}
