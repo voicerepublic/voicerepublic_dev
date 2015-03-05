@@ -17,7 +17,7 @@ class Purchase < ActiveRecord::Base
   CURRENCY = 'EUR'
 
   belongs_to :owner, class_name: 'User', counter_cache: true
-  has_one :transaction, class_name: 'PurchaseTransaction', as: :source
+  has_one :purchase_transaction, as: :source
 
   serialize :details
 
@@ -52,7 +52,7 @@ class Purchase < ActiveRecord::Base
                                         currency: CURRENCY)
     raise response.params['message'] unless response.success?
     update_attribute(:purchased_at, Time.now) if response.success?
-    create_transaction.process!
+    create_purchase_transaction.process!
     response.success?
   end
 
