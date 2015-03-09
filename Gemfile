@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.13'
 
 #gem 'turbolinks'
 
@@ -12,7 +12,7 @@ gem 'delayed_job'
 gem 'delayed_job_active_record'
 
 gem 'less-rails', "2.3.2"
-gem 'sass-rails' #,   '~> 3.2.3'
+gem 'sass-rails', '~> 4.0.2'
 gem 'coffee-rails' #, '~> 3.2.1'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier'#, '>= 1.0.3'
