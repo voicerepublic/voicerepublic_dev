@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+require 'yaml' # active_support needs it
+require "active_support"
+
 require 'open-uri'
 require 'ostruct'
 require 'active_support/core_ext'
