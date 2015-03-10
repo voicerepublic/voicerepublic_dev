@@ -75,7 +75,6 @@ group :development, :test do
   gem 'byebug'
   gem 'disable_assets_logger'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
   gem 'meta_request'
   gem 'pry-rails'
   gem 'rspec-rails'

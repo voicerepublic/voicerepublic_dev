@@ -179,8 +179,6 @@ GEM
     factory_girl_rails (4.3.0)
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
-    faker (1.2.0)
-      i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     faye (1.0.1)
@@ -507,7 +505,6 @@ DEPENDENCIES
   disable_assets_logger
   dragonfly (= 1.0.3)
   factory_girl_rails (~> 4.0)
-  faker
   fidelity!
   fog
   foundation-rails
