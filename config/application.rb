@@ -59,9 +59,6 @@ module VoiceRepublic
     # increases Talk#play_count and redirects to Talk#generate_ephemeral_path!
     config.middleware.use 'MediaTracker'
 
-    # attribute_protected/attr_accessible lock down
-    config.active_record.whitelist_attributes = true
-
     config.assets.initialize_on_precompile = false
 
     # http://stackoverflow.com/questions/18294150/how-to-use-fonts-in-rails-4
