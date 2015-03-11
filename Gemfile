@@ -67,7 +67,7 @@ group :development, :test do
   # TODO: Upgrading to Rails 4.1 introduces it's own mail preview mechanism:
   #       http://edgeguides.rubyonrails.org/4_1_release_notes.html#action-mailer-previews
   gem 'letter_opener'
-  gem 'rspec_junit_formatter', github: 'sj26/rspec_junit_formatter', require: false
+  #gem 'rspec_junit_formatter', github: 'sj26/rspec_junit_formatter', require: false
   gem 'letter_opener_web', '~> 1.2.0'
   # gem 'rails_view_annotator'
   gem 'annotator'
@@ -84,8 +84,8 @@ group :development, :test do
   gem 'foreman',                            require: false
   gem 'meta_request'
   gem 'pry-rails'
-  gem 'rspec-rails'
-  gem 'rspec-retry'
+  gem 'rspec-rails', '2.99.0'
+  #gem 'rspec-retry'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
   gem 'timecop'
@@ -94,7 +94,7 @@ group :development, :test do
   gem 'zeus'
 
   # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
-  gem 'rspec-core' # needed when running specs on ci
+  #gem 'rspec-core' # needed when running specs on ci
 end
 
 group :test do
@@ -102,7 +102,7 @@ group :test do
   gem 'ci_reporter'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
-  gem 'guard-rspec'
+  #gem 'guard-rspec'
   gem 'launchy'
   gem 'poltergeist'
   gem 'selenium-webdriver'

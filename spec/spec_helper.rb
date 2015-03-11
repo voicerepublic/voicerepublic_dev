@@ -7,9 +7,9 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
-require 'rspec_junit_formatter' if ENV['CI']
+#require 'rspec_junit_formatter' if ENV['CI']
 
-require 'rspec/retry'
+#require 'rspec/retry'
 
 require 'capybara/rspec'
 require 'capybara/rails'
@@ -59,7 +59,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
 
-  config.verbose_retry = true # show retry status in spec process
+  #config.verbose_retry = true # show retry status in spec process
 
   # Use rspec tags to filter for specific specs
   # Examples
