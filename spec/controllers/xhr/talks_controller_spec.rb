@@ -17,21 +17,21 @@ describe Xhr::TalksController do
 
       it 'returns 422 if no msg given' do
         put :update, id: @talk.id
-        response.status.should be(422)
+        expect(response.status).to be(422)
       end
 
       it 'returns 422 if no user id given' do
         put :update, id: @talk.id, msg: { }
-        response.status.should be(422)
+        expect(response.status).to be(422)
       end
 
       it 'returns 422 if neither event nor state given' do
         put :update, id: @talk.id, msg: { user: { id: 1 } }
-        response.status.should be(422)
+        expect(response.status).to be(422)
       end
 
       it 'raises error when state cannot be set' do
-        Xhr::TalksController.any_instance.stub(:validate_state).and_raise
+        allow_any_instance_of(Xhr::TalksController).to receive(:validate_state).and_raise
         expect {
           put :update, id: @talk.id, msg: { state: 'WaitingForPromotion' }
         }.to raise_error
@@ -48,7 +48,7 @@ describe Xhr::TalksController do
       Delayed::Worker.delay_jobs = true # activate
       VCR.use_cassette 'talk_update_event_wfp' do
         put :update, id: @talk.id, msg: { event: 'StartTalk' }
-        assigns(:method).should eq('start_talk')
+        expect(assigns(:method)).to eq('start_talk')
       end
       Delayed::Worker.delay_jobs = false # deactivate
     end
@@ -57,7 +57,7 @@ describe Xhr::TalksController do
       @talk.update_attribute :session, { @current_user.id => {} }
       VCR.use_cassette 'talk_update_state_wfp' do
         put :update, id: @talk.id, msg: { state: 'WaitingForPromotion' }
-        assigns(:method).should eq(:store_state)
+        expect(assigns(:method)).to eq(:store_state)
       end
     end
 
@@ -68,21 +68,21 @@ describe Xhr::TalksController do
       VCR.use_cassette 'talk_update_state_wfp' do
         put :update, id: @talk.id, msg: message
       end
-      @talk.reload.session[@current_user.id][:state].should eq(message[:state])
+      expect(@talk.reload.session[@current_user.id][:state]).to eq(message[:state])
     end
 
     it 'returns on store_state' do
       @talk.update_attribute :session, { @current_user.id => {} }
       VCR.use_cassette 'talk_update_state_wfp' do
         put :update, id: @talk.id, msg: { state: 'WaitingForPromotion' }
-        response.status.should be(200)
+        expect(response.status).to be(200)
       end
     end
 
     it 'returns on registering' do
       VCR.use_cassette 'talk_update_state_registering' do
         put :update, id: @talk.id, msg: { state: 'Registering' }
-        response.status.should be(200)
+        expect(response.status).to be(200)
       end
     end
 
@@ -91,7 +91,7 @@ describe Xhr::TalksController do
       message = { state: 'WaitingForPromotion' }
       VCR.use_cassette 'talk_update_state_wfp' do
         put :update, id: @talk.id, msg: message
-        @talk.reload.session[@current_user.id].should_not be_empty
+        expect(@talk.reload.session[@current_user.id]).not_to be_empty
       end
     end
 
@@ -102,7 +102,7 @@ describe Xhr::TalksController do
         message = { event: 'Promotion', user: { id: @current_user.id } }
         VCR.use_cassette 'talk_update_verify_host' do
           put :update, id: @talk.id, msg: message
-          response.status.should be(740)
+          expect(response.status).to be(740)
         end
       end
 
@@ -112,7 +112,7 @@ describe Xhr::TalksController do
 
   it 'should authenticate user' do
     put :update, id: 'invalid_id'
-    response.status.should be(302)
+    expect(response.status).to be(302)
   end
 
 end

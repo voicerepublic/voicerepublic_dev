@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Venue do
 
   it "is invalid without title" do
-    FactoryGirl.build(:venue, :title => nil).should_not be_valid
+    expect(FactoryGirl.build(:venue, :title => nil)).not_to be_valid
   end
 
   describe 'penalty' do

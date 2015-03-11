@@ -6,8 +6,8 @@ describe Xhr::SocialSharesController do
     it 'does not return with unauthorized' do
       @talk = FactoryGirl.create(:talk)
       xhr :post, :create, id: @talk.id, social_share: { asdf: 'asdf' }
-      response.status.should_not be(401)
-      response.status.should be(200)
+      expect(response.status).not_to be(401)
+      expect(response.status).to be(200)
     end
   end
 
@@ -25,7 +25,7 @@ describe Xhr::SocialSharesController do
 
       it 'creates a social_share' do
         xhr :post, :create, social_share: { shareable_type: 'talk' }
-        response.status.should be(200)
+        expect(response.status).to be(200)
       end
 
       it 'tracks what was shared' do
@@ -36,23 +36,23 @@ describe Xhr::SocialSharesController do
         }.to change(SocialShare, :count).by(1)
 
         share = SocialShare.last
-        share.user_agent.should == "Rails Testing"
-        share.request_ip.should == "0.0.0.0"
-        share.user_id.should == @current_user.id
-        share.social_network.should == 'facebook'
+        expect(share.user_agent).to eq("Rails Testing")
+        expect(share.request_ip).to eq("0.0.0.0")
+        expect(share.user_id).to eq(@current_user.id)
+        expect(share.social_network).to eq('facebook')
       end
 
       it 'returns json to verify success' do
         xhr :post, :create, social_share: { shareable_type: 'talk',
                                             shareable_id: @talk.id }
         res = JSON.parse(response.body)
-        res['message'].should == I18n.t("social_share/has_been_tracked")
+        expect(res['message']).to eq(I18n.t("social_share/has_been_tracked"))
       end
 
       it 'guards against random shares' do
         xhr :post, :create, social_share: { shareable_type: 'random' }
         res = JSON.parse(response.body)
-        res['message']['shareable_type'][0].should == "is not included in the list"
+        expect(res['message']['shareable_type'][0]).to eq("is not included in the list")
       end
 
     end

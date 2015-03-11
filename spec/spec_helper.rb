@@ -82,7 +82,7 @@ RSpec.configure do |config|
 
   config.filter_run_excluding file_upload: true if ENV['JS_DRIVER'] == 'phantomjs'
 
-  config.color_enabled = true
+  config.color = true
 
   # ## Mock Framework
   #

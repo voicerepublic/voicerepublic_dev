@@ -39,25 +39,25 @@ describe TalksController do
           venue_id: @venue.id
 
         get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
-        assigns(:related_talks).should_not include(@talk)
-        assigns(:related_talks).should include(talk_same_venue)
-        assigns(:related_talks).should_not include(@talk_other_venue)
-        assigns(:related_talks).should_not include(@talk_other_user)
+        expect(assigns(:related_talks)).not_to include(@talk)
+        expect(assigns(:related_talks)).to include(talk_same_venue)
+        expect(assigns(:related_talks)).not_to include(@talk_other_venue)
+        expect(assigns(:related_talks)).not_to include(@talk_other_user)
       end
 
       # second choice
       it 'assigns archived talks of same user' do
         get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
-        assigns(:related_talks).should include(@talk_other_venue)
-        assigns(:related_talks).should_not include(@talk_other_user)
+        expect(assigns(:related_talks)).to include(@talk_other_venue)
+        expect(assigns(:related_talks)).not_to include(@talk_other_user)
       end
 
       # third choice
       it 'assigns popular talks of any user' do
         @talk_other_venue.destroy
         get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
-        assigns(:related_talks).should_not include(@talk_other_venue)
-        assigns(:related_talks).should include(@talk_other_user)
+        expect(assigns(:related_talks)).not_to include(@talk_other_venue)
+        expect(assigns(:related_talks)).to include(@talk_other_user)
       end
     end
   end
@@ -80,15 +80,15 @@ describe TalksController do
   describe "Talk#update" do
     describe "Authorization" do
       it "updates the talk" do
-        @talk.title.should_not == 'new test title'
+        expect(@talk.title).not_to eq('new test title')
         post :update, { venue_id: @venue.id, id: @talk.id, talk: { "title" => 'new test title' } }
-        @talk.reload.title.should == 'new test title'
+        expect(@talk.reload.title).to eq('new test title')
       end
       it "does not update the talk" do
         expect {
           post :update, { venue_id: @venue_2.id, id: @talk_2.id, talk: { "title" => 'new test title' } }
         }.to raise_error(CanCan::AccessDenied)
-        @talk.reload.title.should_not == 'new test title'
+        expect(@talk.reload.title).not_to eq('new test title')
       end
     end
   end
@@ -115,11 +115,11 @@ describe TalksController do
     end
 
     it 'talk has attached tags after creation' do
-      Talk.count.should be(2) # @talk & @talk_2
+      expect(Talk.count).to be(2) # @talk & @talk_2
       post :create, { venue_id: @venue.id, talk: valid_attributes }
-      assigns(:talk).venue_id.should_not be_nil
-      assigns(:talk).errors.to_a.should eq([])
-      Talk.all[2].tag_list.should_not be_empty
+      expect(assigns(:talk).venue_id).not_to be_nil
+      expect(assigns(:talk).errors.to_a).to eq([])
+      expect(Talk.all[2].tag_list).not_to be_empty
     end
 
     it 'creates a new venue on the fly' do
@@ -144,7 +144,7 @@ describe TalksController do
     describe "Authorization" do
       it 'downloads a talks message history' do
         get :show, { :id => @talk.id, :venue_id => @venue.id, :format => :text }
-        response.body.should include("spec content")
+        expect(response.body).to include("spec content")
       end
 
       it 'authorizes downloading a talks message history' do

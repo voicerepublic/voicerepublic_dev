@@ -10,7 +10,7 @@ describe Reminder do
     talk = FactoryGirl.create(:talk)
     reminder = FactoryGirl.create(:reminder, rememberable: talk)
     talk.destroy
-    expect(Reminder.exists?(id: reminder.id)).to be_false
+    expect(Reminder.exists?(id: reminder.id)).to be_falsey
   end
   
 end

@@ -6,31 +6,31 @@ describe 'TalksController' do
     describe 'without talk' do
       it 'index on GET /talks' do # index
         visit '/talks'
-        page.should have_selector(".talks-index")
+        expect(page).to have_selector(".talks-index")
       end
       it 'index on GET /talks/featured' do # featured
         visit '/talks/featured'
-        page.should have_selector(".talks-featured")
+        expect(page).to have_selector(".talks-featured")
       end
       it 'index on GET /talks/popular' do # popular
         visit '/talks/popular'
-        page.should have_selector(".talks-popular")
+        expect(page).to have_selector(".talks-popular")
       end
       it 'index on GET /talks/upcoming' do # upcoming
         visit '/talks/upcoming'
-        page.should have_selector(".talks-upcoming")
+        expect(page).to have_selector(".talks-upcoming")
       end
       it 'index on GET /talks/live' do # live
         visit '/talks/live'
-        page.should have_selector(".talks-live")
+        expect(page).to have_selector(".talks-live")
       end
       it 'index on GET /talks/recent' do # recent
         visit '/talks/recent'
-        page.should have_selector(".talks-recent")
+        expect(page).to have_selector(".talks-recent")
       end
       it 'new on GET /talks/new' do # new
         visit '/talks/new'
-        page.should have_selector(".talks-new")
+        expect(page).to have_selector(".talks-new")
       end
     end
     describe 'with talk' do
@@ -38,15 +38,15 @@ describe 'TalksController' do
         @talk = FactoryGirl.create(:talk)
       end
       it "show on GET /talks/:id" do # show
-        pending
+        skip
         visit talk_path(@talk)
-        page.should have_selector(".talks-show")
+        expect(page).to have_selector(".talks-show")
       end
       it "edit on GET /talks/:id/edit" do # edit
-        pending
+        skip
         login_talk @talk
         visit edit_talk_path(@talk)
-        page.should have_selector(".talks-edit")
+        expect(page).to have_selector(".talks-edit")
       end
     end
   end
@@ -54,7 +54,7 @@ end
 
 describe "Talks as anonymous user" do
   describe 'redirect to login/sign up', js: true do
-    pending 'redirects to talk after login' do
+    skip 'redirects to talk after login' do
       talk = FactoryGirl.create(:talk)
       user = FactoryGirl.create(:user, email: 'foo@bar.com')
       user.set_password! "123123"
@@ -63,17 +63,17 @@ describe "Talks as anonymous user" do
       visit talk_path(talk)
       find(".request-mic-box a").click
       within(".reveal-modal") do
-        page.should have_content("Please sign up or login to use this feature")
+        expect(page).to have_content("Please sign up or login to use this feature")
         click_on "Login"
       end
       fill_in "user_email", with: "foo@bar.com"
       fill_in "user_password", with: "123123"
       find("button[name=Login]").click
 
-      current_path.should =~ /#{talk_path(talk)}/
+      expect(current_path).to match(/#{talk_path(talk)}/)
     end
     it 'asks users to login on request mic and redirects to talk after login' do
-      pending 'fails when run in suite, succeed when run standalone'
+      skip 'fails when run in suite, succeed when run standalone'
       talk = FactoryGirl.create(:talk)
       user = FactoryGirl.create(:user, email: 'foo@bar.com')
       user.set_password! "123123"
@@ -82,7 +82,7 @@ describe "Talks as anonymous user" do
       visit talk_path(talk)
       find(".request-mic-box a").click
       within(".reveal-modal") do
-        page.should have_content("Please sign up or login to use this feature")
+        expect(page).to have_content("Please sign up or login to use this feature")
         click_on "Login"
       end
     end
@@ -102,7 +102,7 @@ describe "Talks as logged in user" do
       # trying to create specs that are properly mocked for live talks, but
       # within reason.
       `netcat localhost 9292 -w 1 -q 0 </dev/null`
-      pending 'Needs PrivatePub to run' if $?.exitstatus != 0
+      skip 'Needs PrivatePub to run' if $?.exitstatus != 0
       WebMock.disable!
     end
     after do
@@ -111,42 +111,42 @@ describe "Talks as logged in user" do
 
     describe "Visitor" do
       it 'shows a countdown' do
-        pending RSpec::RACECOND
+        skip RSpec::RACECOND
         @talk = FactoryGirl.create(:talk,
                                    starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
                                    starts_at_date: Date.today)
         visit talk_path(@talk)
-        page.should have_content "THIS TALK IS LIVE IN"
-        page.should have_content "computing"
+        expect(page).to have_content "THIS TALK IS LIVE IN"
+        expect(page).to have_content "computing"
         retry_with_delay do
-          page.should have_content /00:04:\d{2}/
+          expect(page).to have_content /00:04:\d{2}/
         end
         Timecop.travel(2.minutes.from_now)
         visit talk_path(@talk)
         retry_with_delay do
-          page.should have_content /00:02:\d{2}/
+          expect(page).to have_content /00:02:\d{2}/
         end
         Timecop.return
       end
 
 
       it "sets correct state for visitor/listener" do
-        pending RSpec::RACECOND
+        skip RSpec::RACECOND
         @talk = FactoryGirl.create(:talk)
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
         retry_with_delay do
-          @talk.reload.session[@user.id][:state].should == "Registering"
+          expect(@talk.reload.session[@user.id][:state]).to eq("Registering")
         end
         retry_with_delay do
-          @talk.reload.session[@user.id][:state].should == "Listening"
+          expect(@talk.reload.session[@user.id][:state]).to eq("Listening")
         end
       end
     end
 
     describe "Host" do
       it "sets correct state for host" do
-        pending RSpec::RACECOND
+        skip RSpec::RACECOND
         @talk = FactoryGirl.create(:talk)
         venue = @talk.venue
         venue.user = @user
@@ -155,15 +155,15 @@ describe "Talks as logged in user" do
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
         retry_with_delay do
-          @talk.reload.session[@user.id][:state].should == "HostRegistering"
+          expect(@talk.reload.session[@user.id][:state]).to eq("HostRegistering")
         end
         retry_with_delay do
-          @talk.reload.session[@user.id][:state].should == "HostOnAir"
+          expect(@talk.reload.session[@user.id][:state]).to eq("HostOnAir")
         end
       end
 
       it "goes live on it's own", driver: :chrome do
-        pending 'omit on ci' if ENV['CI']
+        skip 'omit on ci' if ENV['CI']
 
         @talk = FactoryGirl.create(:talk,
                                    starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
@@ -177,7 +177,7 @@ describe "Talks as logged in user" do
         visit talk_path(@talk)
         retry_with_delay do
           within '.talk-state-info' do
-            page.should have_content I18n.t('.talks.show.state_text')
+            expect(page).to have_content I18n.t('.talks.show.state_text')
           end
         end
         Timecop.return
@@ -197,41 +197,41 @@ describe "Talks as logged in user" do
       it "live talk requires flash", js: true do
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
-        page.should have_css('#flash_error_for_listener')
+        expect(page).to have_css('#flash_error_for_listener')
       end
 
       it 'archived talk requires no flash', js: true do
         @talk.update_attribute :state, :archive
         visit talk_path(@talk)
-        page.should_not have_css('#flash_error_for_listener')
+        expect(page).not_to have_css('#flash_error_for_listener')
       end
     end
 
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
-        page.should have_selector('.explore-link')
-        page.should have_content('Explore')
+        expect(page).to have_selector('.explore-link')
+        expect(page).to have_content('Explore')
       end
 
       it 'shows explore in venue_talk_path' do
         visit venue_talk_path(@talk.venue, @talk)
-        page.should have_selector('.explore-link')
-        page.should have_content('Explore')
+        expect(page).to have_selector('.explore-link')
+        expect(page).to have_content('Explore')
       end
 
       it 'shows explore in user_path' do
         visit user_path(@user)
-        page.should have_selector('.explore-link')
-        page.should have_content('Explore')
+        expect(page).to have_selector('.explore-link')
+        expect(page).to have_content('Explore')
       end
     end
 
     describe "visiting talks#index" do
       it 'displays talks overview' do
         visit talks_path
-        page.should have_selector('.see-all-link')
-        page.should have_content('Explore')
+        expect(page).to have_selector('.see-all-link')
+        expect(page).to have_content('Explore')
       end
 
       it 'has "more" and displays 25 talks a time on recent' do
@@ -240,12 +240,12 @@ describe "Talks as logged in user" do
         within(".recent") do
           click_on "MORE"
         end
-        current_path.should =~ /talks\/recent/
-        page.should have_selector('.talk-medium-box', count: 25)
-        page.should have_selector('.pagination')
+        expect(current_path).to match(/talks\/recent/)
+        expect(page).to have_selector('.talk-medium-box', count: 25)
+        expect(page).to have_selector('.pagination')
         within(".pagination") do
-          page.should have_link('2')
-          page.should_not have_link('3')
+          expect(page).to have_link('2')
+          expect(page).not_to have_link('3')
         end
       end
     end
@@ -253,12 +253,12 @@ describe "Talks as logged in user" do
 
   describe "Talk#new" do
     it 'has default time and date' do
-      pending 'this feature has been disabled for the moment'
+      skip 'this feature has been disabled for the moment'
       venue = FactoryGirl.create(:venue, user: @user)
       visit new_talk_path
       # Time is being written in the frontend. Cannot use Timecop to mock that.
-      find('#talk_starts_at_date').value.should eq(Date.today.strftime "%Y-%m-%d")
-      find('#talk_starts_at_time').value.should eq(Time.now.strftime "%H:%M")
+      expect(find('#talk_starts_at_date').value).to eq(Date.today.strftime "%Y-%m-%d")
+      expect(find('#talk_starts_at_time').value).to eq(Time.now.strftime "%H:%M")
     end
     it 'creates a new talk', driver: :chrome do
       venue = FactoryGirl.create(:venue, user: @user)
@@ -275,8 +275,8 @@ describe "Talks as logged in user" do
       fill_in 'talk_starts_at_time', with: '05:12'
 
       click_button 'Save'
-      page.should have_selector('.talks-show')
-      page.should have_content('spec talk title')
+      expect(page).to have_selector('.talks-show')
+      expect(page).to have_content('spec talk title')
     end
 
     it 'shows validation errors', driver: :chrome do
@@ -287,8 +287,8 @@ describe "Talks as logged in user" do
       fill_in 'talk_starts_at_time', with: ''
 
       click_button 'Save'
-      page.should have_content(I18n.t(:invalid_date))
-      page.should have_content(I18n.t(:invalid_time))
+      expect(page).to have_content(I18n.t(:invalid_date))
+      expect(page).to have_content(I18n.t(:invalid_time))
     end
   end
 
@@ -301,7 +301,7 @@ describe "Talks as logged in user" do
         Timecop.return
       end
       it "it works live" do
-        pending "Close to working, see comments"
+        skip "Close to working, see comments"
         @venue = FactoryGirl.create :venue
         @talk = FactoryGirl.create :talk, venue: @venue
         visit venue_talk_path @venue, @talk
@@ -312,12 +312,12 @@ describe "Talks as logged in user" do
         # testing mode, though. Faye published it, however. And of course it
         # works in development.
         within "#discussion" do
-          page.should have_content "my message"
-          find(".chat-message").should be_visible
+          expect(page).to have_content "my message"
+          expect(find(".chat-message")).to be_visible
         end
       end
       it "it works with reload" do
-        pending "fails on circleci" if ENV['CIRCLECI']
+        skip "fails on circleci" if ENV['CIRCLECI']
         @venue = FactoryGirl.create :venue
         @talk = FactoryGirl.create :talk, venue: @venue
         visit venue_talk_path @venue, @talk
@@ -327,8 +327,8 @@ describe "Talks as logged in user" do
         visit(current_path)
         page.execute_script('$("a[href=#discussion]").click()')
         within "#discussion" do
-          page.should have_content "my message"
-          page.should have_content "01 Sep 10:05"
+          expect(page).to have_content "my message"
+          expect(page).to have_content "01 Sep 10:05"
         end
       end
     end
@@ -336,27 +336,27 @@ describe "Talks as logged in user" do
 
   describe "Active tab", js: true do
     it 'has no tab and contents in chat' do
-      pending "really weird ActionController::RoutingError 3/4"
+      skip "really weird ActionController::RoutingError 3/4"
       @venue = FactoryGirl.create :venue
       @venue.options[:suppress_chat] = true
       @venue.save!
       @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
       visit venue_talk_path @venue, @talk
-      page.evaluate_script(
+      expect(page.evaluate_script(
         '$("a[href=#discussion]").parent().hasClass("active")
-          ').should_not be(true)
+          ')).not_to be(true)
       within ".tabs.vr-tabs" do
-        page.should_not have_css(".discussion")
+        expect(page).not_to have_css(".discussion")
       end
     end
     it 'shows chat active by default' do
-      pending "really weird ActionController::RoutingError 4/4"
+      skip "really weird ActionController::RoutingError 4/4"
       @venue = FactoryGirl.create :venue
       @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
       visit venue_talk_path @venue, @talk
-      page.evaluate_script(
+      expect(page.evaluate_script(
         '$("a[href=#discussion]").parent().hasClass("active")'
-      ).should be(true)
+      )).to be(true)
     end
   end
 
@@ -372,18 +372,18 @@ describe "Talks as logged in user" do
     #       ActiveRecord::RecordNotFound
     #
     it "can be shared to social networks and saves statistics", driver: :chrome do
-      pending "T H I S   S P E C   F A I L S   O N   C I"
-      SocialShare.count.should eq(0)
+      skip "T H I S   S P E C   F A I L S   O N   C I"
+      expect(SocialShare.count).to eq(0)
       visit venue_talk_path 'en', @venue, @talk
       page.execute_script('$("#social_share .facebook").click()')
       sleep 0.2
 
       share_window = page.driver.browser.window_handles.last
       page.within_window share_window do
-        current_url.should match(/facebook.com/)
+        expect(current_url).to match(/facebook.com/)
       end
 
-      SocialShare.count.should eq(1)
+      expect(SocialShare.count).to eq(1)
     end
 
     it 'has meta tags for google/fb/twitter' do
@@ -408,20 +408,20 @@ describe "Talks as logged in user" do
     it 'shows when set' do
       FactoryGirl.create(:talk, featured_talk: @talk)
       visit talk_path(@talk)
-      page.should have_css('.related-talk')
-      page.should have_content(I18n.t('talks.show.related_talk'))
+      expect(page).to have_css('.related-talk')
+      expect(page).to have_content(I18n.t('talks.show.related_talk'))
     end
 
     it 'does not show when not set' do
       visit talk_path(@talk)
-      page.should_not have_css('.related-talk')
-      page.should_not have_content(I18n.t('talks.show.related_talk'))
+      expect(page).not_to have_css('.related-talk')
+      expect(page).not_to have_content(I18n.t('talks.show.related_talk'))
     end
 
     it 'shows the next coming up talk if there is one' do
       @talk.venue.talks << FactoryGirl.create(:talk)
       visit talk_path(@talk)
-      page.should have_content(I18n.t('talks.show.next_talk'))
+      expect(page).to have_content(I18n.t('talks.show.next_talk'))
     end
   end
 
@@ -433,15 +433,15 @@ describe "Talks as logged in user" do
 
     # FIXME sometimes failing spec (BT see above)
     it "does not lose tags on failed validation", js: true do
-      pending "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
+      skip "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
       visit edit_venue_talk_path 'en', @venue, @talk
       fill_in :talk_title, with: ""
       click_on I18n.t 'helpers.submit.submit'
-      page.should have_content "Please review the problems below"
+      expect(page).to have_content "Please review the problems below"
       within '#s2id_talk_tag_list.tagList' do
-        page.should have_content "test"
-        page.should have_content "foo"
-        page.should have_content "bar"
+        expect(page).to have_content "test"
+        expect(page).to have_content "foo"
+        expect(page).to have_content "bar"
       end
     end
   end

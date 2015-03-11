@@ -4,16 +4,16 @@ require 'spec_helper'
 describe User do
 
   it "has a valid factory" do
-    FactoryGirl.create(:user).should be_valid
+    expect(FactoryGirl.create(:user)).to be_valid
   end
   it "is invalid without an email" do
-    FactoryGirl.build(:user, email: nil).should_not be_valid
+    expect(FactoryGirl.build(:user, email: nil)).not_to be_valid
   end
   it "is invalid without firstname" do
-    FactoryGirl.build(:user, firstname: nil).should_not be_valid
+    expect(FactoryGirl.build(:user, firstname: nil)).not_to be_valid
   end
   it "is invalid without lastname" do
-    FactoryGirl.build(:user, lastname: nil).should_not be_valid
+    expect(FactoryGirl.build(:user, lastname: nil)).not_to be_valid
   end
 
   it 'should be confirmable' do
@@ -57,24 +57,24 @@ describe User do
       user1 = FactoryGirl.create(:user, lastname: 'MrBruce')
       user2 = FactoryGirl.create(:user, firstname: 'Mr', lastname: 'Bruce')
       results = User.search('MrBruce')
-      results.should include(user0)
-      results.should include(user1)
-      results.should_not include(user2)
+      expect(results).to include(user0)
+      expect(results).to include(user1)
+      expect(results).not_to include(user2)
     end
 
     it 'ignores accents' do
       # unaccent works different in postgres 9.1.12(server) and 9.1.13(development)
-      pending 'omit on ci' if ENV['CI']
+      skip 'omit on ci' if ENV['CI']
 
       user = FactoryGirl.create(:user, firstname: 'MrBrùce')
 
       # searching for a user with accent works without writing it
       results = User.search('MrBruce')
-      results.should include(user)
+      expect(results).to include(user)
 
       # searching for a user with wrong accents works
       results = User.search('MrBrucè')
-      results.should include(user)
+      expect(results).to include(user)
     end
   end
 

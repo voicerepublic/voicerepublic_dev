@@ -18,18 +18,18 @@ describe RemindersController do
         expect {
           post :create, talk_id: talk.id
         }.to change(Reminder, :count).by(1)
-        Reminder.last.user.should eq(@user)
+        expect(Reminder.last.user).to eq(@user)
       end
 
       it "assigns a newly created reminder as @reminder" do
         post :create, talk_id: talk.id
-        assigns(:reminder).should be_a(Reminder)
-        assigns(:reminder).should be_persisted
+        expect(assigns(:reminder)).to be_a(Reminder)
+        expect(assigns(:reminder)).to be_persisted
       end
 
       it "redirects to the created reminder" do
         post :create, talk_id: talk.id
-        response.should redirect_to(talk)
+        expect(response).to redirect_to(talk)
       end
     end
   end
@@ -52,7 +52,7 @@ describe RemindersController do
     it "redirects to the users reminders list" do
       reminder = FactoryGirl.create :reminder, user_id: @user.id
       delete :destroy, {:id => reminder.to_param}
-      response.should redirect_to(controller.current_user)
+      expect(response).to redirect_to(controller.current_user)
     end
   end
 

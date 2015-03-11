@@ -8,7 +8,7 @@ describe 'UsersController' do
         expect { visit '/users' }.to raise_error(ActionController::RoutingError)
       end
       it 'new on GET /users/new' do # new
-        pending "Shouldn't this raise a routing error?"
+        skip "Shouldn't this raise a routing error?"
         expect { visit '/users/new' }.to raise_error(ActionController::RoutingError)
       end
     end
@@ -18,12 +18,12 @@ describe 'UsersController' do
       end
       it "show on GET /users/:id" do # show
         visit user_path(@user)
-        page.should have_selector(".users-show")
+        expect(page).to have_selector(".users-show")
       end
       it "edit on GET /users/:id/edit" do # edit
         login_user @user
         visit edit_user_path(@user)
-        page.should have_selector(".users-edit")
+        expect(page).to have_selector(".users-edit")
       end
     end
   end
@@ -31,15 +31,15 @@ end
 
 feature "Anonymous users", js: true do
   scenario "will be authenticated as guest user" do
-    User.count.should eq(0)
+    expect(User.count).to eq(0)
     talk = FactoryGirl.create(:talk)
     visit talk_path(talk)
     # one for the talks and one for the logged in user
-    User.count.should eq(2)
+    expect(User.count).to eq(2)
     # user names are generated with uuids to minimize collisions (chance is1 in
     # 17 billion)
-    User.last.name.should =~ /.*-.*-.*-.*-.*/
-    User.last.email.should =~ /.*-.*-.*-.*-.*@example.com/
+    expect(User.last.name).to match(/.*-.*-.*-.*-.*/)
+    expect(User.last.email).to match(/.*-.*-.*-.*-.*@example.com/)
   end
 end
 
@@ -53,7 +53,7 @@ feature "User edits own profile", js: true do
     page.fill_in 'user_password', with: '123456'
     page.find('.button-login').click
     page.click_link 'Edit Profile'
-    page.should have_css('#user_firstname')
+    expect(page).to have_css('#user_firstname')
   end
 
   scenario "setting a new password" do
@@ -63,20 +63,20 @@ feature "User edits own profile", js: true do
     find('.user_password_confirmation input').set '654321'
 
     page.click_button 'Save'
-    page.should_not have_css('.error')
-    page.should_not have_css('.edit_user')
-    page.should_not have_content(I18n.t('simple_form.error_notification.default_notification'))
-    page.should have_content(I18n.t('flash.actions.update.notice'))
+    expect(page).not_to have_css('.error')
+    expect(page).not_to have_css('.edit_user')
+    expect(page).not_to have_content(I18n.t('simple_form.error_notification.default_notification'))
+    expect(page).to have_content(I18n.t('flash.actions.update.notice'))
   end
 
   scenario "uploading a avatar image" do
     some_image = Rails.root.join('app/assets/images/logo.png')
-    @user.reload.avatar_uid.should be_nil
+    expect(@user.reload.avatar_uid).to be_nil
     make_upload_field_visible('user_avatar')
     page.attach_file 'user_avatar', some_image
     page.click_button 'Save'
-    page.should have_content(I18n.t('flash.actions.update.notice'))
-    @user.reload.avatar_uid.should match(/logo/)
+    expect(page).to have_content(I18n.t('flash.actions.update.notice'))
+    expect(@user.reload.avatar_uid).to match(/logo/)
   end
 end
 
@@ -89,7 +89,7 @@ feature "User visits another user" do
 
   scenario "user visits user-page" do
     visit user_path(:id => @user)
-    page.should have_content(@user.name)
+    expect(page).to have_content(@user.name)
   end
 
 end
@@ -100,7 +100,7 @@ feature "Password" do
       click_forgot_password
       fill_in :user_email, with: 'not an email'
       click_on "Reset password"
-      page.should have_content "not found"
+      expect(page).to have_content "not found"
     end
 
     scenario "sends email and validates new password" do
@@ -108,19 +108,19 @@ feature "Password" do
       click_forgot_password
       fill_in :user_email, with: user.email
       click_on "Reset password"
-      current_path.should eq('/users/sign_in')
-      page.should have_content("You will receive an email with instructions about how to reset your password in a few minutes.")
-      last_email.to.should include(user.email)
+      expect(current_path).to eq('/users/sign_in')
+      expect(page).to have_content("You will receive an email with instructions about how to reset your password in a few minutes.")
+      expect(last_email.to).to include(user.email)
       token = extract_token_from_email(:reset_password) # Here I call the MailHelper form above
       visit edit_user_password_url(reset_password_token: token)
       fill_in "user_password", :with => "foobar"
       click_on "Save"
       fill_in "user_password_confirmation", :with => "foobar1"
-      page.should have_content "Password confirmation doesn't match Password"
+      expect(page).to have_content "Password confirmation doesn't match Password"
       fill_in "user_password", :with => "foobar"
       fill_in "user_password_confirmation", :with => "foobar"
       click_on "Save"
-      page.should have_content "Your password was changed successfully. You are now signed in."
+      expect(page).to have_content "Your password was changed successfully. You are now signed in."
     end
   end
 end
@@ -133,9 +133,9 @@ feature "User can register" do
     describe "New User" do
       scenario "Sees a welcome page" do
         login_user(@user)
-        page.should have_content("Welcome")
-        page.should have_content("Thank you for signing up")
-        page.should have_content("Create your first Talk")
+        expect(page).to have_content("Welcome")
+        expect(page).to have_content("Thank you for signing up")
+        expect(page).to have_content("Create your first Talk")
       end
     end
     describe "User already has talks" do
@@ -143,34 +143,34 @@ feature "User can register" do
         t = FactoryGirl.create :talk
         t.venue.update_attribute :user, @user
         login_user(@user)
-        page.should_not have_content("Welcome")
-        page.should_not have_content("Thank you for signing up")
-        page.should_not have_content("Create your first Talk")
+        expect(page).not_to have_content("Welcome")
+        expect(page).not_to have_content("Thank you for signing up")
+        expect(page).not_to have_content("Create your first Talk")
       end
     end
   end
   describe "Facebook" do
     scenario 'user registers with facebook' do
-      User.count.should eq(0)
+      expect(User.count).to eq(0)
       mock_oauth :facebook
       visit root_path
       page.click_link 'Sign Up'
       page.click_link 'REGISTER WITH FACEBOOK'
-      page.should have_content "Successfully authenticated from Facebook account"
-      User.where(guest: nil).count.should eq(1)
-      User.last.email.should_not be_nil
+      expect(page).to have_content "Successfully authenticated from Facebook account"
+      expect(User.where(guest: nil).count).to eq(1)
+      expect(User.last.email).not_to be_nil
     end
 
     scenario 'user logs in with facebook' do
       FactoryGirl.create :user, uid: '123123123', provider: 'facebook', email: 'foo@example.com'
-      User.where(guest: nil).count.should eq(1)
+      expect(User.where(guest: nil).count).to eq(1)
       mock_oauth :facebook
       visit root_path
       page.click_link 'Sign Up'
       page.click_link 'REGISTER WITH FACEBOOK'
-      page.should have_content "Successfully authenticated from Facebook account"
+      expect(page).to have_content "Successfully authenticated from Facebook account"
       # User count did not increase => logged in with the same account
-      User.where(guest: nil).count.should eq(1)
+      expect(User.where(guest: nil).count).to eq(1)
     end
   end
   scenario "user supplies correct values" do
@@ -183,7 +183,7 @@ feature "User can register" do
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
     page.find('.button-signup').click
-    current_url.should include('/onboard')
+    expect(current_url).to include('/onboard')
   end
 
   scenario "Validations" do
@@ -193,9 +193,9 @@ feature "User can register" do
     page.fill_in('user_lastname', :with => "Beam")
     page.find('.button-signup').click
     within(".input.email.error") do
-      page.should have_content("can't be blank")
+      expect(page).to have_content("can't be blank")
     end
-    page.should have_content "I accept the Terms of Use"
+    expect(page).to have_content "I accept the Terms of Use"
   end
 
 end
