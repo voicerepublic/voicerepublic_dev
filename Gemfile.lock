@@ -14,6 +14,14 @@ GIT
       devise (>= 3.2)
 
 GIT
+  remote: git://github.com/sj26/rspec_junit_formatter.git
+  revision: f6b272c5cd8f1e2bc28e2f0769b23bc2f8f7ed9f
+  specs:
+    rspec_junit_formatter (0.2.0)
+      builder (< 4)
+      rspec-core (>= 2, < 4, != 2.12.0)
+
+GIT
   remote: git://github.com/troessner/transitions.git
   revision: eeb39628df090d7e93b2aa85343662094fdb3c14
   specs:
@@ -518,6 +526,7 @@ DEPENDENCIES
   rails-i18n
   rails_config
   rspec-rails (= 2.99.0)
+  rspec_junit_formatter!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   select2-rails

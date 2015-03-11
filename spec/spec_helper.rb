@@ -7,7 +7,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
-#require 'rspec_junit_formatter' if ENV['CI']
+require 'rspec_junit_formatter' if ENV['CI']
 
 #require 'rspec/retry'
 
