@@ -3,9 +3,7 @@
 
 .row.collapse.top-margin-action-bar
   .large-12.columns
-    %h2
-      = raw t('.results', results_count: @results.count, default: "%{count} Results")
-      = '"' + @query + '"'
+    %h2= t('.results', count: @results.count, query: @query)
 
     - if @best_hit.nil?
       %h2= t('.no_results')
