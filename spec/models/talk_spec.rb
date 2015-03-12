@@ -398,7 +398,11 @@ describe Talk do
       user = FactoryGirl.create(:user)
       user_credits = user.reload.credits
       FactoryGirl.create(:talk, venue: user.default_venue)
-      expect(user.reload.credits).to eq(user_credits - 1)
+      if Settings.payment_enabled
+        expect(user.reload.credits).to eq(user_credits - 1)
+      else
+        expect(user.reload.credits).to eq(user_credits)
+      end
     end
   end
 
