@@ -1,9 +1,7 @@
 Welcome to VoiceRepublic
 ========================
 
-#### [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev) Integration
-
-#### [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev/tree/master) Master
+#### I: [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev), M: [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev/tree/master)
 
 ![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
