@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # TODO cleanup, remove `venue_id: @venue.id`
 describe TalksController do

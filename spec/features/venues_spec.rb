@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # it renders specs
 describe 'VenuesController' do
