@@ -10,12 +10,36 @@ en:
       destroy:
         notice: "Successfully deleted"
         alert: "Cannot be deleted"
+  require_flash_for_listening: |
+
+    In order to listen to a live talk, you need a device that runs
+    Flash Version 11 or newer.<br/>
+
+    <a target="_blank"
+    href="http://get.adobe.com/flashplayer/">Download Flash</a><br/>
+
+    You can listen to this talk, with your iPhone, Android, or other
+    non-Flash device, as soon as it has been archived.
+
+  require_flash_for_streaming: |
+
+    In order to publish your audio stream, you need a device that runs
+    Flash Version 11 or newer.<br/>
+
+    <a target="_blank"
+    href="http://get.adobe.com/flashplayer/">Download Flash</a>
+
   require_flash: |
-    <center>To either listen to a live talk or stream yourself, you need a device that runs Flash Version 11 or newer. Every other part of this application is Flash free.</center>
-    <br/>
-    <center>Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.</center>
-    <br/>
-    <center><a target="_blank" href="http://get.adobe.com/flashplayer/">Download Flash</a></center>
+
+    To either listen to a live talk or stream yourself, you need a
+    device that runs Flash Version 11 or newer.<br/>
+
+    <a target="_blank"
+    href="http://get.adobe.com/flashplayer/">Download Flash</a><br/>
+
+    You can listen to this talk, as soon as it has been archived, with
+    your iPhone, Android, or other non-Flash device.
+
   social_share:
     mail_subject: "Check out this talk on voicerepublic.com"
     mail_greeting: "Hi there"
@@ -242,137 +266,10 @@ en:
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
-  call_now: call now
-  call_dispatched: call dispatched
   will_paginate:
     next_label: ! '>>'
     previous_label: <<
 
-
-
-
-
-  controller_accounts:
-    no_settings_made_yet: Your Settings are not finished yet
-    account_settings_created: your Settings were created
-    settings_updated: settings changed
-    portrait_destroyed: image removed
-  controller_conversations:
-    conversation_destroyed: thread removed
-  controller_dashboard:
-    notification_destroyed: message removed
-  controller_follows:
-    follow_created: you are following this user now
-  controller_klus:
-    balance_account_not_created_yet: you need to create your finance-account
-  you_missed_a_call_on_your_klu: You missed a call to your KluuU.
-  model_kluuu:
-    no_account: Please complete your financial Settings before continuing
-    charge_per_minute_error: Minimim 10 cents - Maximum 500 cents
-    charge_fixed_error: Minimum 100 cents - Maximum 5000 cents
-    charge_free_error: You should leave the amount at zero if this is a free kluuu
-  model_notification_make_rate:
-    please_rate: Please rate your Video-Chat - %{title} - with %{name}
-  model_notification_follower_action:
-    friend_took_action: Activity by %{friend} on KluuU
-  model_notification_new_bookmark:
-    your_klu_got_bookmarked: ! '%{bookmarker} bookmarked your Series ''%{klu_title}'''
-  model_notification_new_comment:
-    you_got_a_new_comment_by: ! '%{commenter} commented on your Series.'
-  model_notification_new_follower:
-    you_got_a_new_follower: ! '%{name} now follows you.'
-  model_notification_new_kluuu:
-    friend_created_new_kluuu: ! '%{name} has created a new KluuU.'
-  model_notification_new_message:
-    new_message_from: You have a message from %{name}.
-  model_notification_new_rating:
-    you_got_rated_by: ! '%{name} rated your KluuU.'
-  model_notification_new_status:
-    friend_created_new_status: ! '%{name} posted a new status.'
-  model_notification_new_venue_participant:
-    new_participant: ! '%{name} joined Series %{title}!'
-  model_notification_venue_info:
-    venue_starts_soon: Series %{title} takes place %{time}
-    new_venue: New Series %{title}
-  model_notification_new_venue:
-    friend_created_new_venue: ! 'Your friend created a new Series: %{name}'
-  video_system:
-    rooms:
-      default_welcome_msg: Welcome to the KluuU Video Chat
-  model_venue:
-    no_repeat: does not repeat
-    weekly: weekly
-    biweekly: biweekly
-    monthly: monthly
-  helper:
-    application:
-      kluuu_string: KluuU
-      no_kluuu_string: Question
-  mailers:
-    your_friend_took_action: Activities of your friends on KluuU
-    activity_around_you: Activities concerning your account on KluuU
-  chats:
-    form:
-      your_message: message
-      end_chat: End chat
-      submit: Send
-    group_form:
-      your_message: Write here...
-      submit: Post
-      join_this_venue_to_chat: You need to join this Series to write here
-    show:
-      text_chat: Chat
-  comments:
-    comment_created: Posted a comment
-    form:
-      write_a_comment: write a comment
-      save_comment: Post
-  conversations:
-    index:
-      conversations: Messages
-      and_more_messages: and %{count} more messages.
-      new_message: New message
-    show:
-      conversations: Messages
-      your_messages_with: Your conversation with
-      back_to_all_conversations: ! 'Compact view '
-      new_message: Reply to sender
-      delete_conversation: Delete conversation
-  dashboard:
-    contacts_page:
-      contacts: Contacts
-      my_follower: Followers
-      followed_by_me: Following
-    contacts:
-      friends: Contacts
-      no_contacts_available: No current contacts
-    edit_password:
-      edit_password: Change password
-    edit_settings:
-      settings: Settings
-      email: My email address
-      new_password: New password
-      notifications_and_emails: Notify me via email...
-    matches:
-      matches: Matches
-      my_kluuus: My KluuUs / My Questions
-      matching_something: ! 'Matches KluuU / Question '
-      view: View
-      we_could_not_find_matches_for_you: ! 'Sorry, no matches yet. Tip: Ad more ''tags'' to your KluuU / Question to get results.'
-      all_venues: Series
-    news:
-      news: News
-    settings:
-      settings: Settings
-      configured_email: Your current email adresse
-      edit_password: Change password
-      get_email_if_actions_on_my_kluuus: Email an mich sobald es mich betrifft
-      get_news_on_actions_of_friends: Ich möchte einen Hinweis in Neues über die Aktivitäten meiner Freunde
-      get_email_if_actions_of_friends: Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde
-      hide_initial_help: Die initialen Hilfe-Texte verstecken
-      edit_preferences: Einstellungen editieren
-    venues:
-      my_venues: My Series
   devise:
     registrations:
       new:
@@ -388,28 +285,6 @@ en:
         your_email_address: Your email address
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"
-    received_message:
-      reply: Reply
-      delete: Delete
-    sent_message:
-      delete: Delete
-  notifies:
-    my_content:
-      bookmarked_your: bookmarked your KluuU
-      commented_your_status: commented on your status
-      follows_you_now: is following you
-      unfollow: Unfollow
-      follow_back: Follow
-      rated_your: Rated your KluuU
-      wrote_you_a_message: Send you a Message
-      an_anonymous_person: an anonymous call
-      tried_to_call_your_klu: attempted to reach KluuU
-      tried_to_call_your_noklu: attempted to reach Question
-      joined_venue: joined the Series %{title}
-    new_content:
-      created_new_status_update: changed their status
-      created_new: crated a new
-      new_venue_create: A new Series was set up
   search:
     show:
       title: 'Results for "%{query}"'
@@ -434,7 +309,6 @@ en:
     how_to_use_vr:
       create_talk: Create Talk
       check_pricing: Check our pricing
-
     hide_for_anon:
       redirect_text: |
         Please sign up or login to use this feature.
@@ -497,10 +371,6 @@ en:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
 
-  articles:
-    venue_form:
-      write_an_article: write an article
-      save_article: Post
   layouts:
     application:
       landing_title: Voice Republic - The Place To Talk
@@ -578,21 +448,6 @@ en:
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
 
-  simple_form:
-    hints:
-      talk:
-        language: ""
-        format: Please provide the format purely for informational purposes.
-    labels:
-      talk:
-        venue: Series
-        new_venue_title: New Series Title
-        starts_at_date: Date
-        starts_at_time: Time
-      user:
-        conference: I will be streaming a conference.
-        accept_terms_of_use: |
-          I accept the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>.
   reminders:
     create:
       success: Reminder was successfully created.
