@@ -28,10 +28,10 @@ feature "Search", js: true do
       FactoryGirl.create :talk, title: "known search term"
       page.fill_in 'query', with: 'unknown search term'
       find(".search-lupe").click
-      page.should have_content("0 RESULT(S) FOR")
+      page.should have_content("SORRY, NO RESULTS FOR")
       page.fill_in 'query', with: 'known search term'
       find(".search-lupe").click
-      page.should have_content("1 RESULT(S) FOR \"known search term\"")
+      page.should have_content("1 RESULT FOR \"known search term\"")
     end
   end
 
