@@ -1,11 +1,14 @@
-INTEGRATION [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev), MASTER [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev/tree/master)
-
 Welcome to VoiceRepublic
 ========================
 
-![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
+Build Status
+------------
 
-"Work is the curse of the drinking classes." -- Gentleman Rhymer
+### INTEGRATION [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev)
+
+### MASTER [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev/tree/master)
+
+![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
 
 ### Platforms
 
