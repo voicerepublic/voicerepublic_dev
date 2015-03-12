@@ -1,7 +1,7 @@
 .form-top-box.row
   .medium-12.columns
     .title-box
-      %h2.form-title= t('.upload_a_talk')
+      %h2.form-title= t('.upload_a_recording')
 
     -#= f.error_messages
 
@@ -15,8 +15,6 @@
         .help-text.left= t('.upload_done')
         = f.input :user_override_uuid, as: :hidden
     - else
-      .title-box.clearfix
-        .help-text.left= t('.upload_help_text')
       .row.upload-init(ng-hide='true')
         .large-12= t('.initializing')
       .row.upload-full(ng-cloak)
@@ -54,7 +52,7 @@
 
 
     .title-box.clearfix
-      %h2.form-title= t('.describe_your_content')
+      %h2.form-title= t('.describe_your_talk')
     .row.title-teaser-box
       .medium-7.columns
         = f.input :title, placeholder: t('.title')
@@ -66,7 +64,7 @@
         = f.input :tag_list, input_html: { class: 'tagList' }
 
     .title-box.clearfix
-      %h2.form-title= t('.put_a_date_to_it')
+      %h2.form-title= t('.choose_date_and_time')
     .date-time-picker-row.row
       .medium-6.columns
         = f.input :starts_at_date, opts.merge(input_html: {'data-picker' => 'date'})
@@ -98,11 +96,10 @@
     .row
       .medium-12.columns
         %label(for="venue_description")
-          = t('.talks_description')
-        = f.text_area :description, required: true, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
-        - messages = f.object.errors.get(:description)
-        - unless messages.empty?
-          %small.error= messages * ', '
+          = f.text_area :description, required: true, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
+          - messages = f.object.errors.get(:description)
+          - unless messages.empty?
+            %small.error= messages * ', '
 
 
 :javascript
