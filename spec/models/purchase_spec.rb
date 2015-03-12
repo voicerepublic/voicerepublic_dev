@@ -12,7 +12,7 @@ describe Purchase do
 
   it 'works with parallel transactions' do
     user = FactoryGirl.create(:user)
-    user_credits = user.credits
+    user_credits = user.reload.credits
     purchase0 = FactoryGirl.create(:purchase, owner: user)
     purchase1 = FactoryGirl.create(:purchase, owner: user)
     t0 = Thread.new { purchase0.process }
