@@ -155,7 +155,8 @@ describe User do
 
     it 'shows the users some credit' do
       user = FactoryGirl.create(:user)
-      expect(user.credits).to eq(WelcomeTransaction::QUANTITY)
+      expect(user.welcome_transaction).to be_closed
+      expect(user.reload.credits).to eq(WelcomeTransaction::QUANTITY)
     end
 
     it 'does not show guests credit' do
