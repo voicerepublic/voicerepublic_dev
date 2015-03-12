@@ -12,7 +12,7 @@
 #
 class UserMailer < ActionMailer::Base
 
-  default from: "service@voicerepublic.com"
+  default from: Settings.devise.from_address
 
   # app/models/talk.rb:140 (delayed)
   def new_talk(talk, user)

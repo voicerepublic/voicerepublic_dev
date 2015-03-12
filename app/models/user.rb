@@ -77,8 +77,11 @@ class User < ActiveRecord::Base
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name),
     allow_nil: true
 
+  # WARNING: Do not use after_save hooks in the 'user' model that will save the
+  # model. The reason is that the Devise confirmable_token might be reset
+  # mid-transaction.
   after_save :generate_flyers!, if: :generate_flyers?
-  after_create :create_and_set_default_venue!, unless: :guest?
+  before_create :build_and_set_default_venue!, unless: :guest?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -86,10 +89,9 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
-  def create_and_set_default_venue!
+  def build_and_set_default_venue!
     attrs = Settings.default_venue_defaults[I18n.locale].to_hash
-    create_default_venue(attrs.merge(user: self))
-    save
+    build_default_venue(attrs.merge(user: self))
   end
 
   def name

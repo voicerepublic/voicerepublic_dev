@@ -71,7 +71,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     #$log.debug "Feedback: #{value}"
     ((x)->)(value) # noop
 
-  $window.settingsClosed = ->
+  $window.closePopup = ->
     config.flags.settings = false
 
   flashVars = $.extend config.blackbox,
@@ -82,8 +82,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     logMethod: 'flashLog'
     errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
-    settingsClosed: 'settingsClosed'
-    closeMethod: 'settingsClosed' # FIXME misnomer
+    closeMethod: 'closePopup'
 
   params =
     wmode: 'transparent'
