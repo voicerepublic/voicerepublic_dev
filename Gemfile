@@ -98,7 +98,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara', '2.2.1'
+  gem 'capybara', '2.4.4'
   gem 'ci_reporter'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
