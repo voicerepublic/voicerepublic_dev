@@ -105,3 +105,4 @@ paypal:
   login: billing-facilitator_api1.voicerepublic.com
   password: DN49HF4NJFV2VXCY
   signature: A.s24tjnJ2mWWFD4MAbxh6.qj5MbA1fFTAbSjKBXjRPo5omKdKMEMQgY
+payment_enabled: false
