@@ -84,7 +84,7 @@ group :development, :test do
   gem 'foreman',                            require: false
   gem 'meta_request'
   gem 'pry-rails'
-  gem 'rspec-rails', '2.99.0'
+  gem 'rspec-rails', '3.2.1'
   #gem 'rspec-retry'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
