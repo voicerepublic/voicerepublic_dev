@@ -396,7 +396,7 @@ describe Talk do
   describe 'debit' do
     it 'reduces the owners credits by one' do
       user = FactoryGirl.create(:user)
-      user_credits = user.credits
+      user_credits = user.reload.credits
       FactoryGirl.create(:talk, venue: user.default_venue)
       expect(user.reload.credits).to eq(user_credits - 1)
     end
