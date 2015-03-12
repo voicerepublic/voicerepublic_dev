@@ -1,0 +1,185 @@
+en:
+  talks: &TALKS
+    message_history: |
+      Voice Republic Message History
+
+        %{title}
+
+        %{started_at} - %{ended_at}
+    show:
+      noflash_close_popup: Close
+      flash_not_available_button: N/A
+      title: "%{title} - Voice Republic"
+      waiting_for_start: The talk has not been started.
+      talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
+      chat_placeholder: Share your thoughts
+      you: You
+      related_talk: RELATED TALK
+      next_talk: COMING UP NEXT IN THIS SERIES
+      date_start_end: '%{date} | %{start_time} – %{end_time}'
+      ends_in: ENDS IN
+      state_text: THIS TALK IS LIVE
+      record_text: AND BEING RECORDED
+      mute_streams: mute
+      unmute_streams: unmute
+      countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
+      minutes: 'MINUTES'
+      days: 'DAYS'
+      stage: STAGE
+      speakers:
+        one: SPEAKER
+        other: SPEAKERS
+      padding: 0 0 9px 0;
+      request_mic: REQUEST MIC
+      awaiting_mic_request: AWAITING MIC REQUEST
+      cancel: CANCEL
+      talk_invitation: TALK INVITATION!
+      accept_promotion: ACCEPT
+      decline_promotion: DECLINE
+      promote: GIVE THE MIC
+      demote: "&times;"
+      dismiss: Dismiss from stage
+      bandwidth_tooltip: |
+        <p><strong>While you are speaking</strong>, the number should be above 16KB/s.<br />
+        Should the number be smaller over time, the stream could be interrupted.<br /><br />
+
+        <strong>HELP:</strong><br />
+        - Check <span class="audio-settings-link" ng-click='toggleShowSettings()'>Audio Settings</span><br />
+        - Check your internet connection<br />
+        (Connection problems can interrupt the stream!)</p>
+
+      you_are_streaming_with: "You are streaming with:"
+      prelive_text: YOU ARE ON PRIVATE PRESTREAM
+      prelive_tooltip: Only the host and invited guests can hear each other
+      you_are_on_air: YOU ARE ON AIR!
+      mute_mic: MUTE MIC
+      unmute_mic: MIC MUTED
+      audio_settings: Audio settings
+      participate: Participate
+      miqrec: Mic Requests
+      awaiting: Awaiting
+      microphone_requests: Microphone requests
+      awaiting_to_speak: Awaiting to speak
+      participating: Participating
+      just_listening_in: Just listening in
+      remember: Listen later
+      send_card: Send Card
+      download_flyer: Download
+      show_all_information: Show all information
+      discussion: DISCUSSION
+      description: ABOUT
+
+      # MIC ACTIVATION
+      audio_settings_title: Audio Settings
+      mic_level: Input level
+      setting_up_audio: loading...
+      need_help: Need help?
+      info_text: Please allow Voice Republic to access your microphone.
+      attention: ATTENTION!
+      attention_text: |
+        While selecting the input source, the sound<br />
+        quality of your stream is limited. Please close<br />
+        the flash settings after selecting your input<br />
+        source.
+
+      how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
+      click_allow: CLICK ALLOW
+      choose_mic_tab: CHOOSE MIC TAB
+      choose_mic_input: CHOOSE MIC INPUT
+      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
+      more: Show more
+      less: Show less
+      initializing: Initializing
+      talk_is_processing: Talk is processing
+      please_reload_this_page: Click to reload this page
+      participants: Participants
+      plays: '%{count} plays'
+      subscribe_to_podcast: Podcast
+      embed: Embed
+      embed_this_talk: Embed this Talk
+      copy_text: Copy this code and paste into your website
+      embed_player: Embed Player
+      more_talks_title: MORE FROM THIS USER
+      edit_talk: EDIT TALK
+      start_text_top: Click START when the speaker begins.
+      start: START
+      start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
+      unstarted_message: THE SPEAKER HAS NOT STARTED YET
+      audio_settings: Audio settings
+      end_talk: END TALK
+      banner_title: WHAT IS VOICE REPUBLIC?
+      banner_text: |
+        Voice Republic is a tool for the creation and distribution of audio content on the Internet.
+        <br />
+        Users are invited not just to listen to talks and debates, but also to talk to each other and get involved.
+        <br />
+        We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
+        <span>More...</span>
+      empty_text: The listener's space is empty, login to join!
+      mic_requests: STAGE REQUESTS
+      give_the_mic: GIVE THE MIC
+      stage_invitations: STAGE INVITATIONS
+      listeners: LISTENERS
+      invite_to_stage: INVITE TO STAGE
+      anonymous_listener: ANONYMOUS LISTENER
+      more_talks: RECOMMENDED TALKS
+      login: Login
+      signup: Sign up
+      redirect_text: |
+        Please sign up or login to use this feature.
+
+    new:
+      title: "Create Talk - Voice Republic"
+      schedule_a_talk: Schedule A Live Talk
+    edit:
+      title: "Edit Talk %{title} - Voice Republic"
+      edit_talk: Edit Talk
+      delete_talk: Delete talk
+      select_image: Background image
+    fields:
+      upload_a_recording: Upload A Recording
+      describe_your_talk: Describe Your Talk
+      initializing: Initializing Uploader...
+      audio_upload: "Upload your audio file"
+      choose_file: Choose file
+      uploading: Uploading...
+      drop_files_here: "Drop files here"
+      upload: Upload
+      cancel: "&times;"
+      remove: Remove
+      upload_failed: Audio upload failed. Please try reloading the page and try again.
+      supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+      unprocessed_upload: |
+        Please click 'Save' to start processing your uploaded audio file.
+        Your upload will be lost unless you press 'Save'.
+      drop_file_not_supported: "HTML5 Drop File is not supported!"
+      choose_date_and_time: 'Choose Date & Time'
+      upload_help_text: Choose your recording file and fill out the form during upload.
+      upload_done: A file has already been uploaded.
+      record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
+      add_to_series: Add to Series
+      series_help_text: Series are like playlist, they allow you to group your talks by theme.
+      invite_guests: Invite guests
+      invite_guests_text: Your guests will be automatically added to the stage.
+      illustrate_and_describe: Image and Description
+      ill_and_desc_text: Choose a background image and tell your audience a little more...
+      image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
+      import_your_audio_file: Import audio file
+      select_image: Select image
+      title: Title
+      required: required
+      teaser: Short description
+      tag_list: Tags
+      create_new_series: Create New Series...
+    index:
+      talks_on_voice_republic: TALKS ON VOICE REPUBLIC
+      now_live: NOW LIVE
+      live: NOW LIVE
+      featured: COMING UP
+      popular: POPULAR
+      recent: RECENT
+      see_all: MORE
+
+  # this makes all translations from `talks` also available to `uploads`
+  uploads:
+    <<: *TALKS

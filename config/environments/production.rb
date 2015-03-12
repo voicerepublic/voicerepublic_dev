@@ -65,16 +65,12 @@ VoiceRepublic::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :sendmail
-  # config.action_mailer.smtp_settings = {
-  #   :address              => "smtp.gmail.com",
-  #   :port                 => 587,
-  #   :domain               => 'baci.lindsaar.net',
-  #   :user_name            => '<username>',
-  #   :password             => '<password>',
-  #   :authentication       => 'plain',
-  #   :enable_starttls_auto => true
-  # }
+
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: 'key-6f7dabba8890f6d7d361a1503b8a1d51',
+    domain: 'mg.voicerepublic.com'
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -108,5 +104,5 @@ VoiceRepublic::Application.configure do
   end
 
   config.middleware.use 'Raindrops::Middleware' unless Settings.no_raindrops
-  
+
 end
