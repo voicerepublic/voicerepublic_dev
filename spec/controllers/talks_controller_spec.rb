@@ -10,8 +10,8 @@ describe TalksController do
     @user_2 = FactoryGirl.create :user
     @venue_2 = FactoryGirl.create :venue, user: @user_2
     @talk_2 = FactoryGirl.create :talk, venue: @venue_2
-    request.env['warden'].stub :authenticate! => @user
-    controller.stub :current_user => @user
+    allow(request.env['warden']).to receive_messages :authenticate! => @user
+    allow(controller).to receive_messages :current_user => @user
     @user.reload
   end
   # This should return the minimal set of attributes required to create a valid

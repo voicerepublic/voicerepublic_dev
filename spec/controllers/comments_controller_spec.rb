@@ -6,8 +6,8 @@ describe CommentsController do
   
     before do
       @user = FactoryGirl.create(:user)
-      request.env['warden'].stub :authenticate! => @user
-      controller.stub :current_user => @user 
+      allow(request.env['warden']).to receive_messages :authenticate! => @user
+      allow(controller).to receive_messages :current_user => @user 
     end
 
     describe 'POST create' do

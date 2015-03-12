@@ -16,8 +16,8 @@ describe Xhr::SocialSharesController do
 
       before do
         @current_user = FactoryGirl.create(:user)
-        request.env['warden'].stub :authenticate! => @current_user
-        controller.stub current_user: @current_user
+        allow(request.env['warden']).to receive_messages :authenticate! => @current_user
+        allow(controller).to receive_messages current_user: @current_user
         @current_user.reload
         venue = FactoryGirl.create(:venue, user: @current_user)
         @talk = FactoryGirl.create(:talk, venue: venue)
