@@ -7,6 +7,12 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 #require 'rspec/autorun'
 
+# Rather than just raising when the test schema has pending
+# migrations, Rails will try to load the schema. An exception will now
+# only be raised if there are pending migrations afterwards the schema
+# has been loaded.
+ActiveRecord::Migration.maintain_test_schema!
+
 require 'rspec_junit_formatter' if ENV['CI']
 
 #require 'rspec/retry'
