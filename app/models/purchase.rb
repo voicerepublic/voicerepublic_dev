@@ -6,6 +6,7 @@
 # * express_payer_id [string] - TODO: document me
 # * express_token [string] - TODO: document me
 # * ip [string] - TODO: document me
+# * owner_id [integer] - belongs to :owner
 # * purchased_at [datetime] - TODO: document me
 # * quantity [integer, default=1] - TODO: document me
 # * updated_at [datetime] - last update time
@@ -14,6 +15,9 @@ class Purchase < ActiveRecord::Base
   include Pricing
 
   CURRENCY = 'EUR'
+
+  belongs_to :owner, class_name: 'User'
+  has_one :transaction, class_name: 'PurchaseTransaction', as: :source
 
   serialize :details
 
@@ -30,6 +34,17 @@ class Purchase < ActiveRecord::Base
     self[:quantity], self.amount = make_deal(qty)
   end
 
+  def setup
+    response = EXPRESS_GATEWAY.setup_purchase(amount, express_options)
+    raise response.params['message'] unless response.success?
+    self[:express_token] = response.token
+    self # make it chainable
+  end
+
+  def redirect_url
+    EXPRESS_GATEWAY.redirect_url_for(express_token)
+  end
+
   def process
     response = EXPRESS_GATEWAY.purchase(amount,
                                         ip: ip,
@@ -38,8 +53,31 @@ class Purchase < ActiveRecord::Base
                                         currency: CURRENCY)
     raise response.params['message'] unless response.success?
     update_attribute(:purchased_at, Time.now) if response.success?
-    # TODO increase credits, create transaction
+    create_transaction.process!
     response.success?
+  end
+
+  private
+
+  def helpers
+    Rails.application.routes.url_helpers
+  end
+
+  def express_options
+    {
+      items: [
+        { name: "#{quantity} Talk Credits",
+          quantity: 1,
+          description: "Package",
+          amount: amount }
+      ],
+      allow_note: false,
+      no_shipping: true,
+      currency: CURRENCY,
+      ip: ip,
+      return_url: helpers.new_purchase_url(quantity: quantity),
+      cancel_return_url: helpers.purchases_url
+    }
   end
 
 end
