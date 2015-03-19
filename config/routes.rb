@@ -1,5 +1,9 @@
 VoiceRepublic::Application.routes.draw do
 
+  resources :purchases, only: [ :index, :new, :create ] do
+    get 'express', on: :new
+  end
+
   resources :uploads, only: [ :new, :create ]
 
   get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'

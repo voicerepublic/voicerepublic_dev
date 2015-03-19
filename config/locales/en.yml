@@ -466,3 +466,12 @@ en:
 
   flash_player:
     not_archived_yet: "This talk is not archived, yet"
+
+  purchases:
+    index:
+      our_packages: Our Packages
+    new:
+      you_are_buying_x_for_the_price_of_y: |
+        You are about to buy %{x} Talk Credits for the price of %{y}
+    package:
+      purchase_x_at_a_price_of_y: Purchase %{x} Talks at a Price of %{y}

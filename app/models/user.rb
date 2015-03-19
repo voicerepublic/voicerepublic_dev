@@ -1,9 +1,12 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * about [text] - TODO: document me
+# * about [text, default=""] - TODO: document me
 # * authentication_token [string] - Devise Token authenticable module
 # * avatar_uid [string] - TODO: document me
 # * conference [boolean] - TODO: document me
+# * confirmation_sent_at [datetime] - Devise Confirmable module
+# * confirmation_token [string] - Devise Confirmable module
+# * confirmed_at [datetime] - Devise Confirmable module
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
@@ -27,6 +30,7 @@
 # * summary [string] - TODO: document me
 # * timezone [string] - TODO: document me
 # * uid [string] - used by oauth2
+# * unconfirmed_email [string] - Devise Confirmable module
 # * updated_at [datetime, not null] - last update time
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base

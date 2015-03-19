@@ -48,6 +48,7 @@ gem 'jquery-ui-rails'
 gem 'browser'
 gem 'fog'
 gem 'slick_rails'
+gem 'activemerchant'
 gem 'mailgun_rails'
 
 group :development, :test do

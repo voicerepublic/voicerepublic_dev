@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219152328) do
+ActiveRecord::Schema.define(version: 20150226131709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,18 @@ ActiveRecord::Schema.define(version: 20150219152328) do
   end
 
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
+
+  create_table "purchases", force: true do |t|
+    t.integer  "quantity",         default: 1
+    t.integer  "amount"
+    t.datetime "purchased_at"
+    t.string   "ip"
+    t.string   "express_token"
+    t.string   "express_payer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "details"
+  end
 
   create_table "reminders", force: true do |t|
     t.integer  "user_id"
