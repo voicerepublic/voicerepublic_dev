@@ -21,7 +21,8 @@ class PurchaseTransaction < Transaction
     end
     close!
   rescue Exception => e
-    self.details = e
+    self.details ||= {}
+    self.details[:error] = e
     abort!
   end
 end
