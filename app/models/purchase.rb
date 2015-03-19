@@ -16,7 +16,7 @@ class Purchase < ActiveRecord::Base
 
   CURRENCY = 'EUR'
 
-  belongs_to :owner, class_name: 'User'
+  belongs_to :owner, class_name: 'User', counter_cache: true
   has_one :transaction, class_name: 'PurchaseTransaction', as: :source
 
   serialize :details

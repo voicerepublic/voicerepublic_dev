@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
+  # TODO clarify how to deal with deletions
+  has_many :purchases, foreign_key: :owner_id, dependent: :nullify
 
   belongs_to :default_venue, class_name: 'Venue', dependent: :destroy
 
