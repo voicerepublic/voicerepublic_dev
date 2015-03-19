@@ -5,7 +5,7 @@ class DestroyTalk < MonitoredJob
     # fail silently if talk doesn't exist
     return if talk.nil?
     # otherwise fire event end_talk
-    talk.destory!
+    talk.destroy!
   end
 
 end
