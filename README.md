@@ -1,26 +1,14 @@
 Welcome to VoiceRepublic
 ========================
 
+#### Integration [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev), Master [![Circle CI](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.svg?style=svg&circle-token=f4b46938bc8855216230b287208fcc76062cc0a6)](https://circleci.com/gh/munen/voicerepublic_dev/tree/master)
+
 ![One does not simply...](http://www.memecreator.org/static/images/memes/809494.jpg)
-
-"Work is the curse of the drinking classes." -- Gentleman Rhymer
-
-### Build status
-
-* Integration: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/develop.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/integration)
-* Master: [![Build Status](https://circleci.com/gh/munen/voicerepublic_dev/tree/master.png?circle-token=8ebbe8b002c7556614695f94dd6bd0e92ec532de
-)](https://circleci.com/gh/munen/KluuU/tree/master)
-
-### Code Quality
-
-* Develop: [![Code Climate](https://codeclimate.com/repos/52d695526956802e2600897b/badges/d72650afa4aea3392af9/gpa.png)](https://codeclimate.com/repos/52d695526956802e2600897b/feed)
 
 ### Platforms
 
 * Live: [http://voicerepublic.com](http://voicerepublic.com)
 * Staging: [http://staging.voicerepublic.com](http://staging.voicerepublic.com)
-
 
 Dependencies
 ------------
