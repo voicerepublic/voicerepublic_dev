@@ -1,5 +1,5 @@
-- qty, amount = make_deal(quantity)
-- price = number_to_currency(amount/100.0, unit: Purchase::CURRENCY)
+- name, qty, amount, total = Pricing::PACKAGES[package]
+- price = number_to_currency(total/100.0, unit: Purchase::CURRENCY)
 
 .row(style='margin-top: 50px')
   .medium-2.columns
@@ -7,4 +7,4 @@
   .medium-6.columns
     = t('.purchase_x_at_a_price_of_y', x: qty, y: price)
   .medium-4.columns
-    = link_to paypal_button, express_new_purchase_path(quantity: qty), class: 'right'
+    = link_to paypal_button, express_new_purchase_path(product: package), class: 'right'

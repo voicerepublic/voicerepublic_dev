@@ -17,7 +17,7 @@ class Purchase < ActiveRecord::Base
   CURRENCY = 'EUR'
 
   belongs_to :owner, class_name: 'User', counter_cache: true
-  has_one :transaction, class_name: 'PurchaseTransaction', as: :source
+  has_one :purchase_transaction, as: :source
 
   serialize :details
 
@@ -29,13 +29,12 @@ class Purchase < ActiveRecord::Base
     end
   end
 
-  # also sets `amount` based on deal
-  def quantity=(qty)
-    self[:quantity], self.amount = make_deal(qty)
+  def product=(product)
+    self[:product], self.quantity, self.amount, self.total = PACKAGES[product]
   end
 
   def setup
-    response = EXPRESS_GATEWAY.setup_purchase(amount, express_options)
+    response = EXPRESS_GATEWAY.setup_purchase(total, express_options)
     raise response.params['message'] unless response.success?
     self[:express_token] = response.token
     self # make it chainable
@@ -46,14 +45,14 @@ class Purchase < ActiveRecord::Base
   end
 
   def process
-    response = EXPRESS_GATEWAY.purchase(amount,
+    response = EXPRESS_GATEWAY.purchase(total,
                                         ip: ip,
                                         token: express_token,
                                         payer_id: express_payer_id,
                                         currency: CURRENCY)
     raise response.params['message'] unless response.success?
     update_attribute(:purchased_at, Time.now) if response.success?
-    create_transaction.process!
+    create_purchase_transaction.process!
     response.success?
   end
 
@@ -66,16 +65,16 @@ class Purchase < ActiveRecord::Base
   def express_options
     {
       items: [
-        { name: "#{quantity} Talk Credits",
-          quantity: 1,
-          description: "Package",
+        { name: "VR Talk Credit",
+          quantity: quantity,
+          description: "Bundle #{product}",
           amount: amount }
       ],
       allow_note: false,
       no_shipping: true,
       currency: CURRENCY,
       ip: ip,
-      return_url: helpers.new_purchase_url(quantity: quantity),
+      return_url: helpers.new_purchase_url(product: product),
       cancel_return_url: helpers.purchases_url
     }
   end
