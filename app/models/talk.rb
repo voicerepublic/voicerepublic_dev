@@ -129,7 +129,7 @@ class Talk < ActiveRecord::Base
   before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
-  after_create :create_and_process_debit_transaction!
+  after_create :create_and_process_debit_transaction!, unless: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
