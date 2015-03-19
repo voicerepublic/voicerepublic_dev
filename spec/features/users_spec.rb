@@ -198,6 +198,19 @@ feature "User can register" do
     page.should have_content "I accept the Terms of Use"
   end
 
+  scenario "Has been referred" do
+    visit root_path ref: 'ABC123'
+    page.click_link('Sign Up')
+    page.fill_in('user_firstname', :with => "Jim")
+    page.fill_in('user_lastname', :with => "Beam")
+    page.fill_in('user_email', with: "jim@example.com")
+    page.fill_in('user_password', :with => "foobar")
+    page.fill_in('user_password_confirmation', :with => "foobar")
+    page.check('user_accept_terms_of_use')
+    page.find('.button-signup').click
+    User.last.referrer.should match(/\AABC123/)
+  end
+
 end
 
 private

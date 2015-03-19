@@ -322,6 +322,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.5.2)
+    rack-affiliates (0.4.0)
+      rack
     rack-cache (1.2)
       rack (>= 0.4)
     rack-contrib (1.1.0)
@@ -512,6 +514,7 @@ DEPENDENCIES
   poltergeist
   private_pub
   pry-rails
+  rack-affiliates
   rack-cache
   rails (= 4.0.2)
   rails-i18n
