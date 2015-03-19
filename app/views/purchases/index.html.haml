@@ -1,0 +1,11 @@
+.row(style='margin-top: 100px')
+  .medium-12.columns
+    %h2(style='color: black')= t('.our_packages_for_businesses')
+
+= render partial: 'package', collection: Pricing::BUSINESS
+
+.row(style='margin-top: 100px')
+  .medium-12.columns
+    %h2(style='color: black')= t('.our_packages_for_nonprofit')
+
+= render partial: 'package', collection: Pricing::NONPROFIT

@@ -24,6 +24,8 @@ gem 'uglifier'#, '>= 1.0.3'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+
+gem 'rack-affiliates'
 gem 'airbrake'
 gem 'rails_config'
 gem 'foundation-rails'
@@ -56,6 +58,7 @@ gem 'browser'
 gem 'fog'
 gem 'slick_rails'
 gem 'mailgun_rails'
+gem 'activemerchant'
 
 group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views

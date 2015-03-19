@@ -106,4 +106,15 @@ FactoryGirl.define do
     user
     rememberable nil
   end
+
+
+  factory :purchase do
+    owner factory: :user
+    quantity 10
+  end
+
+  factory :purchase_transaction do
+    association :source, factory: :purchase
+  end
+
 end
