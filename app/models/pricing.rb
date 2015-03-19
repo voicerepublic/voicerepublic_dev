@@ -2,19 +2,23 @@ module Pricing
 
   include Gnuplot
 
+  extend self
+
   # returns quantity and price in cents
   def make_deal(qty)
     qty = qty.to_i
 
-    qty =  10 if qty <= 10
+    qty =   5 if qty <= 5
+    qty =  10 if qty >  5 and qty <= 10
     qty =  25 if qty > 10 and qty <= 25
     qty =  50 if qty > 25 and qty <= 50
     qty = 100 if qty > 50 and qty <= 100
 
-    price =  10 * 1000 if qty == 10
-    price =  25 *  900 if qty == 25
-    price =  50 *  800 if qty == 50
-    price = qty *  700 if qty >= 100
+    price =   5 * 3000 if qty == 5
+    price =  10 * 2500 if qty == 10
+    price =  25 * 1800 if qty == 25
+    price =  50 * 1500 if qty == 50
+    price = qty * 1200 if qty >= 100
 
     [qty, price]
   end
