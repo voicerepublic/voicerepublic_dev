@@ -1,4 +1,4 @@
-VoiceRepublic::Application.routes.draw do
+Rails.application.routes.draw do
 
   if Settings.payment_enabled
     resources :purchases, only: [ :index, :new, :create ] do

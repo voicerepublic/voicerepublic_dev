@@ -6,7 +6,7 @@ require File.expand_path('../../lib/core_ext', __FILE__)
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module VoiceRepublic
   class Application < Rails::Application
@@ -59,8 +59,7 @@ module VoiceRepublic
     # increases Talk#play_count and redirects to Talk#generate_ephemeral_path!
     config.middleware.use 'MediaTracker'
 
-    # attribute_protected/attr_accessible lock down
-    config.active_record.whitelist_attributes = true
+    config.middleware.use 'Rack::Affiliates'
 
     config.assets.initialize_on_precompile = false
 
@@ -76,5 +75,8 @@ module VoiceRepublic
     # Rails app itself
     # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
     config.exceptions_app = self.routes
+
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

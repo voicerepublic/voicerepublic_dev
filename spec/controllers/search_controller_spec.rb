@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# encoding: utf-8
 require 'spec_helper'
 
 describe SearchController do
@@ -26,7 +26,9 @@ describe SearchController do
     end
 
     it "populates results" do
+      expect(PgSearch::Document.count).to eq(0)
       venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+      expect(PgSearch::Document.count).to be > 0
       get :show, page: 1, query: 'Delight'
       assigns(:results).should_not be_empty
     end
