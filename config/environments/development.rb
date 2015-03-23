@@ -51,4 +51,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # fixes generating return_url for paypal in dev env
+  config.after_initialize do
+    Rails.application.routes.default_url_options[:host] =
+      Settings.dev_host_and_port || 'localhost:3000'
+  end
+
 end

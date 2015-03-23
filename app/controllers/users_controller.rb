@@ -12,7 +12,8 @@ class UsersController < BaseController
                       :about,
                       :password,
                       :password_confirmation,
-                      :conference ]
+                      :conference,
+                      :referrer ]
 
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 

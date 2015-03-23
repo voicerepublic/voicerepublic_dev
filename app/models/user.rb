@@ -1,9 +1,12 @@
 # Attributes:
 # * id [integer, primary, not null] - primary key
-# * about [text] - TODO: document me
+# * about [text, default=""] - TODO: document me
 # * authentication_token [string] - Devise Token authenticable module
 # * avatar_uid [string] - TODO: document me
 # * conference [boolean] - TODO: document me
+# * confirmation_sent_at [datetime] - Devise Confirmable module
+# * confirmation_token [string] - Devise Confirmable module
+# * confirmed_at [datetime] - Devise Confirmable module
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
@@ -27,6 +30,7 @@
 # * summary [string] - TODO: document me
 # * timezone [string] - TODO: document me
 # * uid [string] - used by oauth2
+# * unconfirmed_email [string] - Devise Confirmable module
 # * updated_at [datetime, not null] - last update time
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
@@ -49,6 +53,9 @@ class User < ActiveRecord::Base
   has_many :participations, dependent: :destroy
   has_many :participating_venues, through: :participations, source: :venue
   has_many :reminders, dependent: :destroy
+  # TODO clarify how to deal with deletions
+  has_many :purchases, foreign_key: :owner_id, dependent: :nullify
+  has_one :welcome_transaction, as: :source
 
   belongs_to :default_venue, class_name: 'Venue', dependent: :destroy
 
@@ -74,11 +81,15 @@ class User < ActiveRecord::Base
   validates :timezone, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys },
             allow_nil: true
 
-  # WARNING: Do not use after_save hooks in the 'user' model that will save the
-  # model. The reason is that the Devise confirmable_token might be reset
-  # mid-transaction.
+  # WARNING: Do not use after_save hooks in the 'user' model that will
+  # save the model. The reason is that the Devise confirmable_token
+  # might be reset mid-transaction.
+  before_create :build_and_set_default_venue, unless: :guest?
   after_save :generate_flyers!, if: :generate_flyers?
-  before_create :build_and_set_default_venue!, unless: :guest?
+
+  # for the same reason this has to happen in 2 steps
+  before_create :build_welcome_transaction, unless: :guest?
+  after_create :process_welcome_transaction, unless: :guest?
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -86,7 +97,7 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
-  def build_and_set_default_venue!
+  def build_and_set_default_venue
     attrs = Settings.default_venue_defaults[I18n.locale].to_hash
     build_default_venue(attrs.merge(user: self))
   end
@@ -108,12 +119,12 @@ class User < ActiveRecord::Base
       user = User.where(:provider => auth[:provider], :uid => auth[:uid]).first
       unless user
         user = User.new( lastname: auth[:extra][:raw_info][:last_name],
-                            firstname: auth[:extra][:raw_info][:first_name],
-                            provider: auth[:provider],
-                            website: auth[:info][:urls][:Facebook],
-                            uid: auth[:uid],
-                            email: auth[:info][:email],
-                            password: Devise.friendly_token[0,20] )
+                         firstname: auth[:extra][:raw_info][:first_name],
+                         provider: auth[:provider],
+                         website: auth[:info][:urls][:Facebook],
+                         uid: auth[:uid],
+                         email: auth[:info][:email],
+                         password: Devise.friendly_token[0,20] )
         user.confirm!
       end
 
@@ -167,7 +178,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_flyers?
-    firstname_changed? or lastname_changed?
+    !guest? and (firstname_changed? or lastname_changed?)
   end
 
   # TODO check if `talks.reload` can be replaced with `talks(true)`
@@ -188,6 +199,12 @@ class User < ActiveRecord::Base
     save!
     return unless deep
     venues.each { |venue| venue.set_penalty!(penalty) }
+  end
+
+  private
+
+  def process_welcome_transaction
+    welcome_transaction.process!
   end
 
   protected

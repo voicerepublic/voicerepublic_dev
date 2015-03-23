@@ -63,6 +63,11 @@ GEM
     activejob (4.2.0)
       activesupport (= 4.2.0)
       globalid (>= 0.3.0)
+    activemerchant (1.46.0)
+      activesupport (>= 3.2.14, < 5.0.0)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (>= 0.6.9)
+      nokogiri (~> 1.4)
     activemodel (4.2.0)
       activesupport (= 4.2.0)
       builder (~> 3.1)
@@ -322,6 +327,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.6.0)
+    rack-affiliates (0.4.0)
+      rack
     rack-cache (1.2)
       rack (>= 0.4)
     rack-contrib (1.1.0)
@@ -480,6 +487,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemerchant
   acts-as-taggable-on (= 3.4.2)
   airbrake
   angularjs-file-upload-rails (~> 1.1.0)
@@ -525,6 +533,7 @@ DEPENDENCIES
   poltergeist
   private_pub
   pry-rails
+  rack-affiliates
   rack-cache
   rails (= 4.2.0)
   rails-i18n
