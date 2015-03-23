@@ -63,6 +63,13 @@ end
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+# NOTEs on speed:
+# If you do not want to run slow and driver:chrome specs by default, append the
+# following lines to your .rspec file:
+# --tag ~@driver:chrome
+# --tag ~@slow
+# Then, if you do want to run these tests, you can run:
+# $ rspec . --tag @driver:chrome
 RSpec.configure do |config|
 
   #config.verbose_retry = true # show retry status in spec process
