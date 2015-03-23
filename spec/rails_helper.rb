@@ -67,17 +67,6 @@ RSpec.configure do |config|
 
   #config.verbose_retry = true # show retry status in spec process
 
-  # Use rspec tags to filter for specific specs
-  # Examples
-  #   * Run all specs except for chromedriver: zeus rspec --tag ~driver:chrome spec
-  #   * Run specs with chromedriver: zeus rspec --tag @driver:chrome spec
-  # By default do not run slow specs locally, unless explicitly requested by:
-  #  zeus rspec --tag @slow:true spec
-  # resp.
-  #  zeus rspec --tag @gdriver:chrome spec
-  config.filter_run_excluding :slow => :true unless ENV['CI']
-  config.filter_run_excluding :driver => :chrome unless ENV['CI']
-
   # There are specs that cannot run on CircleCI, because they do not have the
   # tools (eg. audio transcoding)
   config.filter_run_excluding not_on_circle_ci: true if ENV['CI']
