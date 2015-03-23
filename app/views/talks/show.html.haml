@@ -12,6 +12,7 @@
   .large-12.text-center= t('.initializing')
 
 .layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
+  = render 'debugger' unless Settings.suppress_live_talk_debugger
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.rounded.centered(ng-show='!hasFlash() && talkIsLive()')
       #flash_error_for_listener= raw t('require_flash_for_listening')
