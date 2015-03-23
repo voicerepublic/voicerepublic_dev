@@ -1,4 +1,4 @@
-VoiceRepublic::Application.routes.draw do
+Rails.application.routes.draw do
 
   resources :purchases, only: [ :index, :new, :create ] do
     get 'express', on: :new

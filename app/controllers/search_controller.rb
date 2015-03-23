@@ -3,7 +3,7 @@ class SearchController < BaseController
   PER_PAGE = 10
 
   before_action :set_query
-  
+
   # POST /search
   def create
     redirect_to "/search/1/" + u(@query)
@@ -14,14 +14,13 @@ class SearchController < BaseController
     @results = PgSearch.multisearch(@query).
       paginate(page: params[:page], per_page: PER_PAGE)
 
-    unless @results.empty?
-      @best_hit = @results.shift.searchable if params[:page] == '1'
-    else
-      @best_hit = nil
-    end
-    @talks = @results.select { |s| s.searchable.is_a?(Talk) }.map(&:searchable)
-    @venues = @results.select { |s| s.searchable.is_a?(Venue) }.map(&:searchable)
-    @users = @results.select { |s| s.searchable.is_a?(User) }.map(&:searchable)
+    @rest = @results.to_a
+    @best_hit = nil
+    @best_hit = @rest.shift.searchable if @rest.present? and params[:page] == '1'
+
+    @talks  = @rest.select { |s| s.searchable.is_a?(Talk) }.map(&:searchable)
+    @venues = @rest.select { |s| s.searchable.is_a?(Venue) }.map(&:searchable)
+    @users  = @rest.select { |s| s.searchable.is_a?(User) }.map(&:searchable)
 
     @talks_featured = Talk.featured.limit(5)
     @talks_live     = Talk.live.limit(5)
@@ -37,5 +36,5 @@ class SearchController < BaseController
     params.permit(:query)
     @query = params[:query]
   end
-  
+
 end
