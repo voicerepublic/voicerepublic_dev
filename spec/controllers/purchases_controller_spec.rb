@@ -4,6 +4,7 @@ describe PurchasesController do
 
   describe "GET 'express'" do
     it "returns http success" do
+      pending unless Settings.payment_enabled
       get 'express'
       response.should be_redirect
     end
@@ -11,6 +12,7 @@ describe PurchasesController do
 
   describe "GET 'new'" do
     it "returns http success" do
+      pending unless Settings.payment_enabled
       get 'new'
       response.should be_success
     end

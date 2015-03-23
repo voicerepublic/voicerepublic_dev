@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :purchases, only: [ :index, :new, :create ] do
-    get 'express', on: :new
+  if Settings.payment_enabled
+    resources :purchases, only: [ :index, :new, :create ] do
+      get 'express', on: :new
+    end
   end
 
   resources :uploads, only: [ :new, :create ]
