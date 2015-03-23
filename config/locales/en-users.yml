@@ -72,6 +72,16 @@ en:
 
     # SHOW
     show:
+      you_have_x_credits_left:
+        zero: |
+          You don't have any credits. In order to stream or upload you
+          need to purchase some credits.
+        one: |
+          Only one credit left. You should purchase some credits
+          before you run out.
+        other:
+          You have %{count} credits left.
+      purchase_more_credits: Purchase more credits
       podcast:
         title: "VR: %{username}"
         subtitle: "Podcast provided by Voice Republic"

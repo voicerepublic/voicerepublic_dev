@@ -1,8 +1,5 @@
 source 'https://rubygems.org'
 
-#gem 'rails', '4.0.2'
-#gem 'rails', '4.0.13'
-#gem 'rails', '4.1.9'
 gem 'rails', '4.2.0'
 
 #gem 'turbolinks'
@@ -14,7 +11,6 @@ gem "daemons"
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
-gem 'less-rails', "2.3.2"
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby
@@ -24,6 +20,8 @@ gem 'uglifier'#, '>= 1.0.3'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'faker'
+gem 'rack-affiliates'
 gem 'airbrake'
 gem 'rails_config'
 gem 'foundation-rails'
@@ -40,7 +38,6 @@ gem 'acts-as-taggable-on', '3.4.2' # tag-system
 gem 'cancan'                       # authorization/privileges
 gem 'private_pub'                  # push service
 gem 'thin'                         # faster development-server
-gem "dynamic_form"                 # form helper for errors
 gem 'whenever'
 gem 'haml-rails'
 gem 'simple_form'
@@ -56,6 +53,7 @@ gem 'browser'
 gem 'fog'
 gem 'slick_rails'
 gem 'mailgun_rails'
+gem 'activemerchant'
 
 group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -80,8 +78,6 @@ group :development, :test do
   gem 'byebug'
   gem 'disable_assets_logger'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
-  gem 'foreman',                            require: false
   gem 'meta_request'
   gem 'pry-rails'
   gem 'rspec-rails', '3.2.1'
@@ -91,7 +87,6 @@ group :development, :test do
   gem 'timecop'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
-  gem 'zeus'
 
   # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
   #gem 'rspec-core' # needed when running specs on ci

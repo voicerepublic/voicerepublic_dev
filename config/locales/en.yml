@@ -319,9 +319,9 @@ en:
       search: Search
       explore: Explore
       my_profile: Profile
-      my_next_talks: My next Talks
-      create_venue: Create Series
-      settings: Settings
+      schedule_talk: Schedule A Live Talk
+      upload_talk: Upload A Recording
+      test_talk: Test Hosting A Talk
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
@@ -466,3 +466,15 @@ en:
 
   flash_player:
     not_archived_yet: "This talk is not archived, yet"
+
+  purchases:
+    index:
+      our_packages: Our Packages
+    new:
+      payment_authorized: |
+        Your payment has been authorized successfully.
+      you_are_buying_x_for_the_price_of_y: |
+        Please confirm to buy %{x} VR Talk Credits for the price of %{y}
+      complete_purchase: Complete Your Purchase
+    package:
+      purchase_x_at_a_price_of_y: Purchase %{x} Talks at a Price of %{y}

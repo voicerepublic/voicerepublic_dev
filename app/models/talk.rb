@@ -5,6 +5,7 @@
 # * collect [boolean, default=true] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
+# * dryrun [boolean] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
 # * edit_config [text] - TODO: document me
 # * ended_at [datetime] - TODO: document me
@@ -59,7 +60,7 @@ class Talk < ActiveRecord::Base
     state :postlive
     state :processing
     state :archived
-    event :prepare do
+    event :prepare, success: :after_prepare do
       # if user_override_uuid is set we transcend to pending
       transitions from: :created, to: :pending, guard: :user_override_uuid?
       # otherwise it will go its usual way via prelive
@@ -128,6 +129,7 @@ class Talk < ActiveRecord::Base
   before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
+  after_create :create_and_process_debit_transaction!, unless: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
@@ -159,18 +161,21 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
+  scope :nodryrun, -> { where(dryrun: false) }
+
   scope :featured, -> do
-    where("featured_from < ?", Time.zone.now).
+    nodryrun.
+      where("featured_from < ?", Time.zone.now).
       where(state: [:prelive, :live]).
       order('featured_from DESC')
   end
 
-  scope :popular, -> { archived.order('popularity DESC') }
+  scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
-  scope :live_and_halflive, -> { where(state: [:live, :halflive]) }
+  scope :live_and_halflive, -> { nodryrun.where(state: [:live, :halflive]) }
 
   scope :recent, -> do
-    archived.order('ended_at DESC').
+    nodryrun.archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
   end
 
@@ -386,6 +391,12 @@ class Talk < ActiveRecord::Base
     @guest_list.each do |id|
       appearances.create(user_id: id)
     end
+  end
+
+  def after_prepare
+    return unless dryrun?
+    delta = created_at + 24.hours
+    Delayed::Job.enqueue(DestroyTalk.new(id: id), queue: 'trigger', run_at: delta)
   end
 
   def after_start
@@ -662,6 +673,10 @@ class Talk < ActiveRecord::Base
 
   def inherit_penalty
     self.penalty = venue.penalty
+  end
+
+  def create_and_process_debit_transaction!
+    DebitTransaction.create(source: self).process!
   end
 
 end

@@ -78,7 +78,7 @@ describe User do
     end
   end
 
-  describe 'destory dependers' do
+  describe 'destroy dependers' do
     it 'destroys venues' do
       user = FactoryGirl.create(:user)
       user.venues = FactoryGirl.create_list(:venue, 3)
@@ -92,8 +92,9 @@ describe User do
 
     it 'destroys the default venue' do
       user = FactoryGirl.create(:user)
+      default_venue = user.default_venue
       user.destroy
-      expect(user.default_venue).to be_destroyed
+      expect(default_venue).to be_destroyed
     end
   end
 
@@ -146,6 +147,21 @@ describe User do
       expect(user.penalty).to eq(0.5)
       expect(venue.penalty).to eq(0.5)
       expect(talk.penalty).to eq(0.5)
+    end
+
+  end
+
+  describe WelcomeTransaction do
+
+    it 'shows the users some credit' do
+      user = FactoryGirl.create(:user)
+      expect(user.welcome_transaction).to be_closed
+      expect(user.reload.credits).to eq(WelcomeTransaction::QUANTITY)
+    end
+
+    it 'does not show guests credit' do
+      user = FactoryGirl.create(:user, guest: true)
+      expect(user.credits).to eq(0)
     end
 
   end
