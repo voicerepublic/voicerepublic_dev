@@ -20,7 +20,7 @@ gem 'uglifier'#, '>= 1.0.3'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-
+gem 'faker'
 gem 'rack-affiliates'
 gem 'airbrake'
 gem 'rails_config'
