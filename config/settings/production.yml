@@ -13,3 +13,5 @@ rtmp:
   authenticate:       true
 paths:
   log: /home/app/app/shared/process_log
+errbit:
+  enabled: true
