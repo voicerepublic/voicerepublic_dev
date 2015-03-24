@@ -406,4 +406,20 @@ describe Talk do
     end
   end
 
+  describe 'dryrun' do
+    it 'automatically destroys the talk after a while' do
+      Delayed::Worker.delay_jobs = true # activate
+      expect(Delayed::Job.count).to eq(0)
+      user = FactoryGirl.create :user
+      talk = FactoryGirl.create :talk, dryrun: true
+      expect(Delayed::Job.count).to eq(1)
+      Timecop.travel(25.hours.from_now)
+      successes, failures = Delayed::Worker.new.work_off
+      expect(Delayed::Job.count).to eq(0)
+      expect(successes).to eq(1)
+      expect(Talk.where(id: talk.id)).to be_empty
+    end
+
+  end
+
 end

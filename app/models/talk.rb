@@ -60,7 +60,7 @@ class Talk < ActiveRecord::Base
     state :postlive
     state :processing
     state :archived
-    event :prepare, success: :after_prepare do
+    event :prepare do
       # if user_override_uuid is set we transcend to pending
       transitions from: :created, to: :pending, guard: :user_override_uuid?
       # otherwise it will go its usual way via prelive
@@ -130,6 +130,7 @@ class Talk < ActiveRecord::Base
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   after_create :create_and_process_debit_transaction!, unless: :dryrun?
+  after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
@@ -393,8 +394,7 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def after_prepare
-    return unless dryrun?
+  def set_auto_destruct_mode
     delta = created_at + 24.hours
     Delayed::Job.enqueue(DestroyTalk.new(id: id), queue: 'trigger', run_at: delta)
   end
