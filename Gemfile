@@ -53,7 +53,7 @@ gem 'fog'
 gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
-gem 'faye-authentication', '~> 1.8.0'
+gem 'faye-authentication', github: 'branch14/faye-authentication'
 
 group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views
