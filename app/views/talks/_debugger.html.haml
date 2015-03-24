@@ -1,41 +1,45 @@
 #debugger
+  %p
+    You're only seeing this, because you are
+    %br
+    logged in with a voicerepublic.com account.
   %pre
     = preserve do
-      hasFlash:                  {{ hasFlash() }}
-      progress:                  {{ progress() }}
-      trouble:                   {{ trouble() }}
-      muteState:                 {{ muteState }}
+      hasFlash                  {{ hasFlash() }}
+      progress                  {{ progress() }}
+      trouble                   {{ trouble() }}
+      muteState                 {{ muteState }}
 
-      flags.connecting:          {{ flags.connecting }}
-      flags.blackboxReady:       {{ flags.blackboxReady }}
-      -# countdown:                 {{ countdown }}
-      talkProgress:              {{ talkProgress | number: 2 }}
-      feedback.data.kb:          {{ feedback.data.kb }}
-      feedback.data.codec:       {{ feedback.data.codec }}
+      flags.connecting          {{ flags.connecting }}
+      flags.blackboxReady       {{ flags.blackboxReady }}
+      -# countdown                 {{ countdown }}
+      talkProgress              {{ talkProgress | number: 2 }}
+      feedback.data.kb          {{ feedback.data.kb }}
+      feedback.data.codec       {{ feedback.data.codec }}
 
-      -# showFlashError:            {{ showFlashError() }}
-      -# showStartButton:           {{ showStartButton() }}
-      -# showUnstartedMessage:      {{ showUnstartedMessag() }}
-      -# showEndTalk:               {{ showEndTalk() }}
-      -# showDownloadButton:        {{ showDownloadButton() }}
-      -# showInfoLink:              {{ showInfoLink() }}
-      -# showTalkTeaser:            {{ showTalkTeaser() }}
-      -# showCountdown:             {{ showCountdown() }}
-      -# showBandwidth:             {{ showBandwidth() }}
-      -# showParticipantActionsBox: {{ showParticipantActionsBox() }}
-      -# showPrelive:               {{ showPrelive() }}
-      -# showOnAir:                 {{ showOnAir() }}
-      -# showAcceptOrDecline:       {{ showAcceptOrDecline() }}
-      -# showAwaitingMic:           {{ showAwaitingMic() }}
-      -# showSettings:              {{ showSettings() }}
-      -# showHostActions:           {{ showHostActions() }}
-      -# userIsAListener:           {{ userIsAListener() }}
+      -# showFlashError            {{ showFlashError() }}
+      -# showStartButton           {{ showStartButton() }}
+      -# showUnstartedMessage      {{ showUnstartedMessag() }}
+      -# showEndTalk               {{ showEndTalk() }}
+      -# showDownloadButton        {{ showDownloadButton() }}
+      -# showInfoLink              {{ showInfoLink() }}
+      -# showTalkTeaser            {{ showTalkTeaser() }}
+      -# showCountdown             {{ showCountdown() }}
+      -# showBandwidth             {{ showBandwidth() }}
+      -# showParticipantActionsBox {{ showParticipantActionsBox() }}
+      -# showPrelive               {{ showPrelive() }}
+      -# showOnAir                 {{ showOnAir() }}
+      -# showAcceptOrDecline       {{ showAcceptOrDecline() }}
+      -# showAwaitingMic           {{ showAwaitingMic() }}
+      -# showSettings              {{ showSettings() }}
+      -# showHostActions           {{ showHostActions() }}
+      -# userIsAListener           {{ userIsAListener() }}
 
-      config.talk.state          {{ config.talk.state }}
-      session.fsm.current        {{ session.fsm.current }}
+      config.talk.state         {{ config.talk.state }}
+      session.fsm.current       {{ session.fsm.current }}
 
   %hr
-  Users
+  %p Users
   %table(width='100%')
     %tr
       %th Id
