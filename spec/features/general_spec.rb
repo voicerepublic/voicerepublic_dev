@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 feature "General feature specs" do
 
@@ -8,7 +8,7 @@ feature "General feature specs" do
       user_agent = "Mozilla 5.0 (EasouSpider)"
       page.driver.browser.header('User-Agent', user_agent)
       visit root_path
-      page.status_code.should == 704
+      expect(page.status_code).to eq(704)
     end
   end
 
@@ -59,14 +59,14 @@ feature "General feature specs" do
   def supported_browser_scenario(user_agent)
     page.driver.browser.header('User-Agent', user_agent)
     visit root_path
-    current_path.should == root_path
+    expect(current_path).to eq(root_path)
   end
 
   def unsupported_browser_scenario(user_agent)
     page.driver.browser.header('User-Agent', user_agent)
     visit root_path
-    current_path.should_not == root_path
-    page.should have_content("You are using an outdated browser")
+    expect(current_path).not_to eq(root_path)
+    expect(page).to have_content("You are using an outdated browser")
   end
 
 end

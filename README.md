@@ -70,6 +70,13 @@ Now start a new shell or issue
 
     hash -r bundle
 
+### Use spring
+
+To make you shell find the springified binstubs, put this in your
+shell's config (e.g. `.zshrc` or `.bashrc`)
+
+    export PATH=./bin:$PATH
+
 
 Setup
 -----
@@ -97,13 +104,9 @@ to replace that step by:
 
 Make sure `postgresql-contrib-9.1` is installed.
 
-    zeus start
-
-and in a different window:
-
-    zeus rake pg_search:multisearch:rebuild\[Talk\]
-    zeus rake pg_search:multisearch:rebuild\[Venue\]
-    zeus rake pg_search:multisearch:rebuild\[User\]
+    rake pg_search:multisearch:rebuild\[Talk\]
+    rake pg_search:multisearch:rebuild\[Venue\]
+    rake pg_search:multisearch:rebuild\[User\]
 
 ### Create Postgres Extensions
 
@@ -128,57 +131,59 @@ Run App
 
 ### voicerepublic_dev
 
-* sudo apt-get install tmux
-* bin/start_everything_in_tmux
+* `rails s`
+* `rake rtmp:start` (will daemonize)
+* `rackup -E production private_pub.ru`
+* `lib/rtmp_watcher.rb run`
+
+### or optionally voicerepublic_dev with tmux
+
+* `sudo apt-get install tmux`
+* `bin/start_everything_in_tmux`
 
 ### voicerepublic_backoffice
 
-* `zeus start`
-* `zeus server -p 3001`
+* `rails s -p 3001`
 
 
 Specs
 -----
 
-### Setup
+### Rails
 
-Install phantomjs (globaly)
+Setup: Install phantomjs (globaly)
 
     sudo npm install -g phantomjs
 
-Install karma & coffee-script
+Run all specs
+
+    rspec spec
+
+If you want to skip specs tagged as slow or to run in chrome, add this
+to your `.rspec` file
+
+    --tag ~@driver:chrome
+    --tag ~@slow
+
+To run specs tagged to run in chrome
+
+    rspec --tag @driver:chrome
+
+To run specs tagged as slow
+
+    rspec --tag @slow
+
+### Angular
+
+Setup: Install karma & coffee-script
 
     sudo npm install -g karma
     sudo npm install -g karma-ng-scenario
     sudo npm install -g coffee-script
 
-### Run
-
-Run Rspec (with Zeus running)
-
-    zeus rspec spec
-
-(This omit tests tagged as slow or to run in chrome.)
-
-Run specs tagged to run in chrome
-
-    zeus rspec --tag @driver:chrome spec
-
-Run specs tagged as slow
-
-    zeus rspec --tag @slow spec
-
 Run Jasmine specs for Angular with Karma
 
     karma start spec/javascripts/livepage.conf.js.coffee
-
-
-CI
---
-
-Monitor CI
-
-    multitail app/current/log/ci.log app/shared/ci/repo/log/test.log
 
 
 Compile Flash
@@ -192,7 +197,7 @@ Unpack and make `bin` available in your PATH.
 
 Run
 
-    zeus rake build:flash
+    rake build:flash
 
 
 Run Audio Strategies
@@ -270,7 +275,7 @@ If you don't have it already you realy should install `tree`.
 
 Start a local rtmp server.
 
-    % zeus rake rtmp:start
+    % rake rtmp:start
 
 Configure Rails to use the local rtmp server. Create a file
 `config/settings.local.yml` with the following content. This will

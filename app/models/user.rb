@@ -77,8 +77,9 @@ class User < ActiveRecord::Base
   validates :summary, length: { maximum: 255 }
   validates :slug, presence: true
   validates_acceptance_of :accept_terms_of_use
-  validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.zones_map(&:name),
-    allow_nil: true
+  # TODO check if this works, especcialy the allow_nil, and does allow_nil make sense?
+  validates :timezone, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys },
+            allow_nil: true
 
   # WARNING: Do not use after_save hooks in the 'user' model that will
   # save the model. The reason is that the Devise confirmable_token

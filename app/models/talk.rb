@@ -676,6 +676,7 @@ class Talk < ActiveRecord::Base
   end
 
   def create_and_process_debit_transaction!
+    return unless Settings.payment_enabled
     DebitTransaction.create(source: self).process!
   end
 

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Xhr::TagsController do
 
@@ -7,10 +7,10 @@ describe Xhr::TagsController do
       10.times { FactoryGirl.create :tag }
       FactoryGirl.create :tag, name: "maunzbraunz"
       get :index, q: 'maunz'
-      response.status.should be(200)
+      expect(response.status).to be(200)
       res = JSON.parse(response.body)
 
-      res['tags'].first['name'].should == 'maunzbraunz'
+      expect(res['tags'].first['name']).to eq('maunzbraunz')
     end
   end
 

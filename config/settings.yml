@@ -33,6 +33,7 @@ rtmp:
   authenticate: true
   worker_processes: 1
 errbit:
+  enabled: false
   api_key: 'this will be set on the stages in app/shared/config/settings.local.yml'
 devise:
   from_address: "Voice Republic <service@voicerepublic.com>"
@@ -112,3 +113,4 @@ developers:
   - munen@dispatched.ch
   - accounts@dispatched.ch
   - spam@dispatched.ch
+payment_enabled: false
