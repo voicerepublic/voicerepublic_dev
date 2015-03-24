@@ -54,6 +54,8 @@ module VoiceRepublic
     config.before_initialize do
       opts = { :log => Settings.rtmp.log_notifications? }
       config.middleware.use 'RtmpNotifications', opts
+
+      config.middleware.use 'FayeAuth', secret: Settings.faye.secret_token
     end
 
     # increases Talk#play_count and redirects to Talk#generate_ephemeral_path!

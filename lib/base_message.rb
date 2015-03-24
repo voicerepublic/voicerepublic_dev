@@ -56,7 +56,7 @@ class BaseMessage
   end
 
   def faye #.publish_to channel, message
-    PrivatePub
+    Faye
   end
 
 end

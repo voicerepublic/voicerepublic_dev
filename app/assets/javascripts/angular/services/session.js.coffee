@@ -106,6 +106,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
           return if millisecs > 2147483647
           $timeout startTalk, millisecs
       onleaveHostOnAir: ->
+        $log.debug "Host leaving state HostOnAir..."
         deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
@@ -134,8 +135,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   #
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
-    data = data.data # unpack private_pub message
-    if data.message
+    if data.message?
       # enrich discussion with further data for display
       user = users[data.message.user_id]
       data.message.user = user
