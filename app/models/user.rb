@@ -171,6 +171,10 @@ class User < ActiveRecord::Base
     !!(email =~ /@(voicerepublic|example)\.com$/)
   end
 
+  def developer?
+    Settings.developers.include?(email)
+  end
+
   def remembers?(model)
     reminders.exists?( rememberable_id: model.id,
                        rememberable_type: model.class.name )
