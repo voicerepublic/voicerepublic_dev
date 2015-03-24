@@ -16,6 +16,8 @@ initialize = (element, scope) ->
   if scope == 'date'
     target.datepicker
       dateFormat: "yy-mm-dd"
+      prevText: ''
+      nextText: ''
 
   if scope == 'time'
     target.timepicker
