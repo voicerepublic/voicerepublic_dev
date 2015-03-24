@@ -80,7 +80,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'meta_request'
   gem 'pry-rails'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '3.2.1'
+  #gem 'rspec-retry'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
   gem 'timecop'
@@ -88,15 +89,15 @@ group :development, :test do
   gem 'webmock',            '~> 1.15.0',    require: false
 
   # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
-  gem 'rspec-core' # needed when running specs on ci
+  #gem 'rspec-core' # needed when running specs on ci
 end
 
 group :test do
-  gem 'capybara', '2.2.1'
+  gem 'capybara', '2.4.4'
   gem 'ci_reporter'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
-  gem 'guard-rspec'
+  #gem 'guard-rspec'
   gem 'launchy'
   gem 'poltergeist'
   gem 'selenium-webdriver'

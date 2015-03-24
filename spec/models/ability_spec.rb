@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Ability do
 
@@ -8,42 +8,42 @@ describe Ability do
 
   describe User do
     it "allows to manage user by itself" do
-      Ability.new(owner).can?(:manage, owner).should be_true
+      expect(Ability.new(owner).can?(:manage, owner)).to be_truthy
     end
     it "denies to manage user by other" do
-      Ability.new(other).can?(:manage, owner).should be_false
+      expect(Ability.new(other).can?(:manage, owner)).to be_falsey
     end
     it "denies to manage user for guests" do
-      Ability.new(guest).can?(:manage, guest).should be_false
+      expect(Ability.new(guest).can?(:manage, guest)).to be_falsey
     end
   end
 
   describe Venue do
     let(:venue) { FactoryGirl.create(:venue, user: owner) }
     it "allows to manage venues by owner" do
-      Ability.new(owner).can?(:manage, venue).should be_true
+      expect(Ability.new(owner).can?(:manage, venue)).to be_truthy
     end
     it "denies to manage venues by other" do
-      Ability.new(other).can?(:manage, venue).should be_false
+      expect(Ability.new(other).can?(:manage, venue)).to be_falsey
     end
     it "allows to create venues as registered user (nonguest)" do
-      Ability.new(owner).can?(:create, Venue).should be_true
+      expect(Ability.new(owner).can?(:create, Venue)).to be_truthy
     end
     it "denies to create venues as guest" do
-      Ability.new(guest).can?(:create, Venue).should be_false
+      expect(Ability.new(guest).can?(:create, Venue)).to be_falsey
     end
   end
 
   describe Comment do
     let(:comment) { FactoryGirl.create(:comment, user: owner) }
     it "allows to manage comments by owner" do
-      Ability.new(owner).can?(:manage, comment).should be_true
+      expect(Ability.new(owner).can?(:manage, comment)).to be_truthy
     end
     it "denies to manage comments by other" do
-      Ability.new(other).can?(:manage, comment).should be_false
+      expect(Ability.new(other).can?(:manage, comment)).to be_falsey
     end
     it "denies to create comments as guest" do
-      Ability.new(guest).can?(:create, Comment.new).should be_false
+      expect(Ability.new(guest).can?(:create, Comment.new)).to be_falsey
     end
   end
 
