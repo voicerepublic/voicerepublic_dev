@@ -20,6 +20,7 @@ describe PurchasesController do
 
   describe "GET 'create'" do
     it "returns http success" do
+      pending unless Settings.payment_enabled
       post 'create', purchase: { quantity: 1, token: 'ASDF' }
       expect(response).to be_success
     end
