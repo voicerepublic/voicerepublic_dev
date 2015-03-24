@@ -144,7 +144,7 @@ describe Talk do
     it 'has a scope featured' do
       talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
       talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
-      talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
+      FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
       expect(Talk.featured).to eq([talk1, talk0])
       expect(Talk.featured).to include(talk0)
     end
@@ -233,7 +233,7 @@ describe Talk do
     user = FactoryGirl.create(:user)
     ActionMailer::Base.deliveries = []
     venue = FactoryGirl.create(:venue, user: user, options: { no_email: true })
-    talk = FactoryGirl.create(:talk, venue: venue)
+    FactoryGirl.create(:talk, venue: venue)
     expect(ActionMailer::Base.deliveries).to be_empty
   end
 
@@ -410,13 +410,13 @@ describe Talk do
     it 'automatically destroys the talk after a while' do
       Delayed::Worker.delay_jobs = true # activate
       expect(Delayed::Job.count).to eq(0)
-      user = FactoryGirl.create :user
       talk = FactoryGirl.create :talk, dryrun: true
       expect(Delayed::Job.count).to eq(1)
       Timecop.travel(25.hours.from_now)
       successes, failures = Delayed::Worker.new.work_off
       expect(Delayed::Job.count).to eq(0)
       expect(successes).to eq(1)
+      expect(failures).to eq(0)
       expect(Talk.where(id: talk.id)).to be_empty
     end
 
