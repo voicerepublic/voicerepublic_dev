@@ -87,7 +87,6 @@ en:
       click_allow: CLICK ALLOW
       choose_mic_tab: CHOOSE MIC TAB
       choose_mic_input: CHOOSE MIC INPUT
-      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
       more: Show more
       less: Show less
       initializing: Initializing
