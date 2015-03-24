@@ -133,7 +133,7 @@ Run App
 
 * `rails s`
 * `rake rtmp:start` (will daemonize)
-* `rackup -E production private_pub.ru`
+* `rackup -E production faye.ru`
 * `lib/rtmp_watcher.rb run`
 
 ### or optionally voicerepublic_dev with tmux

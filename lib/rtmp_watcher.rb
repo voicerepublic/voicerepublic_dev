@@ -6,13 +6,21 @@ require "active_support"
 require 'open-uri'
 require 'ostruct'
 require 'active_support/core_ext'
-require 'private_pub'
+require 'faye/authentication'
 require 'daemons'
 
 class RtmpWatcher
 
   URL = 'http://localhost:8080/stat'
   DELAY = 4
+
+  def initialize(path)
+    # TODO figure out a way to use Settings
+    file = File.join(path, 'config', 'settings.yml')
+    config = YAML.load(File.read(file))
+    @server = config['faye']['server']
+    @secret = config['faye']['secret_token']
+  end
 
   def run
     loop do
@@ -69,22 +77,17 @@ class RtmpWatcher
   end
 
   def publish(channel, payload)
-    PrivatePub.publish_to channel, payload
+    Faye::Authentication::HTTPClient.publish(@server, channel, payload, @secret)
   end
 
 end
 
 
 if __FILE__ == $0
-  base = File.expand_path("../..", __FILE__)
-
-  # configure private pub
-  path = File.join(base, 'config', 'private_pub.yml')
-  PrivatePub.load_config(path, ENV['RAILS_ENV'] || 'development')
-
   # daemonize
+  base = File.expand_path('../..', __FILE__)
   piddir = File.join(base, 'tmp', 'pids')
   Daemons.run_proc(File.basename(__FILE__), dir: piddir) do
-    RtmpWatcher.new.run
+    RtmpWatcher.new(base).run
   end
 end
