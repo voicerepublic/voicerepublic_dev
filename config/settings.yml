@@ -6,9 +6,6 @@ priority_timezones: Berlin|Bern
 audio:
   process_chain: precursor normalize_fragments kluuu_merge trim cut normalize compress m4a mp3 ogg move_clean m4a mp3 ogg cleanup
   override_chain: m4a mp3 ogg move_clean m4a mp3 ogg cleanup
-faye:
-  server: http://localhost:9292/faye
-  secret_token: 7650981269q2871928631823791287e
 rtmp:
   # all paths get expanded with `Rails.root`
   # which doesn't affect absolute paths

@@ -16,7 +16,7 @@ class RtmpWatcher
 
   def initialize(path)
     # TODO figure out a way to use Settings
-    file = File.join(path, 'config', 'settings.yml')
+    file = File.join(path, 'config', 'settings.local.yml')
     config = YAML.load(File.read(file))
     @server = config['faye']['server']
     @secret = config['faye']['secret_token']

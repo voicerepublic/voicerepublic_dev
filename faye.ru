@@ -31,7 +31,7 @@ faye = Faye::RackAdapter.new(mount: '/faye', timeout: 15)
 # AUTHENTICATION
 
 # TODO figure out how to use Settings here
-file = File.expand_path('../config/settings.yml', __FILE__)
+file = File.expand_path('../config/settings.local.yml', __FILE__)
 config = YAML.load(File.read(file))
 secret = config['faye']['secret_token']
 
