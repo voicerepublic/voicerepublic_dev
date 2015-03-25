@@ -14,9 +14,9 @@ __abs_myname="$__abs_mydir/$__myname"
 export RAILS_ENV=production
 
 bundle='/home/app/.rbenv/shims/bundle'
-pidfile="/home/app/app/shared/pids/private_pub.pid"
-# private_pub="${bundle} exec rackup private_pub.ru -E production -D -P ${pidfile}"
-private_pub="${bundle} exec thin -C config/private_pub_thin.yml start -P ${pidfile} -d"
+pidfile="/home/app/app/shared/pids/faye.pid"
+# faye="${bundle} exec rackup faye.ru -E production -D -P ${pidfile}"
+faye="${bundle} exec thin -C config/faye_thin.yml start -P ${pidfile} -d"
 
 # Rails is always located below ~/app/current
 cd ~/app/current
@@ -24,8 +24,8 @@ cd ~/app/current
 case $1 in
     start)
 	pwd
-	echo ${private_pub}
-  ${private_pub}
+	echo ${faye}
+  ${faye}
   sleep 2
 	cat ${pidfile}
 	echo
@@ -40,8 +40,8 @@ case $1 in
     *)
         cat << eof
 $0:
-    start:          start private_pub and daemonize
-    stop:           stop existing private_pub processes
+    start:          start faye and daemonize
+    stop:           stop existing faye processes
     restart:        stop and start
 eof
 esac
