@@ -147,7 +147,7 @@
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
-          .pending-message(ng-show='talkIsPending()')
+          .pending-message(ng-show='talkIsQueued()')
             %a= t('.talk_queued_for_processing')
           .processing-message(ng-show='talkIsProcessing()')
             %a= t('.talk_is_processing')

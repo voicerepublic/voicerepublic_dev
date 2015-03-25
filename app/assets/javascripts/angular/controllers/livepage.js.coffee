@@ -139,8 +139,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
       $("a[href=#discussion] .icon-bubble-multi").click()
     sendMessage() if e.which == 13 # Enter
 
-  $scope.talkIsPending = ->
-    config.talk.state == 'pending'
+  $scope.talkIsQueued = ->
+    config.talk.state in ['pending', 'postlive']
 
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
