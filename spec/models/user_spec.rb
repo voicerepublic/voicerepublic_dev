@@ -167,8 +167,8 @@ describe User do
   end
 
   describe 'Create' do
-
     it 'should not create a confirmation email' do
+      ActionMailer::Base.deliveries.clear
       expect(ActionMailer::Base.deliveries).to be_empty
       FactoryGirl.create :user
       expect(ActionMailer::Base.deliveries).to be_empty
