@@ -241,7 +241,7 @@ end
 # mail on every User.create. We do not need that in the specs.
 module Devise::Models::Confirmable
   def send_confirmation_notification?
-    false
+    Thread.current["Devise.enable_confirmation_mails"] ||= false
   end
 end
 

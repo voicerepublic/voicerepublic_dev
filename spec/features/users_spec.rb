@@ -42,16 +42,12 @@ feature "Anonymous users", js: true do
     expect(User.last.email).to match(/.*-.*-.*-.*-.*@example.com/)
   end
 
-  it 'should not send password reset mails automatically to guest users' do
+  it 'should not send confirmation mails automatically to guest users' do
     # Reset the Devise setting to normal. It was overriden in rails_helper not
     # to send confirmation mails to new Users, because usually we do not need
     # it in the test suite. Here, we do want to test the regular behaviour,
     # though.
-    module Devise::Models::Confirmable
-      def send_confirmation_notification?
-        true
-      end
-    end
+    Thread.current["Devise.enable_confirmation_mails"] = true
     expect(ActionMailer::Base.deliveries).to be_empty
     talk = FactoryGirl.create(:talk, state: :live)
     # The above talk factory creates a venue that creates a user that will
@@ -62,6 +58,7 @@ feature "Anonymous users", js: true do
     visit talk_path(talk)
     expect(User.last.guest?).to be(true)
     expect(ActionMailer::Base.deliveries.count).to be(1)
+    Thread.current["Devise.enable_confirmation_mails"] = false
   end
 end
 
