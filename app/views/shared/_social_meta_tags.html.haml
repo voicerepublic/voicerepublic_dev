@@ -1,10 +1,3 @@
-- description = @talk.description.empty? ? @talk.teaser : strip_tags(@talk.description)
-- title = @talk.title
-- image = "https://#{request.host}#{@talk.flyer.path}"
-- keywords = @talk.try(:tag_list)
-- author = @talk.speakers || @talk.venue.user.name
-- _user_url = user_url(@talk.user)
-- _venue_url = venue_url(@talk.venue)
 -# Google
 %meta{content: "#{description}", name: "description"}/
 %meta{content: "#{keywords}", name: "keywords"}/
@@ -19,12 +12,13 @@
 %meta{content: "#{title}", property: "og:title"}/
 
 %meta{content: "#{image}", property: "og:image"}/
-%meta{content: "#{talk_url{@talk}}", property: "og:url"}/
+%meta{content: "#{url}", property: "og:url"}/
 %meta{content: "#{description}", property: "og:description"}/
 
 %meta{content: "video", property: "og:type"}/
-%meta{content: flash_player_url(@talk), property: "og:video:url"}/
-%meta{content: flash_player_url(@talk), property: "og:video:secure_url"}/
+- if player[:embed]
+  %meta{content: player[:url], property: "og:video:url"}/
+  %meta{content: player[:url], property: "og:video:secure_url"}/
 %meta{content: "application/x-shockwave-flash", property: "og:video:type"}/
 %meta{content: "485", property: "og:video:width"}/
 %meta{content: "184", property: "og:video:height"}/
