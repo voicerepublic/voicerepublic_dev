@@ -26,20 +26,21 @@ class VrDaemon
     _, talk_id, user_id = channel.match(%r{^/live/up/t(\d+)/u(\d+)$}).to_a
     talk = Talk.find(talk_id)
 
-    if msg['event']
+    if msg['event'] # EVENTS
+      # events may only be called by the owner of a talk
+      # TODO use cancan instead
+      return unless user_id == talk.user_id
       case msg['event']
       when 'EndTalk'
-        # TODO authorize
         talk.end_talk!
       when 'StartTalk'
-        # TODO authorize
         talk.start_talk!
         msg[:session] = talk.session
         msg[:talk_state] = talk.current_state
       else
-        puts "Don't know how to handle:\n#{msg.to_yaml}"
+        # silently pass other events like Promote and Demote
       end
-    elsif msg['state']
+    elsif msg['state'] # STATE PROPAGATION
       user = User.find(user_id)
       details = user.details_for(talk)
       talk.with_lock do
