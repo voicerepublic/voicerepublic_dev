@@ -1,8 +1,8 @@
 # This will load the faye client library, instanciate the client,
-# set up an extension for use with PrivatePub and expose an API
+# set up an extension for use with faye-authentication and expose an API
 # to put calls to the client on a promise chain, to queue these until
 # the client is set up.
-privatePubFunc = ($log, $q, config) ->
+messagingFunc = ($log, $q, config) ->
 
   client = null
 
@@ -20,6 +20,10 @@ privatePubFunc = ($log, $q, config) ->
     $log.debug 'Instanciated Faye client.'
 
   # public methods
+  publish = (message) ->
+    promise = promise.then ->
+      client.publish config.user.upmsg, message
+
   subscribe = (channel, callback) ->
     success = ->
       $log.debug "Subscribing to Faye channel #{channel}..."
@@ -32,10 +36,11 @@ privatePubFunc = ($log, $q, config) ->
     promise = promise.then func
 
   {
+    publish
     subscribe
     callback
   }
 
 # annotate with dependencies to inject
-privatePubFunc.$inject = ['$log', '$q', 'config']
-window.Sencha.factory "privatePub", privatePubFunc
+messagingFunc.$inject = ['$log', '$q', 'config']
+window.Sencha.factory "messaging", messagingFunc

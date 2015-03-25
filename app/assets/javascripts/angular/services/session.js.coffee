@@ -1,7 +1,7 @@
 # The SessionService is the single source for insession
 # data and contains the session logic.
 #
-sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
+sessionFunc = ($log, messaging, util, $rootScope, $timeout, upstream,
                config, blackbox) ->
 
   # reconfigure blackbox
@@ -230,7 +230,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     $log.debug "--- starting Talk ---"
     upstream.event 'StartTalk'
   endTalk = ->
-    upstream.event 'EndTalk'
+    messaging.publish event: 'EndTalk'
 
   # separate the audience into four groups
   guests = ->
@@ -261,10 +261,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     config.feedback.data.class = if msg.kb > 16 then 'good' else 'bad'
 
   # subscribe to push notifications
-  privatePub.subscribe config.talk.channel, pushMsgHandler
-  privatePub.subscribe config.user.downmsg, replHandler
-  privatePub.subscribe "/stat/#{config.stream}", statHandler
-  privatePub.callback -> subscriptionDone = true
+  messaging.subscribe config.talk.channel, pushMsgHandler
+  messaging.subscribe config.user.downmsg, replHandler
+  messaging.subscribe "/stat/#{config.stream}", statHandler
+  messaging.callback -> subscriptionDone = true
 
   # exposed objects
   {
@@ -289,6 +289,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   }
 
 # annotate with dependencies to inject
-sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
+sessionFunc.$inject = ['$log', 'messaging', 'util', '$rootScope',
                        '$timeout', 'upstream', 'config', 'blackbox']
 window.Sencha.factory 'session', sessionFunc

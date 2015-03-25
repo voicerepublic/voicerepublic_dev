@@ -3,7 +3,7 @@
 # * /dj
 # * /monitoring
 # * /event/talk
-# * /notifications
+# * /notification
 # * /stat/t1051-u1
 # * /stat
 # * /t1051/public      (TODO rename to /live/down/t1051/public)
@@ -54,11 +54,11 @@ faye.add_extension FayeTtl.new(channels: %w( /dj
 env = ENV['RAILS_ENV'] || 'development'
 if env == 'development'
   puts "We're in dev mode, showing logs..."
-  faye.bind(:publish) do |client_id, channel, data|
+  faye.on(:publish) do |client_id, channel, data|
     puts "publish #{client_id} #{channel} #{data.inspect}"
   end
 
-  faye.bind(:subscribe) do |client_id, channel|
+  faye.on(:subscribe) do |client_id, channel|
     puts "subscribe #{client_id} #{channel}"
   end
 end

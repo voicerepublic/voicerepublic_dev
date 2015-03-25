@@ -1,28 +1,28 @@
 #!/usr/bin/env ruby
 
+# pull in the whole rails environment
 require File.expand_path('../../config/environment', __FILE__)
 require 'daemons'
 
 class VrDaemon
 
-  DELAY = 4
+  CHANNEL = '/live/up'
 
   def run
-    puts 'running...'
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
     EM.run {
       client = Faye::Client.new(Settings.faye.server)
       client.add_extension(extension)
 
-      client.subscribe('/live/up') do |message|
-        puts message.inspect
+      puts "subcribing to #{CHANNEL}..."
+      client.subscribe(CHANNEL) do |msg|
+        process(msg)
       end
-
-      #loop do
-      #  Faye.publish_to '/heartbeat', { hello: true }
-      #  sleep DELAY
-      #end
     }
+  end
+
+  def process(msg)
+    p msg
   end
 
 end
