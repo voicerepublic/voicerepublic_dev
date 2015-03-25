@@ -321,13 +321,8 @@
             %span.icon-mic
             = t('.setting_up_audio')
         #flashContent
-        %a(ng-show='flags.blackboxReady' href="http://blog.voicerepublic.com/audio-faq/" class="need-help" target="blank")
+        %a(ng-show='flags.blackboxReady' href="http://blog.voicerepublic.com/" class="need-help" target="blank")
           =t('.need_help')
-
-      -# TODO: Rewrite audio-faq and publish the link again
-      -#= link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
-      -#  %p
-      -#    = raw t('.audio_settings_help_text')
 
   .row.collapse-large-only
     .large-12.columns

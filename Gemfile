@@ -13,7 +13,6 @@ gem 'delayed_job_active_record'
 
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'therubyracer', platforms: :ruby
 gem 'uglifier'#, '>= 1.0.3'
 
 # gem 'jbuilder', '~> 2.0'
