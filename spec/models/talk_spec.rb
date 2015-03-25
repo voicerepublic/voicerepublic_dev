@@ -418,6 +418,7 @@ describe Talk do
       expect(successes).to eq(1)
       expect(failures).to eq(0)
       expect(Talk.where(id: talk.id)).to be_empty
+      Delayed::Worker.delay_jobs = false # deactivate
     end
 
   end
