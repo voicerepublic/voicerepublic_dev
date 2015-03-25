@@ -218,4 +218,8 @@ class User < ActiveRecord::Base
     provider != 'facebook' && super
   end
 
+  def send_confirmation_notification?
+    !guest? && super
+  end
+
 end

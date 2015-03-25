@@ -40,6 +40,6 @@ module OnTheFlyGuestUser
   def generate_guest_user?
     true
   end
-  
+
 end
 

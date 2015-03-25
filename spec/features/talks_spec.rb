@@ -4,6 +4,9 @@ require 'rails_helper'
 describe 'TalksController' do
   describe 'renders' do
     describe 'without talk' do
+      before do
+        login_user FactoryGirl.create(:user)
+      end
       it 'index on GET /talks' do # index
         visit '/talks'
         expect(page).to have_selector(".talks-index")
@@ -119,12 +122,12 @@ describe "Talks as logged in user" do
         expect(page).to have_content "THIS TALK IS LIVE IN"
         expect(page).to have_content "computing"
         retry_with_delay do
-          expect(page).to have_content /00:04:\d{2}/
+          expect(page).to have_content(/00:04:\d{2}/)
         end
         Timecop.travel(2.minutes.from_now)
         visit talk_path(@talk)
         retry_with_delay do
-          expect(page).to have_content /00:02:\d{2}/
+          expect(page).to have_content(/00:02:\d{2}/)
         end
         Timecop.return
       end
@@ -254,14 +257,14 @@ describe "Talks as logged in user" do
   describe "Talk#new" do
     it 'has default time and date' do
       skip 'this feature has been disabled for the moment'
-      venue = FactoryGirl.create(:venue, user: @user)
+      FactoryGirl.create(:venue, user: @user)
       visit new_talk_path
       # Time is being written in the frontend. Cannot use Timecop to mock that.
       expect(find('#talk_starts_at_date').value).to eq(Date.today.strftime "%Y-%m-%d")
       expect(find('#talk_starts_at_time').value).to eq(Time.now.strftime "%H:%M")
     end
     it 'creates a new talk', driver: :chrome do
-      venue = FactoryGirl.create(:venue, user: @user)
+      FactoryGirl.create(:venue, user: @user)
       visit new_talk_path
 
       fill_in :talk_title, with: 'spec talk title'
@@ -280,7 +283,7 @@ describe "Talks as logged in user" do
     end
 
     it 'shows validation errors', driver: :chrome do
-      venue = FactoryGirl.create(:venue, user: @user)
+      FactoryGirl.create(:venue, user: @user)
       visit new_talk_path
 
       fill_in 'talk_starts_at_date', with: ''

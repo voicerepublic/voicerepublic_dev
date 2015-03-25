@@ -41,6 +41,28 @@ feature "Anonymous users", js: true do
     expect(User.last.name).to match(/.*-.*-.*-.*-.*/)
     expect(User.last.email).to match(/.*-.*-.*-.*-.*@example.com/)
   end
+
+  it 'should not send confirmation mails automatically to guest users' do
+    # Reset the Devise setting to normal. It was overriden in rails_helper not
+    # to send confirmation mails to new Users, because usually we do not need
+    # it in the test suite. Here, we do want to test the regular behaviour,
+    # though.
+    ActionMailer::Base.deliveries.clear
+    expect(ActionMailer::Base.deliveries).to be_empty
+    Thread.current["Devise.enable_confirmation_mails"] = true
+    talk = FactoryGirl.create(:talk, state: :live)
+    # The above talk factory creates a venue that creates a user that will
+    # receive a confirmation mail by Deivse. Hence the one email in the queue.
+    expect(ActionMailer::Base.deliveries.count).to be(1)
+    # On visit of a live talk, a Guest User is being created. However, no
+    # confirmation mail should be sent on creation of said user.
+    visit talk_path(talk)
+    expect(User.last.guest?).to be(true)
+    expect(ActionMailer::Base.deliveries.count).to be(1)
+    # Delete the queue for future specs
+    ActionMailer::Base.deliveries.clear
+    Thread.current["Devise.enable_confirmation_mails"] = false
+  end
 end
 
 feature "User edits own profile", js: true do
