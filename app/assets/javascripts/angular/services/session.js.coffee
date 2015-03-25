@@ -221,10 +221,10 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout, upstream,
 
   # some methods only available to the host
   promote = (id) ->
-    upstream.event 'Promote', user: { id }
+    messaging.publish event: 'Promote', user: { id }
   demote = (id) ->
     return fsm.Demoted() if id is config.user_id
-    upstream.event 'Demote', user: { id }
+    messaging.publish event: 'Demote', user: { id }
   startTalk = ->
     return unless config.talk.state in ['prelive', 'halflive']
     $log.debug "--- starting Talk ---"

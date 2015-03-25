@@ -41,13 +41,15 @@ class VrDaemon
       end
     elsif msg['state']
       user = User.find(user_id)
+      details = user.details_for(talk)
       talk.with_lock do
         session = talk.session || {}
-        session[user.id] ||= user.details_for(talk)
+        session[user.id] ||= details
         session[user.id][:state] = msg['state']
         talk.update_attribute :session, session
       end
-      msg['user'] = { id: user.id }
+      registering = msg['state'].match(/Registering$/)
+      msg['user'] = registering ? details : { id: user.id }
     else
       puts "Don't know how to handle:\n#{msg.to_yaml}"
     end
