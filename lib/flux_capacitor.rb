@@ -28,24 +28,28 @@ class FluxCapacitor
   def process(msg)
     channel = msg.delete('channel')
     _, talk_id, user_id = channel.match(%r{^/live/up/t(\d+)/u(\d+)$}).to_a
-    talk = Talk.find(talk_id)
 
     if msg['event'] # EVENTS
       # events may only be called by the owner of a talk
       # TODO use cancan instead
-      return unless user_id == talk.user_id
+      talk = Talk.joins(:venue).find(talk_id)
+      return unless user_id == talk.venue.user_id.to_s
       case msg['event']
       when 'EndTalk'
         talk.end_talk!
+        print 'e'
       when 'StartTalk'
         talk.start_talk!
         msg[:session] = talk.session
         msg[:talk_state] = talk.current_state
+        print 's'
       else
+        print 'o'
         # silently pass other events like Promote and Demote
       end
     elsif msg['state'] # STATE PROPAGATION
       user = User.find(user_id)
+      talk = Talk.find(talk_id)
       details = user.details_for(talk)
       talk.with_lock do
         session = talk.session || {}
@@ -55,8 +59,9 @@ class FluxCapacitor
       end
       registering = msg['state'].match(/Registering$/)
       msg['user'] = registering ? details : { id: user.id }
+      print '.'
     else
-      puts "Don't know how to handle:\n#{msg.to_yaml}"
+      Rails.logger.error "Don't know how to handle:\n#{msg.to_yaml}"
     end
 
     client.publish talk.public_channel, msg
