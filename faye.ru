@@ -1,4 +1,17 @@
-# Run with
+# Namespaces in use
+#
+# * /dj
+# * /monitoring
+# * /event/talk
+# * /notification
+# * /stat/t1051-u1
+# * /stat
+# * /t1051/public      (TODO rename to /live/down/t1051/public)
+# * /t1051/u1          (TODO rename to /live/down/t1051/u1)
+# * /live/up/t1051/u1  (will be squashed by ChannelSquasher)
+#     => /live/up { channel: '/live/up/t1051/u1' }
+#
+# Run this file with
 #
 #    rackup faye.ru -E production
 #
@@ -6,6 +19,7 @@ require 'yaml'
 require 'faye'
 require 'faye/authentication'
 require File.expand_path('../lib/faye_ttl', __FILE__)
+require File.expand_path('../lib/faye_squasher', __FILE__)
 
 
 # INSTANCIATE
@@ -24,7 +38,10 @@ secret = config['faye']['secret_token']
 faye.add_extension Faye::Authentication::ServerExtension.new(secret)
 
 
-# PERSISTENCE
+# CUSTOM EXTENSIONS
+
+rules = { '/live/up' => %r{^/live/up/t\d+/u\d+$} }
+faye.add_extension FayeSquasher.new(rules)
 
 faye.add_extension FayeTtl.new(channels: %w( /dj
                                              /event/talk
@@ -32,17 +49,16 @@ faye.add_extension FayeTtl.new(channels: %w( /dj
                                              /notification
                                              /stat ))
 
-
 # OUTPUT
 
 env = ENV['RAILS_ENV'] || 'development'
 if env == 'development'
   puts "We're in dev mode, showing logs..."
-  faye.bind(:publish) do |client_id, channel, data|
+  faye.on(:publish) do |client_id, channel, data|
     puts "publish #{client_id} #{channel} #{data.inspect}"
   end
 
-  faye.bind(:subscribe) do |client_id, channel|
+  faye.on(:subscribe) do |client_id, channel|
     puts "subscribe #{client_id} #{channel}"
   end
 end

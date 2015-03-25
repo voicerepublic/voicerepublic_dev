@@ -94,7 +94,8 @@ class LivepageConfig < Struct.new(:talk, :user)
 
   def subscriptions
     channels = [ talk.public_channel,
-                 user_details[:channel],
+                 user_details[:downmsg],
+                 user_details[:upmsg],
                  "/stat/#{stream}" ]
 
     #channels.inject({}) do |r, c|

@@ -1,7 +1,7 @@
 # The SessionService is the single source for insession
 # data and contains the session logic.
 #
-sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
+sessionFunc = ($log, messaging, util, $rootScope, $timeout,
                config, blackbox) ->
 
   # reconfigure blackbox
@@ -35,7 +35,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   subscriptionDone = false
 
   reportState = (state) ->
-    return upstream.state(state) if subscriptionDone
+    return messaging.publish(state: state) if subscriptionDone
     # defer if subscriptions aren't done yet
     #$log.debug "Not ready to report state '#{state}', waiting for subscriptions"
     $timeout (-> reportState(state)), 250
@@ -221,16 +221,16 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 
   # some methods only available to the host
   promote = (id) ->
-    upstream.event 'Promote', user: { id }
+    messaging.publish event: 'Promote', user: { id }
   demote = (id) ->
     return fsm.Demoted() if id is config.user_id
-    upstream.event 'Demote', user: { id }
+    messaging.publish event: 'Demote', user: { id }
   startTalk = ->
     return unless config.talk.state in ['prelive', 'halflive']
     $log.debug "--- starting Talk ---"
-    upstream.event 'StartTalk'
+    messaging.publish event: 'StartTalk'
   endTalk = ->
-    upstream.event 'EndTalk'
+    messaging.publish event: 'EndTalk'
 
   # separate the audience into four groups
   guests = ->
@@ -261,10 +261,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     config.feedback.data.class = if msg.kb > 16 then 'good' else 'bad'
 
   # subscribe to push notifications
-  privatePub.subscribe config.talk.channel, pushMsgHandler
-  privatePub.subscribe config.user.channel, replHandler
-  privatePub.subscribe "/stat/#{config.stream}", statHandler
-  privatePub.callback -> subscriptionDone = true
+  messaging.subscribe config.talk.channel, pushMsgHandler
+  messaging.subscribe config.user.downmsg, replHandler
+  messaging.subscribe "/stat/#{config.stream}", statHandler
+  messaging.callback -> subscriptionDone = true
 
   # exposed objects
   {
@@ -281,7 +281,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     listeners
     # -- misc
     discussion
-    upstream
     name: config.fullname
     fsm
     # -- debug
@@ -289,6 +288,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   }
 
 # annotate with dependencies to inject
-sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
-                       '$timeout', 'upstream', 'config', 'blackbox']
+sessionFunc.$inject = ['$log', 'messaging', 'util', '$rootScope',
+                       '$timeout', 'config', 'blackbox']
 window.Sencha.factory 'session', sessionFunc
