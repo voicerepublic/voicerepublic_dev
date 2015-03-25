@@ -8,7 +8,7 @@
 # * /stat
 # * /t1051/public      (TODO rename to /live/down/t1051/public)
 # * /t1051/u1          (TODO rename to /live/down/t1051/u1)
-# * /live/up/t1051/u1  (will be squashed by ChannelSquasher)
+# * /live/up/t1051/u1  (will be squashed by FayeSquasher)
 #     => /live/up { channel: '/live/up/t1051/u1' }
 #
 # Run this file with
