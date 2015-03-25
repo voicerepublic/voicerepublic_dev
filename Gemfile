@@ -35,7 +35,6 @@ gem 'dragonfly', '1.0.3'           # used for images
 gem 'angularjs-file-upload-rails', '~> 1.1.0'
 gem 'acts-as-taggable-on', '3.4.2' # tag-system
 gem 'cancan'                       # authorization/privileges
-gem 'private_pub'                  # push service
 gem 'thin'                         # faster development-server
 gem 'whenever'
 gem 'haml-rails'
@@ -53,6 +52,7 @@ gem 'fog'
 gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
+gem 'faye-authentication', github: 'branch14/faye-authentication'
 
 group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views

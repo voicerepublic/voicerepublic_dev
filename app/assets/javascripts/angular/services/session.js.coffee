@@ -106,6 +106,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
           return if millisecs > 2147483647
           $timeout startTalk, millisecs
       onleaveHostOnAir: ->
+        $log.debug "Host leaving state HostOnAir..."
         deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
@@ -134,8 +135,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   #
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
-    data = data.data # unpack private_pub message
-    if data.message
+    if data.message?
       # enrich discussion with further data for display
       user = users[data.message.user_id]
       data.message.user = user
@@ -245,20 +245,20 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     (user for id, user of users when user.role == 'listener')
 
   replHandler = (msg) ->
-    eval msg.data.exec if msg.data.exec?
+    eval msg.exec if msg.exec?
 
   statHandler = (msg) ->
     # propagate codec transitions to google analytics
     pusher = $log.debug
     # FIXME this uses `window` and thus is not testable easily
     pusher = window._gaq.push if window._gaq?
-    if config.feedback.data?.codec != msg.data.codec
-      transition = "#{config.feedback.data?.codec} -> #{msg.data.codec}"
+    if config.feedback.data?.codec != msg.codec
+      transition = "#{config.feedback.data?.codec} -> #{msg.codec}"
       pusher ['_trackEvent', 'streaming', 'codec', transition]
 
-    config.feedback.data = msg.data
-    config.feedback.data.kb = if msg.data.bw_in >= 0 then Math.round(msg.data.bw_in / 1024) else 0
-    config.feedback.data.class = if msg.data.kb > 16 then 'good' else 'bad'
+    config.feedback.data = msg
+    config.feedback.data.kb = if msg.bw_in >= 0 then Math.round(msg.bw_in / 1024) else 0
+    config.feedback.data.class = if msg.kb > 16 then 'good' else 'bad'
 
   # subscribe to push notifications
   privatePub.subscribe config.talk.channel, pushMsgHandler

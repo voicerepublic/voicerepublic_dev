@@ -31,8 +31,8 @@ class LivepageConfig < Struct.new(:talk, :user)
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
       # faye
-      fayeClientUrl: PrivatePub.config[:server] + '/client.js',
-      fayeUrl: PrivatePub.config[:server],
+      fayeClientUrl: Settings.faye.server + '/client.js',
+      fayeUrl: Settings.faye.server,
       subscriptions: subscriptions,
       # streams
       namespace: "t#{talk.id}",
@@ -97,9 +97,9 @@ class LivepageConfig < Struct.new(:talk, :user)
                  user_details[:channel],
                  "/stat/#{stream}" ]
 
-    channels.inject({}) do |r, c|
-      r.merge c => PrivatePub.subscription(channel: c)
-    end
+    #channels.inject({}) do |r, c|
+    #  r.merge c => PrivatePub.subscription(channel: c)
+    #end
   end
 
   def statemachine_spec
