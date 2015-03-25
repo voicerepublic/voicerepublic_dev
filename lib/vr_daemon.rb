@@ -31,6 +31,11 @@ class VrDaemon
       when 'EndTalk'
         # TODO authorize
         talk.end_talk!
+      when 'StartTalk'
+        # TODO authorize
+        talk.start_talk!
+        msg[:session] = talk.session
+        msg[:talk_state] = talk.current_state
       else
         puts "Don't know how to handle:\n#{msg.to_yaml}"
       end

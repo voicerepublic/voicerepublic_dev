@@ -228,7 +228,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout, upstream,
   startTalk = ->
     return unless config.talk.state in ['prelive', 'halflive']
     $log.debug "--- starting Talk ---"
-    upstream.event 'StartTalk'
+    messaging.publish event: 'StartTalk'
   endTalk = ->
     messaging.publish event: 'EndTalk'
 
