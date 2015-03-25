@@ -1,7 +1,7 @@
 # The SessionService is the single source for insession
 # data and contains the session logic.
 #
-sessionFunc = ($log, messaging, util, $rootScope, $timeout, upstream,
+sessionFunc = ($log, messaging, util, $rootScope, $timeout,
                config, blackbox) ->
 
   # reconfigure blackbox
@@ -281,7 +281,6 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout, upstream,
     listeners
     # -- misc
     discussion
-    upstream
     name: config.fullname
     fsm
     # -- debug
@@ -290,5 +289,5 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout, upstream,
 
 # annotate with dependencies to inject
 sessionFunc.$inject = ['$log', 'messaging', 'util', '$rootScope',
-                       '$timeout', 'upstream', 'config', 'blackbox']
+                       '$timeout', 'config', 'blackbox']
 window.Sencha.factory 'session', sessionFunc
