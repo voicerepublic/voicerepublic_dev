@@ -18,7 +18,7 @@ class FluxCapacitor
       self.client = Faye::Client.new(Settings.faye.server)
       client.add_extension(extension)
 
-      puts "subcribing to #{CHANNEL}..."
+      puts "subscribing to #{CHANNEL}..."
       client.subscribe(CHANNEL) do |msg|
         process(msg)
       end
@@ -71,7 +71,7 @@ if __FILE__ == $0
   Daemons.run_proc(File.basename(__FILE__), dir: piddir) do
     Dir.chdir(base)
     # pull in the whole rails environment
-    puts 'booting rails...'
+    puts 'compressing some time while booting rails...'
     require File.expand_path('config/environment', base)
     FluxCapacitor.new.run
   end
