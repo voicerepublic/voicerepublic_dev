@@ -2,7 +2,11 @@
 
 require 'daemons'
 
-class VrDaemon
+# The FluxCapacitor is a headless Rails process which subscribes to
+# Faye. Nothing more, nothing less. All other names were already
+# taken.
+#
+class FluxCapacitor
 
   CHANNEL = '/live/up'
 
@@ -69,6 +73,6 @@ if __FILE__ == $0
     # pull in the whole rails environment
     puts 'booting rails...'
     require File.expand_path('config/environment', base)
-    VrDaemon.new.run
+    FluxCapacitor.new.run
   end
 end
