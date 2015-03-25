@@ -1,5 +1,11 @@
 module OnTheFlyGuestUser
 
+  class User < ActiveRecord::Base
+    def send_confirmation_notification?
+      false
+    end
+  end
+
   # hack to authenticate guest users as well
   def authenticate_user!
     id = session[:guest_user_id]
@@ -40,6 +46,6 @@ module OnTheFlyGuestUser
   def generate_guest_user?
     true
   end
-  
+
 end
 

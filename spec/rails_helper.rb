@@ -239,13 +239,9 @@ end
 
 # The user model has devise confirmable, meaning it would create a confirmation
 # mail on every User.create. We do not need that in the specs.
-module Devise
-  module Models
-    module Confirmable
-      def send_confirmation_notification?
-        false
-      end
-    end
+module Devise::Models::Confirmable
+  def send_confirmation_notification?
+    false
   end
 end
 

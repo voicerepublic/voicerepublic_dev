@@ -41,6 +41,19 @@ feature "Anonymous users", js: true do
     expect(User.last.name).to match(/.*-.*-.*-.*-.*/)
     expect(User.last.email).to match(/.*-.*-.*-.*-.*@example.com/)
   end
+
+  it 'should not send password reset mails automatically to guest users' do
+    expect(ActionMailer::Base.deliveries).to be_empty
+    talk = FactoryGirl.create(:talk, state: :live)
+    # The above talk factory creates a venue that creates a user that will
+    # receive a confirmation mail by Deivse. Hence the one email in the queue.
+    expect(ActionMailer::Base.deliveries.count).to be(1)
+    # On visit of a live talk, a Guest User is being created. However, no
+    # confirmation mail should be sent on creation of said user.
+    visit talk_path(talk)
+    expect(User.last.guest?).to be(true)
+    expect(ActionMailer::Base.deliveries.count).to be(1)
+  end
 end
 
 feature "User edits own profile", js: true do
