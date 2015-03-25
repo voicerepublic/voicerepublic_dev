@@ -134,6 +134,7 @@ Run App
 * `rails s`
 * `rake rtmp:start` (will daemonize)
 * `rackup -E production faye.ru`
+* `lib/flux_capacitor.rb run`
 * `lib/rtmp_watcher.rb run`
 
 ### or optionally voicerepublic_dev with tmux
