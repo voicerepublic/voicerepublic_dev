@@ -262,7 +262,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 
   # subscribe to push notifications
   privatePub.subscribe config.talk.channel, pushMsgHandler
-  privatePub.subscribe config.user.channel, replHandler
+  privatePub.subscribe config.user.downmsg, replHandler
   privatePub.subscribe "/stat/#{config.stream}", statHandler
   privatePub.callback -> subscriptionDone = true
 

@@ -45,17 +45,17 @@ class RtmpWatcher
                                     bw_in    = stream.bw_in,
                                     app_name = app.name,
                                     codec    = stream.meta.try(:audio).try(:codec) ]
-          publish "/stat/#{name}",
-                  payload[name] = {
-                    nclients: nclients,
-                    bw_in: bw_in,
-                    app_name: app_name,
-                    codec: codec
-                  }
+          publish_to "/stat/#{name}",
+                     payload[name] = {
+                       nclients: nclients,
+                       bw_in: bw_in,
+                       app_name: app_name,
+                       codec: codec
+                     }
         end
       end
     end
-    publish "/stat", payload unless payload.empty?
+    publish_to "/stat", payload unless payload.empty?
   end
 
   private
@@ -76,8 +76,10 @@ class RtmpWatcher
     end
   end
 
-  def publish(channel, payload)
+  def publish_to(channel, payload)
     Faye::Authentication::HTTPClient.publish(@server, channel, payload, @secret)
+  rescue Exception => e
+    puts "He's dead, Jim."
   end
 
 end

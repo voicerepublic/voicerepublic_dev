@@ -8,12 +8,13 @@ class VrDaemon
   DELAY = 4
 
   def run
+    puts 'running...'
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
     EM.run {
       client = Faye::Client.new(Settings.faye.server)
       client.add_extension(extension)
 
-      client.subscribe('/stat') do |message|
+      client.subscribe('/live/up') do |message|
         puts message.inspect
       end
 
