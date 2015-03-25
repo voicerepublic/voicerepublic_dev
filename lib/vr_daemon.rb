@@ -22,16 +22,32 @@ class VrDaemon
   end
 
   def process(msg)
-    case msg['event']
-    when 'EndTalk'
-      _, talk_id, user_id = msg['channel'].match(%r{^/live/up/t(\d+)/u(\d+)$}).to_a
-      talk = Talk.find(talk_id)
-      # TODO authorize
-      talk.end_talk!
-      client.publish talk.public_channel, event: 'EndTalk'
+    channel = msg.delete('channel')
+    _, talk_id, user_id = channel.match(%r{^/live/up/t(\d+)/u(\d+)$}).to_a
+    talk = Talk.find(talk_id)
+
+    if msg['event']
+      case msg['event']
+      when 'EndTalk'
+        # TODO authorize
+        talk.end_talk!
+      else
+        puts "Don't know how to handle:\n#{msg.to_yaml}"
+      end
+    elsif msg['state']
+      user = User.find(user_id)
+      talk.with_lock do
+        session = talk.session || {}
+        session[user.id] ||= user.details_for(talk)
+        session[user.id][:state] = msg['state']
+        talk.update_attribute :session, session
+      end
+      msg['user'] = { id: user.id }
     else
       puts "Don't know how to handle:\n#{msg.to_yaml}"
     end
+
+    client.publish talk.public_channel, msg
   end
 
 end

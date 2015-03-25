@@ -35,7 +35,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout, upstream,
   subscriptionDone = false
 
   reportState = (state) ->
-    return upstream.state(state) if subscriptionDone
+    return messaging.publish(state: state) if subscriptionDone
     # defer if subscriptions aren't done yet
     #$log.debug "Not ready to report state '#{state}', waiting for subscriptions"
     $timeout (-> reportState(state)), 250
