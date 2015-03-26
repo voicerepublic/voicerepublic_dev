@@ -35,9 +35,10 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   subscriptionDone = false
 
   reportState = (state) ->
+    # skip reporting of state for anonymous users
+    return if config.user.role == 'listener'
     return messaging.publish(state: state) if subscriptionDone
     # defer if subscriptions aren't done yet
-    #$log.debug "Not ready to report state '#{state}', waiting for subscriptions"
     $timeout (-> reportState(state)), 250
 
   # definition of the state machine, incl. callbacks
@@ -47,11 +48,25 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     # events, resp. transitions are defined in lib/livepage_config.rb
     events: config.statemachine
     error: (eventName, from, to, args, errorCode, errorMessage) ->
-      $log.debug [eventName, from, to, args, errorCode]
-      $log.debug errorMessage
+      $log.error 'Error in State Machine!'
+      $log.error [eventName, from, to, args, errorCode]
+      $log.error errorMessage
     callbacks:
       onenterstate: (event, from, to) ->
         reportState(to)
+      # the following 4 callbacks need timeouts to escape from
+      # callback context, otherwise, fireing fsm events will raise an
+      # error
+      onenterRegistering: ->
+        $timeout (-> fsm.Registered()), 1
+      onenterHostRegistering: ->
+        $timeout (-> fsm.Registered()), 1
+      onenterGuestRegistering: ->
+        $timeout (-> fsm.Registered()), 1
+      onenterWaiting: ->
+        if config.talk.state == 'live'
+          # TODO pull session info
+          $timeout (-> fsm.TalkStarted()), 1
       onleaveWaiting: ->
         subscribeAllStreams()
       onleaveHostRegistering: ->
@@ -156,12 +171,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     $log.debug "ego: #{method}"
     switch method
       when 'Registering', 'GuestRegistering', 'HostRegistering'
-        fsm.Registered()
         users[data.user.id] = data.user
-      when 'Waiting' # state
-        if config.talk.state == 'live'
-          # TODO pull session info
-          fsm.TalkStarted()
       when 'Promote' # event
         fsm.Promoted()
       when 'Demote' # event
@@ -262,8 +272,11 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
 
   # subscribe to push notifications
   messaging.subscribe config.talk.channel, pushMsgHandler
-  messaging.subscribe config.user.downmsg, replHandler
-  messaging.subscribe "/stat/#{config.stream}", statHandler
+  # only subscribe to private channels if i am a real user
+  unless config.user.role == 'listener'
+    messaging.subscribe config.user.downmsg, replHandler
+    messaging.subscribe "/stat/#{config.stream}", statHandler
+
   messaging.callback -> subscriptionDone = true
 
   # exposed objects
