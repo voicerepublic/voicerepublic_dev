@@ -478,3 +478,7 @@ en:
       complete_purchase: Complete Your Purchase
     package:
       purchase_x_at_a_price_of_y: Purchase %{x} Talks at a Price of %{y}
+  nag_modal:
+    title: Awesome. I have it.
+    lead: Your couch.  It is mine.
+    body: I'm a cool paragraph that lives inside of an even cooler modal. Wins!
