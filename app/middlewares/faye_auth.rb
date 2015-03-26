@@ -10,15 +10,30 @@ class FayeAuth < Struct.new(:app, :opts)
     return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
     return app.call(env) unless env['PATH_INFO'] == '/faye/auth'
 
-    user = env['warden'].user
+    # dump rack env (I left this here for future reference.)
+    # File.open("/tmp/rack_env","w") { |f| PP.pp(env,f) }
+
     req = Rack::Request.new(env)
     msgs = req.params['messages']
 
     resp = msgs.values.map do |msg|
-      if msg['channel'].match(/(\/public|u#{user.id})$/)
+      # ok, let's see what the user wants to have access to
+      case msg['channel']
+      when %r{/public$} # a public channel
         msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
-      else
-        msg.merge error: 'Forbidden'
+      when /u(\d+)$/ # a private channel
+        if user = env['warden'].user # if it's a real user
+          if $1.to_i == user.id # and the user is the owner of the channel
+            msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+          else
+            # if not, then someting malicious is going on
+            msg.merge error: 'Forbidden'
+          end
+        else
+          # if it's not a real user, aka a guest user, we don't need
+          # the channel anyways, we might as well not even try to subscribe
+          msg.merge error: 'Forbidden'
+        end
       end
     end
 
