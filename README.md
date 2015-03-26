@@ -100,6 +100,13 @@ to replace that step by:
     postgres=# create database vr_development owner your_db_user;
 
 
+Create `config/settings.local.yml`; the following settings are required:
+
+    faye:
+      server: http://localhost:9292/faye
+      secret_token: 1234567890987654321
+
+
 ### New Search
 
 Make sure `postgresql-contrib-9.1` is installed.

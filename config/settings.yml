@@ -17,8 +17,8 @@ rtmp:
   #record: "rtmp://172.21.21.171/record"
   #offrecord: "rtmp://localhost/offrecord"
   #record: "rtmp://localhost/record"
-  offrecord: "rtmp://kluuu.com/discussions"
-  record: "rtmp://kluuu.com/recordings"
+  offrecord: "rtmp://localhost/offrecord"
+  record: "rtmp://localhost/record"
   log_notifications: true
   #######################################
   # entries used by config/rtmp.conf.erb
@@ -32,6 +32,19 @@ rtmp:
   record_interval: false
   authenticate: true
   worker_processes: 1
+
+# This is a dummy entry for CircleCI. The actual values have to be
+# stored in `config/settings.local.yml`, since RtmpWatcher and Faye
+# read the value directly from there. Example for a dev system (on
+# production we use https!):
+#
+# faye:
+#   server: http://localhost:9292/faye
+#   secret_token: 1234567890987654321
+faye:
+  server: http://this.is.a.dummy/for-circle-ci
+  secret_token: supersecret
+
 errbit:
   enabled: false
   api_key: 'this will be set on the stages in app/shared/config/settings.local.yml'
