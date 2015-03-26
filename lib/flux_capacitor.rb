@@ -32,7 +32,7 @@ class FluxCapacitor
   def process(message)
     message.tap do |msg|
       channel = msg.delete('channel')
-      raise NO_CHANNEL % message.inspect if channel.nil?
+      Rails.logger.error NO_CHANNEL % message.inspect if channel.nil?
       _, talk_id, user_id = channel.match(PATTERN).to_a
 
       if msg['event'] # EVENTS
