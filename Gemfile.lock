@@ -503,7 +503,6 @@ DEPENDENCIES
   letter_opener_web (~> 1.2.0)
   mailgun_rails
   meta_request
-  nokogiri
   omniauth-facebook
   omniauth-google-oauth2
   pg
