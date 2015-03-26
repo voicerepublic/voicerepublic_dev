@@ -1,7 +1,8 @@
 -# find states under angular/controllers/livepage.js.coffee
 
 - content_for :head do
-  = render 'shared/social_meta_tags'
+  = social_meta_tags_talk
+
 - content_for :title do
   = t('.title', title: @talk.title)
 

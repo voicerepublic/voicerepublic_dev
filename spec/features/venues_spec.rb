@@ -39,33 +39,6 @@ end
 #
 describe "Venues", js: true do
 
-  ## this will be obsolete soon!
-  # describe "As guest" do
-  #   describe "Participate" do
-  #     it 'requires guests to sign up before registering' do
-  #       user = FactoryGirl.create(:user)
-  #       venue = FactoryGirl.create(:venue, user: user)
-  #       Participation.count.should eq(0)
-  #       visit venue_path(venue)
-  #       # Click "Subscribe" button
-  #       find("a[data-method=post]").click
-  #       current_url.should =~ /#{new_user_registration_path}/
-  #       page.fill_in('user_firstname', :with => "Jim")
-  #       page.fill_in('user_lastname', :with => "Beam")
-  #       page.fill_in('user_email', :with => "jim@beam.com")
-  #       page.fill_in('user_password', :with => "foobar")
-  #       page.fill_in('user_password_confirmation', :with => "foobar")
-  #       page.check('user_accept_terms_of_use')
-  #       page.click_button('Sign Up')
-  #       current_url.should =~ /#{venue_path(venue)}/
-  #       # After successfull registration, try again
-  #       find("a[data-method=post]").click
-  #       current_url.should =~ /#{venue_path(venue)}/
-  #       Participation.count.should eq(1)
-  #     end
-  #   end
-  # end
-
   describe "As registered user" do
     before do
       @user = FactoryGirl.create(:user)
@@ -107,6 +80,20 @@ describe "Venues", js: true do
             pat = /#{ERB::Util.url_encode(I18n.t('social_share.mail_body'))}/
               expect(find('a')['href']).to match(pat)
           end
+        end
+
+        it 'has meta tags for google/fb/twitter' do
+          visit venue_path @venue
+          # as of Capybara 2.0, <head> attributes cannot be found. resorting to
+          # using a manual matcher.
+          # google
+          source = Nokogiri::HTML(page.source)
+          expect(source.xpath("//meta[@name='description']")).not_to(be_empty)
+          # fb
+          expect(source.xpath("//meta[@property='og:title']")).not_to(be_empty)
+          expect(source.xpath("//meta[@content='#{@venue.user.name}']")).not_to(be_empty)
+          # twitter
+          expect(source.xpath("//meta[@property='og:url']")).not_to(be_empty)
         end
 
         it "can be shared to social networks and saves statistics",

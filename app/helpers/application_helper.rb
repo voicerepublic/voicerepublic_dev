@@ -111,6 +111,16 @@ module ApplicationHelper
     RELEASE
   end
 
+  def strip_html(str)
+    document = Nokogiri::HTML.parse(str)
+    document.css("br").each { |node| node.replace("\n") }
+    document.text
+  end
+
+  def render_social_meta_tags(opts)
+    render partial: 'shared/social_meta_tags', locals: opts
+  end
+
 end
 
 # determine release once when module is loaded
