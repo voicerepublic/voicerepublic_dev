@@ -4,4 +4,4 @@ ssl: true
 ssl_key_file: /etc/nginx/ssl.key
 ssl_cert_file: /etc/nginx/ssl.crt
 environment: production
-rackup: private_pub.ru
+rackup: faye.ru
