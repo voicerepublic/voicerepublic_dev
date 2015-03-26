@@ -177,13 +177,11 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
       when 'Demote' # event
         fsm.Demoted()
     # store the current state on the users hash
-    users[data.user.id].state = fsm.current
+    # users[data.user.id].state = fsm.current
 
   # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
     $log.debug "user #{data.user.id}: #{state}"
-    users[data.user.id]?.state = state
-    users[data.user.id]?.offline = false
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
         users[data.user.id] = data.user
@@ -195,6 +193,9 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         if isNotRegisteringNorWaiting()
           # TODO blackbox.unsubscribe users[data.user.id].stream
           ;
+    users[data.user.id] ||= {}
+    users[data.user.id].state = state
+    users[data.user.id].offline = false
 
   # the eventHandler handles events (as opposed to states)
   eventHandler = (event, data) ->
