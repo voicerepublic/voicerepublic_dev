@@ -35,14 +35,9 @@ rtmp:
 
 # This is a dummy entry for CircleCI. The actual values have to be
 # stored in `config/settings.local.yml`, since RtmpWatcher and Faye
-# read the value directly from there. Example for a dev system (on
-# production we use https!):
-#
-# faye:
-#   server: http://localhost:9292/faye
-#   secret_token: 1234567890987654321
+# read the value directly from there.
 faye:
-  server: http://this.is.a.dummy/for-circle-ci
+  server: http://localhost:9292/faye
   secret_token: supersecret
 
 errbit:

@@ -7,11 +7,13 @@ http_interactions:
       encoding: US-ASCII
       base64_string: |
         bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
-        MjIlMkMlMjJkYXRhJTIyJTNBJTdCJTIyY2hhbm5lbCUyMiUzQSUyMiUyRnQx
-        JTJGcHVibGljJTIyJTJDJTIyZGF0YSUyMiUzQSU3QiUyMmV2ZW50JTIyJTNB
-        JTIyRW5kVGFsayUyMiUyQyUyMm9yaWdpbiUyMiUzQSUyMnNlcnZlciUyMiU3
-        RCU3RCUyQyUyMmV4dCUyMiUzQSU3QiUyMnByaXZhdGVfcHViX3Rva2VuJTIy
-        JTNBJTIyc2VjcmV0JTIyJTdEJTdE
+        MjIlMkMlMjJjbGllbnRJZCUyMiUzQSUyMmh0dHAlMjIlMkMlMjJzaWduYXR1
+        cmUlMjIlM0ElMjJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5p
+        SjkuZXlKamFHRnVibVZzSWpvaUwzUXhMM0IxWW14cFl5SXNJbU5zYVdWdWRF
+        bGtJam9pYUhSMGNDSXNJbVY0Y0NJNk1qQTRNamM1T0RBd01IMC5nZTJ5Ykhp
+        SV91LVI0WWs2b0lPRlBUNFBHVk4zZXhUZHM3QVVDQmRiUEdVJTIyJTJDJTIy
+        ZGF0YSUyMiUzQSU3QiUyMmV2ZW50JTIyJTNBJTIyRW5kVGFsayUyMiUyQyUy
+        Mm9yaWdpbiUyMiUzQSUyMnNlcnZlciUyMiU3RCU3RA==
     headers:
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
@@ -30,8 +32,10 @@ http_interactions:
       - application/json; charset=utf-8
       Cache-Control:
       - no-cache, no-store
+      X-Content-Type-Options:
+      - nosniff
       Content-Length:
-      - '44'
+      - '62'
       Connection:
       - close
       Server:
@@ -39,7 +43,8 @@ http_interactions:
     body:
       encoding: UTF-8
       base64_string: |
-        W3siY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJzdWNjZXNzZnVsIjp0cnVlfV0=
+        W3siY2xpZW50SWQiOiJodHRwIiwiY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJz
+        dWNjZXNzZnVsIjp0cnVlfV0=
     http_version: 
   recorded_at: Mon, 31 Dec 2035 23:00:00 GMT
 recorded_with: VCR 2.8.0
