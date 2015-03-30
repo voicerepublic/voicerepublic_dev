@@ -13,7 +13,7 @@ class FluxCapacitor
 
   NO_CHANNEL = "no channel info for message %s"
 
-  attr_accessor :client, :talk
+  attr_accessor :client, :counter
 
   def run
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
@@ -23,53 +23,60 @@ class FluxCapacitor
 
       puts "subscribing to #{CHANNEL}..."
       client.subscribe(CHANNEL) do |msg|
-        response = process(msg)
-        client.publish(talk.public_channel, response)
+        client.publish(*process(msg))
       end
     }
   end
 
-  def process(message)
-    message.tap do |msg|
-      channel = msg.delete('channel')
-      Rails.logger.error NO_CHANNEL % message.inspect if channel.nil?
-      _, talk_id, user_id = channel.match(PATTERN).to_a
+  def process(msg)
+    self.counter ||= 0
+    self.counter = counter + 1
+    print counter
+    pp msg
+    channel = msg.delete('channel')
+    Rails.logger.error NO_CHANNEL % message.inspect if channel.nil?
+    _, talk_id, user_id = channel.match(PATTERN).to_a
+    talk = Talk.find(talk_id)
 
-      if msg['event'] # EVENTS
-        # events may only be called by the owner of a talk
-        # TODO use cancan instead
-        self.talk = Talk.joins(:venue).find(talk_id)
-        return unless user_id == talk.venue.user_id.to_s
-        case msg['event']
-        when 'EndTalk'
-          talk.end_talk!
-          print 'e'
-        when 'StartTalk'
-          talk.start_talk!
-          msg[:session] = talk.session
-          msg[:talk_state] = talk.current_state
-          print 's'
-        else
-          print 'o'
-          # silently pass other events like Promote and Demote
-        end
-      elsif msg['state'] # STATE PROPAGATION
-        user = User.find(user_id)
-        self.talk = Talk.find(talk_id)
-        details = user.details_for(talk)
-        talk.with_lock do
-          session = talk.session || {}
-          session[user.id] ||= details
-          session[user.id][:state] = msg['state']
-          talk.update_attribute :session, session
-        end
-        registering = msg['state'].match(/Registering$/)
-        msg['user'] = registering ? details : { id: user.id }
-        print '.'
+    if msg['event'] # EVENTS
+      # events may only be called by the owner of a talk
+      # TODO use cancan instead
+      return unless user_id == talk.venue.user_id.to_s
+      case msg['event']
+      when 'EndTalk'
+        talk.end_talk!
+        #print 'e'
+      when 'StartTalk'
+        talk.start_talk!
+        msg[:session] = talk.session
+        msg[:talk_state] = talk.current_state
+        #print 's'
       else
-        Rails.logger.error "Don't know how to handle:\n#{message.to_yaml}"
+        #print 'o'
+        # silently pass other events like Promote and Demote
       end
+    elsif msg['state'] # STATE PROPAGATION
+      index = nil
+      talk.with_lock do
+        session = talk.session || {}
+        if session[user_id].nil?
+          user = User.find(user_id)
+          msg['user'] = session[user_id] = user.details_for(talk)
+        end
+        index = session[user_id][:index]
+        if index.nil? or index < msg['index']
+          session[user_id][:index] = msg['index']
+          session[user_id][:state] = msg['state']
+        end
+        talk.update_attribute :session, session
+      end
+      msg['user'] ||= { 'id' => user_id.to_i }
+      #print ".#{index}"
+    else
+      Rails.logger.error "Don't know how to handle:\n#{message.to_yaml}"
     end
+
+    [ talk.public_channel, msg ]
   end
 
 end

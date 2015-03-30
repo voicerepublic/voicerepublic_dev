@@ -6,8 +6,13 @@ messagingFunc = ($log, $q, config) ->
 
   client = null
 
-  deferred = $q.defer()
-  promise = deferred.promise
+  # init promise chain for subscribing
+  deferredSub = $q.defer()
+  promiseSub = deferredSub.promise
+
+  # init promise chain for publishing
+  deferredPub = $q.defer()
+  promisePub = deferredPub.promise
 
   $log.debug 'Loading Faye client...'
   # TODO get rid of dependency on jquery, for testability
@@ -16,29 +21,35 @@ messagingFunc = ($log, $q, config) ->
     $log.debug 'Faye client loaded. Instanciating Faye client...'
     client = new Faye.Client(config.fayeUrl)
     client.addExtension(new FayeAuthentication(client))
-    deferred.resolve true
+    deferredSub.resolve true
     $log.debug 'Instanciated Faye client.'
+
+  indexPub = 0
 
   # public methods
   publish = (message) ->
-    promise = promise.then ->
+    $log.debug "Push on pub chain: #{JSON.stringify(message)}"
+    promisePub = promisePub.then ->
+      message.index = indexPub = indexPub + 1
+      $log.debug "SENDING #{JSON.stringify(message)}"
       client.publish config.user.upmsg, message
 
   subscribe = (channel, callback) ->
-    success = ->
+    $log.debug "Push subscribing to Faye channel '#{channel}' onto promise chain."
+    promiseSub = promiseSub.then ->
       $log.debug "Subscribing to Faye channel #{channel}..."
       client.subscribe(channel, callback)
-    $log.debug "Push subscribing to Faye channel '#{channel}' onto promise chain."
-    # queue the call onto the promise chain
-    promise = promise.then success
 
-  callback = (func) ->
-    promise = promise.then func
+  commitSub = ->
+    $log.error 'commitSub!'
+    promiseSub = promiseSub.then ->
+      $log.debug 'Subscriptions done, allow for publishing...'
+      deferredPub.resolve true
 
   {
     publish
     subscribe
-    callback
+    commitSub
   }
 
 # annotate with dependencies to inject

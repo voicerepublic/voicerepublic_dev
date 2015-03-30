@@ -37,9 +37,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   reportState = (state) ->
     # skip reporting of state for anonymous users
     return if config.user.role == 'listener'
-    return messaging.publish(state: state) if subscriptionDone
-    # defer if subscriptions aren't done yet
-    $timeout (-> reportState(state)), 250
+    messaging.publish(state: state)
 
   # definition of the state machine, incl. callbacks
   # https://github.com/jakesgordon/javascript-state-machine/blob/master/README.md
@@ -53,7 +51,10 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
       $log.error errorMessage
     callbacks:
       onenterstate: (event, from, to) ->
+        #debugger
+        $log.info ">> ONENTERSTATE #{event}: #{from} -> #{to}"
         reportState(to)
+        true
       # the following 4 callbacks need timeouts to escape from
       # callback context, otherwise, fireing fsm events will raise an
       # error
@@ -150,6 +151,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   #
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
+    $log.info JSON.stringify(data)
     if data.message?
       # enrich discussion with further data for display
       user = users[data.message.user_id]
@@ -177,11 +179,13 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
       when 'Demote' # event
         fsm.Demoted()
     # store the current state on the users hash
-    # users[data.user.id].state = fsm.current
+    users[data.user.id] ||= {}
+    users[data.user.id].state = fsm.current
 
   # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
     $log.debug "user #{data.user.id}: #{state}"
+    users[data.user.id] ||= { index: 0 }
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
         users[data.user.id] = data.user
@@ -193,8 +197,9 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         if isNotRegisteringNorWaiting()
           # TODO blackbox.unsubscribe users[data.user.id].stream
           ;
-    users[data.user.id] ||= {}
-    users[data.user.id].state = state
+    if data.index >= users[data.user.id].index
+      users[data.user.id].state = state
+      users[data.user.id].index = data.index
     users[data.user.id].offline = false
 
   # the eventHandler handles events (as opposed to states)
@@ -277,8 +282,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   unless config.user.role == 'listener'
     messaging.subscribe config.user.downmsg, replHandler
     messaging.subscribe "/stat/#{config.stream}", statHandler
-
-  messaging.callback -> subscriptionDone = true
+  messaging.commitSub()
 
   # exposed objects
   {
