@@ -32,8 +32,6 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   unsubscribeAllStreams = ->
     # TODO blackbox.unsubscribeAll()
 
-  subscriptionDone = false
-
   reportState = (state) ->
     # skip reporting of state for anonymous users
     return if config.user.role == 'listener'
@@ -185,7 +183,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
     $log.debug "user #{data.user.id}: #{state}"
-    users[data.user.id] ||= { index: 0 }
+    users[data.user.id] ||= {}
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
         users[data.user.id] = data.user
@@ -197,9 +195,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         if isNotRegisteringNorWaiting()
           # TODO blackbox.unsubscribe users[data.user.id].stream
           ;
-    if data.index >= users[data.user.id].index
-      users[data.user.id].state = state
-      users[data.user.id].index = data.index
+    users[data.user.id].state = state
     users[data.user.id].offline = false
 
   # the eventHandler handles events (as opposed to states)

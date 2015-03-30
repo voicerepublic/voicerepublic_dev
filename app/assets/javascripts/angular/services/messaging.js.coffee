@@ -24,13 +24,10 @@ messagingFunc = ($log, $q, config) ->
     deferredSub.resolve true
     $log.debug 'Instanciated Faye client.'
 
-  indexPub = 0
-
   # public methods
   publish = (message) ->
     $log.debug "Push on pub chain: #{JSON.stringify(message)}"
     promisePub = promisePub.then ->
-      message.index = indexPub = indexPub + 1
       $log.debug "SENDING #{JSON.stringify(message)}"
       client.publish config.user.upmsg, message
 

@@ -13,7 +13,7 @@ class FluxCapacitor
 
   NO_CHANNEL = "no channel info for message %s"
 
-  attr_accessor :client, :counter
+  attr_accessor :client
 
   def run
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
@@ -29,10 +29,7 @@ class FluxCapacitor
   end
 
   def process(msg)
-    self.counter ||= 0
-    self.counter = counter + 1
-    print counter
-    pp msg
+    # pp msg
     channel = msg.delete('channel')
     Rails.logger.error NO_CHANNEL % message.inspect if channel.nil?
     _, talk_id, user_id = channel.match(PATTERN).to_a
@@ -45,33 +42,28 @@ class FluxCapacitor
       case msg['event']
       when 'EndTalk'
         talk.end_talk!
-        #print 'e'
+        print 'e'
       when 'StartTalk'
         talk.start_talk!
         msg[:session] = talk.session
         msg[:talk_state] = talk.current_state
-        #print 's'
+        print 's'
       else
-        #print 'o'
+        print 'o'
         # silently pass other events like Promote and Demote
       end
     elsif msg['state'] # STATE PROPAGATION
-      index = nil
       talk.with_lock do
         session = talk.session || {}
         if session[user_id].nil?
           user = User.find(user_id)
           msg['user'] = session[user_id] = user.details_for(talk)
         end
-        index = session[user_id][:index]
-        if index.nil? or index < msg['index']
-          session[user_id][:index] = msg['index']
-          session[user_id][:state] = msg['state']
-        end
+        session[user_id][:state] = msg['state']
         talk.update_attribute :session, session
       end
       msg['user'] ||= { 'id' => user_id.to_i }
-      #print ".#{index}"
+      print "."
     else
       Rails.logger.error "Don't know how to handle:\n#{message.to_yaml}"
     end
