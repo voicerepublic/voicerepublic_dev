@@ -55,6 +55,7 @@
 
 
         = render partial: 'shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+        .dryrun= t('.dryrun') if @talk.dryrun?
         %h2.talk-title
           = @talk.title
         .talk-teaser(ng-show='showTalkTeaser()')
@@ -63,7 +64,6 @@
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
-
 
         -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
