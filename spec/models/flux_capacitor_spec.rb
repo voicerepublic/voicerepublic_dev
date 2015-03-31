@@ -11,9 +11,9 @@ describe FluxCapacitor do
     #expect { @fc.process(msg) }.to raise_exception
   end
 
-  it 'simply returns unknown messages' do
-    msg = { 'channel' => '/some/channel' }
-    expect(@fc.process(msg)).to eq(msg)
-  end
+  #it 'simply returns unknown messages' do
+  #  msg = { 'channel' => '/some/channel' }
+  #  expect(@fc.process(msg)).to eq(msg)
+  #end
 
 end
