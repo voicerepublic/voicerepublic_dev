@@ -44,7 +44,7 @@ gem "select2-rails"
 gem 'ckeditor_rails'
 gem "transitions", require: ["transitions", "active_model/transitions"], github: 'troessner/transitions'
 gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
-# gem 'fidelity', path: '../fidelity'
+#gem 'fidelity', path: '../fidelity'
 gem 'pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'

@@ -4,7 +4,7 @@
 durations: [ 30, 45, 60, 90, 120, 240 ]
 priority_timezones: Berlin|Bern
 audio:
-  process_chain: precursor normalize_fragments kluuu_merge trim cut normalize compress m4a mp3 ogg move_clean m4a mp3 ogg cleanup
+  process_chain: precursor normalize_fragments kluuu_merge trim cut normalize compress jinglize m4a mp3 ogg copy_clean cleanup
   override_chain: m4a mp3 ogg move_clean m4a mp3 ogg cleanup
 rtmp:
   # all paths get expanded with `Rails.root`
@@ -71,8 +71,8 @@ storage:
 paths:
   log: local/log
   jingles:
-    in: lib/audio/vr_start.wav
-    out: lib/audio/vr_stop.wav
+    in: public/audio/Jingle_05.wav
+    out: public/audio/Jingle_05.wav
 root_url: 'http://localhost:3000'
 blackbox:
   # http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00001260.html

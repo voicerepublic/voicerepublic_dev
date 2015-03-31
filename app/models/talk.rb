@@ -561,12 +561,12 @@ class Talk < ActiveRecord::Base
   def manifest(chain=nil)
     chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
-      id: id,
-      chain: chain,
+      id:         id,
+      chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in: File.expand_path(Settings.paths.jingles.in, Rails.root),
-      jingle_out: File.expand_path(Settings.paths.jingles.out, Rails.root)
+      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
@@ -678,6 +678,13 @@ class Talk < ActiveRecord::Base
   def create_and_process_debit_transaction!
     return unless Settings.payment_enabled
     DebitTransaction.create(source: self).process!
+  end
+
+  # TODO refactor this into some place where it makes sense
+  # returns either a url or an absolute fs path
+  def locate(path_or_url)
+    return path_or_url if path_or_url.match(/^https?:/)
+    File.expand_path(path_or_url, Rails.root)
   end
 
 end
