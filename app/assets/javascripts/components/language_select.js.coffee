@@ -2,7 +2,7 @@
 selector = '.languageSelect'
 
 initialize = (node) ->
-  console.log "intialize: #{selector}"
+  #console.log "intialize: #{selector}"
 
   $(node).select2
     width: 'element'

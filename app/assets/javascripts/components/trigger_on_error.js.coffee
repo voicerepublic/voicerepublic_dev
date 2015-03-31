@@ -3,7 +3,7 @@
 attribute = 'data-trigger-on-error'
 
 initialize = (element, selector) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
 
   $(element).click() if $('.error', $(selector)).length
 

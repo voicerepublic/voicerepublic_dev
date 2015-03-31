@@ -11,7 +11,7 @@
 attribute = 'data-on-blank-show'
 
 initialize = (node, selector) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
 
   target = $(selector)
 

@@ -49,8 +49,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
       $log.error errorMessage
     callbacks:
       onenterstate: (event, from, to) ->
-        #debugger
-        $log.info ">> ONENTERSTATE #{event}: #{from} -> #{to}"
+        # $log.info ">> ONENTERSTATE #{event}: #{from} -> #{to}"
         reportState(to)
         true
       # the following 4 callbacks need timeouts to escape from
@@ -120,7 +119,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
           return if millisecs > 2147483647
           $timeout startTalk, millisecs
       onleaveHostOnAir: ->
-        $log.debug "Host leaving state HostOnAir..."
+        # $log.debug "Host leaving state HostOnAir..."
         deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
@@ -168,7 +167,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   # effects based on incoming state notifications as well as
   # events. It will only handle messages targeted at it's own user.
   egoMsgHandler = (method, data) ->
-    $log.debug "ego: #{method}"
+    # $log.debug "ego: #{method}"
     switch method
       when 'Registering', 'GuestRegistering', 'HostRegistering'
         users[data.user.id] = data.user
@@ -182,7 +181,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
 
   # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
-    $log.debug "user #{data.user.id}: #{state}"
+    # $log.debug "user #{data.user.id}: #{state}"
     users[data.user.id] ||= {}
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
@@ -200,7 +199,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
 
   # the eventHandler handles events (as opposed to states)
   eventHandler = (event, data) ->
-    $log.debug "event: #{event}"
+    # $log.debug "event: #{event}"
     switch event
       when 'Demote' # make it snappy!
         users[data.user.id]?.state = 'Listening'
@@ -224,7 +223,6 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         config.talk.state = 'processing'
       when 'Archive'
         config.talk.state = 'archived'
-        $log.debug data.links
         config.talk.links = data.links
       when "StartProcessing"
         config.progress = data.talk

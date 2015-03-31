@@ -4,7 +4,7 @@
 attribute = 'data-replace-with'
 
 initialize = (element, selector) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
 
   source = $(element)
 

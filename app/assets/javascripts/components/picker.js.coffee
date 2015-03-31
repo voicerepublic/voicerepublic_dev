@@ -9,7 +9,7 @@
 attribute = 'data-picker'
 
 initialize = (element, scope) ->
-  console.log "initialize: #{attribute} (#{scope})"
+  #console.log "initialize: #{attribute} (#{scope})"
 
   target = $(element)
 

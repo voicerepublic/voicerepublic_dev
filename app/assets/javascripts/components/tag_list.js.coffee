@@ -1,7 +1,7 @@
 selector = '.tagList'
 
 initialize = (node) ->
-  console.log "initialize: #{selector}"
+  #console.log "initialize: #{selector}"
 
   tags = $(node).val().split(', ')
 
