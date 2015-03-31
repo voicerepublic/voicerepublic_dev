@@ -1,7 +1,7 @@
 attribute = '#social_share .share'
 
 initialize = (element, selector) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
 
   source = $(element)
   target = $(selector)

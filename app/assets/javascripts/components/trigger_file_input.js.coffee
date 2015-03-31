@@ -4,7 +4,7 @@
 attribute = 'data-trigger-file-input'
 
 initialize = (element, selector) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
   $(element).click -> $(selector).click()
 
 # initializer

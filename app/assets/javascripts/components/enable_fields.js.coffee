@@ -4,7 +4,7 @@
 attribute = 'data-enable-fields'
 
 initialize = (element, selector) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
 
   $(element).click (e) ->
     $(selector).removeAttr 'disabled'
