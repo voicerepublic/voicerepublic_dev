@@ -1,3 +1,8 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime] - creation time
+# * key [string] - TODO: document me
+# * value [float] - TODO: document me
 class Metric < ActiveRecord::Base
 
   module Figures

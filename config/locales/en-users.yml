@@ -1,0 +1,128 @@
+en:
+  users:
+    welcome:
+      welcome: Welcome
+      subtitle: Thank you for signing up. You are now part of a global community of listeners and speakers.
+      welcome_back: Welcome back
+      profile_text: |
+        <h5>With your brand new profile, you can now</h5>
+        <ul class="desc">
+          <li>create a public playlist of your favorite talks</li>
+          <li>download talks as podcasts</li>
+          <li>comment on talks  </li>
+          <li>and stream your own talk</li>
+        </ul>
+      talk_text: |
+        <h5>Create your first Talk</h5>
+        ‘Talks’ are at the heart of Voice Republic.<br>
+        We’ve made it easy to bring your talks to the web, whether it’s a debate at your town hall, your weekly podcast or a reading at your local café.  You can live stream or upload recordings from your computer.
+      explore_text: |
+        <h5>EXPLORE the ARCHIVE</h5>
+        Wherever your interests lie, you can find talks from speakers around the world on Art, Culture, Politics, Tech and more. Start here
+      listenlater_text: |
+        <h5>Listen Later</h5>
+        Collect your favorite talks as a public playlist and listen to them at anytime.
+    basic_form:
+      edit_your_email: Change email address
+      save_email: Save email address
+    nested_form:
+      delete_portrait: Delete image
+      add_a_portrait: Upload a profile photo
+      select: Upload
+      change: Upload
+      remove: Delete
+    no_status_updates:
+      no_status_updates_of_you: You have not posted a status.
+      what_you_say: What's on your mind?
+      new_opinion: New status
+      no_status_updates_here: This user has not posted a status.
+    password_form:
+      new_password: New password
+      rewrite_new_password: Password confirmhttp://localhost:3000/embed_talk?id=51ation
+      update_password: Save password
+    status_updates:
+      opinion: Status
+      add_comment: comment
+      comment: comment
+      new_status_update: New status
+    user_content_nav:
+      venues_title: Series
+      venues_participant: Participant
+      venues_host: Host
+      venue_new: Create Series
+    user_information:
+      unfollow: Unfollow
+      follow: Follow
+      send_message: Send message
+      chat: Chat
+      user_description: Description
+      time_at_location: Local time
+      languages: Languages
+      follower: Followers
+      opinion: Status
+      edit_account: Edit profil
+    edit:
+      title: "%{username} edit profile - Voice Republic"
+      edit_your_profile: Edit profil
+      select_profile_image: Profile image
+      select_header_image: Background image
+    venues:
+      venues: Series
+      guest_empty_venue: ! '%{name} has no series yet.'
+
+    # SHOW
+    show:
+      you_have_x_credits_left:
+        zero: |
+          You don't have any credits. In order to stream or upload you
+          need to purchase some credits.
+        one: |
+          Only one credit left. You should purchase some credits
+          before you run out.
+        other:
+          You have %{count} credits left.
+      purchase_more_credits: Purchase more credits
+      podcast:
+        title: "VR: %{username}"
+        subtitle: "Podcast provided by Voice Republic"
+      feed_title: "VR - %{username}"
+      listen_later_feed_title: "VR - Listen Later by %{username}"
+      title: "%{username} - Voice Republic"
+      edit_profile: Edit Profile
+      talks:
+        zero: No Talks
+        one: 1 Talk
+        other: '%{count} Talks'
+      plays:
+        zero: No Plays
+        one: 1 Play
+        other: '%{count} Plays'
+      venues:
+        zero: No Series
+        one: 1 Series
+        other: '%{count} Series'
+      listen_later: Listen later
+      create_new_talk: Create new Talk
+      upload_talk: Upload Talk
+      edit_user: Edit Profile
+      about: About
+      reminders: Listen later
+      summary_help_text: Change your profile short description!
+      no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
+      live_talks:
+        zero: No Live Talks
+        one: 1 LIVE TALK
+        other: '%{count} LIVE TALKS'
+      on_air: ON AIR
+      upcoming_talks:
+        zero: No Upcoming Talks
+        one: 1 Upcoming Talk
+        other: '%{count} Upcoming Talks'
+      archived_talks:
+        zero: No Archived Talks
+        one: 1 Archived Talk
+        other: '%{count} Archived Talks'
+      listen_later:
+        zero: Listen Later
+        one: 1 Listen later
+        other: '%{count} Listen later'

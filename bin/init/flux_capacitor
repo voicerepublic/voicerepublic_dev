@@ -1,0 +1,47 @@
+#!/bin/bash
+# Wed Mar 25 15:23:42 CEST 2014
+# Phil Hofmann
+# Switzerland, Zurich, Badenerstr. 125, VoiceRepublic
+
+__pwd="$(pwd -P)"
+__mydir="${0%/*}"
+__abs_mydir="$(cd "$__mydir" && pwd -P)"
+__myname=${0##*/}
+__abs_myname="$__abs_mydir/$__myname"
+
+. ~/bin/rbenv_init
+
+export RAILS_ENV=production
+
+bundle='/home/app/.rbenv/shims/bundle'
+# TODO move the pidfile to a save place which persists during deployment
+pidfile="/home/app/app/shared/tmp/pids/flux_capacitor.rb.pid"
+cmd="${bundle} exec lib/flux_capacitor.rb"
+
+# Rails is always located below ~/app/current
+cd ~/app/current
+
+case $1 in
+    start)
+        pwd
+        echo ${cmd} start
+        ${cmd} start
+	      #cat ${pidfile}
+	      #echo
+    ;;
+    stop)
+        # kill `cat ${pidfile}`
+        ${cmd} stop
+    ;;
+    restart)
+        "$0" stop
+        "$0" start
+    ;;
+    *)
+        cat << eof
+$0:
+    start:          start rtmpd and daemonize
+    stop:           stop existing rtmpd processes
+    restart:        stop and start
+eof
+esac

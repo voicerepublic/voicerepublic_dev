@@ -356,6 +356,7 @@
     .situation,
     .trouble-message,
     .reload-message,
+    .pending-message,
     .processing-message {
       background:rgba(86,178,167,0.7);
       font-family: $brand-font-bold;
@@ -369,6 +370,7 @@
           right: 0;
       }
     }
+    .pending-message,
     .processing-message {
         background:rgba(0,0,0,.2);
     }

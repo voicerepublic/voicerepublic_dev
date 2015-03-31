@@ -1,11 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'MediaTracker' do
 
   include AudioFixtureHelper
 
   scenario 'tracks a play' do
-    pending 'NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG'
+    skip 'NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG'
     audio_fixture('spec/support/fixtures/complex', '1.wav') do |path|
       talk = FactoryGirl.create(:talk, recording: "#{path}/1")
       expect(talk.play_count).to be(0)
@@ -15,7 +15,7 @@ feature 'MediaTracker' do
   end
 
   scenario 'returns a redirect to temporary location' do
-    pending 'NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG'
+    skip 'NEEDS TO BE COMPLETELY REWRITTEN TO WORK WITH FOG'
     audio_fixture('spec/support/fixtures/complex', '1.wav') do |path|
       talk = FactoryGirl.create(:talk, recording: "#{path}/1")
       visit "/vrmedia/#{talk.id}.wav"

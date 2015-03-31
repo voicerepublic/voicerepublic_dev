@@ -10,12 +10,36 @@ en:
       destroy:
         notice: "Successfully deleted"
         alert: "Cannot be deleted"
+  require_flash_for_listening: |
+
+    In order to listen to a live talk, you need a device that runs
+    Flash Version 11 or newer.<br/>
+
+    <a target="_blank"
+    href="http://get.adobe.com/flashplayer/">Download Flash</a><br/>
+
+    You can listen to this talk, with your iPhone, Android, or other
+    non-Flash device, as soon as it has been archived.
+
+  require_flash_for_streaming: |
+
+    In order to publish your audio stream, you need a device that runs
+    Flash Version 11 or newer.<br/>
+
+    <a target="_blank"
+    href="http://get.adobe.com/flashplayer/">Download Flash</a>
+
   require_flash: |
-    <center>To either listen to a live talk or stream yourself, you need a device that runs Flash Version 11 or newer. Every other part of this application is Flash free.</center>
-    <br/>
-    <center>Also, you can listen to this talk as soon as it is over with your iPhone/Android/other non-Flash device, download it or embed it to your website.</center>
-    <br/>
-    <center><a target="_blank" href="http://get.adobe.com/flashplayer/">Download Flash</a></center>
+
+    To either listen to a live talk or stream yourself, you need a
+    device that runs Flash Version 11 or newer.<br/>
+
+    <a target="_blank"
+    href="http://get.adobe.com/flashplayer/">Download Flash</a><br/>
+
+    You can listen to this talk, as soon as it has been archived, with
+    your iPhone, Android, or other non-Flash device.
+
   social_share:
     mail_subject: "Check out this talk on voicerepublic.com"
     mail_greeting: "Hi there"
@@ -242,255 +266,10 @@ en:
       time_only: ! '%k:%M'
       timeonly: ! '%H:%M:%S'
     pm: pm
-  call_now: call now
-  call_dispatched: call dispatched
   will_paginate:
     next_label: ! '>>'
     previous_label: <<
 
-
-
-# USERS -------------------------------------------------------------
-  users:
-    welcome:
-      welcome: Welcome
-      subtitle: Thank you for signing up. You are now part of a global community of listeners and speakers.
-      welcome_back: Welcome back
-      profile_text: |
-        <h5>With your brand new profile, you can now</h5>
-        <ul class="desc">
-          <li>create a public playlist of your favorite talks</li>
-          <li>download talks as podcasts</li>
-          <li>comment on talks  </li>
-          <li>and stream your own talk</li>
-        </ul>
-      talk_text: |
-        <h5>Create your first Talk</h5>
-        ‘Talks’ are at the heart of Voice Republic.<br>
-        We’ve made it easy to bring your talks to the web, whether it’s a debate at your town hall, your weekly podcast or a reading at your local café.  You can live stream or upload recordings from your computer.
-      explore_text: |
-        <h5>EXPLORE the ARCHIVE</h5>
-        Wherever your interests lie, you can find talks from speakers around the world on Art, Culture, Politics, Tech and more. Start here
-      listenlater_text: |
-        <h5>Listen Later</h5>
-        Collect your favorite talks as a public playlist and listen to them at anytime.
-    basic_form:
-      edit_your_email: Change email address
-      save_email: Save email address
-    nested_form:
-      delete_portrait: Delete image
-      add_a_portrait: Upload a profile photo
-      select: Upload
-      change: Upload
-      remove: Delete
-    no_status_updates:
-      no_status_updates_of_you: You have not posted a status.
-      what_you_say: What's on your mind?
-      new_opinion: New status
-      no_status_updates_here: This user has not posted a status.
-    password_form:
-      new_password: New password
-      rewrite_new_password: Password confirmhttp://localhost:3000/embed_talk?id=51ation
-      update_password: Save password
-    status_updates:
-      opinion: Status
-      add_comment: comment
-      comment: comment
-      new_status_update: New status
-    user_content_nav:
-      venues_title: Series
-      venues_participant: Participant
-      venues_host: Host
-      venue_new: Create Series
-    user_information:
-      unfollow: Unfollow
-      follow: Follow
-      send_message: Send message
-      chat: Chat
-      user_description: Description
-      time_at_location: Local time
-      languages: Languages
-      follower: Followers
-      opinion: Status
-      edit_account: Edit profil
-    edit:
-      title: "%{username} edit profile - Voice Republic"
-      edit_your_profile: Edit profil
-      select_profile_image: Profile image
-      select_header_image: Background image
-    venues:
-      venues: Series
-      guest_empty_venue: ! '%{name} has no series yet.'
-
-    # SHOW
-    show:
-      podcast:
-        title: "VR: %{username}"
-        subtitle: "Podcast provided by Voice Republic"
-      feed_title: "VR - %{username}"
-      listen_later_feed_title: "VR - Listen Later by %{username}"
-      title: "%{username} - Voice Republic"
-      edit_profile: Edit Profile
-      talks:
-        zero: No Talks
-        one: 1 Talk
-        other: '%{count} Talks'
-      plays:
-        zero: No Plays
-        one: 1 Play
-        other: '%{count} Plays'
-      venues:
-        zero: No Series
-        one: 1 Series
-        other: '%{count} Series'
-      listen_later: Listen later
-      create_new_talk: Create new Talk
-      upload_talk: Upload Talk
-      edit_user: Edit Profile
-      about: About
-      reminders: Listen later
-      summary_help_text: Change your profile short description!
-      no_reminders: 'Talks marked for ''listen later'' by %{username} are shown here.'
-      live_talks:
-        zero: No Live Talks
-        one: 1 LIVE TALK
-        other: '%{count} LIVE TALKS'
-      on_air: ON AIR
-      upcoming_talks:
-        zero: No Upcoming Talks
-        one: 1 Upcoming Talk
-        other: '%{count} Upcoming Talks'
-      archived_talks:
-        zero: No Archived Talks
-        one: 1 Archived Talk
-        other: '%{count} Archived Talks'
-      listen_later:
-        zero: Listen Later
-        one: 1 Listen later
-        other: '%{count} Listen later'
-
-
-  controller_accounts:
-    no_settings_made_yet: Your Settings are not finished yet
-    account_settings_created: your Settings were created
-    settings_updated: settings changed
-    portrait_destroyed: image removed
-  controller_conversations:
-    conversation_destroyed: thread removed
-  controller_dashboard:
-    notification_destroyed: message removed
-  controller_follows:
-    follow_created: you are following this user now
-  controller_klus:
-    balance_account_not_created_yet: you need to create your finance-account
-  you_missed_a_call_on_your_klu: You missed a call to your KluuU.
-  model_kluuu:
-    no_account: Please complete your financial Settings before continuing
-    charge_per_minute_error: Minimim 10 cents - Maximum 500 cents
-    charge_fixed_error: Minimum 100 cents - Maximum 5000 cents
-    charge_free_error: You should leave the amount at zero if this is a free kluuu
-  model_notification_make_rate:
-    please_rate: Please rate your Video-Chat - %{title} - with %{name}
-  model_notification_follower_action:
-    friend_took_action: Activity by %{friend} on KluuU
-  model_notification_new_bookmark:
-    your_klu_got_bookmarked: ! '%{bookmarker} bookmarked your Series ''%{klu_title}'''
-  model_notification_new_comment:
-    you_got_a_new_comment_by: ! '%{commenter} commented on your Series.'
-  model_notification_new_follower:
-    you_got_a_new_follower: ! '%{name} now follows you.'
-  model_notification_new_kluuu:
-    friend_created_new_kluuu: ! '%{name} has created a new KluuU.'
-  model_notification_new_message:
-    new_message_from: You have a message from %{name}.
-  model_notification_new_rating:
-    you_got_rated_by: ! '%{name} rated your KluuU.'
-  model_notification_new_status:
-    friend_created_new_status: ! '%{name} posted a new status.'
-  model_notification_new_venue_participant:
-    new_participant: ! '%{name} joined Series %{title}!'
-  model_notification_venue_info:
-    venue_starts_soon: Series %{title} takes place %{time}
-    new_venue: New Series %{title}
-  model_notification_new_venue:
-    friend_created_new_venue: ! 'Your friend created a new Series: %{name}'
-  video_system:
-    rooms:
-      default_welcome_msg: Welcome to the KluuU Video Chat
-  model_venue:
-    no_repeat: does not repeat
-    weekly: weekly
-    biweekly: biweekly
-    monthly: monthly
-  helper:
-    application:
-      kluuu_string: KluuU
-      no_kluuu_string: Question
-  mailers:
-    your_friend_took_action: Activities of your friends on KluuU
-    activity_around_you: Activities concerning your account on KluuU
-  chats:
-    form:
-      your_message: message
-      end_chat: End chat
-      submit: Send
-    group_form:
-      your_message: Write here...
-      submit: Post
-      join_this_venue_to_chat: You need to join this Series to write here
-    show:
-      text_chat: Chat
-  comments:
-    comment_created: Posted a comment
-    form:
-      write_a_comment: write a comment
-      save_comment: Post
-  conversations:
-    index:
-      conversations: Messages
-      and_more_messages: and %{count} more messages.
-      new_message: New message
-    show:
-      conversations: Messages
-      your_messages_with: Your conversation with
-      back_to_all_conversations: ! 'Compact view '
-      new_message: Reply to sender
-      delete_conversation: Delete conversation
-  dashboard:
-    contacts_page:
-      contacts: Contacts
-      my_follower: Followers
-      followed_by_me: Following
-    contacts:
-      friends: Contacts
-      no_contacts_available: No current contacts
-    edit_password:
-      edit_password: Change password
-    edit_settings:
-      settings: Settings
-      email: My email address
-      new_password: New password
-      notifications_and_emails: Notify me via email...
-    matches:
-      matches: Matches
-      my_kluuus: My KluuUs / My Questions
-      matching_something: ! 'Matches KluuU / Question '
-      view: View
-      we_could_not_find_matches_for_you: ! 'Sorry, no matches yet. Tip: Ad more ''tags'' to your KluuU / Question to get results.'
-      all_venues: Series
-    news:
-      news: News
-    settings:
-      settings: Settings
-      configured_email: Your current email adresse
-      edit_password: Change password
-      get_email_if_actions_on_my_kluuus: Email an mich sobald es mich betrifft
-      get_news_on_actions_of_friends: Ich möchte einen Hinweis in Neues über die Aktivitäten meiner Freunde
-      get_email_if_actions_of_friends: Ich möchte einen Hinweis per Email über die Aktivitäten meiner Freunde
-      hide_initial_help: Die initialen Hilfe-Texte verstecken
-      edit_preferences: Einstellungen editieren
-    venues:
-      my_venues: My Series
   devise:
     registrations:
       new:
@@ -504,229 +283,15 @@ en:
       new:
         reset_password: Reset password
         your_email_address: Your email address
-
-
-
-# LANDING PAGE -----------------------------------------------------------------------------------------------
-  landing_page:
-    news: NEWS
-    index:
-      podcast:
-        title: Featured talks of Voice Republic
-        author: The users of Voice Republic
-        subtitle: Voice Republic is home to the spoken word in its many forms.
-        description: |
-          The feed features talks which have been archived on %{url}.
-      feed_title: Featured talks of Voice Republic
-      headline: "<span>Home to the spoken word</span>"
-      subheadline: "Reach a community of thousands of listeners around the world."
-      how_to_use_vr: How to use VR
-      login: Login
-      signup: Sign Up
-      search: Search
-      live_title: Now Live
-      live_subtitle: Tune in!
-      upcoming_title: Coming up live
-      upcoming_subtitle: Listen and take apart
-      archive_title: Archive
-      archive_subtitle: Browse the archive
-      recent: RECENT
-      see_all: more...
-
-      partners_title: Conferences currently using Voice Republic
-
-      ad_title: NEED HELP STREAMING YOUR NEXT CONFERENCE OR EVENT?
-      get_in_touch: GET IN TOUCH
-      pricing: SEE OUR PRICING
-
-      manifest: |
-        <h4>THE VOICE REPUBLIC MANIFESTO</h4>
-        <br />
-        <h5>1. Democracy lives on discussion and free speech</h5>
-        <p>At Voice Republic, you can share and form your opinions.</p>
-        <h5>2. Voice Republic lets speaker and listener meet at eye level</h5>
-        <p>Every listener can be a speaker, and vice versa.</p>
-        <h5>3. For more analog within the digital</h5>
-        <p>Voice Republic lets discussions grow just like they do in the real world. You can express yourself in as much detail as you like, giving space to the subjects that interest you.</p>
-        <h5>4. Voice Republic is founded on respect</h4>
-        <p>Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.</p>
-        <h5>5. For a decentralization of the Internet</h5>
-        <p>For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.</p>
-        <h5>6. We don't do business with your data</h5>
-        <p>Voice Republic has a business model. Your data is not part of it. Coming soon.</p>
-        <h5>7. Voice Republic can forget</h5>
-        <p>When you delete your account, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
-      team: TEAM
-    lp_venues:
-      featured_venue: Voice Republic recommends
-      upcoming_venues: UPCOMING SERIES
-
-# STATIC PAGES ------------------------------------------------------------------
-  static_pages:
-    pricing:
-      pricing: Pricing
-      back: Back
-      free_account: FREE ACCOUNT
-      free_feature_list: |
-        Live audio streaming<br />
-        Record and Upload 4 hours
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Record your live stream or upload audio<br />
-              (Mp3, M4a, Ogg, Wav)
-            </span>
-          </div>
-        <br />
-        Unlimited listening<br />
-        Flyer
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Announce talks with a personalized flyer
-            </span>
-          </div>
-        <br />
-        Embeddable Player
-         <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Embed player on any blog or site
-            </span>
-          </div>
-        <br />
-        Podcast Button
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Download audio and listen to it offline
-            </span>
-          </div>
-        <br />
-        Content becomes part of the<br />
-        <a href="http://en.wikipedia.org/wiki/Creative_Commons" target="_blank">creative Commons</a>
-        <br />
-        Online Support<br /><br />
-      free: Free!
-      pro_corner_pricing: |
-        <strong>€ 110</strong> / Year<br />
-        or <strong>€ 10</strong> / Month
-      pro_account: PRO ACCOUNT
-      pro_feature_list: |
-        Live audio streaming<br />
-        Record and Upload 12 hours
-          <div class="tooltip-simple">
-            <span class="pro">* PRO</span>
-            <span class="tooltip-overlay">
-              Do you need more storage? Buy an extra 10 hours of streaming and upload time - € 80
-            </span>
-          </div>
-        <br />
-        Unlimited listening<br />
-        Flyer
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Announce talks with a personalized flyer
-            </span>
-          </div>
-        <br />
-        Embeddable Player
-         <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Embed player on any blog or site
-            </span>
-          </div>
-        <br />
-        Podcast Button
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Download audio and listen to it offline
-            </span>
-          </div>
-        <br />
-        Content is under your copyright<span class="pro">* PRO</span><br />
-        Online Support<br />
-        Upload a Jingle<span class="pro">* PRO</span><br />
-        On demand charge for talks<span class="pro">* PRO</span><br />
-      go_pro: go PRO
-      questions_or_feedback: Questions or feedback?
-      get_in_touch: Get in touch!
-      conf_corner_pricing: |
-        Starts at<br />
-        <strong>€ 250</strong>
-      conf_on_vr: Conferences on Voice Republic
-      reach_audience: Reach a larger audience
-      conf_text: |
-        Voice Republic provides a way to live stream audio from your conference with little effort and great results.<br /><br />
-        Stream multiple talks at the same time. They are automatically recorded and instantly available on the conference profile. Alternatively, you can upload recordings from the event.<br /><br />
-        Share the talks with a single click, embed to a website and enable downloads.<br /><br />
-        Need a helping hand? We’ll help you get going and support you throughout the event.<br /><br />
-        A conference profile comes with lots of great features:
-      conference_to_podcast_button: |
-        Conference to Podcast Button
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              Download any or all of the conference talks with one click
-            </span>
-          </div>
-      talk_data_handling: |
-        Talk-Data Handling
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              We'll help you set up talks
-            </span>
-          </div>
-      social_media_support: |
-        Social Media Support
-          <div class="tooltip-simple">
-            <span class="icon-information-circle"></span>
-            <span class="tooltip-overlay">
-              We'll help you promote the conference
-            </span>
-          </div>
-      multi_stage_streaming: Multi-Stage Streaming
-      feature_on_vr_front_page: Feature On VR Front Page
-      unlimited_listening: Unlimited Listening
-      announce_each_talk_with_its_own_flyer: Announce Each Talk With It's Own Flyer
-      live_support: Live Support
-      tell_us_about_your_conference: Tell us about your conference
-      audio_power_text: We believe in the power of audio.
-      learn_more: Learn More...
-      partners_title: Conferences currently using VR
-
   messages:
     as_text: "%{created_at} %{user_name}: %{content}"
-    received_message:
-      reply: Reply
-      delete: Delete
-    sent_message:
-      delete: Delete
-  notifies:
-    my_content:
-      bookmarked_your: bookmarked your KluuU
-      commented_your_status: commented on your status
-      follows_you_now: is following you
-      unfollow: Unfollow
-      follow_back: Follow
-      rated_your: Rated your KluuU
-      wrote_you_a_message: Send you a Message
-      an_anonymous_person: an anonymous call
-      tried_to_call_your_klu: attempted to reach KluuU
-      tried_to_call_your_noklu: attempted to reach Question
-      joined_venue: joined the Series %{title}
-    new_content:
-      created_new_status_update: changed their status
-      created_new: crated a new
-      new_venue_create: A new Series was set up
   search:
     show:
       title: 'Results for "%{query}"'
-      results: "%{results_count} RESULT(S) FOR "
+      results:
+        zero: 'SORRY, NO RESULTS FOR "%{query}"'
+        one: '%{count} RESULT FOR "%{query}"'
+        other: '%{count} RESULTS FOR "%{query}"'
       best_result: TOP RESULT
       talks: TALKS
       venues: SERIES
@@ -744,7 +309,6 @@ en:
     how_to_use_vr:
       create_talk: Create Talk
       check_pricing: Check our pricing
-
     hide_for_anon:
       redirect_text: |
         Please sign up or login to use this feature.
@@ -755,9 +319,9 @@ en:
       search: Search
       explore: Explore
       my_profile: Profile
-      my_next_talks: My next Talks
-      create_venue: Create Series
-      settings: Settings
+      schedule_talk: Schedule A Live Talk
+      upload_talk: Upload A Recording
+      test_talk: Test Hosting A Talk
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
@@ -807,347 +371,6 @@ en:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
 
-
-
-# VENUE ---------------------------------------------------------------------------------
-  venues:
-    date_changed: New Series date
-    edit:
-      title: "%{title} edit Series - Voice Republic"
-      edit_venue: Edit Series
-      venue_renew_title: New talk
-      confirm_change_date: All participants will be notified of your changes
-      delete_venue: Delete Series
-    facebook_value_template:
-      join_the_venue: Join the Series
-    venue_list: Series
-    new_venue: Create Series
-    show:
-      back_to_profile: back to Profile
-      create_new_talk: Create new Talk
-      upload_talk: Upload Talk
-      subscribe_to_podcast: Podcast
-      podcast:
-        title: "VR: %{title}"
-        subtitle: "Podcast provided by Voice Republic"
-      feed_title: "VR - %{title}"
-      redirect_text: |
-        Please sign up or login to use this feature.
-      login: Login
-      signup: Sign up
-      title: "%{title} - Voice Republic"
-      by: by
-      start_date: Begin
-      duration: Duration
-      past_venue: Past Series
-      subscribe_to_series: Subscribe to Series
-      unsubscribe_to_series: Unsubscribe
-      this_venue_has_no_talks: This Series has no Talks
-      edit_venue: Edit
-      chat_will_be_available_short_before_start: Group-chat will be available short before start
-      group_chat: Group-Chat
-      only_attendies_can_see_group_chat: Only participants can read the group-chat
-      repeating: Rhythm
-      new_talk: New talk
-      post: Post
-      write_a_comment: Write a comment
-      description: Description
-      live_talks:
-        zero: No Live Talks
-        one: 1 LIVE TALK
-        other: '%{count} LIVE TALKS'
-      on_air: ON AIR
-      upcoming_talks:
-        zero: No Upcoming Talks
-        one: 1 Upcoming Talk
-        other: '%{count} Upcoming Talks'
-      archived_talks:
-        zero: No Archived Talks
-        one: 1 Archived Talk
-        other: '%{count} Archived Talks'
-      more: More...
-      plays:
-        zero: No Plays
-        one: 1 Play
-        other: '%{count} Plays'
-    new:
-      title: "New Series - Voice Republic"
-      new_venue: Create Series
-      create_venue: Create Series
-      available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Series
-      create_kluuu: create a KluuU now
-    new_join:
-      participate_in_venue: Participate at Series
-      no_klus_available_to_join_venue: You need to create a Question to participate - create one!
-      click_on_your_klu_to_participate_in_venue: Selected question will participate at the Series
-      confirm_join: Would you like to participate with '%{klu_name}' at the Series '%{title}'?
-      so_easy: Its easy
-      back: Back
-    index:
-      venues: Series
-      upcoming_venues: UPCOMING SERIES
-      past_venues: PAST SERIES
-      what_is_a_venue: Tell me about Series
-      show_only_upcoming_venues: Upcoming Series
-      show_all_venues: All Series
-    venue_compact:
-      go_venue_page: Proceed to Series-page
-      host: Host
-    venue_comment:
-      delete_comment: destroy
-    venue_big:
-      by: by
-      host: Host
-      venue_title: Series
-      go_venue_page: Proceed to Series-page
-      join_venue: Participate now!
-    end_talk_link:
-      end_this_talk: Click here to stop this talk.
-      talk_ended: Der Talk wurde beendet.
-    landing_page_venue:
-      discuss_in_virtual_cafe: Discuss live in our virtual Café.
-      learn_more: Learn more...
-      venue_title: Series
-      upcoming_venue: Upcoming Series
-      venue_list: All Series
-      venue_is_in_process: in process
-      news_title: News
-      venue_is_over: past Series
-    fields:
-      venue_purpose: What is the purpose of this Series?
-      featured_from: Featured from
-      title: Title
-      teaser: Teaser
-      description: Description
-      tag_list: Tags
-      start_time: Select start time
-      duration: Duration of your talk in minutes
-      datepick_placeholder: select...
-      timepick_placeholder: select...
-      datepick_help: ! 'Example: 20/12/2013'
-      timepick_help: ! 'Example: 18:15'
-      settings: Settings
-      record: Record this talk
-      your_talk: Create your first Talk
-      event_title: Talk title
-      archive: Archive
-      select_image: 'Select image'
-    edit_start_time:
-      new_talk: New talk
-    change_time_form:
-      event_title: Talk title
-      start_date: Date
-      start_time: Time
-      datepick_placeholder: select...
-      timepick_placeholder: select...
-      datepick_help: ! 'Example: 20/12/2013'
-      timepick_help: ! 'Example: 18:15'
-    group_chat:
-      want_to_say: I want to say something!
-      prepare_mic: Activate your microphone! (Accept flash-access below the "On Air"-icon)
-      venue_chat: CHAT
-      show_host_info_controlls: toggle moderator-form
-      host_field_title: Infos about chat
-    host_info_form:
-      your_host_message: Write here your chat infos...
-      submit: Post
-    with_venues:
-      these_are_your_venues: See your Series here.
-      create_venue: Create Series
-    no_venues:
-      create_venue_for_your_kluuu: Create your own chat room for your KluuU.
-      create_venue: Create Series
-
-
-# TALKS ---------------------------------------------------------------------------------
-  talks: &TALKS
-    message_history: |
-      Voice Republic Message History
-
-        %{title}
-
-        %{started_at} - %{ended_at}
-    show:
-      title: "%{title} - Voice Republic"
-      waiting_for_start: The talk has not been started.
-      talk_is_prelive: "Talk is prelive. Only your guests hear you if you have any."
-      chat_placeholder: Share your thoughts
-      you: You
-      related_talk: RELATED TALK
-      next_talk: COMING UP NEXT IN THIS SERIES
-      date_start_end: '%{date} | %{start_time} – %{end_time}'
-      ends_in: ENDS IN
-      state_text: THIS TALK IS LIVE
-      record_text: AND BEING RECORDED
-      mute_streams: mute
-      unmute_streams: unmute
-      countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
-      minutes: 'MINUTES'
-      days: 'DAYS'
-      stage: STAGE
-      speakers:
-        one: SPEAKER
-        other: SPEAKERS
-      padding: 0 0 9px 0;
-      request_mic: REQUEST MIC
-      awaiting_mic_request: AWAITING MIC REQUEST
-      cancel: CANCEL
-      talk_invitation: TALK INVITATION!
-      accept_promotion: ACCEPT
-      decline_promotion: DECLINE
-      promote: GIVE THE MIC
-      demote: "&times;"
-      dismiss: Dismiss from stage
-      bandwidth_tooltip: |
-        <p><strong>While you are speaking</strong>, the number should be above 16KB/s.<br />
-        Should the number be smaller over time, the stream could be interrupted.<br /><br />
-
-        <strong>HELP:</strong><br />
-        - Check <span class="audio-settings-link" ng-click='toggleShowSettings()'>Audio Settings</span><br />
-        - Check your internet connection<br />
-        (Connection problems can interrupt the stream!)</p>
-
-      you_are_streaming_with: "You are streaming with:"
-      prelive_text: YOU ARE ON PRIVATE PRESTREAM
-      prelive_tooltip: Only the host and invited guests can hear each other
-      you_are_on_air: YOU ARE ON AIR!
-      mute_mic: MUTE MIC
-      unmute_mic: MIC MUTED
-      audio_settings: Audio settings
-      participate: Participate
-      miqrec: Mic Requests
-      awaiting: Awaiting
-      microphone_requests: Microphone requests
-      awaiting_to_speak: Awaiting to speak
-      participating: Participating
-      just_listening_in: Just listening in
-      remember: Listen later
-      send_card: Send Card
-      download_flyer: Download
-      show_all_information: Show all information
-      discussion: DISCUSSION
-      description: ABOUT
-
-      # MIC ACTIVATION
-      audio_settings_title: Audio Settings
-      mic_level: Input level
-      setting_up_audio: loading...
-      need_help: Need help?
-      info_text: Please allow Voice Republic to access your microphone.
-      attention: ATTENTION!
-      attention_text: |
-        While selecting the input source, the sound<br />
-        quality of your stream is limited. Please close<br />
-        the flash settings after selecting your input<br />
-        source.
-
-      how_to_title: HOW TO ACTIVATE YOUR MICROPHONE
-      click_allow: CLICK ALLOW
-      choose_mic_tab: CHOOSE MIC TAB
-      choose_mic_input: CHOOSE MIC INPUT
-      audio_settings_help_text: If this isn't working check <span class="desc-bold">this tutorial</span>
-      more: Show more
-      less: Show less
-      initializing: Initializing
-      talk_is_processing: Talk is processing
-      please_reload_this_page: Click to reload this page
-      participants: Participants
-      plays: '%{count} plays'
-      subscribe_to_podcast: Podcast
-      embed: Embed
-      embed_this_talk: Embed this Talk
-      copy_text: Copy this code and paste into your website
-      embed_player: Embed Player
-      more_talks_title: MORE FROM THIS USER
-      edit_talk: EDIT TALK
-      start_text_top: Click START when the speaker begins.
-      start: START
-      start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
-      unstarted_message: THE SPEAKER HAS NOT STARTED YET
-      audio_settings: Audio settings
-      end_talk: END TALK
-      banner_title: WHAT IS VOICE REPUBLIC?
-      banner_text: |
-        Voice Republic is a tool for the creation and distribution of audio content on the Internet.
-        <br />
-        Users are invited not just to listen to talks and debates, but also to talk to each other and get involved.
-        <br />
-        We want to encourage the free exchange of ideas, knowledge and opinions on the Net.
-        <span>More...</span>
-      empty_text: The listener's space is empty, login to join!
-      mic_requests: STAGE REQUESTS
-      give_the_mic: GIVE THE MIC
-      stage_invitations: STAGE INVITATIONS
-      listeners: LISTENERS
-      invite_to_stage: INVITE TO STAGE
-      anonymous_listener: ANONYMOUS LISTENER
-      more_talks: RECOMMENDED TALKS
-      login: Login
-      signup: Sign up
-      redirect_text: |
-        Please sign up or login to use this feature.
-
-    new:
-      title: "Create Talk - Voice Republic"
-      new_talk: Create Talk
-    edit:
-      title: "Edit Talk %{title} - Voice Republic"
-      edit_talk: Edit Talk
-      delete_talk: Delete talk
-      select_image: Background image
-    fields:
-      initializing: Installing uploader...
-      audio_upload: "Upload your audio file"
-      choose_file: Choose file
-      uploading: Uploading...
-      drop_files_here: "Drop files here"
-      upload: Upload
-      cancel: "&times;"
-      remove: Remove
-      upload_failed: Audio upload failed. Please try reloading the page and try again.
-      supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
-      unprocessed_upload: |
-        Please click 'Save' to start processing your uploaded audio file.
-        Your upload will be lost unless you press 'Save'.
-      drop_file_not_supported: "HTML5 Drop File is not supported!"
-      schedule_the_live_broadcast: Schedule the live broadcast
-      upload_help_text: Choose your recording file and fill out the form during upload.
-      upload_done: A file has already been uploaded.
-      record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
-      add_to_series: Add to Series
-      series_help_text: Series are comparable to playlist, they allow you to group your talks by theme.
-      invite_guests: Invite guests
-      invite_guests_text: Your guests will be automatically added to the stage.
-      illustrate_and_describe: Illustrate and describe
-      ill_and_desc_text: Choose a background image and tell your audience a little more...
-      image_text: Please choose an image with a minimum resolution of 1200 x 1200 px
-      import_your_audio_file: Import audio file
-      select_image: Select image
-      talks_description: Tell your audience a little more
-      title: Title
-      required: required
-      teaser: Teaser
-      tag_list: Tag list
-      create_new_series: Create New Series...
-    index:
-      talks_on_voice_republic: TALKS ON VOICE REPUBLIC
-      now_live: NOW LIVE
-      live: NOW LIVE
-      featured: COMING UP
-      popular: POPULAR
-      recent: RECENT
-      see_all: MORE
-
-
-# EMBED TALKS ---------------------------------------------------------------------------------
-  embed_talks:
-    show:
-      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
-
-  articles:
-    venue_form:
-      write_an_article: write an article
-      save_article: Post
   layouts:
     application:
       landing_title: Voice Republic - The Place To Talk
@@ -1225,21 +448,6 @@ en:
           <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
         </ul>
 
-  simple_form:
-    hints:
-      talk:
-        language: ""
-        format: Please provide the format purely for informational purposes.
-    labels:
-      talk:
-        venue: Series
-        new_venue_title: New Series Title
-        starts_at_date: Date
-        starts_at_time: Time
-      user:
-        conference: I will be streaming a conference.
-        accept_terms_of_use: |
-          I accept the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>.
   reminders:
     create:
       success: Reminder was successfully created.
@@ -1256,9 +464,17 @@ en:
 
     when leaving the talk page, you will no longer be able to stream your microphone.
 
-  # this makes all translations from `talks` also available to `uploads`
-  uploads:
-    <<: *TALKS
-
   flash_player:
     not_archived_yet: "This talk is not archived, yet"
+
+  purchases:
+    index:
+      our_packages: Our Packages
+    new:
+      payment_authorized: |
+        Your payment has been authorized successfully.
+      you_are_buying_x_for_the_price_of_y: |
+        Please confirm to buy %{x} VR Talk Credits for the price of %{y}
+      complete_purchase: Complete Your Purchase
+    package:
+      purchase_x_at_a_price_of_y: Purchase %{x} Talks at a Price of %{y}

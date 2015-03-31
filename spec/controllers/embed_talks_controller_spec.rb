@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe EmbedTalksController do
 
@@ -8,8 +8,8 @@ describe EmbedTalksController do
     # login user
     before  do
       @user = FactoryGirl.create(:user)
-      request.env['warden'].stub :authenticate! => @user
-      controller.stub :current_user => @user
+      allow(request.env['warden']).to receive_messages :authenticate! => @user
+      allow(controller).to receive_messages :current_user => @user
     end
 
     it 'renders' do
@@ -20,7 +20,7 @@ describe EmbedTalksController do
     it 'has content' do
       talk = FactoryGirl.create :talk, title: 'my title'
       get :show, id: talk.id
-      response.body.should =~ /MY TITLE/
+      expect(response.body).to match(/MY TITLE/)
     end
 
   end

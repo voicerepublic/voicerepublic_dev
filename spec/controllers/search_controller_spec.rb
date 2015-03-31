@@ -1,12 +1,12 @@
-# encoding: UTF-8
-require 'spec_helper'
+# encoding: utf-8
+require 'rails_helper'
 
 describe SearchController do
 
   describe "on POST" do
     it "redirects" do
       post :create, query: 'some query'
-      response.should be_redirect
+      expect(response).to be_redirect
     end
   end
 
@@ -22,43 +22,45 @@ describe SearchController do
 
     it "succeeds" do
       get :show, page: 1, query: 'some query'
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "populates results" do
+      expect(PgSearch::Document.count).to eq(0)
       venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+      expect(PgSearch::Document.count).to be > 0
       get :show, page: 1, query: 'Delight'
-      assigns(:results).should_not be_empty
+      expect(assigns(:results)).not_to be_empty
     end
 
     it "finds users" do
       user = FactoryGirl.create(:user, firstname: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
-      assigns(:results).first.searchable.should eq(user)
+      expect(assigns(:results).first.searchable).to eq(user)
     end
 
     it "finds venues" do
       venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
-      assigns(:results).first.searchable.should eq(venue)
+      expect(assigns(:results).first.searchable).to eq(venue)
     end
 
     it "finds talks" do
       talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
-      assigns(:results).first.searchable.should eq(talk)
+      expect(assigns(:results).first.searchable).to eq(talk)
     end
 
     it "finds results when forgetting the accent" do
       talk = FactoryGirl.create(:talk, title: 'Fèar and Delight')
       get :show, page: 1, query: 'Delight'
-      assigns(:results).first.searchable.should eq(talk)
+      expect(assigns(:results).first.searchable).to eq(talk)
     end
 
     it "finds results when using wrong accents" do
       talk = FactoryGirl.create(:talk, title: 'tálk with âccèntś')
       get :show, page: 1, query: 'áccéntš'
-      assigns(:results).first.searchable.should eq(talk)
+      expect(assigns(:results).first.searchable).to eq(talk)
     end
 
     it "finds multiple models at once" do
@@ -66,11 +68,11 @@ describe SearchController do
       venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
       talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
-      assigns(:results).count.should eq(3)
+      expect(assigns(:results).count).to eq(3)
       searchables = assigns(:results).map(&:searchable)
-      searchables.should include(user)
-      searchables.should include(venue)
-      searchables.should include(talk)
+      expect(searchables).to include(user)
+      expect(searchables).to include(venue)
+      expect(searchables).to include(talk)
     end
   end
 

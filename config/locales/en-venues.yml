@@ -1,0 +1,148 @@
+en:
+  venues:
+    date_changed: New Series date
+    edit:
+      title: "%{title} edit Series - Voice Republic"
+      edit_venue: Edit Series
+      venue_renew_title: New talk
+      confirm_change_date: All participants will be notified of your changes
+      delete_venue: Delete Series
+    facebook_value_template:
+      join_the_venue: Join the Series
+    venue_list: Series
+    new_venue: Create Series
+    show:
+      back_to_profile: back to Profile
+      create_new_talk: Create new Talk
+      upload_talk: Upload Talk
+      subscribe_to_podcast: Podcast
+      podcast:
+        title: "VR: %{title}"
+        subtitle: "Podcast provided by Voice Republic"
+      feed_title: "VR - %{title}"
+      redirect_text: |
+        Please sign up or login to use this feature.
+      login: Login
+      signup: Sign up
+      title: "%{title} - Voice Republic"
+      by: by
+      start_date: Begin
+      duration: Duration
+      past_venue: Past Series
+      subscribe_to_series: Subscribe to Series
+      unsubscribe_to_series: Unsubscribe
+      this_venue_has_no_talks: This Series has no Talks
+      edit_venue: Edit
+      chat_will_be_available_short_before_start: Group-chat will be available short before start
+      group_chat: Group-Chat
+      only_attendies_can_see_group_chat: Only participants can read the group-chat
+      repeating: Rhythm
+      new_talk: New talk
+      post: Post
+      write_a_comment: Write a comment
+      description: Description
+      live_talks:
+        zero: No Live Talks
+        one: 1 LIVE TALK
+        other: '%{count} LIVE TALKS'
+      on_air: ON AIR
+      upcoming_talks:
+        zero: No Upcoming Talks
+        one: 1 Upcoming Talk
+        other: '%{count} Upcoming Talks'
+      archived_talks:
+        zero: No Archived Talks
+        one: 1 Archived Talk
+        other: '%{count} Archived Talks'
+      more: More...
+      plays:
+        zero: No Plays
+        one: 1 Play
+        other: '%{count} Plays'
+    new:
+      title: "New Series - Voice Republic"
+      new_venue: Create Series
+      create_venue: Create Series
+      available_kluuu_prerequisite_for_creating_venue: You need an existing KluuU to create a new Series
+      create_kluuu: create a KluuU now
+    new_join:
+      participate_in_venue: Participate at Series
+      no_klus_available_to_join_venue: You need to create a Question to participate - create one!
+      click_on_your_klu_to_participate_in_venue: Selected question will participate at the Series
+      confirm_join: Would you like to participate with '%{klu_name}' at the Series '%{title}'?
+      so_easy: Its easy
+      back: Back
+    index:
+      venues: Series
+      upcoming_venues: UPCOMING SERIES
+      past_venues: PAST SERIES
+      what_is_a_venue: Tell me about Series
+      show_only_upcoming_venues: Upcoming Series
+      show_all_venues: All Series
+    venue_compact:
+      go_venue_page: Proceed to Series-page
+      host: Host
+    venue_comment:
+      delete_comment: destroy
+    venue_big:
+      by: by
+      host: Host
+      venue_title: Series
+      go_venue_page: Proceed to Series-page
+      join_venue: Participate now!
+    end_talk_link:
+      end_this_talk: Click here to stop this talk.
+      talk_ended: Der Talk wurde beendet.
+    landing_page_venue:
+      discuss_in_virtual_cafe: Discuss live in our virtual Café.
+      learn_more: Learn more...
+      venue_title: Series
+      upcoming_venue: Upcoming Series
+      venue_list: All Series
+      venue_is_in_process: in process
+      news_title: News
+      venue_is_over: past Series
+    fields:
+      venue_purpose: What is the purpose of this Series?
+      featured_from: Featured from
+      title: Title
+      teaser: Teaser
+      description: Description
+      tag_list: Tags
+      start_time: Select start time
+      duration: Duration of your talk in minutes
+      datepick_placeholder: select...
+      timepick_placeholder: select...
+      datepick_help: ! 'Example: 20/12/2013'
+      timepick_help: ! 'Example: 18:15'
+      settings: Settings
+      record: Record this talk
+      your_talk: Create your first Talk
+      event_title: Talk title
+      archive: Archive
+      select_image: 'Select image'
+    edit_start_time:
+      new_talk: New talk
+    change_time_form:
+      event_title: Talk title
+      start_date: Date
+      start_time: Time
+      datepick_placeholder: select...
+      timepick_placeholder: select...
+      datepick_help: ! 'Example: 20/12/2013'
+      timepick_help: ! 'Example: 18:15'
+    group_chat:
+      want_to_say: I want to say something!
+      prepare_mic: Activate your microphone! (Accept flash-access below the "On Air"-icon)
+      venue_chat: CHAT
+      show_host_info_controlls: toggle moderator-form
+      host_field_title: Infos about chat
+    host_info_form:
+      your_host_message: Write here your chat infos...
+      submit: Post
+    with_venues:
+      these_are_your_venues: See your Series here.
+      create_venue: Create Series
+    no_venues:
+      create_venue_for_your_kluuu: Create your own chat room for your KluuU.
+      create_venue: Create Series

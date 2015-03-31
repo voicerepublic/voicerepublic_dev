@@ -60,6 +60,7 @@ class TalksController < BaseController
     attrs = params[:talk] ? talk_params : {}
     attrs[:venue_id] ||= current_user.default_venue_id
     @talk = Talk.new(attrs)
+    authorize! :new, @talk
   end
 
   # GET /talks/1/edit
@@ -116,7 +117,7 @@ class TalksController < BaseController
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
                                  :format, :new_venue_title, :venue_id,
-                                 :user_override_uuid)
+                                 :user_override_uuid, :dryrun)
   end
 
 end

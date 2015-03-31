@@ -1,5 +1,6 @@
+
 # The LivepageController
-livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $window) ->
+livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $window, upstream) ->
 
   # private
 
@@ -10,7 +11,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.progress = ->
     percentage = 100 / config.progress.total * config.progress.index + 1
-    "width: #{percentage}%"
+    "width: #{Math.floor(percentage)}%"
 
   $scope.showFlashError = ->
     !hasFlash() and (config.talk.state in ['halflive', 'live'])
@@ -85,7 +86,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   # unconsolidated
 
   sendMessage = ->
-    session.upstream.message $scope.message.content
+    upstream.message $scope.message.content
     $scope.message.content = ''
 
   $scope.message = { content: '' }
@@ -138,6 +139,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
       $("a[href=#discussion] .icon-bubble-multi").click()
     sendMessage() if e.which == 13 # Enter
 
+  $scope.talkIsQueued = ->
+    config.talk.state in ['pending', 'postlive']
+
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
 
@@ -155,10 +159,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.talkIsArchived = ->
     config.talk.state == 'archived'
-
-  $scope.showEndTalk = ->
-    session.fsm.is('HostOnAir') and
-      config.talk.state == 'live'
 
   # Speex codec was introduced in Flash version 10. Before, there was only
   # Nellymoser. Flash 10 has been released 2008 already, Flash 11 was released
@@ -198,6 +198,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $interval updateCountdown, 1000
 
+  # DO NOT USE THESE IN THE VIEW!
+  # THESE ARE HERE FOR DEBUGGING ONLY
+  # I MEAN IT!
+  $scope.config = config
+  $scope.session = session
+
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
-  'session', 'blackbox', 'util', '$window']
+  'session', 'blackbox', 'util', '$window', 'upstream']
 window.Sencha.controller 'Livepage', livepageFunc

@@ -1,4 +1,5 @@
 - content_for :head do
+  = social_meta_tags_venue
   = rss_link_tag t('.feed_title', title: @venue.title)
 
 - content_for :title do

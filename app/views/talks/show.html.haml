@@ -1,7 +1,8 @@
 -# find states under angular/controllers/livepage.js.coffee
 
 - content_for :head do
-  = render 'shared/social_meta_tags'
+  = social_meta_tags_talk
+
 - content_for :title do
   = t('.title', title: @talk.title)
 
@@ -12,9 +13,10 @@
   .large-12.text-center= t('.initializing')
 
 .layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
+  = render 'debugger' if current_user.developer? or Rails.env.development?
   .header-block(style="background-image: url(#{@talk.image.url})")
-    .row.alert-box.alert.round(ng-show='!hasFlash() && talkIsLive()')
-      #flash_error= raw t('require_flash')
+    .row.alert-box.alert.rounded.centered(ng-show='!hasFlash() && talkIsLive()')
+      #flash_error_for_listener= raw t('require_flash_for_listening')
 
     %section.talk-title-box.row.collapse.text-center
       .large-12.columns
@@ -146,6 +148,8 @@
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
+          .pending-message(ng-show='talkIsQueued()')
+            %a= t('.talk_queued_for_processing')
           .processing-message(ng-show='talkIsProcessing()')
             %a= t('.talk_is_processing')
             .progress
@@ -204,7 +208,13 @@
         .row.text-center
           .left-text.small-4.columns= t('.start_text_top')
           .button-column.small-4.columns
-            %a.button-start(href="#" ng-click='startTalk()')= t('.start')
+            %a(ng-show='hasFlash()')
+              .button-start(href="#" ng-click='startTalk()')
+                = t('.start')
+            %a(ng-show='!hasFlash()')
+              .button-start
+                = t('.flash_not_available_button')
+
           .right-text.small-4.columns= t('.start_text_bottom').html_safe
 
       -# MESSAGE FOR LISTENER
@@ -302,17 +312,18 @@
       .flash-box
         .flash-border
           %h3.flash-title= t('.audio_settings_title')
-          .loading-audio-setup(ng-hide='flags.blackboxReady')
+          .alert-box.alert.rounded(ng-show='!hasFlash()')
+            #flash_error_for_publisher
+              = raw t('require_flash_for_streaming')
+              %br/
+              %br/
+              %a(href='javascript:closePopup()')= t('.noflash_close_popup')
+          .loading-audio-setup(ng-hide='!hasFlash() || flags.blackboxReady')
             %span.icon-mic
             = t('.setting_up_audio')
         #flashContent
-        %a(ng-show='flags.blackboxReady' href="http://blog.voicerepublic.com/audio-faq/" class="need-help" target="blank")
+        %a(ng-show='flags.blackboxReady' href="http://blog.voicerepublic.com/" class="need-help" target="blank")
           =t('.need_help')
-
-      -# TODO: Rewrite audio-faq and publish the link again
-      -#= link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
-      -#  %p
-      -#    = raw t('.audio_settings_help_text')
 
   .row.collapse-large-only
     .large-12.columns
