@@ -38,7 +38,6 @@ messagingFunc = ($log, $q, config) ->
       client.subscribe(channel, callback)
 
   commitSub = ->
-    $log.error 'commitSub!'
     promiseSub = promiseSub.then ->
       $log.debug 'Subscriptions done, allow for publishing...'
       deferredPub.resolve true
