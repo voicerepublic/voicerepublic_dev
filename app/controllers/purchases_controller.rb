@@ -1,5 +1,7 @@
 class PurchasesController < ApplicationController
 
+  before_action :authenticate_user!, except: :index
+
   # step 1: setup purchase and redirect to paypal
   def express
     @purchase = Purchase.new product: params[:product],
