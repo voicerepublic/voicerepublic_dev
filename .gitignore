@@ -39,3 +39,4 @@ config/environments/*.local.yml
 /log/localeapp.yml
 local/
 .*.swo
+/public/sitemap.xml
