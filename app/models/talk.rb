@@ -217,10 +217,6 @@ class Talk < ActiveRecord::Base
     tend - Time.now.to_i
   end
 
-  def config_for(user)
-    LivepageConfig.new(self, user).to_json
-  end
-
   def public_channel
     "/t#{id}/public"
   end

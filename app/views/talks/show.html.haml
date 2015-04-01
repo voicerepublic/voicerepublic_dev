@@ -13,7 +13,7 @@
   .large-12.text-center= t('.initializing')
 
 .layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
-  = render 'debugger' if current_user.developer? or Rails.env.development?
+  = render 'debugger' if current_user.try(:developer?) or Rails.env.development?
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.rounded.centered(ng-show='!hasFlash() && talkIsLive()')
       #flash_error_for_listener= raw t('require_flash_for_listening')
@@ -32,7 +32,7 @@
           .bc-delimiter >
 
           .links-box
-            - unless current_user.remembers?(@talk)
+            - unless current_user.try(:remembers?, @talk)
               - if (!current_user || current_user.guest)
                 %a(class="link-remember" data-reveal-id="modal-login-signup" ng-show='userIsAListener()')
                   %span.icon-plus
@@ -126,7 +126,7 @@
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
-        - if current_user.guest?
+        - if current_user.try(:guest?)
           .vr-banner
             = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
               %h3
@@ -445,7 +445,7 @@
 
 .scripts
   :javascript
-    window.insider = #{current_user.insider?};
+    window.insider = #{current_user.try(:insider?)};
     window.console.off = #{!!(Settings.disable_js_debugging && !current_user.insider?)};
   = javascript_include_tag 'sencha'
   = render 'config'
