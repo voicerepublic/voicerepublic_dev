@@ -22,13 +22,19 @@ class PurchasesController < ApplicationController
 
     if @purchase.save
       if @purchase.process
-        render action: 'success'
+        redirect_to @purchase
       else
         render action: 'failure'
       end
     else
       render action: 'new' # TODO
     end
+  end
+
+  def show
+    @purchase = Purchase.find(params[:id])
+    # TODO move this to cancan
+    return redirect_to(:purchases) unless @purchase.owner == current_user
   end
 
   private
