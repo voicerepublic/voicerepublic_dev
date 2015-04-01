@@ -4,7 +4,10 @@
 .row(style='margin-top: 50px')
   .medium-2.columns
     %h2(style='color: black')= name
-  .medium-6.columns
-    = t('.purchase_x_at_a_price_of_y', x: qty, y: price)
-  .medium-4.columns
-    = link_to paypal_button, express_new_purchase_path(product: package), class: 'right'
+  .medium-7.columns
+    = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price)
+  .medium-3.columns
+    = link_to paypal_button, express_new_purchase_path(product: package), class: 'right', 'data-replace-with' => "#spinner#{package}"
+    %span{ id: "spinner#{package}", style: 'display: none' }
+      = t('.forwarding_to_paypal')
+      = image_tag 'loader.gif', class: 'right', style: 'width: 20px; height: 20px:'

@@ -473,8 +473,13 @@ en:
     new:
       payment_authorized: |
         Your payment has been authorized successfully.
-      you_are_buying_x_for_the_price_of_y: |
-        Please confirm to buy %{x} VR Talk Credits for the price of %{y}
-      complete_purchase: Complete Your Purchase
+      you_are_buying_count_for_the_price_of_amount:
+        one: Please confirm to buy a single VR talk credit for the price of %{amount}
+        other: |
+          Please confirm to buy %{count} VR talk credits for the price of %{amount}
+      complete_purchase: Complete your purchase
     package:
-      purchase_x_at_a_price_of_y: Purchase %{x} Talks at a Price of %{y}
+      purchase_count_at_a_price_of_amount:
+        one: Purchase a single talk credit at a price of %{amount}
+        other: Purchase %{count} talk credits at a price of %{amount}
+      forwarding_to_paypal: Forwarding you to Paypal...
