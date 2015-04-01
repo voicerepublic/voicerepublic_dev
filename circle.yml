@@ -5,8 +5,6 @@ dependencies:
     - sudo apt-get update; sudo apt-get install lame vorbis-tools
 test:
   post:
-    - npm test
-        pwd:
-          spec/angular
+    - cd spec/angular && npm test
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - find test-results.xml -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+    - cd ${HOME}/${CIRCLE_PROJECT_REPONAME} && find test-results.xml -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
