@@ -1,4 +1,12 @@
 ---
 dependencies:
+	cache_directories:
+    - spec/angular/node_modules
   pre:
     - sudo apt-get update; sudo apt-get install lame vorbis-tools
+test:
+	post:
+    - npm test
+    		pwd: spec/angular
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find test-results.xml -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
