@@ -1,10 +1,8 @@
 class TalksController < BaseController
 
-  include OnTheFlyGuestUser
-
-  before_action :redirect_if_low_on_credits, only: :new
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+  before_action :redirect_if_low_on_credits, only: :new
 
   # GET /talks/featured
   def featured
