@@ -57,6 +57,10 @@ class Purchase < ActiveRecord::Base
     response.success?
   end
 
+  def indicate_vat?
+    details.params['payer_country'] == 'US'
+  end
+
   private
 
   def helpers
