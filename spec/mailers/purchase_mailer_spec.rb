@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe PurchaseMailer, type: :mailer do
   describe "invoice" do
 
-    let(:purchase) { FactoryGirl.create(:purchase, total: 100) }
+    let(:purchase) { FactoryGirl.create(:purchase) }
     let(:mail) { PurchaseMailer.invoice(purchase) }
 
     it "renders the headers" do
