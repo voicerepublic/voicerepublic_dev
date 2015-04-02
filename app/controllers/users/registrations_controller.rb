@@ -12,12 +12,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
-  # CHECK this is propably never used
-  def create
-    @guest_user = session[:guest_user_id] = nil
-    super
-  end
-
   private
 
   def user_params

@@ -33,7 +33,7 @@
 
           .links-box
             - unless current_user.try(:remembers?, @talk)
-              - if (!current_user || current_user.guest)
+              - if !current_user
                 %a(class="link-remember" data-reveal-id="modal-login-signup" ng-show='userIsAListener()')
                   %span.icon-plus
                   %span.link-text= t('.remember')
@@ -126,7 +126,7 @@
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
-        - if current_user.try(:guest?)
+        - if !current_user
           .vr-banner
             = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
               %h3
