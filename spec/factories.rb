@@ -115,6 +115,7 @@ FactoryGirl.define do
   factory :purchase do
     owner factory: :user
     product Pricing::BUSINESS.first
+    country 'CH'
   end
 
   factory :purchase_transaction do

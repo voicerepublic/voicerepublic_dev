@@ -26,6 +26,7 @@ class Purchase < ActiveRecord::Base
     self[:express_token] = token
     if new_record? and token.present?
       self.details = EXPRESS_GATEWAY.details_for(token)
+      self.country = details.params['payer_country']
     end
   end
 
@@ -58,7 +59,7 @@ class Purchase < ActiveRecord::Base
   end
 
   def indicate_vat?
-    details.params['payer_country'] == 'US'
+    country == 'CH'
   end
 
   private
