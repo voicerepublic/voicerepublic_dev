@@ -69,6 +69,9 @@ class TalksController < BaseController
   # POST /talks
   def create
     @talk = Talk.new(talk_params)
+
+    # TODO explain, doesn't that mean i can steal someone's venue by
+    # creating a talk?
     @talk.venue_user = current_user
 
     authorize! :create, @talk
@@ -82,6 +85,8 @@ class TalksController < BaseController
 
   # PATCH/PUT /talks/1
   def update
+
+    # TODO same concern here, see above
     # set venue_user to be able to create series on the fly while
     # updating talks
     @talk.venue_user = current_user

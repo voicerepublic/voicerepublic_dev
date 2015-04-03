@@ -13,7 +13,6 @@ class RemindersController < BaseController
   # POST /talks/:venue_id/reminders
   def create
     @reminder = Reminder.new
-    authorize! :create, @reminder
     @reminder.user = current_user
 
     rememberable ||= Talk.find(params[:talk_id])
@@ -21,6 +20,7 @@ class RemindersController < BaseController
     raise "Cannot find Rememberable with #{params.inspect}" if rememberable.nil?
     @reminder.rememberable = rememberable
 
+    authorize! :create, @reminder
     if @reminder.save
       redirect_to rememberable, notice: I18n.t('reminders.create.success')
     else
