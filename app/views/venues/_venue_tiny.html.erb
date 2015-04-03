@@ -1,7 +1,0 @@
-
-<article class="venue-tiny well well-small span4 <%= cycle('odd', 'even') %>">
-	<strong><%= link_to(venue.title, venue_path(:id => venue)) %></strong>
-	<%= simple_format(truncate(venue.description, :limit => 150)) %>
-	<small><span class="label label-info"><%= t('venues.show.start_date') %></span> <%= l(venue.start_time, :format => :short) %></small>
-</article>
-
