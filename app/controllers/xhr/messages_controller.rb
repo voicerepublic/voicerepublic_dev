@@ -6,14 +6,9 @@ class Xhr::MessagesController < Xhr::BaseController
   def create
     user = current_user
 
-    # TODO: move into ability class, use cancan
-    # TODO: check resulting queries, maybe use eager loading
-    good = @talk.venue.user == user
-    good = good || @talk.guests.include?(user)
-    return render text: 'Computer says no', status: 740 unless good
-
     message = @talk.messages.build(message_params)
     message.user = user
+    authorize! :create, message
     message.save!
 
     params[:message].merge! user_id: user.id
@@ -31,7 +26,6 @@ class Xhr::MessagesController < Xhr::BaseController
     @talk = Talk.find(params[:id])
   end
 
-  # TODO: refactor code duplication here and in Xhr::TalksController
   def publish(message)
     LiveClientMessage.call(@talk.public_channel, message)
   end
