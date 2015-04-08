@@ -31,7 +31,12 @@ You've made a purchase from Voice Republic Media AG.
   %tr
     %td
     %td(style='text-align: right')== Total: #{total}
-  -# (Includes VAT of CHF 0.15)
+
+  - if @purchase.indicate_vat?
+    - mwst = number_to_currency(@purchase.total/100/100*8, unit: Purchase::CURRENCY)
+    %tr
+      %td
+      %td(style='text-align: right')== (Includes Swiss Sales Tax of 8%: #{mwst})
   %tr
     %th(colspan='2')
       %hr(size='1')
