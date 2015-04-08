@@ -7,22 +7,25 @@ class Ability
 
   def initialize(user=nil)
 
-    user ||= User.new
+    can    :read, :all
+    cannot :read, Purchase
+
+    # anonymous does not have any more abilities
+    return if user.nil?
 
     # Appearance is somewhat nested in Talk
 
     # Comment is currently not in use
     can    :manage, Comment, user_id: user.id
 
-    can    :create, Message if user.persisted?
+    can    :create, Message
 
-    can    :manage, Participation, user_id: user.id if user.persisted?
+    can    :manage, Participation, user_id: user.id
 
-    can    :create, Purchase if user.persisted?
-    can    :read,   Purchase, owner_id: user.id
+    can    :create, Purchase
+    can    :show,   Purchase, owner_id: user.id
 
     can    :manage, Reminder, user_id: user.id
-    cannot :create, Reminder if user.new_record?
 
     can    :manage, Talk, venue: { user_id: user.id }
     cannot :create, Talk
