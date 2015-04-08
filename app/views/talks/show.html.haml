@@ -126,9 +126,9 @@
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
-        - if current_user.try(:guest?)
+        - unless user_signed_in?
           .vr-banner
-            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+            = link_to '#', 'data-reveal-id' => "vr-banner-modal", 'data-ga-event' => "click talk vr_anonymous_explain_banner talk:#{@talk.id}" do
               %h3
                 = t('.banner_title')
               %p
