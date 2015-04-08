@@ -25,7 +25,7 @@ class Purchase < ActiveRecord::Base
   def express_token=(token)
     self[:express_token] = token
     if new_record? and token.present?
-      self.details = EXPRESS_GATEWAY.details_for(token)
+      self.details = Settings.express_gateway.details_for(token)
     end
   end
 
@@ -34,18 +34,18 @@ class Purchase < ActiveRecord::Base
   end
 
   def setup
-    response = EXPRESS_GATEWAY.setup_purchase(total, express_options)
+    response = Settings.express_gateway.setup_purchase(total, express_options)
     raise response.params['message'] unless response.success?
     self[:express_token] = response.token
     self # make it chainable
   end
 
   def redirect_url
-    EXPRESS_GATEWAY.redirect_url_for(express_token)
+    Settings.express_gateway.redirect_url_for(express_token)
   end
 
   def process
-    response = EXPRESS_GATEWAY.purchase(total,
+    response = Settings.express_gateway.purchase(total,
                                         ip: ip,
                                         token: express_token,
                                         payer_id: express_payer_id,

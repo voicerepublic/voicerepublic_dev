@@ -5,7 +5,6 @@ feature "General payment" do
   describe "Purchases#index" do
     it 'should require a login on purchase', js: true do
       visit '/purchases'
-      #page.execute_script "$('img alt=[xpresscheckout]').parent().click()"
       find('.new_purchase', match: :first).click
       expect(current_path).to eq('/users/sign_in')
     end
@@ -20,7 +19,51 @@ feature "General payment" do
       page.fill_in 'user_email', with: @user.email
       page.fill_in 'user_password', with: '123456'
       page.find('.button-login').click
+
+
     end
+
+    scenario 'purchase more credits accessible from profile' do
+      visit user_path @user
+      click_on 'Purchase more credits'
+      expect(current_path).to eq(purchases_path)
+    end
+
+    scenario 'purchase more credits', js: true, slow: true do
+      # Paypal is slow, therefore enhance the default waiting time
+      default_wait_time = Capybara.default_wait_time
+      Capybara.default_wait_time = 5
+
+      # For a real acceptance test, do not use a bogus or test gateway, but the
+      # real thing
+      active_merchant_gateway = Settings.express_gateway
+      options = Settings.paypal.to_hash
+      Settings.express_gateway = ActiveMerchant::Billing::PaypalExpressGateway.new(options)
+
+      visit purchases_path
+      find('.new_purchase', match: :first).click
+      page.should have_content("Total €150.00 EUR")
+      fill_in "login_email", with: "billing-buyer@voicerepublic.com"
+      fill_in "login_password", with: "sandburg"
+      click_on "Log In"
+
+      # Wait until the Login modal disappears
+      expect(page).to have_no_css("#progressMeter", visible: true)
+
+      page.should have_content("Total €150.00 EUR")
+      click_on("Continue", match: :first)
+
+      page.should have_content "Please confirm to buy 5 VR talk credits for the price of EUR150.00"
+      click_on "Complete your purchase"
+      page.should have_content "Thank You for Your purchase"
+      expect(current_path).to eq(purchase_path(Purchase.last))
+
+      # Set back the configured defaults for Capybara and ActiveMerchant
+      Capybara.default_wait_time = default_wait_time
+      Settings.express_gateway = active_merchant_gateway
+    end
+
+
 
   end
 end
