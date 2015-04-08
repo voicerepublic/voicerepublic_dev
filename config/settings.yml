@@ -122,3 +122,4 @@ developers:
   - accounts@dispatched.ch
   - spam@dispatched.ch
 payment_enabled: false
+sitemap: http://localhost:3000/landing_page/index.xml
