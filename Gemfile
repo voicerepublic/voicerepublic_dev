@@ -48,7 +48,7 @@ gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
 gem 'pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
-gem 'fog'
+gem 'fog-aws'
 gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
@@ -88,7 +88,9 @@ group :development, :test do
   gem 'webmock',            '~> 1.15.0',    require: false
 
   # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
-  #gem 'rspec-core' # needed when running specs on ci
+  # gem 'rspec-core' # needed when running specs on ci
+
+  gem 'fog-local'
 end
 
 group :test do
