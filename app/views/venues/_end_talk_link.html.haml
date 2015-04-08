@@ -1,7 +1,0 @@
-= link_to t('.end_this_talk'), end_event_venue_path(venue),
-  id: 'end_talk', class: 'btn btn-large btn-warning hidden',
-  data: { url: venue_path(venue),
-    duration: end_in_milli(venue),
-    event: venue.current_event.id,
-    message: t('.talk_ended'),
-    confirmation: t('helpers.confirms.are_you_sure') }

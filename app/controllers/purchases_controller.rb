@@ -35,8 +35,7 @@ class PurchasesController < ApplicationController
 
   def show
     @purchase = Purchase.find(params[:id])
-    # TODO move this to cancan
-    return redirect_to(:purchases) unless @purchase.owner == current_user
+    authorize! :show, @purchase
   end
 
   private
