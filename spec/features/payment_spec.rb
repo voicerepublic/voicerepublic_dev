@@ -19,8 +19,6 @@ feature "General payment" do
       page.fill_in 'user_email', with: @user.email
       page.fill_in 'user_password', with: '123456'
       page.find('.button-login').click
-
-
     end
 
     scenario 'purchase more credits accessible from profile' do
@@ -63,7 +61,12 @@ feature "General payment" do
       Settings.express_gateway = active_merchant_gateway
     end
 
-
+    scenario "user gets redirected when low on credits" do
+      @user.reload.update_attribute :credits, 0
+      visit user_path @user
+      click_on "Create new Talk"
+      expect(current_path).to eq(purchases_path)
+    end
 
   end
 end
