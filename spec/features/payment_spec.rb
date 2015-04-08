@@ -40,7 +40,7 @@ feature "General payment" do
 
       visit purchases_path
       find('.new_purchase', match: :first).click
-      page.should have_content("Total €150.00 EUR")
+      page.should have_content("€150.00")
       fill_in "login_email", with: "billing-buyer@voicerepublic.com"
       fill_in "login_password", with: "sandburg"
       click_on "Log In"
@@ -48,7 +48,7 @@ feature "General payment" do
       # Wait until the Login modal disappears
       expect(page).to have_no_css("#progressMeter", visible: true)
 
-      page.should have_content("Total €150.00 EUR")
+      page.should have_content("€150.00")
       click_on("Continue", match: :first)
 
       page.should have_content "Please confirm to buy 5 VR talk credits for the price of EUR150.00"
