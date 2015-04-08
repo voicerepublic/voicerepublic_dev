@@ -36,7 +36,6 @@ module.exports = (config) ->
     exclude: [
       # excluded bcs so many changes in logic and tests not edited!!!
       "spec/angular/specs/unit/controllers/livepage-spec.js.coffee"
-      "spec/angular/specs/unit/services/upstream-spec.js.coffee"
       "spec/angular/specs/unit/services/session-spec.js.coffee"
       "spec/angular/specs/unit/services/private_pub-spec.js.coffee"
       "spec/angular/specs/unit/services/blackbox-spec.js.coffee"
