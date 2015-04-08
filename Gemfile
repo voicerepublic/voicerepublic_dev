@@ -49,6 +49,7 @@ gem 'pg_search'
 gem 'jquery-ui-rails'
 gem 'browser'
 gem 'fog-aws'
+gem 'fog-local'
 gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
@@ -90,7 +91,6 @@ group :development, :test do
   # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
   # gem 'rspec-core' # needed when running specs on ci
 
-  gem 'fog-local'
 end
 
 group :test do
