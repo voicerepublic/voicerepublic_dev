@@ -41,6 +41,7 @@ feature "General payment" do
       visit purchases_path
       find('.new_purchase', match: :first).click
       page.should have_content("€150.00")
+      page.save_screenshot "paypal_page.png"
       fill_in "login_email", with: "billing-buyer@voicerepublic.com"
       fill_in "login_password", with: "sandburg"
       click_on "Log In"
