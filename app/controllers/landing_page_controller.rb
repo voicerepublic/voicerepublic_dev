@@ -12,6 +12,7 @@ class LandingPageController < BaseController
       format.rss do
         @podcast = OpenStruct.new(talks: Talk.recent.limit(10))
       end
+      format.xml
     end
   end
 
