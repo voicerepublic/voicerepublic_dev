@@ -82,7 +82,7 @@ class LivepageConfig < Struct.new(:talk, :user)
 
   def user_details
     return @user_details ||= user.details_for(talk) if user
-    {}
+    { role: :listener }
   end
 
   def initial_state(role)

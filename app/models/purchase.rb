@@ -26,6 +26,7 @@ class Purchase < ActiveRecord::Base
     self[:express_token] = token
     if new_record? and token.present?
       self.details = Settings.express_gateway.details_for(token)
+      self.country = details.params['payer_country']
     end
   end
 
@@ -53,7 +54,12 @@ class Purchase < ActiveRecord::Base
     raise response.params['message'] unless response.success?
     update_attribute(:purchased_at, Time.now) if response.success?
     create_purchase_transaction.process!
+    PurchaseMailer.invoice(self).deliver_now
     response.success?
+  end
+
+  def indicate_vat?
+    country == 'CH'
   end
 
   private

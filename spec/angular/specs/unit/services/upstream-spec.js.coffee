@@ -24,27 +24,7 @@ describe 'upstream-spec', ->
 			expect(config).toEqual jasmine.any Object
 			expect(upstream).toEqual jasmine.any Object
 
-			expect(upstream.put).toEqual jasmine.any Function
 			expect(upstream.message).toEqual jasmine.any Function
-			expect(upstream.event).toEqual jasmine.any Function
-			expect(upstream.state).toEqual jasmine.any Function
-
-		it 'check the upstream put functionality', ->
-			msg = 
-				text: 'text'
-				state: 'live'
-				event: 'started'
-
-			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg }).respond 200, ''
-			upstream.put msg
-			$httpBackend.flush()
-
-		it 'check the upstream put functionality for an undefined msg', ->
-			msg = undefined
-
-			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg: { } }).respond 304, ''
-			upstream.put msg
-			$httpBackend.flush()
 
 		it 'check the upstream message functionality', ->
 			content =
@@ -69,67 +49,3 @@ describe 'upstream-spec', ->
 			$httpBackend.expectPOST("/xhr/talk/#{config.talk_id}/messages", { }).respond 304, ''
 			upstream.message content
 			$httpBackend.flush()
-
-		it 'check the upstream event functionality', ->
-			name = 'starting'
-			msg = 
-				text: 'Starting Talk'
-				state: 'halflive'
-
-			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg }).respond 304, ''
-			#spyOn(upstream, 'put').and.callThrough()
-			
-			upstream.event name, msg
-			
-			$httpBackend.flush()
-
-			#expect(upstream.put).toHaveBeenCalledWith jasmine.any(Object)
-			expect(msg.event).toEqual name
-
-		it 'check the upstream event functionality for an undefined msg', ->
-			name = 'starting'
-			msg = undefined
-
-			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg: { event: name } }).respond 304, ''
-			upstream.event name, msg
-			$httpBackend.flush()
-
-			expect(msg).toBeUndefined()
-
-		it 'check the upstream state functionality', ->
-			name = 'ListeningButReady'
-			msg =
-				text: 'foo'
-				event: 'listening'
-
-			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg }).respond 304, ''	
-			#spyOn(upstream, 'put').and.callThrough()
-			
-			upstream.state name, msg
-
-			$httpBackend.flush()
-
-			#expect(upstream.put).toHaveBeenCalledWith jasmine.any(Object)
-			expect(msg.state).toMatch name
-
-		it 'check the upstream state functionality for an undefined msg', ->
-			name = 'ListeningButReady'
-			msg = undefined
-
-			$httpBackend.expectPUT("/xhr/talk/#{config.talk_id}", { msg: { state: name } }).respond 304, ''
-			upstream.state name, msg
-			$httpBackend.flush()
-
-			expect(msg).toBeUndefined()
-		  
-
-
-		  
-
-		  
-		  
-
-		  
-
-	  
-

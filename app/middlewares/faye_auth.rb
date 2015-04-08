@@ -30,7 +30,7 @@ class FayeAuth < Struct.new(:app, :opts)
             msg.merge error: 'Forbidden'
           end
         else
-          # if it's not a real user, aka a guest user, we don't need
+          # if it's not a real user, aka a anonymous user, we don't need
           # the channel anyways, we might as well not even try to subscribe
           msg.merge error: 'Forbidden'
         end

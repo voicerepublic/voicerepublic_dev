@@ -14,7 +14,6 @@
 # * email [string, default="", not null]
 # * encrypted_password [string, default="", not null] - Devise encrypted password
 # * firstname [string] - TODO: document me
-# * guest [boolean] - TODO: document me
 # * header_uid [string] - TODO: document me
 # * last_request_at [datetime] - TODO: document me
 # * last_sign_in_at [datetime] - Devise Trackable module
@@ -84,12 +83,12 @@ class User < ActiveRecord::Base
   # WARNING: Do not use after_save hooks in the 'user' model that will
   # save the model. The reason is that the Devise confirmable_token
   # might be reset mid-transaction.
-  before_create :build_and_set_default_venue, unless: :guest?
+  before_create :build_and_set_default_venue
   after_save :generate_flyers!, if: :generate_flyers?
 
   # for the same reason this has to happen in 2 steps
-  before_create :build_welcome_transaction, unless: :guest?
-  after_create :process_welcome_transaction, unless: :guest?
+  before_create :build_welcome_transaction
+  after_create :process_welcome_transaction
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -154,8 +153,7 @@ class User < ActiveRecord::Base
     # TODO: check resulting db queries, maybe use eager loading
     # TODO: Returning :participant is a temporary implementation. It is not yet
     # dediced how to proceed since we removed the explicit participantion.
-    return :participant unless guest?
-    :listener
+    :participant
   end
 
   # helper for console
@@ -183,7 +181,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_flyers?
-    !guest? and (firstname_changed? or lastname_changed?)
+    firstname_changed? or lastname_changed?
   end
 
   # TODO check if `talks.reload` can be replaced with `talks(true)`
@@ -216,10 +214,6 @@ class User < ActiveRecord::Base
 
   def reconfirmation_required?
     provider != 'facebook' && super
-  end
-
-  def send_confirmation_notification?
-    !guest? && super
   end
 
 end

@@ -491,3 +491,6 @@ en:
         other: You are now able to create %{count} talks.
       schedule_talk: Schedule a Live Talk
       upload_talk: Upload a Recording
+  purchase_mailer:
+    invoice:
+      subject: Your Voice Republic Order Receipt

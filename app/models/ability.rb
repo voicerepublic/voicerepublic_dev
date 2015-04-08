@@ -1,26 +1,42 @@
-# this is heavily spec'ed in spec/models/ability_spec.rb
+# This file is heavily spec'ed in `spec/models/ability_spec.rb`.
+#
+# Models are given in alphabetical order.
 #
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user=nil)
 
-    user ||= User.new
+    can    :read, :all
+    cannot :read, Purchase
 
-    return false if user.guest?
+    # anonymous does not have any more abilities
+    return if user.nil?
 
-    can :manage, User,    id: user.id
-    can :manage, Venue,   user_id: user.id
-    can :manage, Comment, user_id: user.id
-    can :create, Reminder unless user.guest?
-    can :manage, Reminder, user_id: user.id
+    # Appearance is somewhat nested in Talk
 
+    # Comment is currently not in use
+    can    :manage, Comment, user_id: user.id
 
-    can :manage, Talk do |talk|
-      talk.venue.nil? or # TODO check if needed
-        talk.venue.user_id == user.id
-    end
+    can    :create, Message
 
+    can    :manage, Participation, user_id: user.id
+
+    can    :create, Purchase
+    can    :show,   Purchase, owner_id: user.id
+
+    can    :manage, Reminder, user_id: user.id
+
+    can    :manage, Talk, venue: { user_id: user.id }
+    cannot :create, Talk
+    can    :create, Talk, venue: { user_id: user.id } if user.credits > 0
+    # this is covered by default_venue, but it should probably go into
+    # the controller before the authorization
+    can    :create, Talk, venue_id: nil if user.credits > 0
+
+    can    :manage, User, id: user.id
+
+    can    :manage, Venue, user_id: user.id
 
   end
 end
