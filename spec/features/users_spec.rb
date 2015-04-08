@@ -143,20 +143,20 @@ feature "User can register" do
       page.click_link 'Sign Up'
       page.click_link 'REGISTER WITH FACEBOOK'
       expect(page).to have_content "Successfully authenticated from Facebook account"
-      expect(User.where(guest: nil).count).to eq(1)
+      expect(User.count).to eq(1)
       expect(User.last.email).not_to be_nil
     end
 
     scenario 'user logs in with facebook' do
       FactoryGirl.create :user, uid: '123123123', provider: 'facebook', email: 'foo@example.com'
-      expect(User.where(guest: nil).count).to eq(1)
+      expect(User.count).to eq(1)
       mock_oauth :facebook
       visit root_path
       page.click_link 'Sign Up'
       page.click_link 'REGISTER WITH FACEBOOK'
       expect(page).to have_content "Successfully authenticated from Facebook account"
       # User count did not increase => logged in with the same account
-      expect(User.where(guest: nil).count).to eq(1)
+      expect(User.count).to eq(1)
     end
   end
   scenario "user supplies correct values" do

@@ -103,11 +103,6 @@ describe User do
       user = FactoryGirl.create(:user)
       expect(user.default_venue).not_to be_nil
     end
-
-    it 'does not create for guests' do
-      user = FactoryGirl.create(:user, guest: true)
-      expect(user.default_venue).to be_nil
-    end
   end
 
   describe 'penalty' do
@@ -152,18 +147,11 @@ describe User do
   end
 
   describe WelcomeTransaction do
-
     it 'shows the users some credit' do
       user = FactoryGirl.create(:user)
       expect(user.welcome_transaction).to be_closed
       expect(user.reload.credits).to eq(WelcomeTransaction::QUANTITY)
     end
-
-    it 'does not show guests credit' do
-      user = FactoryGirl.create(:user, guest: true)
-      expect(user.credits).to eq(0)
-    end
-
   end
 
   describe 'Create' do

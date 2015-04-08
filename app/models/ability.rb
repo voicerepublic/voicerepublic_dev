@@ -7,12 +7,10 @@ class Ability
 
     user ||= User.new
 
-    return false if user.guest?
-
     can :manage, User,    id: user.id
     can :manage, Venue,   user_id: user.id
     can :manage, Comment, user_id: user.id
-    can :create, Reminder unless user.guest?
+    can :create, Reminder if user.persisted?
     can :manage, Reminder, user_id: user.id
 
 

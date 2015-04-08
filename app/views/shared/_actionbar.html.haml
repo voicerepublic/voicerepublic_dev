@@ -1,4 +1,4 @@
-- if current_page?(root_path) && (!current_user || current_user.guest)
+- if current_page?(root_path) && !current_user
   .visitor-top-bar.clearfix
     .left
       .action-bar-logo
@@ -34,7 +34,7 @@
       %section.top-bar-section
         -# Right Nav Section
         %ul.right
-          - if !current_user || current_user.guest?
+          - if !current_user
             %li
               = link_to t('.login'), new_user_session_path, class: "logged-out-link"
             %li

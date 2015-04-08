@@ -33,7 +33,7 @@
 
           .links-box
             - unless current_user.try(:remembers?, @talk)
-              - if (!current_user || current_user.guest)
+              - if !current_user
                 %a(class="link-remember" data-reveal-id="modal-login-signup" ng-show='userIsAListener()')
                   %span.icon-plus
                   %span.link-text= t('.remember')
