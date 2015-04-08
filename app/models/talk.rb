@@ -173,6 +173,7 @@ class Talk < ActiveRecord::Base
 
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
+  scope :reordered, -> { order('starts_at DESC') }
   scope :live_and_halflive, -> { nodryrun.where(state: [:live, :halflive]) }
 
   scope :recent, -> do
@@ -215,10 +216,6 @@ class Talk < ActiveRecord::Base
     tstart = started_at || starts_at
     tend = tstart.to_i + duration.minutes
     tend - Time.now.to_i
-  end
-
-  def config_for(user)
-    LivepageConfig.new(self, user).to_json
   end
 
   def public_channel

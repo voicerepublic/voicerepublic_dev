@@ -3,7 +3,7 @@
 .row(style='margin-top: 100px')
   .large-12.columns
     %p= t('.payment_authorized')
-    = t('.you_are_buying_x_for_the_price_of_y', x: @purchase.quantity, y: price)
+    = t('.you_are_buying_count_for_the_price_of_amount', count: @purchase.quantity, amount: price)
     %br
     %br
     = simple_form_for @purchase do |f|

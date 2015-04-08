@@ -23,7 +23,8 @@ describe TalksController do
   describe 'Unauthenticated' do
     describe 'Talk#new' do
       it 'raises an error for Talk#new' do
-        expect{get :new}.to raise_error(CanCan::AccessDenied)
+        get :new
+        expect(response).to be_a_redirect
       end
     end
   end
@@ -109,7 +110,7 @@ describe TalksController do
     describe "Talk#create" do
       it 'does not crash with too few inputs' do
         expect {
-          post :create, { venue_id: @venue.id, talk: { title: "", starts_at_date: "" } }
+          post :create, talk: { venue_id: @venue.id, title: "", starts_at_date: "" }
         }.to_not raise_error
       end
       describe "Authorization" do

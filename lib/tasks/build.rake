@@ -34,4 +34,8 @@ namespace :build do
     %x[ git add #{tfile} ]
     puts
   end
+
+  task sitemap: :environment do
+    %x[ curl #{Settings.sitemap} > public/sitemap.xml ]
+  end
 end

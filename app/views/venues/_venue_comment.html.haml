@@ -1,7 +1,0 @@
-%article.comment.well.well-small
-  = link_to( venue_comment_path(:venue_id => comment.commentable, :id => comment), :method => :delete ) do
-    %i.icon.icon-trash.action.pull-right
-  - end if can? :manage, comment
-  %small.pull-right.muted= time_ago_in_words comment.created_at
-  = link_to( image_tag(comment.user.avatar.url(:thumb), :class => "img-polaroid pull-left"), user_path(:id => comment.user))
-  = sophisticated_format(comment.content)

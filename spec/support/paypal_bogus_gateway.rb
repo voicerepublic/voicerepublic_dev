@@ -47,7 +47,7 @@ module ActiveMerchant #:nodoc:
       end
 
       def details_for token
-        "hello"
+        Struct.new(:params).new({'payer_country' => 'CH'})
       end
 
     end

@@ -1,9 +1,8 @@
 class TalksController < BaseController
 
-  include OnTheFlyGuestUser
-
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :redirect_if_low_on_credits, only: :new
 
   # GET /talks/featured
   def featured
@@ -70,6 +69,9 @@ class TalksController < BaseController
   # POST /talks
   def create
     @talk = Talk.new(talk_params)
+
+    # TODO explain, doesn't that mean i can steal someone's venue by
+    # creating a talk?
     @talk.venue_user = current_user
 
     authorize! :create, @talk
@@ -83,6 +85,8 @@ class TalksController < BaseController
 
   # PATCH/PUT /talks/1
   def update
+
+    # TODO same concern here, see above
     # set venue_user to be able to create series on the fly while
     # updating talks
     @talk.venue_user = current_user

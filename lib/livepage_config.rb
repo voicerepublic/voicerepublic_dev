@@ -37,9 +37,9 @@ class LivepageConfig < Struct.new(:talk, :user)
       # streams
       namespace: "t#{talk.id}",
       # misc
-      fullname: user.name,
-      user_id: user.id,
-      handle: "u#{user.id}",
+      fullname: user.try(:name),
+      user_id: user.try(:id),
+      handle: "u#{user.try(:id)}",
       role: user_details[:role], # TODO: remove in favor of user.role
       stream: stream,
       streaming_server: Settings.rtmp.record,
@@ -58,7 +58,8 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def stream
-    "t#{talk.id}-u#{user.id}"
+    return "t#{talk.id}-u#{user.id}" if user
+    nil
   end
 
   def blackbox_path
@@ -80,7 +81,8 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def user_details
-    @user_details ||= user.details_for(talk)
+    return @user_details ||= user.details_for(talk) if user
+    { role: :listener }
   end
 
   def initial_state(role)

@@ -53,7 +53,7 @@ class Metric < ActiveRecord::Base
 
     # User
     def users_total
-      User.where(guest: nil).count
+      User.count
     end
 
     # Series (aka. Venues)

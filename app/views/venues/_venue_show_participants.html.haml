@@ -1,7 +1,0 @@
-%section.venue-participants
-  %header.venue-section-title
-    = t('.participants')
-    - user_count = @venue.users.count
-    = "(#{user_count})" unless user_count == 0
-  - link = @venue.users.each do |p|
-    = render(:partial => 'venue_show_avatar', :locals => { :user => p })

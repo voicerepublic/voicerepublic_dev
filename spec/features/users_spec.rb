@@ -29,42 +29,6 @@ describe 'UsersController' do
   end
 end
 
-feature "Anonymous users", js: true do
-  scenario "will be authenticated as guest user" do
-    expect(User.count).to eq(0)
-    talk = FactoryGirl.create(:talk)
-    visit talk_path(talk)
-    # one for the talks and one for the logged in user
-    expect(User.count).to eq(2)
-    # user names are generated with uuids to minimize collisions (chance is1 in
-    # 17 billion)
-    expect(User.last.name).to match(/.*-.*-.*-.*-.*/)
-    expect(User.last.email).to match(/.*-.*-.*-.*-.*@example.com/)
-  end
-
-  it 'should not send confirmation mails automatically to guest users' do
-    # Reset the Devise setting to normal. It was overriden in rails_helper not
-    # to send confirmation mails to new Users, because usually we do not need
-    # it in the test suite. Here, we do want to test the regular behaviour,
-    # though.
-    ActionMailer::Base.deliveries.clear
-    expect(ActionMailer::Base.deliveries).to be_empty
-    Thread.current["Devise.enable_confirmation_mails"] = true
-    talk = FactoryGirl.create(:talk, state: :live)
-    # The above talk factory creates a venue that creates a user that will
-    # receive a confirmation mail by Deivse. Hence the one email in the queue.
-    expect(ActionMailer::Base.deliveries.count).to be(1)
-    # On visit of a live talk, a Guest User is being created. However, no
-    # confirmation mail should be sent on creation of said user.
-    visit talk_path(talk)
-    expect(User.last.guest?).to be(true)
-    expect(ActionMailer::Base.deliveries.count).to be(1)
-    # Delete the queue for future specs
-    ActionMailer::Base.deliveries.clear
-    Thread.current["Devise.enable_confirmation_mails"] = false
-  end
-end
-
 feature "User edits own profile", js: true do
   background do
     @user = FactoryGirl.create(:user, password: '123456',
@@ -179,20 +143,20 @@ feature "User can register" do
       page.click_link 'Sign Up'
       page.click_link 'REGISTER WITH FACEBOOK'
       expect(page).to have_content "Successfully authenticated from Facebook account"
-      expect(User.where(guest: nil).count).to eq(1)
+      expect(User.count).to eq(1)
       expect(User.last.email).not_to be_nil
     end
 
     scenario 'user logs in with facebook' do
       FactoryGirl.create :user, uid: '123123123', provider: 'facebook', email: 'foo@example.com'
-      expect(User.where(guest: nil).count).to eq(1)
+      expect(User.count).to eq(1)
       mock_oauth :facebook
       visit root_path
       page.click_link 'Sign Up'
       page.click_link 'REGISTER WITH FACEBOOK'
       expect(page).to have_content "Successfully authenticated from Facebook account"
       # User count did not increase => logged in with the same account
-      expect(User.where(guest: nil).count).to eq(1)
+      expect(User.count).to eq(1)
     end
   end
   scenario "user supplies correct values" do
@@ -230,7 +194,7 @@ feature "User can register" do
     page.fill_in('user_password_confirmation', :with => "foobar")
     page.check('user_accept_terms_of_use')
     page.find('.button-signup').click
-    User.last.referrer.should match(/\AABC123/)
+    expect(User.last.referrer).to match(/\AABC123/)
   end
 
 end

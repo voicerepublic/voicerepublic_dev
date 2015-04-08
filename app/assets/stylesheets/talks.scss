@@ -263,6 +263,12 @@
       position: relative;
     }
 
+    .dryrun {
+        color: orange;
+        font-weight: bold;
+        margin: 10px;
+    }
+
     .info-link{
       position: absolute;
       bottom:0px;
