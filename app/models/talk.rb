@@ -173,6 +173,7 @@ class Talk < ActiveRecord::Base
 
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
+  scope :reordered, -> { order('starts_at DESC') }
   scope :live_and_halflive, -> { nodryrun.where(state: [:live, :halflive]) }
 
   scope :recent, -> do
