@@ -16,7 +16,7 @@ class Ability
 
     can    :create, Message if user.persisted?
 
-    # Participation is not in use
+    can    :manage, Participation, user_id: user.id if user.persisted?
 
     can    :create, Purchase if user.persisted?
     can    :read,   Purchase, owner_id: user.id

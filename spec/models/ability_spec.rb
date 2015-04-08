@@ -99,4 +99,17 @@ describe Ability do
     end
   end
 
+  describe Participation do
+    it 'allows registered users to create a participation' do
+      expect(owner_ability).to be_able_to(:create, Participation)
+    end
+    it 'denies anon to create messages' do
+      expect(anon_ability).not_to be_able_to(:create, Participation)
+    end
+    it "denies to manage other's participations" do
+      participation = FactoryGirl.create(:participation, user: owner)
+      expect(other_ability).not_to be_able_to(:manage, participation)
+    end
+  end
+
 end
