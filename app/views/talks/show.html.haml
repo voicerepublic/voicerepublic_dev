@@ -55,6 +55,7 @@
 
 
         = render partial: 'shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+        .dryrun= t('.dryrun') if @talk.dryrun?
         %h2.talk-title
           = @talk.title
         .talk-teaser(ng-show='showTalkTeaser()')
@@ -63,7 +64,6 @@
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
-
 
         -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
@@ -126,9 +126,9 @@
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
-        - if !current_user
+        - unless user_signed_in?
           .vr-banner
-            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+            = link_to '#', 'data-reveal-id' => "vr-banner-modal", 'data-ga-event' => "click talk vr_anonymous_explain_banner talk:#{@talk.id}" do
               %h3
                 = t('.banner_title')
               %p
