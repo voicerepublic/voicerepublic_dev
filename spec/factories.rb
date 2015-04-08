@@ -3,6 +3,9 @@
 # TODO why is this here?
 include ActionDispatch::TestProcess
 
+# Good to know when using FactoryGirl with Spring: Changes to the
+# factories will only be picked up after you stopped spring!
+#
 FactoryGirl.define do
 
   factory :venue do
@@ -31,6 +34,10 @@ FactoryGirl.define do
     password secret = "mysecret"
     password_confirmation secret
     timezone 'Berlin'
+
+    trait :with_credits do
+      credits 3
+    end
 
     trait :unconfirmed do
       unconfirmed true

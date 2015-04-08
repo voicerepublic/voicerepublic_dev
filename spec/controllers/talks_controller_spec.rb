@@ -23,7 +23,8 @@ describe TalksController do
   describe 'Unauthenticated' do
     describe 'Talk#new' do
       it 'raises an error for Talk#new' do
-        expect{get :new}.to raise_error(CanCan::AccessDenied)
+        get :new
+        expect(response).to be_a_redirect
       end
     end
   end
