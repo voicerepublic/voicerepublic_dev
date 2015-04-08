@@ -75,6 +75,18 @@ describe TalksController do
       end
     end
 
+    describe "Talk#new" do
+      it 'responds if credits available' do
+        get 'new'
+        expect(response).to be_a_success
+      end
+      it 'redirects if out of credits' do
+        @user.update_attribute(:credits, 0)
+        get 'new'
+        expect(response).to be_a_redirect
+      end
+    end
+
     describe "Talk#destroy" do
       describe "Authorization" do
         it 'destroys the talk' do
