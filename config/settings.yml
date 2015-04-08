@@ -121,5 +121,6 @@ developers:
   - munen@dispatched.ch
   - accounts@dispatched.ch
   - spam@dispatched.ch
-payment_enabled: false
+payment_enabled: true
 sitemap: http://localhost:3000/landing_page/index.xml
+
