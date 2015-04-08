@@ -22,7 +22,7 @@ describe PurchasesController do
     it "returns http success" do
       pending unless Settings.payment_enabled
       post 'create', purchase: { quantity: 1, token: 'ASDF' }
-      expect(response).to be_success
+      expect(response).to be_a_redirect
     end
   end
 

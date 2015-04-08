@@ -1,14 +1,10 @@
 class Xhr::SocialSharesController < Xhr::BaseController
 
-  include OnTheFlyGuestUser
-  
-  before_filter :authenticate_user!
-
   def create
     @social_share            = SocialShare.new(social_share_params)
     @social_share.request_ip = request.remote_addr
     @social_share.user_agent = request.user_agent
-    @social_share.user_id    = current_user.id
+    @social_share.user_id    = current_user.try(:id)
 
     respond_to do |format|
       if @social_share.save

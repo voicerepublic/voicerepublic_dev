@@ -466,7 +466,8 @@ en:
 
   flash_player:
     not_archived_yet: "This talk is not archived, yet"
-
+  low_on_credits: |
+    Sorry, you've no credits left. Buy some...
   purchases:
     index:
       our_packages: Our Packages
@@ -482,4 +483,11 @@ en:
       purchase_count_at_a_price_of_amount:
         one: Purchase a single talk credit at a price of %{amount}
         other: Purchase %{count} talk credits at a price of %{amount}
-      forwarding_to_paypal: Forwarding you to Paypal...
+      forwarding_to_paypal: Forwarding you...
+    show:
+      headline: Thank You for Your purchase
+      able_to_create_count_talks:
+        one: You are now able to create one more talk.
+        other: You are now able to create %{count} talks.
+      schedule_talk: Schedule a Live Talk
+      upload_talk: Upload a Recording
