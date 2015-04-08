@@ -23,7 +23,8 @@ class FluxCapacitor
 
       puts "subscribing to #{CHANNEL}..."
       client.subscribe(CHANNEL) do |msg|
-        client.publish(*process(msg))
+        response = process(msg)
+        client.publish(*response) unless response.nil?
       end
     }
   end
@@ -69,6 +70,9 @@ class FluxCapacitor
     end
 
     [ talk.public_channel, msg ]
+  rescue Exception => e
+    Rails.logger.error(e.message)
+    nil
   end
 
 end
