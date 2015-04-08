@@ -30,7 +30,7 @@ feature "General payment" do
     scenario 'purchase more credits', driver: :chrome, slow: true do
       # Paypal is slow, therefore enhance the default waiting time
       default_wait_time = Capybara.default_wait_time
-      Capybara.default_wait_time = 5
+      Capybara.default_wait_time = 10
 
       # For a real acceptance test, do not use a bogus or test gateway, but the
       # real thing
