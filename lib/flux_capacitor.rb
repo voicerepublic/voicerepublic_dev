@@ -70,8 +70,10 @@ class FluxCapacitor
     end
 
     [ talk.public_channel, msg ]
-  rescue Exception => e
+  rescue => e
+    print 'X'
     Rails.logger.error(e.message)
+    env["airbrake.error_id"] = notify_airbrake(e)
     nil
   end
 
