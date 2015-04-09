@@ -52,6 +52,7 @@ class FluxCapacitor
       else
         print 'o'
         # silently pass other events like Promote and Demote
+        # TODO set user state to Listening on Demote
       end
     elsif msg['state'] # STATE PROPAGATION
       talk.with_lock do
