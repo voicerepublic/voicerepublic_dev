@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   resources :uploads, only: [ :new, :create ]
 
-  get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
+  #get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
+  get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
 
   post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
   get  '/xhr/users',             to: 'xhr/users#index'
