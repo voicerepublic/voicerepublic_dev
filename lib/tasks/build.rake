@@ -36,6 +36,6 @@ namespace :build do
   end
 
   task sitemap: :environment do
-    %x[ curl #{Settings.sitemap} > public/sitemap.xml ]
+    %x[ curl -k #{Settings.sitemap} > public/sitemap.xml ]
   end
 end
