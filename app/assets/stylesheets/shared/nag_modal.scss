@@ -1,0 +1,29 @@
+.nag-modal {
+  background-image: url("/images/background/nagModal.png");
+  width: 1300px;
+  height: 518px;
+
+  .button-signup {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px !important;
+    display: block;
+    margin-top: 12px;
+    font-size: 2.5rem;
+    padding: 25px;
+  }
+}
+
+.nag-modal-inner {
+  position: relative;
+  left: 267px;
+  top: 81px;
+  width: 766px;
+  height: 308px;
+
+  h2 { font-size: 2.5rem; }
+
+  p.lead { font-size: 2rem; }
+
+  p { font-size: 1.25rem; }
+}

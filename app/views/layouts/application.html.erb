@@ -31,14 +31,15 @@
     <div ng-controller='NagUsersCtrl'>
       <script>
         current_user = {}
-        // NOTE: This logic needs to be replaced whence guest users are gone
-        current_user.is_anonymous = <%= current_user ? current_user.guest? : true %>
-        current_user.id = <%= current_user ? current_user.id : 0 %>
+        current_user.is_anonymous = <%= !user_signed_in? %>
+        current_user.id = <%= user_signed_in? ? current_user.id : 0 %>
       </script>
       <div id="nagModal" class="reveal-modal nag-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-        <h2 id="modalTitle"><%= t('nag_modal.title') %></h2>
-        <p class="lead"><%= t('nag_modal.lead') %></p>
-        <p><%= t('nag_modal.body').html_safe %></p>
+        <div class="nag-modal-inner">
+          <h2 id="modalTitle"><%= t('nag_modal.title') %></h2>
+          <p class="lead"><%= t('nag_modal.lead') %></p>
+          <p><%= t('nag_modal.body').html_safe %></p>
+        </div>
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
       </div>
     </div>
