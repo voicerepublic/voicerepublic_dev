@@ -4,6 +4,12 @@
 sessionFunc = ($log, messaging, util, $rootScope, $timeout,
                config, blackbox) ->
 
+  merge = (xs...) ->
+    if xs?.length > 0
+      tap {}, (m) -> m[k] = v for k, v of x for x in xs
+
+  tap = (o, fn) -> fn(o); o
+
   # reconfigure blackbox
   blackbox.setStreamingServer config.streaming_server
 
@@ -149,6 +155,9 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
     $log.info JSON.stringify(data)
+    # initialize new user
+    users[data.user.id] ||= {} if data.user?.id?
+
     if data.message?
       # enrich discussion with further data for display
       user = users[data.message.user_id]
@@ -170,23 +179,22 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     # $log.debug "ego: #{method}"
     switch method
       when 'Registering', 'GuestRegistering', 'HostRegistering'
-        users[data.user.id] = data.user
+        users[data.user.id] = merge users[data.user.id], data.user
       when 'Promote' # event
         fsm.Promoted()
       when 'Demote' # event
         fsm.Demoted()
     # store the current state on the users hash
-    users[data.user.id] ||= {}
     users[data.user.id].state = fsm.current
 
   # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
     # $log.debug "user #{data.user.id}: #{state}"
-    users[data.user.id] ||= {}
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
-        users[data.user.id] = data.user
+        users[data.user.id] = merge users[data.user.id], data.user
       when 'OnAir', 'HostOnAir'
+        # TODO this needs work
         if isNotRegisteringNorWaiting()
           blackbox.subscribe users[data.user.id].stream
       # TODO instead of this react on event Demote
@@ -202,8 +210,8 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     # $log.debug "event: #{event}"
     switch event
       when 'Demote' # make it snappy!
-        users[data.user.id]?.state = 'Listening'
-        users[data.user.id]?.offline = true
+        users[data.user.id].state = 'Listening'
+        users[data.user.id].offline = true
       when 'Reload'
         # this is only used in user acceptance testing
         # but could also be used for live upgrades
@@ -213,7 +221,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         config.talk.state = data.talk_state
         config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
-          users = data.session # TODO check if needed
+          #users = data.session # TODO check if needed
           # only transcend from state `Waiting` if talk is live
           fsm.TalkStarted() if config.talk.state == 'live'
       when 'EndTalk'
