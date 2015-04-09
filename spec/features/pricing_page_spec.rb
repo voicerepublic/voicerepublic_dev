@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'PrisingPage' do
+describe 'PricingPage' do
   it 'renders' do
   	visit root_path
   	within 'footer' do
