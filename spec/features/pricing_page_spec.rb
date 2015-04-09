@@ -6,7 +6,6 @@ describe 'PrisingPage' do
   	within 'footer' do
   		click_on 'Pricing'
   	end
-    expect(page).to have_content ("Conferences")
+    expect(page).to have_content ("Business")
   end
 end
-
