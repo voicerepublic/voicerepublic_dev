@@ -90,9 +90,10 @@ namespace :deploy do
       # end
     end
 
-    on roles(:web) do
-      execute :rake, 'build:sitemap'
-    end
+    # unfortunately it does not work like this
+    # on roles(:web) do
+    #   execute :rake, 'build:sitemap'
+    # end
   end
 
 end
