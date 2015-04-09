@@ -34,20 +34,19 @@ feature "General payment" do
 
       # For a real acceptance test, do not use a bogus or test gateway, but the
       # real thing
-      active_merchant_gateway = Settings.express_gateway
+      active_merchant_gateway = ActiveMerchant.express_gateway
       options = Settings.paypal.to_hash
-      Settings.express_gateway = ActiveMerchant::Billing::PaypalExpressGateway.new(options)
+      ActiveMerchant.express_gateway = ActiveMerchant::Billing::PaypalExpressGateway.new(options)
 
       visit purchases_path
       find('.new_purchase', match: :first).click
       page.should have_content("€150.00")
-      page.save_screenshot "paypal_page.png"
-      fill_in "login_email", with: "billing-buyer@voicerepublic.com"
-      fill_in "login_password", with: "sandburg"
-      click_on "Log In"
+      fill_in "username", with: "billing-buyer@voicerepublic.com"
+      fill_in "password", with: "sandburg"
+      click_on "Log In to PayPal"
 
       # Wait until the Login modal disappears
-      expect(page).to have_no_css("#progressMeter", visible: true)
+      expect(page).to have_no_css("#spinner", visible: true)
 
       page.should have_content("€150.00")
       click_on("Continue", match: :first)
@@ -59,7 +58,7 @@ feature "General payment" do
 
       # Set back the configured defaults for Capybara and ActiveMerchant
       Capybara.default_wait_time = default_wait_time
-      Settings.express_gateway = active_merchant_gateway
+      ActiveMerchant.express_gateway = active_merchant_gateway
     end
 
     scenario "user gets redirected when low on credits" do
