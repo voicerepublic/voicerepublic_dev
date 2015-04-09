@@ -112,9 +112,14 @@ describe Ability do
         expect(owner_ability).to be_able_to(:create, Talk)
       end
       it "denies to create talk if user has no credits" do
-        owner.update_attribute :credits, 0
+        owner.reload.update_attribute :credits, 0
         expect(owner.credits).to eq(0)
-        expect(owner_ability).not_to be_able_to(:create, Talk)
+        expect(owner_ability).not_to be_able_to(:create, Talk.new(dryrun: nil))
+      end
+      it "allows to create dryrun talks if user has no credits" do
+        owner.reload.update_attribute :credits, 0
+        expect(owner.credits).to eq(0)
+        expect(owner_ability).to be_able_to(:create, Talk.new(dryrun: true))
       end
     end
 
