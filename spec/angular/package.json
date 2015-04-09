@@ -3,23 +3,27 @@
   "description": "npm commands",
   "repository": "https://github.com/munen/voicerepublic_dev",
   "scripts": {
-    "pretest": "npm install",
-    "test": "node node_modules/karma/bin/karma start conf/karma.conf.js.coffee",
+    "pretest": "npm prune && npm install",
+    "test": "node node_modules/karma/bin/karma start conf/karma.conf.js.coffee --browsers=PhantomJS --single-run",
     "preupdate-webdriver": "npm install",
     "update-webdriver": "npm update webdriver-manager",
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor conf/protractor-conf.js"
   },
   "dependencies": {
+    "async": "~0.9.0",
+    "coffee-script": "~1.8.0",
+    "http-server": "~0.7.3",
+    "jasmine": "^2.2.1",
+    "jasmine-core": "~2.1.3",
     "karma": "~0.12.28",
     "karma-chrome-launcher": "~0.1.6",
-    "jasmine-core": "~2.1.3",
-    "karma-jasmine": "~0.3.2",
-    "protractor": "~1.4.0",
-    "http-server": "~0.7.3",
-    "async": "~0.9.0",
-    "optimist": "~0.6.1",
+    "karma-cli": "0.0.4",
     "karma-coffee-preprocessor": "~0.2.1",
-    "coffee-script": "~1.8.0"
+    "karma-jasmine": "~0.3.2",
+    "karma-junit-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "optimist": "~0.6.1",
+    "protractor": "~1.4.0"
   }
 }

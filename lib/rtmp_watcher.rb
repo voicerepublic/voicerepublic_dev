@@ -6,13 +6,21 @@ require "active_support"
 require 'open-uri'
 require 'ostruct'
 require 'active_support/core_ext'
-require 'private_pub'
+require 'faye/authentication'
 require 'daemons'
 
 class RtmpWatcher
 
   URL = 'http://localhost:8080/stat'
   DELAY = 4
+
+  def initialize(path)
+    # TODO figure out a way to use Settings
+    file = File.join(path, 'config', 'settings.local.yml')
+    config = YAML.load(File.read(file))
+    @server = config['faye']['server']
+    @secret = config['faye']['secret_token']
+  end
 
   def run
     loop do
@@ -37,17 +45,17 @@ class RtmpWatcher
                                     bw_in    = stream.bw_in,
                                     app_name = app.name,
                                     codec    = stream.meta.try(:audio).try(:codec) ]
-          publish "/stat/#{name}",
-                  payload[name] = {
-                    nclients: nclients,
-                    bw_in: bw_in,
-                    app_name: app_name,
-                    codec: codec
-                  }
+          publish_to "/stat/#{name}",
+                     payload[name] = {
+                       nclients: nclients,
+                       bw_in: bw_in,
+                       app_name: app_name,
+                       codec: codec
+                     }
         end
       end
     end
-    publish "/stat", payload unless payload.empty?
+    publish_to "/stat", payload unless payload.empty?
   end
 
   private
@@ -68,23 +76,20 @@ class RtmpWatcher
     end
   end
 
-  def publish(channel, payload)
-    PrivatePub.publish_to channel, payload
+  def publish_to(channel, payload)
+    Faye::Authentication::HTTPClient.publish(@server, channel, payload, @secret)
+  rescue Exception => e
+    puts "He's dead, Jim."
   end
 
 end
 
 
 if __FILE__ == $0
-  base = File.expand_path("../..", __FILE__)
-
-  # configure private pub
-  path = File.join(base, 'config', 'private_pub.yml')
-  PrivatePub.load_config(path, ENV['RAILS_ENV'] || 'development')
-
   # daemonize
+  base = File.expand_path('../..', __FILE__)
   piddir = File.join(base, 'tmp', 'pids')
   Daemons.run_proc(File.basename(__FILE__), dir: piddir) do
-    RtmpWatcher.new.run
+    RtmpWatcher.new(base).run
   end
 end

@@ -29,10 +29,6 @@ every 40.minutes, :roles => [:app] do
 end
 
 every 60.minutes, :roles => [:app] do
-  rake "cleanup:guests"
-end
-
-every 60.minutes, :roles => [:app] do
   rake "cleanup:fix_abandoned_talk_state"
 end
 
@@ -46,6 +42,10 @@ end
 
 every 24.hours, at: '2:00 am', roles: [:app] do
   runner "Metric.snapshot!"
+end
+
+every 24.hours, at: '11:00 pm', roles: [:app] do
+  rake 'build:sitemap'
 end
 
 #every 1.hour, roles: [:app] do

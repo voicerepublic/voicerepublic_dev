@@ -5,7 +5,7 @@ scroll = 'data-slide-down-scroll'
 action = 'data-slide-down-action'
 
 enableFields = (element, selector, scrollTo, actionF) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
 
   source = $(element)
   target = $(selector)

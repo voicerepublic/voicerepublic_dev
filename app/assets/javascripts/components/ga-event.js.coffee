@@ -38,7 +38,7 @@
 attribute = 'data-ga-event'
 
 initialize = (element, value) ->
-  console.log "initialize: #{attribute} (#{value})"
+  #console.log "initialize: #{attribute} (#{value})"
 
   [event, args...] = value.split(' ')
   $(element).bind event, ->

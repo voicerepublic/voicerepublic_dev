@@ -1,9 +1,0 @@
-%section.well-large.venue-articles
-  %header.venue-section-title= t('.articles')
-
-  %aside.newarticle.contribution.clearfix
-    - if can_comment_venue?(@venue)
-      - article = Article.new
-      = render(:partial => "articles/venue_form", :locals => { :venue => @venue, :article => article, :user => current_user })
-
-  = render(:partial => 'venue_article', :collection => @venue.articles, :as => :article )

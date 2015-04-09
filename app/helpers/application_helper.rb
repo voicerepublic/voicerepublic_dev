@@ -118,8 +118,7 @@ module ApplicationHelper
   end
 
   def render_social_meta_tags(opts)
-    render partial: 'shared/social_meta_tags',
-      locals: { **opts }
+    render partial: 'shared/social_meta_tags', locals: opts
   end
 
 end

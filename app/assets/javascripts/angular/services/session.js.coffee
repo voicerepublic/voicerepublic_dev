@@ -1,8 +1,14 @@
 # The SessionService is the single source for insession
 # data and contains the session logic.
 #
-sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
+sessionFunc = ($log, messaging, util, $rootScope, $timeout,
                config, blackbox) ->
+
+  merge = (xs...) ->
+    if xs?.length > 0
+      tap {}, (m) -> m[k] = v for k, v of x for x in xs
+
+  tap = (o, fn) -> fn(o); o
 
   # reconfigure blackbox
   blackbox.setStreamingServer config.streaming_server
@@ -32,13 +38,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   unsubscribeAllStreams = ->
     # TODO blackbox.unsubscribeAll()
 
-  subscriptionDone = false
-
   reportState = (state) ->
-    return upstream.state(state) if subscriptionDone
-    # defer if subscriptions aren't done yet
-    #$log.debug "Not ready to report state '#{state}', waiting for subscriptions"
-    $timeout (-> reportState(state)), 250
+    # skip reporting of state for anonymous users
+    return if config.user.role == 'listener'
+    messaging.publish(state: state)
 
   # definition of the state machine, incl. callbacks
   # https://github.com/jakesgordon/javascript-state-machine/blob/master/README.md
@@ -47,11 +50,27 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     # events, resp. transitions are defined in lib/livepage_config.rb
     events: config.statemachine
     error: (eventName, from, to, args, errorCode, errorMessage) ->
-      $log.debug [eventName, from, to, args, errorCode]
-      $log.debug errorMessage
+      $log.error 'Error in State Machine!'
+      $log.error [eventName, from, to, args, errorCode]
+      $log.error errorMessage
     callbacks:
       onenterstate: (event, from, to) ->
+        # $log.info ">> ONENTERSTATE #{event}: #{from} -> #{to}"
         reportState(to)
+        true
+      # the following 4 callbacks need timeouts to escape from
+      # callback context, otherwise, fireing fsm events will raise an
+      # error
+      onenterRegistering: ->
+        $timeout (-> fsm.Registered()), 1
+      onenterHostRegistering: ->
+        $timeout (-> fsm.Registered()), 1
+      onenterGuestRegistering: ->
+        $timeout (-> fsm.Registered()), 1
+      onenterWaiting: ->
+        if config.talk.state == 'live'
+          # TODO pull session info
+          $timeout (-> fsm.TalkStarted()), 1
       onleaveWaiting: ->
         subscribeAllStreams()
       onleaveHostRegistering: ->
@@ -106,6 +125,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
           return if millisecs > 2147483647
           $timeout startTalk, millisecs
       onleaveHostOnAir: ->
+        # $log.debug "Host leaving state HostOnAir..."
         deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
@@ -134,8 +154,11 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   #
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
-    data = data.data # unpack private_pub message
-    if data.message
+    $log.info JSON.stringify(data)
+    # initialize new user
+    users[data.user.id] ||= {} if data.user?.id?
+
+    if data.message?
       # enrich discussion with further data for display
       user = users[data.message.user_id]
       data.message.user = user
@@ -153,15 +176,10 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   # effects based on incoming state notifications as well as
   # events. It will only handle messages targeted at it's own user.
   egoMsgHandler = (method, data) ->
-    $log.debug "ego: #{method}"
+    # $log.debug "ego: #{method}"
     switch method
       when 'Registering', 'GuestRegistering', 'HostRegistering'
-        fsm.Registered()
-        users[data.user.id] = data.user
-      when 'Waiting' # state
-        if config.talk.state == 'live'
-          # TODO pull session info
-          fsm.TalkStarted()
+        users[data.user.id] = merge users[data.user.id], data.user
       when 'Promote' # event
         fsm.Promoted()
       when 'Demote' # event
@@ -171,13 +189,12 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 
   # the stateHandler handles the state notification from other users
   stateHandler = (state, data) ->
-    $log.debug "user #{data.user.id}: #{state}"
-    users[data.user.id]?.state = state
-    users[data.user.id]?.offline = false
+    # $log.debug "user #{data.user.id}: #{state}"
     switch state
       when 'Registering', 'GuestRegistering', 'HostRegistering'
-        users[data.user.id] = data.user
+        users[data.user.id] = merge users[data.user.id], data.user
       when 'OnAir', 'HostOnAir'
+        # TODO this needs work
         if isNotRegisteringNorWaiting()
           blackbox.subscribe users[data.user.id].stream
       # TODO instead of this react on event Demote
@@ -185,14 +202,16 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         if isNotRegisteringNorWaiting()
           # TODO blackbox.unsubscribe users[data.user.id].stream
           ;
+    users[data.user.id].state = state
+    users[data.user.id].offline = false
 
   # the eventHandler handles events (as opposed to states)
   eventHandler = (event, data) ->
-    $log.debug "event: #{event}"
+    # $log.debug "event: #{event}"
     switch event
       when 'Demote' # make it snappy!
-        users[data.user.id]?.state = 'Listening'
-        users[data.user.id]?.offline = true
+        users[data.user.id].state = 'Listening'
+        users[data.user.id].offline = true
       when 'Reload'
         # this is only used in user acceptance testing
         # but could also be used for live upgrades
@@ -202,7 +221,7 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.state = data.talk_state
         config.talk.remaining_seconds = config.talk.duration
         unless fsm.is('HostOnAir')
-          users = data.session # TODO check if needed
+          #users = data.session # TODO check if needed
           # only transcend from state `Waiting` if talk is live
           fsm.TalkStarted() if config.talk.state == 'live'
       when 'EndTalk'
@@ -212,7 +231,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
         config.talk.state = 'processing'
       when 'Archive'
         config.talk.state = 'archived'
-        $log.debug data.links
         config.talk.links = data.links
       when "StartProcessing"
         config.progress = data.talk
@@ -221,16 +239,16 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
 
   # some methods only available to the host
   promote = (id) ->
-    upstream.event 'Promote', user: { id }
+    messaging.publish event: 'Promote', user: { id }
   demote = (id) ->
     return fsm.Demoted() if id is config.user_id
-    upstream.event 'Demote', user: { id }
+    messaging.publish event: 'Demote', user: { id }
   startTalk = ->
     return unless config.talk.state in ['prelive', 'halflive']
     $log.debug "--- starting Talk ---"
-    upstream.event 'StartTalk'
+    messaging.publish event: 'StartTalk'
   endTalk = ->
-    upstream.event 'EndTalk'
+    messaging.publish event: 'EndTalk'
 
   # separate the audience into four groups
   guests = ->
@@ -245,26 +263,28 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     (user for id, user of users when user.role == 'listener')
 
   replHandler = (msg) ->
-    eval msg.data.exec if msg.data.exec?
+    eval msg.exec if msg.exec?
 
   statHandler = (msg) ->
     # propagate codec transitions to google analytics
     pusher = $log.debug
     # FIXME this uses `window` and thus is not testable easily
     pusher = window._gaq.push if window._gaq?
-    if config.feedback.data?.codec != msg.data.codec
-      transition = "#{config.feedback.data?.codec} -> #{msg.data.codec}"
+    if config.feedback.data?.codec != msg.codec
+      transition = "#{config.feedback.data?.codec} -> #{msg.codec}"
       pusher ['_trackEvent', 'streaming', 'codec', transition]
 
-    config.feedback.data = msg.data
-    config.feedback.data.kb = if msg.data.bw_in >= 0 then Math.round(msg.data.bw_in / 1024) else 0
-    config.feedback.data.class = if msg.data.kb > 16 then 'good' else 'bad'
+    config.feedback.data = msg
+    config.feedback.data.kb = if msg.bw_in >= 0 then Math.round(msg.bw_in / 1024) else 0
+    config.feedback.data.class = if msg.kb > 16 then 'good' else 'bad'
 
   # subscribe to push notifications
-  privatePub.subscribe config.talk.channel, pushMsgHandler
-  privatePub.subscribe config.user.channel, replHandler
-  privatePub.subscribe "/stat/#{config.stream}", statHandler
-  privatePub.callback -> subscriptionDone = true
+  messaging.subscribe config.talk.channel, pushMsgHandler
+  # only subscribe to private channels if i am a real user
+  unless config.user.role == 'listener'
+    messaging.subscribe config.user.downmsg, replHandler
+    messaging.subscribe "/stat/#{config.stream}", statHandler
+  messaging.commitSub()
 
   # exposed objects
   {
@@ -281,7 +301,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
     listeners
     # -- misc
     discussion
-    upstream
     name: config.fullname
     fsm
     # -- debug
@@ -289,6 +308,6 @@ sessionFunc = ($log, privatePub, util, $rootScope, $timeout, upstream,
   }
 
 # annotate with dependencies to inject
-sessionFunc.$inject = ['$log', 'privatePub', 'util', '$rootScope',
-                       '$timeout', 'upstream', 'config', 'blackbox']
+sessionFunc.$inject = ['$log', 'messaging', 'util', '$rootScope',
+                       '$timeout', 'config', 'blackbox']
 window.Sencha.factory 'session', sessionFunc

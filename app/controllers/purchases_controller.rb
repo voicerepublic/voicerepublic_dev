@@ -1,5 +1,7 @@
 class PurchasesController < ApplicationController
 
+  before_action :authenticate_user!, except: :index
+
   # step 1: setup purchase and redirect to paypal
   def express
     @purchase = Purchase.new product: params[:product],
@@ -22,13 +24,18 @@ class PurchasesController < ApplicationController
 
     if @purchase.save
       if @purchase.process
-        render action: 'success'
+        redirect_to @purchase
       else
         render action: 'failure'
       end
     else
       render action: 'new' # TODO
     end
+  end
+
+  def show
+    @purchase = Purchase.find(params[:id])
+    authorize! :show, @purchase
   end
 
   private

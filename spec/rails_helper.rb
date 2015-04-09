@@ -236,6 +236,15 @@ module FactoryGirl
   end
 end
 
+
+# The user model has devise confirmable, meaning it would create a confirmation
+# mail on every User.create. We do not need that in the specs.
+module Devise::Models::Confirmable
+  def send_confirmation_notification?
+    Thread.current["Devise.enable_confirmation_mails"] ||= false
+  end
+end
+
 # Safe mode forces you to use Timecop with the block syntax since it
 # always puts time back the way it was. If you are running in safe
 # mode and use Timecop without the block syntax

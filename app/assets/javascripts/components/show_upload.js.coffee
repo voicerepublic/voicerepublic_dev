@@ -4,7 +4,7 @@
 attribute = 'data-show-upload'
 
 initialize = (element, selector) ->
-  console.log "initialize: #{attribute} (#{selector})"
+  #console.log "initialize: #{attribute} (#{selector})"
 
   target = $(element)
   source = $(selector)

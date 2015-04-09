@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
 
   if Settings.payment_enabled
-    resources :purchases, only: [ :index, :new, :create ] do
+    resources :purchases, only: [ :index, :new, :create, :show ] do
       get 'express', on: :new
     end
   end
 
   resources :uploads, only: [ :new, :create ]
 
-  get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
+  #get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
+  get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
 
   post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
-  put  '/xhr/talk/:id',          to: 'xhr/talks#update'
   get  '/xhr/users',             to: 'xhr/users#index'
 
   namespace 'xhr' do

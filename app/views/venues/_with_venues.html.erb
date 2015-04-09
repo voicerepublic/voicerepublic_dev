@@ -1,5 +1,0 @@
-<p><%= t('.these_are_your_venues', :name => @user.firstname ) %></p>
-<br>
-<div class="control-group">
-	<%= link_to( t('.create_venue'), new_venue_path, :class => "btn btn-primary") if @user == current_user %>
-</div>

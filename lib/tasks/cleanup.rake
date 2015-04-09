@@ -24,12 +24,6 @@ namespace :cleanup do
     end
   end
 
-  desc 'Delete guest users that are no longer active'
-  task :guests => :environment do
-    User.where('firstname like ?', '%guest%').
-      where('last_request_at < ?', 4.hours.ago).destroy_all
-  end
-
   desc 'Regenerate all flyers'
   task :regenerate_flyers => :environment do
     count = Talk.count

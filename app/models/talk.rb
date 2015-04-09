@@ -60,7 +60,7 @@ class Talk < ActiveRecord::Base
     state :postlive
     state :processing
     state :archived
-    event :prepare, success: :after_prepare do
+    event :prepare do
       # if user_override_uuid is set we transcend to pending
       transitions from: :created, to: :pending, guard: :user_override_uuid?
       # otherwise it will go its usual way via prelive
@@ -130,6 +130,7 @@ class Talk < ActiveRecord::Base
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   after_create :create_and_process_debit_transaction!, unless: :dryrun?
+  after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
@@ -172,6 +173,7 @@ class Talk < ActiveRecord::Base
 
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
+  scope :reordered, -> { order('starts_at DESC') }
   scope :live_and_halflive, -> { nodryrun.where(state: [:live, :halflive]) }
 
   scope :recent, -> do
@@ -214,10 +216,6 @@ class Talk < ActiveRecord::Base
     tstart = started_at || starts_at
     tend = tstart.to_i + duration.minutes
     tend - Time.now.to_i
-  end
-
-  def config_for(user)
-    LivepageConfig.new(self, user).to_json
   end
 
   def public_channel
@@ -393,8 +391,7 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  def after_prepare
-    return unless dryrun?
+  def set_auto_destruct_mode
     delta = created_at + 24.hours
     Delayed::Job.enqueue(DestroyTalk.new(id: id), queue: 'trigger', run_at: delta)
   end
@@ -561,12 +558,12 @@ class Talk < ActiveRecord::Base
   def manifest(chain=nil)
     chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
-      id: id,
-      chain: chain,
+      id:         id,
+      chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in: File.expand_path(Settings.paths.jingles.in, Rails.root),
-      jingle_out: File.expand_path(Settings.paths.jingles.out, Rails.root)
+      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
@@ -678,6 +675,13 @@ class Talk < ActiveRecord::Base
   def create_and_process_debit_transaction!
     return unless Settings.payment_enabled
     DebitTransaction.create(source: self).process!
+  end
+
+  # TODO refactor this into some place where it makes sense
+  # returns either a url or an absolute fs path
+  def locate(path_or_url)
+    return path_or_url if path_or_url.match(/^https?:/)
+    File.expand_path(path_or_url, Rails.root)
   end
 
 end

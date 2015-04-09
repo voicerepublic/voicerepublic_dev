@@ -1,6 +1,6 @@
 
 # The LivepageController
-livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $window) ->
+livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $window, upstream) ->
 
   # private
 
@@ -86,7 +86,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   # unconsolidated
 
   sendMessage = ->
-    session.upstream.message $scope.message.content
+    upstream.message $scope.message.content
     $scope.message.content = ''
 
   $scope.message = { content: '' }
@@ -139,8 +139,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
       $("a[href=#discussion] .icon-bubble-multi").click()
     sendMessage() if e.which == 13 # Enter
 
-  $scope.talkIsPending = ->
-    config.talk.state == 'pending'
+  $scope.talkIsQueued = ->
+    config.talk.state in ['pending', 'postlive']
 
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
@@ -205,5 +205,5 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.session = session
 
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
-  'session', 'blackbox', 'util', '$window']
+  'session', 'blackbox', 'util', '$window', 'upstream']
 window.Sencha.controller 'Livepage', livepageFunc
