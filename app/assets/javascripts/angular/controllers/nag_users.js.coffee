@@ -15,10 +15,10 @@ nagFunc = ($scope, $log, $timeout) ->
   # ONLY FOR DEV
   $('#nagModal').foundation('reveal','open')
 
-  if $scope.isAnonymousUser(current_user) and $scope.isNewOnVR(current_user)
-    $timeout($scope.nagAnonymous, 30000)
-  else if $scope.isAnonymousUser(current_user)
-    $timeout($scope.nagAnonymous, 600000)
+  #if $scope.isAnonymousUser(current_user) and $scope.isNewOnVR(current_user)
+  #  $timeout($scope.nagAnonymous, 30000)
+  #else if $scope.isAnonymousUser(current_user)
+  #  $timeout($scope.nagAnonymous, 600000)
 
 nagFunc.$inject = [
   "$scope"

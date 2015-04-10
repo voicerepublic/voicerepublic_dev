@@ -1,29 +1,64 @@
 .nag-modal {
-  background-image: url("/images/background/nagModal.png");
-  width: 1300px;
-  height: 518px;
-
-  .button-signup {
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px !important;
-    display: block;
-    margin-top: 12px;
-    font-size: 2.5rem;
-    padding: 25px;
-  }
+    background-image: url("/images/background/nagModal.png");
+    background-size: contain;
+    .button-signup {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
 }
 
 .nag-modal-inner {
   position: relative;
-  left: 267px;
-  top: 81px;
-  width: 766px;
-  height: 308px;
+}
 
-  h2 { font-size: 2.5rem; }
+@mixin nag-modal($factor) {
 
-  p.lead { font-size: 2rem; }
+  $modal-width: 1300px*$factor;
+  $modal-height: 518px*$factor;
+  $signup-button-width: 300px*$factor;
+  $signup-button-top: 12px*$factor;
+  $signup-button-size: 2.5rem*$factor;
+  $signup-button-padding: 25px*$factor;
+  $nag-inner-left: 267px*$factor;
+  $nag-inner-top: 81px*$factor;
+  $nag-inner-width: 766px*$factor;
+  $nag-inner-height: 308px*$factor;
+  $nag-inner-h2: 2.5rem*$factor;
+  $nag-inner-p-lead: 2rem*$factor;
+  $nag-inner-p: 1.25rem*$factor;
 
-  p { font-size: 1.25rem; }
+  .nag-modal {
+    width: $modal-width;
+    height: $modal-height;
+    .button-signup {
+      width: $signup-button-width !important;
+      margin-top: $signup-button-top;
+      font-size: $signup-button-size;
+      padding: $signup-button-padding;
+    }
+  }
+
+  .nag-modal-inner {
+    left: $nag-inner-left;
+    top: $nag-inner-top;
+    width: $nag-inner-width;
+    height: $nag-inner-height;
+
+    h2 { font-size: $nag-inner-h2; }
+    p.lead { font-size: $nag-inner-p-lead;  }
+    p { font-size: $nag-inner-p; }
+  }
+}
+
+@media screen {
+  @include nag-modal(1);
+}
+
+@media screen and(max-width: 1050px) {
+  @include nag-modal(0.715);
+}
+
+@media screen and(max-width: 860px) {
+  @include nag-modal(0.571);
 }
