@@ -118,6 +118,9 @@ module Sync
 
         rescue Exception => e
           self.errors << '% 4s: %s' % [nid, e.message.tr("\n", '; ')]
+          #puts nid
+          #puts e.message
+          #exit
         end
       end
 
@@ -128,10 +131,9 @@ module Sync
         puts report_changes
       else
         attachments = []
-        # deactivate attachments until slack NEWSCHOOL works reliably, see lib/slack.rb
-        # attachments << { color: 'danger',  text: report_errors } if errors.size > 0
-        # attachments << { color: 'warning', text: report_warnings } if warnings.size > 0
-        # attachments << { color: 'good',    text: report_changes } if changes.size > 0
+        attachments << { color: 'danger',  text: report_errors } if errors.size > 0
+        attachments << { color: 'warning', text: report_warnings } if warnings.size > 0
+        attachments << { color: 'good',    text: report_changes } if changes.size > 0
         slack.send report_summary, attachments: attachments
       end
     end
@@ -183,7 +185,8 @@ module Sync
     end
 
     def slack
-      @slack ||= Slack.new('#rp15', 'Doomguy', icon)
+      @slack ||= Slack.new('@branch14', 'Doomguy', icon)
+      #@slack ||= Slack.new('#rp15', 'Doomguy', icon)
     end
 
   end
