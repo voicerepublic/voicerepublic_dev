@@ -155,6 +155,7 @@ class Talk < ActiveRecord::Base
 
   serialize :session
   serialize :storage
+  serialize :social_links
 
   delegate :user, to: :venue
 
