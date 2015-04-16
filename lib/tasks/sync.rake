@@ -374,4 +374,9 @@ namespace :sync do
     puts
 
   end
+
+  task rp15: :environment do
+    Sync::Rp15.new.sync
+  end
+
 end
