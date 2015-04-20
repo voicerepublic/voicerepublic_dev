@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
   if Settings.payment_enabled
+    get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
     resources :purchases, only: [ :index, :new, :create, :show ] do
       get 'express', on: :new
     end
+  else
+    get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
   end
 
   resources :uploads, only: [ :new, :create ]
@@ -17,12 +20,9 @@ Rails.application.routes.draw do
   end
 
   if Settings.api.try(:enabled)
-    get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
     namespace 'api' do
       resources :talks, only: [:index]
     end
-  else
-    get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
   end
 
   post '/search',              to: 'search#create'
