@@ -155,21 +155,24 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   # unpack, guard, delegate and trigger refresh
   pushMsgHandler = (data) ->
     $log.info JSON.stringify(data)
-    # initialize new user
-    users[data.user.id] ||= {} if data.user?.id?
+    if data.type == 'listeners'
+      config.talk.listeners = data.listeners
+    else
+      # initialize new user
+      users[data.user.id] ||= {} if data.user?.id?
 
-    if data.message?
-      # enrich discussion with further data for display
-      user = users[data.message.user_id]
-      data.message.user = user
-      # prepend to discussion array
-      discussion.unshift data.message
-    if method = data.state || data.event
-      if data.user?.id == config.user_id
-        egoMsgHandler method, data
-      else
-        stateHandler method, data if data.state
-        eventHandler method, data if data.event
+      if data.message?
+        # enrich discussion with further data for display
+        user = users[data.message.user_id]
+        data.message.user = user
+        # prepend to discussion array
+        discussion.unshift data.message
+      if method = data.state || data.event
+        if data.user?.id == config.user_id
+          egoMsgHandler method, data
+        else
+          stateHandler method, data if data.state
+          eventHandler method, data if data.event
     $rootScope.$apply()
 
   # the egoMsgHandlers will trigger transitions and other side
@@ -259,8 +262,6 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     (user for id, user of users when user.state == 'AcceptingPromotion')
   participants = ->
     (user for id, user of users when user.state == 'Listening' and user.role != 'listener')
-  listeners = ->
-    (user for id, user of users when user.role == 'listener')
 
   replHandler = (msg) ->
     eval msg.exec if msg.exec?
@@ -298,7 +299,6 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     expectingPromotion
     acceptingPromotion
     participants
-    listeners
     # -- misc
     discussion
     name: config.fullname

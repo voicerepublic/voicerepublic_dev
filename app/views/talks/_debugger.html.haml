@@ -1,6 +1,7 @@
 #debugger
   %pre
     = preserve do
+      numberOfListeners         {{ numberOfListeners }}
       hasFlash                  {{ hasFlash() }}
       progress                  {{ progress() }}
       trouble                   {{ trouble() }}

@@ -26,7 +26,8 @@ class LivepageConfig < Struct.new(:talk, :user)
         ends_in: talk.ends_in,
         links: talk.media_links,
         duration: talk.duration.minutes,
-        channel: talk.public_channel
+        channel: talk.public_channel,
+        listeners: talk.listeners.size,
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,

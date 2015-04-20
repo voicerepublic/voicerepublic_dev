@@ -8,23 +8,32 @@ require 'daemons'
 #
 class FluxCapacitor
 
-  CHANNEL = '/live/up'
   PATTERN = %r{^/live/up/t(\d+)/u(\d+)$}
 
   NO_CHANNEL = "no channel info for message %s"
 
-  attr_accessor :client
+  attr_accessor :client, :listeners
 
   def run
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
+    self.listeners = Hash.new { |h, k| h[k] = {} }
     EM.run {
       self.client = Faye::Client.new(Settings.faye.server)
       client.add_extension(extension)
 
-      puts "subscribing to #{CHANNEL}..."
-      client.subscribe(CHANNEL) do |msg|
+      channel = '/live/up'
+      puts "subscribing to #{channel}..."
+      client.subscribe(channel) do |msg|
         response = process(msg)
         client.publish(*response) unless response.nil?
+      end
+
+      channel = '/register/listener'
+      puts "subscribing to #{channel}..."
+      client.subscribe(channel) do |msg|
+        self.listeners[msg['talk']][msg['session']] ||= Time.now.to_i
+        client.publish(msg['talk'], { type: 'listeners',
+                                      listeners: listeners[msg['talk']].size })
       end
     }
   end
@@ -42,6 +51,9 @@ class FluxCapacitor
       return unless user_id == talk.venue.user_id.to_s
       case msg['event']
       when 'EndTalk'
+        # server annotates end_talk event with listeners
+        _listeners = self.listeners.delete(talk.public_channel)
+        talk.listeners = msg[:listeners] = _listeners
         talk.end_talk!
         print 'e'
       when 'StartTalk'

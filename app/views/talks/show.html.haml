@@ -438,10 +438,10 @@
                       .guest-promote-link.text-center(ng-click="promote(user.id)")
                         = t('.invite_to_stage')
 
-              .listening(ng-show="listeners().length")
+              .listening
                 %h3
-                  {{ listeners().length }}
-                  = t('.anonymous_listener')
+                  {{ numberOfListeners() }}
+                  = t('.listeners')
 
 .scripts
   :javascript
