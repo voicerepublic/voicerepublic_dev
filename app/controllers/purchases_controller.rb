@@ -4,8 +4,7 @@ class PurchasesController < ApplicationController
 
   # step 1: setup purchase and redirect to paypal
   def express
-    @purchase = Purchase.new product: params[:product],
-                             ip: request.remote_ip
+    @purchase = Purchase.new(purchase_params.merge(ip: request.remote_ip))
     redirect_to @purchase.setup.redirect_url
   end
 

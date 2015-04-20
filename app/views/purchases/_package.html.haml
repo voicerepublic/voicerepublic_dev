@@ -1,13 +1,7 @@
 - name, qty, amount, total = Pricing::PACKAGES[package]
 - price = number_to_currency(total/100.0, unit: Purchase::CURRENCY)
 
-.row(style='margin-top: 50px')
-  .medium-2.columns
-    %h2(style='color: black')= name
-  .medium-7.columns
-    = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price)
-  .medium-3.columns
-    = link_to paypal_button, express_new_purchase_path(product: package), class: 'right', 'data-replace-with' => "#spinner#{package}"
-    %span{ id: "spinner#{package}", style: 'display: none' }
-      = t('.forwarding_to_paypal')
-      = image_tag 'loader.gif', class: 'right', style: 'width: 20px; height: 20px:'
+%label(style='margin-top: 50px')
+  = f.radio_button :product, package, checked: package=='B5'
+  -# %span= name
+  = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price)
