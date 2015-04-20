@@ -2,8 +2,8 @@
 #
 class RegisterListenerMessage < BaseMessage
 
-  def distribute(talk_channel, session_id)
-    message = { talk: talk_channel, session: session_id }
+  def distribute(talk, session)
+    message = { talk_id: talk.id, session: session }
     faye.publish_to('/register/listener', message)
   end
 

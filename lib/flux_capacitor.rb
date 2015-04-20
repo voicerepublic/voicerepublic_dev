@@ -31,9 +31,13 @@ class FluxCapacitor
       channel = '/register/listener'
       puts "subscribing to #{channel}..."
       client.subscribe(channel) do |msg|
-        self.listeners[msg['talk']][msg['session']] ||= Time.now.to_i
-        client.publish(msg['talk'], { type: 'listeners',
-                                      listeners: listeners[msg['talk']].size })
+        talk_id = msg['talk_id']
+        talk = Talk.find(talk_id)
+        self.listeners[talk_id][msg['session']] ||= Time.now.to_i
+        client.publish(talk.public_channel, { type: 'listeners',
+                                              listeners: listeners[talk_id].size })
+        # TODO write with locking
+        talk.update_attribute :listeners, listeners[talk_id]
       end
     }
   end

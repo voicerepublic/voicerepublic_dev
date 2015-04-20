@@ -46,7 +46,7 @@ class TalksController < BaseController
     respond_to do |format|
       @related_talks = @talk.related_talks
       format.html do
-        RegisterListenerMessage.call(@talk.public_channel,
+        RegisterListenerMessage.call(@talk,
                                      request.session[:session_id])
       end
       format.text do
