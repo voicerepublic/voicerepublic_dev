@@ -394,6 +394,7 @@ describe "Talks as logged in user" do
       # as of Capybara 2.0, <head> attributes cannot be found. resorting to
       # using a manual matcher.
       # google
+      save_and_open_page
       source = Nokogiri::HTML(page.source)
       expect(source.xpath("//meta[@name='description']")).not_to(be_empty)
       # fb

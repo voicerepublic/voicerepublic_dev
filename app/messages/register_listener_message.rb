@@ -8,7 +8,8 @@ class RegisterListenerMessage < BaseMessage
   end
 
   def condition
-    true # always
+    # this prevents the need for lots VCRs in specs
+    !Rails.env.test?
   end
 
 end
