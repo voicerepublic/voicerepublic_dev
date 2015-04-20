@@ -32,12 +32,13 @@ class FluxCapacitor
       puts "subscribing to #{channel}..."
       client.subscribe(channel) do |msg|
         talk_id = msg['talk_id']
-        talk = Talk.find(talk_id)
         self.listeners[talk_id][msg['session']] ||= Time.now.to_i
-        client.publish(talk.public_channel, { type: 'listeners',
-                                              listeners: listeners[talk_id].size })
+        talk = Talk.find(talk_id)
         # TODO write with locking
         talk.update_attribute :listeners, listeners[talk_id]
+        client.publish(talk.public_channel, { type: 'listeners',
+                                              listeners: listeners[talk_id].size })
+        print 'l'
       end
     }
   end
@@ -55,9 +56,9 @@ class FluxCapacitor
       return unless user_id == talk.venue.user_id.to_s
       case msg['event']
       when 'EndTalk'
-        # server annotates end_talk event with listeners
         _listeners = self.listeners.delete(talk.public_channel)
-        talk.listeners = msg[:listeners] = _listeners
+        # NOTE here we could annotate the end talk signal with stats
+        # talk.listeners = msg[:listeners] = _listeners
         talk.end_talk!
         print 'e'
       when 'StartTalk'
@@ -90,7 +91,8 @@ class FluxCapacitor
   rescue => e
     print 'X'
     Rails.logger.error(e.message)
-    #ENV["airbrake.error_id"] = notify_airbrake(e)
+    # TODO propagate errors via errbit
+    # ENV["airbrake.error_id"] = notify_airbrake(e)
     nil
   end
 
