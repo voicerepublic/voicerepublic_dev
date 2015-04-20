@@ -271,6 +271,28 @@ and
     apt-get install libsox-fmt-mp3
 
 
+Update Ruby
+===========
+
+Keep track of new ruby versions
+
+    cd ~/.rbenv/plugins/ruby-build
+    git pull
+    cd
+
+List all available
+
+    rbenv install --list
+
+Build a specific
+
+    rbenv install 2.1.2
+
+After install a new version also
+
+    rbenv global 2.1.2
+    gem install bundler
+
 TODO
 ====
 
