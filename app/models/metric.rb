@@ -1,3 +1,8 @@
+# Attributes:
+# * id [integer, primary, not null] - primary key
+# * created_at [datetime] - creation time
+# * key [string] - TODO: document me
+# * value [float] - TODO: document me
 class Metric < ActiveRecord::Base
 
   module Figures
@@ -48,7 +53,7 @@ class Metric < ActiveRecord::Base
 
     # User
     def users_total
-      User.where(guest: nil).count
+      User.count
     end
 
     # Series (aka. Venues)

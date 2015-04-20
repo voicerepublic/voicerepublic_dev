@@ -1,13 +1,13 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Participation do
 
   it 'validates presence of venue' do
-    FactoryGirl.build(:participation, venue: nil).should_not be_valid
+    expect(FactoryGirl.build(:participation, venue: nil)).not_to be_valid
   end
 
   it 'validates presence of user' do
-    FactoryGirl.build(:participation, user: nil).should_not be_valid
+    expect(FactoryGirl.build(:participation, user: nil)).not_to be_valid
   end
 
   it 'validates uniqueness of venue in scope user' do

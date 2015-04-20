@@ -1,0 +1,48 @@
+%h2 Thank you.
+
+%br
+%br
+
+You've made a purchase from Voice Republic Media AG.
+
+%ul
+  %li
+    %b Order number:
+    = [@purchase.owner.slug, @purchase.purchased_at.to_i] * '.'
+  %li
+    %b Order date:
+    = @purchase.purchased_at
+
+- total = number_to_currency(@purchase.total/100, unit: Purchase::CURRENCY)
+
+%table(style='width: 100%')
+  %tr
+    %th Item
+    %th(style='text-align: right') Price
+  %tr
+    %th(colspan='2')
+      %hr(size='1')
+  %tr
+    %td== VR Talk Credit Bundle #{@purchase.product}
+    %td(style='text-align: right')= total
+  %tr
+    %th(colspan='2')
+      %hr(size='1')
+  %tr
+    %td
+    %td(style='text-align: right')== Total: #{total}
+
+  - if @purchase.indicate_vat?
+    - mwst = number_to_currency(@purchase.total/100/100*8, unit: Purchase::CURRENCY)
+    %tr
+      %td
+      %td(style='text-align: right')== (Includes Swiss Sales Tax of 8%: #{mwst})
+  %tr
+    %th(colspan='2')
+      %hr(size='1')
+  %tr
+    %th Payment method
+    %td(style='text-align: right') Paypal Express Checkout
+
+%br
+%br

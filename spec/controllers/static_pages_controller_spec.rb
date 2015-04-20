@@ -1,12 +1,12 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe StaticPagesController do
 
-  describe "GET 'pricing'" do
-    it "returns http success" do
-      get 'pricing'
-      response.should be_success
-    end
-  end
+  # describe "GET 'pricing'" do
+  #   it "returns http success" do
+  #     get 'pricing'
+  #     expect(response).to be_success
+  #   end
+  # end
 
 end

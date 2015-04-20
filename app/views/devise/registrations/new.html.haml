@@ -1,6 +1,7 @@
 = simple_form_for( resource,
                    as: resource_name,
                    url: registration_path(resource_name) ) do |f|
+  = f.input :referrer, as: :hidden
   .input-block
     .form-content-block.row
       .medium-10.medium-centered.columns

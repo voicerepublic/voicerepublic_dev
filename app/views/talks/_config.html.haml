@@ -3,5 +3,5 @@
 -# rendered by rails.
 %script
   Sencha.factory("config", function() {
-  return #{ @talk.config_for(current_user).html_safe };
+  return #{ LivepageConfig.new(@talk, current_user).to_json.html_safe };
   });

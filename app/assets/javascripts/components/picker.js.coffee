@@ -9,13 +9,15 @@
 attribute = 'data-picker'
 
 initialize = (element, scope) ->
-  console.log "initialize: #{attribute} (#{scope})"
+  #console.log "initialize: #{attribute} (#{scope})"
 
   target = $(element)
 
   if scope == 'date'
     target.datepicker
       dateFormat: "yy-mm-dd"
+      prevText: ''
+      nextText: ''
 
   if scope == 'time'
     target.timepicker

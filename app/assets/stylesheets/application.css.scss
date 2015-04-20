@@ -22,8 +22,9 @@
 /* @import "grids_variables_mixins/foundation-icons";*/
  @import "grids_variables_mixins/vr_icons";
  @import "main";
- @import 'jquery.ui.datepicker';
- @import 'jquery.ui.slider';
+ @import 'jquery-ui/theme';
+ @import 'jquery-ui/datepicker';
+ @import 'jquery-ui/slider';
  @import 'jquery-ui-timepicker-addon';
  @import "select2";
 // SHARED
@@ -46,6 +47,7 @@
  @import "shared/login_signup";
  @import "shared/tooltip";
  @import "shared/how_to_use_vr";
+ @import "shared/debugger";
 
 // RAILS STRUCTURE
  @import "landing_page";

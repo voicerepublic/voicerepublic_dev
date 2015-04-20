@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Podcast' do
 
@@ -10,15 +10,15 @@ feature 'Podcast' do
     scenario 'properly encodeds html entities' do
       talk = FactoryGirl.create( :talk, :archived, :featured,
                                  title: 'Hello Wörld.' )
-      Talk.recent.should eq [talk]
+      expect(Talk.recent).to eq [talk]
 
       talk.storage = { "#{talk.uri}/#{talk.id}.mp3" =>
                          { duration: '1', size: '2' } }
       talk.save
 
       visit root_path(format: 'rss')
-      page.should have_xpath('//rss')
-      page.body.should include(talk.title)
+      expect(page).to have_xpath('//rss')
+      expect(page.body).to include(talk.title)
     end
 
     scenario 'link to rss in head' do
@@ -29,7 +29,7 @@ feature 'Podcast' do
 
     scenario 'landing_page#index.rss' do
       visit root_path(format: 'rss')
-      page.should have_xpath('//rss')
+      expect(page).to have_xpath('//rss')
     end
 
   end
@@ -47,7 +47,7 @@ feature 'Podcast' do
     scenario 'users#show.rss' do
       user = FactoryGirl.create(:user)
       visit user_path(user, format: 'rss')
-      page.should have_xpath('//rss')
+      expect(page).to have_xpath('//rss')
     end
 
   end
@@ -64,7 +64,7 @@ feature 'Podcast' do
 
     scenario 'venues#show.rss' do
       visit venue_path(venue, format: 'rss')
-      page.should have_xpath('//rss')
+      expect(page).to have_xpath('//rss')
     end
 
   end
@@ -98,14 +98,14 @@ feature 'Podcast' do
                      " (KHTML, like Gecko) Version/7.0 Safari/537.71"
         page.driver.browser.header('User-Agent', user_agent)
         visit venue_path(venue)
-        page.should have_xpath("//a[contains(@href,'itpc')]")
+        expect(page).to have_xpath("//a[contains(@href,'itpc')]")
       end
       scenario "iPad" do
         user_agent = "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26"+
                      " (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25"
         page.driver.browser.header('User-Agent', user_agent)
         visit venue_path(venue)
-        page.should have_xpath("//a[contains(@href,'feed')]")
+        expect(page).to have_xpath("//a[contains(@href,'feed')]")
       end
       scenario "iPad" do
         user_agent = "Mozilla/5.0 (iPhone; U; ru; CPU iPhone OS 4_2_1 like Mac OS X;"+
@@ -113,7 +113,7 @@ feature 'Podcast' do
                      " Mobile/8C148a Safari/6533.18.5"
         page.driver.browser.header('User-Agent', user_agent)
         visit venue_path(venue)
-        page.should have_xpath("//a[contains(@href,'feed')]")
+        expect(page).to have_xpath("//a[contains(@href,'feed')]")
       end
       scenario "Firefox/Linux" do
         user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:28.0) Gecko/20100101"+
@@ -122,7 +122,7 @@ feature 'Podcast' do
         visit venue_path(venue)
         xpath = "//a[contains(@href,'http://www.example.com/"+
                 "venues/#{venue.to_param}.rss')]"
-        page.should have_xpath(xpath)
+        expect(page).to have_xpath(xpath)
       end
     end
 

@@ -31,15 +31,15 @@ class LivepageConfig < Struct.new(:talk, :user)
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
       # faye
-      fayeClientUrl: PrivatePub.config[:server] + '/client.js',
-      fayeUrl: PrivatePub.config[:server],
+      fayeClientUrl: Settings.faye.server + '/client.js',
+      fayeUrl: Settings.faye.server,
       subscriptions: subscriptions,
       # streams
       namespace: "t#{talk.id}",
       # misc
-      fullname: user.name,
-      user_id: user.id,
-      handle: "u#{user.id}",
+      fullname: user.try(:name),
+      user_id: user.try(:id),
+      handle: "u#{user.try(:id)}",
       role: user_details[:role], # TODO: remove in favor of user.role
       stream: stream,
       streaming_server: Settings.rtmp.record,
@@ -58,7 +58,8 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def stream
-    "t#{talk.id}-u#{user.id}"
+    return "t#{talk.id}-u#{user.id}" if user
+    nil
   end
 
   def blackbox_path
@@ -80,7 +81,8 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def user_details
-    @user_details ||= user.details_for(talk)
+    return @user_details ||= user.details_for(talk) if user
+    { role: :listener }
   end
 
   def initial_state(role)
@@ -94,12 +96,13 @@ class LivepageConfig < Struct.new(:talk, :user)
 
   def subscriptions
     channels = [ talk.public_channel,
-                 user_details[:channel],
+                 user_details[:downmsg],
+                 user_details[:upmsg],
                  "/stat/#{stream}" ]
 
-    channels.inject({}) do |r, c|
-      r.merge c => PrivatePub.subscription(channel: c)
-    end
+    #channels.inject({}) do |r, c|
+    #  r.merge c => PrivatePub.subscription(channel: c)
+    #end
   end
 
   def statemachine_spec

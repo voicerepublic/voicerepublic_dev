@@ -12,7 +12,8 @@ class UsersController < BaseController
                       :about,
                       :password,
                       :password_confirmation,
-                      :conference ]
+                      :conference,
+                      :referrer ]
 
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 
@@ -37,10 +38,14 @@ class UsersController < BaseController
         @talks_total       = @user.talks.where.not(state: 'postlive').count
         @total_plays       = @user.talks.sum(:play_count)
 
+        # live         -> starts_at asc
+        # upcoming     -> starts_at asc
+        # archived     -> starts_at desc
+        # listen later -> starts_at desc
         @live_talks        = @user.talks.live_and_halflive.ordered
         @upcoming_talks    = @user.talks.prelive.ordered
-        @archived_talks    = @user.talks.archived.ordered
-        @remembered_talks  = Talk.remembered_by(@user).ordered
+        @archived_talks    = @user.talks.archived.reordered
+        @remembered_talks  = Talk.remembered_by(@user).reordered
 
         @venues            = @user.venues_without_default
 

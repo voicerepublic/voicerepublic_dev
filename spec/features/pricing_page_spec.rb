@@ -1,12 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'PrisingPage' do
+describe 'PricingPage' do
   it 'renders' do
   	visit root_path
   	within 'footer' do
   		click_on 'Pricing'
   	end
-    page.should have_content ("Conferences")
+    expect(page).to have_content ("Business")
   end
 end
-

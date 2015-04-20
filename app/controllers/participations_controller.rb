@@ -21,11 +21,6 @@ class ParticipationsController < BaseController
   def create
     # TODO: Is this the correct way to go?
     # FIXME: There's no authorization in this controller
-    # TODO: I18n!
-    if current_user.guest?
-      return redirect_to new_user_registration_path,
-        :notice => "You need to sign up to participate in a Series"
-    end
     @participation = @venue.participations.build
     @participation.user = current_user
 
@@ -35,10 +30,13 @@ class ParticipationsController < BaseController
     # redirect to the same talk
     #
     # TODO check if we could alternatively use the stored_location
+    #
+    # FIXME urls do not look like this anymore!
     if request.referer =~ /\/venues\/.+\/talks\/(.+)\z/
       target = [ @venue, @venue.talks.find($1) ]
     end
 
+    authorize! :create, @participation
     respond_to do |format|
       if @participation.save
         format.html { redirect_to target } # after join redirect to venue page
@@ -52,6 +50,8 @@ class ParticipationsController < BaseController
   # DELETE /participations/1.json
   def destroy
     @participation = Participation.find(params[:id])
+
+    authorize! :destroy, @participation
     @participation.destroy
 
     respond_to do |format|

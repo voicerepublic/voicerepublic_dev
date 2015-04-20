@@ -1,7 +1,8 @@
 -# find states under angular/controllers/livepage.js.coffee
 
 - content_for :head do
-  = render 'shared/social_meta_tags'
+  = social_meta_tags_talk
+
 - content_for :title do
   = t('.title', title: @talk.title)
 
@@ -12,6 +13,7 @@
   .large-12.text-center= t('.initializing')
 
 .layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
+  = render 'debugger' if current_user.try(:developer?) or Rails.env.development?
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.rounded.centered(ng-show='!hasFlash() && talkIsLive()')
       #flash_error_for_listener= raw t('require_flash_for_listening')
@@ -30,8 +32,8 @@
           .bc-delimiter >
 
           .links-box
-            - unless current_user.remembers?(@talk)
-              - if (!current_user || current_user.guest)
+            - unless current_user.try(:remembers?, @talk)
+              - if !current_user
                 %a(class="link-remember" data-reveal-id="modal-login-signup" ng-show='userIsAListener()')
                   %span.icon-plus
                   %span.link-text= t('.remember')
@@ -53,6 +55,7 @@
 
 
         = render partial: 'shared/social_share', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
+        .dryrun= t('.dryrun') if @talk.dryrun?
         %h2.talk-title
           = @talk.title
         .talk-teaser(ng-show='showTalkTeaser()')
@@ -61,7 +64,6 @@
           = t('.date_start_end', date: l(@talk.starts_at, format: :date_only),
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
-
 
         -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
@@ -124,9 +126,9 @@
               %ul.list-style-type-none
                 = render partial: "shared/talk_small_box", locals: { talk_small_box: @talk.next_talk, color: 'box-transparent' }
 
-        - if current_user.guest?
+        - unless user_signed_in?
           .vr-banner
-            = link_to '#', 'data-reveal-id' => "vr-banner-modal" do
+            = link_to '#', 'data-reveal-id' => "vr-banner-modal", 'data-ga-event' => "click talk vr_anonymous_explain_banner talk:#{@talk.id}" do
               %h3
                 = t('.banner_title')
               %p
@@ -146,6 +148,8 @@
         - unless @talk.archived?
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
+          .pending-message(ng-show='talkIsQueued()')
+            %a= t('.talk_queued_for_processing')
           .processing-message(ng-show='talkIsProcessing()')
             %a= t('.talk_is_processing')
             .progress
@@ -318,13 +322,8 @@
             %span.icon-mic
             = t('.setting_up_audio')
         #flashContent
-        %a(ng-show='flags.blackboxReady' href="http://blog.voicerepublic.com/audio-faq/" class="need-help" target="blank")
+        %a(ng-show='flags.blackboxReady' href="http://blog.voicerepublic.com/" class="need-help" target="blank")
           =t('.need_help')
-
-      -# TODO: Rewrite audio-faq and publish the link again
-      -#= link_to 'http://blog.voicerepublic.com/audio-faq/', class: 'link-tutorial', target: 'blank' do
-      -#  %p
-      -#    = raw t('.audio_settings_help_text')
 
   .row.collapse-large-only
     .large-12.columns
@@ -446,7 +445,7 @@
 
 .scripts
   :javascript
-    window.insider = #{current_user.insider?};
+    window.insider = #{current_user.try(:insider?)};
     window.console.off = #{!!(Settings.disable_js_debugging && !current_user.insider?)};
   = javascript_include_tag 'sencha'
   = render 'config'

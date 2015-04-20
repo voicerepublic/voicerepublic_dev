@@ -1,4 +1,4 @@
-VoiceRepublic::Application.configure do
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   config.eager_load = false
@@ -39,4 +39,23 @@ VoiceRepublic::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Asset digests allow you to set far-future HTTP expiration dates on all assets,
+  # yet still be able to expire them through the digest params.
+  config.assets.digest = true
+
+  # Adds additional error checking when serving assets at runtime.
+  # Checks for improperly declared sprockets dependencies.
+  # Raises helpful error messages.
+  config.assets.raise_runtime_errors = true
+
+  # Raises error for missing translations
+  # config.action_view.raise_on_missing_translations = true
+
+  # fixes generating return_url for paypal in dev env
+  config.after_initialize do
+    Rails.application.routes.default_url_options[:host] =
+      Settings.dev_host_and_port || 'localhost:3000'
+  end
+
 end

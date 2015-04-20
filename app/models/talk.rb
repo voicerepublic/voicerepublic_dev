@@ -5,6 +5,7 @@
 # * collect [boolean, default=true] - TODO: document me
 # * created_at [datetime] - creation time
 # * description [text] - TODO: document me
+# * dryrun [boolean] - TODO: document me
 # * duration [integer, default=30] - TODO: document me
 # * edit_config [text] - TODO: document me
 # * ended_at [datetime] - TODO: document me
@@ -128,6 +129,8 @@ class Talk < ActiveRecord::Base
   before_create :inherit_penalty
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
+  after_create :create_and_process_debit_transaction!, unless: :dryrun?
+  after_create :set_auto_destruct_mode, if: :dryrun?
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
@@ -159,18 +162,22 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
+  scope :nodryrun, -> { where(dryrun: false) }
+
   scope :featured, -> do
-    where("featured_from < ?", Time.zone.now).
+    nodryrun.
+      where("featured_from < ?", Time.zone.now).
       where(state: [:prelive, :live]).
       order('featured_from DESC')
   end
 
-  scope :popular, -> { archived.order('popularity DESC') }
+  scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
-  scope :live_and_halflive, -> { where(state: [:live, :halflive]) }
+  scope :reordered, -> { order('starts_at DESC') }
+  scope :live_and_halflive, -> { nodryrun.where(state: [:live, :halflive]) }
 
   scope :recent, -> do
-    archived.order('ended_at DESC').
+    nodryrun.archived.order('ended_at DESC').
       where('featured_from IS NOT NULL')
   end
 
@@ -209,10 +216,6 @@ class Talk < ActiveRecord::Base
     tstart = started_at || starts_at
     tend = tstart.to_i + duration.minutes
     tend - Time.now.to_i
-  end
-
-  def config_for(user)
-    LivepageConfig.new(self, user).to_json
   end
 
   def public_channel
@@ -388,6 +391,11 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def set_auto_destruct_mode
+    delta = created_at + 24.hours
+    Delayed::Job.enqueue(DestroyTalk.new(id: id), queue: 'trigger', run_at: delta)
+  end
+
   def after_start
     MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
@@ -550,12 +558,12 @@ class Talk < ActiveRecord::Base
   def manifest(chain=nil)
     chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
-      id: id,
-      chain: chain,
+      id:         id,
+      chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in: File.expand_path(Settings.paths.jingles.in, Rails.root),
-      jingle_out: File.expand_path(Settings.paths.jingles.out, Rails.root)
+      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
@@ -662,6 +670,18 @@ class Talk < ActiveRecord::Base
 
   def inherit_penalty
     self.penalty = venue.penalty
+  end
+
+  def create_and_process_debit_transaction!
+    return unless Settings.payment_enabled
+    DebitTransaction.create(source: self).process!
+  end
+
+  # TODO refactor this into some place where it makes sense
+  # returns either a url or an absolute fs path
+  def locate(path_or_url)
+    return path_or_url if path_or_url.match(/^https?:/)
+    File.expand_path(path_or_url, Rails.root)
   end
 
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ParticipationsController do
 
@@ -7,8 +7,8 @@ describe ParticipationsController do
     # login user
     before  do
       @user = FactoryGirl.create(:user)
-      request.env['warden'].stub :authenticate! => @user
-      controller.stub :current_user => @user
+      allow(request.env['warden']).to receive_messages :authenticate! => @user
+      allow(controller).to receive_messages :current_user => @user
     end
 
     def valid_attributes
@@ -17,29 +17,15 @@ describe ParticipationsController do
 
     describe 'POST create' do
       before { @venue = FactoryGirl.create(:venue) }
-      describe 'guests' do
-        it 'leads guests to the signup form' do
-          @user.update_attribute :guest, true
-          request.env['warden'].stub :authenticate! => @user
-          controller.stub :current_user => @user
-          Participation.count.should eq(0)
-          post :create, { venue_id: @venue.id, participation: valid_attributes }
-          response.should redirect_to(new_user_registration_path)
-          Participation.count.should eq(0)
-        end
-
-        it 'leads actual users back to where they came from' do
-          post :create, { venue_id: @venue.id, participation: valid_attributes }
-          response.should redirect_to(@venue)
-        end
+      it 'leads actual users back to where they came from' do
+        post :create, { venue_id: @venue.id, participation: valid_attributes }
+        expect(response).to redirect_to(@venue)
       end
-      describe 'with valid parameters' do
-        it 'creates a new Participation' do
-          @venue = FactoryGirl.create(:venue)
-          expect {
-            post :create, { venue_id: @venue.id, participation: valid_attributes }
-          }.to change(Participation, :count).by(1)
-        end
+      it 'creates a new Participation' do
+        @venue = FactoryGirl.create(:venue)
+        expect {
+          post :create, { venue_id: @venue.id, participation: valid_attributes }
+        }.to change(Participation, :count).by(1)
       end
     end
 

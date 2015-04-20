@@ -1,5 +1,5 @@
 # encoding: UTF-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe Talk do
 
@@ -24,8 +24,8 @@ describe Talk do
           user_override_uuid: '038ee6b8-0557-4172-8ad6-2548dccd4793'
 
         talk.valid?
-        talk.errors[:starts_at_date].should include("needs to be in the past")
-        talk.errors[:starts_at_time].should include("needs to be in the past")
+        expect(talk.errors[:starts_at_date]).to include("needs to be in the past")
+        expect(talk.errors[:starts_at_time]).to include("needs to be in the past")
       end
 
       it 'uploads go directly into state "pending"' do
@@ -48,7 +48,7 @@ describe Talk do
       end
       it 'saves into other state than "postlive"' do
         talk = FactoryGirl.create :talk
-        talk.state.should_not == :postlive
+        expect(talk.state).not_to eq(:postlive)
       end
     end
 
@@ -117,15 +117,15 @@ describe Talk do
       featured_talk.related_talk = related_talk
       featured_talk.save
 
-      related_talk.reload.featured_talk.should eq(featured_talk)
+      expect(related_talk.reload.featured_talk).to eq(featured_talk)
     end
     context 'next talk' do
       before do
         @talk = FactoryGirl.create :talk
       end
       it 'returns nil when there is no next talk' do
-        @talk.venue.talks.count.should eq(1)
-        @talk.next_talk.should be_nil
+        expect(@talk.venue.talks.count).to eq(1)
+        expect(@talk.next_talk).to be_nil
       end
 
       it 'returns the next talk' do
@@ -133,9 +133,9 @@ describe Talk do
         @talk.venue.talks << FactoryGirl.create(:talk, title: 'second')
         @talk.venue.talks << FactoryGirl.create(:talk, title: 'third')
 
-        @talk.next_talk.title.should                     == 'first'
-        @talk.next_talk.next_talk.title.should           == 'second'
-        @talk.next_talk.next_talk.next_talk.title.should == 'third'
+        expect(@talk.next_talk.title).to                     eq('first')
+        expect(@talk.next_talk.next_talk.title).to           eq('second')
+        expect(@talk.next_talk.next_talk.next_talk.title).to eq('third')
       end
     end
   end
@@ -144,7 +144,7 @@ describe Talk do
     it 'has a scope featured' do
       talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
       talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
-      talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
+      FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
       expect(Talk.featured).to eq([talk1, talk0])
       expect(Talk.featured).to include(talk0)
     end
@@ -152,26 +152,26 @@ describe Talk do
     describe 'saves the Content-Type' do
       before { @talk = FactoryGirl.create(:talk) }
       it 'works for m4a' do
-        pending 'find a way to spec the mime type hack "m4a -> audio/mp4"'
+        skip 'find a way to spec the mime type hack "m4a -> audio/mp4"'
         m4a_file = File.expand_path("spec/support/fixtures/transcode0/1.m4a", Rails.root)
         @talk.send(:upload_file, '1.m4a', m4a_file)
 
         media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
-        media_storage.files.get('1.m4a').content_type.should == 'audio/mp4'
+        expect(media_storage.files.get('1.m4a').content_type).to eq('audio/mp4')
       end
       it 'works for mp3' do
         mp3_file = File.expand_path("spec/support/fixtures/transcode0/1.mp3", Rails.root)
         @talk.send(:upload_file, '1.mp3', mp3_file)
 
         media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
-        media_storage.files.get('1.mp3').content_type.should == 'audio/mpeg'
+        expect(media_storage.files.get('1.mp3').content_type).to eq('audio/mpeg')
       end
       it 'works for ogg' do
         ogg_file = File.expand_path("spec/support/fixtures/transcode0/1.ogg", Rails.root)
         @talk.send(:upload_file, '1.ogg', ogg_file)
 
         media_storage = Storage.directories.new(key: Settings.storage.media, prefix: @talk.uri)
-        media_storage.files.get('1.ogg').content_type.should == 'audio/ogg'
+        expect(media_storage.files.get('1.ogg').content_type).to eq('audio/ogg')
       end
     end
 
@@ -184,12 +184,12 @@ describe Talk do
     it 'sets the time of starts_at via starts_at_time' do
       @talk.starts_at_time = '12:34'
       @talk.save
-      @talk.starts_at.strftime('%H:%M').should eq('12:34')
+      expect(@talk.starts_at.strftime('%H:%M')).to eq('12:34')
     end
     it 'sets the date of starts_at via starts_at_date' do
       @talk.starts_at_date = '2013-12-31'
       @talk.save
-      @talk.starts_at.strftime('%Y-%m-%d').should eq('2013-12-31')
+      expect(@talk.starts_at.strftime('%Y-%m-%d')).to eq('2013-12-31')
     end
     it 'computes starts_in for use in prelive' do
       expect(@talk.starts_in).to eq((@talk.starts_at - Time.now).to_i)
@@ -233,15 +233,15 @@ describe Talk do
     user = FactoryGirl.create(:user)
     ActionMailer::Base.deliveries = []
     venue = FactoryGirl.create(:venue, user: user, options: { no_email: true })
-    talk = FactoryGirl.create(:talk, venue: venue)
-    ActionMailer::Base.deliveries.should be_empty
+    FactoryGirl.create(:talk, venue: venue)
+    expect(ActionMailer::Base.deliveries).to be_empty
   end
 
   # TODO resolve code duplication in this section
   describe 'nicely processes audio' do
 
     it 'in state postlive', slow: true do
-      pending 'omit in CI' if ENV['CI']
+      skip 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -265,11 +265,11 @@ describe Talk do
       base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
       result = File.join(base, Settings.storage.media,
                          talk.uri, talk.id.to_s + '.m4a')
-      expect(File.exist?(result)).to be_true
+      expect(File.exist?(result)).to be_truthy
     end
 
     it 'in state archived', slow: true do
-      pending 'omit in CI' if ENV['CI']
+      skip 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -299,7 +299,7 @@ describe Talk do
     end
 
     it 'in state archived with override', slow: true do
-      pending 'omit in CI' if ENV['CI']
+      skip 'omit in CI' if ENV['CI']
       talk = FactoryGirl.create(:talk, collect: true)
 
       # move fixtures in place
@@ -339,11 +339,11 @@ describe Talk do
   describe 'nicely handles callbacks' do
 
     it 'running after_start' do
-      pending 'Please write a spec, pretty please!'
+      skip 'Please write a spec, pretty please!'
     end
 
     it 'running after_end' do
-      pending 'Please write a spec, pretty please!'
+      skip 'Please write a spec, pretty please!'
     end
 
   end
@@ -389,6 +389,36 @@ describe Talk do
       talk = FactoryGirl.create(:talk, :archived)
       talk.set_penalty!(0.5)
       expect(talk.penalty).to eq(0.5)
+    end
+
+  end
+
+  describe 'debit' do
+    it 'reduces the owners credits by one' do
+      user = FactoryGirl.create(:user)
+      user_credits = user.reload.credits
+      FactoryGirl.create(:talk, venue: user.default_venue)
+      if Settings.payment_enabled
+        expect(user.reload.credits).to eq(user_credits - 1)
+      else
+        expect(user.reload.credits).to eq(user_credits)
+      end
+    end
+  end
+
+  describe 'dryrun' do
+    it 'automatically destroys the talk after a while' do
+      Delayed::Worker.delay_jobs = true # activate
+      expect(Delayed::Job.count).to eq(0)
+      talk = FactoryGirl.create :talk, dryrun: true
+      expect(Delayed::Job.count).to eq(1)
+      Timecop.travel(25.hours.from_now)
+      successes, failures = Delayed::Worker.new.work_off
+      expect(Delayed::Job.count).to eq(0)
+      expect(successes).to eq(1)
+      expect(failures).to eq(0)
+      expect(Talk.where(id: talk.id)).to be_empty
+      Delayed::Worker.delay_jobs = false # deactivate
     end
 
   end

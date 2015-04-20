@@ -2,12 +2,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new
     resource = build_resource(user_params)
-    respond_with resource
-  end
 
-  def create
-    @guest_user = session[:guest_user_id] = nil
-    super
+    affiliate = [ request.env['affiliate.tag'],
+                  request.env['affiliate.time'],
+                  request.env['affiliate.from'] ].compact * '|'
+    affiliate = nil if affiliate.blank?
+    resource.referrer = affiliate
+
+    respond_with resource
   end
 
   private

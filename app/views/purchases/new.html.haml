@@ -1,0 +1,19 @@
+- price = number_to_currency(@purchase.total/100.0, unit: Purchase::CURRENCY)
+
+.row(style='margin-top: 100px')
+  .large-12.columns
+    %p= t('.payment_authorized')
+    = t('.you_are_buying_count_for_the_price_of_amount', count: @purchase.quantity, amount: price)
+    %br
+    %br
+    = simple_form_for @purchase do |f|
+      = f.input :product, as: :hidden
+      = f.input :express_token, as: :hidden
+      = f.input :express_payer_id, as: :hidden
+      = f.submit t('.complete_purchase'), class: 'button-vr'
+
+    - if Rails.env.development?
+      %hr
+      %h3= t('.gory_details')
+      %p We only show this to you because you're in a dev env.
+      %pre= @purchase.to_yaml

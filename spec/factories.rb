@@ -1,19 +1,20 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
-# TODO remove faker, it slows things down, while not having any benefits!
-require 'faker'
-
+# TODO why is this here?
 include ActionDispatch::TestProcess
 
+# Good to know when using FactoryGirl with Spring: Changes to the
+# factories will only be picked up after you stopped spring!
+#
 FactoryGirl.define do
 
   factory :venue do
-    # provided by defaults via localized `Settings.venue.default_attributes`
-    # tag_list    'some, tags'
-    # teaser      'Some teaser not longer than 140 chars'
-    # description Faker::Lorem.paragraphs(2).join("\n")
-    title       Faker::Lorem.sentence
+    title 'Series title'
     user
+  end
+
+  sequence :email do |n|
+    "hans#{n}@example.com"
   end
 
   # the default user is a confirmed user, if you need an unconfirmed
@@ -26,26 +27,29 @@ FactoryGirl.define do
       unconfirmed false
     end
 
-    email { Faker::Internet.email }
-    firstname { Faker::Name.first_name }
-    lastname { Faker::Name.last_name }
-    last_request_at {Time.now}
-    secret = "mysecret"
-    password secret
+    firstname 'Hans'
+    lastname 'Hanebambel'
+    email
+    last_request_at { Time.now }
+    password secret = "mysecret"
     password_confirmation secret
     timezone 'Berlin'
+
+    trait :with_credits do
+      credits 3
+    end
 
     trait :unconfirmed do
       unconfirmed true
     end
 
-    after(:create) do |user, evaluator|
+    after :create do |user, evaluator|
       user.confirm! unless evaluator.unconfirmed
     end
   end
 
   factory :comment do
-    content { Faker::Lorem.paragraph }
+    content 'Lots of content here'
     user
     association :commentable, factory: :venue
   end
@@ -56,7 +60,7 @@ FactoryGirl.define do
   end
 
   factory :talk do
-    title "MyString"
+    title "Some awesome title"
     venue
     # NOTE: times set here are not affected by `Timecop.freeze` in a
     # `before` block
@@ -65,7 +69,7 @@ FactoryGirl.define do
     duration 60
     collect false
     tag_list 'lorem, ipsum, dolor'
-    description 'talk description'
+    description 'Some talk description'
     language 'en'
 
     trait :archived do
@@ -106,4 +110,16 @@ FactoryGirl.define do
     user
     rememberable nil
   end
+
+
+  factory :purchase do
+    owner factory: :user
+    product Pricing::BUSINESS.first
+    country 'CH'
+  end
+
+  factory :purchase_transaction do
+    association :source, factory: :purchase
+  end
+
 end

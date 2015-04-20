@@ -3,7 +3,7 @@
 selector = '.guestList'
 
 initialize = (node) ->
-  console.log "initialize: #{selector}"
+  #console.log "initialize: #{selector}"
 
   guests = JSON.parse($(node).val())
   $(node).select2

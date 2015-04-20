@@ -1,0 +1,54 @@
+#debugger
+  %pre
+    = preserve do
+      hasFlash                  {{ hasFlash() }}
+      progress                  {{ progress() }}
+      trouble                   {{ trouble() }}
+      muteState                 {{ muteState }}
+
+      flags.connecting          {{ flags.connecting }}
+      flags.blackboxReady       {{ flags.blackboxReady }}
+      -# countdown                 {{ countdown }}
+      talkProgress              {{ talkProgress | number: 2 }}
+      feedback.data.kb          {{ feedback.data.kb }}
+      feedback.data.codec       {{ feedback.data.codec }}
+
+      -# showFlashError            {{ showFlashError() }}
+      -# showStartButton           {{ showStartButton() }}
+      -# showUnstartedMessage      {{ showUnstartedMessag() }}
+      -# showEndTalk               {{ showEndTalk() }}
+      -# showDownloadButton        {{ showDownloadButton() }}
+      -# showInfoLink              {{ showInfoLink() }}
+      -# showTalkTeaser            {{ showTalkTeaser() }}
+      -# showCountdown             {{ showCountdown() }}
+      -# showBandwidth             {{ showBandwidth() }}
+      -# showParticipantActionsBox {{ showParticipantActionsBox() }}
+      -# showPrelive               {{ showPrelive() }}
+      -# showOnAir                 {{ showOnAir() }}
+      -# showAcceptOrDecline       {{ showAcceptOrDecline() }}
+      -# showAwaitingMic           {{ showAwaitingMic() }}
+      -# showSettings              {{ showSettings() }}
+      -# showHostActions           {{ showHostActions() }}
+      -# userIsAListener           {{ userIsAListener() }}
+
+      config.user.role          {{ config.user.role }}
+      config.talk.state         {{ config.talk.state }}
+      session.fsm.current       {{ session.fsm.current }}
+
+  %hr
+  %p Users
+  %table(width='100%')
+    %tr
+      %th Id
+      %th Name
+      %th Role
+      %th State
+      -# %th Stream
+      -# %th Channel
+    %tr(ng-repeat='user in config.session')
+      %td {{ user.id }}
+      %td {{ user.name }}
+      %td {{ user.role }}
+      %td {{ user.state }}
+      -# %td {{ user.stream }}
+      -# %td {{ user.channel }}

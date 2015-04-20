@@ -88,7 +88,12 @@ namespace :deploy do
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-   end
+    end
+
+    # unfortunately it does not work like this
+    # on roles(:web) do
+    #   execute :rake, 'build:sitemap'
+    # end
   end
 
 end

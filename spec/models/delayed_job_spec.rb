@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Delayed::Job do
 
@@ -32,7 +32,7 @@ describe Delayed::Job do
   it 'works with DJ' do
     expect(Delayed::Worker.delay_jobs).to be(false)
     Delayed::Worker.delay_jobs = true
-    expect { @object.delay.pop }.to_not change(TestClass, :count).by(-1)
+    expect { @object.delay.pop }.to_not change(TestClass, :count)
     expect { Delayed::Worker.new(:quiet => true).work_off(1) }.to change(TestClass, :count).by(-1)
     Delayed::Worker.delay_jobs = false
   end

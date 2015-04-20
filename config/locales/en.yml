@@ -319,9 +319,9 @@ en:
       search: Search
       explore: Explore
       my_profile: Profile
-      my_next_talks: My next Talks
-      create_venue: Create Series
-      settings: Settings
+      schedule_talk: Schedule A Live Talk
+      upload_talk: Upload A Recording
+      test_talk: 'Test A Talk (Free)'
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
@@ -466,3 +466,31 @@ en:
 
   flash_player:
     not_archived_yet: "This talk is not archived, yet"
+  low_on_credits: |
+    Sorry, you've no credits left. Buy some...
+  purchases:
+    index:
+      our_packages: Our Packages
+    new:
+      payment_authorized: |
+        Your payment has been authorized successfully.
+      you_are_buying_count_for_the_price_of_amount:
+        one: Please confirm to buy a single VR talk credit for the price of %{amount}
+        other: |
+          Please confirm to buy %{count} VR talk credits for the price of %{amount}
+      complete_purchase: Complete your purchase
+    package:
+      purchase_count_at_a_price_of_amount:
+        one: Purchase a single talk credit at a price of %{amount}
+        other: Purchase %{count} talk credits at a price of %{amount}
+      forwarding_to_paypal: Forwarding you...
+    show:
+      headline: Thank You for Your purchase
+      able_to_create_count_talks:
+        one: You are now able to create one more talk.
+        other: You are now able to create %{count} talks.
+      schedule_talk: Schedule a Live Talk
+      upload_talk: Upload a Recording
+  purchase_mailer:
+    invoice:
+      subject: Your Voice Republic Order Receipt
