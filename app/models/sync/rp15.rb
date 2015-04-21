@@ -47,7 +47,7 @@ module Sync
 
     def sync
 
-      raise 'No rep15.user_id' unless Settings.rep15.user_id
+      raise 'No rep15.user_id' unless Settings.try(:rep15).try(:user_id)
       rp15_user = User.find(Settings.rep15.user_id)
 
       sessions.map do |session|
