@@ -408,7 +408,6 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
-    # TODO make this message go trough FluxCapacitor
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     unless venue.opts.no_auto_postprocessing
       Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
