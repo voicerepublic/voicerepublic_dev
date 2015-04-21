@@ -321,6 +321,7 @@ en:
       my_profile: Profile
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
+      go_pro: Go Pro
       test_talk: 'Test A Talk (Free)'
       logout: Log Out
     check_flash:
@@ -480,9 +481,8 @@ en:
           Please confirm to buy %{count} VR talk credits for the price of %{amount}
       complete_purchase: Complete your purchase
     package:
-      purchase_count_at_a_price_of_amount:
-        one: Purchase a single talk credit at a price of %{amount}
-        other: Purchase %{count} talk credits at a price of %{amount}
+      purchase_count_at_a_price_of_amount: |
+        %{count} talk credits at %{amount}
       forwarding_to_paypal: Forwarding you...
     show:
       headline: Thank You for Your purchase

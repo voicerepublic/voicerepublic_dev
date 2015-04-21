@@ -1,4 +1,3 @@
-
 # The LivepageController
 livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $window, upstream) ->
 
@@ -104,8 +103,8 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.promote = session.promote
   $scope.demote = session.demote
 
-  # returns list of (anonymous) users listening
-  $scope.listeners = session.listeners
+  $scope.numberOfListeners = ->
+    config.talk.listeners
 
   $scope.mediaLinks = config.talk.links
   $scope.discussion = session.discussion

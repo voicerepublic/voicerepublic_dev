@@ -13,7 +13,7 @@ describe PurchasesController do
     describe "GET 'express'" do
       it "returns http success" do
         pending unless Settings.payment_enabled
-        get 'express'
+        get 'express', purchase: { product: 'B5' }
         expect(response).to be_redirect
       end
     end
