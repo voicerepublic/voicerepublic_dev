@@ -8,6 +8,7 @@
     .medium-12.columns
       = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right'
       = f.button :submit, class: 'button-save right'
-      .eagle.right(style='margin: 9px')
-        %i.icon-info
-        = t('.billing_notice')
+      - unless @talk.dryrun?
+        .eagle.right(style='margin: 9px')
+          %i.icon-info
+          = t('.billing_notice')
