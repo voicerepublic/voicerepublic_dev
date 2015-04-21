@@ -120,8 +120,7 @@ feature 'Podcast' do
                      " Firefox/28.0"
         page.driver.browser.header('User-Agent', user_agent)
         visit venue_path(venue)
-        xpath = "//a[contains(@href,'http://www.example.com/"+
-                "venues/#{venue.to_param}.rss')]"
+        xpath = "//a[contains(@href,'venues/#{venue.to_param}.rss')]"
         expect(page).to have_xpath(xpath)
       end
     end
