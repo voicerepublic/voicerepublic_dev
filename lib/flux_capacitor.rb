@@ -32,6 +32,8 @@ class FluxCapacitor
       puts "subscribing to #{channel}..."
       client.subscribe(channel) do |msg|
         talk_id = msg['talk_id']
+        # TODO: The listeners Hash in FluxCapacitor is not needed since the information is also persisted in Talk
+        # TODO: We can skip persisting and publishing this information when the listener is already known
         self.listeners[talk_id][msg['session']] ||= Time.now.to_i
         talk = Talk.find(talk_id)
         # TODO write with locking
