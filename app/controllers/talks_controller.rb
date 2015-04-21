@@ -45,7 +45,10 @@ class TalksController < BaseController
   def show
     respond_to do |format|
       @related_talks = @talk.related_talks
-      format.html
+      format.html do
+        RegisterListenerMessage.call(@talk,
+                                     request.session[:session_id])
+      end
       format.text do
         authorize! :manage, @talk
         render text: @talk.message_history

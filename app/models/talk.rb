@@ -153,6 +153,7 @@ class Talk < ActiveRecord::Base
   end
   # End 'user audio upload'
 
+  serialize :listeners
   serialize :session
   serialize :storage
   serialize :social_links

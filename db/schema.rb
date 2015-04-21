@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414142102) do
+ActiveRecord::Schema.define(version: 20150420073537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150414142102) do
     t.float    "penalty",                        default: 1.0
     t.boolean  "dryrun",                         default: false
     t.text     "social_links",                   default: "--- []"
+    t.text     "listeners",                      default: "--- {}"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
