@@ -315,7 +315,7 @@ private function subscribeStream(stream:String):void {
 }
 
 private function unsubscribeAll():void {
-  log("Closing "+netConnections.length()+" NetConnections.");
+  log("Closing "+netConnections.length+" NetConnections.");
   for each (var nc:NetConnection in netConnections) {
     nc.close();
   }
