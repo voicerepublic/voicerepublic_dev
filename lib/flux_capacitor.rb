@@ -74,7 +74,7 @@ class FluxCapacitor
   rescue => e
     print 'X'
     Rails.logger.error(e.message)
-    env["airbrake.error_id"] = notify_airbrake(e)
+    #ENV["airbrake.error_id"] = notify_airbrake(e)
     nil
   end
 

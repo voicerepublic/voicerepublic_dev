@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
   if Settings.payment_enabled
+    get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
     resources :purchases, only: [ :index, :new, :create, :show ] do
       get 'express', on: :new
     end
+  else
+    get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
   end
 
   resources :uploads, only: [ :new, :create ]
-
-  #get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
-  get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
 
   post '/xhr/talk/:id/messages', to: 'xhr/messages#create'
   get  '/xhr/users',             to: 'xhr/users#index'

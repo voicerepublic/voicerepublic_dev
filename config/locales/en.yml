@@ -321,7 +321,8 @@ en:
       my_profile: Profile
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
-      test_talk: Test Hosting A Talk
+      go_pro: Go Pro
+      test_talk: 'Test A Talk (Free)'
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.

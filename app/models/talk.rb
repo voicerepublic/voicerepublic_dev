@@ -523,11 +523,14 @@ class Talk < ActiveRecord::Base
     worker.run(Rails.logger)
   end
 
-  # move flvs to fog storage
+  # move flvs to fog storage whil removing empty files
   def upload_flvs!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
     files = Dir.glob("#{base}/t#{id}-u*.flv")
     files.each do |file|
+      # remove empty files
+      next FileUtils.rm(file, verbose: true) if File.size?(file) == 0
+
       cache_storage_metadata(file)
       key = "#{uri}/#{File.basename(file)}"
       upload_file(key, file)
