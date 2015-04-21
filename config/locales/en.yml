@@ -321,6 +321,7 @@ en:
       my_profile: Profile
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
+      go_pro: Go Pro
       test_talk: 'Test A Talk (Free)'
       logout: Log Out
     check_flash:
