@@ -47,8 +47,8 @@ module Sync
 
     def sync
 
-      raise 'No rep15_user_id' unless Settings.rep15_user_id
-      rp15_user = User.find(Settings.rep15_user_id)
+      raise 'No rep15.user_id' unless Settings.rep15.user_id
+      rp15_user = User.find(Settings.rep15.user_id)
 
       sessions.map do |session|
         begin
@@ -217,8 +217,7 @@ module Sync
     end
 
     def slack
-      @slack ||= Slack.new('@branch14', 'Doomguy', icon)
-      #@slack ||= Slack.new('#rp15', 'Doomguy', icon)
+      @slack ||= Slack.new(Settings.rep15.slack_channel, 'Doomguy', icon)
     end
 
   end
