@@ -32,6 +32,9 @@ Capybara.register_driver :poltergeist do |app|
   })
 end
 
+Capybara.app_host = "http://localhost:5151"
+Capybara.server_port = 5151
+
 Capybara.register_driver :firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
   profile.add_extension(File.expand_path(File.join(Rails.root, 'spec', 'support', 'firefox_extensions', 'firebug-1.12.6.xpi')))

@@ -107,7 +107,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    browser (0.4.1)
+    browser (0.8.0)
     builder (3.2.2)
     byebug (3.1.2)
       columnize (~> 0.8)
