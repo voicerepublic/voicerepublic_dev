@@ -74,8 +74,8 @@ en:
     show:
       you_have_x_credits_left:
         zero: |
-          You don't have any credits. In order to stream or upload you
-          need to purchase some credits.
+          <p>You have run out of credits.</p>
+          <p>In order to stream or upload you need to purchase some credits.</p>
         one: |
           Only one credit left. You should purchase some credits
           before you run out.

@@ -438,14 +438,14 @@
                       .guest-promote-link.text-center(ng-click="promote(user.id)")
                         = t('.invite_to_stage')
 
-              .listening(ng-show="listeners().length")
+              .listening
                 %h3
-                  {{ listeners().length }}
-                  = t('.anonymous_listener')
+                  {{ numberOfListeners() }}
+                  = t('.listeners')
 
 .scripts
   :javascript
     window.insider = #{current_user.try(:insider?)};
-    window.console.off = #{!!(Settings.disable_js_debugging && !current_user.insider?)};
+    window.console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
   = javascript_include_tag 'sencha'
   = render 'config'

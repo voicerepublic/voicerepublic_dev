@@ -3,5 +3,4 @@
 
 %label(style='margin-top: 50px')
   = f.radio_button :product, package, checked: package=='B5'
-  -# %span= name
   = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price)
