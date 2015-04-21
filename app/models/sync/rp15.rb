@@ -3,6 +3,10 @@ module Sync
 
     TAGS = {
       're:publica'            => 'republica, Conference, Konferenz',
+      'Media Convention'      => 'republica, Media, Medien, Convention',
+      're:cord Musicday'      => 'republica, record, Musicday',
+      're:health'             => 'republica, Health, Gesundheit',
+      'City Of The Future'    => 'republica, CityOfTheFuture, StadtDerZukunft',
       'Culture'               => 'republica, Culture, Kultur',
       'Politics & Society'    => 'republica, Politics, Politik, Society, Gesellschaft',
       'Media'                 => 'republica, Media, Medien',
@@ -46,28 +50,32 @@ module Sync
       raise 'No rep15_user_id' unless Settings.rep15_user_id
       rp15_user = User.find(Settings.rep15_user_id)
 
-      items.map do |item|
+      sessions.map do |session|
         begin
           # sanity checks
-          nid = item.nid
+          nid = session.nid
           raise 'No nid' if nid.blank?
-          category = item.category.strip
+          category = session.category.strip
           if category.blank?
             self.warnings << "% 4s: Category missing, using 're:publica'." % nid
             category = 're:publica'
+          else
+            if TAGS[category].nil?
+              self.errors << "% 4s: No tags defined for category: %s" % [nid, category]
+            end
           end
-          _, d, m, y = item.datetime.match(DATETIME_REGEX).to_a
+          _, d, m, y = session.datetime.match(DATETIME_REGEX).to_a
           unless _
             self.warnings << ("% 4s: Unknown datetime format '%s', "+
-              "assuming first day.") % [nid, item.datetime]
+              "assuming first day.") % [nid, session.datetime]
             y, m, d = %w(2015 05 05)
           end
-          start_time = item.start
+          start_time = session.start
           if start_time.blank?
             self.warnings << "% 4s: Start time blank, assuming 9am." % nid
-            start_time = '9:00'
+            start_time = '09:00'
           end
-          end_time = item.end
+          end_time = session.end
           if end_time.blank?
             self.warnings << "% 4s: End time blank, assuming 10am." % nid
             end_time = '10:00'
@@ -79,8 +87,8 @@ module Sync
           venue_uri = "rp15-#{category.tr_s(' &', '-').downcase}"
           venue = Venue.find_or_initialize_by(uri: venue_uri)
           venue.title = category
-          venue.teaser ||= item.event_description.strip.truncate(STRING_LIMIT)
-          venue.description ||= 'tbd.' # FIXME
+          venue.teaser = session.event_description.strip.truncate(STRING_LIMIT)
+          venue.description = session.event_description.strip.truncate(TEXT_LIMIT)
           venue.tag_list = TAGS[category]
           venue.user = rp15_user
           venue.options = VENUE_OPTS
@@ -94,33 +102,38 @@ module Sync
           talk = Talk.find_or_initialize_by(uri: talk_uri)
           next unless talk.created?
           talk.venue = venue
-          talk.title = item.title.strip.truncate(STRING_LIMIT)
-          talk.teaser = item.description_short.strip.truncate(STRING_LIMIT)
-          talk.description = ([ 'Room: ' + item.room.strip,
-                                item.speaker_names.map(&:strip) * ', ',
-                                item.description.strip ] * '<br><br>' ).
+          talk.title = session.title.strip.truncate(STRING_LIMIT)
+          talk.teaser = session.description_short.strip.truncate(STRING_LIMIT)
+          talk.description = ([ 'Room: ' + session.room.strip,
+                                session.speaker_names.map(&:strip) * ', ',
+                                session.description.strip ] * '<br><br>' ).
                              truncate(TEXT_LIMIT)
           talk.tag_list = TAGS[category]
-          talk.language = LANGCODE[item.language]
-          talk.speakers = item.speaker_names.map(&:strip) * ', '
+          talk.language = LANGCODE[session.language]
+          talk.speakers = session.speaker_names.map(&:strip) * ', '
           talk.starts_at_date = [y, m, d] * '-'
           talk.starts_at_time = start_time
           talk.duration = duration
+          talk.social_links = session.speaker_uids.map do |uid|
+            speaker(uid).link_uris.grep(/twitter|facebook/)
+          end.flatten
 
           self.changes << "#{talk_uri}: #{talk.changed * ', '}" if talk.changed?
           metric = talk.persisted? ? :talks_updated : :talks_created
           self.metrics[metric] += 1 if opts[:dryrun] || talk.save!
 
-          if talk.persisted? && talk.ends_at.strftime('%H:%M') != item.end
+          if talk.persisted? && talk.ends_at.strftime('%H:%M') != session.end
             self.warnings << '% 4s: Bogus times: %s %s' %
-              [nid, item.datetime, item.duration]
+              [nid, session.datetime, session.duration]
           end
 
         rescue Exception => e
           self.errors << '% 4s: %s' % [nid, e.message.tr("\n", '; ')]
           #puts nid
+          #puts talk.attributes.to_yaml
           #puts e.message
-          #exit
+          #puts category
+          #return
         end
       end
 
@@ -160,24 +173,43 @@ module Sync
       "#{errors.size} ERRORS\n\n" + errors * "\n"
     end
 
-    def items
-      return @items unless @items.nil?
+    def sessions
+      return @sessions unless @sessions.nil?
       url = SESSIONS
-      url = 'rp15_sessions.json' # test with local copy
-      print 'Fetching data...'
+      # test with local copy
+      url = 'rp15_sessions.json' if File.exist?(Rails.root.join('rp15_sessions.json'))
+      print 'Fetching sessions data...'
       json = open(url).read
       puts 'done.'
       data = JSON.load(json)
-      @items = data['items'].map { |i| OpenStruct.new(i) }
-      puts "Found #{@items.size} items."
-      @items
+      @sessions = data['items'].map { |i| OpenStruct.new(i) }
+      puts "Found #{@sessions.size} sessions."
+      @sessions
+    end
+
+    def speakers
+      return @speakers unless @speakers.nil?
+      url = SPEAKERS
+      # test with local copy
+      url = 'rp15_speakers.json' if File.exist?(Rails.root.join('rp15_speakers.json'))
+      print 'Fetching speakers data...'
+      json = open(url).read
+      puts 'done.'
+      data = JSON.load(json)
+      @speakers = data['items'].map { |i| OpenStruct.new(i) }
+      puts "Found #{@speakers.size} speakers."
+      @speakers
+    end
+
+    def speaker(uid)
+      speakers.find { |s| s.uid == uid }
     end
 
     def icon
       return ':finnadie:' if errors.size > 0
       return ':godmode:' if warnings.size == 0
 
-      ratio = items.size / warnings.size.to_f
+      ratio = sessions.size / warnings.size.to_f
       return ':suspect:'     if ratio < 0.25
       return ':hurtrealbad:' if ratio < 0.5
       return ':feelsgood:'   if ratio < 0.75
