@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'rails_helper'
 
 feature "General payment" do
@@ -5,7 +6,7 @@ feature "General payment" do
   describe "Purchases#index" do
     it 'should require a login on purchase', js: true do
       visit '/purchases'
-      find('.new_purchase', match: :first).click
+      click_on('Save')
       expect(current_path).to eq('/users/sign_in')
     end
   end
@@ -39,7 +40,7 @@ feature "General payment" do
       ActiveMerchant.express_gateway = ActiveMerchant::Billing::PaypalExpressGateway.new(options)
 
       visit purchases_path
-      find('.new_purchase', match: :first).click
+      click_on('Save')
       page.should have_content("€150.00")
       fill_in "username", with: "billing-buyer@voicerepublic.com"
       fill_in "password", with: "sandburg"
