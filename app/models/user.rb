@@ -204,6 +204,10 @@ class User < ActiveRecord::Base
     venues.each { |venue| venue.set_penalty!(penalty) }
   end
 
+  def is_pro?
+    purchases.count > 0
+  end
+
   private
 
   def process_welcome_transaction

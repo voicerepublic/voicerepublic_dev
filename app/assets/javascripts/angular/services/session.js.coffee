@@ -36,7 +36,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
           blackbox.subscribe user.stream
 
   unsubscribeAllStreams = ->
-    # TODO blackbox.unsubscribeAll()
+    blackbox.unsubscribeAll()
 
   reportState = (state) ->
     # skip reporting of state for anonymous users

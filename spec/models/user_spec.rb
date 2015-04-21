@@ -146,11 +146,29 @@ describe User do
 
   end
 
-  describe WelcomeTransaction do
-    it 'shows the users some credit' do
-      user = FactoryGirl.create(:user)
-      expect(user.welcome_transaction).to be_closed
-      expect(user.reload.credits).to eq(WelcomeTransaction::QUANTITY)
+  describe "Payment" do
+    describe WelcomeTransaction do
+      it 'shows the users some credit' do
+        user = FactoryGirl.create(:user)
+        expect(user.welcome_transaction).to be_closed
+        expect(user.reload.credits).to eq(WelcomeTransaction::QUANTITY)
+      end
+    end
+    describe "Pro User" do
+      it 'is a pro user when having purchased in the past' do
+        user = FactoryGirl.create(:user)
+
+        FactoryGirl.create(:purchase, owner: user)
+        expect(user.is_pro?).to be(true)
+      end
+
+      it 'is not a pro user when not having purchased in the past' do
+        user = FactoryGirl.create(:user)
+        transaction_count = Transaction.where(source_id: user.id,
+                                              source_type: "Purchase").count
+        expect(transaction_count).to eq(0)
+        expect(user.is_pro?).to be(false)
+      end
     end
   end
 

@@ -7,7 +7,7 @@
   .medium-7.columns
     = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price)
   .medium-3.columns
-    = link_to paypal_button, express_new_purchase_path(product: package), class: 'right', 'data-replace-with' => "#spinner#{package}"
+    = link_to paypal_button, express_new_purchase_path(product: package), class: 'right new_purchase', 'data-replace-with' => "#spinner#{package}"
     %span{ id: "spinner#{package}", style: 'display: none' }
       = t('.forwarding_to_paypal')
       = image_tag 'loader.gif', class: 'right', style: 'width: 20px; height: 20px:'
