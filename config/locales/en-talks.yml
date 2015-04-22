@@ -131,6 +131,8 @@ en:
     new:
       title: "Create Talk - Voice Republic"
       schedule_a_talk: Schedule A Live Talk
+      billing_notice: |
+        Creating this talk will deduct one of your credits.
     edit:
       title: "Edit Talk %{title} - Voice Republic"
       edit_talk: Edit Talk
