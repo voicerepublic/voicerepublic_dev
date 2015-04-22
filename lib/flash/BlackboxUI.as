@@ -295,11 +295,12 @@ private function publishStream(stream:String):void {
 }
 
 private function unpublishStream():void {
-  log("Unpublishing mic.");
+  log("Unpublishing mic...");
   publishStreamName = null;
   if (publishNetConnection != null) {
     publishNetConnection.close();
   }
+  log("Unpublished mic.");
 }
 
 private function subscribeStream(stream:String):void {
@@ -315,7 +316,7 @@ private function subscribeStream(stream:String):void {
 }
 
 private function unsubscribeAll():void {
-  log("Closing "+netConnections.length+" NetConnections.");
+  log("Unsubscribing all, closing "+netConnections.length+" NetConnections.");
   for each (var nc:NetConnection in netConnections) {
     nc.close();
   }

@@ -125,7 +125,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
           return if millisecs > 2147483647
           $timeout startTalk, millisecs
       onleaveHostOnAir: ->
-        # $log.debug "Host leaving state HostOnAir..."
+        $log.debug "Host leaving state HostOnAir..."
         deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
