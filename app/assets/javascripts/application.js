@@ -30,7 +30,7 @@
 //= require jquery-ui-timepicker-addon
 //= require slider.js
 //
-//
+//= require purchases
 //= require_tree ./components
 
 // run `proof` on the console to get a proof background-image on body

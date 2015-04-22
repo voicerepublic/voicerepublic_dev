@@ -1,16 +1,25 @@
 = simple_form_for(:purchase, url: express_new_purchase_path, method: 'get') do |f|
 
-  .row(style='margin-top: 100px')
+  .row
+    .medium-12.columns
+      .box= render 'explanation'
+      %h3= t('.our_packages_for')
+
+  .row
     .medium-6.columns
-      %h2(style='color: black')= t('.our_packages_for_businesses')
-      = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
+      .box
+        %h2= t('.businesses')
+        %h3= t('.and_other_institutions')
+        = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
     .medium-6.columns
-      %h2(style='color: black')= t('.our_packages_for_nonprofit')
-      = render partial: 'package', collection: Pricing::NONPROFIT, locals: { f: f }
+      .box
+        %h2= t('.nonprofit')
+        %h3= t('.and_personal_use')
+        = render partial: 'package', collection: Pricing::NONPROFIT, locals: { f: f }
 
   .row
     .medium-12.columns(style="text-align: center; margin-top: 50px")
-      %span{ id: "paypal_spinner", style: 'display: none' }
-        = image_tag 'loader.gif', class: 'right', style: 'width: 20px; height: 20px:'
+      %span#paypal_spinner
+        = image_tag 'loader.gif'
       = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner"

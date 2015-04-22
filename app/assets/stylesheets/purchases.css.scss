@@ -1,0 +1,54 @@
+.purchases-index {
+
+    h2, h3 {
+        color: black;
+        text-align: center;
+    }
+
+    .box {
+        /*border: 1px solid black;*/
+        background-color: rgba(0,0,0,0.1);
+        padding: 10px;
+    }
+
+    form.purchase {
+        margin-top: 75px;
+
+        input[type='radio'] {
+            opacity: 0;
+            margin: 0;
+        }
+
+        label {
+            margin-top: 20px;
+            border: 2px solid transparent;
+            padding: 10px 10px 10px 0;
+            text-align: center;
+        }
+
+        label.selected {
+            background-color: lightgreen;
+            border: 2px solid green;
+        }
+
+        label:hover {
+            border: 2px solid green;
+        }
+
+        .button {
+            border: 2px solid papayaWhip;
+            background-color: rgba(0,0,0,0);
+            &:hover {
+                border: 2px solid gray;
+            }
+        }
+        #paypal_spinner{
+            display: none;
+            img {
+                width: 42px;
+                height: 42px;
+                margin: 14px 24px 13px;
+            }
+        }
+    }
+}
