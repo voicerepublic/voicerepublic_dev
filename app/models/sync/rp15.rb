@@ -25,8 +25,9 @@ module Sync
     }
 
     LANGCODE = {
-      'Deutsch'  => 'de',
-      'Englisch' => 'en'
+      'Deutsch'          => 'de',
+      'Englisch'         => 'en',
+      'Deutsch/Englisch' => 'en'
     }
 
     TEXT_LIMIT   = Settings.limit.text
