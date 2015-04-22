@@ -4,7 +4,7 @@ import mx.events.SliderEvent;
 [Bindable]
 public var gain:int = 0;
 
-private var version:String = '3.0';
+private var version:String = '3.1';
 private var mic:Microphone;
 private var opts:MicrophoneEnhancedOptions;
 private var streamer:String;
@@ -16,6 +16,7 @@ private var streamVolume:Number = 1;
 private var publishStreamName:String = null;
 private var publishNetStream:NetStream;
 private var monitorNetConnection:NetConnection = null;
+private var netConnections:Array = new Array();
 
 private var jsImports:Object = {
   closeMethod:     'console.log',
@@ -33,6 +34,7 @@ private var jsExports:Object = {
   publish:            publishStream,
   unpublish:          unpublishStream,
   subscribe:          subscribeStream,
+  unsubscribeAll:     unsubscribeAll,
   muteMic:            muteMic,
   unmuteMic:          unmuteMic,
   setVolume:          setVolume,
@@ -203,7 +205,7 @@ private function monitorHandler(e:MouseEvent):void {
   nc.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
   nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
   nc.connect(streamer);
-  monitorNetConnection = nc
+  monitorNetConnection = nc;
 }
 
 // --- exported methods
@@ -309,6 +311,14 @@ private function subscribeStream(stream:String):void {
   nc.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
   nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
   nc.connect(streamer);
+  netConnections.push(nc);
+}
+
+private function unsubscribeAll():void {
+  log("Closing "+netConnections.length+" NetConnections.");
+  for each (var nc:NetConnection in netConnections) {
+    nc.close();
+  }
 }
 
 // --- private helpers
@@ -317,6 +327,7 @@ private function sendStream(nc:NetConnection, stream:String):void {
   var ns:NetStream = new NetStream(nc);
   ns.attachAudio(mic);
   ns.publish(stream, "live");
+  // TODO check if it makes sense to push a published stream on netStreams
   netStreams.push(ns);
   publishNetStream = ns;
 }

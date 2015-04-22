@@ -125,6 +125,10 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     deferred.promise.then (api) ->
       api.subscribe name
 
+  unsubscribeAll = ->
+    deferred.promise.then (api) ->
+      api.unsubscribeAll()
+
   micCheck = ->
     deferred.promise.then (api) ->
       api.micCheck()
@@ -154,6 +158,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     publish
     unpublish
     subscribe
+    unsubscribeAll
     micCheck
     mute
     unmute

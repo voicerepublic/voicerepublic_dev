@@ -34,22 +34,6 @@
 //
 //= require_tree ./components
 
-/* Alters-Success fade out after 5secs */
-(function($){
-  function hideAlerts() {
-    var alerts = $('#flash_messages');
-    setTimeout(function(){
-      alerts.fadeOut('slow', function(){
-        alerts.remove();
-      });
-    }, 5000);
-  }
-
-  $(function(){
-    hideAlerts();
-  });
-})(jQuery);
-
 // run `proof` on the console to get a proof background-image on body
 window.proof = function(name) {
   if(name==undefined) name = 'default';
