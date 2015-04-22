@@ -1081,7 +1081,7 @@
       @include transition('max-height 0.4s linear, padding 0.4s ease, opacity 0.4s ease 0.4s');
       opacity: 1;
       padding-top: 30px;
-      padding-bottom: 15px;
+      padding-bottom: 30px;
       overflow: hidden;
       &.collapse{
         max-height: 180px;
