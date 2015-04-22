@@ -1,3 +1,12 @@
+# On console run with
+#
+#    Sync::Rp15.new(dryrun: true).sync
+#
+# Update local copies with
+#
+#    curl http://re-publica.de/event/3013/json/sessions > rp15_sessions.json
+#    curl http://re-publica.de/event/3013/json/speakers > rp15_speakers.json
+#
 module Sync
   class Rp15
 
@@ -12,6 +21,7 @@ module Sync
       'Media'                 => 'republica, Media, Medien',
       'Research & Education'  => 'republica, Research, Forschung, Education, Bildung',
       'Business & Innovation' => 'republica, Business, Innovation, Wirtschaft',
+      'Fashiontech'           => 'republica, Fashiontech',
       'Science & Technology'  => 'republica, Science, Wissenschaft, '+
                                  'Technology, Technologie'
     }
@@ -49,7 +59,6 @@ module Sync
     def sync
 
       raise 'No rep15.user_id' unless Settings.try(:rep15).try(:user_id)
-      rp15_user = User.find(Settings.rep15.user_id)
 
       sessions.map do |session|
         begin
@@ -91,7 +100,7 @@ module Sync
           venue.teaser = session.event_description.strip.truncate(STRING_LIMIT)
           venue.description = session.event_description.strip.truncate(TEXT_LIMIT)
           venue.tag_list = TAGS[category]
-          venue.user = rp15_user
+          venue.user = user
           venue.options = VENUE_OPTS
 
           self.changes << "#{venue_uri}: #{venue.changed * ', '}" if venue.changed?
@@ -116,7 +125,11 @@ module Sync
           talk.starts_at_time = start_time
           talk.duration = duration
           talk.social_links = session.speaker_uids.map do |uid|
-            speaker(uid).link_uris.grep(/twitter|facebook/)
+            if sp3aker = speaker(uid)
+              sp3aker.link_uris.grep(/twitter|facebook/)
+            else
+              self.errors << "% 4s No speaker found for uid: #{uid}" % nid
+            end
           end.flatten
 
           self.changes << "#{talk_uri}: #{talk.changed * ', '}" if talk.changed?
@@ -153,13 +166,25 @@ module Sync
     end
 
     def report_summary
-      <<-EOF.strip_heredoc
+      tmpl=<<-EOF.strip_heredoc
        SYNC RP15 REPORT
 
-       > Series: #{metrics[:venues_created]} / #{metrics[:venues_updated]}
-       > Talks: #{metrics[:talks_created]} / #{metrics[:talks_updated]}
-       > (created / updated)
+       Input: %s sessions, %s speakers
+
+       > Series: % 4s / % 4s / % 4s
+       > Talks:  % 4s / % 4s / % 4s
+       > (created / updated / total)
       EOF
+      tmpl % [
+        sessions.size,
+        speakers.size,
+        metrics[:venues_created],
+        metrics[:venues_updated],
+        user.venues.count,
+        metrics[:talks_created],
+        metrics[:talks_updated],
+        user.talks.count
+      ]
     end
 
     def report_changes
@@ -204,6 +229,10 @@ module Sync
 
     def speaker(uid)
       speakers.find { |s| s.uid == uid }
+    end
+
+    def user
+      @user ||= User.find(Settings.rep15.user_id)
     end
 
     def icon
