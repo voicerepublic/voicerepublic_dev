@@ -9,7 +9,7 @@
     .medium-6.columns
       .box
         %h2= t('.businesses')
-        %h3= t('.and_other_institutions')
+        %h3= t('.and_institutions')
         = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
     .medium-6.columns
@@ -23,3 +23,13 @@
       %span#paypal_spinner
         = image_tag 'loader.gif'
       = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner"
+
+  .row
+    .medium-12.columns
+      .box
+        .row
+          .medium-8.columns.eagle
+            %br
+            = t('.questions')
+          .medium-4.columns
+            = link_to t('.contact_us'), 'mailto:service@voicerepublic.com', class: 'button right', style: "background-color: papayaWhip"
