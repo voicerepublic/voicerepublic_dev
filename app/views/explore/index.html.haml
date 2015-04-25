@@ -1,0 +1,60 @@
+- content_for :title do
+  =t('.talks_on_voice_republic')
+
+- if @talks
+  .row.collapse-large-only.top-margin-action-bar
+    .small-12.columns
+      .title-box.text-center
+        %h3= t(".#{action_name}")
+      %ul.list-style-type-none
+        = render collection: @talks, partial: 'shared/talk_medium_box'
+      = will_paginate @talks
+- else
+
+  .bg-creme.explore-top-bg
+
+  .bg-blue
+    .row
+      .small-12.columns.text-center
+        %h2= t('.talks_on_voice_republic')
+  %br/
+  %br/
+
+  - unless @talks_live.empty?
+    .row.collapse-large-only
+      .small-12.columns.text-center
+        .title-box
+          = link_to live_talks_url do
+            %h3= t('.now_live')
+        %ul.list-style-type-none
+          = render collection: @talks_live, partial: 'shared/talk_medium_box'
+        = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
+    %br/
+    %br/
+  .row.collapse-large-only
+    .large-12.columns
+      %ul.medium-block-grid-3.small-block-grid-1.text-center
+        - unless @talks_featured.empty?
+          %li
+            .title-box
+              = link_to featured_talks_url do
+                %h3= t('.featured')
+            %ul.list-style-type-none
+              = render collection: @talks_featured, partial: 'shared/talk_small_box', :locals => { color: 'box-transparent' }
+            = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
+
+        %li
+          .title-box
+            = link_to popular_talks_url do
+              %h3= t('.popular')
+          %ul.list-style-type-none
+            = render collection: @talks_popular, partial: 'shared/talk_small_box', :locals => { color: 'box-grey' }
+          = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
+
+        %li.recent
+          .title-box
+            = link_to recent_talks_url do
+              %h3=t('.recent')
+          %ul.list-style-type-none
+            = render collection: @talks_recent, partial: 'shared/talk_small_box', :locals => { color: 'box-black' }
+          = link_to t('.see_all'), recent_talks_url, class: 'see-all-link'

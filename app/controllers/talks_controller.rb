@@ -1,45 +1,8 @@
 class TalksController < BaseController
 
   before_action :set_talk, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:show]
   before_action :redirect_if_low_on_credits, only: :new
-
-  # GET /talks/featured
-  def featured
-    @talks = Talk.prelive.featured.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /talks/upcoming
-  def upcoming
-    @talks = Talk.prelive.ordered.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /talks/popular
-  def popular
-    @talks = Talk.popular.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /talks/live
-  def live
-    @talks = Talk.live_and_halflive.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /talks/recent
-  def recent
-    @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  def index
-    @talks_live     = Talk.live.limit(5)
-    @talks_featured = Talk.featured.limit(5)
-    @talks_recent   = Talk.recent.limit(5)
-    @talks_popular  = Talk.popular.limit(5)
-  end
 
   # GET /talks/1
   def show

@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  get 'explore' => 'explore/index'
+  get 'explore/live',     as: 'live_talks'
+  get 'explore/popular',  as: 'popular_talks'
+  get 'explore/featured', as: 'featured_talks'
+  get 'explore/recent',   as: 'recent_talks'
+  get 'explore/upcoming', as: 'upcoming_talks'
+
   if Settings.payment_enabled
     get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
     resources :purchases, only: [ :index, :new, :create, :show ] do
@@ -43,18 +50,11 @@ Rails.application.routes.draw do
 
   # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
-  resources :talks do
-    collection do
-      get :live
-      get :popular
-      get :featured
-      get :recent
-      get :upcoming
-    end
+  resources :talks, except: 'index'  do
     resources :reminders, only: [:create]
   end
 
-  resources :venues do
+  resources :venues, except: :index do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
   end
