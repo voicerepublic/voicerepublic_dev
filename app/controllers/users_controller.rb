@@ -65,6 +65,7 @@ class UsersController < BaseController
           when 'reminders' then Talk.remembered_by(@user).reordered.offset(3)
           end
       end
+      format.ics
     end
   end
 
