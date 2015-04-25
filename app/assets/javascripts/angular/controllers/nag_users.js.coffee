@@ -7,18 +7,15 @@ nagFunc = ($scope, $log, $timeout) ->
     !localStorage.getItem(user.id)?
 
 
-  $scope.nagAnonymous = (user) ->
+  $scope.nagAnonymous = ->
     # OMG, what is he doing? Yes, he's changing the DOM state..
     $('#nagModal').foundation('reveal','open')
-    localStorage.setItem(user.id, true)
+    localStorage.setItem(0, true)
 
-  # ONLY FOR DEV
-  $('#nagModal').foundation('reveal','open')
-
-  #if $scope.isAnonymousUser(current_user) and $scope.isNewOnVR(current_user)
-  #  $timeout($scope.nagAnonymous, 30000)
-  #else if $scope.isAnonymousUser(current_user)
-  #  $timeout($scope.nagAnonymous, 600000)
+  if $scope.isAnonymousUser(current_user) and $scope.isNewOnVR(current_user)
+    $timeout($scope.nagAnonymous, 30000)
+  else if $scope.isAnonymousUser(current_user)
+    $timeout($scope.nagAnonymous, 600000)
 
 nagFunc.$inject = [
   "$scope"

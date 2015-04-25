@@ -4,7 +4,6 @@ beforeEach window.module 'Sencha'
 
 describe 'nag_users-spec', ->
   $controller = undefined
-  # save repetitions
   $scope = undefined
   NagUsersCtrl = undefined
 
