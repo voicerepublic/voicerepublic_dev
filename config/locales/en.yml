@@ -470,7 +470,17 @@ en:
     Sorry, you've no credits left. Buy some...
   purchases:
     index:
-      our_packages: Our Packages
+      our_packages_for: Our Packages for...
+      businesses: Businesses
+      and_institutions: and Institutions
+      and_personal_use: and Personal Use
+      nonprofit: Nonprofit
+      questions: |
+        If you have any questions...
+    package:
+      purchase_count_at_a_price_of_amount: |
+        %{count} VR Talk Credits at %{amount}
+      forwarding_to_paypal: Forwarding you...
     new:
       payment_authorized: |
         Your payment has been authorized successfully.
@@ -479,11 +489,6 @@ en:
         other: |
           Please confirm to buy %{count} VR talk credits for the price of %{amount}
       complete_purchase: Complete your purchase
-    package:
-      purchase_count_at_a_price_of_amount:
-        one: Purchase a single talk credit at a price of %{amount}
-        other: Purchase %{count} talk credits at a price of %{amount}
-      forwarding_to_paypal: Forwarding you...
     show:
       headline: Thank You for Your purchase
       able_to_create_count_talks:

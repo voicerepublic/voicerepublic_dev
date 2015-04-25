@@ -31,7 +31,7 @@
 //= require slider.js
 //
 //= require sencha
-//
+//= require purchases
 //= require_tree ./components
 
 // run `proof` on the console to get a proof background-image on body

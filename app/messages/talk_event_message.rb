@@ -12,9 +12,15 @@ class TalkEventMessage < BaseMessage
     intro = "Now live but has not started" if
       args == [:prelive, :halflive, :start_talk]
 
-    intro = "Now started" if args == [:halflive, :live, :start_talk]
+    intro = "Finally started" if args == [:halflive, :live, :start_talk]
 
-    intro = "Just archived" if event == :archived
+    intro = "Just archived" if event == :archive
+
+    intro = "Has been created" if event == :prepare
+
+    intro = "Started processing" if event == :process
+
+    intro = "Has been ended" if event == :end_talk
 
     _talk  = slack_link(talk.title, talk_url(talk))
     _venue = slack_link(talk.venue.title, venue_url(talk.venue))
