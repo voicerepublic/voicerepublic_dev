@@ -35,7 +35,8 @@ Rails.application.routes.draw do
   # it makes the rendering of different kind of resources, like
   # in the search results, less painful
   nested_talk = ->(params, req) do
-    talk = Talk.find(params[:id])
+    talk = Talk.find_by(uri: params[:id])
+    talk ||= Talk.find(params[:id])
     "/talks/#{talk.to_param}"
   end
   get  '/talk/:id', to: redirect(nested_talk)

@@ -448,4 +448,18 @@ describe "Talks as logged in user" do
       end
     end
   end
+
+  describe 'routing with shortcuts' do
+    it 'routes via id' do
+      talk = FactoryGirl.create(:talk)
+      visit "/talk/#{talk.id}"
+      expect(page).to have_content(talk.title)
+    end
+    it 'routes via uri' do
+      talk = FactoryGirl.create(:talk)
+      visit "/talk/#{talk.uri}"
+      expect(page).to have_content(talk.title)
+    end
+  end
+
 end
