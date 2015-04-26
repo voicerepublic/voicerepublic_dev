@@ -40,6 +40,7 @@ class VenuesController < BaseController
         talks = @venue.talks.archived.ordered
         @podcast = OpenStruct.new(talks: talks)
       end
+      format.ics
     end
   end
 
