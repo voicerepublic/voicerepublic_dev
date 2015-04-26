@@ -19,6 +19,7 @@ module Sync
       'Culture'               => 'republica, Culture, Kultur',
       'Politics & Society'    => 'republica, Politics, Politik, Society, Gesellschaft',
       'Media'                 => 'republica, Media, Medien',
+      'GIG'                   => 'republica, GIG',
       'Research & Education'  => 'republica, Research, Forschung, Education, Bildung',
       'Business & Innovation' => 'republica, Business, Innovation, Wirtschaft',
       'Fashiontech'           => 'republica, Fashiontech',
