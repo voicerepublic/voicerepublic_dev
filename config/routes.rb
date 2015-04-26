@@ -36,8 +36,8 @@ Rails.application.routes.draw do
   # in the search results, less painful
   nested_talk = ->(params, req) do
     talk = Talk.find_by(uri: params[:id])
-    talk ||= Talk.find(params[:id])
-    "/talks/#{talk.to_param}"
+    talk ||= Talk.find_by_id(params[:id])
+    talk ? "/talks/#{talk.to_param}" : '/404'
   end
   get  '/talk/:id', to: redirect(nested_talk)
   get  '/venues/:venue_id/talks/:id', to: redirect(nested_talk), as: :venue_talk
