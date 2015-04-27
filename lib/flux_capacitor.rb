@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'daemons'
+require 'logger'
 
 # The FluxCapacitor is a headless Rails process which subscribes and
 # publishes to Faye. Nothing more, nothing less. All other names were
@@ -15,6 +16,7 @@ class FluxCapacitor
   attr_accessor :client
 
   def run
+    logger.info 'Started.'
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
     EM.run {
       self.client = Faye::Client.new(Settings.faye.server)
@@ -46,7 +48,7 @@ class FluxCapacitor
   def process(msg)
     # pp msg
     channel = msg.delete('channel')
-    Rails.logger.error NO_CHANNEL % message.inspect if channel.nil?
+    Rails.logger.error NO_CHANNEL % msg.inspect if channel.nil?
     _, talk_id, user_id = channel.match(PATTERN).to_a
     talk = Talk.find(talk_id)
 
@@ -84,16 +86,23 @@ class FluxCapacitor
       msg['user'] ||= { 'id' => user_id.to_i }
       print "."
     else
-      Rails.logger.error "Don't know how to handle:\n#{message.to_yaml}"
+      Rails.logger.war "Don't know how to handle:\n#{msg.to_yaml}"
+      logger.warn "Don't know how to handle:\n#{msg.to_yaml}"
     end
 
     [ talk.public_channel, msg ]
   rescue => e
     print 'X'
-    Rails.logger.error(e.message)
+    Rails.logger.error(e.class + ": " + e.message)
+    logger.error(e.class + ": " + e.message + "\n" +
+                 e.backtrace + "\n" + msg.to_yaml)
     # TODO propagate errors via errbit
     # ENV["airbrake.error_id"] = notify_airbrake(e)
     nil
+  end
+
+  def logger
+    @logger ||= Logger.new(Rails.root.join('log/flux_capacitor.log'))
   end
 
 end
