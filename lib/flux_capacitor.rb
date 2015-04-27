@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'daemons'
+require 'logger'
 
 # The FluxCapacitor is a headless Rails process which subscribes and
 # publishes to Faye. Nothing more, nothing less. All other names were
@@ -12,11 +13,11 @@ class FluxCapacitor
 
   NO_CHANNEL = "no channel info for message %s"
 
-  attr_accessor :client, :listeners
+  attr_accessor :client
 
   def run
+    logger.info 'Started.'
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
-    self.listeners = Hash.new { |h, k| h[k] = {} }
     EM.run {
       self.client = Faye::Client.new(Settings.faye.server)
       client.add_extension(extension)
@@ -32,14 +33,13 @@ class FluxCapacitor
       puts "subscribing to #{channel}..."
       client.subscribe(channel) do |msg|
         talk_id = msg['talk_id']
-        # TODO: The listeners Hash in FluxCapacitor is not needed since the information is also persisted in Talk
         # TODO: We can skip persisting and publishing this information when the listener is already known
-        self.listeners[talk_id][msg['session']] ||= Time.now.to_i
         talk = Talk.find(talk_id)
+        talk.listeners[msg['session']] ||= Time.now.to_i
         # TODO write with locking
-        talk.update_attribute :listeners, listeners[talk_id]
+        talk.save
         client.publish(talk.public_channel, { type: 'listeners',
-                                              listeners: listeners[talk_id].size })
+                                              listeners: talk.listeners.size })
         print 'l'
       end
     }
@@ -48,7 +48,7 @@ class FluxCapacitor
   def process(msg)
     # pp msg
     channel = msg.delete('channel')
-    Rails.logger.error NO_CHANNEL % message.inspect if channel.nil?
+    Rails.logger.error NO_CHANNEL % msg.inspect if channel.nil?
     _, talk_id, user_id = channel.match(PATTERN).to_a
     talk = Talk.find(talk_id)
 
@@ -58,9 +58,6 @@ class FluxCapacitor
       return unless user_id == talk.venue.user_id.to_s
       case msg['event']
       when 'EndTalk'
-        _listeners = self.listeners.delete(talk.public_channel)
-        # NOTE here we could annotate the end talk signal with stats
-        # talk.listeners = msg[:listeners] = _listeners
         talk.end_talk!
         print 'e'
       when 'StartTalk'
@@ -86,16 +83,23 @@ class FluxCapacitor
       msg['user'] ||= { 'id' => user_id.to_i }
       print "."
     else
-      Rails.logger.error "Don't know how to handle:\n#{message.to_yaml}"
+      Rails.logger.war "Don't know how to handle:\n#{msg.to_yaml}"
+      logger.warn "Don't know how to handle:\n#{msg.to_yaml}"
     end
 
     [ talk.public_channel, msg ]
   rescue => e
     print 'X'
-    Rails.logger.error(e.message)
+    Rails.logger.error("#{e.class.name}: " + e.message)
+    logger.error("#{e.class.name}: " + e.message + "\n" +
+                 (e.backtrace * "\n") + "\n" + msg.to_yaml)
     # TODO propagate errors via errbit
     # ENV["airbrake.error_id"] = notify_airbrake(e)
     nil
+  end
+
+  def logger
+    @logger ||= Logger.new(Rails.root.join('log/flux_capacitor.log'))
   end
 
 end

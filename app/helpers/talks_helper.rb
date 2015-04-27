@@ -17,4 +17,9 @@ module TalksHelper
     render_social_meta_tags(opts)
   end
 
+  def iso8601(datetime)
+    datetime.utc.strftime('%Y%m%dT%H%M%SZ')
+  end
+
+
 end

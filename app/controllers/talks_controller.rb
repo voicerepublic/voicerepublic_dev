@@ -54,6 +54,7 @@ class TalksController < BaseController
         render text: @talk.message_history
       end
       format.png { send_file @talk.flyer.path(true) }
+      format.ics
     end
   end
 

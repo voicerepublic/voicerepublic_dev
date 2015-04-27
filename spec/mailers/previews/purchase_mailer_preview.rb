@@ -1,9 +1,11 @@
 # Preview all emails at http://localhost:3000/rails/mailers/purchase_mailer
+#
+# This is executed in environment `development`!
+#
 class PurchaseMailerPreview < ActionMailer::Preview
 
-  # Preview this email at http://localhost:3000/rails/mailers/purchase_mailer/invoice
   def invoice
-    PurchaseMailer.invoice(FactoryGirl.create(:purchase))
+    PurchaseMailer.invoice(Purchase.last)
   end
 
 end
