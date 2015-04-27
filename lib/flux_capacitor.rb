@@ -58,9 +58,6 @@ class FluxCapacitor
       return unless user_id == talk.venue.user_id.to_s
       case msg['event']
       when 'EndTalk'
-        _listeners = self.listeners.delete(talk.public_channel)
-        # NOTE here we could annotate the end talk signal with stats
-        # talk.listeners = msg[:listeners] = _listeners
         talk.end_talk!
         print 'e'
       when 'StartTalk'
@@ -93,9 +90,9 @@ class FluxCapacitor
     [ talk.public_channel, msg ]
   rescue => e
     print 'X'
-    Rails.logger.error(e.class + ": " + e.message)
-    logger.error(e.class + ": " + e.message + "\n" +
-                 e.backtrace + "\n" + msg.to_yaml)
+    Rails.logger.error("#{e.class.name}: " + e.message)
+    logger.error("#{e.class.name}: " + e.message + "\n" +
+                 (e.backtrace * "\n") + "\n" + msg.to_yaml)
     # TODO propagate errors via errbit
     # ENV["airbrake.error_id"] = notify_airbrake(e)
     nil

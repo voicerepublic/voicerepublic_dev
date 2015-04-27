@@ -340,6 +340,12 @@ class Talk < ActiveRecord::Base
     save!
   end
 
+  # for use on console only
+  def reinitiate_postprocessing!
+    self.update_attribute :state, :postlive
+    self.postprocessing!
+  end
+
   private
 
   def create_and_set_venue?
@@ -520,8 +526,9 @@ class Talk < ActiveRecord::Base
     Rails.logger.info "manifest: #{path}"
     worker = AudioProcessor.new(path) # see lib/audio_processor.rb
     worker.talk = self
-    # TODO make it work for a custom logfile
-    worker.run(Rails.logger)
+    logfile = File.expand_path(File.join(Settings.rtmp.recordings_path,
+                                         "process-#{id}.log"), Rails.root)
+    worker.run(Logger.new(logfile))
   end
 
   # move flvs to fog storage whil removing empty files
@@ -544,7 +551,8 @@ class Talk < ActiveRecord::Base
   # move results to fog storage
   def upload_results!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    files = ( Dir.glob("#{base}/#{id}.journal") +
+    files = ( Dir.glob("#{base}/process-#{id}.log") +
+              Dir.glob("#{base}/#{id}.journal") +
               Dir.glob("#{base}/#{id}.*") +
               Dir.glob("#{base}/#{id}-*.*") ).uniq
     files.each do |file|
@@ -556,6 +564,9 @@ class Talk < ActiveRecord::Base
 
     # also remove flvs, these have been uploaded before
     FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.flv"))
+
+    # also remove manifest
+    FileUtils.rm("#{base}/manifest-#{id}.yml")
 
     save! # save `storage` field
   end
