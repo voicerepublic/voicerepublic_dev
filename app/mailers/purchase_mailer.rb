@@ -9,4 +9,5 @@ class PurchaseMailer < ApplicationMailer
     @purchase = purchase
     mail to: purchase.owner.email
   end
+
 end
