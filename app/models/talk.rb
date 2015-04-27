@@ -596,7 +596,6 @@ class Talk < ActiveRecord::Base
 
   # collect information about what's stored via fog
   def cache_storage_metadata(file=nil)
-    return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
 
     basename = File.basename(file)
     key = "#{uri}/#{basename}"
