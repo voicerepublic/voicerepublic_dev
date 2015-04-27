@@ -1,3 +1,5 @@
+# coding: utf-8
+#
 # On console run with
 #
 #    Sync::Rp15.new(dryrun: true).sync
@@ -15,6 +17,7 @@ module Sync
       'Media Convention'      => 'republica, Media, Medien, Convention',
       're:cord Musicday'      => 'republica, record, Musicday',
       're:health'             => 'republica, Health, Gesundheit',
+      're:think Mobility'     => 'republica, rethink, Mobility, Mobilität',
       'City Of The Future'    => 'republica, CityOfTheFuture, StadtDerZukunft',
       'Culture'               => 'republica, Culture, Kultur',
       'Politics & Society'    => 'republica, Politics, Politik, Society, Gesellschaft',
