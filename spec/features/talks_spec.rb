@@ -390,7 +390,7 @@ describe "Talks as logged in user" do
     end
 
     it 'has meta tags for google/fb/twitter' do
-      visit venue_talk_path @venue, @talk
+      visit talk_path(@talk)
       # as of Capybara 2.0, <head> attributes cannot be found. resorting to
       # using a manual matcher.
       # google
@@ -460,6 +460,13 @@ describe "Talks as logged in user" do
       visit "/talk/#{talk.uri}"
       expect(page).to have_content(talk.title)
     end
+    skip 'reroutes old nested urls' do
+      talk = FactoryGirl.create(:talk)
+      visit venue_talk_path(talk.venue, talk)
+      save_and_open_page
+      expect(page).to have_content(talk.title)
+    end
+
   end
 
 end
