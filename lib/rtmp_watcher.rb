@@ -36,23 +36,23 @@ class RtmpWatcher
 
     payload = {}
     data.rtmp.server.application.each do |app|
-      if app.live.nclients.to_i > 0
-        streams = app.live.stream
-        streams = [streams] unless streams.is_a?(Array)
-        streams.each do |stream|
-          puts '%s %s %s %s %s' % [ name     = stream.name,
-                                    nclients = stream.nclients,
-                                    bw_in    = stream.bw_in,
-                                    app_name = app.name,
-                                    codec    = stream.meta.try(:audio).try(:codec) ]
-          publish_to "/stat/#{name}",
-                     payload[name] = {
-                       nclients: nclients,
-                       bw_in: bw_in,
-                       app_name: app_name,
-                       codec: codec
-                     }
-        end
+      next unless app.live.nclients.to_i > 0
+      next unless app.live.stream.name != ''
+      streams = app.live.stream
+      streams = [streams] unless streams.is_a?(Array)
+      streams.each do |stream|
+        puts '%s %s %s %s %s' % [ name     = stream.name,
+                                  nclients = stream.nclients,
+                                  bw_in    = stream.bw_in,
+                                  app_name = app.name,
+                                  codec    = stream.meta.try(:audio).try(:codec) ]
+        publish_to "/stat/#{name}",
+                   payload[name] = {
+                     nclients: nclients,
+                     bw_in: bw_in,
+                     app_name: app_name,
+                     codec: codec
+                   }
       end
     end
     publish_to "/stat", payload unless payload.empty?
