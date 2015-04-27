@@ -37,10 +37,10 @@ class RtmpWatcher
     payload = {}
     data.rtmp.server.application.each do |app|
       next unless app.live.nclients.to_i > 0
-      next unless app.live.stream.name != ''
       streams = app.live.stream
       streams = [streams] unless streams.is_a?(Array)
       streams.each do |stream|
+        next unless stream.name != ''
         puts '%s %s %s %s %s' % [ name     = stream.name,
                                   nclients = stream.nclients,
                                   bw_in    = stream.bw_in,
