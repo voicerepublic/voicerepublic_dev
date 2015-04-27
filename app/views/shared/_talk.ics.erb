@@ -3,7 +3,6 @@ DTSTAMP:<%=     iso8601(talk.created_at) %>
 DTSTART:<%=     iso8601(talk.starts_at) %>
 DTEND:<%=       iso8601(talk.ends_at) %>
 SUMMARY:<%=     talk.title %>
-DESCRIPTION:<%= talk.teaser %>
 URL:<%=         talk_url(talk, ref: 'ics') %>
 UID:<%=         talk.uri %>
 END:VEVENT
