@@ -12,11 +12,10 @@ class FluxCapacitor
 
   NO_CHANNEL = "no channel info for message %s"
 
-  attr_accessor :client, :listeners
+  attr_accessor :client
 
   def run
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
-    self.listeners = Hash.new { |h, k| h[k] = {} }
     EM.run {
       self.client = Faye::Client.new(Settings.faye.server)
       client.add_extension(extension)
@@ -32,14 +31,13 @@ class FluxCapacitor
       puts "subscribing to #{channel}..."
       client.subscribe(channel) do |msg|
         talk_id = msg['talk_id']
-        # TODO: The listeners Hash in FluxCapacitor is not needed since the information is also persisted in Talk
         # TODO: We can skip persisting and publishing this information when the listener is already known
-        self.listeners[talk_id][msg['session']] ||= Time.now.to_i
         talk = Talk.find(talk_id)
+        talk.listeners[msg['session']] ||= Time.now.to_i
         # TODO write with locking
-        talk.update_attribute :listeners, listeners[talk_id]
+        talk.save
         client.publish(talk.public_channel, { type: 'listeners',
-                                              listeners: listeners[talk_id].size })
+                                              listeners: talk.listeners.size })
         print 'l'
       end
     }
