@@ -366,7 +366,7 @@
                     = render partial: "shared/avatar", locals: { size: 38 }
                 .message-content
                   %span.message-name
-                    {{ message.name }}
+                    {{ message.user.name }}
                   %span.message-time
                     {{ message.created_at }}
                   .message-text
