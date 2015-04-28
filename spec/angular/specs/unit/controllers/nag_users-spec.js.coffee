@@ -21,4 +21,4 @@ describe 'nag_users-spec', ->
     expect($scope.isAnonymousUser(current_user)).toBe(true)
 
   it 'knows whether a user is newly on the platform', ->
-    expect($scope.isNewOnVR(current_user)).toBe(true)
+    expect($scope.hasNotSeenModalAlready(current_user)).toBe(true)

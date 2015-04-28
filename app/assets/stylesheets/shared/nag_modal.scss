@@ -1,24 +1,10 @@
-.nag-modal {
-    /*background-image: url("/images/background/nagModal.png");*/
-   /* background-size: contain;
-    .button-signup {
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
-    }*/
-}
-
-/*.nag-modal-inner {
-  position: relative;
-}*/
-
 #nagModal .row {
   max-width: 63rem;
 }
 
 .nagBody ul li {
   color:#001c3a;
-   font-family: 'Eagle Light',helvetica,arial, sans-serif;
+  font-family: 'Eagle Light',helvetica,arial, sans-serif;
   font-size: 1.3rem;
   line-height: 1.7rem;
   margin-left:4px;
@@ -63,78 +49,27 @@
 }
 
 #logobox img {
-max-width: 300px;
-margin: 0 auto;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 @mixin nag-modal($factor) {
   h1, h2, h3, h4, h5, h6 {
-  font-family: 'Eagle Light',helvetica,arial,sans-serif;
-  color:#001c3a;
-  color:red;
-}
-
-p {
-  font-family: 'Eagle Light',helvetica,arial, sans-serif;
-  font-size: 1.3rem;
-  line-height: 1.7rem
-}
-
-#nagModal h2#modalTitle {
-  color:#001c3a !important;
-}
-
-
-
-/*  $modal-width: 1300px*$factor;
-  $modal-height: 518px*$factor;
-  $signup-button-width: 300px*$factor;
-  $signup-button-top: 12px*$factor;
-  $signup-button-size: 2.5rem*$factor;
-  $signup-button-padding: 25px*$factor;
-  $nag-inner-left: 267px*$factor;
-  $nag-inner-top: 81px*$factor;
-  $nag-inner-width: 766px*$factor;
-  $nag-inner-height: 308px*$factor;
-  $nag-inner-h2: 2.5rem*$factor;
-  $nag-inner-p-lead: 2rem*$factor;
-  $nag-inner-p: 1.25rem*$factor;*/
-
-/*  .nag-modal {
-    width: $modal-width;
-    height: $modal-height;
-    .button-signup {
-      width: $signup-button-width !important;
-      margin-top: $signup-button-top;
-      font-size: $signup-button-size;
-      padding: $signup-button-padding;
-    }
+    font-family: 'Eagle Light',helvetica,arial,sans-serif;
+    color:#001c3a;
+    color:red;
   }
-*/
-/*  .nag-modal-inner {
-    left: $nag-inner-left;
-    top: $nag-inner-top;
-    width: $nag-inner-width;
-    height: $nag-inner-height;
 
-    h2 { font-size: $nag-inner-h2; }
-    p.lead { font-size: $nag-inner-p-lead;  }
-    p { font-size: $nag-inner-p; }
-  }*/
-}
-/*
-@media screen {
-  @include nag-modal(1);
-}
+  p {
+    font-family: 'Eagle Light',helvetica,arial, sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.7rem
+  }
 
-@media screen and(max-width: 1050px) {
-  @include nag-modal(0.715);
+  #nagModal h2#modalTitle {
+    color:#001c3a !important;
+  }
 }
-
-@media screen and(max-width: 860px) {
-  @include nag-modal(0.571);
-}
-*/
 
 @media screen and(min-width: 1024px) {
   #nagModal {
