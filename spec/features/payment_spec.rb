@@ -28,7 +28,7 @@ feature "General payment" do
       expect(current_path).to eq(purchases_path)
     end
 
-    pending 'purchase more credits', driver: :chrome, slow: true do
+    scenario 'purchase more credits', driver: :chrome, slow: true do
       # Paypal is slow, therefore enhance the default waiting time
       default_wait_time = Capybara.default_wait_time
       Capybara.default_wait_time = 10
