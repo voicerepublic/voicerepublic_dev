@@ -143,6 +143,9 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        .nellymoser-message(ng-show='nellymoserAlert()')
+          %a.blink(href='.')
+            = t('.nelly_warning')
 
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
