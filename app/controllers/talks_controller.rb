@@ -35,7 +35,7 @@ class TalksController < BaseController
   end
 
   def index
-    @talks_live     = Talk.live.limit(5)
+    @talks_live     = Talk.live_and_halflive.limit(5)
     @talks_featured = Talk.featured.limit(5)
     @talks_recent   = Talk.recent.limit(5)
     @talks_popular  = Talk.popular.limit(5)
