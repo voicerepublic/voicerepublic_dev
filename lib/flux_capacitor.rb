@@ -46,6 +46,7 @@ class FluxCapacitor
   end
 
   def process(msg)
+    logger.info msg.inspect
     # pp msg
     channel = msg.delete('channel')
     Rails.logger.error NO_CHANNEL % msg.inspect if channel.nil?
@@ -92,7 +93,7 @@ class FluxCapacitor
     print 'X'
     Rails.logger.error("#{e.class.name}: " + e.message)
     logger.error("#{e.class.name}: " + e.message + "\n" +
-                 (e.backtrace * "\n") + "\n" + msg.to_yaml)
+                 (e.backtrace * "\n"))
     # TODO propagate errors via errbit
     # ENV["airbrake.error_id"] = notify_airbrake(e)
     nil

@@ -340,9 +340,9 @@ class Talk < ActiveRecord::Base
   end
 
   # for use on console only
-  def reinitiate_postprocessing!
+  def reinitiate_postprocess!
     self.update_attribute :state, :postlive
-    self.postprocessing!
+    self.postprocess!
   end
 
   private
@@ -595,7 +595,6 @@ class Talk < ActiveRecord::Base
 
   # collect information about what's stored via fog
   def cache_storage_metadata(file=nil)
-    return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
 
     basename = File.basename(file)
     key = "#{uri}/#{basename}"
