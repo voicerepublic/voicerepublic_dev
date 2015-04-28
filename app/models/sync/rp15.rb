@@ -33,9 +33,8 @@ module Sync
     VENUE_OPTS = {
       no_email: true,
       suppress_chat: true,
-      # TODO set jingle
-      jingle_in: 'asdf',
-      jingle_out: 'asdf'
+      jingle_in: 'https://voicerepublic.com/audio/rp14_podcast_en.wav',
+      jingle_out: 'https://voicerepublic.com/audio/rp14_podcast_en.wav'
     }
 
     LANGCODE = {
