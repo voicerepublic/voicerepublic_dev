@@ -8,7 +8,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # public
 
-  $scope.nellymoserAlert = ->
+  $scope.setNellyReload = (b) ->
+    config.flags.nellyReload = b
+
+  $scope.nellyAlert = ->
     config.feedback.data.codec == 'Nellymoser8'
 
   $scope.progress = ->

@@ -143,8 +143,9 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        .nellymoser-message(ng-show='nellymoserAlert()')
-          %a.blink(href='.')
+        .nelly-message(ng-show='nellyAlert()')
+          %a.blink{ href: talk_path(@talk),
+                    'ng-click' => 'setNellyReload(true)' }
             = t('.nelly_warning')
 
         .trouble-message(ng-show='trouble()') {{trouble()}}
