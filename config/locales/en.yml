@@ -477,7 +477,7 @@ en:
       and_personal_use: and Personal Use
       nonprofit: Nonprofit
       questions: |
-        If you have any questions...
+        If you have any questions please contact us.
     package:
       purchase_count_at_a_price_of_amount: |
         %{count} VR Talk Credits at %{amount}

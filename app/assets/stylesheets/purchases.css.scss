@@ -20,15 +20,16 @@
         }
 
         label {
-            margin-top: 20px;
+            margin-top: 15px;
             border: 2px solid transparent;
             padding: 10px 10px 10px 0;
             text-align: center;
         }
 
         label.selected {
-            background-color: lightgreen;
+            background-color: #6bae6b;
             border: 2px solid green;
+            font-weight: bold;
         }
 
         label:hover {

@@ -1,16 +1,20 @@
 = simple_form_for(:purchase, url: express_new_purchase_path, method: 'get') do |f|
 
   .row
+    .medium-12.columns
+      .box= render 'explanation'
+
+  .row(style='margin-top: 10px')
     .medium-6.columns
       .box
         %h2= t('.businesses')
-        %h3= t('.and_institutions')
+        %h2= t('.and_institutions')
         = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
     .medium-6.columns
       .box
         %h2= t('.nonprofit')
-        %h3= t('.and_personal_use')
+        %h2= t('.and_personal_use')
         = render partial: 'package', collection: Pricing::NONPROFIT, locals: { f: f }
 
   .row
@@ -21,8 +25,7 @@
 
   .row
     .medium-12.columns
-      .box= render 'explanation'
-      .box(style='margin-top: 10px')
+      .box
         .row
           .medium-8.columns
             %br
