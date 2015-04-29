@@ -46,6 +46,7 @@ class RtmpWatcher
                                   bw_in    = stream.bw_in,
                                   app_name = app.name,
                                   codec    = stream.meta.try(:audio).try(:codec) ]
+        # codec = 'Nellymoser8' # for testing
         publish_to "/stat/#{name}",
                    payload[name] = {
                      nclients: nclients,

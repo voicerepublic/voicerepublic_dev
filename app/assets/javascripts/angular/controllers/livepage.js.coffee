@@ -8,6 +8,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # public
 
+  $scope.setNellyReload = (b) ->
+    config.flags.nellyReload = b
+
+  $scope.nellyAlert = ->
+    config.feedback.data.codec == 'Nellymoser8'
+
   $scope.progress = ->
     percentage = 100 / config.progress.total * config.progress.index + 1
     "width: #{Math.floor(percentage)}%"

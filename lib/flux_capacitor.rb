@@ -16,37 +16,49 @@ class FluxCapacitor
   attr_accessor :client
 
   def run
-    logger.info 'Started.'
+    logger.info 'FluxCapacitor started.'
     extension = Faye::Authentication::ClientExtension.new(Settings.faye.secret_token)
     EM.run {
+
+      logger.info 'EM run.'
       self.client = Faye::Client.new(Settings.faye.server)
       client.add_extension(extension)
+      logger.info 'Faye::Client established.'
 
-      channel = '/live/up'
-      puts "subscribing to #{channel}..."
-      client.subscribe(channel) do |msg|
-        response = process(msg)
-        client.publish(*response) unless response.nil?
+      begin
+        logger.info "Subscribing to /live/up..."
+        client.subscribe('/live/up') do |msg|
+          logger.info "/live/up #{msg.inspect}"
+          response = process(msg)
+          client.publish(*response) unless response.nil?
+        end
+
+        logger.info "Subscribing to /register/listener..."
+        client.subscribe('/register/listener') do |msg|
+          logger.info "/register/listener #{msg.inspect}"
+          talk_id = msg['talk_id']
+          # TODO: We can skip persisting and publishing this information
+          # when the listener is already known
+          if talk = Talk.find_by(id: talk_id)
+            talk.listeners[msg['session']] ||= Time.now.to_i
+            # TODO write with locking
+            talk.save
+            client.publish(talk.public_channel, { type: 'listeners',
+                                                  listeners: talk.listeners.size })
+            print 'l'
+          end
+        end
+      rescue => e
+        logger.fatal 'E1 '+error(e)
       end
 
-      channel = '/register/listener'
-      puts "subscribing to #{channel}..."
-      client.subscribe(channel) do |msg|
-        talk_id = msg['talk_id']
-        # TODO: We can skip persisting and publishing this information when the listener is already known
-        talk = Talk.find(talk_id)
-        talk.listeners[msg['session']] ||= Time.now.to_i
-        # TODO write with locking
-        talk.save
-        client.publish(talk.public_channel, { type: 'listeners',
-                                              listeners: talk.listeners.size })
-        print 'l'
-      end
     }
+    logger.info 'FluxCapacitor terminated. (This should never happen!)'
+  rescue => e
+    logger.fatal 'E0 '+error(e)
   end
 
   def process(msg)
-    logger.info msg.inspect
     # pp msg
     channel = msg.delete('channel')
     Rails.logger.error NO_CHANNEL % msg.inspect if channel.nil?
@@ -91,9 +103,7 @@ class FluxCapacitor
     [ talk.public_channel, msg ]
   rescue => e
     print 'X'
-    Rails.logger.error("#{e.class.name}: " + e.message)
-    logger.error("#{e.class.name}: " + e.message + "\n" +
-                 (e.backtrace * "\n"))
+    logger.error 'E2 '+error(e)
     # TODO propagate errors via errbit
     # ENV["airbrake.error_id"] = notify_airbrake(e)
     nil
@@ -103,17 +113,25 @@ class FluxCapacitor
     @logger ||= Logger.new(Rails.root.join('log/flux_capacitor.log'))
   end
 
+  def error(e)
+    "#{e.class.name}: #{e.message}\n" + e.backtrace * "\n"
+  end
+
 end
 
 if __FILE__ == $0
   # daemonize
   base = File.expand_path('../..', __FILE__)
   piddir = File.join(base, 'tmp', 'pids')
+  fc = nil
   Daemons.run_proc(File.basename(__FILE__), dir: piddir) do
     Dir.chdir(base)
     # pull in the whole rails environment
-    puts 'compressing some time while booting rails...'
+    puts 'Compressing some time while booting rails...'
     require File.expand_path('config/environment', base)
-    FluxCapacitor.new.run
+    fc = FluxCapacitor.new
+    puts 'Ready.'
+    fc.run
   end
+  fc.logger.fatal "FluxCapacitor daemon exiting."
 end

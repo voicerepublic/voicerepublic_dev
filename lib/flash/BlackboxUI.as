@@ -124,10 +124,10 @@ private function setupMic():void {
 }
 
 private function setStreamVolume(ns:NetStream, vol:Number):void {
-  //var st:SoundTransform = ns.soundTransform;
-  //st.volume = vol;
-  //ns.soundTransform = st;
-  ns.soundTransform.volume = vol;
+  var st:SoundTransform = ns.soundTransform;
+  st.volume = vol;
+  ns.soundTransform = st;
+  //ns.soundTransform.volume = vol;
 }
 
 private function updateStreamsVolume(vol:Number):void {

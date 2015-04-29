@@ -35,7 +35,7 @@ class TalksController < BaseController
   end
 
   def index
-    @talks_live     = Talk.live.limit(5)
+    @talks_live     = Talk.live_and_halflive.limit(5)
     @talks_featured = Talk.featured.limit(5)
     @talks_recent   = Talk.recent.limit(5)
     @talks_popular  = Talk.popular.limit(5)
@@ -46,8 +46,11 @@ class TalksController < BaseController
     respond_to do |format|
       @related_talks = @talk.related_talks
       format.html do
-        RegisterListenerMessage.call(@talk,
-                                     request.session[:session_id])
+        # write to session to make sure we have an id
+        # see http://stackoverflow.com/questions/13673969
+        session[:foo] = 'bar'
+        session_id = session[:session_id]
+        RegisterListenerMessage.call(@talk, session_id)
       end
       format.text do
         authorize! :manage, @talk

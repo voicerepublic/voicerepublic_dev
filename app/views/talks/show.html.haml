@@ -149,6 +149,10 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
+        .nelly-message(ng-show='nellyAlert()')
+          %a.blink{ href: talk_path(@talk),
+                    'ng-click' => 'setNellyReload(true)' }
+            = t('.nelly_warning')
 
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
@@ -372,7 +376,7 @@
                     = render partial: "shared/avatar", locals: { size: 38 }
                 .message-content
                   %span.message-name
-                    {{ message.name }}
+                    {{ message.user.name }}
                   %span.message-time
                     {{ message.created_at }}
                   .message-text
@@ -451,7 +455,7 @@
 
 .scripts
   :javascript
-    window.insider = #{current_user.try(:insider?)};
+    window.insider = #{!!current_user.try(:insider?)};
     window.console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
   = javascript_include_tag 'sencha'
   = render 'config'
