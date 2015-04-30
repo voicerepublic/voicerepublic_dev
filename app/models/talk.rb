@@ -167,9 +167,8 @@ class Talk < ActiveRecord::Base
   scope :nodryrun, -> { where(dryrun: false) }
 
   scope :featured, -> do
-    nodryrun.
+    nodryrun.prelive.
       where("featured_from < ?", Time.zone.now).
-      where(state: [:prelive, :live]).
       order('featured_from DESC')
   end
 
