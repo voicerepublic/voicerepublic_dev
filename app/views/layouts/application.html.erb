@@ -27,6 +27,32 @@
     <%= render "shared/unconfirmed" if @current_user && !@current_user.confirmed? %>
     <%= render "shared/notice_or_error" %>
 
+
+    <div ng-controller='NagUsersCtrl'>
+      <script>
+        current_user = {}
+        current_user.is_anonymous = <%= !user_signed_in? %>
+        current_user.id = <%= user_signed_in? ? current_user.id : 0 %>
+      </script>
+      <div id="nagModal" class="reveal-modal nag-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <div class="row">
+          <div id="logobox" class="small-12 large-4 small-centered large-uncentered columns">
+            <img src="/images/logos/vr_red.svg">
+          </div>
+          <div class="small-12 large-8 small-centered large-uncentered columns">
+
+
+            <div class="nagBody">
+              <h2 id="modalTitle"><%= t('nag_modal.title') %></h2>
+              <h4 class="lead"><%= t('nag_modal.lead').html_safe %></h4>
+              <%= t('nag_modal.body').html_safe %>
+            </div>
+          </div>
+          <a class="close-reveal-modal">&#215;</a>
+        </div>
+      </div>
+    </div>
+
     <%= yield %>
 
     <%= render "shared/footer" %>
