@@ -30,6 +30,7 @@
 //= require jquery-ui-timepicker-addon
 //= require slider.js
 //
+//= require sencha
 //= require purchases
 //= require_tree ./components
 

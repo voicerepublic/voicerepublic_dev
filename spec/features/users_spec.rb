@@ -162,22 +162,26 @@ feature "User can register" do
   scenario "user supplies correct values" do
     visit root_path
     page.click_link('Sign Up')
-    page.fill_in('user_firstname', :with => "Jim")
-    page.fill_in('user_lastname', :with => "Beam")
-    page.fill_in('user_email', :with => "jim@beam.com")
-    page.fill_in('user_password', :with => "foobar")
-    page.fill_in('user_password_confirmation', :with => "foobar")
-    page.check('user_accept_terms_of_use')
-    page.find('.button-signup').click
+    within "#new_user" do
+      page.fill_in('user_firstname', :with => "Jim")
+      page.fill_in('user_lastname', :with => "Beam")
+      page.fill_in('user_email', :with => "jim@beam.com")
+      page.fill_in('user_password', :with => "foobar")
+      page.fill_in('user_password_confirmation', :with => "foobar")
+      page.check('user_accept_terms_of_use')
+      page.find('.button-signup').click
+    end
     expect(current_url).to include('/onboard')
   end
 
   scenario "Validations" do
     visit root_path
     page.click_link('Sign Up')
-    page.fill_in('user_firstname', :with => "Jim")
-    page.fill_in('user_lastname', :with => "Beam")
-    page.find('.button-signup').click
+    within "#new_user" do
+      page.fill_in('user_firstname', :with => "Jim")
+      page.fill_in('user_lastname', :with => "Beam")
+      page.find('.button-signup').click
+    end
     within(".input.email.error") do
       expect(page).to have_content("can't be blank")
     end
@@ -187,13 +191,15 @@ feature "User can register" do
   scenario "Has been referred" do
     visit root_path ref: 'ABC123'
     page.click_link('Sign Up')
-    page.fill_in('user_firstname', :with => "Jim")
-    page.fill_in('user_lastname', :with => "Beam")
-    page.fill_in('user_email', with: "jim@example.com")
-    page.fill_in('user_password', :with => "foobar")
-    page.fill_in('user_password_confirmation', :with => "foobar")
-    page.check('user_accept_terms_of_use')
-    page.find('.button-signup').click
+    within "#new_user" do
+      page.fill_in('user_firstname', :with => "Jim")
+      page.fill_in('user_lastname', :with => "Beam")
+      page.fill_in('user_email', with: "jim@example.com")
+      page.fill_in('user_password', :with => "foobar")
+      page.fill_in('user_password_confirmation', :with => "foobar")
+      page.check('user_accept_terms_of_use')
+      page.find('.button-signup').click
+    end
     expect(User.last.referrer).to match(/\AABC123/)
   end
 
