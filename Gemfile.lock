@@ -37,7 +37,7 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: 4a51d0d32966367dc56c370104c868688c8eafc1
+  revision: 0012fe4f2511eb052f037e5d452aa789a4414c1b
   specs:
     fidelity (0.0.2)
       auphonic
