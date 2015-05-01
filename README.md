@@ -234,6 +234,7 @@ Documentation
 For general platform and development documentation please refer to the
 [GitHub wiki pages](https://github.com/munen/voicerepublic_dev/wiki).
 
+
 ### Build diagrams
 
     railroady -M | dot -Tsvg > doc/models_complete.svg
@@ -255,6 +256,24 @@ Config entries are compiled from:
     config/environments/#{environment}.local.yml
 
 Settings defined in files that are lower in the list override settings higher.
+
+
+### A note on emails
+
+These files...
+
+    public/images/email_header.png
+    public/images/email_header.svg
+    public/images/icons/facebook.png
+    public/images/icons/link.png
+    public/images/icons/twitter.png
+
+(except the svg) are linked to from...
+
+    app/views/layouts/mailer.html.erb
+
+It makes since to put these NOT in `app/assets/images`, otherwise the
+MUAs will get 404s on emails that were sent from older releases.
 
 
 Deploy
