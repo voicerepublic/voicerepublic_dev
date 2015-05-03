@@ -4,8 +4,9 @@
   = social_meta_tags_talk
 
 - content_for :javascript do
-  window.insider = #{!!current_user.try(:insider?)};
-  window.console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
+  :javascript
+    window.insider = #{!!current_user.try(:insider?)};
+    window.console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
   = render 'config'
 
 - content_for :title do
