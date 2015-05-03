@@ -128,17 +128,17 @@ ActiveRecord::Schema.define(version: 20150502194739) do
   add_index "pg_search_documents", ["content"], name: "index_pg_search_documents_on_content", using: :btree
 
   create_table "purchases", force: :cascade do |t|
-    t.integer  "quantity",         default: 1
+    t.integer  "quantity",                     default: 1
     t.integer  "amount"
     t.datetime "purchased_at"
-    t.string   "ip"
-    t.string   "express_token"
-    t.string   "express_payer_id"
+    t.string   "ip",               limit: 255
+    t.string   "express_token",    limit: 255
+    t.string   "express_payer_id", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "details"
     t.integer  "owner_id"
-    t.string   "product"
+    t.string   "product",          limit: 255
     t.decimal  "total"
     t.string   "country"
   end
@@ -227,8 +227,9 @@ ActiveRecord::Schema.define(version: 20150502194739) do
     t.string   "language",           limit: 255, default: "en"
     t.string   "slug",               limit: 255
     t.string   "speakers",           limit: 255
-    t.string   "user_override_uuid", limit: 255
+    t.string   "slides_uid",         limit: 255
     t.text     "edit_config"
+    t.string   "user_override_uuid", limit: 255
     t.float    "popularity",                     default: 1.0
     t.float    "penalty",                        default: 1.0
     t.boolean  "dryrun",                         default: false
@@ -242,18 +243,18 @@ ActiveRecord::Schema.define(version: 20150502194739) do
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
 
   create_table "transactions", force: :cascade do |t|
-    t.string   "type"
-    t.string   "state"
+    t.string   "type",         limit: 255
+    t.string   "state",        limit: 255
     t.text     "details"
     t.integer  "source_id"
-    t.string   "source_type"
+    t.string   "source_type",  limit: 255
     t.datetime "failed_at"
     t.datetime "processed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "transactions", ["source_type", "source_id"], name: "index_transactions_on_source_type_and_source_id", using: :btree
+  add_index "transactions", ["source_id", "source_type"], name: "index_transactions_on_source_id_and_source_type", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "firstname",              limit: 255
@@ -274,17 +275,13 @@ ActiveRecord::Schema.define(version: 20150502194739) do
     t.string   "uid",                    limit: 255
     t.text     "slug"
     t.datetime "last_request_at"
-    t.string   "image_file_name",        limit: 255
-    t.string   "image_content_type",     limit: 255
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
     t.string   "header_uid",             limit: 255
     t.string   "avatar_uid",             limit: 255
     t.text     "about",                              default: ""
     t.string   "timezone",               limit: 255
     t.string   "website",                limit: 255
-    t.boolean  "conference"
     t.string   "authentication_token",   limit: 255
+    t.boolean  "conference"
     t.integer  "default_venue_id"
     t.string   "summary",                limit: 255
     t.float    "penalty",                            default: 1.0
@@ -294,7 +291,7 @@ ActiveRecord::Schema.define(version: 20150502194739) do
     t.string   "unconfirmed_email",      limit: 255
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
-    t.string   "referrer"
+    t.string   "referrer",               limit: 255
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
