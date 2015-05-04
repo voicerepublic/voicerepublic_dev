@@ -63,6 +63,8 @@ module Sync
 
       raise 'No rep15.user_id' unless Settings.try(:rep15).try(:user_id)
 
+      uris = []
+
       sessions.map do |session|
         begin
           # sanity checks
@@ -112,8 +114,9 @@ module Sync
 
           # update talk
           talk_uri = "rp15-#{nid}"
+          uris << talk_uri
           talk = Talk.find_or_initialize_by(uri: talk_uri)
-          next unless talk.created?
+          next unless talk.prelive?
           talk.venue = venue
           talk.title = session.title.strip.truncate(STRING_LIMIT)
           talk.teaser = session.description_short.strip.truncate(STRING_LIMIT)
@@ -153,6 +156,9 @@ module Sync
           #return
         end
       end
+
+      # remove the talks which didn't
+      user.talks.where("talks.uri NOT IN (?)", uris).destroy_all
 
       if opts[:dryrun]
         puts report_summary
