@@ -3,8 +3,6 @@
 # https://signalvnoise.com/posts/3372-put-chubby-models-on-a-diet-with-concerns
 # It extracts a slice of the user model that doesn’t seem part of its essence
 
-require 'active_support/concern'
-
 # Send Welcome Instructions and Personal Welcome Mail
 module Welcomed
   extend ActiveSupport::Concern
