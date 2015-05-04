@@ -117,11 +117,13 @@ module Sync
           metric = venue.persisted? ? :venues_updated : :venues_created
           self.metrics[metric] += 1 if opts[:dryrun] || venue.save!
 
+          debugger if session.nid == "6184"
+
           # update talk
           talk_uri = "rp15-#{nid}"
           uris << talk_uri
           talk = Talk.find_or_initialize_by(uri: talk_uri)
-          next unless talk.prelive?
+          next unless talk.prelive? or talk.created?
           talk.venue = venue
           talk.title = session.title.strip.truncate(STRING_LIMIT)
           talk.teaser = session.description_short.strip.truncate(STRING_LIMIT)
@@ -131,7 +133,8 @@ module Sync
                              truncate(TEXT_LIMIT)
           talk.tag_list = TAGS[category]
           talk.language = LANGCODE[session.language]
-          talk.speakers = session.speaker_names.map(&:strip) * ', '
+          talk.speakers = (session.speaker_names.map(&:strip) * ', ').
+                          truncate(STRING_LIMIT)
           talk.starts_at_date = [y, m, d] * '-'
           talk.starts_at_time = start_time
           talk.duration = duration
