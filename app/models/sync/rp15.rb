@@ -32,7 +32,8 @@ module Sync
 
     VENUE_OPTS = {
       no_email: true,
-      suppress_chat: true,
+      no_auto_end_talk: true,
+      start_button: true,
       jingle_in: 'https://voicerepublic.com/audio/rp14_podcast_en.wav',
       jingle_out: 'https://voicerepublic.com/audio/rp14_podcast_en.wav'
     }
