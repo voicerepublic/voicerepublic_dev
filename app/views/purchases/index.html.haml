@@ -3,19 +3,16 @@
   .row
     .medium-12.columns
       .box= render 'explanation'
-      / %h3= t('.our_packages_for')
 
   .row
     .medium-6.columns
       .pricing-box
         %h3= t('.businesses')
-        //%h3= t('.and_other_institutions')
         = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
     .medium-6.columns
       .pricing-box
         %h3= t('.nonprofit')
-        //%h3= t('.and_personal_use')
         = render partial: 'package', collection: Pricing::NONPROFIT, locals: { f: f }
 
   .row

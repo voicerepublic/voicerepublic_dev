@@ -49,10 +49,10 @@ class Purchase < ActiveRecord::Base
 
   def process
     response = ActiveMerchant.express_gateway.purchase(total,
-                                        ip: ip,
-                                        token: express_token,
-                                        payer_id: express_payer_id,
-                                        currency: CURRENCY)
+                                                       ip: ip,
+                                                       token: express_token,
+                                                       payer_id: express_payer_id,
+                                                       currency: CURRENCY)
     raise response.params['message'] unless response.success?
     update_attribute(:purchased_at, Time.now) if response.success?
     create_purchase_transaction.process!
@@ -77,7 +77,7 @@ class Purchase < ActiveRecord::Base
           quantity: quantity,
           description: "Bundle #{product}",
           amount: amount }
-      ],
+    ],
       allow_note: false,
       no_shipping: true,
       currency: CURRENCY,

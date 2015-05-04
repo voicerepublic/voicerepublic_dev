@@ -1,122 +1,112 @@
 .purchases-index {
 
-    h1, h2, h3 {
-        color: #001C3A;
-        text-align: center;
+  h1, h2, h3 {
+    color: #001C3A;
+    text-align: center;
+  }
+
+  h1.dark {
+    font-size: 36px;
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 48px;
+    margin-top: 24px;
+
+  }
+
+  h3 {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  .box {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .box img {
+    max-width: 96px;
+    max-height: 96px;
+    margin:0 auto;
+    margin-bottom: 24px;
+  }
+
+  .box p.pricing-description {
+    color:#001C3A;
+    opacity: .8;
+    font-size: 14px;
+  }
+
+  .pricing-box {
+    padding-top: 48px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px rgba(0,0,0,.2);
+  }
+
+  .pricing-box h3 {
+    margin-bottom: 48px;
+  }
+
+  form.purchase {
+    margin-top: 75px;
+
+    input[type='radio'] {
+      opacity: 0;
+      margin: 0;
     }
 
-    h1.dark {
-        font-size: 36px;
-        width: 600px;
-        margin: 0 auto;         
-        margin-bottom: 48px;
-        margin-top: 24px;
-
+    label {
+      font-family: 'Eagle Light',sans-serif;
+      font-size: 18px;
+      padding: 16px 10px 16px 0;
+      text-align: center;
+      border-top: 1px solid rgba(0, 28, 58, 0.2);
+      transition:background .2s ease;
     }
 
-    h3 {
-        font-size: 24px;
-        line-height: 24px;
+    label.selected {
+      background-color: rgba(255,237,0,1);
     }
 
-    .box {
-        /*border: 1px solid black;*/
-        /*background-color: rgba(0,0,0,0.1);*/
-        /*padding: 10px;*/
-        text-align: center;
-        margin-bottom: 48px;
+    label:hover {
+      background-color: rgba(255,237,0,.5);
     }
 
-    .box img {
-        max-width: 96px;
-        max-height: 96px;
-        margin:0 auto;
-        margin-bottom: 24px;
+    .button {
+      border: 2px solid papayaWhip;
+      background-color: rgba(0,0,0,0);
+      &:hover {
+        border: 2px solid gray;
+      }
     }
-
-    .box p.pricing-description {
-        color:#001C3A;
-        opacity: .8;
-        font-size: 14px;
+    #paypal_spinner{
+      display: none;
+      img {
+        width: 42px;
+        height: 42px;
+        margin: 14px 24px 13px;
+      }
     }
+  }
 
-    .pricing-box {
-        padding-top: 48px;
-        background: #fff;
-        border-radius: 3px;
-        box-shadow: 0px 0px 3px rgba(0,0,0,.2);
-    }
+  .button.large.pricing-support-btn {
+    background: #2C46B0;
+    padding: 12px 24px;
+    color: #fff;
+    font-family: 'Eagle', sans-serif;
+    margin-top: 24px;
+    border:none;
+    transition:background .2s ease;
+  }
 
-    .pricing-box h3 {
-        /*margin-top: 48px;*/
-        margin-bottom: 48px;
-    }
+  .button.large.pricing-support-btn:hover {
+    background: #a339cd;
+    border: none;
+  }
 
-
-
-    form.purchase {
-        margin-top: 75px;
-
-        input[type='radio'] {
-            opacity: 0;
-            margin: 0;
-        }
-
-        label {
-            /*margin-top: 20px;*/
-            /*border: 2px solid transparent;*/
-            font-family: 'Eagle Light',sans-serif;
-            font-size: 18px;
-            padding: 16px 10px 16px 0;
-            text-align: center;
-            border-top: 1px solid rgba(0, 28, 58, 0.2);
-            transition:background .2s ease;
-        }
-
-        label.selected {
-            background-color: rgba(255,237,0,1);
-            /*border: 2px solid green;*/
-        }
-
-        label:hover {
-            /*border: 2px solid green;*/
-            background-color: rgba(255,237,0,.5);
-        }
-
-        .button {
-            border: 2px solid papayaWhip;
-            background-color: rgba(0,0,0,0);
-            &:hover {
-                border: 2px solid gray;
-            }
-        }
-        #paypal_spinner{
-            display: none;
-            img {
-                width: 42px;
-                height: 42px;
-                margin: 14px 24px 13px;
-            }
-        }
-    }
-
-    .button.large.pricing-support-btn {
-        background: #2C46B0;
-        padding: 12px 24px;
-        color: #fff;
-        font-family: 'Eagle', sans-serif;
-        margin-top: 24px;
-        border:none;
-        transition:background .2s ease;
-    }
-
-    .button.large.pricing-support-btn:hover {
-        background: #a339cd;
-        border: none;
-    }
-
-    hr.pricing-hr {
-        margin-top: 48px;
-        margin-bottom: 48px;
-    }
+  hr.pricing-hr {
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
 }
