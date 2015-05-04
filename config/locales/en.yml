@@ -503,3 +503,16 @@ en:
   purchase_mailer:
     invoice:
       subject: Your Voice Republic Order Receipt
+  nag_modal:
+    title: Get the best of the spoken word.
+    lead: "When you sign up for Voice Republic, you'll be able to:"
+    body: |
+      <ul>
+      <li>Download Podcasts from the conference</li>
+      <li>Bookmark talks for later listening</li>
+      <li>Take part in discussions</li>
+      <li>And of course, you'll also be able to host your own talks</li>
+
+      </ul>
+
+      <a href="/users/sign_up" class="button-signup primary button large">Sign up, it's free!</a>
