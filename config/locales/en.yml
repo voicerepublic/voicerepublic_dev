@@ -472,8 +472,8 @@ en:
   purchases:
     index:
       our_packages_for: Our Packages for...
-      businesses: Businesses
-      nonprofit: Nonprofit
+      businesses: "Businesses & Institutions"
+      nonprofit: "Nonprofit & Personal Use"
     package:
       purchase_count_at_a_price_of_amount: |
         %{count} VR Talk Credits at %{amount}

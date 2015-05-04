@@ -10,11 +10,14 @@
 # * purchased_at [datetime] - TODO: document me
 # * quantity [integer, default=1] - TODO: document me
 # * updated_at [datetime] - last update time
+# encoding: UTF-8
+
 class Purchase < ActiveRecord::Base
 
   include Pricing
 
-  CURRENCY = 'EUR'
+  # CURRENCY = 'EUR'
+  CURRENCY = "€"
 
   belongs_to :owner, class_name: 'User', counter_cache: true
   has_one :purchase_transaction, as: :source
