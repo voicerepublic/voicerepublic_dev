@@ -16,8 +16,7 @@ class Purchase < ActiveRecord::Base
 
   include Pricing
 
-  # CURRENCY = 'EUR'
-  CURRENCY = "€"
+  CURRENCY = 'EUR'
 
   belongs_to :owner, class_name: 'User', counter_cache: true
   has_one :purchase_transaction, as: :source
