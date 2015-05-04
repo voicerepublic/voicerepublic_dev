@@ -37,6 +37,9 @@ class User < ActiveRecord::Base
   # this makes `url_for` available for use in `details_for`
   include Rails.application.routes.url_helpers
 
+  # Send Welcome Instructions and Personal Welcome Mail
+  include Welcomed
+
   PRIOTZ = Regexp.new(Settings.priority_timezones)
 
   extend FriendlyId
