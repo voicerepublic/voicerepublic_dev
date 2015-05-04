@@ -67,6 +67,10 @@ module Sync
 
       sessions.map do |session|
         begin
+          # skip this special cases
+          next if session.nid == '5966'
+          next if session.room == 'newthinking'
+
           # sanity checks
           nid = session.nid
           raise 'No nid' if nid.blank?
