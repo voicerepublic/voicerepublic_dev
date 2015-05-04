@@ -1,3 +1,7 @@
 %hr.pricing-hr
-%h3 If you have any questions, please contact us.
-= link_to 'Contact Us', 'mailto:support@voicerepublic.com', :title => 'Contact Us', :class => 'button large pricing-support-btn'
+%h3= t('.contact_us_for_questions')
+= link_to t('.contact_us'),
+  'mailto:support@voicerepublic.com',
+  title: t('.contact_us'),
+  class: 'button large pricing-support-btn'
+

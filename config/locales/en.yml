@@ -470,10 +470,17 @@ en:
   low_on_credits: |
     Sorry, you've no credits left. Buy some...
   purchases:
-    index:
-      our_packages_for: Our Packages for...
-      businesses: "Businesses & Institutions"
-      nonprofit: "Nonprofit & Personal Use"
+    questions:
+      contact_us: "Contact Us"
+      contact_us_for_questions: "If you have any questions, please contact us."
+    explanation:
+      header: "Voice Republic's payment concept is as simple as it gets:"
+      pricing-feature-1: Credits are all-inclusive.
+      pricing-description-1:  'A credit covers all aspects of a talk: live streaming or uploading to the archive as well as all sharing options.'
+      pricing-feature-2: Credits do not expire.
+      pricing-description-2:  'Your credits will be fully valid for as long as your Voice Republic account exists.'
+      pricing-feature-3: No recurring costs.
+      pricing-description-3: 'No subscriptions. Simply purchase credits when you need them.'
     package:
       purchase_count_at_a_price_of_amount: |
         %{count} VR Talk Credits at %{amount}
