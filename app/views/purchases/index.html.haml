@@ -4,31 +4,23 @@
     .medium-12.columns
       .box= render 'explanation'
 
-  .row(style='margin-top: 10px')
+  .row
     .medium-6.columns
-      .box
-        %h2= t('.businesses')
-        %h2= t('.and_institutions')
+      .pricing-box
+        %h3= t('.businesses')
         = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
     .medium-6.columns
-      .box
-        %h2= t('.nonprofit')
-        %h2= t('.and_personal_use')
+      .pricing-box
+        %h3= t('.nonprofit')
         = render partial: 'package', collection: Pricing::NONPROFIT, locals: { f: f }
 
   .row
-    .medium-12.columns(style="text-align: center; margin-top: 10px")
+    .medium-12.columns(style="text-align: center; margin-top: 50px")
       %span#paypal_spinner
         = image_tag 'loader.gif'
       = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner"
 
   .row
     .medium-12.columns
-      .box
-        .row
-          .medium-8.columns
-            %br
-            = t('.questions')
-          .medium-4.columns
-            = link_to t('.contact_us'), 'mailto:service@voicerepublic.com', class: 'button right', style: "background-color: papayaWhip"
+      .box= render 'questions'
