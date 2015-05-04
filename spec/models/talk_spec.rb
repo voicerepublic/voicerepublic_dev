@@ -141,12 +141,14 @@ describe Talk do
   end
 
   describe 'on class level' do
-    it 'has a scope featured' do
+    it 'has a scope featured which does not include live talks' do
       talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
       talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
-      FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
-      expect(Talk.featured).to eq([talk1, talk0])
+      talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
+      expect(Talk.featured.count).to eq(1)
       expect(Talk.featured).to include(talk0)
+      expect(Talk.featured).to_not include(talk1)
+      expect(Talk.featured).to_not include(talk2)
     end
 
     describe 'saves the Content-Type' do

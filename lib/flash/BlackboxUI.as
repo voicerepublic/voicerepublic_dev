@@ -4,29 +4,30 @@ import mx.events.SliderEvent;
 [Bindable]
 public var gain:int = 0;
 
-private var version:String = '3.1';
+private var version:String = '3.2';
 private var mic:Microphone;
 private var opts:MicrophoneEnhancedOptions;
 private var streamer:String;
 private var shadowGain:Number = 0;
-private var netStreams:Array = new Array();
-private var settingsClosed:String;
-private var publishNetConnection:NetConnection = null;
 private var streamVolume:Number = 1;
-private var publishStreamName:String = null;
+
+private var publishStreamName:String;
 private var publishNetStream:NetStream;
-private var monitorNetConnection:NetConnection = null;
+private var publishNetConnection:NetConnection;
+private var monitorNetConnection:NetConnection;
+
+private var netStreams:Array = new Array();
 private var netConnections:Array = new Array();
 
 private var jsImports:Object = {
-  closeMethod:     'console.log',
-  errorMethod:     'console.log',
-  logMethod:       'console.log',
-  feedbackMethod:  'console.log',
-  silenceLevel:    'console.log',
-  silenceTimeout:  'console.log',
-  settingsClosed:  'console.log',
-  afterInitialize: 'console.log'
+  closeMethod:     null,
+  errorMethod:     null,
+  logMethod:       null,
+  feedbackMethod:  null,
+  silenceLevel:    null,
+  silenceTimeout:  null,
+  settingsClosed:  null,
+  afterInitialize: null
 };
 
 private var jsExports:Object = {
@@ -123,10 +124,10 @@ private function setupMic():void {
 }
 
 private function setStreamVolume(ns:NetStream, vol:Number):void {
-  //var st:SoundTransform = ns.soundTransform;
-  //st.volume = vol;
-  //ns.soundTransform = st;
-  ns.soundTransform.volume = vol;
+  var st:SoundTransform = ns.soundTransform;
+  st.volume = vol;
+  ns.soundTransform = st;
+  //ns.soundTransform.volume = vol;
 }
 
 private function updateStreamsVolume(vol:Number):void {
@@ -243,7 +244,7 @@ private function micCheck():void {
                            log('Permission has been granted.');
                            //Security.showSettings(SecurityPanel.MICROPHONE);
                            //checkSettings(function():void {
-                           //  ExternalInterface.call(settingsClosed);
+                           //  ExternalInterface.call(jsImports.settingsClosed);
                            //});
                            break;
                          case 'Microphone.Muted':
@@ -275,11 +276,16 @@ private function unmuteMic():void {
 }
 
 private function setVolume(volume:Number):void {
+  log("Set volume of all streams to "+volume);
   updateStreamsVolume(volume);
 }
 
 private function publishStream(stream:String):void {
   log("Publishing mic to " + stream);
+  if(publishStreamName != null) {
+    log("Already publishing to "+ publishStreamName);
+    return;
+  }
   if(mic == null) setupMic();
   publishStreamName = stream;
 
@@ -295,10 +301,11 @@ private function publishStream(stream:String):void {
 }
 
 private function unpublishStream():void {
-  log("Unpublishing mic.");
+  log("Unpublishing mic...");
   publishStreamName = null;
   if (publishNetConnection != null) {
     publishNetConnection.close();
+    log("Unpublished mic.");
   }
 }
 
@@ -315,7 +322,7 @@ private function subscribeStream(stream:String):void {
 }
 
 private function unsubscribeAll():void {
-  log("Closing "+netConnections.length+" NetConnections.");
+  log("Unsubscribing all, closing "+netConnections.length+" NetConnections.");
   for each (var nc:NetConnection in netConnections) {
     nc.close();
   }

@@ -61,10 +61,11 @@ class UsersController < BaseController
           case params[:more]
           when 'live'      then @user.talks.live_and_halflive.ordered.offset(3)
           when 'upcoming'  then @user.talks.prelive.ordered.offset(3)
-          when 'archived'  then @user.talks.archived.ordered.offset(3)
-          when 'reminders' then Talk.remembered_by(@user).ordered.offset(3)
+          when 'archived'  then @user.talks.archived.reordered.offset(3)
+          when 'reminders' then Talk.remembered_by(@user).reordered.offset(3)
           end
       end
+      format.ics
     end
   end
 

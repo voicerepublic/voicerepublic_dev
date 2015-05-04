@@ -1,6 +1,8 @@
 - content_for :title do
   = t('.title')
 
+= render "dryrun" if @talk.dryrun?
+
 = simple_form_for(@talk) do |f|
   = render partial: "fields", locals: { f: f, form_title: t('.schedule_a_talk') }
 
@@ -8,3 +10,7 @@
     .medium-12.columns
       = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right'
       = f.button :submit, class: 'button-save right'
+      - unless @talk.dryrun?
+        .eagle.right(style='margin: 9px')
+          %i.icon-info
+          = t('.billing_notice')

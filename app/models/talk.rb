@@ -167,9 +167,8 @@ class Talk < ActiveRecord::Base
   scope :nodryrun, -> { where(dryrun: false) }
 
   scope :featured, -> do
-    nodryrun.
+    nodryrun.prelive.
       where("featured_from < ?", Time.zone.now).
-      where(state: [:prelive, :live]).
       order('featured_from DESC')
   end
 
@@ -328,8 +327,7 @@ class Talk < ActiveRecord::Base
 
     age_in_hours = ( ( Time.now - processed_at ) / 3600 ).to_i
 
-    rank = ( ( ( play_count - 1 ) ** 0.8 ).real /
-             ( age_in_hours + 2 ) ** 1.8 ) * penalty
+    rank = ( ( ( play_count - 1 ) ** 0.8 ).real / ( age_in_hours + 2 ) ** 1.8 ) * penalty
 
     self.popularity = rank
   end
@@ -338,6 +336,12 @@ class Talk < ActiveRecord::Base
     self.penalty = penalty
     set_popularity if archived?
     save!
+  end
+
+  # for use on console only
+  def reinitiate_postprocess!
+    self.update_attribute :state, :postlive
+    self.postprocess!
   end
 
   private
@@ -360,7 +364,9 @@ class Talk < ActiveRecord::Base
     # Fog will use MIME::Types to determine the content type
     # and MIME::Types is a horrible, horrible beast.
     ctype = Mime::Type.lookup_by_extension(ext)
+    puts "[DBG] Uploading %s to %s..." % [file, key]
     media_storage.files.create key: key, body: handle, content_type: ctype
+    puts "[DBG] Uploading %s to %s complete." % [file, key]
   end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -473,10 +479,12 @@ class Talk < ActiveRecord::Base
         cmd = "wget -q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
         # fetch files from s3
         if url =~ /^s3:\/\//
+          puts "Downloading %s to %s..." % [url, tmp]
           cmd = "#R# s3cmd get #{url} #{tmp} # (ruby code)"
           key = url.sub("s3://#{media_storage.key}/", '')
           file = media_storage.files.get(key)
           File.open(tmp, 'wb') { |f| f.write(file.body) }
+          puts "Downloading %s to %s complete." % [url, tmp]
         end
         logfile.puts cmd
         %x[ #{cmd} ]
@@ -520,8 +528,9 @@ class Talk < ActiveRecord::Base
     Rails.logger.info "manifest: #{path}"
     worker = AudioProcessor.new(path) # see lib/audio_processor.rb
     worker.talk = self
-    # TODO make it work for a custom logfile
-    worker.run(Rails.logger)
+    logfile = File.expand_path(File.join(Settings.rtmp.recordings_path,
+                                         "process-#{id}.log"), Rails.root)
+    worker.run(Logger.new(logfile))
   end
 
   # move flvs to fog storage whil removing empty files
@@ -544,7 +553,8 @@ class Talk < ActiveRecord::Base
   # move results to fog storage
   def upload_results!
     base = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-    files = ( Dir.glob("#{base}/#{id}.journal") +
+    files = ( Dir.glob("#{base}/process-#{id}.log") +
+              Dir.glob("#{base}/#{id}.journal") +
               Dir.glob("#{base}/#{id}.*") +
               Dir.glob("#{base}/#{id}-*.*") ).uniq
     files.each do |file|
@@ -556,6 +566,9 @@ class Talk < ActiveRecord::Base
 
     # also remove flvs, these have been uploaded before
     FileUtils.rm(Dir.glob("#{base}/t#{id}-u*.flv"))
+
+    # also remove manifest
+    FileUtils.rm("#{base}/manifest-#{id}.yml")
 
     save! # save `storage` field
   end
@@ -585,7 +598,6 @@ class Talk < ActiveRecord::Base
 
   # collect information about what's stored via fog
   def cache_storage_metadata(file=nil)
-    return all_files.map { |file| cache_storage_metadata(file) } if file.nil?
 
     basename = File.basename(file)
     key = "#{uri}/#{basename}"

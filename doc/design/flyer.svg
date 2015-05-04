@@ -32,14 +32,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.5400002"
-     inkscape:cx="151.55674"
-     inkscape:cy="360.59153"
+     inkscape:cx="101.55674"
+     inkscape:cy="108.62305"
      inkscape:document-units="px"
-     inkscape:current-layer="g3024"
+     inkscape:current-layer="layer1"
      showgrid="false"
      units="cm"
-     inkscape:window-width="1678"
-     inkscape:window-height="1048"
+     inkscape:window-width="1600"
+     inkscape:window-height="900"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0" />
@@ -193,34 +193,34 @@
          style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:129.99999523%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:GaramondNo8;-inkscape-font-specification:GaramondNo8"
          xml:space="preserve"><tspan
            style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:129.99999523%;letter-spacing:-0.25px;text-anchor:middle;fill:#ffffff;font-family:Eagle;-inkscape-font-specification:Eagle"
-           id="tspan3791"
            y="962.33862"
            x="185.90495"
-           sodipodi:role="line">VOICE REPUBLIC IS THE</tspan><tspan
+           sodipodi:role="line"
+           id="tspan3035">HOME TO THE</tspan><tspan
            style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:129.99999523%;letter-spacing:-0.25px;text-anchor:middle;fill:#ffffff;font-family:Eagle;-inkscape-font-specification:Eagle"
            y="985.73865"
            x="185.90495"
            sodipodi:role="line"
-           id="tspan3033">PLATFORM FOR</tspan><tspan
+           id="tspan3025">SPOKEN</tspan><tspan
            style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:129.99999523%;letter-spacing:-0.25px;text-anchor:middle;fill:#ffffff;font-family:Eagle;-inkscape-font-specification:Eagle"
            y="1009.1386"
            x="185.90495"
            sodipodi:role="line"
-           id="tspan3035">DISCUSSIONS</tspan></text>
+           id="tspan3027">WORD</tspan></text>
       <path
          inkscape:connector-curvature="0"
          id="path3948"
-         d="m 120.8932,990.4787 130.26084,0"
-         style="fill:#ffffff;stroke:#ffffff;stroke-width:2.311;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         d="m 151.53699,990.4787 68.97326,0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2.31100011;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          inkscape:connector-curvature="0"
          id="path3948-9"
-         d="m 127.95379,1013.8994 116.13966,0"
-         style="fill:#ffffff;stroke:#ffffff;stroke-width:2.311;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+         d="m 160.51416,1013.8994 51.01893,0"
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:2.31100011;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          inkscape:connector-curvature="0"
          id="path3948-5"
-         d="m 86.451148,968.00013 199.144952,0"
+         d="m 127.75779,968.00013 116.53167,0"
          style="fill:#ffffff;stroke:#ffffff;stroke-width:2.3108983;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
   </g>

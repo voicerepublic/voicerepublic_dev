@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'service@voicerepublic.com'
+  default from: Settings.devise.from_address
   layout 'mailer'
 end

@@ -10,9 +10,7 @@
 # automatically send a multipart email with the HTML and text versions
 # setup as different parts.
 #
-class UserMailer < ActionMailer::Base
-
-  default from: Settings.devise.from_address
+class UserMailer < ApplicationMailer
 
   # app/models/talk.rb:140 (delayed)
   def new_talk(talk, user)
