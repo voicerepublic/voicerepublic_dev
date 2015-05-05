@@ -12,6 +12,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.reminder(Talk.last, User.last)
   end
 
+  def welcome
+    UserMailer.welcome(User.last)
+  end
+
   def new_comment
     UserMailer.new_comment(Comment.last, User.last)
   end

@@ -375,6 +375,17 @@ en:
   layouts:
     application:
       landing_title: Voice Republic - The Place To Talk
+  plain_mailer:
+    welcome:
+      subject: Help getting started?
+      header: "Hey %{user_firstname}"
+      content: |
+        I'm Patrick, CEO of <a href="http://voicerepublic.com">voicerepublic.com</a>. I wanted to reach out to see if you need any help getting started.
+      content_plain: |
+        I'm Patrick, CEO of voicerepublic.com. I wanted to reach out to see if you need any help getting started.
+      footer: |
+        Cheers.
+        Patrick
   user_mailer:
     new_talk:
       subject: New talk
