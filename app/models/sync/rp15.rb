@@ -117,7 +117,6 @@ module Sync
           metric = venue.persisted? ? :venues_updated : :venues_created
           self.metrics[metric] += 1 if opts[:dryrun] || venue.save!
 
-          debugger if session.nid == "6184"
 
           # update talk
           talk_uri = "rp15-#{nid}"
