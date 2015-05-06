@@ -69,7 +69,7 @@ module Sync
       sessions.map do |session|
         begin
           # skip this special cases
-          next if %w( 6111 ).include?(session.nid)
+          next if %w( 6111 2612 ).include?(session.nid)
           next if session.title == 'FluxFM_MUTation'
           next if session.room == 'newthinking'
 
