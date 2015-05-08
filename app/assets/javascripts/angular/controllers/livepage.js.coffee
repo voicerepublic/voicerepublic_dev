@@ -44,7 +44,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.trouble = ->
     return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
-    return 'trouble connecting' if config.flags.connecting
+    return 'connecting' if config.flags.connecting
     false
 
   $scope.showBandwidth = ->
