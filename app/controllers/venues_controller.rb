@@ -1,20 +1,8 @@
 class VenuesController < BaseController
 
   before_filter :store_location
-  #before_filter :remember_location, :only => [:join_venue]
-  before_filter :authenticate_user!, :except => [:index, :show, :tags]
+  before_filter :authenticate_user!, :except => [:show, :tags]
   before_filter :set_venue, only: [:show, :edit, :update, :destroy]
-
-  # GET /venues
-  # GET /venues.json
-  def index
-    @venues = Venue.order('updated_at DESC')
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @venues }
-    end
-  end
 
   # GET /venues/1
   # GET /venues/1.json
