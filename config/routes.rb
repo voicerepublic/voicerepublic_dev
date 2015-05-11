@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  get 'explore' => 'explore/index'
+  # in case someone bookmarked '/talks'
+  get 'talks', to: redirect('explore')
+
+  get 'explore', to: 'explore#index'
   get 'explore/live',     as: 'live_talks'
   get 'explore/popular',  as: 'popular_talks'
   get 'explore/featured', as: 'featured_talks'
