@@ -8,6 +8,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # public
 
+  $scope.setNellyReload = (b) ->
+    config.flags.nellyReload = b
+
+  $scope.nellyAlert = ->
+    config.feedback.data.codec == 'Nellymoser8'
+
   $scope.progress = ->
     percentage = 100 / config.progress.total * config.progress.index + 1
     "width: #{Math.floor(percentage)}%"
@@ -38,7 +44,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.trouble = ->
     return 'reconnecting' if blackbox.info.lastEvent == 'reconnecting'
-    return 'trouble connecting' if config.flags.connecting
+    return 'connecting' if config.flags.connecting
     false
 
   $scope.showBandwidth = ->

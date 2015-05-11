@@ -141,12 +141,14 @@ describe Talk do
   end
 
   describe 'on class level' do
-    it 'has a scope featured' do
+    it 'has a scope featured which does not include live talks' do
       talk0 = FactoryGirl.create(:talk, featured_from: 2.days.ago, state: :prelive)
       talk1 = FactoryGirl.create(:talk, featured_from: 1.day.ago, state: :live)
-      FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
-      expect(Talk.featured).to eq([talk1, talk0])
+      talk2 = FactoryGirl.create(:talk, featured_from: 1.day.from_now, state: :prelive)
+      expect(Talk.featured.count).to eq(1)
       expect(Talk.featured).to include(talk0)
+      expect(Talk.featured).to_not include(talk1)
+      expect(Talk.featured).to_not include(talk2)
     end
 
     describe 'saves the Content-Type' do
@@ -407,20 +409,16 @@ describe Talk do
   end
 
   describe 'dryrun' do
+    include DjHelpers
     it 'automatically destroys the talk after a while' do
-      Delayed::Worker.delay_jobs = true # activate
+      Delayed::Worker.delay_jobs = true
       expect(Delayed::Job.count).to eq(0)
       talk = FactoryGirl.create :talk, dryrun: true
-      expect(Delayed::Job.count).to eq(1)
-      Timecop.travel(25.hours.from_now)
-      successes, failures = Delayed::Worker.new.work_off
-      expect(Delayed::Job.count).to eq(0)
-      expect(successes).to eq(1)
-      expect(failures).to eq(0)
+
+      expect_scheduled_job_to_have_run_in_the_future
+
       expect(Talk.where(id: talk.id)).to be_empty
-      Delayed::Worker.delay_jobs = false # deactivate
+      Delayed::Worker.delay_jobs = false
     end
-
   end
-
 end

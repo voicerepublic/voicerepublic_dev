@@ -23,6 +23,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     settings: false
     connecting: true
     blackboxReady: false
+    nellyReload: false
   config.feedback = { data: { bw_in: 0 } }
   config.progress = { index: 0, total: 1 }
 
@@ -137,6 +138,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
   # TODO resolve dependency on `window` by using `$window`
   activateSafetynet = ->
     $(window).bind 'beforeunload', ->
+      return if config.flags.nellyReload
       config.safetynet_warning
 
   deactivateSafetynet = ->

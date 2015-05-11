@@ -1,3 +1,5 @@
+# coding: utf-8
+#
 # On console run with
 #
 #    Sync::Rp15.new(dryrun: true).sync
@@ -15,10 +17,12 @@ module Sync
       'Media Convention'      => 'republica, Media, Medien, Convention',
       're:cord Musicday'      => 'republica, record, Musicday',
       're:health'             => 'republica, Health, Gesundheit',
+      're:think Mobility'     => 'republica, rethink, Mobility, Mobilität',
       'City Of The Future'    => 'republica, CityOfTheFuture, StadtDerZukunft',
       'Culture'               => 'republica, Culture, Kultur',
       'Politics & Society'    => 'republica, Politics, Politik, Society, Gesellschaft',
       'Media'                 => 'republica, Media, Medien',
+      'GIG'                   => 'republica, GIG',
       'Research & Education'  => 'republica, Research, Forschung, Education, Bildung',
       'Business & Innovation' => 'republica, Business, Innovation, Wirtschaft',
       'Fashiontech'           => 'republica, Fashiontech',
@@ -28,10 +32,10 @@ module Sync
 
     VENUE_OPTS = {
       no_email: true,
-      suppress_chat: true,
-      # TODO set jingle
-      jingle_in: 'asdf',
-      jingle_out: 'asdf'
+      no_auto_end_talk: true,
+      start_button: true,
+      jingle_in: 'https://voicerepublic.com/audio/rp14_podcast_en.wav',
+      jingle_out: 'https://voicerepublic.com/audio/rp14_podcast_en.wav'
     }
 
     LANGCODE = {
@@ -45,8 +49,8 @@ module Sync
 
     DATETIME_REGEX = /(\d\d)\.(\d\d)\.(\d\d\d\d)/
 
-    SESSIONS = 'http://re-publica.de/event/3013/json/sessions'
-    SPEAKERS = 'http://re-publica.de/event/3013/json/speakers'
+    SESSIONS = 'https://re-publica.de/event/3013/json/sessions'
+    SPEAKERS = 'https://re-publica.de/event/3013/json/speakers'
 
     attr_accessor :metrics, :warnings, :errors, :changes, :opts
 
@@ -60,8 +64,15 @@ module Sync
 
       raise 'No rep15.user_id' unless Settings.try(:rep15).try(:user_id)
 
+      uris = []
+
       sessions.map do |session|
         begin
+          # skip this special cases
+          next if %w( 6111 6134 ).include?(session.nid)
+          next if session.title == 'FluxFM_MUTation'
+          next if session.room == 'newthinking'
+
           # sanity checks
           nid = session.nid
           raise 'No nid' if nid.blank?
@@ -107,10 +118,12 @@ module Sync
           metric = venue.persisted? ? :venues_updated : :venues_created
           self.metrics[metric] += 1 if opts[:dryrun] || venue.save!
 
+
           # update talk
           talk_uri = "rp15-#{nid}"
+          uris << talk_uri
           talk = Talk.find_or_initialize_by(uri: talk_uri)
-          next unless talk.created?
+          next unless talk.prelive? or talk.created?
           talk.venue = venue
           talk.title = session.title.strip.truncate(STRING_LIMIT)
           talk.teaser = session.description_short.strip.truncate(STRING_LIMIT)
@@ -120,7 +133,8 @@ module Sync
                              truncate(TEXT_LIMIT)
           talk.tag_list = TAGS[category]
           talk.language = LANGCODE[session.language]
-          talk.speakers = session.speaker_names.map(&:strip) * ', '
+          talk.speakers = (session.speaker_names.map(&:strip) * ', ').
+                          truncate(STRING_LIMIT)
           talk.starts_at_date = [y, m, d] * '-'
           talk.starts_at_time = start_time
           talk.duration = duration
@@ -150,6 +164,9 @@ module Sync
           #return
         end
       end
+
+      # remove the talks which didn't
+      user.talks.where("talks.uri NOT IN (?)", uris).destroy_all
 
       if opts[:dryrun]
         puts report_summary

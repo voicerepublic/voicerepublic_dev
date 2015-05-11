@@ -15,7 +15,8 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
 
   Talk.find_each do |talk|
     urlset.url do |url|
-      url.loc talk_url(talk)
+      # Do not use the url_for helper here, because it will be slow as hell!
+      url.loc "https://" + request.host + "/talks/" + talk.slug
       url.image(:image) do |image|
         image.image(:loc, talk.image.url)
       end
@@ -25,9 +26,9 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
     end
   end
 
-  Venue.includes(:talks).find_each do |venue|
+  Venue.joins(:talks).find_each do |venue|
     urlset.url do |url|
-      url.loc venue_url(venue)
+      url.loc "https://" + request.host + "/venues/" + venue.slug
       url.image(:image) do |image|
         image.image(:loc, venue.image.url)
       end
@@ -41,7 +42,7 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
 
   User.find_each do |user|
     urlset.url do |url|
-      url.loc user_url(user)
+      url.loc "https://" + request.host + "/users/" + user.slug
       url.image(:image) do |image|
         image.image(:loc, user.avatar.url)
       end

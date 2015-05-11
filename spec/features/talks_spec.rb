@@ -112,6 +112,28 @@ describe "Talks as logged in user" do
       WebMock.enable!
     end
 
+    describe "Edit during live Talk" do
+      it 'disables starts_at and duration fields during halflive and live talks' do
+        talk = FactoryGirl.create(:talk,
+                                   starts_at_time: Time.now.strftime("%H:%M"),
+                                   starts_at_date: Date.today,
+                                   state: :live)
+        visit edit_talk_path(talk)
+        expect(page).to have_selector('#talk_starts_at_date:disabled')
+        expect(page).to have_selector('#talk_starts_at_time:disabled')
+        expect(page).to have_selector('#talk_duration:disabled')
+      end
+      it 'does not disable starts_at and duration fields during talks not in state halflive and live' do
+        talk = FactoryGirl.create(:talk,
+                                   starts_at_time: 1.hour.from_now.strftime("%H:%M"),
+                                   starts_at_date: Date.today)
+        visit edit_talk_path(talk)
+        expect(page).not_to have_selector('#talk_starts_at_date:disabled')
+        expect(page).not_to have_selector('#talk_starts_at_date:disabled')
+        expect(page).not_to have_selector('#talk_starts_at_date:disabled')
+      end
+    end
+
     describe "Visitor" do
       it 'shows a countdown' do
         skip RSpec::RACECOND
@@ -390,7 +412,7 @@ describe "Talks as logged in user" do
     end
 
     it 'has meta tags for google/fb/twitter' do
-      visit venue_talk_path @venue, @talk
+      visit talk_path(@talk)
       # as of Capybara 2.0, <head> attributes cannot be found. resorting to
       # using a manual matcher.
       # google
@@ -448,4 +470,25 @@ describe "Talks as logged in user" do
       end
     end
   end
+
+  describe 'routing with shortcuts' do
+    it 'routes via id' do
+      talk = FactoryGirl.create(:talk)
+      visit "/talk/#{talk.id}"
+      expect(page).to have_content(talk.title)
+    end
+    it 'routes via uri' do
+      talk = FactoryGirl.create(:talk)
+      visit "/talk/#{talk.uri}"
+      expect(page).to have_content(talk.title)
+    end
+    skip 'reroutes old nested urls' do
+      talk = FactoryGirl.create(:talk)
+      visit venue_talk_path(talk.venue, talk)
+      save_and_open_page
+      expect(page).to have_content(talk.title)
+    end
+
+  end
+
 end

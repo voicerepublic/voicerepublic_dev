@@ -74,7 +74,7 @@
   .upcoming-talks-box.row.collapse-large-only
     .large-12.columns
       %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-      %ul(class="#{talks_grid(@archived_talks)}")
+      %ul(class="#{talks_grid(@upcoming_talks)}")
         -# TODO show only the first 3
         = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks
       -# TODO open all

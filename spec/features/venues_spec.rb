@@ -4,10 +4,6 @@ require 'rails_helper'
 describe 'VenuesController' do
   describe 'it renders' do
     describe 'without venue' do
-      it 'index on GET /venues' do # index
-        visit venues_path
-        expect(page).to have_selector(".venues-index")
-      end
       it 'new on GET /venues/new' do # new
         login_user FactoryGirl.create(:user)
         visit new_venue_path

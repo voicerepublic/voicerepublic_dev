@@ -10,11 +10,9 @@
 # automatically send a multipart email with the HTML and text versions
 # setup as different parts.
 #
-class UserMailer < ActionMailer::Base
+class UserMailer < ApplicationMailer
 
-  default from: Settings.devise.from_address
-
-  # app/models/talk.rb:140 (delayed)
+  # app/models/talk.rb:130 (delayed)
   def new_talk(talk, user)
     return if talk.venue.opts.no_email
     attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
@@ -24,7 +22,7 @@ class UserMailer < ActionMailer::Base
     default_mail user.email_with_name
   end
 
-  # lib/tasks/talks.rake:9
+  # lib/tasks/talks.rake:10
   def reminder(talk, user)
     return if talk.venue.opts.no_email
     attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
@@ -52,37 +50,11 @@ class UserMailer < ActionMailer::Base
     default_mail user.email_with_name
   end
 
-  private
-
-  # send an email with default template
-  def default_mail(to)
-    @header  = translate('.header')
-    @content = translate('.content')
-    @content_plain = translate('.content_plain')
-    @footer  = translate('.footer')
-    mail to: to, template_name: 'default'
-  end
-
-  # merge entries into instance interpolations hash
-  def interpolate!(*args)
-    @interpolations ||= HashWithIndifferentAccess.new
-    args.each do |object|
-      case object
-      when Hash then @interpolations.merge!(object)
-      when ActiveRecord::Base
-        ns = object.class.name.underscore
-        object.attributes.each do |key, value|
-          next if value.nil?
-          @interpolations[[ns, key] * '_'] = value
-        end
-      else raise "Do not know how to merge #{object.class.name}"
-      end
-    end
-  end
-
-  # lookup translation with interpolations and scope
-  def translate(key)
-    I18n.t(key, @interpolations.merge(scope: [mailer_name, action_name]))
+  # TODO: A welcome mail should be send directly after user creation. A stub is
+  # already available at app/concerns/welcomed.rb
+  def welcome(user)
+    interpolate! user
+    default_mail user.email_with_name
   end
 
 end

@@ -1,5 +1,5 @@
 - name, qty, amount, total = Pricing::PACKAGES[package]
-- price = number_to_currency(total/100.0, unit: Purchase::CURRENCY)
+- price = number_to_currency(total/100.0, unit: Purchase::CURRENCY, format: '%u %n')
 - selected = package == 'B5'
 
 %label{ class: selected ? 'selected' : '' }

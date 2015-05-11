@@ -10,7 +10,6 @@ en:
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of Voice Republic
       headline: "<span>Home to the spoken word</span>"
-      subheadline: "Reach a community of thousands of listeners around the world."
       how_to_use_vr: How to use VR
       login: Login
       signup: Sign Up

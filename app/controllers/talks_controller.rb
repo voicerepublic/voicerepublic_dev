@@ -9,14 +9,21 @@ class TalksController < BaseController
     respond_to do |format|
       @related_talks = @talk.related_talks
       format.html do
-        RegisterListenerMessage.call(@talk,
-                                     request.session[:session_id])
+        # write to session to make sure we have an id
+        # see http://stackoverflow.com/questions/13673969
+        session[:foo] = 'bar'
+        session_id = session[:session_id]
+        RegisterListenerMessage.call(@talk, session_id)
       end
       format.text do
         authorize! :manage, @talk
         render text: @talk.message_history
       end
       format.png { send_file @talk.flyer.path(true) }
+      format.ics
+      format.rss do
+        @podcast = OpenStruct.new(talks: [@talk])
+      end
     end
   end
 
