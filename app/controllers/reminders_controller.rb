@@ -5,7 +5,7 @@ class RemindersController < BaseController
   # GET /users/:user_id/reminders
   def index
     @user = User.find(params[:user_id])
-    talks = @user.reminders.talks.map(&:rememberable)
+    talks = Talk.remembered_by(@user)
     @podcast = OpenStruct.new(talks: talks)
   end
 
