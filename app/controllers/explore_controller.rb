@@ -22,7 +22,16 @@ class ExploreController < ApplicationController
   # GET /explore/popular
   def popular
     @talks = Talk.popular.paginate(page: params[:page], per_page: 25)
-    render :index
+    respond_to do |format|
+      format.html do
+        render :index
+      end
+      # hack to provide dibran with an easy interface, TODO move to api
+      format.json do
+        render json: @talks.to_json(only: %w(id slug state title
+                                             teaser starts_at ends_at))
+      end
+    end
   end
 
   # GET /explore/live
