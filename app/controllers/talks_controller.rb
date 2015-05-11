@@ -58,6 +58,9 @@ class TalksController < BaseController
       end
       format.png { send_file @talk.flyer.path(true) }
       format.ics
+      format.rss do
+        @podcast = OpenStruct.new(talks: [@talk])
+      end
     end
   end
 
