@@ -1,1 +1,1 @@
-render partial: 'shared/talk', collection: @user.talks.prelive
+render partial: 'shared/talk', collection: @user.talks

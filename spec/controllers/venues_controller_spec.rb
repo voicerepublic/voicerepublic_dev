@@ -39,15 +39,6 @@ describe VenuesController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all venues as @venues" do
-      venue = FactoryGirl.create(:venue)
-      #FactoryGirl.create(:event, venue: venue, start_time: 1.day.from_now)
-      get :index, {}, valid_session
-      expect(assigns(:venues)).to match_array(Venue.all)
-    end
-  end
-
   describe "GET show" do
     let(:venue) { FactoryGirl.create(:venue) }
     it "assigns the requested venue as @venue when logged in" do

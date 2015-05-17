@@ -1,1 +1,1 @@
-render partial: 'shared/talk', collection: @venue.talks.prelive
+render partial: 'shared/talk', collection: @venue.talks

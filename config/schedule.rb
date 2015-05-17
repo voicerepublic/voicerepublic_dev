@@ -48,6 +48,6 @@ every 24.hours, at: '11:00 pm', roles: [:app] do
   rake 'build:sitemap'
 end
 
-every 1.hour, roles: [:app] do
-  rake 'sync:rp15'
-end
+# every 1.hour, roles: [:app] do
+#   rake 'sync:rp15'
+# end

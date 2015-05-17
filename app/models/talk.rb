@@ -186,6 +186,13 @@ class Talk < ActiveRecord::Base
     joins(:reminders).where('reminders.user_id = ?', user.id)
   end
 
+  # only used for debugging, normally talks have at least one tag
+  # (btw. this is the canonical and economical way to find untagged
+  # entries)
+  scope :untagged, -> { joins("LEFT JOIN taggings ON taggings.taggable_id " +
+                              "= talks.id AND taggings.taggable_type = 'Talk'").
+                        where("taggings.id IS NULL") }
+
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 

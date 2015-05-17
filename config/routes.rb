@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     resources :reminders, only: [:create]
   end
 
-  resources :venues do
+  resources :venues, except: :index do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
   end
