@@ -8,7 +8,7 @@ initialize = (node) ->
   $(node).select2
     width: 'element'
     multiple: true
-    tokenSeparators: [",", " "]
+    tokenSeparators: [","]
     ajax:
       url: "/xhr/tags"
       data: (term, page) ->
