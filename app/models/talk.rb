@@ -474,9 +474,10 @@ class Talk < ActiveRecord::Base
     logfile.puts "\n\n# --- override (#{Time.now}) ---"
 
     # prepare override
-    Dir.mktmpdir do |path|
+    tmp_dir = FileUtils.mkdir_p("/tmp/recording_override/#{id}").first
+    begin
       FileUtils.fileutils_output = logfile
-      FileUtils.chdir(path, verbose: true) do
+      FileUtils.chdir(tmp_dir, verbose: true) do
         # download
         tmp = "t#{id}"
         url = recording_override
@@ -507,8 +508,8 @@ class Talk < ActiveRecord::Base
         logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
         upload_file(key, file)
         # store reference
-        path = "s3://#{media_storage.key}/#{key}"
-        update_attribute :recording_override, path
+        s3_path = "s3://#{media_storage.key}/#{key}"
+        update_attribute :recording_override, s3_path
         cache_storage_metadata(ogg) and save!
         # move wav to `recordings`
         wav = tmp + '.wav'
@@ -517,7 +518,9 @@ class Talk < ActiveRecord::Base
         FileUtils.mv(wav, target, verbose: true)
       end
       FileUtils.fileutils_output = $stderr
-    end # unlinks tmp dir
+    ensure
+      FileUtils.remove_entry tmp_dir
+    end
 
     chain = venue.opts.override_chain
     chain ||= Setting.get('audio.override_chain')
