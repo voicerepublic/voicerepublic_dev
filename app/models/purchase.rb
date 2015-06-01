@@ -57,6 +57,7 @@ class Purchase < ActiveRecord::Base
     update_attribute(:purchased_at, Time.now) if response.success?
     create_purchase_transaction.process!
     PurchaseMailer.invoice(self).deliver_now
+    PurchaseMessage.call(self)
     response.success?
   end
 
