@@ -143,6 +143,7 @@ Run App
 * `rackup -E production faye.ru`
 * `lib/flux_capacitor.rb run`
 * `lib/rtmp_watcher.rb run`
+* `rake jobs:work`
 
 ### or optionally voicerepublic_dev with tmux
 
