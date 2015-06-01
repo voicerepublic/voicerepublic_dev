@@ -36,7 +36,6 @@ describe UploadsController do
         Delayed::Worker.delay_jobs = true
 
         venue = FactoryGirl.create :venue, user: @user
-        # allow_any_instance_of(Talk).to receive(:save).and_return(true)
         talk = FactoryGirl.attributes_for :talk, :with_user_override_uuid
         talk.merge!(venue_id: venue.id)
         post :create, { talk: talk, format: 'json' }
