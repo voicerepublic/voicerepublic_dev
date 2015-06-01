@@ -12,7 +12,6 @@ describe PurchasesController do
 
     describe "GET 'express'" do
       it "returns http success" do
-        pending unless Settings.payment_enabled
         get 'express', purchase: { product: 'B5' }
         expect(response).to be_redirect
       end
@@ -20,7 +19,6 @@ describe PurchasesController do
 
     describe "GET 'new'" do
       it "returns http success" do
-        pending unless Settings.payment_enabled
         get 'new'
         expect(response).to be_success
       end
@@ -28,7 +26,6 @@ describe PurchasesController do
 
     describe "GET 'create'" do
       it "returns http success" do
-        pending unless Settings.payment_enabled
         post 'create', purchase: { product: 'B5', token: 'ASDF' }
         expect(response).to be_a_redirect
       end

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
+  resources :purchases, only: [ :index, :new, :create, :show ] do
+    get 'express', on: :new
+  end
+
   # in case someone bookmarked '/talks'
   get 'talks', to: redirect('explore')
 
@@ -9,15 +14,6 @@ Rails.application.routes.draw do
   get 'explore/featured', as: 'featured_talks'
   get 'explore/recent',   as: 'recent_talks'
   get 'explore/upcoming', as: 'upcoming_talks'
-
-  if Settings.payment_enabled
-    get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
-    resources :purchases, only: [ :index, :new, :create, :show ] do
-      get 'express', on: :new
-    end
-  else
-    get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
-  end
 
   resources :uploads, only: [ :new, :create ]
 

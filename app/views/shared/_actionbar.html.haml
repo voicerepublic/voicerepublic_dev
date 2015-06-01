@@ -51,7 +51,7 @@
                 %li= link_to t('.test_talk'), test_talk_path
                 %li= link_to t('.schedule_talk'), new_talk_path
                 %li= link_to t('.upload_talk'), new_upload_path
-                - if Settings.payment_enabled and !current_user.is_pro?
+                - if !current_user.is_pro?
                   %li= link_to t('.pricing'), purchases_path
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
