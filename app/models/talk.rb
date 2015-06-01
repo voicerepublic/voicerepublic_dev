@@ -196,6 +196,16 @@ class Talk < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description]
 
+  # to be deleted after transition to markdown
+  def description_has_html?
+    !!description.match(/<[a-z][\s\S]*>/)
+  end
+
+  # to be deleted after transition to markdown
+  def description_as_markdown
+    ReverseMarkdown.convert(description)
+  end
+
   def description_as_plaintext
     Nokogiri::HTML(description).text
   end
