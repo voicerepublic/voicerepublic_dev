@@ -50,7 +50,7 @@ class BaseMessage
   end
 
   def slack #.send message, opts
-    @slack ||= Slack.new("#vr_sys_#{Settings.slack.tag}",
+    @slack ||= Slack.new(Settings.slack.system_channel,
                          'transitions',
                          Settings.slack.icon[:transitions])
   end

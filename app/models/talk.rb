@@ -194,7 +194,7 @@ class Talk < ActiveRecord::Base
                         where("taggings.id IS NULL") }
 
   include PgSearch
-  multisearchable against: [:tag_list, :title, :teaser, :description]
+  multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
 
   def description_as_plaintext
     Nokogiri::HTML(description).text
