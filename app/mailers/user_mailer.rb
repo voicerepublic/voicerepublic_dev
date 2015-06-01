@@ -17,7 +17,7 @@ class UserMailer < ApplicationMailer
     return if talk.venue.opts.no_email
     attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
     flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
-    interpolate! user, talk, url: venue_talk_url(talk.venue, talk), flyer: flyer,
+    interpolate! user, talk, url: talk_url(talk), flyer: flyer,
       name: [talk.venue.title, talk.title].join(' - ')
     default_mail user.email_with_name
   end
@@ -25,10 +25,21 @@ class UserMailer < ApplicationMailer
   # lib/tasks/talks.rake:10
   def reminder(talk, user)
     return if talk.venue.opts.no_email
-    attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
-    flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
-    interpolate! user, talk, url: venue_talk_url(talk.venue, talk), flyer: flyer,
+    interpolate! user, talk, url: talk_url(talk),
       name: [talk.venue.title, talk.title].join(' - ')
+
+    # preview with attachments are broken and will be fixed here
+    # https://github.com/rails/rails/commit/29fc2e26dc821c46a0ba04ed3772bca92ccc7866
+    unless Settings.no_attachments
+      flyer =  File.read(Rails.root.join('public', talk.flyer.path[1..-1]))
+      attachments.inline['flyer.png'] = flyer
+      flyer_url = attachments.inline['flyer.png'].url
+      flyer_img = ActionController::Base.helpers.image_tag(flyer_url)
+      interpolate! flyer: flyer_img
+    else
+      interpolate! flyer: "(Sorry, developers don't get to see an image!)"
+    end
+
     default_mail user.email_with_name
   end
 
