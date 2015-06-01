@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
+  get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do
     get 'express', on: :new
   end
