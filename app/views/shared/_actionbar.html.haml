@@ -11,7 +11,7 @@
           = button_tag :type => "submit", :class => "search-lupe" do
             %span.icon-magnifying-glass
       .visitor-explore-link
-        = link_to t('.explore'), talks_path
+        = link_to t('.explore'), explore_path
     .right
       .small-authentication-links.right
         = link_to t('.login'), new_user_session_path
@@ -66,4 +66,4 @@
               = button_tag :type => "submit", :class => "search-lupe" do
                 %span.icon-magnifying-glass
           %li.explore-link
-            = link_to t('.explore'), talks_path
+            = link_to t('.explore'), explore_path

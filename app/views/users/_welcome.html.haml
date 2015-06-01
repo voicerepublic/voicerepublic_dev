@@ -24,10 +24,10 @@
 							=image_tag '/images/welcome/talk.png'
 			.row.content-box
 				.small-4.columns
-					=link_to talks_path do
+					=link_to explore_path do
 						=image_tag '/images/welcome/explore.png'
 				.small-8.columns
-					=link_to talks_path do
+					=link_to explore_path do
 						= t('.explore_text').html_safe
 			- if user.reminders.empty?
 				.row.content-box

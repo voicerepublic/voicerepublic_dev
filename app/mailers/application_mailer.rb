@@ -26,16 +26,20 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   # send an email with a template
-  def default_mail(to, from = nil, template = 'default')
+  def default_mail(to, from = nil, template = 'default', subject=nil)
     @header  = translate('.header')
     @content = translate('.content')
     @content_plain = translate('.content_plain')
     @footer  = translate('.footer')
-    if from
-      mail to: to, from: from, template_name: template
-    else
-      mail to: to, template_name: template
-    end
+
+    options = {
+      to: to,
+      template_name: template
+    }
+    options[:from] = from unless from.nil?
+    options[:subject] = subject unless subject.nil?
+
+    mail options
   end
 
 end
