@@ -33,6 +33,7 @@ describe UploadsController do
       end
 
       it 'returns the slug of the created talk' do
+        # Creating a Talk would have the side effect of postprocessing.
         Delayed::Worker.delay_jobs = true
 
         venue = FactoryGirl.create :venue, user: @user
