@@ -64,6 +64,10 @@ class Metric < ActiveRecord::Base
       User.where("last_sign_in_at > ?", 14.days.ago).count
     end
 
+    def paying_users_total
+      User.where("purchases_count > 0").count
+    end
+
     # Series (aka. Venues)
     def series_total
       Venue.count
