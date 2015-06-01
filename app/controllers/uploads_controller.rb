@@ -18,9 +18,23 @@ class UploadsController < BaseController
     authorize! :create, @talk
 
     if @talk.save
-      redirect_to @talk, notice: 'Talk was successfully created.'
+      respond_to do |format|
+        format.html do
+          redirect_to @talk, notice: 'Talk was successfully created.'
+        end
+        format.json do
+          render json: @talk.to_json
+        end
+      end
     else
-      render action: 'new'
+      respond_to do |format|
+        format.html do
+          render action: 'new'
+        end
+        format.json do
+          render json: { errors: @talk.errors }, status: 422
+        end
+      end
     end
   end
 
