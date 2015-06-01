@@ -84,6 +84,12 @@ FactoryGirl.define do
     trait :popular do
       play_count 25
     end
+
+    trait :with_user_override_uuid do
+      user_override_uuid "http://s3.amazon.com/fake_bucket/nothing_here"
+      starts_at_time 1.hour.ago.strftime('%H:%M')
+      starts_at_date 1.hour.ago.strftime('%Y-%m-%d')
+    end
   end
 
   factory :appearance do
