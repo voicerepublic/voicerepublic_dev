@@ -55,6 +55,7 @@ gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
+gem 'redcarpet'
 
 # to be deleted after transition to markdown
 gem 'reverse_markdown'

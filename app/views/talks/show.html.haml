@@ -110,7 +110,7 @@
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
         .talk-info-text
-          = @talk.try(:description).try(:html_safe)
+          = @talk.description_as_html.html_safe
         %a.close-reveal-modal= raw '&#215;'
 
       .sidebar-right.hide-for-small
@@ -343,7 +343,7 @@
         .description-content(ng-class="{'collapse': descriptionCollapsed()}")
           -#%h3= t('.description')
           .description-innerheight
-            = @talk.try(:description).try(:html_safe)
+            = @talk.description_as_html.html_safe
           %span.more-link(ng-show="descriptionCollapsable()" ng-click="toggleDescription()")
             %span(ng-show="descriptionCollapsed()")= t('.more')
             %span(ng-hide="descriptionCollapsed()")= t('.less')

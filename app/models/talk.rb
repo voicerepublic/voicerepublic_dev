@@ -125,6 +125,7 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
+  before_save :set_description_as_html, if: :description_changed?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -362,6 +363,10 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def set_description_as_html
+    self.description_as_html = MARKDOWN.render(description)
+  end
 
   def create_and_set_venue?
     venue.nil? and new_venue_title.present?
