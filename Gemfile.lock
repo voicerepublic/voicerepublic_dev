@@ -95,6 +95,7 @@ GEM
     airbrake (3.1.15)
       builder
       multi_json
+    amq-protocol (1.9.2)
     angularjs-file-upload-rails (1.1.0)
     annotator (0.0.10)
       activerecord (>= 3.0)
@@ -109,6 +110,14 @@ GEM
       debug_inspector (>= 0.0.1)
     browser (0.8.0)
     builder (3.2.2)
+    bumpy_bridge (0.0.1)
+      bunny
+      daemons
+      faye
+      faye-authentication
+      trickery
+    bunny (1.7.0)
+      amq-protocol (>= 1.9.2)
     byebug (3.1.2)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
@@ -501,6 +510,8 @@ GEM
     tilt (1.4.1)
     timecop (0.5.9.2)
     tins (1.5.1)
+    trickery (0.0.1)
+      systemu
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.4.0)
@@ -542,6 +553,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser
+  bumpy_bridge
   byebug
   cancan
   capistrano (~> 3.1.0)
