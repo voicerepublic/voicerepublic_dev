@@ -298,7 +298,8 @@ After install a new version also
 ================================
 
     apt-get install rabbitmq-server
-
+    rabbitmq-plugins enable rabbitmq_management
+    /etc/init.d/rabbitmq-server restart
 
 TODO
 ====
