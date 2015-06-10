@@ -18,9 +18,16 @@ class BunnyWrapper
   #   end
   # end
 
-  def publish_to_queue(queue_name, data)
-    queue = channel.queue(queue_name)
-    channel.default_exchange.publish(JSON.unparse(data), routing_key: queue.name)
+  def publish(data)
+    if queue = data.delete(:queue) || data.delete(:q)
+      json = JSON.unparse(data)
+      queue = channel.queue(queue)
+      channel.default_exchange.publish(json, routing_key: queue.name)
+    elsif exchange = data.delete(:exchange) || data.delete(:x)
+      channel.fanout(exchange).publish(JSON.unparse(data))
+    else
+      raise "Either of `exchange`, `queue`, `x` or `q` are required."
+    end
   end
 
 end
@@ -28,4 +35,4 @@ end
 BUNNY = BunnyWrapper.new
 
 # example publish
-BUNNY.publish_to_queue('log', pid: $$, state: 'Rails ready')
+BUNNY.publish(queue: 'log', pid: $$, state: 'Rails ready')
