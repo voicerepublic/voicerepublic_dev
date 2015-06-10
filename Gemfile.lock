@@ -554,6 +554,7 @@ DEPENDENCIES
   binding_of_caller
   browser
   bumpy_bridge
+  bunny
   byebug
   cancan
   capistrano (~> 3.1.0)
