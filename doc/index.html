@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VR: How To Stream</title>
+        <!-- build:css css/libraries.min.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css css/app.min.css -->
+        <link rel="stylesheet" href="css/app.css" type="text/css">
+        <link rel="stylesheet" href="css/app_override.css" type="text/css"><!-- endbuild -->
+        <!-- build:js js/vendor/modernizr.min.js -->
+
+        <script src="bower_components/modernizr/modernizr.js" type="text/javascript">
+</script><!-- endbuild -->
+    </head>
+    <body>
+        <!--     <p class="panel screensize">
+  <strong class="show-for-small-only">small</strong>
+ <strong class="show-for-medium-only">medium</strong>
+        <strong class="show-for-large-only">large</strong>
+        <strong class="show-for-xlarge-only">xlarge</strong>
+        <strong class="show-for-xxlarge-up">xxlarge</strong>
+      </p> -->
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1>
+                        <a href="#">VR</a>
+                    </h1>
+                </li><!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <li class="toggle-topbar menu-icon">
+                    <a href="#"><span>Menu</span></a>
+                </li>
+            </ul>
+            <section class="top-bar-section">
+                <!-- Right Nav Section -->
+                <ul class="right">
+                    <li class="active">
+                        <a href="#">Support</a>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="#">Nick Niles</a>
+                        <ul class="dropdown">
+                            <li>
+                                <a href="#">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="#">Profile</a>
+                            </li>
+                            <li class="">
+                                <a href="#">Account</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+        </nav><!-- HERO -->
+        <div class="hero">
+            <div class="row">
+                <div class="large-8 columns">
+                    <h5 class="breadcrumb">
+                        <a href="#">Voice Republic</a> &gt; <a href="#">Support</a> &gt; <a href="#">How To Stream</a>
+                    </h5>
+                    <h1>
+                        How To Stream A Live Talk
+                    </h1>
+                    <h3>
+                        Whether you're planning to stream one Talk, or multiple stages, this document will guide you through the process.
+                    </h3>
+                </div>
+            </div>
+        </div><!-- scroll container -->
+        <div role="main" class="scroll-container">
+            <div class="row">
+                <!-- subnav -->
+                <div class="large-4 columns right" id="sidebar" data-spy="affix" data-offset-top="370">
+                    <!-- <div class="magellan-scrollnav"> -->
+                    <div data-magellan-expedition="" data-options="">
+                        <dl class="sub-nav">
+                            <dd data-magellan-arrival="tech-req" class="">
+                                <a href="#tech-req">Technical Requirements</a>
+                            </dd>
+                            <dd data-magellan-arrival="configure" class="">
+                                <a href="#configure"><span class="show-for-large-up">Step</span> 1: Configure Audio</a>
+                            </dd>
+                            <dd data-magellan-arrival="test" class="">
+                                <a href="#test"><span class="show-for-large-up">Step</span> 2: Test Talk</a>
+                            </dd>
+                            <dd data-magellan-arrival="create" class="">
+                                <a href="#create"><span class="show-for-large-up">Step</span> 3: Create A Talk</a>
+                            </dd>
+                            <dd data-magellan-arrival="operate" class="">
+                                <a href="#operate"><span class="show-for-large-up">Step</span> 4: Operate Live Talk</a>
+                            </dd>
+                        </dl>
+                    </div><!-- </div> -->
+                </div><!-- Main content -->
+                <div class="large-8 columns left">
+                    <div class="row section">
+                        <h2 class="section-title" id="tech-req" data-magellan-destination="tech-req">
+                            Technical Requirements
+                        </h2>
+                        <hr>
+                        <h5 class="section-subtitle">
+                            For a professional Talk, you need 6 things:
+                        </h5>
+                        <div data-equalizer="">
+                            <div class="large-4 columns panel req" data-equalizer-watch="">
+                                <img src="images/laptop.svg">
+                                <h5 class="caption text-center">
+                                    1. Computer
+                                </h5>
+                                <p class="text-center">
+                                    Either a Laptop or a Desktop computer, running a current version of <a href="https://www.google.com/chrome/browser/desktop/" target="_blank">Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>, with the latest version of Flash Player installed.
+                                </p>
+                            </div>
+                            <div class="large-4 columns panel req" data-equalizer-watch="">
+                                <img src="images/network.svg">
+                                <h5 class="caption text-center">
+                                    2. Internet
+                                </h5>
+                                <p class="text-center">
+                                    A stable connection is needed throughout the Talk. Preferably a LAN connection with at least 50Kb (kilobits per second) upload.
+                                </p>
+                            </div>
+                            <div class="large-4 columns panel req" data-equalizer-watch="">
+                                <img src="images/mic.svg">
+                                <h5 class="caption text-center">
+                                    3. Audio Source
+                                </h5>
+                                <p class="text-center">
+                                    An external microphone connected to a mixer and an audio interface is highly recommended for optimal sound quality. For more information about the audio setup, refer to <a href="#configure">Step 1</a> (below).
+                                </p>
+                            </div>
+                        </div>
+                        <div data-equalizer="">
+                            <div class="large-4 columns panel req" data-equalizer-watch="">
+                                <img src="images/headphone.svg">
+                                <h5 class="caption text-center">
+                                    4. Headphones
+                                </h5>
+                                <p class="text-center">
+                                    (Recommended) Needed in order to check the sound quality of the stream.
+                                </p>
+                            </div>
+                            <div class="large-4 columns panel req end" data-equalizer-watch="">
+                                <img src="images/user.svg">
+                                <h5 class="caption text-center">
+                                    5. Operator
+                                </h5>
+                                <p class="text-center">
+                                    (Recommended) When the speaker is not near the computer, an additional person is recommended to start and end the Talk.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row section">
+                        <h2 class="section-title" id="configure" data-magellan-destination="configure">
+                            Step 1: Configure Audio
+                        </h2>
+                        <hr>
+                        <h5 class="section-subtitle" id="configure1" data-magellan-destination="configure1">
+                            Recommended Audio Setup:
+                        </h5>
+                        <img class="outline visible-for-large-up" src="images/signalflow/signalflow_recommended-wide.png">
+                        <!-- <div class="row" id="explainers"> -->
+                            <div class="small-12 columns" data-equalizer data-equalizer-mq="large-up">
+                                <div class="small-8 small-offset-2 small-centered large-4 large-offset-0 large-uncentered columns panel legend" data-equalizer-watch="">
+                                    <img src="images/signalflow/signalflow-elements_speaker.png" class="hidden-for-large-up">
+                                    <div class="legend-num">1</div>
+                                        <h5 class="caption">
+                                            1 Stage/Speaker
+                                        </h5>
+                                    <p>
+                                        Using a normal or wireless stage microphone.
+                                    </p>
+                                    <img src="images/signalflow/signalflow-elements_arrow.png" class="hidden-for-large-up">
+                                </div>
+                                <div class="small-8 small-offset-2 small-centered large-4 large-offset-0 large-uncentered columns panel legend" data-equalizer-watch="">
+                                    <img src="images/signalflow/signalflow-elements_mixer.png" class="hidden-for-large-up">
+                                    <div class="legend-num">2</div>
+                                        <h5 class="caption">
+                                            Mixer
+                                        </h5>
+                                    <p>
+                                        The audio signal from the stage is patched to a mixing board. For optimal results, give the channel a <strong>-10dB rollof</strong>, a <strong>5:1 compression</strong>, and, if needed, a <strong>high-pass EQ</strong>.
+                                    </p>
+                                    <img src="images/signalflow/signalflow-elements_arrow.png" class="hidden-for-large-up">
+                                </div>
+                                <div class="small-8 small-offset-2 small-centered large-4 large-offset-0 large-uncentered columns panel legend" data-equalizer-watch="">
+                                    <img src="images/signalflow/signalflow-elements_interface.png" class="hidden-for-large-up">
+                                    <div class="legend-num">3</div>
+                                        <h5 class="caption">
+                                            Audio Interface
+                                        </h5>
+                                    
+                                    <p>
+                                        The signal from the mixer is routed through a USB, Firewire, or Thunderbolt interface which communicates with your computer.
+                                    </p>
+                                    <img src="images/signalflow/signalflow-elements_arrow.png" class="hidden-for-large-up">
+                                    </div>
+                            </div>
+                            <div class="small-12 columns" data-equalizer="">
+                                <div class="small-8 small-offset-2 small-centered large-4 large-offset-0 large-uncentered columns panel legend" data-equalizer-watch="">
+                                    <img src="images/signalflow/signalflow-elements_computer.png" class="hidden-for-large-up">
+                                    <div class="legend-num">4</div>
+                                        <h5 class="caption">
+                                            Computer with Internet
+                                        </h5>
+                                    <p>
+                                        Using a current <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a> or <a href="https://www.google.com/chrome/browser/desktop/" target="_blank">Chrome</a> browser with the latest version of Flash installed, select your Audio Interface as the “Input Source” on the Voice Republic Audio Settings panel (on the Talk Page)
+                                    </p>
+                                    <img src="images/signalflow/signalflow-elements_arrow.png" class="hidden-for-large-up">
+                                </div>
+                                <div class="small-8 small-offset-2 small-centered large-4 large-offset-0 large-uncentered columns panel legend" data-equalizer-watch="">
+                                    <img src="images/signalflow/signalflow-elements_headphones.png" class="hidden-for-large-up">
+                                    <div class="legend-num">5</div>
+                                        <h5 class="caption">
+                                            Headphones
+                                        </h5>
+                                    <p>
+                                        Use headphones (connected to the interface) to check the audio quality of your Test Talk, as well as to monitor the audio quality during a Live Talk.
+                                    </p>
+                                </div>
+                            </div>
+                        <!-- </div> -->
+
+<h5 class="section-subtitle" id="configure1" data-magellan-destination="configure1">
+                            Alternative Audio Setup:
+                        </h5>
+                        <img class="outline visible-for-large-up" src="images/signalflow/signalflow_alternate.png">
+                        <!-- <div class="row" id="explainers"> -->
+                            <div class="small-12 columns" data-equalizer data-equalizer-mq="large-up">
+                                <div class="small-8 small-offset-2 small-centered large-6 large-offset-0 large-uncentered columns panel legend" data-equalizer-watch="">
+                                    <img src="images/signalflow/signalflow-elements_speaker.png" class="hidden-for-large-up">
+                                    <div class="legend-num">1</div>
+                                        <h5 class="caption">
+                                            Stage/Speaker
+                                        </h5>
+                                    <p>
+                                        The simplest setup involves the speaker's voice being recorded directly into the built-in microphone of the computer. This necessitates the computer being close enough to the speaker to pick up the voice well––for example, on the podium. 
+                                    </p>
+                                    <img src="images/signalflow/signalflow-elements_arrow.png" class="hidden-for-large-up">
+                                </div>
+                                <div class="small-8 small-offset-2 small-centered large-6 large-offset-0 large-uncentered columns panel legend" data-equalizer-watch="">
+                                    <img src="images/signalflow/signalflow-elements_mixer.png" class="hidden-for-large-up">
+                                    <div class="legend-num">2</div>
+                                        <h5 class="caption">
+                                            Computer with Internet
+                                        </h5>
+                                    <p>
+                                        With an up-to-date version of <a href="https://www.google.com/chrome/browser/desktop/" target="_blank">Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a>, and the Talk page active in the browser window, the Talk can be started and stopped directly by the speaker.
+                                    </p>
+                                    <img src="images/signalflow/signalflow-elements_arrow.png" class="hidden-for-large-up">
+                                </div>
+                        
+                            </div>
+                    </div>
+                    <h2 class="section-title" id="test" data-magellan-destination="test">
+                        Step 2: Conduct A Test Talk
+                    </h2>
+                    <hr>
+                    <blockquote>
+                        <strong>Note:</strong> It's a very good idea to conduct a Test Talk before going LIVE with a Talk or lineup of Talks. With a Test Talk you can ensure that your signal flow is functioning correctly, and that the sound quality is up to desirable standards.
+                    </blockquote>
+                    <h5 class="section-subtitle">
+                        Follow These Steps To Conduct a Test Talk:
+                    </h5>
+                    <blockquote>
+                        (Make sure you've configured your audio gear according to <a href="#configure">Step 1</a>.)
+                    </blockquote><!-- screenshots -->
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            1. Test A Talk
+                        </p><img src="images/testtalk/testtalk01.jpg">
+                        <p class="caption">
+                            From your profile drop-down menu, select "Test A Talk (Free)"
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            2. Invite A Friend
+                        </p><img src="images/testtalk/testtalk02.jpg">
+                        <p class="caption">
+                            All the fields will be automatically filled out with randomly generated text. If you'd like someone to listen to your Test Talk while it streams live (recommended), they must be invited to the Talk. Begin typing their name or username in the "Invite guests" field and then select their name from the drop-down menu.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            3. Save
+                        </p><img src="images/testtalk/testtalk03.jpg">
+                        <p class="caption">
+                            Click "Save."
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk04.jpg">
+                        <p class="caption">
+                            4. You will be redirected to the Talk page and the Audio Settings panel will automatically launch. Click <strong>"Allow"</strong> to give the browser access to your audio device.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk05.jpg">
+                        <p class="caption">
+                            5. To ensure the browser is receiving the audio signal from your intended audio interface, you must set it as the input source. Click the <strong>"Select Input Source"</strong> button.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk06.jpg">
+                        <p class="caption">
+                            6. In the Adobe Flash Player Settings dialog, click the drop-down menu.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk07.jpg">
+                        <p class="caption">
+                            7. Select your audio interface from the list.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk08.jpg">
+                        <p class="caption">
+                            8. Close the Audio Settings dialog.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk09.jpg">
+                        <p class="caption">
+                            9. Click "Start" and instruct the speaker to talk normally into the microphone as though it were a live talk.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk10.jpg">
+                        <p class="caption">
+                            10. To end the Test Talk, click <strong>"End Talk."</strong>
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk11.jpg">
+                        <p class="caption">
+                            11. The Test Talk will take a few moments to process.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk12.jpg">
+                        <p class="caption">
+                            12. Reload the page by clicking the blue panel.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <img src="images/testtalk/testtalk13.jpg">
+                        <p class="caption">
+                            13. Play your Test Talk to check the audio quality.
+                        </p>
+                    </div>
+           
+                               <blockquote>
+ The Test Talk will automatically be deleted after 24 hours.                    </blockquote>
+
+
+
+ <!-- Livetalk --><h2 class="section-title" id="create" data-magellan-destination="create">
+                        Step 3: Create A Talk
+                    </h2>
+                    <hr>
+
+                    <h5 class="section-subtitle">
+                        Follow These Steps To Create A Live Talk:
+                    </h5>
+<!-- screenshots -->
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            1. Create the Talk
+                        </p><img src="images/livetalk/livetalk01.jpg">
+                        <p class="caption">
+                            From your profile drop-down menu, select "Schedule A Live Talk"
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            2. Complete the Form
+                        </p><img src="images/livetalk/livetalk02.jpg">
+                        <p class="caption">
+                            Fill out all the fields. 
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            3. Select Date/Time/Length
+                        </p><img src="images/livetalk/livetalk03.jpg">
+                        <p class="caption">
+                            
+                        </p>
+                    </div>
+                                        <div class="screenshot">
+                        <p class="screenshot-title">
+                            4. Invite Guests
+                        </p><img src="images/livetalk/livetalk03b.jpg">
+                        <p class="caption">
+                            You may choose other registered VR members to invite to the stage of our Talk.
+                        </p>
+                    </div>
+                                        <div class="screenshot">
+                        <p class="screenshot-title">
+                            5. Save
+                        </p><img src="images/livetalk/livetalk03c.jpg">
+                        <p class="caption">
+                            
+                        </p>
+                    </div>
+                    <!-- <div class="screenshot">
+                        <p class="screenshot-title">
+                            6. Allow Flash Access
+                        </p>
+                        <img src="images/livetalk/livetalk04.jpg">
+                        <p class="caption">
+                            You will be redirected to the Talk page and the Audio Settings panel will automatically launch. Click <strong>"Allow"</strong> to give the browser access to your audio device.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            7. Input Source
+                        </p>
+                        <img src="images/livetalk/livetalk05.jpg">
+                        <p class="caption">
+                            To ensure the browser is receiving the audio signal from your intended audio interface, you must set it as the input source. Click the <strong>"Select Input Source"</strong> button.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            8. Select Source
+                        </p>
+                        <img src="images/livetalk/livetalk06.jpg">                        <img src="images/livetalk/livetalk07.jpg">
+
+                        <p class="caption">
+                            In the Adobe Flash Player Settings dialog, click the drop-down menu.
+                        </p>
+                    </div>
+                    
+                    <div class="screenshot">
+                          <p class="screenshot-title">
+                            9. Close Settings
+                        </p>
+                        <img src="images/livetalk/livetalk08.jpg">
+                        <p class="caption">
+                            Close the Audio Settings dialog by clicking the "x.""
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                          <p class="screenshot-title">
+                            10. Start the Talk
+                        </p>
+                        <img src="images/livetalk/livetalk09.jpg">
+                        <p class="caption">
+                            Click "Start" when the Talk is ready to begin. If "Start" is not clicked, the Talk will begin recording automatically at the time specified during setup.
+                        </p>
+                    </div>
+ -->
+
+                    <!-- Operate -->
+                    <h2 class="section-title" id="operate" data-magellan-destination="operate">
+                        Step 4: Operate Live Talk
+                    </h2>
+                    <hr>
+
+                    <h5 class="section-subtitle">
+                        Follow These Steps To Operate A Live Talk:
+                    </h5>
+                    <blockquote>
+                        (Make sure you've configured your audio gear according to <a href="#configure">Step 1</a>.)
+                    </blockquote><!-- screenshots -->
+                    
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            1. Allow Flash Access
+                        </p>
+                        <img src="images/livetalk/livetalk04.jpg">
+                        <p class="caption">
+                            You will be redirected to the Talk page and the Audio Settings panel will automatically launch. Click <strong>"Allow"</strong> to give the browser access to your audio device.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            2. Input Source
+                        </p>
+                        <img src="images/livetalk/livetalk05.jpg">
+                        <p class="caption">
+                            To ensure the browser is receiving the audio signal from your intended audio interface, you must set it as the input source. Click the <strong>"Select Input Source"</strong> button.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            3. Select Source
+                        </p>
+                        <img src="images/livetalk/livetalk06.jpg">                        <img src="images/livetalk/livetalk07.jpg">
+
+                        <p class="caption">
+                            In the Adobe Flash Player Settings dialog, click the drop-down menu.
+                        </p>
+                    </div>
+                    
+                    <div class="screenshot">
+                          <p class="screenshot-title">
+                            4. Close Settings
+                        </p>
+                        <img src="images/livetalk/livetalk08.jpg">
+                        <p class="caption">
+                            Close the Audio Settings dialog by clicking the "x.""
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                          <p class="screenshot-title">
+                            5. Start the Talk
+                        </p>
+                        <img src="images/livetalk/livetalk09.jpg">
+                        <p class="caption">
+                            Click "Start" when the Talk is ready to begin. If "Start" is not clicked, the Talk will begin recording automatically at the time specified during setup.
+                        </p>
+                    </div>
+                     <div class="screenshot">
+                        <p class="screenshot-title">
+                            6. End the Talk
+                        </p>
+                        <img src="images/testtalk/testtalk10.jpg">
+                        <p class="caption">
+                            To end the Test Talk, click <strong>"End Talk."</strong>
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            7. Get A Coffee
+                        </p>
+                        <img src="images/testtalk/testtalk11.jpg">
+                        <p class="caption">
+                            The Talk will take a few moments to process.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            8. Reload
+                        </p>
+                        <img src="images/testtalk/testtalk12.jpg">
+                        <p class="caption">
+                            Reload the page by clicking the blue panel.
+                        </p>
+                    </div>
+                    <div class="screenshot">
+                        <p class="screenshot-title">
+                            9. Listen To Talk
+                        </p>
+                        <img src="images/testtalk/testtalk13.jpg">
+                        <p class="caption">
+                        </p>
+                    </div>
+      
+                </div>
+            </div>
+        </div><!-- build:js js/vendor/libraries.min.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/fastclick/lib/fastclick.js"></script>
+        <script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:js js/vendor/foundation.min.js -->
+        <script src="bower_components/foundation/js/foundation/foundation.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.abide.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.alert.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.clearing.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.dropdown.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.equalizer.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.interchange.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.magellan.js" type="text/javascript"></script>
+        <script src="bower_components/foundation/js/foundation/foundation.topbar.js" type="text/javascript"></script>
+        <!-- endbuild -->
+
+        <!-- build:js js/app.min.js -->
+        <script src="js/app.js" type="text/javascript"></script>
+        <!-- endbuild -->
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $("#sidebar").affix({
+              offset: { 
+                top: 370 
+              }
+            });
+          });
+        </script>
+    </body>
+</html>
