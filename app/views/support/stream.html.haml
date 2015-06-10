@@ -101,16 +101,16 @@
         = image_tag "support/signalflow/signalflow_recommended-wide.png",class:'outline visible-for-large-up'
         .small-12.columns{"data-equalizer" => "", "data-equalizer-mq" => "large-up"}
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
-            = image_tag "support/signalflow/signalflow-elements_speaker.png", class:'hidden-for-large'
-            / %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_speaker.png"}/
+            = image_tag "support/signalflow/signalflow-elements_speaker.png", class:'hide-for-large-up'
             .legend-num 1
             %h5.caption
               1 Stage/Speaker
             %p
               Using a normal or wireless stage microphone.
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_arrow.png"}/
+            = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
+
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_mixer.png"}/
+            = image_tag "support/signalflow/signalflow-elements_mixer.png", class: 'hide-for-large-up'
             .legend-num 2
             %h5.caption
               Mixer
@@ -122,18 +122,18 @@
                 %strong 5:1 compression
               = succeed "." do
                 %strong high-pass EQ
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_arrow.png"}/
+            = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_interface.png"}/
+            = image_tag "support/signalflow/signalflow-elements_interface.png", class: 'hide-for-large-up'
             .legend-num 3
             %h5.caption
               Audio Interface
             %p
               The signal from the mixer is routed through a USB, Firewire, or Thunderbolt interface which communicates with your computer.
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_arrow.png"}/
+            = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
         .small-12.columns{"data-equalizer" => ""}
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_computer.png"}/
+            = image_tag "support/signalflow/signalflow-elements_computer.png", class: 'hide-for-large-up'
             .legend-num 4
             %h5.caption
               Computer with Internet
@@ -143,30 +143,28 @@
               or
               %a{:href => "https://www.google.com/chrome/browser/desktop/", :target => "_blank"} Chrome
               browser with the latest version of Flash installed, select your Audio Interface as the “Input Source” on the Voice Republic Audio Settings panel (on the Talk Page)
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_arrow.png"}/
+            = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_headphones.png"}/
+            = image_tag "support/signalflow/signalflow-elements_headphones.png", class: 'hide-for-large-up'
             .legend-num 5
             %h5.caption
               Headphones
             %p
               Use headphones (connected to the interface) to check the audio quality of your Test Talk, as well as to monitor the audio quality during a Live Talk.
-        / </div>
         %h5#configure1.section-subtitle{"data-magellan-destination" => "configure1"}
           Alternative Audio Setup:
-        %img.outline.visible-for-large-up{:src => "images/signalflow/signalflow_alternate.png"}/
-        / <div class="row" id="explainers">
+        = image_tag "support/signalflow/signalflow_alternate.png", class: 'outline visible-for-large-up'
         .small-12.columns{"data-equalizer" => "", "data-equalizer-mq" => "large-up"}
           .small-8.small-offset-2.small-centered.large-6.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_speaker.png"}/
+            = image_tag "support/signalflow/signalflow-elements_speaker.png", class: 'hide-for-large-up'
             .legend-num 1
             %h5.caption
               Stage/Speaker
             %p
               The simplest setup involves the speaker's voice being recorded directly into the built-in microphone of the computer. This necessitates the computer being close enough to the speaker to pick up the voice well––for example, on the podium.
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_arrow.png"}/
+            = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-6.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_mixer.png"}/
+            = image_tag "support/signalflow/signalflow-elements_mixer.png", class: 'hide-for-large-up'
             .legend-num 2
             %h5.caption
               Computer with Internet
@@ -176,7 +174,7 @@
               or
               = succeed "," do
                 %a{:href => "https://www.mozilla.org/en-US/firefox/new/", :target => "_blank"} Firefox
-            %img.hidden-for-large-up{:src => "images/signalflow/signalflow-elements_arrow.png"}/
+            = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
       %h2#test.section-title{"data-magellan-destination" => "test"}
         Step 2: Conduct A Test Talk
       %hr/
@@ -193,64 +191,64 @@
       .screenshot
         %p.screenshot-title
           1. Test A Talk
-        %img{:src => "images/testtalk/testtalk01.jpg"}/
+        = image_tag "support/testtalk/testtalk01.jpg"
         %p.caption
           From your profile drop-down menu, select "Test A Talk (Free)"
       .screenshot
         %p.screenshot-title
           2. Invite A Friend
-        %img{:src => "images/testtalk/testtalk02.jpg"}/
+        = image_tag "support/testtalk/testtalk02.jpg"
         %p.caption
           All the fields will be automatically filled out with randomly generated text. If you'd like someone to listen to your Test Talk while it streams live (recommended), they must be invited to the Talk. Begin typing their name or username in the "Invite guests" field and then select their name from the drop-down menu.
       .screenshot
         %p.screenshot-title
           3. Save
-        %img{:src => "images/testtalk/testtalk03.jpg"}/
+        = image_tag "support/testtalk/testtalk03.jpg"
         %p.caption
           Click "Save."
       .screenshot
-        %img{:src => "images/testtalk/testtalk04.jpg"}/
+        = image_tag "support/testtalk/testtalk04.jpg"
         %p.caption
           4. You will be redirected to the Talk page and the Audio Settings panel will automatically launch. Click
           %strong "Allow"
           to give the browser access to your audio device.
       .screenshot
-        %img{:src => "images/testtalk/testtalk05.jpg"}/
+        = image_tag "support/testtalk/testtalk05.jpg"
         %p.caption
           5. To ensure the browser is receiving the audio signal from your intended audio interface, you must set it as the input source. Click the
           %strong "Select Input Source"
           button.
       .screenshot
-        %img{:src => "images/testtalk/testtalk06.jpg"}/
+        = image_tag "support/testtalk/testtalk06.jpg"
         %p.caption
           6. In the Adobe Flash Player Settings dialog, click the drop-down menu.
       .screenshot
-        %img{:src => "images/testtalk/testtalk07.jpg"}/
+        = image_tag "support/testtalk/testtalk07.jpg"
         %p.caption
           7. Select your audio interface from the list.
       .screenshot
-        %img{:src => "images/testtalk/testtalk08.jpg"}/
+        = image_tag "support/testtalk/testtalk08.jpg"
         %p.caption
           8. Close the Audio Settings dialog.
       .screenshot
-        %img{:src => "images/testtalk/testtalk09.jpg"}/
+        = image_tag "support/testtalk/testtalk09.jpg"
         %p.caption
           9. Click "Start" and instruct the speaker to talk normally into the microphone as though it were a live talk.
       .screenshot
-        %img{:src => "images/testtalk/testtalk10.jpg"}/
+        = image_tag "support/testtalk/testtalk10.jpg"
         %p.caption
           10. To end the Test Talk, click
           %strong "End Talk."
       .screenshot
-        %img{:src => "images/testtalk/testtalk11.jpg"}/
+        = image_tag "support/testtalk/testtalk11.jpg"
         %p.caption
           11. The Test Talk will take a few moments to process.
       .screenshot
-        %img{:src => "images/testtalk/testtalk12.jpg"}/
+        = image_tag "support/testtalk/testtalk12.jpg"
         %p.caption
           12. Reload the page by clicking the blue panel.
       .screenshot
-        %img{:src => "images/testtalk/testtalk13.jpg"}/
+        = image_tag "support/testtalk/testtalk13.jpg"
         %p.caption
           13. Play your Test Talk to check the audio quality.
       %blockquote
@@ -265,37 +263,37 @@
       .screenshot
         %p.screenshot-title
           1. Create the Talk
-        %img{:src => "images/livetalk/livetalk01.jpg"}/
+        = image_tag "support/livetalk/livetalk01.jpg"
         %p.caption
           From your profile drop-down menu, select "Schedule A Live Talk"
       .screenshot
         %p.screenshot-title
           2. Complete the Form
-        %img{:src => "images/livetalk/livetalk02.jpg"}/
+        = image_tag "support/livetalk/livetalk02.jpg"
         %p.caption
           Fill out all the fields.
       .screenshot
         %p.screenshot-title
           3. Select Date/Time/Length
-        %img{:src => "images/livetalk/livetalk03.jpg"}/
+        = image_tag "support/livetalk/livetalk03.jpg"
         %p.caption
       .screenshot
         %p.screenshot-title
           4. Invite Guests
-        %img{:src => "images/livetalk/livetalk03b.jpg"}/
+        = image_tag "support/livetalk/livetalk03b.jpg"
         %p.caption
           You may choose other registered VR members to invite to the stage of our Talk.
       .screenshot
         %p.screenshot-title
           5. Save
-        %img{:src => "images/livetalk/livetalk03c.jpg"}/
+        = image_tag "support/livetalk/livetalk03c.jpg"
         %p.caption
       /
         <div class="screenshot">
         <p class="screenshot-title">
         6. Allow Flash Access
         </p>
-        <img src="images/livetalk/livetalk04.jpg">
+        <img src="support/livetalk/livetalk04.jpg">
         <p class="caption">
         You will be redirected to the Talk page and the Audio Settings panel will automatically launch. Click <strong>"Allow"</strong> to give the browser access to your audio device.
         </p>
@@ -304,7 +302,7 @@
         <p class="screenshot-title">
         7. Input Source
         </p>
-        <img src="images/livetalk/livetalk05.jpg">
+        <img src="support/livetalk/livetalk05.jpg">
         <p class="caption">
         To ensure the browser is receiving the audio signal from your intended audio interface, you must set it as the input source. Click the <strong>"Select Input Source"</strong> button.
         </p>
@@ -313,7 +311,7 @@
         <p class="screenshot-title">
         8. Select Source
         </p>
-        <img src="images/livetalk/livetalk06.jpg">                        <img src="images/livetalk/livetalk07.jpg">
+        <img src="support/livetalk/livetalk06.jpg">                        <img src="support/livetalk/livetalk07.jpg">
         
         <p class="caption">
         In the Adobe Flash Player Settings dialog, click the drop-down menu.
@@ -324,7 +322,7 @@
         <p class="screenshot-title">
         9. Close Settings
         </p>
-        <img src="images/livetalk/livetalk08.jpg">
+        <img src="support/livetalk/livetalk08.jpg">
         <p class="caption">
         Close the Audio Settings dialog by clicking the "x.""
         </p>
@@ -333,7 +331,7 @@
         <p class="screenshot-title">
         10. Start the Talk
         </p>
-        <img src="images/livetalk/livetalk09.jpg">
+        <img src="support/livetalk/livetalk09.jpg">
         <p class="caption">
         Click "Start" when the Talk is ready to begin. If "Start" is not clicked, the Talk will begin recording automatically at the time specified during setup.
         </p>
@@ -352,7 +350,7 @@
       .screenshot
         %p.screenshot-title
           1. Allow Flash Access
-        %img{:src => "images/livetalk/livetalk04.jpg"}/
+        = image_tag "support/livetalk/livetalk04.jpg"
         %p.caption
           You will be redirected to the Talk page and the Audio Settings panel will automatically launch. Click
           %strong "Allow"
@@ -360,7 +358,7 @@
       .screenshot
         %p.screenshot-title
           2. Input Source
-        %img{:src => "images/livetalk/livetalk05.jpg"}/
+        = image_tag "support/livetalk/livetalk05.jpg"
         %p.caption
           To ensure the browser is receiving the audio signal from your intended audio interface, you must set it as the input source. Click the
           %strong "Select Input Source"
@@ -368,43 +366,43 @@
       .screenshot
         %p.screenshot-title
           3. Select Source
-        %img{:src => "images/livetalk/livetalk06.jpg"}/
-        %img{:src => "images/livetalk/livetalk07.jpg"}/
+        = image_tag "support/livetalk/livetalk06.jpg"
+        = image_tag "support/livetalk/livetalk07.jpg"
         %p.caption
           In the Adobe Flash Player Settings dialog, click the drop-down menu.
       .screenshot
         %p.screenshot-title
           4. Close Settings
-        %img{:src => "images/livetalk/livetalk08.jpg"}/
+        = image_tag "support/livetalk/livetalk08.jpg"
         %p.caption
           Close the Audio Settings dialog by clicking the "x.""
       .screenshot
         %p.screenshot-title
           5. Start the Talk
-        %img{:src => "images/livetalk/livetalk09.jpg"}/
+        = image_tag "support/livetalk/livetalk09.jpg"
         %p.caption
           Click "Start" when the Talk is ready to begin. If "Start" is not clicked, the Talk will begin recording automatically at the time specified during setup.
       .screenshot
         %p.screenshot-title
           6. End the Talk
-        %img{:src => "images/testtalk/testtalk10.jpg"}/
+        = image_tag "support/testtalk/testtalk10.jpg"
         %p.caption
           To end the Test Talk, click
           %strong "End Talk."
       .screenshot
         %p.screenshot-title
           7. Get A Coffee
-        %img{:src => "images/testtalk/testtalk11.jpg"}/
+        = image_tag "support/testtalk/testtalk11.jpg"
         %p.caption
           The Talk will take a few moments to process.
       .screenshot
         %p.screenshot-title
           8. Reload
-        %img{:src => "images/testtalk/testtalk12.jpg"}/
+        = image_tag "support/testtalk/testtalk12.jpg"
         %p.caption
           Reload the page by clicking the blue panel.
       .screenshot
         %p.screenshot-title
           9. Listen To Talk
-        %img{:src => "images/testtalk/testtalk13.jpg"}/
+        = image_tag "support/testtalk/testtalk13.jpg"
         %p.caption
