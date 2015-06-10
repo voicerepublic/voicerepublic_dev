@@ -28,4 +28,4 @@ end
 BUNNY = BunnyWrapper.new
 
 # example publish
-BUNNY.publish_to_queue('log', pid: $$, state: 'ready')
+BUNNY.publish_to_queue('log', pid: $$, state: 'Rails ready')
