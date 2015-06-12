@@ -45,6 +45,8 @@
               %li
                 %a{:href => "#"} Account
     = yield
+    = render 'shared/helpful_share'
+    = render 'shared/footer'
     #scripts
       = javascript_include_tag "support"
       - if Rails.env.production?
@@ -93,4 +95,4 @@
           });
 
 
-    = render 'shared/footer'
+    

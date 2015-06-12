@@ -15,40 +15,13 @@
         %a{:href => "#"} Support
         \&gt;
         %a{:href => "#"} How To Stream
-        \&gt;
-        %a{:href => "#"} Professional Setup
       %h1
-        Professional Setup
+        Professional Streaming Setup
       %h3
-        Whether you're planning to stream one Talk, or multiple stages, this document will guide you through the process.
+        This document outlines the technical requirements and basic setup for streaming a Live Talk in a professional setting. 
 / scroll container
 .scroll-container{:role => "main"}
   .row
-    / subnav
-    / #sidebar.large-4.columns.right{"data-offset-top" => "370", "data-spy" => "affix"}
-    /   / <div class="magellan-scrollnav">
-    /   %div{"data-magellan-expedition" => "", "data-options" => ""}
-    /     %dl.sub-nav
-    /       %dd{"data-magellan-arrival" => "tech-req"}
-    /         %a{:href => "#tech-req"} Technical Requirements
-    /       %dd{"data-magellan-arrival" => "configure"}
-    /         %a{:href => "#configure"}
-    /           %span.show-for-large-up Step
-    /           1: Configure Audio
-    /       %dd{"data-magellan-arrival" => "test"}
-    /         %a{:href => "#test"}
-    /           %span.show-for-large-up Step
-    /           2: Test Talk
-    /       %dd{"data-magellan-arrival" => "create"}
-    /         %a{:href => "#create"}
-    /           %span.show-for-large-up Step
-    /           3: Create A Talk
-    /       %dd{"data-magellan-arrival" => "operate"}
-    /         %a{:href => "#operate"}
-    /           %span.show-for-large-up Step
-    /           4: Operate Live Talk
-    / </div>
-    / Main content
     .large-8.columns.left
       .row.section
         %h2#tech-req.section-title{"data-magellan-destination" => "tech-req"}
@@ -117,10 +90,10 @@
         
       .row.section
         %h2#configure.section-title{"data-magellan-destination" => "configure"}
-          Configure Audio
+          Basic Audio Configuration
         %hr/
         %h5#configure1.section-subtitle{"data-magellan-destination" => "configure1"}
-          Recommended Audio Setup:
+          The recommended audio setup for a professional Talk looks like this:
         = image_tag "support/signalflow/signalflow_recommended-wide.png",class:'outline visible-for-large-up'
         .small-12.columns{"data-equalizer" => "", "data-equalizer-mq" => "large-up"}
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -130,6 +103,9 @@
               1 Stage/Speaker
             %p
               Using a normal or wireless stage microphone.
+
+              %a{:href => "#",:class => "button tiny info"}
+                More info about microphones
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
 
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -145,6 +121,8 @@
                 %strong 5:1 compression
               = succeed "." do
                 %strong high-pass EQ
+              %a{:href => "#",:class => "button tiny info"}
+                More info about audio interfaces
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
             = image_tag "support/signalflow/signalflow-elements_interface.png", class: 'hide-for-large-up'
@@ -153,6 +131,8 @@
               Audio Interface
             %p
               The signal from the mixer is routed through a USB, Firewire, or Thunderbolt interface which communicates with your computer.
+              %a{:href => "#",:class => "button tiny info"}
+                More info about mixers and mixer settings
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
         .small-12.columns{"data-equalizer" => ""}
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -166,6 +146,8 @@
               or
               %a{:href => "https://www.google.com/chrome/browser/desktop/", :target => "_blank"} Chrome
               browser with the latest version of Flash installed, select your Audio Interface as the “Input Source” on the Voice Republic Audio Settings panel (on the Talk Page)
+              %a{:href => "#",:class => "button tiny info"}
+                More info about computer specifications
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.end.legend{"data-equalizer-watch" => ""}
             = image_tag "support/signalflow/signalflow-elements_headphones.png", class: 'hide-for-large-up'
@@ -174,4 +156,6 @@
               Headphones
             %p
               Use headphones (connected to the interface) to check the audio quality of your Test Talk, as well as to monitor the audio quality during a Live Talk.
+              %a{:href => "#",:class => "button tiny info"}
+                More info about headphones
        
