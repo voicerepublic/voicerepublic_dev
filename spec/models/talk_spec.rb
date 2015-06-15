@@ -204,8 +204,6 @@ describe Talk do
       talk = FactoryGirl.create(:talk)
       expect(talk.current_state).to be(:prelive)
       talk.start_talk!
-      expect(talk.current_state).to be(:halflive)
-      talk.start_talk!
       expect(talk.current_state).to be(:live)
       talk.end_talk!
       expect(talk.current_state).to be(:postlive)
