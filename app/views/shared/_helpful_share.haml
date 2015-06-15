@@ -1,0 +1,18 @@
+%hr
+.row
+  .large-8.columns
+    %p
+      Was this page helpful?&nbsp;&nbsp;
+      = image_tag "support/thumbs-up.svg", class: 'helpful-btn'
+      = image_tag "support/thumbs-down.svg", class: 'helpful-btn'
+      &nbsp;&nbsp;&nbsp;
+      %span#yes-votes
+        0
+      out of 
+      %span#total-votes
+        0
+      found this helpful
+  .large-4.columns
+    / %p.right
+    = image_tag "support/facebook-circle.svg", class: "helpful-share right"
+    = image_tag "support/twitter-circle.svg", class: "helpful-share right"

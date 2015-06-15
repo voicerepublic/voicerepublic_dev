@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'support/:action', to: 'support'
+
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do
     get 'express', on: :new
