@@ -149,13 +149,12 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        .nelly-message(ng-show='nellyAlert()')
-          %a.blink{ href: talk_path(@talk),
-                    'ng-click' => 'setNellyReload(true)' }
-            = t('.nelly_warning')
-
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
+          .nelly-message(ng-show='nellyAlert()')
+            %a.blink{ href: talk_path(@talk),
+                      'ng-click' => 'setNellyReload(true)' }
+              = t('.nelly_warning')
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
           .pending-message(ng-show='talkIsQueued()')
@@ -179,7 +178,7 @@
               %span.record-text= t('.record_text')
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
-              {{ countdown }} MIN
+              {{ countdown }}
 
         .mute-stream-box(ng-show='talkIsLive()')
           %a(href="#" title="#{t('.mute_streams')}" ng-click='setVolume(0)')

@@ -24,6 +24,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.showStartButton = ->
     session.fsm.is('HostOnAir') and config.talk.state in ['prelive']
 
+  $scope.showUnstartedMessage = ->
+    !session.fsm.is('HostOnAir') and config.talk.remaining_seconds == 0
+
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and config.talk.state == 'live'
 
@@ -189,11 +192,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     sec = config.talk.remaining_seconds - 1
     sec = Math.max sec, 0
     config.talk.remaining_seconds = sec
-    $scope.countdown = "#{util.toHHMMSS(sec)} #{config.t.minutes}"
+    $scope.countdown = "#{config.t.in} #{util.toHHMMSS(sec)} #{config.t.seconds}"
     days = sec / (60*60*24)
-    $scope.countdown = "#{Math.floor(days)} #{config.t.days}" if days > 2
+    $scope.countdown = "#{config.t.in} #{Math.floor(days)} #{config.t.days}" if days > 2
     percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
     $scope.talkProgress = percent
+    $scope.countdown = config.t.soon if sec == 0
 
   $interval updateCountdown, 1000
 
