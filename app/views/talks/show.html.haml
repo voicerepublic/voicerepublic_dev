@@ -115,7 +115,7 @@
 
       .sidebar-right.hide-for-small
         - if can? :manage, @talk
-          = link_to t('.edit_talk'),[:edit, @talk], 'ng-hide' => 'talkIsHalflive() || talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
+          = link_to t('.edit_talk'),[:edit, @talk], 'ng-hide' => 'talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
@@ -169,7 +169,7 @@
           = raw t('.countdown_text')
           {{ countdown }}
 
-        .talk-live-timeline(ng-show='talkIsHalflive() || talkIsLive()')
+        .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
           .talk-state-info
@@ -181,7 +181,7 @@
               %span.right-text-space= t('.ends_in')
               {{ countdown }} MIN
 
-        .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
+        .mute-stream-box(ng-show='talkIsLive()')
           %a(href="#" title="#{t('.mute_streams')}" ng-click='setVolume(0)')
             %span.icon-volume-mute
           %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
@@ -189,7 +189,7 @@
 
         %a(href="#" ng-show='showEndTalk()' ng-click='endTalk()' class="button-vr button-live button-end-talk text-center")= t('.end_talk')
 
-    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
+    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
