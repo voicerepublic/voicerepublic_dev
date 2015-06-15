@@ -18,6 +18,8 @@
     %link{:href => "/images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}/
     = yield(:head)
     = javascript_include_tag "vendor/modernizr"
+    <script src="//use.typekit.net/yqj3cqc.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
   %body{:class => "#{[controller_name, action_name] * '-'}"}
     %nav.top-bar{"data-topbar" => "", :role => "navigation"}
       %ul.title-area
@@ -43,12 +45,16 @@
               %li
                 %a{:href => "#"} Account
     = yield
+    = render 'shared/helpful_share'
+    = render 'shared/footer'
     #scripts
       = javascript_include_tag "support"
       - if Rails.env.production?
         = render 'shared/google_analytics'
         = render 'shared/tawk'
       = yield :javascript
+
+
 
       /
         <p class="panel screensize">
@@ -89,3 +95,4 @@
           });
 
 
+    
