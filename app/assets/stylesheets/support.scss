@@ -1,10 +1,13 @@
-// Place all the styles related to the support controller here.
+/*// Place all the styles related to the support controller here.
 // They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// You can use Sass (SCSS) here: http://sass-lang.com/*/
 
 @import 'foundation/functions';
 $include-html-visibility-classes: true;
 @import 'foundation';
+@import 'grids_variables_mixins/ci_variables';
+@import 'shared/footer';
+
 
 /* all app scss styles here */
 $red: #F82847;
@@ -128,6 +131,24 @@ a.button.info {
 	text-decoration: none;
 }
 
+ul {
+	margin-top: 24px;
+}
+
+ul li {
+	/*list-style: none;*/
+	margin-left: 24px;
+}
+
+ul li a {
+	color: $dark;
+	font-size: 1.4em;
+}
+
+.support-sitemap ul li {
+	list-style: none;
+}
+
 .helpful-btn {
  max-width: 42px;
  border: 1px solid $dark;
@@ -154,7 +175,7 @@ a.button.info {
 	opacity: .8;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 	font-family: 'Eagle',helvetica,arial,sans-serif;
 	color:#001c3a;
 }
@@ -431,6 +452,32 @@ img.outline {
 }
 
 
+/*SUPPORT SITEMAP*/
+.support-sitemap div.h2.section-title a {
+	font-family: 'Eagle',helvetica, arial, sans-serif;
+	color:$dark;
+	/*font-size: 2em;*/
+}
+
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+	height: 2em;
+	font-size: 1.4em;
+}
+
+.postfix.button {
+	font-family: 'eagle';
+	font-size: 1em;
+	line-height: 2.8rem;
+}
+
+.prefix, .postfix {
+	height: 2.8em;
+}
+
+hr.search-divider {
+	margin:96px 0;
+}
+
 /*// Small screens*/
 @media only screen { } /* Define mobile styles */
 
@@ -448,11 +495,6 @@ img.outline {
 
 
 
-.section-title {
-
-	/*font-size: 1.4em;*/
-	/*margin-top: 40px;*/
-}
 
 h5.section-subtitle {
 	font-size: 1.5em;

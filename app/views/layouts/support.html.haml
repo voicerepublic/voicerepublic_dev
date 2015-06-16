@@ -45,7 +45,7 @@
               %li
                 %a{:href => "#"} Account
     = yield
-    = render 'shared/helpful_share'
+    = render 'shared/helpful_share' if action_name != "index"
     = render 'shared/footer'
     #scripts
       = javascript_include_tag "support"
