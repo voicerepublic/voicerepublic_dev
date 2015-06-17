@@ -19,7 +19,7 @@ $beige: #fef1de;
 $purple: #a339cd;
 
 $headline-font: 'Eagle','Helvetica Neue', helvetica, arial, sans-serif;
-$body-font: 'minion-pro', times, sans-serif;
+$body-font: 'minion-pro', times, serif;
 
 html,body {
 	-webkit-font-smoothing:antialiased;
@@ -31,10 +31,6 @@ body {
 	color:#001c3a;
 }
 
-/** {
-	box-sizing:border-box;
-	background: rgba(0,0,0,.05);
-}*/
 .scroll-container {
 	padding-left: 20px;
 }
@@ -44,13 +40,28 @@ body {
 }
 
 .top-bar {
-	background: $dark;
+	background: #fff;
+	height: 60px;
+	line-height: 60px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+
+.top-bar .name {
+	height: 60px;
+	margin: 10px 24px;
+}
+
+img.logo {
+	width: 36px;
+	height: 36px;
 }
 
 .breadcrumb a, .breadcrumb {
-	color: $light-blue;
 	font-family: $body-font;
+	font-size: .85em;
 }
+
+
 
 .accordion-navigation img {
 	/*max-height: 36px;*/
@@ -76,17 +87,15 @@ body {
 
 
 .hero {
-	/*margin-top: 0;*/
 	margin-bottom: 60px;
-	background: #2C46B0;
+	background: $beige;
 	border-top:0;
 	padding-top: 48px;
 	padding-bottom:48px;
-	color:#fff;
 }
 
 .hero h1, .hero h3 {
-	color: #fff;
+	color: $dark;
 }
 
 .hero h3 {
@@ -94,9 +103,6 @@ body {
 	line-height:1.2em;
 }
 
-.hero a:hover {
-	color: #fff;
-}
 
 img.outline {
 	border:1px solid #eee;
@@ -104,12 +110,12 @@ img.outline {
 
 
 a {
-	color:$light-blue;
+	color:$blue;
 	transition: color .2s ease;
 }
 
 a:hover {
-	color:#2C46B0;
+	color:$dark;
 	text-decoration: underline;
 }
 
@@ -136,8 +142,7 @@ ul {
 	margin-top: 24px;
 }
 
-ul li {
-	/*list-style: none;*/
+.support-sitemap ul li, .section ul li {
 	margin-left: 24px;
 }
 
@@ -148,6 +153,10 @@ ul li a {
 
 .support-sitemap ul li {
 	list-style: none;
+}
+
+.section {
+	margin-bottom: 48px;
 }
 
 .helpful-btn {
@@ -207,7 +216,6 @@ ul {
 }
 
 .accordion-navigation a span.right:after {
-	  /*position: absolute;*/
   content: "";
   width: 0;
   height: 0;
@@ -219,13 +227,9 @@ ul {
   border-width: 0.33333rem;
   margin-left: -0.33333rem;
   margin-top: 10px;
-  /*top: 55%;*/
   border-color: $dark transparent transparent transparent;
 }
 
-.light {
-/*	font-family: 'eagle-light',sans-serif;
-*/}
 
 .accordion .content.active {
 	font-family: $body-font;
@@ -240,16 +244,13 @@ ul {
 }
 
 .accordion dd.active a {
-	/*background: none;*/
 	font-family: $body-font;
 	font-size: 18px;
-	/*color:$blue;*/
 }
 .req img {
 	max-height: 60px;
 	margin-bottom: 30px;
 	margin-top: 40px;
-	/*max-width: 80px;*/
 }
 
 .req h5 {
@@ -259,15 +260,8 @@ ul {
 .req p, .legend p {
 	font-size: 1.1em;
 	line-height: 1.1em;
-	/*font-family: "Helvetica Neue",helvetica, arial,sans-serif;*/
-	/*font-family: 'freight-display-pro',serif;*/
-	/*color: #2C46B0;*/
 }
 
-
-.req a, .legend a {
-	/*color: $purple;*/
-}
 
 .req a:hover, .legend a:hover {
 	text-decoration: underline;
@@ -280,9 +274,6 @@ ul {
 	/*color: #2C46B0;*/
 }
 
-.legend h5 {
-	/*color: #2C46B0;*/
-}
 
 .legend-num {
 	display: block;
@@ -300,10 +291,8 @@ ul {
 }
 
 h5.section-subtitle {
-	/*font-family: 'Eagle Light';*/
 	line-height: 1.2em;
 	margin-bottom: 24px;
-	/*font-size: 1.2em;*/
 }
 
 .row {
@@ -319,20 +308,10 @@ img.outline {
 	padding: 20px;
 	max-width: 800px;
 	margin-bottom: 20px;
-	/*font-family: 'Eagle';*/
 }
 
-.screenshot img {
-	/*border:1px solid $light-blue;*/
-}
-.screenshot-title {
-	/*font-family: 'Eagle';*/
-}
 
 .screenshot .caption {
-	/*font-size: 1.3em;*/
-	/*font-family: 'freight-display-pro',serif;*/
-	/*line-height: 1.1em;*/
 	margin-top: 10px;
 }
 
@@ -340,18 +319,15 @@ img.outline {
 	margin: 0 auto;
 	background: none;
 	color:inherit;
-	/*font-family: 'Eagle';*/
 	font-size: 2em;
 	padding:12px;
 	line-height: 1.1em;
 }
 
 .section-title {
-	/*border:4px solid black;*/
 	width: auto !important;
 	margin:0 auto;
 	font-size: 2em;
-	/*margin-top: 80px;*/
 }
 
 .panel.callout {
@@ -359,60 +335,26 @@ img.outline {
 	border-color:$light-blue;
 	margin-top: 20px;
 	font-size: 1.2em;
-	/*font-family: 'freight-display-pro',serif;*/
 }
 
-/*.alert-box {
-	font-family: helvetica, arial, sans-serif;
-	font-size: 1.4em;
-	padding: 40px;
-	margin-top: 40px;
+.top-bar-section ul li > a  {
+	font-family: $headline-font;
 }
 
-.alert-box ul li {
-	margin-left: 20px;
-	font-size: 1.4em;
-}
 
-.alert-box .close {
-	top:20px;
-	right:15px;
-	font-size: 1.8em;
-}*/
-
-/*MAGELLAN*/
-/*.magellan-scrollnav {
-  width: 25%;
-}
-.magellan-scrollnav [data-magellan-expedition], .magellan-scrollnav [data-magellan-expedition-clone] {
-  width: 300px;
-  min-width: 0;
-  padding-top: 40px;
+.top-bar-section ul, .top-bar-section li {
+	line-height: 60px;
+	font-family: $headline-font;
 }
 
 .top-bar-section li.active:not(.has-form) a:not(.button) {
 	background: $red;
-}
-
-.sub-nav dt.active a, .sub-nav dd.active a, .sub-nav li.active a {
-	background: $light-blue;
-	border-radius: 0;
-}
-.sub-nav .subitem a {
-	margin-left: 10px;
-	color:#ccc;
-}
-
-.sub-nav dd.active.subitem a {
-	margin-left: 20px;
-}*/
-
-.top-bar-section li.active:not(.has-form) a:not(.button) {
-	background: $red;
+	line-height: 60px;
 }
 
 .top-bar-section li:not(.has-form) a:not(.button) {
 	background: $dark;
+	line-height: 60px;
 }
 
 .top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
@@ -430,14 +372,15 @@ img.outline {
 	background: $red;
 }
 
-
+.top-bar-section .has-dropdown > a:after {
+	top:30px;
+}
 .sub-nav dd {
 	width: 100%;
 	line-height: 30px;
 }
 
 .sub-nav dd a {
-	/*font-family: 'Eagle';*/
 	color:$light-blue;
 	line-height: 36px;
 }
@@ -463,9 +406,8 @@ img.outline {
 
 /*SUPPORT SITEMAP*/
 .support-sitemap div.h2.section-title a {
-	/*font-family: 'Eagle',helvetica, arial, sans-serif;*/
+	font-family: $headline-font;
 	color:$dark;
-	/*font-size: 2em;*/
 }
 
 input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
@@ -474,7 +416,6 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
 }
 
 .postfix.button {
-	/*font-family: 'eagle';*/
 	font-size: 1em;
 	line-height: 2.8rem;
 }

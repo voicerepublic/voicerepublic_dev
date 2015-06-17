@@ -24,9 +24,8 @@
     %nav.top-bar{"data-topbar" => "", :role => "navigation"}
       %ul.title-area
         %li.name
-          %h1
-            %a{:href => "#"} VR
-        / Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone
+          = link_to "/" do
+            = image_tag "vr_red.svg", :class => "logo"
         %li.toggle-topbar.menu-icon
           %a{:href => "#"}
             %span Menu
@@ -53,46 +52,5 @@
         = render 'shared/google_analytics'
         = render 'shared/tawk'
       = yield :javascript
-
-
-
-      /
-        <p class="panel screensize">
-        <strong class="show-for-small-only">small</strong>
-        <strong class="show-for-medium-only">medium</strong>
-        <strong class="show-for-large-only">large</strong>
-        <strong class="show-for-xlarge-only">xlarge</strong>
-        <strong class="show-for-xxlarge-up">xxlarge</strong>
-        </p>
-    
-    
-      / %script{:src => "bower_components/jquery/dist/jquery.js"}
-      / %script{:src => "bower_components/fastclick/lib/fastclick.js"}
-      / %script{:src => "bower_components/jquery.cookie/jquery.cookie.js"}
-      / endbower
-      / endbuild
-      / build:js js/vendor/foundation.min.js
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.abide.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.alert.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.clearing.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.dropdown.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.equalizer.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.interchange.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.magellan.js", :type => "text/javascript"}
-      / %script{:src => "bower_components/foundation/js/foundation/foundation.topbar.js", :type => "text/javascript"}
-      / endbuild
-      / build:js js/app.min.js
-      / %script{:src => "js/app.js", :type => "text/javascript"}
-      / endbuild
-      :javascript
-        $(document).ready(function(){
-            $("#sidebar").affix({
-              offset: { 
-                top: 370 
-              }
-            });
-          });
-
 
     
