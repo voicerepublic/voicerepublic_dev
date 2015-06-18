@@ -9,7 +9,6 @@
 
   .form-save-row.row
     .medium-12.columns
-      valid {{valid()}}
       = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right'
       = f.button :submit, class: 'button-save right', 'ng-disabled' => '!valid()', 'ng-click' => 'deactivateSafetynet()'
       .eagle.right(style='margin: 9px')
