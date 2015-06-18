@@ -2,7 +2,7 @@
 
 describe 'upstream-spec', ->
 
-	beforeEach window.module 'Sencha'
+	beforeEach window.module 'sencha'
 
 	describe 'upstreamFunc', ->
 		$httpBackend = undefined

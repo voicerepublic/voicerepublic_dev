@@ -1,4 +1,4 @@
-Sencha.factory("config", function() {
+sencha.factory("config", function() {
   return {
     "talk": {
         "channel": 'asdf',
