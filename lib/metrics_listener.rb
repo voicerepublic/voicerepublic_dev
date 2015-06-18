@@ -1,7 +1,11 @@
 #!/usr/bin/env ruby
 
-# This is just a proof of conecpt and shows how to subscribe to
+# This is just a proof of concept and shows how to subscribe to
 # metrics on RabbitMQ.
+#
+# Run with
+#
+#   ruby lib/metrics_listener.rb run
 
 require 'daemons'
 require 'bunny'
