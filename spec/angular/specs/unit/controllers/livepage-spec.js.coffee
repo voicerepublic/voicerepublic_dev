@@ -1,6 +1,6 @@
 'use strict'
 
-beforeEach window.module 'Sencha'
+beforeEach window.module 'sencha'
 
 describe 'livepage-spec', ->
 	$controller = undefined
@@ -23,7 +23,7 @@ describe 'livepage-spec', ->
 
 	beforeEach ->
 		$scope = {}
-		Livepage = $controller 'Livepage', {$scope: $scope}
+		Livepage = $controller 'LivepageController', {$scope: $scope}
 
 	it 'every injected variable should be defined', ->
 		expect(config).toBeDefined()
@@ -38,10 +38,10 @@ describe 'livepage-spec', ->
 
 	it 'Livepage & $scope should be defined', ->
 		expect(Livepage).toBeDefined()
-		expect(Livepage).toEqual jasmine.any Object 
+		expect(Livepage).toEqual jasmine.any Object
 
 		expect($scope).toBeDefined()
-		expect($scope).toEqual jasmine.any Object 
+		expect($scope).toEqual jasmine.any Object
 
 	describe '- Under test: initialized defaults -', ->
 
@@ -199,7 +199,7 @@ describe 'livepage-spec', ->
 
 			val = $scope.trouble()
 
-			expect(val).toBeFalsy() 
+			expect(val).toBeFalsy()
 
 		it 'check the $scope.showBandwidth functionality', ->
 			session.fsm.current = 'HostOnAir'
@@ -207,7 +207,7 @@ describe 'livepage-spec', ->
 
 			val = $scope.showBandwidth()
 
-			expect(val).toBeTruthy() 
+			expect(val).toBeTruthy()
 
 			session.fsm.current = 'foo'
 
@@ -328,7 +328,7 @@ describe 'livepage-spec', ->
 
 			$scope.participants()
 
-			expect(session.participants).toHaveBeenCalled() 
+			expect(session.participants).toHaveBeenCalled()
 
 			config.talk.state = 'archived'
 
@@ -359,7 +359,7 @@ describe 'livepage-spec', ->
 
 			$scope.guests()
 
-			expect(session.guests).toHaveBeenCalled() 
+			expect(session.guests).toHaveBeenCalled()
 
 			config.talk.state = 'archived'
 
@@ -383,7 +383,7 @@ describe 'livepage-spec', ->
 			expect($scope.talkIsHalflive()).toBeFalsy()
 
 			config.talk.state = 'halflive'
-			
+
 			expect($scope.talkIsHalflive()).toBeTruthy()
 
 		it 'check the $scope.talkIsLive functionality', ->
@@ -392,7 +392,7 @@ describe 'livepage-spec', ->
 			expect($scope.talkIsLive()).toBeFalsy()
 
 			config.talk.state = 'live'
-			
+
 			expect($scope.talkIsLive()).toBeTruthy()
 
 		it 'check the $scope.talkIsPostlive functionality', ->
@@ -401,7 +401,7 @@ describe 'livepage-spec', ->
 			expect($scope.talkIsPostlive()).toBeFalsy()
 
 			config.talk.state = 'postlive'
-			
+
 			expect($scope.talkIsPostlive()).toBeTruthy()
 
 		it 'check the $scope.talkIsProcessing functionality', ->
@@ -486,11 +486,3 @@ describe 'livepage-spec', ->
 			expect(config.talk.remaining_seconds).toEqual 1336
 			expect($scope.countdown).toEqual util.toHHMMSS(config.talk.remaining_seconds)
 			expect($scope.talkProgress).toEqual percent
-
-
-	    
-		    
-		  
-		  
-	    
-		  

@@ -2,7 +2,7 @@
 
 describe 'util-spec', ->
 
-  beforeEach window.module 'Sencha'
+  beforeEach window.module 'sencha'
 
   describe '- toHHMMSS -', ->
 
@@ -12,7 +12,7 @@ describe 'util-spec', ->
 
     it 'tests the common functionality of toHHMMSS', window.inject (util) ->
       timeString = 22 + ':' + 22 + ':' + 22
-      expect(util.toHHMMSS 80542).toEqual timeString  
+      expect(util.toHHMMSS 80542).toEqual timeString
 
     it 'tests against special value 0', window.inject (util) ->
       timeString = '00'+ ':' + '00' + ':' + '00'
@@ -44,13 +44,13 @@ describe 'util-spec', ->
       expect(util.merge target, target).toEqual target
 
     it 'check the common functionality of the merge function for objects', window.inject (util) ->
-      target = 
+      target =
         foo: 'bar'
         oof: 'rab'
-      source = 
+      source =
         bar: 'foo'
         rab: 'oof'
-      merged = 
+      merged =
         foo: 'bar'
         oof: 'rab'
         bar: 'foo'
@@ -59,7 +59,7 @@ describe 'util-spec', ->
 
     it 'check the functionality of the merge function for empty objects', window.inject (util) ->
       target = {}
-      source = 
+      source =
         bar: 'foo'
         rab: 'oof'
       expect(util.merge target, source).toEqual source
@@ -67,10 +67,10 @@ describe 'util-spec', ->
       expect(util.merge target, target).toEqual target
 
     it 'check the functionality of the merge function for equal objects', window.inject (util) ->
-      target = 
+      target =
         foo: 'foo'
         bar: 'bar'
-      source = 
+      source =
         foo: 'foo'
         bar: 'bar'
       expect(util.merge target, source).toEqual source

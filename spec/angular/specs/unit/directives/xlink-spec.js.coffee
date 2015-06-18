@@ -1,6 +1,6 @@
 'use strict'
 
-beforeEach window.module 'Sencha'
+beforeEach window.module 'sencha'
 
 describe 'xlink-spec', ->
 	$compile = undefined
@@ -33,5 +33,4 @@ describe 'xlink-spec', ->
 		scope.$digest()
 
 		expect(scope.$eval 'link').toBeUndefined()
-		expect(element.attr 'ngXlinkHref').toEqual '' 
-	  
+		expect(element.attr 'ngXlinkHref').toEqual ''

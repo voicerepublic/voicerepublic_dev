@@ -1,6 +1,6 @@
 'use strict'
 
-beforeEach window.module 'Sencha'
+beforeEach window.module 'sencha'
 
 describe 'upload-spec', ->
 	$controller = undefined
@@ -21,7 +21,7 @@ describe 'upload-spec', ->
 
 	beforeEach ->
 		$scope = {}
-		UploadCtrl = $controller 'UploadCtrl', {$scope: $scope}
+		UploadCtrl = $controller 'UploadController', {$scope: $scope}
 
 	it 'FileUploader should be defined', ->
 		expect(FileUploader).toBeDefined()
@@ -32,14 +32,14 @@ describe 'upload-spec', ->
 		expect(UploadCtrl).toEqual jasmine.any Function
 
 		expect($scope).toBeDefined()
-		expect($scope).toEqual jasmine.any Object    
+		expect($scope).toEqual jasmine.any Object
 
 	describe '- Under test: initialized defaults -', ->
 
 		it '$scope variables should have been set properly', ->
 			expect($scope.addingFailed).toBeFalsy()
 			expect($scope.audioUploadFailed).toBeFalsy()
-			expect($scope.state).toEqual 'ready' 
+			expect($scope.state).toEqual 'ready'
 
 			expect($scope.deactivateSafetynet).toBeDefined()
 			expect($scope.deactivateSafetynet).toEqual jasmine.any Function
@@ -66,7 +66,7 @@ describe 'upload-spec', ->
 			expect(filter.name for filter in uploader.filters is 'fileFilter').toBeTruthy()
 
 		it 'check the fileFilter for compatible format', ->
-			item = 
+			item =
 				'type': 'ogg'
 
 			fileFilter = (filter for filter in uploader.filters when filter.name is 'fileFilter')[0]
@@ -76,7 +76,7 @@ describe 'upload-spec', ->
 			expect(val).toBeTruthy()
 
 		it 'check the fileFilter for an uncompatible format', ->
-			item = 
+			item =
 				'type': 'imba_1337_format'
 
 			fileFilter = (filter for filter in uploader.filters when filter.name is 'fileFilter')[0]
@@ -98,7 +98,7 @@ describe 'upload-spec', ->
 			expect($scope.state).toEqual 'uploading'
 
 		it 'check the uploader onErrorItem functionality', ->
-			response = 
+			response =
 				'code': 400
 				'reason': 'invalidParameter'
 				'message': 'Invalid Data format.'
@@ -107,27 +107,10 @@ describe 'upload-spec', ->
 
 			expect($scope.audioUploadFailed).toBeTruthy()
 
-			expect($log.error.logs).toContain ["Uploading failed: " + JSON.stringify(response)] 
+			expect($log.error.logs).toContain ["Uploading failed: " + JSON.stringify(response)]
 
 		it 'check the uploader onCompleteAll functionality', ->
 			uploader.onCompleteAll()
 
 			expect($scope.state).toEqual 'finished'
-			expect($scope.talkForm.$valid).toBeTruthy() 
-		  
-
-
-		  
-
-
-		  
-		  
-	  
-		  
-		  
-		
-
-		
-
-
-	  
+			expect($scope.talkForm.$valid).toBeTruthy()

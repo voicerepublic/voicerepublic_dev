@@ -1,6 +1,6 @@
 'use strict'
 
-beforeEach window.module 'Sencha'
+beforeEach window.module 'sencha'
 
 describe 'blackbox-spec', ->
 	$log = undefined
@@ -28,7 +28,7 @@ describe 'blackbox-spec', ->
 
 	it 'check initial state of info', ->
 		expect(blackbox.info).toBeDefined()
-		expect(blackbox.info).toEqual jasmine.any Object 
+		expect(blackbox.info).toEqual jasmine.any Object
 		expect(blackbox.info.lastEvent).toEqual 'none'
 
 	describe '- Under test: flash methods bound to $window -', ->
@@ -39,7 +39,7 @@ describe 'blackbox-spec', ->
 
 			successLog = ['BlackboxService initialized.']
 			expect($log.debug.logs).not.toContain successLog
-			expect(config.flags.blackboxReady).toBeFalsy() 
+			expect(config.flags.blackboxReady).toBeFalsy()
 
 			$window.flashCallback()
 
@@ -72,7 +72,7 @@ describe 'blackbox-spec', ->
 			expect($log.info.logs[0][0]).toMatch expectedInfoLog
 			expect(blackbox.info.lastEvent).toEqual code
 
-			#expect(blackbox.subscribe).toHaveBeenCalledWith stream 
+			#expect(blackbox.subscribe).toHaveBeenCalledWith stream
 			expect($log.debug.logs).toContain ["subscriptions: #{stream}"]
 
 		it 'check the flashErrorHandler functionality with code: NetConnection.Connect.Failed', ->
@@ -85,7 +85,7 @@ describe 'blackbox-spec', ->
 			expect($log.info.logs[0][0]).toMatch expectedInfoLog
 			expect(blackbox.info.lastEvent).toEqual 'reconnecting'
 
-			# for not explicit testing use: 
+			# for not explicit testing use:
 			#expect( -> $timeout.verifyNoPendingTasks()).toThrowError()
 			# else
 			expect( -> $timeout.verifyNoPendingTasks()).toThrowError 'Deferred tasks to flush (1): {id: 0, time: 1000}'
@@ -131,7 +131,7 @@ describe 'blackbox-spec', ->
 			done()
 
 			###
-			setTimeout ( -> 
+			setTimeout ( ->
 				window.dump $log.debug.logs
 				done()), 3000
 			###
@@ -141,15 +141,15 @@ describe 'blackbox-spec', ->
 		it 'check the unpublish functionality', (done) ->
 			expect(blackbox.unpublish).toBeDefined()
 			expect(blackbox.unpublish).toEqual jasmine.any Function
-			
+
 			#$window.flashCallback()
 			blackbox.unpublish()
 			done()
-			
+
 			###
 			Somehow the promise wont get fulfilled from api
 
-			setTimeout ( -> 
+			setTimeout ( ->
 				expect($log.debug.logs).toContain ['unpublishing...']
 				done()), 1000
 			###
@@ -172,7 +172,7 @@ describe 'blackbox-spec', ->
 			blackbox.subscribe name
 			blackbox.subscribe name
 
-			expect($log.debug.logs).toContain ["already subscribed to #{name}"] 
+			expect($log.debug.logs).toContain ["already subscribed to #{name}"]
 
 			done()
 
@@ -180,25 +180,25 @@ describe 'blackbox-spec', ->
 			expect(blackbox.micCheck).toBeDefined()
 			expect(blackbox.micCheck).toEqual jasmine.any Function
 
-			# no access to test api 
+			# no access to test api
 
 		it 'check the mute functionality', ->
 			expect(blackbox.mute).toBeDefined()
 			expect(blackbox.mute).toEqual jasmine.any Function
 
-			# no access to test api 
+			# no access to test api
 
 		it 'check the unmute functionality', ->
 			expect(blackbox.unmute).toBeDefined()
 			expect(blackbox.unmute).toEqual jasmine.any Function
 
-			# no access to test api 
+			# no access to test api
 
 		it 'check the setStreamingServer functionality', ->
 			expect(blackbox.setStreamingServer).toBeDefined()
 			expect(blackbox.setStreamingServer).toEqual jasmine.any Function
 
-			# no access to test api 
+			# no access to test api
 
 		it 'check the setVolume functionality', ->
 			expect(blackbox.setVolume).toBeDefined()
@@ -212,34 +212,6 @@ describe 'blackbox-spec', ->
 
 			blackbox.setVolume 42
 
-			#expect(jQ.toggle).toHaveBeenCalled() 
+			#expect(jQ.toggle).toHaveBeenCalled()
 
-			# no access to test api 
-		
-
-
-		  
-		  
-		  
-	  
-		  
-		  
-		  
-
-		  
-			
-
-
-
-
-		  
-
-
-
-			
-			
-
-
-		  
-		  
-	  
+			# no access to test api
