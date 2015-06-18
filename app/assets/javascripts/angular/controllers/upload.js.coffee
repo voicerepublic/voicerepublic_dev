@@ -1,10 +1,12 @@
 # Using angularjs file upload, look it up here:
 #   https://github.com/nervgh/angular-file-upload
-uploadFunc = ($scope, $log, FileUploader) ->
+uploadFunc = ($scope, $log, FileUploader, validity) ->
   # Initialize scope variables
   $scope.addingFailed = false
   $scope.audioUploadFailed = false
   $scope.state = 'ready'
+
+  $scope.set_valid = validity.register(true)
 
   uploader = $scope.uploader = new FileUploader
     url: window.talk_upload_url
@@ -29,7 +31,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
 
   uploader.onAfterAddingFile = (fileItem) ->
     $scope.addingFailed = false
-    $scope.talkForm.$valid = false
+    $scope.set_valid false
     activateSafetynet()
     disableRecordField()
     $scope.state = 'uploading'
@@ -44,7 +46,7 @@ uploadFunc = ($scope, $log, FileUploader) ->
     # an override set.
     $scope.state = 'finished'
     $("#talk_user_override_uuid").attr "value", window.talk_uuid
-    $scope.talkForm.$valid = true
+    $scope.set_valid true
 
   # TODO resolve dependency on `window` by using `$window`
   activateSafetynet = ->
@@ -62,9 +64,5 @@ uploadFunc = ($scope, $log, FileUploader) ->
   disableRecordField = ->
     $('.talk_collect').hide()
 
-uploadFunc.$inject = [
-  "$scope"
-  "$log"
-  "FileUploader"
-]
+uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity"]
 window.sencha.controller "UploadController", uploadFunc
