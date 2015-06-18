@@ -543,7 +543,6 @@ class Talk < ActiveRecord::Base
 
     ActiveSupport::Notifications.instrument "run_chain.audio_process.vr",
                                             chain: chain do
-
       worker.run(Logger.new(logfile))
     end
   end
