@@ -312,4 +312,4 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
 # annotate with dependencies to inject
 sessionFunc.$inject = ['$log', 'messaging', 'util', '$rootScope',
                        '$timeout', 'config', 'blackbox']
-window.Sencha.factory 'session', sessionFunc
+window.sencha.factory 'session', sessionFunc

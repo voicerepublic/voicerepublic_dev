@@ -211,4 +211,4 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
   'session', 'blackbox', 'util', '$window', 'upstream']
-window.Sencha.controller 'Livepage', livepageFunc
+window.sencha.controller 'LivepageController', livepageFunc

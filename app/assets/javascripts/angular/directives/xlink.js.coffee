@@ -9,7 +9,7 @@ pairs = [
 angular.forEach pairs, (pair) ->
   ngAttrName = pair.ngAttrName
   attrName = pair.attrName
-  window.Sencha.directive ngAttrName, ->
+  window.sencha.directive ngAttrName, ->
     priority: 99
     link: (scope, element, attrs) ->
       attrs.$observe ngAttrName, (value) ->

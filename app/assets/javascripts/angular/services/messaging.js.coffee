@@ -50,4 +50,4 @@ messagingFunc = ($log, $q, config) ->
 
 # annotate with dependencies to inject
 messagingFunc.$inject = ['$log', '$q', 'config']
-window.Sencha.factory "messaging", messagingFunc
+window.sencha.factory "messaging", messagingFunc

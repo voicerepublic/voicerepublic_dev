@@ -3,7 +3,7 @@
 - content_for :title do
   = t('.title')
 
-- opts = { 'ng-controller' => 'UploadCtrl', name: "talkForm", novalidate: false}
+- opts = { 'ng-controller' => 'UploadController', name: "talkForm", novalidate: false}
 = simple_form_for(@talk, url: uploads_path, html: opts) do |f|
   = render partial: "fields", locals: { f: f }
 
