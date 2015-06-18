@@ -1194,3 +1194,7 @@ $topbar-button-font-size: rem-calc(12);
 // $include-html-visibility-classes: $include-html-classes;
 
 @import 'foundation';
+
+
+// fix as described here https://github.com/zurb/foundation/issues/2127
+textarea { height: auto; }

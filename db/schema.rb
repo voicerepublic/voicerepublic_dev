@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604084111) do
+ActiveRecord::Schema.define(version: 20150618120639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(version: 20150604084111) do
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
+    t.text     "about_as_html"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
@@ -308,16 +309,17 @@ ActiveRecord::Schema.define(version: 20150604084111) do
 
   create_table "venues", force: :cascade do |t|
     t.text     "description"
-    t.string   "title",       limit: 255
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "teaser",      limit: 255
+    t.string   "title",               limit: 255
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.string   "teaser",              limit: 255
     t.integer  "user_id"
-    t.text     "options",                 default: "--- {}\n"
-    t.string   "image_uid",   limit: 255
-    t.string   "uri",         limit: 255
-    t.string   "slug",        limit: 255
-    t.float    "penalty",                 default: 1.0
+    t.text     "options",                         default: "--- {}\n"
+    t.string   "image_uid",           limit: 255
+    t.string   "uri",                 limit: 255
+    t.string   "slug",                limit: 255
+    t.float    "penalty",                         default: 1.0
+    t.text     "description_as_html"
   end
 
   add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree
