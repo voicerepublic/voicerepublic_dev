@@ -1,14 +1,13 @@
-class Users::SessionsController < Devise::SessionsController 
+class Users::SessionsController < Devise::SessionsController
+  respond_to :json
 
   include Devise::Controllers::Rememberable
 
   # POST /resource/sign_in
   def create
-    # FIXME: this writes the password in plain text to the log
-    logger.debug("Users::Sessions#create - overwrite devise params: #{params.inspect}")
     self.resource = warden.authenticate!(auth_options)
     set_flash_message(:notice, :signed_in) if is_navigational_format?
-    
+
     sign_in(resource_name, resource)
     if params[:remember_me]
       remember_me(resource)
@@ -29,5 +28,5 @@ class Users::SessionsController < Devise::SessionsController
       format.any(*navigational_formats) { redirect_to redirect_path }
     end
   end
-  
+
 end

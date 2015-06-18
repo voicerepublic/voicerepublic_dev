@@ -174,14 +174,6 @@ en:
       teaser: Short description
       tag_list: Tags
       create_new_series: Create New Series...
-    index:
-      talks_on_voice_republic: TALKS ON VOICE REPUBLIC
-      now_live: NOW LIVE
-      live: NOW LIVE
-      featured: COMING UP
-      popular: POPULAR
-      recent: RECENT
-      see_all: MORE
 
   # this makes all translations from `talks` also available to `uploads`
   uploads:

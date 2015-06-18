@@ -1,13 +1,21 @@
 Rails.application.routes.draw do
 
-  if Settings.payment_enabled
-    get "/pricing", to: 'purchases#index', as: 'static_pages_pricing'
-    resources :purchases, only: [ :index, :new, :create, :show ] do
-      get 'express', on: :new
-    end
-  else
-    get "/pricing", to: 'static_pages#pricing', as: 'static_pages_pricing'
+  get 'support/:action', to: 'support'
+
+  get "/pricing", to: 'purchases#index', as: 'pricing'
+  resources :purchases, only: [ :index, :new, :create, :show ] do
+    get 'express', on: :new
   end
+
+  # in case someone bookmarked '/talks'
+  get 'talks', to: redirect('explore')
+
+  get 'explore', to: 'explore#index'
+  get 'explore/live',     as: 'live_talks'
+  get 'explore/popular',  as: 'popular_talks'
+  get 'explore/featured', as: 'featured_talks'
+  get 'explore/recent',   as: 'recent_talks'
+  get 'explore/upcoming', as: 'upcoming_talks'
 
   resources :uploads, only: [ :new, :create ]
 
@@ -44,14 +52,7 @@ Rails.application.routes.draw do
 
   # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
-  resources :talks do
-    collection do
-      get :live
-      get :popular
-      get :featured
-      get :recent
-      get :upcoming
-    end
+  resources :talks, except: 'index'  do
     resources :reminders, only: [:create]
   end
 

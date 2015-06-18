@@ -5,7 +5,7 @@
 - content_for :title do
   = t('.title', username: @user.name)
 
-- if Settings.payment_enabled && (current_user && current_user == @user)
+- if current_user && current_user == @user
   #credits.header-box.row.collapse
     .large-8.columns
       = t('.you_have_x_credits_left', count: @user.credits).html_safe

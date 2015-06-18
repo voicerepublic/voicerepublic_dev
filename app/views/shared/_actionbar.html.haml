@@ -11,7 +11,7 @@
           = button_tag :type => "submit", :class => "search-lupe" do
             %span.icon-magnifying-glass
       .visitor-explore-link
-        = link_to t('.explore'), talks_path
+        = link_to t('.explore'), explore_path
     .right
       .small-authentication-links.right
         = link_to t('.login'), new_user_session_path
@@ -51,7 +51,7 @@
                 %li= link_to t('.test_talk'), test_talk_path
                 %li= link_to t('.schedule_talk'), new_talk_path
                 %li= link_to t('.upload_talk'), new_upload_path
-                - if Settings.payment_enabled and !current_user.is_pro?
+                - if !current_user.is_pro?
                   %li= link_to t('.pricing'), purchases_path
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
@@ -66,4 +66,4 @@
               = button_tag :type => "submit", :class => "search-lupe" do
                 %span.icon-magnifying-glass
           %li.explore-link
-            = link_to t('.explore'), talks_path
+            = link_to t('.explore'), explore_path

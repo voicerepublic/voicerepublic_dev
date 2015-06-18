@@ -195,7 +195,7 @@ class Talk < ActiveRecord::Base
                         where("taggings.id IS NULL") }
 
   include PgSearch
-  multisearchable against: [:tag_list, :title, :teaser, :description]
+  multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
 
   # to be deleted after transition to markdown
   def description_has_html?
@@ -715,7 +715,6 @@ class Talk < ActiveRecord::Base
   end
 
   def create_and_process_debit_transaction!
-    return unless Settings.payment_enabled
     DebitTransaction.create(source: self).process!
   end
 

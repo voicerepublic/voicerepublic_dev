@@ -30,7 +30,7 @@ class Ability
     can    :manage, Talk, venue: { user_id: user.id }
     cannot :create, Talk
     can    :create, Talk, dryrun: true
-    if !Settings.payment_enabled || user.credits > 0
+    if user.credits > 0
       can    :create, Talk, venue: { user_id: user.id }
       # this is covered by default_venue, but it should probably go into
       # the controller before the authorization

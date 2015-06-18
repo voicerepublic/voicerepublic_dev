@@ -7,30 +7,6 @@ describe 'TalksController' do
       before do
         login_user FactoryGirl.create(:user)
       end
-      it 'index on GET /talks' do # index
-        visit '/talks'
-        expect(page).to have_selector(".talks-index")
-      end
-      it 'index on GET /talks/featured' do # featured
-        visit '/talks/featured'
-        expect(page).to have_selector(".talks-featured")
-      end
-      it 'index on GET /talks/popular' do # popular
-        visit '/talks/popular'
-        expect(page).to have_selector(".talks-popular")
-      end
-      it 'index on GET /talks/upcoming' do # upcoming
-        visit '/talks/upcoming'
-        expect(page).to have_selector(".talks-upcoming")
-      end
-      it 'index on GET /talks/live' do # live
-        visit '/talks/live'
-        expect(page).to have_selector(".talks-live")
-      end
-      it 'index on GET /talks/recent' do # recent
-        visit '/talks/recent'
-        expect(page).to have_selector(".talks-recent")
-      end
       it 'new on GET /talks/new' do # new
         visit '/talks/new'
         expect(page).to have_selector(".talks-new")
@@ -265,7 +241,7 @@ describe "Talks as logged in user" do
         within(".recent") do
           click_on "MORE"
         end
-        expect(current_path).to match(/talks\/recent/)
+        expect(current_path).to match(/explore\/recent/)
         expect(page).to have_selector('.talk-medium-box', count: 25)
         expect(page).to have_selector('.pagination')
         within(".pagination") do
