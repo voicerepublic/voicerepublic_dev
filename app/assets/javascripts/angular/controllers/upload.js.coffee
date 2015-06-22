@@ -32,7 +32,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
         item.type.split('/')[1] in extensions
 
     uploader.onCancelItem = (item, response, status, headers) ->
-      deactivateSafetynet()
+      safetynet.deactivate()
   
     uploader.onWhenAddingFileFailed = (item, filter, options) ->
       $scope.addingFailed = true
@@ -40,13 +40,13 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
     uploader.onAfterAddingFile = (fileItem) ->
       $scope.addingFailed = false
       $scope.set_valid false
-      activateSafetynet()
+      safetynet.activate()
       $scope.state = 'uploading'
   
     uploader.onErrorItem = (fileItem, response, status, headers) ->
       $log.error "Uploading failed: " + JSON.stringify(response)
       $scope.audioUploadFailed = true
-      deactivateSafetynet()
+      safetynet.deactivate()
   
     uploader.onCompleteAll = ->
       # Set the talk UUID, so that the backend knows to expect a talk that has
