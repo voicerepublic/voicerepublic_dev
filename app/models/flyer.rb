@@ -40,7 +40,10 @@ class Flyer < Struct.new(:talk)
   #
   def generate!
     a_svg_file = svg_file
-    %x[ inkscape -f #{a_svg_file.path} -e #{path(true)} 2>&1 >/dev/null ]
+    cmd = "inkscape -f %s -e %s 2>&1 >/dev/null"
+    ActiveSupport::Notifications.instrument "flyer.inkscape.vr", cmd: cmd do
+      system cmd % [ a_svg_file.path, path(true) ]
+    end
     a_svg_file.unlink
   end
 

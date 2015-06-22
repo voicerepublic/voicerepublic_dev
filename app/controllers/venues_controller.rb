@@ -11,7 +11,7 @@ class VenuesController < BaseController
       format.html do
         @upcoming_talks = @venue.talks.prelive.ordered
         @archived_talks = @venue.talks.archived.ordered
-        @live_talks = @venue.talks.live_and_halflive.ordered
+        @live_talks = @venue.talks.live.ordered
 
         if current_user
           @participation =

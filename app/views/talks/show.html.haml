@@ -18,7 +18,7 @@
 .row(style='padding: 200px' ng-hide='true')
   .large-12.text-center= t('.initializing')
 
-.layout-talk(ng-controller='Livepage' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
+.layout-talk(ng-controller='LivepageController' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
   = render 'debugger' if current_user.try(:developer?) or Rails.env.development?
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.rounded.centered(ng-show='!hasFlash() && talkIsLive()')
@@ -110,12 +110,12 @@
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
         .talk-info-text
-          = @talk.try(:description).try(:html_safe)
+          = @talk.description_as_html.html_safe
         %a.close-reveal-modal= raw '&#215;'
 
       .sidebar-right.hide-for-small
         - if can? :manage, @talk
-          = link_to t('.edit_talk'),[:edit, @talk], 'ng-hide' => 'talkIsHalflive() || talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
+          = link_to t('.edit_talk'),[:edit, @talk], 'ng-hide' => 'talkIsLive()', class: 'button-vr button-live button-edit-talk text-center'
 
         - if @talk.related_talk
           %section.row.collapse.text-center.related-talk
@@ -149,13 +149,12 @@
 
     .talk-timeline-box.row.collapse
       .medium-12.columns.text-center
-        .nelly-message(ng-show='nellyAlert()')
-          %a.blink{ href: talk_path(@talk),
-                    'ng-click' => 'setNellyReload(true)' }
-            = t('.nelly_warning')
-
         .trouble-message(ng-show='trouble()') {{trouble()}}
         - unless @talk.archived?
+          .nelly-message(ng-show='nellyAlert()')
+            %a.blink{ href: talk_path(@talk),
+                      'ng-click' => 'setNellyReload(true)' }
+              = t('.nelly_warning')
           .reload-message(ng-show='talkIsArchived()')
             = link_to t('.please_reload_this_page'), @talk
           .pending-message(ng-show='talkIsQueued()')
@@ -169,7 +168,7 @@
           = raw t('.countdown_text')
           {{ countdown }}
 
-        .talk-live-timeline(ng-show='talkIsHalflive() || talkIsLive()')
+        .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
           .talk-state-info
@@ -179,9 +178,9 @@
               %span.record-text= t('.record_text')
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
-              {{ countdown }} MIN
+              {{ countdown }}
 
-        .mute-stream-box(ng-show='talkIsHalflive() || talkIsLive()')
+        .mute-stream-box(ng-show='talkIsLive()')
           %a(href="#" title="#{t('.mute_streams')}" ng-click='setVolume(0)')
             %span.icon-volume-mute
           %a(href="#" title="#{t('.unmute_streams')}" ng-click='setVolume(1)')
@@ -189,7 +188,7 @@
 
         %a(href="#" ng-show='showEndTalk()' ng-click='endTalk()' class="button-vr button-live button-end-talk text-center")= t('.end_talk')
 
-    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsHalflive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
+    .talk-talkers-box.row(ng-show="talkIsPrelive() || talkIsLive() || talkIsPostlive() || talkIsProcessing()")
       .large-12.columns.text-center
         .stage-title
           =t('.stage')
@@ -343,7 +342,7 @@
         .description-content(ng-class="{'collapse': descriptionCollapsed()}")
           -#%h3= t('.description')
           .description-innerheight
-            = @talk.try(:description).try(:html_safe)
+            = @talk.description_as_html.html_safe
           %span.more-link(ng-show="descriptionCollapsable()" ng-click="toggleDescription()")
             %span(ng-show="descriptionCollapsed()")= t('.more')
             %span(ng-hide="descriptionCollapsed()")= t('.less')

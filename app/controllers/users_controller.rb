@@ -42,7 +42,7 @@ class UsersController < BaseController
         # upcoming     -> starts_at asc
         # archived     -> starts_at desc
         # listen later -> starts_at desc
-        @live_talks        = @user.talks.live_and_halflive.ordered
+        @live_talks        = @user.talks.live.ordered
         @upcoming_talks    = @user.talks.prelive.ordered
         @archived_talks    = @user.talks.archived.reordered
         @remembered_talks  = Talk.remembered_by(@user).reordered
@@ -59,7 +59,7 @@ class UsersController < BaseController
       format.js do
         @talks =
           case params[:more]
-          when 'live'      then @user.talks.live_and_halflive.ordered.offset(3)
+          when 'live'      then @user.talks.live.ordered.offset(3)
           when 'upcoming'  then @user.talks.prelive.ordered.offset(3)
           when 'archived'  then @user.talks.archived.reordered.offset(3)
           when 'reminders' then Talk.remembered_by(@user).reordered.offset(3)

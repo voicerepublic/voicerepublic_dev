@@ -106,7 +106,7 @@
     .large-12.columns
       .align-box
         %h3= t('.about') + ' ' + @user.try(:name)
-        = raw @user.about
+        = @user.about_as_html.html_safe
 
 - if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
   = render partial: "welcome", :locals => { user: @user }

@@ -19,13 +19,13 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     "width: #{Math.floor(percentage)}%"
 
   $scope.showFlashError = ->
-    !hasFlash() and (config.talk.state in ['halflive', 'live'])
+    !hasFlash() and (config.talk.state in ['live'])
 
   $scope.showStartButton = ->
-    session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
+    session.fsm.is('HostOnAir') and config.talk.state in ['prelive']
 
   $scope.showUnstartedMessage = ->
-    !session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
+    !session.fsm.is('HostOnAir') and config.talk.remaining_seconds == 0
 
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and config.talk.state == 'live'
@@ -34,7 +34,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     config.talk.state == 'archived'
 
   $scope.showInfoLink = ->
-    config.talk.state in ['halflive','live']
+    config.talk.state in ['live']
 
   $scope.showTalkTeaser = ->
     config.talk.state in ['prelive','postlive','processing','archived']
@@ -48,17 +48,17 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     false
 
   $scope.showBandwidth = ->
-    session.fsm.is("HostOnAir") and config.talk.state in ['prelive','halflive','live']
+    session.fsm.is("HostOnAir") and config.talk.state in ['prelive', 'live']
 
   $scope.showParticipantActionsBox = ->
-    config.talk.state in ['prelive','halflive','live']
+    config.talk.state in ['prelive', 'live']
 
   $scope.showPrelive = ->
     (session.fsm.is('HostOnAir') or session.fsm.is('OnAir')) and
       config.talk.state == 'prelive'
 
   $scope.showOnAir = ->
-    config.flags.onair and config.talk.state in ['live','halflive']
+    config.flags.onair and config.talk.state in ['live']
 
   $scope.muteState = false
   $scope.toggleMicMute = ->
@@ -150,9 +150,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
 
-  $scope.talkIsHalflive = ->
-    config.talk.state == 'halflive'
-
   $scope.talkIsLive = ->
     config.talk.state == 'live'
 
@@ -195,11 +192,12 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     sec = config.talk.remaining_seconds - 1
     sec = Math.max sec, 0
     config.talk.remaining_seconds = sec
-    $scope.countdown = "#{util.toHHMMSS(sec)} #{config.t.minutes}"
+    $scope.countdown = "#{config.t.in} #{util.toHHMMSS(sec)} #{config.t.seconds}"
     days = sec / (60*60*24)
-    $scope.countdown = "#{Math.floor(days)} #{config.t.days}" if days > 2
+    $scope.countdown = "#{config.t.in} #{Math.floor(days)} #{config.t.days}" if days > 2
     percent = Math.min(100, 100 - (100 / config.talk.duration) * sec)
     $scope.talkProgress = percent
+    $scope.countdown = config.t.soon if sec == 0
 
   $interval updateCountdown, 1000
 
@@ -211,4 +209,4 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
 livepageFunc.$inject = ['$scope', '$log', '$interval', 'config',
   'session', 'blackbox', 'util', '$window', 'upstream']
-window.Sencha.controller 'Livepage', livepageFunc
+window.sencha.controller 'LivepageController', livepageFunc

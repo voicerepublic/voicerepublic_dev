@@ -9,11 +9,6 @@ class TalkEventMessage < BaseMessage
 
     intro = "Now live" if event == :start_talk
 
-    intro = "Now live but has not started" if
-      args == [:prelive, :halflive, :start_talk]
-
-    intro = "Finally started" if args == [:halflive, :live, :start_talk]
-
     intro = "Just archived" if event == :archive
 
     intro = "Has been created" if event == :prepare

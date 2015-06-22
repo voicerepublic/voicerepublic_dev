@@ -19,14 +19,16 @@ en:
       related_talk: RELATED TALK
       next_talk: COMING UP NEXT IN THIS SERIES
       date_start_end: '%{date} | %{start_time} – %{end_time}'
-      ends_in: ENDS IN
+      ends_in: ENDS
       state_text: THIS TALK IS LIVE
       record_text: AND BEING RECORDED
       mute_streams: mute
       unmute_streams: unmute
-      countdown_text: THIS TALK IS <span class="red">LIVE</span> IN
-      minutes: 'MINUTES'
-      days: 'DAYS'
+      countdown_text: THIS TALK WILL GO <span class="red">LIVE</span>
+      seconds: SECONDS
+      days: DAYS
+      in: IN
+      soon: ANY TIME NOW
       stage: STAGE
       speakers:
         one: SPEAKER
@@ -106,7 +108,7 @@ en:
       start_text_top: Click START when the speaker begins.
       start: START
       start_text_bottom: <strong>Info:</strong> This sets the point at which recording begins.
-      unstarted_message: THE SPEAKER HAS NOT STARTED YET
+      unstarted_message: THE SPEAKER HAS NOT YET STARTED
       audio_settings: Audio settings
       end_talk: END TALK
       banner_title: WHAT IS VOICE REPUBLIC?

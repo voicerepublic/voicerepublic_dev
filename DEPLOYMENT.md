@@ -293,6 +293,14 @@ After install a new version also
     rbenv global 2.1.2
     gem install bundler
 
+
+2015-06-09 Setup RabbitMQ Server
+================================
+
+    apt-get install rabbitmq-server
+    rabbitmq-plugins enable rabbitmq_management
+    /etc/init.d/rabbitmq-server restart
+
 TODO
 ====
 

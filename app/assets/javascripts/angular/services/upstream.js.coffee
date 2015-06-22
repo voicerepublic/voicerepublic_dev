@@ -8,4 +8,4 @@ upstreamFunc = (config, $http, $log) ->
   }
 
 upstreamFunc.$inject = ['config', '$http', '$log']
-window.Sencha.factory 'upstream', upstreamFunc
+window.sencha.factory 'upstream', upstreamFunc

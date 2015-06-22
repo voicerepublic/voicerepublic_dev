@@ -1,6 +1,6 @@
 'use strict'
 
-beforeEach window.module 'Sencha'
+beforeEach window.module 'sencha'
 
 describe 'session-spec', ->
 	$log = undefined
@@ -38,7 +38,7 @@ describe 'session-spec', ->
 	describe '- Under test: initialized defaults -', ->
 
 		it 'should initialize config properly', ->
-			flags = 
+			flags =
 				onair: false
 				reqmic: false
 				acceptOrDecline: false
@@ -97,7 +97,7 @@ describe 'session-spec', ->
 
 			session.demote id
 
-			expect(session.fsm.Demoted).toHaveBeenCalled() 
+			expect(session.fsm.Demoted).toHaveBeenCalled()
 			expect(upstream.event).not.toHaveBeenCalled()
 
 		it 'check the startTalk event for common functionality', ->
@@ -267,7 +267,7 @@ describe 'session-spec', ->
 			val = fsm.onleaveListening()
 
 			expect(val).toBeTruthy()
-			expect(config.flags.reqmic).toBeFalsy() 
+			expect(config.flags.reqmic).toBeFalsy()
 
 		it 'check the onbeforeMicRequested functionality of the statemachine', ->
 			spyOn blackbox, 'micCheck'
@@ -306,14 +306,14 @@ describe 'session-spec', ->
 
 			fsm.onOnAir()
 
-			expect(blackbox.publish).toHaveBeenCalledWith config.stream 
+			expect(blackbox.publish).toHaveBeenCalledWith config.stream
 
-			expect(config.flags.onair).toBeTruthy() 
+			expect(config.flags.onair).toBeTruthy()
 			expect(config.safetynet_warning).toBeUndefined()
 
 		it 'check the onOnAir functionality of the statemachine for talkstate live', ->
 			config.talk.state = 'live'
-			
+
 			### wont work bcs not the same $ is shared
 			jQ = $(window)
 
@@ -343,8 +343,8 @@ describe 'session-spec', ->
 			fsm.onHostOnAir()
 
 			expect(session.users).toEqual config.session
-			expect(blackbox.publish).toHaveBeenCalledWith config.stream 
-			expect(config.flags.onair).toBeTruthy() 
+			expect(blackbox.publish).toHaveBeenCalledWith config.stream
+			expect(config.flags.onair).toBeTruthy()
 
 			expect($log.debug.logs).toContain ["schedule startTalk for in #{util.toHHMMSS config.talk.starts_in}"]
 
@@ -373,7 +373,7 @@ describe 'session-spec', ->
 
 			$timeout.flush()
 
-			expect(upstream.event).not.toHaveBeenCalled() 
+			expect(upstream.event).not.toHaveBeenCalled()
 
 		it 'check the onleaveHostOnAir functionality of the statemachine', ->
 			spyOn blackbox, 'unpublish'
@@ -381,7 +381,7 @@ describe 'session-spec', ->
 			val = fsm.onleaveHostOnAir()
 
 			expect(val).toBeTruthy()
-			expect(config.flags.onair).toBeFalsy()  
+			expect(config.flags.onair).toBeFalsy()
 
 			expect(blackbox.unpublish).toHaveBeenCalled()
 
@@ -389,7 +389,3 @@ describe 'session-spec', ->
 			fsm.onLoitering()
 
 			expect(config.flags.settings).toBeFalsy()
-			 
-		  
-		  
-		  

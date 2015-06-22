@@ -1,6 +1,6 @@
 'use strict'
 
-beforeEach window.module 'Sencha'
+beforeEach window.module 'sencha'
 
 describe 'nag_users-spec', ->
   $controller = undefined
@@ -15,7 +15,7 @@ describe 'nag_users-spec', ->
       id: 0
       is_anonymous: true
     $scope = {}
-    NagUsersCtrl = $controller 'NagUsersCtrl', {$scope: $scope}
+    NagUsersCtrl = $controller 'NagUsersController', {$scope: $scope}
 
   it 'knows whether the user is an anonyous user', ->
     expect($scope.isAnonymousUser(current_user)).toBe(true)

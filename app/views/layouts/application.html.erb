@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= I18n.locale.to_s %>" xmlns:fb="http://ogp.me/ns/fb#" ng-app="Sencha">
+<html lang="<%= I18n.locale.to_s %>" xmlns:fb="http://ogp.me/ns/fb#" ng-app="sencha">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,7 @@
     <%= render "shared/unconfirmed" if @current_user && !@current_user.confirmed? %>
     <%= render "shared/notice_or_error" %>
 
-    <div ng-controller='NagUsersCtrl'>
+    <div ng-controller='NagUsersController'>
       <script>
         current_user = {}
         current_user.is_anonymous = <%= !user_signed_in? %>
