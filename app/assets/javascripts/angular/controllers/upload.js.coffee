@@ -7,6 +7,7 @@ uploadFunc = ($scope, $log, FileUploader, validity) ->
   $scope.state = 'ready'
 
   $scope.set_valid = validity.register(true)
+  $scope.valid = validity.valid
 
   uploader = $scope.uploader = new FileUploader
     url: window.talk_upload_url
@@ -24,7 +25,6 @@ uploadFunc = ($scope, $log, FileUploader, validity) ->
 
   uploader.onCancelItem = (item, response, status, headers) ->
     deactivateSafetynet()
-    enableRecordField()
 
   uploader.onWhenAddingFileFailed = (item, filter, options) -> #{File|FileLikeObject}
     $scope.addingFailed = true
@@ -33,7 +33,6 @@ uploadFunc = ($scope, $log, FileUploader, validity) ->
     $scope.addingFailed = false
     $scope.set_valid false
     activateSafetynet()
-    disableRecordField()
     $scope.state = 'uploading'
 
   uploader.onErrorItem = (fileItem, response, status, headers) ->
@@ -57,12 +56,6 @@ uploadFunc = ($scope, $log, FileUploader, validity) ->
     $(window).unbind 'beforeunload'
 
   $scope.deactivateSafetynet = deactivateSafetynet
-
-  enableRecordField = ->
-    $('.talk_collect').show()
-
-  disableRecordField = ->
-    $('.talk_collect').hide()
 
 uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity"]
 window.sencha.controller "UploadController", uploadFunc
