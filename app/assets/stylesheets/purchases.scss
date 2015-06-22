@@ -60,7 +60,13 @@ $body-font: 'minion-pro', times, serif;
   }
 
   .pricing-box h3 {
-    margin-bottom: 48px;
+    margin-bottom: 24px;
+  }
+
+  .pricing-box ul li {
+    margin-left: 48px;
+    font-family: $body-font;
+    opacity: .6;
   }
 
   form.purchase {

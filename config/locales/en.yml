@@ -483,14 +483,17 @@ en:
   purchases:
     questions:
       contact_us: "Contact Us"
-      contact_us_for_questions: "If you have any questions, please contact us."
+      contact_us_for_questions: "You can also hire our Stream Team to come to your venue. To discuss streaming, or for any other questions, please contact us."
+    streamteam:
+      contact_us: "Contact Us"
+      streamteam_offer: "We also offer streaming services. Contact us for details."
     explanation:
       header: "Voice Republic Pricing"
       subtitle: |
         Pricing at Voice Republic is based on Credits. A Credit is both a <i>permit</i> and a <i>guarantee</i> for the life of a Talk on Voice Republic.
 
       pricing-feature-1: One Credit = One Talk
-      pricing-description-1:  One Credit allows one Talk to be streamed (or uploaded), embedded, shared or downloaded forever, or until you remove it from the site.* 
+      pricing-description-1:  One Credit allows one Talk to be streamed (or uploaded), archived, embedded, shared or downloaded forever, or until you remove it from the site. 
       pricing-feature-2: Credits Last Forever
       pricing-description-2:  Any Credits you purchase will be fully valid for as long as your Voice Republic account exists.
       pricing-feature-3: Pay Only Once Per Talk
