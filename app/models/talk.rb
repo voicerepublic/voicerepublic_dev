@@ -198,7 +198,7 @@ class Talk < ActiveRecord::Base
 
   # to be deleted after transition to markdown
   def description_as_markdown
-    ReverseMarkdown.convert(description)
+    ReverseMarkdown.convert(description || '')
   end
 
   def description_as_plaintext
