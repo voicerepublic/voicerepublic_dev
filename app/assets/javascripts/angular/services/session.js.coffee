@@ -100,7 +100,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
       onbeforePromotionAccepted: ->
         config.flags.settings = true
       onOnAir: ->
-        activateSafetynet() if config.talk.state in ['live', 'halflive']
+        activateSafetynet() if config.talk.state in ['live']
         blackbox.publish config.stream
         config.flags.onair = true
       onleaveOnAir: ->
@@ -109,14 +109,14 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         config.flags.onair = false
         true
       onHostOnAir: ->
-        activateSafetynet() if config.talk.state in ['live', 'halflive']
+        activateSafetynet() if config.talk.state in ['live']
         users = config.session
         blackbox.publish config.stream
         config.flags.onair = true
         # start the talk immediately or with timeout
         # negative numbers will timeout immediately
         # TODO check for browser compatibility
-        if config.talk.state == 'prelive'
+        if config.talk.state == 'prelive' and config.talk.autostart
           $log.debug "schedule startTalk for in " +
             util.toHHMMSS(config.talk.starts_in)
           millisecs = config.talk.starts_in * 1000
@@ -249,7 +249,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     return fsm.Demoted() if id is config.user_id
     messaging.publish event: 'Demote', user: { id }
   startTalk = ->
-    return unless config.talk.state in ['prelive', 'halflive']
+    return unless config.talk.state in ['prelive']
     $log.debug "--- starting Talk ---"
     messaging.publish event: 'StartTalk'
   endTalk = ->

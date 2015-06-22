@@ -55,7 +55,6 @@ class Talk < ActiveRecord::Base
     state :created # initial
     state :pending
     state :prelive
-    state :halflive
     state :live
     state :postlive
     state :processing
@@ -67,11 +66,7 @@ class Talk < ActiveRecord::Base
       transitions from: :created, to: :prelive
     end
     event :start_talk, timestamp: :started_at, success: :after_start do
-      # standard path (if `start_button` is not set)
-      transitions from: :prelive, to: :live, guard: ->(t){ !t.venue.opts.start_button }
-      # alternative path (if `start_button` is set)
-      transitions from: :prelive, to: :halflive
-      transitions from: :halflive, to: :live
+      transitions from: :prelive, to: :live
     end
     event :end_talk, timestamp: :ended_at, success: :after_end do
       transitions from: :live, to: :postlive
@@ -125,6 +120,7 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
+  before_save :set_description_as_html, if: :description_changed?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -175,7 +171,6 @@ class Talk < ActiveRecord::Base
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :reordered, -> { order('starts_at DESC') }
-  scope :live_and_halflive, -> { nodryrun.where(state: [:live, :halflive]) }
 
   scope :recent, -> do
     nodryrun.archived.order('ended_at DESC').
@@ -195,6 +190,16 @@ class Talk < ActiveRecord::Base
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
+
+  # to be deleted after transition to markdown
+  def description_has_html?
+    !!description.match(/<[a-z][\s\S]*>/)
+  end
+
+  # to be deleted after transition to markdown
+  def description_as_markdown
+    ReverseMarkdown.convert(description)
+  end
 
   def description_as_plaintext
     Nokogiri::HTML(description).text
@@ -352,6 +357,10 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def set_description_as_html
+    self.description_as_html = MARKDOWN.render(description)
+  end
 
   def create_and_set_venue?
     venue.nil? and new_venue_title.present?

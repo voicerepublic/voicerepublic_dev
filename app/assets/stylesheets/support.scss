@@ -1,0 +1,491 @@
+/*// Place all the styles related to the support controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/*/
+
+@import 'foundation/functions';
+$include-html-visibility-classes: true;
+@import 'foundation';
+@import 'grids_variables_mixins/ci_variables';
+@import 'shared/footer';
+
+
+/* all app scss styles here */
+$red: #F82847;
+$yellow: #FDEC03;
+$dark: #21273D;
+$light-blue: #54C6C6;
+$blue: #2C46B0;
+$beige: #fef1de;
+$purple: #a339cd;
+
+$headline-font: 'Eagle','Helvetica Neue', helvetica, arial, sans-serif;
+$body-font: 'minion-pro', times, serif;
+
+html,body {
+	-webkit-font-smoothing:antialiased;
+	font-family: $body-font;
+
+}
+
+body {
+	color:#001c3a;
+}
+
+.scroll-container {
+	padding-left: 20px;
+}
+
+.row.section {
+	margin-bottom: 100px;
+}
+
+.top-bar {
+	background: #fff;
+	height: 60px;
+	line-height: 60px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+
+.top-bar .name {
+	height: 60px;
+	margin: 10px 24px;
+}
+
+img.logo {
+	width: 36px;
+	height: 36px;
+}
+
+.breadcrumb a, .breadcrumb {
+	font-family: $body-font;
+	font-size: .85em;
+}
+
+
+
+.accordion-navigation img {
+	/*max-height: 36px;*/
+	max-width: 36px;
+	margin-right: 10px;
+}
+
+.screensize {
+	padding: 4px;
+	position: fixed;
+	top: 10px;
+	right: 0;
+	color: #fff;
+	background: none;
+	margin-right: 20px;
+	z-index: 999;
+	background: grey;
+}
+
+.show-for-small-only {
+	color:green;
+}
+
+
+.hero {
+	margin-bottom: 60px;
+	background: $beige;
+	border-top:0;
+	padding-top: 48px;
+	padding-bottom:48px;
+}
+
+.hero h1, .hero h3 {
+	color: $dark;
+}
+
+.hero h3 {
+	opacity: .5;
+	line-height:1.2em;
+}
+
+
+img.outline {
+	border:1px solid #eee;
+}
+
+
+a {
+	color:$blue;
+	transition: color .2s ease;
+}
+
+a:hover {
+	color:$dark;
+	text-decoration: underline;
+}
+
+a.button {
+	font-family: $headline-font;
+	font-weight: 600;
+}
+
+a.button.tiny {
+	font-size: .9em;
+}
+
+a.button.info {
+	background: #f4f4f4;
+	color:$dark;
+	margin-top: 20px;
+}
+
+.top-bar a:hover {
+	text-decoration: none;
+}
+
+ul {
+	margin-top: 24px;
+}
+
+.support-sitemap ul li, .section ul li {
+	margin-left: 24px;
+}
+
+ul li a {
+	color: $dark;
+	font-size: 1.4em;
+}
+
+.support-sitemap ul li {
+	list-style: none;
+}
+
+.section {
+	margin-bottom: 48px;
+}
+
+.helpful-btn {
+ max-width: 42px;
+ border: 1px solid $dark;
+ border-radius: 3px;
+ padding:10px;
+ opacity:.5;
+ cursor: pointer;
+ transition: opacity .2s;
+}
+
+.helpful-btn:hover {
+	opacity: .8;
+}
+
+.helpful-share {
+	max-width: 42px;
+	opacity: .5;
+	transition: opacity .2s;
+	cursor: pointer;
+	margin-left: 8px;
+}
+
+.helpful-share:hover {
+	opacity: .8;
+}
+
+h1, h2, h3, h4, h5, h6, h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	font-family: $headline-font;
+	color:#001c3a;
+}
+
+
+ul {
+	margin-left: 0;
+}
+
+.accordion {
+	margin-top: 20px;
+}
+
+.req,.accordion dd > a {
+	background: #f9f9f9;
+	border:3px solid #fff;
+	padding: 20px;
+	margin-bottom: 0;
+	color:$dark;
+	font-family: $body-font;
+	font-size: 18px;
+	}
+
+
+.accordion dd > a:hover {
+	background: #f4f4f4;
+
+}
+
+.accordion-navigation a span.right:after {
+  content: "";
+  width: 0;
+  height: 0;
+  display: block;
+  border-style: inset;
+  top: 55%;
+  left: 50%;
+    border-top-style: solid;
+  border-width: 0.33333rem;
+  margin-left: -0.33333rem;
+  margin-top: 10px;
+  border-color: $dark transparent transparent transparent;
+}
+
+
+.accordion .content.active {
+	font-family: $body-font;
+	color: $dark;
+	font-size: 18px;
+}
+
+.accordion .content.active a {
+	background:none;
+	color:$blue;
+
+}
+
+.accordion dd.active a {
+	font-family: $body-font;
+	font-size: 18px;
+}
+.req img {
+	max-height: 60px;
+	margin-bottom: 30px;
+	margin-top: 40px;
+}
+
+.req h5 {
+	color:#2C46B0;
+}
+
+.req p, .legend p {
+	font-size: 1.1em;
+	line-height: 1.1em;
+}
+
+
+.req a:hover, .legend a:hover {
+	text-decoration: underline;
+}
+
+.legend {
+	background: none;
+	border: none;
+	text-align: center;
+	/*color: #2C46B0;*/
+}
+
+
+.legend-num {
+	display: block;
+	margin: 0 auto;
+	border-radius: 18px;
+	background: $dark;
+	width: 36px;
+	height: 36px;
+	box-sizing:border-box;
+	padding-top: 5px;
+	color: #fff;
+	font-size: 1.2em;
+	margin-bottom: 10px;
+	font-family: $headline-font;
+}
+
+h5.section-subtitle {
+	line-height: 1.2em;
+	margin-bottom: 24px;
+}
+
+.row {
+	max-width: 80rem;
+}
+
+img.outline {
+	margin-bottom: 40px;
+}
+
+.screenshot {
+	border: 1px solid rgba(0,0,0,.1);
+	padding: 20px;
+	max-width: 800px;
+	margin-bottom: 20px;
+}
+
+
+.screenshot .caption {
+	margin-top: 10px;
+}
+
+.label {
+	margin: 0 auto;
+	background: none;
+	color:inherit;
+	font-size: 2em;
+	padding:12px;
+	line-height: 1.1em;
+}
+
+.section-title {
+	width: auto !important;
+	margin:0 auto;
+	font-size: 2em;
+}
+
+.panel.callout {
+	background: #fef1de;
+	border-color:$light-blue;
+	margin-top: 20px;
+	font-size: 1.2em;
+}
+
+.top-bar-section ul li > a  {
+	font-family: $headline-font;
+}
+
+
+.top-bar-section ul, .top-bar-section li {
+	line-height: 60px;
+	font-family: $headline-font;
+}
+
+.top-bar-section li.active:not(.has-form) a:not(.button) {
+	background: $red;
+	line-height: 60px;
+}
+
+.top-bar-section li:not(.has-form) a:not(.button) {
+	background: $dark;
+	line-height: 60px;
+}
+
+.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
+	background: #fff;
+	color: $dark;
+}
+
+.top-bar-section .dropdown li:not(.has-form):not(.active):hover > a:not(.button){
+	background: $light-blue;
+	background-color: $light-blue;
+	color:$dark;
+}
+
+.top-bar-section li.active:not(.has-form) a:not(.button):hover {
+	background: $red;
+}
+
+.top-bar-section .has-dropdown > a:after {
+	top:30px;
+}
+.sub-nav dd {
+	width: 100%;
+	line-height: 30px;
+}
+
+.sub-nav dd a {
+	color:$light-blue;
+	line-height: 36px;
+}
+
+.sub-nav dd a:hover {
+	color:#2C46B0;
+}
+
+.sub-nav dt.active a, .sub-nav dd.active a, .sub-nav li.active a {
+	background: $light-blue;
+	border-radius: 0;
+	padding: 10px 14px;
+}
+
+.affix {
+	display: none;
+}
+
+.affix-top {
+	display: block;
+}
+
+
+/*SUPPORT SITEMAP*/
+.support-sitemap div.h2.section-title a {
+	font-family: $headline-font;
+	color:$dark;
+}
+
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+	height: 2em;
+	font-size: 1.4em;
+}
+
+.postfix.button {
+	font-size: 1em;
+	line-height: 2.8rem;
+}
+
+.prefix, .postfix {
+	height: 2.8em;
+}
+
+hr.search-divider {
+	margin:96px 0;
+}
+
+/*// Small screens*/
+@media only screen { } /* Define mobile styles */
+
+@media only screen and (max-width: 40em) { } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+
+/*// Medium screens*/
+@media only screen and (min-width: 40.063em) {
+
+ } /* min-width 641px, medium screens */
+
+@media only screen and (min-width: 40.063em) and (max-width: 64em) { } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+
+/*// Large screens*/
+@media only screen and (min-width: 64.063em) {
+
+
+
+
+h5.section-subtitle {
+	font-size: 1.5em;
+	/*margin:40px 0;*/
+
+}
+
+.affix {
+	display: block;
+	position: fixed;
+	top: 20px;
+	right: 0px;
+}
+
+
+ } /* min-width 1025px, large screens */
+
+@media only screen and (min-width: 64.063em) and (max-width: 90em) { } /* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
+
+/*// XLarge screens*/
+@media only screen and (min-width: 90.063em) {
+
+.affix {
+	display: block;
+	position: fixed;
+	top: 20px;
+	right: 0px;
+}
+
+
+ } /* min-width 1441px, xlarge screens */
+
+@media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+
+/*// XXLarge screens*/
+@media only screen and (min-width: 120.063em) { 
+	.affix {
+		display: block;
+	position: fixed;
+	top: 20px;
+	right: 120px;
+}
+
+} 
