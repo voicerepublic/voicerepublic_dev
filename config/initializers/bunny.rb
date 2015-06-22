@@ -60,7 +60,7 @@ unless Rails.env.test?
   # instantly. Much like it would be the case if we'd use Faye for it.
   ActiveSupport::Notifications.subscribe(//) do |*args|
 
-    break unless args.first == 'sql.active_record'
+    next unless args.first == 'sql.active_record'
 
     data = args.last
 
