@@ -17,7 +17,7 @@
     - else
       .row.upload-init(ng-hide='true')
         .large-12= t('.initializing')
-      .row.upload-full(ng-cloak)
+      .row.upload-full(ng-controller='UploadController' ng-cloak)
         .medium-12.columns
           -# BEGIN Angular File Upload
           = f.input :user_override_uuid, as: :hidden
