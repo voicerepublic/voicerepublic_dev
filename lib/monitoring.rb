@@ -12,6 +12,11 @@ module Monitoring
     # instantly. Much like it would be the case if we'd use Faye for it.
     ActiveSupport::Notifications.subscribe(//) do |*args|
 
+      # TODO cleanup args
+      # * some content of `args` is not proper serializable
+      # * this leads to lots of stack traces in unicorn.stderr.log
+      # * with error messages like: "app error: not opened for reading (IOError)"
+
       data = args.last
 
       # visual should be a one line representation of the event
