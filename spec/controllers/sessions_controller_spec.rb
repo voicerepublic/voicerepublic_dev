@@ -20,11 +20,27 @@ describe Users::SessionsController do
         expect(response.status).to be(302)
       end
 
-      it "via json with authentication_token" do
-        post :create, { email: @user.email, password: '123123', format: 'json' }
-        res = JSON.parse(response.body)
-        expect(res).to_not be_empty
-        expect(res['authentication_token']).to_not be_empty
+      describe 'via json' do
+        it "sends the authentication_token" do
+          post :create, { email: @user.email, password: '123123', format: 'json' }
+          res = JSON.parse(response.body)
+          expect(res).to_not be_empty
+          expect(res['authentication_token']).to_not be_empty
+        end
+
+        it 'sends a list of all series of the user' do
+          3.times { FactoryGirl.create :venue, user: @user }
+          post :create, { email: @user.email, password: '123123', format: 'json' }
+          res = JSON.parse(response.body)
+          expect(res).to_not be_empty
+          expect(res['series']).to_not be_empty
+
+          series_titles = Hash(res['series']).values
+          @user.venues.pluck(:title).each do |title|
+            expect(series_titles).to include(title)
+          end
+
+        end
       end
     end
 
