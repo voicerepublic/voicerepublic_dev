@@ -17,7 +17,6 @@ class BunnyWrapper
   # end
 
   def publish(data)
-    Rails.logger.info("BUNNY PUBLISH: #{data.inspect}")
     if queue = data.delete(:queue) || data.delete(:q)
       json = JSON.unparse(data)
       queue = channel.queue(queue)
@@ -28,7 +27,6 @@ class BunnyWrapper
       raise "Either of `exchange`, `queue`, `x` or `q` are required."
     end
   rescue Bunny::ConnectionClosedError => e
-    Rails.logger.info("BUNNY ERROR: #{e.inspect}")
     # if the connection is closed make it reconnect and try again
     reconnect
     retry
@@ -37,7 +35,6 @@ class BunnyWrapper
   private
 
   def reconnect
-    Rails.logger.info("BUNNY RECONNECTING.")
     self.connection = Bunny.new read_timeout: 10, heartbeat: 10
     self.connection.start
     self.channel = connection.create_channel
