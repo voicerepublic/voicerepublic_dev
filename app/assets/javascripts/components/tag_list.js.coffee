@@ -3,7 +3,7 @@ selector = '.tagList'
 initialize = (node) ->
   #console.log "initialize: #{selector}"
 
-  tags = $(node).data('pre').split(',')
+  tags = if $(node).data('pre') then $(node).data('pre').split(',') else ""
 
   $(node).select2
     width: 'element'
