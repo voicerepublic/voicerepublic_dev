@@ -1,6 +1,7 @@
 # Using angularjs file upload, look it up here:
 #   https://github.com/nervgh/angular-file-upload
-uploadFunc = ($scope, $log, FileUploader, validity) ->
+uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
+
   # Initialize scope variables
   $scope.addingFailed = false
   $scope.audioUploadFailed = false
@@ -9,53 +10,61 @@ uploadFunc = ($scope, $log, FileUploader, validity) ->
   $scope.set_valid = validity.register(true)
   $scope.valid = validity.valid
 
-  uploader = $scope.uploader = new FileUploader
-    url: window.talk_upload_url
-    method: "POST"
-    formData: [key: window.talk_uuid]
-    queueLimit: 1
-    autoUpload: true
+  $scope.init = (options) ->
 
-  uploader.filters.push
-    name: "fileFilter"
-    fn: (item, options) -> #{File|FileLikeObject}
-      type = "|" + item.type.slice(item.type.lastIndexOf("/") + 1) + "|"
-      #console.log(item.type)
-      "|ogg|x-ogg|wav|x-wav|wave|x-pn-wav|m4a|x-m4a|mp3|x-mp3|mpeg3|x-mpeg3|mpg|x-mpegaudio|mpeg|".indexOf(type) isnt -1
+    # split filter into array
+    extensions = options.filter.split(' ')
 
-  uploader.onCancelItem = (item, response, status, headers) ->
-    deactivateSafetynet()
+    # make options available via $scope (although we don't use that!)
+    $scope.options = options
 
-  uploader.onWhenAddingFileFailed = (item, filter, options) -> #{File|FileLikeObject}
-    $scope.addingFailed = true
+    uploader = $scope.uploader = new FileUploader
+      url: options.uploadUrl
+      method: "POST"
+      formData: [key: options.key]
+      queueLimit: 1
+      autoUpload: true
 
-  uploader.onAfterAddingFile = (fileItem) ->
-    $scope.addingFailed = false
-    $scope.set_valid false
-    activateSafetynet()
-    $scope.state = 'uploading'
+    uploader.filters.push
+      name: "fileFilter"
+      # `item` is either a File or a FileLikeObject
+      fn: (item, options) ->
+        item.type.split('/')[1] in extensions
 
-  uploader.onErrorItem = (fileItem, response, status, headers) ->
-    $log.error "Uploading failed: " + JSON.stringify(response)
-    $scope.audioUploadFailed = true
-    deactivateSafetynet()
+    uploader.onCancelItem = (item, response, status, headers) ->
+      deactivateSafetynet()
+  
+    uploader.onWhenAddingFileFailed = (item, filter, options) ->
+      $scope.addingFailed = true
+  
+    uploader.onAfterAddingFile = (fileItem) ->
+      $scope.addingFailed = false
+      $scope.set_valid false
+      activateSafetynet()
+      $scope.state = 'uploading'
+  
+    uploader.onErrorItem = (fileItem, response, status, headers) ->
+      $log.error "Uploading failed: " + JSON.stringify(response)
+      $scope.audioUploadFailed = true
+      deactivateSafetynet()
+  
+    uploader.onCompleteAll = ->
+      # Set the talk UUID, so that the backend knows to expect a talk that has
+      # an override set.
+      $scope.state = 'finished'
+      $("#talk_user_override_uuid").attr "value", window.talk_uuid
+      $scope.set_valid true
+  
 
-  uploader.onCompleteAll = ->
-    # Set the talk UUID, so that the backend knows to expect a talk that has
-    # an override set.
-    $scope.state = 'finished'
-    $("#talk_user_override_uuid").attr "value", window.talk_uuid
-    $scope.set_valid true
+  # # TODO resolve dependency on `window` by using `$window`
+  # activateSafetynet = ->
+  #   $window.bind "beforeunload", ->
+  #     window.unprocessed_upload
+  # 
+  # deactivateSafetynet = ->
+  #   $window.unbind 'beforeunload'
 
-  # TODO resolve dependency on `window` by using `$window`
-  activateSafetynet = ->
-    $(window).bind "beforeunload", ->
-      window.unprocessed_upload
+  $scope.deactivateSafetynet = safetynet.deactivate
 
-  deactivateSafetynet = ->
-    $(window).unbind 'beforeunload'
-
-  $scope.deactivateSafetynet = deactivateSafetynet
-
-uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity"]
+uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity", "safetynet"]
 window.sencha.controller "UploadController", uploadFunc
