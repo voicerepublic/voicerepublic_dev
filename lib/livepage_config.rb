@@ -53,8 +53,10 @@ class LivepageConfig < Struct.new(:talk, :user)
       safetynet_warning: I18n.t('safetynet_warning'),
       blackbox_path: blackbox_path,
       t: {
-        minutes: I18n.t('talks.show.minutes'),
-        days: I18n.t('talks.show.days')
+        seconds: I18n.t('talks.show.seconds'),
+        days: I18n.t('talks.show.days'),
+        in: I18n.t('talks.show.in'),
+        soon: I18n.t('talks.show.soon')
       }
     }
   end
