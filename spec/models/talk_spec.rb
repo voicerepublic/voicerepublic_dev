@@ -204,8 +204,6 @@ describe Talk do
       talk = FactoryGirl.create(:talk)
       expect(talk.current_state).to be(:prelive)
       talk.start_talk!
-      expect(talk.current_state).to be(:halflive)
-      talk.start_talk!
       expect(talk.current_state).to be(:live)
       talk.end_talk!
       expect(talk.current_state).to be(:postlive)
@@ -417,4 +415,13 @@ describe Talk do
       Delayed::Worker.delay_jobs = false
     end
   end
+
+  describe 'markdown' do
+    it 'should sanitize user input' do
+      talk = FactoryGirl.create(:talk)
+      talk.update_attribute :description, "<script>alert('hello')</script>"
+      expect(talk.description_as_html).to_not include('script')
+    end
+  end
+
 end

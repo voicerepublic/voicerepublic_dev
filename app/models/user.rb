@@ -86,6 +86,7 @@ class User < ActiveRecord::Base
   # WARNING: Do not use after_save hooks in the 'user' model that will
   # save the model. The reason is that the Devise confirmable_token
   # might be reset mid-transaction.
+  before_save :set_about_as_html, if: :about_changed?
   before_create :build_and_set_default_venue
   after_save :generate_flyers!, if: :generate_flyers?
 
@@ -110,6 +111,16 @@ class User < ActiveRecord::Base
 
   def email_with_name
     "#{name} <#{email}>"
+  end
+
+  # to be deleted after transition to markdown
+  def about_has_html?
+    !!about.match(/<[a-z][\s\S]*>/)
+  end
+
+  # to be deleted after transition to markdown
+  def about_as_markdown
+    ReverseMarkdown.convert(about)
   end
 
   def about_as_plaintext
@@ -212,6 +223,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def set_about_as_html
+    self.about_as_html = MARKDOWN.render(about)
+  end
 
   def process_welcome_transaction
     welcome_transaction.process!

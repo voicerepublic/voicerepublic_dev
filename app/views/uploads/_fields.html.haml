@@ -134,12 +134,7 @@
 
     .row
       .medium-12.columns
-        %label(for="venue_description")
-          = f.text_area :description, required: true, class: 'ckeditor', input_html: { ckeditor: { toolbar: 'Full' } }
-          - messages = f.object.errors.get(:description)
-          - unless messages.empty?
-            %small.error= messages * ', '
-
+        = f.input :description, input_html: { rows: 10 }
 
 :javascript
   window.unprocessed_upload = #{t('.unprocessed_upload').inspect};

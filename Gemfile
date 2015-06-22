@@ -57,6 +57,10 @@ gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
+gem 'redcarpet'
+
+# to be deleted after transition to markdown
+gem 'reverse_markdown'
 
 group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views

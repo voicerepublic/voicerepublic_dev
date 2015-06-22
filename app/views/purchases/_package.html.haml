@@ -1,7 +1,7 @@
 - name, qty, amount, total = Pricing::PACKAGES[package]
-- price = number_to_currency(total/100.0, unit: Purchase::CURRENCY, format: '%u %n')
+- price = number_to_currency(total/100.0, unit: '&euro;'.html_safe, format: '%u %n')
 - selected = package == 'B5'
 
 %label{ class: selected ? 'selected' : '' }
   = f.radio_button :product, package, checked: selected
-  = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price)
+  = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price).html_safe
