@@ -267,9 +267,8 @@ describe "Talks as logged in user" do
 
       fill_in :talk_title, with: 'spec talk title'
       fill_in :talk_teaser, with: 'spec talk teaser'
-      # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
-      # the text with Capybara. jQuery to the rescue.
-      page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
+      fill_in :talk_description, with: 'spec talk teaser'
+
       # fill in tags
       fill_in 's2id_autogen3', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'

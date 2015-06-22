@@ -125,6 +125,7 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
+  before_save :set_description_as_html, if: :description_changed?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -195,6 +196,16 @@ class Talk < ActiveRecord::Base
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
+
+  # to be deleted after transition to markdown
+  def description_has_html?
+    !!description.match(/<[a-z][\s\S]*>/)
+  end
+
+  # to be deleted after transition to markdown
+  def description_as_markdown
+    ReverseMarkdown.convert(description)
+  end
 
   def description_as_plaintext
     Nokogiri::HTML(description).text
@@ -352,6 +363,10 @@ class Talk < ActiveRecord::Base
   end
 
   private
+
+  def set_description_as_html
+    self.description_as_html = MARKDOWN.render(description)
+  end
 
   def create_and_set_venue?
     venue.nil? and new_venue_title.present?

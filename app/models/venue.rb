@@ -48,6 +48,7 @@ class Venue < ActiveRecord::Base
   before_create :set_default_options
   before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
+  before_save :set_description_as_html, if: :description_changed?
 
   accepts_nested_attributes_for :talks
 
@@ -70,6 +71,16 @@ class Venue < ActiveRecord::Base
     OpenStruct.new(options)
   end
 
+  # to be deleted after transition to markdown
+  def description_has_html?
+    !!description.match(/<[a-z][\s\S]*>/)
+  end
+
+  # to be deleted after transition to markdown
+  def description_as_markdown
+    ReverseMarkdown.convert(description)
+  end
+
   def description_as_plaintext
     Nokogiri::HTML(description).text
   end
@@ -82,6 +93,10 @@ class Venue < ActiveRecord::Base
   end
 
   private
+
+  def set_description_as_html
+    self.description_as_html = MARKDOWN.render(description)
+  end
 
   def set_defaults
     attrs = Settings.venue_default_attributes[I18n.locale]
