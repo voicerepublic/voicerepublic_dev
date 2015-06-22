@@ -115,7 +115,8 @@ class FluxCapacitor
 
   def logger
     path = Rails.root.join('log/flux_capacitor.log')
-    path = '/home/app/app/shared/log/flux_capacitor.log'
+    # FIXME Horrible Hack to make logging work on production
+    path = '/home/app/app/shared/log/flux_capacitor.log' if Rails.env.production?
     @logger ||= Logger.new(path)
   end
 
