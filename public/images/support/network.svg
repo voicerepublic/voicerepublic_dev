@@ -1,13 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Network" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1040 693" enable-background="new 0 0 1040 693" xml:space="preserve">
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="360.5906" y1="187.1294" x2="811.3594" y2="637.8979" gradientTransform="matrix(1 0 0 -1 0 693)">
-	<stop  offset="0" style="stop-color:#2c46b0"/>
-	<stop  offset="1" style="stop-color:#54C6C6"/>
-</linearGradient>
-<path fill="url(#SVGID_1_)" d="M356.2,239.6c6.9,0,13.7,1,20,3c23.9-26.8,50.4-51.2,79.1-72.8c-1.2-5.1-1.9-10.4-1.9-15.8
+
+<path fill="#21273D" d="M356.2,239.6c6.9,0,13.7,1,20,3c23.9-26.8,50.4-51.2,79.1-72.8c-1.2-5.1-1.9-10.4-1.9-15.8
 	c0-7.5,1.2-14.8,3.5-21.5c-32.2-23-67.1-42.4-104.3-57.3c-34.8,21.5-65.2,49.6-89.5,82.5c18,31.9,39.4,61.6,63.7,88.6
 	C335.7,242,345.7,239.6,356.2,239.6z M288.4,307.4c0-9.5,2-18.6,5.5-26.8c-21.8-24-41.5-49.8-58.7-77.2c-21.7,43-34,91.6-34,143.1
 	c0,59.6,16.4,115.3,44.9,163c10.2-57.3,29.5-111.5,56.1-161.2C293.6,337,288.4,322.8,288.4,307.4z M521.2,86.2

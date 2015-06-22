@@ -1,25 +1,14 @@
-/ %p.panel.screensize
-/   %strong.show-for-small-only small
-/   %strong.show-for-medium-only medium
-/   %strong.show-for-large-only large
-/   %strong.show-for-xlarge-only xlarge
-/   %strong.show-for-xxlarge-up xxlarge
-
-/ HERO
 .hero
   .row
     .large-8.columns
       %h5.breadcrumb
-        %a{:href => "#"} Voice Republic
-        \&gt;
-        %a{:href => "#"} Support
-        \&gt;
-        %a{:href => "#"} How To Stream
+        %a{:href => "/support"} Voice Republic Support
       %h1
         Professional Streaming Setup
-      %h3
+  .row
+    .large-6.columns
+      %p.lead
         This document outlines the technical requirements and basic setup for streaming a Live Talk in a professional setting. 
-/ scroll container
 .scroll-container{:role => "main"}
   .row
     .large-8.columns.left
@@ -27,7 +16,7 @@
         %h2#tech-req.section-title{"data-magellan-destination" => "tech-req"}
           Technical Requirements
         %hr/
-        %h5.section-subtitle
+        %p.section-subtitle.lead
           For a professional Talk, you need 6 things:
           / accordion
           %dl.accordion{"data-accordion" => ""}
@@ -90,9 +79,9 @@
         
       .row.section
         %h2#configure.section-title{"data-magellan-destination" => "configure"}
-          Basic Audio Configuration
+          Professional Audio Configuration
         %hr/
-        %h5#configure1.section-subtitle{"data-magellan-destination" => "configure1"}
+        %p.section-subtitle.lead
           The recommended audio setup for a professional Talk looks like this:
         = image_tag "support/signalflow/signalflow_recommended-wide.png",class:'outline visible-for-large-up'
         .small-12.columns{"data-equalizer" => "", "data-equalizer-mq" => "large-up"}
