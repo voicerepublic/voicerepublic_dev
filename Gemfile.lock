@@ -147,8 +147,6 @@ GEM
     chronic (0.10.2)
     ci_reporter (1.9.1)
       builder (>= 2.1.2)
-    ckeditor_rails (4.3.1)
-      railties (>= 3.0)
     cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.1.0)
@@ -568,7 +566,6 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   capybara (= 2.4.4)
   ci_reporter
-  ckeditor_rails
   coffee-rails (~> 4.1.0)
   daemons
   database_cleaner!

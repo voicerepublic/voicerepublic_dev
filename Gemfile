@@ -43,7 +43,6 @@ gem 'haml-rails'
 gem 'simple_form'
 gem 'unicorn'
 gem "select2-rails"
-gem 'ckeditor_rails'
 gem "transitions", require: ["transitions", "active_model/transitions"], github: 'troessner/transitions'
 gem 'fidelity', git: 'git@github.com:munen/fidelity.git'
 #gem 'fidelity', path: '../fidelity'
