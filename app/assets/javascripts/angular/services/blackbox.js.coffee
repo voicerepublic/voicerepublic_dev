@@ -170,4 +170,4 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
 
 # annotate with dependencies to inject
 blackboxFunc.$inject = ['$log', '$window', '$q', 'config', '$timeout']
-window.Sencha.factory 'blackbox', blackboxFunc
+window.sencha.factory 'blackbox', blackboxFunc

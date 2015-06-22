@@ -67,4 +67,4 @@ uploadFunc.$inject = [
   "$log"
   "FileUploader"
 ]
-window.Sencha.controller "UploadCtrl", uploadFunc
+window.sencha.controller "UploadController", uploadFunc

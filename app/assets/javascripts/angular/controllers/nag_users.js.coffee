@@ -25,4 +25,4 @@ nagFunc.$inject = [
   "$log"
   "$timeout"
 ]
-window.Sencha.controller "NagUsersCtrl", nagFunc
+window.sencha.controller "NagUsersController", nagFunc

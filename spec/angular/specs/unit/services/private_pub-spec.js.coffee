@@ -1,6 +1,6 @@
 'use strict'
 
-beforeEach window.module 'Sencha'
+beforeEach window.module 'sencha'
 
 describe 'private_pub-spec', ->
 	$log = undefined
@@ -53,8 +53,4 @@ describe 'private_pub-spec', ->
 			expect(handler).not.toHaveBeenCalled()
 
 			# debug logs related to the promise chain aren't propagated...
-			#window.dump $log.debug.logs 
-		  
-		  
-			
-	  
+			#window.dump $log.debug.logs
