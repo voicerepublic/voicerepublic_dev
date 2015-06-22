@@ -115,6 +115,7 @@ class User < ActiveRecord::Base
 
   # to be deleted after transition to markdown
   def about_has_html?
+    return true if about.nil?
     !!about.match(/<[a-z][\s\S]*>/)
   end
 

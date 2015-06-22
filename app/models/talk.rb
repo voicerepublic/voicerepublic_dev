@@ -193,6 +193,7 @@ class Talk < ActiveRecord::Base
 
   # to be deleted after transition to markdown
   def description_has_html?
+    return true if description.nil?
     !!description.match(/<[a-z][\s\S]*>/)
   end
 
