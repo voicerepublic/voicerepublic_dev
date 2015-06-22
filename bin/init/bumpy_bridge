@@ -1,0 +1,46 @@
+#!/bin/bash
+# Thu Jun 10 15:45:42 CEST 2015
+# Phil Hofmann
+# Switzerland, Zurich, VoiceRepublic
+
+__pwd="$(pwd -P)"
+__mydir="${0%/*}"
+__abs_mydir="$(cd "$__mydir" && pwd -P)"
+__myname=${0##*/}
+__abs_myname="$__abs_mydir/$__myname"
+
+. ~/bin/rbenv_init
+
+export RAILS_ENV=production
+
+bundle='/home/app/.rbenv/shims/bundle'
+pidfile="/home/app/app/shared/tmp/pids/bumpy_bridge.pid"
+bumpy_bridge="${bundle} exec bumpy_bridge start -- config/bumpy_bridge.yml"
+
+# Rails is always located below ~/app/current
+cd ~/app/current
+
+case $1 in
+    start)
+	      pwd
+	      echo ${bumpy_bridge}
+        ${bumpy_bridge}
+        sleep 2
+	      cat ${pidfile}
+	      echo
+        ;;
+    stop)
+        kill `cat ${pidfile}`
+        ;;
+    restart)
+        "$0" stop
+        "$0" start
+        ;;
+    *)
+        cat << eof
+$0:
+    start:          start bumpy_bridge and daemonize
+    stop:           stop existing bumpy_bridge processes
+    restart:        stop and start
+eof
+esac

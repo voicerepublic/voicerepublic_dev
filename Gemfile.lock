@@ -91,10 +91,11 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.4.2)
       activerecord (>= 3.2, < 5)
-    addressable (2.3.7)
+    addressable (2.3.8)
     airbrake (3.1.15)
       builder
       multi_json
+    amq-protocol (1.9.2)
     angularjs-file-upload-rails (1.1.0)
     annotator (0.0.10)
       activerecord (>= 3.0)
@@ -109,6 +110,14 @@ GEM
       debug_inspector (>= 0.0.1)
     browser (0.8.0)
     builder (3.2.2)
+    bumpy_bridge (0.0.2)
+      bunny
+      daemons
+      faye
+      faye-authentication
+      trickery
+    bunny (1.7.0)
+      amq-protocol (>= 1.9.2)
     byebug (3.1.2)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
@@ -153,7 +162,7 @@ GEM
     cookiejar (0.3.2)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
-    daemons (1.1.9)
+    daemons (1.2.2)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     delayed_job (4.0.6)
@@ -182,7 +191,7 @@ GEM
     em-socksify (0.3.0)
       eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
-    eventmachine (1.0.3)
+    eventmachine (1.0.7)
     excon (0.44.4)
     execjs (2.0.2)
     factory_girl (4.3.0)
@@ -194,17 +203,17 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    faye (1.0.3)
+    faye (1.1.1)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
       eventmachine (>= 0.12.0)
-      faye-websocket (>= 0.7.0)
+      faye-websocket (>= 0.9.1)
       multi_json (>= 1.0.0)
       rack (>= 1.0.0)
-      websocket-driver (>= 0.3.0)
-    faye-websocket (0.7.4)
+      websocket-driver (>= 0.5.1)
+    faye-websocket (0.9.2)
       eventmachine (>= 0.12.0)
-      websocket-driver (>= 0.3.1)
+      websocket-driver (>= 0.5.1)
     ffi (1.9.6)
     fileutils_logger (0.0.1)
     fission (0.5.0)
@@ -311,7 +320,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
-    jwt (1.4.1)
+    jwt (1.5.0)
     kgio (2.8.1)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -380,7 +389,7 @@ GEM
       slop (~> 3.4)
     pry-rails (0.3.2)
       pry (>= 0.9.10)
-    rack (1.6.0)
+    rack (1.6.1)
     rack-affiliates (0.4.0)
       rack
     rack-cache (1.2)
@@ -501,6 +510,8 @@ GEM
     tilt (1.4.1)
     timecop (0.5.9.2)
     tins (1.5.1)
+    trickery (0.0.1)
+      systemu
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.4.0)
@@ -522,7 +533,9 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     websocket (1.2.1)
-    websocket-driver (0.3.2)
+    websocket-driver (0.5.4)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     whenever (0.9.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -542,6 +555,8 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser
+  bumpy_bridge
+  bunny
   byebug
   cancan
   capistrano (~> 3.1.0)

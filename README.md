@@ -144,6 +144,7 @@ Run App
 * `lib/flux_capacitor.rb run`
 * `lib/rtmp_watcher.rb run`
 * `rake jobs:work`
+* `DEBUG=1 bumpy_bridge run -- config/bumpy_bridge.yml`
 
 ### or optionally voicerepublic_dev with tmux
 
