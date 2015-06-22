@@ -4,18 +4,18 @@
 #
 uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
 
-  # Initialize scope variables
+  # initialize scope variables
   $scope.addingFailed = false
   $scope.uploadFailed = false
   $scope.state = 'ready'
 
   $scope.set_valid = validity.register(true)
-  $scope.valid = validity.valid
+  $scope.valid = validity.valid # (this is only used in specs!)
 
   $scope.init = (options) ->
 
     # split filter into array
-    extensions = options.filter.split(' ')
+    filetypes = options.filter.split(' ')
 
     # make options available via $scope (although we don't use that!)
     $scope.options = options
@@ -31,7 +31,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       name: "fileFilter"
       # `item` is either a File or a FileLikeObject
       fn: (item, options) ->
-        item.type.split('/')[1] in extensions
+        item.type.split('/')[1] in filetypes
 
     uploader.onCancelItem = (item, response, status, headers) ->
       safetynet.deactivate()
