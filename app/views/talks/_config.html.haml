@@ -2,6 +2,6 @@
 -# resolve dependencies this can totally go into the html page
 -# rendered by rails.
 %script
-  Sencha.factory("config", function() {
+  sencha.factory("config", function() {
   return #{ LivepageConfig.new(@talk, current_user).to_json.html_safe };
   });

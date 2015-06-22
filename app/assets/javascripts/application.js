@@ -19,10 +19,6 @@
 //= require select2
 //= require slick
 //
-//= require ckeditor-jquery
-//= require ckeditor/init
-//= require ckeditor/config
-//
 //= require player.js
 //= require validate_search
 //= require jquery-ui/datepicker

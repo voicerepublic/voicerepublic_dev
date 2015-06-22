@@ -3,7 +3,7 @@ class LandingPageController < BaseController
   def index
     respond_to do |format|
       format.html do
-        @talks_live     = Talk.live_and_halflive
+        @talks_live     = Talk.live
 
         @talks_featured = Talk.featured.limit(6)
         @talks_recent  	= Talk.recent.limit(6)

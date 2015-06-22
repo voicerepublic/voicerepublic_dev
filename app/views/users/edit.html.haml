@@ -44,8 +44,7 @@
       .row
         .large-12.columns
           .user-textarea-box
-            = f.label :about
-            = f.text_area :about, class: 'ckeditor', input_html: { class: 'text-area'}
+            = f.input :about, input_html: { rows: 10 }
 
   .form-save-row.row
     .large-12.columns

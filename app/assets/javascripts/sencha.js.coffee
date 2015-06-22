@@ -7,7 +7,7 @@
 #= require_tree ./angular
 
 # inject angular file upload directives and service.
-window.Sencha = angular.module 'Sencha', ['angularFileUpload']
+window.sencha = angular.module 'sencha', ['angularFileUpload']
 
 configFunc = ($logProvider, $httpProvider) ->
 
@@ -23,4 +23,4 @@ configFunc = ($logProvider, $httpProvider) ->
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
 
 configFunc.$inject = ['$logProvider', '$httpProvider']
-window.Sencha.config configFunc
+window.sencha.config configFunc

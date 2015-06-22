@@ -116,9 +116,7 @@ describe "Venues", js: true do
         visit new_venue_path
         fill_in 'venue_title', with: 'schubidubi'
         fill_in 'venue_teaser', with: 'some teaser'
-        # NOTE: Since the WYSIWYG editor is creating an iframe, we cannot fill in
-        # the text with Capybara. jQuery to the rescue.
-        page.execute_script('$("iframe").contents().find("body").text("iwannabelikeyou")')
+        fill_in 'venue_description', with: 'iwannabelikeyou'
 
         click_button 'Save'
         expect(page).to have_selector('.venues-show')

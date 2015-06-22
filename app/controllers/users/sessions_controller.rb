@@ -12,7 +12,19 @@ class Users::SessionsController < Devise::SessionsController
     if params[:remember_me]
       remember_me(resource)
     end
-    respond_with resource, :location => after_sign_in_path_for(resource)
+
+    respond_with resource do |format|
+      format.html { redirect_to after_sign_in_path_for(resource) }
+      format.json do
+        if resource.is_a? User
+          user_hash = resource.attributes
+          resource.venues.reload
+          series = resource.venues.collect { |v| [v.id, v.title ]}
+          user_hash.merge!(series: Hash[series])
+          render json: user_hash.to_json
+        end
+      end
+    end
   end
 
   # DELETE /resource/sign_out

@@ -61,7 +61,11 @@ class FluxCapacitor
   def process(msg)
     # pp msg
     channel = msg.delete('channel')
-    Rails.logger.error NO_CHANNEL % msg.inspect if channel.nil?
+    if channel.nil?
+      Rails.logger.error NO_CHANNEL % msg.inspect
+      logger.warn NO_CHANNEL % msg.inspect
+    end
+
     _, talk_id, user_id = channel.match(PATTERN).to_a
     talk = Talk.find(talk_id)
 
@@ -96,7 +100,7 @@ class FluxCapacitor
       msg['user'] ||= { 'id' => user_id.to_i }
       print "."
     else
-      Rails.logger.war "Don't know how to handle:\n#{msg.to_yaml}"
+      Rails.logger.warn "Don't know how to handle:\n#{msg.to_yaml}"
       logger.warn "Don't know how to handle:\n#{msg.to_yaml}"
     end
 
@@ -110,7 +114,10 @@ class FluxCapacitor
   end
 
   def logger
-    @logger ||= Logger.new(Rails.root.join('log/flux_capacitor.log'))
+    path = Rails.root.join('log/flux_capacitor.log')
+    # FIXME Horrible Hack to make logging work on production
+    path = '/home/app/app/shared/log/flux_capacitor.log' if Rails.env.production?
+    @logger ||= Logger.new(path)
   end
 
   def error(e)
