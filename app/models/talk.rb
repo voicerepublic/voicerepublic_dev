@@ -549,7 +549,11 @@ class Talk < ActiveRecord::Base
     worker.talk = self
     logfile = File.expand_path(File.join(Settings.rtmp.recordings_path,
                                          "process-#{id}.log"), Rails.root)
-    worker.run(Logger.new(logfile))
+
+    ActiveSupport::Notifications.instrument "run_chain.audio_process.vr",
+                                            chain: chain do
+      worker.run(Logger.new(logfile))
+    end
   end
 
   # move flvs to fog storage whil removing empty files
