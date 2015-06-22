@@ -19,13 +19,10 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     "width: #{Math.floor(percentage)}%"
 
   $scope.showFlashError = ->
-    !hasFlash() and (config.talk.state in ['halflive', 'live'])
+    !hasFlash() and (config.talk.state in ['live'])
 
   $scope.showStartButton = ->
-    session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
-
-  $scope.showUnstartedMessage = ->
-    !session.fsm.is('HostOnAir') and config.talk.state == 'halflive'
+    session.fsm.is('HostOnAir') and config.talk.state in ['prelive']
 
   $scope.showEndTalk = ->
     session.fsm.is('HostOnAir') and config.talk.state == 'live'
@@ -34,7 +31,7 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     config.talk.state == 'archived'
 
   $scope.showInfoLink = ->
-    config.talk.state in ['halflive','live']
+    config.talk.state in ['live']
 
   $scope.showTalkTeaser = ->
     config.talk.state in ['prelive','postlive','processing','archived']
@@ -48,17 +45,17 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     false
 
   $scope.showBandwidth = ->
-    session.fsm.is("HostOnAir") and config.talk.state in ['prelive','halflive','live']
+    session.fsm.is("HostOnAir") and config.talk.state in ['prelive', 'live']
 
   $scope.showParticipantActionsBox = ->
-    config.talk.state in ['prelive','halflive','live']
+    config.talk.state in ['prelive', 'live']
 
   $scope.showPrelive = ->
     (session.fsm.is('HostOnAir') or session.fsm.is('OnAir')) and
       config.talk.state == 'prelive'
 
   $scope.showOnAir = ->
-    config.flags.onair and config.talk.state in ['live','halflive']
+    config.flags.onair and config.talk.state in ['live']
 
   $scope.muteState = false
   $scope.toggleMicMute = ->
@@ -149,9 +146,6 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
-
-  $scope.talkIsHalflive = ->
-    config.talk.state == 'halflive'
 
   $scope.talkIsLive = ->
     config.talk.state == 'live'

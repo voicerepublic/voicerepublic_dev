@@ -120,8 +120,7 @@ class Venue < ActiveRecord::Base
   end
 
   def set_default_options
-    self.options = { no_auto_end_talk: true,
-                     start_button: true }
+    self.options = { no_auto_end_talk: true }
   end
 
 end

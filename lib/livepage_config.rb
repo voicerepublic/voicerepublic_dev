@@ -28,6 +28,7 @@ class LivepageConfig < Struct.new(:talk, :user)
         duration: talk.duration.minutes,
         channel: talk.public_channel,
         listeners: talk.listeners.size + 1, # approx.
+        autostart: !!talk.venue.opts.autostart
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
@@ -87,7 +88,7 @@ class LivepageConfig < Struct.new(:talk, :user)
   end
 
   def initial_state(role)
-    return 'Loitering' unless talk.prelive? or talk.halflive? or talk.live?
+    return 'Loitering' unless talk.prelive? or talk.live?
     case role
     when :host then 'HostRegistering'
     when :guest then 'GuestRegistering'
