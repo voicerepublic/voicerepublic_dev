@@ -6,7 +6,7 @@ validityFunc = ($log) ->
   register = (initial_state) ->
     counter += 1
     setter = (state) ->
-      $log.debug "validity: set #{counter} to #{state}"
+      # $log.debug "validity: set #{counter} to #{state}"
       elements[counter] = state
     setter(initial_state)
     setter
