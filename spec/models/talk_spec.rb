@@ -417,4 +417,13 @@ describe Talk do
       Delayed::Worker.delay_jobs = false
     end
   end
+
+  describe 'markdown' do
+    it 'should sanitize user input' do
+      talk = FactoryGirl.create(:talk)
+      talk.update_attribute :description, "<script>alert('hello')</script>"
+      expect(talk.description_as_html).to_not include('script')
+    end
+  end
+
 end
