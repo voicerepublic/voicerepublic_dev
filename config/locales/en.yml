@@ -481,6 +481,15 @@ en:
   low_on_credits: |
     Sorry, you've no credits left. Buy some...
   purchases:
+    index:
+      box-header-basic: "Basic"
+      basic-example-1: "Private Individuals"
+      basic-example-2: "Non-Profit Organizations"
+      basic-example-3: "Small Conferences &amp; Speaker Series"
+      box-header-enterprise: "Enterprise"
+      enterprise-example-1: "Large Conferences &amp; Speaker Series"
+      enterprise-example-2: "Universities"
+      enterprise-example-3: "Corporations"
     questions:
       contact_us: "Contact Us"
       contact_us_for_questions: "You can also hire our Stream Team to come to your venue. To discuss streaming, or for any other questions, please contact us."

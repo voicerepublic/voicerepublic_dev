@@ -7,26 +7,21 @@
   .row
     .medium-6.columns
       .pricing-box
-        %h3 Basic
+        %h3=t('.box-header-basic')
         %ul
-          %li
-            Private Indivuals
-          %li
-            Non-Profit Organizations
-          %li 
-            Small Conferences &amp; Speaker Series
+          %li=t('.basic-example-1').html_safe
+          %li=t('.basic-example-2').html_safe
+          %li=t('.basic-example-3').html_safe
         = render partial: 'package', collection: Pricing::NONPROFIT, locals: { f: f }
 
     .medium-6.columns
       .pricing-box
-        %h3 Enterprise
+        %h3=t('.box-header-enterprise')
         %ul
-          %li
-            Large Conferences &amp; Speaker Series
-          %li
-            Universities
-          %li 
-            Corporations 
+          %li=t('.enterprise-example-1').html_safe
+          %li=t('.enterprise-example-2').html_safe
+          %li=t('.enterprise-example-3').html_safe
+          
         = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
   .row
