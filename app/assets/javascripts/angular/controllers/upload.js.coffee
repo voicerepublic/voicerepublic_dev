@@ -1,10 +1,12 @@
 # Using angularjs file upload, look it up here:
-#   https://github.com/nervgh/angular-file-upload
+#
+#     https://github.com/nervgh/angular-file-upload
+#
 uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
 
   # Initialize scope variables
   $scope.addingFailed = false
-  $scope.audioUploadFailed = false
+  $scope.uploadFailed = false
   $scope.state = 'ready'
 
   $scope.set_valid = validity.register(true)
@@ -33,36 +35,27 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
 
     uploader.onCancelItem = (item, response, status, headers) ->
       safetynet.deactivate()
-  
+
     uploader.onWhenAddingFileFailed = (item, filter, options) ->
       $scope.addingFailed = true
-  
+
     uploader.onAfterAddingFile = (fileItem) ->
       $scope.addingFailed = false
       $scope.set_valid false
       safetynet.activate()
       $scope.state = 'uploading'
-  
+
     uploader.onErrorItem = (fileItem, response, status, headers) ->
       $log.error "Uploading failed: " + JSON.stringify(response)
-      $scope.audioUploadFailed = true
+      $scope.uploadFailed = true
       safetynet.deactivate()
-  
+
     uploader.onCompleteAll = ->
-      # Set the talk UUID, so that the backend knows to expect a talk that has
-      # an override set.
+      # Set the talk UUID, so that the backend knows to expect a talk
+      # that has an override set.
       $scope.state = 'finished'
       $("#talk_user_override_uuid").attr "value", window.talk_uuid
       $scope.set_valid true
-  
-
-  # # TODO resolve dependency on `window` by using `$window`
-  # activateSafetynet = ->
-  #   $window.bind "beforeunload", ->
-  #     window.unprocessed_upload
-  # 
-  # deactivateSafetynet = ->
-  #   $window.unbind 'beforeunload'
 
   $scope.deactivateSafetynet = safetynet.deactivate
 
