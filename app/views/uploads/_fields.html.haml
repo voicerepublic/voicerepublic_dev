@@ -17,8 +17,9 @@
     - else
       .row.upload-init(ng-hide='true')
         .large-12= t('.initializing')
-      .row.upload-full(ng-controller='UploadController' ng-cloak
-                       ng-init="init({filter: 'ogg x-ogg wav x-wav wave x-pn-wav m4a x-m4a mp3 x-mp3 mpeg3 x-mpeg3 mpg x-mpegaudio mpeg', uploadUrl: window.talk_upload_url, key: window.talk_uuid})")
+      .row.upload-full{ 'ng-controller' => 'UploadController',
+                        'ng-cloak' => true,
+                        'ng-init' => init_audio_uploader }
         .medium-12.columns
           -# BEGIN Angular File Upload
           = f.input :user_override_uuid, as: :hidden
