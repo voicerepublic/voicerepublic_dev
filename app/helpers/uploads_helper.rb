@@ -9,6 +9,7 @@ module UploadsHelper
                      m4a x-m4a
                      mp3 x-mp3 mpeg3 x-mpeg3
                      mpg x-mpegaudio mpeg ) * ' ',
+      success:   "..."
     }
     "init(#{params.to_json})"
   end
