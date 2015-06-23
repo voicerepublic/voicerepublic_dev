@@ -14,5 +14,3 @@ safetynetFunc = ($window) ->
 
 safetynetFunc.$inject = ["$window"]
 window.sencha.factory "safetynet", safetynetFunc
-
-                        
