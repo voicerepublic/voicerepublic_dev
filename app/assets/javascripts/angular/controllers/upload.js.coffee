@@ -58,8 +58,8 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
     uploader.onCompleteAll = ->
       $scope.state = 'finished'
       $scope.set_valid true
-      # call the success callback given via options
-      options.success()
+      # call the success pseudo callback given via options by eval
+      eval(options.success)
 
 uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity", "safetynet"]
 window.sencha.controller "UploadController", uploadFunc
