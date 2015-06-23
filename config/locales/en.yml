@@ -481,17 +481,34 @@ en:
   low_on_credits: |
     Sorry, you've no credits left. Buy some...
   purchases:
+    index:
+      box-header-basic: "Basic"
+      basic-example-1: "Private Individuals"
+      basic-example-2: "Non-Profit Organizations"
+      basic-example-3: "Small Conferences &amp; Speaker Series"
+      box-header-enterprise: "Enterprise"
+      enterprise-example-1: "Large Conferences &amp; Speaker Series"
+      enterprise-example-2: "Universities"
+      enterprise-example-3: "Corporations"
     questions:
       contact_us: "Contact Us"
-      contact_us_for_questions: "If you have any questions, please contact us."
+      contact_us_for_questions: "You can also hire our Stream Team to come to your venue. To discuss streaming, or for any other questions, please contact us."
+    streamteam:
+      contact_us: "Contact Us"
+      streamteam_offer: "We also offer streaming services. Contact us for details."
     explanation:
-      header: "Voice Republic's payment concept is as simple as it gets:"
-      pricing-feature-1: Credits are all-inclusive.
-      pricing-description-1:  'A credit covers all aspects of a talk: live streaming or uploading to the archive as well as all sharing options.'
-      pricing-feature-2: Credits do not expire.
-      pricing-description-2:  'Your credits will be fully valid for as long as your Voice Republic account exists.'
-      pricing-feature-3: No recurring costs.
-      pricing-description-3: 'No subscriptions. Simply purchase credits when you need them.'
+      header: "Voice Republic Pricing"
+      subtitle: |
+        Pricing at Voice Republic is based on Credits. A Credit is both a <i>permit</i> and a <i>guarantee</i> for the life of a Talk on Voice Republic.
+
+      pricing-feature-1: One Credit = One Talk
+      pricing-description-1:  One Credit allows one Talk to be streamed (or uploaded), archived, embedded, shared or downloaded forever, or until you remove it from the site. 
+      pricing-feature-2: Credits Last Forever
+      pricing-description-2:  Any Credits you purchase will be fully valid for as long as your Voice Republic account exists.
+      pricing-feature-3: Pay Only Once Per Talk
+      pricing-description-3: At Voice Republic, you won’t encounter any subscriptions or recurring costs. Simply purchase credits when you need them. 
+      pricing-footnote: |
+        &#42;A Credit does not, however, cover the cost of the Voice Republic “Ground Crew” operating a stage at your event. For “Ground Crew” services, please refer to the Ground Crew Pricing Guide.
     package:
       purchase_count_at_a_price_of_amount: |
         %{count} VR Talk Credits at %{amount}
