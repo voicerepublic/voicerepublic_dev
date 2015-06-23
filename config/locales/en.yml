@@ -302,6 +302,19 @@ en:
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
+    upload:
+      initializing: Initializing Uploader...
+      audio_upload: "Upload your audio file"
+      choose_file: Choose file
+      uploading: Uploading...
+      drop_files_here: "Drop files here"
+      upload: Upload
+      cancel: "&times;"
+      remove: Remove
+      upload_failed: Audio upload failed. Please try reloading the page and try again.
+      drop_file_not_supported: "HTML5 Drop File is not supported!"
+      audio:
+        supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
     unconfirmed:
       notice: |
         You haven't confirmed your email address, yet. Please check
@@ -502,11 +515,11 @@ en:
         Pricing at Voice Republic is based on Credits. A Credit is both a <i>permit</i> and a <i>guarantee</i> for the life of a Talk on Voice Republic.
 
       pricing-feature-1: One Credit = One Talk
-      pricing-description-1:  One Credit allows one Talk to be streamed (or uploaded), archived, embedded, shared or downloaded forever, or until you remove it from the site. 
+      pricing-description-1:  One Credit allows one Talk to be streamed (or uploaded), archived, embedded, shared or downloaded forever, or until you remove it from the site.
       pricing-feature-2: Credits Last Forever
       pricing-description-2:  Any Credits you purchase will be fully valid for as long as your Voice Republic account exists.
       pricing-feature-3: Pay Only Once Per Talk
-      pricing-description-3: At Voice Republic, you won’t encounter any subscriptions or recurring costs. Simply purchase credits when you need them. 
+      pricing-description-3: At Voice Republic, you won’t encounter any subscriptions or recurring costs. Simply purchase credits when you need them.
       pricing-footnote: |
         &#42;A Credit does not, however, cover the cost of the Voice Republic “Ground Crew” operating a stage at your event. For “Ground Crew” services, please refer to the Ground Crew Pricing Guide.
     package:
