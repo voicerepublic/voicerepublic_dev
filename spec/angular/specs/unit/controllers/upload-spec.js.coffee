@@ -41,9 +41,6 @@ describe 'upload-spec', ->
       expect($scope.uploadFailed).toBeFalsy()
       expect($scope.state).toEqual 'ready'
 
-      expect($scope.deactivateSafetynet).toBeDefined()
-      expect($scope.deactivateSafetynet).toEqual jasmine.any Function
-
     it '$scope.uploader should have been initialized properly', ->
       uploader = $scope.uploader
 
