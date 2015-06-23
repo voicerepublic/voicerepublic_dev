@@ -12,8 +12,6 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
   $scope.set_valid = validity.register(true)
   $scope.valid = validity.valid # (this is only used in specs!)
 
-  $scope.deactivateSafetynet = safetynet.deactivate
-
   # this need to be called via ng-init, preferably on the controller
   # node. options is an object with uploadUrl, key, filter, success,
   # and safetynetMessage
