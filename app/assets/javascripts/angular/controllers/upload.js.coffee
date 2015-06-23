@@ -12,10 +12,14 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
   $scope.set_valid = validity.register(true)
   $scope.valid = validity.valid # (this is only used in specs!)
 
+  $scope.deactivateSafetynet = safetynet.deactivate
+
+  # this need to be called via ng-init, preferably on the controller
+  # node. options is an object with uploadUrl, key, filter, and success
   $scope.init = (options) ->
 
     # split filter into array
-    filetypes = options.filter.split(' ')
+    filetypes = options.filter.split ' '
 
     # make options available via $scope (although we don't use that!)
     $scope.options = options
@@ -40,10 +44,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       $scope.addingFailed = true
 
     uploader.onAfterAddingFile = (fileItem) ->
+      $scope.state = 'uploading'
       $scope.addingFailed = false
       $scope.set_valid false
       safetynet.activate()
-      $scope.state = 'uploading'
 
     uploader.onErrorItem = (fileItem, response, status, headers) ->
       $log.error "Uploading failed: " + JSON.stringify(response)
@@ -51,13 +55,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       safetynet.deactivate()
 
     uploader.onCompleteAll = ->
-      # Set the talk UUID, so that the backend knows to expect a talk
-      # that has an override set.
       $scope.state = 'finished'
-      $("#talk_user_override_uuid").attr "value", window.talk_uuid
       $scope.set_valid true
-
-  $scope.deactivateSafetynet = safetynet.deactivate
+      # call the success callback given via options
+      options.success()
 
 uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity", "safetynet"]
 window.sencha.controller "UploadController", uploadFunc
