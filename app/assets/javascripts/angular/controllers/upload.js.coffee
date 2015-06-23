@@ -15,7 +15,8 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
   $scope.deactivateSafetynet = safetynet.deactivate
 
   # this need to be called via ng-init, preferably on the controller
-  # node. options is an object with uploadUrl, key, filter, and success
+  # node. options is an object with uploadUrl, key, filter, success,
+  # and safetynetMessage
   $scope.init = (options) ->
 
     # split filter into array
@@ -47,7 +48,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       $scope.state = 'uploading'
       $scope.addingFailed = false
       $scope.set_valid false
-      safetynet.activate()
+      safetynet.activate options.safetynetMessage
 
     uploader.onErrorItem = (fileItem, response, status, headers) ->
       $log.error "Uploading failed: " + JSON.stringify(response)

@@ -9,7 +9,8 @@ module UploadsHelper
                      m4a x-m4a
                      mp3 x-mp3 mpeg3 x-mpeg3
                      mpg x-mpegaudio mpeg ) * ' ',
-      success:   "SUCCESSCODE"
+      success:   "SUCCESSCODE",
+      safetynetMessage: I18n.t('talks.fields.unprocessed_upload')
     }
 
     # the success callback sets the talk UUID, so that the backend
