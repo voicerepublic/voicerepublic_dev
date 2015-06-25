@@ -11,11 +11,10 @@ VoiceRepublic API
 
 * `email`
 * `password`
-* both are nested under `user`
 
 ### Example query
 ```
-curl -H "Content-Type: application/json"  -H 'Accept: application/json' -d '{"user":{"email":"hans@example.com","password":"you_cant_crack_me"}}' -X POST https://voicerepublic.com/users/sign_in
+curl -H "Content-Type: application/json"  -H 'Accept: application/json' -d '{"email":"hans@example.com","password":"you_cant_crack_me"}' -X POST https://voicerepublic.com/users/sign_in
 
 ```
 
@@ -26,33 +25,22 @@ future API requests as well as a list of Series.
 
 ```
 {
+
   "id":2,
   "authentication_token":"hx_ZRHyj3yodPkQxVFTw",
-  "confirmed_at":"2015-03-03T19:11:29.868+01:00",
-  "current_sign_in_at":"2015-06-25T17:40:16.203+02:00",
   "firstname":"Munen Alain M.",
   "lastname":"Lafon",
   "created_at":"2013-08-08T16:21:45.469+02:00",
   "updated_at":"2015-06-25T17:40:16.216+02:00",
   "email":"munen@voicerepublic.com",
-  "remember_created_at":"2015-06-25T00:30:48.094+02:00",
   "sign_in_count":199,
   "last_sign_in_at":"2015-06-25T16:45:49.106+02:00",
-  "current_sign_in_ip":"127.0.0.1",
-  "last_sign_in_ip":"127.0.0.1",
-  "provider":null,
-  "uid":null,
-  "slug":"munen",
-  "last_request_at":"2015-06-25T17:40:16.214+02:00",
   "about":"some about text",
   "timezone":"Berlin",
   "website":"http://your_website.com",
-  "conference":null,
-  "default_venue_id":502,
   "summary":"I'm a Zen Buddhist and enjoy reading ancient texts as well as contemplating and continuously re-examining life and myself along with the universe.",
   "credits":1000,
   "purchases_count":0,
-  "referrer":null,
   "series":{"244":"On reproducability",
     "166282":"Pure Override joy",
     "502":"My Talks",

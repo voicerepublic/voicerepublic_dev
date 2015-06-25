@@ -26,6 +26,8 @@ describe Users::SessionsController do
           res = JSON.parse(response.body)
           expect(res).to_not be_empty
           expect(res['authentication_token']).to_not be_empty
+          # Should not leak too much information
+          expect(res['encrypted_password']).to be_nil
         end
 
         it 'sends a list of all series of the user' do

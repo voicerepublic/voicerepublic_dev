@@ -26,7 +26,13 @@ class Users::SessionsController < Devise::SessionsController
         return invalid_login_attempt unless resource
 
         if resource.valid_password?(params[:password]) and resource.is_a? User
-          user_hash = resource.attributes
+          whitelist = %w( id firstname lastname created_at updated_at
+          sign_in_count last_sign_in_at email authentication_token
+          last_sign_in_ip about_as_html website timezone summary credits
+          purchases_count )
+          user_hash = resource.attributes.reject do |k,v|
+            !whitelist.include?(k)
+          end
           resource.venues.reload
           series = resource.venues.collect { |v| [v.id, v.title ]}
           user_hash.merge!(series: Hash[series])
