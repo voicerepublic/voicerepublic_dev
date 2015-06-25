@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'support/:action', to: 'support'
+  get 'support/:action', controller: 'support'
   get 'support', to: 'support#index'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
