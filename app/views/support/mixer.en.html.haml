@@ -1,14 +1,16 @@
 .hero
   .row
     .large-8.columns
-      %h5.breadcrumb
-        %a{:href => "/support"} Voice Republic Support
+      %span.breadcrumb
+        %a{:href => "/support"}
+          = image_tag "icons/arrow-left.svg" 
+          Voice Republic Support
       %h1
-        Professional Streaming Setup
+        Streaming With A Mixer
   .row
     .large-6.columns
       %p.lead
-        This document outlines the technical requirements and basic setup for streaming a Live Talk in a professional setting. 
+        This document outlines the technical requirements and basic setup for streaming a Live Talk in a setting that includes a mixer. 
 .scroll-container{:role => "main"}
   .row
     .large-8.columns.left
@@ -26,11 +28,13 @@
                 1. Computer
                 %span.right
               #panel1b.content
-                Either a Laptop or a Desktop computer, running a current version of
-                %a{:href => "https://www.google.com/chrome/browser/desktop/", :target => "_blank"} Chrome
+                Either a laptop or desktop computer running a current
+                %a{:href => "https://www.mozilla.org/en-US/firefox/new/", :target => "_blank"} Firefox
                 or
-                = succeed "," do
-                  %a{:href => "https://www.mozilla.org/en-US/firefox/new/", :target => "_blank"} Firefox            
+                %a{:href => "https://www.google.com/chrome/browser/desktop/", :target => "_blank"} Chrome
+                browser with the latest version of 
+                %a{:href => "https://get.adobe.com/flashplayer/", :target => "_blank"} Flash
+                installed.      
             %dd.accordion-navigation
               %a{:href => "#panel2b"}
                 = image_tag "support/network.svg"
@@ -93,8 +97,7 @@
             %p
               Using a normal or wireless stage microphone.
 
-              %a{:href => "#",:class => "button tiny info"}
-                More info about microphones
+            
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
 
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -110,8 +113,7 @@
                 %strong 5:1 compression
               = succeed "." do
                 %strong high-pass EQ
-              %a{:href => "#",:class => "button tiny info"}
-                More info about audio interfaces
+
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
             = image_tag "support/signalflow/signalflow-elements_interface.png", class: 'hide-for-large-up'
@@ -120,8 +122,7 @@
               Audio Interface
             %p
               The signal from the mixer is routed through a USB, Firewire, or Thunderbolt interface which communicates with your computer.
-              %a{:href => "#",:class => "button tiny info"}
-                More info about mixers and mixer settings
+              
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
         .small-12.columns{"data-equalizer" => ""}
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -134,9 +135,10 @@
               %a{:href => "https://www.mozilla.org/en-US/firefox/new/", :target => "_blank"} Firefox
               or
               %a{:href => "https://www.google.com/chrome/browser/desktop/", :target => "_blank"} Chrome
-              browser with the latest version of Flash installed, select your Audio Interface as the “Input Source” on the Voice Republic Audio Settings panel (on the Talk Page)
-              %a{:href => "#",:class => "button tiny info"}
-                More info about computer specifications
+              browser with the latest version of 
+              %a{:href => "https://get.adobe.com/flashplayer/", :target => "_blank"} Flash
+              installed, select your Audio Interface as the “Input Source” on the Voice Republic Audio Settings panel (on the Talk Page)
+              
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.end.legend{"data-equalizer-watch" => ""}
             = image_tag "support/signalflow/signalflow-elements_headphones.png", class: 'hide-for-large-up'
@@ -145,6 +147,5 @@
               Headphones
             %p
               Use headphones (connected to the interface) to check the audio quality of your Test Talk, as well as to monitor the audio quality during a Live Talk.
-              %a{:href => "#",:class => "button tiny info"}
-                More info about headphones
+          
        
