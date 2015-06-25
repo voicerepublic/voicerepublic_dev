@@ -24,7 +24,7 @@
     %center
       = render "shared/actionbar"
     = yield
-    = render 'shared/helpful_share' if action_name != "index"
+    / = render 'shared/helpful_share' if action_name != "index"
     = render 'shared/footer'
     #scripts
       = javascript_include_tag "support"
