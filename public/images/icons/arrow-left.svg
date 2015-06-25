@@ -1,0 +1,20 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+
+	 viewBox="-187 189 24 24" enable-background="new -187 189 24 24" xml:space="preserve">
+
+<symbol  id="ic_x5F_arrowBack_x0D_" viewBox="-12 -12 24 24">
+
+	<g>
+
+		<polygon fill="none" points="-12,12 -12,-12 12,-12 12,12 		"/>
+
+		<path fill="#21273D" d="M8,1H-4.2l5.6,5.6L0,8l-8-8l8-8l1.4,1.4L-4.2-1H8V1z"/>
+
+	</g>
+
+</symbol>
+
+<use xlink:href="#ic_x5F_arrowBack_x0D_"  width="24" height="24" id="XMLID_55_" x="-12" y="-12" transform="matrix(1 0 0 -1 -175 201)" overflow="visible"/>
+
+</svg>
+
