@@ -4,6 +4,8 @@ en:
       talk:
         language: ""
         format: Please provide the format purely for informational purposes.
+        description: |
+          This field <a target='_blank' href='/support/markdown'>supports Markdown</a>.
     labels:
       talk:
         venue: Series

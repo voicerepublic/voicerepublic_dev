@@ -480,7 +480,7 @@ h5.section-subtitle {
 @media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
 
 /*// XXLarge screens*/
-@media only screen and (min-width: 120.063em) { 
+@media only screen and (min-width: 120.063em) {
 	.affix {
 		display: block;
 	position: fixed;
@@ -488,4 +488,11 @@ h5.section-subtitle {
 	right: 120px;
 }
 
-} 
+}
+
+
+.support {
+    code {
+        white-space: pre;
+    }
+}
