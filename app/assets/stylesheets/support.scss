@@ -7,6 +7,7 @@
 $include-html-visibility-classes: true;
 @import 'foundation';
 @import 'grids_variables_mixins/ci_variables';
+@import 'grids_variables_mixins/vr_icons';
 @import 'shared/footer';
 @import 'shared/top_actionbar';
 
@@ -37,9 +38,7 @@ body {
   max-width: 43.75rem !important;
 }
 
-.icon-vr-logo {
-  color: white !important;
-}
+
 
 .top-bar, .top-bar-section ul, .top-bar-section a {
   background: black !important;
@@ -114,8 +113,9 @@ body {
 	margin-bottom: 60px;
 	background: $beige;
 	border-top:0;
-	padding-top: 48px;
+	padding-top: 96px;
 	padding-bottom:48px;
+	margin-top:0px;
 }
 
 .hero h1 {

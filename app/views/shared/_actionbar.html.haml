@@ -44,7 +44,7 @@
               %a.user-link(href='#')
                 .avatar
                   = render partial: "shared/avatar_image", locals: { user: current_user, size: 25 }
-                = current_user.name
+                / = current_user.name
 
               %ul.user-link-dropdown.dropdown
                 %li= link_to t('.my_profile'), current_user
