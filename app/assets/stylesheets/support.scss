@@ -36,6 +36,7 @@ body {
 
 .top-bar {
   max-width: 43.75rem !important;
+  line-height: 40px;
 }
 
 
@@ -53,6 +54,22 @@ body {
 }
 .top-bar-section ul li {
   float: left;
+}
+
+.top-bar-section .dropdown li {
+	text-align:left;
+}
+
+.top-bar-section ul li > a {
+  display: block;
+  width: 100%;
+  color: #e6e6e6;
+  // padding: 12px 0 12px 0;
+  padding-left: 13.33333px;
+  font-family: Eagle, sans-serif;
+  font-size: 0.75rem;
+  font-weight: normal;
+  background: black;
 }
 
 .scroll-container {
