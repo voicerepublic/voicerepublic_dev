@@ -320,8 +320,8 @@ describe "Talks as logged in user" do
         skip "fails on circleci" if ENV['CIRCLECI']
         @venue = FactoryGirl.create :venue
         @talk = FactoryGirl.create :talk, venue: @venue
-        visit venue_talk_path @venue, @talk
-        visit venue_talk_path @venue, @talk
+        visit talk_path @talk
+        visit talk_path @talk
         find(".chat-input-box input").set("my message")
         find(".chat-input-box input").native.send_keys(:return)
         visit(current_path)
