@@ -4,7 +4,6 @@
                   'ng-cloak' => true,
                   'ng-init' => init }
   .medium-12.columns
-    = f.input :user_override_uuid, as: :hidden
     %div(ng-show="!uploader.isHTML5")= t(".drop_file_not_supported")
     .button-progress-box
       %button.button-select-file.button-standard(type="button" data-trigger-file-input="##{ns}-file-input" ng-show="state == 'ready'")= t('.choose_file')

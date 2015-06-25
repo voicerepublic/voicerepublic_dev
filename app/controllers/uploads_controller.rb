@@ -47,7 +47,7 @@ class UploadsController < BaseController
                                  :description, :image,
                                  :tag_list, :language,
                                  :new_venue_title, :venue_id,
-                                 :user_override_uuid)
+                                 :user_override_uuid, :slides_uuid)
   end
 
   # this is a phony fake presigned url generator!
