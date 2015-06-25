@@ -375,6 +375,8 @@ en:
   layouts:
     application:
       landing_title: Voice Republic - The Place To Talk
+    support:
+      title: Voice Republic - Support
   plain_mailer:
     welcome:
       subject: "Welcome %{user_firstname}, need help getting started?"
@@ -499,14 +501,14 @@ en:
     explanation:
       header: "Voice Republic Pricing"
       subtitle: |
-        All content on Voice Republic is free to listen to. Content producers pay per Talk, and Talk Credits can be purchased in packages. A Talk Credit will never expire.  
+        All content on Voice Republic is free to listen to. Content producers pay per Talk, and Talk Credits can be purchased in packages. A Talk Credit will never expire.
 
       pricing-feature-1: One Talk Credit = One Talk
-      pricing-description-1:  One Talk Credit allows one Talk to be streamed (or uploaded), archived, embedded, shared or downloaded forever, or until you remove it from the site. 
+      pricing-description-1:  One Talk Credit allows one Talk to be streamed (or uploaded), archived, embedded, shared or downloaded forever, or until you remove it from the site.
       pricing-feature-2: Credits Last Forever
       pricing-description-2:  Any Credits you purchase will be fully valid for as long as your Voice Republic account exists.
       pricing-feature-3: No Recurring Costs
-      pricing-description-3: Only purchase Talk Credits when you need them. No subscription necessary.  
+      pricing-description-3: Only purchase Talk Credits when you need them. No subscription necessary.
       pricing-footnote: |
         &#42;A Credit does not, however, cover the cost of the Voice Republic “Ground Crew” operating a stage at your event. For “Ground Crew” services, please refer to the Ground Crew Pricing Guide.
     package:
