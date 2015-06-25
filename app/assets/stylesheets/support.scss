@@ -3,10 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/*/
 
 @import 'foundation/functions';
+@import "grids_variables_mixins/mixins";
 $include-html-visibility-classes: true;
 @import 'foundation';
 @import 'grids_variables_mixins/ci_variables';
 @import 'shared/footer';
+@import 'shared/top_actionbar';
 
 
 /* all app scss styles here */
@@ -31,29 +33,35 @@ body {
 	color:#001c3a;
 }
 
+.top-bar {
+  max-width: 43.75rem !important;
+}
+
+.icon-vr-logo {
+  color: white !important;
+}
+
+.top-bar, .top-bar-section ul, .top-bar-section a {
+  background: black !important;
+}
+
+.top-bar-section ul {
+  width: auto !important;
+}
+
+.top-bar-section .has-dropdown {
+  position: relative;
+}
+.top-bar-section ul li {
+  float: left;
+}
+
 .scroll-container {
 	padding-left: 20px;
 }
 
 .row.section {
 	margin-bottom: 100px;
-}
-
-.top-bar {
-	background: #fff;
-	height: 60px;
-	line-height: 60px;
-	box-shadow: 0 1px 3px rgba(0,0,0,.3);
-}
-
-.top-bar .name {
-	height: 60px;
-	margin: 10px 24px;
-}
-
-img.logo {
-	width: 36px;
-	height: 36px;
 }
 
 .breadcrumb a, .breadcrumb {
@@ -132,10 +140,6 @@ a.button.info {
 	background: #f4f4f4;
 	color:$dark;
 	margin-top: 20px;
-}
-
-.top-bar a:hover {
-	text-decoration: none;
 }
 
 ul {
@@ -337,44 +341,6 @@ img.outline {
 	font-size: 1.2em;
 }
 
-.top-bar-section ul li > a  {
-	font-family: $headline-font;
-}
-
-
-.top-bar-section ul, .top-bar-section li {
-	line-height: 60px;
-	font-family: $headline-font;
-}
-
-.top-bar-section li.active:not(.has-form) a:not(.button) {
-	background: $red;
-	line-height: 60px;
-}
-
-.top-bar-section li:not(.has-form) a:not(.button) {
-	background: $dark;
-	line-height: 60px;
-}
-
-.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
-	background: #fff;
-	color: $dark;
-}
-
-.top-bar-section .dropdown li:not(.has-form):not(.active):hover > a:not(.button){
-	background: $light-blue;
-	background-color: $light-blue;
-	color:$dark;
-}
-
-.top-bar-section li.active:not(.has-form) a:not(.button):hover {
-	background: $red;
-}
-
-.top-bar-section .has-dropdown > a:after {
-	top:30px;
-}
 .sub-nav dd {
 	width: 100%;
 	line-height: 30px;
@@ -480,7 +446,7 @@ h5.section-subtitle {
 @media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
 
 /*// XXLarge screens*/
-@media only screen and (min-width: 120.063em) { 
+@media only screen and (min-width: 120.063em) {
 	.affix {
 		display: block;
 	position: fixed;
@@ -488,4 +454,4 @@ h5.section-subtitle {
 	right: 120px;
 }
 
-} 
+}
