@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
 
   respond_to :json
 
-  skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
+  skip_before_action :verify_authenticity_token, if: ->{ request.format.json? }
 
   include Devise::Controllers::Rememberable
 
@@ -21,23 +21,14 @@ class Users::SessionsController < Devise::SessionsController
         set_flash_message(:notice, :signed_in) if is_navigational_format?
 
         sign_in(resource_name, resource)
-        if params[:remember_me]
-          remember_me(resource)
-        end
+        remember_me(resource) if params[:remember_me]
         redirect_to after_sign_in_path_for(resource)
       end
 
       format.json do
         resource = resource_from_credentials
-
-        #build_resource
         return invalid_login_attempt unless resource
-
-        if resource.valid_password?(params[:password]) and resource.is_a? User
-          render json: resource.to_json(JSON_OPTS)
-        else
-          invalid_login_attempt
-        end
+        render json: resource.to_json(JSON_OPTS)
       end
     end
   end
@@ -57,6 +48,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   protected
+
   def invalid_login_attempt
     warden.custom_failure!
     render json: { success: false, errors: 'Error with your login or password' }, status: 401
