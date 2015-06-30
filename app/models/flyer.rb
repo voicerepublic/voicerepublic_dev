@@ -66,7 +66,7 @@ class Flyer < Struct.new(:talk)
   def interpolations
     {
       color:    COLORS[rand(COLORS.size)],
-      host:     tlak.speakers || talk.user.name,
+      host:     talk.speakers || talk.user.name,
       title:    talk.title,
       day:      I18n.l(talk.starts_at, format: :flyer_day),
       datetime: I18n.l(talk.starts_at, format: :flyer_datetime)
