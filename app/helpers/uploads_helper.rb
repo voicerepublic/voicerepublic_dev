@@ -19,4 +19,19 @@ module UploadsHelper
     "init(#{params.to_json})"
   end
 
+  def init_slides_uploader
+    key = SecureRandom.uuid
+
+    params = {
+      uploadUrl: @presigned_s3_post_url,
+      key:       key,
+      filter:    'pdf',
+      # `success` will be evaled on complete
+      success:   "$('#talk_slides_uuid').attr('value', '#{key}')",
+      safetynetMessage: I18n.t('talks.fields.unprocessed_upload')
+    }
+
+    "init(#{params.to_json})"
+  end
+
 end

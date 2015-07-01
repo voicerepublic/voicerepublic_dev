@@ -136,6 +136,8 @@ class Talk < ActiveRecord::Base
              if: ->(t) { t.user_override_uuid_changed? and
                            !t.user_override_uuid.to_s.empty? }
 
+  after_save :process_slides!, if: :process_slides?
+
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
     # attributes have been given
@@ -722,6 +724,16 @@ class Talk < ActiveRecord::Base
   def locate(path_or_url)
     return path_or_url if path_or_url.match(/^https?:/)
     File.expand_path(path_or_url, Rails.root)
+  end
+
+
+  def process_slides!
+    # TODO detach job, something like...
+    # BUNNY.publish queue: 'process.slides', talk_id: id, slides: slides_uuid
+  end
+
+  def process_slides?
+    slides_uuid_changed? and slides_uuid.present?
   end
 
 end
