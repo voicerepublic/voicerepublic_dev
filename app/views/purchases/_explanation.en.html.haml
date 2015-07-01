@@ -2,7 +2,11 @@
 %h4.dark.subtitle=t('.subtitle').html_safe
 
 .row.pricing-features
-  .large-4.large-offset-4.columns
+  .large-5.large-offset-1.columns
     =image_tag "pricing/credit.svg"
     %h3.pricing-feature= t('.pricing-feature-1')
     %p.pricing-description= t('.pricing-description-1')
+  .large-5.large-offset-0.columns
+    =image_tag "pricing/wallet.svg"
+    %h3.pricing-feature= t('.pricing-feature-3')
+    %p.pricing-description= t('.pricing-description-3')
