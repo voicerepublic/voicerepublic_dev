@@ -20,7 +20,7 @@
     = javascript_include_tag "vendor/modernizr"
     <script src="//use.typekit.net/ilh7iri.js"></script>
     <script>try{Typekit.load();}catch(e){}</script>
-  %body{:class => "#{[controller_name, action_name] * '-'}"}
+  %body{:class => "#{controller_name} #{[controller_name, action_name] * '-'}"}
     %center
       = render "shared/actionbar"
     = yield
@@ -32,5 +32,3 @@
         = render 'shared/google_analytics'
         = render 'shared/tawk'
       = yield :javascript
-
-
