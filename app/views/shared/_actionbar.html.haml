@@ -16,6 +16,7 @@
       .small-authentication-links.right
         = link_to t('.login'), new_user_session_path
         = link_to t('.sign_up'), new_user_registration_path
+        = link_to t('.support'), support_path
 
 - else
 
@@ -34,7 +35,7 @@
       %section.top-bar-section
         -# Right Nav Section
         %ul.right
-          %li 
+          %li
             = link_to t('.support'), support_path
           - if !current_user
             %li
