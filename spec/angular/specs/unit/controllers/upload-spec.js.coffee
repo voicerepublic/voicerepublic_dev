@@ -8,28 +8,28 @@ describe 'upload-spec', ->
   FileUploader = undefined
   # save repetitions
   $scope = undefined
-  UploadCtrl = undefined
+  UploadController = undefined
 
-  beforeEach window.inject (_$controller_, _$log_, _FileUploader_, _validity_) ->
+  beforeEach window.inject (_$controller_, _$log_, _FileUploader_) ->
     $controller = _$controller_
     $log = _$log_
     FileUploader = _FileUploader_
 
-    #preparation for test purpose (else: undefined)
-    window.talk_upload_url = 'any_upload_url.net'
-    window.talk_uuid = 1337
-
   beforeEach ->
     $scope = {}
-    UploadCtrl = $controller 'UploadController', {$scope: $scope}
+    UploadController = $controller 'UploadController', {$scope: $scope}
+    $scope.init
+      uploadUrl: 'any_upload_url.net'
+      key: 1337
+      filter: 'any thing'
 
   it 'FileUploader should be defined', ->
     expect(FileUploader).toBeDefined()
     expect(FileUploader).toEqual jasmine.any Function
 
-  it 'UploadCtrl & $scope should be defined', ->
-    expect(UploadCtrl).toBeDefined()
-    expect(UploadCtrl).toEqual jasmine.any Function
+  it 'UploadController & $scope should be defined', ->
+    expect(UploadController).toBeDefined()
+    expect(UploadController).toEqual jasmine.any Function
 
     expect($scope).toBeDefined()
     expect($scope).toEqual jasmine.any Object
@@ -38,11 +38,8 @@ describe 'upload-spec', ->
 
     it '$scope variables should have been set properly', ->
       expect($scope.addingFailed).toBeFalsy()
-      expect($scope.audioUploadFailed).toBeFalsy()
+      expect($scope.uploadFailed).toBeFalsy()
       expect($scope.state).toEqual 'ready'
-
-      expect($scope.deactivateSafetynet).toBeDefined()
-      expect($scope.deactivateSafetynet).toEqual jasmine.any Function
 
     it '$scope.uploader should have been initialized properly', ->
       uploader = $scope.uploader
@@ -51,8 +48,8 @@ describe 'upload-spec', ->
       expect(uploader).toEqual jasmine.any Object
       expect(uploader instanceof FileUploader).toBeTruthy()
 
-      expect(uploader.url).toEqual window.talk_upload_url
-      expect(uploader.formData).toEqual [key: window.talk_uuid]
+      expect(uploader.url).toEqual 'any_upload_url.net'
+      expect(uploader.formData).toEqual [key: 1337]
 
   describe '- Under test: uploader -', ->
     uploader = undefined
@@ -67,7 +64,7 @@ describe 'upload-spec', ->
 
     it 'check the fileFilter for compatible format', ->
       item =
-        'type': 'ogg'
+        'type': 'some/thing'
 
       fileFilter = (filter for filter in uploader.filters when filter.name is 'fileFilter')[0]
 
@@ -105,7 +102,7 @@ describe 'upload-spec', ->
 
       uploader.onErrorItem null, response, null, null
 
-      expect($scope.audioUploadFailed).toBeTruthy()
+      expect($scope.uploadFailed).toBeTruthy()
 
       expect($log.error.logs).toContain ["Uploading failed: " + JSON.stringify(response)]
 
