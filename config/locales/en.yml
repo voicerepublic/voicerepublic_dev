@@ -315,6 +315,8 @@ en:
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       audio:
         supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
+      slides:
+        supported_filetypes: Please upload your slides as PDF
     unconfirmed:
       notice: |
         You haven't confirmed your email address, yet. Please check
