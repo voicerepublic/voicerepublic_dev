@@ -301,6 +301,12 @@ After install a new version also
     rabbitmq-plugins enable rabbitmq_management
     /etc/init.d/rabbitmq-server restart
 
+2015-06-30 Configure Logrotate
+==============================
+
+Add `notifempty` to `/etc/logrotate.d/rails-app`.
+
+
 TODO
 ====
 
