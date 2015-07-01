@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   if Settings.api.try(:enabled)
     namespace 'api' do
       resources :talks, only: [:index]
+      resources :uploads, only: [ :create ]
     end
   end
 

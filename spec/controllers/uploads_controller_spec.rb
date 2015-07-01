@@ -23,30 +23,6 @@ describe UploadsController do
       expect(assigns(:presigned_s3_post_url)).not_to be_nil
       expect(assigns(:presigned_s3_post_url).to_s).to match(/http.*s3.*/)
     end
-
-    describe 'json api' do
-      it 'returns errors' do
-        post :create, { talk: {title: "spec talk"}, format: 'json' }
-        res = JSON.parse(response.body)
-        expect(res['errors']).to_not be_empty
-        expect(response.status).to eq(422)
-      end
-
-      it 'returns the slug of the created talk' do
-        # Creating a Talk would have the side effect of postprocessing.
-        Delayed::Worker.delay_jobs = true
-
-        venue = FactoryGirl.create :venue, user: @user
-        talk = FactoryGirl.attributes_for :talk, :with_user_override_uuid
-        talk.merge!(venue_id: venue.id)
-        post :create, { talk: talk, format: 'json' }
-        res = JSON.parse(response.body)
-        expect(res['slug']).to_not be_empty
-        expect(response.status).to eq(200)
-
-        Delayed::Worker.delay_jobs = false
-      end
-    end
   end
 
 end
