@@ -223,6 +223,15 @@ class User < ActiveRecord::Base
     purchases.count > 0
   end
 
+  # venues might at some point be renamed to series
+  # hence it might be a good idea to call this method
+  # differently
+  def list_of_series
+    venues.inject({}) { |h, v| h.merge v.id => v.title }
+  end
+  # for now we can use an alias
+  alias_method :series, :list_of_series
+
   private
 
   def set_about_as_html
