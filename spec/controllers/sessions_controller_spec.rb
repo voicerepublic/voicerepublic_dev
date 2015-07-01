@@ -26,6 +26,8 @@ describe Users::SessionsController do
           res = JSON.parse(response.body)
           expect(res).to_not be_empty
           expect(res['authentication_token']).to_not be_empty
+          # Should not leak too much information
+          expect(res['encrypted_password']).to be_nil
         end
 
         it 'sends a list of all series of the user' do
@@ -51,10 +53,12 @@ describe Users::SessionsController do
       end
 
       it "via json" do
-        post :create, { email: @user.email, password: 'wrong_pwd', format: 'json' }
+        post :create,
+          { user: { email: @user.email, password: 'wrong_pwd' },
+          format: 'json' }
         res = JSON.parse(response.body)
         expect(res).to_not be_empty
-        expect(res['error']).to_not be_empty
+        expect(res['errors']).to_not be_empty
         expect(response.status).to be(401)
       end
     end

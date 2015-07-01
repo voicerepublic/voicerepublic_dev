@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'support/:action', to: 'support'
+  get 'support/:action', controller: 'support'
   get 'support', to: 'support#index'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   if Settings.api.try(:enabled)
     namespace 'api' do
       resources :talks, only: [:index]
+      resources :uploads, only: [ :create ]
     end
   end
 

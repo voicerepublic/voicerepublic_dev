@@ -3,10 +3,13 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/*/
 
 @import 'foundation/functions';
+@import "grids_variables_mixins/mixins";
 $include-html-visibility-classes: true;
 @import 'foundation';
 @import 'grids_variables_mixins/ci_variables';
+@import 'grids_variables_mixins/vr_icons';
 @import 'shared/footer';
+@import 'shared/top_actionbar';
 
 
 /* all app scss styles here */
@@ -31,6 +34,65 @@ body {
 	color:#001c3a;
 }
 
+.top-bar {
+  max-width: 43.75rem !important;
+  line-height: 40px;
+}
+
+.top-bar li {
+  position: relative;
+  top: -2px;
+}
+
+.top-bar-box .search-lupe {
+  font-size: 1rem;
+  top: 10px;
+}
+
+span[class^="icon-"] {
+  margin-right: 4px;
+}
+
+ul.right span {
+  position: relative;
+  left: 4px;
+}
+.icon-vr-logo {
+  top: -10px !important;
+}
+
+.top-bar, .top-bar-section ul, .top-bar-section a {
+  background: black !important;
+  max-height: 40px;
+}
+
+.top-bar-section ul {
+  width: auto !important;
+}
+
+.top-bar-section .has-dropdown {
+  position: relative;
+}
+.top-bar-section ul li {
+  float: left;
+}
+
+.top-bar-section .dropdown li {
+	text-align:left;
+}
+
+.top-bar-section ul li > a {
+  display: block;
+  width: 100%;
+  color: #e6e6e6;
+  // padding: 12px 0 12px 0;
+  padding-left: 13.33333px;
+  font-family: Eagle, sans-serif;
+  font-size: 0.75rem;
+  font-weight: normal;
+  background: black;
+}
+
 .scroll-container {
 	padding-left: 20px;
 }
@@ -39,28 +101,27 @@ body {
 	margin-bottom: 100px;
 }
 
-.top-bar {
-	background: #fff;
-	height: 60px;
-	line-height: 60px;
-	box-shadow: 0 1px 3px rgba(0,0,0,.3);
-}
 
-.top-bar .name {
-	height: 60px;
-	margin: 10px 24px;
-}
-
-img.logo {
-	width: 36px;
-	height: 36px;
-}
-
-.breadcrumb a, .breadcrumb {
+.breadcrumb a {
 	font-family: $body-font;
-	font-size: .85em;
+	font-size: .9em;
+	background:rgba(255,255,255,.5);
+	padding:6px 10px;
+	border-radius:2px;
+	color:$dark;
 }
 
+.breadcrumb a:hover {
+	background:rgba(255,255,255,1);
+}
+
+.breadcrumb img {
+	max-height: 14px;
+	max-width: 14px;
+	margin-right: 2px;
+	margin-top: -3px;
+
+}
 
 
 .accordion-navigation img {
@@ -90,8 +151,13 @@ img.logo {
 	margin-bottom: 60px;
 	background: $beige;
 	border-top:0;
-	padding-top: 48px;
+	padding-top: 96px;
 	padding-bottom:48px;
+	margin-top:0px;
+}
+
+.hero h1 {
+	margin-top:12px;
 }
 
 .hero h1, .hero h3 {
@@ -132,10 +198,6 @@ a.button.info {
 	background: #f4f4f4;
 	color:$dark;
 	margin-top: 20px;
-}
-
-.top-bar a:hover {
-	text-decoration: none;
 }
 
 ul {
@@ -337,44 +399,6 @@ img.outline {
 	font-size: 1.2em;
 }
 
-.top-bar-section ul li > a  {
-	font-family: $headline-font;
-}
-
-
-.top-bar-section ul, .top-bar-section li {
-	line-height: 60px;
-	font-family: $headline-font;
-}
-
-.top-bar-section li.active:not(.has-form) a:not(.button) {
-	background: $red;
-	line-height: 60px;
-}
-
-.top-bar-section li:not(.has-form) a:not(.button) {
-	background: $dark;
-	line-height: 60px;
-}
-
-.top-bar-section .dropdown li:not(.has-form):not(.active) > a:not(.button) {
-	background: #fff;
-	color: $dark;
-}
-
-.top-bar-section .dropdown li:not(.has-form):not(.active):hover > a:not(.button){
-	background: $light-blue;
-	background-color: $light-blue;
-	color:$dark;
-}
-
-.top-bar-section li.active:not(.has-form) a:not(.button):hover {
-	background: $red;
-}
-
-.top-bar-section .has-dropdown > a:after {
-	top:30px;
-}
 .sub-nav dd {
 	width: 100%;
 	line-height: 30px;
@@ -489,7 +513,6 @@ h5.section-subtitle {
 }
 
 }
-
 
 .support {
     code {
