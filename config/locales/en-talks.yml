@@ -144,20 +144,9 @@ en:
     fields:
       upload_a_recording: Upload A Recording
       describe_your_talk: Describe Your Talk
-      initializing: Initializing Uploader...
-      audio_upload: "Upload your audio file"
-      choose_file: Choose file
-      uploading: Uploading...
-      drop_files_here: "Drop files here"
-      upload: Upload
-      cancel: "&times;"
-      remove: Remove
-      upload_failed: Audio upload failed. Please try reloading the page and try again.
-      supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
       unprocessed_upload: |
         Please click 'Save' to start processing your uploaded audio file.
         Your upload will be lost unless you press 'Save'.
-      drop_file_not_supported: "HTML5 Drop File is not supported!"
       choose_date_and_time: 'Choose Date & Time'
       upload_help_text: Choose your recording file and fill out the form during upload.
       upload_done: A file has already been uploaded.

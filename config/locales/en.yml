@@ -302,6 +302,19 @@ en:
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
   shared:
+    upload:
+      initializing: Initializing Uploader...
+      audio_upload: "Upload your audio file"
+      choose_file: Choose file
+      uploading: Uploading...
+      drop_files_here: "Drop files here"
+      upload: Upload
+      cancel: "&times;"
+      remove: Remove
+      upload_failed: Audio upload failed. Please try reloading the page and try again.
+      drop_file_not_supported: "HTML5 Drop File is not supported!"
+      audio:
+        supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
     unconfirmed:
       notice: |
         You haven't confirmed your email address, yet. Please check
