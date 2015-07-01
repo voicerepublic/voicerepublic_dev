@@ -22,13 +22,17 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
     !hasFlash() and (config.talk.state in ['live'])
 
   $scope.showStartButton = ->
-    session.fsm.is('HostOnAir') and config.talk.state in ['prelive']
+    session.fsm.is('HostOnAir') and
+      config.talk.state in ['prelive']
 
   $scope.showUnstartedMessage = ->
-    !session.fsm.is('HostOnAir') and config.talk.remaining_seconds == 0
+    !session.fsm.is('HostOnAir') and
+      config.talk.remaining_seconds == 0 and
+      config.talk.state in ['prelive']
 
   $scope.showEndTalk = ->
-    session.fsm.is('HostOnAir') and config.talk.state == 'live'
+    session.fsm.is('HostOnAir') and
+      config.talk.state == 'live'
 
   $scope.showDownloadButton = ->
     config.talk.state == 'archived'
