@@ -387,15 +387,9 @@ en:
 
   layouts:
     application:
-<<<<<<< HEAD
       landing_title: Voice Republic - Home To The Spoken Word
     support:
-      landing_title: Voice Republic - Support
-=======
-      landing_title: Voice Republic - The Place To Talk
-    support:
       title: Voice Republic - Support
->>>>>>> integration
   plain_mailer:
     welcome:
       subject: "Welcome %{user_firstname}, need help getting started?"
