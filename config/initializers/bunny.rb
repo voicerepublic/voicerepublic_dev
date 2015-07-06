@@ -46,5 +46,5 @@ end
 # example publish, which should probably go because of
 # http://rubybunny.info/articles/connecting.html#using_bunny_with_unicorn
 
-BUNNY = BunnyWrapper.new
-BUNNY.publish(queue: 'log', pid: $$, state: 'Rails ready')
+# BUNNY = BunnyWrapper.new
+# BUNNY.publish(queue: 'log', pid: $$, state: 'Rails ready')

@@ -100,6 +100,7 @@ module Monitoring
         logger.error args.inspect
       end
     end
+    bunny.publish(queue: 'log', pid: $$, state: 'Rails monitoring ready')
     logger.debug "Subscribed to all notifications."
   end
 
