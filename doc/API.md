@@ -1,11 +1,8 @@
-VoiceRepublic API
------------------
-
 ## Authentication
 
 ### Endpoint
 
-    GET /users/sign_in
+`GET /users/sign_in`
 
 ### Query Parameters
 
@@ -70,7 +67,7 @@ You can also use request headers:
 
 #### Endpoint
 
-    GET /api/talks
+`GET /api/talks`
 
 #### Query Parameters
 
@@ -94,7 +91,7 @@ You can also use request headers:
 
 An array of talk objects:
 
-``
+```
 {
   id: 46,
   title: "Some Talk's Title",
@@ -131,7 +128,7 @@ An array of talk objects:
 
 #### Endpoint
 
-    GET /api/uploads
+`GET /api/uploads`
 
 #### Query Parameters
 
