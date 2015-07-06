@@ -1,15 +1,7 @@
 module ApplicationHelper
 
   def test_talk_path
-    new_talk_path(talk: {
-                    dryrun: true,
-                    title: Faker::Commerce.product_name,
-                    tag_list: Faker::Commerce.department,
-                    teaser: Faker::Company.catch_phrase,
-                    starts_at_date: Date.today,
-                    starts_at_time: 1.minute.from_now.strftime('%H:%M'),
-                    description: Faker::Lorem.paragraph(3)
-                  })
+    new_talk_path talk: { dryrun: true }
   end
 
   def vrmedia_url(talk, fmt='mp3')
