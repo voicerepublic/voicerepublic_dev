@@ -1,10 +1,10 @@
-class Peter
+class Simon
 
   include Singleton
 
   # poor man's delegate
   class << self
-    def publish(*args)
+    def says(*args)
       instance.publish(*args)
     end
   end
@@ -52,4 +52,4 @@ end
 # example publish, which should probably go because of
 # http://rubybunny.info/articles/connecting.html#using_bunny_with_unicorn
 
-# Peter.publish(queue: 'log', pid: $$, state: 'Rails ready')
+# Simon.says(queue: 'log', pid: $$, state: 'Rails ready')
