@@ -3,14 +3,19 @@ module Monitoring
   extend self
 
   def start
+    stop
+
     # monitoring spawns it's own bunny
     bunny = BunnyWrapper.new
+    logger.debug "BunnyWrapper instanciated."
 
     # Subscribe to all of Rails' notifications and publish to an
     # exchange on RabbitMQ. Publishing to an exchange means, that if
     # nobody is listending RabbitMQ will discard these messages
     # instantly. Much like it would be the case if we'd use Faye for it.
-    ActiveSupport::Notifications.subscribe(//) do |*args|
+    @subscription = ActiveSupport::Notifications.subscribe(//) do |*args|
+      begin
+      logger.debug "Received notification: %s" % args.first
 
       # TODO cleanup args
       # * some content of `args` is not proper serializable
@@ -24,6 +29,9 @@ module Monitoring
         case args.first # name
 
         # generic notifications
+        when 'request.action_dispatch'
+          data.delete(:request).url
+
         when 'sql.active_record'
           "[%s] %s" % [ data[:name],
                         data[:sql].split("\n").map(&:strip) * ' ' ]
@@ -66,10 +74,13 @@ module Monitoring
           data[:chain] * ' '
 
         # fall back to json for unknown events
-        else data.to_json
+        else
+          logger.warn "Unknown notification: %s" % args.first
+          data.to_json
         end
 
-      duration = (args[2] - args[1]) * 1000
+      # HACK make sure we have two values here
+      duration = (args[2] - (args[1] || args[2])) * 1000
 
       params = [
         # custom arguments
@@ -80,6 +91,42 @@ module Monitoring
 
       # and send it to rabbitmq
       bunny.publish(Hash[params.zip(args.unshift('metrics', duration, visual))])
+
+      logger.debug "Published notification: %s" % args.first
+
+      rescue => e
+        logger.error "Error processing: %s (%s)" % [ args.first, e.message ]
+        logger.error e.backtrace * "\n"
+        logger.error args.inspect
+      end
+    end
+    logger.debug "Subscribed to all notifications."
+  end
+
+  def stop
+    return unless running?
+    logger.debug "Unsubscribing..."
+    ActiveSupport::Notifications.unsubscribe(@subscription)
+    @subscription = nil
+  end
+
+  def running?
+    !!@subscription
+  end
+
+  # TODO move to trickery
+  def logger
+    return @logger unless @logger.nil?
+    path = File.expand_path("../../log/monitoring.log", __FILE__)
+    logfile = File.open(path, 'a')
+    logfile.sync = true
+    @logger = Logger.new(logfile).tap do |l|
+      l.formatter = proc do |severity, datetime, progname, msg|
+        "#{severity} #{$$} #{msg}\n"
+      end
+      l.level = Logger::INFO
+      l.level = Logger::DEBUG if ENV['DEBUG']
     end
   end
+
 end
