@@ -1,9 +1,12 @@
-class BunnyWrapper
+class Peter
 
-  attr_accessor :connection, :channel
+  include Singleton
 
-  def initialize
-    reconnect
+  # poor man's delegate
+  class << self
+    def publish(*args)
+      instance.publish(*args)
+    end
   end
 
   # def subscribe(exchange_name, options={})
@@ -19,10 +22,10 @@ class BunnyWrapper
   def publish(data)
     if queue = data.delete(:queue) || data.delete(:q)
       json = JSON.unparse(data)
-      queue = channel.queue(queue)
-      channel.default_exchange.publish(json, routing_key: queue.name)
+      queue = @channel.queue(queue)
+      @channel.default_exchange.publish(json, routing_key: queue.name)
     elsif exchange = data.delete(:exchange) || data.delete(:x)
-      channel.fanout(exchange).publish(JSON.unparse(data))
+      @channel.fanout(exchange).publish(JSON.unparse(data))
     else
       raise "Either of `exchange`, `queue`, `x` or `q` are required."
     end
@@ -34,17 +37,19 @@ class BunnyWrapper
 
   private
 
+  def initialize
+    reconnect
+  end
+
   def reconnect
-    self.connection = Bunny.new read_timeout: 10, heartbeat: 10
-    self.connection.start
-    self.channel = connection.create_channel
+    @connection = Bunny.new read_timeout: 10, heartbeat: 10
+    @connection.start
+    @channel = @connection.create_channel
   end
 
 end
 
-
 # example publish, which should probably go because of
 # http://rubybunny.info/articles/connecting.html#using_bunny_with_unicorn
 
-# BUNNY = BunnyWrapper.new
-# BUNNY.publish(queue: 'log', pid: $$, state: 'Rails ready')
+# Peter.publish(queue: 'log', pid: $$, state: 'Rails ready')
