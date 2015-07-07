@@ -85,8 +85,8 @@ xml.rss namespaces.merge(version: '2.0') do
         xml.title h talk.title
 
         # description
-        xml.description talk.description_as_plaintext
-        xml.itunes :summary, talk.description_as_plaintext
+        xml.description talk.description
+        xml.itunes :summary, talk.description
 
         xml.itunes :subtitle, talk.teaser
         # TODO: Maybe we want to show the speakers here?

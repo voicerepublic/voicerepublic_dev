@@ -113,21 +113,6 @@ class User < ActiveRecord::Base
     "#{name} <#{email}>"
   end
 
-  # to be deleted after transition to markdown
-  def about_has_html?
-    return true if about.nil?
-    !!about.match(/<[a-z][\s\S]*>/)
-  end
-
-  # to be deleted after transition to markdown
-  def about_as_markdown
-    ReverseMarkdown.convert(about || '')
-  end
-
-  def about_as_plaintext
-    Nokogiri::HTML(about).text
-  end
-
   class << self
     def find_for_facebook_oauth(auth, signed_in_resource=nil)
       user = User.where(:provider => auth[:provider], :uid => auth[:uid]).first
@@ -235,7 +220,7 @@ class User < ActiveRecord::Base
   private
 
   def set_about_as_html
-    self.about_as_html = MARKDOWN.render(about)
+    self.about_as_html = MD2HTML.render(about)
   end
 
   def process_welcome_transaction

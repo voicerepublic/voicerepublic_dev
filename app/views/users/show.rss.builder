@@ -7,7 +7,7 @@
 @podcast.subtitle =    t('.podcast.subtitle')
 
 # misc
-@podcast.description = @user.about_as_plaintext
+@podcast.description = @user.about
 @podcast.author =      @user.name
 
 # urls
