@@ -33,8 +33,8 @@ Rails.application.routes.draw do
       resources :talks, only: [:index]
       resources :uploads, only: [ :create ]
     end
-    devise_scope :api do
-      post "sign_in", to: "api/sessions#create"
+    devise_scope :user do
+      post "/api/sessions/sign_in", to: "api/sessions#create"
     end
   end
 
