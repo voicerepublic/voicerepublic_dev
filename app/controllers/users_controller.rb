@@ -53,7 +53,7 @@ class UsersController < BaseController
         @show_listen_later = true if @user == current_user
       end
       format.rss do
-        talks = @user.talks.archived.order('updated_at DESC')
+        talks = Talk.remembered_by(@user).archived.ordered
         @podcast = OpenStruct.new(talks: talks)
       end
       format.js do
