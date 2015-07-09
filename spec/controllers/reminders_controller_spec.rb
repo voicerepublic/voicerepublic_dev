@@ -29,7 +29,7 @@ describe RemindersController do
 
       it "redirects to the created reminder" do
         post :create, talk_id: talk.id
-        expect(response).to redirect_to(talk)
+        expect(response).to redirect_to(assigns(:reminder))
       end
     end
   end
@@ -38,21 +38,21 @@ describe RemindersController do
     it "destroys the requested reminder" do
       reminder = FactoryGirl.create :reminder, user_id: @user.id
       expect {
-        delete :destroy, {:id => reminder.to_param}
+        delete :destroy, id: reminder.to_param, format: 'js'
       }.to change(Reminder, :count).by(-1)
     end
 
     it "authorizes destroys" do
       reminder = FactoryGirl.create(:reminder)
       expect {
-        delete :destroy, {:id => reminder.to_param}
+        delete :destroy, id: reminder.to_param
       }.to raise_error(CanCan::AccessDenied)
     end
 
-    it "redirects to the users reminders list" do
+    it "destroy returns 200 and renders js code" do
       reminder = FactoryGirl.create :reminder, user_id: @user.id
-      delete :destroy, {:id => reminder.to_param}
-      expect(response).to redirect_to(controller.current_user)
+      delete :destroy, id: reminder.to_param, format: 'js'
+      expect(response.status).to eq(200)
     end
   end
 

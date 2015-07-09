@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     resources :reminders, only: [:create]
   end
 
-  resources :reminders, only: [:destroy]
+  resources :reminders, only: [:show, :destroy]
 
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"

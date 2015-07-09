@@ -1,0 +1,4 @@
+- rememberable ||= @reminder.rememberable
+= link_to [ rememberable, :reminders ], method: 'post', class: "link-remember", remote: true do
+  %span.icon-plus
+  %span.link-text= t('.pin')
