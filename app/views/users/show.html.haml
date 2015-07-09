@@ -50,8 +50,7 @@
                   = t('.upload_talk')
           - else
             %ul.action-links.list-style-type-none
-              %li.visitor-view
-                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@user) }
+              %li.visitor-view= link_to_podcast(@user)
 
   - if can? :manage, @user
     = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'

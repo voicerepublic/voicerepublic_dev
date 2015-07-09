@@ -324,10 +324,8 @@ en:
     how_to_use_vr:
       create_talk: Create Talk
       check_pricing: Check our pricing
-    hide_for_anon:
-      redirect_text: |
-        Please sign up or login to use this feature.
-      subscribe_to_podcast: Podcast
+    modal_login_signup:
+      redirect_text: Please sign up or login to use this feature.
     actionbar:
       login: Log In
       sign_up: Sign Up

@@ -78,7 +78,7 @@
           .talk-archived-actions-box.row.collapse
             .small-12.columns
               .right
-                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@talk.venue) }
+                = link_to_podcast(@talk.venue)
                 = link_to '#',
                   class: 'button-embed',
                   title: t('.embed_player'),
