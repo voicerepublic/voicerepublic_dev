@@ -14,7 +14,7 @@ class Api::SessionsController < Devise::SessionsController
 
   include Devise::Controllers::Rememberable
 
-  # POST /resource/sign_in
+  # POST /api/sessions
   def create
     resource = resource_from_credentials
     return invalid_login_attempt unless resource

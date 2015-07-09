@@ -2,7 +2,7 @@
 
 ### Endpoint
 
-`GET /api/sessions/sign_in`
+`POST /api/sessions`
 
 ### Query Parameters
 
@@ -11,7 +11,7 @@
 
 ### Example query
 ```
-curl -H "Content-Type: application/json"  -H 'Accept: application/json' -d '{"email":"hans@example.com","password":"you_cant_crack_me"}' -X POST https://voicerepublic.com/api/sessions/sign_in
+curl -H "Content-Type: application/json"  -H 'Accept: application/json' -d '{"email":"hans@example.com","password":"you_cant_crack_me"}' -X POST https://voicerepublic.com/api/sessions
 
 ```
 

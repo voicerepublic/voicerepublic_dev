@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       resources :uploads, only: [ :create ]
     end
     devise_scope :user do
-      post "/api/sessions/sign_in", to: "api/sessions#create"
+      post "/api/sessions", to: "api/sessions#create"
     end
   end
 
