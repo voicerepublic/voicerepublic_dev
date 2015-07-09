@@ -50,7 +50,9 @@
                   = t('.upload_talk')
           - else
             %ul.action-links.list-style-type-none
-              %li.visitor-view= link_to_podcast(@user)
+              %li.visitor-view
+                = link_to_podcast(@user)
+                = link_to_pin(@user)
 
   - if can? :manage, @user
     = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'
