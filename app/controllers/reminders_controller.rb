@@ -2,8 +2,6 @@ class RemindersController < BaseController
 
   before_action :authenticate_user!, except: [:index]
 
-  respond_to :js
-
   # GET /users/:user_id/reminders
   def index
     @user = User.find(params[:user_id])
