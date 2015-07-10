@@ -336,7 +336,13 @@
 
   .row.collapse-large-only
     .large-12.columns
-
+      .pdf-viewer
+        - if @talk.slides_uuid
+          .row
+            %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.1.js"
+              src="/presentation.pdf"
+              height="480"
+              width="640")
       -# DESCRIPTION
       #description.description-block
         .description-content(ng-class="{'collapse': descriptionCollapsed()}")

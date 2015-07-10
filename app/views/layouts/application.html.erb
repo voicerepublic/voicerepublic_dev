@@ -59,6 +59,7 @@
     <%= render "shared/footer" %>
     <div id='scripts'>
       <%= javascript_include_tag "application" %>
+      <%= javascript_include_tag '/pdf_viewer/pdf-viewer-0.1.1' %>
       <% if Rails.env.production? %>
         <%= render 'shared/google_analytics' %>
         <%= render 'shared/tawk' %>
