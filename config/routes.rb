@@ -61,9 +61,10 @@ Rails.application.routes.draw do
   resources :venues, except: :index do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
+    resources :reminders, only: [:create]
   end
 
-  resources :reminders, only: [:destroy]
+  resources :reminders, only: [:show, :destroy]
 
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"
@@ -77,7 +78,7 @@ Rails.application.routes.draw do
              })
 
   resources :users, only: [:update, :show, :edit] do
-    resources :reminders, only: [:index]
+    resources :reminders, only: [:create]
   end
 
   get '/onboard', to: 'users#onboard'

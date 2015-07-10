@@ -1,5 +1,22 @@
 module ApplicationHelper
 
+  def link_to_pin(entity)
+    pin_url = [entity, :reminders]
+
+    attrs = {
+      class: 'button-podcast',
+      method: 'post',
+      remote: true,
+      'data-ga-event' => "click pin #{entity.model_name} #{entity.id}"
+    }
+    attrs['data-reveal-id'] = "modal-login-signup" unless current_user
+
+    link_to pin_url, attrs do
+      content_tag('span', '', class: 'icon-plus') +
+        t('.pin_all_talks_to_your_feed')
+    end
+  end
+
   def test_talk_path
     new_talk_path talk: { dryrun: true }
   end

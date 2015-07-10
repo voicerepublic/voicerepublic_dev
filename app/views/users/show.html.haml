@@ -51,7 +51,7 @@
           - else
             %ul.action-links.list-style-type-none
               %li.visitor-view
-                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@user) }
+                = link_to_pin(@user)
 
   - if can? :manage, @user
     = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'

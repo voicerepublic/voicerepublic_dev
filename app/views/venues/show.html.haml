@@ -50,7 +50,7 @@
           %span.icon-upload-cloud
           = t('.upload_talk')
       - else
-        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }
+        = link_to_podcast(@venue)
         - if @show_join
           = link_to [@venue, :participations], method: :post do
             = t('.subscribe_to_series')

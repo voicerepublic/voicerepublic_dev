@@ -38,10 +38,8 @@
           %li
             = link_to t('.support'), support_path
           - if !current_user
-            %li
-              = link_to t('.login'), new_user_session_path, class: "logged-out-link"
-            %li
-              = link_to t('.sign_up'), new_user_registration_path, class: "logged-out-link"
+            %li= link_to t('.login'), new_user_session_path, class: "logged-out-link"
+            %li= link_to t('.sign_up'), new_user_registration_path, class: "logged-out-link"
           - else
             %li.has-dropdown
               %a.user-link(href='#')
@@ -56,6 +54,7 @@
                 %li= link_to t('.upload_talk'), new_upload_path
                 - if !current_user.is_pro?
                   %li= link_to t('.pricing'), purchases_path
+                %li= link_to t('.subscribe'), user_url(current_user, format: 'rss')
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
                     %i.icon-off

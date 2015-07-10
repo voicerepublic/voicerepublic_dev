@@ -324,10 +324,8 @@ en:
     how_to_use_vr:
       create_talk: Create Talk
       check_pricing: Check our pricing
-    hide_for_anon:
-      redirect_text: |
-        Please sign up or login to use this feature.
-      subscribe_to_podcast: Podcast
+    modal_login_signup:
+      redirect_text: Please sign up or login to use this feature.
     actionbar:
       login: Log In
       sign_up: Sign Up
@@ -338,6 +336,7 @@ en:
       upload_talk: Upload A Recording
       pricing: Pricing
       test_talk: 'Test A Talk (Free)'
+      subscribe: Subscribe (RSS)
       logout: Log Out
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.

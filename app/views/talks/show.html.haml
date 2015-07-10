@@ -38,16 +38,18 @@
           .bc-delimiter >
 
           .links-box
-            - unless current_user.try(:remembers?, @talk)
-              - if !current_user
-                %a(class="link-remember" data-reveal-id="modal-login-signup" ng-show='userIsAListener()')
-                  %span.icon-plus
-                  %span.link-text= t('.remember')
-              - else
-                - url = [ @talk, :reminders ]
-                = link_to url, method: 'post', class: "link-remember" do
-                  %span.icon-plus
-                  %span.link-text= t('.remember')
+            - if !current_user
+              %a(class="link-remember"
+                 data-reveal-id="modal-login-signup"
+                 ng-show='userIsAListener()')
+                %span.icon-plus
+                %span.link-text= t('.remember')
+            - else
+              %span#pin
+                - if @reminder
+                  = render partial: 'reminders/unpin'
+                - else
+                  = render partial: 'reminders/pin', locals: { rememberable: @talk }
 
             = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
@@ -78,7 +80,7 @@
           .talk-archived-actions-box.row.collapse
             .small-12.columns
               .right
-                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@talk.venue) }
+                = link_to_podcast(@talk.venue)
                 = link_to '#',
                   class: 'button-embed',
                   title: t('.embed_player'),
