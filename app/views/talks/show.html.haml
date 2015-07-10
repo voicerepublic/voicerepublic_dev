@@ -340,7 +340,7 @@
         - if @talk.slides_uuid
           .row
             %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.1.js"
-              src="/presentation.pdf"
+              src="#{@talk.generate_slide_path}"
               height="480"
               width="640")
       -# DESCRIPTION
