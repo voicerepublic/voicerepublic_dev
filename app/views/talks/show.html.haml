@@ -340,7 +340,7 @@
       - if @talk.slides_uuid
         .row.pdf-viewer(ng-show="talkIsArchived() || talkIsLive()")
           %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.1.js"
-            src="#{@talk.generate_slide_path}"
+            src="#{@talk.slides_path}"
               height="480"
               width="640")
       -# DESCRIPTION

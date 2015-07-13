@@ -264,7 +264,7 @@ class Talk < ActiveRecord::Base
     head.url(7.days.from_now)
   end
 
-  def generate_slide_path
+  def slides_path
     "https://#{Settings.storage.uploads}.s3.amazonaws.com/#{slides_uuid}"
   end
 
