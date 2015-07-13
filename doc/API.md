@@ -1,11 +1,8 @@
-VoiceRepublic API
------------------
-
 ## Authentication
 
 ### Endpoint
 
-    GET /users/sign_in
+`POST /api/sessions`
 
 ### Query Parameters
 
@@ -14,7 +11,7 @@ VoiceRepublic API
 
 ### Example query
 ```
-curl -H "Content-Type: application/json"  -H 'Accept: application/json' -d '{"email":"hans@example.com","password":"you_cant_crack_me"}' -X POST https://voicerepublic.com/users/sign_in
+curl -H "Content-Type: application/json"  -H 'Accept: application/json' -d '{"email":"hans@example.com","password":"you_cant_crack_me"}' -X POST https://voicerepublic.com/api/sessions
 
 ```
 
@@ -70,7 +67,7 @@ You can also use request headers:
 
 #### Endpoint
 
-    GET /api/talks
+`GET /api/talks`
 
 #### Query Parameters
 
@@ -94,7 +91,7 @@ You can also use request headers:
 
 An array of talk objects:
 
-``
+```
 {
   id: 46,
   title: "Some Talk's Title",
@@ -131,7 +128,7 @@ An array of talk objects:
 
 #### Endpoint
 
-    GET /api/uploads
+`GET /api/uploads`
 
 #### Query Parameters
 

@@ -1,19 +1,20 @@
 class Api::TalksController < Api::BaseController
+  skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
 
-  JSON_CONFIG = { except: [:session, :storage] }
+  JSON_CONFIG = { except: %w(session storage image_uid grade edit_config
+                             penalty slides_uuid recording_override listeners) }
 
   before_action :authenticate_user!
 
-  # TODO security: check for sql injection
   def index
     @talks = Talk.all
 
     # paging
-    @talks = @talks.limit(params[:limit]) if params[:limit]
-    @talks = @talks.offset(params[:offset]) if params[:offset]
+    @talks = @talks.limit(params[:limit].to_i) if params[:limit]
+    @talks = @talks.offset(params[:offset].to_i) if params[:offset]
 
     # sort order
-    if order = params[:order]
+    if order = params[:order] and Talk.column_names.include?(params[:order])
       order = "#{order} DESC" if params[:reverse]
       @talks = @talks.order(order)
     end

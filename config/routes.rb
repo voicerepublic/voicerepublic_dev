@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       resources :talks, only: [:index]
       resources :uploads, only: [ :create ]
     end
+    devise_scope :user do
+      post "/api/sessions", to: "api/sessions#create"
+    end
   end
 
   post '/search',              to: 'search#create'
