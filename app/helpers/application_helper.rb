@@ -34,36 +34,6 @@ module ApplicationHelper
     arr.length > num-1 ? arr[0..num-1].join(" ").concat(" ...") : txt
   end
 
-  # adds iframes for typical youtube links
-  #
-  # e.g.
-  #   http://www.youtube.com/watch?v=F0G0YNHINwY
-  #   or
-  #   http://youtu.be/F0G0YNHINwY
-  #
-  # will be added as
-  #   <iframe width="560" height="315" frameborder="0" allowfullscreen
-  #     src="//www.youtube.com/embed/F0G0YNHINwY"></iframe>
-  #
-  def youtubify(txt)
-    template = "\n\n<iframe width='640' height='480' " +
-      "src='//www.youtube.com/embed/%s' " +
-      "frameborder='0' allowfullscreen></iframe>"
-
-    patterns = [ /https?:\/\/www\.youtube\.com\/watch\?v=(\S+)/,
-                 /https?:\/\/youtu\.be\/(\S+)/ ]
-
-    patterns.map do |pattern|
-      if md = txt.match(pattern)
-        md.to_a[1..-1].each do |key|
-          txt += template % key
-        end
-      end
-    end
-
-    txt
-  end
-
   # TODO: move into trickery
   class << self
     def determine_release
