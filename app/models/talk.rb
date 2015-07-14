@@ -193,21 +193,6 @@ class Talk < ActiveRecord::Base
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
 
-  # to be deleted after transition to markdown
-  def description_has_html?
-    return true if description.nil?
-    !!description.match(/<[a-z][\s\S]*>/)
-  end
-
-  # to be deleted after transition to markdown
-  def description_as_markdown
-    ReverseMarkdown.convert(description || '')
-  end
-
-  def description_as_plaintext
-    Nokogiri::HTML(description).text
-  end
-
   # returns an array of json objects
   def guest_list
     guests.map(&:for_select).to_json
@@ -362,7 +347,7 @@ class Talk < ActiveRecord::Base
   private
 
   def set_description_as_html
-    self.description_as_html = MARKDOWN.render(description)
+    self.description_as_html = MD2HTML.render(description)
   end
 
   def create_and_set_venue?
