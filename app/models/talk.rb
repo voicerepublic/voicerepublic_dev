@@ -21,7 +21,7 @@
 # * recording_override [string] - TODO: document me
 # * related_talk_id [integer] - TODO: document me
 # * session [text] - TODO: document me
-# * slides_uid [string] - TODO: document me
+# * slides_uuid [string] - TODO: document me
 # * slug [string] - TODO: document me
 # * speakers [string] - TODO: document me
 # * started_at [datetime] - TODO: document me
@@ -262,6 +262,10 @@ class Talk < ActiveRecord::Base
     filename = "#{uri}/#{id}#{variant}"
     head = media_storage.files.new(key: filename)
     head.url(7.days.from_now)
+  end
+
+  def slides_path
+    "https://#{Settings.storage.uploads}.s3.amazonaws.com/#{slides_uuid}"
   end
 
   # the message history is available as text file to the host

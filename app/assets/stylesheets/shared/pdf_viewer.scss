@@ -1,0 +1,29 @@
+pdf-viewer #om-root {
+  background-color: lightgrey;
+  border: 5px solid lightgrey;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px !important;
+}
+
+
+pdf-viewer #om-root .navigation {
+  font-family: $brand-font-bold;
+  font-size: 1.2rem;
+  color: white;
+}
+
+pdf-viewer #om-root .navigation .navButtons {
+  float: right;
+}
+
+pdf-viewer #om-root .navigation .pageCount {
+  width: 100px;
+  margin: 0 auto;
+  display: block;
+  // hack, please fix
+  position: relative;
+  left: 30px;
+  padding-top: 10px;
+}
