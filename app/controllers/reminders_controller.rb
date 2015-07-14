@@ -12,20 +12,22 @@ class RemindersController < BaseController
   # POST /talks/:talk_id/reminders
   # POST /talks/:venue_id/reminders
   def create
-    @reminder = Reminder.new
-    @reminder.user = current_user
-
     rememberable ||= Talk.find(params[:talk_id])
     rememberable ||= Venue.find(params[:venue_id])
+    rememberable ||= User.find(params[:user_id])
     raise "Cannot find Rememberable with #{params.inspect}" if rememberable.nil?
-    @reminder.rememberable = rememberable
+
+    attrs = {
+      user_id: current_user.id,
+      rememberable_id: rememberable.id,
+      rememberable_type: rememberable.model_name
+    }
+    @reminder = Reminder.new(attrs)
 
     authorize! :create, @reminder
-    if @reminder.save
-      redirect_to rememberable, notice: I18n.t('reminders.create.success')
-    else
-      redirect_to rememberable, error: I18n.t('reminders.create.failure')
-    end
+    return redirect_to @reminder if @reminder.save
+
+    head 422
   end
 
   # DELETE /reminders/1
@@ -33,8 +35,6 @@ class RemindersController < BaseController
     @reminder = Reminder.find(params[:id])
     authorize! :destroy, @reminder
     @reminder.destroy
-    redirect_to current_user, anchor: 'reminders',
-                notice: I18n.t('reminders.destroy.success')
   end
 
 end

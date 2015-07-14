@@ -74,6 +74,23 @@ describe "Talks as logged in user" do
     login_user(@user)
   end
 
+  describe 'talk reminders' do
+    before do
+      @talk = FactoryGirl.create :talk
+    end
+    it 'is pinnable and unpinnable', js: true do
+      visit talk_path(@talk)
+      expect {
+        click_on "Pin"
+        page.should have_content("Unpin")
+      }.to change(Reminder, :count).by(1)
+      expect {
+        click_on "Unpin"
+        page.should_not have_content("Unpin")
+      }.to change(Reminder, :count).by(-1)
+    end
+  end
+
   describe "Live talk", js: :true do
     before do
       # !! BEWARE !!
@@ -463,7 +480,7 @@ describe "Talks as logged in user" do
       save_and_open_page
       expect(page).to have_content(talk.title)
     end
-
   end
+
 
 end
