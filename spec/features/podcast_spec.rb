@@ -70,7 +70,7 @@ feature 'Podcast' do
   end
 
   feature 'for all podcasts' do
-    scenario 'there is a embed link in item' do
+    scenario 'there is a link in item' do
       # prepare
       talk = FactoryGirl.create(:talk, :archived, :featured)
       # fake the presence of a suitable file for podcasting
@@ -79,7 +79,7 @@ feature 'Podcast' do
 
       # visit
       visit root_path(format: 'rss')
-      expect(page).to have_xpath("//link[@rel='embed']")
+      expect(page).to have_xpath("//link")
     end
   end
 

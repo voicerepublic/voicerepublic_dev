@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       resources :talks, only: [:index]
       resources :uploads, only: [ :create ]
     end
+    devise_scope :user do
+      post "/api/sessions", to: "api/sessions#create"
+    end
   end
 
   post '/search',              to: 'search#create'
@@ -63,7 +66,7 @@ Rails.application.routes.draw do
     resources :participations, only: [:index, :create, :destroy]
   end
 
-  resources :reminders, only: [:destroy]
+  resources :reminders, only: [:show, :destroy]
 
   devise_scope :user do
     delete "/users/sign_out" => "devise/sessions#destroy"

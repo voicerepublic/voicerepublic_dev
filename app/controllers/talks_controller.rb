@@ -7,6 +7,7 @@ class TalksController < BaseController
   # GET /talks/1
   def show
     respond_to do |format|
+      @reminder = Reminder.find_by_user_and_talk(current_user, @talk)
       @related_talks = @talk.related_talks
       format.html do
         # write to session to make sure we have an id
@@ -32,6 +33,17 @@ class TalksController < BaseController
     attrs = params[:talk] ? talk_params : {}
     attrs[:venue_id] ||= current_user.default_venue_id
     @talk = Talk.new(attrs)
+
+    # set random default values for test talks
+    if @talk.dryrun?
+      @talk.title = Faker::Commerce.product_name
+      @talk.tag_list = Faker::Commerce.department
+      @talk.teaser = Faker::Company.catch_phrase
+      @talk.starts_at_date= Date.today
+      @talk.starts_at_time= 1.minute.from_now.strftime('%H:%M')
+      @talk.description = Faker::Lorem.paragraph(3)
+    end
+
     authorize! :new, @talk
   end
 
