@@ -43,24 +43,6 @@ class UserMailer < ApplicationMailer
     default_mail user.email_with_name
   end
 
-  # app/controllers/comments_controller.rb:25 (delayed)
-  def new_comment(comment, user)
-    # FIXME: This needs to be rewritten since Comments have been rewritten
-    venue, url = nil, nil
-    case comment.commentable
-    when Venue
-      venue = comment.commentable
-      url = venue_url(id: venue.id)
-    when Talk
-      talk = comment.commentable
-      venue = talk.venue
-      url = venue_talk_url(venue_id: venue.id, id: talk.id)
-    end
-    interpolate! user, comment
-    interpolate! url: url
-    default_mail user.email_with_name
-  end
-
   # TODO: A welcome mail should be send directly after user creation. A stub is
   # already available at app/concerns/welcomed.rb
   def welcome(user)

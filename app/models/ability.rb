@@ -15,9 +15,6 @@ class Ability
 
     # Appearance is somewhat nested in Talk
 
-    # Comment is currently not in use
-    can    :manage, Comment, user_id: user.id
-
     can    :create, Message
 
     can    :manage, Participation, user_id: user.id

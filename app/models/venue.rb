@@ -27,7 +27,6 @@ class Venue < ActiveRecord::Base
   # TODO: rename to host
   belongs_to :user
 
-  has_many :comments, as: :commentable, dependent: :destroy
   has_many :talks, dependent: :destroy, inverse_of: :venue
 
   has_many :participations, dependent: :destroy
