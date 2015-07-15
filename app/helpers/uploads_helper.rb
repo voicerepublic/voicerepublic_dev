@@ -4,7 +4,7 @@ module UploadsHelper
     key = SecureRandom.uuid
 
     params = {
-      uploadUrl: @presigned_s3_post_url,
+      uploadUrl: "https://#{Settings.storage.upload_audio}.s3.amazonaws.com",
       key:       key,
       filter:    %w( ogg x-ogg
                      wav x-wav wave x-pn-wav
@@ -23,7 +23,7 @@ module UploadsHelper
     key = SecureRandom.uuid
 
     params = {
-      uploadUrl: @presigned_s3_post_url,
+      uploadUrl: "https://#{Settings.storage.upload_slides}.s3.amazonaws.com",
       key:       key,
       filter:    'pdf',
       # `success` will be evaled on complete

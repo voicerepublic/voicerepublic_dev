@@ -311,7 +311,7 @@ en:
       upload: Upload
       cancel: "&times;"
       remove: Remove
-      upload_failed: Audio upload failed. Please try reloading the page and try again.
+      upload_failed: Upload failed. Please try reloading the page and try again.
       drop_file_not_supported: "HTML5 Drop File is not supported!"
       audio:
         supported_filetypes: Supported Filetypes are MP3, M4A, OGG, WAV
