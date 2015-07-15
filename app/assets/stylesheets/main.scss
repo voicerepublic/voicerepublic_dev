@@ -163,6 +163,14 @@ span[class^="icon-"]{
   }
 }
 
-.eagle {
+.eagle, .hint {
     font-family: "Eagle Light", sans-serif;
+}
+
+.hint a {
+    color: blue;
+}
+
+.hint {
+    font-size: 0.875rem;
 }
