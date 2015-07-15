@@ -2,7 +2,6 @@ class UploadsController < BaseController
 
   before_action :authenticate_user!
   before_action :redirect_if_low_on_credits, only: :new
-  before_action :set_presigned_post_url
 
   def new
     attrs = params[:talk] ? talk_params : {}
@@ -34,20 +33,6 @@ class UploadsController < BaseController
                                  :tag_list, :language,
                                  :new_venue_title, :venue_id,
                                  :user_override_uuid, :slides_uuid)
-  end
-
-  # this is a phony fake presigned url generator!
-  # TODO make a less phony fake...
-  # In S3, permissions are set for everyone to upload. It's better to create
-  # a real presigned URL. Either use 'fog', or the 'aws-sdk' gem.
-  def set_presigned_post_url
-    @presigned_s3_post_url = "https://#{Settings.storage.uploads}.s3.amazonaws.com"
-
-    # upload_bucket = AWS::S3.new.buckets[Settings.talk_upload_bucket]
-    #
-    # @presigned_s3_post_url = upload_bucket.presigned_post(key: "#{SecureRandom.uuid}",
-    #                                           success_action_status: 201,
-    #                                           acl: :bucket_owner_full_control).url
   end
 
 end

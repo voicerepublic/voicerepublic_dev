@@ -67,7 +67,8 @@ flyer:
 storage:
   media: vr-dev-media
   import: vr-dev-import
-  uploads: vr-audio-uploads-dev
+  upload_audio: vr-audio-uploads-dev
+  upload_slides: vr-slide-uploads-live
 paths:
   log: local/log
   jingles:

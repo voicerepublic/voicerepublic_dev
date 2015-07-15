@@ -250,7 +250,7 @@ class Talk < ActiveRecord::Base
   end
 
   def slides_path
-    "https://#{Settings.storage.uploads}.s3.amazonaws.com/#{slides_uuid}"
+    "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
   end
 
   # the message history is available as text file to the host
@@ -668,12 +668,12 @@ class Talk < ActiveRecord::Base
 
     # with the current policy there is not need to talk to aws
     url = 'https://s3.amazonaws.com/%s/%s' %
-          [ Settings.storage.uploads, user_override_uuid ]
+          [ Settings.storage.upload_audio, user_override_uuid ]
 
     logger.info "URL: #{url}"
 
     # TODO use a more secure variant with fog
-    # uploads = Storage.directories.get(Settings.storage.uploads)
+    # uploads = Storage.directories.get(Settings.storage.audio_upload)
     # upload = uploads.files.get(user_override_uuid)
     # url = upload.public_url.to_s
 
