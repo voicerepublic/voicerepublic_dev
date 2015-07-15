@@ -16,17 +16,4 @@ module Pricing
     'NP25' => [ 'NP25',  25,  800,  20000]
   }
 
-  # include Gnuplot
-  # extend self
-
-  # FIXME
-  # def plot_pricing!(max=150)
-  #   Tempfile.open('pricing', '/tmp') do |f|
-  #     (1..max).each { |q| f.puts [q, make_deal(q)[1]/100]*" " }
-  #     f.close
-  #     gnuplot(f.path, 'doc/pricing.svg')
-  #   end
-  #   puts 'Updated doc/pricing.svg'
-  # end
-
 end

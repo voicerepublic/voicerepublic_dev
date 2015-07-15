@@ -48,12 +48,6 @@ FactoryGirl.define do
     end
   end
 
-  factory :comment do
-    content 'Lots of content here'
-    user
-    association :commentable, factory: :venue
-  end
-
   factory :participation do
     venue
     user
