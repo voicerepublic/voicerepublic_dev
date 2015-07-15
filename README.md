@@ -580,3 +580,16 @@ Shell Cheat Sheet
     nano ~/.unicorn-config
 
     unicorn_wrapper restart
+
+
+How To Update Icons
+-------------------
+
+* Go to https://icomoon.io/app/
+* load the json file from `doc/vr-icons.zip`.
+* Make changes
+* "Generate Font"
+* Download an updated zip & unpack
+* `cp fonts/* app/assets/fonts`
+* update `app/assets/stylesheets/grids_variables_mixins/style.css` with content of `style.css` (only the lower part, keep the top part!)
+* done
