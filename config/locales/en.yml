@@ -478,6 +478,10 @@ en:
         </ul>
 
   reminders:
+    favorite:
+      favorite: Favorite
+    unfavorite:
+      unfavorite: Unfavorite
     create:
       success: Reminder was successfully created.
       failure: Reminder could not be created.

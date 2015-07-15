@@ -46,11 +46,11 @@
                 %span.icon-plus
                 %span.link-text= t('.remember')
             - else
-              %span#pin
+              %span#favorite
                 - if @reminder
-                  = render partial: 'reminders/unpin'
+                  = render partial: 'reminders/unfavorite'
                 - else
-                  = render partial: 'reminders/pin', locals: { rememberable: @talk }
+                  = render partial: 'reminders/favorite', locals: { rememberable: @talk }
 
             = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
