@@ -157,7 +157,7 @@ span[class^="icon-"]{
     color: $color-black-title;
   }
   small.error{
-    background: rgba(0,0,0,0.8);
+    background: $brand-color-red;
     padding:4px 8px;
     font-size: rem-calc(11);
   }
