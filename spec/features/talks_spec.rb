@@ -487,6 +487,19 @@ describe "Talks as logged in user" do
       expect(page).to have_content(talk.title)
     end
   end
+end
 
-
+describe 'slides' do
+  it 'shows a pdf-viewer when there are slides attached' do
+    talk = FactoryGirl.create(:talk)
+    talk.update_attribute :slides_uuid, "some_url.pdf"
+    visit talk_path(talk)
+    expect(page).to have_selector("pdf-viewer")
+  end
+  it 'does not show a pdf-viewer when there are slides attached' do
+    talk = FactoryGirl.create(:talk)
+    talk.update_attribute :slides_uuid, ""
+    visit talk_path(talk)
+    expect(page).to_not have_selector("pdf-viewer")
+  end
 end
