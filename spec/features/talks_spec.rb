@@ -87,12 +87,12 @@ describe "Talks as logged in user" do
     it 'is pinnable and unpinnable', js: true do
       visit talk_path(@talk)
       expect {
-        click_on "Pin"
-        page.should have_content("Unpin")
+        find(".icon-star-empty").click
+        page.should have_css(".icon-star-full")
       }.to change(Reminder, :count).by(1)
       expect {
-        click_on "Unpin"
-        page.should_not have_content("Unpin")
+        find(".icon-star-full").click
+        page.should_not have_css(".icon-star-full")
       }.to change(Reminder, :count).by(-1)
     end
   end
