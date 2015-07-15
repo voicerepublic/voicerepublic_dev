@@ -68,7 +68,7 @@ storage:
   media: vr-dev-media
   import: vr-dev-import
   upload_audio: vr-audio-uploads-dev
-  upload_slides: vr-slide-uploads-live
+  upload_slides: vr-slide-uploads-dev
 paths:
   log: local/log
   jingles:
