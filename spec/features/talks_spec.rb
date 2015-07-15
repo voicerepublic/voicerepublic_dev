@@ -32,6 +32,12 @@ describe 'TalksController' do
 end
 
 describe "Talks as anonymous user" do
+  it 'renders' do
+    talk = FactoryGirl.create(:talk)
+    visit talk_path(talk)
+    expect(page).to have_selector(".talks-show")
+  end
+
   describe 'redirect to login/sign up', js: true do
     skip 'redirects to talk after login' do
       talk = FactoryGirl.create(:talk)

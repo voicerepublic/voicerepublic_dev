@@ -7,7 +7,9 @@ class TalksController < BaseController
   # GET /talks/1
   def show
     respond_to do |format|
-      @reminder = Reminder.find_by_user_and_talk(current_user, @talk)
+      if current_user
+        @reminder = Reminder.find_by_user_and_talk(current_user, @talk)
+      end
       @related_talks = @talk.related_talks
       format.html do
         # write to session to make sure we have an id
