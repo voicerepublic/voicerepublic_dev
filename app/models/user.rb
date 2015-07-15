@@ -47,7 +47,6 @@ class User < ActiveRecord::Base
 
   # TODO discuss if destroing these makes sense
   # we might end up with half of a dialog.
-  has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
   has_many :venues, dependent: :destroy # as owner
