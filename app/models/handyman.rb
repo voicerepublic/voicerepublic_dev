@@ -38,9 +38,9 @@ class Handyman
 
     def participations_missing_venues
       log "-> Check participations for missing venues..."
-      Participation.where(venue_id: nil).each do |p|
-        log "Destroy invalid participation %s (venue missing)" % p.id
-        p.destroy
+      Participation.where(venue_id: nil).each do |pa|
+        log "Destroy invalid participation %s (venue missing)" % pa.id
+        pa.destroy
       end
     end
 
@@ -48,9 +48,9 @@ class Handyman
       log "-> Check participations for nonexistent venues..."
       condition = "venue_id NOT IN (?)"
       ids = Venue.pluck(:id)
-      Participation.where(condition, ids).each do |p|
-        log "Destroy invalid participation %s (venue nonexistent)" % p.id
-        p.destroy
+      Participation.where(condition, ids).each do |pa|
+        log "Destroy invalid participation %s (venue nonexistent)" % pa.id
+        pa.destroy
       end
 
     end
@@ -59,9 +59,9 @@ class Handyman
       log "-> Check participations for nonexistent users..."
       condition = "user_id NOT IN (?)"
       ids = User.pluck(:id)
-      Participation.where(condition, ids).each do |p|
-        log "Destroy invalid participation %s (user nonexistent)" % p.id
-        p.destroy
+      Participation.where(condition, ids).each do |pa|
+        log "Destroy invalid participation %s (user nonexistent)" % pa.id
+        pa.destroy
       end
     end
 
@@ -69,9 +69,9 @@ class Handyman
       log "-> Check participations for duplicates..."
       fields = [:user_id,:venue_id]
       query = Participation.select(fields).group(*fields).having("count(*) > 1")
-      query.each do |p|
-        conditions = { user_id: p.user_id,
-                       venue_id: p.venue_id }
+      query.each do |pa|
+        conditions = { user_id: pa.user_id,
+                       venue_id: pa.venue_id }
         log "Destroy duplicate entries for participation user %s" % conditions.inspect
         Participation.where(conditions).order('id ASC').offset(1).destroy_all
       end
