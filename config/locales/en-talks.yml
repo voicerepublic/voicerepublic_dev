@@ -7,6 +7,7 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      favorite: Favorite
       dryrun: "(This test talk is available for 24 hours.)"
       talk_queued_for_processing: Queued for processing, please stand by...
       noflash_close_popup: Close

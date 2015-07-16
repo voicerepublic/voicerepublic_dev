@@ -43,8 +43,7 @@
               %a(class="link-remember"
                  data-reveal-id="modal-login-signup"
                  ng-show='userIsAListener()')
-                %span.icon-plus
-                %span.link-text= t('.remember')
+                %span.icon-star-empty{ title: t('.favorite') }
             - else
               %span#favorite
                 - if @reminder
