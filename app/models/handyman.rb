@@ -4,7 +4,7 @@
 # omelette. When done the Handyman reports to the system channel on
 # Slack.
 #
-# Run all stretegies (this is a good idea)
+# Run all strategies (this is generally a good idea)
 #
 #     rails r Handyman.call
 #
