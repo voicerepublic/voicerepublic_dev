@@ -33,7 +33,7 @@ every 60.minutes, :roles => [:app] do
 end
 
 every 60.minutes, :roles => [:app] do
-  rake "cleanup:check_validity"
+  rake "validity:check"
 end
 
 every 3.hours, roles: [:app] do
