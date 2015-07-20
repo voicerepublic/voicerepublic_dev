@@ -9,7 +9,7 @@
 class PenaltyTool
 
   class << self
-    def run(talk, limit=5, min_steps=10)
+    def run(talk, limit=6, min_steps=10)
 
       puts 'Conducting binary search to find appropriate penalty.'
       puts
