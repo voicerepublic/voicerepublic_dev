@@ -282,6 +282,12 @@ class Handyman
       end
     end
 
+    def user_flag_paying
+      log "-> Set flag paying on paying users."
+      sql = 'UPDATE users SET paying = TRUE WHERE purchases_count > 0'
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     private
 
     def log(msg)
