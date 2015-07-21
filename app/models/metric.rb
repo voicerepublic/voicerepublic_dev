@@ -65,7 +65,7 @@ class Metric < ActiveRecord::Base
     end
 
     def paying_users_total
-      User.where("purchases_count > 0").count
+      User.where(paying: true).count
     end
 
     # Series (aka. Venues)
