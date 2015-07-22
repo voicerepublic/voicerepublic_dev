@@ -250,7 +250,7 @@ class Talk < ActiveRecord::Base
   end
 
   def slides_path
-    return nil if slides_uuid.nil?
+    return nil if slides_uuid.blank?
     return nil if slides_uuid.match /^https?:\/\//
 
     slides_storage.files.new(key: slides_uuid).url(10.minutes.from_now)
