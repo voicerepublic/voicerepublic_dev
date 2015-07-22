@@ -39,8 +39,7 @@
           .bc-delimiter >
 
           .links-box
-            %a(class          = 'button-embed'
-               data-reveal-id = "modal-embed"
+            %a(data-reveal-id = "modal-embed"
                data-ga-event  = "click talk embedtop talk:#{@talk.id}")
               %span.icon-code{ title: t('.embed_player') }
             #modal-embed.reveal-modal.text-center(data-reveal)
