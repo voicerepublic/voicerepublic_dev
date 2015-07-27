@@ -77,6 +77,11 @@ class User < ActiveRecord::Base
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :summary, length: { maximum: 255 }
   validates :slug, presence: true
+
+  validates :slug, length: { minimum: 5 }
+  validates :slug, format: { with: /\A[\w-]+\z/,
+                             message: I18n.t('validation.bad_chars_in_slug') }
+
   validates_acceptance_of :accept_terms_of_use
   # TODO check if this works, especcialy the allow_nil, and does allow_nil make sense?
   validates :timezone, inclusion: { in: ActiveSupport::TimeZone.zones_map.keys },

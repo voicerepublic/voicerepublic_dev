@@ -6,6 +6,11 @@ en:
         format: Please provide the format purely for informational purposes.
         description: |
           This field <a target='_blank' href='/support/markdown'>supports Markdown</a>.
+      user:
+        slug: |
+          Changing the username will invalidate all references to your
+          profile from other sites and make you lose all the search
+          engine fu you might have gathered.
     labels:
       talk:
         venue: Series
@@ -17,4 +22,7 @@ en:
       user:
         conference: I will be streaming a conference.
         accept_terms_of_use: |
-          I accept the <a href='http://blog.voicerepublic.com/legal/terms-of-use/' target='_blank'>Terms of Use</a>.
+          I accept the <a
+          href='http://blog.voicerepublic.com/legal/terms-of-use/'
+          target='_blank'>Terms of Use</a>.
+        slug: Username
