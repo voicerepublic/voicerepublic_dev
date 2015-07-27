@@ -42,6 +42,14 @@ class Metric < ActiveRecord::Base
       100 / talks_total.to_f * talks_tagged_with_category_total
     end
 
+    def talks_with_slides_total
+      @talks_with_slides_total ||= Talk.where.not(slides_uuid: nil).count
+    end
+
+    def talks_with_slides_percent
+      (@talks_total / @talks_with_slides_total.to_f) * 100
+    end
+
     # Plays
     def plays_total
       @plays_total ||= Talk.archived.sum(:play_count)
@@ -143,7 +151,16 @@ class Metric < ActiveRecord::Base
       Metric.count
     end
 
-    private
+    # alternatively run, e.g. `s3cmd du s3://vr-live-media`
+    def storage_media
+      Talk.all.inject(0) do |total, talk|
+        total + talk.storage.inject(0) do |size, entry|
+          size + entry.last[:size]
+        end
+      end / (1024 ** 3).to_f
+    end
+
+   private
 
     def categories
       @categories ||= ActsAsTaggableOn::Tag.where(category: true)
