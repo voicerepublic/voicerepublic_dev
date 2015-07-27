@@ -64,3 +64,12 @@
     .row
       .medium-12.columns
         = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
+
+    .title-box.clearfix
+      %h2.form-title.left= t('.upload_slides')
+      = f.input :slides_uuid, as: :hidden
+      - if f.object.new_record? and f.object.slides_uuid?
+        .help-text.left= t('.upload_done')
+      - else
+        = render partial: 'shared/upload',
+                 locals: { f: f, ns: 'slides', init: init_slides_uploader }
