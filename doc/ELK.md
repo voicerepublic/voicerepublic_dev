@@ -19,8 +19,8 @@ For the ELK stack memory (RAM) is the limiting factor. 512 MB is not
 enough! It will run to some extent, but it will be dead slow. I mean
 slow as in literaly minutes to even come up with the Web UI of Kibina.
 
-That said, the following setup has been tested with a 512 MB VM
-running Debian Wheezy, which I'll refer to as ELK.
+That said, the following setup has been tested with a 512 MB (and resp.
+1 GB) VM running Debian Wheezy, which I'll refer to as ELK.
 
 With Debian Wheezy comes RabbitMQ 2.8.4, which is too old (I wasn't
 able to cluster with this version). A more recent version can be
