@@ -114,8 +114,7 @@ Change config to only allow access from localhost
 
 Kibina doesn't come with an init scipt
 
-    wget --no-check-certificate -O /etc/init.d/kibana4 \
-      https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
+    wget --no-check-certificate -O /etc/init.d/kibana4 https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
     chmod a+x /etc/init.d/kibana4
     update-rc.d kibana4 defaults 96 9
     /etc/init.d/kibana4 start
