@@ -30,8 +30,7 @@ installed from rabbitmq.com directly, this will install version
 
 ## Install RabbitMQ
 
-    echo 'deb http://www.rabbitmq.com/debian/ testing main' \
-      > /etc/apt/sources.list.d/rabbitmq.list
+    echo 'deb http://www.rabbitmq.com/debian/ testing main' > /etc/apt/sources.list.d/rabbitmq.list
     wget -O - http://www.rabbitmq.com/rabbitmq-signing-key-public.asc | apt-key add -
     aptitude update
     aptitude install -y rabbitmq-server
