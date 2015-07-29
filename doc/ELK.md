@@ -27,6 +27,10 @@ able to cluster with this version). A more recent version can be
 installed from rabbitmq.com directly, this will install version
 3.5.4. This is the path we're going here.
 
+And please save yourself some headache by setting a proper hostname
+BEFORE installing RabbitMQ.
+
+    hostname <your-hostname-here>
 
 ## Install RabbitMQ
 
@@ -38,7 +42,7 @@ installed from rabbitmq.com directly, this will install version
 Install the management web ui
 
     rabbitmq-plugins enable rabbitmq_management
-    service rabbitmq-server restart
+    /etc/init.d/rabbitmq-server restart
 
 
 ## Join RabbitMQ Cluster
@@ -65,9 +69,9 @@ It SHOULD be
 Set the erlang cookie from above
 
     ERLANG_COOKIE=JGRBISALEEAKRXKQFYFR
-    service rabbitmq-server stop
+    /etc/init.d/rabbitmq-server stop
     echo -n $ERLANG_COOKIE > /var/lib/rabbitmq/.erlang.cookie
-    service rabbitmq-server start
+    /etc/init.d/rabbitmq-server start
 
 Add host entries for the machines you want to cluster, e.g.
 
@@ -91,6 +95,7 @@ Install JRE & JDK 8
     echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/webupd8team-java.list
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
     aptitude update
+    echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | /usr/bin/debconf-set-selections
     aptitude install oracle-java8-installer
 
 
@@ -98,7 +103,7 @@ Install JRE & JDK 8
 
 Fetch and unpack
 
-    wget -O /tmp/kibana.tar.gz https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz
+    wget --no-check-certificate -O /tmp/kibana.tar.gz https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz
     mkdir -p /opt/kibana
     tar xvf /tmp/kibana.tar.gz --strip-components=1 -C /opt/kibana
     rm /tmp/kibana.tar.gz
@@ -109,23 +114,23 @@ Change config to only allow access from localhost
 
 Kibina doesn't come with an init scipt
 
-    wget -O /etc/init.d/kibana4 \
+    wget --no-check-certificate -O /etc/init.d/kibana4 \
       https://gist.githubusercontent.com/thisismitch/8b15ac909aed214ad04a/raw/bce61d85643c2dcdfbc2728c55a41dab444dca20/kibana4
     chmod a+x /etc/init.d/kibana4
     update-rc.d kibana4 defaults 96 9
-    service kibana4 start
+    /etc/init.d/kibana4 start
 
 
 ## Install & Setup Elasticsearch
 
-    wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.deb
+    wget --no-check-certificate https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.deb
     dpkg -i elasticsearch-1.7.0.deb
-    service elasticsearch start
+    /etc/init.d/elasticsearch start
 
 
 ## Install & Setup Logstash
 
-    wget https://download.elastic.co/logstash/logstash/packages/debian/logstash_1.5.3-1_all.deb
+    wget --no-check-certificate https://download.elastic.co/logstash/logstash/packages/debian/logstash_1.5.3-1_all.deb
     dpkg -i logstash_1.5.3-1_all.deb
 
 Confiugre Logstash: This is what worked for me, but I guess in
@@ -150,7 +155,7 @@ EOF
 
 Now start Logstash
 
-    service logstash start
+    /etc/init.d/logstash start
 
 And your done!
 
@@ -161,10 +166,16 @@ And your done!
 
     tail -f /var/log/logstash/*
 
+### Troubleshoot RabbitMQ Clustering
+
+    dpkg -l rabbitmq-server
+    cat /var/lib/rabbitmq/.erlang.cookie
+
+    epmd -kill
+
 ### Troubleshoot Logstash
 
-
-    service logstash stop
+    /etc/init.d/logstash stop
 
     /opt/logstash/bin/logstash -e \
       "input { rabbitmq { host => 'localhost' exchange => 'metrics' } }"
@@ -184,7 +195,7 @@ Then browse http://localhost:9200
     htpasswd -c /etc/nginx/htpasswd.users kibanaadmin
     cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default-original
     # TODO ...
-    service nginx reload
+    /etc/init.d/nginx reload
 
 ### SSH Portforwards (TODO)
 
@@ -200,3 +211,25 @@ Hence, in `~/.ssh/config` you will want to put someting like...
       Hostname 136.243.209.122
       LocalForward 5601 localhost:5601
       LocalForward 15675 localhost:15672
+
+
+
+
+
+root@host2:~# rabbitmqctl join_cluster rabbit@host1
+Clustering node rabbit@host2 with 'rabbit@host1' ...
+Error: unable to connect to nodes ['rabbit@host1']: nodedown
+
+DIAGNOSTICS
+===========
+
+attempted to contact: ['rabbit@host1']
+
+rabbit@host1:
+* connected to epmd (port 4369) on host1
+* node rabbit@host1 up, 'rabbit' application running
+
+current node details:
+- node name: 'rabbitmq-cli-6383@host2'
+- home dir: /var/lib/rabbitmq
+- cookie hash: 0Les7JLLB4Q5zX5hsDv0Yw==
