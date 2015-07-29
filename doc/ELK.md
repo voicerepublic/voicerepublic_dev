@@ -215,3 +215,16 @@ Hence, in `~/.ssh/config` you will want to put someting like...
 ### Htop
 
     aptitude install htop
+
+### Upgrade RabbitMQ on Debian
+
+    aptitude remove -y rabbitmq-server
+    echo 'deb http://www.rabbitmq.com/debian/ testing main'  > /etc/apt/sources.list.d/rabbitmq.list
+    wget -O - http://www.rabbitmq.com/rabbitmq-signing-key-public.asc | apt-key add -
+    aptitude update
+    aptitude install -y rabbitmq-server
+    rabbitmq-plugins enable rabbitmq_management
+    /etc/init.d/rabbitmq-server stop
+    ERLANG_COOKIE=JGRBISALEEAKRXKQFYFR
+    echo -n $ERLANG_COOKIE > /var/lib/rabbitmq/.erlang.cookie
+    /etc/init.d/rabbitmq-server start
