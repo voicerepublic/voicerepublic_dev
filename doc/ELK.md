@@ -66,7 +66,9 @@ It SHOULD be
 Set the erlang cookie from above
 
     ERLANG_COOKIE=JGRBISALEEAKRXKQFYFR
+    service rabbitmq-server stop
     echo -n $ERLANG_COOKIE > /var/lib/rabbitmq/.erlang.cookie
+    service rabbitmq-server start
 
 Add host entries for the machines you want to cluster, e.g.
 
