@@ -22,15 +22,18 @@ slow as in literaly minutes to even come up with the Web UI of Kibina.
 That said, the following setup has been tested with a 512 MB (and resp.
 1 GB) VM running Debian Wheezy, which I'll refer to as ELK.
 
+Provision a machine, but BEFORE you log in is a good time to setup
+port forwards, see SSH Portforwards in the Appendix.
+
+And once you logged in please save yourself some headache by setting a
+proper hostname BEFORE installing RabbitMQ.
+
+    hostname <your-hostname-here>
+
 With Debian Wheezy comes RabbitMQ 2.8.4, which is too old (I wasn't
 able to cluster with this version). A more recent version can be
 installed from rabbitmq.com directly, this will install version
 3.5.4. This is the path we're going here.
-
-And please save yourself some headache by setting a proper hostname
-BEFORE installing RabbitMQ.
-
-    hostname <your-hostname-here>
 
 ## Install RabbitMQ
 
@@ -73,7 +76,8 @@ Set the erlang cookie from above
     echo -n $ERLANG_COOKIE > /var/lib/rabbitmq/.erlang.cookie
     /etc/init.d/rabbitmq-server start
 
-Add host entries for the machines you want to cluster, e.g.
+Add host entries for all the machines you want to cluster with,
+e.g. (additionally these all need to have proper hostnames!)
 
     echo "136.243.52.230 voicerepublic-staging" >> /etc/hosts
     echo "136.243.52.231 voicerepublic-production" >> /etc/hosts
@@ -156,23 +160,20 @@ Now start Logstash
 
     /etc/init.d/logstash start
 
-And your done!
+And your done! Now browser to http://localhost
 
 
 ## Appendix
-
-### Logs
-
-    tail -f /var/log/logstash/*
 
 ### Troubleshoot RabbitMQ Clustering
 
     dpkg -l rabbitmq-server
     cat /var/lib/rabbitmq/.erlang.cookie
-
     epmd -kill
 
 ### Troubleshoot Logstash
+
+    tail -f /var/log/logstash/*
 
     /etc/init.d/logstash stop
 
@@ -211,24 +212,6 @@ Hence, in `~/.ssh/config` you will want to put someting like...
       LocalForward 5601 localhost:5601
       LocalForward 15675 localhost:15672
 
+### Htop
 
-
-
-
-root@host2:~# rabbitmqctl join_cluster rabbit@host1
-Clustering node rabbit@host2 with 'rabbit@host1' ...
-Error: unable to connect to nodes ['rabbit@host1']: nodedown
-
-DIAGNOSTICS
-===========
-
-attempted to contact: ['rabbit@host1']
-
-rabbit@host1:
-* connected to epmd (port 4369) on host1
-* node rabbit@host1 up, 'rabbit' application running
-
-current node details:
-- node name: 'rabbitmq-cli-6383@host2'
-- home dir: /var/lib/rabbitmq
-- cookie hash: 0Les7JLLB4Q5zX5hsDv0Yw==
+    aptitude install htop
