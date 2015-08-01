@@ -39,6 +39,17 @@
           .bc-delimiter >
 
           .links-box
+            %a(data-reveal-id = "modal-embed"
+               data-ga-event  = "click talk embedtop talk:#{@talk.id}")
+              %span.icon-code{ title: t('.embed_player') }
+            #modal-embed.reveal-modal.text-center(data-reveal)
+              %h3= t('.embed_this_talk')
+              %br/
+              %textarea
+                <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+              %span.embed-help-text= t('.copy_text')
+              %a.close-reveal-modal= raw '&#215;'
+
             - if !current_user
               %a(class="link-remember"
                  data-reveal-id="modal-login-signup"
@@ -82,21 +93,6 @@
             .small-12.columns
               .right
                 = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@talk.venue) }
-                = link_to '#',
-                  class: 'button-embed',
-                  title: t('.embed_player'),
-                  'data-reveal-id' => "modal-embed",
-                  'data-ga-event' => "click talk embed talk:#{@talk.id}" do
-                  = succeed t('.embed') do
-                    %span.icon-code
-                #modal-embed.reveal-modal.text-center(data-reveal)
-                  %h3= t('.embed_this_talk')
-                  %br/
-                  %textarea
-                    <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-                  %span.embed-help-text= t('.copy_text')
-                  %a.close-reveal-modal= raw '&#215;'
-
               .play-count.left
                 = t('.plays', count: @talk.play_count)
 
