@@ -231,13 +231,6 @@
           .unstarted-message
             = t('.unstarted_message')
 
-    .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
-      .large-12.columns
-        .more-talks-title-box.text-left
-          = link_to t('.more_talks'), @talk.venue
-        %ul.user-talks-slider.list-style-type-none
-          = render partial: 'shared/talk_small_box', collection: @related_talks, locals: { color: 'box-transparent'}
-
     .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
 
@@ -343,7 +336,6 @@
       -# DESCRIPTION
       #description.description-block
         .description-content(ng-class="{'collapse': descriptionCollapsed()}")
-          -#%h3= t('.description')
           .description-innerheight
             = @talk.description_as_html.html_safe
           %span.more-link(ng-show="descriptionCollapsable()" ng-click="toggleDescription()")
@@ -454,3 +446,11 @@
                 %h3
                   {{ numberOfListeners() }}
                   = t('.listeners')
+
+      -# RELATED TALKS
+      .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
+        .large-12.columns
+          .more-talks-title-box.text-left
+            = link_to t('.more_talks'), @talk.venue
+          %ul.user-talks-slider.list-style-type-none
+            = render partial: 'shared/talk_small_box', collection: @related_talks, locals: { color: 'box-transparent'}
