@@ -353,6 +353,7 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_name=(name)
+    name = 'Default venue' if name.blank?
     self.venue = user.venues.find_or_create_by(name: name)
   end
 
