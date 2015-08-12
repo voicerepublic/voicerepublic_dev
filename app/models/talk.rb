@@ -164,6 +164,9 @@ class Talk < ActiveRecord::Base
 
   scope :nodryrun, -> { where(dryrun: false) }
 
+  scope :publicly_live, -> { nodryrun.live }
+  scope :publicly_prelive, -> { nodryrun.prelive }
+
   scope :featured, -> do
     nodryrun.prelive.
       where("featured_from < ?", Time.zone.now).

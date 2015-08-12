@@ -39,6 +39,17 @@
           .bc-delimiter >
 
           .links-box
+            %a(data-reveal-id = "modal-embed"
+               data-ga-event  = "click talk embedtop talk:#{@talk.id}")
+              %span.icon-code{ title: t('.embed_player') }
+            #modal-embed.reveal-modal.text-center(data-reveal)
+              %h3= t('.embed_this_talk')
+              %br/
+              %textarea
+                <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+              %span.embed-help-text= t('.copy_text')
+              %a.close-reveal-modal= raw '&#215;'
+
             - if !current_user
               %a(class="link-remember"
                  data-reveal-id="modal-login-signup"
@@ -82,21 +93,6 @@
             .small-12.columns
               .right
                 = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@talk.series) }
-                = link_to '#',
-                  class: 'button-embed',
-                  title: t('.embed_player'),
-                  'data-reveal-id' => "modal-embed",
-                  'data-ga-event' => "click talk embed talk:#{@talk.id}" do
-                  = succeed t('.embed') do
-                    %span.icon-code
-                #modal-embed.reveal-modal.text-center(data-reveal)
-                  %h3= t('.embed_this_talk')
-                  %br/
-                  %textarea
-                    <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
-                  %span.embed-help-text= t('.copy_text')
-                  %a.close-reveal-modal= raw '&#215;'
-
               .play-count.left
                 = t('.plays', count: @talk.play_count)
 
@@ -235,13 +231,6 @@
           .unstarted-message
             = t('.unstarted_message')
 
-    .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
-      .large-12.columns
-        .more-talks-title-box.text-left
-          = link_to t('.more_talks'), @talk.series
-        %ul.user-talks-slider.list-style-type-none
-          = render partial: 'shared/talk_small_box', collection: @related_talks, locals: { color: 'box-transparent'}
-
     .talk-participant-actions-box.row(ng-show='showParticipantActionsBox()')
       .large-12.columns.text-center
 
@@ -347,7 +336,6 @@
       -# DESCRIPTION
       #description.description-block
         .description-content(ng-class="{'collapse': descriptionCollapsed()}")
-          -#%h3= t('.description')
           .description-innerheight
             = @talk.description_as_html.html_safe
           %span.more-link(ng-show="descriptionCollapsable()" ng-click="toggleDescription()")
@@ -458,3 +446,11 @@
                 %h3
                   {{ numberOfListeners() }}
                   = t('.listeners')
+
+      -# RELATED TALKS
+      .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
+        .large-12.columns
+          .more-talks-title-box.text-left
+            = link_to t('.more_talks'), @talk.series
+          %ul.user-talks-slider.list-style-type-none
+            = render partial: 'shared/talk_small_box', collection: @related_talks, locals: { color: 'box-transparent'}

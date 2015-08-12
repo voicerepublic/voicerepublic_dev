@@ -42,6 +42,14 @@ class Metric < ActiveRecord::Base
       100 / talks_total.to_f * talks_tagged_with_category_total
     end
 
+    def talks_top_popularity
+      Talk.maximum(:popularity)
+    end
+
+    def talks_top_penalty
+      Talk.minimum(:penalty)
+    end
+
     # Plays
     def plays_total
       @plays_total ||= Talk.archived.sum(:play_count)
@@ -68,13 +76,21 @@ class Metric < ActiveRecord::Base
       User.where("purchases_count > 0").count
     end
 
-    # Series (aka. Series)
+    def users_top_penalty
+      Talk.minimum(:penalty)
+    end
+
+    # Series
     def series_total
       Series.count
     end
 
     def series_nondefault_total # FIXME
       Series.where('id NOT IN (?)', User.pluck(:default_series_id)).count
+    end
+
+    def series_top_penalty
+      Talk.minimum(:penalty)
     end
 
     # Tags, Taggings
