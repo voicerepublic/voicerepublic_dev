@@ -13,6 +13,11 @@ FactoryGirl.define do
     user
   end
 
+  factory :venue do
+    name "Some venue"
+    user
+  end
+
   sequence :email do |n|
     "hans#{n}@example.com"
   end
