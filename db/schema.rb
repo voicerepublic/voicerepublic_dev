@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625151506) do
+ActiveRecord::Schema.define(version: 20150811092229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,14 +108,14 @@ ActiveRecord::Schema.define(version: 20150625151506) do
   end
 
   create_table "participations", force: :cascade do |t|
-    t.integer  "venue_id"
+    t.integer  "series_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "participations", ["series_id"], name: "index_participations_on_series_id", using: :btree
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
-  add_index "participations", ["venue_id"], name: "index_participations_on_venue_id", using: :btree
 
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
@@ -153,6 +153,25 @@ ActiveRecord::Schema.define(version: 20150625151506) do
 
   add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
+
+  create_table "series", force: :cascade do |t|
+    t.text     "description"
+    t.string   "title",               limit: 255
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.string   "teaser",              limit: 255
+    t.integer  "user_id"
+    t.text     "options",                         default: "--- {}\n"
+    t.string   "image_uid",           limit: 255
+    t.string   "uri",                 limit: 255
+    t.string   "slug",                limit: 255
+    t.float    "penalty",                         default: 1.0
+    t.text     "description_as_html"
+  end
+
+  add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
+  add_index "series", ["uri"], name: "index_series_on_uri", using: :btree
+  add_index "series", ["user_id"], name: "index_series_on_user_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "key",        limit: 255
@@ -200,7 +219,7 @@ ActiveRecord::Schema.define(version: 20150625151506) do
 
   create_table "talks", force: :cascade do |t|
     t.string   "title",               limit: 255
-    t.integer  "venue_id"
+    t.integer  "series_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "ended_at"
@@ -234,7 +253,8 @@ ActiveRecord::Schema.define(version: 20150625151506) do
     t.boolean  "dryrun",                          default: false
     t.text     "social_links",                    default: "--- []"
     t.text     "listeners",                       default: "--- {}"
-    t.text     "description_as_html",             default: ""
+    t.string   "slides_uid"
+    t.text     "description_as_html"
     t.string   "slides_uuid"
   end
 
@@ -260,10 +280,10 @@ ActiveRecord::Schema.define(version: 20150625151506) do
   create_table "users", force: :cascade do |t|
     t.string   "firstname",              limit: 255
     t.string   "lastname",               limit: 255
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.string   "email",                  limit: 255, default: "",  null: false
-    t.string   "encrypted_password",     limit: 255, default: "",  null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -274,7 +294,7 @@ ActiveRecord::Schema.define(version: 20150625151506) do
     t.string   "last_sign_in_ip",        limit: 255
     t.string   "provider",               limit: 255
     t.string   "uid",                    limit: 255
-    t.text     "slug"
+    t.string   "slug"
     t.datetime "last_request_at"
     t.string   "image_file_name",        limit: 255
     t.string   "image_content_type",     limit: 255
@@ -287,7 +307,7 @@ ActiveRecord::Schema.define(version: 20150625151506) do
     t.string   "website",                limit: 255
     t.boolean  "conference"
     t.string   "authentication_token",   limit: 255
-    t.integer  "default_venue_id"
+    t.integer  "default_series_id"
     t.string   "summary",                limit: 255
     t.float    "penalty",                            default: 1.0
     t.string   "confirmation_token",     limit: 255
@@ -297,7 +317,8 @@ ActiveRecord::Schema.define(version: 20150625151506) do
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
-    t.text     "about_as_html",                      default: ""
+    t.text     "about_as_html"
+    t.boolean  "paying",                             default: false
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
@@ -306,24 +327,5 @@ ActiveRecord::Schema.define(version: 20150625151506) do
   add_index "users", ["purchases_count"], name: "index_users_on_purchases_count", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
-
-  create_table "venues", force: :cascade do |t|
-    t.text     "description"
-    t.string   "title",               limit: 255
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
-    t.string   "teaser",              limit: 255
-    t.integer  "user_id"
-    t.text     "options",                         default: "--- {}\n"
-    t.string   "image_uid",           limit: 255
-    t.string   "uri",                 limit: 255
-    t.string   "slug",                limit: 255
-    t.float    "penalty",                         default: 1.0
-    t.text     "description_as_html",             default: ""
-  end
-
-  add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree
-  add_index "venues", ["uri"], name: "index_venues_on_uri", using: :btree
-  add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
 end

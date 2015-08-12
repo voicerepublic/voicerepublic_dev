@@ -10,7 +10,7 @@
 # * created_at [datetime, not null] - creation time
 # * current_sign_in_at [datetime] - Devise Trackable module
 # * current_sign_in_ip [string] - Devise Trackable module
-# * default_venue_id [integer] - belongs to :default_venue
+# * default_series_id [integer] - belongs to :default_series
 # * email [string, default="", not null]
 # * encrypted_password [string, default="", not null] - Devise encrypted password
 # * firstname [string] - TODO: document me
@@ -49,16 +49,16 @@ class User < ActiveRecord::Base
   # we might end up with half of a dialog.
   has_many :messages, dependent: :destroy
 
-  has_many :venues, dependent: :destroy # as owner
-  has_many :talks, through: :venues
+  has_many :series, dependent: :destroy # as owner
+  has_many :talks, through: :series
   has_many :participations, dependent: :destroy
-  has_many :participating_venues, through: :participations, source: :venue
+  has_many :participating_series, through: :participations, source: :series
   has_many :reminders, dependent: :destroy
   # TODO clarify how to deal with deletions
   has_many :purchases, foreign_key: :owner_id, dependent: :nullify
   has_one :welcome_transaction, as: :source
 
-  belongs_to :default_venue, class_name: 'Venue', dependent: :destroy
+  belongs_to :default_series, class_name: 'Series', dependent: :destroy
 
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   # save the model. The reason is that the Devise confirmable_token
   # might be reset mid-transaction.
   before_save :set_about_as_html, if: :about_changed?
-  before_create :build_and_set_default_venue
+  before_create :build_and_set_default_series
   after_save :generate_flyers!, if: :generate_flyers?
 
   # for the same reason this has to happen in 2 steps
@@ -99,9 +99,9 @@ class User < ActiveRecord::Base
     using: { tsearch: { prefix: true } },
     ignoring: :accents
 
-  def build_and_set_default_venue
-    attrs = Settings.default_venue_defaults[I18n.locale].to_hash
-    build_default_venue(attrs.merge(user: self))
+  def build_and_set_default_series
+    attrs = Settings.default_series_defaults[I18n.locale].to_hash
+    build_default_series(attrs.merge(user: self))
   end
 
   def name
@@ -185,36 +185,34 @@ class User < ActiveRecord::Base
 
   # TODO check if `talks.reload` can be replaced with `talks(true)`
   def generate_flyers!
-    venues.reload
+    series.reload
     talks.reload.each do |talk|
       Delayed::Job.enqueue GenerateFlyer.new(id: talk.id), queue: 'audio'
     end
   end
 
-  # TODO rewrite this as `has_many :venues_without_default, conditions: ...`
-  def venues_without_default
-    venues.where.not(id: default_venue_id)
+  # TODO rewrite this as `has_many :series_without_default, conditions: ...`
+  def series_without_default
+    series.where.not(id: default_series_id)
   end
 
   def set_penalty!(penalty, deep=true)
     self.penalty = penalty
     save!
     return unless deep
-    venues.each { |venue| venue.set_penalty!(penalty) }
+    series.each { |series| series.set_penalty!(penalty) }
   end
 
   def is_pro?
     purchases.count > 0
   end
 
-  # venues might at some point be renamed to series
+  # series might at some point be renamed to series
   # hence it might be a good idea to call this method
   # differently
   def list_of_series
-    venues.inject({}) { |h, v| h.merge v.id => v.title }
+    series.inject({}) { |h, v| h.merge v.id => v.title }
   end
-  # for now we can use an alias
-  alias_method :series, :list_of_series
 
   private
 

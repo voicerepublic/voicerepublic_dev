@@ -172,9 +172,9 @@ describe "Talks as logged in user" do
       it "sets correct state for host" do
         skip RSpec::RACECOND
         @talk = FactoryGirl.create(:talk)
-        venue = @talk.venue
-        venue.user = @user
-        venue.save!
+        series = @talk.series
+        series.user = @user
+        series.save!
 
         @talk.update_attribute :state, :live
         visit talk_path(@talk)
@@ -193,9 +193,9 @@ describe "Talks as logged in user" do
                                    starts_at_time: 5.minutes.from_now.strftime("%H:%M"),
                                    starts_at_date: Date.today,
                                    duration: 30)
-        venue = @talk.venue
-        venue.user = @user
-        venue.save!
+        series = @talk.series
+        series.user = @user
+        series.save!
 
         Timecop.travel(5.minutes.from_now)
         visit talk_path(@talk)
@@ -238,12 +238,6 @@ describe "Talks as logged in user" do
         expect(page).to have_content('Explore')
       end
 
-      it 'shows explore in venue_talk_path' do
-        visit venue_talk_path(@talk.venue, @talk)
-        expect(page).to have_selector('.explore-link')
-        expect(page).to have_content('Explore')
-      end
-
       it 'shows explore in user_path' do
         visit user_path(@user)
         expect(page).to have_selector('.explore-link')
@@ -278,14 +272,14 @@ describe "Talks as logged in user" do
   describe "Talk#new" do
     it 'has default time and date' do
       skip 'this feature has been disabled for the moment'
-      FactoryGirl.create(:venue, user: @user)
+      FactoryGirl.create(:series, user: @user)
       visit new_talk_path
       # Time is being written in the frontend. Cannot use Timecop to mock that.
       expect(find('#talk_starts_at_date').value).to eq(Date.today.strftime "%Y-%m-%d")
       expect(find('#talk_starts_at_time').value).to eq(Time.now.strftime "%H:%M")
     end
     it 'creates a new talk', driver: :chrome do
-      FactoryGirl.create(:venue, user: @user)
+      FactoryGirl.create(:series, user: @user)
       visit new_talk_path
 
       fill_in :talk_title, with: 'spec talk title'
@@ -303,7 +297,7 @@ describe "Talks as logged in user" do
     end
 
     it 'shows validation errors', driver: :chrome do
-      FactoryGirl.create(:venue, user: @user)
+      FactoryGirl.create(:series, user: @user)
       visit new_talk_path
 
       fill_in 'talk_starts_at_date', with: ''
@@ -325,9 +319,9 @@ describe "Talks as logged in user" do
       end
       it "it works live" do
         skip "Close to working, see comments"
-        @venue = FactoryGirl.create :venue
-        @talk = FactoryGirl.create :talk, venue: @venue
-        visit venue_talk_path @venue, @talk
+        @series = FactoryGirl.create :series
+        @talk = FactoryGirl.create :talk, series: @series
+        visit series_talk_path @series, @talk
         find(".participate-button-box a").click
         find(".chat-input-box input").set("my message")
         find(".chat-input-box input").native.send_keys(:return)
@@ -341,8 +335,8 @@ describe "Talks as logged in user" do
       end
       it "it works with reload" do
         skip "fails on circleci" if ENV['CIRCLECI']
-        @venue = FactoryGirl.create :venue
-        @talk = FactoryGirl.create :talk, venue: @venue
+        @series = FactoryGirl.create :series
+        @talk = FactoryGirl.create :talk, series: @series
         visit talk_path @talk
         visit talk_path @talk
         find(".chat-input-box input").set("my message")
@@ -360,11 +354,11 @@ describe "Talks as logged in user" do
   describe "Active tab", js: true do
     it 'has no tab and contents in chat' do
       skip "really weird ActionController::RoutingError 3/4"
-      @venue = FactoryGirl.create :venue
-      @venue.options[:suppress_chat] = true
-      @venue.save!
-      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
-      visit venue_talk_path @venue, @talk
+      @series = FactoryGirl.create :series
+      @series.options[:suppress_chat] = true
+      @series.save!
+      @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
+      visit series_talk_path @series, @talk
       expect(page.evaluate_script(
         '$("a[href=#discussion]").parent().hasClass("active")
           ')).not_to be(true)
@@ -374,9 +368,9 @@ describe "Talks as logged in user" do
     end
     it 'shows chat active by default' do
       skip "really weird ActionController::RoutingError 4/4"
-      @venue = FactoryGirl.create :venue
-      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
-      visit venue_talk_path @venue, @talk
+      @series = FactoryGirl.create :series
+      @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
+      visit series_talk_path @series, @talk
       expect(page.evaluate_script(
         '$("a[href=#discussion]").parent().hasClass("active")'
       )).to be(true)
@@ -385,8 +379,8 @@ describe "Talks as logged in user" do
 
   describe "Social Sharing" do
     before do
-      @venue = FactoryGirl.create :venue
-      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+      @series = FactoryGirl.create :series
+      @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
     end
     # FIXME sometimes failing spec
     #
@@ -397,7 +391,7 @@ describe "Talks as logged in user" do
     it "can be shared to social networks and saves statistics", driver: :chrome do
       skip "T H I S   S P E C   F A I L S   O N   C I"
       expect(SocialShare.count).to eq(0)
-      visit venue_talk_path 'en', @venue, @talk
+      visit series_talk_path 'en', @series, @talk
       page.execute_script('$("#social_share .facebook").click()')
       sleep 0.2
 
@@ -442,7 +436,7 @@ describe "Talks as logged in user" do
     end
 
     it 'shows the next coming up talk if there is one' do
-      @talk.venue.talks << FactoryGirl.create(:talk)
+      @talk.series.talks << FactoryGirl.create(:talk)
       visit talk_path(@talk)
       expect(page).to have_content(I18n.t('talks.show.next_talk'))
     end
@@ -450,14 +444,14 @@ describe "Talks as logged in user" do
 
   describe "validation" do
     before do
-      @venue = FactoryGirl.create :venue
-      @talk = FactoryGirl.create :talk, venue: @venue, tag_list: "test, foo, bar"
+      @series = FactoryGirl.create :series
+      @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
     end
 
     # FIXME sometimes failing spec (BT see above)
     it "does not lose tags on failed validation", js: true do
       skip "T H I S   S P E C   F A I L S   F A I R L Y   R E G U L A R"
-      visit edit_venue_talk_path 'en', @venue, @talk
+      visit edit_series_talk_path 'en', @series, @talk
       fill_in :talk_title, with: ""
       click_on I18n.t 'helpers.submit.submit'
       expect(page).to have_content "Please review the problems below"
@@ -482,7 +476,7 @@ describe "Talks as logged in user" do
     end
     skip 'reroutes old nested urls' do
       talk = FactoryGirl.create(:talk)
-      visit venue_talk_path(talk.venue, talk)
+      visit series_talk_path(talk.series, talk)
       save_and_open_page
       expect(page).to have_content(talk.title)
     end

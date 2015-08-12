@@ -127,7 +127,7 @@ feature "User can register" do
     describe "User already has talks" do
       scenario "Does not see a welcome page" do
         t = FactoryGirl.create :talk
-        t.venue.update_attribute :user, @user
+        t.series.update_attribute :user, @user
         login_user(@user)
         expect(page).not_to have_content("Welcome")
         expect(page).not_to have_content("Thank you for signing up")

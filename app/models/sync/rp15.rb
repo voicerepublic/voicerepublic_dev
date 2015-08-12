@@ -104,19 +104,19 @@ module Sync
 
           duration = (Time.parse(end_time) - Time.parse(start_time)) / 60
 
-          # update venue
-          venue_uri = "rp15-#{category.tr_s(' &', '-').downcase}"
-          venue = Venue.find_or_initialize_by(uri: venue_uri)
-          venue.title = category
-          venue.teaser = session.event_description.strip.truncate(STRING_LIMIT)
-          venue.description = session.event_description.strip.truncate(TEXT_LIMIT)
-          venue.tag_list = TAGS[category]
-          venue.user = user
-          venue.options = VENUE_OPTS
+          # update series
+          series_uri = "rp15-#{category.tr_s(' &', '-').downcase}"
+          series = Series.find_or_initialize_by(uri: series_uri)
+          series.title = category
+          series.teaser = session.event_description.strip.truncate(STRING_LIMIT)
+          series.description = session.event_description.strip.truncate(TEXT_LIMIT)
+          series.tag_list = TAGS[category]
+          series.user = user
+          series.options = VENUE_OPTS
 
-          self.changes << "#{venue_uri}: #{venue.changed * ', '}" if venue.changed?
-          metric = venue.persisted? ? :venues_updated : :venues_created
-          self.metrics[metric] += 1 if opts[:dryrun] || venue.save!
+          self.changes << "#{series_uri}: #{series.changed * ', '}" if series.changed?
+          metric = series.persisted? ? :series_updated : :series_created
+          self.metrics[metric] += 1 if opts[:dryrun] || series.save!
 
 
           # update talk
@@ -124,7 +124,7 @@ module Sync
           uris << talk_uri
           talk = Talk.find_or_initialize_by(uri: talk_uri)
           next unless talk.prelive? or talk.created?
-          talk.venue = venue
+          talk.series = series
           talk.title = session.title.strip.truncate(STRING_LIMIT)
           talk.teaser = session.description_short.strip.truncate(STRING_LIMIT)
           talk.description = ([ 'Room: ' + session.room.strip,
@@ -195,9 +195,9 @@ module Sync
       tmpl % [
         sessions.size,
         speakers.size,
-        metrics[:venues_created],
-        metrics[:venues_updated],
-        user.venues.count,
+        metrics[:series_created],
+        metrics[:series_updated],
+        user.series.count,
         metrics[:talks_created],
         metrics[:talks_updated],
         user.talks.count

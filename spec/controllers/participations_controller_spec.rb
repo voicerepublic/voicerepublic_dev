@@ -16,15 +16,15 @@ describe ParticipationsController do
     end
 
     describe 'POST create' do
-      before { @venue = FactoryGirl.create(:venue) }
+      before { @series = FactoryGirl.create(:series) }
       it 'leads actual users back to where they came from' do
-        post :create, { venue_id: @venue.id, participation: valid_attributes }
-        expect(response).to redirect_to(@venue)
+        post :create, { series_id: @series.id, participation: valid_attributes }
+        expect(response).to redirect_to(@series)
       end
       it 'creates a new Participation' do
-        @venue = FactoryGirl.create(:venue)
+        @series = FactoryGirl.create(:series)
         expect {
-          post :create, { venue_id: @venue.id, participation: valid_attributes }
+          post :create, { series_id: @series.id, participation: valid_attributes }
         }.to change(Participation, :count).by(1)
       end
     end
@@ -34,7 +34,7 @@ describe ParticipationsController do
         it 'destroys an existing Participation' do
           @participation = FactoryGirl.create(:participation, user: @user)
           params = {
-            venue_id: @participation.venue_id,
+            series_id: @participation.series_id,
             id: @participation.id
           }
           expect { delete :destroy, params }.to change(Participation, :count).by(-1)

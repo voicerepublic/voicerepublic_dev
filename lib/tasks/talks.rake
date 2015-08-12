@@ -13,7 +13,7 @@ namespace :talks do
       hours = ((talk.starts_at  - Time.now.in_time_zone) / 1.hour).round
 
       if [24, 3].include?(hours)
-        talk.venue.users.each do |user|
+        talk.series.users.each do |user|
           UserMailer.reminder(talk, user).deliver
         end
       end

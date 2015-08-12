@@ -36,11 +36,11 @@ describe Ability do
     it 'set for talks of others' do
       expect(anon).to be_able_to(:read, FactoryGirl.create(:talk))
     end
-    it 'set for venues' do
-      expect(anon).not_to be_able_to(:create, Venue)
+    it 'set for series' do
+      expect(anon).not_to be_able_to(:create, Series)
     end
-    it 'set for venues of others' do
-      expect(anon).to be_able_to(:read, FactoryGirl.create(:venue))
+    it 'set for series of others' do
+      expect(anon).to be_able_to(:read, FactoryGirl.create(:series))
     end
   end
 
@@ -59,16 +59,16 @@ describe Ability do
       end
     end
 
-    describe Venue do
-      let(:venue) { FactoryGirl.create(:venue, user: owner) }
-      it "allows to manage venues by owner" do
-        expect(owner_ability).to be_able_to(:manage, venue)
+    describe Series do
+      let(:series) { FactoryGirl.create(:series, user: owner) }
+      it "allows to manage series by owner" do
+        expect(owner_ability).to be_able_to(:manage, series)
       end
-      it "denies to manage venues by other" do
-        expect(other_ability).not_to be_able_to(:manage, venue)
+      it "denies to manage series by other" do
+        expect(other_ability).not_to be_able_to(:manage, series)
       end
-      it "allows to create venues as registered user" do
-        expect(owner_ability).to be_able_to(:create, Venue)
+      it "allows to create series as registered user" do
+        expect(owner_ability).to be_able_to(:create, Series)
       end
     end
 
@@ -83,8 +83,8 @@ describe Ability do
     end
 
     describe Talk do
-      let(:venue) { FactoryGirl.create(:venue, user: owner) }
-      let(:talk) { FactoryGirl.create(:talk, venue: venue) }
+      let(:series) { FactoryGirl.create(:series, user: owner) }
+      let(:talk) { FactoryGirl.create(:talk, series: series) }
       it "allows to manage one's own talks" do
         expect(owner_ability).to be_able_to(:manage, talk)
       end

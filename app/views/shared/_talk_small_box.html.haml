@@ -6,9 +6,9 @@
       = link_to talk.user, class: 'left' do
         %span.icon-person
         %span.link-text= talk.user.name
-      = link_to talk.venue, class: 'right' do
+      = link_to talk.series, class: 'right' do
         %span.icon-ellipsis
-        %span.link-text= talk.venue.title
+        %span.link-text= talk.series.title
     = link_to talk do
       .top-image(style="background-image: url(#{talk.image.thumb('400x200#nw').url})")
       .text-box

@@ -7,7 +7,7 @@ module TalksHelper
       title:    @talk.title,
       image:    "https://#{request.host}#{@talk.flyer.path}",
       keywords: @talk.try(:tag_list),
-      author:   @talk.speakers || @talk.venue.user.name,
+      author:   @talk.speakers || @talk.series.user.name,
       url:      talk_url(@talk),
       player: {
         embed: true,

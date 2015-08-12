@@ -24,19 +24,19 @@ class Ability
 
     can    :manage, Reminder, user_id: user.id
 
-    can    :manage, Talk, venue: { user_id: user.id }
+    can    :manage, Talk, series: { user_id: user.id }
     cannot :create, Talk
     can    :create, Talk, dryrun: true
     if user.credits > 0
-      can    :create, Talk, venue: { user_id: user.id }
-      # this is covered by default_venue, but it should probably go into
+      can    :create, Talk, series: { user_id: user.id }
+      # this is covered by default_series, but it should probably go into
       # the controller before the authorization
-      can    :create, Talk, venue_id: nil
+      can    :create, Talk, series_id: nil
     end
 
     can    :manage, User, id: user.id
 
-    can    :manage, Venue, user_id: user.id
+    can    :manage, Series, user_id: user.id
 
   end
 end

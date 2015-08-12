@@ -3,13 +3,13 @@
 # * created_at [datetime, not null] - creation time
 # * updated_at [datetime, not null] - last update time
 # * user_id [integer] - belongs to :user
-# * venue_id [integer] - belongs to :venue
+# * series_id [integer] - belongs to :series
 class Participation < ActiveRecord::Base
 
-  belongs_to :venue
+  belongs_to :series
   belongs_to :user
 
-  validates_uniqueness_of :venue_id, scope: :user_id
-  validates :venue, :user, presence: true
+  validates_uniqueness_of :series_id, scope: :user_id
+  validates :series, :user, presence: true
 
 end

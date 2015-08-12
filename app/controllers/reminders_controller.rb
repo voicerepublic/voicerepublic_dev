@@ -10,10 +10,10 @@ class RemindersController < BaseController
   end
 
   # POST /talks/:talk_id/reminders
-  # POST /talks/:venue_id/reminders
+  # POST /talks/:series_id/reminders
   def create
     rememberable ||= Talk.find(params[:talk_id])
-    rememberable ||= Venue.find(params[:venue_id])
+    rememberable ||= Series.find(params[:series_id])
     rememberable ||= User.find(params[:user_id])
     raise "Cannot find Rememberable with #{params.inspect}" if rememberable.nil?
 

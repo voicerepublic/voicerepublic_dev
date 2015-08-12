@@ -36,7 +36,7 @@
  @import "shared/talk_medium_box";
  @import "shared/talk_small_box";
  @import "shared/talk_live_box";
- @import "shared/venue_medium_box";
+ @import "shared/series_medium_box";
  @import "shared/user_medium_box";
  @import "shared/vr_player";
  @import "shared/avatar";
@@ -53,7 +53,7 @@
 // RAILS STRUCTURE
  @import "landing_page";
  @import "users";
- @import "venues";
+ @import "series";
  @import "talks";
  @import "explore";
  @import "search";

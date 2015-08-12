@@ -33,7 +33,7 @@ class TalksController < BaseController
   # GET /talks/new
   def new
     attrs = params[:talk] ? talk_params : {}
-    attrs[:venue_id] ||= current_user.default_venue_id
+    attrs[:series_id] ||= current_user.default_series_id
     @talk = Talk.new(attrs)
 
     # set random default values for test talks
@@ -57,9 +57,9 @@ class TalksController < BaseController
   def create
     @talk = Talk.new(talk_params)
 
-    # TODO explain, doesn't that mean i can steal someone's venue by
+    # TODO explain, doesn't that mean i can steal someone's series by
     # creating a talk?
-    @talk.venue_user = current_user
+    @talk.series_user = current_user
 
     authorize! :create, @talk
 
@@ -74,9 +74,9 @@ class TalksController < BaseController
   def update
 
     # TODO same concern here, see above
-    # set venue_user to be able to create series on the fly while
+    # set series_user to be able to create series on the fly while
     # updating talks
-    @talk.venue_user = current_user
+    @talk.series_user = current_user
 
     authorize! :update, @talk
     if @talk.update(talk_params)
@@ -107,7 +107,7 @@ class TalksController < BaseController
                                  :starts_at_time, :duration,
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
-                                 :format, :new_venue_title, :venue_id,
+                                 :format, :new_series_title, :series_id,
                                  :user_override_uuid, :dryrun)
   end
 

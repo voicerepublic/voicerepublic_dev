@@ -14,10 +14,10 @@
         -#%h3= t('.talk')
         %ul.list-style-type-none
           = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @best_hit }
-      - when Venue
+      - when Series
         -#%h3= t('.series')
         %ul.list-style-type-none
-          = render partial: "shared/venue_medium_box", locals: { venue_medium_box: @best_hit }
+          = render partial: "shared/series_medium_box", locals: { series_medium_box: @best_hit }
       - when User
         -#%h3= t('.user')
         %ul.list-style-type-none
@@ -37,10 +37,10 @@
       %h3= t('.talks')
       %ul.list-style-type-none
         = render partial: "shared/talk_medium_box", collection: @talks
-    - if @venues.any?
-      %h3= t('.venues')
+    - if @series.any?
+      %h3= t('.series')
       %ul.list-style-type-none
-        = render partial: "shared/venue_medium_box", collection: @venues
+        = render partial: "shared/series_medium_box", collection: @series
     - if @users.any?
       %h3= t('.users')
       %ul.medium-block-grid-6.small-block-grid-3

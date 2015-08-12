@@ -19,8 +19,8 @@ describe Xhr::SocialSharesController do
         allow(request.env['warden']).to receive_messages :authenticate! => @current_user
         allow(controller).to receive_messages current_user: @current_user
         @current_user.reload
-        venue = FactoryGirl.create(:venue, user: @current_user)
-        @talk = FactoryGirl.create(:talk, venue: venue)
+        series = FactoryGirl.create(:series, user: @current_user)
+        @talk = FactoryGirl.create(:talk, series: series)
       end
 
       it 'creates a social_share' do

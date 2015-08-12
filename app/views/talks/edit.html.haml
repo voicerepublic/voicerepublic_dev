@@ -1,7 +1,7 @@
 - content_for :title do
   = t('.title', title: @talk.title)
 
-= simple_form_for([@venue, @talk], url: nil,
+= simple_form_for([@series, @talk], url: nil,
   html: { 'ng-controller' => 'UploadCtrl',
           name: 'talkForm',
           novalidate: false},

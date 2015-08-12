@@ -1,14 +1,14 @@
-.venue-medium-box{
-  .link-venue{
+.series-medium-box{
+  .link-series{
     display: block;
-    .venue-title{
+    .series-title{
       font-size: rem-calc(30);
       line-height: 0.9;
       margin-bottom:5px;
       color: $color-black-title;
       @extend .ellipsis;
     }
-    .venue-teaser{
+    .series-teaser{
       font-family: $brand-font-light;
       font-size: rem-calc(18);
       color: $color-black-title;

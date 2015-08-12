@@ -4,7 +4,7 @@ namespaces = {
 }
 
 # https://support.google.com/webmasters/answer/183668
-total = Talk.count + Venue.count + User.count
+total = Talk.count + Series.count + User.count
 raise "Too many entries for sitemap." if total > 50_000
 
 # http://www.w3.org/TR/NOTE-datetime
@@ -26,16 +26,16 @@ xml.urlset(namespaces.merge(total: total)) do |urlset|
     end
   end
 
-  Venue.joins(:talks).find_each do |venue|
+  Series.joins(:talks).find_each do |series|
     urlset.url do |url|
-      url.loc "https://" + request.host + "/venues/" + venue.slug
+      url.loc "https://" + request.host + "/series/" + series.slug
       url.image(:image) do |image|
-        image.image(:loc, venue.image.url)
+        image.image(:loc, series.image.url)
       end
-      processed_at = venue.talks.pluck(:processed_at).compact.max
-      date = processed_at || venue.updated_at || venue.created_at
+      processed_at = series.talks.pluck(:processed_at).compact.max
+      date = processed_at || series.updated_at || series.created_at
       url.lastmod date.strftime(iso8601)
-      popularity = venue.talks.pluck(:popularity).max || 0
+      popularity = series.talks.pluck(:popularity).max || 0
       url.priority [popularity.round(1), 0.1].max
     end
   end

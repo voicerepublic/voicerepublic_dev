@@ -3,7 +3,7 @@
 #
 #  * app/views/landing_page/index.rss.builder
 #  * app/views/users/show.rss.builder
-#  * app/views/venues/show.rss.builder
+#  * app/views/series/show.rss.builder
 #
 # All channel level data is passed via the `podcast` object.
 #
@@ -90,13 +90,13 @@ xml.rss namespaces.merge(version: '2.0') do
 
         xml.itunes :subtitle, talk.teaser
         # TODO: Maybe we want to show the speakers here?
-        xml.itunes :author, talk.venue.user.name
+        xml.itunes :author, talk.series.user.name
         xml.itunes :duration, talk.podcast_file[:duration]
         xml.itunes :explicit, 'no'
         xml.itunes :image, href: talk.image.thumb('1400x1400#').url
         xml.pubDate talk.processed_at.try(:to_s, :rfc822)
-        xml.link venue_talk_url(talk.venue, talk)
-        xml.guid venue_talk_url(talk.venue, talk), isPermaLink: true
+        xml.link talk_url(talk)
+        xml.guid talk_url(talk), isPermaLink: true
         xml.enclosure url: vrmedia_url(talk),
                       type: "audio/mpeg",
                       length: talk.podcast_file[:size]

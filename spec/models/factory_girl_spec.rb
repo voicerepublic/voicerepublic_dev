@@ -2,10 +2,10 @@ require 'rails_helper'
 
 describe FactoryGirl do
 
-  exceptions = [:participant_basis, :venue]
+  exceptions = [:participant_basis, :series]
 
-  it "should have a valid factory for Venue" do
-    expect(FactoryGirl.create('venue')).to be_valid
+  it "should have a valid factory for Series" do
+    expect(FactoryGirl.create('series')).to be_valid
   end
 
   FactoryGirl.factories.each do |factory|

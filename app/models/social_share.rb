@@ -12,6 +12,6 @@ class SocialShare < ActiveRecord::Base
 
   belongs_to :shareable, polymorphic: true
 
-  validates :shareable_type, inclusion: %w(talk venue)
+  validates :shareable_type, inclusion: %w(talk series)
 
 end

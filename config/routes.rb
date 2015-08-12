@@ -53,7 +53,8 @@ Rails.application.routes.draw do
     talk ? "/talks/#{talk.to_param}" : '/404'
   end
   get  '/talk/:id', to: redirect(nested_talk)
-  get  '/venues/:venue_id/talks/:id', to: redirect(nested_talk), as: :venue_talk
+  # TODO delete this line
+  # get  '/venues/:venue_id/talks/:id', to: redirect(nested_talk), as: :venue_talk
 
   # --- THE ENTRIES ABOVE ARE CONSOLIDATED, THE ENTRIES BELOW ARE NOT ---
 
@@ -61,10 +62,11 @@ Rails.application.routes.draw do
     resources :reminders, only: [:create]
   end
 
-  resources :venues, except: :index do
+  resources :series, except: :index do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
   end
+  get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
 
   resources :reminders, only: [:show, :destroy]
 

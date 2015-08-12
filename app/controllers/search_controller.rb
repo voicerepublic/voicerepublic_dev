@@ -19,7 +19,7 @@ class SearchController < BaseController
     @best_hit = @rest.shift.searchable if @rest.present? and params[:page] == '1'
 
     @talks  = @rest.select { |s| s.searchable.is_a?(Talk) }.map(&:searchable)
-    @venues = @rest.select { |s| s.searchable.is_a?(Venue) }.map(&:searchable)
+    @series = @rest.select { |s| s.searchable.is_a?(Series) }.map(&:searchable)
     @users  = @rest.select { |s| s.searchable.is_a?(User) }.map(&:searchable)
 
     @talks_featured = Talk.featured.limit(5)

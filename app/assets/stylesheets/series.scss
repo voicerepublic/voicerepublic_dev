@@ -1,7 +1,7 @@
-.venues-new,
-.venues-create,
-.venues-update,
-.venues-edit{
+.series-new,
+.series-create,
+.series-update,
+.series-edit{
   .image-box{
     position: relative;
     width: 100%;
@@ -19,7 +19,7 @@
   }
 }
 
-.venues-show{
+.series-show{
   .link-delete{
     margin-top: 0;
   }
@@ -33,7 +33,7 @@
       display: inline-block;
       vertical-align: top;
     }
-    .venue-user{
+    .series-user{
       display: inline-block;
       font-size: rem-calc(19);
       color: $color-black-title;
@@ -78,7 +78,7 @@
 
   .title-box{
     padding: 15px 0 10px 0;
-    .venue-title{
+    .series-title{
       margin: 0;
       font-size: rem-calc(36);
       color: black;

@@ -7,8 +7,8 @@ namespace :fix do
                 storage
                 slugs
                 reminder
-                default_venues
-                orphaned_venues
+                default_series
+                orphaned_series
                 tag_taggings_count
                 user
                 user_summary ).map(&:to_sym)
@@ -17,7 +17,7 @@ namespace :fix do
   task talks: :environment do
     Talk.find_each do |t|
       unless t.valid?
-        if t.venue_id.nil?
+        if t.series_id.nil?
           t.destroy
         else
           t.tag_list = 'no_tag' if t.tag_list.blank?
@@ -52,12 +52,12 @@ namespace :fix do
     end
   end
 
-  desc 'create slugs for all venues and talks wihtout slug'
+  desc 'create slugs for all series and talks wihtout slug'
   task slugs: :environment do
-    venues = Venue.where(slug: nil)
-    venues.each_with_index do |venue, index|
-      puts "Venue #{index}/#{venues.size} #{venue.title}"
-      venue.save!
+    series = Series.where(slug: nil)
+    series.each_with_index do |series, index|
+      puts "Series #{index}/#{series.size} #{series.title}"
+      series.save!
     end
 
     talks = Talk.where(slug: nil)
@@ -74,15 +74,15 @@ namespace :fix do
     end
   end
 
-  desc 'create missing default_venues'
-  task default_venues: :environment do
-    conds = { default_venue_id: nil, guest: nil }
+  desc 'create missing default_series'
+  task default_series: :environment do
+    conds = { default_series_id: nil, guest: nil }
     total = User.where(conds).count
     counter = 0
     User.find_each(conditions: conds, batch_size: 100) do |user|
       counter += 1
-      puts "Create default venue for user #{counter}/#{total} #{user.name}"
-      user.create_and_set_default_venue!
+      puts "Create default series for user #{counter}/#{total} #{user.name}"
+      user.create_and_set_default_series!
     end
   end
 
@@ -128,18 +128,18 @@ namespace :fix do
     end
   end
 
-  desc 'destroy orphaned venues'
-  task orphaned_venues: :environment do
+  desc 'destroy orphaned series'
+  task orphaned_series: :environment do
     cond = 'user_id NOT IN (?)'
     ids = User.pluck(:id)
-    orphans = Venue.where(cond, ids)
+    orphans = Series.where(cond, ids)
     if orphans.count
-      puts "Deleting #{orphans.count} orphaned venues."
-      Venue.delete_all([cond, ids])
+      puts "Deleting #{orphans.count} orphaned series."
+      Series.delete_all([cond, ids])
     end
 
-    cond = "searchable_type = 'Venue' AND searchable_id NOT IN (?)"
-    ids = Venue.pluck(:id)
+    cond = "searchable_type = 'Series' AND searchable_id NOT IN (?)"
+    ids = Series.pluck(:id)
     docs = PgSearch::Document.where(cond, ids)
     if docs.count
       puts "Deleting #{docs.count} orphaned search docs."

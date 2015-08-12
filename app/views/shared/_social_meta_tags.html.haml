@@ -37,7 +37,7 @@
 
 // In case switching to og:type music.song will make sense in the future
 -#%meta{content: "#{_user_url}", property: "music:musician"}/
--#%meta{content: "#{_venue_url}", property: "music:album:url"}/
--#%meta{content: "#{@talk.venue.talks.pluck(:id).index(@talk.id)}", property: "music:album:track"}/
+-#%meta{content: "#{_series_url}", property: "music:album:url"}/
+-#%meta{content: "#{@talk.series.talks.pluck(:id).index(@talk.id)}", property: "music:album:track"}/
 -#%meta{content: "#{talk_url(@talk)}", property: "music:album:track"}/
 -#%meta{content: @talk.duration*60, property: "music:duration"}/
