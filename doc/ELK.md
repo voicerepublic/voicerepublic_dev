@@ -182,7 +182,7 @@ And your done! Now browser to http://localhost
 
 ### Elasticsearch plugins
 
-Check (Bigdesk Support Matrix)[https://github.com/lukas-vlcek/bigdesk#support-matrix]
+Check [Bigdesk Support Matrix](https://github.com/lukas-vlcek/bigdesk#support-matrix)
 
     /usr/share/elasticsearch/bin/plugin -install lukas-vlcek/bigdesk/2.4.0
     /usr/share/elasticsearch/bin/plugin -install mobz/elasticsearch-head
