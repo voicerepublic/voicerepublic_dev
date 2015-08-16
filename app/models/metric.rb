@@ -42,6 +42,14 @@ class Metric < ActiveRecord::Base
       100 / talks_total.to_f * talks_tagged_with_category_total
     end
 
+    def talks_top_popularity
+      Talk.maximum(:popularity)
+    end
+
+    def talks_top_penalty
+      Talk.minimum(:penalty)
+    end
+
     # Plays
     def plays_total
       @plays_total ||= Talk.archived.sum(:play_count)
@@ -68,6 +76,10 @@ class Metric < ActiveRecord::Base
       User.where(paying: true).count
     end
 
+    def users_top_penalty
+      Talk.minimum(:penalty)
+    end
+
     # Series (aka. Venues)
     def series_total
       Venue.count
@@ -75,6 +87,10 @@ class Metric < ActiveRecord::Base
 
     def series_nondefault_total # FIXME
       Venue.where('id NOT IN (?)', User.pluck(:default_venue_id)).count
+    end
+
+    def series_top_penalty
+      Talk.minimum(:penalty)
     end
 
     # Tags, Taggings

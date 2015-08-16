@@ -1,3 +1,6 @@
+The Vast List of Concerns for a Redesign
+========================================
+
 Cross Cutting Concerns
 ----------------------
 
@@ -16,6 +19,25 @@ Cross Cutting Concerns
 * Rails Asset Pipeline
 * Images via Dragonfly
 * Cross Browser Testing
+
+Questions
+---------
+
+* What should go into the user's navigation?
+  * view profile
+  * create new talk
+  * show listen later
+  * go premium
+  * new features
+  * log out
+  * help
+
+Notes
+-----
+
+* SignUp (steal some ideas from facebook)
+  * double-check email rather than facebook
+  * no checkbox for accept terms, only a text instead
 
 
 Sitemap

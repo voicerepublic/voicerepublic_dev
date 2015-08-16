@@ -288,6 +288,17 @@ class Handyman
       ActiveRecord::Base.connection.execute(sql)
     end
 
+    def talks_set_description_as_html
+      log "-> Check talks for missing description_as_html."
+      query = Talk.where(description_as_html: nil).order(:id)
+      total = query.count
+      query.each_with_index do |talk, index|
+        log "%s/%s Fix desciption_as_html on talk %s." % [index, total, talk.id]
+        talk.send(:set_description_as_html)
+        talk.save
+      end
+    end
+
     private
 
     def log(msg)
