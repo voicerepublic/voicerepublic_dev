@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require 'rails_helper'
+include DjHelpers
 
 describe Talk do
 
@@ -199,20 +200,20 @@ describe Talk do
   end
 
   it 'nicely follows the life cycle' do
-    Delayed::Worker.delay_jobs = true # activate
-    VCR.use_cassette 'talk_dummy' do
-      talk = FactoryGirl.create(:talk)
-      expect(talk.current_state).to be(:prelive)
-      talk.start_talk!
-      expect(talk.current_state).to be(:live)
-      talk.end_talk!
-      expect(talk.current_state).to be(:postlive)
-      talk.process!
-      expect(talk.current_state).to be(:processing)
-      talk.archive!
-      expect(talk.current_state).to be(:archived)
+    with_dj_enabled do
+      VCR.use_cassette 'talk_dummy' do
+        talk = FactoryGirl.create(:talk)
+        expect(talk.current_state).to be(:prelive)
+        talk.start_talk!
+        expect(talk.current_state).to be(:live)
+        talk.end_talk!
+        expect(talk.current_state).to be(:postlive)
+        talk.process!
+        expect(talk.current_state).to be(:processing)
+        talk.archive!
+        expect(talk.current_state).to be(:archived)
+      end
     end
-    Delayed::Worker.delay_jobs = false # deactivate
   end
 
   # NOTE: times set in a factory are not affected by `Timecop.freeze`
@@ -403,16 +404,15 @@ describe Talk do
   end
 
   describe 'dryrun' do
-    include DjHelpers
     it 'automatically destroys the talk after a while' do
-      Delayed::Worker.delay_jobs = true
-      expect(Delayed::Job.count).to eq(0)
-      talk = FactoryGirl.create :talk, dryrun: true
+      with_dj_enabled do
+        expect(Delayed::Job.count).to eq(0)
+        talk = FactoryGirl.create :talk, dryrun: true
 
-      expect_scheduled_job_to_have_run_in_the_future
+        expect_scheduled_job_to_have_run_in_the_future
 
-      expect(Talk.where(id: talk.id)).to be_empty
-      Delayed::Worker.delay_jobs = false
+        expect(Talk.where(id: talk.id)).to be_empty
+      end
     end
   end
 
