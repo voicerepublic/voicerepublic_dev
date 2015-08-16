@@ -55,6 +55,7 @@ class Purchase < ActiveRecord::Base
                                                        currency: CURRENCY)
     raise response.params['message'] unless response.success?
     update_attribute(:purchased_at, Time.now) if response.success?
+    owner.update_attribute(:paying, true)
     create_purchase_transaction.process!
     PurchaseMailer.invoice(self).deliver_now
     PurchaseMessage.call(self)
