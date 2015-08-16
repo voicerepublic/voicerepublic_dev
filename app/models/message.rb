@@ -10,7 +10,7 @@ class Message < ActiveRecord::Base
   belongs_to :user
   belongs_to :talk
 
-  validates :user, :talk, presence: true
+  validates :talk, presence: true
 
   def as_text
     attrs = {
@@ -20,5 +20,5 @@ class Message < ActiveRecord::Base
     }
     I18n.t('messages.as_text', attrs)
   end
-  
+
 end
