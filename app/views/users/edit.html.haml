@@ -24,8 +24,14 @@
         .large-6.columns
           = f.input :lastname, placeholder: 'Last Name'
       .row
-        .large-12.columns
+        .large-6.columns
           = f.input :slug
+        .large-6.columns
+          = t('.slug_explanation1')
+          %ul
+            %li
+              voicerepublic.com/#{@user.slug}
+          = t('.slug_explanation2')
       .row
         .large-12.columns
           = f.input :email, placeholder: 'Email Address'

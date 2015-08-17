@@ -8,9 +8,7 @@ en:
           This field <a target='_blank' href='/support/markdown'>supports Markdown</a>.
       user:
         slug: |
-          Changing the username will invalidate all references to your
-          profile from other sites and make you lose all the search
-          engine fu you might have gathered.
+          Get <a target='_blank' href='/support/username'>help</a> in choosing a good username.
     labels:
       talk:
         venue: Series
