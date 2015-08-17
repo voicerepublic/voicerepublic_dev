@@ -151,15 +151,6 @@ class Metric < ActiveRecord::Base
       Metric.count
     end
 
-    # alternatively run, e.g. `s3cmd du s3://vr-live-media`
-    def storage_media
-      Talk.all.inject(0) do |total, talk|
-        total + talk.storage.inject(0) do |size, entry|
-          size + entry.last[:size]
-        end
-      end / (1024 ** 3).to_f
-    end
-
    private
 
     def categories
