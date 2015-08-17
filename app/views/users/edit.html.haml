@@ -14,9 +14,7 @@
 
         .large-9.medium-9.columns
           .user-summary
-            = f.label :summary do
-              = t('.short_description')
-            = f.text_area :summary
+            = f.input :summary, as: :text
       %br
       .row
         .large-6.columns
