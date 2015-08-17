@@ -18,7 +18,7 @@ class MetricsListener
   attr_accessor :bunny, :channel
 
   def initialize
-    self.bunny = Bunny.new read_timeout: 10, heartbeat: 10
+    self.bunny = Bunny.new read_timeout: 10, heartbeat: 10, hostname: 'voicerepublic.com'
     bunny.start
     self.channel = bunny.create_channel
   end
