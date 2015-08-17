@@ -9,4 +9,10 @@ module DjHelpers
     expect(failures).to eq(0)
   end
 
+  def with_dj_enabled
+    Delayed::Worker.delay_jobs = true #activate
+    yield
+    Delayed::Worker.delay_jobs = false # deactivate
+  end
+
 end
