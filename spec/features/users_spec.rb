@@ -42,6 +42,13 @@ feature "User edits own profile", js: true do
     expect(page).to have_css('#user_firstname')
   end
 
+  scenario "changing the slug/url" do
+    expect(current_url).to include("/#{@user.slug}")
+    page.fill_in 'user_slug', with: 'my_new_username'
+    click_on 'Save'
+    expect(current_url).to include("/my_new_username")
+  end
+
   scenario "setting a new password" do
     page.find("button[data-enable-fields*=change-password]").click
     sleep 0.1

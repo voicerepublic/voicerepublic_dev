@@ -1,4 +1,8 @@
 en:
+  validation:
+    bad_chars_in_slug: |
+      may only contain alphanumerical characters (letters and digits)
+      as well as as dash '-' and underscore '_'.
   flash:
     actions:
       create:
