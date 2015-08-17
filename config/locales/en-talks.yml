@@ -7,6 +7,7 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      favorite: Favorite
       dryrun: "(This test talk is available for 24 hours.)"
       talk_queued_for_processing: Queued for processing, please stand by...
       noflash_close_popup: Close
@@ -66,7 +67,6 @@ en:
       awaiting_to_speak: Awaiting to speak
       participating: Participating
       just_listening_in: Just listening in
-      remember: Listen later
       send_card: Send Card
       download_flyer: Download
       show_all_information: Show all information

@@ -3,15 +3,15 @@
 %br
 %br
 
-You've made a purchase from Voice Republic Media AG.
+%p You've made a purchase from Voice Republic Media AG.
 
-%ul
-  %li
-    %b Order number:
-    = [@purchase.owner.slug, @purchase.purchased_at.to_i] * '.'
-  %li
-    %b Order date:
-    = @purchase.purchased_at
+%p
+  %b Order number:
+  = [@purchase.owner.slug, @purchase.purchased_at.to_i] * '.'
+%p
+  %b Order date:
+  = @purchase.purchased_at
+
 
 - total = number_to_currency(@purchase.total/100, unit: Purchase::CURRENCY)
 
@@ -43,6 +43,8 @@ You've made a purchase from Voice Republic Media AG.
   %tr
     %th Payment method
     %td(style='text-align: right') Paypal Express Checkout
+
+%p CHE-339.033.868 MWST
 
 %br
 %br
