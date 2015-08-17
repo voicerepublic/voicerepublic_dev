@@ -88,12 +88,12 @@ describe "Talks as logged in user" do
       visit talk_path(@talk)
       expect {
         find(".icon-star-empty").click
-        page.should have_css(".icon-star-full")
       }.to change(Reminder, :count).by(1)
+      expect(page).to have_css(".icon-star-full")
       expect {
         find(".icon-star-full").click
-        page.should_not have_css(".icon-star-full")
       }.to change(Reminder, :count).by(-1)
+      expect(page).to_not have_css(".icon-star-full")
     end
   end
 
