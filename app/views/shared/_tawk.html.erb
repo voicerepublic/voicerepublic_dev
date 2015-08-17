@@ -2,7 +2,13 @@
 <script type="text/javascript">
 // Do not enable Tawk.to for mobile devices
 if(!Modernizr.touch) {
-  var $_Tawk_API={},$_Tawk_LoadStart=new Date();
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  <% if @current_user %>
+    Tawk_API.visitor = {
+      name  : '<%= @current_user.name %>',
+      email : '<%= @current_user.email %>'
+    };
+  <% end %>
   (function(){
   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
   s1.async=true;
