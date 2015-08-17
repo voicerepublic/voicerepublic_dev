@@ -14,15 +14,22 @@
 
         .large-9.medium-9.columns
           .user-summary
-            = f.label :summary do
-              = t('.short_description')
-            = f.text_area :summary
+            = f.input :summary, as: :text
       %br
       .row
         .large-6.columns
           = f.input :firstname, placeholder: 'First Name'
         .large-6.columns
           = f.input :lastname, placeholder: 'Last Name'
+      .row
+        .large-6.columns
+          = f.input :slug
+        .large-6.columns
+          = t('.slug_explanation1')
+          %ul
+            %li
+              voicerepublic.com/#{@user.slug}
+          = t('.slug_explanation2')
       .row
         .large-12.columns
           = f.input :email, placeholder: 'Email Address'

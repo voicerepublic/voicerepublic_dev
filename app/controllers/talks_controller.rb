@@ -108,7 +108,7 @@ class TalksController < BaseController
                                  :description, :collect, :image,
                                  :tag_list, :guest_list, :language,
                                  :format, :new_series_title, :series_id,
-                                 :user_override_uuid, :dryrun)
+                                 :user_override_uuid, :dryrun, :slides_uuid)
   end
 
 end

@@ -1,19 +1,20 @@
 class UsersController < BaseController
 
-  PERMITTED_ATTRS = [ :firstname,
-                      :lastname,
-                      :accept_terms_of_use,
-                      :email,
-                      :avatar,
-                      :header,
-                      :timezone,
-                      :website,
-                      :summary,
-                      :about,
-                      :password,
-                      :password_confirmation,
-                      :conference,
-                      :referrer ]
+  PERMITTED_ATTRS = %w( firstname
+                        lastname
+                        accept_terms_of_use
+                        slug
+                        email
+                        avatar
+                        header
+                        timezone
+                        website
+                        summary
+                        about
+                        password
+                        password_confirmation
+                        conference
+                        referrer )
 
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 

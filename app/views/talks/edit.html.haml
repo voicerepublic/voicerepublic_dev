@@ -1,15 +1,15 @@
 - content_for :title do
   = t('.title', title: @talk.title)
 
-= simple_form_for([@series, @talk], url: nil,
-  html: { 'ng-controller' => 'UploadCtrl',
-          name: 'talkForm',
-          novalidate: false},
-    input_html: { class: 'vr-form'}) do |f|
+- form_opts = { 'ng-controller' => 'FormController' }
+= simple_form_for(@talk, html: form_opts) do |f|
+
   = render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
 
   .form-save-row.row.collapsed
     .medium-12.columns
       = link_to t('.delete_talk'), @talk, delete_params
       = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right'
-      = f.button :submit, class: 'button-save right', 'ng-disabled' => '!talkForm.$valid'
+      = f.button :submit, class: 'button-save right',
+                          'ng-disabled' => '!valid()',
+                          'ng-click' => 'deactivateSafetynet()'

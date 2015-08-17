@@ -30,7 +30,7 @@ module Sync
                                  'Technology, Technologie'
     }
 
-    VENUE_OPTS = {
+    SERIES_OPTS = {
       no_email: true,
       no_auto_end_talk: true,
       start_button: true,
@@ -112,7 +112,7 @@ module Sync
           series.description = session.event_description.strip.truncate(TEXT_LIMIT)
           series.tag_list = TAGS[category]
           series.user = user
-          series.options = VENUE_OPTS
+          series.options = SERIES_OPTS
 
           self.changes << "#{series_uri}: #{series.changed * ', '}" if series.changed?
           metric = series.persisted? ? :series_updated : :series_created

@@ -254,7 +254,10 @@ class Talk < ActiveRecord::Base
   end
 
   def slides_path
-    "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
+    return nil if slides_uuid.blank?
+    return nil if slides_uuid.match /^https?:\/\//
+
+    slides_storage.files.new(key: slides_uuid).url(10.minutes.from_now)
   end
 
   # the message history is available as text file to the host
@@ -494,7 +497,8 @@ class Talk < ActiveRecord::Base
         # cp local files
         cmd = "cp #{url} #{tmp}"
         # use wget for real urls
-        cmd = "wget -q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
+        cmd = "wget --no-check-certificate " +
+              "-q '#{url}' -O #{tmp}" if url =~ /^https?:\/\//
         # fetch files from s3
         if url =~ /^s3:\/\//
           puts "Downloading %s to %s..." % [url, tmp]
@@ -648,6 +652,11 @@ class Talk < ActiveRecord::Base
       Storage.directories.new(key: Settings.storage.media, prefix: uri)
   end
 
+  def slides_storage
+    @slides_storage ||=
+      Storage.directories.new(key: Settings.storage.upload_slides)
+  end
+
   def logfile
     return @logfile unless @logfile.nil?
     path = File.expand_path(Settings.paths.log, Rails.root)
@@ -724,9 +733,24 @@ class Talk < ActiveRecord::Base
     File.expand_path(path_or_url, Rails.root)
   end
 
-
   def process_slides!
-    # TODO detach job, something like...
+    # if it is a url, pull it and push it to s3 bucket, replace field with name
+    if slides_uuid =~ /^https?:\/\//
+      tmp = "slides-#{id}.pdf"
+      cmd = "wget --no-check-certificate -q -O #{tmp} '#{slides_uuid}'"
+      %x[ #{cmd} ]
+      handle = File.open(tmp)
+      ctype = Mime::Type.lookup_by_extension('pdf')
+      logger.info "logger.info #{Settings.storage.upload_slides}"
+      puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, tmp]
+      file = slides_storage.files.create key: tmp, body: handle, content_type: ctype
+      puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, tmp]
+      update_attribute :slides_uuid, tmp
+      FileUtils.rm(tmp)
+    end
+    # if its a uuid nothing is to do
+
+    # TODO to convert detach a job, something like...
     # BUNNY.publish queue: 'process.slides', talk_id: id, slides: slides_uuid
   end
 
