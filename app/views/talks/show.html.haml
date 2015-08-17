@@ -46,11 +46,11 @@
                 %span.icon-plus
                 %span.link-text= t('.remember')
             - else
-              %span#pin
+              %span#favorite
                 - if @reminder
-                  = render partial: 'reminders/unpin'
+                  = render partial: 'reminders/unfavorite'
                 - else
-                  = render partial: 'reminders/pin', locals: { rememberable: @talk }
+                  = render partial: 'reminders/favorite', locals: { rememberable: @talk }
 
             = link_to '#', 'data-reveal-id' => "modal-flyer", class: "link-flyer", 'data-ga-event' => "click talk flyer talk:#{@talk.id}" do
               %span.icon-flyer
@@ -339,12 +339,11 @@
 
   .row.collapse-large-only
     .large-12.columns
-      - if @talk.slides_uuid
+      - if @talk.slides_path.present?
         .row.pdf-viewer(ng-show="talkIsArchived() || talkIsLive()")
           %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.1.js"
-            src="#{@talk.slides_path}"
-              height="480"
-              width="640")
+            src="#{@talk.slides_path}" width="640")
+
       -# DESCRIPTION
       #description.description-block
         .description-content(ng-class="{'collapse': descriptionCollapsed()}")

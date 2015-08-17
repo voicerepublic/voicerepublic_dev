@@ -6,12 +6,6 @@ describe Ability do
   describe 'as anon' do
     let(:anon) { Ability.new }
 
-    it 'set for comments' do
-      expect(anon).not_to be_able_to(:create, Comment)
-    end
-    it 'set for comments of others' do
-      expect(anon).to be_able_to(:read, FactoryGirl.create(:comment))
-    end
     it 'set for messages' do
       expect(anon).not_to be_able_to(:create, Message)
     end
@@ -75,16 +69,6 @@ describe Ability do
       end
       it "allows to create venues as registered user" do
         expect(owner_ability).to be_able_to(:create, Venue)
-      end
-    end
-
-    describe Comment do
-      let(:comment) { FactoryGirl.create(:comment, user: owner) }
-      it "allows to manage comments by owner" do
-        expect(owner_ability).to be_able_to(:manage, comment)
-      end
-      it "denies to manage comments by other" do
-        expect(other_ability).not_to be_able_to(:manage, comment)
       end
     end
 

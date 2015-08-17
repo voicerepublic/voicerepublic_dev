@@ -47,7 +47,6 @@ class User < ActiveRecord::Base
 
   # TODO discuss if destroing these makes sense
   # we might end up with half of a dialog.
-  has_many :comments, dependent: :destroy
   has_many :messages, dependent: :destroy
 
   has_many :venues, dependent: :destroy # as owner
@@ -111,21 +110,6 @@ class User < ActiveRecord::Base
 
   def email_with_name
     "#{name} <#{email}>"
-  end
-
-  # to be deleted after transition to markdown
-  def about_has_html?
-    return true if about.nil?
-    !!about.match(/<[a-z][\s\S]*>/)
-  end
-
-  # to be deleted after transition to markdown
-  def about_as_markdown
-    ReverseMarkdown.convert(about || '')
-  end
-
-  def about_as_plaintext
-    Nokogiri::HTML(about).text
   end
 
   class << self
@@ -235,7 +219,7 @@ class User < ActiveRecord::Base
   private
 
   def set_about_as_html
-    self.about_as_html = MARKDOWN.render(about)
+    self.about_as_html = MD2HTML.render(about)
   end
 
   def process_welcome_transaction

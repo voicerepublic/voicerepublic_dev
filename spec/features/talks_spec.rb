@@ -32,6 +32,12 @@ describe 'TalksController' do
 end
 
 describe "Talks as anonymous user" do
+  it 'renders' do
+    talk = FactoryGirl.create(:talk)
+    visit talk_path(talk)
+    expect(page).to have_selector(".talks-show")
+  end
+
   describe 'redirect to login/sign up', js: true do
     skip 'redirects to talk after login' do
       talk = FactoryGirl.create(:talk)
@@ -81,12 +87,12 @@ describe "Talks as logged in user" do
     it 'is pinnable and unpinnable', js: true do
       visit talk_path(@talk)
       expect {
-        click_on "Pin"
-        page.should have_content("Unpin")
+        find(".icon-star-empty").click
+        page.should have_css(".icon-star-full")
       }.to change(Reminder, :count).by(1)
       expect {
-        click_on "Unpin"
-        page.should_not have_content("Unpin")
+        find(".icon-star-full").click
+        page.should_not have_css(".icon-star-full")
       }.to change(Reminder, :count).by(-1)
     end
   end
@@ -481,6 +487,19 @@ describe "Talks as logged in user" do
       expect(page).to have_content(talk.title)
     end
   end
+end
 
-
+describe 'slides' do
+  it 'shows a pdf-viewer when there are slides attached' do
+    talk = FactoryGirl.create(:talk)
+    talk.update_attribute :slides_uuid, "some_url.pdf"
+    visit talk_path(talk)
+    expect(page).to have_selector("pdf-viewer")
+  end
+  it 'does not show a pdf-viewer when there are no slides attached' do
+    talk = FactoryGirl.create(:talk)
+    talk.update_attribute :slides_uuid, ""
+    visit talk_path(talk)
+    expect(page).to_not have_selector("pdf-viewer")
+  end
 end

@@ -27,7 +27,6 @@ class Venue < ActiveRecord::Base
   # TODO: rename to host
   belongs_to :user
 
-  has_many :comments, as: :commentable, dependent: :destroy
   has_many :talks, dependent: :destroy, inverse_of: :venue
 
   has_many :participations, dependent: :destroy
@@ -71,21 +70,6 @@ class Venue < ActiveRecord::Base
     OpenStruct.new(options)
   end
 
-  # to be deleted after transition to markdown
-  def description_has_html?
-    return true if description.nil?
-    !!description.match(/<[a-z][\s\S]*>/)
-  end
-
-  # to be deleted after transition to markdown
-  def description_as_markdown
-    ReverseMarkdown.convert(description || '')
-  end
-
-  def description_as_plaintext
-    Nokogiri::HTML(description).text
-  end
-
   def set_penalty!(penalty, deep=true)
     self.penalty = penalty
     save!
@@ -96,7 +80,7 @@ class Venue < ActiveRecord::Base
   private
 
   def set_description_as_html
-    self.description_as_html = MARKDOWN.render(description)
+    self.description_as_html = MD2HTML.render(description)
   end
 
   def set_defaults

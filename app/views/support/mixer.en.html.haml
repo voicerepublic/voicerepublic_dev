@@ -3,14 +3,14 @@
     .large-8.columns
       %span.breadcrumb
         %a{:href => "/support"}
-          = image_tag "icons/arrow-left.svg" 
+          = image_tag "icons/arrow-left.svg"
           Voice Republic Support
       %h1
         Streaming With A Mixer
   .row
     .large-6.columns
       %p.lead
-        This document outlines the technical requirements and basic setup for streaming a Live Talk in a setting that includes a mixer. 
+        This document outlines the technical requirements and basic setup for streaming a Live Talk in a setting that includes a mixer.
 .scroll-container{:role => "main"}
   .row
     .large-8.columns.left
@@ -34,16 +34,16 @@
                 %a{:href => "https://www.mozilla.org/en-US/firefox/new/", :target => "_blank"} Firefox
                 or
                 %a{:href => "https://www.google.com/chrome/browser/desktop/", :target => "_blank"} Chrome
-                browser with the latest version of 
+                browser with the latest version of
                 %a{:href => "https://get.adobe.com/flashplayer/", :target => "_blank"} Flash
-                installed.      
+                installed.
             %dd.accordion-navigation
               %a{:href => "#panel2b"}
                 = image_tag "support/network.svg"
                 2. Internet
                 %span.right
               #panel2b.content
-                A stable connection is needed throughout the Talk. Preferably a LAN connection with at least 50KB (kilobits per second) upload. Alternately, a wireless connection can be used. 
+                A stable connection is needed throughout the Talk. Preferably a LAN connection with at least 50KB (kilobits per second) upload. Alternately, a wireless connection can be used.
                 %br
                 %br
                 (Note: If you don't have an internet connection you can also record the talk and upload it to your Voice Republic account later for broadcast and archive.)
@@ -55,7 +55,7 @@
               #panel3b.content
                 For best results, use an external audio interface&mdash;connected to your computer&mdash;to receive the signal from the mixing board. For more information about the audio setup, refer to
                 %a{:href => "#configure"} Configuration
-                (below).  
+                (below).
             %dd.accordion-navigation
               %a{:href => "#panel4b"}
                 = image_tag "support/headphone.svg"
@@ -76,7 +76,7 @@
                   %li Monitor the upload quality of the live Talk
                   %li Monitor the sound quality of the live Talk
                   %li Ensure the backup recording is working
-                  %li Monitor and contribute to the discussion area of the Talk       
+                  %li Monitor and contribute to the discussion area of the Talk
             %dd.accordion-navigation
               %a{:href => "#panel6b"}
                 = image_tag "support/recording.svg"
@@ -85,16 +85,20 @@
                   (Recommended)
                 %span.right
               #panel6b.content
-                Use an additional application (i.e. Audacity) or an external device (i.e. a ZOOM) to make a live recording of the Talk which you can upload later should something go wrong with the stream.      
+                Use an additional application (i.e. Audacity) or an external device (i.e. a ZOOM) to make a live recording of the Talk which you can upload later should something go wrong with the stream.
 
 
-        
+
       .row.section
         %h2#configure.section-title{"data-magellan-destination" => "configure"}
           Professional Audio Configuration
         %hr/
         %p.section-subtitle.lead
           The recommended audio setup for a professional Talk looks like this:
+
+          %p
+            %iframe{:style => "margin-left:auto; margin-right:auto; display:block;", :allowfullscreen => "", :frameborder => "0", :height => "315", :src => "https://www.youtube.com/embed/IcwBCW35_JI", :width => "420"}
+
         = image_tag "support/signalflow/signalflow_recommended-wide.png",class:'outline visible-for-large-up'
         .small-12.columns{"data-equalizer" => "", "data-equalizer-mq" => "large-up"}
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -105,7 +109,7 @@
             %p
               Using a normal or wireless stage microphone.
 
-            
+
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
 
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -130,7 +134,7 @@
               Audio Interface
             %p
               The signal from the mixer is routed through a USB, Firewire, or Thunderbolt interface which communicates with your computer.
-              
+
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
         .small-12.columns{"data-equalizer" => ""}
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.legend{"data-equalizer-watch" => ""}
@@ -143,10 +147,10 @@
               %a{:href => "https://www.mozilla.org/en-US/firefox/new/", :target => "_blank"} Firefox
               or
               %a{:href => "https://www.google.com/chrome/browser/desktop/", :target => "_blank"} Chrome
-              browser with the latest version of 
+              browser with the latest version of
               %a{:href => "https://get.adobe.com/flashplayer/", :target => "_blank"} Flash
               installed, select your Audio Interface as the “Input Source” on the Voice Republic Audio Settings panel (on the Talk Page)
-              
+
             = image_tag "support/signalflow/signalflow-elements_arrow.png", class: 'hide-for-large-up'
           .small-8.small-offset-2.small-centered.large-4.large-offset-0.large-uncentered.columns.panel.end.legend{"data-equalizer-watch" => ""}
             = image_tag "support/signalflow/signalflow-elements_headphones.png", class: 'hide-for-large-up'
@@ -155,5 +159,5 @@
               Headphones
             %p
               Use headphones (connected to the interface) to check the audio quality of your Test Talk, as well as to monitor the audio quality during a Live Talk.
-          
-       
+
+
