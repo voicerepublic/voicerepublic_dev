@@ -45,28 +45,4 @@ namespace :cleanup do
     end
   end
 
-  # TODO this should move into `trickery`
-  desc 'Check validity of talks, series and user profiles'
-  task check_validity: :environment do
-    class InvalidModelsException < Exception; end
-    errors = Hash.new { |h, k| h[k] = {} }
-
-    Rails.application.eager_load!
-    ActiveRecord::Base.descendants.each do |klass|
-      plural = klass.model_name.plural
-      puts "CHECKING #{klass.count} #{plural}"
-      klass.find_each do |model|
-        if model.valid?
-          print '.'
-        else
-          print 'I'
-          errors[plural][model.id] = model.errors.full_messages
-        end
-      end
-      puts
-    end
-
-    raise(InvalidModelsException, errors.to_yaml) if errors.present?
-  end
-
 end

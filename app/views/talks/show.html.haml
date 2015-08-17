@@ -54,8 +54,7 @@
               %a(class="link-remember"
                  data-reveal-id="modal-login-signup"
                  ng-show='userIsAListener()')
-                %span.icon-plus
-                %span.link-text= t('.remember')
+                %span.icon-star-empty{ title: t('.favorite') }
             - else
               %span#favorite
                 - if @reminder
@@ -328,7 +327,7 @@
 
   .row.collapse-large-only
     .large-12.columns
-      - if @talk.slides_uuid.present?
+      - if @talk.slides_path.present?
         .row.pdf-viewer(ng-show="talkIsArchived() || talkIsLive()")
           %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.1.js"
             src="#{@talk.slides_path}" width="640")

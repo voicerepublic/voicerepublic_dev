@@ -297,6 +297,8 @@ After install a new version also
 2015-06-09 Setup RabbitMQ Server
 ================================
 
+DO NOT DO IT LIKE THIS! DO IT LIKE DESCRIBED IN `doc/ELK.md`.
+
     apt-get install rabbitmq-server
     rabbitmq-plugins enable rabbitmq_management
     /etc/init.d/rabbitmq-server restart

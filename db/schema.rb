@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811092229) do
+ActiveRecord::Schema.define(version: 20150812122729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -256,12 +256,14 @@ ActiveRecord::Schema.define(version: 20150811092229) do
     t.string   "slides_uid"
     t.text     "description_as_html"
     t.string   "slides_uuid"
+    t.integer  "venue_id"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
   add_index "talks", ["popularity"], name: "index_talks_on_popularity", using: :btree
   add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
+  add_index "talks", ["venue_id"], name: "index_talks_on_venue_id", using: :btree
 
   create_table "transactions", force: :cascade do |t|
     t.string   "type"
@@ -328,4 +330,20 @@ ActiveRecord::Schema.define(version: 20150811092229) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
+  create_table "venues", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "user_id"
+    t.text     "options",    default: "--- {}\n"
+    t.decimal  "lat",        default: 47.374707
+    t.decimal  "long",       default: 8.5249116
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
+  add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
+
+  add_foreign_key "talks", "venues"
+  add_foreign_key "venues", "users"
 end

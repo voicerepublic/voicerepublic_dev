@@ -158,8 +158,9 @@ describe User do
       it 'is a pro user when having purchased in the past' do
         user = FactoryGirl.create(:user)
 
-        FactoryGirl.create(:purchase, owner: user)
+        FactoryGirl.create(:purchase, owner: user).process
         expect(user.is_pro?).to be(true)
+        expect(user.paying).to be(true)
       end
 
       it 'is not a pro user when not having purchased in the past' do
