@@ -18,7 +18,6 @@
 require 'yaml'
 require 'faye'
 require 'faye/authentication'
-require File.expand_path('../lib/faye_ttl', __FILE__)
 require File.expand_path('../lib/faye_squasher', __FILE__)
 
 
@@ -43,11 +42,6 @@ faye.add_extension Faye::Authentication::ServerExtension.new(secret)
 rules = { '/live/up' => %r{^/live/up/t\d+/u\d+$} }
 faye.add_extension FayeSquasher.new(rules)
 
-faye.add_extension FayeTtl.new(channels: %w( /dj
-                                             /event/talk
-                                             /monitoring
-                                             /notification
-                                             /stat ))
 
 # OUTPUT
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625151506) do
+ActiveRecord::Schema.define(version: 20150721153934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,7 +234,8 @@ ActiveRecord::Schema.define(version: 20150625151506) do
     t.boolean  "dryrun",                          default: false
     t.text     "social_links",                    default: "--- []"
     t.text     "listeners",                       default: "--- {}"
-    t.text     "description_as_html",             default: ""
+    t.string   "slides_uid"
+    t.text     "description_as_html"
     t.string   "slides_uuid"
   end
 
@@ -260,10 +261,10 @@ ActiveRecord::Schema.define(version: 20150625151506) do
   create_table "users", force: :cascade do |t|
     t.string   "firstname",              limit: 255
     t.string   "lastname",               limit: 255
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.string   "email",                  limit: 255, default: "",  null: false
-    t.string   "encrypted_password",     limit: 255, default: "",  null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -297,7 +298,8 @@ ActiveRecord::Schema.define(version: 20150625151506) do
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
-    t.text     "about_as_html",                      default: ""
+    t.text     "about_as_html"
+    t.boolean  "paying",                             default: false
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
@@ -319,7 +321,7 @@ ActiveRecord::Schema.define(version: 20150625151506) do
     t.string   "uri",                 limit: 255
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
-    t.text     "description_as_html",             default: ""
+    t.text     "description_as_html"
   end
 
   add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree

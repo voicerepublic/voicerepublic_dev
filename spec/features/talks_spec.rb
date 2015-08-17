@@ -496,7 +496,7 @@ describe 'slides' do
     visit talk_path(talk)
     expect(page).to have_selector("pdf-viewer")
   end
-  it 'does not show a pdf-viewer when there are slides attached' do
+  it 'does not show a pdf-viewer when there are no slides attached' do
     talk = FactoryGirl.create(:talk)
     talk.update_attribute :slides_uuid, ""
     visit talk_path(talk)
