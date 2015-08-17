@@ -42,6 +42,14 @@ class Metric < ActiveRecord::Base
       100 / talks_total.to_f * talks_tagged_with_category_total
     end
 
+    def talks_with_slides_total
+      @talks_with_slides_total ||= Talk.where.not(slides_uuid: nil).count
+    end
+
+    def talks_with_slides_percent
+      (@talks_total / @talks_with_slides_total.to_f) * 100
+    end
+
     def talks_top_popularity
       Talk.maximum(:popularity)
     end
@@ -159,7 +167,7 @@ class Metric < ActiveRecord::Base
       Metric.count
     end
 
-    private
+   private
 
     def categories
       @categories ||= ActsAsTaggableOn::Tag.where(category: true)
