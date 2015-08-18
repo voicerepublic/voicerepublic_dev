@@ -92,7 +92,7 @@ slack:
     ci:      ':package:'
   # these are only used in production and need to be changed for live
   system_channel: '#vr_sys_staging'
-  reseries_channel: '#vr_sys_staging'
+  revenue_channel: '#vr_sys_staging'
   # TODO remove slack.tag from local settings on staging and live
 googleanalytics:
   token: UA-46754662-1
