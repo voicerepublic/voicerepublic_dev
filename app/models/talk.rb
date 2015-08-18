@@ -89,6 +89,7 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :series, inverse_of: :talks
+  belongs_to :venue
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
   has_many :messages, dependent: :destroy
@@ -352,6 +353,11 @@ class Talk < ActiveRecord::Base
   def reinitiate_postprocess!
     self.update_attribute :state, :postlive
     self.postprocess!
+  end
+
+  def venue_name=(name)
+    name = 'Default venue' if name.blank?
+    self.venue = user.venues.find_or_create_by(name: name.strip)
   end
 
   private
