@@ -26,8 +26,8 @@ describe User do
   describe 'determines its role to a given talk' do
     let(:user) { FactoryGirl.create(:user) }
     it 'detects being a host' do
-      venue = FactoryGirl.create(:venue, user: user)
-      talk = FactoryGirl.create(:talk, venue: venue)
+      series = FactoryGirl.create(:series, user: user)
+      talk = FactoryGirl.create(:talk, series: series)
       expect(user.role_for(talk)).to be(:host)
     end
     it 'detects being a guest' do
@@ -37,13 +37,13 @@ describe User do
     end
     it 'detects being a participant' do
       talk = FactoryGirl.create(:talk)
-      FactoryGirl.create(:participation, user: user, venue: talk.venue)
+      FactoryGirl.create(:participation, user: user, series: talk.series)
       expect(user.role_for(talk)).to be(:participant)
     end
     it 'shows all logged in users to be participant' do
       # TODO
       # This is due to the fact that we used to have explicit participations on
-      # venues through talks. This has been removed, but it is not yet decided
+      # series through talks. This has been removed, but it is not yet decided
       # on how to continue. For the time being, all logged in users are
       # participants.
       talk = FactoryGirl.create(:talk)
@@ -79,29 +79,29 @@ describe User do
   end
 
   describe 'destroy dependers' do
-    it 'destroys venues' do
+    it 'destroys series' do
       user = FactoryGirl.create(:user)
-      user.venues = FactoryGirl.create_list(:venue, 3)
+      user.series = FactoryGirl.create_list(:series, 3)
       user.save
 
       user.destroy
-      user.venues.each do |venue|
-        expect(venue).to be_destroyed
+      user.series.each do |series|
+        expect(series).to be_destroyed
       end
     end
 
-    it 'destroys the default venue' do
+    it 'destroys the default series' do
       user = FactoryGirl.create(:user)
-      default_venue = user.default_venue
+      default_series = user.default_series
       user.destroy
-      expect(default_venue).to be_destroyed
+      expect(default_series).to be_destroyed
     end
   end
 
-  describe 'default venue' do
+  describe 'default series' do
     it 'creates' do
       user = FactoryGirl.create(:user)
-      expect(user.default_venue).not_to be_nil
+      expect(user.default_series).not_to be_nil
     end
   end
 
@@ -118,29 +118,29 @@ describe User do
       expect(user.penalty).to eq(0.5)
     end
 
-    it 'bequeaths its penalty to newly created venues' do
+    it 'bequeaths its penalty to newly created series' do
       user = FactoryGirl.create(:user)
       user.set_penalty!(0.5)
-      venue = FactoryGirl.create(:venue, user: user)
-      expect(venue.penalty).to eq(0.5)
+      series = FactoryGirl.create(:series, user: user)
+      expect(series.penalty).to eq(0.5)
     end
 
     it 'set penalty deeply with set_penalty' do
       user = FactoryGirl.create(:user)
-      venue = FactoryGirl.create(:venue, user: user)
-      talk = FactoryGirl.create(:talk, :archived, venue: venue)
+      series = FactoryGirl.create(:series, user: user)
+      talk = FactoryGirl.create(:talk, :archived, series: series)
 
-      # pick up the extra venue
+      # pick up the extra series
       user.reload
 
       user.set_penalty!(0.5)
 
       # pick up changed penalties
-      venue.reload
+      series.reload
       talk.reload
 
       expect(user.penalty).to eq(0.5)
-      expect(venue.penalty).to eq(0.5)
+      expect(series.penalty).to eq(0.5)
       expect(talk.penalty).to eq(0.5)
     end
 

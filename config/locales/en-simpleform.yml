@@ -11,8 +11,8 @@ en:
           Get <a target='_blank' href='/support/username'>help</a> in choosing a good username.
     labels:
       talk:
-        venue: Series
-        new_venue_title: New Series Title
+        series: Series
+        new_series_title: New Series Title
         starts_at_date: Date
         starts_at_time: Time
         teaser: Short description

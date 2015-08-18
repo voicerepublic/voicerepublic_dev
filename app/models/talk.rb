@@ -35,7 +35,7 @@
 # * updated_at [datetime] - last update time
 # * uri [string] - TODO: document me
 # * user_override_uuid [string] - TODO: document me
-# * venue_id [integer] - belongs to :venue
+# * series_id [integer] - belongs to :series
 class Talk < ActiveRecord::Base
 
   extend FriendlyId
@@ -88,7 +88,7 @@ class Talk < ActiveRecord::Base
 
   acts_as_taggable
 
-  belongs_to :venue, inverse_of: :talks
+  belongs_to :series, inverse_of: :talks
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
   has_many :messages, dependent: :destroy
@@ -99,7 +99,7 @@ class Talk < ActiveRecord::Base
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
 
   validates :title, :tag_list, :duration, :description,
-            :language, :venue, presence: true
+            :language, :series, presence: true
   validates :starts_at_date, format: { with: /\A\d{4}-\d\d-\d\d\z/,
                                        message: I18n.t(:invalid_date) }
   validates :starts_at_time, format: { with: /\A\d\d:\d\d\z/,
@@ -109,14 +109,14 @@ class Talk < ActiveRecord::Base
   validates :teaser, length: { maximum: Settings.limit.string }
   validates :description, length: { maximum: Settings.limit.text }
 
-  validates :new_venue_title, presence: true, if: ->(t) { t.venue_id.nil? }
+  validates :new_series_title, presence: true, if: ->(t) { t.series_id.nil? }
 
   # for temp usage during creation, we need this to hand the user
-  # trough to associate with a default_venue or create a new one
-  attr_accessor :venue_user
-  attr_accessor :new_venue_title
+  # trough to associate with a default_series or create a new one
+  attr_accessor :series_user
+  attr_accessor :new_series_title
 
-  before_validation :create_and_set_venue, if: :create_and_set_venue?
+  before_validation :create_and_set_series, if: :create_and_set_series?
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
@@ -156,7 +156,7 @@ class Talk < ActiveRecord::Base
   serialize :storage
   serialize :social_links
 
-  delegate :user, to: :venue
+  delegate :user, to: :series
 
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
@@ -303,7 +303,7 @@ class Talk < ActiveRecord::Base
   # returns the next talk (coming up next) talk in the series
   def next_talk
     begin
-      talks = venue.talks.order(:starts_at)
+      talks = series.talks.order(:starts_at)
       talk_index = talks.find_index(self)
       return talks[talk_index+1]
     rescue
@@ -320,10 +320,10 @@ class Talk < ActiveRecord::Base
   end
 
   def related_talks
-    talks = venue.talks.where.not(id: id).ordered.limit(9)
+    talks = series.talks.where.not(id: id).ordered.limit(9)
     if talks.empty?
-      talks = Talk.joins(:venue).
-        where(venues: { user_id: venue.user_id }).
+      talks = Talk.joins(:series).
+        where(series: { user_id: series.user_id }).
         where.not(id: id).ordered.limit(9)
     end
     if talks.empty?
@@ -360,13 +360,13 @@ class Talk < ActiveRecord::Base
     self.description_as_html = MD2HTML.render(description)
   end
 
-  def create_and_set_venue?
-    venue.nil? and new_venue_title.present?
+  def create_and_set_series?
+    series.nil? and new_series_title.present?
   end
 
-  def create_and_set_venue
-    raise 'no venue_user set while it should be' if venue_user.nil?
-    self.venue = venue_user.venues.create title: new_venue_title
+  def create_and_set_series
+    raise 'no series_user set while it should be' if series_user.nil?
+    self.series = series_user.series.create title: new_series_title
   end
 
   # upload file to storage
@@ -397,8 +397,8 @@ class Talk < ActiveRecord::Base
   end
 
   def notify_participants
-    return if venue.users.empty?
-    venue.users.each do |participant|
+    return if series.users.empty?
+    series.users.each do |participant|
       UserMailer.delay(queue: 'mail').new_talk(self, participant)
     end
   end
@@ -421,7 +421,7 @@ class Talk < ActiveRecord::Base
   def after_start
     MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
-    return if venue.opts.no_auto_end_talk
+    return if series.opts.no_auto_end_talk
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
     Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)
@@ -429,7 +429,7 @@ class Talk < ActiveRecord::Base
 
   def after_end
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
-    unless venue.opts.no_auto_postprocessing
+    unless series.opts.no_auto_postprocessing
       Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
     end
     MonitoringMessage.call(event: 'EndTalk', talk: attributes)
@@ -444,7 +444,7 @@ class Talk < ActiveRecord::Base
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
 
     process!
-    chain = venue.opts.process_chain
+    chain = series.opts.process_chain
     chain ||= Setting.get('audio.process_chain')
     chain = chain.split(/\s+/)
     run_chain! chain, uat
@@ -468,7 +468,7 @@ class Talk < ActiveRecord::Base
       File.open(path, 'wb') { |f| f.write(file.body) }
     end
 
-    chain = venue.opts.process_chain
+    chain = series.opts.process_chain
     chain ||= Setting.get('audio.process_chain')
     chain = chain.split(/\s+/)
     run_chain! chain, uat
@@ -530,7 +530,7 @@ class Talk < ActiveRecord::Base
       FileUtils.remove_entry tmp_dir
     end
 
-    chain = venue.opts.override_chain
+    chain = series.opts.override_chain
     chain ||= Setting.get('audio.override_chain')
     chain = chain.split(/\s+/)
     run_chain! chain, uat
@@ -596,14 +596,14 @@ class Talk < ActiveRecord::Base
   end
 
   def manifest(chain=nil)
-    chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
+    chain ||= series.opts.process_chain || Setting.get('audio.process_chain')
     data = {
       id:         id,
       chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
-      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
+      jingle_in:  locate(series.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(series.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
@@ -713,7 +713,7 @@ class Talk < ActiveRecord::Base
   end
 
   def inherit_penalty
-    self.penalty = venue.penalty
+    self.penalty = series.penalty
   end
 
   def create_and_process_debit_transaction!

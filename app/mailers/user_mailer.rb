@@ -14,19 +14,19 @@ class UserMailer < ApplicationMailer
 
   # app/models/talk.rb:130 (delayed)
   def new_talk(talk, user)
-    return if talk.venue.opts.no_email
+    return if talk.series.opts.no_email
     attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
     flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
     interpolate! user, talk, url: talk_url(talk), flyer: flyer,
-      name: [talk.venue.title, talk.title].join(' - ')
+      name: [talk.series.title, talk.title].join(' - ')
     default_mail user.email_with_name
   end
 
   # lib/tasks/talks.rake:10
   def reminder(talk, user)
-    return if talk.venue.opts.no_email
+    return if talk.series.opts.no_email
     interpolate! user, talk, url: talk_url(talk),
-      name: [talk.venue.title, talk.title].join(' - ')
+      name: [talk.series.title, talk.title].join(' - ')
 
     # preview with attachments are broken and will be fixed here
     # https://github.com/rails/rails/commit/29fc2e26dc821c46a0ba04ed3772bca92ccc7866

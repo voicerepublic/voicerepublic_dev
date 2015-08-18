@@ -6,9 +6,9 @@
         = link_to @talk.user, target: 'blank', class: 'left' do
           %span.icon-person
           %span.link-text= @talk.user.name
-        = link_to @talk.venue, target: 'blank', class: 'right' do
+        = link_to @talk.series, target: 'blank', class: 'right' do
           %span.icon-ellipsis
-          %span.link-text= @talk.venue.title
+          %span.link-text= @talk.series.title
       = link_to @talk, target: 'blank', class: 'text-box-link' do
         %h4.title= @talk.title.upcase
         %br/

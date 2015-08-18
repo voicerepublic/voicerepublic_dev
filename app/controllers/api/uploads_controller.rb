@@ -4,7 +4,7 @@ class Api::UploadsController < Api::BaseController
   # POST api/uploads
   def create
     @talk = Talk.new(talk_params)
-    @talk.venue_user = current_user
+    @talk.series_user = current_user
 
     authorize! :create, @talk
 
@@ -23,7 +23,7 @@ class Api::UploadsController < Api::BaseController
                                  :starts_at_time,
                                  :description, :image,
                                  :tag_list, :language,
-                                 :new_venue_title, :venue_id,
+                                 :new_series_title, :series_id,
                                  :user_override_uuid)
   end
 

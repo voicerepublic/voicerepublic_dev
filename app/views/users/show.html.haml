@@ -34,7 +34,7 @@
               .text= t('.plays', count: @total_plays)
             %li>
               = link_to "#series" do
-                = t('.venues', count: @user.venues_without_default.count)
+                = t('.series', count: @user.series_without_default.count)
             %li
               = link_to '#listen-later' do
                 = t('.listen_later', count: @user.reminders.count)
@@ -94,12 +94,12 @@
       - if @remembered_talks.count > 3
         = link_to t('.more'), url_for(more: 'reminders'), class: 'link-more', remote: true, id: 'more-reminders'
 
-- unless @venues.empty?
+- unless @series.empty?
   #series.user-series-box.row.collapse-large-only
     .large-12.columns
-      %h3= t('.venues', count: @venues.count)
+      %h3= t('.series', count: @series.count)
       %ul.medium-block-grid-2
-        = render partial: 'shared/venue_medium_box', collection: @venues
+        = render partial: 'shared/series_medium_box', collection: @series
 
 - unless @user.about.blank?
   .description-box.row.collapse-large-only

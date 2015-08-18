@@ -46,10 +46,10 @@ en:
       comment: comment
       new_status_update: New status
     user_content_nav:
-      venues_title: Series
-      venues_participant: Participant
-      venues_host: Host
-      venue_new: Create Series
+      series_title: Series
+      series_participant: Participant
+      series_host: Host
+      series_new: Create Series
     user_information:
       unfollow: Unfollow
       follow: Follow
@@ -71,9 +71,9 @@ en:
       edit_your_profile: Edit profil
       select_profile_image: Profile image
       select_header_image: Background image
-    venues:
-      venues: Series
-      guest_empty_venue: ! '%{name} has no series yet.'
+    series:
+      series: Series
+      guest_empty_series: ! '%{name} has no series yet.'
 
     # SHOW
     show:
@@ -102,7 +102,7 @@ en:
         zero: No Plays
         one: 1 Play
         other: '%{count} Plays'
-      venues:
+      series:
         zero: No Series
         one: 1 Series
         other: '%{count} Series'

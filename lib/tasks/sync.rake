@@ -30,29 +30,29 @@ namespace :sync do
       begin
         btr_id = event.guid.text.hash
 
-        # update venue
+        # update series
         title = event.title.text.strip.truncate(string_limit)
-        venue_uri = "btr://#{user.slug}/#{title}"
-        venue = Venue.find_or_initialize_by(uri: venue_uri)
-        venue.title = title
-        venue.teaser = event.send('itunes:subtitle').text.strip.truncate(string_limit)
-        venue.description = event.send('itunes:summary').text.strip.truncate(text_limit)
+        series_uri = "btr://#{user.slug}/#{title}"
+        series = Series.find_or_initialize_by(uri: series_uri)
+        series.title = title
+        series.teaser = event.send('itunes:subtitle').text.strip.truncate(string_limit)
+        series.description = event.send('itunes:summary').text.strip.truncate(text_limit)
         # Downcasing is necessary, because BTR does not differenciate between
         # 'foo' and 'Foo'. ActsAsTaggableOn does, however.
-        venue.tag_list = event.send("itunes:keywords").text.split(",").map(&:downcase).uniq
-        venue.tag_list = "default" if venue.tag_list.empty?
-        venue.user = user
-        metric = venue.persisted? ? :venues_updated : :venues_created
-        report[metric] += 1 if venue.save!
+        series.tag_list = event.send("itunes:keywords").text.split(",").map(&:downcase).uniq
+        series.tag_list = "default" if series.tag_list.empty?
+        series.user = user
+        metric = series.persisted? ? :series_updated : :series_created
+        report[metric] += 1 if series.save!
 
         # update talk
         talk_uri = "btr-#{btr_id}"
         talk = Talk.find_or_initialize_by(uri: talk_uri)
-        talk.venue = venue
-        talk.title = venue.title
-        talk.teaser = venue.teaser
-        talk.description = venue.description
-        talk.tag_list = venue.tag_list
+        talk.series = series
+        talk.title = series.title
+        talk.teaser = series.teaser
+        talk.description = series.description
+        talk.tag_list = series.tag_list
         talk.state = 'postlive'
 
         talk.starts_at_date = Date.parse(event.pubDate).strftime("%Y-%m-%d")
@@ -84,34 +84,34 @@ namespace :sync do
     #  * Talks of Series with only one talk will be aggregated into a Series
     #    "misc"
     #  NOTE: Yes, it's ugly to first create and destroy stuff.
-    venues = user.venues.collect { |v| v if v.talks.length == 1 }.compact
+    series = user.series.collect { |v| v if v.talks.length == 1 }.compact
 
     puts
-    puts "Found #{venues.length} venues with only one talk!"
-    return unless venues.length
+    puts "Found #{series.length} series with only one talk!"
+    return unless series.length
 
-    venue_misc = Venue.find_or_initialize_by title: "Misc",
+    series_misc = Series.find_or_initialize_by title: "Misc",
       description: "There can be only one",
       teaser: "Misc",
       user: user
-    venue_misc.tag_list = "general"
-    venue_misc.save!
+    series_misc.tag_list = "general"
+    series_misc.save!
 
-    venues.each do |v|
+    series.each do |v|
       talk = v.talks.first
-      talk.venue = venue_misc
+      talk.series = series_misc
       talk.save!
       v.reload.destroy!
     end
-    puts "Moved talks into venue: #{venue_misc.id}"
+    puts "Moved talks into series: #{series_misc.id}"
     # END Cleanup
 
     puts
     puts
     puts "REPORT"
     puts
-    puts "  Venues updated: #{report[:venues_updated]}"
-    puts "  Venues created: #{report[:venues_created]}"
+    puts "  Series updated: #{report[:series_updated]}"
+    puts "  Series created: #{report[:series_created]}"
     puts "  Talks  updated: #{report[:talks_updated]}"
     puts "  Talks  created: #{report[:talks_created]}"
     puts
@@ -131,7 +131,7 @@ namespace :sync do
     #talks.each do |t|
     #  puts [ t.uri.sub('btr://#{user.slug}/', ''),
     #         "https://voicerepublic.com/talk/#{t.id}",
-    #         t.venue.title,
+    #         t.series.title,
     #         t.title.inspect,
     #         t.starts_at ] * ','
     #end
@@ -177,16 +177,16 @@ namespace :sync do
         _, h, min, s = event['duration'].match(duration_regex).to_a
 
       room = event['room']
-      venue_uri = "lt://2014/room/#{room.tr(' ', '-')}"
-      venue = Venue.find_or_initialize_by(uri: venue_uri)
-      venue.title = room
-      venue.teaser ||= 'brought to you by VoiceRepublic'
-      venue.description ||= 'tbd.'
-      venue.tag_list = 'linuxtag' # rp14_tags[category]
-      venue.user = lt14_user
-      venue.options = lt14_opts
-      metric = venue.persisted? ? :venues_updated : :venues_created
-      report[metric] += 1 if venue.save!
+      series_uri = "lt://2014/room/#{room.tr(' ', '-')}"
+      series = Series.find_or_initialize_by(uri: series_uri)
+      series.title = room
+      series.teaser ||= 'brought to you by VoiceRepublic'
+      series.description ||= 'tbd.'
+      series.tag_list = 'linuxtag' # rp14_tags[category]
+      series.user = lt14_user
+      series.options = lt14_opts
+      metric = series.persisted? ? :series_updated : :series_created
+      report[metric] += 1 if series.save!
 
       ltid = event['id']
 
@@ -194,7 +194,7 @@ namespace :sync do
       talk_uri = "lt://2014/session/#{ltid}"
       talk = Talk.find_or_initialize_by(uri: talk_uri)
       # next unless talk.prelive?
-      talk.venue = venue
+      talk.series = series
       talk.title = event.talk.title.text.strip.truncate(string_limit)
       talk.teaser = 'tbd.' # FIXME
       talk.description = 'tbd.' # FIXME
@@ -218,8 +218,8 @@ namespace :sync do
     puts
     puts "REPORT"
     puts
-    puts "  Venues updated: #{report[:venues_updated]}"
-    puts "  Venues created: #{report[:venues_created]}"
+    puts "  Series updated: #{report[:series_updated]}"
+    puts "  Series created: #{report[:series_created]}"
     puts "  Talks  updated: #{report[:talks_updated]}"
     puts "  Talks  created: #{report[:talks_created]}"
     puts
@@ -239,7 +239,7 @@ namespace :sync do
     talks.each do |t|
       puts [ t.uri.sub('lt://2014/session/', ''),
              "https://voicerepublic.com/talk/#{t.id}",
-             t.venue.title,
+             t.series.title,
              t.title.inspect,
              t.starts_at ] * ','
     end
@@ -307,23 +307,23 @@ namespace :sync do
           next
         end
 
-        # update venue
-        venue_uri = "rp://2014/category/#{category.tr(' ', '-')}"
-        venue = Venue.find_or_initialize_by(uri: venue_uri)
-        venue.title = category
-        venue.teaser ||= item.event_description.strip.truncate(string_limit)
-        venue.description ||= 'tbd.' # FIXME
-        venue.tag_list = rp14_tags[category]
-        venue.user = rp14_user
-        venue.options = rp14_opts
-        metric = venue.persisted? ? :venues_updated : :venues_created
-        report[metric] += 1 if venue.save!
+        # update series
+        series_uri = "rp://2014/category/#{category.tr(' ', '-')}"
+        series = Series.find_or_initialize_by(uri: series_uri)
+        series.title = category
+        series.teaser ||= item.event_description.strip.truncate(string_limit)
+        series.description ||= 'tbd.' # FIXME
+        series.tag_list = rp14_tags[category]
+        series.user = rp14_user
+        series.options = rp14_opts
+        metric = series.persisted? ? :series_updated : :series_created
+        report[metric] += 1 if series.save!
 
         # update talk
         talk_uri = "rp://2014/session/#{nid}"
         talk = Talk.find_or_initialize_by(uri: talk_uri)
         next unless talk.prelive?
-        talk.venue = venue
+        talk.series = series
         talk.title = item.title.strip.truncate(string_limit)
         talk.teaser = item.description_short.strip.truncate(string_limit)
         talk.description = ([ item.speaker_names.map(&:strip) * ', ',
@@ -349,8 +349,8 @@ namespace :sync do
     puts
     puts "REPORT"
     puts
-    puts "  Venues updated: #{report[:venues_updated]}"
-    puts "  Venues created: #{report[:venues_created]}"
+    puts "  Series updated: #{report[:series_updated]}"
+    puts "  Series created: #{report[:series_created]}"
     puts "  Talks  updated: #{report[:talks_updated]}"
     puts "  Talks  created: #{report[:talks_created]}"
     puts

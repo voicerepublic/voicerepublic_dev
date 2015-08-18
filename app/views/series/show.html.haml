@@ -1,34 +1,34 @@
 - content_for :head do
-  = social_meta_tags_venue
-  = rss_link_tag t('.feed_title', title: @venue.title)
+  = social_meta_tags_series
+  = rss_link_tag t('.feed_title', title: @series.title)
 
 - content_for :title do
-  = t('.title', title: @venue.title)
+  = t('.title', title: @series.title)
 
 - content_for :facebook_values do
-  = render(:partial => 'facebook_value_template', :locals => { :venue => @venue } )
+  = render(:partial => 'facebook_value_template', :locals => { :series => @series } )
 
 .user-box.row
   .large-12.columns
-    = link_to @venue.user do
-      = render partial: "shared/avatar_image", locals: { user: @venue.user, size: 50 }
-      %h4.venue-user= @venue.user.name
-    = render partial: 'shared/social_share', locals: { shareable_id: @venue.id, shareable_type: 'venue' }
+    = link_to @series.user do
+      = render partial: "shared/avatar_image", locals: { user: @series.user, size: 50 }
+      %h4.series-user= @series.user.name
+    = render partial: 'shared/social_share', locals: { shareable_id: @series.id, shareable_type: 'series' }
 
 .title-box.row.collapse-large-only
   .large-12.columns
-    %h2.venue-title.left= @venue.title
-    - if can? :manage, @venue
-      = link_to t('.edit_venue'), [:edit, @venue], class: "title-edit"
+    %h2.series-title.left= @series.title
+    - if can? :manage, @series
+      = link_to t('.edit_series'), [:edit, @series], class: "title-edit"
 
 .image-box.row.collapse-large-only
   .large-12.columns
-    = image_tag @venue.image.thumb("700x361#nw").url, class: 'image'
+    = image_tag @series.image.thumb("700x361#nw").url, class: 'image'
 
 .action-box.row.collapse-large-only
   .anker-links.large-6.medium-6.columns
     -# TODO check the intelligibility of the following 3 unlesses
-    - unless @venue.talks.empty?
+    - unless @series.talks.empty?
       .black-background-box
         - unless @upcoming_talks.empty?
           = link_to '#upcoming-talks' do
@@ -42,23 +42,23 @@
 
   .action-links.large-6.medium-6.columns
     .align-box
-      - if can? :manage, @venue
-        = link_to new_talk_path(talk: { venue_id: @venue.id }) do
+      - if can? :manage, @series
+        = link_to new_talk_path(talk: { series_id: @series.id }) do
           %span.icon-mic
           = t('.create_new_talk')
-        = link_to new_upload_path(talk: { venue_id: @venue.id }) do
+        = link_to new_upload_path(talk: { series_id: @series.id }) do
           %span.icon-upload-cloud
           = t('.upload_talk')
       - else
-        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@venue) }
+        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
         - if @show_join
-          = link_to [@venue, :participations], method: :post do
+          = link_to [@series, :participations], method: :post do
             = t('.subscribe_to_series')
         - elsif !current_user
           %a(href="#" data-reveal-id="modal-login-signup")
             = t('.subscribe_to_series')
         - if @participation
-          = link_to [@venue, @participation], delete_params do
+          = link_to [@series, @participation], delete_params do
             = t('.unsubscribe_to_series')
 
 - unless @live_talks.empty?
@@ -94,6 +94,6 @@
   .large-12.columns
     .align-box
       %h3= t('.description')
-      = @venue.description_as_html.html_safe
-      - if can? :manage, @venue
-        = link_to t('.edit_venue'), [:edit, @venue], class: "desc-edit"
+      = @series.description_as_html.html_safe
+      - if can? :manage, @series
+        = link_to t('.edit_series'), [:edit, @series], class: "desc-edit"

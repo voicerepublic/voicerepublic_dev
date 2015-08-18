@@ -88,13 +88,13 @@ class Metric < ActiveRecord::Base
       Talk.minimum(:penalty)
     end
 
-    # Series (aka. Venues)
+    # Series
     def series_total
-      Venue.count
+      Series.count
     end
 
     def series_nondefault_total # FIXME
-      Venue.where('id NOT IN (?)', User.pluck(:default_venue_id)).count
+      Series.where('id NOT IN (?)', User.pluck(:default_series_id)).count
     end
 
     def series_top_penalty

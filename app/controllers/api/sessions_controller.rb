@@ -5,8 +5,7 @@ class Api::SessionsController < Devise::SessionsController
                           authentication_token last_sign_in_ip
                           about_as_html website timezone summary
                           credits purchases_count ),
-                          # TODO remove series here
-                          methods: %w( series list_of_series ) }
+                methods: %w( list_of_series ) }
 
   respond_to :json
 

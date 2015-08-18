@@ -1,8 +1,8 @@
 # use with `select` tags or simple_form's `association`, e.g.
 #
-#   = f.association :venue, collection: current_user.venues,
+#   = f.association :series, collection: current_user.series,
 #     include_blank: t('.create_new_series'),
-#     input_html: { 'data-on-blank-show' => '#wrapper_new_venue_title' }
+#     input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
 #
 # if the empty option of the select is selected it triggers the node
 # to be shown which matches the selector provided as the value of the

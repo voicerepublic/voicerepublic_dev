@@ -1,0 +1,42 @@
+- user_participates = series.users.include?(current_user)
+- participating = (series.user != current_user and !user_participates) ? ' unjoined':''
+%article{:class => "series-big block" + participating}
+  -#overall link to series
+  = link_to raw('&nbsp;'), series_path(series), :class => "series-big-bg-link"
+
+  %header.series-big-header{:class => participating}
+    -#series title
+    %h3.series-big-title= link_to series.title, series_path(series)
+    -#host link
+    %aside.series-big-host-link
+      = link_to user_path(series.user) do
+        = t('.by') + ' '
+        = series.user.name
+
+
+    -#join-button
+    .series-big-join-button.pull-right
+
+      - if series.user != current_user and !user_participates
+        = render 'shared/participate_button', :series => series
+      - else
+        %span.series-big-icon-box
+          = image_tag "icons/series-icon-host.png", :class => "series-big-icon"
+
+  .row-fluid.series-big-row
+    .span3.series-big-left
+      -#series image
+      = link_to series_path(series) do
+        = image_tag series.image.url, :class => "series-big-image"
+
+    .span9.series-big-right
+      -#series summery
+      %hr.series-big-hr
+      -#time and image
+      .series-big-time= l(series.start_time)
+      -# - if !series.current_event.nil?
+      -#   %h4.series-big-event-title= link_to series.current_event.title, series_path(series)
+      -#   -#event title
+      = simple_format( truncate(series.teaser, :length => 200), :class => "series-big-description")
+
+  .clearfix

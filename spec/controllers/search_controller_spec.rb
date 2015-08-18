@@ -27,7 +27,7 @@ describe SearchController do
 
     it "populates results" do
       expect(PgSearch::Document.count).to eq(0)
-      venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+      series = FactoryGirl.create(:series, title: 'Fear and Delight')
       expect(PgSearch::Document.count).to be > 0
       get :show, page: 1, query: 'Delight'
       expect(assigns(:results)).not_to be_empty
@@ -39,10 +39,10 @@ describe SearchController do
       expect(assigns(:results).first.searchable).to eq(user)
     end
 
-    it "finds venues" do
-      venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+    it "finds series" do
+      series = FactoryGirl.create(:series, title: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
-      expect(assigns(:results).first.searchable).to eq(venue)
+      expect(assigns(:results).first.searchable).to eq(series)
     end
 
     it "finds talks" do
@@ -65,13 +65,13 @@ describe SearchController do
 
     it "finds multiple models at once" do
       user = FactoryGirl.create(:user, firstname: 'Fear and Delight')
-      venue = FactoryGirl.create(:venue, title: 'Fear and Delight')
+      series = FactoryGirl.create(:series, title: 'Fear and Delight')
       talk = FactoryGirl.create(:talk, title: 'Fear and Delight')
       get :show, page: 1, query: 'Delight'
       expect(assigns(:results).count).to eq(3)
       searchables = assigns(:results).map(&:searchable)
       expect(searchables).to include(user)
-      expect(searchables).to include(venue)
+      expect(searchables).to include(series)
       expect(searchables).to include(talk)
     end
   end

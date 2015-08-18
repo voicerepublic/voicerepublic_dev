@@ -43,11 +43,11 @@ class PenaltyTool
       puts
       puts 'After %s steps, found %s to be a good penalty.' % [steps, split]
 
-      user =  talk.venue.user
+      user =  talk.series.user
 
       puts
       puts 'Applying penalty to user: %s' % user.name
-      puts 'Applying penalty %s series and %s talks.' % [ user.venues.count,
+      puts 'Applying penalty %s series and %s talks.' % [ user.series.count,
                                                           user.talks.count ]
       puts
       print  'Do not interrupt! This might take a while...'

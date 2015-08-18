@@ -1,9 +1,9 @@
 - content_for :title do
   = t('.title', title: @talk.title)
 
-
 - form_opts = { 'ng-controller' => 'FormController' }
 = simple_form_for(@talk, html: form_opts) do |f|
+
   = render partial: "fields", locals: { f: f, form_title: t('.edit_talk') }
 
   .form-save-row.row.collapsed

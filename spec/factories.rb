@@ -8,7 +8,7 @@ include ActionDispatch::TestProcess
 #
 FactoryGirl.define do
 
-  factory :venue do
+  factory :series do
     title 'Series title'
     user
   end
@@ -49,13 +49,13 @@ FactoryGirl.define do
   end
 
   factory :participation do
-    venue
+    series
     user
   end
 
   factory :talk do
     title "Some awesome title"
-    venue
+    series
     # NOTE: times set here are not affected by `Timecop.freeze` in a
     # `before` block
     starts_at_time 1.hour.from_now.strftime('%H:%M')

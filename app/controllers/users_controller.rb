@@ -48,7 +48,7 @@ class UsersController < BaseController
         @archived_talks    = @user.talks.archived.reordered
         @remembered_talks  = Talk.remembered_by(@user).reordered
 
-        @venues            = @user.venues_without_default
+        @series            = @user.series_without_default
 
         @show_listen_later = @remembered_talks.present?
         @show_listen_later = true if @user == current_user

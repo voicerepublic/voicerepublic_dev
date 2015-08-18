@@ -72,7 +72,7 @@ class FluxCapacitor
     if msg['event'] # EVENTS
       # events may only be called by the owner of a talk
       # TODO use cancan instead
-      return unless user_id == talk.venue.user_id.to_s
+      return unless user_id == talk.series.user_id.to_s
       case msg['event']
       when 'EndTalk'
         talk.end_talk!

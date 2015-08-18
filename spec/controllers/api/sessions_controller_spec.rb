@@ -25,14 +25,14 @@ describe Api::SessionsController do
       end
 
       it 'sends a list of all series of the user' do
-        3.times { FactoryGirl.create :venue, user: @user }
+        3.times { FactoryGirl.create :series, user: @user }
         post :create, { email: @user.email, password: '123123', format: 'json' }
         res = JSON.parse(response.body)
         expect(res).to_not be_empty
-        expect(res['series']).to_not be_empty
+        expect(res['list_of_series']).to_not be_empty
 
-        series_titles = Hash(res['series']).values
-        @user.venues.pluck(:title).each do |title|
+        series_titles = Hash(res['list_of_series']).values
+        @user.series.pluck(:title).each do |title|
           expect(series_titles).to include(title)
         end
 

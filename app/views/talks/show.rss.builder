@@ -7,7 +7,7 @@
 
 # misc
 @podcast.description = @talk.description
-@podcast.author =      @talk.user.name # delegate via venue
+@podcast.author =      @talk.user.name # delegate via series
 @podcast.subtitle =    @talk.teaser
 
 # urls

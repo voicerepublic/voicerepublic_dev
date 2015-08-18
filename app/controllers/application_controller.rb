@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(user)
     return_to = ( request.env['omniauth.origin'] || stored_location ||
-                  stored_location_for(user) || session[:venue_path] ||
+                  stored_location_for(user) || session[:series_path] ||
                   user_path(user) )
     logger.debug(">>> RETURNING TO: #{return_to}")
     return_to

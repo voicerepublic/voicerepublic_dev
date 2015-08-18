@@ -33,9 +33,9 @@
             %span.icon-person
             %span.link-text= @talk.user.name
           .bc-delimiter >
-          = link_to @talk.venue do
+          = link_to @talk.series do
             %span.icon-ellipsis
-            %span.link-text= @talk.venue.title
+            %span.link-text= @talk.series.title
           .bc-delimiter >
 
           .links-box
@@ -91,7 +91,7 @@
           .talk-archived-actions-box.row.collapse
             .small-12.columns
               .right
-                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@talk.venue) }
+                = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@talk.series) }
               .play-count.left
                 = t('.plays', count: @talk.play_count)
 
@@ -197,9 +197,9 @@
         - else
           .avatar.avatar-host
             .avatar-box
-              = render partial: "shared/avatar", locals: { user: @talk.venue.user, size: 62 }
+              = render partial: "shared/avatar", locals: { user: @talk.series.user, size: 62 }
               .avatar-name.text-center
-                = link_to @talk.venue.user.name, user_path(@talk.venue.user)
+                = link_to @talk.series.user.name, user_path(@talk.series.user)
           .avatar(ng-repeat="user in guests()")
             .avatar-box
               = render partial: "shared/avatar", locals: { size: 62 }
@@ -344,7 +344,7 @@
       .participants-and-discussion
 
         -# DISCUSSION
-        - unless @talk.venue.opts.suppress_chat
+        - unless @talk.series.opts.suppress_chat
           #discussion.discussion-block
             %h3.title-discussion
               =t('.discussion')
@@ -376,7 +376,7 @@
                     {{ message.content }}
 
         -# PARTICIPANTS: LISTENERS, MIC REQUESTS, INVITES
-        - unless @talk.venue.opts.suppress_chat
+        - unless @talk.series.opts.suppress_chat
           #participants.participants-box
 
             .promotion-counter-box
@@ -450,6 +450,6 @@
       .talk-more-talks-box.row.collapse-large-only(ng-show="talkIsArchived()")
         .large-12.columns
           .more-talks-title-box.text-left
-            = link_to t('.more_talks'), @talk.venue
+            = link_to t('.more_talks'), @talk.series
           %ul.user-talks-slider.list-style-type-none
             = render partial: 'shared/talk_small_box', collection: @related_talks, locals: { color: 'box-transparent'}

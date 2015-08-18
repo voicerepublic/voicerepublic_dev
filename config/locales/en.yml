@@ -198,9 +198,9 @@ en:
       cancel: Cancel
       destroy: Delete
       confirm: Are you sure to delete?
-    venue_actions:
+    series_actions:
       participate_button: Participate
-      confirm_unjoin_venue: Really want to unjoin this series?
+      confirm_unjoin_series: Really want to unjoin this series?
     confirms:
       are_you_sure: Are you sure?
   number:
@@ -298,7 +298,7 @@ en:
         other: '%{count} RESULTS FOR "%{query}"'
       best_result: TOP RESULT
       talks: TALKS
-      venues: SERIES
+      series: SERIES
       users: USERS
       now_live: NOW LIVE
       featured: FEATURED
@@ -369,11 +369,11 @@ en:
       error: Error
     user_dropdown_list:
       logout: Log Out
-    venues:
-      venues: Series
+    series:
+      series: Series
     profile_dropdown_list:
       my_profile: My profile
-      create_venue: Create Series
+      create_series: Create Series
       contacts: Contacts
       messages: Messages
       settings: Settings
@@ -387,7 +387,7 @@ en:
     talk_live_box:
       tune_in: TUNE IN
       speakers: TALKGUESTS
-    venue_medium_box:
+    series_medium_box:
       upcoming_talks: '%{count} Upcoming Talks'
       archived_talks: '%{count} Archived Talks'
 
@@ -517,7 +517,7 @@ en:
       enterprise-example-3: "Corporations"
     questions:
       contact_us: "Contact Us"
-      contact_us_for_questions: "You can also hire our Stream Team to come to your venue. To discuss streaming, or for any other questions, please contact us."
+      contact_us_for_questions: "You can also hire our Stream Team to come to your series. To discuss streaming, or for any other questions, please contact us."
     streamteam:
       contact_us: "Contact Us"
       streamteam_offer: "We also offer streaming services. Contact us for details."

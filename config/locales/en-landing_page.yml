@@ -47,6 +47,6 @@ en:
         <h5>7. Voice Republic can forget</h5>
         <p>When you delete your account, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
       team: TEAM
-    lp_venues:
-      featured_venue: Voice Republic recommends
-      upcoming_venues: UPCOMING SERIES
+    lp_series:
+      featured_series: Voice Republic recommends
+      upcoming_series: UPCOMING SERIES

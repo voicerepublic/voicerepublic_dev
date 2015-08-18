@@ -43,18 +43,18 @@
       .help-text.left= t('.series_help_text')
     .row
       .medium-6.columns
-        = f.association :venue, collection: current_user.venues,
+        = f.association :series, collection: current_user.series,
           include_blank: t('.create_new_series'),
-          input_html: { 'data-on-blank-show' => '#wrapper_new_venue_title' }
+          input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
       .medium-6.columns
-        = f.input :new_venue_title, wrapper_html: { id: 'wrapper_new_venue_title' }
+        = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
 
     .title-box.clearfix
       %h2.form-title.left= t('.illustrate_and_describe')
       .help-text.left= t('.ill_and_desc_text')
     .row
       .medium-3.columns
-        .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#venue_talks_attributes_0_image")
+        .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#series_talks_attributes_0_image")
       .medium-9.columns
         %button.button-standard(type="button" data-trigger-file-input="#talk_image")
           = t('.select_image')

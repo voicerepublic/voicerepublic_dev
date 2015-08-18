@@ -75,22 +75,22 @@ describe Talk do
       @talk.starts_at_time = nil
       expect(@talk).to_not be_valid
     end
-    it "validates presence of new_venue_title if venue_id is not set" do
-      @talk.venue = nil
+    it "validates presence of new_series_title if series_id is not set" do
+      @talk.series = nil
       expect(@talk).to_not be_valid
     end
-    it "is valid when venue_id is not set but new_venue_title is set" do
-      @talk.venue = nil
-      @talk.new_venue_title = "Some title"
-      @talk.venue_user = FactoryGirl.create(:user)
+    it "is valid when series_id is not set but new_series_title is set" do
+      @talk.series = nil
+      @talk.new_series_title = "Some title"
+      @talk.series_user = FactoryGirl.create(:user)
       expect(@talk).to be_valid
     end
-    it "creates a venue on the fly if new_venue_title is set" do
-      @talk.venue_id = nil
-      @talk.new_venue_title = "Some title"
-      @talk.venue_user = FactoryGirl.create(:user)
+    it "creates a series on the fly if new_series_title is set" do
+      @talk.series_id = nil
+      @talk.new_series_title = "Some title"
+      @talk.series_user = FactoryGirl.create(:user)
       @talk.save!
-      expect(@talk.venue.title).to eq("Some title")
+      expect(@talk.series.title).to eq("Some title")
     end
     it 'should store what is written to processed_at' do
       @talk.processed_at = time = Time.zone.now
@@ -125,14 +125,14 @@ describe Talk do
         @talk = FactoryGirl.create :talk
       end
       it 'returns nil when there is no next talk' do
-        expect(@talk.venue.talks.count).to eq(1)
+        expect(@talk.series.talks.count).to eq(1)
         expect(@talk.next_talk).to be_nil
       end
 
       it 'returns the next talk' do
-        @talk.venue.talks << FactoryGirl.create(:talk, title: 'first')
-        @talk.venue.talks << FactoryGirl.create(:talk, title: 'second')
-        @talk.venue.talks << FactoryGirl.create(:talk, title: 'third')
+        @talk.series.talks << FactoryGirl.create(:talk, title: 'first')
+        @talk.series.talks << FactoryGirl.create(:talk, title: 'second')
+        @talk.series.talks << FactoryGirl.create(:talk, title: 'third')
 
         expect(@talk.next_talk.title).to                     eq('first')
         expect(@talk.next_talk.next_talk.title).to           eq('second')
@@ -233,8 +233,8 @@ describe Talk do
   it 'does not send email with option no_emails' do
     user = FactoryGirl.create(:user)
     ActionMailer::Base.deliveries = []
-    venue = FactoryGirl.create(:venue, user: user, options: { no_email: true })
-    FactoryGirl.create(:talk, venue: venue)
+    series = FactoryGirl.create(:series, user: user, options: { no_email: true })
+    FactoryGirl.create(:talk, series: series)
     expect(ActionMailer::Base.deliveries).to be_empty
   end
 
@@ -378,11 +378,11 @@ describe Talk do
       expect(talk.penalty).to eq(1)
     end
 
-    it 'inherits its penalty from its venue' do
-      venue = FactoryGirl.create(:venue)
-      venue.penalty = 0.5
-      venue.save!
-      talk = FactoryGirl.create(:talk, venue: venue)
+    it 'inherits its penalty from its series' do
+      series = FactoryGirl.create(:series)
+      series.penalty = 0.5
+      series.save!
+      talk = FactoryGirl.create(:talk, series: series)
       expect(talk.penalty).to eq(0.5)
     end
 
@@ -398,7 +398,7 @@ describe Talk do
     it 'reduces the owners credits by one' do
       user = FactoryGirl.create(:user)
       user_credits = user.reload.credits
-      FactoryGirl.create(:talk, venue: user.default_venue)
+      FactoryGirl.create(:talk, series: user.default_series)
       expect(user.reload.credits).to eq(user_credits - 1)
     end
   end

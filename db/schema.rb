@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722150833) do
+ActiveRecord::Schema.define(version: 20150812122729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,14 +108,14 @@ ActiveRecord::Schema.define(version: 20150722150833) do
   end
 
   create_table "participations", force: :cascade do |t|
-    t.integer  "venue_id"
+    t.integer  "series_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "participations", ["series_id"], name: "index_participations_on_series_id", using: :btree
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
-  add_index "participations", ["venue_id"], name: "index_participations_on_venue_id", using: :btree
 
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
@@ -153,6 +153,25 @@ ActiveRecord::Schema.define(version: 20150722150833) do
 
   add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
+
+  create_table "series", force: :cascade do |t|
+    t.text     "description"
+    t.string   "title",               limit: 255
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.string   "teaser",              limit: 255
+    t.integer  "user_id"
+    t.text     "options",                         default: "--- {}\n"
+    t.string   "image_uid",           limit: 255
+    t.string   "uri",                 limit: 255
+    t.string   "slug",                limit: 255
+    t.float    "penalty",                         default: 1.0
+    t.text     "description_as_html"
+  end
+
+  add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
+  add_index "series", ["uri"], name: "index_series_on_uri", using: :btree
+  add_index "series", ["user_id"], name: "index_series_on_user_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "key",        limit: 255
@@ -200,7 +219,7 @@ ActiveRecord::Schema.define(version: 20150722150833) do
 
   create_table "talks", force: :cascade do |t|
     t.string   "title",               limit: 255
-    t.integer  "venue_id"
+    t.integer  "series_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "ended_at"
@@ -234,14 +253,17 @@ ActiveRecord::Schema.define(version: 20150722150833) do
     t.boolean  "dryrun",                          default: false
     t.text     "social_links",                    default: "--- []"
     t.text     "listeners",                       default: "--- {}"
-    t.text     "description_as_html",             default: ""
+    t.string   "slides_uid"
+    t.text     "description_as_html"
     t.string   "slides_uuid"
+    t.integer  "venue_id"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
   add_index "talks", ["popularity"], name: "index_talks_on_popularity", using: :btree
   add_index "talks", ["slug"], name: "index_talks_on_slug", unique: true, using: :btree
   add_index "talks", ["uri"], name: "index_talks_on_uri", using: :btree
+  add_index "talks", ["venue_id"], name: "index_talks_on_venue_id", using: :btree
 
   create_table "transactions", force: :cascade do |t|
     t.string   "type"
@@ -287,7 +309,7 @@ ActiveRecord::Schema.define(version: 20150722150833) do
     t.string   "website",                limit: 255
     t.boolean  "conference"
     t.string   "authentication_token",   limit: 255
-    t.integer  "default_venue_id"
+    t.integer  "default_series_id"
     t.string   "summary",                limit: 255
     t.float    "penalty",                            default: 1.0
     t.string   "confirmation_token",     limit: 255
@@ -297,7 +319,7 @@ ActiveRecord::Schema.define(version: 20150722150833) do
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
-    t.text     "about_as_html",                      default: ""
+    t.text     "about_as_html"
     t.boolean  "paying",                             default: false
   end
 
@@ -309,22 +331,19 @@ ActiveRecord::Schema.define(version: 20150722150833) do
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
   create_table "venues", force: :cascade do |t|
-    t.text     "description"
-    t.string   "title",               limit: 255
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
-    t.string   "teaser",              limit: 255
+    t.string   "name"
+    t.string   "slug"
     t.integer  "user_id"
-    t.text     "options",                         default: "--- {}\n"
-    t.string   "image_uid",           limit: 255
-    t.string   "uri",                 limit: 255
-    t.string   "slug",                limit: 255
-    t.float    "penalty",                         default: 1.0
-    t.text     "description_as_html",             default: ""
+    t.text     "options",    default: "--- {}\n"
+    t.decimal  "lat",        default: 47.374707
+    t.decimal  "long",       default: 8.5249116
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
-  add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree
-  add_index "venues", ["uri"], name: "index_venues_on_uri", using: :btree
+  add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
+  add_foreign_key "talks", "venues"
+  add_foreign_key "venues", "users"
 end

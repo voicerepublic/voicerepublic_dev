@@ -36,20 +36,20 @@ class Handyman
       end
     end
 
-    def participations_missing_venues
-      log "-> Check participations for missing venues..."
-      Participation.where(venue_id: nil).each do |pa|
-        log "Destroy invalid participation %s (venue missing)" % pa.id
+    def participations_missing_series
+      log "-> Check participations for missing series..."
+      Participation.where(series_id: nil).each do |pa|
+        log "Destroy invalid participation %s (series missing)" % pa.id
         pa.destroy
       end
     end
 
-    def participations_nonexistent_venues
-      log "-> Check participations for nonexistent venues..."
-      condition = "venue_id NOT IN (?)"
-      ids = Venue.pluck(:id)
+    def participations_nonexistent_series
+      log "-> Check participations for nonexistent series..."
+      condition = "series_id NOT IN (?)"
+      ids = Series.pluck(:id)
       Participation.where(condition, ids).each do |pa|
-        log "Destroy invalid participation %s (venue nonexistent)" % pa.id
+        log "Destroy invalid participation %s (series nonexistent)" % pa.id
         pa.destroy
       end
 
@@ -67,11 +67,11 @@ class Handyman
 
     def participations_duplicates
       log "-> Check participations for duplicates..."
-      fields = [:user_id,:venue_id]
+      fields = [:user_id,:series_id]
       query = Participation.select(fields).group(*fields).having("count(*) > 1")
       query.each do |pa|
         conditions = { user_id: pa.user_id,
-                       venue_id: pa.venue_id }
+                       series_id: pa.series_id }
         log "Destroy duplicate entries for participation user %s" % conditions.inspect
         Participation.where(conditions).order('id ASC').offset(1).destroy_all
       end
@@ -88,10 +88,10 @@ class Handyman
 
     def reminders_nonexistent_rememberable
       log "-> Check reminders for nonexistent rememberable... [TODO]"
-      # condition = "venue_id NOT IN (?)"
-      # ids = Venue.pluck(:id)
+      # condition = "series_id NOT IN (?)"
+      # ids = Series.pluck(:id)
       # Reminder.where(condition, ids).each do |r|
-      #   log "Destroy invalid reminder %s (venue nonexistent)" % r.id
+      #   log "Destroy invalid reminder %s (series nonexistent)" % r.id
       #   r.destroy
       # end
     end
@@ -132,8 +132,8 @@ class Handyman
       log "-> Check all talks for validity (this might take a while)..."
       Talk.find_each do |t|
         unless t.valid?
-          if t.venue_id.nil?
-            log "Destroy orphaned talk %s (venue nonexistent)" % t.id
+          if t.series_id.nil?
+            log "Destroy orphaned talk %s (series nonexistent)" % t.id
             t.destroy
           else
             log "Fixing invalid talk %s" % t.id
@@ -174,12 +174,12 @@ class Handyman
       end
     end
 
-    def venues_missing_slug
-      log "-> Check venues for missing slug..."
-      venues = Venue.where(slug: nil)
-      venues.each_with_index do |venue, index|
-        log "Fix slug of venue #{index}/#{venues.size} #{venue.title}"
-        venue.save!
+    def series_missing_slug
+      log "-> Check series for missing slug..."
+      series = Series.where(slug: nil)
+      series.each_with_index do |series, index|
+        log "Fix slug of series #{index}/#{series.size} #{series.title}"
+        series.save!
       end
     end
 
@@ -192,15 +192,15 @@ class Handyman
       end
     end
 
-    def users_missing_default_venue
-      log "-> Check users for missing default_venue..."
-      query = User.where(default_venue_id: nil)
+    def users_missing_default_series
+      log "-> Check users for missing default_series..."
+      query = User.where(default_series_id: nil)
       total = query.count
       counter = 0
       query.each do |user|
         counter += 1
-        log "Fix default venue for user #{counter}/#{total} #{user.name}"
-        user.build_and_set_default_venue
+        log "Fix default series for user #{counter}/#{total} #{user.name}"
+        user.build_and_set_default_series
         user.save!
       end
     end
@@ -254,20 +254,20 @@ class Handyman
       end
     end
 
-    def venues_nonexistent_users
-      log "-> Check venues for nonexistent users..."
+    def series_nonexistent_users
+      log "-> Check series for nonexistent users..."
       cond = 'user_id NOT IN (?)'
       ids = User.pluck(:id)
-      orphans = Venue.where(cond, ids)
+      orphans = Series.where(cond, ids)
       if orphans.count > 0
-        log "Deleting #{orphans.count} orphaned venues."
-        Venue.delete_all([cond, ids])
+        log "Deleting #{orphans.count} orphaned series."
+        Series.delete_all([cond, ids])
       end
 
       # this belpongs to the previous step, do not rip apart
-      log "-> Check for obsolete search documents, due to deleted venues..."
-      cond = "searchable_type = 'Venue' AND searchable_id NOT IN (?)"
-      ids = Venue.pluck(:id)
+      log "-> Check for obsolete search documents, due to deleted series..."
+      cond = "searchable_type = 'Series' AND searchable_id NOT IN (?)"
+      ids = Series.pluck(:id)
       docs = PgSearch::Document.where(cond, ids)
       if docs.count > 0
         log "Deleting #{docs.count} orphaned search docs."

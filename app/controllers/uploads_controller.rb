@@ -5,14 +5,14 @@ class UploadsController < BaseController
 
   def new
     attrs = params[:talk] ? talk_params : {}
-    attrs[:venue_id] ||= current_user.default_venue_id
+    attrs[:series_id] ||= current_user.default_series_id
     @talk = Talk.new(attrs)
   end
 
   # POST /uploads
   def create
     @talk = Talk.new(talk_params)
-    @talk.venue_user = current_user
+    @talk.series_user = current_user
 
     authorize! :create, @talk
 
@@ -31,7 +31,7 @@ class UploadsController < BaseController
                                  :starts_at_time,
                                  :description, :image,
                                  :tag_list, :language,
-                                 :new_venue_title, :venue_id,
+                                 :new_series_title, :series_id,
                                  :user_override_uuid, :slides_uuid)
   end
 

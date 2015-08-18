@@ -11,7 +11,7 @@
 # * updated_at [datetime, not null] - last update time
 # * uri [string] - TODO: document me
 # * user_id [integer] - belongs to :user
-class Venue < ActiveRecord::Base
+class Series < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
@@ -27,14 +27,14 @@ class Venue < ActiveRecord::Base
   # TODO: rename to host
   belongs_to :user
 
-  has_many :talks, dependent: :destroy, inverse_of: :venue
+  has_many :talks, dependent: :destroy, inverse_of: :series
 
   has_many :participations, dependent: :destroy
   # TODO: rename to participants
   has_many :users, through: :participations
   has_many :social_shares, as: :shareable, dependent: :destroy
 
-  has_one :default_user, foreign_key: :default_venue_id,
+  has_one :default_user, foreign_key: :default_series_id,
           class_name: 'User', dependent: :nullify
 
   validates :title, :teaser, :description, :tag_list, presence: true
@@ -58,7 +58,7 @@ class Venue < ActiveRecord::Base
                           order('featured_from DESC') }
 
   dragonfly_accessor :image do
-    default Rails.root.join('app/assets/images/defaults/venue-image.jpg')
+    default Rails.root.join('app/assets/images/defaults/series-image.jpg')
   end
 
   include PgSearch
@@ -84,7 +84,7 @@ class Venue < ActiveRecord::Base
   end
 
   def set_defaults
-    attrs = Settings.venue_default_attributes[I18n.locale]
+    attrs = Settings.series_default_attributes[I18n.locale]
     attrs.each do |key, value|
       self.send("#{key}=", value) if send(key).blank?
     end

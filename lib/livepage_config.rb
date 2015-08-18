@@ -28,7 +28,7 @@ class LivepageConfig < Struct.new(:talk, :user)
         duration: talk.duration.minutes,
         channel: talk.public_channel,
         listeners: talk.listeners.size + 1, # approx.
-        autostart: !!talk.venue.opts.autostart
+        autostart: !!talk.series.opts.autostart
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
@@ -47,9 +47,9 @@ class LivepageConfig < Struct.new(:talk, :user)
       streaming_server: Settings.rtmp.record,
       discussion: discussion,
       guests: talk.guests.map { |g| g.details_for(talk) },
-      participants: talk.venue.users.map { |g| g.details_for(talk) },
+      participants: talk.series.users.map { |g| g.details_for(talk) },
       blackbox: Settings.blackbox,
-      loopback: talk.venue.opts.loopback,
+      loopback: talk.series.opts.loopback,
       safetynet_warning: I18n.t('safetynet_warning'),
       blackbox_path: blackbox_path,
       t: {
