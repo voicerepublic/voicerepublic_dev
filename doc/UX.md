@@ -90,6 +90,7 @@ Future Features
 ---------------
 
 * Chapter Marks in Audio Timeline
+* Slides
 
 Far Future Features
 -------------------
