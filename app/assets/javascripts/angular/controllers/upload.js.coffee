@@ -36,11 +36,6 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       fn: (item, options) ->
         item.type.split('/')[1] in filetypes
 
-    uploader.filters.push
-      name: "fileSizeFilter"
-      fn: (item, options) ->
-        item.size > 0
-
     uploader.onCancelItem = (item, response, status, headers) ->
       safetynet.deactivate()
 
