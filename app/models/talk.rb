@@ -680,13 +680,19 @@ class Talk < ActiveRecord::Base
     [ :title, [:id, :title] ]
   end
 
+  def user_override_url
+    Storage.get_object_url(Settings.storage.upload_audio, user_override_uuid)
+  end
+
   # gets triggered when a user has uploaded an override file
   def user_override!
     logger.info "Talk.find(#{id}).user_override! (with uuid #{user_override_uuid})"
 
-    # with the current policy there is not need to talk to aws
-    url = 'https://s3.amazonaws.com/%s/%s' %
-          [ Settings.storage.upload_audio, user_override_uuid ]
+    # # with the current policy there is not need to talk to aws
+    # url = 'https://s3.amazonaws.com/%s/%s' %
+    #       [ Settings.storage.upload_audio, user_override_uuid ]
+
+    url = user_override_url
 
     logger.info "URL: #{url}"
 

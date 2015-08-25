@@ -7,5 +7,9 @@ fog:
     endpoint: http://localhost:3000/system/cloud
 talk_upload_bucket: vr-audio-uploads-dev
 
+cloud_upload:
+  url_path: /system/cloud
+  fs_path: public/system/cloud
+
 # delete this when Mailers#preview + inline attachment are fixed in rails
 no_attachments: true

@@ -3,8 +3,15 @@ module UploadsHelper
   def init_audio_uploader
     key = SecureRandom.uuid
 
+    bucket = Settings.storage.upload_audio
+    object_path = ''
+    expires = 1.day.from_now
+    headers = {}
+    options = { path_style: true }
+
     params = {
-      uploadUrl: "https://#{Settings.storage.upload_audio}.s3.amazonaws.com",
+      #uploadUrl: "https://#{Settings.storage.upload_audio}.s3.amazonaws.com",
+      uploadUrl: Storage.put_object_url(bucket, object_path, expires, headers, options),
       key:       key,
       filter:    %w( ogg x-ogg
                      wav x-wav wave x-pn-wav
@@ -22,8 +29,11 @@ module UploadsHelper
   def init_slides_uploader
     key = SecureRandom.uuid
 
+    bucket = Settings.storage.upload_slides
+
     params = {
-      uploadUrl: "https://#{Settings.storage.upload_slides}.s3.amazonaws.com",
+      #uploadUrl: "https://#{Settings.storage.upload_slides}.s3.amazonaws.com",
+      uploadUrl: Storage.put_object_url(bucket),
       key:       key,
       filter:    'pdf',
       # `success` will be evaled on complete

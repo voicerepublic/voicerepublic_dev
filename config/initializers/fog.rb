@@ -16,3 +16,15 @@ class Fog::Storage::Local::File
     public_url
   end
 end
+
+class Fog::Storage::Local::Real
+  def put_object_url(*args)
+    endpoint + '/' + args.first
+  end
+
+  def get_object_url(*args)
+    [endpoint, *args] * '/'
+  end
+end
+
+SLIDES_STORAGE = Storage.directories.new(key: Settings.storage.upload_slides)
