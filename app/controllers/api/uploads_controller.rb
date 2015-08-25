@@ -3,6 +3,11 @@ class Api::UploadsController < Api::BaseController
 
   # POST api/uploads
   def create
+    unless current_user.credits > 0
+      render json: { errors:  I18n.t('low_on_credits')},
+        status: 402 and return
+    end
+
     @talk = Talk.new(talk_params)
     @talk.series_user = current_user
 
