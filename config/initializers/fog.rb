@@ -17,6 +17,8 @@ class Fog::Storage::Local::File
   end
 end
 
+# guerilla patch local storage to provide endpoints for simulating
+# upload to cloud storage locally
 class Fog::Storage::Local::Real
   def put_object_url(*args)
     endpoint + '/' + args.first

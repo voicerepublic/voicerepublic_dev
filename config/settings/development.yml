@@ -7,6 +7,9 @@ fog:
     endpoint: http://localhost:3000/system/cloud
 talk_upload_bucket: vr-audio-uploads-dev
 
+# this is used by app/middlewares/cloud_upload via
+# config/environments/development to simulate an endpoint for uploads
+# to the cloud locally
 cloud_upload:
   url_path: /system/cloud
   fs_path: public/system/cloud
