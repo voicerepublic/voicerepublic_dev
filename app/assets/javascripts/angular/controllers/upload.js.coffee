@@ -25,7 +25,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
 
     uploader = $scope.uploader = new FileUploader
       url: options.uploadUrl
-      method: "POST"
+      method: "PUT"
       formData: [key: options.key]
       queueLimit: 1
       autoUpload: true

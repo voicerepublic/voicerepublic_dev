@@ -17,7 +17,7 @@ class CloudUpload < Struct.new(:app, :opts)
   PREFIX = %w(..) * 3
 
   def call(env)
-    return app.call(env) unless env['REQUEST_METHOD'] == 'POST'
+    return app.call(env) unless env['REQUEST_METHOD'] == 'PUT'
     md = env['PATH_INFO'].match(regex)
     return app.call(env) if md.nil?
 
