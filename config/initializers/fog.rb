@@ -21,7 +21,7 @@ end
 # upload to cloud storage locally
 class Fog::Storage::Local::Real
   def put_object_url(*args)
-    endpoint + '/' + args.first
+    (endpoint + '/' + args.first) + '?a=b&c=d'
   end
 
   def get_object_url(*args)

@@ -22,7 +22,7 @@ module UploadsHelper
     key = SecureRandom.uuid
 
     params = {
-      uploadUrl: Storage.put_object_url(bucket, '', 1.day.from_now),
+      uploadUrl: json_proof_presigned_url(bucket, key),
       key:       key,
       filter:    filter,
       # `success` will be evaled on complete
@@ -31,6 +31,15 @@ module UploadsHelper
     }
 
     "init(#{params.to_json})"
+  end
+
+  def json_proof_presigned_url(bucket, key)
+    expires = 1.day.from_now
+    headers = {}
+    options = { path_style: true }
+    url = Storage.put_object_url(bucket, key, expires, headers, options)
+    base, params = url.split('?')
+    base + '?' + CGI.escape(params)
   end
 
 end
