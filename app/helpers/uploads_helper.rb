@@ -38,8 +38,7 @@ module UploadsHelper
     headers = {}
     options = {}
     url = Storage.put_object_url(bucket, key, expires, headers, options)
-    base, params = url.split('?')
-    base + '?' + CGI.escape(params)
+    url.gsub('&', '%26') # poor mans `CGI.escape`
   end
 
 end
