@@ -28,5 +28,3 @@ class Fog::Storage::Local::Real
     [endpoint, *args] * '/'
   end
 end
-
-SLIDES_STORAGE = Storage.directories.new(key: Settings.storage.upload_slides)
