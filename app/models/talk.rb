@@ -686,7 +686,7 @@ class Talk < ActiveRecord::Base
     expiry = 1.day.from_now
 
     # Storage.get_object_url(bucket, object, expiry)
-    Storage.directories.new(key: bucket).files.new(key: object).url(expiry)
+    Storage.directories.new(key: bucket).files.new(key: object).public_url
   end
 
   # gets triggered when a user has uploaded an override file
