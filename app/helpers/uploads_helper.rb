@@ -36,7 +36,7 @@ module UploadsHelper
   def json_proof_presigned_url(bucket, key)
     expires = 1.day.from_now
     headers = {}
-    options = { path_style: true }
+    options = {}
     url = Storage.put_object_url(bucket, key, expires, headers, options)
     base, params = url.split('?')
     base + '?' + CGI.escape(params)
