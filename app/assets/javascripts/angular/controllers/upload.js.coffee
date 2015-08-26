@@ -49,7 +49,9 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       safetynet.activate options.safetynetMessage
 
     uploader.onErrorItem = (fileItem, response, status, headers) ->
-      $log.error "Uploading failed: " + JSON.stringify(response)
+      $log.error "Uploading failed (Response): " + JSON.stringify(response)
+      $log.error "Uploading failed (Status):   " + JSON.stringify(status)
+      $log.error "Uploading failed (Headers):  " + JSON.stringify(headers)
       $scope.uploadFailed = true
       safetynet.deactivate()
 
