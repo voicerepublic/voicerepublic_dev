@@ -683,7 +683,7 @@ class Talk < ActiveRecord::Base
   def user_override_url
     Storage.get_object_url(Settings.storage.upload_audio,
                            user_override_uuid,
-                           1.day.from_url)
+                           1.day.from_now)
   end
 
   # gets triggered when a user has uploaded an override file
