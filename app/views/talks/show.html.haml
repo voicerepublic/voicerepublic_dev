@@ -4,7 +4,7 @@
   = social_meta_tags_talk
 
 - content_for :javascript do
-  = javascript_include_tag '/pdf_viewer/pdf-viewer-0.1.1'
+  = javascript_include_tag '/pdf_viewer/pdf-viewer-0.1.2'
   :javascript
     window.insider = #{!!current_user.try(:insider?)};
     window.console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
@@ -329,7 +329,7 @@
     .large-12.columns
       - if @talk.slides_path.present?
         .row.pdf-viewer(ng-show="talkIsArchived() || talkIsLive()")
-          %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.1.js"
+          %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.2.js"
             src="#{@talk.slides_path}" width="640")
 
       -# DESCRIPTION

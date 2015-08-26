@@ -150,6 +150,22 @@ class Handyman
       end
     end
 
+    def users_truncate_about_and_summary
+      log "-> Check users for about or summary over limit..."
+      conditions = 'LENGTH(about) > ? OR LENGTH(summary) > ?'
+      query = User.where(conditions,
+                         Settings.limit.text,
+                         Settings.limit.string); nil
+      total = query.count
+      query.each_with_index do |user, index|
+        log "%s/%s Fix user %s, truncate about and summary" %
+            [ index + 1, total, user.id ]
+        user.about = user.about[0, Settings.limit.text]
+        user.summary = user.summary[0, Settings.limit.string]
+        user.save
+      end
+    end
+
     def talks_archived_missing_processed_at
       log "-> Check archived talks for missing processed_at..."
       Talk.archived.where(processed_at: nil).each do |t|
@@ -178,7 +194,7 @@ class Handyman
       log "-> Check series for missing slug..."
       series = Series.where(slug: nil)
       series.each_with_index do |series, index|
-        log "Fix slug of series #{index}/#{series.size} #{series.title}"
+        log "Fix slug of series #{index+1}/#{series.size} #{series.title}"
         series.save!
       end
     end
@@ -187,7 +203,7 @@ class Handyman
       log "-> Check talks for missing slug..."
       talks = Talk.where(slug: nil)
       talks.each_with_index do |t, index|
-        log "Fix slug of talk #{index}/#{talks.size} #{t.title}"
+        log "Fix slug of talk #{index+1}/#{talks.size} #{t.title}"
         t.save!
       end
     end
@@ -293,7 +309,8 @@ class Handyman
       query = Talk.where(description_as_html: nil).order(:id)
       total = query.count
       query.each_with_index do |talk, index|
-        log "%s/%s Fix desciption_as_html on talk %s." % [index, total, talk.id]
+        log "%s/%s Fix desciption_as_html on talk %s." %
+            [ index+1, total, talk.id ]
         talk.send(:set_description_as_html)
         talk.save
       end

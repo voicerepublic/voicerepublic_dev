@@ -76,7 +76,8 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true
   validates :firstname, presence: true, length: { minimum: 1, maximum: 100 }
   validates :lastname, presence: true, length: { minimum: 1, maximum: 100 }
-  validates :summary, length: { maximum: 255 }
+  validates :summary, length: { maximum: Settings.limit.string }
+  validates :about, length: { maximum: Settings.limit.text }
   validates :slug, presence: true
 
   validates :slug, length: { minimum: 5 }
