@@ -18,7 +18,7 @@ en:
         teaser: Short description
         tag_list: Tags
       user:
-        summary: Short description (255 characters or less)
+        summary: Short description (140 characters or less)
         conference: I will be streaming a conference.
         accept_terms_of_use: |
           I accept the <a
