@@ -192,3 +192,26 @@ JSON representation of the created talk:
   "description_as_html":"\u003cp\u003eSome talk description\u003c/p\u003e\n"
 }
 ```
+
+### Bookmarks
+
+#### Endpoint
+
+`GET /api/bookmarks`
+
+#### Query Parameters
+
+* `limit`
+* `offset`
+* `order`
+* `reverse`
+
+#### Example query
+
+```
+curl https://voicerepublic.com/api/bookmarks?user_email=hans1@example.com&user_token=Zy4mgMtAind_zyHCLmFf
+```
+
+#### Response
+
+TODO...

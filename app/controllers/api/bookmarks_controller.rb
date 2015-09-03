@@ -3,7 +3,7 @@
 class Api::BookmarksController < Api::BaseController
   skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
 
-  LIMIT = 20
+  MAX_LIMIT = 20
 
   JSON_CONFIG = {
     only: %w(
@@ -32,8 +32,8 @@ class Api::BookmarksController < Api::BaseController
     @talks = Talk.remembered_by(current_user).archived.nodryrun
 
     # paging
-    limit = params[:limit].to_i
-    limit = LIMIT if limit == 0
+    limit = [params[:limit].to_i, MAX_LIMIT].min
+    limit = MAX_LIMIT if limit == 0
     @talks = @talks.limit(limit)
     @talks = @talks.offset(params[:offset].to_i) if params[:offset]
 
