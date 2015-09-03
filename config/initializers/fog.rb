@@ -28,3 +28,6 @@ class Fog::Storage::Local::Real
     [endpoint, *args] * '/'
   end
 end
+
+# TODO checkout https://github.com/fog/fog/pull/857/files
+# TODO upgrade fog
