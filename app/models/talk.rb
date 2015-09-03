@@ -257,7 +257,7 @@ class Talk < ActiveRecord::Base
     return nil if slides_uuid.blank?
     return nil if slides_uuid.match /^https?:\/\//
 
-    slides_storage.files.new(key: slides_uuid).url(10.minutes.from_now)
+    "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
   end
 
   def slides_url
@@ -664,11 +664,6 @@ class Talk < ActiveRecord::Base
   def media_storage
     @media_storage ||=
       Storage.directories.new(key: Settings.storage.media, prefix: uri)
-  end
-
-  def slides_storage
-    @slides_storage ||=
-      Storage.directories.new(key: Settings.storage.upload_slides)
   end
 
   def logfile

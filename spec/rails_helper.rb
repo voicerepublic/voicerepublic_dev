@@ -122,34 +122,37 @@ RSpec.configure do |config|
   config.include ValidUserRequestHelper, :type => :feature
   config.include MailHelpers, :type => :feature
 
-  # Disable GC and Start Stats
-  # disable GC by default
-  config.before(:suite) do
-    GC.disable
-  end
-
-  ## Enable GC
-  config.after(:suite) do
-    example_counter = 0
-    GC.enable
-  end
-
-  # Trigger GC after every_nths examples, defaults to 20.
-  # Set an appropriate value via config/settings.local.yml
-  #
-  # (How many specs can your machine ran before it runs out of RAM
-  # when GC is turned off?)
-  #
-  every_nths = Settings.rspec.gc_cycle
-  example_counter = 0
-  config.after(:each) do
-    if example_counter % every_nths == 0
-      #print 'G'
-      GC.enable
-      GC.start
+  # No optimisation for GC on CircleCI
+  unless ENV['CI']
+    # Disable GC and Start Stats
+    # disable GC by default
+    config.before(:suite) do
       GC.disable
     end
-    example_counter += 1
+
+    ## Enable GC
+    config.after(:suite) do
+      example_counter = 0
+      GC.enable
+    end
+
+    # Trigger GC after every_nths examples, defaults to 20.
+    # Set an appropriate value via config/settings.local.yml
+    #
+    # (How many specs can your machine ran before it runs out of RAM
+    # when GC is turned off?)
+    #
+    every_nths = Settings.rspec.gc_cycle
+    example_counter = 0
+    config.after(:each) do
+      if example_counter % every_nths == 0
+        #print 'G'
+        GC.enable
+        GC.start
+        GC.disable
+      end
+      example_counter += 1
+    end
   end
 
   # database_cleaner is required to allow for feature specs with ajax calls.
