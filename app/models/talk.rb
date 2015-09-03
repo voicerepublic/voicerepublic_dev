@@ -260,6 +260,11 @@ class Talk < ActiveRecord::Base
     slides_storage.files.new(key: slides_uuid).url(10.minutes.from_now)
   end
 
+  def slides_url
+    # TODO create a permanent url that redirects to a temp url via middleware
+    slides_path
+  end
+
   # the message history is available as text file to the host
   def message_history
     attrs = {
@@ -358,6 +363,15 @@ class Talk < ActiveRecord::Base
   def venue_name=(name)
     name = 'Default venue' if name.blank?
     self.venue = user.venues.find_or_create_by(name: name.strip)
+  end
+
+  # used for mobile app
+  def image_url
+    image.url
+  end
+
+  def self_url
+    Rails.application.routes.url_helpers.talk_url(self)
   end
 
   private
