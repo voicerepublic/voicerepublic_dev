@@ -652,6 +652,11 @@ class Talk < ActiveRecord::Base
       Storage.directories.new(key: Settings.storage.media, prefix: uri)
   end
 
+  def slides_storage
+    @slides_storage ||=
+      Storage.directories.new(key: Settings.storage.upload_slides)
+  end
+
   def logfile
     return @logfile unless @logfile.nil?
     path = File.expand_path(Settings.paths.log, Rails.root)
