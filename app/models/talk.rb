@@ -743,7 +743,8 @@ class Talk < ActiveRecord::Base
       ctype = Mime::Type.lookup_by_extension('pdf')
       logger.info "logger.info #{Settings.storage.upload_slides}"
       puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, tmp]
-      file = slides_storage.files.create key: tmp, body: handle, content_type: ctype
+      file = slides_storage.files.create key: tmp, body: handle,
+                                         content_type: ctype, acl: 'public-read'
       puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, tmp]
       update_attribute :slides_uuid, tmp
       FileUtils.rm(tmp)
