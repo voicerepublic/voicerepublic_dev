@@ -33,6 +33,24 @@ describe Api::BookmarksController do
       expect(data.length).to be(3)
     end
 
+    describe 'limiting' do
+      let(:talks) { FactoryGirl.create_list :talk, 25, :archived }
+
+      it 'limits the results' do
+        get :index, credentials
+        expect(response.status).to be(200)
+        data = JSON.parse(response.body)
+        expect(data.length).to be(20)
+      end
+
+      it 'accepts offsets' do
+        get :index, credentials.merge(:offset => 20)
+        expect(response.status).to be(200)
+        data = JSON.parse(response.body)
+        expect(data.length).to be(5)
+      end
+    end
+
     describe 'sql injection' do
       it 'allows valid "order" arguments' do
         get :index, credentials.merge(order: "created_at", reverse: "true")
