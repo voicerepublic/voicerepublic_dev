@@ -28,10 +28,12 @@ Rails.application.routes.draw do
     resources :tags, only: [:index]
   end
 
+  # TODO remove
   if Settings.api.try(:enabled)
     namespace 'api' do
       resources :talks, only: [:index]
       resources :uploads, only: [ :create ]
+      resources :bookmarks, only: [ :index ]
     end
     devise_scope :user do
       post "/api/sessions", to: "api/sessions#create"

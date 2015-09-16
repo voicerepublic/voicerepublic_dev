@@ -192,3 +192,89 @@ JSON representation of the created talk:
   "description_as_html":"\u003cp\u003eSome talk description\u003c/p\u003e\n"
 }
 ```
+
+### Bookmarks
+
+#### Endpoint
+
+`GET /api/bookmarks`
+
+#### Query Parameters
+
+* `limit`
+* `offset`
+* `order`
+* `reverse`
+
+#### Example query
+
+```
+curl https://voicerepublic.com/api/bookmarks?user_email=hans1@example.com&user_token=Zy4mgMtAind_zyHCLmFf
+```
+
+#### Example Response
+
+```
+[
+    {
+        "description_as_html": "<p>Moldovia Break Core.</p>\n",
+        "duration": 30,
+        "id": 3396,
+        "image_url": "https://voicerepublic.com/media/W1siZmYiLCIvaG9tZS9hcHAvYXBwL3JlbGVhc2VzLzIwMTUwOTAzMTMwNTA3L2FwcC9hc3NldHMvaW1hZ2VzL2RlZmF1bHRzL3RhbGstaW1hZ2UuanBnIl1d/talk-image.jpg?sha=110aa2b5",
+        "language": "en",
+        "media_links": {
+            "m4a": "/vrmedia/3396.m4a",
+            "mp3": "/vrmedia/3396.mp3",
+            "ogg": "/vrmedia/3396.ogg"
+        },
+        "play_count": 7,
+        "popularity": 9.31953284800631e-07,
+        "processed_at": "2015-02-08T15:38:22.865+01:00",
+        "self_url": "http://voicerepublic.com/talks/all-is-good",
+        "slides_url": null,
+        "speakers": null,
+        "teaser": "Moldovia Break Core",
+        "title": "All is good"
+    },
+    {
+        "description_as_html": "<p>pilz rock</p>\n",
+        "duration": 30,
+        "id": 3392,
+        "image_url": "https://voicerepublic.com/media/W1siZiIsIjIwMTUvMDIvMDUvNHp3ZTZoeThqNV9yb2NrLmpwZyJdXQ?sha=b6b9f2ad",
+        "language": "en",
+        "media_links": {
+            "m4a": "/vrmedia/3392.m4a",
+            "mp3": "/vrmedia/3392.mp3",
+            "ogg": "/vrmedia/3392.ogg"
+        },
+        "play_count": 17,
+        "popularity": 1.99315781842522e-06,
+        "processed_at": "2015-02-05T19:53:26.171+01:00",
+        "self_url": "http://voicerepublic.com/talks/cvvc-c9c04346-9a06-4b2f-b27f-d9a6c4e6e4ee",
+        "slides_url": null,
+        "speakers": null,
+        "teaser": "live ",
+        "title": "Pilz Rock"
+    },
+    {
+        "description_as_html": "<p>In The Meantime</p>\n",
+        "duration": 30,
+        "id": 4248,
+        "image_url": "https://voicerepublic.com/media/W1siZmYiLCIvaG9tZS9hcHAvYXBwL3JlbGVhc2VzLzIwMTUwOTAzMTMwNTA3L2FwcC9hc3NldHMvaW1hZ2VzL2RlZmF1bHRzL3RhbGstaW1hZ2UuanBnIl1d/talk-image.jpg?sha=110aa2b5",
+        "language": "en",
+        "media_links": {
+            "m4a": "/vrmedia/4248.m4a",
+            "mp3": "/vrmedia/4248.mp3",
+            "ogg": "/vrmedia/4248.ogg"
+        },
+        "play_count": 1,
+        "popularity": 0.0,
+        "processed_at": "2015-06-25T10:19:53.913+02:00",
+        "self_url": "http://voicerepublic.com/talks/in-the-meantime-690a150d-0593-45aa-bf05-78ac8597cc05",
+        "slides_url": null,
+        "speakers": null,
+        "teaser": "In The Meantime",
+        "title": "In The Meantime"
+    }
+]
+```
