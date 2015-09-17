@@ -381,6 +381,7 @@ GEM
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    profmem (0.0.2)
     pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -592,6 +593,7 @@ DEPENDENCIES
   pg
   pg_search
   poltergeist
+  profmem
   pry-rails
   rack-affiliates
   rack-cache
