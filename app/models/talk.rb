@@ -750,18 +750,17 @@ class Talk < ActiveRecord::Base
   def process_slides!
     # if it is a url, pull it and push it to s3 bucket, replace field with name
     if slides_uuid =~ /^https?:\/\//
-      tmp = "slides-#{id}.pdf"
-      cmd = "wget --no-check-certificate -q -O #{tmp} '#{slides_uuid}'"
+      tmp = Tempfile.new(["slides-#{id}", '.pdf'])
+      cmd = "wget --no-check-certificate -q -O #{tmp.path} '#{slides_uuid}'"
       %x[ #{cmd} ]
-      handle = File.open(tmp)
       ctype = Mime::Type.lookup_by_extension('pdf')
-      logger.info "logger.info #{Settings.storage.upload_slides}"
-      puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, tmp]
-      file = slides_storage.files.create key: tmp, body: handle,
+      key = File.basename(tmp.path)
+      #puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, key]
+      file = slides_storage.files.create key: key, body: tmp,
                                          content_type: ctype, acl: 'public-read'
-      puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, tmp]
-      update_attribute :slides_uuid, tmp
-      FileUtils.rm(tmp)
+      #puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, key]
+      update_attribute :slides_uuid, key
+      tmp.unlink
     end
     # if its a uuid nothing is to do
 
