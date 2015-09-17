@@ -407,7 +407,7 @@ class Talk < ActiveRecord::Base
     Rails.logger.error "On attempt #{failcount} upload of #{key} " +
                        "failed with '#{e.message}'"
     if failcount < 5
-      Rails.logger.error "Retring to upload #{key}."
+      Rails.logger.error "Retrying to upload #{key}."
       retry
     end
   end
