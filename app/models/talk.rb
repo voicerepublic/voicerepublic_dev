@@ -401,6 +401,15 @@ class Talk < ActiveRecord::Base
     puts "[DBG] Uploading %s to %s..." % [file, key]
     media_storage.files.create key: key, body: handle, content_type: ctype
     puts "[DBG] Uploading %s to %s complete." % [file, key]
+  rescue => e
+    failcount ||= 0
+    failcount += 1
+    Rails.logger.error "On attempt #{failcount} upload of #{key} " +
+                       "failed with '#{e.message}'"
+    if failcount < 5
+      Rails.logger.error "Retring to upload #{key}."
+      retry
+    end
   end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
