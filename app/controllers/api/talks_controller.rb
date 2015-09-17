@@ -1,7 +1,5 @@
 class Api::TalksController < Api::BaseController
 
-  skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
-
   MAX_LIMIT = 20
 
   JSON_CONFIG = {
@@ -16,8 +14,7 @@ class Api::TalksController < Api::BaseController
                 listeners)
   }
 
-  before_action :authenticate_user!
-
+  # GET /api/talks
   def index
     @talks = Talk.all
 

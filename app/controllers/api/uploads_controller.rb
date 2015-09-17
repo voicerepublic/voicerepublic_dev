@@ -1,7 +1,6 @@
 class Api::UploadsController < Api::BaseController
-  skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
 
-  # POST api/uploads
+  # POST /api/uploads
   def create
     unless current_user.credits > 0
       render json: { errors:  I18n.t('low_on_credits')},
@@ -22,7 +21,6 @@ class Api::UploadsController < Api::BaseController
 
   private
 
-  # Only allow a trusted parameter "white list" through.
   def talk_params
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
                                  :starts_at_time,
