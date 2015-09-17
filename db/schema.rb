@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812122729) do
+ActiveRecord::Schema.define(version: 20150917135345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,7 +239,7 @@ ActiveRecord::Schema.define(version: 20150812122729) do
     t.string   "starts_at_date",      limit: 255
     t.string   "starts_at_time",      limit: 255
     t.string   "uri",                 limit: 255
-    t.string   "recording_override",  limit: 255
+    t.text     "recording_override"
     t.integer  "related_talk_id"
     t.text     "storage",                         default: "--- {}\n"
     t.string   "grade",               limit: 255
@@ -321,6 +321,7 @@ ActiveRecord::Schema.define(version: 20150812122729) do
     t.string   "referrer"
     t.text     "about_as_html"
     t.boolean  "paying",                             default: false
+    t.string   "format"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
