@@ -441,7 +441,7 @@ class Talk < ActiveRecord::Base
   def after_start
     MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
-    return if series.opts.no_auto_end_talk
+    return unless series.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
     Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)
