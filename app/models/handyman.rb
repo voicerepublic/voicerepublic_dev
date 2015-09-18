@@ -16,6 +16,34 @@ class Handyman
 
   class Tasks
 
+    def series_options_rename_autoend
+      log '-> Check series for old option no_auto_end_talk...'
+
+      query = Series.where("options LIKE '%autoend%'")
+      if query.count > 0
+        log "PRIOR RUN DETECTED & NOT IDEMPOTENT. SKIPPING. REMOVE THIS METHOD."
+        return
+      end
+
+      query = Series.where("options NOT LIKE '%no_auto_end%'")
+      total = query.count
+      query.each_with_index do |series, index|
+        log "%s/%s Set option autoend for series %s" %
+            [ index+1, total, series.id ]
+        series.options[:autoend] = true
+        series.save
+      end
+
+      query = Series.where("options LIKE '%no_auto_end%'")
+      total = query.count
+      query.each_with_index do |series, index|
+        log "%s/%s Unset option no_auto_end_talk for series %s" %
+            [ index+1, total, series.id ]
+        series.options.delete :no_auto_end_talk
+        series.save
+      end
+    end
+
     def appearances_nonextistent_talks
       log "-> Check appearances for nonexistent talks..."
       condition = "talk_id NOT IN (?)"
