@@ -449,9 +449,7 @@ class Talk < ActiveRecord::Base
 
   def after_end
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
-    unless series.opts.no_auto_postprocessing
-      Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
-    end
+    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
     MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
