@@ -28,7 +28,7 @@ class LivepageConfig < Struct.new(:talk, :user)
         duration: talk.duration.minutes,
         channel: talk.public_channel,
         listeners: talk.listeners.size + 1, # approx.
-        autostart: !!talk.series.opts.autostart
+        autostart: !!talk.venue.opts.autostart
       },
       starts_at: talk.starts_at.to_i,
       ends_at: talk.ends_at.to_i,
