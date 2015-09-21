@@ -437,9 +437,9 @@ describe Talk do
       talks[0].update_attribute :starts_at_time, '15:00'
       talks[1].update_attribute :starts_at_time, '14:00'
       talks[2].update_attribute :starts_at_time, '13:00'
-      expect(talks[2].next_talk).to eq(talks[1])
-      expect(talks[1].next_talk).to eq(talks[0])
-      expect(talks[0].next_talk).to be_nil
+      expect(talks[2].lined_up).to eq(talks[1])
+      expect(talks[1].lined_up).to eq(talks[0])
+      expect(talks[0].lined_up).to be_nil
     end
   end
 
