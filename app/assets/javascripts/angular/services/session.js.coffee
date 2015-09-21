@@ -134,6 +134,8 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
       onLoitering: ->
         config.flags.settings = false
         unsubscribeAllStreams()
+        if config.lineup && config.next
+          window.location.href = config.next
 
   # TODO resolve dependency on `window` by using `$window`
   activateSafetynet = ->

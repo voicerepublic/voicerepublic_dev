@@ -374,6 +374,11 @@ class Talk < ActiveRecord::Base
     Rails.application.routes.url_helpers.talk_url(self)
   end
 
+  def lined_up
+    return nil unless venue.present?
+    venue.talks.where('starts_at > ?', starts_at).ordered.first
+  end
+
   private
 
   def set_description_as_html
