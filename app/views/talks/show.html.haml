@@ -327,10 +327,10 @@
 
   .row.collapse-large-only
     .large-12.columns
-      - if @talk.slides_path.present?
+      - if @talk.slides_url.present?
         .row.pdf-viewer(ng-show="talkIsArchived() || talkIsLive()")
           %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.2.js"
-            src="#{@talk.slides_path}" width="640")
+            src="#{@talk.slides_url}" width="640")
 
       -# DESCRIPTION
       #description.description-block
