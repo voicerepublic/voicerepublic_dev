@@ -227,20 +227,12 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  # DO NOT USE THIS, it will undermine tracking of playcounts
-  # use `media_links` instead
-  def download_links
-    raise 'this method has been deprecated, plz fix your code'
-    return {} unless recording
-    archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    glob = "#{archive}/#{recording}.*"
-    files = Dir.glob(glob)
-    formats = files.map { |f| f.split('.').last } - [ 'wav' ]
-    formats.inject({}) { |r, f| r.merge f => generate_ephemeral_path!(".#{f}") }
-  end
-
   def media_links(variant='', formats=%w(mp3 m4a ogg))
     formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}#{variant}.#{f}" }
+  end
+
+  def media_url(ext='mp3')
+    Rails.application.routes.url_helpers.root_url + "/vrmedia/#{id}.#{ext}"
   end
 
   # generates an ephemeral path and returns the location for

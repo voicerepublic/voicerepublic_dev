@@ -440,4 +440,27 @@ describe Talk do
     end
   end
 
+  describe 'urls' do
+    let(:talk) { FactoryGirl.create(:talk) }
+
+    it 'provides self_url' do
+      expect(talk).to respond_to(:self_url)
+      expect(talk.self_url).to match(%r{/#{talk.to_param}$})
+    end
+    it 'provides image_url' do
+      expect(talk).to respond_to(:image_url)
+      expect(talk.image_url).to match(%r{/?sha=[0-9a-f]{8}$})
+    end
+    # TODO activate this spec after merging PR #556
+    pending 'provides slides_url' do
+      talk.update_attribute(:slides_uuid, 'asdf')
+      expect(talk).to respond_to(:slides_url)
+      expect(talk.slides_url).to match(%r{/slides/#{talk.id}$})
+    end
+    it 'provides media_url' do
+      expect(talk).to respond_to(:media_url)
+      expect(talk.media_url).to match(%r{/#{talk.id}.mp3$})
+    end
+  end
+
 end
