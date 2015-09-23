@@ -53,7 +53,7 @@ class Flyer < Struct.new(:talk)
       svg_data.sub! "[-#{key}-]", Nokogiri::HTML.fragment(value).to_s
     end
 
-    file = Tempfile.new('svg')
+    file = Tempfile.new(['flyer', '.svg'])
     file.write svg_data
     file.close
     file
