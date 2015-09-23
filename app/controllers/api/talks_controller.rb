@@ -1,8 +1,20 @@
 class Api::TalksController < Api::BaseController
+
   skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
 
-  JSON_CONFIG = { except: %w(session storage image_uid grade edit_config
-                             penalty slides_uuid recording_override listeners) }
+  MAX_LIMIT = 20
+
+  JSON_CONFIG = {
+    except: %w( session
+                storage
+                image_uid
+                grade
+                edit_config
+                penalty
+                slides_uuid
+                recording_override
+                listeners)
+  }
 
   before_action :authenticate_user!
 
@@ -10,7 +22,9 @@ class Api::TalksController < Api::BaseController
     @talks = Talk.all
 
     # paging
-    @talks = @talks.limit(params[:limit].to_i) if params[:limit]
+    limit = [params[:limit].to_i, MAX_LIMIT].min
+    limit = MAX_LIMIT if limit == 0
+    @talks = @talks.limit(limit)
     @talks = @talks.offset(params[:offset].to_i) if params[:offset]
 
     # sort order
