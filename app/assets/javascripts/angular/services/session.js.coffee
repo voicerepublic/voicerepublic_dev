@@ -130,12 +130,12 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         deactivateSafetynet()
         blackbox.unpublish()
         config.flags.onair = false
+        if config.lineup && config.next
+          window.location.href = config.next
         true
       onLoitering: ->
         config.flags.settings = false
         unsubscribeAllStreams()
-        if config.lineup && config.next
-          window.location.href = config.next
 
   # TODO resolve dependency on `window` by using `$window`
   activateSafetynet = ->
