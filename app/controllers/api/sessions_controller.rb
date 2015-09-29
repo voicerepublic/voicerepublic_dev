@@ -1,7 +1,5 @@
 class Api::SessionsController < Devise::SessionsController
 
-  acts_as_token_authentication_handler_for User
-
   JSON_OPTS = { only: %w( id firstname lastname created_at updated_at
                           sign_in_count last_sign_in_at email
                           authentication_token last_sign_in_ip
