@@ -1,4 +1,4 @@
-class Api::BookmarksController < Api::BaseController
+class Api::UsersController < Api::BaseController
 
   skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
 
