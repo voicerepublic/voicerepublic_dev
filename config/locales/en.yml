@@ -511,10 +511,10 @@ en:
       basic-example-1: "Private Individuals"
       basic-example-2: "Non-Profit Organizations"
       basic-example-3: "Small Conferences &amp; Speaker Series"
-      box-header-enterprise: "Talk Credit Packages/"
+      box-header-enterprise: "Talk Credit Packages"
       enterprise-example-1: "Large Conferences &amp; Speaker Series"
       enterprise-example-2: "Universities"
-      enterprise-example-3: "Corporations"          
+      enterprise-example-3: "Corporations"
       ppexplain: "Credit Cards accepted. No PayPal account needed."
     questions:
       contact_us: "Contact Us"
