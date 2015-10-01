@@ -5,22 +5,9 @@
       .box= render 'explanation'
 
   .row
-    .medium-6.columns
-      .pricing-box
-        %h3=t('.box-header-basic')
-        %ul
-          %li=t('.basic-example-1').html_safe
-          %li=t('.basic-example-2').html_safe
-          %li=t('.basic-example-3').html_safe
-        = render partial: 'package', collection: Pricing::NONPROFIT, locals: { f: f }
-
-    .medium-6.columns
+    .medium-8.medium-offset-2.columns
       .pricing-box
         %h3=t('.box-header-enterprise')
-        %ul
-          %li=t('.enterprise-example-1').html_safe
-          %li=t('.enterprise-example-2').html_safe
-          %li=t('.enterprise-example-3').html_safe
           
         = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
