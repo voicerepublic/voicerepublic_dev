@@ -13,6 +13,7 @@
 
   .row
     .medium-12.columns(style="text-align: center; margin-top: 50px")
+      %h3=t('.ppexplain')
       %span#paypal_spinner
         = image_tag 'loader.gif'
       = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner"
