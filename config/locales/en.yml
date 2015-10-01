@@ -511,13 +511,13 @@ en:
       basic-example-1: "Private Individuals"
       basic-example-2: "Non-Profit Organizations"
       basic-example-3: "Small Conferences &amp; Speaker Series"
-      box-header-enterprise: "Talk Credit Packages"
+      box-header-enterprise: "Talk Credit Packages/"
       enterprise-example-1: "Large Conferences &amp; Speaker Series"
       enterprise-example-2: "Universities"
       enterprise-example-3: "Corporations"
     questions:
       contact_us: "Contact Us"
-      contact_us_for_questions: "You can also hire our Stream Team to come to your series. To discuss streaming, or for any other questions, please contact us."
+      contact_us_for_questions: "You can also hire our Stream Team to come to your venue. Are you a non-profit organization or an individual? We offer reduced prices for qualified customers. For these or any other questions, please contact us."
     streamteam:
       contact_us: "Contact Us"
       streamteam_offer: "We also offer streaming services. Contact us for details."
