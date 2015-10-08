@@ -3,8 +3,6 @@ $body-font: 'minion-pro', times, serif;
 
 .purchases-index {
 
-
-
   h1, h2, h3,h4 {
     color: #001C3A;
     text-align: center;
@@ -86,6 +84,11 @@ $body-font: 'minion-pro', times, serif;
       text-align: center;
       border-top: 1px solid rgba(0, 28, 58, 0.2);
       transition:background .2s ease;
+
+      .price_per_talk {
+        font-size: 80%;
+      }
+
     }
 
     label.selected {
