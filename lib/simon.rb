@@ -20,11 +20,21 @@ class Simon
   # end
 
   def publish(data)
-    if queue = data.delete(:queue) || data.delete(:q)
+    queue = exchange = nil
+    case data
+    when Hash
+      queue = data.delete(:queue) || data.delete(:q)
+      exchange = data.delete(:exchange) || data.delete(:x)
+    when String
+      data = { msg: data }
+    end
+    exchange = 'simon' unless queue or exchange
+
+    if queue
       json = JSON.unparse(data)
       queue = @channel.queue(queue)
       @channel.default_exchange.publish(json, routing_key: queue.name)
-    elsif exchange = data.delete(:exchange) || data.delete(:x)
+    elsif exchange
       @channel.fanout(exchange).publish(JSON.unparse(data))
     else
       raise "Either of `exchange`, `queue`, `x` or `q` are required."
