@@ -60,7 +60,10 @@ class SimonTheSlacker
   end
 
   def slack(message, opts={})
-    return unless config['slack']['channel']
+    unless config['slack']['channel']
+      puts message
+      return
+    end
     defaults = {
       channel:    config['slack']['channel'],
       username:   config['slack']['username'] || 'Simon',
