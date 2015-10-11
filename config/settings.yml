@@ -80,6 +80,8 @@ blackbox:
 limit:
   text: 2300
   string: 140
+simon:
+  enabled: false
 slack:
   token: VtybT1KujQ6EKstsIEjfZ4AX
   icon:

@@ -5,6 +5,7 @@ class Simon
   # poor man's delegate
   class << self
     def says(*args)
+      return unless Settings.simon.enabled
       instance.publish(*args)
     end
   end
