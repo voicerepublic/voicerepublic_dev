@@ -8,6 +8,13 @@ class Simon
 
     extend self
 
+    def user(user, action)
+      case action
+      when :registered
+        "#{user.name} just registered with #{user.email}."
+      end
+    end
+
     def manual_transaction(obj)
       quantity = obj.details[:quantity].to_i
       payment = obj.details[:payment].to_i
