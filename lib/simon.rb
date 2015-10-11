@@ -1,9 +1,12 @@
 class Simon
 
   # To extend Simon's Brain create a new method based on the name of a
-  # class. Make it take as many arguments as you want to pass when
-  # invoking `comprehend` And make it return the message to be send as
-  # String.
+  # class (underscored). Make it take as many arguments as you want to
+  # pass when invoking `comprehend` And make it return the message to
+  # be send as String.
+  #
+  # Checkout commit 7af5dc8 to see how easy it is!
+  #
   module Brain
 
     extend self
