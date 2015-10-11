@@ -75,6 +75,7 @@ class Simon
     end
 
     def comprehend(*args)
+      return unless Settings.simon.enabled
       instance.comprehend(*args)
     end
   end
