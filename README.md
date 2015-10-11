@@ -229,6 +229,10 @@ Run fidelity on it
 
     fidelity run vr-1799/manifest-1799.yml
 
+To update fidelity, run
+
+    bundle update fidelity
+
 
 Documentation
 -------------
