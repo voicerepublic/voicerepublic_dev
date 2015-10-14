@@ -1,5 +1,6 @@
 class LandingPageController < BaseController
 
+  layout 'velvet'
   def index
     respond_to do |format|
       format.html do

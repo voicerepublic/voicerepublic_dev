@@ -1,0 +1,131 @@
+/*// Place all the styles related to the support controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/*/
+
+@import 'foundation/functions';
+@import "grids_variables_mixins/mixins";
+$include-html-visibility-classes: true;
+@import 'foundation';
+@import 'grids_variables_mixins/ci_variables';
+@import 'grids_variables_mixins/vr_icons';
+@import 'shared/footer';
+@import 'shared/top_actionbar';
+
+
+/* all app scss styles here */
+$red: #F82847;
+$yellow: #FDEC03;
+$dark: #21273D;
+$light-blue: #54C6C6;
+$blue: #2C46B0;
+$beige: #fef1de;
+$purple: #a339cd;
+$gray: #edeff4 !default;
+
+$headline-font: 'Eagle-Book',Eagle,'Helvetica Neue', helvetica, arial, sans-serif;
+$body-font: 'minion-pro', times, serif;
+
+html,body {
+	-webkit-font-smoothing:antialiased;
+	font-family: $body-font;
+
+}
+
+body {
+	color:#001c3a;
+}
+
+.row {
+	max-width: 67.5rem;
+}
+.section {
+	padding:96px 48px 96px 48px;
+	background:white;
+
+	.logo {
+		font-size: 60px;
+		color:#fff;
+	}
+
+	h1 {
+		font-size:48px;
+		line-height: 52px;
+		color:$light-blue;
+		font-family: $headline-font;
+		margin-bottom: 36px;
+	}
+
+	.top-actions {
+		color: #fff;
+		font-family: $headline-font;
+		text-transform: uppercase;
+		font-size:14px;
+		margin-bottom: 120px;
+		// padding-top:48px;
+
+		.right {
+			margin-top: 24px;
+		}
+
+		span {
+			margin-left:48px;
+			margin-top:48px;
+		}
+	}
+
+}
+
+.section.blue {
+	background:$light-blue;
+	
+
+	h1 {
+		color:white;
+	}
+
+	input {
+		height:40px;
+		width:300px;
+		border-radius: 20px;
+		border:2px solid white;
+		background: rgba($blue,.1);
+		padding:12px;
+		font-size: 14px;
+		color:white;
+	}
+
+	.button {
+		max-height: 48px;
+		border:2px solid white;
+		border-radius:24px;
+		background:none;
+		font-family: $headline-font;
+		padding-top: 12px;
+		font-size: 18px;
+		margin-bottom:48px;
+	}
+
+	.button-adv {
+		font-family: $headline-font;
+		color:white;
+		font-size: 18px;
+		text-decoration: underline;
+	}
+
+}
+
+.section.gray {
+	background:$gray;
+}
+
+.section.welcome {
+	background:url(../images/stage-lightblue.jpg) no-repeat 50% 50%;
+	background-size:cover;
+	padding-top:48px;
+
+}
+
+.section.blue.ad {
+	background:url(../images/audience-lightblue.jpg) no-repeat 50% 50%;
+	background-size:cover;
+}

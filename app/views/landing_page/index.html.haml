@@ -1,18 +1,54 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
-.title-row(style="background-image: url(/images/landing_page/#{rand(5)}.jpg)")
-  .bg
-  .row.collapse-large-only
-    .medium-12.columns.text-center
-      %span.lp-logo.icon-vr-logo
-      %h1.headline
-        = t('.headline').html_safe
-      %br
-      %button.button-how-to(data-slide-down=".how-to-use-vr-dropdown" data-slide-down-scroll="true" data-slide-down-action="open")
-        = t('.how_to_use_vr')
+.section.blue.welcome
+  .row
+    .top-actions
+      .logo.left
+        %span.lp-logo.icon-vr-logo
+      .right
+        %span now playing
+        %span discover
+        %span sign in
+        %span join
+  .row
+    .large-8.large-offset-2.columns.text-center
+      %h1.text-center
+        = t('.claim').html_safe
+      %input
 
-= render 'summary'
+.section
+  .row
+    .large-8.large-offset-2.columns.text-center
+      %h1.text-center
+        = t('.start_listening').html_safe
+
+.section.gray
+  .row
+
+.section
+  .row
+
+.section.blue.ad
+  .row
+    .large-8.large-offset-2.columns.text-center
+      %h1.text-center= t('.ad_title')
+      = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
+      .pricing= link_to t('.pricing'), pricing_path, class: 'button-adv'
+
+
+
+/ .title-row(style="background-image: url(/images/landing_page/#{rand(5)}.jpg)")
+/   .bg
+/   .row.collapse-large-only
+/     .medium-12.columns.text-center
+/       %span.lp-logo.icon-vr-logo
+/       %h1.headline
+/         = t('.headline').html_safe
+/       %br
+/       %button.button-how-to(data-slide-down=".how-to-use-vr-dropdown" data-slide-down-scroll="true" data-slide-down-action="open")
+/         = t('.how_to_use_vr')
+
 
 - unless @talks_live.empty?
   .live
@@ -52,10 +88,9 @@
           = render collection: @talks_popular, partial: 'shared/talk_medium_box', :locals => { color: 'box-grey' }
         = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
 
-.testimonial
 
 .ad.text-center
-  %h3= t('.ad_title')
+  %h1= t('.ad_title')
   = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
   .pricing= link_to t('.pricing'), pricing_path, class: 'button-adv'
 

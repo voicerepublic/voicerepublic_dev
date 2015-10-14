@@ -1,15 +1,17 @@
 en:
   landing_page:
+    title: Welcome To Voice Republic
     news: NEWS
     index:
       podcast:
-        title: Featured talks of Voice Republic
         author: The users of Voice Republic
         subtitle: Voice Republic is home to the spoken word in its many forms.
         description: |
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of Voice Republic
       headline: "<span>Home to the spoken word</span>"
+      claim: "The Platform For Quality Spoken Content."
+      start_listening: "Start Listening <br>Right Away."
       how_to_use_vr: How to use VR
       login: Login
       signup: Sign Up
@@ -25,9 +27,9 @@ en:
 
       partners_title: Conferences currently using Voice Republic
 
-      ad_title: NEED HELP STREAMING YOUR NEXT CONFERENCE OR EVENT?
-      get_in_touch: GET IN TOUCH
-      pricing: SEE OUR PRICING
+      ad_title: Are You Hosting A Conference Or Event? Get In Touch.
+      get_in_touch: Contact Us
+      pricing: See Our Pricing
 
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
