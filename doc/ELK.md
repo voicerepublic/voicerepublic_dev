@@ -128,6 +128,7 @@ Kibina doesn't come with an init scipt
 
     wget --no-check-certificate https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.0.deb
     dpkg -i elasticsearch-1.7.0.deb
+    sed -i -e 's/\#network.host: 192.168.0.1/network.host: 127.0.0.1/' /etc/elasticsearch/elasticsearch.yml
     /etc/init.d/elasticsearch start
 
 

@@ -227,20 +227,12 @@ class Talk < ActiveRecord::Base
     "/t#{id}/public"
   end
 
-  # DO NOT USE THIS, it will undermine tracking of playcounts
-  # use `media_links` instead
-  def download_links
-    raise 'this method has been deprecated, plz fix your code'
-    return {} unless recording
-    archive = File.expand_path(Settings.rtmp.archive_path, Rails.root)
-    glob = "#{archive}/#{recording}.*"
-    files = Dir.glob(glob)
-    formats = files.map { |f| f.split('.').last } - [ 'wav' ]
-    formats.inject({}) { |r, f| r.merge f => generate_ephemeral_path!(".#{f}") }
-  end
-
   def media_links(variant='', formats=%w(mp3 m4a ogg))
     formats.inject({}) { |r, f| r.merge f => "/vrmedia/#{id}#{variant}.#{f}" }
+  end
+
+  def media_url(ext='mp3')
+    Rails.application.routes.url_helpers.root_url + "/vrmedia/#{id}.#{ext}"
   end
 
   # generates an ephemeral path and returns the location for
@@ -253,16 +245,16 @@ class Talk < ActiveRecord::Base
     head.url(7.days.from_now)
   end
 
-  def slides_path
+  # create a permanent url that redirects to a temp url via middleware
+  def slides_url(perma=true)
     return nil if slides_uuid.blank?
     return nil if slides_uuid.match /^https?:\/\//
-
-    "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
-  end
-
-  def slides_url
-    # TODO create a permanent url that redirects to a temp url via middleware
-    slides_path
+    if perma
+      Rails.application.routes.url_helpers.root_url + "slides/#{id}"
+    else
+      # TODO make this a temporarily valid url
+      "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
+    end
   end
 
   # the message history is available as text file to the host
@@ -361,7 +353,7 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_name=(name)
-    name = 'Default venue' if name.blank?
+    name = 'Default venue' if name.blank? # TODO centralize name
     self.venue = user.venues.find_or_create_by(name: name.strip)
   end
 
@@ -372,6 +364,11 @@ class Talk < ActiveRecord::Base
 
   def self_url
     Rails.application.routes.url_helpers.talk_url(self)
+  end
+
+  def lined_up
+    return nil unless venue.present?
+    venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
 
   private
@@ -450,7 +447,7 @@ class Talk < ActiveRecord::Base
   def after_start
     MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
-    return unless series.opts.autoend
+    return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
     Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)
