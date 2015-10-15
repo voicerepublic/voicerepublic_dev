@@ -430,6 +430,18 @@ describe Talk do
       talk.venue_name = 'A brand new venue'
       expect(talk.user.venues.count).to eq(1)
     end
+
+    it 'finds the next talk via venue' do
+      venue = FactoryGirl.create(:venue)
+      talks = FactoryGirl.create_list(:talk, 3, venue: venue)
+      talks[0].update_attribute :starts_at_time, '15:00'
+      talks[1].update_attribute :starts_at_time, '14:00'
+      talks[2].update_attribute :starts_at_time, '13:00'
+      expect(talks[2].lined_up).to eq(talks[1])
+      expect(talks[1].lined_up).to eq(talks[0])
+      expect(talks[0].lined_up).to be_nil
+    end
   end
+
 
 end

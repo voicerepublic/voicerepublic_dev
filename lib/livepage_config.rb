@@ -51,6 +51,8 @@ class LivepageConfig < Struct.new(:talk, :user)
       blackbox: Settings.blackbox,
       safetynet_warning: I18n.t('safetynet_warning'),
       blackbox_path: blackbox_path,
+      lineup: !!talk.venue.try(:opts).try(:lineup),
+      next: talk.lined_up.try(:self_url),
       t: {
         seconds: I18n.t('talks.show.seconds'),
         days: I18n.t('talks.show.days'),
