@@ -15,3 +15,5 @@ paths:
   log: /home/app/app/shared/process_log
 errbit:
   enabled: true
+simon:
+  enabled: true
