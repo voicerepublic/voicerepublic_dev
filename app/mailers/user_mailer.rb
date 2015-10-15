@@ -14,7 +14,6 @@ class UserMailer < ApplicationMailer
 
   # app/models/talk.rb:130 (delayed)
   def new_talk(talk, user)
-    return if talk.series.opts.no_email
     attachments.inline['flyer.png'] = File.read(Rails.root.join('public', talk.flyer.path[1..-1])) if talk.flyer.exist?
     flyer = ActionController::Base.helpers.image_tag attachments['flyer.png'].url
     interpolate! user, talk, url: talk_url(talk), flyer: flyer,
@@ -24,7 +23,6 @@ class UserMailer < ApplicationMailer
 
   # lib/tasks/talks.rake:10
   def reminder(talk, user)
-    return if talk.series.opts.no_email
     interpolate! user, talk, url: talk_url(talk),
       name: [talk.series.title, talk.title].join(' - ')
 
