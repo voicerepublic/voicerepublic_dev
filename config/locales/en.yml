@@ -396,6 +396,8 @@ en:
       landing_title: Voice Republic - Home To The Spoken Word
     support:
       title: Voice Republic - Support
+    velvet:
+      title: Welcome To Voice Republic
   plain_mailer:
     welcome:
       subject: "Welcome %{user_firstname}, need help getting started?"

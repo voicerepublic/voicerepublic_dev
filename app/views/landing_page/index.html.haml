@@ -1,6 +1,19 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
+- unless @talks_featured.empty?
+  .upcoming
+    .row.collapse-large-only
+      .large-12.columns
+        - unless @talks_featured.empty?
+          .title-box
+            = link_to featured_talks_url do
+              %h3= t('.upcoming_title')
+              %h4= t('.upcoming_subtitle')
+          %ul.list-style-type-none
+            = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
+          = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
+
 .section.blue.welcome
   .row
     .top-actions
@@ -22,6 +35,8 @@
     .large-8.large-offset-2.columns.text-center
       %h1.text-center
         = t('.start_listening').html_safe
+      %ul.list-style-type-none
+        = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
 
 .section.gray
   .row
