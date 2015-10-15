@@ -25,7 +25,7 @@
         %span sign in
         %span join
   .row
-    .large-8.large-offset-2.columns.text-center
+    .large-6.large-offset-3.columns.text-center
       %h1.text-center
         = t('.claim').html_safe
       %input
@@ -35,8 +35,11 @@
     .large-8.large-offset-2.columns.text-center
       %h1.text-center
         = t('.start_listening').html_safe
-      %ul.list-style-type-none
-        = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
+    .large-12.columns  
+      = render collection: @talks_featured, partial: 'shared/talk_medium_box'
+      = render collection: @talks_featured, partial: 'shared/talk_medium_box'
+      = render collection: @talks_featured, partial: 'shared/talk_medium_box'
+      = render collection: @talks_featured, partial: 'shared/talk_medium_box'
 
 .section.gray
   .row

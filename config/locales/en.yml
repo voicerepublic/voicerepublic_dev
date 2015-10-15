@@ -378,7 +378,7 @@ en:
       messages: Messages
       settings: Settings
     talk_medium_box:
-      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+      date_start_end: '%{date}'
       read_more: ...read more
       delete_reminder: Delete reminder
     talk_small_box:

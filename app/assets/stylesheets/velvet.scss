@@ -23,7 +23,7 @@ $purple: #a339cd;
 $gray: #edeff4 !default;
 
 $headline-font: 'Eagle-Book',Eagle,'Helvetica Neue', helvetica, arial, sans-serif;
-$body-font: 'minion-pro', times, serif;
+$body-font: 'Helvetica Neue',helvetica, arial, sans-serif;
 
 html,body {
 	-webkit-font-smoothing:antialiased;
@@ -36,10 +36,10 @@ body {
 }
 
 .row {
-	max-width: 67.5rem;
+	max-width: 73.5rem;
 }
 .section {
-	padding:96px 48px 96px 48px;
+	padding:94px 48px 96px 48px;
 	background:white;
 
 	.logo {
@@ -52,7 +52,7 @@ body {
 		line-height: 52px;
 		color:$light-blue;
 		font-family: $headline-font;
-		margin-bottom: 36px;
+		margin-bottom: 84px;
 	}
 
 	.top-actions {
@@ -81,6 +81,7 @@ body {
 
 	h1 {
 		color:white;
+
 	}
 
 	input {
@@ -123,9 +124,17 @@ body {
 	background-size:cover;
 	padding-top:48px;
 
+	h1 {
+		margin-bottom: 36px;
+	}
+
 }
 
 .section.blue.ad {
 	background:url(../images/audience-lightblue.jpg) no-repeat 50% 50%;
 	background-size:cover;
 }
+
+
+
+@import 'shared/talk_medium_box';

@@ -176,4 +176,50 @@
       line-height: 1
     }
   }
+
+
+}
+
+$font-size: 16px;
+$line-height: 1.2;
+$lines-to-show: 2;
+
+
+.talkbox {
+  background:none;
+  padding:0 6px;
+
+  img {
+    margin-bottom: 6px;
+  }
+
+  .link-text {
+    color:$light-blue;
+    font-family: $body-font;
+    font-size:12px;
+    font-weight: 500;
+  }
+
+  .title {
+    font-family: $headline-font;
+   display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-width: 400px;
+  height: $font-size*$line-height*$lines-to-show; /* Fallback for non-webkit */
+  margin: 0 auto;
+  font-size: $font-size;
+  line-height: $line-height;
+  -webkit-line-clamp: $lines-to-show;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top:6px;
+  margin-bottom:6px;
+  }
+
+  .datetime {
+    font-size: 12px;
+    color:#999;
+    font-family: $body-font;
+  }
 }
