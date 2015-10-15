@@ -245,16 +245,16 @@ class Talk < ActiveRecord::Base
     head.url(7.days.from_now)
   end
 
-  def slides_path
+  # create a permanent url that redirects to a temp url via middleware
+  def slides_url(perma=true)
     return nil if slides_uuid.blank?
     return nil if slides_uuid.match /^https?:\/\//
-
-    "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
-  end
-
-  def slides_url
-    # TODO create a permanent url that redirects to a temp url via middleware
-    slides_path
+    if perma
+      Rails.application.routes.url_helpers.root_url + "slides/#{id}"
+    else
+      # TODO make this a temporarily valid url
+      "https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{slides_uuid}"
+    end
   end
 
   # the message history is available as text file to the host
@@ -353,7 +353,7 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_name=(name)
-    name = 'Default venue' if name.blank?
+    name = 'Default venue' if name.blank? # TODO centralize name
     self.venue = user.venues.find_or_create_by(name: name.strip)
   end
 
@@ -364,6 +364,11 @@ class Talk < ActiveRecord::Base
 
   def self_url
     Rails.application.routes.url_helpers.talk_url(self)
+  end
+
+  def lined_up
+    return nil unless venue.present?
+    venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
 
   private
@@ -390,9 +395,18 @@ class Talk < ActiveRecord::Base
     # Fog will use MIME::Types to determine the content type
     # and MIME::Types is a horrible, horrible beast.
     ctype = Mime::Type.lookup_by_extension(ext)
-    puts "[DBG] Uploading %s to %s..." % [file, key]
+    #puts "[DBG] Uploading %s to %s..." % [file, key]
     media_storage.files.create key: key, body: handle, content_type: ctype
-    puts "[DBG] Uploading %s to %s complete." % [file, key]
+    #puts "[DBG] Uploading %s to %s complete." % [file, key]
+  rescue => e
+    failcount ||= 0
+    failcount += 1
+    Rails.logger.error "On attempt #{failcount} upload of #{key} " +
+                       "failed with '#{e.message}'"
+    if failcount < 5
+      Rails.logger.error "Retrying to upload #{key}."
+      retry
+    end
   end
 
   # Assemble `starts_at` from `starts_at_date` and `starts_at_time`.
@@ -433,7 +447,7 @@ class Talk < ActiveRecord::Base
   def after_start
     MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
-    return if series.opts.no_auto_end_talk
+    return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
     Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)
@@ -441,9 +455,7 @@ class Talk < ActiveRecord::Base
 
   def after_end
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
-    unless series.opts.no_auto_postprocessing
-      Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
-    end
+    Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
     MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
@@ -742,18 +754,17 @@ class Talk < ActiveRecord::Base
   def process_slides!
     # if it is a url, pull it and push it to s3 bucket, replace field with name
     if slides_uuid =~ /^https?:\/\//
-      tmp = "slides-#{id}.pdf"
-      cmd = "wget --no-check-certificate -q -O #{tmp} '#{slides_uuid}'"
+      tmp = Tempfile.new(["slides-#{id}", '.pdf'])
+      cmd = "wget --no-check-certificate -q -O #{tmp.path} '#{slides_uuid}'"
       %x[ #{cmd} ]
-      handle = File.open(tmp)
       ctype = Mime::Type.lookup_by_extension('pdf')
-      logger.info "logger.info #{Settings.storage.upload_slides}"
-      puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, tmp]
-      file = slides_storage.files.create key: tmp, body: handle,
+      key = File.basename(tmp.path)
+      #puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, key]
+      file = slides_storage.files.create key: key, body: tmp,
                                          content_type: ctype, acl: 'public-read'
-      puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, tmp]
-      update_attribute :slides_uuid, tmp
-      FileUtils.rm(tmp)
+      #puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, key]
+      update_attribute :slides_uuid, key
+      tmp.unlink
     end
     # if its a uuid nothing is to do
 

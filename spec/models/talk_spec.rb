@@ -230,14 +230,6 @@ describe Talk do
     expect(url).to match(/^http.*\.mp3$/)
   end
 
-  it 'does not send email with option no_emails' do
-    user = FactoryGirl.create(:user)
-    ActionMailer::Base.deliveries = []
-    series = FactoryGirl.create(:series, user: user, options: { no_email: true })
-    FactoryGirl.create(:talk, series: series)
-    expect(ActionMailer::Base.deliveries).to be_empty
-  end
-
   # TODO resolve code duplication in this section
   describe 'nicely processes audio' do
 
@@ -438,6 +430,17 @@ describe Talk do
       talk.venue_name = 'A brand new venue'
       expect(talk.user.venues.count).to eq(1)
     end
+
+    it 'finds the next talk via venue' do
+      venue = FactoryGirl.create(:venue)
+      talks = FactoryGirl.create_list(:talk, 3, venue: venue)
+      talks[0].update_attribute :starts_at_time, '15:00'
+      talks[1].update_attribute :starts_at_time, '14:00'
+      talks[2].update_attribute :starts_at_time, '13:00'
+      expect(talks[2].lined_up).to eq(talks[1])
+      expect(talks[1].lined_up).to eq(talks[0])
+      expect(talks[0].lined_up).to be_nil
+    end
   end
 
   describe 'urls' do
@@ -451,8 +454,7 @@ describe Talk do
       expect(talk).to respond_to(:image_url)
       expect(talk.image_url).to match(%r{/?sha=[0-9a-f]{8}$})
     end
-    # TODO activate this spec after merging PR #556
-    pending 'provides slides_url' do
+    it 'provides slides_url' do
       talk.update_attribute(:slides_uuid, 'asdf')
       expect(talk).to respond_to(:slides_url)
       expect(talk.slides_url).to match(%r{/slides/#{talk.id}$})

@@ -60,6 +60,7 @@ FactoryGirl.define do
 
   factory :talk do
     title "Some awesome title"
+    venue
     series
     # NOTE: times set here are not affected by `Timecop.freeze` in a
     # `before` block
