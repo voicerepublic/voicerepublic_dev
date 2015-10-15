@@ -19,7 +19,7 @@ class Api::BookmarksController < Api::BaseController
           ),
     methods: %w(
                slides_url
-               media_links
+               media_url
                image_url
                self_url
              )
