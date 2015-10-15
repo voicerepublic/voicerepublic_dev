@@ -5,5 +5,5 @@ Delayed::Worker.delay_jobs = !Rails.env.test?
 Delayed::Worker.max_attempts = 1
 
 dj_log_path = Rails.root.join("log/dj-#{Process.pid}.log")
-dj_log_path = Rails.root.join("log/dj-#{Process.pid}.log") if Rails.env.production?
+dj_log_path = Rails.root.join("log/dj.log") if Rails.env.production?
 Delayed::Worker.logger = Logger.new(dj_log_path)

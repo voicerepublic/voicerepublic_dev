@@ -80,6 +80,10 @@ class Metric < ActiveRecord::Base
       User.where("last_sign_in_at > ?", 14.days.ago).count
     end
 
+    def active_users_last_30_days_total
+      User.where("last_sign_in_at > ?", 30.days.ago).count
+    end
+
     def paying_users_total
       User.where(paying: true).count
     end
