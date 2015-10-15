@@ -703,21 +703,20 @@ class Talk < ActiveRecord::Base
     [ :title, [:id, :title] ]
   end
 
+  def user_override_url
+    bucket = Settings.storage.upload_audio
+    object = user_override_uuid
+    expiry = 1.day.from_now
+
+    # Storage.get_object_url(bucket, object, expiry)
+    Storage.directories.new(key: bucket).files.new(key: object).public_url
+  end
+
   # gets triggered when a user has uploaded an override file
   def user_override!
     logger.info "Talk.find(#{id}).user_override! (with uuid #{user_override_uuid})"
-
-    # with the current policy there is not need to talk to aws
-    url = 'https://s3.amazonaws.com/%s/%s' %
-          [ Settings.storage.upload_audio, user_override_uuid ]
-
+    url = user_override_url
     logger.info "URL: #{url}"
-
-    # TODO use a more secure variant with fog
-    # uploads = Storage.directories.get(Settings.storage.audio_upload)
-    # upload = uploads.files.get(user_override_uuid)
-    # url = upload.public_url.to_s
-
     update_attribute :recording_override, url
     process_override!
 

@@ -16,3 +16,18 @@ class Fog::Storage::Local::File
     public_url
   end
 end
+
+# guerilla patch local storage to provide endpoints for simulating
+# upload to cloud storage locally
+class Fog::Storage::Local::Real
+  def put_object_url(*args)
+    (endpoint + '/' + args.first) + '?a=b&c=d'
+  end
+
+  def get_object_url(*args)
+    [endpoint, *args] * '/'
+  end
+end
+
+# TODO checkout https://github.com/fog/fog/pull/857/files
+# TODO upgrade fog

@@ -58,4 +58,6 @@ Rails.application.configure do
       Settings.host_and_port || 'localhost:3000'
   end
 
+  config.middleware.use CloudUpload, Settings.cloud_upload.to_hash
+
 end

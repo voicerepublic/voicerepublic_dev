@@ -1,37 +1,44 @@
 module UploadsHelper
 
   def init_audio_uploader
+    init_uploader Settings.storage.upload_audio,
+                  %w( ogg x-ogg
+                      wav x-wav wave x-pn-wav
+                      m4a x-m4a
+                      mp3 x-mp3 mpeg3 x-mpeg3
+                      mpg x-mpegaudio mpeg ) * ' ',
+                  "$('#talk_user_override_uuid').attr('value', '%s')"
+  end
+
+  def init_slides_uploader
+    init_uploader Settings.storage.upload_slides,
+                  'pdf',
+                  "$('#talk_slides_uuid').attr('value', '%s')"
+  end
+
+  private
+
+  def init_uploader(bucket, filter, success_tmpl)
     key = SecureRandom.uuid
 
     params = {
-      uploadUrl: "https://#{Settings.storage.upload_audio}.s3.amazonaws.com",
+      uploadUrl: json_proof_presigned_url(bucket, key),
       key:       key,
-      filter:    %w( ogg x-ogg
-                     wav x-wav wave x-pn-wav
-                     m4a x-m4a
-                     mp3 x-mp3 mpeg3 x-mpeg3
-                     mpg x-mpegaudio mpeg ) * ' ',
+      filter:    filter,
       # `success` will be evaled on complete
-      success:   "$('#talk_user_override_uuid').attr('value', '#{key}')",
+      success:   success_tmpl % key,
       safetynetMessage: I18n.t('talks.fields.unprocessed_upload')
     }
 
     "init(#{params.to_json})"
   end
 
-  def init_slides_uploader
-    key = SecureRandom.uuid
-
-    params = {
-      uploadUrl: "https://#{Settings.storage.upload_slides}.s3.amazonaws.com",
-      key:       key,
-      filter:    'pdf',
-      # `success` will be evaled on complete
-      success:   "$('#talk_slides_uuid').attr('value', '#{key}')",
-      safetynetMessage: I18n.t('talks.fields.unprocessed_upload')
-    }
-
-    "init(#{params.to_json})"
+  def json_proof_presigned_url(bucket, key)
+    expires = 1.day.from_now
+    headers = {}
+    options = {}
+    url = Storage.put_object_url(bucket, key, expires, headers, options)
+    url.gsub('&', '%26') # poor mans `CGI.escape`
   end
 
 end
