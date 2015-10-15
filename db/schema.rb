@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20150917135345) do
     t.string   "uri",                 limit: 255
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
-    t.text     "description_as_html"
+    t.text     "description_as_html",             default: ""
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -239,7 +239,7 @@ ActiveRecord::Schema.define(version: 20150917135345) do
     t.string   "starts_at_date",      limit: 255
     t.string   "starts_at_time",      limit: 255
     t.string   "uri",                 limit: 255
-    t.text     "recording_override"
+    t.string   "recording_override",  limit: 255
     t.integer  "related_talk_id"
     t.text     "storage",                         default: "--- {}\n"
     t.string   "grade",               limit: 255
@@ -253,8 +253,7 @@ ActiveRecord::Schema.define(version: 20150917135345) do
     t.boolean  "dryrun",                          default: false
     t.text     "social_links",                    default: "--- []"
     t.text     "listeners",                       default: "--- {}"
-    t.string   "slides_uid"
-    t.text     "description_as_html"
+    t.text     "description_as_html",             default: ""
     t.string   "slides_uuid"
     t.integer  "venue_id"
   end
@@ -319,9 +318,9 @@ ActiveRecord::Schema.define(version: 20150917135345) do
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
-    t.text     "about_as_html"
+    t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
-    t.string   "format"
+    t.string   "publisher_type"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
