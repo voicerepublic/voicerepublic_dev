@@ -58,7 +58,7 @@ gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
 gem 'redcarpet'
 
-group :development, :test do
+group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -80,14 +80,12 @@ group :development, :test do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'byebug'
   gem 'disable_assets_logger'
-  gem 'factory_girl_rails', '~> 4.0'
   gem 'meta_request'
   gem 'pry-rails'
   gem 'rspec-rails', '3.2.1'
   #gem 'rspec-retry'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
   #       http://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html
-  gem 'timecop'
   gem 'vcr',                '2.8.0',        require: false
   gem 'webmock',            '~> 1.15.0',    require: false
 
@@ -97,6 +95,11 @@ group :development, :test do
 end
 
 group :test do
+  gem 'profmem'#, path: '../../gh/profmem'
+
+  gem 'factory_girl_rails', '~> 4.0'
+  gem 'timecop'
+
   gem 'capybara', '2.4.4'
   gem 'ci_reporter'
   gem 'database_cleaner', github: 'bmabey/database_cleaner'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812122729) do
+ActiveRecord::Schema.define(version: 20150917135345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20150812122729) do
     t.string   "uri",                 limit: 255
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
-    t.text     "description_as_html"
+    t.text     "description_as_html",             default: ""
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -253,8 +253,7 @@ ActiveRecord::Schema.define(version: 20150812122729) do
     t.boolean  "dryrun",                          default: false
     t.text     "social_links",                    default: "--- []"
     t.text     "listeners",                       default: "--- {}"
-    t.string   "slides_uid"
-    t.text     "description_as_html"
+    t.text     "description_as_html",             default: ""
     t.string   "slides_uuid"
     t.integer  "venue_id"
   end
@@ -319,8 +318,9 @@ ActiveRecord::Schema.define(version: 20150812122729) do
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
-    t.text     "about_as_html"
+    t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
+    t.string   "publisher_type"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

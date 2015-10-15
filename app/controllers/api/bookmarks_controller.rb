@@ -1,7 +1,6 @@
 # The future Bookmarks are currently called Reminders
 #
 class Api::BookmarksController < Api::BaseController
-  skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
 
   MAX_LIMIT = 20
 
@@ -26,8 +25,7 @@ class Api::BookmarksController < Api::BaseController
              )
   }
 
-  before_action :authenticate_user!
-
+  # GET /api/bookmarks
   def index
     @talks = Talk.remembered_by(current_user).archived.nodryrun
 
