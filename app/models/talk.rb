@@ -45,8 +45,6 @@ class Talk < ActiveRecord::Base
 
   LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
 
-  GRACE_PERIOD = 5.minutes
-
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
@@ -449,7 +447,7 @@ class Talk < ActiveRecord::Base
 
     return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
-    delta = started_at + duration.minutes + GRACE_PERIOD
+    delta = started_at + duration.minutes
     Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)
   end
 
