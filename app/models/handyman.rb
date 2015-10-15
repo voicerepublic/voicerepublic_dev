@@ -16,6 +16,26 @@ class Handyman
 
   class Tasks
 
+    def user_create_default_venue
+      log '-> Check for missing venue on talks...'
+      query = Talk.where(venue_id: nil)
+      return unless query.count > 0
+
+      log 'Found %s talks with missing venue.' % query.count
+      query = User.joins(:talks).where('talks.venue_id IS NULL')
+      utot = query.count
+      query.each_with_index do |user, uidx|
+        talk_ids = user.talks.where(venue_id: nil).pluck(:id)
+        next if talk_ids.empty?
+        log '%s/%s Creating default venue for user %s and apply to %s talks' %
+            [ uidx+1, utot, user.id, talk_ids.size ]
+        venue = user.venues.create name: 'Default venue' # TODO centralize name
+        sql = 'UPDATE talks SET venue_id=%s WHERE id IN (%s)' %
+              [ venue.id, talk_ids * ',' ]
+        ActiveRecord::Base.connection.execute(sql)
+      end
+    end
+
     def series_options_rename_autoend
       log '-> Check series for old option no_auto_end_talk...'
 

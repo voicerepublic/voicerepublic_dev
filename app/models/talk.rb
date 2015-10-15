@@ -361,7 +361,7 @@ class Talk < ActiveRecord::Base
   end
 
   def venue_name=(name)
-    name = 'Default venue' if name.blank?
+    name = 'Default venue' if name.blank? # TODO centralize name
     self.venue = user.venues.find_or_create_by(name: name.strip)
   end
 
@@ -450,7 +450,7 @@ class Talk < ActiveRecord::Base
   def after_start
     MonitoringMessage.call(event: 'StartTalk', talk: attributes)
 
-    return unless series.opts.autoend
+    return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes + GRACE_PERIOD
     Delayed::Job.enqueue(EndTalk.new(id: id), queue: 'trigger', run_at: delta)

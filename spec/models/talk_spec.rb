@@ -230,14 +230,6 @@ describe Talk do
     expect(url).to match(/^http.*\.mp3$/)
   end
 
-  it 'does not send email with option no_emails' do
-    user = FactoryGirl.create(:user)
-    ActionMailer::Base.deliveries = []
-    series = FactoryGirl.create(:series, user: user, options: { no_email: true })
-    FactoryGirl.create(:talk, series: series)
-    expect(ActionMailer::Base.deliveries).to be_empty
-  end
-
   # TODO resolve code duplication in this section
   describe 'nicely processes audio' do
 
