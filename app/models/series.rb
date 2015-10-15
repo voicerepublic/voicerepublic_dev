@@ -44,7 +44,6 @@ class Series < ActiveRecord::Base
   validates :description, length: { maximum: Settings.limit.text }
 
   before_create :inherit_penalty
-  before_create :set_default_options
   before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
   before_save :set_description_as_html, if: :description_changed?
@@ -102,10 +101,6 @@ class Series < ActiveRecord::Base
 
   def inherit_penalty
     self.penalty = user.penalty
-  end
-
-  def set_default_options
-    self.options = { no_auto_end_talk: true }
   end
 
 end
