@@ -316,6 +316,12 @@ class Handyman
       end
     end
 
+    def set_publisher_type_for_conference_users
+      log "-> Setting publishing_type to 'conference' for all Users with conference=true"
+      sql = "UPDATE users SET publisher_type='conference' WHERE conference IS TRUE;"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     private
 
     def log(msg)
