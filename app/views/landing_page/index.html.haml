@@ -1,18 +1,18 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
-- unless @talks_featured.empty?
-  .upcoming
-    .row.collapse-large-only
-      .large-12.columns
-        - unless @talks_featured.empty?
-          .title-box
-            = link_to featured_talks_url do
-              %h3= t('.upcoming_title')
-              %h4= t('.upcoming_subtitle')
-          %ul.list-style-type-none
-            = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
-          = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
+/ - if !current_user
+/   %ul
+/     %li
+/       = link_to t('.login'), new_user_session_path, class: "logged-out-link"
+/     %li
+/       = link_to t('.sign_up'), new_user_registration_path, class: "logged-out-link"
+/ - else
+/   %li.has-dropdown
+/     %a.user-link(href='#')
+/       .avatar
+/         = render partial: "shared/avatar_image", locals: { user: current_user, size: 25 }
+/ = current_user.name
 
 .section.blue.welcome
   .row
@@ -65,19 +65,6 @@
 /         = t('.how_to_use_vr')
 
 
-- unless @talks_live.empty?
-  .live
-    .row.collapse-large-only
-      .large-12.columns
-        - unless @talks_live.empty?
-          .title-box
-            = link_to live_talks_url do
-              %h3.title-live= t('.live_title')
-              %h4= t('.live_subtitle')
-          %ul(class="#{talkslive_grid(@talks_live)}")
-            = render partial: talkslive_partial(@talks_live), :locals => { color: 'box-live' }, collection: @talks_live
-          = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
-
 - unless @talks_featured.empty?
   .upcoming
     .row.collapse-large-only
@@ -91,23 +78,7 @@
             = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
           = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
 
-- unless @talks_popular.empty?
-  .archive
-    .row.collapse-large-only
-      .large-12.columns
-        .title-box
-          = link_to popular_talks_url do
-            %h3= t('.archive_title')
-            %h4= t('.archive_subtitle')
-        %ul.list-style-type-none.clearfix
-          = render collection: @talks_popular, partial: 'shared/talk_medium_box', :locals => { color: 'box-grey' }
-        = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
 
-
-.ad.text-center
-  %h1= t('.ad_title')
-  = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
-  .pricing= link_to t('.pricing'), pricing_path, class: 'button-adv'
 
 
 .partners
