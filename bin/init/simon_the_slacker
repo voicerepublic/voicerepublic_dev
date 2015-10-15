@@ -15,7 +15,7 @@ export RAILS_ENV=production
 
 bundle='/home/app/.rbenv/shims/bundle'
 pidfile="/home/app/app/shared/tmp/pids/simon_the_slacker.pid"
-simon_the_slacker="${bundle} exec simon_the_slacker start -- config/simon_the_slacker.yml"
+simon_the_slacker="${bundle} exec lib/simon_the_slacker.rb start -- config/simon_the_slacker.yml"
 
 # Rails is always located below ~/app/current
 cd ~/app/current
