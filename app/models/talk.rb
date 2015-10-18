@@ -240,7 +240,7 @@ class Talk < ActiveRecord::Base
   def generate_ephemeral_path!(variant='.mp3')
     filename = "#{uri}/#{id}#{variant}"
     head = media_storage.files.new(key: filename)
-    head.url(7.days.from_now)
+    head.url(2.days.from_now)
   end
 
   # create a permanent url that redirects to a temp url via middleware
