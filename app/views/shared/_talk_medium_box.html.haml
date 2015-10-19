@@ -1,23 +1,31 @@
 - talk ||= talk_medium_box
 - reminder = reminder
 
-.large-3.columns.talkbox
+%li.talk-medium-box.box-grey
   .left-box
     = link_to talk do
-      %img.talk-avatar{src: talk.image.thumb('420x180#').url}
+      %img.talk-avatar{src: talk.image.thumb('181x131#nw').url}
+      - if talk.archived?
+        %span.icon-octa-full
+        %span.icon-play-octa
   .right-box.text-left
+    = link_to '&nbsp;', talk, class: 'full-size-link'
     .breadcrumbs-box
       = link_to talk.user do
+        %span.icon-person
         %span.link-text= talk.user.name
-    
+      = link_to talk.series do
+        %span.icon-ellipsis
+        %span.link-text= talk.series.title
+    %br/
     = link_to talk, class: 'text-link' do
-      
-      %h3.title= talk.title
-
       .datetime
         = raw t('.date_start_end', date: l(talk.starts_at, format: :date_only_short),
           start_time: l(talk.starts_at, format: :time_only),
           end_time: l(talk.ends_at, format: :time_only))
+      .title= talk.title.upcase
+      .teaser
+        = talk.teaser
 
   - if reminder and can?(:destroy, reminder)
     .actions
