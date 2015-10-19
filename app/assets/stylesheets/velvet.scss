@@ -7,23 +7,13 @@
 $include-html-visibility-classes: true;
 @import 'foundation';
 @import 'grids_variables_mixins/ci_variables';
+@import 'grids_variables_mixins/velvet_ci';
 @import 'grids_variables_mixins/vr_icons';
 @import 'shared/footer';
 @import 'shared/top_actionbar';
 
 
-/* all app scss styles here */
-$red: #F82847;
-$yellow: #FDEC03;
-$dark: #21273D;
-$light-blue: #54C6C6;
-$blue: #2C46B0;
-$beige: #fef1de;
-$purple: #a339cd;
-$gray: #edeff4 !default;
 
-$headline-font: 'Eagle-Book',Eagle,'Helvetica Neue', helvetica, arial, sans-serif;
-$body-font: 'Helvetica Neue',helvetica, arial, sans-serif;
 
 html,body {
 	-webkit-font-smoothing:antialiased;

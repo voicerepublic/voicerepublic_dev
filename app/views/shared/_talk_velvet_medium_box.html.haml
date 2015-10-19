@@ -1,0 +1,24 @@
+- talk ||= talk_medium_box
+- reminder = reminder
+
+.large-3.columns.talkbox
+  .left-box
+    = link_to talk do
+      %img.talk-avatar{src: talk.image.thumb('420x180#').url}
+  .right-box.text-left
+    .breadcrumbs-box
+      = link_to talk.user do
+        %span.link-text= talk.user.name
+    
+    = link_to talk, class: 'text-link' do
+      
+      %h3.title= talk.title
+
+      .datetime
+        = raw t('.date_start_end', date: l(talk.starts_at, format: :date_only_short),
+          start_time: l(talk.starts_at, format: :time_only),
+          end_time: l(talk.ends_at, format: :time_only))
+
+  - if reminder and can?(:destroy, reminder)
+    .actions
+      = link_to '&times;'.html_safe, reminder, method: 'delete', title: t('.delete_reminder'), class: 'delete-reminder'
