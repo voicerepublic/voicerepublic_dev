@@ -1,9 +1,8 @@
 en:
-  velvet:
-    title: Welcome To Voice Republic
   landing_page:
     title: Welcome To Voice Republic
     news: NEWS
+    discover: discover
     index:
       podcast:
         author: The users of Voice Republic
@@ -13,11 +12,15 @@ en:
       feed_title: Featured talks of Voice Republic
       headline: "<span>Home to the spoken word</span>"
       claim: "The Platform For Quality Spoken Content."
-      start_listening: "Start Listening <br>Right Away."
+      start_listening: "Start listening <br>right away."
+      apptease_header: "Take Voice Republic with you."
+      apptease_lead: "All the Talks that you pin on Voice Republic will automatically appear in your Feed on the mobile app."
+      publisher_tease: "Exclusive content from amazing publishers..."
       how_to_use_vr: How to use VR
       login: Login
       signup: Sign Up
       search: Search
+      find_a_talk: Find A Talk
       live_title: Now Live
       live_subtitle: Tune in!
       upcoming_title: Coming up live
@@ -31,7 +34,14 @@ en:
 
       ad_title: Are You Hosting A Conference Or Event? Get In Touch.
       get_in_touch: Contact Us
+      more_btn: More
+      see_all_btn: See All
       pricing: See Our Pricing
+
+     
+        # <br>
+        # <a href="#">Read our manifesto.</a>
+
 
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
@@ -54,3 +64,5 @@ en:
     lp_series:
       featured_series: Voice Republic recommends
       upcoming_series: UPCOMING SERIES
+  footer_velvet:
+
