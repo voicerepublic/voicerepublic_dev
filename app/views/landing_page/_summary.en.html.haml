@@ -1,2 +1,38 @@
-%h1 
-  The Platform For Quality Spoken Content.
+.about-summary
+  #lp-video.row
+    %iframe{width:"560", height:"315", src:"https://www.youtube.com/embed/9TWtcPsJhq0", frameborder:"0", allowfullscreen: true}
+  .row.collapse-large-only
+    .small-12.columns
+      %h3
+        Ideas thrive on discussion – we`ve made it simple to stream,
+        record and archive audio for conferences, broadcasts, venues
+        and for you!
+
+      %ul.summary-small-block-grid
+        %li.text-center
+          .summary-box
+            %h4 LISTEN
+            %p
+              Listen to live and archived talks from leading thinkers
+              and cutting edge conferences. Dive in to
+              = Talk.archived.count
+              great talks on Art, Culture, Politics, Tech, Design.
+            %span.icon-play-octa
+        %li.text-center
+          .summary-box
+            %h4 CREATE
+            %p
+              With VR it is easy to stream and archive your own talks,
+              debates and podcasts. Reach a worldwide audience of
+              listeners and stream from any location.
+              = link_to 'Pricing', pricing_path, class: 'button-pricing'
+            %span.icon-mic
+        %li.text-center
+          .summary-box
+            %h4 SHARE
+            %p
+              Share your talk with one simple link and quickly embed
+              to your site. Share the microphone with listeners – open
+              the debate. Share and playlist your favorite talks from
+              the archive.
+            %span.icon-tw
