@@ -4,7 +4,7 @@
       %h1.lp-logo.icon-vr-logo
   .row.collapse
     .medium-4.columns
-      %p.lead= render 'description'
+      %p.lead= render 'shared/description'
     .medium-2.medium-offset-2.columns
       %p.lead
         = link_to t('.about'), "http://blog.voicerepublic.com/", target: '_blank'
@@ -33,45 +33,3 @@
   .row
     %p.lead.text-center.copyright
       &copy; Voice Republic Media AG 2015
-
-
-    / .large-12.text-center
-  
-    /   %ul.list-style-type-none
-    /     %li
-    /       = link_to t('.about'), "http://blog.voicerepublic.com/", target: '_blank'
-    /       %br/
-    /       = link_to t('.support'), support_path
-    /       %br/
-    /       = link_to t('.team'), "http://blog.voicerepublic.com/article/about/", target: '_blank'
-
-    /     %li
-    /       = link_to t('.blog'), "http://blog.voicerepublic.com/blog", target: '_blank'
-    /       %br/
-    /       = link_to t('.press_kit'), 'http://blog.voicerepublic.com/press-kit/', target: '_blank'
-    /       %br/
-    /       = link_to t('.faq'), "http://blog.voicerepublic.com/faq/haeufig-gestellte-fragen/", target: '_blank'
-
-    /     %li
-    /       = link_to t('.manifest'), "http://blog.voicerepublic.com/article/vr-manifest/", target: '_blank'
-    /       %br/
-    /       = link_to t('.terms'),"http://blog.voicerepublic.com/legal/terms-of-use/", target: '_blank'
-    /       %br/
-    /       = link_to t('.pricing'), pricing_path
-
-    /     %li
-    /       = link_to t('.contact'), "mailto:service@voicerepublic.com", target: '_blank'
-    /       %br/
-    /       = link_to t('.status'), "http://status.voicerepublic.com", target: '_blank'
-    /       %br/
-    /       = link_to "http://facebook.com/voicerepublic", title: t('.fb'), target: '_blank' do
-    /         %span.icon-fb
-    /       = link_to "http://twitter.com/_voicerepublic", title: t('.tw'), target: '_blank' do
-    /         %span.icon-tw
-
-
-    /     %li
-    /       %span.vr-copyright &copy; Voice Republic Media AG 2015
-    /       -#.release= release
-    /   %br/
-    /   %br/

@@ -346,8 +346,8 @@ en:
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
-      footer_description: "Voice Republic is the new platform for quality spoken content. Many thought leaders throughout Europe are streaming their Talks exclusively on our platform." 
-      about: Cheers!
+      description: "Voice Republic is the new platform for quality spoken content. Many thought leaders throughout Europe are streaming their Talks exclusively on our platform." 
+      about: About
       company: Company
       manifest: Manifest
       terms: Terms
