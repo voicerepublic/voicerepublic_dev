@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   # we might end up with half of a dialog.
   has_many :messages, dependent: :destroy
 
-  has_many :venues
+  has_many :venues, dependent: :destroy
   has_many :series, dependent: :destroy # as owner
   has_many :talks, through: :series
   has_many :participations, dependent: :destroy
