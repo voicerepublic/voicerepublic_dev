@@ -88,9 +88,9 @@ en:
           You have %{count} credits left.
       purchase_more_credits: Purchase more credits
       podcast:
-        title: "VR: %{username}"
+        title: "%{username}"
         subtitle: "Podcast provided by Voice Republic"
-      feed_title: "VR - %{username}"
+      feed_title: "%{username}"
       listen_later_feed_title: "VR - Listen Later by %{username}"
       title: "%{username} - Voice Republic"
       edit_profile: Edit Profile
