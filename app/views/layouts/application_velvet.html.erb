@@ -26,10 +26,10 @@
 
   </head>
   <body class="<%= [controller_name, action_name] * '-' %>">
-    <%= render "shared/how_to_use_vr" %>
-    <%= render "shared/actionbar" %>
+    <%= render "shared/notice_or_error_velvet" %>
+    <%= render "shared/actionbar_velvet" %>
     <%= render "shared/unconfirmed" if @current_user && !@current_user.confirmed? %>
-    <%= render "shared/notice_or_error" %>
+
 
     <div ng-controller='NagUsersController'>
       <script>
