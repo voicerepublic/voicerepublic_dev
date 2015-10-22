@@ -27,7 +27,7 @@
   </head>
   <body class="<%= [controller_name, action_name] * '-' %>">
     <%= render "shared/notice_or_error_velvet" %>
-    <%= render "shared/actionbar_velvet" %>
+    <%= render "shared/topbar" %>
     <%= render "shared/unconfirmed" if @current_user && !@current_user.confirmed? %>
 
 

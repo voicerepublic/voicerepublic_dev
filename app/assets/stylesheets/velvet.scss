@@ -5,12 +5,12 @@
 @import 'foundation/functions';
 @import "grids_variables_mixins/mixins";
 $include-html-visibility-classes: true;
+@import 'settings';
 @import 'foundation';
 @import 'grids_variables_mixins/ci_variables';
 @import 'grids_variables_mixins/velvet_ci';
 @import 'grids_variables_mixins/vr_icons';
 @import 'shared/footer';
-@import 'shared/top_actionbar';
 
 
 
@@ -24,6 +24,8 @@ html,body {
 body {
 	color:#001c3a;
 }
+
+
 
 a:hover {
 	text-decoration:underline;
@@ -360,10 +362,7 @@ footer {
 	}
 
 	.top-bar {
-	background:white;
-	height:90px;
 	box-shadow:0px 1px 3px rgba(0,0,0,.3);
-	padding:24px;
 
 	.logo {
 		font-size:56px;
@@ -386,11 +385,11 @@ footer {
 		margin:0 auto;
 
 		&:-webkit-autofill {
--webkit-box-shadow: 0 0 0px 1000px white inset;
-background:$light-blue;
-background-color:$light-blue !important;
-color:white;
-}
+			-webkit-box-shadow: 0 0 0px 1000px white inset;
+			background:$light-blue;
+			background-color:$light-blue !important;
+			color:white;
+		}
 
 
 	}

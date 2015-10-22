@@ -1,0 +1,39 @@
+- if current_page?(root_path) && !current_user
+  .sticky
+    %nav.top-bar{"data-topbar" => "", :role => "navigation"}
+      %ul.title-area
+        .logo.left
+          %span.lp-logo.icon-vr-logo
+        %li.toggle-topbar.menu-icon
+          %a{:href => "#"}
+            %span Menu
+      %section.top-bar-section
+        / Right Nav Section
+        %ul.right
+          %li
+            %a{:href => "#"} This
+          %li
+            %a{:href => "#"} That
+- else    
+  .sticky
+    %nav.top-bar{"data-topbar" => "", :role => "navigation"}
+      %ul.title-area
+        .logo.left
+          %span.lp-logo.icon-vr-logo
+        %li.toggle-topbar.menu-icon
+          %a{:href => "#"}
+            %span Menu
+      %section.top-bar-section
+        / Right Nav Section
+        %ul.right
+          %li
+            %a{:href => "#"} Discover
+          %li
+            %a{:href => "#"} Something
+          %li.has-dropdown
+            %a{:href => "#"} Avatar
+            %ul.dropdown
+              %li
+                %a{:href => "#"} Profile
+              %li.active
+                %a{:href => "#"} Logout
