@@ -1415,14 +1415,14 @@ $primary-color: $light-blue;
 // 34. Top Bar
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// $include-html-top-bar-classes: $include-html-classes;
+//$include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
 $topbar-bg-color: white;
 $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: rem-calc(90);
+$topbar-height: rem-calc(80);
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1430,7 +1430,7 @@ $topbar-height: rem-calc(90);
 // $topbar-title-font-size: rem-calc(17);
 
 // Set the link colors and styles for top-level nav
-$topbar-link-color: none;
+$topbar-link-color: $light-blue;
 $topbar-link-color-hover: $blue;
 // $topbar-link-color-active: $white;
 // $topbar-link-color-active-hover: $white;
@@ -1454,7 +1454,7 @@ $topbar-link-text-transform: uppercase;
 $topbar-dropdown-bg: #f4f4f4;
 // $topbar-dropdown-link-color: $white;
 // $topbar-dropdown-link-color-hover: $topbar-link-color-hover;
-// $topbar-dropdown-link-bg: $oil;
+$topbar-dropdown-link-bg: $gray;
 // $topbar-dropdown-link-bg-hover: $jet;
 // $topbar-dropdown-link-weight: $font-weight-normal;
 // $topbar-dropdown-toggle-size: 5px;
