@@ -312,6 +312,9 @@ footer {
         background: $dark-gray;
         color: $beige;
         transition: background .2s;
+        padding: 24px;
+        line-height: 12px;
+        letter-spacing: 1px;
         &:hover {
             background: darken($dark-gray, 5%);
             color: white;

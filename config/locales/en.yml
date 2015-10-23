@@ -507,7 +507,7 @@ en:
   flash_player:
     not_archived_yet: "This talk is not archived, yet"
   low_on_credits: |
-    Sorry, you've no credits left. Buy some...
+    In order to publish any more Talks, you'll need more credits...
   purchases:
     index:
       box-header-basic: "Basic"
