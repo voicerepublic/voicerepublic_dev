@@ -39,6 +39,15 @@ a:hover {
     max-width: 73.5rem;
 }
 
+.button-blue {
+    background: $light-blue;
+    font-family: $headline-font;
+    &:hover {
+        background: $blue;
+        text-decoration: none;
+    }
+}
+
 .section {
     padding: 24px;
     background: white;
@@ -425,10 +434,12 @@ footer {
     max-width: initial;
 }
 
-.users-show .header-box {
+#credits {
+    background: $beige;
+    padding: 24px;
     margin: 0;
     background: $beige;
-    border-bottom: 6px solid $yellow;
+    // border-bottom: 6px solid $yellow;
     h3 {
         color: $dark;
         font-family: $headline-font;
@@ -438,5 +449,7 @@ footer {
         font-family: $body-font;
     }
 }
+
+.users-show .header-box {}
 
 @import 'shared/talk_medium_box';

@@ -374,7 +374,7 @@ $primary-color: $light-blue;
 // $crumb-slash-position: 1px;
 // 05. Buttons
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-// $include-html-button-classes: $include-html-classes;
+$include-html-button-classes: $include-html-classes;
 // We use these to build padding for buttons.
 // $button-tny: rem-calc(10);
 // $button-sml: rem-calc(14);
@@ -399,7 +399,7 @@ $primary-color: $light-blue;
 // $button-border-width: 0;
 // $button-border-style: solid;
 // $button-bg-color: $primary-color;
-// $button-bg-hover: scale-color($button-bg-color, $lightness: $button-function-factor);
+$button-bg-hover: red;
 // $button-border-color: $button-bg-hover;
 // $secondary-button-bg-hover: scale-color($secondary-color, $lightness: $button-function-factor);
 // $secondary-button-border-color: $secondary-button-bg-hover;
