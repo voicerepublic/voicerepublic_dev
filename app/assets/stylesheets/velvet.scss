@@ -305,6 +305,7 @@ footer {
 .top-bar {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, .3);
     text-transform: uppercase;
+    z-index: 999;
     .top-bar-section .has-dropdown > a:after {
         border-color: $light-blue transparent transparent transparent;
     }
@@ -414,6 +415,27 @@ footer {
             text-decoration: none;
             opacity: 1;
         }
+    }
+}
+
+.full-width {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: initial;
+}
+
+.users-show .header-box {
+    margin: 0;
+    background: $beige;
+    border-bottom: 6px solid $yellow;
+    h3 {
+        color: $dark;
+        font-family: $headline-font;
+    }
+    p {
+        color: $dark;
+        font-family: $body-font;
     }
 }
 

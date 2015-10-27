@@ -79,7 +79,7 @@ en:
     show:
       you_have_x_credits_left:
         zero: |
-          <p>You have run out of credits.</p>
+          <h3>You have run out of credits.</h3>
           <p>In order to stream or upload you need to purchase some credits.</p>
         one: |
           Only one credit left. You should purchase some credits

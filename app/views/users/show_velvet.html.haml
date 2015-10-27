@@ -6,19 +6,19 @@
   = t('.title', username: @user.name)
 
 - if current_user && current_user == @user
-  #credits.header-box.row.collapse.full-width
+  #credits.header-box.row.collapse
     .large-8.columns
       = t('.you_have_x_credits_left', count: @user.credits).html_safe
-    .large-2.large-offset-2.columns.text-right
-      = link_to t('.purchase_more_credits'), :purchases, class: 'button expand'
+    .large-4.columns
+      = link_to t('.purchase_more_credits'), :purchases, class: 'button-vr'
 
-.header-box
+.header-box.row.collapse
   .large-12.columns
     .align-box
       .avatar-box
         .avatar
           = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
-          %h2.user-name=@user.name
+          %h2.user-name=@user.name Pooper
 
       .info-links-box>
         .info-box
