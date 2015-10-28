@@ -1,7 +1,3 @@
-/*// Place all the styles related to the support controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/*/
-
 @import 'foundation/functions';
 @import "grids_variables_mixins/mixins";
 $include-html-visibility-classes: true;
@@ -51,10 +47,16 @@ a:hover {
 .section {
   padding: 24px;
   background: white;
-  padding: 94px 48px 96px 48px;
+  padding: 48px 12px;
+  @media #{$medium-up} {
+    padding: 60px 36px;
+  }
+  @media #{$large-up} {
+    padding: 94px 48px;
+  }
   .logo {
     font-size: 60px;
-    color: #fff;
+    color: $red;
   }
   .button {
     max-height: 48px;
@@ -75,12 +77,18 @@ a:hover {
   }
   h1 {
     font-size: rem-calc(24);
-    line-height: rem-calc(32);
+    line-height: rem-calc(28);
     color: $light-blue;
     font-family: $headline-font;
     margin-bottom: 84px;
-    font-size: 48px;
-    line-height: 52px;
+    @media #{$medium-up} {
+      font-size: rem-calc(28);
+      line-height: rem-calc(32);
+    }
+    @media #{$large-up} {
+      font-size: rem-calc(48);
+      line-height: rem-calc(52);
+    }
   }
 }
 
@@ -144,9 +152,15 @@ input:-webkit-autofill {
   }
 }
 
-.section.gray.apptease {
-  background: $gray;
-  padding: 60px 84px 0 48px;
+.section.apptease {
+  background: white;
+  padding: 24px 12px 0 12px;
+  @media #{$medium-up} {
+    padding: 36px 60px 0 36px;
+  }
+  @media #{$large-up} {
+    padding: 60px 84px 0 48px;
+  }
   .device-image {
     min-height: 100%;
     height: 100%;
@@ -154,7 +168,7 @@ input:-webkit-autofill {
     position: relative;
   }
   .device-copy {
-    padding: 160px 48px;
+    // padding: 160px 48px;
   }
   h1 {
     margin-bottom: 36px;
@@ -162,13 +176,29 @@ input:-webkit-autofill {
   .lead {
     font-family: $body-font;
     color: $light-blue;
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 18px;
+    line-height: 24px;
     font-weight: 200;
     margin-bottom: 60px;
+    @media #{$medium-up} {
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 60px;
+    }
+    @media #{$large-up} {
+      font-size: 24px;
+      line-height: 32px;
+      margin-bottom: 60px;
+    }
   }
-  .store-links img {
-    max-height: 60px;
+  .store-links {
+    padding: 0;
+    &:last-child {
+      padding-left: 6px;
+    }
+    img {
+      max-height: 60px;
+    }
   }
 }
 
@@ -176,7 +206,7 @@ input:-webkit-autofill {
   background: url(../images/stage-lightblue.jpg) no-repeat 50% 10%;
   background-size: cover;
   padding-top: 48px;
-  padding-bottom: 220px;
+  padding-bottom: 180px;
   border-bottom: 4px solid $yellow;
   h1 {
     margin-top: 96px;
@@ -241,10 +271,12 @@ input:-webkit-autofill {
   }
   .publisher-tile {
     padding: 6px;
+    max-height: 212px;
   }
   .publisher-tile-inside {
+    background: white;
     min-height: 200px;
-    border: 1px solid silver;
+    // border: 1px solid silver;
     padding-top: 24px;
     h1 {
       font-size: 24px;
@@ -274,10 +306,6 @@ footer {
     letter-spacing: .5px;
     font-size: rem-calc(14);
   }
-  .logo h1 {
-    font-size: 120px;
-    color: $beige;
-  }
   .copyright {
     padding-bottom: 96px;
   }
@@ -302,24 +330,29 @@ footer {
 
 //TOP BAR
 .top-actions {
-  color: #fff;
+  color: $beige;
   font-family: $headline-font;
   text-transform: uppercase;
   font-size: 14px;
   margin-bottom: 120px;
+  margin-top: 30px;
   // padding-top: 48px;
   a {
-    color: white;
+    color: $beige;
     span {
       margin-left: 48px;
       margin-top: 48px;
+      @media #{$medium-up} {
+        margin-left: 48px;
+        margin-top: 48px;
+      }
     }
     &:hover {
       text-decoration: underline;
     }
   }
-  .right {
-    margin-top: 30px;
+  span:first-child {
+    margin-left: 0;
   }
 }
 
@@ -355,6 +388,9 @@ footer {
     padding-left: 24px;
     .logo {
       font-size: 56px;
+      a {
+        color: $red;
+      }
     }
   }
   input {

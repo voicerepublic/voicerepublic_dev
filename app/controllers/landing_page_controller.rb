@@ -8,7 +8,7 @@ class LandingPageController < BaseController
 
         @talks_featured = Talk.featured.limit(6)
         @talks_recent  	= Talk.recent.limit(6)
-        @talks_popular  = Talk.popular.limit(6)
+        @talks_popular  = Talk.popular.limit(12)
       end
       format.rss do
         @podcast = OpenStruct.new(talks: Talk.recent.limit(10))
