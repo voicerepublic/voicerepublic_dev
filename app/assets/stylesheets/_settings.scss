@@ -188,7 +188,7 @@ $primary-color: $light-blue;
 // $cursor-text-value: text;
 // e. Typography
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-// $include-html-type-classes: $include-html-classes;
+$include-html-type-classes: $include-html-classes;
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
 // $header-font-weight: $font-weight-normal;
@@ -197,7 +197,7 @@ $primary-color: $light-blue;
 // $header-line-height: 1.4;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
-// $header-text-rendering: optimizeLegibility;
+$header-text-rendering: optimizeLegibility;
 // We use these to control header font sizes
 // $h1-font-size: rem-calc(44);
 // $h2-font-size: rem-calc(37);

@@ -51,21 +51,7 @@
     %h1.text-center
       = link_to t('.more_btn'), '#', class: 'button', title: 'Should Link To A Page Of Talks'
 
-
-.section.gray.apptease
-  .row
-    .large-6.columns.device-copy.right
-      %h1
-        = t('.apptease_header')
-      %p.lead
-        = t('.apptease_lead')
-      %p.store-links
-        =image_tag '/images/logos/appstore.png'
-        =image_tag '/images/logos/playstore.png'
-    .large-6.columns.device-image.left
-      =image_tag '/images/background/iphone-myfeed2.png'
-
-.section.publishers
+.section.gray.publishers
   .row
     .large-6.large-offset-3.columns.text-center
       %h1.text-center
@@ -82,6 +68,27 @@
   .row.bottom-action
     %h1.text-center
       = link_to t('.see_all_btn'), '#', class: 'button', title: 'Should Link To A Page Of More Publishers'
+
+.section.blue.categories
+  .row
+    .large-6.large-offset-3.columns.text-center
+      %h1.text-center
+        = t('.publisher_tease').html_safe
+
+.section.apptease
+  .row
+    .large-6.columns.device-copy.right
+      %h1
+        = t('.apptease_header')
+      %p.lead
+        = t('.apptease_lead')
+      %p.store-links
+        =image_tag '/images/logos/appstore.png'
+        =image_tag '/images/logos/playstore.png'
+    .large-6.columns.device-image.left
+      =image_tag '/images/background/iphone-myfeed2.png'
+
+
 
 .section.blue.ad
   .row

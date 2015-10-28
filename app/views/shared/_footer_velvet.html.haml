@@ -1,11 +1,13 @@
 %footer
   .row
     .logo.left
-      %h1.lp-logo.icon-vr-logo
+      / %h1.lp-logo.icon-vr-logo
+      %h2
+        VOICE REPUBLIC
   .row.collapse
     .medium-4.columns
       %p.lead= render 'shared/description'
-    .medium-2.medium-offset-2.columns
+    .medium-2.medium-offset-4.columns
       %p.lead
         = link_to t('.about'), "http://blog.voicerepublic.com/", target: '_blank'
       %p.lead
@@ -23,13 +25,21 @@
         = link_to t('.system_stats'), "http://status.voicerepublic.com", target: '_blank'
       %p.lead
         = link_to t('.contact_us'), "mailto:service@voicerepublic.com", target: '_blank'
-    .medium-2.columns.right
-      = link_to "http://facebook.com/voicerepublic", target: '_blank' do
-        =image_tag '/images/logos/twitter-circle-beige.svg', width: '50', alt: 'Voice Republic On Twitter', title: 'Voice Republic On Twitter'
-      = link_to "http://twitter.com/_voicerepublic", target: '_blank' do
-        =image_tag '/images/logos/facebook-circle-beige.svg', width: '50', alt: 'Voice Republic On Facebook', title: 'Voice Republic On Facebook'
+    
 
 
   .row
-    %p.lead.text-center.copyright
-      &copy; Voice Republic Media AG 2015
+    %hr
+    .row.collapse.copyright
+      .large-4.columns
+        %p.lead
+          &copy; Voice Republic Media AG 2015
+      .large-4.columns
+        %p.lead.text-center
+          Privacy&nbsp;&nbsp;&nbsp;&nbsp;Terms&nbsp;&nbsp;&nbsp;&nbsp;Sitemap
+      .large-4.columns.small-centered
+        %p.lead.text-right.small-only-text-center
+          = link_to "http://facebook.com/voicerepublic", target: '_blank' do
+            = image_tag '/images/logos/twitter-circle-beige.svg', width: '36', alt: 'Voice Republic On Twitter', title: 'Voice Republic On Twitter'
+          = link_to "http://twitter.com/_voicerepublic", target: '_blank' do
+            = image_tag '/images/logos/facebook-circle-beige.svg', width: '36', alt: 'Voice Republic On Facebook', title: 'Voice Republic On Facebook'
