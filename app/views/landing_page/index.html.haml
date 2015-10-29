@@ -19,32 +19,49 @@
     .medium-2.columns
       .logo.small-text-center.medium-text-left
         %span.lp-logo.icon-vr-logo
-    .medium-10.columns.small-text-center.medium-text-right.top-actions
-      %span 
-        = link_to t('.now_playing'), '#', title: 'Should Link To A Page Of LIVE Talks'
-      %span 
-        = link_to t('.discover'), explore_path
-      %span 
-        = link_to t('.sign_in'), new_user_session_path
-      %span 
-        = link_to t('.join'), new_user_registration_path
+    .medium-10.columns.top-actions.text-right.hide-for-small-only      
+      = link_to t('.now_playing'), '#', title: 'Should Link To A Page Of LIVE Talks'
+      = link_to t('.discover'), explore_path
+      = link_to t('.sign_in'), new_user_session_path
+      = link_to t('.join'), new_user_registration_path
   .row.collapse
     .medium-8.medium-offset-2.large-6.large-offset-3.columns.text-center
       %h1.text-center
         = t('.claim').html_safe
       .small-12.columns
         = form_tag "/search", :class => 'navbar-search form-search' do
-          .medium-8.medium-offset-2.columns.search-field-holder
+          .small-10.small-offset-1.medium-8.medium-offset-2.columns.search-field-holder
             = search_field_tag 'query', params[:query], :class => "welcome-search-field", :placeholder => t('.find_a_talk')#, :required => true
-          .medium-2.columns.end.search-btn-holder
+          .small-1.medium-2.columns.end.search-btn-holder
             = button_tag :type => "submit", :class => "search-lupe" do
               %span.icon-magnifying-glass
+  .row.collapse
+    .small-text-center.medium-text-right.top-actions.show-for-small-only
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.now_playing'), '#', title: 'Should Link To A Page Of LIVE Talks'
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.discover'), explore_path
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.sign_in'), new_user_session_path
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.join'), new_user_registration_path
+      .small-12.columns
+        %hr
 
 .section
   .row
     .large-8.large-offset-2.columns.text-center
       %h1.text-center
         = t('.start_listening').html_safe
+  .row{"data-equalizer" => ""}
     .large-12.columns  
       = render collection: @talks_popular, partial: 'shared/talk_velvet_medium_box'
   .row  

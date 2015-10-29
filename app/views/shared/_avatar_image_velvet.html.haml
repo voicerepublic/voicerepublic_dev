@@ -7,5 +7,4 @@
 - user ||= nil
 - img_path = user.avatar.thumb("#{size}x#{size}#nw").url if user
 
-.avatar-image
-  %img{height: "#{size}", width: "#{size}", src: img_path}
+%img{height: "#{size}", width: "#{size}", src: img_path, class: 'avatar-image'}

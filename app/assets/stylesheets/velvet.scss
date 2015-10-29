@@ -20,11 +20,11 @@ body {
 }
 
 .avatar-image {
-  img {
-    border-radius: 50%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
-    // margin: 10px 0 10px;
-  }
+  // img {
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+  // margin: 10px 0 10px;
+  // }
 }
 
 a:hover {
@@ -336,23 +336,26 @@ footer {
   font-size: 14px;
   margin-bottom: 120px;
   margin-top: 30px;
+  hr {
+    margin: 6px;
+    border-color: rgba($beige, .3);
+  }
   // padding-top: 48px;
   a {
     color: $beige;
-    span {
-      margin-left: 48px;
-      margin-top: 48px;
-      @media #{$medium-up} {
-        margin-left: 48px;
-        margin-top: 48px;
-      }
-    }
+    margin-left: 48px;
+    margin-top: 48px;
     &:hover {
       text-decoration: underline;
     }
   }
-  span:first-child {
+  a:first-child {
     margin-left: 0;
+  }
+  @media #{$small-only} {
+    div {
+      padding: 12px;
+    }
   }
 }
 
