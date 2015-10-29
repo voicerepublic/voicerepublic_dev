@@ -181,6 +181,14 @@ describe User do
       expect(ActionMailer::Base.deliveries.last.to_s)
       .to_not include I18n.t("devise.mailer.confirmation_instructions.subject")
     end
+
+    it 'allows created Users to be deleted again, even with Venues' do
+      user = FactoryGirl.create(:user)
+      venue = FactoryGirl.create(:venue, user: user)
+      expect(user.venues).to_not be_empty
+      expect { user.destroy! }.to_not raise_exception
+      expect { venue.reload }.to raise_exception(ActiveRecord::RecordNotFound)
+    end
   end
 
 end

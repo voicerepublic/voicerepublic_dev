@@ -16,6 +16,54 @@ class Handyman
 
   class Tasks
 
+    def user_create_default_venue
+      log '-> Check for missing venue on talks...'
+      query = Talk.where(venue_id: nil)
+      return unless query.count > 0
+
+      log 'Found %s talks with missing venue.' % query.count
+      query = User.joins(:talks).where('talks.venue_id IS NULL')
+      utot = query.count
+      query.each_with_index do |user, uidx|
+        talk_ids = user.talks.where(venue_id: nil).pluck(:id)
+        next if talk_ids.empty?
+        log '%s/%s Creating default venue for user %s and apply to %s talks' %
+            [ uidx+1, utot, user.id, talk_ids.size ]
+        venue = user.venues.create name: 'Default venue' # TODO centralize name
+        sql = 'UPDATE talks SET venue_id=%s WHERE id IN (%s)' %
+              [ venue.id, talk_ids * ',' ]
+        ActiveRecord::Base.connection.execute(sql)
+      end
+    end
+
+    def series_options_rename_autoend
+      log '-> Check series for old option no_auto_end_talk...'
+
+      query = Series.where("options LIKE '%autoend%'")
+      if query.count > 0
+        log "PRIOR RUN DETECTED & NOT IDEMPOTENT. SKIPPING. REMOVE THIS METHOD."
+        return
+      end
+
+      query = Series.where("options NOT LIKE '%no_auto_end%'")
+      total = query.count
+      query.each_with_index do |series, index|
+        log "%s/%s Set option autoend for series %s" %
+            [ index+1, total, series.id ]
+        series.options[:autoend] = true
+        series.save
+      end
+
+      query = Series.where("options LIKE '%no_auto_end%'")
+      total = query.count
+      query.each_with_index do |series, index|
+        log "%s/%s Unset option no_auto_end_talk for series %s" %
+            [ index+1, total, series.id ]
+        series.options.delete :no_auto_end_talk
+        series.save
+      end
+    end
+
     def appearances_nonextistent_talks
       log "-> Check appearances for nonexistent talks..."
       condition = "talk_id NOT IN (?)"
@@ -314,6 +362,12 @@ class Handyman
         talk.send(:set_description_as_html)
         talk.save
       end
+    end
+
+    def set_publisher_type_for_conference_users
+      log "-> Setting publishing_type to 'conference' for all Users with conference=true"
+      sql = "UPDATE users SET publisher_type='conference' WHERE conference IS TRUE;"
+      ActiveRecord::Base.connection.execute(sql)
     end
 
     private

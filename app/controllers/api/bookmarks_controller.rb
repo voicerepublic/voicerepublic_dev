@@ -2,8 +2,6 @@
 #
 class Api::BookmarksController < Api::BaseController
 
-  skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
-
   MAX_LIMIT = 20
 
   JSON_CONFIG = {
@@ -21,14 +19,13 @@ class Api::BookmarksController < Api::BaseController
           ),
     methods: %w(
                slides_url
-               media_links
+               media_url
                image_url
                self_url
              )
   }
 
-  before_action :authenticate_user!
-
+  # GET /api/bookmarks
   def index
     @talks = Talk.remembered_by(current_user).archived.nodryrun
 

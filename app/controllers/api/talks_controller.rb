@@ -1,10 +1,9 @@
 class Api::TalksController < Api::BaseController
 
-  skip_before_action :verify_authenticity_token, if: lambda { request.format.json? }
-
   MAX_LIMIT = 20
 
   JSON_CONFIG = {
+    # TODO `only` is generally better than `except`, to not leak data
     except: %w( session
                 storage
                 image_uid
@@ -13,11 +12,15 @@ class Api::TalksController < Api::BaseController
                 penalty
                 slides_uuid
                 recording_override
-                listeners)
+                listeners
+                social_links
+                dryrun
+                user_override_uuid
+                series_id
+                slides_uid )
   }
 
-  before_action :authenticate_user!
-
+  # GET /api/talks
   def index
     @talks = Talk.all
 
