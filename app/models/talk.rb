@@ -48,6 +48,8 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
+  attr_accessor :venue_name
+
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :created # initial
@@ -120,6 +122,7 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
   before_save :set_description_as_html, if: :description_changed?
+  before_save :set_venue
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -246,7 +249,7 @@ class Talk < ActiveRecord::Base
   # create a permanent url that redirects to a temp url via middleware
   def slides_url(perma=true)
     return nil if slides_uuid.blank?
-    return nil if slides_uuid.match /^https?:\/\//
+    return nil if slides_uuid.match(/^https?:\/\//)
     if perma
       Rails.application.routes.url_helpers.root_url + "slides/#{id}"
     else
@@ -350,11 +353,6 @@ class Talk < ActiveRecord::Base
     self.postprocess!
   end
 
-  def venue_name=(name)
-    name = 'Default venue' if name.blank? # TODO centralize name
-    self.venue = user.venues.find_or_create_by(name: name.strip)
-  end
-
   # used for mobile app
   def image_url
     image.url
@@ -418,6 +416,11 @@ class Talk < ActiveRecord::Base
   def set_ends_at
     return unless starts_at && duration # TODO check if needed
     self.ends_at = starts_at + duration.minutes
+  end
+
+  def set_venue
+    self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
+    self.venue = user.venues.find_or_create_by(name: venue_name.strip)
   end
 
   def notify_participants
@@ -758,8 +761,8 @@ class Talk < ActiveRecord::Base
       ctype = Mime::Type.lookup_by_extension('pdf')
       key = File.basename(tmp.path)
       #puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, key]
-      file = slides_storage.files.create key: key, body: tmp,
-                                         content_type: ctype, acl: 'public-read'
+      slides_storage.files.create key: key, body: tmp,
+                                  content_type: ctype, acl: 'public-read'
       #puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, key]
       update_attribute :slides_uuid, key
       tmp.unlink
