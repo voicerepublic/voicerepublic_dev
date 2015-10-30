@@ -46,7 +46,7 @@ class Series < ActiveRecord::Base
   validates :description, length: { maximum: Settings.limit.text }
 
   before_create :inherit_penalty
-  #before_create :inherit_hidden_nature
+  after_create :inherit_hidden_nature
   before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
   before_save :set_description_as_html, if: :description_changed?

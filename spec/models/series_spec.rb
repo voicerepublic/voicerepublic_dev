@@ -45,7 +45,7 @@ describe Series do
     it 'set hidden with set_hidden!' do
       series = FactoryGirl.create(:series)
       series.set_hidden!(true)
-      expect(series.is_hidden).to eq(true)
+      expect(series.reload.is_hidden).to eq(true)
     end
 
     it 'is not in the default scope' do
