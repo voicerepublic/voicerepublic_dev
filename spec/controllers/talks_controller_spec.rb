@@ -39,7 +39,7 @@ describe TalksController do
     describe 'Talk#show' do
 
       describe 'hidden from search engines' do
-        it 'still renders a talk when the URL is known' do
+        it 'still renders a talk when the talk is hidden' do
           @talk.set_hidden! true
           get :show, { :id => @talk.id }
           expect(response).to render_template("show")

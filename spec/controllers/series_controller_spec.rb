@@ -41,7 +41,7 @@ describe SeriesController do
 
   describe 'hidden from search engines' do
 
-    it 'still renders a talk when the URL is known' do
+    it 'still renders a talk when the series is hidden' do
       series = FactoryGirl.create :series
       series.set_hidden! true
       get :show, { :id => series.id }

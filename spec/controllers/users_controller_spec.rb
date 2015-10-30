@@ -8,6 +8,15 @@ describe UsersController do
     allow(controller).to receive_messages :current_user => @user
   end
 
+  describe 'hidden from search engines' do
+    it 'still renders a user when the user is hidden' do
+      user = FactoryGirl.create :user
+      user.set_hidden! true
+      get :show, { :id => user.id }
+      expect(response).to render_template("show")
+    end
+  end
+
   describe "GET show" do
     let(:user) { FactoryGirl.create(:user) }
     it "assigns the requested user as @user" do
