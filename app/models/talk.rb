@@ -344,6 +344,11 @@ class Talk < ActiveRecord::Base
     save!
   end
 
+  def set_hidden!(is_hidden)
+    self.is_hidden = is_hidden
+    save!
+  end
+
   # for use on console only
   def reinitiate_postprocess!
     self.update_attribute :state, :postlive

@@ -78,7 +78,6 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
   gem 'capistrano-rbenv', '~> 2.0'
-  gem 'byebug'
   gem 'disable_assets_logger'
   gem 'meta_request'
   gem 'pry-rails'
@@ -92,6 +91,10 @@ group :development do
   # http://stackoverflow.com/questions/19929373/rubymine-and-running-rspec
   # gem 'rspec-core' # needed when running specs on ci
 
+end
+
+group :development, :test do
+  gem 'byebug'
 end
 
 group :test do

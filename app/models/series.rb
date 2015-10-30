@@ -16,6 +16,8 @@ class Series < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
+  default_scope { where(is_hidden: false) }
+
   STREAMER_CONFIG         = Settings.rtmp
   # RECORDINGS_PATH = "#{Rails.root}/public/system/recordings"
   RECORDINGS_PATH         = Settings.rtmp.recordings_path
@@ -44,6 +46,7 @@ class Series < ActiveRecord::Base
   validates :description, length: { maximum: Settings.limit.text }
 
   before_create :inherit_penalty
+  #before_create :inherit_hidden_nature
   before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
   before_save :set_description_as_html, if: :description_changed?
@@ -76,6 +79,14 @@ class Series < ActiveRecord::Base
     talks.each { |t| t.set_penalty!(penalty) }
   end
 
+  # TODO: refactor set_hidden! and set_penalty! into one method
+  def set_hidden!(is_hidden, deep=true)
+    self.is_hidden = is_hidden
+    save!
+    return unless deep
+    talks.each { |t| t.set_hidden!(is_hidden) }
+  end
+
   private
 
   def set_description_as_html
@@ -101,6 +112,10 @@ class Series < ActiveRecord::Base
 
   def inherit_penalty
     self.penalty = user.penalty
+  end
+
+  def inherit_hidden_nature
+    self.is_hidden = user.is_hidden
   end
 
 end

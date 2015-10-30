@@ -36,4 +36,52 @@ describe Series do
 
   end
 
+  describe 'Hide Series from Search Engines' do
+    it 'is by default not hidden' do
+      series = FactoryGirl.create :series
+      expect(series.is_hidden).to eq(false)
+    end
+
+    it 'set hidden with set_hidden!' do
+      series = FactoryGirl.create(:series)
+      series.set_hidden!(true)
+      expect(series.is_hidden).to eq(true)
+    end
+
+    it 'is not in the default scope' do
+      user = FactoryGirl.create :user
+      2.times { FactoryGirl.create :series, user: user }
+      expect(Series.count).to be(3)
+      Series.last.set_hidden! true
+      expect(Series.count).to be(2)
+    end
+
+    it 'bequeaths its hidden nature to newly created series' do
+      user = FactoryGirl.create(:user)
+      user.set_hidden! true
+      series = FactoryGirl.create(:series, user: user)
+      expect(series.is_hidden).to eq(true)
+    end
+
+    it 'set hidden deeply with set_hidden!' do
+      user = FactoryGirl.create(:user)
+      series = FactoryGirl.create(:series, user: user)
+      talk = FactoryGirl.create(:talk, :archived, series: series)
+
+      # pick up the extra series
+      user.reload
+
+      user.set_hidden!(true)
+
+      # pick up changed hidden nature
+      series.reload
+      talk.reload
+
+      expect(user.is_hidden).to eq(true)
+      expect(series.is_hidden).to eq(true)
+      expect(talk.is_hidden).to eq(true)
+    end
+
+  end
+
 end

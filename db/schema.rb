@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917135345) do
+ActiveRecord::Schema.define(version: 20151029135057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20150917135345) do
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
+    t.boolean  "is_hidden",                       default: false
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -256,6 +257,7 @@ ActiveRecord::Schema.define(version: 20150917135345) do
     t.text     "description_as_html",             default: ""
     t.string   "slides_uuid"
     t.integer  "venue_id"
+    t.boolean  "is_hidden",                       default: false
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
@@ -321,6 +323,7 @@ ActiveRecord::Schema.define(version: 20150917135345) do
     t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
     t.string   "publisher_type"
+    t.boolean  "is_hidden",                          default: false
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

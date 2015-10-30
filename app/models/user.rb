@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
+  default_scope { where(is_hidden: false) }
+
   # TODO discuss if destroing these makes sense
   # we might end up with half of a dialog.
   has_many :messages, dependent: :destroy
@@ -208,6 +210,14 @@ class User < ActiveRecord::Base
     save!
     return unless deep
     series.each { |series| series.set_penalty!(penalty) }
+  end
+
+  # TODO: refactor set_hidden! and set_penalty! into one method
+  def set_hidden!(is_hidden, deep=true)
+    self.is_hidden = is_hidden
+    save!
+    return unless deep
+    series.each { |series| series.set_hidden!(is_hidden) }
   end
 
   def is_pro?
