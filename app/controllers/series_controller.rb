@@ -113,7 +113,7 @@ class SeriesController < BaseController
   end
 
   def set_series
-    @series = Series.find(params[:id])
+    @series = Series.unscoped.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.

@@ -39,6 +39,16 @@ describe SeriesController do
     {}
   end
 
+  describe 'hidden from search engines' do
+
+    it 'still renders a talk when the URL is known' do
+      series = FactoryGirl.create :series
+      series.set_hidden! true
+      get :show, { :id => series.id }
+      expect(response).to render_template("show")
+    end
+  end
+
   describe "GET show" do
     let(:series) { FactoryGirl.create(:series) }
     it "assigns the requested series as @series when logged in" do
