@@ -5,3 +5,7 @@ Disallow: /
 
 User-agent: Mozilla 5.0 (EasouSpider)
 Disallow: /
+
+
+User-agent: *
+Disallow: /users/ada-lovelace
