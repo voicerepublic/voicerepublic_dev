@@ -80,7 +80,6 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'disable_assets_logger'
   gem 'meta_request'
-  gem 'pry-rails'
   gem 'rspec-rails', '3.2.1'
   #gem 'rspec-retry'
   # TODO: Upgradming to Rails 4.1 introduces a built in mechanism:
