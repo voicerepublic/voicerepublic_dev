@@ -6,6 +6,17 @@ Disallow: /
 User-agent: Mozilla 5.0 (EasouSpider)
 Disallow: /
 
-
 User-agent: *
 Disallow: /users/ada-lovelace
+
+User-agent: *
+Disallow: /talks/keynote-intersection-of-programming-and-play
+
+User-agent: *
+Disallow: /talks/ada-lovelace-walking-in-the-footsteps-of-greatness
+
+User-agent: *
+Disallow: /talks/the-future-of-coding
+
+User-agent: *
+Disallow: /talks/digitale-gesellschaft
