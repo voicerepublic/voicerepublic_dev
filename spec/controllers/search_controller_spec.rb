@@ -74,6 +74,24 @@ describe SearchController do
       expect(searchables).to include(series)
       expect(searchables).to include(talk)
     end
+
+    describe "Hide from Search" do
+
+      it "does not find users" do
+        user = FactoryGirl.create(:user, firstname: 'Fear and Delight')
+        user.set_hidden! true
+        get :show, page: 1, query: 'Delight'
+        expect(assigns(:results).first.searchable).to be_nil
+      end
+
+      it "does not find series" do
+        series = FactoryGirl.create(:series, title: 'Fear and Delight')
+        series.set_hidden! true
+        get :show, page: 1, query: 'Delight'
+        expect(assigns(:results).first.searchable).to be_nil
+      end
+
+    end
   end
 
 end

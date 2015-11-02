@@ -98,7 +98,7 @@ class TalksController < BaseController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_talk
-    @talk = Talk.find(params[:id])
+    @talk = Talk.unscoped.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.

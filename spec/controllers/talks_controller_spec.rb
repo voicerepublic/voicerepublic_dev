@@ -37,6 +37,15 @@ describe TalksController do
     end
 
     describe 'Talk#show' do
+
+      describe 'hidden from search engines' do
+        it 'still renders a talk when the talk is hidden' do
+          @talk.set_hidden! true
+          get :show, { :id => @talk.id }
+          expect(response).to render_template("show")
+        end
+      end
+
       describe 'assigns talks to @related_talks' do
         before do
           @other_series_same_user = FactoryGirl.create :series, user: @user

@@ -386,6 +386,36 @@ describe Talk do
 
   end
 
+  describe 'hidden nature' do
+
+    it 'is by default not hidden' do
+      talk = FactoryGirl.create(:talk)
+      expect(talk.is_hidden).to eq(false)
+    end
+
+    it 'inherits its hidden nature from its series' do
+      series = FactoryGirl.create(:series)
+      series.set_hidden! true
+      series.reload
+      talk = FactoryGirl.create(:talk, series: series)
+      expect(talk.is_hidden).to eq(true)
+    end
+
+    it 'set hidden nature with set_hidden!' do
+      talk = FactoryGirl.create(:talk, :archived)
+      talk.set_hidden! true
+      expect(talk.is_hidden).to eq(true)
+    end
+
+    it 'is not in the default scope' do
+      2.times { FactoryGirl.create :talk }
+      expect(Talk.count).to be(2)
+      Talk.last.set_hidden! true
+      expect(Talk.count).to be(1)
+    end
+
+  end
+
   describe 'debit' do
     it 'reduces the owners credits by one' do
       user = FactoryGirl.create(:user)

@@ -33,7 +33,7 @@ class UsersController < BaseController
 
   # TODO rename @talks_total to @total_talks
   def show
-    @user ||= User.find(params[:id])
+    @user ||= User.unscoped.find(params[:id])
     respond_to do |format|
       format.html do
         @talks_total       = @user.talks.where.not(state: 'postlive').count
@@ -89,7 +89,7 @@ class UsersController < BaseController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.unscoped.find(params[:id])
     authorize! :edit, @user
     #render :layout => 'application'
   end
@@ -115,7 +115,7 @@ class UsersController < BaseController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    @user = User.unscoped.find(params[:id])
     authorize! :update, @user
 
     respond_to do |format|

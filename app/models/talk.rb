@@ -41,6 +41,8 @@ class Talk < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
+  default_scope { where(is_hidden: false) }
+
   include ActiveModel::Transitions
 
   LANGUAGES = YAML.load(File.read(File.expand_path('config/languages.yml', Rails.root)))
@@ -122,6 +124,7 @@ class Talk < ActiveRecord::Base
   before_save :set_description_as_html, if: :description_changed?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
+  after_create :inherit_hidden_nature
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   after_create :create_and_process_debit_transaction!, unless: :dryrun?
@@ -341,6 +344,11 @@ class Talk < ActiveRecord::Base
   def set_penalty!(penalty)
     self.penalty = penalty
     set_popularity if archived?
+    save!
+  end
+
+  def set_hidden!(is_hidden)
+    self.is_hidden = is_hidden
     save!
   end
 
@@ -736,6 +744,10 @@ class Talk < ActiveRecord::Base
 
   def inherit_penalty
     self.penalty = series.penalty
+  end
+
+  def inherit_hidden_nature
+    self.is_hidden = series.is_hidden
   end
 
   def create_and_process_debit_transaction!
