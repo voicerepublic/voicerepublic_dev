@@ -15,6 +15,9 @@ class ExploreController < ApplicationController
         @talks = @talks.joins(series: :users).
                  where('users.publisher_type' => publisher_type)
       end
+      unless (category = filter[:category]).blank?
+        @talks = @talks.tagged_with(category)
+      end
     end
 
     return render partial: 'shared/talk_medium_box', collection: @talks if request.xhr?

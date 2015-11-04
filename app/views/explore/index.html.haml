@@ -4,6 +4,8 @@
 .row.collapse-large-only.top-margin-action-bar
   = form_for :filter, html: { 'data-ajax-filters' => '#results' } do |f|
     .small-4.columns
+      = f.select :category, Category.available, prompt: t('.category')
+    .small-4.columns
       = f.select :publisher_type, User.available_publisher_types, prompt: t('.publisher_type')
     .small-4.columns
       = f.select :language, Talk.available_languages.invert, prompt: t('.language')
