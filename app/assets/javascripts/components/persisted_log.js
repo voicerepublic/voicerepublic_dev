@@ -11,18 +11,18 @@ console.log = function(_super) {
   };
 }(console.log);
 
-// use the same move to store messages in some storage
-console.log = function(_super, _storage) {
-  var slice = Array.prototype.slice,
-      store = function(str) {
-        var log = JSON.parse(_storage.getItem('log'));
-        if(log == null) log = [];
-        log.push([new Date(), str]);
-        _storage.setItem('log', JSON.stringify(log));
-      };
-  return function() {
-    var args = slice.apply(arguments);
-    store(JSON.stringify(args));
-    _super.apply(this, args);
-  };
-}(console.log, sessionStorage);
+// // use the same move to store messages in some storage
+// console.log = function(_super, _storage) {
+//   var slice = Array.prototype.slice,
+//       store = function(str) {
+//         var log = JSON.parse(_storage.getItem('log'));
+//         if(log == null) log = [];
+//         log.push([new Date(), str]);
+//         _storage.setItem('log', JSON.stringify(log));
+//       };
+//   return function() {
+//     var args = slice.apply(arguments);
+//     store(JSON.stringify(args));
+//     _super.apply(this, args);
+//   };
+// }(console.log, sessionStorage);

@@ -1,14 +1,19 @@
 - content_for :title do
   =t('.talks_on_voice_republic')
 
+.row.collapse-large-only.top-margin-action-bar
+  = form_for :filter, html: { 'data-ajax-filters' => '#results' } do |f|
+    .small-4.columns
+      = f.select :language, Talk.available_languages.invert, prompt: t('.language')
+
 - if @talks
-  .row.collapse-large-only.top-margin-action-bar
+  .row.collapse-large-only
     .small-12.columns
       .title-box.text-center
         %h3= t(".#{action_name}")
-      %ul.list-style-type-none
+      %ul.list-style-type-none#results
         = render collection: @talks, partial: 'shared/talk_medium_box'
-      = will_paginate @talks
+      -#= will_paginate @talks
 - else
 
   .bg-creme.explore-top-bg

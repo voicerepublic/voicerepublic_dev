@@ -5,6 +5,14 @@ class ExploreController < ApplicationController
     @talks_featured = Talk.featured.limit(5)
     @talks_recent   = Talk.recent.limit(5)
     @talks_popular  = Talk.popular.limit(5)
+
+    @talks = Talk.popular.limit(24)
+    if filter = params[:filter]
+      language = filter[:language]
+      @talks = @talks.where(language: language) if language
+    end
+
+    return render partial: 'shared/talk_medium_box', collection: @talks if request.xhr?
   end
 
   # GET /explore/featured
