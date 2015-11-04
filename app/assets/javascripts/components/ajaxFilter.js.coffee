@@ -8,9 +8,11 @@ initialize = (node, target) ->
   nodes.change (event) ->
     query = $(node).serialize()
     url = window.location.pathname+'?'+query
+    NProgress.start()
     $.ajax url,
       success: (data) ->
         $(target).html(data)
+        NProgress.done()
 
 $("*[#{attribute}]").each (index, element) ->
   value = $($(element).attr(attribute))
