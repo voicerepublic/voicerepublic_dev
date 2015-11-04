@@ -8,8 +8,13 @@ class ExploreController < ApplicationController
 
     @talks = Talk.popular.limit(24)
     if filter = params[:filter]
-      language = filter[:language]
-      @talks = @talks.where(language: language) if language
+      unless (language = filter[:language]).blank?
+        @talks = @talks.where(language: language)
+      end
+      unless (publisher_type = filter[:publisher_type]).blank?
+        @talks = @talks.joins(series: :users).
+                 where('users.publisher_type' => publisher_type)
+      end
     end
 
     return render partial: 'shared/talk_medium_box', collection: @talks if request.xhr?
