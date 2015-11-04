@@ -571,3 +571,9 @@ en:
       </ul>
 
       <a href="/users/sign_up" class="button-signup primary button large">Sign up, it's free!</a>
+  user_publisher_types:
+    conference: Conference
+    institution: Statebased Institutions
+    foundation: Foundation or NGO
+    independent: Independent
+    academic: Academic
