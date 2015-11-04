@@ -1,12 +1,15 @@
 class ExploreController < ApplicationController
 
+  LIMIT = 12
+
   def index
     @talks_live     = Talk.publicly_live.limit(5)
     @talks_featured = Talk.featured.limit(5)
     @talks_recent   = Talk.recent.limit(5)
     @talks_popular  = Talk.popular.limit(5)
 
-    @talks = Talk.popular.limit(24)
+    page = (params[:filter] && params[:filter][:page]) || 1
+    @talks = Talk.popular.paginate(page: page, per_page: LIMIT)
     if filter = params[:filter]
       unless (language = filter[:language]).blank?
         @talks = @talks.where(language: language)

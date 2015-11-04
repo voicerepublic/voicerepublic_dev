@@ -2,7 +2,9 @@
   =t('.talks_on_voice_republic')
 
 .row.collapse-large-only.top-margin-action-bar
-  = form_for :filter, html: { 'data-ajax-filters' => '#results' } do |f|
+  - opts = { 'data-infinite-scroll' => '#spy|#results|#filter_page', 'data-ajax-filters' => '#results' }
+  = form_for :filter, html: opts do |f|
+    = f.hidden_field :page, value: 1
     .small-4.columns
       = f.select :category, Category.available, prompt: t('.category')
     .small-4.columns
@@ -19,6 +21,7 @@
       %ul.list-style-type-none#results
         = render collection: @talks, partial: 'shared/talk_medium_box'
       -#= will_paginate @talks
+      #spy= t('.loading')
 - else
 
   .bg-creme.explore-top-bg
