@@ -505,4 +505,17 @@ footer {
 
 .users-show .header-box {}
 
+.category-thumb {
+  background: $gray;
+  padding: 60px 0;
+  border: 2px solid white;
+  h4 {
+    font-family: $headline-font;
+    font-size: rem-calc(18);
+  }
+  @media #{$medium-up} {
+    // min-height: 200px;
+  }
+}
+
 @import 'shared/talk_medium_box';

@@ -56,7 +56,7 @@
       .small-12.columns
         %hr
 
-.section
+.section.gray
   .row
     .large-8.large-offset-2.columns.text-center
       %h1.text-center
@@ -86,26 +86,44 @@
     %h1.text-center
       = link_to t('.see_all_btn'), '#', class: 'button', title: 'Should Link To A Page Of More Publishers'
 
-.section.blue.categories
+.section.categories
   .row
     .large-6.large-offset-3.columns.text-center
       %h1.text-center
         = t('.categories_are_fun')
 
-.section.apptease
-  .row
-    .medium-6.columns.device-copy.right
-      .small-12.columns
-        %h1
-          = t('.apptease_header')
-        %p.lead
-          = t('.apptease_lead')
-      .small-6.columns.store-links
-        =image_tag '/images/logos/appstore.png'
-      .small-6.columns.store-links
-        =image_tag '/images/logos/playstore.png'
-    .medium-6.columns.device-image.left
-      =image_tag '/images/background/iphone-myfeed2.png'
+  .row.collapse{"data-equalizer" => ""}
+    .small-12.medium-2.medium-offset-1.columns.category-thumb{"data-equalizer-watch" => ""}
+      %h4.text-center
+        Politics &amp; Society
+    .small-12.medium-2.columns.category-thumb{"data-equalizer-watch" => ""}
+      %h4.text-center
+        The Sciences
+    .small-12.medium-2.columns.category-thumb{"data-equalizer-watch" => ""}
+      %h4.text-center
+        Art &amp; Culture
+    .small-12.medium-2.columns.category-thumb{"data-equalizer-watch" => ""}
+      %h4.text-center
+        Technology
+    .small-12.medium-2.columns.end.category-thumb{"data-equalizer-watch" => ""}
+      %h4.text-center
+        The Media
+
+
+/ .section.apptease
+/   .row
+/     .medium-6.columns.device-copy.right
+/       .small-12.columns
+/         %h1
+/           = t('.apptease_header')
+/         %p.lead
+/           = t('.apptease_lead')
+/       .small-6.columns.store-links
+/         =image_tag '/images/logos/appstore.png'
+/       .small-6.columns.store-links
+/         =image_tag '/images/logos/playstore.png'
+/     .medium-6.columns.device-image.left
+/       =image_tag '/images/background/iphone-myfeed2.png'
 
 
 
