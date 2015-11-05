@@ -33,7 +33,7 @@
     / = render 'shared/helpful_share' if action_name != "index"
     = render 'shared/footer_velvet'
     #scripts
-      / = javascript_include_tag "support"
+      = javascript_include_tag "velvet"
       - if Rails.env.production?
         = render 'shared/google_analytics'
         = render 'shared/tawk'
