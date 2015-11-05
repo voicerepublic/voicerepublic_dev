@@ -231,7 +231,7 @@ Run fidelity on it
 
 To update fidelity, run
 
-    bundle update fidelity
+    bundle update --source fidelity
 
 
 Documentation
