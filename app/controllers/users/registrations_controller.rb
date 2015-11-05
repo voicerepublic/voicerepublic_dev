@@ -20,6 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
+    Simon.comprehend(resource, :registered)
     '/onboard'
   end
 

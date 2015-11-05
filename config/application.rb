@@ -61,6 +61,8 @@ module VoiceRepublic
     # increases Talk#play_count and redirects to Talk#generate_ephemeral_path!
     config.middleware.use 'MediaTracker'
 
+    config.middleware.use 'Slides'
+
     config.middleware.use 'Rack::Affiliates'
 
     config.assets.initialize_on_precompile = false

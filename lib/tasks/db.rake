@@ -1,4 +1,24 @@
 namespace :db do
+
+  # this extends the existing `db:create`
+  desc 'setup psql extensions'
+  task :create do
+    config = Rails.configuration.database_configuration
+    unless config[Rails.env]["adapter"] == 'postgresql'
+      puts
+      puts 'Not using a postgres db? We might have a problem here.'
+      exit 1
+    end
+
+    puts 'setting up postgresql extensions'
+    database = config[Rails.env]["database"]
+    sql = <<-SQL
+      CREATE EXTENSION pg_trgm;
+      CREATE EXTENSION unaccent;
+    SQL
+    system 'psql', database, '-c', sql
+  end
+
   namespace :sync do
     task :live do
       dump = "pgdump_production_2_#{ `hostname`.chomp }.sql"

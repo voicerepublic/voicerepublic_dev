@@ -21,6 +21,10 @@
           group_method: :last, label_method: :last, value_method: :first
         = f.input :tag_list, input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }
 
+    .row
+      .medium-12.columns
+        = f.input :speakers, placeholder: t('.speakers')
+
     .title-box.clearfix
       %h2.form-title= t('.choose_date_and_time')
     .date-time-picker-row.row

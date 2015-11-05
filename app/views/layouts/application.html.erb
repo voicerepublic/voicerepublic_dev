@@ -60,7 +60,7 @@
     <div id='scripts'>
       <%= javascript_include_tag "application" %>
       <% if Rails.env.production? %>
-        <%= render 'shared/google_analytics' %>
+        <%= render 'shared/google_analytics' unless @current_user && @current_user.insider? %>
         <%= render 'shared/tawk' %>
       <% end %>
       <%= yield :javascript %>
