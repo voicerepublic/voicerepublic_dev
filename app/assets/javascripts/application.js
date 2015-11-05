@@ -15,7 +15,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require foundation.alert
 //= require jquery.jplayer.min
 //= require select2
 //= require slick
