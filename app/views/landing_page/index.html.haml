@@ -23,8 +23,23 @@
       - if Talk.live.present?
         = link_to t('.now_playing'), live_talks_path, title: 'Live Talks'
       = link_to t('.discover'), explore_path
-      = link_to t('.sign_in'), new_user_session_path
-      = link_to t('.join'), new_user_registration_path
+      - if !current_user
+        = link_to t('.sign_in'), new_user_session_path
+        = link_to t('.join'), new_user_registration_path
+      - else
+        #button.button.dropdown{"data-dropdown" => "profile-drop", "aria-controls" => "profile-drop", "aria-expanded" => "false"}
+          = render partial: "shared/avatar_image_velvet", locals: { user: current_user, size: 60 }
+          %ul#profile-drop.f-dropdown{"data-dropdown-content" => ""}
+            %li= link_to t('.my_profile'), current_user
+            %li= link_to t('.test_talk'), test_talk_path
+            %li= link_to t('.schedule_talk'), new_talk_path
+            %li= link_to t('.upload_talk'), new_upload_path
+            / - if !current_user.is_pro?
+            /   %li= link_to t('.pricing'), purchases_path
+            %li
+              = link_to(destroy_user_session_path, method: :delete) do
+                %i.icon-off
+                = t('.logout')
   .row.collapse
     .medium-8.medium-offset-2.large-6.large-offset-3.columns.text-center
       %h1.text-center
