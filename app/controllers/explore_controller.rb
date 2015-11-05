@@ -3,12 +3,7 @@ class ExploreController < ApplicationController
   LIMIT = 12
 
   def index
-    @talks_live     = Talk.publicly_live.limit(5)
-    @talks_featured = Talk.featured.limit(5)
-    @talks_recent   = Talk.recent.limit(5)
-    @talks_popular  = Talk.popular.limit(5)
-
-    page = (params[:filter] && params[:filter][:page]) || 1
+    page = params[:page] || 1
     @talks = Talk.popular.paginate(page: page, per_page: LIMIT)
     if filter = params[:filter]
       unless (language = filter[:language]).blank?
@@ -23,7 +18,15 @@ class ExploreController < ApplicationController
       end
     end
 
-    return render partial: 'shared/talk_medium_box', collection: @talks if request.xhr?
+    if request.xhr?
+      if page == 1
+        # these get replaced by ajax filters
+        return render partial: 'results'
+      else
+        # these get appended by infinite scroll
+        return render partial: 'shared/talk_medium_box', collection: @talks
+      end
+    end
   end
 
   # GET /explore/featured
@@ -41,17 +44,7 @@ class ExploreController < ApplicationController
   # GET /explore/popular
   def popular
     @talks = Talk.popular.paginate(page: params[:page], per_page: 25)
-    respond_to do |format|
-      format.html do
-        render :index
-      end
-      # TODO check with dibran if this is needed anymore
-      # hack to provide mobile with an easy interface, TODO move to api
-      format.json do
-        render json: @talks.to_json(only: %w(id slug state title
-                                             teaser starts_at ends_at))
-      end
-    end
+    render :index
   end
 
   # GET /explore/live
