@@ -29,12 +29,13 @@ describe 'UsersController' do
   end
 end
 
-feature "User edits own profile", js: true do
+feature "User edits own profile" do
   background do
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
     visit root_path
-    within('.top-nav') { click_link('Sign In') }
+    expect(page).to have_css('.mobile-nav')
+    within('.mobile-nav') { click_link('Sign In') }
     page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.find('.button-login').click
@@ -62,7 +63,7 @@ feature "User edits own profile", js: true do
     expect(page).to have_content(I18n.t('flash.actions.update.notice'))
   end
 
-  scenario "uploading a avatar image" do
+  scenario "uploading a avatar image", js: true do
     some_image = Rails.root.join('app/assets/images/logo.png')
     expect(@user.reload.avatar_uid).to be_nil
     make_upload_field_visible('user_avatar')
@@ -77,7 +78,6 @@ end
 feature "User visits another user" do
   background do
     @user = FactoryGirl.create(:user)
-    #@klu = FactoryGirl.create(:published_kluuu, :user => @user)
   end
 
   scenario "user visits user-page" do
