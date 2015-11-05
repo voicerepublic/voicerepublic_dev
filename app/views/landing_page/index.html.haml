@@ -62,52 +62,43 @@
       %h1.text-center
         = t('.start_listening').html_safe
   .row
-    .large-12.columns.collapse  
+    .large-12.columns.collapse.talk-grid  
       = render collection: @talks_popular, partial: 'shared/talk_velvet_medium_box'
   .row  
     %h1.text-center
-      = link_to t('.more_btn'), '#', class: 'button', title: 'Should Link To A Page Of Talks'
+      = link_to t('.more_btn'), explore_path, class: 'button', title: 'Should Link To A Page Of Talks'
 
-.section.gray.publishers
+.section.publishers
   .row
     .medium-8.medium-offset-2.large-6.large-offset-3.columns.text-center
       %h1.text-center
         = t('.publisher_tease').html_safe
     .large-12.columns  
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'ETH Zurich'}
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'WILPF'}
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 're:publica'}
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'Webinale'}
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'Courage Foundation'}
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'Amaze Berlin'}
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'Int\' ferienkurse Fuer Musik'}
-      = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'Internet Of Things'}
+      = render partial: 'shared/publisher_tile', collection: @publishers
   .row.bottom-action
     %h1.text-center
       = link_to t('.see_all_btn'), '#', class: 'button', title: 'Should Link To A Page Of More Publishers'
 
-.section.categories
-  .row
+.section.gray.categories
+  .row.collapse
     .large-6.large-offset-3.columns.text-center
       %h1.text-center
-        = t('.categories_are_fun')
+        = t('.categories_title')
+  .row.collapse
+    %p.lead.text-center
+      = t('.categories_subtitle')
 
-  .row.collapse{"data-equalizer" => ""}
-    .small-12.medium-2.medium-offset-1.columns.category-thumb{"data-equalizer-watch" => ""}
-      %h4.text-center
-        Politics &amp; Society
-    .small-12.medium-2.columns.category-thumb{"data-equalizer-watch" => ""}
-      %h4.text-center
-        The Sciences
-    .small-12.medium-2.columns.category-thumb{"data-equalizer-watch" => ""}
-      %h4.text-center
-        Art &amp; Culture
-    .small-12.medium-2.columns.category-thumb{"data-equalizer-watch" => ""}
-      %h4.text-center
-        Technology
-    .small-12.medium-2.columns.end.category-thumb{"data-equalizer-watch" => ""}
-      %h4.text-center
-        The Media
+  .row
+    .small-12.medium-4.large-2.large-offset-1.columns.category-thumb-holder
+      = link_to t('.category_1'),  explore_path(filter: { category: 'Politik und Gesellschaft' }), class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+    .small-12.medium-4.large-2.columns.category-thumb-holder
+      = link_to t('.category_2'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+    .small-12.medium-4.large-2.columns.category-thumb-holder
+      = link_to t('.category_3'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+    .small-12.medium-4.large-2.columns.category-thumb-holder
+      = link_to t('.category_4'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+    .small-12.medium-4.large-2.columns.end.category-thumb-holder
+      = link_to t('.category_5'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
 
 
 / .section.apptease

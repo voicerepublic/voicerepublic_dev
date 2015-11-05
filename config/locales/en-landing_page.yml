@@ -29,6 +29,13 @@ en:
       archive_subtitle: Browse the archive
       recent: RECENT
       see_all: more...
+      categories_title: Categories
+      categories_subtitle: The Talks on Voice Republic fall into these 5 Categories.
+      category_1: Politics & Society
+      category_2: The Sciences
+      category_3: Art & Culture
+      category_4: Technology
+      category_5: The Media
 
       partners_title: Conferences currently using Voice Republic
 
