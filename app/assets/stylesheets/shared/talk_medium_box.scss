@@ -174,27 +174,32 @@
 //     }
 //   }
 // }
-$font-size: 16px;
-$line-height: 1.2;
+.talkbox-container {
+  padding: 6px;
+}
+
+$font-size: 17px;
+$line-height: 1.1;
 $lines-to-show: 2;
 .talkbox {
   background: white;
-  padding: 6px;
-  margin-bottom: 24px;
+  padding: 12px;
   transition: background .2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .15);
   &:hover {
-    background: $yellow;
+    background: $beige;
   }
   .user-info {
     padding-top: 4px;
   }
   .avatar {
-    width: 40px;
+    width: 32px;
     float: left;
+    padding-top: 6px;
   }
   .meta {
     float: left;
-    padding-top: 6px;
+    padding-top: 8px;
     color: #999;
     margin-left: 4px;
     // width: 100%;
@@ -204,6 +209,11 @@ $lines-to-show: 2;
       line-height: rem-calc(14);
       margin: 0;
       padding: 0;
+      .play-arrow {
+        margin-left: 12px;
+        margin-right: -2px;
+        margin-top: -2px;
+      }
     }
   }
   img {
@@ -232,7 +242,7 @@ $lines-to-show: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-top: 6px;
+    margin-top: 8px;
     margin-bottom: 0;
   }
 }

@@ -1,33 +1,27 @@
 - talk ||= talk_velvet_medium_box
 - reminder = reminder
 
-.medium-6.large-3.columns.talkbox
-  = link_to talk do
-    %img.talk-thumbnail{src: talk.image.thumb('640x360#').url}
-    / .text-left
-    / .row.collapse.datetime
-    /   .small-12.columns.info
-    /     .small-4.columns
-    /       = time_ago_in_words(talk.starts_at) 
-    /       ago
-    /     .small-4.columns.text-center
-    /       = talk.duration
-    /     .small-4.columns.text-right
-    /       = number_to_human(talk.play_count, units: {thousand:"k",million:"M"}, precision: 0)
-    .row.collapse.user-info
-      .avatar
-        = link_to talk.user do
-          = render partial: "shared/avatar_image_velvet", locals: { user: talk.user, size: 36 }
-      .meta
-        %p.user-name
+
+.medium-6.large-3.columns.talkbox-container
+  .talkbox
+    = link_to talk do
+      %img.talk-thumbnail{src: talk.image.thumb('640x360#').url}
+      .row.collapse.user-info
+        .avatar
           = link_to talk.user do
-            = talk.user.name
-        %p.time-ago
-          = time_ago_in_words(talk.starts_at) 
-          ago
-    %h3.title
-      = link_to talk, class: 'text-link' do
-        = talk.title
-  - if reminder and can?(:destroy, reminder)
-    .actions
-      = link_to '&times;'.html_safe, reminder, method: 'delete', title: t('.delete_reminder'), class: 'delete-reminder'
+            = render partial: "shared/avatar_image_velvet", locals: { user: talk.user, size: 282 }
+        .meta
+          %p.user-name
+            = link_to talk.user do
+              = talk.user.name
+          %p.time-ago
+            = time_ago_in_words(talk.starts_at) 
+            ago
+            = image_tag '/images/icons/play-arrow-999.svg', width: "8", class: "play-arrow"
+            = number_to_human(talk.play_count, units: {thousand:"k",million:"M"}, precision: 0)
+      %h3.title
+        = link_to talk, class: 'text-link' do
+          = talk.title
+    - if reminder and can?(:destroy, reminder)
+      .actions
+        = link_to '&times;'.html_safe, reminder, method: 'delete', title: t('.delete_reminder'), class: 'delete-reminder'

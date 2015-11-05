@@ -61,8 +61,8 @@
     .large-8.large-offset-2.columns.text-center
       %h1.text-center
         = t('.start_listening').html_safe
-  .row{"data-equalizer" => ""}
-    .large-12.columns  
+  .row
+    .large-12.columns.collapse  
       = render collection: @talks_popular, partial: 'shared/talk_velvet_medium_box'
   .row  
     %h1.text-center
