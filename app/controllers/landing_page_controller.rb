@@ -6,13 +6,13 @@ class LandingPageController < BaseController
       format.html do
         @publishers = [
           {image: 'eth', category: 'Academic', url: '/users/zentrum-geschichte-des-wissens-eth-universitat-zurich'},
-          {image: 'amaze', category: 'Academic', url: ''},
-          {image: 'courage', category: 'Academic',url: ''},
-          {image: 'ferien', category: 'Academic'},
-          {image: 'republica', category: 'Academic'},
-          {image: 'things', category: 'Academic'},
-          {image: 'webinale', category: 'Academic'},
-          {image: 'wilpf', category: 'Academic'}
+          {image: 'amaze', category: 'Conference', url: '/users/a-maze'},
+          {image: 'courage', category: 'Foundation',url: '/users/courage-foundation'},
+          {image: 'ferien', category: 'Conference',url: '/users/internationale-ferienkurse'},
+          {image: 'republica', category: 'Conference',url: '/users/re-publica'},
+          {image: 'things', category: 'Conference',url: '/users/internet-of-things-conference'},
+          {image: 'webinale', category: 'Conference',url: '/users/webinale-conference'},
+          {image: 'wilpf', category: 'Foundation',url: '/users/emma-burgisser'}
           ]       
 
 

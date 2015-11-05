@@ -19,8 +19,9 @@
     .medium-2.columns
       .logo.small-text-center.medium-text-left
         %span.lp-logo.icon-vr-logo
-    .medium-10.columns.top-actions.text-right.hide-for-small-only      
-      = link_to t('.now_playing'), '#', title: 'Should Link To A Page Of LIVE Talks'
+    .medium-10.columns.top-actions.text-right.hide-for-small-only   
+      - if Talk.live.present?   
+        = link_to t('.now_playing'), live_talks_path, title: 'Live Talks'
       = link_to t('.discover'), explore_path
       = link_to t('.sign_in'), new_user_session_path
       = link_to t('.join'), new_user_registration_path
@@ -90,15 +91,15 @@
 
   .row
     .small-12.medium-4.large-2.large-offset-1.columns.category-thumb-holder
-      = link_to t('.category_1'),  explore_path(filter: { category: 'Politik und Gesellschaft' }), class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+      = link_to t('.category_1'),  explore_path(filter: { category: 'Politik und Gesellschaft' }), class: 'category-thumb', title: 'Politics & Society'
     .small-12.medium-4.large-2.columns.category-thumb-holder
-      = link_to t('.category_2'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+      = link_to t('.category_2'), explore_path(filter: { category: 'Wissenschaften' }), class: 'category-thumb', title: 'The Sciences'
     .small-12.medium-4.large-2.columns.category-thumb-holder
-      = link_to t('.category_3'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+      = link_to t('.category_3'), explore_path(filter: { category: 'Kunst und Kultur' }), class: 'category-thumb', title: 'Art & Culture'
     .small-12.medium-4.large-2.columns.category-thumb-holder
-      = link_to t('.category_4'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+      = link_to t('.category_4'), explore_path(filter: { category: 'Technologie' }), class: 'category-thumb', title: 'Technology'
     .small-12.medium-4.large-2.columns.end.category-thumb-holder
-      = link_to t('.category_5'), '#', class: 'category-thumb', title: 'Should Link To The Explore Page With This Category Populated'
+      = link_to t('.category_5'), explore_path(filter: { category: 'Medien' }), class: 'category-thumb', title: 'The Media'
 
 
 / .section.apptease
