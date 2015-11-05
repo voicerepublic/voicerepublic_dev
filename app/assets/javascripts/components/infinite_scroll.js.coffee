@@ -1,9 +1,12 @@
-# the attribute takes 2 arguments spearated by pipe
+# the attribute takes 3 arguments spearated by pipe
 #
 # * spy - a css selector, pointing to the node that triggers
 #   loading when scrolled into view
 #
 # * target - a css selector, pointing to node that holds the results
+#
+# * pager - a css selector, pointing to the node the holds the
+#   paging information
 #
 attribute = 'data-infinite-scroll'
 
