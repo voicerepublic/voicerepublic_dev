@@ -19,11 +19,11 @@
     .medium-2.columns
       .logo.small-text-center.medium-text-left
         %span.lp-logo.icon-vr-logo
-    .medium-10.columns.top-actions.text-right.hide-for-small-only      
+    .medium-10.columns.top-actions.text-right.hide-for-small-only
       = link_to t('.now_playing'), '#', title: 'Should Link To A Page Of LIVE Talks'
       = link_to t('.discover'), explore_path
       = link_to t('.sign_in'), new_user_session_path
-      = link_to t('.join'), new_user_registration_path
+      = link_to t('.join'), new_user_registration_path, id: 'signup'
   .row.collapse
     .medium-8.medium-offset-2.large-6.large-offset-3.columns.text-center
       %h1.text-center
@@ -62,9 +62,9 @@
       %h1.text-center
         = t('.start_listening').html_safe
   .row
-    .large-12.columns.collapse  
+    .large-12.columns.collapse
       = render collection: @talks_popular, partial: 'shared/talk_velvet_medium_box'
-  .row  
+  .row
     %h1.text-center
       = link_to t('.more_btn'), '#', class: 'button', title: 'Should Link To A Page Of Talks'
 
@@ -73,7 +73,7 @@
     .medium-8.medium-offset-2.large-6.large-offset-3.columns.text-center
       %h1.text-center
         = t('.publisher_tease').html_safe
-    .large-12.columns  
+    .large-12.columns
       = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'ETH Zurich'}
       = render partial: 'shared/publisher_tile', :locals => {publisher_name: 'WILPF'}
       = render partial: 'shared/publisher_tile', :locals => {publisher_name: 're:publica'}
@@ -133,6 +133,3 @@
       %h1.text-center= t('.ad_title')
       = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
       .pricing= link_to t('.pricing'), pricing_path, class: 'button-adv'
-
-
-

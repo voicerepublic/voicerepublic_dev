@@ -346,7 +346,7 @@ en:
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
-      description: "Voice Republic is the new platform for quality spoken content. Many thought leaders throughout Europe are streaming their Talks exclusively on our platform." 
+      description: "Voice Republic is the new platform for quality spoken content. Many thought leaders throughout Europe are streaming their Talks exclusively on our platform."
       about: About
       company: Company
       manifest: Manifest
@@ -379,7 +379,7 @@ en:
       messages: Messages
       settings: Settings
     talk_medium_box:
-      date_start_end: '%{date}'
+      date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
       read_more: ...read more
       delete_reminder: Delete reminder
     talk_small_box:
