@@ -1123,11 +1123,11 @@ $has-tip-font-color: #000;
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-$topbar-bg-color: #fff;
+$topbar-bg-color: #000;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
-$topbar-height: 90px;
+$topbar-height: 40px;
 // $topbar-margin-bottom: 0;
 
 // Controlling the styles for the title in the top bar
@@ -1135,7 +1135,7 @@ $topbar-height: 90px;
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-$topbar-dropdown-bg: #fff;
+$topbar-dropdown-bg: #000;
 // $topbar-dropdown-link-color: #fff;
 // $topbar-dropdown-link-bg: #333;
 // $topbar-dropdown-link-weight: normal;

@@ -6,6 +6,7 @@ $include-html-visibility-classes: true;
 @import 'grids_variables_mixins/ci_variables';
 @import 'grids_variables_mixins/velvet_ci';
 @import 'grids_variables_mixins/vr_icons';
+@import 'shared/velvet_talkbox';
 @import 'shared/footer';
 // BODY
 html,
@@ -58,6 +59,10 @@ a:hover {
     font-size: 60px;
     color: $red;
   }
+  p.lead {
+    color: $light-blue;
+    font-weight: 300;
+  }
   .button {
     max-height: 48px;
     border: 2px solid $light-blue;
@@ -80,7 +85,7 @@ a:hover {
     line-height: rem-calc(28);
     color: $light-blue;
     font-family: $headline-font;
-    margin-bottom: 84px;
+    margin-bottom: 48px;
     @media #{$medium-up} {
       font-size: rem-calc(28);
       line-height: rem-calc(32);
@@ -261,7 +266,7 @@ input:-webkit-autofill {
 }
 
 .section.publishers {
-  background: $gray;
+  border-top: 2px solid $yellow;
   .bottom-action {
     margin-top: 60px;
     margin-bottom: 36px;
@@ -277,13 +282,30 @@ input:-webkit-autofill {
     background: white;
     min-height: 200px;
     // border: 1px solid silver;
-    padding-top: 24px;
+    padding: 12px;
+    @media #{$medium-only} {
+      padding: 24px;
+    }
+    @media #{$large-up} {
+      padding: 48px;
+    }
+    img {}
+    p {
+      font-size: rem-calc(14);
+      text-transform: uppercase;
+      color: rgba($dark, .3);
+      letter-spacing: .1rem;
+    }
     h1 {
       font-size: 24px;
       line-height: 24px;
       color: $dark;
     }
   }
+}
+
+.section.gray {
+  background: $gray;
 }
 
 footer {
@@ -458,6 +480,10 @@ footer {
   }
 }
 
+.talk-grid {
+  margin-bottom: 48px;
+}
+
 // flash messages
 .flash_messages_velvet {
   text-align: center;
@@ -503,18 +529,27 @@ footer {
   }
 }
 
-.users-show .header-box {}
+.category-thumb-holder {
+  padding: 6px;
+}
 
 .category-thumb {
-  background: $gray;
-  padding: 60px 0;
-  border: 2px solid white;
-  h4 {
-    font-family: $headline-font;
-    font-size: rem-calc(18);
+  background: rgba($dark, .3);
+  padding: 60px 12px;
+  display: block;
+  text-align: center;
+  font-family: $headline-font;
+  font-size: rem-calc(18);
+  color: white;
+  transition: background .2s;
+  min-height: 180px;
+  &:hover {
+    background: rgba($dark, .4);
+    text-decoration: none;
+    color: $beige;
   }
-  @media #{$medium-up} {
-    // min-height: 200px;
+  @media #{$small-only} {
+    margin-bottom: 12px;
   }
 }
 
