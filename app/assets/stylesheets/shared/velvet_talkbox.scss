@@ -53,6 +53,7 @@ $lines-to-show: 2;
     // font-family: $headline-font;
     display: block;
     color: $dark;
+    font-family: $headline-font;
     /* Fallback for non-webkit */
     display: -webkit-box;
     max-width: 400px;
