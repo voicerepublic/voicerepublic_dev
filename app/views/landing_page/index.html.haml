@@ -46,7 +46,7 @@
       %h1.text-center
         = t('.claim').html_safe
       .small-12.columns
-        = form_tag "/search", :class => 'navbar-search form-search' do
+        = form_tag search_path, :class => 'navbar-search form-search' do
           .small-10.small-offset-1.medium-8.medium-offset-2.columns.search-field-holder
             = search_field_tag 'query', params[:query], :class => "welcome-search-field", :placeholder => t('.find_a_talk')#, :required => true
           .small-1.medium-2.columns.end.search-btn-holder
