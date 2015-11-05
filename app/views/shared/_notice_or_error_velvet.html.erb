@@ -1,7 +1,6 @@
-<% if flash[:notice] or true %>
+<% if flash[:notice] %>
 	<div data-alert class="flash_messages_velvet alert-box">
 		<%= flash[:notice] %>
-		Hello World!
 		<a href="#" class="close">&times;</a>
 	</div>
 <% end %>
