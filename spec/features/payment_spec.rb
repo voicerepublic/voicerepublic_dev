@@ -16,7 +16,7 @@ feature "General payment" do
       @user = FactoryGirl.create(:user, password: '123456',
                                  password_confirmation: '123456')
       visit root_path
-      page.click_link 'Sign In'
+      click_to_signin
       page.fill_in 'user_email', with: @user.email
       page.fill_in 'user_password', with: '123456'
       page.find('.button-login').click

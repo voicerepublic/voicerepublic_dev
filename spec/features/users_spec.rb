@@ -34,7 +34,7 @@ feature "User edits own profile", js: true do
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
     visit root_path
-    page.click_link('Log In')
+    within('.top-nav') { click_link('Sign In') }
     page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.find('.button-login').click
@@ -147,7 +147,7 @@ feature "User can register" do
       expect(User.count).to eq(0)
       mock_oauth :facebook
       visit root_path
-      page.click_link 'Sign Up'
+      click_to_signup
       page.click_link 'REGISTER WITH FACEBOOK'
       expect(page).to have_content "Successfully authenticated from Facebook account"
       expect(User.count).to eq(1)
@@ -159,7 +159,7 @@ feature "User can register" do
       expect(User.count).to eq(1)
       mock_oauth :facebook
       visit root_path
-      page.click_link 'Sign Up'
+      click_to_signup
       page.click_link 'REGISTER WITH FACEBOOK'
       expect(page).to have_content "Successfully authenticated from Facebook account"
       # User count did not increase => logged in with the same account
@@ -168,7 +168,7 @@ feature "User can register" do
   end
   scenario "user supplies correct values" do
     visit root_path
-    page.click_link('Sign Up')
+    click_to_signup
     within "#new_user" do
       page.fill_in('user_firstname', :with => "Jim")
       page.fill_in('user_lastname', :with => "Beam")
@@ -183,7 +183,7 @@ feature "User can register" do
 
   scenario "Validations" do
     visit root_path
-    page.click_link('Sign Up')
+    click_to_signup
     within "#new_user" do
       page.fill_in('user_firstname', :with => "Jim")
       page.fill_in('user_lastname', :with => "Beam")
@@ -197,7 +197,7 @@ feature "User can register" do
 
   scenario "Has been referred" do
     visit root_path ref: 'ABC123'
-    page.click_link('Sign Up')
+    click_to_signup
     within "#new_user" do
       page.fill_in('user_firstname', :with => "Jim")
       page.fill_in('user_lastname', :with => "Beam")
@@ -210,13 +210,6 @@ feature "User can register" do
     expect(User.last.referrer).to match(/\AABC123/)
   end
 
-end
-
-private
-def click_forgot_password
-  visit root_path
-  page.click_link('Sign Up')
-  click_on "Forgot password?"
 end
 
 # This is a workaround since we are using a button that will trigger a file
