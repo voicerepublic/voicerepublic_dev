@@ -16,12 +16,15 @@ class ManualTransaction < Transaction
     user = User.find(details[:user_id])
     user.with_lock do
       user.credits += details[:quantity].to_i
+      user.paying = true if details[:payment].to_i > 0
       user.save!
     end
     close!
+    Simon.comprehend(self)
   rescue Exception => e
     self.details ||= {}
     self.details[:error] = e
     abort!
   end
+
 end

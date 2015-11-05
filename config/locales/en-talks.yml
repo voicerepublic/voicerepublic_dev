@@ -161,6 +161,7 @@ en:
       import_your_audio_file: Import audio file
       select_image: Select image
       title: Title
+      speakers: Comma separated list of speaker names
       required: required
       teaser: Short description
       tag_list: Tags

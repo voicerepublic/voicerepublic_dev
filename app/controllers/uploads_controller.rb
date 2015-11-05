@@ -28,7 +28,7 @@ class UploadsController < BaseController
   # Only allow a trusted parameter "white list" through.
   def talk_params
     params.require(:talk).permit(:title, :teaser, :starts_at_date,
-                                 :starts_at_time,
+                                 :starts_at_time, :speakers,
                                  :description, :image,
                                  :tag_list, :language,
                                  :new_series_title, :series_id,

@@ -17,9 +17,9 @@ en:
       upload_talk: Upload Talk
       subscribe_to_podcast: Podcast
       podcast:
-        title: "VR: %{title}"
+        title: "%{title}"
         subtitle: "Podcast provided by Voice Republic"
-      feed_title: "VR - %{title}"
+      feed_title: "%{title}"
       redirect_text: |
         Please sign up or login to use this feature.
       login: Login
