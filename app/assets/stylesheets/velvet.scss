@@ -575,10 +575,17 @@ button.dropdown:before {
   }
   li a {
     margin: 0;
-    line-height: 2rem;
+    line-height: 2.4rem;
     text-align: center;
     background: $dark;
     color: $beige;
+    font-size: rem-calc(13);
+    transition: background .1s;
+    &:hover {
+      background: $blue;
+      color: white;
+      text-decoration: none;
+    }
   }
 }
 
