@@ -2,6 +2,8 @@ class ExploreController < ApplicationController
 
   LIMIT = 12
 
+  layout 'velvet'
+
   def index
     page = params[:page] || 1
     @talks = Talk.popular.paginate(page: page, per_page: LIMIT)
@@ -24,7 +26,7 @@ class ExploreController < ApplicationController
         return render partial: 'results'
       else
         # these get appended by infinite scroll
-        return render partial: 'shared/talk_medium_box', collection: @talks
+        return render partial: 'velvet/talk', collection: @talks
       end
     end
   end
