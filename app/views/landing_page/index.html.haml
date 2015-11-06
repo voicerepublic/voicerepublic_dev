@@ -48,14 +48,21 @@
         = link_to t('.discover'), explore_path
       .small-12.columns
         %hr
-      .small-12.columns
-        = link_to t('.sign_in'), new_user_session_path
-      .small-12.columns
-        %hr
-      .small-12.columns
-        = link_to t('.join'), new_user_registration_path
-      .small-12.columns
-        %hr
+      - if !current_user
+        .small-12.columns
+          = link_to t('.sign_in'), new_user_session_path
+        .small-12.columns
+          %hr
+        .small-12.columns
+          = link_to t('.join'), new_user_registration_path
+        .small-12.columns
+          %hr
+      - else 
+        .small-12.columns
+          = link_to t('.my_profle'), current_user
+        .small-12.columns
+          %hr
+
 
 .section.gray
   .row
