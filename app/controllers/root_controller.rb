@@ -1,6 +1,6 @@
 class RootController < BaseController
 
-  layout 'velvet'
+  layout 'velvet_root'
 
   def index
     respond_to do |format|
