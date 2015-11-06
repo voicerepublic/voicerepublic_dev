@@ -1,25 +1,12 @@
 - content_for :title do
   =t('.talks_on_voice_republic')
 
-- if action_name == 'index'
-
-  .row.collapse-large-only.top-margin-action-bar
-    - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
-    = form_for :filter, html: opts do |f|
-      .small-4.columns
-        = f.select :category, Category.available, prompt: t('.category')
-      .small-4.columns
-        = f.select :publisher_type, User.available_publisher_types, prompt: t('.publisher_type')
-      .small-4.columns
-        = f.select :language, Talk.available_languages.invert, prompt: t('.language')
-
-- else
-
-  .row.collapse-large-only
-    .small-12.columns
-      .title-box.text-center
-        %h3= t(".#{action_name}")
+.filters
+  - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
+  = form_for :filter, html: opts do |f|
+    .filter= f.select :category, Category.available, prompt: t('.category')
+    .filter= f.select :publisher_type, User.available_publisher_types, prompt: t('.publisher_type')
+    .filter= f.select :language, Talk.available_languages.invert, prompt: t('.language')
 
 .row.collapse-large-only
-  .small-12.columns#results
-    = render 'results'
+  #results= render 'results'

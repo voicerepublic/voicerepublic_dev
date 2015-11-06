@@ -21,6 +21,10 @@ body {
   background: $gray;
 }
 
+.main{
+  padding-top: 30px;
+}
+
 .avatar-image {
   // img {
   border-radius: 50%;
@@ -591,3 +595,5 @@ button.dropdown:before {
 }
 
 @import 'shared/talk_medium_box';
+
+@import 'explore'
