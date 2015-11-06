@@ -397,7 +397,7 @@ en:
       landing_title: Voice Republic - Home To The Spoken Word
     support:
       title: Voice Republic - Support
-    velvet:
+    velvet_root:
       title: Welcome To Voice Republic
   plain_mailer:
     welcome:

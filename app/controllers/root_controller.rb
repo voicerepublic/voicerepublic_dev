@@ -1,6 +1,7 @@
-class LandingPageController < BaseController
+class RootController < BaseController
 
-  layout 'velvet'
+  layout 'velvet_root'
+
   def index
     respond_to do |format|
       format.html do
@@ -13,14 +14,8 @@ class LandingPageController < BaseController
           {image: 'things', category: 'Conference',url: '/users/internet-of-things-conference'},
           {image: 'webinale', category: 'Conference',url: '/users/webinale-conference'},
           {image: 'wilpf', category: 'Foundation',url: '/users/emma-burgisser'}
-          ]       
+        ]
 
-
-      
-        @talks_live     = Talk.publicly_live
-
-        @talks_featured = Talk.featured.limit(6)
-        @talks_recent  	= Talk.recent.limit(6)
         @talks_popular  = Talk.popular.limit(12)
       end
       format.rss do
