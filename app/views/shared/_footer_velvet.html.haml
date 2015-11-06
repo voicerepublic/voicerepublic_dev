@@ -8,25 +8,15 @@
     .medium-4.columns
       %p.lead= render 'shared/description'
     .medium-2.medium-offset-4.columns.small-text-center.medium-text-left
-      %p.lead
-        = link_to t('.about'), "http://blog.voicerepublic.com/", target: '_blank'
-      %p.lead
-        = link_to t('.pricing'), pricing_path
-      %p.lead
-        = link_to t('.help'), support_path
-      %p.lead
-        = link_to t('.blog'), "http://blog.voicerepublic.com/blog", target: '_blank'
+      %p.lead= link_to t('.about'), "http://blog.voicerepublic.com/", target: '_blank'
+      %p.lead= link_to t('.pricing'), pricing_path
+      %p.lead= link_to t('.help'), support_path
+      %p.lead= link_to t('.blog'), "http://blog.voicerepublic.com/blog", target: '_blank'
     .medium-2.columns.small-text-center.medium-text-left
-      %p.lead
-        = link_to t('.terms'), "http://blog.voicerepublic.com/legal/terms-of-use/", target: '_blank'
-      %p.lead
-        = link_to t('.press_kit'), "http://blog.voicerepublic.com/", target: '_blank'
-      %p.lead
-        = link_to t('.system_stats'), "http://status.voicerepublic.com", target: '_blank'
-      %p.lead
-        = link_to t('.contact_us'), "mailto:service@voicerepublic.com", target: '_blank'
-    
-
+      %p.lead= link_to t('.terms'), "http://blog.voicerepublic.com/legal/terms-of-use/", target: '_blank'
+      %p.lead= link_to t('.press_kit'), "http://blog.voicerepublic.com/", target: '_blank'
+      %p.lead= link_to t('.system_stats'), "http://status.voicerepublic.com", target: '_blank'
+      %p.lead= link_to t('.contact_us'), "mailto:service@voicerepublic.com", target: '_blank'
 
   .row
     %hr
@@ -36,7 +26,7 @@
           &copy; Voice Republic Media AG 2015
       .large-4.columns
         %p.lead.text-center
-          Privacy&nbsp;&nbsp;&nbsp;&nbsp;Terms&nbsp;&nbsp;&nbsp;&nbsp;Sitemap
+          -# Privacy Terms Sitemap
       .large-4.columns.small-centered
         %p.lead.text-right.small-only-text-center
           = link_to "http://facebook.com/voicerepublic", target: '_blank' do
