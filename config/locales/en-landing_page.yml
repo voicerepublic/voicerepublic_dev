@@ -1,19 +1,26 @@
 en:
   landing_page:
+    title: Welcome To Voice Republic
     news: NEWS
+    discover: discover
     index:
       podcast:
-        title: Featured talks of Voice Republic
         author: The users of Voice Republic
         subtitle: Voice Republic is home to the spoken word in its many forms.
         description: |
           The feed features talks which have been archived on %{url}.
       feed_title: Featured talks of Voice Republic
       headline: "<span>Home to the spoken word</span>"
+      claim: "The Platform For Quality Spoken Content."
+      start_listening: "Start listening <br>right away."
+      apptease_header: "Take Voice Republic with you."
+      apptease_lead: "All the Talks that you pin on Voice Republic will automatically appear in your Feed on the mobile app."
+      publisher_tease: "Exclusive content from amazing publishers..."
       how_to_use_vr: How to use VR
       login: Login
       signup: Sign Up
       search: Search
+      find_a_talk: Find A Talk
       live_title: Now Live
       live_subtitle: Tune in!
       upcoming_title: Coming up live
@@ -22,12 +29,26 @@ en:
       archive_subtitle: Browse the archive
       recent: RECENT
       see_all: more...
+      categories_title: Categories
+      categories_subtitle: The Talks on Voice Republic fall into these 5 Categories.
+      category_1: Politics & Society
+      category_2: The Sciences
+      category_3: Art & Culture
+      category_4: Technology
+      category_5: The Media
 
       partners_title: Conferences currently using Voice Republic
 
-      ad_title: NEED HELP STREAMING YOUR NEXT CONFERENCE OR EVENT?
-      get_in_touch: GET IN TOUCH
-      pricing: SEE OUR PRICING
+      ad_title: Are You Hosting A Conference Or Event? Get In Touch.
+      get_in_touch: Contact Us
+      more_btn: More
+      see_all_btn: See All
+      pricing: See Our Pricing
+
+     
+        # <br>
+        # <a href="#">Read our manifesto.</a>
+
 
       manifest: |
         <h4>THE VOICE REPUBLIC MANIFESTO</h4>
@@ -50,3 +71,5 @@ en:
     lp_series:
       featured_series: Voice Republic recommends
       upcoming_series: UPCOMING SERIES
+  footer_velvet:
+
