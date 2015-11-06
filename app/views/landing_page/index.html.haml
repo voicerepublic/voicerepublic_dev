@@ -68,7 +68,7 @@
         = t('.start_listening').html_safe
   .row
     .large-12.columns.collapse.talk-grid
-      = render collection: @talks_popular, partial: 'shared/talk_velvet_medium_box'
+      = render partial: 'shared/talk_velvet_medium_box', collection: @talks_popular
   .row
     %h1.text-center
       = link_to t('.more_btn'), explore_path, class: 'button', title: 'Should Link To A Page Of Talks'
