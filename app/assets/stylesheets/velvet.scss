@@ -357,7 +357,6 @@ footer {
   text-transform: uppercase;
   font-size: 14px;
   margin-bottom: 120px;
-  margin-top: 30px;
   hr {
     margin: 6px;
     border-color: rgba($beige, .3);
@@ -550,6 +549,33 @@ footer {
   }
   @media #{$small-only} {
     margin-bottom: 12px;
+  }
+}
+
+#avatar-drop {
+  max-height: none;
+  border: none;
+  box-shadow: none;
+}
+
+.dropdown.button:before,
+button.dropdown:before {
+  right: 2rem;
+  margin-top: -0.3rem;
+}
+
+.f-dropdown {
+  border: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .3);
+  &:after {
+    display: none;
+  }
+  &:before {
+    display: none;
+  }
+  a {
+    margin: 0;
+    line-height: 2rem;
   }
 }
 
