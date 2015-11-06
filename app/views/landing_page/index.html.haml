@@ -14,9 +14,7 @@
         = link_to t('.sign_in'), new_user_session_path
         = link_to t('.join'), new_user_registration_path
       - else
-        = link_to t('.my_profile'), current_user
-        -#
-          #button.button.dropdown{"data-dropdown" => "profile-drop", "aria-controls" => "profile-drop", "aria-expanded" => "false"}
+        #button.button.dropdown{"data-dropdown" => "profile-drop", "aria-controls" => "profile-drop", "aria-expanded" => "false"}
           = render partial: "shared/avatar_image_velvet", locals: { user: current_user, size: 60 }
           %ul#profile-drop.f-dropdown{"data-dropdown-content" => ""}
             %li= link_to t('.my_profile'), current_user
