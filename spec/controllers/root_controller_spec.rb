@@ -13,13 +13,13 @@ describe RootController do
       expect(response).to be_success
     end
 
-    it 'should not show dryrun talks among live' do
-      public_talk = FactoryGirl.create(:talk, state: 'live')
-      private_talk = FactoryGirl.create(:talk, dryrun: true, state: 'live')
+    it 'should not show dryrun talks among popular' do
+      public_talk = FactoryGirl.create(:talk, :archived)
+      private_talk = FactoryGirl.create(:talk, :archived, dryrun: true)
       get :index
-      talks_live = assigns(:talks_live)
-      expect(talks_live).to include(public_talk)
-      expect(talks_live).not_to include(private_talk)
+      talks_popular = assigns(:talks_popular)
+      expect(talks_popular).to include(public_talk)
+      expect(talks_popular).not_to include(private_talk)
     end
   end
 
