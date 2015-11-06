@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe LandingPageController do
+describe RootController do
 
   describe "GET 'index'" do
     it "returns http success" do
