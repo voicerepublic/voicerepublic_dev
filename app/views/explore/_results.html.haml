@@ -1,0 +1,4 @@
+%p.results-count= t(".results", count: @talks.count)
+%ul#more= render collection: @talks, partial: 'velvet/talk'
+%input#pager(type='hidden' value='1')
+#spy= t('.loading')
