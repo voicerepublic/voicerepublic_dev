@@ -1,5 +1,16 @@
 .explore
 
+  form 
+    padding: 0 15px
+
+  select 
+    height: 4rem
+    color: white
+    border: 0
+    transition: background-color .2s ease
+    &:hover
+      background-color: $blue
+
   .filters
     @extend .row
     @extend .collapse-large-only
@@ -7,6 +18,7 @@
   .filter
     @extend .small-4
     @extend .columns
+    padding: 0 6px
 
   #results
     @extend .small-12
@@ -14,3 +26,9 @@
 
   #more
     @extend .list-style-type-none
+    margin: 0
+
+  .results-count 
+    padding: 0 6px
+    margin: 0
+    margin-bottom: 6px
