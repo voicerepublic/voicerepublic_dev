@@ -38,13 +38,20 @@ $lines-to-show: 2;
         margin-top: -2px;
       }
     }
+    p a {
+      display: block;
+      display: -webkit-box;
+      max-width: 200px;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   img {
     margin-bottom: 0;
   }
   .link-text {
-    //font-family: $body-font;
-    font-family: georgia;
     font-size: 12px;
     font-weight: 500;
     margin-bottom: 3px;
