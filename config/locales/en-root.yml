@@ -1,9 +1,9 @@
 en:
-  landing_page:
+  root:
     title: Welcome To Voice Republic
-    news: NEWS
-    discover: discover
     index:
+      discover: discover
+      my_profile: my profile
       podcast:
         author: The users of Voice Republic
         subtitle: Voice Republic is home to the spoken word in its many forms.
@@ -45,31 +45,6 @@ en:
       see_all_btn: See All
       pricing: See Our Pricing
 
-     
-        # <br>
-        # <a href="#">Read our manifesto.</a>
-
-
-      manifest: |
-        <h4>THE VOICE REPUBLIC MANIFESTO</h4>
-        <br />
-        <h5>1. Democracy lives on discussion and free speech</h5>
-        <p>At Voice Republic, you can share and form your opinions.</p>
-        <h5>2. Voice Republic lets speaker and listener meet at eye level</h5>
-        <p>Every listener can be a speaker, and vice versa.</p>
-        <h5>3. For more analog within the digital</h5>
-        <p>Voice Republic lets discussions grow just like they do in the real world. You can express yourself in as much detail as you like, giving space to the subjects that interest you.</p>
-        <h5>4. Voice Republic is founded on respect</h4>
-        <p>Respect for other opinions, other genders, sexualities, religions and backgrounds. You know what we mean: We want to discuss and disagree respectfully, even when our strong opinions differ.</p>
-        <h5>5. For a decentralization of the Internet</h5>
-        <p>For security reasons, the Voice Republic servers that save personal data are all located in Switzerland, no exceptions. And it will stay that way.</p>
-        <h5>6. We don't do business with your data</h5>
-        <p>Voice Republic has a business model. Your data is not part of it. Coming soon.</p>
-        <h5>7. Voice Republic can forget</h5>
-        <p>When you delete your account, your data is deleted with it. Voice Republic does not want an uncontrollable archive. According to Nietzsche, "Forgetting belongs to all action"</p>
-      team: TEAM
     lp_series:
       featured_series: Voice Republic recommends
       upcoming_series: UPCOMING SERIES
-  footer_velvet:
-
