@@ -117,6 +117,8 @@ Make sure `postgresql-contrib-9.1` is installed.
 
 ### Create Postgres Extensions
 
+Sidenote: This is also automatically done by `rake db:create`.
+
     # su - postgres
     $ psql vr_development
     vr_development=# CREATE EXTENSION pg_trgm;
