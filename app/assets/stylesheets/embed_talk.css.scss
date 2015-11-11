@@ -106,6 +106,13 @@ body,html{
     }
   }
 
+  h2 a {
+      font-family: $brand-font-light;
+      color: white;
+      padding-left: 20px;
+      text-decoration: none;
+  }
+
   .player{
     margin-top: -16px;
     .jp-controls{
