@@ -22,7 +22,7 @@
           .medium-6.columns
             = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
           .medium-6.columns
-            = f.input :conference, as: :boolean, boolean_style: :inline, label: t('simple_form.labels.user.conference').html_safe
+            = f.input :publisher_type, as: :select, collection: I18n.t('user_publisher_types').invert
         = f.input :accept_terms_of_use, as: :boolean, boolean_style: :inline,
                   label: t('simple_form.labels.user.accept_terms_of_use').html_safe
         = f.button :submit, t('.continue').html_safe, class: 'button-vr button-signup'

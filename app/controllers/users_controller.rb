@@ -14,7 +14,8 @@ class UsersController < BaseController
                         password
                         password_confirmation
                         conference
-                        referrer )
+                        referrer
+                        publisher_type )
 
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 
