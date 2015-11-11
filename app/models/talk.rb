@@ -230,7 +230,7 @@ class Talk < ActiveRecord::Base
   end
 
   def media_url(ext='mp3')
-    Rails.application.routes.url_helpers.root_url + "/vrmedia/#{id}.#{ext}"
+    Rails.application.routes.url_helpers.root_url + "vrmedia/#{id}.#{ext}"
   end
 
   # generates an ephemeral path and returns the location for
