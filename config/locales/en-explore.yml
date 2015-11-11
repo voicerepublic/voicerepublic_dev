@@ -8,3 +8,13 @@ en:
       popular: POPULAR
       recent: RECENT
       see_all: MORE
+
+      category: Category
+      publisher_type: Publisher Type
+      language: Language
+    results:
+      loading: Loading more...
+      results:
+        zero: 'Sorry, no results'
+        one: 'Exactly 1 result'
+        other: '%{count} results'
