@@ -369,6 +369,18 @@ class Talk < ActiveRecord::Base
     venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
 
+  class << self
+    # returns a list of key name pairs of languages in order of prevalence
+    def available_languages
+      # combine the different groups defined in config/languages.yml
+      all_languages = LANGUAGES.inject({}) { |r, h| r.merge h.last }
+      # find the keys of the used languages
+      prevalent = all.group(:language).count(:id).sort_by(&:last).reverse.map(&:first)
+      # make it a hash with nices names as well
+      prevalent.inject({}) { |r, k| r.merge k => all_languages[k] }
+    end
+  end
+
   private
 
   def set_description_as_html

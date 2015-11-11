@@ -221,6 +221,16 @@ class User < ActiveRecord::Base
     series.inject({}) { |h, v| h.merge v.id => v.title }
   end
 
+  class << self
+    # returns a hash of prevalent publisher_types
+    def available_publisher_types
+      all_publisher_types = I18n.t('user_publisher_types')
+      prevalent = all.group(:publisher_type).count(:id).
+                  sort_by(&:last).reverse.map(&:first).reject(&:blank?)
+      prevalent.map { |t| [all_publisher_types[t.to_sym], t] }
+    end
+  end
+
   private
 
   def set_about_as_html

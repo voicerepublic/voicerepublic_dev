@@ -25,6 +25,7 @@
 //= require jquery-ui/slider
 //= require jquery-ui-timepicker-addon
 //= require slider.js
+//= require nprogress
 //
 //= require sencha
 //= require purchases
