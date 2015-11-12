@@ -418,8 +418,7 @@ describe Talk do
 
   describe 'venues' do
     it 'created implicitly' do
-      talk = FactoryGirl.create(:talk)
-      talk.venue_name = 'A brand new venue'
+      talk = FactoryGirl.create(:talk, venue_name: 'A brand new venue')
       expect(talk.venue).to be_present
       expect(talk.venue.name).to eq('A brand new venue')
       expect(talk.venue).to be_persisted

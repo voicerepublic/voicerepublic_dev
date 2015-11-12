@@ -22,6 +22,7 @@ class ManualTransaction < Transaction
     close!
     Simon.comprehend(self)
   rescue Exception => e
+    warn e
     self.details ||= {}
     self.details[:error] = e
     abort!
