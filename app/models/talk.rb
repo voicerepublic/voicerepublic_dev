@@ -125,6 +125,7 @@ class Talk < ActiveRecord::Base
   before_save :set_venue
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
+  before_create :set_venue
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   after_create :create_and_process_debit_transaction!, unless: :dryrun?
@@ -432,7 +433,7 @@ class Talk < ActiveRecord::Base
 
   def set_venue
     self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
-    self.venue = user.venues.find_or_create_by(name: venue_name.strip)
+    self.venue ||= user.venues.find_or_create_by(name: venue_name.strip)
   end
 
   def notify_participants
