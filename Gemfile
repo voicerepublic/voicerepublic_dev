@@ -78,7 +78,6 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.1'
   gem 'capistrano-rails',   '~> 1.1.1'
   gem 'capistrano-rbenv', '~> 2.0'
-  gem 'byebug'
   gem 'disable_assets_logger'
   gem 'meta_request'
   gem 'pry-rails'
@@ -109,6 +108,10 @@ group :test do
   gem 'poltergeist'
   gem 'selenium-webdriver'
   gem 'simplecov', '~> 0.7.1'
+end
+
+group :test, :development do
+  gem 'byebug'
 end
 
 group :production do

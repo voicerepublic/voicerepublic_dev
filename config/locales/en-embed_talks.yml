@@ -2,3 +2,4 @@ en:
   embed_talks:
     show:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
+      listen_live: Listen Live on Voice Republic
