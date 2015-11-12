@@ -2,4 +2,5 @@
 %ul.list-style-type-none#more
   = render collection: @talks, partial: 'shared/talk_medium_box'
 %input#pager(type='hidden' value='1')
-#spy= t('.loading')
+- unless @talks.empty?
+  #spy= t('.loading')
