@@ -329,6 +329,7 @@
     .large-12.columns
       - if @talk.slides_url.present?
         .row.pdf-viewer(ng-show="talkIsArchived() || talkIsLive()")
+          -# TODO use `@talk.slides_url` and make sure it works
           %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.2.js"
             src="https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{@talk.slides_uuid}" width="640")
 
