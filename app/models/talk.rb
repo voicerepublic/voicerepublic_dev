@@ -125,7 +125,6 @@ class Talk < ActiveRecord::Base
   before_save :set_venue
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
-  before_create :set_venue
   after_create :notify_participants
   after_create :set_uri!, unless: :uri?
   after_create :create_and_process_debit_transaction!, unless: :dryrun?
