@@ -9,9 +9,9 @@ en:
       recent: RECENT
       see_all: MORE
 
-      category: Category
-      publisher_type: Publisher Type
-      language: Language
+      category: All Categories
+      publisher_type: All Publisher Types
+      language: All Languages
     results:
       loading: Loading more...
       results:
