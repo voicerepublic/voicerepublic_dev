@@ -15,11 +15,11 @@ initialize = (node, value) ->
   [ spy, target, pager ] = value.split('|')
 
   loading = false # use to debounce
-  page = 1
 
   $(window).scroll ->
 
     return if loading
+    return unless $(spy).size()
 
     top = $(window).scrollTop()
     bottom = top + $(window).height()
@@ -41,7 +41,6 @@ initialize = (node, value) ->
           loading = false
           if !data.trim()
             $(spy).remove()
-            loading = true
 
 $("*[#{attribute}]").each (index, element) ->
   value = $(element).attr(attribute)
