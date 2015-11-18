@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :pages, only: :show
+
   get 'support/:action', controller: 'support'
   get 'support', to: 'support#index'
 
