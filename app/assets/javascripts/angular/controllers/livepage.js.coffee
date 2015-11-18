@@ -151,6 +151,9 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
   $scope.talkIsQueued = ->
     config.talk.state in ['pending', 'postlive']
 
+  $scope.talkIsSuspended = ->
+    config.talk.state in ['suspended']
+
   $scope.talkIsPrelive = ->
     config.talk.state == 'prelive'
 
