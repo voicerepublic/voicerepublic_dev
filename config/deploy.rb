@@ -78,6 +78,8 @@ namespace :deploy do
       # since we'll almost never have to change their code base
       # resp. config. If a restart is nescesarry use the web
       # interface of monit to restart those processes.
+      execute "curl 'http://localhost:2812/flux_capacitor' --data 'action=restart'"
+      # TODO restart djs in the same way as flux_capacitor
     end
   end
 
