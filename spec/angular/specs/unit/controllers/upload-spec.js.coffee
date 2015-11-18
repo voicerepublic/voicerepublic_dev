@@ -59,26 +59,26 @@ describe 'upload-spec', ->
       #preparation of talkForm for test purpose (else: undefined)
       $scope.talkForm = {}
 
-    it 'uploader.filters should contain fileFilter', ->
-      expect(filter.name for filter in uploader.filters is 'fileFilter').toBeTruthy()
+    it 'uploader.filters should contain fileFormatFilter', ->
+      expect(filter.name for filter in uploader.filters is 'fileFormatFilter').toBeTruthy()
 
-    it 'check the fileFilter for compatible format', ->
+    it 'check the fileFormatFilter for compatible format', ->
       item =
         'type': 'some/thing'
 
-      fileFilter = (filter for filter in uploader.filters when filter.name is 'fileFilter')[0]
+      fileFormatFilter = (filter for filter in uploader.filters when filter.name is 'fileFormatFilter')[0]
 
-      val = fileFilter.fn item, null
+      val = fileFormatFilter.fn item, null
 
       expect(val).toBeTruthy()
 
-    it 'check the fileFilter for an uncompatible format', ->
+    it 'check the fileFormatFilter for an uncompatible format', ->
       item =
         'type': 'imba_1337_format'
 
-      fileFilter = (filter for filter in uploader.filters when filter.name is 'fileFilter')[0]
+      fileFormatFilter = (filter for filter in uploader.filters when filter.name is 'fileFormatFilter')[0]
 
-      val = fileFilter.fn item, null
+      val = fileFormatFilter.fn item, null
 
       expect(val).toBeFalsy()
 

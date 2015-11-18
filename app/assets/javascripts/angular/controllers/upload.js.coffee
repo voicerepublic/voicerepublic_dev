@@ -56,24 +56,24 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
       $scope.addingFailed = false
       $scope.set_valid false
       safetynet.activate options.safetynetMessage
-      file = item.file # because here item is a FileItem
+      file = item?.file # because here item is a FileItem
       audit 'upload-after-adding-file', {file}
 
     uploader.onProgressItem = (item, progress) ->
       return unless progress %% 10 == 0
-      file = item.file
+      file = item?.file
       audit 'upload-progress-item', {file, progress}
 
     uploader.onCancelItem = (item, response, status, headers) ->
       safetynet.deactivate()
-      file = item.file # because here item is a FileItem
+      file = item?.file # because here item is a FileItem
       audit 'upload-cancel-item', {file, response, status, headers}
 
     uploader.onErrorItem = (item, response, status, headers) ->
       $log.error "Uploading failed: " + JSON.stringify(response)
       $scope.uploadFailed = true
       safetynet.deactivate()
-      file = item.file # because here item is a FileItem
+      file = item?.file # because here item is a FileItem
       audit 'upload-error-item', {file, response, status, headers}
 
     uploader.onCompleteAll = ->
