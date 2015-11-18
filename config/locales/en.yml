@@ -346,6 +346,7 @@ en:
     check_flash:
       no_flash_version_notice: Your current version of Flash-Plugin is not sufficient. Install Version 10.3 or higher. to use Video call.
     footer:
+      description: "Voice Republic is the new platform for quality spoken content. Many thought leaders throughout Europe are streaming their Talks exclusively on our platform."
       about: About
       company: Company
       manifest: Manifest
@@ -396,6 +397,8 @@ en:
       landing_title: Voice Republic - Home To The Spoken Word
     support:
       title: Voice Republic - Support
+    velvet_root:
+      title: Welcome To Voice Republic
   plain_mailer:
     welcome:
       subject: "Welcome %{user_firstname}, need help getting started?"
@@ -504,7 +507,7 @@ en:
   flash_player:
     not_archived_yet: "This talk is not archived, yet"
   low_on_credits: |
-    Sorry, you've no credits left. Buy some...
+    In order to publish any more Talks, you'll need more credits...
   purchases:
     index:
       box-header-basic: "Basic"
