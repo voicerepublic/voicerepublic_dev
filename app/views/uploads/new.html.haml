@@ -1,6 +1,8 @@
 - content_for :title do
   = t('.title')
 
+- content_for :javascript do
+  = render partial: 'config'
 
 - form_opts = { 'ng-controller' => 'FormController' }
 = simple_form_for(@talk, url: uploads_path, html: form_opts) do |f|
