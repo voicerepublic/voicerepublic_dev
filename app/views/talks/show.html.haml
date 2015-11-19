@@ -84,8 +84,10 @@
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
 
-        .suspended-message(ng-show='talkIsSuspended()')
+        .suspended-message(ng-show='showSuspendedToNonHost()')
           %a= t('.talk_suspended')
+        .suspended-message(ng-show='showSuspendedToHost()')
+          %a= t('.talk_suspended_for_host')
         -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
           -# PLAYER
