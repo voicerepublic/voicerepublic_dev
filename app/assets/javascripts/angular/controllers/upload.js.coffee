@@ -40,11 +40,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
       name: "fileFormatFilter"
       # `item` is either a File or a FileLikeObject
       fn: (item, options) ->
-        console.log item
-        console.log item.type
-        type = item.type
-        audit 'file-format-filter', {type, filetypes}
-        item.type.split('/')[1] in filetypes
+        type = item.type.split('/').pop()
+        # fallback to file name, safari does not provide a type
+        type = item.name.split('.').pop() if !!type
+        type in filetypes
 
     uploader.filters.push
       name: "fileSizeFilter"
