@@ -10,6 +10,7 @@ en:
       favorite: Favorite
       dryrun: "(This test talk is available for 24 hours.)"
       talk_queued_for_processing: Queued for processing, please stand by...
+      talk_suspended: "This talk is temporarily not available."
       noflash_close_popup: Close
       flash_not_available_button: N/A
       title: "%{title} - Voice Republic"

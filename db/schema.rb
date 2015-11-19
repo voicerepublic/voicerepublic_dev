@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029132313) do
+ActiveRecord::Schema.define(version: 20151118160053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,19 @@ ActiveRecord::Schema.define(version: 20151029132313) do
     t.datetime "created_at"
   end
 
+  create_table "pages", force: :cascade do |t|
+    t.string   "slug"
+    t.string   "template",           default: "default"
+    t.string   "title_en"
+    t.string   "title_de"
+    t.text     "content_en"
+    t.text     "content_de"
+    t.text     "content_en_as_html"
+    t.text     "content_de_as_html"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
   create_table "participations", force: :cascade do |t|
     t.integer  "series_id"
     t.integer  "user_id"
@@ -194,6 +207,13 @@ ActiveRecord::Schema.define(version: 20151029132313) do
   end
 
   add_index "social_shares", ["shareable_id", "shareable_type"], name: "index_social_shares_on_shareable_id_and_shareable_type", using: :btree
+
+  create_table "tag_bundles", force: :cascade do |t|
+    t.string   "title_en"
+    t.string   "title_de"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"

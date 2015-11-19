@@ -59,6 +59,7 @@ class Talk < ActiveRecord::Base
     state :postlive
     state :processing
     state :archived
+    state :suspended
     event :prepare do
       # if user_override_uuid is set we transcend to pending
       transitions from: :created, to: :pending, guard: :user_override_uuid?
@@ -73,6 +74,9 @@ class Talk < ActiveRecord::Base
     end
     event :process do
       transitions from: :postlive, to: :processing
+    end
+    event :suspend do
+      transitions from: :processing, to: :suspended
     end
     event :archive, timestamp: :processed_at do
       transitions from: :processing, to: :archived
@@ -479,13 +483,16 @@ class Talk < ActiveRecord::Base
     return if archived? # silently guard against double processing
 
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
-
-    process!
-    chain = series.opts.process_chain
-    chain ||= Setting.get('audio.process_chain')
-    chain = chain.split(/\s+/)
-    run_chain! chain, uat
-    archive!
+    begin
+      process!
+      chain = series.opts.process_chain
+      chain ||= Setting.get('audio.process_chain')
+      chain = chain.split(/\s+/)
+      run_chain! chain, uat
+      archive!
+    rescue
+      suspend!
+    end
   end
 
   def reprocess!(uat=false)

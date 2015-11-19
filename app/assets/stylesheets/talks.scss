@@ -164,6 +164,21 @@
 
 .talks-show{
 
+  .suspended-message {
+      background:rgba(86,178,167,0.7);
+      font-family: $brand-font-bold;
+      font-size:rem-calc(26);
+      height:3em;
+      a {
+          position: absolute;
+          color: white;
+          line-height: 3em;
+          left: 0;
+          right: 0;
+      }
+  }
+
+
   // for testing
   .talk-state{
     position: fixed;
