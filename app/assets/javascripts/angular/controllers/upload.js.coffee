@@ -42,7 +42,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
       fn: (item, options) ->
         type = item.type.split('/').pop()
         # fallback to file name, safari does not provide a type
-        type = item.name.split('.').pop() if !!type
+        type = item.name.split('.').pop() if !type
         type in filetypes
 
     uploader.filters.push
