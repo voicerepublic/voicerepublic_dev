@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
 
   belongs_to :default_series, class_name: 'Series', dependent: :destroy
 
+  acts_as_taggable
+
   dragonfly_accessor :header do
     default Rails.root.join('app/assets/images/defaults/user-header.jpg')
   end
