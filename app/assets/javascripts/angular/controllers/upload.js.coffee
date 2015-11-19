@@ -24,7 +24,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
   $scope.init = (options) ->
 
     # split filter into array
-    filetypes = options.filter.split ' '
+    filetypes = options.filter.split '|'
 
     # make options available via $scope (although we don't use that!)
     $scope.options = options
@@ -40,6 +40,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
       name: "fileFormatFilter"
       # `item` is either a File or a FileLikeObject
       fn: (item, options) ->
+        console.log item
+        console.log item.type
+        type = item.type
+        audit 'file-format-filter', {type, filetypes}
         item.type.split('/')[1] in filetypes
 
     uploader.filters.push
