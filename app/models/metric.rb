@@ -175,10 +175,11 @@ class Metric < ActiveRecord::Base
       Metric.count
     end
 
-   private
+    private
 
+    # TODO rewrite to use tag bundles
     def categories
-      @categories ||= ActsAsTaggableOn::Tag.where(category: true)
+      @categories ||= ActsAsTaggableOn::Tag.where(promoted: true)
     end
 
   end
