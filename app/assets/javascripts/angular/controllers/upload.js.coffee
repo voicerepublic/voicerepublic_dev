@@ -62,10 +62,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
       file = item?.file # because here item is a FileItem
       audit 'upload-after-adding-file', {file}
 
-    uploader.onProgressItem = (item, progress) ->
-      return unless progress %% 10 == 0
-      file = item?.file
-      audit 'upload-progress-item', {file, progress}
+    # uploader.onProgressItem = (item, progress) ->
+    #   return unless progress %% 10 == 0
+    #   file = item?.file
+    #   audit 'upload-progress-item', {file, progress}
 
     uploader.onCancelItem = (item, response, status, headers) ->
       safetynet.deactivate()
