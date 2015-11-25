@@ -122,6 +122,10 @@ class Metric < ActiveRecord::Base
       ActsAsTaggableOn::Tagging.count
     end
 
+    def tag_bundles_total
+      TagBundle.count
+    end
+
     # Appearances
     def appearances_total
       Appearance.count
