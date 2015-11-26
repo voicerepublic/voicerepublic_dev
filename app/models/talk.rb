@@ -492,6 +492,7 @@ class Talk < ActiveRecord::Base
       archive!
     rescue
       suspend!
+      LiveServerMessage.call public_channel, event: 'Suspend'
     end
   end
 
