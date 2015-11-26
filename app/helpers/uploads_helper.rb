@@ -10,7 +10,7 @@ module UploadsHelper
                      wav x-wav wave x-pn-wav
                      m4a x-m4a
                      mp3 x-mp3 mpeg3 x-mpeg3
-                     mpg x-mpegaudio mpeg ) * ' ',
+                     mpg x-mpegaudio mpeg) * '|',
       # `success` will be evaled on complete
       success:   "$('#talk_user_override_uuid').attr('value', '#{key}')",
       safetynetMessage: I18n.t('talks.fields.unprocessed_upload')

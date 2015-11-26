@@ -24,7 +24,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
   $scope.init = (options) ->
 
     # split filter into array
-    filetypes = options.filter.split ' '
+    filetypes = options.filter.split '|'
 
     # make options available via $scope (although we don't use that!)
     $scope.options = options
@@ -40,7 +40,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
       name: "fileFormatFilter"
       # `item` is either a File or a FileLikeObject
       fn: (item, options) ->
-        item.type.split('/')[1] in filetypes
+        type = item.type.split('/').pop()
+        # fallback to file name, safari does not provide a type
+        type = item.name.split('.').pop() if !type
+        type in filetypes
 
     uploader.filters.push
       name: "fileSizeFilter"
@@ -59,10 +62,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
       file = item?.file # because here item is a FileItem
       audit 'upload-after-adding-file', {file}
 
-    uploader.onProgressItem = (item, progress) ->
-      return unless progress %% 10 == 0
-      file = item?.file
-      audit 'upload-progress-item', {file, progress}
+    # uploader.onProgressItem = (item, progress) ->
+    #   return unless progress %% 10 == 0
+    #   file = item?.file
+    #   audit 'upload-progress-item', {file, progress}
 
     uploader.onCancelItem = (item, response, status, headers) ->
       safetynet.deactivate()

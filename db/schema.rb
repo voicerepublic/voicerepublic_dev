@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118160053) do
+ActiveRecord::Schema.define(version: 20151126145632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,15 +109,11 @@ ActiveRecord::Schema.define(version: 20151118160053) do
 
   create_table "pages", force: :cascade do |t|
     t.string   "slug"
-    t.string   "template",           default: "default"
-    t.string   "title_en"
-    t.string   "title_de"
-    t.text     "content_en"
-    t.text     "content_de"
-    t.text     "content_en_as_html"
-    t.text     "content_de_as_html"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "type",          default: "default"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "initial_title"
+    t.text     "content"
   end
 
   create_table "participations", force: :cascade do |t|
@@ -167,6 +163,21 @@ ActiveRecord::Schema.define(version: 20151118160053) do
   add_index "reminders", ["rememberable_id", "rememberable_type"], name: "index_reminders_on_rememberable_id_and_rememberable_type", using: :btree
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
 
+  create_table "sections", force: :cascade do |t|
+    t.integer  "page_id"
+    t.string   "type"
+    t.string   "locale"
+    t.string   "key"
+    t.text     "content"
+    t.text     "content_as_html"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "sections", ["key"], name: "index_sections_on_key", using: :btree
+  add_index "sections", ["locale"], name: "index_sections_on_locale", using: :btree
+  add_index "sections", ["page_id"], name: "index_sections_on_page_id", using: :btree
+
   create_table "series", force: :cascade do |t|
     t.text     "description"
     t.string   "title",               limit: 255
@@ -213,7 +224,10 @@ ActiveRecord::Schema.define(version: 20151118160053) do
     t.string   "title_de"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "group"
   end
+
+  add_index "tag_bundles", ["group"], name: "index_tag_bundles_on_group", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -229,12 +243,12 @@ ActiveRecord::Schema.define(version: 20151118160053) do
 
   create_table "tags", force: :cascade do |t|
     t.string  "name",           limit: 255
-    t.boolean "category",                   default: false
+    t.boolean "promoted",                   default: false
     t.integer "taggings_count",             default: 0
   end
 
-  add_index "tags", ["category"], name: "index_tags_on_category", using: :btree
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+  add_index "tags", ["promoted"], name: "index_tags_on_promoted", using: :btree
   add_index "tags", ["taggings_count"], name: "index_tags_on_taggings_count", using: :btree
 
   create_table "talks", force: :cascade do |t|

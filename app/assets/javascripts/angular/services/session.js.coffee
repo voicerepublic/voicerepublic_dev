@@ -236,6 +236,8 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         fsm.TalkEnded()
       when 'Process'
         config.talk.state = 'processing'
+      when 'Suspend'
+        config.talk.state = 'suspended'
       when 'Archive'
         config.talk.state = 'archived'
         config.talk.links = data.links
