@@ -2,8 +2,8 @@ class Page < ActiveRecord::Base
 
   self.inheritance_column = :_type_disabled
 
-  serialize :title
-  serialize :content_as_html
+  serialize :title, JSON
+  serialize :content_as_html, JSON
 
   def content
     locale = 'en' # for now
