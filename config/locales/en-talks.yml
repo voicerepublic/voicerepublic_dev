@@ -12,7 +12,7 @@ en:
       talk_queued_for_processing: Queued for processing, please stand by...
       talk_suspended: "This talk is temporarily not available."
       talk_suspended_for_host: >-
-        Ooops, please contact service@voicereplublic.com
+        Ooops, please contact service@voicerepublic.com
       noflash_close_popup: Close
       flash_not_available_button: N/A
       title: "%{title} - Voice Republic"
