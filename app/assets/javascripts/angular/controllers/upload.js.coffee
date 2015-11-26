@@ -74,10 +74,10 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config
 
     uploader.onErrorItem = (item, response, status, headers) ->
       $log.error "Uploading failed: " + JSON.stringify(response)
-      $scope.uploadFailed = true
       safetynet.deactivate()
       file = item?.file # because here item is a FileItem
       audit 'upload-error-item', {file, response, status, headers}
+      $scope.uploadFailed = true
 
     uploader.onCompleteAll = ->
       $scope.state = 'finished'
