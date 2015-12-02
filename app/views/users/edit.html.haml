@@ -31,10 +31,8 @@
               voicerepublic.com/users/#{@user.slug}
           = t('.slug_explanation2')
       .row
-        .large-6.columns
+        .large-12.columns
           = f.input :email, placeholder: 'Email Address'
-        .large-6.columns
-          = f.input :publisher_type, as: :select, collection: I18n.t('user_publisher_types').invert
       .row
         .large-6.columns
           = f.input :timezone, as: :time_zone, priority: User::PRIOTZ

@@ -87,6 +87,8 @@ class Talk < ActiveRecord::Base
       transitions from: :postlive, to: :archived
       # or which was supposed to but has never even happended
       transitions from: :prelive, to: :archived
+      # or which failed while processing and got suspended
+      transitions from: :suspended, to: :archived
     end
   end
 
@@ -492,6 +494,7 @@ class Talk < ActiveRecord::Base
       archive!
     rescue
       suspend!
+      LiveServerMessage.call public_channel, event: 'Suspend'
     end
   end
 

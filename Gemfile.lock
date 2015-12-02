@@ -110,7 +110,7 @@ GEM
       debug_inspector (>= 0.0.1)
     browser (0.8.0)
     builder (3.2.2)
-    bumpy_bridge (0.0.2)
+    bumpy_bridge (0.0.4)
       bunny
       daemons
       faye
@@ -510,7 +510,7 @@ GEM
     tilt (1.4.1)
     timecop (0.5.9.2)
     tins (1.6.0)
-    trickery (0.0.1)
+    trickery (0.0.7)
       systemu
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -555,7 +555,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser
-  bumpy_bridge
+  bumpy_bridge (~> 0.0.4)
   bunny
   byebug
   cancan
