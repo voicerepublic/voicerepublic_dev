@@ -190,9 +190,9 @@ class Talk < ActiveRecord::Base
       where('featured_from IS NOT NULL')
   end
 
-  scope :remembered_by, -> (user) do
+  scope :remembered_by, ->(user) {
     joins(:reminders).where('reminders.user_id = ?', user.id)
-  end
+  }
 
   # only used for debugging, normally talks have at least one tag
   # (btw. this is the canonical and economical way to find untagged
@@ -200,6 +200,10 @@ class Talk < ActiveRecord::Base
   scope :untagged, -> { joins("LEFT JOIN taggings ON taggings.taggable_id " +
                               "= talks.id AND taggings.taggable_type = 'Talk'").
                         where("taggings.id IS NULL") }
+
+  scope :tagged_in_bundle, ->(bundle) {
+    tagged_with(bundle.tag_list, any: true)
+  }
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]

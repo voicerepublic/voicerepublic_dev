@@ -10,8 +10,9 @@ en:
       see_all: MORE
 
       category: All Categories
-      publisher_type: All Publisher Types
+      publisher: All Publishers
       language: All Languages
+      format: All Formats
     results:
       loading: Loading more...
       results:
