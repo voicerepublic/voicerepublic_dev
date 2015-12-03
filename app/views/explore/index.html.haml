@@ -3,15 +3,22 @@
 
 - if action_name == 'index'
 
-  .row.collapse-large-only.top-margin-action-bar
-    - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
-    = form_for :filter, html: opts do |f|
+  - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
+  = form_for :filter, html: opts do |f|
+    .row.collapse-large-only.top-margin-action-bar
+      .medium-12.columns
+        = f.radio_button :category, ''
+        = f.label t('.category')
+        - @categories.each do |label, value|
+          = f.radio_button :category, value
+          = f.label label
+    .row.collapse-large-only
       .small-4.columns
-        = f.select :category, Category.available, prompt: t('.category')
+        = f.select :format, @formats, prompt: t('.format')
       .small-4.columns
-        = f.select :publisher_type, User.available_publisher_types, prompt: t('.publisher_type')
+        = f.select :publisher, @publishers, prompt: t('.publisher')
       .small-4.columns
-        = f.select :language, Talk.available_languages.invert, prompt: t('.language')
+        = f.select :language, @languages, prompt: t('.language')
 
 - else
 

@@ -3,18 +3,30 @@ class ExploreController < ApplicationController
   LIMIT = 12
 
   def index
+    @formats    = TagBundle.format.as_options
+    @publishers = TagBundle.publisher.as_options
+    @categories = TagBundle.category.as_options
+    @languages  = Talk.available_languages.invert
+
     page = params[:page] || 1
     @talks = Talk.popular.paginate(page: page, per_page: LIMIT)
     if filter = params[:filter]
       unless (language = filter[:language]).blank?
         @talks = @talks.where(language: language)
       end
-      unless (publisher_type = filter[:publisher_type]).blank?
-        @talks = @talks.joins(series: :users).
-                 where('users.publisher_type' => publisher_type)
+      # TODO publisher might actually be tagged on users
+      unless (publisher = filter[:publisher]).blank?
+        bundle = TagBundle.find(publisher)
+        @talks = @talks.tagged_in_bundle(bundle)
+      end
+      # TODO format might actualy be tagged on series
+      unless (format = filter[:format]).blank?
+        bundle = TagBundle.find(format)
+        @talks = @talks.tagged_in_bundle(bundle)
       end
       unless (category = filter[:category]).blank?
-        @talks = @talks.tagged_with(category)
+        bundle = TagBundle.find(category)
+        @talks = @talks.tagged_in_bundle(bundle)
       end
     end
 
