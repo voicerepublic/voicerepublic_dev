@@ -8,10 +8,10 @@ class Page < ActiveRecord::Base
   has_many :sections
 
   def section(key)
-    locale = 'en' # for now
+    locale = 'de' # for now
     section = sections.find_by(locale: locale, key: key.to_s)
     return nil if section.nil?
-    section.content_as_html.html_safe
+    section.content_as_html.try(:html_safe)
   end
 
   def template
