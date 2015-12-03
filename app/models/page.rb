@@ -5,22 +5,13 @@ class Page < ActiveRecord::Base
 
   self.inheritance_column = :_type_disabled
 
-  serialize :title, JSON
-  serialize :content_as_html, JSON
+  has_many :sections
 
-  # this provides a nifty short cut for sections
-  #
-  # e.g.
-  #
-  #   page.content_as_html['en']['main']
-  #
-  # via shortcut
-  #
-  #   page.content.main
-  #
-  def content
+  def section(key)
     locale = 'en' # for now
-    OpenStruct.new(content_as_html[locale])
+    section = sections.find_by(locale: locale, key: key.to_s)
+    return nil if section.nil?
+    section.content_as_html.html_safe
   end
 
   def template
@@ -28,6 +19,12 @@ class Page < ActiveRecord::Base
   end
 
   private
+
+  def method_missing(method, *args)
+    content = section(method)
+    return content unless content.nil?
+    super
+  end
 
   def title_en
     title['en']
