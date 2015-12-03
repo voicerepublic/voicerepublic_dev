@@ -7,7 +7,11 @@
   = form_for :filter, html: opts do |f|
     .row.collapse-large-only.top-margin-action-bar
       .medium-12.columns
-        = f.select :category, @categories, prompt: t('.category')
+        = f.radio_button :category, ''
+        = f.label t('.category')
+        - @categories.each do |label, value|
+          = f.radio_button :category, value
+          = f.label label
     .row.collapse-large-only
       .small-4.columns
         = f.select :format, @formats, prompt: t('.format')

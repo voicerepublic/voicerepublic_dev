@@ -2,8 +2,9 @@ attribute = 'data-ajax-filters'
 
 initialize = (node, target) ->
 
-  selects = $('select', node)
-  nodes = $(selects)
+  inputs = $('select, input', node)
+  console.log inputs
+  nodes = $(inputs)
 
   nodes.change (event) ->
     query = $(node).serialize()
