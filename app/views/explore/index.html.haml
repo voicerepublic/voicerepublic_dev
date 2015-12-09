@@ -8,15 +8,14 @@
     .row.collapse-large-only.top-margin-action-bar
       .medium-12.columns
         = f.radio_button :category, ''
-        = f.label t('.category')
+        = f.label t('.category'), class: 'button'
         - @categories.each do |label, value|
           = f.radio_button :category, value
-          = f.label label
+          = f.label label, class: 'button'
     .row.collapse-large-only
       .small-4.columns
         = f.select :format, @formats, prompt: t('.format')
       .small-4.columns
-        = f.select :publisher, @publishers, prompt: t('.publisher')
       .small-4.columns
         = f.select :language, @languages, prompt: t('.language')
 

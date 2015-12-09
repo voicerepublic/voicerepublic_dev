@@ -46,6 +46,14 @@
   .explore-top-bg{
     height: 150px;
   }
+  input[name="filter[category]"] {
+    visibility: hidden;
+  }
+  label.button {
+    float: left;
+    border: 0px none;
+    margin: 0px 0px 10px;
+  }
   [class*="block-grid-"]{
     margin-left: -5px;
     margin-right: -5px;
