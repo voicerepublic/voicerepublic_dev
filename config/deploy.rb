@@ -110,6 +110,20 @@ namespace :deploy do
 
 end
 
+namespace :bower do
+  desc 'Install bower packages'
+  task :install do
+    on roles(:web) do
+      within release_path do
+        # CI=true flag is used not to ask for the analytics at the
+        # first bower install.
+        execute :rake, 'bower:install CI=true'
+      end
+    end
+  end
+end
+before 'deploy:compile_assets', 'bower:install'
+
 require 'json'
 
 def slack(message)
