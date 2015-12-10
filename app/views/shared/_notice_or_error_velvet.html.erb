@@ -1,0 +1,36 @@
+<% if flash[:notice] %>
+	<div data-alert class="flash_messages_velvet alert-box">
+		<%= flash[:notice] %>
+		<a href="#" class="close">&times;</a>
+	</div>
+<% end %>
+
+<% if flash[:warning] %>
+	<div data-alert class="flash_messages_velvet alert-box">
+		<%= flash[:warning] %>
+		<a href="#" class="close">&times;</a>
+	</div>
+<% end %>
+
+<% if flash[:error] %>
+	<div data-alert class="flash_messages_velvet alert-box">
+		<%= flash[:error] %>
+		<a href="#" class="close">&times;</a>
+	</div>
+<% end %>
+
+<% if flash[:info] %>
+	<div data-alert class="flash_messages_velvet alert-box">
+		<%= flash[:info] %>
+		<a href="#" class="close">&times;</a>
+	</div>
+<% end %>
+
+<% if flash[:alert] %>
+	<div data-alert class="flash_messages_velvet alert-box">
+		<%= flash[:alert] %>
+		<a href="#" class="close">&times;</a>
+	</div>
+<% end %>
+
+
