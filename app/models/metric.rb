@@ -98,7 +98,7 @@ class Metric < ActiveRecord::Base
     end
 
     def series_nondefault_total # FIXME
-      Series.where('id NOT IN (?)', User.pluck(:default_series_id)).count
+      Series.where.not(id: User.pluck(:default_series_id)).count
     end
 
     def series_top_penalty
