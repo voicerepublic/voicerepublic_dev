@@ -135,6 +135,50 @@ config file is located here `config/rtmp.conf.erb`. See
 `lib/tasks/rtmp.rake` for more details.
 
 
+Bower integration
+-----------------
+
+### Dev Side
+
+For new assets, not only a Ruby Gem can be used, but also bower is
+integrated into the asset-pipeline through the bower-rails gem.
+
+It is well documented on Github. Also see the initial commit that
+integrated bower, bower-rails whilst upgrading Foundation from 5.1
+(Ruby gem) to 6.0 (bower package).
+
+
+### Server side
+
+Our servers are still running Debian Wheezy which has no first-class
+support for NodeJS. Also does it ship with too old compilers to get a
+newer Node version running.
+
+However, we can install an old Version of Node like that:
+
+    cat >> /etc/apt/sources.list
+    deb http://http.debian.net/debian wheezy-backports main contrib non-free
+    Ctrl+d
+
+    aptitude update
+    aptitude install nodejs
+
+Then make node actually respond to `node` and not `nodejs`.
+
+    update-alternatives --install /usr/bin/node nodejs /usr/bin/nodejs 100
+
+And then manually install NPM, because it does not ship with the
+Debian package.
+
+    curl https://www.npmjs.com/install.sh | sh
+
+Now, our mission can be completed by installing bower:
+
+    npm install -g bower
+
+Finally the server can compile all assets on deploy!
+
+
 Run App
 -------
 
