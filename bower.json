@@ -1,0 +1,17 @@
+{
+  "name": "Voice Republic",
+  "authors": [
+    "Munen Alain M. Lafon <munen@voicerepublic.com>"
+  ],
+  "description": "Streaming or so",
+  "lib": {
+    "name": "bower-rails generated lib assets",
+    "dependencies": {}
+  },
+  "vendor": {
+    "name": "bower-rails generated vendor assets",
+      "dependencies": {
+        "foundation-sites": "~6.0.5"
+      }
+  }
+}

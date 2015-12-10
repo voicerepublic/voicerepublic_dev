@@ -11,9 +11,10 @@ gem "daemons"
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'uglifier'#, '>= 1.0.3'
+gem 'bower-rails', "~> 0.10.0"
 
 # gem 'jbuilder', '~> 2.0'
 # gem 'bcrypt', '~> 3.1.7'
@@ -25,7 +26,6 @@ gem 'faker'
 gem 'rack-affiliates'
 gem 'airbrake'
 gem 'rails_config'
-gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'devise', '~> 3.4.0'
 gem 'simple_token_authentication', github: 'branch14/simple_token_authentication'

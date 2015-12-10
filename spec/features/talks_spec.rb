@@ -235,13 +235,11 @@ describe "Talks as logged in user" do
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
-        expect(page).to have_selector('.explore-link')
         expect(page).to have_content('Explore')
       end
 
       it 'shows explore in user_path' do
         visit user_path(@user)
-        expect(page).to have_selector('.explore-link')
         expect(page).to have_content('Explore')
       end
     end
