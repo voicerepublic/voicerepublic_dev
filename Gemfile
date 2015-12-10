@@ -57,6 +57,7 @@ gem 'mailgun_rails'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
 gem 'redcarpet'
+gem 'inifile', require: false
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
