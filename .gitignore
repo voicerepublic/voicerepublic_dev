@@ -40,3 +40,5 @@ config/environments/*.local.yml
 local/
 .*.swo
 /public/sitemap.xml
+.tern-port
+bower_components/
