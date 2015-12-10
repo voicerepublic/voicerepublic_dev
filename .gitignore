@@ -40,3 +40,5 @@ config/environments/*.local.yml
 local/
 .*.swo
 /public/sitemap.xml
+bower_components/
+vendor/assets/bower_components/
