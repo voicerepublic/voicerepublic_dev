@@ -21,42 +21,43 @@ class Simon
     def manual_transaction(obj)
       quantity = obj.details[:quantity].to_i
       payment = obj.details[:payment].to_i
+      comment = obj.details[:comment]
       admin = AdminUser.find(obj.source_id).email
       name = User.find(obj.details[:user_id]).name
       msg = nil
 
       # deduct credits
       if quantity < 0 && payment == 0
-        msg = "Admin #{admin} deducted #{quantity} credits from #{name}."
+        msg = "Admin #{admin} deducted #{quantity} credits from #{name} with comment: #{comment}."
       end
       # undo booking
       if quantity < 0 && payment < 0
         msg = "Admin #{admin} undid a booking for #{name}, " +
-              "by deducting #{quantity} credits and giving EUR #{payment} back."
+              "by deducting #{quantity} credits and giving EUR #{payment} back with comment: #{comment}."
       end
       # donate
       if quantity > 0 && payment == 0
-        msg = "Admin #{admin} donated #{quantity} credits to #{name}."
+        msg = "Admin #{admin} donated #{quantity} credits to #{name} with comment: #{comment}."
       end
       # sale
       if quantity > 0 && payment > 0
-        msg = "Admin #{admin} sold #{quantity} credits for EUR #{payment} to #{name}."
+        msg = "Admin #{admin} sold #{quantity} credits for EUR #{payment} to #{name} with comment: #{comment}."
       end
       # track previous sale
       if quantity == 0 && payment > 0
         msg = "Admin #{admin} tracked a sale for EUR #{payment} " +
-              "to #{name}, retrospectively."
+              "to #{name}, retrospectively with comment: #{comment}."
       end
 
       # noop
       if quantity == 0 && payment == 0
-        msg = "Admin #{admin} contemplated about the meaning of life."
+        msg = "Admin #{admin} contemplated about the meaning of life with comment: #{comment}."
       end
       # weird stuff going on
       if (quantity < 0 && payment > 0) ||
          (quantity >= 0 && payment < 0)
         msg = "Admin #{admin} and #{name} seem to be in cahoots. " +
-              "Alert the authorities, fishy transaction going on."
+              "Alert the authorities, fishy transaction going on with comment: #{comment}."
       end
 
       raise 'Unknown case in manual transaction!' unless msg

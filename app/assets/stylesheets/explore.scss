@@ -46,6 +46,9 @@
   .explore-top-bg{
     height: 150px;
   }
+  #filter_publisher {
+    visibility: hidden;
+  }
   [class*="block-grid-"]{
     margin-left: -5px;
     margin-right: -5px;
