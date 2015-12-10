@@ -3,18 +3,18 @@
   .medium-12.columns
 
     -# NEWSCHOOL
-    .section.top= @page.section(:top)
+    %section.top= @page.section(:top)
 
-    .section.listen
+    %section.listen
       = @page.section(:listen_pre)
       -# TODO = render partial: 'velvet/talk', collection: @recent_talks
       = @page.section(:listen_post)
 
-    .section.archive
+    %section.archive
       = @page.section(:archive_pre)
       -# TODO = render partial: 'velvet/category', collection: @categories
       = @page.section(:archive_post)
 
-    .section.references= @page.section(:references)
-    .section.contact= @page.section(:contact)
-    .section.footer= @page.section(:footer)
+    %section.references= @page.section(:references)
+    %section.contact= @page.section(:contact)
+    %section.footer= @page.section(:footer)
