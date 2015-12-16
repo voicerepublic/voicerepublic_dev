@@ -1,8 +1,6 @@
-@import 'foundation/functions';
 @import "grids_variables_mixins/mixins";
 $include-html-visibility-classes: true;
 @import 'settings';
-@import 'foundation';
 @import 'grids_variables_mixins/ci_variables';
 @import 'grids_variables_mixins/velvet_ci';
 @import 'grids_variables_mixins/vr_icons';
