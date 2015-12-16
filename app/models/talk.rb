@@ -48,6 +48,8 @@ class Talk < ActiveRecord::Base
   # colors according to ci style guide
   COLORS = %w( #182847 #2c46b0 #54c6c6 #a339cd )
 
+  attr_accessor :venue_name
+
   # https://github.com/troessner/transitions
   state_machine auto_scopes: true do
     state :created # initial
@@ -57,6 +59,7 @@ class Talk < ActiveRecord::Base
     state :postlive
     state :processing
     state :archived
+    state :suspended
     event :prepare do
       # if user_override_uuid is set we transcend to pending
       transitions from: :created, to: :pending, guard: :user_override_uuid?
@@ -72,6 +75,9 @@ class Talk < ActiveRecord::Base
     event :process do
       transitions from: :postlive, to: :processing
     end
+    event :suspend do
+      transitions from: :processing, to: :suspended
+    end
     event :archive, timestamp: :processed_at do
       transitions from: :processing, to: :archived
       # or by user upload
@@ -81,6 +87,8 @@ class Talk < ActiveRecord::Base
       transitions from: :postlive, to: :archived
       # or which was supposed to but has never even happended
       transitions from: :prelive, to: :archived
+      # or which failed while processing and got suspended
+      transitions from: :suspended, to: :archived
     end
   end
 
@@ -120,6 +128,7 @@ class Talk < ActiveRecord::Base
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
   before_save :set_description_as_html, if: :description_changed?
+  before_save :set_venue
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -181,9 +190,9 @@ class Talk < ActiveRecord::Base
       where('featured_from IS NOT NULL')
   end
 
-  scope :remembered_by, -> (user) do
+  scope :remembered_by, ->(user) {
     joins(:reminders).where('reminders.user_id = ?', user.id)
-  end
+  }
 
   # only used for debugging, normally talks have at least one tag
   # (btw. this is the canonical and economical way to find untagged
@@ -191,6 +200,10 @@ class Talk < ActiveRecord::Base
   scope :untagged, -> { joins("LEFT JOIN taggings ON taggings.taggable_id " +
                               "= talks.id AND taggings.taggable_type = 'Talk'").
                         where("taggings.id IS NULL") }
+
+  scope :tagged_in_bundle, ->(bundle) {
+    tagged_with(bundle.tag_list, any: true)
+  }
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
@@ -230,7 +243,7 @@ class Talk < ActiveRecord::Base
   end
 
   def media_url(ext='mp3')
-    Rails.application.routes.url_helpers.root_url + "/vrmedia/#{id}.#{ext}"
+    Rails.application.routes.url_helpers.root_url + "vrmedia/#{id}.#{ext}"
   end
 
   # generates an ephemeral path and returns the location for
@@ -246,7 +259,7 @@ class Talk < ActiveRecord::Base
   # create a permanent url that redirects to a temp url via middleware
   def slides_url(perma=true)
     return nil if slides_uuid.blank?
-    return nil if slides_uuid.match /^https?:\/\//
+    return nil if slides_uuid.match(/^https?:\/\//)
     if perma
       Rails.application.routes.url_helpers.root_url + "slides/#{id}"
     else
@@ -350,11 +363,6 @@ class Talk < ActiveRecord::Base
     self.postprocess!
   end
 
-  def venue_name=(name)
-    name = 'Default venue' if name.blank? # TODO centralize name
-    self.venue = user.venues.find_or_create_by(name: name.strip)
-  end
-
   # used for mobile app
   def image_url
     image.url
@@ -367,6 +375,18 @@ class Talk < ActiveRecord::Base
   def lined_up
     return nil unless venue.present?
     venue.talks.where('starts_at > ?', starts_at).ordered.first
+  end
+
+  class << self
+    # returns a list of key name pairs of languages in order of prevalence
+    def available_languages
+      # combine the different groups defined in config/languages.yml
+      all_languages = LANGUAGES.inject({}) { |r, h| r.merge h.last }
+      # find the keys of the used languages
+      prevalent = all.group(:language).count(:id).sort_by(&:last).reverse.map(&:first)
+      # make it a hash with nices names as well
+      prevalent.inject({}) { |r, k| r.merge k => all_languages[k] }
+    end
   end
 
   private
@@ -420,6 +440,11 @@ class Talk < ActiveRecord::Base
     self.ends_at = starts_at + duration.minutes
   end
 
+  def set_venue
+    self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
+    self.venue ||= user.venues.find_or_create_by(name: venue_name.strip)
+  end
+
   def notify_participants
     return if series.users.empty?
     series.users.each do |participant|
@@ -464,13 +489,17 @@ class Talk < ActiveRecord::Base
     return if archived? # silently guard against double processing
 
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
-
-    process!
-    chain = series.opts.process_chain
-    chain ||= Setting.get('audio.process_chain')
-    chain = chain.split(/\s+/)
-    run_chain! chain, uat
-    archive!
+    begin
+      process!
+      chain = series.opts.process_chain
+      chain ||= Setting.get('audio.process_chain')
+      chain = chain.split(/\s+/)
+      run_chain! chain, uat
+      archive!
+    rescue
+      suspend!
+      LiveServerMessage.call public_channel, event: 'Suspend'
+    end
   end
 
   def reprocess!(uat=false)
@@ -535,8 +564,8 @@ class Talk < ActiveRecord::Base
         %x[ #{cmd} ]
         # upload ogg to s3
         key = uri + "/" + ogg
-        logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
-        upload_file(key, file)
+        logfile.puts "#R# s3cmd put #{ogg} to s3://#{media_storage.key}/#{key}"
+        upload_file(key, ogg)
         # store reference
         s3_path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, s3_path
@@ -758,8 +787,8 @@ class Talk < ActiveRecord::Base
       ctype = Mime::Type.lookup_by_extension('pdf')
       key = File.basename(tmp.path)
       #puts "[DBG] Uploading from %s as %s ..." % [slides_uuid, key]
-      file = slides_storage.files.create key: key, body: tmp,
-                                         content_type: ctype, acl: 'public-read'
+      slides_storage.files.create key: key, body: tmp,
+                                  content_type: ctype, acl: 'public-read'
       #puts "[DBG] Uploading from %s as %s complete." % [slides_uuid, key]
       update_attribute :slides_uuid, key
       tmp.unlink

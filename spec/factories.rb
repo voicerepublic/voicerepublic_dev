@@ -22,6 +22,9 @@ FactoryGirl.define do
     "hans#{n}@example.com"
   end
 
+  factory :admin_user do
+  end
+
   # the default user is a confirmed user, if you need an unconfirmed
   # user use the trait `unconfirmed`, as in...
   #
@@ -60,7 +63,6 @@ FactoryGirl.define do
 
   factory :talk do
     title "Some awesome title"
-    venue
     series
     # NOTE: times set here are not affected by `Timecop.freeze` in a
     # `before` block

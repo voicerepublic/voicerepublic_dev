@@ -35,6 +35,7 @@ set :deploy_to, '/home/app/app'
 set :linked_files, %w{ config/database.yml
                        config/bumpy_bridge.yml
                        config/settings.local.yml
+                       config/auditor.yml
                        config/simon_the_slacker.yml }
 
 # Default value for linked_dirs is []
@@ -72,8 +73,18 @@ namespace :deploy do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
       execute "RAILS_ENV=#{fetch(:rails_env)} $HOME/bin/unicorn_wrapper restart"
+
+      # NEWSCHOOL
+      monit_restart 'flux_capacitor',
+                    'dj-trigger-0',
+                    'dj-mail-0',
+                    'dj-audio-0',
+                    'dj-audio-1'
+
+      # OLDSCHOOL
       # Kill all delayed jobs and leave the respawning to monit.
-      execute "pkill -f delayed_job; true"
+      # execute "pkill -f delayed_job; true"
+
       # Will deliberately keep private_pub and rtmpd running
       # since we'll almost never have to change their code base
       # resp. config. If a restart is nescesarry use the web
@@ -113,4 +124,12 @@ def slack(message)
   json = JSON.unparse(payload)
   cmd = "curl -X POST --data-urlencode 'payload=#{json}' '#{url}' 2>&1"
   %x[ #{cmd} ]
+end
+
+
+def monit_restart(*names)
+  names.each do |name|
+    execute "curl -s 'http://localhost:2812/#{name}' "+
+            "--data 'action=restart' 2>&1 1>/dev/null"
+  end
 end

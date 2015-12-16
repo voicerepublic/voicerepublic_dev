@@ -21,6 +21,8 @@ class FayeAuth < Struct.new(:app, :opts)
       case msg['channel']
       when %r{/public$} # a public channel
         msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+      when %r{/audit$} # another public channel
+        msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
       when /u(\d+)$/ # a private channel
         if user = env['warden'].user # if it's a real user
           if $1.to_i == user.id # and the user is the owner of the channel

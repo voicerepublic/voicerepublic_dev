@@ -2,7 +2,13 @@
 #
 #     https://github.com/nervgh/angular-file-upload
 #
-uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
+uploadFunc = ($scope, $log, FileUploader, validity, safetynet, messaging, config) ->
+
+  username = config.user.name
+
+  audit = (event, options) ->
+    delete options.file._createFromFakePath if options? and options.file?
+    messaging.publish jQuery.extend({ username, event }, options)
 
   # initialize scope variables
   $scope.addingFailed = false
@@ -18,7 +24,7 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
   $scope.init = (options) ->
 
     # split filter into array
-    filetypes = options.filter.split ' '
+    filetypes = options.filter.split '|'
 
     # make options available via $scope (although we don't use that!)
     $scope.options = options
@@ -31,38 +37,58 @@ uploadFunc = ($scope, $log, FileUploader, validity, safetynet) ->
       autoUpload: true
 
     uploader.filters.push
-      name: "fileFilter"
+      name: "fileFormatFilter"
       # `item` is either a File or a FileLikeObject
       fn: (item, options) ->
-        item.type.split('/')[1] in filetypes
+        type = item.type.split('/').pop()
+        # fallback to file name, safari does not provide a type
+        type = item.name.split('.').pop() if !type
+        type in filetypes
 
     uploader.filters.push
       name: "fileSizeFilter"
       fn: (item, options) ->
         item.size > 0
 
-    uploader.onCancelItem = (item, response, status, headers) ->
-      safetynet.deactivate()
-
-    uploader.onWhenAddingFileFailed = (item, filter, options) ->
+    uploader.onWhenAddingFileFailed = (file, filter, options) ->
       $scope.addingFailed = true
+      audit 'upload-adding-file-failed', {filter, file}
 
-    uploader.onAfterAddingFile = (fileItem) ->
+    uploader.onAfterAddingFile = (item) ->
       $scope.state = 'uploading'
       $scope.addingFailed = false
       $scope.set_valid false
       safetynet.activate options.safetynetMessage
+      file = item?.file # because here item is a FileItem
+      audit 'upload-after-adding-file', {file}
 
-    uploader.onErrorItem = (fileItem, response, status, headers) ->
-      $log.error "Uploading failed: " + JSON.stringify(response)
-      $scope.uploadFailed = true
+    # uploader.onProgressItem = (item, progress) ->
+    #   return unless progress %% 10 == 0
+    #   file = item?.file
+    #   audit 'upload-progress-item', {file, progress}
+
+    uploader.onCancelItem = (item, response, status, headers) ->
       safetynet.deactivate()
+      file = item?.file # because here item is a FileItem
+      audit 'upload-cancel-item', {file, response, status, headers}
+
+    uploader.onErrorItem = (item, response, status, headers) ->
+      $log.error "Uploading failed: " + JSON.stringify(response)
+      safetynet.deactivate()
+      file = item?.file # because here item is a FileItem
+      audit 'upload-error-item', {file, response, status, headers}
+      $scope.uploadFailed = true
 
     uploader.onCompleteAll = ->
       $scope.state = 'finished'
       $scope.set_valid true
       # call the success pseudo callback given via options by eval
       eval(options.success)
+      audit 'upload-complete-all'
 
-uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity", "safetynet"]
+    audit 'upload-initialized'
+    messaging.commitSub()
+
+uploadFunc.$inject = ["$scope", "$log", "FileUploader", "validity", "safetynet",
+  "messaging", "config"]
 window.sencha.controller "UploadController", uploadFunc

@@ -20,7 +20,7 @@ gem 'uglifier'#, '>= 1.0.3'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bunny'
-gem 'bumpy_bridge'
+gem 'bumpy_bridge', '~> 0.0.4'
 gem 'faker'
 gem 'rack-affiliates'
 gem 'airbrake'
@@ -57,6 +57,7 @@ gem 'mailgun_rails'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
 gem 'redcarpet'
+gem 'inifile', require: false
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

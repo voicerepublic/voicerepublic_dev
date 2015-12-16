@@ -8,3 +8,5 @@ mappings:
     target: rabbitmq://exchange/register.listener
   - source: rabbitmq://queue/log
     target: faye:///log
+  - source: faye:///audit
+    target: rabbitmq://exchange/audit

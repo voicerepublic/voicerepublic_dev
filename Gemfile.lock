@@ -37,9 +37,9 @@ GIT
 
 GIT
   remote: git@github.com:munen/fidelity.git
-  revision: ae5467e65dd8f482f67cef0e58803360044146c6
+  revision: 5a2d7532e5c9bf5070ab926137a25d3eeda5be76
   specs:
-    fidelity (0.0.3)
+    fidelity (0.0.4)
       auphonic
       fileutils_logger
       systemu
@@ -110,7 +110,7 @@ GEM
       debug_inspector (>= 0.0.1)
     browser (0.8.0)
     builder (3.2.2)
-    bumpy_bridge (0.0.2)
+    bumpy_bridge (0.0.4)
       bunny
       daemons
       faye
@@ -311,6 +311,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.7.0)
     inflecto (0.0.2)
+    inifile (3.0.0)
     ipaddress (0.8.0)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -510,7 +511,7 @@ GEM
     tilt (1.4.1)
     timecop (0.5.9.2)
     tins (1.6.0)
-    trickery (0.0.1)
+    trickery (0.0.7)
       systemu
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -555,7 +556,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser
-  bumpy_bridge
+  bumpy_bridge (~> 0.0.4)
   bunny
   byebug
   cancan
@@ -581,6 +582,7 @@ DEPENDENCIES
   foundation-rails
   friendly_id
   haml-rails
+  inifile
   jquery-rails
   jquery-ui-rails
   launchy

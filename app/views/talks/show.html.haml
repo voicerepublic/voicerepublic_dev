@@ -84,6 +84,10 @@
           start_time: l(@talk.starts_at, format: :time_only),
           end_time: l(@talk.ends_at, format: :time_only))
 
+        .suspended-message(ng-show='showSuspendedToNonHost()')
+          %a= t('.talk_suspended')
+        .suspended-message(ng-show='showSuspendedToHost()')
+          %a= t('.talk_suspended_for_host').html_safe
         -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
           -# PLAYER
@@ -329,8 +333,9 @@
     .large-12.columns
       - if @talk.slides_url.present?
         .row.pdf-viewer(ng-show="talkIsArchived() || talkIsLive()")
+          -# TODO use `@talk.slides_url` and make sure it works
           %pdf-viewer(workerSrc="/pdf_viewer/pdf-viewer.worker-0.1.2.js"
-            src="#{@talk.slides_url}" width="640")
+            src="https://#{Settings.storage.upload_slides}.s3.amazonaws.com/#{@talk.slides_uuid}" width="640")
 
       -# DESCRIPTION
       #description.description-block

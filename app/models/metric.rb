@@ -98,7 +98,7 @@ class Metric < ActiveRecord::Base
     end
 
     def series_nondefault_total # FIXME
-      Series.where('id NOT IN (?)', User.pluck(:default_series_id)).count
+      Series.where.not(id: User.pluck(:default_series_id)).count
     end
 
     def series_top_penalty
@@ -120,6 +120,10 @@ class Metric < ActiveRecord::Base
 
     def taggings_total
       ActsAsTaggableOn::Tagging.count
+    end
+
+    def tag_bundles_total
+      TagBundle.count
     end
 
     # Appearances
@@ -171,10 +175,11 @@ class Metric < ActiveRecord::Base
       Metric.count
     end
 
-   private
+    private
 
+    # TODO rewrite to use tag bundles
     def categories
-      @categories ||= ActsAsTaggableOn::Tag.where(category: true)
+      @categories ||= ActsAsTaggableOn::Tag.where(promoted: true)
     end
 
   end
