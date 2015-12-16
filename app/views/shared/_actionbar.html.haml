@@ -34,7 +34,7 @@
 
       %section.top-bar-section
         -# Right Nav Section
-        %ul.right
+        %ul.right.dropdown.menu{"data-dropdown-menu" => true}
           %li
             = link_to t('.support'), support_path
           - if !current_user
@@ -43,13 +43,13 @@
             %li
               = link_to t('.sign_up'), new_user_registration_path, class: "logged-out-link"
           - else
-            %li.has-dropdown
+            %li.has-submenu
               %a.user-link(href='#')
                 .avatar
                   = render partial: "shared/avatar_image", locals: { user: current_user, size: 25 }
                 / = current_user.name
 
-              %ul.user-link-dropdown.dropdown
+              %ul.user-link-dropdown.submenu.menu.vertical{"data-submenu" => true}
                 %li= link_to t('.my_profile'), current_user
                 %li= link_to t('.test_talk'), test_talk_path
                 %li= link_to t('.schedule_talk'), new_talk_path

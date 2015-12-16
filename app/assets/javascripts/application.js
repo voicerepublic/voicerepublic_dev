@@ -37,7 +37,9 @@ window.proof = function(name) {
   $('body').css({background: value});
 };
 
-$(document).foundation();
+$(document).ready(function() {
+    $(document).foundation();
+});
 
 // deep linking for foundation tabs
 // https://github.com/zurb/foundation/issues/3692

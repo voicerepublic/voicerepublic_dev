@@ -14,7 +14,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.0.5/foundation.min.css">
 
-    <script src="https://cdn.jsdelivr.net/foundation/6.0.5/foundation.min.js"></script>
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= favicon_link_tag '/favicon.ico' %>
     <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">
@@ -63,6 +62,7 @@
     <%= render "shared/footer" %>
     <div id='scripts'>
       <%= javascript_include_tag "application" %>
+      <script src="https://cdn.jsdelivr.net/foundation/6.0.5/foundation.min.js"></script>
       <% if Rails.env.production? %>
         <%= render 'shared/google_analytics' unless @current_user && @current_user.insider? %>
         <%= render 'shared/tawk' %>
