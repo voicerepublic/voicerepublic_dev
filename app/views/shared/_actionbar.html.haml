@@ -31,10 +31,9 @@
         = link_to root_path do
           %span.icon-vr-logo
 
-
-      %section.top-bar-section
-        -# Right Nav Section
-        %ul.right.dropdown.menu{"data-dropdown-menu" => true}
+      -# RIght Nav Section
+      .top-bar-right
+        %ul.dropdown.menu{"data-dropdown-menu" => true}
           %li
             = link_to t('.support'), support_path
           - if !current_user
@@ -61,8 +60,10 @@
                     %i.icon-off
                     = t('.logout')
 
-        -# Left Nav Section
-        %ul.left
+
+      -# Left Nav Section
+      .top-bar-left
+        %ul.menu
           %li.top-bar-search-box
             = form_tag "/search", :class => 'navbar-search form-search' do
               = search_field_tag 'query', params[:query], :class => "top-bar-search-field", :placeholder => t('.search')
@@ -70,3 +71,28 @@
                 %span.icon-magnifying-glass
           %li.explore-link
             = link_to t('.explore'), explore_path
+
+
+    / .top-bar
+    /   .top-bar-left
+    /     %ul.dropdown.menu{"data-dropdown-menu" => ""}
+    /       %li.menu-text Site Title
+    /       %li.has-submenu
+    /         %a{:href => "#"} One
+    /         %ul.submenu.menu.vertical{"data-submenu" => ""}
+    /           %li
+    /             %a{:href => "#"} One
+    /           %li
+    /             %a{:href => "#"} Two
+    /           %li
+    /             %a{:href => "#"} Three
+    /       %li
+    /         %a{:href => "#"} Two
+    /       %li
+    /         %a{:href => "#"} Three
+    /   .top-bar-right
+    /     %ul.menu
+    /       %li
+    /         %input{:placeholder => "Search", :type => "search"}/
+    /       %li
+    /         %button.button{:type => "button"} Search
