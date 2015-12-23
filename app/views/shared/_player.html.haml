@@ -31,9 +31,8 @@
             %span.icon-octa-full
             %span.icon-play-octa
     .jp-no-solution
-      %span Update Required
-      To play the media you will need to either update your browser to
-      a recent version or update your
+      %span= t '.update_required'
+      = t '.update_message'
       = succeed "." do
         %a(href="http://get.adobe.com/flashplayer/" target="_blank" data-ga-event="click player getflash #{galabel}")
-          Flash plugin
+        Flash plugin
