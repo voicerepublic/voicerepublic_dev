@@ -377,6 +377,15 @@ class Talk < ActiveRecord::Base
     venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
 
+  # Used by FluxCapacitor to remember visitors during a live talk
+  def add_listener!(session_id)
+    self.listeners[session_id] ||= Time.now.to_i
+    # TODO write with locking
+    self.save
+    self
+  end
+
+
   class << self
     # returns a list of key name pairs of languages in order of prevalence
     def available_languages
