@@ -382,7 +382,6 @@ class Talk < ActiveRecord::Base
     self.listeners[session_id] ||= Time.now.to_i
     # TODO write with locking
     self.save
-    self
   end
 
 

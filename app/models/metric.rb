@@ -167,10 +167,10 @@ class Metric < ActiveRecord::Base
     end
 
     # This can certainly be improved performance wise, however this
-    # currently 'only' takes 15s on Live which I deem reasonable for a
-    # daily metrics snapshot. The next simplest option would probably
-    # be to do some warehousing on this metric per talk when adding a
-    # new listener.
+    # currently 'only' takes seconds on Live which I deem reasonable
+    # for a daily metrics snapshot. The next simplest option would
+    # probably be to do some warehousing on this metric per talk when
+    # adding a new listener.
     def live_listeners_total
       Talk.pluck(:listeners).collect{ |l| l.count}.sum
     end

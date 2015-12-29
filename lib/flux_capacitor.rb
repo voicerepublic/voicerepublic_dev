@@ -41,7 +41,7 @@ class FluxCapacitor
           # when the listener is already known
           talk = Talk.find_by(id: talk_id)
           if talk.try(:live?)
-            talk = talk.add_listener! msg['session']
+            talk.add_listener! msg['session']
             client.publish(talk.public_channel, { type: 'listeners',
                                                   listeners: talk.listeners.size })
             print 'l'

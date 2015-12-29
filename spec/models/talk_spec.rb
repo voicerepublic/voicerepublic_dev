@@ -469,11 +469,11 @@ describe Talk do
       talk = FactoryGirl.create :talk
       expect(talk.listeners.size).to eq(0)
 
-      talk = talk.add_listener! "some_uuid"
+      talk.add_listener! "some_uuid"
       expect(talk.listeners.size).to eq(1)
 
       # Unique listeners will only be added once
-      talk = talk.add_listener! "some_uuid"
+      talk.add_listener! "some_uuid"
       expect(talk.listeners.size).to eq(1)
     end
   end
