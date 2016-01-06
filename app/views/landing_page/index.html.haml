@@ -1,130 +1,130 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
-.title-row(style="background-image: url(/images/landing_page/#{rand(5)}.jpg)")
-  .bg
-  .row.collapse-large-only
-    .medium-12.columns.text-center
-      %span.lp-logo.icon-vr-logo
-      %h1.headline
-        = t('.headline').html_safe
-      %br
-      %button.button-how-to(data-slide-down=".how-to-use-vr-dropdown" data-slide-down-scroll="true" data-slide-down-action="open")
-        = t('.how_to_use_vr')
+.section.blue.welcome
+  .row.collapse
+    .medium-2.columns
+      .logo.small-text-center.medium-text-left
+        %span.lp-logo.icon-vr-logo
+    .top-nav.medium-10.columns.top-actions.text-right.hide-for-small-only
+      - if Talk.live.present?
+        = link_to t('.now_playing'), live_talks_path, title: 'Live Talks'
+      = link_to t('.discover'), explore_path
+      - if !current_user
+        = link_to t('.sign_in'), new_user_session_path
+        = link_to t('.join'), new_user_registration_path
+      - else
+        = link_to t('.my_profile'), current_user
+        -#
+          #button.button.dropdown{"data-dropdown" => "profile-drop", "aria-controls" => "profile-drop", "aria-expanded" => "false"}
+          = render partial: "shared/avatar_image_velvet", locals: { user: current_user, size: 60 }
+          %ul#profile-drop.f-dropdown{"data-dropdown-content" => ""}
+            %li= link_to t('.my_profile'), current_user
+            %li= link_to t('.test_talk'), test_talk_path
+            %li= link_to t('.schedule_talk'), new_talk_path
+            %li= link_to t('.upload_talk'), new_upload_path
+            / - if !current_user.is_pro?
+            /   %li= link_to t('.pricing'), purchases_path
+            %li
+              = link_to(destroy_user_session_path, method: :delete) do
+                %i.icon-off
+                = t('.logout')
+  .row.collapse
+    .medium-8.medium-offset-2.large-6.large-offset-3.columns.text-center
+      %h1.text-center
+        = t('.claim').html_safe
+      .small-12.columns
+        = form_tag search_path, :class => 'navbar-search form-search' do
+          .small-10.small-offset-1.medium-8.medium-offset-2.columns.search-field-holder
+            = search_field_tag 'query', params[:query], :class => "welcome-search-field", :placeholder => t('.find_a_talk')#, :required => true
+          .small-1.medium-2.columns.end.search-btn-holder
+            = button_tag :type => "submit", :class => "search-lupe" do
+              %span.icon-magnifying-glass
+  .row.collapse
+    .mobile-nav.small-text-center.medium-text-right.top-actions.show-for-small-only
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.now_playing'), '#', title: 'Should Link To A Page Of LIVE Talks'
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.discover'), explore_path
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.sign_in'), new_user_session_path
+      .small-12.columns
+        %hr
+      .small-12.columns
+        = link_to t('.join'), new_user_registration_path
+      .small-12.columns
+        %hr
 
-= render 'summary'
+.section.gray
+  .row
+    .large-8.large-offset-2.columns.text-center
+      %h1.text-center
+        = t('.start_listening').html_safe
+  .row
+    .large-12.columns.collapse.talk-grid
+      = render partial: 'shared/talk_velvet_medium_box', collection: @talks_popular
+  .row
+    %h1.text-center
+      = link_to t('.more_btn'), explore_path, class: 'button', title: 'Should Link To A Page Of Talks'
 
-- unless @talks_live.empty?
-  .live
-    .row.collapse-large-only
-      .large-12.columns
-        - unless @talks_live.empty?
-          .title-box
-            = link_to live_talks_url do
-              %h3.title-live= t('.live_title')
-              %h4= t('.live_subtitle')
-          %ul(class="#{talkslive_grid(@talks_live)}")
-            = render partial: talkslive_partial(@talks_live), :locals => { color: 'box-live' }, collection: @talks_live
-          = link_to t('.see_all'), live_talks_url, class: 'see-all-link'
+.section.publishers
+  .row
+    .medium-8.medium-offset-2.large-6.large-offset-3.columns.text-center
+      %h1.text-center
+        = t('.publisher_tease').html_safe
+    .large-12.columns
+      = render partial: 'shared/publisher_tile', collection: @publishers
+  -#
+    .row.bottom-action
+      %h1.text-center
+        = link_to t('.see_all_btn'), '#', class: 'button', title: 'Should Link To A Page Of More Publishers'
 
-- unless @talks_featured.empty?
-  .upcoming
-    .row.collapse-large-only
-      .large-12.columns
-        - unless @talks_featured.empty?
-          .title-box
-            = link_to featured_talks_url do
-              %h3= t('.upcoming_title')
-              %h4= t('.upcoming_subtitle')
-          %ul.list-style-type-none
-            = render collection: @talks_featured, partial: 'shared/talk_medium_box', :locals => { color: 'box-transparent' }
-          = link_to t('.see_all'), featured_talks_url, class: 'see-all-link'
+.section.gray.categories
+  .row.collapse
+    .large-6.large-offset-3.columns.text-center
+      %h1.text-center
+        = t('.categories_title')
+  .row.collapse
+    %p.lead.text-center
+      = t('.categories_subtitle')
 
-- unless @talks_popular.empty?
-  .archive
-    .row.collapse-large-only
-      .large-12.columns
-        .title-box
-          = link_to popular_talks_url do
-            %h3= t('.archive_title')
-            %h4= t('.archive_subtitle')
-        %ul.list-style-type-none.clearfix
-          = render collection: @talks_popular, partial: 'shared/talk_medium_box', :locals => { color: 'box-grey' }
-        = link_to t('.see_all'), popular_talks_url, class: 'see-all-link'
-
-.testimonial
-
-.ad.text-center
-  %h3= t('.ad_title')
-  = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
-  .pricing= link_to t('.pricing'), pricing_path, class: 'button-adv'
-
-
-.partners
-  .row.collapse-large-only
-    .small-12.columns
-      .title-box
-        %h3= t('.partners_title')
-      %ul.logos-block-grid
-        %li
-          =link_to 'https://voicerepublic.com/users/webinale-conference' do
-            =image_tag '/images/logos/webinale.jpg'
-        %li
-          =link_to 'https://voicerepublic.com/users/a-maze' do
-            =image_tag '/images/logos/a_maze_berlin.jpg'
-        %li
-          =link_to 'https://voicerepublic.com/users/internationale-ferienkurse' do
-            =image_tag '/images/logos/ferienkurse.jpg'
-        %li
-          =link_to 'https://voicerepublic.com/users/re-publica' do
-            =image_tag '/images/logos/republica.jpg'
-        %li
-          =link_to 'https://voicerepublic.com/users/internet-of-things-conference' do
-            =image_tag '/images/logos/i_of_things.jpg'
-        %li
-          =link_to 'https://voicerepublic.com/users/dmy-berlin' do
-            =image_tag '/images/logos/dmi.jpg'
-
-
-
+  .row
+    .small-12.medium-4.large-2.large-offset-1.columns.category-thumb-holder
+      = link_to t('.category_1'),  explore_path(filter: { category: 'Politik und Gesellschaft' }), class: 'category-thumb', title: 'Politics & Society'
+    .small-12.medium-4.large-2.columns.category-thumb-holder
+      = link_to t('.category_2'), explore_path(filter: { category: 'Wissenschaften' }), class: 'category-thumb', title: 'The Sciences'
+    .small-12.medium-4.large-2.columns.category-thumb-holder
+      = link_to t('.category_3'), explore_path(filter: { category: 'Kunst und Kultur' }), class: 'category-thumb', title: 'Art & Culture'
+    .small-12.medium-4.large-2.columns.category-thumb-holder
+      = link_to t('.category_4'), explore_path(filter: { category: 'Technologie' }), class: 'category-thumb', title: 'Technology'
+    .small-12.medium-4.large-2.columns.end.category-thumb-holder
+      = link_to t('.category_5'), explore_path(filter: { category: 'Medien' }), class: 'category-thumb', title: 'The Media'
 
 -#
-  .manifest.bg-blue
+  .section.apptease
     .row
-      .large-12.columns.text-center
-        %span.icon-vr-logo
-        = t('.manifest').html_safe
+      .medium-6.columns.device-copy.right
+        .small-12.columns
+          %h1
+            = t('.apptease_header')
+          %p.lead
+            = t('.apptease_lead')
+        .small-6.columns.store-links
+          =image_tag '/images/logos/appstore.png'
+        .small-6.columns.store-links
+          =image_tag '/images/logos/playstore.png'
+      .medium-6.columns.device-image.left
+        =image_tag '/images/background/iphone-myfeed2.png'
 
-  .member-block.row
-    .small-10.small-centered.columns.text-center
-      %h4= t('.team')
-      %ul.large-block-grid-3.medium-block-grid-3.small-block-grid-3
-        - team_path = '/images/team/'
-        - format = '.jpg'
-        - team = []
-        - team << ['<span>Patrick </span><span>Frank</span>','patrick_frank','patrick-frank','Prime Minister']
-        - team << ['<span>Ole </span><span>Kretschmann</span>','ole_kretschmann','ole-kretschmann','Prime Minister']
-        - team << ['<span>Tobias </span><span>Von </span><span>Glenck</span>','tobias_von_glenck','tobias-von-glenck','Secretary of State']
-        - team << ['<span>Munen </span><span>Alain </span><span>Lafon</span>','alain_lafon','munen','Chief Technology Officer']
-        - team << ['<span>Phil </span><span>Hofmann</span>','phil_hofmann','branch14','Chief Technology Officer']
-        - team << ['<span>Martin </span><span>Meyer</span>','martin_meyer','martin-meyer','Ministry of Research & Development']
-        - team << ['<span>Réka </span><span>Balogh</span>','reka_balogh','reka-balogh-6b0961a9-bb0d-4789-8ce3-405c486f54e9','Ministry of Community']
-        - team << ['<span>Jordan </span><span>Schachter</span>','jordan_schachter','jordan-schachter','Talent Acquisition and Marketing']
-        -# team << ['<span>Jérome </span><span>Sprenger </span><span class="snd-line">Sèvegrand</span>','jerome_sprenger','jerome-sprenger','Ministry of Design']
-        -# team << ['<span>Rafael </span><span>Schmidt</span>','rafael_schmidt','rafael-schmidt','Ministry of Design']
-        -# team << ['Michael Zimmermann','michael_zimmermann','michael-zimmermann']
-        - team << ['<span>VIER FÜR TEXAS</span>','4ft','vier-fuer-texas','Ministry of Communication']
-
-        - team.each do |member|
-
-          - img_path = team_path + member[1] + format
-
-          %li
-            = link_to '/users/' + member[2] do
-              .avatar
-                .avatar-box
-                  = render partial: "shared/avatar_image", locals: { img_path: img_path, size: 79}
-                  .member-function
-                    = member[3]
-                  .avatar-name.text-center
-                    = member[0].html_safe
+.section.blue.ad
+  .row
+    .large-8.large-offset-2.columns.text-center
+      %h1.text-center= t('.ad_title')
+      = link_to t('.get_in_touch'), 'mailto:service@voicerepublic.com', class: 'button'
+      .pricing= link_to t('.pricing'), pricing_path, class: 'button-adv'
