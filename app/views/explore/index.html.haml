@@ -2,31 +2,16 @@
   =t('.talks_on_voice_republic')
 
 - if action_name == 'index'
-
+  %h2 The Voice Republic Archive
   - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
   = form_for :filter, html: opts do |f|
-    .row.collapse-large-only.top-margin-action-bar
-      .medium-12.columns
-        = f.radio_button :category, ''
-        = f.label t('.category')
-        - @categories.each do |label, value|
+    .filters
+      .category-buttons
+        - @categories.each do |label, value, icon|
           = f.radio_button :category, value
           = f.label label
-    .row.collapse-large-only
-      .small-4.columns
-        = f.select :format, @formats, prompt: t('.format')
-      .small-4.columns
-        = f.select :publisher, @publishers, prompt: t('.publisher')
-      .small-4.columns
-        = f.select :language, @languages, prompt: t('.language')
-
-- else
-
-  .row.collapse-large-only
-    .small-12.columns
-      .title-box.text-center
-        %h3= t(".#{action_name}")
-
-.row.collapse-large-only
-  .small-12.columns#results
-    = render 'results'
+          %span.icon{:class => icon}
+      = f.select :language, @languages, prompt: t('.language')
+    #results
+      #results-grid
+        = render 'results'
