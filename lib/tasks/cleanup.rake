@@ -60,29 +60,29 @@ namespace :cleanup do
       # Both timestamps can be nil, but `to_i` will convert them to 0
       started_at = talk.started_at.to_i
       ended_at   = talk.ended_at.to_i
+      changed = false
       talk.listeners.each do |k, v|
-        changed = false
         if (started_at..ended_at).include?(v)
           res[:yes]=res[:yes].next
-        else
-          res[:no]=res[:no].next 
-          changed = true
           # Using a tmp variable here to make sure that no Rails hooks
           # are being triggered. There's lots of removals to be
           # done. Saving, validation and similar should only happen
           # once!
-          listeners = talk.listeners.tap { |h| h.delete(k) }
+          listeners[k] = v
+        else
+          changed = true
+          res[:no]=res[:no].next 
         end
         
-        talk.update_attribute(:listeners, listeners) if changed
       end
+      talk.update_column(:listeners, listeners) if changed
 
       if index > 0 && index % 5 == 0
         puts "Updated another 5 talks. Total talks searched: '#{index}'. " +
           "Total listeners deleted: '#{res[:no]}'"
       end
     end
-    puts "Had to change #{res[:no]} saved listeners, #{res[:yes]} were ok already."
+    puts "Kept #{res[:yes]} saved listeners, #{res[:no]} have been deleted."
   end
   
 end
