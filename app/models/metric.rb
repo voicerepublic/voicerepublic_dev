@@ -77,11 +77,11 @@ class Metric < ActiveRecord::Base
     end
 
     def active_users_total
-      User.where("last_sign_in_at > ?", 14.days.ago).count
+      User.where("last_sign_in_at > ?", 14.days.ago).reject(&:insider?).count
     end
 
     def active_users_last_30_days_total
-      User.where("last_sign_in_at > ?", 30.days.ago).count
+      User.where("last_sign_in_at > ?", 30.days.ago).reject(&:insider?).count
     end
 
     def paying_users_total
