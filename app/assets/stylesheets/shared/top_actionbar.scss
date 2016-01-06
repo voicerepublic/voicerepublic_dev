@@ -1,55 +1,78 @@
-.top-bar-box{
-  margin-bottom:-55px !important;
+.top-bar-box {
+  margin-bottom: -55px !important;
   max-width: rem-calc(700);
-
   .top-bar {
     z-index: 2;
+    padding: 4px;
+    a {
+      font-family: $brand-font-bold;
+    }
+    ul {
+      background: none;
+      margin: 0;
+    }
+    .menu>li:not(.menu-text)>a {
+      padding: 0 12px;
+    }
+    input {
+      margin: 0;
+      top: 0;
+    }
+    .dropdown.menu .submenu {
+      margin-left: -135px;
+      background: black;
+      color: white;
+      border: 0;
+      a {
+        padding: 12px 24px;
+        &:hover {
+          color: $brand-color-yellow;
+        }
+      }
+    }
+    .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow>a::after {
+      border-color: $brand-color-blue transparent transparent transparent;
+    }
   }
-
-  .user-link{
-    font-family:$brand-font-bold;
+  .user-link {
+    font-family: $brand-font-bold;
     font-size: rem-calc(12);
   }
-
-  .user-link-dropdown{
-    a{
-      font-family:$brand-font-bold;
+  .user-link-dropdown {
+    a {
+      font-family: $brand-font-bold;
       font-size: rem-calc(12px)
     }
   }
-
-  .avatar{
-    margin-top: 7px;
-    margin-right: 4px;
-    .avatar-image{
+  .avatar {
+    margin-top: 3px;
+    margin-right: 12px;
+    .avatar-image {
       display: block
     }
   }
-
-  .top-bar-vr-logo{
+  .top-bar-vr-logo {
     position: absolute;
-    top:0;
+    top: 0;
     left: 50%;
     margin-left: -40px;
-    width:80px;
+    width: 80px;
     height: 36px;
     overflow: hidden;
-    .icon-vr-logo{
+    .icon-vr-logo {
       position: relative;
       color: white;
       top: -6px;
       font-size: rem-calc(46);
     }
   }
-
-  .top-bar-search-box{
+  .top-bar-search-box {
     position: relative;
   }
-
-  .top-bar-search-field{
+  .top-bar-search-field {
     width: 100px;
-    &:focus{
-      width:150px;
+    &:focus {
+      width: 150px;
     }
     background: #000 !important;
     padding-left: 30px !important;
@@ -57,38 +80,36 @@
     font-family: $brand-font-bold;
     font-size: rem-calc(12);
     border-style: none !important;
-    @include placeholder{
+    @include placeholder {
       color: #ddd;
     }
     &:hover,
-    &:focus{
+    &:focus {
       background: #333 !important;
       border-style: none !important;
       outline-style: none !important;
-      @include box-shadow(0,0,0,#000);
+      @include box-shadow(0, 0, 0, #000);
       color: #fff
     }
   }
-
-  .search-lupe{
-    .icon-magnifying-glass{
+  .search-lupe {
+    .icon-magnifying-glass {
       color: #ddd
     }
     position: absolute;
     left: 2px;
-    top: 6px;
+    top: 1px;
     background: none;
     font-size: 1.2rem;
     padding: 0;
     margin: 0;
     display: inline;
     &:hover,
-    &:focus{
-      background:none;
-      .icon-magnifying-glass{
+    &:focus {
+      background: none;
+      .icon-magnifying-glass {
         color: #fff
       }
     }
   }
-
 }

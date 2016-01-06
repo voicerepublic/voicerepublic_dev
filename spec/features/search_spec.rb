@@ -52,7 +52,7 @@ feature "Search", js: true do
     scenario "it searches with magnifying glass" do
       FactoryGirl.create :talk, title: "test title talk"
       page.fill_in 'query', with: 'test talk'
-      find(".icon-magnifying-glass").click
+      find(".search-lupe").click
       expect(page).to have_content "TEST TITLE TALK"
     end
 

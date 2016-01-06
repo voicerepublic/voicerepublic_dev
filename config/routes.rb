@@ -93,8 +93,8 @@ Rails.application.routes.draw do
   # new school
   get 'embed/:id', to: 'embed_talks#show', as: 'embed'
 
-  get "landing_page/index", as: :landing_page
-  root :to => "landing_page#index"
+  get "root/index"
+  root :to => "root#index"
 
   # match ':controller(/:action(/:id))(.:format)'
 

@@ -14,7 +14,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
 //= require jquery.jplayer.min
 //= require select2
 //= require slick
@@ -38,7 +37,9 @@ window.proof = function(name) {
   $('body').css({background: value});
 };
 
-$(document).foundation();
+$(document).ready(function() {
+    $(document).foundation();
+});
 
 // deep linking for foundation tabs
 // https://github.com/zurb/foundation/issues/3692
