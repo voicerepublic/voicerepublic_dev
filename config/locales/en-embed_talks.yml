@@ -1,5 +1,9 @@
 en:
+  shared:
+    player:
+      update_required: 'Update required'
+      update_message: 'To play the media you will need to either update your browser to a recent version or update your'
   embed_talks:
     show:
       date_start_end: '%{date} | <span class="time">%{start_time} – %{end_time}</span>'
-      listen_live: Listen Live on Voice Republic
+      listen_live: 'Listen Live on Voice Republic'
