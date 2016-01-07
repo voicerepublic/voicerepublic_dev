@@ -77,6 +77,8 @@
     = render 'shared/notice_or_error_velvet'
     = yield
     = render 'shared/footer_velvet'
+    .icons
+      = File.read('app/assets/images/icons.svg').html_safe
 
     #scripts
       = javascript_include_tag "velvet"
