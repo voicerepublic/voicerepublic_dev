@@ -33,19 +33,19 @@
           - @talks_featured.each do |talk|
             = render partial: 'shared/talk_card', locals: { talk: talk }
 
-    .listen-interstitial
-      %p.lead= t('.lead_interstitial')
-      .category-buttons
-        - @categories.each do |label, value, icon|
-          = link_to content_tag(:span, nil, class: ['icon', icon]) + label,
-              explore_path(filter: {category: value}), class: 'button'
+      .listen-interstitial
+        %p.lead= t('.lead_interstitial')
+        .category-buttons
+          - @categories.each do |label, value, icon|
+            = link_to content_tag(:span, nil, class: ['icon', icon]) + label,
+                explore_path(filter: {category: value}), class: 'button'
 
-    #talk-collection
-      - @talks_popular.each do |talk|
-        = render partial: 'shared/talk_card', locals: { talk: talk }
-    .row
-      = link_to explore_path do
-        %button= t('.more_talks')
+      #talk-collection
+        - @talks_popular.each do |talk|
+          = render partial: 'shared/talk_card', locals: { talk: talk }
+      .row
+        = link_to explore_path do
+          %button= t('.more_talks')
 
   %section#coming-up.blue
     .row
