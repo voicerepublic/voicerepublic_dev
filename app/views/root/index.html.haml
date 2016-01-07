@@ -24,216 +24,28 @@
           -#     %button
           -#       .icon.headphones
           -#       = t('.listen')
-<<<<<<< HEAD
+
   %section#listen-now.light
     .row
       %h2= t('.listen_now')
       - unless @talks_featured.empty?
         #talk-teasers
-          -# TODO: Iterate
           - @talks_featured.each do |talk|
             = render partial: 'shared/talk_card', locals: { talk: talk }
 
-                
     .listen-interstitial
       %p.lead= t('.lead_interstitial')
       .category-buttons
         - @categories.each do |label, value, icon|
-          -# TODO: Link to explore page filter  
-          = link_to content_tag(:span, label, class: ['icon', icon]),
-                   '#', class: 'button'
+          = link_to content_tag(:span, nil, class: ['icon', icon]) + label,
+              explore_path(filter: {category: value}), class: 'button'
+
     #talk-collection
-      .talk-card
-        .talk-card-inside
-          %h5.title Sozialer Wandel und Politische Kunst in der Südosttürkei
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb0.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.politics
-            .info-right
-              %p.date
-                Published
-                %strong 3 days ago
-                by
-              %a{:href => "profile.html"}
-                %p.publisher nGbK
-      .talk-card
-        .talk-card-inside
-          %h5.title Independent Cultural Spaces in Turkey and Germany
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb1.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.arts
-            .info-right
-              %p.date
-                Published
-                %strong Yesterday
-                by
-              %a{:href => "profile.html"}
-                %p.publisher nGbK
-      .talk-card
-        .talk-card-inside
-          %h5.title Watching the Watchers: Building a Sousveillance State
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb2.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.science
-            .info-right
-              %p.date
-                Published
-                %strong November 10
-                by
-              %a{:href => "profile.html"}
-                %p.publisher re:publica15
-      .talk-card
-        .talk-card-inside
-          %h5.title A MAZE Masterclass: Rami Ismail in conversation with Leigh Alexander
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb3.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.tech
-            .info-right
-              %p.date
-                Published
-                %strong August 24
-                by
-              %a{:href => "profile.html"}
-                %p.publisher AMAZE Berlin
-      .talk-card
-        .talk-card-inside
-          %h5.title Religion in Europa
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb4.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.arts
-            .info-right
-              %p.date
-                Published
-                %strong 3 days ago
-                by
-              %a{:href => "profile.html"}
-                %p.publisher Publixsphere Channel
-      .talk-card
-        .talk-card-inside
-          %h5.title Visual Diagnostics for Design Thinking Teams
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb5.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.arts
-            .info-right
-              %p.date
-                Published
-                %strong Today
-                by
-              %a{:href => "profile.html"}
-                %p.publisher HPI School of Design Thi...
-      .talk-card
-        .talk-card-inside
-          %h5.title Platform Cooperativism vs. the Sharing Economy
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb6.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.science
-            .info-right
-              %p.date
-                Published
-                %strong 3 days ago
-                by
-              %a{:href => "profile.html"}
-                %p.publisher Rosa Luxemburg Stiftung
-      .talk-card
-        .talk-card-inside
-          %h5.title The digital surveillance state - Quo vadis, Democracy?
-          %p.meta
-            %span.running-time 46:23
-            %span.play-count 2.2k Plays
-          .image-box
-            %img{:alt => "", :src => "img/thumbs-cropped/thumb7.jpg"}/
-            .hover-info
-              %p.speaker
-                Sprecher/In:
-                %a{:href => "profile.html"} Patrick Frank
-          .bottom-info
-            .icon.politics
-            .info-right
-              %p.date
-                Published
-                %strong 3 days
-                by
-              %a{:href => "profile.html"}
-                %p.publisher Courage Foundation
-=======
-    %section#listen-now.light
-      .row
-        %h2= t('.listen_now')
-        - unless @talks_featured.empty?
-          #talk-teasers
-            - @talks_featured.each do |talk|
-              = render partial: 'shared/talk_card', locals: { talk: talk }
-
-      .listen-interstitial
-        %p.lead= t('.lead_interstitial')
-        .category-buttons
-          - @categories.each do |label, value, icon|
-            = link_to content_tag(:span, nil, class: ['icon', icon]) + label,
-                explore_path(filter: {category: value}), class: 'button'
-
-      #talk-collection
-        - @talks_popular.each do |talk|
-          = render partial: 'shared/talk_card', locals: { talk: talk }
->>>>>>> e25981b8f154df48ede7a2a0fe9833b80b5cb199
-    .row
-      = link_to explore_path do
-        %button= t('.more_talks')
+      - @talks_popular.each do |talk|
+        = render partial: 'shared/talk_card', locals: { talk: talk }
+  .row
+    = link_to explore_path do
+      %button= t('.more_talks')
 
   %section#coming-up.blue
     .row
