@@ -5,7 +5,7 @@
   %section#claim.dark
     .row
       %header
-        %h1=t ('.title')
+        %h1=t('.title')
       .container
         %p.lead
           = t('.lead')
@@ -25,6 +25,7 @@
           -#     %button
           -#       .icon.headphones
           -#       = t('.listen')
+<<<<<<< HEAD
   %section#listen-now.light
     .row
       %h2= t('.listen_now')
@@ -211,9 +212,31 @@
                 by
               %a{:href => "profile.html"}
                 %p.publisher Courage Foundation
+=======
+    %section#listen-now.light
+      .row
+        %h2= t('.listen_now')
+        - unless @talks_featured.empty?
+          #talk-teasers
+            - @talks_featured.each do |talk|
+              = render partial: 'shared/talk_card', locals: { talk: talk }
+                  
+      .listen-interstitial
+        %p.lead= t('.lead_interstitial')
+        .category-buttons
+          - @categories.each do |label, value, icon|
+            -# TODO: Link to explore page filter  
+            = link_to content_tag(:span, label, class: ['icon', icon]),
+                     '#', class: 'button'
+
+      #talk-collection
+        - @talks_popular.each do |talk|
+          = render partial: 'shared/talk_card', locals: { talk: talk }
+>>>>>>> e25981b8f154df48ede7a2a0fe9833b80b5cb199
     .row
-      %a{:href => "explore.html"}
-        %button More Talks  »
+      = link_to explore_path do
+        %button= t('.more_talks')
+
   %section#coming-up.blue
     .row
       .container
