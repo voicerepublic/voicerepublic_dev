@@ -43,9 +43,9 @@
     #talk-collection
       - @talks_popular.each do |talk|
         = render partial: 'shared/talk_card', locals: { talk: talk }
-  .row
-    = link_to explore_path do
-      %button= t('.more_talks')
+    .row
+      = link_to explore_path do
+        %button= t('.more_talks')
 
   %section#coming-up.blue
     .row
