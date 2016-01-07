@@ -12,8 +12,16 @@
     /[if lt IE 9]
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 
+    -# XXX: (animate|landing).min.css are manually compiled CSS files
+    -# from Nicks project vr-mother. They need to be replaced as soon
+    -# as we can compile Foundation 6 ourselves.
+    -# Same goes for (libraries|foundation|app).min.js
     %link{href: "/assets/stylesheets/animate.min.css", rel: "stylesheet", type: "text/css"}/
     %link{href: "/assets/stylesheets/landing.min.css", rel: "stylesheet", type: "text/css"}/
+    %script{:src => "assets/javascripts/libraries.min.js"}
+    %script{:src => "assets/javascripts/foundation.min.js"}
+    %script{:src => "assets/javascripts/app.min.js"}
+
     %link{href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css"}/
     %link{href: "/images/apple-touch-icon.png", rel: "apple-touch-icon"}/
     %link{href: "/images/apple-touch-icon-72x72.png", rel: "apple-touch-icon", sizes: "72x72"}/
@@ -25,6 +33,53 @@
     = yield :head
 
   %body{class: "#{controller_name} #{[controller_name, action_name] * '-'}"}
+    #topbar-container{"data-sticky-container" => ""}
+      #example-menu.top-bar{"data-options" => "marginTop:0", "data-sticky" => ""}
+        .top-bar-left
+          %ul#branding.menu{"data-dropdown-menu" => ""}
+            %li.logo
+              %a{:href => "start.html"}
+                %img{:src => "img/logo/logo-red.svg", :width => "60"}/
+                %span.show-for-large-up VOICE REPUBLIC
+        .top-bar-right
+          %ul.dropdown.menu{"data-dropdown-menu" => ""}
+            %li.has-submenu.can-hide
+              %a{:href => "#"} Listen
+              %ul.submenu.menu.vertical{"data-submenu" => ""}
+                %li.drop-title Categories
+                %li
+                  %a{:href => "explore.html"} Politics &amp; Society
+                %li
+                  %a{:href => "explore.html"} Sciences
+                %li
+                  %a{:href => "explore.html"} Arts &amp; Culture
+                %li
+                  %a{:href => "explore.html"} Technology
+                %li
+                  %a{:href => "explore.html"} Media
+                %li
+                  %a{:href => "explore.html"} Business
+                %li.divider
+                %li
+                  %a{:href => "listen.html"} Listen
+                %li
+                  %a{:href => "explore.html"} Explore
+            %li.can-hide
+              %a{:href => "publish.html"} Publish
+            %li.sign-in.can-hide
+              %a{:href => "#"} Sign In
+            %li.join.can-hide
+              %a{:href => "join.html"} Join for Free
+            %li#search-loupe.can-hide
+              %a{:href => "#"}
+                %span.icon-uniE7E9
+          .search-container.hide
+            %form
+              %label
+                %span.icon-uniE7E9
+              %input#search-field.search{:placeholder => "Whatchya lookin' for, cowboy?", :type => "text", :value => ""}/
+            %button#search-close.close-button{:type => "button"}
+              %span{"aria-hidden" => "true"} ×
 
     = render 'shared/notice_or_error_velvet'
     = yield

@@ -1,35 +1,57 @@
 %footer
   .row
-    .logo.left
-      / %h1.lp-logo.icon-vr-logo
-      %h2
-        VOICE REPUBLIC
-  .row.collapse
-    .medium-4.columns
-      %p.lead= render 'shared/description'
-    .medium-2.medium-offset-4.columns.small-text-center.medium-text-left
-      %p.lead= link_to t('.about'), "http://blog.voicerepublic.com/", target: '_blank'
-      %p.lead= link_to t('.pricing'), pricing_path
-      %p.lead= link_to t('.help'), support_path
-      %p.lead= link_to t('.blog'), "http://blog.voicerepublic.com/blog", target: '_blank'
-    .medium-2.columns.small-text-center.medium-text-left
-      %p.lead= link_to t('.terms'), "http://blog.voicerepublic.com/legal/terms-of-use/", target: '_blank'
-      %p.lead= link_to t('.press_kit'), "http://blog.voicerepublic.com/", target: '_blank'
-      %p.lead= link_to t('.system_stats'), "http://status.voicerepublic.com", target: '_blank'
-      %p.lead= link_to t('.contact_us'), "mailto:service@voicerepublic.com", target: '_blank'
-
+    %a{:href => "start.html"}
+      %h3.text-center
+        %img{:src => "img/logo/logo_with_type-beige.svg", :width => "120"}/
+    .footer-section
+      .row
+        .footer-section
+          %ul
+            %li
+              %a{:href => "#"} About
+            %li
+              %a{:href => "#"} Pricing
+            %li
+              %a{:href => "#"} Support &amp; FAQ
+            %li
+              %a{:href => "#"} Blog
+            %li
+              %a{:href => "#"} Terms &amp; Privacy
+        .footer-section
+          %ul
+            %li
+              %a{:href => "#"} Press
+            %li
+              %a{:href => "#"} Service Status
+            %li
+              %a{:href => "#"} Contact
+            %li
+              %a{:href => "#"} Careers
+            %li
+              %a{:href => "#"} Imprint
+      #footer-social-links
+        %a{:href => "#"}
+          %span.icon-uniE949
+        %a{:href => "#"}
+          %span.icon-uniE94A
+        / <li role="presentation"><a href="#"><span class="social icon-uniE94A"> </span></a></li>
+    .footer-section
+      %p.lead
+        %strong What Is Voice Republic
+        %br/
+        Voice Republic is the platform for the spoken word. We make it easy to
+        %a{:href => "publish.html"} live-stream
+        your event, presentation, discussion or lecture—and keep it in our archive for those who missed it live.
+        %br/
+        %br/
+        Users from anywhere in the world can tune in and add their thoughts to the "comments" feed—in realtime. Right after the live broadcast, the recording is automatically saved in our archive. Anyone can access it on our platform at any time, or subscribe to it as a podcast.
+        %br/
+        %br/
+        If you already have recorded content from past events, you can easily upload files to Voice Republic. Starting at
+        = succeed "," do
+          %a{:href => "pricing.html"} 12 euros per talk
+        %br/
+        = succeed "Listening" do
+          %br/
   .row
-    %hr
-    .row.collapse.copyright
-      .large-4.columns.small-text-center.medium-text-left
-        %p.lead
-          &copy; Voice Republic Media AG 2015
-      .large-4.columns
-        %p.lead.text-center
-          -# Privacy Terms Sitemap
-      .large-4.columns.small-centered
-        %p.lead.text-right.small-only-text-center
-          = link_to "http://facebook.com/voicerepublic", target: '_blank' do
-            = image_tag '/images/logos/twitter-circle-beige.svg', width: '36', alt: 'Voice Republic On Twitter', title: 'Voice Republic On Twitter'
-          = link_to "http://twitter.com/_voicerepublic", target: '_blank' do
-            = image_tag '/images/logos/facebook-circle-beige.svg', width: '36', alt: 'Voice Republic On Facebook', title: 'Voice Republic On Facebook'
+    %p.text-center.copyright ©2015 Voice Republic Media AG

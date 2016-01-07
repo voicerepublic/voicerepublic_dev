@@ -40,3 +40,20 @@ config/environments/*.local.yml
 local/
 .*.swo
 /public/sitemap.xml
+# -*- mode: gitignore; -*-
+
+#########################
+# Emacs temporary files #
+#########################
+*~
+\#*\#
+.\#*
+
+######################
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+Thumbs.db
