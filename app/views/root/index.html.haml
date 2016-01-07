@@ -10,10 +10,9 @@
         %p.lead
           = t('.lead')
           - @categories.each do |label, value, icon|
-            -# XXX: Is `succeed` a good idea?
-            = succeed "," do
-              -# TODO: Link to explore page filter  
-              %a{:href => "explore.html"}= label
+            - delim = (label == @categories.last.first) ? '.' : ','
+            = succeed delim do
+              = link_to label, explore_path(filter: {category: value})
         .claim-cta-half
           -# TODO: Link to pages in CMS
           -#   %a{:href => "publish.html"}
@@ -25,28 +24,28 @@
           -#     %button
           -#       .icon.headphones
           -#       = t('.listen')
-    %section#listen-now.light
-      .row
-        %h2= t('.listen_now')
-        - unless @talks_featured.empty?
-          #talk-teasers
-            - @talks_featured.each do |talk|
-              = render partial: 'shared/talk_card', locals: { talk: talk }
-                  
-      .listen-interstitial
-        %p.lead= t('.lead_interstitial')
-        .category-buttons
-          - @categories.each do |label, value, icon|
-            -# TODO: Link to explore page filter  
-            = link_to content_tag(:span, label, class: ['icon', icon]),
-                     '#', class: 'button'
 
-      #talk-collection
-        - @talks_popular.each do |talk|
-          = render partial: 'shared/talk_card', locals: { talk: talk }
+  %section#listen-now.light
     .row
-      = link_to explore_path do
-        %button= t('.more_talks')
+      %h2= t('.listen_now')
+      - unless @talks_featured.empty?
+        #talk-teasers
+          - @talks_featured.each do |talk|
+            = render partial: 'shared/talk_card', locals: { talk: talk }
+
+    .listen-interstitial
+      %p.lead= t('.lead_interstitial')
+      .category-buttons
+        - @categories.each do |label, value, icon|
+          = link_to content_tag(:span, nil, class: ['icon', icon]) + label,
+              explore_path(filter: {category: value}), class: 'button'
+
+    #talk-collection
+      - @talks_popular.each do |talk|
+        = render partial: 'shared/talk_card', locals: { talk: talk }
+  .row
+    = link_to explore_path do
+      %button= t('.more_talks')
 
   %section#coming-up.blue
     .row
