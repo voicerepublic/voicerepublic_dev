@@ -107,11 +107,6 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.datetime "created_at"
   end
 
-  create_table "milks", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "pages", force: :cascade do |t|
     t.string   "slug"
     t.string   "type",          default: "default"
@@ -196,7 +191,6 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
-    t.boolean  "is_hidden",                       default: false
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -300,7 +294,6 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.text     "description_as_html",             default: ""
     t.string   "slides_uuid"
     t.integer  "venue_id"
-    t.boolean  "is_hidden",                       default: false
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
@@ -366,7 +359,6 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
     t.string   "publisher_type"
-    t.boolean  "is_hidden",                          default: false
     t.datetime "featured_from"
   end
 
