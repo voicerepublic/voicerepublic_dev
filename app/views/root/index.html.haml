@@ -36,27 +36,12 @@
 
                   
       .listen-interstitial
-        %p.lead In the Voice Republic Archive you can listen to professional audio content from different areas:
+        %p.lead= t('.lead_interstitial')
         .category-buttons
-          %form{:action => "explore.html", :method => "post"}
-            %a.button{:href => "explore.html?active=politics"}
-              %span.icon.politics>
-              Politics &amp; Society
-            %a.button{:href => "explore.html?active=science"}
-              %span.icon.science>
-              Sciences
-            %a.button{:href => "explore.html?active=arts"}
-              %span.icon.arts>
-              Arts &amp; Culture
-            %a.button{:href => "explore.html?active=tech"}
-              %span.icon.tech>
-              Technology
-            %a.button{:href => "explore.html?active=media"}
-              %span.icon.media>
-              Media
-            %a.button{:href => "explore.html?active=business"}
-              %span.icon.business>
-              Business
+          - @categories.each do |label, value, icon|
+            -# TODO: Link to explore page filter  
+            = link_to content_tag(:span, label, class: ['icon', icon]),
+                     '#', class: 'button'
       #talk-collection
         .talk-card
           .talk-card-inside
