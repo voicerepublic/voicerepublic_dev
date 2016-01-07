@@ -17,6 +17,7 @@ class RootController < BaseController
         ]
 
         @talks_popular  = Talk.popular.limit(12)
+        @categories = TagBundle.category.as_options
       end
       format.rss do
         @podcast = OpenStruct.new(talks: Talk.recent.limit(10))

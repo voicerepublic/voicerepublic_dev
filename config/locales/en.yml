@@ -399,6 +399,13 @@ en:
       title: Voice Republic - Support
     velvet_root:
       title: Welcome To Voice Republic
+      publish: Publish
+      listen: Listen
+      login: Login
+      sign_up: Sign Up
+      categories: Categories
+      search_placeholder: "Whatchya lookin' for, cowboy?"
+      explore: Explore
   plain_mailer:
     welcome:
       subject: "Welcome %{user_firstname}, need help getting started?"
