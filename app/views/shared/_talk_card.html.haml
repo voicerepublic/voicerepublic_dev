@@ -6,7 +6,7 @@
       %span.play-count= human_count(talk.play_count) + t('.plays')
     .image-box
       -# TODO: Ask Nick what the real size should be
-      = image_tag talk.image.url
+      = image_tag talk.image.thumb("600x338#").url
       .hover-info
         %p.speaker
           = t('.speaker')
