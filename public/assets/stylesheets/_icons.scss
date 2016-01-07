@@ -1,3 +1,10 @@
+/* app/assets/images/icons.svg needs to be hidden in the document */
+
+@mixin clip-path($name) {
+    -webkit-clip-path: url(#clippath-+$name);
+    clip-path: url(#clippath-+$name);
+}
+    
 .icon {
     display: block;
     width: 36px;
@@ -7,198 +14,14 @@
     background-color: $info-color;
     transition: background-color .2s ease;
 
-    &.politics {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
-     viewBox='0 0 28 28' enable-background='new 0 0 28 28' xml:space='preserve'>
-<path d='M2.674,23L0,26.349V28h27.999v-1.651L25.326,23H2.674z M2.999,22H7V10H2.999V22z M9,22h4V10H9V22z M15,22h4V10h-4V22z
-     M20.999,22H25V10h-4.001V22z M14,0L0.999,7.643V9H27V7.643L14,0z'/>
-</svg>
-");
-        clip-path:url("data:image/svg xml;utf8,<svg height="0" width="0">
-    <defs>
-             <clipPath id="svgPath" clipPathUnits="objectBoundingBox">
-                <circle cx=".5" cy=".5" r=".45" />
-            </clipPath>
-    </defs>
-</svg>#svgPath");
-    }
-
-    &.tech {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-<path d="M-625,408c0,4,3,7,3,7l4-4l-1.5-8.7C-620.8,403-625,405.5-625,408 M-614,412l-2,3h10l-2-3H-614z M-602.5,402.2l-1.4,8.8l4,4
-    c0,0,3-3,3-7C-597,405.5-601.2,403-602.5,402.2 M-611,387c-2.4,0.1-9.2,4.5-7.8,13l1.8,11h12l1.8-11
-    C-601.8,391.5-608.6,387.1-611,387 M-611,405c-1.4,0-2.5-1.1-2.5-2.5c0-1,0.6-1.9,1.5-2.3c0.3-0.1,0.6-0.2,1-0.2
-    c1.4,0,2.5,1.1,2.5,2.5C-608.5,403.9-609.6,405-611,405 M-611,397c-1.4,0-2.5-1.1-2.5-2.5c0-1,0.6-1.9,1.5-2.3
-    c0.3-0.1,0.6-0.2,1-0.2c1.4,0,2.5,1.1,2.5,2.5C-608.5,395.9-609.6,397-611,397"/>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-<path d="M-625,408c0,4,3,7,3,7l4-4l-1.5-8.7C-620.8,403-625,405.5-625,408 M-614,412l-2,3h10l-2-3H-614z M-602.5,402.2l-1.4,8.8l4,4
-    c0,0,3-3,3-7C-597,405.5-601.2,403-602.5,402.2 M-611,387c-2.4,0.1-9.2,4.5-7.8,13l1.8,11h12l1.8-11
-    C-601.8,391.5-608.6,387.1-611,387 M-611,405c-1.4,0-2.5-1.1-2.5-2.5c0-1,0.6-1.9,1.5-2.3c0.3-0.1,0.6-0.2,1-0.2
-    c1.4,0,2.5,1.1,2.5,2.5C-608.5,403.9-609.6,405-611,405 M-611,397c-1.4,0-2.5-1.1-2.5-2.5c0-1,0.6-1.9,1.5-2.3
-    c0.3-0.1,0.6-0.2,1-0.2c1.4,0,2.5,1.1,2.5,2.5C-608.5,395.9-609.6,397-611,397"/>
-</svg>
-");
-    }
-
-    &.arts {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-<path d="M-599.8,387c0.3,0,0.6,0.3,0.6,0.3s5.9,10.6-1.2,13.5l-3.8-1.4c-0.6-1.3-1.6-5.3,1.8-7.4c0,0,2.7-1.9,2.2-4.3
-    c0,0-0.1-0.4,0.3-0.6C-600,387-599.9,387-599.8,387 M-611.1,388.7c1.9,0,3.6,0.6,3.9,2.7c0.3,1.8-2,4.3-1.9,7.1
-    c0.1,1.2,1.9,2.4,3,2.6l-3.9,12l-1.2,0.7c-1.6,0.7-3.5,1.2-5.4,1.2c-1.5,0-3-0.3-4.3-1.2c-5.3-3.8-5-12.1-2.5-17.4
-    c1.7-3.5,4.7-5.9,8.4-7C-613.8,389-612.4,388.7-611.1,388.7 M-613,403c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c-1.1,0-2,0.9-2,2
-    C-615,402.1-614.1,403-613,403 M-604.6,400.4l3.8,1.4l-5.4,13.2l-2.9-1L-604.6,400.4"/>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-<path d="M-599.8,387c0.3,0,0.6,0.3,0.6,0.3s5.9,10.6-1.2,13.5l-3.8-1.4c-0.6-1.3-1.6-5.3,1.8-7.4c0,0,2.7-1.9,2.2-4.3
-    c0,0-0.1-0.4,0.3-0.6C-600,387-599.9,387-599.8,387 M-611.1,388.7c1.9,0,3.6,0.6,3.9,2.7c0.3,1.8-2,4.3-1.9,7.1
-    c0.1,1.2,1.9,2.4,3,2.6l-3.9,12l-1.2,0.7c-1.6,0.7-3.5,1.2-5.4,1.2c-1.5,0-3-0.3-4.3-1.2c-5.3-3.8-5-12.1-2.5-17.4
-    c1.7-3.5,4.7-5.9,8.4-7C-613.8,389-612.4,388.7-611.1,388.7 M-613,403c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c-1.1,0-2,0.9-2,2
-    C-615,402.1-614.1,403-613,403 M-604.6,400.4l3.8,1.4l-5.4,13.2l-2.9-1L-604.6,400.4"/>
-</svg>
-");
-    }
-
-    &.science {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
-<path class="st0" d="M17.3,24c2-2.1,3.2-4.9,3.2-8c0-2.4-0.8-4.6-2-6.5l4.1-4.1l-4.9-4.9L5,13l1.1,1.1l-1.5,1.5l2.8,2.8l1.5-1.5
-    L10,18l5.6-5.6c0.6,1.1,0.9,2.3,0.9,3.6c0,4.4-3.8,8-8.5,8H0v4h28v-4H17.3z"/>
-<rect x="19.2" y="1.2" transform="matrix(0.7071 0.7071 -0.7071 0.7071 7.4914 -14.4647)" class="st0" width="4" height="1.1"/>
-<rect x="0.1" y="17.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 14.497 2.4484)" class="st0" width="8.5" height="2"/>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
-<path class="st0" d="M17.3,24c2-2.1,3.2-4.9,3.2-8c0-2.4-0.8-4.6-2-6.5l4.1-4.1l-4.9-4.9L5,13l1.1,1.1l-1.5,1.5l2.8,2.8l1.5-1.5
-    L10,18l5.6-5.6c0.6,1.1,0.9,2.3,0.9,3.6c0,4.4-3.8,8-8.5,8H0v4h28v-4H17.3z"/>
-<rect x="19.2" y="1.2" transform="matrix(0.7071 0.7071 -0.7071 0.7071 7.4914 -14.4647)" class="st0" width="4" height="1.1"/>
-<rect x="0.1" y="17.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 14.497 2.4484)" class="st0" width="8.5" height="2"/>
-</svg>
-");
-    }
-
-    &.media {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
-     viewBox='0 0 28 28' enable-background='new 0 0 28 28' xml:space='preserve'>
-<g>
-    <defs>
-        <rect id='SVGID_1_' width='28' height='28'/>
-    </defs>
-    <clipPath id='SVGID_2_'>
-        <use xlink:href='#SVGID_1_'  overflow='visible'/>
-    </clipPath>
-    <path clip-path='url(#SVGID_2_)' d='M21.586,0.224l-5.644,5.938c-0.458-0.148-0.948-0.231-1.458-0.231
-        c-0.341,0-0.673,0.04-0.995,0.107L7.901,0.161C7.707-0.044,7.379-0.055,7.169,0.136c-0.206,0.191-0.22,0.513-0.024,0.718
-        l5.279,5.648C11.396,6.999,10.586,8,10.159,9H0v19h22V9h-3.188c-0.373-1-1.037-1.776-1.881-2.289l5.413-5.746
-        c0.195-0.205,0.183-0.551-0.028-0.741C22.11,0.032,21.783,0.02,21.586,0.224 M18,25H3V12h15V25z M23,28h5V9h-5V28z'/>
-</g>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg id="mask" version='1.1'  xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
-     viewBox='0 0 28 28' enable-background='new 0 0 28 28' xml:space='preserve' fill="orange">
-<mask id="mask" maskUnits="objectBoundingBox" 
-  maskContentUnits="objectBoundingBox">
-    <path fill="red" d='M21.586,0.224l-5.644,5.938c-0.458-0.148-0.948-0.231-1.458-0.231
-        c-0.341,0-0.673,0.04-0.995,0.107L7.901,0.161C7.707-0.044,7.379-0.055,7.169,0.136c-0.206,0.191-0.22,0.513-0.024,0.718
-        l5.279,5.648C11.396,6.999,10.586,8,10.159,9H0v19h22V9h-3.188c-0.373-1-1.037-1.776-1.881-2.289l5.413-5.746
-        c0.195-0.205,0.183-0.551-0.028-0.741C22.11,0.032,21.783,0.02,21.586,0.224 M18,25H3V12h15V25z M23,28h5V9h-5V28z'/>
-    </mask>
-</svg>#mask");
-    }
-
-    &.business {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
-<rect y="22" class="st0" width="12" height="6"/>
-<path class="st0" d="M16,13.5c0-2.3,1.2-4.3,3.1-5.5H7.6C4.5,8,2,10.5,2,13.6V21h14V13.5z M5,19c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1
-    s1,0.4,1,1C6,18.6,5.6,19,5,19 M5,16c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1s1,0.4,1,1C6,15.6,5.6,16,5,16 M9,19c-0.6,0-1-0.4-1-1
-    c0-0.6,0.4-1,1-1c0.6,0,1,0.4,1,1C10,18.6,9.6,19,9,19 M9,16c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1c0.6,0,1,0.4,1,1C10,15.6,9.6,16,9,16
-     M13,19c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1c0.6,0,1,0.4,1,1C14,18.6,13.6,19,13,19 M13,16c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1
-    c0.6,0,1,0.4,1,1C14,15.6,13.6,16,13,16"/>
-<path class="st0" d="M23,0H8v7h15V0z M21,5H10V2h11V5z"/>
-<path class="st0" d="M24,0v8h-1.5c-3,0-5.5,2.5-5.5,5.5V22h-4v6h15V0H24z"/>
-</svg>
-");
-        clip-path: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
-<rect y="22" class="st0" width="12" height="6"/>
-<path class="st0" d="M16,13.5c0-2.3,1.2-4.3,3.1-5.5H7.6C4.5,8,2,10.5,2,13.6V21h14V13.5z M5,19c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1
-    s1,0.4,1,1C6,18.6,5.6,19,5,19 M5,16c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1s1,0.4,1,1C6,15.6,5.6,16,5,16 M9,19c-0.6,0-1-0.4-1-1
-    c0-0.6,0.4-1,1-1c0.6,0,1,0.4,1,1C10,18.6,9.6,19,9,19 M9,16c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1c0.6,0,1,0.4,1,1C10,15.6,9.6,16,9,16
-     M13,19c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1c0.6,0,1,0.4,1,1C14,18.6,13.6,19,13,19 M13,16c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1
-    c0.6,0,1,0.4,1,1C14,15.6,13.6,16,13,16"/>
-<path class="st0" d="M23,0H8v7h15V0z M21,5H10V2h11V5z"/>
-<path class="st0" d="M24,0v8h-1.5c-3,0-5.5,2.5-5.5,5.5V22h-4v6h15V0H24z"/>
-</svg>
-");
-    }
-
-    &.mic {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-    <path d="M-611,405c3.3,0,5.1-2.2,5.1-5v-8c0-2.8-1.8-5-5.1-5c-3.3,0-5,2.2-5,5v8C-616,402.8-614.3,405-611,405"/>
-    <path d="M-597,397h-5v-4h-2v7c0,3.9-2.6,7-7,7c-4.4,0-7-3.1-7-7v-7h-2v4h-5v2h5v1v0c0,4.6,3.5,8.4,8,8.9v3.1c-2.8,0.2-5.1,1.4-6,3
-        h14c-0.9-1.6-3.2-2.7-6-3v-3.1c4.5-0.5,8-4.3,8-8.9h0v-1h5V397z"/>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-    <path d="M-611,405c3.3,0,5.1-2.2,5.1-5v-8c0-2.8-1.8-5-5.1-5c-3.3,0-5,2.2-5,5v8C-616,402.8-614.3,405-611,405"/>
-    <path d="M-597,397h-5v-4h-2v7c0,3.9-2.6,7-7,7c-4.4,0-7-3.1-7-7v-7h-2v4h-5v2h5v1v0c0,4.6,3.5,8.4,8,8.9v3.1c-2.8,0.2-5.1,1.4-6,3
-        h14c-0.9-1.6-3.2-2.7-6-3v-3.1c4.5-0.5,8-4.3,8-8.9h0v-1h5V397z"/>
-</svg>
-");
-    }
-
-    &.megaphone {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
-<path d="M3.999,18L7,28h4.999L9,18H3.999z M26,16h2V8h-2V16z M0,17h13V7H0V17z M25,0L14,7v10l11,7V0z"/>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" enable-background="new 0 0 28 28" xml:space="preserve">
-<path d="M3.999,18L7,28h4.999L9,18H3.999z M26,16h2V8h-2V16z M0,17h13V7H0V17z M25,0L14,7v10l11,7V0z"/>
-</svg>
-");
-    }
-
-    &.headphones {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-<path id="headphones" d="M-618,399c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2c1.1,0,2-0.9,2-2v-12C-616,399.9-616.9,399-618,399
-     M-599,403v-9c0-0.1-0.1-7-9-7h-6c-8.9,0-9,6.9-9,7v9c-1.2,0.9-2,2.3-2,4c0,2.4,1.7,4.4,4,4.9V394c0-0.2,0.1-5,7-5h6
-    c6.7,0,7,4.5,7,5v17.9c2.3-0.5,4-2.5,4-4.9C-597,405.4-597.8,403.9-599,403 M-604,399c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2
-    c1.1,0,2-0.9,2-2v-12C-602,399.9-602.9,399-604,399"/>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="-625 387 28 28" style="enable-background:new -625 387 28 28;" xml:space="preserve">
-<path id="headphones" d="M-618,399c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2c1.1,0,2-0.9,2-2v-12C-616,399.9-616.9,399-618,399
-     M-599,403v-9c0-0.1-0.1-7-9-7h-6c-8.9,0-9,6.9-9,7v9c-1.2,0.9-2,2.3-2,4c0,2.4,1.7,4.4,4,4.9V394c0-0.2,0.1-5,7-5h6
-    c6.7,0,7,4.5,7,5v17.9c2.3-0.5,4-2.5,4-4.9C-597,405.4-597.8,403.9-599,403 M-604,399c-1.1,0-2,0.9-2,2v12c0,1.1,0.9,2,2,2
-    c1.1,0,2-0.9,2-2v-12C-602,399.9-602.9,399-604,399"/>
-</svg>
-");
-    }
-
-    &.down-arrow {
-        -webkit-mask-image: url("data:image/svg xml;utf8,<svg version="1.1" id="down-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
-<polygon points="14,28 0,14 2,12 14,24 26,12 28,14 "/>
-</svg>
-");
-        mask: url("data:image/svg xml;utf8,<svg version="1.1" id="down-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-     viewBox="0 0 28 28" style="enable-background:new 0 0 28 28;" xml:space="preserve">
-<polygon points="14,28 0,14 2,12 14,24 26,12 28,14 "/>
-</svg>
-");
-    }
+    &.politics   { @include clip-path(politics) };
+    &.tech       { @include clip-path(tech) };
+    &.arts       { @include clip-path(arts) };
+    &.science    { @include clip-path(science) };
+    &.media      { @include clip-path(media) };
+    &.business   { @include clip-path(business) };
+    &.mic        { @include clip-path(mic) };
+    &.megaphone  { @include clip-path(megaphone) };
+    &.headphones { @include clip-path(headphones) };
+    &.down-arrow { @include clip-path(down-arrow) };
 }
