@@ -15,8 +15,9 @@ class RootController < BaseController
           {image: 'webinale', category: 'Conference',url: '/users/webinale-conference'},
           {image: 'wilpf', category: 'Foundation',url: '/users/emma-burgisser'}
         ]
-        @talks_featured = Talk.featured.limit(4)
+        @talks_live = Talk.publicly_live.limit(4)
         @talks_popular  = Talk.popular.limit(12)
+        @talks_featured = Talk.featured
         @categories     = TagBundle.promoted.category.as_options
       end
       format.rss do

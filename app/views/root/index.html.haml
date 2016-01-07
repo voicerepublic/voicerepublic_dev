@@ -50,71 +50,14 @@
   %section#coming-up.blue
     .row
       .container
-        %h2 Coming Up Live
+        %h2= t('.coming_up_live')
       #talk-collection
-        .talk-card
-          .talk-card-inside
-            %h5.title Der Deichgraf Peter Lafrenz
-            .image-box
-              %img{:alt => "", :src => "img/thumbs-cropped/thumb8.jpg"}/
-              .hover-info
-                %p.speaker
-                  Sprecher/In:
-                  %a{:href => "profile.html"} Patrick Frank
-            .bottom-info
-              .icon.politics
-              .info-right
-                %p.date 19:00 today
-                %a{:href => "profile.html"}
-                  %p.publisher Henrik Lafrenz
-        .talk-card
-          .talk-card-inside
-            %h5.title Playful Oasis - An indie collective story
-            .image-box
-              %img{:alt => "", :src => "img/thumbs-cropped/thumb9.jpg"}/
-              .hover-info
-                %p.speaker
-                  Sprecher/In:
-                  %a{:href => "profile.html"} Patrick Frank
-            .bottom-info
-              .icon.politics
-              .info-right
-                %p.date 19:00 today
-                %a{:href => "profile.html"}
-                  %p.publisher Respawn
-        .talk-card
-          .talk-card-inside
-            %h5.title Fast Forward Africa - A Digital Movement moderated by Thorsten S. Wiedemann, Founder and Artistic Director of A MAZE.
-            .image-box
-              %img{:alt => "", :src => "img/thumbs-cropped/thumb9.jpg"}/
-              .hover-info
-                %p.speaker
-                  Sprecher/In:
-                  %a{:href => "profile.html"} Patrick Frank
-            .bottom-info
-              .icon.science
-              .info-right
-                %p.date 19:00 today
-                %a{:href => "profile.html"}
-                  %p.publisher Respawn
-        .talk-card
-          .talk-card-inside
-            %h5.title Der Deichgraf Peter Lafrenz
-            .image-box
-              %img{:alt => "", :src => "img/thumbs-cropped/thumb9.jpg"}/
-              .hover-info
-                %p.speaker
-                  Sprecher/In:
-                  %a{:href => "profile.html"} Patrick Frank
-            .bottom-info
-              .icon.arts
-              .info-right
-                %p.date 19:00 today
-                %a{:href => "profile.html"}
-                  %p.publisher Henrik Lafrenz
+        - @talks_featured.each do |talk|
+          = render partial: 'shared/talk_card', locals: { talk: talk }
     .row
+      -# TODO: Fix this path
       %a{:href => "#"}
-        %button More »
+        %button= t('.more')
   %section#categories.yellow
     .row
       .container
