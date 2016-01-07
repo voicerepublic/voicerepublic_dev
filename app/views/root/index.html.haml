@@ -10,10 +10,9 @@
         %p.lead
           = t('.lead')
           - @categories.each do |label, value, icon|
-            -# XXX: Is `succeed` a good idea?
-            = succeed "," do
-              -# TODO: Link to explore page filter  
-              %a{:href => "explore.html"}= label
+            - delim = (label == @categories.last.first) ? '.' : ','
+            = succeed delim do
+              = link_to label, explore_path(filter: {category: value})
         .claim-cta-half
           -# TODO: Link to pages in CMS
           -#   %a{:href => "publish.html"}
@@ -34,14 +33,13 @@
             - @talks_featured.each do |talk|
               = render partial: 'shared/talk_card', locals: { talk: talk }
 
-                  
+
       .listen-interstitial
         %p.lead= t('.lead_interstitial')
         .category-buttons
           - @categories.each do |label, value, icon|
-            -# TODO: Link to explore page filter  
-            = link_to content_tag(:span, label, class: ['icon', icon]),
-                     '#', class: 'button'
+            = link_to content_tag(:span, nil, class: ['icon', icon]) + label,
+                explore_path(filter: {category: value}), class: 'button'
       #talk-collection
         .talk-card
           .talk-card-inside
