@@ -1,0 +1,22 @@
+.talk-card
+  .talk-card-inside
+    %h5.title= talk.title
+    %p.meta
+      %span.running-time= talk.duration
+      %span.play-count= human_count(talk.play_count) + t('.plays')
+    .image-box
+      -# TODO: Ask Nick what the real size should be
+      = image_tag talk.image.url
+      .hover-info
+        %p.speaker
+          = t('.speaker')
+          = talk.speakers
+    .bottom-info
+      .icon.politics
+      .info-right
+        %p.date
+          = t('.published')
+          %strong= time_ago_in_words(talk.starts_at)
+          = t('.ago_by')
+        = link_to user_path(talk.user) do
+          = talk.user.name

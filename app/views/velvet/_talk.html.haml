@@ -15,6 +15,6 @@
             = time_ago_in_words(talk.starts_at)
             = t('.ago')
             = image_tag '/images/icons/play-arrow-999.svg', width: "8", class: "play-arrow"
-            = number_to_human(talk.play_count, units: {thousand:"k", million:"M"}, precision: 0)
+            = human_count(talk.play_count)
       %h3.title
         = link_to talk.title, talk, class: 'text-link'
