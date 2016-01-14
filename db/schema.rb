@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203124427) do
+ActiveRecord::Schema.define(version: 20160114082234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(version: 20151203124427) do
     t.text     "description_en"
     t.text     "description_de"
     t.boolean  "promoted",       default: false
+    t.string   "icon"
   end
 
   add_index "tag_bundles", ["group"], name: "index_tag_bundles_on_group", using: :btree
@@ -294,6 +295,7 @@ ActiveRecord::Schema.define(version: 20151203124427) do
     t.text     "description_as_html"
     t.string   "slides_uuid"
     t.integer  "venue_id"
+    t.string   "icon"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
