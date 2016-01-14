@@ -19,9 +19,6 @@
     %link{href: "/assets/stylesheets/animate.min.css", rel: "stylesheet", type: "text/css"}/
     %link{href: "/assets/stylesheets/app.css", rel: "stylesheet", type: "text/css"}/
     %link{href: "/assets/stylesheets/app_override.css", rel: "stylesheet", type: "text/css"}/
-    %script{:src => "assets/javascripts/libraries.min.js"}
-    -#%script{:src => "assets/javascripts/foundation.min.js"}
-    %script{:src => "assets/javascripts/app.min.js"}
 
     %link{href: "/images/apple-touch-icon.png", rel: "apple-touch-icon"}/
     %link{href: "/images/apple-touch-icon-72x72.png", rel: "apple-touch-icon", sizes: "72x72"}/
@@ -67,11 +64,11 @@
             %li#search-loupe.can-hide
               = link_to icon_tag('search'), '#'
           .search-container.hide
-            %form
+            = form_tag search_path do
               %label
                 = icon_tag('search')
-              %input#search-field.search{:placeholder => t('.search_placeholder'), :type => "text", :value => ""}/
-            %button#search-close.close-button{:type => "button"}
+              %input#search-field.search{placeholder: t('.search_placeholder'), type: "text", name: 'query' }/
+            %button#search-close.close-button{type: "button"}
               %span{"aria-hidden" => "true"} ×
 
     = render 'shared/notice_or_error_velvet'
@@ -79,7 +76,12 @@
     = render 'shared/footer_velvet'
 
     #scripts
-      = javascript_include_tag "velvet"
+      -#= javascript_include_tag "velvet"
+      %script{:src => "assets/javascripts/libraries.min.js"}
+      %script{:src => "assets/javascripts/foundation.min.js"}
+      %script{:src => "assets/javascripts/app.js"}
+      %script{:src => "assets/javascripts/explore.js"}
+      %script{:src => "assets/javascripts/topbar.js"}
       - if Rails.env.production?
         - unless @current_user.try(:insider?)
           = render 'shared/google_analytics'
