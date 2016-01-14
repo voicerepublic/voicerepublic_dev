@@ -377,6 +377,14 @@ class Talk < ActiveRecord::Base
     venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
 
+  # Used by FluxCapacitor to remember visitors during a live talk
+  def add_listener!(session_id)
+    self.listeners[session_id] ||= Time.now.to_i
+    # TODO write with locking
+    self.save
+  end
+
+
   class << self
     # returns a list of key name pairs of languages in order of prevalence
     def available_languages
@@ -564,8 +572,8 @@ class Talk < ActiveRecord::Base
         %x[ #{cmd} ]
         # upload ogg to s3
         key = uri + "/" + ogg
-        logfile.puts "#R# s3cmd put #{ogg} to s3://media_storage.key/#{key}"
-        upload_file(key, file)
+        logfile.puts "#R# s3cmd put #{ogg} to s3://#{media_storage.key}/#{key}"
+        upload_file(key, ogg)
         # store reference
         s3_path = "s3://#{media_storage.key}/#{key}"
         update_attribute :recording_override, s3_path

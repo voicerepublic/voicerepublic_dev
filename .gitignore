@@ -1,3 +1,5 @@
+# -*- mode: gitignore; -*-
+
 /.bundle
 /.rspec
 /vendor/bundle
@@ -40,7 +42,6 @@ config/environments/*.local.yml
 local/
 .*.swo
 /public/sitemap.xml
-# -*- mode: gitignore; -*-
 
 #########################
 # Emacs temporary files #
@@ -57,3 +58,6 @@ local/
 ._*
 .Trashes
 Thumbs.db
+
+/bower_components/
+/vendor/assets/bower_components/

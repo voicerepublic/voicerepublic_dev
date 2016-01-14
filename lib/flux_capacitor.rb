@@ -39,10 +39,9 @@ class FluxCapacitor
           talk_id = msg['talk_id']
           # TODO: We can skip persisting and publishing this information
           # when the listener is already known
-          if talk = Talk.find_by(id: talk_id)
-            talk.listeners[msg['session']] ||= Time.now.to_i
-            # TODO write with locking
-            talk.save
+          talk = Talk.find_by(id: talk_id)
+          if talk.try(:live?)
+            talk.add_listener! msg['session']
             client.publish(talk.public_channel, { type: 'listeners',
                                                   listeners: talk.listeners.size })
             print 'l'

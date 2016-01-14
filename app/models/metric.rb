@@ -77,11 +77,11 @@ class Metric < ActiveRecord::Base
     end
 
     def active_users_total
-      User.where("last_sign_in_at > ?", 14.days.ago).count
+      User.where("last_sign_in_at > ?", 14.days.ago).reject(&:insider?).count
     end
 
     def active_users_last_30_days_total
-      User.where("last_sign_in_at > ?", 30.days.ago).count
+      User.where("last_sign_in_at > ?", 30.days.ago).reject(&:insider?).count
     end
 
     def paying_users_total
@@ -98,7 +98,7 @@ class Metric < ActiveRecord::Base
     end
 
     def series_nondefault_total # FIXME
-      Series.where('id NOT IN (?)', User.pluck(:default_series_id)).count
+      Series.where.not(id: User.pluck(:default_series_id)).count
     end
 
     def series_top_penalty
@@ -164,6 +164,15 @@ class Metric < ActiveRecord::Base
 
     def socialshares_email_total
       SocialShare.where(social_network: 'mail').count
+    end
+
+    # This can certainly be improved performance wise, however this
+    # currently 'only' takes seconds on Live which I deem reasonable
+    # for a daily metrics snapshot. The next simplest option would
+    # probably be to do some warehousing on this metric per talk when
+    # adding a new listener.
+    def live_listeners_total
+      Talk.pluck(:listeners).collect { |l| l.count }.sum
     end
 
     # Metrics (yes, this is pretty meta)
