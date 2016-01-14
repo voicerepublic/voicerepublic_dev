@@ -2845,9 +2845,7 @@ button {
     margin-bottom: 48px; }
   .root-index #claim {
     text-align: center;
-    padding-bottom: 96px;
-    background: url(../img/bg/coney.jpg) no-repeat 50% 50%;
-    background-size: cover; }
+    padding-bottom: 96px; }
     @media screen and (min-width: 40em) {
       .root-index #claim {
         padding-top: 162px; } }
