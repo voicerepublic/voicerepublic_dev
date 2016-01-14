@@ -1,5 +1,10 @@
 module ApplicationHelper
 
+  def icon_tag(topic)
+    "<div class='svg-icon'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
+  end
+
+
   def test_talk_path
     new_talk_path talk: { dryrun: true }
   end

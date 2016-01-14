@@ -37,7 +37,7 @@
         %p.lead= t('.lead_interstitial')
         .category-buttons
           - @categories.each do |label, value, icon|
-            = link_to content_tag(:span, nil, class: ['icon', icon]) + label,
+            = link_to icon_tag(icon) + label,
                 explore_path(filter: {category: value}), class: 'button'
 
       #talk-collection

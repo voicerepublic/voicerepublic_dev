@@ -1,6 +1,7 @@
 class ExploreController < ApplicationController
 
   LIMIT = 12
+  layout 'velvet'
 
   def index
     @formats    = TagBundle.format.as_options

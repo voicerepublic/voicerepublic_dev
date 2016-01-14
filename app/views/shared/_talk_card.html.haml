@@ -1,3 +1,4 @@
+- talk ||= talk_card
 .talk-card
   .talk-card-inside
     %h5.title= talk.title
@@ -5,14 +6,13 @@
       %span.running-time= talk.duration
       %span.play-count= human_count(talk.play_count) + t('.plays')
     .image-box
-      -# TODO: Ask Nick what the real size should be
       = image_tag talk.image.thumb("600x338#").url
       .hover-info
         %p.speaker
           = t('.speaker')
           = talk.speakers
     .bottom-info
-      .icon.politics
+      = icon_tag "politics"
       .info-right
         %p.date
           = t('.published')
