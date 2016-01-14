@@ -4,10 +4,10 @@ case $1 in
     config)
         echo 'graph_title Raindrops'
         echo 'graph_vlabel Dispatchers/Clients'
-        curl -s -k https://localhost/_raindrops | \
+        curl -u staging:oph5lohb -s -k https://localhost/_raindrops | \
           sed 'y/.\/ /__-/' | sed 's/\(.*\):-.*/\1.label \1/' | grep -v writing
     ;;
     *)
-        curl -s -k https://localhost/_raindrops | \
+        curl -u staging:oph5lohb -s -k https://localhost/_raindrops | \
           sed 'y/.\/ /__-/' | sed 's/:-/.value /' | grep -v writing
 esac
