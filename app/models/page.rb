@@ -26,13 +26,9 @@ class Page < ActiveRecord::Base
     super
   end
 
-  def title_en
-    title['en']
-  end
-
   # this codebase will never have to generate slugs!
   def slug_candidates
-    [ :title_en ]
+    [ :initial_title ]
   end
 
 end
