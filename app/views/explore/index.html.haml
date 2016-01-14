@@ -9,9 +9,10 @@
       .filters
         .category-buttons
           - @categories.each do |label, value, icon|
-            = f.radio_button :category, value
-            = f.label label
-            %span.icon{:class => icon}
+            .cat-btn
+              = f.label label
+                .radio_button :category, value
+                %span.icon{:class => icon}
         = f.select :language, @languages, prompt: t('.language')
       #results
         #results-grid
