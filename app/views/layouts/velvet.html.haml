@@ -61,16 +61,15 @@
             %li.can-hide
               %a{:href => "publish.html"}= t('.publish')
             %li.sign-in.can-hide
-              = link_to t('.login'), new_user_session_path 
+              = link_to t('.login'), new_user_session_path
             %li.join.can-hide
               = link_to t('.sign_up'), new_user_registration_path
             %li#search-loupe.can-hide
-              %a{:href => "#"}
-                %span.icon-uniE7E9
+              = link_to icon_tag('search'), '#'
           .search-container.hide
             %form
               %label
-                %span.icon-uniE7E9
+                = icon_tag('search')
               %input#search-field.search{:placeholder => t('.search_placeholder'), :type => "text", :value => ""}/
             %button#search-close.close-button{:type => "button"}
               %span{"aria-hidden" => "true"} ×
@@ -86,4 +85,3 @@
           = render 'shared/google_analytics'
         = render 'shared/tawk'
       = yield :javascript
-

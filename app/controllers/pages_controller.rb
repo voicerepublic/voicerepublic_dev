@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  #layout 'velvet'
+  layout 'velvet'
 
   def show
     @page = Page.find(params[:id])
