@@ -8,6 +8,7 @@ class TagBundle < ActiveRecord::Base
 
   scope :standalone, -> { where(group: nil) }
   scope :promoted, -> { where(promoted: true) }
+  scope :as_options, -> { pluck("title_#{I18n.locale}", :id, :icon) }
 
   acts_as_taggable
 
