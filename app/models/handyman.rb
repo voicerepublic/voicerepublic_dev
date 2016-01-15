@@ -18,11 +18,11 @@ class Handyman
 
     def talk_set_icon
       log '-> Check for missing icons...'
-      query = Talk.where(icon: nil)
+      query = Talk.where(icon: 'default')
       total = query.count
       return unless total > 0
 
-      log 'Found %s talks with missing icon.' % total
+      log 'Found %s talks with default icon.' % total
       query.each_with_index do |talk, idx|
         log '%s/%s Setting icon for talk %s.' %
             [ idx+1, total, talk.id ]
