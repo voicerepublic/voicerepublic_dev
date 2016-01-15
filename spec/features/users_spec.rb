@@ -34,8 +34,8 @@ feature "User edits own profile" do
     @user = FactoryGirl.create(:user, password: '123456',
                                password_confirmation: '123456')
     visit root_path
-    expect(page).to have_css('.mobile-nav')
-    within('.mobile-nav') { click_link('Sign In') }
+    expect(page).to have_css('.top-bar')
+    within('.top-bar') { click_link('Login') }
     page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.find('.button-login').click

@@ -2845,9 +2845,7 @@ button {
     margin-bottom: 48px; }
   .root-index #claim {
     text-align: center;
-    padding-bottom: 96px;
-    background: url(../img/bg/coney.jpg) no-repeat 50% 50%;
-    background-size: cover; }
+    padding-bottom: 96px; }
     @media screen and (min-width: 40em) {
       .root-index #claim {
         padding-top: 162px; } }
@@ -3157,6 +3155,69 @@ button {
     border-color: #e1e2e7; }
   .explore-index #main .filters {
     padding: 48px 20px 12px 20px; }
+
+.category-buttons {
+  padding: 0; }
+  .category-buttons svg {
+    max-width: 36px;
+    max-height: 36px;
+    fill: #a339cd;
+    margin: 12px 0; }
+  .category-buttons li {
+    background: none;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    width: calc(100%/7); }
+  .category-buttons label {
+    display: block;
+    background: #ffed00;
+    padding: 12px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: background .2s ease; }
+    .category-buttons label:hover {
+      background: orange; }
+    .category-buttons label.selected {
+      background: #a339cd; }
+      .category-buttons label.selected svg {
+        fill: #ffed00; }
+      .category-buttons label.selected p {
+        color: #ffed00; }
+    .category-buttons label p {
+      text-transform: uppercase;
+      color: #a339cd;
+      font-size: 0.75rem;
+      font-weight: 500; }
+  .category-buttons input[type="radio"] {
+    opacity: .01;
+    z-index: 100;
+    margin: 0; }
+  .category-buttons h5 {
+    z-index: 500; }
+  .category-buttons [type="radio"] {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px; }
+  .category-buttons [type="radio"] + label::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0; }
+  .category-buttons [type="radio"]:checked + label::before {
+    background: rgba(255, 165, 0, 0.6); }
+  .category-buttons [type="radio"]:focus + label {
+    border: 2px solid green; }
 
 #loading-animation {
   margin-top: 12px;
