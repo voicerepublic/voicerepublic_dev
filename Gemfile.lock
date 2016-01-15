@@ -92,9 +92,9 @@ GEM
     acts-as-taggable-on (3.4.2)
       activerecord (>= 3.2, < 5)
     addressable (2.3.8)
-    airbrake (3.1.15)
-      builder
-      multi_json
+    airbrake (5.0.2)
+      airbrake-ruby (~> 1.0)
+    airbrake-ruby (1.0.2)
     amq-protocol (1.9.2)
     angularjs-file-upload-rails (1.1.0)
     annotator (0.0.10)
@@ -550,7 +550,7 @@ PLATFORMS
 DEPENDENCIES
   activemerchant
   acts-as-taggable-on (= 3.4.2)
-  airbrake
+  airbrake (~> 5.0)
   angularjs-file-upload-rails (~> 1.1.0)
   annotator
   better_errors
