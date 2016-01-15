@@ -17,7 +17,7 @@ class Handyman
   class Tasks
 
     def talk_set_icon
-      log '-> Check for missing icons...'
+      log '-> Check for default icons...'
       query = Talk.where(icon: 'default')
       total = query.count
       return unless total > 0
