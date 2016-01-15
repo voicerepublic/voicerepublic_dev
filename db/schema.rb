@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106161936) do
+ActiveRecord::Schema.define(version: 20160114082234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.string   "uri",                 limit: 255
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
-    t.text     "description_as_html",             default: ""
+    t.text     "description_as_html"
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -277,7 +277,7 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.string   "starts_at_date",      limit: 255
     t.string   "starts_at_time",      limit: 255
     t.string   "uri",                 limit: 255
-    t.string   "recording_override",  limit: 255
+    t.text     "recording_override"
     t.integer  "related_talk_id"
     t.text     "storage",                         default: "--- {}\n"
     t.string   "grade",               limit: 255
@@ -291,9 +291,11 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.boolean  "dryrun",                          default: false
     t.text     "social_links",                    default: "--- []"
     t.text     "listeners",                       default: "--- {}"
-    t.text     "description_as_html",             default: ""
+    t.string   "slides_uid"
+    t.text     "description_as_html"
     t.string   "slides_uuid"
     t.integer  "venue_id"
+    t.string   "icon"
   end
 
   add_index "talks", ["grade"], name: "index_talks_on_grade", using: :btree
@@ -356,7 +358,7 @@ ActiveRecord::Schema.define(version: 20160106161936) do
     t.integer  "credits",                            default: 0
     t.integer  "purchases_count",                    default: 0
     t.string   "referrer"
-    t.text     "about_as_html",                      default: ""
+    t.text     "about_as_html"
     t.boolean  "paying",                             default: false
     t.string   "publisher_type"
     t.datetime "featured_from"

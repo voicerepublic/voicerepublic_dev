@@ -129,6 +129,7 @@ class Talk < ActiveRecord::Base
   before_save :set_popularity, if: :archived?
   before_save :set_description_as_html, if: :description_changed?
   before_save :set_venue
+  before_save :set_icon, if: :tag_list_changed?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -446,6 +447,11 @@ class Talk < ActiveRecord::Base
   def set_venue
     self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
     self.venue ||= user.venues.find_or_create_by(name: venue_name.strip)
+  end
+
+  def set_icon
+    icon = TagBundle.tagged_with(tags).first.try(:icon)
+    self.icon = icon || 'default'
   end
 
   def notify_participants

@@ -16,6 +16,21 @@ class Handyman
 
   class Tasks
 
+    def talk_set_icon
+      log '-> Check for missing icons...'
+      query = Talk.where(icon: nil)
+      total = query.count
+      return unless total > 0
+
+      log 'Found %s talks with missing icon.' % total
+      query.each_with_index do |talk, idx|
+        log '%s/%s Setting icon for talk %s.' %
+            [ idx+1, total, talk.id ]
+        talk.send(:set_icon)
+        talk.save!
+      end
+    end
+
     def user_create_default_venue
       log '-> Check for missing venue on talks...'
       query = Talk.where(venue_id: nil)
