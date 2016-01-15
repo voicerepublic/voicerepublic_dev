@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
 
   post '/search',              to: 'search#create'
+  get  '/search/:page/',       to: redirect('explore') # empty search
   get  '/search/:page/*query', to: 'search#show'
 
   # this looks fancy, i know, but what it basically provides
