@@ -7,15 +7,17 @@ class TagBundle < ActiveRecord::Base
   end
 
   scope :standalone, -> { where(group: nil) }
-
-  scope :as_options, -> { pluck("title_#{I18n.locale}", :id, :icon) }
-
   scope :promoted, -> { where(promoted: true) }
 
   acts_as_taggable
 
+  # poor man's globalize
   def title
-  	send "title_#{I18n.locale}"
+  	send("title_#{I18n.locale}")
+  end
+
+  def description
+  	send("description_#{I18n.locale}")
   end
 
 end

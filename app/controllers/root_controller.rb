@@ -5,25 +5,30 @@ class RootController < BaseController
   def index
     respond_to do |format|
       format.html do
-        @publishers = [
-          {image: 'eth', category: 'Academic', url: '/users/zentrum-geschichte-des-wissens-eth-universitat-zurich'},
-          {image: 'amaze', category: 'Conference', url: '/users/a-maze'},
-          {image: 'courage', category: 'Foundation',url: '/users/courage-foundation'},
-          {image: 'ferien', category: 'Conference',url: '/users/internationale-ferienkurse'},
-          {image: 'republica', category: 'Conference',url: '/users/re-publica'},
-          {image: 'things', category: 'Conference',url: '/users/internet-of-things-conference'},
-          {image: 'webinale', category: 'Conference',url: '/users/webinale-conference'},
-          {image: 'wilpf', category: 'Foundation',url: '/users/emma-burgisser'}
-        ]
-        @talks_live = Talk.publicly_live.limit(4)
-        @talks_popular  = Talk.popular.limit(12)
-        @talks_featured = Talk.featured
-        @categories     = TagBundle.promoted.category.as_options
+        @categories = TagBundle.promoted.category
+
+        talks = Talk.publicly_live.limit(12)
+        more = 12 - talks.count
+        talks += Talk.recent.limit(more) if more > 0
+        @talks_listen_now = talks
+
+        @talks_popular = Talk.popular.limit(12)
+        @publishers = load_publishers
+        @talks_upcoming = Talk.scheduled_featured.limit(12)
       end
       format.rss do
         @podcast = OpenStruct.new(talks: Talk.recent.limit(10))
       end
       format.xml
+    end
+  end
+
+  private
+
+  def load_publishers
+    path = Rails.root.join(*%w(config publishers.yml))
+    YAML.load(File.read(path)).map do |pub|
+      OpenStruct.new(pub)
     end
   end
 
