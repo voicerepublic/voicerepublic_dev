@@ -1334,7 +1334,7 @@ kbd {
   text-align: justify; }
 
 @media screen and (min-width: 40em) {
-  .medium-text-left {
+  .medium-text-left, footer ul {
     text-align: left; }
   .medium-text-right {
     text-align: right; }
@@ -2062,11 +2062,11 @@ select {
   left: auto;
   right: 0; }
 
-.is-dropdown-menu.vertical, footer ul.is-dropdown-menu {
+.is-dropdown-menu.vertical {
   width: 100px; }
-  .is-dropdown-menu.vertical.align-right, footer ul.is-dropdown-menu.align-right {
+  .is-dropdown-menu.vertical.align-right {
     float: right; }
-  .is-dropdown-menu.vertical > li .submenu, footer ul.is-dropdown-menu > li .submenu {
+  .is-dropdown-menu.vertical > li .submenu {
     top: 0;
     left: 100%; }
 
@@ -2120,7 +2120,7 @@ select {
     margin-right: 0.25rem; }
   .menu > li {
     display: table-cell; }
-  .menu.vertical > li, footer ul.menu > li {
+  .menu.vertical > li {
     display: block; }
   @media screen and (min-width: 40em) {
     .menu.medium-horizontal > li {
@@ -2292,7 +2292,7 @@ body.is-reveal-open {
     padding: 0; }
     .tabs.simple > li > a:hover {
       background: transparent; }
-  .tabs.vertical > li, footer ul.tabs > li {
+  .tabs.vertical > li {
     width: auto;
     float: none;
     display: block; }
@@ -2321,7 +2321,7 @@ body.is-reveal-open {
   transition: all 0.5s ease;
   border: 1px solid #e1e2e7;
   border-top: 0; }
-  .tabs-content.vertical, footer ul.tabs-content {
+  .tabs-content.vertical {
     border: 1px solid #e1e2e7;
     border-left: 0; }
 
@@ -2927,6 +2927,10 @@ button {
     margin-bottom: 60px; }
   .root-index #categories #talk-collection .category {
     padding: 48px 24px; }
+    .root-index #categories #talk-collection .category a {
+      color: #a339cd; }
+    .root-index #categories #talk-collection .category a svg {
+      fill: #a339cd; }
     .root-index #categories #talk-collection .category *:hover > * {
       text-decoration: none; }
     .root-index #categories #talk-collection .category *:hover > h3 {
@@ -3283,8 +3287,13 @@ footer {
   padding-bottom: 12px;
   background: #29292b;
   color: #FAFAFA; }
+  footer hr {
+    max-width: 300px;
+    margin-bottom: 60px;
+    border-bottom: 1px solid #ffed00;
+    outline: 0; }
   footer h3 {
-    margin-bottom: 60px; }
+    margin-bottom: 24px; }
   footer .lead {
     font-size: 0.875rem;
     color: #fef1de; }
@@ -3302,6 +3311,8 @@ footer {
     footer ul li a {
       padding: 0;
       padding-bottom: 12px; }
+  footer .about {
+    padding-top: 19px; }
 
 .copyright {
   color: #fef1de;
@@ -3310,9 +3321,9 @@ footer {
 
 #footer-social-links {
   font-size: 2.25rem;
-  margin-bottom: 84px;
+  margin-bottom: 48px;
   padding-top: 48px;
-  padding-left: 24px; }
+  padding-left: 0; }
   #footer-social-links a {
     font-size: 1.5rem;
     margin-right: 24px; }
