@@ -3395,7 +3395,8 @@ footer {
     font-size: 1.125rem;
     width: 24px;
     float: left;
-    padding-top: 7px; }
+    padding-top: 7px;
+    margin-left: -30px; }
     .search-container form label .svg-icon {
       height: 6px; }
       .search-container form label .svg-icon svg {
