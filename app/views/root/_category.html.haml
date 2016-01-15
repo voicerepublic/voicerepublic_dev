@@ -1,0 +1,5 @@
+.category{"data-equalizer-watch" => ""}
+  = link_to explore_path(filter: { category: category.id }) do
+    = icon_tag(category.icon)
+    %h3= category.title
+    %p.lead= category.description

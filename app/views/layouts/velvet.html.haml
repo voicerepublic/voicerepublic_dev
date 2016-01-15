@@ -44,14 +44,15 @@
               %a{:href => "#"}= t('.listen')
               %ul.submenu.menu.vertical{"data-submenu" => ""}
                 %li.drop-title= t('.categories')
-                - @categories.each do |label, value, icon|
+                - TagBundle.category.promoted.each do |category|
                   %li
-                    %a{:href => "#"}= label
+                    = link_to explore_path(filter: {category: category.id}) do
+                      = category.title
                 %li.divider
                 -# TODO
                 -# %li= link_to t('.listen'), page_path('listen')
                 %li
-                  %a{:href => "explore.html"}= t('.explore')
+                  = link_to t('.explore'), explore_path
             -# TODO
             -# %li.can-hide= link_to t('.publish'), page_path('publish')
             %li.sign-in.can-hide

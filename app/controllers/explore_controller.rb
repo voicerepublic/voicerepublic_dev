@@ -9,7 +9,7 @@ class ExploreController < ApplicationController
     @categories = TagBundle.category
     @languages  = Talk.available_languages.invert
     @all_categories = OpenStruct.new({
-      id: nil,
+      id: '',
       icon:'default',
       title: I18n.t('all_categories')
     })

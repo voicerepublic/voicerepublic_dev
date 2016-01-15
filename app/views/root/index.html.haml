@@ -9,10 +9,10 @@
       .container
         %p.lead
           = t('.lead')
-          - @categories.each do |label, value, icon|
-            - delim = (label == @categories.last.first) ? '.' : ','
+          - @categories.each do |cat|
+            - delim = (cat == @categories.last) ? '.' : ','
             = succeed delim do
-              = link_to label, explore_path(filter: {category: value})
+              = link_to cat.title, explore_path(filter: {category: cat.id})
         .claim-cta-half
           -# TODO: Link to pages in CMS
           -#   %a{:href => "publish.html"}
@@ -28,21 +28,19 @@
   %section#listen-now.light
     .row
       %h2= t('.listen_now')
-      - unless @talks_featured.empty?
+      - unless @talks_listen_now.empty?
         #talk-teasers
-          - @talks_featured.each do |talk|
-            = render partial: 'shared/talk_card', locals: { talk: talk }
+          = render partial: 'shared/talk_card', collection: @talks_listen_now
 
       .listen-interstitial
         %p.lead= t('.lead_interstitial')
         .category-buttons
-          - @categories.each do |label, value, icon|
-            = link_to icon_tag(icon) + label,
-                explore_path(filter: {category: value}), class: 'button'
+          - @categories.each do |cat|
+            = link_to icon_tag(cat.icon) + cat.title,
+                explore_path(filter: {category: cat.id}), class: 'button'
 
       #talk-collection
-        - @talks_popular.each do |talk|
-          = render partial: 'shared/talk_card', locals: { talk: talk }
+        = render partial: 'shared/talk_card', collection: @talks_popular
       .row
         = link_to explore_path do
           %button= t('.more_talks')
@@ -52,47 +50,18 @@
       .container
         %h2= t('.coming_up_live')
       #talk-collection
-        - @talks_featured.each do |talk|
-          = render partial: 'shared/talk_card', locals: { talk: talk }
+        = render partial: 'shared/talk_card', collection: @talks_upcoming
     .row
-      -# TODO: Fix this path
-      %a{:href => "#"}
+      = link_to explore_path do
         %button= t('.more')
+
   %section#categories.yellow
     .row
       .container
         %h2 Categories
       #talk-collection{"data-equalizer" => ""}
-        .category{"data-equalizer-watch" => ""}
-          %a{:href => "explore.html"}
-            .icon.politics
-            %h3 Politics &amp; Society
-            %p.lead Red-hot political topics and discussions about our society in the audio live stream or the archive. Listen to people who have a say.
-        .category{"data-equalizer-watch" => ""}
-          %a{:href => "explore.html"}
-            .icon.science
-            %h3 Sciences
-            %p.lead Scientific lectures, panels and conferences in our virtual auditorium – listen live or download as podcast.
-        .category{"data-equalizer-watch" => ""}
-          %a{:href => "explore.html"}
-            .icon.arts
-            %h3 Arts &amp; Culture
-            %p.lead News from the cultural scene, streamed live and made available in the audio archive. We let artists, critics and curators speak out.
-        .category{"data-equalizer-watch" => ""}
-          %a{:href => "explore.html"}
-            .icon.tech
-            %h3 Technology
-            %p.lead Not only for geeks: technological progress concerns all of us. Listen to live streams or download the podcasts.
-        .category{"data-equalizer-watch" => ""}
-          %a{:href => "explore.html"}
-            .icon.media
-            %h3 Media
-            %p.lead The media world is changing rapidly. Lectures and discussions about traditional media and digitalisation in the audio archive and in live streams.
-        .category{"data-equalizer-watch" => ""}
-          %a{:href => "explore.html"}
-            .icon.business
-            %h3 Business
-            %p.lead Business conferences and company events offer interesting insights into economic developments and useful career advice.
+        = render partial: 'category', collection: @categories
+
   %section#publishers.white
     .row
       .container
@@ -102,50 +71,17 @@
           on Voice Republic:
     .row
       #publisher-collection{"data-equalizer" => ""}
-        .publisher{"data-equalizer-watch" => ""}
-          %a{:href => "https://voicerepublic.com/users/re-publica-15"}
-            %img{:alt => "", :src => "images/sponsored_publishers/republica.png"}/
-            %h4 re:publica 2014/2015
-            %p.lead Europe’s biggest internet and digital conference can be listened to on Voice Republic since 2014.
-        .publisher{"data-equalizer-watch" => ""}
-          %a{:href => "https://voicerepublic.com/users/frankfurter-buchmesse"}
-            %img{:alt => "", :src => "images/sponsored_publishers/frankfurt.png"}/
-            %h4 Frankfurt Book Fair
-            %p.lead The world’s most important event in the book business publishes selected content on Voice Republic.
-        .publisher{"data-equalizer-watch" => ""}
-          %a{:href => "https://voicerepublic.com/users/hkw-berlin"}
-            %img{:alt => "", :src => "images/sponsored_publishers/kulturen.png"}/
-            %h4 Haus der Kulturen der Welt
-            %p.lead The international cultural center makes their project “100 Years of Now” audible on Voice Republic.
-        .publisher{"data-equalizer-watch" => ""}
-          %a{:href => "https://voicerepublic.com/users/zentrum-geschichte-des-wissens-eth-universitat-zurich"}
-            %img{:alt => "", :src => "images/sponsored_publishers/eth.png"}/
-            %h4 ETH/University of Zurich
-            %p.lead The Center “History of Knowledge” regularly streams its events live from the Cabaret Voltaire. The colloquia and symposia can also be listened to in the archive.
-        .publisher{"data-equalizer-watch" => ""}
-          %a{:href => "https://voicerepublic.com/users/Morgenstadt"}
-            %img{:alt => "", :src => "images/sponsored_publishers/frauenhofer.png"}/
-            %h4 Fraunhofer Institute
-            %p.lead Voice Republic accompanies the “Urban Future Conference 2015” and gives everyone who is interested the opportunity to listen to the talks.
-        .publisher{"data-equalizer-watch" => ""}
-          %a{:href => "https://voicerepublic.com/users/maxim-gorki-theater"}
-            %img{:alt => "", :src => "images/sponsored_publishers/gorki.png"}/
-            %h4 Maxim Gorki Theater
-            %p.lead The Maxim Gorki Theater in Berlin is one of the most important theaters in the German-speaking area and publishes selected discussions, lectures and symposia on Voice Republic.
-        .publisher{"data-equalizer-watch" => ""}
-          %a{:href => "https://voicerepublic.com/users/mosselectures"}
-            %img{:alt => "", :src => "images/sponsored_publishers/mosse.png"}/
-            %h4 Mosse Lectures at Humboldt University
-            %p.lead The lecture series “Mosse Lectures” at the Humboldt University in Berlin imparts knowledge on topics like history, politics, economy, arts and literature. The lectures can be listened to on Voice Republic.
+        = render partial: 'publisher', collection: @publishers
+
     .row.clearfix
-      %a{:href => "explore.html"}
+      = link_to explore_path do
         %button More Publishers »
+
   %section#cta.turquoise
     .row
       .container
         %h1 Are you planning a conference or event?
-        %a{:href => "join.html"}
+        = link_to new_user_registration_path do
           %button Start Now
         %br/
-        %a{:href => "contact.html"} or Contact us
-        / <a href="contact.html"><button>Contact Us</button></a>
+        = link_to 'or Contact us', 'mailto:service@voicerepublic.com'
