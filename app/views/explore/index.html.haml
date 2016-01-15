@@ -1,13 +1,23 @@
 - content_for :title do
   =t('.talks_on_voice_republic')
+
+- content_for :javascript do
+  %script{:src => "/assets/javascripts/nprogress.js"}
+  %script{:src => "/assets/javascripts/ajax_filter.js"}
+  %script{:src => "/assets/javascripts/infinite_scroll.js"}
+
+- content_for :head do
+  %link{href: "/assets/stylesheets/nprogress.css", rel: "stylesheet", type: "text/css"}/
+
 #main
   %h2 The Voice Republic Archive
-  - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
+  - opts = { 'data-infinite-scroll' => '#spy|#more|#pager' }
+  - opts.merge! 'data-ajax-filters' => '#results'
   = form_for :filter, html: opts do |f|
     .filters.clearfix
       %ul.category-buttons.menu.vertical.medium-horizontal.expanded
-        = render partial:'category',locals:{category:@all_categories}
-        = render partial:'category',collection:@categories
+        = render partial: 'category', locals: { category:@all_categories, f: f }
+        = render partial: 'category', collection: @categories, locals: { f: f }
       = f.select :language, @languages, prompt: t('.language')
     #results.clearfix
       = render 'results'
