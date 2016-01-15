@@ -45,4 +45,44 @@ namespace :cleanup do
     end
   end
 
+  desc 'Remove listener that has not visited during the Live phase'
+  task :remove_listener_non_live => :environment do
+    puts "Starting to remove listeners during the non-Live phase of talks"
+    # Find all talks that have listeners saved
+    talk_ids = Talk.find_by_sql "select id from talks where listeners NOT LIKE '%--- {}%';"
+    puts "Going over '#{talk_ids.size}' talks, this might take a While. "
+
+    # Counts whether a listener came in during the live phase
+    res = { yes: 0, no: 0 }
+    talk_ids.each_with_index do |t_id, index|
+      talk = Talk.find t_id
+      listeners = {}
+      # Both timestamps can be nil, but `to_i` will convert them to 0
+      started_at = talk.started_at.to_i
+      ended_at   = talk.ended_at.to_i
+      changed = false
+      talk.listeners.each do |k, v|
+        if (started_at..ended_at).include?(v)
+          res[:yes]=res[:yes].next
+          # Using a tmp variable here to make sure that no Rails hooks
+          # are being triggered. There's lots of removals to be
+          # done. Saving, validation and similar should only happen
+          # once!
+          listeners[k] = v
+        else
+          changed = true
+          res[:no]=res[:no].next 
+        end
+        
+      end
+      talk.update_column(:listeners, listeners) if changed
+
+      if index > 0 && index % 5 == 0
+        puts "Updated another 5 talks. Total talks searched: '#{index}'. " +
+          "Total listeners deleted: '#{res[:no]}'"
+      end
+    end
+    puts "Kept #{res[:yes]} saved listeners, #{res[:no]} have been deleted."
+  end
+  
 end

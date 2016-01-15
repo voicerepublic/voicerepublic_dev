@@ -24,8 +24,7 @@
     .player
       = render partial: 'shared/player', locals: { talk: @talk }
   - else
-    %h2= link_to t('.listen_live'), @talk.self_url,
-      onclick: "event.preventDefault(); top.location='#{@talk.self_url}'"
+    %h2= link_to t('.listen_live'), @talk.self_url, target: "_blank"
   .icon-box
     = link_to @talk, target: 'blank', class: 'vr-logo' do
       %span.icon-vr-logo

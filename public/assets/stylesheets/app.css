@@ -2800,8 +2800,7 @@ button {
     border-width: 3px; }
 
 .root-index {
-  background: #29292b;
-  overflow: hidden; }
+  background: #29292b; }
   .root-index .row {
     max-width: 1200px;
     padding: 12px; }
