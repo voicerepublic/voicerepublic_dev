@@ -28,7 +28,7 @@
   %section#listen-now.light
     .row
       %h2= t('.listen_now')
-      - unless @talks_featured.empty?
+      - unless @talks_listen_now.empty?
         #talk-teasers
           = render partial: 'shared/talk_card', collection: @talks_listen_now
 
