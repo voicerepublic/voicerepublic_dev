@@ -1,5 +1,5 @@
 !!!
-%html.no-js.start-page{lang: I18n.locale.to_s, 'xmlns:fb' => "http://ogp.me/ns/fb#"}
+%html.no-js{lang: I18n.locale.to_s, 'xmlns:fb' => "http://ogp.me/ns/fb#"}
   %head
     %meta{charset: "utf-8"}/
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
@@ -24,7 +24,6 @@
     %link{href: "/images/apple-touch-icon-72x72.png", rel: "apple-touch-icon", sizes: "72x72"}/
     %link{href: "/images/apple-touch-icon-114x114.png", rel: "apple-touch-icon", sizes: "114x114"}/
 
-    -#= stylesheet_link_tag "velvet", media: "all"
     = favicon_link_tag '/favicon.ico'
     = javascript_include_tag "vendor/modernizr"
     = yield :head
@@ -36,7 +35,7 @@
         .top-bar-left
           %ul#branding.menu{"data-dropdown-menu" => ""}
             %li.logo
-              %a{:href => "/"}
+              = link_to '/' do
                 %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
                 %span.show-for-large-up VOICE REPUBLIC
         .top-bar-right
@@ -49,14 +48,12 @@
                   %li
                     %a{:href => "#"}= label
                 %li.divider
-                -# TODO: Link to these pages in the CMS
-                %li
-                  %a{:href => "listen.html"}= t('.listen')
+                -# TODO
+                -# %li= link_to t('.listen'), page_path('listen')
                 %li
                   %a{:href => "explore.html"}= t('.explore')
-            -# TODO: Link to this page in the CMS
-            %li.can-hide
-              %a{:href => "publish.html"}= t('.publish')
+            -# TODO
+            -# %li.can-hide= link_to t('.publish'), page_path('publish')
             %li.sign-in.can-hide
               = link_to t('.login'), new_user_session_path
             %li.join.can-hide
@@ -76,7 +73,6 @@
     = render 'shared/footer_velvet'
 
     #scripts
-      -#= javascript_include_tag "velvet"
       %script{:src => "assets/javascripts/libraries.min.js"}
       %script{:src => "assets/javascripts/foundation.min.js"}
       %script{:src => "assets/javascripts/app.js"}
