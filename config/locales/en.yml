@@ -1,4 +1,5 @@
 en:
+  all_categories: All Categories
   validation:
     bad_chars_in_slug: |
       may only contain alphanumerical characters (letters and digits)

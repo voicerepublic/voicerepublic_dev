@@ -1,0 +1,7 @@
+%li
+  %label
+    .icon
+      %svg
+        %use{"xlink:href" => "#icon-#{category.icon}"}
+    %input{:name => "filter[category]", :type => "radio", :value => category.id}/
+    %p= category.title

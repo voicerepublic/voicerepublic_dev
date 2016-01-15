@@ -5,11 +5,9 @@
   - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
   = form_for :filter, html: opts do |f|
     .filters
-      .category-buttons
-        - @categories.each do |label, value, icon|
-          = f.radio_button :category, value
-          = f.label label
-          %span.icon{:class => icon}
+      %ul.category-buttons.menu.expanded
+        = render partial:'category',locals:{category:@all_categories}
+        = render partial:'category',collection:@categories
       = f.select :language, @languages, prompt: t('.language')
     #results
       #results-grid

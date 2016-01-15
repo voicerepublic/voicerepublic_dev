@@ -14,4 +14,8 @@ class TagBundle < ActiveRecord::Base
 
   acts_as_taggable
 
+  def title
+  	send "title_#{I18n.locale}"
+  end
+
 end
