@@ -3390,16 +3390,19 @@ footer {
   width: 460px;
   background: #29292b;
   animation-duration: .5s; }
-  .search-container form label {
+  .search-container form label button {
     color: white;
     font-size: 1.125rem;
     width: 24px;
     float: left;
-    padding-top: 7px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    padding-top: 10px;
     margin-left: -30px; }
-    .search-container form label .svg-icon {
+    .search-container form label button .svg-icon {
       height: 6px; }
-      .search-container form label .svg-icon svg {
+      .search-container form label button .svg-icon svg {
         fill: rgba(255, 255, 255, 0.5);
         width: 18px;
         height: 18px; }
