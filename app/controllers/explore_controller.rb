@@ -8,7 +8,11 @@ class ExploreController < ApplicationController
     @publishers = TagBundle.publisher.as_options
     @categories = TagBundle.category
     @languages  = Talk.available_languages.invert
-    @all_categories = OpenStruct.new{id:nil, icon:'default',title:I18n.t('all_categories')}
+    @all_categories = OpenStruct.new({
+      id: nil,
+      icon:'default',
+      title: I18n.t('all_categories')
+    })
 
     page = params[:page] || 1
     @talks = Talk.popular.paginate(page: page, per_page: LIMIT)
