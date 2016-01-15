@@ -1,5 +1,5 @@
 - talk ||= talk_card
-.talk-card.medium-4.large-3.columns
+.talk-card.columns
   .talk-card-inside
     %h5.title= talk.title
     %p.meta
@@ -18,5 +18,5 @@
           = t('.published')
           %strong= time_ago_in_words(talk.starts_at)
           = t('.ago_by')
-        = link_to user_path(talk.user) do
-          = talk.user.name
+        = link_to user_path(talk.user), :class => "publisher" do
+          = truncate(talk.user.name, length:20)

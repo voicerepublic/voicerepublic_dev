@@ -3,4 +3,5 @@
   = render collection: @talks, partial: 'shared/talk_card'
 %input#pager(type='hidden' value='1')
 - unless @talks.empty?
-  #spy= t('.loading')
+  #spy
+    = render 'loading'

@@ -1817,11 +1817,11 @@ select {
   margin-left: auto;
   margin-right: auto; }
 
-.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, .root-index #talk-collection::before, .root-index #talk-teasers::before, .root-index #claim header::before, #loading-animation::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, #loading-animation::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, .root-index #talk-collection::before, .root-index #talk-teasers::before, .root-index #claim header::before, #spy::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   content: ' ';
   display: table; }
 
-.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, #loading-animation::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   clear: both; }
 
 .button-group, .root-index #listen-now .category-buttons {
@@ -3154,7 +3154,12 @@ button {
     padding: 4px 0 0 6px; }
     @media screen and (min-width: 40em) {
       .category-buttons .icon {
-        float: none; } }
+        float: none;
+        width: 36px;
+        height: 36px;
+        margin: 0 auto;
+        margin-bottom: 24px;
+        padding: 0; } }
     .category-buttons .icon svg {
       max-width: 24px;
       max-height: 24px;
@@ -3203,7 +3208,12 @@ button {
       font-size: 0.75rem;
       font-weight: 500;
       margin-bottom: 0;
-      margin-top: 7px; }
+      margin-top: 7px;
+      margin-right: 30px; }
+      @media screen and (min-width: 40em) {
+        .category-buttons label p {
+          margin-right: 0;
+          margin-bottom: 12px; } }
   .category-buttons input[type="radio"] {
     opacity: .01;
     z-index: 100;
@@ -3232,14 +3242,14 @@ button {
   .category-buttons [type="radio"]:focus + label {
     border: 2px solid green; }
 
-#loading-animation {
+#spy {
   margin-top: 12px;
   height: 56px; }
-  #loading-animation svg {
+  #spy svg {
     display: block;
     height: 36px;
     margin: 0 auto; }
-  #loading-animation path {
+  #spy path {
     stroke-dasharray: 36,3;
     stroke-dashoffset: 0;
     animation: dash 3s linear infinite;
@@ -3402,6 +3412,18 @@ footer {
 .talk-card {
   padding: 6px;
   background: none; }
+  @media screen and (min-width: 35em) {
+    .talk-card {
+      width: 50%; } }
+  @media screen and (min-width: 47.5em) {
+    .talk-card {
+      width: 33.333%; } }
+  @media screen and (min-width: 68.75em) {
+    .talk-card {
+      width: 25%; } }
+  @media screen and (min-width: 100em) {
+    .talk-card {
+      width: 20%; } }
   .talk-card .talk-card-inside {
     background: #FAFAFA;
     padding: 12px;

@@ -42,7 +42,7 @@ class ExploreController < ApplicationController
         return render partial: 'results'
       else
         # these get appended by infinite scroll
-        return render partial: 'shared/talk_medium_box', collection: @talks
+        return render partial: 'shared/talk_card', collection: @talks
       end
     end
   end

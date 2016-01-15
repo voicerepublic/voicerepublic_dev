@@ -24,7 +24,7 @@ module TalksHelper
   end
 
   def human_count(count)
-    number_to_human(count, units: {thousand:"k", million:"M"}, precision: 0)
+    number_to_human(count, units: {thousand:"k", million:"M"}, precision: 2)
   end
 
 
