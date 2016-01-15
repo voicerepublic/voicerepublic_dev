@@ -30,45 +30,45 @@
 
   %body{class: "#{controller_name} #{[controller_name, action_name] * '-'}"}
     = render 'shared/svg_defs'
-    #topbar-container{"data-sticky-container" => ""}
-      #example-menu.top-bar{"data-options" => "marginTop:0", "data-sticky" => ""}
-        .top-bar-left
-          %ul#branding.menu{"data-dropdown-menu" => ""}
-            %li.logo
-              = link_to '/' do
-                %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
-                %span.show-for-large-up VOICE REPUBLIC
-        .top-bar-right.hide-for-small-only
-          %ul.dropdown.menu{"data-dropdown-menu" => ""}
-            %li.has-submenu.can-hide
-              %a{:href => "#"}= t('.listen')
-              %ul.submenu.menu.vertical{"data-submenu" => ""}
-                %li.drop-title= t('.categories')
-                - TagBundle.category.promoted.each do |category|
-                  %li
-                    = link_to explore_path(filter: {category: category.id}) do
-                      = category.title
-                %li.divider
-                -# TODO
-                -# %li= link_to t('.listen'), page_path('listen')
+   
+    #example-menu.top-bar
+      .top-bar-left
+        %ul#branding.menu{"data-dropdown-menu" => ""}
+          %li.logo
+            = link_to '/' do
+              %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
+              %span.show-for-large-up VOICE REPUBLIC
+      .top-bar-right
+        %ul.dropdown.menu{"data-dropdown-menu" => ""}
+          %li.has-submenu.can-hide.hide-for-small-only
+            %a{:href => "#"}= t('.listen')
+            %ul.submenu.menu.vertical{"data-submenu" => ""}
+              %li.drop-title= t('.categories')
+              - TagBundle.category.promoted.each do |category|
                 %li
-                  = link_to t('.explore'), explore_path
-            -# TODO
-            -# %li.can-hide= link_to t('.publish'), page_path('publish')
-            %li.sign-in.can-hide
-              = link_to t('.login'), new_user_session_path
-            %li.join.can-hide
-              = link_to t('.sign_up'), new_user_registration_path
-            %li#search-loupe.can-hide
-              = link_to icon_tag('search'), '#'
-          .search-container.hide
-            = form_tag search_path do
-              %input#search-field.search{placeholder: t('.search_placeholder'), type: "text", name: 'query' }/
-              %label
-                %button(type='sumbit')
-                  = icon_tag('search')
-            %button#search-close.close-button{type: "button"}
-              %span{"aria-hidden" => "true"} ×
+                  = link_to explore_path(filter: {category: category.id}) do
+                    = category.title
+              %li.divider
+              -# TODO
+              -# %li= link_to t('.listen'), page_path('listen')
+              %li
+                = link_to t('.explore'), explore_path
+          -# TODO
+          -# %li.can-hide= link_to t('.publish'), page_path('publish')
+          %li.sign-in.can-hide.hide-for-small-only
+            = link_to t('.login'), new_user_session_path
+          %li.join.can-hide.hide-for-small-only
+            = link_to t('.sign_up'), new_user_registration_path
+          %li#search-loupe.can-hide
+            = link_to icon_tag('search'), '#'
+        .search-container.hide
+          = form_tag search_path do
+            %input#search-field.search{placeholder: t('.search_placeholder'), type: "text", name: 'query' }/
+            %label
+              %button(type='sumbit')
+                = icon_tag('search')
+          %button#search-close.close-button{type: "button"}
+            %span{"aria-hidden" => "true"} ×
 
     = render 'shared/notice_or_error_velvet'
     = yield
