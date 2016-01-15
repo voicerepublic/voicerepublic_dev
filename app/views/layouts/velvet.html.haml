@@ -63,9 +63,10 @@
               = link_to icon_tag('search'), '#'
           .search-container.hide
             = form_tag search_path do
-              %label
-                = icon_tag('search')
               %input#search-field.search{placeholder: t('.search_placeholder'), type: "text", name: 'query' }/
+              %label
+                %button(type='sumbit')
+                  = icon_tag('search')
             %button#search-close.close-button{type: "button"}
               %span{"aria-hidden" => "true"} ×
 

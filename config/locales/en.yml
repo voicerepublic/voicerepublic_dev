@@ -405,7 +405,7 @@ en:
       login: Login
       sign_up: Sign Up
       categories: Categories
-      search_placeholder: "Whatchya lookin' for, cowboy?"
+      search_placeholder: "Search Voice Republic"
       explore: Explore
   plain_mailer:
     welcome:
