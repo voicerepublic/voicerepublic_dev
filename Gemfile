@@ -56,7 +56,7 @@ gem 'slick_rails'
 gem 'mailgun_rails'
 gem 'activemerchant'
 gem 'faye-authentication', github: 'branch14/faye-authentication'
-gem 'redcarpet'
+gem 'redcarpet' # markdown parser & renderer
 gem 'inifile', require: false
 
 group :development do

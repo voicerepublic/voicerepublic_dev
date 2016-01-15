@@ -172,23 +172,18 @@ class Talk < ActiveRecord::Base
   end
 
   scope :nodryrun, -> { where(dryrun: false) }
-
   scope :publicly_live, -> { nodryrun.live }
-  scope :publicly_prelive, -> { nodryrun.prelive }
-
-  scope :featured, -> do
-    nodryrun.prelive.
-      where("featured_from < ?", Time.zone.now).
-      order('featured_from DESC')
-  end
-
+  scope :upcoming, -> { nodryrun.prelive }
+  scope :featured, -> { where.not(featured_from: nil) }
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :reordered, -> { order('starts_at DESC') }
+  scope :recent, -> { nodryrun.archived.featured.order('ends_at DESC') }
 
-  scope :recent, -> do
-    nodryrun.archived.order('ended_at DESC').
-      where('featured_from IS NOT NULL')
+  scope :scheduled_featured, -> do
+    upcoming.featured.
+      where("featured_from < ?", Time.zone.now).
+      order('featured_from DESC')
   end
 
   scope :remembered_by, ->(user) {

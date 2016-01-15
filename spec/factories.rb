@@ -130,4 +130,12 @@ FactoryGirl.define do
     association :source, factory: :purchase
   end
 
+  factory :tag_bundle do
+    title_en "MyString"
+    title_de "MyString"
+  end
+
+  factory :page do
+  end
+
 end

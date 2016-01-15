@@ -1,3 +1,5 @@
+# -*- mode: gitignore; -*-
+
 /.bundle
 /.rspec
 /vendor/bundle
@@ -40,5 +42,22 @@ config/environments/*.local.yml
 local/
 .*.swo
 /public/sitemap.xml
-bower_components/
-vendor/assets/bower_components/
+
+#########################
+# Emacs temporary files #
+#########################
+*~
+\#*\#
+.\#*
+
+######################
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+Thumbs.db
+
+/bower_components/
+/vendor/assets/bower_components/

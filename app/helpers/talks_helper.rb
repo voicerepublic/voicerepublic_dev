@@ -23,5 +23,9 @@ module TalksHelper
     datetime.utc.strftime('%Y%m%dT%H%M%SZ')
   end
 
+  def human_count(count)
+    number_to_human(count, units: {thousand:"k", million:"M"}, precision: 2)
+  end
+
 
 end
