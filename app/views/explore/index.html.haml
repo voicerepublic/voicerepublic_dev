@@ -4,11 +4,10 @@
   %h2 The Voice Republic Archive
   - opts = { 'data-infinite-scroll' => '#spy|#more|#pager', 'data-ajax-filters' => '#results' }
   = form_for :filter, html: opts do |f|
-    .filters
-      %ul.category-buttons.menu.expanded
+    .filters.clearfix
+      %ul.category-buttons.menu.vertical.medium-horizontal.expanded
         = render partial:'category',locals:{category:@all_categories}
         = render partial:'category',collection:@categories
       = f.select :language, @languages, prompt: t('.language')
-    #results
-      #results-grid
-        = render 'results'
+    #results.clearfix
+      = render 'results'
