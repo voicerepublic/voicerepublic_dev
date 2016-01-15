@@ -1,0 +1,9 @@
+- klass = 'selected' if params.try(:[], :filter).try(:[], :category).to_s == category.id.to_s
+
+%li
+  %label{ class: klass }
+    .icon
+      %svg
+        %use{"xlink:href" => "#icon-#{category.icon}"}
+    = f.radio_button :category, category.id
+    %p= category.title

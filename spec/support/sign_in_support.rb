@@ -10,4 +10,18 @@ module ValidUserRequestHelper
     page.find('.button-login').click
   end
 
+  def click_to_signin
+    within('.top-bar') { click_link('Login') }
+  end
+
+  def click_to_signup
+    within('.top-bar') { click_link('Sign Up') }
+  end
+
+  def click_forgot_password
+    visit root_path
+    within('.top-bar') { click_link('Sign Up') }
+    click_on "Forgot password?"
+  end
+
 end

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :pages, only: :show
+
   get 'support/:action', controller: 'support'
   get 'support', to: 'support#index'
 
@@ -40,6 +42,7 @@ Rails.application.routes.draw do
 
 
   post '/search',              to: 'search#create'
+  get  '/search/:page/',       to: redirect('explore') # empty search
   get  '/search/:page/*query', to: 'search#show'
 
   # this looks fancy, i know, but what it basically provides
@@ -93,8 +96,8 @@ Rails.application.routes.draw do
   # new school
   get 'embed/:id', to: 'embed_talks#show', as: 'embed'
 
-  get "landing_page/index", as: :landing_page
-  root :to => "landing_page#index"
+  get "root/index"
+  root :to => "root#index"
 
   # match ':controller(/:action(/:id))(.:format)'
 

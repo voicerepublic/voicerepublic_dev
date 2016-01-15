@@ -1,6 +1,7 @@
-%h3= t(".results", count: @talks.count)
-%ul.list-style-type-none#more
-  = render collection: @talks, partial: 'shared/talk_medium_box'
+%p#result-count= t(".results", count: @talks.count)
+%ul.list-style-type-none.clearfix#more
+  = render collection: @talks, partial: 'shared/talk_card'
 %input#pager(type='hidden' value='1')
 - unless @talks.empty?
-  #spy= t('.loading')
+  #spy
+    = render 'loading'
