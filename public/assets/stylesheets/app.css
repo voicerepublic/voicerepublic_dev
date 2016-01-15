@@ -451,7 +451,7 @@ button {
     .row.large-uncollapse > .column, .row.large-uncollapse > .columns, .row.large-uncollapse > #user-about, .row.large-uncollapse > .profile-tile, .root-index #claim .container .row.large-uncollapse > .claim-cta-half, .root-index #categories #talk-collection .row.large-uncollapse > .category, .root-index #publishers #publisher-collection .row.large-uncollapse > .publisher, .root-index .landing-feature .row.large-uncollapse > .landing-half {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem; } }
-  .row.expanded, .root-index #listen-now .row.category-buttons, .join-page #join-box button.row {
+  .row.expanded, .join-page #join-box button.row {
     max-width: none; }
 
 .column, .columns, #user-about, .profile-tile, .root-index #claim .container .claim-cta-half, .root-index #categories #talk-collection .category, .root-index #publishers #publisher-collection .publisher, .root-index .landing-feature .landing-half {
@@ -1437,7 +1437,7 @@ kbd {
     font-size: 0.75rem; }
   .button.large, button, .join-page #join-box button {
     font-size: 1.25rem; }
-  .button.expanded, button.expanded, .root-index #listen-now button.category-buttons, .join-page #join-box button, .root-index #listen-now .button.category-buttons {
+  .button.expanded, button.expanded, .join-page #join-box button {
     display: block;
     width: 100%;
     margin-left: 0;
@@ -1817,100 +1817,100 @@ select {
   margin-left: auto;
   margin-right: auto; }
 
-.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, .root-index #talk-collection::before, .root-index #talk-teasers::before, .root-index #claim header::before, #spy::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, .root-index #talk-collection::before, .root-index #talk-teasers::before, .root-index #claim header::before, .root-index #listen-now .category-buttons::before, #spy::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, .root-index #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   content: ' ';
   display: table; }
 
-.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, .root-index #talk-collection::after, .root-index #talk-teasers::after, .root-index #claim header::after, .root-index #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   clear: both; }
 
-.button-group, .root-index #listen-now .category-buttons {
+.button-group {
   margin-bottom: 1rem;
   font-size: 0.9rem; }
-  .button-group::before, .root-index #listen-now .category-buttons::before, .button-group::after, .root-index #listen-now .category-buttons::after {
+  .button-group::before, .button-group::after {
     content: ' ';
     display: table; }
-  .button-group::after, .root-index #listen-now .category-buttons::after {
+  .button-group::after {
     clear: both; }
-  .button-group .button, .root-index #listen-now .category-buttons .button, .button-group button, .root-index #listen-now .category-buttons button {
+  .button-group .button, .button-group button {
     float: left;
     margin: 0;
     font-size: inherit; }
-    .button-group .button:not(:last-child), .root-index #listen-now .category-buttons .button:not(:last-child), .button-group button:not(:last-child), .root-index #listen-now .category-buttons button:not(:last-child) {
+    .button-group .button:not(:last-child), .button-group button:not(:last-child) {
       border-right: 1px solid #FFFFFF; }
-  .button-group.tiny, .root-index #listen-now .tiny.category-buttons {
+  .button-group.tiny {
     font-size: 0.6rem; }
-  .button-group.small, .root-index #listen-now .small.category-buttons {
+  .button-group.small {
     font-size: 0.75rem; }
-  .button-group.large, button.button-group, .root-index #listen-now button.category-buttons, .root-index #listen-now .large.category-buttons, .join-page #join-box button.button-group {
+  .button-group.large, button.button-group, .join-page #join-box button.button-group {
     font-size: 1.25rem; }
-  .button-group.expanded .button:nth-last-child(2):first-child, .root-index #listen-now .category-buttons .button:nth-last-child(2):first-child, .join-page #join-box button.button-group .button:nth-last-child(2):first-child, .button-group.expanded button:nth-last-child(2):first-child, .root-index #listen-now .category-buttons button:nth-last-child(2):first-child, .join-page #join-box button.button-group button:nth-last-child(2):first-child,
-  .button-group.expanded .button:nth-last-child(2):first-child ~ .button, .root-index #listen-now .category-buttons .button:nth-last-child(2):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(2):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(2):first-child ~ .button, .root-index #listen-now .category-buttons button:nth-last-child(2):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(2):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(2):first-child ~ button, .root-index #listen-now .category-buttons .button:nth-last-child(2):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(2):first-child ~ button,
-  .button-group.expanded button:nth-last-child(2):first-child ~ button, .root-index #listen-now .category-buttons button:nth-last-child(2):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(2):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(2):first-child, .join-page #join-box button.button-group .button:nth-last-child(2):first-child, .button-group.expanded button:nth-last-child(2):first-child, .join-page #join-box button.button-group button:nth-last-child(2):first-child,
+  .button-group.expanded .button:nth-last-child(2):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(2):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(2):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(2):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(2):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(2):first-child ~ button,
+  .button-group.expanded button:nth-last-child(2):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(2):first-child ~ button {
     width: 50%; }
-  .button-group.expanded .button:nth-last-child(3):first-child, .root-index #listen-now .category-buttons .button:nth-last-child(3):first-child, .join-page #join-box button.button-group .button:nth-last-child(3):first-child, .button-group.expanded button:nth-last-child(3):first-child, .root-index #listen-now .category-buttons button:nth-last-child(3):first-child, .join-page #join-box button.button-group button:nth-last-child(3):first-child,
-  .button-group.expanded .button:nth-last-child(3):first-child ~ .button, .root-index #listen-now .category-buttons .button:nth-last-child(3):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(3):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(3):first-child ~ .button, .root-index #listen-now .category-buttons button:nth-last-child(3):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(3):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(3):first-child ~ button, .root-index #listen-now .category-buttons .button:nth-last-child(3):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(3):first-child ~ button,
-  .button-group.expanded button:nth-last-child(3):first-child ~ button, .root-index #listen-now .category-buttons button:nth-last-child(3):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(3):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(3):first-child, .join-page #join-box button.button-group .button:nth-last-child(3):first-child, .button-group.expanded button:nth-last-child(3):first-child, .join-page #join-box button.button-group button:nth-last-child(3):first-child,
+  .button-group.expanded .button:nth-last-child(3):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(3):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(3):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(3):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(3):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(3):first-child ~ button,
+  .button-group.expanded button:nth-last-child(3):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(3):first-child ~ button {
     width: 33.3333333333%; }
-  .button-group.expanded .button:nth-last-child(4):first-child, .root-index #listen-now .category-buttons .button:nth-last-child(4):first-child, .join-page #join-box button.button-group .button:nth-last-child(4):first-child, .button-group.expanded button:nth-last-child(4):first-child, .root-index #listen-now .category-buttons button:nth-last-child(4):first-child, .join-page #join-box button.button-group button:nth-last-child(4):first-child,
-  .button-group.expanded .button:nth-last-child(4):first-child ~ .button, .root-index #listen-now .category-buttons .button:nth-last-child(4):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(4):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(4):first-child ~ .button, .root-index #listen-now .category-buttons button:nth-last-child(4):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(4):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(4):first-child ~ button, .root-index #listen-now .category-buttons .button:nth-last-child(4):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(4):first-child ~ button,
-  .button-group.expanded button:nth-last-child(4):first-child ~ button, .root-index #listen-now .category-buttons button:nth-last-child(4):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(4):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(4):first-child, .join-page #join-box button.button-group .button:nth-last-child(4):first-child, .button-group.expanded button:nth-last-child(4):first-child, .join-page #join-box button.button-group button:nth-last-child(4):first-child,
+  .button-group.expanded .button:nth-last-child(4):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(4):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(4):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(4):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(4):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(4):first-child ~ button,
+  .button-group.expanded button:nth-last-child(4):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(4):first-child ~ button {
     width: 25%; }
-  .button-group.expanded .button:nth-last-child(5):first-child, .root-index #listen-now .category-buttons .button:nth-last-child(5):first-child, .join-page #join-box button.button-group .button:nth-last-child(5):first-child, .button-group.expanded button:nth-last-child(5):first-child, .root-index #listen-now .category-buttons button:nth-last-child(5):first-child, .join-page #join-box button.button-group button:nth-last-child(5):first-child,
-  .button-group.expanded .button:nth-last-child(5):first-child ~ .button, .root-index #listen-now .category-buttons .button:nth-last-child(5):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(5):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(5):first-child ~ .button, .root-index #listen-now .category-buttons button:nth-last-child(5):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(5):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(5):first-child ~ button, .root-index #listen-now .category-buttons .button:nth-last-child(5):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(5):first-child ~ button,
-  .button-group.expanded button:nth-last-child(5):first-child ~ button, .root-index #listen-now .category-buttons button:nth-last-child(5):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(5):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(5):first-child, .join-page #join-box button.button-group .button:nth-last-child(5):first-child, .button-group.expanded button:nth-last-child(5):first-child, .join-page #join-box button.button-group button:nth-last-child(5):first-child,
+  .button-group.expanded .button:nth-last-child(5):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(5):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(5):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(5):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(5):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(5):first-child ~ button,
+  .button-group.expanded button:nth-last-child(5):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(5):first-child ~ button {
     width: 20%; }
-  .button-group.expanded .button:nth-last-child(6):first-child, .root-index #listen-now .category-buttons .button:nth-last-child(6):first-child, .join-page #join-box button.button-group .button:nth-last-child(6):first-child, .button-group.expanded button:nth-last-child(6):first-child, .root-index #listen-now .category-buttons button:nth-last-child(6):first-child, .join-page #join-box button.button-group button:nth-last-child(6):first-child,
-  .button-group.expanded .button:nth-last-child(6):first-child ~ .button, .root-index #listen-now .category-buttons .button:nth-last-child(6):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(6):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(6):first-child ~ .button, .root-index #listen-now .category-buttons button:nth-last-child(6):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(6):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(6):first-child ~ button, .root-index #listen-now .category-buttons .button:nth-last-child(6):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(6):first-child ~ button,
-  .button-group.expanded button:nth-last-child(6):first-child ~ button, .root-index #listen-now .category-buttons button:nth-last-child(6):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(6):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(6):first-child, .join-page #join-box button.button-group .button:nth-last-child(6):first-child, .button-group.expanded button:nth-last-child(6):first-child, .join-page #join-box button.button-group button:nth-last-child(6):first-child,
+  .button-group.expanded .button:nth-last-child(6):first-child ~ .button, .join-page #join-box button.button-group .button:nth-last-child(6):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(6):first-child ~ .button, .join-page #join-box button.button-group button:nth-last-child(6):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(6):first-child ~ button, .join-page #join-box button.button-group .button:nth-last-child(6):first-child ~ button,
+  .button-group.expanded button:nth-last-child(6):first-child ~ button, .join-page #join-box button.button-group button:nth-last-child(6):first-child ~ button {
     width: 16.6666666667%; }
-  .button-group.primary .button, .root-index #listen-now .primary.category-buttons .button, .button-group.primary button, .root-index #listen-now .primary.category-buttons button {
+  .button-group.primary .button, .button-group.primary button {
     background: #2c46b0;
     color: #fff; }
-    .button-group.primary .button:hover, .root-index #listen-now .primary.category-buttons .button:hover, .button-group.primary button:hover, .root-index #listen-now .primary.category-buttons button:hover, .button-group.primary .button:focus, .root-index #listen-now .primary.category-buttons .button:focus, .button-group.primary button:focus, .root-index #listen-now .primary.category-buttons button:focus {
+    .button-group.primary .button:hover, .button-group.primary button:hover, .button-group.primary .button:focus, .button-group.primary button:focus {
       background: #23388d;
       color: #fff; }
-  .button-group.secondary .button, button.button-group .button, .root-index #listen-now button.category-buttons .button, .root-index #listen-now .secondary.category-buttons .button, .button-group.secondary button, button.button-group button, .root-index #listen-now button.category-buttons button, .root-index #listen-now .secondary.category-buttons button {
+  .button-group.secondary .button, button.button-group .button, .button-group.secondary button, button.button-group button {
     background: #54c6c6;
     color: #fff; }
-    .button-group.secondary .button:hover, button.button-group .button:hover, .root-index #listen-now button.category-buttons .button:hover, .root-index #listen-now .secondary.category-buttons .button:hover, .button-group.secondary button:hover, button.button-group button:hover, .root-index #listen-now button.category-buttons button:hover, .root-index #listen-now .secondary.category-buttons button:hover, .button-group.secondary .button:focus, button.button-group .button:focus, .root-index #listen-now button.category-buttons .button:focus, .root-index #listen-now .secondary.category-buttons .button:focus, .button-group.secondary button:focus, button.button-group button:focus, .root-index #listen-now button.category-buttons button:focus, .root-index #listen-now .secondary.category-buttons button:focus {
+    .button-group.secondary .button:hover, button.button-group .button:hover, .button-group.secondary button:hover, button.button-group button:hover, .button-group.secondary .button:focus, button.button-group .button:focus, .button-group.secondary button:focus, button.button-group button:focus {
       background: #38a9a9;
       color: #fff; }
-  .button-group.success .button, .root-index #listen-now .success.category-buttons .button, .button-group.success button, .root-index #listen-now .success.category-buttons button {
+  .button-group.success .button, .button-group.success button {
     background: #d8f793;
     color: #000; }
-    .button-group.success .button:hover, .root-index #listen-now .success.category-buttons .button:hover, .button-group.success button:hover, .root-index #listen-now .success.category-buttons button:hover, .button-group.success .button:focus, .root-index #listen-now .success.category-buttons .button:focus, .button-group.success button:focus, .root-index #listen-now .success.category-buttons button:focus {
+    .button-group.success .button:hover, .button-group.success button:hover, .button-group.success .button:focus, .button-group.success button:focus {
       background: #bef24a;
       color: #000; }
-  .button-group.alert .button, .root-index #listen-now .alert.category-buttons .button, .button-group.alert button, .root-index #listen-now .alert.category-buttons button {
+  .button-group.alert .button, .button-group.alert button {
     background: #f82847;
     color: #fff; }
-    .button-group.alert .button:hover, .root-index #listen-now .alert.category-buttons .button:hover, .button-group.alert button:hover, .root-index #listen-now .alert.category-buttons button:hover, .button-group.alert .button:focus, .root-index #listen-now .alert.category-buttons .button:focus, .button-group.alert button:focus, .root-index #listen-now .alert.category-buttons button:focus {
+    .button-group.alert .button:hover, .button-group.alert button:hover, .button-group.alert .button:focus, .button-group.alert button:focus {
       background: #df0727;
       color: #fff; }
-  .button-group.warning .button, .root-index #listen-now .warning.category-buttons .button, .button-group.warning button, .root-index #listen-now .warning.category-buttons button {
+  .button-group.warning .button, .button-group.warning button {
     background: #ffed00;
     color: #fff; }
-    .button-group.warning .button:hover, .root-index #listen-now .warning.category-buttons .button:hover, .button-group.warning button:hover, .root-index #listen-now .warning.category-buttons button:hover, .button-group.warning .button:focus, .root-index #listen-now .warning.category-buttons .button:focus, .button-group.warning button:focus, .root-index #listen-now .warning.category-buttons button:focus {
+    .button-group.warning .button:hover, .button-group.warning button:hover, .button-group.warning .button:focus, .button-group.warning button:focus {
       background: #ccbe00;
       color: #fff; }
-  .button-group.stacked .button, .root-index #listen-now .stacked.category-buttons .button, .button-group.stacked button, .root-index #listen-now .stacked.category-buttons button, .button-group.stacked-for-small .button, .root-index #listen-now .stacked-for-small.category-buttons .button, .button-group.stacked-for-small button, .root-index #listen-now .stacked-for-small.category-buttons button {
+  .button-group.stacked .button, .button-group.stacked button, .button-group.stacked-for-small .button, .button-group.stacked-for-small button {
     width: 100%;
     border-right: 0; }
   @media screen and (min-width: 40em) {
-    .button-group.stacked-for-small .button, .root-index #listen-now .stacked-for-small.category-buttons .button, .button-group.stacked-for-small button, .root-index #listen-now .stacked-for-small.category-buttons button {
+    .button-group.stacked-for-small .button, .button-group.stacked-for-small button {
       width: auto; }
-      .button-group.stacked-for-small .button:not(:last-child), .root-index #listen-now .stacked-for-small.category-buttons .button:not(:last-child), .button-group.stacked-for-small button:not(:last-child), .root-index #listen-now .stacked-for-small.category-buttons button:not(:last-child) {
+      .button-group.stacked-for-small .button:not(:last-child), .button-group.stacked-for-small button:not(:last-child) {
         border-right: 1px solid #FFFFFF; } }
 
 .callout, #cta-panel {
@@ -2137,25 +2137,25 @@ select {
     margin-right: 1rem; }
   .menu.align-right > li {
     float: right; }
-  .menu.expanded, .root-index #listen-now .menu.category-buttons, .join-page #join-box button.menu {
+  .menu.expanded, .join-page #join-box button.menu {
     display: table;
     width: 100%; }
-    .menu.expanded > li:nth-last-child(2):first-child, .root-index #listen-now .menu.category-buttons > li:nth-last-child(2):first-child, .join-page #join-box button.menu > li:nth-last-child(2):first-child,
-    .menu.expanded > li:nth-last-child(2):first-child ~ li, .root-index #listen-now .menu.category-buttons > li:nth-last-child(2):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(2):first-child ~ li {
+    .menu.expanded > li:nth-last-child(2):first-child, .join-page #join-box button.menu > li:nth-last-child(2):first-child,
+    .menu.expanded > li:nth-last-child(2):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(2):first-child ~ li {
       width: 50%; }
-    .menu.expanded > li:nth-last-child(3):first-child, .root-index #listen-now .menu.category-buttons > li:nth-last-child(3):first-child, .join-page #join-box button.menu > li:nth-last-child(3):first-child,
-    .menu.expanded > li:nth-last-child(3):first-child ~ li, .root-index #listen-now .menu.category-buttons > li:nth-last-child(3):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(3):first-child ~ li {
+    .menu.expanded > li:nth-last-child(3):first-child, .join-page #join-box button.menu > li:nth-last-child(3):first-child,
+    .menu.expanded > li:nth-last-child(3):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(3):first-child ~ li {
       width: 33.3333333333%; }
-    .menu.expanded > li:nth-last-child(4):first-child, .root-index #listen-now .menu.category-buttons > li:nth-last-child(4):first-child, .join-page #join-box button.menu > li:nth-last-child(4):first-child,
-    .menu.expanded > li:nth-last-child(4):first-child ~ li, .root-index #listen-now .menu.category-buttons > li:nth-last-child(4):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(4):first-child ~ li {
+    .menu.expanded > li:nth-last-child(4):first-child, .join-page #join-box button.menu > li:nth-last-child(4):first-child,
+    .menu.expanded > li:nth-last-child(4):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(4):first-child ~ li {
       width: 25%; }
-    .menu.expanded > li:nth-last-child(5):first-child, .root-index #listen-now .menu.category-buttons > li:nth-last-child(5):first-child, .join-page #join-box button.menu > li:nth-last-child(5):first-child,
-    .menu.expanded > li:nth-last-child(5):first-child ~ li, .root-index #listen-now .menu.category-buttons > li:nth-last-child(5):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(5):first-child ~ li {
+    .menu.expanded > li:nth-last-child(5):first-child, .join-page #join-box button.menu > li:nth-last-child(5):first-child,
+    .menu.expanded > li:nth-last-child(5):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(5):first-child ~ li {
       width: 20%; }
-    .menu.expanded > li:nth-last-child(6):first-child, .root-index #listen-now .menu.category-buttons > li:nth-last-child(6):first-child, .join-page #join-box button.menu > li:nth-last-child(6):first-child,
-    .menu.expanded > li:nth-last-child(6):first-child ~ li, .root-index #listen-now .menu.category-buttons > li:nth-last-child(6):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(6):first-child ~ li {
+    .menu.expanded > li:nth-last-child(6):first-child, .join-page #join-box button.menu > li:nth-last-child(6):first-child,
+    .menu.expanded > li:nth-last-child(6):first-child ~ li, .join-page #join-box button.menu > li:nth-last-child(6):first-child ~ li {
       width: 16.6666666667%; }
-    .menu.expanded > li:first-child:last-child, .root-index #listen-now .menu.category-buttons > li:first-child:last-child, .join-page #join-box button.menu > li:first-child:last-child {
+    .menu.expanded > li:first-child:last-child, .join-page #join-box button.menu > li:first-child:last-child {
       width: 100%; }
   .menu.icon-top > li > a {
     text-align: center; }
@@ -2891,14 +2891,29 @@ button {
     padding-top: 60px; }
     .root-index #listen-now .category-buttons {
       float: none;
-      margin-bottom: 48px; }
+      margin-bottom: 48px;
+      padding: 0; }
       .root-index #listen-now .category-buttons .button, .root-index #listen-now .category-buttons button {
         background: #ffed00;
         color: #a339cd;
         font-size: 0.75rem;
         line-height: 0.875rem;
         letter-spacing: 0;
-        padding: 24px 6px; }
+        padding: 24px 6px;
+        width: 100%;
+        margin-bottom: 6px; }
+        @media screen and (min-width: 40em) {
+          .root-index #listen-now .category-buttons .button, .root-index #listen-now .category-buttons button {
+            float: left;
+            width: calc(50% - 3px); }
+            .root-index #listen-now .category-buttons .button:nth-child(odd), .root-index #listen-now .category-buttons button:nth-child(odd) {
+              margin-right: 6px; } }
+        @media screen and (min-width: 64em) {
+          .root-index #listen-now .category-buttons .button, .root-index #listen-now .category-buttons button {
+            width: calc(100%/6);
+            margin-right: 0; }
+            .root-index #listen-now .category-buttons .button:nth-child(odd), .root-index #listen-now .category-buttons button:nth-child(odd) {
+              margin-right: 0; } }
         .root-index #listen-now .category-buttons .button .icon, .root-index #listen-now .category-buttons button .icon {
           background-color: #a339cd;
           margin-bottom: 12px; }
@@ -3442,7 +3457,7 @@ footer {
     .talk-card {
       width: 25%; } }
   @media screen and (min-width: 100em) {
-    .talk-card {
+    .explore-index .talk-card {
       width: 20%; } }
   .talk-card .talk-card-inside {
     background: #FAFAFA;
