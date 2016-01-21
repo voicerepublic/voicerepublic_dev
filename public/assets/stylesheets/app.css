@@ -3353,6 +3353,9 @@ footer {
   margin-bottom: 48px;
   padding-top: 48px;
   padding-left: 0; }
+  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
+    #footer-social-links {
+      text-align: center; } }
   #footer-social-links a {
     font-size: 1.5rem;
     margin-right: 24px; }
