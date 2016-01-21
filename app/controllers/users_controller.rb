@@ -13,7 +13,6 @@ class UsersController < BaseController
                         about
                         password
                         password_confirmation
-                        conference
                         referrer )
 
 

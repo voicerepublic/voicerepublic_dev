@@ -11,7 +11,6 @@
 # * ended_at [datetime] - TODO: document me
 # * ends_at [datetime] - TODO: document me
 # * featured_from [datetime] - TODO: document me
-# * grade [string] - TODO: document me
 # * image_uid [string] - TODO: document me
 # * language [string, default="en"] - TODO: document me
 # * penalty [float, default=1.0] - TODO: document me
