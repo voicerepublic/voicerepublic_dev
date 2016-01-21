@@ -3,7 +3,9 @@
   .talk-card-inside
     %h5.title= talk.title
     %p.meta
-      %span.running-time= talk.duration
+      %span.running-time
+        = talk.duration
+        = t('.Min')
       %span.play-count= human_count(talk.play_count) + t('.plays')
     .image-box
       = image_tag talk.image.thumb("600x338#").url
@@ -15,7 +17,7 @@
       = icon_tag "politics"
       .info-right
         %p.date
-          = t('.published')
+          -# = t('.published')
           %strong= time_ago_in_words(talk.starts_at)
           = t('.ago_by')
         = link_to user_path(talk.user), :class => "publisher" do
