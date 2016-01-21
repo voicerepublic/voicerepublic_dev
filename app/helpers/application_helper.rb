@@ -2,7 +2,13 @@ module ApplicationHelper
 
   def default_content(locale, key)
     keys = [locale.to_s] + key.split('.')
-    keys.reduce(CONTENT) { |r, k| r.is_a?(String) ? r : r[k] }
+    keys.reduce(CONTENT) do |r, k|
+      case r
+      when String then r
+      when nil then nil
+      else r[k]
+      end
+    end
   end
 
   # s works much like t, but looks up md formatted content from the db
