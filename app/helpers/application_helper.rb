@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def blog_url(path)
+    "http://blog.voicerepublic.com#{path}?lang=#{I18n.locale}"
+  end
+
   def icon_tag(topic)
     "<div class='svg-icon'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
   end
