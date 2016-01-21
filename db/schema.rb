@@ -278,7 +278,6 @@ ActiveRecord::Schema.define(version: 20160121145313) do
     t.boolean  "dryrun",                           default: false
     t.text     "social_links",                     default: "--- []"
     t.text     "listeners",                        default: "--- {}"
-    t.string   "slides_uid"
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"

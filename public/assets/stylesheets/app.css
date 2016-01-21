@@ -2457,9 +2457,17 @@ button, .button, button {
   button:hover, button:active, .button:hover, button:hover, .button:active, button:active {
     background: #54c6c6; }
 
+.close-button {
+  padding: 0;
+  margin: 0;
+  border: 0; }
+
 .avatar {
   height: 100%;
   padding: 12px 0; }
+  .avatar img {
+    border: 1px solid rgba(41, 41, 43, 0.1);
+    border-radius: 50%; }
 
 .avatar-icon {
   width: 56px;
@@ -2476,7 +2484,7 @@ button, .button, button {
 section {
   padding: 12px; }
 
-.profile-page {
+.users-show {
   background: #EFEFEF;
   height: 100%;
   min-height: 100vh; }
@@ -2485,7 +2493,8 @@ section {
   border: none;
   background: #fef1de;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
-  text-align: center; }
+  text-align: center;
+  margin: 0; }
   #cta-panel p {
     font-size: 1.125rem;
     margin-bottom: 0; }
@@ -2660,8 +2669,7 @@ section {
 .users-show {
   background: #EFEFEF;
   height: 100%;
-  min-height: 100vh;
-  padding-top: 80px; }
+  min-height: 100vh; }
   .users-show #main {
     padding: 0;
     max-width: none; }
