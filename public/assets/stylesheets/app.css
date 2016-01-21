@@ -2457,9 +2457,17 @@ button, .button, button {
   button:hover, button:active, .button:hover, button:hover, .button:active, button:active {
     background: #54c6c6; }
 
+.close-button {
+  padding: 0;
+  margin: 0;
+  border: 0; }
+
 .avatar {
   height: 100%;
   padding: 12px 0; }
+  .avatar img {
+    border: 1px solid rgba(41, 41, 43, 0.1);
+    border-radius: 50%; }
 
 .avatar-icon {
   width: 56px;
@@ -2476,7 +2484,7 @@ button, .button, button {
 section {
   padding: 12px; }
 
-.profile-page {
+.users-show {
   background: #EFEFEF;
   height: 100%;
   min-height: 100vh; }
@@ -2485,7 +2493,8 @@ section {
   border: none;
   background: #fef1de;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
-  text-align: center; }
+  text-align: center;
+  margin: 0; }
   #cta-panel p {
     font-size: 1.125rem;
     margin-bottom: 0; }
@@ -2660,8 +2669,7 @@ section {
 .users-show {
   background: #EFEFEF;
   height: 100%;
-  min-height: 100vh;
-  padding-top: 80px; }
+  min-height: 100vh; }
   .users-show #main {
     padding: 0;
     max-width: none; }
@@ -2766,6 +2774,10 @@ section {
   @media screen and (min-width: 40em) {
     .top-bar-left, .top-bar-right {
       width: 344px; } }
+
+@media screen and (min-width: 40em) {
+  .top-bar-right {
+    width: auto; } }
 
 .svg-icon {
   display: block;
@@ -2980,7 +2992,10 @@ h1, h2 {
   #publishers #publisher-collection .publisher h4, #publishers #publisher-collection .publisher .lead {
     color: rgba(63, 64, 68, 0.8); }
   #publishers #publisher-collection .publisher img {
-    max-width: 300px; }
+    max-width: 50vw; }
+    @media screen and (min-width: 40em) {
+      #publishers #publisher-collection .publisher img {
+        max-width: 300px; } }
   #publishers #publisher-collection .publisher hr {
     border-color: #e1e2e7;
     max-width: 100px;
@@ -3346,6 +3361,9 @@ footer {
   margin-bottom: 48px;
   padding-top: 48px;
   padding-left: 0; }
+  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
+    #footer-social-links {
+      text-align: center; } }
   #footer-social-links a {
     font-size: 1.5rem;
     margin-right: 24px; }
@@ -3372,10 +3390,27 @@ footer {
   right: 0;
   left: 0; }
   .top-bar .top-bar-right {
-    margin-top: 12px; }
+    margin-top: 12px;
+    padding-right: 24px; }
     @media screen and (min-width: 0em) and (max-width: 39.9375em) {
       .top-bar .top-bar-right {
         width: 50px; } }
+    .top-bar .top-bar-right .avatar {
+      padding: 0;
+      margin: 0; }
+      .top-bar .top-bar-right .avatar img {
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
+      .top-bar .top-bar-right .avatar a:first-child {
+        padding: 0; }
+        .top-bar .top-bar-right .avatar a:first-child:after {
+          margin-right: -18px; }
+      .top-bar .top-bar-right .avatar ul.submenu {
+        right: 0px;
+        left: auto;
+        margin: 0; }
+      .top-bar .top-bar-right .avatar ul li {
+        padding: 6px 6px 8px; }
   @media screen and (min-width: 0em) and (max-width: 39.9375em) {
     .top-bar .top-bar-left .menu {
       max-width: 50%; } }

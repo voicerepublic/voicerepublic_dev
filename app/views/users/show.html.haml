@@ -5,6 +5,81 @@
 - content_for :title do
   = t('.title', username: @user.name)
 
+#main{:role => "main"}
+  #cta-panel{"data-closable" => ""}
+    %p
+      Would you like to publish your content on Voice Republic?
+      %a#cta-button.button{:href => "join.html"} Start Now »
+    %button.close-button{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
+      %span{"aria-hidden" => "true"} ×
+  #left-column
+    #user-block
+      - if can? :manage, @user
+        = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'
+      .avatar
+        = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
+      %h3.user-name=@user.name
+      %p#user-description
+        - if @user.summary.blank? and can? :manage, @user
+          = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+        - else
+          = @user.summary
+      %ul.user-meta-group.show-for-small-only
+        %li.user-meta-item 
+          .text= t('.plays', count: @total_plays)
+        %li.user-meta-item
+          .text= t('.talks', count: @talks_to)
+        %li.user-meta-item
+          .text= t('.series', count: @user.series_without_default.count)
+      %p.plays-count 
+        = t('.plays', count: @total_plays)
+      %ul.social-links
+        %li.list-item
+          -# twitter icon
+        %li.list-item
+          -# fb icon
+        %li.list-item
+          -# mail icon
+    %hr/
+    #user-about.row
+      %p.column-header About
+      - unless @user.about.blank?
+        %p
+          = @user.about_as_html.html_safe
+  #right-column
+    %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
+      %li.tabs-title.is-active{:role => "presentation"}
+        %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"} 
+          = t('.archived_talks', count: @archived_talks.count)
+      %li.tabs-title{:role => "presentation"}
+        %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"} 
+          = t('.upcoming_talks', count: @upcoming_talks.count)
+      %li.tabs-title{:role => "presentation"}
+        %a#series-label{"aria-controls" => "series", "aria-selected" => "false", :href => "#series", :role => "tab"} 
+          = t('.series', count: @user.series_without_default.count)
+      %li.tabs-title{:role => "presentation"}
+        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"} 
+          = t('.listen_later', count: @user.reminders.count)
+    .tabs-content{"data-tabs-content" => "example-tabs"}
+      #upcoming.tabs-panel
+        -# talk cards here
+        - if @upcoming_talks.count > 0
+          = render partial: talks_partial(@upcoming_talks), locals: { color: 'box-slim' }, collection: @upcoming_talks
+        - else
+          = t('.nothing_scheduled')
+
+      #archived.tabs-panel.is-active
+        -# talk cards here
+        = render partial: talks_partial(@archived_talks), locals: { color: 'box-slim' }, collection: @archived_talks
+      #series.tabs-panel
+        -# series cards
+        = render partial: 'shared/series_medium_box', collection: @series
+      #pinned.tabs-panel
+        -#talk cards here
+        = render partial: talks_partial(@remembered_talks), locals: { color: 'box-slim' }, collection: @remembered_talks
+
+-# ---------------------
+
 - if current_user && current_user == @user
   #credits.header-box.row.collapse
     .large-8.columns

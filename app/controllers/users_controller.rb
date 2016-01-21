@@ -19,7 +19,7 @@ class UsersController < BaseController
 
   before_filter :authenticate_user!, :only => [:edit,:update,:destroy]
 
-  # layout "application", :only => [:welcome]
+  layout "velvet"
 
   # GET /users
   # GET /users.json
