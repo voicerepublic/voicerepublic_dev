@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :pages, only: :show
+  get 'pages/:action' => 'pages'
 
+  # TODO these will probably have to goe
   get 'support/:action', controller: 'support'
   get 'support', to: 'support#index'
 
