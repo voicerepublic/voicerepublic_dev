@@ -1,5 +1,10 @@
 module ApplicationHelper
 
+  def default_content(locale, key)
+    keys = [locale.to_s] + key.split('.')
+    keys.reduce(CONTENT) { |r, k| r.is_a?(String) ? r : r[k] }
+  end
+
   # s works much like t, but looks up md formatted content from the db
   # and inserts it as html
   def section(key)
@@ -10,7 +15,13 @@ module ApplicationHelper
         raise "Cannot use s(#{key.inspect}) shortcut because path is not available"
       end
     end
-    Section.find_or_create_by(key: key, locale: I18n.locale).content_as_html.html_safe
+    section = Section.find_or_create_by(key: key, locale: I18n.locale)
+    if section.content.nil? # nil not blank!
+      section.content = default_content(locale, key)
+      section.save
+      section.reload
+    end
+    section.content_as_html.html_safe
   end
   alias_method :s, :section
 
@@ -69,6 +80,10 @@ module ApplicationHelper
       # "#{tag} p#{patchlevel} (#{date})"
       "#{tag} p#{patchlevel}"
     end
+
+    def load_default_content
+      YAML.load(File.read(Rails.root.join('config/sections.yml')))
+    end
   end
 
   def release
@@ -89,3 +104,5 @@ end
 
 # determine release once when module is loaded
 ApplicationHelper::RELEASE = ApplicationHelper.determine_release
+
+ApplicationHelper::CONTENT = ApplicationHelper.load_default_content

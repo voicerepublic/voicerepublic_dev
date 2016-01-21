@@ -1,0 +1,5 @@
+# this file contains default content for sections (formatted in markdown)
+en:
+  root:
+    index:
+      title: '# Home to the spoken word'

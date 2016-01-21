@@ -48,3 +48,19 @@ MD2HTML = Redcarpet::Markdown.new(Redcarpet::Render::VRHTML.new(filter_html: tru
 # end
 #
 # MD2TEXT = Redcarpet::Markdown.new(Redcarpet::Render::TEXT.new)
+
+
+
+
+# a more permissive renderer
+
+options = {
+  hard_wrap: true
+}
+
+extensions = {
+  lax_spacing: true,
+  highlight: true
+}
+
+MD2PAGES = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(options), extensions)
