@@ -1,7 +1,7 @@
+# these will move into config/sections.yml
 en:
   root:
     index:
-      title: Home To the Spoken Word
       lead: "Take part in the most up-to-date conversations happening today. Exclusive lectures and discussions with thought-leaders in the fields of"
       feed_title: Featured talks of Voice Republic
       publish: Publish

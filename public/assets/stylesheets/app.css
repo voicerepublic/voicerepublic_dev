@@ -2767,6 +2767,10 @@ section {
     .top-bar-left, .top-bar-right {
       width: 344px; } }
 
+@media screen and (min-width: 40em) {
+  .top-bar-right {
+    width: auto; } }
+
 .svg-icon {
   display: block;
   max-width: 36px;
@@ -3372,10 +3376,27 @@ footer {
   right: 0;
   left: 0; }
   .top-bar .top-bar-right {
-    margin-top: 12px; }
+    margin-top: 12px;
+    padding-right: 24px; }
     @media screen and (min-width: 0em) and (max-width: 39.9375em) {
       .top-bar .top-bar-right {
         width: 50px; } }
+    .top-bar .top-bar-right .avatar {
+      padding: 0;
+      margin: 0; }
+      .top-bar .top-bar-right .avatar img {
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
+      .top-bar .top-bar-right .avatar a:first-child {
+        padding: 0; }
+        .top-bar .top-bar-right .avatar a:first-child:after {
+          margin-right: -18px; }
+      .top-bar .top-bar-right .avatar ul.submenu {
+        right: 0px;
+        left: auto;
+        margin: 0; }
+      .top-bar .top-bar-right .avatar ul li {
+        padding: 6px 6px 8px; }
   @media screen and (min-width: 0em) and (max-width: 39.9375em) {
     .top-bar .top-bar-left .menu {
       max-width: 50%; } }
