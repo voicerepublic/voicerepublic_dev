@@ -3389,6 +3389,8 @@ footer {
   margin: 0;
   right: 0;
   left: 0; }
+  .top-bar ul li:last-child {
+    padding-right: 0; }
   .top-bar .top-bar-right {
     margin-top: 12px;
     padding-right: 24px; }
@@ -3505,7 +3507,7 @@ footer {
     font-size: 2.25rem;
     font-weight: 200;
     color: #f82847;
-    top: -12px;
+    top: 0;
     padding: 0;
     border: 0; }
     .search-container .close-button:hover {

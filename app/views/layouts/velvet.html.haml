@@ -57,9 +57,9 @@
           -# %li.can-hide= link_to t('.publish'), page_path('publish')
           - if !current_user
             %li.sign-in.can-hide.hide-for-small-only
-            = link_to t('.login'), new_user_session_path
+              = link_to t('.login'), new_user_session_path
             %li.join.can-hide.hide-for-small-only
-            = link_to t('.sign_up'), new_user_registration_path
+              = link_to t('.sign_up'), new_user_registration_path
 
 
 
