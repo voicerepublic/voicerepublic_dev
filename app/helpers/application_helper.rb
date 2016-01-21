@@ -1,8 +1,41 @@
 module ApplicationHelper
 
+  def default_content(locale, key)
+    keys = [locale.to_s] + key.split('.')
+    keys.reduce(CONTENT) do |r, k|
+      case r
+      when String then r
+      when nil then nil
+      else r[k]
+      end
+    end
+  end
+
+  # s works much like t, but looks up md formatted content from the db
+  # and inserts it as html
+  def section(key)
+    if key.to_s.first == "."
+      if @virtual_path
+        key = @virtual_path.gsub(%r{/_?}, ".") + key.to_s
+      else
+        raise "Cannot use s(#{key.inspect}) shortcut because path is not available"
+      end
+    end
+    section = Section.find_or_create_by(key: key, locale: I18n.locale)
+    if section.content.nil? # nil not blank!
+      section.content = default_content(locale, key)
+      section.save
+      section.reload
+    end
+    section.content_as_html.html_safe
+  end
+  alias_method :s, :section
+
+
   def blog_url(path)
     "http://blog.voicerepublic.com#{path}?lang=#{I18n.locale}"
   end
+
 
   def icon_tag(topic)
     "<div class='svg-icon'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
@@ -53,6 +86,10 @@ module ApplicationHelper
       # "#{tag} p#{patchlevel} (#{date})"
       "#{tag} p#{patchlevel}"
     end
+
+    def load_default_content
+      YAML.load(File.read(Rails.root.join('config/sections.yml')))
+    end
   end
 
   def release
@@ -73,3 +110,5 @@ end
 
 # determine release once when module is loaded
 ApplicationHelper::RELEASE = ApplicationHelper.determine_release
+
+ApplicationHelper::CONTENT = ApplicationHelper.load_default_content

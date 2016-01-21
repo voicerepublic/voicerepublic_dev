@@ -235,7 +235,7 @@ describe Talk do
 
     it 'in state postlive', slow: true do
       skip 'omit in CI' if ENV['CI']
-      talk = FactoryGirl.create(:talk, collect: true)
+      talk = FactoryGirl.create(:talk)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -263,7 +263,7 @@ describe Talk do
 
     it 'in state archived', slow: true do
       skip 'omit in CI' if ENV['CI']
-      talk = FactoryGirl.create(:talk, collect: true)
+      talk = FactoryGirl.create(:talk)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
@@ -293,7 +293,7 @@ describe Talk do
 
     it 'in state archived with override', slow: true do
       skip 'omit in CI' if ENV['CI']
-      talk = FactoryGirl.create(:talk, collect: true)
+      talk = FactoryGirl.create(:talk)
 
       # move fixtures in place
       fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)

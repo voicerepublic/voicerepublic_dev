@@ -2,10 +2,12 @@
   = rss_link_tag t('.feed_title')
 
 #main{:role => "main"}
+
+  -# CLAIM
   %section#claim.dark
     .row
       %header
-        %h1=t('.title')
+        = s('.title')
       .container.medium-10.medium-offset-1.large-8.large-offset-2.columns
         %p.lead
           = t('.lead')
@@ -25,12 +27,13 @@
           -#       .icon.headphones
           -#       = t('.listen')
 
+
+  -# LISTEN NOW
   %section#listen-now.light
     .row
       %h2= t('.listen_now')
-      - unless @talks_listen_now.empty?
-        #talk-teasers
-          = render partial: 'shared/talk_card', collection: @talks_listen_now
+      #talk-teasers
+        = render partial: 'shared/talk_card', collection: @talks_listen_now
 
       .listen-interstitial
         %p.lead= t('.lead_interstitial')
@@ -45,16 +48,21 @@
         = link_to explore_path do
           %button= t('.more_talks')
 
-  %section#coming-up.blue
-    .row
-      .container
-        %h2= t('.coming_up_live')
-      #talk-collection
-        = render partial: 'shared/talk_card', collection: @talks_upcoming
-    .row
-      = link_to explore_path do
-        %button= t('.more')
 
+  -# UPCOMING
+  - unless @talks_upcoming.empty?
+    %section#coming-up.blue
+      .row
+        .container
+          %h2= t('.coming_up_live')
+        #talk-collection
+          = render partial: 'shared/talk_card', collection: @talks_upcoming
+      .row
+        = link_to explore_path do
+          %button= t('.more')
+
+
+  -# CATEGORIES
   %section#categories.yellow
     .row
       .container
@@ -62,6 +70,8 @@
       #talk-collection{"data-equalizer" => ""}
         = render partial: 'category', collection: @categories
 
+
+  -# PUBLISHERS
   %section#publishers.white
     .row
       .container
@@ -77,6 +87,8 @@
       = link_to explore_path do
         %button More Publishers »
 
+
+  -# CONTACT
   %section#cta.turquoise
     .row
       .container

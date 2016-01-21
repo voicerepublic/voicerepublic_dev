@@ -1,9 +1,11 @@
 class Section < ActiveRecord::Base
 
-  TYPES = %w( string text )
+  before_save :set_content_as_html, if: :content_changed?
 
-  self.inheritance_column = :_type_disabled
+  private
 
-  belongs_to :page
+  def set_content_as_html
+    self.content_as_html = MD2PAGES.render(content)
+  end
 
 end
