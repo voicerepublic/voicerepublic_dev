@@ -176,8 +176,7 @@
           .talk-state-info
             .talk-state-bullet
             = t('.state_text')
-            - if @talk.collect?
-              %span.record-text= t('.record_text')
+            %span.record-text= t('.record_text')
             .talk-timecounter
               %span.right-text-space= t('.ends_in')
               {{ countdown }}

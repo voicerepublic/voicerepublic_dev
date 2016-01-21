@@ -7,7 +7,6 @@ class Api::TalksController < Api::BaseController
     except: %w( session
                 storage
                 image_uid
-                grade
                 edit_config
                 penalty
                 slides_uuid
