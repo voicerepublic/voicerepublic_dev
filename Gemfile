@@ -23,7 +23,6 @@ gem 'bunny'
 gem 'bumpy_bridge', '~> 0.0.4'
 gem 'faker'
 gem 'rack-affiliates'
-gem 'airbrake', '~> 5.0'
 gem 'rails_config'
 gem 'foundation-rails'
 gem 'jquery-rails'
@@ -117,4 +116,5 @@ end
 
 group :production do
   gem 'rack-cache', require: 'rack/cache'
+  gem 'airbrake', '~> 5.0'
 end
