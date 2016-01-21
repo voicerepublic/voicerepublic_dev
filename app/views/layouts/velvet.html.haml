@@ -30,7 +30,7 @@
 
   %body{class: "#{controller_name} #{[controller_name, action_name] * '-'}"}
     = render 'shared/svg_defs'
-   
+
     #example-menu.top-bar
       .top-bar-left
         %ul#branding.menu{"data-dropdown-menu" => ""}
@@ -60,9 +60,9 @@
             = link_to t('.login'), new_user_session_path
             %li.join.can-hide.hide-for-small-only
             = link_to t('.sign_up'), new_user_registration_path
-          
-            
-          
+
+
+
           %li#search-loupe.can-hide
             = link_to icon_tag('search'), '#'
           - if current_user
@@ -78,7 +78,7 @@
                   %li= link_to t('.pricing'), purchases_path
                 %li
                   = link_to(destroy_user_session_path, method: :delete) do
-                    
+
                     = t('.logout')
         .search-container.hide
           = form_tag search_path do
@@ -96,6 +96,7 @@
 
     #scripts
       %script{:src => "assets/javascripts/libraries.min.js"}
+      %script{:src => "assets/javascripts/rails.js"}
       %script{:src => "assets/javascripts/foundation.min.js"}
       %script{:src => "assets/javascripts/app.js"}
       %script{:src => "assets/javascripts/explore.js"}

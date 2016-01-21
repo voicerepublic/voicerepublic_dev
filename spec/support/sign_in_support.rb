@@ -11,7 +11,7 @@ module ValidUserRequestHelper
   end
 
   def click_to_signin
-    within('.top-bar') { click_link('Login') }
+    within('.top-bar') { click_link('Log In') }
   end
 
   def click_to_signup

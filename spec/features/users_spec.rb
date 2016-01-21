@@ -35,7 +35,7 @@ feature "User edits own profile" do
                                password_confirmation: '123456')
     visit root_path
     expect(page).to have_css('.top-bar')
-    within('.top-bar') { click_link('Login') }
+    within('.top-bar') { click_link('Log In') }
     page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.find('.button-login').click
