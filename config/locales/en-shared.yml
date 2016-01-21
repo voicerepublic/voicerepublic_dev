@@ -2,6 +2,6 @@ en:
   shared:
     talk_card:
       speaker: "Speaker: "
-      published: Published
-      ago_by: ago by
+      ago_by: "%{time} ago by"
       plays: " Plays "
+      onair: On Air
