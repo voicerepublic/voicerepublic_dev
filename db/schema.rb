@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120181942) do
+ActiveRecord::Schema.define(version: 20160121083232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,15 +107,6 @@ ActiveRecord::Schema.define(version: 20160120181942) do
     t.datetime "created_at"
   end
 
-  create_table "pages", force: :cascade do |t|
-    t.string   "slug"
-    t.string   "type",          default: "default"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "initial_title"
-    t.text     "content"
-  end
-
   create_table "participations", force: :cascade do |t|
     t.integer  "series_id"
     t.integer  "user_id"
@@ -164,19 +155,16 @@ ActiveRecord::Schema.define(version: 20160120181942) do
   add_index "reminders", ["user_id"], name: "index_reminders_on_user_id", using: :btree
 
   create_table "sections", force: :cascade do |t|
-    t.integer  "page_id"
-    t.string   "type"
     t.string   "locale"
     t.string   "key"
     t.text     "content"
-    t.text     "content_as_html"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.text     "content_as_html", default: ""
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "sections", ["key"], name: "index_sections_on_key", using: :btree
   add_index "sections", ["locale"], name: "index_sections_on_locale", using: :btree
-  add_index "sections", ["page_id"], name: "index_sections_on_page_id", using: :btree
 
   create_table "series", force: :cascade do |t|
     t.text     "description"

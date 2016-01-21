@@ -1,5 +1,17 @@
 module ApplicationHelper
 
+  def section(key)
+    if key.to_s.first == "."
+      if @virtual_path
+        key = @virtual_path.gsub(%r{/_?}, ".") + key.to_s
+      else
+        raise "Cannot use s(#{key.inspect}) shortcut because path is not available"
+      end
+    end
+    Section.find_or_create_by(key: key, locale: I18n.locale).content_as_html.html_safe
+  end
+  alias_method :s, :section
+
   def blog_url(path)
     "http://blog.voicerepublic.com#{path}?lang=#{I18n.locale}"
   end
