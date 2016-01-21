@@ -72,7 +72,8 @@
 
     = render 'shared/notice_or_error_velvet'
     = yield
-    = render 'shared/footer_velvet'
+    - if !current_page?(explore_path)
+      = render 'shared/footer_velvet'
 
     #scripts
       %script{:src => "assets/javascripts/libraries.min.js"}
