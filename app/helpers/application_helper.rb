@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+  # s works much like t, but looks up md formatted content from the db
+  # and inserts it as html
   def section(key)
     if key.to_s.first == "."
       if @virtual_path
@@ -12,9 +14,11 @@ module ApplicationHelper
   end
   alias_method :s, :section
 
+
   def blog_url(path)
     "http://blog.voicerepublic.com#{path}?lang=#{I18n.locale}"
   end
+
 
   def icon_tag(topic)
     "<div class='svg-icon'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
