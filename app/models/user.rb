@@ -3,7 +3,6 @@
 # * about [text, default=""] - TODO: document me
 # * authentication_token [string] - Devise Token authenticable module
 # * avatar_uid [string] - TODO: document me
-# * conference [boolean] - TODO: document me
 # * confirmation_sent_at [datetime] - Devise Confirmable module
 # * confirmation_token [string] - Devise Confirmable module
 # * confirmed_at [datetime] - Devise Confirmable module
