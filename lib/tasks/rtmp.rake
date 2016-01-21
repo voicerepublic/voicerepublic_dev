@@ -10,28 +10,34 @@ namespace :rtmp do
   task :setup => :environment do
     path = Rails.root.join(settings.build_path)
     unless File.exist?(path)
-      FileUtils.mkdir_p(path) 
+      FileUtils.mkdir_p(path)
       puts "created directory #{path}"
     end
     Dir.chdir(path)
   end
 
   desc 'retrieve and build the newest nginx-rtmp server'
-  task :build => :setup do
+  task :build, [:repo] => :setup do |t, args|
     puts 'checking for nginx...'
     nginx_path = retrieve('http://nginx.org', '/en/download.html')
-    puts 'checking for nginx-rtmp-module...'
-    rtmp_path = retrieve('https://github.com', '/arut/nginx-rtmp-module/releases')
+
+    repo = args[:repo] || 'arut/nginx-rtmp-module'
+    puts "checking for nginx-rtmp-module... (#{repo})"
+    rtmp_path = retrieve('https://github.com', "/#{repo}/releases")
+
     version = nginx_path + '/' + rtmp_path
     puts "compiling (#{version})..."
     Dir.chdir(nginx_path) do
-      %x[ ./configure --prefix='' --add-module=../#{rtmp_path} && make ]
+      %x[ ./configure --prefix='' --add-module=../#{rtmp_path} ]
+      # make nginx Makefile more permissive (might fail on MacOS)
+      puts cmd = "sed -ie 's/-Werror //' objs/Makefile"
+      %x[ #{cmd} && make ]
     end
     FileUtils.cp(rtmp_path+'/stat.xsl', '.') # untested
     FileUtils.mkdir_p('run/logs')
     FileUtils.mkdir_p('run/recordings')
     FileUtils.ln_sf('../' + nginx_path + '/objs/nginx', 'run/rtmpd')
-    puts 
+    puts
     puts "Good news everyone. You're all set."
     puts
     puts '  rake rtmp:(start|stop|restart)'
