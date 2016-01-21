@@ -407,6 +407,17 @@ en:
       categories: Categories
       search_placeholder: "Search Voice Republic"
       explore: Explore
+      login: Log In
+      sign_up: Sign Up
+      search: Search
+      explore: Explore
+      my_profile: Profile
+      schedule_talk: Schedule A Live Talk
+      upload_talk: Upload A Recording
+      pricing: Pricing
+      test_talk: 'Test A Talk (Free)'
+      logout: Log Out
+
   plain_mailer:
     welcome:
       subject: "Welcome %{user_firstname}, need help getting started?"
