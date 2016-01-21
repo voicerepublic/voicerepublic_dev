@@ -134,7 +134,4 @@ FactoryGirl.define do
     title_de "MyString"
   end
 
-  factory :page do
-  end
-
 end
