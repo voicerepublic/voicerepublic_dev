@@ -24,6 +24,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     connecting: true
     blackboxReady: false
     nellyReload: false
+    receiveIcecast: false
   config.feedback = { data: { bw_in: 0 } }
   config.progress = { index: 0, total: 1 }
 
@@ -81,9 +82,11 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         subscribeAllStreams()
         config.flags.settings = true
       onListening: ->
+        config.flags.receiveIcecast = true
         unless config.user.role == 'listener'
           config.flags.reqmic = true
       onleaveListening: ->
+        config.flags.receiveIcecast = false
         config.flags.reqmic = false
         true
       onbeforeMicRequested: ->
