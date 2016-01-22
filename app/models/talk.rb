@@ -492,8 +492,6 @@ class Talk < ActiveRecord::Base
 
   def postprocess!(uat=false)
     raise 'fail: postprocessing a talk with override' if recording_override?
-    # TODO: move into a final state != archived (over/past/gone/myth)
-    return unless collect?
     return if archived? # silently guard against double processing
 
     logfile.puts "\n\n# --- postprocess (#{Time.now}) ---"
@@ -511,7 +509,6 @@ class Talk < ActiveRecord::Base
   end
 
   def reprocess!(uat=false)
-    raise 'fail: reprocessing a talk without recording' unless collect?
     raise 'fail: reprocessing a talk with override' if recording_override?
 
     logfile.puts "\n\n# --- reprocess (#{Time.now}) ---"
