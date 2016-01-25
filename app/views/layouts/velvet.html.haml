@@ -101,6 +101,7 @@
       %script{:src => "assets/javascripts/app.js"}
       %script{:src => "assets/javascripts/explore.js"}
       %script{:src => "assets/javascripts/topbar.js"}
+
       - if Rails.env.production?
         - unless @current_user.try(:insider?)
           = render 'shared/google_analytics'

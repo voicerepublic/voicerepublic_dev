@@ -86,7 +86,7 @@ en:
           before you run out.
         other:
           You have %{count} credits left.
-      purchase_more_credits: Purchase more credits
+      purchase_more_credits: Buy credits
       podcast:
         title: "%{username}"
         subtitle: "Podcast provided by Voice Republic"
@@ -108,6 +108,7 @@ en:
         other: '%{count} Series'
       listen_later: Listen later
       create_new_talk: Create new Talk
+      publish_a_talk: Publish A Talk
       upload_talk: Upload Talk
       edit_user: Edit Profile
       about: About
@@ -128,6 +129,7 @@ en:
         one: 1 Archived Talk
         other: '%{count} Archived Talks'
       listen_later:
-        zero: Listen Later
-        one: 1 Listen later
-        other: '%{count} Listen later'
+        zero: Pinned Talks
+        one: 1 Pinned Talks
+        other: '%{count} Pinned Talks'
+      nothing_scheduled: 'No Talks scheduled.'
