@@ -2471,17 +2471,12 @@ button, .button, button {
     border: 1px solid rgba(41, 41, 43, 0.1);
     border-radius: 50%; }
 
-.avatar-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 28px;
+.avatar-image {
+  border-radius: 50%;
   border: 2px solid #EEEEEE;
-  background: url(../img/lips.png) no-repeat 50% 50%;
   background-size: cover;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center; }
+  margin: 0 auto; }
 
 section {
   padding: 12px; }
@@ -2580,9 +2575,7 @@ section {
   #left-column .img-circle {
     border-radius: 50%; }
   #left-column hr {
-    border-color: #ffed00;
-    margin-left: 12px;
-    margin-right: 12px; }
+    border-color: #ffed00; }
   #left-column ul.social-links {
     list-style: none;
     text-align: center;
@@ -2613,11 +2606,45 @@ section {
 #user-block {
   text-align: center;
   padding: 24px;
-  padding-bottom: 0; }
+  padding-bottom: 0;
+  position: relative; }
   #user-block img {
     margin-bottom: 12px; }
   #user-block #user-name {
     margin-bottom: 0; }
+  #user-block .edit-btn {
+    line-height: 18px;
+    padding: 6px;
+    font-size: 0.75rem;
+    background: #b4b6be;
+    top: 12px;
+    left: 12px; }
+    #user-block .edit-btn:hover {
+      background: #3c4258; }
+    #user-block .edit-btn .svg-icon {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      display: inline-block;
+      max-width: 18px;
+      max-height: 18px;
+      float: left;
+      margin-right: 6px; }
+      #user-block .edit-btn .svg-icon svg {
+        width: 18px;
+        height: 18px; }
+  #user-block .publish-btn {
+    line-height: 21px; }
+    #user-block .publish-btn .svg-icon {
+      width: 21px;
+      height: 21px;
+      float: left;
+      display: inline-block;
+      margin: 0;
+      margin-right: 12px; }
+      #user-block .publish-btn .svg-icon svg {
+        width: 21px;
+        height: 21px; }
 
 #right-column {
   padding: 24px 12px 24px 6px; }
@@ -2649,6 +2676,18 @@ section {
       margin-left: 12px; }
     #right-column .tabs-content .tabs-panel {
       padding: 0; }
+  @media screen and (min-width: 67.5em) {
+    #right-column .talk-card {
+      width: 50%; } }
+  @media screen and (min-width: 80em) {
+    #right-column .talk-card {
+      width: 33.333%; } }
+  @media screen and (min-width: 93.75em) {
+    #right-column .talk-card {
+      width: 25%; } }
+  @media screen and (min-width: 112.5em) {
+    #right-column .talk-card {
+      width: 20%; } }
   #right-column .content {
     padding-top: 24px;
     border: 0; }

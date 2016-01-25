@@ -108,6 +108,7 @@ en:
         other: '%{count} Series'
       listen_later: Listen later
       create_new_talk: Create new Talk
+      publish_a_talk: Publish A Talk
       upload_talk: Upload Talk
       edit_user: Edit Profile
       about: About

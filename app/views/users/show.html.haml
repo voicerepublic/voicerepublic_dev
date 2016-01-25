@@ -17,8 +17,10 @@
     #user-block
       
       - if can? :manage, @user
-        = link_to t('.edit_profile'), [:edit, @user], class: 'link-edit'
-      .avatar
+        = link_to [:edit, @user], class: 'button small edit-btn' do
+          = icon_tag 'pencil'
+          = t('.edit_profile')
+      .profile-avatar
         = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
       %h3.user-name=@user.name
       %p#user-description
@@ -27,14 +29,22 @@
         - else
           = @user.summary
       %ul.social-links
+        -# TODO: link these up, if they have provided the link, show the icon, make it go somewhere
         %li.list-item
-          -# twitter icon
+          = icon_tag 'twitter'
         %li.list-item
-          -# fb icon
+          = icon_tag 'facebook'
         %li.list-item
-          -# mail icon
+          = icon_tag 'location'
+      - if can? :manage, @user
+        -# TODO: discuss. Can't we just have one path to the create talk page?
+        -# =link_to new_talk_path, class:'button hollow' do
+        -#   = t('.upload_talk') 
+        = link_to new_upload_path, class:'button hollow publish-btn' do
+          = icon_tag 'megaphone'
+          = t('.publish_a_talk') 
       %hr
-
+      -# TODO: make these prettier: put the value big, then underneath, the key in small text 
       %ul.user-meta-group.menu.expanded
         %li
           .text= t('.talks', count: @talks_total)
@@ -46,11 +56,7 @@
         %li
           = link_to '#listen-later' do
             = t('.listen_later', count: @user.reminders.count)
-      - if can? :manage, @user
-        =link_to new_talk_path, class:'button hollow' do
-          = t('.upload_talk') 
-        = link_to new_upload_path, class:'button hollow' do
-          = t('.create_talk') 
+
       -# TODO: are we keeping podcast? if so, make this look and work right...   
       -# else
       -#  %ul.action-links.list-style-type-none
@@ -59,7 +65,7 @@
       -# %p.plays-count 
       -#  = t('.plays', count: @total_plays)
       
-    %hr/
+      %hr/
 
 
     #user-about.row
@@ -67,7 +73,7 @@
       - unless @user.about.blank?
         %p
           = @user.about_as_html.html_safe
-  #right-column.clearfixssssssssssssss
+  #right-column.clearfix
     %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
       %li.tabs-title.is-active{:role => "presentation"}
         %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"} 
