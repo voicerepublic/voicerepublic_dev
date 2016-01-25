@@ -2569,9 +2569,10 @@ section {
     font-size: 1.5rem; }
   #left-column p {
     font-size: 0.875rem; }
-  #left-column .profile-avatar {
+  #left-column .avatar-image {
     margin-bottom: 6px;
-    display: block; }
+    display: block;
+    border: 0; }
   #left-column .img-circle {
     border-radius: 50%; }
   #left-column hr {
@@ -2671,7 +2672,7 @@ section {
     margin-bottom: 36px; }
   #right-column .tabs-content {
     border: 0; }
-    #right-column .tabs-content .nothing-scheduled {
+    #right-column .tabs-content .nothing-notice {
       margin-top: 12px;
       margin-left: 12px; }
     #right-column .tabs-content .tabs-panel {
@@ -3646,7 +3647,7 @@ footer {
             color: white; }
             .talk-card .talk-card-inside .image-box .hover-info .speaker a:hover {
               text-decoration: underline; }
-    .talk-card .talk-card-inside .title {
+    .talk-card .talk-card-inside .title, .series > .talk-card .talk-card-inside {
       display: block;
       /* Fallback for non-webkit */
       display: -webkit-box;
@@ -3710,3 +3711,37 @@ footer {
     margin-bottom: 0;
     background-color: #54c6c6;
     margin-right: 12px; }
+
+.series .talk-card-inside p.lead {
+  display: block;
+  /* Fallback for non-webkit */
+  display: -webkit-box;
+  height: 33.6px;
+  /* Fallback for non-webkit */
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 6px;
+  transition: text-decoration .2s ease; }
+
+.talk-card:hover .talk-card-inside h5.title, .series:hover .talk-card-inside h5.title {
+  text-decoration: underline; }
+
+.series .talk-card-inside .meta {
+  height: 18px; }
+  .series .talk-card-inside .meta a {
+    color: #f82847;
+    font-weight: 500; }
+    .series .talk-card-inside .meta a:hover {
+      text-decoration: underline; }
+
+.series .talk-card-inside {
+  padding-top: 12px; }
+  .series .talk-card-inside img {
+    margin-bottom: 12px; }
+  .series .talk-card-inside .title, .series .talk-card-inside p.lead {
+    color: #121214; }

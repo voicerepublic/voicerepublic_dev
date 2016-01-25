@@ -132,4 +132,5 @@ en:
         zero: Pinned Talks
         one: 1 Pinned Talks
         other: '%{count} Pinned Talks'
-      nothing_scheduled: 'No Talks scheduled.'
+      nothing_scheduled: 'No Talks scheduled at this time.'
+      nothing_pinned: "This user hasn't pinned any talks yet"

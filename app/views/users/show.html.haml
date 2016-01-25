@@ -94,16 +94,20 @@
       
     .tabs-content{"data-tabs-content" => "example-tabs"}
       #pinned.tabs-panel.is-active
-        -# TODO: turn this into an inline CTA that appears under certain condiditons. which?
-        -##cta-panel{"data-closable" => ""}
-        -#  %p
-        -#    Would you like to publish your content on Voice Republic?
-        -#    %a#cta-button.button{:href => "join.html"} Start Now »
-        -#  %button.close-button{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
-        -#    %span{"aria-hidden" => "true"} ×
-        -# if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
-        -# = render partial: "welcome", :locals => { user: @user }
-        = render partial: 'shared/talk_card',  collection: @remembered_talks
+        - if @remembered_talks.count > 0
+          -# TODO: turn this into an inline CTA that appears under certain condiditons. which?
+          -##cta-panel{"data-closable" => ""}
+          -#  %p
+          -#    Would you like to publish your content on Voice Republic?
+          -#    %a#cta-button.button{:href => "join.html"} Start Now »
+          -#  %button.close-button{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
+          -#    %span{"aria-hidden" => "true"} ×
+          -# if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
+          -# = render partial: "welcome", :locals => { user: @user }
+          = render partial: 'shared/talk_card',  collection: @remembered_talks
+        - else
+          %p.nothing-notice 
+            = t('.nothing_pinned')
       - unless @live_talks.empty?
         #live.tabs-panel
           = render partial: 'shared/talk_card', collection: @live_talks
@@ -112,14 +116,11 @@
           -# TODO: make this Talk Card
           = render partial: talks_partial(@upcoming_talks), locals: { color: 'box-slim' }, collection: @upcoming_talks
         - else
-          %p.nothing-scheduled 
+          %p.nothing-notice 
             = t('.nothing_scheduled')
 
       #archived.tabs-panel
-       
         = render partial: 'shared/talk_card', collection: @archived_talks
       #series.tabs-panel
-        = render partial: 'shared/series_medium_box', collection: @series
-      
-
+        = render partial: 'shared/series_card', collection: @series
 
