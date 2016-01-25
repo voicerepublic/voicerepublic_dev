@@ -94,16 +94,16 @@
       
     .tabs-content{"data-tabs-content" => "example-tabs"}
       #pinned.tabs-panel.is-active
-        - if @remembered_talks.count > 0
+        -# if @remembered_talks.count > 0
           -# TODO: turn this into an inline CTA that appears under certain condiditons. which?
-          -##cta-panel{"data-closable" => ""}
-          -#  %p
-          -#    Would you like to publish your content on Voice Republic?
-          -#    %a#cta-button.button{:href => "join.html"} Start Now »
-          -#  %button.close-button{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
-          -#    %span{"aria-hidden" => "true"} ×
-          -# if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
-          -# = render partial: "welcome", :locals => { user: @user }
+          / #cta-panel{"data-closable" => ""}
+          /   %p
+          /     Would you like to publish your content on Voice Republic?
+          /     %a#cta-button.button{:href => "join.html"} Start Now »
+          /   %button.close-button{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
+          /     %span{"aria-hidden" => "true"} ×
+        - if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
+          = render partial: "welcome", :locals => { user: @user }
           = render partial: 'shared/talk_card',  collection: @remembered_talks
         - else
           %p.nothing-notice 

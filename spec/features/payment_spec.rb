@@ -24,14 +24,14 @@ feature "General payment" do
 
     scenario 'purchase more credits accessible from profile' do
       visit user_path @user
-      click_on 'Purchase more credits'
+      click_on 'Buy more credits'
       expect(current_path).to eq(purchases_path)
     end
 
     scenario "user gets redirected when low on credits" do
       @user.reload.update_attribute :credits, 0
       visit user_path @user
-      click_on "Create new Talk"
+      click_on "Publish a Talk"
       expect(current_path).to eq(purchases_path)
     end
 
