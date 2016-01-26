@@ -2583,7 +2583,8 @@ section {
     margin-left: 0; }
     #left-column ul.social-links li {
       display: inline-block;
-      padding: 0 12px; }
+      padding: 0 12px;
+      color: #b4b6be; }
   #left-column .plays-count {
     display: inline-block;
     margin: 0 auto;
