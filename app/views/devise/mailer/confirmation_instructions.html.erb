@@ -1,5 +1,1 @@
-# https://github.com/plataformatec/devise/wiki/How-To:-Use-custom-mailer
-
-<%= s('.text') %>
-
-<%= link_to('Confirm my account', confirmation_url(@resource, confirmation_token: @token)) %>
+<%= s('.text', link: link_to('Confirm my account', confirmation_url(@resource, confirmation_token: @token))) %>
