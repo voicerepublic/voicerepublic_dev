@@ -1168,7 +1168,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Eagle", "Eagle-Book";
+  font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-weight: normal;
   font-style: normal;
   color: inherit;
@@ -1429,7 +1429,7 @@ kbd {
   [data-whatinput='mouse'] .button, [data-whatinput='mouse'] button {
     outline: 0; }
   .button:hover, button:hover, .button:focus, button:focus {
-    background: #253c96;
+    background: #f82847;
     color: #fff; }
   .button.tiny, button.tiny {
     font-size: 0.6rem; }
@@ -1473,43 +1473,43 @@ kbd {
       background: #ccbe00;
       color: #fff; }
   .button.hollow, button {
-    border: 1px solid #2c46b0;
+    border: 2px solid #2c46b0;
     color: #2c46b0; }
     .button.hollow, button, .button.hollow:hover, button:hover, .button.hollow:focus, button:focus {
       background: transparent; }
     .button.hollow:hover, button:hover, .button.hollow:focus, button:focus {
-      border-color: #162358;
-      color: #162358; }
+      border-color: #f82847;
+      color: #f82847; }
     .button.hollow.primary, button.primary {
-      border: 1px solid #2c46b0;
+      border: 2px solid #2c46b0;
       color: #2c46b0; }
       .button.hollow.primary:hover, button.primary:hover, .button.hollow.primary:focus, button.primary:focus {
-        border-color: #162358;
-        color: #162358; }
+        border-color: #f82847;
+        color: #f82847; }
     .button.hollow.secondary, button {
-      border: 1px solid #54c6c6;
+      border: 2px solid #54c6c6;
       color: #54c6c6; }
       .button.hollow.secondary:hover, button:hover, .button.hollow.secondary:focus, button:focus {
-        border-color: #236a6a;
-        color: #236a6a; }
+        border-color: #f82847;
+        color: #f82847; }
     .button.hollow.success, button.success {
-      border: 1px solid #d8f793;
+      border: 2px solid #d8f793;
       color: #d8f793; }
       .button.hollow.success:hover, button.success:hover, .button.hollow.success:focus, button.success:focus {
-        border-color: #83b70e;
-        color: #83b70e; }
+        border-color: #f82847;
+        color: #f82847; }
     .button.hollow.alert, button.alert {
-      border: 1px solid #f82847;
+      border: 2px solid #f82847;
       color: #f82847; }
       .button.hollow.alert:hover, button.alert:hover, .button.hollow.alert:focus, button.alert:focus {
-        border-color: #8b0519;
-        color: #8b0519; }
+        border-color: #f82847;
+        color: #f82847; }
     .button.hollow.warning, button.warning {
-      border: 1px solid #ffed00;
+      border: 2px solid #ffed00;
       color: #ffed00; }
       .button.hollow.warning:hover, button.warning:hover, .button.hollow.warning:focus, button.warning:focus {
-        border-color: #807700;
-        color: #807700; }
+        border-color: #f82847;
+        color: #f82847; }
   .button.disabled, button.disabled, .button[disabled], button[disabled] {
     opacity: 0.25;
     cursor: not-allowed;
@@ -1914,9 +1914,9 @@ select {
         border-right: 1px solid #FFFFFF; } }
 
 .callout, #cta-panel {
-  margin: 0 0 1rem 0;
+  margin: 0;
   padding: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 0;
   border-radius: 0;
   position: relative;
   color: #000000;
@@ -1926,15 +1926,15 @@ select {
   .callout > :last-child, #cta-panel > :last-child {
     margin-bottom: 0; }
   .callout.primary, .primary#cta-panel {
-    background-color: #dce1f6; }
+    background-color: #2c46b0; }
   .callout.secondary, .secondary#cta-panel, button#cta-panel, button.callout {
-    background-color: #e5f6f6; }
+    background-color: #54c6c6; }
   .callout.success, .success#cta-panel {
-    background-color: #f9feef; }
+    background-color: #d8f793; }
   .callout.alert, .alert#cta-panel {
-    background-color: #fedfe3; }
+    background-color: #f82847; }
   .callout.warning, .warning#cta-panel {
-    background-color: #fffcd9; }
+    background-color: #ffed00; }
   .callout.small, .small#cta-panel {
     padding-top: 0.5rem;
     padding-right: 0.5rem;
@@ -2448,6 +2448,8 @@ button, .button, button {
   border-width: 3px; }
   button.hollow, button, .button.hollow, button {
     border-width: 2px; }
+  button.alert.hollow, button.alert, .button.alert.hollow, button.alert {
+    border-width: 2px; }
   button.small, .button.small, button.small {
     border-width: 2px; }
   button.large, button, .join-page #join-box button, .button.large, button, .join-page #join-box button {
@@ -2556,7 +2558,7 @@ section {
     #left-column #credits p {
       color: white;
       font-weight: 700;
-      margin-top: 10px;
+      margin-top: 4px;
       margin-bottom: 0; }
     #left-column #credits .button, #left-column #credits button {
       margin: 0;
@@ -2583,8 +2585,10 @@ section {
     margin-left: 0; }
     #left-column ul.social-links li {
       display: inline-block;
-      padding: 0 12px;
-      color: #b4b6be; }
+      padding: 0 12px; }
+      #left-column ul.social-links li svg {
+        width: 24px;
+        height: 24px; }
   #left-column .plays-count {
     display: inline-block;
     margin: 0 auto;
@@ -2615,26 +2619,24 @@ section {
   #user-block #user-name {
     margin-bottom: 0; }
   #user-block .edit-btn {
-    line-height: 18px;
-    padding: 6px;
-    font-size: 0.75rem;
     background: #b4b6be;
+    font-weight: 500;
+    border-radius: 2px;
+    position: absolute;
     top: 12px;
     left: 12px; }
     #user-block .edit-btn:hover {
       background: #3c4258; }
     #user-block .edit-btn .svg-icon {
-      width: 18px;
-      height: 18px;
+      width: 12px;
+      height: 12px;
       margin: 0;
       display: inline-block;
-      max-width: 18px;
-      max-height: 18px;
       float: left;
       margin-right: 6px; }
       #user-block .edit-btn .svg-icon svg {
-        width: 18px;
-        height: 18px; }
+        width: 12px;
+        height: 12px; }
   #user-block .publish-btn {
     line-height: 21px; }
     #user-block .publish-btn .svg-icon {
@@ -2806,7 +2808,7 @@ section {
   .profile-tile img {
     margin-bottom: 12px; }
   .profile-tile .profile-title {
-    font-family: "Eagle", "Eagle-Book";
+    font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-weight: normal;
     color: rgba(255, 255, 255, 0.8);
     display: block;
@@ -3436,7 +3438,7 @@ footer {
       text-decoration: none; }
 
 .logo a span {
-  font-family: "Eagle", "Eagle-Book";
+  font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   color: #f82847;
   letter-spacing: 0.375rem;
   font-size: 0.875rem;

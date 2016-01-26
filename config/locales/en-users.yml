@@ -134,3 +134,5 @@ en:
         other: '%{count} Pinned Talks'
       nothing_scheduled: 'No Talks scheduled at this time.'
       nothing_pinned: "This user hasn't pinned any talks yet"
+      you_nothing_pinned: "When you pin a Talk, it will show up here. Find interesting Talks in the Voice Republic archive."
+      explore_the_archive: "Explore the Archive  »"
