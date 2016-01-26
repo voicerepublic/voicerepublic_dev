@@ -24,7 +24,7 @@ feature "General payment" do
 
     scenario 'purchase more credits accessible from profile' do
       visit user_path @user
-      click_on 'Buy more credits'
+      click_on 'Buy credits'
       expect(current_path).to eq(purchases_path)
     end
 
