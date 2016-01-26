@@ -1,5 +1,5 @@
-<p>Welcome <%= @email %>!</p>
+# https://github.com/plataformatec/devise/wiki/How-To:-Use-custom-mailer
 
-<p>You can confirm your account email through the link below:</p>
+<%= s('.text') %>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token) %></p>
+<%= link_to('Confirm my account', confirmation_url(@resource, confirmation_token: @token)) %>
