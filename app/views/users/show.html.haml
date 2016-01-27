@@ -19,34 +19,42 @@
       
       .profile-avatar
         = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
-        - if can? :manage, @user
-          = link_to [:edit, @user], class: 'button tiny edit-btn' do
-            -#= icon_tag 'pencil'
-            = t('.edit_profile')
+        
       %h3.user-name=@user.name
+      - if can? :manage, @user
+        = link_to [:edit, @user], class: 'button tiny hollow secondary' do
+          -#= icon_tag 'pencil'
+          = t('.edit_profile')
       %p#user-description
         - if @user.summary.blank? and can? :manage, @user
           = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
         - else
           = @user.summary
-      %ul.social-links
-        -# TODO: link these up, if they have provided the link, show the icon, make it go somewhere
-        %li.list-item
-          = icon_tag 'twitter'
-          %p= t('.twitters')
-        %li.list-item
-          = icon_tag 'facebook'
-        %li.list-item
-          = icon_tag 'location'
+      -# TODO: get user's social links and post here?
+      -#%ul.social-links
+      -#  -# TODO: link these up, if they have provided the link, show the -#icon, make it go somewhere
+      -#  %li.list-item
+      -#    = icon_tag 'twitter'
+      -#    %p= t('.twitters')
+      -#  %li.list-item
+      -#    = icon_tag 'facebook'
+      -#  %li.list-item
+      -#    = icon_tag 'location'
       - if can? :manage, @user
         -# TODO: discuss. Can't we just have one path to the create talk page?
         -# =link_to new_talk_path, class:'button hollow' do
         -#   = t('.upload_talk') 
-        = link_to new_upload_path, class:'button hollow publish-btn expanded' do
+        = link_to new_talk_path, class:'button hollow publish-btn tiny' do
           = icon_tag 'megaphone'
           = t('.publish_a_talk') 
-      %hr
+        
+        
+      - else
+        = link_to user_path, class:'button hollow tiny' do
+          = t('.subscribe_to_podcast') 
+          
       -# TODO: make these prettier: put the value big, then underneath, the key in small text 
+      %hr
       %ul.user-meta-group.menu.expanded
         %li
           .text= t('.talks', count: @talks_total)
@@ -58,15 +66,6 @@
         %li
           = link_to '#listen-later' do
             = t('.listen_later', count: @user.reminders.count)
-
-      -# TODO: are we keeping podcast? if so, make this look and work right...   
-      -# else
-      -#  %ul.action-links.list-style-type-none
-      -#    %li.visitor-view
-      -#      = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@user) }
-      -# %p.plays-count 
-      -#  = t('.plays', count: @total_plays)
-      
       %hr/
 
 
@@ -106,21 +105,19 @@
           /     %span{"aria-hidden" => "true"} ×
         - if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
           = render partial: "welcome", :locals => { user: @user }
-          = render partial: 'shared/talk_card',  collection: @remembered_talks
+          
         - if can? :manage, @user and @user.talks.empty?
           %p.nothing-notice
             = t('.you_nothing_pinned')
           %p.nothing-notice
-            = link_to t('.explore_the_archive'), :explore, class: 'button hollow alert'
+            = link_to t('.explore_the_archive'), :explore
         - else
-          %p.nothing-notice 
-            = t('.nothing_pinned')
+          = render partial: 'shared/talk_card',  collection: @remembered_talks
       - unless @live_talks.empty?
         #live.tabs-panel
           = render partial: 'shared/talk_card', collection: @live_talks
       #upcoming.tabs-panel
         - if @upcoming_talks.count > 0
-          -# TODO: make this Talk Card
           = render partial: talks_partial(@upcoming_talks), locals: { color: 'box-slim' }, collection: @upcoming_talks
         - else
           %p.nothing-notice 
