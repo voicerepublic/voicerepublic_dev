@@ -422,7 +422,7 @@ button {
     display: table; }
   .row::after {
     clear: both; }
-  .row.collapse > .column, .row.collapse > .columns, .row.collapse > #user-about, .row.collapse > .profile-tile, #claim .container .row.collapse > .claim-cta-half, #categories #talk-collection .row.collapse > .category, #publishers #publisher-collection .row.collapse > .publisher, .landing-feature .row.collapse > .landing-half {
+  .row.collapse > .column, .row.collapse > .columns, .row.collapse > .profile-tile, #claim .container .row.collapse > .claim-cta-half, #categories #talk-collection .row.collapse > .category, #publishers #publisher-collection .row.collapse > .publisher, .landing-feature .row.collapse > .landing-half {
     padding-left: 0;
     padding-right: 0; }
   .row .row {
@@ -431,42 +431,42 @@ button {
     .row .row.collapse {
       margin-left: 0;
       margin-right: 0; }
-  .row.small-collapse > .column, .row.small-collapse > .columns, .row.small-collapse > #user-about, .row.small-collapse > .profile-tile, #claim .container .row.small-collapse > .claim-cta-half, #categories #talk-collection .row.small-collapse > .category, #publishers #publisher-collection .row.small-collapse > .publisher, .landing-feature .row.small-collapse > .landing-half {
+  .row.small-collapse > .column, .row.small-collapse > .columns, .row.small-collapse > .profile-tile, #claim .container .row.small-collapse > .claim-cta-half, #categories #talk-collection .row.small-collapse > .category, #publishers #publisher-collection .row.small-collapse > .publisher, .landing-feature .row.small-collapse > .landing-half {
     padding-left: 0;
     padding-right: 0; }
-  .row.small-uncollapse > .column, .row.small-uncollapse > .columns, .row.small-uncollapse > #user-about, .row.small-uncollapse > .profile-tile, #claim .container .row.small-uncollapse > .claim-cta-half, #categories #talk-collection .row.small-uncollapse > .category, #publishers #publisher-collection .row.small-uncollapse > .publisher, .landing-feature .row.small-uncollapse > .landing-half {
+  .row.small-uncollapse > .column, .row.small-uncollapse > .columns, .row.small-uncollapse > .profile-tile, #claim .container .row.small-uncollapse > .claim-cta-half, #categories #talk-collection .row.small-uncollapse > .category, #publishers #publisher-collection .row.small-uncollapse > .publisher, .landing-feature .row.small-uncollapse > .landing-half {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem; }
   @media screen and (min-width: 40em) {
-    .row.medium-collapse > .column, .row.medium-collapse > .columns, .row.medium-collapse > #user-about, .row.medium-collapse > .profile-tile, #claim .container .row.medium-collapse > .claim-cta-half, #categories #talk-collection .row.medium-collapse > .category, #publishers #publisher-collection .row.medium-collapse > .publisher, .landing-feature .row.medium-collapse > .landing-half {
+    .row.medium-collapse > .column, .row.medium-collapse > .columns, .row.medium-collapse > .profile-tile, #claim .container .row.medium-collapse > .claim-cta-half, #categories #talk-collection .row.medium-collapse > .category, #publishers #publisher-collection .row.medium-collapse > .publisher, .landing-feature .row.medium-collapse > .landing-half {
       padding-left: 0;
       padding-right: 0; }
-    .row.medium-uncollapse > .column, .row.medium-uncollapse > .columns, .row.medium-uncollapse > #user-about, .row.medium-uncollapse > .profile-tile, #claim .container .row.medium-uncollapse > .claim-cta-half, #categories #talk-collection .row.medium-uncollapse > .category, #publishers #publisher-collection .row.medium-uncollapse > .publisher, .landing-feature .row.medium-uncollapse > .landing-half {
+    .row.medium-uncollapse > .column, .row.medium-uncollapse > .columns, .row.medium-uncollapse > .profile-tile, #claim .container .row.medium-uncollapse > .claim-cta-half, #categories #talk-collection .row.medium-uncollapse > .category, #publishers #publisher-collection .row.medium-uncollapse > .publisher, .landing-feature .row.medium-uncollapse > .landing-half {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem; } }
   @media screen and (min-width: 64em) {
-    .row.large-collapse > .column, .row.large-collapse > .columns, .row.large-collapse > #user-about, .row.large-collapse > .profile-tile, #claim .container .row.large-collapse > .claim-cta-half, #categories #talk-collection .row.large-collapse > .category, #publishers #publisher-collection .row.large-collapse > .publisher, .landing-feature .row.large-collapse > .landing-half {
+    .row.large-collapse > .column, .row.large-collapse > .columns, .row.large-collapse > .profile-tile, #claim .container .row.large-collapse > .claim-cta-half, #categories #talk-collection .row.large-collapse > .category, #publishers #publisher-collection .row.large-collapse > .publisher, .landing-feature .row.large-collapse > .landing-half {
       padding-left: 0;
       padding-right: 0; }
-    .row.large-uncollapse > .column, .row.large-uncollapse > .columns, .row.large-uncollapse > #user-about, .row.large-uncollapse > .profile-tile, #claim .container .row.large-uncollapse > .claim-cta-half, #categories #talk-collection .row.large-uncollapse > .category, #publishers #publisher-collection .row.large-uncollapse > .publisher, .landing-feature .row.large-uncollapse > .landing-half {
+    .row.large-uncollapse > .column, .row.large-uncollapse > .columns, .row.large-uncollapse > .profile-tile, #claim .container .row.large-uncollapse > .claim-cta-half, #categories #talk-collection .row.large-uncollapse > .category, #publishers #publisher-collection .row.large-uncollapse > .publisher, .landing-feature .row.large-uncollapse > .landing-half {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem; } }
   .row.expanded, .join-page #join-box button.row {
     max-width: none; }
 
-.column, .columns, #user-about, .profile-tile, #claim .container .claim-cta-half, #categories #talk-collection .category, #publishers #publisher-collection .publisher, .landing-feature .landing-half {
+.column, .columns, .profile-tile, #claim .container .claim-cta-half, #categories #talk-collection .category, #publishers #publisher-collection .publisher, .landing-feature .landing-half {
   width: 100%;
   float: left;
   padding-left: 0.9375rem;
   padding-right: 0.9375rem; }
-  .column:last-child:not(:first-child), .columns:last-child:not(:first-child), #user-about:last-child:not(:first-child), .profile-tile:last-child:not(:first-child), #claim .container .claim-cta-half:last-child:not(:first-child), #categories #talk-collection .category:last-child:not(:first-child), #publishers #publisher-collection .publisher:last-child:not(:first-child), .landing-feature .landing-half:last-child:not(:first-child) {
+  .column:last-child:not(:first-child), .columns:last-child:not(:first-child), .profile-tile:last-child:not(:first-child), #claim .container .claim-cta-half:last-child:not(:first-child), #categories #talk-collection .category:last-child:not(:first-child), #publishers #publisher-collection .publisher:last-child:not(:first-child), .landing-feature .landing-half:last-child:not(:first-child) {
     float: right; }
-  .column.end:last-child:last-child, .end.columns:last-child:last-child, .end#user-about:last-child:last-child, #user-about.profile-tile:last-child:last-child, #publishers #publisher-collection div#user-about:last-child:last-child, #user-about.talk-card:last-child:last-child, .profile-tile:last-child:last-child, #publishers #publisher-collection div.profile-tile:last-child:last-child, #claim .container .profile-tile.claim-cta-half:last-child:last-child, #categories #talk-collection .profile-tile.category:last-child:last-child, #publishers #publisher-collection .profile-tile.publisher:last-child:last-child, #claim .container .end.claim-cta-half:last-child:last-child, #claim .container #publishers #publisher-collection div.claim-cta-half:last-child:last-child, #publishers #publisher-collection #claim .container div.claim-cta-half:last-child:last-child, #claim .container .claim-cta-half.talk-card:last-child:last-child, #categories #talk-collection .end.category:last-child:last-child, #categories #talk-collection #publishers #publisher-collection div.category:last-child:last-child, #publishers #publisher-collection #categories #talk-collection div.category:last-child:last-child, #categories #talk-collection .category.talk-card:last-child:last-child, #publishers #publisher-collection .end.publisher:last-child:last-child, #publishers #publisher-collection div.publisher:last-child:last-child, #publishers #publisher-collection .publisher.talk-card:last-child:last-child, #publishers #publisher-collection div.columns:last-child:last-child, #publishers #publisher-collection .landing-feature div.landing-half:last-child:last-child, .landing-feature #publishers #publisher-collection div.landing-half:last-child:last-child, .landing-feature .end.landing-half:last-child:last-child, .landing-feature .landing-half.talk-card:last-child:last-child, .columns.talk-card:last-child:last-child, #publishers #publisher-collection div.column:last-child:last-child, .column.talk-card:last-child:last-child {
+  .column.end:last-child:last-child, .end.columns:last-child:last-child, .profile-tile:last-child:last-child, #publishers #publisher-collection div.profile-tile:last-child:last-child, #claim .container .profile-tile.claim-cta-half:last-child:last-child, #categories #talk-collection .profile-tile.category:last-child:last-child, #publishers #publisher-collection .profile-tile.publisher:last-child:last-child, #claim .container .end.claim-cta-half:last-child:last-child, #claim .container #publishers #publisher-collection div.claim-cta-half:last-child:last-child, #publishers #publisher-collection #claim .container div.claim-cta-half:last-child:last-child, #claim .container .claim-cta-half.talk-card:last-child:last-child, #categories #talk-collection .end.category:last-child:last-child, #categories #talk-collection #publishers #publisher-collection div.category:last-child:last-child, #publishers #publisher-collection #categories #talk-collection div.category:last-child:last-child, #categories #talk-collection .category.talk-card:last-child:last-child, #publishers #publisher-collection .end.publisher:last-child:last-child, #publishers #publisher-collection div.publisher:last-child:last-child, #publishers #publisher-collection .publisher.talk-card:last-child:last-child, #publishers #publisher-collection div.columns:last-child:last-child, #publishers #publisher-collection .landing-feature div.landing-half:last-child:last-child, .landing-feature #publishers #publisher-collection div.landing-half:last-child:last-child, .landing-feature .end.landing-half:last-child:last-child, .landing-feature .landing-half.talk-card:last-child:last-child, .columns.talk-card:last-child:last-child, #publishers #publisher-collection div.column:last-child:last-child, .column.talk-card:last-child:last-child {
     float: left; }
 
-.column.row.row, .row.row.columns, .row.row#user-about, .row.row.profile-tile, #claim .container .row.row.claim-cta-half, #categories #talk-collection .row.row.category, #publishers #publisher-collection .row.row.publisher, .landing-feature .row.row.landing-half {
+.column.row.row, .row.row.columns, .row.row.profile-tile, #claim .container .row.row.claim-cta-half, #categories #talk-collection .row.row.category, #publishers #publisher-collection .row.row.publisher, .landing-feature .row.row.landing-half {
   float: none; }
-  .row .column.row.row, .row .row.row.columns, .row .row.row#user-about, .row .row.row.profile-tile, .row #claim .container .row.row.claim-cta-half, #claim .container .row .row.row.claim-cta-half, .row #categories #talk-collection .row.row.category, #categories #talk-collection .row .row.row.category, .row #publishers #publisher-collection .row.row.publisher, #publishers #publisher-collection .row .row.row.publisher, .row .landing-feature .row.row.landing-half, .landing-feature .row .row.row.landing-half {
+  .row .column.row.row, .row .row.row.columns, .row .row.row.profile-tile, .row #claim .container .row.row.claim-cta-half, #claim .container .row .row.row.claim-cta-half, .row #categories #talk-collection .row.row.category, #categories #talk-collection .row .row.row.category, .row #publishers #publisher-collection .row.row.publisher, #publishers #publisher-collection .row .row.row.publisher, .row .landing-feature .row.row.landing-half, .landing-feature .row .row.row.landing-half {
     padding-left: 0;
     padding-right: 0;
     margin-left: 0;
@@ -632,87 +632,87 @@ button {
 .small-offset-11 {
   margin-left: 91.6666666667%; }
 
-.small-up-1 > .column, .small-up-1 > .columns, .small-up-1 > #user-about, .small-up-1 > .profile-tile, #claim .container .small-up-1 > .claim-cta-half, #categories #talk-collection .small-up-1 > .category, #publishers #publisher-collection .small-up-1 > .publisher, .landing-feature .small-up-1 > .landing-half {
+.small-up-1 > .column, .small-up-1 > .columns, .small-up-1 > .profile-tile, #claim .container .small-up-1 > .claim-cta-half, #categories #talk-collection .small-up-1 > .category, #publishers #publisher-collection .small-up-1 > .publisher, .landing-feature .small-up-1 > .landing-half {
   width: 100%;
   float: left; }
-  .small-up-1 > .column:nth-of-type(1n), .small-up-1 > .columns:nth-of-type(1n), .small-up-1 > #user-about:nth-of-type(1n), .small-up-1 > .profile-tile:nth-of-type(1n), #claim .container .small-up-1 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-1 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-1 > .publisher:nth-of-type(1n), .landing-feature .small-up-1 > .landing-half:nth-of-type(1n) {
+  .small-up-1 > .column:nth-of-type(1n), .small-up-1 > .columns:nth-of-type(1n), .small-up-1 > .profile-tile:nth-of-type(1n), #claim .container .small-up-1 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-1 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-1 > .publisher:nth-of-type(1n), .landing-feature .small-up-1 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-1 > .column:nth-of-type(1n+1), .small-up-1 > .columns:nth-of-type(1n+1), .small-up-1 > #user-about:nth-of-type(1n+1), .small-up-1 > .profile-tile:nth-of-type(1n+1), #claim .container .small-up-1 > .claim-cta-half:nth-of-type(1n+1), #categories #talk-collection .small-up-1 > .category:nth-of-type(1n+1), #publishers #publisher-collection .small-up-1 > .publisher:nth-of-type(1n+1), .landing-feature .small-up-1 > .landing-half:nth-of-type(1n+1) {
+  .small-up-1 > .column:nth-of-type(1n+1), .small-up-1 > .columns:nth-of-type(1n+1), .small-up-1 > .profile-tile:nth-of-type(1n+1), #claim .container .small-up-1 > .claim-cta-half:nth-of-type(1n+1), #categories #talk-collection .small-up-1 > .category:nth-of-type(1n+1), #publishers #publisher-collection .small-up-1 > .publisher:nth-of-type(1n+1), .landing-feature .small-up-1 > .landing-half:nth-of-type(1n+1) {
     clear: both; }
-  .small-up-1 > .column:last-child, .small-up-1 > .columns:last-child, .small-up-1 > #user-about:last-child, .small-up-1 > .profile-tile:last-child, #claim .container .small-up-1 > .claim-cta-half:last-child, #categories #talk-collection .small-up-1 > .category:last-child, #publishers #publisher-collection .small-up-1 > .publisher:last-child, .landing-feature .small-up-1 > .landing-half:last-child {
+  .small-up-1 > .column:last-child, .small-up-1 > .columns:last-child, .small-up-1 > .profile-tile:last-child, #claim .container .small-up-1 > .claim-cta-half:last-child, #categories #talk-collection .small-up-1 > .category:last-child, #publishers #publisher-collection .small-up-1 > .publisher:last-child, .landing-feature .small-up-1 > .landing-half:last-child {
     float: left; }
 
-.small-up-2 > .column, .small-up-2 > .columns, .small-up-2 > #user-about, .small-up-2 > .profile-tile, #claim .container .small-up-2 > .claim-cta-half, #categories #talk-collection .small-up-2 > .category, #publishers #publisher-collection .small-up-2 > .publisher, .landing-feature .small-up-2 > .landing-half {
+.small-up-2 > .column, .small-up-2 > .columns, .small-up-2 > .profile-tile, #claim .container .small-up-2 > .claim-cta-half, #categories #talk-collection .small-up-2 > .category, #publishers #publisher-collection .small-up-2 > .publisher, .landing-feature .small-up-2 > .landing-half {
   width: 50%;
   float: left; }
-  .small-up-2 > .column:nth-of-type(1n), .small-up-2 > .columns:nth-of-type(1n), .small-up-2 > #user-about:nth-of-type(1n), .small-up-2 > .profile-tile:nth-of-type(1n), #claim .container .small-up-2 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-2 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-2 > .publisher:nth-of-type(1n), .landing-feature .small-up-2 > .landing-half:nth-of-type(1n) {
+  .small-up-2 > .column:nth-of-type(1n), .small-up-2 > .columns:nth-of-type(1n), .small-up-2 > .profile-tile:nth-of-type(1n), #claim .container .small-up-2 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-2 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-2 > .publisher:nth-of-type(1n), .landing-feature .small-up-2 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-2 > .column:nth-of-type(2n+1), .small-up-2 > .columns:nth-of-type(2n+1), .small-up-2 > #user-about:nth-of-type(2n+1), .small-up-2 > .profile-tile:nth-of-type(2n+1), #claim .container .small-up-2 > .claim-cta-half:nth-of-type(2n+1), #categories #talk-collection .small-up-2 > .category:nth-of-type(2n+1), #publishers #publisher-collection .small-up-2 > .publisher:nth-of-type(2n+1), .landing-feature .small-up-2 > .landing-half:nth-of-type(2n+1) {
+  .small-up-2 > .column:nth-of-type(2n+1), .small-up-2 > .columns:nth-of-type(2n+1), .small-up-2 > .profile-tile:nth-of-type(2n+1), #claim .container .small-up-2 > .claim-cta-half:nth-of-type(2n+1), #categories #talk-collection .small-up-2 > .category:nth-of-type(2n+1), #publishers #publisher-collection .small-up-2 > .publisher:nth-of-type(2n+1), .landing-feature .small-up-2 > .landing-half:nth-of-type(2n+1) {
     clear: both; }
-  .small-up-2 > .column:last-child, .small-up-2 > .columns:last-child, .small-up-2 > #user-about:last-child, .small-up-2 > .profile-tile:last-child, #claim .container .small-up-2 > .claim-cta-half:last-child, #categories #talk-collection .small-up-2 > .category:last-child, #publishers #publisher-collection .small-up-2 > .publisher:last-child, .landing-feature .small-up-2 > .landing-half:last-child {
+  .small-up-2 > .column:last-child, .small-up-2 > .columns:last-child, .small-up-2 > .profile-tile:last-child, #claim .container .small-up-2 > .claim-cta-half:last-child, #categories #talk-collection .small-up-2 > .category:last-child, #publishers #publisher-collection .small-up-2 > .publisher:last-child, .landing-feature .small-up-2 > .landing-half:last-child {
     float: left; }
 
-.small-up-3 > .column, .small-up-3 > .columns, .small-up-3 > #user-about, .small-up-3 > .profile-tile, #claim .container .small-up-3 > .claim-cta-half, #categories #talk-collection .small-up-3 > .category, #publishers #publisher-collection .small-up-3 > .publisher, .landing-feature .small-up-3 > .landing-half {
+.small-up-3 > .column, .small-up-3 > .columns, .small-up-3 > .profile-tile, #claim .container .small-up-3 > .claim-cta-half, #categories #talk-collection .small-up-3 > .category, #publishers #publisher-collection .small-up-3 > .publisher, .landing-feature .small-up-3 > .landing-half {
   width: 33.3333333333%;
   float: left; }
-  .small-up-3 > .column:nth-of-type(1n), .small-up-3 > .columns:nth-of-type(1n), .small-up-3 > #user-about:nth-of-type(1n), .small-up-3 > .profile-tile:nth-of-type(1n), #claim .container .small-up-3 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-3 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-3 > .publisher:nth-of-type(1n), .landing-feature .small-up-3 > .landing-half:nth-of-type(1n) {
+  .small-up-3 > .column:nth-of-type(1n), .small-up-3 > .columns:nth-of-type(1n), .small-up-3 > .profile-tile:nth-of-type(1n), #claim .container .small-up-3 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-3 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-3 > .publisher:nth-of-type(1n), .landing-feature .small-up-3 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-3 > .column:nth-of-type(3n+1), .small-up-3 > .columns:nth-of-type(3n+1), .small-up-3 > #user-about:nth-of-type(3n+1), .small-up-3 > .profile-tile:nth-of-type(3n+1), #claim .container .small-up-3 > .claim-cta-half:nth-of-type(3n+1), #categories #talk-collection .small-up-3 > .category:nth-of-type(3n+1), #publishers #publisher-collection .small-up-3 > .publisher:nth-of-type(3n+1), .landing-feature .small-up-3 > .landing-half:nth-of-type(3n+1) {
+  .small-up-3 > .column:nth-of-type(3n+1), .small-up-3 > .columns:nth-of-type(3n+1), .small-up-3 > .profile-tile:nth-of-type(3n+1), #claim .container .small-up-3 > .claim-cta-half:nth-of-type(3n+1), #categories #talk-collection .small-up-3 > .category:nth-of-type(3n+1), #publishers #publisher-collection .small-up-3 > .publisher:nth-of-type(3n+1), .landing-feature .small-up-3 > .landing-half:nth-of-type(3n+1) {
     clear: both; }
-  .small-up-3 > .column:last-child, .small-up-3 > .columns:last-child, .small-up-3 > #user-about:last-child, .small-up-3 > .profile-tile:last-child, #claim .container .small-up-3 > .claim-cta-half:last-child, #categories #talk-collection .small-up-3 > .category:last-child, #publishers #publisher-collection .small-up-3 > .publisher:last-child, .landing-feature .small-up-3 > .landing-half:last-child {
+  .small-up-3 > .column:last-child, .small-up-3 > .columns:last-child, .small-up-3 > .profile-tile:last-child, #claim .container .small-up-3 > .claim-cta-half:last-child, #categories #talk-collection .small-up-3 > .category:last-child, #publishers #publisher-collection .small-up-3 > .publisher:last-child, .landing-feature .small-up-3 > .landing-half:last-child {
     float: left; }
 
-.small-up-4 > .column, .small-up-4 > .columns, .small-up-4 > #user-about, .small-up-4 > .profile-tile, #claim .container .small-up-4 > .claim-cta-half, #categories #talk-collection .small-up-4 > .category, #publishers #publisher-collection .small-up-4 > .publisher, .landing-feature .small-up-4 > .landing-half {
+.small-up-4 > .column, .small-up-4 > .columns, .small-up-4 > .profile-tile, #claim .container .small-up-4 > .claim-cta-half, #categories #talk-collection .small-up-4 > .category, #publishers #publisher-collection .small-up-4 > .publisher, .landing-feature .small-up-4 > .landing-half {
   width: 25%;
   float: left; }
-  .small-up-4 > .column:nth-of-type(1n), .small-up-4 > .columns:nth-of-type(1n), .small-up-4 > #user-about:nth-of-type(1n), .small-up-4 > .profile-tile:nth-of-type(1n), #claim .container .small-up-4 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-4 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-4 > .publisher:nth-of-type(1n), .landing-feature .small-up-4 > .landing-half:nth-of-type(1n) {
+  .small-up-4 > .column:nth-of-type(1n), .small-up-4 > .columns:nth-of-type(1n), .small-up-4 > .profile-tile:nth-of-type(1n), #claim .container .small-up-4 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-4 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-4 > .publisher:nth-of-type(1n), .landing-feature .small-up-4 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-4 > .column:nth-of-type(4n+1), .small-up-4 > .columns:nth-of-type(4n+1), .small-up-4 > #user-about:nth-of-type(4n+1), .small-up-4 > .profile-tile:nth-of-type(4n+1), #claim .container .small-up-4 > .claim-cta-half:nth-of-type(4n+1), #categories #talk-collection .small-up-4 > .category:nth-of-type(4n+1), #publishers #publisher-collection .small-up-4 > .publisher:nth-of-type(4n+1), .landing-feature .small-up-4 > .landing-half:nth-of-type(4n+1) {
+  .small-up-4 > .column:nth-of-type(4n+1), .small-up-4 > .columns:nth-of-type(4n+1), .small-up-4 > .profile-tile:nth-of-type(4n+1), #claim .container .small-up-4 > .claim-cta-half:nth-of-type(4n+1), #categories #talk-collection .small-up-4 > .category:nth-of-type(4n+1), #publishers #publisher-collection .small-up-4 > .publisher:nth-of-type(4n+1), .landing-feature .small-up-4 > .landing-half:nth-of-type(4n+1) {
     clear: both; }
-  .small-up-4 > .column:last-child, .small-up-4 > .columns:last-child, .small-up-4 > #user-about:last-child, .small-up-4 > .profile-tile:last-child, #claim .container .small-up-4 > .claim-cta-half:last-child, #categories #talk-collection .small-up-4 > .category:last-child, #publishers #publisher-collection .small-up-4 > .publisher:last-child, .landing-feature .small-up-4 > .landing-half:last-child {
+  .small-up-4 > .column:last-child, .small-up-4 > .columns:last-child, .small-up-4 > .profile-tile:last-child, #claim .container .small-up-4 > .claim-cta-half:last-child, #categories #talk-collection .small-up-4 > .category:last-child, #publishers #publisher-collection .small-up-4 > .publisher:last-child, .landing-feature .small-up-4 > .landing-half:last-child {
     float: left; }
 
-.small-up-5 > .column, .small-up-5 > .columns, .small-up-5 > #user-about, .small-up-5 > .profile-tile, #claim .container .small-up-5 > .claim-cta-half, #categories #talk-collection .small-up-5 > .category, #publishers #publisher-collection .small-up-5 > .publisher, .landing-feature .small-up-5 > .landing-half {
+.small-up-5 > .column, .small-up-5 > .columns, .small-up-5 > .profile-tile, #claim .container .small-up-5 > .claim-cta-half, #categories #talk-collection .small-up-5 > .category, #publishers #publisher-collection .small-up-5 > .publisher, .landing-feature .small-up-5 > .landing-half {
   width: 20%;
   float: left; }
-  .small-up-5 > .column:nth-of-type(1n), .small-up-5 > .columns:nth-of-type(1n), .small-up-5 > #user-about:nth-of-type(1n), .small-up-5 > .profile-tile:nth-of-type(1n), #claim .container .small-up-5 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-5 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-5 > .publisher:nth-of-type(1n), .landing-feature .small-up-5 > .landing-half:nth-of-type(1n) {
+  .small-up-5 > .column:nth-of-type(1n), .small-up-5 > .columns:nth-of-type(1n), .small-up-5 > .profile-tile:nth-of-type(1n), #claim .container .small-up-5 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-5 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-5 > .publisher:nth-of-type(1n), .landing-feature .small-up-5 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-5 > .column:nth-of-type(5n+1), .small-up-5 > .columns:nth-of-type(5n+1), .small-up-5 > #user-about:nth-of-type(5n+1), .small-up-5 > .profile-tile:nth-of-type(5n+1), #claim .container .small-up-5 > .claim-cta-half:nth-of-type(5n+1), #categories #talk-collection .small-up-5 > .category:nth-of-type(5n+1), #publishers #publisher-collection .small-up-5 > .publisher:nth-of-type(5n+1), .landing-feature .small-up-5 > .landing-half:nth-of-type(5n+1) {
+  .small-up-5 > .column:nth-of-type(5n+1), .small-up-5 > .columns:nth-of-type(5n+1), .small-up-5 > .profile-tile:nth-of-type(5n+1), #claim .container .small-up-5 > .claim-cta-half:nth-of-type(5n+1), #categories #talk-collection .small-up-5 > .category:nth-of-type(5n+1), #publishers #publisher-collection .small-up-5 > .publisher:nth-of-type(5n+1), .landing-feature .small-up-5 > .landing-half:nth-of-type(5n+1) {
     clear: both; }
-  .small-up-5 > .column:last-child, .small-up-5 > .columns:last-child, .small-up-5 > #user-about:last-child, .small-up-5 > .profile-tile:last-child, #claim .container .small-up-5 > .claim-cta-half:last-child, #categories #talk-collection .small-up-5 > .category:last-child, #publishers #publisher-collection .small-up-5 > .publisher:last-child, .landing-feature .small-up-5 > .landing-half:last-child {
+  .small-up-5 > .column:last-child, .small-up-5 > .columns:last-child, .small-up-5 > .profile-tile:last-child, #claim .container .small-up-5 > .claim-cta-half:last-child, #categories #talk-collection .small-up-5 > .category:last-child, #publishers #publisher-collection .small-up-5 > .publisher:last-child, .landing-feature .small-up-5 > .landing-half:last-child {
     float: left; }
 
-.small-up-6 > .column, .small-up-6 > .columns, .small-up-6 > #user-about, .small-up-6 > .profile-tile, #claim .container .small-up-6 > .claim-cta-half, #categories #talk-collection .small-up-6 > .category, #publishers #publisher-collection .small-up-6 > .publisher, .landing-feature .small-up-6 > .landing-half {
+.small-up-6 > .column, .small-up-6 > .columns, .small-up-6 > .profile-tile, #claim .container .small-up-6 > .claim-cta-half, #categories #talk-collection .small-up-6 > .category, #publishers #publisher-collection .small-up-6 > .publisher, .landing-feature .small-up-6 > .landing-half {
   width: 16.6666666667%;
   float: left; }
-  .small-up-6 > .column:nth-of-type(1n), .small-up-6 > .columns:nth-of-type(1n), .small-up-6 > #user-about:nth-of-type(1n), .small-up-6 > .profile-tile:nth-of-type(1n), #claim .container .small-up-6 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-6 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-6 > .publisher:nth-of-type(1n), .landing-feature .small-up-6 > .landing-half:nth-of-type(1n) {
+  .small-up-6 > .column:nth-of-type(1n), .small-up-6 > .columns:nth-of-type(1n), .small-up-6 > .profile-tile:nth-of-type(1n), #claim .container .small-up-6 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-6 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-6 > .publisher:nth-of-type(1n), .landing-feature .small-up-6 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-6 > .column:nth-of-type(6n+1), .small-up-6 > .columns:nth-of-type(6n+1), .small-up-6 > #user-about:nth-of-type(6n+1), .small-up-6 > .profile-tile:nth-of-type(6n+1), #claim .container .small-up-6 > .claim-cta-half:nth-of-type(6n+1), #categories #talk-collection .small-up-6 > .category:nth-of-type(6n+1), #publishers #publisher-collection .small-up-6 > .publisher:nth-of-type(6n+1), .landing-feature .small-up-6 > .landing-half:nth-of-type(6n+1) {
+  .small-up-6 > .column:nth-of-type(6n+1), .small-up-6 > .columns:nth-of-type(6n+1), .small-up-6 > .profile-tile:nth-of-type(6n+1), #claim .container .small-up-6 > .claim-cta-half:nth-of-type(6n+1), #categories #talk-collection .small-up-6 > .category:nth-of-type(6n+1), #publishers #publisher-collection .small-up-6 > .publisher:nth-of-type(6n+1), .landing-feature .small-up-6 > .landing-half:nth-of-type(6n+1) {
     clear: both; }
-  .small-up-6 > .column:last-child, .small-up-6 > .columns:last-child, .small-up-6 > #user-about:last-child, .small-up-6 > .profile-tile:last-child, #claim .container .small-up-6 > .claim-cta-half:last-child, #categories #talk-collection .small-up-6 > .category:last-child, #publishers #publisher-collection .small-up-6 > .publisher:last-child, .landing-feature .small-up-6 > .landing-half:last-child {
+  .small-up-6 > .column:last-child, .small-up-6 > .columns:last-child, .small-up-6 > .profile-tile:last-child, #claim .container .small-up-6 > .claim-cta-half:last-child, #categories #talk-collection .small-up-6 > .category:last-child, #publishers #publisher-collection .small-up-6 > .publisher:last-child, .landing-feature .small-up-6 > .landing-half:last-child {
     float: left; }
 
-.small-up-7 > .column, .small-up-7 > .columns, .small-up-7 > #user-about, .small-up-7 > .profile-tile, #claim .container .small-up-7 > .claim-cta-half, #categories #talk-collection .small-up-7 > .category, #publishers #publisher-collection .small-up-7 > .publisher, .landing-feature .small-up-7 > .landing-half {
+.small-up-7 > .column, .small-up-7 > .columns, .small-up-7 > .profile-tile, #claim .container .small-up-7 > .claim-cta-half, #categories #talk-collection .small-up-7 > .category, #publishers #publisher-collection .small-up-7 > .publisher, .landing-feature .small-up-7 > .landing-half {
   width: 14.2857142857%;
   float: left; }
-  .small-up-7 > .column:nth-of-type(1n), .small-up-7 > .columns:nth-of-type(1n), .small-up-7 > #user-about:nth-of-type(1n), .small-up-7 > .profile-tile:nth-of-type(1n), #claim .container .small-up-7 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-7 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-7 > .publisher:nth-of-type(1n), .landing-feature .small-up-7 > .landing-half:nth-of-type(1n) {
+  .small-up-7 > .column:nth-of-type(1n), .small-up-7 > .columns:nth-of-type(1n), .small-up-7 > .profile-tile:nth-of-type(1n), #claim .container .small-up-7 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-7 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-7 > .publisher:nth-of-type(1n), .landing-feature .small-up-7 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-7 > .column:nth-of-type(7n+1), .small-up-7 > .columns:nth-of-type(7n+1), .small-up-7 > #user-about:nth-of-type(7n+1), .small-up-7 > .profile-tile:nth-of-type(7n+1), #claim .container .small-up-7 > .claim-cta-half:nth-of-type(7n+1), #categories #talk-collection .small-up-7 > .category:nth-of-type(7n+1), #publishers #publisher-collection .small-up-7 > .publisher:nth-of-type(7n+1), .landing-feature .small-up-7 > .landing-half:nth-of-type(7n+1) {
+  .small-up-7 > .column:nth-of-type(7n+1), .small-up-7 > .columns:nth-of-type(7n+1), .small-up-7 > .profile-tile:nth-of-type(7n+1), #claim .container .small-up-7 > .claim-cta-half:nth-of-type(7n+1), #categories #talk-collection .small-up-7 > .category:nth-of-type(7n+1), #publishers #publisher-collection .small-up-7 > .publisher:nth-of-type(7n+1), .landing-feature .small-up-7 > .landing-half:nth-of-type(7n+1) {
     clear: both; }
-  .small-up-7 > .column:last-child, .small-up-7 > .columns:last-child, .small-up-7 > #user-about:last-child, .small-up-7 > .profile-tile:last-child, #claim .container .small-up-7 > .claim-cta-half:last-child, #categories #talk-collection .small-up-7 > .category:last-child, #publishers #publisher-collection .small-up-7 > .publisher:last-child, .landing-feature .small-up-7 > .landing-half:last-child {
+  .small-up-7 > .column:last-child, .small-up-7 > .columns:last-child, .small-up-7 > .profile-tile:last-child, #claim .container .small-up-7 > .claim-cta-half:last-child, #categories #talk-collection .small-up-7 > .category:last-child, #publishers #publisher-collection .small-up-7 > .publisher:last-child, .landing-feature .small-up-7 > .landing-half:last-child {
     float: left; }
 
-.small-up-8 > .column, .small-up-8 > .columns, .small-up-8 > #user-about, .small-up-8 > .profile-tile, #claim .container .small-up-8 > .claim-cta-half, #categories #talk-collection .small-up-8 > .category, #publishers #publisher-collection .small-up-8 > .publisher, .landing-feature .small-up-8 > .landing-half {
+.small-up-8 > .column, .small-up-8 > .columns, .small-up-8 > .profile-tile, #claim .container .small-up-8 > .claim-cta-half, #categories #talk-collection .small-up-8 > .category, #publishers #publisher-collection .small-up-8 > .publisher, .landing-feature .small-up-8 > .landing-half {
   width: 12.5%;
   float: left; }
-  .small-up-8 > .column:nth-of-type(1n), .small-up-8 > .columns:nth-of-type(1n), .small-up-8 > #user-about:nth-of-type(1n), .small-up-8 > .profile-tile:nth-of-type(1n), #claim .container .small-up-8 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-8 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-8 > .publisher:nth-of-type(1n), .landing-feature .small-up-8 > .landing-half:nth-of-type(1n) {
+  .small-up-8 > .column:nth-of-type(1n), .small-up-8 > .columns:nth-of-type(1n), .small-up-8 > .profile-tile:nth-of-type(1n), #claim .container .small-up-8 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .small-up-8 > .category:nth-of-type(1n), #publishers #publisher-collection .small-up-8 > .publisher:nth-of-type(1n), .landing-feature .small-up-8 > .landing-half:nth-of-type(1n) {
     clear: none; }
-  .small-up-8 > .column:nth-of-type(8n+1), .small-up-8 > .columns:nth-of-type(8n+1), .small-up-8 > #user-about:nth-of-type(8n+1), .small-up-8 > .profile-tile:nth-of-type(8n+1), #claim .container .small-up-8 > .claim-cta-half:nth-of-type(8n+1), #categories #talk-collection .small-up-8 > .category:nth-of-type(8n+1), #publishers #publisher-collection .small-up-8 > .publisher:nth-of-type(8n+1), .landing-feature .small-up-8 > .landing-half:nth-of-type(8n+1) {
+  .small-up-8 > .column:nth-of-type(8n+1), .small-up-8 > .columns:nth-of-type(8n+1), .small-up-8 > .profile-tile:nth-of-type(8n+1), #claim .container .small-up-8 > .claim-cta-half:nth-of-type(8n+1), #categories #talk-collection .small-up-8 > .category:nth-of-type(8n+1), #publishers #publisher-collection .small-up-8 > .publisher:nth-of-type(8n+1), .landing-feature .small-up-8 > .landing-half:nth-of-type(8n+1) {
     clear: both; }
-  .small-up-8 > .column:last-child, .small-up-8 > .columns:last-child, .small-up-8 > #user-about:last-child, .small-up-8 > .profile-tile:last-child, #claim .container .small-up-8 > .claim-cta-half:last-child, #categories #talk-collection .small-up-8 > .category:last-child, #publishers #publisher-collection .small-up-8 > .publisher:last-child, .landing-feature .small-up-8 > .landing-half:last-child {
+  .small-up-8 > .column:last-child, .small-up-8 > .columns:last-child, .small-up-8 > .profile-tile:last-child, #claim .container .small-up-8 > .claim-cta-half:last-child, #categories #talk-collection .small-up-8 > .category:last-child, #publishers #publisher-collection .small-up-8 > .publisher:last-child, .landing-feature .small-up-8 > .landing-half:last-child {
     float: left; }
 
-.column.small-centered, .small-centered.columns, .small-centered#user-about, .small-centered.profile-tile, #claim .container .small-centered.claim-cta-half, #categories #talk-collection .small-centered.category, #publishers #publisher-collection .small-centered.publisher, .landing-feature .small-centered.landing-half {
+.column.small-centered, .small-centered.columns, .small-centered.profile-tile, #claim .container .small-centered.claim-cta-half, #categories #talk-collection .small-centered.category, #publishers #publisher-collection .small-centered.publisher, .landing-feature .small-centered.landing-half {
   float: none;
   margin-left: auto;
   margin-right: auto; }
@@ -753,7 +753,7 @@ button {
   .medium-pull-3 {
     position: relative;
     left: -25%; }
-  .medium-offset-2, #user-about {
+  .medium-offset-2 {
     margin-left: 16.6666666667%; }
   .medium-4 {
     width: 33.3333333333%; }
@@ -795,7 +795,7 @@ button {
     left: -58.3333333333%; }
   .medium-offset-6 {
     margin-left: 50%; }
-  .medium-8, #user-about {
+  .medium-8 {
     width: 66.6666666667%; }
   .medium-push-8 {
     position: relative;
@@ -839,79 +839,79 @@ button {
     width: 100%; }
   .medium-offset-11 {
     margin-left: 91.6666666667%; }
-  .medium-up-1 > .column, .medium-up-1 > .columns, .medium-up-1 > #user-about, .medium-up-1 > .profile-tile, #claim .container .medium-up-1 > .claim-cta-half, #categories #talk-collection .medium-up-1 > .category, #publishers #publisher-collection .medium-up-1 > .publisher, .landing-feature .medium-up-1 > .landing-half {
+  .medium-up-1 > .column, .medium-up-1 > .columns, .medium-up-1 > .profile-tile, #claim .container .medium-up-1 > .claim-cta-half, #categories #talk-collection .medium-up-1 > .category, #publishers #publisher-collection .medium-up-1 > .publisher, .landing-feature .medium-up-1 > .landing-half {
     width: 100%;
     float: left; }
-    .medium-up-1 > .column:nth-of-type(1n), .medium-up-1 > .columns:nth-of-type(1n), .medium-up-1 > #user-about:nth-of-type(1n), .medium-up-1 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-1 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-1 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-1 > .publisher:nth-of-type(1n), .landing-feature .medium-up-1 > .landing-half:nth-of-type(1n) {
+    .medium-up-1 > .column:nth-of-type(1n), .medium-up-1 > .columns:nth-of-type(1n), .medium-up-1 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-1 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-1 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-1 > .publisher:nth-of-type(1n), .landing-feature .medium-up-1 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-1 > .column:nth-of-type(1n+1), .medium-up-1 > .columns:nth-of-type(1n+1), .medium-up-1 > #user-about:nth-of-type(1n+1), .medium-up-1 > .profile-tile:nth-of-type(1n+1), #claim .container .medium-up-1 > .claim-cta-half:nth-of-type(1n+1), #categories #talk-collection .medium-up-1 > .category:nth-of-type(1n+1), #publishers #publisher-collection .medium-up-1 > .publisher:nth-of-type(1n+1), .landing-feature .medium-up-1 > .landing-half:nth-of-type(1n+1) {
+    .medium-up-1 > .column:nth-of-type(1n+1), .medium-up-1 > .columns:nth-of-type(1n+1), .medium-up-1 > .profile-tile:nth-of-type(1n+1), #claim .container .medium-up-1 > .claim-cta-half:nth-of-type(1n+1), #categories #talk-collection .medium-up-1 > .category:nth-of-type(1n+1), #publishers #publisher-collection .medium-up-1 > .publisher:nth-of-type(1n+1), .landing-feature .medium-up-1 > .landing-half:nth-of-type(1n+1) {
       clear: both; }
-    .medium-up-1 > .column:last-child, .medium-up-1 > .columns:last-child, .medium-up-1 > #user-about:last-child, .medium-up-1 > .profile-tile:last-child, #claim .container .medium-up-1 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-1 > .category:last-child, #publishers #publisher-collection .medium-up-1 > .publisher:last-child, .landing-feature .medium-up-1 > .landing-half:last-child {
+    .medium-up-1 > .column:last-child, .medium-up-1 > .columns:last-child, .medium-up-1 > .profile-tile:last-child, #claim .container .medium-up-1 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-1 > .category:last-child, #publishers #publisher-collection .medium-up-1 > .publisher:last-child, .landing-feature .medium-up-1 > .landing-half:last-child {
       float: left; }
-  .medium-up-2 > .column, .medium-up-2 > .columns, .medium-up-2 > #user-about, .medium-up-2 > .profile-tile, #claim .container .medium-up-2 > .claim-cta-half, #categories #talk-collection .medium-up-2 > .category, #publishers #publisher-collection .medium-up-2 > .publisher, .landing-feature .medium-up-2 > .landing-half {
+  .medium-up-2 > .column, .medium-up-2 > .columns, .medium-up-2 > .profile-tile, #claim .container .medium-up-2 > .claim-cta-half, #categories #talk-collection .medium-up-2 > .category, #publishers #publisher-collection .medium-up-2 > .publisher, .landing-feature .medium-up-2 > .landing-half {
     width: 50%;
     float: left; }
-    .medium-up-2 > .column:nth-of-type(1n), .medium-up-2 > .columns:nth-of-type(1n), .medium-up-2 > #user-about:nth-of-type(1n), .medium-up-2 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-2 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-2 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-2 > .publisher:nth-of-type(1n), .landing-feature .medium-up-2 > .landing-half:nth-of-type(1n) {
+    .medium-up-2 > .column:nth-of-type(1n), .medium-up-2 > .columns:nth-of-type(1n), .medium-up-2 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-2 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-2 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-2 > .publisher:nth-of-type(1n), .landing-feature .medium-up-2 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-2 > .column:nth-of-type(2n+1), .medium-up-2 > .columns:nth-of-type(2n+1), .medium-up-2 > #user-about:nth-of-type(2n+1), .medium-up-2 > .profile-tile:nth-of-type(2n+1), #claim .container .medium-up-2 > .claim-cta-half:nth-of-type(2n+1), #categories #talk-collection .medium-up-2 > .category:nth-of-type(2n+1), #publishers #publisher-collection .medium-up-2 > .publisher:nth-of-type(2n+1), .landing-feature .medium-up-2 > .landing-half:nth-of-type(2n+1) {
+    .medium-up-2 > .column:nth-of-type(2n+1), .medium-up-2 > .columns:nth-of-type(2n+1), .medium-up-2 > .profile-tile:nth-of-type(2n+1), #claim .container .medium-up-2 > .claim-cta-half:nth-of-type(2n+1), #categories #talk-collection .medium-up-2 > .category:nth-of-type(2n+1), #publishers #publisher-collection .medium-up-2 > .publisher:nth-of-type(2n+1), .landing-feature .medium-up-2 > .landing-half:nth-of-type(2n+1) {
       clear: both; }
-    .medium-up-2 > .column:last-child, .medium-up-2 > .columns:last-child, .medium-up-2 > #user-about:last-child, .medium-up-2 > .profile-tile:last-child, #claim .container .medium-up-2 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-2 > .category:last-child, #publishers #publisher-collection .medium-up-2 > .publisher:last-child, .landing-feature .medium-up-2 > .landing-half:last-child {
+    .medium-up-2 > .column:last-child, .medium-up-2 > .columns:last-child, .medium-up-2 > .profile-tile:last-child, #claim .container .medium-up-2 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-2 > .category:last-child, #publishers #publisher-collection .medium-up-2 > .publisher:last-child, .landing-feature .medium-up-2 > .landing-half:last-child {
       float: left; }
-  .medium-up-3 > .column, .medium-up-3 > .columns, .medium-up-3 > #user-about, .medium-up-3 > .profile-tile, #claim .container .medium-up-3 > .claim-cta-half, #categories #talk-collection .medium-up-3 > .category, #publishers #publisher-collection .medium-up-3 > .publisher, .landing-feature .medium-up-3 > .landing-half {
+  .medium-up-3 > .column, .medium-up-3 > .columns, .medium-up-3 > .profile-tile, #claim .container .medium-up-3 > .claim-cta-half, #categories #talk-collection .medium-up-3 > .category, #publishers #publisher-collection .medium-up-3 > .publisher, .landing-feature .medium-up-3 > .landing-half {
     width: 33.3333333333%;
     float: left; }
-    .medium-up-3 > .column:nth-of-type(1n), .medium-up-3 > .columns:nth-of-type(1n), .medium-up-3 > #user-about:nth-of-type(1n), .medium-up-3 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-3 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-3 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-3 > .publisher:nth-of-type(1n), .landing-feature .medium-up-3 > .landing-half:nth-of-type(1n) {
+    .medium-up-3 > .column:nth-of-type(1n), .medium-up-3 > .columns:nth-of-type(1n), .medium-up-3 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-3 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-3 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-3 > .publisher:nth-of-type(1n), .landing-feature .medium-up-3 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-3 > .column:nth-of-type(3n+1), .medium-up-3 > .columns:nth-of-type(3n+1), .medium-up-3 > #user-about:nth-of-type(3n+1), .medium-up-3 > .profile-tile:nth-of-type(3n+1), #claim .container .medium-up-3 > .claim-cta-half:nth-of-type(3n+1), #categories #talk-collection .medium-up-3 > .category:nth-of-type(3n+1), #publishers #publisher-collection .medium-up-3 > .publisher:nth-of-type(3n+1), .landing-feature .medium-up-3 > .landing-half:nth-of-type(3n+1) {
+    .medium-up-3 > .column:nth-of-type(3n+1), .medium-up-3 > .columns:nth-of-type(3n+1), .medium-up-3 > .profile-tile:nth-of-type(3n+1), #claim .container .medium-up-3 > .claim-cta-half:nth-of-type(3n+1), #categories #talk-collection .medium-up-3 > .category:nth-of-type(3n+1), #publishers #publisher-collection .medium-up-3 > .publisher:nth-of-type(3n+1), .landing-feature .medium-up-3 > .landing-half:nth-of-type(3n+1) {
       clear: both; }
-    .medium-up-3 > .column:last-child, .medium-up-3 > .columns:last-child, .medium-up-3 > #user-about:last-child, .medium-up-3 > .profile-tile:last-child, #claim .container .medium-up-3 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-3 > .category:last-child, #publishers #publisher-collection .medium-up-3 > .publisher:last-child, .landing-feature .medium-up-3 > .landing-half:last-child {
+    .medium-up-3 > .column:last-child, .medium-up-3 > .columns:last-child, .medium-up-3 > .profile-tile:last-child, #claim .container .medium-up-3 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-3 > .category:last-child, #publishers #publisher-collection .medium-up-3 > .publisher:last-child, .landing-feature .medium-up-3 > .landing-half:last-child {
       float: left; }
-  .medium-up-4 > .column, .medium-up-4 > .columns, .medium-up-4 > #user-about, .medium-up-4 > .profile-tile, #claim .container .medium-up-4 > .claim-cta-half, #categories #talk-collection .medium-up-4 > .category, #publishers #publisher-collection .medium-up-4 > .publisher, .landing-feature .medium-up-4 > .landing-half {
+  .medium-up-4 > .column, .medium-up-4 > .columns, .medium-up-4 > .profile-tile, #claim .container .medium-up-4 > .claim-cta-half, #categories #talk-collection .medium-up-4 > .category, #publishers #publisher-collection .medium-up-4 > .publisher, .landing-feature .medium-up-4 > .landing-half {
     width: 25%;
     float: left; }
-    .medium-up-4 > .column:nth-of-type(1n), .medium-up-4 > .columns:nth-of-type(1n), .medium-up-4 > #user-about:nth-of-type(1n), .medium-up-4 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-4 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-4 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-4 > .publisher:nth-of-type(1n), .landing-feature .medium-up-4 > .landing-half:nth-of-type(1n) {
+    .medium-up-4 > .column:nth-of-type(1n), .medium-up-4 > .columns:nth-of-type(1n), .medium-up-4 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-4 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-4 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-4 > .publisher:nth-of-type(1n), .landing-feature .medium-up-4 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-4 > .column:nth-of-type(4n+1), .medium-up-4 > .columns:nth-of-type(4n+1), .medium-up-4 > #user-about:nth-of-type(4n+1), .medium-up-4 > .profile-tile:nth-of-type(4n+1), #claim .container .medium-up-4 > .claim-cta-half:nth-of-type(4n+1), #categories #talk-collection .medium-up-4 > .category:nth-of-type(4n+1), #publishers #publisher-collection .medium-up-4 > .publisher:nth-of-type(4n+1), .landing-feature .medium-up-4 > .landing-half:nth-of-type(4n+1) {
+    .medium-up-4 > .column:nth-of-type(4n+1), .medium-up-4 > .columns:nth-of-type(4n+1), .medium-up-4 > .profile-tile:nth-of-type(4n+1), #claim .container .medium-up-4 > .claim-cta-half:nth-of-type(4n+1), #categories #talk-collection .medium-up-4 > .category:nth-of-type(4n+1), #publishers #publisher-collection .medium-up-4 > .publisher:nth-of-type(4n+1), .landing-feature .medium-up-4 > .landing-half:nth-of-type(4n+1) {
       clear: both; }
-    .medium-up-4 > .column:last-child, .medium-up-4 > .columns:last-child, .medium-up-4 > #user-about:last-child, .medium-up-4 > .profile-tile:last-child, #claim .container .medium-up-4 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-4 > .category:last-child, #publishers #publisher-collection .medium-up-4 > .publisher:last-child, .landing-feature .medium-up-4 > .landing-half:last-child {
+    .medium-up-4 > .column:last-child, .medium-up-4 > .columns:last-child, .medium-up-4 > .profile-tile:last-child, #claim .container .medium-up-4 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-4 > .category:last-child, #publishers #publisher-collection .medium-up-4 > .publisher:last-child, .landing-feature .medium-up-4 > .landing-half:last-child {
       float: left; }
-  .medium-up-5 > .column, .medium-up-5 > .columns, .medium-up-5 > #user-about, .medium-up-5 > .profile-tile, #claim .container .medium-up-5 > .claim-cta-half, #categories #talk-collection .medium-up-5 > .category, #publishers #publisher-collection .medium-up-5 > .publisher, .landing-feature .medium-up-5 > .landing-half {
+  .medium-up-5 > .column, .medium-up-5 > .columns, .medium-up-5 > .profile-tile, #claim .container .medium-up-5 > .claim-cta-half, #categories #talk-collection .medium-up-5 > .category, #publishers #publisher-collection .medium-up-5 > .publisher, .landing-feature .medium-up-5 > .landing-half {
     width: 20%;
     float: left; }
-    .medium-up-5 > .column:nth-of-type(1n), .medium-up-5 > .columns:nth-of-type(1n), .medium-up-5 > #user-about:nth-of-type(1n), .medium-up-5 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-5 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-5 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-5 > .publisher:nth-of-type(1n), .landing-feature .medium-up-5 > .landing-half:nth-of-type(1n) {
+    .medium-up-5 > .column:nth-of-type(1n), .medium-up-5 > .columns:nth-of-type(1n), .medium-up-5 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-5 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-5 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-5 > .publisher:nth-of-type(1n), .landing-feature .medium-up-5 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-5 > .column:nth-of-type(5n+1), .medium-up-5 > .columns:nth-of-type(5n+1), .medium-up-5 > #user-about:nth-of-type(5n+1), .medium-up-5 > .profile-tile:nth-of-type(5n+1), #claim .container .medium-up-5 > .claim-cta-half:nth-of-type(5n+1), #categories #talk-collection .medium-up-5 > .category:nth-of-type(5n+1), #publishers #publisher-collection .medium-up-5 > .publisher:nth-of-type(5n+1), .landing-feature .medium-up-5 > .landing-half:nth-of-type(5n+1) {
+    .medium-up-5 > .column:nth-of-type(5n+1), .medium-up-5 > .columns:nth-of-type(5n+1), .medium-up-5 > .profile-tile:nth-of-type(5n+1), #claim .container .medium-up-5 > .claim-cta-half:nth-of-type(5n+1), #categories #talk-collection .medium-up-5 > .category:nth-of-type(5n+1), #publishers #publisher-collection .medium-up-5 > .publisher:nth-of-type(5n+1), .landing-feature .medium-up-5 > .landing-half:nth-of-type(5n+1) {
       clear: both; }
-    .medium-up-5 > .column:last-child, .medium-up-5 > .columns:last-child, .medium-up-5 > #user-about:last-child, .medium-up-5 > .profile-tile:last-child, #claim .container .medium-up-5 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-5 > .category:last-child, #publishers #publisher-collection .medium-up-5 > .publisher:last-child, .landing-feature .medium-up-5 > .landing-half:last-child {
+    .medium-up-5 > .column:last-child, .medium-up-5 > .columns:last-child, .medium-up-5 > .profile-tile:last-child, #claim .container .medium-up-5 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-5 > .category:last-child, #publishers #publisher-collection .medium-up-5 > .publisher:last-child, .landing-feature .medium-up-5 > .landing-half:last-child {
       float: left; }
-  .medium-up-6 > .column, .medium-up-6 > .columns, .medium-up-6 > #user-about, .medium-up-6 > .profile-tile, #claim .container .medium-up-6 > .claim-cta-half, #categories #talk-collection .medium-up-6 > .category, #publishers #publisher-collection .medium-up-6 > .publisher, .landing-feature .medium-up-6 > .landing-half {
+  .medium-up-6 > .column, .medium-up-6 > .columns, .medium-up-6 > .profile-tile, #claim .container .medium-up-6 > .claim-cta-half, #categories #talk-collection .medium-up-6 > .category, #publishers #publisher-collection .medium-up-6 > .publisher, .landing-feature .medium-up-6 > .landing-half {
     width: 16.6666666667%;
     float: left; }
-    .medium-up-6 > .column:nth-of-type(1n), .medium-up-6 > .columns:nth-of-type(1n), .medium-up-6 > #user-about:nth-of-type(1n), .medium-up-6 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-6 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-6 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-6 > .publisher:nth-of-type(1n), .landing-feature .medium-up-6 > .landing-half:nth-of-type(1n) {
+    .medium-up-6 > .column:nth-of-type(1n), .medium-up-6 > .columns:nth-of-type(1n), .medium-up-6 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-6 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-6 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-6 > .publisher:nth-of-type(1n), .landing-feature .medium-up-6 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-6 > .column:nth-of-type(6n+1), .medium-up-6 > .columns:nth-of-type(6n+1), .medium-up-6 > #user-about:nth-of-type(6n+1), .medium-up-6 > .profile-tile:nth-of-type(6n+1), #claim .container .medium-up-6 > .claim-cta-half:nth-of-type(6n+1), #categories #talk-collection .medium-up-6 > .category:nth-of-type(6n+1), #publishers #publisher-collection .medium-up-6 > .publisher:nth-of-type(6n+1), .landing-feature .medium-up-6 > .landing-half:nth-of-type(6n+1) {
+    .medium-up-6 > .column:nth-of-type(6n+1), .medium-up-6 > .columns:nth-of-type(6n+1), .medium-up-6 > .profile-tile:nth-of-type(6n+1), #claim .container .medium-up-6 > .claim-cta-half:nth-of-type(6n+1), #categories #talk-collection .medium-up-6 > .category:nth-of-type(6n+1), #publishers #publisher-collection .medium-up-6 > .publisher:nth-of-type(6n+1), .landing-feature .medium-up-6 > .landing-half:nth-of-type(6n+1) {
       clear: both; }
-    .medium-up-6 > .column:last-child, .medium-up-6 > .columns:last-child, .medium-up-6 > #user-about:last-child, .medium-up-6 > .profile-tile:last-child, #claim .container .medium-up-6 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-6 > .category:last-child, #publishers #publisher-collection .medium-up-6 > .publisher:last-child, .landing-feature .medium-up-6 > .landing-half:last-child {
+    .medium-up-6 > .column:last-child, .medium-up-6 > .columns:last-child, .medium-up-6 > .profile-tile:last-child, #claim .container .medium-up-6 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-6 > .category:last-child, #publishers #publisher-collection .medium-up-6 > .publisher:last-child, .landing-feature .medium-up-6 > .landing-half:last-child {
       float: left; }
-  .medium-up-7 > .column, .medium-up-7 > .columns, .medium-up-7 > #user-about, .medium-up-7 > .profile-tile, #claim .container .medium-up-7 > .claim-cta-half, #categories #talk-collection .medium-up-7 > .category, #publishers #publisher-collection .medium-up-7 > .publisher, .landing-feature .medium-up-7 > .landing-half {
+  .medium-up-7 > .column, .medium-up-7 > .columns, .medium-up-7 > .profile-tile, #claim .container .medium-up-7 > .claim-cta-half, #categories #talk-collection .medium-up-7 > .category, #publishers #publisher-collection .medium-up-7 > .publisher, .landing-feature .medium-up-7 > .landing-half {
     width: 14.2857142857%;
     float: left; }
-    .medium-up-7 > .column:nth-of-type(1n), .medium-up-7 > .columns:nth-of-type(1n), .medium-up-7 > #user-about:nth-of-type(1n), .medium-up-7 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-7 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-7 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-7 > .publisher:nth-of-type(1n), .landing-feature .medium-up-7 > .landing-half:nth-of-type(1n) {
+    .medium-up-7 > .column:nth-of-type(1n), .medium-up-7 > .columns:nth-of-type(1n), .medium-up-7 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-7 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-7 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-7 > .publisher:nth-of-type(1n), .landing-feature .medium-up-7 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-7 > .column:nth-of-type(7n+1), .medium-up-7 > .columns:nth-of-type(7n+1), .medium-up-7 > #user-about:nth-of-type(7n+1), .medium-up-7 > .profile-tile:nth-of-type(7n+1), #claim .container .medium-up-7 > .claim-cta-half:nth-of-type(7n+1), #categories #talk-collection .medium-up-7 > .category:nth-of-type(7n+1), #publishers #publisher-collection .medium-up-7 > .publisher:nth-of-type(7n+1), .landing-feature .medium-up-7 > .landing-half:nth-of-type(7n+1) {
+    .medium-up-7 > .column:nth-of-type(7n+1), .medium-up-7 > .columns:nth-of-type(7n+1), .medium-up-7 > .profile-tile:nth-of-type(7n+1), #claim .container .medium-up-7 > .claim-cta-half:nth-of-type(7n+1), #categories #talk-collection .medium-up-7 > .category:nth-of-type(7n+1), #publishers #publisher-collection .medium-up-7 > .publisher:nth-of-type(7n+1), .landing-feature .medium-up-7 > .landing-half:nth-of-type(7n+1) {
       clear: both; }
-    .medium-up-7 > .column:last-child, .medium-up-7 > .columns:last-child, .medium-up-7 > #user-about:last-child, .medium-up-7 > .profile-tile:last-child, #claim .container .medium-up-7 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-7 > .category:last-child, #publishers #publisher-collection .medium-up-7 > .publisher:last-child, .landing-feature .medium-up-7 > .landing-half:last-child {
+    .medium-up-7 > .column:last-child, .medium-up-7 > .columns:last-child, .medium-up-7 > .profile-tile:last-child, #claim .container .medium-up-7 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-7 > .category:last-child, #publishers #publisher-collection .medium-up-7 > .publisher:last-child, .landing-feature .medium-up-7 > .landing-half:last-child {
       float: left; }
-  .medium-up-8 > .column, .medium-up-8 > .columns, .medium-up-8 > #user-about, .medium-up-8 > .profile-tile, #claim .container .medium-up-8 > .claim-cta-half, #categories #talk-collection .medium-up-8 > .category, #publishers #publisher-collection .medium-up-8 > .publisher, .landing-feature .medium-up-8 > .landing-half {
+  .medium-up-8 > .column, .medium-up-8 > .columns, .medium-up-8 > .profile-tile, #claim .container .medium-up-8 > .claim-cta-half, #categories #talk-collection .medium-up-8 > .category, #publishers #publisher-collection .medium-up-8 > .publisher, .landing-feature .medium-up-8 > .landing-half {
     width: 12.5%;
     float: left; }
-    .medium-up-8 > .column:nth-of-type(1n), .medium-up-8 > .columns:nth-of-type(1n), .medium-up-8 > #user-about:nth-of-type(1n), .medium-up-8 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-8 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-8 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-8 > .publisher:nth-of-type(1n), .landing-feature .medium-up-8 > .landing-half:nth-of-type(1n) {
+    .medium-up-8 > .column:nth-of-type(1n), .medium-up-8 > .columns:nth-of-type(1n), .medium-up-8 > .profile-tile:nth-of-type(1n), #claim .container .medium-up-8 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .medium-up-8 > .category:nth-of-type(1n), #publishers #publisher-collection .medium-up-8 > .publisher:nth-of-type(1n), .landing-feature .medium-up-8 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .medium-up-8 > .column:nth-of-type(8n+1), .medium-up-8 > .columns:nth-of-type(8n+1), .medium-up-8 > #user-about:nth-of-type(8n+1), .medium-up-8 > .profile-tile:nth-of-type(8n+1), #claim .container .medium-up-8 > .claim-cta-half:nth-of-type(8n+1), #categories #talk-collection .medium-up-8 > .category:nth-of-type(8n+1), #publishers #publisher-collection .medium-up-8 > .publisher:nth-of-type(8n+1), .landing-feature .medium-up-8 > .landing-half:nth-of-type(8n+1) {
+    .medium-up-8 > .column:nth-of-type(8n+1), .medium-up-8 > .columns:nth-of-type(8n+1), .medium-up-8 > .profile-tile:nth-of-type(8n+1), #claim .container .medium-up-8 > .claim-cta-half:nth-of-type(8n+1), #categories #talk-collection .medium-up-8 > .category:nth-of-type(8n+1), #publishers #publisher-collection .medium-up-8 > .publisher:nth-of-type(8n+1), .landing-feature .medium-up-8 > .landing-half:nth-of-type(8n+1) {
       clear: both; }
-    .medium-up-8 > .column:last-child, .medium-up-8 > .columns:last-child, .medium-up-8 > #user-about:last-child, .medium-up-8 > .profile-tile:last-child, #claim .container .medium-up-8 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-8 > .category:last-child, #publishers #publisher-collection .medium-up-8 > .publisher:last-child, .landing-feature .medium-up-8 > .landing-half:last-child {
+    .medium-up-8 > .column:last-child, .medium-up-8 > .columns:last-child, .medium-up-8 > .profile-tile:last-child, #claim .container .medium-up-8 > .claim-cta-half:last-child, #categories #talk-collection .medium-up-8 > .category:last-child, #publishers #publisher-collection .medium-up-8 > .publisher:last-child, .landing-feature .medium-up-8 > .landing-half:last-child {
       float: left; }
-  .column.medium-centered, .medium-centered.columns, .medium-centered#user-about, .medium-centered.profile-tile, #claim .container .medium-centered.claim-cta-half, #categories #talk-collection .medium-centered.category, #publishers #publisher-collection .medium-centered.publisher, .landing-feature .medium-centered.landing-half {
+  .column.medium-centered, .medium-centered.columns, .medium-centered.profile-tile, #claim .container .medium-centered.claim-cta-half, #categories #talk-collection .medium-centered.category, #publishers #publisher-collection .medium-centered.publisher, .landing-feature .medium-centered.landing-half {
     float: none;
     margin-left: auto;
     margin-right: auto; }
@@ -931,7 +931,7 @@ button {
   .large-pull-1 {
     position: relative;
     left: -8.3333333333%; }
-  .large-offset-0, #user-about {
+  .large-offset-0 {
     margin-left: 0%; }
   .large-2 {
     width: 16.6666666667%; }
@@ -1033,83 +1033,83 @@ button {
     left: -91.6666666667%; }
   .large-offset-10 {
     margin-left: 83.3333333333%; }
-  .large-12, #user-about {
+  .large-12 {
     width: 100%; }
   .large-offset-11 {
     margin-left: 91.6666666667%; }
-  .large-up-1 > .column, .large-up-1 > .columns, .large-up-1 > #user-about, .large-up-1 > .profile-tile, #claim .container .large-up-1 > .claim-cta-half, #categories #talk-collection .large-up-1 > .category, #publishers #publisher-collection .large-up-1 > .publisher, .landing-feature .large-up-1 > .landing-half {
+  .large-up-1 > .column, .large-up-1 > .columns, .large-up-1 > .profile-tile, #claim .container .large-up-1 > .claim-cta-half, #categories #talk-collection .large-up-1 > .category, #publishers #publisher-collection .large-up-1 > .publisher, .landing-feature .large-up-1 > .landing-half {
     width: 100%;
     float: left; }
-    .large-up-1 > .column:nth-of-type(1n), .large-up-1 > .columns:nth-of-type(1n), .large-up-1 > #user-about:nth-of-type(1n), .large-up-1 > .profile-tile:nth-of-type(1n), #claim .container .large-up-1 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-1 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-1 > .publisher:nth-of-type(1n), .landing-feature .large-up-1 > .landing-half:nth-of-type(1n) {
+    .large-up-1 > .column:nth-of-type(1n), .large-up-1 > .columns:nth-of-type(1n), .large-up-1 > .profile-tile:nth-of-type(1n), #claim .container .large-up-1 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-1 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-1 > .publisher:nth-of-type(1n), .landing-feature .large-up-1 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-1 > .column:nth-of-type(1n+1), .large-up-1 > .columns:nth-of-type(1n+1), .large-up-1 > #user-about:nth-of-type(1n+1), .large-up-1 > .profile-tile:nth-of-type(1n+1), #claim .container .large-up-1 > .claim-cta-half:nth-of-type(1n+1), #categories #talk-collection .large-up-1 > .category:nth-of-type(1n+1), #publishers #publisher-collection .large-up-1 > .publisher:nth-of-type(1n+1), .landing-feature .large-up-1 > .landing-half:nth-of-type(1n+1) {
+    .large-up-1 > .column:nth-of-type(1n+1), .large-up-1 > .columns:nth-of-type(1n+1), .large-up-1 > .profile-tile:nth-of-type(1n+1), #claim .container .large-up-1 > .claim-cta-half:nth-of-type(1n+1), #categories #talk-collection .large-up-1 > .category:nth-of-type(1n+1), #publishers #publisher-collection .large-up-1 > .publisher:nth-of-type(1n+1), .landing-feature .large-up-1 > .landing-half:nth-of-type(1n+1) {
       clear: both; }
-    .large-up-1 > .column:last-child, .large-up-1 > .columns:last-child, .large-up-1 > #user-about:last-child, .large-up-1 > .profile-tile:last-child, #claim .container .large-up-1 > .claim-cta-half:last-child, #categories #talk-collection .large-up-1 > .category:last-child, #publishers #publisher-collection .large-up-1 > .publisher:last-child, .landing-feature .large-up-1 > .landing-half:last-child {
+    .large-up-1 > .column:last-child, .large-up-1 > .columns:last-child, .large-up-1 > .profile-tile:last-child, #claim .container .large-up-1 > .claim-cta-half:last-child, #categories #talk-collection .large-up-1 > .category:last-child, #publishers #publisher-collection .large-up-1 > .publisher:last-child, .landing-feature .large-up-1 > .landing-half:last-child {
       float: left; }
-  .large-up-2 > .column, .large-up-2 > .columns, .large-up-2 > #user-about, .large-up-2 > .profile-tile, #claim .container .large-up-2 > .claim-cta-half, #categories #talk-collection .large-up-2 > .category, #publishers #publisher-collection .large-up-2 > .publisher, .landing-feature .large-up-2 > .landing-half {
+  .large-up-2 > .column, .large-up-2 > .columns, .large-up-2 > .profile-tile, #claim .container .large-up-2 > .claim-cta-half, #categories #talk-collection .large-up-2 > .category, #publishers #publisher-collection .large-up-2 > .publisher, .landing-feature .large-up-2 > .landing-half {
     width: 50%;
     float: left; }
-    .large-up-2 > .column:nth-of-type(1n), .large-up-2 > .columns:nth-of-type(1n), .large-up-2 > #user-about:nth-of-type(1n), .large-up-2 > .profile-tile:nth-of-type(1n), #claim .container .large-up-2 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-2 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-2 > .publisher:nth-of-type(1n), .landing-feature .large-up-2 > .landing-half:nth-of-type(1n) {
+    .large-up-2 > .column:nth-of-type(1n), .large-up-2 > .columns:nth-of-type(1n), .large-up-2 > .profile-tile:nth-of-type(1n), #claim .container .large-up-2 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-2 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-2 > .publisher:nth-of-type(1n), .landing-feature .large-up-2 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-2 > .column:nth-of-type(2n+1), .large-up-2 > .columns:nth-of-type(2n+1), .large-up-2 > #user-about:nth-of-type(2n+1), .large-up-2 > .profile-tile:nth-of-type(2n+1), #claim .container .large-up-2 > .claim-cta-half:nth-of-type(2n+1), #categories #talk-collection .large-up-2 > .category:nth-of-type(2n+1), #publishers #publisher-collection .large-up-2 > .publisher:nth-of-type(2n+1), .landing-feature .large-up-2 > .landing-half:nth-of-type(2n+1) {
+    .large-up-2 > .column:nth-of-type(2n+1), .large-up-2 > .columns:nth-of-type(2n+1), .large-up-2 > .profile-tile:nth-of-type(2n+1), #claim .container .large-up-2 > .claim-cta-half:nth-of-type(2n+1), #categories #talk-collection .large-up-2 > .category:nth-of-type(2n+1), #publishers #publisher-collection .large-up-2 > .publisher:nth-of-type(2n+1), .landing-feature .large-up-2 > .landing-half:nth-of-type(2n+1) {
       clear: both; }
-    .large-up-2 > .column:last-child, .large-up-2 > .columns:last-child, .large-up-2 > #user-about:last-child, .large-up-2 > .profile-tile:last-child, #claim .container .large-up-2 > .claim-cta-half:last-child, #categories #talk-collection .large-up-2 > .category:last-child, #publishers #publisher-collection .large-up-2 > .publisher:last-child, .landing-feature .large-up-2 > .landing-half:last-child {
+    .large-up-2 > .column:last-child, .large-up-2 > .columns:last-child, .large-up-2 > .profile-tile:last-child, #claim .container .large-up-2 > .claim-cta-half:last-child, #categories #talk-collection .large-up-2 > .category:last-child, #publishers #publisher-collection .large-up-2 > .publisher:last-child, .landing-feature .large-up-2 > .landing-half:last-child {
       float: left; }
-  .large-up-3 > .column, .large-up-3 > .columns, .large-up-3 > #user-about, .large-up-3 > .profile-tile, #claim .container .large-up-3 > .claim-cta-half, #categories #talk-collection .large-up-3 > .category, #publishers #publisher-collection .large-up-3 > .publisher, .landing-feature .large-up-3 > .landing-half {
+  .large-up-3 > .column, .large-up-3 > .columns, .large-up-3 > .profile-tile, #claim .container .large-up-3 > .claim-cta-half, #categories #talk-collection .large-up-3 > .category, #publishers #publisher-collection .large-up-3 > .publisher, .landing-feature .large-up-3 > .landing-half {
     width: 33.3333333333%;
     float: left; }
-    .large-up-3 > .column:nth-of-type(1n), .large-up-3 > .columns:nth-of-type(1n), .large-up-3 > #user-about:nth-of-type(1n), .large-up-3 > .profile-tile:nth-of-type(1n), #claim .container .large-up-3 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-3 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-3 > .publisher:nth-of-type(1n), .landing-feature .large-up-3 > .landing-half:nth-of-type(1n) {
+    .large-up-3 > .column:nth-of-type(1n), .large-up-3 > .columns:nth-of-type(1n), .large-up-3 > .profile-tile:nth-of-type(1n), #claim .container .large-up-3 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-3 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-3 > .publisher:nth-of-type(1n), .landing-feature .large-up-3 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-3 > .column:nth-of-type(3n+1), .large-up-3 > .columns:nth-of-type(3n+1), .large-up-3 > #user-about:nth-of-type(3n+1), .large-up-3 > .profile-tile:nth-of-type(3n+1), #claim .container .large-up-3 > .claim-cta-half:nth-of-type(3n+1), #categories #talk-collection .large-up-3 > .category:nth-of-type(3n+1), #publishers #publisher-collection .large-up-3 > .publisher:nth-of-type(3n+1), .landing-feature .large-up-3 > .landing-half:nth-of-type(3n+1) {
+    .large-up-3 > .column:nth-of-type(3n+1), .large-up-3 > .columns:nth-of-type(3n+1), .large-up-3 > .profile-tile:nth-of-type(3n+1), #claim .container .large-up-3 > .claim-cta-half:nth-of-type(3n+1), #categories #talk-collection .large-up-3 > .category:nth-of-type(3n+1), #publishers #publisher-collection .large-up-3 > .publisher:nth-of-type(3n+1), .landing-feature .large-up-3 > .landing-half:nth-of-type(3n+1) {
       clear: both; }
-    .large-up-3 > .column:last-child, .large-up-3 > .columns:last-child, .large-up-3 > #user-about:last-child, .large-up-3 > .profile-tile:last-child, #claim .container .large-up-3 > .claim-cta-half:last-child, #categories #talk-collection .large-up-3 > .category:last-child, #publishers #publisher-collection .large-up-3 > .publisher:last-child, .landing-feature .large-up-3 > .landing-half:last-child {
+    .large-up-3 > .column:last-child, .large-up-3 > .columns:last-child, .large-up-3 > .profile-tile:last-child, #claim .container .large-up-3 > .claim-cta-half:last-child, #categories #talk-collection .large-up-3 > .category:last-child, #publishers #publisher-collection .large-up-3 > .publisher:last-child, .landing-feature .large-up-3 > .landing-half:last-child {
       float: left; }
-  .large-up-4 > .column, .large-up-4 > .columns, .large-up-4 > #user-about, .large-up-4 > .profile-tile, #claim .container .large-up-4 > .claim-cta-half, #categories #talk-collection .large-up-4 > .category, #publishers #publisher-collection .large-up-4 > .publisher, .landing-feature .large-up-4 > .landing-half {
+  .large-up-4 > .column, .large-up-4 > .columns, .large-up-4 > .profile-tile, #claim .container .large-up-4 > .claim-cta-half, #categories #talk-collection .large-up-4 > .category, #publishers #publisher-collection .large-up-4 > .publisher, .landing-feature .large-up-4 > .landing-half {
     width: 25%;
     float: left; }
-    .large-up-4 > .column:nth-of-type(1n), .large-up-4 > .columns:nth-of-type(1n), .large-up-4 > #user-about:nth-of-type(1n), .large-up-4 > .profile-tile:nth-of-type(1n), #claim .container .large-up-4 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-4 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-4 > .publisher:nth-of-type(1n), .landing-feature .large-up-4 > .landing-half:nth-of-type(1n) {
+    .large-up-4 > .column:nth-of-type(1n), .large-up-4 > .columns:nth-of-type(1n), .large-up-4 > .profile-tile:nth-of-type(1n), #claim .container .large-up-4 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-4 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-4 > .publisher:nth-of-type(1n), .landing-feature .large-up-4 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-4 > .column:nth-of-type(4n+1), .large-up-4 > .columns:nth-of-type(4n+1), .large-up-4 > #user-about:nth-of-type(4n+1), .large-up-4 > .profile-tile:nth-of-type(4n+1), #claim .container .large-up-4 > .claim-cta-half:nth-of-type(4n+1), #categories #talk-collection .large-up-4 > .category:nth-of-type(4n+1), #publishers #publisher-collection .large-up-4 > .publisher:nth-of-type(4n+1), .landing-feature .large-up-4 > .landing-half:nth-of-type(4n+1) {
+    .large-up-4 > .column:nth-of-type(4n+1), .large-up-4 > .columns:nth-of-type(4n+1), .large-up-4 > .profile-tile:nth-of-type(4n+1), #claim .container .large-up-4 > .claim-cta-half:nth-of-type(4n+1), #categories #talk-collection .large-up-4 > .category:nth-of-type(4n+1), #publishers #publisher-collection .large-up-4 > .publisher:nth-of-type(4n+1), .landing-feature .large-up-4 > .landing-half:nth-of-type(4n+1) {
       clear: both; }
-    .large-up-4 > .column:last-child, .large-up-4 > .columns:last-child, .large-up-4 > #user-about:last-child, .large-up-4 > .profile-tile:last-child, #claim .container .large-up-4 > .claim-cta-half:last-child, #categories #talk-collection .large-up-4 > .category:last-child, #publishers #publisher-collection .large-up-4 > .publisher:last-child, .landing-feature .large-up-4 > .landing-half:last-child {
+    .large-up-4 > .column:last-child, .large-up-4 > .columns:last-child, .large-up-4 > .profile-tile:last-child, #claim .container .large-up-4 > .claim-cta-half:last-child, #categories #talk-collection .large-up-4 > .category:last-child, #publishers #publisher-collection .large-up-4 > .publisher:last-child, .landing-feature .large-up-4 > .landing-half:last-child {
       float: left; }
-  .large-up-5 > .column, .large-up-5 > .columns, .large-up-5 > #user-about, .large-up-5 > .profile-tile, #claim .container .large-up-5 > .claim-cta-half, #categories #talk-collection .large-up-5 > .category, #publishers #publisher-collection .large-up-5 > .publisher, .landing-feature .large-up-5 > .landing-half {
+  .large-up-5 > .column, .large-up-5 > .columns, .large-up-5 > .profile-tile, #claim .container .large-up-5 > .claim-cta-half, #categories #talk-collection .large-up-5 > .category, #publishers #publisher-collection .large-up-5 > .publisher, .landing-feature .large-up-5 > .landing-half {
     width: 20%;
     float: left; }
-    .large-up-5 > .column:nth-of-type(1n), .large-up-5 > .columns:nth-of-type(1n), .large-up-5 > #user-about:nth-of-type(1n), .large-up-5 > .profile-tile:nth-of-type(1n), #claim .container .large-up-5 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-5 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-5 > .publisher:nth-of-type(1n), .landing-feature .large-up-5 > .landing-half:nth-of-type(1n) {
+    .large-up-5 > .column:nth-of-type(1n), .large-up-5 > .columns:nth-of-type(1n), .large-up-5 > .profile-tile:nth-of-type(1n), #claim .container .large-up-5 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-5 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-5 > .publisher:nth-of-type(1n), .landing-feature .large-up-5 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-5 > .column:nth-of-type(5n+1), .large-up-5 > .columns:nth-of-type(5n+1), .large-up-5 > #user-about:nth-of-type(5n+1), .large-up-5 > .profile-tile:nth-of-type(5n+1), #claim .container .large-up-5 > .claim-cta-half:nth-of-type(5n+1), #categories #talk-collection .large-up-5 > .category:nth-of-type(5n+1), #publishers #publisher-collection .large-up-5 > .publisher:nth-of-type(5n+1), .landing-feature .large-up-5 > .landing-half:nth-of-type(5n+1) {
+    .large-up-5 > .column:nth-of-type(5n+1), .large-up-5 > .columns:nth-of-type(5n+1), .large-up-5 > .profile-tile:nth-of-type(5n+1), #claim .container .large-up-5 > .claim-cta-half:nth-of-type(5n+1), #categories #talk-collection .large-up-5 > .category:nth-of-type(5n+1), #publishers #publisher-collection .large-up-5 > .publisher:nth-of-type(5n+1), .landing-feature .large-up-5 > .landing-half:nth-of-type(5n+1) {
       clear: both; }
-    .large-up-5 > .column:last-child, .large-up-5 > .columns:last-child, .large-up-5 > #user-about:last-child, .large-up-5 > .profile-tile:last-child, #claim .container .large-up-5 > .claim-cta-half:last-child, #categories #talk-collection .large-up-5 > .category:last-child, #publishers #publisher-collection .large-up-5 > .publisher:last-child, .landing-feature .large-up-5 > .landing-half:last-child {
+    .large-up-5 > .column:last-child, .large-up-5 > .columns:last-child, .large-up-5 > .profile-tile:last-child, #claim .container .large-up-5 > .claim-cta-half:last-child, #categories #talk-collection .large-up-5 > .category:last-child, #publishers #publisher-collection .large-up-5 > .publisher:last-child, .landing-feature .large-up-5 > .landing-half:last-child {
       float: left; }
-  .large-up-6 > .column, .large-up-6 > .columns, .large-up-6 > #user-about, .large-up-6 > .profile-tile, #claim .container .large-up-6 > .claim-cta-half, #categories #talk-collection .large-up-6 > .category, #publishers #publisher-collection .large-up-6 > .publisher, .landing-feature .large-up-6 > .landing-half {
+  .large-up-6 > .column, .large-up-6 > .columns, .large-up-6 > .profile-tile, #claim .container .large-up-6 > .claim-cta-half, #categories #talk-collection .large-up-6 > .category, #publishers #publisher-collection .large-up-6 > .publisher, .landing-feature .large-up-6 > .landing-half {
     width: 16.6666666667%;
     float: left; }
-    .large-up-6 > .column:nth-of-type(1n), .large-up-6 > .columns:nth-of-type(1n), .large-up-6 > #user-about:nth-of-type(1n), .large-up-6 > .profile-tile:nth-of-type(1n), #claim .container .large-up-6 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-6 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-6 > .publisher:nth-of-type(1n), .landing-feature .large-up-6 > .landing-half:nth-of-type(1n) {
+    .large-up-6 > .column:nth-of-type(1n), .large-up-6 > .columns:nth-of-type(1n), .large-up-6 > .profile-tile:nth-of-type(1n), #claim .container .large-up-6 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-6 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-6 > .publisher:nth-of-type(1n), .landing-feature .large-up-6 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-6 > .column:nth-of-type(6n+1), .large-up-6 > .columns:nth-of-type(6n+1), .large-up-6 > #user-about:nth-of-type(6n+1), .large-up-6 > .profile-tile:nth-of-type(6n+1), #claim .container .large-up-6 > .claim-cta-half:nth-of-type(6n+1), #categories #talk-collection .large-up-6 > .category:nth-of-type(6n+1), #publishers #publisher-collection .large-up-6 > .publisher:nth-of-type(6n+1), .landing-feature .large-up-6 > .landing-half:nth-of-type(6n+1) {
+    .large-up-6 > .column:nth-of-type(6n+1), .large-up-6 > .columns:nth-of-type(6n+1), .large-up-6 > .profile-tile:nth-of-type(6n+1), #claim .container .large-up-6 > .claim-cta-half:nth-of-type(6n+1), #categories #talk-collection .large-up-6 > .category:nth-of-type(6n+1), #publishers #publisher-collection .large-up-6 > .publisher:nth-of-type(6n+1), .landing-feature .large-up-6 > .landing-half:nth-of-type(6n+1) {
       clear: both; }
-    .large-up-6 > .column:last-child, .large-up-6 > .columns:last-child, .large-up-6 > #user-about:last-child, .large-up-6 > .profile-tile:last-child, #claim .container .large-up-6 > .claim-cta-half:last-child, #categories #talk-collection .large-up-6 > .category:last-child, #publishers #publisher-collection .large-up-6 > .publisher:last-child, .landing-feature .large-up-6 > .landing-half:last-child {
+    .large-up-6 > .column:last-child, .large-up-6 > .columns:last-child, .large-up-6 > .profile-tile:last-child, #claim .container .large-up-6 > .claim-cta-half:last-child, #categories #talk-collection .large-up-6 > .category:last-child, #publishers #publisher-collection .large-up-6 > .publisher:last-child, .landing-feature .large-up-6 > .landing-half:last-child {
       float: left; }
-  .large-up-7 > .column, .large-up-7 > .columns, .large-up-7 > #user-about, .large-up-7 > .profile-tile, #claim .container .large-up-7 > .claim-cta-half, #categories #talk-collection .large-up-7 > .category, #publishers #publisher-collection .large-up-7 > .publisher, .landing-feature .large-up-7 > .landing-half {
+  .large-up-7 > .column, .large-up-7 > .columns, .large-up-7 > .profile-tile, #claim .container .large-up-7 > .claim-cta-half, #categories #talk-collection .large-up-7 > .category, #publishers #publisher-collection .large-up-7 > .publisher, .landing-feature .large-up-7 > .landing-half {
     width: 14.2857142857%;
     float: left; }
-    .large-up-7 > .column:nth-of-type(1n), .large-up-7 > .columns:nth-of-type(1n), .large-up-7 > #user-about:nth-of-type(1n), .large-up-7 > .profile-tile:nth-of-type(1n), #claim .container .large-up-7 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-7 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-7 > .publisher:nth-of-type(1n), .landing-feature .large-up-7 > .landing-half:nth-of-type(1n) {
+    .large-up-7 > .column:nth-of-type(1n), .large-up-7 > .columns:nth-of-type(1n), .large-up-7 > .profile-tile:nth-of-type(1n), #claim .container .large-up-7 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-7 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-7 > .publisher:nth-of-type(1n), .landing-feature .large-up-7 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-7 > .column:nth-of-type(7n+1), .large-up-7 > .columns:nth-of-type(7n+1), .large-up-7 > #user-about:nth-of-type(7n+1), .large-up-7 > .profile-tile:nth-of-type(7n+1), #claim .container .large-up-7 > .claim-cta-half:nth-of-type(7n+1), #categories #talk-collection .large-up-7 > .category:nth-of-type(7n+1), #publishers #publisher-collection .large-up-7 > .publisher:nth-of-type(7n+1), .landing-feature .large-up-7 > .landing-half:nth-of-type(7n+1) {
+    .large-up-7 > .column:nth-of-type(7n+1), .large-up-7 > .columns:nth-of-type(7n+1), .large-up-7 > .profile-tile:nth-of-type(7n+1), #claim .container .large-up-7 > .claim-cta-half:nth-of-type(7n+1), #categories #talk-collection .large-up-7 > .category:nth-of-type(7n+1), #publishers #publisher-collection .large-up-7 > .publisher:nth-of-type(7n+1), .landing-feature .large-up-7 > .landing-half:nth-of-type(7n+1) {
       clear: both; }
-    .large-up-7 > .column:last-child, .large-up-7 > .columns:last-child, .large-up-7 > #user-about:last-child, .large-up-7 > .profile-tile:last-child, #claim .container .large-up-7 > .claim-cta-half:last-child, #categories #talk-collection .large-up-7 > .category:last-child, #publishers #publisher-collection .large-up-7 > .publisher:last-child, .landing-feature .large-up-7 > .landing-half:last-child {
+    .large-up-7 > .column:last-child, .large-up-7 > .columns:last-child, .large-up-7 > .profile-tile:last-child, #claim .container .large-up-7 > .claim-cta-half:last-child, #categories #talk-collection .large-up-7 > .category:last-child, #publishers #publisher-collection .large-up-7 > .publisher:last-child, .landing-feature .large-up-7 > .landing-half:last-child {
       float: left; }
-  .large-up-8 > .column, .large-up-8 > .columns, .large-up-8 > #user-about, .large-up-8 > .profile-tile, #claim .container .large-up-8 > .claim-cta-half, #categories #talk-collection .large-up-8 > .category, #publishers #publisher-collection .large-up-8 > .publisher, .landing-feature .large-up-8 > .landing-half {
+  .large-up-8 > .column, .large-up-8 > .columns, .large-up-8 > .profile-tile, #claim .container .large-up-8 > .claim-cta-half, #categories #talk-collection .large-up-8 > .category, #publishers #publisher-collection .large-up-8 > .publisher, .landing-feature .large-up-8 > .landing-half {
     width: 12.5%;
     float: left; }
-    .large-up-8 > .column:nth-of-type(1n), .large-up-8 > .columns:nth-of-type(1n), .large-up-8 > #user-about:nth-of-type(1n), .large-up-8 > .profile-tile:nth-of-type(1n), #claim .container .large-up-8 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-8 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-8 > .publisher:nth-of-type(1n), .landing-feature .large-up-8 > .landing-half:nth-of-type(1n) {
+    .large-up-8 > .column:nth-of-type(1n), .large-up-8 > .columns:nth-of-type(1n), .large-up-8 > .profile-tile:nth-of-type(1n), #claim .container .large-up-8 > .claim-cta-half:nth-of-type(1n), #categories #talk-collection .large-up-8 > .category:nth-of-type(1n), #publishers #publisher-collection .large-up-8 > .publisher:nth-of-type(1n), .landing-feature .large-up-8 > .landing-half:nth-of-type(1n) {
       clear: none; }
-    .large-up-8 > .column:nth-of-type(8n+1), .large-up-8 > .columns:nth-of-type(8n+1), .large-up-8 > #user-about:nth-of-type(8n+1), .large-up-8 > .profile-tile:nth-of-type(8n+1), #claim .container .large-up-8 > .claim-cta-half:nth-of-type(8n+1), #categories #talk-collection .large-up-8 > .category:nth-of-type(8n+1), #publishers #publisher-collection .large-up-8 > .publisher:nth-of-type(8n+1), .landing-feature .large-up-8 > .landing-half:nth-of-type(8n+1) {
+    .large-up-8 > .column:nth-of-type(8n+1), .large-up-8 > .columns:nth-of-type(8n+1), .large-up-8 > .profile-tile:nth-of-type(8n+1), #claim .container .large-up-8 > .claim-cta-half:nth-of-type(8n+1), #categories #talk-collection .large-up-8 > .category:nth-of-type(8n+1), #publishers #publisher-collection .large-up-8 > .publisher:nth-of-type(8n+1), .landing-feature .large-up-8 > .landing-half:nth-of-type(8n+1) {
       clear: both; }
-    .large-up-8 > .column:last-child, .large-up-8 > .columns:last-child, .large-up-8 > #user-about:last-child, .large-up-8 > .profile-tile:last-child, #claim .container .large-up-8 > .claim-cta-half:last-child, #categories #talk-collection .large-up-8 > .category:last-child, #publishers #publisher-collection .large-up-8 > .publisher:last-child, .landing-feature .large-up-8 > .landing-half:last-child {
+    .large-up-8 > .column:last-child, .large-up-8 > .columns:last-child, .large-up-8 > .profile-tile:last-child, #claim .container .large-up-8 > .claim-cta-half:last-child, #categories #talk-collection .large-up-8 > .category:last-child, #publishers #publisher-collection .large-up-8 > .publisher:last-child, .landing-feature .large-up-8 > .landing-half:last-child {
       float: left; }
-  .column.large-centered, .large-centered.columns, .large-centered#user-about, .large-centered.profile-tile, #claim .container .large-centered.claim-cta-half, #categories #talk-collection .large-centered.category, #publishers #publisher-collection .large-centered.publisher, .landing-feature .large-centered.landing-half {
+  .column.large-centered, .large-centered.columns, .large-centered.profile-tile, #claim .container .large-centered.claim-cta-half, #categories #talk-collection .large-centered.category, #publishers #publisher-collection .large-centered.publisher, .landing-feature .large-centered.landing-half {
     float: none;
     margin-left: auto;
     margin-right: auto; }
@@ -1721,7 +1721,7 @@ select {
   .form-error.is-visible {
     display: block; }
 
-.hide, #right-column ul.viewtoggle {
+.hide {
   display: none !important; }
 
 .invisible {
@@ -2229,9 +2229,8 @@ body.is-reveal-open {
   @media screen and (min-width: 40em) {
     .reveal {
       min-height: 0; } }
-  .reveal .column, .reveal .columns, .reveal #user-about, .reveal .profile-tile, .reveal #claim .container .claim-cta-half, #claim .container .reveal .claim-cta-half, .reveal #categories #talk-collection .category, #categories #talk-collection .reveal .category, .reveal #publishers #publisher-collection .publisher, #publishers #publisher-collection .reveal .publisher, .reveal .landing-feature .landing-half, .landing-feature .reveal .landing-half,
+  .reveal .column, .reveal .columns, .reveal .profile-tile, .reveal #claim .container .claim-cta-half, #claim .container .reveal .claim-cta-half, .reveal #categories #talk-collection .category, #categories #talk-collection .reveal .category, .reveal #publishers #publisher-collection .publisher, #publishers #publisher-collection .reveal .publisher, .reveal .landing-feature .landing-half, .landing-feature .reveal .landing-half,
   .reveal .columns,
-  .reveal #user-about,
   .reveal .profile-tile,
   .reveal #claim .container .claim-cta-half, #claim .container
   .reveal .claim-cta-half,
@@ -2601,13 +2600,16 @@ section {
     font-weight: bold;
     margin-bottom: 6px;
     text-transform: normal; }
-  @media screen and (min-width: 64em) {
+  @media screen and (min-width: 40em) {
     #left-column {
       background: rgba(18, 18, 20, 0.2);
-      max-width: 400px;
+      max-width: 300px;
       padding: 0;
       margin: 12px;
       margin-right: 6px; } }
+  @media screen and (min-width: 64em) {
+    #left-column {
+      max-width: 350px; } }
 
 #user-block {
   text-align: center;
@@ -2657,11 +2659,17 @@ section {
     border: none;
     padding-left: 6px;
     margin-bottom: 2px; }
-    #right-column .tabs .tabs-title a {
-      color: white;
-      font-weight: 500;
-      border: 2px solid #ffed00;
-      border-right: none; }
+    #right-column .tabs li a {
+      color: rgba(18, 18, 20, 0.8); }
+      #right-column .tabs li a:hover {
+        color: #121214; }
+      #right-column .tabs li a .tabs-title a {
+        color: #121214;
+        border-right: 2px solid #ffed00;
+        font-weight: 500;
+        border: 2px solid #ffed00; }
+        #right-column .tabs li a .tabs-title a:hover {
+          background: white; }
     #right-column .tabs .tabs-title:last-child a {
       border-right: 2px solid #ffed00; }
     #right-column .tabs .is-active a {
@@ -2680,13 +2688,16 @@ section {
       margin-left: 12px; }
     #right-column .tabs-content .tabs-panel {
       padding: 0; }
-  @media screen and (min-width: 67.5em) {
+  @media screen and (min-width: 40em) {
+    #right-column .talk-card {
+      width: 100%; } }
+  @media screen and (min-width: 50em) {
     #right-column .talk-card {
       width: 50%; } }
-  @media screen and (min-width: 80em) {
+  @media screen and (min-width: 67.5em) {
     #right-column .talk-card {
       width: 33.333%; } }
-  @media screen and (min-width: 93.75em) {
+  @media screen and (min-width: 87.5em) {
     #right-column .talk-card {
       width: 25%; } }
   @media screen and (min-width: 112.5em) {
@@ -2699,15 +2710,17 @@ section {
     width: 100%;
     padding: 0;
     margin-bottom: 24px; }
-  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
-    #right-column ul.tabs li {
-      width: 100%; }
-      #right-column ul.tabs li a {
-        margin-bottom: 6px; } }
+  #right-column ul.tabs li {
+    width: 100%; }
+    #right-column ul.tabs li a {
+      margin-bottom: 6px; }
+  @media screen and (min-width: 40em) {
+    #right-column {
+      margin-left: 316px;
+      padding: 12px 6px 12px 2px; } }
   @media screen and (min-width: 64em) {
     #right-column {
-      margin-left: 416px;
-      padding: 12px 6px 12px 2px; } }
+      margin-left: 366px; } }
 
 .profile-row {
   max-width: 100%;
@@ -2752,25 +2765,6 @@ section {
     text-transform: normal; }
 
 #user-description {
-  color: #121214; }
-
-#right-column .tabs li a {
-  color: rgba(18, 18, 20, 0.8); }
-  #right-column .tabs li a:hover {
-    color: #121214; }
-
-#right-column .tabs .tabs-title a {
-  color: #121214; }
-  #right-column .tabs .tabs-title a:hover {
-    background: white; }
-
-#right-column ul.viewtoggle li.tab-label {
-  color: #121214; }
-
-#right-column ul.viewtoggle li.tab-title a {
-  color: rgba(18, 18, 20, 0.2); }
-
-#right-column ul.viewtoggle li.tab-title.active a {
   color: #121214; }
 
 #user-about {
