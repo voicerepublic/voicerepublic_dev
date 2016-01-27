@@ -2641,15 +2641,15 @@ section {
   #user-block .publish-btn {
     line-height: 21px; }
     #user-block .publish-btn .svg-icon {
-      width: 21px;
-      height: 21px;
+      width: 18px;
+      height: 18px;
       float: left;
       display: inline-block;
       margin: 0;
       margin-right: 12px; }
       #user-block .publish-btn .svg-icon svg {
-        width: 21px;
-        height: 21px; }
+        width: 18px;
+        height: 18px; }
 
 #right-column {
   padding: 6px; }

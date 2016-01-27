@@ -1,5 +1,5 @@
 <% if flash[:notice] %>
-	<div data-closable class="callout warning">
+	<div data-closable class="flash-msg callout warning">
 		<%= flash[:notice] %>
 		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
     <span aria-hidden="true">&times;</span>
@@ -8,7 +8,7 @@
 <% end %>
 
 <% if flash[:warning] %>
-	<div data-closable class="callout warning">
+	<div data-closable class="flash-msg callout warning">
 		<%= flash[:warning] %>
 		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
     <span aria-hidden="true">&times;</span>
@@ -17,7 +17,7 @@
 <% end %>
 
 <% if flash[:error] %>
-	<div data-closable class="callout alert">
+	<div data-closable class="flash-msg callout alert">
 		<%= flash[:error] %>
 		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
     <span aria-hidden="true">&times;</span>
@@ -26,7 +26,7 @@
 <% end %>
 
 <% if flash[:info] %>
-	<div data-closable class="callout info">
+	<div data-closable class="flash-msg callout info">
 		<%= flash[:info] %>
 		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
     <span aria-hidden="true">&times;</span>
@@ -35,7 +35,7 @@
 <% end %>
 
 <% if flash[:alert] %>
-	<div data-closable class="callout alert">
+	<div data-closable class="flash-msg callout alert">
 		<%= flash[:alert] %>
 		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
     <span aria-hidden="true">&times;</span>

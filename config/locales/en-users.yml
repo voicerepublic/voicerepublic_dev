@@ -136,3 +136,5 @@ en:
       nothing_pinned: "This user hasn't pinned any talks yet"
       you_nothing_pinned: "When you pin a Talk, it will show up here. Find interesting Talks in the Voice Republic archive."
       explore_the_archive: "Explore the Archive  »"
+      nothing_archived: "This user has no Talks in the archive."
+      no_series: "No series."
