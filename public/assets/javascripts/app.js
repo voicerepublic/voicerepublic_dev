@@ -1,5 +1,7 @@
 'use strict';
 
+//auto close the flash message:
+$('.flash-msg').delay(3000).fadeOut(1000);
 
 
 

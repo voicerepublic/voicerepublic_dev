@@ -30,6 +30,7 @@
 
   %body{class: "#{controller_name} #{[controller_name, action_name] * '-'}"}
     = render 'shared/svg_defs'
+    = render 'shared/notice_or_error_velvet'
 
     #example-menu.top-bar
       .top-bar-left
@@ -89,18 +90,19 @@
           %button#search-close.close-button{type: "button"}
             %span{"aria-hidden" => "true"} ×
 
-    = render 'shared/notice_or_error_velvet'
+    
     = yield
     - if !current_page?(explore_path)
       = render 'shared/footer_velvet'
 
     #scripts
-      %script{:src => "assets/javascripts/libraries.min.js"}
-      %script{:src => "assets/javascripts/rails.js"}
-      %script{:src => "assets/javascripts/foundation.min.js"}
-      %script{:src => "assets/javascripts/app.js"}
-      %script{:src => "assets/javascripts/explore.js"}
-      %script{:src => "assets/javascripts/topbar.js"}
+      %script{:src => "/assets/javascripts/libraries.min.js"}
+      %script{:src => "/assets/javascripts/rails.js"}
+      %script{:src => "/assets/javascripts/foundation.min.js"}
+      %script{:src => "/assets/javascripts/app.js"}
+      %script{:src => "/assets/javascripts/explore.js"}
+      %script{:src => "/assets/javascripts/topbar.js"}
+
       - if Rails.env.production?
         - unless @current_user.try(:insider?)
           = render 'shared/google_analytics'

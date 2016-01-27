@@ -1,35 +1,45 @@
 <% if flash[:notice] %>
-	<div data-alert class="flash_messages_velvet alert-box">
+	<div data-closable class="flash-msg callout warning">
 		<%= flash[:notice] %>
-		<a href="#" class="close">&times;</a>
+		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
 	</div>
 <% end %>
 
 <% if flash[:warning] %>
-	<div data-alert class="flash_messages_velvet alert-box">
+	<div data-closable class="flash-msg callout warning">
 		<%= flash[:warning] %>
-		<a href="#" class="close">&times;</a>
+		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
 	</div>
 <% end %>
 
 <% if flash[:error] %>
-	<div data-alert class="flash_messages_velvet alert-box">
+	<div data-closable class="flash-msg callout alert">
 		<%= flash[:error] %>
-		<a href="#" class="close">&times;</a>
+		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
 	</div>
 <% end %>
 
 <% if flash[:info] %>
-	<div data-alert class="flash_messages_velvet alert-box">
+	<div data-closable class="flash-msg callout info">
 		<%= flash[:info] %>
-		<a href="#" class="close">&times;</a>
+		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
 	</div>
 <% end %>
 
 <% if flash[:alert] %>
-	<div data-alert class="flash_messages_velvet alert-box">
+	<div data-closable class="flash-msg callout alert">
 		<%= flash[:alert] %>
-		<a href="#" class="close">&times;</a>
+		<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
 	</div>
 <% end %>
 
