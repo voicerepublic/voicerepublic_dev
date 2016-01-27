@@ -31,7 +31,7 @@ feature "General payment" do
     scenario "user gets redirected when low on credits" do
       @user.reload.update_attribute :credits, 0
       visit user_path @user
-      click_on "Publish a Talk"
+      click_on "Publish A Talk"
       expect(current_path).to eq(purchases_path)
     end
 
