@@ -3489,7 +3489,10 @@ footer {
   transition: background .3s ease;
   margin: 0;
   right: 0;
-  left: 0; }
+  left: 0;
+  min-height: 80px;
+  padding: 12px;
+  padding-top: 18px; }
   .top-bar ul li:last-child {
     padding-right: 0; }
   .top-bar .top-bar-right {
@@ -3515,14 +3518,13 @@ footer {
         margin: 0; }
       .top-bar .top-bar-right .avatar ul li {
         padding: 6px 6px 8px; }
-  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
-    .top-bar .top-bar-left .menu {
-      max-width: 50%; } }
   @media screen and (min-width: 40em) and (max-width: 63.9375em) {
     .top-bar .top-bar-left {
       max-width: 40%; } }
   .top-bar .top-bar-left #mobile-logo {
     position: relative; }
+    .top-bar .top-bar-left #mobile-logo a {
+      padding: 0; }
     .top-bar .top-bar-left #mobile-logo a:after {
       content: '';
       display: block;
@@ -3533,7 +3535,9 @@ footer {
       border-top-style: solid;
       position: absolute;
       top: 1.4rem;
-      right: 5px; }
+      right: -3px; }
+    .top-bar .top-bar-left #mobile-logo svg {
+      min-width: 60px; }
   .top-bar.with-background {
     background: #29292b; }
   .top-bar ul {
@@ -3569,6 +3573,10 @@ footer {
   .top-bar .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow > a::after {
     border-color: rgba(254, 241, 222, 0.5) transparent transparent;
     right: 10px; }
+  @media screen and (min-width: 40em) {
+    .top-bar {
+      padding: 0;
+      padding-top: 6px; } }
 
 #search-loupe a {
   font-weight: 700;
@@ -3590,11 +3598,6 @@ footer {
   width: 380px;
   background: #29292b;
   animation-duration: .5s; }
-  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
-    .search-container {
-      top: 100px;
-      left: 0;
-      width: 100%; } }
   .search-container form label button {
     color: white;
     font-size: 1.125rem;
@@ -3603,8 +3606,8 @@ footer {
     margin: 0;
     padding: 0;
     border: 0;
-    padding-top: 10px;
-    margin-left: -30px; }
+    padding-top: 21px;
+    margin-left: -40px; }
     .search-container form label button .svg-icon {
       height: 6px; }
       .search-container form label button .svg-icon svg {
@@ -3633,6 +3636,24 @@ footer {
     .search-container .close-button:hover {
       background: none;
       color: #ffed00; }
+  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
+    .search-container {
+      top: 80px;
+      left: 0;
+      width: 100%;
+      padding: 12px;
+      background: #2c46b0; }
+      .search-container .close-button {
+        margin-top: -60px; }
+      .search-container form input {
+        width: 100%;
+        height: 60px;
+        margin: 0;
+        background: #2c46b0;
+        font-size: 1rem; }
+        .search-container form input:focus, .search-container form input:active {
+          background: #2c46b0;
+          border-color: #2c46b0; } }
 
 .talk-card {
   padding: 6px;
