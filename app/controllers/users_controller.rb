@@ -37,6 +37,8 @@ class UsersController < BaseController
     respond_to do |format|
       format.html do
 
+        @remembered_talks  = Talk.remembered_by(@user).reordered
+
         @who = current_user==@user ? "you":"other"
         if @who == "you"
           @tab_pinned_class = "is-active"
@@ -61,7 +63,6 @@ class UsersController < BaseController
         @live_talks        = @user.talks.live.ordered
         @upcoming_talks    = @user.talks.prelive.ordered
         @archived_talks    = @user.talks.archived.reordered
-        @remembered_talks  = Talk.remembered_by(@user).reordered
 
         @series            = @user.series_without_default
 
