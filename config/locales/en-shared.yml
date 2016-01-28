@@ -9,3 +9,5 @@ en:
         postlive: "This Talk is queued for processing. It will be available shortly."
         processing: "This Talk is being processed. It will be available shortly."
         suspended: "This Talk is currently not available."
+    series_card:
+      series: Series

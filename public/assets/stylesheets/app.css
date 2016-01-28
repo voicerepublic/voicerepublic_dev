@@ -3653,6 +3653,14 @@ footer {
       color: rgba(41, 41, 43, 0.5); }
       .talk-card .talk-card-inside .publisher:hover {
         text-decoration: underline; }
+    .talk-card .talk-card-inside p.series-label {
+      color: #121214;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25rem;
+      margin: 0;
+      margin-bottom: 10px;
+      line-height: 0.75rem; }
     .talk-card .talk-card-inside .meta {
       width: 100%;
       margin: 0;

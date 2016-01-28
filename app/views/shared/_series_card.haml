@@ -3,6 +3,7 @@
 = link_to series do
   .talk-card.columns.series
     .talk-card-inside
+      %p.series-label= t('.series')
       = image_tag series.image.thumb("600x338#").url
       %h5.title= series.title
       %p.lead
