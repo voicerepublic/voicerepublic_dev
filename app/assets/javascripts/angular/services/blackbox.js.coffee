@@ -75,7 +75,6 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     config.flags.settings = false
 
   $window.declined = ->
-    $log.info "DECLINED -> ICECAST?"
     config.flags.declined = true
 
   flashVars = $.extend config.blackbox,
