@@ -27,7 +27,8 @@ private var jsImports:Object = {
   silenceLevel:    null,
   silenceTimeout:  null,
   settingsClosed:  null,
-  afterInitialize: null
+  afterInitialize: null,
+  deniedMethod:    null
 };
 
 private var jsExports:Object = {
@@ -249,6 +250,7 @@ private function micCheck():void {
                            break;
                          case 'Microphone.Muted':
                            log('Permission has been declined.');
+                           ExternalInterface.call(jsImports.deniedMethod);
                            break;
                          default:
                            log('Something else happened');
