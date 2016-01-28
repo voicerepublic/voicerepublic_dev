@@ -2505,24 +2505,6 @@ section {
     #cta-panel button:hover {
       background: none; }
 
-.user-meta-group {
-  margin: 0;
-  margin-bottom: 0; }
-  .user-meta-group li {
-    font-size: 0.75rem;
-    color: #121214;
-    padding: 6px;
-    height: 32px;
-    margin: 0;
-    width: 50%;
-    font-weight: 500;
-    border-right: 2px solid transparent;
-    margin-right: 4px; }
-    .user-meta-group li a {
-      color: #121214; }
-    .user-meta-group li:last-child {
-      margin-right: 0; }
-
 #user-badge {
   position: absolute;
   top: 220px;
@@ -2615,6 +2597,30 @@ section {
   padding: 24px;
   padding-bottom: 0;
   position: relative; }
+  #user-block .user-meta-group {
+    margin: 0;
+    margin-bottom: 0; }
+    #user-block .user-meta-group li {
+      font-size: 0.75rem;
+      color: #121214;
+      padding: 6px;
+      height: 32px;
+      margin: 0;
+      width: 25%;
+      font-weight: 500;
+      border-right: 2px solid transparent;
+      margin-right: 4px; }
+      #user-block .user-meta-group li a {
+        color: #121214; }
+      #user-block .user-meta-group li:last-child {
+        margin-right: 0; }
+      #user-block .user-meta-group li p {
+        font-size: 1rem;
+        margin-bottom: 0; }
+      #user-block .user-meta-group li p.label {
+        background: none;
+        font-size: 0.625rem;
+        text-transform: uppercase; }
   #user-block img {
     margin-bottom: 12px; }
   #user-block #user-name {
@@ -2776,8 +2782,22 @@ section {
   padding: 24px;
   padding-top: 0;
   text-align: left; }
+  #user-about h1, #user-about h2, #user-about h3, #user-about h4, #user-about h5, #user-about h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: inherit;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    letter-spacing: normal;
+    text-align: left;
+    text-transform: none;
+    font-weight: 700; }
+  #user-about li {
+    font-size: 0.875rem; }
   #user-about a {
     color: #54c6c6; }
+    #user-about a:hover {
+      text-decoration: underline; }
 
 .profile-tile {
   padding: 6px;
@@ -3587,7 +3607,8 @@ footer {
 
 .talk-card {
   padding: 6px;
-  background: none; }
+  background: none;
+  position: relative; }
   @media screen and (min-width: 35em) {
     .talk-card {
       width: 50%; } }
@@ -3600,10 +3621,28 @@ footer {
   @media screen and (min-width: 100em) {
     .explore-index .talk-card {
       width: 20%; } }
+  .talk-card.postlive, .talk-card.processing, .talk-card.suspended {
+    pointer-events: none; }
+    .talk-card.postlive .talk-card-inside, .talk-card.processing .talk-card-inside, .talk-card.suspended .talk-card-inside {
+      opacity: .5; }
+    .talk-card.postlive .not_available, .talk-card.processing .not_available, .talk-card.suspended .not_available {
+      position: absolute;
+      top: 97px;
+      left: 30px;
+      right: 30px;
+      padding: 12px;
+      background: #ffed00; }
+      .talk-card.postlive .not_available p, .talk-card.processing .not_available p, .talk-card.suspended .not_available p {
+        font-size: 0.75rem;
+        line-height: 0.875rem;
+        margin-bottom: 0;
+        font-weight: 500;
+        height: auto; }
   .talk-card .talk-card-inside {
     background: #FAFAFA;
     padding: 12px;
     cursor: pointer;
+    position: relative;
     text-align: left;
     transition: all .2s ease; }
     .talk-card .talk-card-inside .publisher {

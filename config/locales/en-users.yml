@@ -99,13 +99,17 @@ en:
         one: Talk
         other: Talks
       plays:
-        zero: No Plays
-        one: 1 Play
-        other: '%{count} Plays'
+        zero: Plays
+        one: Play
+        other: Plays
       series:
-        zero: No Series
-        one: 1 Series
-        other: '%{count} Series'
+        zero: Series
+        one: Series
+        other: Series
+      pinned:
+        zero: Pinned
+        one: Pinned
+        other: Pinned
       listen_later: Listen later
       create_new_talk: Create new Talk
       publish_a_talk: Publish A Talk
@@ -137,11 +141,20 @@ en:
       explore_the_archive: "Explore the Archive  »"
       nothing_archived: "This user has no Talks in the archive."
       no_series: "No series."
+      create_one_now: Create one now »
       other:
         pinned_empty: "This user hasn't pinned any Talks yet."
+        archived_empty: "This user hasn't created any Talks yet."
+        series_empty: "This user hasn't created any Series yet."
       you:
         pinned_empty: |
           When you pin a Talk, it will show up here. <br>
           Find interesting Talks in the Voice Republic archive.<br><br>
 
+          %{link}
+        archived_empty: |
+          You haven't published any Talks yet.<br><br>
+          %{link}
+        series_empty: |
+          You can create a new Series when you publish a Talk.<br><br>
           %{link}

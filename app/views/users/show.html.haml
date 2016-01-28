@@ -59,16 +59,17 @@
       %hr
       %ul.user-meta-group.menu.expanded
         %li
-          %p= @talks_total
-          %p= t('.talks', count: @talks_total)
+          %p= human_count(@talks_total)
+          %p.label= t('.talks', count: @talks_total)
         %li
-          .text= t('.plays', count: @total_plays)
+          %p= human_count(@total_plays)
+          %p.label= t('.plays', count: @total_plays)
         %li
-          = link_to "#series" do
-            = t('.series', count: @user.series_without_default.count)
+          %p= human_count(@user.series_without_default.count)
+          %p.label= t('.series', count: @user.series_without_default.count)
         %li
-          = link_to '#listen-later' do
-            = t('.listen_later', count: @user.reminders.count)
+          %p= human_count(@user.reminders.count)
+          %p.label= t('.pinned', count: @user.reminders.count)
       %hr/
 
 
@@ -101,6 +102,7 @@
           %p.nothing-notice= t(".#{who}.pinned_empty", link: link_to(t('.explore_the_archive'), explore_path)).html_safe
         = render partial: 'shared/talk_card',  collection: @remembered_talks
 
+        -# TODO: figure out what to do about welcome message
         -# if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
         -#  = render partial: "welcome", :locals => { user: @user }
           
@@ -115,15 +117,10 @@
             = t('.nothing_scheduled')
 
       #archived.tabs-panel
-        - if @upcoming_talks.count > 0
-          = render partial: 'shared/talk_card', collection: @archived_talks
-        - else 
-          %p.nothing-notice 
-            = t('.nothing_archived')
+        - if @archived_talks.empty?
+          %p.nothing-notice= t(".#{who}.archived_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe
+        = render partial: 'shared/talk_card',  collection: @archived_talks
       #series.tabs-panel
-        - if @series.count > 0
-          = render partial: 'shared/series_card', collection: @series
-        - else 
-          %p.nothing-notice 
-            = t('.no_series')
-
+        - if @series.count == 0
+          %p.nothing-notice= t(".#{who}.series_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe
+        = render partial: 'shared/series_card',  collection: @series
