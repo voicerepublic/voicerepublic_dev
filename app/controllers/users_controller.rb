@@ -36,6 +36,21 @@ class UsersController < BaseController
     @user ||= User.find(params[:id])
     respond_to do |format|
       format.html do
+
+        @who = current_user==@user ? "you":"other"
+        if @who == "you"
+          @tab_pinned_class = "is-active"
+          @tab_archived_class = ""
+        else
+          if @remembered_talks.count > 0
+            @tab_pinned_class = "is-active"
+            @tab_archived_class = ""
+          else
+            @tab_pinned_class = ""
+            @tab_archived_class = "is-active"
+          end
+        end
+
         @talks_total       = @user.talks.where.not(state: 'postlive').count
         @total_plays       = @user.talks.sum(:play_count)
 
@@ -52,19 +67,6 @@ class UsersController < BaseController
 
         @show_listen_later = @remembered_talks.present?
         @show_listen_later = true if @user == current_user
-        @who               = current_user==@user ? "you":"other"
-        if @who == "you"
-          @tab_pinned_class = "is-active"
-          @tab_archived_class = ""
-        else
-          if @remembered_talks.count > 0
-            @tab_pinned_class = "is-active"
-            @tab_archived_class = ""
-          else
-            @tab_pinned_class = ""
-            @tab_archived_class = "is-active"
-          end
-        end
 
       end
       format.rss do
