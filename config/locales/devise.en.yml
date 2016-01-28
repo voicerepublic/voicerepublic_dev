@@ -52,7 +52,7 @@ en:
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
       new:
-        sign_up: 'Sign Up'
+        sign_up: 'Sign Up For Free'
         registration_or: 'or'
         firstname: 'First name'
         lastname: 'Last name'
