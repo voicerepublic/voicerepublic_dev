@@ -451,7 +451,7 @@ button {
     .row.large-uncollapse > .column, .row.large-uncollapse > .columns, .row.large-uncollapse > .profile-tile, #claim .container .row.large-uncollapse > .claim-cta-half, #categories #talk-collection .row.large-uncollapse > .category, #publishers #publisher-collection .row.large-uncollapse > .publisher, .landing-feature .row.large-uncollapse > .landing-half {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem; } }
-  .row.expanded, .registrations #join-box button.row {
+  .row.expanded, .registrations #input-block button.row {
     max-width: none; }
 
 .column, .columns, .profile-tile, #claim .container .claim-cta-half, #categories #talk-collection .category, #publishers #publisher-collection .publisher, .landing-feature .landing-half {
@@ -1327,7 +1327,7 @@ kbd {
 .text-right {
   text-align: right; }
 
-.text-center, .row, h1, h2, .registrations #join-box h5 {
+.text-center, .row, h1, h2, .registrations #input-block h5 {
   text-align: center; }
 
 .text-justify {
@@ -1435,9 +1435,9 @@ kbd {
     font-size: 0.6rem; }
   .button.small, button.small {
     font-size: 0.75rem; }
-  .button.large, button, .registrations #join-box button {
+  .button.large, button, .registrations #input-block button {
     font-size: 1.25rem; }
-  .button.expanded, button.expanded, .registrations #join-box button {
+  .button.expanded, button.expanded, .registrations #input-block button {
     display: block;
     width: 100%;
     margin-left: 0;
@@ -1842,37 +1842,37 @@ select {
     font-size: 0.6rem; }
   .button-group.small {
     font-size: 0.75rem; }
-  .button-group.large, button.button-group, .registrations #join-box button.button-group {
+  .button-group.large, button.button-group, .registrations #input-block button.button-group {
     font-size: 1.25rem; }
-  .button-group.expanded .button:nth-last-child(2):first-child, .registrations #join-box button.button-group .button:nth-last-child(2):first-child, .button-group.expanded button:nth-last-child(2):first-child, .registrations #join-box button.button-group button:nth-last-child(2):first-child,
-  .button-group.expanded .button:nth-last-child(2):first-child ~ .button, .registrations #join-box button.button-group .button:nth-last-child(2):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(2):first-child ~ .button, .registrations #join-box button.button-group button:nth-last-child(2):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(2):first-child ~ button, .registrations #join-box button.button-group .button:nth-last-child(2):first-child ~ button,
-  .button-group.expanded button:nth-last-child(2):first-child ~ button, .registrations #join-box button.button-group button:nth-last-child(2):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(2):first-child, .registrations #input-block button.button-group .button:nth-last-child(2):first-child, .button-group.expanded button:nth-last-child(2):first-child, .registrations #input-block button.button-group button:nth-last-child(2):first-child,
+  .button-group.expanded .button:nth-last-child(2):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(2):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(2):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(2):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(2):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(2):first-child ~ button,
+  .button-group.expanded button:nth-last-child(2):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(2):first-child ~ button {
     width: 50%; }
-  .button-group.expanded .button:nth-last-child(3):first-child, .registrations #join-box button.button-group .button:nth-last-child(3):first-child, .button-group.expanded button:nth-last-child(3):first-child, .registrations #join-box button.button-group button:nth-last-child(3):first-child,
-  .button-group.expanded .button:nth-last-child(3):first-child ~ .button, .registrations #join-box button.button-group .button:nth-last-child(3):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(3):first-child ~ .button, .registrations #join-box button.button-group button:nth-last-child(3):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(3):first-child ~ button, .registrations #join-box button.button-group .button:nth-last-child(3):first-child ~ button,
-  .button-group.expanded button:nth-last-child(3):first-child ~ button, .registrations #join-box button.button-group button:nth-last-child(3):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(3):first-child, .registrations #input-block button.button-group .button:nth-last-child(3):first-child, .button-group.expanded button:nth-last-child(3):first-child, .registrations #input-block button.button-group button:nth-last-child(3):first-child,
+  .button-group.expanded .button:nth-last-child(3):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(3):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(3):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(3):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(3):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(3):first-child ~ button,
+  .button-group.expanded button:nth-last-child(3):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(3):first-child ~ button {
     width: 33.3333333333%; }
-  .button-group.expanded .button:nth-last-child(4):first-child, .registrations #join-box button.button-group .button:nth-last-child(4):first-child, .button-group.expanded button:nth-last-child(4):first-child, .registrations #join-box button.button-group button:nth-last-child(4):first-child,
-  .button-group.expanded .button:nth-last-child(4):first-child ~ .button, .registrations #join-box button.button-group .button:nth-last-child(4):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(4):first-child ~ .button, .registrations #join-box button.button-group button:nth-last-child(4):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(4):first-child ~ button, .registrations #join-box button.button-group .button:nth-last-child(4):first-child ~ button,
-  .button-group.expanded button:nth-last-child(4):first-child ~ button, .registrations #join-box button.button-group button:nth-last-child(4):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(4):first-child, .registrations #input-block button.button-group .button:nth-last-child(4):first-child, .button-group.expanded button:nth-last-child(4):first-child, .registrations #input-block button.button-group button:nth-last-child(4):first-child,
+  .button-group.expanded .button:nth-last-child(4):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(4):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(4):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(4):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(4):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(4):first-child ~ button,
+  .button-group.expanded button:nth-last-child(4):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(4):first-child ~ button {
     width: 25%; }
-  .button-group.expanded .button:nth-last-child(5):first-child, .registrations #join-box button.button-group .button:nth-last-child(5):first-child, .button-group.expanded button:nth-last-child(5):first-child, .registrations #join-box button.button-group button:nth-last-child(5):first-child,
-  .button-group.expanded .button:nth-last-child(5):first-child ~ .button, .registrations #join-box button.button-group .button:nth-last-child(5):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(5):first-child ~ .button, .registrations #join-box button.button-group button:nth-last-child(5):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(5):first-child ~ button, .registrations #join-box button.button-group .button:nth-last-child(5):first-child ~ button,
-  .button-group.expanded button:nth-last-child(5):first-child ~ button, .registrations #join-box button.button-group button:nth-last-child(5):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(5):first-child, .registrations #input-block button.button-group .button:nth-last-child(5):first-child, .button-group.expanded button:nth-last-child(5):first-child, .registrations #input-block button.button-group button:nth-last-child(5):first-child,
+  .button-group.expanded .button:nth-last-child(5):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(5):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(5):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(5):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(5):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(5):first-child ~ button,
+  .button-group.expanded button:nth-last-child(5):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(5):first-child ~ button {
     width: 20%; }
-  .button-group.expanded .button:nth-last-child(6):first-child, .registrations #join-box button.button-group .button:nth-last-child(6):first-child, .button-group.expanded button:nth-last-child(6):first-child, .registrations #join-box button.button-group button:nth-last-child(6):first-child,
-  .button-group.expanded .button:nth-last-child(6):first-child ~ .button, .registrations #join-box button.button-group .button:nth-last-child(6):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(6):first-child ~ .button, .registrations #join-box button.button-group button:nth-last-child(6):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(6):first-child ~ button, .registrations #join-box button.button-group .button:nth-last-child(6):first-child ~ button,
-  .button-group.expanded button:nth-last-child(6):first-child ~ button, .registrations #join-box button.button-group button:nth-last-child(6):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(6):first-child, .registrations #input-block button.button-group .button:nth-last-child(6):first-child, .button-group.expanded button:nth-last-child(6):first-child, .registrations #input-block button.button-group button:nth-last-child(6):first-child,
+  .button-group.expanded .button:nth-last-child(6):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(6):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(6):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(6):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(6):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(6):first-child ~ button,
+  .button-group.expanded button:nth-last-child(6):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(6):first-child ~ button {
     width: 16.6666666667%; }
   .button-group.primary .button, .button-group.primary button {
     background: #2c46b0;
@@ -1940,7 +1940,7 @@ select {
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 0.5rem; }
-  .callout.large, .large#cta-panel, button#cta-panel, .registrations #join-box button#cta-panel, button.callout, .registrations #join-box button.callout {
+  .callout.large, .large#cta-panel, button#cta-panel, .registrations #input-block button#cta-panel, button.callout, .registrations #input-block button.callout {
     padding-top: 3rem;
     padding-right: 3rem;
     padding-bottom: 3rem;
@@ -1978,7 +1978,7 @@ select {
 .dropdown-pane.small {
   width: 200px; }
 
-.dropdown-pane.large, button.dropdown-pane, .registrations #join-box button.dropdown-pane {
+.dropdown-pane.large, button.dropdown-pane, .registrations #input-block button.dropdown-pane {
   width: 400px; }
 
 [data-whatinput='mouse'] .dropdown.menu a {
@@ -2137,25 +2137,25 @@ select {
     margin-right: 1rem; }
   .menu.align-right > li {
     float: right; }
-  .menu.expanded, .registrations #join-box button.menu {
+  .menu.expanded, .registrations #input-block button.menu {
     display: table;
     width: 100%; }
-    .menu.expanded > li:nth-last-child(2):first-child, .registrations #join-box button.menu > li:nth-last-child(2):first-child,
-    .menu.expanded > li:nth-last-child(2):first-child ~ li, .registrations #join-box button.menu > li:nth-last-child(2):first-child ~ li {
+    .menu.expanded > li:nth-last-child(2):first-child, .registrations #input-block button.menu > li:nth-last-child(2):first-child,
+    .menu.expanded > li:nth-last-child(2):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(2):first-child ~ li {
       width: 50%; }
-    .menu.expanded > li:nth-last-child(3):first-child, .registrations #join-box button.menu > li:nth-last-child(3):first-child,
-    .menu.expanded > li:nth-last-child(3):first-child ~ li, .registrations #join-box button.menu > li:nth-last-child(3):first-child ~ li {
+    .menu.expanded > li:nth-last-child(3):first-child, .registrations #input-block button.menu > li:nth-last-child(3):first-child,
+    .menu.expanded > li:nth-last-child(3):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(3):first-child ~ li {
       width: 33.3333333333%; }
-    .menu.expanded > li:nth-last-child(4):first-child, .registrations #join-box button.menu > li:nth-last-child(4):first-child,
-    .menu.expanded > li:nth-last-child(4):first-child ~ li, .registrations #join-box button.menu > li:nth-last-child(4):first-child ~ li {
+    .menu.expanded > li:nth-last-child(4):first-child, .registrations #input-block button.menu > li:nth-last-child(4):first-child,
+    .menu.expanded > li:nth-last-child(4):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(4):first-child ~ li {
       width: 25%; }
-    .menu.expanded > li:nth-last-child(5):first-child, .registrations #join-box button.menu > li:nth-last-child(5):first-child,
-    .menu.expanded > li:nth-last-child(5):first-child ~ li, .registrations #join-box button.menu > li:nth-last-child(5):first-child ~ li {
+    .menu.expanded > li:nth-last-child(5):first-child, .registrations #input-block button.menu > li:nth-last-child(5):first-child,
+    .menu.expanded > li:nth-last-child(5):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(5):first-child ~ li {
       width: 20%; }
-    .menu.expanded > li:nth-last-child(6):first-child, .registrations #join-box button.menu > li:nth-last-child(6):first-child,
-    .menu.expanded > li:nth-last-child(6):first-child ~ li, .registrations #join-box button.menu > li:nth-last-child(6):first-child ~ li {
+    .menu.expanded > li:nth-last-child(6):first-child, .registrations #input-block button.menu > li:nth-last-child(6):first-child,
+    .menu.expanded > li:nth-last-child(6):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(6):first-child ~ li {
       width: 16.6666666667%; }
-    .menu.expanded > li:first-child:last-child, .registrations #join-box button.menu > li:first-child:last-child {
+    .menu.expanded > li:first-child:last-child, .registrations #input-block button.menu > li:first-child:last-child {
       width: 100%; }
   .menu.icon-top > li > a {
     text-align: center; }
@@ -2250,7 +2250,7 @@ body.is-reveal-open {
   .reveal.collapse {
     padding: 0; }
   @media screen and (min-width: 40em) {
-    .reveal .reveal, .reveal .registrations #join-box button.reveal, .registrations #join-box .reveal button.reveal {
+    .reveal .reveal, .reveal .registrations #input-block button.reveal, .registrations #input-block .reveal button.reveal {
       left: auto;
       right: auto;
       margin: 0 auto; } }
@@ -2263,7 +2263,7 @@ body.is-reveal-open {
       width: 50%;
       max-width: 75rem; } }
   @media screen and (min-width: 40em) {
-    .reveal.large, button.reveal, .registrations #join-box button.reveal {
+    .reveal.large, button.reveal, .registrations #input-block button.reveal {
       width: 90%;
       max-width: 75rem; } }
   .reveal.full {
@@ -2451,7 +2451,7 @@ button, .button, button {
     border-width: 2px; }
   button.small, .button.small, button.small {
     border-width: 2px; }
-  button.large, button, .registrations #join-box button, .button.large, button, .registrations #join-box button {
+  button.large, button, .registrations #input-block button, .button.large, button, .registrations #input-block button {
     border-width: 3px; }
   button .info, .button .info, button .info {
     background: rgba(255, 255, 255, 0.5); }
@@ -2872,7 +2872,7 @@ button {
     background: none;
     border-color: #2c46b0;
     color: #2c46b0; }
-  button.large, button, .registrations #join-box button {
+  button.large, button, .registrations #input-block button {
     border-width: 3px; }
 
 .root-index {
@@ -3113,8 +3113,13 @@ h1, h2 {
       margin: 0; }
 
 .registrations {
-  height: 100%;
-  background-size: cover; }
+  height: 100%; }
+  html .registrations {
+    background: url(../../images/background/matterhorn.jpg) no-repeat 50% 50%;
+    background-size: cover;
+    height: 100%;
+    padding: 0;
+    margin: 0; }
   .registrations body {
     height: 100%;
     background: none;
@@ -3124,26 +3129,26 @@ h1, h2 {
       top: 0;
       left: 0;
       z-index: 1; }
-  .registrations #join-box {
+  .registrations #input-block {
     background: white;
     margin: 0;
     padding: 24px;
     z-index: 100;
     position: absolute;
     left: 0; }
-    .registrations #join-box img {
+    .registrations #input-block img {
       margin-bottom: 36px; }
-    .registrations #join-box h5 {
+    .registrations #input-block h5 {
       margin-bottom: 0;
       color: #29292b;
       font-size: 1.5rem; }
-    .registrations #join-box .lead {
+    .registrations #input-block .lead {
       text-transform: uppercase;
       font-size: 0.875rem;
       color: #b4b6be;
       margin-bottom: 48px; }
     @media screen and (min-width: 40em) {
-      .registrations #join-box {
+      .registrations #input-block {
         position: absolute;
         left: 50%;
         margin-top: 50px;
@@ -3152,10 +3157,10 @@ h1, h2 {
         max-width: 600px;
         padding: 40px 100px 40px 100px;
         margin-left: -300px; } }
-    .registrations #join-box .input-layout {
+    .registrations #input-block .input-layout {
       position: relative;
       margin-top: 42px; }
-      .registrations #join-box .input-layout input {
+      .registrations #input-block .input-layout input {
         outline: 0;
         padding: 0;
         box-shadow: none;
@@ -3164,21 +3169,21 @@ h1, h2 {
         height: 36px;
         line-height: 26px;
         font-size: 1.125rem; }
-        .registrations #join-box .input-layout input:focus {
+        .registrations #input-block .input-layout input:focus {
           outline: none;
           border: none;
           border-bottom: 1px solid #f82847; }
-        .registrations #join-box .input-layout input:focus ~ label {
+        .registrations #input-block .input-layout input:focus ~ label {
           top: -24px;
           color: #f82847;
           font-size: 0.75rem;
           text-transform: uppercase; }
-        .registrations #join-box .input-layout input[type=text]:valid ~ label, .registrations #join-box .input-layout input[type=password]:valid ~ label {
+        .registrations #input-block .input-layout input[type=text]:valid ~ label, .registrations #input-block .input-layout input[type=password]:valid ~ label {
           top: -24px;
           color: #b4b6be;
           font-size: 0.75rem;
           text-transform: uppercase; }
-      .registrations #join-box .input-layout label {
+      .registrations #input-block .input-layout label {
         position: absolute;
         top: 0;
         left: 0;
@@ -3187,18 +3192,18 @@ h1, h2 {
         font-size: 1rem;
         color: #b4b6be;
         transition: all .2s ease; }
-      .registrations #join-box .input-layout .alert {
+      .registrations #input-block .input-layout .alert {
         display: none; }
-      .registrations #join-box .input-layout:last-child {
+      .registrations #input-block .input-layout:last-child {
         margin-bottom: 0; }
-    .registrations #join-box footer {
+    .registrations #input-block footer {
       background: none;
       padding: 0;
       padding-top: 36px;
       color: #29292b; }
-      .registrations #join-box footer a {
+      .registrations #input-block footer a {
         color: #54c6c6; }
-    .registrations #join-box button:hover, .registrations #join-box button:focus {
+    .registrations #input-block button:hover, .registrations #input-block button:focus {
       background: #54c6c6; }
 
 @keyframes dash {

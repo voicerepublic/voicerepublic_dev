@@ -95,9 +95,9 @@ en:
       title: "%{username} - Voice Republic"
       edit_profile: Edit Profile
       talks:
-        zero: No Talks
-        one: 1 Talk
-        other: '%{count} Talks'
+        zero: Talks
+        one: Talk
+        other: Talks
       plays:
         zero: No Plays
         one: 1 Play
@@ -129,12 +129,19 @@ en:
         one: 1 Archived Talk
         other: '%{count} Archived Talks'
       listen_later:
-        zero: Pinned Talks
+        zero: No Pinned Talks
         one: 1 Pinned Talks
         other: '%{count} Pinned Talks'
       nothing_scheduled: 'No Talks scheduled at this time.'
       nothing_pinned: "This user hasn't pinned any talks yet"
-      you_nothing_pinned: "When you pin a Talk, it will show up here. Find interesting Talks in the Voice Republic archive."
       explore_the_archive: "Explore the Archive  »"
       nothing_archived: "This user has no Talks in the archive."
       no_series: "No series."
+      other:
+        pinned_empty: "This user hasn't pinned any Talks yet."
+      you:
+        pinned_empty: |
+          When you pin a Talk, it will show up here. <br>
+          Find interesting Talks in the Voice Republic archive.<br><br>
+
+          %{link}

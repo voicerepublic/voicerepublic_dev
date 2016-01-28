@@ -5,6 +5,8 @@
 - content_for :title do
   = t('.title', username: @user.name)
 
+- who = current_user==@user ? "you":"other"
+
 #main.clearfix{:role => "main"}
   #left-column
     - if current_user && current_user == @user
@@ -50,14 +52,15 @@
         
         
       - else
-        = link_to user_path, class:'button hollow tiny' do
+        = link_to podcast_url(@user), class:'button hollow tiny' do
           = t('.subscribe_to_podcast') 
           
       -# TODO: make these prettier: put the value big, then underneath, the key in small text 
       %hr
       %ul.user-meta-group.menu.expanded
         %li
-          .text= t('.talks', count: @talks_total)
+          %p= @talks_total
+          %p= t('.talks', count: @talks_total)
         %li
           .text= t('.plays', count: @total_plays)
         %li
@@ -94,27 +97,16 @@
       
     .tabs-content{"data-tabs-content" => "example-tabs"}
       #pinned.tabs-panel.is-active
-        -# if @remembered_talks.count > 0
-          -# TODO: turn this into an inline CTA that appears under certain condiditons. which?
-          / #cta-panel{"data-closable" => ""}
-          /   %p
-          /     Would you like to publish your content on Voice Republic?
-          /     %a#cta-button.button{:href => "join.html"} Start Now »
-          /   %button.close-button{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
-          /     %span{"aria-hidden" => "true"} ×
-        - if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
-          = render partial: "welcome", :locals => { user: @user }
+        - if @remembered_talks.empty?
+          %p.nothing-notice= t(".#{who}.pinned_empty", link: link_to(t('.explore_the_archive'), explore_path)).html_safe
+        = render partial: 'shared/talk_card',  collection: @remembered_talks
+
+        -# if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
+        -#  = render partial: "welcome", :locals => { user: @user }
           
-        - if can? :manage, @user and @user.talks.empty?
-          %p.nothing-notice
-            = t('.you_nothing_pinned')
-          %p.nothing-notice
-            = link_to t('.explore_the_archive'), :explore
-        - else
-          = render partial: 'shared/talk_card',  collection: @remembered_talks
-      - unless @live_talks.empty?
-        #live.tabs-panel
-          = render partial: 'shared/talk_card', collection: @live_talks
+       
+      #live.tabs-panel
+        = render partial: 'shared/talk_card', collection: @live_talks
       #upcoming.tabs-panel
         - if @upcoming_talks.count > 0
           = render partial: talks_partial(@upcoming_talks), locals: { color: 'box-slim' }, collection: @upcoming_talks
