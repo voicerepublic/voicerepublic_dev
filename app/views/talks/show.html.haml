@@ -46,7 +46,7 @@
               %h3= t('.embed_this_talk')
               %br/
               %textarea
-                <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                <iframe width="445" height="220" src="#{embed_talk_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
               %span.embed-help-text= t('.copy_text')
               %a.close-reveal-modal= raw '&#215;'
 
