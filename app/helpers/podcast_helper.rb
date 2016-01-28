@@ -1,6 +1,6 @@
 module PodcastHelper
 
-  def link_to_podcast(entity)
+  def podcast_url(entity)
     # Different systems require a different protocol:
     #   Macs: ITPC
     #   iPhone & iPad: FEED
@@ -22,6 +22,13 @@ module PodcastHelper
                   only_path: false,
                   protocol: protocol
 
+    
+
+  end
+
+  def link_to_podcast(entity)
+    
+    url = podcast_url(entity)
     link_to url, class: 'button-podcast', 'data-ga-event' => "click talk podcast talk:#{entity.id}" do
       content_tag('span', '', class: 'icon-podcast') +
         t('.subscribe_to_podcast')
