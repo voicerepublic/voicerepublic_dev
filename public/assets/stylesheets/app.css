@@ -3474,6 +3474,16 @@ footer {
     .logo a span {
       display: inline-block; } }
 
+#mobile-nav li a {
+  background: #2c46b0;
+  color: white;
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.0625rem;
+  padding: 18px 24px;
+  border-bottom: 1px solid #29292b; }
+
 .top-bar {
   background: #29292b;
   transition: background .3s ease;
@@ -3511,6 +3521,19 @@ footer {
   @media screen and (min-width: 40em) and (max-width: 63.9375em) {
     .top-bar .top-bar-left {
       max-width: 40%; } }
+  .top-bar .top-bar-left #mobile-logo {
+    position: relative; }
+    .top-bar .top-bar-left #mobile-logo a:after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border: inset 5px;
+      border-color: #f82847 transparent transparent;
+      border-top-style: solid;
+      position: absolute;
+      top: 1.4rem;
+      right: 5px; }
   .top-bar.with-background {
     background: #29292b; }
   .top-bar ul {
@@ -3567,6 +3590,11 @@ footer {
   width: 380px;
   background: #29292b;
   animation-duration: .5s; }
+  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
+    .search-container {
+      top: 100px;
+      left: 0;
+      width: 100%; } }
   .search-container form label button {
     color: white;
     font-size: 1.125rem;

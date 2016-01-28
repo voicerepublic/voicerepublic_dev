@@ -10,6 +10,9 @@
       %header
         = s('.title')
       .container.medium-10.medium-offset-1.large-8.large-offset-2.columns
+        - if !current_user
+          = link_to t('.login'), new_user_session_path, class: 'hide-for-medium button hollow secondary'
+          = link_to t('.join'), new_user_registration_path, class: 'hide-for-medium button hollow secondary'
         %p.lead
           = t('.lead')
           - @categories.each do |cat|
