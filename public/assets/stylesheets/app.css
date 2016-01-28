@@ -3487,7 +3487,8 @@ footer {
     padding-right: 24px; }
     @media screen and (min-width: 0em) and (max-width: 39.9375em) {
       .top-bar .top-bar-right {
-        width: 50px; } }
+        width: 50px;
+        margin-top: 6px; } }
     .top-bar .top-bar-right .avatar {
       padding: 0;
       margin: 0; }
