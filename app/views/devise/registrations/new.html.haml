@@ -2,10 +2,11 @@
                    as: resource_name,
                    url: registration_path(resource_name) ) do |f|
   = f.input :referrer, as: :hidden
-  #input-block
+  .input-block
     .form-content-block.row
-      .title-block
-        %h2= t('.sign_up')
+      .medium-10.medium-centered.columns
+        .title-block
+          %h2= t('.sign_up')
         .row
           .medium-6.columns
             = f.input :firstname
