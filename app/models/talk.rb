@@ -449,7 +449,10 @@ class Talk < ActiveRecord::Base
   end
 
   def set_icon
-    icon = TagBundle.tagged_with(tags).first.try(:icon)
+    bundles = TagBundle.category.tagged_with(tags, any: true)
+    icon = bundles.group(:icon).count.
+           sort_by(&:last).reverse.
+           map(&:first).compact.first
     self.icon = icon || 'default'
   end
 
