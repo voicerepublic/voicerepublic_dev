@@ -2432,8 +2432,10 @@ body.is-reveal-open {
   font-weight: normal;
   font-style: normal; }
 
-html,
-body {
+html, body {
+  min-height: 100%; }
+
+html {
   -webkit-font-smoothing: antialiased;
   height: 100%;
   font-weight: 300;
@@ -3150,7 +3152,6 @@ h1, h2 {
 .registrations {
   height: 100%; }
   html .registrations {
-    background: url(../../images/background/matterhorn.jpg) no-repeat 50% 50%;
     background-size: cover;
     height: 100%;
     padding: 0;
@@ -3164,6 +3165,16 @@ h1, h2 {
       top: 0;
       left: 0;
       z-index: 1; }
+  .registrations #bg-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    min-width: 100%;
+    min-height: 100%; }
+    .registrations #bg-img img {
+      min-height: 100%;
+      max-width: none; }
   .registrations .columns, .registrations .profile-tile, .registrations #claim .container .claim-cta-half, #claim .container .registrations .claim-cta-half, .registrations #categories #talk-collection .category, #categories #talk-collection .registrations .category, .registrations #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .publisher, .registrations .landing-feature .landing-half, .landing-feature .registrations .landing-half {
     padding: 0 0 12px 0; }
   .registrations .row {

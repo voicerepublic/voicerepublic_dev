@@ -2,6 +2,8 @@
                    as: resource_name,
                    url: registration_path(resource_name) ) do |f|
   = f.input :referrer, as: :hidden
+  #bg-img
+    = image_tag 'background/matterhorn.jpg'
   #input-block
     .form-content-block.row
       .title-block
@@ -44,4 +46,5 @@
           = t('.already_have_account')
           = link_to new_session_path(resource_name) do
             = t('.login')
-  
+  %p
+        
