@@ -22,5 +22,9 @@ configFunc = ($logProvider, $httpProvider) ->
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
 
+
+window.sencha.config ($sceDelegateProvider) ->
+  $sceDelegateProvider.resourceUrlWhitelist(["self", "**"])
+
 configFunc.$inject = ['$logProvider', '$httpProvider']
 window.sencha.config configFunc

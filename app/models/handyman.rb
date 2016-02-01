@@ -24,10 +24,13 @@ class Handyman
 
       log 'Found %s talks with default icon.' % total
       query.each_with_index do |talk, idx|
-        log '%s/%s Setting icon for talk %s.' %
-            [ idx+1, total, talk.id ]
-        talk.send(:set_icon)
-        talk.save!
+        icon = talk.send(:set_icon)
+        log '%s/%s Setting icon for talk %s to %s.' %
+            [ idx+1, total, talk.id, icon ]
+        if !talk.save
+          log 'Talk %s could not be updated: %s' %
+              [ talk.id, talk.errors.to_a.to_s ]
+        end
       end
     end
 
@@ -240,7 +243,11 @@ class Handyman
     def talks_missing_language
       log "-> Check talks for missing language..."
       Talk.where(language: nil).each do |t|
-        log "Fix language of talk %s" % t.id
+        log "Fix language (null) of talk %s" % t.id
+        t.update_column :language, 'en'
+      end
+      Talk.where(language: '').each do |t|
+        log "Fix language (empty string) of talk %s" % t.id
         t.update_column :language, 'en'
       end
     end

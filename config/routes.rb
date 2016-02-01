@@ -92,10 +92,15 @@ Rails.application.routes.draw do
 
   get '/onboard', to: 'users#onboard'
 
-  # old school
-  resource :embed_talk, only: :show
-  # new school
-  get 'embed/:id', to: 'embed_talks#show', as: 'embed'
+
+  scope 'embed' do
+    # old school
+    get ':id', to: 'embed/talks#show', as: 'embed'
+    # new school
+    get 'talks/:id', to: 'embed/talks#show', as: 'embed_talk'
+    get 'series/:id', to: 'embed/series#show', as: 'embed_series'
+  end
+
 
   get "root/index"
   root :to => "root#index"

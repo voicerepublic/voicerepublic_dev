@@ -1,6 +1,7 @@
 - content_for :head do
   = rss_link_tag t('.feed_title')
 
+
 #main{:role => "main"}
 
   -# CLAIM
@@ -9,6 +10,9 @@
       %header
         = s('.title')
       .container.medium-10.medium-offset-1.large-8.large-offset-2.columns
+        - if !current_user
+          = link_to t('.login'), new_user_session_path, class: 'hide-for-medium button hollow secondary'
+          = link_to t('.join'), new_user_registration_path, class: 'hide-for-medium button hollow secondary'
         %p.lead
           = t('.lead')
           - @categories.each do |cat|
@@ -91,9 +95,9 @@
   -# CONTACT
   %section#cta.turquoise
     .row
-      .container
+      .medium-6.medium-offset-3.columns
         %h1 Are you planning a conference or event?
         = link_to new_user_registration_path do
           %button Start Now
         %br/
-        = link_to 'or Contact us', blog_url('/contact')
+        = link_to 'or Contact us', blog_url('/contact'), class: 'text-link'

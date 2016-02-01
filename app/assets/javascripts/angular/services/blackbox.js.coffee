@@ -74,6 +74,9 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
   $window.closePopup = ->
     config.flags.settings = false
 
+  $window.declined = ->
+    config.flags.declined = true
+
   flashVars = $.extend config.blackbox,
     # this will later be set by `setStreamingServer`
     streamer: "rtmp://0.0.0.0/record"
@@ -83,6 +86,7 @@ blackboxFunc = ($log, $window, $q, config, $timeout) ->
     errorMethod: 'flashErrorHandler'
     feedbackMethod: 'flashFeedback'
     closeMethod: 'closePopup'
+    deniedMethod: 'declined'
 
   params =
     wmode: 'transparent'
