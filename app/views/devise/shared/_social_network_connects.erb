@@ -1,3 +1,6 @@
-<%= link_to omniauth_authorize_path(:user, 'facebook'), :class => "facebook button-vr" do %>
+<%= link_to omniauth_authorize_path(:user, 'facebook'), :class => "facebook button expanded" do %>
+	<div class="svg-icon"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-facebook"></use></svg></div>
+	<span>
   <%= t("social_connect.facebook.#{action}") %>
+</span>
 <% end %>
