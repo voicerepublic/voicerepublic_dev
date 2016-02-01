@@ -103,9 +103,9 @@ en:
         one: Play
         other: Plays
       series:
-        zero: Series
-        one: Series
-        other: Series
+        zero: No Series
+        one: 1 Series
+        other: '%{count} Series'
       pinned:
         zero: Pinned
         one: Pinned

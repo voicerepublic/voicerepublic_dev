@@ -1,0 +1,23 @@
+#!/bin/sh
+
+USERID=icecast2
+GROUPID=icecast
+NAME=icecast
+
+env
+
+set -x
+
+DEFAULT_PASSWORD=hackem
+
+ICECAST_SOURCE_PASSWORD="${ICECAST_SOURCE_PASSWORD:-$DEFAULT_PASSWORD}"
+ICECAST_RELAY_PASSWORD="${ICECAST_RELAY_PASSWORD:-$DEFAULT_PASSWORD}"
+ICECAST_ADMIN_PASSWORD="${ICECAST_ADMIN_PASSWORD:-$DEFAULT_PASSWORD}"
+ICECAST_PASSWORD="${ICECAST_PASSWORD:-$DEFAULT_PASSWORD}"
+
+ICECAST_ADMIN_USER="${ICECAST_ADMIN_USER:-admin}"
+
+. ./icecast.xml-template.sh > /etc/icecast2/icecast.xml
+
+launchtool -t $NAME -u $USERID -g $GROUPID -Lnvc \
+           '/usr/bin/icecast2 -c /etc/icecast2/icecast.xml'

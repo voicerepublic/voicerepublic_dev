@@ -8,6 +8,15 @@ livepageFunc = ($scope, $log, $interval, config, session, blackbox, util, $windo
 
   # public
 
+  $scope.icecastUrl = ->
+    config.icecast_url
+
+  $scope.receiveIcecast = ->
+    config.flags.receiveIcecast
+
+  $scope.showIcecastInstructions = ->
+    config.flags.declined
+
   $scope.setNellyReload = (b) ->
     config.flags.nellyReload = b
 

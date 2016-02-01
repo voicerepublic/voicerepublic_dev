@@ -1,0 +1,32 @@
+.embedded-player
+
+  .content-box(style="background-image: url(#{background_picture(talk)})")
+    .content-text
+      .breadcrumbs-box.clearfix
+        = link_to talk.user, target: 'blank', class: 'left' do
+          %span.icon-person
+          %span.link-text= talk.user.name
+        = link_to talk.series, target: 'blank', class: 'right' do
+          %span.icon-ellipsis
+          %span.link-text= talk.series.title
+      = link_to talk, target: 'blank', class: 'text-box-link' do
+        %h4.title= talk.title.upcase
+        %br/
+        .datetime
+          = raw t('.date_start_end', date: l(talk.starts_at, format: :date_only_short),
+            start_time: l(talk.starts_at, format: :time_only),
+            end_time: l(talk.ends_at, format: :time_only))
+        %br/
+        .teaser
+          = talk.teaser
+
+  - if talk.archived?
+    .player
+      = render partial: 'shared/player', locals: { talk: talk }
+  - else
+    %h2= link_to t('.listen_live'), talk.self_url, target: "_blank"
+  .icon-box
+    = link_to talk, target: 'blank', class: 'vr-logo' do
+      %span.icon-vr-logo
+      %br/
+      VOICE REPUBLIC

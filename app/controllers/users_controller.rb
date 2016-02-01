@@ -36,23 +36,10 @@ class UsersController < BaseController
     @user ||= User.find(params[:id])
     respond_to do |format|
       format.html do
-        @talks_total       = @user.talks.where.not(state: 'postlive').count
-        @total_plays       = @user.talks.sum(:play_count)
 
-        # live         -> starts_at asc
-        # upcoming     -> starts_at asc
-        # archived     -> starts_at desc
-        # listen later -> starts_at desc
-        @live_talks        = @user.talks.live.ordered
-        @upcoming_talks    = @user.talks.prelive.ordered
-        @archived_talks    = @user.talks.archived.reordered
         @remembered_talks  = Talk.remembered_by(@user).reordered
 
-        @series            = @user.series_without_default
-
-        @show_listen_later = @remembered_talks.present?
-        @show_listen_later = true if @user == current_user
-        @who               = current_user==@user ? "you":"other"
+        @who = current_user==@user ? "you":"other"
         if @who == "you"
           @tab_pinned_class = "is-active"
           @tab_archived_class = ""
@@ -65,6 +52,22 @@ class UsersController < BaseController
             @tab_archived_class = "is-active"
           end
         end
+
+        @talks_total       = @user.talks.where.not(state: 'postlive').count
+        @total_plays       = @user.talks.sum(:play_count)
+
+        # live         -> starts_at asc
+        # upcoming     -> starts_at asc
+        # archived     -> starts_at desc
+        # listen later -> starts_at desc
+        @live_talks        = @user.talks.live.ordered
+        @upcoming_talks    = @user.talks.prelive.ordered
+        @archived_talks    = @user.talks.archived.reordered
+
+        @series            = @user.series_without_default
+
+        @show_listen_later = @remembered_talks.present?
+        @show_listen_later = true if @user == current_user
 
       end
       format.rss do

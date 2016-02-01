@@ -3,3 +3,29 @@ en:
   root:
     index:
       title: '# Home to the spoken word'
+  devise:
+    mailer:
+      confirmation_instructions:
+        text: >-
+          Thank you for signing up with us! To get started, you only
+          need to confirm your email address by clicking here:
+
+
+          %{link}
+
+
+          Here we go:
+
+
+          With your personal account you can now download all talks in
+          the Voice Republic archive as podcasts and listen to them
+          wherever and whenever you want to. You can also take part in
+          the discussions during live talks.
+
+
+          Of course, you can also start your own live stream or easily
+          upload your audio files. Before a live talk, we recommend
+          you conduct a test talk. You will find useful tips on how to
+          use Voice Republic in our help section. If you have any
+          further questions, please contact us directly under
+          service@voicerepublic.com.

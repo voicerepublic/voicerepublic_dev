@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe EmbedTalksController do
+describe Embed::TalksController do
 
   describe '' do
     render_views
