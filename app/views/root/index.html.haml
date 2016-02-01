@@ -95,9 +95,9 @@
   -# CONTACT
   %section#cta.turquoise
     .row
-      .container
+      .medium-6.medium-offset-3.columns
         %h1 Are you planning a conference or event?
         = link_to new_user_registration_path do
           %button Start Now
         %br/
-        = link_to 'or Contact us', blog_url('/contact')
+        = link_to 'or Contact us', blog_url('/contact'), class: 'text-link'

@@ -3045,11 +3045,13 @@ h1, h2 {
   margin-bottom: 60px; }
 
 #categories #talk-collection .category {
-  padding: 48px 24px; }
+  padding: 24px 24px; }
   #categories #talk-collection .category a {
     color: #a339cd; }
   #categories #talk-collection .category a svg {
     fill: #a339cd; }
+  #categories #talk-collection .category h3 {
+    font-size: 1.25rem; }
   #categories #talk-collection .category *:hover > * {
     text-decoration: none; }
   #categories #talk-collection .category *:hover > h3 {
@@ -3060,7 +3062,8 @@ h1, h2 {
     color: #a339cd; }
   #categories #talk-collection .category .lead {
     color: #a339cd;
-    height: 100px; }
+    height: 100px;
+    font-size: 1rem; }
   #categories #talk-collection .category hr {
     border-color: #54c6c6;
     max-width: 100px;
@@ -3071,12 +3074,15 @@ h1, h2 {
   padding: 48px 24px; }
   #publishers #publisher-collection .publisher h4 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    font-weight: 700; }
+    font-weight: 700;
+    font-size: 1.25rem; }
   #publishers #publisher-collection .publisher *:hover > h4 {
     text-decoration: underline;
     color: #121214; }
   #publishers #publisher-collection .publisher h4, #publishers #publisher-collection .publisher .lead {
     color: rgba(63, 64, 68, 0.8); }
+  #publishers #publisher-collection .publisher .lead {
+    font-size: 1rem; }
   #publishers #publisher-collection .publisher img {
     max-width: 50vw; }
     @media screen and (min-width: 40em) {
@@ -3131,6 +3137,15 @@ h1, h2 {
       margin-bottom: 36px; }
     .landing-feature .feature-copy button {
       margin: 0; }
+
+#cta h1 {
+  font-size: 2.25rem;
+  line-height: 2.4375rem; }
+
+#cta .text-link {
+  font-weight: 500; }
+  #cta .text-link:hover {
+    text-decoration: underline; }
 
 .registrations {
   height: 100%; }
