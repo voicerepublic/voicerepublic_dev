@@ -5,7 +5,7 @@
   #user-block
     .large-12.columns
       .row.collapse
-        .large-3.medium-3.columns
+        .large-3.medium-3.columns.hide
           - avatar_url = @user.avatar.thumb('143x143#nw').url
           .user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="#user_avatar")
           %button.button-standard.button-profile-img(type="button" data-trigger-file-input="#user_avatar")
@@ -58,32 +58,51 @@
       = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button-cancel right'
       = f.button :submit, class: 'button-save right'
 
-
-
+    
+      -# ++++++++++++++++++++
   #left-column
     #user-block
       .profile-avatar
-        = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
-        = f.input :avatar, as: :file
+        - avatar_url = @user.avatar.thumb('185x185#nw').url
+        #avatar-img(style="background-image:url(#{avatar_url}")
+        %input#user_avatar.file.optional.inputfile{:name => "user[avatar]", :type => "file"}
+        %label.button.tiny.hollow{:for => "user_avatar"} 
+          = icon_tag 'photo'
+          = t('.choose_an_image')
+        -#= f.input :upload_a_photo, as: :file, class: 'inputfile'
 
       .row
         .medium-6.columns
           = f.input :firstname, placeholder: 'First Name'
         .medium-6.columns
           = f.input :lastname, placeholder: 'Last Name'
-      %p#user-description
-        - if @user.summary.blank? and can? :manage, @user
-          = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
-        - else
-          = @user.summary
-
-
-
-
-
-
-
-    #user-about.row
-      - unless @user.about.blank?
-        %p.column-header= t('.about')
-        %p= @user.about_as_html.html_safe
+      .row
+        .summary
+          = f.input :summary, as: :text
+      .row
+        .slug
+          = f.input :slug
+          .slug-warning.hide
+            = t('.slug_explanation2')
+          .slug-explanation
+            = t('.slug_explanation1')
+            %code
+              voicerepublic.com/users/#{@user.slug}
+          
+      .row
+        = f.input :email, placeholder: 'Email Address'
+        %button.button-standard(data-enable-fields='#change-password input'
+          data-replace-with='#change-password'
+          data-trigger-on-error='#change-password'
+          type='button')= t('.set_new_password')
+        #change-password.panel.hide
+          = f.input :password, disabled: true
+          = f.input :password_confirmation, disabled: true
+        = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
+        = f.input :website
+        = f.input :about, input_html: { rows: 10 }
+      .menu.expanded
+        %li
+          = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button large hollow info'
+        %li
+          = f.button :submit, class: 'button large hollow secondary'

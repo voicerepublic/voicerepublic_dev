@@ -2558,10 +2558,16 @@ section {
     font-size: 1.5rem; }
   #left-column p {
     font-size: 0.875rem; }
-  #left-column .avatar-image {
+  #left-column #avatar-img {
     margin-bottom: 6px;
     display: block;
-    border: 0; }
+    border: 0;
+    width: 180px;
+    height: 180px;
+    background-size: cover;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 12px; }
   #left-column .img-circle {
     border-radius: 50%; }
   #left-column hr {
@@ -2861,6 +2867,59 @@ section {
   .profile-tile .profile-tile-inside:hover {
     background: white;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15); }
+
+.users-edit #left-column {
+  float: none; }
+  @media screen and (min-width: 40em) {
+    .users-edit #left-column {
+      max-width: 400px;
+      padding: 0;
+      margin: 12px;
+      margin-right: 6px; } }
+  @media screen and (min-width: 64em) {
+    .users-edit #left-column {
+      max-width: 500px; } }
+  .users-edit #left-column .input label {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.0625rem;
+    color: #8F939C; }
+  .users-edit #left-column input, .users-edit #left-column textarea, .users-edit #left-column select {
+    border: 1px solid #54c6c6; }
+
+.users-edit .slug-warning, .users-edit .slug-explanation {
+  background: #f82847;
+  color: white;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  padding: 12px;
+  text-align: left; }
+
+.users-edit .slug-explanation {
+  background: #fef1de;
+  color: #121214; }
+
+.users-edit .inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1; }
+  .users-edit .inputfile + label span {
+    line-height: 30px; }
+  .users-edit .inputfile + label .svg-icon {
+    float: left;
+    max-width: 18px;
+    max-height: 18px;
+    margin-right: 12px; }
+    .users-edit .inputfile + label .svg-icon svg {
+      max-width: 18px;
+      max-height: 18px;
+      margin-top: 6px; }
 
 .top-bar-left, .top-bar-right {
   width: 50%; }
