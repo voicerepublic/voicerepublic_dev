@@ -26,10 +26,45 @@ class Mediator
 
 
   def dj_callback(info, prop, body, opts)
-    notify text: body
+    data = JSON.parse(body)
+
+    # * enqueued
+    # * before
+    # * after
+    # * success
+    # * error
+    # * failure
+    event = data['event']
+
+    options = data['opts']
+    id = options['id']
+    job = data['job']
+
+    handler = job['handler'].match(/struct:([^\n])+/)[1]
+
+    message =
+      case event
+      when 'success'
+        templates = {
+          'Postprocess'     => 'Postprocessing of Talk %s is complete.',
+          'Reprocess'       => 'Reprocessing of Talk %s is complete.',
+          'DestroyTalk'     => 'Test Talk %s has been destroyed.',
+          'EndTalk'         => 'Talk %s has been ended by the system.',
+          'GenerateFlyer'   => 'Flyer for Talk %s has been generated.',
+          'ProcessOverride' => 'Override for Talk %s has been processed.',
+          'ProcessSlides'   => 'Slides for Talk %s have been processed.'
+        }
+        template = templates[handler]
+        template.nil? ? nil : (template % id)
+      else
+        #body
+      end
+
+    notify text: message unless message.nil?
   end
 
-
+  # TODO remove the whole pruchase event stuff
+  # it should actually be covered by transactions
   def purchase_event(info, prop, body, opts)
     notify text: body
   end

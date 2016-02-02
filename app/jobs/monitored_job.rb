@@ -19,7 +19,7 @@ class MonitoredJob < Struct.new(:opts)
   # hooks
   def enqueue(job)
     # newschool
-    Simon.says x: 'dj_callbacks', event: 'job_enqueued',
+    Simon.says x: 'dj_callbacks', event: 'enqueued',
                opts: opts, job: job.attributes
     # TODO remove oldschool
     msg = respond_to?(:enqueue_message) ? send(:enqueue_message, job) : nil
@@ -28,7 +28,7 @@ class MonitoredJob < Struct.new(:opts)
 
   def before(job)
     # newschool
-    Simon.says x: 'dj_callbacks', event: 'job_before',
+    Simon.says x: 'dj_callbacks', event: 'before',
                opts: opts, job: job.attributes
     # TODO remove oldschool
     msg = respond_to?(:before_message) ? send(:before_message, job) : nil
@@ -37,7 +37,7 @@ class MonitoredJob < Struct.new(:opts)
 
   def after(job)
     # newschool
-    Simon.says x: 'dj_callbacks', event: 'job_after',
+    Simon.says x: 'dj_callbacks', event: 'after',
                opts: opts, job: job.attributes
     # TODO remove oldschool
     msg = respond_to?(:after_message) ? send(:after_message, job) : nil
@@ -46,7 +46,7 @@ class MonitoredJob < Struct.new(:opts)
 
   def success(job)
     # newschool
-    Simon.says x: 'dj_callbacks', event: 'job_success',
+    Simon.says x: 'dj_callbacks', event: 'success',
                opts: opts, job: job.attributes
     # TODO remove oldschool
     msg = respond_to?(:success_message) ? send(:success_message, job) : nil
@@ -55,7 +55,7 @@ class MonitoredJob < Struct.new(:opts)
 
   def error(job, exception)
     # newschool
-    Simon.says x: 'dj_callbacks', event: 'job_error',
+    Simon.says x: 'dj_callbacks', event: 'error',
                opts: opts, job: job.attributes
     # TODO remove oldschool
     msg = respond_to?(:error_message) ? send(:error_message, job, exception) : nil
@@ -64,7 +64,7 @@ class MonitoredJob < Struct.new(:opts)
 
   def failure(job)
     # newschool
-    Simon.says x: 'dj_callbacks', event: 'job_failure',
+    Simon.says x: 'dj_callbacks', event: 'failure',
                opts: opts, job: job.attributes
     # TODO remove oldschool
     msg = respond_to?(:failure_message) ? send(:failure_message, job) : nil
