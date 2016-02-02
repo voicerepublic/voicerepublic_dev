@@ -16,10 +16,25 @@ module Services
           self.subscriptions = []
         end
 
-        self.subscriptions << ->(instance) do
+        self.subscriptions << ->(instance, opts={}) do
           handler = options[:handler] || :handler
-          queue = instance.channel.queue(options[:queue])
-          queue.subscribe(block: true) do |info, prop, body|
+
+          queue_name = data.delete(:queue) || data.delete(:q)
+          exchange_name = data.delete(:exchange) || data.delete(:x)
+
+          queue = nil
+
+          if queue_name
+            queue = instance.cannel.queue(queue_name)
+          elsif exchange_name
+            exchange = channel.fanout(exchange_name)
+            queue = channel.queue('', exclusive: true)
+            queue.bind(exchange)
+          else
+            raise "Either of `exchange`, `queue`, `x` or `q` are required."
+          end
+
+          queue.subscribe(opts) do |info, prop, body|
             send(handler, info, prop, body, options)
           end
         end
@@ -31,7 +46,11 @@ module Services
     end
 
     def run
-      self.class.subscriptions.map { |s| s.call(self) }
+      last = self.class.subscriptions.last
+      self.class.subscriptions.each do |s|
+        options = (last == s) ? {block: true} : {}
+        s.call(self, options)
+      end
     end
 
   end

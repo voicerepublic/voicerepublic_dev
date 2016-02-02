@@ -285,6 +285,7 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
+    # TODO oldschool: find a way to do newschool
     LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
@@ -485,8 +486,10 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
+    # TODO oldschool, find a way to do it newschool
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
+    # TODO remove oldschool (should be covered by event_fired)
     MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
@@ -504,6 +507,7 @@ class Talk < ActiveRecord::Base
       archive!
     rescue
       suspend!
+      # TODO oldschool (should be covered by event_fired)
       LiveServerMessage.call public_channel, event: 'Suspend'
     end
   end
@@ -723,6 +727,9 @@ class Talk < ActiveRecord::Base
 
   # generically propagate all state changes
   def event_fired(*args)
+    # newschool
+    Simon.says x: 'talk_transitions', event: "talk_transition", details: args
+    # TODO remove oldschool
     TalkEventMessage.call(self, *args)
   end
 

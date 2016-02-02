@@ -157,6 +157,15 @@ Run App
 
 * `rails s -p 3001`
 
+### Microservices
+
+TODO describe what's happening here
+
+* `bin/service run ec2_spawner `
+* `bin/service run ec2_reaper`
+* `bin/service run icecast_observer`
+* `bin/service run control_center`
+...
 
 Specs
 -----

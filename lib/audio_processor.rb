@@ -9,11 +9,16 @@
 #
 class AudioProcessor < Fidelity::ChainRunner
 
+  # TODO oldschool: a lot to cleanup here
+  # TODO remove all monitoring messages
+  # TODO but maybe cover uploads in their own channel
+
   attr_accessor :talk
 
   private
 
   def before_chain
+    # TODO oldschool: remove (should by covered by talk_transitions)
     LiveServerMessage.call talk.public_channel, { event: 'Process' }
     MonitoringMessage.call(event: 'Process', talk: talk.attributes)
     @t0 = Time.now.to_i
@@ -33,7 +38,9 @@ class AudioProcessor < Fidelity::ChainRunner
     attrs = { id: talk.id, run: name,
               index: index, total: chain.size }
     MonitoringMessage.call(event: 'StartProcessing', talk: attrs)
+    Simon.says x: 'audio_progress', event: 'start_processing', details: attrs
     ProgressMessage.call(talk.public_channel, event: 'StartProcessing', talk: attrs)
+
     @t1 = Time.now.to_i
   end
 
@@ -43,6 +50,7 @@ class AudioProcessor < Fidelity::ChainRunner
               index: index, total: chain.size,
               elapsed: delta_t1 }
     MonitoringMessage.call(event: 'FinishProcessing', talk: attrs)
+    Simon.says x: 'audio_progress', event: 'finished_processing', details: attrs
     ProgressMessage.call(talk.public_channel, event: 'FinishProcessing', talk: attrs)
   end
 
@@ -58,6 +66,7 @@ class AudioProcessor < Fidelity::ChainRunner
                            elapsed: delta_t2)
 
     delta_t0 = Time.now.to_i - @t0
+    # TODO oldschool: remove (should by covered by talk_transitions)
     LiveServerMessage.call(talk.public_channel, { event: 'Archive',
                                                   links: talk.media_links })
     MonitoringMessage.call(event: 'Archive',

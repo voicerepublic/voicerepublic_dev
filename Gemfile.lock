@@ -618,6 +618,7 @@ DEPENDENCIES
   thin
   timecop
   transitions!
+  trickery
   uglifier
   unicorn
   vcr (= 2.8.0)
