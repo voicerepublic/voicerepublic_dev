@@ -37,6 +37,9 @@
 # * series_id [integer] - belongs to :series
 class Talk < ActiveRecord::Base
 
+  # make url helpers available on instance level
+  include Rails.application.routes.url_helpers
+
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
@@ -725,12 +728,24 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # generically propagate all state changes
   def event_fired(*args)
-    # newschool
-    Simon.says x: 'talk_transitions', event: "talk_transition", details: args
     # TODO remove oldschool
     TalkEventMessage.call(self, *args)
+    # newschool
+    Simon.says x: 'talk_transitions',
+               event: 'talk_transition',
+               details: {
+                 event: args,
+                 talk: {
+                   id: id,
+                   title: title,
+                   url: talk_url(self)
+                 },
+                 user: {
+                   name: user.name,
+                   url: user_url(user)
+                 }
+               }
   end
 
   def slug_candidates

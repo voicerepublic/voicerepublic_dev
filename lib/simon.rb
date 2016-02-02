@@ -1,3 +1,5 @@
+# TODO delete this file
+
 class Simon
 
   # To extend Simon's Brain create a new method based on the name of a

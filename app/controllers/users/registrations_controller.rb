@@ -20,7 +20,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
+    # newschool
+    Simon.says x: 'user_registrations',
+               event: 'user_registered',
+               details: {
+                 user: {
+                   name: user.name,
+                   email: user.email
+                 }
+               }
+
+    # TODO oldschool remove
     Simon.comprehend(resource, :registered)
+
     '/onboard'
   end
 

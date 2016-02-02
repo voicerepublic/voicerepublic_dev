@@ -36,4 +36,19 @@ class Transaction < ActiveRecord::Base
   def process!
     raise 'not implemented, use a subclass'
   end
+
+  private
+
+  # newschool
+  def event_fired(*args)
+    Simon.says x: 'transaction_transitions',
+               event: 'transaction_transition',
+               details: message_details.merge(event: args)
+  end
+
+  # should be overwritten in subclasses
+  def message_details
+    attributes
+  end
+
 end

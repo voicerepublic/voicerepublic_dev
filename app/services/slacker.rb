@@ -9,7 +9,7 @@ class Slacker
 
   subscribe x: 'notifications'
 
-  def handler(info, prop, body)
+  def handler(info, prop, body, opts)
     slack(JSON.parse(body))
   end
 
@@ -18,14 +18,20 @@ class Slacker
   def slack(message={})
     return if message['text'].nil? # nothing to say
 
-    puts message && return unless config['slack']['channel']
-
     defaults = {
-      channel:    config['slack']['channel'],
-      username:   config['slack']['username'] || 'Simon',
-      icon_emoji: config['slack']['icon_emoji'] || ':squirrel:'
+      'channel' => config.slack.channel,
+      'username' => config.slack.username || 'Simon',
+      'icon_emoji' => config.slack.icon_emoji || ':squirrel:'
     }
     payload = defaults.merge(message)
+
+    puts '%s %s -> %s: %s' % [ Time.now.strftime('%H:%M'),
+                               payload['username'],
+                               payload['channel'],
+                               payload['text'] ]
+
+    return unless config.slack.channel
+
     faraday.post slack_url, payload: JSON.unparse(payload)
   end
 
@@ -40,7 +46,7 @@ class Slacker
     @slack_url ||=
       "https://voicerepublic.slack.com" +
       "/services/hooks/incoming-webhook" +
-      "?token=" + config['slack']['token']
+      "?token=" + config.slack.token
   end
 
 end

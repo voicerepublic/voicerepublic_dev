@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# TODO delete this file
+
 require 'json'
 require 'yaml'
 
