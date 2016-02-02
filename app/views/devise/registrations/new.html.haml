@@ -2,8 +2,7 @@
                    as: resource_name,
                    url: registration_path(resource_name) ) do |f|
   = f.input :referrer, as: :hidden
-  #bg-img
-    = image_tag 'background/matterhorn.jpg'
+  = image_tag 'background/main-bg.jpg', class: 'bg-img'
   #input-block
     .form-content-block.row
       .title-block
