@@ -2484,9 +2484,10 @@ button, .button, button {
 section {
   padding: 12px; }
 
-.users-show {
+.users {
   height: 100%;
-  min-height: 100vh; }
+  min-height: 100vh;
+  background: #f2f2f2; }
 
 #cta-panel {
   border: none;
@@ -2534,6 +2535,10 @@ section {
   color: white;
   transition: all .2 ease;
   float: left; }
+  #left-column .website-link a {
+    color: #54c6c6; }
+    #left-column .website-link a:hover {
+      text-decoration: underline; }
   #left-column #credits {
     background: #54c6c6;
     padding: 12px; }

@@ -2,7 +2,7 @@
   = t('.title', username: @user.name)
 
 = simple_form_for(@user) do |f|
-  .form-top-box.row
+  #user-block
     .large-12.columns
       .row.collapse
         .large-3.medium-3.columns
@@ -57,3 +57,33 @@
     .large-12.columns
       = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button-cancel right'
       = f.button :submit, class: 'button-save right'
+
+
+
+  #left-column
+    #user-block
+      .profile-avatar
+        = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
+        = f.input :avatar, as: :file
+
+      .row
+        .medium-6.columns
+          = f.input :firstname, placeholder: 'First Name'
+        .medium-6.columns
+          = f.input :lastname, placeholder: 'Last Name'
+      %p#user-description
+        - if @user.summary.blank? and can? :manage, @user
+          = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+        - else
+          = @user.summary
+
+
+
+
+
+
+
+    #user-about.row
+      - unless @user.about.blank?
+        %p.column-header= t('.about')
+        %p= @user.about_as_html.html_safe
