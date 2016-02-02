@@ -17,7 +17,10 @@ class Mediator
 
   subscribe x: 'dj_callbacks', handler: :dj_callback
   subscribe x: 'purchase_events', handler: :pruchase_event
-  subscribe x: 'talk_transitions', handler: :Talk_transition
+  subscribe x: 'talk_transitions', handler: :talk_transition
+
+  # TODO decide on alternative signature
+  # subscribe :dj_callback, x: 'dj_callbacks', autopub: { x: 'notifications' }
 
   def dj_callback(info, prop, body)
     # TODO notify ...
@@ -27,7 +30,7 @@ class Mediator
     # TODO notify ...
   end
 
-  def purchase_event(info, prop, body)
+  def talk_transition(info, prop, body)
     # TODO notify ...
   end
 
