@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+# USAGE: service run ec2_spawner
+
+require 'daemons'
+require 'active_support/inflector'
+
+BASE = File.expand_path(File.join(%w(.. ..)), __FILE__)
+
+DAEMON = ARGV[1]
+DAEMON_PATH = File.expand_path(File.join(%w(app services), DAEMON), BASE)
+require DAEMON_PATH
+DAEMON_CLASS = DAEMON.classify.constantize
+
+PIDDIR = File.join(BASE, 'tmp', 'pids')
+Daemons.run_proc(DAEMON, dir: PIDDIR) do
+  Dir.chdir(BASE)
+  DAEMON_CLASS.new.run
+end
