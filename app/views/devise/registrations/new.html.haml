@@ -28,12 +28,12 @@
         .row
           .medium-12.columns
             = f.input :timezone, as: :time_zone, priority: User::PRIOTZ
-        .row 
+        .row
           .medium-6.columns.medium-text-left
             = f.input :accept_terms_of_use, as: :boolean, boolean_style: :inline,
                       label: t('simple_form.labels.user.accept_terms_of_use').html_safe
           .medium-6.columns.medium-text-right
-            = f.button :submit, t('.continue').html_safe, class: 'button hollow small-expanded medium-float-right'
+            = f.button :submit, t('.continue').html_safe, class: 'hollow small-expanded medium-float-right qa-signup'
         %hr/
         %p.text-center.divider-title
           = t('.registration_or')
@@ -45,4 +45,3 @@
           = t('.already_have_account')
           = link_to new_session_path(resource_name) do
             = t('.login')
-        
