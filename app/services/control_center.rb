@@ -9,11 +9,11 @@ class ControlCenter
   include Services::Subscriber
   include Services::Publisher
 
-  subscribe q: 'streamer_transitions', handler: :streamer_transition
-  subscribe x: 'icecast_status', handler: :icecast_status
-  subscribe x: 'server_ready', handler: :server_ready
-  subscribe x: 'talk_transitions', handler: :talk_transition
-  subscribe x: 'transaction_transitions', handler: :transaction_transition
+  subscribe q: 'streamer_transition'
+  subscribe x: 'sites_observed'
+  subscribe x: 'server_ready'
+  subscribe x: 'talk_transition'
+  subscribe x: 'transaction_transition'
 
   def streamer_transition(info, prop, body, opts)
     # if state now 'ready'
@@ -22,7 +22,7 @@ class ControlCenter
     # publish q: 'spawn_server', details: details
   end
 
-  def icecast_status(info, prop, body, opts)
+  def sites_observed(info, prop, body, opts)
     # TODO do some number chrunching and pass message on to clients, use routing key
   end
 
@@ -30,7 +30,7 @@ class ControlCenter
     # TODO a icecast server is ready, pass message on to clients, use routing key
     # publish x: 'set_streaming_server'
     # TODO publish url to icecast_observer to receive status via icecast_status
-    # publish q: 'new_icecast_server', url: '...'
+    # publish q: 'new_icecast_server', url: 'http://admin:hackem@136.243.209.123:8000/admin/stats.xml'
   end
 
   def talk_transition(info, prop, body, opts)
