@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'yaml'
 require 'trickery/hash/deep_ostruct'
 
@@ -5,7 +6,12 @@ module Services
   module LocalConfig
 
     def config
-      @config ||= YAML.load(File.read(config_path)).deep_ostruct
+      return @config unless @config.nil
+
+      @config = OpenStruct.new
+      return @config unless File.exist?(config_path)
+
+      @config = YAML.load(File.read(config_path)).deep_ostruct
     end
 
     private
