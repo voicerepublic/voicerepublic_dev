@@ -7,7 +7,10 @@ module Services
     include LocalConfig
 
     def publish(options)
-      return unless config.bunny.enabled
+      return unless config.bunny.try(:enabled)
+
+      # hacky way to make sure we don't use rabbitmq in specs
+      return if ENV['RAILS_ENV'] == 'test'
 
       queue_name = options.delete(:queue) || options.delete(:q)
       exchange_name = options.delete(:exchange) || options.delete(:x)

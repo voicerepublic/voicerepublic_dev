@@ -38,7 +38,7 @@ class SiteObserver
 
   def site_observer(info, prop, body, opts)
     url = body['url']
-    self.sites |= url
+    self.sites |= [url]
     self.failed[url] = 0
   end
 
