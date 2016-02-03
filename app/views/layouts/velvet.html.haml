@@ -108,9 +108,9 @@
     
 
     
-    = yield
-    - if !current_page?(explore_path)
-      = render 'shared/footer_velvet'
+    = yield 
+    = render 'shared/footer_velvet' if render_footer?
+    
 
     #scripts
       %script{:src => "/assets/javascripts/libraries.min.js"}

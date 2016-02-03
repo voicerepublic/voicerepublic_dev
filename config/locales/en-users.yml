@@ -69,8 +69,11 @@ en:
         profile from other sites and make you lose all the search
         engine fu you might have gathered.
       edit_your_profile: Edit profil
+      edit_your_settings: Edit Your Profile
       select_profile_image: Profile image
       select_header_image: Background image
+      change_photo: Change Photo
+      change_password: Change Password
     series:
       series: Series
       guest_empty_series: ! '%{name} has no series yet.'

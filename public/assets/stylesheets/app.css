@@ -2961,24 +2961,26 @@ section {
   background: #fef1de;
   color: #121214; }
 
-.users-edit .inputfile, .users-update .inputfile {
+.users-edit .inputfile input, .users-update .inputfile input {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
   position: absolute;
   z-index: -1; }
-  .users-edit .inputfile + label span, .users-update .inputfile + label span {
-    line-height: 30px; }
-  .users-edit .inputfile + label .svg-icon, .users-update .inputfile + label .svg-icon {
-    float: left;
+
+.users-edit .inputfile label span, .users-update .inputfile label span {
+  line-height: 30px; }
+
+.users-edit .inputfile label .svg-icon, .users-update .inputfile label .svg-icon {
+  float: left;
+  max-width: 18px;
+  max-height: 18px;
+  margin-right: 12px; }
+  .users-edit .inputfile label .svg-icon svg, .users-update .inputfile label .svg-icon svg {
     max-width: 18px;
     max-height: 18px;
-    margin-right: 12px; }
-    .users-edit .inputfile + label .svg-icon svg, .users-update .inputfile + label .svg-icon svg {
-      max-width: 18px;
-      max-height: 18px;
-      margin-top: 6px; }
+    margin-top: 6px; }
 
 .top-bar-left, .top-bar-right {
   width: 50%; }

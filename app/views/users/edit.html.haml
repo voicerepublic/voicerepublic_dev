@@ -10,10 +10,8 @@
       .medium-3.columns.profile-avatar.text-left
         - avatar_url = @user.avatar.thumb('185x185#nw').url
         #avatar-img(style="background-image:url(#{avatar_url}")
-        %input#user_avatar.file.optional.inputfile{:name => "user[avatar]", :type => "file"}
-        %label.button.tiny.hollow{:for => "user_avatar"} 
-          = icon_tag 'photo'
-          = t('.choose_an_image')
+        = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo')
+        
       .medium-9.columns
         .medium-6.columns
           = f.input :firstname, placeholder: 'First Name'
@@ -28,7 +26,7 @@
             data-trigger-on-error='#change-password'
             type='button')= t('.change_password')
         #change-password.panel.hide
-          = f.input :password, disabled: true
+          -#= f.input :password, disabled: true
           = f.input :password_confirmation, disabled: true
         %hr
         .medium-6.columns.input
@@ -37,17 +35,13 @@
             Username & URL
           .input-group.slug
             %span.input-group-label voicerepublic.com/users/
-            %input#user_slug.inut-group-field.string.required{:name => "user[slug]", :type => "text", :value => "#{@user.slug}"}/
+            = f.input_field :slug, class: 'input-group-field'
+            
           .alert.callout.slug-warning.hide{"data-closable" => ""}
             = t('.slug_explanation2')
             %p.text-right
               %a.got-it{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
                 %span{"aria-hidden" => "true"}= t('.got_it')
-            
-          -#.slug-explanation
-          -#  = t('.slug_explanation1')
-          -#  %code
-          -#    voicerepublic.com/users/#{@user.slug}
         .medium-6.columns.summary
           = f.input :summary, as: :text, input_html: { rows: 4, maxLength: 140}
         %hr
@@ -60,16 +54,3 @@
         .actions.float-right
           = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button large hollow secondary'
           = f.button :submit, class: 'button large primary'
-
-
-
-      
-      
-    
-
-      .hide
-        -# avatar_url = @user.avatar.thumb('143x143#nw').url
-        -#.user-portrait-img(style="background-image:url(#{avatar_url})" data-show-upload="#user_avatar")
-        -#%button.button-standard.button-profile-img(type="button" data-trigger-file-input="#user_avatar")
-          -#= t('.select_profile_image')
-        = f.input :avatar, as: :file
