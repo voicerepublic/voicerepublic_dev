@@ -123,6 +123,7 @@ feature "User can register" do
     before do
       @user = FactoryGirl.create(:user)
     end
+    # there is no welcome message at the moment
     # describe "New User" do
     #   scenario "Sees a welcome page" do
     #     login_user(@user)
