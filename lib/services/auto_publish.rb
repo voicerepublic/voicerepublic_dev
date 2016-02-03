@@ -11,6 +11,8 @@ module Services
     include Publisher
 
     def auto_publish(messages)
+      return if messages.nil?
+
       messages = [messages] unless messages.is_a?(Array)
 
       messages.each { |message| publish(message) }

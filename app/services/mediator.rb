@@ -14,6 +14,7 @@ class Mediator
   include Services::Subscriber  # provides `subscribe`
   include Services::Publisher   # provides `publish`
   include Services::LocalConfig # provides `config`
+  include Services::AutoPublish # publishes the return value of handlers
 
   subscribe x: 'dj_callback'
   subscribe x: 'talk_transition'
@@ -56,12 +57,12 @@ class Mediator
         #body
       end
 
-    notify text: message unless message.nil?
+    message.nil? ? nil : { x: 'notification', text: message }
   end
 
 
   def talk_transition(info, prop, body, opts)
-    p event = body['details']['event'] * '.'
+    event = body['details']['event'] * '.'
     intros = {
       'created.prelive.prepare'      => 'Has been created',
       'prelive.live.start_talk'      => 'Now live',
@@ -77,8 +78,8 @@ class Mediator
     user = body['details']['user']
     _talk = slack_link(talk['title'], talk['url'])
     _user = slack_link(user['name'], user['url'])
-    message = "#{intro} (#{talk['id']}) #{_talk} by #{_user}"
-    notify text: message
+
+    { x: 'notification', text: "#{intro} (#{talk['id']}) #{_talk} by #{_user}" }
   end
 
 
@@ -155,7 +156,7 @@ class Mediator
       end
 
     # in lots of cases message is still nil, if so we don't send a message
-    notify text: message unless message.nil?
+    message.nil? ? nil : { x: 'notification', text: message }
   end
 
 
@@ -163,7 +164,8 @@ class Mediator
     name = body['details']['user']['name']
     email = body['details']['user']['email']
     message = "%s just registered with %s." % [name, email]
-    notify text: message
+
+    { x: 'notification', text: message }
   end
 
 
@@ -176,10 +178,6 @@ class Mediator
 
   def slack_link(title, url)
     "<#{url}|#{title}>"
-  end
-
-  def notify(msg)
-    publish msg.merge(x: 'notification')
   end
 
 end
