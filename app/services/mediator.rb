@@ -37,7 +37,7 @@ class Mediator
     id = options['id']
     job = body['job']
 
-    handler = job['handler'].match(/struct:([^\n])+/)[1]
+    handler = job['handler'].match(/struct:([^\n]+)/)[1]
 
     message =
       case event
@@ -52,9 +52,13 @@ class Mediator
           'ProcessSlides'   => 'Slides for Talk %s have been processed.'
         }
         template = templates[handler]
-        template.nil? ? nil : (template % id)
+        if template.nil?
+          # "Unknown handler #{handler}"
+        else
+          template % id
+        end
       else
-        #body
+        # "Unknown event #{event}"
       end
 
     message.nil? ? nil : { x: 'notification', text: message }

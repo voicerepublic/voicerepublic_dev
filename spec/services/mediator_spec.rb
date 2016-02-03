@@ -8,6 +8,21 @@ describe Mediator do
 
   it 'handle dj_callback' do
     expect(@mediator).to respond_to(:dj_callback)
+
+    payload = {
+      'event' => 'success',
+      'job' => {
+        'handler' => 'struct:Postprocess'
+      },
+      'opts' => {
+        'id' => 42
+      }
+    }
+    expectation = {
+      x: 'notification',
+      text: 'Postprocessing of Talk 42 is complete.'
+    }
+    expect(@mediator.dj_callback(nil, nil, payload, nil)).to eq(expectation)
   end
 
   it 'handle transaction_transition' do
