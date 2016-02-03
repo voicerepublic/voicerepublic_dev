@@ -10,7 +10,7 @@ module Services
       return unless config.bunny.try(:enabled)
 
       # hacky way to make sure we don't use rabbitmq in specs
-      return if ENV['RAILS_ENV'] == 'test'
+      return if ENV['RAILS_ENV'] == 'test' or ENV['CI']
 
       queue_name = options.delete(:queue) || options.delete(:q)
       exchange_name = options.delete(:exchange) || options.delete(:x)
