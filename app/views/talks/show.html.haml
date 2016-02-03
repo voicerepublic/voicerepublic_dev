@@ -216,7 +216,7 @@
             .avatar-box
               = render partial: "shared/avatar", locals: { size: 62 }
               .avatar-name.text-center
-                %a(href="{{user.link}}")
+                %a(ng-href="{{user.link}}")
                   {{ user.name }}
             .host-actions(ng-show='showHostActions()')
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
@@ -417,7 +417,7 @@
                       %table
                         %tr
                           %td
-                            %a(href="{{ user.link }}")
+                            %a(ng-href="{{ user.link }}")
                               {{ user.name }}
                   .host-actions(ng-show='showHostActions()')
                     .give-mic-link.text-center(ng-click="promote(user.id)")
@@ -433,7 +433,7 @@
                       %table
                         %tr
                           %td
-                            %a(href="{{ user.link }}")
+                            %a(ng-href="{{ user.link }}")
                               {{ user.name }}
 
             .participating(ng-show='participants().length')
@@ -446,7 +446,7 @@
                       %table
                         %tr
                           %td
-                            %a(href="{{ user.link }}")
+                            %a(ng-href="{{ user.link }}")
                               {{ user.name }}
                   .host-actions(ng-show='showHostActions()')
                     .guest-promote-link.text-center(ng-click="promote(user.id)")
