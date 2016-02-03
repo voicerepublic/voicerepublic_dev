@@ -72,7 +72,7 @@ en:
       edit_your_settings: Edit Your Profile
       select_profile_image: Profile image
       select_header_image: Background image
-      change_photo: Change Photo
+      change_photo: <span>Upload A Photo</span>
       change_password: Change Password
     series:
       series: Series

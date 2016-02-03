@@ -396,6 +396,8 @@ en:
   layouts:
     application:
       landing_title: Voice Republic - Home To The Spoken Word
+    velvet_minimal:
+      title: Voice Republic
     support:
       title: Voice Republic - Support
     velvet:

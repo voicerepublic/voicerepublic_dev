@@ -2461,6 +2461,9 @@ button, .button, button {
       border-color: rgba(255, 255, 255, 0.5); }
   button:hover, button:active, .button:hover, button:hover, .button:active, button:active {
     background: #54c6c6; }
+  button.muted.hollow, button.muted, .button.muted.hollow, button.muted {
+    border-color: #b4b6be;
+    color: #b4b6be; }
 
 .close-button {
   padding: 0;
@@ -2871,9 +2874,14 @@ section {
 .users-edit .container, .users-update .container {
   background: white;
   border-radius: 4px;
-  margin: 48px;
-  padding: 24px;
-  max-width: 1100px; }
+  padding: 12px;
+  max-width: 1100px;
+  padding-top: 24px;
+  padding-bottom: 48px; }
+  @media screen and (min-width: 40em) {
+    .users-edit .container, .users-update .container {
+      margin: 48px;
+      padding: 24px; } }
   .users-edit .container .row, .users-update .container .row {
     padding: 0; }
     .users-edit .container .row .columns, .users-edit .container .row .profile-tile, .users-edit #claim .container .row .claim-cta-half, #claim .users-edit .container .row .claim-cta-half, .users-edit .container .row #categories #talk-collection .category, #categories #talk-collection .users-edit .container .row .category, .users-edit .container .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .users-edit .container .row .publisher, .users-edit .container .row .landing-feature .landing-half, .landing-feature .users-edit .container .row .landing-half, .users-update .container .row .columns, .users-update .container .row .profile-tile, .users-update #claim .container .row .claim-cta-half, #claim .users-update .container .row .claim-cta-half, .users-update .container .row #categories #talk-collection .category, #categories #talk-collection .users-update .container .row .category, .users-update .container .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .users-update .container .row .publisher, .users-update .container .row .landing-feature .landing-half, .landing-feature .users-update .container .row .landing-half {
@@ -2898,30 +2906,34 @@ section {
 .users-edit .summary, .users-update .summary {
   margin-bottom: 48px; }
 
-.users-edit .profile-avatar label.button, .users-update .profile-avatar label.button {
-  width: 180px; }
-
-.users-edit .profile-avatar #avatar-img, .users-update .profile-avatar #avatar-img {
-  margin-bottom: 6px;
-  display: block;
-  border: 1px solid #e1e2e7;
-  background: #f2f2f2;
-  width: 180px;
-  height: 180px;
-  background-size: cover;
-  border-radius: 50%;
-  margin-bottom: 12px; }
-
-.users-edit .profile-avatar .input label, .users-update .profile-avatar .input label {
-  text-align: left;
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: 0.0625rem;
-  color: #8F939C; }
-
-.users-edit .profile-avatar input, .users-edit .profile-avatar textarea, .users-edit .profile-avatar select, .users-update .profile-avatar input, .users-update .profile-avatar textarea, .users-update .profile-avatar select {
-  border: 1px solid #54c6c6; }
+.users-edit .profile-avatar, .users-update .profile-avatar {
+  text-align: center;
+  margin-bottom: 48px; }
+  @media screen and (min-width: 40em) {
+    .users-edit .profile-avatar, .users-update .profile-avatar {
+      text-align: left; } }
+  .users-edit .profile-avatar label.button, .users-update .profile-avatar label.button {
+    max-width: 180px;
+    cursor: pointer; }
+    .users-edit .profile-avatar label.button:hover, .users-update .profile-avatar label.button:hover {
+      color: #54c6c6;
+      border-color: #54c6c6; }
+  .users-edit .profile-avatar #avatar-img, .users-update .profile-avatar #avatar-img {
+    margin-bottom: 6px;
+    display: block;
+    border: 1px solid #e1e2e7;
+    background: #f2f2f2;
+    width: 180px;
+    height: 180px;
+    background-size: cover;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 12px; }
+    @media screen and (min-width: 40em) {
+      .users-edit .profile-avatar #avatar-img, .users-update .profile-avatar #avatar-img {
+        float: left; } }
+  .users-edit .profile-avatar input, .users-edit .profile-avatar textarea, .users-edit .profile-avatar select, .users-update .profile-avatar input, .users-update .profile-avatar textarea, .users-update .profile-avatar select {
+    border: 1px solid #54c6c6; }
 
 .users-edit .actions .button, .users-edit .actions button, .users-update .actions .button, .users-update .actions button {
   font-weight: 500;
@@ -2930,6 +2942,12 @@ section {
 
 .users-edit .actions .hollow, .users-edit .actions button, .users-update .actions .hollow, .users-update .actions button {
   padding: .75rem; }
+
+.users-edit .input-group.slug .input-group-label, .users-update .input-group.slug .input-group-label {
+  font-size: 0.75rem; }
+  @media screen and (min-width: 40em) {
+    .users-edit .input-group.slug .input-group-label, .users-update .input-group.slug .input-group-label {
+      font-size: 0.875rem; } }
 
 .users-edit .input-group.slug label, .users-update .input-group.slug label {
   text-align: left; }
@@ -2969,18 +2987,20 @@ section {
   position: absolute;
   z-index: -1; }
 
-.users-edit .inputfile label span, .users-update .inputfile label span {
-  line-height: 30px; }
-
-.users-edit .inputfile label .svg-icon, .users-update .inputfile label .svg-icon {
-  float: left;
-  max-width: 18px;
-  max-height: 18px;
-  margin-right: 12px; }
-  .users-edit .inputfile label .svg-icon svg, .users-update .inputfile label .svg-icon svg {
+.users-edit .inputfile label, .users-update .inputfile label {
+  cursor: pointer;
+  text-align: center; }
+  .users-edit .inputfile label .svg-icon, .users-update .inputfile label .svg-icon {
+    float: none;
+    display: inline-block;
     max-width: 18px;
     max-height: 18px;
-    margin-top: 6px; }
+    margin-right: 12px;
+    vertical-align: inherit; }
+    .users-edit .inputfile label .svg-icon svg, .users-update .inputfile label .svg-icon svg {
+      max-width: 18px;
+      max-height: 18px;
+      margin-top: 6px; }
 
 .top-bar-left, .top-bar-right {
   width: 50%; }
