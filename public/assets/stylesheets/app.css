@@ -2446,7 +2446,7 @@ button, .button, button {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.0625rem;
-  border-width: 3px; }
+  border-width: 2px; }
   button.hollow, button, .button.hollow, button {
     border-width: 2px; }
   button.alert.hollow, button.alert, .button.alert.hollow, button.alert {
@@ -3310,6 +3310,8 @@ h1, h2 {
       top: 0;
       left: 0;
       z-index: 1; }
+  .registrations label, .sessions label {
+    text-align: left; }
   .registrations .bg-img, .sessions .bg-img {
     position: fixed;
     top: 0;
@@ -3326,7 +3328,7 @@ h1, h2 {
       padding-bottom: 0; }
     .registrations .form-content-block .columns, .registrations .form-content-block .profile-tile, .registrations .form-content-block #claim .container .claim-cta-half, #claim .container .registrations .form-content-block .claim-cta-half, .registrations .form-content-block #categories #talk-collection .category, #categories #talk-collection .registrations .form-content-block .category, .registrations .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .form-content-block .publisher, .registrations .form-content-block .landing-feature .landing-half, .landing-feature .registrations .form-content-block .landing-half, .sessions .form-content-block .columns, .sessions .form-content-block .profile-tile, .sessions .form-content-block #claim .container .claim-cta-half, #claim .container .sessions .form-content-block .claim-cta-half, .sessions .form-content-block #categories #talk-collection .category, #categories #talk-collection .sessions .form-content-block .category, .sessions .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .form-content-block .publisher, .sessions .form-content-block .landing-feature .landing-half, .landing-feature .sessions .form-content-block .landing-half {
       padding: 0; }
-      .registrations .form-content-block .columns:nth-child(even), .registrations .form-content-block .profile-tile:nth-child(even), .registrations .form-content-block #claim .container .claim-cta-half:nth-child(even), #claim .container .registrations .form-content-block .claim-cta-half:nth-child(even), .registrations .form-content-block #categories #talk-collection .category:nth-child(even), #categories #talk-collection .registrations .form-content-block .category:nth-child(even), .registrations .form-content-block #publishers #publisher-collection .publisher:nth-child(even), #publishers #publisher-collection .registrations .form-content-block .publisher:nth-child(even), .registrations .form-content-block .landing-feature .landing-half:nth-child(even), .landing-feature .registrations .form-content-block .landing-half:nth-child(even), .sessions .form-content-block .columns:nth-child(even), .sessions .form-content-block .profile-tile:nth-child(even), .sessions .form-content-block #claim .container .claim-cta-half:nth-child(even), #claim .container .sessions .form-content-block .claim-cta-half:nth-child(even), .sessions .form-content-block #categories #talk-collection .category:nth-child(even), #categories #talk-collection .sessions .form-content-block .category:nth-child(even), .sessions .form-content-block #publishers #publisher-collection .publisher:nth-child(even), #publishers #publisher-collection .sessions .form-content-block .publisher:nth-child(even), .sessions .form-content-block .landing-feature .landing-half:nth-child(even), .landing-feature .sessions .form-content-block .landing-half:nth-child(even) {
+      .registrations .form-content-block .columns:nth-child(2), .registrations .form-content-block .profile-tile:nth-child(2), .registrations .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .registrations .form-content-block .claim-cta-half:nth-child(2), .registrations .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .registrations .form-content-block .category:nth-child(2), .registrations .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .registrations .form-content-block .publisher:nth-child(2), .registrations .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .registrations .form-content-block .landing-half:nth-child(2), .sessions .form-content-block .columns:nth-child(2), .sessions .form-content-block .profile-tile:nth-child(2), .sessions .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .sessions .form-content-block .claim-cta-half:nth-child(2), .sessions .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .sessions .form-content-block .category:nth-child(2), .sessions .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .sessions .form-content-block .publisher:nth-child(2), .sessions .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .sessions .form-content-block .landing-half:nth-child(2) {
         padding-left: 12px; } }
   .registrations label, .sessions label {
     color: #29292b; }
