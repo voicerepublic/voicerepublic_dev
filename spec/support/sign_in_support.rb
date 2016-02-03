@@ -20,7 +20,7 @@ module ValidUserRequestHelper
 
   def click_forgot_password
     visit root_path
-    within('.top-bar') { click_link('Sign Up') }
+    within('.top-bar') { click_link('Log In') }
     click_on "Forgot password?"
   end
 
