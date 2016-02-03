@@ -5,6 +5,7 @@ $('#search-loupe a').on('click',function(){
     $('.search-container').removeClass('hide').addClass('animated fadeInRight').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
         $('.search-container').find('input').focus();
     });
+    $('#mobile-nav').hide();
 });
 
 $('#search-close').on('click', function(){

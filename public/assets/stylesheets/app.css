@@ -3045,11 +3045,13 @@ h1, h2 {
   margin-bottom: 60px; }
 
 #categories #talk-collection .category {
-  padding: 48px 24px; }
+  padding: 24px 24px; }
   #categories #talk-collection .category a {
     color: #a339cd; }
   #categories #talk-collection .category a svg {
     fill: #a339cd; }
+  #categories #talk-collection .category h3 {
+    font-size: 1.25rem; }
   #categories #talk-collection .category *:hover > * {
     text-decoration: none; }
   #categories #talk-collection .category *:hover > h3 {
@@ -3060,7 +3062,8 @@ h1, h2 {
     color: #a339cd; }
   #categories #talk-collection .category .lead {
     color: #a339cd;
-    height: 100px; }
+    height: 100px;
+    font-size: 1rem; }
   #categories #talk-collection .category hr {
     border-color: #54c6c6;
     max-width: 100px;
@@ -3071,12 +3074,15 @@ h1, h2 {
   padding: 48px 24px; }
   #publishers #publisher-collection .publisher h4 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    font-weight: 700; }
+    font-weight: 700;
+    font-size: 1.25rem; }
   #publishers #publisher-collection .publisher *:hover > h4 {
     text-decoration: underline;
     color: #121214; }
   #publishers #publisher-collection .publisher h4, #publishers #publisher-collection .publisher .lead {
     color: rgba(63, 64, 68, 0.8); }
+  #publishers #publisher-collection .publisher .lead {
+    font-size: 1rem; }
   #publishers #publisher-collection .publisher img {
     max-width: 50vw; }
     @media screen and (min-width: 40em) {
@@ -3131,6 +3137,15 @@ h1, h2 {
       margin-bottom: 36px; }
     .landing-feature .feature-copy button {
       margin: 0; }
+
+#cta h1 {
+  font-size: 2.25rem;
+  line-height: 2.4375rem; }
+
+#cta .text-link {
+  font-weight: 500; }
+  #cta .text-link:hover {
+    text-decoration: underline; }
 
 .registrations {
   height: 100%; }
@@ -3474,12 +3489,25 @@ footer {
     .logo a span {
       display: inline-block; } }
 
+#mobile-nav li a {
+  background: #2c46b0;
+  color: white;
+  min-height: 44px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.0625rem;
+  padding: 18px 24px;
+  border-bottom: 1px solid #29292b; }
+
 .top-bar {
   background: #29292b;
   transition: background .3s ease;
   margin: 0;
   right: 0;
-  left: 0; }
+  left: 0;
+  min-height: 80px;
+  padding: 12px;
+  padding-top: 18px; }
   .top-bar ul li:last-child {
     padding-right: 0; }
   .top-bar .top-bar-right {
@@ -3505,12 +3533,26 @@ footer {
         margin: 0; }
       .top-bar .top-bar-right .avatar ul li {
         padding: 6px 6px 8px; }
-  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
-    .top-bar .top-bar-left .menu {
-      max-width: 50%; } }
   @media screen and (min-width: 40em) and (max-width: 63.9375em) {
     .top-bar .top-bar-left {
       max-width: 40%; } }
+  .top-bar .top-bar-left #mobile-logo {
+    position: relative; }
+    .top-bar .top-bar-left #mobile-logo a {
+      padding: 0; }
+    .top-bar .top-bar-left #mobile-logo a:after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border: inset 5px;
+      border-color: #f82847 transparent transparent;
+      border-top-style: solid;
+      position: absolute;
+      top: 1.4rem;
+      right: -3px; }
+    .top-bar .top-bar-left #mobile-logo svg {
+      min-width: 60px; }
   .top-bar.with-background {
     background: #29292b; }
   .top-bar ul {
@@ -3546,6 +3588,10 @@ footer {
   .top-bar .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow > a::after {
     border-color: rgba(254, 241, 222, 0.5) transparent transparent;
     right: 10px; }
+  @media screen and (min-width: 40em) {
+    .top-bar {
+      padding: 0;
+      padding-top: 6px; } }
 
 #search-loupe a {
   font-weight: 700;
@@ -3575,8 +3621,8 @@ footer {
     margin: 0;
     padding: 0;
     border: 0;
-    padding-top: 10px;
-    margin-left: -30px; }
+    padding-top: 21px;
+    margin-left: -40px; }
     .search-container form label button .svg-icon {
       height: 6px; }
       .search-container form label button .svg-icon svg {
@@ -3605,6 +3651,24 @@ footer {
     .search-container .close-button:hover {
       background: none;
       color: #ffed00; }
+  @media screen and (min-width: 0em) and (max-width: 39.9375em) {
+    .search-container {
+      top: 80px;
+      left: 0;
+      width: 100%;
+      padding: 12px;
+      background: #2c46b0; }
+      .search-container .close-button {
+        margin-top: -60px; }
+      .search-container form input {
+        width: 100%;
+        height: 60px;
+        margin: 0;
+        background: #2c46b0;
+        font-size: 1rem; }
+        .search-container form input:focus, .search-container form input:active {
+          background: #2c46b0;
+          border-color: #2c46b0; } }
 
 .talk-card {
   padding: 6px;
