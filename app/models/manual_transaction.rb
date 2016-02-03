@@ -27,8 +27,6 @@ class ManualTransaction < Transaction
     abort!
   end
 
-  private
-
   def message_details
     {
       type: type,

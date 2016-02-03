@@ -9,9 +9,6 @@
 #
 module Emitter
 
-  # make url helpers available on instance level
-  include Rails.application.routes.url_helpers
-
   include Services::Publisher
 
   # make all methods statically available
@@ -24,11 +21,11 @@ module Emitter
               talk: {
                 id: talk.id,
                 title: talk.title,
-                url: talk_url(talk)
+                url: url_helpers.talk_url(talk)
               },
               user: {
                 name: talk.user.name,
-                url: user_url(talk.user)
+                url: url_helpers.user_url(talk.user)
               }
             }
   end
@@ -52,6 +49,13 @@ module Emitter
             event: 'callback', # TODO rename to callback
             opts: opts,
             job: job.attributes
+  end
+
+  private
+
+  # make url helpers available on instance level
+  def url_helpers
+    @helpers ||= Rails.application.routes.url_helpers
   end
 
 end

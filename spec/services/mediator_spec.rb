@@ -6,15 +6,15 @@ describe Mediator do
     @mediator = Mediator.new
   end
 
-  it 'handle dj_callbacks' do
+  it 'handle dj_callback' do
     expect(@mediator).to respond_to(:dj_callback)
   end
 
-  it 'handle purchase_events' do
-    expect(@mediator).to respond_to(:purchase_event)
+  it 'handle transaction_transition' do
+    expect(@mediator).to respond_to(:transaction_transition)
   end
 
-  it 'handle talk_transitions' do
+  it 'handle talk_transition' do
     expect(@mediator).to respond_to(:talk_transition)
   end
 

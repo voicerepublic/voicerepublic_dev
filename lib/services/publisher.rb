@@ -1,15 +1,14 @@
 require 'json'
-require 'active_support/concern'
-require 'active_support/core_ext/class/attribute'
 
 module Services
   module Publisher
 
-    extend ActiveSupport::Concern
-
     include Connector
+    include LocalConfig
 
     def publish(options)
+      return unless config.bunny.enabled
+
       queue_name = options.delete(:queue) || options.delete(:q)
       exchange_name = options.delete(:exchange) || options.delete(:x)
 
