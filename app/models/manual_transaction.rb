@@ -20,8 +20,6 @@ class ManualTransaction < Transaction
       user.save!
     end
     close!
-    # TODO oldschool, remove (see transactions for newschool)
-    Simon.comprehend(self)
   rescue Exception => e
     warn e
     self.details ||= {}

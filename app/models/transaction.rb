@@ -39,10 +39,8 @@ class Transaction < ActiveRecord::Base
 
   private
 
-  # newschool
   def event_fired(*args)
-    Simon.says x: 'transaction_transition',
-               details: message_details.merge(event: args)
+    Emitter.transaction_transition(self, args)
   end
 
   # should be overwritten in subclasses

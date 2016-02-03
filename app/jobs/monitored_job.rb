@@ -1,13 +1,3 @@
-# expects `model`, `id`, and `method` passed in as options
-#
-# Will pass a message if the subclass defines these methods:
-#
-#  * enqueue_message
-#  * before_message
-#  * success_message
-#  * error_message
-#  * failure_message
-#
 class MonitoredJob < Struct.new(:opts)
 
   def perform
@@ -18,57 +8,27 @@ class MonitoredJob < Struct.new(:opts)
 
   # hooks
   def enqueue(job)
-    # newschool
-    Simon.says x: 'dj_callback', event: 'enqueued',
-               opts: opts, job: job.attributes
-    # TODO remove oldschool
-    msg = respond_to?(:enqueue_message) ? send(:enqueue_message, job) : nil
-    GenericDjMessage.call(job, 'enqueue', opts, msg)
+    Emitter.dj_callback('enqueue', opts, job)
   end
 
   def before(job)
-    # newschool
-    Simon.says x: 'dj_callback', event: 'before',
-               opts: opts, job: job.attributes
-    # TODO remove oldschool
-    msg = respond_to?(:before_message) ? send(:before_message, job) : nil
-    GenericDjMessage.call(job, 'before', opts, msg)
+    Emitter.dj_callback('before', opts, job)
   end
 
   def after(job)
-    # newschool
-    Simon.says x: 'dj_callback', event: 'after',
-               opts: opts, job: job.attributes
-    # TODO remove oldschool
-    msg = respond_to?(:after_message) ? send(:after_message, job) : nil
-    GenericDjMessage.call(job, 'after', opts, msg)
+    Emitter.dj_callback('after', opts, job)
   end
 
   def success(job)
-    # newschool
-    Simon.says x: 'dj_callback', event: 'success',
-               opts: opts, job: job.attributes
-    # TODO remove oldschool
-    msg = respond_to?(:success_message) ? send(:success_message, job) : nil
-    GenericDjMessage.call(job, 'success', opts, msg)
+    Emitter.dj_callback('success', opts, job)
   end
 
   def error(job, exception)
-    # newschool
-    Simon.says x: 'dj_callback', event: 'error',
-               opts: opts, job: job.attributes
-    # TODO remove oldschool
-    msg = respond_to?(:error_message) ? send(:error_message, job, exception) : nil
-    GenericDjMessage.call(job, 'error', opts, msg)
+    Emitter.dj_callback('error', opts, job)
   end
 
   def failure(job)
-    # newschool
-    Simon.says x: 'dj_callback', event: 'failure',
-               opts: opts, job: job.attributes
-    # TODO remove oldschool
-    msg = respond_to?(:failure_message) ? send(:failure_message, job) : nil
-    GenericDjMessage.call(job, 'failure', opts, msg)
+    Emitter.dj_callback('failure', opts, job)
   end
 
 end
