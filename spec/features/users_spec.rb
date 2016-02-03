@@ -51,16 +51,16 @@ feature "User edits own profile" do
   end
 
   scenario "setting a new password" do
-    page.find("button[data-enable-fields*=change-password]").click
-    sleep 0.1
-    find('.user_password input').set '654321'
-    find('.user_password_confirmation input').set '654321'
+    page.click_link('Change Password')
+    find('#user_current_password').set '123456'
+    find('#user_password').set '654321'
+    find('#user_password_confirmation').set '654321'
 
-    page.click_button 'Save'
+    page.click_button 'Update'
     expect(page).not_to have_css('.error')
     expect(page).not_to have_css('.edit_user')
     expect(page).not_to have_content(I18n.t('simple_form.error_notification.default_notification'))
-    expect(page).to have_content(I18n.t('flash.actions.update.notice'))
+    expect(page).to have_content('Successfully updated.')
   end
 
   scenario "uploading a avatar image", js: true do
