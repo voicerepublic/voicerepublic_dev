@@ -24,10 +24,10 @@
             .button.small.hollow.muted= t('.change_password')
         
         %hr
-        .medium-6.columns.input
+        .medium-6.columns.input.slug
           %label{:for => "user_slug"}
             Username & URL
-          .input-group.slug
+          .input-group
             %span.input-group-label voicerepublic.com/users/
             = f.input_field :slug, class: 'input-group-field'
             
@@ -49,6 +49,6 @@
           %li
             = link_to t('.cancel', default: t("helpers.links.cancel")), user_path(id: @user), class: 'button large hollow secondary'
           %li
-            &nbsp;
+            &nbsp
           %li
             = f.button :submit, class: 'button large primary'

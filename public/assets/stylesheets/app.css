@@ -2947,19 +2947,22 @@ section {
 .users-edit .actions .hollow, .users-edit .actions button, .users-update .actions .hollow, .users-update .actions button {
   padding: .75rem; }
 
-.users-edit .input-group.slug .input-group-label, .users-update .input-group.slug .input-group-label {
-  font-size: 0.75rem; }
+.users-edit .slug, .users-update .slug {
+  padding-bottom: 12px; }
   @media screen and (min-width: 40em) {
-    .users-edit .input-group.slug .input-group-label, .users-update .input-group.slug .input-group-label {
-      font-size: 0.875rem; } }
-
-.users-edit .input-group.slug label, .users-update .input-group.slug label {
-  text-align: left; }
-
-.users-edit .input-group.slug input, .users-update .input-group.slug input {
-  margin: 0;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0; }
+    .users-edit .slug, .users-update .slug {
+      padding-right: 12px !important; } }
+  .users-edit .slug .input-group-label, .users-update .slug .input-group-label {
+    font-size: 0.75rem; }
+    @media screen and (min-width: 40em) {
+      .users-edit .slug .input-group-label, .users-update .slug .input-group-label {
+        font-size: 0.875rem; } }
+  .users-edit .slug label, .users-update .slug label {
+    text-align: left; }
+  .users-edit .slug input, .users-update .slug input {
+    margin: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; }
 
 .users-edit .time_zone, .users-update .time_zone {
   padding-right: 12px; }
