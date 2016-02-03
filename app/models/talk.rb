@@ -477,8 +477,6 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    MonitoringMessage.call(event: 'StartTalk', talk: attributes)
-
     return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes
@@ -489,8 +487,6 @@ class Talk < ActiveRecord::Base
     # TODO oldschool, find a way to do it newschool
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
-    # TODO remove oldschool (should be covered by event_fired)
-    MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
   def postprocess!(uat=false)

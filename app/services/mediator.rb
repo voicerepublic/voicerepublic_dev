@@ -22,6 +22,7 @@ class Mediator
 
   # TODO some form of autopub for easier testing?
 
+  # TODO if job is end_talk and event/callback is success -> 'Forced to end Talk...'
   def dj_callback(info, prop, body, opts)
     # * enqueued
     # * before

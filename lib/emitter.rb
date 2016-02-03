@@ -7,12 +7,12 @@
 #
 #     Emitter.talk_transition(some_talk, some_transition)
 #
-class Emitter
+module Emitter
 
   # make url helpers available on instance level
   include Rails.application.routes.url_helpers
 
-  include Service::Publisher
+  include Services::Publisher
 
   # make all methods statically available
   extend self
