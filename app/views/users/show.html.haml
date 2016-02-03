@@ -16,11 +16,11 @@
         .float-right
           = link_to t('.purchase_more_credits'), :purchases, class: 'button hollow warning tiny'
     #user-block
-      
-      
+
+
       .profile-avatar
         = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
-      
+
       %h3.user-name=@user.name
       - if can? :manage, @user
         = link_to [:edit, @user], class: 'button tiny hollow secondary' do
@@ -44,17 +44,17 @@
       - if can? :manage, @user
         -# TODO: discuss. Can't we just have one path to the create talk page?
         -# =link_to new_talk_path, class:'button hollow' do
-        -#   = t('.upload_talk') 
+        -#   = t('.upload_talk')
         = link_to new_talk_path, class:'button hollow publish-btn tiny' do
           = icon_tag 'megaphone'
-          = t('.publish_a_talk') 
-        
-        
+          = t('.publish_a_talk')
+
+
       - else
         = link_to podcast_url(@user), class:'button hollow tiny' do
-          = t('.subscribe_to_podcast') 
-          
-      -# TODO: make these prettier: put the value big, then underneath, the key in small text 
+          = t('.subscribe_to_podcast')
+
+      -# TODO: make these prettier: put the value big, then underneath, the key in small text
       %hr
       %ul.user-meta-group.menu.expanded
         %li
@@ -80,22 +80,22 @@
     %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
       -# todo: if there are pinned talks, make this is-active
       %li.tabs-title{class: @tab_pinned_class,:role => "presentation"}
-        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"} 
+        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
           = t('.listen_later', count: @user.reminders.count)
       - unless @live_talks.empty?
         %li.tabs-title{:role => "presentation"}
-          %a#live-label{"aria-controls" => "live", "aria-selected" => "true", :href => "#live", :role => "tab"} 
+          %a#live-label{"aria-controls" => "live", "aria-selected" => "true", :href => "#live", :role => "tab"}
             = t('.live_talks', count: @live_talks.count)
       %li.tabs-title{class: @tab_archived_class,:role => "presentation"}
-        %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"} 
+        %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"}
           = t('.archived_talks', count: @archived_talks.count)
       %li.tabs-title{:role => "presentation"}
-        %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"} 
+        %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"}
           = t('.upcoming_talks', count: @upcoming_talks.count)
       %li.tabs-title{:role => "presentation"}
-        %a#series-label{"aria-controls" => "series", "aria-selected" => "false", :href => "#series", :role => "tab"} 
+        %a#series-label{"aria-controls" => "series", "aria-selected" => "false", :href => "#series", :role => "tab"}
           = t('.series', count: @user.series_without_default.count)
-      
+
     .tabs-content{"data-tabs-content" => "example-tabs"}
       #pinned.tabs-panel{class: @tab_pinned_class}
         - if @remembered_talks.empty?
@@ -105,15 +105,15 @@
         -# TODO: figure out what to do about welcome message
         -# if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
         -#  = render partial: "welcome", :locals => { user: @user }
-          
-       
+
+
       #live.tabs-panel
         = render partial: 'shared/talk_card', collection: @live_talks
       #upcoming.tabs-panel
         - if @upcoming_talks.count > 0
-          = render partial: talks_partial(@upcoming_talks), locals: { color: 'box-slim' }, collection: @upcoming_talks
+          = render partial: 'shared/talk_card', collection: @upcoming_talks
         - else
-          %p.nothing-notice 
+          %p.nothing-notice
             = t('.nothing_scheduled')
 
       #archived.tabs-panel{class: @tab_archived_class}

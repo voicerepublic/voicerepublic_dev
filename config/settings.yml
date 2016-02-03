@@ -127,3 +127,8 @@ developers:
   - accounts@dispatched.ch
   - spam@dispatched.ch
 sitemap: http://localhost:3000/landing_page/index.xml
+
+# this needs to be overridden by `app/shared/config/settings.local.yml`
+icecast:
+  host: localhost
+  port: 8000

@@ -24,6 +24,8 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
     connecting: true
     blackboxReady: false
     nellyReload: false
+    receiveIcecast: false
+    declined: false
   config.feedback = { data: { bw_in: 0 } }
   config.progress = { index: 0, total: 1 }
 
@@ -81,9 +83,11 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         subscribeAllStreams()
         config.flags.settings = true
       onListening: ->
+        config.flags.receiveIcecast = true
         unless config.user.role == 'listener'
           config.flags.reqmic = true
       onleaveListening: ->
+        config.flags.receiveIcecast = false
         config.flags.reqmic = false
         true
       onbeforeMicRequested: ->
@@ -109,6 +113,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         config.flags.onair = false
         true
       onHostOnAir: ->
+        blackbox.micCheck()
         activateSafetynet() if config.talk.state in ['live']
         users = config.session
         blackbox.publish config.stream

@@ -58,8 +58,16 @@ class LivepageConfig < Struct.new(:talk, :user)
         days: I18n.t('talks.show.days'),
         in: I18n.t('talks.show.in'),
         soon: I18n.t('talks.show.soon')
-      }
+      },
+      icecast_url: icecast_url
     }
+  end
+
+  def icecast_url
+    'http://' +
+      Settings.icecast.host + ':' +
+      Settings.icecast.port.to_s + '/' +
+      talk.id.to_s
   end
 
   def stream
