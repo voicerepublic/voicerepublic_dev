@@ -732,8 +732,7 @@ class Talk < ActiveRecord::Base
     # TODO remove oldschool
     TalkEventMessage.call(self, *args)
     # newschool
-    Simon.says x: 'talk_transitions',
-               event: 'talk_transition',
+    Simon.says x: 'talk_transition',
                details: {
                  event: args,
                  talk: {

@@ -106,9 +106,11 @@ class Simon
     if queue = data.delete(:queue) || data.delete(:q)
       json = JSON.unparse(data)
       queue = @channel.queue(queue)
-      @channel.default_exchange.publish(json, routing_key: queue.name)
+      @channel.default_exchange.publish(json, routing_key: queue.name,
+                                        content_type: 'application/json')
     elsif exchange = data.delete(:exchange) || data.delete(:x)
-      @channel.fanout(exchange).publish(JSON.unparse(data))
+      @channel.fanout(exchange).publish(JSON.unparse(data),
+                                        content_type: 'application/json')
     else
       raise "Either of `exchange`, `queue`, `x` or `q` are required."
     end

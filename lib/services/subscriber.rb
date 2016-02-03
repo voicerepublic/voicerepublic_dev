@@ -38,6 +38,7 @@ module Services
 
           queue.subscribe(opts) do |info, prop, body|
             body = JSON.parse(body) if prop[:content_type] == 'application/json'
+            # TODO fix order of params to: body, prop, info, options
             instance.send(handler, info, prop, body, options)
           end
         end

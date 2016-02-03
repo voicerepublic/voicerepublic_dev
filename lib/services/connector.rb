@@ -1,5 +1,6 @@
 require 'bunny'
 
+# TODO rename to BunnyConnector
 module Services
   module Connector
 

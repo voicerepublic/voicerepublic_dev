@@ -1,5 +1,6 @@
 require 'fog'
 
+# TODO make it use LocalConfig
 module Services
   module FogEc2
 

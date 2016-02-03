@@ -60,15 +60,15 @@ class Mediator
 
 
   def talk_transition(info, prop, body, opts)
-    event = body['details']['event'] * '/'
+    p event = body['details']['event'] * '.'
     intros = {
-      'created/prelive/prepare'      => 'Has been created',
-      'prelive/live/start_talk'      => 'Now live',
-      'live/postlive/end_talk'       => 'Has come to end',
-      'postlive/processing/process'  => 'Started processing',
-      'processing/archived/archive'  => 'Just archived recording',
-      'pending/archived/archive'     => 'Just archived upload',
-      'processing/suspended/suspend' => 'Failed to process'
+      'created.prelive.prepare'      => 'Has been created',
+      'prelive.live.start_talk'      => 'Now live',
+      'live.postlive.end_talk'       => 'Has come to end',
+      'postlive.processing.process'  => 'Started processing',
+      'processing.archived.archive'  => 'Just archived recording',
+      'pending.archived.archive'     => 'Just archived upload',
+      'processing.suspended.suspend' => 'Failed to process'
     }
     intro = intros[event]
     intro ||= 'Don\'t know how to format talk event `%s` for' % event

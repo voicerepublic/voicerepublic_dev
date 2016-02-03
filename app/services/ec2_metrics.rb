@@ -10,7 +10,7 @@ class Ec2Metrics
   def run
     loop do
       details = fog.servers.map { |s| s.attributes }
-      publish exchange: 'cloud_metrics', details: details
+      publish exchange: 'cloud_metrics', details: details, type: 'ec2'
       sleep DELAY
     end
   end
