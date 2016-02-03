@@ -17,6 +17,8 @@ class TalkEventMessage < BaseMessage
 
     intro = "Has been ended" if event == :end_talk
 
+    intro = "Has been suspended (manual interaction required)" if event == :suspend
+
     _talk  = slack_link(talk.title, talk_url(talk))
     _series = slack_link(talk.series.title, series_url(talk.series))
     _user  = slack_link(talk.series.user.name, user_url(talk.series.user))
