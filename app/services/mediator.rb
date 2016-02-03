@@ -15,30 +15,25 @@ class Mediator
   include Services::Publisher   # provides `publish`
   include Services::LocalConfig # provides `config`
 
-  subscribe x: 'dj_callbacks', handler: :dj_callback
-  subscribe x: 'purchase_events', handler: :pruchase_event
-  subscribe x: 'talk_transitions', handler: :talk_transition
-  subscribe x: 'transaction_transitions', handler: :transaction_transition
-  subscribe x: 'user_registrations', handler: :user_registration
+  subscribe x: 'dj_callback'
+  subscribe x: 'talk_transition'
+  subscribe x: 'transaction_transition'
+  subscribe x: 'user_registration'
 
-  # TODO decide on alternative signature
-  # subscribe :dj_callback, x: 'dj_callbacks', autopub: { x: 'notifications' }
-
+  # TODO some form of autopub for easier testing?
 
   def dj_callback(info, prop, body, opts)
-    data = JSON.parse(body)
-
     # * enqueued
     # * before
     # * after
     # * success
     # * error
     # * failure
-    event = data['event']
+    event = body['event']
 
-    options = data['opts']
+    options = body['opts']
     id = options['id']
-    job = data['job']
+    job = body['job']
 
     handler = job['handler'].match(/struct:([^\n])+/)[1]
 
@@ -63,16 +58,9 @@ class Mediator
     notify text: message unless message.nil?
   end
 
-  # TODO remove the whole pruchase event stuff
-  # it should actually be covered by transactions
-  def purchase_event(info, prop, body, opts)
-    notify text: body
-  end
-
 
   def talk_transition(info, prop, body, opts)
-    data = JSON.parse(body)
-    event = data['details']['event'] * '/'
+    event = body['details']['event'] * '/'
     intros = {
       'created/prelive/prepare'      => 'Has been created',
       'prelive/live/start_talk'      => 'Now live',
@@ -84,8 +72,8 @@ class Mediator
     }
     intro = intros[event]
     intro ||= 'Don\'t know how to format talk event `%s` for' % event
-    talk = data['details']['talk']
-    user = data['details']['user']
+    talk = body['details']['talk']
+    user = body['details']['user']
     _talk = slack_link(talk['title'], talk['url'])
     _user = slack_link(user['name'], user['url'])
     message = "#{intro} (#{talk['id']}) #{_talk} by #{_user}"
@@ -94,8 +82,7 @@ class Mediator
 
 
   def transaction_transition(info, prop, body, opts)
-    data = JSON.parse(body)
-    details = data['details']
+    details = body['details']
     event = details['event'] * '/'
     type = details['type']
 
@@ -103,6 +90,17 @@ class Mediator
       case event
       when 'processing/closed/close'
         case type
+        when 'PurchaseTransaction'
+          # TODO
+          user = 'Someone'
+          product = 'something'
+          price = 'some amount'
+          publish x: 'notifications',
+                  channel: config.slack.revenue_channel,
+                  text: '%s purchased %s for %s.' %
+                    [user, product, price]
+          return # abort early
+
         when 'ManualTransaction'
           admin    = details['admin']
           quantity = details['quantity'].to_i
@@ -161,9 +159,8 @@ class Mediator
 
 
   def user_registration(info, prop, body, opts)
-    data = JSON.parse(body)
-    name = data['details']['user']['name']
-    email = data['details']['user']['email']
+    name = body['details']['user']['name']
+    email = body['details']['user']['email']
     message = "%s just registered with %s." % [name, email]
     notify text: message
   end
@@ -181,7 +178,7 @@ class Mediator
   end
 
   def notify(msg)
-    publish msg.merge(x: 'notifications')
+    publish msg.merge(x: 'notification')
   end
 
 end

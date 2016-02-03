@@ -1,3 +1,4 @@
+require 'json'
 require 'active_support/concern'
 require 'active_support/core_ext/class/attribute'
 
@@ -17,10 +18,11 @@ module Services
         end
 
         self.subscriptions << ->(instance, opts={}) do
-          handler = options[:handler] || :handler
 
           queue_name = options.delete(:queue) || options.delete(:q)
           exchange_name = options.delete(:exchange) || options.delete(:x)
+
+          handler = options[:handler] || queue_name || exchange_name
 
           queue = nil
 
@@ -35,6 +37,7 @@ module Services
           end
 
           queue.subscribe(opts) do |info, prop, body|
+            body = JSON.parse(body) if prop[:content_type] == 'application/json'
             instance.send(handler, info, prop, body, options)
           end
         end

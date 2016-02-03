@@ -7,10 +7,10 @@ class Slacker
   include Services::Subscriber  # provides `subscribe`
   include Services::LocalConfig # provides `config`
 
-  subscribe x: 'notifications'
+  subscribe x: 'notification'
 
-  def handler(info, prop, body, opts)
-    slack(JSON.parse(body))
+  def notification(info, prop, body, opts)
+    slack(body)
   end
 
   private

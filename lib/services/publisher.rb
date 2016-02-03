@@ -17,9 +17,12 @@ module Services
 
       if queue_name
         queue = channel.queue(queue_name)
-        channel.default_exchange.publish(json, routing_key: queue.name)
+        channel.default_exchange.publish(json,
+                                         routing_key: queue.name,
+                                         content_type: 'application/json')
       elsif exchange_name
-        channel.fanout(exchange_name).publish(json)
+        channel.fanout(exchange_name).publish(json,
+                                              content_type: 'application/json')
       else
         raise "Either of `exchange`, `queue`, `x` or `q` are required."
       end

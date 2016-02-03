@@ -58,12 +58,8 @@ class Purchase < ActiveRecord::Base
     owner.update_attribute(:paying, true)
     create_purchase_transaction.process!
     PurchaseMailer.invoice(self).deliver_now
-    # TODO remove oldschool
+    # TODO remove oldschool (covered by transaction_transition)
     PurchaseMessage.call(self)
-    # newschool
-    Simon.says x: 'purchase_events',
-               event: 'purchase_completed',
-               details: self.attributes
     response.success?
   end
 

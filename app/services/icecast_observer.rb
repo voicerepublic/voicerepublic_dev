@@ -1,4 +1,3 @@
-require 'json'
 require 'open-uri'
 
 require 'yaml' # active_support needs it
@@ -14,7 +13,7 @@ class IcecastObserver
 
   DELAY = 4 # 4 seconds
 
-  subscribe queue: 'icecast_observer'
+  subscribe q: 'icecast_observer'
 
   attr_accessor :servers
 
@@ -34,18 +33,17 @@ class IcecastObserver
     super # Services::Subscriber#run
   end
 
-  def handler(info, prop, body)
-    self.servers << JSON.parse(body)['server']
+  def icecast_observer(info, prop, body)
+    self.servers << body['url']
   end
 
   def observe
-    result = servers.map do |server|
-      url = "http://#{server}:8000/status.xml"
+    result = servers.map do |url|
       xml = open(url).read
       # TODO remove server from list if connection fails x times
       Hash.from_xml(xml)
     end
-    publish exchange: 'icecast_observer', details: result
+    publish x: 'icecast_status', details: result
   end
 
 end

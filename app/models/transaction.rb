@@ -41,8 +41,7 @@ class Transaction < ActiveRecord::Base
 
   # newschool
   def event_fired(*args)
-    Simon.says x: 'transaction_transitions',
-               event: 'transaction_transition',
+    Simon.says x: 'transaction_transition',
                details: message_details.merge(event: args)
   end
 

@@ -5,9 +5,9 @@ class Ec2Spawner
   include Services::Subscriber
   include Services::FogEc2
 
-  subscribe queue: 'cloud_spawn'
+  subscribe q: 'spawn_server'
 
-  def handler(info, prop, body)
+  def spawn_server(info, prop, body)
     server = fog.servers.create
     Thread.new do
       server.wait_for { ready? }
