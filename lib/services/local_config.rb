@@ -6,7 +6,7 @@ module Services
   module LocalConfig
 
     def config
-      return @config unless @config.nil
+      return @config unless @config.nil?
 
       @config = OpenStruct.new
       return @config unless File.exist?(config_path)
