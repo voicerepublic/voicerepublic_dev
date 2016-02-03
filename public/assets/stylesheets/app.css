@@ -1537,25 +1537,25 @@ textarea {
   display: block;
   box-sizing: border-box;
   width: 100%;
-  height: 2.4375rem;
+  height: rem-calc(16)1.5rem-0.0625rem;
   padding: 0.5rem;
-  border: 0px solid #e1e2e7;
+  border: 1px solid #d9dadd;
   margin: 0 0 1rem;
   font-family: inherit;
-  font-size: 1rem;
-  color: #000000;
-  background-color: rgba(225, 226, 231, 0.2);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 0;
+  font-size: rem-calc(16);
+  color: #29292b;
+  background-color: white;
+  box-shadow: none;
+  border-radius: 2px;
   transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
   -webkit-appearance: none;
   -moz-appearance: none; }
   [type='text']:focus, [type='password']:focus, [type='date']:focus, [type='datetime']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='week']:focus, [type='email']:focus, [type='number']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='url']:focus, [type='color']:focus,
   textarea:focus {
-    border: 1px solid #3F4044;
+    border: 1px solid #54c6c6;
     background: #FFFFFF;
     outline: none;
-    box-shadow: 0 0 5px #cacaca;
+    box-shadow: none;
     transition: box-shadow 0.5s, border-color 0.25s ease-in-out; }
 
 textarea {
@@ -1602,12 +1602,12 @@ label {
   display: block;
   margin: 0;
   font-size: 0.875rem;
-  font-weight: normal;
+  font-weight: 500;
   line-height: 1.8;
-  color: #000000; }
+  color: #29292b; }
   label.middle {
     margin: 0 0 1rem;
-    padding: 0.5rem 0; }
+    padding: 0.5625rem 0; }
 
 .help-text {
   margin-top: -0.5rem;
@@ -1644,7 +1644,7 @@ label {
 
 .input-group-field {
   border-radius: 0;
-  height: 2.5rem; }
+  height: rem-calc(16)1.5rem; }
 
 .input-group-button {
   height: 100%;
@@ -1676,15 +1676,15 @@ legend {
     margin-left: -0.1875rem; }
 
 select {
-  height: 2.4375rem;
+  height: rem-calc(16)1.5rem-0.0625rem;
   padding: 0.5rem;
-  border: 0px solid #e1e2e7;
+  border: 1px solid #d9dadd;
   border-radius: 0;
   margin: 0 0 1rem;
-  font-size: 1rem;
+  font-size: rem-calc(16);
   font-family: inherit;
   line-height: normal;
-  color: #000000;
+  color: #29292b;
   background-color: #fafafa;
   border-radius: 0;
   -webkit-appearance: none;
@@ -2561,7 +2561,7 @@ section {
   #left-column #avatar-img {
     margin-bottom: 6px;
     display: block;
-    border: 0;
+    border: 1px solid #e1e2e7;
     width: 180px;
     height: 180px;
     background-size: cover;
@@ -2868,28 +2868,83 @@ section {
     background: white;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15); }
 
-.users-edit #left-column {
-  float: none; }
-  @media screen and (min-width: 40em) {
-    .users-edit #left-column {
-      max-width: 400px;
-      padding: 0;
-      margin: 12px;
-      margin-right: 6px; } }
-  @media screen and (min-width: 64em) {
-    .users-edit #left-column {
-      max-width: 500px; } }
-  .users-edit #left-column .input label {
-    text-align: left;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 0.75rem;
-    letter-spacing: 0.0625rem;
-    color: #8F939C; }
-  .users-edit #left-column input, .users-edit #left-column textarea, .users-edit #left-column select {
-    border: 1px solid #54c6c6; }
+.users-edit .container, .users-update .container {
+  background: white;
+  border-radius: 4px;
+  margin: 48px;
+  padding: 24px;
+  max-width: 1100px; }
+  .users-edit .container .row, .users-update .container .row {
+    padding: 0; }
+    .users-edit .container .row .columns, .users-edit .container .row .profile-tile, .users-edit #claim .container .row .claim-cta-half, #claim .users-edit .container .row .claim-cta-half, .users-edit .container .row #categories #talk-collection .category, #categories #talk-collection .users-edit .container .row .category, .users-edit .container .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .users-edit .container .row .publisher, .users-edit .container .row .landing-feature .landing-half, .landing-feature .users-edit .container .row .landing-half, .users-update .container .row .columns, .users-update .container .row .profile-tile, .users-update #claim .container .row .claim-cta-half, #claim .users-update .container .row .claim-cta-half, .users-update .container .row #categories #talk-collection .category, #categories #talk-collection .users-update .container .row .category, .users-update .container .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .users-update .container .row .publisher, .users-update .container .row .landing-feature .landing-half, .landing-feature .users-update .container .row .landing-half {
+      padding: 0; }
+      @media screen and (min-width: 40em) {
+        .users-edit .container .row .columns:nth-child(odd), .users-edit .container .row .profile-tile:nth-child(odd), .users-edit #claim .container .row .claim-cta-half:nth-child(odd), #claim .users-edit .container .row .claim-cta-half:nth-child(odd), .users-edit .container .row #categories #talk-collection .category:nth-child(odd), #categories #talk-collection .users-edit .container .row .category:nth-child(odd), .users-edit .container .row #publishers #publisher-collection .publisher:nth-child(odd), #publishers #publisher-collection .users-edit .container .row .publisher:nth-child(odd), .users-edit .container .row .landing-feature .landing-half:nth-child(odd), .landing-feature .users-edit .container .row .landing-half:nth-child(odd), .users-update .container .row .columns:nth-child(odd), .users-update .container .row .profile-tile:nth-child(odd), .users-update #claim .container .row .claim-cta-half:nth-child(odd), #claim .users-update .container .row .claim-cta-half:nth-child(odd), .users-update .container .row #categories #talk-collection .category:nth-child(odd), #categories #talk-collection .users-update .container .row .category:nth-child(odd), .users-update .container .row #publishers #publisher-collection .publisher:nth-child(odd), #publishers #publisher-collection .users-update .container .row .publisher:nth-child(odd), .users-update .container .row .landing-feature .landing-half:nth-child(odd), .landing-feature .users-update .container .row .landing-half:nth-child(odd) {
+          padding-right: 12px; } }
+      .users-edit .container .row .columns .pw-field, .users-edit .container .row .profile-tile .pw-field, .users-edit #claim .container .row .claim-cta-half .pw-field, #claim .users-edit .container .row .claim-cta-half .pw-field, .users-edit .container .row #categories #talk-collection .category .pw-field, #categories #talk-collection .users-edit .container .row .category .pw-field, .users-edit .container .row #publishers #publisher-collection .publisher .pw-field, #publishers #publisher-collection .users-edit .container .row .publisher .pw-field, .users-edit .container .row .landing-feature .landing-half .pw-field, .landing-feature .users-edit .container .row .landing-half .pw-field, .users-update .container .row .columns .pw-field, .users-update .container .row .profile-tile .pw-field, .users-update #claim .container .row .claim-cta-half .pw-field, #claim .users-update .container .row .claim-cta-half .pw-field, .users-update .container .row #categories #talk-collection .category .pw-field, #categories #talk-collection .users-update .container .row .category .pw-field, .users-update .container .row #publishers #publisher-collection .publisher .pw-field, #publishers #publisher-collection .users-update .container .row .publisher .pw-field, .users-update .container .row .landing-feature .landing-half .pw-field, .landing-feature .users-update .container .row .landing-half .pw-field {
+        padding-right: 6px; }
+  .users-edit .container .pw-change, .users-update .container .pw-change {
+    margin: 0;
+    margin-bottom: 48px; }
 
-.users-edit .slug-warning, .users-edit .slug-explanation {
+.users-edit .input label, .users-update .input label {
+  text-align: left;
+  margin-bottom: 4px; }
+
+.users-edit input, .users-update input {
+  padding: .75rem;
+  font-weight: 200; }
+
+.users-edit .summary, .users-update .summary {
+  margin-bottom: 48px; }
+
+.users-edit .profile-avatar label.button, .users-update .profile-avatar label.button {
+  width: 180px; }
+
+.users-edit .profile-avatar #avatar-img, .users-update .profile-avatar #avatar-img {
+  margin-bottom: 6px;
+  display: block;
+  border: 1px solid #e1e2e7;
+  background: #f2f2f2;
+  width: 180px;
+  height: 180px;
+  background-size: cover;
+  border-radius: 50%;
+  margin-bottom: 12px; }
+
+.users-edit .profile-avatar .input label, .users-update .profile-avatar .input label {
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.0625rem;
+  color: #8F939C; }
+
+.users-edit .profile-avatar input, .users-edit .profile-avatar textarea, .users-edit .profile-avatar select, .users-update .profile-avatar input, .users-update .profile-avatar textarea, .users-update .profile-avatar select {
+  border: 1px solid #54c6c6; }
+
+.users-edit .actions .button, .users-edit .actions button, .users-update .actions .button, .users-update .actions button {
+  font-weight: 500;
+  max-height: 60px;
+  border-width: 2px; }
+
+.users-edit .actions .hollow, .users-edit .actions button, .users-update .actions .hollow, .users-update .actions button {
+  padding: .75rem; }
+
+.users-edit .input-group.slug label, .users-update .input-group.slug label {
+  text-align: left; }
+
+.users-edit .input-group.slug input, .users-update .input-group.slug input {
+  margin: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
+.users-edit .time_zone, .users-update .time_zone {
+  padding-right: 12px; }
+  .users-edit .time_zone select, .users-update .time_zone select {
+    padding: .75rem; }
+
+.users-edit .slug-warning, .users-edit .slug-explanation, .users-update .slug-warning, .users-update .slug-explanation {
   background: #f82847;
   color: white;
   font-weight: 500;
@@ -2897,26 +2952,30 @@ section {
   line-height: 1.125rem;
   padding: 12px;
   text-align: left; }
+  .users-edit .slug-warning .got-it, .users-edit .slug-explanation .got-it, .users-update .slug-warning .got-it, .users-update .slug-explanation .got-it {
+    background: white;
+    padding: 6px;
+    color: #29292b; }
 
-.users-edit .slug-explanation {
+.users-edit .slug-explanation, .users-update .slug-explanation {
   background: #fef1de;
   color: #121214; }
 
-.users-edit .inputfile {
+.users-edit .inputfile, .users-update .inputfile {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
   position: absolute;
   z-index: -1; }
-  .users-edit .inputfile + label span {
+  .users-edit .inputfile + label span, .users-update .inputfile + label span {
     line-height: 30px; }
-  .users-edit .inputfile + label .svg-icon {
+  .users-edit .inputfile + label .svg-icon, .users-update .inputfile + label .svg-icon {
     float: left;
     max-width: 18px;
     max-height: 18px;
     margin-right: 12px; }
-    .users-edit .inputfile + label .svg-icon svg {
+    .users-edit .inputfile + label .svg-icon svg, .users-update .inputfile + label .svg-icon svg {
       max-width: 18px;
       max-height: 18px;
       margin-top: 6px; }
@@ -3229,8 +3288,6 @@ h1, h2 {
       top: 0;
       left: 0;
       z-index: 1; }
-  .registrations input, .sessions input {
-    border: 1px solid #54c6c6; }
   .registrations .bg-img, .sessions .bg-img {
     position: fixed;
     top: 0;
@@ -3247,7 +3304,7 @@ h1, h2 {
       padding-bottom: 0; }
     .registrations .form-content-block .columns, .registrations .form-content-block .profile-tile, .registrations .form-content-block #claim .container .claim-cta-half, #claim .container .registrations .form-content-block .claim-cta-half, .registrations .form-content-block #categories #talk-collection .category, #categories #talk-collection .registrations .form-content-block .category, .registrations .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .form-content-block .publisher, .registrations .form-content-block .landing-feature .landing-half, .landing-feature .registrations .form-content-block .landing-half, .sessions .form-content-block .columns, .sessions .form-content-block .profile-tile, .sessions .form-content-block #claim .container .claim-cta-half, #claim .container .sessions .form-content-block .claim-cta-half, .sessions .form-content-block #categories #talk-collection .category, #categories #talk-collection .sessions .form-content-block .category, .sessions .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .form-content-block .publisher, .sessions .form-content-block .landing-feature .landing-half, .landing-feature .sessions .form-content-block .landing-half {
       padding: 0; }
-      .registrations .form-content-block .columns:nth-child(2), .registrations .form-content-block .profile-tile:nth-child(2), .registrations .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .registrations .form-content-block .claim-cta-half:nth-child(2), .registrations .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .registrations .form-content-block .category:nth-child(2), .registrations .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .registrations .form-content-block .publisher:nth-child(2), .registrations .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .registrations .form-content-block .landing-half:nth-child(2), .sessions .form-content-block .columns:nth-child(2), .sessions .form-content-block .profile-tile:nth-child(2), .sessions .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .sessions .form-content-block .claim-cta-half:nth-child(2), .sessions .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .sessions .form-content-block .category:nth-child(2), .sessions .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .sessions .form-content-block .publisher:nth-child(2), .sessions .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .sessions .form-content-block .landing-half:nth-child(2) {
+      .registrations .form-content-block .columns:nth-child(even), .registrations .form-content-block .profile-tile:nth-child(even), .registrations .form-content-block #claim .container .claim-cta-half:nth-child(even), #claim .container .registrations .form-content-block .claim-cta-half:nth-child(even), .registrations .form-content-block #categories #talk-collection .category:nth-child(even), #categories #talk-collection .registrations .form-content-block .category:nth-child(even), .registrations .form-content-block #publishers #publisher-collection .publisher:nth-child(even), #publishers #publisher-collection .registrations .form-content-block .publisher:nth-child(even), .registrations .form-content-block .landing-feature .landing-half:nth-child(even), .landing-feature .registrations .form-content-block .landing-half:nth-child(even), .sessions .form-content-block .columns:nth-child(even), .sessions .form-content-block .profile-tile:nth-child(even), .sessions .form-content-block #claim .container .claim-cta-half:nth-child(even), #claim .container .sessions .form-content-block .claim-cta-half:nth-child(even), .sessions .form-content-block #categories #talk-collection .category:nth-child(even), #categories #talk-collection .sessions .form-content-block .category:nth-child(even), .sessions .form-content-block #publishers #publisher-collection .publisher:nth-child(even), #publishers #publisher-collection .sessions .form-content-block .publisher:nth-child(even), .sessions .form-content-block .landing-feature .landing-half:nth-child(even), .landing-feature .sessions .form-content-block .landing-half:nth-child(even) {
         padding-left: 12px; } }
   .registrations label, .sessions label {
     color: #29292b; }
