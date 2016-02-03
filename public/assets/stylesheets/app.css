@@ -2894,6 +2894,10 @@ section {
   .users-edit .container .pw-change, .users-update .container .pw-change {
     margin: 0;
     margin-bottom: 48px; }
+    .users-edit .container .pw-change label, .users-update .container .pw-change label {
+      margin-bottom: 4px; }
+    .users-edit .container .pw-change .button, .users-edit .container .pw-change button, .users-update .container .pw-change .button, .users-update .container .pw-change button {
+      padding: .85rem; }
 
 .users-edit .input label, .users-update .input label {
   text-align: left;
