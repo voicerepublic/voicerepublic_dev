@@ -177,7 +177,7 @@ feature "User can register" do
       page.fill_in('user_password', :with => "foobar")
       page.fill_in('user_password_confirmation', :with => "foobar")
       page.check('user_accept_terms_of_use')
-      page.find('.button-signup').click
+      page.find('.qa-signup').click
     end
     expect(current_url).to include('/onboard')
   end
@@ -188,7 +188,7 @@ feature "User can register" do
     within "#new_user" do
       page.fill_in('user_firstname', :with => "Jim")
       page.fill_in('user_lastname', :with => "Beam")
-      page.find('.button-signup').click
+      page.find('.qa-signup').click
     end
     within(".input.email.error") do
       expect(page).to have_content("can't be blank")
@@ -206,7 +206,7 @@ feature "User can register" do
       page.fill_in('user_password', :with => "foobar")
       page.fill_in('user_password_confirmation', :with => "foobar")
       page.check('user_accept_terms_of_use')
-      page.find('.button-signup').click
+      page.find('.qa-signup').click
     end
     expect(User.last.referrer).to match(/\AABC123/)
   end
