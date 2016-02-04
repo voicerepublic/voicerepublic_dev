@@ -20,7 +20,8 @@ class Mediator
 
   subscribe x: 'dj_callback', handler: DjCallback
   subscribe x: 'talk_transition'
-  subscribe x: 'user_registration'
+  subscribe x: 'lifecycle_user'
+  subscribe x: 'lifecycle_message'
 
   subscribe x: 'transaction_transition'
 
@@ -127,11 +128,18 @@ class Mediator
   end
 
 
-  def user_registration(*args)
+  def lifecycle_user(*args)
     body = args.shift
     name = body['details']['user']['name']
     email = body['details']['user']['email']
     message = "%s just registered with %s." % [name, email]
+
+    { x: 'notification', text: message }
+  end
+
+  def lifecycle_message(*args)
+    body = args.shift
+    message = "Someone has posted a message. (#{body.inspect})"
 
     { x: 'notification', text: message }
   end

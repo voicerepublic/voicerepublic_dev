@@ -30,14 +30,6 @@ module Emitter
             }
   end
 
-  def user_registration(user)
-    publish x: 'user_registration',
-            user: {
-              name: user.name,
-              email: user.email
-            }
-  end
-
   def transaction_transition(transaction, transition)
     publish x: 'transaction_transition',
             event: transition, # TODO rename to transition
@@ -46,9 +38,29 @@ module Emitter
 
   def dj_callback(callback, opts, job)
     publish x: 'dj_callback',
-            event: 'callback', # TODO rename to callback
+            event: callback, # TODO rename to callback
             opts: opts,
             job: job.attributes
+  end
+
+  def lifecycle(resource_type, resource, event)
+    case resource_type
+
+    when :message
+      publish x: 'lifecycle_message',
+              event: event,
+              message: resource.attributes,
+              talk_url: url_helpers.talk_url(resource.talk)
+
+    when :user
+      publish x: 'lifecycle_user',
+              event: event,
+              user: {
+                name: resource.name,
+                email: resource.email,
+                url: url_helpers.user_url(resource)
+              }
+    end
   end
 
   private

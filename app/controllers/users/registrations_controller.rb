@@ -20,7 +20,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    Emitter.user_registration(resource)
     '/onboard'
   end
 

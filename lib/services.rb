@@ -1,9 +1,10 @@
 module Services
 end
 
-# require first to resolve dependencies
+# this order is crucial
 require File.expand_path(File.join(%w(.. services connector)), __FILE__)
-
-# require rest
-pattern = File.expand_path(File.join(%w(.. services *.rb)), __FILE__)
-Dir.glob(pattern).each { |f| require(f) }
+require File.expand_path(File.join(%w(.. services local_config)), __FILE__)
+require File.expand_path(File.join(%w(.. services publisher)), __FILE__)
+require File.expand_path(File.join(%w(.. services subscriber)), __FILE__)
+require File.expand_path(File.join(%w(.. services fog_ec2)), __FILE__)
+require File.expand_path(File.join(%w(.. services auto_publish)), __FILE__)
