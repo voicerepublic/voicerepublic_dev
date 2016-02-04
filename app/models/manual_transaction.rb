@@ -32,9 +32,9 @@ class ManualTransaction < Transaction
       type: type,
       quantity: details[:quantity],
       payment: details[:payment],
-      commane: details[:comment],
+      comment: details[:comment],
       username: User.find(details[:user_id]).name,
-      admin: AdminUser.find(source_id).email
+      admin: source.email
     }
   end
 
