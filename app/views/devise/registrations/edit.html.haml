@@ -9,7 +9,7 @@
         
         %hr
         %div
-          = f.label :current_password
+          = f.label :old_password
           -#%i (we need your current password to confirm your changes)
           = f.password_field :current_password
   
@@ -18,10 +18,10 @@
         -#  %br/
         -#  = f.email_field :email
         %div
-          = f.label :password
+          = f.label :new_password
           = f.password_field :password, :autocomplete => "off"
         %div
-          = f.label :password_confirmation
+          = f.label :confirm_new_password
           = f.password_field :password_confirmation
         = link_to "Cancel", :back, class: 'button hollow muted'
         = f.submit "Update", class: 'button'
