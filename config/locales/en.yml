@@ -417,6 +417,8 @@ en:
       pricing: Pricing
       test_talk: 'Test A Talk (Free)'
       logout: Log Out
+    velvet_minimal:
+      title: Voice Republic
 
   plain_mailer:
     welcome:

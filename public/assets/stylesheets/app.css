@@ -451,7 +451,7 @@ button {
     .row.large-uncollapse > .column, .row.large-uncollapse > .columns, .row.large-uncollapse > .profile-tile, #claim .container .row.large-uncollapse > .claim-cta-half, #categories #talk-collection .row.large-uncollapse > .category, #publishers #publisher-collection .row.large-uncollapse > .publisher, .landing-feature .row.large-uncollapse > .landing-half {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem; } }
-  .row.expanded, .registrations #input-block button.row {
+  .row.expanded {
     max-width: none; }
 
 .column, .columns, .profile-tile, #claim .container .claim-cta-half, #categories #talk-collection .category, #publishers #publisher-collection .publisher, .landing-feature .landing-half {
@@ -1327,7 +1327,7 @@ kbd {
 .text-right {
   text-align: right; }
 
-.text-center, .row, h1, h2, .registrations #input-block h5 {
+.text-center, .row, h1, h2 {
   text-align: center; }
 
 .text-justify {
@@ -1435,9 +1435,9 @@ kbd {
     font-size: 0.6rem; }
   .button.small, button.small {
     font-size: 0.75rem; }
-  .button.large, button, .registrations #input-block button {
+  .button.large, button {
     font-size: 1.25rem; }
-  .button.expanded, button.expanded, .registrations #input-block button {
+  .button.expanded, button.expanded {
     display: block;
     width: 100%;
     margin-left: 0;
@@ -1842,37 +1842,37 @@ select {
     font-size: 0.6rem; }
   .button-group.small {
     font-size: 0.75rem; }
-  .button-group.large, button.button-group, .registrations #input-block button.button-group {
+  .button-group.large, button.button-group {
     font-size: 1.25rem; }
-  .button-group.expanded .button:nth-last-child(2):first-child, .registrations #input-block button.button-group .button:nth-last-child(2):first-child, .button-group.expanded button:nth-last-child(2):first-child, .registrations #input-block button.button-group button:nth-last-child(2):first-child,
-  .button-group.expanded .button:nth-last-child(2):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(2):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(2):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(2):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(2):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(2):first-child ~ button,
-  .button-group.expanded button:nth-last-child(2):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(2):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(2):first-child, .button-group.expanded button:nth-last-child(2):first-child,
+  .button-group.expanded .button:nth-last-child(2):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(2):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(2):first-child ~ button,
+  .button-group.expanded button:nth-last-child(2):first-child ~ button {
     width: 50%; }
-  .button-group.expanded .button:nth-last-child(3):first-child, .registrations #input-block button.button-group .button:nth-last-child(3):first-child, .button-group.expanded button:nth-last-child(3):first-child, .registrations #input-block button.button-group button:nth-last-child(3):first-child,
-  .button-group.expanded .button:nth-last-child(3):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(3):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(3):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(3):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(3):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(3):first-child ~ button,
-  .button-group.expanded button:nth-last-child(3):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(3):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(3):first-child, .button-group.expanded button:nth-last-child(3):first-child,
+  .button-group.expanded .button:nth-last-child(3):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(3):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(3):first-child ~ button,
+  .button-group.expanded button:nth-last-child(3):first-child ~ button {
     width: 33.3333333333%; }
-  .button-group.expanded .button:nth-last-child(4):first-child, .registrations #input-block button.button-group .button:nth-last-child(4):first-child, .button-group.expanded button:nth-last-child(4):first-child, .registrations #input-block button.button-group button:nth-last-child(4):first-child,
-  .button-group.expanded .button:nth-last-child(4):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(4):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(4):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(4):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(4):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(4):first-child ~ button,
-  .button-group.expanded button:nth-last-child(4):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(4):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(4):first-child, .button-group.expanded button:nth-last-child(4):first-child,
+  .button-group.expanded .button:nth-last-child(4):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(4):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(4):first-child ~ button,
+  .button-group.expanded button:nth-last-child(4):first-child ~ button {
     width: 25%; }
-  .button-group.expanded .button:nth-last-child(5):first-child, .registrations #input-block button.button-group .button:nth-last-child(5):first-child, .button-group.expanded button:nth-last-child(5):first-child, .registrations #input-block button.button-group button:nth-last-child(5):first-child,
-  .button-group.expanded .button:nth-last-child(5):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(5):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(5):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(5):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(5):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(5):first-child ~ button,
-  .button-group.expanded button:nth-last-child(5):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(5):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(5):first-child, .button-group.expanded button:nth-last-child(5):first-child,
+  .button-group.expanded .button:nth-last-child(5):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(5):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(5):first-child ~ button,
+  .button-group.expanded button:nth-last-child(5):first-child ~ button {
     width: 20%; }
-  .button-group.expanded .button:nth-last-child(6):first-child, .registrations #input-block button.button-group .button:nth-last-child(6):first-child, .button-group.expanded button:nth-last-child(6):first-child, .registrations #input-block button.button-group button:nth-last-child(6):first-child,
-  .button-group.expanded .button:nth-last-child(6):first-child ~ .button, .registrations #input-block button.button-group .button:nth-last-child(6):first-child ~ .button,
-  .button-group.expanded button:nth-last-child(6):first-child ~ .button, .registrations #input-block button.button-group button:nth-last-child(6):first-child ~ .button,
-  .button-group.expanded .button:nth-last-child(6):first-child ~ button, .registrations #input-block button.button-group .button:nth-last-child(6):first-child ~ button,
-  .button-group.expanded button:nth-last-child(6):first-child ~ button, .registrations #input-block button.button-group button:nth-last-child(6):first-child ~ button {
+  .button-group.expanded .button:nth-last-child(6):first-child, .button-group.expanded button:nth-last-child(6):first-child,
+  .button-group.expanded .button:nth-last-child(6):first-child ~ .button,
+  .button-group.expanded button:nth-last-child(6):first-child ~ .button,
+  .button-group.expanded .button:nth-last-child(6):first-child ~ button,
+  .button-group.expanded button:nth-last-child(6):first-child ~ button {
     width: 16.6666666667%; }
   .button-group.primary .button, .button-group.primary button {
     background: #2c46b0;
@@ -1940,7 +1940,7 @@ select {
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 0.5rem; }
-  .callout.large, .large#cta-panel, button#cta-panel, .registrations #input-block button#cta-panel, button.callout, .registrations #input-block button.callout {
+  .callout.large, .large#cta-panel, button#cta-panel, button.callout {
     padding-top: 3rem;
     padding-right: 3rem;
     padding-bottom: 3rem;
@@ -1978,7 +1978,7 @@ select {
 .dropdown-pane.small {
   width: 200px; }
 
-.dropdown-pane.large, button.dropdown-pane, .registrations #input-block button.dropdown-pane {
+.dropdown-pane.large, button.dropdown-pane {
   width: 400px; }
 
 [data-whatinput='mouse'] .dropdown.menu a {
@@ -2137,25 +2137,25 @@ select {
     margin-right: 1rem; }
   .menu.align-right > li {
     float: right; }
-  .menu.expanded, .registrations #input-block button.menu {
+  .menu.expanded {
     display: table;
     width: 100%; }
-    .menu.expanded > li:nth-last-child(2):first-child, .registrations #input-block button.menu > li:nth-last-child(2):first-child,
-    .menu.expanded > li:nth-last-child(2):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(2):first-child ~ li {
+    .menu.expanded > li:nth-last-child(2):first-child,
+    .menu.expanded > li:nth-last-child(2):first-child ~ li {
       width: 50%; }
-    .menu.expanded > li:nth-last-child(3):first-child, .registrations #input-block button.menu > li:nth-last-child(3):first-child,
-    .menu.expanded > li:nth-last-child(3):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(3):first-child ~ li {
+    .menu.expanded > li:nth-last-child(3):first-child,
+    .menu.expanded > li:nth-last-child(3):first-child ~ li {
       width: 33.3333333333%; }
-    .menu.expanded > li:nth-last-child(4):first-child, .registrations #input-block button.menu > li:nth-last-child(4):first-child,
-    .menu.expanded > li:nth-last-child(4):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(4):first-child ~ li {
+    .menu.expanded > li:nth-last-child(4):first-child,
+    .menu.expanded > li:nth-last-child(4):first-child ~ li {
       width: 25%; }
-    .menu.expanded > li:nth-last-child(5):first-child, .registrations #input-block button.menu > li:nth-last-child(5):first-child,
-    .menu.expanded > li:nth-last-child(5):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(5):first-child ~ li {
+    .menu.expanded > li:nth-last-child(5):first-child,
+    .menu.expanded > li:nth-last-child(5):first-child ~ li {
       width: 20%; }
-    .menu.expanded > li:nth-last-child(6):first-child, .registrations #input-block button.menu > li:nth-last-child(6):first-child,
-    .menu.expanded > li:nth-last-child(6):first-child ~ li, .registrations #input-block button.menu > li:nth-last-child(6):first-child ~ li {
+    .menu.expanded > li:nth-last-child(6):first-child,
+    .menu.expanded > li:nth-last-child(6):first-child ~ li {
       width: 16.6666666667%; }
-    .menu.expanded > li:first-child:last-child, .registrations #input-block button.menu > li:first-child:last-child {
+    .menu.expanded > li:first-child:last-child {
       width: 100%; }
   .menu.icon-top > li > a {
     text-align: center; }
@@ -2250,7 +2250,7 @@ body.is-reveal-open {
   .reveal.collapse {
     padding: 0; }
   @media screen and (min-width: 40em) {
-    .reveal .reveal, .reveal .registrations #input-block button.reveal, .registrations #input-block .reveal button.reveal {
+    .reveal .reveal {
       left: auto;
       right: auto;
       margin: 0 auto; } }
@@ -2263,7 +2263,7 @@ body.is-reveal-open {
       width: 50%;
       max-width: 75rem; } }
   @media screen and (min-width: 40em) {
-    .reveal.large, button.reveal, .registrations #input-block button.reveal {
+    .reveal.large, button.reveal {
       width: 90%;
       max-width: 75rem; } }
   .reveal.full {
@@ -2432,8 +2432,10 @@ body.is-reveal-open {
   font-weight: normal;
   font-style: normal; }
 
-html,
-body {
+html, body {
+  min-height: 100%; }
+
+html {
   -webkit-font-smoothing: antialiased;
   height: 100%;
   font-weight: 300;
@@ -2451,7 +2453,7 @@ button, .button, button {
     border-width: 2px; }
   button.small, .button.small, button.small {
     border-width: 2px; }
-  button.large, button, .registrations #input-block button, .button.large, button, .registrations #input-block button {
+  button.large, button, .button.large, button {
     border-width: 3px; }
   button .info, .button .info, button .info {
     background: rgba(255, 255, 255, 0.5); }
@@ -2892,7 +2894,7 @@ button {
     background: none;
     border-color: #2c46b0;
     color: #2c46b0; }
-  button.large, button, .registrations #input-block button {
+  button.large, button {
     border-width: 3px; }
 
 .root-index {
@@ -2945,7 +2947,7 @@ h1, h2 {
 #claim {
   text-align: center;
   padding-bottom: 96px;
-  background: url(../../images/background/matterhorn.jpg) no-repeat 50% 25%;
+  background: url(../../images/background/main-bg.jpg) no-repeat 50% 25%;
   background-size: cover; }
   #claim .down-arrow {
     width: 28px;
@@ -3147,99 +3149,123 @@ h1, h2 {
   #cta .text-link:hover {
     text-decoration: underline; }
 
-.registrations {
+.registrations, .sessions {
   height: 100%; }
-  html .registrations {
-    background: url(../../images/background/matterhorn.jpg) no-repeat 50% 50%;
+  html .registrations, html .sessions {
     background-size: cover;
     height: 100%;
     padding: 0;
     margin: 0; }
-  .registrations body {
+  .registrations body, .sessions body {
     height: 100%;
     background: none;
     text-align: center; }
-    .registrations body .bg-img {
+    .registrations body .bg-img, .sessions body .bg-img {
       position: fixed;
       top: 0;
       left: 0;
       z-index: 1; }
-  .registrations #input-block {
+  .registrations input, .sessions input {
+    border: 1px solid #54c6c6; }
+  .registrations .bg-img, .sessions .bg-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    min-width: 100%;
+    min-height: 100%; }
+  .registrations .columns, .registrations .profile-tile, .registrations #claim .container .claim-cta-half, #claim .container .registrations .claim-cta-half, .registrations #categories #talk-collection .category, #categories #talk-collection .registrations .category, .registrations #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .publisher, .registrations .landing-feature .landing-half, .landing-feature .registrations .landing-half, .sessions .columns, .sessions .profile-tile, .sessions #claim .container .claim-cta-half, #claim .container .sessions .claim-cta-half, .sessions #categories #talk-collection .category, #categories #talk-collection .sessions .category, .sessions #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .publisher, .sessions .landing-feature .landing-half, .landing-feature .sessions .landing-half {
+    padding: 0 0 12px 0; }
+  .registrations .row, .sessions .row {
+    padding: 0 -15px; }
+  @media screen and (min-width: 40em) {
+    .registrations .row, .sessions .row {
+      padding-bottom: 0; }
+    .registrations .form-content-block .columns, .registrations .form-content-block .profile-tile, .registrations .form-content-block #claim .container .claim-cta-half, #claim .container .registrations .form-content-block .claim-cta-half, .registrations .form-content-block #categories #talk-collection .category, #categories #talk-collection .registrations .form-content-block .category, .registrations .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .form-content-block .publisher, .registrations .form-content-block .landing-feature .landing-half, .landing-feature .registrations .form-content-block .landing-half, .sessions .form-content-block .columns, .sessions .form-content-block .profile-tile, .sessions .form-content-block #claim .container .claim-cta-half, #claim .container .sessions .form-content-block .claim-cta-half, .sessions .form-content-block #categories #talk-collection .category, #categories #talk-collection .sessions .form-content-block .category, .sessions .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .form-content-block .publisher, .sessions .form-content-block .landing-feature .landing-half, .landing-feature .sessions .form-content-block .landing-half {
+      padding: 0; }
+      .registrations .form-content-block .columns:nth-child(2), .registrations .form-content-block .profile-tile:nth-child(2), .registrations .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .registrations .form-content-block .claim-cta-half:nth-child(2), .registrations .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .registrations .form-content-block .category:nth-child(2), .registrations .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .registrations .form-content-block .publisher:nth-child(2), .registrations .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .registrations .form-content-block .landing-half:nth-child(2), .sessions .form-content-block .columns:nth-child(2), .sessions .form-content-block .profile-tile:nth-child(2), .sessions .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .sessions .form-content-block .claim-cta-half:nth-child(2), .sessions .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .sessions .form-content-block .category:nth-child(2), .sessions .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .sessions .form-content-block .publisher:nth-child(2), .sessions .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .sessions .form-content-block .landing-half:nth-child(2) {
+        padding-left: 12px; } }
+  .registrations label, .sessions label {
+    color: #29292b; }
+  .registrations .facebook, .sessions .facebook {
+    background: #3B5998;
+    color: white;
+    font-weight: 500; }
+    .registrations .facebook span, .sessions .facebook span {
+      line-height: 48px; }
+    .registrations .facebook .svg-icon, .sessions .facebook .svg-icon {
+      float: left;
+      display: inline-block;
+      margin-top: 4px;
+      margin-right: 24px; }
+  .registrations h2, .sessions h2 {
+    margin-bottom: 36px; }
+  .registrations .menu li, .sessions .menu li {
+    font-size: 0.75rem;
+    background: #e1e2e7; }
+    .registrations .menu li a, .sessions .menu li a {
+      color: #29292b; }
+  .registrations p.divider-title, .sessions p.divider-title {
+    font-weight: 500;
+    font-size: 0.75rem;
+    background: white;
+    width: 110px;
+    margin: 0 auto;
+    margin-top: -31px;
+    text-transform: uppercase;
+    color: #29292b;
+    letter-spacing: 0.0625rem;
+    margin-bottom: 24px; }
+  .registrations .join-logo, .sessions .join-logo {
+    max-height: 60px; }
+  .registrations .input input, .sessions .input input {
+    margin-bottom: 0; }
+  .registrations .input label, .sessions .input label {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.0625rem;
+    color: #8F939C; }
+  .registrations small.error, .sessions small.error {
+    background: #f82847;
+    color: white;
+    text-align: left;
+    float: left;
+    padding: 6px;
+    font-weight: 500;
+    width: 100%; }
+  .registrations .user_accept_terms_of_use label, .sessions .user_accept_terms_of_use label {
+    text-transform: none;
+    letter-spacing: 0; }
+  .registrations .user_accept_terms_of_use small.error, .sessions .user_accept_terms_of_use small.error {
+    width: auto; }
+  .registrations .error input, .sessions .error input {
+    border: 1px solid #f82847; }
+  .registrations select, .sessions select {
+    border: 1px solid #54c6c6; }
+  .registrations #input-block, .sessions #input-block {
     background: white;
     margin: 0;
     padding: 24px;
     z-index: 100;
     position: absolute;
     left: 0; }
-    .registrations #input-block img {
-      margin-bottom: 36px; }
-    .registrations #input-block h5 {
-      margin-bottom: 0;
-      color: #29292b;
-      font-size: 1.5rem; }
-    .registrations #input-block .lead {
-      text-transform: uppercase;
-      font-size: 0.875rem;
-      color: #b4b6be;
-      margin-bottom: 48px; }
+    .registrations #input-block img, .sessions #input-block img {
+      margin-bottom: 30px; }
     @media screen and (min-width: 40em) {
-      .registrations #input-block {
+      .registrations #input-block, .sessions #input-block {
         position: absolute;
         left: 50%;
         margin-top: 50px;
         margin-bottom: 50px;
         border-radius: 4px;
-        max-width: 600px;
-        padding: 40px 100px 40px 100px;
+        width: 600px;
+        padding: 24px 48px 24px 48px;
         margin-left: -300px; } }
-    .registrations #input-block .input-layout {
-      position: relative;
-      margin-top: 42px; }
-      .registrations #input-block .input-layout input {
-        outline: 0;
-        padding: 0;
-        box-shadow: none;
-        background: white;
-        border-bottom: 1px solid #e1e2e7;
-        height: 36px;
-        line-height: 26px;
-        font-size: 1.125rem; }
-        .registrations #input-block .input-layout input:focus {
-          outline: none;
-          border: none;
-          border-bottom: 1px solid #f82847; }
-        .registrations #input-block .input-layout input:focus ~ label {
-          top: -24px;
-          color: #f82847;
-          font-size: 0.75rem;
-          text-transform: uppercase; }
-        .registrations #input-block .input-layout input[type=text]:valid ~ label, .registrations #input-block .input-layout input[type=password]:valid ~ label {
-          top: -24px;
-          color: #b4b6be;
-          font-size: 0.75rem;
-          text-transform: uppercase; }
-      .registrations #input-block .input-layout label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        text-align: left;
-        pointer-events: none;
-        font-size: 1rem;
-        color: #b4b6be;
-        transition: all .2s ease; }
-      .registrations #input-block .input-layout .alert {
-        display: none; }
-      .registrations #input-block .input-layout:last-child {
-        margin-bottom: 0; }
-    .registrations #input-block footer {
-      background: none;
-      padding: 0;
-      padding-top: 36px;
-      color: #29292b; }
-      .registrations #input-block footer a {
-        color: #54c6c6; }
-    .registrations #input-block button:hover, .registrations #input-block button:focus {
-      background: #54c6c6; }
+
+.sessions .input {
+  margin-bottom: 12px; }
 
 @keyframes dash {
   50% {

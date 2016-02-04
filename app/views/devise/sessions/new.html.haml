@@ -1,10 +1,11 @@
 = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-
-  .input-block
+  = image_tag 'background/main-bg.jpg', class: 'bg-img'
+  #input-block
 
     .form-content-block.row
       .medium-10.medium-offset-1.columns
         .title-block
+          = image_tag 'logos/vr_red.svg', class: 'join-logo'
           %h2= t('.log_in')
         = devise_error_messages!
         = f.input :email
@@ -22,5 +23,4 @@
         %hr/
         .links-box
           = render(:partial => "/devise/shared/links")
-        %br/
-        %br/
+     

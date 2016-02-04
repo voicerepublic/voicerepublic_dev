@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 
   include Devise::Controllers::Rememberable
+  layout 'velvet_minimal'
 
   # POST /resource/sign_in
   def create
