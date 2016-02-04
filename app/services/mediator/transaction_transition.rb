@@ -5,17 +5,18 @@ class Mediator
     include Services::LocalConfig
 
     TEMPLATES = {
-      :deduct => 'Admin #{admin} deducted #{quantity} credits from #{name} with comment: #{comment}',
-      :undo   => 'Admin #{admin} undid a booking for #{name}, by deducting #{quantity} credits ' +
-                 'and giving EUR #{payment} back with comment: #{comment}',
-      :donate => 'Admin #{admin} donated #{} credits to #{} with comment: #{}',
-      :sale   => 'Admin #{admin} sold #{} credits for EUR #{} to #{} with comment: #{}',
-      :track  => 'Admin #{admin} tracked a sale of EUR #{} to #{}, ' +
-                 'restrospectively with comment: #{}',
-      :noop   => 'Admin #{admin} contemplated about the meaning of life with comment: #{}',
-      :weird  => 'Admin #{admin} and #{name} seem to be in cahoots. Alert the authorities, ' +
-                 'fishy transaction going on with comment: #{comment}'
+      :deduct => "Admin #{admin} deducted #{quantity} credits from #{name} with comment: #{comment}",
+      :undo   => "Admin #{admin} undid a booking for #{name}, by deducting #{quantity} credits " +
+                 "and giving EUR #{payment} back with comment: #{comment}",
+      :donate => "Admin #{admin} donated #{quantity} credits to #{name} with comment: #{comment}",
+      :sale   => "Admin #{admin} sold #{amount} credits for EUR #{payment} to #{name} with comment: #{comment}",
+      :track  => "Admin #{admin} tracked a sale of EUR #{payment} to #{name}, " +
+                 "restrospectively with comment: #{comment}",
+      :noop   => "Admin #{admin} contemplated about the meaning of life with comment: #{comment}",
+      :weird  => "Admin #{admin} and #{name} seem to be in cahoots. Alert the authorities, " +
+                 "fishy transaction going on with comment: #{comment}"
     }
+
 
     def call(*args)
       body = args.shift
