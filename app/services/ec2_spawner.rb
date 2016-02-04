@@ -7,7 +7,7 @@ class Ec2Spawner
 
   subscribe q: 'spawn_server'
 
-  def spawn_server(info, prop, body, opts)
+  def spawn_server(*args)
     server = fog.servers.create
     Thread.new do
       server.wait_for { ready? }

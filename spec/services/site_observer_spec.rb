@@ -12,7 +12,10 @@ describe SiteObserver do
   end
 
   it 'should populate with servers' do
-    @observer.site_observer(nil, nil, {'url' => 'http://127.0.0.1'}, nil)
+    payload = {
+      'url' => 'http://127.0.0.1'
+    }
+    @observer.site_observer(payload)
     expect(@observer.sites).not_to be_empty
     expect(@observer.sites.first).to eq('http://127.0.0.1')
   end

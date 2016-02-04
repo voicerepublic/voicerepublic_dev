@@ -8,7 +8,8 @@ class Ec2Reaper
 
   subscribe q: 'reap_server'
 
-  def reap_server(info, prop, body, opts)
+  def reap_server(*args)
+    body = args.shift
     id = body['id']
     fog.server_by_id(id).destroy
   end

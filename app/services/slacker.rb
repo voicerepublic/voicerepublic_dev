@@ -9,8 +9,8 @@ class Slacker
 
   subscribe x: 'notification'
 
-  def notification(info, prop, body, opts)
-    slack(body)
+  def notification(*args)
+    slack(body.shift)
   end
 
   private

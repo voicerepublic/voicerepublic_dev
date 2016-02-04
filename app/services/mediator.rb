@@ -25,7 +25,8 @@ class Mediator
   subscribe x: 'transaction_transition'
 
   # TODO if job is end_talk and event/callback is success -> 'Forced to end Talk...'
-  def talk_transition(info, prop, body, opts)
+  def talk_transition(*args)
+    body = args.shift
     event = body['details']['event'] * '.'
     intros = {
       'created.prelive.prepare'      => 'Has been created',
@@ -127,7 +128,8 @@ class Mediator
   end
 
 
-  def user_registration(info, prop, body, opts)
+  def user_registration(*args)
+    body = args.shift
     name = body['details']['user']['name']
     email = body['details']['user']['email']
     message = "%s just registered with %s." % [name, email]

@@ -36,7 +36,8 @@ class SiteObserver
     super # Services::Subscriber#run
   end
 
-  def site_observer(info, prop, body, opts)
+  def site_observer(*args)
+    body = args.shift
     url = body['url']
     self.sites |= [url]
     self.failed[url] = 0

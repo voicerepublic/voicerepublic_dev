@@ -15,31 +15,36 @@ class ControlCenter
   subscribe x: 'talk_transition'
   subscribe x: 'transaction_transition'
 
-  def streamer_transition(info, prop, body, opts)
+  def streamer_transition(*args)
+    # body, prop, info, opts = *args
     # if state now 'ready'
     # if talk.starts_at - now <= 30 min
     # details = { tpye: t2.micro, password: password, ami: ami }
     # publish q: 'spawn_server', details: details
   end
 
-  def sites_observed(info, prop, body, opts)
+  def sites_observed(*args)
+    # body, prop, info, opts = *args
     # TODO do some number chrunching and pass message on to clients, use routing key
   end
 
-  def server_ready(info, prop, body, opts)
+  def server_ready(*args)
+    # body, prop, info, opts = *args
     # TODO a icecast server is ready, pass message on to clients, use routing key
     # publish x: 'set_streaming_server'
     # TODO publish url to icecast_observer to receive status via icecast_status
     # publish q: 'new_icecast_server', url: 'http://admin:hackem@136.243.209.123:8000/admin/stats.xml'
   end
 
-  def talk_transition(info, prop, body, opts)
+  def talk_transition(*args)
+    # body, prop, info, opts = *args
     # if talk ended
     # talk = Talk.find(id)
     # publish q: 'reap_server', id: talk.streaming_server_id
   end
 
-  def transaction_transition(info, prop, body, opts)
+  def transaction_transition(*args)
+    # body, prop, info, opts = *args
     # if event == 'processing/closed/close' and remaining < 3 and user.paying?
     # publish q: 'techne', action: 'create_task', payload: {}
   end
