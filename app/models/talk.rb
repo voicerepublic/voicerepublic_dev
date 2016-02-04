@@ -173,6 +173,7 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
+
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }
   scope :upcoming, -> { nodryrun.prelive }
@@ -182,6 +183,10 @@ class Talk < ActiveRecord::Base
   scope :reordered, -> { order('starts_at DESC') }
   scope :recent, -> { nodryrun.archived.order('ends_at DESC') }
   scope :promoted, -> { nodryrun.archived.featured.order('featured_from DESC') }
+
+  ARCHIVED_AND_LIMBO =
+    %w(archived pending postlive processing suspended).map { |s| "'#{s}'" } * ','
+  scope :archived_and_limbo, -> { where("state IN (#{ARCHIVED_AND_LIMBO})") }
 
   scope :scheduled_featured, -> do
     upcoming.featured.

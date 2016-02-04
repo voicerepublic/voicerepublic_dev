@@ -62,7 +62,7 @@ class UsersController < BaseController
         # listen later -> starts_at desc
         @live_talks        = @user.talks.live.ordered
         @upcoming_talks    = @user.talks.prelive.ordered
-        @archived_talks    = @user.talks.archived.reordered
+        @archived_talks    = @user.talks.archived_and_limbo.reordered
 
         @series            = @user.series_without_default
 
