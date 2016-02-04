@@ -1,5 +1,7 @@
 require File.expand_path(File.join(%w(.. .. .. lib services)), __FILE__)
 
+require File.expand_path(File.join(%w(.. mediator dj_callback)), __FILE__)
+
 # The Mediator's responsibility is to subscribe to relevant channels
 # and transform events into human readable notifications and forward
 # those to a notification channel.
@@ -16,55 +18,13 @@ class Mediator
   include Services::LocalConfig # provides `config`
   include Services::AutoPublish # publishes the return value of handlers
 
-  subscribe x: 'dj_callback'
+  subscribe x: 'dj_callback', handler: DjCallback
   subscribe x: 'talk_transition'
-  subscribe x: 'transaction_transition'
   subscribe x: 'user_registration'
 
-  # TODO some form of autopub for easier testing?
+  subscribe x: 'transaction_transition'
 
   # TODO if job is end_talk and event/callback is success -> 'Forced to end Talk...'
-  def dj_callback(info, prop, body, opts)
-    # * enqueued
-    # * before
-    # * after
-    # * success
-    # * error
-    # * failure
-    event = body['event']
-
-    options = body['opts']
-    id = options['id']
-    job = body['job']
-
-    handler = job['handler'].match(/struct:([^\n]+)/)[1]
-
-    message =
-      case event
-      when 'success'
-        templates = {
-          'Postprocess'     => 'Postprocessing of Talk %s is complete.',
-          'Reprocess'       => 'Reprocessing of Talk %s is complete.',
-          'DestroyTalk'     => 'Test Talk %s has been destroyed.',
-          'EndTalk'         => 'Talk %s has been ended by the system.',
-          'GenerateFlyer'   => 'Flyer for Talk %s has been generated.',
-          'ProcessOverride' => 'Override for Talk %s has been processed.',
-          'ProcessSlides'   => 'Slides for Talk %s have been processed.'
-        }
-        template = templates[handler]
-        if template.nil?
-          # "Unknown handler #{handler}"
-        else
-          template % id
-        end
-      else
-        # "Unknown event #{event}"
-      end
-
-    message.nil? ? nil : { x: 'notification', text: message }
-  end
-
-
   def talk_transition(info, prop, body, opts)
     event = body['details']['event'] * '.'
     intros = {
@@ -87,24 +47,27 @@ class Mediator
   end
 
 
-  def transaction_transition(info, prop, body, opts)
+  # NOTE trouble to refactor this into a submodule, since it needs
+  # access to `config` and `publish`
+  def transaction_transition(*args)
+    body = args.shift
     details = body['details']
-    event = details['event'] * '/'
+    event = details['event']
     type = details['type']
 
     message =
       case event
-      when 'processing/closed/close'
+      when %w(processing closed close)
         case type
         when 'PurchaseTransaction'
           # TODO
           user = 'Someone'
           product = 'something'
           price = 'some amount'
-          publish x: 'notifications',
+          publish x: 'notification',
                   channel: config.slack.revenue_channel,
                   text: '%s purchased %s for %s.' %
-                    [user, product, price]
+                  [user, product, price]
           return # abort early
 
         when 'ManualTransaction'
@@ -150,13 +113,13 @@ class Mediator
               'fishy transaction going on with comment: %s' %
               [ admin, name, comment ]
           else
-            #body
+            "Unknown movement #{movement}"
           end
         else
-          #body
+          "Unknown type #{type}"
         end
       else
-        #body
+        "Unknown transition #{event}"
       end
 
     # in lots of cases message is still nil, if so we don't send a message

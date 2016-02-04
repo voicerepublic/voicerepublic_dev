@@ -39,7 +39,12 @@ module Services
           queue.subscribe(opts) do |info, prop, body|
             body = JSON.parse(body) if prop[:content_type] == 'application/json'
             # TODO fix order of params to: body, prop, info, options
-            result = instance.send(handler, info, prop, body, options)
+            result =
+              if handler.is_a?(Symbol)
+                instance.send(handler, info, prop, body, options)
+              else
+                handler.call(body, prop, info, options)
+              end
             # auto publish feature, see Services::AutoPublish
             auto_publish(result) if instance.respond_to?(:auto_publish)
           end
