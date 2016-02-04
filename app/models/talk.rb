@@ -65,6 +65,9 @@ class Talk < ActiveRecord::Base
       # otherwise it will go its usual way via prelive
       transitions from: :created, to: :prelive
     end
+    event :abandon do
+      transitions from: :prelive, to: :postlive
+    end
     event :start_talk, timestamp: :started_at, success: :after_start do
       transitions from: :prelive, to: :live
     end
@@ -177,7 +180,8 @@ class Talk < ActiveRecord::Base
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :reordered, -> { order('starts_at DESC') }
-  scope :recent, -> { nodryrun.archived.featured.order('ends_at DESC') }
+  scope :recent, -> { nodryrun.archived.order('ends_at DESC') }
+  scope :promoted, -> { nodryrun.archived.featured.order('featured_from DESC') }
 
   scope :scheduled_featured, -> do
     upcoming.featured.
@@ -444,12 +448,17 @@ class Talk < ActiveRecord::Base
   end
 
   def set_venue
-    self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
-    self.venue ||= user.venues.find_or_create_by(name: venue_name.strip)
+    self.venue_name = venue_name.to_s.strip
+    return if venue_name.blank? and venue.present?
+    self.venue_name = 'Default venue' if venue_name.blank?
+    self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
   def set_icon
-    icon = TagBundle.tagged_with(tags).first.try(:icon)
+    bundles = TagBundle.category.tagged_with(tags, any: true)
+    icon = bundles.group(:icon).count.
+           sort_by(&:last).reverse.
+           map(&:first).compact.first
     self.icon = icon || 'default'
   end
 

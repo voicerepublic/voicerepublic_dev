@@ -12,7 +12,7 @@
           %span.play-count= human_count(talk.play_count) + t('.plays')
       .image-box
         = image_tag talk.image.thumb("600x338#").url
-        - if talk.teaser.length > 0
+        - unless talk.teaser.blank?
           .hover-info
             %p.teaser= truncate(talk.teaser, length: 500)
             - unless talk.speakers.blank?
@@ -26,11 +26,10 @@
             %strong{ class: talk.state }
               = l(talk.starts_at, format: :designed) if talk.prelive?
               = t('.onair') if talk.live?
-              - if %w(postlive processing suspended archived).include?(talk.state) 
+              - if %w(postlive processing suspended archived).include?(talk.state)
                 = t('.ago_by', time: time_ago_in_words(talk.starts_at))
           = link_to user_path(talk.user), class: "publisher" do
             = truncate(talk.user.name, length: 20)
-    - if %w(postlive processing suspended).include?(talk.state) 
+    - if %w(pending postlive processing suspended).include?(talk.state)
       .not_available
         %p.lead= t(".message.#{talk.state}")
-  
