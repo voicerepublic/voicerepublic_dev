@@ -239,3 +239,11 @@ Devise.setup do |config|
   config.secret_key = Settings.devise.secret_key
 
 end
+
+Rails.application.config.to_prepare do
+    Devise::SessionsController.layout "velvet_minimal"
+    Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "velvet"   : "velvet_minimal" }
+    Devise::ConfirmationsController.layout "velvet_minimal"
+    Devise::UnlocksController.layout "velvet_minimal"            
+    Devise::PasswordsController.layout "velvet_minimal"        
+end

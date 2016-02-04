@@ -8,8 +8,8 @@ en:
       already_confirmed: "already confirmed, please try to sign in."
       not_locked: "was not locked"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "Oops, please try again..."
+        other: "Oops, please try again..."
 
   devise:
     failure:
@@ -44,11 +44,13 @@ en:
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: 'Your account was successfully confirmed. You are now signed in.'
     registrations:
+      edit:
+        change_your_password: "Change Your Password"
       signed_up: 'Welcome! You have signed up successfully.'
       signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
       signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated.'
       signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
-      updated: 'You updated your account successfully.'
+      updated: 'Successfully updated.'
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
       new:

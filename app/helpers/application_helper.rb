@@ -11,6 +11,17 @@ module ApplicationHelper
     end
   end
 
+  # TODO: refactor into controllers
+  def render_footer?
+    return false if controller_action == 'explore-index' 
+    return false if controller_action == 'users-edit' 
+    true
+  end
+
+  def controller_action
+    [controller_name, action_name] * '-'
+  end
+
   # s works much like t, but looks up md formatted content from the db
   # and inserts it as html
   def section(key, interpolations={})
