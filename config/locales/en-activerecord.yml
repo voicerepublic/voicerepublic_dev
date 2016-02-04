@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    attributes:
+      user:
+        current_password: "Old Password"
+        password: "New Password"
+    errors:
+      models:
+        user:
+          attributes:
+            current_password:
+              invalid: "is wrong."
