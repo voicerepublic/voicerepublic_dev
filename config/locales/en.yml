@@ -334,8 +334,8 @@ en:
         Please sign up or login to use this feature.
       subscribe_to_podcast: Podcast
     actionbar:
-      login: Log In
-      sign_up: Sign Up
+      login: Sign In
+      sign_up: Join For Free
       search: Search
       explore: Explore
       my_profile: My Profile
@@ -362,8 +362,8 @@ en:
       team: Team
     navbar:
       more_talks: More talks
-      sign_up: Sign Up
-      sign_in: Log In
+      sign_up: Join For Free
+      sign_in: Sign In
       search: Search...
     notice_or_error:
       success: Successful
@@ -405,12 +405,11 @@ en:
       publish: Publish
       listen: Listen
       login: Login
-      sign_up: Sign Up
+      sign_up: Join For Free
       categories: Categories
       search_placeholder: "Search Voice Republic"
       explore: Explore
-      login: Log In
-      sign_up: Sign Up
+      login: Sign In
       search: Search
       explore: Explore
       my_profile: My Profile

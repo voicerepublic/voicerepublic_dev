@@ -8,8 +8,8 @@ en:
       already_confirmed: "already confirmed, please try to sign in."
       not_locked: "was not locked"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "Oops, please try again..."
+        other: "Oops, please try again..."
 
   devise:
     failure:
