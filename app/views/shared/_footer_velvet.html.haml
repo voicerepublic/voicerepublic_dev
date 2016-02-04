@@ -22,10 +22,11 @@
             %li= link_to t('.careers'), blog_url('/jobs')
             %li= link_to t('.imprint'), blog_url('/imprint')
       #footer-social-links
-        %a{:href => "http://twitter.com/_voicerepublic"}
-          %img{:src => "/images/logos/twitter-circle-beige.svg", :width => "36"}/
-        %a{:href => "http://facebook.com/voicerepublic"}
-          %img{:src => "/images/logos/facebook-circle-beige.svg", :width => "36"}/
+        .footer-section.large-6-.columns
+          %a{:href => "http://twitter.com/_voicerepublic"}
+            %img{:src => "/images/logos/twitter-circle-beige.svg", :width => "36"}/
+          %a{:href => "http://facebook.com/voicerepublic"}
+            %img{:src => "/images/logos/facebook-circle-beige.svg", :width => "36"}/
     .footer-section.text-left.about
       %p.lead
         %strong What Is Voice Republic

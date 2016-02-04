@@ -3319,6 +3319,20 @@ h1, h2 {
       z-index: 1; }
   .registrations label, .sessions label {
     text-align: left; }
+  .registrations #error_explanation h2, .sessions #error_explanation h2 {
+    text-transform: none;
+    color: #f82847;
+    font-size: 1.125rem;
+    letter-spacing: 0;
+    margin-bottom: 12px;
+    text-align: left; }
+  .registrations #error_explanation ul, .sessions #error_explanation ul {
+    list-style-type: decimal;
+    text-align: left;
+    font-size: 0.875rem;
+    margin-bottom: 24px;
+    color: #f82847;
+    font-weight: 500; }
   .registrations .bg-img, .sessions .bg-img {
     position: fixed;
     top: 0;
@@ -3649,10 +3663,11 @@ footer {
     #footer-social-links {
       text-align: center; } }
   #footer-social-links a {
-    font-size: 1.5rem;
-    margin-right: 24px; }
+    font-size: 1.5rem; }
     #footer-social-links a:hover {
       text-decoration: none; }
+  #footer-social-links a:first-child {
+    margin-left: 12px; }
 
 .logo a span {
   font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
