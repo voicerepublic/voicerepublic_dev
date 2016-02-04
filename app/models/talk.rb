@@ -444,12 +444,17 @@ class Talk < ActiveRecord::Base
   end
 
   def set_venue
-    self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
-    self.venue ||= user.venues.find_or_create_by(name: venue_name.strip)
+    self.venue_name = venue_name.to_s.strip
+    return if venue_name.blank? and venue.present?
+    self.venue_name = 'Default venue' if venue_name.blank?
+    self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
   def set_icon
-    icon = TagBundle.tagged_with(tags).first.try(:icon)
+    bundles = TagBundle.category.tagged_with(tags, any: true)
+    icon = bundles.group(:icon).count.
+           sort_by(&:last).reverse.
+           map(&:first).compact.first
     self.icon = icon || 'default'
   end
 
