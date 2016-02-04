@@ -15,7 +15,7 @@ module ValidUserRequestHelper
   end
 
   def click_to_signup
-    within('.top-bar') { click_link('Sign Up') }
+    within('.top-bar') { click_link('Join For Free') }
   end
 
   def click_forgot_password
