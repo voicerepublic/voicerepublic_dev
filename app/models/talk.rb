@@ -177,7 +177,8 @@ class Talk < ActiveRecord::Base
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :reordered, -> { order('starts_at DESC') }
-  scope :recent, -> { nodryrun.archived.featured.order('ends_at DESC') }
+  scope :recent, -> { nodryrun.archived.order('ends_at DESC') }
+  scope :promoted, -> { nodryrun.archived.featured.order('featured_from DESC') }
 
   scope :scheduled_featured, -> do
     upcoming.featured.
