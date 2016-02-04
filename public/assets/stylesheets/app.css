@@ -2769,7 +2769,7 @@ section {
     min-width: 117px;
     height: 66px;
     min-height: 66px; }
-  .profile-row .date, .profile-row .talk-card .talk-card-inside .image-box .hover-info .speaker, .talk-card .talk-card-inside .image-box .hover-info .profile-row .speaker {
+  .profile-row .date {
     color: rgba(255, 255, 255, 0.5); }
 
 .users-show {
@@ -3913,7 +3913,7 @@ footer {
       letter-spacing: 0.0625rem;
       color: rgba(41, 41, 43, 0.5);
       margin-bottom: 6px; }
-    .talk-card .talk-card-inside .date, .talk-card .talk-card-inside .image-box .hover-info .speaker {
+    .talk-card .talk-card-inside .date {
       margin: 0;
       font-size: 0.6875rem;
       line-height: 0.75rem;
@@ -3921,7 +3921,7 @@ footer {
       letter-spacing: 0.0625rem;
       color: rgba(41, 41, 43, 0.5);
       margin-bottom: 6px; }
-      .talk-card .talk-card-inside .date strong, .talk-card .talk-card-inside .image-box .hover-info .speaker strong {
+      .talk-card .talk-card-inside .date strong {
         font-weight: 500; }
     .talk-card .talk-card-inside .image-box {
       margin-bottom: 12px;
@@ -3936,13 +3936,15 @@ footer {
         background-color: rgba(41, 41, 43, 0.9);
         opacity: 0;
         transition: opacity .2s ease; }
-        .talk-card .talk-card-inside .image-box .hover-info .speaker {
+        .talk-card .talk-card-inside .image-box .hover-info .teaser {
+          font-size: 0.75rem;
+          line-height: 0.875rem;
           color: #e1e2e7; }
-          .talk-card .talk-card-inside .image-box .hover-info .speaker a {
+          .talk-card .talk-card-inside .image-box .hover-info .teaser a {
             text-decoration: none;
             text-transform: none;
             color: white; }
-            .talk-card .talk-card-inside .image-box .hover-info .speaker a:hover {
+            .talk-card .talk-card-inside .image-box .hover-info .teaser a:hover {
               text-decoration: underline; }
     .talk-card .talk-card-inside .title, .series > .talk-card .talk-card-inside {
       display: block;
@@ -3966,7 +3968,7 @@ footer {
       box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); }
     .talk-card .talk-card-inside:hover > .title {
       text-decoration: underline; }
-    .talk-card .talk-card-inside:hover > .image-box .hover-info {
+    .talk-card .talk-card-inside:hover .hover-info {
       display: block !important;
       opacity: 1; }
     .talk-card .talk-card-inside .svg-icon {

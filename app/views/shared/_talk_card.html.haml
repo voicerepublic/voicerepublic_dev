@@ -12,12 +12,13 @@
           %span.play-count= human_count(talk.play_count) + t('.plays')
       .image-box
         = image_tag talk.image.thumb("600x338#").url
-        .hover-info
-          %p.teaser= truncate(talk.teaser, length: 200)
-          - unless talk.speakers.blank?
-            %p.speaker
-              = t('.speaker')
-              = talk.speakers
+        - if talk.teaser.length > 0
+          .hover-info
+            %p.teaser= truncate(talk.teaser, length: 500)
+            - unless talk.speakers.blank?
+              %p.speaker
+                = t('.speaker')
+                = talk.speakers
       .bottom-info
         = icon_tag talk.icon
         .info-right
