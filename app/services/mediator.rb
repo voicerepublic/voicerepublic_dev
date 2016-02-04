@@ -24,7 +24,6 @@ class Mediator
 
   subscribe x: 'transaction_transition'
 
-  # TODO if job is end_talk and event/callback is success -> 'Forced to end Talk...'
   def talk_transition(*args)
     body = args.shift
     event = body['details']['event'] * '.'
