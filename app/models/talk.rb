@@ -65,6 +65,9 @@ class Talk < ActiveRecord::Base
       # otherwise it will go its usual way via prelive
       transitions from: :created, to: :prelive
     end
+    event :abandon do
+      transitions from: :prelive, to: :postlive
+    end
     event :start_talk, timestamp: :started_at, success: :after_start do
       transitions from: :prelive, to: :live
     end
