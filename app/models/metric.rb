@@ -172,7 +172,9 @@ class Metric < ActiveRecord::Base
     # probably be to do some warehousing on this metric per talk when
     # adding a new listener.
     def live_listeners_total
-      Talk.pluck(:listeners).collect { |l| l.count }.sum
+      Listener.count +
+        # TODO remove legacy stuff
+        Talk.pluck(:listeners).reject(&:nil?).map(&:count).sum
     end
 
     # Metrics (yes, this is pretty meta)

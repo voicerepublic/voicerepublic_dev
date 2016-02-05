@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121145313) do
+ActiveRecord::Schema.define(version: 20160205084732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,17 @@ ActiveRecord::Schema.define(version: 20160121145313) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "listeners", force: :cascade do |t|
+    t.integer  "talk_id"
+    t.integer  "user_id"
+    t.string   "session"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "listeners", ["talk_id"], name: "index_listeners_on_talk_id", using: :btree
+  add_index "listeners", ["user_id"], name: "index_listeners_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
@@ -277,7 +288,8 @@ ActiveRecord::Schema.define(version: 20160121145313) do
     t.float    "penalty",                          default: 1.0
     t.boolean  "dryrun",                           default: false
     t.text     "social_links",                     default: "--- []"
-    t.text     "listeners",                        default: "--- {}"
+    t.text     "listeners_legacy",                 default: "--- {}"
+    t.string   "slides_uid"
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
@@ -371,6 +383,8 @@ ActiveRecord::Schema.define(version: 20160121145313) do
   add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
+  add_foreign_key "listeners", "talks"
+  add_foreign_key "listeners", "users"
   add_foreign_key "talks", "venues"
   add_foreign_key "venues", "users"
 end
