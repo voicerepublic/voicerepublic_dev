@@ -16,3 +16,7 @@ class Ec2Metrics
   end
 
 end
+
+# SERVICE Ec2Metrics
+# => FogEc2
+# -> cloud_metrics

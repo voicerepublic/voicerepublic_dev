@@ -50,3 +50,8 @@ class Slacker
   end
 
 end
+
+
+# SERVICE Slacker
+# notification ->
+# => Slack

@@ -15,3 +15,7 @@ class Ec2Reaper
   end
 
 end
+
+# SERVICE Ec2Reaper
+# reap_server ->
+# => FogEc2

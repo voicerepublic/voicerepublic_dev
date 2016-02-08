@@ -17,3 +17,8 @@ class Ec2Spawner
   end
 
 end
+
+# SERVICE Ec2Spawner
+# spawn_server ->
+# -> server_ready
+# => FogEc2

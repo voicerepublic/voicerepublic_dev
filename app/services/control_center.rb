@@ -4,6 +4,7 @@ puts 'booting rails...'
 require File.expand_path(File.join(%w(.. .. .. config environment)), __FILE__)
 
 # The ControlCenter ties all other services together.
+#
 class ControlCenter
 
   include Services::Subscriber
@@ -43,10 +44,14 @@ class ControlCenter
     # publish q: 'reap_server', id: talk.streaming_server_id
   end
 
-  def transaction_transition(*args)
-    # body, prop, info, opts = *args
-    # if event == 'processing/closed/close' and remaining < 3 and user.paying?
-    # publish q: 'techne', action: 'create_task', payload: {}
-  end
-
 end
+
+# SERVICE ControlCenter
+# streamer_transition ->
+# sites_observed ->
+# server_ready ->
+# talk_transition ->
+# transaction_transition ->
+# -> spawn_server
+# -> new_icecast_server
+# -> reap_server

@@ -157,3 +157,12 @@ class Mediator
   end
 
 end
+
+# SERVICE Mediator
+# dj_callback ->
+# talk_transition ->
+# lifecycle_user ->
+# lifecycle_message ->
+# transaction_transition ->
+# -> notification
+# -> techne

@@ -6,7 +6,6 @@ require 'active_support/core_ext'
 
 require File.expand_path(File.join(%w(.. .. .. lib services)), __FILE__)
 
-# q:site_observer -> x:sites_observed
 class SiteObserver
 
   include Services::Subscriber
@@ -15,7 +14,7 @@ class SiteObserver
   DELAY = 4 # 4 seconds
   STRIKES = 3 # and you're out
 
-  subscribe q: 'site_observer'
+  subscribe q: 'observe_site'
 
   attr_accessor :sites, :failed
 
@@ -70,3 +69,9 @@ class SiteObserver
   end
 
 end
+
+
+# SERVICE SiteObserver
+# observe_site ->
+# -> sites_observed
+# => Sites
