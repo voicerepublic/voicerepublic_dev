@@ -7,7 +7,7 @@ module Services
     include LocalConfig
 
     def publish(options)
-      return unless config.bunny.try(:enabled)
+      return unless config.bunny and config.bunny.enabled
 
       # hacky way to make sure we don't use rabbitmq in specs
       return if ENV['RAILS_ENV'] == 'test' or ENV['CI']

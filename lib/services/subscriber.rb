@@ -39,7 +39,8 @@ module Services
           queue.subscribe(opts) do |info, prop, body|
             body = JSON.parse(body) if prop[:content_type] == 'application/json'
             result =
-              if handler.is_a?(Symbol)
+              case handler
+              when Symbol, String
                 instance.send(handler, body, prop, info, options)
               else
                 handler.call(body, prop, info, options)

@@ -10,7 +10,8 @@ class Slacker
   subscribe x: 'notification'
 
   def notification(*args)
-    slack(body.shift)
+    body = args.shift
+    slack(body)
   end
 
   private

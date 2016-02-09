@@ -10,7 +10,6 @@ class Inspector
   subscribe handler: :handler, x: 'lifecycle_user'
   subscribe handler: :handler, x: 'lifecycle_message'
   subscribe handler: :handler, x: 'transaction_transition'
-
   subscribe handler: :handler, x: 'notification'
 
   def handler(*args)

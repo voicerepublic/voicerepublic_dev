@@ -146,7 +146,7 @@ class Mediator
 
 
   def run
-    notify text: 'Mediator started.'
+    publish x: 'notification', text: 'Mediator started.'
     super
   end
 
