@@ -4,7 +4,7 @@ class TalksController < BaseController
   before_action :authenticate_user!, except: [:show]
   before_action :redirect_if_low_on_credits, only: :new
 
-  layout 'velvet'
+  #layout 'velvet'
 
   # GET /talks/1
   def show

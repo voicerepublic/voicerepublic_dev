@@ -4059,3 +4059,34 @@ footer {
     margin-bottom: 12px; }
   .series .talk-card-inside .title, .series .talk-card-inside p.lead {
     color: #121214; }
+
+#new_talk {
+  background: #f2f2f2;
+  text-align: center; }
+  #new_talk h3 {
+    color: #121214;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.125rem; }
+  #new_talk .form-block {
+    background: white;
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 62.5rem;
+    margin: 0 auto; }
+  #new_talk label {
+    text-align: left; }
+  #new_talk hr {
+    margin-top: 48px;
+    margin-bottom: 48px; }
+  #new_talk small.error {
+    background: #f82847;
+    color: white;
+    text-align: left;
+    float: left;
+    padding: 6px;
+    font-weight: 500;
+    width: 100%; }
+  #new_talk .error input, #new_talk .error textarea {
+    border: 1px solid #f82847;
+    margin-bottom: 0; }
