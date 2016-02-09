@@ -35,7 +35,7 @@ feature "User edits own profile" do
                                password_confirmation: '123456')
     visit root_path
     expect(page).to have_css('.top-bar')
-    within('.top-bar') { click_link('Log In') }
+    page.find('.qa-login').click
     page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.find('.button-login').click
@@ -109,7 +109,7 @@ feature "Password" do
       fill_in "user_password", :with => "foobar"
       click_on "Save"
       fill_in "user_password_confirmation", :with => "foobar1"
-      expect(page).to have_content "Password confirmation doesn't match Password"
+      expect(page).to have_content "Password confirmation doesn't match New Password"
       fill_in "user_password", :with => "foobar"
       fill_in "user_password_confirmation", :with => "foobar"
       click_on "Save"

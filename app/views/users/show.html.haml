@@ -23,12 +23,17 @@
 
       %h3.user-name=@user.name
       - if can? :manage, @user
-        = link_to [:edit, @user], class: 'button tiny hollow secondary' do
-          -#= icon_tag 'pencil'
-          = t('.edit_profile') %p#user-description
-        - if @user.summary.blank? and can? :manage, @user
-          = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
-        - else
+        %p
+          = link_to [:edit, @user], class: 'button tiny hollow secondary' do
+            -#= icon_tag 'pencil'
+            = t('.edit_profile')
+        %p#user-description
+          - if @user.summary.blank? and can? :manage, @user
+            = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+          - else
+            = @user.summary
+      - else
+        %p#user-description
           = @user.summary
 
         -#%p.website-link

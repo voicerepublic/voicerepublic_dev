@@ -11,7 +11,7 @@
           = f.label :old_password
           -#%i (we need your current password to confirm your changes)
           = f.password_field :current_password
-  
+
         -#%div
         -#  = f.label :email
         -#  %br/
@@ -22,9 +22,8 @@
         %div
           = f.label :confirm_new_password
           = f.password_field :password_confirmation
-        = link_to "Cancel", :back, class: 'button hollow muted'
+        = link_to "Cancel", [:edit, current_user], class: 'button hollow muted'
         = f.submit "Update", class: 'button'
       -#%h3 Cancel my account
       -#%p
         Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
-      

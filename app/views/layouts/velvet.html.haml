@@ -42,8 +42,8 @@
           %li#mobile-logo.logo.show-for-small-only
             %a
               %img{:src => "/images/logos/vr_red.svg", :width => "60"}/
-        
-            
+
+
       .top-bar-right
         %ul.dropdown.menu{"data-dropdown-menu" => ""}
           %li.has-submenu.can-hide.hide-for-small-only
@@ -63,9 +63,9 @@
           -# %li.can-hide= link_to t('.publish'), page_path('publish')
           - if !current_user
             %li.sign-in.can-hide.hide-for-small-only
-              = link_to t('.login'), new_user_session_path
+              = link_to t('.login'), new_user_session_path, class: 'qa-login'
             %li.join.can-hide.hide-for-small-only
-              = link_to t('.sign_up'), new_user_registration_path
+              = link_to t('.sign_up'), new_user_registration_path, class: 'qa-signup'
 
 
 
@@ -105,12 +105,12 @@
           - if current_user
             = link_to(destroy_user_session_path, method: :delete) do
               = t('.logout')
-    
 
-    
-    = yield 
+
+
+    = yield
     = render 'shared/footer_velvet' if render_footer?
-    
+
 
     #scripts
       %script{:src => "/assets/javascripts/libraries.min.js"}

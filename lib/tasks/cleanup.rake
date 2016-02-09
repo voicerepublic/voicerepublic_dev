@@ -40,8 +40,7 @@ namespace :cleanup do
   desc 'Set abandoned talks(host never showed up) to state postlive'
   task :fix_abandoned_talk_state => :environment do
     Talk.prelive.where("ends_at < ?", DateTime.now).each do |t|
-      t.update_attribute :state, :postlive
-      t.save!
+      t.abandon!
     end
   end
 
@@ -71,9 +70,9 @@ namespace :cleanup do
           listeners[k] = v
         else
           changed = true
-          res[:no]=res[:no].next 
+          res[:no]=res[:no].next
         end
-        
+
       end
       talk.update_column(:listeners, listeners) if changed
 
@@ -84,5 +83,5 @@ namespace :cleanup do
     end
     puts "Kept #{res[:yes]} saved listeners, #{res[:no]} have been deleted."
   end
-  
+
 end
