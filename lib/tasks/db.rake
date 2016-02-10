@@ -21,23 +21,41 @@ namespace :db do
 
   namespace :sync do
     task :live do
-      dump = "pgdump_production_2_#{ `hostname`.chomp }.sql"
+      puts <<-EOF
 
-      script = <<-SCRIPT
-        rake db:drop db:create
-        ssh app@voicerepublic.com "pg_dump rails_production > #{ dump } && gzip #{ dump }"
-        scp app@voicerepublic.com:#{ dump }.gz .
-        ssh app@voicerepublic.com "rm #{ dump }.gz"
-        gunzip #{ dump }.gz
-        psql #{Rails.configuration.database_configuration[Rails.env]["database"]} < #{ dump }
-        rm #{ dump }*
-      SCRIPT
+        IMPORTANT!
+
+        Please make sure you have no other process running which might
+        have a connection to the database.
+
+      EOF
+
+      dump = "pgdump_production_2_#{ `hostname`.chomp }.sql"
+      database = Rails.configuration.database_configuration[Rails.env]["database"]
+      host = 'app@voicerepublic.com'
 
       puts 'Sync production database...'
-      system script
+      Rake::Task["db:drop"].invoke
+      Rake::Task["db:create"].invoke
+      sh "ssh #{host} "+
+         "'pg_dump rails_production > #{ dump } && gzip #{ dump }'"
+      sh "scp #{host}:#{ dump }.gz ."
+      sh "ssh #{host} 'rm #{ dump }.gz'"
+      sh "gunzip #{ dump }.gz"
+      sh "psql #{database} < #{ dump }"
+      sh "rm #{ dump }*"
+
+      puts 'Sync production images... (This might take a while.)'
+      source = 'app/shared/public/system/dragonfly/production/'
+      target = 'public/system/dragonfly/development/'
+      sh "rsync -az --progress #{host}:#{source} #{target}"
     end
 
+    # TODO make this task use db:sync:live with another host set
     task :staging do
+      puts 'Please resolve the TODO before runnning this task.'
+      exit
+
       dump = "pgdump_staging_2_#{ `hostname`.chomp }.sql"
 
       script = <<-SCRIPT
@@ -71,6 +89,7 @@ namespace :db do
       SQL
 
       puts 'Anonymize database...'
+      # TODO fix db name
       system 'psql', 'vr_development', '-c', query
     end
   end
