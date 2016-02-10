@@ -3,8 +3,8 @@
 
 = f.input :dryrun, as: :hidden
 
-.form-top-box.row
-  .medium-12.columns.form-block
+.row
+  .medium-8.medium-offset-2.large-6.large-offset-3.columns.form-block
     .title-box
       %h2.form-title= form_title
 
@@ -14,15 +14,16 @@
     -# TODO some fields are protected after state prelive, add this to cancan
     -#- opts[:disabled] = true unless f.object.created?
 
-    .row.title-teaser-box
-      .medium-7.columns
-        = f.input :title, placeholder: t('.title')
-        = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
-      .medium-5.columns
-        = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
-          input_html: { class: 'languageSelect' },
-          group_method: :last, label_method: :last, value_method: :first
-        = f.input :tag_list, input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }
+    -#.row.title-teaser-box
+      
+    = f.input :title, placeholder: t('.title'), hint: t('.title_hint')
+    = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}, hint: t('.teaser_hint')
+    .medium-6.medium-offset-3.columns.clearfix
+      = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
+        input_html: { class: 'languageSelect' },
+        group_method: :last, label_method: :last, value_method: :first
+    .medium-12.columns.clearfix  
+      = f.input :tag_list, placeholder: t('.tags_placeholder'), input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }, hint: t('.thing_hint').html_safe
 
     .row
       .medium-12.columns
