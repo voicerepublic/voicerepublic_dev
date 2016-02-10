@@ -9,7 +9,7 @@
 # inject angular file upload directives and service.
 window.sencha = angular.module 'sencha', ['angularFileUpload']
 
-configFunc = ($logProvider, $httpProvider) ->
+configFunc = ($logProvider, $httpProvider, $sceDelegateProvider) ->
 
   # see app/assets/javascripts/components/persisted_log.js
   # for modifications to `console.log`
@@ -22,9 +22,7 @@ configFunc = ($logProvider, $httpProvider) ->
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
 
-
-window.sencha.config ($sceDelegateProvider) ->
   $sceDelegateProvider.resourceUrlWhitelist(["self", "**"])
 
-configFunc.$inject = ['$logProvider', '$httpProvider']
+configFunc.$inject = ['$logProvider', '$httpProvider', '$sceDelegateProvider']
 window.sencha.config configFunc
