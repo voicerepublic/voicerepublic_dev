@@ -1,0 +1,10 @@
+.row
+	.medium-8.medium-offset-2.large-6.large-offset-3.columns.not-found
+		= icon_tag 'cactus'
+		%h2= t('.oops')
+		%p.lead= t('.nothing_here')
+		%hr
+		%p.lead= t('.something_else')
+.row
+	.talk-holder.text-center
+		= render partial: 'shared/talk_card', locals: {talk: @talk}
