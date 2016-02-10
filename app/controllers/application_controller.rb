@@ -113,4 +113,21 @@ class ApplicationController < ActionController::Base
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
   end
 
+
+  # === Better Exception Handling ===
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActionController::RoutingError, with: :routing_error
+  # ActionView::Template::Error
+  # ActionController::InvalidAuthenticityToken
+  # Errno::ENOSPC
+
+  def record_not_found
+    @talk = Talk.promoted.first
+    render action: 'record_not_found', status: 404, layout: 'velvet'
+  end
+
+  def routing_error
+    render action: 'routing_error', status: 404, layout: 'velvet'
+  end
+
 end
