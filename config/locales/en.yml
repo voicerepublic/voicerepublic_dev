@@ -334,11 +334,11 @@ en:
         Please sign up or login to use this feature.
       subscribe_to_podcast: Podcast
     actionbar:
-      login: Log In
-      sign_up: Sign Up
+      login: Sign In
+      sign_up: Join For Free
       search: Search
       explore: Explore
-      my_profile: Profile
+      my_profile: My Profile
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
@@ -360,10 +360,21 @@ en:
       fb: Voice Republic on facebook
       tw: Voice Republic on twitter
       team: Team
+    footer_velvet: 
+      about: About
+      pricing: Pricing
+      support_and_faq: Support & FAQ
+      blog: Blog
+      terms_and_privacy: Terms & Privacy
+      press: Press
+      service_status: Service Status
+      contact: Contact
+      careers: Careers
+      imprint: Imprint
     navbar:
       more_talks: More talks
-      sign_up: Sign Up
-      sign_in: Log In
+      sign_up: Join For Free
+      sign_in: Sign In
       search: Search...
     notice_or_error:
       success: Successful
@@ -396,6 +407,8 @@ en:
   layouts:
     application:
       landing_title: Voice Republic - Home To The Spoken Word
+    velvet_minimal:
+      title: Voice Republic
     support:
       title: Voice Republic - Support
     velvet:
@@ -403,20 +416,21 @@ en:
       publish: Publish
       listen: Listen
       login: Login
-      sign_up: Sign Up
+      sign_up: Join For Free
       categories: Categories
       search_placeholder: "Search Voice Republic"
       explore: Explore
-      login: Log In
-      sign_up: Sign Up
+      login: Sign In
       search: Search
       explore: Explore
-      my_profile: Profile
+      my_profile: My Profile
       schedule_talk: Schedule A Live Talk
       upload_talk: Upload A Recording
       pricing: Pricing
       test_talk: 'Test A Talk (Free)'
       logout: Log Out
+    velvet_minimal:
+      title: Voice Republic
 
   plain_mailer:
     welcome:

@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+  extend ApplicationHelper
+
+  # a bunch of redirects
+  scope 'r' do
+    get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))
+    get 'terms',    to: redirect(blog_url('/terms-of-use'))
+    get 'username', to: redirect('/support/username') # TODO change to blog
+  end
+
   get 'pages/:action' => 'pages'
 
   # TODO these will probably have to goe
@@ -15,11 +24,13 @@ Rails.application.routes.draw do
   get 'talks', to: redirect('explore')
 
   get 'explore', to: 'explore#index'
-  get 'explore/live',     as: 'live_talks'
-  get 'explore/popular',  as: 'popular_talks'
-  get 'explore/featured', as: 'featured_talks'
-  get 'explore/recent',   as: 'recent_talks'
-  get 'explore/upcoming', as: 'upcoming_talks'
+
+  # be nice, have some redirects for deprecated urls
+  get 'explore/live',     to: redirect('/explore')
+  get 'explore/popular',  to: redirect('/explore')
+  get 'explore/featured', to: redirect('/explore')
+  get 'explore/recent',   to: redirect('/explore')
+  get 'explore/upcoming', to: redirect('/explore')
 
   resources :uploads, only: [ :new, :create ]
 
@@ -92,10 +103,15 @@ Rails.application.routes.draw do
 
   get '/onboard', to: 'users#onboard'
 
-  # old school
-  resource :embed_talk, only: :show
-  # new school
-  get 'embed/:id', to: 'embed_talks#show', as: 'embed'
+
+  scope 'embed' do
+    # old school
+    get ':id', to: 'embed/talks#show', as: 'embed'
+    # new school
+    get 'talks/:id', to: 'embed/talks#show', as: 'embed_talk'
+    get 'series/:id', to: 'embed/series#show', as: 'embed_series'
+  end
+
 
   get "root/index"
   root :to => "root#index"

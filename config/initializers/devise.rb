@@ -9,7 +9,7 @@ Devise.setup do |config|
   config.mailer_sender = Settings.devise.from_address
 
   # Configure the class responsible to send e-mails.
-  # config.mailer = "Devise::Mailer"
+  config.mailer = "CustomDeviseMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -238,4 +238,12 @@ Devise.setup do |config|
 
   config.secret_key = Settings.devise.secret_key
 
+end
+
+Rails.application.config.to_prepare do
+    Devise::SessionsController.layout "velvet_minimal"
+    Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "velvet"   : "velvet_minimal" }
+    Devise::ConfirmationsController.layout "velvet_minimal"
+    Devise::UnlocksController.layout "velvet_minimal"            
+    Devise::PasswordsController.layout "velvet_minimal"        
 end

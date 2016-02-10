@@ -20,6 +20,10 @@
   .large-12.text-center= t('.initializing')
 
 .layout-talk(ng-controller='LivepageController' ng-cloak ng-class="{'state-talk-live': talkIsLive()}")
+
+  %audio(autoplay='true' ng-if='receiveIcecast()')
+    %source(ng-src='{{icecastUrl()}}')
+
   = render 'debugger' if current_user.try(:developer?) or Rails.env.development?
   .header-block(style="background-image: url(#{@talk.image.url})")
     .row.alert-box.alert.rounded.centered(ng-show='!hasFlash() && talkIsLive()')
@@ -46,7 +50,7 @@
               %h3= t('.embed_this_talk')
               %br/
               %textarea
-                <iframe width="445" height="220" src="#{embed_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                <iframe width="445" height="220" src="#{embed_talk_url(@talk)}" frameborder="0" scrolling="no" allowfullscreen></iframe>
               %span.embed-help-text= t('.copy_text')
               %a.close-reveal-modal= raw '&#215;'
 
@@ -88,6 +92,11 @@
           %a= t('.talk_suspended')
         .suspended-message(ng-show='showSuspendedToHost()')
           %a= t('.talk_suspended_for_host').html_safe
+
+        -# ICECAST INSTRUCTIONS
+        %div(ng-if='showIcecastInstructions()')
+          = render 'icecast_instructions'
+
         -#PLAYER TODO: better integrate player with angularjs
         - if @talk.archived?
           -# PLAYER
@@ -207,7 +216,7 @@
             .avatar-box
               = render partial: "shared/avatar", locals: { size: 62 }
               .avatar-name.text-center
-                %a(href="{{user.link}}")
+                %a(ng-href="{{user.link}}")
                   {{ user.name }}
             .host-actions(ng-show='showHostActions()')
               %a.guest-demote-link(href="#" title="#{t('.dismiss')}" ng-click="demote(user.id)")
@@ -408,7 +417,7 @@
                       %table
                         %tr
                           %td
-                            %a(href="{{ user.link }}")
+                            %a(ng-href="{{ user.link }}")
                               {{ user.name }}
                   .host-actions(ng-show='showHostActions()')
                     .give-mic-link.text-center(ng-click="promote(user.id)")
@@ -424,7 +433,7 @@
                       %table
                         %tr
                           %td
-                            %a(href="{{ user.link }}")
+                            %a(ng-href="{{ user.link }}")
                               {{ user.name }}
 
             .participating(ng-show='participants().length')
@@ -437,7 +446,7 @@
                       %table
                         %tr
                           %td
-                            %a(href="{{ user.link }}")
+                            %a(ng-href="{{ user.link }}")
                               {{ user.name }}
                   .host-actions(ng-show='showHostActions()')
                     .guest-promote-link.text-center(ng-click="promote(user.id)")

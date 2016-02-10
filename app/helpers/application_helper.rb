@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def default_content(locale, key)
     keys = [locale.to_s] + key.split('.')
-    keys.reduce(CONTENT) do |r, k|
+    keys.reduce(sections) do |r, k|
       case r
       when String then r
       when nil then nil
@@ -11,9 +11,20 @@ module ApplicationHelper
     end
   end
 
+  # TODO: refactor into controllers
+  def render_footer?
+    return false if controller_action == 'explore-index' 
+    return false if controller_action == 'users-edit' 
+    true
+  end
+
+  def controller_action
+    [controller_name, action_name] * '-'
+  end
+
   # s works much like t, but looks up md formatted content from the db
   # and inserts it as html
-  def section(key)
+  def section(key, interpolations={})
     if key.to_s.first == "."
       if @virtual_path
         key = @virtual_path.gsub(%r{/_?}, ".") + key.to_s
@@ -27,7 +38,12 @@ module ApplicationHelper
       section.save
       section.reload
     end
-    section.content_as_html.html_safe
+    section = section.content_as_html
+    section = interpolations.inject(section) do |result, interpolation|
+      name, value = interpolation
+      result.gsub("%{#{name}}", value)
+    end
+    section.html_safe
   end
   alias_method :s, :section
 
@@ -86,10 +102,13 @@ module ApplicationHelper
       # "#{tag} p#{patchlevel} (#{date})"
       "#{tag} p#{patchlevel}"
     end
+  end
 
-    def load_default_content
+  def sections
+    # TODO read all yaml files from config/sections
+    # TODO check if files changed and reread
+    @sections = # TODO then activate caching with ||=
       YAML.load(File.read(Rails.root.join('config/sections.yml')))
-    end
   end
 
   def release
@@ -110,5 +129,3 @@ end
 
 # determine release once when module is loaded
 ApplicationHelper::RELEASE = ApplicationHelper.determine_release
-
-ApplicationHelper::CONTENT = ApplicationHelper.load_default_content

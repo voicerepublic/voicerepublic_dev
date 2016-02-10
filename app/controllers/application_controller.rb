@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -110,6 +111,23 @@ class ApplicationController < ActionController::Base
 
   def set_csrf_cookie_for_ng
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
+  end
+
+
+  # === Better Exception Handling ===
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActionController::RoutingError, with: :routing_error
+  # ActionView::Template::Error
+  # ActionController::InvalidAuthenticityToken
+  # Errno::ENOSPC
+
+  def record_not_found
+    @talk = Talk.promoted.first
+    render action: 'record_not_found', status: 404, layout: 'velvet'
+  end
+
+  def routing_error
+    render action: 'routing_error', status: 404, layout: 'velvet'
   end
 
 end

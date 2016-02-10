@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-
+  layout 'velvet_minimal'
   def new
     resource = build_resource(user_params)
 

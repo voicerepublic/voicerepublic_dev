@@ -65,6 +65,9 @@ class Talk < ActiveRecord::Base
       # otherwise it will go its usual way via prelive
       transitions from: :created, to: :prelive
     end
+    event :abandon do
+      transitions from: :prelive, to: :postlive
+    end
     event :start_talk, timestamp: :started_at, success: :after_start do
       transitions from: :prelive, to: :live
     end
@@ -170,6 +173,7 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
+
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }
   scope :upcoming, -> { nodryrun.prelive }
@@ -177,7 +181,12 @@ class Talk < ActiveRecord::Base
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :reordered, -> { order('starts_at DESC') }
-  scope :recent, -> { nodryrun.archived.featured.order('ends_at DESC') }
+  scope :recent, -> { nodryrun.archived.order('ends_at DESC') }
+  scope :promoted, -> { nodryrun.archived.featured.order('featured_from DESC') }
+
+  ARCHIVED_AND_LIMBO =
+    %w(archived pending postlive processing suspended).map { |s| "'#{s}'" } * ','
+  scope :archived_and_limbo, -> { where("state IN (#{ARCHIVED_AND_LIMBO})") }
 
   scope :scheduled_featured, -> do
     upcoming.featured.
@@ -444,8 +453,10 @@ class Talk < ActiveRecord::Base
   end
 
   def set_venue
-    self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
-    self.venue ||= user.venues.find_or_create_by(name: venue_name.strip)
+    self.venue_name = venue_name.to_s.strip
+    return if venue_name.blank? and venue.present?
+    self.venue_name = 'Default venue' if venue_name.blank?
+    self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
   def set_icon
