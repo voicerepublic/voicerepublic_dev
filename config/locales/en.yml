@@ -360,6 +360,17 @@ en:
       fb: Voice Republic on facebook
       tw: Voice Republic on twitter
       team: Team
+    footer_velvet: 
+      about: About
+      pricing: Pricing
+      support_and_faq: Support & FAQ
+      blog: Blog
+      terms_and_privacy: Terms & Privacy
+      press: Press
+      service_status: Service Status
+      contact: Contact
+      careers: Careers
+      imprint: Imprint
     navbar:
       more_talks: More talks
       sign_up: Join For Free

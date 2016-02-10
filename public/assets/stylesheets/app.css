@@ -3663,10 +3663,11 @@ footer {
     #footer-social-links {
       text-align: center; } }
   #footer-social-links a {
-    font-size: 1.5rem;
-    margin-right: 24px; }
+    font-size: 1.5rem; }
     #footer-social-links a:hover {
       text-decoration: none; }
+  #footer-social-links a:first-child {
+    margin-left: 12px; }
 
 .logo a span {
   font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
