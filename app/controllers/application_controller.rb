@@ -122,6 +122,7 @@ class ApplicationController < ActionController::Base
   # Errno::ENOSPC
 
   def record_not_found
+    @talk = Talk.promoted.first
     render action: 'record_not_found', status: 404, layout: 'velvet'
   end
 

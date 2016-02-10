@@ -3663,10 +3663,11 @@ footer {
     #footer-social-links {
       text-align: center; } }
   #footer-social-links a {
-    font-size: 1.5rem;
-    margin-right: 24px; }
+    font-size: 1.5rem; }
     #footer-social-links a:hover {
       text-decoration: none; }
+  #footer-social-links a:first-child {
+    margin-left: 12px; }
 
 .logo a span {
   font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -4058,3 +4059,63 @@ footer {
     margin-bottom: 12px; }
   .series .talk-card-inside .title, .series .talk-card-inside p.lead {
     color: #121214; }
+
+#new_talk {
+  background: #f2f2f2;
+  text-align: center; }
+  #new_talk h3 {
+    color: #121214;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.125rem; }
+  #new_talk .form-block {
+    background: white;
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 62.5rem;
+    margin: 0 auto; }
+  #new_talk label {
+    text-align: left; }
+  #new_talk hr {
+    margin-top: 48px;
+    margin-bottom: 48px; }
+  #new_talk small.error {
+    background: #f82847;
+    color: white;
+    text-align: left;
+    float: left;
+    padding: 6px;
+    font-weight: 500;
+    width: 100%; }
+  #new_talk .error input, #new_talk .error textarea {
+    border: 1px solid #f82847;
+    margin-bottom: 0; }
+
+.not-found {
+  padding-top: 48px; }
+  .not-found .svg-icon {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    padding-bottom: 12px; }
+    .not-found .svg-icon svg {
+      width: 48px;
+      height: 48px; }
+      .not-found .svg-icon svg * {
+        fill: #f82847; }
+  .not-found h2 {
+    color: #f82847;
+    margin-bottom: 12px;
+    text-transform: none;
+    font-size: 2.25rem; }
+  .not-found .lead {
+    color: #29292b; }
+  .not-found hr {
+    margin-top: 48px; }
+
+.talk-holder {
+  padding-bottom: 48px; }
+  .talk-holder .talk-card {
+    margin: 0 auto;
+    float: none !important; }
