@@ -13,19 +13,8 @@ class SearchController < BaseController
 
   # GET  /search/1/:query
   def show
-    @results = PgSearch.multisearch(@query).
+    @talks = Talk.search(@query).
       paginate(page: params[:page], per_page: PER_PAGE)
-
-    @rest = @results.to_a
-    @best_hit = nil
-    @best_hit = @rest.shift.searchable if @rest.present? and params[:page] == '1'
-
-    @talks  = @rest.select { |s| s.searchable.is_a?(Talk) }.map(&:searchable)
-    @series = @rest.select { |s| s.searchable.is_a?(Series) }.map(&:searchable)
-    @users  = @rest.select { |s| s.searchable.is_a?(User) }.map(&:searchable)
-
-    @talks_featured = Talk.featured.limit(5)
-    @talks_live     = Talk.live.limit(5)
   end
 
   private

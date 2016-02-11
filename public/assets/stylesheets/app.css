@@ -1817,11 +1817,11 @@ select {
   margin-left: auto;
   margin-right: auto; }
 
-.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, #working::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   content: ' ';
   display: table; }
 
-.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   clear: both; }
 
 .button-group {
@@ -3578,7 +3578,7 @@ h1, h2 {
     border: 1px solid #54c6c6; }
   .pagination .previous_page, .pagination .next_page {
     background: none; }
-  .pagination .disabled {
+  .pagination .disabled, .pagination .gap {
     color: #54c6c6;
     background: none;
     opacity: .5; }
@@ -3601,6 +3601,10 @@ h1, h2 {
 
 .explore-index, .search {
   background: #EFEFEF; }
+  .explore-index .top-margin-action-bar, .search .top-margin-action-bar {
+    min-height: 50vh;
+    background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
+    background-size: cover; }
   .explore-index h2, .search h2 {
     text-align: center;
     font-size: 1.125rem;
@@ -3743,18 +3747,23 @@ h1, h2 {
   .category-buttons [type="radio"]:focus + label {
     border: 2px solid green; }
 
-#spy {
+#spy, #working {
   margin-top: 12px;
   height: 56px; }
-  #spy svg {
+  #spy svg, #working svg {
     display: block;
     height: 36px;
     margin: 0 auto; }
-  #spy path {
+  #spy path, #working path {
     stroke-dasharray: 36,3;
     stroke-dashoffset: 0;
     animation: dash 3s linear infinite;
     transform-origin: center center; }
+
+#working {
+  margin: 0; }
+  #working * {
+    display: inline-block; }
 
 footer {
   padding: 84px 12px;
@@ -3807,6 +3816,20 @@ footer {
       text-decoration: none; }
   #footer-social-links a:first-child {
     margin-left: 12px; }
+
+#working {
+  position: absolute;
+  height: 80px;
+  max-height: 80px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fef1de;
+  text-align: center;
+  color: #29292b;
+  padding-top: 21px;
+  z-index: 9999;
+  pointer-events: none; }
 
 .logo a span {
   font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -3953,8 +3976,8 @@ footer {
     margin: 0;
     padding: 0;
     border: 0;
-    padding-top: 21px;
-    margin-left: -40px; }
+    padding-top: 8px;
+    margin-left: -32px; }
     .search-container form label button .svg-icon {
       height: 6px; }
       .search-container form label button .svg-icon svg {

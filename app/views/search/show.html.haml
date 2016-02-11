@@ -1,48 +1,14 @@
 - content_for :title do
   = t('.title', query: @query)
 #search-results-count.text-center
-  %p.lead= t('.results', count: @results.count, query: @query).html_safe
+  %p.lead= t('.results', count: @talks.count, query: @query).html_safe
 
-.row.collapse.top-margin-action-bar
-  .large-12.columns
-
-    - if @best_hit.nil?
-      %h2= t('.no_results')
-    - else
-      %h2= t('.best_result')
-      .result-container.clearfix
-        = render partial: "shared/talk_card", locals: { talk_card: @best_hit }
-    - if @talks.any?
-      %h2= t('.talks')
+- if @talks.any?
+  .row.collapse
+    .large-12.columns
       .result-container.clearfix
         = render partial: "shared/talk_card", collection: @talks
-    - if @series.any?
-      %h2= t('.series')
-      .result-container.clearfix
-        = render partial: "shared/series_card", collection: @series
-    .row.clearfix              
-      = will_paginate @results
-
-%br/
-.row.collapse
-  .large-12.columns
-    %hr/
-%br/
-
-.talks-search
-  - unless @talks_live.empty?
-    .live-talks.row.collapse
-      .medium-12.columns
-        .talks-box-title
-          %h2= t('.now_live')
-          %ul.list-style-type-none
-            = render partial: "shared/talk_card", collection: @talks_live
-
-  - unless @talks_featured.empty?
-    %br
-    .featured-talks.row.collapse
-      .medium-12.columns
-        .talks-box-title
-          %h2= t('.featured')
-          %ul.list-style-type-none
-            = render partial: "shared/talk_card", collection: @talks_featured
+  .row.clearfix              
+    = will_paginate @talks
+- else 
+  .row.collapse.top-margin-action-bar

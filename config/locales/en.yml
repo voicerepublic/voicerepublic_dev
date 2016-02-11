@@ -295,9 +295,9 @@ en:
       title: 'Results for "%{query}"'
       results:
         zero: |
-          'Sorry, we couldn't find anything for <span>"%{query}"</span>'
+          Sorry, we couldn't find anything for <span>%{query}</span>
         one: |
-          %{count} results for <span>"%{query}"</span>
+          One results for <span>%{query}</span>!
         other: |
           %{count} results for <span>%{query}</span>
       best_result: TOP RESULT
@@ -305,7 +305,7 @@ en:
       series: SERIES
       users: USERS
       now_live: NOW LIVE
-      featured: FEATURED
+      featured: Here are some FEATURED talks
       popular: POPULAR
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.

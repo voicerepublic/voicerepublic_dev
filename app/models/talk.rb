@@ -211,6 +211,7 @@ class Talk < ActiveRecord::Base
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
+  pg_search_scope :search, :against => [:title, :teaser, :description, :speakers]
 
   # returns an array of json objects
   def guest_list
