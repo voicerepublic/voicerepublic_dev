@@ -3,7 +3,7 @@
   .large-12.columns
     .title-block
       = image_tag 'logos/vr_red.svg', class: 'join-logo'
-      %h2(style='color: black') Resend confirmation instructions
+      %h2= t('.confirm_password')
 
     = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
       = devise_error_messages!
