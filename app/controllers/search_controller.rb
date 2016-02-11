@@ -1,5 +1,7 @@
 class SearchController < BaseController
 
+  layout 'velvet'
+
   PER_PAGE = 10
 
   before_action :set_query

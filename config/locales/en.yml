@@ -294,9 +294,12 @@ en:
     show:
       title: 'Results for "%{query}"'
       results:
-        zero: 'SORRY, NO RESULTS FOR "%{query}"'
-        one: '%{count} RESULT FOR "%{query}"'
-        other: '%{count} RESULTS FOR "%{query}"'
+        zero: |
+          'Sorry, we couldn't find anything for <span>"%{query}"</span>'
+        one: |
+          %{count} results for <span>"%{query}"</span>
+        other: |
+          %{count} results for <span>%{query}</span>
       best_result: TOP RESULT
       talks: TALKS
       series: SERIES
