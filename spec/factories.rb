@@ -31,7 +31,7 @@ FactoryGirl.define do
   #   FactoryGirl.create(:user, :unconfirmed)
   #
   factory :user do
-    ignore do
+    transient do
       unconfirmed false
     end
 

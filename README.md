@@ -578,3 +578,23 @@ How To Update Icons
 * `cp fonts/* app/assets/fonts`
 * update `app/assets/stylesheets/grids_variables_mixins/style.css` with content of `style.css` (only the lower part, keep the top part!)
 * done
+
+
+How To Update Modernizr
+-----------------------
+
+https://modernizr.com/download
+
+Unselect
+
+* minify (on the left)
+
+Select
+
+* Touch Events
+
+(Add anything else we need, and add it to this list.)
+
+Click BUILD
+
+Download to vendor/assets/modernizr.js

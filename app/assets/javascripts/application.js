@@ -50,3 +50,5 @@ if(window.location.hash) {
     };
   });
 }
+
+$(function(){ $(document).foundation(); });

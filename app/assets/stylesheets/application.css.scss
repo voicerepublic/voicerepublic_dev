@@ -12,12 +12,15 @@
  * to create a new file per style scope.
  *
  *= require_self
+//= require foundation_and_overrides
+
  *= require slick
  */
 
+ @import 'foundation_5_compat';
  @import "grids_variables_mixins/ci_variables";
  @import "grids_variables_mixins/mixins";
- @import "grids_variables_mixins/foundation_and_overrides";
+/* @import "grids_variables_mixins/foundation_and_overrides"; TODO */
 /* @import "grids_variables_mixins/foundation-icons";*/
  @import "grids_variables_mixins/vr_icons";
  @import "main";
