@@ -1,4 +1,7 @@
 en:
+  pages:
+    outdated_browser:
+      oops: Oops!
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
@@ -294,15 +297,18 @@ en:
     show:
       title: 'Results for "%{query}"'
       results:
-        zero: 'SORRY, NO RESULTS FOR "%{query}"'
-        one: '%{count} RESULT FOR "%{query}"'
-        other: '%{count} RESULTS FOR "%{query}"'
+        zero: |
+          Sorry, we couldn't find anything for <span>%{query}</span>
+        one: |
+          One results for <span>%{query}</span>!
+        other: |
+          %{count} results for <span>%{query}</span>
       best_result: TOP RESULT
       talks: TALKS
       series: SERIES
       users: USERS
       now_live: NOW LIVE
-      featured: FEATURED
+      featured: Here are some FEATURED talks
       popular: POPULAR
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
@@ -360,7 +366,7 @@ en:
       fb: Voice Republic on facebook
       tw: Voice Republic on twitter
       team: Team
-    footer_velvet:
+    footer_velvet: 
       about: About
       pricing: Pricing
       support_and_faq: Support & FAQ
@@ -504,6 +510,19 @@ en:
     500_body: "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
     exception: "Exception"
     exception_for_vr_users: "Since you have an email adress [user]@voicrepublic.com, I'm showing you the exception message for debugging purposes. Regular users will not see this exception."
+  errors:
+    outdated_browser:
+      header: "You are using an outdated browser."
+      body: |
+        <p>You are using an old version of %{name} whis is %{version}.</p>
+        <p>Unfortunately, at this sttage, we do not have the manpower to support every browser. We rather strive to to build the most awesome user experience using modern browsers. For a good experience with Voice Republic, please upgrade to the newest version or download one of the browsers below:</p>
+        <ul>
+          <li><a href="https://www.google.com/intl/en/chrome/browser/">Download Chrome 33+</a></li>
+          <li><a href="http://www.mozilla.org/en-US/firefox/new/">Download Firefox 28+</a></li>
+          <li>Safari 7 (If you are on OSX < 10.9, you need to upgrade to get a newer version of Safari. It's easier to use Chrome or Firefox.)</li>
+          <li><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">Download Internet Explorer</a> (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)</li>
+        </ul>
+
   reminders:
     favorite:
       favorite: Favorite

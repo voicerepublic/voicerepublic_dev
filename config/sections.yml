@@ -32,10 +32,10 @@ en:
   pages:
     outdated_browser:
       text: >-
-        ### You are using an outdated browser
+        ### You are using an outdated browser.
 
-        You are using an old version of %{browser} which is
-        %{version}.
+        (You are using an old version of %{browser} which is
+        %{version}.)
 
 
         Unfortunately, at this stage, we do not have the manpower to
@@ -49,10 +49,9 @@ en:
 
         * [Download Firefox 28+](http://www.mozilla.org/en-US/firefox/new/)
 
-        * Safari 7 (If you are on OSX < 10.9, you need to upgrade to
+        * **Safari 7** (If you are on OSX < 10.9, you need to upgrade to
           get a newer version of Safari. It is easier to use Chrome or
           Firefox.)
 
-        * [Download Internet Explorer](http://windows.microsoft.com/en-us/internet-explorer/download-ie) (If you have an older version of Windows, you need to upgrade
-          to get a newer version of Internet explorer. It's easier to use
-          Chrome or Firefox.)
+        * [Download Internet Explorer](http://windows.microsoft.com/en-us/internet-explorer/download-ie) 
+          (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)
