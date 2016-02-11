@@ -18,6 +18,7 @@
     .question
       = icon_tag 'question'
     = f.input :title, placeholder: t('.title'), hint: t('.title_hint')
+    %hr
     = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}, hint: t('.teaser_hint')
     .medium-6.medium-offset-3.columns.clearfix
       = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
@@ -28,7 +29,7 @@
 
     .row
       .medium-12.columns
-        = f.input :speakers, placeholder: t('.speakers')
+        = f.input :speakers, placeholder: t('.speakers'), hint: t('.speakers_hint').html_safe
     %hr
 
     .title-box.clearfix

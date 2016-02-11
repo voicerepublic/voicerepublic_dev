@@ -24,6 +24,7 @@ en:
         starts_at_time: Time
         teaser: Provide A Short Description of Your Talk <br>
         tag_list: Add Some Tags
+        duration: Talk Duration
       user:
         summary: Short description (140 characters or less)
         conference: I will be streaming a conference.

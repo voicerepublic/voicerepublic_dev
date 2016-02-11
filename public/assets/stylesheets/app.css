@@ -4121,7 +4121,6 @@ footer {
       background: #54c6c6; }
 
 #new_talk {
-  background: #f2f2f2;
   text-align: center; }
   #new_talk .question {
     cursor: pointer; }
@@ -4146,14 +4145,6 @@ footer {
     padding: 24px; }
   #new_talk .input {
     margin-bottom: 60px; }
-    #new_talk .input:after {
-      content: "";
-      display: block;
-      width: 100px;
-      height: 4px;
-      background: #54c6c6;
-      margin: 0 auto;
-      margin-top: 60px; }
   #new_talk .hidden {
     margin-bottom: 0; }
     #new_talk .hidden:after {
@@ -4176,7 +4167,6 @@ footer {
     color: #a339cd;
     font-size: 0.875rem;
     line-height: 1.125rem;
-    padding: 0 24px;
     display: inline-block;
     text-align: left; }
     #new_talk .hint ul {
@@ -4188,8 +4178,9 @@ footer {
     #new_talk input:focus, #new_talk textarea:focus {
       border-color: #54c6c6; }
   #new_talk hr {
-    margin-top: 48px;
-    margin-bottom: 48px; }
+    margin-bottom: 60px;
+    border-bottom: 4px solid #54c6c6;
+    max-width: 200px; }
   #new_talk small.error {
     background: #f82847;
     color: white;
@@ -4201,6 +4192,12 @@ footer {
   #new_talk .error input, #new_talk .error textarea {
     border: 1px solid #f82847;
     margin-bottom: 0; }
+  #new_talk .close-button.words span {
+    font-size: 1rem;
+    font-weight: 300;
+    border: 1px solid #29292b;
+    padding: 6px;
+    border-radius: 3px; }
 
 .not-found {
   padding-top: 48px; }

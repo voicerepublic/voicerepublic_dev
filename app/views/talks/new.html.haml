@@ -15,10 +15,12 @@
                           'ng-disabled' => '!valid()',
                           'ng-click' => 'deactivateSafetynet()'
 
-      - unless @talk.dryrun?
-        .eagle.right(style='margin: 9px')
-          %i.icon-info
-          = t('.billing_notice')
+  - unless @talk.dryrun?
+    .callout.warning{"data-closable" => ""}
+      = t('.billing_notice')
+      %button.close-button.words{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
+        %span{"aria-hidden" => "true"} OK
+          
 #sticky-progress
   .progress-text
     %span= t('.progress_text')
