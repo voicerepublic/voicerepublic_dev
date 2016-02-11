@@ -2177,6 +2177,40 @@ select {
 .no-js [data-responsive-menu] ul {
   display: none; }
 
+.progress {
+  background-color: #cacaca;
+  height: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0; }
+  .progress.primary .progress-meter {
+    background-color: #2c46b0; }
+  .progress.secondary .progress-meter, button.progress .progress-meter {
+    background-color: #54c6c6; }
+  .progress.success .progress-meter {
+    background-color: #d8f793; }
+  .progress.alert .progress-meter {
+    background-color: #f82847; }
+  .progress.warning .progress-meter {
+    background-color: #ffed00; }
+
+.progress-meter {
+  position: relative;
+  display: block;
+  width: 0%;
+  height: 100%;
+  background-color: #2c46b0;
+  border-radius: 0; }
+  .progress-meter .progress-meter-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    white-space: nowrap; }
+
 .sticky-container {
   position: relative; }
 
@@ -4059,6 +4093,31 @@ footer {
     margin-bottom: 12px; }
   .series .talk-card-inside .title, .series .talk-card-inside p.lead {
     color: #121214; }
+
+#sticky-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 24px;
+  padding-top: 18px;
+  background: #3c4258;
+  height: 60px; }
+  #sticky-progress .progress-text {
+    width: 148px;
+    float: left;
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem; }
+  #sticky-progress .progress {
+    margin-left: 160px;
+    border-radius: 4px;
+    height: 8px;
+    background: #64697e;
+    margin-top: 8px; }
+    #sticky-progress .progress .progress-meter {
+      border-radius: 4px;
+      background: #54c6c6; }
 
 #new_talk {
   background: #f2f2f2;

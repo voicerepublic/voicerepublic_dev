@@ -19,6 +19,7 @@ class TalksController < BaseController
         session[:foo] = 'bar'
         session_id = session[:session_id]
         RegisterListenerMessage.call(@talk, session_id)
+        render action: 'show', layout: 'application'
       end
       format.text do
         authorize! :manage, @talk

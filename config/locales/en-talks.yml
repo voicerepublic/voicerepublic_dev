@@ -139,6 +139,7 @@ en:
       schedule_a_talk: Schedule A Live Talk
       billing_notice: |
         Creating this talk will deduct one of your credits.
+      progress_text: Completed 2 of 6
     edit:
       title: "Edit Talk %{title} - Voice Republic"
       edit_talk: Edit Talk
