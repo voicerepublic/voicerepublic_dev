@@ -4,6 +4,8 @@ class TalksController < BaseController
   before_action :authenticate_user!, except: [:show]
   before_action :redirect_if_low_on_credits, only: :new
 
+  layout 'velvet'
+
   # GET /talks/1
   def show
     respond_to do |format|
@@ -17,6 +19,7 @@ class TalksController < BaseController
         session[:foo] = 'bar'
         session_id = session[:session_id]
         RegisterListenerMessage.call(@talk, session_id)
+        render action: 'show', layout: 'application'
       end
       format.text do
         authorize! :manage, @talk

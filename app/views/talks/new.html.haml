@@ -10,12 +10,19 @@
 
   .form-save-row.row
     .medium-12.columns
-      = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right'
-      = f.button :submit, class: 'button-save right',
+      = link_to t('helpers.links.cancel'), :back, class: 'button-cancel right button large hollow secondary'
+      = f.button :submit, class: 'button-save right button large',
                           'ng-disabled' => '!valid()',
                           'ng-click' => 'deactivateSafetynet()'
 
-      - unless @talk.dryrun?
-        .eagle.right(style='margin: 9px')
-          %i.icon-info
-          = t('.billing_notice')
+  - unless @talk.dryrun?
+    .callout.warning{"data-closable" => ""}
+      = t('.billing_notice')
+      %button.close-button.words{"aria-label" => "Dismiss alert", "data-close" => "", :type => "button"}
+        %span{"aria-hidden" => "true"} OK
+          
+#sticky-progress
+  .progress-text
+    %span= t('.progress_text')
+  .progress{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "30", :role => "progressbar", :tabindex => "0"}
+    .progress-meter{"style" => "width:25%"}

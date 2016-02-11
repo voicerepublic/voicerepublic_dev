@@ -3,8 +3,8 @@
 
 = f.input :dryrun, as: :hidden
 
-.form-top-box.row
-  .medium-12.columns
+.row
+  .medium-8.medium-offset-2.large-6.large-offset-3.columns.form-block
     .title-box
       %h2.form-title= form_title
 
@@ -14,22 +14,26 @@
     -# TODO some fields are protected after state prelive, add this to cancan
     -#- opts[:disabled] = true unless f.object.created?
 
-    .row.title-teaser-box
-      .medium-7.columns
-        = f.input :title, placeholder: t('.title')
-        = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}
-      .medium-5.columns
-        = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
-          input_html: { class: 'languageSelect' },
-          group_method: :last, label_method: :last, value_method: :first
-        = f.input :tag_list, input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }
+    -#.row.title-teaser-box
+    .question
+      = icon_tag 'question'
+    = f.input :title, placeholder: t('.title'), hint: t('.title_hint')
+    %hr
+    = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}, hint: t('.teaser_hint')
+    .medium-6.medium-offset-3.columns.clearfix
+      = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
+        input_html: { class: 'languageSelect' },
+        group_method: :last, label_method: :last, value_method: :first
+    .medium-12.columns.clearfix  
+      = f.input :tag_list, placeholder: t('.tags_placeholder'), input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }, hint: t('.tags_hint').html_safe
 
     .row
       .medium-12.columns
-        = f.input :speakers, placeholder: t('.speakers')
+        = f.input :speakers, placeholder: t('.speakers'), hint: t('.speakers_hint').html_safe
+    %hr
 
     .title-box.clearfix
-      %h2.form-title= t('.choose_date_and_time')
+      %h3.form-title= t('.choose_date_and_time')
     .date-time-picker-row.row
       .medium-4.columns
         - disable = [:live].include?(@talk.state.to_sym)
@@ -38,11 +42,12 @@
         = f.input :starts_at_time, opts.merge(input_html: {'data-picker' => 'time'}, disabled: disable)
       .medium-4.columns
         = f.input :duration, opts.merge(collection: Settings.durations, disabled: disable)
+    %hr
 
     .title-box.clearfix
-      %h2.form-title.left= t('.add_to_series')
+      %h3.form-title.left= t('.add_to_series')
       .help-text.left= t('.series_help_text')
-    .row
+    .row.clearfix
       .medium-6.columns
         = f.association :series, collection: current_user.series,
           include_blank: t('.create_new_series'),
@@ -50,8 +55,10 @@
       .medium-6.columns
         = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
 
+    %hr
+
     .title-box.clearfix
-      %h2.form-title.left= t('.illustrate_and_describe')
+      %h3.form-title.left= t('.illustrate_and_describe')
       .help-text.left= t('.ill_and_desc_text')
     .row
       .medium-3.columns
@@ -64,16 +71,17 @@
     .row
       .medium-12.columns
         = f.input :description, input_html: { rows: 10 }
+    %hr
+
+    -#.title-box.clearfix
+    -#  %h2.form-title.left= t('.invite_guests')
+    -#  .help-text.left= t('.invite_guests_text')
+    -#.row
+    -#  .medium-12.columns
+    -#    = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
 
     .title-box.clearfix
-      %h2.form-title.left= t('.invite_guests')
-      .help-text.left= t('.invite_guests_text')
-    .row
-      .medium-12.columns
-        = f.input :guest_list, opts.merge(input_html: { class: 'guestList' })
-
-    .title-box.clearfix
-      %h2.form-title.left= t('.upload_slides')
+      %h3.form-title.left= t('.upload_slides')
       = f.input :slides_uuid, as: :hidden
       - if f.object.new_record? and f.object.slides_uuid?
         .help-text.left= t('.upload_done')
