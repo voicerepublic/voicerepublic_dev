@@ -161,15 +161,6 @@ en:
         </ul>  
         Your tags should also include information on the speakers and on the topic and format of the talk. We suggest more frequently used keywords that will help with orientation.
         Use commas to separate the tags. 
-      thing_hint: |
-        <ul class="accordion" data-accordion>
-        <li class="accordion-item is-active" data-accordion-item>
-        <a class="accordion-title">Accordion 1</a>
-        <div class="accordion-content" data-tab-content>
-        I would start in the open state, due to using the `is-active` state class.
-        </div>
-        </li>
-        </ul>  
       upload_a_recording: Upload A Recording
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |

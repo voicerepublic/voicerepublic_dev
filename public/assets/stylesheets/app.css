@@ -4101,19 +4101,20 @@ footer {
   right: 0;
   padding: 12px 24px;
   padding-top: 18px;
-  background: #3c4258;
-  height: 60px; }
+  background: #fef1de;
+  height: 60px;
+  box-shadow: 0 0 10px rgba(41, 41, 43, 0.2); }
   #sticky-progress .progress-text {
     width: 148px;
     float: left;
-    color: white;
+    color: #29292b;
     font-weight: 700;
     font-size: 0.875rem; }
   #sticky-progress .progress {
     margin-left: 160px;
     border-radius: 4px;
     height: 8px;
-    background: #64697e;
+    background: #FFFFFF;
     margin-top: 8px; }
     #sticky-progress .progress .progress-meter {
       border-radius: 4px;
@@ -4122,6 +4123,18 @@ footer {
 #new_talk {
   background: #f2f2f2;
   text-align: center; }
+  #new_talk .question {
+    cursor: pointer; }
+    #new_talk .question .svg-icon {
+      width: 16px;
+      height: 16px; }
+      #new_talk .question .svg-icon svg {
+        width: 16px;
+        height: 16px;
+        color: #a339cd;
+        transition: color .2s ease; }
+    #new_talk .question:hover .svg-icon svg {
+      color: #54c6c6; }
   #new_talk h3 {
     color: #121214;
     font-size: 1.125rem;
@@ -4164,7 +4177,8 @@ footer {
     font-size: 0.875rem;
     line-height: 1.125rem;
     padding: 0 24px;
-    display: inline-block; }
+    display: inline-block;
+    text-align: left; }
     #new_talk .hint ul {
       list-style-position: inside; }
   #new_talk input, #new_talk textarea {
