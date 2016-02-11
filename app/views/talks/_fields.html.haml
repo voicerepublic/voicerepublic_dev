@@ -15,7 +15,8 @@
     -#- opts[:disabled] = true unless f.object.created?
 
     -#.row.title-teaser-box
-      
+    .question
+      = icon_tag 'question'
     = f.input :title, placeholder: t('.title'), hint: t('.title_hint')
     = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}, hint: t('.teaser_hint')
     .medium-6.medium-offset-3.columns.clearfix
@@ -23,7 +24,7 @@
         input_html: { class: 'languageSelect' },
         group_method: :last, label_method: :last, value_method: :first
     .medium-12.columns.clearfix  
-      = f.input :tag_list, placeholder: t('.tags_placeholder'), input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }, hint: t('.thing_hint').html_safe
+      = f.input :tag_list, placeholder: t('.tags_placeholder'), input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }, hint: t('.tags_hint').html_safe
 
     .row
       .medium-12.columns
