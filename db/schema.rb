@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160205084732) do
+ActiveRecord::Schema.define(version: 20160211085222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,9 +93,9 @@ ActiveRecord::Schema.define(version: 20160205084732) do
   create_table "listeners", force: :cascade do |t|
     t.integer  "talk_id"
     t.integer  "user_id"
-    t.string   "session"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "session_token"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "listeners", ["talk_id"], name: "index_listeners_on_talk_id", using: :btree
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20160205084732) do
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
+    t.boolean  "is_hidden",                       default: false
     t.string   "image_alt",                       default: ""
   end
 
@@ -289,10 +290,10 @@ ActiveRecord::Schema.define(version: 20160205084732) do
     t.boolean  "dryrun",                           default: false
     t.text     "social_links",                     default: "--- []"
     t.text     "listeners_legacy",                 default: "--- {}"
-    t.string   "slides_uid"
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
+    t.boolean  "is_hidden",                        default: false
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
   end
@@ -357,6 +358,7 @@ ActiveRecord::Schema.define(version: 20160205084732) do
     t.string   "referrer"
     t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
+    t.boolean  "is_hidden",                          default: false
     t.datetime "featured_from"
     t.datetime "featured_until"
     t.string   "image_alt",                          default: ""

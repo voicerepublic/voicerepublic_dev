@@ -387,7 +387,7 @@ class Talk < ActiveRecord::Base
   # TODO remove legacy stuff after `rake migrate:listeners`
   def add_listener!(token)
     if listeners_legacy.nil?
-      listeners.find_or_create_by(session: token)
+      listeners.find_or_create_by(session_token: token)
     else
       self.listeners_legacy[token] ||= Time.now.to_i
       # TODO write with locking

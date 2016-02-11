@@ -8,7 +8,7 @@ namespace :migrate do
            [index+1, total, talk.listeners_legacy.length, talk.id, talk.title]
       talk.listeners_legacy.each do |session, time|
         time = DateTime.strptime(time.to_s,'%s')
-        talk.listeners.create session: session, created_at: time
+        talk.listeners.create session_token: session, created_at: time
         print '.'
       end
       talk.update_attribute :listeners_legacy, nil

@@ -137,7 +137,7 @@ FactoryGirl.define do
   factory :listener do
     talk
     user nil
-    session "MyString"
+    session_token "MyString"
   end
 
 end
