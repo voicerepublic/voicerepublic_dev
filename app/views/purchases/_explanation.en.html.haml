@@ -1,12 +1,14 @@
-%h1.dark=t('.header')
-%h4.dark.subtitle=t('.subtitle').html_safe
+%h2= t('.header')
+%p.lead= t('.subtitle').html_safe
+%hr
 
 .row.pricing-features
-  .large-5.large-offset-1.columns
-    =image_tag "pricing/credit.svg"
-    %h3.pricing-feature= t('.pricing-feature-1')
-    %p.pricing-description= t('.pricing-description-1')
-  .large-5.large-offset-0.columns
-    =image_tag "pricing/wallet.svg"
-    %h3.pricing-feature= t('.pricing-feature-3')
-    %p.pricing-description= t('.pricing-description-3')
+	%h3.section-header= t('.features')
+	.large-6.columns
+		=image_tag "pricing/credit.svg"
+		%h5.pricing-feature= t('.pricing-feature-1')
+		%p.pricing-description= t('.pricing-description-1')
+	.large-6.columns
+		=image_tag "pricing/wallet.svg"
+		%h5.pricing-feature= t('.pricing-feature-3')
+		%p.pricing-description= t('.pricing-description-3')
