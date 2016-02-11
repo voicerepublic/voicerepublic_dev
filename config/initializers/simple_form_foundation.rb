@@ -13,13 +13,16 @@ module SimpleForm
               translate_from_namespace(:hints)
             end
 
-          <<-HTML
-            <span data-tooltip
-                  aria-haspopup='true'
-                  class='has-tip'
-                  data-disable-hover='false'
-                  tabindex=1 title='#{text}'>?</span>"
-          HTML
+          if text
+            <<-HTML
+              <span data-tooltip
+                aria-haspopup='true'
+                class='has-tip'
+                data-disable-hover='false'
+                tabindex=1
+                title='#{text}'>?</span>
+            HTML
+          end
         end
       end
 
