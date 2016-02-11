@@ -15,18 +15,19 @@
     -#- opts[:disabled] = true unless f.object.created?
 
     -#.row.title-teaser-box
-    .question
-      = icon_tag 'question'
     = f.input :title, placeholder: t('.title'), hint: t('.title_hint')
     %hr
     = f.input :teaser, placeholder: t('.teaser'), as: "text", input_html: {maxlength: 140}, hint: t('.teaser_hint')
+    %hr
     .medium-6.medium-offset-3.columns.clearfix
       = f.input :language, as: :grouped_select, collection: Talk::LANGUAGES,
         input_html: { class: 'languageSelect' },
         group_method: :last, label_method: :last, value_method: :first
+    %hr
     .medium-12.columns.clearfix  
       = f.input :tag_list, placeholder: t('.tags_placeholder'), input_html: { class: 'tagList', 'data-pre' => @talk.tag_list.join(',') }, hint: t('.tags_hint').html_safe
 
+    %hr
     .row
       .medium-12.columns
         = f.input :speakers, placeholder: t('.speakers'), hint: t('.speakers_hint').html_safe
@@ -45,32 +46,33 @@
     %hr
 
     .title-box.clearfix
-      %h3.form-title.left= t('.add_to_series')
-      .help-text.left= t('.series_help_text')
+      -#%h3.form-title.left= t('.add_to_series')
+      -#.help-text.left= t('.series_help_text')
     .row.clearfix
-      .medium-6.columns
+      .medium-8.medium-offset-2.columns
         = f.association :series, collection: current_user.series,
           include_blank: t('.create_new_series'),
-          input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }
-      .medium-6.columns
+          input_html: { 'data-on-blank-show' => '#wrapper_new_series_title' }, hint: t('.series_help_text')
+      .medium-6.columns.hide
         = f.input :new_series_title, wrapper_html: { id: 'wrapper_new_series_title' }
 
     %hr
 
     .title-box.clearfix
-      %h3.form-title.left= t('.illustrate_and_describe')
-      .help-text.left= t('.ill_and_desc_text')
-    .row
-      .medium-3.columns
-        .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#series_talks_attributes_0_image")
-      .medium-9.columns
-        %button.button-standard(type="button" data-trigger-file-input="#talk_image")
-          = t('.select_image')
-        = f.file_field :image, as: :file, class: 'soft-hide'
+      -# %h3.form-title.left= t('.illustrate_and_describe')
+      -#.help-text.left= t('.ill_and_desc_text')
+
 
     .row
+      .text-center
+        .image-box(style="background-image: url(#{f.object.image.url})" data-show-upload="#talk_image,#series_talks_attributes_0_image")
+        -#%button.button-standard(type="button" data-trigger-file-input="#talk_image")
+          -#= t('.select_image')
+        = f.file_field :image, as: :file, class: 'soft-hide', label_html: {class: 'button', "for" => "fileUpload"}, input_html: {id: "fileUpload"}, hint: t('.image_hint')
+    %hr
+    .row
       .medium-12.columns
-        = f.input :description, input_html: { rows: 10 }
+        = f.input :description, input_html: { rows: 10 }, hint: t('.description_hint')
     %hr
 
     -#.title-box.clearfix

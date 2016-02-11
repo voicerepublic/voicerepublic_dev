@@ -14,14 +14,23 @@ module SimpleForm
             end
 
           if text
-            <<-HTML
+            content = <<-HTML
               <span data-tooltip
                 aria-haspopup='true'
                 class='has-tip'
-                data-disable-hover='false'
+                data-disable-hover='true'
                 tabindex=1
-                title='#{text}'>?</span>
+                title='#{text}'>
+                  <div class="question">
+                    <div class="svg-icon">
+                      <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-question"></use>
+                      </svg>
+                    </div>
+                  </div>
+                </span>
             HTML
+            content.html_safe
           end
         end
       end
@@ -52,9 +61,10 @@ SimpleForm.setup do |config|
     b.optional :pattern
     b.optional :min_max
     b.optional :readonly
-    b.use :label_input
-    b.use :error, wrap_with: { tag: :small, class: :error }
+    b.use :label
     b.use :tooltip
+    b.use :input
+    b.use :error, wrap_with: { tag: :small, class: :error }
   end
 
   config.wrappers :horizontal_form, tag: 'div', class: 'row', hint_class: :field_with_hint, error_class: :error do |b|

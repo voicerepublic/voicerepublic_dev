@@ -149,21 +149,11 @@ en:
       title_hint: "Select a title that catches the attention of your audience and gives them a clear idea of what content awaits them."
       teaser_hint: Can be up to 140 characters long. It will appear on the Talk page directly beneath the title.
       tags_hint: |
-        Tags are keywords for related topics. They improve the discoverability of your talks in the Voice Republic archive and in search engines like Google.<br><br>
-        With your tags you define the category your talk is listed. The following categories can be added: <br><br>
-        <ul>
-        <li>Business</li>
-        <li>Arts & Culture</li>
-        <li>Politics & Society</li>
-        <li>Sciences</li>
-        <li>Technology</li>
-        <li>Media</li>
-        </ul>  
-        Your tags should also include information on the speakers and on the topic and format of the talk. We suggest more frequently used keywords that will help with orientation.
-        Use commas to separate the tags. 
+        Comma-separated keywords that make your Talk easier to find. Include one of the following to add your Talk to the right category: Business, Arts & Culture, Politics & Society, Sciences, Technology, Media
       speakers_hint: |
-        If possible, identify the speakers or the participants of the event by name. This also helps with the discoverability of your content. <br>
-        <br>Enter them comma-separated. 
+        Comma-separated list of speakers and participants. These also make your Talk eaiser to find.
+      description_hint: Give your listeners detailed background information about your talk.2300 characters (which is about one page in MS Word) are available. Please note that you can edit the text using Markdown and can also insert links and images.
+      image_hint: this is an image hint
       upload_a_recording: Upload A Recording
       describe_your_talk: Describe Your Talk
       unprocessed_upload: |
@@ -173,7 +163,7 @@ en:
       upload_help_text: Choose your recording file and fill out the form during upload.
       upload_done: A file has already been uploaded.
       record: <span class="red">Record</span> the Broadcast for later Playback and Embedding
-      add_to_series: Add to Series
+      add_to_series: Add This Talk To A Series
       series_help_text: Series are like playlist, they allow you to group your talks by theme.
       invite_guests: Invite guests
       invite_guests_text: Your guests will be automatically added to the stage.
