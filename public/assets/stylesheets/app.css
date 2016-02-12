@@ -4372,3 +4372,16 @@ footer {
   .talk-holder .talk-card {
     margin: 0 auto;
     float: none !important; }
+
+.pages-outdated_browser h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; }
+
+.pages-outdated_browser ul {
+  list-style-position: inside; }
+  .pages-outdated_browser ul li {
+    margin-bottom: 24px;
+    font-weight: 300; }
+    .pages-outdated_browser ul li a {
+      font-weight: 500; }
+      .pages-outdated_browser ul li a:hover {
+        text-decoration: underline; }
