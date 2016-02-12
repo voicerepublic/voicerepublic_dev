@@ -1817,11 +1817,11 @@ select {
   margin-left: auto;
   margin-right: auto; }
 
-.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, #working::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   content: ' ';
   display: table; }
 
-.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   clear: both; }
 
 .button-group {
@@ -3545,8 +3545,48 @@ h1, h2 {
   padding: 0 6px 12px;
   margin-top: -56px; }
 
+#search-results-count {
+  background: #ffed00;
+  padding: 12px;
+  font-size: 1rem; }
+  #search-results-count p {
+    margin: 0;
+    font-weight: 300; }
+    #search-results-count p span {
+      font-weight: 700;
+      color: #a339cd; }
+
 #more {
   margin: 0; }
+
+.pagination {
+  font-weight: 500;
+  margin-top: 24px;
+  max-height: 44px; }
+  .pagination a {
+    color: #54c6c6; }
+    .pagination a:hover {
+      background: white; }
+  .pagination * {
+    background: #fef1de;
+    min-height: 44px;
+    min-width: 44px;
+    height: 44px;
+    display: inline-block;
+    line-height: 42px;
+    font-size: 0.875rem;
+    border: 1px solid #54c6c6; }
+  .pagination .previous_page, .pagination .next_page {
+    background: none; }
+  .pagination .disabled, .pagination .gap {
+    color: #54c6c6;
+    background: none;
+    opacity: .5; }
+  .pagination em.current {
+    background: #54c6c6;
+    color: white;
+    text-transform: none;
+    font-style: normal; }
 
 #result-count {
   font-weight: 700;
@@ -3559,9 +3599,13 @@ h1, h2 {
   padding-bottom: 12px;
   margin-left: 6px; }
 
-.explore-index {
+.explore-index, .search {
   background: #EFEFEF; }
-  .explore-index h2 {
+  .explore-index .top-margin-action-bar, .search .top-margin-action-bar {
+    min-height: 50vh;
+    background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
+    background-size: cover; }
+  .explore-index h2, .search h2 {
     text-align: center;
     font-size: 1.125rem;
     letter-spacing: 0.125rem;
@@ -3569,17 +3613,17 @@ h1, h2 {
     text-transform: uppercase;
     margin-top: 48px;
     margin-bottom: 42px; }
-  .explore-index h6 {
+  .explore-index h6, .search h6 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-weight: 300;
     font-size: 0.875rem;
     text-transform: uppercase;
     color: #b4b6be;
     letter-spacing: 0.0625rem; }
-    .explore-index h6 em {
+    .explore-index h6 em, .search h6 em {
       font-style: normal;
       color: #3c4258; }
-  .explore-index select {
+  .explore-index select, .search select {
     background-color: #ffed00;
     line-height: 24px;
     height: 48px;
@@ -3588,7 +3632,7 @@ h1, h2 {
     max-width: 200px;
     margin-top: 24px;
     margin-right: 12px; }
-  .explore-index hr {
+  .explore-index hr, .search hr {
     max-width: 100%;
     width: 100%;
     border-color: #e1e2e7; }
@@ -3703,18 +3747,23 @@ h1, h2 {
   .category-buttons [type="radio"]:focus + label {
     border: 2px solid green; }
 
-#spy {
+#spy, #working {
   margin-top: 12px;
   height: 56px; }
-  #spy svg {
+  #spy svg, #working svg {
     display: block;
     height: 36px;
     margin: 0 auto; }
-  #spy path {
+  #spy path, #working path {
     stroke-dasharray: 36,3;
     stroke-dashoffset: 0;
     animation: dash 3s linear infinite;
     transform-origin: center center; }
+
+#working {
+  margin: 0; }
+  #working * {
+    display: inline-block; }
 
 footer {
   padding: 84px 12px;
@@ -3767,6 +3816,20 @@ footer {
       text-decoration: none; }
   #footer-social-links a:first-child {
     margin-left: 12px; }
+
+#working {
+  position: absolute;
+  height: 80px;
+  max-height: 80px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fef1de;
+  text-align: center;
+  color: #29292b;
+  padding-top: 21px;
+  z-index: 9999;
+  pointer-events: none; }
 
 .logo a span {
   font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -3913,8 +3976,8 @@ footer {
     margin: 0;
     padding: 0;
     border: 0;
-    padding-top: 21px;
-    margin-left: -40px; }
+    padding-top: 8px;
+    margin-left: -32px; }
     .search-container form label button .svg-icon {
       height: 6px; }
       .search-container form label button .svg-icon svg {
