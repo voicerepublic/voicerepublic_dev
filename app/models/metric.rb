@@ -174,7 +174,7 @@ class Metric < ActiveRecord::Base
     def live_listeners_total
       Listener.count +
         # TODO remove legacy stuff
-        Talk.pluck(:listeners).reject(&:nil?).map(&:count).sum
+        Talk.pluck(:listeners_legacy).reject(&:nil?).map(&:count).sum
     end
 
     # Metrics (yes, this is pretty meta)

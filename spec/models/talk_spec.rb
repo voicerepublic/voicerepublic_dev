@@ -467,14 +467,14 @@ describe Talk do
   describe 'live' do
     it 'saves unique listeners' do
       talk = FactoryGirl.create :talk
-      expect(talk.listeners.size).to eq(0)
+      expect(talk.listeners_legacy.size).to eq(0)
 
       talk.add_listener! "some_uuid"
-      expect(talk.listeners.size).to eq(1)
+      expect(talk.listeners_legacy.size).to eq(1)
 
       # Unique listeners will only be added once
       talk.add_listener! "some_uuid"
-      expect(talk.listeners.size).to eq(1)
+      expect(talk.listeners_legacy.size).to eq(1)
     end
   end
 

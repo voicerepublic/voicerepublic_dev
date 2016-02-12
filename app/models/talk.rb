@@ -386,9 +386,14 @@ class Talk < ActiveRecord::Base
   #
   # TODO remove legacy stuff after `rake migrate:listeners`
   def add_listener!(token)
+    # by default `listeners_legacy` is `{}`, on migration we set it to
+    # `nil` so we can use nil to distingish between newschool and
+    # oldschool.
     if listeners_legacy.nil?
+      # NEWSCHOOL
       listeners.find_or_create_by(session_token: token)
     else
+      # OLDSCHOOL
       self.listeners_legacy[token] ||= Time.now.to_i
       # TODO write with locking
       self.save
