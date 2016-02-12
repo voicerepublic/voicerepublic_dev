@@ -1,9 +1,11 @@
 
-.medium-8.medium-offset-2.large-6.large-offset-3.columns.end
-	%hr.pricing-hr
-	%p.lead= t('.contact_us_for_questions')
-	= link_to t('.contact_us'),
-	  'mailto:support@voicerepublic.com',
-	  title: t('.contact_us'),
-	  class: 'button large hollow pricing-support-btn'
-
+%section
+	.row.pricing-features
+		.medium-6.medium-offset-3.columns
+			=icon_tag 'tuxedo'
+			%h5.pricing-feature= t('.service_with_a_smile')
+			%p.pricing-description= t('.contact_us_for_questions')
+			= link_to t('.contact_us'),
+			  'mailto:support@voicerepublic.com',
+			  title: t('.contact_us'),
+			  class: 'button hollow pricing-support-btn'

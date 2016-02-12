@@ -4388,52 +4388,82 @@ footer {
 
 .purchases-index {
   background: #EFEFEF; }
-  .purchases-index h2 {
+  .purchases-index h3 {
+    color: #54c6c6;
     margin-bottom: 24px; }
+  .purchases-index #claim.pricing {
+    padding-top: 60px;
+    background: url(../../images/background/pricing-bg-blue.jpg) no-repeat 50% 25%; }
+    .purchases-index #claim.pricing a {
+      color: #ffed00; }
+      .purchases-index #claim.pricing a:hover {
+        color: #f82847; }
+    .purchases-index #claim.pricing .button a, .purchases-index #claim.pricing button a {
+      color: #ffed00; }
+      .purchases-index #claim.pricing .button a:hover, .purchases-index #claim.pricing button a:hover {
+        color: #f82847; }
+    .purchases-index #claim.pricing h2 {
+      margin-bottom: 60px;
+      color: white; }
+    .purchases-index #claim.pricing .lead {
+      color: #fef1de;
+      margin-bottom: 48px; }
   .purchases-index .section-header {
     font-size: 1.3125rem;
-    letter-spacing: 0.125rem;
+    letter-spacing: 0.1875rem;
     text-transform: uppercase; }
-
-.purchases-index .pricing-box {
-  padding-top: 48px;
-  background: #fff;
-  border-radius: 3px;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2); }
-
-.purchases-index .pricing-box h3 {
-  margin-bottom: 24px; }
 
 .purchases-index .pricing-box ul li {
   margin-left: 48px;
   font-family: "minion-pro", times, serif;
   opacity: .6; }
 
-.purchases-index form.purchase {
-  margin-top: 75px; }
-
 .purchases-index form.purchase input[type='radio'] {
+  display: none;
   opacity: 0;
   margin: 0; }
 
 .purchases-index form.purchase label {
-  font-family: 'Eagle Light',sans-serif;
-  font-family: "minion-pro", times, serif;
   font-weight: 400;
   font-size: 18px;
   padding: 16px 10px 16px 0;
   text-align: center;
-  border-top: 1px solid rgba(0, 28, 58, 0.2);
-  transition: background .2s ease; }
+  transition: background .2s ease;
+  display: inline-block;
+  float: left;
+  background: #ffed00;
+  padding: 12px;
+  color: #a339cd;
+  width: 100%;
+  border: 1px solid #EFEFEF; }
+  @media screen and (min-width: 40em) {
+    .purchases-index form.purchase label {
+      width: 20%; } }
+  .purchases-index form.purchase label .price {
+    font-weight: 300; }
+    .purchases-index form.purchase label .price p {
+      font-weight: 500;
+      font-size: 0.875rem; }
+      .purchases-index form.purchase label .price p span {
+        font-weight: 700;
+        display: block;
+        font-size: 1.875rem; }
+
+.price_per_talk {
+  font-size: 0.75rem;
+  font-weight: 300; }
 
 .purchases-index form.purchase label .price_per_talk {
   font-size: 80%; }
 
 .purchases-index form.purchase label.selected {
-  background-color: #d8f793; }
+  background-color: #a339cd;
+  color: #ffed00;
+  pointer-events: none; }
 
 .purchases-index form.purchase label:hover {
-  background-color: rgba(255, 237, 0, 0.5); }
+  background-color: #fef1de;
+  color: #a339cd; }
 
 .purchases-index form.purchase .button, .purchases-index form.purchase button {
   background-color: transparent; }
@@ -4450,5 +4480,28 @@ footer {
   margin-top: 48px;
   margin-bottom: 48px; }
 
-.pricing-features img {
-  max-width: 80px; }
+.pricing-features {
+  padding-top: 60px;
+  margin-bottom: 60px;
+  color: #29292b; }
+  .pricing-features h5 {
+    color: #a339cd;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-weight: 700; }
+  .pricing-features p {
+    font-weight: 300; }
+  .pricing-features .svg-icon {
+    color: #a339cd;
+    max-height: 48px;
+    max-width: 48px;
+    height: 48px;
+    margin-bottom: 12px; }
+    .pricing-features .svg-icon svg {
+      max-height: 48px;
+      max-width: 48px; }
+
+.paypal p {
+  line-height: 1.3125rem; }
+  .paypal p span {
+    font-size: 0.875rem;
+    opacity: .5; }
