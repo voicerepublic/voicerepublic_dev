@@ -1,9 +1,13 @@
 = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-  .row.collapse.top-margin-action-bar
-    .medium-10.medium-offset-1.columns
-      = f.input :email, html_input: {type: 'email'}
-      = button_tag :class => 'button-vr' do
-        = t('.reset_password')
-      %br/
-      %hr/
-      = render "devise/shared/links"
+	= image_tag 'background/main-bg.jpg', class: 'bg-img'
+	.row.collapse.top-margin-action-bar#input-block
+		.large-12.columns
+			.title-block
+				= image_tag 'logos/vr_red.svg', class: 'join-logo'
+				%h2= t('.reset_password')
+				= f.input :email, html_input: {type: 'email'}
+				= button_tag :class => 'button-vr' do
+					= t('.reset_password')
+				%br/
+				%hr/
+				= render "devise/shared/links"

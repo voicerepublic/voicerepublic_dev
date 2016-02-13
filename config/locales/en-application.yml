@@ -4,5 +4,6 @@ en:
       oops: "Oops!"
       nothing_here: "The page you were looking for is no longer here."
       something_else: "May we recommend another Talk?"
-      cant_get_there: You can't get where you're going from here.
+    routing_error:
+      cant_get_there: "You can't get where you're going from here."
       try_again: "Try again?"

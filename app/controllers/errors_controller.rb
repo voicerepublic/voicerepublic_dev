@@ -14,8 +14,4 @@ class ErrorsController < BaseController
     end
   end
 
-  # Dedicated landing page for outdated browsers
-  def upgrade_browser
-  end
-
 end

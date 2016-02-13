@@ -31,7 +31,9 @@
   %body{class: "#{controller_name} #{[controller_name, action_name] * '-'}"}
     = render 'shared/svg_defs'
     = render 'shared/notice_or_error_velvet'
-
+    #working.hide
+      -#= t('.working_on_it')
+      = render 'explore/loading'
     #main-menu.top-bar
       .top-bar-left
         %ul#branding.menu{"data-dropdown-menu" => ""}
