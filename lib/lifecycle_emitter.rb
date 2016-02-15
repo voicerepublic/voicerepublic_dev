@@ -28,6 +28,7 @@ module LifecycleEmitter
 
   included do
     after_create -> { emit(:create) }
+    after_update -> { emit(:update) }
     after_destroy -> { emit(:destroy) }
   end
 

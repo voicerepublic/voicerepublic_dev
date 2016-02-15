@@ -1,5 +1,5 @@
 # The Emitter's responsibility is to prepare the message
-# representation of events nd publish them to RabbitMQ. (That way we
+# representation of events and publish them to RabbitMQ. (That way we
 # can keep out representation layer logic from Rails' models.
 #
 # All methods are statically available, so you can simply
@@ -44,23 +44,24 @@ module Emitter
   end
 
   def lifecycle(resource_type, resource, event)
+    payload = {
+      x: "lifecycle_#{resource_type}",
+      event: event,
+      attributes: resource.attributes
+    }
+
+    # add event specific details
+    payload[:changes] = resource.changes if event == :update
+
+    # add type specific details
     case resource_type
-
     when :message
-      publish x: 'lifecycle_message',
-              event: event,
-              message: resource.attributes,
-              talk_url: url_helpers.talk_url(resource.talk)
-
+      payload[:talk_url] = url_helpers.talk_url(resource.talk)
     when :user
-      publish x: 'lifecycle_user',
-              event: event,
-              user: {
-                name: resource.name,
-                email: resource.email,
-                url: url_helpers.user_url(resource)
-              }
+      payload[:user_url] = url_helpers.user_url(resource)
     end
+
+    publish(payload)
   end
 
   private
