@@ -669,14 +669,14 @@ class Talk < ActiveRecord::Base
   end
 
   def manifest(chain=nil)
-    chain ||= series.opts.process_chain || Setting.get('audio.process_chain')
+    chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
       id:         id,
       chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in:  locate(series.opts.jingle_in  || Settings.paths.jingles.in),
-      jingle_out: locate(series.opts.jingle_out || Settings.paths.jingles.out)
+      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
