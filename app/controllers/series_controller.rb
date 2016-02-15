@@ -4,6 +4,8 @@ class SeriesController < BaseController
   before_filter :authenticate_user!, :except => [:show, :tags]
   before_filter :set_series, only: [:show, :edit, :update, :destroy]
 
+  layout 'velvet'
+
   # GET /series/1
   # GET /series/1.json
   def show

@@ -13,7 +13,6 @@
     = link_to @series.user do
       = render partial: "shared/avatar_image", locals: { user: @series.user, size: 50 }
       %h4.series-user= @series.user.name
-    = render partial: 'shared/social_share', locals: { shareable_id: @series.id, shareable_type: 'series' }
 
 .title-box.row.collapse-large-only
   .large-12.columns
