@@ -557,7 +557,9 @@ en:
       enterprise-example-1: "Large Conferences &amp; Speaker Series"
       enterprise-example-2: "Universities"
       enterprise-example-3: "Corporations"
-      ppexplain: "Credit Cards accepted. No PayPal account needed."
+      ppexplain: |
+        Credit cards accepted! <br>
+        <span>(No PayPal account needed.)<//span>
     questions:
       contact_us: "Contact Us"
       contact_us_for_questions: "You can also hire our Stream Team to come to your venue. Are you a non-profit organization or an individual? We offer reduced prices for qualified customers. For these or any other questions, please contact us."
@@ -567,6 +569,7 @@ en:
       streamteam_offer: "We also offer streaming services. Contact us for details."
     explanation:
       header: "Voice Republic Pricing"
+      join_for_free: Join For Free
       subtitle: |
         All content on Voice Republic is free to listen to. Content producers pay per Talk, and Talk Credits can be purchased in packages. A Talk Credit will never expire.
 
@@ -580,7 +583,7 @@ en:
         &#42;A Credit does not, however, cover the cost of the Voice Republic “Ground Crew” operating a stage at your event. For “Ground Crew” services, please refer to the Ground Crew Pricing Guide.
     package:
       purchase_count_at_a_price_of_amount: |
-        %{count} VR Talk Credits at %{amount}
+        <span>%{count}</span> VR Talk Credits at <br>%{amount}
       forwarding_to_paypal: Forwarding you...
     new:
       payment_authorized: |

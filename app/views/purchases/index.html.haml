@@ -1,23 +1,20 @@
 = simple_form_for(:purchase, url: express_new_purchase_path, method: 'get') do |f|
 
-  .row
-    .medium-12.columns
-      .box= render 'explanation'
+  .box= render 'explanation'
 
   .row
-    .medium-8.medium-offset-2.columns
-      .pricing-box
-        %h3=t('.box-header-enterprise')
-          
-        = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
+    .small-10.small-offset-2.medium-12.columns
+    %h3.section-header= t('.box-header-enterprise')
+
+    .pricing-box
+      = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
   .row
-    .medium-12.columns(style="text-align: center; margin-top: 50px")
-      %h3=t('.ppexplain')
+    .medium-12.columns.paypal
+      %p.lead= t('.ppexplain').html_safe
       %span#paypal_spinner
         = image_tag 'loader.gif'
       = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner"
 
   .row
-    .medium-12.columns
-      .box= render 'questions'
+    .box= render 'questions'
