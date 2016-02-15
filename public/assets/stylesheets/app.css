@@ -4505,3 +4505,30 @@ footer {
   .paypal p span {
     font-size: 0.875rem;
     opacity: .5; }
+
+.series {
+  background: #EFEFEF; }
+  .series .row {
+    max-width: 56.25rem;
+    padding: 0;
+    background: yellow; }
+    .series .row .columns, .series .row .profile-tile, .series .row #claim .container .claim-cta-half, #claim .container .series .row .claim-cta-half, .series .row #categories #talk-collection .category, #categories #talk-collection .series .row .category, .series .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .row .publisher, .series .row .landing-feature .landing-half, .landing-feature .series .row .landing-half {
+      padding: 12px; }
+    @media screen and (min-width: 56.25em) {
+      .series .row .talk-card {
+        width: 33.3333%; } }
+    .series .row h3 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      font-size: 1.125rem;
+      text-align: left;
+      font-weight: 700;
+      margin-left: 6px; }
+  .series .user-box * {
+    display: inline-block; }
+  .series .live-talks-box .columns, .series .live-talks-box .profile-tile, .series .live-talks-box #claim .container .claim-cta-half, #claim .container .series .live-talks-box .claim-cta-half, .series .live-talks-box #categories #talk-collection .category, #categories #talk-collection .series .live-talks-box .category, .series .live-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .live-talks-box .publisher, .series .live-talks-box .landing-feature .landing-half, .landing-feature .series .live-talks-box .landing-half, .series .upcoming-talks-box .columns, .series .upcoming-talks-box .profile-tile, .series .upcoming-talks-box #claim .container .claim-cta-half, #claim .container .series .upcoming-talks-box .claim-cta-half, .series .upcoming-talks-box #categories #talk-collection .category, #categories #talk-collection .series .upcoming-talks-box .category, .series .upcoming-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .upcoming-talks-box .publisher, .series .upcoming-talks-box .landing-feature .landing-half, .landing-feature .series .upcoming-talks-box .landing-half, .series .archived-talks-box .columns, .series .archived-talks-box .profile-tile, .series .archived-talks-box #claim .container .claim-cta-half, #claim .container .series .archived-talks-box .claim-cta-half, .series .archived-talks-box #categories #talk-collection .category, #categories #talk-collection .series .archived-talks-box .category, .series .archived-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .archived-talks-box .publisher, .series .archived-talks-box .landing-feature .landing-half, .landing-feature .series .archived-talks-box .landing-half {
+    padding: 6px; }
+  .series .series-user {
+    color: #29292b;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-left: 12px; }
