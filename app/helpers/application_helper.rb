@@ -13,8 +13,8 @@ module ApplicationHelper
 
   # TODO: refactor into controllers
   def render_footer?
-    return false if controller_action == 'explore-index' 
-    return false if controller_action == 'users-edit' 
+    return false if controller_action == 'explore-index'
+    return false if controller_action == 'users-edit'
     true
   end
 
@@ -33,7 +33,7 @@ module ApplicationHelper
       end
     end
     section = Section.find_or_create_by(key: key, locale: I18n.locale)
-    if section.content.nil? # nil not blank!
+    if section.content.nil? or Rails.env.development? # nil not blank!
       section.content = default_content(locale, key)
       section.save
       section.reload
@@ -42,6 +42,9 @@ module ApplicationHelper
     section = interpolations.inject(section) do |result, interpolation|
       name, value = interpolation
       result.gsub("%{#{name}}", value)
+    end
+    if Rails.env.edvelopment? and section.blank?
+      section = "section: #{key}<br/>#{interpolations.inspect}"
     end
     section.html_safe
   end

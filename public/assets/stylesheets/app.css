@@ -1817,11 +1817,11 @@ select {
   margin-left: auto;
   margin-right: auto; }
 
-.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, #working::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   content: ' ';
   display: table; }
 
-.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
   clear: both; }
 
 .button-group {
@@ -2177,6 +2177,40 @@ select {
 .no-js [data-responsive-menu] ul {
   display: none; }
 
+.progress {
+  background-color: #cacaca;
+  height: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0; }
+  .progress.primary .progress-meter {
+    background-color: #2c46b0; }
+  .progress.secondary .progress-meter, button.progress .progress-meter {
+    background-color: #54c6c6; }
+  .progress.success .progress-meter {
+    background-color: #d8f793; }
+  .progress.alert .progress-meter {
+    background-color: #f82847; }
+  .progress.warning .progress-meter {
+    background-color: #ffed00; }
+
+.progress-meter {
+  position: relative;
+  display: block;
+  width: 0%;
+  height: 100%;
+  background-color: #2c46b0;
+  border-radius: 0; }
+  .progress-meter .progress-meter-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    white-space: nowrap; }
+
 .sticky-container {
   position: relative; }
 
@@ -2375,6 +2409,71 @@ body.is-reveal-open {
   .menu-icon:hover::after {
     background: #cacaca;
     box-shadow: 0 7px 0 #cacaca, 0 14px 0 #cacaca; }
+
+.has-tip {
+  border-bottom: dotted 1px #3F4044;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  cursor: help; }
+
+.tooltip {
+  background-color: #a339cd;
+  color: #FFFFFF;
+  font-size: 80%;
+  padding: 0.75rem;
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 0.6495rem);
+  max-width: 10rem !important;
+  border-radius: 0; }
+  .tooltip::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 0.75rem;
+    border-color: transparent transparent #a339cd;
+    border-bottom-style: solid;
+    bottom: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); }
+  .tooltip.top::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 0.75rem;
+    border-color: #a339cd transparent transparent;
+    border-top-style: solid;
+    top: 100%;
+    bottom: auto; }
+  .tooltip.left::before, .tooltip#left-column::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 0.75rem;
+    border-color: transparent transparent transparent #a339cd;
+    border-left-style: solid;
+    bottom: auto;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%); }
+  .tooltip.right::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 0.75rem;
+    border-color: transparent #a339cd transparent transparent;
+    border-right-style: solid;
+    bottom: auto;
+    left: auto;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%); }
 
 .top-bar {
   padding: 0.5rem; }
@@ -3301,77 +3400,77 @@ h1, h2 {
   #cta .text-link:hover {
     text-decoration: underline; }
 
-.registrations, .sessions {
+.registrations, .sessions, .confirmations, .passwords {
   height: 100%; }
-  html .registrations, html .sessions {
+  html .registrations, html .sessions, html .confirmations, html .passwords {
     background-size: cover;
     height: 100%;
     padding: 0;
     margin: 0; }
-  .registrations body, .sessions body {
+  .registrations body, .sessions body, .confirmations body, .passwords body {
     height: 100%;
     background: none;
     text-align: center; }
-    .registrations body .bg-img, .sessions body .bg-img {
+    .registrations body .bg-img, .sessions body .bg-img, .confirmations body .bg-img, .passwords body .bg-img {
       position: fixed;
       top: 0;
       left: 0;
       z-index: 1; }
-  .registrations label, .sessions label {
+  .registrations label, .sessions label, .confirmations label, .passwords label {
     text-align: left; }
-  .registrations #error_explanation h2, .sessions #error_explanation h2 {
+  .registrations #error_explanation h2, .sessions #error_explanation h2, .confirmations #error_explanation h2, .passwords #error_explanation h2 {
     text-transform: none;
     color: #f82847;
     font-size: 1.125rem;
     letter-spacing: 0;
     margin-bottom: 12px;
     text-align: left; }
-  .registrations #error_explanation ul, .sessions #error_explanation ul {
+  .registrations #error_explanation ul, .sessions #error_explanation ul, .confirmations #error_explanation ul, .passwords #error_explanation ul {
     list-style-type: decimal;
     text-align: left;
     font-size: 0.875rem;
     margin-bottom: 24px;
     color: #f82847;
     font-weight: 500; }
-  .registrations .bg-img, .sessions .bg-img {
+  .registrations .bg-img, .sessions .bg-img, .confirmations .bg-img, .passwords .bg-img {
     position: fixed;
     top: 0;
     left: 0;
     z-index: 10;
     min-width: 100%;
     min-height: 100%; }
-  .registrations .columns, .registrations .profile-tile, .registrations #claim .container .claim-cta-half, #claim .container .registrations .claim-cta-half, .registrations #categories #talk-collection .category, #categories #talk-collection .registrations .category, .registrations #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .publisher, .registrations .landing-feature .landing-half, .landing-feature .registrations .landing-half, .sessions .columns, .sessions .profile-tile, .sessions #claim .container .claim-cta-half, #claim .container .sessions .claim-cta-half, .sessions #categories #talk-collection .category, #categories #talk-collection .sessions .category, .sessions #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .publisher, .sessions .landing-feature .landing-half, .landing-feature .sessions .landing-half {
+  .registrations .columns, .registrations .profile-tile, .registrations #claim .container .claim-cta-half, #claim .container .registrations .claim-cta-half, .registrations #categories #talk-collection .category, #categories #talk-collection .registrations .category, .registrations #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .publisher, .registrations .landing-feature .landing-half, .landing-feature .registrations .landing-half, .sessions .columns, .sessions .profile-tile, .sessions #claim .container .claim-cta-half, #claim .container .sessions .claim-cta-half, .sessions #categories #talk-collection .category, #categories #talk-collection .sessions .category, .sessions #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .publisher, .sessions .landing-feature .landing-half, .landing-feature .sessions .landing-half, .confirmations .columns, .confirmations .profile-tile, .confirmations #claim .container .claim-cta-half, #claim .container .confirmations .claim-cta-half, .confirmations #categories #talk-collection .category, #categories #talk-collection .confirmations .category, .confirmations #publishers #publisher-collection .publisher, #publishers #publisher-collection .confirmations .publisher, .confirmations .landing-feature .landing-half, .landing-feature .confirmations .landing-half, .passwords .columns, .passwords .profile-tile, .passwords #claim .container .claim-cta-half, #claim .container .passwords .claim-cta-half, .passwords #categories #talk-collection .category, #categories #talk-collection .passwords .category, .passwords #publishers #publisher-collection .publisher, #publishers #publisher-collection .passwords .publisher, .passwords .landing-feature .landing-half, .landing-feature .passwords .landing-half {
     padding: 0 0 12px 0; }
-  .registrations .row, .sessions .row {
+  .registrations .row, .sessions .row, .confirmations .row, .passwords .row {
     padding: 0 -15px; }
   @media screen and (min-width: 40em) {
-    .registrations .row, .sessions .row {
+    .registrations .row, .sessions .row, .confirmations .row, .passwords .row {
       padding-bottom: 0; }
-    .registrations .form-content-block .columns, .registrations .form-content-block .profile-tile, .registrations .form-content-block #claim .container .claim-cta-half, #claim .container .registrations .form-content-block .claim-cta-half, .registrations .form-content-block #categories #talk-collection .category, #categories #talk-collection .registrations .form-content-block .category, .registrations .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .form-content-block .publisher, .registrations .form-content-block .landing-feature .landing-half, .landing-feature .registrations .form-content-block .landing-half, .sessions .form-content-block .columns, .sessions .form-content-block .profile-tile, .sessions .form-content-block #claim .container .claim-cta-half, #claim .container .sessions .form-content-block .claim-cta-half, .sessions .form-content-block #categories #talk-collection .category, #categories #talk-collection .sessions .form-content-block .category, .sessions .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .form-content-block .publisher, .sessions .form-content-block .landing-feature .landing-half, .landing-feature .sessions .form-content-block .landing-half {
+    .registrations .form-content-block .columns, .registrations .form-content-block .profile-tile, .registrations .form-content-block #claim .container .claim-cta-half, #claim .container .registrations .form-content-block .claim-cta-half, .registrations .form-content-block #categories #talk-collection .category, #categories #talk-collection .registrations .form-content-block .category, .registrations .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .registrations .form-content-block .publisher, .registrations .form-content-block .landing-feature .landing-half, .landing-feature .registrations .form-content-block .landing-half, .sessions .form-content-block .columns, .sessions .form-content-block .profile-tile, .sessions .form-content-block #claim .container .claim-cta-half, #claim .container .sessions .form-content-block .claim-cta-half, .sessions .form-content-block #categories #talk-collection .category, #categories #talk-collection .sessions .form-content-block .category, .sessions .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .sessions .form-content-block .publisher, .sessions .form-content-block .landing-feature .landing-half, .landing-feature .sessions .form-content-block .landing-half, .confirmations .form-content-block .columns, .confirmations .form-content-block .profile-tile, .confirmations .form-content-block #claim .container .claim-cta-half, #claim .container .confirmations .form-content-block .claim-cta-half, .confirmations .form-content-block #categories #talk-collection .category, #categories #talk-collection .confirmations .form-content-block .category, .confirmations .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .confirmations .form-content-block .publisher, .confirmations .form-content-block .landing-feature .landing-half, .landing-feature .confirmations .form-content-block .landing-half, .passwords .form-content-block .columns, .passwords .form-content-block .profile-tile, .passwords .form-content-block #claim .container .claim-cta-half, #claim .container .passwords .form-content-block .claim-cta-half, .passwords .form-content-block #categories #talk-collection .category, #categories #talk-collection .passwords .form-content-block .category, .passwords .form-content-block #publishers #publisher-collection .publisher, #publishers #publisher-collection .passwords .form-content-block .publisher, .passwords .form-content-block .landing-feature .landing-half, .landing-feature .passwords .form-content-block .landing-half {
       padding: 0; }
-      .registrations .form-content-block .columns:nth-child(2), .registrations .form-content-block .profile-tile:nth-child(2), .registrations .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .registrations .form-content-block .claim-cta-half:nth-child(2), .registrations .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .registrations .form-content-block .category:nth-child(2), .registrations .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .registrations .form-content-block .publisher:nth-child(2), .registrations .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .registrations .form-content-block .landing-half:nth-child(2), .sessions .form-content-block .columns:nth-child(2), .sessions .form-content-block .profile-tile:nth-child(2), .sessions .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .sessions .form-content-block .claim-cta-half:nth-child(2), .sessions .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .sessions .form-content-block .category:nth-child(2), .sessions .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .sessions .form-content-block .publisher:nth-child(2), .sessions .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .sessions .form-content-block .landing-half:nth-child(2) {
+      .registrations .form-content-block .columns:nth-child(2), .registrations .form-content-block .profile-tile:nth-child(2), .registrations .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .registrations .form-content-block .claim-cta-half:nth-child(2), .registrations .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .registrations .form-content-block .category:nth-child(2), .registrations .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .registrations .form-content-block .publisher:nth-child(2), .registrations .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .registrations .form-content-block .landing-half:nth-child(2), .sessions .form-content-block .columns:nth-child(2), .sessions .form-content-block .profile-tile:nth-child(2), .sessions .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .sessions .form-content-block .claim-cta-half:nth-child(2), .sessions .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .sessions .form-content-block .category:nth-child(2), .sessions .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .sessions .form-content-block .publisher:nth-child(2), .sessions .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .sessions .form-content-block .landing-half:nth-child(2), .confirmations .form-content-block .columns:nth-child(2), .confirmations .form-content-block .profile-tile:nth-child(2), .confirmations .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .confirmations .form-content-block .claim-cta-half:nth-child(2), .confirmations .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .confirmations .form-content-block .category:nth-child(2), .confirmations .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .confirmations .form-content-block .publisher:nth-child(2), .confirmations .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .confirmations .form-content-block .landing-half:nth-child(2), .passwords .form-content-block .columns:nth-child(2), .passwords .form-content-block .profile-tile:nth-child(2), .passwords .form-content-block #claim .container .claim-cta-half:nth-child(2), #claim .container .passwords .form-content-block .claim-cta-half:nth-child(2), .passwords .form-content-block #categories #talk-collection .category:nth-child(2), #categories #talk-collection .passwords .form-content-block .category:nth-child(2), .passwords .form-content-block #publishers #publisher-collection .publisher:nth-child(2), #publishers #publisher-collection .passwords .form-content-block .publisher:nth-child(2), .passwords .form-content-block .landing-feature .landing-half:nth-child(2), .landing-feature .passwords .form-content-block .landing-half:nth-child(2) {
         padding-left: 12px; } }
-  .registrations label, .sessions label {
+  .registrations label, .sessions label, .confirmations label, .passwords label {
     color: #29292b; }
-  .registrations .facebook, .sessions .facebook {
+  .registrations .facebook, .sessions .facebook, .confirmations .facebook, .passwords .facebook {
     background: #3B5998;
     color: white;
     font-weight: 500; }
-    .registrations .facebook span, .sessions .facebook span {
+    .registrations .facebook span, .sessions .facebook span, .confirmations .facebook span, .passwords .facebook span {
       line-height: 48px; }
-    .registrations .facebook .svg-icon, .sessions .facebook .svg-icon {
+    .registrations .facebook .svg-icon, .sessions .facebook .svg-icon, .confirmations .facebook .svg-icon, .passwords .facebook .svg-icon {
       float: left;
       display: inline-block;
       margin-top: 4px;
       margin-right: 24px; }
-  .registrations h2, .sessions h2 {
+  .registrations h2, .sessions h2, .confirmations h2, .passwords h2 {
     margin-bottom: 36px; }
-  .registrations .menu li, .sessions .menu li {
+  .registrations .menu li, .sessions .menu li, .confirmations .menu li, .passwords .menu li {
     font-size: 0.75rem;
     background: #e1e2e7; }
-    .registrations .menu li a, .sessions .menu li a {
+    .registrations .menu li a, .sessions .menu li a, .confirmations .menu li a, .passwords .menu li a {
       color: #29292b; }
-  .registrations p.divider-title, .sessions p.divider-title {
+  .registrations p.divider-title, .sessions p.divider-title, .confirmations p.divider-title, .passwords p.divider-title {
     font-weight: 500;
     font-size: 0.75rem;
     background: white;
@@ -3382,18 +3481,18 @@ h1, h2 {
     color: #29292b;
     letter-spacing: 0.0625rem;
     margin-bottom: 24px; }
-  .registrations .join-logo, .sessions .join-logo {
+  .registrations .join-logo, .sessions .join-logo, .confirmations .join-logo, .passwords .join-logo {
     max-height: 60px; }
-  .registrations .input input, .sessions .input input {
+  .registrations .input input, .sessions .input input, .confirmations .input input, .passwords .input input {
     margin-bottom: 0; }
-  .registrations .input label, .sessions .input label {
+  .registrations .input label, .sessions .input label, .confirmations .input label, .passwords .input label {
     text-align: left;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 0.75rem;
     letter-spacing: 0.0625rem;
     color: #8F939C; }
-  .registrations small.error, .sessions small.error {
+  .registrations small.error, .sessions small.error, .confirmations small.error, .passwords small.error {
     background: #f82847;
     color: white;
     text-align: left;
@@ -3401,26 +3500,26 @@ h1, h2 {
     padding: 6px;
     font-weight: 500;
     width: 100%; }
-  .registrations .user_accept_terms_of_use label, .sessions .user_accept_terms_of_use label {
+  .registrations .user_accept_terms_of_use label, .sessions .user_accept_terms_of_use label, .confirmations .user_accept_terms_of_use label, .passwords .user_accept_terms_of_use label {
     text-transform: none;
     letter-spacing: 0; }
-  .registrations .user_accept_terms_of_use small.error, .sessions .user_accept_terms_of_use small.error {
+  .registrations .user_accept_terms_of_use small.error, .sessions .user_accept_terms_of_use small.error, .confirmations .user_accept_terms_of_use small.error, .passwords .user_accept_terms_of_use small.error {
     width: auto; }
-  .registrations .error input, .sessions .error input {
+  .registrations .error input, .sessions .error input, .confirmations .error input, .passwords .error input {
     border: 1px solid #f82847; }
-  .registrations select, .sessions select {
+  .registrations select, .sessions select, .confirmations select, .passwords select {
     border: 1px solid #54c6c6; }
-  .registrations #input-block, .sessions #input-block {
+  .registrations #input-block, .sessions #input-block, .confirmations #input-block, .passwords #input-block {
     background: white;
     margin: 0;
     padding: 24px;
     z-index: 100;
     position: absolute;
     left: 0; }
-    .registrations #input-block img, .sessions #input-block img {
+    .registrations #input-block img, .sessions #input-block img, .confirmations #input-block img, .passwords #input-block img {
       margin-bottom: 30px; }
     @media screen and (min-width: 40em) {
-      .registrations #input-block, .sessions #input-block {
+      .registrations #input-block, .sessions #input-block, .confirmations #input-block, .passwords #input-block {
         position: absolute;
         left: 50%;
         margin-top: 50px;
@@ -3446,8 +3545,48 @@ h1, h2 {
   padding: 0 6px 12px;
   margin-top: -56px; }
 
+#search-results-count {
+  background: #ffed00;
+  padding: 12px;
+  font-size: 1rem; }
+  #search-results-count p {
+    margin: 0;
+    font-weight: 300; }
+    #search-results-count p span {
+      font-weight: 700;
+      color: #a339cd; }
+
 #more {
   margin: 0; }
+
+.pagination {
+  font-weight: 500;
+  margin-top: 24px;
+  max-height: 44px; }
+  .pagination a {
+    color: #54c6c6; }
+    .pagination a:hover {
+      background: white; }
+  .pagination * {
+    background: #fef1de;
+    min-height: 44px;
+    min-width: 44px;
+    height: 44px;
+    display: inline-block;
+    line-height: 42px;
+    font-size: 0.875rem;
+    border: 1px solid #54c6c6; }
+  .pagination .previous_page, .pagination .next_page {
+    background: none; }
+  .pagination .disabled, .pagination .gap {
+    color: #54c6c6;
+    background: none;
+    opacity: .5; }
+  .pagination em.current {
+    background: #54c6c6;
+    color: white;
+    text-transform: none;
+    font-style: normal; }
 
 #result-count {
   font-weight: 700;
@@ -3460,9 +3599,13 @@ h1, h2 {
   padding-bottom: 12px;
   margin-left: 6px; }
 
-.explore-index {
+.explore-index, .search {
   background: #EFEFEF; }
-  .explore-index h2 {
+  .explore-index .top-margin-action-bar, .search .top-margin-action-bar {
+    min-height: 50vh;
+    background: url(../../images/background/desert.jpg) no-repeat 50% 25%;
+    background-size: cover; }
+  .explore-index h2, .search h2 {
     text-align: center;
     font-size: 1.125rem;
     letter-spacing: 0.125rem;
@@ -3470,17 +3613,17 @@ h1, h2 {
     text-transform: uppercase;
     margin-top: 48px;
     margin-bottom: 42px; }
-  .explore-index h6 {
+  .explore-index h6, .search h6 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-weight: 300;
     font-size: 0.875rem;
     text-transform: uppercase;
     color: #b4b6be;
     letter-spacing: 0.0625rem; }
-    .explore-index h6 em {
+    .explore-index h6 em, .search h6 em {
       font-style: normal;
       color: #3c4258; }
-  .explore-index select {
+  .explore-index select, .search select {
     background-color: #ffed00;
     line-height: 24px;
     height: 48px;
@@ -3489,7 +3632,7 @@ h1, h2 {
     max-width: 200px;
     margin-top: 24px;
     margin-right: 12px; }
-  .explore-index hr {
+  .explore-index hr, .search hr {
     max-width: 100%;
     width: 100%;
     border-color: #e1e2e7; }
@@ -3604,18 +3747,23 @@ h1, h2 {
   .category-buttons [type="radio"]:focus + label {
     border: 2px solid green; }
 
-#spy {
+#spy, #working {
   margin-top: 12px;
   height: 56px; }
-  #spy svg {
+  #spy svg, #working svg {
     display: block;
     height: 36px;
     margin: 0 auto; }
-  #spy path {
+  #spy path, #working path {
     stroke-dasharray: 36,3;
     stroke-dashoffset: 0;
     animation: dash 3s linear infinite;
     transform-origin: center center; }
+
+#working {
+  margin: 0; }
+  #working * {
+    display: inline-block; }
 
 footer {
   padding: 84px 12px;
@@ -3663,10 +3811,25 @@ footer {
     #footer-social-links {
       text-align: center; } }
   #footer-social-links a {
-    font-size: 1.5rem;
-    margin-right: 24px; }
+    font-size: 1.5rem; }
     #footer-social-links a:hover {
       text-decoration: none; }
+  #footer-social-links a:first-child {
+    margin-left: 12px; }
+
+#working {
+  position: absolute;
+  height: 80px;
+  max-height: 80px;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fef1de;
+  text-align: center;
+  color: #29292b;
+  padding-top: 21px;
+  z-index: 9999;
+  pointer-events: none; }
 
 .logo a span {
   font-family: "Eagle", "Eagle-Book", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -3813,8 +3976,8 @@ footer {
     margin: 0;
     padding: 0;
     border: 0;
-    padding-top: 21px;
-    margin-left: -40px; }
+    padding-top: 8px;
+    margin-left: -32px; }
     .search-container form label button .svg-icon {
       height: 6px; }
       .search-container form label button .svg-icon svg {
@@ -4058,3 +4221,287 @@ footer {
     margin-bottom: 12px; }
   .series .talk-card-inside .title, .series .talk-card-inside p.lead {
     color: #121214; }
+
+.tooltip {
+  max-width: 20rem !important; }
+
+#sticky-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 24px;
+  padding-top: 18px;
+  background: #fef1de;
+  height: 60px;
+  box-shadow: 0 0 10px rgba(41, 41, 43, 0.2); }
+  #sticky-progress .progress-text {
+    width: 148px;
+    float: left;
+    color: #29292b;
+    font-weight: 700;
+    font-size: 0.875rem; }
+  #sticky-progress .progress {
+    margin-left: 160px;
+    border-radius: 4px;
+    height: 8px;
+    background: #FFFFFF;
+    margin-top: 8px; }
+    #sticky-progress .progress .progress-meter {
+      border-radius: 4px;
+      background: #54c6c6; }
+
+#new_talk {
+  text-align: center; }
+  #new_talk .image-box {
+    width: 320px;
+    height: 180px;
+    margin: 0 auto; }
+  #new_talk .has-tip {
+    border: none; }
+  #new_talk .question .svg-icon {
+    width: 16px;
+    height: 16px; }
+    #new_talk .question .svg-icon svg {
+      width: 16px;
+      height: 16px;
+      color: #b4b6be;
+      transition: color .2s ease; }
+  #new_talk .question:hover .svg-icon svg {
+    color: #a339cd; }
+  #new_talk h3 {
+    color: #121214;
+    font-size: 1.125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.125rem; }
+  #new_talk .form-block {
+    background: white;
+    border-radius: 4px;
+    padding: 24px; }
+  #new_talk .input {
+    margin-bottom: 60px; }
+  #new_talk .hidden {
+    margin-bottom: 0; }
+    #new_talk .hidden:after {
+      content: "";
+      display: none; }
+  #new_talk label {
+    margin-bottom: 12px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.3125rem;
+    display: inline-block; }
+    #new_talk label span {
+      color: red;
+      font-weight: 300;
+      color: #a339cd;
+      font-size: 0.875rem;
+      line-height: 1.125rem; }
+  #new_talk .talk_starts_at_date label, #new_talk .talk_starts_at_time label, #new_talk .talk_duration label {
+    font-weight: 300;
+    font-size: 0.875rem; }
+  #new_talk h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    text-transform: none;
+    letter-spacing: 0; }
+  #new_talk .hint {
+    color: red;
+    font-weight: 300;
+    color: #a339cd;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    display: inline-block;
+    text-align: left; }
+    #new_talk .hint ul {
+      list-style-position: inside; }
+  #new_talk input, #new_talk textarea, #new_talk select {
+    padding: 12px;
+    margin-bottom: 6px;
+    border-color: #b4b6be; }
+    #new_talk input:focus, #new_talk textarea:focus, #new_talk select:focus {
+      border-color: #54c6c6; }
+  #new_talk hr {
+    margin-bottom: 60px;
+    border-bottom: 4px solid #54c6c6;
+    max-width: 200px; }
+  #new_talk small.error {
+    background: #f82847;
+    color: white;
+    text-align: left;
+    float: left;
+    padding: 6px;
+    font-weight: 500;
+    width: 100%; }
+  #new_talk .error input, #new_talk .error textarea {
+    border: 1px solid #f82847;
+    margin-bottom: 0; }
+  #new_talk .close-button.words span {
+    font-size: 1rem;
+    font-weight: 300;
+    border: 1px solid #29292b;
+    padding: 6px;
+    border-radius: 3px; }
+
+.not-found {
+  padding-top: 48px; }
+  .not-found .svg-icon {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    padding-bottom: 12px; }
+    .not-found .svg-icon svg {
+      width: 48px;
+      height: 48px; }
+      .not-found .svg-icon svg * {
+        fill: #f82847; }
+  .not-found h2 {
+    color: #f82847;
+    margin-bottom: 12px;
+    text-transform: none;
+    font-size: 2.25rem; }
+  .not-found .lead {
+    color: #29292b; }
+  .not-found hr {
+    margin-top: 48px; }
+
+.talk-holder {
+  padding-bottom: 48px; }
+  .talk-holder .talk-card {
+    margin: 0 auto;
+    float: none !important; }
+
+.pages-outdated_browser h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; }
+
+.pages-outdated_browser ul {
+  list-style-position: inside; }
+  .pages-outdated_browser ul li {
+    margin-bottom: 24px;
+    font-weight: 300; }
+    .pages-outdated_browser ul li a {
+      font-weight: 500; }
+      .pages-outdated_browser ul li a:hover {
+        text-decoration: underline; }
+
+.purchases-index {
+  background: #EFEFEF; }
+  .purchases-index h3 {
+    color: #54c6c6;
+    margin-bottom: 24px; }
+  .purchases-index #claim.pricing {
+    padding-top: 60px;
+    background: url(../../images/background/pricing-bg-blue.jpg) no-repeat 50% 25%; }
+    .purchases-index #claim.pricing a {
+      color: #ffed00; }
+      .purchases-index #claim.pricing a:hover {
+        color: #f82847; }
+    .purchases-index #claim.pricing .button a, .purchases-index #claim.pricing button a {
+      color: #ffed00; }
+      .purchases-index #claim.pricing .button a:hover, .purchases-index #claim.pricing button a:hover {
+        color: #f82847; }
+    .purchases-index #claim.pricing h2 {
+      margin-bottom: 60px;
+      color: white; }
+    .purchases-index #claim.pricing .lead {
+      color: #fef1de;
+      margin-bottom: 48px; }
+  .purchases-index .section-header {
+    font-size: 1.3125rem;
+    letter-spacing: 0.1875rem;
+    text-transform: uppercase; }
+
+.purchases-index .pricing-box ul li {
+  margin-left: 48px;
+  font-family: "minion-pro", times, serif;
+  opacity: .6; }
+
+.purchases-index form.purchase input[type='radio'] {
+  display: none;
+  opacity: 0;
+  margin: 0; }
+
+.purchases-index form.purchase label {
+  font-weight: 400;
+  font-size: 18px;
+  padding: 16px 10px 16px 0;
+  text-align: center;
+  transition: background .2s ease;
+  display: inline-block;
+  float: left;
+  background: #ffed00;
+  padding: 12px;
+  color: #a339cd;
+  width: 100%;
+  border: 1px solid #EFEFEF; }
+  @media screen and (min-width: 40em) {
+    .purchases-index form.purchase label {
+      width: 20%; } }
+  .purchases-index form.purchase label .price {
+    font-weight: 300; }
+    .purchases-index form.purchase label .price p {
+      font-weight: 500;
+      font-size: 0.875rem; }
+      .purchases-index form.purchase label .price p span {
+        font-weight: 700;
+        display: block;
+        font-size: 1.875rem; }
+
+.price_per_talk {
+  font-size: 0.75rem;
+  font-weight: 300; }
+
+.purchases-index form.purchase label .price_per_talk {
+  font-size: 80%; }
+
+.purchases-index form.purchase label.selected {
+  background-color: #a339cd;
+  color: #ffed00;
+  pointer-events: none; }
+
+.purchases-index form.purchase label:hover {
+  background-color: #fef1de;
+  color: #a339cd; }
+
+.purchases-index form.purchase .button, .purchases-index form.purchase button {
+  background-color: transparent; }
+
+.purchases-index form.purchase #paypal_spinner {
+  display: none; }
+
+.purchases-index form.purchase #paypal_spinner img {
+  width: 42px;
+  height: 42px;
+  margin: 14px 24px 13px; }
+
+.purchases-index hr.pricing-hr {
+  margin-top: 48px;
+  margin-bottom: 48px; }
+
+.pricing-features {
+  padding-top: 60px;
+  margin-bottom: 60px;
+  color: #29292b; }
+  .pricing-features h5 {
+    color: #a339cd;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-weight: 700; }
+  .pricing-features p {
+    font-weight: 300; }
+  .pricing-features .svg-icon {
+    color: #a339cd;
+    max-height: 48px;
+    max-width: 48px;
+    height: 48px;
+    margin-bottom: 12px; }
+    .pricing-features .svg-icon svg {
+      max-height: 48px;
+      max-width: 48px; }
+
+.paypal p {
+  line-height: 1.3125rem; }
+  .paypal p span {
+    font-size: 0.875rem;
+    opacity: .5; }

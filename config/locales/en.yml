@@ -1,4 +1,7 @@
 en:
+  pages:
+    outdated_browser:
+      oops: Oops!
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
@@ -294,15 +297,18 @@ en:
     show:
       title: 'Results for "%{query}"'
       results:
-        zero: 'SORRY, NO RESULTS FOR "%{query}"'
-        one: '%{count} RESULT FOR "%{query}"'
-        other: '%{count} RESULTS FOR "%{query}"'
+        zero: |
+          Sorry, we couldn't find anything for <span>%{query}</span>
+        one: |
+          One results for <span>%{query}</span>!
+        other: |
+          %{count} results for <span>%{query}</span>
       best_result: TOP RESULT
       talks: TALKS
       series: SERIES
       users: USERS
       now_live: NOW LIVE
-      featured: FEATURED
+      featured: Here are some FEATURED talks
       popular: POPULAR
       recently_archived: RECENTLY ARCHIVED
       no_results: Sorry, no results.
@@ -360,6 +366,17 @@ en:
       fb: Voice Republic on facebook
       tw: Voice Republic on twitter
       team: Team
+    footer_velvet: 
+      about: About
+      pricing: Pricing
+      support_and_faq: Support & FAQ
+      blog: Blog
+      terms_and_privacy: Terms & Privacy
+      press: Press
+      service_status: Service Status
+      contact: Contact
+      careers: Careers
+      imprint: Imprint
     navbar:
       more_talks: More talks
       sign_up: Join For Free
@@ -495,10 +512,10 @@ en:
     exception_for_vr_users: "Since you have an email adress [user]@voicrepublic.com, I'm showing you the exception message for debugging purposes. Regular users will not see this exception."
   errors:
     outdated_browser:
-      header: "You are using an outdated browser"
+      header: "You are using an outdated browser."
       body: |
         <p>You are using an old version of %{name} whis is %{version}.</p>
-        <p>Unfortunately, at this stage, we do not have the manpower to support every browser. We rather strive to to build the most awesome user experience using modern browsers. For a good experience with Voice Republic, please upgrade to the newest version or download one of the browsers below:</p>
+        <p>Unfortunately, at this sttage, we do not have the manpower to support every browser. We rather strive to to build the most awesome user experience using modern browsers. For a good experience with Voice Republic, please upgrade to the newest version or download one of the browsers below:</p>
         <ul>
           <li><a href="https://www.google.com/intl/en/chrome/browser/">Download Chrome 33+</a></li>
           <li><a href="http://www.mozilla.org/en-US/firefox/new/">Download Firefox 28+</a></li>
@@ -540,7 +557,9 @@ en:
       enterprise-example-1: "Large Conferences &amp; Speaker Series"
       enterprise-example-2: "Universities"
       enterprise-example-3: "Corporations"
-      ppexplain: "Credit Cards accepted. No PayPal account needed."
+      ppexplain: |
+        Credit cards accepted! <br>
+        <span>(No PayPal account needed.)<//span>
     questions:
       contact_us: "Contact Us"
       contact_us_for_questions: "You can also hire our Stream Team to come to your venue. Are you a non-profit organization or an individual? We offer reduced prices for qualified customers. For these or any other questions, please contact us."
@@ -550,6 +569,7 @@ en:
       streamteam_offer: "We also offer streaming services. Contact us for details."
     explanation:
       header: "Voice Republic Pricing"
+      join_for_free: Join For Free
       subtitle: |
         All content on Voice Republic is free to listen to. Content producers pay per Talk, and Talk Credits can be purchased in packages. A Talk Credit will never expire.
 
@@ -563,7 +583,7 @@ en:
         &#42;A Credit does not, however, cover the cost of the Voice Republic “Ground Crew” operating a stage at your event. For “Ground Crew” services, please refer to the Ground Crew Pricing Guide.
     package:
       purchase_count_at_a_price_of_amount: |
-        %{count} VR Talk Credits at %{amount}
+        <span>%{count}</span> VR Talk Credits at <br>%{amount}
       forwarding_to_paypal: Forwarding you...
     new:
       payment_authorized: |

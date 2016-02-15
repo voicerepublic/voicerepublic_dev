@@ -89,7 +89,7 @@ function changeLabelName(input)
         $label   = $input.next( 'label' ),
         labelVal = $label.html();
 
-        console.log('should change label name')
+        //console.log('should change label name')
 
     // $input.on( 'change', function( e )
     // {
@@ -129,15 +129,24 @@ function readURL(input) {
 }
 
 $("#user_avatar").change(function(){
-    console.log('should change the image');
+    //console.log('should change the image');
     readURL(this);
     // changeLabelName($('.inputfile'));
 });
 
 $("input#user_slug").focus(function(){  
-    console.log('tryign to schange slug');
+    //console.log('tryign to schange slug');
 
     $('.slug-warning').removeClass('hide');
+});
+
+//trigger thing on search 
+$('.search-container button').click(function(){
+       $('#working').removeClass('hide');
+    });
+$('.search-container input').keypress(function(e){
+        if(e.which == 13){//Enter key pressed
+$('#working').removeClass('hide');        }
 });
 
 $(document).foundation();

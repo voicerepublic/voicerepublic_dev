@@ -12,7 +12,6 @@ en:
       user:
         about: |
           This field <a target='_blank' href='/r/md'>supports Markdown</a>.
-      user:
         slug: |
           Get <a target='_blank' href='/r/username'>help</a> in choosing a good username.
     labels:

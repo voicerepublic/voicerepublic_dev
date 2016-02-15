@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  class OutdatedBrowser < RuntimeError
+  end
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -61,18 +63,18 @@ class ApplicationController < ActionController::Base
   private
 
   def check_browser
-    cur_browser = {
-      name: browser.meta.first.to_sym,
-      version: browser.version.to_i
-    }
+    browser_name = browser.meta.first.to_sym
+    browser_version = browser.version.to_i
 
-    # This will not catch all kinds of browsers (Android, iOS). This is by
-    # design.
-    return unless Settings.supported_browsers.entries.map(&:first).include? cur_browser[:name]
+    # This will not catch all kinds of browsers (Android, iOS). This
+    # is by design.
+    supported = Settings.supported_browsers.to_hash.keys
+    return unless supported.include?(browser_name)
 
-    unless cur_browser[:version] >= Settings.supported_browsers[cur_browser[:name]]
-      redirect_to "/upgrade_browser"
-    end
+    expected_version = Settings.supported_browsers[browser_name]
+    return unless browser_version < expected_version
+
+    raise OutdatedBrowser
   end
 
   # get locale from browser settings
@@ -111,6 +113,28 @@ class ApplicationController < ActionController::Base
 
   def set_csrf_cookie_for_ng
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
+  end
+
+
+  # === Better Exception Handling ===
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActionController::RoutingError, with: :routing_error
+  rescue_from OutdatedBrowser, with: :outdated_browser
+  # ActionView::Template::Error
+  # ActionController::InvalidAuthenticityToken
+  # Errno::ENOSPC
+
+  def record_not_found
+    @talk = Talk.promoted.first
+    render action: 'record_not_found', status: 404, layout: 'velvet'
+  end
+
+  def routing_error
+    render action: 'routing_error', status: 404, layout: 'velvet'
+  end
+
+  def outdated_browser
+    redirect_to '/pages/outdated_browser'
   end
 
 end
