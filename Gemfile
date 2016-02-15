@@ -58,6 +58,7 @@ gem 'faye-authentication', github: 'branch14/faye-authentication'
 gem 'redcarpet' # markdown parser & renderer
 gem 'inifile', require: false
 gem 'trickery'
+gem 'closeio', require: false
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
