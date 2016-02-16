@@ -3,7 +3,7 @@ module PurchasesHelper
   include Pricing
 
   def paypal_button_url
-    'https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif'
+    'https://www.paypalobjects.com/webstatic/en_US/btn/btn_checkout_pp_142x27.png'
   end
 
 end
