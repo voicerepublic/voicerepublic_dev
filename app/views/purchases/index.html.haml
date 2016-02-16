@@ -1,6 +1,21 @@
 = simple_form_for(:purchase, url: express_new_purchase_path, method: 'get') do |f|
 
-  .box= render 'explanation'
+  = render 'explanation'
+  %section.pricing-features
+    .row.clearfix
+      .medium-6.columns
+        %h5= t('.feature1')
+        %p.lead= t('.feature1_description')
+      .medium-6.columns
+        %h5= t('.feature2')
+        %p.lead= t('.feature2_description')
+    .row.clearfix
+      .medium-6.columns
+        %h5= t('.feature3')
+        %p.lead= t('.feature3_description')
+      .medium-6.columns
+        %h5= t('.feature4')
+        %p.lead= t('.feature4_description')
 
   .row.packages
     .small-10.small-offset-2.medium-12.columns
@@ -11,10 +26,10 @@
 
   .row
     .medium-12.columns.paypal
-      %p.lead= t('.ppexplain').html_safe
+      -#%span.float-left= t('.ppexplain').html_safe
       %span#paypal_spinner
         = image_tag 'loader.gif'
-      = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner"
+      = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner", value: 'buy now'
 
   .row
     .box= render 'questions'

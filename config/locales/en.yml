@@ -552,33 +552,33 @@ en:
       box-header-basic: "Basic"
       talk_credit_packages: "Talk Credit Packages"
       ppexplain: |
-        Credit cards accepted! <br>
-        <span>(No PayPal account needed.)<//span>
+        Credit cards accepted! (No PayPal account needed.)
+      feature1: One Talk Credit = One Talk
+      feature1_description: At Voice Republic you can buy Talk Credits. One credit corresponds to one talk – they will never expire. It makes no difference whether the event is broadcasted live or uploaded later. 
+      feature2: No Recurring Costs
+      feature2_description:  Without a subscription model you always stay independent and flexible. If you don’t want to stream or upload anything, then you also pay nothing. In addition, listening, downloading and sharing of live talks and content in the archive is free of charge for all users. 
+      feature3: No Ads, No Business with your Data
+      feature3_description: Voice Republic is ad-free and does not make money with the disclosure of customer information to third parties.
+      feature4: Free Test Talks and Two Credits to Try out Voice Republic
+      feature4_description: When you sign up with us, you get the first two Talk Credits as a present. You can also test all functions with free test talks. Listening and downloading Talks is free of charge.
     questions:
+      no_ads: No ads, no recurring costs.
       contact_us: "Contact Us"
-      contact_us_for_questions: "You can also hire our Stream Team to come to your venue. Are you a non-profit organization or an individual? We offer reduced prices for qualified customers. For these or any other questions, please contact us."
+      contact_us_for_questions: |
+        Without a subscription model you always stay independent and flexible. If you don’t want to stream or upload anything, then you also pay nothing. In addition, listening, downloading and sharing of live talks and content in the archive is free of charge for all users.
+        Voice Republic is ad-free and does not make money with the disclosure of customer information to third parties.
+        Credit Cards are accepted, a PayPal account is not absolutely necessary. You want to pay by invoice or receive an individual offer? Contact us: service@voicerepublic.com
+        You have further questions? Feel free to contact our service team under service@voicerepublic.com 
+
     ppexplain: "Credit Cards accepted. No PayPal account needed."
     streamteam:
       contact_us: "Contact Us"
       streamteam_offer: "We also offer streaming services. Contact us for details."
     explanation:
-      header: |
-        Live streams and audio uploads<br>
-        starting at 12 €
+      header: Voice Republic Pricing
       join_for_free: Join For Free
       subtitle: |
-        With Voice Republic you can buy Talk Credits. One credit corresponds to a talk – they will never expire. It makes no difference whether the event will be broadcast live or uploaded later. When you sign up with us, you get the first two Talk Credits as a present. You can also test all functions with free test talks.<br><br>
-        Listening to and downloading Talks is free of charge.
-
-
-      pricing-feature-1: One Talk Credit = One Talk
-      pricing-description-1:  One Talk Credit allows one Talk to be broadcast, uploaded and archived. There is no limit to the number of times the Talk can be heard, downloaded or embedded.
-      pricing-feature-2: Credits Last Forever
-      pricing-description-2:  Any Credits you purchase will be fully valid for as long as your Voice Republic account exists.
-      pricing-feature-3: No Recurring Costs
-      pricing-description-3: Only purchase Talk Credits when you need them. No subscription necessary.
-      pricing-footnote: |
-        &#42;A Credit does not, however, cover the cost of the Voice Republic “Ground Crew” operating a stage at your event. For “Ground Crew” services, please refer to the Ground Crew Pricing Guide.
+        All content on Voice Republic is free to listen to. Live streams and audio uploads starting at 12 €.
     package:
       purchase_count_at_a_price_of_amount: |
         <span>%{count}</span> VR Talk Credits at <br>%{amount}

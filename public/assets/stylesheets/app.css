@@ -4387,7 +4387,7 @@ footer {
         text-decoration: underline; }
 
 .purchases-index {
-  background: #EFEFEF; }
+  background: #FFFFFF; }
   .purchases-index h3 {
     color: #54c6c6;
     margin-bottom: 24px; }
@@ -4403,7 +4403,7 @@ footer {
       .purchases-index #claim.pricing .button a:hover, .purchases-index #claim.pricing button a:hover {
         color: #f82847; }
     .purchases-index #claim.pricing h2 {
-      margin-bottom: 60px;
+      margin-bottom: 36px;
       color: white; }
     .purchases-index #claim.pricing .lead {
       color: #fef1de;
@@ -4486,6 +4486,7 @@ footer {
 .pricing-features {
   padding-top: 60px;
   margin-bottom: 60px;
+  background: #EFEFEF;
   color: #29292b; }
   .pricing-features h5 {
     color: #a339cd;
