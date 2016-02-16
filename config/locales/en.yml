@@ -550,13 +550,7 @@ en:
   purchases:
     index:
       box-header-basic: "Basic"
-      basic-example-1: "Private Individuals"
-      basic-example-2: "Non-Profit Organizations"
-      basic-example-3: "Small Conferences &amp; Speaker Series"
-      box-header-enterprise: "Talk Credit Packages"
-      enterprise-example-1: "Large Conferences &amp; Speaker Series"
-      enterprise-example-2: "Universities"
-      enterprise-example-3: "Corporations"
+      talk_credit_packages: "Talk Credit Packages"
       ppexplain: |
         Credit cards accepted! <br>
         <span>(No PayPal account needed.)<//span>
@@ -568,10 +562,14 @@ en:
       contact_us: "Contact Us"
       streamteam_offer: "We also offer streaming services. Contact us for details."
     explanation:
-      header: "Voice Republic Pricing"
+      header: |
+        Live streams and audio uploads<br>
+        starting at 12 €
       join_for_free: Join For Free
       subtitle: |
-        All content on Voice Republic is free to listen to. Content producers pay per Talk, and Talk Credits can be purchased in packages. A Talk Credit will never expire.
+        With Voice Republic you can buy Talk Credits. One credit corresponds to a talk – they will never expire. It makes no difference whether the event will be broadcast live or uploaded later. When you sign up with us, you get the first two Talk Credits as a present. You can also test all functions with free test talks.<br><br>
+        Listening to and downloading Talks is free of charge.
+
 
       pricing-feature-1: One Talk Credit = One Talk
       pricing-description-1:  One Talk Credit allows one Talk to be broadcast, uploaded and archived. There is no limit to the number of times the Talk can be heard, downloaded or embedded.
