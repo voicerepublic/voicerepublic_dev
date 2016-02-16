@@ -129,7 +129,7 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
-  before_save :set_description_as_html, if: :description_changed?
+  before_save :process_description, if: :description_changed?
   before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
   before_create :prepare, if: :can_prepare?
@@ -406,8 +406,9 @@ class Talk < ActiveRecord::Base
 
   private
 
-  def set_description_as_html
+  def process_description
     self.description_as_html = MD2HTML.render(description)
+    self.description_as_text = MD2TEXT.render(description)
   end
 
   def create_and_set_series?
