@@ -4,8 +4,8 @@ module TalksHelper
     author = @talk.series.user.name
     author = @talk.speakers unless @talk.speakers.blank?
     opts = {
-      description: @talk.description.empty? ?
-        @talk.teaser : strip_html(@talk.description),
+      description: @talk.description_as_text.empty? ?
+        @talk.teaser : @talk.description_as_text,
       title:    @talk.title,
       image:    "https://#{request.host}#{@talk.flyer.path}",
       keywords: @talk.try(:tag_list),
