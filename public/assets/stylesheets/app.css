@@ -4483,32 +4483,40 @@ footer {
   margin-top: 48px;
   margin-bottom: 48px; }
 
-.pricing-features {
+.pricing-features, .paypal {
   padding-top: 60px;
-  margin-bottom: 60px;
-  background: #EFEFEF;
+  padding-bottom: 60px;
   color: #29292b; }
-  .pricing-features h5 {
+  .pricing-features h5, .paypal h5 {
     color: #a339cd;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-weight: 700; }
-  .pricing-features p {
-    font-weight: 300; }
-  .pricing-features .svg-icon {
+  .pricing-features p, .paypal p {
+    font-weight: 300;
+    font-size: 0.875rem; }
+  .pricing-features .svg-icon, .paypal .svg-icon {
     color: #a339cd;
     max-height: 48px;
     max-width: 48px;
     height: 48px;
     margin-bottom: 12px; }
-    .pricing-features .svg-icon svg {
+    .pricing-features .svg-icon svg, .paypal .svg-icon svg {
       max-height: 48px;
       max-width: 48px; }
+  .pricing-features a, .paypal a {
+    color: #54c6c6;
+    font-weight: 500; }
+    .pricing-features a:hover, .paypal a:hover {
+      text-decoration: underline; }
 
-.paypal p {
-  line-height: 1.3125rem; }
-  .paypal p span {
-    font-size: 0.875rem;
-    opacity: .5; }
+.paypal {
+  background: white;
+  padding-top: 0; }
+  .paypal p {
+    line-height: 1.3125rem; }
+    .paypal p span {
+      font-size: 0.875rem;
+      opacity: .5; }
 
 .series {
   background: #EFEFEF;

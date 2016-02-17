@@ -4,16 +4,20 @@
   %section.pricing-features
     .row.clearfix
       .medium-6.columns
+        = icon_tag 'credit'
         %h5= t('.feature1')
         %p.lead= t('.feature1_description')
       .medium-6.columns
+        = icon_tag 'wallet'
         %h5= t('.feature2')
         %p.lead= t('.feature2_description')
     .row.clearfix
       .medium-6.columns
+        = icon_tag 'badge'
         %h5= t('.feature3')
         %p.lead= t('.feature3_description')
       .medium-6.columns
+        = icon_tag 'gift'
         %h5= t('.feature4')
         %p.lead= t('.feature4_description')
 
@@ -30,6 +34,12 @@
       %span#paypal_spinner
         = image_tag 'loader.gif'
       = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner", value: 'buy now'
+      .row.clearfix
+        .medium-6.medium-offset-3.columns
+          = icon_tag 'credit-card'
+          %h5= t('.cc_accepted')
+          %p.lead= t('.payment_description').html_safe
+          = link_to t('.contact_us'),'mailto:support@voicerepublic.com', title: t('.contact_us'), class: 'button hollow pricing-support-btn'
 
   .row
     .box= render 'questions'

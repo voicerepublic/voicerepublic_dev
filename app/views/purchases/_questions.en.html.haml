@@ -1,10 +1,18 @@
 
 %section
 	.row.pricing-features
-		.medium-6.medium-offset-3.columns
-			=icon_tag 'wallet'
-			%h5.pricing-feature= t('.no_ads')
-			%p.pricing-description= t('.contact_us_for_questions')
+		.medium-6.columns
+			=icon_tag 'typewriter'
+			%h5.pricing-feature= t('.contact_us_for_more_info')
+			%p.pricing-description= t('.contact_us_description')
+			= link_to t('.contact_us'),
+			  'mailto:support@voicerepublic.com',
+			  title: t('.contact_us'),
+			  class: 'button hollow pricing-support-btn'
+		.medium-6.columns
+			=icon_tag 'jeeves'
+			%h5.pricing-feature= t('.services')
+			%p.pricing-description= t('.services_description')
 			= link_to t('.contact_us'),
 			  'mailto:support@voicerepublic.com',
 			  title: t('.contact_us'),

@@ -554,26 +554,27 @@ en:
       ppexplain: |
         Credit cards accepted! (No PayPal account needed.)
       feature1: One Talk Credit = One Talk
-      feature1_description: At Voice Republic you can buy Talk Credits. One credit corresponds to one talk – they will never expire. It makes no difference whether the event is broadcasted live or uploaded later. 
+      feature1_description: At Voice Republic you can buy Talk Credits. One credit corresponds to one talk and will never expire. It makes no difference whether the event is broadcasted live or uploaded later. 
       feature2: No Recurring Costs
-      feature2_description:  Without a subscription model you always stay independent and flexible. If you don’t want to stream or upload anything, then you also pay nothing. In addition, listening, downloading and sharing of live talks and content in the archive is free of charge for all users. 
-      feature3: No Ads, No Business with your Data
-      feature3_description: Voice Republic is ad-free and does not make money with the disclosure of customer information to third parties.
-      feature4: Free Test Talks and Two Credits to Try out Voice Republic
+      feature2_description:  Stay independent and flexible with our pay-as-you-go model. Don't want to publish a Talk? Then you pay nothing. Listening, downloading and sharing of live Talks and content in the archive is free of charge for all users. 
+      feature3: Ad-Free & Private
+      feature3_description: Voice Republic has no ads, and never sells customer information to third parties.
+      feature4: Free Test Talks & Starter Credits
       feature4_description: When you sign up with us, you get the first two Talk Credits as a present. You can also test all functions with free test talks. Listening and downloading Talks is free of charge.
+      cc_accepted: Credit Cards Accepted
+      payment_description: |
+        Credit cards are accepted, a PayPal account is not necessary. Prefer to pay by invoice or receive an individual offer? 
+      contact_us: "Contact Us"
     questions:
-      no_ads: No ads, no recurring costs.
       contact_us: "Contact Us"
-      contact_us_for_questions: |
-        Without a subscription model you always stay independent and flexible. If you don’t want to stream or upload anything, then you also pay nothing. In addition, listening, downloading and sharing of live talks and content in the archive is free of charge for all users.
-        Voice Republic is ad-free and does not make money with the disclosure of customer information to third parties.
-        Credit Cards are accepted, a PayPal account is not absolutely necessary. You want to pay by invoice or receive an individual offer? Contact us: service@voicerepublic.com
-        You have further questions? Feel free to contact our service team under service@voicerepublic.com 
-
-    ppexplain: "Credit Cards accepted. No PayPal account needed."
+      contact_us_for_more_info: Contact Us For More Info
+      contact_us_description: |
+        If you’re interested in publishing or streaming on Voice Republic and need further information on pricing etc. please get in touch with our sales team.
+      services: Services at Voice Republic
+      services_description: Need help with the preparation, implementation or marketing of your event? No problem, Voice Republic supports you with many individual additional services.
     streamteam:
-      contact_us: "Contact Us"
-      streamteam_offer: "We also offer streaming services. Contact us for details."
+      contact_us: "Contact Us For More Info"
+      streamteam_offer: If you’re interested in publishing or streaming on Voice Republic and need further information on pricing etc. please get in touch with our sales team.
     explanation:
       header: Voice Republic Pricing
       join_for_free: Join For Free
