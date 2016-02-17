@@ -141,7 +141,7 @@ $("input#user_slug").focus(function(){
 });
 
 //trigger thing on search 
-$('.search-container button').click(function(){
+$('.search-container button[type="submit"]').click(function(){
        $('#working').removeClass('hide');
     });
 $('.search-container input').keypress(function(e){
