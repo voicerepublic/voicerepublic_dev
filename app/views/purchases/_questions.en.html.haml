@@ -2,18 +2,32 @@
 %section
 	.row.pricing-features
 		.medium-6.columns
+			= icon_tag 'credit-card'
+			%h5= t('.cc_accepted')
+			%p.lead= t('.payment_description').html_safe
+			= link_to t('.contact_us'),'mailto:support@voicerepublic.com', title: t('.contact_us'), class: 'button hollow pricing-support-btn'
+		.medium-6.columns
 			=icon_tag 'typewriter'
 			%h5.pricing-feature= t('.contact_us_for_more_info')
 			%p.pricing-description= t('.contact_us_description')
 			= link_to t('.contact_us'),
-			  'mailto:support@voicerepublic.com',
-			  title: t('.contact_us'),
-			  class: 'button hollow pricing-support-btn'
+				'mailto:support@voicerepublic.com',
+				title: t('.contact_us'),
+				class: 'button hollow pricing-support-btn'
+	.row.pricing-features
 		.medium-6.columns
 			=icon_tag 'jeeves'
 			%h5.pricing-feature= t('.services')
 			%p.pricing-description= t('.services_description')
 			= link_to t('.contact_us'),
-			  'mailto:support@voicerepublic.com',
-			  title: t('.contact_us'),
-			  class: 'button hollow pricing-support-btn'
+				'mailto:support@voicerepublic.com',
+				title: t('.contact_us'),
+				class: 'button hollow pricing-support-btn'
+		.medium-6.columns
+			=icon_tag 'person-heart'
+			%h5.pricing-feature= t('.recommend')
+			%p.pricing-description= t('.recommend_description')
+			= link_to t('.more_info'),
+				'http://blog.voicerepublic.com/recommend-voice-republic/?lang=en',
+				title: t('.more_info'),
+				class: 'button hollow pricing-support-btn'

@@ -561,11 +561,14 @@ en:
       feature3_description: Voice Republic has no ads, and never sells customer information to third parties.
       feature4: Free Test Talks & Starter Credits
       feature4_description: When you sign up with us, you get the first two Talk Credits as a present. You can also test all functions with free test talks. Listening and downloading Talks is free of charge.
+    questions:
       cc_accepted: Credit Cards Accepted
       payment_description: |
         Credit cards are accepted, a PayPal account is not necessary. Prefer to pay by invoice or receive an individual offer? 
       contact_us: "Contact Us"
-    questions:
+      recommend: Recommend Voice Republic
+      recommend_description: You know someone who needs to be heard? We at Voice Republic are always looking for exciting talks. Help us to bring new content to the platform and receive 5 free credits!
+      more_info: More Information
       contact_us: "Contact Us"
       contact_us_for_more_info: Contact Us For More Info
       contact_us_description: |

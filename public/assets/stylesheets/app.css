@@ -4483,30 +4483,30 @@ footer {
   margin-top: 48px;
   margin-bottom: 48px; }
 
-.pricing-features, .paypal {
+.pricing-features {
   padding-top: 60px;
   padding-bottom: 60px;
   color: #29292b; }
-  .pricing-features h5, .paypal h5 {
+  .pricing-features h5 {
     color: #a339cd;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-weight: 700; }
-  .pricing-features p, .paypal p {
+  .pricing-features p {
     font-weight: 300;
     font-size: 0.875rem; }
-  .pricing-features .svg-icon, .paypal .svg-icon {
+  .pricing-features .svg-icon {
     color: #a339cd;
     max-height: 48px;
     max-width: 48px;
     height: 48px;
     margin-bottom: 12px; }
-    .pricing-features .svg-icon svg, .paypal .svg-icon svg {
+    .pricing-features .svg-icon svg {
       max-height: 48px;
       max-width: 48px; }
-  .pricing-features a, .paypal a {
+  .pricing-features a {
     color: #54c6c6;
     font-weight: 500; }
-    .pricing-features a:hover, .paypal a:hover {
+    .pricing-features a:hover {
       text-decoration: underline; }
 
 .paypal {
