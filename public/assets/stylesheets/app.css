@@ -4506,8 +4506,6 @@ footer {
   .pricing-features a {
     color: #54c6c6;
     font-weight: 500; }
-    .pricing-features a:hover {
-      text-decoration: underline; }
 
 .paypal {
   background: white;
