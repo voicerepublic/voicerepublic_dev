@@ -4507,13 +4507,6 @@ footer {
     color: #54c6c6;
     font-weight: 500; }
 
-<<<<<<< HEAD
-.paypal p {
-  line-height: 1.3125rem; }
-  .paypal p span {
-    font-size: 0.875rem;
-    opacity: .5; }
-=======
 .paypal {
   background: white;
   padding-top: 0; }
@@ -4522,7 +4515,6 @@ footer {
     .paypal p span {
       font-size: 0.875rem;
       opacity: .5; }
->>>>>>> integration
 
 .series {
   background: #EFEFEF;
