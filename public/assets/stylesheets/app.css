@@ -4387,7 +4387,7 @@ footer {
         text-decoration: underline; }
 
 .purchases-index {
-  background: #EFEFEF; }
+  background: #FFFFFF; }
   .purchases-index h3 {
     color: #54c6c6;
     margin-bottom: 24px; }
@@ -4403,7 +4403,7 @@ footer {
       .purchases-index #claim.pricing .button a:hover, .purchases-index #claim.pricing button a:hover {
         color: #f82847; }
     .purchases-index #claim.pricing h2 {
-      margin-bottom: 60px;
+      margin-bottom: 36px;
       color: white; }
     .purchases-index #claim.pricing .lead {
       color: #fef1de;
@@ -4412,6 +4412,9 @@ footer {
     font-size: 1.3125rem;
     letter-spacing: 0.1875rem;
     text-transform: uppercase; }
+
+.row.packages {
+  padding-top: 60px; }
 
 .purchases-index .pricing-box ul li {
   margin-left: 48px;
@@ -4482,14 +4485,15 @@ footer {
 
 .pricing-features {
   padding-top: 60px;
-  margin-bottom: 60px;
+  padding-bottom: 60px;
   color: #29292b; }
   .pricing-features h5 {
     color: #a339cd;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     font-weight: 700; }
   .pricing-features p {
-    font-weight: 300; }
+    font-weight: 300;
+    font-size: 0.875rem; }
   .pricing-features .svg-icon {
     color: #a339cd;
     max-height: 48px;
@@ -4499,12 +4503,26 @@ footer {
     .pricing-features .svg-icon svg {
       max-height: 48px;
       max-width: 48px; }
+  .pricing-features a {
+    color: #54c6c6;
+    font-weight: 500; }
 
+<<<<<<< HEAD
 .paypal p {
   line-height: 1.3125rem; }
   .paypal p span {
     font-size: 0.875rem;
     opacity: .5; }
+=======
+.paypal {
+  background: white;
+  padding-top: 0; }
+  .paypal p {
+    line-height: 1.3125rem; }
+    .paypal p span {
+      font-size: 0.875rem;
+      opacity: .5; }
+>>>>>>> integration
 
 .series {
   background: #EFEFEF;
