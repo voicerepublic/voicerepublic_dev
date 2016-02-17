@@ -33,6 +33,8 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  include LifecycleEmitter
+
   # this makes `url_for` available for use in `details_for`
   include Rails.application.routes.url_helpers
 

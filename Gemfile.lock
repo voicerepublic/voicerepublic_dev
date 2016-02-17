@@ -148,6 +148,11 @@ GEM
     ci_reporter (1.9.1)
       builder (>= 2.1.2)
     cliver (0.3.2)
+    closeio (2.4.7)
+      faraday
+      faraday_middleware
+      hashie
+      json
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -201,6 +206,8 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.10.0)
+      faraday (>= 0.7.4, < 0.10)
     faye (1.1.1)
       cookiejar (>= 0.3.0)
       em-http-request (>= 0.3.0)
@@ -566,6 +573,7 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0)
   capybara (= 2.4.4)
   ci_reporter
+  closeio
   coffee-rails (~> 4.1.0)
   daemons
   database_cleaner!
@@ -618,6 +626,7 @@ DEPENDENCIES
   thin
   timecop
   transitions!
+  trickery
   uglifier
   unicorn
   vcr (= 2.8.0)

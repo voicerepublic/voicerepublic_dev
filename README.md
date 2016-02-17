@@ -251,7 +251,7 @@ For general platform and development documentation please refer to the
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
 
 
-### Working with Settings
+### Working with Settings/Config
 
 Config entries are compiled from:
 
@@ -263,7 +263,14 @@ Config entries are compiled from:
     config/settings/#{environment}.local.yml
     config/environments/#{environment}.local.yml
 
-Settings defined in files that are lower in the list override settings higher.
+Settings defined in files that are lower in the list override settings
+higher.
+
+IMPORTANT! We break we this schema of reading config files when it
+comes to microservices. The services (in `app/services`) rarely boot
+the whole rails stack (this keeps the memory footprint low). As a side
+effect they don't have access to the whole settings. **Only settings in
+the `settings.local.yml` will be available to microservices.**
 
 
 ### A note on emails
