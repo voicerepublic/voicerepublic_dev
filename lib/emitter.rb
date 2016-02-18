@@ -64,7 +64,7 @@ module Emitter
     publish(payload)
   end
 
-  def audio_processing(event, payload)
+  def audio_processing(payload)
     publish payload.merge(x: 'audio_processing')
   end
 
