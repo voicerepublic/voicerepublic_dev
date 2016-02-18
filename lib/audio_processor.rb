@@ -9,12 +9,14 @@ class AudioProcessor < Fidelity::ChainRunner
 
   # TODO oldschool: a lot to cleanup here
   # TODO maybe cover uploads in their own channel
+  # TODO add Emitter messages for upload start & end
 
   attr_accessor :talk
 
   private
 
   def before_chain
+    Emitter.audio_processing(event: 'before_chain', details: { id: talk.id })
     # TODO oldschool: remove (should by covered by talk_transitions)
     LiveServerMessage.call talk.public_channel, { event: 'Process' }
     @t0 = Time.now.to_i
@@ -28,7 +30,7 @@ class AudioProcessor < Fidelity::ChainRunner
   def before_strategy(index, name)
     attrs = { id: talk.id, run: name,
               index: index, total: chain.size }
-    Simon.says x: 'audio_progress', event: 'start_processing', details: attrs
+    Emitter.audio_processing(event: 'before_strategy', details: attrs)
     ProgressMessage.call(talk.public_channel, event: 'StartProcessing', talk: attrs)
 
     @t1 = Time.now.to_i
@@ -39,7 +41,7 @@ class AudioProcessor < Fidelity::ChainRunner
     attrs = { id: talk.id, run: name,
               index: index, total: chain.size,
               elapsed: delta_t1 }
-    Simon.says x: 'audio_progress', event: 'finished_processing', details: attrs
+    Emitter.audio_processing(event: 'after_strategy', details: attrs)
     ProgressMessage.call(talk.public_channel, event: 'FinishProcessing', talk: attrs)
   end
 
@@ -50,6 +52,7 @@ class AudioProcessor < Fidelity::ChainRunner
     delta_t2 = Time.now.to_i - t2
 
     delta_t0 = Time.now.to_i - @t0
+    Emitter.audio_processing(event: 'after_chain', details: { id: talk.id })
     # TODO oldschool: remove (should by covered by talk_transitions)
     LiveServerMessage.call(talk.public_channel, { event: 'Archive',
                                                   links: talk.media_links })

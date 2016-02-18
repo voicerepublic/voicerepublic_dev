@@ -64,6 +64,10 @@ module Emitter
     publish(payload)
   end
 
+  def audio_processing(event, payload)
+    publish payload.merge(x: 'audio_processing')
+  end
+
   private
 
   # make url helpers available on instance level
