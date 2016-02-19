@@ -1,4 +1,4 @@
-require 'resolv'
+#require 'resolv'
 
 require File.expand_path(File.join(%w(.. .. .. lib services)), __FILE__)
 
@@ -141,9 +141,9 @@ class Mediator
     attrs = body['attributes']
     name = [attrs['firstname'], attrs['lastname']] * ' '
     email = attrs['email']
-    ip = attrs['current_sign_in_ip']
-    host_or_ip = resolv(ip)
-    message = "%s just registered with %s from %s" % [name, email, host_or_ip]
+    #ip = attrs['current_sign_in_ip']
+    #host_or_ip = resolv(ip)
+    message = "%s just registered with %s" % [name, email]
 
     { x: 'notification', text: message }
   end
@@ -163,11 +163,11 @@ class Mediator
 
   private
 
-  def resolv(ip)
-    Resolv.getname(ip)
-  rescue
-    ip
-  end
+  #def resolv(ip)
+  #  Resolv.getname(ip)
+  #rescue
+  #  ip
+  #end
 
   def slack_link(title, url)
     "<#{url}|#{title}>"
