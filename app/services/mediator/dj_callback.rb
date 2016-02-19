@@ -37,9 +37,11 @@ class Mediator
       message = nil
       #message = "Unknown combination event #{event}, handler #{handler}"
 
-      template = TEMPLATES[event][handler]
-      message = template % id if template
-      return nil unless message
+      event_handler = TEMPLATES[event]
+      return nil unless event_handler
+      template = event_handler[handler]
+      return nil unless template
+      message = template % id
 
       { x: 'notification', text: message }
     end

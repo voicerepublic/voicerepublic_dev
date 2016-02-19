@@ -46,7 +46,7 @@ module Services
                 handler.call(body, prop, info, options)
               end
             # auto publish feature, see Services::AutoPublish
-            auto_publish(result) if instance.respond_to?(:auto_publish)
+            instance.auto_publish(result) if instance.respond_to?(:auto_publish)
           end
         end
       end

@@ -1,3 +1,5 @@
+require 'resolv'
+
 require File.expand_path(File.join(%w(.. .. .. lib services)), __FILE__)
 
 require File.expand_path(File.join(%w(.. mediator dj_callback)), __FILE__)
@@ -130,9 +132,15 @@ class Mediator
 
   def lifecycle_user(*args)
     body = args.shift
-    name = body['details']['user']['name']
-    email = body['details']['user']['email']
-    message = "%s just registered with %s." % [name, email]
+    event = body['event']
+    #return unless event == 'create'
+
+    attrs = body['attributes']
+    name = [attrs['firstname'], attrs['lastname']] * ' '
+    email = attrs['email']
+    ip = attrs['current_sign_in_ip']
+    host_or_ip = resolv(ip)
+    message = "%s just registered with %s from %s" % [name, email, host_or_ip]
 
     { x: 'notification', text: message }
   end
@@ -151,6 +159,12 @@ class Mediator
   end
 
   private
+
+  def resolv(ip)
+    Resolv.getname(ip)
+  rescue
+    ip
+  end
 
   def slack_link(title, url)
     "<#{url}|#{title}>"
