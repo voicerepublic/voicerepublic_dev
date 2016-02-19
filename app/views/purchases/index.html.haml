@@ -33,8 +33,8 @@
       -#%span.float-left= t('.ppexplain').html_safe
       %span#paypal_spinner
         = image_tag 'loader.gif'
-      = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner", value: 'buy now'
-      
+      = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner", value: 'buy now', class: 'qa-checkout'
+
 
   .row
     .box= render 'questions'

@@ -18,8 +18,8 @@ module SeriesHelper
 
   def social_meta_tags_series
     opts = {
-      description: @series.description.empty? ?
-        @series.teaser : strip_html(@series.description),
+      description: @series.description_as_text.empty? ?
+        @series.teaser : @series.description_as_text,
       title:    @series.title,
       image:    @series.image.url,
       keywords: @series.try(:tag_list),
