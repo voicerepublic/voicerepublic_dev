@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216151156) do
+ActiveRecord::Schema.define(version: 20160219201411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,6 +287,7 @@ ActiveRecord::Schema.define(version: 20160216151156) do
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
     t.text     "description_as_text",              default: ""
+    t.text     "processing_error"
   end
 
   add_index "talks", ["popularity"], name: "index_talks_on_popularity", using: :btree
