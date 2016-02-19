@@ -4041,23 +4041,21 @@ footer {
   @media screen and (min-width: 100em) {
     .explore-index .talk-card {
       width: 20%; } }
-  .talk-card.postlive, .talk-card.processing, .talk-card.suspended {
-    pointer-events: none; }
-    .talk-card.postlive .talk-card-inside, .talk-card.processing .talk-card-inside, .talk-card.suspended .talk-card-inside {
-      opacity: .5; }
-    .talk-card.postlive .not_available, .talk-card.processing .not_available, .talk-card.suspended .not_available {
-      position: absolute;
-      top: 97px;
-      left: 30px;
-      right: 30px;
-      padding: 12px;
-      background: #ffed00; }
-      .talk-card.postlive .not_available p, .talk-card.processing .not_available p, .talk-card.suspended .not_available p {
-        font-size: 0.75rem;
-        line-height: 0.875rem;
-        margin-bottom: 0;
-        font-weight: 500;
-        height: auto; }
+  .talk-card.postlive .talk-card-inside, .talk-card.processing .talk-card-inside, .talk-card.suspended .talk-card-inside {
+    opacity: .5; }
+  .talk-card.postlive .not_available, .talk-card.processing .not_available, .talk-card.suspended .not_available {
+    position: absolute;
+    top: 97px;
+    left: 30px;
+    right: 30px;
+    padding: 12px;
+    background: #ffed00; }
+    .talk-card.postlive .not_available p, .talk-card.processing .not_available p, .talk-card.suspended .not_available p {
+      font-size: 0.75rem;
+      line-height: 0.875rem;
+      margin-bottom: 0;
+      font-weight: 500;
+      height: auto; }
   .talk-card .talk-card-inside {
     background: #FAFAFA;
     padding: 12px;
@@ -4113,16 +4111,18 @@ footer {
         background-color: rgba(41, 41, 43, 0.9);
         opacity: 0;
         transition: opacity .2s ease; }
-        .talk-card .talk-card-inside .image-box .hover-info .teaser {
+        .talk-card .talk-card-inside .image-box .hover-info .teaser, .talk-card .talk-card-inside .image-box .hover-info .speaker {
           font-size: 0.75rem;
           line-height: 0.875rem;
           color: #e1e2e7; }
-          .talk-card .talk-card-inside .image-box .hover-info .teaser a {
+          .talk-card .talk-card-inside .image-box .hover-info .teaser a, .talk-card .talk-card-inside .image-box .hover-info .speaker a {
             text-decoration: none;
             text-transform: none;
             color: white; }
-            .talk-card .talk-card-inside .image-box .hover-info .teaser a:hover {
+            .talk-card .talk-card-inside .image-box .hover-info .teaser a:hover, .talk-card .talk-card-inside .image-box .hover-info .speaker a:hover {
               text-decoration: underline; }
+        .talk-card .talk-card-inside .image-box .hover-info p.speaker {
+          color: #fef1de; }
     .talk-card .talk-card-inside .title, .series > .talk-card .talk-card-inside {
       display: block;
       /* Fallback for non-webkit */
@@ -4515,6 +4515,10 @@ footer {
     .paypal p span {
       font-size: 0.875rem;
       opacity: .5; }
+
+.purchases .title-block img {
+  max-height: 48px;
+  margin: 24px 0; }
 
 .series {
   background: #EFEFEF;

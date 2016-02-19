@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!, except: :index
+  layout 'velvet_minimal'
 
   def index
     render action: 'index', layout: 'velvet'
