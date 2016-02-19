@@ -140,10 +140,12 @@ class Mediator
 
     attrs = body['attributes']
     name = [attrs['firstname'], attrs['lastname']] * ' '
+    url = body['user_url']
     email = attrs['email']
     #ip = attrs['current_sign_in_ip']
     #host_or_ip = resolv(ip)
-    message = "%s just registered with %s" % [name, email]
+    message = "%s just registered with %s" %
+              [slack_link(name, url), email]
 
     { x: 'notification', text: message }
   end
