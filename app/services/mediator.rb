@@ -30,6 +30,7 @@ class Mediator
   def talk_transition(*args)
     body = args.shift
     event = body['details']['event'] * '.'
+    error = body['details']['talk']['error']
     intros = {
       'created.prelive.prepare'      => 'Has been created',
       'prelive.live.start_talk'      => 'Now live',
@@ -37,7 +38,7 @@ class Mediator
       'postlive.processing.process'  => 'Started processing',
       'processing.archived.archive'  => 'Just archived recording',
       'pending.archived.archive'     => 'Just archived upload',
-      'processing.suspended.suspend' => 'Failed to process'
+      'processing.suspended.suspend' => "Failed to process with '#{error}'"
     }
     intro = intros[event]
     intro ||= 'Don\'t know how to format talk event `%s` for' % event
@@ -133,7 +134,7 @@ class Mediator
   def lifecycle_user(*args)
     body = args.shift
     event = body['event']
-    #return unless event == 'create'
+    return unless event == 'create'
 
     attrs = body['attributes']
     name = [attrs['firstname'], attrs['lastname']] * ' '

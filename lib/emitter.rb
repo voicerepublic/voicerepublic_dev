@@ -21,7 +21,8 @@ module Emitter
               talk: {
                 id: talk.id,
                 title: talk.title,
-                url: url_helpers.talk_url(talk)
+                url: url_helpers.talk_url(talk),
+                error: talk.processing_error
               },
               user: {
                 name: talk.user.name,
