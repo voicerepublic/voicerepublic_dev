@@ -59,6 +59,8 @@ class Mediator
     event = details['event']
     type = details['type']
 
+    return nil if type == 'WelcomeTransaction'
+
     message =
       case event
       when %w(processing closed close)
@@ -70,8 +72,8 @@ class Mediator
           price = 'some amount'
           publish x: 'notification',
                   channel: config.slack.revenue_channel,
-                  text: '%s purchased %s for %s.' %
-                  [user, product, price]
+                  text: '%s purchased %s for %s. (%s)' %
+                  [user, product, price, body.inspect]
           return # abort early
 
         when 'ManualTransaction'
@@ -117,13 +119,13 @@ class Mediator
               'fishy transaction going on with comment: %s' %
               [ admin, name, comment ]
           else
-            "Unknown movement #{movement}"
+            "Unknown movement #{movement} (#{body.inspect})"
           end
         else
-          "Unknown type #{type}"
+          "Unknown type #{type} (#{body.inspect})"
         end
       else
-        "Unknown transition #{event}"
+        "Unknown transition #{event.inspect} (#{body.inspect})"
       end
 
     # in lots of cases message is still nil, if so we don't send a message
