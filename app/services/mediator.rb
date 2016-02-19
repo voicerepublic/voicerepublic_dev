@@ -136,19 +136,45 @@ class Mediator
   def lifecycle_user(*args)
     body = args.shift
     event = body['event']
-    return unless event == 'create'
-
     attrs = body['attributes']
+
     name = [attrs['firstname'], attrs['lastname']] * ' '
     url = body['user_url']
     email = attrs['email']
-    #ip = attrs['current_sign_in_ip']
-    #host_or_ip = resolv(ip)
-    message = "%s just registered with %s" %
-              [slack_link(name, url), email]
 
-    { x: 'notification', text: message }
+    case event
+    when 'create'
+
+      #ip = attrs['current_sign_in_ip']
+      #host_or_ip = resolv(ip)
+      message = "%s just registered with %s" %
+                [slack_link(name, url), email]
+
+      { x: 'notification', text: message }
+
+    when 'update'
+      return nil unless attrs['paying']
+      credits = body['changes']['credits']
+      return nil if credits.nil?
+      old, new = credits
+      return nil unless old > 2 and new < 3
+
+      message = 'Follow up: %s (%s) dropped under 3 credits.' % [name, email]
+      [{
+         x: 'customer_relation',
+         action: 'followup',
+         email: email,
+         name: name,
+         text: message
+       }, {
+         x: 'notification',
+         text: message
+       }]
+    else
+      nil
+    end
   end
+
 
   def lifecycle_message(*args)
     body = args.shift
@@ -156,7 +182,6 @@ class Mediator
 
     { x: 'notification', text: message }
   end
-
 
   def run
     publish x: 'notification', text: 'Mediator started.'

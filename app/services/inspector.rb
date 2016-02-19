@@ -12,6 +12,7 @@ class Inspector
   subscribe handler: :handler, x: 'transaction_transition'
   subscribe handler: :handler, x: 'notification'
   subscribe handler: :handler, x: 'visualizer'
+  subscribe handler: :handler, x: 'customer_relation'
 
   def handler(*args)
     body, _, info, _ = *args
