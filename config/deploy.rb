@@ -79,7 +79,9 @@ namespace :deploy do
                     'dj-trigger-0',
                     'dj-mail-0',
                     'dj-audio-0',
-                    'dj-audio-1'
+                    'dj-audio-1',
+                    'mediator',
+                    'slacker'
 
       # OLDSCHOOL
       # Kill all delayed jobs and leave the respawning to monit.
