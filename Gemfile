@@ -4,6 +4,7 @@ gem 'rails', '4.2.0'
 
 #gem 'turbolinks'
 
+gem "therubyracer"
 gem 'rails-i18n'
 gem 'pg'
 # https://github.com/collectiveidea/delayed_job
