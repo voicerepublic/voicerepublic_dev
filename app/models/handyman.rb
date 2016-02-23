@@ -386,6 +386,19 @@ class Handyman
       end
     end
 
+    def talks_generate_missing_flyers
+      total = Talk.count
+      index = 0
+      Talk.find_each do |talk|
+        index += 1
+        unless talk.flyer.exist?
+          puts '%s/%s generating flyer for Talk %s' %
+               [index, total, talk.id]
+          talk.flyer.generate!
+        end
+      end
+    end
+
     private
 
     def log(msg)
