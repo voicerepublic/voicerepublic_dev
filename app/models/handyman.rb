@@ -387,14 +387,34 @@ class Handyman
     end
 
     def talks_generate_missing_flyers
+      log "-> Check for missing flyers"
       total = Talk.count
       index = 0
       Talk.find_each do |talk|
         index += 1
         unless talk.flyer.exist?
-          puts '%s/%s generating flyer for Talk %s' %
+          log '%s/%s generating flyer for Talk %s' %
                [index, total, talk.id]
           talk.flyer.generate!
+        end
+      end
+    end
+
+    def list_resources_with_missing_images(resource=nil, prop=nil)
+      if resource.nil?
+        list_resources_with_missing_images(Talk, :image)
+        list_resources_with_missing_images(Series, :image)
+        list_resources_with_missing_images(User, :avatar)
+      else
+        log "-> Check for missing images (#{resource}##{prop})"
+        resource.find_each do |obj|
+          begin
+            unless File.exist?(obj.send(prop).path)
+              log "#{resource.name}.find(#{obj.id}).#{prop} missing (#{obj.self_url})"
+            end
+          rescue => e
+            log "#{resource.name}.find(#{obj.id}).#{prop} died with '#{e.message}'."
+          end
         end
       end
     end
