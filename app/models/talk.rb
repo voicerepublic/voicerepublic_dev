@@ -523,7 +523,6 @@ class Talk < ActiveRecord::Base
       Rails.logger.error e.message
       self.processing_error = e.message
       suspend!
-      # TODO oldschool (should be covered by event_fired)
       LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end
   end

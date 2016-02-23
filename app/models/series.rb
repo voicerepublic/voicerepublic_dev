@@ -76,6 +76,10 @@ class Series < ActiveRecord::Base
     talks.each { |t| t.set_penalty!(penalty) }
   end
 
+  def self_url
+    Rails.application.routes.url_helpers.series_url(self)
+  end
+
   private
 
   def process_description
