@@ -516,9 +516,10 @@ class Talk < ActiveRecord::Base
       chain = chain.split(/\s+/)
       run_chain! chain, uat
       archive!
-    rescue
+    rescue => e
       suspend!
-      LiveServerMessage.call public_channel, event: 'Suspend'
+      Rails.logger e.message
+      LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end
   end
 

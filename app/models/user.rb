@@ -222,6 +222,10 @@ class User < ActiveRecord::Base
     series.inject({}) { |h, v| h.merge v.id => v.title }
   end
 
+  def self_url
+    Rails.application.routes.url_helpers.user_url(self)
+  end
+
   private
 
   def set_about_as_html
