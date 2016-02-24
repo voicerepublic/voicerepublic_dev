@@ -36,4 +36,16 @@ class Transaction < ActiveRecord::Base
   def process!
     raise 'not implemented, use a subclass'
   end
+
+  # should be overwritten in subclasses
+  def message_details
+    attributes
+  end
+
+  private
+
+  def event_fired(*args)
+    Emitter.transaction_transition(self, args)
+  end
+
 end

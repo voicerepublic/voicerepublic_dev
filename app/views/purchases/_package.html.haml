@@ -3,8 +3,8 @@
 - selected = package == 'B5'
 
 %label{ class: selected ? 'selected' : '' }
-  %div
+  .price
     = f.radio_button :product, package, checked: selected
-    = t('.purchase_count_at_a_price_of_amount', count: qty, amount: price).html_safe
+    %p= t('.purchase_count_at_a_price_of_amount', count: qty, amount: price).html_safe
   .price_per_talk
     = "(#{number_to_currency(amount/100.0, unit: '&euro;'.html_safe, format: '%u %n')} per talk)".html_safe

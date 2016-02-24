@@ -11,8 +11,10 @@
     -#= f.error_messages
 
     - opts = {}
-    -# TODO some fields are protected after state prelive, add this to cancan
-    -#- opts[:disabled] = true unless f.object.created?
+
+    - unless f.object.new_record?
+      = render partial: 'shared/upload',
+               locals: { f: f, ns: 'audio', init: init_audio_uploader }
 
     .row.title-teaser-box
       .medium-7.columns

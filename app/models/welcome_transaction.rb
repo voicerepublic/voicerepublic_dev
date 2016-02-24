@@ -21,6 +21,8 @@ class WelcomeTransaction < Transaction
     end
     close!
   rescue Exception => e
+    puts e.message
+    puts e.backtrace
     self.details ||= {}
     self.details[:error] = e
     abort!

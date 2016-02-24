@@ -1,12 +1,21 @@
-%h1.dark=t('.header')
-%h4.dark.subtitle=t('.subtitle').html_safe
+%section#claim.pricing
+	.row
+		%header
+			%h2
+				= t('.header').html_safe
+		.container.medium-10.medium-offset-1.large-8.large-offset-2.columns
+			%p.lead= t('.subtitle').html_safe
+			- if !current_user
+				= link_to t('.join_for_free'), new_user_registration_path, class: 'button hollow warning'
 
-.row.pricing-features
-  .large-5.large-offset-1.columns
-    =image_tag "pricing/credit.svg"
-    %h3.pricing-feature= t('.pricing-feature-1')
-    %p.pricing-description= t('.pricing-description-1')
-  .large-5.large-offset-0.columns
-    =image_tag "pricing/wallet.svg"
-    %h3.pricing-feature= t('.pricing-feature-3')
-    %p.pricing-description= t('.pricing-description-3')
+-#%section
+	-#.row.pricing-features
+		-#%h3.section-header= t('.features')
+		-#.medium-5.medium-offset-1.columns
+			-#=icon_tag 'credit'
+			-#%h5.pricing-feature= t('.pricing-feature-1')
+			-#%p.pricing-description= t('.pricing-description-1')
+		-#.medium-5.medium-offset-0.columns.end
+			-#=icon_tag 'wallet'
+			-#%h5.pricing-feature= t('.pricing-feature-3')
+			-#%p.pricing-description= t('.pricing-description-3')

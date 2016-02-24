@@ -2,6 +2,7 @@ rtmp:
   archive_path:     tmp/spec/archive
   archive_raw_path: tmp/spec/archive_raw
   recordings_path:  tmp/spec/recordings
+
 fog:
   storage:
     provider: Local
@@ -11,3 +12,6 @@ fog:
 activemerchant:
   billing_mode: test
   gateway: bogus
+
+bunny:
+  enabled: false
