@@ -46,14 +46,15 @@ describe "Talks as anonymous user" do
 
       talk.update_attribute :state, :live
       visit talk_path(talk)
-      find(".request-mic-box a").click
-      within(".reveal-modal") do
-        expect(page).to have_content("Please sign up or login to use this feature")
-        click_on "Login"
+      find(".qa-request-mic").click
+      within(".qa-reveal-modal") do
+        expect(page).to have_content I18n.t('.redirect_text')
+        find(".qa-reveal-modal-login").click
       end
+      #TODO: maybe change fieldnames to qa-classes too?
       fill_in "user_email", with: "foo@bar.com"
       fill_in "user_password", with: "123123"
-      find("button[name=Login]").click
+      find(".qa-button-login").click
 
       expect(current_path).to match(/#{talk_path(talk)}/)
     end
@@ -65,10 +66,10 @@ describe "Talks as anonymous user" do
 
       talk.update_attribute :state, :live
       visit talk_path(talk)
-      find(".request-mic-box a").click
-      within(".reveal-modal") do
-        expect(page).to have_content("Please sign up or login to use this feature")
-        click_on "Login"
+      find(".qa-request-mic").click
+      within(".qa-reveal-modal") do
+        expect(page).to have_content I18n.t('.redirect_text') 
+        find(".qa-reveal-modal-login").click
       end
     end
   end
@@ -88,13 +89,13 @@ describe "Talks as logged in user" do
     pending 'is pinnable and unpinnable', js: true do
       visit talk_path(@talk)
       expect {
-        find(".icon-star-empty").click
+        find(".qa-icon-star-empty").click
       }.to change(Reminder, :count).by(1)
-      expect(page).to have_css(".icon-star-full")
+      expect(page).to have_css(".qa-icon-star-full")
       expect {
-        find(".icon-star-full").click
+        find(".qa-icon-star-full").click
       }.to change(Reminder, :count).by(-1)
-      expect(page).to_not have_css(".icon-star-full")
+      expect(page).to_not have_css(".qa-icon-star-full")
     end
   end
 
@@ -235,12 +236,12 @@ describe "Talks as logged in user" do
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
-        expect(page).to have_content('Explore')
+        expect(page).to have_content I18n.t('.explore')#('Explore')
       end
 
       it 'shows explore in user_path' do
         visit user_path(@user)
-        expect(page).to have_content('Explore')
+        expect(page).to have_content I18n.t('.explore')
       end
     end
 
