@@ -59,7 +59,8 @@ class Mediator
     event = details['event']
     type = details['type']
 
-    return nil if type == 'WelcomeTransaction'
+    return nil if %w( WelcomeTransaction
+                      DebitTransaction ).include?(type)
 
     message =
       case event
