@@ -52,17 +52,13 @@ module Services
       end
     end
 
-    def handler(*args)
-      raise 'handler not yet implemented'
-    end
-
     def run
       last = self.class.subscriptions.last
       self.class.subscriptions.each_with_index do |s, index|
         options = (last == s) ? {block: true} : {}
         s.call(self, options)
       end
-      puts 'Ready.'
+      raise 'Actually, we should never get here.'
     end
 
   end
