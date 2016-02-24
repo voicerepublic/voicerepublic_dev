@@ -69,14 +69,15 @@ describe "Series", js: true do
       end
 
       describe "Sharing" do
-        it "can be shared via email" do
-          visit series_path(id: @series)
-          within("#social_share .mail") do
-            expect(page).to have_link("")
-            pat = /#{ERB::Util.url_encode(I18n.t('social_share.mail_body'))}/
-              expect(find('a')['href']).to match(pat)
-          end
-        end
+        # FIXME bring back social links
+        # it "can be shared via email" do
+        #   visit series_path(id: @series)
+        #   within("#social_share .mail") do
+        #     expect(page).to have_link("")
+        #     pat = /#{ERB::Util.url_encode(I18n.t('social_share.mail_body'))}/
+        #       expect(find('a')['href']).to match(pat)
+        #   end
+        # end
 
         it 'has meta tags for google/fb/twitter' do
           visit series_path @series

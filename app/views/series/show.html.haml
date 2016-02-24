@@ -55,8 +55,8 @@
       - else
         -#= render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
         -# TODO: fix this with Phil
-        -#= link_to podcast_url(@user), class:'button hollow tiny' do
-          -#= t('.subscribe_to_podcast')
+        = link_to podcast_url(@series), class:'button hollow small' do
+          = t('.subscribe_to_podcast')
         - if @show_join
           = link_to [@series, :participations], method: :post do
             %button.button.small.hollow.qa-subscribe= t('.subscribe_to_series')
