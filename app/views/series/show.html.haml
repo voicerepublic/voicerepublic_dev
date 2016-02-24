@@ -59,13 +59,13 @@
           -#= t('.subscribe_to_podcast')
         - if @show_join
           = link_to [@series, :participations], method: :post do
-            %button.button.small.hollow= t('.subscribe_to_series')
+            %button.button.small.hollow.qa-subscribe= t('.subscribe_to_series')
         - elsif !current_user
           %a(href="#" data-reveal-id="modal-login-signup")
             %button.button.small.hollow= t('.subscribe_to_series')
         - if @participation
           = link_to [@series, @participation], delete_params do
-            %button.button.small.hollow= t('.unsubscribe_to_series')
+            %button.button.small.hollow.qa-unsubscribe= t('.unsubscribe_to_series')
 
 
 
