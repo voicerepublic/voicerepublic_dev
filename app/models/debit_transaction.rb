@@ -30,4 +30,14 @@ class DebitTransaction < Transaction
     self.details[:error] = e
     abort!
   end
+
+  def message_details
+    {
+      type: type,
+      user_id: user.id,
+      user_email: user.email,
+      user_remaining_credits: user.credits
+    }
+  end
+
 end

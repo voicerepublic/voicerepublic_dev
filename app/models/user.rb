@@ -33,6 +33,8 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  include LifecycleEmitter
+
   # this makes `url_for` available for use in `details_for`
   include Rails.application.routes.url_helpers
 
@@ -220,6 +222,10 @@ class User < ActiveRecord::Base
   # differently
   def list_of_series
     series.inject({}) { |h, v| h.merge v.id => v.title }
+  end
+
+  def self_url
+    Rails.application.routes.url_helpers.user_url(self)
   end
 
   private
