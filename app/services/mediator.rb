@@ -180,7 +180,15 @@ class Mediator
 
   def lifecycle_message(*args)
     body = args.shift
-    message = "Someone has posted a message. (#{body.inspect})"
+    attrs = body['attributes']
+
+    # message = "Someone has posted a message. (#{body.inspect})"
+
+    user = slack_link(body['user_name'] || attrs['user_id'], body['user_url'])
+    talk = slack_link(body['talk_title'] || attrs['talk_id'], body['talk_url'])
+
+    message = "Message from %s in %s:\n%s" %
+              [ user, talk, attrs['content'] ]
 
     { x: 'notification', text: message }
   end
