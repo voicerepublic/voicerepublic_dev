@@ -297,7 +297,7 @@ describe Talk do
 
     it 'in state archived with override', slow: true do
       skip 'omit in CI' if ENV['CI']
-      VCR.use_cassette 'talk_dummy' do
+      VCR.use_cassette 'process_override_talk_dummy' do
         talk = FactoryGirl.create(:talk)
 
         # move fixtures in place
