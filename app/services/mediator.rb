@@ -51,89 +51,68 @@ class Mediator
     { x: 'notification', text: "#{intro} (#{talk['id']}) #{_talk} by #{_user}" }
   end
 
-
   # NOTE trouble to refactor this into a submodule, since it needs
   # access to `config` and `publish`
   def transaction_transition(*args)
     body = args.shift
     details = body['details']
-    event = details['event']
+    event = body['event']
     type = details['type']
 
-    return nil if %w( WelcomeTransaction
-                      DebitTransaction ).include?(type)
+    # spread out to specififc methods
+    method = ([type.underscore] + event) * '_'
+    return send(method, body) if respond_to?(method)
 
-    message =
-      case event
-      when %w(processing closed close)
-        case type
-        when 'PurchaseTransaction'
-          # TODO
-          user = 'Someone'
-          product = 'something'
-          price = 'some amount'
-          publish x: 'notification',
-                  channel: config.slack.revenue_channel,
-                  text: '%s purchased %s for %s. (%s)' %
-                  [user, product, price, body.inspect]
-          return # abort early
-
-        when 'ManualTransaction'
-          admin    = details['admin']
-          quantity = details['quantity'].to_i
-          payment  = details['payment'].to_i
-          name     = details['username']
-          comment  = details['comment']
-
-          movement = :unknown
-          movement = :deduct if quantity < 0  and payment == 0
-          movement = :undo   if quantity < 0  and payment < 0
-          movement = :donate if quantity > 0  and payment == 0
-          movement = :sale   if quantity > 0  and payment > 0
-          movement = :track  if quantity == 0 and payment > 0
-          movement = :noop   if quantity == 0 and payment == 0
-          movement = :weird  if quantity < 0  and payment > 0
-          movement = :weird  if quantity >= 0 and payment < 0
-
-          case movement
-          when :deduct
-            'Admin %s deducted %s credits from %s with comment: %s' %
-              [ admin, quantity, name, comment ]
-          when :undo
-            'Admin %s undid a booking for %s, by deducting %s credits ' +
-              'and giving EUR %s back with comment: %s' %
-              [ admin, name, quantity, payment, comment ]
-          when :donate
-            'Admin %s donated %s credits to %s with comment: %s' %
-              [ admin, quantity, name, comment ]
-          when :sale
-            'Admin %s sold %s credits for EUR %s to %s with comment: %s' %
-              [ admin, quantity, payment, name, comment ]
-          when :track
-            'Admin %s tracked a sale of EUR %s to %s, ' +
-              'restrospectively with comment: %s' %
-              [ admin, payment, name, comment ]
-          when :noop
-            'Admin %s contemplated about the meaning of life with comment: %s' %
-              [ admin, comment ]
-          when :weird
-            'Admin %s and %s seem to be in cahoots. Alert the authorities, ' +
-              'fishy transaction going on with comment: %s' %
-              [ admin, name, comment ]
-          else
-            "Unknown movement #{movement} (#{body.inspect})"
-          end
-        else
-          "Unknown type #{type} (#{body.inspect})"
-        end
-      else
-        "Unknown transition #{event.inspect} (#{body.inspect})"
-      end
-
-    # in lots of cases message is still nil, if so we don't send a message
-    message.nil? ? nil : { x: 'notification', text: message }
+    nil
+    # TODO send unformatted message to a 'raw' channel
+    # { x: notification, channel: config.slack.channel_raw, text: body.inspect }
   end
 
+  def manual_transaction_processing_closed_close(body)
+    details  = body['details']
+
+    details['comment'] ||= '(none)'
+
+    quantity = details['quantity'].to_i
+    payment  = details['payment'].to_i
+
+    movement = :unknown
+    movement = :deduct if quantity < 0  and payment == 0
+    movement = :undo   if quantity < 0  and payment < 0
+    movement = :donate if quantity > 0  and payment == 0
+    movement = :sale   if quantity > 0  and payment > 0
+    movement = :track  if quantity == 0 and payment > 0
+    movement = :noop   if quantity == 0 and payment == 0
+    movement = :weird  if quantity < 0  and payment > 0
+    movement = :weird  if quantity >= 0 and payment < 0
+
+    template = {
+      deduct: 'Admin %{admin} deducted %{quantity} credits from %{username} with comment: %{comment}',
+      undo: 'Admin %{admin} undid a booking for %{username}, by deducting %{quantity} credits and giving EUR %{payment} back with comment: %{comment}',
+      donate: 'Admin %{admin} donated %{quantity} credits to %{username} with comment: %{comment}',
+      sale: 'Admin %{admin} sold %{quantity} credits for EUR %{payment} to %{username} with comment: %{comment}',
+      track: 'Admin %{admin} tracked a sale of EUR %{payment} to %{username}, restrospectively with comment: %{comment}',
+      noop: 'Admin %{admin} contemplated about the meaning of life with comment: %{comment}',
+      weird: 'Admin %{admin} and %{username} seem to be in cahoots. Alert the authorities, fishy transaction going on with comment: %{comment}'
+    }
+
+    message = template[movement] % details
+
+    { x: 'notification', text: message }
+  end
+
+  def purchase_transaction_processing_closed_close(body)
+    user = body['user_name'] || 'Someone'
+    product = body['purchase_product'] || 'something'
+    price = body['purchase_amount'] || 'some amount'
+
+    message = '%s purchased %s for %s. (%s)' %
+              [user, product, price, body.inspect]
+
+    { x: 'notification',
+      channel: config.slack.revenue_channel,
+      text: message }
+  end
 
   def lifecycle_user(*args)
     body = args.shift
@@ -187,10 +166,12 @@ class Mediator
     user = slack_link(body['user_name'] || attrs['user_id'], body['user_url'])
     talk = slack_link(body['talk_title'] || attrs['talk_id'], body['talk_url'])
 
-    message = "Message from %s in %s:\n%s" %
-              [ user, talk, attrs['content'] ]
+    message = "Message from %s in %s" %
+              [ user, talk ]
 
-    { x: 'notification', text: message }
+    { x: 'notification',
+      text: message,
+      attachments: [ { text: attrs['content'] } ] }
   end
 
   def run
