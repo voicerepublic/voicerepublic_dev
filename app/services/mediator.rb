@@ -32,7 +32,8 @@ class Mediator
     event = body['details']['event'] * '.'
     error = body['details']['talk']['error']
     intros = {
-      'created.prelive.prepare'      => 'Has been created',
+      'created.pending.prepare'      => 'Has been uploaded',
+      'created.prelive.prepare'      => 'Has been scheduled',
       'prelive.live.start_talk'      => 'Now live',
       'live.postlive.end_talk'       => 'Has come to end',
       'postlive.processing.process'  => 'Started processing',
