@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+# USAGE: service run ec2_spawner
+
+DAEMON = ARGV[1]
+
+puts "Loading %s..." % DAEMON
+
+require 'daemons'
+require 'active_support/inflector'
+
+BASE = File.expand_path(File.join(%w(.. ..)), __FILE__)
+
+DAEMON_PATH = File.expand_path(File.join(%w(app services), DAEMON), BASE)
+require DAEMON_PATH
+DAEMON_CLASS_NAME = DAEMON.classify
+DAEMON_CLASS = DAEMON_CLASS_NAME.constantize
+
+PIDDIR = File.join(BASE, 'tmp', 'pids')
+
+daemon = nil
+
+Signal.trap('INT') do
+  if daemon.respond_to?(:stop)
+    puts "Stopping %s..." % DAEMON
+    daemon.stop
+  end
+  puts "Exiting %s. Bye." % DAEMON
+  exit
+end
+
+Daemons.run_proc(DAEMON, dir: PIDDIR) do
+  Dir.chdir(BASE)
+  puts "Running %s..." % DAEMON
+  daemon = DAEMON_CLASS.new.run
+end

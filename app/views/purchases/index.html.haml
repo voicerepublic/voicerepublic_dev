@@ -1,23 +1,40 @@
 = simple_form_for(:purchase, url: express_new_purchase_path, method: 'get') do |f|
 
-  .row
-    .medium-12.columns
-      .box= render 'explanation'
+  = render 'explanation'
+  %section.pricing-features
+    .row.clearfix
+      .medium-6.columns
+        = icon_tag 'credit'
+        %h5= t('.feature1')
+        %p.lead= t('.feature1_description')
+      .medium-6.columns
+        = icon_tag 'wallet'
+        %h5= t('.feature2')
+        %p.lead= t('.feature2_description')
+    .row.clearfix
+      .medium-6.columns
+        = icon_tag 'badge'
+        %h5= t('.feature3')
+        %p.lead= t('.feature3_description')
+      .medium-6.columns
+        = icon_tag 'gift'
+        %h5= t('.feature4')
+        %p.lead= t('.feature4_description')
+
+  .row.packages
+    .small-10.small-offset-2.medium-12.columns
+    %h3.section-header= t('.talk_credit_packages')
+
+    .pricing-box
+      = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
 
   .row
-    .medium-8.medium-offset-2.columns
-      .pricing-box
-        %h3=t('.box-header-enterprise')
-          
-        = render partial: 'package', collection: Pricing::BUSINESS, locals: { f: f }
-
-  .row
-    .medium-12.columns(style="text-align: center; margin-top: 50px")
-      %h3=t('.ppexplain')
+    .medium-12.columns.paypal
+      -#%span.float-left= t('.ppexplain').html_safe
       %span#paypal_spinner
         = image_tag 'loader.gif'
-      = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner"
+      = f.button :submit, type: 'image', src: paypal_button_url, 'data-replace-with' => "#paypal_spinner", value: 'buy now', class: 'qa-checkout'
+
 
   .row
-    .medium-12.columns
-      .box= render 'questions'
+    .box= render 'questions'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211085222) do
+ActiveRecord::Schema.define(version: 20160219201411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,17 +89,6 @@ ActiveRecord::Schema.define(version: 20160211085222) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
-
-  create_table "listeners", force: :cascade do |t|
-    t.integer  "talk_id"
-    t.integer  "user_id"
-    t.string   "session_token"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "listeners", ["talk_id"], name: "index_listeners_on_talk_id", using: :btree
-  add_index "listeners", ["user_id"], name: "index_listeners_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
@@ -192,6 +181,7 @@ ActiveRecord::Schema.define(version: 20160211085222) do
     t.text     "description_as_html",             default: ""
     t.boolean  "is_hidden",                       default: false
     t.string   "image_alt",                       default: ""
+    t.text     "description_as_text",             default: ""
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -289,13 +279,15 @@ ActiveRecord::Schema.define(version: 20160211085222) do
     t.float    "penalty",                          default: 1.0
     t.boolean  "dryrun",                           default: false
     t.text     "social_links",                     default: "--- []"
-    t.text     "listeners_legacy",                 default: "--- {}"
+    t.text     "listeners",                        default: "--- {}"
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
     t.boolean  "is_hidden",                        default: false
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
+    t.text     "description_as_text",              default: ""
+    t.text     "processing_error"
   end
 
   add_index "talks", ["popularity"], name: "index_talks_on_popularity", using: :btree
@@ -362,6 +354,7 @@ ActiveRecord::Schema.define(version: 20160211085222) do
     t.datetime "featured_from"
     t.datetime "featured_until"
     t.string   "image_alt",                          default: ""
+    t.text     "about_as_text",                      default: ""
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree
@@ -385,8 +378,6 @@ ActiveRecord::Schema.define(version: 20160211085222) do
   add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
-  add_foreign_key "listeners", "talks"
-  add_foreign_key "listeners", "users"
   add_foreign_key "talks", "venues"
   add_foreign_key "venues", "users"
 end

@@ -31,7 +31,9 @@
   %body{class: "#{controller_name} #{[controller_name, action_name] * '-'}"}
     = render 'shared/svg_defs'
     = render 'shared/notice_or_error_velvet'
-
+    #working.hide
+      -#= t('.working_on_it')
+      = render 'explore/loading'
     #main-menu.top-bar
       .top-bar-left
         %ul#branding.menu{"data-dropdown-menu" => ""}
@@ -119,6 +121,7 @@
       %script{:src => "/assets/javascripts/app.js"}
       %script{:src => "/assets/javascripts/explore.js"}
       %script{:src => "/assets/javascripts/topbar.js"}
+      %script{:src => "/assets/javascripts/purchases.js"}
 
       - if Rails.env.production?
         - unless @current_user.try(:insider?)

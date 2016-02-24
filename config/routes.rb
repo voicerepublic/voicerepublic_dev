@@ -24,11 +24,13 @@ Rails.application.routes.draw do
   get 'talks', to: redirect('explore')
 
   get 'explore', to: 'explore#index'
-  get 'explore/live',     as: 'live_talks'
-  get 'explore/popular',  as: 'popular_talks'
-  get 'explore/featured', as: 'featured_talks'
-  get 'explore/recent',   as: 'recent_talks'
-  get 'explore/upcoming', as: 'upcoming_talks'
+
+  # be nice, have some redirects for deprecated urls
+  get 'explore/live',     to: redirect('/explore')
+  get 'explore/popular',  to: redirect('/explore')
+  get 'explore/featured', to: redirect('/explore')
+  get 'explore/recent',   to: redirect('/explore')
+  get 'explore/upcoming', to: redirect('/explore')
 
   resources :uploads, only: [ :new, :create ]
 
@@ -119,8 +121,6 @@ Rails.application.routes.draw do
   # Match exceptions
   # http://railscasts.com/episodes/53-handling-exceptions-revised?view=asciicast
   match '(errors)/:status', to: 'errors#show', constraints: {status: /\d{3}/}, via: :all
-
-  get '/upgrade_browser', to: 'errors#upgrade_browser'
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

@@ -1,3 +1,17 @@
+def call_and_save(klass, methods)
+  methods = [methods] unless methods.is_a?(Array)
+  total = klass.count
+  index = 0
+  klass.find_each do |resource|
+    index += 1
+    print '%s/%s %s %s ' % [index, total, klass.name, resource.id]
+    methods.each do |method|
+      resource.send(method)
+    end
+    puts resource.save ? 'ok' : 'failed'
+  end
+end
+
 namespace :migrate do
 
   task listeners: :environment do
@@ -5,7 +19,7 @@ namespace :migrate do
     total = query.count
     query.each_with_index do |talk, index|
       print '%s/%s Migrating %s listeners from Talk %s (%s)' %
-           [index+1, total, talk.listeners_legacy.length, talk.id, talk.title]
+            [index+1, total, talk.listeners_legacy.length, talk.id, talk.title]
       talk.listeners_legacy.each do |session, time|
         time = DateTime.strptime(time.to_s,'%s')
         talk.listeners.create session_token: session, created_at: time
@@ -15,6 +29,26 @@ namespace :migrate do
       puts
     end
     puts 'Total listeners: %s' % Listener.count
+  end
+
+  namespace :text do
+    desc 'populate all _as_text fields'
+    task all: [:talks, :series, :users]
+
+    desc 'populate talks#description_as_text'
+    task talks: :environment do
+      call_and_save(Talk, :process_description)
+    end
+
+    desc 'populate series#description_as_text'
+    task series: :environment do
+      call_and_save(Series, :process_description)
+    end
+
+    desc 'populate user#about_as_text'
+    task users: :environment do
+      call_and_save(User, :process_about)
+    end
   end
 
 end

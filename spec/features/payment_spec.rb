@@ -6,7 +6,7 @@ feature "General payment" do
   describe "Purchases#index" do
     it 'should require a login on purchase', js: true do
       visit '/purchases'
-      click_on('Save')
+      page.find('.qa-checkout').click
       expect(current_path).to eq('/users/sign_in')
     end
   end
