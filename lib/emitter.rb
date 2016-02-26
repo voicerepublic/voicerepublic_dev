@@ -57,7 +57,10 @@ module Emitter
     # add type specific details
     case resource_type
     when :message
-      payload[:talk_url] = url_helpers.talk_url(resource.talk)
+      payload[:talk_url]   = url_helpers.talk_url(resource.talk)
+      payload[:talk_title] = resource.talk.title
+      payload[:user_url]   = url_helpers.user_url(resource.user)
+      payload[:user_name]  = resource.user.name
     when :user
       payload[:user_url] = url_helpers.user_url(resource)
     end
