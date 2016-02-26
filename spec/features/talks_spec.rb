@@ -68,7 +68,7 @@ describe "Talks as anonymous user" do
       visit talk_path(talk)
       find(".qa-request-mic").click
       within(".qa-reveal-modal") do
-        expect(page).to have_content I18n.t('.redirect_text') 
+        expect(page).to have_content I18n.t('.redirect_text')
         find(".qa-reveal-modal-login").click
       end
     end
@@ -116,9 +116,9 @@ describe "Talks as logged in user" do
     describe "Edit during live Talk" do
       it 'disables starts_at and duration fields during halflive and live talks' do
         talk = FactoryGirl.create(:talk,
-                                   starts_at_time: Time.now.strftime("%H:%M"),
-                                   starts_at_date: Date.today,
-                                   state: :live)
+                                  starts_at_time: Time.now.strftime("%H:%M"),
+                                  starts_at_date: Date.today,
+                                  state: :live)
         visit edit_talk_path(talk)
         expect(page).to have_selector('#talk_starts_at_date:disabled')
         expect(page).to have_selector('#talk_starts_at_time:disabled')
@@ -126,8 +126,8 @@ describe "Talks as logged in user" do
       end
       it 'does not disable starts_at and duration fields during talks not in state halflive and live' do
         talk = FactoryGirl.create(:talk,
-                                   starts_at_time: 1.hour.from_now.strftime("%H:%M"),
-                                   starts_at_date: Date.today)
+                                  starts_at_time: 1.hour.from_now.strftime("%H:%M"),
+                                  starts_at_date: Date.today)
         visit edit_talk_path(talk)
         expect(page).not_to have_selector('#talk_starts_at_date:disabled')
         expect(page).not_to have_selector('#talk_starts_at_date:disabled')
@@ -202,7 +202,7 @@ describe "Talks as logged in user" do
         Timecop.travel(5.minutes.from_now)
         visit talk_path(@talk)
         retry_with_delay do
-          within '.talk-state-info' do
+          within '.qa-talk-state-info' do
             expect(page).to have_content I18n.t('.talks.show.state_text')
           end
         end
@@ -236,12 +236,12 @@ describe "Talks as logged in user" do
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
-        expect(page).to have_content I18n.t('.explore')#('Explore')
+        expect(page).to have_content I18n.t('shared.actionbar.explore')
       end
 
       it 'shows explore in user_path' do
         visit user_path(@user)
-        expect(page).to have_content I18n.t('.explore')
+        expect(page).to have_content I18n.t('shared.actionbar.explore')
       end
     end
 
@@ -296,34 +296,36 @@ describe "Talks as logged in user" do
         Timecop.return
       end
       it "it works live" do
-        skip "Close to working, see comments"
-        @series = FactoryGirl.create :series
-        @talk = FactoryGirl.create :talk, series: @series
-        visit series_talk_path @series, @talk
-        find(".participate-button-box a").click
-        find(".chat-input-box input").set("my message")
-        find(".chat-input-box input").native.send_keys(:return)
-        # This spec works until here. The message is never being shown in
-        # testing mode, though. Faye published it, however. And of course it
-        # works in development.
-        within "#discussion" do
-          expect(page).to have_content "my message"
-          expect(find(".chat-message")).to be_visible
+        VCR.use_cassette 'talk_chat_live_dummy' do
+          skip "Close to working, see comments"
+          @series = FactoryGirl.create :series
+          @talk = FactoryGirl.create :talk, series: @series
+          visit talk_path @talk
+          find(".qa-chat-input").set("my message")
+          find(".qa-chat-input").native.send_keys(:return)
+          # This spec works until here. The message is never being shown in
+          # testing mode, though. Faye published it, however. And of course it
+          # works in development.
+          within "#discussion" do
+            expect(page).to have_content "my message"
+            expect(find(".chat-message")).to be_visible
+          end
         end
       end
       it "it works with reload" do
-        skip "fails on circleci" if ENV['CIRCLECI']
-        @series = FactoryGirl.create :series
-        @talk = FactoryGirl.create :talk, series: @series
-        visit talk_path @talk
-        visit talk_path @talk
-        find(".chat-input-box input").set("my message")
-        find(".chat-input-box input").native.send_keys(:return)
-        visit(current_path)
-        page.execute_script('$("a[href=#discussion]").click()')
-        within "#discussion" do
-          expect(page).to have_content "my message"
-          expect(page).to have_content "01 Sep 10:05"
+        VCR.use_cassette 'talk_chat_reload_dummy' do
+          skip "fails on circleci" if ENV['CIRCLECI']
+          @series = FactoryGirl.create :series
+          @talk = FactoryGirl.create :talk, series: @series
+          visit talk_path @talk
+          visit talk_path @talk
+          find(".qa-chat-input").set("my message")
+          find(".qa-chat-input").native.send_keys(:return)
+          visit(current_path)
+          within "#discussion" do
+            expect(page).to have_content "my message"
+            expect(page).to have_content "01 Sep 10:05"
+          end
         end
       end
     end
@@ -338,7 +340,7 @@ describe "Talks as logged in user" do
       @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
       visit series_talk_path @series, @talk
       expect(page.evaluate_script(
-        '$("a[href=#discussion]").parent().hasClass("active")
+              '$("a[href=#discussion]").parent().hasClass("active")
           ')).not_to be(true)
       within ".tabs.vr-tabs" do
         expect(page).not_to have_css(".discussion")
@@ -350,8 +352,8 @@ describe "Talks as logged in user" do
       @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
       visit series_talk_path @series, @talk
       expect(page.evaluate_script(
-        '$("a[href=#discussion]").parent().hasClass("active")'
-      )).to be(true)
+              '$("a[href=#discussion]").parent().hasClass("active")'
+            )).to be(true)
     end
   end
 

@@ -182,7 +182,7 @@
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
-          .talk-state-info
+          .talk-state-info.qa-talk-state-info
             .talk-state-bullet
             = t('.state_text')
             %span.record-text= t('.record_text')
@@ -365,7 +365,7 @@
             .avatar
               .avatar-box
                 = render partial: "shared/avatar", locals: { user: current_user, size: 40 }
-            %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+            %input.qa-chat-input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
 
           .chat-input-box(ng-show='userIsAListener()')
             .avatar
