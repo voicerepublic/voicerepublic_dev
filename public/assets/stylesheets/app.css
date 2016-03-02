@@ -4526,8 +4526,7 @@ footer {
   .series .series-container {
     max-width: 56.25rem;
     margin: 0 auto;
-    padding-top: 24px;
-    background: yellow; }
+    padding-top: 24px; }
     .series .series-container .row {
       padding: 0;
       text-align: left; }
@@ -4537,7 +4536,7 @@ footer {
           .series .series-container .row .talk-card {
             width: 33.3333%; } }
       .series .series-container .row h2 {
-        margin-bottom: 24px; }
+        margin-bottom: 12px; }
       .series .series-container .row h3 {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
         font-size: 1.125rem;
@@ -4554,13 +4553,23 @@ footer {
         display: block;
         max-width: 120px;
         border-color: rgba(41, 41, 43, 0.5); }
+    .series .series-container .talks-title {
+      padding: 0;
+      padding-bottom: 6px;
+      color: #2c46b0;
+      width: auto; }
+    .series .series-container .talks-grid {
+      padding: 0;
+      margin: -6px;
+      padding-bottom: 24px;
+      width: auto; }
     .series .series-container .action-links {
       text-align: center;
       padding-top: 12px; }
-    .series .series-container .live-talks-box h3, .series .series-container .upcoming-talks-box h3, .series .series-container .archived-talks-box h3 {
-      margin-left: 6px; }
-    .series .series-container .live-talks-box hr, .series .series-container .upcoming-talks-box hr, .series .series-container .archived-talks-box hr {
-      margin: 24px 12px; }
+    .series .series-container .talks-box {
+      padding: 12px; }
+      .series .series-container .talks-box hr {
+        border-color: #2c46b0; }
     .series .series-container .series-user {
       color: #29292b;
       font-weight: 500;
@@ -4574,11 +4583,16 @@ footer {
       letter-spacing: 0.125rem;
       line-height: 0.75rem;
       margin-bottom: 6px; }
-    .series .series-container p.series-description {
-      text-align: left !important; }
+    .series .series-container .series-description {
+      padding-bottom: 60px; }
+    .series .series-container .series-description p {
+      text-align: left !important;
+      font-weight: 300; }
+    .series .series-container h3.about {
+      color: #2c46b0; }
 
 .meta-data-box hr {
-  border-color: #ffed00; }
+  border-color: #2c46b0; }
 
 .meta-data-box .series-meta-group {
   margin: 0;
@@ -4589,11 +4603,16 @@ footer {
     padding: 6px;
     height: 32px;
     margin: 0;
-    width: 25%;
+    width: auto !important;
+    height: 70px;
     font-weight: 500;
     border-right: 2px solid transparent;
     margin-right: 4px;
     text-align: center; }
+    @media screen and (min-width: 40em) {
+      .meta-data-box .series-meta-group li {
+        width: 25%;
+        height: auto; } }
     .meta-data-box .series-meta-group li a {
       color: #121214; }
     .meta-data-box .series-meta-group li:last-child {
