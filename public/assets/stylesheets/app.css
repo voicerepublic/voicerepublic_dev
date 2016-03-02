@@ -4522,6 +4522,12 @@ footer {
 
 .series {
   background: #EFEFEF; }
+  .series .link-delete {
+    float: left;
+    color: #b4b6be;
+    border-color: #b4b6be; }
+  .series .button-cancel {
+    margin-right: 6px; }
   .series .series-container {
     max-width: 56.25rem;
     margin: 0 auto;
