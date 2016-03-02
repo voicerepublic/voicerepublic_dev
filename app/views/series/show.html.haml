@@ -19,7 +19,7 @@
     %p.text-center.series-label= t('.series'+':')
     %h2.series-title.left= @series.title
     - if can? :manage, @series
-      = link_to t('.edit_series'), [:edit, @series], class: "title-edit"
+      = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
 
 
@@ -46,11 +46,9 @@
 
     .action-links
       - if can? :manage, @series
-        = link_to new_talk_path(talk: { series_id: @series.id }) do
-          %span.icon-mic
+        = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
           = t('.create_new_talk')
-        = link_to new_upload_path(talk: { series_id: @series.id }) do
-          %span.icon-upload-cloud
+        = link_to new_upload_path(talk: { series_id: @series.id }),class:'button hollow' do
           = t('.upload_talk')
       - else
         -#= render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
@@ -75,6 +73,7 @@
     .talks-box.row
       .large-12.columns.talks-title
         %h3= t('.upcoming_talks', count: @upcoming_talks.count)
+    .talks-box.row
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@upcoming_talks), collection: @upcoming_talks
       %hr
@@ -83,6 +82,7 @@
     .talks-box.row
       .large-12.columns.talks-title
         %h3= t('.live_talks', count: @live_talks.count)
+    .talks-box.row
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@live_talks), collection: @live_talks
       %hr
@@ -91,6 +91,7 @@
     .talks-box.row
       .large-12.columns.talks-title
         %h3= t('.archived_talks', count: @archived_talks.count)
+    .talks-box.row
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@archived_talks), collection: @archived_talks
       %hr
@@ -101,4 +102,4 @@
       %p
         = @series.description_as_html.html_safe
         - if can? :manage, @series
-          = link_to t('.edit_series'), [:edit, @series], class: "desc-edit"
+          = link_to t('.edit_series'), [:edit, @series], class: "desc-edit button tiny info hollow"

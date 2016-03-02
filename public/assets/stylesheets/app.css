@@ -4521,15 +4521,15 @@ footer {
   margin: 24px 0; }
 
 .series {
-  background: #EFEFEF;
-  text-align: center; }
+  background: #EFEFEF; }
   .series .series-container {
     max-width: 56.25rem;
     margin: 0 auto;
-    padding-top: 24px; }
+    padding-top: 24px;
+    text-align: center; }
     .series .series-container .row {
       padding: 0;
-      text-align: left; }
+      text-align: center; }
       .series .series-container .row .talk-card {
         padding: 6px; }
         @media screen and (min-width: 56.25em) {
@@ -4567,7 +4567,8 @@ footer {
       text-align: center;
       padding-top: 12px; }
     .series .series-container .talks-box {
-      padding: 12px; }
+      padding: 12px;
+      padding-bottom: 0; }
       .series .series-container .talks-box hr {
         border-color: #2c46b0; }
     .series .series-container .series-user {
@@ -4592,7 +4593,7 @@ footer {
       color: #2c46b0; }
 
 .meta-data-box hr {
-  border-color: #2c46b0; }
+  border-color: #ffed00; }
 
 .meta-data-box .series-meta-group {
   margin: 0;
