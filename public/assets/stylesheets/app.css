@@ -3962,7 +3962,7 @@ footer {
     fill: white; }
 
 .search-container {
-  position: fixed;
+  position: absolute;
   top: 18px;
   right: 0;
   width: 380px;
@@ -4041,23 +4041,21 @@ footer {
   @media screen and (min-width: 100em) {
     .explore-index .talk-card {
       width: 20%; } }
-  .talk-card.postlive, .talk-card.processing, .talk-card.suspended {
-    pointer-events: none; }
-    .talk-card.postlive .talk-card-inside, .talk-card.processing .talk-card-inside, .talk-card.suspended .talk-card-inside {
-      opacity: .5; }
-    .talk-card.postlive .not_available, .talk-card.processing .not_available, .talk-card.suspended .not_available {
-      position: absolute;
-      top: 97px;
-      left: 30px;
-      right: 30px;
-      padding: 12px;
-      background: #ffed00; }
-      .talk-card.postlive .not_available p, .talk-card.processing .not_available p, .talk-card.suspended .not_available p {
-        font-size: 0.75rem;
-        line-height: 0.875rem;
-        margin-bottom: 0;
-        font-weight: 500;
-        height: auto; }
+  .talk-card.postlive .talk-card-inside, .talk-card.processing .talk-card-inside, .talk-card.suspended .talk-card-inside {
+    opacity: .5; }
+  .talk-card.postlive .not_available, .talk-card.processing .not_available, .talk-card.suspended .not_available {
+    position: absolute;
+    top: 97px;
+    left: 30px;
+    right: 30px;
+    padding: 12px;
+    background: #ffed00; }
+    .talk-card.postlive .not_available p, .talk-card.processing .not_available p, .talk-card.suspended .not_available p {
+      font-size: 0.75rem;
+      line-height: 0.875rem;
+      margin-bottom: 0;
+      font-weight: 500;
+      height: auto; }
   .talk-card .talk-card-inside {
     background: #FAFAFA;
     padding: 12px;
@@ -4113,16 +4111,18 @@ footer {
         background-color: rgba(41, 41, 43, 0.9);
         opacity: 0;
         transition: opacity .2s ease; }
-        .talk-card .talk-card-inside .image-box .hover-info .teaser {
+        .talk-card .talk-card-inside .image-box .hover-info .teaser, .talk-card .talk-card-inside .image-box .hover-info .speaker {
           font-size: 0.75rem;
           line-height: 0.875rem;
           color: #e1e2e7; }
-          .talk-card .talk-card-inside .image-box .hover-info .teaser a {
+          .talk-card .talk-card-inside .image-box .hover-info .teaser a, .talk-card .talk-card-inside .image-box .hover-info .speaker a {
             text-decoration: none;
             text-transform: none;
             color: white; }
-            .talk-card .talk-card-inside .image-box .hover-info .teaser a:hover {
+            .talk-card .talk-card-inside .image-box .hover-info .teaser a:hover, .talk-card .talk-card-inside .image-box .hover-info .speaker a:hover {
               text-decoration: underline; }
+        .talk-card .talk-card-inside .image-box .hover-info p.speaker {
+          color: #fef1de; }
     .talk-card .talk-card-inside .title, .series > .talk-card .talk-card-inside {
       display: block;
       /* Fallback for non-webkit */
@@ -4516,22 +4516,26 @@ footer {
       font-size: 0.875rem;
       opacity: .5; }
 
+.purchases .title-block img {
+  max-height: 48px;
+  margin: 24px 0; }
+
 .series {
   background: #EFEFEF;
   text-align: center; }
   .series .series-container {
     max-width: 56.25rem;
-    margin: 0 auto; }
+    margin: 0 auto;
+    padding-top: 24px;
+    background: yellow; }
     .series .series-container .row {
       padding: 0;
       text-align: left; }
-      .series .series-container .row .columns, .series .series-container .row .profile-tile, .series .series-container .row #claim .container .claim-cta-half, #claim .container .series .series-container .row .claim-cta-half, .series .series-container .row #categories #talk-collection .category, #categories #talk-collection .series .series-container .row .category, .series .series-container .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .row .publisher, .series .series-container .row .landing-feature .landing-half, .landing-feature .series .series-container .row .landing-half {
-        padding: 12px; }
-      .series .series-container .row .talk-card .columns, .series .series-container .row .talk-card .profile-tile, .series .series-container .row .talk-card #claim .container .claim-cta-half, #claim .container .series .series-container .row .talk-card .claim-cta-half, .series .series-container .row .talk-card #categories #talk-collection .category, #categories #talk-collection .series .series-container .row .talk-card .category, .series .series-container .row .talk-card #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .row .talk-card .publisher, .series .series-container .row .talk-card .landing-feature .landing-half, .landing-feature .series .series-container .row .talk-card .landing-half {
+      .series .series-container .row .talk-card {
         padding: 6px; }
-      @media screen and (min-width: 56.25em) {
-        .series .series-container .row .talk-card {
-          width: 33.3333%; } }
+        @media screen and (min-width: 56.25em) {
+          .series .series-container .row .talk-card {
+            width: 33.3333%; } }
       .series .series-container .row h2 {
         margin-bottom: 24px; }
       .series .series-container .row h3 {
@@ -4542,23 +4546,27 @@ footer {
       .series .series-container .row.image-box, .series .series-container .row.meta-data-box {
         padding: 12px; }
     .series .series-container .user-box {
-      text-align: center; }
+      text-align: center;
+      margin-bottom: 24px; }
       .series .series-container .user-box * {
         display: inline-block; }
+      .series .series-container .user-box hr {
+        display: block;
+        max-width: 120px;
+        border-color: rgba(41, 41, 43, 0.5); }
     .series .series-container .action-links {
-      text-align: center; }
+      text-align: center;
+      padding-top: 12px; }
     .series .series-container .live-talks-box h3, .series .series-container .upcoming-talks-box h3, .series .series-container .archived-talks-box h3 {
       margin-left: 6px; }
     .series .series-container .live-talks-box hr, .series .series-container .upcoming-talks-box hr, .series .series-container .archived-talks-box hr {
       margin: 24px 12px; }
-    .series .series-container .live-talks-box .columns, .series .series-container .live-talks-box .profile-tile, .series .series-container .live-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .live-talks-box .claim-cta-half, .series .series-container .live-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .live-talks-box .category, .series .series-container .live-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .live-talks-box .publisher, .series .series-container .live-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .live-talks-box .landing-half, .series .series-container .upcoming-talks-box .columns, .series .series-container .upcoming-talks-box .profile-tile, .series .series-container .upcoming-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .upcoming-talks-box .claim-cta-half, .series .series-container .upcoming-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .upcoming-talks-box .category, .series .series-container .upcoming-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .upcoming-talks-box .publisher, .series .series-container .upcoming-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .upcoming-talks-box .landing-half, .series .series-container .archived-talks-box .columns, .series .series-container .archived-talks-box .profile-tile, .series .series-container .archived-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .archived-talks-box .claim-cta-half, .series .series-container .archived-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .archived-talks-box .category, .series .series-container .archived-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .archived-talks-box .publisher, .series .series-container .archived-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .archived-talks-box .landing-half {
-      padding: 6px; }
     .series .series-container .series-user {
       color: #29292b;
       font-weight: 500;
       font-size: 1rem;
       margin-left: 12px;
-      margin-bottom: 48px; }
+      margin-bottom: 0; }
     .series .series-container .series-label {
       font-size: 0.75rem;
       font-weight: 300;

@@ -12,11 +12,11 @@
   .row.user-box
     = link_to @series.user do
       = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
-      %h4.series-user= @series.user.name
-    %hr
+      -#%h4.series-user= @series.user.name
+    -#%hr
 
   .row.title-box
-    %p.text-center.series-label= t('.series')
+    %p.text-center.series-label= t('.series'+':')
     %h2.series-title.left= @series.title
     - if can? :manage, @series
       = link_to t('.edit_series'), [:edit, @series], class: "title-edit"
