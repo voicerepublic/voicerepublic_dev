@@ -16,11 +16,11 @@ class Mediator
       'success' => {
         'Postprocess'     => 'Postprocessing of Talk %s is complete.',
         'Reprocess'       => 'Reprocessing of Talk %s is complete.',
-        'DestroyTalk'     => 'Test Talk %s has been destroyed.',
+        #'DestroyTalk'     => 'Test Talk %s has been destroyed.',
         'EndTalk'         => 'Talk %s has been ended by the system.',
-        'GenerateFlyer'   => 'Flyer for Talk %s has been generated.',
-        'ProcessOverride' => 'Override for Talk %s has been processed.',
-        'ProcessSlides'   => 'Slides for Talk %s have been processed.'
+        #'GenerateFlyer'   => 'Flyer for Talk %s has been generated.',
+        'ProcessOverride' => 'Override for Talk %s has been processed.'
+        #'ProcessSlides'   => 'Slides for Talk %s have been processed.'
       }
     }
 
