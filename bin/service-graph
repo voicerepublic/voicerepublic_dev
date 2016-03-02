@@ -1,0 +1,135 @@
+#!/usr/bin/env ruby
+
+# USAGE: service-graph
+
+require 'erb'
+
+BASE = File.expand_path(File.join(%w(.. ..)), __FILE__)
+SERVICE_PATH = File.expand_path(File.join(%w(app services)), BASE)
+
+Node = Struct.new(:name, :type)
+Edge = Struct.new(:from, :to, :protocol)
+
+def parse_services(path)
+  glob = File.join(path, '*.rb')
+
+  nodes, edges, primary = {}, [], nil
+
+  Dir.glob(glob).each do |service|
+    content = File.read(service)
+    comments = content.split("\n").grep(/^#/)
+    comments.each do |line|
+      case line
+      # service
+      when /^#\s*SERVICE\s*([^\s]+)\s*$/
+        primary = nodes[$1] ||= Node.new($1, :service)
+      # exchange
+      when /^#\s*([^\s]+)\s*->\s*$/
+        secondary = nodes[$1] ||= Node.new($1, :exchange)
+        edges << Edge.new(secondary, primary, :amqp)
+      when /^#\s*->\s*([^\s]+)\s*$/
+        secondary = nodes[$1] ||= Node.new($1, :exchange)
+        edges << Edge.new(primary, secondary, :amqp)
+      # api
+      when /^#\s*([^\s]+)\s*=>\s*$/
+        secondary = nodes[$1] ||= Node.new($1, :api)
+        edges << Edge.new(secondary, primary, :http)
+      when /^#\s*=>\s*([^\s]+)\s*$/
+        secondary = nodes[$1] ||= Node.new($1, :api)
+        edges << Edge.new(primary, secondary, :http)
+      end
+    end
+  end
+
+  [nodes, edges]
+
+end
+
+def dot_output(nodes, edges)
+  services = nodes.values.select { |n| n.type == :service }
+  exchanges = nodes.values.select { |n| n.type == :exchange }
+  apis = nodes.values.select { |n| n.type == :api }
+  amqp = edges.select { |e| e.protocol == :amqp }
+  http = edges.select { |e| e.protocol == :http }
+  _ = [services, exchanges, apis, amqp, http] # makes the linter happy
+  ERB.new(DATA.read).result(binding)
+end
+
+parse_services(SERVICE_PATH)
+
+dot_result = dot_output(*parse_services(SERVICE_PATH))
+
+dot_file = File.join(BASE, %w(doc microservices.dot))
+File.open(dot_file, 'w') { |f| f.print(dot_result) }
+
+DOT = ARGV.first || 'dot'
+
+svg_file = File.join(BASE, %w(doc microservices.svg))
+cmd = "#{DOT} -T svg -o #{svg_file} #{dot_file}"
+system(cmd)
+
+cmd = "xdg-open #{svg_file}"
+system(cmd)
+
+
+__END__
+// ---------------------------------------- dot template
+digraph G {
+  // basic settings
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+  edge [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+  node [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+  // services
+  node [
+    shape = "rectangle"
+  ]
+  <% services.each do |node| %>
+  <%= node.name %>
+    <% end %>
+
+  // exchanges
+  node [
+    shape = "oval"
+  ]
+  <% exchanges.each do |node| %>
+  <%= node.name %>
+  <% end %>
+
+  // apis
+  subgraph cluster_0 {
+			label="APIs";
+      node [
+        shape = "rectangle"
+      ]
+      <% apis.each do |node| %>
+      <%= node.name %>
+      <% end %>
+  }
+
+  // amqp
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+  ]
+  <% amqp.each do |edge| %>
+  <%= edge.from.name %> -> <%= edge.to.name %>
+  <% end %>
+
+  // http
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+    style     = "dashed"
+  ]
+  <% http.each do |edge| %>
+  <%= edge.from.name %> -> <%= edge.to.name %>
+  <% end %>
+}

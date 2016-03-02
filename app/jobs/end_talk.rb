@@ -8,8 +8,6 @@ class EndTalk < MonitoredJob
     return if talk.archived? or talk.processing?
     # otherwise fire event end_talk
     talk.end_talk!
-
-    KillTalkMessage.call(talk)
   end
 
 end

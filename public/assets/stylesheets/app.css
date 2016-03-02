@@ -4041,23 +4041,21 @@ footer {
   @media screen and (min-width: 100em) {
     .explore-index .talk-card {
       width: 20%; } }
-  .talk-card.postlive, .talk-card.processing, .talk-card.suspended {
-    pointer-events: none; }
-    .talk-card.postlive .talk-card-inside, .talk-card.processing .talk-card-inside, .talk-card.suspended .talk-card-inside {
-      opacity: .5; }
-    .talk-card.postlive .not_available, .talk-card.processing .not_available, .talk-card.suspended .not_available {
-      position: absolute;
-      top: 97px;
-      left: 30px;
-      right: 30px;
-      padding: 12px;
-      background: #ffed00; }
-      .talk-card.postlive .not_available p, .talk-card.processing .not_available p, .talk-card.suspended .not_available p {
-        font-size: 0.75rem;
-        line-height: 0.875rem;
-        margin-bottom: 0;
-        font-weight: 500;
-        height: auto; }
+  .talk-card.postlive .talk-card-inside, .talk-card.processing .talk-card-inside, .talk-card.suspended .talk-card-inside {
+    opacity: .5; }
+  .talk-card.postlive .not_available, .talk-card.processing .not_available, .talk-card.suspended .not_available {
+    position: absolute;
+    top: 97px;
+    left: 30px;
+    right: 30px;
+    padding: 12px;
+    background: #ffed00; }
+    .talk-card.postlive .not_available p, .talk-card.processing .not_available p, .talk-card.suspended .not_available p {
+      font-size: 0.75rem;
+      line-height: 0.875rem;
+      margin-bottom: 0;
+      font-weight: 500;
+      height: auto; }
   .talk-card .talk-card-inside {
     background: #FAFAFA;
     padding: 12px;
@@ -4113,16 +4111,18 @@ footer {
         background-color: rgba(41, 41, 43, 0.9);
         opacity: 0;
         transition: opacity .2s ease; }
-        .talk-card .talk-card-inside .image-box .hover-info .teaser {
+        .talk-card .talk-card-inside .image-box .hover-info .teaser, .talk-card .talk-card-inside .image-box .hover-info .speaker {
           font-size: 0.75rem;
           line-height: 0.875rem;
           color: #e1e2e7; }
-          .talk-card .talk-card-inside .image-box .hover-info .teaser a {
+          .talk-card .talk-card-inside .image-box .hover-info .teaser a, .talk-card .talk-card-inside .image-box .hover-info .speaker a {
             text-decoration: none;
             text-transform: none;
             color: white; }
-            .talk-card .talk-card-inside .image-box .hover-info .teaser a:hover {
+            .talk-card .talk-card-inside .image-box .hover-info .teaser a:hover, .talk-card .talk-card-inside .image-box .hover-info .speaker a:hover {
               text-decoration: underline; }
+        .talk-card .talk-card-inside .image-box .hover-info p.speaker {
+          color: #fef1de; }
     .talk-card .talk-card-inside .title, .series > .talk-card .talk-card-inside {
       display: block;
       /* Fallback for non-webkit */
@@ -4385,3 +4385,220 @@ footer {
       font-weight: 500; }
       .pages-outdated_browser ul li a:hover {
         text-decoration: underline; }
+
+.purchases-index {
+  background: #FFFFFF; }
+  .purchases-index h3 {
+    color: #54c6c6;
+    margin-bottom: 24px; }
+  .purchases-index #claim.pricing {
+    padding-top: 60px;
+    background: url(../../images/background/pricing-bg-blue.jpg) no-repeat 50% 25%; }
+    .purchases-index #claim.pricing a {
+      color: #ffed00; }
+      .purchases-index #claim.pricing a:hover {
+        color: #f82847; }
+    .purchases-index #claim.pricing .button a, .purchases-index #claim.pricing button a {
+      color: #ffed00; }
+      .purchases-index #claim.pricing .button a:hover, .purchases-index #claim.pricing button a:hover {
+        color: #f82847; }
+    .purchases-index #claim.pricing h2 {
+      margin-bottom: 36px;
+      color: white; }
+    .purchases-index #claim.pricing .lead {
+      color: #fef1de;
+      margin-bottom: 48px; }
+  .purchases-index .section-header {
+    font-size: 1.3125rem;
+    letter-spacing: 0.1875rem;
+    text-transform: uppercase; }
+
+.row.packages {
+  padding-top: 60px; }
+
+.purchases-index .pricing-box ul li {
+  margin-left: 48px;
+  font-family: "minion-pro", times, serif;
+  opacity: .6; }
+
+.purchases-index form.purchase input[type='radio'] {
+  display: none;
+  opacity: 0;
+  margin: 0; }
+
+.purchases-index form.purchase label {
+  font-weight: 400;
+  font-size: 18px;
+  padding: 16px 10px 16px 0;
+  text-align: center;
+  transition: background .2s ease;
+  display: inline-block;
+  float: left;
+  background: #ffed00;
+  padding: 12px;
+  color: #a339cd;
+  width: 100%;
+  border: 1px solid #EFEFEF; }
+  @media screen and (min-width: 40em) {
+    .purchases-index form.purchase label {
+      width: 20%; } }
+  .purchases-index form.purchase label .price {
+    font-weight: 300; }
+    .purchases-index form.purchase label .price p {
+      font-weight: 500;
+      font-size: 0.875rem; }
+      .purchases-index form.purchase label .price p span {
+        font-weight: 700;
+        display: block;
+        font-size: 1.875rem; }
+
+.price_per_talk {
+  font-size: 0.75rem;
+  font-weight: 300; }
+
+.purchases-index form.purchase label .price_per_talk {
+  font-size: 80%; }
+
+.purchases-index form.purchase label.selected {
+  background-color: #a339cd;
+  color: #ffed00;
+  pointer-events: none; }
+
+.purchases-index form.purchase label:hover {
+  background-color: #fef1de;
+  color: #a339cd; }
+
+.purchases-index form.purchase .button, .purchases-index form.purchase button {
+  background-color: transparent; }
+
+.purchases-index form.purchase #paypal_spinner {
+  display: none; }
+
+.purchases-index form.purchase #paypal_spinner img {
+  width: 42px;
+  height: 42px;
+  margin: 14px 24px 13px; }
+
+.purchases-index hr.pricing-hr {
+  margin-top: 48px;
+  margin-bottom: 48px; }
+
+.pricing-features {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  color: #29292b; }
+  .pricing-features h5 {
+    color: #a339cd;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-weight: 700; }
+  .pricing-features p {
+    font-weight: 300;
+    font-size: 0.875rem; }
+  .pricing-features .svg-icon {
+    color: #a339cd;
+    max-height: 48px;
+    max-width: 48px;
+    height: 48px;
+    margin-bottom: 12px; }
+    .pricing-features .svg-icon svg {
+      max-height: 48px;
+      max-width: 48px; }
+  .pricing-features a {
+    color: #54c6c6;
+    font-weight: 500; }
+
+.paypal {
+  background: white;
+  padding-top: 0; }
+  .paypal p {
+    line-height: 1.3125rem; }
+    .paypal p span {
+      font-size: 0.875rem;
+      opacity: .5; }
+
+.purchases .title-block img {
+  max-height: 48px;
+  margin: 24px 0; }
+
+.series {
+  background: #EFEFEF;
+  text-align: center; }
+  .series .series-container {
+    max-width: 56.25rem;
+    margin: 0 auto; }
+    .series .series-container .row {
+      padding: 0;
+      text-align: left; }
+      .series .series-container .row .columns, .series .series-container .row .profile-tile, .series .series-container .row #claim .container .claim-cta-half, #claim .container .series .series-container .row .claim-cta-half, .series .series-container .row #categories #talk-collection .category, #categories #talk-collection .series .series-container .row .category, .series .series-container .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .row .publisher, .series .series-container .row .landing-feature .landing-half, .landing-feature .series .series-container .row .landing-half {
+        padding: 12px; }
+      .series .series-container .row .talk-card .columns, .series .series-container .row .talk-card .profile-tile, .series .series-container .row .talk-card #claim .container .claim-cta-half, #claim .container .series .series-container .row .talk-card .claim-cta-half, .series .series-container .row .talk-card #categories #talk-collection .category, #categories #talk-collection .series .series-container .row .talk-card .category, .series .series-container .row .talk-card #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .row .talk-card .publisher, .series .series-container .row .talk-card .landing-feature .landing-half, .landing-feature .series .series-container .row .talk-card .landing-half {
+        padding: 6px; }
+      @media screen and (min-width: 56.25em) {
+        .series .series-container .row .talk-card {
+          width: 33.3333%; } }
+      .series .series-container .row h2 {
+        margin-bottom: 24px; }
+      .series .series-container .row h3 {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-size: 1.125rem;
+        text-align: left;
+        font-weight: 700; }
+      .series .series-container .row.image-box, .series .series-container .row.meta-data-box {
+        padding: 12px; }
+    .series .series-container .user-box {
+      text-align: center; }
+      .series .series-container .user-box * {
+        display: inline-block; }
+    .series .series-container .action-links {
+      text-align: center; }
+    .series .series-container .live-talks-box h3, .series .series-container .upcoming-talks-box h3, .series .series-container .archived-talks-box h3 {
+      margin-left: 6px; }
+    .series .series-container .live-talks-box hr, .series .series-container .upcoming-talks-box hr, .series .series-container .archived-talks-box hr {
+      margin: 24px 12px; }
+    .series .series-container .live-talks-box .columns, .series .series-container .live-talks-box .profile-tile, .series .series-container .live-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .live-talks-box .claim-cta-half, .series .series-container .live-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .live-talks-box .category, .series .series-container .live-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .live-talks-box .publisher, .series .series-container .live-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .live-talks-box .landing-half, .series .series-container .upcoming-talks-box .columns, .series .series-container .upcoming-talks-box .profile-tile, .series .series-container .upcoming-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .upcoming-talks-box .claim-cta-half, .series .series-container .upcoming-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .upcoming-talks-box .category, .series .series-container .upcoming-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .upcoming-talks-box .publisher, .series .series-container .upcoming-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .upcoming-talks-box .landing-half, .series .series-container .archived-talks-box .columns, .series .series-container .archived-talks-box .profile-tile, .series .series-container .archived-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .archived-talks-box .claim-cta-half, .series .series-container .archived-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .archived-talks-box .category, .series .series-container .archived-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .archived-talks-box .publisher, .series .series-container .archived-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .archived-talks-box .landing-half {
+      padding: 6px; }
+    .series .series-container .series-user {
+      color: #29292b;
+      font-weight: 500;
+      font-size: 1rem;
+      margin-left: 12px;
+      margin-bottom: 48px; }
+    .series .series-container .series-label {
+      font-size: 0.75rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.125rem;
+      line-height: 0.75rem;
+      margin-bottom: 6px; }
+    .series .series-container p.series-description {
+      text-align: left !important; }
+
+.meta-data-box hr {
+  border-color: #ffed00; }
+
+.meta-data-box .series-meta-group {
+  margin: 0;
+  margin-bottom: 0; }
+  .meta-data-box .series-meta-group li {
+    font-size: 0.75rem;
+    color: #121214;
+    padding: 6px;
+    height: 32px;
+    margin: 0;
+    width: 25%;
+    font-weight: 500;
+    border-right: 2px solid transparent;
+    margin-right: 4px;
+    text-align: center; }
+    .meta-data-box .series-meta-group li a {
+      color: #121214; }
+    .meta-data-box .series-meta-group li:last-child {
+      margin-right: 0; }
+    .meta-data-box .series-meta-group li p {
+      font-size: 1rem;
+      margin-bottom: 0;
+      color: #121214; }
+    .meta-data-box .series-meta-group li p.label {
+      background: none;
+      font-size: 0.625rem;
+      text-transform: uppercase; }

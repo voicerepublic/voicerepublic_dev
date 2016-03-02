@@ -10,4 +10,8 @@ class PagesController < ApplicationController
     @api_doc = renderer.render(File.read(Rails.root.join("doc/API.md")))
   end
 
+  def error
+    raise 'Hello Errbit!'
+  end
+
 end

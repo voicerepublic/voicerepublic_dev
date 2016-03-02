@@ -129,7 +129,7 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
-  before_save :set_description_as_html, if: :description_changed?
+  before_save :process_description, if: :description_changed?
   before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
   before_create :prepare, if: :can_prepare?
@@ -297,6 +297,7 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
+    # TODO oldschool: find a way to do newschool
     LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
@@ -406,8 +407,9 @@ class Talk < ActiveRecord::Base
 
   private
 
-  def set_description_as_html
+  def process_description
     self.description_as_html = MD2HTML.render(description)
+    self.description_as_text = MD2TEXT.render(description)
   end
 
   def create_and_set_series?
@@ -493,8 +495,6 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    MonitoringMessage.call(event: 'StartTalk', talk: attributes)
-
     return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes
@@ -502,9 +502,9 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
+    # TODO oldschool, find a way to do it newschool
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
-    MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
   def postprocess!(uat=false)
@@ -519,9 +519,12 @@ class Talk < ActiveRecord::Base
       chain = chain.split(/\s+/)
       run_chain! chain, uat
       archive!
-    rescue
+    rescue => e
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
       suspend!
-      LiveServerMessage.call public_channel, event: 'Suspend'
+      LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end
   end
 
@@ -669,14 +672,14 @@ class Talk < ActiveRecord::Base
   end
 
   def manifest(chain=nil)
-    chain ||= series.opts.process_chain || Setting.get('audio.process_chain')
+    chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
       id:         id,
       chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in:  locate(series.opts.jingle_in  || Settings.paths.jingles.in),
-      jingle_out: locate(series.opts.jingle_out || Settings.paths.jingles.out)
+      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
@@ -738,9 +741,8 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # generically propagate all state changes
   def event_fired(*args)
-    TalkEventMessage.call(self, *args)
+    Emitter.talk_transition(self, args)
   end
 
   def slug_candidates

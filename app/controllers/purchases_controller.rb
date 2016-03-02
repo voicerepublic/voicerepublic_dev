@@ -1,6 +1,11 @@
 class PurchasesController < ApplicationController
 
   before_action :authenticate_user!, except: :index
+  layout 'velvet_minimal'
+
+  def index
+    render action: 'index', layout: 'velvet'
+  end
 
   # step 1: setup purchase and redirect to paypal
   def express
@@ -33,6 +38,7 @@ class PurchasesController < ApplicationController
     end
   end
 
+  # step 4: show a confirmation page
   def show
     @purchase = Purchase.find(params[:id])
     authorize! :show, @purchase
