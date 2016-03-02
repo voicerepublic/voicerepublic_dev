@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   extend ApplicationHelper
 
+  resources :tag_bundles, only: :show
+
   # a bunch of redirects
   scope 'r' do
     get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))
