@@ -3962,7 +3962,7 @@ footer {
     fill: white; }
 
 .search-container {
-  position: fixed;
+  position: absolute;
   top: 18px;
   right: 0;
   width: 380px;
@@ -4515,6 +4515,10 @@ footer {
     .paypal p span {
       font-size: 0.875rem;
       opacity: .5; }
+
+.purchases .title-block img {
+  max-height: 48px;
+  margin: 24px 0; }
 
 .series {
   background: #EFEFEF;
