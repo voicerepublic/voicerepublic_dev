@@ -478,4 +478,20 @@ describe Talk do
     end
   end
 
+  describe 'icon' do
+    it 'chooses the icon of the tag bundle which is most prevalent' do
+      music_genres = 'glitch, zef, emo'
+      subcultures = 'zef, emo'
+
+      tag_bundle_1 = FactoryGirl.create(:tag_bundle, group: 'category',
+                                        icon: 'music', tag_list: music_genres)
+      tag_bundle_2 = FactoryGirl.create(:tag_bundle, group: 'category',
+                                        icon: 'subcult', tag_list: subcultures)
+      talk = FactoryGirl.create(:talk, tag_list: music_genres)
+
+      expect(talk.icon).to eq(tag_bundle_1.icon)
+      expect(talk.icon).to_not eq(tag_bundle_2.icon)
+    end
+  end
+
 end
