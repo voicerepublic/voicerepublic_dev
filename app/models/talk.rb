@@ -520,8 +520,9 @@ class Talk < ActiveRecord::Base
       run_chain! chain, uat
       archive!
     rescue => e
-      Rails.logger.error e.message
-      self.processing_error = e.message
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
       suspend!
       LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end
