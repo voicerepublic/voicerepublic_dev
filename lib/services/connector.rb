@@ -7,19 +7,14 @@ module Services
     attr_accessor :bunny
 
     def channel
-      return @channel unless @channel.nil?
+      @channel ||= reconnect
+    end
 
-      # hutch uses 11/30
-      self.bunny = Bunny.new read_timeout: 10, heartbeat: 10
+    def reconnect
+      self.bunny = Bunny.new read_timeout: 11, heartbeat: 30
       bunny.start
       bunny.create_channel
     end
-
-    # def rescue_connection(*args)
-    #   # TODO
-    # rescue
-    #   @channel = nil
-    # end
 
   end
 end
