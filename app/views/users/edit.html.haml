@@ -9,7 +9,7 @@
     .row
       .large-3.columns.profile-avatar.text-left
         - avatar_url = @user.avatar.thumb('180x180#nw').url
-        #avatar-img(style="background-image:url(#{avatar_url})")
+        #avatar-img.preview-img(style="background-image:url(#{avatar_url})")
         = f.input :avatar, as: :file, wrapper_html: { class: 'inputfile' }, label: icon_tag("photo") + t('.change_photo').html_safe, label_html: {class: 'button hollow tiny muted'}
       .large-9.columns
         .medium-6.columns

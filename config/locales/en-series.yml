@@ -29,8 +29,8 @@ en:
       start_date: Begin
       duration: Duration
       past_series: Past Series
-      subscribe_to_series: Subscribe to This Series
-      unsubscribe_to_series: Unsubscribe
+      subscribe_to_series: Follow This Series
+      unsubscribe_to_series: Unfollow This Series
       this_series_has_no_talks: This Series has no Talks
       edit_series: Edit
       chat_will_be_available_short_before_start: Group-chat will be available short before start

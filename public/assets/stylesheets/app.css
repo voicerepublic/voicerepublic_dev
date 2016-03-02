@@ -3085,7 +3085,7 @@ section {
   background: #fef1de;
   color: #121214; }
 
-.users-edit .inputfile input, .users-update .inputfile input {
+.inputfile input {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
@@ -3093,17 +3093,17 @@ section {
   position: absolute;
   z-index: -1; }
 
-.users-edit .inputfile label, .users-update .inputfile label {
+.inputfile label {
   cursor: pointer;
   text-align: center; }
-  .users-edit .inputfile label .svg-icon, .users-update .inputfile label .svg-icon {
+  .inputfile label .svg-icon {
     float: none;
     display: inline-block;
     max-width: 18px;
     max-height: 18px;
     margin-right: 12px;
     vertical-align: inherit; }
-    .users-edit .inputfile label .svg-icon svg, .users-update .inputfile label .svg-icon svg {
+    .inputfile label .svg-icon svg {
       max-width: 18px;
       max-height: 18px;
       margin-top: 6px; }
@@ -4528,6 +4528,11 @@ footer {
     border-color: #b4b6be; }
   .series .button-cancel {
     margin-right: 6px; }
+  .series .preview-img {
+    width: 600px;
+    height: 400px;
+    background-size: cover;
+    margin: 0 auto; }
   .series .series-container {
     max-width: 56.25rem;
     margin: 0 auto;
@@ -4569,12 +4574,18 @@ footer {
       margin: -6px;
       padding-bottom: 24px;
       width: auto; }
+      @media screen and (min-width: 40em) {
+        .series .series-container .talks-grid {
+          width: 100%; } }
     .series .series-container .action-links {
       text-align: center;
       padding-top: 12px; }
     .series .series-container .talks-box {
       padding: 12px;
       padding-bottom: 0; }
+      @media screen and (min-width: 40em) {
+        .series .series-container .talks-box {
+          padding-right: 0; } }
       .series .series-container .talks-box hr {
         border-color: #2c46b0; }
     .series .series-container .series-user {
