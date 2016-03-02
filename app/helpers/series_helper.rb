@@ -1,11 +1,11 @@
 module SeriesHelper
 
   def talks_partial(collection)
-    collection.count > 1 ? 'shared/talk_small_box' : 'shared/talk_medium_box'
+    collection.count > 1 ? 'shared/talk_card' : 'shared/talk_card'
   end
 
   def talkslive_partial(collection)
-    collection.count > 2 ? 'shared/talk_small_box' : 'shared/talk_live_box'
+    collection.count > 2 ? 'shared/talk_card' : 'shared/talk_card'
   end
 
   def talks_grid(collection)

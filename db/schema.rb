@@ -179,7 +179,6 @@ ActiveRecord::Schema.define(version: 20160219201411) do
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
-    t.boolean  "is_hidden",                       default: false
     t.string   "image_alt",                       default: ""
     t.text     "description_as_text",             default: ""
   end
@@ -283,7 +282,6 @@ ActiveRecord::Schema.define(version: 20160219201411) do
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
-    t.boolean  "is_hidden",                        default: false
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
     t.text     "description_as_text",              default: ""
@@ -350,7 +348,6 @@ ActiveRecord::Schema.define(version: 20160219201411) do
     t.string   "referrer"
     t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
-    t.boolean  "is_hidden",                          default: false
     t.datetime "featured_from"
     t.datetime "featured_until"
     t.string   "image_alt",                          default: ""
