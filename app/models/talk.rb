@@ -297,6 +297,7 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
+    # TODO oldschool: find a way to do newschool
     LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
@@ -494,8 +495,6 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    MonitoringMessage.call(event: 'StartTalk', talk: attributes)
-
     return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes
@@ -503,9 +502,9 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
+    # TODO oldschool, find a way to do it newschool
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
-    MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
   def postprocess!(uat=false)
@@ -520,9 +519,12 @@ class Talk < ActiveRecord::Base
       chain = chain.split(/\s+/)
       run_chain! chain, uat
       archive!
-    rescue
+    rescue => e
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
       suspend!
-      LiveServerMessage.call public_channel, event: 'Suspend'
+      LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end
   end
 
@@ -739,9 +741,8 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # generically propagate all state changes
   def event_fired(*args)
-    TalkEventMessage.call(self, *args)
+    Emitter.talk_transition(self, args)
   end
 
   def slug_candidates

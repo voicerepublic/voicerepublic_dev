@@ -15,7 +15,7 @@ en:
       back_to_profile: back to Profile
       create_new_talk: Create new Talk
       upload_talk: Upload Talk
-      subscribe_to_podcast: Podcast
+      subscribe_to_podcast: Subscribe to Podcast
       podcast:
         title: "%{title}"
         subtitle: "Podcast provided by Voice Republic"

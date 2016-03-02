@@ -20,12 +20,22 @@ class ManualTransaction < Transaction
       user.save!
     end
     close!
-    Simon.comprehend(self)
   rescue Exception => e
     warn e
     self.details ||= {}
     self.details[:error] = e
     abort!
+  end
+
+  def message_details
+    {
+      type: type,
+      quantity: details[:quantity],
+      payment: details[:payment],
+      comment: details[:comment],
+      username: User.find(details[:user_id]).name,
+      admin: source.email
+    }
   end
 
 end

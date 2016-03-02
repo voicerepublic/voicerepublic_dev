@@ -24,7 +24,7 @@ namespace :migrate do
     end
 
     desc 'populate series#description_as_text'
-    task series: :enironment do
+    task series: :environment do
       call_and_save(Series, :process_description)
     end
 
