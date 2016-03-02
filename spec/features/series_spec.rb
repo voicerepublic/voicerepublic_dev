@@ -115,13 +115,13 @@ describe "Series", js: true do
     describe "POST a new series" do
       it 'creates a series', driver: :chrome do
         visit new_series_path
-        fill_in 'series_title', with: 'schubidubi'
+        fill_in 'series_title', with: 'SCHUBIDUBI'
         fill_in 'series_teaser', with: 'some teaser'
         fill_in 'series_description', with: 'iwannabelikeyou'
 
         click_button 'Save'
         expect(page).to have_selector('.series-show')
-        expect(page).to have_content('schubidubi')
+        expect(page).to have_content('SCHUBIDUBI')
         expect(page).to have_content('iwannabelikeyou')
       end
     end
