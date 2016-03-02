@@ -9,6 +9,7 @@ module Services
     def channel
       return @channel unless @channel.nil?
 
+      # hutch uses 11/30
       self.bunny = Bunny.new read_timeout: 10, heartbeat: 10
       bunny.start
       bunny.create_channel
