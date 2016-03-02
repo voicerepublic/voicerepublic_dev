@@ -7,6 +7,8 @@
 # * user_id [integer] - belongs to :user
 class Message < ActiveRecord::Base
 
+  include LifecycleEmitter
+
   belongs_to :user
   belongs_to :talk
 

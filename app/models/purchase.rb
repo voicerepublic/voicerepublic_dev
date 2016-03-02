@@ -58,7 +58,6 @@ class Purchase < ActiveRecord::Base
     owner.update_attribute(:paying, true)
     create_purchase_transaction.process!
     PurchaseMailer.invoice(self).deliver_now
-    PurchaseMessage.call(self)
     response.success?
   end
 
