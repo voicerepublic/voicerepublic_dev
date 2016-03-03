@@ -60,10 +60,10 @@
             %button.button.float-left.hollow.qa-subscribe= t('.subscribe_to_series')
         - elsif !current_user
           %a(href="#" data-reveal-id="modal-login-signup")
-            %button.button.hollow= t('.subscribe_to_series')
+            %button.button.float-left.hollow= t('.subscribe_to_series')
         - if @participation
           = link_to [@series, @participation], delete_params do
-            = t('.unsubscribe_to_series')
+            .qa-unsubscribe= t('.unsubscribe_to_series')
 
 
 
@@ -82,7 +82,7 @@
     .talks-box.row
       .large-12.columns.talks-title
         %h3= t('.live_talks', count: @live_talks.count)
-    .talks-box.row
+
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@live_talks), collection: @live_talks
       %hr
@@ -91,7 +91,6 @@
     .talks-box.row
       .large-12.columns.talks-title
         %h3= t('.archived_talks', count: @archived_talks.count)
-    .talks-box.row
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@archived_talks), collection: @archived_talks
       %hr
