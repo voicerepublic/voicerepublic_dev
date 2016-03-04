@@ -229,7 +229,8 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         # but could also be used for live upgrades
         window.location.reload()
       when 'Forward'
-        window.location.href = data.forward_url
+        if config.user.role == 'listener'
+          window.location.href = data.forward_url
       when 'StartTalk'
         activateSafetynet() if fsm.current.match /OnAir$/
         config.talk.state = data.talk_state
