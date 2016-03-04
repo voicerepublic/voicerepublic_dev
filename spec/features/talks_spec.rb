@@ -54,7 +54,7 @@ describe "Talks as anonymous user" do
       #TODO: maybe change fieldnames to qa-classes too?
       fill_in "user_email", with: "foo@bar.com"
       fill_in "user_password", with: "123123"
-      find(".qa-button-login").click
+      find(".qa-login").click
 
       expect(current_path).to match(/#{talk_path(talk)}/)
     end
@@ -89,13 +89,13 @@ describe "Talks as logged in user" do
     pending 'is pinnable and unpinnable', js: true do
       visit talk_path(@talk)
       expect {
-        find(".qa-icon-star-empty").click
+        find(".qa-favorite").click
       }.to change(Reminder, :count).by(1)
-      expect(page).to have_css(".qa-icon-star-full")
+      expect(page).to have_css(".qa-unfavorite")
       expect {
-        find(".qa-icon-star-full").click
+        find(".qa-unfavorite").click
       }.to change(Reminder, :count).by(-1)
-      expect(page).to_not have_css(".qa-icon-star-full")
+      expect(page).to_not have_css(".qa-unfavorite")
     end
   end
 
