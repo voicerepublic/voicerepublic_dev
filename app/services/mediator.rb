@@ -39,7 +39,11 @@ class Mediator
       'postlive.processing.process'  => 'Started processing',
       'processing.archived.archive'  => 'Just archived recording',
       'pending.archived.archive'     => 'Just archived upload',
-      'processing.suspended.suspend' => "Failed to process with '#{error}'"
+      'processing.suspended.suspend' => "Failed to process with '#{error}'",
+      'suspended.archived.archive'   => 'Just archived suspended',
+      'postlive.archived.archive'    => 'Just archived abandoned',
+      'prelive.archived.archive'     => 'Just archived scheduled',
+      'prelive.postlive.abandon'     => 'Has been abandoned'
     }
     intro = intros[event]
     intro ||= 'Don\'t know how to format talk event `%s` for' % event

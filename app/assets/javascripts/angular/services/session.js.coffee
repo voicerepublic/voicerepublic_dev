@@ -228,6 +228,9 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         # this is only used in user acceptance testing
         # but could also be used for live upgrades
         window.location.reload()
+      when 'Forward'
+        if config.user.role == 'listener'
+          window.location.href = data.forward_url
       when 'StartTalk'
         activateSafetynet() if fsm.current.match /OnAir$/
         config.talk.state = data.talk_state

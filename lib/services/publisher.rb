@@ -29,10 +29,10 @@ module Services
         raise "Either of `exchange`, `queue`, `x` or `q` are required."
       end
 
-    #rescue Bunny::ConnectionClosedError
-    #  # if the connection is closed make it reconnect and try again
-    #  reconnect
-    #  retry
+    rescue Bunny::ConnectionClosedError, AMQ::Protocol::EmptyResponseError
+      # if the connection is closed make it reconnect and try again
+      reconnect
+      retry
     end
 
   end

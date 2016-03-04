@@ -84,7 +84,7 @@ module ApplicationHelper
       data: {
         confirm: I18n.t('.confirm_delete', default: 'Are you sure?')
       },
-      class: 'link-delete'
+      class: 'link-delete button hollow'
     }
   end
 

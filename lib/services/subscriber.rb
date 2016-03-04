@@ -53,10 +53,16 @@ module Services
     end
 
     def run
-      last = self.class.subscriptions.last
-      self.class.subscriptions.each_with_index do |s, index|
-        options = (last == s) ? {block: true} : {}
-        s.call(self, options)
+      begin
+        last = self.class.subscriptions.last
+        self.class.subscriptions.each_with_index do |s, index|
+          options = (last == s) ? {block: true} : {}
+          s.call(self, options)
+        end
+      rescue Bunny::ConnectionClosedError, AMQ::Protocol::EmptyResponseError
+        # if the connection is closed make it reconnect and try again
+        reconnect
+        retry
       end
       raise 'Actually, we should never get here.'
     end

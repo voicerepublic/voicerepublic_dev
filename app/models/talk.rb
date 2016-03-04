@@ -465,10 +465,11 @@ class Talk < ActiveRecord::Base
   end
 
   def set_icon
-    bundles = TagBundle.category.tagged_with(tags, any: true)
-    icon = bundles.group(:icon).count.
-           sort_by(&:last).reverse.
-           map(&:first).compact.first
+    bundles = TagBundle.category.tagged_with(tag_list, any: true)
+    unless bundles.empty?
+      icons = bundles.map { |b| [b.icon, (b.tag_list & tag_list).size] }
+      icon = icons.sort_by(&:last).last.first
+    end
     self.icon = icon || 'default'
   end
 
@@ -520,8 +521,9 @@ class Talk < ActiveRecord::Base
       run_chain! chain, uat
       archive!
     rescue => e
-      Rails.logger.error e.message
-      self.processing_error = e.message
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
       suspend!
       LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end

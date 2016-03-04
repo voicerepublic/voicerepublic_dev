@@ -119,17 +119,17 @@ function readURL(input) {
         
         reader.onload = function (e) {
             var fileName = $('input[type=file]').val().split('\\').pop();
-            $('#avatar-img').css('background-image', 'url(' + e.target.result) + ')';
-            //console.log('filename:' + fileName);
-            $('.profile-avatar label').find('span').html(fileName);
+            $('.preview-img').css('background-image', 'url(' + e.target.result) + ')';
+            console.log('filename:' + fileName);
+            $('.preview-img').next().find('span').html(fileName);
         }
         
         reader.readAsDataURL(input.files[0]);
     }
 }
 
-$("#user_avatar").change(function(){
-    //console.log('should change the image');
+$("#user_avatar, #series_image").change(function(){
+    console.log('should change the image');
     readURL(this);
     // changeLabelName($('.inputfile'));
 });

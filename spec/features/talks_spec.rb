@@ -313,8 +313,8 @@ describe "Talks as logged in user" do
         end
       end
       it "it works with reload" do
-        VCR.use_cassette 'talk_chat_reload_dummy' do
-          skip "fails on circleci" if ENV['CIRCLECI']
+        skip "fails on circleci" if ENV['CIRCLECI']
+        VCR.use_cassette 'talk_chat_reload' do
           @series = FactoryGirl.create :series
           @talk = FactoryGirl.create :talk, series: @series
           visit talk_path @talk
@@ -322,6 +322,7 @@ describe "Talks as logged in user" do
           find(".qa-chat-input").set("my message")
           find(".qa-chat-input").native.send_keys(:return)
           visit(current_path)
+          page.execute_script('$("a[href=#discussion]").click()')
           within "#discussion" do
             expect(page).to have_content "my message"
             expect(page).to have_content "01 Sep 10:05"

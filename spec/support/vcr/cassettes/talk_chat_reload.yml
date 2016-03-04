@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:9292/faye
+    body:
+      encoding: US-ASCII
+      base64_string: |
+        bWVzc2FnZT0lN0IlMjJjaGFubmVsJTIyJTNBJTIyJTJGdDElMkZwdWJsaWMl
+        MjIlMkMlMjJjbGllbnRJZCUyMiUzQSUyMmh0dHAlMjIlMkMlMjJzaWduYXR1
+        cmUlMjIlM0ElMjJleUowZVhBaU9pSktWMVFpTENKaGJHY2lPaUpJVXpJMU5p
+        SjkuZXlKamFHRnVibVZzSWpvaUwzUXhMM0IxWW14cFl5SXNJbU5zYVdWdWRF
+        bGtJam9pYUhSMGNDSXNJbVY0Y0NJNk1USXlNREk1T1RVd01YMC41N0c3d3Q5
+        ZGloclVtLTE4blF5WWdFZHFqN0pOVElCUm1pZlE0NjlHNUxrJTIyJTJDJTIy
+        ZGF0YSUyMiUzQSU3QiUyMm1lc3NhZ2UlMjIlM0ElN0IlMjJjb250ZW50JTIy
+        JTNBJTIybXkrbWVzc2FnZSUyMiUyQyUyMnVzZXJfaWQlMjIlM0ExJTJDJTIy
+        Y3JlYXRlZF9hdCUyMiUzQSUyMjAxK1NlcCsxMCUzQTA1JTIyJTdEJTdEJTdE
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache, no-store
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '91'
+      Connection:
+      - close
+      Server:
+      - thin 1.6.1 codename Death Proof
+    body:
+      encoding: UTF-8
+      base64_string: |
+        W3siY2xpZW50SWQiOiJodHRwIiwiY2hhbm5lbCI6Ii90MS9wdWJsaWMiLCJl
+        cnJvciI6IkV4cGlyZWQgc2lnbmF0dXJlIiwic3VjY2Vzc2Z1bCI6ZmFsc2V9
+        XQ==
+    http_version: 
+  recorded_at: Mon, 01 Sep 2008 08:05:01 GMT
+recorded_with: VCR 2.8.0

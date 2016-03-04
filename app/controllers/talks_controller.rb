@@ -6,6 +6,8 @@ class TalksController < BaseController
 
   # GET /talks/1
   def show
+    return redirect_to(@talk.forward_url) unless @talk.forward_url.blank?
+
     respond_to do |format|
       if current_user
         @reminder = Reminder.find_by_user_and_talk(current_user, @talk)
