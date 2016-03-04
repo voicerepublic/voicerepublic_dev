@@ -12,14 +12,14 @@
   .row.user-box
     = link_to @series.user do
       = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
-      %h4.series-user= @series.user.name
-    %hr
+      -#%h4.series-user= @series.user.name
+    -#%hr
 
   .row.title-box
-    %p.text-center.series-label= t('.series')
+    %p.text-center.series-label= t('.series'+':')
     %h2.series-title.left= @series.title
     - if can? :manage, @series
-      = link_to t('.edit_series'), [:edit, @series], class: "title-edit"
+      = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
 
 
@@ -28,7 +28,7 @@
 
   .row.meta-data-box
     %hr
-    %ul.series-meta-group.menu.expanded
+    %ul.series-meta-group.menu.expanded.vertical.medium-horizontal
       %li
         %p= human_count(@live_talks.count)
         %p.label= t('.live_talks', count: @live_talks.count)
@@ -46,63 +46,59 @@
 
     .action-links
       - if can? :manage, @series
-        = link_to new_talk_path(talk: { series_id: @series.id }) do
-          %span.icon-mic
+        = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
           = t('.create_new_talk')
-        = link_to new_upload_path(talk: { series_id: @series.id }) do
-          %span.icon-upload-cloud
+        = link_to new_upload_path(talk: { series_id: @series.id }),class:'button hollow' do
           = t('.upload_talk')
       - else
         -#= render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
         -# TODO: fix this with Phil
-        = link_to podcast_url(@series), class:'button hollow small' do
+        = link_to podcast_url(@series), class:'button hollow float-right' do
           = t('.subscribe_to_podcast')
         - if @show_join
           = link_to [@series, :participations], method: :post do
-            %button.button.small.hollow.qa-subscribe= t('.subscribe_to_series')
+            %button.button.float-left.hollow.qa-subscribe= t('.subscribe_to_series')
         - elsif !current_user
           %a(href="#" data-reveal-id="modal-login-signup")
-            %button.button.small.hollow= t('.subscribe_to_series')
+            %button.button.float-left.hollow= t('.subscribe_to_series')
         - if @participation
           = link_to [@series, @participation], delete_params do
-            %button.button.small.hollow.qa-unsubscribe= t('.unsubscribe_to_series')
+            .qa-unsubscribe= t('.unsubscribe_to_series')
 
 
 
-  - unless @live_talks.empty?
-    .live-talks-box.row.collapse-large-only
-      .large-12.columns
-        %header.title-header.clearfix
-          %h3.left= t('.live_talks', count: @live_talks.count)
-          .onair.right= t('.on_air')
-        %ul(class="#{talkslive_grid(@live_talks)}")
-          = render partial: talkslive_partial(@live_talks), :locals => { color: 'box-live' }, collection: @live_talks
-      %hr
+
 
   - unless @upcoming_talks.empty?
-    .upcoming-talks-box.row.collapse-large-only
-      .large-12.columns
+    .talks-box.row
+      .large-12.columns.talks-title
         %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-        %ul(class="#{talks_grid(@upcoming_talks)}")
-          -# TODO show only the first 3
-          = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks
-        -# TODO open all
-        -#= link_to t('.more'), '#', class: 'link-more'
+    .talks-box.row
+      .large-12.columns.clearfix.talks-grid
+        = render partial: talks_partial(@upcoming_talks), collection: @upcoming_talks
+      %hr
+
+  - unless @live_talks.empty?
+    .talks-box.row
+      .large-12.columns.talks-title
+        %h3= t('.live_talks', count: @live_talks.count)
+
+      .large-12.columns.clearfix.talks-grid
+        = render partial: talks_partial(@live_talks), collection: @live_talks
       %hr
 
   - unless @archived_talks.empty?
-    .archived-talks-box.row.clearfix
-      .large-12.columns.clearfix
+    .talks-box.row
+      .large-12.columns.talks-title
         %h3= t('.archived_talks', count: @archived_talks.count)
-        = render partial: talks_partial(@archived_talks), :locals => { color: 'box-slim' }, collection: @archived_talks
-        -# TODO open all
-        -#= link_to t('.more'), '#', class: 'link-more'
+      .large-12.columns.clearfix.talks-grid
+        = render partial: talks_partial(@archived_talks), collection: @archived_talks
       %hr
 
   .row.text-left
-    .large-12.columns
-      %h3= t('.description')
-      %p.series-description
+    .large-6.large-offset-3.medium-8.medium-offset-2.columns.series-description
+      %h3.about= t('.description')
+      %p
         = @series.description_as_html.html_safe
         - if can? :manage, @series
-          = link_to t('.edit_series'), [:edit, @series], class: "desc-edit"
+          = link_to t('.edit_series'), [:edit, @series], class: "desc-edit button tiny info hollow"

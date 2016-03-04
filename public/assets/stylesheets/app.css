@@ -3085,7 +3085,7 @@ section {
   background: #fef1de;
   color: #121214; }
 
-.users-edit .inputfile input, .users-update .inputfile input {
+.inputfile input {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
@@ -3093,17 +3093,17 @@ section {
   position: absolute;
   z-index: -1; }
 
-.users-edit .inputfile label, .users-update .inputfile label {
+.inputfile label {
   cursor: pointer;
   text-align: center; }
-  .users-edit .inputfile label .svg-icon, .users-update .inputfile label .svg-icon {
+  .inputfile label .svg-icon {
     float: none;
     display: inline-block;
     max-width: 18px;
     max-height: 18px;
     margin-right: 12px;
     vertical-align: inherit; }
-    .users-edit .inputfile label .svg-icon svg, .users-update .inputfile label .svg-icon svg {
+    .inputfile label .svg-icon svg {
       max-width: 18px;
       max-height: 18px;
       margin-top: 6px; }
@@ -3962,7 +3962,7 @@ footer {
     fill: white; }
 
 .search-container {
-  position: fixed;
+  position: absolute;
   top: 18px;
   right: 0;
   width: 380px;
@@ -4521,23 +4521,33 @@ footer {
   margin: 24px 0; }
 
 .series {
-  background: #EFEFEF;
-  text-align: center; }
+  background: #EFEFEF; }
+  .series .link-delete {
+    float: left;
+    color: #b4b6be;
+    border-color: #b4b6be; }
+  .series .button-cancel {
+    margin-right: 6px; }
+  .series .preview-img {
+    width: 600px;
+    height: 400px;
+    background-size: cover;
+    margin: 0 auto; }
   .series .series-container {
     max-width: 56.25rem;
-    margin: 0 auto; }
+    margin: 0 auto;
+    padding-top: 24px;
+    text-align: center; }
     .series .series-container .row {
       padding: 0;
-      text-align: left; }
-      .series .series-container .row .columns, .series .series-container .row .profile-tile, .series .series-container .row #claim .container .claim-cta-half, #claim .container .series .series-container .row .claim-cta-half, .series .series-container .row #categories #talk-collection .category, #categories #talk-collection .series .series-container .row .category, .series .series-container .row #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .row .publisher, .series .series-container .row .landing-feature .landing-half, .landing-feature .series .series-container .row .landing-half {
-        padding: 12px; }
-      .series .series-container .row .talk-card .columns, .series .series-container .row .talk-card .profile-tile, .series .series-container .row .talk-card #claim .container .claim-cta-half, #claim .container .series .series-container .row .talk-card .claim-cta-half, .series .series-container .row .talk-card #categories #talk-collection .category, #categories #talk-collection .series .series-container .row .talk-card .category, .series .series-container .row .talk-card #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .row .talk-card .publisher, .series .series-container .row .talk-card .landing-feature .landing-half, .landing-feature .series .series-container .row .talk-card .landing-half {
+      text-align: center; }
+      .series .series-container .row .talk-card {
         padding: 6px; }
-      @media screen and (min-width: 56.25em) {
-        .series .series-container .row .talk-card {
-          width: 33.3333%; } }
+        @media screen and (min-width: 56.25em) {
+          .series .series-container .row .talk-card {
+            width: 33.3333%; } }
       .series .series-container .row h2 {
-        margin-bottom: 24px; }
+        margin-bottom: 12px; }
       .series .series-container .row h3 {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
         font-size: 1.125rem;
@@ -4546,23 +4556,44 @@ footer {
       .series .series-container .row.image-box, .series .series-container .row.meta-data-box {
         padding: 12px; }
     .series .series-container .user-box {
-      text-align: center; }
+      text-align: center;
+      margin-bottom: 24px; }
       .series .series-container .user-box * {
         display: inline-block; }
+      .series .series-container .user-box hr {
+        display: block;
+        max-width: 120px;
+        border-color: rgba(41, 41, 43, 0.5); }
+    .series .series-container .talks-title {
+      padding: 0;
+      padding-bottom: 6px;
+      color: #2c46b0;
+      width: auto; }
+    .series .series-container .talks-grid {
+      padding: 0;
+      margin: -6px;
+      padding-bottom: 24px;
+      width: auto; }
+      @media screen and (min-width: 40em) {
+        .series .series-container .talks-grid {
+          width: 100%; } }
     .series .series-container .action-links {
-      text-align: center; }
-    .series .series-container .live-talks-box h3, .series .series-container .upcoming-talks-box h3, .series .series-container .archived-talks-box h3 {
-      margin-left: 6px; }
-    .series .series-container .live-talks-box hr, .series .series-container .upcoming-talks-box hr, .series .series-container .archived-talks-box hr {
-      margin: 24px 12px; }
-    .series .series-container .live-talks-box .columns, .series .series-container .live-talks-box .profile-tile, .series .series-container .live-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .live-talks-box .claim-cta-half, .series .series-container .live-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .live-talks-box .category, .series .series-container .live-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .live-talks-box .publisher, .series .series-container .live-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .live-talks-box .landing-half, .series .series-container .upcoming-talks-box .columns, .series .series-container .upcoming-talks-box .profile-tile, .series .series-container .upcoming-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .upcoming-talks-box .claim-cta-half, .series .series-container .upcoming-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .upcoming-talks-box .category, .series .series-container .upcoming-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .upcoming-talks-box .publisher, .series .series-container .upcoming-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .upcoming-talks-box .landing-half, .series .series-container .archived-talks-box .columns, .series .series-container .archived-talks-box .profile-tile, .series .series-container .archived-talks-box #claim .container .claim-cta-half, #claim .container .series .series-container .archived-talks-box .claim-cta-half, .series .series-container .archived-talks-box #categories #talk-collection .category, #categories #talk-collection .series .series-container .archived-talks-box .category, .series .series-container .archived-talks-box #publishers #publisher-collection .publisher, #publishers #publisher-collection .series .series-container .archived-talks-box .publisher, .series .series-container .archived-talks-box .landing-feature .landing-half, .landing-feature .series .series-container .archived-talks-box .landing-half {
-      padding: 6px; }
+      text-align: center;
+      padding-top: 12px; }
+    .series .series-container .talks-box {
+      padding: 12px;
+      padding-bottom: 0; }
+      @media screen and (min-width: 40em) {
+        .series .series-container .talks-box {
+          padding-right: 0; } }
+      .series .series-container .talks-box hr {
+        border-color: #2c46b0; }
     .series .series-container .series-user {
       color: #29292b;
       font-weight: 500;
       font-size: 1rem;
       margin-left: 12px;
-      margin-bottom: 48px; }
+      margin-bottom: 0; }
     .series .series-container .series-label {
       font-size: 0.75rem;
       font-weight: 300;
@@ -4570,8 +4601,13 @@ footer {
       letter-spacing: 0.125rem;
       line-height: 0.75rem;
       margin-bottom: 6px; }
-    .series .series-container p.series-description {
-      text-align: left !important; }
+    .series .series-container .series-description {
+      padding-bottom: 60px; }
+    .series .series-container .series-description p {
+      text-align: left !important;
+      font-weight: 300; }
+    .series .series-container h3.about {
+      color: #2c46b0; }
 
 .meta-data-box hr {
   border-color: #ffed00; }
@@ -4585,11 +4621,16 @@ footer {
     padding: 6px;
     height: 32px;
     margin: 0;
-    width: 25%;
+    width: auto !important;
+    height: 70px;
     font-weight: 500;
     border-right: 2px solid transparent;
     margin-right: 4px;
     text-align: center; }
+    @media screen and (min-width: 40em) {
+      .meta-data-box .series-meta-group li {
+        width: 25%;
+        height: auto; } }
     .meta-data-box .series-meta-group li a {
       color: #121214; }
     .meta-data-box .series-meta-group li:last-child {

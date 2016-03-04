@@ -48,7 +48,7 @@ describe "Series", js: true do
         expect(Participation.count).to eq(0)
         visit series_path(series)
         # Click "Subscribe" button
-        find("a[data-method=post]").click
+        find('.qa-subscribe').click
         expect(current_url).to match(/#{series_path(series)}/)
         expect(Participation.count).to eq(1)
       end
