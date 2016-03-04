@@ -229,6 +229,7 @@ sessionFunc = ($log, messaging, util, $rootScope, $timeout,
         # but could also be used for live upgrades
         window.location.reload()
       when 'Forward'
+        $log.warn "Forward url: #{data.forward_url}"
         if config.user.role == 'listener'
           window.location.href = data.forward_url
       when 'StartTalk'

@@ -6,7 +6,7 @@ class TalksController < BaseController
 
   # GET /talks/1
   def show
-    return redirect_to(@talk.forward_url) unless @talk.forward_url.blank?
+    return redirect_to(@talk.forward_url) unless @talk.forward_url.blank? or current_user == @talk.user
 
     respond_to do |format|
       if current_user
