@@ -9,22 +9,26 @@
   = render(:partial => 'facebook_value_template', :locals => { :series => @series } )
 
 .series-container
-  .row.user-box
-    = link_to @series.user do
-      = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
-      -#%h4.series-user= @series.user.name
-    -#%hr
+  .row.clearfix
+    .medium-4.columns
+      .image-box
+      = image_tag @series.image.thumb("900x600#").url, class: 'image'
+    .medium-6.columns
+      .row.user-box
+        = link_to @series.user do
+          = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
+          -#%h4.series-user= @series.user.name
+        -#%hr
 
-  .row.title-box
-    %p.text-center.series-label= t('.series'+':')
-    %h2.series-title.left= @series.title
-    - if can? :manage, @series
-      = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
+      .row.title-box
+        %p.series-label= t('.series'+':')
+        %h2.series-title.left= @series.title
+        - if can? :manage, @series
+          = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
 
 
-  .row.image-box
-    = image_tag @series.image.thumb("900x600#").url, class: 'image'
+  
 
   .row.meta-data-box
     %hr
