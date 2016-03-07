@@ -8,19 +8,18 @@
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :series => @series } )
 
-.series-container
+#left-column
   .row.user-box
     = link_to @series.user do
       = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
-      -#%h4.series-user= @series.user.name
-    -#%hr
+      %p.series-user= @series.user.name
+    %hr
 
-  .row.title-box
-    %p.text-center.series-label= t('.series'+':')
-    %h2.series-title.left= @series.title
+    %p.series-label= t('.series'+':')
+    %br
+    %h2.series-title= @series.title
     - if can? :manage, @series
       = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
-
 
 
   .row.image-box
@@ -28,7 +27,7 @@
 
   .row.meta-data-box
     %hr
-    %ul.series-meta-group.menu.expanded.vertical.medium-horizontal
+    %ul.user-meta-group.menu.expanded
       %li
         %p= human_count(@live_talks.count)
         %p.label= t('.live_talks', count: @live_talks.count)
@@ -44,6 +43,7 @@
     %hr/
 
 
+
     .action-links
       - if can? :manage, @series
         = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
@@ -53,52 +53,40 @@
       - else
         -#= render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
         -# TODO: fix this with Phil
-        = link_to podcast_url(@series), class:'button hollow float-right' do
+        = link_to podcast_url(@series), class:'button hollow' do
           = t('.subscribe_to_podcast')
         - if @show_join
           = link_to [@series, :participations], method: :post do
-            %button.button.float-left.hollow.qa-subscribe= t('.subscribe_to_series')
+            %button.button.hollow.qa-subscribe= t('.subscribe_to_series')
         - elsif !current_user
           %a(href="#" data-reveal-id="modal-login-signup")
-            %button.button.float-left.hollow= t('.subscribe_to_series')
+            %button.button.hollow= t('.subscribe_to_series')
         - if @participation
           = link_to [@series, @participation], delete_params do
             .qa-unsubscribe= t('.unsubscribe_to_series')
 
-
-
-
-
-  - unless @upcoming_talks.empty?
-    .talks-box.row
-      .large-12.columns.talks-title
-        %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-    .talks-box.row
-      .large-12.columns.clearfix.talks-grid
-        = render partial: talks_partial(@upcoming_talks), collection: @upcoming_talks
-      %hr
-
-  - unless @live_talks.empty?
-    .talks-box.row
-      .large-12.columns.talks-title
-        %h3= t('.live_talks', count: @live_talks.count)
-
-      .large-12.columns.clearfix.talks-grid
-        = render partial: talks_partial(@live_talks), collection: @live_talks
-      %hr
-
-  - unless @archived_talks.empty?
-    .talks-box.row
-      .large-12.columns.talks-title
-        %h3= t('.archived_talks', count: @archived_talks.count)
-      .large-12.columns.clearfix.talks-grid
-        = render partial: talks_partial(@archived_talks), collection: @archived_talks
-      %hr
-
   .row.text-left
-    .large-6.large-offset-3.medium-8.medium-offset-2.columns.series-description
-      %h3.about= t('.description')
+    .series-description
+      %p.column-header= t('.description')
       %p
         = @series.description_as_html.html_safe
         - if can? :manage, @series
           = link_to t('.edit_series'), [:edit, @series], class: "desc-edit button tiny info hollow"
+
+
+
+
+#right-column
+  .talks-gid.clearfix
+    - unless @upcoming_talks.empty?
+      %h3= t('.upcoming_talks', count: @upcoming_talks.count)
+      = render partial: talks_partial(@upcoming_talks), collection: @upcoming_talks
+
+    - unless @live_talks.empty?
+      %h3= t('.archived_talks', count: @live_talks.count)
+      = render partial: talks_partial(@live_talks), collection: @live_talks
+
+    - unless @archived_talks.empty?
+      %h3= t('.archived_talks', count: @archived_talks.count)
+      = render partial: talks_partial(@archived_talks), collection: @archived_talks
+
