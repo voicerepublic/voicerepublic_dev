@@ -42,18 +42,18 @@ en:
       write_a_comment: Write a comment
       description: About This Series
       live_talks:
-        zero: Live Talks
-        one: LIVE TALK
-        other: LIVE TALKS'
+        zero: Live
+        one: LIVE
+        other: LIVE
       on_air: ON AIR
       upcoming_talks:
-        zero: Upcoming Talks
-        one: Upcoming Talk
-        other: Upcoming Talks
+        zero: Upcoming
+        one: Upcoming
+        other: Upcoming
       archived_talks:
-        zero: Archived Talks
-        one: Archived Talk
-        other: Archived Talks
+        zero: Archived
+        one: Archived
+        other: Archived
       more: More...
       plays:
         zero: Plays
