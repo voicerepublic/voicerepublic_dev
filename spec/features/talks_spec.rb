@@ -115,9 +115,9 @@ describe "Talks as logged in user" do
     describe "Edit during live Talk" do
       it 'disables starts_at and duration fields during halflive and live talks' do
         talk = FactoryGirl.create(:talk,
-                                   starts_at_time: Time.now.strftime("%H:%M"),
-                                   starts_at_date: Date.today,
-                                   state: :live)
+                                  starts_at_time: Time.now.strftime("%H:%M"),
+                                  starts_at_date: Date.today,
+                                  state: :live)
         visit edit_talk_path(talk)
         expect(page).to have_selector('#talk_starts_at_date:disabled')
         expect(page).to have_selector('#talk_starts_at_time:disabled')
@@ -125,8 +125,8 @@ describe "Talks as logged in user" do
       end
       it 'does not disable starts_at and duration fields during talks not in state halflive and live' do
         talk = FactoryGirl.create(:talk,
-                                   starts_at_time: 1.hour.from_now.strftime("%H:%M"),
-                                   starts_at_date: Date.today)
+                                  starts_at_time: 1.hour.from_now.strftime("%H:%M"),
+                                  starts_at_date: Date.today)
         visit edit_talk_path(talk)
         expect(page).not_to have_selector('#talk_starts_at_date:disabled')
         expect(page).not_to have_selector('#talk_starts_at_date:disabled')
@@ -312,17 +312,19 @@ describe "Talks as logged in user" do
       end
       it "it works with reload" do
         skip "fails on circleci" if ENV['CIRCLECI']
-        @series = FactoryGirl.create :series
-        @talk = FactoryGirl.create :talk, series: @series
-        visit talk_path @talk
-        visit talk_path @talk
-        find(".chat-input-box input").set("my message")
-        find(".chat-input-box input").native.send_keys(:return)
-        visit(current_path)
-        page.execute_script('$("a[href=#discussion]").click()')
-        within "#discussion" do
-          expect(page).to have_content "my message"
-          expect(page).to have_content "01 Sep 10:05"
+        VCR.use_cassette 'talk_chat_reload' do
+          @series = FactoryGirl.create :series
+          @talk = FactoryGirl.create :talk, series: @series
+          visit talk_path @talk
+          visit talk_path @talk
+          find(".chat-input-box input").set("my message")
+          find(".chat-input-box input").native.send_keys(:return)
+          visit(current_path)
+          page.execute_script('$("a[href=#discussion]").click()')
+          within "#discussion" do
+            expect(page).to have_content "my message"
+            expect(page).to have_content "01 Sep 10:05"
+          end
         end
       end
     end
@@ -337,7 +339,7 @@ describe "Talks as logged in user" do
       @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
       visit series_talk_path @series, @talk
       expect(page.evaluate_script(
-        '$("a[href=#discussion]").parent().hasClass("active")
+              '$("a[href=#discussion]").parent().hasClass("active")
           ')).not_to be(true)
       within ".tabs.vr-tabs" do
         expect(page).not_to have_css(".discussion")
@@ -349,8 +351,8 @@ describe "Talks as logged in user" do
       @talk = FactoryGirl.create :talk, series: @series, tag_list: "test, foo, bar"
       visit series_talk_path @series, @talk
       expect(page.evaluate_script(
-        '$("a[href=#discussion]").parent().hasClass("active")'
-      )).to be(true)
+              '$("a[href=#discussion]").parent().hasClass("active")'
+            )).to be(true)
     end
   end
 

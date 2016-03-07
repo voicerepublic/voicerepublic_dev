@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  RSS_GONE = '410 - Sorry, this RSS feed is gone for good.'
+
   class OutdatedBrowser < RuntimeError
   end
 
@@ -125,12 +127,22 @@ class ApplicationController < ActionController::Base
   # Errno::ENOSPC
 
   def record_not_found
-    @talk = Talk.promoted.first
-    render action: 'record_not_found', status: 404, layout: 'velvet'
+    respond_to do |format|
+      format.html do
+        @talk = Talk.promoted.first
+        render action: 'record_not_found', status: 404, layout: 'velvet'
+      end
+      format.rss { render status: 410, text: RSS_GONE }
+    end
   end
 
   def routing_error
-    render action: 'routing_error', status: 404, layout: 'velvet'
+    respond_to do |format|
+      format.html do
+        render action: 'routing_error', status: 404, layout: 'velvet'
+      end
+      format.rss { render status: 410, text: RSS_GONE }
+    end
   end
 
   def outdated_browser

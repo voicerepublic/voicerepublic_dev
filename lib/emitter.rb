@@ -72,6 +72,13 @@ module Emitter
     emit payload.merge(x: 'audio_processing')
   end
 
+  def handyman(message)
+    emit x: 'notification',
+         text: message,
+         username: 'Handyman',
+         icon_emoji: ':construction_worker:'
+  end
+
   private
 
   def emit(opts)

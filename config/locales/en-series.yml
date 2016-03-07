@@ -13,8 +13,8 @@ en:
     new_series: Create Series
     show:
       back_to_profile: back to Profile
-      create_new_talk: Create new Talk
-      upload_talk: Upload Talk
+      create_new_talk: Schedule A Live Talk
+      upload_talk: Upload A Recording
       subscribe_to_podcast: Subscribe to Podcast
       podcast:
         title: "%{title}"
