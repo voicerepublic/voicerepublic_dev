@@ -11,3 +11,4 @@ en:
         suspended: "This Talk is currently not available."
     series_card:
       series: Series
+      total_talks: "%{count} Talks"
