@@ -1327,7 +1327,7 @@ kbd {
 .text-right {
   text-align: right; }
 
-.text-center, h1, h2 {
+.text-center {
   text-align: center; }
 
 .text-justify {
@@ -2658,8 +2658,6 @@ section {
   #left-column h3 {
     color: #54c6c6;
     font-size: 1.5rem; }
-  #left-column p {
-    font-size: 0.875rem; }
   #left-column #avatar-img {
     margin-bottom: 6px;
     display: block;
@@ -2707,11 +2705,11 @@ section {
     #left-column {
       max-width: 350px; } }
 
-.user-meta-group {
+.user-meta-group, .series-meta-group {
   margin: 0;
   margin-bottom: 0;
   text-align: center; }
-  .user-meta-group li {
+  .user-meta-group li, .series-meta-group li {
     font-size: 0.75rem;
     color: #121214;
     height: 32px;
@@ -2720,17 +2718,20 @@ section {
     font-weight: 500;
     border-right: 2px solid transparent;
     margin-right: 4px; }
-    .user-meta-group li a {
+    .user-meta-group li a, .series-meta-group li a {
       color: #121214; }
-    .user-meta-group li:last-child {
+    .user-meta-group li:last-child, .series-meta-group li:last-child {
       margin-right: 0; }
-    .user-meta-group li p {
+    .user-meta-group li p, .series-meta-group li p {
       font-size: 1rem;
       margin-bottom: 0; }
-    .user-meta-group li p.label {
+    .user-meta-group li p.label, .series-meta-group li p.label {
       background: none;
       font-size: 0.625rem;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      color: #29292b; }
+    .user-meta-group li hr, .series-meta-group li hr {
+      border-color: #ffed00; }
 
 #user-block {
   text-align: center;
@@ -2892,7 +2893,8 @@ section {
     text-transform: normal; }
 
 #user-description {
-  color: #121214; }
+  color: #121214;
+  font-size: 0.875rem; }
 
 #user-about {
   padding: 24px;
@@ -2909,6 +2911,8 @@ section {
     text-transform: none;
     font-weight: 700; }
   #user-about li {
+    font-size: 0.875rem; }
+  #user-about p {
     font-size: 0.875rem; }
   #user-about a {
     color: #54c6c6; }
@@ -4524,8 +4528,14 @@ footer {
   margin: 24px 0; }
 
 .series {
-  background: #FFFFFF; }
+  background: #EFEFEF; }
+  .series h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+    color: #29292b;
+    font-weight: 700; }
   .series .link-delete {
+    float: left;
     color: #b4b6be;
     border-color: #b4b6be; }
   .series .button-cancel {
@@ -4537,14 +4547,14 @@ footer {
     margin: 0 auto; }
   .series .series-container {
     max-width: 900px;
-    margin: 0 auto; }
-  .series #right-column h3 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    font-size: 1.125rem;
-    text-align: left;
-    font-weight: 700;
-    color: #54c6c6;
-    margin-left: 6px; }
+    margin: 0 auto;
+    padding-top: 12px; }
+  .series .user-box * {
+    display: inline-block; }
+  .series .user-box .image-box {
+    text-align: center; }
+    .series .user-box .image-box img {
+      margin: 0 auto; }
   .series .row {
     padding: 0; }
     .series .row .talk-card {
@@ -4556,11 +4566,12 @@ footer {
       padding: 12px; }
     .series .row.meta-data-box {
       padding-top: 0; }
-  .series .meta-data-box hr:first-child {
-    margin-top: 0; }
+  .series .meta-data-box hr {
+    border-color: #ffed00; }
   .series .title-box {
-    text-align: center;
-    padding: 12px; }
+    padding: 12px 0; }
+    .series .title-box img {
+      margin: 0 auto; }
     .series .title-box p.series-user {
       color: #29292b;
       font-weight: 500;

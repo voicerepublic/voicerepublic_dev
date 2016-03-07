@@ -29,7 +29,7 @@
               - if %w(postlive processing suspended archived).include?(talk.state)
                 = t('.ago_by', time: time_ago_in_words(talk.starts_at))
           = link_to user_path(talk.user), class: "publisher" do
-            = truncate(talk.user.name, length: 30)
+            = truncate(talk.user.name, length: 27)
     - if %w(pending postlive processing suspended).include?(talk.state)
       .not_available
         %p.lead= t(".message.#{talk.state}")

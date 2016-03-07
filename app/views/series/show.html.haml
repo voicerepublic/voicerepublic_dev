@@ -10,21 +10,22 @@
 
 .series-container
   .row.clearfix
-    .medium-4.columns
-      .image-box
-      = image_tag @series.image.thumb("900x600#").url, class: 'image'
-    .medium-6.columns
-      .row.user-box
-        = link_to @series.user do
-          = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
-          -#%h4.series-user= @series.user.name
+    .image-box.text-center
+      = image_tag @series.image.thumb("450x300#").url, class: 'image'
+      -#.row.user-box
+        -#= link_to @series.user do
+          -#= render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
+        -#%p.series-user= @series.user.name
         -#%hr
 
-      .row.title-box
-        %p.series-label= t('.series'+':')
-        %h2.series-title.left= @series.title
-        - if can? :manage, @series
-          = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
+  .row.title-box.text-center
+    -#%p.series-label= t('.series'+':')
+    %h2.series-title.text-center= @series.title
+    = link_to @series.user do
+      = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
+    %br
+    - if can? :manage, @series
+      = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
 
 
@@ -32,7 +33,7 @@
 
   .row.meta-data-box
     %hr
-    %ul.series-meta-group.menu.expanded.vertical.medium-horizontal
+    %ul.series-meta-group.menu.expanded
       %li
         %p= human_count(@live_talks.count)
         %p.label= t('.live_talks', count: @live_talks.count)
@@ -46,6 +47,8 @@
         %p= human_count(@total_plays)
         %p.label= t('.plays', count: @total_plays)
     %hr/
+
+
 
 
     .action-links
