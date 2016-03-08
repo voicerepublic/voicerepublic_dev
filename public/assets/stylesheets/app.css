@@ -2728,8 +2728,7 @@ section {
     .user-meta-group li p.label, .series-meta-group li p.label {
       background: none;
       font-size: 0.625rem;
-      text-transform: uppercase;
-      color: #29292b; }
+      text-transform: uppercase; }
     .user-meta-group li hr, .series-meta-group li hr {
       border-color: #ffed00; }
 
@@ -4534,10 +4533,16 @@ footer {
     font-size: 1rem;
     color: #29292b;
     font-weight: 700; }
+  .series .series-meta-group li {
+    color: #fef1de; }
+    .series .series-meta-group li p.label {
+      color: #2c46b0; }
+  .series .top-section {
+    background: #54c6c6; }
   .series .link-delete {
     float: left;
-    color: #b4b6be;
-    border-color: #b4b6be; }
+    color: #fef1de;
+    border-color: #fef1de; }
   .series .button-cancel {
     margin-right: 6px; }
   .series .preview-img {
@@ -4555,13 +4560,41 @@ footer {
     text-align: center; }
     .series .user-box .image-box img {
       margin: 0 auto; }
+  .series .series-grid {
+    max-width: none;
+    width: 100%; }
+  .series .series-left-column {
+    padding: 12px; }
+    @media screen and (min-width: 64em) {
+      .series .series-left-column {
+        padding: 24px;
+        padding-right: 0; } }
+    .series .series-left-column img {
+      margin-top: 6px; }
+  @media screen and (min-width: 40em) {
+    .series .series-right-column {
+      padding: 12px; } }
+  @media screen and (min-width: 64em) {
+    .series .series-right-column {
+      padding: 24px;
+      padding-left: 12px; } }
+  @media screen and (min-width: 40em) {
+    .series .talk-card {
+      width: 100%; } }
+  @media screen and (min-width: 50em) {
+    .series .talk-card {
+      width: 50%; } }
+  @media screen and (min-width: 87.5em) {
+    .series .talk-card {
+      width: 33.333%; } }
+  @media screen and (min-width: 112.5em) {
+    .series .talk-card {
+      width: 25%; } }
+  @media screen and (min-width: 137.5em) {
+    .series .talk-card {
+      width: 20%; } }
   .series .row {
     padding: 0; }
-    .series .row .talk-card {
-      padding: 6px; }
-      @media screen and (min-width: 56.25em) {
-        .series .row .talk-card {
-          width: 33.3333%; } }
     .series .row.image-box, .series .row.meta-data-box {
       padding: 12px; }
     .series .row.meta-data-box {
@@ -4571,7 +4604,8 @@ footer {
   .series .title-box {
     padding: 12px 0; }
     .series .title-box img {
-      margin: 0 auto; }
+      margin: 0 auto;
+      margin-bottom: 12px; }
     .series .title-box p.series-user {
       color: #29292b;
       font-weight: 500;
@@ -4584,6 +4618,8 @@ footer {
     padding-bottom: 6px;
     color: #2c46b0;
     width: auto; }
+    .series .talks-title h3 {
+      margin-left: 12px; }
   .series .talks-grid {
     padding: 0;
     margin: -6px;
@@ -4617,6 +4653,6 @@ footer {
     font-weight: 300; }
   .series .series-title {
     margin: 0;
-    color: #54c6c6; }
+    color: #ffed00; }
   .series h3.about {
     color: #2c46b0; }
