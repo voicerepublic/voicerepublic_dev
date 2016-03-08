@@ -95,7 +95,7 @@
         %li.tabs-title{:role => "presentation"}
           %a#live-label{"aria-controls" => "live", "aria-selected" => "true", :href => "#live", :role => "tab"}
             = t('.live_talks', count: @live_talks.count)
-      %li.tabs-title.is-active{class: @tab_archived_class,:role => "presentation"}
+      %li.tabs-title.is-active{:role => "presentation"}
         %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"}
           = t('.archived_talks', count: @archived_talks.count)
       - unless @upcoming_talks.empty?
