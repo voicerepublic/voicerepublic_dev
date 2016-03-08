@@ -133,6 +133,7 @@ class ApplicationController < ActionController::Base
         render action: 'record_not_found', status: 404, layout: 'velvet'
       end
       format.rss { render status: 410, text: RSS_GONE }
+      format.json { render status: 404, text: 'Not found.' }
     end
   end
 
