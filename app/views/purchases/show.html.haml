@@ -1,7 +1,8 @@
 .row
 	.large-12.columns
 		.title-block
-			= image_tag 'logos/vr_red.svg', class: 'join-logo'
+      = link_to root_page do
+        = image_tag 'logos/vr_red.svg', class: 'join-logo'
 		%h2= t('.headline')
 		%p.lead= t('.able_to_create_count_talks', count: current_user.credits)
 		= link_to t('.schedule_talk'), new_talk_path, class: 'button hollow vr-button'
