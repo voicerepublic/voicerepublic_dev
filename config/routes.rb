@@ -6,14 +6,9 @@ Rails.application.routes.draw do
   scope 'r' do
     get 'md',       to: redirect(blog_url('/how-to-format-text-with-markdown'))
     get 'terms',    to: redirect(blog_url('/terms-of-use'))
-    get 'username', to: redirect('/support/username') # TODO change to blog
   end
 
   get 'pages/:action' => 'pages'
-
-  # TODO these will probably have to goe
-  get 'support/:action', controller: 'support'
-  get 'support', to: 'support#index'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do
