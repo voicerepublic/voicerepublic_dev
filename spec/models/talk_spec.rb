@@ -456,7 +456,7 @@ describe Talk do
     end
     it 'provides image_url' do
       expect(talk).to respond_to(:image_url)
-      expect(talk.image_url).to match(%r{/?sha=[0-9a-f]{8}$})
+      expect(talk.image_url).to match(%r{\?sha=[0-9a-f]{8}$})
     end
     it 'provides slides_url' do
       talk.update_attribute(:slides_uuid, 'asdf')
