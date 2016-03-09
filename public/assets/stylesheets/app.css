@@ -2524,13 +2524,6 @@ body.is-reveal-open {
   float: right; }
 
 /* all app scss styles here */
-@font-face {
-  font-family: 'Eagle';
-  src: url("../fonts/Eagle-Book.eot?-u70zge");
-  src: url("../fonts/Eagle-Book.eot?#iefix-u70zge") format("embedded-opentype"), url("../fonts/Eagle-Book.ttf?-u70zge") format("truetype"), url("../fonts/Eagle-Book.woff?-u70zge") format("woff"), url("../fonts/Eagle-Book.svg?-u70zge#Eagle-Book") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
 html, body {
   min-height: 100%; }
 
