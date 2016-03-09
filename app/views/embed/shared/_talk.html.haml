@@ -1,32 +1,55 @@
-.embedded-player
+/ .embedded-player
 
-  .content-box(style="background-image: url(#{background_picture(talk)})")
-    .content-text
-      .breadcrumbs-box.clearfix
-        = link_to talk.user, target: 'blank', class: 'left' do
-          %span.icon-person
-          %span.link-text= talk.user.name
-        = link_to talk.series, target: 'blank', class: 'right' do
-          %span.icon-ellipsis
-          %span.link-text= talk.series.title
-      = link_to talk, target: 'blank', class: 'text-box-link' do
-        %h4.title= talk.title.upcase
-        %br/
-        .datetime
-          = raw t('.date_start_end', date: l(talk.starts_at, format: :date_only_short),
-            start_time: l(talk.starts_at, format: :time_only),
-            end_time: l(talk.ends_at, format: :time_only))
-        %br/
-        .teaser
-          = talk.teaser
+/   .content-box(style="background-image: url(#{background_picture(talk)})")
+/     .content-text
+/       .breadcrumbs-box.clearfix
+/         = link_to talk.user, target: 'blank', class: 'left' do
+/           %span.icon-person
+/           %span.link-text= talk.user.name
+/         = link_to talk.series, target: 'blank', class: 'right' do
+/           %span.icon-ellipsis
+/           %span.link-text= talk.series.title
+/       = link_to talk, target: 'blank', class: 'text-box-link' do
+/         %h4.title= talk.title.upcase
+/         %br/
+/         .datetime
+/           = raw t('.date_start_end', date: l(talk.starts_at, format: :date_only_short),
+/             start_time: l(talk.starts_at, format: :time_o imagesnly),
+/             end_time: l(talk.ends_at, format: :time_only))
+/         %br/
+/         .teaser
+/           = talk.teaser
 
-  - if talk.archived?
-    .player
+/   - if talk.archived?
+/     .player
+/       = render partial: 'shared/player', locals: { talk: talk }
+/   - else
+/     %h2= link_to t('.listen_live'), talk.self_url, target: "_blank"
+/   .icon-box
+/     = link_to talk, target: 'blank', class: 'vr-logo' do
+/       %span.icon-vr-logo
+/       %br/
+/       VOICE REPUBLIC
+
+.embed-player.clearfix
+  .image-box
+    %img{src: talk.image.thumb('140x140#').url}
+    - if talk.live?
+      .live-badge
+        %p.live= t('.live')
+  .content-box
+    .top-box.clearfix
+      .info-box
+        = link_to talk, target: 'blank' do
+          %h4.title
+            = talk.title
+        = link_to talk.user, target: 'blank' do
+          %span.user= talk.user.name
+        %span.date= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
+          
+        
+        %span.play-count= human_count(talk.play_count) + ' ' + t('.plays')
+      .branding-box
+        = render partial: 'shared/vr_red.svg'
+    .player-box
       = render partial: 'shared/player', locals: { talk: talk }
-  - else
-    %h2= link_to t('.listen_live'), talk.self_url, target: "_blank"
-  .icon-box
-    = link_to talk, target: 'blank', class: 'vr-logo' do
-      %span.icon-vr-logo
-      %br/
-      VOICE REPUBLIC
