@@ -1,13 +1,16 @@
-%h2
-  API Documentation
-%p.lead
-  Our API connects your website or app to the worldwide conversation
-  happening on Voice Republic.
+%section#claim.dark
+	.row
+		%header
+			%h1 API Documentation
+			.container.medium-8.medium-offset-2.large-6.large-offset-3.columns
+				%p.lead
+					Our API connects your website or app to the worldwide conversation happening on Voice Republic.
+	
+%section.light
+	.api-container.row.clearfix
+		.container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+			%p
+				Our API endpoints are programmed RESTful and provide programmatic access
+				to read and write Talks, author a new Talk, read a user's profile and more. The REST API identifies applications via an authentication token, responses are available in JSON.
 
-%p
-  Our API endpoints are programmed RESTful and provide programmatic access
-  to read and write Talks. Author a new Talk, read a users profile and
-  more. The REST API identifies applications via an authentication token,
-  responses are available in JSON.
-
-= raw(@api_doc)
+			= raw(@api_doc)
