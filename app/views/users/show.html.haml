@@ -87,19 +87,21 @@
   #right-column.clearfix
     %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
       -# todo: if there are pinned talks, make this is-active
-      %li.tabs-title{class: @tab_pinned_class,:role => "presentation"}
-        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
-          = t('.listen_later', count: @user.reminders.count)
+      - unless @user.reminders.empty?
+        %li.tabs-title{:role => "presentation"}
+          %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
+            = t('.listen_later', count: @user.reminders.count)
       - unless @live_talks.empty?
         %li.tabs-title{:role => "presentation"}
           %a#live-label{"aria-controls" => "live", "aria-selected" => "true", :href => "#live", :role => "tab"}
             = t('.live_talks', count: @live_talks.count)
-      %li.tabs-title{class: @tab_archived_class,:role => "presentation"}
+      %li.tabs-title.is-active{:role => "presentation"}
         %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"}
           = t('.archived_talks', count: @archived_talks.count)
-      %li.tabs-title{:role => "presentation"}
-        %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"}
-          = t('.upcoming_talks', count: @upcoming_talks.count)
+      - unless @upcoming_talks.empty?
+        %li.tabs-title{:role => "presentation"}
+          %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"}
+            = t('.upcoming_talks', count: @upcoming_talks.count)
       %li.tabs-title{:role => "presentation"}
         %a#series-label{"aria-controls" => "series", "aria-selected" => "false", :href => "#series", :role => "tab"}
           = t('.series', count: @user.series_without_default.count)
@@ -124,7 +126,7 @@
           %p.nothing-notice
             = t('.nothing_scheduled')
 
-      #archived.tabs-panel{class: @tab_archived_class}
+      #archived.tabs-panel{class: 'is-active'}
         - if @archived_talks.empty?
           %p.nothing-notice= t(".#{@who}.archived_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe
         = render partial: 'shared/talk_card',  collection: @archived_talks

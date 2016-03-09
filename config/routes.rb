@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   end
 
   namespace 'api' do
+    get 'oembed(.:format)' => 'oembed#show'
     resources :talks, only: [:index]
     resources :uploads, only: [ :create ]
     resources :bookmarks, only: [ :index ]

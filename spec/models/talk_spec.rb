@@ -16,13 +16,13 @@ describe Talk do
       it 'allows only a time of the past' do
         expect {
           FactoryGirl.create :talk,
-            starts_at_date: Time.now.strftime('2037-01-01'),
-            user_override_uuid: '038ee6b8-0557-4172-8ad6-2548dccd4793'
+                             starts_at_date: Time.now.strftime('2037-01-01'),
+                             user_override_uuid: '038ee6b8-0557-4172-8ad6-2548dccd4793'
         }.to raise_error(ActiveRecord::RecordInvalid)
 
         talk = FactoryGirl.build :talk,
-          starts_at_date: Time.now.strftime('2037-01-01'),
-          user_override_uuid: '038ee6b8-0557-4172-8ad6-2548dccd4793'
+                                 starts_at_date: Time.now.strftime('2037-01-01'),
+                                 user_override_uuid: '038ee6b8-0557-4172-8ad6-2548dccd4793'
 
         talk.valid?
         expect(talk.errors[:starts_at_date]).to include("needs to be in the past")
@@ -44,7 +44,7 @@ describe Talk do
       it 'also allows a time of the future' do
         expect {
           FactoryGirl.create :talk,
-          starts_at_date: Time.now.strftime('2037-01-01')
+                             starts_at_date: Time.now.strftime('2037-01-01')
         }.to change{Talk.count}.from(0).to(1)
       end
       it 'saves into other state than "postlive"' do
@@ -235,98 +235,103 @@ describe Talk do
 
     it 'in state postlive', slow: true do
       skip 'omit in CI' if ENV['CI']
-      talk = FactoryGirl.create(:talk)
+      VCR.use_cassette 'postprocess_talk_dummy' do
+        talk = FactoryGirl.create(:talk)
 
-      # move fixtures in place
-      fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-      fixglob = "#{fixbase}/*.flv"
-      fixflvs = Dir.glob(fixglob)
-      target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-      flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
-      fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+        # move fixtures in place
+        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+        fixglob = "#{fixbase}/*.flv"
+        fixflvs = Dir.glob(fixglob)
+        target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+        flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+        fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
 
-      # prepare talk
-      t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
-      talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
-      talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
-      talk.update_current_state :postlive, true
+        # prepare talk
+        t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+        talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+        talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+        talk.update_current_state :postlive, true
 
-      # run
-      talk.send :postprocess!
+        # run
+        talk.send :postprocess!
 
-      # assert
-      base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-      result = File.join(base, Settings.storage.media,
-                         talk.uri, talk.id.to_s + '.m4a')
-      expect(File.exist?(result)).to be_truthy
+        # assert
+        base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+        result = File.join(base, Settings.storage.media,
+                           talk.uri, talk.id.to_s + '.m4a')
+        expect(File.exist?(result)).to be_truthy
+      end
     end
 
     it 'in state archived', slow: true do
       skip 'omit in CI' if ENV['CI']
-      talk = FactoryGirl.create(:talk)
+      VCR.use_cassette 'reprocess_talk_dummy' do
+        talk = FactoryGirl.create(:talk)
 
-      # move fixtures in place
-      fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-      fixglob = "#{fixbase}/*.flv"
-      fixflvs = Dir.glob(fixglob)
-      target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-      flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
-      fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+        # move fixtures in place
+        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+        fixglob = "#{fixbase}/*.flv"
+        fixflvs = Dir.glob(fixglob)
+        target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+        flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+        fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
 
-      # prepare talk
-      t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
-      talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
-      talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
-      talk.update_current_state :postlive, true
-      talk.send :postprocess!
-      base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-      result = File.join(base, Settings.storage.media,
-                         talk.uri, talk.id.to_s + '.m4a')
-      ctime = File.ctime(result)
+        # prepare talk
+        t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+        talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+        talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+        talk.update_current_state :postlive, true
+        talk.send :postprocess!
+        base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+        result = File.join(base, Settings.storage.media,
+                           talk.uri, talk.id.to_s + '.m4a')
+        ctime = File.ctime(result)
 
-      # no we are in state `archived`, so we can do a `reprocess`
-      talk.send :reprocess!
+        # no we are in state `archived`, so we can do a `reprocess`
+        talk.send :reprocess!
 
-      # assert
-      expect(File.ctime(result)).not_to eq(ctime)
+        # assert
+        expect(File.ctime(result)).not_to eq(ctime)
+      end
     end
 
     it 'in state archived with override', slow: true do
       skip 'omit in CI' if ENV['CI']
-      talk = FactoryGirl.create(:talk)
+      VCR.use_cassette 'process_override_talk_dummy' do
+        talk = FactoryGirl.create(:talk)
 
-      # move fixtures in place
-      fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
-      fixglob = "#{fixbase}/*.flv"
-      fixflvs = Dir.glob(fixglob)
-      target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
-      flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
-      fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
+        # move fixtures in place
+        fixbase = File.expand_path("../../support/fixtures/talk_a", __FILE__)
+        fixglob = "#{fixbase}/*.flv"
+        fixflvs = Dir.glob(fixglob)
+        target = File.expand_path(Settings.rtmp.recordings_path, Rails.root)
+        flvs = fixflvs.map { |f| f.sub(fixbase, target).sub("t1-", "t#{talk.id}-") }
+        fixflvs.each_with_index { |fixflv, idx| FileUtils.cp(fixflv, flvs[idx]) }
 
-      # prepare talk
-      t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
-      talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
-      talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
-      talk.update_current_state :postlive, true
-      talk.send :postprocess!
-      base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
-      result = File.join(base, Settings.storage.media,
-                         talk.uri, talk.id.to_s + '.m4a')
-      ctime = File.ctime(result)
-      # all of these should work, but for speed we only resort to the local file
-      override = 'https://staging.voicerepublic.com/sonar.ogg'
-      override = 'https://www.dropbox.com/s/z5sur3qt65xybav/testfoo.wav'
-      override = File.expand_path('spec/support/fixtures/sonar.ogg', Rails.root)
-      talk.update_attribute :recording_override, override
+        # prepare talk
+        t_base = flvs.map { |f| f.match(/-(\d+)\./)[1].to_i }
+        talk.update_attribute :started_at, Time.at(t_base.min).to_datetime
+        talk.update_attribute :ended_at, Time.at(t_base.max + 1).to_datetime
+        talk.update_current_state :postlive, true
+        talk.send :postprocess!
+        base = File.expand_path(Settings.fog.storage.local_root, Rails.root)
+        result = File.join(base, Settings.storage.media,
+                           talk.uri, talk.id.to_s + '.m4a')
+        ctime = File.ctime(result)
+        # all of these should work, but for speed we only resort to the local file
+        override = 'https://staging.voicerepublic.com/sonar.ogg'
+        override = 'https://www.dropbox.com/s/z5sur3qt65xybav/testfoo.wav'
+        override = File.expand_path('spec/support/fixtures/sonar.ogg', Rails.root)
+        talk.update_attribute :recording_override, override
 
-      # no we are in state `archived`, so we can do a `process_override`
-      talk.send :process_override!
+        # no we are in state `archived`, so we can do a `process_override`
+        talk.send :process_override!
 
-      # assert
-      expect(File.ctime(result)).not_to eq(ctime)
-      expect(talk.recording_override).not_to eq(override)
+        # assert
+        expect(File.ctime(result)).not_to eq(ctime)
+        expect(talk.recording_override).not_to eq(override)
+      end
     end
-
   end
 
   describe 'nicely handles callbacks' do
@@ -475,6 +480,22 @@ describe Talk do
       # Unique listeners will only be added once
       talk.add_listener! "some_uuid"
       expect(talk.listeners.size).to eq(1)
+    end
+  end
+
+  describe 'icon' do
+    it 'chooses the icon of the tag bundle which is most prevalent' do
+      music_genres = 'glitch, zef, emo'
+      subcultures = 'zef, emo'
+
+      tag_bundle_1 = FactoryGirl.create(:tag_bundle, group: 'category',
+                                        icon: 'music', tag_list: music_genres)
+      tag_bundle_2 = FactoryGirl.create(:tag_bundle, group: 'category',
+                                        icon: 'subcult', tag_list: subcultures)
+      talk = FactoryGirl.create(:talk, tag_list: music_genres)
+
+      expect(talk.icon).to eq(tag_bundle_1.icon)
+      expect(talk.icon).to_not eq(tag_bundle_2.icon)
     end
   end
 
