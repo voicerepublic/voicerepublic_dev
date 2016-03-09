@@ -4602,6 +4602,7 @@ footer {
   .series .meta-data-box hr {
     border-color: #ffed00; }
   .series .title-box {
+    text-align: center;
     padding: 12px 0; }
     .series .title-box img {
       margin: 0 auto;
@@ -4656,7 +4657,6 @@ footer {
     color: #ffed00; }
   .series h3.about {
     color: #2c46b0; }
-
 
 .api-container h3, .api-container h4, .api-container h5, .api-container h6 {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
