@@ -32,7 +32,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'friendly_id'                  # make urls more friendly
 gem 'will_paginate'                # pagination-extension to active-record
-gem 'dragonfly', '1.0.3'           # used for images
+gem 'dragonfly', '1.0.12'           # used for images
 gem 'angularjs-file-upload-rails', '~> 1.1.0'
 gem 'acts-as-taggable-on', '3.4.2' # tag-system
 gem 'cancan'                       # authorization/privileges

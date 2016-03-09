@@ -182,9 +182,10 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     disable_assets_logger (1.0.0)
-    dragonfly (1.0.3)
+    dragonfly (1.0.12)
+      addressable (~> 2.3)
       multi_json (~> 1.0)
-      rack
+      rack (>= 1.3.0)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -581,7 +582,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise (~> 3.4.0)
   disable_assets_logger
-  dragonfly (= 1.0.3)
+  dragonfly (= 1.0.12)
   factory_girl_rails (~> 4.0)
   faker
   faye-authentication!

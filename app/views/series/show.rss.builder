@@ -13,6 +13,6 @@
 # urls
 @podcast.url =         series_url(@series)
 @podcast.image_link =  series_url(@series)
-@podcast.image_url =   @series.image.thumb('1400x1400#').url
+@podcast.image =       @series.image
 
 xml << render(partial: 'shared/podcast', locals: { xml: xml })

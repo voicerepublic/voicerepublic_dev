@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def itunes_image_url(image)
+    image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
+  end
+
   def default_content(locale, key)
     keys = [locale.to_s] + key.split('.')
     keys.reduce(sections) do |r, k|
