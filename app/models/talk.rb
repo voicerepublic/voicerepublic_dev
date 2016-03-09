@@ -97,6 +97,7 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :series, inverse_of: :talks
+  has_one :user, through: :series
   belongs_to :venue
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
@@ -167,12 +168,9 @@ class Talk < ActiveRecord::Base
   serialize :storage
   serialize :social_links
 
-  delegate :user, to: :series
-
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
-
 
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }
@@ -213,7 +211,11 @@ class Talk < ActiveRecord::Base
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
   pg_search_scope :search,
                   ignoring: :accents,
-                  against: [:title, :teaser, :description, :speakers]
+                  against: [:title, :teaser, :description_as_text, :speakers],
+                  associated_against: {
+                    series: [:title, :description_as_text, :teaser],
+                    user: [:firstname, :lastname, :about_as_text, :summary]
+                  }
 
   # returns an array of json objects
   def guest_list

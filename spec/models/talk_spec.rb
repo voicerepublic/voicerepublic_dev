@@ -368,7 +368,6 @@ describe Talk do
     end
 
     it "finds talk by user's name" do
-      pending "NEW SPEC!"
       result = Talk.search(@talk.series.user.name)
       expect(result).not_to be_empty
     end
