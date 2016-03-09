@@ -366,6 +366,11 @@ describe Talk do
         @talk.save!
       end.to_not raise_error
     end
+
+    it "finds talk by user's name" do
+      result = Talk.search(@talk.series.user.name)
+      expect(result).not_to be_empty
+    end
   end
 
   describe 'penalty' do
