@@ -46,14 +46,15 @@ describe "Talks as anonymous user" do
 
       talk.update_attribute :state, :live
       visit talk_path(talk)
-      find(".request-mic-box a").click
-      within(".reveal-modal") do
-        expect(page).to have_content("Please sign up or login to use this feature")
-        click_on "Login"
+      find(".qa-request-mic").click
+      within(".qa-reveal-modal") do
+        expect(page).to have_content I18n.t('.redirect_text')
+        find(".qa-reveal-modal-login").click
       end
+      #TODO: maybe change fieldnames to qa-classes too?
       fill_in "user_email", with: "foo@bar.com"
       fill_in "user_password", with: "123123"
-      find("button[name=Login]").click
+      find(".qa-login").click
 
       expect(current_path).to match(/#{talk_path(talk)}/)
     end
@@ -65,10 +66,10 @@ describe "Talks as anonymous user" do
 
       talk.update_attribute :state, :live
       visit talk_path(talk)
-      find(".request-mic-box a").click
-      within(".reveal-modal") do
-        expect(page).to have_content("Please sign up or login to use this feature")
-        click_on "Login"
+      find(".qa-request-mic").click
+      within(".qa-reveal-modal") do
+        expect(page).to have_content I18n.t('.redirect_text')
+        find(".qa-reveal-modal-login").click
       end
     end
   end
@@ -88,13 +89,13 @@ describe "Talks as logged in user" do
     pending 'is pinnable and unpinnable', js: true do
       visit talk_path(@talk)
       expect {
-        find(".icon-star-empty").click
+        find(".qa-favorite").click
       }.to change(Reminder, :count).by(1)
-      expect(page).to have_css(".icon-star-full")
+      expect(page).to have_css(".qa-unfavorite")
       expect {
-        find(".icon-star-full").click
+        find(".qa-unfavorite").click
       }.to change(Reminder, :count).by(-1)
-      expect(page).to_not have_css(".icon-star-full")
+      expect(page).to_not have_css(".qa-unfavorite")
     end
   end
 
@@ -201,7 +202,7 @@ describe "Talks as logged in user" do
         Timecop.travel(5.minutes.from_now)
         visit talk_path(@talk)
         retry_with_delay do
-          within '.talk-state-info' do
+          within '.qa-talk-state-info' do
             expect(page).to have_content I18n.t('.talks.show.state_text')
           end
         end
@@ -235,12 +236,12 @@ describe "Talks as logged in user" do
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
-        expect(page).to have_content('Explore')
+        expect(page).to have_content I18n.t('shared.actionbar.explore')
       end
 
       it 'shows explore in user_path' do
         visit user_path(@user)
-        expect(page).to have_content('Explore')
+        expect(page).to have_content I18n.t('shared.actionbar.explore')
       end
     end
 
@@ -295,19 +296,20 @@ describe "Talks as logged in user" do
         Timecop.return
       end
       it "it works live" do
-        skip "Close to working, see comments"
-        @series = FactoryGirl.create :series
-        @talk = FactoryGirl.create :talk, series: @series
-        visit series_talk_path @series, @talk
-        find(".participate-button-box a").click
-        find(".chat-input-box input").set("my message")
-        find(".chat-input-box input").native.send_keys(:return)
-        # This spec works until here. The message is never being shown in
-        # testing mode, though. Faye published it, however. And of course it
-        # works in development.
-        within "#discussion" do
-          expect(page).to have_content "my message"
-          expect(find(".chat-message")).to be_visible
+        VCR.use_cassette 'talk_chat_live_dummy' do
+          skip "Close to working, see comments"
+          @series = FactoryGirl.create :series
+          @talk = FactoryGirl.create :talk, series: @series
+          visit talk_path @talk
+          find(".qa-chat-input").set("my message")
+          find(".qa-chat-input").native.send_keys(:return)
+          # This spec works until here. The message is never being shown in
+          # testing mode, though. Faye published it, however. And of course it
+          # works in development.
+          within "#discussion" do
+            expect(page).to have_content "my message"
+            expect(find(".chat-message")).to be_visible
+          end
         end
       end
       it "it works with reload" do
@@ -317,8 +319,8 @@ describe "Talks as logged in user" do
           @talk = FactoryGirl.create :talk, series: @series
           visit talk_path @talk
           visit talk_path @talk
-          find(".chat-input-box input").set("my message")
-          find(".chat-input-box input").native.send_keys(:return)
+          find(".qa-chat-input").set("my message")
+          find(".qa-chat-input").native.send_keys(:return)
           visit(current_path)
           page.execute_script('$("a[href=#discussion]").click()')
           within "#discussion" do

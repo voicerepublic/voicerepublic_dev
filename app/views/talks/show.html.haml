@@ -58,7 +58,7 @@
               %a(class="link-remember"
                  data-reveal-id="modal-login-signup"
                  ng-show='userIsAListener()')
-                %span.icon-star-empty{ title: t('.favorite') }
+                %span.icon-star-empty.qa-favorite{ title: t('.favorite') }
             - else
               %span#favorite
                 - if @reminder
@@ -182,7 +182,7 @@
         .talk-live-timeline(ng-show='talkIsLive()')
           .talk-timeline
             .talk-timeline-progress(style='width: {{talkProgress}}%')
-          .talk-state-info
+          .talk-state-info.qa-talk-state-info
             .talk-state-bullet
             = t('.state_text')
             %span.record-text= t('.record_text')
@@ -274,12 +274,12 @@
           .request-mic-box(ng-show='userIsAListener()')
             .arrow
               .arrow-head
-            %a(class="button-action" data-reveal-id="modal-login-signup")
+            %a.button-action.qa-request-mic(data-reveal-id="modal-login-signup")
               = t('.request_mic')
-            #modal-login-signup.reveal-modal.text-left(data-reveal)
+            #modal-login-signup.reveal-modal.text-left.qa-reveal-modal(data-reveal)
               %p.redirect-text
                 = t('.redirect_text')
-              = link_to t('.login'), new_user_session_path, class: 'overlay-button left'
+              = link_to t('.login'), new_user_session_path, class: 'overlay-button left qa-reveal-modal-login'
               = link_to t('.signup'), new_user_registration_path, class: 'overlay-button right'
               %a.close-reveal-modal= raw '&#215;'
 
@@ -365,7 +365,7 @@
             .avatar
               .avatar-box
                 = render partial: "shared/avatar", locals: { user: current_user, size: 40 }
-            %input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
+            %input.qa-chat-input(ng-model='message.content' ng-keyup='messageKeyup($event)'){:placeholder => t('.chat_placeholder')}
 
           .chat-input-box(ng-show='userIsAListener()')
             .avatar
