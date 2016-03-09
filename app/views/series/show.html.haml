@@ -7,98 +7,87 @@
 
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :series => @series } )
-
-.series-container
-  .row.user-box
-    = link_to @series.user do
-      = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
-      -#%h4.series-user= @series.user.name
-    -#%hr
-
-  .row.title-box
-    %p.text-center.series-label= t('.series'+':')
-    %h2.series-title.left= @series.title
-    - if can? :manage, @series
-      = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
-
-
-
-  .row.image-box
-    = image_tag @series.image.thumb("900x600#").url, class: 'image'
-
-  .row.meta-data-box
-    %hr
-    %ul.series-meta-group.menu.expanded.vertical.medium-horizontal
-      %li
-        %p= human_count(@live_talks.count)
-        %p.label= t('.live_talks', count: @live_talks.count)
-      %li
-        %p= human_count(@upcoming_talks.count)
-        %p.label= t('.upcoming_talks', count: @upcoming_talks.count)
-      %li
-        %p= human_count(@archived_talks.count)
-        %p.label= t('.archived_talks', count: @archived_talks.count)
-      %li
-        %p= human_count(@total_plays)
-        %p.label= t('.plays', count: @total_plays)
-    %hr/
-
-
-    .action-links
+.top-section
+  .series-container
+    .row.title-box.text-center
+      = link_to @series.user do
+        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
+      %h2.series-title.text-center= @series.title
       - if can? :manage, @series
-        = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
-          = t('.create_new_talk')
-        = link_to new_upload_path(talk: { series_id: @series.id }),class:'button hollow' do
-          = t('.upload_talk')
-      - else
-        -#= render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
-        -# TODO: fix this with Phil
-        = link_to podcast_url(@series), class:'button hollow float-right' do
-          = t('.subscribe_to_podcast')
-        - if @show_join
-          = link_to [@series, :participations], method: :post do
-            %button.button.float-left.hollow.qa-subscribe= t('.subscribe_to_series')
-        - elsif !current_user
-          %a(href="#" data-reveal-id="modal-login-signup")
-            %button.button.float-left.hollow= t('.subscribe_to_series')
-        - if @participation
-          = link_to [@series, @participation], delete_params do
-            .qa-unsubscribe= t('.unsubscribe_to_series')
+        = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
 
 
 
 
-  - unless @upcoming_talks.empty?
-    .talks-box.row
+    .row.meta-data-box
+      %hr
+      %ul.series-meta-group.menu.expanded
+        %li
+          %p= human_count(@live_talks.count)
+          %p.label= t('.live_talks', count: @live_talks.count)
+        %li
+          %p= human_count(@upcoming_talks.count)
+          %p.label= t('.upcoming_talks', count: @upcoming_talks.count)
+        %li
+          %p= human_count(@archived_talks.count)
+          %p.label= t('.archived_talks', count: @archived_talks.count)
+        %li
+          %p= human_count(@total_plays)
+          %p.label= t('.plays', count: @total_plays)
+      %hr/
+      .action-links
+        - if can? :manage, @series
+          = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
+            = t('.create_new_talk')
+          = link_to new_upload_path(talk: { series_id: @series.id }),class:'button hollow' do
+            = t('.upload_talk')
+        - else
+          -#= render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
+          -# TODO: fix this with Phil
+          = link_to podcast_url(@series), class:'button hollow float-right' do
+            = t('.subscribe_to_podcast')
+          - if @show_join
+            = link_to [@series, :participations], method: :post do
+              %button.button.float-left.hollow.qa-subscribe= t('.subscribe_to_series')
+          - elsif !current_user
+            %a(href="#" data-reveal-id="modal-login-signup")
+              %button.button.float-left.hollow= t('.subscribe_to_series')
+          - if @participation
+            = link_to [@series, @participation], delete_params do
+              .qa-unsubscribe= t('.unsubscribe_to_series')
+
+
+
+
+.series-grid.row.clearfix
+  .medium-4.large-3.columns.float-left.series-left-column
+    %h3.about= t('.description')
+    = image_tag @series.image.thumb("900x600#").url, class: 'image'
+    %p
+      = @series.description_as_html.html_safe
+      - if can? :manage, @series
+        = link_to t('.edit_series'), [:edit, @series], class: "desc-edit button tiny info hollow"
+
+  -#.series-right-column.float-right.clearfix
+  .medium-8.large-9.columns.series-right-column
+    - unless @upcoming_talks.empty?
       .large-12.columns.talks-title
         %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-    .talks-box.row
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@upcoming_talks), collection: @upcoming_talks
-      %hr
 
-  - unless @live_talks.empty?
-    .talks-box.row
-      .large-12.columns.talks-title
-        %h3= t('.live_talks', count: @live_talks.count)
+    - unless @live_talks.empty?
+      .talks-box
+        .large-12.columns.talks-title
+          %h3= t('.live_talks', count: @live_talks.count)
 
-      .large-12.columns.clearfix.talks-grid
-        = render partial: talks_partial(@live_talks), collection: @live_talks
-      %hr
+        .large-12.columns.clearfix.talks-grid
+          = render partial: talks_partial(@live_talks), collection: @live_talks
 
-  - unless @archived_talks.empty?
-    .talks-box.row
+    - unless @archived_talks.empty?
       .large-12.columns.talks-title
         %h3= t('.archived_talks', count: @archived_talks.count)
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@archived_talks), collection: @archived_talks
-      %hr
 
-  .row.text-left
-    .large-6.large-offset-3.medium-8.medium-offset-2.columns.series-description
-      %h3.about= t('.description')
-      %p
-        = @series.description_as_html.html_safe
-        - if can? :manage, @series
-          = link_to t('.edit_series'), [:edit, @series], class: "desc-edit button tiny info hollow"

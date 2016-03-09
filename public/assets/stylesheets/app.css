@@ -1327,7 +1327,7 @@ kbd {
 .text-right {
   text-align: right; }
 
-.text-center, .row, h1, h2 {
+.text-center {
   text-align: center; }
 
 .text-justify {
@@ -2658,8 +2658,6 @@ section {
   #left-column h3 {
     color: #54c6c6;
     font-size: 1.5rem; }
-  #left-column p {
-    font-size: 0.875rem; }
   #left-column #avatar-img {
     margin-bottom: 6px;
     display: block;
@@ -2707,35 +2705,38 @@ section {
     #left-column {
       max-width: 350px; } }
 
+.user-meta-group, .series-meta-group {
+  margin: 0;
+  margin-bottom: 0;
+  text-align: center; }
+  .user-meta-group li, .series-meta-group li {
+    font-size: 0.75rem;
+    color: #121214;
+    height: 32px;
+    margin: 0;
+    width: 25%;
+    font-weight: 500;
+    border-right: 2px solid transparent;
+    margin-right: 4px; }
+    .user-meta-group li a, .series-meta-group li a {
+      color: #121214; }
+    .user-meta-group li:last-child, .series-meta-group li:last-child {
+      margin-right: 0; }
+    .user-meta-group li p, .series-meta-group li p {
+      font-size: 1rem;
+      margin-bottom: 0; }
+    .user-meta-group li p.label, .series-meta-group li p.label {
+      background: none;
+      font-size: 0.625rem;
+      text-transform: uppercase; }
+    .user-meta-group li hr, .series-meta-group li hr {
+      border-color: #ffed00; }
+
 #user-block {
   text-align: center;
   padding: 24px;
   padding-bottom: 0;
   position: relative; }
-  #user-block .user-meta-group {
-    margin: 0;
-    margin-bottom: 0; }
-    #user-block .user-meta-group li {
-      font-size: 0.75rem;
-      color: #121214;
-      padding: 6px;
-      height: 32px;
-      margin: 0;
-      width: 25%;
-      font-weight: 500;
-      border-right: 2px solid transparent;
-      margin-right: 4px; }
-      #user-block .user-meta-group li a {
-        color: #121214; }
-      #user-block .user-meta-group li:last-child {
-        margin-right: 0; }
-      #user-block .user-meta-group li p {
-        font-size: 1rem;
-        margin-bottom: 0; }
-      #user-block .user-meta-group li p.label {
-        background: none;
-        font-size: 0.625rem;
-        text-transform: uppercase; }
   #user-block img {
     margin-bottom: 12px; }
   #user-block #user-name {
@@ -2891,7 +2892,8 @@ section {
     text-transform: normal; }
 
 #user-description {
-  color: #121214; }
+  color: #121214;
+  font-size: 0.875rem; }
 
 #user-about {
   padding: 24px;
@@ -2908,6 +2910,8 @@ section {
     text-transform: none;
     font-weight: 700; }
   #user-about li {
+    font-size: 0.875rem; }
+  #user-about p {
     font-size: 0.875rem; }
   #user-about a {
     color: #54c6c6; }
@@ -3150,6 +3154,8 @@ button {
 
 .root-index {
   background: #29292b; }
+  .root-index .row {
+    text-align: center; }
   .root-index section {
     padding: 96px 0; }
     .root-index section.light {
@@ -4522,10 +4528,21 @@ footer {
 
 .series {
   background: #EFEFEF; }
+  .series h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+    color: #29292b;
+    font-weight: 700; }
+  .series .series-meta-group li {
+    color: #fef1de; }
+    .series .series-meta-group li p.label {
+      color: #2c46b0; }
+  .series .top-section {
+    background: #54c6c6; }
   .series .link-delete {
     float: left;
-    color: #b4b6be;
-    border-color: #b4b6be; }
+    color: #fef1de;
+    border-color: #fef1de; }
   .series .button-cancel {
     margin-right: 6px; }
   .series .preview-img {
@@ -4534,112 +4551,108 @@ footer {
     background-size: cover;
     margin: 0 auto; }
   .series .series-container {
-    max-width: 56.25rem;
+    max-width: 900px;
     margin: 0 auto;
-    padding-top: 24px;
+    padding-top: 12px; }
+  .series .user-box * {
+    display: inline-block; }
+  .series .user-box .image-box {
     text-align: center; }
-    .series .series-container .row {
-      padding: 0;
-      text-align: center; }
-      .series .series-container .row .talk-card {
-        padding: 6px; }
-        @media screen and (min-width: 56.25em) {
-          .series .series-container .row .talk-card {
-            width: 33.3333%; } }
-      .series .series-container .row h2 {
-        margin-bottom: 12px; }
-      .series .series-container .row h3 {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-        font-size: 1.125rem;
-        text-align: left;
-        font-weight: 700; }
-      .series .series-container .row.image-box, .series .series-container .row.meta-data-box {
-        padding: 12px; }
-    .series .series-container .user-box {
-      text-align: center;
-      margin-bottom: 24px; }
-      .series .series-container .user-box * {
-        display: inline-block; }
-      .series .series-container .user-box hr {
-        display: block;
-        max-width: 120px;
-        border-color: rgba(41, 41, 43, 0.5); }
-    .series .series-container .talks-title {
-      padding: 0;
-      padding-bottom: 6px;
-      color: #2c46b0;
-      width: auto; }
-    .series .series-container .talks-grid {
-      padding: 0;
-      margin: -6px;
-      padding-bottom: 24px;
-      width: auto; }
-      @media screen and (min-width: 40em) {
-        .series .series-container .talks-grid {
-          width: 100%; } }
-    .series .series-container .action-links {
-      text-align: center;
-      padding-top: 12px; }
-    .series .series-container .talks-box {
-      padding: 12px;
-      padding-bottom: 0; }
-      @media screen and (min-width: 40em) {
-        .series .series-container .talks-box {
-          padding-right: 0; } }
-      .series .series-container .talks-box hr {
-        border-color: #2c46b0; }
-    .series .series-container .series-user {
+    .series .user-box .image-box img {
+      margin: 0 auto; }
+  .series .series-grid {
+    max-width: none;
+    width: 100%; }
+  .series .series-left-column {
+    padding: 12px; }
+    @media screen and (min-width: 64em) {
+      .series .series-left-column {
+        padding: 24px;
+        padding-right: 0; } }
+    .series .series-left-column img {
+      margin-top: 6px; }
+  @media screen and (min-width: 40em) {
+    .series .series-right-column {
+      padding: 12px; } }
+  @media screen and (min-width: 64em) {
+    .series .series-right-column {
+      padding: 24px;
+      padding-left: 12px; } }
+  @media screen and (min-width: 40em) {
+    .series .talk-card {
+      width: 100%; } }
+  @media screen and (min-width: 50em) {
+    .series .talk-card {
+      width: 50%; } }
+  @media screen and (min-width: 87.5em) {
+    .series .talk-card {
+      width: 33.333%; } }
+  @media screen and (min-width: 112.5em) {
+    .series .talk-card {
+      width: 25%; } }
+  @media screen and (min-width: 137.5em) {
+    .series .talk-card {
+      width: 20%; } }
+  .series .row {
+    padding: 0; }
+    .series .row.image-box, .series .row.meta-data-box {
+      padding: 12px; }
+    .series .row.meta-data-box {
+      padding-top: 0; }
+  .series .meta-data-box hr {
+    border-color: #ffed00; }
+  .series .title-box {
+    padding: 12px 0; }
+    .series .title-box img {
+      margin: 0 auto;
+      margin-bottom: 12px; }
+    .series .title-box p.series-user {
       color: #29292b;
       font-weight: 500;
-      font-size: 1rem;
-      margin-left: 12px;
-      margin-bottom: 0; }
-    .series .series-container .series-label {
       font-size: 0.75rem;
-      font-weight: 300;
-      text-transform: uppercase;
-      letter-spacing: 0.125rem;
-      line-height: 0.75rem;
-      margin-bottom: 6px; }
-    .series .series-container .series-description {
-      padding-bottom: 60px; }
-    .series .series-container .series-description p {
-      text-align: left !important;
-      font-weight: 300; }
-    .series .series-container h3.about {
-      color: #2c46b0; }
-
-.meta-data-box hr {
-  border-color: #ffed00; }
-
-.meta-data-box .series-meta-group {
-  margin: 0;
-  margin-bottom: 0; }
-  .meta-data-box .series-meta-group li {
-    font-size: 0.75rem;
-    color: #121214;
-    padding: 6px;
-    height: 32px;
-    margin: 0;
-    width: auto !important;
-    height: 70px;
-    font-weight: 500;
-    border-right: 2px solid transparent;
-    margin-right: 4px;
-    text-align: center; }
-    @media screen and (min-width: 40em) {
-      .meta-data-box .series-meta-group li {
-        width: 25%;
-        height: auto; } }
-    .meta-data-box .series-meta-group li a {
-      color: #121214; }
-    .meta-data-box .series-meta-group li:last-child {
-      margin-right: 0; }
-    .meta-data-box .series-meta-group li p {
-      font-size: 1rem;
+      margin-left: 6px;
       margin-bottom: 0;
-      color: #121214; }
-    .meta-data-box .series-meta-group li p.label {
-      background: none;
-      font-size: 0.625rem;
-      text-transform: uppercase; }
+      display: inline-block; }
+  .series .talks-title {
+    padding: 0;
+    padding-bottom: 6px;
+    color: #2c46b0;
+    width: auto; }
+    .series .talks-title h3 {
+      margin-left: 12px; }
+  .series .talks-grid {
+    padding: 0;
+    margin: -6px;
+    padding-bottom: 24px;
+    width: auto; }
+    @media screen and (min-width: 40em) {
+      .series .talks-grid {
+        width: 100%; } }
+  .series .action-links {
+    text-align: center;
+    padding-top: 12px; }
+  .series .talks-box {
+    padding: 12px;
+    padding-bottom: 0; }
+    @media screen and (min-width: 40em) {
+      .series .talks-box {
+        padding-right: 0; } }
+    .series .talks-box hr {
+      border-color: #2c46b0; }
+  .series .series-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.0625rem;
+    line-height: 0.75rem;
+    margin-bottom: 6px; }
+  .series .series-description {
+    padding: 12px; }
+  .series .series-description p {
+    text-align: left !important;
+    font-weight: 300; }
+  .series .series-title {
+    margin: 0;
+    color: #ffed00; }
+  .series h3.about {
+    color: #2c46b0; }
