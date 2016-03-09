@@ -47,7 +47,7 @@ xml.rss namespaces.merge(version: '2.0') do
     main_lang = langs.inject(Hash.new { |h, k| h[k] = 0 }) { |h, l| h[l]+=1; h }.to_a.sort_by { |e| e.last }.last.first
     xml.language main_lang
     xml.image do
-      xml.url itunes_image_url(@podcast.image)
+      xml.url @podcast.image_url || itunes_image_url(@podcast.image)
       xml.title do
         xml.cdata! @podcast.image_title
       end
