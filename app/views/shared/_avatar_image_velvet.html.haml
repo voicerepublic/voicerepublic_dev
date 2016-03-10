@@ -1,10 +1,3 @@
-- mask_num = rand(1000000)
+- src = user.avatar.thumb("#{size}x#{size}#nw").url
 
--# default
-- img_path ||= "/images/empty.png"
-
--# if user given
-- user ||= nil
-- img_path = user.avatar.thumb("#{size}x#{size}#nw").url if user
-
-%img{height: "#{size}", width: "#{size}", src: img_path, class: 'avatar-image', alt: alt}
+%img.avatar-image{ height: size, width: size, src: src, alt: user.image_alt }
