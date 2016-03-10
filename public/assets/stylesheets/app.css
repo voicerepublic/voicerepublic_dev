@@ -1806,10 +1806,10 @@ select {
     .show-for-portrait {
       display: block !important; } }
 
-.float-left, .talk-card .talk-card-inside .meta .running-time, .talk-card .talk-card-inside .svg-icon svg, .profile-page .talk-card.series .talk-count {
+.float-left, .profile-page .talk-card.series .talk-count {
   float: left !important; }
 
-.float-right, .talk-card .talk-card-inside .meta .play-count, .profile-page .talk-card .bottom-info .info-right {
+.float-right, .profile-page .talk-card .bottom-info .info-right {
   float: right !important; }
 
 .float-center {
@@ -1817,11 +1817,11 @@ select {
   margin-left: auto;
   margin-right: auto; }
 
-.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, #working::before, footer ul::before, #footer-social-links::before, .talk-card .talk-card-inside .meta::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::before, #right-column .tab-holder::before, .svg-icon::before, #talk-collection::before, #talk-teasers::before, #claim header::before, #listen-now .category-buttons::before, #spy::before, #working::before, footer ul::before, #footer-social-links::before, .clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after {
   content: ' ';
   display: table; }
 
-.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after, .talk-card .talk-card-inside .meta::after {
+.clearfix::after, #right-column .tab-holder::after, .svg-icon::after, #talk-collection::after, #talk-teasers::after, #claim header::after, #listen-now .category-buttons::after, #spy::after, #working::after, footer ul::after, #footer-social-links::after {
   clear: both; }
 
 .button-group {
@@ -4072,11 +4072,14 @@ footer {
     .talk-card .talk-card-inside .publisher {
       margin: 0;
       line-height: 18px;
-      font-weight: 500;
+      font-weight: 300;
       margin-bottom: 0;
-      color: rgba(41, 41, 43, 0.5); }
+      font-size: 0.875rem;
+      color: rgba(41, 41, 43, 0.5);
+      color: #54c6c6; }
       .talk-card .talk-card-inside .publisher:hover {
-        text-decoration: underline; }
+        text-decoration: underline;
+        color: #2c46b0; }
     .talk-card .talk-card-inside p.series-label {
       color: #121214;
       font-size: 0.75rem;
@@ -4085,14 +4088,14 @@ footer {
       margin: 0;
       margin-bottom: 10px;
       line-height: 0.75rem; }
-    .talk-card .talk-card-inside .meta {
+    .talk-card .talk-card-inside .meta-data {
       width: 100%;
       margin: 0;
       font-size: 0.6875rem;
       line-height: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.0625rem;
-      color: rgba(41, 41, 43, 0.5);
+      color: rgba(225, 226, 231, 0.5);
       margin-bottom: 6px; }
     .talk-card .talk-card-inside .date {
       margin: 0;
@@ -4100,13 +4103,13 @@ footer {
       line-height: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.0625rem;
-      color: rgba(41, 41, 43, 0.5);
       margin-bottom: 6px; }
       .talk-card .talk-card-inside .date strong {
         font-weight: 500; }
     .talk-card .talk-card-inside .image-box {
       margin-bottom: 12px;
-      position: relative; }
+      position: relative;
+      margin-top: 6px; }
       .talk-card .talk-card-inside .image-box .hover-info {
         position: absolute;
         padding: 12px;
@@ -4142,7 +4145,7 @@ footer {
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-bottom: 6px;
+      margin-bottom: 0;
       transition: text-decoration .2s ease; }
     .talk-card .talk-card-inside a {
       color: #29292b; }
@@ -4157,14 +4160,15 @@ footer {
     .talk-card .talk-card-inside .svg-icon {
       float: left;
       max-width: 24px;
-      max-height: 24px; }
+      max-height: 4px;
+      color: #e1e2e7; }
       .talk-card .talk-card-inside .svg-icon svg {
         max-width: 24px;
         max-height: 24px;
         margin-top: 6px;
         margin-right: 12px; }
         .talk-card .talk-card-inside .svg-icon svg * {
-          fill: #e1e2e7; }
+          fill: currentColor; }
     .talk-card .talk-card-inside .info-right {
       text-align: right; }
   @media screen and (min-width: 87.5em) {
@@ -4227,6 +4231,43 @@ footer {
     margin-bottom: 12px; }
   .series .talk-card-inside .title, .series .talk-card-inside p.lead {
     color: #121214; }
+
+.talk-card .bottom-info {
+  display: table;
+  width: 100%; }
+  .talk-card .bottom-info * {
+    display: table-cell; }
+  .talk-card .bottom-info .svg-icon {
+    width: 44px;
+    vertical-align: middle; }
+  .talk-card .bottom-info .svg-icon:first-child {
+    padding-top: 3px; }
+  .talk-card .bottom-info .play-count {
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    vertical-align: middle;
+    color: #b4b6be; }
+  .talk-card .bottom-info .pin-btn {
+    max-width: 44px;
+    padding: 12px;
+    background: none;
+    border: 1px solid #b4b6be;
+    color: #b4b6be;
+    border-radius: 2px; }
+    .talk-card .bottom-info .pin-btn .svg-icon {
+      padding-top: 0;
+      color: #b4b6be; }
+    .talk-card .bottom-info .pin-btn svg {
+      max-width: 16px;
+      max-height: 16px;
+      margin: 0; }
+    .talk-card .bottom-info .pin-btn:hover {
+      border-color: #54c6c6;
+      color: #54c6c6; }
+      .talk-card .bottom-info .pin-btn:hover .svg-icon {
+        color: #54c6c6;
+        fill: #54c6c6; }
 
 .tooltip {
   max-width: 20rem !important; }

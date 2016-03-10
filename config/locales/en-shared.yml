@@ -2,7 +2,7 @@ en:
   shared:
     talk_card:
       speaker: "Speaker: "
-      ago_by: "%{time} ago by"
+      ago_by: "%{time} ago"
       plays: " Plays "
       onair: On Air
       message:
