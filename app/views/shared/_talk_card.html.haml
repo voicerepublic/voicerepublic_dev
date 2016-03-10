@@ -7,7 +7,7 @@
       = link_to user_path(talk.user), class: "publisher" do
         = truncate(talk.user.name, length: 27)
       .image-box
-        = image_tag talk.image.thumb("600x338#").url
+        = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
         -# unless talk.teaser.blank?
         .hover-info
           .meta-data.clearfix
@@ -20,7 +20,7 @@
                 = t('.onair') if talk.live?
                 - if %w(postlive processing suspended archived).include?(talk.state)
                   = t('.ago_by', time: time_ago_in_words(talk.starts_at))
-              
+
           .teaser.clearfix
             %p.teaser= truncate(talk.teaser, length: 500)
             - unless talk.speakers.blank?
@@ -34,8 +34,8 @@
             = human_count(talk.play_count) + t('.plays')
         = link_to root_path, class: "button pin-btn" do
           = icon_tag 'pin'
-        
-          
+
+
     - if %w(pending postlive processing suspended).include?(talk.state)
       .not_available
         %p.lead= t(".message.#{talk.state}")

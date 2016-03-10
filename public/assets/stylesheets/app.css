@@ -4577,7 +4577,7 @@ footer {
   .series .series-meta-group li {
     color: #fef1de; }
     .series .series-meta-group li p.label {
-      color: #2c46b0; }
+      color: #FFFFFF; }
   .series .top-section {
     background: #54c6c6; }
   .series .link-delete {
@@ -4644,17 +4644,20 @@ footer {
     border-color: #ffed00; }
   .series .title-box {
     text-align: center;
-    padding: 12px 0; }
+    padding: 24px 0 6px 0; }
     .series .title-box img {
       margin: 0 auto;
-      margin-bottom: 12px; }
-    .series .title-box p.series-user {
-      color: #29292b;
-      font-weight: 500;
-      font-size: 0.75rem;
-      margin-left: 6px;
       margin-bottom: 0;
-      display: inline-block; }
+      vertical-align: middle; }
+  .series .byline {
+    margin-bottom: 24px; }
+  .series span.user {
+    color: #29292b;
+    font-weight: 700;
+    font-size: 0.875rem;
+    margin-left: 6px;
+    margin-bottom: 0;
+    display: inline-block; }
   .series .talks-title {
     padding: 0;
     padding-bottom: 6px;
@@ -4687,7 +4690,9 @@ footer {
     text-transform: uppercase;
     letter-spacing: 0.0625rem;
     line-height: 0.75rem;
-    margin-bottom: 6px; }
+    margin-bottom: 6px;
+    opacity: .6;
+    margin-right: 6px; }
   .series .series-description {
     padding: 12px; }
   .series .series-description p {
@@ -4698,6 +4703,14 @@ footer {
     color: #ffed00; }
   .series h3.about {
     color: #2c46b0; }
+
+.menu-centered {
+  text-align: center; }
+  .menu-centered .menu > li {
+    display: inline-block; }
+  .menu-centered li.mail svg {
+    max-width: 26px;
+    max-height: 32px; }
 
 .api-container h3, .api-container h4, .api-container h5, .api-container h6 {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;

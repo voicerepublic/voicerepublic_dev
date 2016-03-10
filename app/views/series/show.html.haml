@@ -9,13 +9,21 @@
   = render(:partial => 'facebook_value_template', :locals => { :series => @series } )
 .top-section
   .series-container
+
+
     .row.title-box.text-center
-      = link_to @series.user do
-        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
       %h2.series-title.text-center= @series.title
       - if can? :manage, @series
         = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
+    -#  B R E A D C R U M B S - B E G I N
+    .row.byline.text-center
+      %span.series-label A Series By 
+      = link_to @series.user do
+        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 30 }
+        %span.user= @series.user.name
+      -#= @series.title
+    -#  B R E A D C R U M B S - E N D
 
 
 
@@ -36,6 +44,7 @@
           %p= human_count(@total_plays)
           %p.label= t('.plays', count: @total_plays)
       %hr/
+      = render partial: 'shared/share_velvet', locals: { shareable: @series }
       .action-links
         - if can? :manage, @series
           = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
@@ -63,7 +72,7 @@
 .series-grid.row.clearfix
   .medium-4.large-3.columns.float-left.series-left-column
     %h3.about= t('.description')
-    = image_tag @series.image.thumb("900x600#").url, class: 'image'
+    = image_tag @series.image.thumb("900x600#").url, class: 'image', alt: @series.image_alt
     %p
       = @series.description_as_html.html_safe
       - if can? :manage, @series
@@ -90,4 +99,3 @@
         %h3= t('.archived_talks', count: @archived_talks.count)
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@archived_talks), collection: @archived_talks
-

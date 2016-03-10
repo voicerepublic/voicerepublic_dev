@@ -35,7 +35,9 @@ describe Talk do
         allow(talk).to receive(:user_override!).and_return(true)
         expect(talk).not_to be_pending
         talk.user_override_uuid = '038ee6b8-0557-4172-8ad6-2548dccd4793'
-        talk.save
+        with_dj_enabled do
+          talk.save
+        end
         expect(talk).to be_pending
       end
     end
