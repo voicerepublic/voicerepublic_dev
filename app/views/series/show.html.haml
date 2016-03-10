@@ -10,20 +10,20 @@
 .top-section
   .series-container
 
-    -#  B R E A D C R U M B S - B E G I N
-    .row.title-box
-      = link_to @series.user do
-        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 25 }
-        = @series.user.name
-      \>
-      = @series.title
-    -#  B R E A D C R U M B S - E N D
 
     .row.title-box.text-center
       %h2.series-title.text-center= @series.title
       - if can? :manage, @series
         = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
+    -#  B R E A D C R U M B S - B E G I N
+    .row.byline.text-center
+      %span.series-label A Series By 
+      = link_to @series.user do
+        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 30 }
+        %span.user= @series.user.name
+      -#= @series.title
+    -#  B R E A D C R U M B S - E N D
 
 
 
