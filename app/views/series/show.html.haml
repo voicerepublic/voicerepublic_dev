@@ -9,6 +9,16 @@
   = render(:partial => 'facebook_value_template', :locals => { :series => @series } )
 .top-section
   .series-container
+
+    -#  B R E A D C R U M B S - B E G I N
+    .row.title-box
+      = link_to @series.user do
+        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 25 }
+        = @series.user.name
+      \>
+      = @series.title
+    -#  B R E A D C R U M B S - E N D
+
     .row.title-box.text-center
       = link_to @series.user do
         = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
