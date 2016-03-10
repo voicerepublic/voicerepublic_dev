@@ -44,6 +44,7 @@
           %p= human_count(@total_plays)
           %p.label= t('.plays', count: @total_plays)
       %hr/
+      = render partial: 'shared/share_velvet', locals: { shareable: @series }
       .action-links
         - if can? :manage, @series
           = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
