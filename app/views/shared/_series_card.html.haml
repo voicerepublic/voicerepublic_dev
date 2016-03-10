@@ -5,7 +5,7 @@
     .talk-card-inside
       %p.series-label.float-left= t('.series')
       %p.series-label.float-right= t('.total_talks', count: series.talks.count)
-      = image_tag series.image.thumb("600x338#").url
+      = image_tag series.image.thumb("600x338#").url, alt: series.image_alt
       %h5.title= series.title
       %p.lead
         = series.teaser
@@ -13,5 +13,4 @@
         %p.float-left
           - unless series.talks.prelive.empty?
             = link_to series_path(series, anchor: 'upcoming-talks') do
-              = t('.upcoming_talks', count: series.talks.prelive.count) 
- 
+              = t('.upcoming_talks', count: series.talks.prelive.count)

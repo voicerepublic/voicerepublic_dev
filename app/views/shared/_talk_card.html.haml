@@ -11,7 +11,7 @@
         - if talk.archived?
           %span.play-count= human_count(talk.play_count) + t('.plays')
       .image-box
-        = image_tag talk.image.thumb("600x338#").url
+        = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
         - unless talk.teaser.blank?
           .hover-info
             %p.teaser= truncate(talk.teaser, length: 500)

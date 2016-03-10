@@ -19,7 +19,7 @@
 
 
       .profile-avatar
-        = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
+        = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185, alt: @user.image_alt }
 
       %h3.user-name=@user.name
       - if can? :manage, @user

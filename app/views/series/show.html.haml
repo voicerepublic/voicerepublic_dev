@@ -63,7 +63,7 @@
 .series-grid.row.clearfix
   .medium-4.large-3.columns.float-left.series-left-column
     %h3.about= t('.description')
-    = image_tag @series.image.thumb("900x600#").url, class: 'image'
+    = image_tag @series.image.thumb("900x600#").url, class: 'image', alt: @series.image_alt
     %p
       = @series.description_as_html.html_safe
       - if can? :manage, @series
@@ -90,4 +90,3 @@
         %h3= t('.archived_talks', count: @archived_talks.count)
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@archived_talks), collection: @archived_talks
-
