@@ -20,8 +20,6 @@
     -#  B R E A D C R U M B S - E N D
 
     .row.title-box.text-center
-      = link_to @series.user do
-        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 50 }
       %h2.series-title.text-center= @series.title
       - if can? :manage, @series
         = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
