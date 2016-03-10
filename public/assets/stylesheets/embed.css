@@ -17,14 +17,24 @@
 	/*background: rgba(0,0,0,.1);*/
 }
 
+
 .embed-player {
 	background: #29292b;
-	height: 164px;
-	max-height: 164px;
 	overflow: hidden;
 	padding:12px;
 	box-sizing: border-box;
 	position: relative;
+	font-family: -apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"Roboto",
+"Oxygen",
+"Ubuntu",
+"Cantarell",
+"Fira Sans",
+"Droid Sans",
+"Helvetica Neue",
+sans-serif;
 }
 
 .image-box {
@@ -33,20 +43,11 @@
 }
 
 .content-box {
-	height: 140px;
 	overflow: hidden;
 	padding:0;
 	padding-left:12px;
 }
 
-.player-box {
-	height: 44px;
-	right:12px;
-	left:160px;
-	position: absolute;
-	bottom:12px;
-	background: rgba(18,18,20,.4);
-}
 
 h4.title {
 	font-family: 'Eagle', sans-serif;
@@ -80,6 +81,12 @@ h4.title {
   margin-top: -3px
 }
 
+.xs h4.title {
+	font-size: 16px;
+	line-height: 18px;
+}
+
+
 h4.title:hover {
 	text-decoration: underline;
 }
@@ -87,6 +94,8 @@ h4.title:hover {
 span.user, span.play-count, span.date {
 	color: #384f9e;
 	margin-bottom: 0;
+	font-size: 14px;
+	/*letter-spacing: 1px;*/
 }
 
 .user {
@@ -97,6 +106,10 @@ span.user, span.play-count, span.date {
 	text-decoration: underline;
 }
 
+.xs span.user {
+	font-size: 12px;
+
+}
 
 
 .live-badge {
@@ -140,3 +153,122 @@ span.user, span.play-count, span.date {
 	width: 60px
 	height: 60px;
 }
+
+/*JP*/
+.jp-audio {
+	background: rgba(1,1,1,.1);
+	box-sizing: border-box;
+	width: 100%;
+	height: 44px;
+	display: table;
+	position: relative;
+}
+
+ul.jp-controls {
+	min-width: 44px;
+	height: 44px;
+	list-style-type: none;
+	margin:0;
+	padding: 0;
+	display: table-cell;
+	background: orange;
+	vertical-align: middle;
+}
+
+ul.jp-controls li a {
+	width: 44px;
+	height: 44px;
+	margin: 0;
+	padding: 0;
+	background: #3d404d;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	color:rgba(255,255,255,.5);
+}
+
+.jp-volume-bar {
+	min-width: 44px;
+	height: 44px;
+	display: table-cell;
+	background: rgba(0,0,0,.5);
+	position: relative;
+}
+
+.jp-volume-bar-value {
+	background: red;
+	position: absolute;
+	bottom: 0;
+	width: 24px;
+}
+
+
+.jp-progress {
+    height: 44px;
+    width: 100%;
+    display: table-cell;
+}
+
+.jp-seek-bar {
+	height: 44px;
+	background: rgba(18,18,20,.4);
+	float:left;
+}
+
+.jp-play-bar {
+	height: 44px;
+	background: #384f9e;
+}
+
+.jp-time-holder {
+	  position: absolute;
+    height: 44px;
+    top: 0;
+    left: 46px;
+    right: 0;
+    color: #fef1de;
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    line-height: 44px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.time-divider {
+	color:#54c6c6;
+}
+
+.embed-player .svg-icon {
+	padding: 2px;
+	padding-left: 6px;
+}
+
+.embed-player .svg-icon svg {
+	fill: rgba(255,255,255,.4);
+	width: 16px;
+	height: 16px;
+}
+
+/*.jp-interface {
+	position: relative;
+}
+
+
+
+.jp-controls {
+	width: 44px;
+	height: 44px;
+	background: purple;
+	position: absolute;
+	left:0;
+	bottom: 20px;
+	list-style-type: none;
+}
+
+.jp-controls li {
+	width: 44px;
+	height: 44px;
+	border:1px solid green;
+	position: absolute;
+}*/

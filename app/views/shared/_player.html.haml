@@ -6,30 +6,24 @@
 .jp-audio{ id: "jc-#{talk.id}" }
   .jp-type-single
     .jp-gui.jp-interface
+      %ul.jp-controls
+        %li.pause
+          %a.jp-pause{ href: "javascript:;", tabindex: "1" }
+            = icon_tag 'pause'
+        %li.play
+          %a.jp-play{ href: "javascript:;", tabindex: "1" }
+            = icon_tag 'play'
       .jp-progress
         .jp-seek-bar(data-ga-event="click player seek #{galabel}")
           .jp-play-bar
       .jp-volume-bar
         .jp-volume-bar-value
       .jp-time-holder
-        .jp-current-time.text-left
-        .jp-duration
-      %ul.jp-controls.hide-for-medium-up
-        %li
-          %a.jp-pause{ href: "javascript:;", tabindex: "1" }
-            %span.icon-pause
-        %li
-          %a.jp-play{ href: "javascript:;", tabindex: "1" }
-            %span.icon-play
-      %ul.outside-controls
-        %li
-          %a.jp-pause(href="javascript:;" data-ga-event="click player pause #{galabel}")
-            %span.icon-octa-full
-            %span.icon-pause-octa
-        %li
-          %a.jp-play(href="javascript:;" data-ga-event="click player play #{galabel}")
-            %span.icon-octa-full
-            %span.icon-play-octa
+        %span.jp-current-time
+        %span.time-divider /
+        %span.jp-duration
+        
+            
     .jp-no-solution
       %span= t '.update_required'
       = t '.update_message'

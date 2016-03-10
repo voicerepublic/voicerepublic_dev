@@ -31,9 +31,10 @@
 /       %br/
 /       VOICE REPUBLIC
 
+= render partial: 'shared/embed_svg'
 .embed-player.clearfix
   .image-box
-    %img{src: talk.image.thumb('140x140#').url}
+    %img{src: talk.image.thumb('100x100#').url}
     - if talk.live?
       .live-badge
         %p.live= t('.live')
@@ -45,11 +46,14 @@
             = talk.title
         = link_to talk.user, target: 'blank' do
           %span.user= talk.user.name
-        %span.date= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
-          
+        %span.date.sm-up= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
+        %span.play-count.sm-up= human_count(talk.play_count) + ' ' + t('.plays')
         
-        %span.play-count= human_count(talk.play_count) + ' ' + t('.plays')
       .branding-box
-        = render partial: 'shared/vr_red.svg'
-    .player-box
+        = link_to talk, target: 'blank' do
+          = render partial: 'shared/vr_red.svg'
+    .player-box.float-left
       = render partial: 'shared/player', locals: { talk: talk }
+    .action-btn.float-right
+      = icon_tag 'play'
+.my-width
