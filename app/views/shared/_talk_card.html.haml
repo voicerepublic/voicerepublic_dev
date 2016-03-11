@@ -32,9 +32,14 @@
         - if talk.archived?
           .play-count
             = human_count(talk.play_count) + t('.plays')
-        = link_to root_path, class: "button pin-btn" do
-          = icon_tag 'pin'
-
+        - if current_user
+          .pinboard{ class: "pin-Talk-#{talk.id}" }
+            - if reminder = current_user.remembers?(talk)
+              = render partial: 'reminders/unpin', locals: { reminder: reminder }
+            - else
+              = render partial: 'reminders/pin', locals: { rememberable: talk }
+        - else
+          -# display a fake pin button
 
     - if %w(pending postlive processing suspended).include?(talk.state)
       .not_available

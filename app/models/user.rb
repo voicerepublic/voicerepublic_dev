@@ -185,7 +185,7 @@ class User < ActiveRecord::Base
   end
 
   def remembers?(model)
-    reminders.exists?( rememberable_id: model.id,
+    reminders.find_by( rememberable_id: model.id,
                        rememberable_type: model.class.name )
   end
 
