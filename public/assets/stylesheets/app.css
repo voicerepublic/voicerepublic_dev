@@ -4273,6 +4273,11 @@ footer {
     border-color: #54c6c6; }
     .talk-card .bottom-info .unpin-btn .svg-icon {
       color: white; }
+    .talk-card .bottom-info .unpin-btn:hover {
+      background: #f82847;
+      border-color: #f82847; }
+      .talk-card .bottom-info .unpin-btn:hover .svg-icon {
+        color: white; }
 
 .tooltip {
   max-width: 20rem !important; }
