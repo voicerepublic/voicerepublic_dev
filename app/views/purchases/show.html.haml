@@ -1,7 +1,7 @@
 .row
   .large-12.columns
     .title-block
-      = link_to root_page do
+      = link_to root_path do
         = image_tag 'logos/vr_red.svg', class: 'join-logo'
     %h2= t('.headline')
     %p.lead= t('.able_to_create_count_talks', count: current_user.credits)
