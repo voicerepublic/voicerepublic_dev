@@ -60,8 +60,9 @@ module ApplicationHelper
   end
 
 
-  def icon_tag(topic)
-    "<div class='svg-icon' title='#{topic}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
+  def icon_tag(topic, opts={})
+    title = opts[:title] || topic
+    "<div class='svg-icon' title='#{title}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
   end
 
 

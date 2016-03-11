@@ -4,16 +4,24 @@
   .talk-card.columns{class:talk.state}
     .talk-card-inside
       %h5.title= talk.title
-      %p.meta
-        %span.running-time
-          = talk.duration
-          = t('.Min')
-        - if talk.archived?
-          %span.play-count= human_count(talk.play_count) + t('.plays')
+      = link_to user_path(talk.user), class: "publisher" do
+        = truncate(talk.user.name, length: 27)
       .image-box
         = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
-        - unless talk.teaser.blank?
-          .hover-info
+        -# unless talk.teaser.blank?
+        .hover-info
+          .meta-data.clearfix
+            .running-time.float-right
+              = talk.duration
+              = t('.Min')
+            .date.float-left
+              %strong{ class: talk.state }
+                = l(talk.starts_at, format: :designed) if talk.prelive?
+                = t('.onair') if talk.live?
+                - if %w(postlive processing suspended archived).include?(talk.state)
+                  = t('.ago_by', time: time_ago_in_words(talk.starts_at))
+
+          .teaser.clearfix
             %p.teaser= truncate(talk.teaser, length: 500)
             - unless talk.speakers.blank?
               %p.speaker
@@ -21,15 +29,19 @@
                 = talk.speakers
       .bottom-info
         = icon_tag talk.icon
-        .info-right
-          %p.date
-            %strong{ class: talk.state }
-              = l(talk.starts_at, format: :designed) if talk.prelive?
-              = t('.onair') if talk.live?
-              - if %w(postlive processing suspended archived).include?(talk.state)
-                = t('.ago_by', time: time_ago_in_words(talk.starts_at))
-          = link_to user_path(talk.user), class: "publisher" do
-            = truncate(talk.user.name, length: 27)
+        - if talk.archived?
+          .play-count
+            = human_count(talk.play_count) + t('.plays')
+        - if current_user
+          .pinboard{ class: "pin-Talk-#{talk.id}" }
+            - if reminder = current_user.remembers?(talk)
+              = render partial: 'reminders/unpin', locals: { reminder: reminder }
+            - else
+              = render partial: 'reminders/pin', locals: { rememberable: talk }
+        - else
+          -# display a fake pin button
+          .pinboard{ class: "pin-placeholder" }
+
     - if %w(pending postlive processing suspended).include?(talk.state)
       .not_available
         %p.lead= t(".message.#{talk.state}")
