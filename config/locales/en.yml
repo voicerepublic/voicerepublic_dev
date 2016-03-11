@@ -366,7 +366,7 @@ en:
       fb: Voice Republic on facebook
       tw: Voice Republic on twitter
       team: Team
-    footer_velvet: 
+    footer_velvet:
       about: About
       pricing: Pricing
       support_and_faq: Support & FAQ
@@ -524,6 +524,10 @@ en:
         </ul>
 
   reminders:
+    pin:
+      pin: Pin This Talk
+    unpin:
+      unpin: Un-Pin This Talk
     favorite:
       favorite: Favorite
     unfavorite:
@@ -554,9 +558,9 @@ en:
       ppexplain: |
         Credit cards accepted! (No PayPal account needed.)
       feature1: One Talk Credit = One Talk
-      feature1_description: At Voice Republic you can buy Talk Credits. One credit corresponds to one talk and will never expire. It makes no difference whether the event is broadcasted live or uploaded later. 
+      feature1_description: At Voice Republic you can buy Talk Credits. One credit corresponds to one talk and will never expire. It makes no difference whether the event is broadcasted live or uploaded later.
       feature2: No Recurring Costs
-      feature2_description:  Stay independent and flexible with our pay-as-you-go model. Don't want to publish a Talk? Then you pay nothing. Listening, downloading and sharing of live Talks and content in the archive is free of charge for all users. 
+      feature2_description:  Stay independent and flexible with our pay-as-you-go model. Don't want to publish a Talk? Then you pay nothing. Listening, downloading and sharing of live Talks and content in the archive is free of charge for all users.
       feature3: Ad-Free & Private
       feature3_description: Voice Republic has no ads, and never sells customer information to third parties.
       feature4: Free Test Talks & Starter Credits
@@ -564,7 +568,7 @@ en:
     questions:
       cc_accepted: Credit Cards Accepted
       payment_description: |
-        Credit cards are accepted, a PayPal account is not necessary. Prefer to pay by invoice or receive an individual offer? 
+        Credit cards are accepted, a PayPal account is not necessary. Prefer to pay by invoice or receive an individual offer?
       contact_us: "Contact Us"
       recommend: Recommend Voice Republic
       recommend_description: You know someone who needs to be heard? We at Voice Republic are always looking for exciting talks. Help us to bring new content to the platform and receive 5 free credits!
