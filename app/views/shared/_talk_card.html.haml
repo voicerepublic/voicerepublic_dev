@@ -40,6 +40,7 @@
               = render partial: 'reminders/pin', locals: { rememberable: talk }
         - else
           -# display a fake pin button
+          .pinboard{ class: "pin-placeholder" }
 
     - if %w(pending postlive processing suspended).include?(talk.state)
       .not_available
