@@ -4287,7 +4287,7 @@ footer {
   .talk-card .bottom-info .pin-placeholder {
     width: 44px;
     height: 44px;
-    background: white;
+    background: none;
     display: block; }
 
 .tooltip {
