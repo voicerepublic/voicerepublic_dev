@@ -4165,7 +4165,7 @@ footer {
       .talk-card .talk-card-inside .svg-icon svg {
         max-width: 24px;
         max-height: 24px;
-        margin-top: 6px;
+        margin-top: 0;
         margin-right: 12px; }
         .talk-card .talk-card-inside .svg-icon svg * {
           fill: currentColor; }
@@ -4241,33 +4241,38 @@ footer {
     width: 44px;
     vertical-align: middle; }
   .talk-card .bottom-info .svg-icon:first-child {
-    padding-top: 3px; }
+    padding-top: 0; }
   .talk-card .bottom-info .play-count {
     width: 100%;
     text-align: center;
     font-size: 0.75rem;
     vertical-align: middle;
     color: #b4b6be; }
-  .talk-card .bottom-info .pin-btn {
+  .talk-card .bottom-info .pin-btn, .talk-card .bottom-info .unpin-btn {
     max-width: 44px;
     padding: 12px;
     background: none;
-    border: 1px solid #b4b6be;
-    color: #b4b6be;
+    border: 1px solid #e1e2e7;
+    color: #e1e2e7;
     border-radius: 2px; }
-    .talk-card .bottom-info .pin-btn .svg-icon {
+    .talk-card .bottom-info .pin-btn .svg-icon, .talk-card .bottom-info .unpin-btn .svg-icon {
       padding-top: 0;
-      color: #b4b6be; }
-    .talk-card .bottom-info .pin-btn svg {
+      color: #e1e2e7; }
+    .talk-card .bottom-info .pin-btn svg, .talk-card .bottom-info .unpin-btn svg {
       max-width: 16px;
       max-height: 16px;
       margin: 0; }
-    .talk-card .bottom-info .pin-btn:hover {
+    .talk-card .bottom-info .pin-btn:hover, .talk-card .bottom-info .unpin-btn:hover {
       border-color: #54c6c6;
       color: #54c6c6; }
-      .talk-card .bottom-info .pin-btn:hover .svg-icon {
+      .talk-card .bottom-info .pin-btn:hover .svg-icon, .talk-card .bottom-info .unpin-btn:hover .svg-icon {
         color: #54c6c6;
         fill: #54c6c6; }
+  .talk-card .bottom-info .unpin-btn {
+    background: #54c6c6;
+    border-color: #54c6c6; }
+    .talk-card .bottom-info .unpin-btn .svg-icon {
+      color: white; }
 
 .tooltip {
   max-width: 20rem !important; }
