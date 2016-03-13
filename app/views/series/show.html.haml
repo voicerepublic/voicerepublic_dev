@@ -18,7 +18,7 @@
 
     -#  B R E A D C R U M B S - B E G I N
     .row.byline.text-center
-      %span.series-label A Series By 
+      %span.series-label A Series By
       = link_to @series.user do
         = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 30 }
         %span.user= @series.user.name
@@ -80,19 +80,18 @@
 
   -#.series-right-column.float-right.clearfix
   .medium-8.large-9.columns.series-right-column
+    - unless @live_talks.empty?
+      .talks-box
+        .large-12.columns.talks-title
+          %h3= t('.live_talks', count: @live_talks.count)
+        .large-12.columns.clearfix.talks-grid
+          = render partial: talks_partial(@live_talks), collection: @live_talks
+
     - unless @upcoming_talks.empty?
       .large-12.columns.talks-title
         %h3= t('.upcoming_talks', count: @upcoming_talks.count)
       .large-12.columns.clearfix.talks-grid
         = render partial: talks_partial(@upcoming_talks), collection: @upcoming_talks
-
-    - unless @live_talks.empty?
-      .talks-box
-        .large-12.columns.talks-title
-          %h3= t('.live_talks', count: @live_talks.count)
-
-        .large-12.columns.clearfix.talks-grid
-          = render partial: talks_partial(@live_talks), collection: @live_talks
 
     - unless @archived_talks.empty?
       .large-12.columns.talks-title
