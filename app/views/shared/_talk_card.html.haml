@@ -1,11 +1,30 @@
 - talk ||= talk_card
 
+-#
+  A link_to inside a link_to changes the behaviour of link_to!
+  Also an a-tag inside an a-tag causes problems in some browsers.
+
+  I see 3 options:
+
+  A. Moving the lines marked with TROUBLE outside the scope of the
+  surrounding link and moving it back in place with css.
+
+  B. Ditch the surrounding link_to and linking the elements one by
+  one.
+
+  C. Getting rid of the inner a-tag, using a span instead and linking
+  it up with javascript.
+
+
 = link_to talk do
-  .talk-card.columns{class:talk.state}
+  .talk-card.columns{ class: talk.state }
     .talk-card-inside
       %h5.title= talk.title
-      = link_to user_path(talk.user), class: "publisher" do
-        = truncate(talk.user.name, length: 27)
+
+      -# TROUBE
+      -#= link_to user_path(talk.user), class: "publisher" do
+      = truncate(talk.user.name, length: 27)
+
       .image-box
         = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
         -# unless talk.teaser.blank?
@@ -40,7 +59,7 @@
               = render partial: 'reminders/pin', locals: { rememberable: talk }
         - else
           -# display a fake pin button
-          .pinboard{ class: "pin-placeholder" }
+          .pinboard.pin-placeholder
 
     - if %w(pending postlive processing suspended).include?(talk.state)
       .not_available
