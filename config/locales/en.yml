@@ -268,7 +268,7 @@ en:
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
       micro: ! '%l:%M %P'
-      designed: ! '%-d%o %B %Y — %l%P'
+      designed: ! '%-d%o %B %Y — %l:%M%P'
       date_only: ! '%-d%o %B %Y'
       date_only_short: ! '%-d%o %b %Y'
       time_only: ! '%k:%M'
