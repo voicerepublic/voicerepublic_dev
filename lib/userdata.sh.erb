@@ -1,0 +1,25 @@
+#!/bin/bash
+
+cat >~/env.list <<EOF
+ICECAST_SOURCE_PASSWORD=<%= source_password %>
+ICECAST_ADMIN_PASSWORD=<%= admin_password %>
+ICECAST_LIMIT_SOURCES=2
+EOF
+
+docker start icecast
+
+# move into image
+apt-get -y install curl
+
+# callback home
+curl -X POST <%= icecast_callback_url %>
+
+
+
+# callback to slack
+PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+TEXT="Started Icebox on $PUBLIC_IP"
+JSON='{"channel":"@phil","text":"'$TEXT'","icon_emoji":":mushroom:","username":"icecast"}'
+
+curl -X POST -H 'Content-type: application/json' --data "$JSON" \
+     https://hooks.slack.com/services/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

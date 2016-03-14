@@ -128,7 +128,25 @@ developers:
   - spam@dispatched.ch
 sitemap: http://localhost:3000/landing_page/index.xml
 
-# this needs to be overridden by `app/shared/config/settings.local.yml`
 icecast:
+  ec2:
+    image: ami-421cf82d
+    default_instance_type: t2.micro
+    security_group: Icecast Servers
+    key_name: phil-ffm
+  url:
+    protocol: http
+    port: 80
+
+  # TODO remove
+  # this needs to be overridden by `app/shared/config/settings.local.yml`
   host: localhost
   port: 8000
+
+
+fog:
+  compute:
+    provider: AWS
+    aws_access_key_id: needs to be set
+    aws_secret_access_key: needs to be set
+    region: eu-central-1
