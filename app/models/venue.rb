@@ -127,7 +127,7 @@ class Venue < ActiveRecord::Base
   end
 
   def userdata_template
-    File.read(Rails.root.join('lib/userdata.sh.erb'))
+    File.read(Rails.root.join('lib/templates/userdata.sh.erb'))
   end
 
   def darkice_config
@@ -136,11 +136,19 @@ class Venue < ActiveRecord::Base
   end
 
   def darkice_config_template
-    File.read(Rails.root.join('lib/darkice.cfg.erb'))
+    File.read(Rails.root.join('lib/templates/darkice.cfg.erb'))
+  end
+
+  def env_list
+    ERB.new(darkice_config_template).result(binding)
+  end
+
+  def env_list_template
+    File.read(Rails.root.join('lib/templates/env.list.erb'))
   end
 
   def icecast_callback_url
-    [ Settings.root_url, :icecast, client_token ] * '/'
+    [ Settings.root_url, :icecast ] * '/'
   end
 
   belongs_to :user
