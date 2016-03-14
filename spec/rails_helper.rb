@@ -135,6 +135,7 @@ RSpec.configure do |config|
   config.use_transactional_examples = false
 
   config.before(:suite) do
+    FactoryGirl.reload
     DatabaseCleaner.strategy = :truncation
     # Disabling multi-search indexing for specs
     # saves about 30 secs on-my-machine (TM)
