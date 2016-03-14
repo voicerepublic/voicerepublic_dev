@@ -26,7 +26,7 @@
       = truncate(talk.user.name, length: 27)
 
     
-    = link_to talk do
+    = link_to talk, class: "image-box-holder clearfix" do
       .image-box
         = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
         -# unless talk.teaser.blank?
@@ -42,19 +42,19 @@
                 - if %w(postlive processing suspended archived).include?(talk.state)
                   = t('.ago_by', time: time_ago_in_words(talk.starts_at))
 
-        .teaser.clearfix
-          %p.teaser= truncate(talk.teaser, length: 500)
-          - unless talk.speakers.blank?
-            %p.speaker
-              = t('.speaker')
-              = talk.speakers
+          .teaser.clearfix
+            %p.teaser= truncate(talk.teaser, length: 500)
+            - unless talk.speakers.blank?
+              %p.speaker
+                = t('.speaker')
+                = talk.speakers
 
     .bottom-info
-      = link_to talk do
+      = link_to talk, class: "category-icon" do
         = icon_tag talk.icon
       - if talk.archived?
         = link_to talk do
-          .play-count
+          %p.play-count
             = human_count(talk.play_count) + t('.plays')
       - if current_user
         .pinboard{ class: "pin-Talk-#{talk.id}" }
@@ -64,8 +64,9 @@
             = render partial: 'reminders/pin', locals: { rememberable: talk }
       - else
         -# display a fake pin button
-        = link_to talk do
-          .pinboard.pin-placeholder
+        .pinboard
+          = link_to talk do
+            .pin-placeholder
 
   - if %w(pending postlive processing suspended).include?(talk.state)
     .not_available

@@ -1809,7 +1809,7 @@ select {
 .float-left, .profile-page .talk-card.series .talk-count {
   float: left !important; }
 
-.float-right, .profile-page .talk-card .bottom-info .info-right {
+.float-right {
   float: right !important; }
 
 .float-center {
@@ -4064,7 +4064,7 @@ footer {
       height: auto; }
   .talk-card .talk-card-inside {
     background: #FAFAFA;
-    padding: 12px;
+    padding: 0;
     cursor: pointer;
     position: relative;
     text-align: left;
@@ -4076,7 +4076,10 @@ footer {
       margin-bottom: 0;
       font-size: 0.875rem;
       color: rgba(41, 41, 43, 0.5);
-      color: #54c6c6; }
+      color: #54c6c6;
+      padding: 0 12px;
+      display: inline-block;
+      width: 100%; }
       .talk-card .talk-card-inside .publisher:hover {
         text-decoration: underline;
         color: #2c46b0; }
@@ -4106,8 +4109,12 @@ footer {
       margin-bottom: 6px; }
       .talk-card .talk-card-inside .date strong {
         font-weight: 500; }
+    .talk-card .talk-card-inside .image-box-holder {
+      padding: 0 12px;
+      display: block;
+      position: relative; }
     .talk-card .talk-card-inside .image-box {
-      margin-bottom: 12px;
+      margin-bottom: 6px;
       position: relative;
       margin-top: 6px; }
       .talk-card .talk-card-inside .image-box .hover-info {
@@ -4146,7 +4153,10 @@ footer {
       overflow: hidden;
       text-overflow: ellipsis;
       margin-bottom: 0;
-      transition: text-decoration .2s ease; }
+      transition: text-decoration .2s ease;
+      padding: 12px;
+      padding-bottom: 0;
+      min-height: 56px; }
     .talk-card .talk-card-inside a {
       color: #29292b; }
     .talk-card .talk-card-inside:hover {
@@ -4158,17 +4168,16 @@ footer {
       display: block !important;
       opacity: 1; }
     .talk-card .talk-card-inside .svg-icon {
-      float: left;
+      vertical-align: middle;
       max-width: 24px;
-      max-height: 4px;
+      max-height: 24px;
       color: #e1e2e7; }
       .talk-card .talk-card-inside .svg-icon svg {
+        width: 24px;
+        height: 24px;
         max-width: 24px;
         max-height: 24px;
-        margin-top: 0;
-        margin-right: 12px; }
-        .talk-card .talk-card-inside .svg-icon svg * {
-          fill: currentColor; }
+        fill: currentColor; }
     .talk-card .talk-card-inside .info-right {
       text-align: right; }
   @media screen and (min-width: 87.5em) {
@@ -4190,13 +4199,8 @@ footer {
   .profile-page .talk-card.series .talk-count, .profile-page .talk-card.series .play-count {
     margin-bottom: 0; }
   .profile-page .talk-card .talk-card-inside h5 {
-    color: #29292b; }
-  .profile-page .talk-card .bottom-info .icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 0;
-    background-color: #54c6c6;
-    margin-right: 12px; }
+    color: #29292b;
+    padding: 12px; }
 
 .series .talk-card-inside p.lead {
   display: block;
@@ -4235,60 +4239,63 @@ footer {
 .talk-card .bottom-info {
   display: table;
   width: 100%; }
-  .talk-card .bottom-info > .svg-icon {
-    height: 10px; }
   .talk-card .bottom-info * {
     display: table-cell; }
-  .talk-card .bottom-info .svg-icon {
+  .talk-card .bottom-info .category-icon {
     width: 44px;
+    height: 44px;
+    max-width: 44px;
+    max-height: 44px;
     vertical-align: middle;
-    padding-top: 0;
-    max-height: 20px; }
+    text-align: center;
+    padding: 12px; }
   .talk-card .bottom-info .play-count {
     width: 100%;
     text-align: center;
     font-size: 0.75rem;
     vertical-align: middle;
-    color: #b4b6be; }
-  .talk-card .bottom-info .pin-btn, .talk-card .bottom-info .unpin-btn {
+    color: #b4b6be;
+    display: inline-block;
+    line-height: 60px;
+    margin: 0;
+    margin-top: -5px; }
+  .talk-card .bottom-info .pin-btn, .talk-card .bottom-info .unpin-btn, .talk-card .bottom-info .pin-placeholder {
     max-width: 44px;
     padding: 12px;
     background: none;
     border: 1px solid #e1e2e7;
     color: #e1e2e7;
-    border-radius: 2px; }
-    .talk-card .bottom-info .pin-btn .svg-icon, .talk-card .bottom-info .unpin-btn .svg-icon {
-      padding-top: 0;
-      color: #e1e2e7;
-      max-height: 6px; }
-    .talk-card .bottom-info .pin-btn svg, .talk-card .bottom-info .unpin-btn svg {
+    border-radius: 2px;
+    color: #e1e2e7; }
+    .talk-card .bottom-info .pin-btn svg, .talk-card .bottom-info .unpin-btn svg, .talk-card .bottom-info .pin-placeholder svg {
+      width: 16px;
+      height: 16px;
       max-width: 16px;
       max-height: 16px;
-      margin: 0; }
-    .talk-card .bottom-info .pin-btn:hover, .talk-card .bottom-info .unpin-btn:hover {
+      margin: 0;
+      fill: currentColor; }
+    .talk-card .bottom-info .pin-btn:hover, .talk-card .bottom-info .unpin-btn:hover, .talk-card .bottom-info .pin-placeholder:hover {
       border-color: #54c6c6;
       color: #54c6c6; }
-      .talk-card .bottom-info .pin-btn:hover .svg-icon, .talk-card .bottom-info .unpin-btn:hover .svg-icon {
-        color: #54c6c6;
-        fill: #54c6c6; }
   .talk-card .bottom-info .pinboard {
     height: 44px;
-    max-height: 44px; }
+    max-height: 44px;
+    max-width: 56px;
+    width: 56px;
+    padding: 0 12px 0 0;
+    padding-top: 6px; }
   .talk-card .bottom-info .unpin-btn {
     background: #54c6c6;
-    border-color: #54c6c6; }
-    .talk-card .bottom-info .unpin-btn .svg-icon {
-      color: white; }
+    border-color: #54c6c6;
+    color: white; }
+    .talk-card .bottom-info .unpin-btn svg {
+      fill: currentColor; }
     .talk-card .bottom-info .unpin-btn:hover {
       background: #f82847;
-      border-color: #f82847; }
-      .talk-card .bottom-info .unpin-btn:hover .svg-icon {
-        color: white; }
+      border-color: #f82847;
+      color: white; }
   .talk-card .bottom-info .pin-placeholder {
-    width: 44px;
-    height: 44px;
-    background: none;
-    display: block; }
+    border: none; }
 
 .tooltip {
   max-width: 20rem !important; }
