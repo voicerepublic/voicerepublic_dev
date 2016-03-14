@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309104001) do
+ActiveRecord::Schema.define(version: 20160314103526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 20160309104001) do
     t.string   "slug",                limit: 255
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
+    t.boolean  "is_hidden",                       default: false
     t.string   "image_alt",                       default: ""
     t.text     "description_as_text",             default: ""
   end
@@ -282,6 +283,7 @@ ActiveRecord::Schema.define(version: 20160309104001) do
     t.text     "description_as_html",              default: ""
     t.string   "slides_uuid",         limit: 1024
     t.integer  "venue_id"
+    t.boolean  "is_hidden",                        default: false
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
     t.text     "description_as_text",              default: ""
@@ -349,6 +351,7 @@ ActiveRecord::Schema.define(version: 20160309104001) do
     t.string   "referrer"
     t.text     "about_as_html",                      default: ""
     t.boolean  "paying",                             default: false
+    t.boolean  "is_hidden",                          default: false
     t.datetime "featured_from"
     t.datetime "featured_until"
     t.string   "image_alt",                          default: ""
@@ -366,11 +369,27 @@ ActiveRecord::Schema.define(version: 20160309104001) do
     t.string   "name"
     t.string   "slug"
     t.integer  "user_id"
-    t.text     "options",    default: "--- {}\n"
-    t.decimal  "lat",        default: 47.374707
-    t.decimal  "long",       default: 8.5249116
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.text     "options",                       default: "--- {}\n"
+    t.decimal  "lat",                           default: 47.374707
+    t.decimal  "long",                          default: 8.5249116
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "client_token"
+    t.string   "instance_id"
+    t.string   "public_ip_address"
+    t.string   "stream_url"
+    t.string   "mount_point"
+    t.string   "source_password"
+    t.string   "admin_password"
+    t.string   "state"
+    t.string   "instance_type"
+    t.string   "source_identifier"
+    t.string   "source_ip_address"
+    t.string   "emergency_phone_number"
+    t.text     "street_address"
+    t.integer  "estimated_number_of_listeners"
+    t.datetime "started_provisioning_at"
+    t.datetime "completed_provisioning_at"
   end
 
   add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
