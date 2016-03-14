@@ -16,15 +16,17 @@
   it up with javascript.
 
 
-= link_to talk do
-  .talk-card.columns{ class: talk.state }
-    .talk-card-inside
+
+.talk-card.columns{ class: talk.state }
+  .talk-card-inside
+    = link_to talk do
       %h5.title= talk.title
 
-      -# TROUBE
-      -#= link_to user_path(talk.user), class: "publisher" do
+    = link_to user_path(talk.user), class: "publisher" do
       = truncate(talk.user.name, length: 27)
 
+    
+    = link_to talk do
       .image-box
         = image_tag talk.image.thumb("600x338#").url, alt: talk.image_alt
         -# unless talk.teaser.blank?
@@ -40,27 +42,31 @@
                 - if %w(postlive processing suspended archived).include?(talk.state)
                   = t('.ago_by', time: time_ago_in_words(talk.starts_at))
 
-          .teaser.clearfix
-            %p.teaser= truncate(talk.teaser, length: 500)
-            - unless talk.speakers.blank?
-              %p.speaker
-                = t('.speaker')
-                = talk.speakers
-      .bottom-info
+        .teaser.clearfix
+          %p.teaser= truncate(talk.teaser, length: 500)
+          - unless talk.speakers.blank?
+            %p.speaker
+              = t('.speaker')
+              = talk.speakers
+
+    .bottom-info
+      = link_to talk do
         = icon_tag talk.icon
-        - if talk.archived?
+      - if talk.archived?
+        = link_to talk do
           .play-count
             = human_count(talk.play_count) + t('.plays')
-        - if current_user
-          .pinboard{ class: "pin-Talk-#{talk.id}" }
-            - if reminder = current_user.remembers?(talk)
-              = render partial: 'reminders/unpin', locals: { reminder: reminder }
-            - else
-              = render partial: 'reminders/pin', locals: { rememberable: talk }
-        - else
-          -# display a fake pin button
+      - if current_user
+        .pinboard{ class: "pin-Talk-#{talk.id}" }
+          - if reminder = current_user.remembers?(talk)
+            = render partial: 'reminders/unpin', locals: { reminder: reminder }
+          - else
+            = render partial: 'reminders/pin', locals: { rememberable: talk }
+      - else
+        -# display a fake pin button
+        = link_to talk do
           .pinboard.pin-placeholder
 
-    - if %w(pending postlive processing suspended).include?(talk.state)
-      .not_available
-        %p.lead= t(".message.#{talk.state}")
+  - if %w(pending postlive processing suspended).include?(talk.state)
+    .not_available
+      %p.lead= t(".message.#{talk.state}")
