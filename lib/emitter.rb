@@ -14,6 +14,12 @@ module Emitter
   # make all methods statically available
   extend self
 
+  def venue_transition(venue, transition)
+    emit x: 'venue_transition',
+         transition: transition,
+         venue: venue.attributes
+  end
+
   def talk_transition(talk, transition)
     emit x: 'talk_transition',
          details: { # TODO lose nesting in details

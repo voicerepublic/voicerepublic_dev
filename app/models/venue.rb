@@ -151,6 +151,10 @@ class Venue < ActiveRecord::Base
     [ Settings.root_url, :icecast ] * '/'
   end
 
+  def event_fired(*args)
+    Emitter.venue_transition(self, args)
+  end
+
   belongs_to :user
   has_many :talks
 
