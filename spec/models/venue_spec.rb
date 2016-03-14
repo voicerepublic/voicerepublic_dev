@@ -90,9 +90,8 @@ RSpec.describe Venue, type: :model do
       end
 
       it 'provides icecast callback urls' do
-        @venue.client_token = 'free-your-mind'
         url = @venue.icecast_callback_url
-        expect(url).to include(@venue.client_token)
+        expect(url).to match(%r{\Ahttps?://})
       end
     end
 
