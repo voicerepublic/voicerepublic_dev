@@ -78,7 +78,10 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
     resources :participations, only: [:index, :create, :destroy]
   end
-  get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+  # TODO remove
+  # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
+
+  resources :venues, only: [:index, :show, :update]
 
   resources :reminders, only: [:show, :destroy]
 

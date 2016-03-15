@@ -79,6 +79,7 @@
                 = render partial: "shared/avatar_image_velvet", locals: { user: current_user, size: 36 }
               %ul.submenu.menu.vertical{"data-submenu" => ""}
                 %li= link_to t('.my_profile'), current_user
+                %li= link_to t('.stream_now'), venues_path
                 %li= link_to t('.test_talk'), test_talk_path
                 %li= link_to t('.schedule_talk'), new_talk_path
                 %li= link_to t('.upload_talk'), new_upload_path
@@ -123,6 +124,7 @@
       %script{:src => "/assets/javascripts/topbar.js"}
       %script{:src => "/assets/javascripts/purchases.js"}
       %script{:src => "/assets/javascripts/share_social.js"}
+      = content_for :javascripts
 
       - if Rails.env.production?
         - unless @current_user.try(:insider?)

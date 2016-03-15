@@ -76,8 +76,22 @@ class Venue < ActiveRecord::Base
                        admin_password: generate_password,
                        client_token: generate_client_token,
                        mount_point: generate_mount_point )
+    send("provision_#{Rails.env}")
+  end
+
+  def provision_production
     response = EC2.run_instances(*provisioning_parameters)
     self.instance_id = response.body["instancesSet"].first["instanceId"]
+  end
+
+  def provision_development
+    # TODO execute userdata on localhost
+    # TODO adjust userdata's detection of public_ip for localhost
+    # maybe with http://serverfault.com/questions/462903/how-to-know-if-a-machine-is-an-ec2-instance
+  end
+
+  def provision_test
+    # TODO find a way
   end
 
   def reset_ephemeral_details
@@ -100,7 +114,19 @@ class Venue < ActiveRecord::Base
 
   # called on event shutdown
   def unprovision
+    send("unprovision_#{Rails.env}")
+  end
+
+  def unprovision_production
     EC2.servers.get(instance_id).destroy
+  end
+
+  def unprovision_development
+    system 'docker stop icecast'
+  end
+
+  def unprovision_test
+    # anything to do here?
   end
 
   def port
@@ -166,6 +192,15 @@ class Venue < ActiveRecord::Base
   # and allows strings as keys in yaml
   def opts
     OpenStruct.new(options)
+  end
+
+  # current single page app state
+  def atom
+    {
+      hello: 'world',
+      venue: attributes,
+      talks: talks.map(&:attributes)
+    }
   end
 
   private

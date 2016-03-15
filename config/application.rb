@@ -75,6 +75,8 @@ module VoiceRepublic
 
     config.assets.precompile += %w( embed_talk.css )
 
+    config.assets.precompile += %w( venues.js )
+
     # Handling exceptions dynamically using middleware.
     # Here a rack middleware app could be configured, instead we are using the
     # Rails app itself
