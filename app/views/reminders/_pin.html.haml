@@ -1,3 +1,3 @@
 - target = [ rememberable, :reminders ]
-= link_to target, method: 'post', class: "button pin-btn", title: t('.pin'), remote: true do
+= link_to target, method: 'post', :data => { :msg => 'pinned' }, class: "button pin-btn", title: t('.pin'), remote: true do
   = naked_icon('pin')

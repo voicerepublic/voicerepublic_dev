@@ -1,2 +1,2 @@
-= link_to reminder, method: 'delete', class: "button unpin-btn",  title: t('.unpin'),remote: true do
+= link_to reminder, method: 'delete', :data => { :msg => 'unpinned' }, class: "button unpin-btn",  title: t('.unpin'),remote: true do
   = naked_icon('pin')

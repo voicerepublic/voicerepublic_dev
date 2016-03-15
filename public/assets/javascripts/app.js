@@ -151,19 +151,18 @@ $('#working').removeClass('hide');        }
 
 
 //show talk card alerts
-$('.pin-btn, .unpin-btn').on('click', function(){
-    //$(this).parent().parent().parent().next().removeClass('hide');
-    $(this).parent().parent().parent().next().removeClass('hide').delay(1000).queue(function(next){
-    // $(this).fadeOut().done(function() {
-    //     $(this).addClass('hide');
-    // });
+$('.talk-card').on('click','.pin-btn, .unpin-btn', function(e){
+    //console.log(e);
+    var flasher = $(this).parent().parent().parent().next();
+    var myText = $(this).attr('data-msg');
+    console.log("text: " + myText);
+    flasher.find('.flasher-text p').text(myText);
+    flasher.removeClass('hide').delay(1000).queue(function(next){
     $.when($(this).fadeOut(500)).done(function() {
-    $(this).addClass('hide');
+    $(this).addClass('hide').css({"opacity":1, "display":"table"});
 });
     next();
 });
-    //console.log('class: ' + $(this).parent().parent().parent().next().attr('class'))
 });
-// $("#myElem").show().delay(5000).fadeOut();
 
 $(document).foundation();
