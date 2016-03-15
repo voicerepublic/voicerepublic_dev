@@ -4297,6 +4297,30 @@ footer {
   .talk-card .bottom-info .pin-placeholder {
     border: none; }
 
+.talk-card-flasher {
+  position: absolute;
+  background: #ffed00;
+  top: 50%;
+  left: 50%;
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50px;
+  margin-top: -50px;
+  margin-left: -50px;
+  color: #a339cd;
+  font-weight: 500;
+  height: 100px;
+  width: 100px;
+  display: table;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); }
+  .talk-card-flasher .flasher-text {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center; }
+    .talk-card-flasher .flasher-text p {
+      margin: 0;
+      font-size: 0.75rem; }
+
 .tooltip {
   max-width: 20rem !important; }
 

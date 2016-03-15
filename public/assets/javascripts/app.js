@@ -149,4 +149,21 @@ $('.search-container input').keypress(function(e){
 $('#working').removeClass('hide');        }
 });
 
+
+//show talk card alerts
+$('.pin-btn, .unpin-btn').on('click', function(){
+    //$(this).parent().parent().parent().next().removeClass('hide');
+    $(this).parent().parent().parent().next().removeClass('hide').delay(1000).queue(function(next){
+    // $(this).fadeOut().done(function() {
+    //     $(this).addClass('hide');
+    // });
+    $.when($(this).fadeOut(500)).done(function() {
+    $(this).addClass('hide');
+});
+    next();
+});
+    //console.log('class: ' + $(this).parent().parent().parent().next().attr('class'))
+});
+// $("#myElem").show().delay(5000).fadeOut();
+
 $(document).foundation();

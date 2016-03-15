@@ -53,3 +53,9 @@
   - if %w(pending postlive processing suspended).include?(talk.state)
     .not_available
       %p.lead= t(".message.#{talk.state}")
+  .talk-card-flasher.hide
+    .flasher-text
+      - if reminder = current_user.remembers?(talk)
+        %p= t('.unpinned')
+      - else
+        %p= t('.pinned')
