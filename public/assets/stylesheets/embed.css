@@ -2,6 +2,7 @@
 /*BLUE: #384f9e*/
 /*LIGHTBLUE: #54c6c6*/
 /*RED: #f82847*/
+/*Yellow: #ffed00*/
 
 @import url("https://cdn.jsdelivr.net/foundation/6.2.0/foundation.min.css");
 
@@ -174,7 +175,7 @@ ul.jp-controls {
 	background: orange;
 	vertical-align: middle;
 }
-
+iun
 ul.jp-controls li a {
 	width: 44px;
 	height: 44px;
@@ -188,20 +189,36 @@ ul.jp-controls li a {
 }
 
 .jp-volume-bar {
-	min-width: 44px;
+	min-width: 24px;
 	height: 44px;
 	display: table-cell;
-	background: rgba(0,0,0,.5);
+	background: none;
 	position: relative;
+  box-sizing: border-box;
+  padding: 0 2px;
 }
 
 .jp-volume-bar-value {
-	background: red;
+	background: rgba(0,0,0,.1);
+  border-top: 1px solid #ffde00;
 	position: absolute;
 	bottom: 0;
-	width: 24px;
+	width: 20px;
 }
 
+.jp-volume-bar-value-dancing {
+  display: block;
+  position: absolute;
+  background: none;
+  /*border-top: 1px solid #f82847;*/
+  background: #ffde00;
+  height: 100%;
+  /*top: 0;*/
+  left: 2px;
+  width: 20px;
+  max-width: 24px;
+  bottom: 0;
+}
 
 .jp-progress {
     height: 44px;
@@ -250,6 +267,21 @@ ul.jp-controls li a {
 	height: 16px;
 }
 
+.action-btn {
+  display: table-cell;
+  width: 44px;
+ 
+  min-width: 44px;
+  max-height: 44px;
+  background: aliceblue
+}
+
+
+.jp-interface {
+  display: table;
+  height: 44px;
+  max-height: 44px;
+}
 /*.jp-interface {
 	position: relative;
 }

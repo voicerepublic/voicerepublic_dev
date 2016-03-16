@@ -13,15 +13,19 @@
         %li.play
           %a.jp-play{ href: "javascript:;", tabindex: "1" }
             = icon_tag 'play'
+      .jp-volume-bar
+        .jp-volume-bar-value
+        .jp-volume-bar-value-dancing
       .jp-progress
         .jp-seek-bar(data-ga-event="click player seek #{galabel}")
           .jp-play-bar
-      .jp-volume-bar
-        .jp-volume-bar-value
       .jp-time-holder
         %span.jp-current-time
         %span.time-divider /
         %span.jp-duration
+      .action-btn
+        = icon_tag 'pin'
+
         
             
     .jp-no-solution
