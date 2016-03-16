@@ -3,9 +3,19 @@
 $(function () {
   $(".vr-player.jp-jplayer").each(function (i, el) {
     var player = $(el)
-    var volumeIndicator = player.next().find('.jp-volume-bar-value')
-    var dancingIndicator = player.next().find('.jp-volume-bar-value-dancing')
+    var volumeIndicator = player.next().find('.jp-volume-bar-value');
+    var dancingIndicator = player.next().find('.jp-volume-bar-value-dancing');
     var interval = null;
+    var state = "started";
+
+    var start_volume_meter = function() {
+      if (state == "playing") {
+        var currentVolumeHeight = volumeIndicator.css("height")
+        interval = setInterval(dancingVolume, 100, currentVolumeHeight, dancingIndicator);
+      } else {
+        dancingIndicator.css("height", volumeIndicator.height());
+      }
+    }
 
     player.jPlayer({
       ready: function (event) {
@@ -14,23 +24,33 @@ $(function () {
           mp3: player.data('mp3'),
           ogg: player.data('ogg')
         });
+        // dancingVolume(currentVolumeHeight, dancingIndicator);
       },
 
       playing: function (event) {
         var currentVolumeHeight = volumeIndicator.css("height")
-        interval = setInterval(dancingVolume, 100, currentVolumeHeight, dancingIndicator);
+        //dancingVolume(currentVolumeHeight,dancingIndicator);
+        state = "playing";
+        start_volume_meter();
       }, 
 
       pause: function (event) {
-       console.log('now paused')
+       console.log('now paused');
+       state = "paused";
        clearInterval(interval);
       },
 
       volumechange: function(event) {
         console.log('vol changed')
         clearInterval(interval);
-        var currentVolumeHeight = volumeIndicator.css("height")
-        interval = setInterval(dancingVolume, 100, currentVolumeHeight, dancingIndicator);
+ 
+        //if ($(this).jPlayer.status.paused !== true) {
+        //dancingVolume(currentVolumeHeight,dancingIndicator);
+
+
+        
+        start_volume_meter();
+        //}
       },
 
       volume: .8,
@@ -45,13 +65,21 @@ $(function () {
     });
   });
 
-  function dancingVolume(j, v) {
+  function dancingVolume(j,v) {
+      var rando = Math.random() * .5;
+      var height = parseInt(j, 10);
+      var origHeight = height + "px";
+      var newHeight = height - (rando * height)  + "px";
+      console.log(newHeight);
+    if ($('.jp-audio').hasClass('jp-state-playing')) {
+     
+
+      $('.jp-state-playing').find(v).css("height",newHeight)
+    } else {
+      $('.jp-state-playing').find(v).css("height",origHeight)
+    }
     
-    var rando = Math.random() * .5;
-    var height = parseInt(j, 10);
-    var newHeight = height - (rando * height)  + "px";
-    console.log(newHeight);
-    v.css("height",newHeight)
+
     
   }
 
@@ -105,6 +133,3 @@ $(function () {
 });
 
 
-$('.jp-state-playing').each(function(){
-  $(this).parent().attr('class');
-});

@@ -25,28 +25,38 @@
 	padding:12px;
 	box-sizing: border-box;
 	position: relative;
+
 	font-family: -apple-system,
-BlinkMacSystemFont,
-"Segoe UI",
-"Roboto",
-"Oxygen",
-"Ubuntu",
-"Cantarell",
-"Fira Sans",
-"Droid Sans",
-"Helvetica Neue",
-sans-serif;
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Roboto",
+  "Oxygen",
+  "Ubuntu",
+  "Cantarell",
+  "Fira Sans",
+  "Droid Sans",
+  "Helvetica Neue",
+  sans-serif;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 .image-box {
-	float: left;
-	margin:0;
+	flex: 0 0 auto;
+  align-self: flex-start;
+	
 }
 
 .content-box {
-	overflow: hidden;
-	padding:0;
-	padding-left:12px;
+flex: 1 1 auto;
+    border: 1px solid green;
+    padding-left: 12px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: stretch;
 }
 
 
@@ -156,73 +166,66 @@ span.user, span.play-count, span.date {
 }
 
 /*JP*/
+.player-box {
+  flex:1 1 auto;
+}
+
 .jp-audio {
-	box-sizing: border-box;
-	width: 100%;
+	
 	height: 44px;
-	display: block;
-	position: relative;
-  border:1px solid green;
-  min-width: 100%;
+  flex:1 1 auto;
+  border:1px solid red;
+
 }
 
 
 .jp-interface {
+  flex: 1 1 auto;
   display: flex;
+  height: 100%;
   flex-flow: row nowrap;
   justify-content: space-between;
-  width: 100%;
-  height: 44px;
-  max-height: 44px;
+  align-items: stretch;
   border:1px solid yellow;
-  box-sizing: border-box;
+
 }
 
 
 
-ul.jp-controls {
+.jp-controls {
 	min-width: 44px;
   background: orange;
 	list-style-type: none;
 	margin:0;
 	padding: 0;
-	display: table-cell;
-	vertical-align: middle;
+	display: flex;
+  flex:1 1 44px;
 }
 
-ul.jp-controls li {
-  width: 44px;
-  height: 44px;
+/*ul.jp-controls {
+
   background: blue;
   display: block;
-  position: absolute;
-  top:0;
-  left: 0;
-  bottom: 0;
-  right:0;
-}
+  flex:1 1 44px;
+  display: flex;
+  flex-flow: row nowrap;
+}*/
 
-ul.jp-controls li a {
-  width: 44px;
-  height: 44px;
+.jp-controls a {
   background: purple;
-  display: block;
-  position: absolute;
-  top:0;
-  left: 0;
-  bottom: 0;
-  right:0;
-
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .jp-volume-bar {
-	min-width: 20px;
-	height: 44px;
-	display: table-cell;
-	background: none;
-	position: relative;
-  box-sizing: border-box;
-  padding: 0 2px;
+	/*min-width: 20px;*/
+  flex: 0 0 20px;
+	background: lemonchiffon;
+  display: block;
+  position: relative;
 }
 
 .jp-volume-bar-value {
@@ -235,31 +238,39 @@ ul.jp-controls li a {
 }
 
 .jp-volume-bar-value-dancing {
-  display: block;
   position: absolute;
   background: none;
   background: #ffde00;
-  height: 100%;
-  left: 0;
+  background: aliceblue;
   width: 20px;
-  max-width: 24px;
-  bottom: 0;
+  bottom:0;
+  left: 0;
+  right: 0;
+
 }
 
-.jp-progress {
-    height: 44px;
-    width: 100%;
-    display: table-cell;
+.jp-progress{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 1 100%;
 }
 
 .jp-seek-bar {
-	height: 44px;
+  display: block;
+  position: relative;
+  background: orange;
+  width: 100%;
+}
+
+.jp-seek-bar {
 	background: rgba(18,18,20,.4);
-	float:left;
+
 }
 
 .jp-play-bar {
-	height: 44px;
+  height: 44px;
 	background: #384f9e;
 }
 
@@ -288,26 +299,33 @@ ul.jp-controls li a {
 	fill: currentColor;
 	width: 16px;
 	height: 16px;
-  margin-left: 5px;
-  margin-top: 5px;
+/*  margin-left: 5px;
+  margin-top: 5px;*/
 }
 
 a.action-btn {
-  display: table-cell;
-  margin: 0;
-  padding: 0;
+  flex: 1 1 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
   background: #3d404d;
   text-align: center;
-  vertical-align: middle;
   color: rgba(255,255,255,.5);
+}
+
+a.action-btn:hover {
+  background: #384f9e;
+  color:white;
 }
 
 a.action-btn svg {
   margin:0 auto;
 }
 
+
+
 .jp-spacer {
-  display: table-cell;
   width: 2px;
   min-width: 2px;
 }

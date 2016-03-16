@@ -6,13 +6,11 @@
 .jp-audio{ id: "jc-#{talk.id}" }
   -#.jp-type-single
   .jp-gui.jp-interface
-    %ul.jp-controls
-      %li.pause
-        %a.jp-pause{ href: "javascript:;", tabindex: "1" }
-          = naked_icon 'pause'
-      %li.play
-        %a.jp-play{ href: "javascript:;", tabindex: "1" }
-          = naked_icon 'play'
+    .jp-controls
+      %a.jp-pause{ href: "javascript:;", tabindex: "1" }
+        = naked_icon 'pause'
+      %a.jp-play{ href: "javascript:;", tabindex: "1" }
+        = naked_icon 'play'
     .jp-spacer
     .jp-volume-bar
       .jp-volume-bar-value
@@ -26,10 +24,10 @@
       %span.time-divider /
       %span.jp-duration
     .jp-spacer
-    .action-btn        
+    %a.action-btn        
       = naked_icon 'pin'
     .jp-spacer
-    .action-btn
+    %a.action-btn
       = naked_icon 'share'
 
       

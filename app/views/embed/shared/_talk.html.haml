@@ -52,7 +52,7 @@
       .branding-box
         = link_to talk, target: 'blank' do
           = render partial: 'shared/vr_red.svg'
-    .player-box.float-left
+    .player-box
       = render partial: 'shared/player', locals: { talk: talk }
     / .action-btn.float-right
     /   = icon_tag 'play'
