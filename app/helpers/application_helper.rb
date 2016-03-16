@@ -63,6 +63,10 @@ module ApplicationHelper
   def icon_tag(topic, opts={})
     title = opts[:title] || topic
     "<div class='svg-icon' title='#{title}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
+  end  
+
+  def naked_icon(topic, opts={})
+    "<svg><use xlink:href='#icon-#{topic}'></use></svg>".html_safe
   end
 
 
