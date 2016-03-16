@@ -4319,7 +4319,8 @@ footer {
     text-align: center; }
     .talk-card-flasher .flasher-text p {
       margin: 0;
-      font-size: 0.75rem; }
+      font-size: 0.75rem;
+      text-transform: uppercase; }
 
 .tooltip {
   max-width: 20rem !important; }
