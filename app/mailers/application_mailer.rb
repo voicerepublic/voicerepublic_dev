@@ -38,7 +38,6 @@ class ApplicationMailer < ActionMailer::Base
     }
     options[:from] = from unless from.nil?
     options[:subject] = subject unless subject.nil?
-    options['x-mailgun-native-send'] = true if to.contains '@voicerepublic.com'
 
     mail options
   end
