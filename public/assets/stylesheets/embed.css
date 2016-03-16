@@ -157,39 +157,66 @@ span.user, span.play-count, span.date {
 
 /*JP*/
 .jp-audio {
-	background: rgba(1,1,1,.1);
 	box-sizing: border-box;
 	width: 100%;
 	height: 44px;
-	display: table;
+	display: block;
 	position: relative;
+  border:1px solid green;
+  min-width: 100%;
 }
+
+
+.jp-interface {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  max-height: 44px;
+  border:1px solid yellow;
+  box-sizing: border-box;
+}
+
+
 
 ul.jp-controls {
 	min-width: 44px;
-	height: 44px;
+  background: orange;
 	list-style-type: none;
 	margin:0;
 	padding: 0;
 	display: table-cell;
-	background: orange;
 	vertical-align: middle;
 }
-iun
+
+ul.jp-controls li {
+  width: 44px;
+  height: 44px;
+  background: blue;
+  display: block;
+  position: absolute;
+  top:0;
+  left: 0;
+  bottom: 0;
+  right:0;
+}
+
 ul.jp-controls li a {
-	width: 44px;
-	height: 44px;
-	margin: 0;
-	padding: 0;
-	background: #3d404d;
-	display: table-cell;
-	text-align: center;
-	vertical-align: middle;
-	color:rgba(255,255,255,.5);
+  width: 44px;
+  height: 44px;
+  background: purple;
+  display: block;
+  position: absolute;
+  top:0;
+  left: 0;
+  bottom: 0;
+  right:0;
+
 }
 
 .jp-volume-bar {
-	min-width: 24px;
+	min-width: 20px;
 	height: 44px;
 	display: table-cell;
 	background: none;
@@ -203,6 +230,7 @@ ul.jp-controls li a {
   border-top: 1px solid #ffde00;
 	position: absolute;
 	bottom: 0;
+  left:0;
 	width: 20px;
 }
 
@@ -210,11 +238,9 @@ ul.jp-controls li a {
   display: block;
   position: absolute;
   background: none;
-  /*border-top: 1px solid #f82847;*/
   background: #ffde00;
   height: 100%;
-  /*top: 0;*/
-  left: 2px;
+  left: 0;
   width: 20px;
   max-width: 24px;
   bottom: 0;
@@ -238,8 +264,10 @@ ul.jp-controls li a {
 }
 
 .jp-time-holder {
+    display: block;
 	  position: absolute;
-    height: 44px;
+    background: rgba(255,0,0,.2);
+    height: 22px;
     top: 0;
     left: 46px;
     right: 0;
@@ -256,51 +284,32 @@ ul.jp-controls li a {
 	color:#54c6c6;
 }
 
-.embed-player .svg-icon {
-	padding: 2px;
-	padding-left: 6px;
-}
-
-.embed-player .svg-icon svg {
-	fill: rgba(255,255,255,.4);
+.jp-audio  svg {
+	fill: currentColor;
 	width: 16px;
 	height: 16px;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
-.action-btn {
+a.action-btn {
   display: table-cell;
-  width: 44px;
- 
-  min-width: 44px;
-  max-height: 44px;
-  background: aliceblue
+  margin: 0;
+  padding: 0;
+  background: #3d404d;
+  text-align: center;
+  vertical-align: middle;
+  color: rgba(255,255,255,.5);
+}
+
+a.action-btn svg {
+  margin:0 auto;
+}
+
+.jp-spacer {
+  display: table-cell;
+  width: 2px;
+  min-width: 2px;
 }
 
 
-.jp-interface {
-  display: table;
-  height: 44px;
-  max-height: 44px;
-}
-/*.jp-interface {
-	position: relative;
-}
-
-
-
-.jp-controls {
-	width: 44px;
-	height: 44px;
-	background: purple;
-	position: absolute;
-	left:0;
-	bottom: 20px;
-	list-style-type: none;
-}
-
-.jp-controls li {
-	width: 44px;
-	height: 44px;
-	border:1px solid green;
-	position: absolute;
-}*/

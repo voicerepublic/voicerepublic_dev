@@ -4,33 +4,39 @@
 .vr-player.jp-jplayer{ data: { selector: "#jc-#{talk.id}", mp3: media_links["mp3"], m4a: media_links["m4a"], ogg: media_links["ogg"] } }
 
 .jp-audio{ id: "jc-#{talk.id}" }
-  .jp-type-single
-    .jp-gui.jp-interface
-      %ul.jp-controls
-        %li.pause
-          %a.jp-pause{ href: "javascript:;", tabindex: "1" }
-            = icon_tag 'pause'
-        %li.play
-          %a.jp-play{ href: "javascript:;", tabindex: "1" }
-            = icon_tag 'play'
-      .jp-volume-bar
-        .jp-volume-bar-value
-        .jp-volume-bar-value-dancing
-      .jp-progress
-        .jp-seek-bar(data-ga-event="click player seek #{galabel}")
-          .jp-play-bar
-      .jp-time-holder
-        %span.jp-current-time
-        %span.time-divider /
-        %span.jp-duration
-      .action-btn
-        = icon_tag 'pin'
+  -#.jp-type-single
+  .jp-gui.jp-interface
+    %ul.jp-controls
+      %li.pause
+        %a.jp-pause{ href: "javascript:;", tabindex: "1" }
+          = naked_icon 'pause'
+      %li.play
+        %a.jp-play{ href: "javascript:;", tabindex: "1" }
+          = naked_icon 'play'
+    .jp-spacer
+    .jp-volume-bar
+      .jp-volume-bar-value
+      .jp-volume-bar-value-dancing
+    .jp-spacer
+    .jp-progress
+      .jp-seek-bar(data-ga-event="click player seek #{galabel}")
+        .jp-play-bar
+    .jp-time-holder
+      %span.jp-current-time
+      %span.time-divider /
+      %span.jp-duration
+    .jp-spacer
+    .action-btn        
+      = naked_icon 'pin'
+    .jp-spacer
+    .action-btn
+      = naked_icon 'share'
 
-        
-            
-    .jp-no-solution
-      %span= t '.update_required'
-      = t '.update_message'
-      = succeed "." do
-        %a(href="http://get.adobe.com/flashplayer/" target="_blank" data-ga-event="click player getflash #{galabel}")
-          Flash plugin
+      
+          
+  .jp-no-solution
+    %span= t '.update_required'
+    = t '.update_message'
+    = succeed "." do
+      %a(href="http://get.adobe.com/flashplayer/" target="_blank" data-ga-event="click player getflash #{galabel}")
+        Flash plugin
