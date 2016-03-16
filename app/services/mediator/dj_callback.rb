@@ -19,8 +19,9 @@ class Mediator
         #'DestroyTalk'     => 'Test Talk %s has been destroyed.',
         'EndTalk'         => 'Talk %s has been ended by the system.',
         #'GenerateFlyer'   => 'Flyer for Talk %s has been generated.',
-        'ProcessOverride' => 'Override for Talk %s has been processed.'
-        #'ProcessSlides'   => 'Slides for Talk %s have been processed.'
+        'ProcessOverride' => 'Override for Talk %s has been processed.',
+        'ProcessSlides'   => 'Slides for Talk %s have been processed.',
+        'UserOverride'    => 'Upload for Talk %s has been processed.'
       }
     }
 

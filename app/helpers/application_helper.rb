@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def itunes_image_url(image)
+    image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
+  end
+
   def default_content(locale, key)
     keys = [locale.to_s] + key.split('.')
     keys.reduce(sections) do |r, k|
@@ -56,8 +60,9 @@ module ApplicationHelper
   end
 
 
-  def icon_tag(topic)
-    "<div class='svg-icon'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
+  def icon_tag(topic, opts={})
+    title = opts[:title] || topic
+    "<div class='svg-icon' title='#{title}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
   end
 
 

@@ -13,6 +13,7 @@
     - opts = {}
 
     - unless f.object.new_record?
+      = f.input :user_override_uuid, as: :hidden
       = render partial: 'shared/upload',
                locals: { f: f, ns: 'audio', init: init_audio_uploader }
 

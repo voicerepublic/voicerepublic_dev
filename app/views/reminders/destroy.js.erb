@@ -1,1 +1,2 @@
 $('#favorite').html("<%= j render(partial: 'favorite') %>");
+$('<%= @selector %>').html("<%= j render(partial: 'pin', locals: { rememberable: @reminder.rememberable }) %>");

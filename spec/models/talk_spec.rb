@@ -35,7 +35,9 @@ describe Talk do
         allow(talk).to receive(:user_override!).and_return(true)
         expect(talk).not_to be_pending
         talk.user_override_uuid = '038ee6b8-0557-4172-8ad6-2548dccd4793'
-        talk.save
+        with_dj_enabled do
+          talk.save
+        end
         expect(talk).to be_pending
       end
     end
@@ -366,6 +368,11 @@ describe Talk do
         @talk.save!
       end.to_not raise_error
     end
+
+    it "finds talk by user's name" do
+      result = Talk.search(@talk.series.user.name)
+      expect(result).not_to be_empty
+    end
   end
 
   describe 'penalty' do
@@ -456,7 +463,7 @@ describe Talk do
     end
     it 'provides image_url' do
       expect(talk).to respond_to(:image_url)
-      expect(talk.image_url).to match(%r{/?sha=[0-9a-f]{8}$})
+      expect(talk.image_url).to match(%r{\?sha=[0-9a-f]+$})
     end
     it 'provides slides_url' do
       talk.update_attribute(:slides_uuid, 'asdf')

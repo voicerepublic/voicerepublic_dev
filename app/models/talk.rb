@@ -97,6 +97,7 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :series, inverse_of: :talks
+  has_one :user, through: :series
   belongs_to :venue
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
@@ -141,13 +142,8 @@ class Talk < ActiveRecord::Base
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
-
-  # Begin 'user audio upload'
-  after_save -> { delay(queue: 'audio').user_override! },
-             if: ->(t) { t.user_override_uuid_changed? and
-                           !t.user_override_uuid.to_s.empty? }
-
   after_save :process_slides!, if: :process_slides?
+  after_save :schedule_user_override, if: :schedule_user_override?
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
@@ -155,24 +151,21 @@ class Talk < ActiveRecord::Base
     unless record.user_override_uuid.to_s.empty? or
       record.starts_at_time.to_s.empty? or
       record.starts_at_date.to_s.empty?
-      if Time.zone.parse([record.starts_at_date, record.starts_at_time] * ' ') > DateTime.now
+      datetime = [record.starts_at_date, record.starts_at_time] * ' '
+      if Time.zone.parse(datetime) > DateTime.now
         record.errors.add attr, 'needs to be in the past'
       end
     end
   end
-  # End 'user audio upload'
 
   serialize :listeners
   serialize :session
   serialize :storage
   serialize :social_links
 
-  delegate :user, to: :series
-
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
-
 
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }
@@ -213,7 +206,11 @@ class Talk < ActiveRecord::Base
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
   pg_search_scope :search,
                   ignoring: :accents,
-                  against: [:title, :teaser, :description, :speakers]
+                  against: [:title, :teaser, :description_as_text, :speakers],
+                  associated_against: {
+                    series: [:title, :description_as_text, :teaser],
+                    user: [:firstname, :lastname, :about_as_text, :summary]
+                  }
 
   # returns an array of json objects
   def guest_list
@@ -826,6 +823,14 @@ class Talk < ActiveRecord::Base
 
   def process_slides?
     slides_uuid_changed? and slides_uuid.present?
+  end
+
+  def schedule_user_override
+    Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
+  end
+
+  def schedule_user_override?
+    user_override_uuid_changed? and !user_override_uuid.to_s.empty?
   end
 
 end
