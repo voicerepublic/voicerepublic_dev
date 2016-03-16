@@ -1,6 +1,7 @@
 - content_for :javascripts do
   :javascript
     window.initialState = #{@venue.atom.to_json}
+    window.translations = #{t('frontend.venues').to_json}
   = javascript_include_tag :venues
 
 #app Initializing...

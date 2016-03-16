@@ -197,9 +197,9 @@ class Venue < ActiveRecord::Base
   # current single page app state
   def atom
     {
-      hello: 'world',
       venue: attributes,
-      talks: talks.map(&:attributes)
+      talks: talks.map(&:attributes),
+      now: Time.now.to_i
     }
   end
 

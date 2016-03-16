@@ -1,0 +1,61 @@
+en:
+  frontend:
+    venues:
+      days: days
+      time_to_next_talk: Time to next talk
+      talk_state:
+        prelive: Scheduled
+        live: Live
+        postlive: Queued for Processing
+        processing: Processing
+        suspended: Suspended for Inspection
+        archived: Archived
+      state:
+        offline: Offline
+        ready_to_provision: Ready to provision
+        provisioning: Spawning A Streaming Server Just For You
+        ready_to_connect: Ready to Connect
+        connected: Connected
+        disconnected: Disconnected
+      explanation:
+        offline: >-
+          The venue is currently offline. The provisioning window
+          opens 90 minutes before a scheduled live stream. Please
+          setup your venue as soon as the window opens. This will give
+          you enough time to setup your audio signal and contributes
+          to smooth operations.
+
+        ready_to_provision: >-
+          The provisioning window is now open. The venue is still
+          offline. Please start the setup process now.
+
+        provisioning: >-
+          We started provisioning a streaming server just for
+          you. This will take a couple of minutes. This is a good time
+          to grab a coffee or take a walk. We will be right with you.
+
+        ready_to_connect: >-
+          Your streaming server is ready now. Please connect with the
+          streaming client of your choice. We've a couple of options
+          for you.
+
+        connected: >-
+          Aye, you're connected!
+
+        disconnected: >-
+          Ooops. It appears your stream did disconnect. Please
+          reconnect with all the same settings to continue
+          streaming. This also means that the recording on our server
+          will have gaps. You might want to consider uploading a local
+          backup recording afterwards.
+
+      start_provisioning: Start Setup
+
+      initially_connected: >-
+        Congratulations, you made it. We detected your stream. From
+        here on it should be smooth sailing. Now you're ready to start
+        a your first Talk for today.
+
+      # http://www.goodreads.com/quotes/tag/joy
+      end_quotes:
+        - "Don't cry because it's over, smile because it happened. - Dr. Seuss"
