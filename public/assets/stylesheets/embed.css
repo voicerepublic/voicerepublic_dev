@@ -13,10 +13,6 @@
   font-weight: normal;
   font-style: normal; }
 
-/*DEBUG - COmment this out after styling*/ 
-.branding-box, .content-box,.player-box {
-  /*background: rgba(0,0,0,.1);*/
-}
 
 
 .embed-player {
@@ -230,17 +226,31 @@ h4.title:hover {
 .branding-box {
   width:60px;
   height:60px;
-  /*float:right;*/
+  float:right;
   position: absolute;
   right:12px;
 }
 
+
+
 .xs .branding-box {
   width: 36px;
   height: 36px;
-  right:0;
+  /*right:0;*/
 }
 
+.brand-logo, .brand-words {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  color:#f82847;
+}
+
+.brand-logo svg, .brand-words svg {
+  width: 60px;
+  height: 60px;
+  fill:currentColor;
+}
 
 
 /*JP*/
