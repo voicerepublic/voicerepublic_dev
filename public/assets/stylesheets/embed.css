@@ -15,18 +15,18 @@
 
 /*DEBUG - COmment this out after styling*/ 
 .branding-box, .content-box,.player-box {
-	/*background: rgba(0,0,0,.1);*/
+  /*background: rgba(0,0,0,.1);*/
 }
 
 
 .embed-player {
-	background: #29292b;
-	overflow: hidden;
-	padding:12px;
-	box-sizing: border-box;
-	position: relative;
-
-	font-family: -apple-system,
+  background: #29292b;
+  overflow: hidden;
+  padding:12px;
+  box-sizing: border-box;
+  position: relative;
+  height: 124px;
+  font-family: -apple-system,
   BlinkMacSystemFont,
   "Segoe UI",
   "Roboto",
@@ -37,41 +37,91 @@
   "Droid Sans",
   "Helvetica Neue",
   sans-serif;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: stretch;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
 }
 
 .image-box {
-	flex: 0 0 auto;
-  align-self: flex-start;
-	
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  -webkit-align-self: flex-start;
+      -ms-flex-item-align: start;
+          align-self: flex-start;
 }
 
+.xs .image-box {
+  max-height: 44px;
+  max-width: 44px;
+  background: orange;
+}
+
+
 .content-box {
-flex: 1 1 auto;
-    border: 1px solid green;
+-webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+    /*border: 1px solid green;*/
     padding-left: 12px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: stretch;
+    -webkit-flex-flow: column nowrap;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-align-items: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+}
+
+.xs .content-box {
+  position: absolute;
+  left:0;
+  right: 12px;
+}
+
+.xs .top-box {
+  margin-left: 56px;
+  height: 50px;
+  max-height: 50px;
+  margin-bottom: 6px;
+}
+
+ .small .top-box, .medium .top-box, .large .top-box {
+  height: 56px;
+  max-height: 56px;
+ }
+
+.xs .info-box {
+  margin-right: 50px;
 }
 
 
 h4.title {
-	font-family: 'Eagle', sans-serif;
-	color:#54c6c6;
-	font-size:21px;
-	line-height: 24px;
-	letter-spacing: 1px;
-	margin:0;
-	max-height: 48px;
-	line-limit: 2;
+  font-family: 'Eagle', sans-serif;
+  color:#54c6c6;
+  font-size:21px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  margin:0;
+  max-height: 48px;
+  line-limit: 2;
 
 
-	/**/
+  /**/
  display: block;
 
   /* Fallback for non-webkit */
@@ -93,40 +143,61 @@ h4.title {
 }
 
 .xs h4.title {
-	font-size: 16px;
-	line-height: 18px;
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.small h4.title {
+  font-size: 18px;
+  line-height: 18px;
+  margin-top:0;
 }
 
 
 h4.title:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
-span.user, span.play-count, span.date {
-	color: #384f9e;
-	margin-bottom: 0;
-	font-size: 14px;
-	/*letter-spacing: 1px;*/
+.user, span.play-count, span.date {
+  color: #384f9e;
+  margin-bottom: 0;
+  font-size: 14px;
+  /*letter-spacing: 1px;*/
 }
+
+.xs .user {
+  display: block;
+  margin-top: -1px;
+}
+
+ .small .user {
+  display: inline-block;
+  margin-top: -3px;
+  font-size: 12px;
+ }
 
 .user {
-	font-weight: 700;
+  font-weight: 700;
 }
 
 .user:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .xs span.user {
-	font-size: 12px;
+  font-size: 12px;
 
 }
 
+.small .meta-info {
+  display: block;
+  margin-top: -3px;
+}
 
 .live-badge {
-	font-size: 12px;
-	font-weight: 700;
-	letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
   color: white;
   text-transform: uppercase;
   background: #f82847;
@@ -141,107 +212,156 @@ span.user, span.play-count, span.date {
 }
 
 .live-badge p.live {
-	font-family: 'Eagle',sans-serif;
-	line-height: 36px;
+  font-family: 'Eagle',sans-serif;
+  line-height: 36px;
 }
 
 .info-box {
-	float:left;
-	margin-right: 72px;
-	line-height: 21px;
+  float:left;
+  margin-right: 72px;
+  line-height: 21px;
+}
+
+.small .info-box {
+  height: 56px;
+  max-height: 56px;
 }
 
 .branding-box {
-	width:60px;
-	height:60px;
-	/*float:right;*/
-	position: absolute;
-	right:12px;
+  width:60px;
+  height:60px;
+  /*float:right;*/
+  position: absolute;
+  right:12px;
 }
 
-.vr-logo {
-	background: red;
-	width: 60px
-	height: 60px;
+.xs .branding-box {
+  width: 36px;
+  height: 36px;
+  right:0;
 }
+
+
 
 /*JP*/
 .player-box {
-  flex:1 1 auto;
+  -webkit-flex:1 1 auto;
+      -ms-flex:1 1 auto;
+          flex:1 1 auto;
 }
 
 .jp-audio {
-	
-	height: 44px;
-  flex:1 1 auto;
-  border:1px solid red;
+  
+  height: 44px;
+  -webkit-flex:1 1 auto;
+      -ms-flex:1 1 auto;
+          flex:1 1 auto;
+  /*border:1px solid red;*/
 
+}
+
+.jp-audio a {
+  transition: background .2s ease;
+  transition: color .2s ease;
 }
 
 
 .jp-interface {
-  flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   height: 100%;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: stretch;
-  border:1px solid yellow;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  /*border:1px solid yellow;*/
 
 }
 
 
 
 .jp-controls {
-	min-width: 44px;
-  background: orange;
-	list-style-type: none;
-	margin:0;
-	padding: 0;
-	display: flex;
-  flex:1 1 44px;
+  min-width: 44px;
+  list-style-type: none;
+  margin:0;
+  padding: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex:1 1 44px;
+      -ms-flex:1 1 44px;
+          flex:1 1 44px;
 }
 
-/*ul.jp-controls {
-
-  background: blue;
-  display: block;
-  flex:1 1 44px;
-  display: flex;
-  flex-flow: row nowrap;
-}*/
 
 .jp-controls a {
-  background: purple;
-  flex: 1 1 auto;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
+  -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #3d404d;
+  color: rgba(255,255,255,.5);
+}
+
+.jp-controls a svg {
+  margin-left: 5px;
+}
+
+.jp-controls a:hover {
+  background: #384f9e;
+  color: white;
+}
+
+.jp-state-playing .jp-controls a {
+  background: #f82847;
+}
+
+.jp-state-playing .jp-controls a svg {
+  margin-left: 3px;
 }
 
 .jp-volume-bar {
-	/*min-width: 20px;*/
-  flex: 0 0 20px;
-	background: lemonchiffon;
+  -webkit-flex: 0 0 20px;
+      -ms-flex: 0 0 20px;
+          flex: 0 0 20px;
   display: block;
   position: relative;
 }
 
 .jp-volume-bar-value {
-	background: rgba(0,0,0,.1);
+  background: rgba(0,0,0,.1);
   border-top: 1px solid #ffde00;
-	position: absolute;
-	bottom: 0;
+  position: absolute;
+  bottom: 0;
   left:0;
-	width: 20px;
+  width: 20px;
 }
 
 .jp-volume-bar-value-dancing {
   position: absolute;
   background: none;
   background: #ffde00;
-  background: aliceblue;
+  /*background: aliceblue;*/
   width: 20px;
   bottom:0;
   left: 0;
@@ -250,37 +370,46 @@ span.user, span.play-count, span.date {
 }
 
 .jp-progress{
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: stretch;
-    flex: 1 1 100%;
+    -webkit-flex-flow: row nowrap;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-align-items: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+    -webkit-flex: 1 1 100%;
+        -ms-flex: 1 1 100%;
+            flex: 1 1 100%;
+    position: relative;
 }
 
 .jp-seek-bar {
   display: block;
   position: relative;
-  background: orange;
   width: 100%;
 }
 
 .jp-seek-bar {
-	background: rgba(18,18,20,.4);
+  background: rgba(18,18,20,.4);
 
 }
 
 .jp-play-bar {
   height: 44px;
-	background: #384f9e;
+  background: #384f9e;
 }
 
 .jp-time-holder {
     display: block;
-	  position: absolute;
-    background: rgba(255,0,0,.2);
+    position: absolute;
     height: 22px;
     top: 0;
-    left: 46px;
+    left: 0;
     right: 0;
     color: #fef1de;
     font-size: 10px;
@@ -292,22 +421,34 @@ span.user, span.play-count, span.date {
 }
 
 .time-divider {
-	color:#54c6c6;
+  color:#54c6c6;
+}
+
+.xs .time-divider, .xs .jp-duration {
+  display: none;
 }
 
 .jp-audio  svg {
-	fill: currentColor;
-	width: 16px;
-	height: 16px;
+  fill: currentColor;
+  width: 16px;
+  height: 16px;
 /*  margin-left: 5px;
   margin-top: 5px;*/
 }
 
 a.action-btn {
-  flex: 1 1 44px;
+  -webkit-flex: 0 0 44px;
+      -ms-flex: 0 0 44px;
+          flex: 0 0 44px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 44px;
   background: #3d404d;
   text-align: center;

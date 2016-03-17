@@ -44,10 +44,11 @@
         = link_to talk, target: 'blank' do
           %h4.title
             = talk.title
-        = link_to talk.user, target: 'blank' do
-          %span.user= talk.user.name
-        %span.date.sm-up= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
-        %span.play-count.sm-up= human_count(talk.play_count) + ' ' + t('.plays')
+        .meta-info
+          = link_to talk.user, target: 'blank', class: 'user' do
+            %span= talk.user.name
+          %span.date.sm-up= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
+          %span.play-count.sm-up= human_count(talk.play_count) + ' ' + t('.plays')
         
       .branding-box
         = link_to talk, target: 'blank' do
@@ -57,3 +58,4 @@
     / .action-btn.float-right
     /   = icon_tag 'play'
 .my-width
+.my-class

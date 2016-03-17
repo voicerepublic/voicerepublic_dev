@@ -87,13 +87,19 @@ $(function () {
 
   // Make the player responsive by checking the width of the element rather than of the browser window (since it's in an iframe)
   var embedWidth;
+  var embedClass = "";
   var playerHolder = $('.embed-player');
+
+  function showEmbedClass() {
+    $('.my-class').text("my-class: " + embedClass);
+  }
 
   function whatWidth(){
     embedWidth = $('.embed-player').outerWidth();
     $('.my-width').html(embedWidth)
     
     if (embedWidth < 480) {
+      embedClass = "XS";
       playerHolder.removeClass('medium')
       playerHolder.removeClass('large')
       playerHolder.removeClass('small')
@@ -102,6 +108,7 @@ $(function () {
       $('.md-up').hide();
 
     } else if (embedWidth > 479 && embedWidth < 640) {
+      embedClass = "Small";
       playerHolder.removeClass('medium')
       playerHolder.removeClass('large')
       playerHolder.removeClass('xs')
@@ -109,12 +116,14 @@ $(function () {
       $('.sm-up').show();
       $('.md-up').hide();
     } else if (embedWidth > 639 && embedWidth < 1024) {
+      embedClass = "Medium";
       playerHolder.removeClass('small')
       playerHolder.removeClass('large')
       playerHolder.removeClass('xs')
       playerHolder.addClass('medium')
       $('.md-up').show();
     } else {
+      embedClass = "Large";
       playerHolder.removeClass('medium')
       playerHolder.removeClass('small')
       playerHolder.removeClass('xs')
@@ -122,6 +131,8 @@ $(function () {
       $('.sm-up').show();
       $('.md-up').show();
     }
+
+    showEmbedClass();
   }
   
   whatWidth();
