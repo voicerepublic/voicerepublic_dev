@@ -1,7 +1,14 @@
 - content_for :javascripts do
+  %script{ src: '/assets/javascripts/moment-with-locales.min.js' }
+  %script{ src: '/assets/javascripts/faye-authentication.js' }
+  %script{ src: Settings.faye.server + '/client.js' }
   :javascript
-    window.initialState = #{@venue.atom.to_json}
-    window.translations = #{t('frontend.venues').to_json}
+    fayeClient = new Faye.Client(#{Settings.faye.server.to_json});
+    fayeExtension = new FayeAuthentication(fayeClient);
+    fayeClient.addExtension(fayeExtension);
+
+    initialState = #{@venue.atom.to_json};
+    translations = #{t('frontend.venues').to_json};
   = javascript_include_tag :venues
 
 #app Initializing...
