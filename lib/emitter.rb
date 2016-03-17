@@ -33,6 +33,9 @@ module Emitter
            user: {
              name: talk.user.name,
              url: url_helpers.user_url(talk.user)
+           },
+           venue: {
+             id: talk.venue_id
            }
          }
   end

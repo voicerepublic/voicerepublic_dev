@@ -1,9 +1,12 @@
+-# TODO the 3 lines of faye setup could move to cljs
 - content_for :javascripts do
   %script{ src: '/assets/javascripts/moment-with-locales.min.js' }
   %script{ src: '/assets/javascripts/faye-authentication.js' }
   %script{ src: Settings.faye.server + '/client.js' }
   :javascript
-    fayeClient = new Faye.Client(#{Settings.faye.server.to_json});
+    fayeUrl = #{Settings.faye.server.to_json};
+
+    fayeClient = new Faye.Client(fayeUrl);
     fayeExtension = new FayeAuthentication(fayeClient);
     fayeClient.addExtension(fayeExtension);
 

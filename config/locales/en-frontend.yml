@@ -1,6 +1,8 @@
 en:
   frontend:
     venues:
+      start: Start
+      stop: Stop
       days: days
       any_time_now: Any Time Now
       time_to_next_talk: Time to next talk

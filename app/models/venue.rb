@@ -198,7 +198,8 @@ class Venue < ActiveRecord::Base
   def atom
     {
       venue: attributes,
-      talks: talks.map(&:attributes),
+      user: user.attributes,
+      talks: talks.inject({}) { |r, t| r.merge t.id => t },
       now: Time.now.to_i
     }
   end
