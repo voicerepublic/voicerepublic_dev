@@ -4069,20 +4069,24 @@ footer {
     position: relative;
     text-align: left;
     transition: all .2s ease; }
-    .talk-card .talk-card-inside .publisher {
+    .talk-card .talk-card-inside .publisher-name {
       margin: 0;
-      line-height: 18px;
-      font-weight: 300;
       margin-bottom: 0;
-      font-size: 0.875rem;
-      color: rgba(41, 41, 43, 0.5);
-      color: #54c6c6;
       padding: 0 12px;
       display: inline-block;
-      width: 100%; }
-      .talk-card .talk-card-inside .publisher:hover {
-        text-decoration: underline;
-        color: #2c46b0; }
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+      .talk-card .talk-card-inside .publisher-name .publisher {
+        line-height: 18px;
+        font-weight: 300;
+        font-size: 0.875rem;
+        color: rgba(41, 41, 43, 0.5);
+        color: #54c6c6; }
+        .talk-card .talk-card-inside .publisher-name .publisher:hover {
+          text-decoration: underline;
+          color: #2c46b0; }
     .talk-card .talk-card-inside p.series-label {
       color: #121214;
       font-size: 0.75rem;
