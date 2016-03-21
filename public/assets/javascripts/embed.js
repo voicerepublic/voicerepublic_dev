@@ -104,7 +104,7 @@ $('.close-msg').on('click',function(){
 });
 
 
-$('.pin-btn, .slides-btn').on('click', function(){
+$('.pin-btn').on('click', function(){
   $('.embed-msg').toggleClass('hide');
   $('.action-panel').toggleClass('hide');
   $('.jp-progress').toggleClass('hide');

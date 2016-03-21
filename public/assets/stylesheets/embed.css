@@ -51,8 +51,8 @@
   -webkit-flex: 0 0 auto;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  -webkit-align-self: flex-start;
-      -ms-flex-item-align: start;
+  -ms-flex-item-align: start;
+      -webkit-align-self: flex-start;
           align-self: flex-start;
 }
 
@@ -335,7 +335,9 @@ h4.title:hover {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  flex: 0 1 auto;
+  -webkit-flex: 0 1 auto;
+      -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
 }
 
 
@@ -506,7 +508,9 @@ a.action-btn svg {
   width: 2px;
   min-width: 2px;
   max-width: 2px;
-  flex: 0 0 2px;
+  -webkit-flex: 0 0 2px;
+      -ms-flex: 0 0 2px;
+          flex: 0 0 2px;
 }
 
 
@@ -528,6 +532,8 @@ a.share-btn, .share-title {
 }
 
 .share-panel, .action-panel {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -537,9 +543,15 @@ a.share-btn, .share-title {
 }
 
 .embed-msg {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex: 1 1 auto;
-  align-items: stretch;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   text-align: center;
   background: #f82847;
 }
@@ -555,15 +567,23 @@ a.share-btn, .share-title {
 }
 
 a.msg-text {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   background: #f82847;
   padding: 0 12px;
   font-size: 12px;
   font-weight: 500;
   color:white;
-  flex:1 1 auto;
-  align-items: center;
-  justify-content: center;
+  -webkit-flex:1 1 auto;
+      -ms-flex:1 1 auto;
+          flex:1 1 auto;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 a.msg-text:hover {
@@ -572,7 +592,9 @@ a.msg-text:hover {
 
 .msg-text p {
   margin: 0;
-  justify-content: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-align: center;
   line-height: 12px;
 }
