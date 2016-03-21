@@ -25,3 +25,9 @@
             = naked_icon 'logotype'
     .player-box
       = render partial: 'shared/player', locals: { talk: talk }
+    .teaser-msg.hide
+      = link_to "#", class: 'replay-btn' do 
+        = naked_icon 'replay'
+        %p= t('.play_again')
+      = link_to "http://voicerepublic.com", class: 'teaser-link' do
+        %p= t('.nice_stuff_on_vr')

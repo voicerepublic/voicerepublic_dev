@@ -16,4 +16,4 @@ en:
         one: 'One Talk'
         other: '%{count} Talks'
     embed_msg: 
-      please_login: "Please Sign In to Voice Republic To Do That Thing"
+      please_login: "Please sign in to Voice Republic to Pin a Talk."

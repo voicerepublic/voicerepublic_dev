@@ -24,33 +24,27 @@ $(function () {
           mp3: player.data('mp3'),
           ogg: player.data('ogg')
         });
-        // dancingVolume(currentVolumeHeight, dancingIndicator);
       },
 
       playing: function (event) {
         var currentVolumeHeight = volumeIndicator.css("height")
-        //dancingVolume(currentVolumeHeight,dancingIndicator);
         state = "playing";
         start_volume_meter();
       }, 
 
       pause: function (event) {
-       console.log('now paused');
        state = "paused";
        clearInterval(interval);
       },
 
       volumechange: function(event) {
-        console.log('vol changed')
         clearInterval(interval);
- 
-        //if ($(this).jPlayer.status.paused !== true) {
-        //dancingVolume(currentVolumeHeight,dancingIndicator);
-
-
-        
         start_volume_meter();
-        //}
+      },
+
+      ended: function(){
+        // console.log('shit be over')
+        toggleTeaser();
       },
 
       volume: .8,
@@ -65,22 +59,26 @@ $(function () {
     });
   });
 
+function toggleTeaser() {
+  $('.player-box').toggleClass('hide');
+  $('.teaser-msg').toggleClass('hide');
+}
+
+//hide the teaser again:
+$('.replay-btn').on('click', function(){
+  toggleTeaser();
+});
+
   function dancingVolume(j,v) {
       var rando = Math.random() * .5;
       var height = parseInt(j, 10);
       var origHeight = height + "px";
       var newHeight = height - (rando * height)  + "px";
-      console.log(newHeight);
     if ($('.jp-audio').hasClass('jp-state-playing')) {
-     
-
       $('.jp-state-playing').find(v).css("height",newHeight)
     } else {
       $('.jp-state-playing').find(v).css("height",origHeight)
     }
-    
-
-    
   }
 
 
