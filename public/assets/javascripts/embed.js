@@ -84,7 +84,37 @@ $(function () {
   }
 
 
+//Share and action btns functionality: 
+$('.action-share').on('click', function(){
+  $('.share-panel').toggleClass('hide');
+  $('.action-panel').toggleClass('hide');
+});
 
+
+$('.close-share').on('click',function(){
+    $('.share-panel').toggleClass('hide');
+    $('.action-panel').toggleClass('hide');
+});
+
+$('.close-msg').on('click',function(){
+    $('.embed-msg').toggleClass('hide');
+    $('.action-panel').toggleClass('hide');
+    $('.jp-progress').toggleClass('hide');
+
+});
+
+
+$('.pin-btn, .slides-btn').on('click', function(){
+  $('.embed-msg').toggleClass('hide');
+  $('.action-panel').toggleClass('hide');
+  $('.jp-progress').toggleClass('hide');
+
+});
+
+//easter egg to make the player unbranded: 
+$('.image-box').on('click',function(){
+  $('.embed-player').toggleClass('unbranded');
+});
   // Make the player responsive by checking the width of the element rather than of the browser window (since it's in an iframe)
   var embedWidth;
   var embedClass = "";

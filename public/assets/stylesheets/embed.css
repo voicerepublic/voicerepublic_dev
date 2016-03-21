@@ -154,8 +154,12 @@ h4.title:hover {
   text-decoration: underline;
 }
 
-.user, span.play-count, span.date {
+
+.meta-info, .meta-info a {
   color: #384f9e;
+}
+.user, span.play-count, span.date {
+  
   margin-bottom: 0;
   font-size: 14px;
   /*letter-spacing: 1px;*/
@@ -229,6 +233,7 @@ h4.title:hover {
   float:right;
   position: absolute;
   right:12px;
+  top:4px;
 }
 
 
@@ -236,7 +241,8 @@ h4.title:hover {
 .xs .branding-box {
   width: 36px;
   height: 36px;
-  /*right:0;*/
+  right:0;
+  top:-4px;
 }
 
 .brand-logo, .brand-words {
@@ -244,12 +250,34 @@ h4.title:hover {
   width: inherit;
   height: inherit;
   color:#f82847;
+  transition: opacity .5s ease;
 }
 
 .brand-logo svg, .brand-words svg {
   width: 60px;
   height: 60px;
   fill:currentColor;
+}
+
+.xs .brand-logo svg, .xs .brand-words svg {
+  width: 36px;
+  height: 36px;
+}
+
+.brand-logo {
+  opacity: 1;
+}
+
+.brand-words {
+  opacity: 0;
+}
+
+.branding-box:hover .brand-logo {
+  opacity: 0;
+}
+
+.branding-box:hover .brand-words {
+  opacity: 1;
 }
 
 
@@ -307,9 +335,7 @@ h4.title:hover {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex:1 1 44px;
-      -ms-flex:1 1 44px;
-          flex:1 1 44px;
+  flex: 0 1 auto;
 }
 
 
@@ -446,7 +472,7 @@ h4.title:hover {
   margin-top: 5px;*/
 }
 
-a.action-btn {
+a.action-btn, .share-title {
   -webkit-flex: 0 0 44px;
       -ms-flex: 0 0 44px;
           flex: 0 0 44px;
@@ -479,6 +505,98 @@ a.action-btn svg {
 .jp-spacer {
   width: 2px;
   min-width: 2px;
+  max-width: 2px;
+  flex: 0 0 2px;
 }
 
 
+a.share-btn, .share-title {
+  background: #54c6c6;
+  color: white;
+}
+
+.share-title {
+  width: auto;
+  font-size: 12px;
+  padding: 0 12px;
+}
+
+.share-title p {
+  margin: 0;
+  margin-bottom: 2px;
+  text-transform: uppercase;
+}
+
+.share-panel, .action-panel {
+  display: flex;
+}
+
+.close-share, .close-msg {
+  font-size: 21px;
+  font-weight: 200;
+}
+
+.embed-msg {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  text-align: center;
+  background: #f82847;
+}
+
+.embed-msg .action-btn {
+  background: #f82847;
+  color: white;
+}
+
+.embed-msg .action-btn:hover {
+  background: #f82847;
+  color: #ffed00;
+}
+
+a.msg-text {
+  display: flex;
+  background: #f82847;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color:white;
+  flex:1 1 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+a.msg-text:hover {
+  text-decoration: underline;
+}
+
+.msg-text p {
+  margin: 0;
+  justify-content: center;
+  text-align: center;
+  line-height: 12px;
+}
+
+/*Unbranded Player:*/
+
+
+.unbranded.embed-player {
+  /*background: #eee;*/
+}
+
+.unbranded h4.title {
+  color: #f4f4f4;
+  /*background: #3d404d;*/
+}
+
+.unbranded .meta-info, .unbranded .meta-info a {
+  color: #999
+}
+
+.unbranded .jp-time-holder {
+  color: #999;
+}
+
+.unbranded .time-divider {
+  color: #ddd;
+}

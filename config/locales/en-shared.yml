@@ -15,3 +15,5 @@ en:
         zero: 'No Talks Yet'
         one: 'One Talk'
         other: '%{count} Talks'
+    embed_msg: 
+      please_login: "Please Sign In to Voice Republic To Do That Thing"
