@@ -27,7 +27,7 @@ $(function() {
             },
 
             canplay: function(){
-              console.log('can play');
+              //console.log('can play');
               $('.jp-controls').removeClass('hide');
               $('.jp-time-holder').removeClass('hide');
               $('.loading-indicator').addClass('hide');
@@ -43,6 +43,7 @@ $(function() {
             pause: function(event) {
                 state = "paused";
                 clearInterval(interval);
+                toggleTeaser();
             },
 
             volumechange: function(event) {
@@ -176,7 +177,7 @@ $(function() {
         }
 
         playerHolder.addClass(c)
-        $('.mySize').text(c)
+        // $('.mySize').text(c)
 
     };
 
