@@ -31,3 +31,6 @@
         %p= t('.play_again')
       = link_to "http://voicerepublic.com", class: 'teaser-link' do
         %p= t('.nice_stuff_on_vr').html_safe
+
+:javascript
+  var talk_id = #{talk.id}

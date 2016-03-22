@@ -43,9 +43,8 @@ $(function () {
       },
 
       ended: function(){
-        // console.log('shit be over')
         toggleTeaser();
-        
+        _gaq.push("_trackEvent", "click","play", "player","ended", "talk: "+ talk_id)        
       },
 
       volume: .8,
@@ -58,6 +57,7 @@ $(function () {
       verticalVolume: true
 
     });
+
 //hide the teaser again:
 $('.replay-btn').on('click', function(){
   toggleTeaser();

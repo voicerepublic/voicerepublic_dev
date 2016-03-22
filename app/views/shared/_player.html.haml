@@ -7,9 +7,9 @@
   -#.jp-type-single
   .jp-gui.jp-interface
     .jp-controls
-      %a.jp-pause{ href: "javascript:;", tabindex: "1" }
+      %a.jp-pause(data-ga-event="click player pause #{galabel}")
         = naked_icon 'pause'
-      %a.jp-play{ href: "javascript:;", tabindex: "1" }
+      %a.jp-play(data-ga-event="click player play #{galabel}"  )
         = naked_icon 'play'
     .jp-spacer
     .jp-volume-bar
