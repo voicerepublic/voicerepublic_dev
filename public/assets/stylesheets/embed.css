@@ -365,6 +365,8 @@ h4.title:hover {
     /*border:1px solid yellow;*/
 }
 
+
+
 .jp-controls {
     min-width: 44px;
     list-style-type: none;
@@ -413,6 +415,11 @@ h4.title:hover {
 
 .jp-state-playing .jp-controls a svg {
     margin-left: 3px;
+}
+
+.not-ready  .jp-controls {
+  display: none;
+  /*background: red*/
 }
 
 .jp-volume-bar {
@@ -477,7 +484,7 @@ h4.title:hover {
     background: #384f9e;
 }
 
-.jp-time-holder {
+.jp-time-holder, .loading-indicator {
     display: block;
     position: absolute;
     height: 22px;
@@ -491,6 +498,12 @@ h4.title:hover {
     line-height: 44px;
     text-align: center;
     pointer-events: none;
+}
+
+.loading-indicator p {
+  /*flex: 1 1 auto;*/
+  margin-bottom: 0;
+  line-height: 44px;
 }
 
 .tiny .jp-time-holder.sharing, .xs .jp-time-holder.sharing, .token .jp-time-holder.sharing {

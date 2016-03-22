@@ -1,5 +1,7 @@
 en:
   shared:
+    player:
+      loading: Loading...
     talk_card:
       speaker: "Speaker: "
       ago_by: "%{time} ago"

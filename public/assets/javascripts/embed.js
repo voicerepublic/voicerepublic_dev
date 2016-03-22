@@ -26,6 +26,14 @@ $(function() {
                 });
             },
 
+            canplay: function(){
+              console.log('can play');
+              $('.jp-controls').removeClass('hide');
+              $('.jp-time-holder').removeClass('hide');
+              $('.loading-indicator').addClass('hide');
+
+            },
+
             playing: function(event) {
                 var currentVolumeHeight = volumeIndicator.css("height")
                 state = "playing";
