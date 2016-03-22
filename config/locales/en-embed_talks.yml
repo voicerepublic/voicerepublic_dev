@@ -1,4 +1,8 @@
 en:
+  embed:
+    shared:
+      talk:
+        nice_stuff_on_vr: "Check out more great Talks on Voice Republic &raquo;"
   shared:
     player:
       update_required: 'Update required'

@@ -25,11 +25,11 @@
         %span.jp-duration
     .jp-spacer
     .action-panel
-      %a.action-btn.slides-btn{title: "View Slides"}        
+      = link_to talk, target: 'blank', class: 'action-btn slides-btn', title: 'View Slides' do
         = naked_icon 'slides'
       .jp-spacer
     .action-panel
-      %a.action-btn.slides-btn{title: "Comments"}        
+      = link_to talk, target: 'blank', class: 'action-btn chat-btn', title: 'Comment' do
         = naked_icon 'chat'
       .jp-spacer
       %a.action-btn.pin-btn{title: "Pin This Talk"}            
@@ -39,7 +39,6 @@
         = naked_icon 'share'
       .jp-spacer
     = render partial: 'shared/embed_share_buttons'
-    -# TODO: add a local to the message to change the message depending on whether Pin or SLides was clicked?
     = render partial: 'shared/embed_msg'
 
       

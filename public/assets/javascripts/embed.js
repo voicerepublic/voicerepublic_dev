@@ -45,6 +45,7 @@ $(function () {
       ended: function(){
         // console.log('shit be over')
         toggleTeaser();
+        
       },
 
       volume: .8,
@@ -57,6 +58,12 @@ $(function () {
       verticalVolume: true
 
     });
+//hide the teaser again:
+$('.replay-btn').on('click', function(){
+  toggleTeaser();
+  player.jPlayer("play");
+});
+    
   });
 
 function toggleTeaser() {
@@ -64,10 +71,7 @@ function toggleTeaser() {
   $('.teaser-msg').toggleClass('hide');
 }
 
-//hide the teaser again:
-$('.replay-btn').on('click', function(){
-  toggleTeaser();
-});
+
 
   function dancingVolume(j,v) {
       var rando = Math.random() * .5;
