@@ -1,5 +1,5 @@
 .embed-msg.hide
-  = link_to "http://voicerepublic.com", class: 'msg-text', title: "cancel" do
+  = link_to "http://voicerepublic.com", target: '_blank', class: 'msg-text', title: "cancel" do
     -# TODO: Make this dynamic, change msg depending on which action button was clicked on the player (slides of pin)
     %p= t('.please_login')
   %a.action-btn.close-msg{title: "Cancel"}            
