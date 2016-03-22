@@ -28,9 +28,10 @@ class Venue < ActiveRecord::Base
     event :disconnect do
       transitions from: :connected, to: :disconnected
     end
-    event :shutdown, guard: :shutdown? do
+    event :shutdown do
       transitions from: [:ready, :connected, :disconnected],
-                  to: :offline, on_transition: :unprovision
+                  to: :offline, on_transition: :unprovision,
+                  guard: :shutdown?
     end
     # for emergencies only, may leave running instances behind!
     event :reset do

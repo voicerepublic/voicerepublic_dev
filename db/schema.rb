@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314103526) do
+ActiveRecord::Schema.define(version: 20160319195803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,22 @@ ActiveRecord::Schema.define(version: 20160314103526) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "devices", force: :cascade do |t|
+    t.string   "identifier"
+    t.string   "type"
+    t.string   "subtype"
+    t.string   "name"
+    t.string   "state"
+    t.datetime "last_heartbeat_at"
+    t.integer  "organization_id"
+    t.datetime "paired_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.datetime "disappeared_at"
+  end
+
+  add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "talk_id"
@@ -105,6 +121,28 @@ ActiveRecord::Schema.define(version: 20160314103526) do
     t.string   "key",        limit: 255
     t.float    "value"
     t.datetime "created_at"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "credits"
+    t.string   "image_uid"
+    t.string   "image_name"
+    t.string   "image_alt"
+    t.string   "logo_uid"
+    t.string   "logo_name"
+    t.string   "logo_alt"
+    t.text     "description"
+    t.text     "description_as_html"
+    t.text     "description_as_text"
+    t.string   "website"
+    t.float    "penalty"
+    t.boolean  "paying"
+    t.datetime "featured_from"
+    t.datetime "featured_until"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "participations", force: :cascade do |t|
@@ -395,6 +433,7 @@ ActiveRecord::Schema.define(version: 20160314103526) do
   add_index "venues", ["slug"], name: "index_venues_on_slug", using: :btree
   add_index "venues", ["user_id"], name: "index_venues_on_user_id", using: :btree
 
+  add_foreign_key "devices", "organizations"
   add_foreign_key "talks", "venues"
   add_foreign_key "venues", "users"
 end
