@@ -160,10 +160,10 @@ $(function() {
     });
 
 
-    $('.pin-btn').on('click', function() {
-        // $('.embed-msg').toggleClass('hide');
-        // $('.action-panel').toggleClass('hide');
-        // $('.jp-progress').toggleClass('hide');
+    $('.action-btn.pin-btn').on('click', function() {
+        $('.embed-msg').toggleClass('hide');
+        $('.action-panel').toggleClass('hide');
+        $('.jp-progress').toggleClass('hide');
 
     });
 
