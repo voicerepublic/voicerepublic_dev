@@ -38,6 +38,7 @@
 }
 
 .image-box {
+    position: relative;
     -webkit-flex: 0 0 auto;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
@@ -46,10 +47,25 @@
             align-self: flex-start;
 }
 
-.xs .image-box{
+.xs .image-box, .xs .live-badge{
+    height: 44px;
+    width: 44px;
     max-height: 44px;
     max-width: 44px;
 }
+
+.xs .live-badge {
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    margin:0;
+}
+
+.xs .live-badge p.live {
+    line-height: 44px;
+}
+
 
 .tiny .image-box, .token .image-box {
   display: none;
@@ -103,6 +119,7 @@
 
 .tiny .info-box, .token .info-box {
   margin-bottom: 6px;
+  height: 50px;
 }
 
 .tiny .action-panel {
@@ -133,6 +150,19 @@ h4.title {
     text-overflow: ellipsis;
     margin-bottom: 0;
     margin-top: -3px;
+}
+
+h4.title .live {
+    display: none;
+}
+
+.tiny h4.title .live {
+    text-transform: uppercase;
+    color:white;
+    background: #f82847;
+    padding: 2px;
+    font-size: 12px;
+    display: inline;
 }
 
 .xs h4.title, .tiny h4.title, .token h4.title {
@@ -200,9 +230,9 @@ h4.title:hover {
     height: 36px;
     padding: 0;
     width: 60px;
-    margin-left: 40px;
+    margin-left: 20px;
     position: absolute;
-    top: 68px;
+    top: 36px;
 }
 
 .live-badge p.live {
@@ -273,7 +303,7 @@ h4.title:hover {
 }
 
 /*JP*/
-.player-box, .teaser-msg {
+.player-box, .teaser-msg, .state-msg {
     -webkit-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
@@ -282,13 +312,17 @@ h4.title:hover {
     display: flex;
 }
 
-.teaser-msg {
+.teaser-msg, .state-msg {
     background: #f82847;
 }
 
-.teaser-msg p {
+.teaser-msg p, .state-msg p {
     margin: 0;
     margin-left: 12px;
+}
+
+.state-msg p {
+    line-height: 12px;
 }
 
 .teaser-link {
@@ -428,6 +462,7 @@ h4.title:hover {
     flex: 0 0 20px;
     display: block;
     position: relative;
+    margin-right: 2px;
 }
 
 .jp-volume-bar-value {
@@ -559,6 +594,13 @@ h4.title:hover {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+}
+
+.token .teaser-msg {
+    display: none;
+}
+.token .jp-controls {
+    min-width: 100%;
 }
 
 a.action-btn, .share-title {

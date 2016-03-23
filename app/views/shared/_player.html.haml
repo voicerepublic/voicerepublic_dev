@@ -6,25 +6,46 @@
 .jp-audio{ id: "jc-#{talk.id}" }
   -#.jp-type-single
   .jp-gui.jp-interface
-    .jp-controls.hide
-      %a.jp-pause(data-ga-event="click player pause #{galabel}")
-        = naked_icon 'pause'
-      %a.jp-play(data-ga-event="click player play #{galabel}"  )
-        = naked_icon 'play'
-    .jp-spacer
-    .jp-volume-bar
-      .jp-volume-bar-value
-      .jp-volume-bar-value-dancing
-    .jp-spacer
-    .jp-progress
-      .jp-seek-bar(data-ga-event="click player seek #{galabel}")
-        .jp-play-bar
-      .loading-indicator
-        %p= t('.loading')
-      .jp-time-holder.hide
-        %span.jp-current-time
-        %span.time-divider /
-        %span.jp-duration
+    - if talk.live?
+      .state-msg
+        = link_to talk, class: 'teaser-link', target: '_blank' do
+          %p= t('.listen_on_vr').html_safe
+    - if talk.prelive?
+      .state-msg
+        = link_to talk, class: 'teaser-link', target: '_blank' do
+          %p
+            = t('.live_in') + time_ago_in_words(talk.starts_at)
+    - if talk.postlive?
+      .state-msg
+        = link_to talk, class: 'teaser-link', target: '_blank' do
+          %p= t('.processing').html_safe
+    - else
+      .jp-controls.hide
+        %a.jp-pause(data-ga-event="click player pause #{galabel}")
+          = naked_icon 'pause'
+        %a.jp-play(data-ga-event="click player play #{galabel}"  )
+          = naked_icon 'play'
+      .jp-spacer
+      .jp-volume-bar
+        .jp-volume-bar-value
+        .jp-volume-bar-value-dancing
+      .teaser-msg.hide
+        = link_to "http://voicerepublic.com", class: 'teaser-link', target: '_blank' do
+          %p= t('.nice_stuff_on_vr').html_safe
+      .jp-progress
+        .jp-seek-bar(data-ga-event="click player seek #{galabel}")
+          .jp-play-bar
+        .loading-indicator
+          %p= t('.loading')
+        .jp-time-holder.hide
+          -# TODO: have it show the scheduled start, scheduled end when the new streaming thing is ready
+            -# %span.sched-start= talk.starts_at
+            -# %span.time-divider -
+            -# %span.sched-end= talk.ends_at
+          
+          %span.jp-current-time
+          %span.time-divider /
+          %span.jp-duration
     .jp-spacer
     .action-panel
       = link_to talk, target: 'blank', class: 'action-btn slides-btn', title: 'View Slides' do

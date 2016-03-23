@@ -2,6 +2,8 @@ en:
   shared:
     player:
       loading: Loading...
+      live_in: "Live In "
+      processing: "Processing..."
     talk_card:
       speaker: "Speaker: "
       ago_by: "%{time} ago"

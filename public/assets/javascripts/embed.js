@@ -7,6 +7,8 @@ $(function() {
         var dancingIndicator = player.next().find('.jp-volume-bar-value-dancing');
         var interval = null;
         var state = "started";
+        var teaserVisible = false;
+        var teaserMsg;
 
         var start_volume_meter = function() {
             if (state == "playing") {
@@ -46,6 +48,12 @@ $(function() {
                 toggleTeaser();
             },
 
+            play: function() {
+                if (!$('.teaser-msg').hasClass('hide')) {
+                    toggleTeaser();
+                }
+            },
+
             volumechange: function(event) {
                 clearInterval(interval);
                 start_volume_meter();
@@ -69,6 +77,7 @@ $(function() {
 
         //hide the teaser again:
         $('.replay-btn').on('click', function() {
+
             toggleTeaser();
             player.jPlayer("play");
         });
@@ -76,7 +85,8 @@ $(function() {
     });
 
     function toggleTeaser() {
-        $('.player-box').toggleClass('hide');
+        $('.teaser-msg a.teaser-link p span').html(teaserMsg);
+        $('.jp-progress').toggleClass('hide');
         $('.teaser-msg').toggleClass('hide');
     }
 
@@ -177,7 +187,7 @@ $(function() {
         }
 
         playerHolder.addClass(c)
-        // $('.mySize').text(c)
+        $('.mySize').text(c)
 
     };
 
@@ -186,25 +196,31 @@ $(function() {
         $('.my-width').html(embedWidth)
         if (embedWidth <= token) {
             embedClass = String(breakpoints[0])
+            //teaserMsg = msg_token;
         } else if (embedWidth > token && embedWidth <= tiny) {
             embedClass = String(breakpoints[1])
             $('.sm-up').hide();
             $('.md-up').hide();
+            teaserMsg = msg_tiny;
         } else if (embedWidth > tiny && embedWidth < xs) {
             embedClass = String(breakpoints[2])
             $('.sm-up').hide();
             $('.md-up').hide();
+            teaserMsg = msg_xs;
         } else if (embedWidth > xs && embedWidth < small) {
             embedClass = String(breakpoints[3])
             $('.sm-up').show();
             $('.md-up').hide();
+            teaserMsg = msg_small;
         } else if (embedWidth > small && embedWidth < medium) {
             embedClass = String(breakpoints[4])
             $('.md-up').show();
+            teaserMsg = msg_medium;
         } else {
             embedClass = String(breakpoints[5])
             $('.sm-up').show();
             $('.md-up').show();
+            teaserMsg = msg_large;
         }
         addBreakpointClass(embedClass);
     }

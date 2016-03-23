@@ -8,30 +8,32 @@
   .content-box
     .top-box.clearfix
       .info-box
-        = link_to talk, target: 'blank' do
+        = link_to talk, target: '_blank' do
           %h4.title
+            - if talk.live?
+              %span.live live
             = talk.title
         .meta-info
-          = link_to talk.user, target: 'blank', class: 'user' do
+          = link_to talk.user, target: '_blank', class: 'user' do
             %span= talk.user.name
           %span.date.sm-up= ' / ' + time_ago_in_words(talk.starts_at) + ' ago / '
           %span.play-count.sm-up= human_count(talk.play_count) + ' ' + t('.plays')
         
       .branding-box
-        = link_to talk, target: 'blank' do
+        = link_to talk, target: '_blank' do
           .brand-logo
             = naked_icon 'logo'
           .brand-words
             = naked_icon 'logotype'
     .player-box
       = render partial: 'shared/player', locals: { talk: talk }
-    .teaser-msg.hide
-      = link_to "#", class: 'replay-btn' do 
-        = naked_icon 'replay'
-        %p= t('.play_again')
-      = link_to "http://voicerepublic.com", class: 'teaser-link' do
-        %p= t('.nice_stuff_on_vr').html_safe
+.mySize
 
 
 :javascript
   var talk_id = #{talk.id}
+  var msg_tiny= "#{t('.msg_tiny')}"
+  var msg_xs= "#{t('.msg_xs')}"
+  var msg_small= "#{t('.msg_small')}"
+  var msg_medium= "#{t('.msg_medium')}"
+  var msg_large= "#{t('.msg_large')}"
