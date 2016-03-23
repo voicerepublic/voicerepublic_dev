@@ -3,6 +3,7 @@
 /*LIGHTBLUE: #54c6c6*/
 /*RED: #f82847*/
 /*Yellow: #ffed00*/
+/*Purple: #a339cd*/
 
 @import url("https://cdn.jsdelivr.net/foundation/6.2.0/foundation.min.css");
 
@@ -319,11 +320,9 @@ h4.title:hover {
 .teaser-msg p, .state-msg p {
     margin: 0;
     margin-left: 12px;
-}
-
-.state-msg p {
     line-height: 12px;
 }
+
 
 .teaser-link {
     color: white;
@@ -603,7 +602,7 @@ h4.title:hover {
     min-width: 100%;
 }
 
-a.action-btn, .share-title {
+.button, .action-btn, .share-title, .pinboard, .share a {
     -webkit-flex: 0 0 44px;
     -ms-flex: 0 0 44px;
     flex: 0 0 44px;
@@ -617,12 +616,34 @@ a.action-btn, .share-title {
     -ms-flex-align: center;
     align-items: center;
     width: 44px;
+    height: 44px;
     background: #3d404d;
     text-align: center;
     color: rgba(255, 255, 255, 0.5);
+    margin:0;
+    border:0;
+    padding: 0;
 }
 
-a.action-btn:hover {
+.share-btn svg, .share-btn svg * {
+    pointer-events: none;
+}
+
+.share-btn a:hover {
+    background: #a339cd;
+    color:white;
+}
+
+.unpin-btn {
+    background:#54c6c6;
+    color:white;
+}
+
+.unpin-btn:hover {
+    background: #f82847;
+}
+
+a.action-btn:hover, .pin-btn:hover {
     background: #384f9e;
     color: white;
 }

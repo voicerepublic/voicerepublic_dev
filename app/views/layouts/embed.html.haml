@@ -17,9 +17,10 @@
   %body.embed-show
     .container= yield
     #scripts
-      -#= javascript_include_tag "embed"
+      -#= javascript_include_tag "embed_talk"
 
       %script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js')
+      %script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.1/rails.min.js')
       %script(src='/assets/javascripts/jquery.jplayer.min.js')
       %script(src='/assets/javascripts/embed.js')
       = render 'shared/google_analytics'

@@ -1,6 +1,39 @@
 // http://jplayer.org/latest/developer-guide/
 
+function doThatThing() {
+    $(".share-panel .share-btn a").click(function(e) {
+  var social_network;
+  var element = $(e.target).parent();
+  social_network = $(element).attr("class").split(" ").filter(function(data) {
+    return ["facebook", "twitter", "mail"].indexOf(data) != -1 ? data : undefined 
+  });
+  social_network = social_network[0];
+  return $.post("/xhr/social_shares", {
+    social_share: {
+      shareable_id: $(element).attr("data-shareable-id"),
+      shareable_type: $(element).attr("data-shareable-type"),
+      social_network: social_network
+    }
+  }).always(function(data) {
+    var social_url;
+    if (social_network !== 'mail') {
+      social_url = {
+        facebook: "https://www.facebook.com/sharer/sharer.php?u=",
+        twitter: "https://twitter.com/intent/tweet?source=webclient&text="
+      }[social_network];
+      social_url += encodeURI(window.location);
+      window.open(social_url, "_blank").focus();
+    }
+  });
+});
+}
+
 $(function() {
+
+
+    doThatThing();
+
+
     $(".vr-player.jp-jplayer").each(function(i, el) {
         var player = $(el)
         var volumeIndicator = player.next().find('.jp-volume-bar-value');
@@ -128,9 +161,9 @@ $(function() {
 
 
     $('.pin-btn').on('click', function() {
-        $('.embed-msg').toggleClass('hide');
-        $('.action-panel').toggleClass('hide');
-        $('.jp-progress').toggleClass('hide');
+        // $('.embed-msg').toggleClass('hide');
+        // $('.action-panel').toggleClass('hide');
+        // $('.jp-progress').toggleClass('hide');
 
     });
 
