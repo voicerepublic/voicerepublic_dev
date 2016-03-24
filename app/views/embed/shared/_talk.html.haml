@@ -1,7 +1,7 @@
 = render partial: 'shared/embed_svg'
 .embed-player.clearfix
   .image-box
-    %img{src: talk.image.thumb('100x100#').url}
+    %img{src: talk.image.thumb('116x116#').url}
     - if talk.live?
       .live-badge
         %p.live= t('.live')
@@ -27,7 +27,7 @@
             = naked_icon 'logotype'
     .player-box
       = render partial: 'shared/player', locals: { talk: talk }
--#.mySize
+-#.mySizerm a
 
 
 :javascript

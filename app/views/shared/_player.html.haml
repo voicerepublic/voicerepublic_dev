@@ -20,7 +20,7 @@
         = link_to talk, class: 'teaser-link', target: '_blank' do
           %p= t('.processing').html_safe
     - else
-      .jp-controls.hide
+      .jp-controls
         %a.jp-pause(data-ga-event="click player pause #{galabel}")
           = naked_icon 'pause'
         %a.jp-play(data-ga-event="click player play #{galabel}"  )
@@ -29,15 +29,21 @@
       .jp-volume-bar
         .jp-volume-bar-value
         .jp-volume-bar-value-dancing
+      .embed-msg.hide
+        = link_to talk, target: '_blank', class: 'msg-text', title: "cancel" do
+          %p= t('.please_login')
+        %a.action-btn.close-msg{title: "Cancel"}            
+          ×
+        .jp-spacer
       .teaser-msg.hide
         = link_to "http://voicerepublic.com", class: 'teaser-link', target: '_blank' do
           %p= t('.nice_stuff_on_vr').html_safe
       .jp-progress
         .jp-seek-bar(data-ga-event="click player seek #{galabel}")
           .jp-play-bar
-        .loading-indicator
+        .loading-indicator.hide
           %p= t('.loading')
-        .jp-time-holder.hide
+        .jp-time-holder
           -# TODO: have it show the scheduled start, scheduled end when the new streaming thing is ready
             -# %span.sched-start= talk.starts_at
             -# %span.time-divider -
@@ -72,7 +78,7 @@
         = naked_icon 'share'
 
     = render partial: 'shared/embed_share_buttons', locals: { shareable_id: @talk.id, shareable_type: 'talk' }
-    = render partial: 'shared/embed_msg'
+    
 
       
           

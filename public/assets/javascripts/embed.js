@@ -61,13 +61,13 @@ $(function() {
                 });
             },
 
-            canplay: function(){
-              //console.log('can play');
-              $('.jp-controls').removeClass('hide');
-              $('.jp-time-holder').removeClass('hide');
-              $('.loading-indicator').addClass('hide');
+            //canplay: function(){
+              
+              // $('.jp-controls').removeClass('hide');
+              // $('.jp-time-holder').removeClass('hide');
+              // $('.loading-indicator').addClass('hide');
 
-            },
+            //},
 
             playing: function(event) {
                 var currentVolumeHeight = volumeIndicator.css("height")
@@ -93,7 +93,8 @@ $(function() {
             },
 
             ended: function() {
-                toggleTeaser();
+                console.log("it's over")
+                //toggleTeaser();
                 _gaq.push("_trackEvent", "click", "play", "player", "ended", "talk: " + talk_id)
             },
 
@@ -107,20 +108,18 @@ $(function() {
             verticalVolume: true
 
         });
-
-        //hide the teaser again:
-        $('.replay-btn').on('click', function() {
-
-            toggleTeaser();
-            player.jPlayer("play");
-        });
-
     });
 
     function toggleTeaser() {
+        console.log('teaser has been toggled')
         $('.teaser-msg a.teaser-link p span').html(teaserMsg);
         $('.jp-progress').toggleClass('hide');
         $('.teaser-msg').toggleClass('hide');
+        if(!$('.embed-msg').hasClass('hide')){
+            $('.embed-msg').addClass('hide');
+            $('.jp-progress').toggleClass('hide');
+            $('.action-panel').toggleClass('hide')
+        }
     }
 
 
@@ -161,9 +160,12 @@ $(function() {
 
 
     $('.action-btn.pin-btn').on('click', function() {
-        $('.embed-msg').toggleClass('hide');
-        $('.action-panel').toggleClass('hide');
-        $('.jp-progress').toggleClass('hide');
+        $('.embed-msg').removeClass('hide');
+        $('.action-panel').addClass('hide');
+        $('.jp-progress').addClass('hide');
+        if(!$('.teaser-msg').hasClass('hide')) {
+            $('.teaser-msg').addClass('hide')
+        }
 
     });
 
