@@ -97,10 +97,16 @@
             %span{"aria-hidden" => "true"} ×
     #mobile-nav.show-for-small-only{style:'display:none;'}
       .menu.vertical
+        - if !current_page?(root_path)
+          %li= link_to t('.home'), root_path
         - if !current_page?(explore_path)
           %li= link_to t('.explore_the_archive'), explore_path
-        - if !current_page?(current_user)
+        - if current_user
           %li= link_to t('.my_profile'), current_user
+        - if !current_user
+          %li= link_to t('.login'), new_user_session_path
+          %li= link_to t('.sign_up'), new_user_registration_path
+          
         %li= link_to t('.create_a_talk'), new_talk_path
         %li= link_to t('.pricing'), purchases_path
         %li
