@@ -19,7 +19,7 @@
  */
 
 @import "foundation_and_overrides";
-
+@import "settings";
 /* @import 'jquery-ui/theme';
  @import 'jquery-ui/datepicker';
  @import 'jquery-ui/slider';
@@ -35,10 +35,24 @@
  @import "shared/pdf_viewer";
 
 // RAILS STRUCTURE
- @import "landing_page";
- @import "users";
- @import "series";
- @import "talks";
- @import "explore";
- @import "search";
- @import "purchases";*/
+*/
+@import "appstyles";
+
+@import "profile";
+
+@import "start";
+
+@import "join";
+
+@import "explore";
+@import "footer";
+
+@import "topbar";
+
+@import "talk-card";
+@import "alert-box";
+@import "talk-forms";
+@import "error";
+@import "pricing";
+@import "series";
+@import "pages";

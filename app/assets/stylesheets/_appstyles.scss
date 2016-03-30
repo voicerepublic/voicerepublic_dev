@@ -1,0 +1,98 @@
+/* all app scss styles here */
+
+@mixin button-hollow-style($color: $primary-color) {
+  $color-hover: $alert-color;
+
+  border: 1px solid $color;
+  color: $color;
+
+  &:hover, &:focus {
+    border-color: $color-hover;
+    color: $color-hover;
+  }
+}
+
+@font-face {
+    font-family: 'Eagle';
+    src: url('../fonts/Eagle-Book.eot?-u70zge');
+    src: url('../fonts/Eagle-Book.eot?#iefix-u70zge') format('embedded-opentype'), url('../fonts/Eagle-Book.ttf?-u70zge') format('truetype'), url('../fonts/Eagle-Book.woff?-u70zge') format('woff'), url('../fonts/Eagle-Book.svg?-u70zge#Eagle-Book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,body {
+    min-height: 100%;
+}
+html {
+    -webkit-font-smoothing: antialiased;
+    height: 100%;
+    font-weight: 300;
+    color: $almost-black;
+    background: $silver;
+}
+
+button, .button {
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: rem-calc(1);
+    border-width: 2px;
+    &.hollow {
+        border-width:2px;
+    }
+    &.alert.hollow {
+        border-width:2px;
+    }
+
+    &.small {
+        border-width: 2px;
+    }
+
+    &.large {
+        border-width: 3px;
+    }
+
+    .info {
+        background: $topbar-link-color;
+
+        & .hollow {
+            border-color: $topbar-link-color;
+        }
+    }
+
+    &:hover, &:active {
+        background: $secondary-color;
+    }
+
+    &.muted.hollow {
+            border-color: $charcoal;
+            color:$charcoal;
+    }
+}
+
+.close-button {
+    padding:0;
+    margin:0;
+    border:0;
+}
+
+//avatar
+.avatar {
+    height: 100%;
+    padding: 12px 0;
+    img {
+        border:1px solid rgba($talk-dark,.1);
+        border-radius:50%;
+    }
+}
+
+.avatar-image {
+    border-radius: 50%;
+    border: 2px solid $smoke;
+    background-size: cover;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin:0 auto;
+}
+
+section {
+    padding:12px;
+}

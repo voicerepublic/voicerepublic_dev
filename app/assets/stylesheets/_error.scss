@@ -1,0 +1,62 @@
+//errors
+.not-found {
+	padding-top:48px;
+	.svg-icon {
+		width: 48px;
+		height: 48px;
+		max-width: 48px;
+		max-height: 48px;
+		padding-bottom:12px;
+		svg {
+			width: 48px;
+			height: 48px;
+			& * {
+
+			fill: $alert-color;
+			}
+		}
+	}
+	h2 {
+		color: $alert-color;
+		margin-bottom: 12px;
+		text-transform: none;
+		font-size: rem-calc(36);
+	}
+
+	.lead {
+		color: $talk-dark;
+		// margin-bottom: 48px;
+	}
+
+	hr {
+		margin-top: 48px;
+	}
+}
+
+.talk-holder {
+	padding-bottom:48px;
+	.talk-card {
+		margin:0 auto;
+		float:none !important;
+	}
+}
+
+.pages-outdated_browser {
+	h3 {
+		font-family: $body-font-family;
+	}
+	ul {
+		list-style-position: inside;
+		li {
+			margin-bottom: 24px;
+			font-weight: 300;
+			// border-bottom: 1px solid $secondary-color;
+			a {
+				font-weight: 500;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+}

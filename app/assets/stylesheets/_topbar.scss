@@ -1,0 +1,275 @@
+#working {
+    position:absolute;
+    height:80px;
+    max-height: 80px;
+    top:0;
+    left:0;
+    right:0;
+    background: $info-color;
+    text-align: center;
+    color: $talk-dark;
+    padding-top: 21px;
+    z-index: 9999;
+    pointer-events:none;
+}
+.logo a span {
+    font-family: $header-font-family;
+    color: $alert-color;
+    letter-spacing: rem-calc(6);
+    font-size: rem-calc(14);
+    line-height: rem-calc(36);
+    font-weight: normal;
+    margin: 0 0px 0 12px;
+    display: none;
+    @include breakpoint(850px) {
+        display: inline-block;
+    }
+}
+
+#mobile-nav {
+    li a {
+        background: $primary-color;
+        color: white;
+        min-height: 44px;
+        font-size: rem-calc(14);
+        font-weight: 500;
+        letter-spacing: rem-calc(1);
+        padding: 18px 24px;
+        // margin-bottom: 1px;
+        border-bottom: 1px solid $talk-dark;
+    }
+}
+
+.top-bar {
+    // @extend .sticky;
+    background: rgba($talk-dark, 1);
+    transition: background .3s ease;
+    margin: 0;
+    right: 0;
+    left: 0;
+    min-height: 80px;
+    padding:12px;
+    padding-top:18px;
+    ul li:last-child {
+        padding-right: 0;
+    }
+    .top-bar-right {
+        margin-top: 12px;
+        @include breakpoint(small only) {
+            width: 50px;
+            margin-top: 6px;
+        }
+
+        padding-right: 24px;
+        .avatar {
+            padding: 0;
+            margin: 0;
+            img {
+                border-radius: 50%;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            }
+            a:first-child {
+                padding: 0;
+                &:after {
+                    margin-right: -18px;
+                }
+            }
+            ul.submenu {
+                right: 0px;
+                left: auto;
+                margin: 0;
+            }
+            ul li {
+                padding: 6px 6px 8px;
+            }
+        }
+    }
+    .top-bar-left {
+        .menu {
+            @include breakpoint(small only) {
+                // max-width: 50%;
+            }
+        }
+        @include breakpoint(medium only) {
+            max-width: 40%;
+        }
+
+        #mobile-logo {
+            position: relative;
+            a {
+                padding:0;
+            }
+            a:after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 0;
+                border: inset 5px;
+                border-color: $alert-color transparent transparent;
+                border-top-style: solid;
+                position: absolute;
+                top: 1.4rem;
+                right: -3px;
+            }
+            svg {
+                min-width: 60px;
+            }
+        }
+    }
+    &.with-background {
+        background: $talk-dark;
+    }
+    ul {
+        background: none;
+        li {
+            // text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: rem-calc(0.5);
+            font-size: rem-calc(14);
+            padding-right: 12px;
+            // letter-spacing: rem-calc(1);
+            a:hover, a:active {
+                color: white;
+            }
+            .drop-title {
+                color: $primary-color;
+                text-transform: uppercase;
+                font-weight: 300;
+                padding-left: 14px;
+                padding-top: 12px;
+            }
+            .divider {
+                height: 1px;
+                background: $talk-dark;
+            }
+            .submenu {
+                a {
+                    color: $almost-black;
+                    &:hover {
+                        color: $alert-color;
+                    }
+                }
+            }
+            &.join a {
+                color: $secondary-color;
+                &:hover {
+                    color: $warning-color;
+                }
+            }
+            &.zoomIn {
+                animation-duration: .2s;
+            }
+            &.zoomOut {
+                // pointer-events: none;
+           
+            }
+        }
+        li.search-btn a {
+            padding-left: 0 !important;
+        }
+    }
+    .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow > a::after {
+        border-color: rgba($info-color, 0.5) transparent transparent;
+        right: 10px;
+    }
+    @include breakpoint(medium){
+        padding:0;
+        padding-top:6px;
+    }
+}
+
+#search-loupe a {
+    font-weight: 700;
+    font-size: rem-calc(18);
+    padding-top: 10px;
+    .svg-icon {
+        height: 6px;
+        svg {
+            fill: rgba(white, 0.5);
+            width: 18px;
+            height: 18px;
+        }
+    }
+    &:hover {
+        svg {
+            fill: white;
+        }
+    }
+}
+
+.search-container {
+    position: absolute;
+    top: 18px;
+    right: 0;
+    width: 380px;
+    background: $talk-dark;
+    animation-duration: .5s;
+    form {
+        label button {
+            color: white;
+            font-size: rem-calc(18);
+            width: 24px;
+            float: left;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            padding-top: 8px;
+            margin-left: -32px;
+            .svg-icon {
+                height: 6px;
+                svg {
+                    fill: rgba(white, 0.5);
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+        input {
+            float: left;
+            font-weight: 300;
+            font-size: rem-calc(14);
+            width: 300px;
+            margin-right: 0;
+            background: $talk-dark;
+            color: white;
+            box-shadow: none;
+            &:focus, &:active {
+                background: $talk-dark;
+                border-color: $talk-dark;
+            }
+        }
+    }
+    .close-button {
+        font-size: rem-calc(36);
+        font-weight: 200;
+        color: $alert-color;
+        top: 0;
+        padding: 0;
+        border: 0;
+        &:hover {
+            background: none;
+            color: $warning-color;
+        }
+    }
+    @include breakpoint(small only) {
+        top: 80px;
+        left: 0;
+        width: 100%;
+        padding: 12px;
+        background: $primary-color;
+        .close-button {
+            margin-top: -60px;
+        }
+        form input {
+            width: 100%;
+            height: 60px;
+            margin: 0;
+            background: $primary-color;
+            font-size: rem-calc(16);
+            &:focus, &:active {
+                background: $primary-color;
+                border-color: $primary-color;
+            }
+        }
+    }
+}

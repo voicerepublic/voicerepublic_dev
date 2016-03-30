@@ -22,12 +22,12 @@
         .claim-cta-half
           -# TODO: Link to pages in CMS
           -#   %a{:href => "publish.html"}
-          -#     %button{:href => "#"}
+          -#     %button.button.hollow.large.secondary{:href => "#"}
           -#       .icon.megaphone
           -#       = t('.publish')
           -# .claim-cta-half
           -#   %a{:href => "listen.html"}
-          -#     %button
+          -#     %button.button.hollow.large.secondary
           -#       .icon.headphones
           -#       = t('.listen')
 
@@ -46,24 +46,24 @@
             = link_to icon_tag(cat.icon) + cat.title,
                 explore_path(filter: {category: cat.id}), class: 'button'
 
-      #talk-collection
+      #talk-collection.clearfix
         = render partial: 'shared/talk_card', collection: @talks_popular
-      .row
-        = link_to explore_path do
-          %button= t('.more_talks')
+        .row.clearfix
+          = link_to explore_path do
+            %button.button.hollow.large.secondary= t('.more_talks')
 
 
   -# UPCOMING
   - unless @talks_upcoming.empty?
     %section#coming-up.blue
-      .row
+      .row.clearfix
         .container
           %h2= t('.coming_up_live')
         #talk-collection
           = render partial: 'shared/talk_card', collection: @talks_upcoming
-      .row
+      .row.clearfix
         = link_to explore_path do
-          %button= t('.more')
+          %button.button.hollow.large.secondary= t('.more')
 
 
   -# CATEGORIES
@@ -89,7 +89,7 @@
 
     .row.clearfix
       = link_to explore_path do
-        %button More Publishers »
+        %button.button.hollow.large.secondary More Publishers »
 
 
   -# CONTACT
@@ -98,6 +98,6 @@
       .medium-6.medium-offset-3.columns
         %h1 Are you planning a conference or event?
         = link_to new_user_registration_path do
-          %button Start Now
+          %button.button.hollow.large.secondary Start Now
         %br/
         = link_to 'or Contact us', blog_url('/contact'), class: 'text-link'
