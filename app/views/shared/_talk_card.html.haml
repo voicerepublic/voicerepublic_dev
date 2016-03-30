@@ -4,9 +4,9 @@
   .talk-card-inside
     = link_to talk do
       %h5.title= talk.title
-
-    = link_to user_path(talk.user), class: "publisher" do
-      = truncate(talk.user.name, length: 27)
+    .publisher-name
+      = link_to user_path(talk.user), class: "publisher" do
+        = talk.user.name
 
     
     = link_to talk, class: "image-box-holder clearfix" do
@@ -38,6 +38,8 @@
         = link_to talk do
           %p.play-count
             = human_count(talk.play_count) + t('.plays')
+      - else 
+        .empty-count-holder
       - if current_user
         .pinboard{ class: "pin-Talk-#{talk.id}" }
           - if reminder = current_user.remembers?(talk)
