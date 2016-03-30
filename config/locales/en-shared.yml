@@ -1,5 +1,10 @@
 en:
   shared:
+    player:
+      loading: Loading...
+      live_in: "Live In "
+      processing: "Processing..."
+      please_login: "Please sign in to Voice Republic to Pin a Talk."
     talk_card:
       speaker: "Speaker: "
       ago_by: "%{time} ago"

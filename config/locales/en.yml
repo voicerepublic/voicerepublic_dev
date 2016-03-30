@@ -1,4 +1,8 @@
 en:
+  embed: 
+    shared:
+      talk:
+        plays: Plays
   pages:
     outdated_browser:
       oops: Oops!

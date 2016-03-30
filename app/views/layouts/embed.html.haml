@@ -6,7 +6,8 @@
     %meta{content: "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0", name: "viewport"}/
     = csrf_meta_tags
     %link{href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css"}/
-    = stylesheet_link_tag "embed_talk", media: "all"
+    %link{href: "/assets/stylesheets/embed.css", rel: "stylesheet", type: "text/css"}/
+    -#= stylesheet_link_tag "embed", media: "all"
     = favicon_link_tag '/favicon.ico'
     %link{href: "images/apple-touch-icon.png", rel: "apple-touch-icon"}/
     %link{href: "images/apple-touch-icon-72x72.png", rel: "apple-touch-icon", sizes: "72x72"}/
@@ -14,8 +15,13 @@
     %link{href: "//cloud.webtype.com/css/fa41b746-9201-4f1c-ab4a-a330eb0afb96.css", rel: "stylesheet", type: "text/css"}/
 
   -# TODO use common logic to set class on body
-  %body.embed_talk-show
+  %body.embed-show
     .container= yield
     #scripts
-      = javascript_include_tag "embed_talk"
+      -#= javascript_include_tag "embed_talk"
+
+      %script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js')
+      %script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.1/rails.min.js')
+      %script(src='/assets/javascripts/jquery.jplayer.min.js')
+      %script(src='/assets/javascripts/embed.js')
       = render 'shared/google_analytics'
