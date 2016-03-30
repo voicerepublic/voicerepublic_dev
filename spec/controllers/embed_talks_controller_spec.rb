@@ -20,7 +20,7 @@ describe Embed::TalksController do
     it 'has content' do
       talk = FactoryGirl.create :talk, title: 'my title'
       get :show, id: talk.id
-      expect(response.body).to match(/MY TITLE/)
+      expect(response.body).to match(/my title/)
     end
 
   end
