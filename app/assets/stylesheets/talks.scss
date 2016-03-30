@@ -1046,7 +1046,7 @@
           top: 0px;
           height: 100%;
           width: 100%;
-          font-family: "Eagle Light",sans-serif;
+          font-family: sans-serif;
           background: url('/images/audio-loader.gif') no-repeat scroll 0% -14% transparent;
           font-size: rem-calc(21);
           letter-spacing: 1px;
@@ -1072,7 +1072,7 @@
       position: absolute;
       bottom: 27px;
       left: 34px;
-      font-family: Eagle Light;
+      font-family: helvetica, sans-serif;
       color: lighten($color-black-title,10%);
       font-size: rem-calc(14);
       &:hover{

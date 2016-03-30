@@ -4,7 +4,7 @@
 
 .nagBody ul li {
   color:#001c3a;
-  font-family: 'Eagle Light',helvetica,arial, sans-serif;
+  font-family: helvetica,arial, sans-serif;
   font-size: 1.3rem;
   line-height: 1.7rem;
   margin-left:4px;
@@ -25,7 +25,7 @@
 }
 
 .nagBody h4 {
-  font-family: 'Eagle Light', helvetica, arial, sans-serif;
+  font-family: helvetica, arial, sans-serif;
 }
 
 .nagBody .button.primary {
@@ -55,13 +55,13 @@
 
 @mixin nag-modal($factor) {
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Eagle Light',helvetica,arial,sans-serif;
+    font-family: helvetica,arial,sans-serif;
     color:#001c3a;
     color:red;
   }
 
   p {
-    font-family: 'Eagle Light',helvetica,arial, sans-serif;
+    font-family: helvetica,arial, sans-serif;
     font-size: 1.3rem;
     line-height: 1.7rem
   }
