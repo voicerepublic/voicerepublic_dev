@@ -102,6 +102,10 @@ GEM
     arel (6.0.3)
     auphonic (0.1.0)
       faraday
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.10)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
@@ -329,9 +333,10 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    foundation-rails (6.1.2.0)
+    foundation-rails (6.2.0.1)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
+      sprockets-es6 (>= 0.9.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     git-version-bump (0.15.1)
@@ -543,6 +548,10 @@ GEM
     sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
+    sprockets-es6 (0.9.0)
+      babel-source (>= 5.8.11)
+      babel-transpiler
+      sprockets (>= 3.0.0)
     sprockets-rails (3.0.1)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
@@ -634,7 +643,7 @@ DEPENDENCIES
   faye-authentication!
   fidelity!
   fog
-  foundation-rails (= 6.1.2.0)
+  foundation-rails (= 6.2.0.1)
   friendly_id
   haml-rails
   inifile

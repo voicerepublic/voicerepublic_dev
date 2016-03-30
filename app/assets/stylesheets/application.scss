@@ -12,43 +12,22 @@
  * to create a new file per style scope.
  *
  *= require_self
-//= require foundation_and_overrides
+ *= require foundation
+
 
  *= require slick
  */
 
- @import 'foundation_5_compat';
- @import "grids_variables_mixins/ci_variables";
- @import "grids_variables_mixins/mixins";
-/* @import "grids_variables_mixins/foundation_and_overrides"; TODO */
-/* @import "grids_variables_mixins/foundation-icons";*/
- @import "grids_variables_mixins/vr_icons";
- @import "main";
- @import 'jquery-ui/theme';
+@import "foundation_and_overrides";
+
+/* @import 'jquery-ui/theme';
  @import 'jquery-ui/datepicker';
  @import 'jquery-ui/slider';
  @import 'jquery-ui-timepicker-addon';
  @import "select2";
  @import "nprogress";
+
 // SHARED
- @import "shared/top_actionbar";
- @import "shared/flash_messages";
- @import "shared/social_share";
- @import "shared/footer";
- @import "shared/header_block";
- @import "shared/vr_tabs";
- @import "shared/talk_medium_box";
- @import "shared/talk_small_box";
- @import "shared/talk_live_box";
- @import "shared/series_medium_box";
- @import "shared/user_medium_box";
- @import "shared/vr_player";
- @import "shared/avatar";
- @import "shared/vr_button";
- @import "shared/vr_form";
- @import "shared/login_signup";
- @import "shared/tooltip";
- @import "shared/how_to_use_vr";
  @import "shared/debugger";
  @import "shared/icecast_instructions";
  @import "shared/nag_modal";
@@ -62,4 +41,4 @@
  @import "talks";
  @import "explore";
  @import "search";
- @import "purchases";
+ @import "purchases";*/
