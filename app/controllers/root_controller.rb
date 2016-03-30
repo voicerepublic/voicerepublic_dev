@@ -9,7 +9,7 @@ class RootController < BaseController
 
         talks = Talk.publicly_live.limit(12)
         more = 12 - talks.count
-        talks += Talk.recent.limit(more) if more > 0
+        talks += Talk.promoted.limit(more) if more > 0
         @talks_listen_now = talks
 
         @talks_popular = Talk.popular.limit(12)

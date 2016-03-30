@@ -65,6 +65,9 @@ class Talk < ActiveRecord::Base
       # otherwise it will go its usual way via prelive
       transitions from: :created, to: :prelive
     end
+    event :abandon do
+      transitions from: :prelive, to: :postlive
+    end
     event :start_talk, timestamp: :started_at, success: :after_start do
       transitions from: :prelive, to: :live
     end
@@ -94,6 +97,7 @@ class Talk < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :series, inverse_of: :talks
+  has_one :user, through: :series
   belongs_to :venue
   has_many :appearances, dependent: :destroy
   has_many :guests, through: :appearances, source: :user
@@ -126,7 +130,7 @@ class Talk < ActiveRecord::Base
   before_save :set_starts_at
   before_save :set_ends_at
   before_save :set_popularity, if: :archived?
-  before_save :set_description_as_html, if: :description_changed?
+  before_save :process_description, if: :description_changed?
   before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
   before_create :prepare, if: :can_prepare?
@@ -138,13 +142,8 @@ class Talk < ActiveRecord::Base
   # TODO: important, these will be triggered after each PUT, optimize
   after_save :set_guests
   after_save :generate_flyer!, if: :generate_flyer?
-
-  # Begin 'user audio upload'
-  after_save -> { delay(queue: 'audio').user_override! },
-             if: ->(t) { t.user_override_uuid_changed? and
-                           !t.user_override_uuid.to_s.empty? }
-
   after_save :process_slides!, if: :process_slides?
+  after_save :schedule_user_override, if: :schedule_user_override?
 
   validates_each :starts_at_date, :starts_at_time do |record, attr, value|
     # guard against submissions where no upload occured or no starts_at
@@ -152,19 +151,17 @@ class Talk < ActiveRecord::Base
     unless record.user_override_uuid.to_s.empty? or
       record.starts_at_time.to_s.empty? or
       record.starts_at_date.to_s.empty?
-      if Time.zone.parse([record.starts_at_date, record.starts_at_time] * ' ') > DateTime.now
+      datetime = [record.starts_at_date, record.starts_at_time] * ' '
+      if Time.zone.parse(datetime) > DateTime.now
         record.errors.add attr, 'needs to be in the past'
       end
     end
   end
-  # End 'user audio upload'
 
   serialize :listeners
   serialize :session
   serialize :storage
   serialize :social_links
-
-  delegate :user, to: :series
 
   dragonfly_accessor :image do
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
@@ -177,7 +174,12 @@ class Talk < ActiveRecord::Base
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
   scope :reordered, -> { order('starts_at DESC') }
-  scope :recent, -> { nodryrun.archived.featured.order('ends_at DESC') }
+  scope :recent, -> { nodryrun.archived.order('ends_at DESC') }
+  scope :promoted, -> { nodryrun.archived.featured.order('featured_from DESC') }
+
+  ARCHIVED_AND_LIMBO =
+    %w(archived pending postlive processing suspended).map { |s| "'#{s}'" } * ','
+  scope :archived_and_limbo, -> { where("state IN (#{ARCHIVED_AND_LIMBO})") }
 
   scope :scheduled_featured, -> do
     upcoming.featured.
@@ -202,6 +204,13 @@ class Talk < ActiveRecord::Base
 
   include PgSearch
   multisearchable against: [:tag_list, :title, :teaser, :description, :speakers]
+  pg_search_scope :search,
+                  ignoring: :accents,
+                  against: [:title, :teaser, :description_as_text, :speakers],
+                  associated_against: {
+                    series: [:title, :description_as_text, :teaser],
+                    user: [:firstname, :lastname, :about_as_text, :summary]
+                  }
 
   # returns an array of json objects
   def guest_list
@@ -285,6 +294,7 @@ class Talk < ActiveRecord::Base
     self.starts_at_time = delta.from_now.strftime('%H:%M')
     self.state = :prelive
     self.save!
+    # TODO oldschool: find a way to do newschool
     LiveServerMessage.call public_channel, event: 'Reload'
     self
   end
@@ -394,8 +404,9 @@ class Talk < ActiveRecord::Base
 
   private
 
-  def set_description_as_html
+  def process_description
     self.description_as_html = MD2HTML.render(description)
+    self.description_as_text = MD2TEXT.render(description)
   end
 
   def create_and_set_series?
@@ -444,12 +455,18 @@ class Talk < ActiveRecord::Base
   end
 
   def set_venue
-    self.venue_name = 'Default venue' if venue_name.blank? # TODO centralize name
-    self.venue ||= user.venues.find_or_create_by(name: venue_name.strip)
+    self.venue_name = venue_name.to_s.strip
+    return if venue_name.blank? and venue.present?
+    self.venue_name = 'Default venue' if venue_name.blank?
+    self.venue = user.venues.find_or_create_by(name: venue_name)
   end
 
   def set_icon
-    icon = TagBundle.tagged_with(tags).first.try(:icon)
+    bundles = TagBundle.category.tagged_with(tag_list, any: true)
+    unless bundles.empty?
+      icons = bundles.map { |b| [b.icon, (b.tag_list & tag_list).size] }
+      icon = icons.sort_by(&:last).last.first
+    end
     self.icon = icon || 'default'
   end
 
@@ -476,8 +493,6 @@ class Talk < ActiveRecord::Base
   end
 
   def after_start
-    MonitoringMessage.call(event: 'StartTalk', talk: attributes)
-
     return unless venue.opts.autoend
     # this will fail silently if the talk has ended early
     delta = started_at + duration.minutes
@@ -485,9 +500,9 @@ class Talk < ActiveRecord::Base
   end
 
   def after_end
+    # TODO oldschool, find a way to do it newschool
     LiveServerMessage.call public_channel, { event: 'EndTalk', origin: 'server' }
     Delayed::Job.enqueue(Postprocess.new(id: id), queue: 'audio')
-    MonitoringMessage.call(event: 'EndTalk', talk: attributes)
   end
 
   def postprocess!(uat=false)
@@ -502,9 +517,12 @@ class Talk < ActiveRecord::Base
       chain = chain.split(/\s+/)
       run_chain! chain, uat
       archive!
-    rescue
+    rescue => e
+      message = ([e.message] + e.backtrace) * "\n"
+      Rails.logger.error message
+      self.processing_error = message
       suspend!
-      LiveServerMessage.call public_channel, event: 'Suspend'
+      LiveServerMessage.call public_channel, event: 'Suspend', error: e.message
     end
   end
 
@@ -652,14 +670,14 @@ class Talk < ActiveRecord::Base
   end
 
   def manifest(chain=nil)
-    chain ||= series.opts.process_chain || Setting.get('audio.process_chain')
+    chain ||= venue.opts.process_chain || Setting.get('audio.process_chain')
     data = {
       id:         id,
       chain:      chain,
       talk_start: started_at.to_i,
       talk_stop:  ended_at.to_i,
-      jingle_in:  locate(series.opts.jingle_in  || Settings.paths.jingles.in),
-      jingle_out: locate(series.opts.jingle_out || Settings.paths.jingles.out)
+      jingle_in:  locate(venue.opts.jingle_in  || Settings.paths.jingles.in),
+      jingle_out: locate(venue.opts.jingle_out || Settings.paths.jingles.out)
     }
     data[:cut_conf] = edit_config.last['cutConfig'] unless edit_config.blank?
     data
@@ -721,9 +739,8 @@ class Talk < ActiveRecord::Base
     save!
   end
 
-  # generically propagate all state changes
   def event_fired(*args)
-    TalkEventMessage.call(self, *args)
+    Emitter.talk_transition(self, args)
   end
 
   def slug_candidates
@@ -806,6 +823,14 @@ class Talk < ActiveRecord::Base
 
   def process_slides?
     slides_uuid_changed? and slides_uuid.present?
+  end
+
+  def schedule_user_override
+    Delayed::Job.enqueue(UserOverride.new(id: id), queue: 'audio')
+  end
+
+  def schedule_user_override?
+    user_override_uuid_changed? and !user_override_uuid.to_s.empty?
   end
 
 end

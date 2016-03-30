@@ -1,0 +1,154 @@
+// ---------------------------------------- dot template
+digraph G {
+  // basic settings
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+  edge [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+  node [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+  // services
+  node [
+    shape = "rectangle"
+  ]
+  
+  Ec2Metrics
+    
+  SiteObserver
+    
+  ControlCenter
+    
+  Ec2Reaper
+    
+  Slacker
+    
+  Mediator
+    
+  Ec2Spawner
+    
+
+  // exchanges
+  node [
+    shape = "oval"
+  ]
+  
+  cloud_metrics
+  
+  observe_site
+  
+  sites_observed
+  
+  streamer_transition
+  
+  server_ready
+  
+  talk_transition
+  
+  transaction_transition
+  
+  spawn_server
+  
+  new_icecast_server
+  
+  reap_server
+  
+  notification
+  
+  dj_callback
+  
+  lifecycle_user
+  
+  lifecycle_message
+  
+  techne
+  
+
+  // apis
+  subgraph cluster_0 {
+			label="APIs";
+      node [
+        shape = "rectangle"
+      ]
+      
+      FogEc2
+      
+      Sites
+      
+      Slack
+      
+  }
+
+  // amqp
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+  ]
+  
+  Ec2Metrics -> cloud_metrics
+  
+  observe_site -> SiteObserver
+  
+  SiteObserver -> sites_observed
+  
+  streamer_transition -> ControlCenter
+  
+  sites_observed -> ControlCenter
+  
+  server_ready -> ControlCenter
+  
+  talk_transition -> ControlCenter
+  
+  transaction_transition -> ControlCenter
+  
+  ControlCenter -> spawn_server
+  
+  ControlCenter -> new_icecast_server
+  
+  ControlCenter -> reap_server
+  
+  reap_server -> Ec2Reaper
+  
+  notification -> Slacker
+  
+  dj_callback -> Mediator
+  
+  talk_transition -> Mediator
+  
+  lifecycle_user -> Mediator
+  
+  lifecycle_message -> Mediator
+  
+  transaction_transition -> Mediator
+  
+  Mediator -> notification
+  
+  Mediator -> techne
+  
+  spawn_server -> Ec2Spawner
+  
+  Ec2Spawner -> server_ready
+  
+
+  // http
+  edge [
+    arrowtail = "none"
+    arrowhead = "open"
+    style     = "dashed"
+  ]
+  
+  Ec2Metrics -> FogEc2
+  
+  SiteObserver -> Sites
+  
+  Ec2Reaper -> FogEc2
+  
+  Slacker -> Slack
+  
+  Ec2Spawner -> FogEc2
+  
+}

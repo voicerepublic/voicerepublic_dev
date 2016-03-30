@@ -8,8 +8,8 @@ en:
       already_confirmed: "already confirmed, please try to sign in."
       not_locked: "was not locked"
       not_saved:
-        one: "1 error prohibited this %{resource} from being saved:"
-        other: "%{count} errors prohibited this %{resource} from being saved:"
+        one: "Oops, please try again..."
+        other: "Oops, please try again..."
 
   devise:
     failure:
@@ -31,7 +31,7 @@ en:
         login_or: 'or'
         password: 'Password'
         remember: 'Remember me'
-        continue: 'Continue &nbsp;&rArr;'
+        continue: 'Continue &raquo;'
         text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp;<strong>teach</strong>,&nbsp;advice<br>play music<br>entertain,&nbsp; motivate,&nbsp; <strong>help</strong><br>directly via live<br><strong>video chat</strong>.'
     passwords:
       send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
@@ -40,26 +40,35 @@ en:
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
     confirmations:
+      new: 
+        confirm_password: 'Resend Confirmation'
       send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
       send_paranoid_instructions: 'If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes.'
       confirmed: 'Your account was successfully confirmed. You are now signed in.'
     registrations:
+      edit:
+        change_your_password: "Change Your Password"
       signed_up: 'Welcome! You have signed up successfully.'
       signed_up_but_unconfirmed: 'A message with a confirmation link has been sent to your email address. Please open the link to activate your account.'
       signed_up_but_inactive: 'You have signed up successfully. However, we could not sign you in because your account is not yet activated.'
       signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
-      updated: 'You updated your account successfully.'
+      updated: 'Successfully updated.'
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
       new:
-        sign_up: 'Sign Up For Free'
+        sign_up: |
+          Join Voice Republic <br/>
+          For Free
         registration_or: 'or'
+        via_email: 'Via Email'
         firstname: 'First name'
         lastname: 'Last name'
         password: 'Password'
         password_confirmation: 'Password confirmation'
-        continue: 'Continue &nbsp;&rArr;'
+        continue: 'Continue &raquo;'
         text1: '<strong>Cook</strong> your favorite meal<br>tell your best jokes<br>discuss,&nbsp; <strong>teach</strong>,&nbsp; advice<br>play music<br>entertain,&nbsp; motivate,&nbsp; <strong>help</strong><br>directly via live<br><strong>video chat</strong>.'
+        already_have_account: 'Already have an account?'
+
     shared:
       links:
         login: 'Log In'

@@ -13,6 +13,6 @@
 # urls
 @podcast.url =         talk_url(@talk)
 @podcast.image_link =  talk_url(@talk)
-@podcast.image_url =   @talk.image.thumb('1400x1400#').url
+@podcast.image =       @talk.image
 
 xml << render(partial: 'shared/podcast', locals: { xml: xml })

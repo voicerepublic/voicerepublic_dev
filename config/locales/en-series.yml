@@ -13,9 +13,9 @@ en:
     new_series: Create Series
     show:
       back_to_profile: back to Profile
-      create_new_talk: Create new Talk
-      upload_talk: Upload Talk
-      subscribe_to_podcast: Podcast
+      create_new_talk: Schedule A Live Talk
+      upload_talk: Upload A Recording
+      subscribe_to_podcast: Subscribe to Podcast
       podcast:
         title: "%{title}"
         subtitle: "Podcast provided by Voice Republic"
@@ -29,8 +29,8 @@ en:
       start_date: Begin
       duration: Duration
       past_series: Past Series
-      subscribe_to_series: Subscribe to Series
-      unsubscribe_to_series: Unsubscribe
+      subscribe_to_series: Follow This Series
+      unsubscribe_to_series: Unfollow This Series
       this_series_has_no_talks: This Series has no Talks
       edit_series: Edit
       chat_will_be_available_short_before_start: Group-chat will be available short before start
@@ -40,25 +40,25 @@ en:
       new_talk: New talk
       post: Post
       write_a_comment: Write a comment
-      description: Description
+      description: About This Series
       live_talks:
-        zero: No Live Talks
-        one: 1 LIVE TALK
-        other: '%{count} LIVE TALKS'
+        zero: Live Talks
+        one: LIVE TALK
+        other: LIVE TALKS'
       on_air: ON AIR
       upcoming_talks:
-        zero: No Upcoming Talks
-        one: 1 Upcoming Talk
-        other: '%{count} Upcoming Talks'
+        zero: Upcoming Talks
+        one: Upcoming Talk
+        other: Upcoming Talks
       archived_talks:
-        zero: No Archived Talks
-        one: 1 Archived Talk
-        other: '%{count} Archived Talks'
+        zero: Archived Talks
+        one: Archived Talk
+        other: Archived Talks
       more: More...
       plays:
-        zero: No Plays
-        one: 1 Play
-        other: '%{count} Plays'
+        zero: Plays
+        one: Play
+        other: Plays
     new:
       title: "New Series - Voice Republic"
       new_series: Create Series

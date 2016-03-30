@@ -11,16 +11,16 @@ module ValidUserRequestHelper
   end
 
   def click_to_signin
-    within('.top-bar') { click_link('Log In') }
+    within('.top-bar') { click_link('Sign In') }
   end
 
   def click_to_signup
-    within('.top-bar') { click_link('Sign Up') }
+    within('.top-bar') { click_link('Join For Free') }
   end
 
   def click_forgot_password
     visit root_path
-    within('.top-bar') { click_link('Sign Up') }
+    within('.top-bar') { click_link('Sign In') }
     click_on "Forgot password?"
   end
 

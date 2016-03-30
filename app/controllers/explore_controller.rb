@@ -47,34 +47,4 @@ class ExploreController < ApplicationController
     end
   end
 
-  # GET /explore/featured
-  def featured
-    @talks = Talk.featured.prelive.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /explore/upcoming
-  def upcoming
-    @talks = Talk.publicly_prelive.ordered.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /explore/popular
-  def popular
-    @talks = Talk.popular.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /explore/live
-  def live
-    @talks = Talk.publicly_live.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
-  # GET /explore/recent
-  def recent
-    @talks = Talk.recent.paginate(page: params[:page], per_page: 25)
-    render :index
-  end
-
 end

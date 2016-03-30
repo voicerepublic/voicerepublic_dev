@@ -19,18 +19,26 @@
 
 
       .profile-avatar
-        = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185 }
+        = render partial: "shared/avatar_image_velvet", locals: { user: @user, size: 185, alt: @user.image_alt }
 
       %h3.user-name=@user.name
       - if can? :manage, @user
-        = link_to [:edit, @user], class: 'button tiny hollow secondary' do
-          -#= icon_tag 'pencil'
-          = t('.edit_profile')
-      %p#user-description
-        - if @user.summary.blank? and can? :manage, @user
-          = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
-        - else
+        %p
+          = link_to [:edit, @user], class: 'button tiny hollow secondary' do
+            -#= icon_tag 'pencil'
+            = t('.edit_profile')
+        %p#user-description
+          - if @user.summary.blank? and can? :manage, @user
+            = link_to t('.summary_help_text'), [:edit, @user], class: 'button-summary-help'
+          - else
+            = @user.summary
+      - else
+        %p#user-description
           = @user.summary
+
+        -#%p.website-link
+          -#= link_to @user.website do
+            -#= @user.website
       -# TODO: get user's social links and post here?
       -#%ul.social-links
       -#  -# TODO: link these up, if they have provided the link, show the -#icon, make it go somewhere
@@ -76,31 +84,41 @@
       - unless @user.about.blank?
         %p.column-header= t('.about')
         %p= @user.about_as_html.html_safe
+
   #right-column.clearfix
+
     %ul#example-tabs.tabs{"data-tabs" => "g69yge-tabs"}
-      -# todo: if there are pinned talks, make this is-active
-      %li.tabs-title{class: @tab_pinned_class,:role => "presentation"}
-        %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
-          = t('.listen_later', count: @user.reminders.count)
+
+      - unless @user.reminders.empty?
+        %li.tabs-title{:role => "presentation", class: @tab_pinned_class}
+          %a#pinned-label{"aria-controls" => "pinned", "aria-selected" => "false", :href => "#pinned", :role => "tab"}
+            = t('.listen_later', count: @user.reminders.count)
+
       - unless @live_talks.empty?
         %li.tabs-title{:role => "presentation"}
           %a#live-label{"aria-controls" => "live", "aria-selected" => "true", :href => "#live", :role => "tab"}
             = t('.live_talks', count: @live_talks.count)
-      %li.tabs-title{class: @tab_archived_class,:role => "presentation"}
+
+      %li.tabs-title{role: "presentation", class: @tab_archived_class}
         %a#archived-label{"aria-controls" => "archived", "aria-selected" => "true", :href => "#archived", :role => "tab"}
           = t('.archived_talks', count: @archived_talks.count)
-      %li.tabs-title{:role => "presentation"}
-        %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"}
-          = t('.upcoming_talks', count: @upcoming_talks.count)
+
+      - unless @upcoming_talks.empty?
+        %li.tabs-title{:role => "presentation"}
+          %a#upcoming-label{"aria-controls" => "upcoming", "aria-selected" => "false", :href => "#upcoming", :role => "tab"}
+            = t('.upcoming_talks', count: @upcoming_talks.count)
+
       %li.tabs-title{:role => "presentation"}
         %a#series-label{"aria-controls" => "series", "aria-selected" => "false", :href => "#series", :role => "tab"}
           = t('.series', count: @user.series_without_default.count)
 
     .tabs-content{"data-tabs-content" => "example-tabs"}
-      #pinned.tabs-panel{class: @tab_pinned_class}
-        - if @remembered_talks.empty?
-          %p.nothing-notice= t(".#{@who}.pinned_empty", link: link_to(t('.explore_the_archive'), explore_path)).html_safe
-        = render partial: 'shared/talk_card',  collection: @remembered_talks
+
+      - unless @user.reminders.empty?
+        #pinned.tabs-panel{class: @tab_pinned_class}
+          - if @remembered_talks.empty?
+            %p.nothing-notice= t(".#{@who}.pinned_empty", link: link_to(t('.explore_the_archive'), explore_path)).html_safe
+          = render partial: 'shared/talk_card',  collection: @remembered_talks
 
         -# TODO: figure out what to do about welcome message
         -# if can? :manage, @user and @user.talks.empty? and @user.participations.empty?
@@ -109,6 +127,7 @@
 
       #live.tabs-panel
         = render partial: 'shared/talk_card', collection: @live_talks
+
       #upcoming.tabs-panel
         - if @upcoming_talks.count > 0
           = render partial: 'shared/talk_card', collection: @upcoming_talks
@@ -117,9 +136,10 @@
             = t('.nothing_scheduled')
 
       #archived.tabs-panel{class: @tab_archived_class}
-        - if @archived_talks.empty?
+        - if @archived_talks.empty? && current_user
           %p.nothing-notice= t(".#{@who}.archived_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe
         = render partial: 'shared/talk_card',  collection: @archived_talks
+
       #series.tabs-panel
         - if @series.count == 0
           %p.nothing-notice= t(".#{@who}.series_empty", link: link_to(t('.create_one_now'), new_talk_path), class: 'button hollow tiny').html_safe

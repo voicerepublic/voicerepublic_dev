@@ -7,93 +7,94 @@
 
 - content_for :facebook_values do
   = render(:partial => 'facebook_value_template', :locals => { :series => @series } )
+.top-section
+  .series-container
 
-.user-box.row
-  .large-12.columns
-    = link_to @series.user do
-      = render partial: "shared/avatar_image", locals: { user: @series.user, size: 50 }
-      %h4.series-user= @series.user.name
-    = render partial: 'shared/social_share', locals: { shareable_id: @series.id, shareable_type: 'series' }
 
-.title-box.row.collapse-large-only
-  .large-12.columns
-    %h2.series-title.left= @series.title
-    - if can? :manage, @series
-      = link_to t('.edit_series'), [:edit, @series], class: "title-edit"
-
-.image-box.row.collapse-large-only
-  .large-12.columns
-    = image_tag @series.image.thumb("700x361#nw").url, class: 'image'
-
-.action-box.row.collapse-large-only
-  .anker-links.large-6.medium-6.columns
-    -# TODO check the intelligibility of the following 3 unlesses
-    - unless @series.talks.empty?
-      .black-background-box
-        - unless @upcoming_talks.empty?
-          = link_to '#upcoming-talks' do
-            = t('.upcoming_talks', count: @upcoming_talks.count)
-        %span.icon-mic
-        - unless @archived_talks.empty?
-          = succeed '<a>, </a>'.html_safe do # horrible hack!
-            = link_to '#archived-talks' do
-              = t('.archived_talks', count: @archived_talks.count)
-        %a= t('.plays', count: @total_plays)
-
-  .action-links.large-6.medium-6.columns
-    .align-box
+    .row.title-box.text-center
+      %h2.series-title.text-center= @series.title
       - if can? :manage, @series
-        = link_to new_talk_path(talk: { series_id: @series.id }) do
-          %span.icon-mic
-          = t('.create_new_talk')
-        = link_to new_upload_path(talk: { series_id: @series.id }) do
-          %span.icon-upload-cloud
-          = t('.upload_talk')
-      - else
-        = render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
-        - if @show_join
-          = link_to [@series, :participations], method: :post do
-            = t('.subscribe_to_series')
-        - elsif !current_user
-          %a(href="#" data-reveal-id="modal-login-signup")
-            = t('.subscribe_to_series')
-        - if @participation
-          = link_to [@series, @participation], delete_params do
-            = t('.unsubscribe_to_series')
+        = link_to t('.edit_series'), [:edit, @series], class: "title-edit button tiny info hollow"
 
-- unless @live_talks.empty?
-  .live-talks-box.row.collapse-large-only
-    .large-12.columns
-      %header.title-header.clearfix
-        %h3.left= t('.live_talks', count: @live_talks.count)
-        .onair.right= t('.on_air')
-      %ul(class="#{talkslive_grid(@live_talks)}")
-        = render partial: talkslive_partial(@live_talks), :locals => { color: 'box-live' }, collection: @live_talks
+    -#  B R E A D C R U M B S - B E G I N
+    .row.byline.text-center
+      %span.series-label A Series By
+      = link_to @series.user do
+        = render partial: "shared/avatar_image_velvet", locals: { user: @series.user, size: 30 }
+        %span.user= @series.user.name
+      -#= @series.title
+    -#  B R E A D C R U M B S - E N D
 
-- unless @upcoming_talks.empty?
-  .upcoming-talks-box.row.collapse-large-only
-    .large-12.columns
-      %h3= t('.upcoming_talks', count: @upcoming_talks.count)
-      %ul(class="#{talks_grid(@upcoming_talks)}")
-        -# TODO show only the first 3
-        = render partial: talks_partial(@upcoming_talks), :locals => { color: 'box-slim' }, collection: @upcoming_talks
-      -# TODO open all
-      -#= link_to t('.more'), '#', class: 'link-more'
 
-- unless @archived_talks.empty?
-  .archived-talks-box.row.collapse-large-only
-    .large-12.columns
-      %h3= t('.archived_talks', count: @archived_talks.count)
-      %ul(class="#{talks_grid(@archived_talks)}")
-        -# TODO show only the first 3
-        = render partial: talks_partial(@archived_talks), :locals => { color: 'box-slim' }, collection: @archived_talks
-      -# TODO open all
-      -#= link_to t('.more'), '#', class: 'link-more'
 
-.description-box.row.collapse-large-only
-  .large-12.columns
-    .align-box
-      %h3= t('.description')
+
+    .row.meta-data-box
+      %hr
+      %ul.series-meta-group.menu.expanded
+        %li
+          %p= human_count(@live_talks.count)
+          %p.label= t('.live_talks', count: @live_talks.count)
+        %li
+          %p= human_count(@upcoming_talks.count)
+          %p.label= t('.upcoming_talks', count: @upcoming_talks.count)
+        %li
+          %p= human_count(@archived_talks.count)
+          %p.label= t('.archived_talks', count: @archived_talks.count)
+        %li
+          %p= human_count(@total_plays)
+          %p.label= t('.plays', count: @total_plays)
+      %hr/
+      = render partial: 'shared/share_velvet', locals: { shareable: @series }
+      .action-links
+        - if can? :manage, @series
+          = link_to new_talk_path(talk: { series_id: @series.id }), class:'button hollow' do
+            = t('.create_new_talk')
+          = link_to new_upload_path(talk: { series_id: @series.id }),class:'button hollow' do
+            = t('.upload_talk')
+        - else
+          -#= render partial: 'shared/hide_for_anon', locals: { link: link_to_podcast(@series) }
+          -# TODO: fix this with Phil
+          = link_to podcast_url(@series), class:'button hollow float-right' do
+            = t('.subscribe_to_podcast')
+          - if @show_join
+            = link_to [@series, :participations], method: :post do
+              %button.button.float-left.hollow.qa-subscribe= t('.subscribe_to_series')
+          - elsif !current_user
+            %a(href="#" data-reveal-id="modal-login-signup")
+              %button.button.float-left.hollow= t('.subscribe_to_series')
+          - if @participation
+            = link_to [@series, @participation], delete_params do
+              .qa-unsubscribe= t('.unsubscribe_to_series')
+
+
+
+
+.series-grid.row.clearfix
+  .medium-4.large-3.columns.float-left.series-left-column
+    %h3.about= t('.description')
+    = image_tag @series.image.thumb("900x600#").url, class: 'image', alt: @series.image_alt
+    %p
       = @series.description_as_html.html_safe
       - if can? :manage, @series
-        = link_to t('.edit_series'), [:edit, @series], class: "desc-edit"
+        = link_to t('.edit_series'), [:edit, @series], class: "desc-edit button tiny info hollow"
+
+  -#.series-right-column.float-right.clearfix
+  .medium-8.large-9.columns.series-right-column
+    - unless @live_talks.empty?
+      .talks-box
+        .large-12.columns.talks-title
+          %h3= t('.live_talks', count: @live_talks.count)
+        .large-12.columns.clearfix.talks-grid
+          = render partial: talks_partial(@live_talks), collection: @live_talks
+
+    - unless @upcoming_talks.empty?
+      .large-12.columns.talks-title
+        %h3= t('.upcoming_talks', count: @upcoming_talks.count)
+      .large-12.columns.clearfix.talks-grid
+        = render partial: talks_partial(@upcoming_talks), collection: @upcoming_talks
+
+    - unless @archived_talks.empty?
+      .large-12.columns.talks-title
+        %h3= t('.archived_talks', count: @archived_talks.count)
+      .large-12.columns.clearfix.talks-grid
+        = render partial: talks_partial(@archived_talks), collection: @archived_talks

@@ -1,80 +1,14 @@
 - content_for :title do
   = t('.title', query: @query)
+#search-results-count.text-center
+  %p.lead= t('.results', count: @talks.count, query: @query).html_safe
 
-.row.collapse.top-margin-action-bar
-  .large-12.columns
-    %h2= t('.results', count: @results.count, query: @query)
-
-    - if @best_hit.nil?
-      %h2= t('.no_results')
-    - else
-      %h3= t('.best_result')
-      - case @best_hit
-      - when Talk
-        -#%h3= t('.talk')
-        %ul.list-style-type-none
-          = render partial: "shared/talk_medium_box", locals: { talk_medium_box: @best_hit }
-      - when Series
-        -#%h3= t('.series')
-        %ul.list-style-type-none
-          = render partial: "shared/series_medium_box", locals: { series_medium_box: @best_hit }
-      - when User
-        -#%h3= t('.user')
-        %ul.list-style-type-none
-          %li
-            = link_to user_path(@best_hit) do
-              .avatar
-                .avatar-box
-                  = render partial: "shared/avatar_image",  locals: {user: @best_hit, size: 62}
-                  .avatar-name.text-center
-                    = @best_hit.name
-
-    %br/
-    %hr/
-    %br/
-
-    - if @talks.any?
-      %h3= t('.talks')
-      %ul.list-style-type-none
-        = render partial: "shared/talk_medium_box", collection: @talks
-    - if @series.any?
-      %h3= t('.series')
-      %ul.list-style-type-none
-        = render partial: "shared/series_medium_box", collection: @series
-    - if @users.any?
-      %h3= t('.users')
-      %ul.medium-block-grid-6.small-block-grid-3
-        - @users.each do |u|
-          %li
-            = link_to user_path(u) do
-              .avatar
-                .avatar-box
-                  = render partial: "shared/avatar_image",  locals: {user: u, size: 62}
-                  .avatar-name.text-center
-                    = u.name
-
-    = will_paginate @results
-
-%br/
-.row.collapse
-  .large-12.columns
-    %hr/
-%br/
-
-.talks-search
-  - unless @talks_live.empty?
-    .live-talks.row.collapse
-      .medium-12.columns
-        .talks-box-title
-          %h3= t('.now_live')
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_live
-
-  - unless @talks_featured.empty?
-    %br
-    .featured-talks.row.collapse
-      .medium-12.columns
-        .talks-box-title
-          %h3= t('.featured')
-          %ul.list-style-type-none
-            = render partial: "shared/talk_medium_box", collection: @talks_featured
+- if @talks.any?
+  .row.collapse
+    .large-12.columns
+      .result-container.clearfix
+        = render partial: "shared/talk_card", collection: @talks
+  .row.clearfix              
+    = will_paginate @talks
+- else 
+  .row.collapse.top-margin-action-bar

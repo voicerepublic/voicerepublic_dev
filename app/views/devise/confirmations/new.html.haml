@@ -1,6 +1,9 @@
-.top-margin-action-bar.row
+= image_tag 'background/main-bg.jpg', class: 'bg-img'
+.top-margin-action-bar.row#input-block
   .large-12.columns
-    %h2(style='color: black') Resend confirmation instructions
+    .title-block
+      = image_tag 'logos/vr_red.svg', class: 'join-logo'
+      %h2= t('.confirm_password')
 
     = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
       = devise_error_messages!
@@ -10,8 +13,9 @@
         %br
         = f.email_field :email
 
-      %div= f.submit "Resend confirmation instructions", class: 'button-vr'
+      %div= f.submit "Resend confirmation instructions", class: 'button-vr button large'
 
     %br
     %br
     = render "devise/shared/links"
+    

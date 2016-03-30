@@ -35,12 +35,15 @@
   -# LISTEN NOW
   %section#listen-now.light
     .row
+
       %h2= t('.listen_now')
       #talk-teasers
         = render partial: 'shared/talk_card', collection: @talks_listen_now
 
       .listen-interstitial
-        %p.lead= t('.lead_interstitial')
+        .row.clearfix
+          .medium-6.medium-offset-3.columns.clearfix
+            %p.lead= t('.lead_interstitial').html_safe
         .category-buttons
           - @categories.each do |cat|
             = link_to icon_tag(cat.icon) + cat.title,

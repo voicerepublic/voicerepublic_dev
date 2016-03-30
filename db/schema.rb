@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121145313) do
+ActiveRecord::Schema.define(version: 20160309104001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(version: 20160121145313) do
     t.float    "penalty",                         default: 1.0
     t.text     "description_as_html",             default: ""
     t.string   "image_alt",                       default: ""
+    t.text     "description_as_text",             default: ""
   end
 
   add_index "series", ["slug"], name: "index_series_on_slug", unique: true, using: :btree
@@ -283,6 +284,9 @@ ActiveRecord::Schema.define(version: 20160121145313) do
     t.integer  "venue_id"
     t.string   "icon",                             default: "default"
     t.string   "image_alt"
+    t.text     "description_as_text",              default: ""
+    t.text     "processing_error"
+    t.string   "forward_url"
   end
 
   add_index "talks", ["popularity"], name: "index_talks_on_popularity", using: :btree
@@ -348,6 +352,7 @@ ActiveRecord::Schema.define(version: 20160121145313) do
     t.datetime "featured_from"
     t.datetime "featured_until"
     t.string   "image_alt",                          default: ""
+    t.text     "about_as_text",                      default: ""
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", using: :btree

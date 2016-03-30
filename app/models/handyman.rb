@@ -54,34 +54,6 @@ class Handyman
       end
     end
 
-    def series_options_rename_autoend
-      log '-> Check series for old option no_auto_end_talk...'
-
-      query = Series.where("options LIKE '%autoend%'")
-      if query.count > 0
-        log "PRIOR RUN DETECTED & NOT IDEMPOTENT. SKIPPING. REMOVE THIS METHOD."
-        return
-      end
-
-      query = Series.where("options NOT LIKE '%no_auto_end%'")
-      total = query.count
-      query.each_with_index do |series, index|
-        log "%s/%s Set option autoend for series %s" %
-            [ index+1, total, series.id ]
-        series.options[:autoend] = true
-        series.save
-      end
-
-      query = Series.where("options LIKE '%no_auto_end%'")
-      total = query.count
-      query.each_with_index do |series, index|
-        log "%s/%s Unset option no_auto_end_talk for series %s" %
-            [ index+1, total, series.id ]
-        series.options.delete :no_auto_end_talk
-        series.save
-      end
-    end
-
     def appearances_nonextistent_talks
       log "-> Check appearances for nonexistent talks..."
       condition = "talk_id NOT IN (?)"
@@ -386,6 +358,39 @@ class Handyman
       end
     end
 
+    def talks_generate_missing_flyers
+      log "-> Check for missing flyers"
+      total = Talk.count
+      index = 0
+      Talk.find_each do |talk|
+        index += 1
+        unless talk.flyer.exist?
+          log '%s/%s generating flyer for Talk %s' %
+               [index, total, talk.id]
+          talk.flyer.generate!
+        end
+      end
+    end
+
+    def list_resources_with_missing_images(resource=nil, prop=nil)
+      if resource.nil?
+        list_resources_with_missing_images(Talk, :image)
+        list_resources_with_missing_images(Series, :image)
+        list_resources_with_missing_images(User, :avatar)
+      else
+        log "-> Check for missing images (#{resource}##{prop})"
+        resource.find_each do |obj|
+          begin
+            unless File.exist?(obj.send(prop).path)
+              log "#{resource.name}.find(#{obj.id}).#{prop} missing (#{obj.self_url})"
+            end
+          rescue => e
+            log "#{resource.name}.find(#{obj.id}).#{prop} died with '#{e.message}'."
+          end
+        end
+      end
+    end
+
     private
 
     def log(msg)
@@ -404,9 +409,8 @@ class Handyman
       tasks = Tasks.new
       methods.sort.each { |key| tasks.send(key) }
 
-      channel = Settings.slack.system_channel
-      slack = Slack.new(channel, 'Handyman', ':construction_worker:')
-      slack.send tasks.instance_variable_get(:@log) * "\n"
+      message = tasks.instance_variable_get(:@log) * "\n"
+      Emitter.handyman(message)
     end
   end
 

@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def itunes_image_url(image)
+    image.thumb('1400x1400#', format: 'png').url(name: 'image.png')
+  end
+
   def default_content(locale, key)
     keys = [locale.to_s] + key.split('.')
     keys.reduce(sections) do |r, k|
@@ -9,6 +13,17 @@ module ApplicationHelper
       else r[k]
       end
     end
+  end
+
+  # TODO: refactor into controllers
+  def render_footer?
+    return false if controller_action == 'explore-index'
+    return false if controller_action == 'users-edit'
+    true
+  end
+
+  def controller_action
+    [controller_name, action_name] * '-'
   end
 
   # s works much like t, but looks up md formatted content from the db
@@ -22,7 +37,7 @@ module ApplicationHelper
       end
     end
     section = Section.find_or_create_by(key: key, locale: I18n.locale)
-    if section.content.nil? # nil not blank!
+    if section.content.nil? or Rails.env.development? # nil not blank!
       section.content = default_content(locale, key)
       section.save
       section.reload
@@ -31,6 +46,9 @@ module ApplicationHelper
     section = interpolations.inject(section) do |result, interpolation|
       name, value = interpolation
       result.gsub("%{#{name}}", value)
+    end
+    if Rails.env.edvelopment? and section.blank?
+      section = "section: #{key}<br/>#{interpolations.inspect}"
     end
     section.html_safe
   end
@@ -42,8 +60,9 @@ module ApplicationHelper
   end
 
 
-  def icon_tag(topic)
-    "<div class='svg-icon'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
+  def icon_tag(topic, opts={})
+    title = opts[:title] || topic
+    "<div class='svg-icon' title='#{title}'><svg><use xlink:href='#icon-#{topic}'></use></svg></div>".html_safe
   end
 
 
@@ -70,7 +89,7 @@ module ApplicationHelper
       data: {
         confirm: I18n.t('.confirm_delete', default: 'Are you sure?')
       },
-      class: 'link-delete'
+      class: 'link-delete button hollow'
     }
   end
 
@@ -82,15 +101,16 @@ module ApplicationHelper
   end
 
   # TODO: move into trickery
-  class << self
-    def determine_release
-      path = Rails.env.production? ? '../repo' : '.'
-      tag = %x[ (cd #{path} && git describe --tags --abbrev=0) ].chomp || 'notag'
-      patchlevel = %x[ (cd #{path} && git log --oneline #{tag}.. | wc -l) ].chomp
-      # date = %x[ (cd #{path} && git log -1 --format=%ai) ].chomp
-      # "#{tag} p#{patchlevel} (#{date})"
-      "#{tag} p#{patchlevel}"
-    end
+  def release
+    @release ||=
+      begin
+        path = Rails.env.production? ? '../repo' : '.'
+        tag = %x[ (cd #{path} && git describe --tags --abbrev=0) ].chomp || 'notag'
+        patchlevel = %x[ (cd #{path} && git log --oneline #{tag}.. | wc -l) ].chomp
+        # date = %x[ (cd #{path} && git log -1 --format=%ai) ].chomp
+        # "#{tag} p#{patchlevel} (#{date})"
+        "#{tag} p#{patchlevel}"
+      end
   end
 
   def sections
@@ -98,10 +118,6 @@ module ApplicationHelper
     # TODO check if files changed and reread
     @sections = # TODO then activate caching with ||=
       YAML.load(File.read(Rails.root.join('config/sections.yml')))
-  end
-
-  def release
-    RELEASE
   end
 
   def strip_html(str)
@@ -115,6 +131,3 @@ module ApplicationHelper
   end
 
 end
-
-# determine release once when module is loaded
-ApplicationHelper::RELEASE = ApplicationHelper.determine_release

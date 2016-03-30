@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-
+  layout 'velvet_minimal'
   def new
     resource = build_resource(user_params)
 
@@ -20,7 +20,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    Simon.comprehend(resource, :registered)
     '/onboard'
   end
 

@@ -33,6 +33,8 @@
 # * website [string] - TODO: document me
 class User < ActiveRecord::Base
 
+  include LifecycleEmitter
+
   # this makes `url_for` available for use in `details_for`
   include Rails.application.routes.url_helpers
 
@@ -93,7 +95,7 @@ class User < ActiveRecord::Base
   # WARNING: Do not use after_save hooks in the 'user' model that will
   # save the model. The reason is that the Devise confirmable_token
   # might be reset mid-transaction.
-  before_save :set_about_as_html, if: :about_changed?
+  before_save :process_about, if: :about_changed?
   before_create :build_and_set_default_series
   after_save :generate_flyers!, if: :generate_flyers?
 
@@ -183,7 +185,7 @@ class User < ActiveRecord::Base
   end
 
   def remembers?(model)
-    reminders.exists?( rememberable_id: model.id,
+    reminders.find_by( rememberable_id: model.id,
                        rememberable_type: model.class.name )
   end
 
@@ -222,10 +224,15 @@ class User < ActiveRecord::Base
     series.inject({}) { |h, v| h.merge v.id => v.title }
   end
 
+  def self_url
+    Rails.application.routes.url_helpers.user_url(self)
+  end
+
   private
 
-  def set_about_as_html
+  def process_about
     self.about_as_html = MD2HTML.render(about)
+    self.about_as_text = MD2TEXT.render(about)
   end
 
   def process_welcome_transaction

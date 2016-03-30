@@ -40,17 +40,14 @@ class UsersController < BaseController
         @remembered_talks  = Talk.remembered_by(@user).reordered
 
         @who = current_user==@user ? "you":"other"
-        if @who == "you"
+        @role = @user.talks.empty? ? :listener : :publisher
+
+        if @role == :publisher
+          @tab_pinned_class = ""
+          @tab_archived_class = "is-active"
+        else
           @tab_pinned_class = "is-active"
           @tab_archived_class = ""
-        else
-          if @remembered_talks.count > 0
-            @tab_pinned_class = "is-active"
-            @tab_archived_class = ""
-          else
-            @tab_pinned_class = ""
-            @tab_archived_class = "is-active"
-          end
         end
 
         @talks_total       = @user.talks.where.not(state: 'postlive').count
@@ -62,7 +59,7 @@ class UsersController < BaseController
         # listen later -> starts_at desc
         @live_talks        = @user.talks.live.ordered
         @upcoming_talks    = @user.talks.prelive.ordered
-        @archived_talks    = @user.talks.archived.reordered
+        @archived_talks    = @user.talks.archived_and_limbo.reordered
 
         @series            = @user.series_without_default
 

@@ -1,11 +1,11 @@
 module SeriesHelper
 
   def talks_partial(collection)
-    collection.count > 1 ? 'shared/talk_small_box' : 'shared/talk_medium_box'
+    collection.count > 1 ? 'shared/talk_card' : 'shared/talk_card'
   end
 
   def talkslive_partial(collection)
-    collection.count > 2 ? 'shared/talk_small_box' : 'shared/talk_live_box'
+    collection.count > 2 ? 'shared/talk_card' : 'shared/talk_card'
   end
 
   def talks_grid(collection)
@@ -18,8 +18,8 @@ module SeriesHelper
 
   def social_meta_tags_series
     opts = {
-      description: @series.description.empty? ?
-        @series.teaser : strip_html(@series.description),
+      description: @series.description_as_text.empty? ?
+        @series.teaser : @series.description_as_text,
       title:    @series.title,
       image:    @series.image.url,
       keywords: @series.try(:tag_list),

@@ -35,7 +35,7 @@ feature "User edits own profile" do
                                password_confirmation: '123456')
     visit root_path
     expect(page).to have_css('.top-bar')
-    within('.top-bar') { click_link('Log In') }
+    page.find('.qa-login').click
     page.fill_in 'user_email', with: @user.email
     page.fill_in 'user_password', with: '123456'
     page.find('.button-login').click
@@ -51,16 +51,16 @@ feature "User edits own profile" do
   end
 
   scenario "setting a new password" do
-    page.find("button[data-enable-fields*=change-password]").click
-    sleep 0.1
-    find('.user_password input').set '654321'
-    find('.user_password_confirmation input').set '654321'
+    page.click_link('Change Password')
+    find('#user_current_password').set '123456'
+    find('#user_password').set '654321'
+    find('#user_password_confirmation').set '654321'
 
-    page.click_button 'Save'
+    page.click_button 'Update'
     expect(page).not_to have_css('.error')
     expect(page).not_to have_css('.edit_user')
     expect(page).not_to have_content(I18n.t('simple_form.error_notification.default_notification'))
-    expect(page).to have_content(I18n.t('flash.actions.update.notice'))
+    expect(page).to have_content('Successfully updated.')
   end
 
   scenario "uploading a avatar image", js: true do
@@ -109,7 +109,7 @@ feature "Password" do
       fill_in "user_password", :with => "foobar"
       click_on "Save"
       fill_in "user_password_confirmation", :with => "foobar1"
-      expect(page).to have_content "Password confirmation doesn't match Password"
+      expect(page).to have_content "Password confirmation doesn't match New Password"
       fill_in "user_password", :with => "foobar"
       fill_in "user_password_confirmation", :with => "foobar"
       click_on "Save"
@@ -177,7 +177,7 @@ feature "User can register" do
       page.fill_in('user_password', :with => "foobar")
       page.fill_in('user_password_confirmation', :with => "foobar")
       page.check('user_accept_terms_of_use')
-      page.find('.button-signup').click
+      page.find('.qa-signup').click
     end
     expect(current_url).to include('/onboard')
   end
@@ -188,7 +188,7 @@ feature "User can register" do
     within "#new_user" do
       page.fill_in('user_firstname', :with => "Jim")
       page.fill_in('user_lastname', :with => "Beam")
-      page.find('.button-signup').click
+      page.find('.qa-signup').click
     end
     within(".input.email.error") do
       expect(page).to have_content("can't be blank")
@@ -206,7 +206,7 @@ feature "User can register" do
       page.fill_in('user_password', :with => "foobar")
       page.fill_in('user_password_confirmation', :with => "foobar")
       page.check('user_accept_terms_of_use')
-      page.find('.button-signup').click
+      page.find('.qa-signup').click
     end
     expect(User.last.referrer).to match(/\AABC123/)
   end

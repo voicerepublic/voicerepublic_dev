@@ -1,8 +1,10 @@
 - price = number_to_currency(@purchase.total/100.0, unit: Purchase::CURRENCY)
 
-.row(style='margin-top: 100px')
+.row
   .large-12.columns
-    %p= t('.payment_authorized')
+    .title-block
+      = image_tag 'logos/vr_red.svg', class: 'join-logo'
+    %h3= t('.payment_authorized')
     = t('.you_are_buying_count_for_the_price_of_amount', count: @purchase.quantity, amount: price)
     %br
     %br
@@ -10,7 +12,7 @@
       = f.input :product, as: :hidden
       = f.input :express_token, as: :hidden
       = f.input :express_payer_id, as: :hidden
-      = f.submit t('.complete_purchase'), class: 'button-vr'
+      = f.submit t('.complete_purchase'), class: 'button-vr button hollow'
 
     - if Rails.env.development?
       %hr

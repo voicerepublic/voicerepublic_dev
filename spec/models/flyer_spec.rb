@@ -35,9 +35,9 @@ describe Flyer do
 
   end
 
-  describe 'building in general' do
+  describe 'in general' do
     before do
-      talk = FactoryGirl.build_stubbed :talk, starts_at: Time.now
+      talk = FactoryGirl.create(:talk, starts_at: Time.now)
       @flyer = Flyer.new(talk)
     end
     after do
@@ -46,7 +46,6 @@ describe Flyer do
     end
 
     it 'generates a file' do
-      expect(@flyer).not_to exist
       @flyer.generate!
       expect(@flyer).to exist
     end
