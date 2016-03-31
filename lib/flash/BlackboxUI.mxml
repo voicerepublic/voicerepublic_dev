@@ -40,6 +40,7 @@
         <mx:Label text="{gain}" />
       </mx:HBox>
 
+      <!--
       <mx:CheckBox id='enhancedMicrophone'
                    enabled='false'
                    label="Enhanced Microphone"
@@ -50,6 +51,7 @@
                    label="Monitor Stream"
                    selected="false"
                    click="monitorHandler(event);"/>
+      -->
     </mx:VBox>
   </mx:Canvas>
 </s:Application>
