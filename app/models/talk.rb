@@ -168,9 +168,10 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
+  scope :no_penalty, -> { where(penalty: 1) }
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }
-  scope :upcoming, -> { nodryrun.prelive }
+  scope :upcoming, -> { nodryrun.prelive.no_penalty.ordered }
   scope :featured, -> { where.not(featured_from: nil) }
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
@@ -181,12 +182,6 @@ class Talk < ActiveRecord::Base
   ARCHIVED_AND_LIMBO =
     %w(archived pending postlive processing suspended).map { |s| "'#{s}'" } * ','
   scope :archived_and_limbo, -> { where("state IN (#{ARCHIVED_AND_LIMBO})") }
-
-  scope :scheduled_featured, -> do
-    upcoming.featured.
-      where("featured_from < ?", Time.zone.now).
-      order('featured_from DESC')
-  end
 
   scope :remembered_by, ->(user) {
     joins(:reminders).where('reminders.user_id = ?', user.id)
