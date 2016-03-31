@@ -20,6 +20,10 @@ button, .button {
             border-color: $vr-blue;
             color: $vr-blue;
         }
+        &.btn-yellow {
+          border-color:$vr-yellow;
+          color: $vr-yellow;
+        }
         &.btn-hover-yellow {
             &:hover {
                 border-color: $vr-yellow;
@@ -40,6 +44,14 @@ button, .button {
                 background: $vr-light-blue;
                 color: white;
             }
+        }
+        &.btn-hover-blue {
+          &:hover {
+          border-color:$vr-blue;
+          background: $vr-blue;
+          color: white;
+            
+          }
         }
     }
     &.alert.hollow {
