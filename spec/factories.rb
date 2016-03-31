@@ -147,40 +147,21 @@ FactoryGirl.define do
     title_de "MyString"
   end
 
+
   factory :device do
-    identifier "MyString"
-    type ""
-    subtype "MyString"
-    name "MyString"
-    state "MyString"
-    last_heartbeat_at "2016-03-19 20:32:44"
-    organization_id nil
-    paired_at "2016-03-19 20:32:44"
+    identifier "some-identifier"
   end
+
 
   factory :organization do
-    name "MyString"
-    slug "MyString"
-    credits 1
-    image_uid "MyString"
-    image_name "MyString"
-    image_alt "MyString"
-    logo_uid "MyString"
-    logo_name "MyString"
-    logo_alt "MyString"
-    description "MyText"
-    description_as_html "MyText"
-    description_as_text "MyText"
-    website "MyString"
-    penalty 1.5
-    paying false
-    featured_from "2016-03-19 20:29:10"
-    featured_until "2016-03-19 20:29:10"
+    name "My Organization"
+    slug "my-organization"
   end
 
+
   factory :membership do
-    user nil
-    organization nil
+    user
+    organization
   end
 
 end
