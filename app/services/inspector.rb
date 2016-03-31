@@ -7,6 +7,7 @@ class Inspector
 
   subscribe handler: :handler, x: 'dj_callback'
   subscribe handler: :handler, x: 'talk_transition'
+  subscribe handler: :handler, x: 'venue_transition'
   subscribe handler: :handler, x: 'lifecycle_user'
   subscribe handler: :handler, x: 'lifecycle_message'
   subscribe handler: :handler, x: 'transaction_transition'

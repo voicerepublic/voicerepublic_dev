@@ -1,0 +1,36 @@
+#!/bin/bash
+
+PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+
+cat >~/env.list <<EOF
+<%= env_list %>
+PUBLIC_IP=$PUBLIC_IP
+EOF
+
+docker start icecast
+
+
+
+# --- move into image
+
+apt-get -y install curl
+
+
+
+# --- move into docker
+
+CALLBACK_URL=<%= icecast_callback_url %>
+CLIENT_TOKEN=<%= client_token %>
+
+
+# call home
+JSON='{"public_ip_address":"'$PUBLIC_IP'","client_token":"'$CLIENT_TOKEN'"}'
+curl -X POST --data "$JSON" $CALLBACK_URL/complete
+
+
+# callback to slack -- for debugging only
+TEXT="Started Icebox on $PUBLIC_IP with client token $CLIENT_TOKEN"
+JSON='{"channel":"@phil","text":"'$TEXT'","icon_emoji":":mushroom:","username":"icecast"}'
+
+curl -X POST -H 'Content-type: application/json' --data "$JSON" \
+     https://hooks.slack.com/services/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

@@ -1,13 +1,6 @@
 Storage = Fog::Storage.new(Settings.fog.storage.to_hash)
 
-#puts "[DBG] Creating buckets..."
-#
-#Storage.directories.create key: Settings.storage.media
-#Storage.directories.create key: Settings.storage.import
-#Storage.directories.create key: Settings.storage.upload_audio, acl: 'public-read-write'
-#Storage.directories.create key: Settings.storage.upload_slides, acl: 'public-read-write'
-#
-#puts "[DBG] Creating buckets complete."
+EC2 = Fog::Compute.new(Settings.fog.compute.to_hash)
 
 # when using local storage provider, fake expiring urls with public
 # urls

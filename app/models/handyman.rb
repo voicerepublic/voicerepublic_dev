@@ -16,6 +16,12 @@ class Handyman
 
   class Tasks
 
+    def venue_set_missing_state
+      log '-> Check for venues without state...'
+      sql = "UPDATE venues SET state='offline' WHERE state IS NULL"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     def talk_set_icon
       log '-> Check for default icons...'
       query = Talk.where(icon: 'default')
