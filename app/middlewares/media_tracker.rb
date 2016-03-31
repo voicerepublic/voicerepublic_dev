@@ -19,7 +19,7 @@ class MediaTracker < Struct.new(:app, :opts)
       talk.update_attribute(:play_count, talk.play_count + 1) unless talk.nil?
     end
 
-    return [404, {}, []] if talk.nil?
+    return [410, {}, '410 - Gone (for good!)'] if talk.nil?
 
     location = talk.generate_ephemeral_path! variant
 
