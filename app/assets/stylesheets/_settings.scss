@@ -120,6 +120,16 @@ $info-color: #fef1de !default; // vr beige
 $brand-purple: #a339cd !default; //vr-purple
 $light-gray: #e1e2e7 !default; //comments-bg
 $bluish-gray: #3C404B !default;
+
+
+//VR Brand:
+$vr-blue: $primary-color;
+$vr-light-blue: $secondary-color;
+$vr-red: $alert-color;
+$vr-purple: $brand-purple;
+$vr-yellow: $warning-color;
+$vr-beige: $info-color;
+
 // We use these to control various global styles
 // $body-bg: $white;
 // $body-font-color: $jet;
@@ -188,7 +198,7 @@ $global-rounded: 1000px;
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
 $header-font-family: 'Eagle',
-'Eagle-Book';
+'Eagle-Book', $system-font-family;
 $header-font-weight: 300;
 // $header-font-style: normal;
 // $header-font-color: $jet;
@@ -377,7 +387,7 @@ $header-font-weight: 300;
 // $button-lrg: rem-calc(18);
 // We use this to control the display property.
 // $button-display: inline-block;
-// $button-margin-bottom: rem-calc(20);
+$button-margin-bottom: rem-calc(24);
 // We use these to control button text styles.
 $button-font-family: $system-font-family;
 // $button-font-color: $white;
@@ -391,10 +401,10 @@ $button-font-weight: 700;
 // We use these to control various hover effects.
 // $button-function-factor: -20%;
 // We use these to control button border styles.
-// $button-border-width: 0;
+$button-border-width: 0;
 // $button-border-style: solid;
-// $button-bg-color: $primary-color;
-// $button-bg-hover: scale-color($button-bg-color, $lightness: $button-function-factor);
+$button-bg-color: $vr-light-blue;
+$button-bg-hover: $vr-red;
 // $button-border-color: $button-bg-hover;
 // $secondary-button-bg-hover: scale-color($secondary-color, $lightness: $button-function-factor);
 // $secondary-button-border-color: $secondary-button-bg-hover;

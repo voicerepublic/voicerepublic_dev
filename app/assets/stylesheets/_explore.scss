@@ -17,7 +17,7 @@
 }
 
 #search-results-count {
-    background: $warning-color;
+    background: $vr-yellow;
     padding: 12px;
     font-size: rem-calc(16);
     p {
@@ -25,7 +25,7 @@
         font-weight: 300;
         span {
             font-weight: 700;
-            color: $brand-purple;
+            color: $vr-purple;
         }
     }
 }
@@ -38,33 +38,33 @@
     font-weight: 500;
     margin-top: 24px;
     a {
-        color: $secondary-color;
+        color: $vr-light-blue;
         &:hover {
             background: white;
         }
     }
     max-height: 44px;
     * {
-        background: $info-color;
+        background: $vr-beige;
         min-height: 44px;
         min-width: 44px;
         height: 44px;
         display: inline-block;
         line-height: 42px;
         font-size: rem-calc(14);
-        border: 1px solid $secondary-color;
+        border: 1px solid $vr-light-blue;
     }
     .previous_page, .next_page {
         // font-size: rem-calc(10);
         background: none;
     }
     .disabled, .gap {
-        color: $secondary-color;
+        color: $vr-light-blue;
         background: none;
         opacity: .5;
     }
     em.current {
-        background: $secondary-color;
+        background: $vr-light-blue;
         color: white;
         text-transform: none;
         font-style: normal;
@@ -74,8 +74,8 @@
 #result-count {
     font-weight: 700;
     display: inline-block;
-    color: $alert-color;
-    border-bottom: 4px solid $alert-color;
+    color: $vr-red;
+    border-bottom: 4px solid $vr-red;
     width: auto;
     margin: 0 auto 24px;
     line-height: 1.5rem;
@@ -95,7 +95,7 @@
         text-align: center;
         font-size: rem-calc(18);
         letter-spacing: rem-calc(2);
-        color: $secondary-color;
+        color: $vr-light-blue;
         text-transform: uppercase;
         margin-top: 48px;
         margin-bottom: 42px;
@@ -113,7 +113,7 @@
         }
     }
     select {
-        background-color: $warning-color;
+        background-color: $vr-yellow;
         line-height: 24px;
         height: 48px;
         font-weight: 500;
@@ -130,7 +130,7 @@
 }
 
 .category-buttons {
-    // background: $warning-color;
+    // background: $vr-yellow;
     padding: 0 12px;
     .icon {
         float: left;
@@ -153,7 +153,7 @@
         svg {
             max-width: 24px;
             max-height: 24px;
-            fill: $brand-purple;
+            fill: $vr-purple;
             margin: 0;
             @include breakpoint(medium) {}
 
@@ -179,7 +179,7 @@
     }
     label {
         display: block;
-        background: $warning-color;
+        background: $vr-yellow;
         padding: 12px;
         min-height: 60px;
         // position: absolute;
@@ -199,15 +199,15 @@
         }
 
         &:hover {
-            background: $info-color;
+            background: $vr-beige;
         }
         &.selected {
-            background: $brand-purple;
+            background: $vr-purple;
             svg {
-                fill: $warning-color;
+                fill: $vr-yellow;
             }
             p {
-                color: $warning-color;
+                color: $vr-yellow;
             }
         }
         &.focus {
@@ -215,7 +215,7 @@
         }
         p {
             text-transform: uppercase;
-            color: $brand-purple;
+            color: $vr-purple;
             font-size: rem-calc(12);
             font-weight: 500;
             margin-bottom: 0;

@@ -9,19 +9,19 @@
     }
 
     .series-meta-group li {
-    	color: $info-color;
+    	color: $vr-beige;
     	p.label {
     		color: $white;
     	}
     }
 
     .top-section {
-    	background:$secondary-color;
+    	background:$vr-light-blue;
     }
     .link-delete {
         float: left;
-        color: $info-color;
-        border-color: $info-color;
+        color: $vr-beige;
+        border-color: $vr-beige;
     }
     .button-cancel {
         margin-right: 6px;
@@ -112,7 +112,7 @@
     //     font-size: rem-calc(18);
     //     text-align: left;
     //     font-weight: 700;
-    //     color:$secondary-color;
+    //     color:$vr-light-blue;
     //     margin-left: 6px;	
     // }
     // max-width: rem-calc(900);
@@ -137,7 +137,7 @@
 
     .meta-data-box {
     	hr {
-    		border-color: $warning-color;
+    		border-color: $vr-yellow;
     	}
     }
     .title-box {
@@ -165,7 +165,7 @@
     .talks-title {
         padding: 0;
         padding-bottom: 6px;
-        color: $primary-color;
+        color: $vr-blue;
         width: auto;
         h3 {
         	margin-left: 12px;
@@ -192,7 +192,7 @@
         }
 
         hr {
-            border-color: $primary-color;
+            border-color: $vr-blue;
         }
     }
     .series-label {
@@ -216,10 +216,10 @@
     }
     .series-title {
     	margin: 0;
-    	color: $warning-color;
+    	color: $vr-yellow;
     }
     h3.about {
-        color: $primary-color;
+        color: $vr-blue;
     }
 }
 

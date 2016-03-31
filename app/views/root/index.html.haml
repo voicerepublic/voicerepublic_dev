@@ -22,12 +22,12 @@
         .claim-cta-half
           -# TODO: Link to pages in CMS
           -#   %a{:href => "publish.html"}
-          -#     %button.button.hollow.large.secondary{:href => "#"}
+          -#     %button.button.hollow.large{:href => "#"}
           -#       .icon.megaphone
           -#       = t('.publish')
           -# .claim-cta-half
           -#   %a{:href => "listen.html"}
-          -#     %button.button.hollow.large.secondary
+          -#     %button.button.hollow.large
           -#       .icon.headphones
           -#       = t('.listen')
 
@@ -37,23 +37,23 @@
     .row
 
       %h2= t('.listen_now')
-      #talk-teasers
+      .talk-teasers.clearfix
         = render partial: 'shared/talk_card', collection: @talks_listen_now
 
       .listen-interstitial
         .row.clearfix
           .medium-6.medium-offset-3.columns.clearfix
             %p.lead= t('.lead_interstitial').html_safe
-        .category-buttons
+        .category-buttons.clearfix
           - @categories.each do |cat|
             = link_to icon_tag(cat.icon) + cat.title,
                 explore_path(filter: {category: cat.id}), class: 'button'
 
-      #talk-collection.clearfix
+      .talk-collection.clearfix
         = render partial: 'shared/talk_card', collection: @talks_popular
-        .row.clearfix
-          = link_to explore_path do
-            %button.button.hollow.large.secondary= t('.more_talks')
+      .row.clearfix
+        = link_to explore_path, class: 'button hollow large' do
+          = t('.more_talks')
 
 
   -# UPCOMING
@@ -62,11 +62,11 @@
       .row.clearfix
         .container
           %h2= t('.coming_up_live')
-        #talk-collection
+        .talk-collection.clearfix
           = render partial: 'shared/talk_card', collection: @talks_upcoming
       .row.clearfix
-        = link_to explore_path do
-          %button.button.hollow.large.secondary= t('.more')
+        = link_to explore_path, class: 'button hollow large btn-hover-yellow' do
+          = t('.more')
 
 
   -# CATEGORIES
@@ -74,7 +74,7 @@
     .row
       .container
         %h2 Categories
-      #talk-collection{"data-equalizer" => ""}
+      .talk-collection.clearfix{"data-equalizer" => ""}
         = render partial: 'category', collection: @categories
 
 
@@ -91,8 +91,8 @@
         = render partial: 'publisher', collection: @publishers
 
     .row.clearfix
-      = link_to explore_path do
-        %button.button.hollow.large.secondary More Publishers »
+      = link_to explore_path, class: 'button hollow large' do
+        = t('.more_publishers')
 
 
   -# CONTACT
@@ -100,7 +100,7 @@
     .row
       .medium-6.medium-offset-3.columns
         %h1 Are you planning a conference or event?
-        = link_to new_user_registration_path do
-          %button.button.hollow.large.secondary Start Now
+        = link_to new_user_registration_path, class: 'button hollow large btn-blue btn-hover-yellow' do
+          = t('.start_now')
         %br/
-        = link_to 'or Contact us', blog_url('/contact'), class: 'text-link'
+        = link_to 'or Contact us', blog_url('/contact'), class: 'link-yellow text-link'

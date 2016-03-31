@@ -7,7 +7,7 @@ footer {
     hr {
         max-width: 300px;
         margin-bottom: 60px;
-        border-bottom: 1px solid $warning-color;
+        border-bottom: 1px solid $vr-yellow;
         outline:0;
     }
 
@@ -17,7 +17,7 @@ footer {
 
     .lead {
         font-size: rem-calc(14);
-        color: $info-color;
+        color: $vr-beige;
     }
 
     img {
@@ -60,7 +60,7 @@ footer {
 }
 
 .copyright {
-    color: $info-color;
+    color: $vr-beige;
     font-size: rem-calc(14);
     padding-top: 96px;
 }

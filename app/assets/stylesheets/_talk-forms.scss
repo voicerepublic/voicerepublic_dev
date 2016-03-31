@@ -9,7 +9,7 @@
 	right:0;
 	padding:12px 24px;
 	padding-top:18px;
-	background:$info-color;
+	background:$vr-beige;
 	height:60px;
 	box-shadow: 0 0 10px rgba($talk-dark, .2);
 	.progress-text {
@@ -28,7 +28,7 @@
 		margin-top: 8px;
 		.progress-meter {
 			border-radius:4px;
-			background:$secondary-color;
+			background:$vr-light-blue;
 		}
 	}
 }
@@ -60,7 +60,7 @@
     	}
     	&:hover {
     		.svg-icon svg {
-    			color: $brand-purple;
+    			color: $vr-purple;
     		}
     	}
     }
@@ -87,13 +87,13 @@
         margin-bottom: 60px;
 
 
-        // border-bottom: 1px solid $primary-color;
+        // border-bottom: 1px solid $vr-blue;
         // &:after {
         //     content: "";
         //     display: block;
         //     width: 100px;
         //     height: 4px;
-        //     background: $secondary-color;
+        //     background: $vr-light-blue;
         //     margin: 0 auto;
         //     margin-top: 60px;
         // }
@@ -119,7 +119,7 @@
         span {
             color: red;
             font-weight: 300;
-            color: $brand-purple;
+            color: $vr-purple;
             font-size: rem-calc(14);
             line-height: rem-calc(18);
         }
@@ -144,7 +144,7 @@
     .hint {
         color: red;
         font-weight: 300;
-        color: $brand-purple;
+        color: $vr-purple;
         font-size: rem-calc(14);
         line-height: rem-calc(18);
         // padding: 0 24px;
@@ -163,20 +163,20 @@
 
         // border-width: 2px;
         &:focus {
-            border-color: $secondary-color;
+            border-color: $vr-light-blue;
         }
     }
 
     hr {
-        // border-color:$secondary-color;
+        // border-color:$vr-light-blue;
         // margin-top: 48px;
         margin-bottom: 60px;
-        border-bottom: 4px solid $secondary-color;
+        border-bottom: 4px solid $vr-light-blue;
         max-width: 200px;
     }
 
     small.error {
-        background: $alert-color;
+        background: $vr-red;
         color: white;
         text-align: left;
         float: left;
@@ -186,7 +186,7 @@
     }
 
     .error input, .error textarea {
-        border: 1px solid $alert-color;
+        border: 1px solid $vr-red;
         margin-bottom: 0;
     }
 

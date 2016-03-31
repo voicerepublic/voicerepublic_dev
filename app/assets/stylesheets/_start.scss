@@ -50,8 +50,8 @@ button {
     border-width: 2px;
     &:hover, &:active, &:focus {
         background: none;
-        border-color: $primary-color;
-        color: $primary-color;
+        border-color: $vr-blue;
+        color: $vr-blue;
     }
     &.large {
         border-width: 3px;
@@ -69,7 +69,7 @@ button {
             background: $silver;
         }
         &.blue {
-            background: $primary-color;
+            background: $vr-blue;
             button:hover, button:active {
                 @include hollow-button(white);
             }
@@ -79,19 +79,19 @@ button {
         }
         &.dark {
             background: $talk-dark;
-            color: $info-color;
+            color: $vr-beige;
         }
         &.yellow {
-            background: $warning-color;
-            columns: $brand-purple;
+            background: $vr-yellow;
+            columns: $vr-purple;
         }
         &.turquoise {
-            background: $secondary-color;
+            background: $vr-light-blue;
             color: white;
             button {
-                @include hollow-button($warning-color);
+                @include hollow-button($vr-yellow);
                 &:hover, &:active {
-                    @include hollow-button($alert-color);
+                    @include hollow-button($vr-red);
                 }
             }
         }
@@ -102,7 +102,7 @@ button {
     max-width: 1200px;
     padding: 12px;
     h2 {
-        color: $secondary-color;
+        color: $vr-light-blue;
         margin-bottom: $h1-bottom-margin;
         font-size: rem-calc(24);
         text-transform: uppercase;
@@ -116,7 +116,7 @@ h1, h2 {
     margin-bottom: $h1-bottom-margin;
 }
 
-#talk-collection, #talk-teasers {
+.talk-collection, .talk-teasers {
     margin-bottom: 48px;
 }
 
@@ -154,14 +154,14 @@ h1, h2 {
         margin-bottom: 0;
         a {
             font-weight: 500;
-            color: $info-color;
+            color: $vr-beige;
             &:hover {
                 text-decoration: underline;
             }
         }
     }
     a {
-        color: $secondary-color;
+        color: $vr-light-blue;
     }
     .container {
         float: left;
@@ -177,8 +177,8 @@ h1, h2 {
         margin-bottom: 48px;
         padding: 0;
         .button {
-            background: $warning-color;
-            color: $brand-purple;
+            background: $vr-yellow;
+            color: $vr-purple;
             font-size: rem-calc(12);
             line-height: rem-calc(14);
             letter-spacing: 0;
@@ -202,11 +202,11 @@ h1, h2 {
             }
 
             .icon {
-                background-color: $brand-purple;
+                background-color: $vr-purple;
                 margin-bottom: 12px;
             }
             &:hover {
-                background: $info-color;
+                background: $vr-beige;
             }
         }
     }
@@ -225,15 +225,15 @@ h1, h2 {
     h2 {
         margin-bottom: 60px;
     }
-    #talk-collection {
-        $color: $brand-purple;
+    .talk-collection {
+        $color: $vr-purple;
         .category {
             a {
-                color: $brand-purple;
+                color: $vr-purple;
             }
             padding: 24px 24px;
             a svg {
-                fill: $brand-purple;
+                fill: $vr-purple;
             }
             h3 {
                 font-size: rem-calc(20);
@@ -256,7 +256,7 @@ h1, h2 {
                 font-size: rem-calc(16);
             }
             hr {
-                border-color: $secondary-color;
+                border-color: $vr-light-blue;
                 max-width: 100px;
                 margin: 0 auto;
                 margin-top: 48px;
@@ -332,7 +332,7 @@ h1, h2 {
             }
         }
         h3 {
-            color: $primary-color;
+            color: $vr-blue;
             margin-bottom: 24px;
         }
         .lead {

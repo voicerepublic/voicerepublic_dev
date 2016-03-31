@@ -22,19 +22,19 @@ h5 {
 	margin:0 auto;
 	padding:24px;
 	position: relative;
-	background:$secondary-color;
+	background:$vr-light-blue;
 	top:0;
 	left:0;
 	bottom:0;
-	color:$primary-color;
+	color:$vr-blue;
 
 	input[type="file"], input[type="checkbox"], input[type="radio"], select {
 		margin:0 0 .5rem 0;
-		color:$primary-color;
+		color:$vr-blue;
 	}
 
 	label {
-		color:$primary-color;
+		color:$vr-blue;
 		&:hover {
 			text-decoration: underline;
 		}
@@ -42,7 +42,7 @@ h5 {
 
 	h5 {
 		margin-top: 24px;
-		color:$primary-color;
+		color:$vr-blue;
 	}
 
 	#vr-logo {
@@ -53,7 +53,7 @@ h5 {
 		padding: 12px 0;
 
 		li {
-			background: $primary-color;
+			background: $vr-blue;
 			color:$white;
 			padding:6px 12px;
 			font-size: rem-calc(12);
@@ -129,7 +129,7 @@ h5 {
 	}
 
 	&:hover .tile-image {
-		border:10px solid $primary-color;
+		border:10px solid $vr-blue;
 	}
 
 
@@ -161,7 +161,7 @@ h5 {
 		.add-to-playlist {
 			width:44px;
 			height:44px;
-			background: $primary-color;
+			background: $vr-blue;
 			color:$white;
 			font-size:rem-calc(18px);
 			text-align: center;
@@ -227,7 +227,7 @@ h5 {
 	}
 
 	&:hover .tile-image {
-		// border:10px solid $primary-color;
+		// border:10px solid $vr-blue;
 	}
 
 
@@ -261,7 +261,7 @@ h5 {
 		.add-to-playlist {
 			width:44px;
 			height:44px;
-			background: $primary-color;
+			background: $vr-blue;
 			color:$white;
 			font-size:rem-calc(18px);
 			text-align: center;

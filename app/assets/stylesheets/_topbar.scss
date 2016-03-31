@@ -5,7 +5,7 @@
     top:0;
     left:0;
     right:0;
-    background: $info-color;
+    background: $vr-beige;
     text-align: center;
     color: $talk-dark;
     padding-top: 21px;
@@ -14,12 +14,12 @@
 }
 .logo a span {
     font-family: $header-font-family;
-    color: $alert-color;
+    color: $vr-red;
     letter-spacing: rem-calc(6);
     font-size: rem-calc(14);
     line-height: rem-calc(36);
     font-weight: normal;
-    margin: 0 0px 0 12px;
+    margin: 5px 0 0 2px;
     display: none;
     @include breakpoint(850px) {
         display: inline-block;
@@ -28,7 +28,7 @@
 
 #mobile-nav {
     li a {
-        background: $primary-color;
+        background: $vr-blue;
         color: white;
         min-height: 44px;
         font-size: rem-calc(14);
@@ -39,6 +39,7 @@
         border-bottom: 1px solid $talk-dark;
     }
 }
+
 
 .top-bar {
     // @extend .sticky;
@@ -53,14 +54,17 @@
     ul li:last-child {
         padding-right: 0;
     }
+    a {
+        color: rgba(white,.5);
+    }
     .top-bar-right {
-        margin-top: 12px;
+        margin-top: 4px;
         @include breakpoint(small only) {
             width: 50px;
             margin-top: 6px;
         }
 
-        padding-right: 24px;
+        padding-right: 12px;
         .avatar {
             padding: 0;
             margin: 0;
@@ -68,19 +72,19 @@
                 border-radius: 50%;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             }
-            a:first-child {
-                padding: 0;
-                &:after {
-                    margin-right: -18px;
-                }
-            }
+            // a:first-child {
+            //     padding: 0;
+            //     &:after {
+            //         margin-right: -18px;
+            //     }
+            // }
             ul.submenu {
                 right: 0px;
                 left: auto;
                 margin: 0;
             }
             ul li {
-                padding: 6px 6px 8px;
+                // padding: 6px 6px 8px;
             }
         }
     }
@@ -105,7 +109,7 @@
                 width: 0;
                 height: 0;
                 border: inset 5px;
-                border-color: $alert-color transparent transparent;
+                border-color: $vr-red transparent transparent;
                 border-top-style: solid;
                 position: absolute;
                 top: 1.4rem;
@@ -120,23 +124,26 @@
         background: $talk-dark;
     }
     ul {
-        background: none;
+        // background: none;
+        background:$talk-dark;
         li {
             // text-transform: uppercase;
             font-weight: 500;
             letter-spacing: rem-calc(0.5);
             font-size: rem-calc(14);
-            padding-right: 12px;
+            // padding-right: 12px;
             // letter-spacing: rem-calc(1);
             a:hover, a:active {
                 color: white;
+                transition: background .2s ease;
             }
             .drop-title {
-                color: $primary-color;
-                text-transform: uppercase;
-                font-weight: 300;
+                color: $vr-light-blue;
+                // text-transform: uppercase;
+                // font-weight: 300;
                 padding-left: 14px;
                 padding-top: 12px;
+                padding-bottom: 6px;
             }
             .divider {
                 height: 1px;
@@ -144,16 +151,17 @@
             }
             .submenu {
                 a {
-                    color: $almost-black;
+                    color: $vr-beige;
                     &:hover {
-                        color: $alert-color;
+                        color: $white;
+                        background:rgba($talk-dark, .2);
                     }
                 }
             }
             &.join a {
-                color: $secondary-color;
+                color: $vr-light-blue;
                 &:hover {
-                    color: $warning-color;
+                    color: $vr-yellow;
                 }
             }
             &.zoomIn {
@@ -167,9 +175,16 @@
         li.search-btn a {
             padding-left: 0 !important;
         }
+
+        &.is-dropdown-submenu {
+    top:auto;
+    left: auto;
+    background: $vr-blue;
+    border:none;
+}
     }
     .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow > a::after {
-        border-color: rgba($info-color, 0.5) transparent transparent;
+        border-color: rgba($vr-beige, 0.5) transparent transparent;
         right: 10px;
     }
     @include breakpoint(medium){
@@ -242,13 +257,13 @@
     .close-button {
         font-size: rem-calc(36);
         font-weight: 200;
-        color: $alert-color;
+        color: $vr-red;
         top: 0;
         padding: 0;
         border: 0;
         &:hover {
             background: none;
-            color: $warning-color;
+            color: $vr-yellow;
         }
     }
     @include breakpoint(small only) {
@@ -256,7 +271,7 @@
         left: 0;
         width: 100%;
         padding: 12px;
-        background: $primary-color;
+        background: $vr-blue;
         .close-button {
             margin-top: -60px;
         }
@@ -264,11 +279,11 @@
             width: 100%;
             height: 60px;
             margin: 0;
-            background: $primary-color;
+            background: $vr-blue;
             font-size: rem-calc(16);
             &:focus, &:active {
-                background: $primary-color;
-                border-color: $primary-color;
+                background: $vr-blue;
+                border-color: $vr-blue;
             }
         }
     }

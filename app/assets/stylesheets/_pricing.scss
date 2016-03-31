@@ -3,22 +3,22 @@
 .purchases-index {
     background: $white;
     h3 {
-        color: $secondary-color;
+        color: $vr-light-blue;
         margin-bottom: 24px;
     }
     #claim.pricing {
         padding-top: 60px;
         background: url(../../images/background/pricing-bg-blue.jpg) no-repeat 50% 25%;
         a {
-            color: $warning-color;
+            color: $vr-yellow;
             &:hover {
-                color: $alert-color;
+                color: $vr-red;
             }
         }
         .button a {
-            color: $warning-color;
+            color: $vr-yellow;
             &:hover {
-                color: $alert-color;
+                color: $vr-red;
             }
         }
         h2 {
@@ -26,7 +26,7 @@
             color: white;
         }
         .lead {
-            color: $info-color;
+            color: $vr-beige;
             margin-bottom: 48px;
         }
     }
@@ -64,9 +64,9 @@
     transition: background .2s ease;
     display: inline-block;
     float: left;
-    background: $warning-color;
+    background: $vr-yellow;
     padding: 12px;
-    color:$brand-purple;
+    color:$vr-purple;
     width:100%;
     border:1px solid $silver;
     @include breakpoint(medium){
@@ -101,14 +101,14 @@
 }
 
 .purchases-index form.purchase label.selected {
-    background-color: $brand-purple;
-    color: $warning-color;
+    background-color: $vr-purple;
+    color: $vr-yellow;
     pointer-events: none;
 }
 
 .purchases-index form.purchase label:hover {
-    background-color: $info-color;
-    color: $brand-purple;
+    background-color: $vr-beige;
+    color: $vr-purple;
 }
 
 .purchases-index form.purchase .button {
@@ -156,7 +156,7 @@
     // background: $silver;
     color: $talk-dark;
     h5 {
-        color: $brand-purple;
+        color: $vr-purple;
         font-family: $body-font-family;
         font-weight: 700;
     }
@@ -165,7 +165,7 @@
         font-size: rem-calc(14);
     }
     .svg-icon {
-        color: $brand-purple;
+        color: $vr-purple;
         max-height: 48px;
         max-width: 48px;
         height: 48px;
@@ -177,7 +177,7 @@
         }
     }
     a {
-        color: $secondary-color;
+        color: $vr-light-blue;
         font-weight:500;
      
     }

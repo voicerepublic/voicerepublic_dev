@@ -12,12 +12,12 @@
 			height: 48px;
 			& * {
 
-			fill: $alert-color;
+			fill: $vr-red;
 			}
 		}
 	}
 	h2 {
-		color: $alert-color;
+		color: $vr-red;
 		margin-bottom: 12px;
 		text-transform: none;
 		font-size: rem-calc(36);
@@ -50,7 +50,7 @@
 		li {
 			margin-bottom: 24px;
 			font-weight: 300;
-			// border-bottom: 1px solid $secondary-color;
+			// border-bottom: 1px solid $vr-light-blue;
 			a {
 				font-weight: 500;
 				&:hover {

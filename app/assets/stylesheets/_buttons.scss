@@ -1,0 +1,67 @@
+//buttons
+button, .button {
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: rem-calc(1);
+    border-width: 2px;
+    transition: border-color .2s ease;
+    transition: border .2s ease;
+    transition: all .2s ease;
+    &.hollow {
+        border-width: 2px;
+        border-color: $vr-light-blue;
+        color: $vr-light-blue;
+        &:hover {
+            color: white;
+            background: $vr-blue;
+            border-color: $vr-blue;
+        }
+        &.btn-blue {
+            border-color: $vr-blue;
+            color: $vr-blue;
+        }
+        &.btn-hover-yellow {
+            &:hover {
+                border-color: $vr-yellow;
+                background: $vr-yellow;
+                color: white;
+            }
+        }
+        &.btn-hover-red {
+            &:hover {
+                border-color: $vr-red;
+                background: $vr-red;
+                color: white;
+            }
+        }
+        &.btn-hover-light-blue {
+            &:hover {
+                border-color: $vr-light-blue;
+                background: $vr-light-blue;
+                color: white;
+            }
+        }
+    }
+    &.alert.hollow {
+        border-width: 2px;
+    }
+    &.small {
+        border-width: 2px;
+    }
+    &.large {
+        border-width: 3px;
+    }
+    .info {
+        background: $topbar-link-color;
+        & .hollow {
+            border-color: $topbar-link-color;
+        }
+    }
+    &:hover, &:active {
+        background: $vr-light-blue;
+    }
+    &.muted.hollow {
+        border-color: $charcoal;
+        color: $charcoal;
+    }
+}

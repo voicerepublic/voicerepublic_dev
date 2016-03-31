@@ -8,7 +8,7 @@
 #cta-panel {
   //@extend .callout;
     border: none;
-    background: $info-color;
+    background: $vr-beige;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
     text-align: center;
     margin: 0;
@@ -35,7 +35,7 @@
     top: 220px;
     left: 240px;
     color: white;
-    background: $primary-color;
+    background: $vr-blue;
     padding: 2px;
     width: 36px;
     height: 36px;
@@ -61,13 +61,13 @@
     transition: all .2 ease;
     float: left;
     .website-link a {
-        color: $secondary-color;
+        color: $vr-light-blue;
         &:hover {
             text-decoration: underline;
         }
     }
     #credits {
-        background: $secondary-color;
+        background: $vr-light-blue;
         padding: 12px;
         p {
             color: white;
@@ -79,13 +79,13 @@
             margin: 0;
             border-width: 2px;
             &:hover {
-                color: $alert-color;
-                border-color: $alert-color;
+                color: $vr-red;
+                border-color: $vr-red;
             }
         }
     }
     h3 {
-        color: $secondary-color;
+        color: $vr-light-blue;
         font-size: rem-calc(24);
     }
     // p {
@@ -106,7 +106,7 @@
         border-radius: 50%;
     }
     hr {
-        border-color: $warning-color;
+        border-color: $vr-yellow;
     }
     ul.social-links {
         list-style: none;
@@ -196,7 +196,7 @@
             }
             
             hr {
-                border-color: $warning-color;
+                border-color: $vr-yellow;
             }
         }
 
@@ -268,6 +268,7 @@
         padding-left: 6px;
         margin-bottom: 2px;
         padding-right: 6px;
+        background:none;
         li a {
             color: rgba($almost-black, 0.8);
             &:hover {
@@ -276,7 +277,7 @@
         }
         .tabs-title a {
             color: $almost-black;
-            border: 2px solid $warning-color;
+            border: 2px solid $vr-yellow;
             font-weight: 500;
             &:hover {
                 background: white;
@@ -286,15 +287,16 @@
             }
         }
         .tabs-title:last-child a {
-            border-right: 2px solid $warning-color;
+            border-right: 2px solid $vr-yellow;
         }
         .is-active a {
             color: $almost-black;
+            background: $vr-yellow;
             &:hover {
-                background: $warning-color !important;
+                background: $vr-yellow !important;
             }
             .tabs-title .is-active a:hover {
-                background: $warning-color;
+                background: $vr-yellow;
             }
         }
     }
@@ -460,7 +462,7 @@
         font-size: rem-calc(14);
     }
     a {
-        color: $secondary-color;
+        color: $vr-light-blue;
         &:hover {
             text-decoration: underline;
         }
@@ -482,7 +484,7 @@
         // padding-bottom:24px;
         background: rgba($almost-black, 0.2);
         // background: rgba(#3d404d, .5);
-        // background: $primary-color;
+        // background: $vr-blue;
    
     }
     .profile-date,
@@ -496,19 +498,19 @@
     .profile-publisher {
         font-weight: 500;
         margin-bottom: 6px;
-        color: $secondary-color;
+        color: $vr-light-blue;
     }
     td.thumb {
         width: 140px;
         margin-bottom: 0;
     }
     .speaker {
-        // color: rgba($info-color, .5);
+        // color: rgba($vr-beige, .5);
         margin-top: 24px;
         // margin-bottom: 0;
         // font-size: rem-calc(12);
         a {
-            color: $secondary-color;
+            color: $vr-light-blue;
             text-transform: none;
         }
     }
@@ -620,8 +622,8 @@
             max-width: 180px;
             cursor: pointer;
             &:hover {
-                color: $secondary-color;
-                border-color: $secondary-color;
+                color: $vr-light-blue;
+                border-color: $vr-light-blue;
             }
         }
         #avatar-img {
@@ -640,7 +642,7 @@
             }
         }
         input, textarea, select {
-            border: 1px solid $secondary-color;
+            border: 1px solid $vr-light-blue;
         }
     }
     .actions {
@@ -681,7 +683,7 @@
         }
     }
     .slug-warning, .slug-explanation {
-        background: $alert-color;
+        background: $vr-red;
         color: white;
         font-weight: 500;
         font-size: rem-calc(14);
@@ -695,7 +697,7 @@
         }
     }
     .slug-explanation {
-        background: $info-color;
+        background: $vr-beige;
         color: $almost-black;
     }
 }

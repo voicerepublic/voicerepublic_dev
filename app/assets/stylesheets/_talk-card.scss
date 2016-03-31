@@ -30,7 +30,7 @@
             left: 30px;
             right: 30px;
             padding: 12px;
-            background: $warning-color;
+            background: $vr-yellow;
             p {
                 font-size: rem-calc(12);
                 line-height: rem-calc(14);
@@ -60,16 +60,16 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            color: $secondary-color;
+            color: $vr-light-blue;
             .publisher {
                 line-height: 18px;
                 font-weight: 300;
                 font-size: rem-calc(14);
                 color: rgba($talk-dark, 0.5);
-                color: $secondary-color;
+                color: $vr-light-blue;
                 &:hover {
                     text-decoration: underline;
-                    color: $primary-color;
+                    color: $vr-blue;
                 }
             }
         }
@@ -147,7 +147,7 @@
                     }
                 }
                 p.speaker {
-                    color: $info-color;
+                    color: $vr-beige;
                 }
             }
         }
@@ -290,7 +290,7 @@ $lines-to-show: 2;
 .series .talk-card-inside .meta {
     height: 18px;
     a {
-        color: $alert-color;
+        color: $vr-red;
         font-weight: 500;
         &:hover {
             text-decoration: underline;
@@ -359,8 +359,8 @@ $lines-to-show: 2;
             fill: currentColor;
         }
         &:hover {
-            border-color: $secondary-color;
-            color: $secondary-color;
+            border-color: $vr-light-blue;
+            color: $vr-light-blue;
         }
     }
     .pinboard {
@@ -372,15 +372,15 @@ $lines-to-show: 2;
         padding-top: 6px;
     }
     .unpin-btn {
-        background: $secondary-color;
-        border-color: $secondary-color;
+        background: $vr-light-blue;
+        border-color: $vr-light-blue;
         color: white;
         svg {
             fill: currentColor;
         }
         &:hover {
-            background: $alert-color;
-            border-color: $alert-color;
+            background: $vr-red;
+            border-color: $vr-red;
             color: white;
         }
     }
@@ -399,7 +399,7 @@ $lines-to-show: 2;
     border-radius: 50px;
     margin-top: -50px;
     margin-left: -50px;
-    color: $brand-purple;
+    color: $vr-purple;
     font-weight: 500;
     height: 100px;
     width: 100px;

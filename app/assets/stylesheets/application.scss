@@ -18,8 +18,9 @@
  *= require slick
  */
 
-@import "foundation_and_overrides";
 @import "settings";
+@import "foundation_and_overrides";
+@import "animate.min.css";
 /* @import 'jquery-ui/theme';
  @import 'jquery-ui/datepicker';
  @import 'jquery-ui/slider';
@@ -37,6 +38,7 @@
 // RAILS STRUCTURE
 */
 @import "appstyles";
+@import "buttons";
 
 @import "profile";
 

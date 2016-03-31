@@ -59,17 +59,17 @@ button,
 }
 
 .blue {
-    background: $primary-color;
+    background: $vr-blue;
 }
 
 .meta-speaker {
     font-size: rem-calc(12);
     font-weight: bold;
-    color: $info-color;
+    color: $vr-beige;
     margin-top: 12px;
     a {
         font-weight: normal;
-        color: $secondary-color;
+        color: $vr-light-blue;
         line-height: rem-calc(16);
         &:hover {
             text-decoration: underline;
@@ -93,7 +93,7 @@ button,
 
 .pub-meta {
     font-size: rem-calc(10);
-    color: $secondary-color;
+    color: $vr-light-blue;
     line-height: rem-calc(10);
     margin: 0;
     margin-left: 12px;
@@ -115,7 +115,7 @@ button,
         color: white;
         margin-bottom: 4px;
         a {
-            color: $secondary-color;
+            color: $vr-light-blue;
             &:hover {
                 text-decoration: underline;
             }
@@ -123,11 +123,11 @@ button,
     }
     .meta-info,
     .meta-series {
-        color: rgba($info-color, .5);
+        color: rgba($vr-beige, .5);
         margin-bottom: 3px;
         a {
             font-weight: bold;
-            color: rgba($info-color, .5);
+            color: rgba($vr-beige, .5);
             &:hover {
                 text-decoration: underline;
             }
@@ -166,7 +166,7 @@ button,
     p {
         font-size: rem-calc(14);
         line-height: rem-calc(20);
-        color: rgba($info-color, .8);
+        color: rgba($vr-beige, .8);
         @include breakpoint(medium) {
             // font-size: rem-calc(18);
             // line-height: rem-calc(24);
@@ -184,9 +184,9 @@ button,
         }
     }
     .speaker {
-        color: $info-color;
+        color: $vr-beige;
         a {
-            color: $secondary-color;
+            color: $vr-light-blue;
             &:hover {
                 text-decoration: underline;
             }
@@ -259,14 +259,14 @@ button,
 
 .button-play-pause {
     // animation: pulse 2s infinite;
-    background: $primary-color;
+    background: $vr-blue;
 }
 
 .muted {
-    background: $alert-color;
+    background: $vr-red;
     &:hover,
     &:focus {
-        background: $alert-color;
+        background: $vr-red;
     }
 }
 
@@ -284,7 +284,7 @@ button,
         width: 12px;
         height: 1px;
         max-height: 0px;
-        background: $warning-color;
+        background: $vr-yellow;
         align-self: flex-end;
     }
 }
@@ -318,14 +318,14 @@ button,
 
 .track-playing {
     height: 12px;
-    background: $secondary-color;
+    background: $vr-light-blue;
     width: 10%;
     border-radius: 2px;
 }
 
 .talk-title {
     h3 {
-        color: $secondary-color;
+        color: $vr-light-blue;
         font-size: rem-calc(36);
         margin: 0;
         margin-bottom: 18px;
@@ -344,7 +344,7 @@ button,
         font-size: rem-calc(16);
         line-height: rem-calc(24);
         font-weight: normal;
-        color: $info-color;
+        color: $vr-beige;
         // max-width: 540px;
         margin-bottom: 82px;
         @include breakpoint(medium) {
@@ -361,7 +361,7 @@ button,
             font-size: rem-calc(14);
             a {
                 font-weight: normal;
-                color: $secondary-color;
+                color: $vr-light-blue;
             }
         }
     }
@@ -428,7 +428,7 @@ button,
                 border: none;
                 border-width: 0;
                 border-left-color: transparent;
-                color: rgba($secondary-color, .8);
+                color: rgba($vr-light-blue, .8);
                 font-size: rem-calc(18);
                 padding-top: 16px;
                 @include breakpoint(medium) {
@@ -439,7 +439,7 @@ button,
                     padding-left: 16px;
                 }
                 &:hover {
-                    background: $primary-color;
+                    background: $vr-blue;
                 }
                 .comment-count {
                   //@extend .show-for-small-only;
@@ -596,7 +596,7 @@ button,
         right: 0;
     }
     h3 {
-        color: $info-color;
+        color: $vr-beige;
         font-family: $body-font-family;
         font-weight: bold;
         font-size: rem-calc(16);
@@ -655,12 +655,12 @@ button,
         font-size: rem-calc(24);
     }
     code {
-        background: $info-color;
+        background: $vr-beige;
         padding: 6px;
         border: none;
     }
     p.lead {
-        color: $info-color;
+        color: $vr-beige;
     }
     button {
       //@extend .secondary;
