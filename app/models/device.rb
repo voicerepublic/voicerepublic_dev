@@ -64,5 +64,18 @@ class Device < ActiveRecord::Base
 
   end
 
+  def provisioning_data
+    {
+      name: name,
+      state: state,
+      target: target,
+      public_ip_address: public_ip_address,
+      report_interval: report_interval,
+      heartbeat_interval: heartbeat_interval,
+
+      faye_url: Settings.faye.server,
+      faye_secret: Settings.faye.secret_token
+    }
+  end
 
 end

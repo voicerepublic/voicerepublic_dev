@@ -37,7 +37,7 @@ rtmp:
 # stored in `config/settings.local.yml`, since RtmpWatcher and Faye
 # read the value directly from there.
 faye:
-  server: http://localhost:9292/faye
+  server: http://192.168.178.21:9292/faye
   secret_token: supersecret
 
 errbit:
@@ -150,3 +150,11 @@ fog:
     aws_access_key_id: needs to be set
     aws_secret_access_key: needs to be set
     region: eu-central-1
+
+devices:
+  endpoint:
+    #live: http://192.168.178.21:3000/api/devices
+    live: https://voicerepublic.com/api/devices
+    staging: https://staging.voicerepublic.com/api/devices
+    # actually you can set this in your local file
+    dev: http://<%= ENV['VR_API_IP_PORT'] %>/api/devices

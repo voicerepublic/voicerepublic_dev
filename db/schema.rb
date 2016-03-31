@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319213905) do
+ActiveRecord::Schema.define(version: 20160331113507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,9 +99,14 @@ ActiveRecord::Schema.define(version: 20160319213905) do
     t.datetime "last_heartbeat_at"
     t.integer  "organization_id"
     t.datetime "paired_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.datetime "disappeared_at"
+    t.string   "target",             default: "live"
+    t.string   "public_ip_address"
+    t.integer  "loglevel",           default: 1
+    t.integer  "report_interval",    default: 60
+    t.integer  "heartbeat_interval", default: 5
   end
 
   add_index "devices", ["organization_id"], name: "index_devices_on_organization_id", using: :btree
