@@ -4,6 +4,12 @@ footer {
     padding-bottom: 12px;
     background: $talk-dark;
     color: $ghost;
+    ul.menu.vertical li > a {
+        text-align: left;
+        @include breakpoint(small only) {
+            text-align:center;
+        }
+    }
     hr {
         max-width: 300px;
         margin-bottom: 60px;

@@ -14,7 +14,7 @@
           %p
             = t('.you_have_x_credits_left', count: @user.credits).html_safe
         .float-right
-          = link_to t('.purchase_more_credits'), :purchases, class: 'button hollow warning tiny'
+          = link_to t('.purchase_more_credits'), :purchases, class: 'button hollow tiny btn-yellow btn-hover-blue'
     #user-block
 
 
@@ -24,7 +24,7 @@
       %h3.user-name=@user.name
       - if can? :manage, @user
         %p
-          = link_to [:edit, @user], class: 'button tiny hollow secondary' do
+          = link_to [:edit, @user], class: 'button tiny hollow' do
             -#= icon_tag 'pencil'
             = t('.edit_profile')
         %p#user-description

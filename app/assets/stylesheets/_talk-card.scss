@@ -300,12 +300,16 @@ $lines-to-show: 2;
 
 .series {
     .talk-card-inside {
-        padding-top: 12px;
+        padding: 12px;
         img {
             margin-bottom: 12px;
         }
         .title, p.lead {
             color: $almost-black;
+        }
+
+        .title {
+            padding: 0;
         }
     }
 }
