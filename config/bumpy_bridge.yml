@@ -10,3 +10,9 @@ mappings:
     target: faye:///log
   - source: faye:///audit
     target: rabbitmq://exchange/audit
+
+  # newschool
+  - source: faye:///up/venues
+    target: rabbitmq://exchange/venue_event_up
+  - source: rabbitmq://exchange/venue_event_down
+    target: faye:///down/venues

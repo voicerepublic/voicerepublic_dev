@@ -19,6 +19,17 @@ class FayeAuth < Struct.new(:app, :opts)
     resp = msgs.values.map do |msg|
       # ok, let's see what the user wants to have access to
       case msg['channel']
+
+      # NEWSCHOOL
+      when %r{/down/venue/\d+$} # TODO check if host of venue
+        msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+      when %r{/up/user/\d+/venue/\d+$} # TODO check if host of venue
+        msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+      # JUST A TEST
+      when %r{/down/venue/\d+$}
+        msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
+
+
       when %r{/public$} # a public channel
         msg.merge signature: Faye::Authentication.sign(msg, opts[:secret])
       when %r{/audit$} # another public channel

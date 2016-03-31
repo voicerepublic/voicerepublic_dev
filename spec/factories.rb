@@ -16,6 +16,19 @@ FactoryGirl.define do
   factory :venue do
     name "Some venue"
     user
+    trait :provisioning do
+      state :provisioning
+      client_token 'free-your-mind'
+    end
+    trait :ready do
+      state :ready
+      public_ip_address '0.0.0.0'
+      mount_point 'random-mountpoint'
+      source_password 'some-password'
+    end
+    trait :connected do
+      state :connected
+    end
   end
 
   sequence :email do |n|

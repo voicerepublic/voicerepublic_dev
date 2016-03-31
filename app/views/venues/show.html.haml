@@ -1,0 +1,56 @@
+-# TODO the 3 lines of faye setup could move to cljs
+- content_for :javascripts do
+  %script{ src: '/assets/javascripts/moment-with-locales.min.js' }
+  %script{ src: '/assets/javascripts/faye-authentication.js' }
+  %script{ src: Settings.faye.server + '/client.js' }
+  :javascript
+    fayeUrl = #{Settings.faye.server.to_json};
+
+    fayeClient = new Faye.Client(fayeUrl);
+    fayeExtension = new FayeAuthentication(fayeClient);
+    fayeClient.addExtension(fayeExtension);
+
+    initialState = #{@venue.atom.to_json};
+    translations = #{t('frontend.venues').to_json};
+  = javascript_include_tag :venues
+
+#app Initializing...
+
+-# %section#claim.dark
+-#   .row
+-#     %header
+-#       %h1= @venue.name
+-#       %h2= @venue.state
+-#       %p countdown to next talk
+-#       - case @venue.state.to_sym
+-#       - when :offline
+-#         %p= link_to t('.setup'), { id: @venue.id, event: 'provision' }, method: :put
+-#       - when :provisioning
+-#         = image_tag 'awaiting-loading.gif'
+-#
+-# %section.light
+-#   .api-container.row.clearfix
+-#     .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+-#       %h2= t('.live')
+-#       %ul
+-#         - @venue.talks.live.each do |talk|
+-#           %li
+-#             = talk.state
+-#             = talk.starts_at
+-#             = talk.title
+-#             = button_to 'stop'
+-#       %h2= t('.upcoming')
+-#       %ul
+-#         - @venue.talks.prelive.each do |talk|
+-#           %li
+-#             = talk.state
+-#             = talk.starts_at
+-#             = talk.title
+-#             = button_to 'start'
+-#       %h2= t('.past')
+-#       %ul
+-#         - @venue.talks.archived.each do |talk|
+-#           %li
+-#             = talk.state
+-#             = talk.starts_at
+-#             = talk.title
