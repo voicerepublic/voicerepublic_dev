@@ -133,6 +133,7 @@ class Talk < ActiveRecord::Base
   before_save :process_description, if: :description_changed?
   before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
+  before_save :set_image_alt, unless: :image_alt?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -468,6 +469,10 @@ class Talk < ActiveRecord::Base
       icon = icons.sort_by(&:last).last.first
     end
     self.icon = icon || 'default'
+  end
+
+  def set_image_alt
+    self.image_alt = title
   end
 
   def notify_participants

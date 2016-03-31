@@ -47,6 +47,7 @@ class Series < ActiveRecord::Base
   before_validation :set_defaults
   before_save :clean_taglist # prevent vollpfosten from adding hash-tag to tag-names
   before_save :process_description, if: :description_changed?
+  before_save :set_image_alt, unless: :image_alt?
 
   accepts_nested_attributes_for :talks
 
@@ -85,6 +86,10 @@ class Series < ActiveRecord::Base
   def process_description
     self.description_as_html = MD2HTML.render(description)
     self.description_as_text = MD2TEXT.render(description)
+  end
+
+  def set_image_alt
+    self.image_alt = title
   end
 
   def set_defaults

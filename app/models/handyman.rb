@@ -16,6 +16,23 @@ class Handyman
 
   class Tasks
 
+    def set_alt_fields(resource=nil, prop=nil)
+      if resource.nil?
+        set_alt_fields Talk, :image_alt
+        set_alt_fields Series, :image_alt
+        set_alt_fields User, :avatar_alt
+      else
+        log '-> Check %s for empty alt fields...' % resource.name
+        query = resource.where(prop => nil)
+        total = query.count
+
+        query.each_with_index do |obj, index|
+          log '%s/%s %s %s' % [index+1, total, resource.name, obj.id]
+          obj.save
+        end
+      end
+    end
+
     def talk_set_icon
       log '-> Check for default icons...'
       query = Talk.where(icon: 'default')
