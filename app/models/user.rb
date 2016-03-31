@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   # save the model. The reason is that the Devise confirmable_token
   # might be reset mid-transaction.
   before_save :process_about, if: :about_changed?
-  before_save :set_avatar_alt, unless: :avatar_alt?
+  before_save :set_image_alt, unless: :image_alt?
   before_create :build_and_set_default_series
   after_save :generate_flyers!, if: :generate_flyers?
 
@@ -236,8 +236,8 @@ class User < ActiveRecord::Base
     self.about_as_text = MD2TEXT.render(about)
   end
 
-  def set_avatar_alt
-    self.avatar_alt = name
+  def set_image_alt
+    self.image_alt = name
   end
 
   def process_welcome_transaction
