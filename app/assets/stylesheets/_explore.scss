@@ -41,8 +41,12 @@
     
     a {
         color: $vr-light-blue;
+        border-right: none;
         &:hover {
             background: white;
+        }
+        &:last-child {
+            border-right:1px solid $vr-light-blue;
         }
     }
     max-height: 44px;
