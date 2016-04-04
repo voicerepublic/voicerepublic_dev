@@ -3,7 +3,7 @@ body {
     height: auto;
 }
 
-body.talk-page {
+body.talks {
     padding: 0;
     @include breakpoint(medium) {
         padding: 0;
@@ -12,26 +12,32 @@ body.talk-page {
 
 .row {
     max-width: 68rem;
-    @include breakpoint(xlarge) {
-        max-width: 88rem
+    @media #{$xlarge-up} {
+        max-width: 88rem;
     }
 }
 
-#main-column {
-    padding-top: 78px;
-    padding-bottom: 24px;
+.left-side {
+    padding: 0;
     @include breakpoint(medium) {
         padding-top: 78px;
         padding-bottom: 48px;
     }
-    &.alt,
-    &.alt3 {
+
+    &.alt, &.alt3 {
         padding-top: 78px;
         @include breakpoint(medium) {
             padding-top: 103px;
         }
     }
 }
+
+.top-container {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+
 
 button,
 .button {
@@ -42,22 +48,6 @@ button,
     border-radius: 50%;
 }
 
-.meta-left {
-  //@extend .large-8;
-  //@extend .columns;
-    .alt & {
-      //@extend .large-6;
-    }
-}
-
-.meta-right {
-  //@extend .large-4;
-  //@extend .columns;
-    .alt & {
-      //@extend .large-6;
-    }
-}
-
 .blue {
     background: $vr-blue;
 }
@@ -65,7 +55,7 @@ button,
 .meta-speaker {
     font-size: rem-calc(12);
     font-weight: bold;
-    color: $vr-beige;
+    color: $info-color;
     margin-top: 12px;
     a {
         font-weight: normal;
@@ -82,11 +72,10 @@ button,
 
 .pub-block {
     padding-bottom: 50px;
-    // margin-bottom: 24px;
     .alt & {
         padding: 12px;
         padding-bottom: 12px;
-        background: rgba($almost-black, .3);
+        background: rgba($almost-black, 0.3);
         margin-bottom: 24px;
     }
 }
@@ -105,6 +94,7 @@ button,
             margin-bottom: 0;
         }
     }
+
     & p {
         margin: 0;
         line-height: rem-calc(14);
@@ -123,11 +113,11 @@ button,
     }
     .meta-info,
     .meta-series {
-        color: rgba($vr-beige, .5);
+        color: rgba($info-color, 0.5);
         margin-bottom: 3px;
         a {
             font-weight: bold;
-            color: rgba($vr-beige, .5);
+            color: rgba($info-color, 0.5);
             &:hover {
                 text-decoration: underline;
             }
@@ -141,6 +131,7 @@ button,
     @include breakpoint(medium) {
         margin-bottom: 48px;
     }
+
     img {
         width: 100vw;
     }
@@ -150,13 +141,11 @@ button,
         height: 60px;
         margin-top: -72px;
         margin-left: 12px;
-        background: rgba($almost-black, .5);
+        background: rgba($almost-black, 0.5);
     }
 }
 
 #talk-description {
-  //@extend .medium-9;
-  //@extend .columns;
     font-family: $system-font-family;
     font-size: rem-calc(14);
     line-height: rem-calc(21);
@@ -166,10 +155,8 @@ button,
     p {
         font-size: rem-calc(14);
         line-height: rem-calc(20);
-        color: rgba($vr-beige, .8);
+        color: rgba($info-color, 0.8);
         @include breakpoint(medium) {
-            // font-size: rem-calc(18);
-            // line-height: rem-calc(24);
             padding-right: 24px;
         }
     }
@@ -178,13 +165,11 @@ button,
         line-height: rem-calc(24);
         color: white;
         @include breakpoint(medium) {
-            //      font-size: rem-calc(21);
-            // line-height: rem-calc(28);
             padding-right: 24px;
         }
     }
     .speaker {
-        color: $vr-beige;
+        color: $info-color;
         a {
             color: $vr-light-blue;
             &:hover {
@@ -193,14 +178,12 @@ button,
         }
     }
     .format-box {
-      //@extend .speaker;
-      //@extend .left;
         padding: 12px;
         margin-bottom: 6px;
         margin-right: 6px;
         font-size: rem-calc(12);
-        background: rgba($almost-black, .2);
-        color: rgba($light-gray, .4);
+        background: rgba($almost-black, 0.2);
+        color: rgba($light-gray, 0.4);
         width: auto;
     }
     @include breakpoint(medium) {
@@ -208,6 +191,10 @@ button,
         line-height: rem-calc(24);
         padding-right: 24px;
     }
+}
+
+.player-container {
+    padding: 0 12px;
 }
 
 #talk-playbar {
@@ -234,6 +221,7 @@ button,
         box-shadow: none;
         margin-bottom: 12px;
     }
+
     .alt & {
         margin-top: 12px;
     }
@@ -247,7 +235,6 @@ button,
     margin: 0;
     border-radius: 0;
     background: rgba($oil, 0.2);
-    // margin-right:3px;
     height: 70px;
     font-size: 1.4em;
     outline: none;
@@ -263,15 +250,13 @@ button,
 }
 
 .muted {
-    background: $vr-red;
-    &:hover,
-    &:focus {
-        background: $vr-red;
+    background: $alert-color;
+    &:hover, &:focus {
+        background: $alert-color;
     }
 }
 
-#meter,
-.playbar-divider {
+#meter, .playbar-divider {
     flex: 0 0 12px;
     display: flex;
     flex-flow: column nowrap;
@@ -284,7 +269,7 @@ button,
         width: 12px;
         height: 1px;
         max-height: 0px;
-        background: $vr-yellow;
+        background: $warning-color;
         align-self: flex-end;
     }
 }
@@ -344,15 +329,15 @@ button,
         font-size: rem-calc(16);
         line-height: rem-calc(24);
         font-weight: normal;
-        color: $vr-beige;
+        color: $info-color;
         // max-width: 540px;
         margin-bottom: 82px;
         @include breakpoint(medium) {
             font-size: rem-calc(18);
             line-height: rem-calc(24);
         }
-        .alt &,
-        .alt3 & {
+
+        .alt &,.alt3 & {
             margin-bottom: 48px;
         }
         .inline-speaker {
@@ -365,39 +350,26 @@ button,
             }
         }
     }
-    //@include breakpoint(large) {
-    //  font-size: rem-calc(28);
-    //  line-height: rem-calc(30);
-    // }
-}
-
-.pub-avatar img {
-  //@extend .img-circle;
-    // border:2px solid red;
 }
 
 #date-playcount {
     padding: 12px;
     margin-bottom: 12px;
-    margin-right: 6px;
+    // margin-right: 6px;
     font-size: rem-calc(12);
-    background: rgba($almost-black, .2);
-    color: rgba($light-gray, .4);
+    background: rgba($almost-black, 0.2);
+    color: rgba($light-gray, 0.4);
     p {
         font-size: rem-calc(12);
     }
 }
 
 #talk-actions {
-  //@extend .columns;
-  //@extend .medium-3;
     padding: 0;
     @include breakpoint(medium) {
         text-align: right;
     }
-    @include breakpoint(large) {
-        // width: 180px;
-    }
+
     .button-group {
         width: 100%;
         text-align: center;
@@ -405,9 +377,11 @@ button,
         @include breakpoint(medium) {
             text-align: right;
         }
+
         @include breakpoint(large) {
             width: 180px;
         }
+
         li {
             width: 33.33%;
             padding: 1px;
@@ -418,37 +392,41 @@ button,
                 margin: 0;
                 width: 100%;
             }
+
             @include breakpoint(large) {
                 width: 180px;
             }
+
             a {
                 width: 100%;
                 height: 60px;
-                background: rgba($oil, .2);
+                background: rgba($oil, 0.2);
                 border: none;
                 border-width: 0;
                 border-left-color: transparent;
-                color: rgba($vr-light-blue, .8);
+                color: rgba($vr-light-blue, 0.8);
                 font-size: rem-calc(18);
                 padding-top: 16px;
                 @include breakpoint(medium) {
                     margin: 0;
                     text-align: left;
                 }
-                @include breakpoint(medium) {
+
+                @media #{$medium-only} {
                     padding-left: 16px;
                 }
                 &:hover {
                     background: $vr-blue;
                 }
                 .comment-count {
-                  //@extend .show-for-small-only;
                     font-size: rem-calc(10);
                 }
                 .action-name {
-                  //@extend .hide-for-small-only;
                     font-size: rem-calc(12);
                     margin-left: 12px;
+                    @include breakpoint(small only) {
+                        display: none;
+                    }
                 }
             }
         }
@@ -456,9 +434,6 @@ button,
 }
 
 #slide-counter {
-    // position:fixed;
-    // top:24px;
-    // left:24px;
     font-size: 1.5rem;
     color: $ghost;
 }
@@ -522,22 +497,27 @@ button,
     }
 }
 
-#comments {
+.bottom-container {
     background: $light-gray;
     padding: 12px;
     margin-top: 48px;
     @include breakpoint(medium) {
         padding: 24px;
     }
+
+    .comment-container {
+        max-width:1024px;
+        margin:0 auto;
+    }
     .previous-comments {
         margin-top: 48px;
     }
     .cancel {
-        background: rgba($dark-gray, .2);
+        background: rgba($dark-gray, 0.2);
         margin-right: 6px;
     }
     .panel {
-        background: rgba($dark-gray, .1);
+        background: rgba($dark-gray, 0.1);
         height: 120px;
         border: none;
         padding: 12px;
@@ -548,17 +528,18 @@ button,
         @include breakpoint(medium) {
             padding: 24px;
         }
+
         p {
             font-size: rem-calc(14);
             line-height: rem-calc(20);
         }
         &:nth-child(odd) {
-            background: rgba(white, .2);
+            background: rgba(white, 0.2);
         }
     }
     .comment-meta {
-      //@extend .small-3;
-      //@extend .columns;
+        width: 25%;
+        max-width: 25%;
         img {
             margin-bottom: 6px;
         }
@@ -568,58 +549,55 @@ button,
             line-height: rem-calc(12);
         }
         .post-time {
-            color: rgba($dark-gray, .6);
+            color: rgba($dark-gray, 0.6);
         }
     }
     .comment-content {
-      //@extend .small-8;
-      //@extend .small-offset-1;
-      //@extend .medium-offset-0;
-      //@extend .medium-9;
-      //@extend .columns;
         p {
-            color: rgba($dark-gray, .8);
+            color: rgba($dark-gray, 0.8);
         }
     }
 }
 
 #right-sidebar {
-    background: rgba($almost-black, .5);
+    background: rgba($almost-black, 0.5);
     height: auto;
     padding: 24px 12px 200px 12px;
     @include breakpoint(medium) {
         padding: 75px 12px 48px 12px;
         max-width: 300px;
     }
+
     @include breakpoint(large) {
         position: absolute;
         right: 0;
     }
+
     h3 {
-        color: $vr-beige;
+        color: $info-color;
         font-family: $body-font-family;
         font-weight: bold;
         font-size: rem-calc(16);
         margin-bottom: 24px;
     }
     .reco-tile {
-        background: rgba(#3d404d, .5);
+        background: rgba(#3d404d, 0.5);
         padding: 12px;
         margin-bottom: 12px;
         &:hover {
-            background: rgba(#3d404d, .8);
+            background: rgba(#3d404d, 0.8);
             .reco-title {
                 color: $light-gray;
             }
         }
         .reco-publisher {
-            color: rgba($light-gray, .5);
+            color: rgba($light-gray, 0.5);
             font-size: rem-calc(12);
             line-height: rem-calc(12);
             margin-bottom: 6px;
         }
         .reco-title {
-            color: rgba($light-gray, .4);
+            color: rgba($light-gray, 0.4);
             font-family: $body-font-family;
             font-weight: bold;
             font-size: rem-calc(16);
@@ -648,21 +626,20 @@ button,
     }
 }
 
-
 .reveal-modal {
     h2 {
         color: white;
         font-size: rem-calc(24);
     }
     code {
-        background: $vr-beige;
+        background: $info-color;
         padding: 6px;
         border: none;
     }
     p.lead {
-        color: $vr-beige;
+        color: $info-color;
     }
     button {
-      //@extend .secondary;
+        background: $vr-light-blue;
     }
 }
