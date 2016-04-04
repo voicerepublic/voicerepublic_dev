@@ -49,7 +49,7 @@
 
       -# Player
       .player-container
-        = render partial: 'shared/player', locals: { talk: talk }
+        = render partial: 'shared/player', locals: { talk: @talk }
         -##talk-playbar.row.collapse
         -#  %button.button.button-playbar.button-play-pause.state-play
         -#    %span.icon-uniE6BB
@@ -86,26 +86,26 @@
           %ul.button-group.float-right
             %li
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "pin-modal", :href => "#"}
-                %span.icon-uniE8E6
+                = naked_icon 'pin'
                 %span.action-name
                   Pin
                   %span.hide-for-medium-only to My Feed
             %li
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "share-modal", :href => "#"}
-                %span.icon-uniE7BF
+                = naked_icon 'share'
                 %span.action-name Share
             %li
               %a.button.small{:href => "#comments"}
-                %span.icon-uniE918
+                = naked_icon 'chat'
                 %span.comment-count.show-for-small-only 3
                 %span.action-name Comments
             %li.hide-for-small-only
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "embed-modal", :href => "#"}
-                %span.icon-uniE756
+                = naked_icon 'embed'
                 %span.action-name Embed
             %li.hide-for-small-only
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "card-modal", :href => "#"}
-                %span.icon-uniE76B
+                = naked_icon 'podcast'
                 %span.action-name Podcast
         #talk-description.left.medium-9.columns
 
