@@ -37,6 +37,8 @@
 .pagination {
     font-weight: 500;
     margin-top: 24px;
+    display: inline-block;
+    
     a {
         color: $vr-light-blue;
         &:hover {
@@ -48,11 +50,14 @@
         background: $vr-beige;
         min-height: 44px;
         min-width: 44px;
+        // width: 44px;
         height: 44px;
         display: inline-block;
         line-height: 42px;
         font-size: rem-calc(14);
         border: 1px solid $vr-light-blue;
+        text-align: center;
+        float:left;
     }
     .previous_page, .next_page {
         // font-size: rem-calc(10);

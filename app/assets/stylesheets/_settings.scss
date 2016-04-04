@@ -194,7 +194,7 @@ $global-rounded: 1000px;
 // $cursor-text-value: text;
 // e. Typography
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-// $include-html-type-classes: $include-html-classes;
+//$include-html-type-classes: $include-html-classes;
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
 $header-font-family: 'Eagle',
@@ -780,20 +780,20 @@ $input-border-width: 4px;
 // $orbit-timer-hide-for-small: true;
 // 20. Pagination
 // - - - - - - - - - - - - - - - - - - - - - - - - -
-// $include-pagination-classes: $include-html-classes;
+//$include-pagination-classes: $include-html-classes;
 // We use these to control the pagination container
-// $pagination-height: rem-calc(24);
-// $pagination-margin: rem-calc(-5);
+$pagination-height: rem-calc(44);
+$pagination-margin: rem-calc(0);
 // We use these to set the list-item properties
 // $pagination-li-float: $default-float;
-// $pagination-li-height: rem-calc(24);
-// $pagination-li-font-color: $jet;
+$pagination-li-height: rem-calc(44);
+$pagination-li-font-color: $vr-purple;
 // $pagination-li-font-size: rem-calc(14);
 // $pagination-li-margin: rem-calc(5);
 // We use these for the pagination anchor links
 // $pagination-link-pad: rem-calc(1 10 1);
 // $pagination-link-font-color: $aluminum;
-// $pagination-link-active-bg: scale-color($white, $lightness: -10%);
+$pagination-link-active-bg: $vr-purple;
 // We use these for disabled anchor links
 // $pagination-link-unavailable-cursor: default;
 // $pagination-link-unavailable-font-color: $aluminum;
@@ -803,7 +803,7 @@ $input-border-width: 4px;
 // $pagination-link-current-font-color: $white;
 // $pagination-link-current-font-weight: $font-weight-bold;
 // $pagination-link-current-cursor: default;
-// $pagination-link-current-active-bg: $primary-color;
+$pagination-link-current-active-bg: $vr-blue;
 // 21. Panels
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 // $include-html-panel-classes: $include-html-classes;

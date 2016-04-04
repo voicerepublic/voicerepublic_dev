@@ -48,6 +48,7 @@
     margin: 0;
     right: 0;
     left: 0;
+    max-height: 80px;
     min-height: 80px;
     padding:12px;
     padding-top:18px;
@@ -59,10 +60,16 @@
     }
     .top-bar-right {
         margin-top: 4px;
+        height: 58px;
+        max-height: 58px;
         @include breakpoint(small only) {
             width: 50px;
             margin-top: 6px;
         }
+        ul li:not(.is-dropdown-submenu-item) {
+            height: 58px;
+        }
+
 
         padding-right: 12px;
         .avatar {
