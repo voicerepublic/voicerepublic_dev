@@ -7,6 +7,10 @@ button, .button {
     transition: border-color .2s ease;
     transition: border .2s ease;
     transition: all .2s ease;
+    background-color: $vr-blue;
+    &.secondary {
+        background-color: $vr-light-blue;
+    }
     &.hollow {
         border-width: 2px;
         border-color: $vr-light-blue;
@@ -24,7 +28,13 @@ button, .button {
           border-color:$vr-yellow;
           color: $vr-yellow;
         }
-        &.btn-hover-yellow {
+        &.btn-gray {
+            border-color: $charcoal;
+            color: $charcoal;
+        }
+        
+    }
+    &.btn-hover-yellow {
             &:hover {
                 border-color: $vr-yellow;
                 background: $vr-yellow;
@@ -53,7 +63,6 @@ button, .button {
             
           }
         }
-    }
     &.alert.hollow {
         border-width: 2px;
     }

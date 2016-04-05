@@ -13,6 +13,13 @@
 - content_for :title do
   = t('.title', title: @talk.title)
 
+-# Debug: breakpoint
+.breakpoint-viewer
+  .show-for-small-only small
+  .show-for-medium-only medium
+  .show-for-large large
+
+
 -# Begin Left
 #main-column.clearfix
   .left-side.medium-9.large-10.columns
@@ -49,22 +56,22 @@
 
       -# Player
       .player-container
-        = render partial: 'shared/player', locals: { talk: @talk }
-        -##talk-playbar.row.collapse
-        -#  %button.button.button-playbar.button-play-pause.state-play
-        -#    %span.icon-uniE6BB
-        -#    %span.icon-uniE6B8.hide
-        -#  #meter
-        -#    #indicator{:style => "max-height: 11.4477px;"}
-        -#  %span.timecode 00:00
-        -#  .timeline
-        -#    .track-playing
-        -#  %span.timecode.right 45:20
-        -#  %button.button.button-playbar.button-volume.right.hide-for-small-only
-        -#    %span.icon-uniE6BE
-        -#    %span.icon-uniE6C1.hide
-        -#  .playbar-divider
-        -#  %button#view-slides2.has-tip.tip-top.tip-center.button.button-playbar.button-volume.right.hide-for-small-only{"aria-describedby" => "tooltip-imm27bsv0", "aria-haspopup" => "true", "data-options" => "disable_for_touch:true", "data-selector" => "tooltip-imm27bsv0", "data-tooltip" => "", :title => ""}
+        -#= render partial: 'shared/player', locals: { talk: @talk }
+        #talk-playbar.row.collapse
+          %button.button.button-playbar.button-play-pause.state-play
+            %span= naked_icon "play"
+            %span.icon-uniE6B8.hide
+          #meter
+            #indicator{:style => "max-height: 11.4477px;"}
+          %span.timecode 00:00
+          .timeline
+            .track-playing
+          %span.timecode.right 45:20
+          %button.button.button-playbar.button-volume.right.hide-for-small-only
+            %span.icon-uniE6BE
+            %span.icon-uniE6C1.hide
+          .playbar-divider
+          %button#view-slides2.has-tip.tip-top.tip-center.button.button-playbar.button-volume.right.hide-for-small-only{"aria-describedby" => "tooltip-imm27bsv0", "aria-haspopup" => "true", "data-options" => "disable_for_touch:true", "data-selector" => "tooltip-imm27bsv0", "data-tooltip" => "", :title => ""}
             -#%span.icon-uniE8A2
 
 
@@ -80,16 +87,16 @@
         .talk-picture
           = image_tag @talk.image.thumb("1024x640#").url, class: 'image'
           %button#view-slides.button.button-playbar.button-volume.right.show-for-small-only{:title => "View Slides"}
-            %span.icon-uniE8A2
+            = naked_icon 'slides'
       .row.collapse
         #talk-actions.float-right.medium-3.columns
           %ul.button-group.float-right
             %li
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "pin-modal", :href => "#"}
                 = naked_icon 'pin'
-                %span.action-name
-                  Pin
-                  %span.hide-for-medium-only to My Feed
+                %span.action-name.show-for-small-only= t('.pin_talk_small')
+                %span.action-name.show-for-medium= t('.pin_talk')
+                  
             %li
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "share-modal", :href => "#"}
                 = naked_icon 'share'
@@ -110,33 +117,38 @@
         #talk-description.left.medium-9.columns
 
           = @talk.description_as_html.html_safe
-          .format-box.speaker.float-left
-            Categories:
-            %a{:href => "#"} Conference
-          .format-box
-            Tags:
-            = succeed "," do
-              %a{:href => "#"} Theater
-            = succeed "," do
-              %a{:href => "#"} Bücher
-              %a{:href => "#"} Krimi
-          .format-box
-            Format:
-            %a{:href => "#"} Roundtable
-          .format-box
-            License:
-            %a{:href => "#"} Creative Commons
+
+          -#TODO: Meta data like Category, Tags, Format, License, etc.
+          -#.format-box.speaker.float-left
+          -#  Categories:
+          -#  %a{:href => "#"} Conference
+          -#.format-box
+          -#  Tags:
+          -#  = succeed "," do
+          -#    %a{:href => "#"} Theater
+          -#  = succeed "," do
+          -#    %a{:href => "#"} Bücher
+          -#    %a{:href => "#"} Krimi
+          -#.format-box
+          -#  Format:
+          -#  %a{:href => "#"} Roundtable
+          -#.format-box
+          -#  License:
+          -#  %a{:href => "#"} Creative Commons
       
 
     -#Comment Stuff
-    .bottom-container.row.collapse
-      .comment-container
+    .bottom-container.row.collapse.clearfix
+      .comment-container.clearfix
+        -# TODO: integrate the Discussion logic. These are here for visual reference...
         .comment.small-12.columns.float-center
-          %h3 Comments
+          %h3 
+            = naked_icon 'chat'
+            = t('.comments')
           .panel
             %p{:contenteditable => "true"} Share your thoughts here.
-          %button.right.small Post
-          %button.right.cancel.small Cancel
+          %button.button.float-right.small.secondary.btn-hover-blue Post
+          %button.button.float-right.cancel.small.hollow.btn-hover-red.btn-gray Cancel
         .small-12.columns.previous-comments
           .row.collapse.comment-block
             .comment-meta.small-3.columns
@@ -163,84 +175,15 @@
             .comment-content.small-8.small-offset-1.medium-9.medium-offset-0.columns
               %p.meta-info It's funny.  I can look back on a life of achievement, on challenges met, competitors bested, obstacles overcome.  I've accomplished more than most men, and without the use of my legs.  What. . . What makes a man, Mr. Lebowski?
   -# Right side
-  #right-sidebar.medium-3.large-2.columns
+  #right-sidebar.medium-3.large-2.columns.clearfix
     .row.collapse
       %h3
         Recommended Talks
-      .reco-tile
-        %p.reco-publisher nGbK
-        %img{:alt => "", :src => "img/thumbs/thumb0.jpg"}/
-        %h5.reco-title Sozialer Wandel und Politische Kunst in der Südosttürkei
-      .reco-tile
-        %p.reco-publisher nGbK
-        %img{:alt => "", :src => "img/thumbs/thumb1.jpg"}/
-        %h5.reco-title Independent Cultural Spaces in Turkey and Germany
-      .reco-tile
-        %p.reco-publisher re:publica15
-        %img{:alt => "", :src => "img/thumbs/thumb2.jpg"}/
-        %h5.reco-title Watching the Watchers: Building a Sousveillance State
-      .reco-tile
-        %p.reco-publisher AMAZE Berlin
-        %img{:alt => "", :src => "img/thumbs/thumb3.jpg"}/
-        %h5.reco-title A MAZE Masterclass: Rami Ismail in conversation with Leigh Alexander
-      .reco-tile
-        %p.reco-publisher Publixsphere Channel
-        %img{:alt => "", :src => "img/thumbs/thumb4.jpg"}/
-        %h5.reco-title Religion in Europa
-      .reco-tile
-        %p.reco-publisher HPI School of Design Thinking
-        %img{:alt => "", :src => "img/thumbs/thumb5.jpg"}/
-        %h5.reco-title Visual Diagnostics for Design Thinking Teams
-      .reco-tile
-        %p.reco-publisher Rosa Luxemburg Stiftung
-        %img{:alt => "", :src => "img/thumbs/thumb6.jpg"}/
-        %h5.reco-title Platform Cooperativism vs. the Sharing Economy
+      = render partial: 'shared/talk_card', collection: @related_talks
+      
     %h1.text-center.show-for-small-only
       %a{:href => "#"} What is Voice Republic?
-  -# Slides
-  #slides-holder.hide.animated
-    %button.slide-close
-      %span.icon-uniE7D7
-    %button#left-slide.slick-arrow{:style => "display: block;"}
-      %span.icon-uniE7CF
-    %button#right-slide.slick-arrow{:style => "display: block;"}
-      %span.icon-uniE7CD
-    .my-slides.slick-initialized.slick-slider{:role => "toolbar"}
-      .slick-list.draggable{"aria-live" => "polite", :style => "padding: 0px;"}
-        .slick-track{:role => "listbox", :style => "opacity: 1; width: 0px; transform: translate3d(0px, 0px, 0px);"}
-          .slick-slide.slick-cloned{"aria-hidden" => "true", "data-slick-index" => "-2", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide4.jpg"}/
-          .slick-slide.slick-cloned{"aria-hidden" => "true", "data-slick-index" => "-1", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide5.jpg"}/
-          .slick-slide.slick-current.slick-active.slick-center{"aria-describedby" => "slick-slide00", "aria-hidden" => "false", "data-slick-index" => "0", :role => "option", :style => "width: 0px;", :tabindex => "0"}
-            %img{:alt => "", :src => "img/slides/slide0.jpg"}/
-          .slick-slide{"aria-describedby" => "slick-slide01", "aria-hidden" => "true", "data-slick-index" => "1", :role => "option", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide1.jpg"}/
-          .slick-slide{"aria-describedby" => "slick-slide02", "aria-hidden" => "true", "data-slick-index" => "2", :role => "option", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide2.jpg"}/
-          .slick-slide{"aria-describedby" => "slick-slide03", "aria-hidden" => "true", "data-slick-index" => "3", :role => "option", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide3.jpg"}/
-          .slick-slide{"aria-describedby" => "slick-slide04", "aria-hidden" => "true", "data-slick-index" => "4", :role => "option", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide4.jpg"}/
-          .slick-slide{"aria-describedby" => "slick-slide05", "aria-hidden" => "true", "data-slick-index" => "5", :role => "option", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide5.jpg"}/
-          .slick-slide.slick-cloned.slick-center{"aria-hidden" => "true", "data-slick-index" => "6", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide0.jpg"}/
-          .slick-slide.slick-cloned{"aria-hidden" => "true", "data-slick-index" => "7", :style => "width: 0px;", :tabindex => "-1"}
-            %img{:alt => "", :src => "img/slides/slide1.jpg"}/
-      %ul.slick-dots{:role => "tablist", :style => "display: block;"}
-        %li#slick-slide00.slick-active{"aria-controls" => "navigation00", "aria-hidden" => "false", "aria-selected" => "true", :role => "presentation"}
-          %button{"aria-required" => "false", "data-role" => "none", :role => "button", :tabindex => "0", :type => "button"} 1
-        %li#slick-slide01{"aria-controls" => "navigation01", "aria-hidden" => "true", "aria-selected" => "false", :role => "presentation"}
-          %button{"aria-required" => "false", "data-role" => "none", :role => "button", :tabindex => "0", :type => "button"} 2
-        %li#slick-slide02{"aria-controls" => "navigation02", "aria-hidden" => "true", "aria-selected" => "false", :role => "presentation"}
-          %button{"aria-required" => "false", "data-role" => "none", :role => "button", :tabindex => "0", :type => "button"} 3
-        %li#slick-slide03{"aria-controls" => "navigation03", "aria-hidden" => "true", "aria-selected" => "false", :role => "presentation"}
-          %button{"aria-required" => "false", "data-role" => "none", :role => "button", :tabindex => "0", :type => "button"} 4
-        %li#slick-slide04{"aria-controls" => "navigation04", "aria-hidden" => "true", "aria-selected" => "false", :role => "presentation"}
-          %button{"aria-required" => "false", "data-role" => "none", :role => "button", :tabindex => "0", :type => "button"} 5
-        %li#slick-slide05{"aria-controls" => "navigation05", "aria-hidden" => "true", "aria-selected" => "false", :role => "presentation"}
-          %button{"aria-required" => "false", "data-role" => "none", :role => "button", :tabindex => "0", :type => "button"} 6
+
   -# modal
   #embed-modal.reveal.medium{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
     %h2#modalTitle Embed This Talk

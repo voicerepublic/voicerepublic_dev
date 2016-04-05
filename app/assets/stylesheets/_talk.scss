@@ -3,6 +3,24 @@ body {
     height: auto;
 }
 
+    .talks svg {
+        fill: currentColor;
+        width: 16px;
+        height: 16px;
+        max-height: 16px;
+        max-width: 16px;
+    }
+
+.breakpoint-viewer {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: white;
+    color: black;
+    padding: 10px;
+
+}
+
 body.talks {
     padding: 0;
     @include breakpoint(medium) {
@@ -50,6 +68,10 @@ button,
 
 .blue {
     background: $vr-blue;
+}
+
+.pub-avatar {
+    margin-right: 6px;
 }
 
 .meta-speaker {
@@ -195,6 +217,13 @@ button,
 
 .player-container {
     padding: 0 12px;
+    svg {
+        fill: currentColor;
+        width: 16px;
+        max-width: 16px;
+        height: 16px;
+        max-height:16px;
+    }
 }
 
 #talk-playbar {
@@ -370,13 +399,7 @@ button,
         text-align: right;
     }
 
-    svg {
-        fill: currentColor;
-        width: 16px;
-        height: 16px;
-        max-height: 16px;
-        max-width: 16px;
-    }
+
 
     .button-group {
         width: 100%;
@@ -393,6 +416,8 @@ button,
         li {
             width: 33.33%;
             padding: 1px;
+            float: left;
+            display: inline-block;
             .button {
                 border: 0;
             }
@@ -509,6 +534,8 @@ button,
     background: $light-gray;
     padding: 12px;
     margin-top: 48px;
+    width: 100%;
+    max-width:100%;
     @include breakpoint(medium) {
         padding: 24px;
     }
@@ -516,12 +543,12 @@ button,
     .comment-container {
         max-width:1024px;
         margin:0 auto;
+        padding: 24px 0;
     }
     .previous-comments {
         margin-top: 48px;
     }
     .cancel {
-        background: rgba($dark-gray, 0.2);
         margin-right: 6px;
     }
     .panel {
@@ -573,7 +600,7 @@ button,
     padding: 24px 12px 200px 12px;
     @include breakpoint(medium) {
         padding: 75px 12px 48px 12px;
-        max-width: 300px;
+        // max-width: 300px;
     }
 
     @include breakpoint(large) {
@@ -581,17 +608,21 @@ button,
         right: 0;
     }
 
+    .talk-card {
+        width: 100%;
+        margin:0;
+    }
+
     h3 {
         color: $info-color;
         font-family: $body-font-family;
         font-weight: bold;
         font-size: rem-calc(16);
-        margin-bottom: 24px;
-    }
-    .reco-tile {
-        background: rgba(#3d404d, 0.5);
-        padding: 12px;
         margin-bottom: 12px;
+    }
+    .talk-card-inside {
+        background: rgba(#3d404d, 0.5);
+        padding: 0;
         &:hover {
             background: rgba(#3d404d, 0.8);
             .reco-title {
@@ -604,7 +635,7 @@ button,
             line-height: rem-calc(12);
             margin-bottom: 6px;
         }
-        .reco-title {
+        .title {
             color: rgba($light-gray, 0.4);
             font-family: $body-font-family;
             font-weight: bold;
@@ -613,17 +644,17 @@ button,
             margin-top: 8px;
             margin-bottom: 2px;
         }
-        &:after {
-            content: "333";
-            font-size: rem-calc(36);
-            color: white;
-            position: absolute;
-            display: block;
-            width: 100px;
-            height: 100px;
-            top: -100px;
-            z-index: 6000;
-        }
+        // &:after {
+        //     content: "333";
+        //     font-size: rem-calc(36);
+        //     color: white;
+        //     position: absolute;
+        //     display: block;
+        //     width: 100px;
+        //     height: 100px;
+        //     top: -100px;
+        //     z-index: 6000;
+        // }
         .reco-play {
             color: white;
             font-size: 36px;
