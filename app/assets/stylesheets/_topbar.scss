@@ -245,6 +245,13 @@
             padding-top: 8px;
             margin-left: -32px;
             margin-top: 14px;
+            background:none;
+            @include breakpoint(medium){
+                margin-top: 4px;
+            }
+            &:hover {
+                background:none;
+            }
             .svg-icon {
                 height: 6px;
                 svg {
