@@ -105,6 +105,7 @@ class Venue < ActiveRecord::Base
     self.admin_password = nil
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
+    self.device = nil
   end
 
   def shutdown?
@@ -182,7 +183,8 @@ class Venue < ActiveRecord::Base
     Emitter.venue_transition(self, args)
   end
 
-  belongs_to :user
+  belongs_to :user #:organization
+  belongs_to :device
   has_many :talks
 
   validates :name, :user_id, presence: true

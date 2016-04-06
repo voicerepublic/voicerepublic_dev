@@ -61,6 +61,8 @@ class User < ActiveRecord::Base
   has_one :welcome_transaction, as: :source
 
   belongs_to :default_series, class_name: 'Series', dependent: :destroy
+  has_many :memberships
+  has_many :organizations, through: :memberships
 
   acts_as_taggable
 

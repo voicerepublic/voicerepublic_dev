@@ -83,6 +83,7 @@ Rails.application.routes.draw do
   # get '/venues/:id', to: redirect(->(params, req) { '/series/'+params[:id] })
 
   resources :venues, only: [:index, :show, :update]
+  resources :devices, only: [:index, :edit, :update]
 
   resources :reminders, only: [:show, :destroy]
 

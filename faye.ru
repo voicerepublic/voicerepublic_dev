@@ -43,8 +43,10 @@ faye.add_extension Faye::Authentication::ServerExtension.new(secret)
 rules = {
   # oldschool
   '/live/up' => %r{^/live/up/t\d+/u\d+$},
+  # newschool - has to go
+  '/up/venues' => %r{^/up/user/\d+/venue/\d+$},
   # newschool
-  '/up/venues' => %r{^/up/user/\d+/venue/\d+$}
+  #'/devices' => %r{^/device/}
 }
 faye.add_extension FayeSquasher.new(rules)
 

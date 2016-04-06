@@ -7,6 +7,7 @@ class Api::DevicesController < ApplicationController
   TARGETS = Settings.devices.endpoint.to_hash.keys
 
 
+  # Streamboxx: Knocking
   # GET /api/devices/:id
   def show
     @device = Device.find_by(identifier: params[:id])
@@ -22,6 +23,7 @@ class Api::DevicesController < ApplicationController
   end
 
 
+  # Streamboxx: Registering
   # POST /api/devices
   def create
     @device = Device.find_or_initialize_by(device_params)
@@ -29,11 +31,9 @@ class Api::DevicesController < ApplicationController
     @device.public_ip_address = request.remote_ip
     @device.subtype = params[:device][:subtype]
 
-    if @device.save
-      render json: @device.provisioning_data.to_json
-    else
-      head status: 409 # conflict
-    end
+    @device.register!
+
+    render json: @device.provisioning_data.to_json
   end
 
 

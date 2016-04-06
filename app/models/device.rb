@@ -13,11 +13,12 @@ class Device < ActiveRecord::Base
 
   validates :identifier, presence: true
 
-  ONLINE = %w( pairing idle streaming uploading )
+  ONLINE = %w( pairing idle streaming )
 
-  scope :online, -> { where('state IN (?)', ONLINE) }
-
-  scope :unclaimed, -> { where(organization: nil) }
+  scope :online, -> { where(disappeared_at: nil).where('state IN (?)', ONLINE) }
+  scope :unclaimed, -> { where(organization_id: nil) }
+  scope :with_ip, ->(ip) { where(public_ip_address: ip) }
+  scope :disappeared, -> { where.not(disappeared_at: nil) }
 
   include ActiveModel::Transitions
 
@@ -27,14 +28,11 @@ class Device < ActiveRecord::Base
     state :pairing # online & still unpaired
     state :idle # online, paired & not streaming
     state :streaming
-    state :uploading
     state :offline
-    state :disappeared # assumed offline, did not deregister
 
     event :register do # remote
-      transitions from: :unpaired, to: :pairing
-      transitions from: :offline, to: :idle
-      transitions from: :disappeared, to: :idle
+      transitions from: [:unpaired, :pairing], to: :pairing
+      transitions from: [:offline, :idle, :streaming], to: :idle
     end
 
     event :complete_pairing, timestamp: :paired_at do # local
@@ -49,19 +47,18 @@ class Device < ActiveRecord::Base
       transitions from: :streaming, to: :idle
     end
 
-    event :start_upload do
-      transitions from: :idle, to: :uploading
-    end
-
     event :deregister do # remote
-      transitions from: [:idle, :streaming, :uploading], to: :offline
+      transitions from: [:idle, :streaming], to: :offline
     end
 
-    event :disappear, timestamp: :disappeared_at do # local
-      transitions from: :pairing, to: :unpaired
-      transitions from: [:idle, :streaming, :uploading], to: :disappeared
-    end
+  end
 
+  def disappear!
+    update_attribute :disappeared_at, Time.now
+  end
+
+  def appear!
+    update_attribute :disappeared_at, nil
   end
 
   def provisioning_data
@@ -77,5 +74,9 @@ class Device < ActiveRecord::Base
       faye_secret: Settings.faye.secret_token
     }
   end
+
+   def to_param
+     identifier
+   end
 
 end
