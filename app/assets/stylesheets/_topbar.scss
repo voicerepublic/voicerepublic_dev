@@ -40,6 +40,10 @@
     }
 }
 
+.talks .top-bar {
+    box-shadow: 0 1px 5px rgba(0,0,0,.3);
+}
+
 
 .top-bar {
     // @extend .sticky;
@@ -64,7 +68,7 @@
         max-height: 58px;
         @include breakpoint(small only) {
             width: 50px;
-            margin-top: 6px;
+            margin-top: -6px;
         }
         ul li:not(.is-dropdown-submenu-item) {
             height: 58px;
@@ -240,6 +244,7 @@
             border: 0;
             padding-top: 8px;
             margin-left: -32px;
+            margin-top: 14px;
             .svg-icon {
                 height: 6px;
                 svg {
@@ -271,6 +276,7 @@
         top: 0;
         padding: 0;
         border: 0;
+        background:none;
         &:hover {
             background: none;
             color: $vr-yellow;

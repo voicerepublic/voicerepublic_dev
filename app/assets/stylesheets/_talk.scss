@@ -22,9 +22,6 @@ body {
 
 }
 
-.top-bar {
-    background-color: black;
-}
 
 body.talks {
     padding: 0;
@@ -52,6 +49,9 @@ body.talks {
         @include breakpoint(medium) {
             padding-top: 103px;
         }
+    }
+    hr {
+        border-color: rgba(255,255,255,.08);
     }
 }
 
@@ -144,7 +144,7 @@ button,
     .meta-info,
     .meta-series {
         color: rgba($info-color, 0.5);
-        margin-bottom: 3px;
+        margin-bottom: 24px;
         a {
             font-weight: bold;
             color: rgba($info-color, 0.5);
@@ -377,7 +377,7 @@ button,
         font-weight: normal;
         color: $info-color;
         // max-width: 540px;
-        margin-bottom: 36px;
+        margin-bottom: 24px;
         @include breakpoint(medium) {
             font-size: rem-calc(18);
             line-height: rem-calc(24);
@@ -471,7 +471,7 @@ button,
                 .comment-count {
                     font-size: rem-calc(10);
                 }
-                .action-name {
+                .action-name, .pin-msg {
                     font-size: rem-calc(11);
                     margin-left: 6px;
                     white-space: nowrap;
@@ -489,6 +489,10 @@ button,
                     margin-top: 6px;
         vertical-align: text-bottom;
                 }
+            }
+
+            .unpin-btn {
+                background: $vr-blue;
             }
         }
     }
@@ -568,10 +572,15 @@ button,
         padding: 24px;
     }
 
-    .comment-container {
+    #comment-container {
         max-width:1024px;
         margin:0 auto;
         padding: 24px 0;
+    }
+
+    .comment-avatar {
+        width: 42px;
+        height: 42px;
     }
     .previous-comments {
         margin-top: 48px;
@@ -716,13 +725,37 @@ button,
         .svg-icon {
             color: rgba($light-gray, 0.4);
         }
+
+        .bottom-info .pin-btn {
+            border-color: transparent;
+            color: rgba($light-gray, 0.4);
+            &:hover {
+                color: white;
+                border-color:rgba($light-gray, 0.4);
+            }
+        }
     }
 }
 
-.reveal-modal {
+.reveal {
+    background-color: $vr-blue;
+    border:none;
+
+    ul li a {
+        height: 60px;
+    }
+
+    svg {
+        vertical-align: middle;
+    }
+    .flyer {
+        max-height: 50vh;
+        box-shadow:0 1px 10px rgba(0,0,0,.3);
+    }
     h2 {
         color: white;
         font-size: rem-calc(24);
+        margin-bottom: 0;
     }
     code {
         background: $info-color;
@@ -734,5 +767,17 @@ button,
     }
     button {
         background: $vr-light-blue;
+    }
+    .close-button {
+        color: white;
+        width: 24px;
+        height: 24px;
+        display: block;
+        background:none;
+    }
+    .send-card {
+            position: absolute;
+    bottom: 20px;
+    right: 68px;
     }
 }

@@ -15,10 +15,10 @@
 
 
 -# Debug: breakpoint
-.breakpoint-viewer
-  .show-for-small-only small
-  .show-for-medium-only medium
-  .show-for-large large
+  .breakpoint-viewer
+    .show-for-small-only small
+    .show-for-medium-only medium
+    .show-for-large large
 
 
 -# Begin Left
@@ -49,6 +49,7 @@
               %p.meta-speaker
                 = t('.sprecherin')
                 %span.speaker-names= @talk.speakers
+        %hr
               
       -# title
       .row.collapse.talk-title
@@ -95,32 +96,42 @@
         #talk-actions.float-right.medium-4.large-3.columns
           %ul.button-group.float-right
             %li
-              %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "pin-modal", :href => "#"}
-                = naked_icon 'pin'
-                %span.action-name.show-for-small-only= t('.pin_talk_small')
-                %span.action-name.show-for-medium= t('.pin_talk')
+              - if current_user
+                .pinboard{ class: "pin-Talk-#{@talk.id}" }
+                  - if reminder = current_user.remembers?(@talk)
+                    = render partial: 'reminders/unpin', locals: { reminder: reminder, msg: 'pin' }
+                    %p= t('.pinny')
+                  - else
+                    = render partial: 'reminders/pin', locals: { rememberable: @talk, msg: 'unpin' }
+                    %p= t('.pin')
+              - else
+                -# display a fake pin button
+                .pinboard
+                  = link_to talk do
+                    .pin-placeholder
+              
                   
             %li
-              %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "share-modal", :href => "#"}
+              %a.button.small{"data-open" => "share-modal"}
                 = naked_icon 'share'
                 %span.action-name= t('.share')
             %li
-              %a.button.small{:href => "#comments"}
+              %a.button.small{:href => "#comment-container"}
                 = naked_icon 'chat'
                 %span.comment-count.show-for-small-only 3
                 %span.action-name= t('.comments')
             %li.hide-for-small-only
-              %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "embed-modal", :href => "#"}
+              %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-open" => "embed-modal"}
                 = naked_icon 'embed'
                 %span.action-name= t('.embed')
             %li.hide-for-small-only
-              %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "card-modal", :href => "#"}
+              %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-open" => "card-modal"}
                 = naked_icon 'podcast'
                 %span.action-name= t('.podcast')
         #talk-description.left.medium-8.large-9.columns
 
           = @talk.description_as_html.html_safe
-
+         
           -#TODO: Meta data like Category, Tags, Format, License, etc.
           -#.format-box.speaker.float-left
           -#  Categories:
@@ -142,7 +153,7 @@
 
     -#Comment Stuff
     .bottom-container.row.collapse.clearfix
-      .comment-container.clearfix
+      #comment-container.clearfix
         -# TODO: integrate the Discussion logic. These are here for visual reference...
         .comment.small-12.columns.float-center
           %h3 
@@ -156,7 +167,7 @@
           .row.collapse.comment-block
             .comment-meta.small-3.columns
               %p
-                %img{:alt => "", :height => "42", :src => "img/avatars/dude.png", :width => "42"}/
+                = image_tag 'dude.png', class: 'comment-avatar'
               %p.post-author The Dude
               %p.post-time 2 min ago
             .comment-content.small-8.small-offset-1.medium-9.medium-offset-0.columns
@@ -164,7 +175,7 @@
           .row.collapse.comment-block
             .comment-meta.small-3.columns
               %p
-                %img{:alt => "", :height => "42", :src => "img/avatars/walter.png", :width => "42"}/
+                = image_tag 'walter.png', class: 'comment-avatar'
               %p.post-author Walter Sobchak
               %p.post-time 3 min ago
             .comment-content.small-8.small-offset-1.medium-9.medium-offset-0.columns
@@ -172,7 +183,7 @@
           .row.collapse.comment-block
             .comment-meta.small-3.columns
               %p
-                %img{:alt => "", :height => "42", :src => "img/avatars/lebowski.png", :width => "42"}/
+                = image_tag 'lebowski.png', class: 'comment-avatar'
               %p.post-author Big Lebowski
               %p.post-time 5 min ago
             .comment-content.small-8.small-offset-1.medium-9.medium-offset-0.columns
@@ -187,43 +198,52 @@
     %h1.text-center.show-for-small-only
       %a{:href => "#"} What is Voice Republic?
 
-  -# modal
-  #embed-modal.reveal.medium{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
-    %h2#modalTitle Embed This Talk
-    %p.lead Copy and paste the following code into your web site:
-    %p.code
-      %code http://voicerepublic.com/238yas98fh2k
-    %a.close-reveal{"aria-label" => "Close"} ×
-  -# modal
-  #pin-modal.reveal.medium{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
-    %h2#modalTitle This Talk has been pinned to your Feed!
-    %button.button.small Go to my Feed
-    %a.close-reveal{"aria-label" => "Close"} ×
-  -# modal
-  #card-modal.reveal.small{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
-    %h2#modalTitle Launch Your Podcatcher?
-    %p.lead
-      %button Launch
-    %a.close-reveal{"aria-label" => "Close"} ×
-  -# modal
-  #share-modal.reveal.medium{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
-    .row.collapse
-      %h2#modalTitle Share This Talk
-    .row.collapse
-      %p
-        %img{:alt => "", :src => "img/true.png"}/
-    .row.collapse
-      %p.lead
-        %button.button.small
-          %span.icon-uniE949
-          Facebook
-        %button.button.small
-          %span.icon-uniE94A
-          Twitter
-        %button.button.small
-          %span.icon-uniE90A
-          Mail
-        %button.button.small
-          %span.icon-uniE909
-          Send Card
-    %a.close-reveal{"aria-label" => "Close"} ×
+-# modal
+
+
+#embed-modal.reveal.small{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
+  %h2#modalTitle= t('.embed_this_talk')
+  %p.lead Copy and paste the following code into your web site:
+  %textarea{:rows => "3"}= render partial: 'embedded', locals: { embedded: @talk, width: 445, height: 140 }
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+-# modal
+#pin-modal.reveal.medium{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
+  %h2#modalTitle This Talk has been pinned to your Feed!
+  %button.button.small Go to my Feed
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+-# modal
+#card-modal.reveal.small{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
+  %h2#modalTitle Launch Your Podcatcher?
+  %p.lead
+    %button.button.hollow.btn-hover-yellow= t('.launch')
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+-# modal
+#share-modal.reveal.medium{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
+  .row.collapse
+    %h2#modalTitle Share This Talk
+  .small-6.columns
+    %ul.menu.vertical
+      %li
+        %a.button.small.btn-hover-yellow
+          = naked_icon 'facebook'
+          = t('.facebook')
+      %li
+        %a.button.small.btn-hover-yellow
+          = naked_icon 'twitter'
+          = t('.twitter')
+      %li
+        %a.button.small.btn-hover-yellow
+          = naked_icon 'email'
+          = t('.mail')
+        
+  .small-6.columns
+    = image_tag @talk.flyer.path, class: 'flyer'
+    %a.button.small.btn-hover-yellow.send-card
+      %span.icon-uniE909
+        = naked_icon 'airplane'
+        = t('.send_card')
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×

@@ -376,6 +376,9 @@ $lines-to-show: 2;
             border-color: $vr-light-blue;
             color: $vr-light-blue;
         }
+        .pin-msg {
+            display: none;
+        }
     }
     .pinboard {
         height: 44px;

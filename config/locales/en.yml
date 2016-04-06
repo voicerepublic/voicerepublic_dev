@@ -525,9 +525,11 @@ en:
 
   reminders:
     pin:
-      pin: Pin This Talk
+      pin_this_talk: Pin This Talk
+      pin: Pin
     unpin:
-      unpin: Un-Pin This Talk
+      unpin: Un-Pin
+      unpin_this_talk: Un-Pin This Talk
     favorite:
       favorite: Favorite
     unfavorite:
