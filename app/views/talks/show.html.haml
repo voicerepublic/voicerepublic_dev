@@ -13,6 +13,7 @@
 - content_for :title do
   = t('.title', title: @talk.title)
 
+
 -# Debug: breakpoint
 .breakpoint-viewer
   .show-for-small-only small
@@ -22,7 +23,7 @@
 
 -# Begin Left
 #main-column.clearfix
-  .left-side.medium-9.large-10.columns
+  .left-side.medium-9.columns
     -# Talk stuff
     -#publisher info
     .top-container
@@ -41,16 +42,18 @@
               From the Series:
               = link_to @talk.series do
                 = @talk.series.title
-        -# TODO: When we have speaker names sorted out: 
+        -# TODO: Eventually link each individual speaker to his/her page? 
+        - unless @talk.speakers.blank?
           .meta-right.large-4.columns
             .pub-meta
               %p.meta-speaker
-                SprecherIn:
+                = t('.sprecherin')
+                %span.speaker-names= @talk.speakers
               
       -# title
       .row.collapse.talk-title
         %h3= @talk.title
-        -# TODO: if there's no teaser content, don't render this p.lead
+        - unless @talk.teaser.blank?
           %p.lead
             = @talk.teaser
 
@@ -89,7 +92,7 @@
           %button#view-slides.button.button-playbar.button-volume.right.show-for-small-only{:title => "View Slides"}
             = naked_icon 'slides'
       .row.collapse
-        #talk-actions.float-right.medium-3.columns
+        #talk-actions.float-right.medium-4.large-3.columns
           %ul.button-group.float-right
             %li
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "pin-modal", :href => "#"}
@@ -100,21 +103,21 @@
             %li
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "share-modal", :href => "#"}
                 = naked_icon 'share'
-                %span.action-name Share
+                %span.action-name= t('.share')
             %li
               %a.button.small{:href => "#comments"}
                 = naked_icon 'chat'
                 %span.comment-count.show-for-small-only 3
-                %span.action-name Comments
+                %span.action-name= t('.comments')
             %li.hide-for-small-only
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "embed-modal", :href => "#"}
                 = naked_icon 'embed'
-                %span.action-name Embed
+                %span.action-name= t('.embed')
             %li.hide-for-small-only
               %a.button.small{"data-animation" => "fade", "data-animationspeed" => "200", "data-reveal-id" => "card-modal", :href => "#"}
                 = naked_icon 'podcast'
-                %span.action-name Podcast
-        #talk-description.left.medium-9.columns
+                %span.action-name= t('.podcast')
+        #talk-description.left.medium-8.large-9.columns
 
           = @talk.description_as_html.html_safe
 
@@ -175,7 +178,7 @@
             .comment-content.small-8.small-offset-1.medium-9.medium-offset-0.columns
               %p.meta-info It's funny.  I can look back on a life of achievement, on challenges met, competitors bested, obstacles overcome.  I've accomplished more than most men, and without the use of my legs.  What. . . What makes a man, Mr. Lebowski?
   -# Right side
-  #right-sidebar.medium-3.large-2.columns.clearfix
+  #right-sidebar.medium-3.columns.clearfix
     .row.collapse
       %h3
         Recommended Talks

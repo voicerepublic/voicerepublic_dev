@@ -41,14 +41,15 @@
         }
     }
     &:last-child {
-      //@extend .end;
+        //@extend .end;
+   
     }
     .talk-card-inside {
         background: $ghost;
         padding: 0;
         cursor: pointer;
         position: relative;
-      //@extend .text-left;
+        //@extend .text-left;
         text-align: left;
         transition: all .2s ease;
         .publisher-name {
@@ -173,6 +174,15 @@
             padding: 12px;
             padding-bottom: 0;
             min-height: 56px;
+            //wrapping and hyphenating:
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+            -moz-hyphens: auto;
+            hyphens: auto;
+            -ms-word-break: break-all;
+            word-break: break-word;
         }
         a {
             color: $talk-dark;
@@ -222,7 +232,7 @@
         }
     }
     .profile-page & {
-      //@extend .small-6;
+        //@extend .small-6;
         // @extend .medium-4;
         @include breakpoint(1400px) {
             width: 33.33%;
@@ -245,7 +255,8 @@
                 margin-bottom: 12px;
             }
             .talk-count {
-              //@extend .float-left;
+                //@extend .float-left;
+           
             }
             .meta {
                 margin-bottom: 0;
@@ -307,7 +318,6 @@ $lines-to-show: 2;
         .title, p.lead {
             color: $almost-black;
         }
-
         .title {
             padding: 0;
         }

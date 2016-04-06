@@ -188,6 +188,9 @@
     left: auto;
     background: $vr-blue;
     border:none;
+        z-index: 9999;
+    
+    box-shadow: 0 1px 20px rgba(0,0,0,.2);
 }
     }
     .dropdown.menu .is-dropdown-submenu-parent.is-down-arrow > a::after {

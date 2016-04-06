@@ -9,6 +9,7 @@ body {
         height: 16px;
         max-height: 16px;
         max-width: 16px;
+        
     }
 
 .breakpoint-viewer {
@@ -19,6 +20,10 @@ body {
     color: black;
     padding: 10px;
 
+}
+
+.top-bar {
+    background-color: black;
 }
 
 body.talks {
@@ -38,7 +43,7 @@ body.talks {
 .left-side {
     padding: 0;
     @include breakpoint(medium) {
-        padding-top: 78px;
+        padding-top: 24px;
         padding-bottom: 48px;
     }
 
@@ -53,6 +58,10 @@ body.talks {
 .top-container {
     max-width: 1024px;
     margin: 0 auto;
+    padding: 0;
+    @include breakpoint(medium){
+        padding: 0 24px;
+    }
 }
 
 
@@ -71,7 +80,7 @@ button,
 }
 
 .pub-avatar {
-    margin-right: 6px;
+    margin-right: 12px;
 }
 
 .meta-speaker {
@@ -79,13 +88,13 @@ button,
     font-weight: bold;
     color: $info-color;
     margin-top: 12px;
-    a {
+    .speaker-names {
         font-weight: normal;
         color: $vr-light-blue;
         line-height: rem-calc(16);
-        &:hover {
-            text-decoration: underline;
-        }
+        // &:hover {
+        //     text-decoration: underline;
+        // }
     }
     @include breakpoint(large) {
         margin-top: 0;
@@ -93,7 +102,6 @@ button,
 }
 
 .pub-block {
-    padding-bottom: 50px;
     .alt & {
         padding: 12px;
         padding-bottom: 12px;
@@ -151,7 +159,7 @@ button,
     padding: 0;
     margin-bottom: 12px;
     @include breakpoint(medium) {
-        margin-bottom: 48px;
+        margin-bottom: 24px;
     }
 
     img {
@@ -348,6 +356,15 @@ button,
         display: inline-block;
         // margin-right: 12px;
         font-family: $header-font-family;
+        //wrapping and hyphenating:
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+        -ms-word-break: break-all;
+        word-break: break-word;
         @include breakpoint(medium) {
             font-size: rem-calc(48);
             line-height: rem-calc(48);
@@ -360,7 +377,7 @@ button,
         font-weight: normal;
         color: $info-color;
         // max-width: 540px;
-        margin-bottom: 82px;
+        margin-bottom: 36px;
         @include breakpoint(medium) {
             font-size: rem-calc(18);
             line-height: rem-calc(24);
@@ -455,11 +472,22 @@ button,
                     font-size: rem-calc(10);
                 }
                 .action-name {
-                    font-size: rem-calc(12);
+                    font-size: rem-calc(11);
+                    margin-left: 6px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    @include breakpoint(720px){
+                        font-size: rem-calc(12);
                     margin-left: 12px;
+                    }
                     @include breakpoint(small only) {
                         display: none;
                     }
+                }
+
+                svg {
+                    margin-top: 6px;
+        vertical-align: text-bottom;
                 }
             }
         }
@@ -597,9 +625,9 @@ button,
 #right-sidebar {
     background: rgba($almost-black, 0.5);
     height: auto;
-    padding: 24px 12px 200px 12px;
+    padding: 12px 6px 200px 6px;
     @include breakpoint(medium) {
-        padding: 75px 12px 48px 12px;
+        padding: 12px 6px 48px 6px;
         // max-width: 300px;
     }
 
@@ -614,11 +642,11 @@ button,
     }
 
     h3 {
-        color: $info-color;
+        color: $vr-beige;
         font-family: $body-font-family;
         font-weight: bold;
         font-size: rem-calc(16);
-        margin-bottom: 12px;
+        margin-bottom: 6px;
     }
     .talk-card-inside {
         background: rgba(#3d404d, 0.5);
@@ -636,6 +664,23 @@ button,
             margin-bottom: 6px;
         }
         .title {
+            
+            display: inline-block;
+            height: auto;
+            margin: 0 auto;
+            
+            -webkit-line-clamp: auto;
+            -webkit-box-orient: vertical;
+            overflow: auto;
+            text-overflow: ellipsis;
+            margin-bottom: 0;
+            transition: text-decoration .2s ease;
+            padding: 12px;
+            padding-bottom: 0;
+            min-height: 0;
+
+
+
             color: rgba($light-gray, 0.4);
             font-family: $body-font-family;
             font-weight: bold;
@@ -643,6 +688,11 @@ button,
             line-height: rem-calc(19);
             margin-top: 8px;
             margin-bottom: 2px;
+
+
+
+
+
         }
         // &:after {
         //     content: "333";
@@ -661,6 +711,10 @@ button,
             position: absolute;
             margin-top: -48px;
             width: 100%;
+        }
+
+        .svg-icon {
+            color: rgba($light-gray, 0.4);
         }
     }
 }

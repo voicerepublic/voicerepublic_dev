@@ -7,6 +7,7 @@ en:
 
         %{started_at} - %{ended_at}
     show:
+      sprecherin: "SprecherIn: "
       comments: Comments
       favorite: Favorite
       dryrun: "(This test talk is available for 24 hours.)"
@@ -101,7 +102,7 @@ en:
       please_reload_this_page: Click to reload this page
       nelly_warning: 'Attention: Inferior Codec. Click here to fix.'
       participants: Participants
-      plays: '%{count} plays'
+      plays: ' Plays'
       subscribe_to_podcast: Podcast
       embed: Embed
       embed_this_talk: Embed this Talk
