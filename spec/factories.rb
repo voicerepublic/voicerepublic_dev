@@ -134,4 +134,10 @@ FactoryGirl.define do
     title_de "MyString"
   end
 
+  factory :listener do
+    talk
+    user nil
+    session_token "MyString"
+  end
+
 end

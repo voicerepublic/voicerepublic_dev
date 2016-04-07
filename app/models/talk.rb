@@ -104,6 +104,7 @@ class Talk < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :social_shares, as: :shareable
   has_many :reminders, as: :rememberable, dependent: :destroy
+  has_many :listeners, dependent: :destroy
 
   has_one :featured_talk, class_name: "Talk", foreign_key: :related_talk_id
   belongs_to :related_talk, class_name: "Talk", foreign_key: :related_talk_id
@@ -159,7 +160,7 @@ class Talk < ActiveRecord::Base
     end
   end
 
-  serialize :listeners
+  serialize :listeners_legacy
   serialize :session
   serialize :storage
   serialize :social_links
@@ -379,10 +380,21 @@ class Talk < ActiveRecord::Base
   end
 
   # Used by FluxCapacitor to remember visitors during a live talk
-  def add_listener!(session_id)
-    self.listeners[session_id] ||= Time.now.to_i
-    # TODO write with locking
-    self.save
+  #
+  # TODO remove legacy stuff after `rake migrate:listeners`
+  def add_listener!(token)
+    # by default `listeners_legacy` is `{}`, on migration we set it to
+    # `nil` so we can use nil to distingish between newschool and
+    # oldschool.
+    if listeners_legacy.nil?
+      # NEWSCHOOL
+      listeners.find_or_create_by(session_token: token)
+    else
+      # OLDSCHOOL
+      self.listeners_legacy[token] ||= Time.now.to_i
+      # TODO write with locking
+      self.save
+    end
   end
 
 
