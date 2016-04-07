@@ -106,9 +106,9 @@
                     %p= t('.pin')
               - else
                 -# display a fake pin button
-                .pinboard
-                  = link_to talk do
-                    .pin-placeholder
+                %a.button.small{"data-open" => "pin-modal"}
+                  = naked_icon 'pin'
+                  %span.action-name= t('.pin')
               
                   
             %li
@@ -209,8 +209,8 @@
     %span{"aria-hidden" => "true"} ×
 -# modal
 #pin-modal.reveal.medium{"aria-hidden" => "true", "aria-labelledby" => "modalTitle", "data-reveal" => "", :role => "dialog"}
-  %h2#modalTitle This Talk has been pinned to your Feed!
-  %button.button.small Go to my Feed
+  %h2#modalTitle Please sign in to Pin this Talk
+  %button.button.small Sign In
   %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
     %span{"aria-hidden" => "true"} ×
 -# modal
