@@ -1,0 +1,4861 @@
+ChangeLog from http://bogomips.org/unicorn.git (v1.1.5..v4.8.0)
+
+   commit b3181b132f7f1e5838271f0b20df6fcbba004246
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jan 11 06:59:24 2014 +0000
+   
+       unicorn 4.8.0 - big internal changes, but compatible
+       
+       This release contains fairly major internal workings of master-to-worker
+       notifications.  The master process no longer sends signals to workers
+       for most tasks.  This works around some compatibility issues with some
+       versions of the "pg" gem (and potentially any other code which may not
+       handle EINTR properly).  One extra benefit is it also helps stray
+       workers notice a rare, unexpected master death more easily.  Workers
+       continue to (and will always) accept existing signals for compatibility
+       with tools/scripts which may signal workers.
+       
+       PID file are always written early (even on upgrade) again to avoid
+       breaking strange monitoring setups which use PID files.  Keep in mind we
+       have always discouraged monitoring based on PID files as they are
+       fragile.
+       
+       We now avoid bubbling IOError to the Rack app on premature client
+       disconnects when streaming the input body.  This is usually not a
+       problem with nginx, but may be on some LAN setups without nginx).
+       
+       Thanks to Sam Saffron, Jimmy Soho, Rodrigo Rosenfeld Rosas,
+       Michael Fischer, and Andrew Hobson for their help with this release.
+       
+       Note: the unicorn mailing list will be moved/changed soon due to the
+       RubyForge shutdown.  unicorn will always rely only on Free Software.
+       There will never be any sign-up requirements nor terms-of-service to
+       agree to when communicating with us.
+   
+   commit 857105657d3b651ea505f5155a1644557ac22f49
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jan 11 06:54:05 2014 +0000
+   
+       GNUmakefile: add "check" target for running all tests
+       
+       "check" rolls off the fingers of users familiar with GNU Automake
+       more easily.  The "test-all" target is preserved for compatibility.
+   
+   commit 728b2c70cda7787a80303c6fa2c2530dcb490c90
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 9 09:50:06 2013 +0000
+   
+       unicorn 4.8.0pre1
+       
+       Eric Wong (6):
+             tests: fix SO_REUSEPORT tests for old Linux and non-Linux
+             stream_input: avoid IO#close on client disconnect
+             t0300: kill off stray processes in test
+             always write PID file early for compatibility
+             doc: clarify SIGNALS and reference init example
+             rework master-to-worker signaling to use a pipe
+   
+   commit 6f6e4115b4bb03e5e7c55def91527799190566f2
+   Author: Eric Wong <e@80x24.org>
+   Date:   Mon Dec 9 09:20:39 2013 +0000
+   
+       rework master-to-worker signaling to use a pipe
+       
+       Signaling using normal kill(2) is preserved, but the master now
+       prefers to signal workers using a pipe rather than kill(2).
+       Non-graceful signals (:TERM/:KILL) are still sent using kill(2),
+       as they ask for immediate shutdown.
+       
+       This change is necessary to avoid triggering the ubf (unblocking
+       function) for rb_thread_call_without_gvl (and similar) functions
+       extensions.  Most notably, this fixes compatibility with newer
+       versions of the 'pg' gem which will cancel a running DB query if
+       signaled[1].
+       
+       This also has the nice side-effect of allowing a premature
+       master death (assuming preload_app didn't cause the master to
+       spawn off rogue child daemons).
+       
+       Note: users should also refrain from using "killall" if using the
+       'pg' gem or something like it.
+       
+       Unfortunately, this increases FD usage in the master as the writable
+       end of the pipe is preserved in the master.  This limit the number
+       of worker processes the master may run to the open file limit of the
+       master process.  Increasing the open file limit of the master
+       process may be needed.  However, the FD use on the workers is
+       reduced by one as the internal self-pipe is no longer used.  Thus,
+       overall pipe allocation for the kernel remains unchanged.
+       
+       [1] - pg is correct to cancel a query, as it cannot know if
+             the signal was for a) graceful unicorn shutdown or
+             b) oh-noes-I-started-a-bad-query-ABORT-ABORT-ABORT!!
+   
+   commit fa17da92aa4e76d5fd63cb9b74d6884d611ec899
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 26 18:58:03 2013 +0000
+   
+       doc: clarify SIGNALS and reference init example
+       
+       "interactive terminal" needed clarification.
+       
+       While we're at it, link to the init.sh example since it may
+       be shared with nginx.
+       
+       Reported-by: Rodrigo Rosenfeld Rosas
+       ref: <5294E9D4.5030608@gmail.com>
+   
+   commit 795c3527337ff4f03ae6db08c5df01141565ed96
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 26 01:55:51 2013 +0000
+   
+       always write PID file early for compatibility
+       
+       This reduces the window for a non-existent PID for folks who monitor
+       PIDs (not a great idea anyways).  Unfortunately, this change also brings
+       us back to the case where having a PID later (for other process monitors)
+       is beneficial but more unicorn releases exist where we write the PID
+       early.
+       
+       Thanks to Jimmy Soho for reporting this issue.
+       ref: <CAHStS5gFYcPBDxkVizAHrOeDKAkjT69kruFdgaY0CbB+vLbK8Q@mail.gmail.com>
+       
+       This partially reverts 7d6ac0c17eb29a00a5b74099dbb3d4d015999f27
+       
+       Folks: please monitor your app with HTTP requests rather than checking
+       processes, a stuck/wedged Ruby VM is still a running one.
+   
+   commit aaa75bdcdf782ef7332dba20fc4eb43517e6453c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Nov 8 09:33:37 2013 +0000
+   
+       t0300: kill off stray processes in test
+       
+       We shouldn't leave processes running after the test.
+   
+   commit f4005d5efc608e7d75371f0d0527041facd33f89
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 7 20:10:01 2013 +0000
+   
+       stream_input: avoid IO#close on client disconnect
+       
+       This can avoid IOError from being seen by the application, and also
+       reduces points where IO#close may be called.  This is a good thing
+       if we eventually port this code into a low-level server like
+       cmogstored where per-client memory space is defined by FD number of
+       a client.
+       
+       Reported-by: Andrew Hobson <ahobson@gmail.com>
+   
+   commit a1aa5c97289df09a90831c4d9bf6e22ac351bdd8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Nov 4 18:28:46 2013 +0000
+   
+       tests: fix SO_REUSEPORT tests for old Linux and non-Linux
+       
+       On BSD-derived platforms the getsockopt true value may be any
+       (>= 0) value, not just one as it is on Linux.
+       
+       Additionally, SO_REUSEPORT is only supported since Linux 3.9, so
+       folks on older kernels may not have it available.  We still define it
+       for Linux since kernel upgrades are usually more common than glibc
+       upgrades.
+       
+       Note: we will still raise an exception at runtime if a user
+       explicitly requests :reuseport in their config and runs an
+       older Linux kernel.
+       
+       Reported-by: Andrew Hobson <ahobson@gmail.com>
+   
+   commit 9c8747d290dfc7ab4bc11c4f88b3c284cc5ba949
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Nov 4 06:28:56 2013 +0000
+   
+       unicorn 4.7.0 - minor updates, license tweak
+       
+       * support SO_REUSEPORT on new listeners (:reuseport)
+       
+         This allows users to start an independent instance of unicorn on
+         a the same port as a running unicorn (as long as both instances
+         use :reuseport).
+       
+         ref: https://lwn.net/Articles/542629/
+       
+       * unicorn is now GPLv2-or-later and Ruby 1.8-licensed
+         (instead of GPLv2-only, GPLv3-only, and Ruby 1.8-licensed)
+       
+         This changes nothing at the moment.  Once the FSF publishes the next
+         version of the GPL, users may choose the newer GPL version without the
+         unicorn BDFL approving it.  Two years ago when I got permission to add
+         GPLv3 to the license options, I also got permission from all past
+         contributors to approve future versions of the GPL.  So now I'm
+         approving all future versions of the GPL for use with unicorn.
+       
+         Reasoning below:
+       
+         In case the GPLv4 arrives and I am not alive to approve/review it,
+         the lesser of evils is have give blanket approval of all future GPL
+         versions (as published by the FSF).  The worse evil is to be stuck
+         with a license which cannot guarantee the Free-ness of this project
+         in the future.
+       
+         This unfortunately means the FSF can theoretically come out with
+         license terms I do not agree with, but the GPLv2 and GPLv3 will
+         always be an option to all users.
+       
+         Note: we currently prefer GPLv3
+       
+       Two improvements thanks to Ernest W. Durbin III:
+       
+       * USR2 redirects fixed for Ruby 1.8.6 (broken since 4.1.0)
+       * unicorn(1) and unicorn_rails(1) enforces valid integer for -p/--port
+       
+       A few more odd, minor tweaks and fixes:
+       
+       * attempt to rename PID file when possible (on USR2)
+       * workaround reopen atomicity issues for stdio vs non-stdio
+       * improve handling of client-triggerable socket errors
+   
+   commit d5870ccc714a4bb442a46aedd4c68c547e8e56f4
+   Author: Eric Wong <e@80x24.org>
+   Date:   Fri Nov 1 20:02:47 2013 +0000
+   
+       bin/*: enforce -p/--port argument to be a valid integer
+       
+       Users may confuse '-p' with the (to-be-deprecated) '-P/--pid'
+       option, leading to surprising behavior if a pathname is passed as a
+       port, because String#to_i would convert it to zero, causing:
+       
+           TCPServer.new(host, port = 0)
+       
+       to bind to a random, unused port.
+   
+   commit 7e9e4c740aba24096f768f578779dc1053cb8b70
+   Author: Ernest W. Durbin III <ewdurbin@gmail.com>
+   Date:   Fri Nov 1 10:12:33 2013 -0400
+   
+       construct listener_fds Hash in 1.8.6 compatible way
+       
+       This renables the ability for Ruby 1.8.6 environments to perform reexecs
+       
+       [ew: clarified this is for 1.8.6,
+        favor literal {} over Hash.new,
+        tweaked LISTENERS.map => LISTENERS.each, thanks to Hleb Valoshka
+       ]
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 03580a19afe5ce76323a7366b92243a94d445de1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 29 00:36:49 2013 +0000
+   
+       configurator: validate :reuseport for boolean-ess
+       
+       In case we (and Linux) supports other values in the future,
+       we can update it then.  Until now, ensure users only set
+       true or false for this option.
+   
+   commit f078eb93d343bb27cf5c6dc84efbe7c598d572fb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Oct 26 07:05:10 2013 +0000
+   
+       license: allow all future versions of the GNU GPL
+       
+       There is currently no GPLv4, so this change has no effect at the
+       moment.
+       
+       In case the GPLv4 arrives and I am not alive to approve/review it,
+       the lesser of evils is have give blanket approval of all future GPL
+       versions (as published by the FSF).  The worse evil is to be stuck
+       with a license which cannot guarantee the Free-ness of this project
+       in the future.
+       
+       This unfortunately means the FSF can theoretically come out with
+       license terms I do not agree with, but the GPLv2 and GPLv3 will
+       always be an option to all users.
+   
+   commit d9c0db79e9eef9839aaada1be1105b3ff8ceae5c
+   Author: Eric Wong <e@80x24.org>
+   Date:   Fri Oct 25 19:56:47 2013 +0000
+   
+       http_server: fixup comments for PID file renaming
+       
+       Thanks to Hongli Lai for noticing my typo.  While we're at it, finish up
+       a halfway-written comment for the EXDEV case
+   
+   commit e025cd99beee500f175a3bcc302a1307b39ffb77
+   Author: Eric Wong <e@80x24.org>
+   Date:   Fri Oct 25 19:45:15 2013 +0000
+   
+       avoid IO_PURGATORY on Ruby 1.9+
+       
+       Ruby 1.9 and later includes IO#autoclose=, so we can use it
+       and prevent some dead IO objects from hanging around.
+   
+   commit 7c125886b5862bf20711bae22e6697ad46141434
+   Author: Eric Wong <e@80x24.org>
+   Date:   Fri Oct 25 19:27:05 2013 +0000
+   
+       support SO_REUSEPORT on new listeners (:reuseport)
+       
+       This allows users to start an independent instance of unicorn on
+       a the same port as a running unicorn (as long as both instances
+       use :reuseport).
+       
+       ref: https://lwn.net/Articles/542629/
+   
+   commit 1dc099228ee0f59c13385a3e7346a2cb37d85153
+   Author: Eric Wong <e@80x24.org>
+   Date:   Fri Oct 25 19:54:39 2013 +0000
+   
+       tests: limit oobgc check to accepted sockets
+       
+       Otherwise these tests fail if we start using IO#autoclose=true
+       on Ruby 1.9 (and also if we use IPv6 sockets for tests).
+   
+   commit 7d6ac0c17eb29a00a5b74099dbb3d4d015999f27
+   Author: Eric Wong <e@80x24.org>
+   Date:   Thu Oct 24 22:11:17 2013 +0000
+   
+       attempt to rename PID file when possible
+       
+       This will preserve mtime on successful renames for comparisions.
+       While we're at it, avoid writing the new PID until the listeners are
+       inherited successfully.  This can be useful to avoid accidentally
+       clobbering a good PID if binding the listener or building the app
+       (preload_app==true) fails
+   
+   commit d90eebe1e50e2bdb9632b64591e4b84cbc0049a1
+   Author: Eric Wong <e@80x24.org>
+   Date:   Sun Oct 20 04:29:55 2013 +0000
+   
+       workaround reopen atomicity issues for stdio vs non-stdio
+       
+       In multithreaded apps, we must use dup2/dup3 with a temporary
+       descriptor to reopen log files atomically.  This is the only way
+       to protect all concurrent userspace access to a file when reopening.
+       
+       ref: http://bugs.ruby-lang.org/issues/9036
+       ref: yahns commit bcb10abe53cfb1d6a8ef7daef59eb10ced397c8a
+   
+   commit a9dfd48f9668d0a6e04cf009cea0c4ede962144d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 30 18:17:20 2013 +0000
+   
+       Rakefile: kill raa_update task
+       
+       RAA is dead.
+   
+   commit 0c2213dfe23f177c91d76c0c70aec5a01f5a7f55
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Sep 11 00:49:35 2013 +0000
+   
+       tests: upgrade several gems (rack, kgio, raindrops)
+       
+       All tests seem to pass.
+   
+   commit 849348f82830326e7778e50a5a7f2efeeb4460e5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Sep 4 19:21:57 2013 +0000
+   
+       Sandbox: document SIGUSR2 + bundler issue with 2.0.0
+       
+       Thanks to Eric Chapweske for the heads up.
+       
+       ref: http://mid.gmane.org/loom.20130904T205308-432@post.gmane.org
+   
+   commit 9af083d7f6b97c0f5ebbdd9a42b58478a6f874b7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 16 22:08:11 2013 +0000
+   
+       test_util: fix encoding test for Ruby trunk (2.1.0dev)
+       
+       As of r40610 in ruby trunk, internal encoding is ignored if
+       external coding is ASCII-8BIT (binary)
+       
+       ref: r40610 http://svn.ruby-lang.org/repos/ruby/trunk
+   
+   commit 24b9f66dcdda44378b4053645333ce9ce336b413
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Aug 17 01:09:46 2013 +0000
+   
+       http_server: improve handling of client-triggerable socket errors
+       
+       We do not attempt to write HTTP responses for socket errors if
+       clients disconnect from us unexpectedly.
+       
+       Additionally, we do not hide backtraces EINVAL/EBADF errors, since
+       they are indicative of real bugs which must be fixed.
+       
+       We do continue to hide hide EOF, ECONNRESET, ENOTCONN, and EPIPE
+       because clients (even "friendly") ones will break connections due to
+       client crashes or network failure (which is common for me :P), and
+       the backtraces from those will cause excessive logging and even
+       become a DoS vector.
+   
+   commit 2f5174d4ca9764313d6be4c092e9e6c2e4f9d1e1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 21 08:00:09 2013 +0000
+   
+       unicorn 4.6.3 - fix --no-default-middleware option
+       
+       Thanks to Micah Chalmer for this fix.  There are also minor
+       documentation updates and internal cleanups.
+   
+   commit 56b0c0c3d26304beeef54d8fe95bead97424f147
+   Author: Micah Chalmer <micah@micahchalmer.net>
+   Date:   Thu Jun 6 23:03:36 2013 -0400
+   
+       Make -N/--no-default-middleware option work
+       
+       This fixes the -N (a.k.a. --no-defaut-middleware) option, which
+       was not working.  The problem was that Unicorn::Configurator::RACKUP
+       is cleared before the lambda returned by Unicorn.builder is run,
+       which means that checking whether the :no_default_middleware option
+       was set from the lambda could not detect anything.  This patch copies
+       it to a local variable that won't get clobbered, restoring the feature.
+       
+       [ew: squashed test commit into the fix, whitespace fixes]
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 421f5a8573484b1203fceebc65aee5d011d63c63
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed May 8 22:57:23 2013 +0000
+   
+       HttpParser#next? becomes response_start_sent-aware
+       
+       This could allow servers with persistent connection support[1]
+       to support our check_client_connection in the future.
+       
+       [1] - Rainbows!/zbatery, possibly others
+   
+   commit c3c79fcdb71c599e426f9ce83d45dc8cc3d9cd3c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 3 22:08:15 2013 +0000
+   
+       test_signals: increase delay between Process.kill
+       
+       Otherwise, the signalled process may take too long to react to
+       and process all the signals on machines with few CPUs.
+   
+   commit 9f846a26d24d7bfaf17cacad16cfbae7eec39c74
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 5 21:38:17 2013 +0000
+   
+       doc: update documentation for systemd + PrivateTmp users
+       
+       The PrivateTmp feature of systemd breaks the usage of /tmp for the
+       shared Unix domain socket between nginx and unicorn, so discourage the
+       use of /tmp in that case.
+       
+       While we're at it, use consistent paths for everything and use an
+       obviously intended-for-user-customization "/path/to" prefix instead
+       of "/tmp"
+       
+       ML-Ref: CAKLVLx_t+9zWMhquMWDfStrxS7xrNoGmN0ZDsjSCUE=VxU+oyQ@mail.gmail.com
+       Reported-by: David Wilkins <dwilkins@conecuh.com>
+   
+   commit 04bcc147d0081433069235a87f779055fa7b6f3c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 26 02:57:24 2013 +0000
+   
+       unicorn 4.6.2 - HTTP parser fix for Rainbows!
+       
+       This release fixes a bug in Unicorn::HttpParser#filter_body
+       which affected some configurations of Rainbows!  There is
+       also a minor size reduction in the DSO.
+   
+   commit f7ee06592d7709e96f64efb5e7a9485b54415c9d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 26 02:52:37 2013 +0000
+   
+       http: avoid frozen string bug in filter_body
+       
+       Our rb_str_modify() became no-ops due to incomplete reverts
+       of workarounds for old Rubinius, causing rb_str_set_len to
+       fail with: can't set length of shared string (RuntimeError)
+       
+       This bug was introduced due to improper workarounds for old
+       versions of Rubinius in 2009 and 2010:
+       
+       commit 5e8979ad38efdc4de3a69cc53aea33710d478406
+       ("http: cleanups for latest Rubinius")
+       commit f37c23704cb73d57e9e478295d1641df1d9104c7
+       ("http: no-op rb_str_modify() for Rubies without it")
+   
+   commit 3ef703179891fa3f6f9d03f2ae58d289c691738e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 19 11:36:18 2013 +0000
+   
+       httpdate: minor size reduction in DSO
+       
+       Extra pointers waste space in the DSO.  Normally I wouldn't
+       care, but the string lengths are identical and this code
+       already made it into another project in this form.
+       
+       size(1) output:
+       
+                text      data     bss     dec     hex  filename
+       before: 42881      2040     336   45257    b0c9  unicorn_http.so
+        after: 42499      1888     336   44723    aeb3  unicorn_http.so
+       
+       ref: http://www.akkadia.org/drepper/dsohowto.pdf
+   
+   commit f8829e69e28bb93dbbf9a220cdff163a6ba182d5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Feb 21 08:36:35 2013 +0000
+   
+       unicorn 4.6.1 - minor cleanups
+       
+       Unicorn::Const::UNICORN_VERSION is now auto-generated from
+       GIT-VERSION-GEN and always correct.  Minor cleanups for
+       hijacking.
+   
+   commit 15c23106ffc9b7a03fdc2353f41c239f89ac9822
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Feb 9 01:13:17 2013 +0000
+   
+       http_request: drop conditional assignment for hijack
+       
+       As far as I can tell, this was never necessary.
+   
+   commit ed28a361d234847dca550e839f22f0cc779f6ce0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 8 22:48:03 2013 +0000
+   
+       http_request: remove FIXME for rack.version clarification
+       
+       commit a9474624a148fe58e0944664190b259787dcf51e in rack.git
+   
+   commit cb0623f25db7f06660e563e8e746bfe0ae5ba9c5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 8 18:50:07 2013 +0000
+   
+       auto-generate Unicorn::Const::UNICORN_VERSION
+       
+       This DRYs out our code and prevents snafus like the 4.6.0
+       release where UNICORN_VERSION stayed at 4.5.0
+       
+       Reported-by: Maurizio De Santis <m.desantis@morganspa.com>
+   
+   commit 1b3352ec9b5c9eeb58cf330d6b9ce8753af4ec16
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 6 11:20:57 2013 +0000
+   
+       unicorn 4.6.0 - hijacking support
+       
+       This pre-release adds hijacking support for Rack 1.5 users.
+       See Rack documentation for more information about hijacking.
+       There is also a new --no-default-middleware/-N option
+       for the `unicorn' command to ignore RACK_ENV within unicorn
+       thanks to Lin Jen-Shin.
+       
+       There are only documentation and test-portability updates
+       since 4.6.0pre1, no code changes.
+   
+   commit 9cd8554749a9f120b010c93933d09d2dd27b1280
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Feb 4 12:39:09 2013 +0000
+   
+       tests: "wc -l" portability for *BSDs
+       
+       On FreeBSD 9.0, "wc -l" emits leading whitespace, so
+       filter it through tr -d '[:space:]' to eliminate it.
+   
+   commit 2a2163594ea2b515e98fbe9f909bcf90e4c35fe8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Feb 4 12:29:00 2013 +0000
+   
+       tests: "wc -c" portability for *BSDs
+       
+       On FreeBSD 9.0, "wc -c" emits leading whitespace, so
+       filter it through tr -d '[:space:]' to eliminate it.
+       
+       This is commit 8a6117a22a7d01eeb5adc63d3152acf435cd3176
+       in rainbows.git
+   
+   commit 85223902e8229bd460ce0b4ad126f42b1db42a46
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Feb 4 10:36:18 2013 +0000
+   
+       tests: replace non-portable "date +%s" with ruby equivalent
+       
+       "date +%s" is not in POSIX (it is in GNU, and at least FreeBSD
+       9.0, possibly earlier).  The Ruby equivalent should be
+       sufficiently portable between different Ruby versions.
+       
+       This change was automated via:
+           perl -i -p -e 's/date \+%s/unix_time/' t/*.sh
+       
+       This is commit 0ba6fc3c30b9cf530faf7fcf5ce7be519ec13fe7
+       in rainbows.git
+   
+   commit a09a622b4988b5eee819487c96a4563e71f753f7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Feb 4 10:30:25 2013 +0000
+   
+       tests: remove utee
+       
+       POSIX already stipulates tee(1) must be unbuffered.  I think my
+       decision to use utee was due to my being misled by a bug in
+       older curl where -N did not work as advertised (but --no-buffer
+       did).
+       
+       N.B. we don't use tee in unicorn tests, this just matches
+       commit cbff7b0892148b037581541184364e0e91d2a138 in rainbows
+   
+   commit 64765b95df06256d39daefdeebde97c874770131
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 29 21:19:22 2013 +0000
+   
+       manpage: update middleware-related documentation
+       
+       -N/--no-default-middleware needs a corresponding manpage entry.
+       
+       Additionally, the Rack::Chunked/ContentLength middleware comment
+       is out-of-date as of unicorn v4.1.0
+   
+   commit db919d18e01f6b2339915cbd057fba9dc040988b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 29 21:02:55 2013 +0000
+   
+       unicorn 4.6.0pre1 - hijacking support
+       
+       This pre-release adds hijacking support for Rack 1.5 users.
+       See Rack documentation for more information about hijacking.
+       There is also a new --no-default-middleware/-N option
+       for the `unicorn' command to ignore RACK_ENV within unicorn.
+   
+   commit b73299a053b305098d5d68634fa928ec71aa4eac
+   Merge: c43113e fedb5e5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 29 21:00:32 2013 +0000
+   
+       Merge branch 'hijack'
+       
+       * hijack:
+         ignore normal Rack response at request-time hijack
+         support for Rack hijack in request and response
+   
+   commit c43113e350aabb78c30ba64884328458db85c901
+   Author: Lin Jen-Shin <godfat@godfat.org>
+   Date:   Tue Jan 29 11:21:19 2013 +0800
+   
+       Add -N or --no-default-middleware option.
+       
+       This would prevent Unicorn from adding default middleware,
+       as if RACK_ENV were always none. (not development nor deployment)
+       
+       This should also be applied to `rainbows' and `zbatery' as well.
+       
+       One of the reasons to add this is to avoid conflicting
+       RAILS_ENV and RACK_ENV. It would be helpful in the case
+       where a Rails application and Rack application are composed
+       together, while we want Rails app runs under development
+       and Rack app runs under none (if we don't want those default
+       middleware), and we don't really want to make RAILS_ENV
+       set to development and RACK_ENV to none because it might be
+       confusing. Note that Rails would also look into RACK_ENV.
+       
+       Another reason for this is that only `rackup' would be
+       inserting those default middleware. Both `thin' and `puma'
+       would not do this, nor does Rack::Handler.get.run which is
+       used in Sinatra.
+       
+       So using this option would make it work differently from
+       `rackup' but somehow more similar to `thin' or `puma'.
+       
+       Discussion thread on the mailing list:
+       http://rubyforge.org/pipermail/mongrel-unicorn/2013-January/001675.html
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit fdd7c851e5664c1e629a904e21d147a9dfc950d7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 29 03:56:16 2013 +0000
+   
+       test_exec: do not count '\n' as column width
+       
+       This off-by-one error was incorrectly rejecting a line which
+       would've been readable without wrapping on an 80-column terminal.
+   
+   commit 89071a412e161a3ea24a9574611932a1f0acc8c7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 29 03:37:20 2013 +0000
+   
+       tests: upgrade to rack 1.5.1
+       
+       This fixes a Rack::Lint regression discovered in t0005.
+   
+   commit fedb5e50829e6dfad30ca18ea525c812eccbec70
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 22 23:52:14 2013 +0000
+   
+       ignore normal Rack response at request-time hijack
+       
+       Once a connection is hijacked, we ignore it completely and leave
+       the connection at the mercy of the application.
+   
+   commit 705cf5fcf8ccb37deef5d2b922d6d78d34765c5b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 22 11:04:52 2013 +0000
+   
+       support for Rack hijack in request and response
+       
+       Rack 1.5.0 (protocol version [1,2]) adds support for
+       hijacking the client socket (removing it from the control
+       of unicorn (or any other Rack webserver)).
+       
+       Tested with rack 1.5.0.
+   
+   commit faf1edc74c9bb35cf4e131d794c1923bf124aa1c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 22 09:48:54 2013 +0000
+   
+       tests: version bumps for rack, kgio, and raindrops
+       
+       Ensure the latest versions work in tests.
+   
+   commit 1bcc4ee4400152fe73a20dedf4f5823475393112
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 7 20:10:43 2013 +0000
+   
+       tests: bump tests to use rack 1.4.3
+       
+       It's the latest and greatest! \o/
+   
+   commit c4e5b936e5b6b535d56eff30c509a063d77710e1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Dec 7 22:15:56 2012 +0000
+   
+       unicorn 4.5.0 - check_client_connection option
+       
+       The new check_client_connection option allows unicorn to detect
+       most disconnected local clients before potentially expensive
+       application processing begins.
+       
+       This feature is useful for applications experiencing spikes of
+       traffic leading to undesirable queue times, as clients will
+       disconnect (and perhaps even retry, compounding the problem)
+       before unicorn can even start processing the request.
+       
+       To enable this feature, add the following line to a unicorn
+       config file:
+       
+             check_client_connection true
+       
+       This feature only works when nginx (or any other HTTP/1.0+
+       client) is on the same machine as unicorn.
+       
+       A huge thanks to Tom Burns for implementing and testing this
+       change in production with real traffic (including mitigating
+       an unexpected DoS attack).
+       
+       ref: http://mid.gmane.org/CAK4qKG3rkfVYLyeqEqQyuNEh_nZ8yw0X_cwTxJfJ+TOU+y8F+w@mail.gmail.com
+       
+       This release fixes broken Rainbows! compatibility in 4.5.0pre1.
+   
+   commit bc4c412f15a05a37ec40f374239efa83d2dbdb1e
+   Author: Peter Marsh <pete@modeltwozero.com>
+   Date:   Mon Dec 3 16:37:30 2012 +0000
+   
+       gemspec: enable licenses metadata attribute
+       
+       This enables compatibility with metadata scanners such as
+       LicenseFinder[1].
+       
+       The previously commented-out accessor was commented out
+       in September 2009 when ancient RubyGems were more prevalent.
+       By now (December 2012), those ancient versions of RubyGems
+       are unlikely to be around.
+       
+       [1] https://github.com/pivotal/LicenseFinder
+       
+       [ew: rewritten commit message]
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit fd0192c134acd1d5037a9aa45ad7b5375c28c29c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 3 21:19:44 2012 +0000
+   
+       README: clarify license and copyright
+       
+       Since Ruby 1.9.3, (Matz) Ruby is licensed under a 2-clause BSDL.
+       Thus we need to clarify we inherited the license terms from
+       Ruby 1.8 to prevent misunderstanding.
+       
+       (The Ruby license change cannot alter the license of other
+        projects automatically)
+       
+       Since we added the GPLv3 as an additional license in 2011,
+       the license terms of unicorn no longer matches Mongrel 1.1.5.
+       
+       This is NOT a change to the unicorn license at all, just a
+       wording clarification.
+   
+   commit 69e6a793d34ff71da7c8ca59962d627e2fb508d8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 4 02:35:26 2012 +0000
+   
+       fix const error responses for Rainbows!
+       
+       Rainbows! relies on the ERROR_XXX_RESPONSE constants of unicorn
+       4.x.  Changing the constants in unicorn 4.x will break existing
+       versions of Rainbows!, so remove the dependency on the constants
+       and generate the error response dynamically.
+       
+       Unlike Mongrel, unicorn is unlikely to see malicious traffic and
+       thus unlikely to benefit from making error messages constant.
+       
+       For unicorn 5.x, we will drop these constants entirely.
+       
+       (Rainbows! most likely cannot support check_client_connection
+        consistently across all concurrency models since some of them
+        pessimistically buffer all writes in userspace.  However, the
+        extra concurrency of Rainbows! makes it less likely to be
+        overloaded than unicorn, so this feature is likely less useful
+        for Rainbows!)
+   
+   commit 32333a4d233f73f6fc9d904301f97a4406c446fa
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 29 23:00:45 2012 +0000
+   
+       unicorn 4.5.0pre1 - check_client_connection option
+       
+       The new check_client_connection option allows unicorn to detect
+       most disconnected clients before potentially expensive
+       application processing begins.
+       
+       This feature is useful for applications experiencing spikes of
+       traffic leading to undesirable queue times, as clients will
+       disconnect (and perhaps even retry, compounding the problem)
+       before unicorn can even start processing the request.
+       
+       To enable this feature, add the following line to a unicorn
+       config file:
+       
+         check_client_connection true
+       
+       A huge thanks to Tom Burns for implementing and testing this
+       change in production with real traffic (including mitigating
+       an unexpected DoS attack).
+   
+   commit 90db7b14eab449da8cef4ef22ab76ae00f654361
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 29 21:48:31 2012 +0000
+   
+       check_client_connection: document local-only requirement
+       
+       In my testing, only dropped clients over Unix domain sockets or
+       loopback TCP were detected with this option.  Since many
+       nginx+unicorn combinations run on the same host, this is not a
+       problem.
+       
+       Furthermore, tcp_nodelay:true appears to work over loopback,
+       so remove the requirement for tcp_nodelay:false.
+   
+   commit 5c700fc2cf398848ddcf71a2aa3f0f2a6563e87b
+   Author: Tom Burns <tom.burns@jadedpixel.com>
+   Date:   Tue Oct 30 16:22:21 2012 -0400
+   
+       Begin writing HTTP request headers early to detect disconnected clients
+       
+       This patch checks incoming connections and avoids calling the application
+       if the connection has been closed.
+       
+       It works by sending the beginning of the HTTP response before calling
+       the application to see if the socket can successfully be written to.
+       
+       By enabling this feature users can avoid wasting application rendering
+       time only to find the connection is closed when attempting to write, and
+       throwing out the result.
+       
+       When a client disconnects while being queued or processed, Nginx will log
+       HTTP response 499 but the application will log a 200.
+       
+       Enabling this feature will minimize the time window during which the problem
+       can arise.
+       
+       The feature is disabled by default and can be enabled by adding
+       'check_client_connection true' to the unicorn config.
+       
+       [ew: After testing this change, Tom Burns wrote:
+       
+         So we just finished the US Black Friday / Cyber Monday weekend running
+         unicorn forked with the last version of the patch I had sent you.  It
+         worked splendidly and helped us handle huge flash sales without
+         increased response time over the weekend.
+       
+         Whereas in previous flash traffic scenarios we would see the number of
+         HTTP 499 responses grow past the number of real HTTP 200 responses,
+         over the weekend we saw no growth in 499s during flash sales.
+       
+         Unexpectedly the patch also helped us ward off a DoS attack where the
+         attackers were disconnecting immediately after making a request.
+       
+       ref: <CAK4qKG3rkfVYLyeqEqQyuNEh_nZ8yw0X_cwTxJfJ+TOU+y8F+w@mail.gmail.com>
+       ]
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit f4af812a28b03508c96853739aea53f7a6714abf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 13 20:22:13 2012 +0000
+   
+       tests: remove assert_nothing_raised (part 2)
+       
+       assert_nothing_raised ends up hiding errors and backtraces,
+       making things harder to debug.  Since Test::Unit already
+       fails on uncaught exceptions, there is no need to assert
+       on the lack of exceptions for a successful test run.
+       
+       This is a followup to commit 5acf5522295c947d3118926d1a1077007f615de9
+   
+   commit 4bd0dbdf2d27672dc941746e06b647ea26fe63ee
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 11 09:16:51 2012 +0000
+   
+       Rakefile: fm_update task updated for HTTPS
+       
+       Freecode.com now requires HTTPS.
+   
+   commit f0a31e43676f59762d5bf53707cd8cc21fed0727
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 10 21:33:46 2012 +0000
+   
+       unicorn 4.4.0 - minor updates
+       
+       Non-regular files are no longer reopened on SIGUSR1.  This
+       allows users to specify FIFOs as log destinations.
+       
+       TCP_NOPUSH/TCP_CORK is no longer set/unset by default.  Use
+       :tcp_nopush explicitly with the "listen" directive if you wish
+       to enable TCP_NOPUSH/TCP_CORK.
+       
+       Listen sockets are now bound _after_ loading the application for
+       preload_app(true) users.  This prevents load balancers from
+       sending traffic to an application server while the application
+       is still loading.
+       
+       There are also minor test suite cleanups.
+   
+   commit 032791b9a367f67febbe7534f6ea4cac127e7897
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Oct 1 21:18:02 2012 -0700
+   
+       util: only consider regular files as logs
+       
+       If a user specifies a non-regular file for stderr_path or
+       stdout_path, we should not attempt to reopen or chown
+       it.  This should also allow users to specify FIFOs as log
+       destinations.
+   
+   commit 5acf5522295c947d3118926d1a1077007f615de9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 6 13:34:34 2012 -0700
+   
+       avoid assert_nothing_raised in unit tests
+       
+       It's better to show errors and backtraces when stuff
+       breaks
+   
+   commit 7b107d66e84ad2e958d5574cb00770265dd117c2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 6 20:15:46 2012 +0000
+   
+       do not touch TCP_NOPUSH/TCP_CORK at all by default
+       
+       On a certain FreeBSD 8.1 installation, explicitly setting
+       TCP_NOPUSH to zero (off) can cause EADDRNOTAVAIL errors and also
+       resets the listen backlog to 5.  Enabling TCP_NOPUSH explicitly
+       did not exhibit this issue for the user who (privately) reported
+       this issue.
+       
+       To be on the safe side, we won't set/unset TCP_NOPUSH/TCP_CORK
+       at all, which will leave it off on all current systems.
+   
+   commit 53c375dc933b62b24df2c54d3938b03fa9da1f06
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 29 16:22:17 2012 -0700
+   
+       bind listeners after loading for preload_app users
+       
+       In the case where preload_app is true, delay binding new
+       listeners until after loading the application.
+       
+       Some applications have very long load times (especially Rails
+       apps with Ruby 1.9.2).  Binding listeners early may cause a load
+       balancer to incorrectly believe the unicorn workers are ready to
+       serve traffic even while the app is being loaded.
+       
+       Once a listener is bound, connect() requests from the load
+       balancer succeed until the listen backlog is filled.  This
+       allows requests to pile up for a bit (depending on backlog size)
+       before getting rejected by the kernel.  By the time the
+       application is loaded and ready-to-run, requests in the
+       listen backlog are likely stale and not useful to process.
+       
+       Processes inheriting listeners do not suffer this effect, as the
+       old process should still be capable of serving new requests.
+       
+       This change does not improve the situation for the
+       preload_app=false (default) use case.  There may not be a
+       solution for preload_app=false users using large applications.
+       
+       Fortunately Ruby 1.9.3+ improves load times of large
+       applications significantly over 1.9.2 so this should be less of
+       a problem in the future.
+       
+       Reported via private email sent on 2012-06-29T22:59:10Z
+   
+   commit 91a3cde091d4ae6ff436681f155b3907daae1c04
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 26 23:44:04 2012 +0000
+   
+       remove Rails-oriented integration tests
+       
+       It's too much overhead to keep Rails-specific tests working,
+       especially when it's hauling in an ancient version of SQLite3.
+       Since Rails 3 has settled down with Rack and unicorn_rails is
+       unlikely to need changing in the future, we can drop these
+       tests.
+   
+   commit f4f2de4a526f3a88573f2f839e6865637c67dbe5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Apr 29 07:00:48 2012 +0000
+   
+       unicorn 4.3.1 - shutdown() fixes
+       
+       * Call shutdown(2) if a client EOFs on us during upload.
+         We can avoid holding a socket open if the Rack app forked a
+         process during uploads.
+       
+       * ignore potential Errno::ENOTCONN errors (from shutdown(2)).
+         Even on LANs, connections can occasionally be accept()-ed but
+         be unusable afterwards.
+       
+       Thanks to Joel Nimety <jnimety@continuity.net>,
+       Matt Smith <matt@nearapogee.com> and George <lists@southernohio.net>
+       on the mongrel-unicorn@rubyforge.org mailing list for their
+       feedback and testing for this release.
+   
+   commit 60b9275410277acc6adcf49a81c177c443d1d392
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Apr 29 06:49:23 2012 +0000
+   
+       isolate_for_tests: upgrade to kgio-monkey 0.4.0
+       
+       Seems to work well enough...
+   
+   commit 4551c8ad4d63d4031c618f76d39532b39e88f9be
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 27 14:42:38 2012 -0700
+   
+       stream_input: call shutdown(2) if a client EOFs on us
+       
+       In case the Rack app forks before a client upload is complete,
+       shutdown(2) the socket to ensure the client isn't attempting to
+       read from us (even if it explicitly stopped writes).
+   
+   commit 04901da5ae0b4655c83be05d24ae737f1b572002
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 27 11:48:16 2012 -0700
+   
+       http_server: ignore ENOTCONN (mostly from shutdown(2))
+       
+       Since there's nothing unicorn can do to avoid this error
+       on unconnected/halfway-connected clients, ignoring ENOTCONN
+       is a safe bet.
+       
+       Rainbows! has long had this rescue as it called getpeername(2)
+       on untrusted sockets
+   
+   commit 8c1aff1e6335f8a55723907e2661dcb09ea16205
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Apr 17 21:32:07 2012 +0000
+   
+       unicorn 4.3.0 - minor fixes and updates
+       
+       * PATH_INFO (aka REQUEST_PATH) increased to 4096 (from 1024).
+         This allows requests with longer path components and matches
+         the system PATH_MAX value common to GNU/Linux systems for
+         serving filesystem components with long names.
+       
+       * Apps that fork() (but do not exec()) internally for background
+         tasks now indicate the end-of-request immediately after
+         writing the Rack response.
+       
+       Thanks to Hongli Lai, Lawrence Pit, Patrick Wenger and Nuo Yan
+       for their valuable feedback for this release.
+   
+   commit e7f5de575b3fd58c65014191c31ed2a59bd05265
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Apr 17 21:10:51 2012 +0000
+   
+       tests: set executable bit on integration shell scripts
+       
+       These should be made executable for ease-of-understanding and
+       consistency, regardless of whether we actually execute them.
+   
+   commit 7eccef471a609c87281bb90d9d3b3d7a7b35709e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 12 07:40:46 2012 +0000
+   
+       http: increase REQUEST_PATH maximum length to 4K
+       
+       The previous REQUEST_PATH limit of 1024 is relatively small and
+       some users encounter problems with long URLs.  4K is a common
+       limit for PATH_MAX on modern GNU/Linux systems and REQUEST_PATH
+       is likely to translate to a filesystem path name.
+       
+       Thanks to Nuo Yan <yan.nuo@gmail.com> and Lawrence Pit
+       <lawrence.pit@gmail.com> for their feedback on this issue.
+       
+       ref: http://mid.gmane.org/CB935F19-72B8-4EC2-8A1D-5084B37C09F2@gmail.com
+   
+   commit b26d3e2c4387707ca958cd9c63c213fc7ac558fa
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 12 16:46:24 2012 -0700
+   
+       shutdown client socket for apps which fork in background
+       
+       Previously we relied on implicit socket shutdown() from the
+       close() syscall.  However, some Rack applications fork()
+       (without calling exec()), creating a potentially long-lived
+       reference to the underlying socket in a child process.  This
+       ends up causing nginx to wait on the socket shutdown when the
+       child process exits.
+       
+       Calling shutdown() explicitly signals nginx (or whatever client)
+       that the unicorn worker is done with the socket, regardless of
+       the number of FD references to the underlying socket in
+       existence.
+       
+       This was not an issue for applications which exec() since
+       FD_CLOEXEC is always set on the client socket.
+       
+       Thanks to Patrick Wenger for discovering this.  Thanks to
+       Hongli Lai for the tip on using shutdown() as is done in
+       Passenger.
+       
+       ref: http://mid.gmane.org/CAOG6bOTseAPbjU5LYchODqjdF3-Ez4+M8jo-D_D2Wq0jkdc4Rw@mail.gmail.com
+   
+   commit d258653745e1c8e8fa13b95b1944729294804946
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 12 18:35:03 2012 -0700
+   
+       t/sslgen.sh: use larger keys for tests
+       
+       This seems required for TLSv1.2 under OpenSSL 1.0.1
+   
+   commit 12cd717d612fe8170f53f5f8377137e1b41db015
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 11 21:38:10 2012 +0000
+   
+       misc documentation spelling fixes
+       
+       Found via rdoc-spellcheck
+   
+   commit 4757aa70c3b3ab953255f74831b6f98e6f32fb72
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 26 21:35:10 2012 +0000
+   
+       unicorn 4.2.1 - minor fix and doc updates
+       
+       * Stale pid files are detected if a pid is recycled by processes
+         belonging to another user, thanks to Graham Bleach.
+       * nginx example config updates thanks to to Eike Herzbach.
+       * KNOWN_ISSUES now documents issues with apps/libs that install
+         conflicting signal handlers.
+   
+   commit 84e92a9d301f3f42d1d1e4430db33dfb43d54818
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 24 07:45:44 2012 +0000
+   
+       tests: depend on kgio 2.7.4
+       
+       This latest version of kgio improves portability to
+       FreeBSD-based systems.
+   
+   commit d0e7d8d770275654024887a05d9e986589ba358c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 20 20:05:59 2012 +0000
+   
+       log EPERM errors from invalid pid files
+       
+       In some cases, EPERM may indicate a real configuration problem,
+       but it can also just mean the pid file is stale.
+   
+   commit 1e13ffee3469997286e65e0563b6433e7744388a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 20 19:51:35 2012 +0000
+   
+       KNOWN_ISSUES: document signal conflicts in libs/apps
+       
+       Jeffrey Yeung confirmed this issue on the mailing list.
+       
+       ref: <E8D9E7CCC2621343A0A3BB45E8DEDFA91C682DD23D@CRPMBOXPRD04.polycom.com>
+   
+   commit 9fc5c24920726d3c10bc9f39d8e97686b93cbbe0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 20 19:49:56 2012 +0000
+   
+       examples/nginx.conf: use $scheme instead of hard-coded "https"
+       
+       This adds a little more flexibility to the nginx config,
+       especially as protocols (e.g. SPDY) become more prevalent.
+       
+       Suggested-by: Eike Herzbach <eike@herzbach.net>
+   
+   commit 0daedd92d3e896a9fcd301bbb58e85bb54a939ee
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 20 19:27:08 2012 +0000
+   
+       examples/nginx.conf: remove redundant word
+       
+       From: Eike Herzbach <eike@herzbach.net>
+   
+   commit 2ce57950e0f61eb6f325a93cef9b7e0e598fc109
+   Author: Graham Bleach <graham@darkskills.org.uk>
+   Date:   Wed Feb 29 14:34:44 2012 +0000
+   
+       Start the server if another user has a PID matching our stale pidfile.
+       
+       If unicorn doesn't get terminated cleanly (for example if the machine
+       has its power interrupted) and the pid in the pidfile gets used by
+       another process, the current unicorn code will exit and not start a
+       server. This tiny patch fixes that behaviour.
+       
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit b6a154eba6d79fd1572f61290e55f4d05df86730
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jan 28 09:05:07 2012 +0000
+   
+       unicorn 4.2.0
+       
+       The GPLv3 is now an option to the Unicorn license.  The existing GPLv2
+       and Ruby-only terms will always remain options, but the GPLv3 is
+       preferred.
+       
+       Daemonization is correctly detected on all terminals for development
+       use (Brian P O'Rourke).
+       
+       Unicorn::OobGC respects applications that disable GC entirely
+       during application dispatch (Yuichi Tateno).
+       
+       Many test fixes for OpenBSD, which may help other *BSDs, too.
+       (Jeremy Evans).
+       
+       There is now _optional_ SSL support (via the "kgio-monkey"
+       RubyGem).  On fast, secure LANs, SSL is only intended for
+       detecting data corruption that weak TCP checksums cannot detect.
+       Our SSL support is remains unaudited by security experts.
+       
+       There are also some minor bugfixes and documentation
+       improvements.
+       
+       Ruby 2.0.0dev also has a copy-on-write friendly GC which can save memory
+       when combined with "preload_app true", so if you're in the mood, start
+       testing Unicorn with the latest Ruby!
+   
+   commit 8478a54008ea64bf734b9dfc78d940ed69bc00ff
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jan 28 09:03:57 2012 +0000
+   
+       doc: update doc for Ruby 2.0.0dev CoW-friendliness
+       
+       Ruby 2.0.0dev is the future and includes a CoW-friendly GC,
+       so we shall encourage folks to give Ruby 2.0.0dev a spin.
+   
+   commit 49c70ae741b96588021eb1bb6327da4cf78f8ec0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 27 19:55:28 2012 +0000
+   
+       script/isolate_for_tests: disable sqlite3-ruby for Ruby 2.0.0dev
+       
+       We don't need it because we don't test old Rails with bleeding edge Ruby.
+   
+   commit c8abf6a06c0bd7eb1dfc8457ef1c31de31e7715b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 27 19:54:41 2012 +0000
+   
+       disable old Rails tests for Ruby 2.0.0
+       
+       I doubt anybody would attempt to run ancient, unsupported versions
+       of Rails on the latest (unreleased, even) versions of Ruby...
+   
+   commit 79ae7110b37f9b82151cc61960d93a33bb543669
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 27 19:27:43 2012 +0000
+   
+       script/isolate_for_tests: update to kgio 2.7.2
+       
+       Again, we test with the latest version.
+   
+   commit d6d9178f5dc40cf5cb4c5ef61094d4103f23dce5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 24 21:48:35 2012 +0000
+   
+       update tests for Rack 1.4.1
+       
+       Trying to ensure things always work with the latest version.
+   
+   commit a7b286273690f801c61a1db9475f74299ffaef6c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jan 8 02:01:53 2012 +0000
+   
+       Rakefile: swap freshmeat.net URL for freecode.com
+       
+       :<
+   
+   commit 0782f9fb69993b62dc0c3a90f900c4d8cf5745e6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Dec 28 06:03:00 2011 +0000
+   
+       update tests for rack 1.4.0
+       
+       It's the latest and greatest version, so ensure everything
+       works with it.
+   
+   commit cda82b5ff44c8fcfb61315f822bbaefa3471d4fe
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Dec 17 06:51:58 2011 +0000
+   
+       http: test case for "Connection: TE"
+       
+       We need to be sure we don't barf on this header.
+   
+   commit 68e8d3726542c549f291f82bdcb751d372c34597
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 13 15:04:59 2011 -0800
+   
+       cleanup exception handling on SIGUSR1
+       
+       No need to duplicate logic here
+   
+   commit 7688fe59a8a80f473b276aa1ab01ff24cab6a653
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 13 06:04:51 2011 +0000
+   
+       quiet possible IOError from SIGUSR1 (reopen logs)
+       
+       It's possible for a SIGUSR1 signal to be received in the
+       worker immediately before calling IO.select.  In that case,
+       do not clutter logging with IOError and just process the
+       reopen log request.
+   
+   commit 2cc0db7761ee4286c5ccbc48395c70c41d402119
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 5 02:27:14 2011 +0000
+   
+       socket_helper: fix grammerr fail
+       
+       Oops :x
+   
+   commit ee6ffca0a8d129dd930f4c63d0c4c9ef034b245f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 5 01:33:41 2011 +0000
+   
+       socket_helper: set SO_KEEPALIVE on TCP sockets
+       
+       Even LANs can break or be unreliable sometimes and socket
+       disconnect messages get lost, which means we fall back to
+       the global (kill -9) timeout in Unicorn.
+       
+       While the default global timeout is much shorter (60s) than
+       typical TCP timeouts, some HTTP application dispatches take much
+       I/O or computational time (streaming many gigabytes), so the
+       global timeout becomes ineffective.
+       
+       Under Linux, sysadmins are encouraged to lower the default
+       net.ipv4.tcp_keepalive_* knobs in sysctl.  There should be
+       similar knobs in other operating systems (the default keepalive
+       intervals are usually ridiculously high, too high for anything).
+       
+       When the listen socket has SO_KEEPALIVE set, the flag should be
+       inherited by accept()-ed sockets.
+   
+   commit 27f666a973a59c8c6738a65b69f9060c41e6958c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 5 01:28:33 2011 +0000
+   
+       socket_helper: remove out-of-date comment for TCP_NODELAY
+       
+       We favor low latency and consistency with the Unix socket
+       behavior even with TCP.
+   
+   commit 5f8ea2614f92172c7b214441aa3c09a6054c3aa8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 5 01:26:39 2011 +0000
+   
+       bump dependencies
+       
+       We should always be testing with the newest available versions
+       to watch for incompatibilities, even if we don't /require/ the
+       latest ones to run.
+   
+   commit fbcf6aa641e5827da48a3b6776c9897de123b405
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 15 16:32:12 2011 -0800
+   
+       tests: try to set a shorter path for Unix domain sockets
+       
+       We're only allowed 108 bytes for Unix domain sockets.
+       mktemp(1) usually generates path names of reasonable length
+       and we rely on it anyways.
+   
+   commit c4c880c5a2ac521d4a6d0bad132d38dfff375a6c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 15 15:28:44 2011 -0800
+   
+       tests: just use the sha1sum implemented in Ruby
+       
+       The output of SHA1 command-line tools is too unstable and
+       I'm more comfortable with Ruby 1.9 encoding support than
+       I was in 2009.
+       
+       Jeremy Evans noted the output of "openssl sha1" has
+       changed since I last used it.
+   
+   commit 2fd5910969419c17aa6a31fb2119eb47a121d497
+   Author: Jeremy Evans <jeremyevans0@gmail.com>
+   Date:   Tue Nov 15 15:26:36 2011 -0800
+   
+       test_helper: ensure test client connects to valid address
+       
+       You can listen on 0.0.0.0, but trying to connect to it doesn't work
+       well on OpenBSD.
+       
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 66c706acfb3cda802bac4629219e3c3e064352ed
+   Author: Jeremy Evans <jeremyevans0@gmail.com>
+   Date:   Tue Nov 15 15:21:58 2011 -0800
+   
+       t0011: fix test under OpenBSD
+       
+       expr on OpenBSD uses a basic regular expression (according to
+       re_format(7)), which doesn't support +, only *.
+       
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 9e62bc10294f0b6344b47cd596a93ae457d546fb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 15 15:13:15 2011 -0800
+   
+       configurator: limit timeout to 30 days
+       
+       There's no practical difference between a timeout of 30 days and
+       68 years from an HTTP server standpoint.
+       
+       POSIX limits us to 31 days, actually, but there could be
+       rounding error with floats used in Ruby time calculations and
+       there's no real difference between 30 and 31 days, either...
+       
+       Thanks to Jeremy Evans for pointing out large values will throw
+       EINVAL (on select(2) under OpenBSD with Ruby 1.9.3 and
+       RangeError on older Rubies.
+   
+   commit aab850780f9ff0d74c346d7fd62ac588f4d5879b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 15 15:09:21 2011 -0800
+   
+       t: ensure SSL certificates exist on fresh test
+       
+       We throw up some fake SSL certs for testing
+   
+   commit c7ba76a21c5d00fb5c173cd6aa847442bbc652cb
+   Author: Yuichi Tateno <hotchpotch@gmail.com>
+   Date:   Mon Oct 3 16:51:19 2011 +0900
+   
+       OobGC: force GC.start
+       
+       [ew: we need to explicitly enable GC if it is disabled
+        and respect applications that disable GC]
+       
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit ac346b5abcfa6253bd792091e5fb011774c40d49
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Sep 7 00:36:58 2011 +0000
+   
+       add preliminary SSL support
+       
+       This will also be the foundation of SSL support in Rainbows!
+       and Zbatery.  Some users may also want to use this in
+       Unicorn on LANs to meet certain security/auditing requirements.
+       Of course, Nightmare! (in whatever form) should also be able to
+       use it.
+   
+   commit b48c6659b294b37f2c6ff3e75c1c9245522d48d1
+   Author: Brian P O'Rourke <bpo@somnambulance.net>
+   Date:   Wed Sep 14 18:50:29 2011 +0800
+   
+       Detect daemonization via configuration.
+       
+       This prevents the stopping of all workers by SIGWINCH if you're
+       using a windowing system that will 'exec' unicorn from a process
+       that's already in a process group.
+       
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit db2cba26acc5748bcf9919e3184a667c46911f8c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Sep 9 16:10:55 2011 -0700
+   
+       Links: add a link to the UnXF middleware
+       
+       Since unicorn is designed to be deployed behind nginx (or
+       similar), X-Forwarded-* headers are common and Rack applications
+       may blindly trust spoofed X-Forwarded-* headers.  UnXF provides
+       a central place for managing that trust by using rpatricia.
+   
+   commit d209910e29d4983f8346233262a49541464252c1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Sep 9 15:48:53 2011 -0700
+   
+       http_server: update comment on tick == 0
+       
+       The old comment was confusing.  We only zero the tick counter
+       when forking because application loading can take a long time.
+       Otherwise, it's always updated.
+       
+       ref: http://mid.gmane.org/20110908191352.GA25251@dcvr.yhbt.net
+   
+   commit 0113de29108fb669a43d4d7f5528c77a2f96db57
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Sep 2 16:17:57 2011 -0700
+   
+       http_server: a few more things eligible for GC in worker
+       
+       There is no need to keep extra hashes or Proc objects around in
+       the heap.
+   
+   commit cd22c595633ec36b69c60f27f2c3841ae0f6faca
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 29 19:54:32 2011 +0000
+   
+       add GPLv3 option to the license
+       
+       Existing license terms (Ruby-specific) and GPLv2 remain
+       in place, but GPLv3 is preferred as it helps with
+       distribution of AGPLv3 code and is explicitly compatible
+       with Apache License (v2.0).
+       
+       Many more reasons are documented by the FSF:
+       https://www.gnu.org/licenses/quick-guide-gplv3.html
+       http://gplv3.fsf.org/rms-why.html
+       
+       ref: http://thread.gmane.org/gmane.comp.lang.ruby.unicorn.general/933
+   
+   commit 8bed251777e9850b04f52f4c520e8b173bd1d756
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Aug 25 14:24:23 2011 -0700
+   
+       unicorn 4.1.1 - fix last-resort timeout accuracy
+       
+       The last-resort timeout mechanism was inaccurate and often
+       delayed in activation since the 2.0.0 release.  It is now fixed
+       and remains power-efficient in idle situations, especially with
+       the wakeup reduction in MRI 1.9.3+.
+       
+       There is also a new document on application timeouts
+       intended to discourage the reliance on this last-resort
+       mechanism.  It is visible on the web at:
+       
+         http://unicorn.bogomips.org/Application_Timeouts.html
+   
+   commit 34b400cbec2a05e9a1d9fad2d6bd34f54620fdcb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Aug 24 17:59:55 2011 -0700
+   
+       doc: add Application Timeouts document
+       
+       Hopefully this leads to fewer worker processes being killed.
+   
+   commit b781e5b1a9b652ee3da73e16851e1f17f0cecd88
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 23 19:50:03 2011 -0700
+   
+       test_helper: remove needless LOAD_PATH mangling
+       
+       We do it in the Ruby invocation or RUBYLIB.
+   
+   commit e9da4ce4c8917934242037db0c2735bd7dab1586
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 23 17:39:53 2011 -0700
+   
+       fix sleep/timeout activation accuracy
+       
+       I've noticed in stderr logs from some folks that (last resort)
+       timeouts from the master process are taking too long to activate
+       due to the workarounds for suspend/hibernation.
+   
+   commit 8d8b500816371fb8f8fce5e9f21cf235ee8d26ae
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 22 20:04:47 2011 +0000
+   
+       .document: re-add OobGC documentation
+       
+       Oops!
+   
+   commit 4f33a71dc2e24f0cc59315b49e7a7ffe71f368d3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 19 23:04:30 2011 +0000
+   
+       unicorn 4.1.0 - small updates and fixes
+       
+       * Rack::Chunked and Rack::ContentLength middlewares are loaded
+         by default for RACK_ENV=(development|deployment) users to match
+         Rack::Server behavior.  As before, use RACK_ENV=none if you want
+         fine-grained control of your middleware.  This should also
+         help users of Rainbows! and Zbatery.
+       
+       * CTL characters are now rejected from HTTP header values
+       
+       * Exception messages are now filtered for [:cntrl:] characters
+         since application/middleware authors may forget to do so
+       
+       * Workers will now terminate properly if a SIGQUIT/SIGTERM/SIGINT
+         is received while during worker process initialization.
+       
+       * close-on-exec is explicitly disabled to future-proof against
+         Ruby 2.0 changes [ruby-core:38140]
+   
+   commit 5a6d4ddd8ea2df799654abadb1e25f3def9d478b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Aug 20 00:28:39 2011 +0000
+   
+       rdoc cleanups
+   
+   commit 8de6ab371c1623669b86a5dfa8703c8fd539011f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 19 22:13:04 2011 +0000
+   
+       close race if an exit signal hits the worker before trap
+       
+       The signal handler from the master is still active and will
+       push the pending signal to SIG_QUEUE if a worker receives
+       a signal immediately after forking.
+   
+   commit f8b22397ca395a9173d391e8699d539503707792
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 19 21:55:35 2011 +0000
+   
+       gemspec: bump wrongdoc dependency for dev
+       
+       Hopefully it points people towards the mailing list
+   
+   commit 86bbb84231a8a16ec54a621c66843b103b5a8610
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 19 21:54:37 2011 +0000
+   
+       tests: bump test deps to the latest versions
+       
+       Nothing appears broken :)
+   
+   commit 1077961a3f8933c65d39c7e6c9ed6ff3b6b53647
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 19 20:47:29 2011 +0000
+   
+       Rack::Chunked and ContentLength middlewares by default
+       
+       This is needed to match the behavior of Rack::Server for
+       RACK_ENV=(deployment|development), actually.  This won't
+       affect users of other RACK_ENV values.
+       
+       This change has minor performance consequences, so users
+       negatively affected should set RACK_ENV to "none" instead for
+       full control of their middleware stack.
+       
+       This mainly affects Rainbows!/Zbatery users since they have
+       persistent connections and /need/ Content-Length or
+       Transfer-Encoding:chunked headers.
+   
+   commit 7fe08addefb12bd2f4c63901e8cf631e9162ca51
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 16 19:44:04 2011 -0700
+   
+       filter exception messages with control characters
+       
+       We do not want to affect terminals of users who view our log
+       files.
+   
+   commit b1f328b0dd3647168fcc8b1ad9b09284707ad929
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Aug 11 17:28:47 2011 -0700
+   
+       http_server: small simplification for redirects
+       
+       We only need the fileno in the key which we use
+       to generate the UNICORN_FD env.  Otherwise the IO
+       object is accepted and understood by Ruby.
+   
+   commit 6ab27beeda3b0aaaa66f7cc4f734944a7aa84385
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Aug 11 12:59:09 2011 -0700
+   
+       future-proof against close-on-exec by default
+       
+       Setting the close-on-exec flag by default and closing
+       non-standard descriptors is proposed for Ruby 1.9.4/2.0.0.
+       Since Unicorn is one of the few apps to rely on FD inheritance
+       across exec(), we need to workaround this by redirecting each
+       listener FD to itself for Kernel#exec.
+       
+       Ruby supports a hash as the final argument to Kernel#exec since
+       at least 1.9.1 (nobody cares for 1.9.0 anymore). This allows
+       users to backport close-on-exec by default patches to older
+       1.9.x installs without breaking anything.
+       
+       ref: http://redmine.ruby-lang.org/issues/5041
+   
+   commit 60d60a6fa716e91651997d86e3cb9cda41475975
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Aug 11 12:46:27 2011 -0700
+   
+       test_socket_helper: Socket#bind may fail with EINVAL if IPv6 is missing
+       
+       I don't build IPv6 into all my kernels; maybe other testers do
+       not, either.
+   
+   commit ec8a8f32d257290aac377f1c7b1c496e1df75f73
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Aug 3 11:00:28 2011 -0700
+   
+       KNOWN_ISSUES: add link to FreeBSD jail workaround notes
+       
+       Thanks to Tatsuya Ono on the unicorn mailing list.
+   
+   commit 406b8b0e2ed6e5be34d8ec3cd4b16048233c2856
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 2 23:52:14 2011 +0000
+   
+       trap death signals in the worker sooner
+       
+       This helps close a race condition preventing shutdown if
+       loading the application (preload_app=false) takes a long
+       time and the user decides to kil workers instead.
+   
+   commit 6d56d7ab891d2cb6127b4cba428a0f7c13b9d2ce
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jul 20 22:42:16 2011 +0000
+   
+       http_server: explicitly disable close-on-exec for listeners
+       
+       Future versions of Ruby may change this from the default *nix
+       behavior, so we need to explicitly allow FD passing via exec().
+       
+       ref: http://redmine.ruby-lang.org/issues/5041
+   
+   commit 83f72773b7242d86263a18950fca7c8101d7038d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 12 23:52:33 2011 +0000
+   
+       http: reject non-LWS CTL chars (0..31 + 127) in field values
+       
+       RFC 2616 doesn't appear to allow most CTL bytes even though
+       Mongrel always did.  Rack::Lint disallows 0..31, too, though we
+       allow "\t" (HT, 09) since it's LWS and allowed by RFC 2616.
+   
+   commit cc63e2ee54b4113c40631214618f51c9ef867a91
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jul 1 07:52:31 2011 +0000
+   
+       socket_helper: fix undefined variable for logging
+       
+       I corrupted a Ruby build and SOL_TCP didn't get defined :x
+   
+   commit 79c646d69822df542aaabe285eac08cdf4111dc0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 29 18:49:45 2011 +0000
+   
+       unicorn 4.0.1 - regression bugfixes
+       
+       This release fixes things for users of per-worker "listen"
+       directives in the after_fork hook.  Thanks to ghazel@gmail.com
+       for reporting the bug.
+       
+       The "timeout" configurator directive is now truncated to
+       0x7ffffffe seconds to prevent overflow when calling
+       IO.select.
+   
+   commit cdb9bc905cf8e15e8a7d0900f57409f54a7b80ac
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 29 18:48:42 2011 +0000
+   
+       configurator: limit timeout to 32-bit INT_MAX-1
+       
+       Nobody will miss one second if they specify an "infinite"
+       timeout of ~68 years.  This prevents duplicating this logic
+       in Rainbows!
+   
+   commit 19f798301ac1884f423640efafb277b071bb5439
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 29 07:19:32 2011 +0000
+   
+       fix per-worker listen directive in after_fork hook
+       
+       The testcase for this was broken, too, so we didn't notice
+       this :<
+       
+       Reported-by: ghazel@gmail.com on the Rainbows! mailing list,
+       http://mid.gmane.org/BANLkTi=oQXK5Casq9SuGD3edeUrDPvRm3A@mail.gmail.com
+   
+   commit 38672501206c9e64d241e3d8571f70b198f0c1e5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 20:51:16 2011 +0000
+   
+       configurator: truncate timeouts to 32-bit LONG_MAX
+       
+       IO.select in Ruby can't wait longer than this.  This
+       means Unicorn can't support applications that take
+       longer than 68 years to respond :(
+   
+   commit fb8bb4469849fa2b2241152aea7e9e82bd3cbcc8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 08:12:58 2011 +0000
+   
+       unicorn 4.0.0 - for mythical hardware!
+       
+       A single Unicorn instance may manage more than 1024 workers
+       without needing privileges to modify resource limits.  As a
+       result of this, the "raindrops"[1] gem/library is now a required
+       dependency.
+       
+       TCP socket defaults now favor low latency to mimic UNIX domain
+       socket behavior (tcp_nodelay: true, tcp_nopush: false).  This
+       hurts throughput, users who want to favor throughput should
+       specify "tcp_nodelay: false, tcp_nopush: true" in the listen
+       directive.
+       
+       Error logging is more consistent and all lines should be
+       formatted correctly in backtraces.  This may break the
+       behavior of some log parsers.
+       
+       The call stack is smaller and thus easier to examine backtraces
+       when debugging Rack applications.
+       
+       There are some internal API changes and cleanups, but none that
+       affect applications designed for Rack.  See "git log v3.7.0.."
+       for details.
+       
+       For users who cannot install kgio[2] or raindrops, Unicorn 1.1.x
+       remains supported indefinitely.  Unicorn 3.x will remain
+       supported if there is demand.  We expect raindrops to introduce
+       fewer portability problems than kgio did, however.
+       
+       [1] http://raindrops.bogomips.org/
+       [2] http://bogomips.org/kgio/
+   
+   commit 4785db8cf19899756c4a79462fed861a1d1bd96c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 08:46:28 2011 +0000
+   
+       slightly faster worker process spawning
+       
+       It's still O(n) since we don't maintain a reverse mapping of
+       spawned processes, but at least we avoid the extra overhead of
+       creating an array every time.
+   
+   commit 441bb8ab48f15f583b82a3f8520648a4694a198f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jun 25 22:40:20 2011 +0000
+   
+       reenable heartbeat checking for idle workers
+       
+       Some applications/libraries may launch background threads which
+       can lock up the process.  So we can't disable heartbeat checking
+       just because the main thread is sleeping.  This also has the
+       side effect of reducing master process wakeups when all workers
+       are idle.
+   
+   commit 63bcecf48994aa9afe6dc2890efe3ba4b0696bbf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 24 08:17:02 2011 +0000
+   
+       test with latest kgio and rack versions
+       
+       We'll continue to support older versions, but make
+       sure things on the latest ones work.
+   
+   commit 079eb70692fcda9b4bcf572319434ffa7f9e9849
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 24 07:19:22 2011 +0000
+   
+       allow multiline comments in config.ru
+       
+       This matches the latest Rack behavior.
+       
+       We can't just use Rack::Builder.parse_file because our option
+       parser logic is slightly different and incompatible.
+       
+       ref: rack commit d31cf2b7c0c77c04510c08d95776315ceb24ba54
+   
+   commit b3b6b0dff19f8a22a96525bba22bf061d03c3fc5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 23 05:12:08 2011 +0000
+   
+       http_server: avoid race conditions on SIGQUIT
+       
+       We don't want the Worker#tick= assignment to trigger after we
+       accept a client, since we'd drop that request when we raise the
+       exception that breaks us out of the worker loop.
+       
+       Also, we don't want to enter IO.select with an empty LISTENERS
+       array so we can fail with IOError or Errno::EBADF.
+   
+   commit fbe48964d79f3d592f4f75960c5940add9ccf22a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 22 07:48:36 2011 +0000
+   
+       http_server: remove unused variable
+       
+       A leftover from the fchmod() days
+   
+   commit 1a2dc92e7ff92157aa12e2c8a8a09ec0d56e0eb6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 22 02:06:46 2011 +0000
+   
+       gemspec: fix raindrops dependency
+       
+       Oops, I suck at Ruby :x
+   
+   commit de142bc61f714392b0902b6e66a31c34ba223cdb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 22 02:05:20 2011 +0000
+   
+       TODO: remove scalability to >= 1024 workers item
+       
+       We can do it!
+   
+   commit b08410facbccf96c67822a92888de0bc1910390e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 17 08:59:02 2011 +0000
+   
+       test_http_parser: fix for URI too long errors (#3)
+       
+       The random garbage generator may occasionally generate URIs that
+       are too long and cause the URI-specific error to be raised
+       instead of the generic parser error we recently introduced.
+       
+       Follow-up-to: commit 742c4d77f179a757dbcb1fa350f9d75b757acfc7
+   
+   commit 5f478f5a9a58f72c0a844258b8ee614bf24ea9f7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 17 08:54:37 2011 +0000
+   
+       error logging is more consistent
+       
+       Backtraces are now formatted properly (with timestamps) and
+       exceptions will be logged more consistently and similar to
+       Logger defaults:
+       
+         "#{exc.message} (#{e.class})"
+         backtrace.each { |line| ... }
+       
+       This may break some existing monitoring scripts, but errors
+       will be more standardized and easier to check moving forward.
+   
+   commit fa7ce0a6a755cb71a30417478fb797ee7b8d94b5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 17 07:32:17 2011 +0000
+   
+       add broken app test from Rainbows!
+       
+       "app error" is more correct, and consistent with Rainbows!
+   
+   commit 593deb92e8ebd4e77e482c567d97b6ee496ac378
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 16 23:57:31 2011 +0000
+   
+       ensure at_exit handlers run on graceful shutdown
+       
+       rescuing from SystemExit and exit()-ing again is ugly, but
+       changes made to lower stack depth positively affect _everyone_
+       so we'll tolerate some ugliness here.
+       
+       We'll need to disable graceful exit for some tests, too...
+   
+   commit a0c59adf71506b8808de276b1288a319424ee71a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 16 22:54:40 2011 +0000
+   
+       replace fchmod()-based heartbeat with raindrops
+       
+       This means we no longer waste an extra file descriptor per
+       worker process in the master.  Now there's no need to set a
+       higher file descriptor limit for systems running >= 1024
+       workers.
+   
+   commit 95f543a9583e58c56b1c480df84b4b88e6669403
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 16 23:11:28 2011 +0000
+   
+       add heartbeat timeout test from Rainbows!
+       
+       Just in case we break anything
+   
+   commit 4beeb52b1c52ea4486dea13cebe2a8438a9f2139
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 01:10:07 2011 +0000
+   
+       memory reductions in worker process
+       
+       There's absolutely no need to keep the OptionParser around in
+       worker processes.
+   
+   commit e9e7a1c7c1778ed7cd7c724b26362d1f89b2801c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:56:47 2011 +0000
+   
+       test_http_parser: fix for URI too long errors (again)
+       
+       The random garbage generator may occasionally generate URIs that
+       are too long and cause the URI-specific error to be raised
+       instead of the generic parser error we recently introduced.
+       
+       Follow-up-to: commit 742c4d77f179a757dbcb1fa350f9d75b757acfc7
+   
+   commit a7d9eb03bf3ac554854990018a67f34c2221fb20
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:53:45 2011 +0000
+   
+       http_server: kill another stack frame off
+       
+       We always know we have zero workers at startup, so we don't
+       need to check before hand.  SIGHUP users may suffer a small
+       performance decrease as a result, but there's not much we
+       can do about it.
+   
+   commit f8953ce747bd35b2008fc3daa040b89002a3133e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:47:25 2011 +0000
+   
+       http_server: factor out inherit_listeners! method
+       
+       This should be easier to understand and reduces garbage on
+       stack, too.
+   
+   commit 6aa423454d7c3926297426fc22d23c88531bd15a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:45:37 2011 +0000
+   
+       test_response: httpdate is low resolution
+       
+       It may return the previous second
+   
+   commit 63e421d82ac6d838f9b8b02d4a727bf6f783e7b6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:39:37 2011 +0000
+   
+       remove BasicSocket.do_not_reverse_lookup setting
+       
+       kgio never does reverse lookup
+   
+   commit 12024a6268d4e96fcf96df33fb7d82eaec9c16b1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:20:26 2011 +0000
+   
+       http: delay CoW string invalidations in filter_body
+       
+       Not all invocations of filter_body will trigger CoW on the
+       given destination string.  We can also avoid an unnecessary
+       rb_str_set_len() in the non-chunked path, too.
+   
+   commit d91ca210615432bdad3ee70c08908ea7064c6b95
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:15:42 2011 +0000
+   
+       http: remove tainting flag
+       
+       Needless line noise, kgio doesn't support tainting anyways.
+   
+   commit c719497c6db220a9f58c71970f2370cb2e6c99c3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:09:32 2011 +0000
+   
+       http_server: get rid of EINTR checks
+       
+       Ruby IO.select never raises that, actually
+   
+   commit 742c4d77f179a757dbcb1fa350f9d75b757acfc7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:08:03 2011 +0000
+   
+       test_http_parser: fix for URI too long errors
+       
+       The random garbage generator may occasionally generate URIs that
+       are too long and cause the URI-specific error to be raised
+       instead of the generic parser error we recently introduced.
+   
+   commit 20c0f28cf60f164c9788b694625bce22962464f3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 00:01:32 2011 +0000
+   
+       http_server: further reduce stack usage for app.call
+       
+       By avoid Array#each
+   
+   commit ddcea26976f24dda8a0cd65022065100bb40fbb7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 14 23:49:57 2011 +0000
+   
+       http_server: small cleanups for attr assignments
+       
+       ivar references using @ are slightly faster than calling
+       attribute methods.
+   
+   commit f1d8dd94122395cd7b072aeec8942f2cd6b8ca99
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 14 23:25:43 2011 +0000
+   
+       http_server: do not rescue from proper exits
+       
+       Oops, it messes logging up badly.
+   
+   commit 2f3c135b15e6603e71bb9d6d054e5cd606c7b2b6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 14 00:51:01 2011 +0000
+   
+       http: fix documentation for dechunk!
+       
+       chunk_ready! was my original name for it, but I'm indecisive
+       when it comes to naming things.
+   
+   commit c297fde2000dcc8bdf7cb9f912fb2ea07be1c282
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 13 23:42:54 2011 +0000
+   
+       http: dechunk! method to enter dechunk mode
+       
+       This allows one to enter the dechunker without parsing
+       HTTP headers beforehand.  Since we skipped header parsing,
+       trailer parsing is not supported since we don't know
+       what trailers might be (to our knowledge, nobody uses trailers
+       anyways)
+   
+   commit 131c241840990753f7b75344092058ef7434ea8b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 13 22:35:18 2011 +0000
+   
+       http: document reasoning for memcpy in filter_body
+       
+       copy-on-write behavior doesn't help you if your common
+       use case triggers copies.
+   
+   commit 4aa8fd1322ccb46fc58a4f26ca111a03c1720c7d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 13 22:18:30 2011 +0000
+   
+       http: rename variables in filter_body implementation
+       
+       Makes things easier-to-understand since it's based on memcpy()
+   
+   commit b1d8d3de991ebc5b7d655f2e8a1294129021db8a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 13 22:17:14 2011 +0000
+   
+       change TCP defaults to favor low latency
+       
+       These TCP settings are a closer match to the behavior of
+       Unix domain sockets and what users expect for fast streaming
+       responses even if nginx can't provide them just now...
+   
+   commit c1cac62571b543ac8e9f7203f8c315bb75516a20
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 13 21:44:24 2011 +0000
+   
+       gemspec: bump kgio dependency to ~> 2.4
+       
+       kgio 2.4.1 portability should be better than 2.3, so
+       less user confusion and push them towards 2.4
+   
+   commit 5d2284afdc2d4f4ff122394ae5fd78a32cb8c09e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 10 23:54:47 2011 +0000
+   
+       runtime stack size reductions
+       
+       This reduces the size of `caller` by 5 frames,
+       which should make backtraces easier-to-read, raising
+       exceptions less expensive, and reduce GC runtime.
+   
+   commit 987b9496171b090e62de488ddc7b9a175c4c8d33
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 10 23:44:10 2011 +0000
+   
+       test/benchmark/stack.ru: app for measuring stack depth
+       
+       Stack depth affects Ruby GC performance, so lowering it
+       makes sense
+   
+   commit 1c033dfd66c713afb05911e5e220adb7fc4ddc17
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 9 13:36:20 2011 -0700
+   
+       unicorn 3.7.0 - minor feature update
+       
+       * miscellaneous documentation improvements
+       * return 414 (instead of 400) for Request-URI Too Long
+       * strip leading and trailing linear whitespace in header values
+       
+       User-visible improvements meant for Rainbows! users:
+       
+       * add :ipv6only "listen" option (same as nginx)
+   
+   commit c3880bb0cc00821d1715a7dd94b0b76a03a7ace0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 7 13:54:18 2011 -0700
+   
+       configurator: add :ipv6only directive
+       
+       Enabling this flag for an IPv6 TCP listener allows users to
+       specify IPv6-only listeners regardless of the OS default.
+       This should be interest to Rainbows! users.
+   
+   commit 0dc56fd03ea478ae054e3d0398703f43e017723b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 7 09:56:30 2011 -0700
+   
+       build: ensure gem and tgz targets build manpages
+       
+       Original patch by Hongli Lai <hongli@phusion.nl>:
+       
+       > >From bfefc2cf0efb0913a42862886363b3140dcdbb2a Mon Sep 17 00:00:00 2001
+       > From: Hongli Lai (Phusion) <hongli@phusion.nl>
+       > Date: Mon, 6 Jun 2011 13:39:00 +0200
+       > Subject: [PATCH] Ensure that 'make gem' builds the documentation too.
+       >
+       > If autogenerated documentation files, like man pages, don't exist then
+       > 'make gem' will fail, complaining that some files are not found. By
+       > depending the 'gem' target on the 'doc' target we ensure that 'make gem'
+       > always works.
+       >
+       > Signed-off-by: Hongli Lai (Phusion) <hongli@phusion.nl>
+       
+       ref: http://mid.gmane.org/4DED0EE2.7040400@phusion.nl
+   
+   commit 6eefc641c84eaa86cb2be4a2b1983b15efcbfae1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 7 09:38:34 2011 -0700
+   
+       examples/nginx.conf: better wording for ipv6only comment
+       
+       Oops.
+   
+   commit 32b340b88915ec945ebdbfa11b7da242860a6f44
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 6 19:15:36 2011 -0700
+   
+       examples/nginx.conf: add ipv6only comment
+       
+       IPv4-mapped-IPv6 addresses are fugly.
+   
+   commit f4b9c1cb92711a62ae047368d7694c5050d27f2c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 6 10:00:36 2011 -0700
+   
+       Documentation: remove --sanitize-html for pandoc
+       
+       pandoc 1.8 no longer has this.
+   
+   commit 8e8781aa7002079ad066c11d271b98fc29f225dd
+   Author: Hongli Lai (Phusion) <hongli@phusion.nl>
+   Date:   Mon Jun 6 13:36:57 2011 +0200
+   
+       Document the method for building the Unicorn gem.
+       
+       Signed-off-by: Hongli Lai (Phusion) <hongli@phusion.nl>
+   
+   commit 6e550cabdafd2cb0fcd1617f8815a732e79af670
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 23 23:59:53 2011 +0000
+   
+       isolate_for_tests: use rake 0.8.7
+       
+       Rails 3.0.0 can't use Rake 0.9.0 it seems.
+   
+   commit 3e8971f3998249c58c9958815e0f17a04256ef9f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 23 23:59:31 2011 +0000
+   
+       gemspec: use latest Isolate (3.1)
+       
+       It's required for RubyGems 1.8.x
+   
+   commit 67e1fa9f9535ad009d538b8189bb3bdec0e5f79c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 23 21:53:19 2011 +0000
+   
+       http: call rb_str_modify before rb_str_resize
+       
+       Ruby 1.9.3dev (trunk) requires it if the string size
+       is unchanged.
+   
+   commit 1b31c40997ff8b932a457275e9a2f219de1d32c8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 23 21:04:56 2011 +0000
+   
+       strip trailing and leading linear whitespace in headers
+       
+       RFC 2616, section 4.2:
+       > The field-content does not include any leading or trailing LWS:
+       > linear white space occurring before the first non-whitespace
+       > character of the field-value or after the last non-whitespace
+       > character of the field-value. Such leading or trailing LWS MAY be
+       > removed without changing the semantics of the field value. Any LWS
+       > that occurs between field-content MAY be replaced with a single SP
+       > before interpreting the field value or forwarding the message
+       > downstream.
+   
+   commit 947704e3f8e67b8262815838e87b331802c7ba67
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 23 18:22:44 2011 +0000
+   
+       doc: add Links page to help folks find relevant info
+       
+       Older announcements on our mailing list could be harder
+       to find.
+   
+   commit 66be289901508d5a6ed092db81ec96815c42d21d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 23 18:21:50 2011 +0000
+   
+       GNUmakefile: locale-independent grep invocation
+       
+       Otherwise it could casefold and we don't want that.
+   
+   commit c20077db941cc969fb3721c7527d37a99367f220
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun May 8 02:39:42 2011 +0000
+   
+       doc: PHILOSOPHY: formatting fixes
+       
+       No need to list things inside preformatted text
+   
+   commit 77a951c5da518dda471282635c98f3b572ca15db
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 5 16:42:26 2011 -0700
+   
+       http_parser: add max_header_len accessor
+       
+       Rainbows! wants to be able to lower this eventually...
+   
+   commit 733cb68e444a6f324bb1ffda3839da98ef010c74
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 5 16:40:42 2011 -0700
+   
+       t0002-parser-error: fix race conditions
+       
+       "wait" needs to be done in the outside shell because
+       the subshell could still be exiting when we grep.
+   
+   commit 39ffd5590e4b5d2114215854deec848f849e9e87
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed May 4 17:59:48 2011 -0700
+   
+       doc: remove redundant "of" typo
+   
+   commit 1b0ee5826ef146a3e2647c40f3bc929d51d1b442
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed May 4 17:04:51 2011 -0700
+   
+       http_parser: new add_parse method
+       
+       Combines the following sequence:
+       
+          http_parser.buf << socket.readpartial(0x4000)
+          http_parser.parse
+       
+       Into:
+       
+          http_parser.add_parse(socket.readpartial(0x4000))
+       
+       It was too damn redundant otherwise...
+   
+   commit f81aa02448b615c4d5fc4f6544c53289dae9d2ec
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed May 4 16:41:36 2011 -0700
+   
+       return 414 for URI length violations
+       
+       There's an HTTP status code allocated for it in
+       <http://www.iana.org/assignments/http-status-codes>, so
+       return that instead of 400.
+   
+   commit 3a76dc40dda91a3804276fcc73260bb2a529c034
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 30 11:09:32 2011 -0700
+   
+       Sandbox: update doc for latest Bundler versions
+       
+       Bundler 1.0.x is much improved :)
+   
+   commit f848f632a81cf8ebc977592cbf9a45d84a69f306
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 30 06:34:52 2011 +0000
+   
+       unicorn 3.6.2 - fix Unicorn::OobGC module
+       
+       The optional Unicorn::OobGC module is reimplemented to fix
+       breakage that appeared in v3.3.1.  There are also minor
+       documentation updates, but no code changes as of 3.6.1 for
+       non-OobGC users.
+       
+       There is also a v1.1.7 release to fix the same OobGC breakage
+       that appeared for 1.1.x users in the v1.1.6 release.
+   
+   commit 1588c299703754e52b9f36219c21e13204734e6c
+   Merge: fe47a17 0874125
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 30 06:33:53 2011 +0000
+   
+       Merge commit 'v1.1.7'
+       
+       * commit 'v1.1.7':
+         unicorn 1.1.7 - major fixes to minor components
+         oob_gc: reimplement to fix breakage and add tests
+         exec_cgi: handle Status header in CGI response
+         unicorn 1.1.6 - one minor, esoteric bugfix
+         close client socket after closing response body
+   
+   commit fe47a179468799bbbb893b339cbb0d4fedf29c2a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 29 23:31:35 2011 -0700
+   
+       TUNING: more minor doc updates
+   
+   commit 0874125ce56d52cee0f634712e69d1387eadfae1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 30 04:56:28 2011 +0000
+   
+       unicorn 1.1.7 - major fixes to minor components
+       
+       No changes to the core code, so this release only affects users
+       of the Unicorn::OobGC and Unicorn::ExecCGI modules.
+       Unicorn::OobGC was totally broken by the fix in the v1.1.6
+       release and is now reimplemented.  Unicorn::ExecCGI (which
+       hardly anybody uses) now returns proper HTTP status codes.
+   
+   commit fe0dd93cd9cb97b46f6cfb4b1e370e38717a93f0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 29 15:48:35 2011 -0700
+   
+       oob_gc: reimplement to fix breakage and add tests
+       
+       This was broken since v3.3.1[1] and v1.1.6[2] since nginx relies on
+       a closed socket (and not Content-Length/Transfer-Encoding) to
+       detect a response completion.  We have to close the client
+       socket before invoking GC to ensure the client sees the response
+       in a timely manner.
+       
+       [1] - commit b72a86f66c722d56a6d77ed1d2779ace6ad103ed
+       [2] - commit b7a0074284d33352bb9e732c660b29162f34bf0e
+       
+       (cherry picked from commit faeb3223636c39ea8df4017dc9a9d39ac649b26d)
+       
+       Conflicts:
+       
+       	examples/big_app_gc.rb
+       	lib/unicorn/oob_gc.rb
+   
+   commit 02a116c0d94a60a64abf8ad2465132e8194dd62a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 29 16:01:35 2011 -0700
+   
+       TUNING: document worker_processes tuning
+       
+       It seems people are still confused about it...
+   
+   commit faeb3223636c39ea8df4017dc9a9d39ac649b26d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 29 15:48:35 2011 -0700
+   
+       oob_gc: reimplement to fix breakage and add tests
+       
+       This was broken since v3.3.1[1] since nginx relies on a closed
+       socket (and not Content-Length/Transfer-Encoding) to detect
+       a response completion.  We have to close the client socket
+       before invoking GC to ensure the client sees the response
+       in a timely manner.
+       
+       [1] - commit b72a86f66c722d56a6d77ed1d2779ace6ad103ed
+   
+   commit ce4995a4daf1e4da7034dc87fd218a283c405410
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 29 15:30:07 2011 -0700
+   
+       TUNING: original sentence was incomplete
+   
+   commit 843d30120139dc372aca6c1773ac7699b6ee6345
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 29 12:21:38 2011 -0700
+   
+       examples/big_app_gc: fix comment
+       
+       Oops, comments should match the latest code
+   
+   commit d4f70c45029ab1c6aba4bc2d69283ae43e46d9ff
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 29 12:18:59 2011 -0700
+   
+       examples/big_app_gc: update this example
+       
+       OobGC is actually broken with nginx these days since
+       we needed to preserve the env for body.close...
+   
+   commit eaf72275e36560e567efc9597d929e02dc2f577d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 27 13:49:14 2011 -0700
+   
+       configurator: attempt to clarify :tcp_nopush/:tcp_nodelay
+       
+       These options will probably be more important as interest in
+       streaming responses in Rails 3.1 develops.
+       
+       I consider the respective defaults for Unicorn (designed to run
+       behind nginx) and Rainbows! (designed to run standalone) to be
+       the best choices in their respective environments.
+   
+   commit 37c491dcc23d445521229dbe902f02833f2a0f4c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 27 13:13:24 2011 -0700
+   
+       examples/nginx.conf: clarify proxy_buffering for Rails 3.1
+       
+       I've tested with nginx 1.0.0 and confirmed "proxy_buffering off;"
+       can cause Unicorn to block on a slow client reading a
+       large response.  While there's a potential (client-visible)
+       performance improvement with Rails 3.1 streaming responses, it
+       can also hurt the server with slow clients.
+       
+       Rainbows! with (ThreadSpawn or ThreadPool) is probably the best
+       way to do streaming responses efficiently from all angles (from
+       a server, client and programmer time perspective).
+   
+   commit 1b3befbadb99c83c24109f68b719276f0051c7fb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Apr 26 16:04:19 2011 -0700
+   
+       unicorn 3.6.1 - fix OpenSSL PRNG workaround
+       
+       Our attempt in 3.6.0 to workaround a problem with the OpenSSL
+       PRNG actually made the problem worse.  This release corrects the
+       workaround to properly reseed the OpenSSL PRNG after forking.
+   
+   commit 34f7dbd1b7e087bc8c86029496fd8daa7dc58441
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Apr 26 16:01:31 2011 -0700
+   
+       properly reseed OpenSSL::Random after forking
+       
+       Using the return value of Kernel#srand actually made the
+       problem worse.  Using the value of Kernel#rand is required
+       to actually get a random value to seed the OpenSSL PRNG.
+       
+       Thanks to ghazel for the bug report!
+   
+   commit 2aabf90ca53b31edef6c2b63006c33374840c816
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 21 06:16:27 2011 +0000
+   
+       unicorn 3.6.0 - small fixes, PRNG workarounds
+       
+       Mainly small fixes, improvements, and workarounds for fork() issues
+       with pseudo-random number generators shipped with Ruby (Kernel#rand,
+       OpenSSL::Random (used by SecureRandom and also by Rails).
+       
+       The PRNG issues are documented in depth here (and links to Ruby Redmine):
+       
+         http://bogomips.org/unicorn.git/commit?id=1107ede7
+         http://bogomips.org/unicorn.git/commit?id=b3241621
+       
+       If you're too lazy to upgrade, you can just do this in your after_fork
+       hooks:
+       
+         after_fork do |server,worker|
+           tmp = srand
+           OpenSSL::Random.seed(tmp.to_s) if defined?(OpenSSL::Random)
+         end
+       
+       There are also small log reopening (SIGUSR1) improvements:
+       
+       * relative paths may also be reopened, there's a small chance this
+         will break with a handful of setups, but unlikely.  This should
+         make configuration easier especially since the "working_directory"
+         configurator directive exists.  Brought up by Matthew Kocher:
+         http://thread.gmane.org/gmane.comp.lang.ruby.unicorn.general/900
+       
+       * workers will just die (and restart) if log reopening fails for
+         any reason (including user error).  This is to workaround the issue
+         reported by Emmanuel Gomez:
+         http://thread.gmane.org/gmane.comp.lang.ruby.unicorn.general/906
+   
+   commit 4f7f3bbb973c8f2bb4b189592158a0682ea2a625
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 21 06:23:21 2011 +0000
+   
+       http_server: fix Rainbows! compatibility
+       
+       Older Rainbows! redefines the ready_pipe= accessor method
+       to call internal after_fork hooks.
+   
+   commit c6c9cae960bd8cbfa2feb801ca7079f6626b436b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 20 16:02:51 2011 +0000
+   
+       KNOWN_ISSUES: document PRNG changes in 3.6.0
+   
+   commit 6411add3f1a5aae5f2e0dcd73cd842500d21e9fd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Apr 18 15:53:08 2011 -0700
+   
+       documentation cleanup/reduction
+       
+       Don't clutter up our RDoc/website with things that users
+       of Unicorn don't need to see.  This should make user-relevant
+       documentation easier to find, especially since Unicorn is
+       NOT intended to be an API.
+   
+   commit 1107ede716461049033d6a5b311e14c742c9363a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Apr 18 15:34:29 2011 -0700
+   
+       reseed OpenSSL PRNG upon fork() of workers
+       
+       OpenSSL seeds its PRNG with the process ID, so if a process ID
+       is recycled, there's a chance of indepedent workers getting
+       repeated PRNG sequences over a long time period iff the same
+       PID is used.
+       
+       This only affects deployments that meet both of the following
+       conditions:
+       
+       1) OpenSSL::Random.random_bytes is called before forking
+       2) worker (but not master) processes are die unexpectedly
+       
+       The SecureRandom module in Ruby (and Rails) uses the OpenSSL
+       PRNG if available.  SecureRandom is used by Rails and called
+       when the application is loaded, so most Rails apps with
+       frequently dying worker processes are affected.
+       
+       Of course dying worker processes are bad and entirely the
+       fault of bad application/library code, not the fault of
+       Unicorn.
+       
+       Thanks for Alexander Dymo for reporting this.
+       
+       ref: http://redmine.ruby-lang.org/issues/4579
+   
+   commit b32416211ef30e958ec38c8c99833161cd476dd4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Apr 18 22:21:58 2011 +0000
+   
+       reinitialize PRNG for latest Ruby 1.8.7 releases
+       
+       The current versions of Ruby 1.8 do not reseed the PRNG after
+       forking, so we'll work around that by calling Kernel#srand.
+       
+       ref: http://redmine.ruby-lang.org/issues/show/4338
+   
+   commit 3c8f21a4257578e9cdc4781dd21a6a572e25ca54
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 08:05:51 2011 +0000
+   
+       fix some 1.9.3dev warnings
+   
+   commit 1355d262288352c2ced67cefc2301cee79bec0dd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 07:55:11 2011 +0000
+   
+       configurator: fix broken local variable
+       
+       Oops, changing a method definition for RDoc means code
+       needs to be updated, too :x
+   
+   commit 30ece1c7cc66b2fc816b1361e498ca0d4a554a78
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 07:43:05 2011 +0000
+   
+       GNUmakefile: s/Config/RbConfig/
+       
+       "Config" is deprecated and warns under 1.9.3dev
+   
+   commit cabbc6ce06487619431af102378aefa08d55f9f1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 07:34:31 2011 +0000
+   
+       http_server: workers die on log reopen failures
+       
+       They should then recover and inherit writable descriptors
+       from the master when it respawns.
+   
+   commit c1322a721d9039f54da97cf50de49f2affbfff37
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 05:41:07 2011 +0000
+   
+       http_parser: remove RDoc
+       
+       It's not needed for users, so avoid confusing them.
+       Unicorn itself is not intended to be an API, it just
+       hosts Rack applications.
+   
+   commit 8c359f50ce8b20dc3d72fe655db9d93c4a8ee7d5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 01:43:31 2011 +0000
+   
+       configurator: miscellaneous RDoc improvements
+       
+       Mainly formatting and such, but some wording changes.
+   
+   commit 2d1a4fbe37ebb0f229edbaefd392bdd8b6865590
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 01:11:29 2011 +0000
+   
+       worker: improve RDoc, point users to Configurator#user
+   
+   commit 46cc05089ea34b823454f790092f386f22d3adb1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 13 01:04:19 2011 +0000
+   
+       configurator: remove outdated user example in after_fork
+       
+       Configurator itself supports user at the top-level.
+   
+   commit c4d3cd7d7b32ed133e25e3740c8e7a3493592eec
+   Author: Emmanuel Gomez <emmanuel.gomez@gmail.com>
+   Date:   Tue Apr 12 15:36:36 2011 -0700
+   
+       Document "user" directive in example unicorn conf
+   
+   commit 6647dcb3afa4c0b16c5fef5bfdf88292e6adf6ca
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 1 16:09:03 2011 -0700
+   
+       util: allow relative paths to be rotated
+       
+       Users keep both pieces if it's broken :)
+   
+   commit ebcc5b45adfb1d04af98356d867e9221ecdc9b70
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 1 15:48:30 2011 -0700
+   
+       bump dependencies for testing
+       
+       No need to use an ancient Rack now that we've dropped Rails
+       2.3.x tests.  We need to remember that Rack 1.1.0 doesn't
+       support input#size.
+   
+   commit e5bf7b7207d69daf1c3537797aeeab2642f19514
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Apr 1 15:44:22 2011 -0700
+   
+       drop Rails 2.3.x tests
+       
+       They were transitionary releases and the logic to deal with them
+       and Rack versioning was too much overhead.
+   
+   commit c1ebb313735a280582d87c1ba44619aa47e00b06
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 29 09:47:26 2011 -0700
+   
+       add examples/logrotate.conf
+       
+       logrotate is the de facto tool for logrotation, so an
+       example config for highlighting important parts are in order.
+       
+       Since our USR1 signal handling is part of the crusade against
+       the slow and lossy "copytruncate" option, be sure to
+       emphasize that :)
+   
+   commit ede28dc59562c862ff4641ed42a0ef357880d0f5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Mar 27 20:35:16 2011 -0700
+   
+       tmpio: do not redefine size method under 1.9.2+
+       
+       File#size is available in 1.9.2
+   
+   commit 9de69c47e0a261bc88ca40e03562b7324baaf0cf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 22 17:57:03 2011 -0700
+   
+       DESIGN: fix redundant wording
+       
+       "P" in HTTP is already "protocol"
+   
+   commit 5da78214be9518879ee96345d8184913853fe890
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 22 17:48:30 2011 -0700
+   
+       README: s/Gemcutter/RubyGems.org/
+       
+       Gemcutter is the old name
+   
+   commit d1c9aa300c0cbda272f197b734b3e895959ae3e3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 15 12:19:30 2011 +0000
+   
+       unicorn 3.5.0 - very minor improvements
+       
+       A small set of small changes but it's been more than a month
+       since our last release.  There are minor memory usage and
+       efficiently improvements (for graceful shutdowns).  MRI 1.8.7
+       users on *BSD should be sure they're using the latest patchlevel
+       (or upgrade to 1.9.x) because we no longer workaround their
+       broken stdio (that's MRI's job :)
+   
+   commit e6b6782030d8593006b4b7cace866cf42dd38d51
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 8 06:59:53 2011 +0000
+   
+       gemspec: update kgio dependency to 2.3.2
+       
+       People reinstalling would've pulled it in anyways, but
+       2.3.2 is the latest and has no known issues.
+   
+   commit 1594937132a5d9b7f1dc24cc47e3a27679ac9950
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 8 06:59:08 2011 +0000
+   
+       gemspec: no need for require_paths
+   
+   commit cc7e65a1aa1bacc9658a687140011e999be6e3e7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 25 17:54:24 2011 +0000
+   
+       tee_input: remove old *BSD stdio workaround
+       
+       Ruby 1.8.* users should get the latest Ruby 1.8.7 anyways since
+       they contain critical bugfixes.  We don't keep workarounds
+       forever since the root problem is fixed/worked-around in
+       upstream and people have had more than a year to upgrade Ruby.
+   
+   commit 2b6dd7653211d3d6b4cb6a46eec11bbde8cab789
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 18 17:02:08 2011 -0800
+   
+       clear listeners array on SIGQUIT
+       
+       We don't want to repeatedly reclose the same IOs
+       and keep raising exceptions this way.
+   
+   commit d3ebd339990b0586a5993232302235c26cdb33d9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 16 10:33:20 2011 -0800
+   
+       README: clarify the versions of "Ruby license"
+       
+       Ruby 1.9.3dev is now using the 2-clause BSD License, not the
+       GPLv2.  Do not mislead people into thinking we will switch to
+       any BSD License, we won't.
+   
+   commit 4cfb64f10784498b9625bbbd3364231710bc7c36
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Feb 10 13:41:32 2011 -0800
+   
+       Revert "test_helper: simplify random port binding"
+       
+       This causes conflicts with ports clients may use in
+       the ephemeral range since those do not hold FS locks.
+       
+       This reverts commit e597e594ad88dc02d70f7d3521d0d3bdc23739bb.
+       
+       Conflicts:
+       
+       	test/test_helper.rb
+   
+   commit 6dd90cb902f43b32b0db204484d5e3df79ec0d0c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Feb 10 13:34:58 2011 -0800
+   
+       remove unnecessary &block usage
+       
+       They needlessly allocate Proc objects
+   
+   commit 1fd1234ca5ba3d84d2182c38b37322bd55f08882
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Feb 7 16:09:53 2011 -0800
+   
+       test_helper: avoid FD leakage/waste
+       
+       No need to unnecessarily leave file descriptor open.
+   
+   commit 6ffc294aac4735127ac9455266623aaa3603e9c1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 4 13:06:30 2011 -0800
+   
+       unicorn 3.4.0 - for people with very big LANs
+       
+       * IPv6 support in the HTTP hostname parser and configuration
+         language.  Configurator syntax for "listen" addresses should
+         be the same as nginx.  Even though we support IPv6, we will
+         never support non-LAN/localhost clients connecting to Unicorn.
+       
+       * TCP_NOPUSH/TCP_CORK is enabled by default to optimize
+         for bandwidth usage and avoid unnecessary wakeups in nginx.
+       
+       * Updated KNOWN_ISSUES document for bugs in recent Ruby 1.8.7
+         (RNG needs reset after fork) and nginx+sendfile()+FreeBSD 8.
+       
+       * examples/nginx.conf updated for modern stable versions of nginx.
+       
+       * "Status" in headers no longer ignored in the response,
+         Rack::Lint already enforces this so we don't duplicate
+         the work.
+       
+       * All tests pass under Ruby 1.9.3dev
+       
+       * various bugfixes in the (mostly unused) ExecCGI class that
+         powers http://bogomips.org/unicorn.git
+   
+   commit 3df8a197320b8a9e8a6413dcd04613db0558d90a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 4 13:04:39 2011 -0800
+   
+       bump dependency on kgio
+       
+       This is needed for IPv6 support, and 2.2.0 is nicer
+       all around for Rainbows! users.  Updates wrongdoc
+       while we're at it, too.
+   
+   commit 1045faa0f9e94b13ee0281b7968b72d6f50dd5bf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Feb 3 13:53:18 2011 -0800
+   
+       test/unit: fix tests under Ruby 1.9.3dev
+       
+       Ugh, one day I'll clean them up, one day...
+   
+   commit 9e7a8114fb0fcc56b475d17f158eaa5b7f1f7bdd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 2 17:37:22 2011 -0800
+   
+       Fix Ruby 1.9.3dev warnings
+       
+       for i in `git ls-files '*.rb'`; do ruby -w -c $i; done
+   
+   commit e597e594ad88dc02d70f7d3521d0d3bdc23739bb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 2 16:54:07 2011 -0800
+   
+       test_helper: simplify random port binding
+       
+       Duh...
+   
+   commit 314680327b95c0dc5e11be45a6343ca2a18ee447
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 2 16:27:30 2011 -0800
+   
+       socket_helper: cleanup leftover debugging statement
+       
+       Oops!  Ugh, not my day...
+   
+   commit e0160a18ef5c4592d1ac5ff24ba8ae0fd703057c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 2 15:34:33 2011 -0800
+   
+       socket_helper: export tcp_name as a module_function
+       
+       Oops!
+   
+   commit 87fd86ef22b6b80fa75dd8e50f53a4e62e8339f7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 2 15:22:02 2011 -0800
+   
+       allow binding on IPv6 sockets with listen "[#{addr}]:#{port}"
+       
+       This is much like how nginx does it, except we always require a
+       port when explicitly binding to IPv6 using the "listen"
+       directive.  This also adds support to listen with an
+       address-only, which can be useful to Rainbows! users.
+   
+   commit d140e7b1ff44b06bc54c2b790d06e9c7325503fe
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 2 14:45:57 2011 -0800
+   
+       http: parser handles IPv6 bracketed IP hostnames
+       
+       Just in case we have people that don't use DNS, we can support
+       folks who enter ugly IPv6 addresses...
+       
+       IPv6 uses brackets around the address to avoid confusing
+       the colons used in the address with the colon used to denote
+       the TCP port number in URIs.
+   
+   commit 24f8ef5f385e38954a5582fb2e8cd9d12fbf7d20
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 16:14:46 2011 -0800
+   
+       force socket options to defaults if unspecified
+       
+       This reduces surprise when people (correctly) believe
+       removing an option from the config file will return
+       things back to our internal defaults.
+   
+   commit c28e2610cfc70e89a0ffabe18356d148afe98bfc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 15:51:30 2011 -0800
+   
+       enable TCP_NOPUSH/TCP_CORK by default
+       
+       It's actually harmless since Unicorn only supports "fast"
+       applications that do not trickle, and we don't do keepalive so
+       we'll always flush-on-close.  This should reduce wakeups on the
+       nginx proxy server if nginx is over TCP.  Mongrel 1.x had
+       TCP_CORK enabled by default, too.
+   
+   commit e3420e0ae1f3c38f125010134d2cdeb22c6fa64e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 15:50:37 2011 -0800
+   
+       test_upload: check size in server
+       
+       The client may not get a proper response with TCP_CORK enabled
+   
+   commit f4caf6b6bdea902abaadd3c04b2af94f056c4ff1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 28 18:11:26 2011 +0000
+   
+       KNOWN_ISSUES: document broken RNG+fork in newer Ruby 1.8
+       
+       Reported by: ghazel@gmail.com
+       
+       ref: <AANLkTimTpPATTpkoD2EYA2eM1+5OzCN=WxnCygQmJdhn@mail.gmail.com>
+   
+   commit 09afcf2ce9fc89d77b6b282bbf00a78c73741a4b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 25 13:58:29 2011 -0800
+   
+       examples/nginx.conf: use try_files directive
+       
+       This feature is in nginx 0.7.x and 0.8.x and optimized
+       better than the "if" directive in nginx.conf
+       
+       ref: http://wiki.nginx.org/Pitfalls
+       ref: http://wiki.nginx.org/IfIsEvil
+   
+   commit 1ca83b055375ab7e72d383ffd0f36f70c07d9e92
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 25 13:56:39 2011 -0800
+   
+       examples/nginx: avoid unnecessary listen directive
+       
+       There's no need to use listen unless you use non-default port or
+       can enable "deferred" or "httpready" (which you usually want).
+   
+   commit fb1f33aecc7102fb5c10e27c65b9b27cf249415f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 25 13:42:53 2011 -0800
+   
+       KNOWN_ISSUES: split old stuff into its own section
+       
+       Ruby 1.9.1, Sinatra 0.3.x, and Rails 2.3.2 are not in
+       common use anymore (at least we don't think).
+   
+   commit 8ac0ae45a04f5f121f323c182403ef6eb0d8aa18
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 25 13:30:21 2011 -0800
+   
+       KNOWN_ISSUES: FreeBSD 8 and sendfile can be buggy
+       
+       Reported by Alexey Bondar.
+   
+   commit d770d09dfd9e5d7148379c58cdf9a020cbdc63b6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 21 12:28:39 2011 -0800
+   
+       git.bogomips.org => bogomips.org
+       
+       bogomips.org is slimming down and losing URL weight :)
+   
+   commit d385bc4f3ed7b783b7414f5d34299bd2bf242fe6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 21 04:01:01 2011 +0000
+   
+       exec_cgi: handle Status header in CGI response
+       
+       We no longer blindly return 200 if the CGI returned another error
+       code.  We also don't want two Status headers in our output since we
+       no longer filter it out.
+       (cherry picked from commit 6cca8e61c66c1c2a8ebe260813fa83e44530a768)
+   
+   commit 6cca8e61c66c1c2a8ebe260813fa83e44530a768
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 21 04:01:01 2011 +0000
+   
+       exec_cgi: handle Status header in CGI response
+       
+       We no longer blindly return 200 if the CGI returned another error
+       code.  We also don't want two Status headers in our output since we
+       no longer filter it out.
+   
+   commit c4d77de381c40cf315e6f84791e3fb634bc10675
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 21 04:01:02 2011 +0000
+   
+       exec_cgi: make output compatible with IO.copy_stream
+       
+       Rainbows! can then use this to bypass luserspace given
+       the correct offset is set before hand and the file
+       is unlinked.
+   
+   commit 4150a398a48b9bca96aa623380161229ac0f8622
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 19 19:10:25 2011 -0800
+   
+       configurator: undocument trust_x_forwarded_for
+       
+       This may not be supported in the future...
+   
+   commit ec400a537a0947796e108f3593721289661b49dc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 7 10:14:46 2011 -0800
+   
+       http_response: do not skip Status header set by app
+       
+       Rack::Lint already stops apps from using it.  If a developer
+       insists on it, then users who inspect their HTTP headers can
+       point and laugh at them for not using Rack::Lint!
+   
+   commit 5ebd22a9d28fc96c69c09b695d99c1f173ce5a67
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jan 6 15:46:56 2011 -0800
+   
+       unicorn 3.3.1 - one minor, esoteric bugfix
+       
+       We now close the client socket after closing the response body.
+       This does not affect most applications that run under Unicorn,
+       in fact, it may not affect any.
+       
+       There is also a new v1.1.6 release for users who do not use
+       kgio.
+   
+   commit 3587edb6e88ebe5c24cdde090ba8dd98de493d63
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jan 6 15:40:54 2011 -0800
+   
+       unicorn 1.1.6 - one minor, esoteric bugfix
+       
+       We now close the client socket after closing the response body.
+       This does not affect most applications that run under Unicorn,
+       in fact, it may not affect any.
+   
+   commit b7a0074284d33352bb9e732c660b29162f34bf0e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 5 23:05:05 2011 -0800
+   
+       close client socket after closing response body
+       
+       Response bodies may capture the block passed to each
+       and save it for body.close, so don't close the socket
+       before we have a chance to call body.close
+       
+       (cherry picked from commit b72a86f66c722d56a6d77ed1d2779ace6ad103ed)
+       
+       Conflicts:
+       
+       	lib/unicorn/http_server.rb
+       	test/unit/test_response.rb
+   
+   commit b72a86f66c722d56a6d77ed1d2779ace6ad103ed
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 5 22:39:03 2011 -0800
+   
+       close client socket after closing response body
+       
+       Response bodies may capture the block passed to each
+       and save it for body.close, so don't close the socket
+       before we have a chance to call body.close
+   
+   commit 1b69686fd28347eb5c071a9b76e2939bca424f04
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 5 15:26:17 2011 -0800
+   
+       unicorn 3.3.0 - minor optimizations
+       
+       Certain applications that already serve hundreds/thousands of requests a
+       second should experience performance improvements due to
+       Time.now.httpdate usage being removed and reimplemented in C.
+       
+       There are also minor internal changes and cleanups for Rainbows!
+   
+   commit 62c844e343978f233e4f2567fb344411c39e263c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 5 14:06:00 2011 -0800
+   
+       http_parser: add clear method, deprecate reset
+       
+       But allows small optimizations to be made to avoid
+       constant/instance variable lookups later :)
+   
+   commit bd397ee11b60243ef15c5558c4309e46e27e6192
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 5 11:41:36 2011 -0800
+   
+       http_response: simplify the status == 100 comparison
+       
+       No need to preserve the response tuplet if we're just
+       going to unpack it eventually.
+   
+   commit 062227e00f7ec589c3906a8bcd22dd7194268266
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 5 11:32:44 2011 -0800
+   
+       http_server: remove unnecessary 'nil'
+   
+   commit 3f5abce2b1c071f9aed4cdd0951331d7f037c4b1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jan 5 11:16:21 2011 -0800
+   
+       socket_helper: expose more defaults in DEFAULTS hash
+       
+       This will allow Rainbows! to set :tcp_nodelay=>true
+       and possibly other things in the future.
+   
+   commit d100025759450dd1cbeccd1a3e44c46921bba26b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 4 17:50:51 2011 -0800
+   
+       http_response: implement httpdate in C
+       
+       This can return a static string and be significantly
+       faster as it reduces object allocations and Ruby method
+       calls for the fastest websites that serve thousands of
+       requests a second.
+       
+       It assumes the Ruby runtime is single-threaded, but that
+       is the case of Ruby 1.8 and 1.9 and also what Unicorn
+       is all about.  This change is safe for Rainbows! under 1.8
+       and 1.9.
+   
+   commit 6183611108c571dbed29dfe2854b9f06757fd27f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 30 02:32:41 2010 +0000
+   
+       http_response: do not account for $, being set
+       
+       It's a minor garbage reduction, but nobody uses "$,", and
+       if they did, they'd break things in the Ruby standard library
+       as well as Rack, so let anybody who uses "$," shoot themselves
+       in the foot.
+   
+   commit 3a2634f3f68f6b8ea1aa7b2bb5944884bbfa8017
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 30 02:30:19 2010 +0000
+   
+       tests: test parser works with keepalive_requests=0
+       
+       We use this in Rainbows! to disable keepalive in certain
+       configurations.
+   
+   commit 2c57f59172c45a3ca52dbddfb3f12c1bc70cbfd6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Dec 29 16:45:13 2010 +0000
+   
+       http: remove unnecessary dir_config statement
+       
+       We do not link against any external libraries
+   
+   commit 2eb2c74aeb0da1d3f6f575ff8e05715e8c5ed85e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 08:10:35 2010 +0000
+   
+       Rakefile: fix fm_update task
+       
+       Oops!
+   
+   commit 6f7a3958c1544c1034ecf8b1ccfdd9dabd171fd2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 08:03:23 2010 +0000
+   
+       unicorn 3.2.1 - parser improvements for Rainbows!
+       
+       There are numerous improvements in the HTTP parser for
+       Rainbows!, none of which affect Unicorn-only users.
+       
+       The kgio dependency is incremented to 2.1: this should avoid
+       ENOSYS errors for folks building binaries on newer Linux
+       kernels and then deploying to older ones.
+       
+       There are also minor documentation improvements, the website
+       is now JavaScript-free!
+       
+       (Ignore the 3.2.0 release, I fat-fingered some packaging things)
+   
+   commit dece59f577d04f3735ccbeb190d26ce2c371d5f9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 07:58:38 2010 +0000
+   
+       gemspec: fix gemspec build
+       
+       Oops
+   
+   commit 03a43d9dc23c21f1c1a1baa2f29eab1157f4a076
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 07:44:54 2010 +0000
+   
+       unicorn 3.2.0 - parser improvements for Rainbows!
+       
+       There are numerous improvements in the HTTP parser for
+       Rainbows!, none of which affect Unicorn-only users.
+       
+       The kgio dependency is incremented to 2.1: this should avoid
+       ENOSYS errors for folks building binaries on newer Linux
+       kernels and then deploying to older ones.
+       
+       There are also minor documentation improvements, the website
+       is now JavaScript-free!
+   
+   commit 51f30bf454e82f33443fe4a7f2e0496103c5ec6f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 07:29:38 2010 +0000
+   
+       http_server: remove needless lambda
+       
+       We can just use a begin block at startup, this also makes life
+       easier on RDoc.
+   
+   commit 45f0220ab13ec67150b3226a83437356f141eefd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 07:21:34 2010 +0000
+   
+       http_response: remove TODO item
+       
+       An unconfigured Rainbows! (e.g. Rainbows! { use :Base }) already
+       does keepalive and supports only a single client per-process.
+   
+   commit 87b1cf4eef3d717d345d730f28ddaad319f2fb2f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 06:23:28 2010 +0000
+   
+       http: #keepalive? and #headers? work after #next?
+       
+       We need to preserve our internal flags and only clear them on
+       HttpParser#parse.  This allows the async concurrency models in
+       Rainbows! to work properly.
+   
+   commit c348223a045abb295b8c9d7dbf189264bc3a17c3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 03:38:13 2010 +0000
+   
+       bump kgio dependency to ~> 2.1
+       
+       The kgio 2.x series will maintain API compatibility
+       until 3.x, so it's safe to use any 2.x release.
+   
+   commit f970d87f9c0a4479a59685920a96c4d2fb2315e1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Dec 25 19:30:12 2010 +0000
+   
+       http: fix typo in xftrust unit test
+       
+       Oops
+   
+   commit f62ef19a4aa3d3e4ce1aa37a499907ff776a8964
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Dec 24 08:37:22 2010 +0000
+   
+       doc: use wrongdoc for documentation
+       
+       wrongdoc factors out a bunch of common code from this
+       project into its own and removes JavaScript from RDoc
+       to boot.
+   
+   commit 210e5cc3109af248d29f1d722076ff8ecd1fde2d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 23 18:10:00 2010 +0000
+   
+       TODO: remove item for TeeInput performance
+       
+       Disabling TeeInput is possible now, so the filesystem
+       is no longer a bottleneck :>
+   
+   commit 5ffaf7df44425766a60d632881a2debd83605b52
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 21 04:45:30 2010 +0000
+   
+       rdoc: include tag subject in NEWS file
+       
+       It's more useful this way
+   
+   commit 3a67490b10ca38d7d3d30c6917d75ce0e093706b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 21 01:58:32 2010 +0000
+   
+       rdoc: enable webcvs feature for cgit links
+       
+       Hopefully this gets more people reading our source.
+   
+   commit ee29a14cb383839cf5dcef6fe442558f46a1615b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 21 01:30:35 2010 +0000
+   
+       configurator: RDoc cleanups and improvements
+       
+       This is the most important part of Unicorn documentation
+       for end users.
+   
+   commit 1f5bac15cd8e4393c6da98eb7bb4532133dc6259
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 21 01:28:23 2010 +0000
+   
+       http: hook up "trust_x_forwarded" to configurator
+       
+       More config bloat, sadly this is necessary for Rainbows! :<
+   
+   commit bf64b9aa855cf3590a4d5b4eca853aef33ba90cc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 20 22:05:50 2010 +0000
+   
+       http: allow ignoring X-Forwarded-* for url_scheme
+       
+       Evil clients may be exposed to the Unicorn parser via
+       Rainbows!, so we'll allow people to turn off blindly
+       trusting certain X-Forwarded* headers for "rack.url_scheme"
+       and rely on middleware to handle it.
+   
+   commit 8be3668c11cf721960581e325b481c105e8f3c89
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 20 20:49:21 2010 +0000
+   
+       http: refactor finalize_header function
+       
+       rack.url_scheme handling and SERVER_{NAME,PORT} handling
+       each deserve their own functions.
+   
+   commit b740269f121167c4f93e3a0e155e05422f6e80ff
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 20 19:40:57 2010 +0000
+   
+       http: update setting of "https" for rack.url_scheme
+       
+       The first value of X-Forwarded-Proto in rack.url_scheme should
+       be used as it can be chained.  This header can be set multiple
+       times via different proxies in the chain, but consider the first
+       one to be valid.
+       
+       Additionally, respect X-Forwarded-SSL as it may be passed with
+       the "on" flag instead of X-Forwarded-Proto.
+       
+       ref: rack commit 85ca454e6143a3081d90e4546ccad602a4c3ad2e
+            and 35bb5ba6746b5d346de9202c004cc926039650c7
+   
+   commit 7ad59e0c48e12febae2a2fe86b76116c05977c6f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Dec 20 00:14:52 2010 +0000
+   
+       http: support keepalive_requests directive
+       
+       This limits the number of keepalive requests of a single
+       connection to prevent a single client from monopolizing server
+       resources.  On multi-process servers (e.g. Rainbows!) with many
+       keepalive clients per worker process, this can force a client to
+       reconnect and increase its chances of being accepted on a
+       less-busy worker process.
+       
+       This directive is named after the nginx directive which
+       is identical in function.
+   
+   commit 82ea9b442a9edaae6dc3b06a5c61035b2c2924c9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 19 18:47:23 2010 +0000
+   
+       http: delay clearing env on HttpParser#next?
+       
+       This allows apps/middlewares on Rainbows! that rely on env in
+       the response_body#close to hold onto the env.
+   
+   commit 39f264173717287eda70910e7a24fbafd21a4a7e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Dec 10 05:45:14 2010 +0800
+   
+       unicorn 3.1.0 - client_buffer_body_size tuning
+       
+       This release enables tuning the client_buffer_body_size to raise
+       or lower the threshold for buffering request bodies to disk.
+       This only applies to users who have not disabled rewindable
+       input.  There is also a TeeInput bugfix for uncommon usage
+       patterns and Configurator examples in the FAQ should be fixed
+   
+   commit 71716672752e573ff15002aaefd6e8ba8c6b6cb6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 9 03:39:03 2010 +0000
+   
+       allow client_buffer_body_size to be tuned
+       
+       Since modern machines have more memory these days and
+       clients are sending more data, avoiding potentially slow
+       filesystem operations for larger uploads can be useful
+       for some applications.
+   
+   commit 9d80b009a3cb795530ad23263f4eb525880e79dc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Dec 8 23:53:25 2010 +0000
+   
+       configurator: ensure examples in FAQ still work
+       
+       This has been broken since 2.0.x
+       Internal cleanups sometimes have unintended consequences :<
+   
+   commit 3b2fc62dadd3c90038c168849b33c4ca6df058da
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Dec 8 22:02:45 2010 +0000
+   
+       tee_input: fix accounting error on corked requests
+       
+       In case a request sends the header and buffer as one packet,
+       TeeInput relying on accounting info from StreamInput is harmful
+       as StreamInput will buffer in memory outside of TeeInput's
+       control.
+       
+       This bug is triggered by calling env["rack.input"].size or
+       env["rack.input"].rewind before to read.
+   
+   commit 52f55529293e466a77090691d1fe06a7933c74a1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Dec 3 00:31:15 2010 +0000
+   
+       unicorn 3.0.1 - one bugfix for Rainbows!
+       
+       ...and only Rainbows!  This release fixes HTTP pipelining for
+       requests with bodies for users of synchronous Rainbows!
+       concurrency models.
+       
+       Since Unicorn itself does not support keepalive nor pipelining,
+       Unicorn-only users need not upgrade.
+   
+   commit c32488dcc69181d2e10b82645ef87c8b8b88b8e1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 2 05:30:39 2010 +0000
+   
+       stream_input: avoid trailer parsing on unchunked requests
+       
+       It screws up keepalive for Rainbows! requests with a body.
+   
+   commit dee9e6432c8eb5269a19c4c6b66ab932fdeda34f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Nov 20 10:14:19 2010 +0800
+   
+       unicorn 3.0.0 - disable rewindable input!
+       
+       Rewindable "rack.input" may be disabled via the
+       "rewindable_input false" directive in the configuration file.
+       This will violate Rack::Lint for Rack 1.x applications, but can
+       reduce I/O for applications that do not need a rewindable
+       input.
+       
+       This release updates us to the Kgio 2.x series which should play
+       more nicely with other libraries and applications.  There are
+       also internal cleanups and improvements for future versions of
+       Rainbows!
+       
+       The Unicorn 3.x series supercedes the 2.x series
+       while the 1.x series will remain supported indefinitely.
+   
+   commit ad268cea66c2b91538dd60fc7f945348bb24214d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Nov 20 08:07:12 2010 +0800
+   
+       tests: stream_input tests for mixed gets/read calls
+       
+       Some apps may do them, so make sure we do them correctly.
+   
+   commit cd315e5a20b17d29679fb22b4e2ab44cd6d0edeb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Nov 20 07:45:57 2010 +0800
+   
+       stream_input: use String#sub! instead of gsub!
+       
+       There's no difference because of the \A anchor, but sub!
+       is doesn't loop so it's simpler.
+   
+   commit 5bc239fd154a7eaebeb024394f8e0b507bbf4c5a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Nov 19 20:51:57 2010 +0000
+   
+       stream_input: small cleanups and fixes
+       
+       No need to accept any number of args, that could hide bugs in
+       applications that could give three or more arguments.  We also
+       raise ArgumentError when given a negative length argument to
+       read.
+   
+   commit d12e10ea88c7adeb97094e4b835201e4c2ce52ab
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Nov 19 01:55:07 2010 +0000
+   
+       tests: isolate kgio 2.0.0 instead of the prerelease
+       
+       Same thing, but might as well make it more obvious.
+   
+   commit 507f228864574437e610e57d20d3b77c1e6d0e41
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Nov 19 08:04:14 2010 +0800
+   
+       unicorn 3.0.0pre2 - less bad than 2.x or 3.0.0pre1!
+       
+       This release updates us to the Kgio 2.x series which should play
+       more nicely with other applications.  There are also bugfixes
+       from the 2.0.1 release and a small bugfix to the new StreamInput
+       class.
+       
+       The Unicorn 3.x series will supercede the 2.x series
+       while the 1.x series will remain supported indefinitely.
+   
+   commit 238c98ec4c353bb14671ab543c21baa068b7e3f2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Nov 19 08:02:45 2010 +0800
+   
+       update to kgio 2.x series
+       
+       The Kgio 2.x API is less brain-damaged than the 1.3.x series
+       was, and should solve API-compatibility problems with
+       dalli 0.11.1.
+   
+   commit 86d2a22ffdc4bf9f16e1870f9db9a2ff84760c7c
+   Merge: eda4086 268c2ec
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 07:48:12 2010 +0800
+   
+       Merge branch '2.0.x-stable'
+       
+       * 2.0.x-stable:
+         unicorn 2.0.1 - fix errors in error handling
+         tests: add parser error test from Rainbows!
+         http_server: fix HttpParserError constant resolution
+         t0012: fix race condition in reload
+   
+   commit 268c2ec5fef2630b0626b848be9d6ec46d360ddb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 07:42:40 2010 +0800
+   
+       unicorn 2.0.1 - fix errors in error handling
+       
+       This release fixes errors in our own error handling,
+       causing certain errors to not be logged nor responded
+       to correctly.
+       
+       Eric Wong (3):
+             t0012: fix race condition in reload
+             http_server: fix HttpParserError constant resolution
+             tests: add parser error test from Rainbows!
+   
+   commit 859593b418db7e5fd93295a7a8b15de56cc4f6dd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 07:44:47 2010 +0800
+   
+       tests: add parser error test from Rainbows!
+       
+       This will help ensure we trap our own errors properly
+       in the future.
+       (cherry picked from commit eda408603edc51f10f17217c767b31a45eb6c627)
+   
+   commit eda408603edc51f10f17217c767b31a45eb6c627
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 07:44:47 2010 +0800
+   
+       tests: add parser error test from Rainbows!
+       
+       This will help ensure we trap our own errors properly
+       in the future.
+   
+   commit 3362dc51934c15fd944748e55ba4a470cc60d27d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 07:36:27 2010 +0800
+   
+       stream_input: read with zero length returns ''
+       
+       Any calls to read with an explicit zero length now returns an
+       empty string.  While not explicitly specified by Rack::Lint,
+       this is for compatibility with StringIO and IO methods which
+       are common in other web servers.
+   
+   commit a6d96b61c2d81af077d55f43121c8472aa095447
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Nov 17 11:20:02 2010 -0800
+   
+       http_server: fix HttpParserError constant resolution
+       
+       "Unicorn" is no longer in the default constant resolution
+       namespace.
+       (cherry picked from commit 390e351dd1283d4c80a12b744b1327fff091a141)
+   
+   commit 390e351dd1283d4c80a12b744b1327fff091a141
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Nov 17 11:20:02 2010 -0800
+   
+       http_server: fix HttpParserError constant resolution
+       
+       "Unicorn" is no longer in the default constant resolution
+       namespace.
+   
+   commit 01ae51fa5fda40a63277b0d1189925fb209c75a9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 02:48:41 2010 +0800
+   
+       add missing test files
+       
+       oops :x
+   
+   commit 958c1f81a2c570f4027d8fe2dd4f5c40ac7ed430
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 16 16:00:07 2010 -0800
+   
+       unicorn 3.0.0pre1
+       
+       Rewindable "rack.input" may be disabled via the
+       "rewindable_input false" directive in the configuration file.
+       This will violate Rack::Lint for Rack 1.x applications, but
+       can reduce I/O for applications that do not need it.
+       
+       There are also internal cleanups and enhancements for future
+       versions of Rainbows!
+       
+       Eric Wong (11):
+             t0012: fix race condition in reload
+             enable HTTP keepalive support for all methods
+             http_parser: add HttpParser#next? method
+             tee_input: switch to simpler API for parsing trailers
+             switch versions to 3.0.0pre
+             add stream_input class and build tee_input on it
+             configurator: enable "rewindable_input" directive
+             http_parser: ensure keepalive is disabled when reset
+             *_input: make life easier for subclasses/modules
+             tee_input: restore read position after #size
+             preread_input: no-op for non-rewindable "rack.input"
+   
+   commit 431de671a29b312bd19e615bd4bd99228b0c8b13
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 16 13:51:24 2010 -0800
+   
+       preread_input: no-op for non-rewindable "rack.input"
+       
+       We may get "rack.input" objects that are not rewindable
+       in the future, so be prepared for those and do no harm.
+   
+   commit d41e5364bde413e195df8803845f7232718325a6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 28 09:03:21 2010 +0000
+   
+       t0012: fix race condition in reload
+       
+       We need to ensure the old worker is reaped before sending
+       new requests intended for the new worker.
+       (cherry picked from commit b45bf946545496cf8d69037113533d7a58ce7e20)
+   
+   commit 17a734a9f6ccea8c969a574f09b5d8dd3d568a9c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Nov 13 16:41:10 2010 +0800
+   
+       tee_input: restore read position after #size
+       
+       It's possible for an application to call size after it has read
+       a few bytes/lines, so do not screw up a user's read offset when
+       consuming input.
+   
+   commit 855c02a9720a17854a2f1c715efbe502cdba54e2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Nov 12 10:59:14 2010 +0800
+   
+       *_input: make life easier for subclasses/modules
+       
+       Avoid having specific knowledge of internals in TeeInput
+       and instead move that to StreamInput when dealing with
+       byte counts.  This makes things easier for Rainbows! which
+       will need to extends these classes.
+   
+   commit 3b544fb2c0e4a1e14a7bcb752a8af9819b5aaeb2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 11 07:31:01 2010 +0800
+   
+       http_parser: ensure keepalive is disabled when reset
+       
+       We'll need this in Rainbows!
+   
+   commit a89ccf321224f3248ddd00bb0edb320311604e4e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 11 02:16:50 2010 +0800
+   
+       configurator: enable "rewindable_input" directive
+       
+       This allows users to override the current Rack spec and disable
+       the rewindable input requirement.  This can allow applications
+       to use less I/O to minimize the performance impact when
+       processing uploads.
+   
+   commit 7d44b5384758aeddcb49d7606a9908308df7c698
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 11 01:13:12 2010 +0800
+   
+       add stream_input class and build tee_input on it
+       
+       We will eventually expose a Unicorn::StreamInput object as
+       "rack.input" for Rack 2.x applications.  StreamInput allows
+       applications to avoid buffering input to disk, removing the
+       (potentially expensive) rewindability requirement of Rack 1.x.
+       
+       TeeInput is also rewritten to build off StreamInput for
+       simplicity.  The only regression is that TeeInput#rewind forces
+       us to consume an unconsumed stream before returning, a
+       negligible price to pay for decreased complexity.
+   
+   commit 1493af7cc23afecc8592ce44f5226476afccd212
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 11 07:17:19 2010 +0800
+   
+       switch versions to 3.0.0pre
+       
+       Here are major, incompatible internal API changes.
+   
+   commit 8edcc3f9e1be9113685e61b9a83994a02d37c768
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Nov 7 10:21:43 2010 +0800
+   
+       tee_input: switch to simpler API for parsing trailers
+       
+       Not that anybody uses trailers extensively, but it's
+       good to know it's there.
+   
+   commit 60a9ec94f1f738f881e67f0a881c44c104f07c04
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Nov 6 10:30:44 2010 +0800
+   
+       http_parser: add HttpParser#next? method
+       
+       An easy combination of the existing HttpParser#keepalive? and
+       HttpParser#reset methods, this makes it easier to implement
+       persistence.
+   
+   commit 7987e1a4001491f8a494f3926037f8cbee713263
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Sep 3 01:48:24 2010 +0000
+   
+       enable HTTP keepalive support for all methods
+       
+       Yes, this means even POST/PUT bodies may be kept alive,
+       but only if the body (and trailers) are fully-consumed.
+   
+   commit b45bf946545496cf8d69037113533d7a58ce7e20
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 28 09:03:21 2010 +0000
+   
+       t0012: fix race condition in reload
+       
+       We need to ensure the old worker is reaped before sending
+       new requests intended for the new worker.
+   
+   commit 5ffc1f81c3f56d17ff3369f7514e978754840c29
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:32:24 2010 +0000
+   
+       unicorn 2.0.0 - mostly internal cleanups
+       
+       Despite the version number, this release mostly features
+       internal cleanups for future versions of Rainbows!.  User
+       visible changes include reductions in CPU wakeups on idle sites
+       using high timeouts.
+       
+       Barring possible portability issues due to the introduction of
+       the kgio library, this release should be ready for all to use.
+       However, 1.1.x (and possibly 1.0.x) will continue to be
+       maintained.  Unicorn 1.1.5 and 1.0.2 have also been released
+       with bugfixes found during development of 2.0.0.
+   
+   commit a3b08e9411f1d958e2264329c67972541424ac35
+   Merge: 0692e8c 7f3ebe9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:31:41 2010 +0000
+   
+       Merge branch '1.1.x-stable'
+       
+       * 1.1.x-stable:
+         unicorn 1.1.5
+         doc: stop using deprecated rdoc CLI options
+         gemspec: depend on Isolate 3.0.0 for dev
+         configurator: reloading with unset values restores default
+         configurator: use "__send__" instead of "send"
+         Rakefile: capture prerelease tags
+         Rakefile: don't post freshmeat on empty changelogs
+         fix delays in signal handling
+   
+   commit 0692e8cb10dd27275f2de794ed6eba62e9918431
+   Merge: 4d493d8 ea975cc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:31:38 2010 +0000
+   
+       Merge branch 'maint'
+       
+       * maint:
+         unicorn 1.0.2
+         doc: stop using deprecated rdoc CLI options
+         gemspec: depend on Isolate 3.0.0 for dev
+         configurator: reloading with unset values restores default
+         configurator: use "__send__" instead of "send"
+         Rakefile: capture prerelease tags
+         Rakefile: don't post freshmeat on empty changelogs
+         fix delays in signal handling
+         SIGTTIN works after SIGWINCH
+   
+   commit 4d493d8ad203d7f13ac56b7d6ba2b3aaa481cbd2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 16:26:28 2010 -0700
+   
+       examples/unicorn.conf: add a note about throttling signals
+       
+       Sending the same signal faster than the receiver can process
+       means signals can get lost.
+   
+   commit ea975cc3e6d2e6ac9c971c8cbda712486ec63c2a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:11:09 2010 +0000
+   
+       unicorn 1.0.2
+       
+       This is the latest maintenance release of the 1.0.x series.
+       All users are encouraged to upgrade to 1.1.x stable series
+       and report bugs there.
+       
+       Shortlog of changes since 1.0.1:
+       
+       Eric Wong (8):
+             SIGTTIN works after SIGWINCH
+             fix delays in signal handling
+             Rakefile: don't post freshmeat on empty changelogs
+             Rakefile: capture prerelease tags
+             configurator: use "__send__" instead of "send"
+             configurator: reloading with unset values restores default
+             gemspec: depend on Isolate 3.0.0 for dev
+             doc: stop using deprecated rdoc CLI options
+   
+   commit 856959cc0b2dbc96f115d26672d0f5b73ae79914
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:07:42 2010 +0000
+   
+       doc: stop using deprecated rdoc CLI options
+       
+       -N and -a switches no longer exist in rdoc 2.5
+       (cherry picked from commit 054c7df93db61839648925cfd881ae880709a210)
+   
+   commit 04f0f44f9bd0907fcff1e2cdc59f7e84d4110539
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:08:51 2010 +0000
+   
+       gemspec: depend on Isolate 3.0.0 for dev
+       
+       No reason to not use the latest and greatest!
+       (cherry picked from commit 570a57c07fd8c3d24b7337637e0dd30136b3a11a)
+       
+       Conflicts:
+       
+       	unicorn.gemspec
+   
+   commit 054c7df93db61839648925cfd881ae880709a210
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:07:42 2010 +0000
+   
+       doc: stop using deprecated rdoc CLI options
+       
+       -N and -a switches no longer exist in rdoc 2.5
+   
+   commit 570a57c07fd8c3d24b7337637e0dd30136b3a11a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 23:06:45 2010 +0000
+   
+       gemspec: depend on Isolate 3.0.0 for dev
+       
+       No reason to not use the latest and greatest!
+   
+   commit 2dd4a89d5726e13b962c1e287d84a6c30f5dd46c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 13:51:12 2010 -0700
+   
+       configurator: reloading with unset values restores default
+       
+       If a configuration directive is set at startup and later
+       unset, it correctly restores the original default value
+       as if it had never been set in the first place.
+       
+       This applies to the majority of the configuration values with
+       a few exceptions:
+       
+       * This only applies to stderr_path and stdout_path when
+         daemonized (the usual case, they'll be redirected to
+         "/dev/null").  When NOT daemonized, we cannot easily redirect
+         back to the original stdout/stderr destinations.
+       
+       * Unsetting working_directory does not restore the
+         original working directory where Unicorn was started.
+         As far as we can tell unsetting this after setting it is
+         rarely desirable and greatly increases the probability of
+         user error.
+       (cherry picked from commit 51b2b90284000aee8d79b37a5406173c45ae212d)
+   
+   commit 5e672c48d8a3555e4a01f653fb2e0b3556087737
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 12:46:46 2010 -0700
+   
+       configurator: use "__send__" instead of "send"
+       
+       It's less ambiguous since this is a network server after all.
+       (cherry picked from commit f62c5850d7d17d7b5e301a494f8bdf5be3674411)
+   
+   commit 51b2b90284000aee8d79b37a5406173c45ae212d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 13:51:12 2010 -0700
+   
+       configurator: reloading with unset values restores default
+       
+       If a configuration directive is set at startup and later
+       unset, it correctly restores the original default value
+       as if it had never been set in the first place.
+       
+       This applies to the majority of the configuration values with
+       a few exceptions:
+       
+       * This only applies to stderr_path and stdout_path when
+         daemonized (the usual case, they'll be redirected to
+         "/dev/null").  When NOT daemonized, we cannot easily redirect
+         back to the original stdout/stderr destinations.
+       
+       * Unsetting working_directory does not restore the
+         original working directory where Unicorn was started.
+         As far as we can tell unsetting this after setting it is
+         rarely desirable and greatly increases the probability of
+         user error.
+   
+   commit f62c5850d7d17d7b5e301a494f8bdf5be3674411
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 12:46:46 2010 -0700
+   
+       configurator: use "__send__" instead of "send"
+       
+       It's less ambiguous since this is a network server after all.
+   
+   commit 928a88d5419210380078a2e141cb64d308719295
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 6 01:27:45 2010 +0000
+   
+       Rakefile: capture prerelease tags
+       
+       Since we do those, now.
+       (cherry picked from commit 1d1a2b1bd5bdd89f774f19bf8ad24c2f5f8a2d4c)
+   
+   commit 74dec350d93b88c0a5bd792239671097901e2393
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 19:32:55 2010 +0000
+   
+       Rakefile: don't post freshmeat on empty changelogs
+       
+       We don't want to flood or monopolize freshmeat.
+       (cherry picked from commit 1ad510d645e0c84c8d352ac0deaeefa75240ea94)
+   
+   commit c7feb7e10a937df2dc72f53aa6cc1ebda4c1cd3b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 12:43:14 2010 -0700
+   
+       configurator: switch to normal class
+       
+       No point in using a Struct for (1.8) space-efficiency
+       if there's only one of them.
+   
+   commit 10037f2aabb3fab4296fc90c615e7caa9f4a9b53
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 01:44:33 2010 +0000
+   
+       fix delays in signal handling
+       
+       There is no need to loop in the master_sleep method at all, as
+       the rest of the code is designed to function even on interrupted
+       sleeps.
+       
+       This change is included as part of a larger cleanup in master.
+       (commit bdc79712e5ac53d39c51e80dfe50aff950e5053f)
+   
+   commit 514af94321ef0fab74894e517792c4a9709d76f5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 27 00:36:25 2010 +0000
+   
+       reduce master process wakeups
+       
+       To reduce CPU wakeups and save power during off hours,
+       we can precalculate a safe amount to sleep before killing
+       off idle workers.
+   
+   commit 7ef05ec23b06f06e9d4bb1cf45d1907b4eeacb80
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 26 23:19:09 2010 +0000
+   
+       master: remove limit on queued signals
+       
+       If a moronic sysadmin is sending too many signals, just let them
+       do it.  It's likely something is terribly wrong when the server
+       is overloaded with signals, so don't try to protect users from
+       it.  This will also help in case where TTOU signals are sent too
+       quickly during shutdown, although sleeping between kill(2)
+       syscalls is always a good idea because of how non-real-time
+       signals are delivered.
+   
+   commit 2243c97edf80d635871bc678794f07d6c1d033c2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Oct 9 00:03:43 2010 +0000
+   
+       unicorn 2.0.0pre3 - more small fixes
+       
+       There is a new Unicorn::PrereadInput middleware to which allows
+       input bodies to be drained off the socket and buffered to disk
+       (or memory) before dispatching the application.
+       
+       HTTP Pipelining behavior is fixed for Rainbows!  There
+       are some small Kgio fixes and updates for Rainbows!
+       users as well.
+   
+   commit 6eb46e422f4b2ba98c795fca5e18e7262c0c688e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Oct 8 23:44:23 2010 +0000
+   
+       add PrereadInput middleware to get around TeeInput
+       
+       This may be useful for some apps that wish to drain the body
+       before acquiring an app-wide lock.  Maybe it's more useful
+       with Rainbows!...
+   
+   commit 9be78606355d4a0ad4ea59316ab2ce998c5b9a12
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Oct 8 22:58:59 2010 +0000
+   
+       bump kgio dependency
+       
+       kgio 1.3.1 fixes some cases for zero-length reads.
+   
+   commit f20274e84169e18a73a5cd341b6bc31b625b83ce
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Oct 8 08:49:22 2010 +0000
+   
+       build: automatically call isolate on updates
+       
+       Automation is nice, the makefile needs some cleanup
+   
+   commit 861481436b933bf4b8d647c43191c701651f16e4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Oct 8 01:34:37 2010 -0700
+   
+       bump kgio dependency to 1.3.0
+       
+       There was a backwards-incompatible API change,
+       but that didn't even affect us.
+   
+   commit c9950692f44bd91af089794664dc56a446668004
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 7 18:42:15 2010 -0700
+   
+       gemspec: bump kgio version
+       
+       kgio 1.2.1 works around a bug for some *BSDs, some of which are
+       popular platforms for developers.
+   
+   commit e99178ef89eca9e46b73484aaf9733259dac9dca
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 7 08:12:36 2010 +0000
+   
+       http: fix behavior with pipelined requests
+       
+       We cannot clear the buffer between requests because
+       clients may send multiple requests that get taken in
+       one read()/recv() call.
+   
+   commit eb5ba488422020568e5ccf650891d7fccce7238f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 7 07:22:58 2010 +0000
+   
+       unicorn 2.0.0pre2 - releases are cheap
+       
+       Internal changes/cleanups for Rainbows!
+   
+   commit 4c48b520786807487f7f76d709b0dbcee63c4d0c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 7 06:59:05 2010 +0000
+   
+       http: remove unnecessary rb_str_update() calls
+       
+       Rubinius no longer uses it, and it conflicts with a public
+       method in MRI.
+   
+   commit 8daf254356241c135ad2c843de567910528a10a7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 7 06:55:22 2010 +0000
+   
+       start using more compact parser API
+       
+       This should be easier for Rainbows! to use
+   
+   commit 090f56bb79a8ec734719d9be90daa3cd01d29871
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 7 06:33:03 2010 +0000
+   
+       http_server: avoid method redefinition warnings
+       
+       We clobber the accessor methods.
+   
+   commit 5df8f15c32420c03b2e763a649e6d829ede52113
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Oct 7 05:32:38 2010 +0000
+   
+       http: allow this to be used as a request object
+       
+       The parser and request object become one and the
+       same, since the parser lives for the lifetime
+       of the request.
+   
+   commit 629107d749748f661ddb73f146ab35836874cc9e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 6 17:16:49 2010 -0700
+   
+       bin/unicorn: show "RACK_ENV" in --help
+       
+       It's more descriptive as to what environment we're setting
+       than "ENVIRONMENT".
+   
+   commit 1d1a2b1bd5bdd89f774f19bf8ad24c2f5f8a2d4c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 6 01:27:45 2010 +0000
+   
+       Raiefile: capture prerelease tags
+       
+       Since we do those, now.
+   
+   commit cb48b1bc7231db7f53bec6e88e696dc53153750d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 6 01:08:36 2010 +0000
+   
+       unicorn 2.0.0pre1 - a boring "major" release
+       
+       Mostly internal cleanups for future versions of Rainbows! and
+       people trying out Rubinius.  There are tiny performance
+       improvements for Ruby 1.9.2 users which may only be noticeable
+       with Rainbows!
+       
+       Unicorn 1.1.x users are NOT required to upgrade.
+   
+   commit 4c59a4861bf3f8d25335696c1f8cbce3cd5db902
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 6 01:07:49 2010 +0000
+   
+       gemspec: depend on newer isolate
+       
+       We use the latest and greatest whenever possible.
+   
+   commit cb233696be73873f6f8c367f4b977ade1815b265
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 23:59:45 2010 +0000
+   
+       various cleanups and reduce indentation
+       
+       This also affects some constant scoping rules, but hopefully
+       makes things easier to follow.  Accessing ivars (not via
+       accessor methods) are also slightly faster, so use them in
+       the criticial process_client code path.
+   
+   commit d4c898a4adc6cb6c3a20a648ae6b9b6a226066a6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 23:34:39 2010 +0000
+   
+       upgrade to kgio 1.2.0
+       
+       This provides the kgio_read! method which is like readpartial,
+       only significantly cheaper when a client disconnects on us.
+   
+   commit 80f9987581014d694b8eb67bba0d5c408b7d0f98
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 23:34:19 2010 +0000
+   
+       GNUmakefile: fix isolate invocation
+       
+       again :x
+   
+   commit fd6b47cf1690cb45f2144cd92e0fe1f301c7c37b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 22:09:20 2010 +0000
+   
+       tee_input: use kgio to avoid stack traces on EOF
+       
+       TeeInput methods may be invoked deep in the stack, so
+       avoid giving them more work to do if a client disconnects
+       due to a bad upload.
+   
+   commit 350e8fa3a94838bcc936782315b3472615fe6517
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 22:01:19 2010 +0000
+   
+       http: raise empty backtrace for HttpParserError
+       
+       It's expensive to generate a backtrace and this exception
+       is only triggered by bad clients.  So make it harder for
+       them to DoS us by sending bad requests.
+   
+   commit c2975b85b9378797631d3ab133cac371f9fadf54
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 21:38:47 2010 +0000
+   
+       tests: do not invoke isolate in test install dest
+       
+       We don't want to waste time and bandwidth.
+   
+   commit ec1315c9e9175d755dfd7b4acb8398fa7c7a924e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 21:29:51 2010 +0000
+   
+       test_tee_input: use a socketpair()
+       
+       It's a much closer representation of what we'd expect in
+       the real server than a mono-directional UNIX pipe.
+   
+   commit c639eef6b9c8d793c7f72fa5ac03adb5cf4d1e14
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 19:22:09 2010 +0000
+   
+       test_signals: enable test under Rubinius
+       
+       The bugs from signal handling were fixed in the Rubinius
+       1.1.0 release.
+   
+   commit 72dee9e4a8234af762b058a38132268d202c17bf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 19:20:39 2010 +0000
+   
+       tmpio: use super instead of an explicit method
+       
+       This is for compatibility with Ruby implementations such as
+       Rubinius that use "IO.new" internally inside "IO.open"
+   
+   commit 7ca92025ececb4b71ec4420e03d5725f13c39cc4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 18:48:53 2010 +0000
+   
+       update comment about non-blocking accept()
+       
+       Thanks to kgio, we no longer use accept_nonblock.
+   
+   commit fc820598da30509269ec84eeca598085ca296e38
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 08:00:34 2010 +0000
+   
+       util: uindent use less ambiguous constant scoping
+       
+       This hopefully makes things easier to read and follow.
+   
+   commit 3d147e9bcd8f99c94900a00181692c2a09c3c3c9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 07:54:13 2010 +0000
+   
+       Unicorn::Util.tmpio => Unicorn::TmpIO.new
+       
+       This is slightly shorter and hopefully easier to find.
+   
+   commit e184b9d0fb45b31d80645475e22f0bbbecd195f9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 01:27:00 2010 +0000
+   
+       doc: update TODO
+       
+       This gives us some things to think about.
+   
+   commit 29946368c45dce5da116adb426362ee93c507c4e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Oct 5 00:13:02 2010 +0000
+   
+       start using kgio, the kinder, gentler I/O library
+       
+       This should hopefully make the non-blocking accept()
+       situation more tolerable under Ruby 1.9.2.
+   
+   commit 9ef6b6f551a34922cfd831e2521495e89afe2f94
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Oct 4 23:55:31 2010 +0000
+   
+       split out isolate usage/logic
+       
+       We'll be using more of Isolate in development.
+   
+   commit 018a9deff4bd9273e053f369d746256e5b3ac99b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Oct 4 21:06:41 2010 +0000
+   
+       http_request: reformat and small reorg
+       
+       This hides more HTTP request logic inside our object.
+   
+   commit dfc5f5a5e4aec4578b79de68c91906da75472a5a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Sep 29 23:57:57 2010 -0700
+   
+       tee_input: update interface to use HttpRequest
+       
+       This should ensure we have less typing to do.
+   
+   commit fe94d80cb37ee441762ad2a8f5c25092f8eb57a8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 27 22:39:02 2010 -0700
+   
+       http_request: avoid globals
+       
+       Rainbows! will be able to reuse this.
+   
+   commit 5b6a97ff54d029d433b79eee1549e6f99464c48b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 27 21:45:33 2010 +0000
+   
+       split out worker to a separate file
+       
+       This hopefully makes things easier to read, follow, and find
+       since it's mostly documentation...
+   
+   commit 50c11036dd4898ccfed8b3e0552e88c67b6c63a9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 27 20:29:55 2010 +0000
+   
+       http_response: avoid singleton method
+       
+       There's no need for a response class or object since Rack just
+       uses an array as the response.  So use a procedural style which
+       allows for easier understanding.
+       
+       We shall also support keepalive/pipelining in the future, too.
+   
+   commit 7a3efe8a03f85c1f2957130986c24ef7931ff44a
+   Merge: 1a2363b 6151686
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Oct 4 20:34:29 2010 +0000
+   
+       Merge commit 'v1.1.4'
+       
+       * commit 'v1.1.4':
+         unicorn 1.1.4 - small bug fix and doc updates
+         update Rails 3 tests to use Rails 3 final
+         avoid unlinking actively listening sockets
+         doc: update HACKING for documentation contributions
+         doc: update Sandbox document for Bundler
+         TUNING: more on socket buffer sizes
+   
+   commit 1a2363b17b1d06be6b35d347ebcaed6a0c940200
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Oct 4 04:17:31 2010 +0000
+   
+       avoid unlinking actively listening sockets
+       
+       While we've always unlinked dead sockets from nuked/leftover
+       processes, blindly unlinking them can cause unnecessary failures
+       when an active process is already listening on them.  We now
+       make a simple connect(2) check to ensure the socket is not in
+       use before unlinking it.
+       
+       Thanks to Jordan Ritter for the detailed bug report leading to
+       this fix.
+       
+       ref: http://mid.gmane.org/8D95A44B-A098-43BE-B532-7D74BD957F31@darkridge.com
+   
+   commit 505a9e72d320fe3ae521ceb0f381c1c0f5ae4389
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Sep 15 14:57:27 2010 -0700
+   
+       doc: update HACKING for documentation contributions
+       
+       We switched to RDoc 2.5.x long ago and this should clarify
+       some documentation preferences I have.
+   
+   commit 1a75966a5d1a1f6307ed3386e2f91a28bbb72ca0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Sep 15 14:42:54 2010 -0700
+   
+       doc: update Sandbox document for Bundler
+       
+       Thanks to Lawrence Pit, Jamie Wilkinson, and Eirik Dentz Sinclair.
+       
+       ref: mid.gmane.org/4C8986DA.7090603@gmail.com
+       ref: mid.gmane.org/5F1A02DB-CBDA-4302-9E26-8050C2D72433@efficiency20.com
+   
+   commit f9a7a19a361fd674bab4e2df7e0897015528bba7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 30 23:25:59 2010 -0700
+   
+       TUNING: more on socket buffer sizes
+       
+       Large buffers can hurt as well as help.  And the difference
+       in real apps that do a lot of things other than I/O often
+       makes it not worth it.
+   
+   commit da272fc48ffaa808456fe94dd7a3e01bc9799832
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 30 08:11:44 2010 +0000
+   
+       update Rails 3 tests to use Rails 3 final
+       
+       Rails 3 is out, and requires no code changes on our end to work
+       (as far as our tests show :)
+   
+   commit 0aaa0afa49a2953b7c26c1596a284621e23d5fc4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 30 07:59:01 2010 +0000
+   
+       remove nasty ugly hacks at startup
+       
+       These nasty hacks were breaking Rubinius compatibility.
+       This can be further cleaned up, too.
+   
+   commit f3e1653b900596e054297675becd01d9985ad482
+   Merge: feab35f d634b06
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Aug 29 23:38:13 2010 +0000
+   
+       Merge branch '1.1.x-stable'
+       
+       * 1.1.x-stable:
+         unicorn 1.1.3 - small bug fixes
+         make log reopens even more robust in threaded apps
+         update Rails3 tests to use 3.0.0rc2
+         make log reopens more robust in multithreaded apps
+         bin/*: more consistent --help output
+         SIGTTIN works after SIGWINCH
+   
+   commit feab35fe531843066db3418598874cf9f9419614
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Aug 28 18:52:48 2010 +0000
+   
+       make log reopens even more robust in threaded apps
+       
+       A follow-up to 4b23693b9082a84433a9e6c1f358b58420176b27
+       
+       If multithreaded programming can be compared to juggling
+       chainsaws, then multithreaded programming with signal handlers
+       in play is akin to juggling chainsaws on a tightrope
+       over shark-infested waters.
+   
+   commit 18968f6aff2fa5ba5a7e3e3d47c9cc05cd6c260d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Aug 28 07:07:14 2010 +0000
+   
+       update Rails3 tests to use 3.0.0rc2
+       
+       No code changes needed, thankfully.
+   
+   commit 4b23693b9082a84433a9e6c1f358b58420176b27
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Aug 28 05:30:46 2010 +0000
+   
+       make log reopens more robust in multithreaded apps
+       
+       IOError may occur due to race conditions as another thread
+       may close the file immediately after we call File#closed?
+       to check.
+       
+       Errno::EBADF may occur in some applications that close a file
+       descriptor without notifying Ruby (or if two IO objects refer to
+       the same descriptor, possibly one of them using IO#for_fd).
+   
+   commit 096afc1a8e958cc09b4ce8b3bfe76ce056c7ed69
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 24 06:21:00 2010 +0000
+   
+       bin/*: more consistent --help output
+       
+       This fixes a long-standing bug in the output of "unicorn_rails"
+       where the program name was missing.
+   
+   commit bdc79712e5ac53d39c51e80dfe50aff950e5053f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Aug 7 03:27:50 2010 +0000
+   
+       miscellaneous loop and begin cleanups
+       
+       These are minor changes to remove unnecessary loop nesting and
+       begin usage to reduce our code size and hopefully simplify
+       flow for readers.
+   
+   commit e4d0b226391948ef433f1d0135814315e4c48535
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Aug 7 04:25:51 2010 +0000
+   
+       log ERROR messages if workers exit with failure
+       
+       Something is wrong if workers exit with a non-zero status,
+       so we'll increase the log level to help prevent people
+       from missing it.
+   
+   commit f1d33c80dd6c5650f960f7087f4e08f809754d34
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jul 16 08:25:32 2010 +0000
+   
+       SIGTTIN works after SIGWINCH
+       
+       In addition to SIGHUP, it should be possible to gradually bring
+       workers back up (to avoid overloading the machine) when rolling
+       back upgrades after SIGWINCH.
+       
+       Noticed-by: Lawrence Pit
+       ref: http://mid.gmane.org/4C3F8C9F.2090903@gmail.com
+   
+   commit 5a0506c2affd2f5abe6e7315121e67aa3e32b253
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jul 16 08:25:32 2010 +0000
+   
+       SIGTTIN works after SIGWINCH
+       
+       In addition to SIGHUP, it should be possible to gradually bring
+       workers back up (to avoid overloading the machine) when rolling
+       back upgrades after SIGWINCH.
+       
+       Noticed-by: Lawrence Pit
+       ref: http://mid.gmane.org/4C3F8C9F.2090903@gmail.com
+       (cherry picked from commit e75ee7615f9875db314a6403964e7b69a68b0521)
+   
+   commit 78ba3899eb24d6893e34984b9f1c479c7e6c9be3
+   Merge: c13bec3 d1818d2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 13 13:04:53 2010 -0700
+   
+       Merge branch '1.1.x-stable'
+       
+       * 1.1.x-stable: (27 commits)
+         unicorn 1.1.2 - fixing upgrade rollbacks
+         unicorn 1.0.1 - bugfixes only
+         SIGHUP deals w/ dual master pid path scenario
+         launcher: do not re-daemonize when USR2 upgrading
+         SIGHUP deals w/ dual master pid path scenario
+         launcher: do not re-daemonize when USR2 upgrading
+         unicorn 1.1.1 - fixing cleanups gone bad :x
+         tee_input: fix constant resolution for client EOF
+         unicorn 1.1.0 - small changes and cleanups
+         cleanup "stringio" require
+         tee_input: safer record separator ($/) handling
+         prefer "[]" to "first"/"last" where possible
+         tee_input: safer record separator ($/) handling
+         socket_helper: disable documentation
+         socket_helper: cleanup FreeBSD accf_* detection
+         socket_helper: no reason to check for logger method
+         configurator: cleanup RDoc, un-indent
+         configurator: documentation for new accept options
+         socket_helper: move defaults to the DEFAULTS constant
+         doc: recommend absolute paths for -c/--config-file
+         ...
+   
+   commit c13bec3449396b21795966101367838161612d61
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 13 08:57:37 2010 +0000
+   
+       SIGHUP deals w/ dual master pid path scenario
+       
+       As described in our SIGNALS documentation, sending SIGHUP to the
+       old master (to respawn SIGWINCH-ed children) while the new
+       master (spawned from SIGUSR2) is active is useful for backing
+       out of an upgrade before sending SIGQUIT to the new master.
+       
+       Unfortunately, the SIGHUP signal to the old master will cause
+       the ".oldbin" pid file to be reset to the non-".oldbin" version
+       and thus attempt to clobber the pid file in use by the
+       to-be-terminated new master process.
+       
+       Thanks to the previous commit to prevent redaemonization in the
+       new master, the old master can reliably detect if the new master
+       is active while it is reloading the config file.
+       
+       Thanks to Lawrence Pit for discovering this bug.
+       ref: http://mid.gmane.org/4C3BEACF.7040301@gmail.com
+   
+   commit 3f0f9d6d72cf17b34c130b86eb933bbc513b24b3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 13 08:53:48 2010 +0000
+   
+       launcher: do not re-daemonize when USR2 upgrading
+       
+       This was accidentally enabled when ready_pipe was developed.
+       While re-daemonizing appears harmless in most cases this makes
+       detecting backed-out upgrades from the original master process
+       impossible.
+   
+   commit ac15513bb81a345cd12c67702a81a585b8b0514e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jul 11 02:05:01 2010 +0000
+   
+       tee_input: fix constant resolution for client EOF
+       
+       Noticed while hacking on a Zbatery-using application
+   
+   commit 0fea004ab093ec4f59d919915a505a136326bd8a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 8 05:54:25 2010 +0000
+   
+       cleanup "stringio" require
+       
+       "stringio" is part of the Ruby distro and we use it in multiple
+       places, so avoid re-requiring it.
+   
+   commit 5ece8c1c33f10e6496dfe5ae1d0d368293278d2d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 8 05:33:49 2010 +0000
+   
+       prefer "[]" to "first"/"last" where possible
+       
+       "[]" is slightly faster under Ruby 1.9 (but slightly
+       slower under 1.8).
+   
+   commit 1cd698f8c7938b1f19e9ba091708cb4515187939
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 8 05:14:55 2010 +0000
+   
+       tee_input: safer record separator ($/) handling
+       
+       Different threads may change $/ during execution, so cache it at
+       function entry to a local variable for safety.  $/ may also be
+       of a non-binary encoding, so rely on Rack::Utils.bytesize to
+       portably capture the correct size.
+       
+       Our string slicing is always safe from 1.9 encoding: both our
+       socket and backing temporary file are opened in binary mode,
+       so we'll always be dealing with binary strings in this class
+       (in accordance to the Rack spec).
+   
+   commit 98c51edf8b6f031a655a93b52808c9f9b78fb6fa
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 6 14:17:02 2010 -0700
+   
+       socket_helper: disable documentation for internals
+   
+   commit 2b4b15cf513f66dc7a5aabaae4491c17895c288c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 6 12:59:45 2010 -0700
+   
+       socket_helper: cleanup FreeBSD accf_* detection
+       
+       Instead of detecting at startup if filters may be used, just try
+       anyways and log the error.  It is better to ask for forgiveness
+       than permission :)
+   
+   commit e0ea1e1548a807d152c0ffc175915e98addfe1f2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 6 12:51:24 2010 -0700
+   
+       socket_helper: no reason to check for logger method
+       
+       We only use this module in HttpServer and our unit test mocks
+       it properly.
+   
+   commit e4d2c7c302e96ee504d82376885ac6b1897c666a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 6 12:49:48 2010 -0700
+   
+       configurator: cleanup RDoc, un-indent
+       
+       No point in redeclaring the Unicorn module in here.
+   
+   commit 686281a90a9b47bac4dfd32a72a97e6e8d26afa1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 6 12:39:36 2010 -0700
+   
+       configurator: documentation for new accept options
+       
+       The defaults should be reasonable, but there may be
+       folks who want to experiment.
+   
+   commit ef8f888ba1bacc759156f7336d39ba9b947e3f9d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jul 6 12:35:45 2010 -0700
+   
+       socket_helper: move defaults to the DEFAULTS constant
+       
+       This is to allow Rainbows! to override the defaults.
+   
+   commit d7695c25c5e3b1c90e63bf15a5c5fdf68bfd0c34
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jul 5 23:14:40 2010 +0000
+   
+       doc: recommend absolute paths for -c/--config-file
+       
+       Suggested-by: Jeremy Evans
+       ref: http://mid.gmane.org/AANLkTintT4vHGEdueuG45_RwJqFCToHi5pm2-WKDSUMz@mail.gmail.com
+   
+   commit 646cc762cc9297510102fc094f3af8a5a9e296c7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jul 3 09:30:57 2010 +0000
+   
+       socket_helper: tunables for tcp_defer_accept/accept_filter
+       
+       Under Linux, this allows users to tune the time (in seconds) to
+       defer connections before allowing them to be accepted.  The
+       behavior of TCP_DEFER_ACCEPT changed with Linux 2.6.32 and idle
+       connections may still be accept()-ed after the specified value
+       in seconds.  A small value of '1' remains the default for
+       Unicorn as Unicorn does not worry about slow clients.  Higher
+       values provide better DoS protection for Rainbows! but also
+       increases kernel memory usage.
+       
+       Allowing "dataready" for FreeBSD accept filters will allow
+       SSL sockets to be used in the future for HTTPS, too.
+   
+   commit 5769f313793ca84100f089b1911f2e22d0a31e9d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 28 04:45:16 2010 +0000
+   
+       http_response: this should be a module, not a class
+       
+       This affects Rainbows!, but Rainbows! is still using the Unicorn
+       1.x branch.  While we're at it, avoid redeclaring the "Unicorn"
+       module, it makes documentation noisier.
+   
+   commit cf63db66bca9acfd3416ab8fc8a7fd4f07927342
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 25 11:29:13 2010 -0700
+   
+       test-exec: prefer ENV['PWD'] in working_directory tests
+       
+       We do an extra check in the application dispatch to ensure
+       ENV['PWD'] is set correctly to match Dir.pwd (even if the
+       string path is different) as this is required for Capistrano
+       deployments.
+       
+       These tests should now pass under OSX where /var is apparently
+       a symlink to /private/var.
+   
+   commit e2503a78150f4be113ee2a19404ba6aec401c696
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 24 05:47:27 2010 +0000
+   
+       const: bump UNICORN_VERSION to 2.0.0pre
+   
+   commit b8b979d75519be1c84818f32b83d85f8ec5f6072
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 24 04:31:37 2010 +0000
+   
+       http: avoid (re-)declaring the Unicorn module
+       
+       It makes for messy documentation.
+   
+   commit 6f720afd95d8131a2657c643b97cb18c750ed9f8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 24 04:24:34 2010 +0000
+   
+       tee_input: undent, avoid (re)-declaring "module Unicorn"
+       
+       It makes RDoc look better and cleaner, since we don't
+       do anything in the Unicorn namespace.
+   
+   commit 9f48be69bfe579dab02b5fe8d6e728ae63fd24fc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 24 04:11:35 2010 +0000
+   
+       tee_input: allow tuning of client_body_buffer_size/io_size
+       
+       Some folks may require more fine-grained control of buffering
+       and I/O chunk sizes, so we'll support them (unofficially, for
+       now).
+   
+   commit 1a49a8295054a2e931f5288540acb858be8edcc8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 24 03:54:40 2010 +0000
+   
+       tee_input: (nitpick) use IO#rewind instead of IO#seek(0)
+       
+       no need to pass an extra argument

@@ -1,0 +1,2126 @@
+ChangeLog from http://bogomips.org/kgio.git
+
+   commit 9bde3ab9a7e6e1776ba43bd0e7a3e9202f1026f6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Sep 11 00:01:21 2013 +0000
+   
+       kgio 2.8.1 - minor improvements and test fixes
+       
+       Improved error reporting for kgio_accept/kgio_tryaccept.
+       Minor size reduction throughout.  There are also several
+       test case fixes for race conditions.
+       
+       Thanks to Hleb Valoshka and the Debian project for all the
+       help with this release!
+       
+       Eric Wong (7):
+             check syscall returns against < 0 instead of == -1
+             accept: more informative exception on unknown family
+             test_tryopen: skip EACCES test when euid == 0
+             test/lib_read_write: account for larger-than-normal pipes
+             test_poll: avoid potentially thread-unsafe test
+             test_poll: preserve original trap(:USR1) handler
+             test_poll: be less dependent on signal handler ordering
+       
+       Hleb Valoshka (4):
+             Change prefix of temporary sockets to prevent races
+             Don't dump 20M in case of failure
+             Create own directory for every unix socket in unit tests
+             Close tempfile and unlink it immediately.
+   
+   commit c3be428c452fd9c91d31b5b7d5b697175b6652df
+   Author: Hleb Valoshka <375gnu@gmail.com>
+   Date:   Sat Sep 7 23:07:36 2013 +0300
+   
+       Close tempfile and unlink it immediately.
+       
+       When a Tempfile object is garbage collected, or when the Ruby interpreter
+       exits, its associated temporary file is automatically deleted. This may
+       lead to race condition when Tempfile is used like in these tests.
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit ff940137dc5098c9d8094e041e9be053cb3e139f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Sep 5 23:11:59 2013 +0000
+   
+       test_poll: be less dependent on signal handler ordering
+       
+       Just spam the thread several times to force the wakeup to happen
+       and not be as dependent on signal handler execution ordering of
+       different Ruby VMs.
+       
+       Tested-by: Hleb Valoshka <375gnu@gmail.com>
+   
+   commit 90340eb8f2c5bf820eabd3c25fb39e45285b1c40
+   Author: Hleb Valoshka <375gnu@gmail.com>
+   Date:   Wed Sep 4 15:07:19 2013 +0300
+   
+       Create own directory for every unix socket in unit tests
+       
+       [ew: this avoids a TOCTOU issue for multiple test invocations]
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 71f656e40de99d240c873ebb23451f76e46e5a20
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 3 22:47:20 2013 +0000
+   
+       test_poll: preserve original trap(:USR1) handler
+       
+       The existing SIGUSR1 handler may not always be "DEFAULT",
+       so restore the original one.
+   
+   commit 377028d998f32c9bf8926a275019445103328c3d
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 3 22:45:26 2013 +0000
+   
+       test_poll: avoid potentially thread-unsafe test
+       
+       Modifying pollset in a different pollset is thread-unsafe,
+       so just do that inside the signal handler as that should
+       fire before restarting poll().
+   
+   commit 259347346169d4a2ab5b33719fe0985edc64bd3c
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 3 22:43:04 2013 +0000
+   
+       test/lib_read_write: account for larger-than-normal pipes
+       
+       Linux pipe buffers may use larger pages and increase the
+       capacity of pipes.  Thus the 10000 write attempt is not
+       sufficient; just infinite loop until we hit :wait_writable.
+   
+   commit dae148a9d6de7501acf8a68218b3e9d2c5ff6ff7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Sep 3 19:35:46 2013 +0000
+   
+       test_tryopen: skip EACCES test when euid == 0
+       
+       This fails when the test is run as root (which may be the case
+       of some Ruby installations) or fakeroot (which is the case of
+       Debian build systems).
+   
+   commit 5c99abe6108d8d6a52c07b969afbc556c59b33be
+   Author: Hleb Valoshka <375GNU@Gmail.COM>
+   Date:   Sat Aug 24 17:31:42 2013 +0300
+   
+       Don't dump 20M in case of failure
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit fc88b648ca5c2ba6c845c357192d7e36f9dedc5c
+   Author: Hleb Valoshka <375GNU@Gmail.COM>
+   Date:   Sat Aug 24 16:50:17 2013 +0300
+   
+       Change prefix of temporary sockets to prevent races
+       
+       Note: this is an incomplete fix and the race can still happen.
+       A proper fix would involve using a temporary directory for each
+       test and placing the Unix socket in there.
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 30c12374f8d23f0e635946fc38546820216457bf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 16 02:00:21 2013 +0000
+   
+       accept: more informative exception on unknown family
+       
+       This may help us diagnose issues on strange OSes.
+   
+   commit 9f30805bc4ff65ad4ca0be9dfb26b1a9bdc70c51
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Aug 16 01:52:15 2013 +0000
+   
+       check syscall returns against < 0 instead of == -1
+       
+       This may help us avoid errors in case of C library bugs,
+       and also results in smaller code:
+       
+       $ ~/linux/scripts/bloat-o-meter before.so after.so
+       add/remove: 0/0 grow/shrink: 0/9 up/down: 0/-66 (-66)
+       function                                     old     new   delta
+       s_trywrite                                   160     159      -1
+       kgio_write                                   160     159      -1
+       kgio_trywrite                                160     159      -1
+       my_recv                                      616     610      -6
+       my_peek                                      616     610      -6
+       stream_connect                               456     448      -8
+       my_socket                                    222     213      -9
+       my_writev                                   1703    1687     -16
+       write_check                                  427     409     -18
+   
+   commit 8be51237720fd18cb45188f29c717bbac0ca1964
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 18 10:25:20 2013 +0000
+   
+       kgio 2.8.0 - TCP Fast Open, writev/trywritev
+       
+       TCP Fast Open in Linux 3.7 and later is now supported
+       in the client via Kgio::Socket#kgio_fastopen.
+       
+       This release also adds the kgio_writev and
+       kgio_trywritev methods, thanks to funny-falcon
+   
+   commit 3e555a62c75406d15199fd7bdb287704e5738352
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jan 18 10:50:28 2013 +0000
+   
+       rename fastopen => kgio_fastopen in Kgio::Socket
+       
+       In the unlikely case the Ruby Socket class implements its
+       own "fastopen" method, we will avoid conflicting.
+   
+   commit c751f42f5f6a5e54a399df472015ab6d2ffc3f7a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 30 11:43:10 2012 +0000
+   
+       accept: do not set blocking if non-blocking is set
+       
+       This is prone to race conditions in multiprocess situations
+       where one process is relying on non-blocking operation while
+       another (likely newer process) relies on blocking operation.
+       
+       Since the blocking process can always fall back to calling
+       rb_io_wait_readable(), use that instead and give up some
+       scalability for higher reliability.
+       
+       Those interested in avoiding thundering herds will have to
+       stop/start their processes using blocking sockets (and tolerate
+       some downtime).
+   
+   commit c63ad2b2e0e25f0765605e8ba2d7038b5e28d878
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 27 02:16:26 2012 +0000
+   
+       fastopen: fix argument order in RDoc example
+       
+       Oops :x
+   
+   commit 5f696156e097a1e66cb0c5c2a7cf62b38fd97605
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 27 01:29:01 2012 +0000
+   
+       read_write: remove unused variable
+   
+   commit f61cef65b8a8816160c622324b4f1aad55034e4a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 27 01:16:56 2012 +0000
+   
+       implement TCP Fast Open support (client + server)
+       
+       Server support just requires exposing one constant for
+       setsockopt: Kgio::TCP_FASTOPEN
+       
+       Client support implements a new Kgio::Socket#fastopen method.
+       This new method wraps the the sendto() syscall.  With TCP Fast
+       Open, the sendto() syscall is overloaded for stream sockets to
+       implement the functionality of both connect() + write()
+       
+       Since it only makes sense to use _blocking_ I/O for sendto(),
+       TFO clients are only supported in Ruby implementations with
+       native threads.
+   
+   commit 7a3fc55424338ad458cc719d4cb3c4e28802d5cb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Dec 13 00:02:50 2012 +0000
+   
+       Kgio::Socket.new retains compatibility with Socket.new
+       
+       This allows us to create an unconnected socket, just like
+       the normal Socket class it inherits from.
+   
+   commit 48fc432a3b9dfd2b0435f0975556d4a321a5239b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Dec 12 21:40:50 2012 +0000
+   
+       connect: factor out tcp_getaddr() function
+       
+       This will be reused for TCP fast open support.
+   
+   commit 9ddd17b0e296eb279f05d418da6ad46319bcf0b5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Dec 12 21:21:29 2012 +0000
+   
+       connect: split out my_socket() function
+       
+       This makes the retry logic for mismatched libc headers/kernel
+       versions easier to understand and follow.
+   
+   commit 8b4df8ece93ddc4e2fb685905461c1ed27b22295
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Nov 21 23:16:00 2012 +0000
+   
+       tryopen: include errno.h header just in case
+       
+       errno.h is not guaranteed to be included in existing headers,
+       so we need to #include it to ensure errno and friends are
+       usable.
+       
+       Thanks to stuart on the kgio mailing list for noticing
+       ref: <062571308.133355.1353536890665.JavaMail.sas1@172.29.251.236>
+   
+   commit f020550fc802f299fdcdec695ac80d53ef3d24d9
+   Author: Eric Wong <ew@debkfreebsd.(none)>
+   Date:   Mon Jul 2 04:21:40 2012 +0000
+   
+       test workaround for platforms with unreliable signals
+       
+       Ruby may not respond well to signals on all platforms, especially not
+       after fork()-ing in the face of a running pthread (timer thread on
+       1.9.2).  SIGKILL bypasses Ruby (and all userspace) signal handling on
+       Debian GNU/kFreeBSD.
+   
+   commit 488a148d8b172e152e3450062b172ba516ab84b3
+   Author: Eric Wong <ew@debkfreebsd.(none)>
+   Date:   Mon Jul 2 04:20:20 2012 +0000
+   
+       test/lib_read_write: wait for readability before tryread
+       
+       On FreeBSD, writing to a loopback TCP socket does not guarantee
+       immediate readability on the other end.
+       
+       Tested on Debian GNU/kFreeBSD 6.0
+   
+   commit c79babfd175aa7b4be9d4d1a10a64c17b93730a0
+   Author: Eric Wong <ew@debkfreebsd.(none)>
+   Date:   Mon Jul 2 03:16:09 2012 +0000
+   
+       test_poll: skip signal torture on Debian GNU/kfreebsd
+       
+       This cascades test failures on a platform with questionable
+       signal/fork handling.
+       
+       Tested on: Debian GNU/kFreeBSD 6.0
+   
+   commit ff27e74a49bf6746ffe74cfc865430221f0bafe0
+   Author: Sokolov Yura 'funny-falcon <funny.falcon@gmail.com>
+   Date:   Fri Jun 1 13:42:58 2012 +0400
+   
+       add `#kgio_writev` and `#kgio_trywritev`
+       
+       Add methods for using writev(2) syscall for sending array of string in
+       a single syscall. This is more efficient than concatenating strings on
+       Ruby side or sending them one by one.
+       `#kgio_trywritev` returns array of strings which are not sent to the
+       socket. If there were objects other than string, they could be converted
+       using `#to_s` method, but this is not strictly applied, cause
+       `#kgio_*writev` tries to write at most `sysconf(_SC_IOV_MAX)` items
+       at once (for Linux its value is 1024). First string of returned array
+       could be part of string from array, so that you should assume it is not
+       in consistent state.
+       
+       `#kgio_writev` semantic differs a bit from `#kgio_write` in term of
+       buffers mutability: currently `#kgio_write` tries to follow string changes
+       made concurrently, but `#kgio_writev` works with array's lightweight copy.
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit fa52cc5d0ef7d04b844868e08e2e7ec3c9e3396e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed May 30 12:31:19 2012 -0700
+   
+       tryopen: avoid ambiguous name for subst function
+       
+       Define rb_thread_blocking_region as a macro for MRI 1.8
+       to prevent confusing output in tools such as valgrind/gdb.
+   
+   commit a72e6cd0dd3038ae2a1b5ef94780143f5ab041c0
+   Author: Sokolov Yura 'funny-falcon <funny.falcon@gmail.com>
+   Date:   Wed May 30 17:56:55 2012 +0400
+   
+       use rb_str_subseq for tail string on write
+       
+       Use rb_str_subseq for taking string's tail. rb_str_subseq do not allocate
+       additional memory in this case. And although it prevents from collecting
+       original string, it seems that tests wins both in performance and in memory
+       usage.
+       
+       Use fallback to rb_str_substr on ruby1.8
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 021eaddbfb41d82c0082657f60021bad52b3a6dc
+   Author: Sokolov Yura 'funny-falcon <funny.falcon@gmail.com>
+   Date:   Wed May 30 17:56:54 2012 +0400
+   
+       Fix UnixClientReadServerWrite test class name
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit ab3fa8e85c02227985c56261d4898339f85d2b20
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 23 21:10:22 2012 +0000
+   
+       kgio 2.7.4 - small fixes and cleanups
+       
+       Fix build for platforms lacking both TCP_CORK _and_ TCP_NOPUSH
+       There are many test case fixes and cleanups, too.
+   
+   commit 49f28a5257d20a7f4b0aa790424ca207287aa7b6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 24 00:13:40 2012 +0000
+   
+       test: more workaround for FreeBSD 9.0
+       
+       Followup-to: e26358413c9d87e1ce8f6cda5cf0b8dd53979ed2
+   
+   commit e26358413c9d87e1ce8f6cda5cf0b8dd53979ed2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 20 22:00:47 2012 +0000
+   
+       test/lib_read_write: test workarounds for TCP in FreeBSD 9.0
+       
+       Under load, TCP sockets may not register as readable right away
+       after the writer finishes.  This can be expected for
+       implementations where loopback TCP is a closer simulation of
+       non-local TCP traffic.
+       
+       These test failures were noticed under FreeBSD 9.0.
+   
+   commit 2cab4f2fa642241dbcaf8881d39bd275a59dc67b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 23 11:56:04 2012 -0700
+   
+       test_tryopen: fix horribly-named test for EACCES
+       
+       We can't actually test for EPERM without changing
+       permissions/ownership, and we can't do that without root...
+   
+   commit ce62ddbef053ad31af2f3ec6fcb7d2488859383d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 22 06:18:41 2012 +0000
+   
+       test/lib_read_write: increase test reliability
+       
+       IO#readpartial may not drain the socket buffers enough for
+       kgio_write to succeed on some platforms.  So use IO#read for
+       read-in-full behavior.
+   
+   commit 74b9f78e11b915439555290dc3bdd4331303561c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 19 06:05:06 2012 +0000
+   
+       test/*: remove assert_nothing_raised
+       
+       It makes test failures hard to track down, tests will
+       already fail if exceptions are thrown and we'll get
+       nice backtraces.
+   
+   commit 85ae255f73b9b81ae3d17e6420dbb95a29dbe8b7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 19 05:53:03 2012 +0000
+   
+       fix for non-Linux, non-TCP_NOPUSH platforms
+       
+       We don't need to care for TCP_NOPUSH in read_write.c, it's
+       entirely in autopush.c and no-op on platforms without
+       TCP_CORK/TCP_NOPUSH.  TCP_CORK/TCP_NOPUSH are non-POSIX, so
+       it's entirely possible some Free systems will lack them.
+       
+       Reported-by: Edho Arief <edho@myconan.net>
+   
+   commit 5ea4cdd1275c0f862bf9dcd1d344dc57d70e5392
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 15 07:04:33 2012 +0000
+   
+       kgio 2.7.3 - compatibility fixes
+       
+       Fixed build and autopush support under Debian GNU/kFreeBSD.
+       Test case fixes for timing-sensitive tests.
+   
+   commit 2c2befb1caa47fe3bf2e6d31dd0733956d178c87
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 7 10:14:17 2012 +0000
+   
+       HACKING: add instructions for running tests
+       
+       Unlike most Rubyists, I prefer GNU make to Rake.
+   
+   commit 92dca5e5554e056f892fcb6cae20693b39b4044b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 7 08:37:11 2012 +0000
+   
+       test_poll: workaround for timing-sensitive test on slow hosts
+       
+       poll(2) may return successfully before it gets interrupted
+       by the signal.
+       
+       Found and fix confirmed by 375gnu on the kgio mailing list.
+       
+       ref: <CAAB-Kcm=_CRa4UoSQt+C4cHk6z2Rpfsv6_KXPHV3R34Gt6sLiQ@mail.gmail.com>
+   
+   commit 3a847e231d494829077a300912588f499c0bc2af
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 5 23:19:30 2012 +0000
+   
+       test: increase delta range for timing-sensitive test
+       
+       This appears to be needed for Debian GNU/kFreeBSD under KVM.
+   
+   commit 1129029ab1bf886979a66a69b04d244dba8b63cf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 5 23:19:29 2012 +0000
+   
+       autopush: fix/enable under Debian GNU/kFreeBSD
+       
+       It seems autopush support in our autopush code has
+       always been broken outside of Linux-based systems,
+       as we never marked the socket as having pending data.
+   
+   commit 56cce133d979c22bbef80fdba1881d8f40876e2f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 5 22:37:20 2012 +0000
+   
+       accept4: require SOCK_NONBLOCK/SOCK_CLOEXEC macros
+       
+       The check for the accept4() function actually succeeds on a
+       stock installation of Debian GNU/kFreeBSD 6.0, but the
+       eglibc headers fail to define the necessary flags.
+   
+   commit 3e7bd918153cd09dd3bdd4e6963e173ae050ae68
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jan 8 03:38:17 2012 +0000
+   
+       kgio 2.7.2 - for older, and older Rubies
+       
+       Fix a missing #include for Ruby 1.8.5 users.  No need to
+       upgrade to this (nor 2.7.1) if you're on a modern version
+       of Ruby.
+   
+   commit d9fe99171c191c55240d756fbc498d82e419f13a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jan 8 03:35:30 2012 +0000
+   
+       tryopen: remember to include ancient_ruby.h for 1.8.5
+       
+       Apparently the old Ruby 1.8.6 installation lying around isn't
+       old enough.
+   
+   commit 0dc3909d2ac0f711f038c7a387a9a1da2d5fcb62
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jan 8 01:58:44 2012 +0000
+   
+       kgio 2.7.1 - compatibility with older Rubies
+       
+       This release fixes some compatibility issues with people
+       stuck on older versions of Ruby/RubyGems.
+       
+       * define RARRAY_PTR/RARRAY_LEN macros for Ruby 1.8.6
+       * test/test_autopush: skip strace tests if not available
+       * gemspec: disable development dependencies for old systems
+   
+   commit fd1ea5a73155f577f7b77b18c2d6d23af287c123
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jan 8 01:52:52 2012 +0000
+   
+       gemspec: disable development dependencies for old systems
+       
+       "Enterprise" users are sometimes stuck on older Rubies/RubyGems
+       and this is still required for them.
+   
+   commit e9b90724d8a2ee8c405acdf112adfabcb5cc3159
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jan 8 01:50:21 2012 +0000
+   
+       test/test_autopush: skip strace tests if not available
+       
+       No need to completely fail on a test.
+   
+   commit 77775e385fe92d1309c65c585b4643712c58e5ba
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jan 7 11:15:37 2012 +0000
+   
+       define RARRAY_PTR/RARRAY_LEN macros for Ruby 1.8.6
+       
+       Apparently Ruby 1.8.6 is still in use...
+   
+   commit 86f703bfd872536902e7f5293acea3ed0ba0f495
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Dec 13 06:09:48 2011 +0000
+   
+       kgio 2.7.0 - minor updates
+       
+       When running under Ruby trunk/2.0.0dev, all IO objects created
+       by kgio will be close-on-exec by default to match the (future)
+       2.0.0 behavior.  accept()ed sockets in kgio have always been
+       close-on-exec by default..
+       
+       Singleton Kgio.accept_* methods are deprecated as the
+       kgio_accept/kgio_tryaccept methods all take an additional
+       flags argument.
+       
+       There are various, test, documentation, and error message
+       improvements.
+   
+   commit a40c1d4b30253c68d7997324bcebceb68018bc37
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Nov 16 18:42:47 2011 -0800
+   
+       doc: update documentation regarding accept method flags
+       
+       There's no reason for SOCK_NONBLOCK with Ruby, and SOCK_CLOEXEC
+       has always been on-by-default with accept() wrappers.
+   
+   commit be3672501ecde716dae723e887d4a9e4d731240c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Nov 16 18:37:37 2011 -0800
+   
+       connect,tryopen: set close-on-exec flag for new fds on Ruby 2.0+
+       
+       All IO objects created by Kgio will have FD_CLOEXEC descriptor
+       flag set on it when run under Ruby 2.0.0dev.  This matches the
+       upcoming behavior of Ruby 2.0.0dev for IO objects in the core
+       and standard library.  This change does not affect users on Ruby
+       1.9.3 and earlier.
+       
+       accept()-ed sockets in kgio have _always_ had FD_CLOEXEC
+       set by default.
+   
+   commit 48dc3c5a1943801311567e72a8e69fcb0cd8cf8d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 15 13:30:26 2011 -0800
+   
+       tests: remove tests for IO#nonblock? after accept
+       
+       There's no point in testing a Ruby implementation detail and
+       these tests fail under OpenBSD where the accept()-ed socket
+       inherits the O_NONBLOCK flag from the parent.
+   
+   commit a1a648fe905808ffa902c44ba7626e3b3eeda627
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 15 13:20:25 2011 -0800
+   
+       accept: deprecate singleton Kgio.accept_* methods
+       
+       The kgio_accept and kgio_tryaccept methods now take an
+       additional flags argument, so there's no reason to set
+       global flags anywhere.
+   
+   commit 246cfe96f12ce06a5b504873789ada2efd288885
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Nov 15 13:18:32 2011 -0800
+   
+       accept: always set O_NONBLOCK for accept()-ed sockets in 1.8
+       
+       This is mostly an implementation detail, but it's already
+       true on OpenBSD (and maybe other BSDs), and also requires
+       no additional syscalls on newer Linux systems.
+   
+   commit 4cef568a9d06033c295c1f4920918c6fed36a24d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 29 17:33:43 2011 -0700
+   
+       test_poll: test for closing a polled IO in sighandler
+       
+       This needs to work similarly to IO.select.
+   
+   commit bb37d358b3326a03a69f65e12c775bb9861b3ad5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Aug 24 17:36:46 2011 -0700
+   
+       .wrongdoc.yml: add public/private email addresses
+       
+       We want feedback!
+   
+   commit 71eefc0f191d2dde969e6f05f65ec1e80a305e11
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Aug 24 17:34:55 2011 -0700
+   
+       wait.c: fix misspelling in rdoc
+       
+       eye kan spel!
+   
+   commit 7d70f24ac40c984a91f3709b4bd277aaa781746e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 9 12:35:18 2011 -0700
+   
+       LICENSE: s/GNU C Library/kgio/
+       
+       This is not glibc and I'm not Ulrich Drepper.
+   
+   commit 4ed70d1c840172631e4347e0d0b86a7149f4c8bb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 9 12:34:25 2011 -0700
+   
+       TODO: update SSL/TLS support status :)
+       
+       Monkeys!
+   
+   commit b42164253fa0f4c7c5749eab651c64ddd6cc906a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 21 15:57:10 2011 -0700
+   
+       use rb_update_max_fd() under MRI 1.9.3+
+       
+       This helps exec() and similar methods close descriptors on
+       shutdown.
+   
+   commit d064ac9334be079d0e830bc2361c065cbaa52a64
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jul 15 11:12:09 2011 -0700
+   
+       connect: more descriptive error for TCP port
+       
+       We want more descriptive error messages and don't want
+       crazy stuff like floats.
+   
+   commit dcaa9f9be83bfd59503033ae8f8eeca79c68c9df
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 14 18:54:37 2011 -0700
+   
+       kgio 2.6.0 - minor feature update and cleanups
+       
+       We now export SOCK_NONBLOCK, SOCK_CLOEXEC constants in the Kgio
+       namespace to make kgio_tryaccept/kgio_accept easier-to-use.
+       There are also some minor internal cleanups.
+   
+   commit 8baed92a7c02adcc913bcc7760b77a240b529c63
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 14 17:32:10 2011 -0700
+   
+       add prototype for rb_thread_blocking_io_region()
+       
+       It's no in the public headers, but Ruby 1.9.3 will have it and
+       it's still superior to rb_thread_blocking_region() even though
+       it's not ideal.
+   
+   commit 823f41d0f86dda497c166a839d8215275f5d48a0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 14 17:29:57 2011 -0700
+   
+       missing_accept4: don't use FD_CLOEXEC for SOCK_CLOEXEC emulation
+       
+       It's too confusing and may break binary compatibility if the
+       system is later upgraded.
+   
+   commit 142beefba460685fea5b6646e1ba629f9ee207b3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 14 17:29:05 2011 -0700
+   
+       accept.c: fix RDoc for new Kgio::SOCK_* constants
+       
+       We don't want people using the compatibility constants
+       since they're actually broken on systems with real accept4().
+   
+   commit c22f2b5ebccbca8e04aa22821964f67c4a81c675
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jul 6 19:11:47 2011 -0700
+   
+       export SOCK_NONBLOCK, SOCK_CLOEXEC constants in Kgio
+       
+       It's more reliable than relying on IO::NONBLOCK and
+       Fcntl::FD_CLOEXEC constants.  The existing constants are not
+       guaranteed to be equivalent to what accept4() takes even
+       though the current Linux implementation does it this way.
+   
+   commit 8e1a53f99a752d8ccba324560a9e52bf6e80680d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jul 6 18:32:39 2011 -0700
+   
+       accept.c: reinstate errno after calling my_fileno()
+       
+       my_fileno() may change errno on some Rubies
+   
+   commit e720827b48c3318627d1471ad4ec90d6166520fd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 17 19:01:06 2011 -0700
+   
+       doc: update documentation for kgio_addr attribute
+       
+       We support IPv6, not just IPv4
+   
+   commit ce08273658b14dc3d53273b514e46b6e65882bf6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 17 18:35:38 2011 -0700
+   
+       doc: call-seq for kgio_wait_writable
+       
+       It's there for kgio_wait_readable
+   
+   commit 72ab71667b2a9c27d1eda73aacb8b86187f317d0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 17 18:10:44 2011 -0700
+   
+       ancient_ruby.h: avoid symbol clobbering
+       
+       In case the toolchain can't test the feature properly
+       or Ruby is upgraded and the symbol is added.
+   
+   commit 079f9227dce2e69bd3460c783e12fa05c687b7d3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 22:16:15 2011 -0700
+   
+       fix misc compiler warnings
+       
+       Some installations of Ruby clobbered my usual CFLAGS=-Wall
+   
+   commit 8fe21f6758bb877efacce1fa6573e72625252585
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 08:30:03 2011 +0000
+   
+       make timed kgio_wait_* implementation safer
+       
+       IO.select can handle fd >= 1024 safely in some Rubies while
+       fd_set may not.  We could use rb_thread_fd_select(), but
+       rb_wait_for_single_fd() is available now so the former
+       is not worth the maintenance hassle.
+   
+   commit 9159f70862e3e6a76d821c4a70bc68a603793a49
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 02:39:13 2011 +0000
+   
+       Kgio::File includes Kgio::PipeMethods module
+       
+       Kgio::File may be used to open FIFOs, so non-blocking
+       I/O is still useful in that context.
+   
+   commit 6d6f704e29d7bf1e95f1c9c60cbab82ec3d430d2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 02:34:49 2011 +0000
+   
+       Kgio::File.tryopen runs GC on ENOMEM
+       
+       It is possible but unlikely to get ENOMEM on open(2),
+       so try to GC away some files.
+   
+   commit e693b871567119345c2c567bfa2ad46e210d655b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 02:27:06 2011 +0000
+   
+       doc: add rdoc for Kgio::File.tryopen
+       
+       New feature in 2.5, we now have 100% documentation again.
+   
+   commit 5550222b389c2971ee98bdd62c749ce228efda06
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 02:12:31 2011 +0000
+   
+       kgio_wait_*able: documentation for optional timeout
+       
+       New features are better if they're documentated.
+   
+   commit 3fe0ad91d7a81a84ecc9e75ba8f5162bad30b2ac
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 02:06:32 2011 +0000
+   
+       doc: use librelist.org instead of librelist.com
+       
+       Non-profit TLD is better sounding for a Free Software
+       project.
+   
+   commit 2e20f8b1a1b74ae5442e44de70196a5e3121c642
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 02:04:00 2011 +0000
+   
+       GIT-VERSION-GEN: bump version for new API
+   
+   commit aa9594b0d38b012729a46fd519fcc369600f4c3e
+   Merge: bbf9a3b fdde0a2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 02:05:43 2011 +0000
+   
+       Merge branch '2.4-stable'
+       
+       * 2.4-stable:
+         kgio 2.4.2 - OpenSolaris build fix
+         extconf: -lnsl and -lsocket checks for OpenSolaris
+   
+   commit fdde0a27c51134d7a6a9cd1d66d93d1ac6640940
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 14 18:40:07 2011 +0000
+   
+       kgio 2.4.2 - OpenSolaris build fix
+       
+       * adds -lnsl and -lsocket checks for OpenSolaris
+   
+   commit 1a7eed4c69abb7bafd3e3dc2acd13e243995e98e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 13 14:26:10 2011 -0700
+   
+       extconf: -lnsl and -lsocket checks for OpenSolaris
+       
+       Reported via private email.
+       (cherry picked from commit d224563823accca63fd871260e3f0dad6758c8d4)
+   
+   commit bbf9a3bc0ca2d91705e27ad8bfb5c0ed9651a2ef
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 14 08:41:32 2011 +0000
+   
+       add timeout to kgio_wait_{read,writ}able
+       
+       io/wait doesn't have an IO#wait_writable method, yet[1]
+       and IO#wait checks FIONREAD which makes it unsuitable
+       for certain descriptors.
+       
+       This method uses the new rb_wait_for_single_fd() function in
+       Ruby 1.9.r.  This internally uses ppoll() under Linux, meaning
+       it performs the same regardless of the FD used.
+       
+       [1] http://redmine.ruby-lang.org/issues/4647
+       [2] http://redmine.ruby-lang.org/issues/4849
+   
+   commit d224563823accca63fd871260e3f0dad6758c8d4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 13 14:26:10 2011 -0700
+   
+       extconf: -lnsl and -lsocket checks for OpenSolaris
+       
+       Reported via private email.
+   
+   commit 83c6584be53d6863e647067ba385b42ed5347cdb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 23 11:28:29 2011 -0700
+   
+       README: clarify that we only work on Unix-like systems
+       
+       We won't waste time with inferior, non-Free platforms.
+   
+   commit 2ade0059c67a0ae4fa1b416c500169e3ac66bfff
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 20 20:00:15 2011 -0700
+   
+       pkg.mk: update to the latest version
+       
+       Fixes locale issues with grep and adds check-warnings
+   
+   commit 8184059bf16d73f0a386ddbf68c4949d1dec3bdf
+   Merge: a5357ad f656c49
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 20 19:54:48 2011 -0700
+   
+       Merge branch '2.4-stable'
+       
+       * 2.4-stable:
+         kgio 2.4.1 - Kgio.poll avoids EINTR, really
+         Kgio.poll: ensure EINTR never gets raised
+   
+   commit f656c49f77d896cbbb1e684d826472c09dcc2253
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 20 19:53:03 2011 -0700
+   
+       kgio 2.4.1 - Kgio.poll avoids EINTR, really
+       
+       This release fixes a race condition that could allow
+       Errno::EINTR to be raised even though the 2.4.0 release
+       was supposed to stop that.
+       
+       Nobody uses Kgio.poll, really, so this shouldn't be an issue
+       for real code, yet.
+   
+   commit f809a87f70f0937a87b5d3a83704847daceef4dd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 20 19:50:34 2011 -0700
+   
+       Kgio.poll: ensure EINTR never gets raised
+       
+       Retry on a zero timeout if we get interrupted
+       even if the timeout expired.  This is also what
+       IO.select does in Ruby itself.
+   
+   commit a5357ad014d2eacc99dd7ee46040686cbf1d871c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 20 19:50:34 2011 -0700
+   
+       Kgio.poll: ensure EINTR never gets raised
+       
+       Retry on a zero timeout if we get interrupted
+       even if the timeout expired.  This is also what
+       IO.select does in Ruby itself.
+   
+   commit 605765ded31c784727077dfca573092ba725f717
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 13 17:57:10 2011 -0700
+   
+       Kgio.tryopen => Kgio::File.tryopen
+       
+       This will allow users to subclass Kgio::File and
+       override certain behavior (e.g. overriding "#each").
+   
+   commit c8bd876fb5086e5b79299869b4c29f1f7f020b4d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 13 17:48:56 2011 -0700
+   
+       return Kgio::File for Kgio.tryopen
+       
+       This also allows us to return/override #to_path and #path if
+       necessary, but so far everything works with MRI 1.8, MRI 1.9,
+       and Rubinius.
+   
+   commit 6cefcff5889cceaa001f76f4be1a1c5e513b241d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri May 13 15:55:50 2011 -0700
+   
+       add Kgio.tryopen method
+       
+       For the case where a file is readable, it's faster to
+       just call open() instead of stat()-ing and then calling
+       open().
+       
+       open() failures are still relatively cheap, too, they're still
+       more expensive than a failed stat() but cheaper than raising
+       an exception.
+   
+   commit ab732113e13f1690fd2c1a18d1c66beb7864d847
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 5 15:58:17 2011 -0700
+   
+       kgio 2.4.0 - portability fixes and more
+       
+       == All supported platforms (*nix + MRI 1.8+, Rubinius)
+       
+       * OpenBSD (and possibly other *BSD) fixes, thanks to Jeremy Evans.
+       
+       * kgio_accept and kgio_tryaccept now take an optional second argument
+         for flags (like the accept4() flags argument).
+       
+       == Ruby 1.9-only things
+       
+       * Kgio.poll no longer raises Errno::EINTR to match IO.select.
+       
+       == Ruby 1.9 trunk things
+       
+       * close() on an active FD in a different thread is better
+         handled/detected.
+       
+       * copy-on-write for strings is properly triggered
+   
+   commit 43190caf48309fa6aa5423d2d1ae5c320ad07fb5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 5 15:38:00 2011 -0700
+   
+       test_cross_thread_close: disable on RUBY_ENGINE != "ruby"
+       
+       These aren't well-defined semantics...
+   
+   commit 9c98bbd79f152fd72b257f9c37ca185587e56225
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 5 13:24:36 2011 -0700
+   
+       read_write: call rb_str_modify() before rb_str_resize()
+       
+       This is needed under Ruby trunk if the string is not actually
+       resized.
+   
+   commit c821ebeb851807840f74c4cb4f1a10e691bf222a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 5 13:11:53 2011 -0700
+   
+       poll: deal with pollset changes on EINTR
+       
+       This allows callers to modify the pollset, interrupt
+       the polling thread, and then poll with the modified
+       pollset.  This is also important for dealing with
+       closed IO objects that may have been invalidated
+       due to GC, too.
+   
+   commit f589a9ae18216e1220bea8f905f33051e88f1ae7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 5 12:30:45 2011 -0700
+   
+       test_tcp_connect: disable wait_writable_set test on non-Linux
+       
+       OpenBSD seems to make connect() return success immediately even
+       on a non-blocking socket, so it's hard to test for.
+       
+       Thanks to Jeremy Evans to reporting the issue under OpenBSD.
+       
+       ref: http://mid.gmane.org/20110505181846.GB9693@jeremyevans.local
+   
+   commit 9900efecb60635ad97b5c00c76eb60252839b1c1
+   Author: Jeremy Evans <code@jeremyevans.net>
+   Date:   Thu May 5 11:18:46 2011 -0700
+   
+       fix kgio_peek for !KGIO_NOPUSH systems
+       
+       Fix kgio_peek by adding an empty kgio_autopush_recv
+       if !KGIO_NOPUSH.
+       
+       ref: http://mid.gmane.org/20110505181846.GB9693@jeremyevans.local
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 577cf3056d9f3088145aea51bbc09a0c90a7695e
+   Author: Jeremy Evans <code@jeremyevans.net>
+   Date:   Thu May 5 11:49:01 2011 -0700
+   
+       connect: zero out hints argument for getaddrinfo
+       
+       Some systems like OpenBSD are stricter about irrelevant
+       fields than GNU/Linux.
+       
+       [ew: commit message]
+       
+       ref: http://mid.gmane.org/20110505181846.GB9693@jeremyevans.local
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 537e4c341137a45330e28376e8f29da7df44808f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed May 4 19:26:38 2011 -0700
+   
+       Kgio.poll restarts on interrupt
+       
+       This changes our semantics, but it's unlikely anybody
+       relies on EINTR right now...
+   
+   commit f2a3998e0c0f63ad14acf5ccc0141fc6cdce24e3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 27 11:44:51 2011 -0700
+   
+       extconf: remove unnecessary dir_config statement
+       
+       I didn't know this about mkmf at the time...
+   
+   commit 3033f2e8f178c0f150cfd3e2a070570154a27430
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 21 20:08:01 2011 +0000
+   
+       doc: improve kgio_accept/kgio_tryaccept docs
+       
+       Documenting the new flags options and also improving
+       style of the existing class overrides.
+   
+   commit b885cf9a2ef0864dcebb9bba7b1fcf3eb08f9ae8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 21 20:06:08 2011 +0000
+   
+       test_autopush: attempting to fix a timing test...
+       
+       Not fun on slow systems, unfortunately...
+   
+   commit be46333541acd72bde3544a3e86f6ead0bb364d0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 20 18:36:09 2011 -0700
+   
+       doc: fix trywrite call-seq
+   
+   commit 3b48d6c823a7da34c0b37d8eb3c11964c4a3ba89
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 14 02:31:50 2011 +0000
+   
+       test_autopush: use assert_in_delta for test
+       
+       Some systems are slower than others...
+   
+   commit f36f7584b766cb5d558fcfa94ea639e6090bcb54
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Apr 11 18:21:09 2011 +0000
+   
+       gemspec: bump wrongdoc version
+   
+   commit 212f6fdfe51e2167d362686bb2622ce04e6e5de5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Apr 11 18:20:27 2011 +0000
+   
+       gemspec: remove unnecessary require_paths
+       
+       RubyGems handles it already
+   
+   commit fefd652d6cc5825bebbe164a360c4a06b1399dcb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Apr 10 07:27:40 2011 +0000
+   
+       add test for cross thread close
+       
+       Ruby 1.9.3dev has better support for it
+   
+   commit 983e8ff915118d00b683109df0834733b485086d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Apr 10 07:04:41 2011 +0000
+   
+       read_write: detect closed fd on EINTR
+       
+       Another thread may have killed the descriptor.
+   
+   commit 01949865e2715b487e098dbc60ba3ae7a01a3b54
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Apr 10 06:07:55 2011 +0000
+   
+       accept: better detect closed files on EINTR/EAGAIN
+       
+       Another thread may have killed the acceptor object.
+   
+   commit 59782a15d0be87130934cbecb34ed639be68b44a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Mar 20 16:27:55 2011 -0700
+   
+       *accept methods can take flags argument, like accept4()
+       
+       This allows applications to not rely on global accept4_flags
+   
+   commit 0ef079617b7d71cc26574247918c4a3e18454b21
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 19 18:29:15 2011 -0700
+   
+       accept: prepare optional flags argument to accept() wrappers
+       
+       Don't force people to rely on global flags, there may be
+       blocking parts of an otherwise non-blocking program...
+   
+   commit f8b8b3f73d238d4c29368b4a0f768c5afb03d43d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 14:06:45 2011 -0700
+   
+       HACKING: updates for wrongdoc vs rdoc
+   
+   commit c79b5f9037ce69fb3ebce470a14af505aa1c8f5a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 15 12:00:52 2011 +0000
+   
+       kgio 2.3.3 - minor fixes
+       
+       We no longer over-allocate memory for Kgio.poll (1.9.x-only).
+       Under Ruby 1.9.3dev, we also use rb_thread_io_blocking_region
+       to properly deal with cross-thread IO#close.
+   
+   commit 82a3e7d24e3cd51f15df593590986b7c5d0834aa
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 14 19:35:01 2011 +0000
+   
+       poll: fix over-allocation for poll(2)
+       
+       Oops, fortunately we allocated too much and not too little.
+   
+   commit 6299ef55e20454eaca0b9860ac4a9bd6ddd143a7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 14 19:35:01 2011 +0000
+   
+       use rb_thread_blocking_io_region if possible
+       
+       It's in Ruby 1.9.3dev and tracks waiting FDs on blocked threads.
+   
+   commit 59ed57abf542b89babf595e5508cba42ceb9fd47
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 25 16:48:11 2011 +0000
+   
+       doc: more consistent references for kgio_wait_*able methods
+       
+       Much nicer this way...
+   
+   commit 88ae3fb48de345a3a102ac4d17bb71e8a4691230
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 15 08:55:25 2011 -0800
+   
+       kgio 2.3.2 - OpenBSD build fix
+       
+       Thanks to Jeremy Evans, this release fixes the build under OpenBSD.
+   
+   commit 8556c2ccf64840a080a928312d8feed2834d4d29
+   Author: Jeremy Evans <code@jeremyevans.net>
+   Date:   Mon Feb 14 17:03:53 2011 -0800
+   
+       Fix build on OpenBSD
+       
+       OpenBSD's getnameinfo(3) requires the sys/types.h header file, and
+       including it should not cause a problem for other OSes.
+       
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 6d19ebb3a917b566830f8d33e95b1eea2e99658d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Feb 13 16:50:13 2011 -0800
+   
+       kgio 2.3.1 - compatibility fix
+       
+       * connect.c: disable AI_NUMERICSERV
+       
+         It's not needed since we already verify the service is a
+         numeric port.  AI_NUMERICSERV is not available in older glibc
+         (<2.3.4) and probably other old systems.
+   
+   commit b30aa658d7b4d946427119b23cfc264cc7172149
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Feb 13 16:33:29 2011 -0800
+   
+       connect.c: disable AI_NUMERICSERV
+       
+       It's not needed since we already verify the service is a
+       numeric port.  AI_NUMERICSERV is not available in older glibc
+       (<2.3.4) and probably other old systems.
+   
+   commit f74bcf37ed31611d14aba2d4b4518c6a3dea0f40
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 9 10:10:36 2011 +0000
+   
+       kgio 2.3.0 - MSG_PEEK and poll(2) support
+       
+       recv() with MSG_PEEK for sockets is added with the try*
+       interface.  SocketMethods#kgio_trypeek and
+       SocketMethods#kgio_peek or Kgio.trypeek for non-Kgio-enabled
+       sockets.
+       
+       For Ruby 1.9 only: poll(2) is exposed via the Kgio.poll
+       singleton method and should provide an alternative for IO.select
+       users.
+       
+       Both of these new features should work well on modern Unix-like
+       operating systems.
+   
+   commit 00d1bc89ed3811701195bf5ddb400a0a0067126f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 8 14:11:45 2011 -0800
+   
+       move poll support checks to kgio.h
+       
+       We may use poll elsewhere...
+   
+   commit 257b090af54e6a1cecd44325f8664c4c682a6740
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 8 13:56:39 2011 -0800
+   
+       pkg.mk: update to the latest
+       
+       * Fixes Ruby 1.9.3dev deprecation warnings
+       * Fixes some documentation dependency issues
+       * Allows RUBY_TEST_OPTS to be passed to unit tests
+   
+   commit d8616b605ad4d83b69e2679e1c210e476cc18e00
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 8 13:50:55 2011 -0800
+   
+       doc: fully RDoc all methods and classes
+       
+       Whee!
+   
+   commit 3f6bffb4c4297df48a69d146243fbe5ba8040cb5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 8 13:50:01 2011 -0800
+   
+       doc: fix accept -> tryaccept copy+paste error
+       
+       Oops
+   
+   commit 823e8978b38dcfb642e5059e879af4209ebba0f1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 8 13:36:56 2011 -0800
+   
+       README: fix download link/ref
+   
+   commit 5c480aee3067006b5da6d45b7de41d8401b70848
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 8 10:41:51 2011 +0000
+   
+       preliminary poll(2) support
+       
+       It's a nice alternative to IO.select for higher-numbered
+       file descriptors, especially sparse ones.  Our interface
+       also generates less garbage than IO.select does.
+   
+   commit 47653194bf6ad53b9f5fca1b266c30855df5ebbd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Feb 6 21:56:35 2011 +0000
+   
+       add support for recv() with MSG_PEEK
+       
+       Kgio.trypeek, kgio_trypeek and kgio_peek methods are added
+       for using with sockets.
+   
+   commit 75a7da2bd757617995f5492df1205e4a3459618b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Feb 3 18:46:21 2011 -0800
+   
+       kgio 2.2.0 - kinder, gentler I/O for the Internets
+       
+       * sockets accept()ed by a TCP_NOPUSH/TCP_CORK listener
+         automatically flush on kgio_*read calls if there is pending
+         data.  "Kgio.autopush = false" disables this globally,
+         and Kgio::Socket also get "kgio_autopush=" to enable/disable
+         on a per-object individual basis.
+       
+       * ECONNRESET exceptions get empty backtraces for kgio_*read.
+         There's nothing a programmer can do about these, so there's
+         no point in going through the expensive backtrace generation
+         process.
+       
+       * Kgio.try* singleton methods added for working with non-Kgio
+         enhanced objects.  No more needing to use Object#extend
+         and blowing away your method cache to make existing I/O
+         objects kinder and gentler.
+       
+       * IPv6 support should be complete, systems without a native
+         getaddrinfo(3) are now unsupported (and will remain so
+         unless somebody complains).
+       
+       There should be no other backwards-incompatible changes other
+       than requiring getaddrinfo(3) and friends for IPv6 support.
+   
+   commit c8fb5aa33262a455997ff6a57659a8d125f36d66
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Feb 3 14:28:11 2011 -0800
+   
+       add SocketMethods#kgio_addr!
+       
+       This refreshes (or sets) the @kgio_addr ivar for sockets
+       that didn't go through kgio_accept or kgio_tryaccept.
+   
+   commit cff0dd2f73acc73f721b2a589af9e37baedd2489
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 2 13:56:31 2011 -0800
+   
+       fix typos in ipv6 test case
+       
+       Oops, RTFE :P
+   
+   commit 17abe6ce8f01810022b948c71de0026b4ac89597
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Wed Feb 2 21:33:28 2011 +0000
+   
+       add proper IPv6 support
+       
+       No extra #ifdefs, we just won't support old systems without
+       getaddrinfo() and friends anymore.  I doubt anybody still has
+       them...
+   
+   commit 879f2f0ee9133f34ec3e24141bdb4936e3408d3a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 1 14:00:07 2011 -0800
+   
+       avoid re-interning if GCC is not used (or under 1.8)
+       
+       Needless calls to rb_intern are wasteful in even semi-frequently
+       used code.
+   
+   commit 499f158c74b7c455dca08fc30be88cb699ee24c6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 1 13:58:20 2011 -0800
+   
+       kgio_*read: empty backtrace for ECONNRESET
+       
+       There's nothing a programmer can do about ECONNRESET
+       so just make the exception cheaper to raise so it
+       can still be logged.
+   
+   commit 36f69750cd69cbf892580da04be6675e23d92f6f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 18:39:31 2011 -0800
+   
+       add singleton methods for non-Kgio objects
+       
+       This allows people to more easily use Kgio in existing apps.
+   
+   commit 37e50a9a5fcd45242373379c0dc61ebf8ff609af
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 18:27:24 2011 -0800
+   
+       autopush: enable accessors for client sockets
+       
+       Might as well allow clients to efficiently handle
+       TCP_CORK/TCP_NOPUSH, too.
+   
+   commit d4773fc63a847119004c17a1b8803a815f99d98a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 17:34:07 2011 -0800
+   
+       autopush: enable this by default
+       
+       TCP_CORK (and presuably TCP_NOPUSH) aren't remotely useful in
+       Rainbows! without this and there's almost no overhead for MRI,
+       either.
+   
+   commit 8a1fc65c88dee174940735bb46074c72ac47ce61
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 17:05:48 2011 -0800
+   
+       autopush: optimize away ivar usage under MRI
+       
+       We know that all versions of MRI have a small RFile structure
+       that is allocated in the same object slots as other Ruby types
+       and also zeroed on allocation.
+       
+       This optimization enables us to fall back to using ivars in
+       case MRI changes or if we're used on other Rubies.
+   
+   commit 6479b6d3934b8930910e0057f516aa019dd7a8c7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 15:18:33 2011 -0800
+   
+       autopush: enable for TCP_NOPUSH under FreeBSD
+       
+       Hopefully it works for people who use TCP_NOPUSH...
+   
+   commit 15744a90cda72e9007914cd2a78b0b2949193479
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 13:58:53 2011 -0800
+   
+       autopush: simplify implementation and just use ivars
+       
+       Duh...
+   
+   commit 313d2bb8d37dbc5602e464def90b3e7fa9f60924
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jan 31 13:03:02 2011 -0800
+   
+       rename nopush_smart to autopush
+       
+       This is probably a better name for it, libautocork is a nice
+       name even though we won't use it directly.
+   
+   commit 910f6f3df099c04fcd55bd6b20785cce69cb36ae
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jan 27 19:43:39 2011 -0800
+   
+       preliminary implementation of "smart_nopush"
+       
+       It only supports TCP_CORK under Linux right now.
+       
+       We use a very basic strategy to use TCP_CORK semantics optimally
+       in most TCP servers:  On corked sockets, we will uncork on recv()
+       if there was a previous send().  Otherwise we do not fiddle
+       with TCP_CORK at all.
+       
+       Under Linux, we can rely on TCP_CORK being inherited in an
+       accept()-ed client socket so we can avoid syscalls for each
+       accept()-ed client if we already know the accept() socket corks.
+       
+       This module does NOTHING for client TCP sockets, we only deal
+       with accept()-ed sockets right now.
+   
+   commit ec91ac3d8c8d9236ba0cd01794c9c4a3ee3f7eeb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jan 27 14:11:16 2011 -0800
+   
+       revamp packaging makefile, update URLs
+       
+       More common code that's still GNU make is better for my
+       sanity.  Also, bogomips.org went on a URL diet recently.
+   
+   commit f6c79438ed195bb706903d104cce850bfbfbac41
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jan 18 15:52:25 2011 -0800
+   
+       add tests for empty writes, too
+       
+       There could be some platforms that dislike it...
+   
+   commit 9c81cc3fd8d2b3dce68d69d8e0c56a4c5d89ebf0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jan 13 14:46:02 2011 -0800
+   
+       Makefile: remove non-existent target reference
+       
+       Oops
+   
+   commit fb8104e1f2a5d1cdcb99a19b6a4bdabf0b1c2643
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Dec 25 18:06:47 2010 -0800
+   
+       kgio 2.1.1 - one small Rubinius fix
+       
+       We now avoid errno side-effects in kgio_wait_*able methods.
+       This affects Rubinius, but may affect other Ruby platforms
+       (particularly those that use stdio) as well.
+   
+   commit 6ab4331f8137e949ab57f014f96ff3918a315044
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Dec 25 18:02:16 2010 -0800
+   
+       avoid errno side-effects in kgio_wait_*able
+       
+       Retrieving the file descriptor may have side-effects on
+       certain Ruby implementations (e.g. Rubinius), so ensure
+       our errno is preserved before calling rb_io_wait_*able().
+   
+   commit 3a0323b642ee054319a5e64ffe28e089bbd013e4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 01:08:58 2010 +0000
+   
+       gemspec: point folks to the public mailing list
+       
+       It's more useful that way.
+   
+   commit 9d5c9e6c9975cb5c10e7384aed9ed22ae0ee57c8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 01:02:00 2010 +0000
+   
+       kgio 2.1.0 - accept improvements and fixes
+       
+       kgio_accept and kgio_tryaccept now take an optional argument
+       to override the default Kgio::Socket class that is returned.
+       
+       These methods also fall back to using regular accept() if
+       kgio was built on a system with accept4() and later run on
+       a system without accept4().
+   
+   commit dcd5eff7dd5d5861b67667f48424979be9bcabc8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Dec 26 00:21:25 2010 +0000
+   
+       quiet down some harmless compiler warnings
+       
+       Less noise means we'll notice real bugs sooner.
+   
+   commit 5280f35f131d88f90afffff0e10f7900530728aa
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Sat Dec 25 23:00:05 2010 +0000
+   
+       accept4: fall back to regular accept() on ENOSYS
+       
+       kgio may occasionally be built on a system with accept4()
+       and then deployed on one without it.   Handle this case
+       gracefully since it unfortunately happens on production systems.
+   
+   commit b859c4a12905cbd71d19cde2aaa9f88ec0374cc5
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Sat Dec 25 22:44:53 2010 +0000
+   
+       accept methods may take an optional argument
+       
+       This is preferred as we no longer have to rely on a global
+       constant.
+   
+   commit ef069ece624906b3946248421620d8458bcef605
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Fri Dec 24 09:21:19 2010 +0000
+   
+       Rakefile: fix RAA license
+       
+       Oops, we were never Ruby licensed.
+   
+   commit 472240687caf3f113a3ff408729f8205c475d7d5
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Fri Dec 24 09:20:40 2010 +0000
+   
+       doc: use wrongdoc for documentation
+       
+       wrongdoc factors out a bunch of common code from this
+       project into its own and removes JavaScript from RDoc
+       to boot.
+   
+   commit 64bbc95d2192fb621b763c1c4d1ae32940c1a5ac
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Dec 22 12:12:18 2010 -0800
+   
+       fix errors in RDoc
+       
+       Noticed-by: Iñaki Baz Castillo
+   
+   commit f093312ad1ed336363f352991b6b99d96f7aed1d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 17:16:53 2010 -0800
+   
+       kgio 2.0.0 - major internal API changes
+       
+       (no code changes from 2.0.0pre1)
+       
+       This release should make Kgio easier and more consistent
+       to use across a variety of libraries/applications.
+       
+       The global Kgio.wait_*able(=) accessor methods are gone in favor
+       of having default kgio_wait_readable and kgio_wait_writable
+       methods added to all Kgio-using classes.  Sub-classes may (and
+       are encouraged to) redefine these if needed.
+       
+       Eric Wong (7):
+           expand Kgio::*#kgio_read! documentation
+           prefer symbolic names for waiting read/writability
+           EOFError message matches Ruby's
+           README: Gemcutter => RubyGems.org
+           update documentation with mailing list info
+           add default kgio_wait_*able methods
+           switch entirely to kgio_wait_*able methods
+   
+   commit edfa7e60de5556b6abc9febe6a21e12dadbafd0b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 15:42:27 2010 -0800
+   
+       Rakefile: list prerelease tags as well
+       
+       Since we do prerelease nowadays before real ones.
+   
+   commit d78a2075bdb0a30bf0064d2857011c330cc0d09e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 15:38:12 2010 -0800
+   
+       move website to bogomips.org
+       
+       This project is useful enough for others and to stand alone
+       without needing to be associated with Unicorn.
+   
+   commit 28070c522aff233eadb7e167f8d4e8122cd0bb47
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 18 15:15:40 2010 -0800
+   
+       kgio 2.0.0pre1 - major internal API changes
+       
+       This release should make Kgio easier and more consistent
+       to use across a variety of libraries/applications.
+       
+       The global Kgio.wait_*able(=) accessor methods are gone in favor
+       of having default kgio_wait_readable and kgio_wait_writable
+       methods added to all Kgio-using classes.  Sub-classes may (and
+       are encouraged to) redefine these if needed.
+       
+       Eric Wong (7):
+             expand Kgio::*#kgio_read! documentation
+             prefer symbolic names for waiting read/writability
+             EOFError message matches Ruby's
+             README: Gemcutter => RubyGems.org
+             update documentation with mailing list info
+             add default kgio_wait_*able methods
+             switch entirely to kgio_wait_*able methods
+   
+   commit c69955e64648ab6a3471a54f7885a320428682f9
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Nov 18 14:37:05 2010 -0800
+   
+       switch entirely to kgio_wait_*able methods
+       
+       This removes the global Kgio.wait_*able accesors and requires
+       each class to define (or fall back to) the Kgio::DefaultWaiters
+       methods.
+   
+   commit f1b497e601ed2acb54f75dc989d0a5ec7afebca0
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Nov 18 13:38:32 2010 -0800
+   
+       add default kgio_wait_*able methods
+       
+       It makes it easier for people to use certain overrides without
+       killing other methods.  This is the first step in fixing
+       problems people were having with dalli 0.11.1+ while running
+       Unicorn.
+   
+   commit 827ad6b4fba768a5cac8fb4e83fbbf61cf7a3194
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Nov 15 10:33:55 2010 -0800
+   
+       update documentation with mailing list info
+       
+       We're a real project, apparently, so it can have its
+       own mailing list.
+   
+   commit fd88eae588c1e715dcaf3a1a000391cc13481e02
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Nov 15 10:22:49 2010 -0800
+   
+       README: Gemcutter => RubyGems.org
+       
+       That's the new name for it and it's official
+   
+   commit 8615a3f9554df0fd7f7f088cd49cf1e3be49de9f
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Fri Nov 12 20:25:50 2010 -0800
+   
+       EOFError message matches Ruby's
+       
+       This makes messages appear less different than Ruby
+       when using kgio_read!
+       
+       Requested-by: Mike Perham
+   
+   commit 2772ed8bfe108b66b7493bc5cb0c40ddeb1ca57d
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Fri Nov 5 09:01:08 2010 +0800
+   
+       prefer symbolic names for waiting read/writability
+       
+       There's no point in using constants that point to symbols
+       instead of just the symbols themselves.
+   
+   commit bf3b507791403811bece9dff915ca10757bca519
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Oct 28 21:02:31 2010 +0000
+   
+       expand Kgio::*#kgio_read! documentation
+       
+       If the author can forget why it was written, so can
+       the rest of the world.
+   
+   commit f4d08a07a02393cca5ddd1277acc4f95c83307ff
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Fri Oct 8 14:55:16 2010 -0700
+   
+       kgio 1.3.1 - fix zero-length reads
+       
+       kgio_read and kgio_tryread will now return an empty string when
+       a length of zero is specified instead of nil (which would signal
+       an EOF).  This emulates the behavior of IO#read, IO#readpartial,
+       IO#sysread, IO#read_nonblock in core Ruby for consistency.
+   
+   commit d225ede82d820d045bd7cfb826f444cf6601577c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Oct 8 02:53:38 2010 -0700
+   
+       return empty string on length=0
+       
+       This matches behavior of all the core Ruby methods.
+   
+   commit e4599227f0da0f652cbcb52838e631d7384dcd0d
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Oct 7 20:02:40 2010 -0700
+   
+       kgio 1.3.0 - bug and usability fixes
+       
+       * make Kgio::WaitWritable and Kgio::WaitReadable symbols
+       * trywrite: fix stupid off-by-one error causing corrupt writes
+         on retries
+   
+   commit f5fc35221d37141b0f72278c7b969211410e94c0
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Oct 7 20:00:09 2010 -0700
+   
+       tests: don't trust what I think I know about Ruby
+       
+       case/when and === didn't actually work as I expected
+       them to.
+   
+   commit 2152188f41bf2a5067e84a4404b48b2282a9dd55
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Oct 7 19:56:57 2010 -0700
+   
+       trywrite: fix stupid off-by-one error causing corrupt writes
+       
+       Oops!
+   
+   commit c448ad898ecb7f354a32a320294da4727fc9af52
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Oct 7 19:55:49 2010 -0700
+   
+       make WaitWritable and WaitReadable symbols
+       
+       This makes them easier to compare with === when used
+       in case/when statements in Ruby
+   
+   commit 49f0b98c69f1f0bf637953d0bfc96b764f00ab9b
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Oct 7 07:15:49 2010 +0000
+   
+       kgio 1.2.1 - doc and *BSD workarounds
+       
+       This fixes our accept4() wrapper which did not work as expected
+       on some *BSD-based systems due to fcntl(fd, F_GETFL) returning
+       false information.  Linux 2.6+ users are unnaffected, including
+       those without accept4().
+       
+       Also some RDoc fixes.
+   
+   commit 03344bb763f5269afe7fafd56a47270719c7ef9e
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Oct 7 07:14:07 2010 +0000
+   
+       doc: fix RDoc generation
+       
+       Oops, completely broken by the splitting of the code.
+   
+   commit 637317eb479525dca543eda7a8977410bc43b832
+   Author: Eric Wong <e+07380@yhbt.net>
+   Date:   Wed Oct 6 14:08:35 2010 -0700
+   
+       accept4: workaround (P)OS X bug w/O_NONBLOCK
+       
+       Apparently fcntl(fd, F_GETFL) can return falsely return the
+       O_NONBLOCK flag without actually having it set in the kernel.
+       This is totally broken on the part of the OS.
+   
+   commit ca76c75f8a24d0cd6828fe16ca3790a277b35f8d
+   Author: Eric Wong <e+07380@yhbt.net>
+   Date:   Wed Oct 6 14:06:27 2010 -0700
+   
+       build: pick on on modified extension files
+       
+       We build more than one file nowadays.
+   
+   commit 65f96b7750616bc210397c16eea40961e578a788
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Wed Oct 6 11:51:04 2010 -0700
+   
+       doc: fix typo in Kgio.accept_cloexec= doc
+       
+       oops...
+   
+   commit 414dd17f1009c571e2d7657721271756e3d4dd8e
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Oct 5 16:09:40 2010 -0700
+   
+       kgio 1.2.0 - cleanups and minor improvements
+       
+       The C extension is now split into several files for
+       ease-of-maintenance.
+       
+       Slightly more common, client-triggerable exceptions (EOFError,
+       Errno::EPIPE, Errno::ECONNRESET) are now less expensive as they
+       are generated without backtraces.
+   
+   commit e085bb9600b190692beb5efc85656ebf127ae08c
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Oct 5 15:45:16 2010 -0700
+   
+       generate empty backtraces for EPIPE and ECONNRESET
+       
+       Malicious clients may disconnect during big writes to cause
+       EPIPE and ECONNRESET exceptions.  Generating backtraces can be
+       expensive with Ruby, so mitigate the DoS vector by lowering the
+       cost of generating an exception.
+   
+   commit b168cc894037620cab82fa82f3ab37a3aab81570
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Oct 5 15:26:57 2010 -0700
+   
+       add kgio_read! methods which may raise EOFError
+       
+       Except EOFError is gently raised to not include a huge
+       backtrace.  Large backtraces can be a performance problem on
+       busy servers that malicious clients may exploit to deny service.
+   
+   commit 870ada92db7071c7982913e508ac35b97d6e8761
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Oct 5 11:45:02 2010 -0700
+   
+       GNUmakefile: use portable tar invocation
+       
+       We've been spoiled by GNU tar.
+   
+   commit 2a6115a89d5c95428bd6c3e0bc10e5a3a4c3c3be
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Wed Sep 29 18:25:58 2010 -0700
+   
+       refactor and split into separate files
+       
+       Making the code easier to read and navigate.  This also
+       frees us from having to use the stupid A4_ prefix for
+       accept4(2) flags since it conflicts with the socket(2)
+       ones.
+   
+   commit 8fe89997453d6c530c3f5e08bc9c1da40a621248
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Wed Sep 29 17:13:21 2010 -0700
+   
+       Make kgio_trywrite more aggressive with retrying
+       
+       Partial writes can be retried until completely denied with
+       EAGAIN.  Often times, it is beneficial to retry immediately
+       after a partial write because the kernel may allocate more
+       buffers or the reader can drain the buffers.
+       
+       This helps the caller avoid crossing the Ruby <-> C boundary
+       more than necessary.
+   
+   commit 39c851e595970a2349a8a39878afd94a3324e102
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 28 18:16:53 2010 -0700
+   
+       kgio 1.1.0 - flexible accept methods
+       
+       * an alternate class now be returned by accept/tryaccept
+         by setting "Kgio.accept_class ="
+   
+   commit 911f6ab306aff1e24c9c570eeae33923fa1b99d9
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 28 18:04:51 2010 -0700
+   
+       alternate classes may be returned by accept/tryaccept
+       
+       These can be useful for avoiding wrapper objects and
+       also allows users to more easily try different things
+       without stepping on others' toe^H^H^Hclasses.
+   
+   commit 526b4bd48a20a34ef5959fdc4aa580d5f9199652
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 19:59:34 2010 -0700
+   
+       kgio 1.0.1 - compatibility fixes
+       
+       * add compatibility for ancient Rubies (1.8.6)
+       * linux: fix accept4() support for newer Linux
+   
+   commit 20cbc0355104470fb433dd13e87a5d5c7e888ab1
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 28 02:56:41 2010 +0000
+   
+       linux: fix accept4() support for newer Linux
+       
+       Oops :x  Tested on Debian sid.
+   
+   commit 24f1d168eb0937f0586c45b266bcd208431f0107
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 18:06:34 2010 -0700
+   
+       add compatibility for ancient Rubies
+       
+       This is tested on Ruby 1.8.6-p114, but may work
+       for 1.8.5, too.  Ugh, people ought to upgrade.
+   
+   commit e4d204c86e9420023ba3e4d8dbeb6b3fea8d6cf7
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 28 00:27:44 2010 +0000
+   
+       kgio 1.0.0 - initial release
+       
+       Documentation and release infrastructure updates
+       and such...
+   
+   commit 8984b9556a3493570fbb4f747fce712d58f2cdd8
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 28 00:07:43 2010 +0000
+   
+       doc: TODO update
+   
+   commit 2c64a1fc07d3b9a80d112e3b0e2baa7ec29c2f47
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Tue Sep 28 00:03:39 2010 +0000
+   
+       read/write: account for buffer changes during wait
+       
+       It's possible for applications to modify the buffer during
+       reads and writes, so make a best effort to account for those.
+   
+   commit f2ea9918655e8ee0576bee2950d16485031fc361
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 23:59:59 2010 +0000
+   
+       tests: fix broken monster trywrite test
+       
+       Oops, use random data so it's easier to detect this.
+   
+   commit 7abc0eb3dd804c2e65660b7dd9c828df0e03b80a
+   Author: Eric Wong <e+absinthe@yhbt.net>
+   Date:   Mon Sep 27 15:09:44 2010 -0700
+   
+       test_tcp*read_write: use blocking kgio_accept in setup
+       
+       Some OSes (FreeBSD 7.0) do not seem to setup
+        connections as quickly.
+   
+   commit 95d2eae6a4da34c504427af6ae0ab4c8c70c0ce5
+   Author: Eric Wong <e+absinthe@yhbt.net>
+   Date:   Mon Sep 27 15:09:43 2010 -0700
+   
+       set blocking flag before blocking IO#read
+       
+       Some older Rubies may not behave correctly otherwise
+   
+   commit 0806cac89f9d0e169b6c1e4da68c1ad66daa23ae
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 23:16:53 2010 +0000
+   
+       tess: ensure buffer is cleared on failures
+       
+       No need to leak data.
+   
+   commit 50b86bf23063f3e6c3777b39c9464f73ccfd6ef5
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 22:55:52 2010 +0000
+   
+       more documentation
+       
+       Somebody's gotta do it...
+   
+   commit 5123d66fe0b2dad67539a20fe5b91f5b9afd814a
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 16:56:13 2010 +0000
+   
+       avoid initiating syscalls before rb_io_wait_*
+       
+       Some Ruby implementations (Rubinius) may call lseek
+       and clobber the intended errno when looking up the
+       open file, causing rb_io_wait_* functions to fail.
+   
+   commit 6c818b0b6f76ef733679bcea1024142b4ef3ce00
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 01:13:30 2010 +0000
+   
+       add kgio_tryaccept, kgio_accept _really_ blocks
+       
+       We'll stick with the "try" prefix if we're going to be
+       non-blocking.  kgio_accept will favor a blocking accept() call
+       where it's possible to release the GVL, allowing it to avoid
+       thundering herd problems.  Otherwise it'll use thread-safe
+       blocking under Ruby 1.8.
+   
+   commit f81cb3c05a0eb46ec61ceb295b51ead16e6a0da4
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 00:57:14 2010 +0000
+   
+       use SOCK_NONBLOCK for socket(2) if possible
+       
+       This saves us a relatively expensive fcntl() system call.
+   
+   commit 87cf3ce6185b9138032a5af53cecae98f8c93564
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 00:24:50 2010 +0000
+   
+       connect: no do not leak descriptors on failure
+       
+       We cannot raise exceptions and expect GC to clean up
+       after us until we've created an actual IO object.
+   
+   commit 6fbde1518578dd1b828efcecaf2caf893bddc110
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Mon Sep 27 00:11:43 2010 +0000
+   
+       "start" singleton methods for non-blocking connect
+       
+       These initiate (but do not wait for) non-blocking connects.
+   
+   commit fdfecc6d815bab8dfc1d8ad6758a66d44ab51e31
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Sun Sep 26 07:51:12 2010 +0000
+   
+       introduce kgio_try* methods
+       
+       Avoid altering behavior based on globals that
+       Kgio.wait_{read,writ}able stored in, since that's too confusing.
+       The non-try variants are closer to the normal IO read/write
+       methods, except they can be more easily plugged into alternate
+       reactors and event frameworks.
+   
+   commit d8ee79e1e5c6e6908009213324db25cf41c583ce
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Sat Sep 25 17:55:07 2010 +0000
+   
+       kgio_read returns nil on EOF
+       
+       Just like IO#read
+   
+   commit af03e4471de3d3b91eec16e26e93a84d4a717116
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Sat Sep 25 17:47:13 2010 +0000
+   
+       split out reusable bits into separate headers
+       
+       No point in cluttering up the meat of our code.
+   
+   commit db53263856d864ba6273e6cac73011f699509d71
+   Author: Eric Wong <e+absinthe@yhbt.net>
+   Date:   Sat Sep 25 01:36:13 2010 -0700
+   
+       only use MSG_DONTWAIT under Linux
+       
+       MSG_DONTWAIT is less consistently implemented/supported on other
+       platforms on stream sockets, so fallback to fcntl() + read()/write()
+       for stream sockets.  This also fixes our previously broken support
+       of non-MSG_DONTWAIT systems.
+   
+   commit a82dc40c2a509c4ab692da34b572693f243fbfae
+   Author: Eric Wong <e+absinthe@yhbt.net>
+   Date:   Sat Sep 25 01:36:12 2010 -0700
+   
+       write/send may fail with ECONNRESET
+       
+       Tested on FreeBSD 7.0
+   
+   commit 0c60192621303f5e4ebd46d43a058de48126bc8a
+   Author: Eric Wong <e+absinthe@yhbt.net>
+   Date:   Sat Sep 25 01:36:11 2010 -0700
+   
+       fix missing netinet/in.h include
+       
+       This is needed for FreeBSD 7.0, at least.
+   
+   commit 0beb82437f4ab0b8422e225080b234361092315e
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Sat Sep 25 08:15:13 2010 +0000
+   
+       beef up the test suite
+       
+       We need to test server <-> client interaction
+       more thoroughly since some systems don't implement
+       everything right.
+   
+   commit 460e6b025896dee64b39d194d4c1a536129654de
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Thu Sep 23 22:56:44 2010 +0000
+   
+       initial commit + release
+       
+       everything shou^Wmight be working...

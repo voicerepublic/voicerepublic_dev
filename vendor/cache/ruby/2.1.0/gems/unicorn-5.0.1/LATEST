@@ -1,0 +1,29 @@
+=== unicorn 5.0.0.pre2 - another prerelease! / 2015-07-06 21:37 UTC
+
+  There is a minor TCP socket options are now applied to inherited
+  sockets, and we have native support for inheriting sockets from
+  systemd (by emulating the sd_listen_fds(3) function).
+
+  Dynamic changes in the application to Rack::Utils::HTTP_STATUS
+  codes is now supported, so you can use your own custom status
+  lines.
+
+  Ruby 2.2 and later is now favored for performance.
+  Optimizations by using constants which made sense in earlier
+  versions of Ruby are gone: so users of old Ruby versions
+  will see performance regressions.  Ruby 2.2 users should
+  see the same or better performance, and we have less code
+  as a result.
+
+  * doc: update some invalid URLs
+  * apply TCP socket options on inherited sockets
+  * reflect changes in Rack::Utils::HTTP_STATUS_CODES
+  * reduce constants and optimize for Ruby 2.2
+  * http_response: reduce size of multi-line header path
+  * emulate sd_listen_fds for systemd support
+  * test/unit/test_response.rb: compatibility with older test-unit
+
+  This also includes all changes in unicorn 5.0.0.pre1:
+
+  http://bogomips.org/unicorn-public/m/20150615225652.GA16164@dcvr.yhbt.net.html
+

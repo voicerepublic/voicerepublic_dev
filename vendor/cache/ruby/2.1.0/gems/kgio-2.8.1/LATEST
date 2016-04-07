@@ -1,0 +1,24 @@
+=== kgio 2.8.1 - minor improvements and test fixes / 2013-09-11 00:22 UTC
+
+  Improved error reporting for kgio_accept/kgio_tryaccept.
+  Minor size reduction throughout.  There are also several
+  test case fixes for race conditions.
+
+  Thanks to Hleb Valoshka and the Debian project for all the
+  help with this release!
+
+  Eric Wong (7):
+        check syscall returns against < 0 instead of == -1
+        accept: more informative exception on unknown family
+        test_tryopen: skip EACCES test when euid == 0
+        test/lib_read_write: account for larger-than-normal pipes
+        test_poll: avoid potentially thread-unsafe test
+        test_poll: preserve original trap(:USR1) handler
+        test_poll: be less dependent on signal handler ordering
+
+  Hleb Valoshka (4):
+        Change prefix of temporary sockets to prevent races
+        Don't dump 20M in case of failure
+        Create own directory for every unix socket in unit tests
+        Close tempfile and unlink it immediately.
+

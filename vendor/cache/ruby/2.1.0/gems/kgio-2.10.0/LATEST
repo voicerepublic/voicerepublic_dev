@@ -1,0 +1,18 @@
+=== kgio 2.10.0 - slimming down... / 2015-09-06 08:12 UTC
+
+  The largely-unused autopush functionality is now a no-op.
+  Existing applications will probably not notice, and are
+  better off using MSG_MORE anyways if they're on Linux.
+
+  Our poll(2) wrapper now uses rb_hash_clear if available,
+  reducing global method cache dependence.
+
+  shortlog of changes since 2.9.3:
+
+        README: remove reference to Rainbows!
+        writev: update comment on preserving errno
+        poll: avoid rb_funcall for rb_hash_clear
+        minor doc updates
+        remove autopush support and make it a no-op
+        HACKING: update URL for Message-ID lookup
+

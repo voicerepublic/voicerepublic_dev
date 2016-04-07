@@ -1,0 +1,1835 @@
+ChangeLog from http://bogomips.org/raindrops.git
+
+   commit 05cde4657605caa2db2cb9bd3da611e4bc9d79f6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 2 10:30:39 2013 +0000
+   
+       raindrops 0.12.0 - compatibility fixes
+       
+       This release fixes builds on systems where compilers target i386
+       (and not later x86 systems).  There are also minor improvements for
+       Ruby 2.1.0dev and Rubinius.
+       
+       Eric Wong (5):
+             doc: add email address to generated doc/site
+             README: update regarding Ruby support status
+             extconf: try harder for gcc atomics in i386-configured systems
+             linux_inet_diag: improve compatibility with newer GCs
+             test_watcher: fix for Ruby trunk r40195 and later
+   
+   commit 8e5a4714fd90f87e2bc56c7b3f2525bb9055a227
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 2 09:53:51 2013 +0000
+   
+       test_watcher: fix for Ruby trunk r40195 and later
+       
+       assert_raises doesn't capture exceptions the same way rescue works.
+   
+   commit 07efdceff18dc481424adb8b509244b6c6a822d5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Jun 16 20:54:55 2013 +0000
+   
+       linux_inet_diag: improve compatibility with newer GCs
+       
+       RARRAY_PTR is expensive with GCs in Ruby 2.1.0dev and Rubinius, so
+       use rb_ary_entry for non-performance critical paths.  Eventually,
+       RARRAY_AREF/RARRAY_ASET may be common, but for now, using
+       rb_ary_entry should require the least cognitive overhead for a
+       developer.
+   
+   commit fc690079c889ed5a97359515d75fe9260dd9ea91
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Aug 28 10:10:29 2013 +0000
+   
+       extconf: try harder for gcc atomics in i386-configured systems
+       
+       __sync_lock_test_and_set might not be the correct check after all,
+       but __sync_val_compare_and_swap probably is.  At least this is
+       what Ruby 2.0.0 uses to check and attempt -march=i486 on.
+   
+   commit fdda1473240485b7e996e425ed1a46ce0e50174e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 20 23:16:38 2013 +0000
+   
+       README: update regarding Ruby support status
+       
+       Now that Ruby 2.0.0 is out...
+   
+   commit a59312421d68ee75532692423b3dc3c533f7a765
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 20 23:12:38 2013 +0000
+   
+       doc: add email address to generated doc/site
+   
+   commit e4eaf78dc922db10af75861cad036d042fd9c49e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 20 22:53:06 2013 +0000
+   
+       raindrops 0.11.0 - minor fixes improvements
+       
+       Eric Wong (7):
+             raindrops: favor configured processor count over online count
+             watcher: set Content-Type via assignment
+             Linux::TCP_Info: implement #get! instance method
+             linux_inet_diag: avoid unnecessary sockaddr initialization
+             .gitignore: add .rbx
+             switch back to gemspec development dependencies
+             linux_inet_diag: better align listener_stats struct
+       
+       Lawrence Pit (1):
+             Watcher: Use relative paths in HTML links
+   
+   commit 241cfdd395c7d045f0048a1a0410ae28e6555c3b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 20 22:59:32 2013 +0000
+   
+       linux_inet_diag: better align listener_stats struct
+       
+       Using an extra 4 bytes for the listener_stats should not
+       significantly increase space usage, and it has the side benefit
+       of making our code slightly smaller.
+       
+       $ ~/linux/scripts/bloat-o-meter before.so after.so
+       add/remove: 0/0 grow/shrink: 1/2 up/down: 14/-32 (-18)
+       function                                     old     new   delta
+       tcp_stats                                    392     406     +14
+       st_to_hash                                   195     187      -8
+       diag                                         763     739     -24
+   
+   commit 6601f1ab43e90391932ad133335c814980bf7428
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 13 02:23:22 2013 +0000
+   
+       switch back to gemspec development dependencies
+       
+       This is more standardized than bundler for gem development.
+   
+   commit e5884e7946a6b5bfb5cb677c3d435a4a8f881573
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Apr 13 00:31:41 2013 +0000
+   
+       .gitignore: add .rbx
+       
+       Rubinius drops a .rbx directory on us nowadays
+   
+   commit 602df28c6616a0724317e29bfc428ba06d1886e0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 11 23:39:08 2013 +0000
+   
+       linux_inet_diag: avoid unnecessary sockaddr initialization
+       
+       This initialization was unnecessary and avoids the following
+       warning with -Wmissing-braces on gcc 4.7.2-5 on Debian testing:
+       
+         linux_inet_diag.c: In function ‘stats_for’:
+         linux_inet_diag.c:192:8: warning: missing braces around initializer [-Wmissing-braces]
+         linux_inet_diag.c:192:8: warning: (near initialization for ‘sa.ss’) [-Wmissing-braces]
+   
+   commit 65a248c523ddbfa41ae1e1d6da0a7f71383428e2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 11 23:13:13 2013 +0000
+   
+       Linux::TCP_Info: implement #get! instance method
+       
+       This allows reusing existing Linux::TCP_Info objects to avoid
+       generating garbage.
+   
+   commit c29fd663b45888aa8661c8599c88c339f4fbe8c1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 11 22:57:53 2013 +0000
+   
+       watcher: set Content-Type via assignment
+       
+       Relying on String#replace to set Content-Type stopped working
+       with rack commit 3623d04526b953a63bfb3e72de2d6920a042563f
+       This fixes compatibility with the Rack 1.5.x series.
+   
+   commit d92a3a66adab040ca935c1b3aa0f5965b4cc1d67
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 11 22:50:35 2013 +0000
+   
+       raindrops: favor configured processor count over online count
+       
+       The runnable CPUs of a process may change over the lifetime of
+       the process.  So favor the count of configured processor count
+       since that is more likely to be stable.
+       
+       We do not currently do not have special handling for
+       hot-plugging/removal of CPUs on systems that may load raindrops
+       in a single CPU state.
+   
+   commit a8be099aabc0661e2074e1bd4aa42fbb5139ae0d
+   Author: Lawrence Pit <lawrence.pit@gmail.com>
+   Date:   Fri Nov 30 11:37:08 2012 +1100
+   
+       Watcher: Use relative paths in HTML links
+       
+       When I mount Raindrops::Watcher like so:
+       
+          map "/_raindrops" do
+            run Raindrops::Watcher.new
+          end
+       
+       Then in the HTML output links use an absolute path instead of relative
+       to the path /_raindrops/
+       
+       Cheers,
+       Lawrence
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit dd72d3f180483957dd5c5d7a9369e9ee72fe14fa
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 19 08:27:25 2012 +0000
+   
+       raindrops 0.10.0 - minor feature updates
+       
+       Improvements to the Unix domain socket handling and small
+       bugfixes throughout.
+       
+       Support for the "unix_diag" facility in Linux 3.3+ is planned
+       but not yet implemented (patches to raindrops@librelist.org
+       appreciated)
+       
+       Brian Corrigan (1):
+             resolve symlinks to Unix domain sockets
+       
+       Eric Wong (6):
+             unix_listener_stats follows and remembers symlinks
+             middleware/proxy: favor __send__ for method dispatch
+             unix: show zero-value stats for idle listeners
+             test_watcher: fix incorrect request/date comparison
+             watcher: sort index of listener listing
+             watcher: do not require Rack::Head for HEAD response
+       
+       See "git log v0.9.0..v0.10.0" for full details
+   
+   commit cee9ca2bfd98b96cb8b956dd03fe03f313fee222
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 18 13:50:06 2012 -0700
+   
+       watcher: do not require Rack::Head for HEAD response
+       
+       Rack webservers are not guaranteed to include Rack::Head in the
+       middleware stack.  Watcher is a standalone app, so it cannot
+       rely on a framework which automatically includes Rack::Head.
+   
+   commit 963a7a144a5231f07da118cfe4fef0fb210f40c6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 18 13:45:13 2012 -0700
+   
+       watcher: sort index of listener listing
+       
+       For hosts with many listeners, it should be easier to read the
+       index page if the results are shown in a consistent order.
+       
+       Requested privately via email to raindrops@bogomips.org
+   
+   commit e893686157a1abb9c6943d1c42c9cbdae1b76cd4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 18 13:18:28 2012 -0700
+   
+       test_watcher: fix incorrect request/date comparison
+       
+       It makes no sense to compare peak times of different queues
+       (active vs queued) against each other.
+   
+   commit 5c62376bc9a1b0d7c8e664784a1fb97747a7c392
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 12 18:29:00 2012 -0700
+   
+       unix: show zero-value stats for idle listeners
+       
+       When unix_listener_stats is called without arguments, it should
+       still match the behavior of tcp_listener_stats and return
+       ListenerStats object with zero values.
+       
+       This allows callers to iterate through the results to find the
+       pathnames of all the Unix domain sockets in in listen mode.
+   
+   commit 506df98df1dae59281fbb3b3c2c6bea7549a2288
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 7 14:36:35 2012 -0700
+   
+       middleware/proxy: favor __send__ for method dispatch
+       
+       "send" is more likely to be overridden in subclasses whereas
+       the Ruby runtime (at least 1.9.3) will warn loudly if any user
+       code (re)defines the "__send__" method.
+       
+       For example, BasicSocket#send and UDPSocket#send in the Ruby
+       stdlib are wrappers for the send(2)/sendto(2) system calls,
+       and it's entirely possible an application could return a
+       Socket-subclass as a Rack response body.
+   
+   commit bd7236fe23c4388d2fa42a4f836aca3c796dabab
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 5 17:49:43 2012 -0700
+   
+       unix_listener_stats follows and remembers symlinks
+       
+       Teach unix_listener_stats to remember the symlink path
+       it followed and have it point to the same object as the
+       resolved (real) socket path.
+       
+       This allows the case where looking up stats by symlinks
+       works if the symlink is given to unix_listener_stats:
+       
+         File.symlink("/real/path/of.sock", "/path/to/link.sock")
+         stats = unix_listener_stats(["/path/to/link.sock"])
+         stats["/path/to/link.sock"] => # same as stats["/real/path/of.sock"]
+   
+   commit 15dea14dd4e1af97aef928430c3c8ef8c5d74451
+   Author: Brian Corrigan <brian@genexp.me>
+   Date:   Tue Jun 5 11:46:34 2012 -0400
+   
+       resolve symlinks to Unix domain sockets
+       
+       Raindrops currently fails when provided a symlink to a socket.
+       As this is a common practice for many deployment tools (Vlad,
+       etc.) this patch adds support for finding the realpath prior to
+       looking the socket up in /proc/net/unix
+       
+       [ew: commit message subject]
+       
+       [ew: fixed test to pass under 1.9.3 and 1.8.7:
+       * Tempfile#unlink is unsafe to call if we want to reuse the
+         path, use File.unlink(tmp.path) instead
+       
+       * The return value of File.symlink is zero (or it raises),
+         so it's unusable.
+       
+       * File.symlink will not call #to_path under 1.8.7, so it's
+         necessary to pass pathnames to it, not Tempfile objects.
+       ]
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 3a7387205dd5791a443215ae6b365865e0eacfa3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 21 00:03:47 2012 +0000
+   
+       raindrops 0.9.0 - minor middleware/proxy update
+       
+       Raindrops::Middleware::Proxy now forwards method_missing
+       to the proxied body object.  This allows compatibility
+       with non-standard Rack extensions employed by some
+       middlewares, applications, or servers.
+       
+       Thanks to Ben Somers for the feature!
+   
+   commit ea021e1fc14a8d7da23580767e6e6ac5db2aca9b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon May 21 00:02:32 2012 +0000
+   
+       middleware/proxy: fixup comment/whitespace
+       
+       Noted, but not fixed in the previous commit
+       commit abc6dd47ede5b96ada1ff8f37dfba73cd5fd586a
+       (Add method_missing to Raindrops::Middleware::Proxy)
+   
+   commit abc6dd47ede5b96ada1ff8f37dfba73cd5fd586a
+   Author: Ben Somers <somers.ben@gmail.com>
+   Date:   Thu May 17 18:46:58 2012 -0700
+   
+       Add method_missing to Raindrops::Middleware::Proxy
+       
+       This enables it to behave more like a Rack
+       BodyProxy would, delegating methods to its body
+       object when it does not implement them itself.
+       (Also includes  a minor grammar fix to a comment.)
+       
+       [ew: minor comment/whitespace fix]
+       
+       Signed-off-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 127ec6d6c733a717df79084861b0d7f36c327154
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat May 12 05:44:12 2012 +0000
+   
+       raindrops 0.8.1 - compatibility fixes
+       
+       This release fixes a build problem found under a current SmartOS.  This
+       release also runs successfully on FreeBSD 9.0 under both x86-64 and
+       i386.
+       
+       There are also documentation updates from Aman Gupta and a test suite
+       fix from Jeremy Evans for OpenBSD.
+       
+       raindrops fully supports unicorn on recent versions of FreeBSD, OpenBSD,
+       SmartOS, and possibly other Free Software systems.  Portability reports
+       and fixes for Free Software systems is greatly appreciated at
+       raindrops@librelist.org
+       
+       Non-Free systems will never be supported.
+       
+       raindrops requires the Linux 2.6.18 or later for full functionality
+       (which unicorn does not require).  Future releases will take advantage
+       of the unix_diag functionality found in the Linux 3.3 (and later)
+       kernels.
+   
+   commit ce0b50e0a6aed669a59ee31ab3667b4eb34529de
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat May 12 05:38:58 2012 +0000
+   
+       avoid warning for rb_thread_io_blocking_region
+       
+       This is exported (visibly) under Ruby 1.9.3 but not
+       in headers, so it was causing warnings.
+   
+   commit 71f80afdbcb45245a01ee2c278ebda692587e92a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu May 10 14:49:39 2012 -0700
+   
+       extconf: better check for GCC atomic builtins
+       
+       Attempting to test for CMPXCHG on x86 should allow this check to
+       fail on i386 systems.  We also won't need try_run as a result,
+       enabling cross-compilation.  The configure.in check in Ruby
+       1.9.3 does something similar and that's far more widely used
+       than raindrops is.
+   
+   commit 1c18fd9c13f95fef6bcbdc0587d38886fa8e9064
+   Author: Aman Gupta <aman@tmm1.net>
+   Date:   Fri Jan 6 23:48:41 2012 -0800
+   
+       avoid calling tcp_listener_stats when it is not available
+       
+       Signed-off-by: Aman Gupta <aman@tmm1.net>
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit d166ef4dc5bd62d18c3abd4612d6b11a1e1f28c7
+   Author: Aman Gupta <aman@tmm1.net>
+   Date:   Fri Jan 6 23:48:40 2012 -0800
+   
+       fix ListenStats documentation error in Raindrops::Linux.unix_listener_stats
+       
+       Signed-off-by: Aman Gupta <aman@tmm1.net>
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 8fff8ab721305c4df70904154c4b93a7af993749
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Nov 17 10:25:38 2011 +0000
+   
+       examples/: updated to match current state of affairs
+       
+       Consolidating multiple Rack apps into fewer Rack apps on
+       bogomips.org, might as well be transparent about it.
+   
+   commit 499e63e2666f88134f7d47f3bcfdfedd72396e70
+   Author: Jeremy Evans <code@jeremyevans.net>
+   Date:   Mon Nov 14 10:31:53 2011 -0800
+   
+       Test suite fix for non-linux users
+       
+       Most other linux-specific test files have this, but
+       test_linux_tcp_info.rb does not.
+       
+       With this patch, gmake test passes on OpenBSD.
+   
+   commit 68f5fdb76231aad5d9d2bcf33c33758394bb15a8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Oct 14 14:59:52 2011 -0700
+   
+       raindrops 0.8.0 - watcher updates
+       
+       There are various updates to the Raindrops::Watcher Rack app.
+       Most notably, the timestamp where the a statistic first and last
+       hit its peak value (active/queued connections) is captured.
+       
+       As usual, the latest Raindrops::Watcher is running at:
+         http://raindrops-demo.bogomips.org/
+   
+   commit 5d76462eb312df5343c1870fb68094459deca6ca
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Oct 14 14:38:16 2011 -0700
+   
+       1.8 compatibility workarounds
+       
+       Math.sqrt on 1.8.7 does not give NaN for certain errors.
+       We'll also fix our Errno::EDOM retry loop to avoid resetting
+       the "retried" flag.
+   
+   commit d5fc6f66bc17f27770b38126b6c4211fd938c5b5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Oct 12 14:00:23 2011 -0700
+   
+       avoid inadvertant object creation with invalid addresses
+       
+       Just in case somebody tries to scan all addresses, we
+       won't run out of memory as easily.
+   
+   commit 360b8569cbb2b795019db278463245cce4270d09
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Oct 3 18:40:52 2011 -0700
+   
+       watcher: document new headers for users
+       
+       These names are not finalized, yet.
+   
+   commit 7e8b1f6abe561e33644ca2bf30dc587e0bfac3c0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Sep 27 19:32:38 2011 -0700
+   
+       watcher: add peak times for statistics
+       
+       It could be useful to know when the first and last peak time of
+       a maximum was.
+   
+   commit 26d775916fd3d967a98534eda44a983ea30d0811
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Sep 27 19:50:43 2011 -0700
+   
+       test: updates for newer Unicorn API
+       
+       Unicorn.run no longer exists
+   
+   commit e974e26fcfb78cd579556495a0635d30ec5c6976
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Sep 27 17:46:20 2011 -0700
+   
+       watcher: add X-Current header to headers
+       
+       It can be useful to some to see that info all at once
+       without hitting the HTML index page.
+   
+   commit 9a42edb11efcd091623bb37a33a8ea97b39a1d85
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 1 13:57:24 2011 -0700
+   
+       TODO: patches welcome!
+       
+       I don't need this feature myself.
+   
+   commit 3966549e4ae209598ed56839dae9154f4615d2dc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 1 13:49:43 2011 -0700
+   
+       watcher: add POST /reset/$LISTENER endpoint rdoc
+       
+       This was always supported via the HTML (browser) interface
+       but there was no documented way of hitting it without a
+       browser, before.
+   
+   commit a5830080b3cf6011d737342462700f7c5819942a
+   Author: Jeremy Evans <code@jeremyevans.net>
+   Date:   Mon Jun 27 10:36:21 2011 -0700
+   
+       Fix bad rescue statements in a couple tests
+   
+   commit af8f564217f87020fbe34c9bdbeb2cb57e13ac54
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 05:31:49 2011 +0000
+   
+       raindrops 0.7.0 - FreeBSD fix, code cleanups
+       
+       This release fixes a build issue on FreeBSD.  There are various
+       documentation and code cleanups, too.
+   
+   commit 2cb1800e7afe0085b135ac693d1b5a9378fadebc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 04:11:33 2011 +0000
+   
+       doc: librelist.com => librelist.org
+       
+       A non-profit TLD makes more sense for a Free Software project.
+   
+   commit 18318887920773d43b72e9fb6490d3e74674bcf0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 03:30:39 2011 +0000
+   
+       fix Ruby warnings
+       
+       Found in the check-warnings target in pkg.mk
+   
+   commit ad3bf417b45d50be7b0121b5dacca2bc95b7953b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 03:28:33 2011 +0000
+   
+       Gemfile: remove wrongdoc dependency for tests
+       
+       It's not needed.
+   
+   commit da7ee89b75b5c0cdd2f332d073104f10ea14e055
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Jun 27 01:44:39 2011 +0000
+   
+       pkg.mk: update to latest version
+       
+       * check-warnings option added
+       * locale-independent grep invocation
+   
+   commit 1e7dc89cc38c5dec0b63ac452b23141297701f88
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Jun 24 17:06:56 2011 -0700
+   
+       remove _XOPEN_SOURCE #define for FreeBSD
+       
+       This appears to cause __BSD_VISIBLE to not be defined,
+       which is required for MAP_ANON to be visible in
+       sys/mman.h
+       
+       Thanks for Aleksandar Simic for the hint and Troex Nevelin
+       for the bug report!
+   
+   commit 880dbec44c13e3d5a6b858fc2212714f122b71c6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jun 16 00:39:11 2011 -0700
+   
+       linux_inet_diag: avoid pointer aliasing warnings
+       
+       No need to cast when C has handy unions.  Maybe the compiler
+       will be able to make better optimization choices here, but
+       at least it'll be less noisy.
+   
+   commit 579f0ea63d1f6976a9a312423f45e8d38357ea68
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Jun 15 23:31:28 2011 -0700
+   
+       test_linux_tcp_info: fix test for higher HZ systems
+       
+       The last_data_recv field is dependent on the CONFIG_HZ of
+       the kernel, so the stock 250 HZ kernel can change the
+       timing on us.
+   
+   commit 9f6e03fcced2ff695eaa355709312a8fe2d4c187
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 25 09:45:55 2011 -0700
+   
+       last_data_recv: fixup rdoc
+       
+       formatting is hard :<
+   
+   commit cb90a12dec7b1c55ebae5a83bafa15f415b576da
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 24 13:35:32 2011 -0700
+   
+       watcher: fix documentation for X-* headers
+       
+       I copied and pasted off the Raindrops::LastDataRecv
+       documentation.  While the headers and mathematical meanings are
+       identical, they measure different things (but for the same
+       purpose)
+       
+       Noticed-by: Troex Nevelin
+   
+   commit ee08d063e47636e9b1100d4fe9cdb7b4bc080f69
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 15:29:38 2011 -0700
+   
+       raindrops 0.6.1 - fix build on non-Linux
+       
+       TCP_INFO support couldn't compile under non-Linux, this was
+       broken since 0.5.0 when TCP_INFO support was introduced.
+       
+       Thanks to Ben Bleything for the report.
+   
+   commit dbfe01c60d0d231f42e18768cbb8b23612f281fc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 15:17:21 2011 -0700
+   
+       tcp_info: mark this as Linux-only
+       
+       We can't even pull in linux/*.h headers to check
+       for TCP_INFO.
+   
+   commit f8fe72d588cf50fa0c52058d46980af8bfa012bf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 14:42:32 2011 -0700
+   
+       raindrops 0.6.0 - polishing up the last release
+       
+       Following up the huge 0.5.0 release, 0.6.0 makes
+       some minor improvements:
+       
+       * minor UI/UX improvements for Watcher Rack app
+       * set close-on-exec by default for inet_diag sockets
+       * inet_diag build fixes for newer GNU libc6
+       * --with-atomic_ops-dir= build option added
+   
+   commit 693beb4015cf3bfd68f76432cb3ce779e9752cc1
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 14:12:17 2011 -0700
+   
+       extconf: use dir_config properly
+       
+       dir_config may be used to build for libatomic_ops.  The
+       previous use of dir_config was from back when I didn't
+       understand mkmf.
+       
+       This means you can now use:
+       
+         gem install raindrops -- --with-atomic_ops-dir=/usr/local
+       
+       If you libatomic_ops library was installed in /usr/local
+       instead of /usr
+   
+   commit 14423a47266bbb37fe0b2fe5f24cef9e26037e38
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 11:12:59 2011 -0700
+   
+       inet_diag: no need to rely on sin6_addr internals
+       
+       Seems to breaks under newer libc headers (on Debian sid).
+   
+   commit 4331e3f461af6d66bc8de48c336ece0938e3b59e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 11:10:10 2011 -0700
+   
+       extconf: remove check for rb_struct_alloc_noinit()
+       
+       We no longer use it.
+   
+   commit f6af45add8c900b02f2b88617a765fa610fbe9aa
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 11:01:57 2011 -0700
+   
+       inet_diag: fix build under MRI 1.8.7
+   
+   commit 877433494e4a848d6c6a10d0e6521061e6a10118
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 10:57:30 2011 -0700
+   
+       inet_diag: FD_CLOEXEC for inet_diag sockets by default
+       
+       Very few programs can take advantage of inheriting FDs
+       across exec() boundaries, and inet_diag sockets have no
+       reason to be used in this way.
+   
+   commit a5d552d90942fe3c3d1adfc809638fd78992da6e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 10:46:58 2011 -0700
+   
+       inet_diag: use rb_thread_io_blocking_region under 1.9.3dev
+       
+       It can detect cross-thread close() calls
+   
+   commit f86b02018a4195e199136eb0bd8d127d01cae154
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 21 10:27:59 2011 -0700
+   
+       watcher: remove redundant Rack::Response
+       
+       No need to duplicate code
+   
+   commit cfadf58e6bce04b750605fd71d0cce6bbb06d8b0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 18 09:22:28 2011 +0000
+   
+       watcher: add title attributes to elements
+       
+       It can help navigation, we think...
+   
+   commit 681e8295fe87e32676873319fb445709d16212d8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 18 09:12:28 2011 +0000
+   
+       watcher: RDoc examples point to the demo
+       
+       No need to waste bandwidth of example.com when
+       we have a meaningful demo site :)
+   
+   commit b8d44ff60c5cd6db6b971e2206cf18b5420a95cb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 18 09:05:47 2011 +0000
+   
+       watcher: set Expires headers for cache invalidation
+       
+       We know exactly when to invalidate based on the delay :)
+   
+   commit 7c7e34dab18331082fe7b703b9bbdd40ea5bcbf6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 18 08:58:25 2011 +0000
+   
+       zbatery.conf: disable user switching, add pid file
+       
+       Zbatery sucks at user switching + USR2+QUIT reloads
+   
+   commit 734133e15620584618df49e76ecabd7c28c72444
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 18 08:20:11 2011 +0000
+   
+       watcher: prevent Rack::Deflater from buffering
+       
+       Set "Cache-Control: no-transform" to prevent frontend proxies
+       from flushing data.
+   
+   commit 9af99455c06abd69d18fed751ea16d914e62cf84
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 16:43:46 2011 -0700
+   
+       watcher: add link to the Watcher documentation
+       
+       Hopefully people can learn to use the REST API
+       this way.
+   
+   commit 37718b5833f04870d14bfdca3dc84e4f885c71d9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 20:18:22 2011 -0700
+   
+       watcher: fix rdoc
+   
+   commit 744c4c11c58f40c925c0d36eefb2287095a2f127
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 19:53:59 2011 -0700
+   
+       raindrops 0.5.0 - more Linux extras!
+       
+       Portable changes:
+       * Raindrops are now resizable within the limits of system page size
+       * Raindrops::Middleware proxies +to_path+ in response bodies
+       * More documentation
+       
+       Linux-only changes:
+       * Raindrops::LastDataRecv[1] Rack application
+       * Raindrops::Watcher[2] Rack application
+       * Raindrops::TCP_Info[3] class for capturing TCP connection stats
+       * IPv6 support for inet_diag
+       * faster inet_diag stats for multiple sockets
+       
+       There is also a demo server running the Watcher and Middleware
+       components.  It's capped to 30 concurrent users, so go easy on
+       it:
+       
+         Raindrops::Watcher: http://raindrops-demo.bogomips.org/
+         Raindrops::Middleware: http://raindrops-demo.bogomips.org/_raindrops
+       
+       [1] http://raindrops.bogomips.org/Raindrops/LastDataRecv.html
+       [2] http://raindrops.bogomips.org/Raindrops/Watcher.html
+       [3] http://raindrops.bogomips.org/Raindrops/TCP_Info.html
+   
+   commit f1b45e2f44f45122313abc88e139d49c0e39c7b7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 20:12:22 2011 -0700
+   
+       watcher: retry on empty stats
+       
+       Those will cause Aggregate to raise Errno::EDOM
+   
+   commit 3c6aee0e33c53d0f270b1ceb40efe6ed29fa9232
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 20:10:12 2011 -0700
+   
+       test_raindrops_gc: disable by default
+       
+       It takes too long
+   
+   commit 7e3b385eb433a5b23da5742ca69804f34837f947
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 20:09:38 2011 -0700
+   
+       test_linux_all_tcp_listen_stats_leak: fix for 1.8
+       
+       Apparently 1.8 Test::Unit doesn't like empty test classes
+   
+   commit a3cf985b82f5b252434c89d7e0ec6277ac8fe596
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 02:47:47 2011 +0000
+   
+       rdoc: document the demo URLs
+   
+   commit 0ab20cd7e10a3c9d4ddcbe2bde28542c350b4b0e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 02:33:29 2011 +0000
+   
+       watcher_demo: add more listeners to the mix
+       
+       git is on 9418 and my cgit UNIX domain socket
+   
+   commit 601fdd86fdbf847e47cdbb981afc60dafa407bd5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 02:33:28 2011 +0000
+   
+       inet_diag: properly deal with INADDR_ANY binds
+       
+       Oops :x  This was totally broken with the all-listener
+       filter.
+   
+   commit ca49963f55447794c3e2254fe9dc633c9268e9be
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 02:33:27 2011 +0000
+   
+       linux-listener-stats: all means all (UNIX and TCP listeners)
+       
+       No more splitting all TCP or all UNIX listeners
+   
+   commit 39cab8b630d41d8d002f5d4f65280bc63706c74f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 02:33:26 2011 +0000
+   
+       update examples for http://raindrops-demo.bogomips.org/
+       
+       Whee!
+   
+   commit 1f29269eabd806f1e0cb9ca7fd4231d8588d7669
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 17 02:33:25 2011 +0000
+   
+       watcher: properly stream responses for <= HTTP/1.0
+       
+       nginx makes HTTP/1.0 requests and expects HTTP/1.1 responses
+   
+   commit 57c9f70fb3c14ed94f4fb2445a8a4168f8c5253b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 16:38:46 2011 -0700
+   
+       update examples for Rack/Zbatery
+   
+   commit 3656a61bfb24ac76bc47d314327c01f9fd10a717
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 16:03:56 2011 -0700
+   
+       doc: fix documentation for Raindrops::InetDiagSocket class
+   
+   commit db9162575b885add7c3b7ab06f9c03a2ebc44a1f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 16 15:22:42 2011 -0700
+   
+       add Watcher Rack application
+       
+       It does streaming!
+   
+   commit b0be66c37bb7080b0f06ab76b0e7d3404e2f9059
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 14 14:58:40 2011 -0700
+   
+       linux-listener-stats: use timerfd if available
+       
+       It is more accurate than sleep and doesn't require calculating
+       times
+   
+   commit 65dc45b7a13c92b27bc3589e37a3b52c29b7fbee
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 14 16:52:19 2011 -0700
+   
+       linux: avoid Array#first/Array#last
+       
+       More confusing for me, actually...
+   
+   commit a9bfa55f9a1d1c96d73367d3bb46f7b9e81fbbf9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 14 16:38:58 2011 -0700
+   
+       linux: unix_listener_stats may scan all paths
+       
+       This matches behavior of the TCP version.
+   
+   commit 724f82bb5feaf1df40b02b8f353e94496f060647
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Mar 14 14:50:43 2011 -0700
+   
+       linux-listener-stats: allow -a for all TCP sockets
+       
+       Sometimes we want more of them
+   
+   commit 65f46737ad5641841a5e5a89f4651d160dacffc0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 12:56:16 2011 -0800
+   
+       inet_diag: switch to inet_pton() for translation
+       
+       getaddrinfo() needs to get a list of available interfaces
+       from the kernel with every single call (since ipv6 could've
+       been modprobed), so it's a waste of syscalls.
+   
+   commit c478549ea7490de2432ed31ffee37a2bfc1d24f3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 12:56:15 2011 -0800
+   
+       allow reusing netlink socket for inet_diag
+       
+       No need to waste resources on creating/destroying
+       a socket.
+   
+   commit a4b9c8334e2bc0698f0650d275be0935e86dc13e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 10:17:00 2011 +0000
+   
+       inet_diag: fix signedness warnings on 32-bit
+       
+       I thought my compiler would be smarter :<
+   
+   commit 44bb459d7af7efad26540c9844b86f59088d3e13
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 10:13:27 2011 +0000
+   
+       inet_diag: no need to specify family
+       
+       The way we dump, we dump it all, it seems.
+   
+   commit f9f10fb9815e11d5935edc9427eb1bc05dce751f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 10:04:45 2011 +0000
+   
+       inet_diag: fix up IPv6 address stringification
+       
+       This means we can read multiple addresses at once,
+       even IPv6 ones.
+   
+   commit 54e0335c80a062c2fb4ec1351975500cf778f7eb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 09:43:21 2011 +0000
+   
+       tests: remove unused_port function
+       
+       It's not needed since we don't care to rebind sockets
+   
+   commit 79be320c3e4baf1af4b36fb269f08448c5400e47
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 09:39:49 2011 +0000
+   
+       inet_diag: fall back on IPv6 lookups
+       
+       It's slow, but at least it works.
+   
+   commit bf0a3c731ec3573160b9ee40cbfd7e2817d91080
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 09:26:30 2011 +0000
+   
+       inet_diag: fold all_tcp_listener_stats into tcp_listener_stats
+       
+       No reason to have an extra method.  This also speeds up
+       the multi-listener case for tcp_listener_stats since it
+       avoids expensive sendmsg() syscalls.
+   
+   commit 562e2e243e69f128c47ceb59c5b1710fa35c7081
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 08:58:35 2011 +0000
+   
+       inet_diag: small reorganization
+   
+   commit 8f12e060ce2a47f92b47d197f8daf7c094277bf3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 08:51:11 2011 +0000
+   
+       inet_diag: do not set unblocking function
+       
+       netlink is fast and predictable in response times, so permitting
+       interrupts would just complicate things and lead to errors.
+   
+   commit 3a2fe1f1330899c42deb5e714db1d5799e50a292
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 08:46:07 2011 +0000
+   
+       move st_table cleanup
+       
+       Fewer places to check for errors, we think.
+   
+   commit e6b5e940fdb8e2ded70a80132af6c280db02e8d8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Mar 12 08:30:40 2011 +0000
+   
+       inet_diag: stricter IPv6 address parsing
+       
+       Be stricter about invalid inputs.
+   
+   commit d4faac5480f6416cf92301745a9a9572bc865061
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 20:56:49 2011 -0800
+   
+       linux: method for dumping all TCP listener stats
+       
+       This is a work-in-progress and will probably be modified
+       before the next release.
+   
+   commit fe2615590d5e8ac8e735200696ec8396fb3cd219
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 19:45:54 2011 -0800
+   
+       inet_diag: force the use of 32-bit counters
+       
+       64-bit counters are unnecessarily large for tracking
+       active or queued connections until we have IP_ROFLSCALE
+       support :>
+   
+   commit f6cdffc3f8ba6dc276cff38c11d9f92aea1313ea
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 19:44:24 2011 -0800
+   
+       inet_diag: fixup braindamage from refactoring
+       
+       Oops :x
+   
+   commit af73ca855100a9aadad9bf60de45df62e8aa44e2
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 16:12:17 2011 -0800
+   
+       cleanup struct initialization to avoid ifdefs
+       
+       Too hard to maintain.
+   
+   commit fac0211221d70b94c0301f977e8a6ba429d79ef8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 16:05:12 2011 -0800
+   
+       use unsigned values for all counters
+       
+       We can't have negative values
+   
+   commit da18a484d7e8ae15de68298557aa63cc431a7c63
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 15:58:33 2011 -0800
+   
+       inet_diag: cleanup unnecessarily large struct
+       
+       We don't care for this address.
+   
+   commit cf4acabf3e8993fe59840aaa6717d65f2ca95fc9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 15:04:39 2011 -0800
+   
+       inet_diag: fixup broken assertion
+       
+       Oops, strings are always true :x
+   
+   commit 70041dfa82015119b33d34b46ecbb0a5c45587cf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 14:56:19 2011 -0800
+   
+       inet_diag: factor out prep code
+       
+       We're going to experiment with something...
+   
+   commit 55c9127ede4114f65b0bc01cdaa1152ef21ca95a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 13:49:08 2011 -0800
+   
+       doc: more rdoc updates for Linux users
+       
+       Yes we love Linux more than other systems :>
+   
+   commit 57fe99f294e0fe948593beeae7cf879efe4cdd52
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 13:37:48 2011 -0800
+   
+       the core Raindrops class is portable, yes it is
+       
+       OK, not to non-Unix but I'll never care :>
+   
+   commit 154842a48c0baba66daf744f3be06fd8701b9638
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 13:35:47 2011 -0800
+   
+       tcp_info: more documentation on last_data_recv
+       
+       It's useful, yes.
+   
+   commit 666cb9c38fd132ec8bee0b7860b6cf30db0f9b41
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 10 19:18:23 2011 -0800
+   
+       .document: remove non-existent reference
+       
+       raindrops_ext.c never existed :o
+   
+   commit 035bcb9fa5ab9c95bd2f5b0515f74d8d51b87805
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 10 18:29:10 2011 -0800
+   
+       tests: only do the GC test on MRI
+       
+       "Advanced" GCs are typically less aggressive and typically allow
+       much more memory to be used.
+   
+   commit 42e8c96aa4e4d2cf3ba82751fcc0487e7e8a0225
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 10 18:28:18 2011 -0800
+   
+       fix stupid typo in Raindrops#size=
+       
+       Oops, it could give the GC problems.
+   
+   commit e87875ba261fa5b0cd328bcf03e666e2d9078114
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 10 17:24:02 2011 -0800
+   
+       tests: ensure munmap() in children don't muck up the parent
+       
+       Raindrops is designed to work with forking servers after all.
+   
+   commit e516e45640206fa3e7864938da74a7cb5ca31715
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 11 02:12:37 2011 +0000
+   
+       support for Raindrops#size= and Raindrops#evaporate!
+       
+       This allows limited resizing of the Raindrops memory
+       area since we always over-allocate due to the required
+       page aligment for mmap.
+       
+       It would be nice if mremap() worked with MAP_SHARED,
+       but it does not and triggers a bus error when attempting
+       to access the new area.
+       
+       ref: https://bugzilla.kernel.org/show_bug.cgi?id=8691
+   
+   commit 61962b27a51031965cef70451d369b115868fb11
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 10 10:51:38 2011 +0000
+   
+       rdoc: 100% documentation coverage!
+       
+       Of course, RDoc doesn't know quantity vs quality :)
+   
+   commit 8392f8186cd21f9190474bd6b5ac6ec58c7af96a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Mar 10 06:11:10 2011 +0000
+   
+       test_middleware_unicorn: GC is aggressive!
+       
+       Oops, don't let GC close our listener before Unicorn
+       can inherit it.
+   
+   commit b353e42e6f12f26a926bbb3202c8bb8e7a916d1c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 9 21:12:32 2011 -0800
+   
+       experiment with Bundler for dev dependencies
+       
+       It seems nice
+   
+   commit 485d3fa598a119b409734e0a4193d78fe50f4ff7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 9 17:03:20 2011 -0800
+   
+       disable aggregate/pmq stuff under 1.8
+       
+       POSIX message queues needs native threads to function.
+   
+   commit fa64d77ac096612d6bc731407066df8aa1ff79a7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Mar 9 16:54:46 2011 -0800
+   
+       aggregate/pmq: we need a Mutex to protect fcntl() locks
+       
+       fcntl() locks are per-process, so we also need something
+       to protect individual threads within a process from stepping
+       over each other.
+   
+   commit b57881c86de4e7406ca537b5285f27d7130b0073
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 8 16:52:43 2011 -0800
+   
+       linux-listener-stats: do not load aggregate for single snapshot
+       
+       This is only useful when looped inside screen or something
+       similar...
+   
+   commit d5cbd604badd58ebd99a5e19953d20d7672da4dc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 8 16:45:01 2011 -0800
+   
+       linux-listener-stats: add optional Aggregate gem support
+       
+       USR1 dumps histograms, and USR2 resets the counters
+   
+   commit 93bb8af761dbaa8e19c4660c520db1ee7ba1c70b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 8 16:30:47 2011 -0800
+   
+       linux-listener-stats: favor narrower display if possible
+       
+       No need to make eyes drift :)
+   
+   commit 90726e5187a9053c6eb7caf90ebec1d38d4372ea
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 8 14:18:11 2011 -0800
+   
+       preliminary Rack app to track last_data_recv
+       
+       Seems to basically work
+   
+   commit 96c8be2ea8830e2eb3a9108f501df52c21b42546
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 4 17:08:13 2011 -0800
+   
+       test_linux_tcp_info: add test for last_data_recv
+   
+   commit 4372cf8ef8203c93632cdaf163a1c923075e7d0f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Mar 4 16:00:38 2011 -0800
+   
+       Aggregate support via POSIX message queues
+   
+   commit 55efe20df7f2cf594786e16e890382208a114f65
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 1 16:36:44 2011 -0800
+   
+       tests: cleaner skipping for missing components
+   
+   commit 26558f816ecbe25955f549355aa57aef5959a22e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 1 16:30:24 2011 -0800
+   
+       gemspec: add Rack and Unicorn as dev dependencies
+       
+       They are useful
+   
+   commit 16201f3c16b66beb9694eff2bed2f4b8ccd1f010
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 1 14:47:42 2011 -0800
+   
+       test_linux_tcp_info: workaround for ancient kernels
+       
+       UGH...
+   
+   commit 943fbb44f7b2194311ac614c3a6c54420c8dda94
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 1 14:47:41 2011 -0800
+   
+       use struct tcp_info from linux/tcp.h
+       
+       It's more complete for people on ancient systems where
+       "struct tcp_info" is defined in netinet/tcp and missing
+       tcp_ircv_rtt, tcpi_rcv_space and tcpi_total_retrans.
+   
+   commit d93e6b2903f2d702b5dc85de86eb91eb7794cc0d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 1 14:07:59 2011 -0800
+   
+       linux-listener-stats: add timestamps and thresholds
+       
+       Matches my common usage patterns
+   
+   commit 03c75f547db2d40ea29b5753359bb0df210834f9
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Feb 28 17:14:04 2011 -0800
+   
+       linux-tcp-listener-stats: fix fractional second delays
+       
+       Sometimes sleeping for one second between reads is too much...
+   
+   commit 1c3e0a2575c0644a7fca02bbe865e2ce421f5adb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 1 00:57:35 2011 +0000
+   
+       linux-listener-stats: not just for TCP...
+       
+       This can now be used to monitor UNIX domain socket queues, too.
+   
+   commit 6d12a518f69f950d814eb223fe5bf1ad448dcc34
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Mar 1 00:50:40 2011 +0000
+   
+       linux-tcp-listener-stats: synchronize stdout/stderr
+       
+       We want any pipe readers to see this immediately
+   
+   commit b080ac88303f31332252aae4b430af5445114b99
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Feb 28 16:29:18 2011 -0800
+   
+       doc: mention tcp_diag/inet_diag for old kernels
+       
+       People actually need to load modules manually on older kernels :<
+   
+   commit 012d2fe51afd46fdddbf62f7ebba5102c7f3361a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Feb 26 21:02:57 2011 +0000
+   
+       middleware: split out proxy class
+       
+       It's easier to find this way.
+   
+   commit ac6b83ea1c277cd798e2f627fa5eee605efab4fe
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Feb 26 20:59:00 2011 +0000
+   
+       middleware: avoid double decrement when reading stats
+       
+       Oops!
+   
+   commit e4ab2cc40bdbd1698f4bcf138e83c4823d118f81
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Fri Feb 25 19:43:06 2011 -0800
+   
+       proxy +to_path+ calls in the response body
+       
+       We need to do this for apps that depend on things like the
+       sendfile() optimizations in Rainbows!
+   
+   commit fcf99bd7e3323ea99c5bfc8a3a15fbbc18cc8285
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 22 19:24:56 2011 -0800
+   
+       LICENSE: fix wording, we bundle a copy of the LGPL
+       
+       No need for people to download glibc to get the LGPL :>
+   
+   commit df3d3a0b09f05249aff9f25f558f988bfcad8874
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 22 19:24:55 2011 -0800
+   
+       add Raindrops::MAX constant
+       
+       This is the highest number a counter may be incremented to
+       before it overflows.
+   
+   commit db192979f096d0153ad14e530e1e2e193289c7e0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 22 19:24:54 2011 -0800
+   
+       linux: add support for TCP_INFO reporting
+       
+       This returns a Raindrops::TCP_Info object
+       that wraps a tcp_info struct.
+   
+   commit ebc2093847705c382b4d83ed5120e44b9afad3c0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 22 19:24:53 2011 -0800
+   
+       split out RSTRUCT* compat macros
+       
+       We might reuse that for other code...
+   
+   commit a73fe2f033a766a05ecef01bef015e2d1993bddd
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 22 19:24:52 2011 -0800
+   
+       use autoload for Linux module
+       
+       We'll be doing more Linux-only stuff
+   
+   commit e10e520d47fa96cf549c7d544d6575baa8ed748a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 16 01:31:41 2011 +0000
+   
+       middleware: add ipv6 address detection for Unicorn
+       
+       Since Unicorn and Rainbows! support IPv6 now, it makes sense to
+       support the rfc2732-style addresses it returns.
+   
+   commit e5faa4da78af196ee5abbccf197671fd8e77adad
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Feb 16 01:31:40 2011 +0000
+   
+       linux: add ipv6 support for inet_diag
+       
+       inet_diag already supports AF_INET6.
+   
+   commit 5183832d1e70cd89aab1cb8bb2e2795f0ad247c7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 15 15:02:04 2011 -0800
+   
+       README: shorten git URLs
+       
+       bogomips.org is on a URL diet
+   
+   commit 05458d4067c1642fe89f164ce3e6466af1458043
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 15 14:57:18 2011 -0800
+   
+       test_linux: fix STRESS=1 tests
+   
+   commit f9233c20d453475df22ce7e4d0d098837f0d859a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 15 10:37:06 2011 -0800
+   
+       middleware: switch to ivars
+       
+       These are slightly faster than regular method dispatch
+   
+   commit 7f186515f214347bf5e146ce8d16a38f32f9cdfb
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 15 10:14:22 2011 -0800
+   
+       middleware: avoid capturing block variable
+       
+       It's a needless allocation
+   
+   commit 489d08233b2ec43353e25f857e3639751f4f529b
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 15 10:13:15 2011 -0800
+   
+       unindent modules
+       
+       No need to clutter/confuse namespace lookups
+   
+   commit 0344ffd5fa6c4693f5a8351e451c6a0852de81ed
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Feb 15 09:58:09 2011 -0800
+   
+       update packaging to use wrongdoc + pkg.mk
+       
+       No more JavaScript!
+   
+   commit 29216b7c3337d545e49a5ce978659d47a5f3e8b0
+   Author: Bryan McLellan <btm@loftninjas.org>
+   Date:   Fri Feb 11 16:46:43 2011 -0800
+   
+       addrs are always an Array of Strings
+       
+       Acked-by: Eric Wong <normalperson@yhbt.net>
+   
+   commit 304287f2e12e351fb5bf18e28ab3ad62a2f913e5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Sep 26 06:51:57 2010 +0000
+   
+       README: update for Rubinius support
+       
+       It works!
+   
+   commit 9736c2e991bc695b53b995ee2ecb44b58f88d0af
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Sep 26 06:44:45 2010 +0000
+   
+       raindrops 0.4.1 - more portability!
+       
+       Rubinius 1.1.0 support is complete.  Atomic operations
+       are now available under FreeBSD 7.0 now.
+       
+       Full changelog below:
+       
+           commit 8a2a725a4ad074af493e5aa075155eda8b1d6be7
+           Author: Eric Wong <e+absinthe@yhbt.net>
+           Date:   Sat Sep 25 00:14:48 2010 -0700
+       
+       	force -march=i486 where GCC is targeted for i386
+       
+       	Nobody uses i386 anymore (especially not with Ruby!),
+       	but some systems like FreeBSD 7.0 still target GCC at
+       	i386 by default, so we force GCC to use a slightly
+       	more modern instruction set and allow it to use
+       	atomic builtins.
+       
+           commit 256cc7c8ffb441dcf2d2a2da3bbbcc82546962d9
+           Author: Eric Wong <e+absinthe@yhbt.net>
+           Date:   Sat Sep 25 00:01:46 2010 -0700
+       
+       	disable Linux-only code on non-Linux
+       
+       	This allows us to build and link correctly on FreeBSD 7.0
+       
+           commit 22a5a39d75faa890048d07ae4ea0d494acd414ce
+           Author: Eric Wong <e@yhbt.net>
+           Date:   Sat Sep 25 06:25:42 2010 +0000
+       
+       	linux: workaround missing RSTRUCT* macros in rbx
+       
+       	Rubinius does not include macros for accessing
+       	Struct members in the C API.
+       
+       	ref: http://github.com/evanphx/rubinius/issues/494
+   
+   commit 8a2a725a4ad074af493e5aa075155eda8b1d6be7
+   Author: Eric Wong <e+absinthe@yhbt.net>
+   Date:   Sat Sep 25 00:14:48 2010 -0700
+   
+       force -march=i486 where GCC is targeted for i386
+       
+       Nobody uses i386 anymore (especially not with Ruby!),
+       but some systems like FreeBSD 7.0 still target GCC at
+       i386 by default, so we force GCC to use a slightly
+       more modern instruction set and allow it to use
+       atomic builtins.
+   
+   commit 256cc7c8ffb441dcf2d2a2da3bbbcc82546962d9
+   Author: Eric Wong <e+absinthe@yhbt.net>
+   Date:   Sat Sep 25 00:01:46 2010 -0700
+   
+       disable Linux-only code on non-Linux
+       
+       This allows us to build and link correctly on FreeBSD 7.0
+   
+   commit 22a5a39d75faa890048d07ae4ea0d494acd414ce
+   Author: Eric Wong <e@yhbt.net>
+   Date:   Sat Sep 25 06:25:42 2010 +0000
+   
+       linux: workaround missing RSTRUCT* macros in rbx
+       
+       Rubinius does not include macros for accessing
+       Struct members in the C API.
+       
+       ref: http://github.com/evanphx/rubinius/issues/494
+   
+   commit 663111480d8222763e5f553a71166442ef9990cc
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Sep 21 22:40:16 2010 +0000
+   
+       release: publish rubyforge news post
+       
+       Otherwise we'd keep forgetting and users would not know
+       about us.
+   
+   commit 1370d991d6bbe7b1916550996bca95b6b7a8f43d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 20 13:51:00 2010 -0700
+   
+       raindrops 0.4.0 - flowing into new systems!
+       
+       Non-GCC 4.x users may use the libatomic_ops[1] package to
+       compile Raindrops.  Memory efficiency is improved for modern
+       glibc users with run-time cache line size detection, we no
+       longer assume 128 byte cache lines.
+       
+       [1] - http://www.hpl.hp.com/research/linux/atomic_ops/
+   
+   commit 7cbba13a1be4928705148de359c3cf14a6552b71
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 20 13:50:39 2010 -0700
+   
+       README: updates for upcoming 0.4.0 release
+       
+       No more GCC 4.x dependency!
+   
+   commit 2d02974c708ab9fe1e690e902c94ba0bff5a4dd0
+   Merge: daec89e 24d6944
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 20 12:14:33 2010 -0700
+   
+       Merge branch '0.3.0' (fixup minor 0.3.0 mistag)
+       
+       * 0.3.0:
+         raindrops v0.3.0 - LGPL v2.1 and v3.0
+   
+   commit 24d6944eae2b9af585b89bf0f7de64162848b0a7
+   Merge: e3679c4 eed4332
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Sep 20 12:14:23 2010 -0700
+   
+       Merge commit 'v0.3.0' into 0.3.0
+       
+       * commit 'v0.3.0':
+         raindrops v0.3.0 - LGPL v2.1 and v3.0
+   
+   commit daec89e0cae4b4f87cd263d385eca353c04f3f0d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Sep 18 09:08:00 2010 +0000
+   
+       use runtime cache line size detection
+       
+       Modern glibc can easily return the L1 cache line size with
+       sysconf(3), so we'll use that and avoid paying a size penalty on
+       CPUs with smaller cache lines than 128 (every modern x86 except
+       the idiotic P4).
+       
+       Additionally, if we detect a single CPU machine, avoid paying
+       any padding penalty at all.
+       
+       On machines without the non-portable glibc sysconf(3)
+       enhancements, we'll continue to operate on the assumption
+       of an enormous 128 byte cache line size.
+   
+   commit c658a2be7355ceee72736cc17754022dc7abfa9f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Sep 18 06:43:19 2010 +0000
+   
+       allow using libatomic_ops headers from HP
+       
+       This allows non-GCC 4.x users to experience Raindrops.
+   
+   commit 7a0bb1afb81da3c83f2cc59403826e1f855d3f0d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 3 17:11:32 2010 -0700
+   
+       test: make GC test (hopefully) more reliable
+       
+       It's not pretty...
+   
+   commit dd84e5742cb2fc6aaa96aa0214e0ed3a963d68da
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Aug 3 17:11:31 2010 -0700
+   
+       avoid munmap(MAP_FAILED,...) in GC phase
+       
+       This is only possible during an exit if our invocation of
+       rb_gc() fails and causes the process to terminate.  Otherwise
+       the GC won't free something that's obviously on the stack.
+   
+   commit aeb4de9ccdbc0c896e71f5286ca767c8200278bf
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Mon Aug 2 21:04:07 2010 +0000
+   
+       doc: fix web link in Atom feed
+   
+   commit 5768c4339c130975658f4d084fb29fdb781403a6
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jul 10 22:31:03 2010 +0000
+   
+       doc: fix ChangeLog generation
+       
+       There was never a 0.2.1 :x
+   
+   commit e3679c4d3ebd8b80aa5d9e4a3a2a945c9c9ff2b4
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jul 10 22:19:40 2010 +0000
+   
+       raindrops v0.3.0 - LGPL v2.1 and v3.0
+       
+       Raindrops is now licensed under the LGPLv2.1 or LGPLv3 (from
+       LGPLv3-only) to allow bundling in GPLv2-only applications.
+       
+       There are small documentation updates and updated examples
+       at http://raindrops.bogomips.org/examples/
+   
+   commit eed4332421a421a3455aa48ec688347502a9cb0a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jul 10 22:19:40 2010 +0000
+   
+       raindrops v0.3.0 - LGPL v2.1 and v3.0
+       
+       Raindrops is now licensed under the LGPLv2.1 or LGPLv3 (from
+       LGPLv3-only) to allow bundling in GPLv2-only applications.
+       
+       There are small documentation updates and updated examples
+       at http://raindrops.bogomips.org/examples/
+   
+   commit 4e42082413f64baec0b844bdf743d598af433aad
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jul 10 22:19:20 2010 +0000
+   
+       doc: add examples directory to website
+   
+   commit 87dc142973f7d1546bdf739b2b1f0fa714313750
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sat Jul 10 22:13:02 2010 +0000
+   
+       LICENSE: dual license under LGPLv2.1 and LGPLv3
+       
+       This allows GPLv2-only applications to bundle us.
+   
+   commit 3f7f59ff522bf322383f1bebaa18a979608804f7
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 1 19:25:57 2010 -0700
+   
+       examples/linux-tcp-listener-stats: warn on possibly invalid addresses
+       
+       It is a likely mistake to specify a local address such as
+       "127.0.0.1:#{port}" as an argument to linux-tcp-listener-stats
+       when our listener is listening on all addresses
+       ("0.0.0.0:#{port}").
+       
+       So make an effort to detect this mistake as all of our known
+       users on our mailing list seem to make it:
+       
+         http://mid.gmane.org/AANLkTinP5fBfcRa6Y3-MrMzDqjRRrgEOIunvn_h7q2WS@mail.gmail.com
+   
+   commit bb24816e1291bbbb26065af3fb5bd76a4cbb0c95
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Jul 1 17:37:08 2010 -0700
+   
+       linux_inet_diag: rename "addrs" => "query_addr"
+       
+       "query_addr" is a more appropriate name since we only query one
+       address at a time via netlink rather than relying on OR-ing in
+       the bytecode.
+   
+   commit 590b3d9b66e8b345a6053cbfc8304f08ab58caf5
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue Jun 29 00:51:23 2010 +0000
+   
+       examples/linux-tcp-listener-stats: fix usage string
+   
+   commit 06c5595cb7b77f65648740d47f0b98a1a73eed8c
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue May 4 17:30:26 2010 -0700
+   
+       raindrops 0.2.0 - raining penguins!
+       
+       For servers running Unicorn 0.98.0 (and derivative servers)
+       under Linux, :listeners no longer needs to be passed explicitly
+       when configuring the Rack middleware.
+       
+       Some small documentation updates and cleanups, too.
+   
+   commit ccf41c19164d9658f7fcbcae170ae11267b1abd0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue May 4 17:29:24 2010 -0700
+   
+       examples: add sample standalone Rack application
+   
+   commit 0a5a13eaae957a3c7cacd26a0fcc0c8053f1d0f3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue May 4 17:29:01 2010 -0700
+   
+       README: add note about Unicorn 0.98.0 listener_names
+   
+   commit ad1a354968d0ae2abf5b0450cd5b254d95077ba0
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue May 4 17:23:32 2010 -0700
+   
+       cleanup a few typos
+   
+   commit eadaec56aef29360f5b18abd3d2683c835d3725a
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue May 4 17:16:04 2010 -0700
+   
+       middleware: no need to ensure in #close
+       
+       If stats.decr_writing never fails, really (or something is
+       seriously wrong (like memory corruption) and the ensure block
+       wouldn't fire anyways).
+   
+   commit 7664144957b4916c76ec52132eaaa552a348de28
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Tue May 4 17:01:37 2010 -0700
+   
+       use Unicorn.listener_names method if available
+       
+       This allows easier configuration when used with Unicorn and
+       derived servers (Rainbows! and Zbatery).
+   
+   commit c48b2ce337bddd5f0e7f0a6a21dfd7fc925f1e42
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun May 2 16:57:58 2010 -0700
+   
+       GNUmakefile: add publish_doc target
+   
+   commit 0f316f004787c4a86c854cc251e2c3cbf8c2dce3
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun May 2 16:55:54 2010 -0700
+   
+       rdoc 2.5.x updates
+   
+   commit b7f2bbca3ada5ef2e8942690f658510a226394ce
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun May 2 16:55:03 2010 -0700
+   
+       README: add information about mailing list archives
+   
+   commit 957ddbbdc88ff0d644692935f31794a9efb86598
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Sun Apr 11 20:21:59 2010 -0700
+   
+       tests: fix to run under MRI 1.8.6
+   
+   commit da0d9cbbd9f6cf2e68274dd5c2204b105f8b030d
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Thu Apr 8 14:26:04 2010 -0700
+   
+       linux: slightly simpler scan for /proc/net/unix
+       
+       File.read under 1.9 takes an :encoding argument to force binary
+       encoding for its return value.
+   
+   commit b9eeebe9d448431a97ac4515cae6a53b6976ac4e
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 7 17:57:23 2010 -0700
+   
+       gemspec: fix rubyforge project
+   
+   commit 07832552d8d1e3fe0e40b529acf723e15ecaf042
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 7 17:54:55 2010 -0700
+   
+       gemspec: fix summary
+   
+   commit 2eb54ed4024c544448a712ffe4acd1e575823c9f
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 7 17:44:50 2010 -0700
+   
+       raindrops 0.1.0
+       
+       initial release
+   
+   commit ae4faee4054d7c9d95ef95a47c794185a5c20bd8
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 7 17:43:45 2010 -0700
+   
+       Rakefile: fix web_url
+   
+   commit c3e9f5ba6fc10397f55941f36da29808a105d248
+   Author: Eric Wong <normalperson@yhbt.net>
+   Date:   Wed Apr 7 17:07:42 2010 -0700
+   
+       initial

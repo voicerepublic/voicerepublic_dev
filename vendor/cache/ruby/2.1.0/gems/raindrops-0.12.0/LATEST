@@ -1,0 +1,13 @@
+=== raindrops 0.12.0 - compatibility fixes / 2013-09-02 10:33 UTC
+
+  This release fixes builds on systems where compilers target i386
+  (and not later x86 systems).  There are also minor improvements for
+  Ruby 2.1.0dev and Rubinius.
+
+  Eric Wong (5):
+        doc: add email address to generated doc/site
+        README: update regarding Ruby support status
+        extconf: try harder for gcc atomics in i386-configured systems
+        linux_inet_diag: improve compatibility with newer GCs
+        test_watcher: fix for Ruby trunk r40195 and later
+

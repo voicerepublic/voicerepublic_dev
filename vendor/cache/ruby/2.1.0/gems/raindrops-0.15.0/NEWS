@@ -1,0 +1,238 @@
+=== raindrops 0.15.0 - non-glibc compat fix on Linux / 2015-07-22 00:30 UTC
+
+  Thanks to Doug Forster for sending us the report.
+  No other fixes
+
+  * check for the existence of linux/tcp.h
+
+=== raindrops 0.14.0 - misc doc updates / 2015-06-25 21:50 UTC
+
+  Eric Wong (7):
+        linux_inet_diag: annotate memory freeing on diag errors
+        README: trim intro and update license
+        modernize packaging and documentation
+        move mailing list to raindrops-public@bogomips.org
+        linux_inet_diag: clarify *fprintf usage without GVL
+        TODO: add item for unix_diag and udp_diag
+        linux_inet_diag: fix Wshorten-64-to-32 warnings
+
+  Hleb Valoshka (1):
+        Add setup and teardown for ipv6 tests
+
+=== raindrops 0.13.0  several minor fixes and improvements / 2014-02-18 20:59 UTC
+
+  Most notably, this release is necessary for Ruby 2.2 (dev).
+  Thanks to Koichi Sasada for the bug report!
+
+  Eric Wong (5):
+        Rakefile: remove raa_update task
+        last_data_recv: do not assume Unicorn includes all constants
+        raindrops.gemspec: add wrongdoc dev dependency
+        linux_inet_diag: fix Ruby 2.2 (dev) build
+        license: use LGPLv2.1 or later (was LGPL (2.1|3.0)-only)
+
+  Hleb Valoshka (1):
+        Remove Scope IDs from IPv6 addresses.
+
+=== raindrops 0.12.0 - compatibility fixes / 2013-09-02 10:33 UTC
+
+  This release fixes builds on systems where compilers target i386
+  (and not later x86 systems).  There are also minor improvements for
+  Ruby 2.1.0dev and Rubinius.
+
+  Eric Wong (5):
+        doc: add email address to generated doc/site
+        README: update regarding Ruby support status
+        extconf: try harder for gcc atomics in i386-configured systems
+        linux_inet_diag: improve compatibility with newer GCs
+        test_watcher: fix for Ruby trunk r40195 and later
+
+=== raindrops 0.11.0 - minor fixes improvements / 2013-04-20 23:10 UTC
+
+  Eric Wong (7):
+        raindrops: favor configured processor count over online count
+        watcher: set Content-Type via assignment
+        Linux::TCP_Info: implement #get! instance method
+        linux_inet_diag: avoid unnecessary sockaddr initialization
+        .gitignore: add .rbx
+        switch back to gemspec development dependencies
+        linux_inet_diag: better align listener_stats struct
+
+  Lawrence Pit (1):
+        Watcher: Use relative paths in HTML links
+
+=== raindrops 0.10.0 - minor feature updates / 2012-06-19 08:30 UTC
+
+  Improvements to the Unix domain socket handling and small
+  bugfixes throughout.
+
+  Support for the "unix_diag" facility in Linux 3.3+ is planned
+  but not yet implemented (patches to raindrops@librelist.org
+  appreciated)
+
+  Brian Corrigan (1):
+        resolve symlinks to Unix domain sockets
+
+  Eric Wong (6):
+        unix_listener_stats follows and remembers symlinks
+        middleware/proxy: favor __send__ for method dispatch
+        unix: show zero-value stats for idle listeners
+        test_watcher: fix incorrect request/date comparison
+        watcher: sort index of listener listing
+        watcher: do not require Rack::Head for HEAD response
+
+  See "git log v0.9.0..v0.10.0" for full details
+
+=== raindrops 0.9.0 - minor middleware/proxy update / 2012-05-21 00:06 UTC
+
+  Raindrops::Middleware::Proxy now forwards method_missing
+  to the proxied body object.  This allows compatibility
+  with non-standard Rack extensions employed by some
+  middlewares, applications, or servers.
+
+  Thanks to Ben Somers for the feature!
+
+=== raindrops 0.8.1 - compatibility fixes / 2012-05-12 05:58 UTC
+
+  This release fixes a build problem found under a current SmartOS.  This
+  release also runs successfully on FreeBSD 9.0 under both x86-64 and
+  i386.
+
+  There are also documentation updates from Aman Gupta and a test suite
+  fix from Jeremy Evans for OpenBSD.
+
+  raindrops fully supports unicorn on recent versions of FreeBSD, OpenBSD,
+  SmartOS, and possibly other Free Software systems.  Portability reports
+  and fixes for Free Software systems is greatly appreciated at
+  raindrops@librelist.org
+
+  Non-Free systems will never be supported.
+
+  raindrops requires the Linux 2.6.18 or later for full functionality
+  (which unicorn does not require).  Future releases will take advantage
+  of the unix_diag functionality found in the Linux 3.3 (and later)
+  kernels.
+
+=== raindrops 0.8.0 - watcher updates / 2011-10-14 22:00 UTC
+
+  There are various updates to the Raindrops::Watcher Rack app.
+  Most notably, the timestamp where the a statistic first and last
+  hit its peak value (active/queued connections) is captured.
+
+  As usual, the latest Raindrops::Watcher is running at:
+    http://raindrops-demo.bogomips.org/
+
+=== raindrops 0.7.0 - FreeBSD fix, code cleanups / 2011-06-27 07:26 UTC
+
+  This release fixes a build issue on FreeBSD.  There are various
+  documentation and code cleanups, too.
+
+=== raindrops 0.6.1 - fix build on non-Linux / 2011-03-21 22:31 UTC
+
+  TCP_INFO support couldn't compile under non-Linux, this was
+  broken since 0.5.0 when TCP_INFO support was introduced.
+
+  Thanks to Ben Bleything for the report.
+
+=== raindrops 0.6.0 - polishing up the last release / 2011-03-21 21:46 UTC
+
+  Following up the huge 0.5.0 release, 0.6.0 makes
+  some minor improvements:
+
+  * minor UI/UX improvements for Watcher Rack app
+  * set close-on-exec by default for inet_diag sockets
+  * inet_diag build fixes for newer GNU libc6
+  * --with-atomic_ops-dir= build option added
+
+=== raindrops 0.5.0 - more Linux extras! / 2011-03-17 03:13 UTC
+
+  Portable changes:
+  * Raindrops are now resizable within the limits of system page size
+  * Raindrops::Middleware proxies +to_path+ in response bodies
+  * More documentation
+
+  Linux-only changes:
+  * Raindrops::LastDataRecv[1] Rack application
+  * Raindrops::Watcher[2] Rack application
+  * Raindrops::TCP_Info[3] class for capturing TCP connection stats
+  * IPv6 support for inet_diag
+  * faster inet_diag stats for multiple sockets
+
+  There is also a demo server running the Watcher and Middleware
+  components.  It's capped to 30 concurrent users, so go easy on
+  it:
+
+    Raindrops::Watcher: http://raindrops-demo.bogomips.org/
+    Raindrops::Middleware: http://raindrops-demo.bogomips.org/_raindrops
+
+  [1] http://raindrops.bogomips.org/Raindrops/LastDataRecv.html
+  [2] http://raindrops.bogomips.org/Raindrops/Watcher.html
+  [3] http://raindrops.bogomips.org/Raindrops/TCP_Info.html
+
+=== raindrops 0.4.1 - more portability! / 2010-09-26 06:49 UTC
+
+  Rubinius 1.1.0 support is complete.  Atomic operations
+  are now available under FreeBSD 7.0 now.
+
+  Full changelog below:
+
+      commit 8a2a725a4ad074af493e5aa075155eda8b1d6be7
+      Author: Eric Wong <e+absinthe@yhbt.net>
+      Date:   Sat Sep 25 00:14:48 2010 -0700
+
+      force -march=i486 where GCC is targeted for i386
+
+      Nobody uses i386 anymore (especially not with Ruby!),
+      but some systems like FreeBSD 7.0 still target GCC at
+      i386 by default, so we force GCC to use a slightly
+      more modern instruction set and allow it to use
+      atomic builtins.
+
+      commit 256cc7c8ffb441dcf2d2a2da3bbbcc82546962d9
+      Author: Eric Wong <e+absinthe@yhbt.net>
+      Date:   Sat Sep 25 00:01:46 2010 -0700
+
+      disable Linux-only code on non-Linux
+
+      This allows us to build and link correctly on FreeBSD 7.0
+
+      commit 22a5a39d75faa890048d07ae4ea0d494acd414ce
+      Author: Eric Wong <e@yhbt.net>
+      Date:   Sat Sep 25 06:25:42 2010 +0000
+
+      linux: workaround missing RSTRUCT* macros in rbx
+
+      Rubinius does not include macros for accessing
+      Struct members in the C API.
+
+      ref: http://github.com/evanphx/rubinius/issues/494
+
+=== raindrops 0.4.0 - flowing into new systems! / 2010-09-21 22:32 UTC
+
+  Non-GCC 4.x users may use the libatomic_ops[1] package to
+  compile Raindrops.  Memory efficiency is improved for modern
+  glibc users with run-time cache line size detection, we no
+  longer assume 128 byte cache lines.
+
+  [1] - http://www.hpl.hp.com/research/linux/atomic_ops/
+
+=== raindrops v0.3.0 - LGPL v2.1 and v3.0 / 2010-07-10 22:29 UTC
+
+  Raindrops is now licensed under the LGPLv2.1 or LGPLv3 (from
+  LGPLv3-only) to allow bundling in GPLv2-only applications.
+
+  There are small documentation updates and updated examples
+  at http://raindrops.bogomips.org/examples/
+
+=== raindrops 0.2.0 - raining penguins! / 2010-05-05 00:35 UTC
+
+  For servers running Unicorn 0.98.0 (and derivative servers)
+  under Linux, :listeners no longer needs to be passed explicitly
+  when configuring the Rack middleware.
+
+  Some small documentation updates and cleanups, too.
+
+=== raindrops 0.1.0 / 2010-04-08 00:45 UTC
+
+  initial release
+

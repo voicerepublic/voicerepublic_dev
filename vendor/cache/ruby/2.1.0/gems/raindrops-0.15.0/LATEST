@@ -1,0 +1,7 @@
+=== raindrops 0.15.0 - non-glibc compat fix on Linux / 2015-07-22 00:30 UTC
+
+  Thanks to Doug Forster for sending us the report.
+  No other fixes
+
+  * check for the existence of linux/tcp.h
+

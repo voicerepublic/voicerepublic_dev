@@ -1,0 +1,28 @@
+=== unicorn 4.8.0 - big internal changes, but compatible / 2014-01-11 07:34 UTC
+
+  This release contains fairly major internal workings of master-to-worker
+  notifications.  The master process no longer sends signals to workers
+  for most tasks.  This works around some compatibility issues with some
+  versions of the "pg" gem (and potentially any other code which may not
+  handle EINTR properly).  One extra benefit is it also helps stray
+  workers notice a rare, unexpected master death more easily.  Workers
+  continue to (and will always) accept existing signals for compatibility
+  with tools/scripts which may signal workers.
+
+  PID file are always written early (even on upgrade) again to avoid
+  breaking strange monitoring setups which use PID files.  Keep in mind we
+  have always discouraged monitoring based on PID files as they are
+  fragile.
+
+  We now avoid bubbling IOError to the Rack app on premature client
+  disconnects when streaming the input body.  This is usually not a
+  problem with nginx, but may be on some LAN setups without nginx).
+
+  Thanks to Sam Saffron, Jimmy Soho, Rodrigo Rosenfeld Rosas,
+  Michael Fischer, and Andrew Hobson for their help with this release.
+
+  Note: the unicorn mailing list will be moved/changed soon due to the
+  RubyForge shutdown.  unicorn will always rely only on Free Software.
+  There will never be any sign-up requirements nor terms-of-service to
+  agree to when communicating with us.
+
