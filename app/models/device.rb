@@ -10,6 +10,7 @@ class Device < ActiveRecord::Base
   self.inheritance_column = false
 
   belongs_to :organization
+  has_one :venue
 
   validates :identifier, presence: true
 
@@ -27,7 +28,7 @@ class Device < ActiveRecord::Base
     state :unpaired # offline & unpaired (initial state)
     state :pairing # online & still unpaired
     state :idle # online, paired & not streaming
-    state :streaming
+    state :streaming, enter: :signal_start_stream
     state :offline
 
     event :register do # remote
@@ -77,6 +78,14 @@ class Device < ActiveRecord::Base
 
    def to_param
      identifier
+   end
+
+   def channel
+     [nil, :device, identifier] * '/'
+   end
+
+   def signal_start_stream
+     Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
    end
 
 end

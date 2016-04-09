@@ -64,6 +64,8 @@ module VoiceRepublic
 
     config.middleware.use 'Slides'
 
+    config.middleware.use 'IcecastEndpoint'
+
     config.middleware.use 'Rack::Affiliates'
 
     config.assets.initialize_on_precompile = false

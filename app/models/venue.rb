@@ -12,7 +12,8 @@ class Venue < ActiveRecord::Base
 
     state :offline, enter: :reset_ephemeral_details
     state :provisioning, enter: :provision, exit: :complete_details
-    state :ready
+    state :select_device
+    state :awaiting_stream, enter: :start_streaming
     state :connected # aka. streaming
     state :disconnected # aka. lost connection
 
@@ -20,22 +21,25 @@ class Venue < ActiveRecord::Base
       transitions from: :offline, to: :provisioning
     end
     event :complete_provisioning, timestamp: :completed_provisioning_at do
-      transitions from: :provisioning, to: :ready
+      transitions from: :provisioning, to: :awaiting_stream, guard: :device_present?
+      transitions from: :provisioning, to: :select_device
     end
     event :connect do
-      transitions from: [:ready, :disconnected], to: :connected
+      transitions from: [:awaiting_stream, :disconnected], to: :connected
     end
     event :disconnect do
       transitions from: :connected, to: :disconnected
     end
     event :shutdown do
-      transitions from: [:ready, :connected, :disconnected],
+      transitions from: [:select_device, :awaiting_stream,
+                         :connected, :disconnected],
                   to: :offline, on_transition: :unprovision,
                   guard: :shutdown?
     end
     # for emergencies only, may leave running instances behind!
     event :reset do
-      transitions from: :provisioning, to: :offline
+      transitions from: [:provisioning, :select_device],
+                  to: :offline, on_transition: :unprovision
     end
   end
 
@@ -85,10 +89,16 @@ class Venue < ActiveRecord::Base
     self.instance_id = response.body["instancesSet"].first["instanceId"]
   end
 
+  def provisioning_file
+    "/tmp/userdata_#{id}.sh"
+  end
+
   def provision_development
-    # TODO execute userdata on localhost
-    # TODO adjust userdata's detection of public_ip for localhost
-    # maybe with http://serverfault.com/questions/462903/how-to-know-if-a-machine-is-an-ec2-instance
+    f = File.open(provisioning_file, 'w', 0700)
+    f.write(userdata)
+    f.close
+    FileUtils.cp f.path, 'userdata.sh' # for debugging
+    spawn provisioning_file
   end
 
   def provision_test
@@ -148,6 +158,7 @@ class Venue < ActiveRecord::Base
 
   def complete_details
     self.stream_url = build_stream_url
+    FileUtils.rm(provisioning_file)
   end
 
   def userdata
@@ -168,7 +179,7 @@ class Venue < ActiveRecord::Base
   end
 
   def env_list
-    ERB.new(darkice_config_template).result(binding)
+    ERB.new(env_list_template).result(binding)
   end
 
   def env_list_template
@@ -177,6 +188,19 @@ class Venue < ActiveRecord::Base
 
   def icecast_callback_url
     [ Settings.root_url, :icecast ] * '/'
+  end
+
+  def start_streaming
+    device.start_streaming!
+  end
+
+  def icecast_params
+    {
+      public_ip_address: public_ip_address,
+      source_password: source_password,
+      mount_point: mount_point,
+      port: port
+    }
   end
 
   def event_fired(*args)
@@ -211,6 +235,10 @@ class Venue < ActiveRecord::Base
 
   def slug_candidates
     [ :name, [:id, :name] ]
+  end
+
+  def device_present?
+    device.present?
   end
 
 end

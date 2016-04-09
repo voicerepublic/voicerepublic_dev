@@ -585,3 +585,10 @@ How To Update Icons
 * `cp fonts/* app/assets/fonts`
 * update `app/assets/stylesheets/grids_variables_mixins/style.css` with content of `style.css` (only the lower part, keep the top part!)
 * done
+
+
+ClojureScript
+-------------
+
+    cd lib/vrng
+    lein figwheel

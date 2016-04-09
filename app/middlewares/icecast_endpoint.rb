@@ -1,4 +1,4 @@
-class IcecastApi < Struct.new(:app, :opts)
+class IcecastEndpoint < Struct.new(:app, :opts)
 
   def call(env)
     return app.call(env) unless env['REQUEST_METHOD'] == 'POST'

@@ -1,6 +1,10 @@
 #!/bin/bash
 
-PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
+  PUBLIC_IP=$(curl http://instance-data.ec2.internal/latest/meta-data/public-ipv4)
+else
+  PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
+fi
 
 cat >~/env.list <<EOF
 <%= env_list %>
@@ -23,7 +27,6 @@ CALLBACK_URL=<%= icecast_callback_url %>
 CLIENT_TOKEN=<%= client_token %>
 
 
-# call home
 JSON='{"public_ip_address":"'$PUBLIC_IP'","client_token":"'$CLIENT_TOKEN'"}'
 curl -X POST --data "$JSON" $CALLBACK_URL/complete
 
