@@ -1,0 +1,29 @@
+$brand-font-bold: Eagle, sans-serif;
+$brand-font-light: sans-serif;
+$font-text: "Open Sans", sans-serif;
+
+$brand-color-green: #56B2A7;
+$brand-color-creme: #FEF1DE;
+$brand-color-cremelight: lighten($brand-color-creme, 3.4%);
+$brand-color-red: #D50021;
+$brand-color-yellow: #FFEB3E;
+$brand-color-blue: #2C46B0;
+$interaction-green: #017D03;
+
+$color-black-title: lighten(#000, 10%);
+$header-box-bg: rgba(0,0,0,0.5);
+
+$form-title-color: white;
+$top-bar-padding: 55px;
+
+// USER ABOUT ME
+$text-title-font-size: rem-calc(16);
+
+// VENUE
+$series-medium-box-background-color: rgba(0,0,0,0.8);
+$series-medium-actions-color: $brand-color-creme;
+
+// RESPONSIVE BREAKPOINTS
+$break-small: 320px;
+$break-medium: 700px;
+$break-wide: 1160px;

@@ -91,7 +91,8 @@
         = render partial: 'publisher', collection: @publishers
 
     .row.clearfix
-      = link_to explore_path, class: 'button hollow large' do
+      = link_to blog_url('/publishers-on-voice-republic'),
+        class: 'button hollow large' do
         = t('.more_publishers')
 
 

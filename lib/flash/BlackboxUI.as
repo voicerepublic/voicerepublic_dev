@@ -14,7 +14,7 @@ private var streamVolume:Number = 1;
 private var publishStreamName:String;
 private var publishNetStream:NetStream;
 private var publishNetConnection:NetConnection;
-private var monitorNetConnection:NetConnection;
+//private var monitorNetConnection:NetConnection;
 
 private var netStreams:Array = new Array();
 private var netConnections:Array = new Array();
@@ -90,7 +90,8 @@ private function log(msg:String):void {
 }
 
 private function setupMic():void {
-  var enhanced:Boolean = enhancedMicrophone.selected;
+  //var enhanced:Boolean = enhancedMicrophone.selected;
+  var enhanced:Boolean = false;
 
   mic = null;
   if(enhanced) {
@@ -113,8 +114,8 @@ private function setupMic():void {
 
   gain = mic.gain;
 
-  enhancedMicrophone.enabled = true;
-  monitor.enabled = true;
+  //enhancedMicrophone.enabled = true;
+  //monitor.enabled = true;
   volume.enabled = true;
 
   if(publishStreamName != null) {
@@ -192,23 +193,23 @@ private function localLoopbackHandler(e:MouseEvent):void {
   mic.setLoopBack(e.target.selected);
 }
 
-private function monitorHandler(e:MouseEvent):void {
-  if(!e.target.selected) {
-    log('Unsubscribe from monitor.');
-    monitorNetConnection.close();
-    return;
-  }
-
-  log('Subscribe to monitor.')
-  var nc:NetConnection = new NetConnection();
-  nc.addEventListener(NetStatusEvent.NET_STATUS,
-                      netStatusHandler(receiveStream, nc, publishStreamName));
-  nc.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
-  nc.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-  nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
-  nc.connect(streamer);
-  monitorNetConnection = nc;
-}
+//private function monitorHandler(e:MouseEvent):void {
+//  if(!e.target.selected) {
+//    log('Unsubscribe from monitor.');
+//    monitorNetConnection.close();
+//    return;
+//  }
+//
+//  log('Subscribe to monitor.')
+//  var nc:NetConnection = new NetConnection();
+//  nc.addEventListener(NetStatusEvent.NET_STATUS,
+//                      netStatusHandler(receiveStream, nc, publishStreamName));
+//  nc.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+//  nc.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+//  nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+//  nc.connect(streamer);
+//  monitorNetConnection = nc;
+//}
 
 // --- exported methods
 

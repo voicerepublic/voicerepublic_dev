@@ -133,6 +133,7 @@ class Talk < ActiveRecord::Base
   before_save :process_description, if: :description_changed?
   before_save :set_venue
   before_save :set_icon, if: :tag_list_changed?
+  before_save :set_image_alt, unless: :image_alt?
   before_create :prepare, if: :can_prepare?
   before_create :inherit_penalty
   after_create :notify_participants
@@ -167,9 +168,10 @@ class Talk < ActiveRecord::Base
     default Rails.root.join('app/assets/images/defaults/talk-image.jpg')
   end
 
+  scope :no_penalty, -> { where(penalty: 1) }
   scope :nodryrun, -> { where(dryrun: false) }
   scope :publicly_live, -> { nodryrun.live }
-  scope :upcoming, -> { nodryrun.prelive }
+  scope :upcoming, -> { nodryrun.prelive.no_penalty.ordered }
   scope :featured, -> { where.not(featured_from: nil) }
   scope :popular, -> { nodryrun.archived.order('popularity DESC') }
   scope :ordered, -> { order('starts_at ASC') }
@@ -180,12 +182,6 @@ class Talk < ActiveRecord::Base
   ARCHIVED_AND_LIMBO =
     %w(archived pending postlive processing suspended).map { |s| "'#{s}'" } * ','
   scope :archived_and_limbo, -> { where("state IN (#{ARCHIVED_AND_LIMBO})") }
-
-  scope :scheduled_featured, -> do
-    upcoming.featured.
-      where("featured_from < ?", Time.zone.now).
-      order('featured_from DESC')
-  end
 
   scope :remembered_by, ->(user) {
     joins(:reminders).where('reminders.user_id = ?', user.id)
@@ -468,6 +464,10 @@ class Talk < ActiveRecord::Base
       icon = icons.sort_by(&:last).last.first
     end
     self.icon = icon || 'default'
+  end
+
+  def set_image_alt
+    self.image_alt = title
   end
 
   def notify_participants

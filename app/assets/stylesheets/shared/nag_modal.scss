@@ -1,0 +1,80 @@
+#nagModal .row {
+  max-width: 63rem;
+}
+
+.nagBody ul li {
+  color:#001c3a;
+  font-family: helvetica,arial, sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  margin-left:4px;
+  margin-top: 6px;
+}
+
+.nagBody ul {
+  margin-top: 12px;
+}
+
+.nagBody h2, .nagBody h4 {
+  margin-top: 24px;
+  color:#001c3a;
+}
+
+.naBody h2 {
+  font-size:2.31rem;
+}
+
+.nagBody h4 {
+  font-family: helvetica, arial, sans-serif;
+}
+
+.nagBody .button.primary {
+  background: #54c6c6;
+  font-family: 'Eagle';
+  color:#fff;
+  margin-top: 24px;
+}
+
+.nagBody .button.primary:hover {
+  background:#2c46b0
+}
+
+.nagBody .button-signup {
+  width:auto !important;
+}
+
+#logobox {
+  padding: 24px 48px 48px;
+  text-align: center;
+}
+
+#logobox img {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+@mixin nag-modal($factor) {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: helvetica,arial,sans-serif;
+    color:#001c3a;
+    color:red;
+  }
+
+  p {
+    font-family: helvetica,arial, sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.7rem
+  }
+
+  #nagModal h2#modalTitle {
+    color:#001c3a !important;
+  }
+}
+
+@media screen and(min-width: 1024px) {
+  #nagModal {
+    width: 60%;
+    margin-left: -33%;
+    border-radius: 4px;
+  }
+}
