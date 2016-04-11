@@ -398,6 +398,10 @@ class Talk < ActiveRecord::Base
     end
   end
 
+  def atom
+    {}
+  end
+
   private
 
   def process_description

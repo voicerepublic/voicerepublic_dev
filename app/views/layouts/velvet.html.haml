@@ -101,7 +101,7 @@
         - if !current_user
           %li= link_to t('.login'), new_user_session_path
           %li= link_to t('.sign_up'), new_user_registration_path
-          
+
         %li= link_to t('.create_a_talk'), new_talk_path
         %li= link_to t('.pricing'), purchases_path
         %li
@@ -116,14 +116,7 @@
 
 
     #scripts
-      %script{:src => "/assets/javascripts/libraries.min.js"}
-      %script{:src => "/assets/javascripts/rails.js"}
-      %script{:src => "/assets/javascripts/foundation.min.js"}
-      %script{:src => "/assets/javascripts/app.js"}
-      %script{:src => "/assets/javascripts/explore.js"}
-      %script{:src => "/assets/javascripts/topbar.js"}
-      %script{:src => "/assets/javascripts/purchases.js"}
-      %script{:src => "/assets/javascripts/share_social.js"}
+      = javascript_include_tag :application
 
       - if Rails.env.production?
         - unless @current_user.try(:insider?)
