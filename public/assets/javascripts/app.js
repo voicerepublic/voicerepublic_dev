@@ -149,4 +149,20 @@ $('.search-container input').keypress(function(e){
 $('#working').removeClass('hide');        }
 });
 
+
+//show talk card alerts
+$('.talk-card').on('click','.pin-btn, .unpin-btn', function(e){
+    //console.log(e);
+    var flasher = $(this).parent().parent().parent().next();
+    var myText = $(this).attr('data-msg');
+    console.log("text: " + myText);
+    flasher.find('.flasher-text p').text(myText);
+    flasher.removeClass('hide').delay(1000).queue(function(next){
+    $.when($(this).fadeOut(500)).done(function() {
+    $(this).addClass('hide').css({"opacity":1, "display":"table"});
+});
+    next();
+});
+});
+
 $(document).foundation();
