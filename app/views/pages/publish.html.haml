@@ -1,2 +1,18 @@
-%section
-	Find me in app/views/pages/publish.html.haml
+%section#claim.dark
+  .row
+    %header
+      %h1= s('.head_1')
+      .container.medium-8.medium-offset-2.large-6.large-offset-3.columns
+        %p.lead= s('.text_1')
+
+%section.light
+  .api-container.row.clearfix
+    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
+      %h2= s('.head_2')
+      %p= s('.text_2')
+      = link_to t('.pricing'), pricing_path, class: 'button'
+      = link_to t('.start_live_stream'), new_talk_path, class: 'button'
+      %h2= s('.head_3')
+      %p= s('.text_3')
+      = link_to t('.pricing'), pricing_path, class: 'button'
+      = link_to t('.upload_a_recording'), new_upload_path, class: 'button'
