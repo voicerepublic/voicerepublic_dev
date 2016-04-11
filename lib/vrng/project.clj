@@ -29,38 +29,46 @@
                                         :optimizations :none
                                         :pretty-print  true}}}}
 
-  :profiles {:dev {:dependencies [[prone "1.0.2"]
-                                  [lein-doo "0.1.6"]
-                                  [pjstadig/humane-test-output "0.7.1"]
-                                  [lein-figwheel "0.5.0-6"]
-                                  [org.clojure/tools.nrepl "0.2.12"]
-                                  [com.cemerick/piggieback "0.2.1"]]
+  :profiles
+  {:dev {:dependencies [[prone "1.0.2"]
+                        [lein-doo "0.1.6"]
+                        [pjstadig/humane-test-output "0.7.1"]
+                        [lein-figwheel "0.5.0-6"]
+                        [org.clojure/tools.nrepl "0.2.12"]
+                        [com.cemerick/piggieback "0.2.1"]]
 
-                   :plugins [[lein-figwheel "0.5.0-6"]
-                             [lein-doo "0.1.6"]]
+         :plugins [[lein-figwheel "0.5.0-6"]
+                   [lein-doo "0.1.6"]]
 
-                   :doo {:build "test"}
+         :doo {:build "test"}
 
-                   :injections [(require 'pjstadig.humane-test-output)
-                                (pjstadig.humane-test-output/activate!)]
+         :injections [(require 'pjstadig.humane-test-output)
+                      (pjstadig.humane-test-output/activate!)]
 
-                   :figwheel {:http-server-root "public"
-                              :nrepl-port 7002
-                              :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
-                              :css-dirs ["public/css"]}
+         :figwheel {:http-server-root "public"
+                    :nrepl-port 7002
+                    :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
+                    :css-dirs ["public/css"]}
 
-                   :cljsbuild {:builds {:test {:source-paths ["src" "test"]
-                                               :compiler {:output-to "resources/public/js/testable.js"
-                                                          :main vrng.runner
-                                                          :optimizations :none}}
+         :cljsbuild
+         {:builds
+          {:test
+           {:source-paths ["src" "test"]
+            :compiler {:output-to "resources/public/js/testable.js"
+                       :main vrng.runner
+                       :optimizations :none}}
 
-                                        :app {:source-paths ["env/dev/cljs"]
-                                              :compiler {:main "vrng.dev"
-                                                         :source-map true}}}}
+           :app {:source-paths ["env/dev/cljs"]
+                 :compiler {:main "vrng.dev"
+                            :source-map true}}}}}
 
-                   :prod {:cljsbuild {:jar true
-                                      :builds {:app
-                                               {:source-paths ["env/prod/cljs"]
-                                                :compiler
-                                                {:optimizations :advanced
-                                                 :pretty-print false}}}}}}})
+   :prod {:cljsbuild
+          {:jar true
+           :builds {:app
+                    {:source-paths ["env/prod/cljs"]
+                     :compiler
+                     {:optimizations :advanced
+                      :output-to "public/js/app.js"
+                      :pretty-print false}}}}}
+
+   })

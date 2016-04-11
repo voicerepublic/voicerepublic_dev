@@ -13,3 +13,4 @@ pom.xml.asc
 /.repl
 *.log
 /.env
+/public/js/out
