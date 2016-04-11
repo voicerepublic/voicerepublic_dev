@@ -1,1 +1,0 @@
-{"version":3,"file":"\/home\/phil\/src\/vr\/dev\/lib\/vrng\/public\/js\/out\/vrng\/dev.js","sources":["dev.cljs"],"lineCount":10,"mappings":";AAAA;;;;AAIA,AAACA;AAED,2CAAA,uEAAA,kCAAA,pJAACC,gOAEkBC;AAEnB,AAACC","names":["cljs.core\/enable-console-print!","figwheel.client\/watch-and-reload","vrng.core\/mount-root","vrng.core\/init!"]}
