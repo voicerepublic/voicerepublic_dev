@@ -1,11 +1,15 @@
 en:
-  embed: 
+  embed:
     shared:
       talk:
         plays: Plays
   pages:
     outdated_browser:
       oops: Oops!
+    publish:
+      pricing: Pricing
+      start_live_stream: Start Live Stream
+      upload_a_recording: Upload A Recording
   all_categories: All Categories
   validation:
     bad_chars_in_slug: |
