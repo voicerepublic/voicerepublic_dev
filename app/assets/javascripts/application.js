@@ -38,7 +38,6 @@
 //= require components/language_select
 //
 // --- VIEWS
-//= require views/embed
 //= require views/explore
 //= require views/purchases
 //

@@ -1,5 +1,15 @@
-// http://jplayer.org/latest/developer-guide/
+// --- BUNDLED LIBRARIES
+//= require jquery
+//= require jquery_ujs
+//
+// --- VENDORED LIBRARIES
+//= require jquery.jplayer.min
+//
+// --- COMPONENTS
+//= require components/ga-event
 
+// http://jplayer.org/latest/developer-guide/
+//
 // TODO move init of player out of here into a more generic place (component)
 
 function doThatThing() {
