@@ -1,0 +1,7 @@
+en:
+  tag_bundles:
+    show:
+      podcast:
+        title: '%{title} by VoiceRepublic'
+        teaser: VoiceRepublic - Home to the spoken word.
+        author: VoiceRepublic Media AG
