@@ -2524,6 +2524,13 @@ body.is-reveal-open {
   float: right; }
 
 /* all app scss styles here */
+@font-face {
+  font-family: 'Eagle';
+  src: url("../fonts/Eagle-Book.eot?-u70zge");
+  src: url("../fonts/Eagle-Book.eot?#iefix-u70zge") format("embedded-opentype"), url("../fonts/Eagle-Book.ttf?-u70zge") format("truetype"), url("../fonts/Eagle-Book.woff?-u70zge") format("woff"), url("../fonts/Eagle-Book.svg?-u70zge#Eagle-Book") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 html, body {
   min-height: 100%; }
 
@@ -4795,3 +4802,94 @@ footer {
   .api-container pre code {
     background: none;
     border: 0; }
+
+button, .button, button {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.0625rem;
+  border-width: 2px;
+  transition: border-color .2s ease;
+  transition: border .2s ease;
+  transition: all .2s ease;
+  background-color: #2c46b0; }
+  button.secondary, button, .button.secondary, button {
+    background-color: #54c6c6; }
+  button.hollow, button, .button.hollow, button {
+    border-width: 2px;
+    border-color: #54c6c6;
+    color: #54c6c6; }
+    button.hollow:hover, button:hover, .button.hollow:hover, button:hover {
+      color: white;
+      background: #2c46b0;
+      border-color: #2c46b0; }
+    button.hollow.btn-blue, button.btn-blue, .button.hollow.btn-blue, button.btn-blue {
+      border-color: #2c46b0;
+      color: #2c46b0; }
+    button.hollow.btn-yellow, button.btn-yellow, .button.hollow.btn-yellow, button.btn-yellow {
+      border-color: #ffed00;
+      color: #ffed00; }
+    button.hollow.btn-gray, button.btn-gray, .button.hollow.btn-gray, button.btn-gray {
+      border-color: #b4b6be;
+      color: #b4b6be; }
+    button.hollow.btn-white, button.btn-white, .button.hollow.btn-white, button.btn-white {
+      border-color: white;
+      color: white; }
+  button.btn-hover-yellow:hover, .button.btn-hover-yellow:hover, button.btn-hover-yellow:hover {
+    border-color: #ffed00;
+    background: #ffed00;
+    color: white; }
+  button.btn-hover-red:hover, .button.btn-hover-red:hover, button.btn-hover-red:hover {
+    border-color: #f82847;
+    background: #f82847;
+    color: white; }
+  button.btn-hover-light-blue:hover, .button.btn-hover-light-blue:hover, button.btn-hover-light-blue:hover {
+    border-color: #54c6c6;
+    background: #54c6c6;
+    color: white; }
+  button.btn-hover-blue:hover, .button.btn-hover-blue:hover, button.btn-hover-blue:hover {
+    border-color: #2c46b0;
+    background: #2c46b0;
+    color: white; }
+  button.alert.hollow, button.alert, .button.alert.hollow, button.alert {
+    border-width: 2px; }
+  button.small, .button.small, button.small {
+    border-width: 2px; }
+  button.large, button, .button.large, button {
+    border-width: 3px; }
+  button .info, .button .info, button .info {
+    background: rgba(255, 255, 255, 0.5); }
+    button .info .hollow, button .info button, .button .info .hollow, button .info .hollow, .button .info button, button .info button {
+      border-color: rgba(255, 255, 255, 0.5); }
+  button:hover, button:active, .button:hover, button:hover, .button:active, button:active {
+    background: #54c6c6; }
+  button.muted.hollow, button.muted, .button.muted.hollow, button.muted {
+    border-color: #b4b6be;
+    color: #b4b6be; }
+
+.pages #claim {
+  padding: 48px 0; }
+
+.hero-icon {
+  color: #2c46b0;
+  padding-bottom: 24px; }
+  .hero-icon.yellow {
+    color: #ffed00; }
+  .hero-icon svg {
+    fill: currentColor;
+    width: 120px;
+    height: 120px; }
+  .hero-icon.large svg, button.hero-icon svg {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    max-height: 500px; }
+
+section.blue p {
+  color: #fef1de; }
+
+section.turquoise h2 {
+  color: white; }
+
+span.description {
+  display: inline-block;
+  margin-bottom: 24px; }

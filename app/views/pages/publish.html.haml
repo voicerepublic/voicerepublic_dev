@@ -1,18 +1,32 @@
 %section#claim.dark
   .row
     %header
-      %h1= s('.head_1')
+      .hero-icon
+        = naked_icon 'radio-tower'
+      = s('.head_1')
       .container.medium-8.medium-offset-2.large-6.large-offset-3.columns
         %p.lead= s('.text_1')
 
-%section.light
+%section.blue
   .api-container.row.clearfix
-    .container.medium-10.medium-offset-1.large-8.large-offset-2.columns.text-left
-      %h2= s('.head_2')
-      %p= s('.text_2')
-      = link_to t('.pricing'), pricing_path, class: 'button'
-      = link_to t('.start_live_stream'), new_talk_path, class: 'button'
-      %h2= s('.head_3')
-      %p= s('.text_3')
-      = link_to t('.pricing'), pricing_path, class: 'button'
-      = link_to t('.upload_a_recording'), new_upload_path, class: 'button'
+    .medium-4.columns
+      .hero-icon.yellow.large 
+        = naked_icon 'lips'
+    .medium-7.end.columns.text-left
+      = s('.head_2')
+      %span.description
+        = s('.text_2')
+      = link_to t('.pricing'), pricing_path, class: 'button hollow btn-light-blue btn-hover-light-blue'
+      = link_to t('.start_live_stream').html_safe, new_talk_path, class: 'button hollow btn-yellow btn-hover-yellow'
+%section.turquoise
+  .api-container.row.clearfix
+    .medium-7.medium-offset-1.columns.text-left
+      = s('.head_3')
+      %span.description
+        = s('.text_3')
+      = link_to t('.pricing'), pricing_path, class: 'button hollow btn-white btn-hover-yellow'
+      = link_to t('.upload_a_recording').html_safe, new_upload_path, class: 'button hollow btn-yellow btn-hover-yellow'
+    .medium-4.columns
+      .hero-icon.red.large 
+        = naked_icon 'lips'
+      

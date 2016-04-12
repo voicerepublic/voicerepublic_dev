@@ -1,0 +1,44 @@
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+WARNING: Use of undeclared Var vrng.core/mount-root at line 9 env/dev/cljs/vrng/dev.cljs
+notifying browser that file changed:  public/js/out/goog/deps.js
+notifying browser that file changed:  public/js/out/cljs_deps.js
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.41 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+WARNING: Use of undeclared Var vrng.core/mount-root at line 9 env/dev/cljs/vrng/dev.cljs
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.298 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+WARNING: Use of undeclared Var vrng.core/mount-root at line 9 env/dev/cljs/vrng/dev.cljs
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.327 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+WARNING: Use of undeclared Var vrng.core/mount-root at line 9 env/dev/cljs/vrng/dev.cljs
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.286 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+WARNING: Use of undeclared Var vrng.core/mount-root at line 9 env/dev/cljs/vrng/dev.cljs
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.284 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+notifying browser that file changed:  out/vrng/dev.js
+notifying browser that file changed:  out/vrng/core.js
+[32mSuccessfully compiled "public/js/app.js" in 0.183 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.261 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.244 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.234 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.233 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.276 seconds.[0m
+[0mCompiling "public/js/app.js" from ("src" "env/dev/cljs")...
+notifying browser that file changed:  out/vrng/talk.js
+[32mSuccessfully compiled "public/js/app.js" in 0.344 seconds.[0m

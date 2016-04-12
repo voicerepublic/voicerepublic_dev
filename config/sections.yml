@@ -56,7 +56,7 @@ en:
         * [Download Internet Explorer](http://windows.microsoft.com/en-us/internet-explorer/download-ie)
           (If you have an older version of Windows, you need to upgrade to get a newer version of Internet explorer. It's easier to use Chrome or Firefox.)
     publish:
-      head_1: Publish your own content online
+      head_1: "# Publish your own content online"
       text_1: >-
 
         On Voice Republic, your content is in good company. In our
@@ -69,27 +69,33 @@ en:
         equipment. [Starting at 12 euros per Talk](/pricing)
         you can easily create your own audio channel.
 
-      head_2: The Voice Republic live stream
+      head_2: "## The Voice Republic live stream"
       text_2: >-
 
-        You are organizing a conference, a discussion board, or are
+        Are you orgranizing a conference, discussion panel, or
         holding lectures and workshops yourself? With Voice Republic
         you can publish your content to the whole world and reach a
         large audience.
 
+
         Broadcasting your own live stream is easy with the
-        browser-based technology of Voice Republic. You create a talk
-        in your Voice Republic account and during the event you click
-        on "Start" and "Stop". The technology you need on site is only
-        a computer with Internet access and an audio source. The
+        browser-based technology of Voice Republic. You configure a talk
+        in your Voice Republic account and simply click
+        "Start" and "Stop" during the event. The technology you need on site is only
+        a computer with internet access and an audio source. The
         comment feature gives you the opportunity to interact with
         your online audience. Listeners can comment and ask questions
-        in real time. When your event is over, your audio content is
+        in real time. 
+
+
+        When your event is over, your audio content is
         in good hands with us. All talks are stored on the Voice
         Republic servers and are searchable in the archive immediately
         after the live broadcast.
 
-      head_3: The Voice Republic audio upload
+
+
+      head_3: "## The Voice Republic audio upload"
       text_3: >-
 
         If you do not want to stream live, but have already existing
