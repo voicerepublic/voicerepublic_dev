@@ -219,20 +219,6 @@ describe "Talks as logged in user" do
       @talk = FactoryGirl.create(:talk)
     end
 
-    describe 'flash dependency' do
-      it "live talk requires flash", js: true do
-        @talk.update_attribute :state, :live
-        visit talk_path(@talk)
-        expect(page).to have_css('#flash_error_for_listener')
-      end
-
-      it 'archived talk requires no flash', js: true do
-        @talk.update_attribute :state, :archive
-        visit talk_path(@talk)
-        expect(page).not_to have_css('#flash_error_for_listener')
-      end
-    end
-
     describe "as user on all pages" do
       it 'shows explore in talk_path' do
         visit talk_path(@talk)
@@ -406,8 +392,7 @@ describe "Talks as logged in user" do
     it 'shows when set' do
       FactoryGirl.create(:talk, featured_talk: @talk)
       visit talk_path(@talk)
-      expect(page).to have_css('.related-talk')
-      expect(page).to have_content(I18n.t('talks.show.related_talk'))
+      expect(page).to have_css('.qa-related-talks')
     end
 
     it 'does not show when not set' do
@@ -417,9 +402,9 @@ describe "Talks as logged in user" do
     end
 
     it 'shows the next coming up talk if there is one' do
-      @talk.series.talks << FactoryGirl.create(:talk)
+      talk = FactoryGirl.create(:talk, series: @talk.series)
       visit talk_path(@talk)
-      expect(page).to have_content(I18n.t('talks.show.next_talk'))
+      expect(page).to have_content(talk.title)
     end
   end
 
@@ -469,7 +454,7 @@ describe 'slides' do
     talk = FactoryGirl.create(:talk)
     talk.update_attribute :slides_uuid, "some_url.pdf"
     visit talk_path(talk)
-    expect(page).to have_selector("pdf-viewer")
+    expect(page).to have_selector(".qa-pdf-viewer")
   end
   it 'does not show a pdf-viewer when there are no slides attached' do
     talk = FactoryGirl.create(:talk)

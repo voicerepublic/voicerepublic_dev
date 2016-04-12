@@ -312,6 +312,7 @@ class Talk < ActiveRecord::Base
 
   # returns the next talk (coming up next) talk in the series
   def next_talk
+    #raise "next_talk DEPRECATED!"
     begin
       talks = series.talks.order(:starts_at)
       talk_index = talks.find_index(self)
@@ -330,15 +331,25 @@ class Talk < ActiveRecord::Base
   end
 
   def related_talks
-    talks = series.talks.where.not(id: id).ordered.limit(9)
-    if talks.empty?
-      talks = Talk.joins(:series).
-        where(series: { user_id: series.user_id }).
-        where.not(id: id).ordered.limit(9)
-    end
-    if talks.empty?
-      talks = Talk.popular.where.not(id: id).limit(9)
-    end
+    talks, goal = [], 3
+
+    talks << related_talk if related_talk.present?
+
+    limit = goal - talks.size
+    talks += series.talks.where.not(id: id).ordered.limit(limit)
+
+    return talks if talks.size == goal
+
+    limit = goal - talks.size
+    talks += Talk.joins(:series).
+            where(series: { user_id: series.user_id }).
+            where.not(id: id).ordered.limit(limit)
+
+    return talks if talks.size == goal
+
+    limit = goal - talks.size
+    talks += Talk.popular.where.not(id: id).limit(limit)
+
     talks
   end
 
@@ -374,6 +385,7 @@ class Talk < ActiveRecord::Base
   end
 
   def lined_up
+    #raise 'lined_up DEPRECATED!'
     return nil unless venue.present?
     venue.talks.where('starts_at > ?', starts_at).ordered.first
   end
@@ -399,7 +411,17 @@ class Talk < ActiveRecord::Base
   end
 
   def atom
-    {}
+    {
+      talk: attributes,
+      # user: user.attributes,
+      now: Time.now.to_i,
+      # media_links: media_links,
+      # slides_url: slides_url,
+      # lined_up_talk: lined_up,
+      # featured_talk: featured_talk.try(:attributes),
+      # related_talk: related_talk.try(:attributes),
+      # related_talks: related_talks.map(&:attributes)
+    }
   end
 
   private

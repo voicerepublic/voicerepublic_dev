@@ -10,6 +10,7 @@
   %script{ src: '/assets/javascripts/faye-authentication.js' }
   %script{ src: Settings.faye.server + '/client.js' }
   :javascript
+    railsEnv = #{Rails.env.to_json};
     fayeUrl = #{Settings.faye.server.to_json};
 
     fayeClient = new Faye.Client(fayeUrl);
@@ -136,6 +137,9 @@
 
           = @talk.description_as_html.html_safe
 
+          - if @talk.slides_uuid?
+            .qa-pdf-viewer= pdf_viewer(@talk)
+
           -#TODO: Meta data like Category, Tags, Format, License, etc.
           -#.format-box.speaker.float-left
           -#  Categories:
@@ -193,7 +197,7 @@
             .comment-content.small-8.small-offset-1.medium-9.medium-offset-0.columns
               %p.meta-info It's funny.  I can look back on a life of achievement, on challenges met, competitors bested, obstacles overcome.  I've accomplished more than most men, and without the use of my legs.  What. . . What makes a man, Mr. Lebowski?
   -# Right side
-  #right-sidebar.medium-3.columns.clearfix
+  #right-sidebar.medium-3.columns.clearfix.qa-related-talks
     .row.collapse
       %h3
         Recommended Talks

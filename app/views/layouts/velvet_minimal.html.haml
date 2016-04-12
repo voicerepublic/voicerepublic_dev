@@ -40,11 +40,7 @@
 
 
     #scripts
-      %script{:src => "/assets/javascripts/libraries.min.js"}
-      %script{:src => "/assets/javascripts/rails.js"}
-      %script{:src => "/assets/javascripts/foundation.min.js"}
-      %script{:src => "/assets/javascripts/app.js"}
-
+      = javascript_include_tag :application
 
       - if Rails.env.production?
         - unless @current_user.try(:insider?)
