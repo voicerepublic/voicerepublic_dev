@@ -19,17 +19,17 @@
             - delim = (cat == @categories.last) ? '.' : ','
             = succeed delim do
               = link_to cat.title, explore_path(filter: {category: cat.id})
-        .claim-cta-half
+        .claim-cta-half.medium-6.columns
           -# TODO: Link to pages in CMS
-          -#   %a{:href => "publish.html"}
-          -#     %button{:href => "#"}
-          -#       .icon.megaphone
-          -#       = t('.publish')
-          -# .claim-cta-half
-          -#   %a{:href => "listen.html"}
-          -#     %button
-          -#       .icon.headphones
-          -#       = t('.listen')
+          = link_to page_path action: 'publish' do
+            -#= icon_tag 'megaphone'
+            %button.button.hollow
+              = t('.publish')
+        .claim-cta-half.medium-6.columns
+          = link_to explore_path action: 'publish' do
+            -#= icon_tag 'megaphone'
+            %button.button.hollow
+              = t('.listen')
 
 
   -# LISTEN NOW
