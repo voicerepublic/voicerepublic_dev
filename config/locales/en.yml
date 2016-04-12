@@ -1,5 +1,5 @@
 en:
-  embed: 
+  embed:
     shared:
       talk:
         plays: Plays
@@ -411,8 +411,8 @@ en:
       archived_talks: '%{count} Archived Talks'
 
   layouts:
-    application:
-      landing_title: Voice Republic - Home To The Spoken Word
+    head:
+      title: Voice Republic - Home To The Spoken Word
     velvet_minimal:
       title: Voice Republic
     support:
