@@ -55,6 +55,10 @@
                 %span.speaker-names= @talk.speakers
         %hr
 
+      -# COUNTDOWN LABEL
+      - unless @talk.archived?
+        #mount-countdown
+
       -# title
       .row.collapse.talk-title
         %h3= @talk.title
