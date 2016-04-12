@@ -250,6 +250,8 @@ describe "Talks as logged in user" do
       fill_in :talk_teaser, with: 'spec talk teaser'
       fill_in :talk_description, with: 'spec talk teaser'
 
+      sleep 1
+
       # fill in tags
       fill_in 's2id_autogen3', with: 'a,b,c,'
       fill_in 'talk_starts_at_date', with: '2014-04-29'
