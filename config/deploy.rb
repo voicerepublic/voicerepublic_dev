@@ -75,7 +75,8 @@ namespace :deploy do
     on release_roles(fetch(:assets_roles)) do
       within release_path+'/lib/vrng' do
         # requires java & leinigen
-        execute 'lein with-profile -dev,+prod cljsbuild once'
+        execute 'lein clean'
+        execute 'lein cljsbuild once min'
       end
     end
   end
