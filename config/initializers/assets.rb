@@ -12,4 +12,5 @@ Rails.application.config.assets.precompile += %w( application.js
                                                   application.css
                                                   embed.js
                                                   embed.css
-                                                  modernizr.js )
+                                                  modernizr.js
+                                                  faye-authentication.js )

@@ -5,12 +5,11 @@
   = social_meta_tags_talk
 
 - content_for :javascripts do
-  -#= javascript_include_tag '/pdf_viewer/pdf-viewer-0.1.2'
-  -#%script{ src: '/assets/javascripts/moment-with-locales.min.js' }
-  -#%script{ src: '/assets/javascripts/faye-authentication.js' }
+  %script{ src: '/pdf_viewer/pdf-viewer-0.1.2.js' }
   %script{ src: Settings.faye.server + '/client.js' }
+  = javascript_include_tag 'faye-authentication'
   :javascript
-    railsEnv = #{Rails.env.to_json};
+    environment = #{Rails.env.to_json};
     fayeUrl = #{Settings.faye.server.to_json};
 
     fayeClient = new Faye.Client(fayeUrl);
@@ -21,8 +20,6 @@
     console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
     insitialState = #{@talk.atom.to_json};
     transaltions = #{t('frontend.talks').to_json};
-  -#= javascript_include_tag :app
-
 
 #talk-app= t('.initializing')
 
