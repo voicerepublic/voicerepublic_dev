@@ -8,7 +8,7 @@ en:
       oops: Oops!
     publish:
       pricing: Pricing
-      start_live_stream: "Start Live Stream &raquo;"
+      start_live_stream: "Start A Live Stream &raquo;"
       upload_a_recording: "Upload A Recording &raquo;"
   all_categories: All Categories
   validation:

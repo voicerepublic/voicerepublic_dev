@@ -3235,7 +3235,7 @@ h1, h2 {
       color: #fef1de; }
       #claim .lead a:hover {
         text-decoration: underline; }
-  #claim a {
+  #claim a:not(.button) {
     color: #54c6c6; }
   #claim .container {
     float: left; }
@@ -4837,7 +4837,7 @@ button, .button, button {
   button.btn-hover-yellow:hover, .button.btn-hover-yellow:hover, button.btn-hover-yellow:hover {
     border-color: #ffed00;
     background: #ffed00;
-    color: white; }
+    color: #29292b; }
   button.btn-hover-red:hover, .button.btn-hover-red:hover, button.btn-hover-red:hover {
     border-color: #f82847;
     background: #f82847;
