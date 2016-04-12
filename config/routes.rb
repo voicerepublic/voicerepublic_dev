@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'terms',    to: redirect(blog_url('/terms-of-use'))
   end
 
-  get 'pages/:action' => 'pages'
+  get 'pages/:action' => 'pages', as: 'page'
 
   get "/pricing", to: 'purchases#index', as: 'pricing'
   resources :purchases, only: [ :index, :new, :create, :show ] do
