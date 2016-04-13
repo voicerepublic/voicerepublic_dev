@@ -43,7 +43,8 @@
       .listen-interstitial
         .row.clearfix
           .medium-6.medium-offset-3.columns.clearfix
-            %p.lead= t('.lead_interstitial').html_safe
+            %h4= t('.categories')
+            %p= t('.lead_interstitial').html_safe
         .category-buttons
           - @categories.each do |cat|
             = link_to icon_tag(cat.icon) + cat.title,

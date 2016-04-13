@@ -4030,6 +4030,8 @@ footer {
   width: 380px;
   background: #29292b;
   animation-duration: .5s; }
+  .search-container button {
+    background: none; }
   .search-container form label button {
     color: white;
     font-size: 1.125rem;
@@ -4038,7 +4040,7 @@ footer {
     margin: 0;
     padding: 0;
     border: 0;
-    padding-top: 8px;
+    padding-top: 22px;
     margin-left: -32px; }
     .search-container form label button .svg-icon {
       height: 6px; }
@@ -4046,6 +4048,9 @@ footer {
         fill: rgba(255, 255, 255, 0.5);
         width: 18px;
         height: 18px; }
+    @media screen and (min-width: 40em) {
+      .search-container form label button {
+        padding-top: 8px; } }
   .search-container form input {
     float: left;
     font-weight: 300;
@@ -4062,7 +4067,7 @@ footer {
     font-size: 2.25rem;
     font-weight: 200;
     color: #f82847;
-    top: 0;
+    top: -4px;
     padding: 0;
     border: 0; }
     .search-container .close-button:hover {
