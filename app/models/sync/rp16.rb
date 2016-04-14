@@ -164,10 +164,10 @@ module Sync
           metric = talk.persisted? ? :talks_updated : :talks_created
           self.metrics[metric] += 1 if opts[:dryrun] || talk.save!
 
-          if talk.persisted? && talk.ends_at.strftime('%H:%M') != session.end
-            self.warnings << '% 4s: Bogus times: %s %s' %
-              [nid, session.datetime, session.duration]
-          end
+          #if talk.persisted? && talk.ends_at.strftime('%H:%M') != session.end
+          #  self.warnings << '% 4s: Bogus times: %s %s' %
+          #    [nid, session.datetime, session.duration]
+          #end
 
         rescue Exception => e
           self.errors << '% 4s: %s' % [nid, e.message.tr("\n", '; ')]
@@ -200,9 +200,9 @@ module Sync
 
     def report_summary
       tmpl=<<-EOF.strip_heredoc
-       SYNC RP15 REPORT
+       SYNC RP16 REPORT
 
-       Input: %s sessions, %s speakers
+       Input: %s sessions, %s speakers, %s rooms
 
        > Series: % 4s / % 4s / % 4s
        > Talks:  % 4s / % 4s / % 4s
@@ -212,6 +212,7 @@ module Sync
       tmpl % [
         sessions.size,
         speakers.size,
+        rooms.size,
         metrics[:series_created],
         metrics[:series_updated],
         user.series.count,
