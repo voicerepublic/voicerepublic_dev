@@ -21,20 +21,21 @@
     initialState = #{@talk.atom.to_json};
     translations = #{t('frontend.talks').to_json};
 
+    playMedia = function(media) {
+      $("#player").jPlayer('setMedia', media).jPlayer('play');
+    }
+
+
 - content_for :post_javascripts do
   :javascript
-    var stream = {
-      title: "ABC Jazz",
-      mp3: "http://listen.radionomy.com/abc-jazz"
-    },
-    ready = false;
+    var ready = false;
     $("#player").jPlayer({
       cssSelectorAncestor: '.player-container',
       verticalVolume: true,
       ready: function (event) {
         ready = true;
-        $(this).jPlayer("setMedia", stream);
-        $(this).jPlayer("play");
+        // $(this).jPlayer("setMedia", stream);
+        // $(this).jPlayer("play");
       },
       pause: function() {
         $(this).jPlayer("clearMedia");
@@ -42,7 +43,7 @@
       error: function(event) {
         if(ready && event.jPlayer.error.type === $.jPlayer.error.URL_NOT_SET) {
           // Setup the media stream again and play it.
-          $(this).jPlayer("setMedia", stream).jPlayer("play");
+          // $(this).jPlayer("setMedia", stream).jPlayer("play");
         }
       },
       swfPath: "../../dist/jplayer",
@@ -54,7 +55,7 @@
       keyEnabled: true
     });
 
-
+    player = $("#player");
 
 -# Begin Left
 #main-column.clearfix

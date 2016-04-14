@@ -421,6 +421,10 @@ class Talk < ActiveRecord::Base
       # featured_talk: featured_talk.try(:attributes),
       # related_talk: related_talk.try(:attributes),
       # related_talks: related_talks.map(&:attributes)
+      stream: {
+        mp3: 'http://listen.radionomy.com/abc-jazz'
+        #mp3: venue.stream_url
+      }
     }
   end
 
