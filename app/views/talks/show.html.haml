@@ -18,10 +18,9 @@
 
     insider = #{!!current_user.try(:insider?)};
     console.off = #{!!(Settings.disable_js_debugging && !current_user.try(:insider?))};
-    insitialState = #{@talk.atom.to_json};
-    transaltions = #{t('frontend.talks').to_json};
+    initialState = #{@talk.atom.to_json};
+    translations = #{t('frontend.talks').to_json};
 
-#talk-app= t('.initializing')
 
 -# Begin Left
 #main-column.clearfix
