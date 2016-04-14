@@ -1,0 +1,59 @@
+/*series card*/
+.series .talk-card-inside {
+  padding: 12px 0;
+}
+
+.talk-card.series .series-label {
+  padding: 0 12px;
+}
+
+.talk-card.series p.lead {
+  padding: 0 12px;
+}
+
+.talk-card.series .upcoming-talks {
+  position: absolute;
+  top: 46px;
+  left:12px;
+  background: #f82847;
+  color: white;
+}
+
+.talk-card.series .upcoming-talks:hover {
+
+  background: #ffed00;
+  color:#29292b;
+}
+
+/*publish page*/
+a.button.hollow.btn-light-blue {
+  border-color: #54c6c6;
+  color: #54c6c6;
+}
+
+a.button.hollow.btn-white {
+  border-color: #fff;
+  color: #fff;
+}
+
+a.button.hollow.btn-yellow {
+  border-color: #ffed00;
+  color: #ffed00;
+}
+.pages-publish #claim a.button.hollow.btn-hover-yellow:hover, .pages-publish a.button.hollow.btn-hover-yellow:hover {
+  background: #ffed00;
+  border-color: #ffed00;
+  color: #29292b;
+}
+
+.pages-publish svg {
+  fill: #ffed00;
+}
+
+section.turquoise .api-container h2 {
+  color: white;
+}
+
+.api-container .description {
+  color: #fff;
+}
