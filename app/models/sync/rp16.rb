@@ -152,7 +152,7 @@ module Sync
           talk.duration = duration
           talk.venue_name = rep_string(session.room)
           talk.social_links = session.speaker_uids.map do |uid|
-            p uid
+            #p uid
             if sp3aker = speaker(uid)
               sp3aker.link_uris#.grep(/twitter|facebook/)
             else
