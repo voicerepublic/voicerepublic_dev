@@ -1,5 +1,7 @@
 # coding: utf-8
-#
+
+require 'cgi'
+
 # On console run with
 #
 #    Sync::Rp16.new(dryrun: true).sync
@@ -14,24 +16,24 @@ module Sync
   class Rp16
 
     TAGS = {
-      're:publica'                => 'republica, Conference, Konferenz',
-      'Media Convention'          => 'republica, Media, Medien, Convention',
-      're:cord Musicday'          => 'republica, record, Musicday',
-      're:health'                 => 'republica, Health, Gesundheit',
-      'Health'                    => 'republica, Health, Gesundheit',
-      're:think Mobility'         => 'republica, rethink, Mobility, Mobilität',
-      'City Of The Future'        => 'republica, CityOfTheFuture, StadtDerZukunft',
-      'Culture'                   => 'republica, Culture, Kultur',
-      'Politics &amp; Society'    => 'republica, Politics, Politik, Society, '+
-                                     'Gesellschaft',
-      'Media'                     => 'republica, Media, Medien',
-      'GIG'                       => 'republica, GIG',
-      'Research &amp; Education'  => 'republica, Research, Forschung, Education, '+
-                                     'Bildung',
-      'Business &amp; Innovation' => 'republica, Business, Innovation, Wirtschaft',
-      'Fashiontech'               => 'republica, Fashiontech',
-      'Science &amp; Technology'  => 'republica, Science, Wissenschaft, '+
-                                     'Technology, Technologie'
+      're:publica'            => 'republica, Conference, Konferenz',
+      'Media Convention'      => 'republica, Media, Medien, Convention',
+      're:cord Musicday'      => 'republica, record, Musicday',
+      're:health'             => 'republica, Health, Gesundheit',
+      'Health'                => 'republica, Health, Gesundheit',
+      're:think Mobility'     => 'republica, rethink, Mobility, Mobilität',
+      'City Of The Future'    => 'republica, CityOfTheFuture, StadtDerZukunft',
+      'Culture'               => 'republica, Culture, Kultur',
+      'Politics & Society'    => 'republica, Politics, Politik, Society, '+
+                                 'Gesellschaft',
+      'Media'                 => 'republica, Media, Medien',
+      'GIG'                   => 'republica, GIG',
+      'Research & Education'  => 'republica, Research, Forschung, Education, '+
+                                 'Bildung',
+      'Business & Innovation' => 'republica, Business, Innovation, Wirtschaft',
+      'Fashiontech'           => 'republica, Fashiontech',
+      'Science & Technology'  => 'republica, Science, Wissenschaft, '+
+                                 'Technology, Technologie'
     }
 
     VENUES_OPTS = {
@@ -91,7 +93,7 @@ module Sync
 
           # --- sanity check: category ---
 
-          category = rep_string(session.category).strip
+          category = CGI.unescapeHTML(rep_string(session.category).strip)
           if category.blank?
             self.warnings << "% 4s: Category missing, using 're:publica'." % nid
             category = 're:publica'
