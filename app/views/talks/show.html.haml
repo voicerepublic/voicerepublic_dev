@@ -21,6 +21,40 @@
     initialState = #{@talk.atom.to_json};
     translations = #{t('frontend.talks').to_json};
 
+- content_for :post_javascripts do
+  :javascript
+    var stream = {
+      title: "ABC Jazz",
+      mp3: "http://listen.radionomy.com/abc-jazz"
+    },
+    ready = false;
+    $("#player").jPlayer({
+      cssSelectorAncestor: '.player-container',
+      verticalVolume: true,
+      ready: function (event) {
+        ready = true;
+        $(this).jPlayer("setMedia", stream);
+        $(this).jPlayer("play");
+      },
+      pause: function() {
+        $(this).jPlayer("clearMedia");
+      },
+      error: function(event) {
+        if(ready && event.jPlayer.error.type === $.jPlayer.error.URL_NOT_SET) {
+          // Setup the media stream again and play it.
+          $(this).jPlayer("setMedia", stream).jPlayer("play");
+        }
+      },
+      swfPath: "../../dist/jplayer",
+      supplied: "mp3",
+      preload: "none",
+      wmode: "window",
+      useStateClassSkin: true,
+      autoBlur: false,
+      keyEnabled: true
+    });
+
+
 
 -# Begin Left
 #main-column.clearfix
@@ -63,18 +97,19 @@
             = @talk.teaser
 
       -# Player
+      #player
       .player-container
         -#= render partial: 'shared/player', locals: { talk: @talk }
         #talk-playbar.row.collapse
           %button.button.button-playbar.button-play-pause.state-play
-            %span= naked_icon "play"
-            %span.icon-uniE6B8.hide
-          #meter
-            #indicator{:style => "max-height: 11.4477px;"}
-          %span.timecode 00:00
-          .timeline
-            .track-playing
-          %span.timecode.right 45:20
+            %span.jp-play= naked_icon "play"
+            %span.jp-pause.icon-uniE6B8.hide
+          #meter.jp-volume-bar
+            #indicator.jp-volume-bar-value
+          %span.timecode.jp-current-time
+          .timeline.jp-seek-bar
+            .track-playing.jp-play-bar
+          %span.timecode.right.jp-duration
           %button.button.button-playbar.button-volume.right.hide-for-small-only
             %span.icon-uniE6BE
             %span.icon-uniE6C1.hide
