@@ -1,6 +1,6 @@
 # Devices which are online are expected to send a heartbeat once in a
 # while. If the last heartbeat is too old, the event `disappear!` will
-# be called.
+# be called. `disappear!` will retain the state of device.
 #
 # If a disappeared device is coming back online, it makes sense to
 # check for an interrupted upload or display a warning message.

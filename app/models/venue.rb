@@ -6,6 +6,14 @@ class Venue < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_candidates, use: [:slugged, :finders]
 
+  belongs_to :user #:organization
+  belongs_to :device
+  has_many :talks
+
+  validates :name, :user_id, presence: true
+
+  serialize :options
+
   include ActiveModel::Transitions
 
   state_machine auto_scopes: true do
@@ -17,9 +25,15 @@ class Venue < ActiveRecord::Base
     state :connected # aka. streaming
     state :disconnected # aka. lost connection
 
+    # issued by the venues controller
     event :start_provisioning, timestamp: :started_provisioning_at do
       transitions from: :offline, to: :provisioning
     end
+    event :device_selected do
+      transitions from: :select_device, to: :awaiting_stream
+    end
+
+    # issued by the icecast endpoint middleware
     event :complete_provisioning, timestamp: :completed_provisioning_at do
       transitions from: :provisioning, to: :awaiting_stream, guard: :device_present?
       transitions from: :provisioning, to: :select_device
@@ -30,12 +44,15 @@ class Venue < ActiveRecord::Base
     event :disconnect do
       transitions from: :connected, to: :disconnected
     end
+
+    # issued by?
     event :shutdown do
       transitions from: [:select_device, :awaiting_stream,
                          :connected, :disconnected],
                   to: :offline, on_transition: :unprovision,
                   guard: :shutdown?
     end
+
     # for emergencies only, may leave running instances behind!
     event :reset do
       transitions from: [:provisioning, :select_device],
@@ -158,32 +175,23 @@ class Venue < ActiveRecord::Base
 
   def complete_details
     self.stream_url = build_stream_url
-    FileUtils.rm(provisioning_file)
+
+    FileUtils.rm(provisioning_file) if Rails.env.development?
   end
 
   def userdata
     ERB.new(userdata_template).result(binding)
   end
 
-  def userdata_template
-    File.read(Rails.root.join('lib/templates/userdata.sh.erb'))
-  end
-
+  # this is only required for darkice as a streaming device
+  # the box has it's own template for darkice.
   def darkice_config
     raise "Not available in state #{state}" if offline? or provisioning?
     ERB.new(darkice_config_template).result(binding)
   end
 
-  def darkice_config_template
-    File.read(Rails.root.join('lib/templates/darkice.cfg.erb'))
-  end
-
   def env_list
     ERB.new(env_list_template).result(binding)
-  end
-
-  def env_list_template
-    File.read(Rails.root.join('lib/templates/env.list.erb'))
   end
 
   def icecast_callback_url
@@ -203,18 +211,6 @@ class Venue < ActiveRecord::Base
     }
   end
 
-  def event_fired(*args)
-    Emitter.venue_transition(self, args)
-  end
-
-  belongs_to :user #:organization
-  belongs_to :device
-  has_many :talks
-
-  validates :name, :user_id, presence: true
-
-  serialize :options
-
   # provides easier access to options
   # and allows strings as keys in yaml
   def opts
@@ -233,12 +229,28 @@ class Venue < ActiveRecord::Base
 
   private
 
+  def event_fired(*args)
+    Emitter.venue_transition(self, args)
+  end
+
   def slug_candidates
     [ :name, [:id, :name] ]
   end
 
   def device_present?
     device.present?
+  end
+
+  def userdata_template
+    File.read(Rails.root.join('lib/templates/userdata.sh.erb'))
+  end
+
+  def darkice_config_template
+    File.read(Rails.root.join('lib/templates/darkice.cfg.erb'))
+  end
+
+  def env_list_template
+    File.read(Rails.root.join('lib/templates/env.list.erb'))
   end
 
 end
