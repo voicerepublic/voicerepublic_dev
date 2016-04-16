@@ -250,6 +250,8 @@ For general platform and development documentation please refer to the
     railroady -C | dot -Tsvg > doc/controllers_complete.svg
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
 
+    mscgen -T svg -o doc/streaming.svg doc/streaming.msc
+
 
 ### Working with Settings/Config
 
