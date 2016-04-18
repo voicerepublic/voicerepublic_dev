@@ -125,30 +125,13 @@ RSpec.configure do |config|
   config.include ValidUserRequestHelper, :type => :feature
   config.include MailHelpers, :type => :feature
 
-  # database_cleaner is required to allow for feature specs with ajax calls.
-  # also transactional fixtures have to be turned off.
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = false
-  config.use_transactional_examples = false
-
   config.before(:suite) do
     FactoryGirl.reload
-    DatabaseCleaner.strategy = :truncation
     # Disabling multi-search indexing for specs
     # saves about 30 secs on-my-machine (TM)
     Thread.current["PgSearch.enable_multisearch"] = false
   end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
 
   # NOTE: In the end I did not need this, but it might prove useful some other
   # time. Therefore, I'm leaving it. If anyone has another opinion, go ahead
