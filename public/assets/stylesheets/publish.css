@@ -74,3 +74,9 @@ section.turquoise .api-container h2 {
 .claim-cta-half .button {
   margin: 6px;
 }
+
+/*talk card*/
+
+.talk-card .bottom-info .empty-count-holder {
+  display: inline-block;
+}
