@@ -20,8 +20,8 @@ FactoryGirl.define do
       state :provisioning
       client_token 'free-your-mind'
     end
-    trait :ready do
-      state :ready
+    trait :awaiting_stream do
+      state :awaiting_stream
       public_ip_address '0.0.0.0'
       mount_point 'random-mountpoint'
       source_password 'some-password'

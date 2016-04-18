@@ -114,9 +114,9 @@ RSpec.describe Venue, type: :model do
       it 'unprovisions'
     end
 
-    describe 'created and ready' do
+    describe 'created and awaiting_stream' do
       before do
-        @venue = FactoryGirl.create(:venue, :ready)
+        @venue = FactoryGirl.create(:venue, :awaiting_stream)
       end
 
       it 'compiles stream urls' do
