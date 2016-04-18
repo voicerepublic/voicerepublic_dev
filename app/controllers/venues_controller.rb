@@ -1,6 +1,6 @@
 class VenuesController < ApplicationController
 
-  ALLOWED_EVENTS = [ :start_provisioning ]
+  ALLOWED_EVENTS = %w( start_provisioning )
 
   layout 'velvet'
 

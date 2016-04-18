@@ -118,7 +118,10 @@ class Venue < ActiveRecord::Base
     f = File.open(provisioning_file, 'w', 0700)
     f.write(userdata)
     f.close
+
     FileUtils.cp f.path, 'userdata.sh' # for debugging
+
+    puts 'Running provisioning file...'
     spawn provisioning_file
   end
 
@@ -155,6 +158,7 @@ class Venue < ActiveRecord::Base
   end
 
   def unprovision_development
+    puts 'Stopping icecast docker...'
     system 'docker stop icecast'
   end
 
