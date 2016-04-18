@@ -256,6 +256,10 @@ For general platform and development documentation please refer to the
     dot -Tsvg doc/fsm_venue.dot > doc/fsm_venue.svg
     dot -Tpng doc/fsm_venue.dot > doc/fsm_venue.png
 
+    dot -Tsvg doc/fsm_device.dot > doc/fsm_device.svg
+    dot -Tpng doc/fsm_device.dot > doc/fsm_device.png
+
+
 ### Working with Settings/Config
 
 Config entries are compiled from:
