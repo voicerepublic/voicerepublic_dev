@@ -11,25 +11,25 @@
         = s('.title')
       .container.medium-10.medium-offset-1.large-8.large-offset-2.columns
         - if !current_user
-          = link_to t('.login'), new_user_session_path, class: 'hide-for-medium button hollow secondary'
-          = link_to t('.join'), new_user_registration_path, class: 'hide-for-medium button hollow secondary'
+          = link_to t('.login'), new_user_session_path, class: 'hide-for-medium button hollow btn-light-blue btn-hover-yellow'
+          = link_to t('.join'), new_user_registration_path, class: 'hide-for-medium button hollow btn-light-blue btn-hover-yellow'
         %p.lead
           = t('.lead')
           - @categories.each do |cat|
             - delim = (cat == @categories.last) ? '.' : ','
             = succeed delim do
               = link_to cat.title, explore_path(filter: {category: cat.id})
-        .claim-cta-half
+        .claim-cta-half.medium-6.columns
           -# TODO: Link to pages in CMS
-          -#   %a{:href => "publish.html"}
-          -#     %button{:href => "#"}
-          -#       .icon.megaphone
-          -#       = t('.publish')
-          -# .claim-cta-half
-          -#   %a{:href => "listen.html"}
-          -#     %button
-          -#       .icon.headphones
-          -#       = t('.listen')
+          = link_to page_path action: 'publish' do
+            -#= icon_tag 'megaphone'
+            %button.button.hollow
+              = t('.publish')
+        .claim-cta-half.medium-6.columns
+          = link_to explore_path action: 'publish' do
+            -#= icon_tag 'megaphone'
+            %button.button.hollow
+              = t('.listen')
 
 
   -# LISTEN NOW
@@ -43,7 +43,8 @@
       .listen-interstitial
         .row.clearfix
           .medium-6.medium-offset-3.columns.clearfix
-            %p.lead= t('.lead_interstitial').html_safe
+            %h4= t('.categories')
+            %p= t('.lead_interstitial').html_safe
         .category-buttons
           - @categories.each do |cat|
             = link_to icon_tag(cat.icon) + cat.title,
@@ -53,7 +54,7 @@
         = render partial: 'shared/talk_card', collection: @talks_popular
       .row
         = link_to explore_path do
-          %button= t('.more_talks')
+          %button.button.hollow.large= t('.more_talks')
 
 
   -# UPCOMING
@@ -66,7 +67,7 @@
           = render partial: 'shared/talk_card', collection: @talks_upcoming
       .row
         = link_to explore_path do
-          %button= t('.more')
+          %button.button.hollow.large.btn-hover-yellow= t('.more')
 
 
   -# CATEGORIES
@@ -92,7 +93,7 @@
 
     .row.clearfix
       = link_to blog_url('/publishers-on-voice-republic') do
-        %button= t('.more_publishers')
+        %button.button.hollow.large= t('.more_publishers')
 
 
   -# CONTACT
@@ -100,7 +101,7 @@
     .row
       .medium-6.medium-offset-3.columns
         %h1 Are you planning a conference or event?
-        = link_to new_user_registration_path do
-          %button Start Now
+        = link_to new_user_registration_path, class: 'button large hollow btn-yellow btn-hover-red' do
+          = t('.start_now')
         %br/
         = link_to 'or Contact us', blog_url('/contact'), class: 'text-link'

@@ -1,2 +1,34 @@
-%section
-	Find me in app/views/pages/publish.html.haml
+%section#claim.dark
+  .row
+    %header
+      = s('.head_1')
+      .container.medium-8.medium-offset-2.large-6.large-offset-3.columns
+        %p.lead= s('.text_1')
+  .row.clearfix
+    = link_to t('.upload_a_recording').html_safe, new_upload_path, class: 'button hollow btn-light-blue btn-hover-yellow'
+    = link_to t('.start_live_stream').html_safe, new_talk_path, class: 'button hollow btn-light-blue btn-hover-yellow'
+
+%section.blue
+  .api-container.row.clearfix
+    .medium-4.columns
+      .hero-icon.yellow
+        = naked_icon 'radio-tower'
+    .medium-7.end.columns.text-left
+      = s('.head_2')
+      %span.description
+        = s('.text_2')
+      = link_to t('.pricing'), pricing_path, class: 'button hollow btn-light-blue btn-hover-light-blue'
+      = link_to t('.start_live_stream').html_safe, new_talk_path, class: 'button hollow btn-yellow btn-hover-yellow'
+%section.turquoise
+  .api-container.row.clearfix
+    .medium-4.columns.float-right
+      .hero-icon.yellow.large 
+        = naked_icon 'cloud-upload'
+      
+    .medium-7.medium-offset-1.columns.text-left.float-left
+      = s('.head_3')
+      %span.description
+        = s('.text_3')
+      = link_to t('.pricing'), pricing_path, class: 'button hollow btn-white btn-hover-yellow'
+      = link_to t('.upload_a_recording').html_safe, new_upload_path, class: 'button hollow btn-yellow btn-hover-yellow'
+    

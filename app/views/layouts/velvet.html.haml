@@ -49,19 +49,24 @@
 
       .top-bar-right
         %ul.dropdown.menu{"data-dropdown-menu" => ""}
-          %li.has-submenu.can-hide.hide-for-small-only
-            %a{:href => "#"}= t('.listen')
-            %ul.submenu.menu.vertical{"data-submenu" => ""}
-              %li.drop-title= t('.categories')
-              - TagBundle.category.promoted.each do |category|
+          %li.can-hide.hide-for-small-only
+            = link_to explore_path do
+              = t('.explore')
+          %li.can-hide.hide-for-small-only
+            = link_to page_path action: 'publish' do
+              = t('.publish')
+            -# TODO: Add this back in someday?
+              %ul.submenu.menu.vertical{"data-submenu" => ""}
+                %li.drop-title= t('.categories')
+                - TagBundle.category.promoted.each do |category|
+                  %li
+                    = link_to explore_path(filter: {category: category.id}) do
+                      = category.title
+                %li.divider
+                -# TODO
+                -# %li= link_to t('.listen'), page_path('listen')
                 %li
-                  = link_to explore_path(filter: {category: category.id}) do
-                    = category.title
-              %li.divider
-              -# TODO
-              -# %li= link_to t('.listen'), page_path('listen')
-              %li
-                = link_to t('.explore'), explore_path
+                  = link_to t('.explore'), explore_path
           -# TODO
           -# %li.can-hide= link_to t('.publish'), page_path('publish')
           - if !current_user

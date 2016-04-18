@@ -43,6 +43,7 @@ faye:
 errbit:
   enabled: false
   api_key: 'this will be set on the stages in app/shared/config/settings.local.yml'
+  environment: 'development'
 devise:
   from_address: "Voice Republic <service@voicerepublic.com>"
   secret_key: '077e0e804b07d4284d6960b23579ca07b7a83bdf65f5c1a21d8d256e3d0ddfaec82bc294bf91e44bb0cc604757141f6b175d7290469fb881e4d347082f7e6481'
@@ -142,7 +143,6 @@ icecast:
   # this needs to be overridden by `app/shared/config/settings.local.yml`
   host: localhost
   port: 8000
-
 
 fog:
   compute:
