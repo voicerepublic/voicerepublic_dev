@@ -12,7 +12,7 @@ class Venue < ActiveRecord::Base
 
   validates :name, :user_id, presence: true
 
-  validates :client_token, uniqueness: true
+  validates :client_token, uniqueness: true, allow_blank: true
 
   serialize :options
 
@@ -180,7 +180,9 @@ class Venue < ActiveRecord::Base
   def complete_details
     self.stream_url = build_stream_url
 
-    FileUtils.rm(provisioning_file) if Rails.env.development?
+    if Rails.env.development? and File.exist?(provisioning_file)
+      FileUtils.rm(provisioning_file)
+    end
   end
 
   def userdata

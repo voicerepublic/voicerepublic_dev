@@ -18,7 +18,7 @@ describe IcecastEndpoint do
       response = request.post('/icecast/complete', input: JSON.unparse(payload))
       expect(response.status).to eq(200)
       expect(venue.reload.public_ip_address).to eq('1.2.3.4')
-      venue.destroy # in one of these...
+      #venue.destroy # in one of these...
     end
 
     it 'should successfully update venue on connect' do
@@ -36,7 +36,7 @@ describe IcecastEndpoint do
       response = request.post('/icecast/disconnect', input: JSON.unparse(payload))
       expect(response.status).to eq(200)
       expect(venue.reload).to be_disconnected
-      venue.destroy # ...is not working.
+      #venue.destroy # ...is not working.
     end
   end
 
