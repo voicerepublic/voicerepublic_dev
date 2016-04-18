@@ -5,7 +5,9 @@
     .talk-card-inside
       %p.series-label.float-left= t('.series')
       %p.series-label.float-right= t('.total_talks', count: series.talks.count)
-      = image_tag series.image.thumb("600x338#").url, alt: series.image_alt
+      .image-box-holder
+        .image-box
+          = image_tag series.image.thumb("600x338#").url, alt: series.image_alt
       %h5.title= series.title
       %p.lead
         = series.teaser

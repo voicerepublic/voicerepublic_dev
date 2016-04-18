@@ -1,3 +1,14 @@
+/*buttons - REMOVE LATER*/
+.button.hollow {
+  border-color:#54c6c6;
+  color: #54c6c6;
+}
+
+.button.hollow.btn-hover-yellow:hover {
+  border-color:#ffed00;
+  color: #ffed00;
+}
+
 /*series card*/
 .series .talk-card-inside {
   padding: 12px 0;
@@ -56,4 +67,10 @@ section.turquoise .api-container h2 {
 
 .api-container .description {
   color: #fff;
+}
+
+/*Root*/
+
+.claim-cta-half .button {
+  margin: 6px;
 }
