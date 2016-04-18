@@ -18,7 +18,8 @@ en:
         offline: Offline
         ready_to_provision: Ready to provision
         provisioning: Spawning A Streaming Server Just For You
-        ready_to_connect: Ready to Connect
+        select_device: Please Select Your Streaming Device
+        awaiting_stream: Ready to Connect
         connected: Connected
         disconnected: Disconnected
       explanation:

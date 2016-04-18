@@ -233,7 +233,9 @@ class Venue < ActiveRecord::Base
       venue: attributes,
       user: user.attributes,
       talks: talks.inject({}) { |r, t| r.merge t.id => t },
-      now: Time.now.to_i
+      now: Time.now.to_i,
+      channel: "/down/venue/#{id}",
+      devices: []
     }
   end
 
@@ -241,6 +243,13 @@ class Venue < ActiveRecord::Base
 
   def event_fired(*args)
     Emitter.venue_transition(self, args)
+
+    Faye.publish_to "/down/venue/#{id}",
+                    event: 'venue-transition',
+                    args: args,
+                    attributes: attributes,
+                    # TODO limit to the user/org's devices
+                    devices: Device.idle.map(&:attributes)
   end
 
   def slug_candidates

@@ -19,7 +19,7 @@ require 'yaml'
 require 'faye'
 require 'faye/authentication'
 require File.expand_path('../lib/faye_squasher', __FILE__)
-require File.expand_path('../lib/faye_eigenfan', __FILE__)
+#require File.expand_path('../lib/faye_eigenfan', __FILE__)
 
 
 # INSTANCIATE
@@ -50,8 +50,8 @@ rules = {
 }
 faye.add_extension FayeSquasher.new(rules)
 
-channels = %w(/down/venues)
-faye.add_extension FayeEigenfan.new(channels)
+#channels = %w(/down/venues)
+#faye.add_extension FayeEigenfan.new(channels)
 
 
 
