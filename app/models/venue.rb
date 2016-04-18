@@ -14,6 +14,8 @@ class Venue < ActiveRecord::Base
 
   serialize :options
 
+  attr_accessor :event
+
   include ActiveModel::Transitions
 
   state_machine auto_scopes: true do

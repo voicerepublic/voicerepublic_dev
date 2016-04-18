@@ -12,6 +12,8 @@ class VenuesController < ApplicationController
     redirect_to(@venues.first) if @venues.size == 1
   end
 
+  skip_before_action :verify_authenticity_token, only: [:update]
+
   # PUT /venues/:slug
   #
   # Responds to xhr requests. (Should hence problaby move to
@@ -33,8 +35,7 @@ class VenuesController < ApplicationController
     @venue.assign_attributes(venue_params)
 
     method = :save
-    event = params[:event]
-    method = event+'!' if ALLOWED_EVENTS.include?(event)
+    method = @venue.event+'!' if ALLOWED_EVENTS.include?(@venue.event)
 
     @venue.send(method)
     head :ok
@@ -46,10 +47,11 @@ class VenuesController < ApplicationController
   private
 
   def venue_params
-    params.require(:venue).permit(:device_id,
-                                  :emergency_phone_number,
-                                  :street_address,
-                                  :estimated_number_of_listeners)
+    params.required(:venue).permit(:event,
+                                   :device_id,
+                                   :emergency_phone_number,
+                                   :street_address,
+                                   :estimated_number_of_listeners)
   end
 
 end
