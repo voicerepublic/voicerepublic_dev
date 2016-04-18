@@ -13,12 +13,16 @@ FactoryGirl.define do
     user
   end
 
+  sequence :client_token do |n|
+    "client-token-#{n}"
+  end
+
   factory :venue do
     name "Some venue"
     user
     trait :provisioning do
       state :provisioning
-      client_token 'free-your-mind'
+      client_token
     end
     trait :awaiting_stream do
       state :awaiting_stream

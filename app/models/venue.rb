@@ -12,6 +12,8 @@ class Venue < ActiveRecord::Base
 
   validates :name, :user_id, presence: true
 
+  validates :client_token, uniqueness: true
+
   serialize :options
 
   attr_accessor :event
