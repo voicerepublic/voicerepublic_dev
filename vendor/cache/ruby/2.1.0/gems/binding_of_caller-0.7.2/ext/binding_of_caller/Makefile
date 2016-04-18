@@ -1,2 +1,0 @@
-install:
-	echo "Nada."
