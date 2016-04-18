@@ -22,53 +22,38 @@
 
   :resource-paths ["public"]
 
-  :cljsbuild {:builds {:app {:source-paths ["src"]
-                             :compiler {:output-to "public/js/app.js"
+  :cljsbuild {:builds {:app {:source-paths ["src"] ;; app -> dev
+                             :figwheel {:on-jsload vrng.core/fig-reload}
+                             :compiler {:main vrng.core
+                                        :output-to "public/js/app.js"
                                         :output-dir "public/js/out"
+                                        :source-map-timestamp true
                                         :asset-path   "/out"
                                         :optimizations :none
-                                        :pretty-print  true}}}}
+                                        :pretty-print  true}}
 
-  :profiles
-  {:dev {:dependencies [[prone "1.0.2"]
-                        [lein-doo "0.1.6"]
-                        [pjstadig/humane-test-output "0.7.1"]
-                        [lein-figwheel "0.5.0-6"]
-                        [org.clojure/tools.nrepl "0.2.12"]
-                        [com.cemerick/piggieback "0.2.1"]]
+                       :min {:source-paths ["src"] ;; min -> prod
+                             :compiler {:main vrng.core
+                                        :output-to "public/js/app.js"
+                                        :optimizations :advanced}}}}
 
-         :plugins [[lein-figwheel "0.5.0-6"]
-                   [lein-doo "0.1.6"]]
+  :figwheel { :http-server-root "public"
+              :server-port 3449 ;; default
+              :nrepl-port 7002
+              :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
+              :css-dirs ["public/css"]}
 
-         :doo {:build "test"}
+  :profiles { :dev { :dependencies [[prone "1.0.2"]
+                                    [lein-doo "0.1.6"]
+                                    [pjstadig/humane-test-output "0.7.1"]
+                                    [lein-figwheel "0.5.0-6"]
+                                    [org.clojure/tools.nrepl "0.2.12"]
+                                    [com.cemerick/piggieback "0.2.1"]]
 
-         :injections [(require 'pjstadig.humane-test-output)
-                      (pjstadig.humane-test-output/activate!)]
+                    :plugins [[lein-figwheel "0.5.0-6"]
+                              [lein-doo "0.1.6"]]
 
-         :figwheel {:http-server-root "public"
-                    :nrepl-port 7002
-                    :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"]
-                    :css-dirs ["public/css"]}
+                    :doo {:build "test"}
 
-         :cljsbuild
-         {:builds
-          {:test
-           {:source-paths ["src" "test"]
-            :compiler {:output-to "resources/public/js/testable.js"
-                       :main vrng.runner
-                       :optimizations :none}}
-
-           :app {:source-paths ["env/dev/cljs"]
-                 :compiler {:main "vrng.dev"
-                            :source-map true}}}}}
-
-   :prod {:cljsbuild
-          {:jar true
-           :builds {:app
-                    {:source-paths ["env/prod/cljs"]
-                     :compiler
-                     {:optimizations :advanced
-                      :output-to "public/js/app.js"
-                      :pretty-print false}}}}}
-
-   })
+                    :injections [(require 'pjstadig.humane-test-output)
+                                 (pjstadig.humane-test-output/activate!)]}})
