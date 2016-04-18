@@ -251,7 +251,10 @@ For general platform and development documentation please refer to the
     railroady -b -C | dot -Tsvg > doc/controllers_brief.svg
 
     mscgen -T svg -o doc/streaming.svg doc/streaming.msc
+    mscgen -T png -o doc/streaming.png doc/streaming.msc
 
+    dot -Tsvg doc/fsm_venue.dot > doc/fsm_venue.svg
+    dot -Tpng doc/fsm_venue.dot > doc/fsm_venue.png
 
 ### Working with Settings/Config
 
