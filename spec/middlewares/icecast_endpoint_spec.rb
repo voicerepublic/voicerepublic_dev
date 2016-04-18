@@ -1,6 +1,6 @@
-describe IcecastApi do
+describe IcecastEndpoint do
   let(:app) { ->(env) {[200, {}, []]} }
-  let(:request) { Rack::MockRequest.new(IcecastApi.new(app, {})) }
+  let(:request) { Rack::MockRequest.new(IcecastEndpoint.new(app, {})) }
 
   it 'should fail with invalid client token' do
     payload = { client_token: 'xyz',
