@@ -109,7 +109,7 @@ feature "Password" do
       fill_in "user_password", :with => "foobar"
       click_on "Save"
       fill_in "user_password_confirmation", :with => "foobar1"
-      expect(page).to have_content "Password confirmation doesn't match New Password"
+      expect(page).to have_content "Password confirmation doesn't match Password"
       fill_in "user_password", :with => "foobar"
       fill_in "user_password_confirmation", :with => "foobar"
       click_on "Save"

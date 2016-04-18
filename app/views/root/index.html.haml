@@ -22,13 +22,12 @@
         .claim-cta-half.medium-6.columns
           -# TODO: Link to pages in CMS
           = link_to page_path action: 'publish' do
-            -#= icon_tag 'megaphone'
-            %button.button.hollow
+            %button.button.hollow.btn-light-blue.btn-hover-yellow
               = t('.publish')
         .claim-cta-half.medium-6.columns
           = link_to explore_path action: 'publish' do
             -#= icon_tag 'megaphone'
-            %button.button.hollow
+            %button.button.hollow.btn-light-blue.btn-hover-yellow
               = t('.listen')
 
 
@@ -104,4 +103,5 @@
         = link_to new_user_registration_path, class: 'button large hollow btn-yellow btn-hover-red' do
           = t('.start_now')
         %br/
-        = link_to 'or Contact us', blog_url('/contact'), class: 'text-link'
+        = link_to blog_url('/contact'), class: 'text-link' do 
+          = t('.or_contact_us')
