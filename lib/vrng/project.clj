@@ -9,7 +9,8 @@
                  [reagent "0.5.1"]
                  [reagent-forms "0.5.15"]
                  [reagent-utils "0.1.7"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [cljs-ajax "0.5.4"]]
 
   :plugins [[lein-cljsbuild "1.1.1"]]
 

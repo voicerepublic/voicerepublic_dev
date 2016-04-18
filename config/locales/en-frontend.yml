@@ -1,6 +1,7 @@
 en:
   frontend:
     venues:
+      setup: Setup
       start: Start
       stop: Stop
       days: days
