@@ -93,7 +93,7 @@ module Sync
 
           # --- sanity check: category ---
 
-          category = CGI.unescapeHTML(rep_string(session.category).strip)
+          category = unescape(rep_string(session.category).strip)
           if category.blank?
             self.warnings << "% 4s: Category missing, using 're:publica'." % nid
             category = 're:publica'
@@ -139,7 +139,7 @@ module Sync
           talk = Talk.find_or_initialize_by(uri: talk_uri)
           next unless talk.prelive? or talk.created?
           talk.series = series
-          talk.title = session.title.strip.truncate(STRING_LIMIT)
+          talk.title = unescape(session.title.strip).truncate(STRING_LIMIT)
           talk.teaser = session.description_short.to_s.strip.truncate(STRING_LIMIT)
           talk.description = ([ 'Room: ' + session.room.to_s.strip,
                                 session.speaker_names.map(&:strip) * ', ',
@@ -308,6 +308,10 @@ module Sync
 
     def empty_array?(arg)
       arg.is_a?(Array) and arg.empty?
+    end
+
+    def unescape(str)
+      CGI.unescapeHTML(str)
     end
 
   end
