@@ -27,8 +27,8 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     end
 
     [ 200, {}, [] ]
-  rescue => e
-    return [ 409, {}, [e.message] ]
+  #rescue => e
+  #  return [ 409, {}, [e.message] ]
   end
 
 end
