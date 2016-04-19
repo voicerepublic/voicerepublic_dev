@@ -97,73 +97,8 @@ class Venue < ActiveRecord::Base
     ]
   end
 
-  def provision
-    assign_attributes( source_password: generate_password,
-                       admin_password: generate_password,
-                       client_token: generate_client_token,
-                       mount_point: generate_mount_point )
-    send("provision_#{Rails.env}")
-  end
-
-  def provision_production
-    response = EC2.run_instances(*provisioning_parameters)
-    self.instance_id = response.body["instancesSet"].first["instanceId"]
-  end
-
   def provisioning_file
     "/tmp/userdata_#{id}.sh"
-  end
-
-  def provision_development
-    f = File.open(provisioning_file, 'w', 0700)
-    f.write(userdata)
-    f.close
-
-    FileUtils.cp f.path, 'userdata.sh' # for debugging
-
-    puts 'Running provisioning file...'
-    spawn provisioning_file
-  end
-
-  def provision_test
-    # TODO find a way
-  end
-
-  def reset_ephemeral_details
-    self.client_token = nil
-    self.instance_id = nil
-    self.public_ip_address = nil
-    self.stream_url = nil
-    self.mount_point = nil
-    self.source_password = nil
-    self.admin_password = nil
-    self.started_provisioning_at = nil
-    self.completed_provisioning_at = nil
-    self.device = nil
-  end
-
-  def shutdown?
-    # TODO check if all data is save!
-    # TODO check if there is no other talk within PROVISIONING_WINDOW on this venue
-    true
-  end
-
-  # called on event shutdown
-  def unprovision
-    send("unprovision_#{Rails.env}")
-  end
-
-  def unprovision_production
-    EC2.servers.get(instance_id).destroy
-  end
-
-  def unprovision_development
-    puts 'Stopping icecast docker...'
-    system 'docker stop icecast'
-  end
-
-  def unprovision_test
-    # anything to do here?
   end
 
   def port
@@ -179,14 +114,6 @@ class Venue < ActiveRecord::Base
     url = [ url, port ] * ':' unless  regular.include?([port.to_s, protocol])
 
     [ url, mount_point ] * '/'
-  end
-
-  def complete_details
-    self.stream_url = build_stream_url
-
-    if Rails.env.development? and File.exist?(provisioning_file)
-      FileUtils.rm(provisioning_file)
-    end
   end
 
   def userdata
@@ -206,10 +133,6 @@ class Venue < ActiveRecord::Base
 
   def icecast_callback_url
     [ Settings.root_url, :icecast ] * '/'
-  end
-
-  def start_streaming
-    device.start_streaming!
   end
 
   def icecast_params
@@ -239,6 +162,89 @@ class Venue < ActiveRecord::Base
     }
   end
 
+  # --- state machine callbacks
+
+  def reset_ephemeral_details
+    self.client_token = nil
+    self.instance_id = nil
+    self.public_ip_address = nil
+    self.stream_url = nil
+    self.mount_point = nil
+    self.source_password = nil
+    self.admin_password = nil
+    self.started_provisioning_at = nil
+    self.completed_provisioning_at = nil
+    self.device = nil
+  end
+
+  def complete_details
+    self.stream_url = build_stream_url
+
+    if Rails.env.development? and File.exist?(provisioning_file)
+      FileUtils.rm(provisioning_file)
+    end
+  end
+
+  def start_streaming
+    device.start_streaming!
+  end
+
+  def device_present?
+    device.present?
+  end
+
+  # called on event shutdown
+  def unprovision
+    send("unprovision_#{Rails.env}")
+  end
+
+  def unprovision_production
+    EC2.servers.get(instance_id).destroy
+  end
+
+  def unprovision_development
+    puts 'Stopping icecast docker...'
+    system 'docker stop icecast'
+  end
+
+  def unprovision_test
+    # anything to do here?
+  end
+
+  def provision
+    assign_attributes( source_password: generate_password,
+                       admin_password: generate_password,
+                       client_token: generate_client_token,
+                       mount_point: generate_mount_point )
+    send("provision_#{Rails.env}")
+  end
+
+  def provision_production
+    response = EC2.run_instances(*provisioning_parameters)
+    self.instance_id = response.body["instancesSet"].first["instanceId"]
+  end
+
+  def provision_development
+    f = File.open(provisioning_file, 'w', 0700)
+    f.write(userdata)
+    f.close
+
+    FileUtils.cp f.path, 'userdata.sh' # for debugging
+
+    puts 'Running provisioning file...'
+    spawn provisioning_file
+  end
+
+  def provision_test
+    # TODO find a way
+  end
+
+  def shutdown?
+    # TODO check if all data is save!
+    # TODO check if there is no other talk within PROVISIONING_WINDOW on this venue
+    true
+  end
+
   private
 
   def event_fired(*args)
@@ -254,10 +260,6 @@ class Venue < ActiveRecord::Base
 
   def slug_candidates
     [ :name, [:id, :name] ]
-  end
-
-  def device_present?
-    device.present?
   end
 
   def userdata_template

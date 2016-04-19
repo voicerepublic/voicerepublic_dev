@@ -84,6 +84,8 @@ class Device < ActiveRecord::Base
      [nil, :device, identifier] * '/'
    end
 
+   # state machine callbacks
+
    def signal_start_stream
      Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
    end
