@@ -86,6 +86,7 @@ class Device < ActiveRecord::Base
 
    def signal_start_stream
      Faye.publish_to(channel, event: 'start_stream', icecast: venue.icecast_params)
+     Rails.logger.info "Started Stream from device '#{name}' to '#{venue.stream_url}'"
    end
 
 end
