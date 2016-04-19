@@ -28,6 +28,8 @@ class DevicesController < ApplicationController
   # Complete pairing, redirect to venues.
   def update
     @device = Device.find_by(identifier: params[:id])
+    # TODO: Only set this if it hasn't been set through the
+    # organizations collection in the edit.html.haml view already
     @device.organization_id = current_user.organizations.first.id
     @device.update_attributes(devices_params)
 

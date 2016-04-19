@@ -6,7 +6,7 @@ class Organization < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
   has_many :devices, dependent: :nullify
-  # nullify will render devices useless unless reset manually
+  # nullify will put devices into pairable state
 
   validates :description, length: { maximum: Settings.limit.text }
   validates :name, :slug, presence: true
