@@ -243,9 +243,6 @@ describe "Talks as logged in user" do
       expect(find('#talk_starts_at_time').value).to eq(Time.now.strftime "%H:%M")
     end
     it 'creates a new talk', driver: :chrome do
-
-      pending 'FAILS ON CI' if ENV['CI'] # works on my machine
-
       FactoryGirl.create(:series, user: @user)
       visit new_talk_path
 
@@ -264,9 +261,6 @@ describe "Talks as logged in user" do
     end
 
     it 'shows validation errors', driver: :chrome do
-
-      pending "FAILS ON CI" if ENV['CI'] # works on my machine
-
       FactoryGirl.create(:series, user: @user)
       visit new_talk_path
 
