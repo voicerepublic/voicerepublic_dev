@@ -72,12 +72,12 @@ namespace :deploy do
 
 
   task :cljsbuild do
+    p release_path
+    p path = release_path + 'lib/vrng'
     on release_roles(fetch(:assets_roles)) do
-      within release_path+'/lib/vrng' do
-        # requires java & leinigen
-        execute 'lein clean'
-        execute 'lein cljsbuild once min'
-      end
+      # requires java & leinigen
+      execute "cd #{path} && /home/app/bin/lein clean"
+      execute "cd #{path} && /home/app/bin/lein cljsbuild once min"
     end
   end
   before :compile_assets, :cljsbuild
