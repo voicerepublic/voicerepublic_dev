@@ -41,6 +41,9 @@ faye:
   #server: http://192.168.178.21:9292/faye
   secret_token: supersecret
 
+default_pins:
+  - willkommen-bei-voice-republic
+
 errbit:
   enabled: false
   api_key: 'this will be set on the stages in app/shared/config/settings.local.yml'
