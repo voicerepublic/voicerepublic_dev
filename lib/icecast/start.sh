@@ -1,8 +1,10 @@
 #!/bin/sh
 
+# check: are these required?
 USERID=icecast2
 GROUPID=icecast
 NAME=icecast
+
 
 DEFAULT=hackem
 
@@ -13,6 +15,7 @@ ICECAST_PASSWORD="${ICECAST_PASSWORD:-$DEFAULT}"
 
 ICECAST_ADMIN_USER="${ICECAST_ADMIN_USER:-admin}"
 
+
 # only for debugging purposes
 cat >/share/icecast-info.sh<<EOF
 ICECAST_SOURCE_PASSWORD=$ICECAST_SOURCE_PASSWORD
@@ -22,10 +25,12 @@ ICECAST_PASSWORD=$ICECAST_PASSWORD
 ICECAST_ADMIN_USER=$ICECAST_ADMIN_USER
 EOF
 
+
 # apply to template
 . ./icecast.xml-template.sh > /etc/icecast2/icecast.xml
 
-
+# technically this should come after starting icecast, but for now
+# this is good enough
 ./ready.sh
 
 # start icecast
