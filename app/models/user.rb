@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
   # for the same reason this has to happen in 2 steps
   before_create :build_welcome_transaction
   after_create :process_welcome_transaction
+  after_create :add_default_pins
 
   include PgSearch
   multisearchable against: [:firstname, :lastname]
@@ -242,6 +243,17 @@ class User < ActiveRecord::Base
 
   def process_welcome_transaction
     welcome_transaction.process!
+  end
+
+  def add_default_pins
+    slugs = Settings.default_pins
+    return if slugs.nil? or slugs.empty?
+
+    slugs.each do |slug|
+      talk = Talk.find_by(slug: slug)
+      next if talk.nil?
+      Reminder.create user: self, rememberable: talk
+    end
   end
 
   protected
