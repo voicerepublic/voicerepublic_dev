@@ -37,7 +37,8 @@ rtmp:
 # stored in `config/settings.local.yml`, since RtmpWatcher and Faye
 # read the value directly from there.
 faye:
-  server: http://192.168.178.21:9292/faye
+  server: http://localhost:9292/faye
+  #server: http://192.168.178.21:9292/faye
   secret_token: supersecret
 
 errbit:
@@ -131,7 +132,8 @@ sitemap: http://localhost:3000/landing_page/index.xml
 
 icecast:
   ec2:
-    image: ami-421cf82d
+    #image: ami-421cf82d
+    image: ami-5a806335
     default_instance_type: t2.micro
     security_group: Icecast Servers
     key_name: phil-ffm
@@ -153,8 +155,7 @@ fog:
 
 devices:
   endpoint:
-    #live: http://192.168.178.21:3000/api/devices
     live: https://voicerepublic.com/api/devices
     staging: https://staging.voicerepublic.com/api/devices
-    # actually you can set this in your local file
-    dev: http://<%= ENV['VR_API_IP_PORT'] %>/api/devices
+    # actually you need to set this in your local file
+    dev: http://needs.to.be.set.locally/api/devices

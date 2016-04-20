@@ -7,8 +7,6 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     payload = JSON.parse(env['rack.input'].read)
     client_token = payload['client_token']
 
-    #debugger
-
     return [ 740, {}, ['740 - Computer says no'] ] if client_token.nil?
 
     venue = Venue.find_by(client_token: client_token)
@@ -27,12 +25,14 @@ class IcecastEndpoint < Struct.new(:app, :opts)
 
     else
       # TODO log an error
-      return [ 404, {}, [] ]
+      return [ 721, {}, ['721 - Known Unknowns', env['PATH_INFO']] ]
     end
 
     [ 200, {}, [] ]
-  #rescue => e
-  #  return [ 409, {}, [e.message] ]
+
+  rescue => e
+    # TODO log an error
+    [ 722, {}, ['722 - Unknown Unknowns', e.message] ]
   end
 
 end

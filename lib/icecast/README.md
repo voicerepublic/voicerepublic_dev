@@ -38,15 +38,40 @@ Setup production (AWS EC2)
 
 These instructions are based on Debian Jessie.
 
+Spawn an instance of Debian 8 on AWS EC2.
+
+Locally I use an entry in my `~/.ssh/config`. E.g.
+
+```
+Host icebox
+     ForwardAgent yes
+     User root
+     IdentityFile ~/.ssh/phil-ffm.pem
+     Hostname 52.58.144.188
+
+```
+
+Then...
+
+
 ```
 # login as admin
+#
+#   ssh admin@icebox
 
 sudo -i
 
-# fix .ssh/authorized_keys so we can login as root
-# logout
-# scp the directory `lib/icecast` over to root
+# edit/fix `~/.ssh/authorized_keys` so we can login as root
+
+logout
+
+# copy/scp the directory `lib/icecast` over to root
+#
+#   scp -r lib/icecast icebox:
+#
 # log in as root
+#
+#   ssh icebox
 
 apt-get update
 export DEBIAN_FRONTEND=noninteractive
@@ -57,10 +82,10 @@ apt-get -y install curl
 mkdir /data
 chmod 2777 /data
 
-docker build -t branch14/icecast2 .
+docker build -t branch14/icecast2 icecast/.
 ```
 
-Pull an AMI.
+Pull an AMI. Done. Add the AMIs id to `settings.yml`.
 
 
 Notes

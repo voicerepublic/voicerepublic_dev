@@ -1,6 +1,6 @@
 FROM debian:jessie-backports
 
-MAINTAINER Phil Hofmann "phil@voicerepublic.ch"
+MAINTAINER Phil Hofmann "phil@voicerepublic.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
