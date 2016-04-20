@@ -59,7 +59,8 @@ class Venue < ActiveRecord::Base
 
     # for emergencies only, may leave running instances behind!
     event :reset do
-      transitions from: [:provisioning, :select_device],
+      transitions from: [:provisioning, :select_device,
+                         :awaiting_stream, :connected, :disconnected],
                   to: :offline, on_transition: :unprovision
     end
   end
@@ -150,15 +151,20 @@ class Venue < ActiveRecord::Base
     OpenStruct.new(options)
   end
 
+  def channel
+    "/down/venue/#{id}"
+  end
+
   # current single page app state
   def atom
     {
       venue: attributes,
       user: user.attributes,
-      talks: talks.inject({}) { |r, t| r.merge t.id => t },
+      talks: talks.inject({}) { |r, t| r.merge t.id => t.attributes },
       now: Time.now.to_i,
-      channel: "/down/venue/#{id}",
-      devices: []
+      channel: channel,
+      # TODO limit to the user/org's devices
+      devices: Device.idle.map(&:attributes)
     }
   end
 
@@ -174,7 +180,7 @@ class Venue < ActiveRecord::Base
     self.admin_password = nil
     self.started_provisioning_at = nil
     self.completed_provisioning_at = nil
-    self.device = nil
+    # self.device = nil # do not reset!
   end
 
   def complete_details
@@ -186,7 +192,7 @@ class Venue < ActiveRecord::Base
   end
 
   def start_streaming
-    device.start_streaming!
+    device.start_stream!
   end
 
   def device_present?
@@ -196,6 +202,8 @@ class Venue < ActiveRecord::Base
   # called on event shutdown
   def unprovision
     send("unprovision_#{Rails.env}")
+
+    device.reset! if device.present?
   end
 
   def unprovision_production
@@ -203,8 +211,10 @@ class Venue < ActiveRecord::Base
   end
 
   def unprovision_development
-    puts 'Stopping icecast docker...'
+    puts 'Stopping icecast docker container...'
     system 'docker stop icecast'
+    puts 'Removing icecast docker container...'
+    system 'docker rm icecast'
   end
 
   def unprovision_test
@@ -229,7 +239,9 @@ class Venue < ActiveRecord::Base
     f.write(userdata)
     f.close
 
-    FileUtils.cp f.path, 'userdata.sh' # for debugging
+    # for debugging
+    puts userdata
+    FileUtils.cp f.path, 'userdata.sh'
 
     puts 'Running provisioning file...'
     spawn provisioning_file
@@ -250,12 +262,10 @@ class Venue < ActiveRecord::Base
   def event_fired(*args)
     Emitter.venue_transition(self, args)
 
-    Faye.publish_to "/down/venue/#{id}",
+    Faye.publish_to channel,
                     event: 'venue-transition',
                     args: args,
-                    attributes: attributes,
-                    # TODO limit to the user/org's devices
-                    devices: Device.idle.map(&:attributes)
+                    atom: atom
   end
 
   def slug_candidates

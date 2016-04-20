@@ -601,3 +601,9 @@ ClojureScript
 
     cd lib/vrng
     lein figwheel
+
+
+Icecast Dev
+-----------
+
+    docker exec -it icecast bash

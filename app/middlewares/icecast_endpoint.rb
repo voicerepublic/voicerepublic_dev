@@ -7,6 +7,8 @@ class IcecastEndpoint < Struct.new(:app, :opts)
     payload = JSON.parse(env['rack.input'].read)
     client_token = payload['client_token']
 
+    return [ 740, {}, ['740 - Computer says no'] ] if client_token.nil?
+
     venue = Venue.find_by(client_token: client_token)
     return [ 404, {}, [] ] unless venue.present?
 

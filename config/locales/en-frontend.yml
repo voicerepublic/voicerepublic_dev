@@ -1,6 +1,7 @@
 en:
   frontend:
     venues:
+      select: Select
       setup: Setup
       start: Start
       stop: Stop
@@ -19,7 +20,7 @@ en:
         ready_to_provision: Ready to provision
         provisioning: Spawning A Streaming Server Just For You
         select_device: Please Select Your Streaming Device
-        awaiting_stream: Ready to Connect
+        awaiting_stream: Awaiting connection...
         connected: Connected
         disconnected: Disconnected
       explanation:

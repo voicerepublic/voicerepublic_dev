@@ -52,6 +52,9 @@ class Device < ActiveRecord::Base
       transitions from: [:idle, :streaming], to: :offline
     end
 
+    event :reset do
+      transitions from: [:streaming, :idle], to: :idle
+    end
   end
 
   def disappear!

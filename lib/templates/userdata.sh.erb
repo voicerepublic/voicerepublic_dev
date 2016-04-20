@@ -6,14 +6,23 @@ else
   PUBLIC_IP=`hostname -I | cut -d ' ' -f 1`
 fi
 
-cat >~/env.list <<EOF
+function realpath { echo $(cd $(dirname $1); pwd)/$(basename $1); }
+
+ENV_LIST=`realpath env.list`
+
+cat >$ENV_LIST <<EOF
 <%= env_list %>
 PUBLIC_IP=$PUBLIC_IP
 EOF
 
-docker start icecast
-
-
+docker run \
+       --detach=true \
+       --name=icecast \
+       --env-file=$ENV_LIST \
+       --expose=8000 \
+       --publish=<%= port %>:8000 \
+       --restart=unless-stopped \
+       branch14/icecast2
 
 # --- move into image
 
@@ -24,12 +33,17 @@ command -v curl >/dev/null 2>&1 || \
 
 # --- move into docker
 
-CALLBACK_URL=<%= icecast_callback_url %>
+# CALLBACK_URL=<%= icecast_callback_url %>
 CLIENT_TOKEN=<%= client_token %>
 
+#if [ -f /sys/hypervisor/uuid ] && [ `head -c 3 /sys/hypervisor/uuid` == ec2 ]; then
+#    true
+#else
+#    sleep 5
+#fi
 
-JSON='{"public_ip_address":"'$PUBLIC_IP'","client_token":"'$CLIENT_TOKEN'"}'
-curl -X POST --data "$JSON" $CALLBACK_URL/complete
+#JSON='{"public_ip_address":"'$PUBLIC_IP'","client_token":"'$CLIENT_TOKEN'"}'
+#curl -X POST --data "$JSON" $CALLBACK_URL/complete
 
 
 # callback to slack -- for debugging only
