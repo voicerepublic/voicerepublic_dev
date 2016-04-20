@@ -519,7 +519,7 @@ GEM
     tilt (1.4.1)
     timecop (0.5.9.2)
     tins (1.6.0)
-    trickery (0.0.7)
+    trickery (0.0.8)
       systemu
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
